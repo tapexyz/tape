@@ -29,7 +29,9 @@ const PodPlayer = () => {
             learning.
           </p>
         </div>
-        <AudioPlayer selectPodUrl={selectPodUrl} />
+        <div className="pb-2">
+          <AudioPlayer selectPodUrl={selectPodUrl} />
+        </div>
       </div>
     </div>
   );
