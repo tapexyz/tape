@@ -10,7 +10,8 @@ const Listen = () => {
 
   useEffect(() => {
     setSelectedPodUrl("ds");
-  }, [setSelectedPodUrl]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Layout>
@@ -23,7 +24,7 @@ const Listen = () => {
           {Array(30)
             .fill(0)
             .map((v, i) => (
-              <PodCard key={i} showPlay />
+              <PodCard key={i} />
             ))}
         </div>
       </div>
