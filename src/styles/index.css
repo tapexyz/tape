@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Inter", Helvetica, Arial, sans-serif;
+  @apply bg-gray-100 dark:bg-black dark:text-white text-black min-h-screen;
+}
+.text-secondary {
+  @apply text-gray-700 dark:text-gray-300;
+}
+.scale-animation {
+  @apply hover:scale-105 duration-100 transform;
+}
+.bg-secondary {
+  @apply dark:bg-[#050506] bg-white;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.audioPlayerProgress {
+  --seek-before-width: 0;
+  --seek-before-color: #ffdbb4;
+  --knobby: #3452a5;
+  --selectedKnobby: #26c9c3;
+
+  appearance: none;
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  outline: none;
+}
+
+/* progress bar - safari */
+.audioPlayerProgress::-webkit-slider-runnable-track {
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  outline: none;
+}
+
+/* progress bar - firefox */
+.audioPlayerProgress::-moz-range-track {
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  outline: none;
+}
+
+.audioPlayerProgress::-moz-focus-outer {
+  border: 0;
+}
+
+/* progress bar - chrome and safari */
+.audioPlayerProgress::before {
+  content: "";
+  width: var(--seek-before-width);
+  background-color: var(--seek-before-color);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* progress bar - firefox */
+.audioPlayerProgress::-moz-range-progress {
+  background-color: var(--seek-before-color);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+/* knobby - chrome and safari */
+.audioPlayerProgress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--knobby);
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
+  box-sizing: border-box;
+}
+
+/* knobby while dragging - chrome and safari */
+.audioPlayerProgress:active::-webkit-slider-thumb {
+  transform: scale(1.2);
+  background: var(--selectedKnobby);
+}
+
+/* knobby - firefox */
+.audioPlayerProgress::-moz-range-thumb {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  border: transparent;
+  background-color: var(--knobby);
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
+  box-sizing: border-box;
+}
+
+/* knobby while dragging - firefox */
+.audioPlayerProgress:active::-moz-range-thumb {
+  transform: scale(1.2);
+  background: var(--selectedKnobby);
+}
