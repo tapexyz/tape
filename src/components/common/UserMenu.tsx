@@ -1,7 +1,6 @@
 import Popover from "@components/ui/Popover";
 import useAppStore from "@lib/store";
 import getProfilePicture from "@utils/functions/getProfilePicture";
-import { getRandomProfilePicture } from "@utils/functions/getRandomProfilePicture";
 import clsx from "clsx";
 import Link from "next/link";
 import React, { FC, useState } from "react";
@@ -31,16 +30,18 @@ const UserMenu: FC<Props> = () => {
     setShowAccountSwitcher(false);
   };
 
+  if (!selectedChannel) return null;
+
   return (
     <Popover
       trigger={
         <div
-          className="p-[7px] border self-center flex border-gray-200 rounded-lg dark:hover:bg-gray-800 dark:border-gray-800 hover:bg-gray-100 scale-animation"
+          className="p-[5px] border self-center flex border-gray-200 rounded-lg dark:hover:bg-gray-800 dark:border-gray-800 hover:bg-gray-100 scale-animation"
           onClick={() => {}}
         >
           <img
-            className="w-4 h-4"
-            src={getProfilePicture(selectedChannel?.handle)}
+            className="w-5 h-5 rounded"
+            src={getProfilePicture(selectedChannel)}
             alt=""
             draggable={false}
           />
@@ -72,7 +73,7 @@ const UserMenu: FC<Props> = () => {
                   <span className="inline-flex items-center space-x-1.5">
                     <img
                       className="w-6 h-6"
-                      src={getRandomProfilePicture(channel.handle)}
+                      src={getProfilePicture(channel)}
                       alt=""
                     />
                     <span className="truncate whitespace-nowrap">
@@ -93,8 +94,8 @@ const UserMenu: FC<Props> = () => {
                 )}
               >
                 <img
-                  className="w-10 h-10"
-                  src={getRandomProfilePicture(selectedChannel?.handle)}
+                  className="rounded-full w-9 h-9"
+                  src={getProfilePicture(selectedChannel)}
                   alt=""
                   draggable={false}
                 />
@@ -102,7 +103,7 @@ const UserMenu: FC<Props> = () => {
                   <h6 className="text-base truncate whitespace-nowrap">
                     {selectedChannel?.handle}
                   </h6>
-                  <button className="text-xs text-indigo-500 hover:opacity-100 opacity-80">
+                  <button className="text-xs font-semibold text-indigo-700 dark:text-indigo-400 hover:opacity-100 opacity-80">
                     Customize
                   </button>
                 </div>

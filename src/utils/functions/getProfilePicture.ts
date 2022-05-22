@@ -8,7 +8,7 @@ const getProfilePicture = (channel: Profile): string => {
     channel?.picture?.original?.url ??
     // @ts-ignore
     channel?.picture?.uri ??
-    getRandomProfilePicture(channel.handle)
+    getRandomProfilePicture(channel?.handle)
   );
 };
 

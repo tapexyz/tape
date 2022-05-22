@@ -1,6 +1,7 @@
 import useAppStore from "@lib/store";
 import { POLYGONSCAN_URL } from "@utils/constants";
 import getProfilePicture from "@utils/functions/getProfilePicture";
+import { getRandomProfilePicture } from "@utils/functions/getRandomProfilePicture";
 import { shortenAddress } from "@utils/functions/shortenAddress";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -43,7 +44,7 @@ const SubscriberNotification: FC<Props> = ({ notification }) => {
           >
             <img
               className="w-4 h-4 rounded-full"
-              src={getProfilePicture(notification.wallet.address)}
+              src={getRandomProfilePicture(notification.wallet.address)}
               alt=""
             />
             <div>{shortenAddress(notification?.wallet?.address)}</div>

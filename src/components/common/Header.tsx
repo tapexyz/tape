@@ -7,6 +7,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { AiOutlinePlus, AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
+import { BsSoundwave } from "react-icons/bs";
 import { CgBell } from "react-icons/cg";
 import { FiUpload } from "react-icons/fi";
 import { HiOutlineStatusOnline } from "react-icons/hi";
@@ -41,9 +42,9 @@ const Header = () => {
           <>
             <Popover
               trigger={
-                <Tooltip className="!rounded-lg" content="New Video">
+                <Tooltip className="!rounded-lg" content="New">
                   <div className="flex self-center p-2 rounded-lg focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 scale-animation">
-                    <AiOutlineVideoCameraAdd />
+                    <FiUpload />
                   </div>
                 </Tooltip>
               }
@@ -53,13 +54,19 @@ const Header = () => {
                 <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
                   <Link href={`${selectedChannel.handle}?upload=1`}>
                     <a className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
-                      <FiUpload />
-                      <span className="whitespace-nowrap">Upload</span>
+                      <AiOutlineVideoCameraAdd />
+                      <span className="whitespace-nowrap">Video</span>
+                    </a>
+                  </Link>
+                  <Link href={`${selectedChannel.handle}?upload=1`}>
+                    <a className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
+                      <BsSoundwave />
+                      <span className="whitespace-nowrap">Audio</span>
                     </a>
                   </Link>
                   <Link href={HOME}>
                     <a className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
-                      <HiOutlineStatusOnline />
+                      <HiOutlineStatusOnline className="text-red-500" />
                       <span className="whitespace-nowrap">Go Live</span>
                     </a>
                   </Link>
