@@ -8,7 +8,9 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Recommended />
-      <Timeline />
+      <div className="md:my-5">
+        <Timeline />
+      </div>
     </Layout>
   );
 };

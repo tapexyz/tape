@@ -7,7 +7,9 @@ const Explore = () => {
   return (
     <Layout>
       <Categories />
-      <Timeline />
+      <div className="md:my-5">
+        <Timeline />
+      </div>
     </Layout>
   );
 };

@@ -1,4 +1,4 @@
-import { AudioPlayer } from "@components/common/AudioPlayer";
+import AudioPlayer from "@components/common/AudioPlayer";
 import { Button } from "@components/ui/Button";
 import useAppStore from "@lib/store";
 import React from "react";

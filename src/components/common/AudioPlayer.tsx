@@ -141,4 +141,4 @@ const AudioPlayer: FC<Props> = ({ selectPodUrl }) => {
   );
 };
 
-export { AudioPlayer };
+export default AudioPlayer;
