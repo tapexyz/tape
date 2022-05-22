@@ -3,7 +3,8 @@ import Timeline from "@components/Home/Timeline";
 import { EmptyState } from "@components/ui/EmptyState";
 import { ErrorMessage } from "@components/ui/ErrorMessage";
 import useAppStore from "@lib/store";
-import { HOME_VIDEOS_QUERY } from "@utils/gql/queries";
+import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
+import { FEED_QUERY } from "@utils/gql/queries";
 import React, { useState } from "react";
 import { useInView } from "react-cool-inview";
 import { LoaderIcon } from "react-hot-toast";
@@ -15,7 +16,7 @@ const HomeFeed = () => {
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { selectedChannel } = useAppStore();
 
-  const { loading, error, fetchMore } = useQuery(HOME_VIDEOS_QUERY, {
+  const { loading, error, fetchMore } = useQuery(FEED_QUERY, {
     variables: {
       request: { profileId: selectedChannel?.id, limit: 10 },
     },
@@ -23,7 +24,7 @@ const HomeFeed = () => {
     onCompleted(data) {
       setPageInfo(data?.timeline?.pageInfo);
       const videosPublications = data?.timeline?.items.filter(
-        (e: LenstubePublication) => e.appId === "lenstube-videos"
+        (e: LenstubePublication) => e.appId === LENSTUBE_VIDEOS_APP_ID
       );
       setVideos(videosPublications);
     },
@@ -43,7 +44,7 @@ const HomeFeed = () => {
       }).then(({ data }: any) => {
         setPageInfo(data?.timeline?.pageInfo);
         const videosPublications = data?.timeline?.items.filter(
-          (e: LenstubePublication) => e.appId === "lenstube-videos"
+          (e: LenstubePublication) => e.appId === LENSTUBE_VIDEOS_APP_ID
         );
         setVideos([...videos, ...videosPublications]);
       });

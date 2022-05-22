@@ -156,8 +156,8 @@ export const SEARCH_CHANNELS_QUERY = gql`
   ${MinimalProfileFields}
 `;
 
-export const EXPLORE_VIDEOS_QUERY = gql`
-  query ExploreVideos($request: ExplorePublicationRequest!) {
+export const EXPLORE_QUERY = gql`
+  query Explore($request: ExplorePublicationRequest!) {
     explorePublications(request: $request) {
       items {
         ... on Post {
@@ -177,8 +177,8 @@ export const EXPLORE_VIDEOS_QUERY = gql`
   ${CommentFields}
 `;
 
-export const HOME_VIDEOS_QUERY = gql`
-  query HomeVideos($request: TimelineRequest!) {
+export const FEED_QUERY = gql`
+  query HomeFeed($request: TimelineRequest!) {
     timeline(request: $request) {
       items {
         ... on Post {

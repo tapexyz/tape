@@ -5,10 +5,13 @@ import { useRouter } from "next/router";
 import React from "react";
 import { FC } from "react";
 import { BsPlay } from "react-icons/bs";
+import { LenstubePublication } from "src/types/local";
 
-type Props = {};
+type Props = {
+  pod: LenstubePublication;
+};
 
-const PodCard: FC<Props> = ({}) => {
+const PodCard: FC<Props> = ({ pod }) => {
   const router = useRouter();
   const isPodDetail = router.pathname === "/pods/[id]";
 
@@ -26,12 +29,12 @@ const PodCard: FC<Props> = ({}) => {
         <div className="flex flex-col p-2 pb-0">
           {isPodDetail ? (
             <h1 className="mb-1 text-sm font-semibold line-clamp-1">
-              History of India and its nature
+              {pod.metadata?.name}
             </h1>
           ) : (
             <Link href={`${PODS}/0x-00`}>
               <a className="text-sm font-semibold line-clamp-1">
-                History of India and its nature
+                {pod.metadata?.name}
               </a>
             </Link>
           )}
