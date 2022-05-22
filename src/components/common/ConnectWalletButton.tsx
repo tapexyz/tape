@@ -32,7 +32,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                 return (
                   <button
                     onClick={openConnectModal}
-                    className="px-3 py-[7px] whitespace-nowrap text-xs dark:hover:bg-gray-800 border border-gray-100 dark:border-gray-800 rounded-lg hover:bg-gray-100"
+                    className="px-3 py-[7px] whitespace-nowrap text-xs dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-800 rounded-lg hover:bg-gray-100"
                     type="button"
                   >
                     Connect Wallet

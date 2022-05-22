@@ -56,7 +56,7 @@ const PodCard: FC<Props> = ({}) => {
                 Visit joincolossus.com to find more episodes, transcripts and a
                 library of content to continue your learning.
               </p>
-              <Button className="!p-1 mt-1 hover:scale-105 flex-none">
+              <Button className="!p-1 mt-0.5 hover:scale-105 flex-none">
                 <BsPlay />
                 {/* <BsSoundwave /> */}
               </Button>

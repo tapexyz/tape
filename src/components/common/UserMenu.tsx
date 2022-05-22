@@ -1,5 +1,6 @@
 import Popover from "@components/ui/Popover";
 import useAppStore from "@lib/store";
+import getProfilePicture from "@utils/functions/getProfilePicture";
 import { getRandomProfilePicture } from "@utils/functions/getRandomProfilePicture";
 import clsx from "clsx";
 import Link from "next/link";
@@ -39,7 +40,7 @@ const UserMenu: FC<Props> = () => {
         >
           <img
             className="w-4 h-4"
-            src={getRandomProfilePicture(selectedChannel?.handle)}
+            src={getProfilePicture(selectedChannel?.handle)}
             alt=""
             draggable={false}
           />

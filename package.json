@@ -34,6 +34,7 @@
     "react-hook-form": "^7.31.1",
     "react-hot-toast": "^2.2.0",
     "react-icons": "^4.3.1",
+    "usehooks-ts": "^2.5.3",
     "wagmi": "^0.3.5",
     "zod": "^3.16.0",
     "zustand": "^4.0.0-rc.1"

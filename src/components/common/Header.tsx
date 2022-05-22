@@ -4,18 +4,20 @@ import Tooltip from "@components/ui/Tooltip";
 import useAppStore from "@lib/store";
 import { HOME } from "@utils/url-path";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlinePlus, AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 import { CgBell } from "react-icons/cg";
 import { FiUpload } from "react-icons/fi";
 import { HiOutlineStatusOnline } from "react-icons/hi";
 
+import GlobalSearch from "./GlobalSearch";
 import Login from "./Login";
 
 const Header = () => {
   const { channels, selectedChannel, token, hasNewNotification } =
     useAppStore();
+  const [showSearch, setShowSearch] = useState(false);
 
   return (
     <div className="fixed z-10 flex flex-row items-center justify-between w-full px-2 shadow-sm md:px-6 bg-secondary h-14">
@@ -24,7 +26,11 @@ const Header = () => {
           <a className="font-semibold">LensTube</a>
         </Link>
         <div>
-          <button className="px-2 md:w-44 flex items-center space-x-1.5 text-left py-1.5 border border-gray-200 rounded-lg dark:border-gray-800 w-36">
+          {showSearch && <GlobalSearch setShowSearch={setShowSearch} />}
+          <button
+            onClick={() => setShowSearch(true)}
+            className="px-2 md:w-44 flex focus:outline-none items-center space-x-1.5 text-left py-1.5 border border-gray-200 rounded-lg dark:border-gray-800 w-36"
+          >
             <BiSearch />
             <span className="text-xs">Search</span>
           </button>

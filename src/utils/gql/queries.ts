@@ -140,3 +140,16 @@ export const NOTIFICATIONS_QUERY = gql`
   }
   ${MinimalProfileFields}
 `;
+
+export const SEARCH_CHANNELS_QUERY = gql`
+  query SearchChannels($request: SearchQueryRequest!) {
+    search(request: $request) {
+      ... on ProfileSearchResult {
+        items {
+          ...MinimalProfileFields
+        }
+      }
+    }
+  }
+  ${MinimalProfileFields}
+`;
