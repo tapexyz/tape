@@ -2,11 +2,16 @@ import { getRandomProfilePicture } from "@utils/functions/getRandomProfilePictur
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Link from "next/link";
-import React from "react";
+import React, { FC } from "react";
+import { LenstubePublication } from "src/types/local";
 
 dayjs.extend(relativeTime);
 
-const VideoCard = () => {
+type Props = {
+  video: LenstubePublication;
+};
+
+const VideoCard: FC<Props> = ({ video }) => {
   return (
     <div className="transition duration-200 ease-in-out rounded-b-lg bg-secondary hover:shadow">
       <div className="rounded-t-lg aspect-w-16 aspect-h-9">
@@ -29,8 +34,7 @@ const VideoCard = () => {
           </div>
           <div className="flex flex-col items-start pb-1">
             <h1 className="mb-1 text-base line-clamp-2">
-              Intro to Foundry | The Fastest smart contract framework Intro to
-              Foundry | The Fastest smart contract framework
+              {video.metadata?.name}
             </h1>
             <Link href={""}>
               <a className="text-sm hover:opacity-100 opacity-70">T Series</a>

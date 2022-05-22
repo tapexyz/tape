@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 
 import { MinimalProfileFields } from "./fragments/MinimalProfileFields";
+import { PostFields } from "./fragments/PostFields";
 
 export const CURRENT_USER_QUERY = gql`
   query CurrentUser($ownedBy: [EthereumAddress!]) {
@@ -152,4 +153,21 @@ export const SEARCH_CHANNELS_QUERY = gql`
     }
   }
   ${MinimalProfileFields}
+`;
+
+export const EXPLORE_VIDEOS_QUERY = gql`
+  query ExploreVideos($request: ExplorePublicationRequest!) {
+    explorePublications(request: $request) {
+      items {
+        ... on Post {
+          ...PostFields
+        }
+      }
+      pageInfo {
+        totalCount
+        next
+      }
+    }
+  }
+  ${PostFields}
 `;

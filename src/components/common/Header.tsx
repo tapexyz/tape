@@ -29,7 +29,7 @@ const Header = () => {
           {showSearch && <GlobalSearch setShowSearch={setShowSearch} />}
           <button
             onClick={() => setShowSearch(true)}
-            className="px-2 md:w-44 flex focus:outline-none items-center space-x-1.5 text-left py-1.5 border border-gray-200 rounded-lg dark:border-gray-800 w-36"
+            className="px-2 hidden md:flex md:w-44 focus:outline-none items-center space-x-1.5 text-left py-1.5 border border-gray-200 rounded-lg dark:border-gray-800 w-36"
           >
             <BiSearch />
             <span className="text-xs">Search</span>

@@ -1,5 +1,7 @@
 import { WebBundlr } from "@bundlr-network/client";
 
+import { Comment, Post } from ".";
+
 export type VideoDraft = {
   preview: string;
   title: string;
@@ -14,3 +16,5 @@ export type BundlrDataState = {
   showDeposit: boolean;
   uploading: boolean;
 };
+
+export type LenstubePublication = Post & Comment & { pubId: string };

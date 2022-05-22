@@ -63,7 +63,7 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
                   <a
                     href={`/u/${channel?.handle}`}
                     onClick={() => onSelectResult()}
-                    className="flex flex-col justify-center px-4 py-2 space-y-1 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-900"
+                    className="flex flex-col justify-center px-4 py-2 space-y-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900"
                   >
                     <span className="flex items-center justify-between">
                       <span className="inline-flex items-center w-3/4 space-x-2">
@@ -72,6 +72,7 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
                           src={getProfilePicture(channel)}
                           alt=""
                           draggable={false}
+                          loading="eager"
                         />
                         <span className="text-base line-clamp-1">
                           {channel.handle}
