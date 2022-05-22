@@ -4,12 +4,9 @@ import getProfilePicture from "@utils/functions/getProfilePicture";
 import clsx from "clsx";
 import Link from "next/link";
 import React, { FC, useState } from "react";
-import {
-  AiOutlineLogout,
-  AiOutlinePlus,
-  AiOutlineUserSwitch,
-} from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineUserSwitch } from "react-icons/ai";
 import { BiArrowBack, BiCheck, BiMoviePlay } from "react-icons/bi";
+import { VscDebugDisconnect } from "react-icons/vsc";
 import { Profile } from "src/types";
 import { useDisconnect } from "wagmi";
 
@@ -152,8 +149,8 @@ const UserMenu: FC<Props> = () => {
                 )}
                 onClick={() => disconnect()}
               >
-                <AiOutlineLogout className="text-lg" />
-                <span className="truncate whitespace-nowrap">Logout</span>
+                <VscDebugDisconnect className="text-lg" />
+                <span className="truncate whitespace-nowrap">Disconnect</span>
               </button>
             </div>
           </>

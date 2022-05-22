@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+import { CommentFields } from "./fragments/CommentFields";
 import { MinimalProfileFields } from "./fragments/MinimalProfileFields";
 import { PostFields } from "./fragments/PostFields";
 
@@ -162,6 +163,9 @@ export const EXPLORE_VIDEOS_QUERY = gql`
         ... on Post {
           ...PostFields
         }
+        ... on Comment {
+          ...CommentFields
+        }
       }
       pageInfo {
         totalCount
@@ -170,4 +174,26 @@ export const EXPLORE_VIDEOS_QUERY = gql`
     }
   }
   ${PostFields}
+  ${CommentFields}
+`;
+
+export const HOME_VIDEOS_QUERY = gql`
+  query HomeVideos($request: TimelineRequest!) {
+    timeline(request: $request) {
+      items {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Comment {
+          ...CommentFields
+        }
+      }
+      pageInfo {
+        next
+        totalCount
+      }
+    }
+  }
+  ${PostFields}
+  ${CommentFields}
 `;

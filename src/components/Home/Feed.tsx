@@ -2,28 +2,27 @@ import { useQuery } from "@apollo/client";
 import Timeline from "@components/Home/Timeline";
 import { EmptyState } from "@components/ui/EmptyState";
 import { ErrorMessage } from "@components/ui/ErrorMessage";
-import { EXPLORE_VIDEOS_QUERY } from "@utils/gql/queries";
+import useAppStore from "@lib/store";
+import { HOME_VIDEOS_QUERY } from "@utils/gql/queries";
 import React, { useState } from "react";
 import { useInView } from "react-cool-inview";
 import { LoaderIcon } from "react-hot-toast";
 import { PaginatedResultInfo } from "src/types";
 import { LenstubePublication } from "src/types/local";
 
-const ExploreFeed = () => {
+const HomeFeed = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([]);
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
+  const { selectedChannel } = useAppStore();
 
-  const { loading, error, fetchMore } = useQuery(EXPLORE_VIDEOS_QUERY, {
+  const { loading, error, fetchMore } = useQuery(HOME_VIDEOS_QUERY, {
     variables: {
-      request: {
-        sortCriteria: "LATEST",
-        limit: 10,
-        noRandomize: true,
-      },
+      request: { profileId: selectedChannel?.id, limit: 10 },
     },
+    fetchPolicy: "no-cache",
     onCompleted(data) {
-      setPageInfo(data?.explorePublications?.pageInfo);
-      const videosPublications = data?.explorePublications?.items.filter(
+      setPageInfo(data?.timeline?.pageInfo);
+      const videosPublications = data?.timeline?.items.filter(
         (e: LenstubePublication) => e.appId === "lenstube-videos"
       );
       setVideos(videosPublications);
@@ -36,22 +35,21 @@ const ExploreFeed = () => {
       fetchMore({
         variables: {
           request: {
-            sortCriteria: "LATEST",
+            profileId: selectedChannel?.id,
             cursor: pageInfo?.next,
             limit: 10,
-            noRandomize: true,
           },
         },
       }).then(({ data }: any) => {
-        setPageInfo(data?.explorePublications?.pageInfo);
-        const videosPublications = data?.explorePublications?.items.filter(
+        setPageInfo(data?.timeline?.pageInfo);
+        const videosPublications = data?.timeline?.items.filter(
           (e: LenstubePublication) => e.appId === "lenstube-videos"
         );
         setVideos([...videos, ...videosPublications]);
       });
     },
   });
-  console.log("🚀 ~ file: index.tsx ~ line 29 ~ onCompleted ~ videos", videos);
+  console.log("🚀 ~ file: Feed.tsx ~ line 49 ~ HomeFeed ~ videos", videos);
 
   if (videos?.length === 0) {
     return <EmptyState message={<div>No videos found</div>} />;
@@ -74,4 +72,4 @@ const ExploreFeed = () => {
   );
 };
 
-export default ExploreFeed;
+export default HomeFeed;

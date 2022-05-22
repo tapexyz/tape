@@ -1,15 +1,18 @@
+import ExploreFeed from "@components/Explore/Feed";
 import Layout from "@components/wrappers/Layout";
+import useAppStore from "@lib/store";
 import type { NextPage } from "next";
 
+import HomeFeed from "./Feed";
 import Recommended from "./Recommended";
-import Timeline from "./Timeline";
 
 const Home: NextPage = () => {
+  const { selectedChannel, token } = useAppStore();
   return (
     <Layout>
       <Recommended />
       <div className="md:my-5">
-        <Timeline />
+        {selectedChannel && token.access ? <HomeFeed /> : <ExploreFeed />}
       </div>
     </Layout>
   );
