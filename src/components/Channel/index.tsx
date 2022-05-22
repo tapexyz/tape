@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import MetaTags from "@components/common/MetaTags";
 import Layout from "@components/wrappers/Layout";
 import { PROFILE_QUERY } from "@utils/gql/queries";
 import { useRouter } from "next/router";
@@ -26,6 +27,8 @@ const Channel = () => {
 
   return (
     <Layout>
+      <MetaTags title={profile?.handle} />
+
       {loading && <LoaderIcon />}
       <Upload />
       <div>{profile?.handle}</div>
