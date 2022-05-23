@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import CreateChannel from "@components/common/CreateChannel";
 import Header from "@components/common/Header";
+import MobileBottomNav from "@components/common/MobileBottomNav";
 import Sidebar from "@components/common/Sidebar";
 import useAppStore from "@lib/store";
 import { getToastOptions } from "@utils/functions/getToastOptions";
@@ -101,6 +102,7 @@ const Layout: FC<Props> = ({ children }) => {
         position="top-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
+      <MobileBottomNav />
     </>
   );
 };

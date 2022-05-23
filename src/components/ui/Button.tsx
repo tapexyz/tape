@@ -33,7 +33,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
     <button
       ref={ref}
       className={clsx(
-        "relative inline-block disabled:opacity-50 rounded group",
+        "relative inline-block disabled:opacity-50 rounded-md group",
         {
           "px-4 py-1.5 text-xs": size === "sm",
           "px-5 py-1.5 text-sm": size === "md",
@@ -46,17 +46,18 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
     >
       <span
         className={clsx(
-          "absolute inset-0 w-full h-full transition duration-200 ease-in-out transform translate-x-0.5 translate-y-0.5 dark:bg-transparent rounded group-hover:-translate-x-0 group-hover:-translate-y-0",
+          "absolute focus:outline-none inset-0 w-full h-full transition duration-100 ease-in-out transform dark:bg-transparent rounded-md group-hover:translate-x-0.5 group-hover:translate-y-0.5",
           {
-            "dark:border dark:border-white bg-black": variant === "primary",
+            "dark:border dark:border-gray-400 bg-gray-600":
+              variant === "primary",
             "bg-transparent": variant === "secondary",
             "border-red-500 border": variant === "danger",
           }
         )}
       ></span>
       <span
-        className={clsx("absolute inset-0 w-full h-full rounded", {
-          "bg-white dark:bg-black border border-black dark:border-white":
+        className={clsx("absolute inset-0 w-full h-full rounded-md", {
+          "bg-white dark:bg-black border border-gray-600 dark:border-gray-400":
             variant === "primary",
           "bg-transparent": variant === "secondary",
           "bg-red-500 border border-red-500": variant === "danger",

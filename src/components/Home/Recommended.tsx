@@ -36,7 +36,7 @@ const Recommended = () => {
       >
         <button
           onClick={() => scrollToOffset(-200)}
-          className="absolute left-0 inline-flex items-center p-3 rounded-full focus:outline-none from-gray-100 dark:from-gray-900 bg-gradient-to-r to-transparent"
+          className="absolute left-0 inline-flex items-center p-3 rounded-full focus:outline-none from-white dark:from-gray-800 bg-gradient-to-r to-transparent"
         >
           <FiChevronLeft />
         </button>
@@ -65,7 +65,7 @@ const Recommended = () => {
         </div>
         <button
           onClick={() => scrollToOffset(200)}
-          className="absolute right-0 inline-flex items-center p-3 rounded-full focus:outline-none to-gray-100 dark:to-gray-900 bg-gradient-to-r from-transparent"
+          className="absolute right-0 inline-flex items-center p-3 rounded-full focus:outline-none to-white dark:to-gray-800 bg-gradient-to-r from-transparent"
         >
           <FiChevronRight />
         </button>

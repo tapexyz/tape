@@ -1,3 +1,4 @@
+import { Button } from "@components/ui/Button";
 import Tooltip from "@components/ui/Tooltip";
 import { EXPLORE, HOME, PODS } from "@utils/url-path";
 import Link from "next/link";
@@ -15,32 +16,32 @@ const Sidebar = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="fixed bottom-0 left-0 items-center justify-between hidden w-16 p-4 md:flex md:flex-col top-14 bg-secondary">
-      <div className="flex flex-col items-center space-y-3">
+    <div className="fixed bottom-0 left-0 items-center justify-between hidden w-16 p-4 border-r border-gray-300 dark:border-gray-700 md:flex md:flex-col top-14">
+      <div className="flex flex-col items-center space-y-4">
         <Tooltip className="!rounded-lg" content="Home" placement="right">
           <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
             <Link href={HOME}>
-              <a className="flex p-2.5">
-                <FiHome />
-              </a>
+              <Button className="!p-2">
+                <FiHome className="!text-lg group-hover:opacity-100 opacity-80" />
+              </Button>
             </Link>
           </span>
         </Tooltip>
         <Tooltip className="!rounded-lg" content="Explore" placement="right">
           <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
-            <Link href={EXPLORE}>
-              <a className="flex p-2.5">
-                <RiLeafLine />
-              </a>
+            <Link href={EXPLORE} passHref>
+              <Button className="!p-2">
+                <RiLeafLine className="!text-lg group-hover:opacity-100 opacity-80" />
+              </Button>
             </Link>
           </span>
         </Tooltip>
         <Tooltip className="!rounded-lg" content="Pods" placement="right">
           <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
             <Link href={PODS}>
-              <a className="flex p-2.5">
-                <MdOutlinePodcasts />
-              </a>
+              <Button className="!p-2">
+                <MdOutlinePodcasts className="!text-lg group-hover:opacity-100 opacity-80" />
+              </Button>
             </Link>
           </span>
         </Tooltip>

@@ -21,7 +21,7 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
 
   return (
-    <div className="fixed z-10 flex flex-row items-center justify-between w-full px-2 shadow-sm md:px-6 bg-secondary h-14">
+    <div className="fixed z-10 flex flex-row items-center justify-between w-full px-2 border-b border-gray-300 dark:border-gray-700 md:px-6 bg-secondary h-14">
       <div className="flex items-center flex-1 space-x-4">
         <Link href={HOME}>
           <a className="font-semibold">LensTube</a>
@@ -30,10 +30,10 @@ const Header = () => {
           {showSearch && <GlobalSearch setShowSearch={setShowSearch} />}
           <button
             onClick={() => setShowSearch(true)}
-            className="px-2 hidden opacity-60 hover:opacity-100 md:flex md:w-44 focus:outline-none items-center space-x-1.5 text-left py-1.5 rounded"
+            className="px-2 hidden text-sm opacity-60 hover:opacity-100 md:flex md:w-44 focus:outline-none items-center space-x-1 text-left py-1.5 rounded"
           >
-            <BiSearch className="text-sm" />
-            <span className="text-sm">Search</span>
+            <BiSearch />
+            <span>Search</span>
           </button>
         </div>
       </div>
@@ -43,7 +43,7 @@ const Header = () => {
             <Popover
               trigger={
                 <Tooltip className="!rounded-lg" content="New">
-                  <div className="flex self-center p-2 rounded-lg focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 scale-animation">
+                  <div className="flex self-center p-2 rounded-lg focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800">
                     <FiUpload />
                   </div>
                 </Tooltip>
@@ -77,7 +77,7 @@ const Header = () => {
             <Popover
               trigger={
                 <Tooltip className="!rounded-lg" content="Notifications">
-                  <div className="relative flex self-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 scale-animation">
+                  <div className="relative flex self-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
                     <CgBell />
                     {hasNewNotification && (
                       <span className="absolute flex w-1.5 h-1.5 bg-indigo-500 rounded-full top-1 right-1" />
@@ -97,7 +97,7 @@ const Header = () => {
         ) : null}
         {channels.length === 0 && token.access && (
           <Tooltip className="!rounded-lg" content="Create Channel">
-            <button className="p-[7px] border border-gray-200 rounded-lg dark:hover:bg-gray-800 dark:border-gray-800 hover:bg-gray-100 scale-animation">
+            <button className="p-[7px] border border-gray-200 rounded-lg dark:hover:bg-gray-800 dark:border-gray-800 hover:bg-gray-100">
               <AiOutlinePlus />
             </button>
           </Tooltip>

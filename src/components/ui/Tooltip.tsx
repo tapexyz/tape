@@ -30,7 +30,7 @@ const Tooltip = ({
       placement={placement}
       content={content}
       arrow={false}
-      className={clsx(className, "!shadow !font-medium")}
+      className={clsx(className, "!shadow !font-medium !rounded !px-2")}
       theme={theme === "dark" ? "material" : "light-border"}
     >
       {children}
