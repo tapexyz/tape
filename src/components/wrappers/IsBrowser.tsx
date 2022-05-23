@@ -1,21 +1,19 @@
+import { useRouter } from "next/router";
 import type { ReactNode } from "react";
-import { useEffect, useState } from "react";
 import { LoaderIcon } from "react-hot-toast";
+import { useIsClient } from "usehooks-ts";
 
 type IsBrowserProps = {
   children: ReactNode;
 };
 
 export const IsBrowser = ({ children }: IsBrowserProps) => {
-  const [isBrowser, setIsBrowser] = useState(false);
+  const router = useRouter();
+  const isClient = useIsClient();
 
-  useEffect(() => {
-    setIsBrowser(true);
-  }, []);
-
-  if (!isBrowser) {
+  if (!isClient || !router.isReady) {
     return (
-      <div className="grid h-screen place-items-center">
+      <div className="grid w-full h-screen place-items-center">
         <LoaderIcon className="!h-5 !w-5" />
       </div>
     );

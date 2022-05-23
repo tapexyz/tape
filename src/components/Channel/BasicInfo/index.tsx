@@ -33,7 +33,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
             <img
               src={getProfilePicture(channel)}
               alt=""
-              className="rounded-full w-14 h-14 md:-mt-10 ring-offset-2 ring ring-green-900 md:w-32 md:h-32"
+              className="border-2 rounded-full w-14 h-14 md:-mt-10 md:w-32 md:h-32"
               draggable={false}
             />
           </div>

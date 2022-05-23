@@ -10,7 +10,9 @@ interface Props {
 
 const Popover: FC<Props> = ({ trigger, children, panelClassName }) => (
   <HPopover className="relative">
-    <HPopover.Button>{trigger}</HPopover.Button>
+    <HPopover.Button as="div" className="cursor-pointer">
+      {trigger}
+    </HPopover.Button>
     <HPopover.Panel className={clsx(panelClassName, "absolute z-10")}>
       {children}
     </HPopover.Panel>
