@@ -1,10 +1,7 @@
 import "tippy.js/dist/tippy.css";
-import "tippy.js/themes/material.css";
-import "tippy.js/themes/light-border.css";
 
 import Tippy from "@tippyjs/react";
 import clsx from "clsx";
-import { useTheme } from "next-themes";
 import React from "react";
 import type { Placement } from "tippy.js";
 
@@ -22,8 +19,6 @@ const Tooltip = ({
   className,
   ...props
 }: Props) => {
-  const { theme } = useTheme();
-
   return (
     <Tippy
       {...props}
@@ -32,9 +27,8 @@ const Tooltip = ({
       arrow={false}
       className={clsx(
         className,
-        "!shadow md:block hidden !font-medium !rounded !px-2"
+        "!shadow md:block hidden !rounded-md !text-black dark:!text-white !px-1 dark:!bg-gray-900 !bg-white"
       )}
-      theme={theme === "dark" ? "material" : "light-border"}
     >
       {children}
     </Tippy>

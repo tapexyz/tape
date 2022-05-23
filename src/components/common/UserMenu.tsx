@@ -1,3 +1,4 @@
+import { Button } from "@components/ui/Button";
 import Popover from "@components/ui/Popover";
 import useAppStore from "@lib/store";
 import getProfilePicture from "@utils/functions/getProfilePicture";
@@ -32,17 +33,18 @@ const UserMenu: FC<Props> = () => {
   return (
     <Popover
       trigger={
-        <div
-          className="flex self-center p-1 border border-gray-200 rounded-lg dark:hover:bg-gray-800 dark:border-gray-800 hover:bg-gray-100 scale-animation"
-          onClick={() => {}}
-        >
+        <Button className="!p-1">
           <img
             className="w-5 h-5 rounded"
             src={getProfilePicture(selectedChannel)}
             alt=""
             draggable={false}
           />
-        </div>
+        </Button>
+        // <div
+        //   className="flex self-center p-1 border border-gray-200 rounded-lg dark:hover:bg-gray-800 dark:border-gray-800 hover:bg-gray-100 scale-animation"
+        // >
+        // </div>
       }
       panelClassName="right-0"
     >
@@ -101,7 +103,7 @@ const UserMenu: FC<Props> = () => {
                   <h6 className="text-base truncate whitespace-nowrap">
                     {selectedChannel?.handle}
                   </h6>
-                  <button className="text-xs font-semibold text-indigo-700 dark:text-indigo-400 hover:opacity-100 opacity-80">
+                  <button className="text-xs font-semibold text-green-900 hover:opacity-100 opacity-80">
                     Customize
                   </button>
                 </div>
