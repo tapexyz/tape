@@ -69,9 +69,10 @@ const UserMenu: FC<Props> = () => {
                 >
                   <span className="inline-flex items-center space-x-1.5">
                     <img
-                      className="w-6 h-6"
+                      className="w-6 h-6 rounded-lg"
                       src={getProfilePicture(channel)}
                       alt=""
+                      draggable={false}
                     />
                     <span className="truncate whitespace-nowrap">
                       {channel.handle}
@@ -91,7 +92,7 @@ const UserMenu: FC<Props> = () => {
                 )}
               >
                 <img
-                  className="rounded-full w-9 h-9"
+                  className="rounded-lg w-9 h-9"
                   src={getProfilePicture(selectedChannel)}
                   alt=""
                   draggable={false}
