@@ -62,7 +62,7 @@ const PodsFeed = () => {
             <div className="flex items-center justify-between">
               <h1 className="text-xl font-semibold">Listen Now</h1>
               <Link href={`${PODS}/feed`}>
-                <a className="flex items-center space-x-2 text-xs text-indigo-500 hover:scale-105">
+                <a className="flex items-center space-x-1.5 text-xs text-indigo-500 hover:scale-105">
                   <span>See all</span> <HiOutlineArrowRight />
                 </a>
               </Link>
@@ -79,7 +79,7 @@ const PodsFeed = () => {
           <div className="flex items-center justify-between">
             <h1 className="text-xl font-semibold">You Might Like</h1>
             <Link href={`${PODS}/explore`}>
-              <a className="flex items-center space-x-2 text-xs text-indigo-500 hover:scale-105">
+              <a className="flex items-center space-x-1.5 text-xs text-indigo-500 hover:scale-105">
                 <span>See all</span> <HiOutlineArrowRight />
               </a>
             </Link>

@@ -9,29 +9,29 @@ import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { Profile } from "src/types";
 
+import BasicInfo from "./BasicInfo";
 import Upload from "./upload";
 
 const Channel = () => {
   const {
-    query: { channel },
+    query: { channel: channelName },
   } = useRouter();
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
-    variables: { request: { handles: channel } },
-    skip: !channel,
+    variables: { request: { handles: channelName } },
+    skip: !channelName,
   });
 
   if (error) return <Custom500 />;
   if (data?.profiles?.items?.length === 0) return <Custom404 />;
 
-  const profile: Profile = data?.profiles?.items[0];
+  const channel: Profile = data?.profiles?.items[0];
 
   return (
     <Layout>
-      <MetaTags title={profile?.handle} />
-
+      <MetaTags title={channel?.handle} />
       {loading && <LoaderIcon />}
       <Upload />
-      <div>{profile?.handle}</div>
+      <BasicInfo channel={channel} />
     </Layout>
   );
 };

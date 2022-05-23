@@ -2,6 +2,7 @@ import { Button } from "@components/ui/Button";
 import Popover from "@components/ui/Popover";
 import useAppStore from "@lib/store";
 import getProfilePicture from "@utils/functions/getProfilePicture";
+import { SETTINGS } from "@utils/url-path";
 import clsx from "clsx";
 import Link from "next/link";
 import React, { FC, useState } from "react";
@@ -33,18 +34,14 @@ const UserMenu: FC<Props> = () => {
   return (
     <Popover
       trigger={
-        <Button className="!p-1">
+        <Button className="!p-0.5 mt-0.5">
           <img
-            className="w-5 h-5 rounded"
+            className="w-6 h-6 rounded-md"
             src={getProfilePicture(selectedChannel)}
             alt=""
             draggable={false}
           />
         </Button>
-        // <div
-        //   className="flex self-center p-1 border border-gray-200 rounded-lg dark:hover:bg-gray-800 dark:border-gray-800 hover:bg-gray-100 scale-animation"
-        // >
-        // </div>
       }
       panelClassName="right-0"
     >
@@ -103,9 +100,11 @@ const UserMenu: FC<Props> = () => {
                   <h6 className="text-base truncate whitespace-nowrap">
                     {selectedChannel?.handle}
                   </h6>
-                  <button className="text-xs font-semibold text-green-900 hover:opacity-100 opacity-80">
-                    Customize
-                  </button>
+                  <Link href={SETTINGS}>
+                    <a className="text-xs font-medium text-green-700">
+                      Customize
+                    </a>
+                  </Link>
                 </div>
               </div>
             </div>

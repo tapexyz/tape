@@ -37,7 +37,7 @@ const Header = () => {
           </button>
         </div>
       </div>
-      <div className="flex flex-row items-center space-x-2">
+      <div className="flex flex-row items-center space-x-3">
         {selectedChannel && token.access ? (
           <>
             <Popover

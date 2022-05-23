@@ -46,7 +46,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
     >
       <span
         className={clsx(
-          "absolute focus:outline-none inset-0 w-full h-full transition duration-100 ease-in-out transform rounded-md group-hover:translate-x-0.5 group-hover:translate-y-0.5",
+          "absolute focus:outline-none inset-0 w-full h-full transition duration-200 ease-in-out transform rounded-md group-hover:translate-x-0.5 group-hover:translate-y-0.5",
           {
             "dark:border border-green-900 bg-green-900": variant === "primary",
             "bg-transparent": variant === "secondary",
