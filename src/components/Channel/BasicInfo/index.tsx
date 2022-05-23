@@ -23,9 +23,9 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         <span>
           <div
             style={{
-              backgroundImage: `url(${channel?.coverPicture?.original?.url})`,
+              backgroundImage: `usrl(${channel?.coverPicture?.original?.url})`,
             }}
-            className="absolute w-full bg-center bg-no-repeat bg-cover rounded -z-10 h-44 md:h-72"
+            className="absolute w-full bg-white bg-center bg-no-repeat bg-cover rounded dark:bg-gray-900 -z-10 h-44 md:h-72"
           />
         </span>
         <div className="flex items-center pl-4 mt-44 md:mt-72">

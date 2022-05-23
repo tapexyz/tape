@@ -51,7 +51,7 @@ const Sidebar = () => {
           onClick={() => {
             setTheme(theme === "dark" ? "light" : "dark");
           }}
-          className="p-2.5 opacity-70 hover:opacity-100"
+          className="p-2.5 focus:outline-none opacity-70 hover:opacity-100"
         >
           {theme === "dark" ? <MdOutlineWbSunny /> : <MdOutlineDarkMode />}
         </button>
