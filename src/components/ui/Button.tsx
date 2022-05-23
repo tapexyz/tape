@@ -12,16 +12,8 @@ interface Props
     HTMLButtonElement
   > {
   size?: "sm" | "md" | "lg";
-  variant?:
-    | "primary"
-    | "secondary"
-    | "success"
-    | "warning"
-    | "super"
-    | "danger";
-  outline?: "none" | "danger" | "primary";
+  variant?: "primary" | "secondary" | "danger";
   loading?: boolean;
-  icon?: ReactNode;
   children?: ReactNode;
   className?: string;
 }
@@ -31,9 +23,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
     className = "",
     size = "sm",
     variant = "primary",
-    outline = "",
     loading,
-    icon,
     children,
     ...rest
   },
@@ -43,22 +33,36 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
     <button
       ref={ref}
       className={clsx(
+        "relative inline-block disabled:opacity-50 rounded group",
         {
-          "bg-secondary dark:bg-gray-800 border border-gray-100 dark:border-gray-800":
-            outline !== "none" && variant === "primary",
-          "!bg-transparent": outline === "primary",
-          "px-3 py-1 text-sm": size === "sm",
-          "px-3 py-1.5 text-base": size === "md",
-          "px-4 py-2 text-lg": size === "lg",
+          "px-4 py-1.5 text-xs": size === "sm",
+          "px-5 py-1.5 text-sm": size === "md",
+          "px-6 py-2 text-base": size === "lg",
         },
-        "rounded-lg disabled:opacity-50 outline-none inline-flex items-center",
         className
       )}
       disabled={loading}
       {...rest}
     >
-      {icon}
-      <div>{children}</div>
+      <span
+        className={clsx(
+          "absolute inset-0 w-full h-full transition duration-200 ease-in-out transform translate-x-0.5 translate-y-0.5 dark:bg-transparent rounded group-hover:-translate-x-0 group-hover:-translate-y-0",
+          {
+            "dark:border dark:border-white bg-black": variant === "primary",
+            "bg-transparent": variant === "secondary",
+            "border-red-500 border": variant === "danger",
+          }
+        )}
+      ></span>
+      <span
+        className={clsx("absolute inset-0 w-full h-full rounded", {
+          "bg-white dark:bg-black border border-black dark:border-white":
+            variant === "primary",
+          "bg-transparent": variant === "secondary",
+          "bg-red-500 border border-red-500": variant === "danger",
+        })}
+      ></span>
+      <span className="relative text-black dark:text-white">{children}</span>
     </button>
   );
 });

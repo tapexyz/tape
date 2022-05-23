@@ -116,8 +116,7 @@ const CreateChannel = () => {
             <Button
               disabled={creating}
               onClick={() => onCancel()}
-              outline="none"
-              className="opacity-60"
+              variant="secondary"
             >
               Cancel
             </Button>

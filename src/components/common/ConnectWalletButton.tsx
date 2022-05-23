@@ -1,6 +1,6 @@
+import { Button } from "@components/ui/Button";
 import useAppStore from "@lib/store";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import clsx from "clsx";
 import React from "react";
 
 import UserMenu from "./UserMenu";
@@ -30,25 +30,15 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
             {(() => {
               if (!mounted || !chain || !account) {
                 return (
-                  <button
-                    onClick={openConnectModal}
-                    className="px-3 py-[7px] whitespace-nowrap text-xs dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-800 rounded-lg hover:bg-gray-100"
-                    type="button"
-                  >
-                    Connect Wallet
-                  </button>
+                  <Button onClick={openConnectModal}>Connect Wallet</Button>
                 );
               }
 
               if (chain.unsupported) {
                 return (
-                  <button
-                    className="px-3 py-[7px] whitespace-nowrap text-white text-xs bg-red-500 rounded-lg"
-                    onClick={openChainModal}
-                    type="button"
-                  >
+                  <Button onClick={openChainModal} variant="danger">
                     Wrong network
-                  </button>
+                  </Button>
                 );
               }
 
@@ -57,22 +47,13 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                   {token.refresh ? (
                     <UserMenu />
                   ) : (
-                    <button
-                      className={clsx(
-                        "px-3 items-center space-x-2 flex py-[7px] text-xs border border-gray-200 dark:border-gray-800 rounded-lg",
-                        {
-                          "opacity-50": loading,
-                          "dark:hover:bg-gray-800 hover:bg-gray-100": !loading,
-                        }
-                      )}
+                    <Button
+                      loading={loading}
                       onClick={() => handleSign()}
                       disabled={loading}
-                      type="button"
                     >
-                      <span className="inline-flex items-center whitespace-nowrap">
-                        Sign-in with Ethereum
-                      </span>
-                    </button>
+                      Sign-in with Ethereum
+                    </Button>
                   )}
                 </>
               );

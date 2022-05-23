@@ -33,7 +33,7 @@ const UserMenu: FC<Props> = () => {
     <Popover
       trigger={
         <div
-          className="p-[5px] border self-center flex border-gray-200 rounded-lg dark:hover:bg-gray-800 dark:border-gray-800 hover:bg-gray-100 scale-animation"
+          className="flex self-center p-1 border border-gray-200 rounded-lg dark:hover:bg-gray-800 dark:border-gray-800 hover:bg-gray-100 scale-animation"
           onClick={() => {}}
         >
           <img

@@ -16,7 +16,7 @@ import Plyr from "plyr-react";
 import React, { FC, useState } from "react";
 import toast from "react-hot-toast";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
-import { MdOutlineAttachMoney, MdRefresh } from "react-icons/md";
+import { MdRefresh } from "react-icons/md";
 import { BundlrDataState } from "src/types/local";
 import { Readable } from "stream";
 import { useAccount, useSigner } from "wagmi";
@@ -199,7 +199,7 @@ const Details: FC<Props> = ({ video, close }) => {
     >
       <div className="grid h-full gap-5 md:grid-cols-2">
         <div>
-          <h1>Details</h1>
+          <h1 className="font-semibold">Details</h1>
           <div className="mt-4">
             <Input
               label="Title"
@@ -306,13 +306,8 @@ const Details: FC<Props> = ({ video, close }) => {
                       <Button
                         type="button"
                         disabled={bundlrData.depositing}
-                        outline="primary"
                         onClick={() => depositToBundlr()}
-                        icon={
-                          !bundlrData.depositing && (
-                            <MdOutlineAttachMoney className="mr-1" />
-                          )
-                        }
+                        className="mb-0.5"
                       >
                         {bundlrData.depositing ? "Loading" : "Deposit"}
                       </Button>
@@ -344,7 +339,11 @@ const Details: FC<Props> = ({ video, close }) => {
               )} */}
         </span>
         <span className="mt-4">
-          <Button onClick={() => close()} outline="none" className="opacity-60">
+          <Button
+            variant="secondary"
+            onClick={() => close()}
+            className="hover:opacity-100 opacity-60"
+          >
             Cancel
           </Button>
           <Button type="submit">{buttonText}</Button>
