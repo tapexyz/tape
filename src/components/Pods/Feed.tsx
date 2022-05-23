@@ -20,6 +20,7 @@ const PodsFeed = () => {
     variables: {
       request: { profileId: selectedChannel?.id, limit: 10 },
     },
+    skip: !selectedChannel,
     fetchPolicy: "no-cache",
     onCompleted(data) {
       const videosPublications = data?.timeline?.items.filter(

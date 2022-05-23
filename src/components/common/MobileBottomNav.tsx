@@ -27,7 +27,7 @@ const MobileBottomNav = () => {
       >
         <div>
           <Link href={HOME}>
-            <a className="flex items-center justify-center w-full gap-2 px-2 py-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded dark:hover:text-gray-100 dark:text-gray-100 md:grid">
+            <a className="flex items-center justify-center w-full gap-2 px-2 py-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
               <FiHome
                 className={clsx("text-lg opacity-60", {
                   "text-indigo-500 text-xl font-bold opacity-100":
@@ -40,7 +40,7 @@ const MobileBottomNav = () => {
         </div>
         <div>
           <Link href={EXPLORE}>
-            <a className="flex items-center justify-center w-full gap-2 px-2 py-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded dark:hover:text-gray-100 dark:text-gray-100 md:grid">
+            <a className="flex items-center justify-center w-full gap-2 px-2 py-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
               <RiLeafLine
                 className={clsx("text-lg opacity-60", {
                   "text-indigo-500 text-xl font-bold opacity-100":
@@ -53,7 +53,7 @@ const MobileBottomNav = () => {
         </div>
         <div>
           <Link href={PODS}>
-            <a className="flex items-center justify-center w-full gap-2 px-2 py-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded dark:hover:text-gray-100 dark:text-gray-100 md:grid">
+            <a className="flex items-center justify-center w-full gap-2 px-2 py-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
               <MdOutlinePodcasts
                 className={clsx("text-lg opacity-60", {
                   "text-indigo-500 text-xl font-bold opacity-100":
@@ -67,7 +67,7 @@ const MobileBottomNav = () => {
         {selectedChannel && (
           <div>
             <Link href={selectedChannel?.handle}>
-              <a className="flex items-center justify-center w-full gap-2 px-2 py-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded dark:hover:text-gray-100 dark:text-gray-100 md:grid">
+              <a className="flex items-center justify-center w-full gap-2 px-2 py-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
                 <AiOutlineUser
                   className={clsx("text-lg opacity-60", {
                     "text-indigo-500 text-xl font-bold opacity-100":
