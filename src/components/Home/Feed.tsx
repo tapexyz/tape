@@ -50,7 +50,6 @@ const HomeFeed = () => {
       });
     },
   });
-  console.log("🚀 ~ file: Feed.tsx ~ line 49 ~ HomeFeed ~ videos", videos);
 
   if (videos?.length === 0) {
     return <EmptyState message={<div>No videos found</div>} />;

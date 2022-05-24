@@ -1,8 +1,9 @@
 import MetaTags from "@components/common/MetaTags";
 import Layout from "@components/wrappers/Layout";
+import dynamic from "next/dynamic";
 
-import Categories from "./Categories";
-import Feed from "./Feed";
+const Categories = dynamic(() => import("./Categories"));
+const Feed = dynamic(() => import("./Feed"));
 
 const Explore = () => {
   return (

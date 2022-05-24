@@ -1,4 +1,5 @@
 export const IS_MAINNET = false;
+export const STATIC_ASSETS = "https://assets.lenstube.xyz";
 
 export const API_URL = IS_MAINNET
   ? "https://api.lens.dev"

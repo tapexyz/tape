@@ -52,7 +52,6 @@ const ExploreFeed = () => {
       });
     },
   });
-  console.log("🚀 ~ file: index.tsx ~ line 29 ~ onCompleted ~ videos", videos);
 
   if (videos?.length === 0) {
     return <EmptyState message={<div>No videos found</div>} />;
