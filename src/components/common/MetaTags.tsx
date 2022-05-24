@@ -17,8 +17,8 @@ const MetaTags: FC<Props> = (props) => {
     title: title ?? "Lenstube",
     description:
       description ??
-      "Lenstube is a decentralized, content sharing social media platfom built with Lens protocol.",
-    image: image ?? "https://sasi.codes/images/banner.png",
+      "Lenstube is a decentralized video sharing social media platform built with Lens protocol.",
+    image: image ?? "/og.png",
     type: "website",
   };
 
