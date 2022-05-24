@@ -19,7 +19,7 @@ const Recents = () => {
           <span>Watch Later</span>
         </h1>
         {/* <Link href={WATCH_LATER_LIBRARY}>
-          <a className="flex items-center space-x-1.5 text-xs text-indigo-500 hover:scale-105">
+          <a className="flex items-center space-x-0.5 text-xs text-green-900">
             <span>See all</span> <BiChevronRight />
           </a>
         </Link> */}

@@ -40,6 +40,10 @@ const Commented = () => {
     );
   }
 
+  if (commented.length === 0) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col space-y-4">
       <div className="flex items-center justify-between">
@@ -48,7 +52,7 @@ const Commented = () => {
           <span>Commented</span>
         </h1>
         <Link href={COMMENTED_LIBRARY}>
-          <a className="flex items-center space-x-1.5 text-xs text-indigo-500 hover:scale-105">
+          <a className="flex items-center space-x-0.5 text-xs text-green-900">
             <span>See all</span> <BiChevronRight />
           </a>
         </Link>

@@ -1,5 +1,6 @@
 import { Button } from "@components/ui/Button";
 import Tooltip from "@components/ui/Tooltip";
+import useAppStore from "@lib/store";
 import { EXPLORE, HOME, LIBRARY } from "@utils/url-path";
 import Link from "next/link";
 import { useTheme } from "next-themes";
@@ -14,6 +15,7 @@ import { RiLeafLine } from "react-icons/ri";
 
 const Sidebar = () => {
   const { theme, setTheme } = useTheme();
+  const { selectedChannel } = useAppStore();
 
   return (
     <div className="fixed bottom-0 left-0 items-center justify-between hidden w-16 p-4 border-r border-gray-300 dark:border-gray-700 md:flex md:flex-col top-14">
@@ -36,15 +38,17 @@ const Sidebar = () => {
             </Link>
           </span>
         </Tooltip>
-        <Tooltip className="!rounded-lg" content="Library" placement="right">
-          <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
-            <Link href={LIBRARY}>
-              <Button className="!p-2">
-                <MdOutlineVideoLibrary className="!text-lg group-hover:opacity-100 opacity-80" />
-              </Button>
-            </Link>
-          </span>
-        </Tooltip>
+        {selectedChannel && (
+          <Tooltip className="!rounded-lg" content="Library" placement="right">
+            <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
+              <Link href={LIBRARY}>
+                <Button className="!p-2">
+                  <MdOutlineVideoLibrary className="!text-lg group-hover:opacity-100 opacity-80" />
+                </Button>
+              </Link>
+            </span>
+          </Tooltip>
+        )}
       </div>
       <div className="flex flex-col items-center space-y-2">
         <button

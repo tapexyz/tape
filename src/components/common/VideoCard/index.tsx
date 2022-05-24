@@ -5,6 +5,8 @@ import Link from "next/link";
 import React, { FC } from "react";
 import { LenstubePublication } from "src/types/local";
 
+import VideoOptions from "./VideoOptions";
+
 dayjs.extend(relativeTime);
 
 type Props = {
@@ -13,13 +15,13 @@ type Props = {
 
 const VideoCard: FC<Props> = ({ video }) => {
   return (
-    <div className="transition duration-200 ease-in-out rounded-b-lg bg-secondary hover:shadow">
+    <div className="transition duration-500 ease-in-out rounded-b group bg-secondary">
       <div className="rounded-t-lg aspect-w-16 aspect-h-9">
         <img
           src="https://i.ytimg.com/vi/VgjyPmFKxCU/hqdefault.jpg"
           alt=""
           draggable={false}
-          className="object-cover object-center w-full h-full rounded-t-lg lg:w-full lg:h-full"
+          className="object-cover object-center w-full h-full rounded-t lg:w-full lg:h-full"
         />
       </div>
       <div className="p-2">
@@ -32,14 +34,19 @@ const VideoCard: FC<Props> = ({ video }) => {
               draggable={false}
             />
           </div>
-          <div className="flex flex-col items-start pb-1">
-            <h1 className="mb-1 text-base line-clamp-2">
-              {video.metadata?.name}
-            </h1>
-            <Link href={""}>
-              <a className="text-sm hover:opacity-100 opacity-70">T Series</a>
+          <div className="flex flex-col items-start flex-1 pb-1">
+            <span className="flex w-full items-start justify-between space-x-1.5">
+              <Link passHref href="/videos/1010">
+                <a className="mb-1.5 text-sm font-medium line-clamp-2">
+                  {video.metadata?.name}
+                </a>
+              </Link>
+              <VideoOptions />
+            </span>
+            <Link href={video.profile.handle}>
+              <a className="text-xs hover:opacity-100 opacity-70">T Series</a>
             </Link>
-            <div className="flex items-center text-xs opacity-70">
+            <div className="flex items-center text-xs opacity-70 mt-0.5">
               <span className="mr-1 whitespace-nowrap">1k views ·</span>
               <span className="">
                 {dayjs(new Date("2022-05-12T00:39:36.000Z")).fromNow()}
