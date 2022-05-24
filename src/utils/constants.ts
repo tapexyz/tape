@@ -18,4 +18,3 @@ export const BUNDLR_WEBSITE_URL = "https://bundlr.network/";
 export const ERROR_MESSAGE = "Oops, something went something!";
 
 export const LENSTUBE_VIDEOS_APP_ID = "lenstube-videos";
-export const LENSTUBE_PODS_APP_ID = "lenstube-pods";

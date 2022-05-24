@@ -1,13 +1,13 @@
 import { Button } from "@components/ui/Button";
 import Tooltip from "@components/ui/Tooltip";
-import { EXPLORE, HOME, PODS } from "@utils/url-path";
+import { EXPLORE, HOME, LIBRARY } from "@utils/url-path";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import React from "react";
 import { FiHome } from "react-icons/fi";
 import {
   MdOutlineDarkMode,
-  MdOutlinePodcasts,
+  MdOutlineVideoLibrary,
   MdOutlineWbSunny,
 } from "react-icons/md";
 import { RiLeafLine } from "react-icons/ri";
@@ -36,11 +36,11 @@ const Sidebar = () => {
             </Link>
           </span>
         </Tooltip>
-        <Tooltip className="!rounded-lg" content="Pods" placement="right">
+        <Tooltip className="!rounded-lg" content="Library" placement="right">
           <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
-            <Link href={PODS}>
+            <Link href={LIBRARY}>
               <Button className="!p-2">
-                <MdOutlinePodcasts className="!text-lg group-hover:opacity-100 opacity-80" />
+                <MdOutlineVideoLibrary className="!text-lg group-hover:opacity-100 opacity-80" />
               </Button>
             </Link>
           </span>

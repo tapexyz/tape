@@ -1,9 +1,9 @@
-import { EXPLORE, HOME, PODS } from "@utils/url-path";
+import { EXPLORE, HOME, LIBRARY } from "@utils/url-path";
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FiHome } from "react-icons/fi";
-import { MdOutlinePodcasts } from "react-icons/md";
+import { MdOutlineVideoLibrary } from "react-icons/md";
 import { RiLeafLine } from "react-icons/ri";
 
 const MobileBottomNav = () => {
@@ -45,15 +45,15 @@ const MobileBottomNav = () => {
           </Link>
         </div>
         <div>
-          <Link href={PODS}>
+          <Link href={LIBRARY}>
             <a className="flex items-center justify-center w-full gap-2 px-2 py-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
-              <MdOutlinePodcasts
+              <MdOutlineVideoLibrary
                 className={clsx("text-lg opacity-60", {
                   "text-indigo-500 text-xl font-bold opacity-100":
-                    isActivePath("/pods"),
+                    isActivePath("/library"),
                 })}
               />
-              <span className="hidden md:inline-block">Pods</span>
+              <span className="hidden md:inline-block">Library</span>
             </a>
           </Link>
         </div>

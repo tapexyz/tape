@@ -3,6 +3,7 @@ import { WebBundlr } from "@bundlr-network/client";
 import { BUNDLR_CURRENCY, BUNDLR_NODE_URL } from "@utils/constants";
 import { FetchSignerResult } from "@wagmi/core";
 import { Profile } from "src/types";
+import { LenstubePublication } from "src/types/local";
 import create from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -15,6 +16,7 @@ interface AppState {
   notificationCount: number;
   hasNewNotification: boolean;
   selectPodUrl: string | null;
+  recentlyWatched: LenstubePublication[] | [];
   setToken: (token: { access: string | null; refresh: string | null }) => void;
   setShowCreateChannel: (showCreateChannel: boolean) => void;
   setSelectedChannel: (profile: Profile | null) => void;
@@ -23,6 +25,7 @@ interface AppState {
   setNotificationCount: (count: number) => void;
   setHasNewNotification: (value: boolean) => void;
   setSelectedPodUrl: (value: string | null) => void;
+  addToRecentlyWatched: (video: LenstubePublication) => void;
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr>;
 }
 export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY;
@@ -31,6 +34,7 @@ export const useAppStore = create(
   persist<AppState>(
     (set, _get) => ({
       channels: [],
+      recentlyWatched: [],
       recommendedChannels: [],
       selectedChannel: null,
       showCreateChannel: false,
@@ -41,6 +45,10 @@ export const useAppStore = create(
       token: { access: null, refresh: null },
       setSelectedChannel: (channel) =>
         set(() => ({ selectedChannel: channel })),
+      addToRecentlyWatched: (video) =>
+        set((state) => ({
+          recentlyWatched: [video, ...state.recentlyWatched],
+        })),
       setToken: (token) => set(() => ({ token })),
       setNotificationCount: (notificationCount) =>
         set(() => ({ notificationCount })),

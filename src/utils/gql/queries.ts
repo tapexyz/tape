@@ -197,3 +197,24 @@ export const FEED_QUERY = gql`
   ${PostFields}
   ${CommentFields}
 `;
+
+export const PROFILE_FEED_QUERY = gql`
+  query ProfileFeed($request: PublicationsQueryRequest!) {
+    publications(request: $request) {
+      items {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Comment {
+          ...CommentFields
+        }
+      }
+      pageInfo {
+        totalCount
+        next
+      }
+    }
+  }
+  ${PostFields}
+  ${CommentFields}
+`;
