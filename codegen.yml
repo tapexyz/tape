@@ -1,0 +1,10 @@
+schema: https://api-mumbai.lens.dev
+hooks:
+  afterOneFileWrite:
+    - eslint --fix
+    - prettier --write
+generates:
+  src/types/index.ts:
+    plugins:
+      - typescript
+      - fragment-matcher
