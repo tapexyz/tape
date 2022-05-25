@@ -91,7 +91,7 @@ const Layout: FC<Props> = ({ children }) => {
   return (
     <>
       <Header />
-      <div className="flex pt-14">
+      <div className="flex py-14">
         <Sidebar />
         <CreateChannel />
         <div className="w-full py-4 pl-2 md:pl-[88px] pr-2 md:pr-6 max-w-[200rem] mx-auto">

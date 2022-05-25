@@ -3,13 +3,14 @@ import "plyr-react/dist/plyr.css";
 import Plyr from "plyr-react";
 import React from "react";
 
-const Player = React.memo(({ preview }: { preview: string }) => {
+const Player = React.memo(({ source }: { source: string }) => {
   return (
     <Plyr
+      autoPlay={true}
       source={{
         sources: [
           {
-            src: preview,
+            src: source,
             provider: "html5",
           },
         ],
@@ -18,12 +19,13 @@ const Player = React.memo(({ preview }: { preview: string }) => {
     />
   );
 });
-Player.displayName = "Player";
+
+Player.displayName = "VideoPlayer";
 
 const Video = () => {
   return (
-    <div>
-      <Player preview="http://media.w3.org/2010/05/sintel/trailer.mp4" />
+    <div className="overflow-hidden rounded">
+      <Player source="http://media.w3.org/2010/05/sintel/trailer.mp4" />
     </div>
   );
 };
