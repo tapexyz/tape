@@ -4,7 +4,7 @@ import { FC, Fragment } from "react";
 
 type Props = {
   show: boolean;
-  title?: string;
+  title?: React.ReactNode;
   onClose: () => void;
   children: React.ReactNode;
   panelClassName?: string;

@@ -17,12 +17,10 @@ import React, { FC, useState } from "react";
 import toast from "react-hot-toast";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 import { MdRefresh } from "react-icons/md";
-import { BundlrDataState } from "src/types/local";
+import { BundlrDataState, VideoUpload } from "src/types/local";
 import { Readable } from "stream";
 import { useAccount, useSigner } from "wagmi";
 import { object, string } from "zod";
-
-import { VideoUpload } from ".";
 
 type Props = {
   video: VideoUpload;

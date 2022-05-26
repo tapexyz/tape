@@ -10,7 +10,8 @@ import Custom500 from "src/pages/500";
 import { Profile } from "src/types";
 
 import BasicInfo from "./BasicInfo";
-import Upload from "./upload";
+import GoLive from "./Live";
+import Upload from "./Upload";
 
 const Channel = () => {
   const { query } = useRouter();
@@ -18,16 +19,11 @@ const Channel = () => {
     variables: { request: { handles: query.channel } },
     skip: !query.channel,
   });
-  console.log(
-    "🚀 ~ file: index.tsx ~ line 19 ~ Channel ~ query.channel",
-    query
-  );
 
   if (error) return <Custom500 />;
   if (data?.profiles?.items?.length === 0) return <Custom404 />;
 
   const channel: Profile = data?.profiles?.items[0];
-  console.log("🚀 ~ file: index.tsx ~ line 26 ~ Channel ~ channel", channel);
 
   if (loading) {
     return <LoaderIcon />;
@@ -37,6 +33,7 @@ const Channel = () => {
     <Layout>
       <MetaTags title={channel?.handle} />
       <Upload />
+      <GoLive />
       <BasicInfo channel={channel} />
     </Layout>
   );

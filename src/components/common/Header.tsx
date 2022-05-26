@@ -51,13 +51,13 @@ const Header = () => {
             >
               <div className="p-1 mt-1.5 overflow-hidden border border-gray-100 rounded-lg shadow-xl dark:border-gray-800 bg-secondary">
                 <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
-                  <Link href={`${selectedChannel.handle}?upload=1`}>
+                  <Link href={`/${selectedChannel.handle}?upload=1`}>
                     <a className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
                       <FiUpload />
                       <span className="whitespace-nowrap">Upload</span>
                     </a>
                   </Link>
-                  <Link href={HOME}>
+                  <Link href={`/${selectedChannel.handle}?live=1`}>
                     <a className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
                       <HiOutlineStatusOnline className="text-red-500" />
                       <span className="whitespace-nowrap">Go Live</span>

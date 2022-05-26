@@ -17,4 +17,9 @@ export type BundlrDataState = {
   uploading: boolean;
 };
 
+export type VideoUpload = {
+  buffer: Buffer | null;
+  preview: string;
+};
+
 export type LenstubePublication = Post & Comment & { pubId: string };
