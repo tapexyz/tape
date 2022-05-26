@@ -48,9 +48,7 @@ const VideoCard: FC<Props> = ({ video }) => {
             </Link>
             <div className="flex items-center text-xs opacity-70 mt-0.5">
               <span className="mr-1 whitespace-nowrap">1k views ·</span>
-              <span className="">
-                {dayjs(new Date("2022-05-12T00:39:36.000Z")).fromNow()}
-              </span>
+              <span>{dayjs(new Date(video.createdAt)).fromNow()}</span>
             </div>
           </div>
         </div>

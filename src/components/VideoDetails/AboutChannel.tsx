@@ -8,6 +8,8 @@ type Props = {
 };
 
 const AboutChannel: FC<Props> = ({ channel }) => {
+  const subscribeType = channel?.followModule?.__typename;
+
   return (
     <div className="flex items-center justify-between w-full my-4">
       <div className="flex-none mr-3">
@@ -26,8 +28,11 @@ const AboutChannel: FC<Props> = ({ channel }) => {
           </span>
         </div>
         <div className="flex items-center space-x-2">
-          <Button>Join Channel</Button>
-          <Button>Subscribe</Button>
+          {subscribeType === "FeeFollowModuleSettings" ? (
+            <Button>Join Channel</Button>
+          ) : (
+            <Button>Subscribe</Button>
+          )}
         </div>
       </div>
     </div>
