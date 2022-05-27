@@ -1,7 +1,7 @@
 import Layout from "@components/wrappers/Layout";
 import React from "react";
 
-import Details from "./Details";
+import VideoDetails from "./VideoDetails";
 
 const LiveStudio = () => {
   //   const { data, error } = useFetch<any>(`/api/stream`, { method: "POST" });
@@ -13,8 +13,8 @@ const LiveStudio = () => {
 
   return (
     <Layout>
-      <div>
-        <Details />
+      <div className="">
+        <VideoDetails />
       </div>
     </Layout>
   );
