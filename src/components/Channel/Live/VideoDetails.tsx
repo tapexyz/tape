@@ -71,12 +71,9 @@ const Details = () => {
               />
             </div>
           </div>
-        </div>
-        <StreamDetails />
-      </div>
-      <div className="flex items-center justify-between">
-        <span>
-          {/* {data?.createProfile?.reason && (
+          <div className="flex items-center justify-between">
+            <span>
+              {/* {data?.createProfile?.reason && (
                 <ErrorMessage
                   error={{
                     name: "Create profile failed!",
@@ -84,10 +81,13 @@ const Details = () => {
                   }}
                 />
               )} */}
-        </span>
-        <span className="mt-4">
-          <Button type="submit">{buttonText}</Button>
-        </span>
+            </span>
+            <span className="mt-4">
+              <Button type="submit">{buttonText}</Button>
+            </span>
+          </div>
+        </div>
+        <StreamDetails />
       </div>
     </Form>
   );

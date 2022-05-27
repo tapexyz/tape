@@ -13,7 +13,7 @@ const StreamDetails = () => {
   };
 
   return (
-    <div>
+    <div className="mt-2">
       <h1 className="text-xs font-semibold uppercase">Stream Details</h1>
       <div className="mt-2 md:mt-4">
         <div className="grid grid-cols-2 text-sm">
