@@ -27,7 +27,7 @@ const StreamDetails = () => {
               ) : (
                 <button
                   type="button"
-                  className="hover:opacity-60 focus:outline-none"
+                  className="hover:opacity-100 opacity-60 focus:outline-none"
                   onClick={() => setShowStreamKey((show) => !show)}
                 >
                   Reveal key
