@@ -1,5 +1,3 @@
-import "plyr-react/dist/plyr.css";
-
 import Modal from "@components/ui/Modal";
 import useAppStore from "@lib/store";
 import clsx from "clsx";

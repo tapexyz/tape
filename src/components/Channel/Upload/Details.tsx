@@ -44,14 +44,17 @@ const videoSchema = object({
 const Player = React.memo(({ preview }: { preview: string }) => {
   return (
     <Plyr
+      autoPlay
       source={{
+        type: "video",
         sources: [
           {
             src: preview,
             provider: "html5",
           },
         ],
-        type: "video",
+        poster:
+          "https://bafybeiecas5yzluhrveqnyfrtoj4vvzdxb3qhn5allcd3agkjly4lljgmq.ipfs.infura-ipfs.io/",
       }}
       options={{
         controls: ["progress", "current-time", "mute", "volume", "fullscreen"],

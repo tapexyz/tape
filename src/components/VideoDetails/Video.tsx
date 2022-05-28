@@ -6,15 +6,17 @@ import React from "react";
 const Player = React.memo(({ source }: { source: string }) => {
   return (
     <Plyr
-      autoPlay={true}
+      autoPlay
       source={{
+        type: "video",
         sources: [
           {
             src: source,
             provider: "html5",
           },
         ],
-        type: "video",
+        poster:
+          "https://bafybeiecas5yzluhrveqnyfrtoj4vvzdxb3qhn5allcd3agkjly4lljgmq.ipfs.infura-ipfs.io/",
       }}
     />
   );

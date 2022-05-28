@@ -1,7 +1,5 @@
 import { ALCHEMY_KEY } from "@lib/store";
 import {
-  apiProvider,
-  configureChains,
   darkTheme,
   getDefaultWallets,
   lightTheme,
@@ -9,13 +7,13 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { useTheme } from "next-themes";
 import { FC, ReactNode } from "react";
-import { chain, createClient, WagmiProvider } from "wagmi";
-
-import { IsBrowser } from "./IsBrowser";
+import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
+import { alchemyProvider } from "wagmi/providers/alchemy";
+import { publicProvider } from "wagmi/providers/public";
 
 const { chains, provider } = configureChains(
   [chain.polygon, chain.polygonMumbai],
-  [apiProvider.alchemy(ALCHEMY_KEY), apiProvider.fallback()]
+  [alchemyProvider({ alchemyId: ALCHEMY_KEY }), publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
@@ -36,15 +34,15 @@ interface Props {
 const EthersProvider: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme();
   return (
-    <WagmiProvider client={wagmiClient}>
+    <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider
         chains={chains}
         showRecentTransactions
         theme={resolvedTheme === "dark" ? darkTheme() : lightTheme()}
       >
-        <IsBrowser>{children}</IsBrowser>
+        {children}
       </RainbowKitProvider>
-    </WagmiProvider>
+    </WagmiConfig>
   );
 };
 
