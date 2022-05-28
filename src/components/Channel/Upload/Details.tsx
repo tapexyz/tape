@@ -2,6 +2,7 @@ import "plyr-react/dist/plyr.css";
 
 import { WebBundlr } from "@bundlr-network/client";
 import { Button } from "@components/ui/Button";
+import ChooseImage from "@components/ui/ChooseImage";
 import { Form, useZodForm } from "@components/ui/Form";
 import { Input } from "@components/ui/Input";
 import { TextArea } from "@components/ui/TextArea";
@@ -17,7 +18,11 @@ import React, { FC, useState } from "react";
 import toast from "react-hot-toast";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 import { MdRefresh } from "react-icons/md";
-import { BundlrDataState, VideoUpload } from "src/types/local";
+import {
+  BundlrDataState,
+  IPFSUploadResult,
+  VideoUpload,
+} from "src/types/local";
 import { Readable } from "stream";
 import { useAccount, useSigner } from "wagmi";
 import { object, string } from "zod";
@@ -71,6 +76,7 @@ const Details: FC<Props> = ({ video, close }) => {
   });
   const [readyToUpload, setReadyToUpload] = useState(false);
   const [showBundlrDetails, setShowBundlrDetails] = useState(false);
+  const [videoThumbnail, setVideoThumbnail] = useState("");
   const [buttonText, setButtonText] = useState("Next");
 
   const form = useZodForm({
@@ -188,6 +194,14 @@ const Details: FC<Props> = ({ video, close }) => {
     );
   };
 
+  const onThumbnailUpload = (data: IPFSUploadResult | null) => {
+    if (data) {
+      setVideoThumbnail(data.ipfsUrl);
+    } else {
+      setVideoThumbnail("");
+    }
+  };
+
   return (
     <Form
       formClassName="h-full"
@@ -214,6 +228,14 @@ const Details: FC<Props> = ({ video, close }) => {
               autoComplete="off"
               rows={5}
               {...form.register("description")}
+            />
+          </div>
+          <div className="mt-4">
+            <ChooseImage
+              label="Thumbnail"
+              afterUpload={(data: IPFSUploadResult | null) => {
+                onThumbnailUpload(data);
+              }}
             />
           </div>
         </div>

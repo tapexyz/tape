@@ -23,3 +23,9 @@ export type VideoUpload = {
 };
 
 export type LenstubePublication = Post & Comment & { pubId: string };
+
+export type IPFSUploadResult = {
+  hash: string;
+  ipfsUrl: string;
+  type: string;
+};

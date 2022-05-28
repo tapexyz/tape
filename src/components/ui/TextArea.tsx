@@ -1,20 +1,17 @@
 import clsx from "clsx";
 import { ComponentProps, forwardRef, ReactNode, useId } from "react";
-import { FiHelpCircle } from "react-icons/fi";
 
 import { FieldError } from "./Form";
-import Tooltip from "./Tooltip";
 
 interface Props extends Omit<ComponentProps<"textarea">, "prefix"> {
   label?: string;
   prefix?: string | ReactNode;
   className?: string;
-  helpText?: string;
   error?: boolean;
 }
 
 export const TextArea = forwardRef<HTMLTextAreaElement, Props>(function Input(
-  { label, prefix, error, className = "", helpText, ...props },
+  { label, prefix, error, className = "", ...props },
   ref
 ) {
   const id = useId();
@@ -26,11 +23,6 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(function Input(
           <div className="text-[11px] font-semibold uppercase opacity-70">
             {label}
           </div>
-          {helpText && (
-            <Tooltip content={helpText}>
-              <FiHelpCircle />
-            </Tooltip>
-          )}
         </div>
       )}
       <div className="flex">
