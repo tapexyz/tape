@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import MetaTags from "@components/common/MetaTags";
 import Timeline from "@components/Home/Timeline";
-import { EmptyState } from "@components/ui/EmptyState";
+import { NoDataFound } from "@components/ui/NoDataFound";
 import Layout from "@components/wrappers/Layout";
 import useAppStore from "@lib/store";
 import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
@@ -72,7 +72,7 @@ const SeeAllCommented = () => {
   }
 
   if (commentedVideos?.length === 0) {
-    return <EmptyState message={<div>No videos found</div>} />;
+    return <NoDataFound />;
   }
 
   return (

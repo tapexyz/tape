@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { LoadingState } from "@components/ui/LoadingState";
+import { Loader } from "@components/ui/Loader";
 import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { EXPLORE_QUERY } from "@utils/gql/queries";
 import dayjs from "dayjs";
@@ -47,7 +47,7 @@ const SuggestedVideos = () => {
     },
   });
   if (loading) {
-    return <LoadingState />;
+    return <Loader />;
   }
 
   return (
@@ -94,7 +94,7 @@ const SuggestedVideos = () => {
           </div>
           {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
-              <LoadingState />
+              <Loader />
             </span>
           )}
         </>

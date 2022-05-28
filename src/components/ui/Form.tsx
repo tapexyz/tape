@@ -1,11 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { ComponentProps, FC } from "react";
+import React, { ComponentProps } from "react";
 import {
   FieldValues,
   FormProvider,
   SubmitHandler,
   useForm,
-  useFormContext,
   UseFormProps,
   UseFormReturn,
 } from "react-hook-form";
@@ -24,21 +23,6 @@ export const useZodForm = <T extends ZodSchema<FieldValues>>({
     ...formConfig,
     resolver: zodResolver(schema),
   });
-};
-
-interface FieldErrorProps {
-  name?: string;
-}
-
-export const FieldError: FC<FieldErrorProps> = ({ name }) => {
-  const {
-    formState: { errors },
-  } = useFormContext();
-  if (!name) return null;
-  const error = errors[name];
-  if (!error) return null;
-
-  return <div className="mx-1 mt-1 text-sm text-red-500">{error.message}</div>;
 };
 
 interface Props<T extends FieldValues = Record<string, unknown>>

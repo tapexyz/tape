@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import Timeline from "@components/Home/Timeline";
-import { EmptyState } from "@components/ui/EmptyState";
-import { ErrorMessage } from "@components/ui/ErrorMessage";
+import { NoDataFound } from "@components/ui/NoDataFound";
 import useAppStore from "@lib/store";
 import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { FEED_QUERY } from "@utils/gql/queries";
@@ -57,12 +56,11 @@ const HomeFeed = () => {
   });
 
   if (data?.length === 0) {
-    return <EmptyState message={<div>No videos found</div>} />;
+    return <NoDataFound />;
   }
 
   return (
     <div>
-      <ErrorMessage error={error} />
       {!error && !loading && (
         <>
           <Timeline videos={videos} />

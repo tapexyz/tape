@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { EmptyState } from "@components/ui/EmptyState";
-import { ErrorMessage } from "@components/ui/ErrorMessage";
+import { ErrorMessage } from "@components/ui/NoDataFound";
 import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { COMMENT_FEED_QUERY } from "@utils/gql/queries";
 import { useRouter } from "next/router";

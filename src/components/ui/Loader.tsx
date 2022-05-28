@@ -1,7 +1,7 @@
 import React from "react";
 import { LoaderIcon } from "react-hot-toast";
 
-export const LoadingState = () => {
+export const Loader = () => {
   return (
     <div className="border-0">
       <div className="grid p-5 space-y-2 justify-items-center">

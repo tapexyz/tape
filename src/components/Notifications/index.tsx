@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { EmptyState } from "@components/ui/EmptyState";
-import { ErrorMessage } from "@components/ui/ErrorMessage";
-import { LoadingState } from "@components/ui/LoadingState";
+import { Loader } from "@components/ui/Loader";
+import { NoDataFound } from "@components/ui/NoDataFound";
 import useAppStore from "@lib/store";
 import { NOTIFICATIONS_QUERY } from "@utils/gql/queries";
 import clsx from "clsx";
@@ -16,7 +15,7 @@ const Notifications = () => {
   const { selectedChannel } = useAppStore();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
-  const { data, loading, error, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
+  const { data, loading, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
     variables: {
       request: { profileId: selectedChannel?.id, limit: 50 },
     },
@@ -45,12 +44,9 @@ const Notifications = () => {
     },
   });
 
-  if (loading) return <LoadingState />;
+  if (loading) return <Loader />;
 
-  if (error) return <ErrorMessage error={error} />;
-
-  if (data?.notifications?.items?.length === 0)
-    return <EmptyState message={<span>No notifications yet</span>} />;
+  if (data?.notifications?.items?.length === 0) return <NoDataFound />;
 
   return (
     <>
