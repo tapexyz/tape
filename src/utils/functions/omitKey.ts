@@ -1,8 +1,7 @@
-// @ts-ignore
-import omitDeep from "omit-deep";
-
-const omitKey = (object: any, name: string) => {
-  return omitDeep(object, name);
+/* eslint-disable no-unused-vars */
+const omitKey = (object: any, key: string) => {
+  const { [key]: omitted, ...rest } = object;
+  return rest;
 };
 
 export default omitKey;

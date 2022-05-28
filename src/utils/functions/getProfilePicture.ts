@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Profile } from "src/types";
 
 import { getRandomProfilePicture } from "./getRandomProfilePicture";

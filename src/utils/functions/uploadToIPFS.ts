@@ -1,4 +1,15 @@
+import { create } from "ipfs-http-client";
 import { IPFSUploadResult } from "src/types/local";
+
+const client = create({
+  host: "ipfs.infura.io",
+  port: 5001,
+  protocol: "https",
+});
+
+const uploadDataToIPFS = async (data: any) => {
+  return await client.add(JSON.stringify(data));
+};
 
 const uploadImageToIPFS = async (
   files: FileList
@@ -18,4 +29,4 @@ const uploadImageToIPFS = async (
   };
 };
 
-export default uploadImageToIPFS;
+export { uploadDataToIPFS, uploadImageToIPFS };

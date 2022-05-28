@@ -1,8 +1,137 @@
 import { gql } from "@apollo/client";
 
-import { CommentFields } from "./fragments/CommentFields";
-import { MinimalProfileFields } from "./fragments/MinimalProfileFields";
-import { PostFields } from "./fragments/PostFields";
+export const MinimalProfileFields = gql`
+  fragment MinimalProfileFields on Profile {
+    id
+    name
+    handle
+    bio
+    ownedBy
+    attributes {
+      key
+      value
+    }
+    stats {
+      totalFollowers
+    }
+    picture {
+      ... on MediaSet {
+        original {
+          url
+        }
+      }
+      ... on NftImage {
+        uri
+      }
+    }
+    followModule {
+      __typename
+    }
+  }
+`;
+
+export const MinimalCollectModuleFields = gql`
+  fragment MinimalCollectModuleFields on CollectModule {
+    ... on FreeCollectModuleSettings {
+      type
+    }
+    ... on FeeCollectModuleSettings {
+      type
+      amount {
+        asset {
+          address
+        }
+      }
+    }
+    ... on LimitedFeeCollectModuleSettings {
+      type
+      amount {
+        asset {
+          address
+        }
+      }
+    }
+    ... on LimitedTimedFeeCollectModuleSettings {
+      type
+      amount {
+        asset {
+          address
+        }
+      }
+    }
+    ... on TimedFeeCollectModuleSettings {
+      type
+      amount {
+        asset {
+          address
+        }
+      }
+    }
+  }
+`;
+
+export const CommentFields = gql`
+  fragment CommentFields on Comment {
+    id
+    profile {
+      ...MinimalProfileFields
+    }
+    collectedBy {
+      address
+      defaultProfile {
+        handle
+      }
+    }
+    collectModule {
+      ...MinimalCollectModuleFields
+    }
+    stats {
+      totalAmountOfComments
+      totalAmountOfCollects
+    }
+    metadata {
+      name
+      description
+      content
+      description
+      media {
+        original {
+          url
+          mimeType
+        }
+      }
+      attributes {
+        value
+      }
+    }
+    commentOn {
+      ... on Post {
+        pubId: id
+        profile {
+          ...MinimalProfileFields
+        }
+        metadata {
+          name
+          content
+        }
+      }
+      ... on Comment {
+        id
+        profile {
+          ...MinimalProfileFields
+        }
+        metadata {
+          name
+          content
+        }
+      }
+    }
+    createdAt
+    appId
+  }
+  ${MinimalProfileFields}
+  ${MinimalCollectModuleFields}
+`;
 
 export const CURRENT_USER_QUERY = gql`
   query CurrentUser($ownedBy: [EthereumAddress!]) {
@@ -155,6 +284,52 @@ export const SEARCH_CHANNELS_QUERY = gql`
   ${MinimalProfileFields}
 `;
 
+export const PostFields = gql`
+  fragment PostFields on Post {
+    id
+    profile {
+      ...MinimalProfileFields
+    }
+    collectedBy {
+      address
+      defaultProfile {
+        handle
+      }
+    }
+    collectModule {
+      ...MinimalCollectModuleFields
+    }
+    stats {
+      totalAmountOfComments
+      totalAmountOfCollects
+    }
+    metadata {
+      name
+      description
+      content
+      description
+      media {
+        original {
+          url
+          mimeType
+        }
+      }
+      cover {
+        original {
+          url
+        }
+      }
+      attributes {
+        value
+      }
+    }
+    createdAt
+    appId
+  }
+  ${MinimalProfileFields}
+  ${MinimalCollectModuleFields}
+`;
+
 export const EXPLORE_QUERY = gql`
   query Explore($request: ExplorePublicationRequest!) {
     explorePublications(request: $request) {
@@ -281,4 +456,74 @@ export const VIDEO_DETAIL_QUERY = gql`
     }
   }
   ${PostFields}
+`;
+
+export const CollectModuleFields = gql`
+  fragment CollectModuleFields on CollectModule {
+    ... on FreeCollectModuleSettings {
+      type
+      contractAddress
+      followerOnly
+    }
+    ... on FeeCollectModuleSettings {
+      type
+      recipient
+      referralFee
+      contractAddress
+      followerOnly
+      amount {
+        asset {
+          symbol
+          address
+        }
+        value
+      }
+    }
+    ... on LimitedFeeCollectModuleSettings {
+      type
+      collectLimit
+      recipient
+      referralFee
+      contractAddress
+      followerOnly
+      amount {
+        asset {
+          symbol
+          address
+        }
+        value
+      }
+    }
+    ... on LimitedTimedFeeCollectModuleSettings {
+      type
+      collectLimit
+      recipient
+      endTimestamp
+      referralFee
+      contractAddress
+      followerOnly
+      amount {
+        asset {
+          symbol
+          address
+        }
+        value
+      }
+    }
+    ... on TimedFeeCollectModuleSettings {
+      type
+      recipient
+      endTimestamp
+      referralFee
+      contractAddress
+      followerOnly
+      amount {
+        asset {
+          symbol
+          address
+        }
+        value
+      }
+    }
+  }
 `;
