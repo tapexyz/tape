@@ -1,4 +1,4 @@
-import Attachments from "@components/common/Attachments";
+import ImageAttachments from "@components/common/ImageAttachments";
 import getProfilePicture from "@utils/functions/getProfilePicture";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -31,7 +31,7 @@ const Comment: FC<Props> = ({ video }) => {
         </span>
         <span className="text-sm">{video?.metadata?.content}</span>
         <span className="mt-1">
-          <Attachments attachments={video?.metadata?.media} />
+          <ImageAttachments attachments={video?.metadata?.media} />
         </span>
       </div>
     </div>

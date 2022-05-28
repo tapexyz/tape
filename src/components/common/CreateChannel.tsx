@@ -1,6 +1,5 @@
 import { useMutation } from "@apollo/client";
 import { Button } from "@components/ui/Button";
-import { ErrorMessage } from "@components/ui/NoDataFound";
 import { Form, useZodForm } from "@components/ui/Form";
 import { Input } from "@components/ui/Input";
 import Modal from "@components/ui/Modal";
@@ -104,12 +103,9 @@ const CreateChannel = () => {
         <div className="flex items-center justify-between">
           <span>
             {data?.createProfile?.reason && (
-              <ErrorMessage
-                error={{
-                  name: "Create profile failed!",
-                  message: data?.createProfile?.reason,
-                }}
-              />
+              <div>
+                <p className="font-bold text-red-500">Create profile failed!</p>
+              </div>
             )}
           </span>
           <span>

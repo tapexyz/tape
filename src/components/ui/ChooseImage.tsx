@@ -1,4 +1,4 @@
-import uploadImageToIPFS from "@utils/functions/uploadImageToIPFS";
+import { uploadImageToIPFS } from "@utils/functions/uploadToIPFS";
 import { ChangeEvent, FC, useState } from "react";
 import { MdOutlineDeleteSweep } from "react-icons/md";
 import { IPFSUploadResult } from "src/types/local";

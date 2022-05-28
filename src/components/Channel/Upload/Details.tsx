@@ -1,13 +1,11 @@
 import "plyr-react/dist/plyr.css";
 
-import LensHubProxy from "@abis/LensHubProxy.json";
+import LensHubProxy from "@abis/LensHubProxy";
 import { useMutation } from "@apollo/client";
 import { WebBundlr } from "@bundlr-network/client";
 import { Button } from "@components/ui/Button";
 import ChooseImage from "@components/ui/ChooseImage";
-import { Form, useZodForm } from "@components/ui/Form";
 import { Input } from "@components/ui/Input";
-import { TextArea } from "@components/ui/TextArea";
 import useAppStore from "@lib/store";
 import {
   BUNDLR_CURRENCY,
@@ -17,7 +15,7 @@ import {
 } from "@utils/constants";
 import omitKey from "@utils/functions/omitKey";
 import { parseToAtomicUnits } from "@utils/functions/parseToAtomicUnits";
-import uploadDataToIPFS from "@utils/functions/uploadDataToIPFS";
+import { uploadDataToIPFS } from "@utils/functions/uploadToIPFS";
 import { CREATE_POST_TYPED_DATA } from "@utils/gql/queries";
 import usePendingTxn from "@utils/hooks/usePendingTxn";
 import clsx from "clsx";
@@ -31,9 +29,9 @@ import { MdRefresh } from "react-icons/md";
 import { CreatePostBroadcastItemResult } from "src/types";
 import {
   BundlrDataState,
-  BundlrResult,
   IPFSUploadResult,
   VideoUpload,
+  VideoUploadForm,
 } from "src/types/local";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -42,21 +40,11 @@ import {
   useSigner,
   useSignTypedData,
 } from "wagmi";
-import { object, string } from "zod";
 
 type Props = {
   video: VideoUpload;
   closeUploadModal: () => void;
 };
-
-const videoSchema = object({
-  title: string()
-    .min(1, { message: "Title is required" })
-    .max(100, { message: "Title should be maximum 100 characters" }),
-  description: string().max(5000, {
-    message: "Description should be maximum 5000 characters",
-  }),
-});
 
 const Player = React.memo(({ preview }: { preview: string }) => {
   return (
@@ -111,18 +99,13 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   });
   const [isUploadedToBundlr, setIsUploadedToBundlr] = useState(false);
   const [showBundlrDetails, setShowBundlrDetails] = useState(false);
-  const [videoMeta, setVideoMeta] = useState<{
-    videoThumbnail: IPFSUploadResult | null;
-    videoSource: BundlrResult | null;
-  }>({
+  const [videoMeta, setVideoMeta] = useState<VideoUploadForm>({
     videoThumbnail: null,
     videoSource: null,
+    title: "",
+    description: "",
   });
   const [buttonText, setButtonText] = useState("Next");
-
-  const form = useZodForm({
-    schema: videoSchema,
-  });
 
   useEffect(() => {
     if (indexed) {
@@ -305,12 +288,12 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
     const { path } = await uploadDataToIPFS({
       version: "1.0.0",
       metadata_id: uuidv4(),
-      description: form.getValues("description"),
+      description: videoMeta.description,
       content: `https://arweave.net/${videoMeta.videoSource?.id}`,
       external_url: null,
       image: videoMeta.videoThumbnail?.ipfsUrl,
       imageMimeType: videoMeta.videoThumbnail?.type,
-      name: form.getValues("title"),
+      name: videoMeta.title,
       attributes: [],
       media: null,
       appId: LENSTUBE_VIDEOS_APP_ID,
@@ -347,12 +330,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   };
 
   return (
-    <Form
-      formClassName="h-full"
-      className="h-full"
-      form={form}
-      onSubmit={() => onSubmitForm()}
-    >
+    <div className="h-full">
       <div className="grid h-full gap-5 md:grid-cols-2">
         <div>
           <h1 className="font-semibold">Details</h1>
@@ -362,16 +340,26 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
               type="text"
               placeholder="Title that describes your video"
               autoComplete="off"
-              {...form.register("title")}
+              value={videoMeta.title}
+              onChange={(e) =>
+                setVideoMeta({ ...videoMeta, title: e.target.value })
+              }
             />
           </div>
           <div className="mt-4">
-            <TextArea
-              label="Description"
+            <div className="flex items-center mb-1 space-x-1.5">
+              <div className="text-[11px] font-semibold uppercase opacity-70">
+                Description
+              </div>
+            </div>
+            <textarea
               placeholder="More about your video"
               autoComplete="off"
               rows={5}
-              {...form.register("description")}
+              value={videoMeta.description}
+              onChange={(e) =>
+                setVideoMeta({ ...videoMeta, description: e.target.value })
+              }
             />
           </div>
           <div className="mt-4">
@@ -500,10 +488,10 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           >
             Cancel
           </Button>
-          <Button type="submit">{buttonText}</Button>
+          <Button onClick={() => onSubmitForm()}>{buttonText}</Button>
         </span>
       </div>
-    </Form>
+    </div>
   );
 };
 

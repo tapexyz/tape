@@ -1,13 +1,13 @@
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, InputHTMLAttributes } from "react";
 
-type Props = {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   id?: string;
   type?: string;
   className?: string;
   validationError?: string;
-};
+}
 
 export const Input: FC<Props> = ({
   label,

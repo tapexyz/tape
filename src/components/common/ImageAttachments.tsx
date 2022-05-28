@@ -4,7 +4,7 @@ type Props = {
   attachments: Array<{ original: { url: string } }>;
 };
 
-const Attachments: FC<Props> = ({ attachments }) => {
+const ImageAttachments: FC<Props> = ({ attachments }) => {
   return (
     <div className="flex flex-wrap items-center space-x-2">
       {attachments.map((attachment, idx) => (
@@ -20,4 +20,4 @@ const Attachments: FC<Props> = ({ attachments }) => {
   );
 };
 
-export default Attachments;
+export default ImageAttachments;

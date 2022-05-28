@@ -1,34 +1,17 @@
 import { Button } from "@components/ui/Button";
-import { Form, useZodForm } from "@components/ui/Form";
 import { Input } from "@components/ui/Input";
-import { TextArea } from "@components/ui/TextArea";
 import React, { useState } from "react";
-import { object, string } from "zod";
 
 import StreamDetails from "./StreamDetails";
 
-const videoDetailsSchema = object({
-  title: string()
-    .min(1, { message: "Title is required" })
-    .max(100, { message: "Title should be maximum 100 characters" }),
-  description: string().max(5000, {
-    message: "Description should be maximum 5000 characters",
-  }),
-});
-
 const Details = () => {
   const [buttonText, setButtonText] = useState("Create");
+  const [form, setForm] = useState({ title: "", description: "" });
   const [playback, setPlayback] = useState("");
 
-  const form = useZodForm({
-    schema: videoDetailsSchema,
-  });
-
   return (
-    <Form
-      formClassName="h-full"
+    <form
       className="h-full"
-      form={form}
       onSubmit={() => {
         setButtonText("Creating...");
         setPlayback("");
@@ -58,30 +41,28 @@ const Details = () => {
                 type="text"
                 placeholder="Title that describes your stream"
                 autoComplete="off"
-                {...form.register("title")}
+                value={form.title}
+                onChange={(e) => setForm({ ...form, title: e.target.value })}
               />
             </div>
             <div className="mt-4">
-              <TextArea
-                label="Description"
+              <div className="flex items-center mb-1 space-x-1.5">
+                <div className="text-[11px] font-semibold uppercase opacity-70">
+                  Description
+                </div>
+              </div>
+              <textarea
                 placeholder="More about your stream"
                 autoComplete="off"
                 rows={5}
-                {...form.register("description")}
+                value={form.description}
+                onChange={(e) =>
+                  setForm({ ...form, description: e.target.value })
+                }
               />
             </div>
           </div>
-          <div className="flex items-center justify-between">
-            <span>
-              {/* {data?.createProfile?.reason && (
-                <ErrorMessage
-                  error={{
-                    name: "Create profile failed!",
-                    message: data?.createProfile?.reason,
-                  }}
-                />
-              )} */}
-            </span>
+          <div className="flex items-center justify-end">
             <span className="mt-4">
               <Button type="submit">{buttonText}</Button>
             </span>
@@ -89,7 +70,7 @@ const Details = () => {
         </div>
         <StreamDetails />
       </div>
-    </Form>
+    </form>
   );
 };
 

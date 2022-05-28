@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { EmptyState } from "@components/ui/EmptyState";
-import { ErrorMessage } from "@components/ui/NoDataFound";
+import { NoDataFound } from "@components/ui/NoDataFound";
 import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { COMMENT_FEED_QUERY } from "@utils/gql/queries";
 import { useRouter } from "next/router";
@@ -59,7 +58,7 @@ const VideoComments = () => {
   }
 
   if (data?.publications?.items.length === 0) {
-    return <EmptyState message="Be the first to comment!" />;
+    return <NoDataFound />;
   }
 
   return (
@@ -84,7 +83,6 @@ const VideoComments = () => {
           )}
         </>
       )}
-      <ErrorMessage error={error} />
     </div>
   );
 };
