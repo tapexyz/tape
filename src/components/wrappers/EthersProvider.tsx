@@ -11,6 +11,8 @@ import { useTheme } from "next-themes";
 import { FC, ReactNode } from "react";
 import { chain, createClient, WagmiProvider } from "wagmi";
 
+import { IsBrowser } from "./IsBrowser";
+
 const { chains, provider } = configureChains(
   [chain.polygon, chain.polygonMumbai],
   [apiProvider.alchemy(ALCHEMY_KEY), apiProvider.fallback()]
@@ -40,7 +42,7 @@ const EthersProvider: FC<Props> = ({ children }) => {
         showRecentTransactions
         theme={resolvedTheme === "dark" ? darkTheme() : lightTheme()}
       >
-        {children}
+        <IsBrowser>{children}</IsBrowser>
       </RainbowKitProvider>
     </WagmiProvider>
   );
