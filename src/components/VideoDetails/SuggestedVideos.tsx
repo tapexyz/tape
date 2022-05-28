@@ -64,7 +64,7 @@ const SuggestedVideos = () => {
                     src="https://i.ytimg.com/vi/VgjyPmFKxCU/hqdefault.jpg"
                     alt=""
                     draggable={false}
-                    className="object-cover object-center w-full h-24"
+                    className="object-cover object-center w-full h-24 xl:h-28"
                   />
                 </div>
                 <div className="flex items-start space-x-2.5">
