@@ -6,8 +6,8 @@ import { VIDEO_DETAIL_QUERY } from "@utils/gql/queries";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React from "react";
-import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
+import { Profile } from "src/types";
 import { LenstubePublication } from "src/types/local";
 
 import AboutChannel from "./AboutChannel";
@@ -29,8 +29,6 @@ const VideoDetails = () => {
   });
 
   if (error) return <Custom500 />;
-  if (!data?.publication) return <Custom404 />;
-  const video: LenstubePublication = data.publication;
 
   return (
     <Layout>
@@ -38,7 +36,7 @@ const VideoDetails = () => {
       <div className="grid grid-cols-1 gap-y-4 md:gap-4 md:grid-cols-4">
         <div className="col-span-3">
           <Video video={data.publication as LenstubePublication} />
-          <AboutChannel channel={video.profile} />
+          <AboutChannel channel={data.publication.profile as Profile} />
           <VideoComments />
         </div>
         <div className="col-span-1">
