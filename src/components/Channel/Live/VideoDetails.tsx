@@ -10,13 +10,7 @@ const Details = () => {
   const [playback, setPlayback] = useState("");
 
   return (
-    <form
-      className="h-full"
-      onSubmit={() => {
-        setButtonText("Creating...");
-        setPlayback("");
-      }}
-    >
+    <div className="h-full">
       <div className="flex flex-wrap md:space-x-3">
         <div className="flex flex-col md:w-96">
           <div className="relative overflow-hidden rounded">
@@ -64,13 +58,20 @@ const Details = () => {
           </div>
           <div className="flex items-center justify-end">
             <span className="mt-4">
-              <Button type="submit">{buttonText}</Button>
+              <Button
+                onClick={() => {
+                  setButtonText("Creating...");
+                  setPlayback("");
+                }}
+              >
+                {buttonText}
+              </Button>
             </span>
           </div>
         </div>
         <StreamDetails />
       </div>
-    </form>
+    </div>
   );
 };
 
