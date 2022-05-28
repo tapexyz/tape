@@ -53,7 +53,7 @@ const SuggestedVideos = () => {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="inline-flex items-center mb-3 text-lg font-semibold">
+        <h1 className="inline-flex items-center mb-3 text-sm font-bold uppercase opacity-70">
           More Videos
         </h1>
       </div>
@@ -61,13 +61,13 @@ const SuggestedVideos = () => {
         <>
           <div className="space-y-3">
             {videos?.map((video: LenstubePublication, index: number) => (
-              <div key={`${video?.id}_${index}`} className="flex space-x-2">
-                <div className="flex-none w-1/2 overflow-hidden rounded">
+              <div key={`${video?.id}_${index}`} className="flex space-x-3">
+                <div className="flex-none overflow-hidden rounded">
                   <img
                     src="https://i.ytimg.com/vi/VgjyPmFKxCU/hqdefault.jpg"
                     alt=""
                     draggable={false}
-                    className="object-cover object-center w-full h-24 xl:h-28"
+                    className="object-cover object-center w-48 h-24 xl:h-28"
                   />
                 </div>
                 <div className="flex items-start space-x-2.5">
@@ -81,10 +81,10 @@ const SuggestedVideos = () => {
                     </span>
                     <Link href={`/${video.profile?.handle}`}>
                       <a className="text-xs hover:opacity-100 opacity-70">
-                        T Series
+                        {video.profile?.handle}
                       </a>
                     </Link>
-                    <div className="flex items-center text-xs opacity-70 mt-0.5">
+                    <div className="flex items-center text-[11px] opacity-70 mt-0.5">
                       <span>{dayjs(new Date(video.createdAt)).fromNow()}</span>
                     </div>
                   </div>

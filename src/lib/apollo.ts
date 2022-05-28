@@ -1,4 +1,5 @@
 import { ApolloClient, from, HttpLink, InMemoryCache } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import { API_URL } from "@utils/constants";
 import { REFRESH_AUTHENTICATION_MUTATION } from "@utils/gql/queries";
 import { TokenRefreshLink } from "apollo-link-token-refresh";
@@ -11,7 +12,17 @@ const httpLink = new HttpLink({
   fetch,
 });
 
-const link = new TokenRefreshLink({
+const authLink = setContext((_, { headers }) => {
+  const accessToken = localStorage.getItem("accessToken");
+  return {
+    headers: {
+      ...headers,
+      "x-access-token": accessToken ? `Bearer ${accessToken}` : "",
+    },
+  };
+});
+
+const refreshLink = new TokenRefreshLink({
   accessTokenField: "accessToken",
   isTokenValidOrUndefined: () => {
     const accessToken = localStorage.getItem("accessToken");
@@ -57,7 +68,7 @@ const link = new TokenRefreshLink({
 });
 
 const client = new ApolloClient({
-  link: from([link, httpLink]),
+  link: from([authLink, refreshLink, httpLink]),
   cache: new InMemoryCache({ possibleTypes: result.possibleTypes }),
 });
 

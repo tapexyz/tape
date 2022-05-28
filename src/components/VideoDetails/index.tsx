@@ -35,8 +35,8 @@ const VideoDetails = () => {
       <MetaTags title="Video Details" />
       <div className="grid grid-cols-1 gap-y-4 md:gap-4 md:grid-cols-4">
         <div className="col-span-3">
-          <Video video={data.publication as LenstubePublication} />
-          <AboutChannel channel={data.publication.profile as Profile} />
+          <Video video={data?.publication as LenstubePublication} />
+          <AboutChannel channel={data?.publication.profile as Profile} />
           <VideoComments />
         </div>
         <div className="col-span-1">

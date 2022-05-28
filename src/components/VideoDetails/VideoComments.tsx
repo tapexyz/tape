@@ -35,7 +35,7 @@ const VideoComments = () => {
   });
 
   const { observe } = useInView({
-    threshold: 1,
+    threshold: 0.5,
     onEnter: () => {
       fetchMore({
         variables: {
@@ -53,12 +53,12 @@ const VideoComments = () => {
     },
   });
 
-  if (!loading) {
+  if (loading) {
     <LoaderIcon className="!w-5 !h-5" />;
   }
 
   if (data?.publications?.items.length === 0) {
-    return <NoDataFound />;
+    return <NoDataFound text="Be the first to comment." />;
   }
 
   return (

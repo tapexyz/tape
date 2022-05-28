@@ -33,8 +33,8 @@ const Video: FC<Props> = ({ video }) => {
   return (
     <div className="overflow-hidden rounded">
       <Player
-        source={video.metadata.content}
-        thumbnail={video.metadata.cover?.original.url}
+        source={video?.metadata.content}
+        thumbnail={video?.metadata.cover?.original.url}
       />
     </div>
   );

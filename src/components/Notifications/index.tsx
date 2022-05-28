@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import { Loader } from "@components/ui/Loader";
 import { NoDataFound } from "@components/ui/NoDataFound";
 import useAppStore from "@lib/store";
+import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { NOTIFICATIONS_QUERY } from "@utils/gql/queries";
 import clsx from "clsx";
 import React, { useState } from "react";
@@ -17,7 +18,11 @@ const Notifications = () => {
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
     variables: {
-      request: { profileId: selectedChannel?.id, limit: 50 },
+      request: {
+        profileId: selectedChannel?.id,
+        limit: 50,
+        sources: [LENSTUBE_VIDEOS_APP_ID],
+      },
     },
     fetchPolicy: "no-cache",
     onCompleted(data) {

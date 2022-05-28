@@ -24,7 +24,7 @@ const AboutChannel: FC<Props> = ({ channel }) => {
         <div className="flex flex-col items-start mr-2">
           <h1 className="font-bold">{channel?.handle}</h1>
           <span className="inline-flex items-center space-x-1 text-xs">
-            {channel.stats.totalFollowers} subscribers
+            {channel?.stats.totalFollowers} subscribers
           </span>
         </div>
         <div className="flex items-center space-x-2">
