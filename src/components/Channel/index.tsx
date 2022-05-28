@@ -11,7 +11,7 @@ import { Profile } from "src/types";
 
 import BasicInfo from "./BasicInfo";
 import GoLive from "./Live";
-import Upload from "./UploadTemp";
+import Upload from "./Upload";
 
 const Channel = () => {
   const { query } = useRouter();
