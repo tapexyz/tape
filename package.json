@@ -10,7 +10,7 @@
     "codegen": "graphql-codegen"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.2",
+    "@apollo/client": "^3.6.5",
     "@bundlr-network/client": "^0.7.4",
     "@headlessui/react": "^1.6.1",
     "@hookform/resolvers": "^2.8.8",
