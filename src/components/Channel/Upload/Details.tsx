@@ -44,7 +44,6 @@ const videoSchema = object({
 const Player = React.memo(({ preview }: { preview: string }) => {
   return (
     <Plyr
-      autoPlay
       source={{
         type: "video",
         sources: [
@@ -53,8 +52,6 @@ const Player = React.memo(({ preview }: { preview: string }) => {
             provider: "html5",
           },
         ],
-        poster:
-          "https://bafybeiecas5yzluhrveqnyfrtoj4vvzdxb3qhn5allcd3agkjly4lljgmq.ipfs.infura-ipfs.io/",
       }}
       options={{
         controls: ["progress", "current-time", "mute", "volume", "fullscreen"],
@@ -62,7 +59,7 @@ const Player = React.memo(({ preview }: { preview: string }) => {
     />
   );
 });
-Player.displayName = "Player";
+Player.displayName = "PreviewPlayer";
 
 const Details: FC<Props> = ({ video, close }) => {
   const { data: signer } = useSigner();
@@ -117,7 +114,10 @@ const Details: FC<Props> = ({ video, close }) => {
       await bundlrData.instance
         .fund(value)
         .then((res) => {
-          toast.success(`Deposit of ${res?.target} is done!`);
+          console.log("🚀 ~ file: Details.tsx ~ line 117 ~ .then ~ res", res);
+          toast.success(
+            `Deposit of ${utils.formatEther(res?.quantity)} is done!`
+          );
         })
         .catch((e) => {
           console.log("🚀 ~ file: Details.tsx ~ depositToBundlr ~ e", e);
@@ -143,8 +143,9 @@ const Details: FC<Props> = ({ video, close }) => {
   };
 
   const fetchBalance = async (bundlr?: WebBundlr) => {
-    if (account?.address && bundlr) {
-      const balance = await bundlr.getBalance(account.address);
+    const instance = bundlr || bundlrData.instance;
+    if (account?.address && instance) {
+      const balance = await instance.getBalance(account.address);
       setBundlrData((bundlrData) => ({
         ...bundlrData,
         balance: utils.formatEther(balance.toString()),
