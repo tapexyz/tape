@@ -10,7 +10,6 @@ import Custom500 from "src/pages/500";
 import { Profile } from "src/types";
 
 import BasicInfo from "./BasicInfo";
-import GoLive from "./Live";
 import Upload from "./Upload";
 
 const Channel = () => {
@@ -33,7 +32,6 @@ const Channel = () => {
     <Layout>
       <MetaTags title={channel?.handle} />
       <Upload />
-      <GoLive />
       <BasicInfo channel={channel} />
     </Layout>
   );

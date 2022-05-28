@@ -1,6 +1,6 @@
 import "plyr-react/dist/plyr.css";
 
-import LensHubProxy from "@abis/LensHubProxy";
+import { LENSHUB_PROXY_ABI } from "@abis/LensHubProxy";
 import { useMutation } from "@apollo/client";
 import { WebBundlr } from "@bundlr-network/client";
 import { Button } from "@components/ui/Button";
@@ -78,7 +78,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const { data: writePostData, write: writePostContract } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY_ADDRESS,
-      contractInterface: LensHubProxy,
+      contractInterface: LENSHUB_PROXY_ABI,
     },
     "postWithSig",
     {
