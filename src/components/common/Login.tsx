@@ -1,5 +1,4 @@
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { COOKIE_CONFIG } from "@lib/apollo";
 import useAppStore from "@lib/store";
 import { ERROR_MESSAGE } from "@utils/constants";
 import {
@@ -7,7 +6,6 @@ import {
   CHALLENGE_QUERY,
   CURRENT_USER_QUERY,
 } from "@utils/gql/queries";
-import Cookies from "js-cookie";
 import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useAccount, useSignMessage } from "wagmi";
@@ -54,8 +52,8 @@ const Login = () => {
           }).then((res) => {
             const accessToken = res.data.authenticate.accessToken;
             const refreshToken = res.data.authenticate.refreshToken;
-            Cookies.set("accessToken", accessToken, COOKIE_CONFIG);
-            Cookies.set("refreshToken", refreshToken, COOKIE_CONFIG);
+            localStorage.setItem("accessToken", accessToken);
+            localStorage.setItem("refreshToken", refreshToken);
             setToken({ access: accessToken, refresh: refreshToken });
             getProfiles({
               variables: { ownedBy: accountData?.address },

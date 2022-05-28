@@ -9,7 +9,6 @@ import {
   CURRENT_USER_QUERY,
   NOTIFICATION_COUNT_QUERY,
 } from "@utils/gql/queries";
-import Cookies from "js-cookie";
 import { useTheme } from "next-themes";
 import React, { FC, ReactNode, useCallback, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
@@ -71,8 +70,8 @@ const Layout: FC<Props> = ({ children }) => {
   ]);
 
   const logout = useCallback(() => {
-    Cookies.remove("accessToken");
-    Cookies.remove("refreshToken");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     disconnect();
     setToken({ access: null, refresh: null });
     setSelectedChannel(null);
@@ -81,10 +80,10 @@ const Layout: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     setToken({
-      access: Cookies.get("accessToken") || null,
-      refresh: Cookies.get("refreshToken") || null,
+      access: localStorage.getItem("accessToken") || null,
+      refresh: localStorage.getItem("refreshToken") || null,
     });
-    activeConnector?.on("disconnect", () => logout());
+    activeConnector?.on("change", () => logout());
     if (isDisconnected) logout();
   }, [setToken, activeConnector, disconnect, isDisconnected, logout]);
 

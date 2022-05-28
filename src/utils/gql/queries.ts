@@ -1,5 +1,14 @@
 import { gql } from "@apollo/client";
 
+export const REFRESH_AUTHENTICATION_MUTATION = `
+  mutation Refresh($request: RefreshRequest!) {
+    refresh(request: $request) {
+      accessToken
+      refreshToken
+    }
+  }
+`;
+
 export const MinimalProfileFields = gql`
   fragment MinimalProfileFields on Profile {
     id

@@ -356,6 +356,9 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
               placeholder="More about your video"
               autoComplete="off"
               rows={5}
+              className={clsx(
+                "bg-white text-sm px-2.5 py-1 rounded-md dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full"
+              )}
               value={videoMeta.description}
               onChange={(e) =>
                 setVideoMeta({ ...videoMeta, description: e.target.value })

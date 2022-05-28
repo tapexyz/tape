@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import Timeline from "@components/Home/Timeline";
-import { NoDataFound } from "@components/ui/NoDataFound";
 import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { EXPLORE_QUERY } from "@utils/gql/queries";
 import React, { useState } from "react";
@@ -53,10 +52,6 @@ const ExploreFeed = () => {
       });
     },
   });
-
-  if (videos?.length === 0) {
-    return <NoDataFound />;
-  }
 
   return (
     <div>
