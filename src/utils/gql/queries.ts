@@ -453,7 +453,10 @@ export const CREATE_POST_TYPED_DATA = gql`
 `;
 
 export const VIDEO_DETAIL_QUERY = gql`
-  query VideoDetails($request: PublicationQueryRequest!) {
+  query VideoDetails(
+    $request: PublicationQueryRequest!
+    $followRequest: DoesFollowRequest!
+  ) {
     publication(request: $request) {
       ... on Post {
         ...PostFields
@@ -462,6 +465,9 @@ export const VIDEO_DETAIL_QUERY = gql`
           __typename
         }
       }
+    }
+    doesFollow(request: $followRequest) {
+      follows
     }
   }
   ${PostFields}
