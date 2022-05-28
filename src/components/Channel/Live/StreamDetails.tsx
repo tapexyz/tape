@@ -43,7 +43,18 @@ const StreamDetails = () => {
             </div>
           </div>
           <div className="mb-2 opacity-50">Stream URL</div>
-          <div>rtmp://rtmp.livepeer.com/live</div>
+          <div>
+            <div className="flex items-center space-x-2">
+              <span>rtmp://rtmp.livepeer.com/live</span>
+              <button
+                className="hover:opacity-60 focus:outline-none"
+                onClick={() => onCopyKey("rtmp://rtmp.livepeer.com/live")}
+                type="button"
+              >
+                <IoCopyOutline />
+              </button>
+            </div>
+          </div>
           <div className="mb-2 opacity-50">Stream ID</div>
           <div>04a9e50b-76c9-473a-b88d-a5848220ca</div>
         </div>

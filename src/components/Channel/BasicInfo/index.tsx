@@ -13,6 +13,7 @@ type Props = {
 
 const BasicInfo: FC<Props> = ({ channel }) => {
   const router = useRouter();
+  const subscribeType = channel?.followModule?.__typename;
 
   const onClickCustomize = () => {
     router.push(SETTINGS);
@@ -50,8 +51,11 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                   <AiOutlineEdit />
                 </Button>
               </Tooltip>
-              <Button>Join Channel</Button>
-              <Button>Subscribe</Button>
+              {subscribeType === "FeeFollowModuleSettings" ? (
+                <Button>Join Channel</Button>
+              ) : (
+                <Button>Subscribe</Button>
+              )}
             </div>
           </div>
         </div>
