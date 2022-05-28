@@ -53,7 +53,7 @@ const Recommended = () => {
                 draggable={false}
               />
               <div className="flex flex-col items-start">
-                <Link key={channel?.id} href={channel.handle} passHref>
+                <Link key={channel?.id} href={`/${channel?.handle}`} passHref>
                   <h6 className="text-sm cursor-pointer">{channel.handle}</h6>
                 </Link>
                 <span className="text-xs opacity-70 whitespace-nowrap">

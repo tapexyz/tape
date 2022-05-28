@@ -76,7 +76,7 @@ const SuggestedVideos = () => {
                         </a>
                       </Link>
                     </span>
-                    <Link href={video.profile?.handle || ""}>
+                    <Link href={`/${video.profile?.handle}`}>
                       <a className="text-xs hover:opacity-100 opacity-70">
                         T Series
                       </a>

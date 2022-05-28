@@ -59,7 +59,7 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
               </div>
             ) : (
               channels?.search?.items?.map((channel: Profile) => (
-                <Link href={channel?.handle} key={channel?.handle}>
+                <Link href={`/${channel?.handle}`} key={channel?.handle}>
                   <a
                     href={`/u/${channel?.handle}`}
                     onClick={() => onSelectResult()}
