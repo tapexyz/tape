@@ -20,7 +20,6 @@ export const PostFields = gql`
     }
     stats {
       totalAmountOfComments
-      totalAmountOfMirrors
       totalAmountOfCollects
     }
     metadata {

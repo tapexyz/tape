@@ -1,33 +1,41 @@
 import "plyr-react/dist/plyr.css";
 
 import Plyr from "plyr-react";
-import React from "react";
+import React, { FC } from "react";
+import { LenstubePublication } from "src/types/local";
 
-const Player = React.memo(({ source }: { source: string }) => {
-  return (
-    <Plyr
-      autoPlay
-      source={{
-        type: "video",
-        sources: [
-          {
-            src: source,
-            provider: "html5",
-          },
-        ],
-        poster:
-          "https://bafybeiecas5yzluhrveqnyfrtoj4vvzdxb3qhn5allcd3agkjly4lljgmq.ipfs.infura-ipfs.io/",
-      }}
-    />
-  );
-});
+const Player = React.memo(
+  ({ source, thumbnail }: { source: string; thumbnail: string }) => {
+    return (
+      <Plyr
+        autoPlay
+        source={{
+          type: "video",
+          sources: [
+            {
+              src: source,
+              provider: "html5",
+            },
+          ],
+          poster: thumbnail,
+        }}
+      />
+    );
+  }
+);
 
 Player.displayName = "VideoPlayer";
 
-const Video = () => {
+type Props = {
+  video: LenstubePublication;
+};
+const Video: FC<Props> = ({ video }) => {
   return (
     <div className="overflow-hidden rounded">
-      <Player source="http://media.w3.org/2010/05/sintel/trailer.mp4" />
+      <Player
+        source={video.metadata.content}
+        thumbnail={video.metadata.cover?.original.url}
+      />
     </div>
   );
 };

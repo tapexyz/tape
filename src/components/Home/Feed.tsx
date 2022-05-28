@@ -16,9 +16,13 @@ const HomeFeed = () => {
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { selectedChannel } = useAppStore();
 
-  const { loading, error, fetchMore } = useQuery(FEED_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(FEED_QUERY, {
     variables: {
-      request: { profileId: selectedChannel?.id, limit: 10 },
+      request: {
+        profileId: selectedChannel?.id,
+        limit: 10,
+        sources: [LENSTUBE_VIDEOS_APP_ID],
+      },
     },
     fetchPolicy: "no-cache",
     onCompleted(data) {
@@ -39,6 +43,7 @@ const HomeFeed = () => {
             profileId: selectedChannel?.id,
             cursor: pageInfo?.next,
             limit: 10,
+            sources: [LENSTUBE_VIDEOS_APP_ID],
           },
         },
       }).then(({ data }: any) => {
@@ -51,7 +56,7 @@ const HomeFeed = () => {
     },
   });
 
-  if (videos?.length === 0) {
+  if (data?.length === 0) {
     return <EmptyState message={<div>No videos found</div>} />;
   }
 

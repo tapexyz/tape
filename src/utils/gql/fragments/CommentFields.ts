@@ -20,7 +20,6 @@ export const CommentFields = gql`
     }
     stats {
       totalAmountOfComments
-      totalAmountOfMirrors
       totalAmountOfCollects
     }
     metadata {
@@ -50,16 +49,6 @@ export const CommentFields = gql`
         }
       }
       ... on Comment {
-        id
-        profile {
-          ...MinimalProfileFields
-        }
-        metadata {
-          name
-          content
-        }
-      }
-      ... on Mirror {
         id
         profile {
           ...MinimalProfileFields

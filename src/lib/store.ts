@@ -15,7 +15,6 @@ interface AppState {
   showCreateChannel: boolean;
   notificationCount: number;
   hasNewNotification: boolean;
-  selectPodUrl: string | null;
   recentlyWatched: LenstubePublication[] | [];
   setToken: (token: { access: string | null; refresh: string | null }) => void;
   setShowCreateChannel: (showCreateChannel: boolean) => void;
@@ -24,7 +23,6 @@ interface AppState {
   setRecommendedChannels: (channels: Profile[]) => void;
   setNotificationCount: (count: number) => void;
   setHasNewNotification: (value: boolean) => void;
-  setSelectedPodUrl: (value: string | null) => void;
   addToRecentlyWatched: (video: LenstubePublication) => void;
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr>;
 }
@@ -40,7 +38,6 @@ export const useAppStore = create(
       showCreateChannel: false,
       notificationCount: 0,
       hasNewNotification: false,
-      selectPodUrl: null,
       setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),
       token: { access: null, refresh: null },
       setSelectedChannel: (channel) =>
@@ -57,7 +54,6 @@ export const useAppStore = create(
         set(() => ({ recommendedChannels })),
       setShowCreateChannel: (showCreateChannel) =>
         set(() => ({ showCreateChannel })),
-      setSelectedPodUrl: (selectPodUrl) => set(() => ({ selectPodUrl })),
       getBundlrInstance: async (signer) => {
         const bundlr = new WebBundlr(
           BUNDLR_NODE_URL,

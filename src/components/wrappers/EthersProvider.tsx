@@ -1,3 +1,4 @@
+import { IsBrowser } from "@components/common/IsBrowser";
 import { ALCHEMY_KEY } from "@lib/store";
 import {
   darkTheme,
@@ -40,7 +41,7 @@ const EthersProvider: FC<Props> = ({ children }) => {
         showRecentTransactions
         theme={resolvedTheme === "dark" ? darkTheme() : lightTheme()}
       >
-        {children}
+        <IsBrowser>{children}</IsBrowser>
       </RainbowKitProvider>
     </WagmiConfig>
   );

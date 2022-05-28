@@ -1,35 +1,52 @@
 import "plyr-react/dist/plyr.css";
 
+import LensHubProxy from "@abis/LensHubProxy.json";
+import { useMutation } from "@apollo/client";
 import { WebBundlr } from "@bundlr-network/client";
 import { Button } from "@components/ui/Button";
 import ChooseImage from "@components/ui/ChooseImage";
 import { Form, useZodForm } from "@components/ui/Form";
 import { Input } from "@components/ui/Input";
 import { TextArea } from "@components/ui/TextArea";
-import Tooltip from "@components/ui/Tooltip";
 import useAppStore from "@lib/store";
-import { BUNDLR_CURRENCY, BUNDLR_WEBSITE_URL } from "@utils/constants";
+import {
+  BUNDLR_CURRENCY,
+  BUNDLR_WEBSITE_URL,
+  LENSHUB_PROXY_ADDRESS,
+  LENSTUBE_VIDEOS_APP_ID,
+} from "@utils/constants";
+import omitKey from "@utils/functions/omitKey";
 import { parseToAtomicUnits } from "@utils/functions/parseToAtomicUnits";
+import uploadDataToIPFS from "@utils/functions/uploadDataToIPFS";
+import { CREATE_POST_TYPED_DATA } from "@utils/gql/queries";
+import usePendingTxn from "@utils/hooks/usePendingTxn";
 import clsx from "clsx";
 import { utils } from "ethers";
 import Link from "next/link";
 import Plyr from "plyr-react";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 import { MdRefresh } from "react-icons/md";
+import { CreatePostBroadcastItemResult } from "src/types";
 import {
   BundlrDataState,
+  BundlrResult,
   IPFSUploadResult,
   VideoUpload,
 } from "src/types/local";
-import { Readable } from "stream";
-import { useAccount, useSigner } from "wagmi";
+import { v4 as uuidv4 } from "uuid";
+import {
+  useAccount,
+  useContractWrite,
+  useSigner,
+  useSignTypedData,
+} from "wagmi";
 import { object, string } from "zod";
 
 type Props = {
   video: VideoUpload;
-  close: () => void;
+  closeUploadModal: () => void;
 };
 
 const videoSchema = object({
@@ -61,10 +78,29 @@ const Player = React.memo(({ preview }: { preview: string }) => {
 });
 Player.displayName = "PreviewPlayer";
 
-const Details: FC<Props> = ({ video, close }) => {
+const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const { data: signer } = useSigner();
   const { data: account } = useAccount();
-  const { getBundlrInstance } = useAppStore();
+  const { getBundlrInstance, selectedChannel } = useAppStore();
+  const { signTypedDataAsync } = useSignTypedData({
+    onError(error) {
+      toast.error(error?.message);
+    },
+  });
+  const { data: writePostData, write: writePostContract } = useContractWrite(
+    {
+      addressOrName: LENSHUB_PROXY_ADDRESS,
+      contractInterface: LensHubProxy,
+    },
+    "postWithSig",
+    {
+      onError(error: any) {
+        toast.error(`Failed - ${error?.data?.message ?? error?.message}`);
+      },
+    }
+  );
+  const { indexed } = usePendingTxn(writePostData?.hash || "");
+
   const [bundlrData, setBundlrData] = useState<BundlrDataState>({
     balance: "0",
     estimatedPrice: "0",
@@ -72,16 +108,29 @@ const Details: FC<Props> = ({ video, close }) => {
     instance: null,
     depositing: false,
     showDeposit: false,
-    uploading: false,
   });
-  const [readyToUpload, setReadyToUpload] = useState(false);
+  const [isUploadedToBundlr, setIsUploadedToBundlr] = useState(false);
   const [showBundlrDetails, setShowBundlrDetails] = useState(false);
-  const [videoThumbnail, setVideoThumbnail] = useState("");
+  const [videoMeta, setVideoMeta] = useState<{
+    videoThumbnail: IPFSUploadResult | null;
+    videoSource: BundlrResult | null;
+  }>({
+    videoThumbnail: null,
+    videoSource: null,
+  });
   const [buttonText, setButtonText] = useState("Next");
 
   const form = useZodForm({
     schema: videoSchema,
   });
+
+  useEffect(() => {
+    if (indexed) {
+      closeUploadModal();
+      toast.success("Video posted successfully");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [indexed]);
 
   const onNext = async () => {
     if (signer && account?.address) {
@@ -99,7 +148,6 @@ const Details: FC<Props> = ({ video, close }) => {
       await fetchBalance(bundlr);
       await estimatePrice(bundlr);
       setButtonText("Start Upload");
-      setReadyToUpload(true);
     }
   };
 
@@ -114,7 +162,6 @@ const Details: FC<Props> = ({ video, close }) => {
       await bundlrData.instance
         .fund(value)
         .then((res) => {
-          console.log("🚀 ~ file: Details.tsx ~ line 117 ~ .then ~ res", res);
           toast.success(
             `Deposit of ${utils.formatEther(res?.quantity)} is done!`
           );
@@ -136,6 +183,7 @@ const Details: FC<Props> = ({ video, close }) => {
           setBundlrData({
             ...bundlrData,
             deposit: null,
+            showDeposit: false,
             depositing: false,
           });
         });
@@ -165,44 +213,136 @@ const Details: FC<Props> = ({ video, close }) => {
     }));
   };
 
-  const onClickUpload = async () => {
+  const uploadToBundlr = async () => {
     if (!bundlrData.instance || !video.buffer) return;
-    const bundlr = bundlrData.instance;
-
-    const tags = [{ name: "Content-Type", value: "video/mp4" }];
-    const tx = bundlr.createTransaction(video.buffer, {
-      tags: tags,
-    });
-    console.log(
-      "🚀 ~ file: Details.tsx ~ line 163 ~ onClickUpload ~ video.buffer",
-      video.buffer,
-      typeof video.buffer
-    );
-    const readableTx = Readable.from(tx.getRaw());
-
-    console.log(
-      "🚀 ~ file: Details.tsx ~ line 163 ~ onClickUpload ~ tx",
-      readableTx,
-      tx.id,
-      tx.getRaw().length
-    );
-
-    let data = await bundlr.uploader.chunkedTransactionUploader(
-      readableTx,
-      tx.id,
-      tx.getRaw().length
-    );
-    console.log(
-      "🚀 ~ file: Details.tsx ~ line 177 ~ onClickUpload ~ data",
-      data
-    );
+    try {
+      toast(
+        "Please check your wallet for a signature request from bundlr.network"
+      );
+      const bundlr = bundlrData.instance;
+      setButtonText("Uploading...");
+      const tags = [{ name: "Content-Type", value: "video/mp4" }];
+      const tx = bundlr.createTransaction(video.buffer, {
+        tags: tags,
+      });
+      await tx.sign();
+      const response = await bundlr.uploader.chunkedTransactionUploader(
+        tx.getRaw(),
+        tx.id,
+        tx.getRaw().length
+      );
+      console.log(
+        "🚀 ~ file: Details.tsx ~ line 184 ~ onClickUpload ~ response",
+        response
+      );
+      setButtonText("Post the Video");
+      fetchBalance(bundlr);
+      setVideoMeta((data) => {
+        return { ...data, videoSource: response.data };
+      });
+      setIsUploadedToBundlr(true);
+    } catch (error) {
+      console.log("🚀 ~ file: Details.tsx ~ onClickUpload ~ error", error);
+      toast.error("Failed to upload video!");
+      setButtonText("Upload");
+      setIsUploadedToBundlr(false);
+    }
   };
 
   const onThumbnailUpload = (data: IPFSUploadResult | null) => {
     if (data) {
-      setVideoThumbnail(data.ipfsUrl);
+      setVideoMeta((prev) => {
+        return { ...prev, videoThumbnail: data };
+      });
     } else {
-      setVideoThumbnail("");
+      setVideoMeta((prev) => {
+        return { ...prev, videoThumbnail: null };
+      });
+    }
+  };
+
+  const [createTypedData] = useMutation(CREATE_POST_TYPED_DATA, {
+    onCompleted({
+      createPostTypedData,
+    }: {
+      createPostTypedData: CreatePostBroadcastItemResult;
+    }) {
+      const { typedData } = createPostTypedData;
+      const {
+        profileId,
+        contentURI,
+        collectModule,
+        collectModuleInitData,
+        referenceModule,
+        referenceModuleInitData,
+      } = typedData?.value;
+      signTypedDataAsync({
+        domain: omitKey(typedData?.domain, "__typename"),
+        types: omitKey(typedData?.types, "__typename"),
+        value: omitKey(typedData?.value, "__typename"),
+      }).then((signature) => {
+        const { v, r, s } = utils.splitSignature(signature);
+        writePostContract({
+          args: {
+            profileId,
+            contentURI,
+            collectModule,
+            collectModuleInitData,
+            referenceModule,
+            referenceModuleInitData,
+            sig: { v, r, s, deadline: typedData.value.deadline },
+          },
+        });
+      });
+    },
+    onError(error) {
+      toast.error(error.message);
+    },
+  });
+
+  const createPublication = async () => {
+    setButtonText("Storing metadata...");
+    const { path } = await uploadDataToIPFS({
+      version: "1.0.0",
+      metadata_id: uuidv4(),
+      description: form.getValues("description"),
+      content: `https://arweave.net/${videoMeta.videoSource?.id}`,
+      external_url: null,
+      image: videoMeta.videoThumbnail?.ipfsUrl,
+      imageMimeType: videoMeta.videoThumbnail?.type,
+      name: form.getValues("title"),
+      attributes: [],
+      media: null,
+      appId: LENSTUBE_VIDEOS_APP_ID,
+    }).finally(() => {
+      setButtonText("Post Video");
+    });
+    // TODO: Add fields to select collect and reference module
+    createTypedData({
+      variables: {
+        request: {
+          profileId: selectedChannel?.id,
+          contentURI: `https://ipfs.infura.io/ipfs/${path}`,
+          collectModule: {
+            freeCollectModule: {
+              followerOnly: true,
+            },
+          },
+          referenceModule: {
+            followerOnlyReferenceModule: false,
+          },
+        },
+      },
+    });
+  };
+
+  const onSubmitForm = async () => {
+    if (!isUploadedToBundlr && bundlrData.instance) {
+      await uploadToBundlr();
+    } else if (videoMeta.videoSource && isUploadedToBundlr) {
+      await createPublication();
+    } else {
+      await onNext();
     }
   };
 
@@ -211,7 +351,7 @@ const Details: FC<Props> = ({ video, close }) => {
       formClassName="h-full"
       className="h-full"
       form={form}
-      onSubmit={() => (readyToUpload ? onClickUpload() : onNext())}
+      onSubmit={() => onSubmitForm()}
     >
       <div className="grid h-full gap-5 md:grid-cols-2">
         <div>
@@ -245,14 +385,14 @@ const Details: FC<Props> = ({ video, close }) => {
         </div>
         <div className="flex flex-col items-start">
           <div
-            className={clsx("overflow-hidden", {
-              "rounded-t-lg": bundlrData.uploading,
-              "rounded-lg": !bundlrData.uploading,
+            className={clsx("overflow-hidden rounded-lg", {
+              // "rounded-t-lg": bundlrData.uploading,
+              // "rounded-lg": !bundlrData.uploading,
             })}
           >
             <Player preview={video.preview} />
           </div>
-          <Tooltip content={`Uploading (${80}%)`}>
+          {/* <Tooltip content={`Uploading (${80}%)`}>
             <div className="w-full overflow-hidden bg-gray-200 rounded-b-full">
               <div
                 className={clsx("bg-indigo-500 bg-brand-500", {
@@ -264,7 +404,7 @@ const Details: FC<Props> = ({ video, close }) => {
                 }}
               />
             </div>
-          </Tooltip>
+          </Tooltip> */}
           <span className="mt-2 text-sm font-light opacity-50">
             <b>Note:</b> This video and its data will be uploaded to permanent
             storage and it stays forever.
@@ -351,21 +491,11 @@ const Details: FC<Props> = ({ video, close }) => {
           )}
         </div>
       </div>
-      <div className="flex items-center justify-between">
-        <span>
-          {/* {data?.createProfile?.reason && (
-                <ErrorMessage
-                  error={{
-                    name: "Create profile failed!",
-                    message: data?.createProfile?.reason,
-                  }}
-                />
-              )} */}
-        </span>
+      <div className="flex items-center justify-end">
         <span className="mt-4">
           <Button
             variant="secondary"
-            onClick={() => close()}
+            onClick={() => closeUploadModal()}
             className="hover:opacity-100 opacity-60"
           >
             Cancel

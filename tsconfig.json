@@ -20,6 +20,7 @@
       "@components*": ["src/components*"],
       "@lib*": ["src/lib*"],
       "@ui*": ["src/components/ui*"],
+      "@abis*": ["src/abis*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

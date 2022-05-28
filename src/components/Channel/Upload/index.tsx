@@ -78,7 +78,7 @@ const Upload = () => {
       panelClassName="max-w-4xl max-h-[80vh]"
     >
       {video.preview ? (
-        <Details video={video} close={onCloseUploadModal} />
+        <Details video={video} closeUploadModal={onCloseUploadModal} />
       ) : (
         <div
           {...getRootProps()}
@@ -95,7 +95,7 @@ const Upload = () => {
               {isDragActive ? (
                 <p>Drop it here</p>
               ) : (
-                <p>Drag and drop video file to upload</p>
+                <p>Drag and drop your video</p>
               )}
             </span>
           </div>

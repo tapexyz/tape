@@ -15,6 +15,10 @@ export const BUNDLR_NODE_URL = IS_MAINNET
 export const BUNDLR_CURRENCY = "matic";
 export const BUNDLR_WEBSITE_URL = "https://bundlr.network/";
 
+export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
+  ? "0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d"
+  : "0x60Ae865ee4C725cd04353b5AAb364553f56ceF82";
+
 export const ERROR_MESSAGE = "Oops, something went something!";
 
 export const LENSTUBE_VIDEOS_APP_ID = "lenstube-videos";

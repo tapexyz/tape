@@ -1,4 +1,4 @@
-import { getRandomProfilePicture } from "@utils/functions/getRandomProfilePicture";
+import getProfilePicture from "@utils/functions/getProfilePicture";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Link from "next/link";
@@ -18,7 +18,7 @@ const VideoCard: FC<Props> = ({ video }) => {
     <div className="transition duration-500 ease-in-out rounded-b group bg-secondary">
       <div className="rounded-t-lg aspect-w-16 aspect-h-9">
         <img
-          src="https://i.ytimg.com/vi/VgjyPmFKxCU/hqdefault.jpg"
+          src={video.metadata.cover?.original.url}
           alt=""
           draggable={false}
           className="object-cover object-center w-full h-full rounded-t lg:w-full lg:h-full"
@@ -29,14 +29,14 @@ const VideoCard: FC<Props> = ({ video }) => {
           <div className="flex-none">
             <img
               className="w-8 h-8 rounded-full"
-              src={getRandomProfilePicture("sas")}
+              src={getProfilePicture(video.profile)}
               alt=""
               draggable={false}
             />
           </div>
           <div className="flex flex-col items-start flex-1 pb-1">
             <span className="flex w-full items-start justify-between space-x-1.5">
-              <Link passHref href="/videos/0x02-0x05">
+              <Link href={`/videos/${video.id}`}>
                 <a className="mb-1.5 text-sm font-medium line-clamp-2">
                   {video.metadata?.name}
                 </a>
@@ -44,10 +44,11 @@ const VideoCard: FC<Props> = ({ video }) => {
               <VideoOptions />
             </span>
             <Link href={`/${video.profile?.handle}`}>
-              <a className="text-xs hover:opacity-100 opacity-70">T Series</a>
+              <a className="text-xs hover:opacity-100 opacity-70">
+                {video.profile.handle}
+              </a>
             </Link>
-            <div className="flex items-center text-xs opacity-70 mt-0.5">
-              <span className="mr-1 whitespace-nowrap">1k views ·</span>
+            <div className="flex items-center text-[11px] opacity-70">
               <span>{dayjs(new Date(video.createdAt)).fromNow()}</span>
             </div>
           </div>

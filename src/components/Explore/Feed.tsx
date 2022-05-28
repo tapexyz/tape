@@ -20,6 +20,7 @@ const ExploreFeed = () => {
         sortCriteria: "LATEST",
         limit: 10,
         noRandomize: true,
+        sources: [LENSTUBE_VIDEOS_APP_ID],
       },
     },
     onCompleted(data) {
@@ -41,6 +42,7 @@ const ExploreFeed = () => {
             cursor: pageInfo?.next,
             limit: 10,
             noRandomize: true,
+            sources: [LENSTUBE_VIDEOS_APP_ID],
           },
         },
       }).then(({ data }: any) => {

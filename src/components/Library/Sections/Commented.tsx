@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import VideoCard from "@components/common/VideoCard";
 import useAppStore from "@lib/store";
+import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { PROFILE_FEED_QUERY } from "@utils/gql/queries";
 import { COMMENTED_LIBRARY } from "@utils/url-path";
 import Link from "next/link";
@@ -20,6 +21,7 @@ const Commented = () => {
         publicationTypes: "COMMENT",
         profileId: selectedChannel?.id,
         limit: 5,
+        sources: [LENSTUBE_VIDEOS_APP_ID],
       },
     },
     skip: !selectedChannel?.id,

@@ -4,6 +4,7 @@ import Timeline from "@components/Home/Timeline";
 import { EmptyState } from "@components/ui/EmptyState";
 import Layout from "@components/wrappers/Layout";
 import useAppStore from "@lib/store";
+import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { PROFILE_FEED_QUERY } from "@utils/gql/queries";
 import React, { useState } from "react";
 import { useInView } from "react-cool-inview";
@@ -17,15 +18,7 @@ const SeeAllCommented = () => {
   const [commentedVideos, setCommentedVideos] = useState<LenstubePublication[]>(
     []
   );
-  console.log(
-    "🚀 ~ file: Commented.tsx ~ line 18 ~ SeeAllCommented ~ commentedVideos",
-    commentedVideos
-  );
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
-  console.log(
-    "🚀 ~ file: Commented.tsx ~ line 19 ~ SeeAllCommented ~ pageInfo",
-    pageInfo
-  );
 
   const { loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
@@ -33,6 +26,7 @@ const SeeAllCommented = () => {
         publicationTypes: "COMMENT",
         profileId: selectedChannel?.id,
         limit: 10,
+        sources: [LENSTUBE_VIDEOS_APP_ID],
       },
     },
     skip: !selectedChannel?.id,
@@ -56,6 +50,7 @@ const SeeAllCommented = () => {
             profileId: selectedChannel?.id,
             cursor: pageInfo?.next,
             limit: 10,
+            sources: [LENSTUBE_VIDEOS_APP_ID],
           },
         },
       }).then(({ data }: any) => {

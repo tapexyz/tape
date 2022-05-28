@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { LoadingState } from "@components/ui/LoadingState";
+import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { EXPLORE_QUERY } from "@utils/gql/queries";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -18,6 +19,7 @@ const SuggestedVideos = () => {
       request: {
         sortCriteria: "TOP_COMMENTED",
         limit: 10,
+        sources: [LENSTUBE_VIDEOS_APP_ID],
       },
     },
     onCompleted(data) {
@@ -35,6 +37,7 @@ const SuggestedVideos = () => {
             cursor: pageInfo?.next,
             sortCriteria: "TOP_COMMENTED",
             limit: 10,
+            sources: [LENSTUBE_VIDEOS_APP_ID],
           },
         },
       }).then(({ data }: any) => {
@@ -82,7 +85,6 @@ const SuggestedVideos = () => {
                       </a>
                     </Link>
                     <div className="flex items-center text-xs opacity-70 mt-0.5">
-                      <span className="mr-1 whitespace-nowrap">1k views ·</span>
                       <span>{dayjs(new Date(video.createdAt)).fromNow()}</span>
                     </div>
                   </div>

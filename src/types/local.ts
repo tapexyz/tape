@@ -14,7 +14,6 @@ export type BundlrDataState = {
   deposit: number | null;
   depositing: boolean;
   showDeposit: boolean;
-  uploading: boolean;
 };
 
 export type VideoUpload = {
@@ -28,4 +27,8 @@ export type IPFSUploadResult = {
   hash: string;
   ipfsUrl: string;
   type: string;
+};
+
+export type BundlrResult = {
+  id: string;
 };

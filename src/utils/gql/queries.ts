@@ -74,7 +74,6 @@ export const PROFILE_QUERY = gql`
           totalFollowing
           totalPosts
           totalComments
-          totalMirrors
         }
         picture {
           ... on MediaSet {
@@ -267,4 +266,19 @@ export const CREATE_POST_TYPED_DATA = gql`
       }
     }
   }
+`;
+
+export const VIDEO_DETAIL_QUERY = gql`
+  query VideoDetails($request: PublicationQueryRequest!) {
+    publication(request: $request) {
+      ... on Post {
+        ...PostFields
+        onChainContentURI
+        referenceModule {
+          __typename
+        }
+      }
+    }
+  }
+  ${PostFields}
 `;

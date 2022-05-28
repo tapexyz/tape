@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { EmptyState } from "@components/ui/EmptyState";
 import { ErrorMessage } from "@components/ui/ErrorMessage";
+import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { COMMENT_FEED_QUERY } from "@utils/gql/queries";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -20,7 +21,11 @@ const VideoComments = () => {
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: {
-      request: { commentsOf: id, limit: 10 },
+      request: {
+        commentsOf: id,
+        limit: 10,
+        sources: [LENSTUBE_VIDEOS_APP_ID],
+      },
     },
     skip: !id,
     fetchPolicy: "no-cache",
@@ -39,6 +44,7 @@ const VideoComments = () => {
             commentsOf: id,
             cursor: pageInfo?.next,
             limit: 10,
+            sources: [LENSTUBE_VIDEOS_APP_ID],
           },
         },
       }).then(({ data }: any) => {
