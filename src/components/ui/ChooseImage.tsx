@@ -44,7 +44,7 @@ const ChooseImage: FC<Props> = ({ label, afterUpload }) => {
           {ipfsResult ? (
             <div className="relative">
               <img
-                className="object-cover w-full h-32 rounded-md "
+                className="object-cover w-full h-40 rounded-md "
                 src={ipfsResult.ipfsUrl}
                 alt=""
               />

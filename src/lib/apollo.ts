@@ -62,8 +62,6 @@ const refreshLink = new TokenRefreshLink({
   },
   handleError: (err: Error) => {
     console.log("🚀 ~ file: apollo.ts ~ err", err);
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
   },
 });
 

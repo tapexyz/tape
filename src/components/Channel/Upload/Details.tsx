@@ -292,10 +292,22 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       content: `https://arweave.net/${videoMeta.videoSource?.id}`,
       external_url: null,
       image: videoMeta.videoThumbnail?.ipfsUrl,
+      cover: videoMeta.videoThumbnail?.ipfsUrl,
       imageMimeType: videoMeta.videoThumbnail?.type,
       name: videoMeta.title,
-      attributes: [],
-      media: null,
+      attributes: [
+        {
+          displayType: "string",
+          traitType: "Publication",
+          value: "LenstubeVideo",
+        },
+      ],
+      media: [
+        {
+          item: videoMeta.videoThumbnail?.ipfsUrl,
+          type: videoMeta.videoThumbnail?.type,
+        },
+      ],
       appId: LENSTUBE_VIDEOS_APP_ID,
     }).finally(() => {
       setButtonText("Post Video");
