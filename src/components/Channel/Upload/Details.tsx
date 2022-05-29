@@ -1,5 +1,3 @@
-import "plyr-react/dist/plyr.css";
-
 import { LENSHUB_PROXY_ABI } from "@abis/LensHubProxy";
 import { useMutation } from "@apollo/client";
 import { WebBundlr } from "@bundlr-network/client";

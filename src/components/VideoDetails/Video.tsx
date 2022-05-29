@@ -1,5 +1,3 @@
-import "plyr-react/dist/plyr.css";
-
 import Plyr from "plyr-react";
 import React, { FC } from "react";
 import { LenstubePublication } from "src/types/local";
