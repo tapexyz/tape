@@ -53,11 +53,6 @@ const SuggestedVideos = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <h1 className="inline-flex items-center mb-3 text-sm font-bold uppercase opacity-70">
-          More Videos
-        </h1>
-      </div>
       {!error && !loading && (
         <>
           <div className="space-y-3">

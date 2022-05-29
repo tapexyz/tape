@@ -13,7 +13,7 @@ import { useTheme } from "next-themes";
 import React, { FC, ReactNode, useCallback, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { Profile } from "src/types";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount, useConnect, useDisconnect, useProvider } from "wagmi";
 
 interface Props {
   children: ReactNode;
@@ -34,6 +34,7 @@ const Layout: FC<Props> = ({ children }) => {
   const { data: accountData } = useAccount();
   const { activeConnector, isDisconnected } = useConnect();
   const { disconnect } = useDisconnect();
+  const provider = useProvider();
 
   const {} = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: accountData?.address },
@@ -83,9 +84,12 @@ const Layout: FC<Props> = ({ children }) => {
       access: localStorage.getItem("accessToken") || null,
       refresh: localStorage.getItem("refreshToken") || null,
     });
-    activeConnector?.on("change", () => logout());
+    provider.on("network", (_newNetwork, oldNetwork) => {
+      if (oldNetwork) logout();
+    });
+    activeConnector?.on("disconnect", () => logout());
     if (isDisconnected) logout();
-  }, [setToken, activeConnector, disconnect, isDisconnected, logout]);
+  }, [setToken, activeConnector, disconnect, isDisconnected, logout, provider]);
 
   return (
     <>
