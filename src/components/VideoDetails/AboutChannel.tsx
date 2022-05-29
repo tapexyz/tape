@@ -1,5 +1,8 @@
-import { Button } from "@components/ui/Button";
+import JoinChannel from "@components/Channel/BasicInfo/JoinChannel";
+import Subscribe from "@components/Channel/BasicInfo/Subscribe";
+import UnSubscribe from "@components/Channel/BasicInfo/UnSubscribe";
 import getProfilePicture from "@utils/functions/getProfilePicture";
+import Link from "next/link";
 import React, { FC } from "react";
 import { LenstubePublication } from "src/types/local";
 
@@ -26,7 +29,9 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
       </div>
       <div className="flex flex-wrap justify-between flex-1 py-2 space-y-2">
         <div className="flex flex-col items-start mr-2">
-          <h1 className="font-bold">{channel?.handle}</h1>
+          <Link href={`/${channel?.handle}`}>
+            <a className="font-bold">{channel?.handle}</a>
+          </Link>
           <span className="inline-flex items-center space-x-1 text-xs">
             {channel?.stats.totalFollowers} subscribers
           </span>
@@ -34,9 +39,15 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
         <div className="flex items-center space-x-2">
           {isFollower ? <MintVideo video={video} /> : null}
           {subscribeType === "FeeFollowModuleSettings" ? (
-            <Button>Join Channel</Button>
+            <JoinChannel />
           ) : (
-            <Button>Subscribe</Button>
+            <>
+              {isFollower ? (
+                <UnSubscribe channel={channel} />
+              ) : (
+                <Subscribe channel={channel} />
+              )}
+            </>
           )}
         </div>
       </div>

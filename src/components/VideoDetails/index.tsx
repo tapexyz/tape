@@ -8,7 +8,6 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React from "react";
 import Custom500 from "src/pages/500";
-import { DoesFollowResponse } from "src/types";
 import { LenstubePublication } from "src/types/local";
 
 import AboutChannel from "./AboutChannel";
@@ -38,15 +37,15 @@ const VideoDetails = () => {
 
   if (error) return <Custom500 />;
   const video = data?.publication as LenstubePublication;
-  const doesFollow = data?.doesFollow as DoesFollowResponse;
+  const isFollower = data?.doesFollow[0].follows as boolean;
 
   return (
     <Layout>
       <MetaTags title={video?.metadata.name ?? "Video Details"} />
-      <div className="grid grid-cols-1 gap-y-4 md:gap-4 md:grid-cols-4">
+      <div className="grid grid-cols-1 gap-y-4 md:gap-4 lg:grid-cols-4">
         <div className="col-span-3">
           <Video video={video} />
-          <AboutChannel video={video} isFollower={doesFollow?.follows} />
+          <AboutChannel video={video} isFollower={isFollower} />
           <VideoComments />
         </div>
         <div className="col-span-1">

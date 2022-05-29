@@ -1,6 +1,5 @@
-WIP
-
-**Lenstube** - Decentralized video sharing social media platform on top of [Lens Protocol](https://lens.xyz).
+# Lenstube
+### Decentralized video sharing social media platform on top of [Lens Protocol](https://lens.xyz).
 
 
 ## Run

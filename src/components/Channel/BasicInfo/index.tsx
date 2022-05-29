@@ -7,6 +7,9 @@ import React, { FC } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { Profile } from "src/types";
 
+import JoinChannel from "./JoinChannel";
+import Subscribe from "./Subscribe";
+
 type Props = {
   channel: Profile & any;
 };
@@ -52,9 +55,9 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 </Button>
               </Tooltip>
               {subscribeType === "FeeFollowModuleSettings" ? (
-                <Button>Join Channel</Button>
+                <JoinChannel />
               ) : (
-                <Button>Subscribe</Button>
+                <Subscribe channel={channel} />
               )}
             </div>
           </div>

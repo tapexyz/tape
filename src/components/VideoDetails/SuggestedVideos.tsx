@@ -61,7 +61,7 @@ const SuggestedVideos = () => {
         <>
           <div className="space-y-3">
             {videos?.map((video: LenstubePublication, index: number) => (
-              <div key={`${video?.id}_${index}`} className="flex space-x-3">
+              <div key={index} className="flex">
                 <div className="flex-none overflow-hidden rounded">
                   <img
                     src="https://i.ytimg.com/vi/VgjyPmFKxCU/hqdefault.jpg"
@@ -70,7 +70,7 @@ const SuggestedVideos = () => {
                     className="object-cover object-center w-48 h-24 xl:h-28"
                   />
                 </div>
-                <div className="flex items-start space-x-2.5">
+                <div className="flex items-start px-2.5">
                   <div className="flex flex-col items-start flex-1 pb-1">
                     <span className="flex w-full items-start justify-between space-x-1.5">
                       <Link passHref href="/videos/0x02-0x05">
