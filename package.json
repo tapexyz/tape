@@ -25,7 +25,6 @@
     "dayjs": "^1.11.2",
     "ethers": "^5.6.8",
     "graphql": "^16.5.0",
-    "ipfs-http-client": "^56.0.3",
     "jwt-decode": "^3.1.2",
     "next": "12.1.6",
     "next-pwa": "^5.5.2",
