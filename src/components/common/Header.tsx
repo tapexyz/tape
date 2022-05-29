@@ -57,12 +57,17 @@ const Header = () => {
                       <span className="whitespace-nowrap">Upload</span>
                     </a>
                   </Link>
-                  <Link href={`/${selectedChannel.handle}/live`}>
-                    <a className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
-                      <HiOutlineStatusOnline className="text-red-500" />
-                      <span className="whitespace-nowrap">Go Live</span>
-                    </a>
-                  </Link>
+                  <button
+                    disabled
+                    className="inline-flex opacity-40 items-center px-3 py-1.5 space-x-2 rounded-lg"
+                  >
+                    <Tooltip content="Coming soon">
+                      <span className="inline-flex items-center space-x-2">
+                        <HiOutlineStatusOnline className="text-red-500" />
+                        <span className="whitespace-nowrap">Go Live</span>
+                      </span>
+                    </Tooltip>
+                  </button>
                 </div>
               </div>
             </Popover>

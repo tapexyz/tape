@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from "@abis/LensHubProxy";
 import { useMutation } from "@apollo/client";
 import { Button } from "@components/ui/Button";
+import { Loader } from "@components/ui/Loader";
 import Tooltip from "@components/ui/Tooltip";
 import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from "@utils/constants";
 import omitKey from "@utils/functions/omitKey";
@@ -8,7 +9,7 @@ import { CREATE_COLLECT_TYPED_DATA } from "@utils/gql/queries";
 import usePendingTxn from "@utils/hooks/usePendingTxn";
 import { utils } from "ethers";
 import React, { FC, useEffect } from "react";
-import toast, { LoaderIcon } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { SiOpenmined } from "react-icons/si";
 import { CreateCollectBroadcastItemResult } from "src/types";
 import { LenstubePublication } from "src/types/local";
@@ -88,7 +89,7 @@ const MintVideo: FC<Props> = ({ video }) => {
             onClick={() => handleMint()}
             className="!p-2"
           >
-            {isLoading ? <LoaderIcon /> : <SiOpenmined />}
+            {isLoading ? <Loader /> : <SiOpenmined />}
           </Button>
         </span>
       </Tooltip>

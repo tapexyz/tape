@@ -1,12 +1,12 @@
 import { useQuery } from "@apollo/client";
 import VideoCard from "@components/common/VideoCard";
+import { Loader } from "@components/ui/Loader";
 import useAppStore from "@lib/store";
 import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { PROFILE_FEED_QUERY } from "@utils/gql/queries";
 import { COMMENTED_LIBRARY } from "@utils/url-path";
 import Link from "next/link";
 import React, { useState } from "react";
-import { LoaderIcon } from "react-hot-toast";
 import { AiOutlineComment } from "react-icons/ai";
 import { BiChevronRight } from "react-icons/bi";
 import { LenstubePublication } from "src/types/local";
@@ -35,11 +35,7 @@ const Commented = () => {
   });
 
   if (loading) {
-    return (
-      <div className="flex justify-center">
-        <LoaderIcon className="!h-5 !w-5" />
-      </div>
-    );
+    return <Loader />;
   }
 
   if (commented.length === 0) {

@@ -39,7 +39,7 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
         <div className="flex items-center space-x-2">
           {isFollower ? <MintVideo video={video} /> : null}
           {subscribeType === "FeeFollowModuleSettings" ? (
-            <JoinChannel />
+            <JoinChannel channel={channel} />
           ) : (
             <>
               {isFollower ? (

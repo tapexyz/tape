@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
+import { Loader } from "@components/ui/Loader";
 import { NoDataFound } from "@components/ui/NoDataFound";
 import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { COMMENT_FEED_QUERY } from "@utils/gql/queries";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useInView } from "react-cool-inview";
-import { LoaderIcon } from "react-hot-toast";
 import { AiOutlineComment } from "react-icons/ai";
 import { PaginatedResultInfo } from "src/types";
 import { LenstubePublication } from "src/types/local";
@@ -53,9 +53,7 @@ const VideoComments = () => {
     },
   });
 
-  if (loading) {
-    <LoaderIcon className="!w-5 !h-5" />;
-  }
+  if (loading) return <Loader />;
 
   if (data?.publications?.items.length === 0) {
     return <NoDataFound text="Be the first to comment." />;
@@ -78,7 +76,7 @@ const VideoComments = () => {
           </div>
           {pageInfo?.next && comments.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
-              <LoaderIcon />
+              <Loader />
             </span>
           )}
         </>

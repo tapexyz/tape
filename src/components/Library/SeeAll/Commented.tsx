@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import MetaTags from "@components/common/MetaTags";
 import Timeline from "@components/Home/Timeline";
+import { Loader } from "@components/ui/Loader";
 import { NoDataFound } from "@components/ui/NoDataFound";
 import Layout from "@components/wrappers/Layout";
 import useAppStore from "@lib/store";
@@ -8,7 +9,6 @@ import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { PROFILE_FEED_QUERY } from "@utils/gql/queries";
 import React, { useState } from "react";
 import { useInView } from "react-cool-inview";
-import { LoaderIcon } from "react-hot-toast";
 import { AiOutlineComment } from "react-icons/ai";
 import { PaginatedResultInfo } from "src/types";
 import { LenstubePublication } from "src/types/local";
@@ -64,11 +64,7 @@ const SeeAllCommented = () => {
   });
 
   if (loading) {
-    return (
-      <div className="flex justify-center">
-        <LoaderIcon className="!h-5 !w-5" />
-      </div>
-    );
+    return <Loader />;
   }
 
   if (commentedVideos?.length === 0) {
@@ -90,7 +86,7 @@ const SeeAllCommented = () => {
             <Timeline videos={commentedVideos} />
             {pageInfo?.next && commentedVideos.length !== pageInfo?.totalCount && (
               <span ref={observe} className="flex justify-center p-5">
-                <LoaderIcon />
+                <Loader />
               </span>
             )}
           </>

@@ -1,10 +1,10 @@
 import { useLazyQuery } from "@apollo/client";
+import { Loader } from "@components/ui/Loader";
 import Modal from "@components/ui/Modal";
 import getProfilePicture from "@utils/functions/getProfilePicture";
 import { SEARCH_CHANNELS_QUERY } from "@utils/gql/queries";
 import Link from "next/link";
 import React, { FC, useEffect, useState } from "react";
-import { LoaderIcon } from "react-hot-toast";
 import { BiSearch, BiUser } from "react-icons/bi";
 import { Profile } from "src/types";
 import { useDebounce } from "usehooks-ts";
@@ -55,7 +55,7 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
           <span>
             {loading ? (
               <div className="flex justify-center p-4">
-                <LoaderIcon className="!h-5 !w-5" />
+                <Loader />
               </div>
             ) : (
               channels?.search?.items?.map((channel: Profile) => (

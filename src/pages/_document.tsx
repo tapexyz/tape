@@ -21,10 +21,10 @@ class LenstubeDocument extends Document<Props> {
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <link
-            href="https://assets.takepull.com/css/font.css"
+            href="https://assets.lenstube.xyz/css/font.css"
             rel="stylesheet"
           />
-          <link rel="shortcut icon" href={`/favicon.ico`} />
+          <link rel="shortcut icon" href="/favicon.ico" />
           <meta name="msapplication-TileColor" content="#000000" />
           <meta name="theme-color" content="#000000" />
         </Head>
