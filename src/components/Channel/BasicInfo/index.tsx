@@ -30,7 +30,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         },
       },
     },
-    skip: !selectedChannel,
+    skip: !selectedChannel || !channel?.id,
   });
 
   const subscribeType = channel?.followModule?.__typename;
@@ -39,6 +39,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
   const onClickCustomize = () => {
     router.push(SETTINGS);
   };
+
   return (
     <div className="flex">
       <div className="relative w-full">
@@ -67,11 +68,13 @@ const BasicInfo: FC<Props> = ({ channel }) => {
               </span>
             </div>
             <div className="flex items-center space-x-2">
-              <Tooltip content="Customize Channel" placement="top">
-                <Button onClick={() => onClickCustomize()} className="!p-2">
-                  <AiOutlineEdit />
-                </Button>
-              </Tooltip>
+              {channel?.id === selectedChannel?.id && (
+                <Tooltip content="Customize Channel" placement="top">
+                  <Button onClick={() => onClickCustomize()} className="!p-2">
+                    <AiOutlineEdit />
+                  </Button>
+                </Tooltip>
+              )}
               {subscribeType === "FeeFollowModuleSettings" ? (
                 isFollower ? (
                   <UnSubscribe channel={channel} />

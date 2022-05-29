@@ -14,6 +14,9 @@ export const BUNDLR_NODE_URL = IS_MAINNET
 
 export const BUNDLR_CURRENCY = "matic";
 export const BUNDLR_WEBSITE_URL = "https://bundlr.network/";
+export const LENSTER_WEBSITE_URL = IS_MAINNET
+  ? "https://lenster.xyz"
+  : "https://testnet.lenster.xyz";
 
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
   ? "0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d"

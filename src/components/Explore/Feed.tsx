@@ -23,10 +23,7 @@ const ExploreFeed = () => {
     },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo);
-      const videosPublications = data?.explorePublications?.items.filter(
-        (e: LenstubePublication) => e.appId === LENSTUBE_VIDEOS_APP_ID
-      );
-      setVideos(videosPublications);
+      setVideos(data?.explorePublications?.items);
     },
   });
 
@@ -45,10 +42,7 @@ const ExploreFeed = () => {
         },
       }).then(({ data }: any) => {
         setPageInfo(data?.explorePublications?.pageInfo);
-        const videosPublications = data?.explorePublications?.items.filter(
-          (e: LenstubePublication) => e.appId === LENSTUBE_VIDEOS_APP_ID
-        );
-        setVideos([...videos, ...videosPublications]);
+        setVideos([...videos, ...data?.explorePublications?.items]);
       });
     },
   });
