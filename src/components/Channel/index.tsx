@@ -30,10 +30,14 @@ const Channel = () => {
   return (
     <Layout>
       {loading && <Loader />}
-      <MetaTags title={channel?.handle} />
-      <Upload />
-      <BasicInfo channel={channel} />
-      <Activities channel={channel} />
+      {!loading && !error && channel ? (
+        <>
+          <MetaTags title={channel?.handle} />
+          <Upload />
+          <BasicInfo channel={channel} />
+          <Activities channel={channel} />
+        </>
+      ) : null}
     </Layout>
   );
 };
