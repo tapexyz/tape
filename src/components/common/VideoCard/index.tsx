@@ -1,4 +1,5 @@
 import getProfilePicture from "@utils/functions/getProfilePicture";
+import getThumbnailUrl from "@utils/functions/getThumbnailUrl";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Link from "next/link";
@@ -18,7 +19,7 @@ const VideoCard: FC<Props> = ({ video }) => {
     <div className="transition duration-500 ease-in-out rounded-b group bg-secondary">
       <div className="rounded-t-lg aspect-w-16 aspect-h-9">
         <img
-          src={video.metadata.cover?.original.url}
+          src={getThumbnailUrl(video)}
           alt=""
           draggable={false}
           className="object-cover object-center w-full h-full rounded-t lg:w-full lg:h-full"
