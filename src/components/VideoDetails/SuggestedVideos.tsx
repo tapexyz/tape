@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { Loader } from "@components/ui/Loader";
 import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
+import getThumbnailUrl from "@utils/functions/getThumbnailUrl";
 import { EXPLORE_QUERY } from "@utils/gql/queries";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -64,16 +65,16 @@ const SuggestedVideos = () => {
               <div key={index} className="flex">
                 <div className="flex-none overflow-hidden rounded">
                   <img
-                    src="https://i.ytimg.com/vi/VgjyPmFKxCU/hqdefault.jpg"
+                    src={getThumbnailUrl(video)}
                     alt=""
                     draggable={false}
-                    className="object-cover object-center w-48 h-24 xl:h-28"
+                    className="object-cover object-center h-24 w-44"
                   />
                 </div>
                 <div className="flex items-start px-2.5">
                   <div className="flex flex-col items-start flex-1 pb-1">
                     <span className="flex w-full items-start justify-between space-x-1.5">
-                      <Link passHref href="/videos/0x02-0x05">
+                      <Link passHref href={`/videos/${video.id}`}>
                         <a className="mb-1.5 text-sm font-medium line-clamp-2">
                           {video.metadata?.name}
                         </a>

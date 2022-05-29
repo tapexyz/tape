@@ -15,7 +15,9 @@ import Upload from "./Upload";
 const Channel = () => {
   const { query } = useRouter();
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
-    variables: { request: { handles: query.channel } },
+    variables: {
+      request: { handles: query.channel },
+    },
     skip: !query.channel,
   });
 

@@ -1,6 +1,9 @@
+import { useQuery } from "@apollo/client";
 import { Button } from "@components/ui/Button";
 import Tooltip from "@components/ui/Tooltip";
+import useAppStore from "@lib/store";
 import getProfilePicture from "@utils/functions/getProfilePicture";
+import { DOES_FOLLOW } from "@utils/gql/queries";
 import { SETTINGS } from "@utils/url-path";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
@@ -9,6 +12,7 @@ import { Profile } from "src/types";
 
 import JoinChannel from "./JoinChannel";
 import Subscribe from "./Subscribe";
+import UnSubscribe from "./UnSubscribe";
 
 type Props = {
   channel: Profile & any;
@@ -16,7 +20,21 @@ type Props = {
 
 const BasicInfo: FC<Props> = ({ channel }) => {
   const router = useRouter();
+  const { selectedChannel } = useAppStore();
+  const { data } = useQuery(DOES_FOLLOW, {
+    variables: {
+      request: {
+        followInfos: {
+          followerAddress: selectedChannel?.ownedBy,
+          profileId: channel?.id,
+        },
+      },
+    },
+    skip: !selectedChannel,
+  });
+
   const subscribeType = channel?.followModule?.__typename;
+  const isFollower = data?.doesFollow[0].follows as boolean;
 
   const onClickCustomize = () => {
     router.push(SETTINGS);
@@ -55,7 +73,11 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 </Button>
               </Tooltip>
               {subscribeType === "FeeFollowModuleSettings" ? (
-                <JoinChannel />
+                isFollower ? (
+                  <UnSubscribe channel={channel} />
+                ) : (
+                  <JoinChannel channel={channel} />
+                )
               ) : (
                 <Subscribe channel={channel} />
               )}

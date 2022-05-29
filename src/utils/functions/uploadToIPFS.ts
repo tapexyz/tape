@@ -1,14 +1,18 @@
-import { create } from "ipfs-http-client";
 import { IPFSUploadResult } from "src/types/local";
 
-const client = create({
-  host: "ipfs.infura.io",
-  port: 5001,
-  protocol: "https",
-});
-
 const uploadDataToIPFS = async (data: any) => {
-  return await client.add(JSON.stringify(data));
+  const formData = new FormData();
+  formData.append("data", JSON.stringify(data));
+  const upload = await fetch("https://ipfs.infura.io:5001/api/v0/add", {
+    method: "POST",
+    body: formData,
+  });
+  const { Hash }: { Hash: string } = await upload.json();
+
+  return {
+    ipfsUrl: `https://ipfs.infura.io/ipfs/${Hash}`,
+    hash: Hash,
+  };
 };
 
 const uploadImageToIPFS = async (

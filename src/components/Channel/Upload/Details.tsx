@@ -285,7 +285,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
 
   const createPublication = async () => {
     setButtonText("Storing metadata...");
-    const { path } = await uploadDataToIPFS({
+    const { ipfsUrl } = await uploadDataToIPFS({
       version: "1.0.0",
       metadata_id: uuidv4(),
       description: videoMeta.description,
@@ -317,7 +317,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       variables: {
         request: {
           profileId: selectedChannel?.id,
-          contentURI: `https://ipfs.infura.io/ipfs/${path}`,
+          contentURI: ipfsUrl,
           collectModule: {
             freeCollectModule: {
               followerOnly: true,
