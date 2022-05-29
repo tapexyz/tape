@@ -50,11 +50,12 @@ const HomeFeed = () => {
   });
 
   if (data?.length === 0) {
-    return <NoDataFound />;
+    return <NoDataFound text="No videos yet." />;
   }
 
   return (
     <div>
+      {loading && <Loader />}
       {!error && !loading && (
         <>
           <Timeline videos={videos} />

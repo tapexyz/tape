@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import MetaTags from "@components/common/MetaTags";
+import { Loader } from "@components/ui/Loader";
 import Layout from "@components/wrappers/Layout";
 import useAppStore from "@lib/store";
 import { LENSTUBE_VIDEOS_APP_ID, ZERO_ADDRESS } from "@utils/constants";
@@ -22,7 +23,7 @@ const VideoDetails = () => {
   } = useRouter();
   const { selectedChannel } = useAppStore();
   const channelId = selectedChannel?.id ?? id?.toString().split("-")[0];
-  const { data, error } = useQuery(VIDEO_DETAIL_QUERY, {
+  const { data, error, loading } = useQuery(VIDEO_DETAIL_QUERY, {
     variables: {
       request: { publicationId: id },
       followRequest: {
@@ -43,16 +44,21 @@ const VideoDetails = () => {
   return (
     <Layout>
       <MetaTags title={video?.metadata.name ?? "Video Details"} />
-      <div className="grid grid-cols-1 gap-y-4 md:gap-4 lg:grid-cols-4">
-        <div className="col-span-3">
-          <Video video={video} />
-          <AboutChannel video={video} isFollower={isFollower} />
-          <VideoComments />
-        </div>
-        <div className="col-span-1">
-          <SuggestedVideos />
-        </div>
-      </div>
+      {loading && <Loader />}
+      {!loading && !error && video ? (
+        <>
+          <div className="grid grid-cols-1 gap-y-4 md:gap-4 lg:grid-cols-4">
+            <div className="col-span-3">
+              <Video video={video} />
+              <AboutChannel video={video} isFollower={isFollower} />
+              <VideoComments />
+            </div>
+            <div className="col-span-1">
+              <SuggestedVideos />
+            </div>
+          </div>
+        </>
+      ) : null}
     </Layout>
   );
 };

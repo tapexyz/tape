@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import Timeline from "@components/Home/Timeline";
 import { Loader } from "@components/ui/Loader";
+import { NoDataFound } from "@components/ui/NoDataFound";
 import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { EXPLORE_QUERY } from "@utils/gql/queries";
 import React, { useState } from "react";
@@ -12,7 +13,7 @@ const ExploreFeed = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([]);
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
 
-  const { loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
         sortCriteria: "LATEST",
@@ -47,8 +48,13 @@ const ExploreFeed = () => {
     },
   });
 
+  if (data?.length === 0) {
+    return <NoDataFound text="No videos found." />;
+  }
+
   return (
     <div>
+      {loading && <Loader />}
       {!error && !loading && (
         <>
           <Timeline videos={videos} />

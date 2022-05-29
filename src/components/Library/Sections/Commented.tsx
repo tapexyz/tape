@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import VideoCard from "@components/common/VideoCard";
 import { Loader } from "@components/ui/Loader";
+import { NoDataFound } from "@components/ui/NoDataFound";
 import useAppStore from "@lib/store";
 import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { PROFILE_FEED_QUERY } from "@utils/gql/queries";
@@ -36,7 +37,9 @@ const Commented = () => {
   }
 
   if (commented.length === 0) {
-    return null;
+    return (
+      <NoDataFound text="No videos, try commenting or add videos to watch later." />
+    );
   }
 
   return (
