@@ -17,7 +17,11 @@ const MobileBottomNav = () => {
     <div className="fixed inset-x-0 bottom-0 md:hidden">
       <nav
         className={clsx(
-          "grid gap-2 px-4 grid-cols-3 py-2 bg-white border-t border-gray-300 dark:border-gray-700 dark:bg-black space-between"
+          "grid gap-2 px-4 py-2 bg-white border-t border-gray-300 dark:border-gray-700 dark:bg-black space-between",
+          {
+            "grid-cols-3": selectedChannel,
+            "grid-cols-2": !selectedChannel,
+          }
         )}
       >
         <div>

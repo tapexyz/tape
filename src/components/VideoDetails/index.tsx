@@ -42,14 +42,11 @@ const VideoDetails = () => {
 
   return (
     <Layout>
-      <MetaTags title={video.metadata.name ?? "Video Details"} />
+      <MetaTags title={video?.metadata.name ?? "Video Details"} />
       <div className="grid grid-cols-1 gap-y-4 md:gap-4 md:grid-cols-4">
         <div className="col-span-3">
           <Video video={video} />
-          <AboutChannel
-            channel={video.profile}
-            isFollower={doesFollow.follows}
-          />
+          <AboutChannel video={video} isFollower={doesFollow?.follows} />
           <VideoComments />
         </div>
         <div className="col-span-1">

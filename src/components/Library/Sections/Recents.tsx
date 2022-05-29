@@ -24,7 +24,7 @@ const Recents = () => {
           </a>
         </Link> */}
       </div>
-      <div className="grid gap-x-4 lg:grid-cols-4 gap-y-6 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
+      <div className="grid gap-x-4 lg:grid-cols-4 gap-y-1 md:gap-y-6 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
         {recentlyWatched.map((video: LenstubePublication, idx: number) => (
           <VideoCard key={idx} video={video} />
         ))}

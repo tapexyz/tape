@@ -339,6 +339,76 @@ export const PostFields = gql`
   ${MinimalCollectModuleFields}
 `;
 
+export const CollectModuleFields = gql`
+  fragment CollectModuleFields on CollectModule {
+    ... on FreeCollectModuleSettings {
+      type
+      contractAddress
+      followerOnly
+    }
+    ... on FeeCollectModuleSettings {
+      type
+      recipient
+      referralFee
+      contractAddress
+      followerOnly
+      amount {
+        asset {
+          symbol
+          address
+        }
+        value
+      }
+    }
+    ... on LimitedFeeCollectModuleSettings {
+      type
+      collectLimit
+      recipient
+      referralFee
+      contractAddress
+      followerOnly
+      amount {
+        asset {
+          symbol
+          address
+        }
+        value
+      }
+    }
+    ... on LimitedTimedFeeCollectModuleSettings {
+      type
+      collectLimit
+      recipient
+      endTimestamp
+      referralFee
+      contractAddress
+      followerOnly
+      amount {
+        asset {
+          symbol
+          address
+        }
+        value
+      }
+    }
+    ... on TimedFeeCollectModuleSettings {
+      type
+      recipient
+      endTimestamp
+      referralFee
+      contractAddress
+      followerOnly
+      amount {
+        asset {
+          symbol
+          address
+        }
+        value
+      }
+    }
+  }
+`;
+
 export const EXPLORE_QUERY = gql`
   query Explore($request: ExplorePublicationRequest!) {
     explorePublications(request: $request) {
@@ -452,6 +522,36 @@ export const CREATE_POST_TYPED_DATA = gql`
   }
 `;
 
+export const CREATE_COLLECT_TYPED_DATA = gql`
+  mutation CreateCollectTypedData($request: CreateCollectRequest!) {
+    createCollectTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          CollectWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          pubId
+          data
+        }
+      }
+    }
+  }
+`;
+
 export const VIDEO_DETAIL_QUERY = gql`
   query VideoDetails(
     $request: PublicationQueryRequest!
@@ -473,72 +573,16 @@ export const VIDEO_DETAIL_QUERY = gql`
   ${PostFields}
 `;
 
-export const CollectModuleFields = gql`
-  fragment CollectModuleFields on CollectModule {
-    ... on FreeCollectModuleSettings {
-      type
-      contractAddress
-      followerOnly
-    }
-    ... on FeeCollectModuleSettings {
-      type
-      recipient
-      referralFee
-      contractAddress
-      followerOnly
-      amount {
-        asset {
-          symbol
-          address
+export const VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY = gql`
+  query VideoDetailsWithCollect($request: PublicationQueryRequest!) {
+    publication(request: $request) {
+      ... on Post {
+        collectNftAddress
+        collectModule {
+          ...CollectModuleFields
         }
-        value
-      }
-    }
-    ... on LimitedFeeCollectModuleSettings {
-      type
-      collectLimit
-      recipient
-      referralFee
-      contractAddress
-      followerOnly
-      amount {
-        asset {
-          symbol
-          address
-        }
-        value
-      }
-    }
-    ... on LimitedTimedFeeCollectModuleSettings {
-      type
-      collectLimit
-      recipient
-      endTimestamp
-      referralFee
-      contractAddress
-      followerOnly
-      amount {
-        asset {
-          symbol
-          address
-        }
-        value
-      }
-    }
-    ... on TimedFeeCollectModuleSettings {
-      type
-      recipient
-      endTimestamp
-      referralFee
-      contractAddress
-      followerOnly
-      amount {
-        asset {
-          symbol
-          address
-        }
-        value
       }
     }
   }
+  ${CollectModuleFields}
 `;

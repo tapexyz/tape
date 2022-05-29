@@ -1,16 +1,17 @@
 import { Button } from "@components/ui/Button";
-import Tooltip from "@components/ui/Tooltip";
 import getProfilePicture from "@utils/functions/getProfilePicture";
 import React, { FC } from "react";
-import { SiOpenmined } from "react-icons/si";
-import { Profile } from "src/types";
+import { LenstubePublication } from "src/types/local";
+
+import MintVideo from "./MintVideo";
 
 type Props = {
-  channel: Profile & any;
+  video: LenstubePublication;
   isFollower: boolean;
 };
 
-const AboutChannel: FC<Props> = ({ channel, isFollower }) => {
+const AboutChannel: FC<Props> = ({ video, isFollower }) => {
+  const channel = video?.profile;
   const subscribeType = channel?.followModule?.__typename;
 
   return (
@@ -31,15 +32,7 @@ const AboutChannel: FC<Props> = ({ channel, isFollower }) => {
           </span>
         </div>
         <div className="flex items-center space-x-2">
-          {!isFollower ? (
-            <Tooltip content="Mint as NFT" placement="top">
-              <span>
-                <Button className="!p-2">
-                  <SiOpenmined />
-                </Button>
-              </span>
-            </Tooltip>
-          ) : null}
+          {isFollower ? <MintVideo video={video} /> : null}
           {subscribeType === "FeeFollowModuleSettings" ? (
             <Button>Join Channel</Button>
           ) : (
