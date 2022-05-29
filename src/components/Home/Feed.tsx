@@ -26,10 +26,7 @@ const HomeFeed = () => {
     fetchPolicy: "no-cache",
     onCompleted(data) {
       setPageInfo(data?.timeline?.pageInfo);
-      const videosPublications = data?.timeline?.items.filter(
-        (e: LenstubePublication) => e.appId === LENSTUBE_VIDEOS_APP_ID
-      );
-      setVideos(videosPublications);
+      setVideos(data?.timeline?.items);
     },
   });
 
@@ -47,10 +44,7 @@ const HomeFeed = () => {
         },
       }).then(({ data }: any) => {
         setPageInfo(data?.timeline?.pageInfo);
-        const videosPublications = data?.timeline?.items.filter(
-          (e: LenstubePublication) => e.appId === LENSTUBE_VIDEOS_APP_ID
-        );
-        setVideos([...videos, ...videosPublications]);
+        setVideos([...videos, ...data?.timeline?.items]);
       });
     },
   });

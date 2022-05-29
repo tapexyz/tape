@@ -10,6 +10,7 @@ import Custom500 from "src/pages/500";
 import { Profile } from "src/types";
 
 import BasicInfo from "./BasicInfo";
+import Activities from "./Activities";
 import Upload from "./Upload";
 
 const Channel = () => {
@@ -32,6 +33,7 @@ const Channel = () => {
       <MetaTags title={channel?.handle} />
       <Upload />
       <BasicInfo channel={channel} />
+      <Activities channel={channel} />
     </Layout>
   );
 };

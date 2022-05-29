@@ -6,13 +6,14 @@ import {
   lightTheme,
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
+import { IS_MAINNET } from "@utils/constants";
 import { useTheme } from "next-themes";
 import { FC, ReactNode } from "react";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 
 const { chains, provider } = configureChains(
-  [chain.polygonMumbai],
+  IS_MAINNET ? [chain.polygon] : [chain.polygonMumbai],
   [alchemyProvider({ alchemyId: ALCHEMY_KEY })]
 );
 

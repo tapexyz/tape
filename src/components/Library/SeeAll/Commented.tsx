@@ -33,9 +33,6 @@ const SeeAllCommented = () => {
     fetchPolicy: "no-cache",
     onCompleted(data) {
       setPageInfo(data?.publications?.pageInfo);
-      // const videosCommented = data?.publications?.items.filter(
-      //   (e: LenstubePublication) => e.appId === LENSTUBE_VIDEOS_APP_ID
-      // );
       setCommentedVideos(data?.publications?.items);
     },
   });
@@ -55,9 +52,6 @@ const SeeAllCommented = () => {
         },
       }).then(({ data }: any) => {
         setPageInfo(data?.publications?.pageInfo);
-        // const videosPublications = data?.timeline?.items.filter(
-        //   (e: LenstubePublication) => e.appId === LENSTUBE_VIDEOS_APP_ID
-        // );
         setCommentedVideos([...commentedVideos, ...data?.publications?.items]);
       });
     },

@@ -27,9 +27,6 @@ const Commented = () => {
     skip: !selectedChannel?.id,
     fetchPolicy: "no-cache",
     onCompleted(data) {
-      // const videosCommented = data?.publications?.items.filter(
-      //   (e: LenstubePublication) => e.appId === LENSTUBE_VIDEOS_APP_ID
-      // );
       setCommented(data?.publications?.items);
     },
   });
