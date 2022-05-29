@@ -33,7 +33,6 @@ const MobileBottomNav = () => {
                     isActivePath("/"),
                 })}
               />
-              <span className="hidden md:inline-block">Home</span>
             </a>
           </Link>
         </div>
@@ -46,7 +45,6 @@ const MobileBottomNav = () => {
                     isActivePath("/explore"),
                 })}
               />
-              <span className="hidden md:inline-block">Explore</span>
             </a>
           </Link>
         </div>
@@ -60,7 +58,6 @@ const MobileBottomNav = () => {
                       isActivePath("/library"),
                   })}
                 />
-                <span className="hidden md:inline-block">Library</span>
               </a>
             </Link>
           </div>

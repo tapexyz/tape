@@ -1,12 +1,12 @@
 import { useQuery } from "@apollo/client";
 import Timeline from "@components/Home/Timeline";
+import { Loader } from "@components/ui/Loader";
 import { NoDataFound } from "@components/ui/NoDataFound";
 import useAppStore from "@lib/store";
 import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
 import { FEED_QUERY } from "@utils/gql/queries";
 import React, { useState } from "react";
 import { useInView } from "react-cool-inview";
-import { LoaderIcon } from "react-hot-toast";
 import { PaginatedResultInfo } from "src/types";
 import { LenstubePublication } from "src/types/local";
 
@@ -66,7 +66,7 @@ const HomeFeed = () => {
           <Timeline videos={videos} />
           {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
-              <LoaderIcon />
+              <Loader />
             </span>
           )}
         </>

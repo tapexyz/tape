@@ -50,7 +50,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
             className="absolute w-full bg-white bg-center bg-no-repeat bg-cover rounded dark:bg-gray-900 -z-10 h-44 md:h-72"
           />
         </span>
-        <div className="flex items-center pl-4 mt-44 md:mt-72">
+        <div className="flex items-center pt-2 md:pt-0 md:pl-4 mt-44 md:mt-72">
           <div className="flex-none mr-4 md:mr-6">
             <img
               src={getProfilePicture(channel)}
@@ -63,7 +63,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
             <div className="flex flex-col items-start mr-3">
               <h1 className="font-bold md:text-xl">{channel?.handle}</h1>
               <span className="inline-flex items-center space-x-1 text-sm md:text-base">
-                {channel.stats.totalFollowers} subscribers
+                {channel?.stats.totalFollowers} subscribers
               </span>
             </div>
             <div className="flex items-center space-x-2">

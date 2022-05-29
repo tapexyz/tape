@@ -7,7 +7,6 @@ import { NOTIFICATIONS_QUERY } from "@utils/gql/queries";
 import clsx from "clsx";
 import React, { useState } from "react";
 import { useInView } from "react-cool-inview";
-import { LoaderIcon } from "react-hot-toast";
 import { Notification, PaginatedResultInfo } from "src/types";
 
 import SubscriberNotification from "./Subscriber";
@@ -71,7 +70,7 @@ const Notifications = () => {
       )}
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-5">
-          <LoaderIcon />
+          <Loader />
         </span>
       )}
     </>

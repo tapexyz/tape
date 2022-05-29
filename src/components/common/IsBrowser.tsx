@@ -1,5 +1,5 @@
+import { Loader } from "@components/ui/Loader";
 import type { ReactNode } from "react";
-import { LoaderIcon } from "react-hot-toast";
 import { useIsClient } from "usehooks-ts";
 
 type IsBrowserProps = {
@@ -12,7 +12,7 @@ export const IsBrowser = ({ children }: IsBrowserProps) => {
   if (!isClient) {
     return (
       <div className="grid w-full h-screen place-items-center">
-        <LoaderIcon className="!h-5 !w-5" />
+        <Loader />
       </div>
     );
   }
