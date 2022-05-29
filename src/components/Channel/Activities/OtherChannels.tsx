@@ -1,13 +1,12 @@
 import { useQuery } from "@apollo/client";
-import { Button } from "@components/ui/Button";
 import { Loader } from "@components/ui/Loader";
 import { NoDataFound } from "@components/ui/NoDataFound";
-import useAppStore from "@lib/store";
 import getProfilePicture from "@utils/functions/getProfilePicture";
 import { PROFILE_QUERY } from "@utils/gql/queries";
 import Link from "next/link";
 import React, { FC } from "react";
 import { Profile } from "src/types";
+
 import Subscribe from "../BasicInfo/Subscribe";
 
 type Props = {
@@ -15,7 +14,7 @@ type Props = {
 };
 
 const OtherChannels: FC<Props> = ({ channel }) => {
-  const { data, loading, error } = useQuery(PROFILE_QUERY, {
+  const { data, loading } = useQuery(PROFILE_QUERY, {
     variables: {
       request: { handles: channel.handle },
     },

@@ -1,8 +1,5 @@
 import { LENSTER_WEBSITE_URL } from "@utils/constants";
-import Link from "next/link";
 import React, { FC } from "react";
-import { BsGlobe2 } from "react-icons/bs";
-import { CgWebsite } from "react-icons/cg";
 import { HiOutlineGlobe } from "react-icons/hi";
 import { RiTwitterLine } from "react-icons/ri";
 import { Profile } from "src/types";
@@ -39,7 +36,7 @@ const About: FC<Props> = ({ channel }) => {
               <a
                 href={getSpecificAttribute("website")}
                 target="_blank"
-                rel="noreferer"
+                rel="noreferer noreferrer"
                 className="hover:text-indigo-500"
               >
                 Website
@@ -52,7 +49,7 @@ const About: FC<Props> = ({ channel }) => {
               <a
                 href={getSpecificAttribute("website")}
                 target="_blank"
-                rel="noreferer"
+                rel="noreferer noreferrer"
                 className="hover:text-indigo-500"
               >
                 Twitter
@@ -66,7 +63,7 @@ const About: FC<Props> = ({ channel }) => {
             <a
               href={`${LENSTER_WEBSITE_URL}/u/${channel?.handle}`}
               target="_blank"
-              rel="noreferer"
+              rel="noreferer noreferrer"
               className="hover:text-indigo-500"
             >
               Lenster

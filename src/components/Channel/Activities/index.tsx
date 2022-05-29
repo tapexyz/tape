@@ -1,8 +1,8 @@
-import Commented from "@components/Library/Sections/Commented";
 import { Tab } from "@headlessui/react";
 import clsx from "clsx";
 import { FC } from "react";
 import { Profile } from "src/types";
+
 import About from "./About";
 import ChannelVideos from "./ChannelVideos";
 import CommentedVideos from "./CommentedVideos";

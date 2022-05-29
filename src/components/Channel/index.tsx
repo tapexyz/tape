@@ -9,8 +9,8 @@ import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { Profile } from "src/types";
 
-import BasicInfo from "./BasicInfo";
 import Activities from "./Activities";
+import BasicInfo from "./BasicInfo";
 import Upload from "./Upload";
 
 const Channel = () => {
