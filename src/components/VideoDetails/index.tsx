@@ -8,6 +8,7 @@ import { VIDEO_DETAIL_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React from 'react'
+import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { LenstubePublication } from 'src/types/local'
 
@@ -37,13 +38,14 @@ const VideoDetails = () => {
     skip: !id
   })
 
-  if (error) return <Custom500 />
   const video = data?.publication as LenstubePublication
+  if (error) return <Custom500 />
+  if (video?.__typename !== 'Publication') return <Custom404 />
   const isFollower = data?.doesFollow[0].follows as boolean
 
   return (
     <Layout>
-      <MetaTags title={video?.metadata.name ?? 'Video Details'} />
+      <MetaTags title={video?.metadata?.name ?? 'Video Details'} />
       {loading && <Loader />}
       {!loading && !error && video ? (
         <>
