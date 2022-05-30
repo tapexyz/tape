@@ -40,7 +40,7 @@ const VideoDetails = () => {
 
   const video = data?.publication as LenstubePublication
   if (error) return <Custom500 />
-  if (video?.__typename !== 'Publication') return <Custom404 />
+  if (video?.__typename !== 'Post') return <Custom404 />
   const isFollower = data?.doesFollow[0].follows as boolean
 
   return (
