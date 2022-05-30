@@ -3,7 +3,6 @@ import { setContext } from '@apollo/client/link/context'
 import { API_URL } from '@utils/constants'
 import { REFRESH_AUTHENTICATION_MUTATION } from '@utils/gql/queries'
 import { TokenRefreshLink } from 'apollo-link-token-refresh'
-import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import result, { AuthenticationResult } from 'src/types'
 
@@ -38,23 +37,29 @@ const refreshLink = new TokenRefreshLink({
     }
   },
   fetchAccessToken: () => {
-    return axios.post(API_URL, {
-      operationName: 'Refresh',
-      query: REFRESH_AUTHENTICATION_MUTATION,
-      variables: {
-        request: { refreshToken: localStorage.getItem('refreshToken') }
-      }
+    return fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        operationName: 'Refresh',
+        query: REFRESH_AUTHENTICATION_MUTATION,
+        variables: {
+          request: { refreshToken: localStorage.getItem('refreshToken') }
+        }
+      })
     })
   },
-  handleFetch: (response: any) => {
-    const { refresh }: { refresh: AuthenticationResult } = response?.data?.data
+  handleFetch: async (response: any) => {
+    const result = await response.json()
+    const { refresh }: { refresh: AuthenticationResult } = result?.data
     const accessToken = refresh?.accessToken
     const refreshToken = refresh?.refreshToken
     localStorage.setItem('accessToken', accessToken)
     localStorage.setItem('refreshToken', refreshToken)
   },
-  handleResponse: () => (response: any) => {
-    const { refresh }: { refresh: AuthenticationResult } = response?.data?.data
+  handleResponse: () => async (response: any) => {
+    const result = await response.json()
+    const { refresh }: { refresh: AuthenticationResult } = result?.data
     const accessToken = refresh?.accessToken
     const refreshToken = refresh?.refreshToken
     localStorage.setItem('accessToken', accessToken)

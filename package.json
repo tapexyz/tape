@@ -19,7 +19,6 @@
     "@tailwindcss/line-clamp": "^0.4.0",
     "@tippyjs/react": "^4.2.6",
     "apollo-link-token-refresh": "^0.4.0",
-    "axios": "^0.27.2",
     "bignumber.js": "^9.0.2",
     "clsx": "^1.1.1",
     "dayjs": "^1.11.2",
