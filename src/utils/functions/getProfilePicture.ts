@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Profile } from "src/types";
+import { Profile } from 'src/types'
 
-import { getRandomProfilePicture } from "./getRandomProfilePicture";
+import { getRandomProfilePicture } from './getRandomProfilePicture'
 
 const getProfilePicture = (channel: Profile): string => {
   return (
@@ -10,7 +10,7 @@ const getProfilePicture = (channel: Profile): string => {
     // @ts-ignore
     channel?.picture?.uri ??
     getRandomProfilePicture(channel?.handle)
-  );
-};
+  )
+}
 
-export default getProfilePicture;
+export default getProfilePicture

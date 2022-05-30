@@ -40,8 +40,3 @@ input[type="number"] {
 html {
   --plyr-color-main: #15803d;
 }
-
-/* .plyr--video .plyr__control [data-plyr="page"]:hover {
-  background: none !important;
-  color: inherit !important;
-} */

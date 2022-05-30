@@ -47,11 +47,11 @@ const VideoDetails = () => {
       {loading && <Loader />}
       {!loading && !error && video ? (
         <>
-          <div className="grid grid-cols-1 gap-y-4 md:gap-4 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
             <div className="col-span-3">
               <Video video={video} />
               <AboutChannel video={video} isFollower={isFollower} />
-              <VideoComments />
+              <VideoComments video={video} />
             </div>
             <div className="col-span-1">
               <SuggestedVideos />

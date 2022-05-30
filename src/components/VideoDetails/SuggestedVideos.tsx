@@ -52,10 +52,10 @@ const SuggestedVideos = () => {
   }
 
   return (
-    <div>
+    <>
       {!error && !loading && (
         <>
-          <div className="space-y-3">
+          <div className="space-y-3 md:gap-3 md:grid lg:flex lg:gap-0 lg:flex-col md:grid-cols-2">
             {videos?.map((video: LenstubePublication, index: number) => (
               <div key={index} className="flex">
                 <div className="flex-none overflow-hidden rounded">
@@ -95,7 +95,7 @@ const SuggestedVideos = () => {
           )}
         </>
       )}
-    </div>
+    </>
   )
 }
 
