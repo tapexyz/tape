@@ -1,17 +1,17 @@
-import { Button } from "@components/ui/Button";
-import useAppStore from "@lib/store";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import React from "react";
+import { Button } from '@components/ui/Button'
+import useAppStore from '@lib/store'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
+import React from 'react'
 
-import UserMenu from "./UserMenu";
+import UserMenu from './UserMenu'
 
 type Props = {
-  handleSign: () => void;
-  loading?: boolean;
-};
+  handleSign: () => void
+  loading?: boolean
+}
 
 const ConnectWalletButton = ({ handleSign, loading }: Props) => {
-  const { token } = useAppStore();
+  const { token } = useAppStore()
 
   return (
     <ConnectButton.Custom>
@@ -19,19 +19,19 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
         return (
           <div
             {...(!mounted && {
-              "aria-hidden": true,
+              'aria-hidden': true,
               style: {
                 opacity: 0,
-                pointerEvents: "none",
-                userSelect: "none",
-              },
+                pointerEvents: 'none',
+                userSelect: 'none'
+              }
             })}
           >
             {(() => {
               if (!mounted || !chain || !account) {
                 return (
                   <Button onClick={openConnectModal}>Connect Wallet</Button>
-                );
+                )
               }
 
               if (chain.unsupported) {
@@ -39,7 +39,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                   <Button onClick={openChainModal} variant="danger">
                     Wrong network
                   </Button>
-                );
+                )
               }
 
               return (
@@ -56,13 +56,13 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                     </Button>
                   )}
                 </>
-              );
+              )
             })()}
           </div>
-        );
+        )
       }}
     </ConnectButton.Custom>
-  );
-};
+  )
+}
 
-export default ConnectWalletButton;
+export default ConnectWalletButton

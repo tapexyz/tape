@@ -1,6 +1,6 @@
-import MetaTags from "@components/common/MetaTags";
-import Layout from "@components/wrappers/Layout";
-import React from "react";
+import MetaTags from '@components/common/MetaTags'
+import Layout from '@components/wrappers/Layout'
+import React from 'react'
 
 const Settings = () => {
   return (
@@ -8,7 +8,7 @@ const Settings = () => {
       <MetaTags title="Settings" />
       <div>Settings</div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Settings;
+export default Settings

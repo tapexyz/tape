@@ -1,38 +1,38 @@
-import { useLazyQuery } from "@apollo/client";
-import { Loader } from "@components/ui/Loader";
-import Modal from "@components/ui/Modal";
-import getProfilePicture from "@utils/functions/getProfilePicture";
-import { SEARCH_CHANNELS_QUERY } from "@utils/gql/queries";
-import Link from "next/link";
-import React, { FC, useEffect, useState } from "react";
-import { BiSearch, BiUser } from "react-icons/bi";
-import { Profile } from "src/types";
-import { useDebounce } from "usehooks-ts";
+import { useLazyQuery } from '@apollo/client'
+import { Loader } from '@components/ui/Loader'
+import Modal from '@components/ui/Modal'
+import getProfilePicture from '@utils/functions/getProfilePicture'
+import { SEARCH_CHANNELS_QUERY } from '@utils/gql/queries'
+import Link from 'next/link'
+import React, { FC, useEffect, useState } from 'react'
+import { BiSearch, BiUser } from 'react-icons/bi'
+import { Profile } from 'src/types'
+import { useDebounce } from 'usehooks-ts'
 
 type Props = {
-  setShowSearch: React.Dispatch<boolean>;
-};
+  setShowSearch: React.Dispatch<boolean>
+}
 
 const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
-  const [keyword, setKeyword] = useState("");
-  const debouncedValue = useDebounce<string>(keyword, 500);
+  const [keyword, setKeyword] = useState('')
+  const debouncedValue = useDebounce<string>(keyword, 500)
 
   const [searchChannels, { data: channels, loading }] = useLazyQuery(
     SEARCH_CHANNELS_QUERY
-  );
+  )
 
   useEffect(() => {
     if (keyword.trim().length)
       searchChannels({
-        variables: { request: { type: "PROFILE", query: keyword, limit: 10 } },
-      });
+        variables: { request: { type: 'PROFILE', query: keyword, limit: 10 } }
+      })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedValue]);
+  }, [debouncedValue])
 
   const onSelectResult = () => {
-    setShowSearch(false);
-    setKeyword("");
-  };
+    setShowSearch(false)
+    setKeyword('')
+  }
 
   return (
     <Modal
@@ -97,7 +97,7 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
         </div>
       </div>
     </Modal>
-  );
-};
+  )
+}
 
-export default GlobalSearch;
+export default GlobalSearch

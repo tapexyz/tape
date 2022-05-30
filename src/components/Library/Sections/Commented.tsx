@@ -1,45 +1,45 @@
-import { useQuery } from "@apollo/client";
-import VideoCard from "@components/common/VideoCard";
-import { Loader } from "@components/ui/Loader";
-import { NoDataFound } from "@components/ui/NoDataFound";
-import useAppStore from "@lib/store";
-import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
-import { PROFILE_FEED_QUERY } from "@utils/gql/queries";
-import { COMMENTED_LIBRARY } from "@utils/url-path";
-import Link from "next/link";
-import React, { useState } from "react";
-import { AiOutlineComment } from "react-icons/ai";
-import { BiChevronRight } from "react-icons/bi";
-import { LenstubePublication } from "src/types/local";
+import { useQuery } from '@apollo/client'
+import VideoCard from '@components/common/VideoCard'
+import { Loader } from '@components/ui/Loader'
+import { NoDataFound } from '@components/ui/NoDataFound'
+import useAppStore from '@lib/store'
+import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
+import { PROFILE_FEED_QUERY } from '@utils/gql/queries'
+import { COMMENTED_LIBRARY } from '@utils/url-path'
+import Link from 'next/link'
+import React, { useState } from 'react'
+import { AiOutlineComment } from 'react-icons/ai'
+import { BiChevronRight } from 'react-icons/bi'
+import { LenstubePublication } from 'src/types/local'
 
 const Commented = () => {
-  const [commented, setCommented] = useState<LenstubePublication[]>([]);
-  const { selectedChannel } = useAppStore();
+  const [commented, setCommented] = useState<LenstubePublication[]>([])
+  const { selectedChannel } = useAppStore()
 
   const { loading } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: {
-        publicationTypes: "COMMENT",
+        publicationTypes: 'COMMENT',
         profileId: selectedChannel?.id,
         limit: 5,
-        sources: [LENSTUBE_VIDEOS_APP_ID],
-      },
+        sources: [LENSTUBE_VIDEOS_APP_ID]
+      }
     },
     skip: !selectedChannel?.id,
-    fetchPolicy: "no-cache",
+    fetchPolicy: 'no-cache',
     onCompleted(data) {
-      setCommented(data?.publications?.items);
-    },
-  });
+      setCommented(data?.publications?.items)
+    }
+  })
 
   if (loading) {
-    return <Loader />;
+    return <Loader />
   }
 
   if (commented.length === 0) {
     return (
       <NoDataFound text="No videos, try commenting or add videos to watch later." />
-    );
+    )
   }
 
   return (
@@ -61,7 +61,7 @@ const Commented = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Commented;
+export default Commented

@@ -1,26 +1,26 @@
-import Head from "next/head";
-import { useRouter } from "next/router";
-import React, { FC } from "react";
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import React, { FC } from 'react'
 
 type Props = {
-  title?: string;
-  description?: string;
-  image?: string;
-  date?: string;
-};
+  title?: string
+  description?: string
+  image?: string
+  date?: string
+}
 
 const MetaTags: FC<Props> = (props) => {
-  const { description, title, image } = props;
-  const router = useRouter();
+  const { description, title, image } = props
+  const router = useRouter()
 
   const meta = {
-    title: title ?? "Lenstube",
+    title: title ?? 'Lenstube',
     description:
       description ??
-      "Lenstube is a decentralized video sharing social media platform built with Lens protocol.",
-    image: image ?? "/og.png",
-    type: "website",
-  };
+      'Lenstube is a decentralized video sharing social media platform built with Lens protocol.',
+    image: image ?? '/og.png',
+    type: 'website'
+  }
 
   return (
     <Head>
@@ -48,7 +48,7 @@ const MetaTags: FC<Props> = (props) => {
       <meta name="twitter:description" content={meta.description} />
       <meta name="twitter:image" content={meta.image} />
     </Head>
-  );
-};
+  )
+}
 
-export default MetaTags;
+export default MetaTags

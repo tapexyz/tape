@@ -1,38 +1,38 @@
-import { useQuery } from "@apollo/client";
-import { Loader } from "@components/ui/Loader";
-import { NoDataFound } from "@components/ui/NoDataFound";
-import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
-import { COMMENT_FEED_QUERY } from "@utils/gql/queries";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { useInView } from "react-cool-inview";
-import { AiOutlineComment } from "react-icons/ai";
-import { PaginatedResultInfo } from "src/types";
-import { LenstubePublication } from "src/types/local";
+import { useQuery } from '@apollo/client'
+import { Loader } from '@components/ui/Loader'
+import { NoDataFound } from '@components/ui/NoDataFound'
+import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
+import { COMMENT_FEED_QUERY } from '@utils/gql/queries'
+import { useRouter } from 'next/router'
+import React, { useState } from 'react'
+import { useInView } from 'react-cool-inview'
+import { AiOutlineComment } from 'react-icons/ai'
+import { PaginatedResultInfo } from 'src/types'
+import { LenstubePublication } from 'src/types/local'
 
-import Comment from "./Comment";
+import Comment from './Comment'
 
 const VideoComments = () => {
   const {
-    query: { id },
-  } = useRouter();
-  const [comments, setComments] = useState<LenstubePublication[]>([]);
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
+    query: { id }
+  } = useRouter()
+  const [comments, setComments] = useState<LenstubePublication[]>([])
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
     variables: {
       request: {
         commentsOf: id,
         limit: 10,
-        sources: [LENSTUBE_VIDEOS_APP_ID],
-      },
+        sources: [LENSTUBE_VIDEOS_APP_ID]
+      }
     },
     skip: !id,
-    fetchPolicy: "no-cache",
+    fetchPolicy: 'no-cache',
     onCompleted(data) {
-      setPageInfo(data?.publications?.pageInfo);
-      setComments(data?.publications?.items);
-    },
-  });
+      setPageInfo(data?.publications?.pageInfo)
+      setComments(data?.publications?.items)
+    }
+  })
 
   const { observe } = useInView({
     threshold: 0.5,
@@ -43,20 +43,20 @@ const VideoComments = () => {
             commentsOf: id,
             cursor: pageInfo?.next,
             limit: 10,
-            sources: [LENSTUBE_VIDEOS_APP_ID],
-          },
-        },
+            sources: [LENSTUBE_VIDEOS_APP_ID]
+          }
+        }
       }).then(({ data }: any) => {
-        setPageInfo(data?.publications?.pageInfo);
-        setComments([...comments, ...data?.publications?.items]);
-      });
-    },
-  });
+        setPageInfo(data?.publications?.pageInfo)
+        setComments([...comments, ...data?.publications?.items])
+      })
+    }
+  })
 
-  if (loading) return <Loader />;
+  if (loading) return <Loader />
 
   if (data?.publications?.items.length === 0) {
-    return <NoDataFound text="Be the first to comment." />;
+    return <NoDataFound text="Be the first to comment." />
   }
 
   return (
@@ -82,7 +82,7 @@ const VideoComments = () => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default VideoComments;
+export default VideoComments

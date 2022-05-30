@@ -1,16 +1,16 @@
-import { Tab } from "@headlessui/react";
-import clsx from "clsx";
-import { FC } from "react";
-import { Profile } from "src/types";
+import { Tab } from '@headlessui/react'
+import clsx from 'clsx'
+import { FC } from 'react'
+import { Profile } from 'src/types'
 
-import About from "./About";
-import ChannelVideos from "./ChannelVideos";
-import CommentedVideos from "./CommentedVideos";
-import OtherChannels from "./OtherChannels";
+import About from './About'
+import ChannelVideos from './ChannelVideos'
+import CommentedVideos from './CommentedVideos'
+import OtherChannels from './OtherChannels'
 
 type Props = {
-  channel: Profile;
-};
+  channel: Profile
+}
 
 const Activity: FC<Props> = ({ channel }) => {
   return (
@@ -25,10 +25,10 @@ const Activity: FC<Props> = ({ channel }) => {
               <Tab
                 className={({ selected }) =>
                   clsx(
-                    "px-4 py-2 border-b-2 text-sm focus:outline-none",
+                    'px-4 py-2 border-b-2 text-sm focus:outline-none',
                     selected
-                      ? "border-green-900 opacity-100"
-                      : "border-transparent opacity-50"
+                      ? 'border-green-900 opacity-100'
+                      : 'border-transparent opacity-50'
                   )
                 }
               >
@@ -37,10 +37,10 @@ const Activity: FC<Props> = ({ channel }) => {
               <Tab
                 className={({ selected }) =>
                   clsx(
-                    "px-4 py-2 border-b-2 text-sm focus:outline-none",
+                    'px-4 py-2 border-b-2 text-sm focus:outline-none',
                     selected
-                      ? "border-green-900 opacity-100"
-                      : "border-transparent opacity-50"
+                      ? 'border-green-900 opacity-100'
+                      : 'border-transparent opacity-50'
                   )
                 }
               >
@@ -49,10 +49,10 @@ const Activity: FC<Props> = ({ channel }) => {
               <Tab
                 className={({ selected }) =>
                   clsx(
-                    "px-4 py-2 border-b-2 text-sm focus:outline-none",
+                    'px-4 py-2 border-b-2 text-sm focus:outline-none',
                     selected
-                      ? "border-green-900 opacity-100"
-                      : "border-transparent opacity-50"
+                      ? 'border-green-900 opacity-100'
+                      : 'border-transparent opacity-50'
                   )
                 }
               >
@@ -74,7 +74,7 @@ const Activity: FC<Props> = ({ channel }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Activity;
+export default Activity

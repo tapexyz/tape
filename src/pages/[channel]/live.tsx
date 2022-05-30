@@ -1,3 +1,3 @@
-import Studio from "@components/Channel/Live/Studio";
+import Studio from '@components/Channel/Live/Studio'
 
-export default Studio;
+export default Studio

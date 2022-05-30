@@ -1,41 +1,41 @@
-import { useQuery } from "@apollo/client";
-import MetaTags from "@components/common/MetaTags";
-import Timeline from "@components/Home/Timeline";
-import { Loader } from "@components/ui/Loader";
-import { NoDataFound } from "@components/ui/NoDataFound";
-import Layout from "@components/wrappers/Layout";
-import useAppStore from "@lib/store";
-import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
-import { PROFILE_FEED_QUERY } from "@utils/gql/queries";
-import React, { useState } from "react";
-import { useInView } from "react-cool-inview";
-import { AiOutlineComment } from "react-icons/ai";
-import { PaginatedResultInfo } from "src/types";
-import { LenstubePublication } from "src/types/local";
+import { useQuery } from '@apollo/client'
+import MetaTags from '@components/common/MetaTags'
+import Timeline from '@components/Home/Timeline'
+import { Loader } from '@components/ui/Loader'
+import { NoDataFound } from '@components/ui/NoDataFound'
+import Layout from '@components/wrappers/Layout'
+import useAppStore from '@lib/store'
+import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
+import { PROFILE_FEED_QUERY } from '@utils/gql/queries'
+import React, { useState } from 'react'
+import { useInView } from 'react-cool-inview'
+import { AiOutlineComment } from 'react-icons/ai'
+import { PaginatedResultInfo } from 'src/types'
+import { LenstubePublication } from 'src/types/local'
 
 const SeeAllCommented = () => {
-  const { selectedChannel } = useAppStore();
+  const { selectedChannel } = useAppStore()
   const [commentedVideos, setCommentedVideos] = useState<LenstubePublication[]>(
     []
-  );
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
+  )
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
   const { loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: {
-        publicationTypes: "COMMENT",
+        publicationTypes: 'COMMENT',
         profileId: selectedChannel?.id,
         limit: 10,
-        sources: [LENSTUBE_VIDEOS_APP_ID],
-      },
+        sources: [LENSTUBE_VIDEOS_APP_ID]
+      }
     },
     skip: !selectedChannel?.id,
-    fetchPolicy: "no-cache",
+    fetchPolicy: 'no-cache',
     onCompleted(data) {
-      setPageInfo(data?.publications?.pageInfo);
-      setCommentedVideos(data?.publications?.items);
-    },
-  });
+      setPageInfo(data?.publications?.pageInfo)
+      setCommentedVideos(data?.publications?.items)
+    }
+  })
 
   const { observe } = useInView({
     threshold: 1,
@@ -43,26 +43,26 @@ const SeeAllCommented = () => {
       fetchMore({
         variables: {
           request: {
-            publicationTypes: "COMMENT",
+            publicationTypes: 'COMMENT',
             profileId: selectedChannel?.id,
             cursor: pageInfo?.next,
             limit: 10,
-            sources: [LENSTUBE_VIDEOS_APP_ID],
-          },
-        },
+            sources: [LENSTUBE_VIDEOS_APP_ID]
+          }
+        }
       }).then(({ data }: any) => {
-        setPageInfo(data?.publications?.pageInfo);
-        setCommentedVideos([...commentedVideos, ...data?.publications?.items]);
-      });
-    },
-  });
+        setPageInfo(data?.publications?.pageInfo)
+        setCommentedVideos([...commentedVideos, ...data?.publications?.items])
+      })
+    }
+  })
 
   if (loading) {
-    return <Loader />;
+    return <Loader />
   }
 
   if (commentedVideos?.length === 0) {
-    return <NoDataFound />;
+    return <NoDataFound />
   }
 
   return (
@@ -87,7 +87,7 @@ const SeeAllCommented = () => {
         )}
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default SeeAllCommented;
+export default SeeAllCommented

@@ -1,9 +1,9 @@
-import Popover from "@components/ui/Popover";
-import React from "react";
-import { FiFlag } from "react-icons/fi";
-import { HiOutlineDotsVertical } from "react-icons/hi";
-import { MdOutlineWatchLater } from "react-icons/md";
-import { RiShareForwardLine } from "react-icons/ri";
+import Popover from '@components/ui/Popover'
+import React from 'react'
+import { FiFlag } from 'react-icons/fi'
+import { HiOutlineDotsVertical } from 'react-icons/hi'
+import { MdOutlineWatchLater } from 'react-icons/md'
+import { RiShareForwardLine } from 'react-icons/ri'
 
 const VideoOptions = () => {
   return (
@@ -32,7 +32,7 @@ const VideoOptions = () => {
         </div>
       </div>
     </Popover>
-  );
-};
+  )
+}
 
-export default VideoOptions;
+export default VideoOptions

@@ -1,14 +1,14 @@
-import VideoCard from "@components/common/VideoCard";
-import useAppStore from "@lib/store";
-import React from "react";
-import { MdHistory } from "react-icons/md";
-import { LenstubePublication } from "src/types/local";
+import VideoCard from '@components/common/VideoCard'
+import useAppStore from '@lib/store'
+import React from 'react'
+import { MdHistory } from 'react-icons/md'
+import { LenstubePublication } from 'src/types/local'
 
 const Recents = () => {
-  const { recentlyWatched } = useAppStore();
+  const { recentlyWatched } = useAppStore()
 
   if (!recentlyWatched.length) {
-    return null;
+    return null
   }
 
   return (
@@ -30,7 +30,7 @@ const Recents = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Recents;
+export default Recents

@@ -1,9 +1,9 @@
-import MetaTags from "@components/common/MetaTags";
-import Layout from "@components/wrappers/Layout";
-import dynamic from "next/dynamic";
+import MetaTags from '@components/common/MetaTags'
+import Layout from '@components/wrappers/Layout'
+import dynamic from 'next/dynamic'
 
-const Categories = dynamic(() => import("./Categories"));
-const Feed = dynamic(() => import("./Feed"));
+const Categories = dynamic(() => import('./Categories'))
+const Feed = dynamic(() => import('./Feed'))
 
 const Explore = () => {
   return (
@@ -14,7 +14,7 @@ const Explore = () => {
         <Feed />
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Explore;
+export default Explore

@@ -1,6 +1,6 @@
-import Plyr from "plyr-react";
-import React, { FC } from "react";
-import { LenstubePublication } from "src/types/local";
+import Plyr from 'plyr-react'
+import React, { FC } from 'react'
+import { LenstubePublication } from 'src/types/local'
 
 const Player = React.memo(
   ({ source, thumbnail }: { source: string; thumbnail: string }) => {
@@ -8,25 +8,25 @@ const Player = React.memo(
       <Plyr
         autoPlay
         source={{
-          type: "video",
+          type: 'video',
           sources: [
             {
               src: source,
-              provider: "html5",
-            },
+              provider: 'html5'
+            }
           ],
-          poster: thumbnail,
+          poster: thumbnail
         }}
       />
-    );
+    )
   }
-);
+)
 
-Player.displayName = "VideoPlayer";
+Player.displayName = 'VideoPlayer'
 
 type Props = {
-  video: LenstubePublication;
-};
+  video: LenstubePublication
+}
 const Video: FC<Props> = ({ video }) => {
   return (
     <div className="overflow-hidden rounded">
@@ -35,7 +35,7 @@ const Video: FC<Props> = ({ video }) => {
         thumbnail={video?.metadata.cover?.original.url}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Video;
+export default Video

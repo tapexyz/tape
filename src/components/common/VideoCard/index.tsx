@@ -1,18 +1,18 @@
-import getProfilePicture from "@utils/functions/getProfilePicture";
-import getThumbnailUrl from "@utils/functions/getThumbnailUrl";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import Link from "next/link";
-import React, { FC } from "react";
-import { LenstubePublication } from "src/types/local";
+import getProfilePicture from '@utils/functions/getProfilePicture'
+import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import Link from 'next/link'
+import React, { FC } from 'react'
+import { LenstubePublication } from 'src/types/local'
 
-import VideoOptions from "./VideoOptions";
+import VideoOptions from './VideoOptions'
 
-dayjs.extend(relativeTime);
+dayjs.extend(relativeTime)
 
 type Props = {
-  video: LenstubePublication;
-};
+  video: LenstubePublication
+}
 
 const VideoCard: FC<Props> = ({ video }) => {
   return (
@@ -56,7 +56,7 @@ const VideoCard: FC<Props> = ({ video }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default VideoCard;
+export default VideoCard

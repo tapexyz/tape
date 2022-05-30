@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { FC } from 'react'
 
 type Props = {
-  category: { name: string; icon: React.ReactNode };
-};
+  category: { name: string; icon: React.ReactNode }
+}
 
 const CategoryItem: FC<Props> = ({ category }) => {
   return (
@@ -10,7 +10,7 @@ const CategoryItem: FC<Props> = ({ category }) => {
       <span className="truncate">{category.name}</span>
       {category.icon}
     </button>
-  );
-};
+  )
+}
 
-export default CategoryItem;
+export default CategoryItem

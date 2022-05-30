@@ -1,14 +1,14 @@
-import ImageAttachments from "@components/common/ImageAttachments";
-import getProfilePicture from "@utils/functions/getProfilePicture";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import React, { FC } from "react";
-import { LenstubePublication } from "src/types/local";
-dayjs.extend(relativeTime);
+import ImageAttachments from '@components/common/ImageAttachments'
+import getProfilePicture from '@utils/functions/getProfilePicture'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import React, { FC } from 'react'
+import { LenstubePublication } from 'src/types/local'
+dayjs.extend(relativeTime)
 
 interface Props {
-  video: LenstubePublication;
-  hideType?: boolean;
+  video: LenstubePublication
+  hideType?: boolean
 }
 
 const Comment: FC<Props> = ({ video }) => {
@@ -35,7 +35,7 @@ const Comment: FC<Props> = ({ video }) => {
         </span>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Comment;
+export default Comment

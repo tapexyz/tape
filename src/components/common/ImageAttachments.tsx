@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { FC } from 'react'
 
 type Props = {
-  attachments: Array<{ original: { url: string } }>;
-};
+  attachments: Array<{ original: { url: string } }>
+}
 
 const ImageAttachments: FC<Props> = ({ attachments }) => {
   return (
@@ -17,7 +17,7 @@ const ImageAttachments: FC<Props> = ({ attachments }) => {
         </span>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default ImageAttachments;
+export default ImageAttachments

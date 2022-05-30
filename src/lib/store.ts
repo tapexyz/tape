@@ -1,32 +1,32 @@
 /* eslint-disable no-unused-vars */
-import { WebBundlr } from "@bundlr-network/client";
-import { BUNDLR_CURRENCY, BUNDLR_NODE_URL } from "@utils/constants";
-import { FetchSignerResult } from "@wagmi/core";
-import { Profile } from "src/types";
-import { LenstubePublication } from "src/types/local";
-import create from "zustand";
-import { persist } from "zustand/middleware";
+import { WebBundlr } from '@bundlr-network/client'
+import { BUNDLR_CURRENCY, BUNDLR_NODE_URL } from '@utils/constants'
+import { FetchSignerResult } from '@wagmi/core'
+import { Profile } from 'src/types'
+import { LenstubePublication } from 'src/types/local'
+import create from 'zustand'
+import { persist } from 'zustand/middleware'
 
 interface AppState {
-  token: { access: string | null; refresh: string | null };
-  channels: Profile[] | [];
-  recommendedChannels: Profile[] | [];
-  selectedChannel: Profile | null;
-  showCreateChannel: boolean;
-  notificationCount: number;
-  hasNewNotification: boolean;
-  recentlyWatched: LenstubePublication[] | [];
-  setToken: (token: { access: string | null; refresh: string | null }) => void;
-  setShowCreateChannel: (showCreateChannel: boolean) => void;
-  setSelectedChannel: (profile: Profile | null) => void;
-  setChannels: (channels: Profile[]) => void;
-  setRecommendedChannels: (channels: Profile[]) => void;
-  setNotificationCount: (count: number) => void;
-  setHasNewNotification: (value: boolean) => void;
-  addToRecentlyWatched: (video: LenstubePublication) => void;
-  getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr>;
+  token: { access: string | null; refresh: string | null }
+  channels: Profile[] | []
+  recommendedChannels: Profile[] | []
+  selectedChannel: Profile | null
+  showCreateChannel: boolean
+  notificationCount: number
+  hasNewNotification: boolean
+  recentlyWatched: LenstubePublication[] | []
+  setToken: (token: { access: string | null; refresh: string | null }) => void
+  setShowCreateChannel: (showCreateChannel: boolean) => void
+  setSelectedChannel: (profile: Profile | null) => void
+  setChannels: (channels: Profile[]) => void
+  setRecommendedChannels: (channels: Profile[]) => void
+  setNotificationCount: (count: number) => void
+  setHasNewNotification: (value: boolean) => void
+  addToRecentlyWatched: (video: LenstubePublication) => void
+  getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr>
 }
-export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY;
+export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY
 
 export const useAppStore = create(
   persist<AppState>(
@@ -44,7 +44,7 @@ export const useAppStore = create(
         set(() => ({ selectedChannel: channel })),
       addToRecentlyWatched: (video) =>
         set((state) => ({
-          recentlyWatched: [video, ...state.recentlyWatched],
+          recentlyWatched: [video, ...state.recentlyWatched]
         })),
       setToken: (token) => set(() => ({ token })),
       setNotificationCount: (notificationCount) =>
@@ -60,18 +60,18 @@ export const useAppStore = create(
           BUNDLR_CURRENCY,
           signer?.provider,
           {
-            providerUrl: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`,
+            providerUrl: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`
           }
-        );
-        await bundlr.utils.getBundlerAddress(BUNDLR_CURRENCY);
-        await bundlr.ready();
-        return bundlr;
-      },
+        )
+        await bundlr.utils.getBundlerAddress(BUNDLR_CURRENCY)
+        await bundlr.ready()
+        return bundlr
+      }
     }),
     {
-      name: "app-storage",
+      name: 'app-storage'
     }
   )
-);
+)
 
-export default useAppStore;
+export default useAppStore

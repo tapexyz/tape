@@ -1,10 +1,10 @@
-import VideoCard from "@components/common/VideoCard";
-import React, { FC } from "react";
-import { LenstubePublication } from "src/types/local";
+import VideoCard from '@components/common/VideoCard'
+import React, { FC } from 'react'
+import { LenstubePublication } from 'src/types/local'
 
 type Props = {
-  videos: LenstubePublication[];
-};
+  videos: LenstubePublication[]
+}
 
 const Timeline: FC<Props> = ({ videos }) => {
   return (
@@ -13,7 +13,7 @@ const Timeline: FC<Props> = ({ videos }) => {
         <VideoCard key={`${video?.id}_${idx}`} video={video} />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default Timeline;
+export default Timeline

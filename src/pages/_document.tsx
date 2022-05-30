@@ -4,14 +4,14 @@ import Document, {
   Head,
   Html,
   Main,
-  NextScript,
-} from "next/document";
+  NextScript
+} from 'next/document'
 
-type Props = Record<string, unknown> & DocumentProps;
+type Props = Record<string, unknown> & DocumentProps
 class LenstubeDocument extends Document<Props> {
   static async getInitialProps(context: DocumentContext) {
-    const initialProps = await Document.getInitialProps(context);
-    return { ...initialProps };
+    const initialProps = await Document.getInitialProps(context)
+    return { ...initialProps }
   }
 
   render() {
@@ -33,8 +33,8 @@ class LenstubeDocument extends Document<Props> {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
-export default LenstubeDocument;
+export default LenstubeDocument

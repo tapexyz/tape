@@ -1,24 +1,24 @@
-import { Dialog, Transition } from "@headlessui/react";
-import clsx from "clsx";
-import { FC, Fragment } from "react";
+import { Dialog, Transition } from '@headlessui/react'
+import clsx from 'clsx'
+import { FC, Fragment } from 'react'
 
 type Props = {
-  show: boolean;
-  title?: React.ReactNode;
-  onClose: () => void;
-  children: React.ReactNode;
-  panelClassName?: string;
-};
+  show: boolean
+  title?: React.ReactNode
+  onClose: () => void
+  children: React.ReactNode
+  panelClassName?: string
+}
 
 const Modal: FC<Props> = ({
   show,
   onClose,
   children,
   title,
-  panelClassName,
+  panelClassName
 }) => {
   function closeModal() {
-    onClose();
+    onClose()
   }
 
   return (
@@ -35,7 +35,7 @@ const Modal: FC<Props> = ({
         >
           <div
             className={clsx(
-              "fixed inset-0 bg-gray-900 bg-opacity-50 dark:bg-opacity-80"
+              'fixed inset-0 bg-gray-900 bg-opacity-50 dark:bg-opacity-80'
             )}
           />
         </Transition.Child>
@@ -53,7 +53,7 @@ const Modal: FC<Props> = ({
             >
               <Dialog.Panel
                 className={clsx(
-                  "w-full p-6 py-5 overflow-x-hidden text-left align-middle transition-all transform shadow-xl bg-secondary rounded-2xl",
+                  'w-full p-6 py-5 overflow-x-hidden text-left align-middle transition-all transform shadow-xl bg-secondary rounded-2xl',
                   panelClassName
                 )}
               >
@@ -72,7 +72,7 @@ const Modal: FC<Props> = ({
         </div>
       </Dialog>
     </Transition>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

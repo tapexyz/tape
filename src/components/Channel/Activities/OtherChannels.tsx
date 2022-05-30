@@ -1,31 +1,31 @@
-import { useQuery } from "@apollo/client";
-import { Loader } from "@components/ui/Loader";
-import { NoDataFound } from "@components/ui/NoDataFound";
-import getProfilePicture from "@utils/functions/getProfilePicture";
-import { PROFILE_QUERY } from "@utils/gql/queries";
-import Link from "next/link";
-import React, { FC } from "react";
-import { Profile } from "src/types";
+import { useQuery } from '@apollo/client'
+import { Loader } from '@components/ui/Loader'
+import { NoDataFound } from '@components/ui/NoDataFound'
+import getProfilePicture from '@utils/functions/getProfilePicture'
+import { PROFILE_QUERY } from '@utils/gql/queries'
+import Link from 'next/link'
+import React, { FC } from 'react'
+import { Profile } from 'src/types'
 
-import Subscribe from "../BasicInfo/Subscribe";
+import Subscribe from '../BasicInfo/Subscribe'
 
 type Props = {
-  channel: Profile;
-};
+  channel: Profile
+}
 
 const OtherChannels: FC<Props> = ({ channel }) => {
   const { data, loading } = useQuery(PROFILE_QUERY, {
     variables: {
-      request: { handles: channel.handle },
+      request: { handles: channel.handle }
     },
-    skip: !channel.handle,
-  });
-  const allChannels: Profile[] = data?.profiles?.items;
+    skip: !channel.handle
+  })
+  const allChannels: Profile[] = data?.profiles?.items
   if (loading) {
-    return <Loader />;
+    return <Loader />
   }
   if (data?.profiles?.items?.length === 1) {
-    return <NoDataFound text="No other channels found." />;
+    return <NoDataFound text="No other channels found." />
   }
 
   return (
@@ -56,7 +56,7 @@ const OtherChannels: FC<Props> = ({ channel }) => {
           )
       )}
     </div>
-  );
-};
+  )
+}
 
-export default OtherChannels;
+export default OtherChannels

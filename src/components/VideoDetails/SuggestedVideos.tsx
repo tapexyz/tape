@@ -1,33 +1,33 @@
-import { useQuery } from "@apollo/client";
-import { Loader } from "@components/ui/Loader";
-import { LENSTUBE_VIDEOS_APP_ID } from "@utils/constants";
-import getThumbnailUrl from "@utils/functions/getThumbnailUrl";
-import { EXPLORE_QUERY } from "@utils/gql/queries";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import Link from "next/link";
-import React, { useState } from "react";
-import { useInView } from "react-cool-inview";
-import { PaginatedResultInfo } from "src/types";
-import { LenstubePublication } from "src/types/local";
-dayjs.extend(relativeTime);
+import { useQuery } from '@apollo/client'
+import { Loader } from '@components/ui/Loader'
+import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
+import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
+import { EXPLORE_QUERY } from '@utils/gql/queries'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import Link from 'next/link'
+import React, { useState } from 'react'
+import { useInView } from 'react-cool-inview'
+import { PaginatedResultInfo } from 'src/types'
+import { LenstubePublication } from 'src/types/local'
+dayjs.extend(relativeTime)
 
 const SuggestedVideos = () => {
-  const [videos, setVideos] = useState<LenstubePublication[]>([]);
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>();
+  const [videos, setVideos] = useState<LenstubePublication[]>([])
+  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
-        sortCriteria: "TOP_COMMENTED",
+        sortCriteria: 'TOP_COMMENTED',
         limit: 10,
-        sources: [LENSTUBE_VIDEOS_APP_ID],
-      },
+        sources: [LENSTUBE_VIDEOS_APP_ID]
+      }
     },
     onCompleted(data) {
-      setPageInfo(data?.explorePublications?.pageInfo);
-      setVideos(data?.explorePublications?.items);
-    },
-  });
+      setPageInfo(data?.explorePublications?.pageInfo)
+      setVideos(data?.explorePublications?.items)
+    }
+  })
 
   const { observe } = useInView({
     threshold: 1,
@@ -36,19 +36,19 @@ const SuggestedVideos = () => {
         variables: {
           request: {
             cursor: pageInfo?.next,
-            sortCriteria: "TOP_COMMENTED",
+            sortCriteria: 'TOP_COMMENTED',
             limit: 10,
-            sources: [LENSTUBE_VIDEOS_APP_ID],
-          },
-        },
+            sources: [LENSTUBE_VIDEOS_APP_ID]
+          }
+        }
       }).then(({ data }: any) => {
-        setPageInfo(data?.explorePublications?.pageInfo);
-        setVideos([...videos, ...data?.explorePublications?.items]);
-      });
-    },
-  });
+        setPageInfo(data?.explorePublications?.pageInfo)
+        setVideos([...videos, ...data?.explorePublications?.items])
+      })
+    }
+  })
   if (loading) {
-    return <Loader />;
+    return <Loader />
   }
 
   return (
@@ -96,7 +96,7 @@ const SuggestedVideos = () => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default SuggestedVideos;
+export default SuggestedVideos

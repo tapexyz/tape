@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import toast from "react-hot-toast";
-import { IoCopyOutline } from "react-icons/io5";
-import { useCopyToClipboard } from "usehooks-ts";
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
+import { IoCopyOutline } from 'react-icons/io5'
+import { useCopyToClipboard } from 'usehooks-ts'
 
 const StreamDetails = () => {
-  const [showStreamKey, setShowStreamKey] = useState(false);
-  const [, copy] = useCopyToClipboard();
+  const [showStreamKey, setShowStreamKey] = useState(false)
+  const [, copy] = useCopyToClipboard()
 
   const onCopyKey = (value: string) => {
-    copy(value);
-    toast.success("Copied to clipboard");
-  };
+    copy(value)
+    toast.success('Copied to clipboard')
+  }
 
   return (
     <div className="mt-2">
@@ -35,7 +35,7 @@ const StreamDetails = () => {
               )}
               <button
                 className="hover:opacity-60 focus:outline-none"
-                onClick={() => onCopyKey("04a9-vs3-fot9-7yq")}
+                onClick={() => onCopyKey('04a9-vs3-fot9-7yq')}
                 type="button"
               >
                 <IoCopyOutline />
@@ -48,7 +48,7 @@ const StreamDetails = () => {
               <span>rtmp://rtmp.livepeer.com/live</span>
               <button
                 className="hover:opacity-60 focus:outline-none"
-                onClick={() => onCopyKey("rtmp://rtmp.livepeer.com/live")}
+                onClick={() => onCopyKey('rtmp://rtmp.livepeer.com/live')}
                 type="button"
               >
                 <IoCopyOutline />
@@ -60,7 +60,7 @@ const StreamDetails = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default StreamDetails;
+export default StreamDetails

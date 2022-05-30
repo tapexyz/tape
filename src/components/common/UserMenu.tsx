@@ -1,35 +1,35 @@
-import { Button } from "@components/ui/Button";
-import Popover from "@components/ui/Popover";
-import useAppStore from "@lib/store";
-import getProfilePicture from "@utils/functions/getProfilePicture";
-import { SETTINGS } from "@utils/url-path";
-import clsx from "clsx";
-import Link from "next/link";
-import React, { FC, useState } from "react";
-import { AiOutlinePlus, AiOutlineUserSwitch } from "react-icons/ai";
-import { BiArrowBack, BiCheck, BiMoviePlay } from "react-icons/bi";
-import { VscDebugDisconnect } from "react-icons/vsc";
-import { Profile } from "src/types";
-import { useDisconnect } from "wagmi";
+import { Button } from '@components/ui/Button'
+import Popover from '@components/ui/Popover'
+import useAppStore from '@lib/store'
+import getProfilePicture from '@utils/functions/getProfilePicture'
+import { SETTINGS } from '@utils/url-path'
+import clsx from 'clsx'
+import Link from 'next/link'
+import React, { FC, useState } from 'react'
+import { AiOutlinePlus, AiOutlineUserSwitch } from 'react-icons/ai'
+import { BiArrowBack, BiCheck, BiMoviePlay } from 'react-icons/bi'
+import { VscDebugDisconnect } from 'react-icons/vsc'
+import { Profile } from 'src/types'
+import { useDisconnect } from 'wagmi'
 
-type Props = {};
+type Props = {}
 
 const UserMenu: FC<Props> = () => {
   const {
     channels,
     setShowCreateChannel,
     setSelectedChannel,
-    selectedChannel,
-  } = useAppStore();
-  const [showAccountSwitcher, setShowAccountSwitcher] = useState(false);
-  const { disconnect } = useDisconnect();
+    selectedChannel
+  } = useAppStore()
+  const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
+  const { disconnect } = useDisconnect()
 
   const onSelectChannel = (channel: Profile) => {
-    setSelectedChannel(channel);
-    setShowAccountSwitcher(false);
-  };
+    setSelectedChannel(channel)
+    setShowAccountSwitcher(false)
+  }
 
-  if (!selectedChannel) return null;
+  if (!selectedChannel) return null
 
   return (
     <Popover
@@ -61,7 +61,7 @@ const UserMenu: FC<Props> = () => {
               {channels.map((channel, idx) => (
                 <button
                   className={clsx(
-                    "flex w-full justify-between items-center px-2 py-1.5 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                    'flex w-full justify-between items-center px-2 py-1.5 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800'
                   )}
                   key={idx}
                   onClick={() => onSelectChannel(channel)}
@@ -87,7 +87,7 @@ const UserMenu: FC<Props> = () => {
             <div className="flex flex-col space-y-1 text-sm transition duration-150 ease-in-out rounded-lg">
               <div
                 className={clsx(
-                  "inline-flex items-center p-2 py-4 space-x-2 rounded-lg"
+                  'inline-flex items-center p-2 py-4 space-x-2 rounded-lg'
                 )}
               >
                 <img
@@ -112,7 +112,7 @@ const UserMenu: FC<Props> = () => {
               <Link href={`/${selectedChannel?.handle}`}>
                 <a
                   className={clsx(
-                    "inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                   )}
                 >
                   <BiMoviePlay className="text-lg" />
@@ -123,7 +123,7 @@ const UserMenu: FC<Props> = () => {
               </Link>
               <button
                 className={clsx(
-                  "inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                 )}
                 onClick={() => setShowAccountSwitcher(true)}
               >
@@ -134,7 +134,7 @@ const UserMenu: FC<Props> = () => {
               </button>
               <button
                 className={clsx(
-                  "flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  'flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                 )}
                 onClick={() => setShowCreateChannel(true)}
               >
@@ -147,7 +147,7 @@ const UserMenu: FC<Props> = () => {
             <div className="py-1 text-sm">
               <button
                 className={clsx(
-                  "flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  'flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                 )}
                 onClick={() => disconnect()}
               >
@@ -159,7 +159,7 @@ const UserMenu: FC<Props> = () => {
         )}
       </div>
     </Popover>
-  );
-};
+  )
+}
 
-export default UserMenu;
+export default UserMenu

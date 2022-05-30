@@ -1,7 +1,7 @@
-import { Button } from "@components/ui/Button";
-import { HOME } from "@utils/url-path";
-import Head from "next/head";
-import Link from "next/link";
+import { Button } from '@components/ui/Button'
+import { HOME } from '@utils/url-path'
+import Head from 'next/head'
+import Link from 'next/link'
 
 export default function Custom404() {
   return (
@@ -26,5 +26,5 @@ export default function Custom404() {
         </div>
       </div>
     </>
-  );
+  )
 }

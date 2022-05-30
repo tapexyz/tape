@@ -1,65 +1,65 @@
-import { useMutation } from "@apollo/client";
-import { Button } from "@components/ui/Button";
-import { Input } from "@components/ui/Input";
-import Modal from "@components/ui/Modal";
-import useAppStore from "@lib/store";
-import { getHandle } from "@utils/functions/getHandle";
-import { getRandomProfilePicture } from "@utils/functions/getRandomProfilePicture";
-import { CREATE_PROFILE_MUTATION } from "@utils/gql/queries";
-import usePendingTxn from "@utils/hooks/usePendingTxn";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { useMutation } from '@apollo/client'
+import { Button } from '@components/ui/Button'
+import { Input } from '@components/ui/Input'
+import Modal from '@components/ui/Modal'
+import useAppStore from '@lib/store'
+import { getHandle } from '@utils/functions/getHandle'
+import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
+import { CREATE_PROFILE_MUTATION } from '@utils/gql/queries'
+import usePendingTxn from '@utils/hooks/usePendingTxn'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 
 const CreateChannel = () => {
-  const { setShowCreateChannel, showCreateChannel } = useAppStore();
-  const [txnHash, setTxnHash] = useState("");
-  const [creating, setCreating] = useState(false);
-  const { indexed } = usePendingTxn(txnHash);
-  const [handle, setHandle] = useState("");
-  const router = useRouter();
+  const { setShowCreateChannel, showCreateChannel } = useAppStore()
+  const [txnHash, setTxnHash] = useState('')
+  const [creating, setCreating] = useState(false)
+  const { indexed } = usePendingTxn(txnHash)
+  const [handle, setHandle] = useState('')
+  const router = useRouter()
 
   const [createProfile, { data, reset }] = useMutation(
     CREATE_PROFILE_MUTATION,
     {
       onCompleted({ createProfile }) {
         if (createProfile.txHash) {
-          setTxnHash(createProfile.txHash);
+          setTxnHash(createProfile.txHash)
         } else {
-          setCreating(false);
+          setCreating(false)
         }
       },
       onError() {
-        setCreating(false);
-      },
+        setCreating(false)
+      }
     }
-  );
+  )
 
   useEffect(() => {
     if (indexed) {
-      setCreating(false);
-      setShowCreateChannel(false);
-      router.push(getHandle(handle));
+      setCreating(false)
+      setShowCreateChannel(false)
+      router.push(getHandle(handle))
     }
-  }, [indexed, handle, setShowCreateChannel, router]);
+  }, [indexed, handle, setShowCreateChannel, router])
 
   const onCancel = () => {
-    setShowCreateChannel(false);
-    setCreating(false);
-    reset();
-  };
+    setShowCreateChannel(false)
+    setCreating(false)
+    reset()
+  }
 
   const create = () => {
-    setCreating(true);
-    const username = handle.toLowerCase();
+    setCreating(true)
+    const username = handle.toLowerCase()
     createProfile({
       variables: {
         request: {
           handle: username,
-          profilePictureUri: getRandomProfilePicture(username),
-        },
-      },
-    });
-  };
+          profilePictureUri: getRandomProfilePicture(username)
+        }
+      }
+    })
+  }
 
   return (
     <Modal
@@ -97,13 +97,13 @@ const CreateChannel = () => {
               Cancel
             </Button>
             <Button onClick={() => create()} disabled={creating}>
-              {creating ? "Creating..." : "Create"}
+              {creating ? 'Creating...' : 'Create'}
             </Button>
           </span>
         </div>
       </div>
     </Modal>
-  );
-};
+  )
+}
 
-export default CreateChannel;
+export default CreateChannel

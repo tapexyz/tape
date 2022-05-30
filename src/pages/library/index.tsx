@@ -1,3 +1,3 @@
-import Library from "@components/Library";
+import Library from '@components/Library'
 
-export default Library;
+export default Library

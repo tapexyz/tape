@@ -1,10 +1,10 @@
-import MetaTags from "@components/common/MetaTags";
-import Layout from "@components/wrappers/Layout";
-import dynamic from "next/dynamic";
+import MetaTags from '@components/common/MetaTags'
+import Layout from '@components/wrappers/Layout'
+import dynamic from 'next/dynamic'
 
-const Commented = dynamic(() => import("./Sections/Commented"));
-const Recents = dynamic(() => import("./Sections/Recents"));
-const WatchLater = dynamic(() => import("./Sections/WatchLater"));
+const Commented = dynamic(() => import('./Sections/Commented'))
+const Recents = dynamic(() => import('./Sections/Recents'))
+const WatchLater = dynamic(() => import('./Sections/WatchLater'))
 
 const Library = () => {
   return (
@@ -14,7 +14,7 @@ const Library = () => {
       <Recents />
       <Commented />
     </Layout>
-  );
-};
+  )
+}
 
-export default Library;
+export default Library

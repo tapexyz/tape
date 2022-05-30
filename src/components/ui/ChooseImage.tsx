@@ -1,37 +1,37 @@
-import { uploadImageToIPFS } from "@utils/functions/uploadToIPFS";
-import { ChangeEvent, FC, useState } from "react";
-import { MdOutlineDeleteSweep } from "react-icons/md";
-import { IPFSUploadResult } from "src/types/local";
+import { uploadImageToIPFS } from '@utils/functions/uploadToIPFS'
+import { ChangeEvent, FC, useState } from 'react'
+import { MdOutlineDeleteSweep } from 'react-icons/md'
+import { IPFSUploadResult } from 'src/types/local'
 
 interface Props {
-  label: string;
+  label: string
   // eslint-disable-next-line no-unused-vars
-  afterUpload: (result: IPFSUploadResult | null) => void;
+  afterUpload: (result: IPFSUploadResult | null) => void
 }
 
 const ChooseImage: FC<Props> = ({ label, afterUpload }) => {
-  const [uploading, setUploading] = useState(false);
-  const [ipfsResult, setIpfsResult] = useState<IPFSUploadResult | null>();
+  const [uploading, setUploading] = useState(false)
+  const [ipfsResult, setIpfsResult] = useState<IPFSUploadResult | null>()
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      setUploading(true);
-      const result: IPFSUploadResult = await uploadImageToIPFS(e.target.files);
-      setUploading(false);
-      setIpfsResult(result);
-      afterUpload(result);
+      setUploading(true)
+      const result: IPFSUploadResult = await uploadImageToIPFS(e.target.files)
+      setUploading(false)
+      setIpfsResult(result)
+      afterUpload(result)
     }
-  };
+  }
 
   const onClearUpload = () => {
-    setIpfsResult(null);
-    afterUpload(null);
-  };
+    setIpfsResult(null)
+    afterUpload(null)
+  }
 
   return (
     <div className="w-full">
       {uploading && !ipfsResult ? (
-        "Uploading..."
+        'Uploading...'
       ) : (
         <>
           {label && (
@@ -66,7 +66,7 @@ const ChooseImage: FC<Props> = ({ label, afterUpload }) => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ChooseImage;
+export default ChooseImage

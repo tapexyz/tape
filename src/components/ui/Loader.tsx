@@ -1,5 +1,5 @@
-import React from "react";
-import { LoaderIcon } from "react-hot-toast";
+import React from 'react'
+import { LoaderIcon } from 'react-hot-toast'
 
 export const Loader = () => {
   return (
@@ -8,5 +8,5 @@ export const Loader = () => {
         <LoaderIcon className="!h-5 !w-5" />
       </div>
     </div>
-  );
-};
+  )
+}

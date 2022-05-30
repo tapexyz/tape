@@ -1,23 +1,22 @@
-import Notifications from "@components/Notifications";
-import Popover from "@components/ui/Popover";
-import Tooltip from "@components/ui/Tooltip";
-import useAppStore from "@lib/store";
-import { HOME } from "@utils/url-path";
-import Link from "next/link";
-import React, { useState } from "react";
-import { AiOutlinePlus, AiOutlineVideoCameraAdd } from "react-icons/ai";
-import { BiSearch } from "react-icons/bi";
-import { CgBell } from "react-icons/cg";
-import { FiUpload } from "react-icons/fi";
-import { HiOutlineStatusOnline } from "react-icons/hi";
+import Notifications from '@components/Notifications'
+import Popover from '@components/ui/Popover'
+import Tooltip from '@components/ui/Tooltip'
+import useAppStore from '@lib/store'
+import { HOME } from '@utils/url-path'
+import Link from 'next/link'
+import React, { useState } from 'react'
+import { AiOutlinePlus, AiOutlineVideoCameraAdd } from 'react-icons/ai'
+import { BiSearch } from 'react-icons/bi'
+import { CgBell } from 'react-icons/cg'
+import { FiUpload } from 'react-icons/fi'
+import { HiOutlineStatusOnline } from 'react-icons/hi'
 
-import GlobalSearch from "./GlobalSearch";
-import Login from "./Login";
+import GlobalSearch from './GlobalSearch'
+import Login from './Login'
 
 const Header = () => {
-  const { channels, selectedChannel, token, hasNewNotification } =
-    useAppStore();
-  const [showSearch, setShowSearch] = useState(false);
+  const { channels, selectedChannel, token, hasNewNotification } = useAppStore()
+  const [showSearch, setShowSearch] = useState(false)
 
   return (
     <div className="fixed z-10 flex flex-row items-center justify-between w-full px-2 border-b border-gray-300 dark:border-gray-700 md:px-6 bg-secondary h-14">
@@ -103,7 +102,7 @@ const Header = () => {
         <Login />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

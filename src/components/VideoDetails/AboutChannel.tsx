@@ -1,21 +1,21 @@
-import JoinChannel from "@components/Channel/BasicInfo/JoinChannel";
-import Subscribe from "@components/Channel/BasicInfo/Subscribe";
-import UnSubscribe from "@components/Channel/BasicInfo/UnSubscribe";
-import getProfilePicture from "@utils/functions/getProfilePicture";
-import Link from "next/link";
-import React, { FC } from "react";
-import { LenstubePublication } from "src/types/local";
+import JoinChannel from '@components/Channel/BasicInfo/JoinChannel'
+import Subscribe from '@components/Channel/BasicInfo/Subscribe'
+import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
+import getProfilePicture from '@utils/functions/getProfilePicture'
+import Link from 'next/link'
+import React, { FC } from 'react'
+import { LenstubePublication } from 'src/types/local'
 
-import MintVideo from "./MintVideo";
+import MintVideo from './MintVideo'
 
 type Props = {
-  video: LenstubePublication;
-  isFollower: boolean;
-};
+  video: LenstubePublication
+  isFollower: boolean
+}
 
 const AboutChannel: FC<Props> = ({ video, isFollower }) => {
-  const channel = video?.profile;
-  const subscribeType = channel?.followModule?.__typename;
+  const channel = video?.profile
+  const subscribeType = channel?.followModule?.__typename
 
   return (
     <div className="flex items-center justify-between w-full my-4">
@@ -38,7 +38,7 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
         </div>
         <div className="flex items-center space-x-2">
           {isFollower ? <MintVideo video={video} /> : null}
-          {subscribeType === "FeeFollowModuleSettings" ? (
+          {subscribeType === 'FeeFollowModuleSettings' ? (
             <JoinChannel channel={channel} />
           ) : (
             <>
@@ -52,7 +52,7 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AboutChannel;
+export default AboutChannel

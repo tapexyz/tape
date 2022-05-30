@@ -1,30 +1,30 @@
-import { useQuery } from "@apollo/client";
-import useAppStore from "@lib/store";
-import getProfilePicture from "@utils/functions/getProfilePicture";
-import { RECOMMENDED_PROFILES_QUERY } from "@utils/gql/queries";
-import useDraggableScroll from "@utils/hooks/useDraggableScroll";
-import Link from "next/link";
-import React, { useRef } from "react";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { Profile } from "src/types";
+import { useQuery } from '@apollo/client'
+import useAppStore from '@lib/store'
+import getProfilePicture from '@utils/functions/getProfilePicture'
+import { RECOMMENDED_PROFILES_QUERY } from '@utils/gql/queries'
+import useDraggableScroll from '@utils/hooks/useDraggableScroll'
+import Link from 'next/link'
+import React, { useRef } from 'react'
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+import { Profile } from 'src/types'
 
 const Recommended = () => {
-  const scrollRef = useRef<null | HTMLDivElement>(null);
-  const { onMouseDown } = useDraggableScroll(scrollRef);
-  const { recommendedChannels, setRecommendedChannels } = useAppStore();
+  const scrollRef = useRef<null | HTMLDivElement>(null)
+  const { onMouseDown } = useDraggableScroll(scrollRef)
+  const { recommendedChannels, setRecommendedChannels } = useAppStore()
   const { error } = useQuery(RECOMMENDED_PROFILES_QUERY, {
     onCompleted(data) {
-      const channels = data?.recommendedProfiles;
-      setRecommendedChannels(channels);
-    },
-  });
+      const channels = data?.recommendedProfiles
+      setRecommendedChannels(channels)
+    }
+  })
 
   const scrollToOffset = (scrollOffset: number) => {
-    if (scrollRef.current) scrollRef.current.scrollLeft += scrollOffset;
-  };
+    if (scrollRef.current) scrollRef.current.scrollLeft += scrollOffset
+  }
 
   if (recommendedChannels.length === 0 || error) {
-    return null;
+    return null
   }
 
   return (
@@ -71,7 +71,7 @@ const Recommended = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Recommended;
+export default Recommended

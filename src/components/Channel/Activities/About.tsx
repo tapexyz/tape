@@ -1,19 +1,19 @@
-import { LENSTER_WEBSITE_URL } from "@utils/constants";
-import React, { FC } from "react";
-import { HiOutlineGlobe } from "react-icons/hi";
-import { RiTwitterLine } from "react-icons/ri";
-import { Profile } from "src/types";
+import { LENSTER_WEBSITE_URL } from '@utils/constants'
+import React, { FC } from 'react'
+import { HiOutlineGlobe } from 'react-icons/hi'
+import { RiTwitterLine } from 'react-icons/ri'
+import { Profile } from 'src/types'
 
 type Props = {
-  channel: Profile;
-};
+  channel: Profile
+}
 
 const About: FC<Props> = ({ channel }) => {
-  const attributes = channel?.attributes;
+  const attributes = channel?.attributes
 
   const getSpecificAttribute = (key: string) => {
-    return attributes?.find((el) => el.key === key)?.value;
-  };
+    return attributes?.find((el) => el.key === key)?.value
+  }
 
   return (
     <div className="p-4 space-y-4 md:space-y-6">
@@ -30,11 +30,11 @@ const About: FC<Props> = ({ channel }) => {
           Links
         </h6>
         <div className="space-y-1.5">
-          {getSpecificAttribute("website") && (
+          {getSpecificAttribute('website') && (
             <div className="flex items-center space-x-1 text-sm">
               <HiOutlineGlobe />
               <a
-                href={getSpecificAttribute("website")}
+                href={getSpecificAttribute('website')}
                 target="_blank"
                 rel="noreferer noreferrer"
                 className="hover:text-indigo-500"
@@ -43,11 +43,11 @@ const About: FC<Props> = ({ channel }) => {
               </a>
             </div>
           )}
-          {getSpecificAttribute("twitter") && (
+          {getSpecificAttribute('twitter') && (
             <div className="flex items-center space-x-1 text-sm">
               <RiTwitterLine />
               <a
-                href={getSpecificAttribute("website")}
+                href={getSpecificAttribute('website')}
                 target="_blank"
                 rel="noreferer noreferrer"
                 className="hover:text-indigo-500"
@@ -72,7 +72,7 @@ const About: FC<Props> = ({ channel }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default About;
+export default About

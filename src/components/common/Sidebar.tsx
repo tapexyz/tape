@@ -1,21 +1,21 @@
-import { Button } from "@components/ui/Button";
-import Tooltip from "@components/ui/Tooltip";
-import useAppStore from "@lib/store";
-import { EXPLORE, HOME, LIBRARY } from "@utils/url-path";
-import Link from "next/link";
-import { useTheme } from "next-themes";
-import React from "react";
-import { FiHome } from "react-icons/fi";
+import { Button } from '@components/ui/Button'
+import Tooltip from '@components/ui/Tooltip'
+import useAppStore from '@lib/store'
+import { EXPLORE, HOME, LIBRARY } from '@utils/url-path'
+import Link from 'next/link'
+import { useTheme } from 'next-themes'
+import React from 'react'
+import { FiHome } from 'react-icons/fi'
 import {
   MdOutlineDarkMode,
   MdOutlineVideoLibrary,
-  MdOutlineWbSunny,
-} from "react-icons/md";
-import { RiLeafLine } from "react-icons/ri";
+  MdOutlineWbSunny
+} from 'react-icons/md'
+import { RiLeafLine } from 'react-icons/ri'
 
 const Sidebar = () => {
-  const { theme, setTheme } = useTheme();
-  const { selectedChannel } = useAppStore();
+  const { theme, setTheme } = useTheme()
+  const { selectedChannel } = useAppStore()
 
   return (
     <div className="fixed bottom-0 left-0 items-center justify-between hidden w-16 p-4 border-r border-gray-300 dark:border-gray-700 md:flex md:flex-col top-14">
@@ -53,15 +53,15 @@ const Sidebar = () => {
       <div className="flex flex-col items-center space-y-2">
         <button
           onClick={() => {
-            setTheme(theme === "dark" ? "light" : "dark");
+            setTheme(theme === 'dark' ? 'light' : 'dark')
           }}
           className="p-2.5 focus:outline-none opacity-70 hover:opacity-100"
         >
-          {theme === "dark" ? <MdOutlineWbSunny /> : <MdOutlineDarkMode />}
+          {theme === 'dark' ? <MdOutlineWbSunny /> : <MdOutlineDarkMode />}
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar
