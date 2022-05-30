@@ -35,7 +35,7 @@
     "react-dropzone": "^14.2.1",
     "react-hot-toast": "^2.2.0",
     "react-icons": "^4.3.1",
-    "usehooks-ts": "^2.5.3",
+    "usehooks-ts": "^2.5.4",
     "uuidv4": "^6.2.13",
     "wagmi": "^0.4.4",
     "zustand": "^4.0.0-rc.1"

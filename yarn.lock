@@ -9078,10 +9078,10 @@ use-sync-external-store@1.1.0, use-sync-external-store@^1.1.0:
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.1.0.tgz#3343c3fe7f7e404db70f8c687adf5c1652d34e82"
   integrity sha512-SEnieB2FPKEVne66NpXPd1Np4R1lTNKfjuy3XdIoPQKYBAFdzbzSZlSn1KJZUiihQLQC5Znot4SBz1EOTBwQAQ==
 
-usehooks-ts@^2.5.3:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/usehooks-ts/-/usehooks-ts-2.5.3.tgz#379738eda9dc4058431a6fb6c0252ed7144102b8"
-  integrity sha512-9R6gMpMSjW7twa1wpW67xYWhEB7UGyKj+8/CEN6RHPlJsdv4fmzDe8mB+Dn5ABcTWtFajqqm1uVpSPGTUQ715g==
+usehooks-ts@^2.5.4:
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/usehooks-ts/-/usehooks-ts-2.5.4.tgz#e28ce0c1140e3ae172d9b8d2fca07dff68a476ab"
+  integrity sha512-NG4XKLh7csTFFtUgtUuR72zlJ1Bpt4+nDAnKQqcQcpxYnwAZZv3RpksKvxBIusPCHUL3NuC0xLwwJCpPxIuknQ==
 
 utf-8-validate@^5.0.2:
   version "5.0.9"

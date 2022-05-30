@@ -19,7 +19,7 @@ const Notifications = () => {
     variables: {
       request: {
         profileId: selectedChannel?.id,
-        limit: 50,
+        limit: 10,
         sources: [LENSTUBE_VIDEOS_APP_ID]
       }
     },
@@ -38,7 +38,7 @@ const Notifications = () => {
           request: {
             profileId: selectedChannel?.id,
             cursor: pageInfo?.next,
-            limit: 50
+            limit: 10
           }
         }
       }).then(({ data }: any) => {

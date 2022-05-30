@@ -1,22 +1,81 @@
+import { useQuery } from '@apollo/client'
 import Notifications from '@components/Notifications'
 import Popover from '@components/ui/Popover'
 import Tooltip from '@components/ui/Tooltip'
 import useAppStore from '@lib/store'
+import {
+  CURRENT_USER_QUERY,
+  NOTIFICATION_COUNT_QUERY
+} from '@utils/gql/queries'
 import { HOME } from '@utils/url-path'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlinePlus, AiOutlineVideoCameraAdd } from 'react-icons/ai'
 import { BiSearch } from 'react-icons/bi'
 import { CgBell } from 'react-icons/cg'
 import { FiUpload } from 'react-icons/fi'
 import { HiOutlineStatusOnline } from 'react-icons/hi'
+import { Profile } from 'src/types'
+import { useAccount } from 'wagmi'
 
 import GlobalSearch from './GlobalSearch'
 import Login from './Login'
 
 const Header = () => {
-  const { channels, selectedChannel, token, hasNewNotification } = useAppStore()
+  const {
+    channels,
+    selectedChannel,
+    token,
+    hasNewNotification,
+    setChannels,
+    setSelectedChannel,
+    setHasNewNotification,
+    notificationCount,
+    setNotificationCount
+  } = useAppStore()
   const [showSearch, setShowSearch] = useState(false)
+  const { data: accountData } = useAccount()
+
+  const {} = useQuery(CURRENT_USER_QUERY, {
+    variables: { ownedBy: accountData?.address },
+    skip: !token?.refresh,
+    onCompleted(data) {
+      const profiles: Profile[] = data?.profiles?.items
+      setChannels(profiles)
+      setSelectedChannel(profiles[0])
+    }
+  })
+
+  const { data: notificationsData } = useQuery(NOTIFICATION_COUNT_QUERY, {
+    variables: { request: { profileId: selectedChannel?.id } },
+    pollInterval: 50000,
+    skip: !selectedChannel?.id
+  })
+
+  useEffect(() => {
+    if (selectedChannel && notificationsData) {
+      setHasNewNotification(
+        notificationCount !==
+          notificationsData?.notifications?.pageInfo?.totalCount
+      )
+      setNotificationCount(
+        notificationsData?.notifications?.pageInfo?.totalCount
+      )
+    }
+  }, [
+    selectedChannel,
+    notificationsData,
+    notificationCount,
+    setHasNewNotification,
+    setNotificationCount
+  ])
+
+  const onClickNotification = () => {
+    localStorage.setItem(
+      'notificationCount',
+      notificationsData?.notifications?.pageInfo?.totalCount.toString()
+    )
+  }
 
   return (
     <div className="fixed z-10 flex flex-row items-center justify-between w-full px-2 border-b border-gray-300 dark:border-gray-700 md:px-6 bg-secondary h-14">
@@ -74,12 +133,15 @@ const Header = () => {
             <Popover
               trigger={
                 <Tooltip className="!rounded-lg" content="Notifications">
-                  <div className="relative flex self-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <button
+                    onClick={() => onClickNotification()}
+                    className="relative flex self-center p-2 rounded-lg focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800"
+                  >
                     <CgBell />
                     {hasNewNotification && (
                       <span className="absolute flex w-1.5 h-1.5 bg-indigo-500 rounded-full top-1 right-1" />
                     )}
-                  </div>
+                  </button>
                 </Tooltip>
               }
               panelClassName="right-0"
