@@ -22,7 +22,7 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
       <div className="flex-none mr-3">
         <img
           src={getProfilePicture(channel)}
-          className="w-12 h-12 border-2 rounded-full"
+          className="w-12 h-12 rounded-full"
           draggable={false}
           alt=""
         />

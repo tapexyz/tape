@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client'
 
 export const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -7,7 +7,7 @@ export const REFRESH_AUTHENTICATION_MUTATION = `
       refreshToken
     }
   }
-`;
+`
 
 export const MinimalProfileFields = gql`
   fragment MinimalProfileFields on Profile {
@@ -37,7 +37,7 @@ export const MinimalProfileFields = gql`
       __typename
     }
   }
-`;
+`
 
 export const MinimalCollectModuleFields = gql`
   fragment MinimalCollectModuleFields on CollectModule {
@@ -77,7 +77,7 @@ export const MinimalCollectModuleFields = gql`
       }
     }
   }
-`;
+`
 
 export const CommentFields = gql`
   fragment CommentFields on Comment {
@@ -140,7 +140,7 @@ export const CommentFields = gql`
   }
   ${MinimalProfileFields}
   ${MinimalCollectModuleFields}
-`;
+`
 
 export const CURRENT_USER_QUERY = gql`
   query CurrentUser($ownedBy: [EthereumAddress!]) {
@@ -152,7 +152,7 @@ export const CURRENT_USER_QUERY = gql`
     }
   }
   ${MinimalProfileFields}
-`;
+`
 
 export const CHALLENGE_QUERY = gql`
   query Challenge($request: ChallengeRequest!) {
@@ -160,7 +160,7 @@ export const CHALLENGE_QUERY = gql`
       text
     }
   }
-`;
+`
 
 export const AUTHENTICATE_MUTATION = gql`
   mutation Authenticate($request: SignedAuthChallenge!) {
@@ -169,7 +169,7 @@ export const AUTHENTICATE_MUTATION = gql`
       refreshToken
     }
   }
-`;
+`
 
 export const CREATE_PROFILE_MUTATION = gql`
   mutation CreateProfile($request: CreateProfileRequest!) {
@@ -182,7 +182,7 @@ export const CREATE_PROFILE_MUTATION = gql`
       }
     }
   }
-`;
+`
 
 export const TX_STATUS_QUERY = gql`
   query HasTxHashBeenIndexed($request: HasTxHashBeenIndexedRequest!) {
@@ -192,7 +192,7 @@ export const TX_STATUS_QUERY = gql`
       }
     }
   }
-`;
+`
 
 export const PROFILE_QUERY = gql`
   query Profile($request: ProfileQueryRequest!) {
@@ -236,7 +236,7 @@ export const PROFILE_QUERY = gql`
       }
     }
   }
-`;
+`
 
 export const RECOMMENDED_PROFILES_QUERY = gql`
   query RecommendedProfiles {
@@ -245,7 +245,7 @@ export const RECOMMENDED_PROFILES_QUERY = gql`
     }
   }
   ${MinimalProfileFields}
-`;
+`
 
 export const NOTIFICATION_COUNT_QUERY = gql`
   query NotificationCount($request: NotificationRequest!) {
@@ -255,7 +255,7 @@ export const NOTIFICATION_COUNT_QUERY = gql`
       }
     }
   }
-`;
+`
 
 // currently showing only new follow
 export const NOTIFICATIONS_QUERY = gql`
@@ -278,7 +278,7 @@ export const NOTIFICATIONS_QUERY = gql`
     }
   }
   ${MinimalProfileFields}
-`;
+`
 
 export const SEARCH_CHANNELS_QUERY = gql`
   query SearchChannels($request: SearchQueryRequest!) {
@@ -291,7 +291,7 @@ export const SEARCH_CHANNELS_QUERY = gql`
     }
   }
   ${MinimalProfileFields}
-`;
+`
 
 export const PostFields = gql`
   fragment PostFields on Post {
@@ -337,7 +337,7 @@ export const PostFields = gql`
   }
   ${MinimalProfileFields}
   ${MinimalCollectModuleFields}
-`;
+`
 
 export const CollectModuleFields = gql`
   fragment CollectModuleFields on CollectModule {
@@ -407,7 +407,7 @@ export const CollectModuleFields = gql`
       }
     }
   }
-`;
+`
 
 export const EXPLORE_QUERY = gql`
   query Explore($request: ExplorePublicationRequest!) {
@@ -428,7 +428,7 @@ export const EXPLORE_QUERY = gql`
   }
   ${PostFields}
   ${CommentFields}
-`;
+`
 
 export const FEED_QUERY = gql`
   query HomeFeed($request: TimelineRequest!) {
@@ -449,7 +449,7 @@ export const FEED_QUERY = gql`
   }
   ${PostFields}
   ${CommentFields}
-`;
+`
 
 export const PROFILE_FEED_QUERY = gql`
   query ProfileFeed($request: PublicationsQueryRequest!) {
@@ -470,7 +470,7 @@ export const PROFILE_FEED_QUERY = gql`
   }
   ${PostFields}
   ${CommentFields}
-`;
+`
 
 export const COMMENT_FEED_QUERY = gql`
   query CommentFeed($request: PublicationsQueryRequest!) {
@@ -487,7 +487,7 @@ export const COMMENT_FEED_QUERY = gql`
     }
   }
   ${CommentFields}
-`;
+`
 
 export const CREATE_POST_TYPED_DATA = gql`
   mutation CreatePostTypedData($request: CreatePublicPostRequest!) {
@@ -520,7 +520,43 @@ export const CREATE_POST_TYPED_DATA = gql`
       }
     }
   }
-`;
+`
+
+export const CREATE_COMMENT_TYPED_DATA = gql`
+  mutation CreateCommentTypedData($request: CreatePublicCommentRequest!) {
+    createCommentTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          CommentWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          profileIdPointed
+          pubIdPointed
+          contentURI
+          collectModule
+          collectModuleInitData
+          referenceModule
+          referenceModuleData
+          referenceModuleInitData
+        }
+      }
+    }
+  }
+`
 
 export const CREATE_COLLECT_TYPED_DATA = gql`
   mutation CreateCollectTypedData($request: CreateCollectRequest!) {
@@ -550,7 +586,7 @@ export const CREATE_COLLECT_TYPED_DATA = gql`
       }
     }
   }
-`;
+`
 
 export const VIDEO_DETAIL_QUERY = gql`
   query VideoDetails(
@@ -571,7 +607,7 @@ export const VIDEO_DETAIL_QUERY = gql`
     }
   }
   ${PostFields}
-`;
+`
 
 export const VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY = gql`
   query VideoDetailsWithCollect($request: PublicationQueryRequest!) {
@@ -585,7 +621,7 @@ export const VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY = gql`
     }
   }
   ${CollectModuleFields}
-`;
+`
 
 export const CREATE_UNFOLLOW_TYPED_DATA = gql`
   mutation UnfollowTypedData($request: UnfollowRequest!) {
@@ -613,7 +649,7 @@ export const CREATE_UNFOLLOW_TYPED_DATA = gql`
       }
     }
   }
-`;
+`
 
 export const CREATE_FOLLOW_TYPED_DATA = gql`
   mutation CreateFollowTypedData($request: FollowRequest!) {
@@ -642,7 +678,7 @@ export const CREATE_FOLLOW_TYPED_DATA = gql`
       }
     }
   }
-`;
+`
 
 export const DOES_FOLLOW = gql`
   query ($request: DoesFollowRequest!) {
@@ -652,7 +688,7 @@ export const DOES_FOLLOW = gql`
       follows
     }
   }
-`;
+`
 
 export const CHANNEL_FOLLOW_MODULE_QUERY = gql`
   query Profile($request: ProfileQueryRequest!) {
@@ -675,4 +711,4 @@ export const CHANNEL_FOLLOW_MODULE_QUERY = gql`
       }
     }
   }
-`;
+`
