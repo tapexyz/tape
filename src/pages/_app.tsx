@@ -1,6 +1,5 @@
 import '../styles/index.css'
 import '@rainbow-me/rainbowkit/styles.css'
-import 'plyr-react/dist/plyr.css'
 
 import { ApolloProvider } from '@apollo/client'
 import EthersProvider from '@components/wrappers/EthersProvider'

@@ -1,28 +1,6 @@
-import Plyr from 'plyr-react'
+import VideoPlayer from '@components/common/VideoPlayer'
 import React, { FC } from 'react'
 import { LenstubePublication } from 'src/types/local'
-
-const Player = React.memo(
-  ({ source, thumbnail }: { source: string; thumbnail: string }) => {
-    return (
-      <Plyr
-        autoPlay
-        source={{
-          type: 'video',
-          sources: [
-            {
-              src: source,
-              provider: 'html5'
-            }
-          ],
-          poster: thumbnail
-        }}
-      />
-    )
-  }
-)
-
-Player.displayName = 'VideoPlayer'
 
 type Props = {
   video: LenstubePublication
@@ -30,9 +8,9 @@ type Props = {
 const Video: FC<Props> = ({ video }) => {
   return (
     <div className="overflow-hidden rounded">
-      <Player
+      <VideoPlayer
         source={video?.metadata.content}
-        thumbnail={video?.metadata.cover?.original.url}
+        poster={video?.metadata.cover?.original.url}
       />
     </div>
   )

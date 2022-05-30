@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { WebBundlr } from '@bundlr-network/client'
+import VideoPlayer from '@components/common/VideoPlayer'
 import { Button } from '@components/ui/Button'
 import ChooseImage from '@components/ui/ChooseImage'
 import { Input } from '@components/ui/Input'
@@ -19,7 +20,6 @@ import usePendingTxn from '@utils/hooks/usePendingTxn'
 import clsx from 'clsx'
 import { utils } from 'ethers'
 import Link from 'next/link'
-import Plyr from 'plyr-react'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
@@ -43,26 +43,6 @@ type Props = {
   video: VideoUpload
   closeUploadModal: () => void
 }
-
-const Player = React.memo(({ preview }: { preview: string }) => {
-  return (
-    <Plyr
-      source={{
-        type: 'video',
-        sources: [
-          {
-            src: preview,
-            provider: 'html5'
-          }
-        ]
-      }}
-      options={{
-        controls: ['progress', 'current-time', 'mute', 'volume', 'fullscreen']
-      }}
-    />
-  )
-})
-Player.displayName = 'PreviewPlayer'
 
 const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const { data: signer } = useSigner()
@@ -391,7 +371,16 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
               // "rounded-lg": !bundlrData.uploading,
             })}
           >
-            <Player preview={video.preview} />
+            <VideoPlayer
+              source={video.preview}
+              controls={[
+                'progress',
+                'current-time',
+                'mute',
+                'volume',
+                'fullscreen'
+              ]}
+            />
           </div>
           {/* <Tooltip content={`Uploading (${80}%)`}>
             <div className="w-full overflow-hidden bg-gray-200 rounded-b-full">
