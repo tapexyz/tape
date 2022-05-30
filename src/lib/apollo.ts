@@ -24,24 +24,21 @@ const authLink = setContext((_, { headers }) => {
 const refreshLink = new TokenRefreshLink({
   accessTokenField: 'accessToken',
   isTokenValidOrUndefined: () => {
-    if (typeof window !== 'undefined') {
-      const accessToken = localStorage.getItem('accessToken')
-      if (accessToken) {
-        const accessTokenDecrypted: any = jwtDecode(accessToken)
-        if (Date.now() >= accessTokenDecrypted.exp * 1000) {
-          return false
-        } else {
-          return true
-        }
-      } else {
+    const accessToken = localStorage.getItem('accessToken')
+    const refreshToken = localStorage.getItem('refreshToken')
+    if (accessToken && refreshToken) {
+      const accessTokenDecrypted: any = jwtDecode(accessToken)
+      if (Date.now() >= accessTokenDecrypted.exp * 1000) {
         return false
+      } else {
+        return true
       }
     } else {
       return true
     }
   },
   fetchAccessToken: () => {
-    alert()
+    const refreshToken = localStorage.getItem('refreshToken')
     return fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -49,7 +46,7 @@ const refreshLink = new TokenRefreshLink({
         operationName: 'Refresh',
         query: REFRESH_AUTHENTICATION_MUTATION,
         variables: {
-          request: { refreshToken: localStorage.getItem('refreshToken') }
+          request: { refreshToken }
         }
       })
     })
