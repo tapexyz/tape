@@ -11,9 +11,9 @@ import React from 'react'
 import Custom500 from 'src/pages/500'
 import { LenstubePublication } from 'src/types/local'
 
-import AboutChannel from './AboutChannel'
-import SuggestedVideos from './SuggestedVideos'
-import VideoComments from './VideoComments'
+const SuggestedVideos = dynamic(() => import('./SuggestedVideos'))
+const VideoComments = dynamic(() => import('./VideoComments'))
+const AboutChannel = dynamic(() => import('./AboutChannel'))
 
 const Video = dynamic(() => import('./Video'))
 

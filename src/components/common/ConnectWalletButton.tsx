@@ -36,7 +36,11 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
 
               if (chain.unsupported) {
                 return (
-                  <Button onClick={openChainModal} variant="danger">
+                  <Button
+                    onClick={openChainModal}
+                    className="!text-white"
+                    variant="danger"
+                  >
                     Wrong network
                   </Button>
                 )

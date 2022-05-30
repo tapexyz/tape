@@ -3,6 +3,7 @@ import { Loader } from '@components/ui/Loader'
 import { NoDataFound } from '@components/ui/NoDataFound'
 import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
 import { COMMENT_FEED_QUERY } from '@utils/gql/queries'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -10,7 +11,7 @@ import { AiOutlineComment } from 'react-icons/ai'
 import { PaginatedResultInfo } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
-import Comment from './Comment'
+const Comment = dynamic(() => import('./Comment'))
 
 const VideoComments = () => {
   const {

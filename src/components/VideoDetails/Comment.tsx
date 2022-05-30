@@ -1,10 +1,12 @@
-import ImageAttachments from '@components/common/ImageAttachments'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import dynamic from 'next/dynamic'
 import React, { FC } from 'react'
 import { LenstubePublication } from 'src/types/local'
 dayjs.extend(relativeTime)
+
+const ImageAttachments = dynamic(() => import('../common/ImageAttachments'))
 
 interface Props {
   video: LenstubePublication
