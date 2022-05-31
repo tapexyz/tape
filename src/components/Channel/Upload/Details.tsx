@@ -44,6 +44,24 @@ type Props = {
   closeUploadModal: () => void
 }
 
+export const MemoizedVideoPlayer = React.memo(
+  ({ source }: { source: string }) => (
+    <VideoPlayer
+      source={source}
+      controls={[
+        'play',
+        'progress',
+        'current-time',
+        'mute',
+        'volume',
+        'fullscreen'
+      ]}
+    />
+  )
+)
+
+MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
+
 const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const { data: signer } = useSigner()
   const { data: account } = useAccount()
@@ -371,16 +389,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
               // "rounded-lg": !bundlrData.uploading,
             })}
           >
-            <VideoPlayer
-              source={video.preview}
-              controls={[
-                'progress',
-                'current-time',
-                'mute',
-                'volume',
-                'fullscreen'
-              ]}
-            />
+            <MemoizedVideoPlayer source={video.preview} />
           </div>
           {/* <Tooltip content={`Uploading (${80}%)`}>
             <div className="w-full overflow-hidden bg-gray-200 rounded-b-full">
