@@ -14,7 +14,7 @@ import { alchemyProvider } from 'wagmi/providers/alchemy'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { chains, provider } = configureChains(
-    [IS_MAINNET ? chain.polygon : chain.polygonMumbai, chain.mainnet],
+    [IS_MAINNET ? chain.polygon : chain.polygonMumbai],
     [alchemyProvider({ alchemyId: ALCHEMY_KEY })]
   )
 
