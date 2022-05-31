@@ -3,6 +3,7 @@ import { Loader } from '@components/ui/Loader'
 import Modal from '@components/ui/Modal'
 import useAppStore from '@lib/store'
 import { POLYGON_CHAIN_ID } from '@utils/constants'
+import { getWalletLogo } from '@utils/functions/getWalletLogo'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
@@ -35,7 +36,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
     <div>
       <Modal
         title="Connect Wallet"
-        panelClassName="max-w-lg !p-5"
+        panelClassName="max-w-md"
         onClose={() => setShowModal(false)}
         show={showModal}
       >
@@ -71,13 +72,20 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                     : false
                 }
               >
-                <span className="flex items-center justify-between w-full">
-                  {isMounted ? x.name : x.id === 'injected' ? x.id : x.name}
-                  {isMounted ? !x.ready && ' (unsupported)' : ''}
-                  {loading && x.name === activeConnector?.name && <Loader />}
-                  {!loading && x.id === accountData?.connector?.id && (
-                    <AiOutlineCheck className="w-5 h-5 text-green-800" />
-                  )}
+                <span className="flex items-center w-full space-x-2.5">
+                  <img
+                    src={getWalletLogo(x.id)}
+                    alt=""
+                    className="w-5 h-5 rounded"
+                  />
+                  <span>
+                    {isMounted ? x.name : x.id === 'injected' ? x.id : x.name}
+                    {isMounted ? !x.ready && ' (unsupported)' : ''}
+                    {loading && x.name === activeConnector?.name && <Loader />}
+                    {!loading && x.id === accountData?.connector?.id && (
+                      <AiOutlineCheck className="w-5 h-5 text-green-800" />
+                    )}
+                  </span>
                 </span>
               </button>
             )
@@ -99,7 +107,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
             onClick={() => handleSign()}
             disabled={loading}
           >
-            Sign-in with Ethereum
+            Sign In
           </Button>
         )
       ) : isConnected && switchNetwork ? (
