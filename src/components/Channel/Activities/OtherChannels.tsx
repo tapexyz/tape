@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import { Loader } from '@components/ui/Loader'
 import { NoDataFound } from '@components/ui/NoDataFound'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import { PROFILE_QUERY } from '@utils/gql/queries'
+import { CURRENT_USER_QUERY } from '@utils/gql/queries'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import { Profile } from 'src/types'
@@ -14,11 +14,9 @@ type Props = {
 }
 
 const OtherChannels: FC<Props> = ({ channel }) => {
-  const { data, loading } = useQuery(PROFILE_QUERY, {
-    variables: {
-      request: { handles: channel.handle }
-    },
-    skip: !channel.handle
+  const { data, loading } = useQuery(CURRENT_USER_QUERY, {
+    variables: { ownedBy: channel.ownedBy },
+    skip: !channel?.ownedBy
   })
   const allChannels: Profile[] = data?.profiles?.items
   if (loading) {
