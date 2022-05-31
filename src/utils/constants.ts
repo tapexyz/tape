@@ -8,6 +8,8 @@ export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://mumbai.polygonscan.com'
 
+export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
+
 export const BUNDLR_NODE_URL = IS_MAINNET
   ? 'https://node1.bundlr.network'
   : 'https://devnet.bundlr.network'

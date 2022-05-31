@@ -1,5 +1,5 @@
+import Layout from '@components/common/Layout'
 import { Button } from '@components/ui/Button'
-import Layout from '@components/wrappers/Layout'
 import { HOME } from '@utils/url-path'
 import Head from 'next/head'
 import Link from 'next/link'

@@ -18,8 +18,13 @@ const Sidebar = () => {
   const { selectedChannel } = useAppStore()
 
   return (
-    <div className="fixed bottom-0 left-0 items-center justify-between hidden w-16 p-4 border-r border-gray-300 dark:border-gray-700 md:flex md:flex-col top-14">
+    <div className="fixed top-0 bottom-0 left-0 items-center justify-between hidden w-16 p-4 bg-white dark:bg-black md:flex md:flex-col">
       <div className="flex flex-col items-center space-y-4">
+        <Link href={HOME}>
+          <a className="mb-2 mt-0.5">
+            <img src="/favicon.ico" className="w-6 h-6" alt="" />
+          </a>
+        </Link>
         <Tooltip className="!rounded-lg" content="Home" placement="right">
           <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
             <Link href={HOME}>

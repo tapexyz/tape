@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
+import Layout from '@components/common/Layout'
 import MetaTags from '@components/common/MetaTags'
 import { Loader } from '@components/ui/Loader'
-import Layout from '@components/wrappers/Layout'
 import { PROFILE_QUERY } from '@utils/gql/queries'
 import { useRouter } from 'next/router'
 import React from 'react'

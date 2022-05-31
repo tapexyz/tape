@@ -6,7 +6,7 @@ type IsBrowserProps = {
   children: ReactNode
 }
 
-export const IsBrowser = ({ children }: IsBrowserProps) => {
+const IsBrowser = ({ children }: IsBrowserProps) => {
   const isClient = useIsClient()
 
   if (!isClient) {
@@ -19,3 +19,4 @@ export const IsBrowser = ({ children }: IsBrowserProps) => {
 
   return <>{children}</>
 }
+export default IsBrowser

@@ -9,6 +9,8 @@ import React, { FC, ReactNode, useCallback, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useConnect, useDisconnect, useProvider } from 'wagmi'
 
+import IsBrowser from './IsBrowser'
+
 interface Props {
   children: ReactNode
 }
@@ -42,13 +44,13 @@ const Layout: FC<Props> = ({ children }) => {
   }, [setToken, activeConnector, disconnect, isDisconnected, logout, provider])
 
   return (
-    <>
-      <Header />
-      <div className="flex py-14">
+    <IsBrowser>
+      <div className="flex pb-14 md:pb-0">
         <Sidebar />
         <CreateChannel />
-        <div className="w-full py-4 pl-2 md:pl-[88px] pr-2 md:pr-6 max-w-[200rem] mx-auto">
-          {children}
+        <div className="w-full pl-2 md:pl-[84px] pr-2 md:pr-4 max-w-[200rem] mx-auto">
+          <Header />
+          <div className="pt-16">{children}</div>
         </div>
       </div>
       <Toaster
@@ -56,7 +58,7 @@ const Layout: FC<Props> = ({ children }) => {
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <MobileBottomNav />
-    </>
+    </IsBrowser>
   )
 }
 

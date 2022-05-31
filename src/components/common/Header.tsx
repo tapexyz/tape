@@ -7,7 +7,6 @@ import {
   CURRENT_USER_QUERY,
   NOTIFICATION_COUNT_QUERY
 } from '@utils/gql/queries'
-import { HOME } from '@utils/url-path'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { AiOutlinePlus, AiOutlineVideoCameraAdd } from 'react-icons/ai'
@@ -78,11 +77,8 @@ const Header = () => {
   }
 
   return (
-    <div className="fixed z-10 flex flex-row items-center justify-between w-full px-2 border-b border-gray-300 dark:border-gray-700 md:px-6 bg-secondary h-14">
+    <div className="fixed z-10 flex right-2 md:right-4 left-[84px] items-center justify-between bg-gray-100 dark:bg-[#010101] h-14">
       <div className="flex items-center flex-1 space-x-4">
-        <Link href={HOME}>
-          <a className="font-semibold">LensTube</a>
-        </Link>
         <div>
           {showSearch && <GlobalSearch setShowSearch={setShowSearch} />}
           <button

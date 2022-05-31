@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import { FC, Fragment } from 'react'
+import { AiOutlineClose } from 'react-icons/ai'
 
 type Props = {
   show: boolean
@@ -53,17 +54,25 @@ const Modal: FC<Props> = ({
             >
               <Dialog.Panel
                 className={clsx(
-                  'w-full p-6 py-5 overflow-x-hidden text-left align-middle transition-all transform shadow-xl bg-secondary rounded-2xl',
+                  'w-full p-5 py-5 overflow-x-hidden text-left align-middle transition-all transform shadow-xl bg-secondary rounded-2xl',
                   panelClassName
                 )}
               >
                 {title && (
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6"
-                  >
-                    {title}
-                  </Dialog.Title>
+                  <div className="flex items-center justify-between">
+                    <Dialog.Title
+                      as="h3"
+                      className="text-lg font-medium leading-6"
+                    >
+                      {title}
+                    </Dialog.Title>
+                    <button
+                      className="focus:outline-none"
+                      onClick={() => closeModal()}
+                    >
+                      <AiOutlineClose />
+                    </button>
+                  </div>
                 )}
                 {children}
               </Dialog.Panel>

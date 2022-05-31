@@ -1,5 +1,5 @@
+import Layout from '@components/common/Layout'
 import MetaTags from '@components/common/MetaTags'
-import Layout from '@components/wrappers/Layout'
 import React from 'react'
 
 const Settings = () => {
