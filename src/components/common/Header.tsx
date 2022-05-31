@@ -7,6 +7,7 @@ import {
   CURRENT_USER_QUERY,
   NOTIFICATION_COUNT_QUERY
 } from '@utils/gql/queries'
+import { HOME } from '@utils/url-path'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { AiOutlinePlus, AiOutlineVideoCameraAdd } from 'react-icons/ai'
@@ -77,9 +78,14 @@ const Header = () => {
   }
 
   return (
-    <div className="fixed z-10 flex right-2 md:right-4 left-[84px] items-center justify-between bg-gray-100 dark:bg-[#010101] h-14">
+    <div className="fixed z-10 flex right-2 md:right-4 md:left-[84px] left-2 items-center justify-between bg-gray-100 dark:bg-[#010101] h-14">
       <div className="flex items-center flex-1 space-x-4">
         <div>
+          <Link href={HOME}>
+            <a className="block md:hidden mb-2 mt-0.5">
+              <img src="/favicon.ico" className="w-6 h-6" alt="" />
+            </a>
+          </Link>
           {showSearch && <GlobalSearch setShowSearch={setShowSearch} />}
           <button
             onClick={() => setShowSearch(true)}
@@ -91,6 +97,12 @@ const Header = () => {
         </div>
       </div>
       <div className="flex flex-row items-center space-x-3">
+        <button
+          onClick={() => setShowSearch(true)}
+          className="flex self-center p-2 rounded-lg focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800"
+        >
+          <BiSearch />
+        </button>
         {selectedChannel && token.access ? (
           <>
             <Popover
