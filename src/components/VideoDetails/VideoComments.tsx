@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client'
 import { Loader } from '@components/ui/Loader'
 import { NoDataFound } from '@components/ui/NoDataFound'
+import useAppStore from '@lib/store'
 import {
   LENSTUBE_COMMENTS_APP_ID,
   LENSTUBE_VIDEOS_APP_ID
@@ -26,6 +27,8 @@ const VideoComments: FC<Props> = ({ video }) => {
   const {
     query: { id }
   } = useRouter()
+  const { selectedChannel } = useAppStore()
+
   const [comments, setComments] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
@@ -67,21 +70,25 @@ const VideoComments: FC<Props> = ({ video }) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <h1 className="inline-flex items-center my-4 space-x-2 text-lg">
-          <AiOutlineComment />
-          <span>Comments</span>
-          {data?.publications?.pageInfo.totalCount ? (
-            <span className="text-sm font-light">
-              ({data?.publications?.pageInfo.totalCount})
-            </span>
-          ) : null}
-        </h1>
-      </div>
-      {data?.publications?.items.length === 0 && (
-        <NoDataFound text="Be the first to comment." />
-      )}
-      <NewComment video={video} />
+      {selectedChannel ? (
+        <>
+          <div className="flex items-center justify-between">
+            <h1 className="inline-flex items-center my-4 space-x-2 text-lg">
+              <AiOutlineComment />
+              <span>Comments</span>
+              {data?.publications?.pageInfo.totalCount ? (
+                <span className="text-sm font-light">
+                  ({data?.publications?.pageInfo.totalCount})
+                </span>
+              ) : null}
+            </h1>
+          </div>
+          {data?.publications?.items.length === 0 && (
+            <NoDataFound text="Be the first to comment." />
+          )}
+          <NewComment video={video} />
+        </>
+      ) : null}
       {!error && !loading && (
         <>
           <div className="space-y-4">

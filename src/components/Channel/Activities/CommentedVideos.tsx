@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client'
 import Timeline from '@components/Home/Timeline'
+import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/ui/Loader'
 import { NoDataFound } from '@components/ui/NoDataFound'
 import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
@@ -50,9 +51,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
     }
   })
 
-  if (loading) {
-    return <Loader />
-  }
+  if (loading) return <TimelineShimmer />
 
   if (data?.publications?.items?.length === 0) {
     return <NoDataFound text="No comments on videos." />
@@ -60,6 +59,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
 
   return (
     <div className="w-full">
+      {loading && <TimelineShimmer />}
       {!error && !loading && (
         <div>
           <Timeline videos={channelVideos} />

@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import RecommendedShimmer from '@components/Shimmers/RecommendedShimmer'
 import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { RECOMMENDED_PROFILES_QUERY } from '@utils/gql/queries'
@@ -12,7 +13,7 @@ const Recommended = () => {
   const scrollRef = useRef<null | HTMLDivElement>(null)
   const { onMouseDown } = useDraggableScroll(scrollRef)
   const { recommendedChannels, setRecommendedChannels } = useAppStore()
-  const { error } = useQuery(RECOMMENDED_PROFILES_QUERY, {
+  const { error, loading } = useQuery(RECOMMENDED_PROFILES_QUERY, {
     onCompleted(data) {
       const channels = data?.recommendedProfiles
       setRecommendedChannels(channels)
@@ -22,6 +23,8 @@ const Recommended = () => {
   const scrollToOffset = (scrollOffset: number) => {
     if (scrollRef.current) scrollRef.current.scrollLeft += scrollOffset
   }
+
+  if (loading) return <RecommendedShimmer />
 
   if (recommendedChannels.length === 0 || error) {
     return null

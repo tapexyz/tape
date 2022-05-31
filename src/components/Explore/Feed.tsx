@@ -1,13 +1,18 @@
 import { useQuery } from '@apollo/client'
-import Timeline from '@components/Home/Timeline'
+import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/ui/Loader'
 import { NoDataFound } from '@components/ui/NoDataFound'
 import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
+import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PaginatedResultInfo } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
+
+const Timeline = dynamic(() => import('../../components/Home/Timeline'), {
+  loading: () => <TimelineShimmer />
+})
 
 const ExploreFeed = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([])
@@ -54,7 +59,7 @@ const ExploreFeed = () => {
 
   return (
     <div>
-      {loading && <Loader />}
+      {loading && <TimelineShimmer />}
       {!error && !loading && (
         <>
           <Timeline videos={videos} />

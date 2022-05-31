@@ -51,7 +51,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                   {activeChain?.name}
                 </span>
               </div>
-              <h6>{accountData?.address}</h6>
+              <h6 className="text-sm truncate">{accountData?.address}</h6>
             </div>
           )}
           {connectors.map((x, i) => {
@@ -72,21 +72,27 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                     : false
                 }
               >
-                <span className="flex items-center w-full space-x-2.5">
+                <div className="flex items-center w-full space-x-2.5">
                   <img
                     src={getWalletLogo(x.id)}
                     alt=""
                     className="w-5 h-5 rounded"
                   />
-                  <span>
-                    {isMounted ? x.name : x.id === 'injected' ? x.id : x.name}
-                    {isMounted ? !x.ready && ' (unsupported)' : ''}
-                    {loading && x.name === activeConnector?.name && <Loader />}
-                    {!loading && x.id === accountData?.connector?.id && (
-                      <AiOutlineCheck className="w-5 h-5 text-green-800" />
-                    )}
+                  <span className="flex items-center justify-between flex-1">
+                    <span>
+                      {isMounted ? x.name : x.id === 'injected' ? x.id : x.name}
+                      {isMounted ? !x.ready && ' (unsupported)' : ''}
+                    </span>
+                    <span>
+                      {loading && x.name === activeConnector?.name && (
+                        <Loader />
+                      )}
+                      {!loading && x.id === accountData?.connector?.id && (
+                        <AiOutlineCheck className="w-5 h-5 text-green-800" />
+                      )}
+                    </span>
                   </span>
-                </span>
+                </div>
               </button>
             )
           })}
