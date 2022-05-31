@@ -1,6 +1,6 @@
+import Layout from '@components/common/Layout'
 import MetaTags from '@components/common/MetaTags'
 import ExploreFeed from '@components/Explore/Feed'
-import Layout from '@components/wrappers/Layout'
 import useAppStore from '@lib/store'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'

@@ -72,9 +72,9 @@ const refreshLink = new TokenRefreshLink({
   }
 })
 
-const client = new ApolloClient({
+const apolloClient = new ApolloClient({
   link: from([authLink, refreshLink, httpLink]),
   cache: new InMemoryCache({ possibleTypes: result.possibleTypes })
 })
 
-export default client
+export default apolloClient

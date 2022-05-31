@@ -40,3 +40,11 @@ input[type="number"] {
 html {
   --plyr-color-main: #15803d;
 }
+
+/* walletconnect */
+.-walletlink-css-reset body {
+  @apply !bg-transparent;
+}
+.walletconnect-modal__mobile__toggle{
+  @apply text-gray-900;
+}
