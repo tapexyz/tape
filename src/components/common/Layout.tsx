@@ -7,7 +7,7 @@ import { getToastOptions } from '@utils/functions/getToastOptions'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactNode, useCallback, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { useConnect, useDisconnect, useProvider } from 'wagmi'
+import { useConnect, useDisconnect } from 'wagmi'
 
 import IsBrowser from './IsBrowser'
 
@@ -20,7 +20,6 @@ const Layout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
   const { activeConnector, isDisconnected } = useConnect()
   const { disconnect } = useDisconnect()
-  const provider = useProvider()
 
   const logout = useCallback(() => {
     localStorage.removeItem('accessToken')
@@ -36,12 +35,9 @@ const Layout: FC<Props> = ({ children }) => {
       access: localStorage.getItem('accessToken') || null,
       refresh: localStorage.getItem('refreshToken') || null
     })
-    provider.on('network', (_newNetwork, oldNetwork) => {
-      if (oldNetwork) logout()
-    })
     activeConnector?.on('disconnect', () => logout())
     if (isDisconnected) logout()
-  }, [setToken, activeConnector, disconnect, isDisconnected, logout, provider])
+  }, [setToken, activeConnector, disconnect, isDisconnected, logout])
 
   return (
     <IsBrowser>
