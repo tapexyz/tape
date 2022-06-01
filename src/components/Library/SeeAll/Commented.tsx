@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import Layout from '@components/common/Layout'
 import MetaTags from '@components/common/MetaTags'
 import Timeline from '@components/Home/Timeline'
+import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/ui/Loader'
 import { NoDataFound } from '@components/ui/NoDataFound'
 import useAppStore from '@lib/store'
@@ -20,7 +21,7 @@ const SeeAllCommented = () => {
   )
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
-  const { loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: {
         publicationTypes: 'COMMENT',
@@ -57,14 +58,6 @@ const SeeAllCommented = () => {
     }
   })
 
-  if (loading) {
-    return <Loader />
-  }
-
-  if (commentedVideos?.length === 0) {
-    return <NoDataFound />
-  }
-
   return (
     <Layout>
       <MetaTags title="Commented Videos" />
@@ -75,6 +68,10 @@ const SeeAllCommented = () => {
             <span>Commented Videos</span>
           </h1>
         </div>
+        {data?.publications?.items?.length === 0 && (
+          <NoDataFound text="No commented videos." />
+        )}
+        {loading && <TimelineShimmer />}
         {!error && !loading && (
           <>
             <Timeline videos={commentedVideos} />

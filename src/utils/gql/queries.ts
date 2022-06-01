@@ -116,6 +116,7 @@ export const CommentFields = gql`
     commentOn {
       ... on Post {
         pubId: id
+        createdAt
         profile {
           ...MinimalProfileFields
         }

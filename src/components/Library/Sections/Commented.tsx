@@ -3,7 +3,10 @@ import VideoCard from '@components/common/VideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/ui/NoDataFound'
 import useAppStore from '@lib/store'
-import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
+import {
+  LENSTUBE_COMMENTS_APP_ID,
+  LENSTUBE_VIDEOS_APP_ID
+} from '@utils/constants'
 import { PROFILE_FEED_QUERY } from '@utils/gql/queries'
 import { COMMENTED_LIBRARY } from '@utils/url-path'
 import Link from 'next/link'
@@ -22,7 +25,7 @@ const Commented = () => {
         publicationTypes: 'COMMENT',
         profileId: selectedChannel?.id,
         limit: 5,
-        sources: [LENSTUBE_VIDEOS_APP_ID]
+        sources: [LENSTUBE_VIDEOS_APP_ID, LENSTUBE_COMMENTS_APP_ID]
       }
     },
     skip: !selectedChannel?.id,
@@ -31,10 +34,6 @@ const Commented = () => {
       setCommented(data?.publications?.items)
     }
   })
-
-  if (loading) {
-    return <TimelineShimmer />
-  }
 
   return (
     <div className="flex flex-col space-y-4">
@@ -49,10 +48,11 @@ const Commented = () => {
           </a>
         </Link>
       </div>
+      {loading && <TimelineShimmer />}
       {!commented.length && <NoDataFound text="This list has no videos." />}
-      <div className="grid gap-x-4 lg:grid-cols-4 gap-y-1 md:gap-y-6 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
+      <div className="grid gap-x-4 lg:grid-cols-4 gap-y-1.5 md:gap-y-6 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
         {commented?.map((video: LenstubePublication, idx: number) => (
-          <VideoCard key={idx} video={video} />
+          <VideoCard key={idx} video={video.commentOn as LenstubePublication} />
         ))}
       </div>
     </div>
