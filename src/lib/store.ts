@@ -16,6 +16,7 @@ interface AppState {
   notificationCount: number
   hasNewNotification: boolean
   recentlyWatched: LenstubePublication[] | []
+  watchLater: LenstubePublication[] | []
   setToken: (token: { access: string | null; refresh: string | null }) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
   setSelectedChannel: (profile: Profile | null) => void
@@ -24,6 +25,7 @@ interface AppState {
   setNotificationCount: (count: number) => void
   setHasNewNotification: (value: boolean) => void
   addToRecentlyWatched: (video: LenstubePublication) => void
+  addToWatchedLater: (video: LenstubePublication) => void
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr>
 }
 export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY
@@ -36,6 +38,7 @@ export const useAppStore = create(
     (set, _get) => ({
       channels: [],
       recentlyWatched: [],
+      watchLater: [],
       recommendedChannels: [],
       selectedChannel: null,
       showCreateChannel: false,
@@ -48,6 +51,10 @@ export const useAppStore = create(
       addToRecentlyWatched: (video) =>
         set((state) => ({
           recentlyWatched: [video, ...state.recentlyWatched]
+        })),
+      addToWatchedLater: (video) =>
+        set((state) => ({
+          watchLater: [video, ...state.recentlyWatched]
         })),
       setToken: (token) => set(() => ({ token })),
       setNotificationCount: (notificationCount) =>

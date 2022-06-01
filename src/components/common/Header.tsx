@@ -113,7 +113,7 @@ const Header = () => {
             <Popover
               trigger={
                 <Tooltip className="!rounded-lg" content="New Video">
-                  <div className="flex self-center p-2 rounded-lg focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <div className="flex self-center p-2 rounded-lg focus:outline-none hover:bg-white dark:hover:bg-gray-800">
                     <AiOutlineVideoCameraAdd />
                   </div>
                 </Tooltip>
@@ -148,7 +148,7 @@ const Header = () => {
                 <Tooltip className="!rounded-lg" content="Notifications">
                   <button
                     onClick={() => onClickNotification()}
-                    className="relative flex self-center p-2 rounded-lg focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="relative flex self-center p-2 rounded-lg focus:outline-none hover:bg-white dark:hover:bg-gray-800"
                   >
                     <CgBell />
                     {hasNewNotification && (

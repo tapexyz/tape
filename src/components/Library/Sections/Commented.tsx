@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import VideoCard from '@components/common/VideoCard'
-import { Loader } from '@components/ui/Loader'
+import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/ui/NoDataFound'
 import useAppStore from '@lib/store'
 import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
@@ -33,13 +33,7 @@ const Commented = () => {
   })
 
   if (loading) {
-    return <Loader />
-  }
-
-  if (commented.length === 0) {
-    return (
-      <NoDataFound text="No videos, try commenting or add videos to watch later." />
-    )
+    return <TimelineShimmer />
   }
 
   return (
@@ -55,6 +49,7 @@ const Commented = () => {
           </a>
         </Link>
       </div>
+      {!commented.length && <NoDataFound text="This list has no videos." />}
       <div className="grid gap-x-4 lg:grid-cols-4 gap-y-1 md:gap-y-6 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
         {commented?.map((video: LenstubePublication, idx: number) => (
           <VideoCard key={idx} video={video} />
