@@ -10,12 +10,15 @@ export const POLYGONSCAN_URL = IS_MAINNET
 
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
-export const BUNDLR_NODE_URL = IS_MAINNET
-  ? 'https://node1.bundlr.network'
-  : 'https://devnet.bundlr.network'
+export const IMAGEKIT_URL = IS_MAINNET
+  ? 'https://ik.imagekit.io/lenstubeTestnet'
+  : 'https://ik.imagekit.io/lenstubeTestnet'
 
 export const IPFS_GATEWAY = 'https://ipfs.infura.io/ipfs'
 
+export const BUNDLR_NODE_URL = IS_MAINNET
+  ? 'https://node1.bundlr.network'
+  : 'https://devnet.bundlr.network'
 export const BUNDLR_CURRENCY = 'matic'
 export const BUNDLR_WEBSITE_URL = 'https://bundlr.network/'
 export const LENSTER_WEBSITE_URL = IS_MAINNET

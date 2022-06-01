@@ -2,6 +2,7 @@ import { useLazyQuery } from '@apollo/client'
 import { Loader } from '@components/ui/Loader'
 import Modal from '@components/ui/Modal'
 import getProfilePicture from '@utils/functions/getProfilePicture'
+import imageCdn from '@utils/functions/imageCdn'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import { SEARCH_CHANNELS_QUERY } from '@utils/gql/queries'
 import Link from 'next/link'
@@ -70,10 +71,11 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
                       <span className="inline-flex items-center w-3/4 space-x-2">
                         <img
                           className="w-5 h-5 rounded-lg"
-                          src={sanitizeIpfsUrl(getProfilePicture(channel))}
-                          alt=""
+                          src={imageCdn(
+                            sanitizeIpfsUrl(getProfilePicture(channel))
+                          )}
                           draggable={false}
-                          loading="eager"
+                          alt=""
                         />
                         <span className="text-base line-clamp-1">
                           {channel.handle}

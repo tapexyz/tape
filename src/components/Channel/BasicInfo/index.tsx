@@ -3,6 +3,7 @@ import { Button } from '@components/ui/Button'
 import Tooltip from '@components/ui/Tooltip'
 import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
+import imageCdn from '@utils/functions/imageCdn'
 import { DOES_FOLLOW } from '@utils/gql/queries'
 import { SETTINGS } from '@utils/url-path'
 import { useRouter } from 'next/router'
@@ -46,7 +47,9 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         <span>
           <div
             style={{
-              backgroundImage: `url(${channel?.coverPicture?.original?.url})`
+              backgroundImage: `url(${imageCdn(
+                channel?.coverPicture?.original?.url
+              )})`
             }}
             className="absolute w-full bg-white bg-center bg-no-repeat bg-cover rounded dark:bg-gray-900 -z-10 h-44 md:h-72"
           />
@@ -54,7 +57,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         <div className="flex items-center pt-2 md:pt-0 md:pl-4 mt-44 md:mt-72">
           <div className="flex-none mr-4 md:mr-6">
             <img
-              src={getProfilePicture(channel)}
+              src={imageCdn(getProfilePicture(channel))}
               alt=""
               className="border-2 rounded-full w-14 h-14 md:-mt-10 md:w-32 md:h-32"
               draggable={false}

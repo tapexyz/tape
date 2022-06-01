@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import { Loader } from '@components/ui/Loader'
 import { NoDataFound } from '@components/ui/NoDataFound'
 import getProfilePicture from '@utils/functions/getProfilePicture'
+import imageCdn from '@utils/functions/imageCdn'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
 import Link from 'next/link'
 import React, { FC } from 'react'
@@ -37,7 +38,7 @@ const OtherChannels: FC<Props> = ({ channel }) => {
             >
               <img
                 className="object-cover h-32 rounded-md"
-                src={getProfilePicture(el)}
+                src={imageCdn(getProfilePicture(el))}
                 alt=""
                 draggable={false}
               />

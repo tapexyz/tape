@@ -18,8 +18,8 @@ const Sidebar = () => {
   const { selectedChannel } = useAppStore()
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 items-center justify-between hidden w-16 p-4 bg-white dark:bg-black md:flex md:flex-col">
-      <div className="flex flex-col items-center space-y-3">
+    <div className="fixed top-0 bottom-0 left-0 items-center justify-between hidden w-16 px-4 py-2.5 bg-white dark:bg-black md:flex md:flex-col">
+      <div className="flex flex-col items-center space-y-2.5">
         <Link href={HOME}>
           <a className="mb-2 -ml-1.5">
             <img
@@ -30,35 +30,41 @@ const Sidebar = () => {
             />
           </a>
         </Link>
-        <Tooltip className="!rounded-lg" content="Home" placement="right">
-          <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
-            <Link href={HOME}>
-              <Button className="!p-2">
-                <FiHome className="!text-lg group-hover:opacity-100 opacity-80" />
-              </Button>
-            </Link>
-          </span>
-        </Tooltip>
-        <Tooltip className="!rounded-lg" content="Explore" placement="right">
-          <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
-            <Link href={EXPLORE} passHref>
-              <Button className="!p-2">
-                <RiLeafLine className="!text-lg group-hover:opacity-100 opacity-80" />
-              </Button>
-            </Link>
-          </span>
-        </Tooltip>
-        {selectedChannel && (
-          <Tooltip className="!rounded-lg" content="Library" placement="right">
+        <div className="flex flex-col items-center space-y-3">
+          <Tooltip className="!rounded-lg" content="Home" placement="right">
             <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
-              <Link href={LIBRARY}>
+              <Link href={HOME}>
                 <Button className="!p-2">
-                  <MdOutlineVideoLibrary className="!text-lg group-hover:opacity-100 opacity-80" />
+                  <FiHome className="!text-lg group-hover:opacity-100 opacity-80" />
                 </Button>
               </Link>
             </span>
           </Tooltip>
-        )}
+          <Tooltip className="!rounded-lg" content="Explore" placement="right">
+            <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
+              <Link href={EXPLORE} passHref>
+                <Button className="!p-2">
+                  <RiLeafLine className="!text-lg group-hover:opacity-100 opacity-80" />
+                </Button>
+              </Link>
+            </span>
+          </Tooltip>
+          {selectedChannel && (
+            <Tooltip
+              className="!rounded-lg"
+              content="Library"
+              placement="right"
+            >
+              <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
+                <Link href={LIBRARY}>
+                  <Button className="!p-2">
+                    <MdOutlineVideoLibrary className="!text-lg group-hover:opacity-100 opacity-80" />
+                  </Button>
+                </Link>
+              </span>
+            </Tooltip>
+          )}
+        </div>
       </div>
       <div className="flex flex-col items-center space-y-2">
         <button
