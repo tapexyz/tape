@@ -69,13 +69,13 @@ const VideoComments: FC<Props> = ({ video }) => {
   if (loading) return <Loader />
 
   return (
-    <div>
-      {selectedChannel ? (
+    <div className="mb-3">
+      {selectedChannel || data?.publications?.pageInfo.totalCount > 0 ? (
         <>
           <div className="flex items-center justify-between">
             <h1 className="inline-flex items-center my-4 space-x-2 text-lg">
               <AiOutlineComment />
-              <span>Comments</span>
+              <span className="font-semibold">Comments</span>
               {data?.publications?.pageInfo.totalCount ? (
                 <span className="text-sm font-light">
                   ({data?.publications?.pageInfo.totalCount})

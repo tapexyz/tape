@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { BiError } from 'react-icons/bi'
+import { CgBrowser } from 'react-icons/cg'
 import { Connector, useAccount, useConnect, useNetwork } from 'wagmi'
 
 import UserMenu from './UserMenu'
@@ -73,14 +74,22 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                 }
               >
                 <div className="flex items-center w-full space-x-2.5">
-                  <img
-                    src={getWalletLogo(x.id)}
-                    alt=""
-                    className="w-5 h-5 rounded"
-                  />
+                  {x.id === 'injected' ? (
+                    <CgBrowser className="text-xl text-green-900" />
+                  ) : (
+                    <img
+                      src={getWalletLogo(x.id)}
+                      alt=""
+                      className="w-5 h-5 rounded"
+                    />
+                  )}
                   <span className="flex items-center justify-between flex-1">
                     <span>
-                      {isMounted ? x.name : x.id === 'injected' ? x.id : x.name}
+                      {isMounted
+                        ? x.id === 'injected'
+                          ? 'Browser Wallet'
+                          : x.name
+                        : x.name}
                       {isMounted ? !x.ready && ' (unsupported)' : ''}
                     </span>
                     <span>
@@ -116,7 +125,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
             Sign In
           </Button>
         )
-      ) : isConnected && switchNetwork ? (
+      ) : activeChain?.id !== POLYGON_CHAIN_ID && switchNetwork ? (
         <Button
           onClick={() => switchNetwork(POLYGON_CHAIN_ID)}
           className="!text-white"

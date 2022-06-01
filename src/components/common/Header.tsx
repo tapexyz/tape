@@ -36,7 +36,7 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(false)
   const { data: accountData } = useAccount()
 
-  const {} = useQuery(CURRENT_USER_QUERY, {
+  const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: accountData?.address },
     skip: !token?.refresh,
     onCompleted(data) {
@@ -108,7 +108,7 @@ const Header = () => {
         >
           <BiSearch />
         </button>
-        {selectedChannel && token.access ? (
+        {selectedChannel && token.access && !loading ? (
           <>
             <Popover
               trigger={
