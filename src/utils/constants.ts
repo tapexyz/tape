@@ -14,6 +14,8 @@ export const BUNDLR_NODE_URL = IS_MAINNET
   ? 'https://node1.bundlr.network'
   : 'https://devnet.bundlr.network'
 
+export const IPFS_GATEWAY = 'https://ipfs.infura.io/ipfs'
+
 export const BUNDLR_CURRENCY = 'matic'
 export const BUNDLR_WEBSITE_URL = 'https://bundlr.network/'
 export const LENSTER_WEBSITE_URL = IS_MAINNET

@@ -2,6 +2,7 @@ import { useLazyQuery } from '@apollo/client'
 import { Loader } from '@components/ui/Loader'
 import Modal from '@components/ui/Modal'
 import getProfilePicture from '@utils/functions/getProfilePicture'
+import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import { SEARCH_CHANNELS_QUERY } from '@utils/gql/queries'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
@@ -69,7 +70,7 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
                       <span className="inline-flex items-center w-3/4 space-x-2">
                         <img
                           className="w-5 h-5 rounded-lg"
-                          src={getProfilePicture(channel)}
+                          src={sanitizeIpfsUrl(getProfilePicture(channel))}
                           alt=""
                           draggable={false}
                           loading="eager"
@@ -80,7 +81,12 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
                       </span>
                       <span className="inline-flex items-center space-x-1 text-xs opacity-60">
                         <BiUser />
-                        <span>{channel.stats.totalFollowers} subscribers</span>
+                        <span>
+                          {channel.stats.totalFollowers}
+                          <span className="hidden ml-1 md:inline-block">
+                            subscribers
+                          </span>
+                        </span>
                       </span>
                     </span>
                     {channel.bio && (

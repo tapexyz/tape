@@ -99,7 +99,7 @@ const Header = () => {
       <div className="flex flex-row items-center space-x-3">
         <button
           onClick={() => setShowSearch(true)}
-          className="flex self-center p-2 rounded-lg focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="flex self-center p-2 rounded-lg md:hidden focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           <BiSearch />
         </button>

@@ -1,3 +1,4 @@
+import { IPFS_GATEWAY } from '@utils/constants'
 import { IPFSUploadResult } from 'src/types/local'
 
 const uploadDataToIPFS = async (data: any) => {
@@ -10,7 +11,7 @@ const uploadDataToIPFS = async (data: any) => {
   const { Hash }: { Hash: string } = await upload.json()
 
   return {
-    ipfsUrl: `https://ipfs.infura.io/ipfs/${Hash}`,
+    ipfsUrl: `${IPFS_GATEWAY}/${Hash}`,
     hash: Hash
   }
 }

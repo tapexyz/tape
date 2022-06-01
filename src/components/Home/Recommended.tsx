@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import RecommendedShimmer from '@components/Shimmers/RecommendedShimmer'
 import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
+import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import { RECOMMENDED_PROFILES_QUERY } from '@utils/gql/queries'
 import useDraggableScroll from '@utils/hooks/useDraggableScroll'
 import Link from 'next/link'
@@ -51,7 +52,7 @@ const Recommended = () => {
             >
               <img
                 className="w-8 h-8 rounded-lg"
-                src={getProfilePicture(channel)}
+                src={sanitizeIpfsUrl(getProfilePicture(channel))}
                 alt=""
                 draggable={false}
               />
