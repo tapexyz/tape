@@ -48,7 +48,7 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
           <input
             type="text"
             className="block w-full text-gray-700 bg-transparent appearance-none dark:text-gray-100 focus:outline-none"
-            placeholder="Search"
+            placeholder="Search channels"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
           />

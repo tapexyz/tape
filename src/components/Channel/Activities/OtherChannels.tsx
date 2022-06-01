@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client'
-import { Loader } from '@components/ui/Loader'
+import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
 import { NoDataFound } from '@components/ui/NoDataFound'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
@@ -20,15 +20,16 @@ const OtherChannels: FC<Props> = ({ channel }) => {
     skip: !channel?.ownedBy
   })
   const allChannels: Profile[] = data?.profiles?.items
+
   if (loading) {
-    return <Loader />
+    return <OtherChannelsShimmer />
   }
   if (data?.profiles?.items?.length === 1) {
     return <NoDataFound text="No other channels found." />
   }
 
   return (
-    <div className="flex space-x-3">
+    <div className="flex flex-wrap justify-center md:space-x-3">
       {allChannels.map(
         (el, idx) =>
           el.id !== channel.id && (

@@ -1,13 +1,14 @@
 import Modal from '@components/ui/Modal'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
 import toast from 'react-hot-toast'
 import { FiUpload } from 'react-icons/fi'
 
-import Details from './Details'
+const Details = dynamic(() => import('./Details'))
 
 export type VideoUpload = {
   buffer: Buffer | null

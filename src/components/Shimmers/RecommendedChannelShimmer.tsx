@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ProfileShimmer = () => {
+const RecommendedChannelShimmer = () => {
   return (
     <div className="w-full max-w-sm rounded-md">
       <div className="flex flex-col space-x-2 animate-pulse">
@@ -18,4 +18,4 @@ const ProfileShimmer = () => {
   )
 }
 
-export default ProfileShimmer
+export default RecommendedChannelShimmer

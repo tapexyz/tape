@@ -1,17 +1,18 @@
 import { useQuery } from '@apollo/client'
 import Layout from '@components/common/Layout'
 import MetaTags from '@components/common/MetaTags'
-import { Loader } from '@components/ui/Loader'
+import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
 import { PROFILE_QUERY } from '@utils/gql/queries'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { Profile } from 'src/types'
 
-import Activities from './Activities'
-import BasicInfo from './BasicInfo'
-import Upload from './Upload'
+const Activities = dynamic(() => import('./Activities'))
+const Upload = dynamic(() => import('./Upload'))
+const BasicInfo = dynamic(() => import('./BasicInfo'))
 
 const Channel = () => {
   const { query } = useRouter()
@@ -29,7 +30,7 @@ const Channel = () => {
 
   return (
     <Layout>
-      {loading && <Loader />}
+      {loading && <ChannelShimmer />}
       {!loading && !error && channel ? (
         <>
           <MetaTags title={channel?.handle} />
