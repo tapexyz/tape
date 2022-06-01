@@ -2,7 +2,7 @@ import React from 'react'
 
 const VideoCardShimmer = () => {
   return (
-    <div className="w-full max-w-sm rounded-md bg-secondary">
+    <div className="w-full rounded-md bg-secondary">
       <div className="flex flex-col space-x-2 animate-pulse">
         <div className="bg-gray-300 rounded-t-lg aspect-w-16 aspect-h-9 dark:bg-gray-700"></div>
         <div className="flex p-2 space-x-2">

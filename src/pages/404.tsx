@@ -12,8 +12,9 @@ export default function Custom404() {
       </Head>
       <div className="flex flex-col items-center justify-start h-full mt-10 md:mt-20">
         <img
-          src="/vercel.svg"
+          src="/lenstube.svg"
           alt="LensTube"
+          className="rounded-full"
           draggable={false}
           height={100}
           width={100}

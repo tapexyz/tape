@@ -12,7 +12,8 @@ export default function Custom500() {
       </Head>
       <div className="flex flex-col items-center justify-start h-full mt-10 md:mt-20">
         <img
-          src="/vercel.svg"
+          src="/lenstube.svg"
+          className="rounded-full"
           alt="LensTube"
           draggable={false}
           height={100}

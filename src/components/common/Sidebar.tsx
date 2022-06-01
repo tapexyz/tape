@@ -19,10 +19,15 @@ const Sidebar = () => {
 
   return (
     <div className="fixed top-0 bottom-0 left-0 items-center justify-between hidden w-16 p-4 bg-white dark:bg-black md:flex md:flex-col">
-      <div className="flex flex-col items-center space-y-4">
+      <div className="flex flex-col items-center space-y-3">
         <Link href={HOME}>
-          <a className="mb-2 mt-0.5">
-            <img src="/favicon.ico" className="w-6 h-6" alt="" />
+          <a className="mb-2 -ml-1.5">
+            <img
+              src="/lenstube.svg"
+              draggable={false}
+              className="w-9 h-9"
+              alt=""
+            />
           </a>
         </Link>
         <Tooltip className="!rounded-lg" content="Home" placement="right">

@@ -80,10 +80,15 @@ const Header = () => {
   return (
     <div className="fixed z-10 flex right-2 md:right-4 md:left-[84px] left-2 items-center justify-between bg-gray-100 dark:bg-[#010101] h-14">
       <div className="flex items-center flex-1 space-x-4">
-        <div>
+        <div className="flex items-center">
           <Link href={HOME}>
-            <a className="block md:hidden mb-2 mt-0.5">
-              <img src="/favicon.ico" className="w-6 h-6" alt="" />
+            <a className="block md:hidden -ml-0.5">
+              <img
+                src="/lenstube.svg"
+                draggable={false}
+                className="w-7 h-7"
+                alt=""
+              />
             </a>
           </Link>
           {showSearch && <GlobalSearch setShowSearch={setShowSearch} />}
