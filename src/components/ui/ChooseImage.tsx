@@ -1,3 +1,4 @@
+import imageCdn from '@utils/functions/imageCdn'
 import { uploadImageToIPFS } from '@utils/functions/uploadToIPFS'
 import { ChangeEvent, FC, useState } from 'react'
 import { MdOutlineDeleteSweep } from 'react-icons/md'
@@ -45,8 +46,9 @@ const ChooseImage: FC<Props> = ({ label, afterUpload }) => {
             <div className="relative">
               <img
                 className="object-cover w-full h-40 rounded-md "
-                src={ipfsResult.ipfsUrl}
+                src={imageCdn(ipfsResult.ipfsUrl)}
                 alt=""
+                draggable={false}
               />
               <button
                 onClick={() => onClearUpload()}

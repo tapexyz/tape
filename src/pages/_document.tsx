@@ -26,14 +26,6 @@ class LenstubeDocument extends Document<Props> {
             rel="stylesheet"
           />
           <link
-            href="https://assets.takepull.com/css/font.css"
-            rel="stylesheet"
-          />
-          <link
-            href="https://assets.takepull.com/css/balloon.css"
-            rel="stylesheet"
-          />
-          <link
             rel="shortcut icon"
             href={`${STATIC_ASSETS}/images/favicons/favicon.ico`}
           />

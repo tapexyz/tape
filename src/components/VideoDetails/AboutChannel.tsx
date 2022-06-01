@@ -2,6 +2,7 @@ import JoinChannel from '@components/Channel/BasicInfo/JoinChannel'
 import Subscribe from '@components/Channel/BasicInfo/Subscribe'
 import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
 import getProfilePicture from '@utils/functions/getProfilePicture'
+import imageCdn from '@utils/functions/imageCdn'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import { LenstubePublication } from 'src/types/local'
@@ -21,7 +22,7 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
     <div className="flex items-center justify-between w-full my-4">
       <div className="flex-none mr-3">
         <img
-          src={getProfilePicture(channel)}
+          src={imageCdn(getProfilePicture(channel))}
           className="w-12 h-12 rounded-full"
           draggable={false}
           alt=""

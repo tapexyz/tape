@@ -1,5 +1,6 @@
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
+import imageCdn from '@utils/functions/imageCdn'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -19,7 +20,7 @@ const VideoCard: FC<Props> = ({ video }) => {
     <div className="transition duration-500 ease-in-out rounded-b group bg-secondary">
       <div className="rounded-t-lg aspect-w-16 aspect-h-9">
         <img
-          src={getThumbnailUrl(video)}
+          src={imageCdn(getThumbnailUrl(video))}
           alt=""
           draggable={false}
           className="object-cover object-center w-full h-full rounded-t lg:w-full lg:h-full"
@@ -30,7 +31,7 @@ const VideoCard: FC<Props> = ({ video }) => {
           <div className="flex-none">
             <img
               className="w-8 h-8 rounded-full"
-              src={getProfilePicture(video.profile)}
+              src={imageCdn(getProfilePicture(video.profile))}
               alt=""
               draggable={false}
             />

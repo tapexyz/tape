@@ -1,4 +1,5 @@
 import getProfilePicture from '@utils/functions/getProfilePicture'
+import imageCdn from '@utils/functions/imageCdn'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
@@ -18,7 +19,7 @@ const Comment: FC<Props> = ({ comment }) => {
     <div className="flex items-start w-full">
       <div className="flex-none mr-3">
         <img
-          src={getProfilePicture(comment.profile)}
+          src={imageCdn(getProfilePicture(comment.profile))}
           className="w-8 h-8 rounded-full"
           draggable={false}
           alt=""
