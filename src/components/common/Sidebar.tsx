@@ -19,13 +19,13 @@ const Sidebar = () => {
 
   return (
     <div className="fixed top-0 bottom-0 left-0 items-center justify-between hidden w-16 px-4 py-2.5 bg-white dark:bg-black md:flex md:flex-col">
-      <div className="flex flex-col items-center space-y-4">
+      <div className="flex flex-col items-center space-y-5">
         <Link href={HOME}>
-          <a className="-ml-1.5">
+          <a className="mt-2">
             <img
               src="/lenstube.svg"
               draggable={false}
-              className="w-9 h-9"
+              className="w-7 h-7"
               alt=""
             />
           </a>
@@ -33,7 +33,7 @@ const Sidebar = () => {
         <div className="flex flex-col items-center space-y-3">
           <Tooltip className="!rounded-lg" content="Home" placement="right">
             <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
-              <Link href={HOME}>
+              <Link href={HOME} passHref>
                 <Button className="!p-2">
                   <FiHome className="!text-lg group-hover:opacity-100 opacity-80" />
                 </Button>
@@ -56,7 +56,7 @@ const Sidebar = () => {
               placement="right"
             >
               <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
-                <Link href={LIBRARY}>
+                <Link href={LIBRARY} passHref>
                   <Button className="!p-2">
                     <MdOutlineVideoLibrary className="!text-lg group-hover:opacity-100 opacity-80" />
                   </Button>

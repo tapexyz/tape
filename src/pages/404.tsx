@@ -14,10 +14,9 @@ export default function Custom404() {
         <img
           src="/lenstube.svg"
           alt="LensTube"
-          className="rounded-full"
           draggable={false}
-          height={100}
-          width={100}
+          height={50}
+          width={50}
         />
         <div className="py-10 text-center">
           <h1 className="mb-4 text-3xl font-bold">Oops, Lost‽</h1>

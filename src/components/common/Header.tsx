@@ -82,7 +82,7 @@ const Header = () => {
       <div className="flex items-center flex-1 space-x-4">
         <div className="flex items-center">
           <Link href={HOME}>
-            <a className="block md:hidden -ml-0.5">
+            <a className="block md:hidden">
               <img
                 src="/lenstube.svg"
                 draggable={false}

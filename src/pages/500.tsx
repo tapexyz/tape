@@ -13,11 +13,10 @@ export default function Custom500() {
       <div className="flex flex-col items-center justify-start h-full mt-10 md:mt-20">
         <img
           src="/lenstube.svg"
-          className="rounded-full"
           alt="LensTube"
           draggable={false}
-          height={100}
-          width={100}
+          height={50}
+          width={50}
         />
         <div className="py-10 text-center">
           <h1 className="mb-4 text-3xl font-bold">
