@@ -30,8 +30,9 @@ const NewComment: FC<Props> = ({ video }) => {
   const { selectedChannel } = useAppStore()
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError() {
+    onError(error) {
       setLoading(false)
+      toast.error(error.message)
     }
   })
   const { write: writeComment } = useContractWrite(

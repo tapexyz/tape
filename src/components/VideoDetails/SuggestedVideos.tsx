@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/ui/Loader'
 import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
@@ -49,7 +50,7 @@ const SuggestedVideos = () => {
     }
   })
   if (loading) {
-    return <Loader />
+    return <SuggestedVideosShimmer />
   }
 
   return (

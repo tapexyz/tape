@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import Layout from '@components/common/Layout'
 import MetaTags from '@components/common/MetaTags'
-import { Loader } from '@components/ui/Loader'
+import VideoDetailShimmer from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
 import { LENSTUBE_VIDEOS_APP_ID, ZERO_ADDRESS } from '@utils/constants'
 import { VIDEO_DETAIL_QUERY } from '@utils/gql/queries'
@@ -46,7 +46,7 @@ const VideoDetails = () => {
   return (
     <Layout>
       <MetaTags title={video?.metadata?.name ?? 'Video Details'} />
-      {loading && <Loader />}
+      {loading && <VideoDetailShimmer />}
       {!loading && !error && video ? (
         <>
           <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">

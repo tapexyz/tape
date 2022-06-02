@@ -128,10 +128,9 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
       ) : activeChain?.id !== POLYGON_CHAIN_ID && switchNetwork ? (
         <Button
           onClick={() => switchNetwork(POLYGON_CHAIN_ID)}
-          className="!text-white"
           variant="danger"
         >
-          Wrong network
+          <span className="text-white">Wrong network</span>
         </Button>
       ) : (
         <Button onClick={() => setShowModal(true)}>Connect Wallet</Button>

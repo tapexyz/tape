@@ -12,7 +12,7 @@ const Home: NextPage = () => {
   const { selectedChannel, token } = useAppStore()
   return (
     <Layout>
-      <MetaTags title="Home" />
+      <MetaTags />
       <Recommended />
       <div className="md:my-5">
         {selectedChannel && token.access ? <HomeFeed /> : <ExploreFeed />}

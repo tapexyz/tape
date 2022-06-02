@@ -18,7 +18,7 @@ interface Props {
 const Layout: FC<Props> = ({ children }) => {
   const { setSelectedChannel, setToken } = useAppStore()
   const { resolvedTheme } = useTheme()
-  const { activeConnector, isDisconnected } = useConnect()
+  const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
 
   const logout = useCallback(() => {
@@ -35,9 +35,9 @@ const Layout: FC<Props> = ({ children }) => {
       access: localStorage.getItem('accessToken') || null,
       refresh: localStorage.getItem('refreshToken') || null
     })
-    activeConnector?.on('disconnect', () => logout())
-    if (isDisconnected) logout()
-  }, [setToken, activeConnector, disconnect, isDisconnected, logout])
+    if (!activeConnector) logout()
+    activeConnector?.on('change', () => logout())
+  }, [setToken, activeConnector, disconnect, logout])
 
   return (
     <IsBrowser>
