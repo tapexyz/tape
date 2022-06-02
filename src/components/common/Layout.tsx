@@ -35,7 +35,6 @@ const Layout: FC<Props> = ({ children }) => {
       localStorage.removeItem('app-storage')
     }
     activeConnector?.on('disconnect', () => logout())
-    if (!activeConnector) logout()
   }, [
     setToken,
     activeConnector,

@@ -7,6 +7,7 @@ interface Props {
   source: string
   poster?: string
   controls?: string[]
+  autoPlay?: boolean
 }
 
 const defaultControls = [
@@ -26,12 +27,13 @@ const defaultControls = [
 const VideoPlayer: FC<Props> = ({
   source,
   controls = defaultControls,
-  poster
+  poster,
+  autoPlay = true
 }) => {
   return (
     <div className="rounded-lg">
       <Plyr
-        autoPlay
+        autoPlay={autoPlay}
         source={{
           type: 'video',
           sources: [

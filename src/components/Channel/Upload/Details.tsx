@@ -44,27 +44,30 @@ type Props = {
   closeUploadModal: () => void
 }
 
-export const MemoizedVideoPlayer = React.memo(
-  ({ source }: { source: string }) => (
-    <VideoPlayer
-      source={source}
-      controls={[
-        'play',
-        'progress',
-        'current-time',
-        'mute',
-        'volume',
-        'fullscreen'
-      ]}
-    />
-  )
-)
+type PlayerProps = {
+  source: string
+}
+
+export const MemoizedVideoPlayer = React.memo(({ source }: PlayerProps) => (
+  <VideoPlayer
+    source={source}
+    autoPlay={false}
+    controls={[
+      'play',
+      'progress',
+      'current-time',
+      'mute',
+      'volume',
+      'fullscreen'
+    ]}
+  />
+))
 
 MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 
 const Details: FC<Props> = ({ video, closeUploadModal }) => {
-  const { data: signer } = useSigner()
   const { data: account } = useAccount()
+  const { data: signer } = useSigner()
   const { getBundlrInstance, selectedChannel } = useAppStore()
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -154,10 +157,6 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           )
         })
         .finally(async () => {
-          console.log(
-            '🚀 ~ file: Details.tsx ~ line 120 ~ .finally ~ bundlrData.instance && account?.address',
-            bundlrData.instance && account?.address
-          )
           fetchBalance()
           setBundlrData({
             ...bundlrData,
@@ -343,8 +342,15 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         <div>
           <h1 className="font-semibold">Details</h1>
           <div className="mt-4">
+            <div className="flex items-center justify-between mb-1 space-x-1.5">
+              <div className="required text-[11px] font-semibold uppercase opacity-70">
+                Title
+              </div>
+              <span className="text-[10px] opacity-50">
+                {videoMeta.title.length}/100
+              </span>
+            </div>
             <Input
-              label="Title"
               type="text"
               placeholder="Title that describes your video"
               autoComplete="off"
@@ -355,10 +361,13 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
             />
           </div>
           <div className="mt-4">
-            <div className="flex items-center mb-1 space-x-1.5">
+            <div className="flex items-center justify-between mb-1 space-x-1.5">
               <div className="text-[11px] font-semibold uppercase opacity-70">
                 Description
               </div>
+              <span className="text-[10px] opacity-50">
+                {videoMeta.description.length}/5000
+              </span>
             </div>
             <textarea
               placeholder="More about your video"
@@ -376,6 +385,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           <div className="mt-4">
             <ChooseImage
               label="Thumbnail"
+              required
               afterUpload={(data: IPFSUploadResult | null) => {
                 onThumbnailUpload(data)
               }}
