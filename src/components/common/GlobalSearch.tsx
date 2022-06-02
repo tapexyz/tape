@@ -5,11 +5,11 @@ import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import { SEARCH_CHANNELS_QUERY } from '@utils/gql/queries'
+import useDebounce from '@utils/hooks/useDebounce'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
 import { BiSearch, BiUser } from 'react-icons/bi'
 import { Profile } from 'src/types'
-import { useDebounce } from 'usehooks-ts'
 
 type Props = {
   setShowSearch: React.Dispatch<boolean>

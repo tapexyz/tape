@@ -1,7 +1,7 @@
+import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
-import { useCopyToClipboard } from 'usehooks-ts'
 
 const StreamDetails = () => {
   const [showStreamKey, setShowStreamKey] = useState(false)

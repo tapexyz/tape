@@ -1,5 +1,5 @@
+import useIsClient from '@utils/hooks/useIsClient'
 import type { ReactNode } from 'react'
-import { useIsClient } from 'usehooks-ts'
 
 type IsBrowserProps = {
   children: ReactNode
