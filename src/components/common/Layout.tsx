@@ -5,7 +5,7 @@ import Sidebar from '@components/common/Sidebar'
 import useAppStore from '@lib/store'
 import { getToastOptions } from '@utils/functions/getToastOptions'
 import { useTheme } from 'next-themes'
-import React, { FC, ReactNode, useCallback, useEffect } from 'react'
+import React, { FC, ReactNode, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useConnect, useDisconnect } from 'wagmi'
 
@@ -21,23 +21,28 @@ const Layout: FC<Props> = ({ children }) => {
   const { activeConnector, isDisconnected } = useConnect()
   const { disconnect } = useDisconnect()
 
-  const logout = useCallback(() => {
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('refreshToken')
-    disconnect()
-    setToken({ access: null, refresh: null })
-    setSelectedChannel(null)
-    localStorage.removeItem('app-storage')
-  }, [setToken, disconnect, setSelectedChannel])
-
   useEffect(() => {
     setToken({
       access: localStorage.getItem('accessToken') || null,
       refresh: localStorage.getItem('refreshToken') || null
     })
+    const logout = () => {
+      disconnect()
+      setToken({ access: null, refresh: null })
+      setSelectedChannel(null)
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('refreshToken')
+      localStorage.removeItem('app-storage')
+    }
     activeConnector?.on('disconnect', () => logout())
-    if (!activeConnector && isDisconnected) logout()
-  }, [setToken, activeConnector, disconnect, isDisconnected, logout])
+    if (!activeConnector) logout()
+  }, [
+    setToken,
+    activeConnector,
+    disconnect,
+    isDisconnected,
+    setSelectedChannel
+  ])
 
   return (
     <IsBrowser>

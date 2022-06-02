@@ -9,6 +9,7 @@ import { CREATE_PROFILE_MUTATION } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
 const CreateChannel = () => {
   const { setShowCreateChannel, showCreateChannel } = useAppStore()
@@ -36,6 +37,7 @@ const CreateChannel = () => {
 
   useEffect(() => {
     if (indexed) {
+      toast.success('Channel created 🎉')
       setCreating(false)
       setShowCreateChannel(false)
       router.push(getHandle(handle))

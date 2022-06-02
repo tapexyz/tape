@@ -29,7 +29,7 @@ const OtherChannels: FC<Props> = ({ channel }) => {
   }
 
   return (
-    <div className="flex flex-wrap justify-center md:space-x-3">
+    <div className="flex flex-wrap justify-center md:justify-start md:space-x-3">
       {allChannels.map(
         (el, idx) =>
           el.id !== channel.id && (

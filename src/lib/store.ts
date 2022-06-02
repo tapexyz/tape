@@ -19,7 +19,7 @@ interface AppState {
   watchLater: LenstubePublication[] | []
   setToken: (token: { access: string | null; refresh: string | null }) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
-  setSelectedChannel: (profile: Profile | null) => void
+  setSelectedChannel: (channel: Profile | null) => void
   setChannels: (channels: Profile[]) => void
   setRecommendedChannels: (channels: Profile[]) => void
   setNotificationCount: (count: number) => void

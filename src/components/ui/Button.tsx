@@ -6,6 +6,8 @@ import React, {
   ReactNode
 } from 'react'
 
+import { Loader } from './Loader'
+
 interface Props
   extends DetailedHTMLProps<
     ButtonHTMLAttributes<HTMLButtonElement>,
@@ -35,7 +37,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
       className={clsx(
         'relative inline-block disabled:opacity-50 rounded-md group',
         {
-          'px-4 py-1.5 text-xs': size === 'sm',
+          'px-3 py-1.5 text-xs': size === 'sm',
           'px-5 py-1.5 text-sm': size === 'md',
           'px-6 py-2 text-base': size === 'lg'
         },
@@ -62,7 +64,10 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
           'bg-red-500 border border-red-500': variant === 'danger'
         })}
       ></span>
-      <span className="relative text-black dark:text-white">{children}</span>
+      <span className="relative flex items-center space-x-1.5 text-black dark:text-white">
+        <span>{children}</span>
+        {loading && <Loader size="sm" />}
+      </span>
     </button>
   )
 })

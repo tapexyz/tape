@@ -10,7 +10,7 @@ import {
 import { HOME } from '@utils/url-path'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { AiOutlinePlus, AiOutlineVideoCameraAdd } from 'react-icons/ai'
+import { AiOutlineVideoCameraAdd } from 'react-icons/ai'
 import { BiSearch } from 'react-icons/bi'
 import { CgBell } from 'react-icons/cg'
 import { FiUpload } from 'react-icons/fi'
@@ -23,7 +23,6 @@ import Login from './Login'
 
 const Header = () => {
   const {
-    channels,
     selectedChannel,
     token,
     hasNewNotification,
@@ -40,9 +39,13 @@ const Header = () => {
     variables: { ownedBy: accountData?.address },
     skip: !token?.refresh,
     onCompleted(data) {
-      const profiles: Profile[] = data?.profiles?.items
-      setChannels(profiles)
-      setSelectedChannel(profiles[0])
+      const channels: Profile[] = data?.profiles?.items
+      if (channels.length === 0) {
+        setSelectedChannel(null)
+      } else {
+        setChannels(channels)
+        setSelectedChannel(channels[0])
+      }
     }
   })
 
@@ -167,13 +170,6 @@ const Header = () => {
             </Popover>
           </>
         ) : null}
-        {channels.length === 0 && token.access && (
-          <Tooltip className="!rounded-lg" content="Create Channel">
-            <button className="p-[7px] border border-gray-200 rounded-lg dark:hover:bg-gray-800 dark:border-gray-800 hover:bg-gray-100">
-              <AiOutlinePlus />
-            </button>
-          </Tooltip>
-        )}
         <Login />
       </div>
     </div>

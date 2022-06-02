@@ -18,14 +18,16 @@ type Props = {
 const VideoCard: FC<Props> = ({ video }) => {
   return (
     <div className="transition duration-500 ease-in-out rounded-b group bg-secondary">
-      <div className="rounded-t-lg aspect-w-16 aspect-h-9">
-        <img
-          src={imageCdn(getThumbnailUrl(video))}
-          alt=""
-          draggable={false}
-          className="object-cover object-center w-full h-full rounded-t lg:w-full lg:h-full"
-        />
-      </div>
+      <Link href={`/videos/${video.id ?? video.pubId}`} passHref>
+        <div className="rounded-t-lg cursor-pointer aspect-w-16 aspect-h-9">
+          <img
+            src={imageCdn(getThumbnailUrl(video))}
+            alt=""
+            draggable={false}
+            className="object-cover object-center w-full h-full rounded-t lg:w-full lg:h-full"
+          />
+        </div>
+      </Link>
       <div className="p-2">
         <div className="flex items-start space-x-2.5">
           <div className="flex-none">

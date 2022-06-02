@@ -54,7 +54,7 @@ const HomeFeed = () => {
     }
   })
 
-  if (data?.length === 0) {
+  if (data?.timeline?.items?.length === 0) {
     return <NoDataFound text="No videos yet." />
   }
 

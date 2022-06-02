@@ -19,11 +19,18 @@ type Props = {
 }
 
 const ConnectWalletButton = ({ handleSign, loading }: Props) => {
-  const { token } = useAppStore()
+  const { token, selectedChannel } = useAppStore()
   const [showModal, setShowModal] = useState(false)
   const { data: accountData } = useAccount()
-  const { connectAsync, isConnected, connectors, activeConnector, error } =
-    useConnect()
+  const {
+    connectAsync,
+    isConnected,
+    connectors,
+    activeConnector,
+    error,
+    isConnecting,
+    pendingConnector
+  } = useConnect()
   const { activeChain, switchNetwork } = useNetwork()
   const [isMounted, setIsMounted] = useState(false)
   useEffect(() => setIsMounted(true), [])
@@ -79,8 +86,9 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                   ) : (
                     <img
                       src={getWalletLogo(x.id)}
-                      alt=""
                       className="w-5 h-5 rounded"
+                      draggable={false}
+                      alt=""
                     />
                   )}
                   <span className="flex items-center justify-between flex-1">
@@ -93,7 +101,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                       {isMounted ? !x.ready && ' (unsupported)' : ''}
                     </span>
                     <span>
-                      {loading && x.name === activeConnector?.name && (
+                      {isConnecting && x.id === pendingConnector?.id && (
                         <Loader />
                       )}
                       {!loading && x.id === accountData?.connector?.id && (
@@ -114,7 +122,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
         </div>
       </Modal>
       {activeChain?.id === POLYGON_CHAIN_ID ? (
-        token.refresh ? (
+        token.refresh && selectedChannel ? (
           <UserMenu />
         ) : (
           <Button

@@ -19,14 +19,14 @@ const About: FC<Props> = ({ channel }) => {
     <div className="p-4 space-y-4 md:space-y-6">
       {channel?.bio && (
         <div className="flex flex-col">
-          <h6 className="text-[11px] font-semibold uppercase opacity-70">
+          <h6 className="text-[11px] font-semibold uppercase opacity-60">
             Description
           </h6>
           <p>{channel?.bio}</p>
         </div>
       )}
       <div className="flex flex-col">
-        <h6 className="text-[11px] mb-2 font-semibold uppercase opacity-70">
+        <h6 className="text-[11px] mb-2 font-semibold uppercase opacity-60">
           Links
         </h6>
         <div className="space-y-1.5">

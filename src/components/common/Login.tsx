@@ -8,17 +8,21 @@ import {
 } from '@utils/gql/queries'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
+import { Profile } from 'src/types'
 import { useAccount, useSignMessage } from 'wagmi'
 
 import ConnectWalletButton from './ConnectWalletButton'
 
 const Login = () => {
   const { data: accountData } = useAccount()
-  const { setChannels, setSelectedChannel, setToken } = useAppStore()
+  const { setChannels, setSelectedChannel, setToken, setShowCreateChannel } =
+    useAppStore()
   const { signMessageAsync, isLoading: signing } = useSignMessage()
 
-  const [loadChallenge, { error: errorChallenege }] =
-    useLazyQuery(CHALLENGE_QUERY)
+  const [loadChallenge, { error: errorChallenge, loading: loadingChallenge }] =
+    useLazyQuery(CHALLENGE_QUERY, {
+      fetchPolicy: 'no-cache' // if cache old challenge persist issue (InvalidSignature)
+    })
   const [authenticate, { error: errorAuthenticate }] = useMutation(
     AUTHENTICATE_MUTATION
   )
@@ -28,16 +32,16 @@ const Login = () => {
   useEffect(() => {
     if (
       errorAuthenticate?.message ||
-      errorChallenege?.message ||
+      errorChallenge?.message ||
       errorProfiles?.message
     )
       toast.error(
         errorAuthenticate?.message ||
-          errorChallenege?.message ||
+          errorChallenge?.message ||
           errorProfiles?.message ||
           ERROR_MESSAGE
       )
-  }, [errorAuthenticate, errorChallenege, errorProfiles])
+  }, [errorAuthenticate, errorChallenge, errorProfiles])
 
   const handleSign = () => {
     loadChallenge({
@@ -59,8 +63,11 @@ const Login = () => {
               variables: { ownedBy: accountData?.address }
             }).then((res) => {
               if (res.data.profiles.items.length === 0) {
-                setChannels([])
+                setShowCreateChannel(true)
+                setSelectedChannel(null)
               } else {
+                const channels: Profile[] = res?.data?.profiles?.items
+                setChannels(channels)
                 setSelectedChannel(res.data.profiles.items[0])
               }
             })
@@ -70,7 +77,12 @@ const Login = () => {
     })
   }
 
-  return <ConnectWalletButton handleSign={handleSign} loading={signing} />
+  return (
+    <ConnectWalletButton
+      handleSign={handleSign}
+      loading={signing || loadingChallenge}
+    />
+  )
 }
 
 export default Login
