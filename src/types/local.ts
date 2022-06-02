@@ -1,41 +1,41 @@
-import { WebBundlr } from "@bundlr-network/client";
+import { WebBundlr } from '@bundlr-network/client'
 
-import { Comment, Post } from ".";
+import { Comment, Post } from '.'
 
 export type VideoDraft = {
-  preview: string;
-  title: string;
-  description: string;
-};
+  preview: string
+  title: string
+  description: string
+}
 export type BundlrDataState = {
-  instance: WebBundlr | null;
-  balance: string;
-  estimatedPrice: string;
-  deposit: number | null;
-  depositing: boolean;
-  showDeposit: boolean;
-};
+  instance: WebBundlr | null
+  balance: string
+  estimatedPrice: string
+  deposit: number | null
+  depositing: boolean
+  showDeposit: boolean
+}
 
 export type VideoUpload = {
-  buffer: Buffer | null;
-  preview: string;
-};
+  buffer: Buffer | null
+  preview: string
+}
 
-export type LenstubePublication = Post & Comment & { pubId: string };
+export type LenstubePublication = Post & Comment & { pubId: string }
 
 export type IPFSUploadResult = {
-  hash: string;
-  ipfsUrl: string;
-  type: string;
-};
+  hash: string
+  ipfsUrl: string
+  type: string
+}
 
 export type BundlrResult = {
-  id: string;
-};
+  id: string
+}
 
 export type VideoUploadForm = {
-  videoThumbnail: IPFSUploadResult | null;
-  videoSource: BundlrResult | null;
-  title: string;
-  description: string;
-};
+  videoThumbnail: IPFSUploadResult | null
+  videoSource: BundlrResult | null
+  title: string
+  description: string
+}

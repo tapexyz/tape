@@ -6,12 +6,13 @@ import {
   CHALLENGE_QUERY,
   CURRENT_USER_QUERY
 } from '@utils/gql/queries'
+import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { Profile } from 'src/types'
 import { useAccount, useSignMessage } from 'wagmi'
 
-import ConnectWalletButton from './ConnectWalletButton'
+const ConnectWalletButton = dynamic(() => import('./ConnectWalletButton'))
 
 const Login = () => {
   const { data: accountData } = useAccount()
