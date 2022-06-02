@@ -86,7 +86,7 @@ const Header = () => {
               <img
                 src="/lenstube.svg"
                 draggable={false}
-                className="w-7 h-7"
+                className="w-5 h-5"
                 alt=""
               />
             </a>
