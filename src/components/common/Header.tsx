@@ -97,7 +97,7 @@ const Header = () => {
           {showSearch && <GlobalSearch setShowSearch={setShowSearch} />}
           <button
             onClick={() => setShowSearch(true)}
-            className="px-2 hidden text-sm opacity-60 hover:opacity-100 md:flex md:w-44 focus:outline-none items-center space-x-1 text-left py-1.5 rounded"
+            className="px-2 hidden text-sm opacity-60 hover:opacity-100 md:flex focus:outline-none items-center space-x-1 text-left py-1.5 rounded"
           >
             <BiSearch />
             <span>Search</span>
@@ -116,7 +116,7 @@ const Header = () => {
             <Popover
               trigger={
                 <Tooltip className="!rounded-lg" content="New Video">
-                  <div className="flex self-center p-2 rounded-lg focus:outline-none hover:bg-white dark:hover:bg-gray-800">
+                  <div className="flex self-center p-2 rounded-md focus:outline-none hover:bg-white dark:hover:bg-gray-800">
                     <AiOutlineVideoCameraAdd />
                   </div>
                 </Tooltip>
@@ -151,7 +151,7 @@ const Header = () => {
                 <Tooltip className="!rounded-lg" content="Notifications">
                   <button
                     onClick={() => onClickNotification()}
-                    className="relative flex self-center p-2 rounded-lg focus:outline-none hover:bg-white dark:hover:bg-gray-800"
+                    className="relative flex self-center p-2 rounded-md focus:outline-none hover:bg-white dark:hover:bg-gray-800"
                   >
                     <CgBell />
                     {hasNewNotification && (
