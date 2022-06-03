@@ -3202,11 +3202,6 @@ anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-apollo-link-token-refresh@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/apollo-link-token-refresh/-/apollo-link-token-refresh-0.4.0.tgz#5ba6c3f46509e64c95f20fb719b8abeddc09fad6"
-  integrity sha512-5P5nH//asgoz01r6tUYiBbHIuVwEEsBmA9WJ8LEiNtZcOq8AXdfR8aV4Pw/B86P3lRi1ykd8xyZLCHpLro9v+Q==
-
 arbundles@^0.6.17:
   version "0.6.17"
   resolved "https://registry.yarnpkg.com/arbundles/-/arbundles-0.6.17.tgz#3aaa2a37d98ae8097206eb2672b6d0d61158c5c8"

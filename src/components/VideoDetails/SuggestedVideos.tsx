@@ -22,7 +22,8 @@ const SuggestedVideos = () => {
       request: {
         sortCriteria: 'TOP_COMMENTED',
         limit: 10,
-        sources: [LENSTUBE_VIDEOS_APP_ID]
+        sources: [LENSTUBE_VIDEOS_APP_ID],
+        publicationTypes: ['POST']
       }
     },
     onCompleted(data) {
@@ -40,7 +41,8 @@ const SuggestedVideos = () => {
             cursor: pageInfo?.next,
             sortCriteria: 'TOP_COMMENTED',
             limit: 10,
-            sources: [LENSTUBE_VIDEOS_APP_ID]
+            sources: [LENSTUBE_VIDEOS_APP_ID],
+            publicationTypes: ['POST']
           }
         }
       }).then(({ data }: any) => {

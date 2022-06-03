@@ -18,7 +18,7 @@ interface Props {
 const Layout: FC<Props> = ({ children }) => {
   const { setSelectedChannel, setToken } = useAppStore()
   const { resolvedTheme } = useTheme()
-  const { activeConnector, isDisconnected } = useConnect()
+  const { activeConnector, isReconnecting } = useConnect()
   const { disconnect } = useDisconnect()
 
   useEffect(() => {
@@ -32,16 +32,12 @@ const Layout: FC<Props> = ({ children }) => {
       setSelectedChannel(null)
       localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
-      localStorage.removeItem('app-storage')
     }
-    activeConnector?.on('disconnect', () => logout())
-  }, [
-    setToken,
-    activeConnector,
-    disconnect,
-    isDisconnected,
-    setSelectedChannel
-  ])
+    activeConnector?.on('change', () => {
+      if (!isReconnecting) logout()
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [disconnect, activeConnector])
 
   return (
     <IsBrowser>

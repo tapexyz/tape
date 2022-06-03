@@ -49,7 +49,7 @@ const VideoCard: FC<Props> = ({ video }) => {
             </div>
             <Link href={`/${video.profile?.handle}`}>
               <a className="text-xs hover:opacity-100 opacity-70">
-                {video.profile.handle}
+                {video.profile?.handle}
               </a>
             </Link>
             <div className="flex items-center text-[11px] opacity-70">

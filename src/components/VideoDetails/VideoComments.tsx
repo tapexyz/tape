@@ -36,7 +36,8 @@ const VideoComments: FC<Props> = ({ video }) => {
       request: {
         commentsOf: id,
         limit: 10,
-        sources: [LENSTUBE_VIDEOS_APP_ID]
+        sources: [LENSTUBE_VIDEOS_APP_ID],
+        publicationTypes: ['COMMENT']
       }
     },
     skip: !id,
@@ -56,7 +57,8 @@ const VideoComments: FC<Props> = ({ video }) => {
             commentsOf: id,
             cursor: pageInfo?.next,
             limit: 10,
-            sources: [LENSTUBE_COMMENTS_APP_ID]
+            sources: [LENSTUBE_COMMENTS_APP_ID],
+            publicationTypes: ['COMMENT']
           }
         }
       }).then(({ data }: any) => {
