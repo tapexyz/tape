@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client'
-import VideoCard from '@components/Common/VideoCard'
+import VideoCard from '@components/CommonT/VideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'

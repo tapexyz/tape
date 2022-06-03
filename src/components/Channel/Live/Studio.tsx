@@ -1,4 +1,4 @@
-import Layout from '@components/Common/Layout'
+import Layout from '@components/CommonT/Layout'
 import React from 'react'
 
 import VideoDetails from './VideoDetails'

@@ -7,7 +7,7 @@ import React, { FC } from 'react'
 import { LenstubePublication } from 'src/types/local'
 dayjs.extend(relativeTime)
 
-const ImageAttachments = dynamic(() => import('../Common/ImageAttachments'))
+const ImageAttachments = dynamic(() => import('../CommonT/ImageAttachments'))
 
 interface Props {
   comment: LenstubePublication

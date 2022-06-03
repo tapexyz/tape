@@ -1,4 +1,4 @@
-import VideoCard from '@components/Common/VideoCard'
+import VideoCard from '@components/CommonT/VideoCard'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import { RECENTS_LIBRARY } from '@utils/url-path'

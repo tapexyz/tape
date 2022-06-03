@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
-import Layout from '@components/Common/Layout'
-import MetaTags from '@components/Common/MetaTags'
+import Layout from '@components/CommonT/Layout'
+import MetaTags from '@components/CommonT/MetaTags'
 import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
 import { PROFILE_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'

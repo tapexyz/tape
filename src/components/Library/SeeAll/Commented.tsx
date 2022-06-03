@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
-import Layout from '@components/Common/Layout'
-import MetaTags from '@components/Common/MetaTags'
+import Layout from '@components/CommonT/Layout'
+import MetaTags from '@components/CommonT/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
