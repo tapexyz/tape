@@ -94,7 +94,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       }
     }
   )
-  const { indexed } = usePendingTxn(writePostData?.hash || '')
+  const { indexed } = usePendingTxn(writePostData?.hash || '', true)
 
   const [bundlrData, setBundlrData] = useState<BundlrDataState>({
     balance: '0',
@@ -350,7 +350,10 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       isEmptyString(videoMeta.title) ||
       isEmptyString(videoMeta.videoThumbnail?.ipfsUrl)
     ) {
-      return toast.error('Fill out all fields!')
+      return toast.error('Fill out all fields.')
+    }
+    if (videoMeta.title.length > 100 || videoMeta.description.length > 5000) {
+      return toast.error('Content length exceeds the limit.')
     }
     if (!isUploadedToBundlr && bundlrData.instance) {
       await uploadToBundlr()
@@ -371,7 +374,11 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
               <div className="required text-[11px] font-semibold uppercase opacity-70">
                 Title
               </div>
-              <span className="text-[10px] opacity-50">
+              <span
+                className={clsx('text-[10px] opacity-50', {
+                  'text-red-500 !opacity-100': videoMeta.title.length > 100
+                })}
+              >
                 {videoMeta.title.length}/100
               </span>
             </div>
@@ -380,6 +387,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
               placeholder="Title that describes your video"
               autoComplete="off"
               value={videoMeta.title}
+              autoFocus
               onChange={(e) =>
                 setVideoMeta({ ...videoMeta, title: e.target.value })
               }
@@ -390,7 +398,12 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
               <div className="text-[11px] font-semibold uppercase opacity-70">
                 Description
               </div>
-              <span className="text-[10px] opacity-50">
+              <span
+                className={clsx('text-[10px] opacity-50', {
+                  'text-red-500 !opacity-100':
+                    videoMeta.description.length > 5000
+                })}
+              >
                 {videoMeta.description.length}/5000
               </span>
             </div>

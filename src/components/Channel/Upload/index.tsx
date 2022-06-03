@@ -77,6 +77,8 @@ const Upload = () => {
       onClose={() => onCloseUploadModal()}
       show={showUploadModal}
       panelClassName="max-w-4xl max-h-[80vh]"
+      preventAutoClose={true}
+      title={video.preview ? '' : 'Select your video'}
     >
       {video.preview ? (
         <Details video={video} closeUploadModal={onCloseUploadModal} />
@@ -84,7 +86,7 @@ const Upload = () => {
         <div
           {...getRootProps()}
           className={clsx(
-            'p-10 md:py-20 h-full focus:outline-none border-gray-300 dark:border-gray-700 grid place-items-center text-center border-2 border-dashed rounded-lg cursor-pointer'
+            'p-10 md:py-20 mt-4 h-full focus:outline-none border-gray-300 dark:border-gray-700 grid place-items-center text-center border-2 border-dashed rounded-lg cursor-pointer'
           )}
         >
           <div>
