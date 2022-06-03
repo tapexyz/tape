@@ -1,6 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
-import { Button } from '@components/ui/Button'
+import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
 import {
   LENSHUB_PROXY_ADDRESS,

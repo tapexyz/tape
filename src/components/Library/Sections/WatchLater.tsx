@@ -1,5 +1,5 @@
-import VideoCard from '@components/common/VideoCard'
-import { NoDataFound } from '@components/ui/NoDataFound'
+import VideoCard from '@components/Common/VideoCard'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import { WATCH_LATER_LIBRARY } from '@utils/url-path'
 import Link from 'next/link'

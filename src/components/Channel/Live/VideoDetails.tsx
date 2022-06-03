@@ -1,5 +1,5 @@
-import { Button } from '@components/ui/Button'
-import { Input } from '@components/ui/Input'
+import { Button } from '@components/UIElements/Button'
+import { Input } from '@components/UIElements/Input'
 import clsx from 'clsx'
 import React, { useState } from 'react'
 

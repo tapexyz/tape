@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
-import { Button } from '@components/ui/Button'
-import Tooltip from '@components/ui/Tooltip'
+import { Button } from '@components/UIElements/Button'
+import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'

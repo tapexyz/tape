@@ -1,5 +1,5 @@
-import { Button } from '@components/ui/Button'
-import Tooltip from '@components/ui/Tooltip'
+import { Button } from '@components/UIElements/Button'
+import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import { EXPLORE, HOME, LIBRARY } from '@utils/url-path'
 import Link from 'next/link'

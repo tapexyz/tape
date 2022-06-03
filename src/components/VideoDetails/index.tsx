@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
-import Layout from '@components/common/Layout'
-import MetaTags from '@components/common/MetaTags'
+import Layout from '@components/Common/Layout'
+import MetaTags from '@components/Common/MetaTags'
 import VideoDetailShimmer from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
 import { LENSTUBE_VIDEOS_APP_ID, ZERO_ADDRESS } from '@utils/constants'

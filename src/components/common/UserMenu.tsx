@@ -1,5 +1,5 @@
-import { Button } from '@components/ui/Button'
-import Popover from '@components/ui/Popover'
+import { Button } from '@components/UIElements/Button'
+import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'

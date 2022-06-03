@@ -1,4 +1,4 @@
-import Modal from '@components/ui/Modal'
+import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'

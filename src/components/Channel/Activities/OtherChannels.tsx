@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
-import { NoDataFound } from '@components/ui/NoDataFound'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
