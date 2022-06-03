@@ -1,10 +1,10 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { WebBundlr } from '@bundlr-network/client'
-import VideoPlayer from '@components/common/VideoPlayer'
-import { Button } from '@components/ui/Button'
-import ChooseImage from '@components/ui/ChooseImage'
-import { Input } from '@components/ui/Input'
+import VideoPlayer from '@components/Common/VideoPlayer'
+import { Button } from '@components/UIElements/Button'
+import ChooseImage from '@components/UIElements/ChooseImage'
+import { Input } from '@components/UIElements/Input'
 import useAppStore from '@lib/store'
 import {
   BUNDLR_CURRENCY,
@@ -12,6 +12,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_VIDEOS_APP_ID
 } from '@utils/constants'
+import { isEmptyString } from '@utils/functions/isEmptyString'
 import omitKey from '@utils/functions/omitKey'
 import { parseToAtomicUnits } from '@utils/functions/parseToAtomicUnits'
 import { uploadDataToIPFS } from '@utils/functions/uploadToIPFS'
@@ -44,31 +45,36 @@ type Props = {
   closeUploadModal: () => void
 }
 
-export const MemoizedVideoPlayer = React.memo(
-  ({ source }: { source: string }) => (
-    <VideoPlayer
-      source={source}
-      controls={[
-        'play',
-        'progress',
-        'current-time',
-        'mute',
-        'volume',
-        'fullscreen'
-      ]}
-    />
-  )
-)
+type PlayerProps = {
+  source: string
+}
+
+export const MemoizedVideoPlayer = React.memo(({ source }: PlayerProps) => (
+  <VideoPlayer
+    source={source}
+    autoPlay={false}
+    controls={[
+      'play',
+      'progress',
+      'current-time',
+      'mute',
+      'volume',
+      'fullscreen'
+    ]}
+  />
+))
 
 MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 
 const Details: FC<Props> = ({ video, closeUploadModal }) => {
-  const { data: signer } = useSigner()
   const { data: account } = useAccount()
+  const { data: signer } = useSigner()
   const { getBundlrInstance, selectedChannel } = useAppStore()
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
+      setDisableSubmit(false)
+      setButtonText('Post Video')
     }
   })
   const { data: writePostData, write: writePostContract } = useContractWrite(
@@ -78,12 +84,17 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
     },
     'postWithSig',
     {
+      onSuccess() {
+        setButtonText('Indexing...')
+      },
       onError(error: any) {
         toast.error(`Failed - ${error?.data?.message ?? error?.message}`)
+        setDisableSubmit(false)
+        setButtonText('Post Video')
       }
     }
   )
-  const { indexed } = usePendingTxn(writePostData?.hash || '')
+  const { indexed } = usePendingTxn(writePostData?.hash || '', true)
 
   const [bundlrData, setBundlrData] = useState<BundlrDataState>({
     balance: '0',
@@ -95,6 +106,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   })
   const [isUploadedToBundlr, setIsUploadedToBundlr] = useState(false)
   const [showBundlrDetails, setShowBundlrDetails] = useState(false)
+  const [disableSubmit, setDisableSubmit] = useState(false)
   const [videoMeta, setVideoMeta] = useState<VideoUploadForm>({
     videoThumbnail: null,
     videoSource: null,
@@ -106,6 +118,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   useEffect(() => {
     if (indexed) {
       closeUploadModal()
+      setDisableSubmit(false)
       toast.success('Video posted successfully')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,16 +130,22 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       toast(
         'Please check your wallet for a signature request from bundlr.network'
       )
+      setDisableSubmit(true)
       const bundlr = await getBundlrInstance(signer)
-      setBundlrData((bundlrData) => ({
-        ...bundlrData,
-        instance: bundlr
-      }))
-      setButtonText('Next')
-      setShowBundlrDetails(true)
-      await fetchBalance(bundlr)
-      await estimatePrice(bundlr)
-      setButtonText('Start Upload')
+      if (bundlr) {
+        setBundlrData((bundlrData) => ({
+          ...bundlrData,
+          instance: bundlr
+        }))
+        setButtonText('Next')
+        setShowBundlrDetails(true)
+        await fetchBalance(bundlr)
+        await estimatePrice(bundlr)
+        setButtonText('Start Upload')
+        setDisableSubmit(false)
+      } else {
+        setButtonText('Next')
+      }
     }
   }
 
@@ -146,7 +165,6 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           )
         })
         .catch((e) => {
-          console.log('🚀 ~ file: Details.tsx ~ depositToBundlr ~ e', e)
           toast.error(
             `Failed - ${
               typeof e === 'string' ? e : e.data?.message || e.message
@@ -154,10 +172,6 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           )
         })
         .finally(async () => {
-          console.log(
-            '🚀 ~ file: Details.tsx ~ line 120 ~ .finally ~ bundlrData.instance && account?.address',
-            bundlrData.instance && account?.address
-          )
           fetchBalance()
           setBundlrData({
             ...bundlrData,
@@ -199,7 +213,8 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         'Please check your wallet for a signature request from bundlr.network'
       )
       const bundlr = bundlrData.instance
-      setButtonText('Uploading...')
+      setButtonText('Uploading video...')
+      setDisableSubmit(true)
       const tags = [{ name: 'Content-Type', value: 'video/mp4' }]
       const tx = bundlr.createTransaction(video.buffer, {
         tags: tags
@@ -214,8 +229,9 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         '🚀 ~ file: Details.tsx ~ line 184 ~ onClickUpload ~ response',
         response
       )
-      setButtonText('Post the Video')
+      setButtonText('Post Video')
       fetchBalance(bundlr)
+      setDisableSubmit(false)
       setVideoMeta((data) => {
         return { ...data, videoSource: response.data }
       })
@@ -225,6 +241,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       toast.error('Failed to upload video!')
       setButtonText('Upload')
       setIsUploadedToBundlr(false)
+      setDisableSubmit(false)
     }
   }
 
@@ -276,11 +293,14 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
     },
     onError(error) {
       toast.error(error.message)
+      setDisableSubmit(false)
+      setButtonText('Post Video')
     }
   })
 
   const createPublication = async () => {
     setButtonText('Storing metadata...')
+    setDisableSubmit(true)
     const { ipfsUrl } = await uploadDataToIPFS({
       version: '1.0.0',
       metadata_id: uuidv4(),
@@ -305,8 +325,6 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         }
       ],
       appId: LENSTUBE_VIDEOS_APP_ID
-    }).finally(() => {
-      setButtonText('Post Video')
     })
     // TODO: Add fields to select collect and reference module
     createTypedData({
@@ -328,6 +346,15 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   }
 
   const onSubmitForm = async () => {
+    if (
+      isEmptyString(videoMeta.title) ||
+      isEmptyString(videoMeta.videoThumbnail?.ipfsUrl)
+    ) {
+      return toast.error('Fill out all fields.')
+    }
+    if (videoMeta.title.length > 100 || videoMeta.description.length > 5000) {
+      return toast.error('Content length exceeds the limit.')
+    }
     if (!isUploadedToBundlr && bundlrData.instance) {
       await uploadToBundlr()
     } else if (videoMeta.videoSource && isUploadedToBundlr) {
@@ -343,22 +370,42 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         <div>
           <h1 className="font-semibold">Details</h1>
           <div className="mt-4">
+            <div className="flex items-center justify-between mb-1 space-x-1.5">
+              <div className="required text-[11px] font-semibold uppercase opacity-70">
+                Title
+              </div>
+              <span
+                className={clsx('text-[10px] opacity-50', {
+                  'text-red-500 !opacity-100': videoMeta.title.length > 100
+                })}
+              >
+                {videoMeta.title.length}/100
+              </span>
+            </div>
             <Input
-              label="Title"
               type="text"
               placeholder="Title that describes your video"
               autoComplete="off"
               value={videoMeta.title}
+              autoFocus
               onChange={(e) =>
                 setVideoMeta({ ...videoMeta, title: e.target.value })
               }
             />
           </div>
           <div className="mt-4">
-            <div className="flex items-center mb-1 space-x-1.5">
+            <div className="flex items-center justify-between mb-1 space-x-1.5">
               <div className="text-[11px] font-semibold uppercase opacity-70">
                 Description
               </div>
+              <span
+                className={clsx('text-[10px] opacity-50', {
+                  'text-red-500 !opacity-100':
+                    videoMeta.description.length > 5000
+                })}
+              >
+                {videoMeta.description.length}/5000
+              </span>
             </div>
             <textarea
               placeholder="More about your video"
@@ -376,6 +423,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           <div className="mt-4">
             <ChooseImage
               label="Thumbnail"
+              required
               afterUpload={(data: IPFSUploadResult | null) => {
                 onThumbnailUpload(data)
               }}
@@ -499,7 +547,9 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           >
             Cancel
           </Button>
-          <Button onClick={() => onSubmitForm()}>{buttonText}</Button>
+          <Button disabled={disableSubmit} onClick={() => onSubmitForm()}>
+            {buttonText}
+          </Button>
         </span>
       </div>
     </div>

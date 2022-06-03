@@ -1,4 +1,4 @@
-import Popover from '@components/ui/Popover'
+import Popover from '@components/UIElements/Popover'
 import React from 'react'
 import { FiFlag } from 'react-icons/fi'
 import { HiOutlineDotsVertical } from 'react-icons/hi'

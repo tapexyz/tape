@@ -1,6 +1,6 @@
 import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
 import { useMutation } from '@apollo/client'
-import { Button } from '@components/ui/Button'
+import { Button } from '@components/UIElements/Button'
 import { ERROR_MESSAGE } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { CREATE_UNFOLLOW_TYPED_DATA } from '@utils/gql/queries'
@@ -17,6 +17,7 @@ type Props = {
 const UnSubscribe: FC<Props> = ({ channel }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Subscribed')
+  const { data: signer } = useSigner()
 
   const { signTypedDataAsync } = useSignTypedData({
     onError() {
@@ -24,7 +25,6 @@ const UnSubscribe: FC<Props> = ({ channel }) => {
       setButtonText('Subscribed')
     }
   })
-  const { data: signer } = useSigner()
 
   const [createUnsubscribeTypedData] = useMutation(CREATE_UNFOLLOW_TYPED_DATA, {
     onCompleted({

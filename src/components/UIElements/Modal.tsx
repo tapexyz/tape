@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import { FC, Fragment } from 'react'
-import { AiOutlineClose } from 'react-icons/ai'
+import { MdOutlineClose } from 'react-icons/md'
 
 type Props = {
   show: boolean
@@ -9,6 +9,7 @@ type Props = {
   onClose: () => void
   children: React.ReactNode
   panelClassName?: string
+  preventAutoClose?: boolean
 }
 
 const Modal: FC<Props> = ({
@@ -16,15 +17,16 @@ const Modal: FC<Props> = ({
   onClose,
   children,
   title,
-  panelClassName
+  panelClassName,
+  preventAutoClose = false
 }) => {
-  function closeModal() {
-    onClose()
-  }
-
   return (
     <Transition appear show={show} as={Fragment}>
-      <Dialog as="div" className="relative z-20" onClose={closeModal}>
+      <Dialog
+        as="div"
+        className="relative z-20"
+        onClose={() => (preventAutoClose ? null : onClose())}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -67,10 +69,10 @@ const Modal: FC<Props> = ({
                       {title}
                     </Dialog.Title>
                     <button
-                      className="focus:outline-none"
-                      onClick={() => closeModal()}
+                      className="p-1 bg-gray-100 rounded-md focus:outline-none dark:bg-gray-900"
+                      onClick={() => onClose()}
                     >
-                      <AiOutlineClose />
+                      <MdOutlineClose />
                     </button>
                   </div>
                 )}

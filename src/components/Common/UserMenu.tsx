@@ -1,5 +1,5 @@
-import { Button } from '@components/ui/Button'
-import Popover from '@components/ui/Popover'
+import { Button } from '@components/UIElements/Button'
+import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
@@ -20,10 +20,19 @@ const UserMenu: FC<Props> = () => {
     channels,
     setShowCreateChannel,
     setSelectedChannel,
-    selectedChannel
+    selectedChannel,
+    setToken
   } = useAppStore()
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
   const { disconnect } = useDisconnect()
+
+  const logout = () => {
+    setToken({ access: null, refresh: null })
+    setSelectedChannel(null)
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
+    disconnect()
+  }
 
   const onSelectChannel = (channel: Profile) => {
     setSelectedChannel(channel)
@@ -150,7 +159,7 @@ const UserMenu: FC<Props> = () => {
                 className={clsx(
                   'flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                 )}
-                onClick={() => disconnect()}
+                onClick={() => logout()}
               >
                 <VscDebugDisconnect className="text-lg" />
                 <span className="truncate whitespace-nowrap">Disconnect</span>

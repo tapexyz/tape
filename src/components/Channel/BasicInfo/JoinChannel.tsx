@@ -1,7 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation, useQuery } from '@apollo/client'
-import { Button } from '@components/ui/Button'
-import Tooltip from '@components/ui/Tooltip'
+import { Button } from '@components/UIElements/Button'
+import Tooltip from '@components/UIElements/Tooltip'
 import { LENSHUB_PROXY_ADDRESS } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import {

@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
-import VideoCard from '@components/common/VideoCard'
+import VideoCard from '@components/Common/VideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { NoDataFound } from '@components/ui/NoDataFound'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import {
   LENSTUBE_COMMENTS_APP_ID,

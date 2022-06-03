@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
-import { Loader } from '@components/ui/Loader'
-import { NoDataFound } from '@components/ui/NoDataFound'
+import { Loader } from '@components/UIElements/Loader'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import {
   LENSTUBE_COMMENTS_APP_ID,
@@ -52,7 +52,12 @@ const Notifications = () => {
     }
   })
 
-  if (loading) return <Loader />
+  if (loading)
+    return (
+      <span className="p-5">
+        <Loader />
+      </span>
+    )
 
   if (data?.notifications?.items?.length === 0) return <NoDataFound />
 

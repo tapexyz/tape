@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import Notifications from '@components/Notifications'
-import Popover from '@components/ui/Popover'
-import Tooltip from '@components/ui/Tooltip'
+import Popover from '@components/UIElements/Popover'
+import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import {
   CURRENT_USER_QUERY,

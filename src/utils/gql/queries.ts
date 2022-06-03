@@ -195,6 +195,16 @@ export const TX_STATUS_QUERY = gql`
   }
 `
 
+export const PUBLICATION_STATUS_QUERY = gql`
+  query HasPublicationIndexed($request: PublicationQueryRequest!) {
+    publication(request: $request) {
+      ... on Post {
+        id
+      }
+    }
+  }
+`
+
 export const PROFILE_QUERY = gql`
   query Profile($request: ProfileQueryRequest!) {
     profiles(request: $request) {

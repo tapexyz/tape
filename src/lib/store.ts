@@ -26,7 +26,7 @@ interface AppState {
   setHasNewNotification: (value: boolean) => void
   addToRecentlyWatched: (video: LenstubePublication) => void
   addToWatchedLater: (video: LenstubePublication) => void
-  getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr>
+  getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
 }
 export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY
 export const ALCHEMY_RPC_URL = IS_MAINNET
@@ -65,17 +65,21 @@ export const useAppStore = create(
       setShowCreateChannel: (showCreateChannel) =>
         set(() => ({ showCreateChannel })),
       getBundlrInstance: async (signer) => {
-        const bundlr = new WebBundlr(
-          BUNDLR_NODE_URL,
-          BUNDLR_CURRENCY,
-          signer?.provider,
-          {
-            providerUrl: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`
-          }
-        )
-        await bundlr.utils.getBundlerAddress(BUNDLR_CURRENCY)
-        await bundlr.ready()
-        return bundlr
+        try {
+          const bundlr = new WebBundlr(
+            BUNDLR_NODE_URL,
+            BUNDLR_CURRENCY,
+            signer?.provider,
+            {
+              providerUrl: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`
+            }
+          )
+          await bundlr.utils.getBundlerAddress(BUNDLR_CURRENCY)
+          await bundlr.ready()
+          return bundlr
+        } catch (error) {
+          return null
+        }
       }
     }),
     {

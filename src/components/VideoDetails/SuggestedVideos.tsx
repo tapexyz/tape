@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
-import { Loader } from '@components/ui/Loader'
+import { Loader } from '@components/UIElements/Loader'
 import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import imageCdn from '@utils/functions/imageCdn'
@@ -22,7 +22,8 @@ const SuggestedVideos = () => {
       request: {
         sortCriteria: 'TOP_COMMENTED',
         limit: 10,
-        sources: [LENSTUBE_VIDEOS_APP_ID]
+        sources: [LENSTUBE_VIDEOS_APP_ID],
+        publicationTypes: ['POST']
       }
     },
     onCompleted(data) {
@@ -40,7 +41,8 @@ const SuggestedVideos = () => {
             cursor: pageInfo?.next,
             sortCriteria: 'TOP_COMMENTED',
             limit: 10,
-            sources: [LENSTUBE_VIDEOS_APP_ID]
+            sources: [LENSTUBE_VIDEOS_APP_ID],
+            publicationTypes: ['POST']
           }
         }
       }).then(({ data }: any) => {

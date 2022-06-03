@@ -64,7 +64,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
           'bg-red-500 border border-red-500': variant === 'danger'
         })}
       ></span>
-      <span className="relative flex items-center space-x-1.5 text-black dark:text-white">
+      <span className="relative flex items-center justify-center space-x-1.5 text-black dark:text-white">
         <span>{children}</span>
         {loading && <Loader size="sm" />}
       </span>

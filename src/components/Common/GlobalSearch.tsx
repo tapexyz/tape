@@ -1,6 +1,6 @@
 import { useLazyQuery } from '@apollo/client'
-import { Loader } from '@components/ui/Loader'
-import Modal from '@components/ui/Modal'
+import { Loader } from '@components/UIElements/Loader'
+import Modal from '@components/UIElements/Modal'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'

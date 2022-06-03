@@ -19,11 +19,11 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
   const subscribeType = channel?.followModule?.__typename
 
   return (
-    <div className="flex items-center justify-between w-full my-4">
+    <div className="flex items-center justify-between w-full my-2">
       <div className="flex-none mr-3">
         <img
           src={imageCdn(getProfilePicture(channel))}
-          className="w-12 h-12 rounded-full"
+          className="w-10 h-10 rounded-full"
           draggable={false}
           alt=""
         />

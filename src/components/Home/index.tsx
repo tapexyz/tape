@@ -1,5 +1,5 @@
-import Layout from '@components/common/Layout'
-import MetaTags from '@components/common/MetaTags'
+import Layout from '@components/Common/Layout'
+import MetaTags from '@components/Common/MetaTags'
 import ExploreFeed from '@components/Explore/Feed'
 import useAppStore from '@lib/store'
 import { NextPage } from 'next'

@@ -1,6 +1,6 @@
-import { Button } from '@components/ui/Button'
-import { Loader } from '@components/ui/Loader'
-import Modal from '@components/ui/Modal'
+import { Button } from '@components/UIElements/Button'
+import { Loader } from '@components/UIElements/Loader'
+import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import { POLYGON_CHAIN_ID } from '@utils/constants'
 import { getWalletLogo } from '@utils/functions/getWalletLogo'
@@ -19,12 +19,11 @@ type Props = {
 }
 
 const ConnectWalletButton = ({ handleSign, loading }: Props) => {
-  const { token, selectedChannel } = useAppStore()
+  const { selectedChannel } = useAppStore()
   const [showModal, setShowModal] = useState(false)
-  const { data: accountData } = useAccount()
+  const { data: account } = useAccount()
   const {
     connectAsync,
-    isConnected,
     connectors,
     activeConnector,
     error,
@@ -32,12 +31,14 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
     pendingConnector
   } = useConnect()
   const { activeChain, switchNetwork } = useNetwork()
+
   const [isMounted, setIsMounted] = useState(false)
   useEffect(() => setIsMounted(true), [])
 
   const onConnect = async (x: Connector) => {
-    let connected = await connectAsync(x)
-    if (connected?.account) setShowModal(false)
+    await connectAsync(x).then(({ account }) => {
+      if (account) setShowModal(false)
+    })
   }
 
   return (
@@ -49,7 +50,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
         show={showModal}
       >
         <div className="inline-block w-full mt-4 space-y-2 overflow-hidden text-left align-middle transition-all transform">
-          {isConnected && (
+          {activeConnector && (
             <div className="w-full p-4 space-y-2 border border-gray-300 rounded-lg dark:border-gray-600">
               <div className="flex items-center justify-between">
                 <h6 className="text-sm text-gray-600 dark:text-gray-400">
@@ -59,7 +60,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                   {activeChain?.name}
                 </span>
               </div>
-              <h6 className="text-sm truncate">{accountData?.address}</h6>
+              <h6 className="text-sm truncate">{account?.address}</h6>
             </div>
           )}
           {connectors.map((x, i) => {
@@ -70,13 +71,13 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                   'w-full rounded-lg p-4 dark:bg-gray-900 bg-gray-100',
                   {
                     'hover:shadow-inner dark:hover:opacity-80':
-                      x.id !== accountData?.connector?.id
+                      x.id !== account?.connector?.id
                   }
                 )}
                 onClick={() => onConnect(x)}
                 disabled={
                   isMounted
-                    ? !x.ready || x.id === accountData?.connector?.id
+                    ? !x.ready || x.id === account?.connector?.id
                     : false
                 }
               >
@@ -104,8 +105,8 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                       {isConnecting && x.id === pendingConnector?.id && (
                         <Loader />
                       )}
-                      {!loading && x.id === accountData?.connector?.id && (
-                        <AiOutlineCheck className="w-5 h-5 text-green-800" />
+                      {!loading && x.id === account?.connector?.id && (
+                        <AiOutlineCheck className="text-green-800" />
                       )}
                     </span>
                   </span>
@@ -121,25 +122,27 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
           ) : null}
         </div>
       </Modal>
-      {activeChain?.id === POLYGON_CHAIN_ID ? (
-        token.refresh && selectedChannel ? (
-          <UserMenu />
+      {activeConnector?.id ? (
+        activeChain?.id === POLYGON_CHAIN_ID ? (
+          selectedChannel ? (
+            <UserMenu />
+          ) : (
+            <Button
+              loading={loading}
+              onClick={() => handleSign()}
+              disabled={loading}
+            >
+              Sign In
+            </Button>
+          )
         ) : (
           <Button
-            loading={loading}
-            onClick={() => handleSign()}
-            disabled={loading}
+            onClick={() => switchNetwork && switchNetwork(POLYGON_CHAIN_ID)}
+            variant="danger"
           >
-            Sign In
+            <span className="text-white">Wrong network</span>
           </Button>
         )
-      ) : activeChain?.id !== POLYGON_CHAIN_ID && switchNetwork ? (
-        <Button
-          onClick={() => switchNetwork(POLYGON_CHAIN_ID)}
-          variant="danger"
-        >
-          <span className="text-white">Wrong network</span>
-        </Button>
       ) : (
         <Button onClick={() => setShowModal(true)}>Connect Wallet</Button>
       )}

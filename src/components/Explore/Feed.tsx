@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { Loader } from '@components/ui/Loader'
-import { NoDataFound } from '@components/ui/NoDataFound'
+import { Loader } from '@components/UIElements/Loader'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
@@ -24,7 +24,8 @@ const ExploreFeed = () => {
         sortCriteria: 'LATEST',
         limit: 10,
         noRandomize: true,
-        sources: [LENSTUBE_VIDEOS_APP_ID]
+        sources: [LENSTUBE_VIDEOS_APP_ID],
+        publicationTypes: ['POST']
       }
     },
     onCompleted(data) {
@@ -43,7 +44,8 @@ const ExploreFeed = () => {
             cursor: pageInfo?.next,
             limit: 10,
             noRandomize: true,
-            sources: [LENSTUBE_VIDEOS_APP_ID]
+            sources: [LENSTUBE_VIDEOS_APP_ID],
+            publicationTypes: ['POST']
           }
         }
       }).then(({ data }: any) => {

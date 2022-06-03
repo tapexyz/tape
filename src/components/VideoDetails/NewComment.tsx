@@ -1,6 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
-import { Button } from '@components/ui/Button'
+import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -11,9 +11,10 @@ import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
 import { uploadDataToIPFS } from '@utils/functions/uploadToIPFS'
 import { CREATE_COMMENT_TYPED_DATA } from '@utils/gql/queries'
+import usePendingTxn from '@utils/hooks/usePendingTxn'
 import clsx from 'clsx'
 import { utils } from 'ethers'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
@@ -21,9 +22,10 @@ import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
   video: LenstubePublication
+  refetchComments: () => void
 }
 
-const NewComment: FC<Props> = ({ video }) => {
+const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Comment')
   const [comment, setComment] = useState('')
@@ -35,7 +37,7 @@ const NewComment: FC<Props> = ({ video }) => {
       toast.error(error.message)
     }
   })
-  const { write: writeComment } = useContractWrite(
+  const { write: writeComment, data: writeCommentData } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY_ADDRESS,
       contractInterface: LENSHUB_PROXY_ABI
@@ -43,13 +45,23 @@ const NewComment: FC<Props> = ({ video }) => {
     'commentWithSig',
     {
       onSuccess() {
-        setLoading(false)
-        setButtonText('Comment')
+        setButtonText('Indexing...')
         setComment('')
-        toast.success('Commented successfully.')
       }
     }
   )
+  const { indexed } = usePendingTxn(writeCommentData?.hash || '')
+
+  useEffect(() => {
+    if (indexed) {
+      setLoading(false)
+      refetchComments()
+      setButtonText('Comment')
+      toast.success('Commented successfully.')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [indexed])
+
   const [createTypedData] = useMutation(CREATE_COMMENT_TYPED_DATA, {
     onCompleted(data) {
       const typedData = data.createCommentTypedData.typedData
