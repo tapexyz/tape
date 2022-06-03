@@ -106,7 +106,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                         <Loader />
                       )}
                       {!loading && x.id === account?.connector?.id && (
-                        <AiOutlineCheck className="w-5 h-5 text-green-800" />
+                        <AiOutlineCheck className="text-green-800" />
                       )}
                     </span>
                   </span>

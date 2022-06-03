@@ -27,6 +27,7 @@ const Layout: FC<Props> = ({ children }) => {
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
   useEffect(() => {
     setToken({
       access: localStorage.getItem('accessToken') || null,

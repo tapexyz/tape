@@ -14,6 +14,9 @@ const Video: FC<Props> = ({ video }) => {
         source={video?.metadata?.content}
         poster={video?.metadata?.cover?.original.url}
       />
+      <h1 className="mt-4 text-lg font-medium line-clamp-2">
+        {video.metadata.name}
+      </h1>
     </div>
   )
 }

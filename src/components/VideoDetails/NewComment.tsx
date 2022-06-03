@@ -59,7 +59,8 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       setButtonText('Comment')
       toast.success('Commented successfully.')
     }
-  }, [indexed, refetchComments])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [indexed])
 
   const [createTypedData] = useMutation(CREATE_COMMENT_TYPED_DATA, {
     onCompleted(data) {
