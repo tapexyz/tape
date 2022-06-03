@@ -1,7 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { WebBundlr } from '@bundlr-network/client'
-import VideoPlayer from '@components/CommonT/VideoPlayer'
+import VideoPlayer from '@components/Common/VideoPlayer'
 import { Button } from '@components/UIElements/Button'
 import ChooseImage from '@components/UIElements/ChooseImage'
 import { Input } from '@components/UIElements/Input'

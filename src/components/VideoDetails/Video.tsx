@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 import React, { FC } from 'react'
 import { LenstubePublication } from 'src/types/local'
-const VideoPlayer = dynamic(() => import('../CommonT/VideoPlayer'))
+const VideoPlayer = dynamic(() => import('../Common/VideoPlayer'))
 
 type Props = {
   video: LenstubePublication

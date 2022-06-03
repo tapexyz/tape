@@ -1,5 +1,5 @@
-import Layout from '@components/CommonT/Layout'
-import MetaTags from '@components/CommonT/MetaTags'
+import Layout from '@components/Common/Layout'
+import MetaTags from '@components/Common/MetaTags'
 import dynamic from 'next/dynamic'
 
 const Commented = dynamic(() => import('./Sections/Commented'))

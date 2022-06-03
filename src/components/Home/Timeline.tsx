@@ -1,4 +1,4 @@
-import VideoCard from '@components/CommonT/VideoCard'
+import VideoCard from '@components/Common/VideoCard'
 import React, { FC } from 'react'
 import { LenstubePublication } from 'src/types/local'
 

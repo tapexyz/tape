@@ -1,4 +1,4 @@
-import Layout from '@components/CommonT/Layout'
+import Layout from '@components/Common/Layout'
 import { Button } from '@components/UIElements/Button'
 import { HOME } from '@utils/url-path'
 import Head from 'next/head'
