@@ -1,16 +1,16 @@
-import CreateChannel from '@components/Common/CreateChannel'
-import Header from '@components/Common/Header'
-import MobileBottomNav from '@components/Common/MobileBottomNav'
-import Sidebar from '@components/Common/Sidebar'
 import useAppStore from '@lib/store'
 import { POLYGON_CHAIN_ID } from '@utils/constants'
 import { getToastOptions } from '@utils/functions/getToastOptions'
+import dynamic from 'next/dynamic'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactNode, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useConnect, useDisconnect } from 'wagmi'
 
-import IsBrowser from './IsBrowser'
+import Header from './Header'
+import Sidebar from './Sidebar'
+const CreateChannel = dynamic(() => import('./CreateChannel'))
+const MobileBottomNav = dynamic(() => import('./MobileBottomNav'))
 
 interface Props {
   children: ReactNode
@@ -41,7 +41,7 @@ const Layout: FC<Props> = ({ children }) => {
   }, [disconnect, activeConnector])
 
   return (
-    <IsBrowser>
+    <>
       <div className="flex pb-14 md:pb-0">
         <Sidebar />
         <CreateChannel />
@@ -55,7 +55,7 @@ const Layout: FC<Props> = ({ children }) => {
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <MobileBottomNav />
-    </IsBrowser>
+    </>
   )
 }
 

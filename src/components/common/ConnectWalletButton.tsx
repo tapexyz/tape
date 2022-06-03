@@ -21,7 +21,7 @@ type Props = {
 const ConnectWalletButton = ({ handleSign, loading }: Props) => {
   const { selectedChannel } = useAppStore()
   const [showModal, setShowModal] = useState(false)
-  const { data: accountData } = useAccount()
+  const { data: account } = useAccount()
   const {
     connectAsync,
     connectors,
@@ -30,10 +30,6 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
     isConnecting,
     pendingConnector
   } = useConnect({ chainId: POLYGON_CHAIN_ID })
-  console.log(
-    '🚀 ~ file: ConnectWalletButton.tsx ~ line 34 ~ ConnectWalletButton ~ activeConnector',
-    activeConnector
-  )
   const { activeChain, switchNetwork } = useNetwork()
   const [isMounted, setIsMounted] = useState(false)
   useEffect(() => setIsMounted(true), [])
@@ -52,7 +48,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
         show={showModal}
       >
         <div className="inline-block w-full mt-4 space-y-2 overflow-hidden text-left align-middle transition-all transform">
-          {activeConnector && (
+          {account && (
             <div className="w-full p-4 space-y-2 border border-gray-300 rounded-lg dark:border-gray-600">
               <div className="flex items-center justify-between">
                 <h6 className="text-sm text-gray-600 dark:text-gray-400">
@@ -62,7 +58,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                   {activeChain?.name}
                 </span>
               </div>
-              <h6 className="text-sm truncate">{accountData?.address}</h6>
+              <h6 className="text-sm truncate">{account?.address}</h6>
             </div>
           )}
           {connectors.map((x, i) => {
@@ -73,13 +69,13 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                   'w-full rounded-lg p-4 dark:bg-gray-900 bg-gray-100',
                   {
                     'hover:shadow-inner dark:hover:opacity-80':
-                      x.id !== accountData?.connector?.id
+                      x.id !== account?.connector?.id
                   }
                 )}
                 onClick={() => onConnect(x)}
                 disabled={
                   isMounted
-                    ? !x.ready || x.id === accountData?.connector?.id
+                    ? !x.ready || x.id === account?.connector?.id
                     : false
                 }
               >
@@ -107,7 +103,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                       {isConnecting && x.id === pendingConnector?.id && (
                         <Loader />
                       )}
-                      {!loading && x.id === accountData?.connector?.id && (
+                      {!loading && x.id === account?.connector?.id && (
                         <AiOutlineCheck className="w-5 h-5 text-green-800" />
                       )}
                     </span>
@@ -124,7 +120,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
           ) : null}
         </div>
       </Modal>
-      {activeConnector ? (
+      {account ? (
         activeChain?.id === POLYGON_CHAIN_ID ? (
           selectedChannel ? (
             <UserMenu />

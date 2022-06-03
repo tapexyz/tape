@@ -68,6 +68,7 @@ MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const { data: account } = useAccount()
   const { data: signer } = useSigner()
+  console.log('🚀 ~ file: Details.tsx ~ line 71 ~ signer', signer)
   const { getBundlrInstance, selectedChannel } = useAppStore()
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
