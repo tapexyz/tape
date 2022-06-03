@@ -17,6 +17,7 @@ type Props = {
 const UnSubscribe: FC<Props> = ({ channel }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Subscribed')
+  const { data: signer } = useSigner()
 
   const { signTypedDataAsync } = useSignTypedData({
     onError() {
@@ -24,7 +25,6 @@ const UnSubscribe: FC<Props> = ({ channel }) => {
       setButtonText('Subscribed')
     }
   })
-  const { data: signer } = useSigner()
 
   const [createUnsubscribeTypedData] = useMutation(CREATE_UNFOLLOW_TYPED_DATA, {
     onCompleted({

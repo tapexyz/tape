@@ -84,6 +84,8 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 ) : (
                   <JoinChannel channel={channel} />
                 )
+              ) : isFollower ? (
+                <UnSubscribe channel={channel} />
               ) : (
                 <Subscribe channel={channel} />
               )}

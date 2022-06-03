@@ -122,7 +122,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
           ) : null}
         </div>
       </Modal>
-      {account ? (
+      {activeConnector?.id ? (
         activeChain?.id === POLYGON_CHAIN_ID ? (
           selectedChannel ? (
             <UserMenu />

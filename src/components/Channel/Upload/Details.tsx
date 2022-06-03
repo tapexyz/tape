@@ -68,7 +68,6 @@ MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const { data: account } = useAccount()
   const { data: signer } = useSigner()
-  console.log('🚀 ~ file: Details.tsx ~ line 71 ~ signer', signer)
   const { getBundlrInstance, selectedChannel } = useAppStore()
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -122,15 +121,19 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         'Please check your wallet for a signature request from bundlr.network'
       )
       const bundlr = await getBundlrInstance(signer)
-      setBundlrData((bundlrData) => ({
-        ...bundlrData,
-        instance: bundlr
-      }))
-      setButtonText('Next')
-      setShowBundlrDetails(true)
-      await fetchBalance(bundlr)
-      await estimatePrice(bundlr)
-      setButtonText('Start Upload')
+      if (bundlr) {
+        setBundlrData((bundlrData) => ({
+          ...bundlrData,
+          instance: bundlr
+        }))
+        setButtonText('Next')
+        setShowBundlrDetails(true)
+        await fetchBalance(bundlr)
+        await estimatePrice(bundlr)
+        setButtonText('Start Upload')
+      } else {
+        setButtonText('Next')
+      }
     }
   }
 
