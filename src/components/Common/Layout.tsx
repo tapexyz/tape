@@ -1,5 +1,4 @@
 import useAppStore from '@lib/store'
-import { POLYGON_CHAIN_ID } from '@utils/constants'
 import { getToastOptions } from '@utils/functions/getToastOptions'
 import dynamic from 'next/dynamic'
 import { useTheme } from 'next-themes'
@@ -17,28 +16,31 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children }) => {
-  const { setSelectedChannel, setToken } = useAppStore()
+  const { setSelectedChannel, setToken, token } = useAppStore()
   const { resolvedTheme } = useTheme()
-  const { activeConnector } = useConnect({ chainId: POLYGON_CHAIN_ID })
+  const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
 
+  useEffect(() => {
+    activeConnector?.on('change', () => {
+      logout()
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   useEffect(() => {
     setToken({
       access: localStorage.getItem('accessToken') || null,
       refresh: localStorage.getItem('refreshToken') || null
     })
-    const logout = () => {
-      disconnect()
-      setToken({ access: null, refresh: null })
-      setSelectedChannel(null)
-      localStorage.removeItem('accessToken')
-      localStorage.removeItem('refreshToken')
-    }
-    activeConnector?.on('change', () => {
-      logout()
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [disconnect, activeConnector])
+  }, [token.access, setToken])
+
+  const logout = () => {
+    setToken({ access: null, refresh: null })
+    setSelectedChannel(null)
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
+    disconnect()
+  }
 
   return (
     <>

@@ -2,10 +2,7 @@ import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
-import {
-  LENSTUBE_COMMENTS_APP_ID,
-  LENSTUBE_VIDEOS_APP_ID
-} from '@utils/constants'
+import { LENSTUBE_COMMENTS_APP_ID } from '@utils/constants'
 import { COMMENT_FEED_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -31,22 +28,34 @@ const VideoComments: FC<Props> = ({ video }) => {
 
   const [comments, setComments] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { data, loading, error, fetchMore } = useQuery(COMMENT_FEED_QUERY, {
-    variables: {
+  const { data, loading, error, fetchMore, refetch } = useQuery(
+    COMMENT_FEED_QUERY,
+    {
+      variables: {
+        request: {
+          commentsOf: id,
+          limit: 10,
+          sources: [LENSTUBE_COMMENTS_APP_ID]
+        }
+      },
+      skip: !id,
+      fetchPolicy: 'no-cache',
+      onCompleted(data) {
+        setPageInfo(data?.publications?.pageInfo)
+        setComments(data?.publications?.items)
+      }
+    }
+  )
+
+  const refetchComments = () => {
+    refetch({
       request: {
         commentsOf: id,
         limit: 10,
-        sources: [LENSTUBE_VIDEOS_APP_ID],
-        publicationTypes: ['COMMENT']
+        sources: [LENSTUBE_COMMENTS_APP_ID]
       }
-    },
-    skip: !id,
-    fetchPolicy: 'no-cache',
-    onCompleted(data) {
-      setPageInfo(data?.publications?.pageInfo)
-      setComments(data?.publications?.items)
-    }
-  })
+    })
+  }
 
   const { observe } = useInView({
     threshold: 0.5,
@@ -57,8 +66,7 @@ const VideoComments: FC<Props> = ({ video }) => {
             commentsOf: id,
             cursor: pageInfo?.next,
             limit: 10,
-            sources: [LENSTUBE_COMMENTS_APP_ID],
-            publicationTypes: ['COMMENT']
+            sources: [LENSTUBE_COMMENTS_APP_ID]
           }
         }
       }).then(({ data }: any) => {
@@ -88,7 +96,7 @@ const VideoComments: FC<Props> = ({ video }) => {
           {data?.publications?.items.length === 0 && (
             <NoDataFound text="Be the first to comment." />
           )}
-          <NewComment video={video} />
+          <NewComment video={video} refetchComments={() => refetchComments()} />
         </>
       ) : null}
       {!error && !loading && (

@@ -29,14 +29,16 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
     error,
     isConnecting,
     pendingConnector
-  } = useConnect({ chainId: POLYGON_CHAIN_ID })
+  } = useConnect()
   const { activeChain, switchNetwork } = useNetwork()
+
   const [isMounted, setIsMounted] = useState(false)
   useEffect(() => setIsMounted(true), [])
 
   const onConnect = async (x: Connector) => {
-    let connected = await connectAsync(x)
-    if (connected?.account) setShowModal(false)
+    await connectAsync(x).then(({ account }) => {
+      if (account) setShowModal(false)
+    })
   }
 
   return (
@@ -48,7 +50,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
         show={showModal}
       >
         <div className="inline-block w-full mt-4 space-y-2 overflow-hidden text-left align-middle transition-all transform">
-          {account && (
+          {activeConnector && (
             <div className="w-full p-4 space-y-2 border border-gray-300 rounded-lg dark:border-gray-600">
               <div className="flex items-center justify-between">
                 <h6 className="text-sm text-gray-600 dark:text-gray-400">

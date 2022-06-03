@@ -26,16 +26,17 @@ const UserMenu: FC<Props> = () => {
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
   const { disconnect } = useDisconnect()
 
+  const logout = () => {
+    setToken({ access: null, refresh: null })
+    setSelectedChannel(null)
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
+    disconnect()
+  }
+
   const onSelectChannel = (channel: Profile) => {
     setSelectedChannel(channel)
     setShowAccountSwitcher(false)
-  }
-
-  const logout = () => {
-    disconnect()
-    setToken({ access: null, refresh: null })
-    setSelectedChannel(null)
-    localStorage.clear()
   }
 
   if (!selectedChannel) return null

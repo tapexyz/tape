@@ -52,7 +52,12 @@ const Notifications = () => {
     }
   })
 
-  if (loading) return <Loader />
+  if (loading)
+    return (
+      <span className="p-5">
+        <Loader />
+      </span>
+    )
 
   if (data?.notifications?.items?.length === 0) return <NoDataFound />
 
