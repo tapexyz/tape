@@ -12,6 +12,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_VIDEOS_APP_ID
 } from '@utils/constants'
+import { isEmptyString } from '@utils/functions/isEmptyString'
 import omitKey from '@utils/functions/omitKey'
 import { parseToAtomicUnits } from '@utils/functions/parseToAtomicUnits'
 import { uploadDataToIPFS } from '@utils/functions/uploadToIPFS'
@@ -72,6 +73,8 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
+      setDisableSubmit(false)
+      setButtonText('Post Video')
     }
   })
   const { data: writePostData, write: writePostContract } = useContractWrite(
@@ -81,8 +84,13 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
     },
     'postWithSig',
     {
+      onSuccess() {
+        setButtonText('Indexing...')
+      },
       onError(error: any) {
         toast.error(`Failed - ${error?.data?.message ?? error?.message}`)
+        setDisableSubmit(false)
+        setButtonText('Post Video')
       }
     }
   )
@@ -98,6 +106,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   })
   const [isUploadedToBundlr, setIsUploadedToBundlr] = useState(false)
   const [showBundlrDetails, setShowBundlrDetails] = useState(false)
+  const [disableSubmit, setDisableSubmit] = useState(false)
   const [videoMeta, setVideoMeta] = useState<VideoUploadForm>({
     videoThumbnail: null,
     videoSource: null,
@@ -109,6 +118,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   useEffect(() => {
     if (indexed) {
       closeUploadModal()
+      setDisableSubmit(false)
       toast.success('Video posted successfully')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,6 +130,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       toast(
         'Please check your wallet for a signature request from bundlr.network'
       )
+      setDisableSubmit(true)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
         setBundlrData((bundlrData) => ({
@@ -131,6 +142,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         await fetchBalance(bundlr)
         await estimatePrice(bundlr)
         setButtonText('Start Upload')
+        setDisableSubmit(false)
       } else {
         setButtonText('Next')
       }
@@ -153,7 +165,6 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           )
         })
         .catch((e) => {
-          console.log('🚀 ~ file: Details.tsx ~ depositToBundlr ~ e', e)
           toast.error(
             `Failed - ${
               typeof e === 'string' ? e : e.data?.message || e.message
@@ -202,7 +213,8 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         'Please check your wallet for a signature request from bundlr.network'
       )
       const bundlr = bundlrData.instance
-      setButtonText('Uploading...')
+      setButtonText('Uploading video...')
+      setDisableSubmit(true)
       const tags = [{ name: 'Content-Type', value: 'video/mp4' }]
       const tx = bundlr.createTransaction(video.buffer, {
         tags: tags
@@ -217,8 +229,9 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         '🚀 ~ file: Details.tsx ~ line 184 ~ onClickUpload ~ response',
         response
       )
-      setButtonText('Post the Video')
+      setButtonText('Post Video')
       fetchBalance(bundlr)
+      setDisableSubmit(false)
       setVideoMeta((data) => {
         return { ...data, videoSource: response.data }
       })
@@ -228,6 +241,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       toast.error('Failed to upload video!')
       setButtonText('Upload')
       setIsUploadedToBundlr(false)
+      setDisableSubmit(false)
     }
   }
 
@@ -279,11 +293,14 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
     },
     onError(error) {
       toast.error(error.message)
+      setDisableSubmit(false)
+      setButtonText('Post Video')
     }
   })
 
   const createPublication = async () => {
     setButtonText('Storing metadata...')
+    setDisableSubmit(true)
     const { ipfsUrl } = await uploadDataToIPFS({
       version: '1.0.0',
       metadata_id: uuidv4(),
@@ -308,8 +325,6 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         }
       ],
       appId: LENSTUBE_VIDEOS_APP_ID
-    }).finally(() => {
-      setButtonText('Post Video')
     })
     // TODO: Add fields to select collect and reference module
     createTypedData({
@@ -331,6 +346,12 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   }
 
   const onSubmitForm = async () => {
+    if (
+      isEmptyString(videoMeta.title) ||
+      isEmptyString(videoMeta.videoThumbnail?.ipfsUrl)
+    ) {
+      return toast.error('Fill out all fields!')
+    }
     if (!isUploadedToBundlr && bundlrData.instance) {
       await uploadToBundlr()
     } else if (videoMeta.videoSource && isUploadedToBundlr) {
@@ -513,7 +534,9 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           >
             Cancel
           </Button>
-          <Button onClick={() => onSubmitForm()}>{buttonText}</Button>
+          <Button disabled={disableSubmit} onClick={() => onSubmitForm()}>
+            {buttonText}
+          </Button>
         </span>
       </div>
     </div>

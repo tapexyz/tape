@@ -16,32 +16,30 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children }) => {
-  const { setSelectedChannel, setToken, token } = useAppStore()
+  const { setSelectedChannel, setToken } = useAppStore()
   const { resolvedTheme } = useTheme()
   const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
-
-  useEffect(() => {
-    activeConnector?.on('change', () => {
-      logout()
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   useEffect(() => {
     setToken({
       access: localStorage.getItem('accessToken') || null,
       refresh: localStorage.getItem('refreshToken') || null
     })
-  }, [token.access, setToken])
-
-  const logout = () => {
-    setToken({ access: null, refresh: null })
-    setSelectedChannel(null)
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('refreshToken')
-    disconnect()
-  }
+    const logout = () => {
+      setToken({ access: null, refresh: null })
+      setSelectedChannel(null)
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('refreshToken')
+      disconnect()
+    }
+    if (!activeConnector) {
+      disconnect()
+    }
+    activeConnector?.on('change', () => {
+      logout()
+    })
+  }, [setToken, disconnect, activeConnector, setSelectedChannel])
 
   return (
     <>
