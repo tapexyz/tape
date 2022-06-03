@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
 import toast from 'react-hot-toast'
 import { FiUpload } from 'react-icons/fi'
+import { MdOutlineClose } from 'react-icons/md'
 
 const Details = dynamic(() => import('./Details'))
 
@@ -76,9 +77,8 @@ const Upload = () => {
     <Modal
       onClose={() => onCloseUploadModal()}
       show={showUploadModal}
-      panelClassName="max-w-4xl max-h-[80vh]"
+      panelClassName="max-w-4xl !p-3 max-h-[80vh]"
       preventAutoClose={true}
-      title={video.preview ? '' : 'Select your video'}
     >
       {video.preview ? (
         <Details video={video} closeUploadModal={onCloseUploadModal} />
@@ -86,9 +86,18 @@ const Upload = () => {
         <div
           {...getRootProps()}
           className={clsx(
-            'p-10 md:py-20 mt-4 h-full focus:outline-none border-gray-300 dark:border-gray-700 grid place-items-center text-center border-2 border-dashed rounded-lg cursor-pointer'
+            'p-10 md:py-20 relative h-full focus:outline-none border-gray-300 dark:border-gray-700 grid place-items-center text-center border-2 border-dashed rounded-lg cursor-pointer'
           )}
         >
+          <button
+            className="absolute top-0 right-0 p-1 bg-gray-100 rounded-md focus:outline-none dark:bg-gray-900"
+            onClick={(e) => {
+              e.stopPropagation()
+              onCloseUploadModal()
+            }}
+          >
+            <MdOutlineClose />
+          </button>
           <div>
             <span className="flex justify-center mb-6 text-4xl opacity-60">
               <FiUpload />
