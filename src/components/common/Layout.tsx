@@ -3,6 +3,7 @@ import Header from '@components/Common/Header'
 import MobileBottomNav from '@components/Common/MobileBottomNav'
 import Sidebar from '@components/Common/Sidebar'
 import useAppStore from '@lib/store'
+import { POLYGON_CHAIN_ID } from '@utils/constants'
 import { getToastOptions } from '@utils/functions/getToastOptions'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactNode, useEffect } from 'react'
@@ -18,7 +19,7 @@ interface Props {
 const Layout: FC<Props> = ({ children }) => {
   const { setSelectedChannel, setToken } = useAppStore()
   const { resolvedTheme } = useTheme()
-  const { activeConnector, isReconnecting } = useConnect()
+  const { activeConnector } = useConnect({ chainId: POLYGON_CHAIN_ID })
   const { disconnect } = useDisconnect()
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const Layout: FC<Props> = ({ children }) => {
       localStorage.removeItem('refreshToken')
     }
     activeConnector?.on('change', () => {
-      if (!isReconnecting) logout()
+      logout()
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [disconnect, activeConnector])

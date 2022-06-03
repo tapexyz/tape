@@ -18,7 +18,6 @@ const httpLink = new HttpLink({
 const clearStorage = () => {
   localStorage.removeItem('accessToken')
   localStorage.removeItem('refreshToken')
-  localStorage.removeItem('app-storage')
 }
 
 const authLink = new ApolloLink((operation, forward) => {

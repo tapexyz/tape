@@ -23,7 +23,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     connectors: [
       new InjectedConnector({
         chains,
-        options: { shimDisconnect: true }
+        options: {
+          shimDisconnect: true
+        }
       }),
       new WalletConnectConnector({
         chains,

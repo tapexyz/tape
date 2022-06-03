@@ -19,18 +19,21 @@ type Props = {
 }
 
 const ConnectWalletButton = ({ handleSign, loading }: Props) => {
-  const { token, selectedChannel } = useAppStore()
+  const { selectedChannel } = useAppStore()
   const [showModal, setShowModal] = useState(false)
   const { data: accountData } = useAccount()
   const {
     connectAsync,
-    isConnected,
     connectors,
     activeConnector,
     error,
     isConnecting,
     pendingConnector
-  } = useConnect()
+  } = useConnect({ chainId: POLYGON_CHAIN_ID })
+  console.log(
+    '🚀 ~ file: ConnectWalletButton.tsx ~ line 34 ~ ConnectWalletButton ~ activeConnector',
+    activeConnector
+  )
   const { activeChain, switchNetwork } = useNetwork()
   const [isMounted, setIsMounted] = useState(false)
   useEffect(() => setIsMounted(true), [])
@@ -49,7 +52,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
         show={showModal}
       >
         <div className="inline-block w-full mt-4 space-y-2 overflow-hidden text-left align-middle transition-all transform">
-          {isConnected && (
+          {activeConnector && (
             <div className="w-full p-4 space-y-2 border border-gray-300 rounded-lg dark:border-gray-600">
               <div className="flex items-center justify-between">
                 <h6 className="text-sm text-gray-600 dark:text-gray-400">
@@ -121,25 +124,27 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
           ) : null}
         </div>
       </Modal>
-      {activeChain?.id === POLYGON_CHAIN_ID ? (
-        token.refresh && selectedChannel ? (
-          <UserMenu />
+      {activeConnector ? (
+        activeChain?.id === POLYGON_CHAIN_ID ? (
+          selectedChannel ? (
+            <UserMenu />
+          ) : (
+            <Button
+              loading={loading}
+              onClick={() => handleSign()}
+              disabled={loading}
+            >
+              Sign In
+            </Button>
+          )
         ) : (
           <Button
-            loading={loading}
-            onClick={() => handleSign()}
-            disabled={loading}
+            onClick={() => switchNetwork && switchNetwork(POLYGON_CHAIN_ID)}
+            variant="danger"
           >
-            Sign In
+            <span className="text-white">Wrong network</span>
           </Button>
         )
-      ) : activeChain?.id !== POLYGON_CHAIN_ID && switchNetwork ? (
-        <Button
-          onClick={() => switchNetwork(POLYGON_CHAIN_ID)}
-          variant="danger"
-        >
-          <span className="text-white">Wrong network</span>
-        </Button>
       ) : (
         <Button onClick={() => setShowModal(true)}>Connect Wallet</Button>
       )}

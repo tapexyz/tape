@@ -35,9 +35,7 @@ const UserMenu: FC<Props> = () => {
     disconnect()
     setToken({ access: null, refresh: null })
     setSelectedChannel(null)
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('refreshToken')
-    localStorage.removeItem('app-storage')
+    localStorage.clear()
   }
 
   if (!selectedChannel) return null
