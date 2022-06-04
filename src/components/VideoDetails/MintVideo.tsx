@@ -8,7 +8,7 @@ import omitKey from '@utils/functions/omitKey'
 import { CREATE_COLLECT_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { utils } from 'ethers'
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { SiOpenmined } from 'react-icons/si'
 import { CreateCollectBroadcastItemResult } from 'src/types'
@@ -21,8 +21,12 @@ type Props = {
 
 const MintVideo: FC<Props> = ({ video }) => {
   const { data: accountData } = useAccount()
-
-  const { signTypedDataAsync } = useSignTypedData()
+  const [loading, setLoading] = useState(false)
+  const { signTypedDataAsync } = useSignTypedData({
+    onError() {
+      setLoading(false)
+    }
+  })
   const { data: writtenData, write: writeCollectWithSig } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY_ADDRESS,
@@ -31,6 +35,7 @@ const MintVideo: FC<Props> = ({ video }) => {
     'collectWithSig',
     {
       onError(error: any) {
+        setLoading(false)
         toast.error(error?.data?.message ?? error?.message)
       }
     }
@@ -38,43 +43,44 @@ const MintVideo: FC<Props> = ({ video }) => {
   const { indexed } = usePendingTxn(writtenData?.hash || '')
 
   useEffect(() => {
-    if (indexed) toast.success('Collected as NFT')
+    if (indexed) {
+      setLoading(false)
+      toast.success('Collected as NFT')
+    }
   }, [indexed])
 
-  const [createCollectTypedData, { loading: isLoading }] = useMutation(
-    CREATE_COLLECT_TYPED_DATA,
-    {
-      onCompleted({
-        createCollectTypedData
-      }: {
-        createCollectTypedData: CreateCollectBroadcastItemResult
-      }) {
-        const { typedData } = createCollectTypedData
-
-        signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        }).then((signature) => {
-          const { v, r, s } = utils.splitSignature(signature)
-          writeCollectWithSig({
-            args: {
-              collector: accountData?.address,
-              profileId: typedData?.value.profileId,
-              pubId: typedData?.value.pubId,
-              data: typedData.value.data,
-              sig: { v, r, s, deadline: typedData.value.deadline }
-            }
-          })
+  const [createCollectTypedData] = useMutation(CREATE_COLLECT_TYPED_DATA, {
+    onCompleted({
+      createCollectTypedData
+    }: {
+      createCollectTypedData: CreateCollectBroadcastItemResult
+    }) {
+      const { typedData } = createCollectTypedData
+      signTypedDataAsync({
+        domain: omitKey(typedData?.domain, '__typename'),
+        types: omitKey(typedData?.types, '__typename'),
+        value: omitKey(typedData?.value, '__typename')
+      }).then((signature) => {
+        const { v, r, s } = utils.splitSignature(signature)
+        writeCollectWithSig({
+          args: {
+            collector: accountData?.address,
+            profileId: typedData?.value.profileId,
+            pubId: typedData?.value.pubId,
+            data: typedData.value.data,
+            sig: { v, r, s, deadline: typedData.value.deadline }
+          }
         })
-      },
-      onError(error) {
-        toast.error(error.message ?? ERROR_MESSAGE)
-      }
+      })
+    },
+    onError(error) {
+      toast.error(error.message ?? ERROR_MESSAGE)
+      setLoading(false)
     }
-  )
+  })
 
   const handleMint = () => {
+    setLoading(true)
     createCollectTypedData({
       variables: { request: { publicationId: video?.id } }
     })
@@ -82,14 +88,14 @@ const MintVideo: FC<Props> = ({ video }) => {
 
   return (
     <div>
-      <Tooltip content="Mint as NFT" placement="top">
+      <Tooltip content={loading ? 'Minting' : 'Mint as NFT'} placement="top">
         <span>
           <Button
-            disabled={isLoading}
+            disabled={loading}
             onClick={() => handleMint()}
             className="!p-2"
           >
-            {isLoading ? <Loader /> : <SiOpenmined />}
+            {loading ? <Loader size="sm" /> : <SiOpenmined />}
           </Button>
         </span>
       </Tooltip>

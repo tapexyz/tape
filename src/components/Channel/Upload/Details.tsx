@@ -305,7 +305,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       version: '1.0.0',
       metadata_id: uuidv4(),
       description: videoMeta.description,
-      content: `https://arweave.net/${videoMeta.videoSource?.id}`,
+      content: `${videoMeta.title}\n\n${videoMeta.description}`,
       external_url: null,
       image: videoMeta.videoThumbnail?.ipfsUrl,
       cover: videoMeta.videoThumbnail?.ipfsUrl,
@@ -320,8 +320,8 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       ],
       media: [
         {
-          item: videoMeta.videoThumbnail?.ipfsUrl,
-          type: videoMeta.videoThumbnail?.type
+          item: `https://arweave.net/${videoMeta.videoSource?.id}`,
+          type: video.videoType
         }
       ],
       appId: LENSTUBE_VIDEOS_APP_ID

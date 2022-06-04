@@ -8,19 +8,16 @@ import { FileRejection, useDropzone } from 'react-dropzone'
 import toast from 'react-hot-toast'
 import { FiUpload } from 'react-icons/fi'
 import { MdOutlineClose } from 'react-icons/md'
+import { VideoUpload } from 'src/types/local'
 
 const Details = dynamic(() => import('./Details'))
-
-export type VideoUpload = {
-  buffer: Buffer | null
-  preview: string
-}
 
 const Upload = () => {
   const [showUploadModal, setShowUploadModal] = useState(false)
   const [video, setVideo] = useState<VideoUpload>({
     buffer: null,
-    preview: ''
+    preview: '',
+    videoType: ''
   })
   const { selectedChannel } = useAppStore()
 
@@ -42,8 +39,12 @@ const Upload = () => {
         let reader = new FileReader()
         reader.onload = function () {
           if (reader.result) {
+            console.log(
+              '🚀 ~ file: index.tsx ~ line 45 ~ uploadVideo ~ reader',
+              file
+            )
             let buffer = Buffer.from(reader.result as string)
-            setVideo({ ...video, buffer, preview })
+            setVideo({ ...video, buffer, preview, videoType: file.type })
           }
         }
         reader.readAsArrayBuffer(file)
@@ -56,7 +57,7 @@ const Upload = () => {
   const onCloseUploadModal = () => {
     setShowUploadModal(false)
     push(selectedChannel?.handle, undefined, { shallow: true })
-    setVideo({ preview: '', buffer: null })
+    setVideo({ preview: '', buffer: null, videoType: '' })
   }
 
   const onDropRejected = (fileRejections: FileRejection[]) => {

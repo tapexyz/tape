@@ -19,6 +19,7 @@ export type BundlrDataState = {
 export type VideoUpload = {
   buffer: Buffer | null
   preview: string
+  videoType: string
 }
 
 export type LenstubePublication = Post & Comment & { pubId: string }
