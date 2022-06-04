@@ -81,7 +81,7 @@ const Login = () => {
   return (
     <ConnectWalletButton
       handleSign={handleSign}
-      loading={signing || loadingChallenge}
+      signing={signing || loadingChallenge}
     />
   )
 }

@@ -48,7 +48,7 @@ const Commented = () => {
           </a>
         </Link>
       </div>
-      {loading && <TimelineShimmer />}
+      {(loading || !selectedChannel) && <TimelineShimmer />}
       {!commented.length && <NoDataFound text="This list has no videos." />}
       <div className="grid gap-x-4 lg:grid-cols-4 gap-y-1.5 md:gap-y-6 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
         {commented?.map((video: LenstubePublication, idx: number) => (

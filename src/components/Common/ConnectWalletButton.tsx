@@ -1,25 +1,31 @@
+import { useQuery } from '@apollo/client'
+import SquareButtonShimmer from '@components/Shimmers/SquareButtonShimmer'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import { POLYGON_CHAIN_ID } from '@utils/constants'
 import { getWalletLogo } from '@utils/functions/getWalletLogo'
+import { CURRENT_USER_QUERY } from '@utils/gql/queries'
+import useIsMounted from '@utils/hooks/useIsMounted'
 import clsx from 'clsx'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { BiError } from 'react-icons/bi'
 import { CgBrowser } from 'react-icons/cg'
+import { Profile } from 'src/types'
 import { Connector, useAccount, useConnect, useNetwork } from 'wagmi'
 
 import UserMenu from './UserMenu'
 
 type Props = {
   handleSign: () => void
-  loading?: boolean
+  signing?: boolean
 }
 
-const ConnectWalletButton = ({ handleSign, loading }: Props) => {
-  const { selectedChannel } = useAppStore()
+const ConnectWalletButton = ({ handleSign, signing }: Props) => {
+  const { selectedChannel, token, setSelectedChannel, setChannels } =
+    useAppStore()
   const [showModal, setShowModal] = useState(false)
   const { data: account } = useAccount()
   const {
@@ -31,9 +37,21 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
     pendingConnector
   } = useConnect()
   const { activeChain, switchNetwork } = useNetwork()
+  const { loading } = useQuery(CURRENT_USER_QUERY, {
+    variables: { ownedBy: account?.address },
+    skip: !token?.refresh,
+    onCompleted(data) {
+      const channels: Profile[] = data?.profiles?.items
+      if (channels.length === 0) {
+        setSelectedChannel(null)
+      } else {
+        setChannels(channels)
+        setSelectedChannel(channels[0])
+      }
+    }
+  })
 
-  const [isMounted, setIsMounted] = useState(false)
-  useEffect(() => setIsMounted(true), [])
+  const isMounted = useIsMounted()
 
   const onConnect = async (x: Connector) => {
     await connectAsync(x).then(({ account }) => {
@@ -42,7 +60,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
   }
 
   return (
-    <div>
+    <>
       <Modal
         title="Connect Wallet"
         panelClassName="max-w-md"
@@ -76,7 +94,7 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                 )}
                 onClick={() => onConnect(x)}
                 disabled={
-                  isMounted
+                  isMounted()
                     ? !x.ready || x.id === account?.connector?.id
                     : false
                 }
@@ -94,18 +112,18 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
                   )}
                   <span className="flex items-center justify-between flex-1">
                     <span>
-                      {isMounted
+                      {isMounted()
                         ? x.id === 'injected'
                           ? 'Browser Wallet'
                           : x.name
                         : x.name}
-                      {isMounted ? !x.ready && ' (unsupported)' : ''}
+                      {isMounted() ? !x.ready && ' (unsupported)' : ''}
                     </span>
                     <span>
                       {isConnecting && x.id === pendingConnector?.id && (
                         <Loader />
                       )}
-                      {!loading && x.id === account?.connector?.id && (
+                      {!signing && x.id === account?.connector?.id && (
                         <AiOutlineCheck className="text-green-800" />
                       )}
                     </span>
@@ -122,31 +140,35 @@ const ConnectWalletButton = ({ handleSign, loading }: Props) => {
           ) : null}
         </div>
       </Modal>
-      {activeConnector?.id ? (
-        activeChain?.id === POLYGON_CHAIN_ID ? (
-          selectedChannel ? (
-            <UserMenu />
+      {isMounted() && !loading ? (
+        activeConnector?.id ? (
+          activeChain?.id === POLYGON_CHAIN_ID ? (
+            selectedChannel ? (
+              <UserMenu />
+            ) : (
+              <Button
+                loading={signing}
+                onClick={() => handleSign()}
+                disabled={signing}
+              >
+                Sign In
+              </Button>
+            )
           ) : (
             <Button
-              loading={loading}
-              onClick={() => handleSign()}
-              disabled={loading}
+              onClick={() => switchNetwork && switchNetwork(POLYGON_CHAIN_ID)}
+              variant="danger"
             >
-              Sign In
+              <span className="text-white">Wrong network</span>
             </Button>
           )
         ) : (
-          <Button
-            onClick={() => switchNetwork && switchNetwork(POLYGON_CHAIN_ID)}
-            variant="danger"
-          >
-            <span className="text-white">Wrong network</span>
-          </Button>
+          <Button onClick={() => setShowModal(true)}>Connect Wallet</Button>
         )
       ) : (
-        <Button onClick={() => setShowModal(true)}>Connect Wallet</Button>
+        <SquareButtonShimmer />
       )}
-    </div>
+    </>
   )
 }
 

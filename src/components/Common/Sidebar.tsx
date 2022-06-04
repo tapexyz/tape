@@ -1,20 +1,18 @@
+import SquareButtonShimmer from '@components/Shimmers/SquareButtonShimmer'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import { EXPLORE, HOME, LIBRARY } from '@utils/url-path'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { useTheme } from 'next-themes'
-import React from 'react'
 import { FiHome } from 'react-icons/fi'
-import {
-  MdOutlineDarkMode,
-  MdOutlineVideoLibrary,
-  MdOutlineWbSunny
-} from 'react-icons/md'
+import { MdOutlineVideoLibrary } from 'react-icons/md'
 import { RiLeafLine } from 'react-icons/ri'
 
-const Sidebar = () => {
-  const { theme, setTheme } = useTheme()
+const ToggleTheme = dynamic(() => import('./ToggleTheme'), {
+  loading: () => <SquareButtonShimmer />
+})
 
+const Sidebar = () => {
   return (
     <div className="fixed top-0 bottom-0 left-0 items-center justify-between hidden w-16 px-4 py-2.5 bg-white dark:bg-black md:flex md:flex-col">
       <div className="flex flex-col items-center space-y-5">
@@ -58,16 +56,7 @@ const Sidebar = () => {
           </Tooltip>
         </div>
       </div>
-      <div className="flex flex-col items-center space-y-2">
-        <button
-          onClick={() => {
-            setTheme(theme === 'dark' ? 'light' : 'dark')
-          }}
-          className="p-2.5 focus:outline-none opacity-70 hover:opacity-100"
-        >
-          {theme === 'dark' ? <MdOutlineWbSunny /> : <MdOutlineDarkMode />}
-        </button>
-      </div>
+      <ToggleTheme />
     </div>
   )
 }
