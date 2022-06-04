@@ -34,6 +34,7 @@ const Commented = () => {
       setCommented(data?.publications?.items)
     }
   })
+  if (!selectedChannel) return null
 
   return (
     <div className="flex flex-col space-y-4">
