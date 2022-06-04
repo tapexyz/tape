@@ -5,12 +5,11 @@ import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
 import { PROFILE_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import React from 'react'
-import Custom404 from 'src/pages/404'
-import Custom500 from 'src/pages/500'
 import { Profile } from 'src/types'
 
 const Activities = dynamic(() => import('./Activities'))
+const Custom500 = dynamic(() => import('../../pages/500'))
+const Custom404 = dynamic(() => import('../../pages/404'))
 const Upload = dynamic(() => import('./Upload'))
 const BasicInfo = dynamic(() => import('./BasicInfo'))
 
