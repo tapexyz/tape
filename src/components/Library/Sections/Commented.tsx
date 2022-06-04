@@ -8,6 +8,7 @@ import {
   LENSTUBE_VIDEOS_APP_ID
 } from '@utils/constants'
 import { PROFILE_FEED_QUERY } from '@utils/gql/queries'
+import useIsMounted from '@utils/hooks/useIsMounted'
 import { COMMENTED_LIBRARY } from '@utils/url-path'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -18,6 +19,7 @@ import { LenstubePublication } from 'src/types/local'
 const Commented = () => {
   const [commented, setCommented] = useState<LenstubePublication[]>([])
   const { selectedChannel } = useAppStore()
+  const isMounted = useIsMounted()
 
   const { loading } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
@@ -34,7 +36,6 @@ const Commented = () => {
       setCommented(data?.publications?.items)
     }
   })
-  if (!selectedChannel) return null
 
   return (
     <div className="flex flex-col space-y-4">
@@ -49,7 +50,7 @@ const Commented = () => {
           </a>
         </Link>
       </div>
-      {(loading || !selectedChannel) && <TimelineShimmer />}
+      {(loading || !isMounted()) && <TimelineShimmer />}
       {!commented.length && <NoDataFound text="This list has no videos." />}
       <div className="grid gap-x-4 lg:grid-cols-4 gap-y-1.5 md:gap-y-6 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
         {commented?.map((video: LenstubePublication, idx: number) => (
