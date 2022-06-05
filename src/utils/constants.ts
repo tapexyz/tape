@@ -1,4 +1,4 @@
-export const IS_MAINNET = false
+export const IS_MAINNET = process.env.NEXT_PUBLIC_IS_MAINNET === 'true'
 export const STATIC_ASSETS = 'https://assets.lenstube.xyz'
 export const LENSTUBE_URL = IS_MAINNET
   ? 'https://lenstube.xyz'
@@ -10,20 +10,21 @@ export const API_URL = IS_MAINNET
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://mumbai.polygonscan.com'
-
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 export const IMAGEKIT_URL = IS_MAINNET
-  ? 'https://ik.imagekit.io/lenstubeTestnet'
-  : 'https://ik.imagekit.io/lenstubeTestnet'
+  ? 'https://ik.imagekit.io/lenstube'
+  : 'https://ik.imagekit.io/lenstube/testnet'
 
 export const IPFS_GATEWAY = 'https://ipfs.infura.io/ipfs'
 
+// Bundlr
 export const BUNDLR_NODE_URL = IS_MAINNET
   ? 'https://node1.bundlr.network'
   : 'https://devnet.bundlr.network'
 export const BUNDLR_CURRENCY = 'matic'
 export const BUNDLR_WEBSITE_URL = 'https://bundlr.network/'
+
 export const LENSTER_WEBSITE_URL = IS_MAINNET
   ? 'https://lenster.xyz'
   : 'https://testnet.lenster.xyz'
@@ -35,5 +36,6 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
 export const ERROR_MESSAGE = 'Oops, something went something!'
 
+// App Ids
 export const LENSTUBE_VIDEOS_APP_ID = 'lenstube-videos'
 export const LENSTUBE_COMMENTS_APP_ID = 'lenstube-comments'
