@@ -50,6 +50,7 @@ const CreateChannel = () => {
     setShowCreateChannel(false)
     setCreating(false)
     reset()
+    setHandle('')
   }
 
   const create = () => {
@@ -108,14 +109,13 @@ const CreateChannel = () => {
 
           <div className="flex items-center justify-between">
             <span className="w-1/2 truncate">
-              {data?.createProfile?.reason ||
-                (error?.message && (
-                  <div>
-                    <p className="text-xs font-bold text-red-500">
-                      {data?.createProfile?.reason || error?.message}
-                    </p>
-                  </div>
-                ))}
+              {(data?.createProfile?.reason || error?.message) && (
+                <div>
+                  <p className="text-xs font-bold text-red-500">
+                    {data?.createProfile?.reason || error?.message}
+                  </p>
+                </div>
+              )}
             </span>
             <span>
               <Button
