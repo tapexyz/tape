@@ -3,13 +3,18 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import { WATCH_LATER_LIBRARY } from '@utils/url-path'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BiChevronRight } from 'react-icons/bi'
 import { MdOutlineWatchLater } from 'react-icons/md'
 import { LenstubePublication } from 'src/types/local'
 
 const WatchLater = () => {
   const { watchLater } = useAppStore()
+  const [videos, setVideos] = useState<LenstubePublication[]>([])
+
+  useEffect(() => {
+    setVideos(watchLater)
+  }, [watchLater])
 
   return (
     <div className="flex flex-col space-y-4">
@@ -24,9 +29,9 @@ const WatchLater = () => {
           </a>
         </Link>
       </div>
-      {!watchLater.length && <NoDataFound text="This list has no videos." />}
+      {!videos.length && <NoDataFound text="This list has no videos." />}
       <div className="grid gap-x-4 lg:grid-cols-4 gap-y-1 md:gap-y-6 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
-        {watchLater.map((video: LenstubePublication, idx: number) => (
+        {videos.map((video: LenstubePublication, idx: number) => (
           <VideoCard key={idx} video={video} />
         ))}
       </div>

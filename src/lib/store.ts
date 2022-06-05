@@ -25,7 +25,8 @@ interface AppState {
   setNotificationCount: (count: number) => void
   setHasNewNotification: (value: boolean) => void
   addToRecentlyWatched: (video: LenstubePublication) => void
-  addToWatchedLater: (video: LenstubePublication) => void
+  addToWatchLater: (video: LenstubePublication) => void
+  removeFromWatchLater: (video: LenstubePublication) => void
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
 }
 export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY
@@ -35,7 +36,7 @@ export const ALCHEMY_RPC_URL = IS_MAINNET
 
 export const useAppStore = create(
   persist<AppState>(
-    (set, _get) => ({
+    (set, get) => ({
       channels: [],
       recentlyWatched: [],
       watchLater: [],
@@ -48,14 +49,31 @@ export const useAppStore = create(
       token: { access: null, refresh: null },
       setSelectedChannel: (channel) =>
         set(() => ({ selectedChannel: channel })),
-      addToRecentlyWatched: (video) =>
-        set((state) => ({
-          recentlyWatched: [video, ...state.recentlyWatched]
-        })),
-      addToWatchedLater: (video) =>
-        set((state) => ({
-          watchLater: [video, ...state.recentlyWatched]
-        })),
+      addToRecentlyWatched: (video) => {
+        const alreadyExists = get().recentlyWatched.find(
+          (el) => el.id === video.id
+        )
+        const newList = get().recentlyWatched.slice(0, 9)
+        set(() => ({
+          recentlyWatched: alreadyExists
+            ? get().recentlyWatched
+            : [video, ...newList]
+        }))
+      },
+      addToWatchLater: (video) => {
+        const alreadyExists = get().watchLater.find((el) => el.id === video.id)
+        const newList = get().watchLater.slice(0, 9)
+        set(() => ({
+          watchLater: alreadyExists ? get().watchLater : [video, ...newList]
+        }))
+      },
+      removeFromWatchLater: (video) => {
+        const index = get().watchLater.findIndex((el) => el.id === video.id)
+        const videos = get().watchLater
+        set(() => ({
+          watchLater: videos.length === 1 ? [] : videos.slice(index, 1)
+        }))
+      },
       setToken: (token) => set(() => ({ token })),
       setNotificationCount: (notificationCount) =>
         set(() => ({ notificationCount })),

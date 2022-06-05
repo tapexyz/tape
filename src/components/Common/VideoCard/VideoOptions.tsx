@@ -1,5 +1,6 @@
 import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
+import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
 import React from 'react'
 import { FiFlag } from 'react-icons/fi'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
@@ -8,7 +9,7 @@ import { RiShareForwardLine } from 'react-icons/ri'
 import { LenstubePublication } from 'src/types/local'
 
 const VideoOptions = ({ video }: { video: LenstubePublication }) => {
-  const { addToWatchedLater } = useAppStore()
+  const { addToWatchLater, removeFromWatchLater, watchLater } = useAppStore()
   return (
     <Popover
       trigger={
@@ -21,11 +22,19 @@ const VideoOptions = ({ video }: { video: LenstubePublication }) => {
       <div className="p-1 mt-0.5 overflow-hidden border border-gray-200 rounded-lg shadow dark:border-gray-800 bg-secondary">
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
           <button
-            onClick={() => addToWatchedLater(video)}
+            onClick={() =>
+              isAlreadyAddedToWatchLater(video, watchLater)
+                ? removeFromWatchLater(video)
+                : addToWatchLater(video)
+            }
             className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <MdOutlineWatchLater className="text-base" />
-            <span className="whitespace-nowrap">Watch Later</span>
+            <span className="whitespace-nowrap">
+              {isAlreadyAddedToWatchLater(video, watchLater)
+                ? 'Remove from Watch Later'
+                : 'Watch Later'}
+            </span>
           </button>
           <button className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
             <RiShareForwardLine className="text-base" />
