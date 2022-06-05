@@ -8,6 +8,7 @@ import { getHandle } from '@utils/functions/getHandle'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
 import { isEmptyString } from '@utils/functions/isEmptyString'
 import { CREATE_PROFILE_MUTATION } from '@utils/gql/queries'
+import useIsMounted from '@utils/hooks/useIsMounted'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -20,6 +21,7 @@ const CreateChannel = () => {
   const { indexed } = usePendingTxn(txnHash)
   const [handle, setHandle] = useState('')
   const router = useRouter()
+  const isMounted = useIsMounted()
 
   const [createProfile, { data, reset, error }] = useMutation(
     CREATE_PROFILE_MUTATION,
@@ -73,7 +75,7 @@ const CreateChannel = () => {
     <Modal
       title={IS_MAINNET ? 'Claim Handle 🌿' : 'Create Channel 🌿'}
       onClose={() => setShowCreateChannel(false)}
-      show={showCreateChannel}
+      show={isMounted() && showCreateChannel}
       panelClassName="max-w-md"
     >
       {IS_MAINNET ? (
