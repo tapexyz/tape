@@ -1,7 +1,5 @@
-import Layout from '@components/Common/Layout'
 import React from 'react'
-
-import VideoDetails from './VideoDetails'
+import Custom404 from 'src/pages/404'
 
 const LiveStudio = () => {
   //   const { data, error } = useFetch<any>(`/api/stream`, { method: "POST" });
@@ -12,11 +10,12 @@ const LiveStudio = () => {
   //   );
 
   return (
-    <Layout>
-      <div className="">
-        <VideoDetails />
-      </div>
-    </Layout>
+    // <Layout>
+    <div className="">
+      {/* <VideoDetails /> */}
+      <Custom404 />
+    </div>
+    // </Layout>
   )
 }
 

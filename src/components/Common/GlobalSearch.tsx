@@ -81,7 +81,7 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
                           {channel.handle}
                         </span>
                       </span>
-                      <span className="inline-flex items-center space-x-1 text-xs opacity-60">
+                      <span className="inline-flex items-center space-x-1 text-xs whitespace-nowrap opacity-60">
                         <BiUser />
                         <span>
                           {channel.stats.totalFollowers}

@@ -208,6 +208,22 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
     }))
   }
 
+  const getPlaybackId = async (arweaveId: string) => {
+    try {
+      const playbackResponse = await fetch('/api/video/playback', {
+        method: 'POST',
+        body: JSON.stringify({
+          arweaveId
+        })
+      })
+      const { playbackId } = await playbackResponse.json()
+      return playbackId
+    } catch (error) {
+      console.log('🚀 ~ file: Details.tsx ~ getPlaybackId ~ error', error)
+      return null
+    }
+  }
+
   const uploadToBundlr = async () => {
     if (!bundlrData.instance || !video.buffer) return
     try {
@@ -227,20 +243,14 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         tx.id,
         tx.getRaw().length
       )
-      const playbackResponse = await fetch('/api/video/playback', {
-        method: 'POST',
-        body: JSON.stringify({
-          arweaveId: response.data.id
-        })
-      })
-      const { playbackId } = await playbackResponse.json()
+      const playbackId = await getPlaybackId(response.data.id)
       fetchBalance(bundlr)
       setDisableSubmit(false)
       setVideoMeta((data) => {
         return { ...data, videoSource: response.data, playbackId }
       })
       setIsUploadedToBundlr(true)
-      setButtonText('Posting Video')
+      setButtonText('Post Video')
     } catch (error) {
       console.log('🚀 ~ file: Details.tsx ~ uploadToBundlr ~ error', error)
       toast.error('Failed to upload video!')
@@ -306,12 +316,24 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const createPublication = async () => {
     setButtonText('Storing metadata...')
     setDisableSubmit(true)
+    let media = [
+      {
+        item: `${ARWEAVE_WEBSITE_URL}/${videoMeta.videoSource?.id}`,
+        type: video.videoType
+      }
+    ]
+    if (videoMeta.playbackId) {
+      media.push({
+        item: `https://livepeercdn.com/asset/${videoMeta.playbackId}/video`,
+        type: video.videoType
+      })
+    }
     const { ipfsUrl } = await uploadDataToIPFS({
       version: '1.0.0',
       metadata_id: uuidv4(),
       description: videoMeta.description,
       content: `${videoMeta.title}\n\n${videoMeta.description}`,
-      external_url: null,
+      external_url: `${ARWEAVE_WEBSITE_URL}/${videoMeta.videoSource?.id}`,
       image: videoMeta.videoThumbnail?.ipfsUrl,
       cover: videoMeta.videoThumbnail?.ipfsUrl,
       imageMimeType: videoMeta.videoThumbnail?.type,
@@ -323,16 +345,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           value: 'LenstubeVideo'
         }
       ],
-      media: [
-        {
-          item: `${ARWEAVE_WEBSITE_URL}/${videoMeta.videoSource?.id}`,
-          type: video.videoType
-        },
-        {
-          item: `https://livepeercdn.com/asset/${videoMeta.playbackId}/video`,
-          type: video.videoType
-        }
-      ],
+      media,
       appId: LENSTUBE_VIDEOS_APP_ID
     })
     setButtonText('Submitting Txn...')
