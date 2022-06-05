@@ -1,7 +1,10 @@
 import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
+import { LENSTUBE_URL } from '@utils/constants'
 import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
+import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import React from 'react'
+import toast from 'react-hot-toast'
 import { FiFlag } from 'react-icons/fi'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { MdOutlineWatchLater } from 'react-icons/md'
@@ -10,6 +13,13 @@ import { LenstubePublication } from 'src/types/local'
 
 const VideoOptions = ({ video }: { video: LenstubePublication }) => {
   const { addToWatchLater, removeFromWatchLater, watchLater } = useAppStore()
+  const [, copy] = useCopyToClipboard()
+
+  const share = () => {
+    copy(`${LENSTUBE_URL}/videos/${video.id}`)
+    toast.success('Perma link copied to clipboard 🎉')
+  }
+
   return (
     <Popover
       trigger={
@@ -36,7 +46,10 @@ const VideoOptions = ({ video }: { video: LenstubePublication }) => {
                 : 'Watch Later'}
             </span>
           </button>
-          <button className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
+          <button
+            onClick={() => share()}
+            className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
             <RiShareForwardLine className="text-base" />
             <span className="whitespace-nowrap">Share</span>
           </button>
