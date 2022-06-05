@@ -229,7 +229,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       const playbackResponse = await fetch('/api/video/playback', {
         method: 'POST',
         body: JSON.stringify({
-          url: `https://arweave.net/${response.data.id}`
+          arweaveId: response.data.id
         })
       })
       const { playbackId } = await playbackResponse.json()

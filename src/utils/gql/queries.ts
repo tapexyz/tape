@@ -723,3 +723,9 @@ export const CHANNEL_FOLLOW_MODULE_QUERY = gql`
     }
   }
 `
+
+export const CREATE_REPORT_PUBLICATION_MUTATION = gql`
+  mutation ReportPublication($request: ReportPublicationRequest!) {
+    reportPublication(request: $request)
+  }
+`

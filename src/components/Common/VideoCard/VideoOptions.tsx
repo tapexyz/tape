@@ -3,6 +3,7 @@ import useAppStore from '@lib/store'
 import { LENSTUBE_URL } from '@utils/constants'
 import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
+import Link from 'next/link'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { FiFlag } from 'react-icons/fi'
@@ -17,7 +18,7 @@ const VideoOptions = ({ video }: { video: LenstubePublication }) => {
 
   const share = () => {
     copy(`${LENSTUBE_URL}/videos/${video.id}`)
-    toast.success('Perma link copied to clipboard 🎉')
+    toast.success('Link copied to clipboard 🎉')
   }
 
   return (
@@ -53,10 +54,12 @@ const VideoOptions = ({ video }: { video: LenstubePublication }) => {
             <RiShareForwardLine className="text-base" />
             <span className="whitespace-nowrap">Share</span>
           </button>
-          <button className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
-            <FiFlag className="text-sm mx-0.5" />
-            <span className="whitespace-nowrap">Report</span>
-          </button>
+          <Link href={`/report/${video.id}`}>
+            <a className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
+              <FiFlag className="text-sm mx-0.5" />
+              <span className="whitespace-nowrap">Report</span>
+            </a>
+          </Link>
         </div>
       </div>
     </Popover>
