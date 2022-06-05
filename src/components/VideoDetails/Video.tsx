@@ -12,10 +12,23 @@ type Props = {
   video: LenstubePublication
 }
 
+type PlayerProps = {
+  source: string
+  poster: string
+}
+
+export const MemoizedVideoPlayer = React.memo(
+  ({ source, poster }: PlayerProps) => (
+    <VideoPlayer source={source} poster={poster} />
+  )
+)
+
+MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
+
 const Video: FC<Props> = ({ video }) => {
   return (
     <div className="overflow-hidden rounded">
-      <VideoPlayer
+      <MemoizedVideoPlayer
         source={video?.metadata?.media[1]?.original.url}
         poster={video?.metadata?.cover?.original.url}
       />
