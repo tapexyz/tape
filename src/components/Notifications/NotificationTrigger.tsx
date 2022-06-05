@@ -27,7 +27,7 @@ const NotificationTrigger = () => {
     if (selectedChannel && notificationsData) {
       setHasNewNotification(
         notificationCount !==
-          notificationsData?.notifications?.pageInfo?.totalCount
+          notificationsData?.notifications?.pageInfo?.totalCount.toString()
       )
       setNotificationCount(
         notificationsData?.notifications?.pageInfo?.totalCount
@@ -36,6 +36,7 @@ const NotificationTrigger = () => {
   }, [
     selectedChannel,
     notificationsData,
+    notificationsData?.notifications?.pageInfo?.totalCount,
     notificationCount,
     setHasNewNotification,
     setNotificationCount
@@ -57,7 +58,7 @@ const NotificationTrigger = () => {
           >
             <CgBell />
             {hasNewNotification && (
-              <span className="absolute flex w-1.5 h-1.5 bg-indigo-500 rounded-full top-1 right-1" />
+              <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-1 right-1" />
             )}
           </button>
         </Tooltip>
