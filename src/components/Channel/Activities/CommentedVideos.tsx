@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client'
-import Timeline from '@components/Home/Timeline'
+import CommentedVideoCard from '@components/Library/CommentedVideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -59,10 +59,16 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
 
   return (
     <div className="w-full">
-      {loading && <TimelineShimmer />}
       {!error && !loading && (
         <div>
-          <Timeline videos={channelVideos} />
+          <div className="grid gap-x-4 lg:grid-cols-4 gap-y-1.5 md:gap-y-6 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
+            {channelVideos?.map((video: LenstubePublication, idx: number) => (
+              <CommentedVideoCard
+                key={idx}
+                comment={video as LenstubePublication}
+              />
+            ))}
+          </div>
           {pageInfo?.next && channelVideos.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-5">
               <Loader />

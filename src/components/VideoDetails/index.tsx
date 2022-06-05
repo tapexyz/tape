@@ -50,7 +50,7 @@ const VideoDetails = () => {
       {!loading && !error && video ? (
         <>
           <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
-            <div className="col-span-3">
+            <div className="col-span-3 space-y-4 divide-y divide-gray-200 dark:divide-gray-900">
               <Video video={video} />
               <AboutChannel video={video} isFollower={isFollower} />
               <VideoComments video={video} />

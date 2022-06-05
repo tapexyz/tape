@@ -19,37 +19,42 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
   const subscribeType = channel?.followModule?.__typename
 
   return (
-    <div className="flex items-center justify-between w-full my-2">
-      <div className="flex-none mr-3">
-        <img
-          src={imageCdn(getProfilePicture(channel))}
-          className="w-10 h-10 rounded-full"
-          draggable={false}
-          alt=""
-        />
-      </div>
-      <div className="flex flex-wrap justify-between flex-1 py-2 space-y-2">
-        <div className="flex flex-col items-start mr-2">
-          <Link href={`/${channel?.handle}`}>
-            <a className="font-bold">{channel?.handle}</a>
-          </Link>
-          <span className="inline-flex items-center space-x-1 text-xs">
-            {channel?.stats.totalFollowers} subscribers
-          </span>
+    <div>
+      <div className="flex justify-between w-full my-2">
+        <div className="flex-none mt-2.5 mr-3">
+          <img
+            src={imageCdn(getProfilePicture(channel))}
+            className="w-10 h-10 rounded-full"
+            draggable={false}
+            alt=""
+          />
         </div>
-        <div className="flex items-center space-x-2">
-          {isFollower ? <MintVideo video={video} /> : null}
-          {subscribeType === 'FeeFollowModuleSettings' ? (
-            <JoinChannel channel={channel} />
-          ) : (
-            <>
-              {isFollower ? (
-                <UnSubscribe channel={channel} />
+        <div className="flex flex-col flex-1">
+          <div className="flex flex-wrap justify-between py-2 space-y-2">
+            <div className="flex flex-col items-start mr-2">
+              <Link href={`/${channel?.handle}`}>
+                <a className="font-bold">{channel?.handle}</a>
+              </Link>
+              <span className="inline-flex items-center space-x-1 text-xs">
+                {channel?.stats.totalFollowers} subscribers
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              {isFollower ? <MintVideo video={video} /> : null}
+              {subscribeType === 'FeeFollowModuleSettings' ? (
+                <JoinChannel channel={channel} />
               ) : (
-                <Subscribe channel={channel} />
+                <>
+                  {isFollower ? (
+                    <UnSubscribe channel={channel} />
+                  ) : (
+                    <Subscribe channel={channel} />
+                  )}
+                </>
               )}
-            </>
-          )}
+            </div>
+          </div>
+          <p className="text-sm opacity-80">{video.metadata.description}</p>
         </div>
       </div>
     </div>

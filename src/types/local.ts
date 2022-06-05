@@ -37,6 +37,7 @@ export type BundlrResult = {
 export type VideoUploadForm = {
   videoThumbnail: IPFSUploadResult | null
   videoSource: BundlrResult | null
+  playbackId: string | null
   title: string
   description: string
 }

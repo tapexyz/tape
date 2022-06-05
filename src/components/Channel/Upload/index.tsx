@@ -78,7 +78,7 @@ const Upload = () => {
     <Modal
       onClose={() => onCloseUploadModal()}
       show={showUploadModal}
-      panelClassName="max-w-4xl !p-3 max-h-[80vh]"
+      panelClassName="max-w-4xl !p-4 max-h-[80vh]"
       preventAutoClose={true}
     >
       {video.preview ? (

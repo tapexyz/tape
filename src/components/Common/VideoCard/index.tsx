@@ -16,16 +16,16 @@ type Props = {
 }
 
 const VideoCard: FC<Props> = ({ video }) => {
-  const publication =
-    video.__typename === 'Comment'
-      ? (video.commentOn as LenstubePublication)
-      : video
+  // const publication =
+  //   video.__typename === 'Comment'
+  //     ? (video.commentOn as LenstubePublication)
+  //     : video
   return (
     <div className="transition duration-500 ease-in-out rounded-b group bg-secondary">
-      <Link href={`/videos/${publication.id ?? publication.pubId}`} passHref>
+      <Link href={`/videos/${video.id}`} passHref>
         <div className="rounded-t-lg cursor-pointer aspect-w-16 aspect-h-9">
           <img
-            src={imageCdn(getThumbnailUrl(publication))}
+            src={imageCdn(getThumbnailUrl(video))}
             alt=""
             draggable={false}
             className="object-cover object-center w-full h-full rounded-t lg:w-full lg:h-full"
@@ -37,27 +37,27 @@ const VideoCard: FC<Props> = ({ video }) => {
           <div className="flex-none">
             <img
               className="w-8 h-8 rounded-full"
-              src={imageCdn(getProfilePicture(publication.profile))}
+              src={imageCdn(getProfilePicture(video.profile))}
               alt=""
               draggable={false}
             />
           </div>
           <div className="flex flex-col items-start flex-1 pb-1">
             <div className="flex w-full items-start justify-between space-x-1.5">
-              <Link href={`/videos/${publication.id ?? publication.pubId}`}>
+              <Link href={`/videos/${video.id}`}>
                 <a className="mb-1 text-sm font-medium line-clamp-2">
-                  {publication.metadata?.name}
+                  {video.metadata?.name}
                 </a>
               </Link>
               <VideoOptions />
             </div>
-            <Link href={`/${publication.profile?.handle}`}>
+            <Link href={`/${video.profile?.handle}`}>
               <a className="text-xs hover:opacity-100 opacity-70">
-                {publication.profile?.handle}
+                {video.profile?.handle}
               </a>
             </Link>
             <div className="flex items-center text-[11px] opacity-70">
-              <span>{dayjs(new Date(publication.createdAt)).fromNow()}</span>
+              <span>{dayjs(new Date(video.createdAt)).fromNow()}</span>
             </div>
           </div>
         </div>

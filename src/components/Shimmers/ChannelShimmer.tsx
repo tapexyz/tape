@@ -20,15 +20,15 @@ const ChannelShimmer = () => {
       <div className="grid gap-4 mt-4 md:grid-cols-7 md:mt-6">
         <div className="col-span-1 space-y-2 md:mt-3">
           <div className="items-center justify-center hidden space-x-2 md:flex">
-            <div className="w-4 h-4 bg-gray-300 border-2 rounded-md dark:bg-gray-700"></div>
+            <div className="w-4 h-4 bg-gray-300 rounded-md dark:bg-gray-700"></div>
             <div className="w-1/2 h-3 bg-gray-300 rounded dark:bg-gray-700"></div>
           </div>
           <div className="items-center justify-center hidden space-x-2 md:flex">
-            <div className="w-4 h-4 bg-gray-300 border-2 rounded-md dark:bg-gray-700"></div>
+            <div className="w-4 h-4 bg-gray-300 rounded-md dark:bg-gray-700"></div>
             <div className="w-1/2 h-3 bg-gray-300 rounded dark:bg-gray-700"></div>
           </div>
           <div className="items-center justify-center hidden space-x-2 md:flex">
-            <div className="w-4 h-4 bg-gray-300 border-2 rounded-md dark:bg-gray-700"></div>
+            <div className="w-4 h-4 bg-gray-300 rounded-md dark:bg-gray-700"></div>
             <div className="w-1/2 h-3 bg-gray-300 rounded dark:bg-gray-700"></div>
           </div>
         </div>

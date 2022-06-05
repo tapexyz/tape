@@ -110,6 +110,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const [videoMeta, setVideoMeta] = useState<VideoUploadForm>({
     videoThumbnail: null,
     videoSource: null,
+    playbackId: null,
     title: '',
     description: ''
   })
@@ -225,15 +226,18 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         tx.id,
         tx.getRaw().length
       )
-      console.log(
-        '🚀 ~ file: Details.tsx ~ line 184 ~ onClickUpload ~ response',
-        response
-      )
+      const playbackResponse = await fetch('/api/video/playback', {
+        method: 'POST',
+        body: JSON.stringify({
+          url: `https://arweave.net/${response.data.id}`
+        })
+      })
+      const { playbackId } = await playbackResponse.json()
       setButtonText('Post Video')
       fetchBalance(bundlr)
       setDisableSubmit(false)
       setVideoMeta((data) => {
-        return { ...data, videoSource: response.data }
+        return { ...data, videoSource: response.data, playbackId }
       })
       setIsUploadedToBundlr(true)
     } catch (error) {
@@ -301,6 +305,10 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const createPublication = async () => {
     setButtonText('Storing metadata...')
     setDisableSubmit(true)
+    console.log(
+      '🚀 ~ file: Details.tsx ~ line 341 ~ createPublication ~ ipfsUrl',
+      videoMeta
+    )
     const { ipfsUrl } = await uploadDataToIPFS({
       version: '1.0.0',
       metadata_id: uuidv4(),
@@ -322,10 +330,15 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         {
           item: `https://arweave.net/${videoMeta.videoSource?.id}`,
           type: video.videoType
+        },
+        {
+          item: `https://livepeercdn.com/asset/${videoMeta.playbackId}/video`,
+          type: video.videoType
         }
       ],
       appId: LENSTUBE_VIDEOS_APP_ID
     })
+
     // TODO: Add fields to select collect and reference module
     createTypedData({
       variables: {
