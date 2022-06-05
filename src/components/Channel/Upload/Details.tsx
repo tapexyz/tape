@@ -7,6 +7,7 @@ import ChooseImage from '@components/UIElements/ChooseImage'
 import { Input } from '@components/UIElements/Input'
 import useAppStore from '@lib/store'
 import {
+  ARWEAVE_WEBSITE_URL,
   BUNDLR_CURRENCY,
   BUNDLR_WEBSITE_URL,
   LENSHUB_PROXY_ADDRESS,
@@ -233,17 +234,17 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         })
       })
       const { playbackId } = await playbackResponse.json()
-      setButtonText('Post Video')
       fetchBalance(bundlr)
       setDisableSubmit(false)
       setVideoMeta((data) => {
         return { ...data, videoSource: response.data, playbackId }
       })
       setIsUploadedToBundlr(true)
+      setButtonText('Posting Video')
     } catch (error) {
-      console.log('🚀 ~ file: Details.tsx ~ onClickUpload ~ error', error)
+      console.log('🚀 ~ file: Details.tsx ~ uploadToBundlr ~ error', error)
       toast.error('Failed to upload video!')
-      setButtonText('Upload')
+      setButtonText('Upload Video')
       setIsUploadedToBundlr(false)
       setDisableSubmit(false)
     }
@@ -305,10 +306,6 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const createPublication = async () => {
     setButtonText('Storing metadata...')
     setDisableSubmit(true)
-    console.log(
-      '🚀 ~ file: Details.tsx ~ line 341 ~ createPublication ~ ipfsUrl',
-      videoMeta
-    )
     const { ipfsUrl } = await uploadDataToIPFS({
       version: '1.0.0',
       metadata_id: uuidv4(),
@@ -328,7 +325,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       ],
       media: [
         {
-          item: `https://arweave.net/${videoMeta.videoSource?.id}`,
+          item: `${ARWEAVE_WEBSITE_URL}/${videoMeta.videoSource?.id}`,
           type: video.videoType
         },
         {
@@ -338,7 +335,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       ],
       appId: LENSTUBE_VIDEOS_APP_ID
     })
-
+    setButtonText('Submitting Txn...')
     // TODO: Add fields to select collect and reference module
     createTypedData({
       variables: {

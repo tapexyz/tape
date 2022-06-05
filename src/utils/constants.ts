@@ -23,7 +23,8 @@ export const BUNDLR_NODE_URL = IS_MAINNET
   ? 'https://node1.bundlr.network'
   : 'https://devnet.bundlr.network'
 export const BUNDLR_CURRENCY = 'matic'
-export const BUNDLR_WEBSITE_URL = 'https://bundlr.network/'
+export const BUNDLR_WEBSITE_URL = 'https://bundlr.network'
+export const ARWEAVE_WEBSITE_URL = 'https://arweave.net'
 
 export const LENSTER_WEBSITE_URL = IS_MAINNET
   ? 'https://lenster.xyz'

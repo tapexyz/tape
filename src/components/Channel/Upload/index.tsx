@@ -39,10 +39,6 @@ const Upload = () => {
         let reader = new FileReader()
         reader.onload = function () {
           if (reader.result) {
-            console.log(
-              '🚀 ~ file: index.tsx ~ line 45 ~ uploadVideo ~ reader',
-              file
-            )
             let buffer = Buffer.from(reader.result as string)
             setVideo({ ...video, buffer, preview, videoType: file.type })
           }

@@ -50,7 +50,7 @@ const ChooseImage: FC<Props> = ({ label, afterUpload, required = false }) => {
       {ipfsResult ? (
         <div className="relative">
           <img
-            className="object-cover w-full h-40 rounded-md "
+            className="object-cover w-full h-[166px] rounded-md "
             src={imageCdn(ipfsResult.ipfsUrl)}
             alt=""
             draggable={false}
