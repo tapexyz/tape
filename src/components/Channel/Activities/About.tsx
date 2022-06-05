@@ -37,7 +37,7 @@ const About: FC<Props> = ({ channel }) => {
                 href={getSpecificAttribute('website')}
                 target="_blank"
                 rel="noreferer noreferrer"
-                className="hover:text-indigo-500"
+                className="hover:text-blue-500"
               >
                 Website
               </a>
@@ -50,7 +50,7 @@ const About: FC<Props> = ({ channel }) => {
                 href={getSpecificAttribute('website')}
                 target="_blank"
                 rel="noreferer noreferrer"
-                className="hover:text-indigo-500"
+                className="hover:text-blue-500"
               >
                 Twitter
               </a>
@@ -64,7 +64,7 @@ const About: FC<Props> = ({ channel }) => {
               href={`${LENSTER_WEBSITE_URL}/u/${channel?.handle}`}
               target="_blank"
               rel="noreferer noreferrer"
-              className="hover:text-indigo-500"
+              className="hover:text-blue-500"
             >
               Lenster
             </a>
