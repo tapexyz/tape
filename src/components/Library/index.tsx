@@ -10,9 +10,11 @@ const Library = () => {
   return (
     <Layout>
       <MetaTags title="Library" />
-      <WatchLater />
-      <Recents />
-      <Commented />
+      <div className="space-y-4">
+        <WatchLater />
+        <Recents />
+        <Commented />
+      </div>
     </Layout>
   )
 }

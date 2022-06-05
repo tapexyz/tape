@@ -44,7 +44,11 @@ const VideoPlayer: FC<Props> = ({
           ],
           poster: poster ?? source
         }}
-        options={{ controls: controls }}
+        options={{
+          controls: controls,
+          autoplay: autoPlay,
+          autopause: true
+        }}
       />
     </div>
   )

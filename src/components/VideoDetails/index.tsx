@@ -7,7 +7,7 @@ import { LENSTUBE_VIDEOS_APP_ID, ZERO_ADDRESS } from '@utils/constants'
 import { VIDEO_DETAIL_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { LenstubePublication } from 'src/types/local'
@@ -22,7 +22,7 @@ const VideoDetails = () => {
   const {
     query: { id }
   } = useRouter()
-  const { selectedChannel } = useAppStore()
+  const { selectedChannel, addToRecentlyWatched } = useAppStore()
   const channelId = selectedChannel?.id ?? id?.toString().split('-')[0]
   const { data, error, loading } = useQuery(VIDEO_DETAIL_QUERY, {
     variables: {
@@ -37,8 +37,12 @@ const VideoDetails = () => {
     },
     skip: !id
   })
-
   const video = data?.publication as LenstubePublication
+
+  useEffect(() => {
+    if (video) addToRecentlyWatched(video)
+  }, [video, addToRecentlyWatched])
+
   if (error) return <Custom500 />
   if (video && video?.__typename !== 'Post') return <Custom404 />
   const isFollower = data?.doesFollow[0].follows as boolean
