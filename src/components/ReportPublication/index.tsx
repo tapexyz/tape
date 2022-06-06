@@ -3,6 +3,7 @@ import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
 import { CREATE_REPORT_PUBLICATION_MUTATION } from '@utils/gql/queries'
+import { HOME } from '@utils/url-path'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -11,7 +12,8 @@ import { RiSpamLine } from 'react-icons/ri'
 
 const ReportPublication = () => {
   const {
-    query: { id }
+    query: { id },
+    push
   } = useRouter()
   const [reason, setReason] = useState('ILLEGAL-ANIMAL_ABUSE')
   const [createReport, { data, loading: reporting, error }] = useMutation(
@@ -19,10 +21,12 @@ const ReportPublication = () => {
   )
 
   useEffect(() => {
-    if (data?.reportPublication)
+    if (data) {
       toast.success('Publication reported successfully.')
+      push(HOME)
+    }
     if (error?.message) toast.error(error.message)
-  }, [error, data])
+  }, [error, data, push])
 
   const getReasonType = (type: string) => {
     if (type === 'ILLEGAL') return 'illegalReason'
