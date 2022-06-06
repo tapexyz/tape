@@ -42,3 +42,10 @@ export type VideoUploadForm = {
   title: string
   description: string
 }
+
+export type BasicInfoSettings = {
+  about: string
+  website: string
+  twitter: string
+  cover: string
+}

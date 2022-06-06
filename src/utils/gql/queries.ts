@@ -729,3 +729,34 @@ export const CREATE_REPORT_PUBLICATION_MUTATION = gql`
     reportPublication(request: $request)
   }
 `
+
+export const SET_PROFILE_METADATA_TYPED_DATA_MUTATION = gql`
+  mutation CreateSetProfileMetadataTypedData(
+    $request: CreatePublicSetProfileMetadataURIRequest!
+  ) {
+    createSetProfileMetadataTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          SetProfileMetadataURIWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          metadata
+        }
+      }
+    }
+  }
+`
