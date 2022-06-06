@@ -4,7 +4,7 @@ type Props = {
   channel: Profile
 }
 const Permissions = ({ channel }: Props) => {
-  return <div>Permissions</div>
+  return <div>wip</div>
 }
 
 export default Permissions

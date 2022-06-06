@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
-import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
+import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
 import useAppStore from '@lib/store'
 import { PROFILE_QUERY } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
@@ -42,7 +42,7 @@ const Settings = () => {
   return (
     <Layout>
       <MetaTags title="Channel settings" />
-      {(loading || !isMounted()) && <ChannelShimmer />}
+      {(loading || !isMounted()) && <SettingsShimmer />}
       {!loading && !error && channel ? (
         <div className="grid gap-4 md:grid-cols-4">
           <div className="md:col-span-1">

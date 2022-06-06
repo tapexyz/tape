@@ -6,7 +6,7 @@ type Props = {
 }
 
 const Membership = ({ channel }: Props) => {
-  return <div>Membership</div>
+  return <div>wip</div>
 }
 
 export default Membership
