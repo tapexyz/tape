@@ -105,7 +105,10 @@ const Upload = () => {
               {isDragActive ? (
                 <p>Drop it here</p>
               ) : (
-                <p>Drag and drop your video</p>
+                <div>
+                  <p>Drag and drop your video</p>
+                  <span className="text-sm">(Maximum size 2 GB for now)</span>
+                </div>
               )}
             </span>
           </div>
