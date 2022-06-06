@@ -33,7 +33,7 @@
     "react-hot-toast": "^2.2.0",
     "react-icons": "^4.4.0",
     "uuidv4": "^6.2.13",
-    "wagmi": "^0.4.7",
+    "wagmi": "^0.4.9",
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
