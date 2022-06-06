@@ -5,7 +5,7 @@ import { uploadImageToIPFS } from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { FiUpload } from 'react-icons/fi'
-import { MdOutlineDeleteSweep } from 'react-icons/md'
+import { IoMdClose } from 'react-icons/io'
 import { IPFSUploadResult } from 'src/types/local'
 
 import { Loader } from '../../UIElements/Loader'
@@ -33,8 +33,13 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       })
       setThumbnails(thumbnails)
       setSelectedThumbnailIndex(0)
-      await uploadThumbnailToIpfs(
-        dataURLtoFile(thumbnailArray[0], 'thumbnail.jpeg')
+      const file = await dataURLtoFile(thumbnails[0].url, 'thumbnail.jpeg')
+      const ipfsResult = await uploadThumbnailToIpfs(file)
+      setThumbnails(
+        thumbnails.map((t, i) => {
+          if (i === 0) t.ipfsUrl = ipfsResult.ipfsUrl
+          return t
+        })
       )
     })
   }
@@ -63,9 +68,8 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const onSelectThumbnail = async (index: number) => {
     setSelectedThumbnailIndex(index)
     if (thumbnails[index].ipfsUrl === '') {
-      const ipfsResult = await uploadThumbnailToIpfs(
-        dataURLtoFile(thumbnails[index].url, 'thumbnail.jpeg')
-      )
+      const file = await dataURLtoFile(thumbnails[index].url, 'thumbnail.jpeg')
+      const ipfsResult = await uploadThumbnailToIpfs(file)
       setThumbnails(
         thumbnails.map((t, i) => {
           if (i === index) t.ipfsUrl = ipfsResult.ipfsUrl
@@ -106,9 +110,9 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
           />
           <button
             onClick={() => onClearUpload()}
-            className="absolute p-1 bg-white rounded-full outline-none cursor-pointer dark:bg-black top-1 right-1"
+            className="absolute p-1 bg-white rounded-full outline-none cursor-pointer dark:bg-black top-1.5 right-1.5"
           >
-            <MdOutlineDeleteSweep className="text-red-500" />
+            <IoMdClose className="text-red-500" />
           </button>
         </div>
       ) : uploading ? (
