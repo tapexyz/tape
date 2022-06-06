@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/client'
 import { WebBundlr } from '@bundlr-network/client'
 import VideoPlayer from '@components/Common/VideoPlayer'
 import { Button } from '@components/UIElements/Button'
-import ChooseImage from '@components/UIElements/ChooseImage'
 import { Input } from '@components/UIElements/Input'
 import useAppStore from '@lib/store'
 import {
@@ -40,6 +39,8 @@ import {
   useSigner,
   useSignTypedData
 } from 'wagmi'
+
+import ChooseThumbnail from './ChooseThumbnail'
 
 type Props = {
   video: VideoUpload
@@ -333,7 +334,8 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       metadata_id: uuidv4(),
       description: videoMeta.description,
       content: `${videoMeta.title}\n\n${videoMeta.description}`,
-      external_url: `${ARWEAVE_WEBSITE_URL}/${videoMeta.videoSource?.id}`,
+      external_url: null,
+      animation_url: `${ARWEAVE_WEBSITE_URL}/${videoMeta.videoSource?.id}`,
       image: videoMeta.videoThumbnail?.ipfsUrl,
       cover: videoMeta.videoThumbnail?.ipfsUrl,
       imageMimeType: videoMeta.videoThumbnail?.type,
@@ -444,9 +446,9 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
             />
           </div>
           <div className="mt-4">
-            <ChooseImage
+            <ChooseThumbnail
               label="Thumbnail"
-              required
+              file={video.file}
               afterUpload={(data: IPFSUploadResult | null) => {
                 onThumbnailUpload(data)
               }}

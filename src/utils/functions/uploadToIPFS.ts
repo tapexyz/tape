@@ -16,11 +16,9 @@ const uploadDataToIPFS = async (data: any) => {
   }
 }
 
-const uploadImageToIPFS = async (
-  files: FileList
-): Promise<IPFSUploadResult> => {
+const uploadImageToIPFS = async (file: File): Promise<IPFSUploadResult> => {
   const formData = new FormData()
-  formData.append('file', files[0], 'img')
+  formData.append('file', file, 'img')
   const upload = await fetch('https://ipfs.infura.io:5001/api/v0/add', {
     method: 'POST',
     body: formData
@@ -29,7 +27,7 @@ const uploadImageToIPFS = async (
 
   return {
     ipfsUrl: `https://ipfs.infura.io/ipfs/${Hash}`,
-    type: files[0].type,
+    type: file.type,
     hash: Hash
   }
 }

@@ -17,7 +17,8 @@ const Upload = () => {
   const [video, setVideo] = useState<VideoUpload>({
     buffer: null,
     preview: '',
-    videoType: ''
+    videoType: '',
+    file: null
   })
   const { selectedChannel } = useAppStore()
 
@@ -40,7 +41,7 @@ const Upload = () => {
         reader.onload = function () {
           if (reader.result) {
             let buffer = Buffer.from(reader.result as string)
-            setVideo({ ...video, buffer, preview, videoType: file.type })
+            setVideo({ ...video, buffer, preview, videoType: file.type, file })
           }
         }
         reader.readAsArrayBuffer(file)
@@ -53,7 +54,7 @@ const Upload = () => {
   const onCloseUploadModal = () => {
     setShowUploadModal(false)
     push(selectedChannel?.handle, undefined, { shallow: true })
-    setVideo({ preview: '', buffer: null, videoType: '' })
+    setVideo({ preview: '', buffer: null, videoType: '', file: null })
   }
 
   const onDropRejected = (fileRejections: FileRejection[]) => {

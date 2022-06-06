@@ -27,7 +27,7 @@ const NotificationTrigger = () => {
     if (selectedChannel && notificationsData) {
       setHasNewNotification(
         notificationCount !==
-          notificationsData?.notifications?.pageInfo?.totalCount.toString()
+          notificationsData?.notifications?.pageInfo?.totalCount
       )
       setNotificationCount(
         notificationsData?.notifications?.pageInfo?.totalCount
@@ -43,11 +43,10 @@ const NotificationTrigger = () => {
   ])
 
   const onClickNotification = () => {
-    localStorage.setItem(
-      'notificationCount',
-      notificationsData?.notifications?.pageInfo?.totalCount.toString()
-    )
+    setNotificationCount(notificationsData?.notifications?.pageInfo?.totalCount)
+    setHasNewNotification(false)
   }
+
   return (
     <Popover
       trigger={
