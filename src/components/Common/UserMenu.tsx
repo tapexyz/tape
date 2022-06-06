@@ -1,4 +1,3 @@
-import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
@@ -44,14 +43,14 @@ const UserMenu: FC<Props> = () => {
   return (
     <Popover
       trigger={
-        <Button className="!p-0.5 mt-0.5">
+        <button className="p-[1px] mt-[3px] border border-green-900 rounded-md">
           <img
             className="w-6 h-6 rounded-md"
             src={imageCdn(getProfilePicture(selectedChannel))}
             alt=""
             draggable={false}
           />
-        </Button>
+        </button>
       }
       panelClassName="right-0"
     >
@@ -78,7 +77,7 @@ const UserMenu: FC<Props> = () => {
                 >
                   <span className="inline-flex items-center space-x-1.5">
                     <img
-                      className="w-6 h-6 rounded-lg"
+                      className="w-6 h-6 rounded-md"
                       src={imageCdn(getProfilePicture(channel))}
                       alt=""
                       draggable={false}

@@ -24,7 +24,7 @@ const VideoOptions = ({ video }: { video: LenstubePublication }) => {
   return (
     <Popover
       trigger={
-        <div className="invisible p-1 group-hover:visible">
+        <div className="p-1 lg:invisible group-hover:visible">
           <HiOutlineDotsVertical />
         </div>
       }

@@ -170,10 +170,10 @@ const BasicInfo = ({ channel }: Props) => {
             basicInfo.cover ?? imageCdn(channel?.coverPicture?.original?.url)
           }
           alt=""
-          className="object-cover object-center w-full h-48 bg-white rounded dark:bg-gray-900"
+          className="object-cover object-center w-full h-48 bg-white rounded md:h-56 dark:bg-gray-900"
           draggable={false}
         />
-        <label className="absolute invisible p-1 px-3 text-sm bg-white rounded-md cursor-pointer group-hover:visible dark:bg-black top-2 right-2">
+        <label className="absolute p-1 px-3 text-sm bg-white rounded-md cursor-pointer lg:invisible group-hover:visible dark:bg-black top-2 right-2">
           Change
           <input
             type="file"

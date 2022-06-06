@@ -53,7 +53,7 @@ const NotificationTrigger = () => {
         <Tooltip className="!rounded-lg" content="Notifications">
           <button
             onClick={() => onClickNotification()}
-            className="relative flex self-center p-2 rounded-md focus:outline-none hover:bg-white dark:hover:bg-gray-800"
+            className="relative flex self-center p-[5px] border-transparent border duration-200 transition ease-in-out hover:border-green-900 rounded-md focus:outline-none"
           >
             <CgBell />
             {hasNewNotification && (
