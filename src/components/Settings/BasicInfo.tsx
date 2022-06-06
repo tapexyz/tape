@@ -9,18 +9,22 @@ import {
   LENSTUBE_URL
 } from '@utils/constants'
 import { getKeyFromAttributes } from '@utils/functions/getKeyFromAttributes'
+import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
-import { uploadDataToIPFS } from '@utils/functions/uploadToIPFS'
+import {
+  uploadDataToIPFS,
+  uploadImageToIPFS
+} from '@utils/functions/uploadToIPFS'
 import { SET_PROFILE_METADATA_TYPED_DATA_MUTATION } from '@utils/gql/queries'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import clsx from 'clsx'
 import { utils } from 'ethers'
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
 import { Attribute, MediaSet, Profile } from 'src/types'
-import { BasicInfoSettings } from 'src/types/local'
+import { BasicInfoSettings, IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -103,6 +107,15 @@ const BasicInfo = ({ channel }: Props) => {
     toast.success('Copied to clipboard 🎉')
   }
 
+  const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      const result: IPFSUploadResult = await uploadImageToIPFS(
+        e.target.files[0]
+      )
+      setBasicInfo({ ...basicInfo, cover: result.ipfsUrl })
+    }
+  }
+
   const onSaveBasicInfo = async () => {
     setLoading(true)
     const { ipfsUrl } = await uploadDataToIPFS({
@@ -151,9 +164,28 @@ const BasicInfo = ({ channel }: Props) => {
 
   return (
     <div className="p-3 bg-white rounded-md dark:bg-black">
+      <div className="relative flex-none w-full group">
+        <img
+          src={
+            basicInfo.cover ?? imageCdn(channel?.coverPicture?.original?.url)
+          }
+          alt=""
+          className="object-cover object-center w-full h-48 bg-white rounded dark:bg-gray-900"
+          draggable={false}
+        />
+        <label className="absolute invisible p-1 px-3 text-sm bg-white rounded-md cursor-pointer group-hover:visible dark:bg-black top-2 right-2">
+          Change
+          <input
+            type="file"
+            accept=".png, .jpg, .jpeg, .svg"
+            className="hidden w-full"
+            onChange={handleUpload}
+          />
+        </label>
+      </div>
       <div className="mt-4">
         <div className="flex items-center mb-1">
-          <div className="required text-[11px] font-semibold uppercase opacity-70">
+          <div className="required text-[11px] font-semibold uppercase opacity-60">
             Channel Name
           </div>
         </div>
@@ -161,7 +193,7 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="mt-4">
         <div className="flex items-center mb-1">
-          <div className="required text-[11px] font-semibold uppercase opacity-70">
+          <div className="required text-[11px] font-semibold uppercase opacity-60">
             Channel URL
           </div>
         </div>
@@ -182,7 +214,7 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="mt-4">
         <div className="flex items-center mb-1">
-          <div className="required text-[11px] font-semibold uppercase opacity-70">
+          <div className="required text-[11px] font-semibold uppercase opacity-60">
             Channel Description
           </div>
         </div>
@@ -201,7 +233,7 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="mt-4">
         <div className="flex items-center mb-1">
-          <div className="required text-[11px] font-semibold uppercase opacity-70">
+          <div className="required text-[11px] font-semibold uppercase opacity-60">
             Twitter
           </div>
         </div>
@@ -218,7 +250,7 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="mt-4">
         <div className="flex items-center mb-1">
-          <div className="required text-[11px] font-semibold uppercase opacity-70">
+          <div className="required text-[11px] font-semibold uppercase opacity-60">
             Website
           </div>
         </div>
