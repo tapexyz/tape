@@ -6,7 +6,11 @@ type Props = {
 }
 
 const Membership = ({ channel }: Props) => {
-  return <div>wip</div>
+  return (
+    <div className="p-3 bg-white rounded-md dark:bg-black">
+      <h1 className="text-lg font-medium">Grow with Lens 🌿</h1>
+    </div>
+  )
 }
 
 export default Membership
