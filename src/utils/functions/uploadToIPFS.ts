@@ -27,7 +27,7 @@ const uploadImageToIPFS = async (file: File): Promise<IPFSUploadResult> => {
 
   return {
     ipfsUrl: `https://ipfs.infura.io/ipfs/${Hash}`,
-    type: file.type,
+    type: file.type || 'image/jpeg',
     hash: Hash
   }
 }
