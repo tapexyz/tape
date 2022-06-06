@@ -2,8 +2,12 @@ import '../styles/index.css'
 
 import { ApolloProvider } from '@apollo/client'
 import apolloClient from '@lib/apollo'
-import { ALCHEMY_KEY, ALCHEMY_RPC_URL } from '@lib/store'
-import { IS_MAINNET, POLYGON_CHAIN_ID } from '@utils/constants'
+import {
+  ALCHEMY_KEY,
+  ALCHEMY_RPC_URL,
+  IS_MAINNET,
+  POLYGON_CHAIN_ID
+} from '@utils/constants'
 import type { AppProps } from 'next/app'
 import { ThemeProvider } from 'next-themes'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'

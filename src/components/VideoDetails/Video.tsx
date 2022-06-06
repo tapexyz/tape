@@ -32,7 +32,10 @@ const Video: FC<Props> = ({ video }) => {
   return (
     <div className="overflow-hidden rounded">
       <MemoizedVideoPlayer
-        source={video?.metadata?.media[1]?.original.url}
+        source={
+          video?.metadata?.media[1]?.original.url ??
+          video?.metadata?.media[0]?.original.url
+        }
         poster={video?.metadata?.cover?.original.url}
       />
       <div className="flex items-center justify-between">

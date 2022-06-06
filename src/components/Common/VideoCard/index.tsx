@@ -16,10 +16,6 @@ type Props = {
 }
 
 const VideoCard: FC<Props> = ({ video }) => {
-  // const publication =
-  //   video.__typename === 'Comment'
-  //     ? (video.commentOn as LenstubePublication)
-  //     : video
   return (
     <div className="transition duration-500 ease-in-out rounded-b group bg-secondary">
       <Link href={`/videos/${video.id}`} passHref>

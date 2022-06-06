@@ -1,6 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { WebBundlr } from '@bundlr-network/client'
-import { BUNDLR_CURRENCY, BUNDLR_NODE_URL, IS_MAINNET } from '@utils/constants'
+import {
+  ALCHEMY_RPC_URL,
+  BUNDLR_CURRENCY,
+  BUNDLR_NODE_URL
+} from '@utils/constants'
 import { FetchSignerResult } from '@wagmi/core'
 import { Profile } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
@@ -29,10 +33,6 @@ interface AppState {
   removeFromWatchLater: (video: LenstubePublication) => void
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
 }
-export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY
-export const ALCHEMY_RPC_URL = IS_MAINNET
-  ? `https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`
-  : `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`
 
 export const useAppStore = create(
   persist<AppState>(
@@ -89,7 +89,7 @@ export const useAppStore = create(
             BUNDLR_CURRENCY,
             signer?.provider,
             {
-              providerUrl: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`
+              providerUrl: ALCHEMY_RPC_URL
             }
           )
           await bundlr.utils.getBundlerAddress(BUNDLR_CURRENCY)
