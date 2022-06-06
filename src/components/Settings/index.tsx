@@ -6,7 +6,7 @@ const Settings = () => {
   return (
     <Layout>
       <MetaTags title="Settings" />
-      <div>Settings</div>
+      <div>Channel customization</div>
     </Layout>
   )
 }

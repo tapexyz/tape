@@ -107,6 +107,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
             src={imageCdn(selectedThumbnailIpfsUrl)}
             alt=""
             draggable={false}
+            loading="eager"
           />
           <button
             onClick={() => onClearUpload()}
@@ -146,7 +147,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
               })}
             >
               <img
-                className="object-cover w-full h-16 rounded"
+                className="object-cover w-full h-12 rounded"
                 src={thumbnail.url}
                 alt=""
                 draggable={false}

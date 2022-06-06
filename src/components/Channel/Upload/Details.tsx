@@ -20,6 +20,7 @@ import { CREATE_POST_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import clsx from 'clsx'
 import { utils } from 'ethers'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -40,7 +41,7 @@ import {
   useSignTypedData
 } from 'wagmi'
 
-import ChooseThumbnail from './ChooseThumbnail'
+const ChooseThumbnail = dynamic(() => import('./ChooseThumbnail'))
 
 type Props = {
   video: VideoUpload
@@ -477,7 +478,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
               />
             </div>
           </Tooltip> */}
-          <span className="mt-2 text-sm font-light opacity-50">
+          <span className="mt-2 text-sm font-light opacity-60">
             <b>Note:</b> This video and its data will be uploaded to permanent
             storage and it stays forever.
           </span>
