@@ -20,6 +20,7 @@ export type VideoUpload = {
   buffer: Buffer | null
   preview: string
   videoType: string
+  file: File | null
 }
 
 export type LenstubePublication = Post & Comment & { pubId: string }
@@ -40,4 +41,11 @@ export type VideoUploadForm = {
   playbackId: string | null
   title: string
   description: string
+}
+
+export type BasicInfoSettings = {
+  about: string
+  website: string
+  twitter: string
+  cover: string
 }

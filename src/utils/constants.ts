@@ -33,10 +33,15 @@ export const LENSTER_WEBSITE_URL = IS_MAINNET
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
   ? '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d'
   : '0x60Ae865ee4C725cd04353b5AAb364553f56ceF82'
+export const LENS_PERIPHERY_ADDRESS = IS_MAINNET
+  ? '0xeff187b4190E551FC25a7fA4dFC6cf7fDeF7194f'
+  : '0xD5037d72877808cdE7F669563e9389930AF404E8'
+
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
 export const ERROR_MESSAGE = 'Oops, something went something!'
 
 // App Ids
+export const LENSTUBE_APP_ID = 'lenstube'
 export const LENSTUBE_VIDEOS_APP_ID = 'lenstube-videos'
 export const LENSTUBE_COMMENTS_APP_ID = 'lenstube-comments'

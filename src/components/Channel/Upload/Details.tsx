@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/client'
 import { WebBundlr } from '@bundlr-network/client'
 import VideoPlayer from '@components/Common/VideoPlayer'
 import { Button } from '@components/UIElements/Button'
-import ChooseImage from '@components/UIElements/ChooseImage'
 import { Input } from '@components/UIElements/Input'
 import useAppStore from '@lib/store'
 import {
@@ -21,6 +20,7 @@ import { CREATE_POST_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import clsx from 'clsx'
 import { utils } from 'ethers'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -40,6 +40,8 @@ import {
   useSigner,
   useSignTypedData
 } from 'wagmi'
+
+const ChooseThumbnail = dynamic(() => import('./ChooseThumbnail'))
 
 type Props = {
   video: VideoUpload
@@ -333,7 +335,8 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       metadata_id: uuidv4(),
       description: videoMeta.description,
       content: `${videoMeta.title}\n\n${videoMeta.description}`,
-      external_url: `${ARWEAVE_WEBSITE_URL}/${videoMeta.videoSource?.id}`,
+      external_url: null,
+      animation_url: `${ARWEAVE_WEBSITE_URL}/${videoMeta.videoSource?.id}`,
       image: videoMeta.videoThumbnail?.ipfsUrl,
       cover: videoMeta.videoThumbnail?.ipfsUrl,
       imageMimeType: videoMeta.videoThumbnail?.type,
@@ -444,9 +447,9 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
             />
           </div>
           <div className="mt-4">
-            <ChooseImage
+            <ChooseThumbnail
               label="Thumbnail"
-              required
+              file={video.file}
               afterUpload={(data: IPFSUploadResult | null) => {
                 onThumbnailUpload(data)
               }}
@@ -475,7 +478,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
               />
             </div>
           </Tooltip> */}
-          <span className="mt-2 text-sm font-light opacity-50">
+          <span className="mt-2 text-sm font-light opacity-60">
             <b>Note:</b> This video and its data will be uploaded to permanent
             storage and it stays forever.
           </span>

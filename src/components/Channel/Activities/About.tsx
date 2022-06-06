@@ -1,4 +1,5 @@
 import { LENSTER_WEBSITE_URL } from '@utils/constants'
+import { getKeyFromAttributes } from '@utils/functions/getKeyFromAttributes'
 import React, { FC } from 'react'
 import { HiOutlineGlobe } from 'react-icons/hi'
 import { RiTwitterLine } from 'react-icons/ri'
@@ -10,10 +11,7 @@ type Props = {
 
 const About: FC<Props> = ({ channel }) => {
   const attributes = channel?.attributes
-
-  const getSpecificAttribute = (key: string) => {
-    return attributes?.find((el) => el.key === key)?.value
-  }
+  if (!attributes?.length) return null
 
   return (
     <div className="p-4 space-y-4 md:space-y-6">
@@ -30,11 +28,11 @@ const About: FC<Props> = ({ channel }) => {
           Links
         </h6>
         <div className="space-y-1.5">
-          {getSpecificAttribute('website') && (
+          {getKeyFromAttributes(attributes, 'website') && (
             <div className="flex items-center space-x-1 text-sm">
               <HiOutlineGlobe />
               <a
-                href={getSpecificAttribute('website')}
+                href={getKeyFromAttributes(attributes, 'website')}
                 target="_blank"
                 rel="noreferer noreferrer"
                 className="hover:text-blue-500"
@@ -43,11 +41,11 @@ const About: FC<Props> = ({ channel }) => {
               </a>
             </div>
           )}
-          {getSpecificAttribute('twitter') && (
+          {getKeyFromAttributes(attributes, 'twitter') && (
             <div className="flex items-center space-x-1 text-sm">
               <RiTwitterLine />
               <a
-                href={getSpecificAttribute('website')}
+                href={getKeyFromAttributes(attributes, 'website')}
                 target="_blank"
                 rel="noreferer noreferrer"
                 className="hover:text-blue-500"

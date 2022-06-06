@@ -5,5 +5,7 @@ export const WATCH_LATER_LIBRARY = '/library/later'
 export const RECENTS_LIBRARY = '/library/recents'
 export const COMMENTED_LIBRARY = '/library/commented'
 export const SETTINGS = '/settings'
+export const SETTINGS_MEMBERSHIP = '/settings/membership'
+export const SETTINGS_PERMISSIONS = '/settings/permissions'
 
 export const DISCORD = '/discord'
