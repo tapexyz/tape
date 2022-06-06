@@ -36,7 +36,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         </div>
         <div className="text-sm">{channel.handle}</div>
       </div>
-      <div className="flex flex-col m-1 text-sm">
+      <div className="flex flex-col m-1 space-y-1 text-sm">
         <Link href={SETTINGS}>
           <a
             className={clsx(

@@ -760,3 +760,53 @@ export const SET_PROFILE_METADATA_TYPED_DATA_MUTATION = gql`
     }
   }
 `
+
+export const MODULES_CURRENCY_QUERY = gql`
+  query EnabledCurrencyModules($request: ProfileQueryRequest!) {
+    enabledModuleCurrencies {
+      name
+      symbol
+      decimals
+      address
+    }
+    profiles(request: $request) {
+      items {
+        followModule {
+          __typename
+        }
+      }
+    }
+  }
+`
+
+export const SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
+  mutation CreateSetFollowModuleTypedData(
+    $request: CreateSetFollowModuleRequest!
+  ) {
+    createSetFollowModuleTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          SetFollowModuleWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          followModule
+          followModuleInitData
+        }
+      }
+    }
+  }
+`

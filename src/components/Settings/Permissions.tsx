@@ -6,7 +6,7 @@ type Props = {
 const Permissions = ({ channel }: Props) => {
   return (
     <div className="p-3 bg-white rounded-md dark:bg-black">
-      <h1>Grow with Lens 🌿</h1>
+      <h1>WIP - {channel.handle}</h1>
     </div>
   )
 }
