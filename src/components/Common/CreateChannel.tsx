@@ -88,7 +88,7 @@ const CreateChannel = () => {
             <a
               href="https://claim.lens.xyz/"
               target="_blank"
-              className="text-blue-500"
+              className="text-indigo-500"
               rel="noreferrer"
             >
               lens claiming site

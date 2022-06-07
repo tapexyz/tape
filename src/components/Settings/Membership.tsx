@@ -119,10 +119,10 @@ const Membership = ({ channel }: Props) => {
 
   return (
     <div className="p-3 bg-white rounded-md dark:bg-black">
-      <div className="mb-5">
-        <h1 className="text-lg font-medium">Grow with Lens 🌿</h1>
+      <div className="mb-6 md:mb-8">
+        <h1 className="mb-1 text-lg font-semibold">Grow with Lens 🌿</h1>
         <p className="text-sm opacity-80">
-          You can set up a subscription charge for your channel and providing
+          You can set up a subscription fee for your channel and provide
           exclusive offers and perks to the subscribers, also people can pay and
           support your work.
         </p>

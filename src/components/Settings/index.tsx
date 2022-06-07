@@ -53,9 +53,7 @@ const Settings = () => {
             {router.pathname === SETTINGS_MEMBERSHIP && (
               <Membership channel={channel} />
             )}
-            {router.pathname === SETTINGS_PERMISSIONS && (
-              <Permissions channel={channel} />
-            )}
+            {router.pathname === SETTINGS_PERMISSIONS && <Permissions />}
           </div>
         </div>
       ) : null}

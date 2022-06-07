@@ -810,3 +810,34 @@ export const SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
     }
   }
 `
+
+export const ALLOWANCE_SETTINGS_QUERY = gql`
+  query ApprovedModuleAllowanceAmount(
+    $request: ApprovedModuleAllowanceAmountRequest!
+  ) {
+    approvedModuleAllowanceAmount(request: $request) {
+      currency
+      module
+      allowance
+      contractAddress
+    }
+    enabledModuleCurrencies {
+      name
+      symbol
+      decimals
+      address
+    }
+  }
+`
+
+export const GENERATE_ALLOWANCE_QUERY = gql`
+  query GenerateModuleCurrencyApprovalData(
+    $request: GenerateModuleCurrencyApprovalDataRequest!
+  ) {
+    generateModuleCurrencyApprovalData(request: $request) {
+      to
+      from
+      data
+    }
+  }
+`

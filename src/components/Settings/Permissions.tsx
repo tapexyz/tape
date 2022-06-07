@@ -1,12 +1,171 @@
-import { Profile } from 'src/types'
+import { useLazyQuery, useQuery } from '@apollo/client'
+import { Loader } from '@components/UIElements/Loader'
+import Tooltip from '@components/UIElements/Tooltip'
+import useAppStore from '@lib/store'
+import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
+import {
+  ALLOWANCE_SETTINGS_QUERY,
+  GENERATE_ALLOWANCE_QUERY
+} from '@utils/gql/queries'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai'
+import { ApprovedAllowanceAmount, Erc20 } from 'src/types'
+import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
-type Props = {
-  channel: Profile
+const getFollowModule = (modules: ApprovedAllowanceAmount[]) => {
+  return modules.find((el) => el.module === 'FeeFollowModule')
 }
-const Permissions = ({ channel }: Props) => {
+
+const Permissions = () => {
+  const { selectedChannel } = useAppStore()
+  const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
+  const [loading, setLoading] = useState(false)
+
+  const { data: txData, sendTransaction } = useSendTransaction({
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
+      setLoading(false)
+    }
+  })
+  const {
+    data,
+    refetch,
+    loading: gettingSettings
+  } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
+    variables: {
+      request: {
+        currencies: [currency],
+        followModules: ['FeeFollowModule'],
+        collectModules: ['FeeCollectModule'],
+        referenceModules: ['FollowerOnlyReferenceModule']
+      }
+    },
+    skip: !selectedChannel?.id
+  })
+  const { isLoading } = useWaitForTransaction({
+    hash: txData?.hash,
+    onSuccess() {
+      toast.success('Permission updated')
+      setLoading(false)
+      refetch({
+        request: {
+          currencies: [currency],
+          followModules: ['FeeFollowModule'],
+          collectModules: ['FeeCollectModule'],
+          referenceModules: ['FollowerOnlyReferenceModule']
+        }
+      })
+    },
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
+    }
+  })
+
+  const [generateAllowanceQuery] = useLazyQuery(GENERATE_ALLOWANCE_QUERY)
+
+  const handleClick = (isAllow: boolean) => {
+    setLoading(true)
+    generateAllowanceQuery({
+      variables: {
+        request: {
+          currency,
+          value: isAllow ? '10000000' : '0',
+          followModule: 'FeeFollowModule'
+        }
+      }
+    })
+      .then((result) => {
+        const generated = result?.data?.generateModuleCurrencyApprovalData
+        sendTransaction({
+          request: {
+            from: generated.from,
+            to: generated.to,
+            data: generated.data
+          }
+        })
+      })
+      .catch(() => setLoading(false))
+  }
+
   return (
-    <div className="p-3 bg-white rounded-md dark:bg-black">
-      <h1>WIP - {channel.handle}</h1>
+    <div className="p-3 bg-white divide-y divide-gray-200 rounded-md dark:divide-gray-800 dark:bg-black">
+      <div className="mb-6">
+        <h1 className="mb-1 text-lg font-semibold">Access permissions</h1>
+        <p className="text-sm opacity-80">
+          These are the modules which you allowed lens to automatically debit
+          funds from your account. You can see the information here and revoke
+          access anytime.
+        </p>
+      </div>
+      <div>
+        {!gettingSettings && (
+          <div className="flex justify-end py-4">
+            <select
+              placeholder="More about your stream"
+              autoComplete="off"
+              className="bg-white text-sm px-2.5 py-1 rounded-md dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none"
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+            >
+              {data?.enabledModuleCurrencies?.map(
+                (currency: Erc20, idx: number) => (
+                  <option key={idx} value={currency.address}>
+                    {currency.name}
+                  </option>
+                )
+              )}
+            </select>
+          </div>
+        )}
+        {gettingSettings && (
+          <div className="p-4">
+            <Loader />
+          </div>
+        )}
+        {data && !gettingSettings && (
+          <div className="flex items-center pb-2 rounded-md">
+            <div className="flex-1">
+              <h6 className="text-base">
+                Allow{' '}
+                {getFollowModule(data?.approvedModuleAllowanceAmount)?.module}
+              </h6>
+              <p className="text-xs opacity-70">
+                Allows subscriber to join the channel by paying a fee specified
+                by the channel owner.
+              </p>
+            </div>
+            <div className="flex items-center flex-none ml-2 space-x-2">
+              {getFollowModule(data?.approvedModuleAllowanceAmount)
+                ?.allowance === '0x00' ? (
+                <Tooltip
+                  content={isLoading || loading ? 'Loading...' : 'Allow'}
+                >
+                  <button
+                    disabled={isLoading || loading}
+                    onClick={() => handleClick(true)}
+                    className="text-green-500 disabled:opacity-50"
+                  >
+                    <AiOutlineCheckCircle className="text-3xl" />
+                  </button>
+                </Tooltip>
+              ) : (
+                <Tooltip
+                  content={isLoading || loading ? 'Loading...' : 'Revoke'}
+                >
+                  <button
+                    disabled={isLoading || loading}
+                    onClick={() => handleClick(false)}
+                    className="text-red-500 disabled:opacity-50"
+                  >
+                    <AiOutlineCloseCircle className="text-3xl" />
+                  </button>
+                </Tooltip>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
