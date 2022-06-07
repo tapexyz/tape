@@ -1,4 +1,5 @@
 import Tooltip from '@components/UIElements/Tooltip'
+import { getVideoUrl } from '@utils/functions/getVideoUrl'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
@@ -32,10 +33,7 @@ const Video: FC<Props> = ({ video }) => {
   return (
     <div className="overflow-hidden rounded">
       <MemoizedVideoPlayer
-        source={
-          video?.metadata?.media[1]?.original.url ??
-          video?.metadata?.media[0]?.original.url
-        }
+        source={getVideoUrl(video)}
         poster={video?.metadata?.cover?.original.url}
       />
       <div className="flex items-center justify-between">

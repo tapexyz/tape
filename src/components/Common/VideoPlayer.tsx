@@ -47,7 +47,8 @@ const VideoPlayer: FC<Props> = ({
         options={{
           controls: controls,
           autoplay: autoPlay,
-          autopause: true
+          autopause: true,
+          tooltips: { controls: true, seek: true }
         }}
       />
     </div>
