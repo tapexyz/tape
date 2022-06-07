@@ -34,10 +34,13 @@ const Membership = ({ channel }: Props) => {
   })
   const [, copy] = useCopyToClipboard()
 
-  const { data: followModuleData } = useQuery(CHANNEL_FOLLOW_MODULE_QUERY, {
-    variables: { request: { profileIds: channel?.id } },
-    skip: !channel?.id
-  })
+  const { data: followModuleData, refetch } = useQuery(
+    CHANNEL_FOLLOW_MODULE_QUERY,
+    {
+      variables: { request: { profileIds: channel?.id } },
+      skip: !channel?.id
+    }
+  )
   const activeFollowModule: FeeFollowModuleSettings =
     followModuleData?.profiles?.items[0]?.followModule
 
@@ -69,8 +72,9 @@ const Membership = ({ channel }: Props) => {
     if (indexed) {
       setLoading(false)
       toast.success('Membership updated 🎉')
+      refetch({ request: { profileIds: channel?.id } })
     }
-  }, [indexed])
+  }, [indexed, channel, refetch])
 
   const [setFollowModuleTypedData] = useMutation(
     SET_FOLLOW_MODULE_TYPED_DATA_MUTATION,
@@ -185,7 +189,7 @@ const Membership = ({ channel }: Props) => {
           </div>
         </div>
       )}
-      {showForm ? (
+      {showForm || !activeFollowModule ? (
         <>
           <div className="grid gap-3 md:grid-cols-2">
             <div>
@@ -253,7 +257,7 @@ const Membership = ({ channel }: Props) => {
             disabled={loading}
             onClick={() => setMembership(true)}
           >
-            {loading ? 'Loading..' : 'Disable'}
+            {loading ? 'Disabling...' : 'Disable'}
           </Button>
         </div>
       )}
