@@ -143,7 +143,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
               key={idx}
               onClick={() => onSelectThumbnail(idx)}
               className={clsx('rounded focus:outline-none', {
-                'ring ring-green-900': selectedThumbnailIndex === idx
+                'ring ring-indigo-900': selectedThumbnailIndex === idx
               })}
             >
               <img

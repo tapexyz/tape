@@ -101,7 +101,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
               >
                 <div className="flex items-center w-full space-x-2.5">
                   {x.id === 'injected' ? (
-                    <CgBrowser className="text-xl text-green-900" />
+                    <CgBrowser className="text-xl text-indigo-900" />
                   ) : (
                     <img
                       src={getWalletLogo(x.id)}
@@ -124,7 +124,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
                         <Loader />
                       )}
                       {!signing && x.id === account?.connector?.id && (
-                        <AiOutlineCheck className="text-green-800" />
+                        <AiOutlineCheck className="text-indigo-800" />
                       )}
                     </span>
                   </span>

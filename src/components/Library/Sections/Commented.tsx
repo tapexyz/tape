@@ -43,7 +43,7 @@ const Commented = () => {
           <span>Commented</span>
         </h1>
         <Link href={COMMENTED_LIBRARY}>
-          <a className="flex items-center space-x-0.5 text-xs text-green-900">
+          <a className="flex items-center space-x-0.5 text-xs text-indigo-900">
             <span>See all</span> <BiChevronRight />
           </a>
         </Link>

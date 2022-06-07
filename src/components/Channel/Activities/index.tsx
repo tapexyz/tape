@@ -27,7 +27,7 @@ const Activity: FC<Props> = ({ channel }) => {
                   clsx(
                     'px-4 py-2 border-b-2 text-sm focus:outline-none',
                     selected
-                      ? 'border-green-900 opacity-100'
+                      ? 'border-indigo-900 opacity-100'
                       : 'border-transparent opacity-50'
                   )
                 }
@@ -39,7 +39,7 @@ const Activity: FC<Props> = ({ channel }) => {
                   clsx(
                     'px-4 py-2 border-b-2 text-sm focus:outline-none',
                     selected
-                      ? 'border-green-900 opacity-100'
+                      ? 'border-indigo-900 opacity-100'
                       : 'border-transparent opacity-50'
                   )
                 }
@@ -51,7 +51,7 @@ const Activity: FC<Props> = ({ channel }) => {
                   clsx(
                     'px-4 py-2 border-b-2 text-sm focus:outline-none',
                     selected
-                      ? 'border-green-900 opacity-100'
+                      ? 'border-indigo-900 opacity-100'
                       : 'border-transparent opacity-50'
                   )
                 }

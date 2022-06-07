@@ -46,7 +46,7 @@ const Header = () => {
       <div className="flex flex-row items-center space-x-3">
         <button
           onClick={() => setShowSearch(true)}
-          className="flex self-center p-[5px] transition duration-200 ease-in-out border border-transparent rounded-lg hover:border-green-900 md:hidden focus:outline-none"
+          className="flex self-center p-[6px] transition duration-200 ease-in-out border border-transparent rounded-lg hover:border-indigo-900 md:hidden focus:outline-none"
         >
           <BiSearch />
         </button>

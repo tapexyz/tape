@@ -43,9 +43,9 @@ const UserMenu: FC<Props> = () => {
   return (
     <Popover
       trigger={
-        <button className="p-[1px] mt-[3px] border border-green-900 rounded-md">
+        <button className="mt-[3px] w-[30px] h-[30px] border border-indigo-900 p-[1px] rounded-md">
           <img
-            className="w-6 h-6 rounded-md"
+            className="object-cover rounded-md"
             src={imageCdn(getProfilePicture(selectedChannel))}
             alt=""
             draggable={false}
@@ -110,7 +110,7 @@ const UserMenu: FC<Props> = () => {
                     {selectedChannel?.handle}
                   </h6>
                   <Link href={SETTINGS}>
-                    <a className="text-xs font-medium text-green-700">
+                    <a className="text-xs font-medium text-indigo-500">
                       Customize
                     </a>
                   </Link>

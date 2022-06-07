@@ -6,7 +6,7 @@ export const getToastOptions = (theme: string | undefined) => ({
     borderRadius: '10px'
   },
   success: {
-    className: 'border border-green-500',
+    className: 'border border-indigo-500',
     iconTheme: {
       primary: '#10B981',
       secondary: 'white'
