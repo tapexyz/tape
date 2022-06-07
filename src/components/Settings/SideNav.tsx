@@ -22,7 +22,7 @@ const SideNav: FC<Props> = ({ channel }) => {
 
   const isActivePath = (path: string) => router.pathname === path
   return (
-    <div className="p-2 bg-white rounded-md dark:bg-black">
+    <div className="p-2 bg-white rounded-lg dark:bg-black">
       <div className="flex flex-col items-center py-4 space-y-2">
         <div className="flex items-end space-x-2">
           <div className="flex-none">
@@ -40,7 +40,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         <Link href={SETTINGS}>
           <a
             className={clsx(
-              'flex items-center p-2 space-x-1.5 rounded hover:bg-gray-100 hover:dark:bg-gray-900',
+              'flex items-center p-2 space-x-1.5 rounded-md hover:bg-gray-100 hover:dark:bg-gray-900',
               { 'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS) }
             )}
           >
@@ -50,7 +50,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         <Link href={SETTINGS_MEMBERSHIP}>
           <a
             className={clsx(
-              'flex items-center p-2 space-x-1.5 rounded hover:bg-gray-100 hover:dark:bg-gray-900',
+              'flex items-center p-2 space-x-1.5 rounded-md hover:bg-gray-100 hover:dark:bg-gray-900',
               {
                 'bg-gray-100 dark:bg-gray-900':
                   isActivePath(SETTINGS_MEMBERSHIP)
@@ -63,7 +63,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         <Link href={SETTINGS_PERMISSIONS}>
           <a
             className={clsx(
-              'flex items-center p-2 space-x-1.5 rounded hover:bg-gray-100 hover:dark:bg-gray-900',
+              'flex items-center p-2 space-x-1.5 rounded-md hover:bg-gray-100 hover:dark:bg-gray-900',
               {
                 'bg-gray-100 dark:bg-gray-900':
                   isActivePath(SETTINGS_PERMISSIONS)

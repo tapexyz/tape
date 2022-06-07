@@ -146,7 +146,7 @@ const Membership = ({ channel }: Props) => {
   }
 
   return (
-    <div className="p-4 bg-white rounded-md dark:bg-black">
+    <div className="p-4 bg-white rounded-lg dark:bg-black">
       <div className="mb-5">
         <h1 className="mb-1 text-xl font-semibold">Grow with Lens 🌿</h1>
         <p className="text-xs opacity-80">
@@ -245,7 +245,7 @@ const Membership = ({ channel }: Props) => {
           </div>
           <div className="flex justify-end mt-4">
             <Button onClick={() => onSubmitForm()} disabled={loading}>
-              {loading ? 'Loading' : 'Set Membership'}
+              {loading ? 'Loading...' : 'Set Membership'}
             </Button>
           </div>
         </>
@@ -257,7 +257,9 @@ const Membership = ({ channel }: Props) => {
             disabled={loading}
             onClick={() => setMembership(true)}
           >
-            {loading ? 'Disabling...' : 'Disable'}
+            <span className="text-white">
+              {loading ? 'Disabling...' : 'Disable'}
+            </span>
           </Button>
         </div>
       )}

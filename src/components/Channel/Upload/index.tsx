@@ -28,8 +28,8 @@ const Upload = () => {
   } = useRouter()
 
   useEffect(() => {
-    if (upload) setShowUploadModal(true)
-  }, [upload])
+    if (upload && selectedChannel) setShowUploadModal(true)
+  }, [upload, selectedChannel])
 
   const uploadVideo = async (files: File[]) => {
     const file = files[0]
@@ -47,7 +47,7 @@ const Upload = () => {
         reader.readAsArrayBuffer(file)
       }
     } catch (error) {
-      toast.error('Error uploading file')
+      toast.error('Error uploading file!')
     }
   }
 

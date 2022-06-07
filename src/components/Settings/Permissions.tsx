@@ -90,7 +90,7 @@ const Permissions = () => {
   }
 
   return (
-    <div className="p-4 bg-white divide-y divide-gray-200 rounded-md dark:divide-gray-900 dark:bg-black">
+    <div className="p-4 bg-white divide-y divide-gray-200 rounded-lg dark:divide-gray-900 dark:bg-black">
       <div className="mb-6">
         <h1 className="mb-1 text-xl font-semibold">Access permissions</h1>
         <p className="text-xs opacity-80">

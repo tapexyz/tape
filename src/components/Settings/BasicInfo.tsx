@@ -163,7 +163,7 @@ const BasicInfo = ({ channel }: Props) => {
   }
 
   return (
-    <div className="p-4 bg-white rounded-md dark:bg-black">
+    <div className="p-4 bg-white rounded-lg dark:bg-black">
       <div className="relative flex-none w-full group">
         <img
           src={
@@ -242,7 +242,6 @@ const BasicInfo = ({ channel }: Props) => {
           placeholder="johndoe"
           autoComplete="off"
           value={basicInfo?.twitter}
-          autoFocus
           onChange={(e) =>
             setBasicInfo({ ...basicInfo, twitter: e.target.value })
           }
@@ -259,7 +258,6 @@ const BasicInfo = ({ channel }: Props) => {
           placeholder="https://johndoe.xyz"
           autoComplete="off"
           value={basicInfo?.website}
-          autoFocus
           onChange={(e) =>
             setBasicInfo({ ...basicInfo, website: e.target.value })
           }

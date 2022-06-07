@@ -4,11 +4,13 @@ import { WebBundlr } from '@bundlr-network/client'
 import VideoPlayer from '@components/Common/VideoPlayer'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
+import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import {
   ARWEAVE_WEBSITE_URL,
   BUNDLR_CURRENCY,
   BUNDLR_WEBSITE_URL,
+  IPFS_GATEWAY,
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_VIDEOS_APP_ID
 } from '@utils/constants'
@@ -18,6 +20,7 @@ import { parseToAtomicUnits } from '@utils/functions/parseToAtomicUnits'
 import { uploadDataToIPFS } from '@utils/functions/uploadToIPFS'
 import { CREATE_POST_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
+import axios from 'axios'
 import clsx from 'clsx'
 import { utils } from 'ethers'
 import dynamic from 'next/dynamic'
@@ -110,6 +113,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const [isUploadedToBundlr, setIsUploadedToBundlr] = useState(false)
   const [showBundlrDetails, setShowBundlrDetails] = useState(false)
   const [disableSubmit, setDisableSubmit] = useState(false)
+  const [uploadMeta, setUploadMeta] = useState({ uploading: false, percent: 0 })
   const [videoMeta, setVideoMeta] = useState<VideoUploadForm>({
     videoThumbnail: null,
     videoSource: null,
@@ -128,7 +132,51 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
+  const uploadToIpfsWithProgress = async () => {
+    setButtonText('Uploading to IPFS...')
+    setDisableSubmit(true)
+    const formData = new FormData()
+    formData.append('file', video.file as File, 'img')
+    const response: { data: { Hash: string } } = await axios.post(
+      'https://ipfs.infura.io:5001/api/v0/add',
+      formData,
+      {
+        onUploadProgress: function (progressEvent) {
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          )
+          setUploadMeta({ uploading: true, percent: percentCompleted })
+        }
+      }
+    )
+    if (response.data) {
+      const playbackId = await getPlaybackId(
+        `${IPFS_GATEWAY}/${response.data.Hash}`
+      )
+      setVideoMeta((data) => {
+        return {
+          ...data,
+          videoSource: `${IPFS_GATEWAY}/${response.data.Hash}`,
+          playbackId
+        }
+      })
+      setIsUploadedToBundlr(true)
+      setButtonText('Post Video')
+    } else {
+      toast.error('Upload failed!')
+      setButtonText('Next')
+    }
+    setDisableSubmit(false)
+  }
+
+  const isLessThan100MB = (bytes: number | undefined) =>
+    bytes ? (bytes / 1024 ** 2 < 100 ? true : false) : false
+
   const onNext = async () => {
+    const videoSize = video.file?.size
+    if (isLessThan100MB(videoSize)) {
+      return uploadToIpfsWithProgress()
+    }
     if (signer && account?.address) {
       setButtonText('Waiting for sign...')
       toast(
@@ -149,6 +197,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         setDisableSubmit(false)
       } else {
         setButtonText('Next')
+        setDisableSubmit(false)
       }
     }
   }
@@ -210,12 +259,12 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
     }))
   }
 
-  const getPlaybackId = async (arweaveId: string) => {
+  const getPlaybackId = async (url: string) => {
     try {
       const playbackResponse = await fetch('/api/video/playback', {
         method: 'POST',
         body: JSON.stringify({
-          arweaveId
+          url
         })
       })
       const { playbackId } = await playbackResponse.json()
@@ -245,11 +294,17 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         tx.id,
         tx.getRaw().length
       )
-      const playbackId = await getPlaybackId(response.data.id)
+      const playbackId = await getPlaybackId(
+        `${ARWEAVE_WEBSITE_URL}/${response.data.id}`
+      )
       fetchBalance(bundlr)
       setDisableSubmit(false)
       setVideoMeta((data) => {
-        return { ...data, videoSource: response.data, playbackId }
+        return {
+          ...data,
+          videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
+          playbackId
+        }
       })
       setIsUploadedToBundlr(true)
       setButtonText('Post Video')
@@ -320,7 +375,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
     setDisableSubmit(true)
     let media = [
       {
-        item: `${ARWEAVE_WEBSITE_URL}/${videoMeta.videoSource?.id}`,
+        item: videoMeta.videoSource,
         type: video.videoType
       }
     ]
@@ -336,7 +391,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       description: videoMeta.description,
       content: `${videoMeta.title}\n\n${videoMeta.description}`,
       external_url: null,
-      animation_url: `${ARWEAVE_WEBSITE_URL}/${videoMeta.videoSource?.id}`,
+      animation_url: videoMeta.videoSource,
       image: videoMeta.videoThumbnail?.ipfsUrl,
       cover: videoMeta.videoThumbnail?.ipfsUrl,
       imageMimeType: videoMeta.videoThumbnail?.type,
@@ -458,26 +513,26 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         </div>
         <div className="flex flex-col items-start">
           <div
-            className={clsx('overflow-hidden rounded-lg', {
-              // "rounded-t-lg": bundlrData.uploading,
-              // "rounded-lg": !bundlrData.uploading,
+            className={clsx('overflow-hidden', {
+              'rounded-t-lg': uploadMeta.uploading,
+              'rounded-lg': !uploadMeta.uploading
             })}
           >
             <MemoizedVideoPlayer source={video.preview} />
           </div>
-          {/* <Tooltip content={`Uploading (${80}%)`}>
+          <Tooltip content={`Uploaded (${uploadMeta.percent}%)`}>
             <div className="w-full overflow-hidden bg-gray-200 rounded-b-full">
               <div
-                className={clsx("bg-indigo-500 bg-brand-500", {
-                  "h-[8px]": bundlrData.uploading,
-                  "h-0": !bundlrData.uploading,
+                className={clsx('bg-indigo-800 bg-brand-500', {
+                  'h-[6px]': uploadMeta.uploading,
+                  'h-0': !uploadMeta.uploading
                 })}
                 style={{
-                  width: `${80}%`,
+                  width: `${uploadMeta.percent}%`
                 }}
               />
             </div>
-          </Tooltip> */}
+          </Tooltip>
           <span className="mt-2 text-sm font-light opacity-60">
             <b>Note:</b> This video and its data will be uploaded to permanent
             storage and it stays forever.
@@ -546,7 +601,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
                         onClick={() => depositToBundlr()}
                         className="mb-0.5"
                       >
-                        {bundlrData.depositing ? 'Loading' : 'Deposit'}
+                        {bundlrData.depositing ? 'Loading...' : 'Deposit'}
                       </Button>
                     </div>
                   </div>

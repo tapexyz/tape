@@ -46,6 +46,10 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
 
   useEffect(() => {
     if (file) generateThumbnails(file)
+    return () => {
+      setSelectedThumbnailIndex(-1)
+      setThumbnails([])
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file])
 
