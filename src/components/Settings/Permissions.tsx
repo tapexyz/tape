@@ -28,6 +28,7 @@ const Permissions = () => {
       setLoading(false)
     }
   })
+
   const {
     data,
     refetch,
@@ -89,17 +90,17 @@ const Permissions = () => {
   }
 
   return (
-    <div className="p-3 bg-white divide-y divide-gray-200 rounded-md dark:divide-gray-800 dark:bg-black">
+    <div className="p-4 bg-white divide-y divide-gray-200 rounded-md dark:divide-gray-900 dark:bg-black">
       <div className="mb-6">
-        <h1 className="mb-1 text-lg font-semibold">Access permissions</h1>
-        <p className="text-sm opacity-80">
+        <h1 className="mb-1 text-xl font-semibold">Access permissions</h1>
+        <p className="text-xs opacity-80">
           These are the modules which you allowed lens to automatically debit
           funds from your account. You can see the information here and revoke
           access anytime.
         </p>
       </div>
       <div>
-        {!gettingSettings && (
+        {!gettingSettings && data && (
           <div className="flex justify-end py-4">
             <select
               placeholder="More about your stream"
@@ -119,7 +120,7 @@ const Permissions = () => {
           </div>
         )}
         {gettingSettings && (
-          <div className="p-4">
+          <div className="grid h-24 place-items-center">
             <Loader />
           </div>
         )}

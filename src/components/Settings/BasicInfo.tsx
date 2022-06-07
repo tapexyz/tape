@@ -163,7 +163,7 @@ const BasicInfo = ({ channel }: Props) => {
   }
 
   return (
-    <div className="p-3 bg-white rounded-md dark:bg-black">
+    <div className="p-4 bg-white rounded-md dark:bg-black">
       <div className="relative flex-none w-full group">
         <img
           src={

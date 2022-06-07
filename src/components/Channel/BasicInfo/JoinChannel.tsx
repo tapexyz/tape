@@ -92,13 +92,11 @@ const JoinChannel: FC<Props> = ({ channel }) => {
       setButtonText('Join Channel')
     }
   })
-  const channelFollowModule: FeeFollowModuleSettings =
-    followModuleData?.profiles?.items[0]?.followModule
 
   const joinChannel = () => {
     if (!isAllowed)
       return toast.error(
-        'Permission requried 🙇🏻‍♂️ (Go to Channel Settings -> Permissions) and allow fee follow module.'
+        `Go to Channel Settings -> Permissions and allow fee follow module for ${followModule.amount.asset.symbol}.`
       )
     setLoading(true)
     setButtonText('Joining...')
@@ -110,8 +108,8 @@ const JoinChannel: FC<Props> = ({ channel }) => {
             followModule: {
               feeFollowModule: {
                 amount: {
-                  currency: channelFollowModule?.amount?.asset?.address,
-                  value: channelFollowModule?.amount?.value
+                  currency: followModule?.amount?.asset?.address,
+                  value: followModule?.amount?.value
                 }
               }
             }
@@ -124,8 +122,8 @@ const JoinChannel: FC<Props> = ({ channel }) => {
   return (
     <Tooltip
       content={
-        channelFollowModule
-          ? `Pay ${channelFollowModule.amount.value} ${channelFollowModule.amount.asset.symbol}`
+        followModule
+          ? `Pay ${followModule.amount.value} ${followModule.amount.asset.symbol}`
           : buttonText
       }
       placement="top"
