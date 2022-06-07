@@ -8,7 +8,6 @@ import Link from 'next/link'
 import React, { FC, useState } from 'react'
 import { AiOutlinePlus, AiOutlineUserSwitch } from 'react-icons/ai'
 import { BiArrowBack, BiCheck, BiMoviePlay } from 'react-icons/bi'
-import { FiSettings } from 'react-icons/fi'
 import { VscDebugDisconnect } from 'react-icons/vsc'
 import { Profile } from 'src/types'
 import { useDisconnect } from 'wagmi'
@@ -112,7 +111,7 @@ const UserMenu: FC<Props> = () => {
                   </h6>
                   <Link href={SETTINGS}>
                     <a className="text-xs font-medium text-indigo-500">
-                      Customize
+                      Settings
                     </a>
                   </Link>
                 </div>
@@ -128,18 +127,6 @@ const UserMenu: FC<Props> = () => {
                   <BiMoviePlay className="text-lg" />
                   <span className="truncate whitespace-nowrap">
                     Your Channel
-                  </span>
-                </a>
-              </Link>
-              <Link href={SETTINGS}>
-                <a
-                  className={clsx(
-                    'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                  )}
-                >
-                  <FiSettings className="text-lg" />
-                  <span className="truncate whitespace-nowrap">
-                    Channel Settings
                   </span>
                 </a>
               </Link>

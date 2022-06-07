@@ -96,7 +96,7 @@ const JoinChannel: FC<Props> = ({ channel }) => {
   const joinChannel = () => {
     if (!isAllowed)
       return toast.error(
-        `Go to Channel Settings -> Permissions and allow fee follow module for ${followModule.amount.asset.symbol}.`
+        `Menu -> Settings -> Permissions and allow fee follow module for ${followModule.amount.asset.symbol}.`
       )
     setLoading(true)
     setButtonText('Joining...')
