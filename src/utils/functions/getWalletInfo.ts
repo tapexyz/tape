@@ -14,6 +14,11 @@ export const getWalletInfo = (id: string, name: string) => {
           label: 'Brave'
         }
       if (name === 'Coinbase Wallet') return null
+      else
+        return {
+          logo: `${STATIC_ASSETS}/images/wallet-logo.png`,
+          label: name
+        }
     case 'walletConnect':
       return {
         logo: `${STATIC_ASSETS}/images/rainbow-logo.png`,
