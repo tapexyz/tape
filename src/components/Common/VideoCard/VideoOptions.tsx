@@ -17,7 +17,7 @@ const VideoOptions = ({ video }: { video: LenstubePublication }) => {
   const [, copy] = useCopyToClipboard()
 
   const share = () => {
-    copy(`${LENSTUBE_URL}/videos/${video.id}`)
+    copy(`${LENSTUBE_URL}/watch/${video.id}`)
     toast.success('Link copied to clipboard 🎉')
   }
 

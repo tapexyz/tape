@@ -8,6 +8,7 @@ interface Props {
   poster?: string
   controls?: string[]
   autoPlay?: boolean
+  ratio?: string | undefined
 }
 
 const defaultControls = [
@@ -28,7 +29,8 @@ const VideoPlayer: FC<Props> = ({
   source,
   controls = defaultControls,
   poster,
-  autoPlay = true
+  autoPlay = true,
+  ratio = undefined
 }) => {
   return (
     <div className="rounded-lg">
@@ -48,7 +50,8 @@ const VideoPlayer: FC<Props> = ({
           controls: controls,
           autoplay: autoPlay,
           autopause: true,
-          tooltips: { controls: true, seek: true }
+          tooltips: { controls: true, seek: true },
+          ratio
         }}
       />
     </div>

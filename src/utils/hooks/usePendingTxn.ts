@@ -22,7 +22,7 @@ const usePendingTxn = (txHash: string, navigate?: boolean) => {
       if (data?.hasTxHashBeenIndexed?.indexed || data?.publication?.id) {
         stopPolling()
         if (navigate && data?.publication?.id)
-          router.push(`/videos/${data?.publication?.id}`)
+          router.push(`/watch/${data?.publication?.id}`)
       }
     }
     checkIsIndexed()

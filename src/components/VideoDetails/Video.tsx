@@ -21,11 +21,9 @@ type PlayerProps = {
   poster: string
 }
 
-export const MemoizedVideoPlayer = React.memo(
-  ({ source, poster }: PlayerProps) => (
-    <VideoPlayer source={source} poster={poster} />
-  )
-)
+const MemoizedVideoPlayer = React.memo(({ source, poster }: PlayerProps) => (
+  <VideoPlayer source={source} poster={poster} ratio="16:9" />
+))
 
 MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 

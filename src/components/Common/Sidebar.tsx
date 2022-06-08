@@ -9,7 +9,8 @@ import { MdOutlineVideoLibrary } from 'react-icons/md'
 import { RiLeafLine } from 'react-icons/ri'
 
 const ToggleTheme = dynamic(() => import('./ToggleTheme'), {
-  loading: () => <SquareButtonShimmer />
+  loading: () => <SquareButtonShimmer />,
+  ssr: false
 })
 
 const Sidebar = () => {

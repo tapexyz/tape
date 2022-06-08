@@ -4,7 +4,7 @@ import { LenstubePublication } from 'src/types/local'
 const getThumbnailUrl = (video: LenstubePublication): string => {
   return (
     video.metadata?.cover?.original.url ??
-    video.metadata.image ??
+    video.metadata?.image ??
     `${STATIC_ASSETS}/images/fallbackThumbnail.png`
   )
 }

@@ -18,6 +18,7 @@ const httpLink = new HttpLink({
 const clearStorage = () => {
   localStorage.removeItem('accessToken')
   localStorage.removeItem('refreshToken')
+  localStorage.removeItem('app-storage')
 }
 
 const authLink = new ApolloLink((operation, forward) => {
@@ -55,7 +56,10 @@ const authLink = new ApolloLink((operation, forward) => {
           localStorage.setItem('accessToken', res?.data?.refresh?.accessToken)
           localStorage.setItem('refreshToken', res?.data?.refresh?.refreshToken)
         })
-        .catch((err) => console.error('Error refreshing token ' + err))
+        .catch((err) => {
+          console.error('Error refreshing token ' + err)
+          clearStorage()
+        })
     }
     return forward(operation)
   }

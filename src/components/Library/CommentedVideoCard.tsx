@@ -16,7 +16,7 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
   const commentedOn = comment.commentOn as LenstubePublication
   return (
     <div className="transition duration-500 ease-in-out rounded-b group bg-secondary">
-      <Link href={`/videos/${commentedOn.pubId}`} passHref>
+      <Link href={`/watch/${commentedOn.pubId}`} passHref>
         <div className="rounded-t-lg cursor-pointer aspect-w-16 aspect-h-7">
           <img
             src={imageCdn(getThumbnailUrl(comment))}
@@ -38,7 +38,7 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
           </div>
           <div className="flex flex-col items-start flex-1 text-[11px]">
             <div className="flex w-full items-start justify-between space-x-1.5">
-              <Link href={`/videos/${commentedOn.pubId}`}>
+              <Link href={`/watch/${commentedOn.pubId}`}>
                 <a className="font-medium line-clamp-2 opacity-80">
                   {commentedOn.metadata?.name}
                 </a>

@@ -23,7 +23,7 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
         <div className="flex items-start px-2.5">
           <div className="flex flex-col items-start flex-1 pb-1">
             <span className="flex w-full items-start justify-between space-x-1.5">
-              <Link passHref href={`/videos/${video.id}`}>
+              <Link passHref href={`/watch/${video.id}`}>
                 <a className="mb-1.5 text-sm font-medium line-clamp-2">
                   {video.metadata?.name}
                 </a>

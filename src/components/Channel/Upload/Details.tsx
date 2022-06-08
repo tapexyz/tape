@@ -55,7 +55,7 @@ type PlayerProps = {
   source: string
 }
 
-export const MemoizedVideoPlayer = React.memo(({ source }: PlayerProps) => (
+const MemoizedVideoPlayer = React.memo(({ source }: PlayerProps) => (
   <VideoPlayer
     source={source}
     autoPlay={false}
