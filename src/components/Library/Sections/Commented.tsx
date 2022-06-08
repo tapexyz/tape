@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
-import { LENSTUBE_COMMENTS_APP_ID } from '@utils/constants'
+import { LENSTUBE_APP_ID } from '@utils/constants'
 import { PROFILE_FEED_QUERY } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import { COMMENTED_LIBRARY } from '@utils/url-path'
@@ -25,7 +25,7 @@ const Commented = () => {
         publicationTypes: 'COMMENT',
         profileId: selectedChannel?.id,
         limit: 4,
-        sources: [LENSTUBE_COMMENTS_APP_ID]
+        sources: [LENSTUBE_APP_ID]
       }
     },
     skip: !selectedChannel?.id,

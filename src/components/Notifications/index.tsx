@@ -2,10 +2,7 @@ import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
-import {
-  LENSTUBE_COMMENTS_APP_ID,
-  LENSTUBE_VIDEOS_APP_ID
-} from '@utils/constants'
+import { LENSTUBE_APP_ID } from '@utils/constants'
 import { NOTIFICATIONS_QUERY } from '@utils/gql/queries'
 import clsx from 'clsx'
 import React, { useState } from 'react'
@@ -23,7 +20,7 @@ const Notifications = () => {
       request: {
         profileId: selectedChannel?.id,
         limit: 10,
-        sources: [LENSTUBE_VIDEOS_APP_ID]
+        sources: [LENSTUBE_APP_ID]
       }
     },
     fetchPolicy: 'no-cache',
@@ -42,7 +39,7 @@ const Notifications = () => {
             profileId: selectedChannel?.id,
             cursor: pageInfo?.next,
             limit: 10,
-            sources: [LENSTUBE_VIDEOS_APP_ID, LENSTUBE_COMMENTS_APP_ID]
+            sources: [LENSTUBE_APP_ID]
           }
         }
       }).then(({ data }: any) => {

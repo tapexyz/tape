@@ -3,7 +3,7 @@ import CommentedVideoCard from '@components/Library/CommentedVideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
+import { LENSTUBE_APP_ID } from '@utils/constants'
 import { PROFILE_FEED_QUERY } from '@utils/gql/queries'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -23,7 +23,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
         publicationTypes: 'COMMENT',
         profileId: channel?.id,
         limit: 10,
-        sources: [LENSTUBE_VIDEOS_APP_ID]
+        sources: [LENSTUBE_APP_ID]
       }
     },
     skip: !channel?.id,
@@ -41,7 +41,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
             profileId: channel?.id,
             cursor: pageInfo?.next,
             limit: 10,
-            sources: [LENSTUBE_VIDEOS_APP_ID]
+            sources: [LENSTUBE_APP_ID]
           }
         }
       }).then(({ data }: any) => {

@@ -10,7 +10,7 @@ import {
   BUNDLR_CURRENCY,
   IPFS_GATEWAY,
   LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_VIDEOS_APP_ID
+  LENSTUBE_APP_ID
 } from '@utils/constants'
 import { isEmptyString } from '@utils/functions/isEmptyString'
 import omitKey from '@utils/functions/omitKey'
@@ -174,9 +174,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
     }
     if (signer && account?.address) {
       setButtonText('Waiting for sign...')
-      toast(
-        'Please check your wallet for a signature request from bundlr.network'
-      )
+      toast('Requesting signature...')
       setDisableSubmit(true)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
@@ -273,9 +271,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const uploadToBundlr = async () => {
     if (!bundlrData.instance || !video.buffer) return
     try {
-      toast(
-        'Please check your wallet for a signature request from bundlr.network'
-      )
+      toast('Requesting signature...')
       const bundlr = bundlrData.instance
       setButtonText('Uploading video...')
       setDisableSubmit(true)
@@ -399,7 +395,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         }
       ],
       media,
-      appId: LENSTUBE_VIDEOS_APP_ID
+      appId: LENSTUBE_APP_ID
     })
     setButtonText('Submitting Txn...')
     // TODO: Add fields to select collect and reference module

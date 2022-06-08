@@ -6,7 +6,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
-import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
+import { LENSTUBE_APP_ID } from '@utils/constants'
 import { PROFILE_FEED_QUERY } from '@utils/gql/queries'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -27,7 +27,7 @@ const SeeAllCommented = () => {
         publicationTypes: 'COMMENT',
         profileId: selectedChannel?.id,
         limit: 10,
-        sources: [LENSTUBE_VIDEOS_APP_ID]
+        sources: [LENSTUBE_APP_ID]
       }
     },
     skip: !selectedChannel?.id,
@@ -48,7 +48,7 @@ const SeeAllCommented = () => {
             profileId: selectedChannel?.id,
             cursor: pageInfo?.next,
             limit: 10,
-            sources: [LENSTUBE_VIDEOS_APP_ID]
+            sources: [LENSTUBE_APP_ID]
           }
         }
       }).then(({ data }: any) => {

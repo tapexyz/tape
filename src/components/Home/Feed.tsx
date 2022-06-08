@@ -3,7 +3,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
-import { LENSTUBE_VIDEOS_APP_ID } from '@utils/constants'
+import { LENSTUBE_APP_ID } from '@utils/constants'
 import { FEED_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
@@ -25,7 +25,7 @@ const HomeFeed = () => {
       request: {
         profileId: selectedChannel?.id,
         limit: 10,
-        sources: [LENSTUBE_VIDEOS_APP_ID]
+        sources: [LENSTUBE_APP_ID]
       }
     },
     fetchPolicy: 'no-cache',
@@ -44,7 +44,7 @@ const HomeFeed = () => {
             profileId: selectedChannel?.id,
             cursor: pageInfo?.next,
             limit: 10,
-            sources: [LENSTUBE_VIDEOS_APP_ID]
+            sources: [LENSTUBE_APP_ID]
           }
         }
       }).then(({ data }: any) => {

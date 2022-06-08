@@ -49,7 +49,5 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
 export const ERROR_MESSAGE = 'Oops, something went something!'
 
-// App Ids
-export const LENSTUBE_APP_ID = 'lenstube'
-export const LENSTUBE_VIDEOS_APP_ID = 'lenstube-videos'
-export const LENSTUBE_COMMENTS_APP_ID = 'lenstube-comments'
+// App Id
+export const LENSTUBE_APP_ID = 'Lenstube'

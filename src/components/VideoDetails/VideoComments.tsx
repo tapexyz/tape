@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
-import { LENSTUBE_COMMENTS_APP_ID } from '@utils/constants'
+import { LENSTUBE_APP_ID } from '@utils/constants'
 import { COMMENT_FEED_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -35,7 +35,7 @@ const VideoComments: FC<Props> = ({ video }) => {
         request: {
           commentsOf: id,
           limit: 10,
-          sources: [LENSTUBE_COMMENTS_APP_ID]
+          sources: [LENSTUBE_APP_ID]
         }
       },
       skip: !id,
@@ -52,7 +52,7 @@ const VideoComments: FC<Props> = ({ video }) => {
       request: {
         commentsOf: id,
         limit: 10,
-        sources: [LENSTUBE_COMMENTS_APP_ID]
+        sources: [LENSTUBE_APP_ID]
       }
     })
   }
@@ -66,7 +66,7 @@ const VideoComments: FC<Props> = ({ video }) => {
             commentsOf: id,
             cursor: pageInfo?.next,
             limit: 10,
-            sources: [LENSTUBE_COMMENTS_APP_ID]
+            sources: [LENSTUBE_APP_ID]
           }
         }
       }).then(({ data }: any) => {

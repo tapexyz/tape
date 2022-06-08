@@ -3,7 +3,7 @@ import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import VideoDetailShimmer from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
-import { LENSTUBE_VIDEOS_APP_ID, ZERO_ADDRESS } from '@utils/constants'
+import { LENSTUBE_APP_ID, ZERO_ADDRESS } from '@utils/constants'
 import { VIDEO_DETAIL_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -33,7 +33,7 @@ const VideoDetails = () => {
           profileId: channelId
         }
       },
-      sources: [LENSTUBE_VIDEOS_APP_ID]
+      sources: [LENSTUBE_APP_ID]
     },
     skip: !id
   })

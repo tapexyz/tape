@@ -2,10 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
-import {
-  LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_COMMENTS_APP_ID
-} from '@utils/constants'
+import { LENSHUB_PROXY_ADDRESS, LENSTUBE_APP_ID } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
@@ -133,7 +130,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         }
       ],
       media: [],
-      appId: LENSTUBE_COMMENTS_APP_ID
+      appId: LENSTUBE_APP_ID
     })
     createTypedData({
       variables: {
