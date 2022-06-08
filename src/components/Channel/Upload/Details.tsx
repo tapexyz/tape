@@ -273,7 +273,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
     try {
       toast('Requesting signature...')
       const bundlr = bundlrData.instance
-      setButtonText('Uploading video...')
+      setButtonText('Uploading to arweave...')
       setDisableSubmit(true)
       const tags = [{ name: 'Content-Type', value: 'video/mp4' }]
       const tx = bundlr.createTransaction(video.buffer, {

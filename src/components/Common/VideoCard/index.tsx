@@ -17,7 +17,7 @@ type Props = {
 
 const VideoCard: FC<Props> = ({ video }) => {
   return (
-    <div className="transition duration-500 ease-in-out rounded-b group bg-secondary">
+    <div className="transition duration-500 ease-in-out bg-white rounded-b dark:bg-[#151414] group">
       <Link href={`/watch/${video.id}`} passHref>
         <div className="rounded-t-lg cursor-pointer aspect-w-16 aspect-h-9">
           <img
