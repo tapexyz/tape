@@ -15,14 +15,19 @@ type Props = {
 }
 
 const UnSubscribe: FC<Props> = ({ channel }) => {
+  const subscribeType = channel?.followModule?.__typename
+  const subscribeText =
+    subscribeType === 'FeeFollowModuleSettings'
+      ? 'Joined channel'
+      : 'Subscribed'
   const [loading, setLoading] = useState(false)
-  const [buttonText, setButtonText] = useState('Subscribed')
+  const [buttonText, setButtonText] = useState(subscribeText)
   const { data: signer } = useSigner()
 
   const { signTypedDataAsync } = useSignTypedData({
     onError() {
       setLoading(false)
-      setButtonText('Subscribed')
+      setButtonText(subscribeText)
     }
   })
 
@@ -58,20 +63,24 @@ const UnSubscribe: FC<Props> = ({ channel }) => {
           )
           if (txn.hash) {
             toast.success(`Unsubscribed ${channel.handle}`)
-            setButtonText('Subscribe')
+            setButtonText(
+              subscribeType === 'FeeFollowModuleSettings'
+                ? 'Join channel'
+                : 'Subscribe'
+            )
           }
           setLoading(false)
         })
         .catch((err) => {
           toast.error(err.message)
           setLoading(false)
-          setButtonText('Subscribed')
+          setButtonText(subscribeText)
         })
     },
     onError(error) {
       toast.error(error.message ?? ERROR_MESSAGE)
       setLoading(false)
-      setButtonText('Subscribed')
+      setButtonText(subscribeText)
     }
   })
 

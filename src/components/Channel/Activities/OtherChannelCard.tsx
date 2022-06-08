@@ -43,14 +43,10 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
           {channel.stats.totalFollowers} subscribers
         </span>
       </div>
-      {subscribeType === 'FeeFollowModuleSettings' ? (
-        isFollower ? (
-          <UnSubscribe channel={channel} />
-        ) : (
-          <JoinChannel channel={channel} />
-        )
-      ) : isFollower ? (
+      {isFollower ? (
         <UnSubscribe channel={channel} />
+      ) : subscribeType === 'FeeFollowModuleSettings' ? (
+        <JoinChannel channel={channel} />
       ) : (
         <Subscribe channel={channel} />
       )}

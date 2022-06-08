@@ -78,14 +78,10 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                   </Button>
                 </Tooltip>
               )}
-              {subscribeType === 'FeeFollowModuleSettings' ? (
-                isFollower ? (
-                  <UnSubscribe channel={channel} />
-                ) : (
-                  <JoinChannel channel={channel} />
-                )
-              ) : isFollower ? (
+              {isFollower ? (
                 <UnSubscribe channel={channel} />
+              ) : subscribeType === 'FeeFollowModuleSettings' ? (
+                <JoinChannel channel={channel} />
               ) : (
                 <Subscribe channel={channel} />
               )}

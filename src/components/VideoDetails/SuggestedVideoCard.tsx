@@ -12,14 +12,16 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
   return (
     <div className="flex justify-between group">
       <div className="flex justify-between">
-        <div className="flex-none overflow-hidden rounded">
-          <img
-            src={imageCdn(getThumbnailUrl(video))}
-            alt=""
-            draggable={false}
-            className="object-cover object-center h-24 w-44"
-          />
-        </div>
+        <Link passHref href={`/watch/${video.id}`}>
+          <div className="flex-none overflow-hidden rounded cursor-pointer">
+            <img
+              src={imageCdn(getThumbnailUrl(video))}
+              alt=""
+              draggable={false}
+              className="object-cover object-center h-24 w-44"
+            />
+          </div>
+        </Link>
         <div className="flex items-start px-2.5">
           <div className="flex flex-col items-start flex-1 pb-1">
             <span className="flex w-full items-start justify-between space-x-1.5">

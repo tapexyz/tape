@@ -52,16 +52,12 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
             </div>
             <div className="flex items-center space-x-2">
               {isFollower ? <MintVideo video={video} /> : null}
-              {subscribeType === 'FeeFollowModuleSettings' ? (
+              {isFollower ? (
+                <UnSubscribe channel={channel} />
+              ) : subscribeType === 'FeeFollowModuleSettings' ? (
                 <JoinChannel channel={channel} />
               ) : (
-                <>
-                  {isFollower ? (
-                    <UnSubscribe channel={channel} />
-                  ) : (
-                    <Subscribe channel={channel} />
-                  )}
-                </>
+                <Subscribe channel={channel} />
               )}
             </div>
           </div>
@@ -76,7 +72,7 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
           {clamped && (
             <button
               onClick={() => readMore()}
-              className="flex items-center mt-2 text-xs outline-none hover:opacity-100 opacity-70"
+              className="flex items-center mt-2 text-xs outline-none hover:opacity-100 opacity-60"
             >
               Read more <BiChevronDown className="text-sm" />
             </button>
