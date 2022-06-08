@@ -79,7 +79,7 @@ const VideoComments: FC<Props> = ({ video }) => {
   if (loading) return <Loader />
 
   return (
-    <div className="mb-3">
+    <div className="pb-4">
       {selectedChannel || data?.publications?.pageInfo.totalCount > 0 ? (
         <>
           <div className="flex items-center justify-between">

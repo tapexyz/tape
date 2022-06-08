@@ -123,6 +123,11 @@ export const CommentFields = gql`
         metadata {
           name
           content
+          cover {
+            original {
+              url
+            }
+          }
         }
       }
       ... on Comment {

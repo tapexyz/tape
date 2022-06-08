@@ -14,12 +14,16 @@ type Props = {
 
 const CommentedVideoCard: FC<Props> = ({ comment }) => {
   const commentedOn = comment.commentOn as LenstubePublication
+  console.log(
+    '🚀 ~ file: CommentedVideoCard.tsx ~ line 17 ~ commentedOn',
+    commentedOn
+  )
   return (
     <div className="transition duration-500 ease-in-out rounded-b group bg-secondary">
       <Link href={`/watch/${commentedOn.pubId}`} passHref>
         <div className="rounded-t-lg cursor-pointer aspect-w-16 aspect-h-7">
           <img
-            src={imageCdn(getThumbnailUrl(comment))}
+            src={imageCdn(getThumbnailUrl(commentedOn))}
             alt=""
             draggable={false}
             className="object-cover object-center w-full h-full rounded-t lg:w-full lg:h-full"
