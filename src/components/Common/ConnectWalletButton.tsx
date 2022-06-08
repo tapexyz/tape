@@ -5,14 +5,14 @@ import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import { POLYGON_CHAIN_ID } from '@utils/constants'
-import { getWalletLogo } from '@utils/functions/getWalletLogo'
+import { getWalletInfo } from '@utils/functions/getWalletInfo'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import clsx from 'clsx'
 import React, { useState } from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { BiError } from 'react-icons/bi'
-import { CgBrowser } from 'react-icons/cg'
+import { BsThreeDots } from 'react-icons/bs'
 import { Profile } from 'src/types'
 import { Connector, useAccount, useConnect, useNetwork } from 'wagmi'
 
@@ -50,6 +50,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
       }
     }
   })
+  const walletConnect = connectors.find((w) => w.id === 'walletConnect')
 
   const isMounted = useIsMounted()
 
@@ -81,59 +82,82 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
               <h6 className="text-sm truncate">{account?.address}</h6>
             </div>
           )}
-          {connectors.map((x, i) => {
-            return (
-              <button
-                key={i}
-                className={clsx(
-                  'w-full rounded-lg p-4 dark:bg-gray-900 bg-gray-100',
-                  {
-                    'hover:shadow-inner dark:hover:opacity-80':
-                      x.id !== account?.connector?.id
-                  }
-                )}
-                onClick={() => onConnect(x)}
-                disabled={
-                  isMounted()
-                    ? !x.ready || x.id === account?.connector?.id
-                    : false
-                }
-              >
-                <div className="flex items-center w-full space-x-2.5">
-                  {x.id === 'injected' ? (
-                    <CgBrowser className="text-xl text-indigo-900" />
-                  ) : (
-                    <img
-                      src={getWalletLogo(x.id)}
-                      className="w-5 h-5 rounded"
-                      draggable={false}
-                      alt=""
-                    />
+          <div className="grid grid-cols-3 gap-3">
+            {connectors.map((wallet, i) => {
+              return (
+                getWalletInfo(wallet.id, wallet.name) && (
+                  <button
+                    key={i}
+                    className={clsx(
+                      'w-full relative flex space-y-3 items-center flex-col rounded-lg p-4 dark:bg-gray-900 bg-gray-100',
+                      {
+                        'hover:shadow-inner dark:hover:opacity-80':
+                          wallet.id !== account?.connector?.id
+                      }
+                    )}
+                    onClick={() => onConnect(wallet)}
+                    disabled={
+                      isMounted()
+                        ? !wallet.ready || wallet.id === account?.connector?.id
+                        : false
+                    }
+                  >
+                    <div className="flex items-center">
+                      <img
+                        src={getWalletInfo(wallet.id, wallet.name)?.logo}
+                        className="rounded-md w-7 h-7"
+                        draggable={false}
+                        alt=""
+                      />
+                    </div>
+                    <div className="flex items-center justify-between flex-1 text-xs">
+                      <span>
+                        {getWalletInfo(wallet.id, wallet.name)?.label}
+                        {isMounted() ? !wallet.ready && ' (unsupported)' : ''}
+                      </span>
+                      <span>
+                        {isConnecting && wallet.id === pendingConnector?.id && (
+                          <span className="absolute top-2 right-2">
+                            <Loader size="sm" />
+                          </span>
+                        )}
+                        {!signing && wallet.id === account?.connector?.id && (
+                          <span className="absolute top-2 right-2">
+                            <AiOutlineCheck className="text-indigo-800" />
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  </button>
+                )
+              )
+            })}
+          </div>
+          {walletConnect && (
+            <button
+              className={clsx(
+                'w-full space-x-2 flex justify-center items-center rounded-lg p-4 dark:bg-gray-900 bg-gray-100'
+              )}
+              onClick={() => onConnect(walletConnect)}
+            >
+              <span>
+                <BsThreeDots />
+              </span>
+              <div className="flex items-center justify-between text-xs">
+                <span>Other wallets</span>
+                <span>
+                  {isConnecting &&
+                    walletConnect.id === pendingConnector?.id && <Loader />}
+                  {!signing && walletConnect.id === account?.connector?.id && (
+                    <AiOutlineCheck className="text-indigo-800" />
                   )}
-                  <span className="flex items-center justify-between flex-1">
-                    <span>
-                      {isMounted()
-                        ? x.id === 'injected'
-                          ? 'Browser Wallet'
-                          : x.name
-                        : x.name}
-                      {isMounted() ? !x.ready && ' (unsupported)' : ''}
-                    </span>
-                    <span>
-                      {isConnecting && x.id === pendingConnector?.id && (
-                        <Loader />
-                      )}
-                      {!signing && x.id === account?.connector?.id && (
-                        <AiOutlineCheck className="text-indigo-800" />
-                      )}
-                    </span>
-                  </span>
-                </div>
-              </button>
-            )
-          })}
+                </span>
+              </div>
+            </button>
+          )}
+
           {error?.message ? (
-            <div className="flex items-center px-1 py-2 text-red-500">
+            <div className="flex items-center px-1 pt-2 text-red-500">
               <BiError className="w-5 h-5 mr-2" />
               {error?.message ?? 'Failed to connect'}
             </div>
