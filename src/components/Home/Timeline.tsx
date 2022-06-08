@@ -11,7 +11,8 @@ const Timeline: FC<Props> = ({ videos }) => {
     <div className="grid gap-x-4 lg:grid-cols-4 md:gap-y-6 gap-y-1 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
       {videos?.map(
         (video: LenstubePublication, idx: number) =>
-          video.__typename === 'Post' && (
+          video.__typename === 'Post' &&
+          !video.collectedBy && (
             <VideoCard key={`${video?.id}_${idx}`} video={video} />
           )
       )}

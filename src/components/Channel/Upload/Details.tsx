@@ -3,13 +3,11 @@ import { useMutation } from '@apollo/client'
 import { WebBundlr } from '@bundlr-network/client'
 import VideoPlayer from '@components/Common/VideoPlayer'
 import { Button } from '@components/UIElements/Button'
-import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import {
   ARWEAVE_WEBSITE_URL,
   BUNDLR_CURRENCY,
-  BUNDLR_WEBSITE_URL,
   IPFS_GATEWAY,
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_VIDEOS_APP_ID
@@ -23,12 +21,8 @@ import usePendingTxn from '@utils/hooks/usePendingTxn'
 import axios from 'axios'
 import clsx from 'clsx'
 import { utils } from 'ethers'
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
-import { MdRefresh } from 'react-icons/md'
 import { CreatePostBroadcastItemResult } from 'src/types'
 import {
   BundlrDataState,
@@ -44,7 +38,8 @@ import {
   useSignTypedData
 } from 'wagmi'
 
-const ChooseThumbnail = dynamic(() => import('./ChooseThumbnail'))
+import BundlrInfo from './BundlrInfo'
+import Form from './Form'
 
 type Props = {
   video: VideoUpload
@@ -448,69 +443,12 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   return (
     <div className="h-full">
       <div className="grid h-full gap-5 md:grid-cols-2">
-        <div>
-          <h1 className="font-semibold">Details</h1>
-          <div className="mt-4">
-            <div className="flex items-center justify-between mb-1 space-x-1.5">
-              <div className="required text-[11px] font-semibold uppercase opacity-70">
-                Title
-              </div>
-              <span
-                className={clsx('text-[10px] opacity-50', {
-                  'text-red-500 !opacity-100': videoMeta.title.length > 100
-                })}
-              >
-                {videoMeta.title.length}/100
-              </span>
-            </div>
-            <Input
-              type="text"
-              placeholder="Title that describes your video"
-              autoComplete="off"
-              value={videoMeta.title}
-              autoFocus
-              onChange={(e) =>
-                setVideoMeta({ ...videoMeta, title: e.target.value })
-              }
-            />
-          </div>
-          <div className="mt-4">
-            <div className="flex items-center justify-between mb-1 space-x-1.5">
-              <div className="text-[11px] font-semibold uppercase opacity-70">
-                Description
-              </div>
-              <span
-                className={clsx('text-[10px] opacity-50', {
-                  'text-red-500 !opacity-100':
-                    videoMeta.description.length > 5000
-                })}
-              >
-                {videoMeta.description.length}/5000
-              </span>
-            </div>
-            <textarea
-              placeholder="More about your video"
-              autoComplete="off"
-              rows={5}
-              className={clsx(
-                'bg-white text-sm px-2.5 py-1 rounded-md dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
-              )}
-              value={videoMeta.description}
-              onChange={(e) =>
-                setVideoMeta({ ...videoMeta, description: e.target.value })
-              }
-            />
-          </div>
-          <div className="mt-4">
-            <ChooseThumbnail
-              label="Thumbnail"
-              file={video.file}
-              afterUpload={(data: IPFSUploadResult | null) => {
-                onThumbnailUpload(data)
-              }}
-            />
-          </div>
-        </div>
+        <Form
+          video={video}
+          videoMeta={videoMeta}
+          setVideoMeta={setVideoMeta}
+          onThumbnailUpload={onThumbnailUpload}
+        />
         <div className="flex flex-col items-start">
           <div
             className={clsx('overflow-hidden', {
@@ -538,89 +476,22 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
             storage and it stays forever.
           </span>
           {showBundlrDetails && (
-            <div className="flex flex-col w-full p-4 my-5 space-y-4 border border-gray-200 rounded-lg dark:border-gray-800">
-              <div>
-                <div className="flex flex-col">
-                  <div className="text-[11px] inline-flex rounded justify-between items-center font-semibold uppercase opacity-70">
-                    <span className="inline-flex space-x-1.5">
-                      <span>Your Balance</span>
-                      <button type="button" onClick={() => fetchBalance()}>
-                        <MdRefresh className="text-sm" />
-                      </button>
-                    </span>
-                    <Link href={BUNDLR_WEBSITE_URL}>
-                      <a target="_blank" rel="noreferer" className="text-[9px]">
-                        bundlr.network ({BUNDLR_CURRENCY})
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-xl font-semibold">
-                      {bundlrData.balance}
-                    </span>
-                    <span>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setBundlrData({
-                            ...bundlrData,
-                            showDeposit: !bundlrData.showDeposit
-                          })
-                        }
-                        className="inline-flex items-center px-1 bg-gray-100 rounded-full dark:bg-gray-800"
-                      >
-                        <span className="text-[9px] pl-1">Deposit</span>
-                        {bundlrData.showDeposit ? (
-                          <BiChevronUp />
-                        ) : (
-                          <BiChevronDown />
-                        )}
-                      </button>
-                    </span>
-                  </div>
-                </div>
-                {bundlrData.showDeposit && (
-                  <div className="flex items-end mt-2 space-x-2">
-                    <Input
-                      label="Amount to deposit"
-                      type="number"
-                      placeholder="100 MATIC"
-                      autoComplete="off"
-                      value={bundlrData.deposit || ''}
-                      onChange={(e) =>
-                        setBundlrData({
-                          ...bundlrData,
-                          deposit: parseInt(e.target.value)
-                        })
-                      }
-                    />
-                    <div>
-                      <Button
-                        type="button"
-                        disabled={bundlrData.depositing}
-                        onClick={() => depositToBundlr()}
-                        className="mb-0.5"
-                      >
-                        {bundlrData.depositing ? 'Loading...' : 'Deposit'}
-                      </Button>
-                    </div>
-                  </div>
-                )}
-              </div>
-              <div className="text-[11px] inline-flex flex-col font-semibold">
-                <span className="uppercase opacity-70">
-                  Estimated cost to upload
-                </span>
-                <span className="text-xl font-semibold">
-                  {bundlrData.estimatedPrice}
-                </span>
-              </div>
-            </div>
+            <BundlrInfo
+              bundlrData={bundlrData}
+              setBundlrData={setBundlrData}
+              depositToBundlr={depositToBundlr}
+              fetchBalance={fetchBalance}
+            />
           )}
         </div>
       </div>
-      <div className="flex items-center justify-end">
-        <span className="mt-4">
+      <div className="flex items-center justify-between mt-4">
+        <span>
+          {videoMeta.videoSource && (
+            <span className="text-sm text-green-500">Video uploaded</span>
+          )}
+        </span>
+        <span>
           <Button
             variant="secondary"
             onClick={() => closeUploadModal()}
