@@ -31,12 +31,13 @@ const Layout: FC<Props> = ({ children }) => {
       setSelectedChannel(null)
       localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
+      localStorage.removeItem('app-storage')
       disconnect()
     }
     if (!activeConnector) {
       disconnect()
     }
-    activeConnector?.on('change', () => {
+    activeConnector?.on('disconnect', () => {
       logout()
     })
   }, [setToken, disconnect, activeConnector, setSelectedChannel])
