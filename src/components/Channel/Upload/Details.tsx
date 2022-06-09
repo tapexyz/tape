@@ -173,7 +173,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       return uploadToIpfsWithProgress()
     }
     if (signer && account?.address) {
-      setButtonText('Waiting for sign...')
+      setButtonText('Signing...')
       toast('Requesting signature...')
       setDisableSubmit(true)
       const bundlr = await getBundlrInstance(signer)
@@ -484,7 +484,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       <div className="flex items-center justify-between mt-4">
         <span>
           {videoMeta.videoSource && (
-            <span className="text-sm text-green-500">Video uploaded</span>
+            <span className="text-sm text-green-500">Video uploaded ✅</span>
           )}
         </span>
         <span>
