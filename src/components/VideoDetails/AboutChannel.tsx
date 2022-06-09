@@ -4,6 +4,8 @@ import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import clsx from 'clsx'
+import { Interweave } from 'interweave'
+import { UrlMatcher } from 'interweave-autolink'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
 import { BiChevronDown } from 'react-icons/bi'
@@ -62,12 +64,16 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
             </div>
           </div>
           <p
-            className={clsx('text-sm opacity-80', {
+            className={clsx('interweave-content text-sm opacity-80', {
               'line-clamp-3': clamped,
               '': !clamped
             })}
           >
-            {video.metadata.description}
+            <Interweave
+              content={video.metadata.description}
+              newWindow
+              matchers={[new UrlMatcher('url', { validateTLD: false })]}
+            />
           </p>
           {clamped && (
             <button
