@@ -1,3 +1,4 @@
+import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
@@ -10,7 +11,13 @@ import { FiUpload } from 'react-icons/fi'
 import { MdOutlineClose } from 'react-icons/md'
 import { VideoUpload } from 'src/types/local'
 
-const Details = dynamic(() => import('./Details'))
+const Details = dynamic(() => import('./Details'), {
+  loading: () => (
+    <div className="p-10 md:py-20">
+      <Loader />
+    </div>
+  )
+})
 
 const Upload = () => {
   const [showUploadModal, setShowUploadModal] = useState(false)
@@ -78,42 +85,44 @@ const Upload = () => {
       panelClassName="max-w-4xl !p-4 max-h-[80vh]"
       preventAutoClose={true}
     >
-      {video.preview ? (
-        <Details video={video} closeUploadModal={onCloseUploadModal} />
-      ) : (
-        <div
-          {...getRootProps()}
-          className={clsx(
-            'p-10 md:py-20 relative h-full focus:outline-none border-gray-300 dark:border-gray-700 grid place-items-center text-center border-2 border-dashed rounded-lg cursor-pointer'
-          )}
-        >
-          <button
-            className="absolute top-0 right-0 p-1 bg-gray-100 rounded-md focus:outline-none dark:bg-gray-900"
-            onClick={(e) => {
-              e.stopPropagation()
-              onCloseUploadModal()
-            }}
+      <div className="min-h-[20vh]">
+        {video.preview ? (
+          <Details video={video} closeUploadModal={onCloseUploadModal} />
+        ) : (
+          <div
+            {...getRootProps()}
+            className={clsx(
+              'p-10 md:py-20 relative h-full focus:outline-none border-gray-300 dark:border-gray-700 grid place-items-center text-center border-2 border-dashed rounded-lg cursor-pointer'
+            )}
           >
-            <MdOutlineClose />
-          </button>
-          <div>
-            <span className="flex justify-center mb-6 text-4xl opacity-60">
-              <FiUpload />
-            </span>
-            <input {...getInputProps()} />
-            <span className="opacity-80">
-              {isDragActive ? (
-                <p>Drop it here</p>
-              ) : (
-                <div>
-                  <p>Drag and drop your video</p>
-                  <span className="text-sm">(Maximum size 2 GB for now)</span>
-                </div>
-              )}
-            </span>
+            <button
+              className="absolute top-0 right-0 p-1 bg-gray-100 rounded-md focus:outline-none dark:bg-gray-900"
+              onClick={(e) => {
+                e.stopPropagation()
+                onCloseUploadModal()
+              }}
+            >
+              <MdOutlineClose />
+            </button>
+            <div>
+              <span className="flex justify-center mb-6 text-4xl opacity-60">
+                <FiUpload />
+              </span>
+              <input {...getInputProps()} />
+              <span className="opacity-80">
+                {isDragActive ? (
+                  <p>Drop it here</p>
+                ) : (
+                  <div>
+                    <p>Drag and drop your video</p>
+                    <span className="text-sm">(Maximum size 2 GB for now)</span>
+                  </div>
+                )}
+              </span>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </Modal>
   )
 }

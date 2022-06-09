@@ -48,7 +48,7 @@ const BundlrInfo: FC<Props> = ({
                     showDeposit: !bundlrData.showDeposit
                   })
                 }
-                className="inline-flex items-center px-1 bg-gray-100 rounded-full dark:bg-gray-800"
+                className="inline-flex items-center px-1 bg-gray-100 rounded-full focus:outline-none dark:bg-gray-800"
               >
                 <span className="text-[9px] pl-1">Deposit</span>
                 {bundlrData.showDeposit ? <BiChevronUp /> : <BiChevronDown />}

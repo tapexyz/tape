@@ -53,3 +53,8 @@ html {
 .walletconnect-modal__mobile__toggle {
   @apply text-gray-900;
 }
+
+/* interweave linkify */
+.interweave-content a {
+  @apply text-indigo-500;
+}

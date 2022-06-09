@@ -1,6 +1,7 @@
 import JoinChannel from '@components/Channel/BasicInfo/JoinChannel'
 import Subscribe from '@components/Channel/BasicInfo/Subscribe'
 import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
+import InterweaveContent from '@components/Common/Interweave'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import clsx from 'clsx'
@@ -62,12 +63,12 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
             </div>
           </div>
           <p
-            className={clsx('text-sm opacity-80', {
+            className={clsx('mt-2 text-sm opacity-80', {
               'line-clamp-3': clamped,
               '': !clamped
             })}
           >
-            {video.metadata.description}
+            <InterweaveContent content={video.metadata.description} />
           </p>
           {clamped && (
             <button
