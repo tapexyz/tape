@@ -1,6 +1,7 @@
 import JoinChannel from '@components/Channel/BasicInfo/JoinChannel'
 import Subscribe from '@components/Channel/BasicInfo/Subscribe'
 import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
+import { MentionMatcher } from '@components/Common/MentionMatcher'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import clsx from 'clsx'
@@ -64,7 +65,7 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
             </div>
           </div>
           <p
-            className={clsx('interweave-content text-sm opacity-80', {
+            className={clsx('interweave-content mt-2 text-sm opacity-80', {
               'line-clamp-3': clamped,
               '': !clamped
             })}
@@ -72,7 +73,10 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
             <Interweave
               content={video.metadata.description}
               newWindow
-              matchers={[new UrlMatcher('url', { validateTLD: false })]}
+              matchers={[
+                new MentionMatcher('mention'),
+                new UrlMatcher('url', { validateTLD: false })
+              ]}
             />
           </p>
           {clamped && (
