@@ -1,12 +1,10 @@
 import JoinChannel from '@components/Channel/BasicInfo/JoinChannel'
 import Subscribe from '@components/Channel/BasicInfo/Subscribe'
 import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
-import { MentionMatcher } from '@components/Common/MentionMatcher'
+import InterweaveContent from '@components/Common/Interweave'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import clsx from 'clsx'
-import { Interweave } from 'interweave'
-import { UrlMatcher } from 'interweave-autolink'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
 import { BiChevronDown } from 'react-icons/bi'
@@ -65,19 +63,12 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
             </div>
           </div>
           <p
-            className={clsx('interweave-content mt-2 text-sm opacity-80', {
+            className={clsx('mt-2 text-sm opacity-80', {
               'line-clamp-3': clamped,
               '': !clamped
             })}
           >
-            <Interweave
-              content={video.metadata.description}
-              newWindow
-              matchers={[
-                new MentionMatcher('mention'),
-                new UrlMatcher('url', { validateTLD: false })
-              ]}
-            />
+            <InterweaveContent content={video.metadata.description} />
           </p>
           {clamped && (
             <button
