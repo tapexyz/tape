@@ -846,3 +846,26 @@ export const GENERATE_ALLOWANCE_QUERY = gql`
     }
   }
 `
+
+export const SEARCH_VIDEOS_QUERY = gql`
+  query SearchVideos($request: SearchQueryRequest!) {
+    search(request: $request) {
+      ... on PublicationSearchResult {
+        items {
+          ... on Post {
+            ...PostFields
+          }
+          ... on Comment {
+            ...CommentFields
+          }
+        }
+        pageInfo {
+          next
+          totalCount
+        }
+      }
+    }
+  }
+  ${PostFields}
+  ${CommentFields}
+`

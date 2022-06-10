@@ -1,7 +1,3 @@
-import React from 'react'
-
-const ExploreCategory = () => {
-  return <div>ExploreCategory</div>
-}
+import ExploreCategory from '@components/Explore/Category'
 
 export default ExploreCategory
