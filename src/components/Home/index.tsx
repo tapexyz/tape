@@ -9,13 +9,13 @@ import HomeFeed from './Feed'
 const Recommended = dynamic(() => import('./Recommended'))
 
 const Home: NextPage = () => {
-  const { selectedChannel, token } = useAppStore()
+  const { selectedChannel, isAuthenticated } = useAppStore()
   return (
     <Layout>
       <MetaTags />
       <Recommended />
       <div className="md:my-5">
-        {selectedChannel && token.access ? <HomeFeed /> : <ExploreFeed />}
+        {selectedChannel && isAuthenticated ? <HomeFeed /> : <ExploreFeed />}
       </div>
     </Layout>
   )

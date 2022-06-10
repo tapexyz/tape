@@ -17,33 +17,31 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children }) => {
-  const { setSelectedChannel, setToken } = useAppStore()
+  const { setSelectedChannel, setIsAuthenticated } = useAppStore()
   const { resolvedTheme } = useTheme()
   const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken')
     const refreshToken = localStorage.getItem('refreshToken')
-    setToken({
-      access: accessToken || null,
-      refresh: refreshToken || null
-    })
+    if (refreshToken && refreshToken !== 'undefined') {
+      setIsAuthenticated(true)
+    }
     const logout = () => {
-      setToken({ access: null, refresh: null })
+      setIsAuthenticated(false)
       setSelectedChannel(null)
       localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
       localStorage.removeItem('app-storage')
       disconnect()
     }
-    if (!activeConnector || !refreshToken) {
+    if (!activeConnector) {
       disconnect()
     }
     activeConnector?.on('disconnect', () => {
       logout()
     })
-  }, [setToken, disconnect, activeConnector, setSelectedChannel])
+  }, [setIsAuthenticated, disconnect, activeConnector, setSelectedChannel])
 
   return (
     <>

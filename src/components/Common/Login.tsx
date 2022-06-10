@@ -16,8 +16,12 @@ const ConnectWalletButton = dynamic(() => import('./ConnectWalletButton'))
 
 const Login = () => {
   const { data: accountData } = useAccount()
-  const { setChannels, setSelectedChannel, setToken, setShowCreateChannel } =
-    useAppStore()
+  const {
+    setChannels,
+    setSelectedChannel,
+    setIsAuthenticated,
+    setShowCreateChannel
+  } = useAppStore()
   const { signMessageAsync, isLoading: signing } = useSignMessage()
 
   const [loadChallenge, { error: errorChallenge, loading: loadingChallenge }] =
@@ -59,7 +63,7 @@ const Login = () => {
             const refreshToken = res.data.authenticate.refreshToken
             localStorage.setItem('accessToken', accessToken)
             localStorage.setItem('refreshToken', refreshToken)
-            setToken({ access: accessToken, refresh: refreshToken })
+            setIsAuthenticated(true)
             getProfiles({
               variables: { ownedBy: accountData?.address }
             }).then((res) => {

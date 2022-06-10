@@ -12,17 +12,17 @@ import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
 interface AppState {
-  token: { access: string | null; refresh: string | null }
   channels: Profile[] | []
   recommendedChannels: Profile[] | []
   selectedChannel: Profile | null
   showUploadVideoModal: boolean
   showCreateChannel: boolean
+  isAuthenticated: boolean
   notificationCount: number
   hasNewNotification: boolean
   recentlyWatched: LenstubePublication[] | []
   watchLater: LenstubePublication[] | []
-  setToken: (token: { access: string | null; refresh: string | null }) => void
+  setIsAuthenticated: (auth: boolean) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
   setShowUploadVideoModal: (show: boolean) => void
   setSelectedChannel: (channel: Profile | null) => void
@@ -46,11 +46,12 @@ export const useAppStore = create(
       selectedChannel: null,
       showCreateChannel: false,
       showUploadVideoModal: false,
+      isAuthenticated: false,
       notificationCount: 0,
       hasNewNotification: false,
       setShowUploadVideoModal: (b) => set(() => ({ showUploadVideoModal: b })),
+      setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated })),
       setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),
-      token: { access: null, refresh: null },
       setSelectedChannel: (channel) =>
         set(() => ({ selectedChannel: channel })),
       addToRecentlyWatched: (video) => {
@@ -78,7 +79,6 @@ export const useAppStore = create(
           watchLater: videos.length === 1 ? [] : videos.slice(index, 1)
         }))
       },
-      setToken: (token) => set(() => ({ token })),
       setNotificationCount: (notificationCount) =>
         set(() => ({ notificationCount })),
       setChannels: (channels) => set(() => ({ channels })),
