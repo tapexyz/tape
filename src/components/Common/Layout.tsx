@@ -23,9 +23,11 @@ const Layout: FC<Props> = ({ children }) => {
   const { disconnect } = useDisconnect()
 
   useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken')
+    const refreshToken = localStorage.getItem('refreshToken')
     setToken({
-      access: localStorage.getItem('accessToken') || null,
-      refresh: localStorage.getItem('refreshToken') || null
+      access: accessToken || null,
+      refresh: refreshToken || null
     })
     const logout = () => {
       setToken({ access: null, refresh: null })
@@ -35,7 +37,7 @@ const Layout: FC<Props> = ({ children }) => {
       localStorage.removeItem('app-storage')
       disconnect()
     }
-    if (!activeConnector) {
+    if (!activeConnector || !refreshToken) {
       disconnect()
     }
     activeConnector?.on('disconnect', () => {

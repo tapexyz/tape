@@ -28,7 +28,7 @@ const Sidebar = () => {
           </a>
         </Link>
         <div className="flex flex-col items-center space-y-3">
-          <Tooltip className="!rounded-lg" content="Home" placement="right">
+          <Tooltip content="Home" placement="right">
             <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
               <Link href={HOME} passHref>
                 <Button className="!p-2">
@@ -37,7 +37,7 @@ const Sidebar = () => {
               </Link>
             </span>
           </Tooltip>
-          <Tooltip className="!rounded-lg" content="Explore" placement="right">
+          <Tooltip content="Explore" placement="right">
             <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
               <Link href={EXPLORE} passHref>
                 <Button className="!p-2">
@@ -46,7 +46,7 @@ const Sidebar = () => {
               </Link>
             </span>
           </Tooltip>
-          <Tooltip className="!rounded-lg" content="Library" placement="right">
+          <Tooltip content="Library" placement="right">
             <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
               <Link href={LIBRARY} passHref>
                 <Button className="!p-2">

@@ -29,7 +29,7 @@ const About: FC<Props> = ({ channel }) => {
         </h6>
         <div className="space-y-1.5">
           {getKeyFromAttributes(attributes, 'website') && (
-            <div className="flex items-center space-x-1 text-sm">
+            <div className="flex items-center space-x-1">
               <HiOutlineGlobe />
               <a
                 href={getKeyFromAttributes(attributes, 'website')}
@@ -42,7 +42,7 @@ const About: FC<Props> = ({ channel }) => {
             </div>
           )}
           {getKeyFromAttributes(attributes, 'twitter') && (
-            <div className="flex items-center space-x-1 text-sm">
+            <div className="flex items-center space-x-1">
               <RiTwitterLine />
               <a
                 href={getKeyFromAttributes(attributes, 'website')}
@@ -54,7 +54,7 @@ const About: FC<Props> = ({ channel }) => {
               </a>
             </div>
           )}
-          <div className="flex items-center space-x-1 text-sm">
+          <div className="flex items-center space-x-1">
             <span className="text-[10px] grayscale" role="img">
               🌸
             </span>
