@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://cloudflare-ipfs.com/ipfs/QmYy5RxopdCoPBEAoeJou42jNM7uhUtoVQirmNJNVyWaCx" height="70" alt="Logo">
+    <img src="https://cloudflare-ipfs.com/ipfs/Qmb2oJXiWcSc84ZtvECeLE2NKWwEkhK8R2az4wTxUW69JD" height="70" alt="Logo">
     <h1>Lenstube</h1>
     <a href="https://lenstube.xyz">https://lenstube.xyz</a>
 </div>
@@ -14,4 +14,9 @@
 </div>
 <br>
 
+## About
+
 Decentralized video-sharing social media platform (similar to YouTube), using Lens Protocol  🌿
+
+## License
+This app is open-source and licensed under the MIT license. For more details, check the License file.
