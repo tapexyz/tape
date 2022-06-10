@@ -2,7 +2,7 @@ import { Interweave } from 'interweave'
 import { UrlMatcher } from 'interweave-autolink'
 import React from 'react'
 
-import { MentionMatcher } from './MentionMatcher'
+import { MentionMatcher } from './matchers/MentionMatcher'
 
 const InterweaveContent = ({ content }: { content: string }) => {
   return (

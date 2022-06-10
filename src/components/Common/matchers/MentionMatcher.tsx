@@ -2,7 +2,7 @@ import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
 
-function ChannelLink({ ...props }: any) {
+const ChannelLink = ({ ...props }: any) => {
   return (
     <Link href={`/${props.display.slice(1)}`} prefetch={false}>
       {props.display}

@@ -1,3 +1,4 @@
+import { STATIC_ASSETS } from '@utils/constants'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
@@ -18,7 +19,7 @@ const MetaTags: FC<Props> = (props) => {
     description:
       description ??
       'Lenstube is a decentralized video-sharing social media platform built with Lens protocol.',
-    image: image ?? '/og.png',
+    image: image ?? `${STATIC_ASSETS}/images/seo/og.png`,
     type: 'website'
   }
 
