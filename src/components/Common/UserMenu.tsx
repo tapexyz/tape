@@ -77,7 +77,7 @@ const UserMenu: FC<Props> = () => {
                 >
                   <span className="inline-flex items-center space-x-1.5">
                     <img
-                      className="w-6 h-6 rounded-md"
+                      className="w-6 h-6 rounded-full"
                       src={imageCdn(getProfilePicture(channel))}
                       alt=""
                       draggable={false}
