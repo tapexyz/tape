@@ -100,7 +100,7 @@ const UserMenu: FC<Props> = () => {
                 )}
               >
                 <img
-                  className="rounded-lg w-9 h-9"
+                  className="rounded-full w-9 h-9"
                   src={imageCdn(getProfilePicture(selectedChannel))}
                   alt=""
                   draggable={false}
