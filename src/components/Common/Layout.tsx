@@ -38,7 +38,7 @@ const Layout: FC<Props> = ({ children }) => {
     if (!activeConnector?.id) {
       disconnect()
     }
-    activeConnector?.on('disconnect', () => {
+    activeConnector?.on('change', () => {
       logout()
     })
   }, [setIsAuthenticated, disconnect, activeConnector, setSelectedChannel])
