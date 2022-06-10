@@ -8,6 +8,7 @@ import { useConnect, useDisconnect } from 'wagmi'
 
 import Header from './Header'
 import Sidebar from './Sidebar'
+const Upload = dynamic(() => import('../Common/Upload'))
 const CreateChannel = dynamic(() => import('./CreateChannel'))
 const MobileBottomNav = dynamic(() => import('./MobileBottomNav'))
 
@@ -16,37 +17,38 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children }) => {
-  const { setSelectedChannel, setToken } = useAppStore()
+  const { setSelectedChannel, setIsAuthenticated } = useAppStore()
   const { resolvedTheme } = useTheme()
   const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
 
   useEffect(() => {
-    setToken({
-      access: localStorage.getItem('accessToken') || null,
-      refresh: localStorage.getItem('refreshToken') || null
-    })
+    const refreshToken = localStorage.getItem('refreshToken')
+    if (refreshToken && refreshToken !== 'undefined') {
+      setIsAuthenticated(true)
+    }
     const logout = () => {
-      setToken({ access: null, refresh: null })
+      setIsAuthenticated(false)
       setSelectedChannel(null)
       localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
       localStorage.removeItem('app-storage')
       disconnect()
     }
-    if (!activeConnector) {
+    if (!activeConnector?.id) {
       disconnect()
     }
-    activeConnector?.on('disconnect', () => {
+    activeConnector?.on('change', () => {
       logout()
     })
-  }, [setToken, disconnect, activeConnector, setSelectedChannel])
+  }, [setIsAuthenticated, disconnect, activeConnector, setSelectedChannel])
 
   return (
     <>
       <div className="flex pb-14 md:pb-0">
         <Sidebar />
         <CreateChannel />
+        <Upload />
         <div className="w-full pl-2 md:pl-[84px] pr-2 md:pr-4 max-w-[200rem] mx-auto">
           <Header />
           <div className="pt-16">{children}</div>

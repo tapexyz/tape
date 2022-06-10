@@ -1,14 +1,13 @@
 import Popover from '@components/UIElements/Popover'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import Link from 'next/link'
 import React from 'react'
 import { AiOutlineVideoCameraAdd } from 'react-icons/ai'
 import { FiUpload } from 'react-icons/fi'
 import { HiOutlineStatusOnline } from 'react-icons/hi'
 
 const NewVideoTrigger = () => {
-  const { selectedChannel } = useAppStore()
+  const { setShowUploadVideoModal } = useAppStore()
 
   return (
     <Popover
@@ -22,12 +21,13 @@ const NewVideoTrigger = () => {
     >
       <div className="p-1 mt-1.5 overflow-hidden border border-gray-100 rounded-lg shadow-xl dark:border-gray-800 bg-secondary">
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-md">
-          <Link href={`/${selectedChannel?.handle}?upload=1`}>
-            <a className="inline-flex items-center px-4 py-1.5 space-x-2 rounded-md opacity-90 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
-              <FiUpload />
-              <span className="whitespace-nowrap">Upload</span>
-            </a>
-          </Link>
+          <button
+            onClick={() => setShowUploadVideoModal(true)}
+            className="inline-flex items-center px-4 py-1.5 space-x-2 rounded-md opacity-90 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
+            <FiUpload />
+            <span className="whitespace-nowrap">Upload</span>
+          </button>
           <button
             disabled
             className="inline-flex opacity-40 items-center px-4 py-1.5 space-x-2 rounded-md"

@@ -1,7 +1,7 @@
 import JoinChannel from '@components/Channel/BasicInfo/JoinChannel'
 import Subscribe from '@components/Channel/BasicInfo/Subscribe'
 import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
-import InterweaveContent from '@components/Common/Interweave'
+import InterweaveContent from '@components/Common/InterweaveContent'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import clsx from 'clsx'
@@ -33,19 +33,21 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
   return (
     <div>
       <div className="flex justify-between w-full my-2">
-        <div className="flex-none mt-2.5 mr-3">
-          <img
-            src={imageCdn(getProfilePicture(channel))}
-            className="w-10 h-10 rounded-full"
-            draggable={false}
-            alt=""
-          />
-        </div>
+        <Link href={`/${channel?.handle}`} passHref>
+          <div className="flex-none mt-2.5 mr-3 cursor-pointer">
+            <img
+              src={imageCdn(getProfilePicture(channel))}
+              className="w-10 h-10 rounded-full"
+              draggable={false}
+              alt=""
+            />
+          </div>
+        </Link>
         <div className="flex flex-col flex-1">
           <div className="flex flex-wrap justify-between py-2 space-y-2">
             <div className="flex flex-col items-start mr-2">
               <Link href={`/${channel?.handle}`}>
-                <a className="font-bold">{channel?.handle}</a>
+                <a className="font-semibold">{channel?.handle}</a>
               </Link>
               <span className="inline-flex items-center space-x-1 text-xs">
                 {channel?.stats.totalFollowers} subscribers

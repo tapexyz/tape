@@ -45,13 +45,13 @@ const Video: FC<Props> = ({ video }) => {
         </div>
         <div className="flex items-center space-x-3">
           <Tooltip content={`Total collected`}>
-            <div className="flex items-center space-x-1 text-sm opacity-70 hover:opacity-100">
+            <div className="flex items-center space-x-1 opacity-70 hover:opacity-100">
               <SiOpenmined className="text-xs" />
               <span>{video.stats.totalAmountOfCollects}</span>
             </div>
           </Tooltip>
           <Tooltip content={`Total comments`}>
-            <div className="flex items-center space-x-1 text-sm opacity-70 hover:opacity-100">
+            <div className="flex items-center space-x-1 opacity-70 hover:opacity-100">
               <AiOutlineComment />
               <span>{video.stats.totalAmountOfComments}</span>
             </div>

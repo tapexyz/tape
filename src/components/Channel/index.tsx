@@ -10,7 +10,6 @@ import { Profile } from 'src/types'
 const Activities = dynamic(() => import('./Activities'))
 const Custom500 = dynamic(() => import('../../pages/500'))
 const Custom404 = dynamic(() => import('../../pages/404'))
-const Upload = dynamic(() => import('./Upload'))
 const BasicInfo = dynamic(() => import('./BasicInfo'))
 
 const Channel = () => {
@@ -33,7 +32,6 @@ const Channel = () => {
       {!loading && !error && channel ? (
         <>
           <MetaTags title={channel?.handle} />
-          <Upload />
           <BasicInfo channel={channel} />
           <Activities channel={channel} />
         </>

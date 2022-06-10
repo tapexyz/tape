@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client'
 import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
+import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
 import VideoDetailShimmer from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
 import { LENSTUBE_APP_ID, ZERO_ADDRESS } from '@utils/constants'
@@ -16,7 +17,9 @@ const SuggestedVideos = dynamic(() => import('./SuggestedVideos'))
 const VideoComments = dynamic(() => import('./VideoComments'))
 const AboutChannel = dynamic(() => import('./AboutChannel'))
 
-const Video = dynamic(() => import('./Video'))
+const Video = dynamic(() => import('./Video'), {
+  loading: () => <VideoCardShimmer />
+})
 
 const VideoDetails = () => {
   const {

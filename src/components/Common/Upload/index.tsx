@@ -3,8 +3,7 @@ import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
 import toast from 'react-hot-toast'
 import { FiUpload } from 'react-icons/fi'
@@ -20,23 +19,13 @@ const Details = dynamic(() => import('./Details'), {
 })
 
 const Upload = () => {
-  const [showUploadModal, setShowUploadModal] = useState(false)
   const [video, setVideo] = useState<VideoUpload>({
     buffer: null,
     preview: '',
     videoType: '',
     file: null
   })
-  const { selectedChannel } = useAppStore()
-
-  const {
-    query: { upload },
-    push
-  } = useRouter()
-
-  useEffect(() => {
-    if (upload && selectedChannel) setShowUploadModal(true)
-  }, [upload, selectedChannel])
+  const { showUploadVideoModal, setShowUploadVideoModal } = useAppStore()
 
   const uploadVideo = async (files: File[]) => {
     const file = files[0]
@@ -59,8 +48,7 @@ const Upload = () => {
   }
 
   const onCloseUploadModal = () => {
-    setShowUploadModal(false)
-    push(selectedChannel?.handle, undefined, { shallow: true })
+    setShowUploadVideoModal(false)
     setVideo({ preview: '', buffer: null, videoType: '', file: null })
   }
 
@@ -81,7 +69,7 @@ const Upload = () => {
   return (
     <Modal
       onClose={() => onCloseUploadModal()}
-      show={showUploadModal}
+      show={showUploadVideoModal}
       panelClassName="max-w-4xl !p-4 max-h-[80vh]"
       preventAutoClose={true}
     >

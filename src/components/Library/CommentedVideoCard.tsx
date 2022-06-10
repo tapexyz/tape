@@ -29,15 +29,15 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
       </Link>
       <div className="p-2">
         <div className="flex items-start space-x-2.5">
-          <div className="flex-none">
+          <div className="flex-none mt-0.5">
             <img
-              className="rounded-full w-7 h-7"
+              className="w-8 h-8 rounded-full"
               src={imageCdn(getProfilePicture(comment.profile))}
               alt=""
               draggable={false}
             />
           </div>
-          <div className="flex flex-col items-start flex-1 text-[11px]">
+          <div className="flex flex-col items-start flex-1">
             <div className="flex w-full items-start justify-between space-x-1.5">
               <Link href={`/watch/${commentedOn.pubId}`}>
                 <a className="font-medium line-clamp-2 opacity-80">
@@ -46,7 +46,7 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
               </Link>
             </div>
             <Link href={`/${comment.profile?.handle}`}>
-              <a className="hover:opacity-100 opacity-70">
+              <a className="text-sm hover:opacity-100 opacity-70">
                 {comment.profile?.handle}
               </a>
             </Link>

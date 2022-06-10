@@ -52,7 +52,7 @@ const Recommended = () => {
               className="flex items-center flex-none space-x-2"
             >
               <img
-                className="w-8 h-8 rounded-lg"
+                className="w-8 h-8 rounded-full"
                 src={imageCdn(sanitizeIpfsUrl(getProfilePicture(channel)))}
                 alt=""
                 draggable={false}

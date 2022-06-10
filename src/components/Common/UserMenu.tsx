@@ -20,13 +20,13 @@ const UserMenu: FC<Props> = () => {
     setShowCreateChannel,
     setSelectedChannel,
     selectedChannel,
-    setToken
+    setIsAuthenticated
   } = useAppStore()
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
   const { disconnect } = useDisconnect()
 
   const logout = () => {
-    setToken({ access: null, refresh: null })
+    setIsAuthenticated(false)
     setSelectedChannel(null)
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
@@ -43,9 +43,9 @@ const UserMenu: FC<Props> = () => {
   return (
     <Popover
       trigger={
-        <button className="mt-[3px] w-[30px] h-[30px] border border-indigo-900 p-[1px] rounded-md">
+        <button className="mt-[3px] w-[30px] h-[30px] rounded-full">
           <img
-            className="object-cover rounded-md"
+            className="object-cover rounded-full"
             src={imageCdn(getProfilePicture(selectedChannel))}
             alt=""
             draggable={false}
@@ -77,7 +77,7 @@ const UserMenu: FC<Props> = () => {
                 >
                   <span className="inline-flex items-center space-x-1.5">
                     <img
-                      className="w-6 h-6 rounded-md"
+                      className="w-6 h-6 rounded-full"
                       src={imageCdn(getProfilePicture(channel))}
                       alt=""
                       draggable={false}
@@ -100,7 +100,7 @@ const UserMenu: FC<Props> = () => {
                 )}
               >
                 <img
-                  className="rounded-lg w-9 h-9"
+                  className="rounded-full w-9 h-9"
                   src={imageCdn(getProfilePicture(selectedChannel))}
                   alt=""
                   draggable={false}

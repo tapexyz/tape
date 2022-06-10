@@ -98,6 +98,7 @@ const CreateChannel = () => {
         </div>
       ) : (
         <div className="space-y-4">
+          <h6 className="text-sm opacity-70">Your new Lenstube channel</h6>
           <div className="mt-4">
             <Input
               label="Channel Name"

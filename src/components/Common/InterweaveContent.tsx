@@ -2,7 +2,8 @@ import { Interweave } from 'interweave'
 import { UrlMatcher } from 'interweave-autolink'
 import React from 'react'
 
-import { MentionMatcher } from './MentionMatcher'
+import { HashtagMatcher } from './matchers/HashtagMatcher'
+import { MentionMatcher } from './matchers/MentionMatcher'
 
 const InterweaveContent = ({ content }: { content: string }) => {
   return (
@@ -11,6 +12,7 @@ const InterweaveContent = ({ content }: { content: string }) => {
         content={content}
         newWindow
         matchers={[
+          new HashtagMatcher('hashtag'),
           new MentionMatcher('mention'),
           new UrlMatcher('url', { validateTLD: false })
         ]}

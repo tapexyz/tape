@@ -34,7 +34,11 @@ const Settings = () => {
   })
 
   if (error) return <Custom500 />
-  if (data?.profiles?.items?.length === 0) return <Custom404 />
+  if (
+    data?.profiles?.items?.length === 0 ||
+    (!selectedChannel && router.isReady)
+  )
+    return <Custom404 />
   const channel: Profile & {
     coverPicture: MediaSet
   } = data?.profiles?.items[0]
