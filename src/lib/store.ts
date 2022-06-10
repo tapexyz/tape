@@ -16,6 +16,7 @@ interface AppState {
   channels: Profile[] | []
   recommendedChannels: Profile[] | []
   selectedChannel: Profile | null
+  showUploadVideoModal: boolean
   showCreateChannel: boolean
   notificationCount: number
   hasNewNotification: boolean
@@ -23,6 +24,7 @@ interface AppState {
   watchLater: LenstubePublication[] | []
   setToken: (token: { access: string | null; refresh: string | null }) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
+  setShowUploadVideoModal: (show: boolean) => void
   setSelectedChannel: (channel: Profile | null) => void
   setChannels: (channels: Profile[]) => void
   setRecommendedChannels: (channels: Profile[]) => void
@@ -43,8 +45,10 @@ export const useAppStore = create(
       recommendedChannels: [],
       selectedChannel: null,
       showCreateChannel: false,
+      showUploadVideoModal: false,
       notificationCount: 0,
       hasNewNotification: false,
+      setShowUploadVideoModal: (b) => set(() => ({ showUploadVideoModal: b })),
       setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),
       token: { access: null, refresh: null },
       setSelectedChannel: (channel) =>

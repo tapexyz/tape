@@ -8,6 +8,7 @@ import { useConnect, useDisconnect } from 'wagmi'
 
 import Header from './Header'
 import Sidebar from './Sidebar'
+const Upload = dynamic(() => import('../Common/Upload'))
 const CreateChannel = dynamic(() => import('./CreateChannel'))
 const MobileBottomNav = dynamic(() => import('./MobileBottomNav'))
 
@@ -47,6 +48,7 @@ const Layout: FC<Props> = ({ children }) => {
       <div className="flex pb-14 md:pb-0">
         <Sidebar />
         <CreateChannel />
+        <Upload />
         <div className="w-full pl-2 md:pl-[84px] pr-2 md:pr-4 max-w-[200rem] mx-auto">
           <Header />
           <div className="pt-16">{children}</div>
