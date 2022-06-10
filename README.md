@@ -14,4 +14,4 @@
 </div>
 <br>
 
-Decentralized video sharing social media platform (similar to YouTube), using Lens Protocol  🌿
+Decentralized video-sharing social media platform (similar to YouTube), using Lens Protocol  🌿

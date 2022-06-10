@@ -17,7 +17,7 @@ const MetaTags: FC<Props> = (props) => {
     title: title ?? 'Lenstube',
     description:
       description ??
-      'Lenstube is a decentralized video sharing social media platform built with Lens protocol.',
+      'Lenstube is a decentralized video-sharing social media platform built with Lens protocol.',
     image: image ?? '/og.png',
     type: 'website'
   }
@@ -32,21 +32,31 @@ const MetaTags: FC<Props> = (props) => {
         content="width=device-width, initial-scale=1, maximum-scale=5"
       />
       <link rel="canonical" href={`https://lenstube.xyz${router.asPath}`} />
-
       <meta
         property="og:url"
         content={`https://lenstube.xyz${router.asPath}`}
       />
       <meta property="og:type" content={meta.type} />
+      <meta property="og:site_name" content="Lenstube" />
       <meta property="og:description" content={meta.description} />
       <meta property="og:title" content={meta.title} />
       <meta property="og:image" content={meta.image} />
-
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@lenstubexyz" />
+      <meta property="og:image:width" content="400" />
+      <meta property="og:image:height" content="400" />
+      <meta name="twitter:card" content="summary" />
+      <meta property="twitter:image:width" content="400" />
+      <meta property="twitter:image:height" content="400" />
+      <meta name="twitter:site" content="Lenstube" />
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
-      <meta name="twitter:image" content={meta.image} />
+      <meta property="twitter:image:src" content={meta.image} />
+      <meta property="twitter:creator" content="lenstubexyz" />
+      <link rel="preconnect" href="https://ik.imagekit.io" />
+      <link rel="dns-prefetch" href="https://ik.imagekit.io" />
+      <link rel="preconnect" href="https://assets.lenstube.xyz" />
+      <link rel="dns-prefetch" href="https://assets.lenstube.xyz" />
+      <link rel="preconnect" href="https://ipfs.infura.io" />
+      <link rel="dns-prefetch" href="https://ipfs.infura.io" />
     </Head>
   )
 }
