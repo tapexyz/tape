@@ -50,11 +50,6 @@ class LenstubeDocument extends Document<Props> {
             rel="manifest"
             href={`${STATIC_ASSETS}/images/favicons/site.webmanifest`}
           />
-          <link
-            rel="mask-icon"
-            href={`${STATIC_ASSETS}/images/favicons/safari-pinned-tab.svg`}
-            color="#5bbad5"
-          />
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#000000" />
           {IS_MAINNET && (

@@ -24,7 +24,7 @@ type Props = {
 }
 
 const ConnectWalletButton = ({ handleSign, signing }: Props) => {
-  const { selectedChannel, token, setSelectedChannel, setChannels } =
+  const { selectedChannel, isAuthenticated, setSelectedChannel, setChannels } =
     useAppStore()
   const [showModal, setShowModal] = useState(false)
   const { data: account } = useAccount()
@@ -39,7 +39,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
   const { activeChain, switchNetwork } = useNetwork()
   const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: account?.address },
-    skip: !token?.refresh,
+    skip: !isAuthenticated,
     onCompleted(data) {
       const channels: Profile[] = data?.profiles?.items
       if (channels.length === 0) {
