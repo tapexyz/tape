@@ -21,8 +21,7 @@ const Form: FC<Props> = ({
 }) => {
   return (
     <div>
-      <h1 className="font-semibold">Details</h1>
-      <div className="mt-4">
+      <div>
         <div className="flex items-center justify-between mb-1 space-x-1.5">
           <div className="required text-[11px] font-semibold uppercase opacity-70">
             Title

@@ -41,8 +41,9 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
       onClose={() => setShowSearch(false)}
       show={true}
       panelClassName="max-w-lg"
+      title="Search"
     >
-      <div className="">
+      <div className="mt-4">
         <div className="flex items-center w-full p-4 space-x-2 border border-gray-200 dark:border-gray-800 rounded-xl">
           <BiSearch className="text-lg" />
           <input

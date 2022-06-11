@@ -14,10 +14,10 @@ const About: FC<Props> = ({ channel }) => {
   if (!attributes?.length) return null
 
   return (
-    <div className="p-4 space-y-4 md:space-y-6">
+    <div className="px-4 space-y-4 md:space-y-6">
       {channel?.bio && (
         <div className="flex flex-col">
-          <h6 className="text-[11px] font-semibold uppercase opacity-60">
+          <h6 className="text-[11px] font-semibold uppercase opacity-50">
             Description
           </h6>
           <p>{channel?.bio}</p>

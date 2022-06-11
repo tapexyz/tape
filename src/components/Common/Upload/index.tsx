@@ -7,7 +7,6 @@ import React, { useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
 import toast from 'react-hot-toast'
 import { FiUpload } from 'react-icons/fi'
-import { MdOutlineClose } from 'react-icons/md'
 import { VideoUpload } from 'src/types/local'
 
 const Details = dynamic(() => import('./Details'), {
@@ -72,26 +71,18 @@ const Upload = () => {
       show={showUploadVideoModal}
       panelClassName="max-w-4xl !p-4 max-h-[80vh]"
       preventAutoClose={true}
+      title="Upload Video"
     >
-      <div className="min-h-[20vh]">
+      <div className="min-h-[20vh] mt-4">
         {video.preview ? (
           <Details video={video} closeUploadModal={onCloseUploadModal} />
         ) : (
           <div
             {...getRootProps()}
             className={clsx(
-              'p-10 md:py-20 relative h-full focus:outline-none border-gray-300 dark:border-gray-700 grid place-items-center text-center border-2 border-dashed rounded-lg cursor-pointer'
+              'p-10 md:py-20 h-full focus:outline-none border-gray-300 dark:border-gray-700 grid place-items-center text-center border-2 border-dashed rounded-lg cursor-pointer'
             )}
           >
-            <button
-              className="absolute top-0 right-0 p-1 bg-gray-100 rounded-md focus:outline-none dark:bg-gray-900"
-              onClick={(e) => {
-                e.stopPropagation()
-                onCloseUploadModal()
-              }}
-            >
-              <MdOutlineClose />
-            </button>
             <div>
               <span className="flex justify-center mb-6 text-4xl opacity-60">
                 <FiUpload />
