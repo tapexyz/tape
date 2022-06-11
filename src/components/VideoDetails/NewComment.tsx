@@ -169,7 +169,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           autoComplete="off"
           rows={1}
           className={clsx(
-            'bg-white text-xs p-3 rounded-md dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
+            'bg-white resize-none text-xs p-3 rounded-md dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
           )}
           value={comment}
           onChange={(e) => setComment(e.target.value)}

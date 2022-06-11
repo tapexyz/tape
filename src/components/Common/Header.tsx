@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { BiSearch } from 'react-icons/bi'
+import { MdSearch } from 'react-icons/md'
 
 import GlobalSearch from './GlobalSearch'
 import Login from './Login'
@@ -47,7 +47,7 @@ const Header = () => {
             onClick={() => setShowSearch(true)}
             className="px-2 hidden text-sm opacity-60 hover:opacity-100 md:flex focus:outline-none items-center space-x-1 text-left py-1.5 rounded"
           >
-            <BiSearch />
+            <MdSearch />
             <span>Search</span>
           </button>
         </div>
@@ -57,7 +57,7 @@ const Header = () => {
           onClick={() => setShowSearch(true)}
           className="flex self-center p-[6px] transition duration-200 ease-in-out border border-transparent rounded-lg hover:border-indigo-900 md:hidden focus:outline-none"
         >
-          <BiSearch />
+          <MdSearch />
         </button>
         {selectedChannel && <NotificationTrigger />}
         {selectedChannel && <NewVideoTrigger />}

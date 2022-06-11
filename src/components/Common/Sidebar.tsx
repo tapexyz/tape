@@ -67,7 +67,7 @@ const Sidebar = () => {
           })}
         >
           <Tooltip visible={!isSideBarOpen} content="Home" placement="right">
-            <span
+            <div
               className={clsx(
                 'p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
                 {
@@ -82,10 +82,10 @@ const Sidebar = () => {
                   {isSideBarOpen && <span className="text-sm">Home</span>}
                 </span>
               </Link>
-            </span>
+            </div>
           </Tooltip>
           <Tooltip visible={!isSideBarOpen} content="Explore" placement="right">
-            <span
+            <div
               className={clsx(
                 'p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
                 {
@@ -100,10 +100,10 @@ const Sidebar = () => {
                   {isSideBarOpen && <span className="text-sm">Explore</span>}
                 </span>
               </Link>
-            </span>
+            </div>
           </Tooltip>
           <Tooltip visible={!isSideBarOpen} content="Library" placement="right">
-            <span
+            <div
               className={clsx(
                 'p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
                 {
@@ -118,7 +118,7 @@ const Sidebar = () => {
                   {isSideBarOpen && <span className="text-sm">Library</span>}
                 </span>
               </Link>
-            </span>
+            </div>
           </Tooltip>
         </div>
       </div>

@@ -202,7 +202,7 @@ const Membership = ({ channel }: Props) => {
                 placeholder="More about your stream"
                 autoComplete="off"
                 className={clsx(
-                  'bg-white text-sm px-2.5 py-1 rounded-md dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
+                  'bg-white text-sm px-2.5 py-2 rounded-md dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
                 )}
                 value={form.token}
                 onChange={(e) => setForm({ ...form, token: e.target.value })}

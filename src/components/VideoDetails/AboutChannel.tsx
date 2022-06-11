@@ -7,7 +7,7 @@ import imageCdn from '@utils/functions/imageCdn'
 import clsx from 'clsx'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
-import { BiChevronDown } from 'react-icons/bi'
+import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { LenstubePublication } from 'src/types/local'
 
 import MintVideo from './MintVideo'
@@ -21,14 +21,14 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
   const channel = video?.profile
   const subscribeType = channel?.followModule?.__typename
   const [clamped, setClamped] = useState(false)
+  const [showMore, setShowMore] = useState(false)
 
   useEffect(() => {
-    if (video.metadata.description.trim().length > 400) setClamped(true)
+    if (video.metadata.description.trim().length > 400) {
+      setClamped(true)
+      setShowMore(true)
+    }
   }, [video.metadata.description])
-
-  const readMore = () => {
-    setClamped(false)
-  }
 
   return (
     <div>
@@ -72,12 +72,21 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
           >
             <InterweaveContent content={video.metadata.description} />
           </p>
-          {clamped && (
+
+          {showMore && (
             <button
-              onClick={() => readMore()}
+              onClick={() => setClamped(!clamped)}
               className="flex items-center mt-2 text-xs outline-none hover:opacity-100 opacity-60"
             >
-              Read more <BiChevronDown className="text-sm" />
+              {clamped ? (
+                <>
+                  Show more <BiChevronDown className="text-sm" />
+                </>
+              ) : (
+                <>
+                  Show less <BiChevronUp className="text-sm" />
+                </>
+              )}
             </button>
           )}
         </div>
