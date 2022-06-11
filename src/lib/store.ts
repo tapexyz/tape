@@ -20,9 +20,11 @@ interface AppState {
   isAuthenticated: boolean
   notificationCount: number
   hasNewNotification: boolean
+  isSideBarOpen: boolean
   recentlyWatched: LenstubePublication[] | []
   watchLater: LenstubePublication[] | []
   setIsAuthenticated: (auth: boolean) => void
+  setIsSidebarOpen: (open: boolean) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
   setShowUploadVideoModal: (show: boolean) => void
   setSelectedChannel: (channel: Profile | null) => void
@@ -49,8 +51,10 @@ export const useAppStore = create(
       isAuthenticated: false,
       notificationCount: 0,
       hasNewNotification: false,
+      isSideBarOpen: false,
       setShowUploadVideoModal: (b) => set(() => ({ showUploadVideoModal: b })),
       setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated })),
+      setIsSidebarOpen: (isSideBarOpen) => set(() => ({ isSideBarOpen })),
       setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),
       setSelectedChannel: (channel) =>
         set(() => ({ selectedChannel: channel })),

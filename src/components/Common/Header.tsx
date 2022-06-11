@@ -20,7 +20,7 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(false)
 
   return (
-    <div className="fixed z-10 flex right-2 md:right-4 md:left-[84px] left-2 items-center justify-between bg-gray-100 dark:bg-[#010101] h-14">
+    <div className="fixed z-10 flex right-2 md:right-4 md:left-[70px] left-2 items-center justify-between bg-gray-100 dark:bg-[#010101] h-14">
       <div className="flex items-center flex-1 space-x-4">
         <div className="flex items-center">
           <Link href={HOME}>

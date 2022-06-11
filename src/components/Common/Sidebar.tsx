@@ -1,5 +1,4 @@
 import SquareButtonShimmer from '@components/Shimmers/SquareButtonShimmer'
-import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import { EXPLORE, HOME, LIBRARY } from '@utils/url-path'
 import dynamic from 'next/dynamic'
@@ -22,36 +21,30 @@ const Sidebar = () => {
             <img
               src="/lenstube.svg"
               draggable={false}
-              className="w-7 h-7"
+              className="w-6 h-6"
               alt=""
             />
           </a>
         </Link>
         <div className="flex flex-col items-center space-y-3">
           <Tooltip content="Home" placement="right">
-            <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
+            <span className="p-1.5 rounded-md cursor-pointer hover:bg-white dark:hover:bg-gray-900 scale-animation">
               <Link href={HOME} passHref>
-                <Button className="!p-2">
-                  <FiHome className="!text-lg group-hover:opacity-100 opacity-80" />
-                </Button>
+                <FiHome className="!text-xl group-hover:opacity-100 opacity-80" />
               </Link>
             </span>
           </Tooltip>
           <Tooltip content="Explore" placement="right">
-            <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
+            <span className="p-1.5 rounded-md cursor-pointer hover:bg-white dark:hover:bg-gray-900 scale-animation">
               <Link href={EXPLORE} passHref>
-                <Button className="!p-2">
-                  <RiLeafLine className="!text-lg group-hover:opacity-100 opacity-80" />
-                </Button>
+                <RiLeafLine className="!text-xl group-hover:opacity-100 opacity-80" />
               </Link>
             </span>
           </Tooltip>
           <Tooltip content="Library" placement="right">
-            <span className="bg-gray-100 rounded-lg dark:bg-gray-800 scale-animation">
+            <span className="p-1.5 rounded-md cursor-pointer hover:bg-white dark:hover:bg-gray-900 scale-animation">
               <Link href={LIBRARY} passHref>
-                <Button className="!p-2">
-                  <MdOutlineVideoLibrary className="!text-lg group-hover:opacity-100 opacity-80" />
-                </Button>
+                <MdOutlineVideoLibrary className="!text-xl group-hover:opacity-100 opacity-80" />
               </Link>
             </span>
           </Tooltip>
