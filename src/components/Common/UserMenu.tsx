@@ -43,7 +43,7 @@ const UserMenu: FC<Props> = () => {
   return (
     <Popover
       trigger={
-        <button className="mt-[3px] w-[30px] h-[30px] rounded-full">
+        <button className="flex self-center rounded-full w-7 h-7">
           <img
             className="object-cover rounded-full"
             src={imageCdn(getProfilePicture(selectedChannel))}
