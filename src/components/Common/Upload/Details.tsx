@@ -175,7 +175,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       return uploadToIpfsWithProgress()
     }
     if (signer && account?.address) {
-      setButtonText('Signing...')
+      setButtonText('Estimating cost...')
       toast('Requesting signature...')
       setDisableSubmit(true)
       const bundlr = await getBundlrInstance(signer)
@@ -473,8 +473,8 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           {isLessThan100MB(video.file?.size) ? (
             <div className="mt-2">
               <span className="text-sm font-light opacity-60">
-                This video can be uploaded to IPFS for free, would you like to
-                proceed?
+                This video is less than 100MB and can be uploaded to IPFS for
+                free, would you like to proceed?
               </span>
               {uploadToIpfs ? (
                 <button
