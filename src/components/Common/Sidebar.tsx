@@ -77,10 +77,10 @@ const Sidebar = () => {
               )}
             >
               <Link href={HOME} passHref>
-                <span className="flex items-center p-2 space-x-2">
+                <div className="flex items-center p-2 space-x-2">
                   <FiHome className="text-lg group-hover:opacity-100 opacity-80" />
                   {isSideBarOpen && <span className="text-sm">Home</span>}
-                </span>
+                </div>
               </Link>
             </div>
           </Tooltip>
@@ -95,10 +95,10 @@ const Sidebar = () => {
               )}
             >
               <Link href={EXPLORE} passHref>
-                <span className="flex items-center p-2 space-x-2">
+                <div className="flex items-center p-2 space-x-2">
                   <RiLeafLine className="text-lg group-hover:opacity-100 opacity-80" />
                   {isSideBarOpen && <span className="text-sm">Explore</span>}
-                </span>
+                </div>
               </Link>
             </div>
           </Tooltip>
@@ -113,10 +113,10 @@ const Sidebar = () => {
               )}
             >
               <Link href={LIBRARY} passHref>
-                <span className="flex items-center p-2 space-x-2">
+                <div className="flex items-center p-2 space-x-2">
                   <MdOutlineVideoLibrary className="!text-lg group-hover:opacity-100 opacity-80" />
                   {isSideBarOpen && <span className="text-sm">Library</span>}
-                </span>
+                </div>
               </Link>
             </div>
           </Tooltip>
