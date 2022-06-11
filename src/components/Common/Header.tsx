@@ -1,5 +1,6 @@
 import useAppStore from '@lib/store'
 import { HOME } from '@utils/url-path'
+import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -16,11 +17,19 @@ const NotificationTrigger = dynamic(
 )
 
 const Header = () => {
-  const { selectedChannel } = useAppStore()
+  const { selectedChannel, isSideBarOpen } = useAppStore()
   const [showSearch, setShowSearch] = useState(false)
 
   return (
-    <div className="fixed z-10 flex right-2 md:right-4 md:left-[84px] left-2 items-center justify-between bg-gray-100 dark:bg-[#010101] h-14">
+    <div
+      className={clsx(
+        'fixed z-10 flex right-2 left-2 md:right-4 items-center justify-between bg-gray-100 dark:bg-[#010101] h-14',
+        {
+          'md:left-[195px]': isSideBarOpen,
+          'md:left-[84px]': !isSideBarOpen
+        }
+      )}
+    >
       <div className="flex items-center flex-1 space-x-4">
         <div className="flex items-center">
           <Link href={HOME}>

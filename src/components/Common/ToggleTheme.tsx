@@ -7,7 +7,7 @@ const ToggleTheme = () => {
   const { theme, setTheme } = useTheme()
 
   return (
-    <div className="flex flex-col items-center space-y-2">
+    <div className="flex flex-col items-center space-y-2 mb-0.5">
       <Tooltip
         placement="right"
         content={theme === 'light' ? 'Swtich to Dark' : 'Switch to Light'}
