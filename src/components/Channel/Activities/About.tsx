@@ -14,7 +14,7 @@ const About: FC<Props> = ({ channel }) => {
   if (!attributes?.length) return null
 
   return (
-    <div className="px-4 space-y-4 md:space-y-6">
+    <div className="space-y-4 md:px-4 md:space-y-6">
       {channel?.bio && (
         <div className="flex flex-col">
           <h6 className="text-[11px] font-semibold uppercase opacity-50">
@@ -52,7 +52,7 @@ const About: FC<Props> = ({ channel }) => {
             </div>
           )}
           <div className="flex items-center space-x-1">
-            <span className="grayscale px-0.5" role="img">
+            <span className="pr-0.5 grayscale" role="img">
               <img
                 src={`${STATIC_ASSETS}/images/lenster-logo.svg`}
                 alt=""
