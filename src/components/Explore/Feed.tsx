@@ -49,7 +49,7 @@ const ExploreFeed = () => {
               Recents
             </Tab>
           </Tab.List>
-          <Tab.Panels className="mt-2">
+          <Tab.Panels>
             <Tab.Panel className="py-3 focus:outline-none">
               <Trending />
             </Tab.Panel>

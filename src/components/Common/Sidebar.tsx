@@ -69,7 +69,7 @@ const Sidebar = () => {
           <Tooltip visible={!isSideBarOpen} content="Home" placement="right">
             <div
               className={clsx(
-                'p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
+                'rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
                 {
                   'w-full px-3': isSideBarOpen,
                   'bg-gray-100 dark:bg-gray-900': isActivePath(HOME)
@@ -77,7 +77,7 @@ const Sidebar = () => {
               )}
             >
               <Link href={HOME} passHref>
-                <span className="flex items-center space-x-2">
+                <span className="flex items-center p-2 space-x-2">
                   <FiHome className="text-lg group-hover:opacity-100 opacity-80" />
                   {isSideBarOpen && <span className="text-sm">Home</span>}
                 </span>
@@ -87,7 +87,7 @@ const Sidebar = () => {
           <Tooltip visible={!isSideBarOpen} content="Explore" placement="right">
             <div
               className={clsx(
-                'p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
+                'rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
                 {
                   'w-full px-3': isSideBarOpen,
                   'bg-gray-100 dark:bg-gray-900': isActivePath(EXPLORE)
@@ -95,7 +95,7 @@ const Sidebar = () => {
               )}
             >
               <Link href={EXPLORE} passHref>
-                <span className="flex items-center space-x-2">
+                <span className="flex items-center p-2 space-x-2">
                   <RiLeafLine className="text-lg group-hover:opacity-100 opacity-80" />
                   {isSideBarOpen && <span className="text-sm">Explore</span>}
                 </span>
@@ -105,7 +105,7 @@ const Sidebar = () => {
           <Tooltip visible={!isSideBarOpen} content="Library" placement="right">
             <div
               className={clsx(
-                'p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
+                'rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
                 {
                   'w-full px-3': isSideBarOpen,
                   'bg-gray-100 dark:bg-gray-900': isActivePath(LIBRARY)
@@ -113,7 +113,7 @@ const Sidebar = () => {
               )}
             >
               <Link href={LIBRARY} passHref>
-                <span className="flex items-center space-x-2">
+                <span className="flex items-center p-2 space-x-2">
                   <MdOutlineVideoLibrary className="!text-lg group-hover:opacity-100 opacity-80" />
                   {isSideBarOpen && <span className="text-sm">Library</span>}
                 </span>

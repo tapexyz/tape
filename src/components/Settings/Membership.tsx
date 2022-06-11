@@ -11,7 +11,6 @@ import {
   MODULES_CURRENCY_QUERY,
   SET_FOLLOW_MODULE_TYPED_DATA_MUTATION
 } from '@utils/gql/queries'
-import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import clsx from 'clsx'
 import { utils } from 'ethers'
@@ -32,7 +31,6 @@ const Membership = ({ channel }: Props) => {
     amount: '',
     recipient: channel.ownedBy
   })
-  const [, copy] = useCopyToClipboard()
 
   const { data: followModuleData, refetch } = useQuery(
     CHANNEL_FOLLOW_MODULE_QUERY,
@@ -140,11 +138,6 @@ const Membership = ({ channel }: Props) => {
     })
   }
 
-  const onCopyRecipient = (value: string) => {
-    copy(value)
-    toast.success('Copied to clipboard 🎉')
-  }
-
   return (
     <div className="p-4 bg-white rounded-lg dark:bg-black">
       <div className="mb-5">
@@ -179,12 +172,9 @@ const Membership = ({ channel }: Props) => {
               <span className="text-xs font-medium uppercase opacity-50">
                 Recipient
               </span>
-              <button
-                onClick={() => onCopyRecipient(activeFollowModule.recipient)}
-                className="block text-xl outline-none text-semibold"
-              >
+              <span className="block text-xl outline-none text-semibold">
                 {shortenAddress(activeFollowModule.recipient)}
-              </button>
+              </span>
             </div>
           </div>
         </div>

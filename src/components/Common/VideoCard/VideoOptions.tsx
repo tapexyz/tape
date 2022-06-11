@@ -1,25 +1,22 @@
 import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
-import { LENSTUBE_URL } from '@utils/constants'
 import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
-import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import Link from 'next/link'
 import React from 'react'
-import toast from 'react-hot-toast'
 import { FiFlag } from 'react-icons/fi'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { MdOutlineWatchLater } from 'react-icons/md'
 import { RiShareForwardLine } from 'react-icons/ri'
 import { LenstubePublication } from 'src/types/local'
 
-const VideoOptions = ({ video }: { video: LenstubePublication }) => {
+const VideoOptions = ({
+  video,
+  setShowShare
+}: {
+  video: LenstubePublication
+  setShowShare: React.Dispatch<boolean>
+}) => {
   const { addToWatchLater, removeFromWatchLater, watchLater } = useAppStore()
-  const [, copy] = useCopyToClipboard()
-
-  const share = () => {
-    copy(`${LENSTUBE_URL}/watch/${video.id}`)
-    toast.success('Link copied to clipboard 🎉')
-  }
 
   return (
     <Popover
@@ -51,7 +48,7 @@ const VideoOptions = ({ video }: { video: LenstubePublication }) => {
           <button
             onClick={(e) => {
               e.stopPropagation()
-              share()
+              setShowShare(true)
             }}
             className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
