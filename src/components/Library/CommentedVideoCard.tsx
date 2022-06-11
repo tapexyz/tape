@@ -40,13 +40,13 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
           <div className="flex flex-col items-start flex-1">
             <div className="flex w-full items-start justify-between space-x-1.5">
               <Link href={`/watch/${commentedOn.pubId}`}>
-                <a className="font-medium line-clamp-2 opacity-80">
+                <a className="font-medium text-[15px] line-clamp-2 opacity-80">
                   {commentedOn.metadata?.name}
                 </a>
               </Link>
             </div>
             <Link href={`/${comment.profile?.handle}`}>
-              <a className="text-sm hover:opacity-100 opacity-70">
+              <a className="text-xs hover:opacity-100 opacity-70">
                 {comment.profile?.handle}
               </a>
             </Link>

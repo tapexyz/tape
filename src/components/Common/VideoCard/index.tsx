@@ -41,14 +41,14 @@ const VideoCard: FC<Props> = ({ video }) => {
           <div className="flex flex-col items-start flex-1 pb-1">
             <div className="flex w-full items-start justify-between space-x-1.5">
               <Link href={`/watch/${video.id}`}>
-                <a className="font-medium line-clamp-2">
+                <a className="text-[15px] font-medium line-clamp-2">
                   {video.metadata?.name}
                 </a>
               </Link>
               <VideoOptions video={video} />
             </div>
             <Link href={`/${video.profile?.handle}`}>
-              <a className="text-sm hover:opacity-100 opacity-70">
+              <a className="text-xs hover:opacity-100 opacity-70">
                 {video.profile?.handle}
               </a>
             </Link>
