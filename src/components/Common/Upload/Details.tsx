@@ -23,6 +23,7 @@ import clsx from 'clsx'
 import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import { BiCheck } from 'react-icons/bi'
 import { CreatePostBroadcastItemResult } from 'src/types'
 import {
   BundlrDataState,
@@ -108,6 +109,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const [isUploadedToBundlr, setIsUploadedToBundlr] = useState(false)
   const [showBundlrDetails, setShowBundlrDetails] = useState(false)
   const [disableSubmit, setDisableSubmit] = useState(false)
+  const [uploadToIpfs, setUploadToIpfs] = useState(false)
   const [uploadMeta, setUploadMeta] = useState({ uploading: false, percent: 0 })
   const [videoMeta, setVideoMeta] = useState<VideoUploadForm>({
     videoThumbnail: null,
@@ -169,7 +171,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
 
   const onNext = async () => {
     const videoSize = video.file?.size
-    if (isLessThan100MB(videoSize)) {
+    if (isLessThan100MB(videoSize) && uploadToIpfs) {
       return uploadToIpfsWithProgress()
     }
     if (signer && account?.address) {
@@ -467,10 +469,35 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
               />
             </div>
           </Tooltip>
-          <span className="mt-2 text-sm font-light opacity-60">
-            <b>Note:</b> This video and its data will be uploaded to permanent
-            storage and it stays forever.
-          </span>
+
+          {isLessThan100MB(video.file?.size) ? (
+            <div className="mt-2">
+              <span className="text-sm font-light opacity-60">
+                This video can be uploaded to IPFS for free, would you like to
+                proceed?
+              </span>
+              {uploadToIpfs ? (
+                <button
+                  onClick={() => setUploadToIpfs(false)}
+                  className="ml-2 text-green-500 outline-none"
+                >
+                  <BiCheck />
+                </button>
+              ) : (
+                <button
+                  onClick={() => setUploadToIpfs(true)}
+                  className="ml-2 text-sm text-indigo-500 outline-none"
+                >
+                  Yes
+                </button>
+              )}
+            </div>
+          ) : (
+            <span className="mt-2 text-sm font-light opacity-60">
+              This video will be uploaded to Arweave permanent storage.
+            </span>
+          )}
+
           {showBundlrDetails && (
             <BundlrInfo
               bundlrData={bundlrData}
