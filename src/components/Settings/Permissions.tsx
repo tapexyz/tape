@@ -1,6 +1,6 @@
 import { useLazyQuery, useQuery } from '@apollo/client'
+import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
-import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
 import {
@@ -9,7 +9,6 @@ import {
 } from '@utils/gql/queries'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai'
 import { ApprovedAllowanceAmount, Erc20 } from 'src/types'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
@@ -94,9 +93,9 @@ const Permissions = () => {
       <div className="mb-6">
         <h1 className="mb-1 text-xl font-semibold">Access permissions</h1>
         <p className="text-xs opacity-80">
-          These are the modules which you allowed lens to automatically debit
-          funds from your account. You can see the information here and revoke
-          access anytime.
+          These are the modules which you allowed to automatically debit funds
+          from your account. You can see the information here and revoke access
+          anytime.
         </p>
       </div>
       <div>
@@ -105,7 +104,7 @@ const Permissions = () => {
             <select
               placeholder="More about your stream"
               autoComplete="off"
-              className="bg-white text-sm px-2.5 py-1 rounded-md dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none"
+              className="bg-white text-sm px-2.5 py-2 rounded-md dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none"
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
             >
@@ -139,29 +138,20 @@ const Permissions = () => {
             <div className="flex items-center flex-none ml-2 space-x-2">
               {getFollowModule(data?.approvedModuleAllowanceAmount)
                 ?.allowance === '0x00' ? (
-                <Tooltip
-                  content={isLoading || loading ? 'Loading...' : 'Allow'}
+                <Button
+                  disabled={isLoading || loading}
+                  onClick={() => handleClick(true)}
                 >
-                  <button
-                    disabled={isLoading || loading}
-                    onClick={() => handleClick(true)}
-                    className="text-green-500 disabled:opacity-50"
-                  >
-                    <AiOutlineCheckCircle className="text-3xl" />
-                  </button>
-                </Tooltip>
+                  Allow
+                </Button>
               ) : (
-                <Tooltip
-                  content={isLoading || loading ? 'Loading...' : 'Revoke'}
+                <Button
+                  disabled={isLoading || loading}
+                  onClick={() => handleClick(false)}
+                  variant="danger"
                 >
-                  <button
-                    disabled={isLoading || loading}
-                    onClick={() => handleClick(false)}
-                    className="text-red-500 disabled:opacity-50"
-                  >
-                    <AiOutlineCloseCircle className="text-3xl" />
-                  </button>
-                </Tooltip>
+                  Revoke
+                </Button>
               )}
             </div>
           </div>

@@ -48,12 +48,14 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
     >
       <span
         className={clsx(
-          'absolute focus:outline-none inset-0 w-full h-full transition duration-200 ease-in-out transform rounded-md group-hover:translate-x-0.5 group-hover:translate-y-0.5',
+          'absolute focus:outline-none inset-0 w-full h-full transition duration-200 ease-in-out transform rounded-md',
           {
             'dark:border border-indigo-900 bg-indigo-900':
               variant === 'primary',
             'bg-transparent': variant === 'secondary',
-            'border-red-500 border': variant === 'danger'
+            'border-red-500 border': variant === 'danger',
+            'group-hover:translate-x-0.5 group-hover:translate-y-0.5':
+              !rest.disabled
           }
         )}
       ></span>
@@ -65,9 +67,16 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
           'bg-red-500 border border-red-500': variant === 'danger'
         })}
       ></span>
-      <span className="relative flex items-center justify-center space-x-1.5 text-black dark:text-white">
-        <span>{children}</span>
+      <span
+        className={clsx(
+          'relative flex items-center justify-center space-x-1.5 text-black dark:text-white',
+          {
+            '!text-white': variant === 'danger'
+          }
+        )}
+      >
         {loading && <Loader size="sm" />}
+        <span>{children}</span>
       </span>
     </button>
   )

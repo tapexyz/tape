@@ -16,9 +16,9 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
   const commentedOn = comment.commentOn as LenstubePublication
 
   return (
-    <div className="overflow-hidden transition duration-500 ease-in-out rounded-md group bg-secondary">
-      <Link href={`/watch/${commentedOn.pubId}`} passHref>
-        <div className="cursor-pointer rounded-t-md aspect-w-16 aspect-h-7">
+    <Link href={`/watch/${commentedOn.pubId}`} passHref>
+      <div className="overflow-hidden rounded-md cursor-pointer group bg-secondary">
+        <div className="rounded-t-md aspect-w-16 aspect-h-7">
           <img
             src={imageCdn(getThumbnailUrl(commentedOn))}
             alt=""
@@ -26,47 +26,45 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
             className="object-cover object-center w-full h-full rounded-t-md lg:w-full lg:h-full"
           />
         </div>
-      </Link>
-      <div className="p-2">
-        <div className="flex items-start space-x-2.5">
-          <div className="flex-none mt-0.5">
-            <img
-              className="w-8 h-8 rounded-full"
-              src={imageCdn(getProfilePicture(comment.profile))}
-              alt=""
-              draggable={false}
-            />
-          </div>
-          <div className="flex flex-col items-start flex-1">
-            <div className="flex w-full items-start justify-between space-x-1.5">
-              <Link href={`/watch/${commentedOn.pubId}`}>
-                <a className="font-medium line-clamp-2 opacity-80">
+        <div className="p-2">
+          <div className="flex items-start space-x-2.5">
+            <div className="flex-none mt-0.5">
+              <img
+                className="w-8 h-8 rounded-full"
+                src={imageCdn(getProfilePicture(comment.profile))}
+                alt=""
+                draggable={false}
+              />
+            </div>
+            <div className="flex flex-col items-start flex-1">
+              <div className="flex w-full items-start justify-between space-x-1.5">
+                <h3 className="font-medium text-[15px] line-clamp-2 opacity-80">
                   {commentedOn.metadata?.name}
+                </h3>
+              </div>
+              <Link href={`/${comment.profile?.handle}`}>
+                <a className="text-xs hover:opacity-100 opacity-70">
+                  {comment.profile?.handle}
                 </a>
               </Link>
             </div>
-            <Link href={`/${comment.profile?.handle}`}>
-              <a className="text-sm hover:opacity-100 opacity-70">
-                {comment.profile?.handle}
-              </a>
-            </Link>
           </div>
-        </div>
-        <div className="relative pt-2 overflow-hidden text-sm opacity-90">
-          <div className="absolute left-2.5 pb-1 inset-0 flex justify-center w-1.5">
-            <div className="w-0.5 bg-gray-300 dark:bg-gray-700 pointer-events-none" />
-          </div>
-          <div className="pl-7">
-            <span className="text-sm line-clamp-1">
-              {comment.metadata.content}
-            </span>
-            <div className="flex items-center text-[10px] opacity-70">
-              <span>{dayjs(new Date(commentedOn.createdAt)).fromNow()}</span>
+          <div className="relative pt-2 overflow-hidden text-sm opacity-90">
+            <div className="absolute left-2.5 pb-1 inset-0 flex justify-center w-1.5">
+              <div className="w-0.5 bg-gray-300 dark:bg-gray-700 pointer-events-none" />
+            </div>
+            <div className="pl-7">
+              <span className="text-sm line-clamp-1">
+                {comment.metadata.content}
+              </span>
+              <div className="flex items-center text-[10px] opacity-70">
+                <span>{dayjs(new Date(commentedOn.createdAt)).fromNow()}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 

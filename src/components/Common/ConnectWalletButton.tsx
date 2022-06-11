@@ -175,7 +175,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
                 onClick={() => handleSign()}
                 disabled={signing}
               >
-                Sign In
+                Sign In with Ethereum
               </Button>
             )
           ) : (

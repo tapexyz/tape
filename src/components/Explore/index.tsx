@@ -4,8 +4,7 @@ import CategoriesShimmer from '@components/Shimmers/CategoriesShimmer'
 import dynamic from 'next/dynamic'
 
 const Categories = dynamic(() => import('./Categories'), {
-  loading: () => <CategoriesShimmer />,
-  ssr: false
+  loading: () => <CategoriesShimmer />
 })
 const Feed = dynamic(() => import('./Feed'))
 

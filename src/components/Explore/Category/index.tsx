@@ -29,7 +29,7 @@ const ExploreCategory = () => {
         sources: [LENSTUBE_APP_ID]
       }
     },
-    skip: !isReady,
+    skip: !query.category,
     onCompleted(data) {
       setPageInfo(data?.search?.pageInfo)
       setVideos(data?.search?.items)

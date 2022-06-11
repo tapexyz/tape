@@ -9,9 +9,7 @@ body {
 .text-secondary {
   @apply text-gray-700 dark:text-gray-300;
 }
-.scale-animation {
-  @apply hover:scale-105 duration-100 transform;
-}
+
 .bg-secondary {
   @apply dark:bg-[#050506] bg-white;
 }
@@ -43,7 +41,7 @@ input[type='number'] {
 }
 
 html {
-  --plyr-color-main: #204f24;
+  --plyr-color-main: #6366f1;
 }
 
 /* walletconnect */
@@ -57,4 +55,11 @@ html {
 /* interweave linkify */
 .interweave-content a {
   @apply text-indigo-500;
+}
+
+.tippy-box[data-theme~='material'] > .tippy-arrow::before {
+  transform: scale(0.7);
+}
+.tippy-box[data-theme~='light'] > .tippy-arrow::before {
+  transform: scale(0.7);
 }

@@ -23,7 +23,7 @@ type Props = {
 const JoinChannel: FC<Props> = ({ channel }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
-  const { selectedChannel } = useAppStore()
+  const { isAuthenticated } = useAppStore()
   const [buttonText, setButtonText] = useState('Join Channel')
   const { signTypedDataAsync } = useSignTypedData({
     onError() {
@@ -48,7 +48,7 @@ const JoinChannel: FC<Props> = ({ channel }) => {
         referenceModules: []
       }
     },
-    skip: !followModule?.amount?.asset?.address || !selectedChannel,
+    skip: !followModule?.amount?.asset?.address || !isAuthenticated,
     onCompleted(data) {
       setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
     }
@@ -94,6 +94,7 @@ const JoinChannel: FC<Props> = ({ channel }) => {
   })
 
   const joinChannel = () => {
+    if (!isAuthenticated) return toast.error('Login required.')
     if (!isAllowed)
       return toast.error(
         `Menu -> Settings -> Permissions and allow fee follow module for ${followModule.amount.asset.symbol}.`

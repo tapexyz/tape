@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
+import useAppStore from '@lib/store'
 import { LENSHUB_PROXY_ADDRESS } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { CREATE_FOLLOW_TYPED_DATA } from '@utils/gql/queries'
@@ -17,6 +18,7 @@ type Props = {
 const Subscribe: FC<Props> = ({ channel }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Subscribe')
+  const { isAuthenticated } = useAppStore()
 
   const { signTypedDataAsync } = useSignTypedData({
     onError() {
@@ -70,6 +72,7 @@ const Subscribe: FC<Props> = ({ channel }) => {
   })
 
   const subscribe = () => {
+    if (!isAuthenticated) return toast.error('Login required.')
     setLoading(true)
     setButtonText('Subscribing...')
     createSubscribeTypedData({

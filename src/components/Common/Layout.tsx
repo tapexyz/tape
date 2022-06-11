@@ -1,5 +1,6 @@
 import useAppStore from '@lib/store'
 import { getToastOptions } from '@utils/functions/getToastOptions'
+import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactNode, useEffect } from 'react'
@@ -17,7 +18,8 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children }) => {
-  const { setSelectedChannel, setIsAuthenticated } = useAppStore()
+  const { setSelectedChannel, setIsAuthenticated, isSideBarOpen } =
+    useAppStore()
   const { resolvedTheme } = useTheme()
   const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
@@ -49,7 +51,12 @@ const Layout: FC<Props> = ({ children }) => {
         <Sidebar />
         <CreateChannel />
         <Upload />
-        <div className="w-full pl-2 md:pl-[84px] pr-2 md:pr-4 max-w-[200rem] mx-auto">
+        <div
+          className={clsx('w-full pr-2 md:pr-4 max-w-[200rem] mx-auto', {
+            'md:pl-[195px] pl-2': isSideBarOpen,
+            'md:pl-[84px] pl-2': !isSideBarOpen
+          })}
+        >
           <Header />
           <div className="pt-16">{children}</div>
         </div>

@@ -1,25 +1,22 @@
 import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
-import { LENSTUBE_URL } from '@utils/constants'
 import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
-import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import Link from 'next/link'
 import React from 'react'
-import toast from 'react-hot-toast'
 import { FiFlag } from 'react-icons/fi'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { MdOutlineWatchLater } from 'react-icons/md'
 import { RiShareForwardLine } from 'react-icons/ri'
 import { LenstubePublication } from 'src/types/local'
 
-const VideoOptions = ({ video }: { video: LenstubePublication }) => {
+const VideoOptions = ({
+  video,
+  setShowShare
+}: {
+  video: LenstubePublication
+  setShowShare: React.Dispatch<boolean>
+}) => {
   const { addToWatchLater, removeFromWatchLater, watchLater } = useAppStore()
-  const [, copy] = useCopyToClipboard()
-
-  const share = () => {
-    copy(`${LENSTUBE_URL}/watch/${video.id}`)
-    toast.success('Link copied to clipboard 🎉')
-  }
 
   return (
     <Popover
@@ -33,11 +30,12 @@ const VideoOptions = ({ video }: { video: LenstubePublication }) => {
       <div className="p-1 mt-0.5 overflow-hidden border border-gray-200 rounded-lg shadow dark:border-gray-800 bg-secondary">
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
           <button
-            onClick={() =>
+            onClick={(e) => {
+              e.stopPropagation()
               isAlreadyAddedToWatchLater(video, watchLater)
                 ? removeFromWatchLater(video)
                 : addToWatchLater(video)
-            }
+            }}
             className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <MdOutlineWatchLater className="text-base" />
@@ -48,7 +46,10 @@ const VideoOptions = ({ video }: { video: LenstubePublication }) => {
             </span>
           </button>
           <button
-            onClick={() => share()}
+            onClick={(e) => {
+              e.stopPropagation()
+              setShowShare(true)
+            }}
             className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <RiShareForwardLine className="text-base" />

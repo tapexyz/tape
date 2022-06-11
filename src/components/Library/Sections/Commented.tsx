@@ -48,7 +48,7 @@ const Commented = () => {
           </a>
         </Link>
       </div>
-      {(loading || !isMounted()) && <TimelineShimmer />}
+      {loading && isMounted() && <TimelineShimmer />}
       {!data?.publications?.items.length && isMounted() && !loading && (
         <NoDataFound text="This list has no videos." />
       )}
