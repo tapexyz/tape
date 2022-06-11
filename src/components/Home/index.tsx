@@ -1,6 +1,6 @@
 import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
-import ExploreFeed from '@components/Explore/Feed'
+import Trending from '@components/Explore/Trending'
 import useAppStore from '@lib/store'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import { NextPage } from 'next'
@@ -19,7 +19,7 @@ const Home: NextPage = () => {
       <MetaTags />
       <Recommended />
       <div className="md:my-5">
-        {isMounted() && <>{isAuthenticated ? <HomeFeed /> : <ExploreFeed />}</>}
+        {isMounted() && <>{isAuthenticated ? <HomeFeed /> : <Trending />}</>}
       </div>
     </Layout>
   )
