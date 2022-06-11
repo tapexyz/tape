@@ -14,7 +14,7 @@ const ToggleTheme = dynamic(() => import('./ToggleTheme'), {
 
 const Sidebar = () => {
   return (
-    <div className="fixed top-0 bottom-0 left-0 items-center justify-between hidden w-16 px-4 py-2.5 bg-gray-100 dark:bg-black md:flex md:flex-col">
+    <div className="fixed top-0 bottom-0 left-0 items-center justify-between hidden w-16 px-4 py-2.5 bg-white dark:bg-black md:flex md:flex-col">
       <div className="flex flex-col items-center space-y-5">
         <Link href={HOME}>
           <a className="mt-2">
@@ -28,23 +28,23 @@ const Sidebar = () => {
         </Link>
         <div className="flex flex-col items-center space-y-3">
           <Tooltip content="Home" placement="right">
-            <span className="p-1.5 rounded-md cursor-pointer hover:bg-white dark:hover:bg-gray-900 scale-animation">
+            <span className="p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900">
               <Link href={HOME} passHref>
-                <FiHome className="!text-xl group-hover:opacity-100 opacity-80" />
+                <FiHome className="!text-lg group-hover:opacity-100 opacity-80" />
               </Link>
             </span>
           </Tooltip>
           <Tooltip content="Explore" placement="right">
-            <span className="p-1.5 rounded-md cursor-pointer hover:bg-white dark:hover:bg-gray-900 scale-animation">
+            <span className="p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900">
               <Link href={EXPLORE} passHref>
-                <RiLeafLine className="!text-xl group-hover:opacity-100 opacity-80" />
+                <RiLeafLine className="!text-lg group-hover:opacity-100 opacity-80" />
               </Link>
             </span>
           </Tooltip>
           <Tooltip content="Library" placement="right">
-            <span className="p-1.5 rounded-md cursor-pointer hover:bg-white dark:hover:bg-gray-900 scale-animation">
+            <span className="p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900">
               <Link href={LIBRARY} passHref>
-                <MdOutlineVideoLibrary className="!text-xl group-hover:opacity-100 opacity-80" />
+                <MdOutlineVideoLibrary className="!text-lg group-hover:opacity-100 opacity-80" />
               </Link>
             </span>
           </Tooltip>

@@ -16,7 +16,7 @@ const ToggleTheme = () => {
           onClick={() => {
             setTheme(theme === 'dark' ? 'light' : 'dark')
           }}
-          className="p-2.5 focus:outline-none opacity-70 hover:opacity-100"
+          className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none opacity-70 hover:opacity-100"
         >
           {theme === 'light' ? <MdOutlineDarkMode /> : <MdOutlineWbSunny />}
         </button>

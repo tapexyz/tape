@@ -9,9 +9,7 @@ body {
 .text-secondary {
   @apply text-gray-700 dark:text-gray-300;
 }
-.scale-animation {
-  @apply hover:scale-105 duration-100 transform;
-}
+
 .bg-secondary {
   @apply dark:bg-[#050506] bg-white;
 }

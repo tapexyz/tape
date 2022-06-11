@@ -49,7 +49,7 @@ const Layout: FC<Props> = ({ children }) => {
         <Sidebar />
         <CreateChannel />
         <Upload />
-        <div className="w-full pl-2 md:pl-[70px] pr-2 md:pr-4 max-w-[200rem] mx-auto">
+        <div className="w-full pl-2 md:pl-[84px] pr-2 md:pr-4 max-w-[200rem] mx-auto">
           <Header />
           <div className="pt-16">{children}</div>
         </div>
