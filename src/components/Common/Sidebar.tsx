@@ -5,6 +5,7 @@ import { EXPLORE, HOME, LIBRARY } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
 import { FiHome } from 'react-icons/fi'
 import { MdOutlineVideoLibrary } from 'react-icons/md'
@@ -16,11 +17,15 @@ const ToggleTheme = dynamic(() => import('./ToggleTheme'), {
 })
 
 const Sidebar = () => {
+  const router = useRouter()
   const { isSideBarOpen, setIsSidebarOpen } = useAppStore()
+
+  const isActivePath = (path: string) => router.pathname === path
+
   return (
     <div
       className={clsx(
-        'fixed top-0 bottom-0 left-0 items-start justify-between hidden px-4 py-2.5 bg-white dark:bg-black md:flex md:flex-col',
+        'fixed top-0 bottom-0 left-0 items-start justify-between hidden px-3 py-2.5 bg-white dark:bg-black md:flex md:flex-col',
         {
           'w-44': isSideBarOpen,
           'w-16': !isSideBarOpen
@@ -33,9 +38,19 @@ const Sidebar = () => {
       >
         {isSideBarOpen ? <BiChevronLeft /> : <BiChevronRight />}
       </button>
-      <div className={clsx('flex flex-col items-center w-full space-y-5')}>
+      <div
+        className={clsx('flex flex-col w-full space-y-5', {
+          'items-start': isSideBarOpen,
+          'items-center': !isSideBarOpen
+        })}
+      >
         <Link href={HOME}>
-          <a className="flex items-center mt-2 space-x-2">
+          <a
+            className={clsx('flex items-center  mt-2 space-x-2', {
+              'mx-3': isSideBarOpen,
+              'mx-1': !isSideBarOpen
+            })}
+          >
             <img
               src="/lenstube.svg"
               draggable={false}
@@ -56,7 +71,8 @@ const Sidebar = () => {
               className={clsx(
                 'p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
                 {
-                  'w-full px-4': isSideBarOpen
+                  'w-full px-4': isSideBarOpen,
+                  'bg-gray-100 dark:bg-gray-900': isActivePath(HOME)
                 }
               )}
             >
@@ -73,7 +89,8 @@ const Sidebar = () => {
               className={clsx(
                 'p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
                 {
-                  'w-full px-4': isSideBarOpen
+                  'w-full px-4': isSideBarOpen,
+                  'bg-gray-100 dark:bg-gray-900': isActivePath(EXPLORE)
                 }
               )}
             >
@@ -90,7 +107,8 @@ const Sidebar = () => {
               className={clsx(
                 'p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
                 {
-                  'w-full px-4': isSideBarOpen
+                  'w-full px-4': isSideBarOpen,
+                  'bg-gray-100 dark:bg-gray-900': isActivePath(LIBRARY)
                 }
               )}
             >
