@@ -66,8 +66,8 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
         })}
       ></span>
       <span className="relative flex items-center justify-center space-x-1.5 text-black dark:text-white">
-        <span>{children}</span>
         {loading && <Loader size="sm" />}
+        <span>{children}</span>
       </span>
     </button>
   )

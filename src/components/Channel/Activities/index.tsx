@@ -15,11 +15,11 @@ type Props = {
 const Activity: FC<Props> = ({ channel }) => {
   return (
     <div className="my-4 md:ml-5 md:my-6">
-      <div className="grid gap-4 md:grid-cols-7">
-        <div className="col-span-1 md:mt-3">
+      <div className="grid gap-4 md:grid-cols-12">
+        <div className="col-span-3 md:mt-3">
           <About channel={channel} />
         </div>
-        <div className="w-full col-span-6">
+        <div className="w-full col-span-9">
           <Tab.Group>
             <Tab.List className="flex">
               <Tab

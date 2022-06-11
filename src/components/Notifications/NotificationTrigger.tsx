@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/client'
 import Popover from '@components/UIElements/Popover'
-import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import { NOTIFICATION_COUNT_QUERY } from '@utils/gql/queries'
 import React, { useEffect } from 'react'
@@ -50,17 +49,15 @@ const NotificationTrigger = () => {
   return (
     <Popover
       trigger={
-        <Tooltip className="!rounded-lg" content="Notifications">
-          <button
-            onClick={() => onClickNotification()}
-            className="relative flex self-center p-[6px] border-transparent border duration-200 transition ease-in-out hover:border-indigo-900 rounded-md focus:outline-none"
-          >
-            <CgBell />
-            {hasNewNotification && (
-              <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-1 right-1" />
-            )}
-          </button>
-        </Tooltip>
+        <button
+          onClick={() => onClickNotification()}
+          className="relative flex self-center p-[6px] border-transparent border duration-200 transition ease-in-out hover:border-indigo-900 rounded-md focus:outline-none"
+        >
+          <CgBell />
+          {hasNewNotification && (
+            <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-1 right-1" />
+          )}
+        </button>
       }
       panelClassName="right-0"
     >

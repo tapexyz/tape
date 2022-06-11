@@ -35,7 +35,7 @@ const ExploreFeed = () => {
   })
 
   const { observe } = useInView({
-    threshold: 0.7,
+    threshold: 1,
     onEnter: () => {
       fetchMore({
         variables: {
@@ -55,13 +55,12 @@ const ExploreFeed = () => {
     }
   })
 
-  if (data?.length === 0) {
-    return <NoDataFound text="No videos found." />
-  }
-
   return (
     <div>
       {loading && <TimelineShimmer />}
+      {data?.explorePublications?.items.length === 0 && (
+        <NoDataFound text="No videos found." />
+      )}
       {!error && !loading && (
         <>
           <Timeline videos={videos} />

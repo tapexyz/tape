@@ -1,4 +1,4 @@
-import { LENSTER_WEBSITE_URL } from '@utils/constants'
+import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@utils/constants'
 import { getKeyFromAttributes } from '@utils/functions/getKeyFromAttributes'
 import React, { FC } from 'react'
 import { HiOutlineGlobe } from 'react-icons/hi'
@@ -24,9 +24,6 @@ const About: FC<Props> = ({ channel }) => {
         </div>
       )}
       <div className="flex flex-col">
-        <h6 className="text-[11px] mb-2 font-semibold uppercase opacity-60">
-          Links
-        </h6>
         <div className="space-y-1.5">
           {getKeyFromAttributes(attributes, 'website') && (
             <div className="flex items-center space-x-1">
@@ -55,8 +52,13 @@ const About: FC<Props> = ({ channel }) => {
             </div>
           )}
           <div className="flex items-center space-x-1">
-            <span className="text-[10px] grayscale" role="img">
-              🌸
+            <span className="grayscale px-0.5" role="img">
+              <img
+                src={`${STATIC_ASSETS}/images/lenster-logo.svg`}
+                alt=""
+                className="w-3.5 h-3.5"
+                draggable={false}
+              />
             </span>
             <a
               href={`${LENSTER_WEBSITE_URL}/u/${channel?.handle}`}

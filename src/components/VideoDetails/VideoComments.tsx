@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { COMMENT_FEED_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
@@ -24,7 +23,6 @@ const VideoComments: FC<Props> = ({ video }) => {
   const {
     query: { id }
   } = useRouter()
-  const { selectedChannel } = useAppStore()
 
   const [comments, setComments] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
@@ -80,25 +78,23 @@ const VideoComments: FC<Props> = ({ video }) => {
 
   return (
     <div className="pb-4">
-      {selectedChannel || data?.publications?.pageInfo.totalCount > 0 ? (
-        <>
-          <div className="flex items-center justify-between">
-            <h1 className="inline-flex items-center my-4 space-x-2 text-lg">
-              <AiOutlineComment />
-              <span className="font-semibold">Comments</span>
-              {data?.publications?.pageInfo.totalCount ? (
-                <span className="text-sm font-light">
-                  ({data?.publications?.pageInfo.totalCount})
-                </span>
-              ) : null}
-            </h1>
-          </div>
-          {data?.publications?.items.length === 0 && (
-            <NoDataFound text="Be the first to comment." />
-          )}
-          <NewComment video={video} refetchComments={() => refetchComments()} />
-        </>
-      ) : null}
+      <>
+        <div className="flex items-center justify-between">
+          <h1 className="inline-flex items-center my-4 space-x-2 text-lg">
+            <AiOutlineComment />
+            <span className="font-semibold">Comments</span>
+            {data?.publications?.pageInfo.totalCount ? (
+              <span className="text-sm font-light">
+                ({data?.publications?.pageInfo.totalCount})
+              </span>
+            ) : null}
+          </h1>
+        </div>
+        {data?.publications?.items.length === 0 && (
+          <NoDataFound text="Be the first to comment." />
+        )}
+        <NewComment video={video} refetchComments={() => refetchComments()} />
+      </>
       {!error && !loading && (
         <>
           <div className="space-y-4">

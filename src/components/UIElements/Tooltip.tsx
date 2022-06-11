@@ -1,5 +1,5 @@
 import 'tippy.js/dist/tippy.css'
-import 'tippy.js/themes/light-border.css'
+import 'tippy.js/themes/light.css'
 import 'tippy.js/themes/material.css'
 
 import Tippy from '@tippyjs/react'
@@ -25,8 +25,8 @@ const Tooltip = ({
       {...props}
       placement={placement}
       content={content}
-      theme={resolvedTheme === 'dark' ? 'material' : 'light-border'}
-      className="hidden sm:block !font-normal !text-xs tracking-wide !rounded-md !px-1"
+      theme={resolvedTheme === 'dark' ? 'material' : 'light'}
+      className="hidden sm:block !font-normal !text-xs tracking-wide !rounded-md !px-0.5"
     >
       {children}
     </Tippy>

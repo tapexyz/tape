@@ -26,7 +26,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Comment')
   const [comment, setComment] = useState('')
-  const { selectedChannel } = useAppStore()
+  const { selectedChannel, isAuthenticated } = useAppStore()
 
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -151,7 +151,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     })
   }
 
-  if (!selectedChannel) return null
+  if (!selectedChannel || !isAuthenticated) return null
 
   return (
     <div className="my-4">

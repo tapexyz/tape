@@ -58,3 +58,10 @@ html {
 .interweave-content a {
   @apply text-indigo-500;
 }
+
+.tippy-box[data-theme~='material'] > .tippy-arrow::before {
+  transform: scale(0.7);
+}
+.tippy-box[data-theme~='light'] > .tippy-arrow::before {
+  transform: scale(0.7);
+}
