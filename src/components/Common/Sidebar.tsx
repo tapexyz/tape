@@ -25,7 +25,7 @@ const Sidebar = () => {
   return (
     <div
       className={clsx(
-        'fixed top-0 bottom-0 left-0 items-start justify-between hidden px-3 py-2.5 bg-white dark:bg-black md:flex md:flex-col',
+        'fixed top-0 group bottom-0 left-0 items-start justify-between hidden px-3 py-2.5 bg-white dark:bg-black md:flex md:flex-col',
         {
           'w-44': isSideBarOpen,
           'w-16': !isSideBarOpen
@@ -34,7 +34,7 @@ const Sidebar = () => {
     >
       <button
         onClick={() => setIsSidebarOpen(!isSideBarOpen)}
-        className="absolute p-0.5 dark:bg-gray-900 bg-white rounded-full bottom-[18px] -right-2.5"
+        className="absolute invisible group-hover:visible p-0.5 dark:bg-gray-900 bg-white rounded-full bottom-[18px] -right-2.5"
       >
         {isSideBarOpen ? <BiChevronLeft /> : <BiChevronRight />}
       </button>
@@ -46,7 +46,7 @@ const Sidebar = () => {
       >
         <Link href={HOME}>
           <a
-            className={clsx('flex items-center  mt-2 space-x-2', {
+            className={clsx('flex items-center mt-2 space-x-2', {
               'mx-3': isSideBarOpen,
               'mx-1': !isSideBarOpen
             })}
@@ -62,16 +62,16 @@ const Sidebar = () => {
         </Link>
         <div
           className={clsx('flex flex-col items-center w-full', {
-            'space-y-3': !isSideBarOpen,
+            'space-y-2': !isSideBarOpen,
             'space-y-0.5': isSideBarOpen
           })}
         >
-          <Tooltip content="Home" placement="right">
+          <Tooltip visible={!isSideBarOpen} content="Home" placement="right">
             <span
               className={clsx(
                 'p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
                 {
-                  'w-full px-4': isSideBarOpen,
+                  'w-full px-3': isSideBarOpen,
                   'bg-gray-100 dark:bg-gray-900': isActivePath(HOME)
                 }
               )}
@@ -84,12 +84,12 @@ const Sidebar = () => {
               </Link>
             </span>
           </Tooltip>
-          <Tooltip content="Explore" placement="right">
+          <Tooltip visible={!isSideBarOpen} content="Explore" placement="right">
             <span
               className={clsx(
                 'p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
                 {
-                  'w-full px-4': isSideBarOpen,
+                  'w-full px-3': isSideBarOpen,
                   'bg-gray-100 dark:bg-gray-900': isActivePath(EXPLORE)
                 }
               )}
@@ -102,12 +102,12 @@ const Sidebar = () => {
               </Link>
             </span>
           </Tooltip>
-          <Tooltip content="Library" placement="right">
+          <Tooltip visible={!isSideBarOpen} content="Library" placement="right">
             <span
               className={clsx(
                 'p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
                 {
-                  'w-full px-4': isSideBarOpen,
+                  'w-full px-3': isSideBarOpen,
                   'bg-gray-100 dark:bg-gray-900': isActivePath(LIBRARY)
                 }
               )}

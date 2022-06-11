@@ -1,76 +1,67 @@
-import { useQuery } from '@apollo/client'
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { Loader } from '@components/UIElements/Loader'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { LENSTUBE_APP_ID } from '@utils/constants'
-import { EXPLORE_QUERY } from '@utils/gql/queries'
-import dynamic from 'next/dynamic'
-import React, { useState } from 'react'
-import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo } from 'src/types'
-import { LenstubePublication } from 'src/types/local'
+import { Tab } from '@headlessui/react'
+import clsx from 'clsx'
+import React from 'react'
 
-const Timeline = dynamic(() => import('../../components/Home/Timeline'), {
-  loading: () => <TimelineShimmer />
-})
+import LooksRare from './LooksRare'
+import Recents from './Recents'
+import Trending from './Trending'
 
 const ExploreFeed = () => {
-  const [videos, setVideos] = useState<LenstubePublication[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-
-  const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
-    variables: {
-      request: {
-        sortCriteria: 'LATEST',
-        limit: 10,
-        noRandomize: true,
-        sources: [LENSTUBE_APP_ID],
-        publicationTypes: ['POST']
-      }
-    },
-    onCompleted(data) {
-      setPageInfo(data?.explorePublications?.pageInfo)
-      setVideos(data?.explorePublications?.items)
-    }
-  })
-
-  const { observe } = useInView({
-    threshold: 1,
-    onEnter: () => {
-      fetchMore({
-        variables: {
-          request: {
-            sortCriteria: 'LATEST',
-            cursor: pageInfo?.next,
-            limit: 10,
-            noRandomize: true,
-            sources: [LENSTUBE_APP_ID],
-            publicationTypes: ['POST']
-          }
-        }
-      }).then(({ data }: any) => {
-        setPageInfo(data?.explorePublications?.pageInfo)
-        setVideos([...videos, ...data?.explorePublications?.items])
-      })
-    }
-  })
-
   return (
     <div>
-      {loading && <TimelineShimmer />}
-      {data?.explorePublications?.items.length === 0 && (
-        <NoDataFound text="No videos found." />
-      )}
-      {!error && !loading && (
-        <>
-          <Timeline videos={videos} />
-          {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
-            <span ref={observe} className="flex justify-center p-5">
-              <Loader />
-            </span>
-          )}
-        </>
-      )}
+      <div className="w-full col-span-9">
+        <Tab.Group>
+          <Tab.List className="flex">
+            <Tab
+              className={({ selected }) =>
+                clsx(
+                  'px-4 py-2 border-b-2 text-sm focus:outline-none',
+                  selected
+                    ? 'border-indigo-900 opacity-100'
+                    : 'border-transparent opacity-50'
+                )
+              }
+            >
+              Trending
+            </Tab>
+            <Tab
+              className={({ selected }) =>
+                clsx(
+                  'px-4 py-2 border-b-2 text-sm focus:outline-none',
+                  selected
+                    ? 'border-indigo-900 opacity-100'
+                    : 'border-transparent opacity-50'
+                )
+              }
+            >
+              Looks Rare
+            </Tab>
+            <Tab
+              className={({ selected }) =>
+                clsx(
+                  'px-4 py-2 border-b-2 text-sm focus:outline-none',
+                  selected
+                    ? 'border-indigo-900 opacity-100'
+                    : 'border-transparent opacity-50'
+                )
+              }
+            >
+              Recents
+            </Tab>
+          </Tab.List>
+          <Tab.Panels className="mt-2">
+            <Tab.Panel className="py-3 focus:outline-none">
+              <Trending />
+            </Tab.Panel>
+            <Tab.Panel className="py-3 focus:outline-none">
+              <LooksRare />
+            </Tab.Panel>
+            <Tab.Panel className="py-3 focus:outline-none">
+              <Recents />
+            </Tab.Panel>
+          </Tab.Panels>
+        </Tab.Group>
+      </div>
     </div>
   )
 }
