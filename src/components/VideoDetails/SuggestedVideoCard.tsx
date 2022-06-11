@@ -1,16 +1,20 @@
+import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import imageCdn from '@utils/functions/imageCdn'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import { LenstubePublication } from 'src/types/local'
 dayjs.extend(relativeTime)
 
 const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
+  const [showShare, setShowShare] = useState(false)
+
   return (
     <div className="flex justify-between group">
+      <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <div className="flex justify-between">
         <Link passHref href={`/watch/${video.id}`}>
           <div className="flex-none overflow-hidden rounded cursor-pointer">
@@ -42,7 +46,7 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
           </div>
         </div>
       </div>
-      <VideoOptions video={video} />
+      <VideoOptions video={video} setShowShare={setShowShare} />
     </div>
   )
 }
