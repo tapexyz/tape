@@ -15,7 +15,7 @@ import { PaginatedResultInfo } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 const SeeAllCommented = () => {
-  const { selectedChannel } = useAppStore()
+  const { selectedChannel, isAuthenticated } = useAppStore()
   const [commentedVideos, setCommentedVideos] = useState<LenstubePublication[]>(
     []
   )
@@ -68,7 +68,7 @@ const SeeAllCommented = () => {
             <span>Commented Videos</span>
           </h1>
         </div>
-        {data?.publications?.items?.length === 0 && (
+        {(data?.publications?.items?.length === 0 || !isAuthenticated) && (
           <NoDataFound text="No commented videos." />
         )}
         {loading && <TimelineShimmer />}
