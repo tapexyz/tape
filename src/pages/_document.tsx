@@ -1,4 +1,4 @@
-import { IS_MAINNET, STATIC_ASSETS } from '@utils/constants'
+import { STATIC_ASSETS } from '@utils/constants'
 import Document, {
   DocumentContext,
   DocumentProps,
@@ -52,14 +52,12 @@ class LenstubeDocument extends Document<Props> {
           />
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#000000" />
-          {IS_MAINNET && (
-            <script
-              async
-              defer
-              data-website-id="2ecff432-293c-4211-8639-f4a4bf65551d"
-              src="https://sudo-umami.up.railway.app/umami.js"
-            ></script>
-          )}
+          <script
+            async
+            defer
+            data-website-id="2ecff432-293c-4211-8639-f4a4bf65551d"
+            src="https://sudo-umami.up.railway.app/umami.js"
+          ></script>
         </Head>
         <body>
           <Main />
