@@ -22,7 +22,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
       request: {
         publicationTypes: 'COMMENT',
         profileId: channel?.id,
-        limit: 10,
+        limit: 8,
         sources: [LENSTUBE_APP_ID]
       }
     },
@@ -40,7 +40,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
             publicationTypes: 'COMMENT',
             profileId: channel?.id,
             cursor: pageInfo?.next,
-            limit: 10,
+            limit: 8,
             sources: [LENSTUBE_APP_ID]
           }
         }

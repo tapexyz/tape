@@ -1,4 +1,5 @@
 import { Input } from '@components/UIElements/Input'
+import RadioInput from '@components/UIElements/RadioInput'
 import clsx from 'clsx'
 import React, { FC } from 'react'
 import { IPFSUploadResult, VideoUpload, VideoUploadForm } from 'src/types/local'
@@ -78,6 +79,19 @@ const Form: FC<Props> = ({
           afterUpload={(data: IPFSUploadResult | null) => {
             onThumbnailUpload(data)
           }}
+        />
+      </div>
+      <div className="mt-4">
+        <RadioInput
+          checked={videoMeta.adultContent}
+          onChange={(checked) => {
+            setVideoMeta({ ...videoMeta, adultContent: checked })
+          }}
+          question={
+            <span>
+              Do you want to restrict your video to an <b>adult</b> audience?
+            </span>
+          }
         />
       </div>
     </div>

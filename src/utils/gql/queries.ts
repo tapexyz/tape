@@ -110,6 +110,7 @@ export const CommentFields = gql`
         }
       }
       attributes {
+        traitType
         value
       }
     }
@@ -346,6 +347,7 @@ export const PostFields = gql`
       }
       attributes {
         value
+        traitType
       }
     }
     createdAt

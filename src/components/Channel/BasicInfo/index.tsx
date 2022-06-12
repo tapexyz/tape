@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
+import getCoverPicture from '@utils/functions/getCoverPicture'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import { DOES_FOLLOW } from '@utils/gql/queries'
@@ -47,11 +48,9 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         <span>
           <div
             style={{
-              backgroundImage: `url(${imageCdn(
-                channel?.coverPicture?.original?.url
-              )})`
+              backgroundImage: `url(${imageCdn(getCoverPicture(channel))})`
             }}
-            className="absolute w-full bg-white bg-center bg-no-repeat bg-cover rounded dark:bg-gray-900 -z-10 h-44 md:h-72"
+            className="absolute w-full bg-white bg-center bg-no-repeat bg-cover rounded-lg dark:bg-gray-900 -z-10 h-44 md:h-72"
           />
         </span>
         <div className="flex items-center pt-2 md:pt-0 md:pl-4 mt-44 md:mt-72">
@@ -59,7 +58,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
             <img
               src={imageCdn(getProfilePicture(channel))}
               alt=""
-              className="border-2 rounded-full w-14 h-14 md:-mt-10 md:w-32 md:h-32"
+              className="bg-white border-2 rounded-full dark:bg-gray-900 w-14 h-14 md:-mt-10 md:w-32 md:h-32"
               draggable={false}
             />
           </div>

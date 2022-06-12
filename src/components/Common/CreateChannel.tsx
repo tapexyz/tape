@@ -41,7 +41,6 @@ const CreateChannel = () => {
 
   useEffect(() => {
     if (indexed) {
-      toast.success('Channel created 🎉')
       setCreating(false)
       setShowCreateChannel(false)
       router.push(getHandle(handle))
@@ -59,6 +58,9 @@ const CreateChannel = () => {
     const username = handle.toLowerCase()
     if (isEmptyString(username)) {
       return toast.error('Field is required.')
+    }
+    if (username.length < 5 || username.length > 30) {
+      return toast.error('Handle should be 5-30 letters long.')
     }
     setCreating(true)
     createProfile({

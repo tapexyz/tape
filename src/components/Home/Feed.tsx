@@ -24,11 +24,12 @@ const HomeFeed = () => {
     variables: {
       request: {
         profileId: selectedChannel?.id,
-        limit: 10,
+        limit: 8,
         sources: [LENSTUBE_APP_ID]
       }
     },
     fetchPolicy: 'no-cache',
+    skip: !selectedChannel?.id,
     onCompleted(data) {
       setPageInfo(data?.timeline?.pageInfo)
       setVideos(data?.timeline?.items)
@@ -43,7 +44,7 @@ const HomeFeed = () => {
           request: {
             profileId: selectedChannel?.id,
             cursor: pageInfo?.next,
-            limit: 10,
+            limit: 8,
             sources: [LENSTUBE_APP_ID]
           }
         }

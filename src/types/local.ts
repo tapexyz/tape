@@ -37,6 +37,7 @@ export type VideoUploadForm = {
   playbackId: string | null
   title: string
   description: string
+  adultContent: boolean
 }
 
 export type BasicInfoSettings = {

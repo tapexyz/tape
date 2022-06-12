@@ -13,7 +13,7 @@ const usePendingTxn = (txHash: string, navigate?: boolean) => {
         request: { txHash }
       },
       skip: txHash.length === 0,
-      pollInterval: 1000
+      pollInterval: 10000
     }
   )
 

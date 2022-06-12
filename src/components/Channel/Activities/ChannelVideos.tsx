@@ -22,7 +22,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
       request: {
         publicationTypes: 'POST',
         profileId: channel?.id,
-        limit: 10,
+        limit: 8,
         sources: [LENSTUBE_APP_ID]
       }
     },
@@ -40,7 +40,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
             publicationTypes: 'POST',
             profileId: channel?.id,
             cursor: pageInfo?.next,
-            limit: 10,
+            limit: 8,
             sources: [LENSTUBE_APP_ID]
           }
         }

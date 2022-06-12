@@ -1,5 +1,6 @@
 import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
+import { IS_MAINNET } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import { SETTINGS } from '@utils/url-path'
@@ -141,17 +142,19 @@ const UserMenu: FC<Props> = () => {
                   Switch channel
                 </span>
               </button>
-              <button
-                className={clsx(
-                  'flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                )}
-                onClick={() => setShowCreateChannel(true)}
-              >
-                <AiOutlinePlus className="text-lg" />
-                <span className="truncate whitespace-nowrap">
-                  Create Channel
-                </span>
-              </button>
+              {!IS_MAINNET && (
+                <button
+                  className={clsx(
+                    'flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  )}
+                  onClick={() => setShowCreateChannel(true)}
+                >
+                  <AiOutlinePlus className="text-lg" />
+                  <span className="truncate whitespace-nowrap">
+                    Create Channel
+                  </span>
+                </button>
+              )}
             </div>
             <div className="py-1 text-sm">
               <button

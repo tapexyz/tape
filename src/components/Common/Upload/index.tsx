@@ -36,7 +36,13 @@ const Upload = () => {
         reader.onload = function () {
           if (reader.result) {
             let buffer = Buffer.from(reader.result as string)
-            setVideo({ ...video, buffer, preview, videoType: file.type, file })
+            setVideo({
+              ...video,
+              buffer,
+              preview,
+              videoType: file.type || 'video/mp4',
+              file
+            })
           }
         }
         reader.readAsArrayBuffer(file)
@@ -59,7 +65,10 @@ const Upload = () => {
     onDrop: uploadVideo,
     onDropRejected,
     accept: {
-      'video/*': ['.mp4', '.mov', '.mpg', '.avi', '.mpeg']
+      'video/mp4': ['.mp4'],
+      'video/webm': ['.webm'],
+      'video/ogv': ['.ogv'],
+      'video/ogg': ['.ogg']
     },
     maxFiles: 1,
     maxSize: 2147483648 // 2 GB

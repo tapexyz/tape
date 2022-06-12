@@ -16,7 +16,7 @@ import CommentedVideoCard from '../CommentedVideoCard'
 
 const Commented = () => {
   const [commented, setCommented] = useState<LenstubePublication[]>([])
-  const { selectedChannel } = useAppStore()
+  const { selectedChannel, isAuthenticated } = useAppStore()
   const isMounted = useIsMounted()
 
   const { loading, data } = useQuery(PROFILE_FEED_QUERY, {
@@ -48,10 +48,14 @@ const Commented = () => {
           </a>
         </Link>
       </div>
-      {loading && isMounted() && <TimelineShimmer />}
-      {!data?.publications?.items.length && isMounted() && !loading && (
-        <NoDataFound text="This list has no videos." />
+      {!isAuthenticated && (
+        <NoDataFound text="Sign In to view videos that you commented on." />
       )}
+      {loading && isMounted() && <TimelineShimmer />}
+      {!data?.publications?.items.length &&
+        isMounted() &&
+        !loading &&
+        isAuthenticated && <NoDataFound text="This list has no videos." />}
       <div className="grid gap-x-4 lg:grid-cols-4 gap-y-1.5 md:gap-y-6 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
         {commented?.map((video: LenstubePublication, idx: number) => (
           <CommentedVideoCard

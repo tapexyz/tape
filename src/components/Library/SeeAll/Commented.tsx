@@ -15,7 +15,7 @@ import { PaginatedResultInfo } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 const SeeAllCommented = () => {
-  const { selectedChannel } = useAppStore()
+  const { selectedChannel, isAuthenticated } = useAppStore()
   const [commentedVideos, setCommentedVideos] = useState<LenstubePublication[]>(
     []
   )
@@ -26,7 +26,7 @@ const SeeAllCommented = () => {
       request: {
         publicationTypes: 'COMMENT',
         profileId: selectedChannel?.id,
-        limit: 10,
+        limit: 8,
         sources: [LENSTUBE_APP_ID]
       }
     },
@@ -47,7 +47,7 @@ const SeeAllCommented = () => {
             publicationTypes: 'COMMENT',
             profileId: selectedChannel?.id,
             cursor: pageInfo?.next,
-            limit: 10,
+            limit: 8,
             sources: [LENSTUBE_APP_ID]
           }
         }
@@ -68,7 +68,7 @@ const SeeAllCommented = () => {
             <span>Commented Videos</span>
           </h1>
         </div>
-        {data?.publications?.items?.length === 0 && (
+        {(data?.publications?.items?.length === 0 || !isAuthenticated) && (
           <NoDataFound text="No commented videos." />
         )}
         {loading && <TimelineShimmer />}

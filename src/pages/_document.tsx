@@ -56,7 +56,7 @@ class LenstubeDocument extends Document<Props> {
             async
             defer
             data-website-id="2ecff432-293c-4211-8639-f4a4bf65551d"
-            src="https://sudo-umami.up.railway.app/umami.js"
+            src="https://analytics.lenstube.xyz/umami.js"
           ></script>
         </Head>
         <body>

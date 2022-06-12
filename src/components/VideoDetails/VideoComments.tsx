@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import useAppStore from '@lib/store'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { COMMENT_FEED_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
@@ -23,6 +24,7 @@ const VideoComments: FC<Props> = ({ video }) => {
   const {
     query: { id }
   } = useRouter()
+  const { isAuthenticated } = useAppStore()
 
   const [comments, setComments] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
@@ -83,11 +85,14 @@ const VideoComments: FC<Props> = ({ video }) => {
           <h1 className="inline-flex items-center my-4 space-x-2 text-lg">
             <AiOutlineComment />
             <span className="font-semibold">Comments</span>
-            {data?.publications?.pageInfo.totalCount ? (
+            {isAuthenticated && data?.publications?.pageInfo.totalCount ? (
               <span className="text-sm font-light">
                 ({data?.publications?.pageInfo.totalCount})
               </span>
             ) : null}
+            {!isAuthenticated && (
+              <span className="text-xs">(Sign in required to comment)</span>
+            )}
           </h1>
         </div>
         {data?.publications?.items.length === 0 && (
