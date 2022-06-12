@@ -29,6 +29,7 @@ const HomeFeed = () => {
       }
     },
     fetchPolicy: 'no-cache',
+    skip: !selectedChannel?.id,
     onCompleted(data) {
       setPageInfo(data?.timeline?.pageInfo)
       setVideos(data?.timeline?.items)

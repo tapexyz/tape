@@ -45,7 +45,7 @@ const Header = () => {
           {showSearch && <GlobalSearch setShowSearch={setShowSearch} />}
           <button
             onClick={() => setShowSearch(true)}
-            className="px-2 hidden text-sm opacity-60 hover:opacity-100 md:flex focus:outline-none items-center space-x-1 text-left py-1.5 rounded"
+            className="px-2 hidden text-sm opacity-80 hover:opacity-100 md:flex focus:outline-none items-center space-x-1 text-left py-1.5 rounded"
           >
             <MdSearch />
             <span>Search</span>

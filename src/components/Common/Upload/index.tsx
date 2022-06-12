@@ -67,7 +67,6 @@ const Upload = () => {
     accept: {
       'video/mp4': ['.mp4'],
       'video/webm': ['.webm'],
-      'video/x-m4v': ['.x-m4v'],
       'video/ogv': ['.ogv'],
       'video/ogg': ['.ogg']
     },
