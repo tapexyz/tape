@@ -2,6 +2,7 @@ import useAppStore from '@lib/store'
 import { getToastOptions } from '@utils/functions/getToastOptions'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactNode, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
@@ -18,17 +19,20 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children }) => {
-  const { setSelectedChannel, setIsAuthenticated, isSideBarOpen } =
-    useAppStore()
+  const { pathname } = useRouter()
+  const {
+    setSelectedChannel,
+    setIsAuthenticated,
+    isSideBarOpen,
+    isAuthenticated
+  } = useAppStore()
   const { resolvedTheme } = useTheme()
   const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
 
   useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken')
     const refreshToken = localStorage.getItem('refreshToken')
-    if (refreshToken && refreshToken !== 'undefined') {
-      setIsAuthenticated(true)
-    }
     const logout = () => {
       setIsAuthenticated(false)
       setSelectedChannel(null)
@@ -37,13 +41,30 @@ const Layout: FC<Props> = ({ children }) => {
       localStorage.removeItem('app-storage')
       disconnect()
     }
+    if (
+      refreshToken &&
+      accessToken &&
+      accessToken !== 'undefined' &&
+      refreshToken !== 'undefined'
+    ) {
+      setIsAuthenticated(true)
+    } else {
+      if (isAuthenticated) logout()
+    }
     if (!activeConnector?.id) {
       disconnect()
     }
     activeConnector?.on('change', () => {
       logout()
     })
-  }, [setIsAuthenticated, disconnect, activeConnector, setSelectedChannel])
+  }, [
+    setIsAuthenticated,
+    disconnect,
+    activeConnector,
+    setSelectedChannel,
+    pathname,
+    isAuthenticated
+  ])
 
   return (
     <>
