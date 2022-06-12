@@ -65,7 +65,11 @@ const Upload = () => {
     onDrop: uploadVideo,
     onDropRejected,
     accept: {
-      'video/mp4': ['.mp4']
+      'video/mp4': ['.mp4'],
+      'video/webm': ['.webm'],
+      'video/x-m4v': ['.x-m4v'],
+      'video/ogv': ['.ogv'],
+      'video/ogg': ['.ogg']
     },
     maxFiles: 1,
     maxSize: 2147483648 // 2 GB
