@@ -1,3 +1,5 @@
+import { STATIC_ASSETS } from '@utils/constants'
+import { getIsSensitiveContent } from '@utils/functions/getIsSensitiveContent'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import imageCdn from '@utils/functions/imageCdn'
@@ -14,17 +16,31 @@ type Props = {
 
 const CommentedVideoCard: FC<Props> = ({ comment }) => {
   const commentedOn = comment.commentOn as LenstubePublication
+  const isSensitiveContent = getIsSensitiveContent(
+    commentedOn.metadata?.attributes
+  )
 
   return (
     <Link href={`/watch/${commentedOn.pubId}`} passHref>
       <div className="overflow-hidden rounded-lg cursor-pointer group bg-secondary">
-        <div className="rounded-t-lg aspect-w-16 aspect-h-7">
+        <div className="relative rounded-t-lg aspect-w-16 aspect-h-7">
           <img
-            src={imageCdn(getThumbnailUrl(commentedOn))}
+            src={imageCdn(
+              isSensitiveContent
+                ? `${STATIC_ASSETS}/images/sensor-blur.png`
+                : getThumbnailUrl(commentedOn)
+            )}
             alt=""
             draggable={false}
             className="object-cover object-center w-full h-full rounded-t-lg lg:w-full lg:h-full"
           />
+          {isSensitiveContent && (
+            <div className="absolute top-2 left-3">
+              <span className="py-0.5 text-[10px] px-2 text-black bg-white rounded-full">
+                Sensitive Content
+              </span>
+            </div>
+          )}
         </div>
         <div className="p-2">
           <div className="flex items-start space-x-2.5">

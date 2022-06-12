@@ -1,3 +1,5 @@
+import { STATIC_ASSETS } from '@utils/constants'
+import { getIsSensitiveContent } from '@utils/functions/getIsSensitiveContent'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import imageCdn from '@utils/functions/imageCdn'
@@ -18,6 +20,7 @@ type Props = {
 
 const VideoCard: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
+  const isSensitiveContent = getIsSensitiveContent(video.metadata?.attributes)
 
   return (
     <Link href={`/watch/${video.id}`} passHref>
@@ -27,13 +30,24 @@ const VideoCard: FC<Props> = ({ video }) => {
           show={showShare}
           setShowShare={setShowShare}
         />
-        <div className="rounded-t-lg aspect-w-16 aspect-h-9">
+        <div className="relative rounded-t-lg aspect-w-16 aspect-h-9">
           <img
-            src={imageCdn(getThumbnailUrl(video))}
-            alt=""
+            src={imageCdn(
+              isSensitiveContent
+                ? `${STATIC_ASSETS}/images/sensor-blur.png`
+                : getThumbnailUrl(video)
+            )}
             draggable={false}
             className="object-cover object-center w-full h-full rounded-t-lg lg:w-full lg:h-full"
+            alt=""
           />
+          {isSensitiveContent && (
+            <div className="absolute top-2 left-3">
+              <span className="py-0.5 text-[10px] px-2 text-black bg-white rounded-full">
+                Sensitive Content
+              </span>
+            </div>
+          )}
         </div>
         <div className="p-2">
           <div className="flex items-start space-x-2.5">
@@ -57,11 +71,13 @@ const VideoCard: FC<Props> = ({ video }) => {
                   {video.profile?.handle}
                 </a>
               </Link>
-              <div className="flex items-center space-x-1 text-[11px] opacity-70">
-                <span>
+              <div className="flex overflow-hidden items-center space-x-1 text-[11px] opacity-70">
+                <span className="whitespace-nowrap">
                   {video.stats.totalAmountOfCollects} collects &middot;
                 </span>
-                <span>{dayjs(new Date(video.createdAt)).fromNow()}</span>
+                <span className="whitespace-nowrap">
+                  {dayjs(new Date(video.createdAt)).fromNow()}
+                </span>
               </div>
             </div>
           </div>
