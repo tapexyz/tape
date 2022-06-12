@@ -33,7 +33,7 @@ const Video: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
 
   return (
-    <div className="overflow-hidden rounded">
+    <div className="overflow-hidden">
       <MemoizedVideoPlayer
         source={getVideoUrl(video)}
         poster={video?.metadata?.cover?.original.url}

@@ -33,7 +33,7 @@ const VideoPlayer: FC<Props> = ({
   ratio = undefined
 }) => {
   return (
-    <div className="rounded-lg">
+    <div className="overflow-hidden rounded-md">
       <Plyr
         autoPlay={autoPlay}
         source={{
