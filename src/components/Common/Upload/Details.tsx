@@ -470,7 +470,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
             </div>
           </Tooltip>
 
-          {isLessThan100MB(video.file?.size) ? (
+          {isLessThan100MB(video.file?.size) && !showBundlrDetails ? (
             <div className="mt-2">
               <span className="text-sm font-light opacity-60">
                 This video is less than 100MB and can be uploaded to IPFS for
