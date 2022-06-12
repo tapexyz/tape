@@ -60,6 +60,9 @@ const CreateChannel = () => {
     if (isEmptyString(username)) {
       return toast.error('Field is required.')
     }
+    if (username.length < 5 || username.length > 30) {
+      return toast.error('Handle should be 5-30 letters long.')
+    }
     setCreating(true)
     createProfile({
       variables: {
