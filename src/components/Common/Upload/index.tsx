@@ -36,7 +36,13 @@ const Upload = () => {
         reader.onload = function () {
           if (reader.result) {
             let buffer = Buffer.from(reader.result as string)
-            setVideo({ ...video, buffer, preview, videoType: file.type, file })
+            setVideo({
+              ...video,
+              buffer,
+              preview,
+              videoType: file.type || 'video/mp4',
+              file
+            })
           }
         }
         reader.readAsArrayBuffer(file)
