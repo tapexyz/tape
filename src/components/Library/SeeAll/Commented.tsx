@@ -26,7 +26,7 @@ const SeeAllCommented = () => {
       request: {
         publicationTypes: 'COMMENT',
         profileId: selectedChannel?.id,
-        limit: 10,
+        limit: 8,
         sources: [LENSTUBE_APP_ID]
       }
     },
@@ -47,7 +47,7 @@ const SeeAllCommented = () => {
             publicationTypes: 'COMMENT',
             profileId: selectedChannel?.id,
             cursor: pageInfo?.next,
-            limit: 10,
+            limit: 8,
             sources: [LENSTUBE_APP_ID]
           }
         }

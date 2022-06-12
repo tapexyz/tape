@@ -25,7 +25,7 @@ const ExploreCategory = () => {
       request: {
         query: categoryName,
         type: 'PUBLICATION',
-        limit: 10,
+        limit: 8,
         sources: [LENSTUBE_APP_ID]
       }
     },
@@ -44,7 +44,7 @@ const ExploreCategory = () => {
             query: categoryName,
             type: 'PUBLICATION',
             cursor: pageInfo?.next,
-            limit: 10,
+            limit: 8,
             sources: [LENSTUBE_APP_ID]
           }
         }

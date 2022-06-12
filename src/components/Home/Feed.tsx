@@ -24,7 +24,7 @@ const HomeFeed = () => {
     variables: {
       request: {
         profileId: selectedChannel?.id,
-        limit: 10,
+        limit: 8,
         sources: [LENSTUBE_APP_ID]
       }
     },
@@ -43,7 +43,7 @@ const HomeFeed = () => {
           request: {
             profileId: selectedChannel?.id,
             cursor: pageInfo?.next,
-            limit: 10,
+            limit: 8,
             sources: [LENSTUBE_APP_ID]
           }
         }

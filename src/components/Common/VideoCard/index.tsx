@@ -21,18 +21,18 @@ const VideoCard: FC<Props> = ({ video }) => {
 
   return (
     <Link href={`/watch/${video.id}`} passHref>
-      <div className="cursor-pointer bg-gray-50 rounded-md dark:bg-[#0b0b0b] group">
+      <div className="cursor-pointer bg-gray-50 rounded-lg dark:bg-[#0b0b0b] group">
         <ShareModal
           video={video}
           show={showShare}
           setShowShare={setShowShare}
         />
-        <div className="rounded-t-md aspect-w-16 aspect-h-9">
+        <div className="rounded-t-lg aspect-w-16 aspect-h-9">
           <img
             src={imageCdn(getThumbnailUrl(video))}
             alt=""
             draggable={false}
-            className="object-cover object-center w-full h-full rounded-t-md lg:w-full lg:h-full"
+            className="object-cover object-center w-full h-full rounded-t-lg lg:w-full lg:h-full"
           />
         </div>
         <div className="p-2">

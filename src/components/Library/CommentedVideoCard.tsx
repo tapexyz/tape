@@ -17,13 +17,13 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
 
   return (
     <Link href={`/watch/${commentedOn.pubId}`} passHref>
-      <div className="overflow-hidden rounded-md cursor-pointer group bg-secondary">
-        <div className="rounded-t-md aspect-w-16 aspect-h-7">
+      <div className="overflow-hidden rounded-lg cursor-pointer group bg-secondary">
+        <div className="rounded-t-lg aspect-w-16 aspect-h-7">
           <img
             src={imageCdn(getThumbnailUrl(commentedOn))}
             alt=""
             draggable={false}
-            className="object-cover object-center w-full h-full rounded-t-md lg:w-full lg:h-full"
+            className="object-cover object-center w-full h-full rounded-t-lg lg:w-full lg:h-full"
           />
         </div>
         <div className="p-2">

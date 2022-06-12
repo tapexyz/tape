@@ -40,7 +40,7 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
         </a>
       </Link>
       <div className="w-full px-1.5 py-2">
-        <div className="flex-1">
+        <div className="flex-1 text-center">
           <Link href={`/${channel.handle}`}>
             <a className="block font-medium truncate">{channel.handle}</a>
           </Link>

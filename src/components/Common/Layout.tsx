@@ -52,7 +52,7 @@ const Layout: FC<Props> = ({ children }) => {
         <CreateChannel />
         <Upload />
         <div
-          className={clsx('w-full pr-2 md:pr-4 max-w-[200rem] mx-auto', {
+          className={clsx('w-full pr-2 md:pr-4 max-w-[150rem] mx-auto', {
             'md:pl-[195px] pl-2': isSideBarOpen,
             'md:pl-[84px] pl-2': !isSideBarOpen
           })}

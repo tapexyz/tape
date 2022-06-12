@@ -4,7 +4,7 @@ import VideoCardShimmer from './VideoCardShimmer'
 
 const TimelineShimmer = () => {
   return (
-    <div className="grid gap-x-4 lg:grid-cols-4 md:gap-y-6 gap-y-1 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
+    <div className="grid gap-x-5 lg:grid-cols-4 md:gap-y-8 gap-y-2 2xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
       <VideoCardShimmer />
       <VideoCardShimmer />
       <VideoCardShimmer />
