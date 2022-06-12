@@ -94,7 +94,7 @@ const JoinChannel: FC<Props> = ({ channel }) => {
   })
 
   const joinChannel = () => {
-    if (!isAuthenticated) return toast.error('Login required.')
+    if (!isAuthenticated) return toast.error('Sign in required.')
     if (!isAllowed)
       return toast.error(
         `Menu -> Settings -> Permissions and allow fee follow module for ${followModule.amount.asset.symbol}.`

@@ -87,7 +87,7 @@ const UnSubscribe: FC<Props> = ({ channel }) => {
   })
 
   const unsubscribe = () => {
-    if (!isAuthenticated) return toast.error('Login required.')
+    if (!isAuthenticated) return toast.error('Sign in required.')
     setLoading(true)
     setButtonText('Unsubscribing...')
     createUnsubscribeTypedData({

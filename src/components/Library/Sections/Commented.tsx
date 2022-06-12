@@ -49,7 +49,7 @@ const Commented = () => {
         </Link>
       </div>
       {!isAuthenticated && (
-        <NoDataFound text="Login to view videos that you commented on." />
+        <NoDataFound text="Sign In to view videos that you commented on." />
       )}
       {loading && isMounted() && <TimelineShimmer />}
       {!data?.publications?.items.length &&
