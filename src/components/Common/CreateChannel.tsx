@@ -41,7 +41,6 @@ const CreateChannel = () => {
 
   useEffect(() => {
     if (indexed) {
-      toast.success('Channel created 🎉')
       setCreating(false)
       setShowCreateChannel(false)
       router.push(getHandle(handle))
