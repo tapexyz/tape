@@ -126,11 +126,13 @@ const BasicInfo = ({ channel }: Props) => {
         {
           traitType: 'string',
           key: 'website',
+          trait_type: 'website',
           value: basicInfo.website
         },
         {
           traitType: 'string',
           key: 'location',
+          trait_type: 'location',
           value: getKeyFromAttributes(
             channel.attributes as Attribute[],
             'location'
@@ -138,12 +140,14 @@ const BasicInfo = ({ channel }: Props) => {
         },
         {
           traitType: 'string',
+          trait_type: 'twitter',
           key: 'twitter',
           value: basicInfo.twitter
         },
         {
           traitType: 'string',
           key: 'app',
+          trait_type: 'app',
           value: LENSTUBE_APP_ID
         }
       ],

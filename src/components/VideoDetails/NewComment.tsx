@@ -124,9 +124,10 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
       attributes: [
         {
-          displayType: 'string',
-          traitType: 'Publication',
-          value: 'LenstubeVideoComment'
+          traitType: 'string',
+          trait_type: 'publication',
+          key: 'publication',
+          value: 'LenstubeComment'
         }
       ],
       media: [],

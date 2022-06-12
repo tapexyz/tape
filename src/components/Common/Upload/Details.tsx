@@ -116,7 +116,8 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
     videoSource: null,
     playbackId: null,
     title: '',
-    description: ''
+    description: '',
+    adultContent: false
   })
   const [buttonText, setButtonText] = useState('Next')
 
@@ -372,10 +373,32 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         type: video.videoType
       }
     ]
+    let attributes = [
+      {
+        traitType: 'string',
+        key: 'publication',
+        trait_type: 'publication',
+        value: 'LenstubeVideo'
+      },
+      {
+        traitType: 'string',
+        trait_type: 'handle',
+        key: 'handle',
+        value: selectedChannel?.handle
+      }
+    ]
     if (videoMeta.playbackId) {
       media.push({
         item: `https://livepeercdn.com/asset/${videoMeta.playbackId}/video`,
         type: video.videoType
+      })
+    }
+    if (videoMeta.adultContent) {
+      attributes.push({
+        traitType: 'string',
+        trait_type: 'content',
+        key: 'content',
+        value: 'sensitive'
       })
     }
     const { ipfsUrl } = await uploadDataToIPFS({
@@ -389,13 +412,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       cover: videoMeta.videoThumbnail?.ipfsUrl,
       imageMimeType: videoMeta.videoThumbnail?.type,
       name: videoMeta.title,
-      attributes: [
-        {
-          displayType: 'string',
-          traitType: 'Publication',
-          value: 'LenstubeVideo'
-        }
-      ],
+      attributes,
       media,
       appId: LENSTUBE_APP_ID
     })
@@ -508,7 +525,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           )}
         </div>
       </div>
-      <div className="flex items-center justify-between mt-4">
+      <div className="flex items-center justify-between mt-3">
         <span>
           {videoMeta.videoSource && (
             <span className="text-xs text-green-500">Video uploaded</span>
