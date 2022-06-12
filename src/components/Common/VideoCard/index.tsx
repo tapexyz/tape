@@ -57,7 +57,10 @@ const VideoCard: FC<Props> = ({ video }) => {
                   {video.profile?.handle}
                 </a>
               </Link>
-              <div className="flex items-center text-[11px] opacity-70">
+              <div className="flex items-center space-x-1 text-[11px] opacity-70">
+                <span>
+                  {video.stats.totalAmountOfCollects} collects &middot;
+                </span>
                 <span>{dayjs(new Date(video.createdAt)).fromNow()}</span>
               </div>
             </div>
