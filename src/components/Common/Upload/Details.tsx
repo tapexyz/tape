@@ -378,13 +378,19 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         traitType: 'string',
         key: 'publication',
         trait_type: 'publication',
-        value: 'LenstubeVideo'
+        value: 'video'
       },
       {
         traitType: 'string',
         trait_type: 'handle',
         key: 'handle',
-        value: selectedChannel?.handle
+        value: `@${selectedChannel?.handle}`
+      },
+      {
+        traitType: 'string',
+        key: 'app',
+        trait_type: 'app',
+        value: 'lenstube'
       }
     ]
     if (videoMeta.playbackId) {

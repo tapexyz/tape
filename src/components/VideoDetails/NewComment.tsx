@@ -127,7 +127,13 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           traitType: 'string',
           trait_type: 'publication',
           key: 'publication',
-          value: 'LenstubeComment'
+          value: 'comment'
+        },
+        {
+          traitType: 'string',
+          key: 'app',
+          trait_type: 'app',
+          value: 'lenstube'
         }
       ],
       media: [],
