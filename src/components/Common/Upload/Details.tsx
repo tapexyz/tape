@@ -273,6 +273,8 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
 
   const uploadToBundlr = async () => {
     if (!bundlrData.instance || !video.buffer) return
+    if (bundlrData.balance < bundlrData.estimatedPrice)
+      return toast.error('Insufficient balance')
     try {
       toast('Requesting signature...')
       const bundlr = bundlrData.instance
@@ -431,7 +433,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           contentURI: ipfsUrl,
           collectModule: {
             freeCollectModule: {
-              followerOnly: true
+              followerOnly: false
             }
           },
           referenceModule: {

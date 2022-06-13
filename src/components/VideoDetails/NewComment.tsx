@@ -146,7 +146,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           contentURI: ipfsUrl,
           collectModule: {
             freeCollectModule: {
-              followerOnly: true
+              followerOnly: false
             }
           },
           referenceModule: {
