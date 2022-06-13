@@ -51,7 +51,7 @@ const Layout: FC<Props> = ({ children }) => {
     } else {
       if (isAuthenticated) logout()
     }
-    if (!activeConnector?.id) {
+    if (!activeConnector) {
       disconnect()
     }
     activeConnector?.on('change', () => {
