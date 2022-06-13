@@ -47,7 +47,7 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
             <div className="flex-none mt-0.5">
               <img
                 className="w-8 h-8 rounded-full"
-                src={imageCdn(getProfilePicture(comment.profile))}
+                src={getProfilePicture(comment.profile)}
                 alt=""
                 draggable={false}
               />

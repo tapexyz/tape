@@ -4,7 +4,6 @@ import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
 import { LENSHUB_PROXY_ADDRESS, LENSTUBE_APP_ID } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
 import { uploadDataToIPFS } from '@utils/functions/uploadToIPFS'
 import { CREATE_COMMENT_TYPED_DATA } from '@utils/gql/queries'
@@ -165,7 +164,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       <div className="flex items-center mb-2 space-x-3">
         <div className="flex-none">
           <img
-            src={imageCdn(getProfilePicture(selectedChannel))}
+            src={getProfilePicture(selectedChannel)}
             className="w-8 h-8 rounded-full"
             draggable={false}
             alt=""

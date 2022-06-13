@@ -1,3 +1,3 @@
 export const getRandomProfilePicture = (seed: string) => {
-  return `https://avatars.dicebear.com/api/bottts/${seed}.svg`
+  return `https://avatar.tobi.sh/${seed}.png`
 }

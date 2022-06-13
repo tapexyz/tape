@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client'
 import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import imageCdn from '@utils/functions/imageCdn'
 import { DOES_FOLLOW } from '@utils/gql/queries'
 import Link from 'next/link'
 import React from 'react'
@@ -33,7 +32,7 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
         <a>
           <img
             className="object-cover w-24 h-24 rounded-full"
-            src={imageCdn(getProfilePicture(channel))}
+            src={getProfilePicture(channel)}
             alt=""
             draggable={false}
           />

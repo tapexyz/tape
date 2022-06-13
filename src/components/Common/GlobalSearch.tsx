@@ -2,8 +2,6 @@ import { useLazyQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import imageCdn from '@utils/functions/imageCdn'
-import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import { SEARCH_CHANNELS_QUERY } from '@utils/gql/queries'
 import useDebounce from '@utils/hooks/useDebounce'
 import Link from 'next/link'
@@ -51,6 +49,7 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
             className="block w-full text-gray-700 bg-transparent appearance-none dark:text-gray-100 focus:outline-none"
             placeholder="Search channels"
             value={keyword}
+            autoFocus
             onChange={(e) => setKeyword(e.target.value)}
           />
         </div>
@@ -72,9 +71,7 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
                       <span className="inline-flex items-center w-3/4 space-x-2">
                         <img
                           className="w-5 h-5 rounded-full"
-                          src={imageCdn(
-                            sanitizeIpfsUrl(getProfilePicture(channel))
-                          )}
+                          src={getProfilePicture(channel)}
                           draggable={false}
                           alt=""
                         />

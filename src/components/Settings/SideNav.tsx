@@ -1,5 +1,4 @@
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import imageCdn from '@utils/functions/imageCdn'
 import {
   SETTINGS,
   SETTINGS_MEMBERSHIP,
@@ -27,7 +26,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         <div className="flex items-end space-x-2">
           <div className="flex-none">
             <img
-              src={imageCdn(getProfilePicture(channel))}
+              src={getProfilePicture(channel)}
               className="w-16 h-16 border-2 rounded-full"
               draggable={false}
               alt=""
