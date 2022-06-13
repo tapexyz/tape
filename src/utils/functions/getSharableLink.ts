@@ -9,7 +9,7 @@ export const getSharableLink = (link: string, video: LenstubePublication) => {
   if (link === 'twitter') {
     return `https://twitter.com/intent/tweet?url=${getVideoUrl(video)}&text=${
       video.metadata?.name
-    }&via=lenstubexyz&related=Lenstube`
+    }&via=lenstubexyz&related=Lenstube&hashtags=Lenstube`
   }
   if (link === 'reddit') {
     return `https://www.reddit.com/submit?url=${getVideoUrl(video)}&title=${
