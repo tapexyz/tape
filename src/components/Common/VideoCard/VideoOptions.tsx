@@ -16,7 +16,8 @@ const VideoOptions = ({
   video: LenstubePublication
   setShowShare: React.Dispatch<boolean>
 }) => {
-  const { addToWatchLater, removeFromWatchLater, watchLater } = useAppStore()
+  const { addToWatchLater, removeFromWatchLater, watchLater, isAuthenticated } =
+    useAppStore()
 
   return (
     <Popover
@@ -55,12 +56,14 @@ const VideoOptions = ({
             <RiShareForwardLine className="text-base" />
             <span className="whitespace-nowrap">Share</span>
           </button>
-          <Link href={`/report/${video.id}`}>
-            <a className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
-              <FiFlag className="text-sm mx-0.5" />
-              <span className="whitespace-nowrap">Report</span>
-            </a>
-          </Link>
+          {isAuthenticated && (
+            <Link href={`/report/${video.id}`}>
+              <a className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
+                <FiFlag className="text-sm mx-0.5" />
+                <span className="whitespace-nowrap">Report</span>
+              </a>
+            </Link>
+          )}
         </div>
       </div>
     </Popover>
