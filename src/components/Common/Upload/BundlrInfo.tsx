@@ -61,22 +61,23 @@ const BundlrInfo: FC<Props> = ({
             <Input
               label="Amount to deposit"
               type="number"
+              className="!py-1.5"
               placeholder="100 MATIC"
               autoComplete="off"
               value={bundlrData.deposit || ''}
-              onChange={(e) =>
+              onChange={(e) => {
                 setBundlrData({
                   ...bundlrData,
-                  deposit: parseInt(e.target.value)
+                  deposit: e.target.value
                 })
-              }
+              }}
             />
             <div>
               <Button
                 type="button"
                 disabled={bundlrData.depositing}
                 onClick={() => depositToBundlr()}
-                className="mb-0.5"
+                className="mb-0.5 py-2"
               >
                 {bundlrData.depositing ? 'Loading...' : 'Deposit'}
               </Button>

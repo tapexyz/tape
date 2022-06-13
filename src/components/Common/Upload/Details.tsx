@@ -201,7 +201,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const depositToBundlr = async () => {
     if (bundlrData.instance && bundlrData.deposit) {
       const value = parseToAtomicUnits(
-        bundlrData.deposit,
+        parseFloat(bundlrData.deposit),
         bundlrData.instance.currencyConfig.base[1]
       )
       if (!value) return toast.error('Invalid deposit amount')

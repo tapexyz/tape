@@ -11,7 +11,7 @@ export type BundlrDataState = {
   instance: WebBundlr | null
   balance: string
   estimatedPrice: string
-  deposit: number | null
+  deposit: string | null
   depositing: boolean
   showDeposit: boolean
 }
