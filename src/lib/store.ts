@@ -62,7 +62,7 @@ export const useAppStore = create(
         const alreadyExists = get().recentlyWatched.find(
           (el) => el.id === video.id
         )
-        const newList = get().recentlyWatched.slice(0, 9)
+        const newList = get().recentlyWatched.slice(0, 7)
         set(() => ({
           recentlyWatched: alreadyExists
             ? get().recentlyWatched
@@ -71,7 +71,7 @@ export const useAppStore = create(
       },
       addToWatchLater: (video) => {
         const alreadyExists = get().watchLater.find((el) => el.id === video.id)
-        const newList = get().watchLater.slice(0, 9)
+        const newList = get().watchLater.splice(0, 7)
         set(() => ({
           watchLater: alreadyExists ? get().watchLater : [video, ...newList]
         }))
@@ -79,8 +79,9 @@ export const useAppStore = create(
       removeFromWatchLater: (video) => {
         const index = get().watchLater.findIndex((el) => el.id === video.id)
         const videos = get().watchLater
+        delete videos[index]
         set(() => ({
-          watchLater: videos.length === 1 ? [] : videos.slice(index, 1)
+          watchLater: videos.length === 1 ? [] : videos
         }))
       },
       setNotificationCount: (notificationCount) =>

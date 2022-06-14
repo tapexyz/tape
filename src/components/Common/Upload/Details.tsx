@@ -273,7 +273,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
 
   const uploadToBundlr = async () => {
     if (!bundlrData.instance || !video.buffer) return
-    if (bundlrData.balance < bundlrData.estimatedPrice)
+    if (parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice))
       return toast.error('Insufficient balance')
     try {
       toast('Requesting signature...')

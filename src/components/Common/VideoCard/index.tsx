@@ -24,7 +24,7 @@ const VideoCard: FC<Props> = ({ video }) => {
 
   return (
     <Link href={`/watch/${video.id}`} passHref>
-      <div className="cursor-pointer bg-gray-50 rounded-lg dark:bg-[#0b0b0b] group">
+      <div className="cursor-pointer bg-gray-50 rounded-lg dark:bg-[#141414] group">
         <ShareModal
           video={video}
           show={showShare}
