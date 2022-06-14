@@ -1,9 +1,10 @@
 import { useQuery } from '@apollo/client'
+import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
+import { BellIcon } from '@heroicons/react/outline'
 import useAppStore from '@lib/store'
 import { NOTIFICATION_COUNT_QUERY } from '@utils/gql/queries'
 import React, { useEffect } from 'react'
-import { CgBell } from 'react-icons/cg'
 
 import Notifications from '.'
 
@@ -48,15 +49,16 @@ const NotificationTrigger = () => {
   return (
     <Popover
       trigger={
-        <button
+        <Button
+          variant="secondary"
+          className="!px-0"
           onClick={() => onClickNotification()}
-          className="relative flex self-center p-[6px] border-transparent border duration-200 transition ease-in-out hover:border-indigo-900 rounded-md focus:outline-none"
         >
-          <CgBell />
+          <BellIcon className="w-5 h-5" />
           {hasNewNotification && (
-            <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-1 right-1" />
+            <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full -top-1 -right-1" />
           )}
-        </button>
+        </Button>
       }
       panelClassName="right-0"
     >

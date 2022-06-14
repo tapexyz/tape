@@ -64,7 +64,7 @@ const Form: FC<Props> = ({
           autoComplete="off"
           rows={5}
           className={clsx(
-            'bg-white text-sm px-2.5 py-1 rounded-md dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
+            'bg-white text-sm px-2.5 py-1 rounded-xl focus:ring-1 focus:ring-indigo-500 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
           )}
           value={videoMeta.description}
           onChange={(e) =>
@@ -89,7 +89,7 @@ const Form: FC<Props> = ({
           }}
           question={
             <span>
-              Do you want to restrict your video to an <b>adult</b> audience?
+              Do you want to restrict this video to an <b>adult</b> audience?
             </span>
           }
         />

@@ -22,8 +22,8 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
 
   return (
     <Link href={`/watch/${commentedOn.pubId}`} passHref>
-      <div className="overflow-hidden cursor-pointer group bg-gray-50 rounded-lg dark:bg-[#141414]">
-        <div className="relative rounded-t-lg aspect-w-16 aspect-h-7">
+      <div className="overflow-hidden cursor-pointer group bg-gray-50 rounded-xl dark:bg-[#181818]">
+        <div className="relative rounded-t-xl aspect-w-16 aspect-h-7">
           <img
             src={imageCdn(
               isSensitiveContent
@@ -32,7 +32,7 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
             )}
             alt=""
             draggable={false}
-            className="object-cover object-center w-full h-full rounded-t-lg lg:w-full lg:h-full"
+            className="object-cover object-center w-full h-full rounded-t-xl lg:w-full lg:h-full"
           />
           {isSensitiveContent && (
             <div className="absolute top-2 left-3">
@@ -46,7 +46,7 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
           <div className="flex items-start space-x-2.5">
             <div className="flex-none mt-0.5">
               <img
-                className="w-8 h-8 rounded-full"
+                className="w-8 h-8 rounded-xl"
                 src={getProfilePicture(comment.profile)}
                 alt=""
                 draggable={false}
@@ -66,7 +66,7 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
             </div>
           </div>
           <div className="relative pt-2 overflow-hidden text-sm opacity-90">
-            <div className="absolute left-2.5 pb-1 inset-0 flex justify-center w-1.5">
+            <div className="absolute left-3 pb-1 inset-0 flex justify-center w-1.5">
               <div className="w-0.5 bg-gray-300 dark:bg-gray-700 pointer-events-none" />
             </div>
             <div className="pl-7">

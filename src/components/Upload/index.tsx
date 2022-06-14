@@ -1,6 +1,5 @@
+import Layout from '@components/Common/Layout'
 import { Loader } from '@components/UIElements/Loader'
-import Modal from '@components/UIElements/Modal'
-import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
@@ -17,14 +16,13 @@ const Details = dynamic(() => import('./Details'), {
   )
 })
 
-const Upload = () => {
+const UploadPage = () => {
   const [video, setVideo] = useState<VideoUpload>({
     buffer: null,
     preview: '',
     videoType: '',
     file: null
   })
-  const { showUploadVideoModal, setShowUploadVideoModal } = useAppStore()
 
   const uploadVideo = async (files: File[]) => {
     const file = files[0]
@@ -53,7 +51,6 @@ const Upload = () => {
   }
 
   const onCloseUploadModal = () => {
-    setShowUploadVideoModal(false)
     setVideo({ preview: '', buffer: null, videoType: '', file: null })
   }
 
@@ -65,7 +62,7 @@ const Upload = () => {
     onDrop: uploadVideo,
     onDropRejected,
     accept: {
-      'video/mp4': ['.mp4']
+      'video/mp4': []
       // 'video/webm': ['.webm'],
       // 'video/ogv': ['.ogv'],
       // 'video/ogg': ['.ogg']
@@ -75,21 +72,15 @@ const Upload = () => {
   })
 
   return (
-    <Modal
-      onClose={() => onCloseUploadModal()}
-      show={showUploadVideoModal}
-      panelClassName="max-w-4xl !p-4 max-h-[80vh]"
-      preventAutoClose={true}
-      title="Upload Video"
-    >
-      <div className="min-h-[20vh] mt-4">
+    <Layout>
+      <div className="my-6">
         {video.preview ? (
           <Details video={video} closeUploadModal={onCloseUploadModal} />
         ) : (
           <div
             {...getRootProps()}
             className={clsx(
-              'p-10 md:py-20 h-full focus:outline-none border-gray-300 dark:border-gray-700 grid place-items-center text-center border-2 border-dashed rounded-lg cursor-pointer'
+              'p-10 md:py-20 h-full focus:outline-none border-gray-600 dark:border-gray-400 grid place-items-center text-center border border-dashed rounded-lg cursor-pointer'
             )}
           >
             <div>
@@ -111,8 +102,8 @@ const Upload = () => {
           </div>
         )}
       </div>
-    </Modal>
+    </Layout>
   )
 }
 
-export default Upload
+export default UploadPage

@@ -1,10 +1,11 @@
+import { Button } from '@components/UIElements/Button'
+import { SearchIcon } from '@heroicons/react/outline'
 import useAppStore from '@lib/store'
 import { HOME } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { MdSearch } from 'react-icons/md'
 
 import GlobalSearch from './GlobalSearch'
 import Login from './Login'
@@ -17,17 +18,13 @@ const NotificationTrigger = dynamic(
 )
 
 const Header = () => {
-  const { selectedChannel, isSideBarOpen } = useAppStore()
+  const { selectedChannel } = useAppStore()
   const [showSearch, setShowSearch] = useState(false)
 
   return (
     <div
       className={clsx(
-        'fixed z-10 flex right-2 left-2 md:right-4 items-center justify-between bg-gray-100 dark:bg-[#010101] h-14',
-        {
-          'md:left-[195px]': isSideBarOpen,
-          'md:left-[84px]': !isSideBarOpen
-        }
+        'fixed z-10 flex md:left-[84px] right-2 left-2 md:right-4 items-center justify-between bg-white dark:bg-black h-14'
       )}
     >
       <div className="flex items-center flex-1 space-x-4">
@@ -47,18 +44,19 @@ const Header = () => {
             onClick={() => setShowSearch(true)}
             className="px-2 hidden text-sm opacity-80 hover:opacity-100 md:flex focus:outline-none items-center space-x-1 text-left py-1.5 rounded"
           >
-            <MdSearch />
+            <SearchIcon className="w-3.5 h-3.5" />
             <span>Search</span>
           </button>
         </div>
       </div>
-      <div className="flex flex-row items-center space-x-3">
-        <button
+      <div className="flex flex-row items-center space-x-4">
+        <Button
+          variant="secondary"
+          className="!p-0 md:hidden"
           onClick={() => setShowSearch(true)}
-          className="flex self-center p-[6px] transition duration-200 ease-in-out border border-transparent rounded-lg hover:border-indigo-900 md:hidden focus:outline-none"
         >
-          <MdSearch />
-        </button>
+          <SearchIcon className="w-5 h-5" />
+        </Button>
         {selectedChannel && <NotificationTrigger />}
         {selectedChannel && <NewVideoTrigger />}
         <Login />

@@ -1,3 +1,4 @@
+import { Loader } from '@components/UIElements/Loader'
 import { generateVideoThumbnails } from '@rajesh896/video-thumbnails-generator'
 import { dataURLtoFile } from '@utils/functions/getFileFromDataURL'
 import imageCdn from '@utils/functions/imageCdn'
@@ -7,8 +8,6 @@ import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { FiUpload } from 'react-icons/fi'
 import { IoMdClose } from 'react-icons/io'
 import { IPFSUploadResult } from 'src/types/local'
-
-import { Loader } from '../../UIElements/Loader'
 
 interface Props {
   label: string
@@ -107,7 +106,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       {selectedThumbnailIpfsUrl && !uploading ? (
         <div className="relative">
           <img
-            className="object-cover w-full h-[166px] rounded-md "
+            className="object-cover w-full h-[200px] rounded-xl"
             src={imageCdn(selectedThumbnailIpfsUrl)}
             alt=""
             draggable={false}
@@ -121,13 +120,13 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
           </button>
         </div>
       ) : uploading ? (
-        <div className="h-[166px]">
+        <div className="h-[200px]">
           <div className="grid h-full place-items-center">
             <Loader />
           </div>
         </div>
       ) : (
-        <label className="flex flex-col items-center w-full p-3 space-y-3 border border-gray-200 border-dashed rounded-md cursor-pointer focus:outline-none dark:border-gray-800">
+        <label className="flex flex-col items-center w-full p-3 space-y-3 border border-gray-200 border-dashed cursor-pointer rounded-xl focus:outline-none dark:border-gray-800">
           <input
             type="file"
             accept=".png, .jpg, .jpeg, .svg"
@@ -147,12 +146,13 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
               key={idx}
               onClick={() => onSelectThumbnail(idx)}
               className={clsx('rounded focus:outline-none', {
-                'ring ring-indigo-900': selectedThumbnailIndex === idx
+                'ring ring-indigo-500': selectedThumbnailIndex === idx
               })}
             >
               <img
                 className="object-cover w-full h-12 rounded"
                 src={thumbnail.url}
+                height="300"
                 alt=""
                 draggable={false}
               />

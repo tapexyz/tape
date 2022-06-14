@@ -10,7 +10,6 @@ import { useConnect, useDisconnect } from 'wagmi'
 
 import Header from './Header'
 import Sidebar from './Sidebar'
-const Upload = dynamic(() => import('../Common/Upload'))
 const CreateChannel = dynamic(() => import('./CreateChannel'))
 const MobileBottomNav = dynamic(() => import('./MobileBottomNav'))
 
@@ -20,12 +19,8 @@ interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
   const { pathname } = useRouter()
-  const {
-    setSelectedChannel,
-    setIsAuthenticated,
-    isSideBarOpen,
-    isAuthenticated
-  } = useAppStore()
+  const { setSelectedChannel, setIsAuthenticated, isAuthenticated } =
+    useAppStore()
   const { resolvedTheme } = useTheme()
   const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
@@ -71,12 +66,10 @@ const Layout: FC<Props> = ({ children }) => {
       <div className="flex pb-14 md:pb-0">
         <Sidebar />
         <CreateChannel />
-        <Upload />
         <div
-          className={clsx('w-full pr-2 md:pr-4 max-w-[110rem] mx-auto', {
-            'md:pl-[195px] pl-2': isSideBarOpen,
-            'md:pl-[84px] pl-2': !isSideBarOpen
-          })}
+          className={clsx(
+            'w-full md:pl-[94px] pl-2 pr-2 md:pr-4 max-w-[110rem] mx-auto'
+          )}
         >
           <Header />
           <div className="pt-16">{children}</div>

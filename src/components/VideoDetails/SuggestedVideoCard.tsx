@@ -15,7 +15,7 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
   return (
     <div className="flex justify-between group">
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
-      <div className="flex justify-between">
+      <div className="flex justify-between truncate">
         <Link passHref href={`/watch/${video.id}`}>
           <div className="flex-none overflow-hidden rounded cursor-pointer">
             <img
@@ -36,7 +36,7 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
               </Link>
             </span>
             <Link href={`/${video.profile?.handle}`}>
-              <a className="text-xs hover:opacity-100 opacity-70">
+              <a className="text-xs truncate hover:opacity-100 opacity-70">
                 {video.profile?.handle}
               </a>
             </Link>

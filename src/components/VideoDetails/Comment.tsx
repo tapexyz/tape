@@ -19,7 +19,7 @@ const Comment: FC<Props> = ({ comment }) => {
       <div className="flex-none mr-3">
         <img
           src={getProfilePicture(comment.profile)}
-          className="w-8 h-8 rounded-full"
+          className="w-8 h-8 rounded-xl"
           draggable={false}
           alt=""
         />

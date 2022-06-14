@@ -24,13 +24,13 @@ const VideoCard: FC<Props> = ({ video }) => {
 
   return (
     <Link href={`/watch/${video.id}`} passHref>
-      <div className="cursor-pointer bg-gray-50 rounded-lg dark:bg-[#141414] group">
+      <div className="cursor-pointer bg-gray-50 rounded-xl dark:bg-[#181818] group">
         <ShareModal
           video={video}
           show={showShare}
           setShowShare={setShowShare}
         />
-        <div className="relative rounded-t-lg aspect-w-16 aspect-h-9">
+        <div className="relative rounded-t-xl aspect-w-16 aspect-h-9">
           <img
             src={imageCdn(
               isSensitiveContent
@@ -38,7 +38,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                 : getThumbnailUrl(video)
             )}
             draggable={false}
-            className="object-cover object-center w-full h-full rounded-t-lg lg:w-full lg:h-full"
+            className="object-cover object-center w-full h-full rounded-t-xl lg:w-full lg:h-full"
             alt=""
           />
           {isSensitiveContent && (
@@ -53,7 +53,7 @@ const VideoCard: FC<Props> = ({ video }) => {
           <div className="flex items-start space-x-2.5">
             <div className="flex-none mt-0.5">
               <img
-                className="w-8 h-8 rounded-full"
+                className="w-8 h-8 rounded-xl"
                 src={getProfilePicture(video.profile)}
                 alt=""
                 draggable={false}

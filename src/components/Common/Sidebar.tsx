@@ -1,12 +1,9 @@
 import SquareButtonShimmer from '@components/Shimmers/SquareButtonShimmer'
-import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
 import { EXPLORE, HOME, LIBRARY } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
 import { FiHome } from 'react-icons/fi'
 import { MdOutlineVideoLibrary } from 'react-icons/md'
 import { RiLeafLine } from 'react-icons/ri'
@@ -18,108 +15,64 @@ const ToggleTheme = dynamic(() => import('./ToggleTheme'), {
 
 const Sidebar = () => {
   const router = useRouter()
-  const { isSideBarOpen, setIsSidebarOpen } = useAppStore()
 
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div
-      className={clsx(
-        'fixed top-0 group bottom-0 left-0 items-start justify-between hidden px-3 py-2.5 bg-white dark:bg-black md:flex md:flex-col',
-        {
-          'w-44': isSideBarOpen,
-          'w-16': !isSideBarOpen
-        }
-      )}
-    >
-      <button
-        onClick={() => setIsSidebarOpen(!isSideBarOpen)}
-        className="absolute invisible group-hover:visible p-0.5 dark:bg-gray-900 bg-white rounded-full bottom-[18px] -right-2.5"
-      >
-        {isSideBarOpen ? <BiChevronLeft /> : <BiChevronRight />}
-      </button>
-      <div
-        className={clsx('flex flex-col w-full space-y-5', {
-          'items-start': isSideBarOpen,
-          'items-center': !isSideBarOpen
-        })}
-      >
+    <div className="fixed top-0 bottom-0 left-0 items-start justify-between hidden w-[68px] p-1 m-2 bg-white border shadow dark:border-gray-900 rounded-xl dark:bg-black md:flex md:flex-col">
+      <div className="flex flex-col w-full space-y-1.5">
         <Link href={HOME}>
-          <a
-            className={clsx('flex items-center mt-2 space-x-2', {
-              'mx-3': isSideBarOpen,
-              'mx-1': !isSideBarOpen
-            })}
-          >
+          <a className="flex items-center justify-center p-3">
             <img
               src="/lenstube.svg"
               draggable={false}
-              className="w-6 h-6"
+              className="w-6 h-6 ml-0.5"
               alt=""
             />
-            {isSideBarOpen && <span className="text-lg">Lenstube</span>}
           </a>
         </Link>
-        <div
-          className={clsx('flex flex-col items-center w-full', {
-            'space-y-2': !isSideBarOpen,
-            'space-y-0.5': isSideBarOpen
-          })}
-        >
-          <Tooltip visible={!isSideBarOpen} content="Home" placement="right">
-            <div
-              className={clsx(
-                'rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
-                {
-                  'w-full px-3': isSideBarOpen,
-                  'bg-gray-100 dark:bg-gray-900': isActivePath(HOME)
-                }
-              )}
+        <div className="flex flex-col w-full space-y-1">
+          <Link href={HOME} passHref>
+            <a
+              className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
+                'bg-indigo-50 dark:bg-[#181818]': isActivePath(HOME),
+                'hover:bg-gray-50 dark:hover:bg-[#181818]': !isActivePath(HOME)
+              })}
             >
-              <Link href={HOME} passHref>
-                <div className="flex items-center p-2 space-x-2 hover:opacity-100 opacity-80">
-                  <FiHome className="text-lg" />
-                  {isSideBarOpen && <span className="text-sm">Home</span>}
-                </div>
-              </Link>
-            </div>
-          </Tooltip>
-          <Tooltip visible={!isSideBarOpen} content="Explore" placement="right">
-            <div
-              className={clsx(
-                'rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
-                {
-                  'w-full px-3': isSideBarOpen,
-                  'bg-gray-100 dark:bg-gray-900': isActivePath(EXPLORE)
-                }
-              )}
+              <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
+                <FiHome className="text-xl" />
+                <p className="text-[11px] font-medium">Home</p>
+              </div>
+            </a>
+          </Link>
+          <Link href={EXPLORE} passHref>
+            <a
+              className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
+                'bg-indigo-50 dark:bg-[#181818]': isActivePath(EXPLORE),
+                'hover:bg-gray-50 dark:hover:bg-[#181818]':
+                  !isActivePath(EXPLORE)
+              })}
             >
-              <Link href={EXPLORE} passHref>
-                <div className="flex items-center p-2 space-x-2 hover:opacity-100 opacity-80">
-                  <RiLeafLine className="text-lg" />
-                  {isSideBarOpen && <span className="text-sm">Explore</span>}
-                </div>
-              </Link>
-            </div>
-          </Tooltip>
-          <Tooltip visible={!isSideBarOpen} content="Library" placement="right">
-            <div
-              className={clsx(
-                'rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900',
-                {
-                  'w-full px-3': isSideBarOpen,
-                  'bg-gray-100 dark:bg-gray-900': isActivePath(LIBRARY)
-                }
-              )}
+              <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
+                <RiLeafLine className="text-xl" />
+                <p className="text-[11px] font-medium">Explore</p>
+              </div>
+            </a>
+          </Link>
+          <Link href={LIBRARY} passHref>
+            <a
+              className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
+                'bg-indigo-50 dark:bg-[#181818]': isActivePath(LIBRARY),
+                'hover:bg-gray-50 dark:hover:bg-[#181818]':
+                  !isActivePath(LIBRARY)
+              })}
             >
-              <Link href={LIBRARY} passHref>
-                <div className="flex items-center p-2 space-x-2 hover:opacity-100 opacity-80">
-                  <MdOutlineVideoLibrary className="text-lg" />
-                  {isSideBarOpen && <span className="text-sm">Library</span>}
-                </div>
-              </Link>
-            </div>
-          </Tooltip>
+              <div className="flex flex-col items-center pt-0.5 space-y-1 group-hover:opacity-100 opacity-80">
+                <MdOutlineVideoLibrary className="text-xl" />
+                <p className="text-[11px] font-medium">Library</p>
+              </div>
+            </a>
+          </Link>
         </div>
       </div>
       <ToggleTheme />

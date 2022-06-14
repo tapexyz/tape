@@ -39,7 +39,7 @@ const Recommended = () => {
       >
         <button
           onClick={() => scrollToOffset(-200)}
-          className="absolute left-0 items-center hidden p-3 rounded-full md:inline-flex focus:outline-none from-white dark:from-gray-800 bg-gradient-to-r to-transparent"
+          className="absolute left-0 items-center hidden p-3 rounded-full md:inline-flex focus:outline-none from-gray-100 dark:from-gray-800 bg-gradient-to-r to-transparent"
         >
           <FiChevronLeft />
         </button>
@@ -50,7 +50,7 @@ const Recommended = () => {
               className="flex items-center flex-none space-x-2"
             >
               <img
-                className="w-8 h-8 rounded-full"
+                className="w-8 h-8 rounded-xl"
                 src={getProfilePicture(channel)}
                 alt=""
                 draggable={false}
@@ -68,7 +68,7 @@ const Recommended = () => {
         </div>
         <button
           onClick={() => scrollToOffset(200)}
-          className="absolute right-0 items-center hidden p-3 rounded-full md:inline-flex focus:outline-none to-white dark:to-gray-800 bg-gradient-to-r from-transparent"
+          className="absolute right-0 items-center hidden p-3 rounded-full md:inline-flex focus:outline-none to-gray-100 dark:to-gray-800 bg-gradient-to-r from-transparent"
         >
           <FiChevronRight />
         </button>
