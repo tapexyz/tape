@@ -18,7 +18,6 @@ const NotificationTrigger = () => {
 
   const { data: notificationsData } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: selectedChannel?.id } },
-    pollInterval: 50000,
     skip: !selectedChannel?.id
   })
 

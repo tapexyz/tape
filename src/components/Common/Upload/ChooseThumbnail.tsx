@@ -115,7 +115,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
           />
           <button
             onClick={() => onClearUpload()}
-            className="absolute p-1 bg-white rounded-full outline-none cursor-pointer dark:bg-black top-1.5 right-1.5"
+            className="absolute p-1 bg-white rounded-full outline-none cursor-pointer dark:bg-gray-800 top-1.5 right-1.5"
           >
             <IoMdClose className="text-red-500" />
           </button>

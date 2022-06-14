@@ -3,7 +3,6 @@ import Subscribe from '@components/Channel/BasicInfo/Subscribe'
 import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import imageCdn from '@utils/functions/imageCdn'
 import clsx from 'clsx'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
@@ -36,7 +35,7 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
         <Link href={`/${channel?.handle}`} passHref>
           <div className="flex-none mt-2.5 mr-3 cursor-pointer">
             <img
-              src={imageCdn(getProfilePicture(channel))}
+              src={getProfilePicture(channel)}
               className="w-10 h-10 rounded-full"
               draggable={false}
               alt=""
@@ -54,7 +53,7 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
               </span>
             </div>
             <div className="flex items-center space-x-2">
-              {isFollower ? <MintVideo video={video} /> : null}
+              <MintVideo video={video} />
               {isFollower ? (
                 <UnSubscribe channel={channel} />
               ) : subscribeType === 'FeeFollowModuleSettings' ? (

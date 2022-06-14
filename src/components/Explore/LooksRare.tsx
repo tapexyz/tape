@@ -23,7 +23,7 @@ const LooksRare = () => {
       request: {
         sortCriteria: 'TOP_COLLECTED',
         limit: 8,
-        noRandomize: false,
+        noRandomize: true,
         sources: [LENSTUBE_APP_ID],
         publicationTypes: ['POST']
       }
@@ -43,7 +43,7 @@ const LooksRare = () => {
             sortCriteria: 'TOP_COLLECTED',
             cursor: pageInfo?.next,
             limit: 8,
-            noRandomize: false,
+            noRandomize: true,
             sources: [LENSTUBE_APP_ID],
             publicationTypes: ['POST']
           }

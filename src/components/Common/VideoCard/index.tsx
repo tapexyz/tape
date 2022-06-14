@@ -24,7 +24,7 @@ const VideoCard: FC<Props> = ({ video }) => {
 
   return (
     <Link href={`/watch/${video.id}`} passHref>
-      <div className="cursor-pointer bg-gray-50 rounded-lg dark:bg-[#0b0b0b] group">
+      <div className="cursor-pointer bg-gray-50 rounded-lg dark:bg-[#141414] group">
         <ShareModal
           video={video}
           show={showShare}
@@ -54,7 +54,7 @@ const VideoCard: FC<Props> = ({ video }) => {
             <div className="flex-none mt-0.5">
               <img
                 className="w-8 h-8 rounded-full"
-                src={imageCdn(getProfilePicture(video.profile))}
+                src={getProfilePicture(video.profile)}
                 alt=""
                 draggable={false}
               />

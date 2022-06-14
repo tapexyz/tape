@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client'
 import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
+import useAppStore from '@lib/store'
 import { CREATE_REPORT_PUBLICATION_MUTATION } from '@utils/gql/queries'
 import { HOME } from '@utils/url-path'
 import clsx from 'clsx'
@@ -9,12 +10,14 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { RiSpamLine } from 'react-icons/ri'
+import Custom404 from 'src/pages/404'
 
 const ReportPublication = () => {
   const {
     query: { id },
     push
   } = useRouter()
+  const { isAuthenticated } = useAppStore()
   const [reason, setReason] = useState('ILLEGAL-ANIMAL_ABUSE')
   const [createReport, { data, loading: reporting, error }] = useMutation(
     CREATE_REPORT_PUBLICATION_MUTATION
@@ -58,6 +61,8 @@ const ReportPublication = () => {
     setReason(e.target.value)
   }
 
+  if (!isAuthenticated) return <Custom404 />
+
   return (
     <Layout>
       <MetaTags title="Report Publication" />
@@ -93,7 +98,7 @@ const ReportPublication = () => {
                   <option value="FRAUD-IMPERSONATION">Impersonation</option>
                 </optgroup>
                 <optgroup label="SENSITIVE">
-                  <option value="SENSITIVE-NSFW">NSWF</option>
+                  <option value="SENSITIVE-NSFW">NSFW</option>
                   <option value="SENSITIVE-OFFENSIVE">Offensive</option>
                 </optgroup>
               </select>

@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
+import useAppStore from '@lib/store'
 import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { CREATE_COLLECT_TYPED_DATA } from '@utils/gql/queries'
@@ -22,6 +23,7 @@ type Props = {
 const MintVideo: FC<Props> = ({ video }) => {
   const { data: accountData } = useAccount()
   const [loading, setLoading] = useState(false)
+  const { isAuthenticated } = useAppStore()
   const { signTypedDataAsync } = useSignTypedData({
     onError() {
       setLoading(false)
@@ -80,6 +82,7 @@ const MintVideo: FC<Props> = ({ video }) => {
   })
 
   const handleMint = () => {
+    if (!isAuthenticated) return toast.error('Sign in required')
     setLoading(true)
     createCollectTypedData({
       variables: { request: { publicationId: video?.id } }

@@ -2,7 +2,6 @@ import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
 import React from 'react'
 
-import LooksRare from './LooksRare'
 import Recents from './Recents'
 import Trending from './Trending'
 
@@ -24,7 +23,7 @@ const ExploreFeed = () => {
             >
               Trending
             </Tab>
-            <Tab
+            {/* <Tab
               className={({ selected }) =>
                 clsx(
                   'px-4 py-2 border-b-2 text-sm focus:outline-none',
@@ -35,7 +34,7 @@ const ExploreFeed = () => {
               }
             >
               Looks Rare
-            </Tab>
+            </Tab> */}
             <Tab
               className={({ selected }) =>
                 clsx(
@@ -53,9 +52,9 @@ const ExploreFeed = () => {
             <Tab.Panel className="py-3 focus:outline-none">
               <Trending />
             </Tab.Panel>
-            <Tab.Panel className="py-3 focus:outline-none">
+            {/* <Tab.Panel className="py-3 focus:outline-none">
               <LooksRare />
-            </Tab.Panel>
+            </Tab.Panel> */}
             <Tab.Panel className="py-3 focus:outline-none">
               <Recents />
             </Tab.Panel>

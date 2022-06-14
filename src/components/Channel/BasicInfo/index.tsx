@@ -56,7 +56,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         <div className="flex items-center pt-2 md:pt-0 md:pl-4 mt-44 md:mt-72">
           <div className="flex-none mr-4 md:mr-6">
             <img
-              src={imageCdn(getProfilePicture(channel))}
+              src={getProfilePicture(channel)}
               alt=""
               className="bg-white border-2 rounded-full dark:bg-gray-900 w-14 h-14 md:-mt-10 md:w-32 md:h-32"
               draggable={false}

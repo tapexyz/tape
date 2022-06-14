@@ -108,7 +108,7 @@ const CreateChannel = () => {
               placeholder="T Series"
               autoComplete="off"
               value={handle}
-              onChange={(e) => setHandle(e.target.value)}
+              onChange={(e) => setHandle(e.target.value.trim().toLowerCase())}
             />
           </div>
 

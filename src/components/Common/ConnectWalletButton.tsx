@@ -46,7 +46,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
         setSelectedChannel(null)
       } else {
         setChannels(channels)
-        setSelectedChannel(channels[0])
+        if (!selectedChannel) setSelectedChannel(channels[0])
       }
     }
   })

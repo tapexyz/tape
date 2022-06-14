@@ -201,7 +201,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
   const depositToBundlr = async () => {
     if (bundlrData.instance && bundlrData.deposit) {
       const value = parseToAtomicUnits(
-        bundlrData.deposit,
+        parseFloat(bundlrData.deposit),
         bundlrData.instance.currencyConfig.base[1]
       )
       if (!value) return toast.error('Invalid deposit amount')
@@ -273,6 +273,8 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
 
   const uploadToBundlr = async () => {
     if (!bundlrData.instance || !video.buffer) return
+    if (parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice))
+      return toast.error('Insufficient balance')
     try {
       toast('Requesting signature...')
       const bundlr = bundlrData.instance
@@ -378,13 +380,19 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         traitType: 'string',
         key: 'publication',
         trait_type: 'publication',
-        value: 'LenstubeVideo'
+        value: 'video'
       },
       {
         traitType: 'string',
         trait_type: 'handle',
         key: 'handle',
-        value: selectedChannel?.handle
+        value: `@${selectedChannel?.handle}`
+      },
+      {
+        traitType: 'string',
+        key: 'app',
+        trait_type: 'app',
+        value: 'lenstube'
       }
     ]
     if (videoMeta.playbackId) {
@@ -425,7 +433,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           contentURI: ipfsUrl,
           collectModule: {
             freeCollectModule: {
-              followerOnly: true
+              followerOnly: false
             }
           },
           referenceModule: {

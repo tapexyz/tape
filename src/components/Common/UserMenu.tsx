@@ -2,7 +2,6 @@ import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
 import { IS_MAINNET } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import imageCdn from '@utils/functions/imageCdn'
 import { SETTINGS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -47,7 +46,7 @@ const UserMenu: FC<Props> = () => {
         <button className="flex self-center rounded-full w-7 h-7">
           <img
             className="object-cover rounded-full"
-            src={imageCdn(getProfilePicture(selectedChannel))}
+            src={getProfilePicture(selectedChannel)}
             alt=""
             draggable={false}
           />
@@ -79,7 +78,7 @@ const UserMenu: FC<Props> = () => {
                   <span className="inline-flex items-center space-x-1.5">
                     <img
                       className="w-6 h-6 rounded-full"
-                      src={imageCdn(getProfilePicture(channel))}
+                      src={getProfilePicture(channel)}
                       alt=""
                       draggable={false}
                     />
@@ -102,7 +101,7 @@ const UserMenu: FC<Props> = () => {
               >
                 <img
                   className="rounded-full w-9 h-9"
-                  src={imageCdn(getProfilePicture(selectedChannel))}
+                  src={getProfilePicture(selectedChannel)}
                   alt=""
                   draggable={false}
                 />

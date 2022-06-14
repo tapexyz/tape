@@ -5,12 +5,14 @@ import useAppStore from '@lib/store'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
+import { useConnect } from 'wagmi'
 
 const Recommended = dynamic(() => import('./Recommended'))
 const HomeFeed = dynamic(() => import('./Feed'))
 
 const Home: NextPage = () => {
   const { isAuthenticated } = useAppStore()
+  const { activeConnector } = useConnect()
 
   const isMounted = useIsMounted()
 
@@ -19,7 +21,11 @@ const Home: NextPage = () => {
       <MetaTags />
       <Recommended />
       <div className="md:my-5">
-        {isMounted() && <>{isAuthenticated ? <HomeFeed /> : <Trending />}</>}
+        {isMounted() && (
+          <>
+            {isAuthenticated && activeConnector ? <HomeFeed /> : <Trending />}
+          </>
+        )}
       </div>
     </Layout>
   )

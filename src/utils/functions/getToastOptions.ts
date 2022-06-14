@@ -6,18 +6,18 @@ export const getToastOptions = (theme: string | undefined) => ({
     borderRadius: '10px'
   },
   success: {
-    className: 'border border-green-500',
+    className: 'border border-green-500 overflow-hidden',
     iconTheme: {
       primary: '#10B981',
       secondary: 'white'
     }
   },
   error: {
-    className: 'border border-red-500',
+    className: 'border border-red-500 overflow-hidden',
     iconTheme: {
       primary: '#EF4444',
       secondary: 'white'
     }
   },
-  loading: { className: 'border border-yellow-700' }
+  loading: { className: 'border border-yellow-700 overflow-hidden' }
 })
