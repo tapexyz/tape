@@ -216,11 +216,8 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           )
         })
         .catch((e) => {
-          toast.error(
-            `Failed - ${
-              typeof e === 'string' ? e : e.data?.message || e.message
-            }`
-          )
+          console.log('🚀 ~ file: Details.tsx ~ depositToBundlr ~ e', e)
+          toast.error(`Failed to deposit`)
         })
         .finally(async () => {
           fetchBalance()

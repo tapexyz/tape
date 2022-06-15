@@ -61,7 +61,7 @@ const SuggestedVideos = () => {
             ))}
           </div>
           {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
-            <span ref={observe} className="flex justify-center p-5">
+            <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>
           )}

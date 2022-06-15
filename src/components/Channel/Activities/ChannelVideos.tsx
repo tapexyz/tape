@@ -63,7 +63,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
         <>
           <Timeline videos={channelVideos} />
           {pageInfo?.next && channelVideos.length !== pageInfo?.totalCount && (
-            <span ref={observe} className="flex justify-center p-5">
+            <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>
           )}
