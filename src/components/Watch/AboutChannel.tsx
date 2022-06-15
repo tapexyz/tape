@@ -4,12 +4,13 @@ import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { LenstubePublication } from 'src/types/local'
 
-import MintVideo from './MintVideo'
+const MintVideo = dynamic(() => import('./MintVideo'))
 
 type Props = {
   video: LenstubePublication
