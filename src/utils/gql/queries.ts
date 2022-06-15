@@ -871,3 +871,38 @@ export const SEARCH_VIDEOS_QUERY = gql`
   ${PostFields}
   ${CommentFields}
 `
+
+export const OG_VIDEO_DETAIL_QUERY = gql`
+  query OGVideoDetails($request: PublicationQueryRequest!) {
+    publication(request: $request) {
+      ... on Post {
+        ...PostFields
+      }
+    }
+  }
+  ${PostFields}
+`
+
+export const OG_PROFILE_QUERY = gql`
+  query Profile($request: SingleProfileQueryRequest!) {
+    profile(request: $request) {
+      handle
+      name
+      bio
+      stats {
+        totalFollowers
+        totalFollowing
+      }
+      picture {
+        ... on MediaSet {
+          original {
+            url
+          }
+        }
+        ... on NftImage {
+          uri
+        }
+      }
+    }
+  }
+`

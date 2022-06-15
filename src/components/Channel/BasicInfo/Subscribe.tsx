@@ -72,7 +72,7 @@ const Subscribe: FC<Props> = ({ channel }) => {
   })
 
   const subscribe = () => {
-    if (!isAuthenticated) return toast.error('Login required.')
+    if (!isAuthenticated) return toast.error('Sign in required.')
     setLoading(true)
     setButtonText('Subscribing...')
     createSubscribeTypedData({

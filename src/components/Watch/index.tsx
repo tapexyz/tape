@@ -26,7 +26,7 @@ const VideoDetails = () => {
     query: { id }
   } = useRouter()
   const { selectedChannel, addToRecentlyWatched } = useAppStore()
-  const channelId = selectedChannel?.id ?? id?.toString().split('-')[0]
+  const channelId = id?.toString().split('-')[0]
   const { data, error, loading } = useQuery(VIDEO_DETAIL_QUERY, {
     variables: {
       request: { publicationId: id },
