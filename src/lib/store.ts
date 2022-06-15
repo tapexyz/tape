@@ -71,9 +71,9 @@ export const useAppStore = create(
       removeFromWatchLater: (video) => {
         const index = get().watchLater.findIndex((el) => el.id === video.id)
         const videos = get().watchLater
-        delete videos[index]
+        videos.splice(index, 1)
         set(() => ({
-          watchLater: videos.length === 1 ? [] : videos
+          watchLater: videos
         }))
       },
       setNotificationCount: (notificationCount) =>
