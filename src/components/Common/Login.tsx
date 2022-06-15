@@ -77,9 +77,9 @@ const Login = () => {
                 setChannels(channels)
                 setSelectedChannel(res.data.profiles.items[0])
                 setIsAuthenticated(true)
-                router.push(
-                  router.query?.next ? (router.query?.next as string) : '/'
-                )
+                if (router.query?.next) {
+                  router.push(router.query?.next as string)
+                }
               }
             })
           })
