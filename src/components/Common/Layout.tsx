@@ -60,16 +60,8 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
     activeConnector?.on('change', () => {
       logout()
     })
-  }, [
-    setIsAuthenticated,
-    disconnect,
-    activeConnector,
-    setSelectedChannel,
-    pathname,
-    isAuthenticated,
-    replace,
-    mounted
-  ])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, disconnect, activeConnector, setSelectedChannel])
 
   return (
     <>
