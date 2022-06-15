@@ -5,6 +5,7 @@
 
 import { LENSTUBE_URL } from '@utils/constants'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
+import imageCdn from '@utils/functions/imageCdn'
 import { NextRequest } from 'next/server'
 import { LenstubePublication } from 'src/types/local'
 import parser from 'ua-parser-js'
@@ -25,7 +26,7 @@ export async function middleware(req: NextRequest) {
       const description =
         video.metadata?.description ||
         `Published by @${video.profile.handle} via Lenstube.`
-      const cover = getThumbnailUrl(video)
+      const cover = imageCdn(getThumbnailUrl(video))
       return new Response(
         `<!DOCTYPE html>
         <html lang="en">
