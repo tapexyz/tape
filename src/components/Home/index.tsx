@@ -14,14 +14,14 @@ const Home: NextPage = () => {
   const { isAuthenticated } = useAppStore()
   const { activeConnector } = useConnect()
 
-  const isMounted = useIsMounted()
+  const { mounted } = useIsMounted()
 
   return (
     <Layout>
       <MetaTags />
       <Recommended />
       <div className="md:my-5">
-        {isMounted() && (
+        {mounted && (
           <>
             {isAuthenticated && activeConnector ? <HomeFeed /> : <Trending />}
           </>

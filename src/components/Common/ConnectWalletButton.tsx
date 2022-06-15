@@ -52,8 +52,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
   })
   const walletConnect = connectors.find((w) => w.id === 'walletConnect')
 
-  const isMounted = useIsMounted()
-
+  const { mounted } = useIsMounted()
   const onConnect = async (x: Connector) => {
     await connectAsync(x).then(({ account }) => {
       if (account) setShowModal(false)
@@ -97,7 +96,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
                     )}
                     onClick={() => onConnect(wallet)}
                     disabled={
-                      isMounted()
+                      mounted
                         ? !wallet.ready || wallet.id === account?.connector?.id
                         : false
                     }
@@ -113,7 +112,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
                     <div className="flex items-center justify-between flex-1 text-xs">
                       <span>
                         {getWalletInfo(wallet.id, wallet.name)?.label}
-                        {isMounted() ? !wallet.ready && ' (unsupported)' : ''}
+                        {mounted ? !wallet.ready && ' (unsupported)' : ''}
                       </span>
                       <span>
                         {isConnecting && wallet.id === pendingConnector?.id && (
@@ -164,7 +163,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
           ) : null}
         </div>
       </Modal>
-      {!loading ? (
+      {mounted && !loading ? (
         activeConnector?.id ? (
           activeChain?.id === POLYGON_CHAIN_ID ? (
             selectedChannel ? (
