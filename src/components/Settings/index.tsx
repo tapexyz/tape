@@ -23,7 +23,7 @@ import SideNav from './SideNav'
 
 const Settings = () => {
   const { selectedChannel } = useAppStore()
-  const isMounted = useIsMounted()
+  const { mounted } = useIsMounted()
   const router = useRouter()
 
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
@@ -46,7 +46,7 @@ const Settings = () => {
   return (
     <Layout>
       <MetaTags title="Channel settings" />
-      {(loading || !isMounted()) && <SettingsShimmer />}
+      {(loading || !mounted) && <SettingsShimmer />}
       {!loading && !error && channel ? (
         <div className="grid gap-4 md:grid-cols-4">
           <div className="md:col-span-1">

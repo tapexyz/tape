@@ -54,7 +54,9 @@ type PlayerProps = {
 const MemoizedVideoPlayer = React.memo(({ source }: PlayerProps) => (
   <VideoPlayer
     source={source}
+    wrapperClassName="!rounded-b-none"
     autoPlay={false}
+    ratio="16:9"
     controls={[
       'play',
       'progress',
@@ -214,11 +216,8 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
           )
         })
         .catch((e) => {
-          toast.error(
-            `Failed - ${
-              typeof e === 'string' ? e : e.data?.message || e.message
-            }`
-          )
+          console.log('🚀 ~ file: Details.tsx ~ depositToBundlr ~ e', e)
+          toast.error(`Failed to deposit`)
         })
         .finally(async () => {
           fetchBalance()
@@ -474,7 +473,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         />
         <div className="flex flex-col items-start">
           <div
-            className={clsx('overflow-hidden', {
+            className={clsx('overflow-hidden w-full', {
               'rounded-t-lg': uploadMeta.uploading,
               'rounded-lg': !uploadMeta.uploading
             })}
@@ -497,9 +496,10 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
 
           {isLessThan100MB(video.file?.size) && !showBundlrDetails ? (
             <div className="mt-2">
-              <span className="text-sm font-light opacity-60">
-                This video is less than 100MB and can be uploaded to IPFS for
-                free, would you like to proceed?
+              <span className="text-sm opacity-60">
+                This video size is less than 100MB and can be uploaded to IPFS
+                for free,
+                <br /> would you like to proceed?
               </span>
               {uploadToIpfs ? (
                 <button
@@ -518,7 +518,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
               )}
             </div>
           ) : (
-            <span className="mt-2 text-sm font-light opacity-60">
+            <span className="mt-2 text-sm opacity-60">
               This video will be uploaded to Arweave permanent storage.
             </span>
           )}

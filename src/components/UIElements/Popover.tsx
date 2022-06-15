@@ -6,11 +6,20 @@ interface Props {
   trigger: ReactNode
   children: ReactElement
   panelClassName?: string
+  triggerClassName?: string
 }
 
-const Popover: FC<Props> = ({ trigger, children, panelClassName }) => (
+const Popover: FC<Props> = ({
+  trigger,
+  children,
+  panelClassName,
+  triggerClassName
+}) => (
   <HPopover className="relative">
-    <HPopover.Button as="div" className="cursor-pointer">
+    <HPopover.Button
+      as="div"
+      className={clsx('cursor-pointer', triggerClassName)}
+    >
       {trigger}
     </HPopover.Button>
     <Transition

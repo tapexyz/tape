@@ -51,3 +51,6 @@ export const ERROR_MESSAGE = 'Oops, something went something!'
 
 // App Id
 export const LENSTUBE_APP_ID = 'Lenstube'
+
+// auth routes
+export const AUTH_ROUTES = ['/upload', '/settings']

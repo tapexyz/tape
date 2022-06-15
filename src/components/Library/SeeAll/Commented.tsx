@@ -76,7 +76,7 @@ const SeeAllCommented = () => {
           <>
             <Timeline videos={commentedVideos} />
             {pageInfo?.next && commentedVideos.length !== pageInfo?.totalCount && (
-              <span ref={observe} className="flex justify-center p-5">
+              <span ref={observe} className="flex justify-center p-10">
                 <Loader />
               </span>
             )}

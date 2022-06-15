@@ -1,40 +1,48 @@
+import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
+import {
+  StatusOnlineIcon,
+  UploadIcon,
+  VideoCameraIcon
+} from '@heroicons/react/outline'
+import { UPLOAD } from '@utils/url-path'
+import Link from 'next/link'
 import React from 'react'
-import { AiOutlineVideoCameraAdd } from 'react-icons/ai'
-import { FiUpload } from 'react-icons/fi'
-import { HiOutlineStatusOnline } from 'react-icons/hi'
 
 const NewVideoTrigger = () => {
-  const { setShowUploadVideoModal } = useAppStore()
-
   return (
     <Popover
       trigger={
-        <div className="flex self-center px-3 py-[5.5px] space-x-2 border border-indigo-900 rounded-md">
-          <AiOutlineVideoCameraAdd />
-          <span className="text-xs">New video</span>
-        </div>
+        <>
+          <span className="md:hidden">
+            <VideoCameraIcon className="w-6 h-6" />
+          </span>
+          <Button
+            icon={<VideoCameraIcon className="w-5 h-5" />}
+            className="!hidden md:!flex"
+          >
+            New video
+          </Button>
+        </>
       }
-      panelClassName="right-0"
+      panelClassName="right-0 w-36"
     >
       <div className="p-1 mt-1.5 overflow-hidden border border-gray-100 rounded-lg shadow-xl dark:border-gray-800 bg-secondary">
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-md">
-          <button
-            onClick={() => setShowUploadVideoModal(true)}
-            className="inline-flex items-center px-4 py-1.5 space-x-2 rounded-md opacity-90 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            <FiUpload />
-            <span className="whitespace-nowrap">Upload</span>
-          </button>
+          <Link href={UPLOAD}>
+            <a className="inline-flex items-center px-4 py-1.5 space-x-2 rounded-md opacity-90 hover:opacity-100 hover:bg-gray-200 dark:hover:bg-gray-800">
+              <UploadIcon className="w-4 h-4" />
+              <span className="whitespace-nowrap">Upload</span>
+            </a>
+          </Link>
           <button
             disabled
             className="inline-flex opacity-40 items-center px-4 py-1.5 space-x-2 rounded-md"
           >
             <Tooltip content="Coming soon">
               <span className="inline-flex items-center space-x-2">
-                <HiOutlineStatusOnline className="text-red-500" />
+                <StatusOnlineIcon className="w-4 h-4 text-red-500" />
                 <span className="whitespace-nowrap">Go Live</span>
               </span>
             </Tooltip>

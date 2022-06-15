@@ -49,7 +49,7 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
             className="block w-full text-gray-700 bg-transparent appearance-none dark:text-gray-100 focus:outline-none"
             placeholder="Search channels"
             value={keyword}
-            autoFocus
+            autoFocus={true}
             onChange={(e) => setKeyword(e.target.value)}
           />
         </div>
@@ -70,7 +70,7 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
                     <span className="flex items-center justify-between">
                       <span className="inline-flex items-center w-3/4 space-x-2">
                         <img
-                          className="w-5 h-5 rounded-full"
+                          className="w-5 h-5 rounded-md"
                           src={getProfilePicture(channel)}
                           draggable={false}
                           alt=""

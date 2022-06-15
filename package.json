@@ -13,6 +13,7 @@
     "@apollo/client": "^3.6.8",
     "@bundlr-network/client": "^0.7.9",
     "@headlessui/react": "^1.6.4",
+    "@heroicons/react": "^1.0.6",
     "@rajesh896/video-thumbnails-generator": "^2.3.9",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/line-clamp": "^0.4.0",

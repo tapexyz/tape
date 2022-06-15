@@ -17,16 +17,18 @@ interface Props
   variant?: 'primary' | 'secondary' | 'danger'
   loading?: boolean
   children?: ReactNode
+  icon?: ReactNode
   className?: string
 }
 
 export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
   {
     className = '',
-    size = 'sm',
+    size = 'md',
     variant = 'primary',
     loading,
     children,
+    icon,
     ...rest
   },
   ref
@@ -35,11 +37,11 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
     <button
       ref={ref}
       className={clsx(
-        'relative inline-block disabled:opacity-50 rounded-md group',
+        'relative inline-block disabled:opacity-50 rounded-xl group',
         {
-          'px-3 py-1.5 text-xs': size === 'sm',
-          'px-5 py-1.5 text-sm': size === 'md',
-          'px-6 py-2 text-base': size === 'lg'
+          'px-4 py-2 text-xs': size === 'sm',
+          'px-5 py-2 text-sm': size === 'md',
+          'px-6 py-3 text-base': size === 'lg'
         },
         className
       )}
@@ -48,10 +50,9 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
     >
       <span
         className={clsx(
-          'absolute focus:outline-none inset-0 w-full h-full transition duration-200 ease-in-out transform rounded-md',
+          'absolute focus:outline-none inset-0 w-full h-full transition duration-200 ease-in-out transform rounded-xl',
           {
-            'dark:border border-indigo-900 bg-indigo-900':
-              variant === 'primary',
+            'border border-indigo-500': variant === 'primary',
             'bg-transparent': variant === 'secondary',
             'border-red-500 border': variant === 'danger',
             'group-hover:translate-x-0.5 group-hover:translate-y-0.5':
@@ -60,23 +61,20 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
         )}
       ></span>
       <span
-        className={clsx('absolute inset-0 w-full h-full rounded-md', {
-          'bg-white dark:bg-black border border-indigo-900':
-            variant === 'primary',
+        className={clsx('absolute inset-0 w-full h-full rounded-xl', {
+          'bg-indigo-500 border border-indigo-500': variant === 'primary',
           'bg-transparent': variant === 'secondary',
           'bg-red-500 border border-red-500': variant === 'danger'
         })}
       ></span>
       <span
-        className={clsx(
-          'relative flex items-center justify-center space-x-1.5 text-black dark:text-white',
-          {
-            '!text-white': variant === 'danger'
-          }
-        )}
+        className={clsx('relative flex items-center justify-center space-x-2', {
+          'text-white': variant !== 'secondary'
+        })}
       >
+        {icon}
         {loading && <Loader size="sm" />}
-        <span>{children}</span>
+        <span className="font-medium whitespace-nowrap">{children}</span>
       </span>
     </button>
   )

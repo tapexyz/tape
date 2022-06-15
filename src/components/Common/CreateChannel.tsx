@@ -21,7 +21,7 @@ const CreateChannel = () => {
   const { indexed } = usePendingTxn(txnHash)
   const [handle, setHandle] = useState('')
   const router = useRouter()
-  const isMounted = useIsMounted()
+  const { mounted } = useIsMounted()
 
   const [createProfile, { data, reset, error }] = useMutation(
     CREATE_PROFILE_MUTATION,
@@ -77,7 +77,7 @@ const CreateChannel = () => {
     <Modal
       title={IS_MAINNET ? 'Claim Handle 🌿' : 'Create Channel 🌿'}
       onClose={() => setShowCreateChannel(false)}
-      show={isMounted() && showCreateChannel}
+      show={mounted && showCreateChannel}
       panelClassName="max-w-md"
     >
       {IS_MAINNET ? (

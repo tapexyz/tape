@@ -15,18 +15,14 @@ interface AppState {
   channels: Profile[] | []
   recommendedChannels: Profile[] | []
   selectedChannel: Profile | null
-  showUploadVideoModal: boolean
   showCreateChannel: boolean
   isAuthenticated: boolean
   notificationCount: number
   hasNewNotification: boolean
-  isSideBarOpen: boolean
   recentlyWatched: LenstubePublication[] | []
   watchLater: LenstubePublication[] | []
   setIsAuthenticated: (auth: boolean) => void
-  setIsSidebarOpen: (open: boolean) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
-  setShowUploadVideoModal: (show: boolean) => void
   setSelectedChannel: (channel: Profile | null) => void
   setChannels: (channels: Profile[]) => void
   setRecommendedChannels: (channels: Profile[]) => void
@@ -47,14 +43,10 @@ export const useAppStore = create(
       recommendedChannels: [],
       selectedChannel: null,
       showCreateChannel: false,
-      showUploadVideoModal: false,
       isAuthenticated: false,
       notificationCount: 0,
       hasNewNotification: false,
-      isSideBarOpen: false,
-      setShowUploadVideoModal: (b) => set(() => ({ showUploadVideoModal: b })),
       setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated })),
-      setIsSidebarOpen: (isSideBarOpen) => set(() => ({ isSideBarOpen })),
       setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),
       setSelectedChannel: (channel) =>
         set(() => ({ selectedChannel: channel })),
@@ -79,9 +71,9 @@ export const useAppStore = create(
       removeFromWatchLater: (video) => {
         const index = get().watchLater.findIndex((el) => el.id === video.id)
         const videos = get().watchLater
-        delete videos[index]
+        videos.splice(index, 1)
         set(() => ({
-          watchLater: videos.length === 1 ? [] : videos
+          watchLater: videos
         }))
       },
       setNotificationCount: (notificationCount) =>

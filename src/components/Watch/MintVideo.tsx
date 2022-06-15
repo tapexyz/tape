@@ -98,7 +98,11 @@ const MintVideo: FC<Props> = ({ video }) => {
             onClick={() => handleMint()}
             className="!p-2"
           >
-            {loading ? <Loader size="sm" /> : <SiOpenmined />}
+            {loading ? (
+              <Loader size="md" />
+            ) : (
+              <SiOpenmined className="text-xl" />
+            )}
           </Button>
         </span>
       </Tooltip>

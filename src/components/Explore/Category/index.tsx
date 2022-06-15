@@ -60,9 +60,7 @@ const ExploreCategory = () => {
     <Layout>
       <MetaTags title={categoryName?.toString() || ''} />
       <div>
-        <h1 className="font-semibold tracking-wide capitalize md:text-2xl">
-          {categoryName}
-        </h1>
+        <h1 className="font-semibold capitalize md:text-2xl">{categoryName}</h1>
         <div className="my-4">
           {loading && <TimelineShimmer />}
           {data?.search?.items?.length === 0 && (
@@ -72,7 +70,7 @@ const ExploreCategory = () => {
             <>
               <Timeline videos={videos} />
               {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
-                <span ref={observe} className="flex justify-center p-5">
+                <span ref={observe} className="flex justify-center p-10">
                   <Loader />
                 </span>
               )}

@@ -1,3 +1,4 @@
+import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
 import { IS_MAINNET } from '@utils/constants'
@@ -43,18 +44,18 @@ const UserMenu: FC<Props> = () => {
   return (
     <Popover
       trigger={
-        <button className="flex self-center rounded-full w-7 h-7">
+        <Button className="!p-0">
           <img
-            className="object-cover rounded-full"
+            className="object-cover w-7 h-7 rounded-xl md:w-9 md:h-9"
             src={getProfilePicture(selectedChannel)}
             alt=""
             draggable={false}
           />
-        </button>
+        </Button>
       }
-      panelClassName="right-0"
+      triggerClassName="right-0 flex item-center"
     >
-      <div className="px-1 mt-1.5 w-48 divide-y shadow-xl max-h-96 divide-gray-200 dark:divide-gray-800 overflow-hidden border border-gray-100 rounded-lg dark:border-gray-800 bg-secondary">
+      <div className="px-1 mt-1.5 w-48 divide-y shadow-xl max-h-96 divide-gray-200 dark:divide-gray-800 overflow-hidden border border-gray-200 rounded-lg dark:border-gray-800 bg-secondary">
         {showAccountSwitcher ? (
           <>
             <div className="flex opacity-70 items-centerspace-x-2">
@@ -77,7 +78,7 @@ const UserMenu: FC<Props> = () => {
                 >
                   <span className="inline-flex items-center space-x-1.5">
                     <img
-                      className="w-6 h-6 rounded-full"
+                      className="w-6 h-6 rounded-lg"
                       src={getProfilePicture(channel)}
                       alt=""
                       draggable={false}
@@ -100,7 +101,7 @@ const UserMenu: FC<Props> = () => {
                 )}
               >
                 <img
-                  className="rounded-full w-9 h-9"
+                  className="rounded-xl w-9 h-9"
                   src={getProfilePicture(selectedChannel)}
                   alt=""
                   draggable={false}

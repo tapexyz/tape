@@ -4,12 +4,13 @@ import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { LenstubePublication } from 'src/types/local'
 
-import MintVideo from './MintVideo'
+const MintVideo = dynamic(() => import('./MintVideo'))
 
 type Props = {
   video: LenstubePublication
@@ -36,7 +37,7 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
           <div className="flex-none mt-2.5 mr-3 cursor-pointer">
             <img
               src={getProfilePicture(channel)}
-              className="w-10 h-10 rounded-full"
+              className="w-10 h-10 rounded-xl"
               draggable={false}
               alt=""
             />

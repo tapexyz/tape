@@ -1,3 +1,3 @@
-import VideoDetails from '@components/VideoDetails'
+import VideoDetails from '@components/Watch'
 
 export default VideoDetails

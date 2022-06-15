@@ -16,7 +16,7 @@ const SuggestedVideos = () => {
   const { loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
-        sortCriteria: 'TOP_COMMENTED',
+        sortCriteria: 'LATEST',
         limit: 10,
         sources: [LENSTUBE_APP_ID],
         publicationTypes: ['POST']
@@ -35,7 +35,7 @@ const SuggestedVideos = () => {
         variables: {
           request: {
             cursor: pageInfo?.next,
-            sortCriteria: 'TOP_COMMENTED',
+            sortCriteria: 'LATEST',
             limit: 10,
             sources: [LENSTUBE_APP_ID],
             publicationTypes: ['POST']
@@ -61,7 +61,7 @@ const SuggestedVideos = () => {
             ))}
           </div>
           {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
-            <span ref={observe} className="flex justify-center p-5">
+            <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>
           )}

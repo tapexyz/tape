@@ -1,10 +1,12 @@
 import 'plyr-react/dist/plyr.css'
 
+import clsx from 'clsx'
 import Plyr from 'plyr-react'
 import React, { FC } from 'react'
 
 interface Props {
   source: string
+  wrapperClassName?: string
   poster?: string
   controls?: string[]
   autoPlay?: boolean
@@ -30,10 +32,11 @@ const VideoPlayer: FC<Props> = ({
   controls = defaultControls,
   poster,
   autoPlay = true,
-  ratio = undefined
+  ratio = undefined,
+  wrapperClassName
 }) => {
   return (
-    <div className="overflow-hidden rounded-md">
+    <div className={clsx('overflow-hidden rounded-xl', wrapperClassName)}>
       <Plyr
         autoPlay={autoPlay}
         source={{
