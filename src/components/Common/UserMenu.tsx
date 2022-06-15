@@ -44,7 +44,7 @@ const UserMenu: FC<Props> = () => {
   return (
     <Popover
       trigger={
-        <Button variant="secondary" className="!p-0">
+        <Button className="!p-0">
           <img
             className="object-cover w-7 h-7 rounded-xl md:w-9 md:h-9"
             src={getProfilePicture(selectedChannel)}
