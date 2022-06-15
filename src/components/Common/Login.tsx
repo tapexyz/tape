@@ -7,6 +7,7 @@ import {
   CURRENT_USER_QUERY
 } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { Profile } from 'src/types'
@@ -15,6 +16,7 @@ import { useAccount, useSignMessage } from 'wagmi'
 const ConnectWalletButton = dynamic(() => import('./ConnectWalletButton'))
 
 const Login = () => {
+  const router = useRouter()
   const { data: accountData } = useAccount()
   const {
     setChannels,
@@ -63,17 +65,21 @@ const Login = () => {
             const refreshToken = res.data.authenticate.refreshToken
             localStorage.setItem('accessToken', accessToken)
             localStorage.setItem('refreshToken', refreshToken)
-            setIsAuthenticated(true)
             getProfiles({
               variables: { ownedBy: accountData?.address }
             }).then((res) => {
               if (res.data.profiles.items.length === 0) {
                 setShowCreateChannel(true)
                 setSelectedChannel(null)
+                setIsAuthenticated(false)
               } else {
                 const channels: Profile[] = res?.data?.profiles?.items
                 setChannels(channels)
                 setSelectedChannel(res.data.profiles.items[0])
+                setIsAuthenticated(true)
+                router.push(
+                  router.query?.next ? (router.query?.next as string) : '/'
+                )
               }
             })
           })

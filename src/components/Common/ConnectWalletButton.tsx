@@ -164,7 +164,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
           ) : null}
         </div>
       </Modal>
-      {isMounted() && !loading ? (
+      {!loading ? (
         activeConnector?.id ? (
           activeChain?.id === POLYGON_CHAIN_ID ? (
             selectedChannel ? (

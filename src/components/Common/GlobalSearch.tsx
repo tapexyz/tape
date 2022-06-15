@@ -49,7 +49,7 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
             className="block w-full text-gray-700 bg-transparent appearance-none dark:text-gray-100 focus:outline-none"
             placeholder="Search channels"
             value={keyword}
-            autoFocus
+            autoFocus={true}
             onChange={(e) => setKeyword(e.target.value)}
           />
         </div>

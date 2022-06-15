@@ -1,5 +1,7 @@
 import useAppStore from '@lib/store'
+import { AUTH_ROUTES } from '@utils/constants'
 import { getToastOptions } from '@utils/functions/getToastOptions'
+import { AUTH } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -15,10 +17,11 @@ const MobileBottomNav = dynamic(() => import('./MobileBottomNav'))
 
 interface Props {
   children: ReactNode
+  hideHeader?: boolean
 }
 
-const Layout: FC<Props> = ({ children }) => {
-  const { pathname } = useRouter()
+const Layout: FC<Props> = ({ children, hideHeader }) => {
+  const { pathname, push } = useRouter()
   const { setSelectedChannel, setIsAuthenticated, isAuthenticated } =
     useAppStore()
   const { resolvedTheme } = useTheme()
@@ -26,6 +29,9 @@ const Layout: FC<Props> = ({ children }) => {
   const { disconnect } = useDisconnect()
 
   useEffect(() => {
+    if (!isAuthenticated && AUTH_ROUTES.includes(pathname)) {
+      push(`${AUTH}?next=${pathname}`)
+    }
     const accessToken = localStorage.getItem('accessToken')
     const refreshToken = localStorage.getItem('refreshToken')
     const logout = () => {
@@ -58,7 +64,8 @@ const Layout: FC<Props> = ({ children }) => {
     activeConnector,
     setSelectedChannel,
     pathname,
-    isAuthenticated
+    isAuthenticated,
+    push
   ])
 
   return (
@@ -71,7 +78,7 @@ const Layout: FC<Props> = ({ children }) => {
             'w-full md:pl-[94px] pl-2 pr-2 md:pr-4 max-w-[110rem] mx-auto'
           )}
         >
-          <Header />
+          {!hideHeader && <Header />}
           <div className="pt-16">{children}</div>
         </div>
       </div>
