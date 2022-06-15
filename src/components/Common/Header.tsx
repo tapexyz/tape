@@ -24,7 +24,7 @@ const Header = () => {
   return (
     <div
       className={clsx(
-        'fixed z-10 flex md:left-[84px] right-2 left-2 md:right-4 items-center justify-between bg-white dark:bg-black h-14'
+        'fixed z-10 flex md:left-[84px] right-2 left-2 md:right-4 items-center justify-between bg-white dark:bg-black h-16'
       )}
     >
       <div className="flex items-center flex-1 space-x-4">

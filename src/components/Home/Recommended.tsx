@@ -31,7 +31,7 @@ const Recommended = () => {
   }
 
   return (
-    <div className="relative pb-4 md:pb-0 cursor-grab">
+    <div className="relative pb-4 md:py-2 cursor-grab">
       <div
         className="flex items-center mx-1 overflow-auto md:mx-12 no-scrollbar"
         ref={scrollRef}
