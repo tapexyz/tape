@@ -70,7 +70,7 @@ const GlobalSearch: FC<Props> = ({ setShowSearch }) => {
                     <span className="flex items-center justify-between">
                       <span className="inline-flex items-center w-3/4 space-x-2">
                         <img
-                          className="w-5 h-5 rounded-full"
+                          className="w-5 h-5 rounded-md"
                           src={getProfilePicture(channel)}
                           draggable={false}
                           alt=""
