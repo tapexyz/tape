@@ -1,4 +1,5 @@
 import Layout from '@components/Common/Layout'
+import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -73,6 +74,7 @@ const UploadPage = () => {
 
   return (
     <Layout>
+      <MetaTags title="Upload Video" />
       <div className="my-6">
         {video.preview ? (
           <Details video={video} closeUploadModal={onCloseUploadModal} />

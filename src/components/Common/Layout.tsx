@@ -1,6 +1,7 @@
 import useAppStore from '@lib/store'
 import { AUTH_ROUTES } from '@utils/constants'
 import { getToastOptions } from '@utils/functions/getToastOptions'
+import useIsMounted from '@utils/hooks/useIsMounted'
 import { AUTH } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -21,16 +22,17 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children, hideHeader }) => {
-  const { pathname, push } = useRouter()
+  const { pathname, replace } = useRouter()
   const { setSelectedChannel, setIsAuthenticated, isAuthenticated } =
     useAppStore()
   const { resolvedTheme } = useTheme()
   const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
+  const { mounted } = useIsMounted()
 
   useEffect(() => {
     if (!isAuthenticated && AUTH_ROUTES.includes(pathname)) {
-      push(`${AUTH}?next=${pathname}`)
+      replace(`${AUTH}?next=${pathname}`)
     }
     const accessToken = localStorage.getItem('accessToken')
     const refreshToken = localStorage.getItem('refreshToken')
@@ -52,7 +54,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
     } else {
       if (isAuthenticated) logout()
     }
-    if (!activeConnector) {
+    if (!activeConnector && mounted) {
       disconnect()
     }
     activeConnector?.on('change', () => {
@@ -65,7 +67,8 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
     setSelectedChannel,
     pathname,
     isAuthenticated,
-    push
+    replace,
+    mounted
   ])
 
   return (

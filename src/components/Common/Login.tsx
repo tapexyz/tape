@@ -18,10 +18,6 @@ const ConnectWalletButton = dynamic(() => import('./ConnectWalletButton'))
 const Login = () => {
   const router = useRouter()
   const { data: accountData } = useAccount()
-  console.log(
-    '🚀 ~ file: Login.tsx ~ line 21 ~ Login ~ accountData',
-    accountData
-  )
   const {
     setChannels,
     setSelectedChannel,

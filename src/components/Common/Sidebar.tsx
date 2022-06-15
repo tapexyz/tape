@@ -22,7 +22,7 @@ const Sidebar = () => {
     <div className="fixed top-0 bottom-0 left-0 items-start justify-between hidden w-[68px] p-1 m-2 bg-white border shadow dark:border-gray-900 rounded-xl dark:bg-black md:flex md:flex-col">
       <div className="flex flex-col w-full space-y-1.5">
         <Link href={HOME}>
-          <a className="flex items-center justify-center p-3">
+          <a className="flex items-center justify-center p-3 focus:outline-none">
             <img
               src="/lenstube.svg"
               draggable={false}
