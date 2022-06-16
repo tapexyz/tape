@@ -25,6 +25,11 @@ body {
   scrollbar-width: none;
 }
 
+.middot:after {
+  content: '•';
+  margin: 0 4px;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

@@ -4,7 +4,11 @@ import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from '@utils/constants'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  SIGN_IN_REQUIRED_MESSAGE
+} from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { CREATE_COLLECT_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
@@ -82,7 +86,7 @@ const MintVideo: FC<Props> = ({ video }) => {
   })
 
   const handleMint = () => {
-    if (!isAuthenticated) return toast.error('Sign in required')
+    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
     createCollectTypedData({
       variables: { request: { publicationId: video?.id } }
@@ -94,9 +98,10 @@ const MintVideo: FC<Props> = ({ video }) => {
       <Tooltip content={loading ? 'Minting' : 'Mint as NFT'} placement="top">
         <span>
           <Button
+            className="!px-2"
             disabled={loading}
             onClick={() => handleMint()}
-            className="!p-2"
+            size="md"
           >
             {loading ? (
               <Loader size="md" />

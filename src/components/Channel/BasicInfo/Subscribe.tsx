@@ -2,7 +2,10 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
-import { LENSHUB_PROXY_ADDRESS } from '@utils/constants'
+import {
+  LENSHUB_PROXY_ADDRESS,
+  SIGN_IN_REQUIRED_MESSAGE
+} from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { CREATE_FOLLOW_TYPED_DATA } from '@utils/gql/queries'
 import { ethers, Signer, utils } from 'ethers'
@@ -72,7 +75,7 @@ const Subscribe: FC<Props> = ({ channel }) => {
   })
 
   const subscribe = () => {
-    if (!isAuthenticated) return toast.error('Login required.')
+    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
     setButtonText('Subscribing...')
     createSubscribeTypedData({

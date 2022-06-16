@@ -24,7 +24,7 @@ const HomeFeed = () => {
     variables: {
       request: {
         profileId: selectedChannel?.id,
-        limit: 8,
+        limit: 12,
         sources: [LENSTUBE_APP_ID]
       }
     },
@@ -37,7 +37,7 @@ const HomeFeed = () => {
   })
 
   const { observe } = useInView({
-    threshold: 0.7,
+    threshold: 1,
     onEnter: () => {
       fetchMore({
         variables: {

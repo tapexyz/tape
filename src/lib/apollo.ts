@@ -15,7 +15,7 @@ const httpLink = new HttpLink({
   fetch
 })
 
-const clearStorage = () => {
+export const clearStorage = () => {
   localStorage.removeItem('accessToken')
   localStorage.removeItem('refreshToken')
   localStorage.removeItem('app-storage')
@@ -65,9 +65,16 @@ const authLink = new ApolloLink((operation, forward) => {
   }
 })
 
+const cache = new InMemoryCache({ possibleTypes: result.possibleTypes })
+
 const apolloClient = new ApolloClient({
   link: from([authLink, httpLink]),
-  cache: new InMemoryCache({ possibleTypes: result.possibleTypes })
+  cache
+})
+
+export const nodeClient = new ApolloClient({
+  link: httpLink,
+  cache
 })
 
 export default apolloClient

@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
-import { PencilAltIcon } from '@heroicons/react/outline'
 import useAppStore from '@lib/store'
 import getCoverPicture from '@utils/functions/getCoverPicture'
 import getProfilePicture from '@utils/functions/getProfilePicture'
@@ -10,6 +9,7 @@ import { DOES_FOLLOW } from '@utils/gql/queries'
 import { SETTINGS } from '@utils/url-path'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
+import { AiOutlineEdit } from 'react-icons/ai'
 import { Profile } from 'src/types'
 
 import JoinChannel from './JoinChannel'
@@ -73,11 +73,11 @@ const BasicInfo: FC<Props> = ({ channel }) => {
               {channel?.id === selectedChannel?.id && (
                 <Tooltip content="Customize Channel" placement="top">
                   <Button
-                    variant="secondary"
+                    variant="outlined"
                     onClick={() => onClickCustomize()}
                     className="!p-2"
                   >
-                    <PencilAltIcon className="w-5 h-5" />
+                    <AiOutlineEdit className="text-lg" />
                   </Button>
                 </Tooltip>
               )}

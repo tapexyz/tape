@@ -23,8 +23,12 @@ interface Props {
 
 const Layout: FC<Props> = ({ children, hideHeader }) => {
   const { pathname, replace } = useRouter()
-  const { setSelectedChannel, setIsAuthenticated, isAuthenticated } =
-    useAppStore()
+  const {
+    setSelectedChannel,
+    setIsAuthenticated,
+    isAuthenticated,
+    selectedChannel
+  } = useAppStore()
   const { resolvedTheme } = useTheme()
   const { activeConnector } = useConnect()
   const { disconnect } = useDisconnect()
@@ -48,13 +52,14 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
       refreshToken &&
       accessToken &&
       accessToken !== 'undefined' &&
-      refreshToken !== 'undefined'
+      refreshToken !== 'undefined' &&
+      selectedChannel
     ) {
       setIsAuthenticated(true)
     } else {
       if (isAuthenticated) logout()
     }
-    if (!activeConnector && mounted) {
+    if (!activeConnector?.id && mounted) {
       disconnect()
     }
     activeConnector?.on('change', () => {

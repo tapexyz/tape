@@ -23,8 +23,8 @@ const VideoCard: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata?.attributes)
 
   return (
-    <Link href={`/watch/${video.id}`} passHref>
-      <div className="cursor-pointer bg-gray-50 rounded-xl dark:bg-[#181818] group">
+    <Link href={`/watch/${video.id}`}>
+      <a className="cursor-pointer bg-gray-50 rounded-xl dark:bg-[#181818] group">
         <ShareModal
           video={video}
           show={showShare}
@@ -73,8 +73,9 @@ const VideoCard: FC<Props> = ({ video }) => {
               </Link>
               <div className="flex overflow-hidden items-center space-x-1 text-[11px] opacity-70">
                 <span className="whitespace-nowrap">
-                  {video.stats.totalAmountOfCollects} collects &middot;
+                  {video.stats.totalUpvotes} likes
                 </span>
+                <span className="middot" />
                 <span className="whitespace-nowrap">
                   {dayjs(new Date(video.createdAt)).fromNow()}
                 </span>
@@ -82,7 +83,7 @@ const VideoCard: FC<Props> = ({ video }) => {
             </div>
           </div>
         </div>
-      </div>
+      </a>
     </Link>
   )
 }

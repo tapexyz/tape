@@ -97,6 +97,8 @@ export const CommentFields = gql`
     stats {
       totalAmountOfComments
       totalAmountOfCollects
+      totalDownvotes
+      totalUpvotes
     }
     metadata {
       name
@@ -313,6 +315,7 @@ export const SEARCH_CHANNELS_QUERY = gql`
 export const PostFields = gql`
   fragment PostFields on Post {
     id
+    reaction(request: $reactionRequest)
     profile {
       ...MinimalProfileFields
     }
@@ -328,6 +331,8 @@ export const PostFields = gql`
     stats {
       totalAmountOfComments
       totalAmountOfCollects
+      totalUpvotes
+      totalDownvotes
     }
     metadata {
       name
@@ -428,7 +433,10 @@ export const CollectModuleFields = gql`
 `
 
 export const EXPLORE_QUERY = gql`
-  query Explore($request: ExplorePublicationRequest!) {
+  query Explore(
+    $request: ExplorePublicationRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+  ) {
     explorePublications(request: $request) {
       items {
         ... on Post {
@@ -449,7 +457,10 @@ export const EXPLORE_QUERY = gql`
 `
 
 export const FEED_QUERY = gql`
-  query HomeFeed($request: TimelineRequest!) {
+  query HomeFeed(
+    $request: TimelineRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+  ) {
     timeline(request: $request) {
       items {
         ... on Post {
@@ -470,7 +481,10 @@ export const FEED_QUERY = gql`
 `
 
 export const PROFILE_FEED_QUERY = gql`
-  query ProfileFeed($request: PublicationsQueryRequest!) {
+  query ProfileFeed(
+    $request: PublicationsQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+  ) {
     publications(request: $request) {
       items {
         ... on Post {
@@ -610,6 +624,7 @@ export const VIDEO_DETAIL_QUERY = gql`
   query VideoDetails(
     $request: PublicationQueryRequest!
     $followRequest: DoesFollowRequest!
+    $reactionRequest: ReactionFieldResolverRequest
   ) {
     publication(request: $request) {
       ... on Post {
@@ -850,7 +865,10 @@ export const GENERATE_ALLOWANCE_QUERY = gql`
 `
 
 export const SEARCH_VIDEOS_QUERY = gql`
-  query SearchVideos($request: SearchQueryRequest!) {
+  query SearchVideos(
+    $request: SearchQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+  ) {
     search(request: $request) {
       ... on PublicationSearchResult {
         items {
@@ -870,4 +888,54 @@ export const SEARCH_VIDEOS_QUERY = gql`
   }
   ${PostFields}
   ${CommentFields}
+`
+
+export const OG_VIDEO_DETAIL_QUERY = gql`
+  query OGVideoDetails(
+    $request: PublicationQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+  ) {
+    publication(request: $request) {
+      ... on Post {
+        ...PostFields
+      }
+    }
+  }
+  ${PostFields}
+`
+
+export const OG_PROFILE_QUERY = gql`
+  query Profile($request: SingleProfileQueryRequest!) {
+    profile(request: $request) {
+      handle
+      name
+      bio
+      stats {
+        totalFollowers
+        totalFollowing
+      }
+      picture {
+        ... on MediaSet {
+          original {
+            url
+          }
+        }
+        ... on NftImage {
+          uri
+        }
+      }
+    }
+  }
+`
+
+export const ADD_REACTION_MUTATION = gql`
+  mutation AddReaction($request: ReactionRequest!) {
+    addReaction(request: $request)
+  }
+`
+
+export const REMOVE_REACTION_MUTATION = gql`
+  mutation RemoveReaction($request: ReactionRequest!) {
+    removeReaction(request: $request)
+  }
 `

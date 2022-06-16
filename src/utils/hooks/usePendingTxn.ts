@@ -12,7 +12,7 @@ const usePendingTxn = (txHash: string, navigate?: boolean) => {
       variables: {
         request: { txHash }
       },
-      skip: txHash.length === 0,
+      skip: txHash?.length === 0,
       pollInterval: 1000
     }
   )
@@ -29,6 +29,7 @@ const usePendingTxn = (txHash: string, navigate?: boolean) => {
   }, [data, stopPolling, navigate, router])
 
   return {
+    data,
     indexed: data?.hasTxHashBeenIndexed?.indexed || !!data?.publication?.id,
     loading
   }

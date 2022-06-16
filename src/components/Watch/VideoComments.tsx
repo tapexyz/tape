@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
@@ -76,33 +77,31 @@ const VideoComments: FC<Props> = ({ video }) => {
     }
   })
 
-  if (loading) return <Loader />
+  if (loading) return <CommentsShimmer />
 
   return (
     <div className="pb-4">
-      <>
-        <div className="flex items-center justify-between">
-          <h1 className="inline-flex items-center my-4 space-x-2 text-lg">
-            <AiOutlineComment />
-            <span className="font-semibold">Comments</span>
-            {isAuthenticated && data?.publications?.pageInfo.totalCount ? (
-              <span className="text-sm font-light">
-                ({data?.publications?.pageInfo.totalCount})
-              </span>
-            ) : null}
-            {!isAuthenticated && (
-              <span className="text-xs">(Sign in required to comment)</span>
-            )}
-          </h1>
-        </div>
-        {data?.publications?.items.length === 0 && (
-          <NoDataFound text="Be the first to comment." />
+      <div className="flex items-center justify-between">
+        <h1 className="inline-flex items-center my-4 space-x-2 text-lg">
+          <AiOutlineComment />
+          <span className="font-semibold">Comments</span>
+          {data?.publications?.pageInfo.totalCount ? (
+            <span className="text-sm font-light">
+              ({data?.publications?.pageInfo.totalCount})
+            </span>
+          ) : null}
+        </h1>
+        {!isAuthenticated && (
+          <span className="text-xs">(Sign in required to comment)</span>
         )}
-        <NewComment video={video} refetchComments={() => refetchComments()} />
-      </>
+      </div>
+      {data?.publications?.items.length === 0 && (
+        <NoDataFound text="Be the first to comment." />
+      )}
+      <NewComment video={video} refetchComments={() => refetchComments()} />
       {!error && !loading && (
         <>
-          <div className="space-y-4">
+          <div className="pt-5 space-y-4">
             {comments?.map((comment: LenstubePublication, index: number) => (
               <Comment
                 key={`${comment?.id}_${index}`}
