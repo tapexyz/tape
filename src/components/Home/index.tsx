@@ -2,7 +2,6 @@ import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import Trending from '@components/Explore/Trending'
 import useAppStore from '@lib/store'
-import useIsMounted from '@utils/hooks/useIsMounted'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useConnect } from 'wagmi'
@@ -14,18 +13,12 @@ const Home: NextPage = () => {
   const { isAuthenticated } = useAppStore()
   const { activeConnector } = useConnect()
 
-  const { mounted } = useIsMounted()
-
   return (
     <Layout>
       <MetaTags />
       <Recommended />
       <div className="md:my-5">
-        {mounted && (
-          <>
-            {isAuthenticated && activeConnector ? <HomeFeed /> : <Trending />}
-          </>
-        )}
+        {isAuthenticated && activeConnector ? <HomeFeed /> : <Trending />}
       </div>
     </Layout>
   )

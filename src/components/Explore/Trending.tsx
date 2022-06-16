@@ -22,7 +22,7 @@ const Trending = () => {
     variables: {
       request: {
         sortCriteria: 'LATEST', // should be TOP_COMMENTED
-        limit: 8,
+        limit: 12,
         noRandomize: false,
         sources: [LENSTUBE_APP_ID],
         publicationTypes: ['POST']

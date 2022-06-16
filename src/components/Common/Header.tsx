@@ -18,7 +18,7 @@ const NotificationTrigger = dynamic(
 )
 
 const Header = () => {
-  const { selectedChannel } = useAppStore()
+  const { isAuthenticated } = useAppStore()
   const [showSearch, setShowSearch] = useState(false)
 
   return (
@@ -57,8 +57,12 @@ const Header = () => {
         >
           <SearchIcon className="w-5 h-5" />
         </Button>
-        {selectedChannel && <NotificationTrigger />}
-        {selectedChannel && <NewVideoTrigger />}
+        {isAuthenticated && (
+          <>
+            <NotificationTrigger />
+            <NewVideoTrigger />
+          </>
+        )}
         <Login />
       </div>
     </div>

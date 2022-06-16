@@ -22,7 +22,7 @@ const Recents = () => {
     variables: {
       request: {
         sortCriteria: 'LATEST',
-        limit: 8,
+        limit: 12,
         noRandomize: true,
         sources: [LENSTUBE_APP_ID],
         publicationTypes: ['POST']

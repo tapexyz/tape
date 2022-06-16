@@ -13,6 +13,10 @@ const TimelineShimmer = () => {
       <VideoCardShimmer />
       <VideoCardShimmer />
       <VideoCardShimmer />
+      <VideoCardShimmer />
+      <VideoCardShimmer />
+      <VideoCardShimmer />
+      <VideoCardShimmer />
     </div>
   )
 }
