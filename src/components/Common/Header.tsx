@@ -49,7 +49,7 @@ const Header = () => {
           </button>
         </div>
       </div>
-      <div className="flex flex-row items-center space-x-4">
+      <div className="flex flex-row items-center space-x-3">
         <Button
           variant="secondary"
           className="!p-0 md:hidden"

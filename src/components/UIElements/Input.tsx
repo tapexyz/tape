@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { FC, InputHTMLAttributes } from 'react'
+import { forwardRef, InputHTMLAttributes } from 'react'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
@@ -8,15 +8,10 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
   validationError?: string
 }
-
-export const Input: FC<Props> = ({
-  label,
-  type = 'text',
-  validationError,
-  className = '',
-  id,
-  ...props
-}) => {
+export const Input = forwardRef<HTMLInputElement, Props>(function Input(
+  { label, type = 'text', validationError, className = '', id, ...props },
+  ref
+) {
   return (
     <label className="w-full" htmlFor={id}>
       {label && (
@@ -34,17 +29,23 @@ export const Input: FC<Props> = ({
         <input
           id={id}
           className={clsx(
-            { '!border-red-500': validationError?.length },
-            'bg-white text-sm px-2.5 py-2 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 outline-none disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 focus:ring-1 focus:ring-indigo-500 w-full',
+            {
+              'focus:ring-1 focus:ring-indigo-500': !validationError?.length,
+              '!border-red-500': validationError?.length
+            },
+            'bg-white text-sm px-2.5 py-2 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 outline-none disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 w-full',
             className
           )}
+          ref={ref}
           type={type}
           {...props}
         />
       </div>
       {validationError && (
-        <div className="mx-1 mt-1 text-sm text-red-500">{validationError}</div>
+        <div className="mx-1 mt-1 text-xs font-medium text-red-500">
+          {validationError}
+        </div>
       )}
     </label>
   )
-}
+})

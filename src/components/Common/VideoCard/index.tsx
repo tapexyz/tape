@@ -23,8 +23,8 @@ const VideoCard: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata?.attributes)
 
   return (
-    <Link href={`/watch/${video.id}`} passHref>
-      <div className="cursor-pointer bg-gray-50 rounded-xl dark:bg-[#181818] group">
+    <Link href={`/watch/${video.id}`}>
+      <a className="cursor-pointer bg-gray-50 rounded-xl dark:bg-[#181818] group">
         <ShareModal
           video={video}
           show={showShare}
@@ -82,7 +82,7 @@ const VideoCard: FC<Props> = ({ video }) => {
             </div>
           </div>
         </div>
-      </div>
+      </a>
     </Link>
   )
 }

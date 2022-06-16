@@ -22,7 +22,7 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
 
   return (
     <Link href={`/watch/${commentedOn.pubId}`} passHref>
-      <div className="overflow-hidden cursor-pointer group bg-gray-50 rounded-xl dark:bg-[#181818]">
+      <a className="overflow-hidden cursor-pointer group bg-gray-50 rounded-xl dark:bg-[#181818]">
         <div className="relative rounded-t-xl aspect-w-16 aspect-h-7">
           <img
             src={imageCdn(
@@ -79,7 +79,7 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
             </div>
           </div>
         </div>
-      </div>
+      </a>
     </Link>
   )
 }
