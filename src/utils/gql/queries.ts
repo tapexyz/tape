@@ -457,7 +457,10 @@ export const EXPLORE_QUERY = gql`
 `
 
 export const FEED_QUERY = gql`
-  query HomeFeed($request: TimelineRequest!) {
+  query HomeFeed(
+    $request: TimelineRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+  ) {
     timeline(request: $request) {
       items {
         ... on Post {
@@ -478,7 +481,10 @@ export const FEED_QUERY = gql`
 `
 
 export const PROFILE_FEED_QUERY = gql`
-  query ProfileFeed($request: PublicationsQueryRequest!) {
+  query ProfileFeed(
+    $request: PublicationsQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+  ) {
     publications(request: $request) {
       items {
         ... on Post {
@@ -859,7 +865,10 @@ export const GENERATE_ALLOWANCE_QUERY = gql`
 `
 
 export const SEARCH_VIDEOS_QUERY = gql`
-  query SearchVideos($request: SearchQueryRequest!) {
+  query SearchVideos(
+    $request: SearchQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+  ) {
     search(request: $request) {
       ... on PublicationSearchResult {
         items {
@@ -882,7 +891,10 @@ export const SEARCH_VIDEOS_QUERY = gql`
 `
 
 export const OG_VIDEO_DETAIL_QUERY = gql`
-  query OGVideoDetails($request: PublicationQueryRequest!) {
+  query OGVideoDetails(
+    $request: PublicationQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+  ) {
     publication(request: $request) {
       ... on Post {
         ...PostFields
