@@ -1,28 +1,29 @@
 import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
 import Tooltip from '@components/UIElements/Tooltip'
-import {
-  StatusOnlineIcon,
-  UploadIcon,
-  VideoCameraIcon
-} from '@heroicons/react/outline'
 import { UPLOAD } from '@utils/url-path'
 import Link from 'next/link'
 import React from 'react'
+import { AiOutlineVideoCameraAdd } from 'react-icons/ai'
+import { HiOutlineStatusOnline, HiOutlineUpload } from 'react-icons/hi'
 
 const NewVideoTrigger = () => {
   return (
     <Popover
       trigger={
         <>
-          <span className="md:hidden">
-            <VideoCameraIcon className="w-6 h-6" />
-          </span>
           <Button
-            icon={<VideoCameraIcon className="w-5 h-5" />}
-            className="!hidden md:!flex"
+            size="sm"
+            className="md:!hidden"
+            icon={<AiOutlineVideoCameraAdd className="text-sm" />}
           >
-            New video
+            <span>New video</span>
+          </Button>
+          <Button
+            className="md:!block !hidden"
+            icon={<AiOutlineVideoCameraAdd className="text-lg" />}
+          >
+            <span>New video</span>
           </Button>
         </>
       }
@@ -32,7 +33,7 @@ const NewVideoTrigger = () => {
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-md">
           <Link href={UPLOAD}>
             <a className="inline-flex items-center px-4 py-1.5 space-x-2 rounded-md opacity-90 hover:opacity-100 hover:bg-gray-200 dark:hover:bg-gray-800">
-              <UploadIcon className="w-4 h-4" />
+              <HiOutlineUpload />
               <span className="whitespace-nowrap">Upload</span>
             </a>
           </Link>
@@ -42,7 +43,7 @@ const NewVideoTrigger = () => {
           >
             <Tooltip content="Coming soon">
               <span className="inline-flex items-center space-x-2">
-                <StatusOnlineIcon className="w-4 h-4 text-red-500" />
+                <HiOutlineStatusOnline className="text-red-500" />
                 <span className="whitespace-nowrap">Go Live</span>
               </span>
             </Tooltip>

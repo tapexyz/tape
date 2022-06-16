@@ -36,6 +36,9 @@ const VideoDetails = () => {
           profileId: channelId
         }
       },
+      reactionRequest: selectedChannel
+        ? { profileId: selectedChannel?.id }
+        : null,
       sources: [LENSTUBE_APP_ID]
     },
     skip: !id
@@ -52,12 +55,12 @@ const VideoDetails = () => {
 
   return (
     <Layout>
-      <MetaTags title={video?.metadata?.name ?? 'Video Details'} />
+      <MetaTags title={video?.metadata?.name ?? 'Watch'} />
       {loading && <VideoDetailShimmer />}
       {!loading && !error && video ? (
         <>
           <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
-            <div className="col-span-3 space-y-4 divide-y divide-gray-200 dark:divide-gray-900">
+            <div className="col-span-3 space-y-3 divide-y divide-gray-200 dark:divide-gray-900">
               <Video video={video} />
               <AboutChannel video={video} isFollower={isFollower} />
               <VideoComments video={video} />

@@ -73,8 +73,9 @@ const VideoCard: FC<Props> = ({ video }) => {
               </Link>
               <div className="flex overflow-hidden items-center space-x-1 text-[11px] opacity-70">
                 <span className="whitespace-nowrap">
-                  {video.stats.totalAmountOfCollects} collects &middot;
+                  {video.stats.totalUpvotes} likes
                 </span>
+                <span className="middot" />
                 <span className="whitespace-nowrap">
                   {dayjs(new Date(video.createdAt)).fromNow()}
                 </span>

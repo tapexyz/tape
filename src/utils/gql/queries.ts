@@ -97,6 +97,8 @@ export const CommentFields = gql`
     stats {
       totalAmountOfComments
       totalAmountOfCollects
+      totalDownvotes
+      totalUpvotes
     }
     metadata {
       name
@@ -313,6 +315,7 @@ export const SEARCH_CHANNELS_QUERY = gql`
 export const PostFields = gql`
   fragment PostFields on Post {
     id
+    reaction(request: $reactionRequest)
     profile {
       ...MinimalProfileFields
     }
@@ -328,6 +331,8 @@ export const PostFields = gql`
     stats {
       totalAmountOfComments
       totalAmountOfCollects
+      totalUpvotes
+      totalDownvotes
     }
     metadata {
       name
@@ -428,7 +433,10 @@ export const CollectModuleFields = gql`
 `
 
 export const EXPLORE_QUERY = gql`
-  query Explore($request: ExplorePublicationRequest!) {
+  query Explore(
+    $request: ExplorePublicationRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+  ) {
     explorePublications(request: $request) {
       items {
         ... on Post {
@@ -610,6 +618,7 @@ export const VIDEO_DETAIL_QUERY = gql`
   query VideoDetails(
     $request: PublicationQueryRequest!
     $followRequest: DoesFollowRequest!
+    $reactionRequest: ReactionFieldResolverRequest
   ) {
     publication(request: $request) {
       ... on Post {
@@ -904,5 +913,17 @@ export const OG_PROFILE_QUERY = gql`
         }
       }
     }
+  }
+`
+
+export const ADD_REACTION_MUTATION = gql`
+  mutation AddReaction($request: ReactionRequest!) {
+    addReaction(request: $request)
+  }
+`
+
+export const REMOVE_REACTION_MUTATION = gql`
+  mutation RemoveReaction($request: ReactionRequest!) {
+    removeReaction(request: $request)
   }
 `

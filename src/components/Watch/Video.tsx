@@ -1,16 +1,17 @@
 import ShareModal from '@components/Common/VideoCard/ShareModal'
+import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import { getVideoUrl } from '@utils/functions/getVideoUrl'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
 import React, { FC, useState } from 'react'
-import { AiOutlineComment } from 'react-icons/ai'
 import { RiShareForwardLine } from 'react-icons/ri'
 import { SiOpenmined } from 'react-icons/si'
 import { LenstubePublication } from 'src/types/local'
 
 const VideoPlayer = dynamic(() => import('../Common/VideoPlayer'))
+const VideoReaction = dynamic(() => import('./VideoReaction'))
 
 dayjs.extend(relativeTime)
 
@@ -43,39 +44,36 @@ const Video: FC<Props> = ({ video }) => {
           <h1 className="mt-4 text-lg font-medium line-clamp-2">
             {video.metadata.name}
           </h1>
-          <div className="flex items-center text-[11px] opacity-70">
-            <span>{dayjs(new Date(video.createdAt)).fromNow()}</span>
+          <div className="flex items-center text-sm opacity-70">
+            <div className="flex items-center space-x-2">
+              <Tooltip content={`Total collected`}>
+                <div className="flex items-center space-x-1">
+                  <SiOpenmined className="text-xs" />
+                  <span>{video.stats.totalAmountOfCollects} collects</span>
+                </div>
+              </Tooltip>
+            </div>
+            <span className="middot" />
+            <span title={video.createdAt}>
+              uploaded {dayjs(new Date(video.createdAt)).fromNow()}
+            </span>
           </div>
         </div>
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-3">
-            <Tooltip content={`Total collected`}>
-              <div className="flex items-center space-x-1 opacity-70 hover:opacity-100">
-                <SiOpenmined className="text-xs" />
-                <span>{video.stats.totalAmountOfCollects}</span>
-              </div>
-            </Tooltip>
-            <Tooltip content={`Total comments`}>
-              <div className="flex items-center space-x-1 opacity-70 hover:opacity-100">
-                <AiOutlineComment />
-                <span>{video.stats.totalAmountOfComments}</span>
-              </div>
-            </Tooltip>
-          </div>
-          <button
-            onClick={() => setShowShare(true)}
-            className="flex items-center space-x-1 outline-none opacity-70 hover:opacity-100"
-          >
+      </div>
+      <div className="flex items-center justify-end space-x-4">
+        <VideoReaction video={video} />
+        <Button
+          variant="secondary"
+          className="!p-0"
+          onClick={() => setShowShare(true)}
+        >
+          <span className="flex items-center space-x-1 outline-none">
             <RiShareForwardLine />
             <span>Share</span>
-          </button>
-        </div>
-        <ShareModal
-          video={video}
-          show={showShare}
-          setShowShare={setShowShare}
-        />
+          </span>
+        </Button>
       </div>
+      <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
     </div>
   )
 }

@@ -3,7 +3,10 @@ import { useMutation, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import { LENSHUB_PROXY_ADDRESS } from '@utils/constants'
+import {
+  LENSHUB_PROXY_ADDRESS,
+  SIGN_IN_REQUIRED_MESSAGE
+} from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import {
   ALLOWANCE_SETTINGS_QUERY,
@@ -94,7 +97,7 @@ const JoinChannel: FC<Props> = ({ channel }) => {
   })
 
   const joinChannel = () => {
-    if (!isAuthenticated) return toast.error('Sign in required.')
+    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     if (!isAllowed)
       return toast.error(
         `Menu -> Settings -> Permissions and allow fee follow module for ${followModule.amount.asset.symbol}.`

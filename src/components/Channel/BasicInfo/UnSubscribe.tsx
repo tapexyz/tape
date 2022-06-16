@@ -2,7 +2,7 @@ import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
-import { ERROR_MESSAGE } from '@utils/constants'
+import { ERROR_MESSAGE, SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { CREATE_UNFOLLOW_TYPED_DATA } from '@utils/gql/queries'
 import { ethers, Signer, utils } from 'ethers'
@@ -87,7 +87,7 @@ const UnSubscribe: FC<Props> = ({ channel }) => {
   })
 
   const unsubscribe = () => {
-    if (!isAuthenticated) return toast.error('Sign in required.')
+    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
     setButtonText('Unsubscribing...')
     createUnsubscribeTypedData({
