@@ -1,5 +1,4 @@
 import { LENSTUBE_URL } from '@utils/constants'
-import { getHandle } from '@utils/functions/getHandle'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { NextRequest } from 'next/server'
 import { Profile } from 'src/types'
@@ -16,7 +15,7 @@ export async function middleware(req: NextRequest) {
     const data = await result.json()
     const channel: Profile = data?.channel
     if (data?.success) {
-      const handle = `${getHandle(channel?.handle)} - Lenstube`
+      const handle = `${channel?.handle} - Lenstube`
       const bio = channel.bio || 'Lenstube channel'
       const pfp = getProfilePicture(channel)
       return new Response(
