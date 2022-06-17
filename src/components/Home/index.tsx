@@ -10,7 +10,7 @@ const Recommended = dynamic(() => import('./Recommended'))
 const HomeFeed = dynamic(() => import('./Feed'))
 
 const Home: NextPage = () => {
-  const { isAuthenticated } = useAppStore()
+  const { isAuthenticated, selectedChannel } = useAppStore()
   const { activeConnector } = useConnect()
 
   return (
@@ -18,7 +18,11 @@ const Home: NextPage = () => {
       <MetaTags />
       <Recommended />
       <div className="md:my-5">
-        {isAuthenticated && activeConnector ? <HomeFeed /> : <Trending />}
+        {isAuthenticated && activeConnector && selectedChannel ? (
+          <HomeFeed />
+        ) : (
+          <Trending />
+        )}
       </div>
     </Layout>
   )

@@ -60,7 +60,7 @@ const Video: FC<Props> = ({ video }) => {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-end space-x-4">
+      <div className="flex items-center mt-4 md:mt-0 justify-end space-x-4">
         <VideoReaction video={video} />
         <Button
           variant="secondary"

@@ -51,7 +51,7 @@ const NotificationTrigger = () => {
       trigger={
         <Button
           variant="outlined"
-          className="!px-2"
+          className="!px-2 !hidden md:!block"
           onClick={() => onClickNotification()}
         >
           <AiOutlineBell className="text-sm md:text-lg" />
@@ -60,7 +60,6 @@ const NotificationTrigger = () => {
           )}
         </Button>
       }
-      panelClassName="right-0"
     >
       <div className="p-1 max-h-96 mt-1.5 w-72 overflow-x-hidden overflow-y-auto border shadow-xl border-gray-100 rounded-lg dark:border-gray-800 bg-secondary">
         <div className="flex flex-col p-2 text-sm transition duration-150 ease-in-out rounded-lg">
