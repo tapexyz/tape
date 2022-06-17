@@ -18,7 +18,7 @@ const Home: NextPage = () => {
       <MetaTags />
       <Recommended />
       <div className="md:my-5">
-        {isAuthenticated && activeConnector && selectedChannel ? (
+        {isAuthenticated && activeConnector && selectedChannel?.id ? (
           <HomeFeed />
         ) : (
           <Trending />
