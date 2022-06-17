@@ -23,7 +23,7 @@ const PendingTxnLoader: FC<Props> = ({
   if (indexed) return null
 
   return (
-    <div className="inline-flex items-center space-x-1 font-medium">
+    <div className="inline-flex items-center space-x-1.5 font-medium">
       <Loader size="sm" />
       <span className="text-sm">Indexing</span>
     </div>

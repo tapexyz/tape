@@ -58,6 +58,7 @@ const HomeFeed = () => {
   if (data?.timeline?.items?.length === 0) {
     return (
       <NoDataFound
+        isCenter
         withImage
         text="You got no videos in your timeline, explore."
       />

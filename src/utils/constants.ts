@@ -56,3 +56,6 @@ export const LENSTUBE_APP_ID = 'Lenstube'
 
 // auth routes
 export const AUTH_ROUTES = ['/upload', '/settings']
+
+// handles
+export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'

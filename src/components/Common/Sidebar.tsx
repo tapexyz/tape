@@ -22,7 +22,7 @@ const Sidebar = () => {
     <div className="fixed top-0 bottom-0 left-0 items-start justify-between hidden w-[68px] p-1 m-2 bg-white border shadow dark:border-gray-900 rounded-xl dark:bg-black md:flex md:flex-col">
       <div className="flex flex-col w-full text-center space-y-1.5">
         <div className="relative p-3">
-          <span className="text-[10px] absolute text-indigo-500 top-0 opacity-80 rounded-full">
+          <span className="text-[10px] font-semibold absolute text-indigo-500 top-0 opacity-80 rounded-full">
             beta
           </span>
           <Link href={HOME}>

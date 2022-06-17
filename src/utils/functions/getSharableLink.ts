@@ -1,4 +1,4 @@
-import { LENSTUBE_URL } from '@utils/constants'
+import { LENSTUBE_TWITTER_HANDLE, LENSTUBE_URL } from '@utils/constants'
 import { LenstubePublication } from 'src/types/local'
 
 const getVideoUrl = (video: LenstubePublication) => {
@@ -9,7 +9,7 @@ export const getSharableLink = (link: string, video: LenstubePublication) => {
   if (link === 'twitter') {
     return `https://twitter.com/intent/tweet?url=${getVideoUrl(video)}&text=${
       video.metadata?.name
-    }&via=lenstubexyz&related=Lenstube&hashtags=Lenstube`
+    }&via=${LENSTUBE_TWITTER_HANDLE}&related=Lenstube&hashtags=Lenstube`
   }
   if (link === 'reddit') {
     return `https://www.reddit.com/submit?url=${getVideoUrl(video)}&title=${
