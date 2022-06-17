@@ -96,37 +96,39 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   }
 
   return (
-    <div className="relative flex-none group">
-      <img
-        src={selectedPfp ? selectedPfp : getProfilePicture(channel)}
-        className="w-32 h-32 border-2 rounded-full"
-        draggable={false}
-        alt=""
-      />
-      <label
-        className={clsx(
-          'absolute focus:visible top-0 grid w-32 h-32 bg-white rounded-full cursor-pointer bg-opacity-70 place-items-center backdrop-blur-lg lg:invisible group-hover:visible dark:bg-black',
-          { '!visible': loading }
-        )}
-      >
-        {loading && !pfpData?.hash ? (
-          <Loader />
-        ) : (
-          <RiImageAddLine className="text-xl" />
-        )}
-        <input
-          type="file"
-          accept=".png, .jpg, .jpeg, .svg"
-          className="hidden w-full"
-          onChange={onPfpUpload}
+    <>
+      <div className="relative flex-none overflow-hidden rounded-full group">
+        <img
+          src={selectedPfp ? selectedPfp : getProfilePicture(channel)}
+          className="w-32 h-32 border-2 rounded-full"
+          draggable={false}
+          alt=""
         />
-      </label>
+        <label
+          className={clsx(
+            'absolute focus:visible top-0 grid w-32 h-32 bg-white rounded-full cursor-pointer bg-opacity-70 place-items-center backdrop-blur-lg lg:invisible group-hover:visible dark:bg-black',
+            { '!visible': loading && !pfpData?.hash }
+          )}
+        >
+          {loading && !pfpData?.hash ? (
+            <Loader />
+          ) : (
+            <RiImageAddLine className="text-xl" />
+          )}
+          <input
+            type="file"
+            accept=".png, .jpg, .jpeg, .svg"
+            className="hidden w-full"
+            onChange={onPfpUpload}
+          />
+        </label>
+      </div>
       {pfpData?.hash && (
         <div className="flex justify-center mt-1">
           <PendingTxnLoader txnHash={pfpData?.hash} onIndexed={onIndexed} />
         </div>
       )}
-    </div>
+    </>
   )
 }
 

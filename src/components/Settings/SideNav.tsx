@@ -25,9 +25,7 @@ const SideNav: FC<Props> = ({ channel }) => {
   return (
     <div className="p-2 bg-white rounded-lg dark:bg-black">
       <div className="flex flex-col items-center py-4 space-y-2">
-        <div className="flex items-end space-x-2">
-          <ChannelPicture channel={channel} />
-        </div>
+        <ChannelPicture channel={channel} />
       </div>
       <div className="flex flex-col m-1 space-y-1 text-sm">
         <Link href={SETTINGS}>
