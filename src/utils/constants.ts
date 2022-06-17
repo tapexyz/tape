@@ -55,7 +55,12 @@ export const SIGN_IN_REQUIRED_MESSAGE = 'Sign in required'
 export const LENSTUBE_APP_ID = 'Lenstube'
 
 // auth routes
-export const AUTH_ROUTES = ['/upload', '/settings']
+export const AUTH_ROUTES = [
+  '/upload',
+  '/settings',
+  '/settings/membership',
+  '/settings/permissions'
+]
 
 // handles
 export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'

@@ -1,20 +1,15 @@
-import { useQuery } from '@apollo/client'
+import SubscribeActions from '@components/Common/SubscribeActions'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import getCoverPicture from '@utils/functions/getCoverPicture'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
-import { DOES_FOLLOW } from '@utils/gql/queries'
 import { SETTINGS } from '@utils/url-path'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { Profile } from 'src/types'
-
-import JoinChannel from './JoinChannel'
-import Subscribe from './Subscribe'
-import UnSubscribe from './UnSubscribe'
 
 type Props = {
   channel: Profile & any
@@ -23,20 +18,8 @@ type Props = {
 const BasicInfo: FC<Props> = ({ channel }) => {
   const router = useRouter()
   const { selectedChannel } = useAppStore()
-  const { data } = useQuery(DOES_FOLLOW, {
-    variables: {
-      request: {
-        followInfos: {
-          followerAddress: selectedChannel?.ownedBy,
-          profileId: channel?.id
-        }
-      }
-    },
-    skip: !selectedChannel || !channel?.id
-  })
 
   const subscribeType = channel?.followModule?.__typename
-  const isFollower = data?.doesFollow[0].follows as boolean
 
   const onClickCustomize = () => {
     router.push(SETTINGS)
@@ -75,19 +58,16 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                   <Button
                     variant="outlined"
                     onClick={() => onClickCustomize()}
-                    className="!p-2"
+                    className="!p-2 md:!p-2.5"
                   >
                     <AiOutlineEdit className="text-lg" />
                   </Button>
                 </Tooltip>
               )}
-              {isFollower ? (
-                <UnSubscribe channel={channel} />
-              ) : subscribeType === 'FeeFollowModuleSettings' ? (
-                <JoinChannel channel={channel} />
-              ) : (
-                <Subscribe channel={channel} />
-              )}
+              <SubscribeActions
+                channel={channel}
+                subscribeType={subscribeType}
+              />
             </div>
           </div>
         </div>

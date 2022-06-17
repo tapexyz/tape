@@ -10,21 +10,41 @@ import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { CreateUnfollowBroadcastItemResult, Profile } from 'src/types'
 import { useSigner, useSignTypedData } from 'wagmi'
+import { useWaitForTransaction } from 'wagmi'
 
 type Props = {
   channel: Profile
+  onUnSubscribe: () => void
 }
 
-const UnSubscribe: FC<Props> = ({ channel }) => {
+const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   const subscribeType = channel?.followModule?.__typename
   const subscribeText =
     subscribeType === 'FeeFollowModuleSettings'
       ? 'Joined channel'
       : 'Subscribed'
   const [loading, setLoading] = useState(false)
+  const [txnHash, setTxnHash] = useState('')
   const [buttonText, setButtonText] = useState(subscribeText)
   const { data: signer } = useSigner()
   const { isAuthenticated } = useAppStore()
+  const {} = useWaitForTransaction({
+    enabled: txnHash.length > 0,
+    hash: txnHash,
+    onSuccess() {
+      toast.success(`Unsubscribed ${channel.handle}`)
+      onUnSubscribe()
+      setButtonText(
+        subscribeType === 'FeeFollowModuleSettings'
+          ? 'Join channel'
+          : 'Subscribe'
+      )
+      setLoading(false)
+    },
+    onError() {
+      setLoading(false)
+    }
+  })
 
   const { signTypedDataAsync } = useSignTypedData({
     onError() {
@@ -64,14 +84,8 @@ const UnSubscribe: FC<Props> = ({ channel }) => {
             sig
           )
           if (txn.hash) {
-            toast.success(`Unsubscribed ${channel.handle}`)
-            setButtonText(
-              subscribeType === 'FeeFollowModuleSettings'
-                ? 'Join channel'
-                : 'Subscribe'
-            )
+            setTxnHash(txn.hash)
           }
-          setLoading(false)
         })
         .catch((err) => {
           toast.error(err.message)

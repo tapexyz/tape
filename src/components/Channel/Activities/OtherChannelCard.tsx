@@ -1,29 +1,10 @@
-import { useQuery } from '@apollo/client'
-import useAppStore from '@lib/store'
+import SubscribeActions from '@components/Common/SubscribeActions'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import { DOES_FOLLOW } from '@utils/gql/queries'
 import Link from 'next/link'
 import React from 'react'
 import { Profile } from 'src/types'
 
-import JoinChannel from '../BasicInfo/JoinChannel'
-import Subscribe from '../BasicInfo/Subscribe'
-import UnSubscribe from '../BasicInfo/UnSubscribe'
-
 const OtherChannelCard = ({ channel }: { channel: Profile }) => {
-  const { selectedChannel } = useAppStore()
-  const { data } = useQuery(DOES_FOLLOW, {
-    variables: {
-      request: {
-        followInfos: {
-          followerAddress: selectedChannel?.ownedBy,
-          profileId: channel?.id
-        }
-      }
-    },
-    skip: !selectedChannel
-  })
-  const isFollower = (data?.doesFollow[0].follows as boolean) ?? false
   const subscribeType = channel?.followModule?.__typename
 
   return (
@@ -48,13 +29,7 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
           {channel.stats.totalFollowers} subscribers
         </div>
       </div>
-      {isFollower ? (
-        <UnSubscribe channel={channel} />
-      ) : subscribeType === 'FeeFollowModuleSettings' ? (
-        <JoinChannel channel={channel} />
-      ) : (
-        <Subscribe channel={channel} />
-      )}
+      <SubscribeActions channel={channel} subscribeType={subscribeType} />
     </div>
   )
 }

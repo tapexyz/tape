@@ -623,7 +623,6 @@ export const CREATE_COLLECT_TYPED_DATA = gql`
 export const VIDEO_DETAIL_QUERY = gql`
   query VideoDetails(
     $request: PublicationQueryRequest!
-    $followRequest: DoesFollowRequest!
     $reactionRequest: ReactionFieldResolverRequest
   ) {
     publication(request: $request) {
@@ -634,9 +633,6 @@ export const VIDEO_DETAIL_QUERY = gql`
           __typename
         }
       }
-    }
-    doesFollow(request: $followRequest) {
-      follows
     }
   }
   ${PostFields}

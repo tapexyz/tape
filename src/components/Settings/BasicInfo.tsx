@@ -8,6 +8,7 @@ import {
   LENSTUBE_APP_ID,
   LENSTUBE_URL
 } from '@utils/constants'
+import getCoverPicture from '@utils/functions/getCoverPicture'
 import { getKeyFromAttributes } from '@utils/functions/getKeyFromAttributes'
 import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
@@ -38,7 +39,7 @@ const BasicInfo = ({ channel }: Props) => {
   const [loading, setLoading] = useState(false)
   const [basicInfo, setBasicInfo] = useState<BasicInfoSettings>({
     about: channel.bio || '',
-    cover: channel?.coverPicture?.original?.url || '',
+    cover: getCoverPicture(channel) || '',
     twitter:
       getKeyFromAttributes(channel.attributes as Attribute[], 'twitter') || '',
     website:
@@ -174,7 +175,7 @@ const BasicInfo = ({ channel }: Props) => {
             basicInfo.cover ?? imageCdn(channel?.coverPicture?.original?.url)
           }
           alt=""
-          className="object-cover object-center w-full h-48 bg-white rounded md:h-56 dark:bg-gray-900"
+          className="object-cover object-center w-full h-48 bg-white rounded-xl md:h-56 dark:bg-gray-900"
           draggable={false}
         />
         <label className="absolute p-1 px-3 text-sm bg-white rounded-md cursor-pointer lg:invisible group-hover:visible dark:bg-black top-2 right-2">

@@ -1,7 +1,5 @@
-import JoinChannel from '@components/Channel/BasicInfo/JoinChannel'
-import Subscribe from '@components/Channel/BasicInfo/Subscribe'
-import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
 import InterweaveContent from '@components/Common/InterweaveContent'
+import SubscribeActions from '@components/Common/SubscribeActions'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -14,10 +12,9 @@ const MintVideo = dynamic(() => import('./MintVideo'))
 
 type Props = {
   video: LenstubePublication
-  isFollower: boolean
 }
 
-const AboutChannel: FC<Props> = ({ video, isFollower }) => {
+const AboutChannel: FC<Props> = ({ video }) => {
   const channel = video?.profile
   const subscribeType = channel?.followModule?.__typename
   const [clamped, setClamped] = useState(false)
@@ -55,13 +52,10 @@ const AboutChannel: FC<Props> = ({ video, isFollower }) => {
             </div>
             <div className="flex items-center space-x-2">
               <MintVideo video={video} />
-              {isFollower ? (
-                <UnSubscribe channel={channel} />
-              ) : subscribeType === 'FeeFollowModuleSettings' ? (
-                <JoinChannel channel={channel} />
-              ) : (
-                <Subscribe channel={channel} />
-              )}
+              <SubscribeActions
+                channel={channel}
+                subscribeType={subscribeType}
+              />
             </div>
           </div>
           <p
