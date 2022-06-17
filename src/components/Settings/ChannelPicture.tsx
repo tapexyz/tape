@@ -125,7 +125,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       </div>
       {pfpData?.hash && (
         <div className="flex justify-center mt-1">
-          <PendingTxnLoader txnHash={pfpData?.hash} onIndexed={onIndexed} />
+          <PendingTxnLoader
+            txnHash={pfpData?.hash}
+            onIndexed={() => onIndexed()}
+          />
         </div>
       )}
     </>

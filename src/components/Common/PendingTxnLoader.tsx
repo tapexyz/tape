@@ -18,7 +18,8 @@ const PendingTxnLoader: FC<Props> = ({
 
   useEffect(() => {
     if (indexed) onIndexed(data)
-  }, [indexed, onIndexed, data])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [indexed])
 
   if (indexed) return null
 

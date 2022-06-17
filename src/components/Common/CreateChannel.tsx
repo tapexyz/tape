@@ -118,6 +118,7 @@ const CreateChannel = () => {
               type="text"
               placeholder="T Series"
               autoComplete="off"
+              autoFocus
               validationError={errors.channelName?.message}
             />
           </div>
@@ -136,7 +137,7 @@ const CreateChannel = () => {
               {data?.createProfile?.txHash ? (
                 <PendingTxnLoader
                   txnHash={data?.createProfile?.txHash}
-                  onIndexed={onIndexed}
+                  onIndexed={() => onIndexed()}
                 />
               ) : (
                 <>

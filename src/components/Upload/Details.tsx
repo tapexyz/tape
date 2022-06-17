@@ -556,7 +556,7 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
         {writePostData?.hash || broadcastData?.broadcast?.txHash ? (
           <PendingTxnLoader
             txnHash={broadcastData?.broadcast?.txHash ?? writePostData?.hash}
-            onIndexed={onIndexed}
+            onIndexed={() => onIndexed()}
             isPublication={true}
           />
         ) : (
