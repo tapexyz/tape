@@ -58,10 +58,10 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
                   {commentedOn.metadata?.name}
                 </h3>
               </div>
-              <Link href={`/${comment.profile?.handle}`}>
-                <a className="text-xs hover:opacity-100 opacity-70">
+              <Link passHref href={`/${comment.profile?.handle}`}>
+                <div className="text-xs hover:opacity-100 opacity-70">
                   {comment.profile?.handle}
-                </a>
+                </div>
               </Link>
             </div>
           </div>

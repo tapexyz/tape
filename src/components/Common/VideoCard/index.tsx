@@ -66,10 +66,10 @@ const VideoCard: FC<Props> = ({ video }) => {
                 </h3>
                 <VideoOptions video={video} setShowShare={setShowShare} />
               </div>
-              <Link href={`/${video.profile?.handle}`}>
-                <a className="text-xs hover:opacity-100 opacity-70">
+              <Link passHref href={`/${video.profile?.handle}`}>
+                <div className="text-xs hover:opacity-100 opacity-70">
                   {video.profile?.handle}
-                </a>
+                </div>
               </Link>
               <div className="flex overflow-hidden items-center space-x-1 text-[11px] opacity-70">
                 <span className="whitespace-nowrap">

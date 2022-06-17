@@ -51,7 +51,7 @@ const UploadPage = () => {
     }
   }
 
-  const onCloseUploadModal = () => {
+  const afterUpload = () => {
     setVideo({ preview: '', buffer: null, videoType: '', file: null })
   }
 
@@ -77,7 +77,7 @@ const UploadPage = () => {
       <MetaTags title="Upload Video" />
       <div className="my-6">
         {video.preview ? (
-          <Details video={video} closeUploadModal={onCloseUploadModal} />
+          <Details video={video} afterUpload={afterUpload} />
         ) : (
           <div
             {...getRootProps()}

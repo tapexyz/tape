@@ -4,12 +4,17 @@ import React, { FC, useEffect } from 'react'
 
 type Props = {
   txnHash: string
+  isPublication?: boolean
   // eslint-disable-next-line no-unused-vars
   onIndexed: (data: any) => void
 }
 
-const PendingTxnLoader: FC<Props> = ({ txnHash, onIndexed }) => {
-  const { indexed, data } = usePendingTxn(txnHash || '')
+const PendingTxnLoader: FC<Props> = ({
+  txnHash,
+  onIndexed,
+  isPublication = false
+}) => {
+  const { indexed, data } = usePendingTxn(txnHash || '', isPublication)
 
   useEffect(() => {
     if (indexed) onIndexed(data)
