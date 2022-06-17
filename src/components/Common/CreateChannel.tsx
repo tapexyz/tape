@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import * as z from 'zod'
 
-import PendingTxnLoader from './PendingTxn'
+import PendingTxnLoader from './PendingTxnLoader'
 
 const formSchema = z.object({
   channelName: z

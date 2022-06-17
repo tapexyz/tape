@@ -67,7 +67,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
               />
             </a>
           </div>
-          <div className="flex items-center justify-between p-2 border border-gray-200 rounded-md dark:border-gray-800">
+          <div className="flex items-center justify-between p-2 border border-gray-200 rounded-lg dark:border-gray-800">
             <div className="text-sm truncate select-all">
               {LENSTUBE_URL}/watch/{video.id}
             </div>

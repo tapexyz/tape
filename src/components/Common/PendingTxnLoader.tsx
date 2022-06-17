@@ -15,10 +15,12 @@ const PendingTxnLoader: FC<Props> = ({ txnHash, onIndexed }) => {
     if (indexed) onIndexed(data)
   }, [indexed, onIndexed, data])
 
+  if (indexed) return null
+
   return (
     <div className="inline-flex items-center space-x-1 font-medium">
       <Loader size="sm" />
-      <span className="text-sm">Indexing...</span>
+      <span className="text-sm">Indexing</span>
     </div>
   )
 }

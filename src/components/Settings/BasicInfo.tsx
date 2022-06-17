@@ -193,7 +193,7 @@ const BasicInfo = ({ channel }: Props) => {
             Channel Name
           </div>
         </div>
-        <div className="text-sm font-semibold">{channel.handle}</div>
+        <h6>{channel.handle}</h6>
       </div>
       <div className="mt-4">
         <div className="flex items-center mb-1">

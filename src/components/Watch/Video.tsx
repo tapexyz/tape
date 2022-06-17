@@ -1,6 +1,5 @@
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import { Button } from '@components/UIElements/Button'
-import Tooltip from '@components/UIElements/Tooltip'
 import { getVideoUrl } from '@utils/functions/getVideoUrl'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -46,12 +45,10 @@ const Video: FC<Props> = ({ video }) => {
           </h1>
           <div className="flex items-center text-sm opacity-70">
             <div className="flex items-center space-x-2">
-              <Tooltip content={`Total collected`}>
-                <div className="flex items-center space-x-1">
-                  <SiOpenmined className="text-xs" />
-                  <span>{video.stats.totalAmountOfCollects} collects</span>
-                </div>
-              </Tooltip>
+              <div className="flex items-center space-x-1">
+                <SiOpenmined className="text-xs" />
+                <span>{video.stats.totalAmountOfCollects} collects</span>
+              </div>
             </div>
             <span className="middot" />
             <span title={video.createdAt}>
@@ -60,7 +57,7 @@ const Video: FC<Props> = ({ video }) => {
           </div>
         </div>
       </div>
-      <div className="flex items-center mt-4 md:mt-0 justify-end space-x-4">
+      <div className="flex items-center justify-end mt-4 space-x-4 md:mt-0">
         <VideoReaction video={video} />
         <Button
           variant="secondary"

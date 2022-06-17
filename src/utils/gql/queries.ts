@@ -939,3 +939,34 @@ export const REMOVE_REACTION_MUTATION = gql`
     removeReaction(request: $request)
   }
 `
+export const SET_PFP_URI_TYPED_DATA = gql`
+  mutation SetProfileImageUriTypedData(
+    $options: TypedDataOptions
+    $request: UpdateProfileImageRequest!
+  ) {
+    createSetProfileImageURITypedData(options: $options, request: $request) {
+      id
+      expiresAt
+      typedData {
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        types {
+          SetProfileImageURIWithSig {
+            name
+            type
+          }
+        }
+        value {
+          nonce
+          deadline
+          imageURI
+          profileId
+        }
+      }
+    }
+  }
+`
