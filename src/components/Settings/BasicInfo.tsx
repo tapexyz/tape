@@ -10,7 +10,7 @@ import {
   RELAYER_ENABLED
 } from '@utils/constants'
 import getCoverPicture from '@utils/functions/getCoverPicture'
-import { getKeyFromAttributes } from '@utils/functions/getKeyFromAttributes'
+import { getKeyFromAttributes } from '@utils/functions/getFromAttributes'
 import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
 import {
@@ -263,7 +263,6 @@ const BasicInfo = ({ channel }: Props) => {
         <Input
           type="text"
           placeholder="johndoe"
-          autoComplete="off"
           value={basicInfo?.twitter}
           onChange={(e) =>
             setBasicInfo({ ...basicInfo, twitter: e.target.value })
@@ -279,7 +278,6 @@ const BasicInfo = ({ channel }: Props) => {
         <Input
           type="text"
           placeholder="https://johndoe.xyz"
-          autoComplete="off"
           value={basicInfo?.website}
           onChange={(e) =>
             setBasicInfo({ ...basicInfo, website: e.target.value })

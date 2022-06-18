@@ -1,5 +1,5 @@
 import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@utils/constants'
-import { getKeyFromAttributes } from '@utils/functions/getKeyFromAttributes'
+import { getKeyFromAttributes } from '@utils/functions/getFromAttributes'
 import React, { FC } from 'react'
 import { HiOutlineGlobe } from 'react-icons/hi'
 import { RiTwitterLine } from 'react-icons/ri'
