@@ -8,7 +8,7 @@ type Props = {
 
 const StatCard: FC<Props> = ({ icon, count, text }) => {
   return (
-    <div className="p-6 space-y-3 w-44 bg-gray-100 rounded-xl dark:bg-[#181818]">
+    <div className="p-6 space-y-3 bg-gray-100 rounded-xl dark:bg-[#181818]">
       <span className="inline-flex p-2 bg-white rounded-lg">{icon}</span>
       <div>
         <h6 className="mb-1 text-3xl font-semibold">{count}</h6>

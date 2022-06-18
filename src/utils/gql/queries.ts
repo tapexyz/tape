@@ -997,7 +997,10 @@ export const GET_LENSTUBE_STATS = gql`
       totalFollows
       totalRevenue {
         asset {
+          name
           symbol
+          decimals
+          address
         }
         value
       }
