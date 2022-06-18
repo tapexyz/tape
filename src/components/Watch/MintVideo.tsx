@@ -7,10 +7,14 @@ import useAppStore from '@lib/store'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
+  RELAYER_ENABLED,
   SIGN_IN_REQUIRED_MESSAGE
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
-import { CREATE_COLLECT_TYPED_DATA } from '@utils/gql/queries'
+import {
+  BROADCAST_MUTATION,
+  CREATE_COLLECT_TYPED_DATA
+} from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
@@ -46,7 +50,17 @@ const MintVideo: FC<Props> = ({ video }) => {
       }
     }
   )
-  const { indexed } = usePendingTxn(writtenData?.hash || '')
+
+  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
+    onError(error) {
+      toast.error(error.message)
+      setLoading(false)
+    }
+  })
+
+  const { indexed } = usePendingTxn(
+    writtenData?.hash || broadcastData?.broadcast?.txHash
+  )
 
   useEffect(() => {
     if (indexed) {
@@ -61,22 +75,26 @@ const MintVideo: FC<Props> = ({ video }) => {
     }: {
       createCollectTypedData: CreateCollectBroadcastItemResult
     }) {
-      const { typedData } = createCollectTypedData
+      const { typedData, id } = createCollectTypedData
       signTypedDataAsync({
         domain: omitKey(typedData?.domain, '__typename'),
         types: omitKey(typedData?.types, '__typename'),
         value: omitKey(typedData?.value, '__typename')
       }).then((signature) => {
         const { v, r, s } = utils.splitSignature(signature)
-        writeCollectWithSig({
-          args: {
-            collector: accountData?.address,
-            profileId: typedData?.value.profileId,
-            pubId: typedData?.value.pubId,
-            data: typedData.value.data,
-            sig: { v, r, s, deadline: typedData.value.deadline }
-          }
-        })
+        if (RELAYER_ENABLED) {
+          broadcast({ variables: { request: { id, signature } } })
+        } else {
+          writeCollectWithSig({
+            args: {
+              collector: accountData?.address,
+              profileId: typedData?.value.profileId,
+              pubId: typedData?.value.pubId,
+              data: typedData.value.data,
+              sig: { v, r, s, deadline: typedData.value.deadline }
+            }
+          })
+        }
       })
     },
     onError(error) {

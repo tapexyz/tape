@@ -58,6 +58,7 @@ export const LENSTUBE_APP_ID = 'Lenstube'
 export const AUTH_ROUTES = [
   '/upload',
   '/settings',
+  '/report/[id]',
   '/settings/membership',
   '/settings/permissions'
 ]

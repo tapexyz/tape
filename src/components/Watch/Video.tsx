@@ -4,7 +4,9 @@ import { getVideoUrl } from '@utils/functions/getVideoUrl'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import React, { FC, useState } from 'react'
+import { FiFlag } from 'react-icons/fi'
 import { RiShareForwardLine } from 'react-icons/ri'
 import { SiOpenmined } from 'react-icons/si'
 import { LenstubePublication } from 'src/types/local'
@@ -69,6 +71,14 @@ const Video: FC<Props> = ({ video }) => {
             <span>Share</span>
           </span>
         </Button>
+        <Link href={`/report/${video.id}`} passHref>
+          <Button variant="secondary" className="!p-0">
+            <span className="flex items-center space-x-1 outline-none">
+              <FiFlag className="text-xs" />
+              <span>Report</span>
+            </span>
+          </Button>
+        </Link>
       </div>
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
     </div>

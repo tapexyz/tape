@@ -22,7 +22,7 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children, hideHeader }) => {
-  const { pathname, replace } = useRouter()
+  const { pathname, replace, asPath } = useRouter()
   const {
     setSelectedChannel,
     setIsAuthenticated,
@@ -36,7 +36,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
 
   useEffect(() => {
     if (!isAuthenticated && AUTH_ROUTES.includes(pathname)) {
-      replace(`${AUTH}?next=${pathname}`)
+      replace(`${AUTH}?next=${asPath}`)
     }
     const accessToken = localStorage.getItem('accessToken')
     const refreshToken = localStorage.getItem('refreshToken')
