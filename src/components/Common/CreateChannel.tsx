@@ -61,7 +61,7 @@ const CreateChannel = () => {
   const onIndexed = () => {
     setCreating(false)
     setShowCreateChannel(false)
-    router.push(getHandle(getValues().channelName))
+    router.push(`/${getHandle(getValues().channelName)}`)
   }
 
   const onCreate = ({ channelName }: FormData) => {
