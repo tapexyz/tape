@@ -71,6 +71,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       setLoading(false)
       refetchComments()
       setButtonText('Comment')
+      setComment('')
       toast.success('Commented successfully.')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
