@@ -6,7 +6,8 @@ import {
   ERROR_MESSAGE,
   LENS_PERIPHERY_ADDRESS,
   LENSTUBE_APP_ID,
-  LENSTUBE_URL
+  LENSTUBE_URL,
+  RELAYER_ENABLED
 } from '@utils/constants'
 import getCoverPicture from '@utils/functions/getCoverPicture'
 import { getKeyFromAttributes } from '@utils/functions/getKeyFromAttributes'
@@ -16,7 +17,10 @@ import {
   uploadDataToIPFS,
   uploadImageToIPFS
 } from '@utils/functions/uploadToIPFS'
-import { SET_PROFILE_METADATA_TYPED_DATA_MUTATION } from '@utils/gql/queries'
+import {
+  BROADCAST_MUTATION,
+  SET_PROFILE_METADATA_TYPED_DATA_MUTATION
+} from '@utils/gql/queries'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import clsx from 'clsx'
@@ -65,12 +69,22 @@ const BasicInfo = ({ channel }: Props) => {
       }
     }
   )
-  const { indexed } = usePendingTxn(writtenData?.hash || '')
+
+  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
+    onError(error) {
+      toast.error(error.message)
+      setLoading(false)
+    }
+  })
+
+  const { indexed } = usePendingTxn(
+    writtenData?.hash || broadcastData?.broadcast?.txHash
+  )
 
   useEffect(() => {
     if (indexed) {
       setLoading(false)
-      toast.success('Basic info updated 🎉')
+      toast.success('Basic info updated')
     }
   }, [indexed])
 
@@ -78,7 +92,7 @@ const BasicInfo = ({ channel }: Props) => {
     SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
     {
       onCompleted(data) {
-        const typedData = data.createSetProfileMetadataTypedData.typedData
+        const { typedData, id } = data.createSetProfileMetadataTypedData
         signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),
@@ -86,14 +100,18 @@ const BasicInfo = ({ channel }: Props) => {
         }).then((signature) => {
           const { profileId, metadata } = typedData?.value
           const { v, r, s } = utils.splitSignature(signature)
-          writeMetaData({
-            args: {
-              user: channel?.ownedBy,
-              profileId,
-              metadata,
-              sig: { v, r, s, deadline: typedData.value.deadline }
-            }
-          })
+          if (RELAYER_ENABLED) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            writeMetaData({
+              args: {
+                user: channel?.ownedBy,
+                profileId,
+                metadata,
+                sig: { v, r, s, deadline: typedData.value.deadline }
+              }
+            })
+          }
         })
       },
       onError(error) {
@@ -270,7 +288,7 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="flex justify-end mt-4">
         <Button disabled={loading} onClick={() => onSaveBasicInfo()}>
-          {loading ? 'Saving' : 'Save'}
+          {loading ? 'Saving...' : 'Save'}
         </Button>
       </div>
     </div>
