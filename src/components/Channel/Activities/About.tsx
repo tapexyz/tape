@@ -42,7 +42,7 @@ const About: FC<Props> = ({ channel }) => {
             <div className="flex items-center space-x-1">
               <RiTwitterLine />
               <a
-                href={getKeyFromAttributes(attributes, 'website')}
+                href={getKeyFromAttributes(attributes, 'twitter')}
                 target="_blank"
                 rel="noreferer noreferrer"
                 className="hover:text-indigo-500"

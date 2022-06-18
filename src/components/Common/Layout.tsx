@@ -61,6 +61,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
     }
     if (!activeConnector?.id && mounted) {
       disconnect()
+      setIsAuthenticated(false)
     }
     activeConnector?.on('change', () => {
       logout()
