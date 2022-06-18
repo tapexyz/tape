@@ -33,7 +33,7 @@ const Login = () => {
   const [authenticate, { error: errorAuthenticate }] = useMutation(
     AUTHENTICATE_MUTATION
   )
-  const [getProfiles, { error: errorProfiles }] =
+  const [getChannels, { error: errorProfiles }] =
     useLazyQuery(CURRENT_USER_QUERY)
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const Login = () => {
             const refreshToken = res.data.authenticate.refreshToken
             localStorage.setItem('accessToken', accessToken)
             localStorage.setItem('refreshToken', refreshToken)
-            getProfiles({
+            getChannels({
               variables: { ownedBy: accountData?.address }
             }).then((res) => {
               if (res.data.profiles.items.length === 0) {
