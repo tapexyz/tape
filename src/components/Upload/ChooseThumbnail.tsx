@@ -129,7 +129,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
         <label className="flex flex-col items-center w-full p-3 space-y-3 border border-gray-200 border-dashed cursor-pointer rounded-xl focus:outline-none dark:border-gray-800">
           <input
             type="file"
-            accept=".png, .jpg, .jpeg, .svg"
+            accept=".png, .jpg, .jpeg"
             className="hidden w-full"
             onChange={handleUpload}
           />
