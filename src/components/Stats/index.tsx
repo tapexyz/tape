@@ -1,39 +1,34 @@
-import { gql, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
 import { ADMIN_IDS, LENSTUBE_APP_ID } from '@utils/constants'
+import { GET_LENSTUBE_STATS } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import React from 'react'
-import { FcComments, FcVideoCall } from 'react-icons/fc'
+import {
+  FcCamcorderPro,
+  FcCollect,
+  FcComments,
+  FcSynchronize,
+  FcVideoCall
+} from 'react-icons/fc'
 import Custom404 from 'src/pages/404'
 import { GlobalProtocolStats } from 'src/types'
 
-const GET_GLOBAL_PROTOCOL_STATS = gql`
-  query Stats {
-    globalProtocolStats(request: { sources: ${LENSTUBE_APP_ID} }) {
-      totalProfiles
-      totalPosts
-      totalBurntProfiles
-      totalMirrors
-      totalComments
-      totalCollects
-      totalFollows
-      totalRevenue {
-        asset {
-          symbol
-        }
-        value
-      }
-    }
-  }
-`
+import StatCard from './StatCard'
 
 const Stats = () => {
   const { selectedChannel } = useAppStore()
   const { mounted } = useIsMounted()
-  const { data, loading } = useQuery(GET_GLOBAL_PROTOCOL_STATS)
+  const { data, loading } = useQuery(GET_LENSTUBE_STATS, {
+    variables: {
+      request: {
+        sources: [LENSTUBE_APP_ID]
+      }
+    }
+  })
 
   if (!ADMIN_IDS.includes(selectedChannel?.id) && mounted) {
     return <Custom404 />
@@ -46,33 +41,32 @@ const Stats = () => {
       {loading && !mounted ? (
         <Loader />
       ) : (
-        <div className="flex flex-wrap space-x-4">
-          <div className="p-6 space-y-3 w-44 bg-gray-100 rounded-xl dark:bg-[#181818]">
-            <span className="inline-flex p-2 bg-white rounded-lg">
-              <FcVideoCall />
-            </span>
-            <div>
-              <h6 className="mb-1 text-3xl font-semibold">
-                {stats?.totalPosts}
-              </h6>
-              <div className="text-xs font-medium opacity-70">
-                videos posted
-              </div>
-            </div>
-          </div>
-          <div className="p-6 space-y-3 w-44 bg-gray-100 rounded-xl dark:bg-[#181818]">
-            <span className="inline-flex p-2 bg-white rounded-lg">
-              <FcComments />
-            </span>
-            <div>
-              <h6 className="mb-1 text-3xl font-semibold">
-                {stats?.totalComments}
-              </h6>
-              <div className="text-xs font-medium opacity-70">
-                comments posted
-              </div>
-            </div>
-          </div>
+        <div className="flex flex-wrap justify-center gap-4">
+          <StatCard
+            icon={<FcVideoCall />}
+            count={stats?.totalPosts}
+            text="total videos"
+          />
+          <StatCard
+            icon={<FcComments />}
+            count={stats?.totalComments}
+            text="total comments"
+          />
+          <StatCard
+            icon={<FcCollect />}
+            count={stats?.totalCollects}
+            text="total collects"
+          />
+          <StatCard
+            icon={<FcSynchronize />}
+            count={stats?.totalMirrors}
+            text="total mirrors"
+          />
+          <StatCard
+            icon={<FcCamcorderPro />}
+            count={stats?.totalProfiles}
+            text="total channels"
+          />
         </div>
       )}
     </Layout>

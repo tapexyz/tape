@@ -985,3 +985,22 @@ export const HIDE_PUBLICATION = gql`
     hidePublication(request: $request)
   }
 `
+export const GET_LENSTUBE_STATS = gql`
+  query LenstubeStats($request: GlobalProtocolStatsRequest) {
+    globalProtocolStats(request: $request) {
+      totalProfiles
+      totalBurntProfiles
+      totalPosts
+      totalMirrors
+      totalComments
+      totalCollects
+      totalFollows
+      totalRevenue {
+        asset {
+          symbol
+        }
+        value
+      }
+    }
+  }
+`
