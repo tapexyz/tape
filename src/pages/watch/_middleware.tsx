@@ -3,7 +3,7 @@
  * Inspired from https://github.com/lensterxyz by @bigint
  */
 
-import { LENSTUBE_URL } from '@utils/constants'
+import { LENSTUBE_TWITTER_HANDLE, LENSTUBE_URL } from '@utils/constants'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import imageCdn from '@utils/functions/imageCdn'
 import { NextRequest } from 'next/server'
@@ -38,12 +38,16 @@ export async function middleware(req: NextRequest) {
             <meta property="og:title" content="${title}" />
             <meta property="og:description" content="${description}" />
             <meta property="og:image" content="${cover}" />
+            <meta property="og:image:width" content="600" />
+            <meta property="og:image:height" content="300" />
             <meta property="twitter:card" content="summary_large_image" />
             <meta property="twitter:site" content="Lenstube" />
             <meta property="twitter:title" content="${title}" />
             <meta property="twitter:description" content="${description}" />
             <meta property="twitter:image" content="${cover}" />
-            <meta property="twitter:creator" content="lenstubexyz" />
+            <meta property="twitter:image:width" content="600" />
+            <meta property="twitter:image:height" content="400" />
+            <meta property="twitter:creator" content="${LENSTUBE_TWITTER_HANDLE}" />
             </head>
         </html>`,
         {

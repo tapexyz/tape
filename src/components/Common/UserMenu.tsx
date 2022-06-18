@@ -46,7 +46,7 @@ const UserMenu: FC<Props> = () => {
       trigger={
         <Button className="!p-0">
           <img
-            className="object-cover w-7 h-7 rounded-xl md:w-9 md:h-9"
+            className="object-cover bg-white rounded-lg dark:bg-black w-7 h-7 md:rounded-xl md:w-9 md:h-9"
             src={getProfilePicture(selectedChannel)}
             alt=""
             draggable={false}

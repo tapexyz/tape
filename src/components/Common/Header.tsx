@@ -44,7 +44,7 @@ const Header = () => {
             onClick={() => setShowSearch(true)}
             className="hidden text-sm opacity-80 hover:opacity-100 md:flex focus:outline-none items-center space-x-1 text-left py-1.5 rounded"
           >
-            <AiOutlineSearch className="pt-0.5" />
+            <AiOutlineSearch />
             <span>Search</span>
           </button>
         </div>

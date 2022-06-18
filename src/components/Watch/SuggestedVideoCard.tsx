@@ -16,15 +16,15 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
     <div className="flex justify-between group">
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <div className="flex justify-between truncate">
-        <Link passHref href={`/watch/${video.id}`}>
-          <div className="flex-none overflow-hidden rounded cursor-pointer">
+        <Link href={`/watch/${video.id}`}>
+          <a className="flex-none overflow-hidden rounded-lg cursor-pointer">
             <img
               src={imageCdn(getThumbnailUrl(video))}
               alt=""
               draggable={false}
               className="object-cover object-center h-24 w-44"
             />
-          </div>
+          </a>
         </Link>
         <div className="flex items-start px-2.5">
           <div className="flex flex-col items-start flex-1 pb-1">

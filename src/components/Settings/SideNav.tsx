@@ -1,4 +1,3 @@
-import getProfilePicture from '@utils/functions/getProfilePicture'
 import {
   SETTINGS,
   SETTINGS_MEMBERSHIP,
@@ -12,6 +11,8 @@ import { AiOutlineUser } from 'react-icons/ai'
 import { BsShieldLock } from 'react-icons/bs'
 import { RiVipDiamondLine } from 'react-icons/ri'
 
+import ChannelPicture from './ChannelPicture'
+
 type Props = {
   channel: any
 }
@@ -20,20 +21,11 @@ const SideNav: FC<Props> = ({ channel }) => {
   const router = useRouter()
 
   const isActivePath = (path: string) => router.pathname === path
+
   return (
     <div className="p-2 bg-white rounded-lg dark:bg-black">
       <div className="flex flex-col items-center py-4 space-y-2">
-        <div className="flex items-end space-x-2">
-          <div className="flex-none">
-            <img
-              src={getProfilePicture(channel)}
-              className="w-16 h-16 border-2 rounded-full"
-              draggable={false}
-              alt=""
-            />
-          </div>
-        </div>
-        <div className="text-sm">{channel.handle}</div>
+        <ChannelPicture channel={channel} />
       </div>
       <div className="flex flex-col m-1 space-y-1 text-sm">
         <Link href={SETTINGS}>

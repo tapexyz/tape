@@ -6,8 +6,10 @@ import {
   ERROR_MESSAGE,
   LENS_PERIPHERY_ADDRESS,
   LENSTUBE_APP_ID,
-  LENSTUBE_URL
+  LENSTUBE_URL,
+  RELAYER_ENABLED
 } from '@utils/constants'
+import getCoverPicture from '@utils/functions/getCoverPicture'
 import { getKeyFromAttributes } from '@utils/functions/getKeyFromAttributes'
 import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
@@ -15,7 +17,10 @@ import {
   uploadDataToIPFS,
   uploadImageToIPFS
 } from '@utils/functions/uploadToIPFS'
-import { SET_PROFILE_METADATA_TYPED_DATA_MUTATION } from '@utils/gql/queries'
+import {
+  BROADCAST_MUTATION,
+  SET_PROFILE_METADATA_TYPED_DATA_MUTATION
+} from '@utils/gql/queries'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import clsx from 'clsx'
@@ -38,7 +43,7 @@ const BasicInfo = ({ channel }: Props) => {
   const [loading, setLoading] = useState(false)
   const [basicInfo, setBasicInfo] = useState<BasicInfoSettings>({
     about: channel.bio || '',
-    cover: channel?.coverPicture?.original?.url || '',
+    cover: getCoverPicture(channel) || '',
     twitter:
       getKeyFromAttributes(channel.attributes as Attribute[], 'twitter') || '',
     website:
@@ -64,12 +69,22 @@ const BasicInfo = ({ channel }: Props) => {
       }
     }
   )
-  const { indexed } = usePendingTxn(writtenData?.hash || '')
+
+  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
+    onError(error) {
+      toast.error(error.message)
+      setLoading(false)
+    }
+  })
+
+  const { indexed } = usePendingTxn(
+    writtenData?.hash || broadcastData?.broadcast?.txHash
+  )
 
   useEffect(() => {
     if (indexed) {
       setLoading(false)
-      toast.success('Basic info updated 🎉')
+      toast.success('Basic info updated')
     }
   }, [indexed])
 
@@ -77,7 +92,7 @@ const BasicInfo = ({ channel }: Props) => {
     SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
     {
       onCompleted(data) {
-        const typedData = data.createSetProfileMetadataTypedData.typedData
+        const { typedData, id } = data.createSetProfileMetadataTypedData
         signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),
@@ -85,14 +100,18 @@ const BasicInfo = ({ channel }: Props) => {
         }).then((signature) => {
           const { profileId, metadata } = typedData?.value
           const { v, r, s } = utils.splitSignature(signature)
-          writeMetaData({
-            args: {
-              user: channel?.ownedBy,
-              profileId,
-              metadata,
-              sig: { v, r, s, deadline: typedData.value.deadline }
-            }
-          })
+          if (RELAYER_ENABLED) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            writeMetaData({
+              args: {
+                user: channel?.ownedBy,
+                profileId,
+                metadata,
+                sig: { v, r, s, deadline: typedData.value.deadline }
+              }
+            })
+          }
         })
       },
       onError(error) {
@@ -174,7 +193,7 @@ const BasicInfo = ({ channel }: Props) => {
             basicInfo.cover ?? imageCdn(channel?.coverPicture?.original?.url)
           }
           alt=""
-          className="object-cover object-center w-full h-48 bg-white rounded md:h-56 dark:bg-gray-900"
+          className="object-cover object-center w-full h-48 bg-white rounded-xl md:h-56 dark:bg-gray-900"
           draggable={false}
         />
         <label className="absolute p-1 px-3 text-sm bg-white rounded-md cursor-pointer lg:invisible group-hover:visible dark:bg-black top-2 right-2">
@@ -193,7 +212,7 @@ const BasicInfo = ({ channel }: Props) => {
             Channel Name
           </div>
         </div>
-        <div className="text-sm font-semibold">{channel.handle}</div>
+        <h6>{channel.handle}</h6>
       </div>
       <div className="mt-4">
         <div className="flex items-center mb-1">
@@ -269,7 +288,7 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="flex justify-end mt-4">
         <Button disabled={loading} onClick={() => onSaveBasicInfo()}>
-          {loading ? 'Saving' : 'Save'}
+          {loading ? 'Saving...' : 'Save'}
         </Button>
       </div>
     </div>

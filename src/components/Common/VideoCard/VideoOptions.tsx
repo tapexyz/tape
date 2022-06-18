@@ -16,8 +16,7 @@ const VideoOptions = ({
   video: LenstubePublication
   setShowShare: React.Dispatch<boolean>
 }) => {
-  const { addToWatchLater, removeFromWatchLater, watchLater, isAuthenticated } =
-    useAppStore()
+  const { addToWatchLater, removeFromWatchLater, watchLater } = useAppStore()
 
   return (
     <Popover
@@ -31,12 +30,11 @@ const VideoOptions = ({
       <div className="p-1 mt-0.5 overflow-hidden border border-gray-200 rounded-lg shadow dark:border-gray-800 bg-secondary">
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
           <button
-            onClick={(e) => {
-              e.stopPropagation()
+            onClick={() =>
               isAlreadyAddedToWatchLater(video, watchLater)
                 ? removeFromWatchLater(video)
                 : addToWatchLater(video)
-            }}
+            }
             className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <MdOutlineWatchLater className="text-base" />
@@ -47,23 +45,18 @@ const VideoOptions = ({
             </span>
           </button>
           <button
-            onClick={(e) => {
-              e.stopPropagation()
-              setShowShare(true)
-            }}
+            onClick={() => setShowShare(true)}
             className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <RiShareForwardLine className="text-base" />
             <span className="whitespace-nowrap">Share</span>
           </button>
-          {isAuthenticated && (
-            <Link href={`/report/${video.id}`}>
-              <a className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
-                <FiFlag className="text-sm mx-0.5" />
-                <span className="whitespace-nowrap">Report</span>
-              </a>
-            </Link>
-          )}
+          <Link href={`/report/${video.id}`}>
+            <a className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
+              <FiFlag className="text-sm ml-0.5" />
+              <span className="whitespace-nowrap">Report</span>
+            </a>
+          </Link>
         </div>
       </div>
     </Popover>

@@ -23,68 +23,70 @@ const VideoCard: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata?.attributes)
 
   return (
-    <Link href={`/watch/${video.id}`}>
-      <a className="cursor-pointer bg-gray-50 rounded-xl dark:bg-[#181818] group">
-        <ShareModal
-          video={video}
-          show={showShare}
-          setShowShare={setShowShare}
-        />
-        <div className="relative rounded-t-xl aspect-w-16 aspect-h-9">
-          <img
-            src={imageCdn(
-              isSensitiveContent
-                ? `${STATIC_ASSETS}/images/sensor-blur.png`
-                : getThumbnailUrl(video)
+    <div className="cursor-pointer bg-gray-50 rounded-xl dark:bg-[#181818] group">
+      <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
+      <Link href={`/watch/${video.id}`}>
+        <a>
+          <div className="relative rounded-t-xl aspect-w-16 aspect-h-9">
+            <img
+              src={imageCdn(
+                isSensitiveContent
+                  ? `${STATIC_ASSETS}/images/sensor-blur.png`
+                  : getThumbnailUrl(video)
+              )}
+              draggable={false}
+              className="object-cover object-center w-full h-full rounded-t-xl lg:w-full lg:h-full"
+              alt=""
+            />
+            {isSensitiveContent && (
+              <div className="absolute top-2 left-3">
+                <span className="py-0.5 text-[10px] px-2 text-black bg-white rounded-full">
+                  Sensitive Content
+                </span>
+              </div>
             )}
-            draggable={false}
-            className="object-cover object-center w-full h-full rounded-t-xl lg:w-full lg:h-full"
-            alt=""
-          />
-          {isSensitiveContent && (
-            <div className="absolute top-2 left-3">
-              <span className="py-0.5 text-[10px] px-2 text-black bg-white rounded-full">
-                Sensitive Content
-              </span>
-            </div>
-          )}
-        </div>
-        <div className="p-2">
-          <div className="flex items-start space-x-2.5">
-            <div className="flex-none mt-0.5">
+          </div>
+        </a>
+      </Link>
+      <div className="p-2">
+        <div className="flex items-start space-x-2.5">
+          <Link href={`/watch/${video.id}`}>
+            <a className="flex-none mt-0.5">
               <img
                 className="w-8 h-8 rounded-xl"
                 src={getProfilePicture(video.profile)}
                 alt=""
                 draggable={false}
               />
-            </div>
-            <div className="flex flex-col items-start flex-1 pb-1">
-              <div className="flex w-full items-start justify-between space-x-1.5">
-                <h3 className="text-[15px] font-medium line-clamp-2">
+            </a>
+          </Link>
+          <div className="flex flex-col items-start flex-1 pb-1">
+            <div className="flex w-full items-start justify-between space-x-1.5">
+              <Link href={`/watch/${video.id}`}>
+                <a className="text-[15px] font-medium line-clamp-2">
                   {video.metadata?.name}
-                </h3>
-                <VideoOptions video={video} setShowShare={setShowShare} />
-              </div>
-              <Link href={`/${video.profile?.handle}`}>
-                <a className="text-xs hover:opacity-100 opacity-70">
-                  {video.profile?.handle}
                 </a>
               </Link>
-              <div className="flex overflow-hidden items-center space-x-1 text-[11px] opacity-70">
-                <span className="whitespace-nowrap">
-                  {video.stats.totalUpvotes} likes
-                </span>
-                <span className="middot" />
-                <span className="whitespace-nowrap">
-                  {dayjs(new Date(video.createdAt)).fromNow()}
-                </span>
-              </div>
+              <VideoOptions video={video} setShowShare={setShowShare} />
+            </div>
+            <Link href={`/${video.profile?.handle}`}>
+              <a className="text-xs hover:opacity-100 opacity-70">
+                {video.profile?.handle}
+              </a>
+            </Link>
+            <div className="flex overflow-hidden items-center space-x-1 text-[11px] opacity-70">
+              <span className="whitespace-nowrap">
+                {video.stats.totalUpvotes} likes
+              </span>
+              <span className="middot" />
+              <span className="whitespace-nowrap">
+                {dayjs(new Date(video.createdAt)).fromNow()}
+              </span>
             </div>
           </div>
         </div>
-      </a>
-    </Link>
+      </div>
+    </div>
   )
 }
 

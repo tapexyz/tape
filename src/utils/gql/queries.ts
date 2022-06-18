@@ -623,7 +623,6 @@ export const CREATE_COLLECT_TYPED_DATA = gql`
 export const VIDEO_DETAIL_QUERY = gql`
   query VideoDetails(
     $request: PublicationQueryRequest!
-    $followRequest: DoesFollowRequest!
     $reactionRequest: ReactionFieldResolverRequest
   ) {
     publication(request: $request) {
@@ -634,9 +633,6 @@ export const VIDEO_DETAIL_QUERY = gql`
           __typename
         }
       }
-    }
-    doesFollow(request: $followRequest) {
-      follows
     }
   }
   ${PostFields}
@@ -937,5 +933,48 @@ export const ADD_REACTION_MUTATION = gql`
 export const REMOVE_REACTION_MUTATION = gql`
   mutation RemoveReaction($request: ReactionRequest!) {
     removeReaction(request: $request)
+  }
+`
+export const SET_PFP_URI_TYPED_DATA = gql`
+  mutation SetProfileImageUriTypedData(
+    $options: TypedDataOptions
+    $request: UpdateProfileImageRequest!
+  ) {
+    createSetProfileImageURITypedData(options: $options, request: $request) {
+      id
+      expiresAt
+      typedData {
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        types {
+          SetProfileImageURIWithSig {
+            name
+            type
+          }
+        }
+        value {
+          nonce
+          deadline
+          imageURI
+          profileId
+        }
+      }
+    }
+  }
+`
+export const BROADCAST_MUTATION = gql`
+  mutation Broadcast($request: BroadcastRequest!) {
+    broadcast(request: $request) {
+      ... on RelayerResult {
+        txHash
+      }
+      ... on RelayError {
+        reason
+      }
+    }
   }
 `

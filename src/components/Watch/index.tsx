@@ -4,7 +4,7 @@ import MetaTags from '@components/Common/MetaTags'
 import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
 import VideoDetailShimmer from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
-import { LENSTUBE_APP_ID, ZERO_ADDRESS } from '@utils/constants'
+import { LENSTUBE_APP_ID } from '@utils/constants'
 import { VIDEO_DETAIL_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -26,16 +26,9 @@ const VideoDetails = () => {
     query: { id }
   } = useRouter()
   const { selectedChannel, addToRecentlyWatched } = useAppStore()
-  const channelId = id?.toString().split('-')[0]
   const { data, error, loading } = useQuery(VIDEO_DETAIL_QUERY, {
     variables: {
       request: { publicationId: id },
-      followRequest: {
-        followInfos: {
-          followerAddress: selectedChannel?.ownedBy ?? ZERO_ADDRESS,
-          profileId: channelId
-        }
-      },
       reactionRequest: selectedChannel
         ? { profileId: selectedChannel?.id }
         : null,
@@ -51,7 +44,6 @@ const VideoDetails = () => {
 
   if (error) return <Custom500 />
   if (video && video?.__typename !== 'Post') return <Custom404 />
-  const isFollower = data?.doesFollow[0].follows as boolean
 
   return (
     <Layout>
@@ -62,7 +54,7 @@ const VideoDetails = () => {
           <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
             <div className="col-span-3 space-y-3 divide-y divide-gray-200 dark:divide-gray-900">
               <Video video={video} />
-              <AboutChannel video={video} isFollower={isFollower} />
+              <AboutChannel video={video} />
               <VideoComments video={video} />
             </div>
             <div className="col-span-1">

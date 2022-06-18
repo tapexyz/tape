@@ -1,4 +1,4 @@
-import { LENSTUBE_URL } from '@utils/constants'
+import { LENSTUBE_TWITTER_HANDLE, LENSTUBE_URL } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { NextRequest } from 'next/server'
 import { Profile } from 'src/types'
@@ -38,7 +38,7 @@ export async function middleware(req: NextRequest) {
             <meta property="twitter:image:src" content="${pfp}" />
             <meta property="twitter:image:width" content="400" />
             <meta property="twitter:image:height" content="400" />
-            <meta property="twitter:creator" content="lenstubexyz" />
+            <meta property="twitter:creator" content="${LENSTUBE_TWITTER_HANDLE}" />
             </head>
         </html>`,
         {

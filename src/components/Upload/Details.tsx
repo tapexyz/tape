@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { WebBundlr } from '@bundlr-network/client'
+import PendingTxnLoader from '@components/Common/PendingTxnLoader'
 import VideoPlayer from '@components/Common/VideoPlayer'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -10,18 +11,18 @@ import {
   BUNDLR_CURRENCY,
   IPFS_GATEWAY,
   LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID
+  LENSTUBE_APP_ID,
+  RELAYER_ENABLED
 } from '@utils/constants'
 import { isEmptyString } from '@utils/functions/isEmptyString'
 import omitKey from '@utils/functions/omitKey'
 import { parseToAtomicUnits } from '@utils/functions/parseToAtomicUnits'
 import { uploadDataToIPFS } from '@utils/functions/uploadToIPFS'
-import { CREATE_POST_TYPED_DATA } from '@utils/gql/queries'
-import usePendingTxn from '@utils/hooks/usePendingTxn'
+import { BROADCAST_MUTATION, CREATE_POST_TYPED_DATA } from '@utils/gql/queries'
 import axios from 'axios'
 import clsx from 'clsx'
 import { utils } from 'ethers'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { BiCheck } from 'react-icons/bi'
 import { CreatePostBroadcastItemResult } from 'src/types'
@@ -44,7 +45,7 @@ import Form from './Form'
 
 type Props = {
   video: VideoUpload
-  closeUploadModal: () => void
+  afterUpload: () => void
 }
 
 type PlayerProps = {
@@ -70,13 +71,25 @@ const MemoizedVideoPlayer = React.memo(({ source }: PlayerProps) => (
 
 MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 
-const Details: FC<Props> = ({ video, closeUploadModal }) => {
+const Details: FC<Props> = ({ video, afterUpload }) => {
   const { data: account } = useAccount()
   const { data: signer } = useSigner()
   const { getBundlrInstance, selectedChannel } = useAppStore()
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
+      setDisableSubmit(false)
+      setButtonText('Post Video')
+    }
+  })
+  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
+    onCompleted(data) {
+      if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
+        setButtonText('Indexing...')
+      }
+    },
+    onError(error) {
+      toast.error(error.message)
       setDisableSubmit(false)
       setButtonText('Post Video')
     }
@@ -98,7 +111,12 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
       }
     }
   )
-  const { indexed } = usePendingTxn(writePostData?.hash || '', true)
+
+  const onIndexed = () => {
+    afterUpload()
+    setDisableSubmit(false)
+    toast.success('Video posted successfully')
+  }
 
   const [bundlrData, setBundlrData] = useState<BundlrDataState>({
     balance: '0',
@@ -122,15 +140,6 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
     adultContent: false
   })
   const [buttonText, setButtonText] = useState('Next')
-
-  useEffect(() => {
-    if (indexed) {
-      closeUploadModal()
-      setDisableSubmit(false)
-      toast.success('Video posted successfully')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [indexed])
 
   const uploadToIpfsWithProgress = async () => {
     setButtonText('Uploading to IPFS...')
@@ -330,7 +339,7 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
     }: {
       createPostTypedData: CreatePostBroadcastItemResult
     }) {
-      const { typedData } = createPostTypedData
+      const { typedData, id } = createPostTypedData
       const {
         profileId,
         contentURI,
@@ -345,17 +354,22 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
         value: omitKey(typedData?.value, '__typename')
       }).then((signature) => {
         const { v, r, s } = utils.splitSignature(signature)
-        writePostContract({
-          args: {
-            profileId,
-            contentURI,
-            collectModule,
-            collectModuleInitData,
-            referenceModule,
-            referenceModuleInitData,
-            sig: { v, r, s, deadline: typedData.value.deadline }
-          }
-        })
+        const args = {
+          profileId,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleInitData,
+          sig: { v, r, s, deadline: typedData.value.deadline }
+        }
+        if (RELAYER_ENABLED) {
+          broadcast({ variables: { request: { id, signature } } })
+        } else {
+          writePostContract({
+            args
+          })
+        }
       })
     },
     onError(error) {
@@ -539,18 +553,17 @@ const Details: FC<Props> = ({ video, closeUploadModal }) => {
             <span className="text-xs text-green-500">Video uploaded</span>
           )}
         </span>
-        <span>
-          <Button
-            variant="secondary"
-            onClick={() => closeUploadModal()}
-            className="hover:opacity-100 opacity-60"
-          >
-            Cancel
-          </Button>
+        {writePostData?.hash || broadcastData?.broadcast?.txHash ? (
+          <PendingTxnLoader
+            txnHash={broadcastData?.broadcast?.txHash ?? writePostData?.hash}
+            onIndexed={() => onIndexed()}
+            isPublication={true}
+          />
+        ) : (
           <Button disabled={disableSubmit} onClick={() => onSubmitForm()}>
             {buttonText}
           </Button>
-        </span>
+        )}
       </div>
     </div>
   )

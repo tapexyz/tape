@@ -4,6 +4,7 @@ export const LENSTUBE_URL = IS_MAINNET
   ? 'https://lenstube.xyz'
   : 'https://testnet.lenstube.xyz'
 
+export const RELAYER_ENABLED = true
 export const API_URL = IS_MAINNET
   ? 'https://api.lens.dev'
   : 'https://api-mumbai.lens.dev'
@@ -54,4 +55,13 @@ export const SIGN_IN_REQUIRED_MESSAGE = 'Sign in required'
 export const LENSTUBE_APP_ID = 'Lenstube'
 
 // auth routes
-export const AUTH_ROUTES = ['/upload', '/settings']
+export const AUTH_ROUTES = [
+  '/upload',
+  '/settings',
+  '/report/[id]',
+  '/settings/membership',
+  '/settings/permissions'
+]
+
+// handles
+export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'

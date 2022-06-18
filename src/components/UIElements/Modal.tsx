@@ -18,7 +18,7 @@ const Modal: FC<Props> = ({
   children,
   title,
   panelClassName,
-  preventAutoClose = false
+  preventAutoClose = true
 }) => {
   return (
     <Transition appear show={show} as={Fragment}>

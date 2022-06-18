@@ -20,17 +20,22 @@ const Sidebar = () => {
 
   return (
     <div className="fixed top-0 bottom-0 left-0 items-start justify-between hidden w-[68px] p-1 m-2 bg-white border shadow dark:border-gray-900 rounded-xl dark:bg-black md:flex md:flex-col">
-      <div className="flex flex-col w-full space-y-1.5">
-        <Link href={HOME}>
-          <a className="flex items-center justify-center p-3 focus:outline-none">
-            <img
-              src="/lenstube.svg"
-              draggable={false}
-              className="w-6 h-6 ml-0.5"
-              alt=""
-            />
-          </a>
-        </Link>
+      <div className="flex flex-col w-full text-center space-y-1.5">
+        <div className="relative p-3">
+          <span className="text-[10px] font-semibold absolute text-indigo-500 top-0 opacity-80 rounded-full">
+            beta
+          </span>
+          <Link href={HOME}>
+            <a className="flex items-center justify-center pt-1 focus:outline-none">
+              <img
+                src="/lenstube.svg"
+                draggable={false}
+                className="w-6 h-6 ml-0.5"
+                alt=""
+              />
+            </a>
+          </Link>
+        </div>
         <div className="flex flex-col w-full space-y-1">
           <Link href={HOME} passHref>
             <a

@@ -2,11 +2,16 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
-import { LENSHUB_PROXY_ADDRESS, WMATIC_TOKEN_ADDRESS } from '@utils/constants'
+import {
+  LENSHUB_PROXY_ADDRESS,
+  RELAYER_ENABLED,
+  WMATIC_TOKEN_ADDRESS
+} from '@utils/constants'
 import { isEmptyString } from '@utils/functions/isEmptyString'
 import omitKey from '@utils/functions/omitKey'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import {
+  BROADCAST_MUTATION,
   CHANNEL_FOLLOW_MODULE_QUERY,
   MODULES_CURRENCY_QUERY,
   SET_FOLLOW_MODULE_TYPED_DATA_MUTATION
@@ -52,6 +57,14 @@ const Membership = ({ channel }: Props) => {
     variables: { request: { profileIds: channel?.id } },
     skip: !channel?.id
   })
+
+  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
+    onError(error) {
+      toast.error(error.message)
+      setLoading(false)
+    }
+  })
+
   const { data: writtenData, write: writeFollow } = useContractWrite(
     {
       addressOrName: LENSHUB_PROXY_ADDRESS,
@@ -65,20 +78,23 @@ const Membership = ({ channel }: Props) => {
       }
     }
   )
-  const { indexed } = usePendingTxn(writtenData?.hash || '')
+  const { indexed } = usePendingTxn(
+    writtenData?.hash || broadcastData?.broadcast?.txHash
+  )
   useEffect(() => {
     if (indexed) {
       setLoading(false)
       toast.success('Membership updated 🎉')
       refetch({ request: { profileIds: channel?.id } })
     }
-  }, [indexed, channel, refetch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [indexed])
 
   const [setFollowModuleTypedData] = useMutation(
     SET_FOLLOW_MODULE_TYPED_DATA_MUTATION,
     {
       onCompleted(data) {
-        const typedData = data.createSetFollowModuleTypedData.typedData
+        const { typedData, id } = data.createSetFollowModuleTypedData
         const { profileId, followModule, followModuleInitData } =
           typedData?.value
 
@@ -88,14 +104,18 @@ const Membership = ({ channel }: Props) => {
           value: omitKey(typedData?.value, '__typename')
         }).then((signature) => {
           const { v, r, s } = utils.splitSignature(signature)
-          writeFollow({
-            args: {
-              profileId,
-              followModule,
-              followModuleInitData,
-              sig: { v, r, s, deadline: typedData.value.deadline }
-            }
-          })
+          if (RELAYER_ENABLED) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            writeFollow({
+              args: {
+                profileId,
+                followModule,
+                followModuleInitData,
+                sig: { v, r, s, deadline: typedData.value.deadline }
+              }
+            })
+          }
         })
       },
       onError(error) {
@@ -189,10 +209,9 @@ const Membership = ({ channel }: Props) => {
                 </div>
               </div>
               <select
-                placeholder="More about your stream"
                 autoComplete="off"
                 className={clsx(
-                  'bg-white text-sm px-2.5 py-2 rounded-md dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
+                  'bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
                 )}
                 value={form.token}
                 onChange={(e) => setForm({ ...form, token: e.target.value })}
@@ -213,7 +232,7 @@ const Membership = ({ channel }: Props) => {
               <Input
                 label="Amount"
                 type="number"
-                placeholder="100"
+                placeholder="10"
                 autoComplete="off"
                 required
                 value={form.amount}

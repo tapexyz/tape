@@ -2,11 +2,18 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
-import { LENSHUB_PROXY_ADDRESS, LENSTUBE_APP_ID } from '@utils/constants'
+import {
+  LENSHUB_PROXY_ADDRESS,
+  LENSTUBE_APP_ID,
+  RELAYER_ENABLED
+} from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
 import { uploadDataToIPFS } from '@utils/functions/uploadToIPFS'
-import { CREATE_COMMENT_TYPED_DATA } from '@utils/gql/queries'
+import {
+  BROADCAST_MUTATION,
+  CREATE_COMMENT_TYPED_DATA
+} from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import clsx from 'clsx'
 import { utils } from 'ethers'
@@ -46,13 +53,25 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       }
     }
   )
-  const { indexed } = usePendingTxn(writeCommentData?.hash || '')
+
+  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
+    onError(error) {
+      toast.error(error.message)
+      setLoading(false)
+      setButtonText('Comment')
+    }
+  })
+
+  const { indexed } = usePendingTxn(
+    writeCommentData?.hash || broadcastData?.broadcast?.txHash
+  )
 
   useEffect(() => {
     if (indexed) {
       setLoading(false)
       refetchComments()
       setButtonText('Comment')
+      setComment('')
       toast.success('Commented successfully.')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,7 +79,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
 
   const [createTypedData] = useMutation(CREATE_COMMENT_TYPED_DATA, {
     onCompleted(data) {
-      const typedData = data.createCommentTypedData.typedData
+      const { typedData, id } = data.createCommentTypedData
       const {
         profileId,
         profileIdPointed,
@@ -81,20 +100,24 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         .then((signature) => {
           const { v, r, s } = utils.splitSignature(signature)
           setButtonText('Commenting...')
-          writeComment({
-            args: {
-              profileId,
-              profileIdPointed,
-              pubIdPointed,
-              contentURI,
-              collectModule,
-              collectModuleInitData,
-              referenceModule,
-              referenceModuleData,
-              referenceModuleInitData,
-              sig: { v, r, s, deadline: typedData.value.deadline }
-            }
-          })
+          if (RELAYER_ENABLED) {
+            broadcast({ variables: { request: { id, signature } } })
+          } else {
+            writeComment({
+              args: {
+                profileId,
+                profileIdPointed,
+                pubIdPointed,
+                contentURI,
+                collectModule,
+                collectModuleInitData,
+                referenceModule,
+                referenceModuleData,
+                referenceModuleInitData,
+                sig: { v, r, s, deadline: typedData.value.deadline }
+              }
+            })
+          }
         })
         .catch(() => {
           setButtonText('Comment')

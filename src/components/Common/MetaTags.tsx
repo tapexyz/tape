@@ -1,4 +1,4 @@
-import { STATIC_ASSETS } from '@utils/constants'
+import { LENSTUBE_TWITTER_HANDLE, STATIC_ASSETS } from '@utils/constants'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
@@ -51,7 +51,7 @@ const MetaTags: FC<Props> = (props) => {
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta property="twitter:image:src" content={meta.image} />
-      <meta property="twitter:creator" content="lenstubexyz" />
+      <meta property="twitter:creator" content={LENSTUBE_TWITTER_HANDLE} />
       <link rel="preconnect" href="https://ik.imagekit.io" />
       <link rel="dns-prefetch" href="https://ik.imagekit.io" />
       <link rel="preconnect" href="https://assets.lenstube.xyz" />
