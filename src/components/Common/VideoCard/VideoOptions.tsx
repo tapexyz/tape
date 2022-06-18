@@ -32,6 +32,7 @@ const VideoOptions = ({
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
           <button
             onClick={(e) => {
+              e.preventDefault()
               e.stopPropagation()
               isAlreadyAddedToWatchLater(video, watchLater)
                 ? removeFromWatchLater(video)
@@ -48,6 +49,7 @@ const VideoOptions = ({
           </button>
           <button
             onClick={(e) => {
+              e.preventDefault()
               e.stopPropagation()
               setShowShare(true)
             }}
