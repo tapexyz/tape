@@ -91,6 +91,7 @@ export const CommentFields = gql`
         handle
       }
     }
+    hidden
     collectModule {
       ...MinimalCollectModuleFields
     }
@@ -328,6 +329,7 @@ export const PostFields = gql`
     collectModule {
       ...MinimalCollectModuleFields
     }
+    hidden
     stats {
       totalAmountOfComments
       totalAmountOfCollects
@@ -976,5 +978,10 @@ export const BROADCAST_MUTATION = gql`
         reason
       }
     }
+  }
+`
+export const HIDE_PUBLICATION = gql`
+  mutation ($request: HidePublicationRequest!) {
+    hidePublication(request: $request)
   }
 `

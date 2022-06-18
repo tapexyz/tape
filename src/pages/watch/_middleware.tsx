@@ -32,6 +32,7 @@ export async function middleware(req: NextRequest) {
         <html lang="en">
             <head>
             <title>${title}</title>
+            <meta charset="UTF-8">
             <meta name="description" content="${description}" />
             <meta property="og:url" content=${LENSTUBE_URL} />
             <meta property="og:site_name" content="Lenstube" />

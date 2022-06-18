@@ -1,8 +1,12 @@
+import { useMutation } from '@apollo/client'
 import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
 import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
+import { HIDE_PUBLICATION } from '@utils/gql/queries'
 import Link from 'next/link'
 import React from 'react'
+import toast from 'react-hot-toast'
+import { AiOutlineDelete } from 'react-icons/ai'
 import { FiFlag } from 'react-icons/fi'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { MdOutlineWatchLater } from 'react-icons/md'
@@ -16,7 +20,24 @@ const VideoOptions = ({
   video: LenstubePublication
   setShowShare: React.Dispatch<boolean>
 }) => {
-  const { addToWatchLater, removeFromWatchLater, watchLater } = useAppStore()
+  const { addToWatchLater, removeFromWatchLater, watchLater, selectedChannel } =
+    useAppStore()
+
+  const [hideVideo] = useMutation(HIDE_PUBLICATION, {
+    onCompleted() {
+      toast.success('Video deleted')
+    }
+  })
+
+  const onHideVideo = () => {
+    if (
+      confirm(
+        'This will hide your video from lens, are you sure want to continue?\n\nNote: This cannot be reverted.'
+      )
+    ) {
+      hideVideo({ variables: { request: { publicationId: video?.id } } })
+    }
+  }
 
   return (
     <Popover
@@ -29,6 +50,15 @@ const VideoOptions = ({
     >
       <div className="p-1 mt-0.5 overflow-hidden border border-gray-200 rounded-lg shadow dark:border-gray-800 bg-secondary">
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
+          {selectedChannel?.id === video?.profile?.id && (
+            <button
+              onClick={() => onHideVideo()}
+              className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg text-red-500 opacity-70 hover:opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
+            >
+              <AiOutlineDelete className="text-base" />
+              <span className="whitespace-nowrap">Delete</span>
+            </button>
+          )}
           <button
             onClick={() =>
               isAlreadyAddedToWatchLater(video, watchLater)
