@@ -57,14 +57,6 @@ const Header = () => {
         >
           Search
         </Button>
-        <button
-          type="button"
-          onClick={() => {
-            throw new Error('Sentry Frontend Error')
-          }}
-        >
-          Throw error
-        </button>
         {isAuthenticated && (
           <>
             <NotificationTrigger />
