@@ -26,7 +26,7 @@ const SeeAllCommented = () => {
       request: {
         publicationTypes: 'COMMENT',
         profileId: selectedChannel?.id,
-        limit: 8,
+        limit: 12,
         sources: [LENSTUBE_APP_ID]
       }
     },
@@ -47,7 +47,7 @@ const SeeAllCommented = () => {
             publicationTypes: 'COMMENT',
             profileId: selectedChannel?.id,
             cursor: pageInfo?.next,
-            limit: 8,
+            limit: 12,
             sources: [LENSTUBE_APP_ID]
           }
         }
@@ -61,7 +61,7 @@ const SeeAllCommented = () => {
   return (
     <Layout>
       <MetaTags title="Commented Videos" />
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-4 md:mb-4">
         <div className="flex items-center justify-between">
           <h1 className="inline-flex items-center space-x-2 text-lg font-semibold">
             <AiOutlineComment />
@@ -74,7 +74,7 @@ const SeeAllCommented = () => {
         {loading && <TimelineShimmer />}
         {!error && !loading && (
           <>
-            <Timeline videos={commentedVideos} />
+            <Timeline typeName="Comment" videos={commentedVideos} />
             {pageInfo?.next && commentedVideos.length !== pageInfo?.totalCount && (
               <span ref={observe} className="flex justify-center p-10">
                 <Loader />

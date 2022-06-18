@@ -65,7 +65,7 @@ const CommentedVideoCard: FC<Props> = ({ comment }) => {
             </div>
             <Link passHref href={`/${comment.profile?.handle}`}>
               <div className="text-xs hover:opacity-100 opacity-70">
-                {comment.profile?.handle}
+                {commentedOn.profile?.handle}
               </div>
             </Link>
           </div>
