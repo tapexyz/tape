@@ -53,12 +53,19 @@ const authLink = new ApolloLink((operation, forward) => {
               'x-access-token': `Bearer ${res?.data?.refresh?.accessToken}`
             }
           })
-          localStorage.setItem('accessToken', res?.data?.refresh?.accessToken)
-          localStorage.setItem('refreshToken', res?.data?.refresh?.refreshToken)
+          const access = res?.data?.refresh?.accessToken
+          const refresh = res?.data?.refresh?.refreshToken
+          if (!access || !refresh) {
+            clearStorage()
+            window.location.reload()
+          }
+          localStorage.setItem('accessToken', access)
+          localStorage.setItem('refreshToken', refresh)
         })
         .catch((err) => {
           console.error('Error refreshing token ' + err)
           clearStorage()
+          window.location.reload()
         })
     }
     return forward(operation)

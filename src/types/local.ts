@@ -39,10 +39,3 @@ export type VideoUploadForm = {
   description: string
   adultContent: boolean
 }
-
-export type BasicInfoSettings = {
-  about: string
-  website: string
-  twitter: string
-  cover: string
-}

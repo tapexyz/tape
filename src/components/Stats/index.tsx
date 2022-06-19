@@ -6,6 +6,7 @@ import useAppStore from '@lib/store'
 import { ADMIN_IDS, LENSTUBE_APP_ID } from '@utils/constants'
 import { GET_LENSTUBE_STATS } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
+import dynamic from 'next/dynamic'
 import React from 'react'
 import {
   FcCamcorderPro,
@@ -15,10 +16,11 @@ import {
   FcSynchronize,
   FcVideoCall
 } from 'react-icons/fc'
-import Custom404 from 'src/pages/404'
 import { GlobalProtocolStats } from 'src/types'
 
-import StatCard from './StatCard'
+const StatCard = dynamic(() => import('./StatCard'))
+const Deployment = dynamic(() => import('./Deployment'))
+const Custom404 = dynamic(() => import('../../pages/404'))
 
 const Stats = () => {
   const { selectedChannel } = useAppStore()
@@ -43,6 +45,7 @@ const Stats = () => {
         <Loader />
       ) : (
         <>
+          <Deployment />
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-6 md:grid-cols-3">
             <StatCard
               icon={<FcVideoCall />}

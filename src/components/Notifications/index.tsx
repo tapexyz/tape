@@ -5,11 +5,12 @@ import useAppStore from '@lib/store'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { NOTIFICATIONS_QUERY } from '@utils/gql/queries'
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { Notification, PaginatedResultInfo } from 'src/types'
 
-import SubscriberNotification from './Subscriber'
+const SubscriberNotification = dynamic(() => import('./Subscriber'))
 
 const Notifications = () => {
   const { selectedChannel } = useAppStore()

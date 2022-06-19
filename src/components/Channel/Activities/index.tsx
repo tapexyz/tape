@@ -1,12 +1,13 @@
 import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import { FC } from 'react'
 import { Profile } from 'src/types'
 
-import About from './About'
-import ChannelVideos from './ChannelVideos'
-import CommentedVideos from './CommentedVideos'
-import OtherChannels from './OtherChannels'
+const About = dynamic(() => import('./About'))
+const OtherChannels = dynamic(() => import('./OtherChannels'))
+const CommentedVideos = dynamic(() => import('./CommentedVideos'))
+const ChannelVideos = dynamic(() => import('./ChannelVideos'))
 
 type Props = {
   channel: Profile

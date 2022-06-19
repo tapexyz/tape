@@ -2,6 +2,8 @@ import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
+import { TextArea } from '@components/UIElements/TextArea'
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   ERROR_MESSAGE,
   LENS_PERIPHERY_ADDRESS,
@@ -23,31 +25,53 @@ import {
 } from '@utils/gql/queries'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
-import clsx from 'clsx'
 import { utils } from 'ethers'
 import React, { ChangeEvent, useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
 import { Attribute, MediaSet, Profile } from 'src/types'
-import { BasicInfoSettings, IPFSUploadResult } from 'src/types/local'
+import { IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
+import { z } from 'zod'
 
 type Props = {
   channel: Profile & {
     coverPicture: MediaSet
   }
 }
+const formSchema = z.object({
+  displayName: z
+    .string()
+    .min(4, { message: 'Name should be atleast 5 characters' })
+    .max(30, { message: 'Name should not exceed 30 characters' })
+    .optional(),
+  description: z
+    .string()
+    .min(5, { message: 'Description should be atleast 5 characters' })
+    .max(1000, { message: 'Description should not exceed 1000 characters' }),
+  twitter: z.string(),
+  website: z.string()
+})
+type FormData = z.infer<typeof formSchema>
+
 const BasicInfo = ({ channel }: Props) => {
   const [, copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
-  const [basicInfo, setBasicInfo] = useState<BasicInfoSettings>({
-    about: channel.bio || '',
-    cover: getCoverPicture(channel) || '',
-    twitter:
-      getKeyFromAttributes(channel.attributes as Attribute[], 'twitter') || '',
-    website:
-      getKeyFromAttributes(channel.attributes as Attribute[], 'website') || ''
+  const [coverImage, setCoverImage] = useState(getCoverPicture(channel) || '')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      displayName: channel.name || '',
+      description: channel.bio || '',
+      twitter: getKeyFromAttributes(channel?.attributes, 'twitter'),
+      website: getKeyFromAttributes(channel?.attributes, 'website')
+    }
   })
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -84,7 +108,7 @@ const BasicInfo = ({ channel }: Props) => {
   useEffect(() => {
     if (indexed) {
       setLoading(false)
-      toast.success('Basic info updated')
+      toast.success('Channel info updated')
     }
   }, [indexed])
 
@@ -131,22 +155,22 @@ const BasicInfo = ({ channel }: Props) => {
       const result: IPFSUploadResult = await uploadImageToIPFS(
         e.target.files[0]
       )
-      setBasicInfo({ ...basicInfo, cover: result.ipfsUrl })
+      setCoverImage(result.ipfsUrl)
     }
   }
 
-  const onSaveBasicInfo = async () => {
+  const onSaveBasicInfo = async (data: FormData) => {
     setLoading(true)
     const { ipfsUrl } = await uploadDataToIPFS({
       name: channel.name,
-      bio: basicInfo.about,
-      cover_picture: basicInfo.cover,
+      bio: data.description,
+      cover_picture: coverImage,
       attributes: [
         {
           traitType: 'string',
           key: 'website',
           trait_type: 'website',
-          value: basicInfo.website
+          value: data.website
         },
         {
           traitType: 'string',
@@ -161,7 +185,7 @@ const BasicInfo = ({ channel }: Props) => {
           traitType: 'string',
           trait_type: 'twitter',
           key: 'twitter',
-          value: basicInfo.twitter
+          value: data.twitter
         },
         {
           traitType: 'string',
@@ -186,15 +210,16 @@ const BasicInfo = ({ channel }: Props) => {
   }
 
   return (
-    <div className="p-4 bg-white rounded-lg dark:bg-black">
+    <form
+      onSubmit={handleSubmit(onSaveBasicInfo)}
+      className="p-4 bg-white rounded-lg dark:bg-black"
+    >
       <div className="relative flex-none w-full group">
         <img
-          src={
-            basicInfo.cover ?? imageCdn(channel?.coverPicture?.original?.url)
-          }
-          alt=""
+          src={coverImage ?? imageCdn(channel?.coverPicture?.original?.url)}
           className="object-cover object-center w-full h-48 bg-white rounded-xl md:h-56 dark:bg-gray-900"
           draggable={false}
+          alt="Cover Image"
         />
         <label className="absolute p-1 px-3 text-sm bg-white rounded-md cursor-pointer lg:invisible group-hover:visible dark:bg-black top-2 right-2">
           Change
@@ -208,15 +233,15 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="mt-4">
         <div className="flex items-center mb-1">
-          <div className="required text-[11px] font-semibold uppercase opacity-60">
-            Channel Name
+          <div className="text-[11px] font-semibold uppercase opacity-60">
+            Channel
           </div>
         </div>
         <h6>{channel.handle}</h6>
       </div>
       <div className="mt-4">
         <div className="flex items-center mb-1">
-          <div className="required text-[11px] font-semibold uppercase opacity-60">
+          <div className="text-[11px] font-semibold uppercase opacity-60">
             Channel URL
           </div>
         </div>
@@ -235,61 +260,46 @@ const BasicInfo = ({ channel }: Props) => {
           </button>
         </div>
       </div>
+      <div className="mt-6">
+        <Input
+          label="Display Name"
+          required
+          type="text"
+          placeholder="T Series"
+          {...register('displayName')}
+          validationError={errors.displayName?.message}
+        />
+      </div>
       <div className="mt-4">
-        <div className="flex items-center mb-1">
-          <div className="required text-[11px] font-semibold uppercase opacity-60">
-            Channel Description
-          </div>
-        </div>
-        <textarea
+        <TextArea
+          label="Channel Description"
           placeholder="More about your channel"
-          autoComplete="off"
-          rows={5}
-          className={clsx(
-            'bg-white text-sm px-2.5 py-1 rounded-xl focus:ring-1 focus:ring-indigo-500 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
-          )}
-          value={basicInfo.about}
-          onChange={(e) =>
-            setBasicInfo({ ...basicInfo, about: e.target.value })
-          }
+          required
+          rows={4}
+          validationError={errors.description?.message}
+          {...register('description')}
         />
       </div>
       <div className="mt-4">
-        <div className="flex items-center mb-1">
-          <div className="required text-[11px] font-semibold uppercase opacity-60">
-            Twitter
-          </div>
-        </div>
         <Input
-          type="text"
+          label="Twitter"
           placeholder="johndoe"
-          value={basicInfo?.twitter}
-          onChange={(e) =>
-            setBasicInfo({ ...basicInfo, twitter: e.target.value })
-          }
+          {...register('twitter')}
+          validationError={errors.twitter?.message}
         />
       </div>
       <div className="mt-4">
-        <div className="flex items-center mb-1">
-          <div className="required text-[11px] font-semibold uppercase opacity-60">
-            Website
-          </div>
-        </div>
         <Input
-          type="text"
+          label="Website"
           placeholder="https://johndoe.xyz"
-          value={basicInfo?.website}
-          onChange={(e) =>
-            setBasicInfo({ ...basicInfo, website: e.target.value })
-          }
+          {...register('website')}
+          validationError={errors.website?.message}
         />
       </div>
       <div className="flex justify-end mt-4">
-        <Button disabled={loading} onClick={() => onSaveBasicInfo()}>
-          {loading ? 'Saving...' : 'Save'}
-        </Button>
+        <Button disabled={loading}>{loading ? 'Saving...' : 'Save'}</Button>
       </div>
-    </div>
+    </form>
   )
 }
 

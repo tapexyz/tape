@@ -58,15 +58,21 @@ export const LENSTUBE_APP_ID = 'Lenstube'
 export const AUTH_ROUTES = [
   '/upload',
   '/settings',
-  '/stats',
+  '/lt',
   '/report/[id]',
   '/settings/membership',
   '/settings/permissions'
 ]
-export const ADMIN_ROUTES = ['/stats']
+export const ADMIN_ROUTES = ['/lt']
 
 // handles
 export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'
 
 // admins
 export const ADMIN_IDS = IS_MAINNET ? [] : ['0x2f']
+
+// misc
+export const GIT_DEPLOYED_COMMIT_SHA =
+  process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
+export const GIT_DEPLOYED_BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
+export const VERCEL_DEPLOYED_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV

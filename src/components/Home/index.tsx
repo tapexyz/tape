@@ -1,6 +1,5 @@
 import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
-import Trending from '@components/Explore/Trending'
 import useAppStore from '@lib/store'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
@@ -8,6 +7,7 @@ import { useConnect } from 'wagmi'
 
 const Recommended = dynamic(() => import('./Recommended'))
 const HomeFeed = dynamic(() => import('./Feed'))
+const Trending = dynamic(() => import('../Explore/Trending'))
 
 const Home: NextPage = () => {
   const { isAuthenticated, selectedChannel } = useAppStore()

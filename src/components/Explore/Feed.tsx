@@ -1,9 +1,10 @@
 import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import React from 'react'
 
-import Recents from './Recents'
-import Trending from './Trending'
+const Trending = dynamic(() => import('./Trending'))
+const Recents = dynamic(() => import('./Recents'))
 
 const ExploreFeed = () => {
   return (
