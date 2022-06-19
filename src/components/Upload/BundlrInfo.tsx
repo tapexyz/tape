@@ -64,6 +64,7 @@ const BundlrInfo: FC<Props> = ({
               className="!py-1.5"
               placeholder="100 MATIC"
               autoComplete="off"
+              min={0}
               value={bundlrData.deposit || ''}
               onChange={(e) => {
                 setBundlrData({
