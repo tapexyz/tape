@@ -9,7 +9,7 @@ import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
 import { LenstubePublication } from 'src/types/local'
 
-const ReshareVideoAction = dynamic(() => import('../ReshareVideoAction'))
+const MirrorVideo = dynamic(() => import('../MirrorVideo'))
 
 type Props = {
   video: LenstubePublication
@@ -35,9 +35,9 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
       >
         <div className="mt-4">
           <div className="flex items-center mb-4 space-x-2 overflow-x-auto flex-nowrap no-scrollbar">
-            <ReshareVideoAction
+            <MirrorVideo
               video={video}
-              onReshareSuccess={() => setShowShare(false)}
+              onMirrorSuccess={() => setShowShare(false)}
             />
             <a
               className="rounded-full"

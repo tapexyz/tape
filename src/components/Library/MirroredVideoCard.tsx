@@ -79,7 +79,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
             <div className="absolute left-3 bottom-2.5 pb-2 inset-0 flex justify-center w-1.5">
               <div className="w-0.5 bg-gray-300 dark:bg-gray-700 pointer-events-none" />
             </div>
-            <Tooltip content="Reshared">
+            <Tooltip content="Mirrored">
               <span className="absolute m-2 mb-0 bottom-1 opacity-70">
                 <MdPublishedWithChanges />
               </span>

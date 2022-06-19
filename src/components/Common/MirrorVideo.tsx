@@ -23,10 +23,10 @@ import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
   video: LenstubePublication
-  onReshareSuccess: () => void
+  onMirrorSuccess: () => void
 }
 
-const ReshareVideoAction: FC<Props> = ({ video, onReshareSuccess }) => {
+const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
   const { selectedChannel, isAuthenticated } = useAppStore()
 
@@ -63,8 +63,8 @@ const ReshareVideoAction: FC<Props> = ({ video, onReshareSuccess }) => {
 
   useEffect(() => {
     if (indexed) {
-      onReshareSuccess()
-      toast.success(`Reshared video in your feed.`)
+      onMirrorSuccess()
+      toast.success(`Mirrored video in your feed.`)
       setLoading(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -110,7 +110,7 @@ const ReshareVideoAction: FC<Props> = ({ video, onReshareSuccess }) => {
     }
   })
 
-  const reshareVideo = () => {
+  const mirrorVideo = () => {
     if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
     createMirrorTypedData({
@@ -127,10 +127,10 @@ const ReshareVideoAction: FC<Props> = ({ video, onReshareSuccess }) => {
   }
 
   return (
-    <Tooltip placement="top-start" content="Reshare on Lenstube">
+    <Tooltip placement="top-start" content="Mirror on Lenstube">
       <button
         disabled={loading}
-        onClick={() => reshareVideo()}
+        onClick={() => mirrorVideo()}
         className="p-3.5 bg-gray-200 dark:bg-gray-800 rounded-full"
       >
         {loading ? <Loader size="sm" /> : <MdPublishedWithChanges />}
@@ -139,4 +139,4 @@ const ReshareVideoAction: FC<Props> = ({ video, onReshareSuccess }) => {
   )
 }
 
-export default ReshareVideoAction
+export default MirrorVideo

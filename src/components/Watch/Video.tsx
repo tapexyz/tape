@@ -48,7 +48,7 @@ const Video: FC<Props> = ({ video }) => {
               <span className="middot" />
               <div className="flex items-center space-x-1">
                 <MdPublishedWithChanges />
-                <span>{video.stats.totalAmountOfMirrors} reshares</span>
+                <span>{video.stats.totalAmountOfMirrors} mirrors</span>
               </div>
             </div>
             <span className="middot" />
