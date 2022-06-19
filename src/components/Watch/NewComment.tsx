@@ -1,6 +1,8 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
+import { TextArea } from '@components/UIElements/TextArea'
+import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -15,25 +17,36 @@ import {
   CREATE_COMMENT_TYPED_DATA
 } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
-import clsx from 'clsx'
 import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
+import { z } from 'zod'
 
 type Props = {
   video: LenstubePublication
   refetchComments: () => void
 }
+const formSchema = z.object({
+  comment: z.string().min(1, { message: 'Enter valid comment' })
+})
+type FormData = z.infer<typeof formSchema>
 
 const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Comment')
-  const [comment, setComment] = useState('')
   const { selectedChannel, isAuthenticated } = useAppStore()
-
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema)
+  })
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
       setLoading(false)
@@ -49,7 +62,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     {
       onSuccess() {
         setButtonText('Indexing...')
-        setComment('')
+        reset()
       }
     }
   )
@@ -71,7 +84,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       setLoading(false)
       refetchComments()
       setButtonText('Comment')
-      setComment('')
+      reset()
       toast.success('Commented successfully.')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -131,15 +144,14 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     }
   })
 
-  const submitComment = async () => {
-    if (comment.trim().length === 0) return
+  const submitComment = async (data: FormData) => {
     setButtonText('Storing metadata...')
     setLoading(true)
     const { ipfsUrl } = await uploadDataToIPFS({
       version: '1.0.0',
       metadata_id: uuidv4(),
-      description: comment,
-      content: comment,
+      description: data.comment,
+      content: data.comment,
       external_url: null,
       image: null,
       imageMimeType: null,
@@ -155,7 +167,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           traitType: 'string',
           key: 'app',
           trait_type: 'app',
-          value: 'lenstube'
+          value: LENSTUBE_APP_ID
         }
       ],
       media: [],
@@ -184,7 +196,10 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
 
   return (
     <div className="my-1">
-      <div className="flex items-center mb-2 space-x-3">
+      <form
+        onSubmit={handleSubmit(submitComment)}
+        className="flex items-center mb-2 space-x-3"
+      >
         <div className="flex-none">
           <img
             src={getProfilePicture(selectedChannel)}
@@ -193,20 +208,16 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
             alt=""
           />
         </div>
-        <textarea
+        <TextArea
+          {...register('comment')}
           placeholder="How's this video?"
           autoComplete="off"
           rows={1}
-          className={clsx(
-            'bg-white resize-none text-xs px-3 py-2 md:py-2.5 rounded-lg md:rounded-xl focus:ring-1 focus:ring-indigo-500 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
-          )}
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          hideErrorMessage
+          validationError={errors.comment?.message}
         />
-        <Button disabled={loading} onClick={() => submitComment()}>
-          {buttonText}
-        </Button>
-      </div>
+        <Button disabled={loading}>{buttonText}</Button>
+      </form>
     </div>
   )
 }

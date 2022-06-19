@@ -1,6 +1,6 @@
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
-import clsx from 'clsx'
+import { TextArea } from '@components/UIElements/TextArea'
 import React, { useState } from 'react'
 
 import StreamDetails from './StreamDetails'
@@ -41,22 +41,11 @@ const Details = () => {
               />
             </div>
             <div className="mt-4">
-              <div className="flex items-center mb-1 space-x-1.5">
-                <div className="text-[11px] font-semibold uppercase opacity-70">
-                  Description
-                </div>
-              </div>
-              <textarea
-                placeholder="More about your stream"
-                autoComplete="off"
-                className={clsx(
-                  'bg-white text-sm px-2.5 focus:ring-1 focus:ring-indigo-500 py-1 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
-                )}
+              <TextArea
                 rows={5}
-                value={form.description}
-                onChange={(e) =>
-                  setForm({ ...form, description: e.target.value })
-                }
+                autoComplete="off"
+                label="Description"
+                placeholder="More about your stream"
               />
             </div>
           </div>
