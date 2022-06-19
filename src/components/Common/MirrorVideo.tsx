@@ -64,7 +64,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   useEffect(() => {
     if (indexed) {
       onMirrorSuccess()
-      toast.success(`Mirrored video in your feed.`)
+      toast.success(`Mirrored video across lens.`)
       setLoading(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
