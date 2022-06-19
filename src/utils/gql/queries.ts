@@ -176,6 +176,7 @@ export const CommentFields = gql`
     stats {
       totalAmountOfComments
       totalAmountOfCollects
+      totalAmountOfMirrors
       totalDownvotes
       totalUpvotes
     }
@@ -411,6 +412,7 @@ export const PostFields = gql`
     stats {
       totalAmountOfComments
       totalAmountOfCollects
+      totalAmountOfMirrors
       totalUpvotes
       totalDownvotes
     }

@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
 import React, { FC } from 'react'
+import { MdPublishedWithChanges } from 'react-icons/md'
 import { SiOpenmined } from 'react-icons/si'
 import { LenstubePublication } from 'src/types/local'
 
@@ -39,10 +40,15 @@ const Video: FC<Props> = ({ video }) => {
             {video.metadata.name}
           </h1>
           <div className="flex items-center text-sm opacity-70">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center">
               <div className="flex items-center space-x-1">
                 <SiOpenmined className="text-xs" />
                 <span>{video.stats.totalAmountOfCollects} collects</span>
+              </div>
+              <span className="middot" />
+              <div className="flex items-center space-x-1">
+                <MdPublishedWithChanges />
+                <span>{video.stats.totalAmountOfMirrors} reshares</span>
               </div>
             </div>
             <span className="middot" />
