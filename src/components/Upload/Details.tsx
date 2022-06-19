@@ -159,6 +159,7 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
       }
     )
     if (response.data) {
+      setButtonText('Processing...')
       const playbackId = await getPlaybackId(
         `${IPFS_GATEWAY}/${response.data.Hash}`
       )
