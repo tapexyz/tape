@@ -55,13 +55,17 @@ const VideoDetails = () => {
   }, [video, addToRecentlyWatched])
 
   if (error) return <Custom500 />
-  if (video && (video?.__typename !== 'Post' || video.hidden))
-    return <Custom404 />
+  if (loading || !data)
+    return (
+      <Layout>
+        <VideoDetailShimmer />
+      </Layout>
+    )
+  if (!data?.publication && video?.__typename !== 'Post') return <Custom404 />
 
   return (
     <Layout>
       <MetaTags title={video?.metadata?.name ?? 'Watch'} />
-      {loading && <VideoDetailShimmer />}
       {!loading && !error && video ? (
         <>
           <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">

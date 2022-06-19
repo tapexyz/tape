@@ -63,7 +63,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
     <div className="w-full">
       {!error && !loading && (
         <div>
-          <Timeline videos={channelVideos} />
+          <Timeline videos={channelVideos} videoType="Comment" />
           {pageInfo?.next && channelVideos.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
