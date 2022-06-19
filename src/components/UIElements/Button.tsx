@@ -13,7 +13,7 @@ interface Props
     ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
   variant?: 'primary' | 'secondary' | 'danger' | 'outlined'
   loading?: boolean
   children?: ReactNode
@@ -41,7 +41,8 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
         {
           'px-4 py-1.5 text-xs': size === 'sm',
           'px-5 md:py-2 py-1.5 text-sm': size === 'md',
-          'px-6 py-3 text-base': size === 'lg'
+          'px-6 py-3 text-base': size === 'lg',
+          'px-8 py-4 text-lg': size === 'xl'
         },
         className
       )}
@@ -54,7 +55,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
           {
             'border border-indigo-500': variant === 'primary',
             'bg-transparent': variant === 'secondary',
-            'bg-transparent group-hover:border !duration-500 group-hover:border-indigo-500':
+            'bg-transparent group-hover:border group-hover:border-indigo-500':
               variant === 'outlined',
             'border-red-500 border': variant === 'danger',
             'group-hover:translate-x-0.5 group-hover:translate-y-0.5':

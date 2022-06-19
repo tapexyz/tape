@@ -1,5 +1,6 @@
 import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
+import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -11,7 +12,7 @@ import { VideoUpload } from 'src/types/local'
 
 const Details = dynamic(() => import('./Details'), {
   loading: () => (
-    <div className="p-10 md:py-20">
+    <div className="p-10 md:p-20">
       <Loader />
     </div>
   )
@@ -79,27 +80,27 @@ const UploadPage = () => {
         {video.preview ? (
           <Details video={video} afterUpload={afterUpload} />
         ) : (
-          <div
-            {...getRootProps()}
-            className={clsx(
-              'p-10 md:py-20 h-full focus:outline-none border-gray-600 dark:border-gray-400 grid place-items-center text-center border border-dashed rounded-lg cursor-pointer'
-            )}
-          >
-            <div>
-              <span className="flex justify-center mb-6 text-4xl opacity-60">
-                <FiUpload />
-              </span>
-              <input {...getInputProps()} />
-              <span className="opacity-80">
-                {isDragActive ? (
-                  <p>Drop it here</p>
-                ) : (
-                  <div>
-                    <p>Drag and drop your video</p>
-                    <span className="text-sm">(Maximum size 2 GB for now)</span>
+          <div className="relative flex flex-col items-center justify-center flex-1 my-20">
+            <div
+              {...getRootProps()}
+              className={clsx(
+                'p-10 md:p-20 md:w-2/3 focus:outline-none border-gray-500 grid place-items-center text-center border border-dashed rounded-2xl',
+                { 'border-green-500': isDragActive }
+              )}
+            >
+              <>
+                <input {...getInputProps()} />
+                <span className="flex justify-center mb-6 opacity-70">
+                  <FiUpload className="text-6xl" />
+                </span>
+                <span className="space-y-10 opacity-80">
+                  <div className="text-2xl font-medium md:text-4xl">
+                    Drag and drop <br /> video to upload
                   </div>
-                )}
-              </span>
+                  <Button size="xl">Or choose file</Button>
+                  <div className="text-sm">(Maximum size 2 GB for now)</div>
+                </span>
+              </>
             </div>
           </div>
         )}

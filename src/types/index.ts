@@ -223,7 +223,7 @@ export type Comment = {
 
 /** The social comment */
 export type CommentReactionArgs = {
-  request: ReactionFieldResolverRequest;
+  request?: InputMaybe<ReactionFieldResolverRequest>;
 };
 
 /** The create burn eip 712 typed data */
@@ -1329,7 +1329,7 @@ export type Mirror = {
 
 /** The social mirror */
 export type MirrorReactionArgs = {
-  request: ReactionFieldResolverRequest;
+  request?: InputMaybe<ReactionFieldResolverRequest>;
 };
 
 export type MirrorablePublication = Comment | Post;
@@ -1782,7 +1782,7 @@ export type Post = {
 
 /** The social post */
 export type PostReactionArgs = {
-  request: ReactionFieldResolverRequest;
+  request?: InputMaybe<ReactionFieldResolverRequest>;
 };
 
 /** The Profile */
