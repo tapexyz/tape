@@ -1,17 +1,20 @@
+import { useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
-import { IS_MAINNET } from '@utils/constants'
+import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import { SETTINGS } from '@utils/url-path'
+import { CURRENT_USER_QUERY } from '@utils/gql/queries'
+import { SETTINGS, STATS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
 import React, { FC, useState } from 'react'
 import { AiOutlinePlus, AiOutlineUserSwitch } from 'react-icons/ai'
 import { BiArrowBack, BiCheck, BiMoviePlay } from 'react-icons/bi'
+import { IoIosAnalytics } from 'react-icons/io'
 import { VscDebugDisconnect } from 'react-icons/vsc'
 import { Profile } from 'src/types'
-import { useDisconnect } from 'wagmi'
+import { useAccount, useDisconnect } from 'wagmi'
 
 type Props = {}
 
@@ -21,10 +24,14 @@ const UserMenu: FC<Props> = () => {
     setShowCreateChannel,
     setSelectedChannel,
     selectedChannel,
-    setIsAuthenticated
+    setIsAuthenticated,
+    setChannels
   } = useAppStore()
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
   const { disconnect } = useDisconnect()
+  const [getChannels] = useLazyQuery(CURRENT_USER_QUERY)
+  const { data: account } = useAccount()
+  const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 
   const logout = () => {
     setIsAuthenticated(false)
@@ -37,6 +44,17 @@ const UserMenu: FC<Props> = () => {
   const onSelectChannel = (channel: Profile) => {
     setSelectedChannel(channel)
     setShowAccountSwitcher(false)
+  }
+
+  const onSelectSwitchChannel = () => {
+    getChannels({
+      variables: { ownedBy: account?.address },
+      fetchPolicy: 'no-cache'
+    }).then((res) => {
+      const allChannels: Profile[] = res?.data?.profiles?.items
+      setChannels(allChannels)
+    })
+    setShowAccountSwitcher(true)
   }
 
   if (!selectedChannel) return null
@@ -68,7 +86,7 @@ const UserMenu: FC<Props> = () => {
               <span className="py-2 text-sm">Channels</span>
             </div>
             <div className="py-1 text-sm">
-              {channels.map((channel, idx) => (
+              {channels?.map((channel, idx) => (
                 <button
                   className={clsx(
                     'flex w-full justify-between items-center px-2 py-1.5 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800'
@@ -119,6 +137,20 @@ const UserMenu: FC<Props> = () => {
               </div>
             </div>
             <div className="py-1 text-sm">
+              {isAdmin && (
+                <Link href={STATS}>
+                  <a
+                    className={clsx(
+                      'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    )}
+                  >
+                    <IoIosAnalytics className="text-lg" />
+                    <span className="truncate whitespace-nowrap">
+                      App Stats
+                    </span>
+                  </a>
+                </Link>
+              )}
               <Link href={`/${selectedChannel?.handle}`}>
                 <a
                   className={clsx(
@@ -135,7 +167,9 @@ const UserMenu: FC<Props> = () => {
                 className={clsx(
                   'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                 )}
-                onClick={() => setShowAccountSwitcher(true)}
+                onClick={() => {
+                  onSelectSwitchChannel()
+                }}
               >
                 <AiOutlineUserSwitch className="text-lg" />
                 <span className="truncate whitespace-nowrap">

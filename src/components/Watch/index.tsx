@@ -43,7 +43,8 @@ const VideoDetails = () => {
   }, [video, addToRecentlyWatched])
 
   if (error) return <Custom500 />
-  if (video && video?.__typename !== 'Post') return <Custom404 />
+  if (video && (video?.__typename !== 'Post' || video.hidden))
+    return <Custom404 />
 
   return (
     <Layout>

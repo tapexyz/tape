@@ -91,6 +91,7 @@ export const CommentFields = gql`
         handle
       }
     }
+    hidden
     collectModule {
       ...MinimalCollectModuleFields
     }
@@ -328,6 +329,7 @@ export const PostFields = gql`
     collectModule {
       ...MinimalCollectModuleFields
     }
+    hidden
     stats {
       totalAmountOfComments
       totalAmountOfCollects
@@ -974,6 +976,33 @@ export const BROADCAST_MUTATION = gql`
       }
       ... on RelayError {
         reason
+      }
+    }
+  }
+`
+export const HIDE_PUBLICATION = gql`
+  mutation ($request: HidePublicationRequest!) {
+    hidePublication(request: $request)
+  }
+`
+export const GET_LENSTUBE_STATS = gql`
+  query LenstubeStats($request: GlobalProtocolStatsRequest) {
+    globalProtocolStats(request: $request) {
+      totalProfiles
+      totalBurntProfiles
+      totalPosts
+      totalMirrors
+      totalComments
+      totalCollects
+      totalFollows
+      totalRevenue {
+        asset {
+          name
+          symbol
+          decimals
+          address
+        }
+        value
       }
     }
   }

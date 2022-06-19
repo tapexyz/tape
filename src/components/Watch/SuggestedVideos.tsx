@@ -56,9 +56,12 @@ const SuggestedVideos = () => {
       {!error && !loading && (
         <div className="pb-3">
           <div className="space-y-3 md:gap-3 md:grid lg:flex lg:gap-0 lg:flex-col md:grid-cols-2">
-            {videos?.map((video: LenstubePublication, index: number) => (
-              <SuggestedVideoCard video={video} key={index} />
-            ))}
+            {videos?.map(
+              (video: LenstubePublication, index: number) =>
+                !video.hidden && (
+                  <SuggestedVideoCard video={video} key={index} />
+                )
+            )}
           </div>
           {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-10">

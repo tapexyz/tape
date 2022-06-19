@@ -79,7 +79,13 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
       >
         {icon}
         {loading && <Loader size="sm" />}
-        <span className="font-medium whitespace-nowrap">{children}</span>
+        <span
+          className={clsx('whitespace-nowrap', {
+            'font-medium': variant !== 'secondary'
+          })}
+        >
+          {children}
+        </span>
       </span>
     </button>
   )
