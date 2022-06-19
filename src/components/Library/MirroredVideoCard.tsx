@@ -26,7 +26,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
     <div className="overflow-hidden group bg-gray-50 rounded-xl dark:bg-[#181818]">
       <Link href={`/watch/${mirrorOf.id}`}>
         <a>
-          <div className="relative rounded-t-xl aspect-w-16 aspect-h-9">
+          <div className="relative rounded-t-xl aspect-w-16 aspect-h-8">
             <img
               src={imageCdn(
                 isSensitiveContent
@@ -74,7 +74,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
             </Link>
           </div>
         </div>
-        <div className="relative pb-1.5 pt-2 overflow-hidden text-sm opacity-90">
+        <div className="relative pb-1.5 pt-4 overflow-hidden text-sm opacity-90">
           <>
             <div className="absolute left-3 bottom-2.5 pb-2 inset-0 flex justify-center w-1.5">
               <div className="w-0.5 bg-gray-300 dark:bg-gray-700 pointer-events-none" />

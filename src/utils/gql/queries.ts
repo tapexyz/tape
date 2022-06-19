@@ -101,7 +101,7 @@ export const MetadataFields = gql`
   }
 `
 
-export const MirrorFields = gql`
+export const MirrorFieldsFragment = gql`
   fragment MirrorFields on Mirror {
     id
     profile {
@@ -157,7 +157,7 @@ export const MirrorFields = gql`
   ${MetadataFields}
 `
 
-export const CommentFields = gql`
+export const CommentFieldsFragment = gql`
   fragment CommentFields on Comment {
     id
     profile {
@@ -392,7 +392,7 @@ export const SEARCH_CHANNELS_QUERY = gql`
   ${MinimalProfileFields}
 `
 
-export const PostFields = gql`
+export const PostFieldsFragment = gql`
   fragment PostFields on Post {
     id
     reaction(request: $reactionRequest)
@@ -534,8 +534,8 @@ export const EXPLORE_QUERY = gql`
       }
     }
   }
-  ${PostFields}
-  ${CommentFields}
+  ${PostFieldsFragment}
+  ${CommentFieldsFragment}
 `
 
 export const FEED_QUERY = gql`
@@ -561,9 +561,9 @@ export const FEED_QUERY = gql`
       }
     }
   }
-  ${PostFields}
-  ${CommentFields}
-  ${MirrorFields}
+  ${PostFieldsFragment}
+  ${CommentFieldsFragment}
+  ${MirrorFieldsFragment}
 `
 
 export const PROFILE_FEED_QUERY = gql`
@@ -589,9 +589,9 @@ export const PROFILE_FEED_QUERY = gql`
       }
     }
   }
-  ${PostFields}
-  ${CommentFields}
-  ${MirrorFields}
+  ${PostFieldsFragment}
+  ${CommentFieldsFragment}
+  ${MirrorFieldsFragment}
 `
 
 export const COMMENT_FEED_QUERY = gql`
@@ -608,7 +608,7 @@ export const COMMENT_FEED_QUERY = gql`
       }
     }
   }
-  ${CommentFields}
+  ${CommentFieldsFragment}
 `
 
 export const CREATE_POST_TYPED_DATA = gql`
@@ -725,7 +725,7 @@ export const VIDEO_DETAIL_QUERY = gql`
       }
     }
   }
-  ${PostFields}
+  ${PostFieldsFragment}
 `
 
 export const VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY = gql`
@@ -972,8 +972,8 @@ export const SEARCH_VIDEOS_QUERY = gql`
       }
     }
   }
-  ${PostFields}
-  ${CommentFields}
+  ${PostFieldsFragment}
+  ${CommentFieldsFragment}
 `
 
 export const OG_VIDEO_DETAIL_QUERY = gql`
@@ -987,7 +987,7 @@ export const OG_VIDEO_DETAIL_QUERY = gql`
       }
     }
   }
-  ${PostFields}
+  ${PostFieldsFragment}
 `
 
 export const OG_PROFILE_QUERY = gql`
