@@ -1,5 +1,5 @@
 import useAppStore from '@lib/store'
-import { AUTH_ROUTES } from '@utils/constants'
+import { AUTH_ROUTES, POLYGON_CHAIN_ID } from '@utils/constants'
 import { getToastOptions } from '@utils/functions/getToastOptions'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import { AUTH } from '@utils/url-path'
@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactNode, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { useConnect, useDisconnect } from 'wagmi'
+import { useConnect, useDisconnect, useNetwork } from 'wagmi'
 
 import Header from './Header'
 import Sidebar from './Sidebar'
@@ -31,6 +31,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
   } = useAppStore()
   const { resolvedTheme } = useTheme()
   const { activeConnector } = useConnect()
+  const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
   const { mounted } = useIsMounted()
 
@@ -53,7 +54,8 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
       accessToken &&
       accessToken !== 'undefined' &&
       refreshToken !== 'undefined' &&
-      selectedChannel
+      selectedChannel &&
+      activeChain?.id === POLYGON_CHAIN_ID
     ) {
       setIsAuthenticated(true)
     } else {
