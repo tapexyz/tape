@@ -3,9 +3,17 @@ import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
-import { ADMIN_IDS, LENSTUBE_APP_ID } from '@utils/constants'
+import {
+  ADMIN_IDS,
+  GIT_DEPLOYED_BRANCH,
+  GIT_DEPLOYED_COMMIT_SHA,
+  IS_MAINNET,
+  LENSTUBE_APP_ID,
+  VERCEL_DEPLOYED_ENV
+} from '@utils/constants'
 import { GET_LENSTUBE_STATS } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
+import Link from 'next/link'
 import React from 'react'
 import {
   FcCamcorderPro,
@@ -43,6 +51,32 @@ const Stats = () => {
         <Loader />
       ) : (
         <>
+          <div className="flex items-center mb-4 space-x-2">
+            <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-[#181818]">
+              {IS_MAINNET ? 'mainnet' : 'testnet'}
+            </span>
+            {VERCEL_DEPLOYED_ENV && (
+              <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg">
+                {VERCEL_DEPLOYED_ENV}
+              </span>
+            )}
+            {GIT_DEPLOYED_BRANCH && (
+              <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg">
+                {GIT_DEPLOYED_BRANCH}
+              </span>
+            )}
+            {GIT_DEPLOYED_COMMIT_SHA && (
+              <Link
+                href={`https://github.com/sasicodes/lenstube/commit/${GIT_DEPLOYED_COMMIT_SHA}`}
+              >
+                <a target="_blank">
+                  <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg">
+                    {GIT_DEPLOYED_COMMIT_SHA?.substring(0, 6)}
+                  </span>
+                </a>
+              </Link>
+            )}
+          </div>
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-6 md:grid-cols-3">
             <StatCard
               icon={<FcVideoCall />}
