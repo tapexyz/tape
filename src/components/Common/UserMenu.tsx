@@ -5,13 +5,13 @@ import useAppStore from '@lib/store'
 import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
-import { SETTINGS, STATS } from '@utils/url-path'
+import { LENSTUBE_PATH, SETTINGS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
 import React, { FC, useState } from 'react'
 import { AiOutlinePlus, AiOutlineUserSwitch } from 'react-icons/ai'
 import { BiArrowBack, BiCheck, BiMoviePlay } from 'react-icons/bi'
-import { IoIosAnalytics } from 'react-icons/io'
+import { IoAnalyticsOutline } from 'react-icons/io5'
 import { VscDebugDisconnect } from 'react-icons/vsc'
 import { Profile } from 'src/types'
 import { useAccount, useDisconnect } from 'wagmi'
@@ -137,20 +137,6 @@ const UserMenu: FC<Props> = () => {
               </div>
             </div>
             <div className="py-1 text-sm">
-              {isAdmin && (
-                <Link href={STATS}>
-                  <a
-                    className={clsx(
-                      'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                    )}
-                  >
-                    <IoIosAnalytics className="text-lg" />
-                    <span className="truncate whitespace-nowrap">
-                      App Stats
-                    </span>
-                  </a>
-                </Link>
-              )}
               <Link href={`/${selectedChannel?.handle}`}>
                 <a
                   className={clsx(
@@ -191,6 +177,18 @@ const UserMenu: FC<Props> = () => {
               )}
             </div>
             <div className="py-1 text-sm">
+              {isAdmin && (
+                <Link href={LENSTUBE_PATH}>
+                  <a
+                    className={clsx(
+                      'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    )}
+                  >
+                    <IoAnalyticsOutline className="text-lg" />
+                    <span className="truncate whitespace-nowrap">App Info</span>
+                  </a>
+                </Link>
+              )}
               <button
                 className={clsx(
                   'flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'

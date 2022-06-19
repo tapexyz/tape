@@ -58,12 +58,12 @@ export const LENSTUBE_APP_ID = 'Lenstube'
 export const AUTH_ROUTES = [
   '/upload',
   '/settings',
-  '/stats',
+  '/lt',
   '/report/[id]',
   '/settings/membership',
   '/settings/permissions'
 ]
-export const ADMIN_ROUTES = ['/stats']
+export const ADMIN_ROUTES = ['/lt']
 
 // handles
 export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'
