@@ -51,7 +51,7 @@ const NotificationTrigger = () => {
       trigger={
         <Button
           variant="outlined"
-          className="!px-2 !hidden md:!block"
+          className="!p-[9px] !hidden md:!block"
           onClick={() => onClickNotification()}
         >
           <AiOutlineBell className="text-sm md:text-lg" />
