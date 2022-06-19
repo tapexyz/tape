@@ -13,6 +13,7 @@ import {
 } from '@utils/constants'
 import { GET_LENSTUBE_STATS } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React from 'react'
 import {
@@ -23,10 +24,10 @@ import {
   FcSynchronize,
   FcVideoCall
 } from 'react-icons/fc'
-import Custom404 from 'src/pages/404'
 import { GlobalProtocolStats } from 'src/types'
 
-import StatCard from './StatCard'
+const StatCard = dynamic(() => import('./StatCard'))
+const Custom404 = dynamic(() => import('../../pages/404'))
 
 const Stats = () => {
   const { selectedChannel } = useAppStore()
