@@ -76,7 +76,7 @@ const SeeAllCommented = () => {
         {loading && <TimelineShimmer />}
         {!error && !loading && (
           <>
-            <Timeline typeName="Comment" videos={commentedVideos} />
+            <Timeline videos={commentedVideos} />
             {pageInfo?.next && commentedVideos.length !== pageInfo?.totalCount && (
               <span ref={observe} className="flex justify-center p-10">
                 <Loader />

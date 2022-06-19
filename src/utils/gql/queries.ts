@@ -79,6 +79,84 @@ export const MinimalCollectModuleFields = gql`
   }
 `
 
+export const MetadataFields = gql`
+  fragment MetadataFields on MetadataOutput {
+    name
+    description
+    content
+    cover {
+      original {
+        url
+      }
+    }
+    media {
+      original {
+        url
+        mimeType
+      }
+    }
+    attributes {
+      value
+    }
+  }
+`
+
+export const MirrorFields = gql`
+  fragment MirrorFields on Mirror {
+    id
+    profile {
+      name
+      handle
+    }
+    reaction(request: $reactionRequest)
+    collectModule {
+      ...MinimalCollectModuleFields
+    }
+    stats {
+      totalUpvotes
+      totalAmountOfMirrors
+      totalAmountOfCollects
+      totalAmountOfComments
+    }
+    metadata {
+      ...MetadataFields
+    }
+    mirrorOf {
+      ... on Post {
+        id
+        profile {
+          ...MinimalProfileFields
+        }
+        reaction(request: $reactionRequest)
+        stats {
+          totalUpvotes
+          totalAmountOfMirrors
+          totalAmountOfCollects
+          totalAmountOfComments
+        }
+      }
+      ... on Comment {
+        id
+        profile {
+          ...MinimalProfileFields
+        }
+        reaction(request: $reactionRequest)
+        stats {
+          totalUpvotes
+          totalAmountOfMirrors
+          totalAmountOfCollects
+          totalAmountOfComments
+        }
+      }
+    }
+    createdAt
+    appId
+  }
+  ${MinimalProfileFields}
+  ${MinimalCollectModuleFields}
+  ${MetadataFields}
+`
+
 export const CommentFields = gql`
   fragment CommentFields on Comment {
     id
@@ -471,6 +549,9 @@ export const FEED_QUERY = gql`
         ... on Comment {
           ...CommentFields
         }
+        ... on Mirror {
+          ...MirrorFields
+        }
       }
       pageInfo {
         next
@@ -480,6 +561,7 @@ export const FEED_QUERY = gql`
   }
   ${PostFields}
   ${CommentFields}
+  ${MirrorFields}
 `
 
 export const PROFILE_FEED_QUERY = gql`
@@ -495,6 +577,9 @@ export const PROFILE_FEED_QUERY = gql`
         ... on Comment {
           ...CommentFields
         }
+        ... on Mirror {
+          ...MirrorFields
+        }
       }
       pageInfo {
         totalCount
@@ -504,6 +589,7 @@ export const PROFILE_FEED_QUERY = gql`
   }
   ${PostFields}
   ${CommentFields}
+  ${MirrorFields}
 `
 
 export const COMMENT_FEED_QUERY = gql`

@@ -35,7 +35,7 @@ const LooksRare = () => {
   })
 
   const { observe } = useInView({
-    threshold: 1,
+    threshold: 0.5,
     onEnter: () => {
       fetchMore({
         variables: {

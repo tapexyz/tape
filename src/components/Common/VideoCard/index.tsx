@@ -23,7 +23,7 @@ const VideoCard: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata?.attributes)
 
   return (
-    <div className="cursor-pointer bg-gray-50 rounded-xl dark:bg-[#181818] group">
+    <div className="bg-gray-50 rounded-xl dark:bg-[#181818] group">
       {video.hidden ? (
         <div className="grid h-full place-items-center">
           <span className="text-xs">Video Hidden by User</span>
@@ -86,7 +86,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                 </Link>
                 <div className="flex overflow-hidden items-center space-x-1 text-[11px] opacity-70">
                   <span className="whitespace-nowrap">
-                    {video.stats.totalUpvotes} likes
+                    {video.stats?.totalUpvotes} likes
                   </span>
                   <span className="middot" />
                   <span className="whitespace-nowrap">
