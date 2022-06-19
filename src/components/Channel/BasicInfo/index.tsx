@@ -40,14 +40,16 @@ const BasicInfo: FC<Props> = ({ channel }) => {
           <div className="flex-none mr-4 md:mr-6">
             <img
               src={getProfilePicture(channel)}
-              alt=""
               className="object-cover bg-white border-2 rounded-full dark:bg-gray-900 w-14 h-14 md:-mt-10 md:w-32 md:h-32"
               draggable={false}
+              alt=""
             />
           </div>
           <div className="flex flex-wrap justify-between flex-1 py-2 space-y-2">
             <div className="flex flex-col items-start mr-3">
-              <h1 className="font-bold md:text-xl">{channel?.handle}</h1>
+              <h1 className="font-bold md:text-xl">
+                {channel.name ?? channel?.handle}
+              </h1>
               <span className="inline-flex items-center space-x-1 text-sm md:text-base">
                 {channel?.stats.totalFollowers} subscribers
               </span>

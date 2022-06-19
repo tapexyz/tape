@@ -3,10 +3,11 @@ import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
 import { NOTIFICATION_COUNT_QUERY } from '@utils/gql/queries'
+import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
 import { AiOutlineBell } from 'react-icons/ai'
 
-import Notifications from '.'
+const Notifications = dynamic(() => import('.'))
 
 const NotificationTrigger = () => {
   const {

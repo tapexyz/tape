@@ -10,16 +10,17 @@ import {
   SETTINGS_MEMBERSHIP,
   SETTINGS_PERMISSIONS
 } from '@utils/url-path'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { MediaSet, Profile } from 'src/types'
 
-import BasicInfo from './BasicInfo'
-import Membership from './Membership'
-import Permissions from './Permissions'
-import SideNav from './SideNav'
+const BasicInfo = dynamic(() => import('./BasicInfo'))
+const Permissions = dynamic(() => import('./Permissions'))
+const Membership = dynamic(() => import('./Membership'))
+const SideNav = dynamic(() => import('./SideNav'))
 
 const Settings = () => {
   const { selectedChannel } = useAppStore()

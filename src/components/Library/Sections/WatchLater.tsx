@@ -1,12 +1,13 @@
-import VideoCard from '@components/Common/VideoCard'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import { WATCH_LATER_LIBRARY } from '@utils/url-path'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { BiChevronRight } from 'react-icons/bi'
 import { MdOutlineWatchLater } from 'react-icons/md'
 import { LenstubePublication } from 'src/types/local'
+const VideoCard = dynamic(() => import('../../Common/VideoCard'))
 
 const WatchLater = () => {
   const { watchLater } = useAppStore()
