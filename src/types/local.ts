@@ -1,6 +1,6 @@
 import { WebBundlr } from '@bundlr-network/client'
 
-import { Comment, Post } from '.'
+import { Comment, Mirror, Post } from '.'
 
 export type VideoDraft = {
   preview: string
@@ -23,7 +23,7 @@ export type VideoUpload = {
   file: File | null
 }
 
-export type LenstubePublication = Post & Comment & { pubId: string }
+export type LenstubePublication = Post & Comment & Mirror & { pubId: string }
 
 export type IPFSUploadResult = {
   hash: string

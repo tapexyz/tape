@@ -119,7 +119,7 @@ const UserMenu: FC<Props> = () => {
                 )}
               >
                 <img
-                  className="rounded-xl w-9 h-9"
+                  className="object-cover rounded-xl w-9 h-9"
                   src={getProfilePicture(selectedChannel)}
                   alt=""
                   draggable={false}

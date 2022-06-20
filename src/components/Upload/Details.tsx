@@ -159,6 +159,7 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
       }
     )
     if (response.data) {
+      setButtonText('Processing...')
       const playbackId = await getPlaybackId(
         `${IPFS_GATEWAY}/${response.data.Hash}`
       )
@@ -298,6 +299,7 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
         tx.id,
         tx.getRaw().length
       )
+      setButtonText('Processing...')
       const playbackId = await getPlaybackId(
         `${ARWEAVE_WEBSITE_URL}/${response.data.id}`
       )
@@ -477,7 +479,7 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
   }
 
   return (
-    <div className="h-full">
+    <div className="max-w-6xl gap-5 mx-auto">
       <div className="grid h-full gap-5 md:grid-cols-2">
         <Form
           video={video}
@@ -547,8 +549,8 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
           )}
         </div>
       </div>
-      <div className="flex items-center justify-between mt-3">
-        <span>
+      <div className="flex items-center justify-end mt-3">
+        <span className="mr-4">
           {videoMeta.videoSource && (
             <span className="text-xs text-green-500">Video uploaded</span>
           )}

@@ -260,6 +260,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
             <Input
               {...register('tipQuantity', { valueAsNumber: true })}
               className="w-14"
+              min={1}
               type="number"
             />
           </span>

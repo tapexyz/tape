@@ -4,6 +4,8 @@ import dynamic from 'next/dynamic'
 import { FC } from 'react'
 import { Profile } from 'src/types'
 
+import MirroredVideos from './MirroredVideos'
+
 const About = dynamic(() => import('./About'))
 const OtherChannels = dynamic(() => import('./OtherChannels'))
 const CommentedVideos = dynamic(() => import('./CommentedVideos'))
@@ -57,6 +59,18 @@ const Activity: FC<Props> = ({ channel }) => {
                   )
                 }
               >
+                Mirrored
+              </Tab>
+              <Tab
+                className={({ selected }) =>
+                  clsx(
+                    'px-4 py-2 border-b-2 text-sm focus:outline-none',
+                    selected
+                      ? 'border-indigo-900 opacity-100'
+                      : 'border-transparent opacity-50'
+                  )
+                }
+              >
                 Channels
               </Tab>
             </Tab.List>
@@ -66,6 +80,9 @@ const Activity: FC<Props> = ({ channel }) => {
               </Tab.Panel>
               <Tab.Panel className="py-3 focus:outline-none">
                 <CommentedVideos channel={channel} />
+              </Tab.Panel>
+              <Tab.Panel className="py-3 focus:outline-none">
+                <MirroredVideos channel={channel} />
               </Tab.Panel>
               <Tab.Panel className="py-3 focus:outline-none">
                 <OtherChannels channel={channel} />

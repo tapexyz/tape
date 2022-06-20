@@ -27,11 +27,6 @@ const authLink = new ApolloLink((operation, forward) => {
     clearStorage()
     return forward(operation)
   } else {
-    operation.setContext({
-      headers: {
-        'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
-      }
-    })
     const accessTokenDecrypted: any = jwtDecode(accessToken)
     const isExpireSoon = Date.now() >= accessTokenDecrypted.exp * 1000
     if (isExpireSoon) {
@@ -68,6 +63,11 @@ const authLink = new ApolloLink((operation, forward) => {
           window.location.reload()
         })
     }
+    operation.setContext({
+      headers: {
+        'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
+      }
+    })
     return forward(operation)
   }
 })

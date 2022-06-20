@@ -9,6 +9,7 @@ import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PaginatedResultInfo, Profile } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
+
 const Timeline = dynamic(() => import('../../Home/Timeline'), {
   loading: () => <TimelineShimmer />
 })
@@ -17,13 +18,13 @@ type Props = {
   channel: Profile
 }
 
-const ChannelVideos: FC<Props> = ({ channel }) => {
+const MirroredVideos: FC<Props> = ({ channel }) => {
   const [channelVideos, setChannelVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: {
-        publicationTypes: 'POST',
+        publicationTypes: 'MIRROR',
         profileId: channel?.id,
         limit: 8,
         sources: [LENSTUBE_APP_ID]
@@ -40,7 +41,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
       fetchMore({
         variables: {
           request: {
-            publicationTypes: 'POST',
+            publicationTypes: 'MIRROR',
             profileId: channel?.id,
             cursor: pageInfo?.next,
             limit: 8,
@@ -57,23 +58,23 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
   if (loading) return <TimelineShimmer />
 
   if (data?.publications?.items?.length === 0) {
-    return <NoDataFound text="No videos uploaded." />
+    return <NoDataFound text="No mirrors found." />
   }
 
   return (
     <div className="w-full">
       {!error && !loading && (
-        <>
-          <Timeline videos={channelVideos} />
+        <div>
+          <Timeline videos={channelVideos} videoType="Mirror" />
           {pageInfo?.next && channelVideos.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>
           )}
-        </>
+        </div>
       )}
     </div>
   )
 }
 
-export default ChannelVideos
+export default MirroredVideos

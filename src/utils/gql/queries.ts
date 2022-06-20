@@ -79,7 +79,85 @@ export const MinimalCollectModuleFields = gql`
   }
 `
 
-export const CommentFields = gql`
+export const MetadataFields = gql`
+  fragment MetadataFields on MetadataOutput {
+    name
+    description
+    content
+    cover {
+      original {
+        url
+      }
+    }
+    media {
+      original {
+        url
+        mimeType
+      }
+    }
+    attributes {
+      value
+    }
+  }
+`
+
+export const MirrorFieldsFragment = gql`
+  fragment MirrorFields on Mirror {
+    id
+    profile {
+      name
+      handle
+    }
+    reaction(request: $reactionRequest)
+    collectModule {
+      ...MinimalCollectModuleFields
+    }
+    stats {
+      totalUpvotes
+      totalAmountOfMirrors
+      totalAmountOfCollects
+      totalAmountOfComments
+    }
+    metadata {
+      ...MetadataFields
+    }
+    mirrorOf {
+      ... on Post {
+        id
+        profile {
+          ...MinimalProfileFields
+        }
+        reaction(request: $reactionRequest)
+        stats {
+          totalUpvotes
+          totalAmountOfMirrors
+          totalAmountOfCollects
+          totalAmountOfComments
+        }
+      }
+      ... on Comment {
+        id
+        profile {
+          ...MinimalProfileFields
+        }
+        reaction(request: $reactionRequest)
+        stats {
+          totalUpvotes
+          totalAmountOfMirrors
+          totalAmountOfCollects
+          totalAmountOfComments
+        }
+      }
+    }
+    createdAt
+    appId
+  }
+  ${MinimalProfileFields}
+  ${MinimalCollectModuleFields}
+  ${MetadataFields}
+`
+
+export const CommentFieldsFragment = gql`
   fragment CommentFields on Comment {
     id
     profile {
@@ -98,6 +176,7 @@ export const CommentFields = gql`
     stats {
       totalAmountOfComments
       totalAmountOfCollects
+      totalAmountOfMirrors
       totalDownvotes
       totalUpvotes
     }
@@ -313,7 +392,7 @@ export const SEARCH_CHANNELS_QUERY = gql`
   ${MinimalProfileFields}
 `
 
-export const PostFields = gql`
+export const PostFieldsFragment = gql`
   fragment PostFields on Post {
     id
     reaction(request: $reactionRequest)
@@ -333,6 +412,7 @@ export const PostFields = gql`
     stats {
       totalAmountOfComments
       totalAmountOfCollects
+      totalAmountOfMirrors
       totalUpvotes
       totalDownvotes
     }
@@ -454,8 +534,8 @@ export const EXPLORE_QUERY = gql`
       }
     }
   }
-  ${PostFields}
-  ${CommentFields}
+  ${PostFieldsFragment}
+  ${CommentFieldsFragment}
 `
 
 export const FEED_QUERY = gql`
@@ -471,6 +551,9 @@ export const FEED_QUERY = gql`
         ... on Comment {
           ...CommentFields
         }
+        ... on Mirror {
+          ...MirrorFields
+        }
       }
       pageInfo {
         next
@@ -478,8 +561,9 @@ export const FEED_QUERY = gql`
       }
     }
   }
-  ${PostFields}
-  ${CommentFields}
+  ${PostFieldsFragment}
+  ${CommentFieldsFragment}
+  ${MirrorFieldsFragment}
 `
 
 export const PROFILE_FEED_QUERY = gql`
@@ -495,6 +579,9 @@ export const PROFILE_FEED_QUERY = gql`
         ... on Comment {
           ...CommentFields
         }
+        ... on Mirror {
+          ...MirrorFields
+        }
       }
       pageInfo {
         totalCount
@@ -502,8 +589,9 @@ export const PROFILE_FEED_QUERY = gql`
       }
     }
   }
-  ${PostFields}
-  ${CommentFields}
+  ${PostFieldsFragment}
+  ${CommentFieldsFragment}
+  ${MirrorFieldsFragment}
 `
 
 export const COMMENT_FEED_QUERY = gql`
@@ -520,7 +608,7 @@ export const COMMENT_FEED_QUERY = gql`
       }
     }
   }
-  ${CommentFields}
+  ${CommentFieldsFragment}
 `
 
 export const CREATE_POST_TYPED_DATA = gql`
@@ -637,7 +725,7 @@ export const VIDEO_DETAIL_QUERY = gql`
       }
     }
   }
-  ${PostFields}
+  ${PostFieldsFragment}
 `
 
 export const VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY = gql`
@@ -884,8 +972,8 @@ export const SEARCH_VIDEOS_QUERY = gql`
       }
     }
   }
-  ${PostFields}
-  ${CommentFields}
+  ${PostFieldsFragment}
+  ${CommentFieldsFragment}
 `
 
 export const OG_VIDEO_DETAIL_QUERY = gql`
@@ -899,7 +987,7 @@ export const OG_VIDEO_DETAIL_QUERY = gql`
       }
     }
   }
-  ${PostFields}
+  ${PostFieldsFragment}
 `
 
 export const OG_PROFILE_QUERY = gql`
@@ -1003,6 +1091,42 @@ export const GET_LENSTUBE_STATS = gql`
           address
         }
         value
+      }
+    }
+  }
+`
+
+export const CREATE_MIRROR_TYPED_DATA = gql`
+  mutation CreateMirrorTypedData(
+    $options: TypedDataOptions
+    $request: CreateMirrorRequest!
+  ) {
+    createMirrorTypedData(options: $options, request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          MirrorWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          profileIdPointed
+          pubIdPointed
+          referenceModule
+          referenceModuleData
+          referenceModuleInitData
+        }
       }
     }
   }

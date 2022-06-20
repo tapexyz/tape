@@ -10,7 +10,9 @@ import { useInView } from 'react-cool-inview'
 import { PaginatedResultInfo, Profile } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
-const Timeline = dynamic(() => import('../../Home/Timeline'))
+const Timeline = dynamic(() => import('../../Home/Timeline'), {
+  loading: () => <TimelineShimmer />
+})
 
 type Props = {
   channel: Profile
@@ -63,7 +65,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
     <div className="w-full">
       {!error && !loading && (
         <div>
-          <Timeline videos={channelVideos} typeName="Comment" />
+          <Timeline videos={channelVideos} videoType="Comment" />
           {pageInfo?.next && channelVideos.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />

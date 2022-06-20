@@ -13,13 +13,13 @@ export const getSharableLink = (link: string, video: LenstubePublication) => {
   }
   if (link === 'reddit') {
     return `https://www.reddit.com/submit?url=${getVideoUrl(video)}&title=${
-      video.metadata.name
+      video.metadata?.name
     }`
   }
   if (link === 'linkedin') {
     return `https://www.linkedin.com/shareArticle/?url=${getVideoUrl(
       video
-    )}&title=${video.metadata.name}&summary=${
+    )}&title=${video.metadata?.name}&summary=${
       video.metadata?.description
     }&source=Lenstube`
   }

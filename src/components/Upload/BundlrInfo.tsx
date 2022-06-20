@@ -32,7 +32,7 @@ const BundlrInfo: FC<Props> = ({
               </button>
             </span>
             <Link href={BUNDLR_WEBSITE_URL}>
-              <a target="_blank" rel="noreferer" className="text-[9px]">
+              <a target="_blank" rel="noreferer" className="text-[11px]">
                 bundlr.network ({BUNDLR_CURRENCY})
               </a>
             </Link>
@@ -48,10 +48,14 @@ const BundlrInfo: FC<Props> = ({
                     showDeposit: !bundlrData.showDeposit
                   })
                 }
-                className="inline-flex items-center px-1 bg-gray-100 rounded-full focus:outline-none dark:bg-gray-800"
+                className="inline-flex py-0.5 items-center pl-1.5 pr-0.5 bg-gray-100 rounded-full focus:outline-none dark:bg-gray-800"
               >
-                <span className="text-[9px] pl-1">Deposit</span>
-                {bundlrData.showDeposit ? <BiChevronUp /> : <BiChevronDown />}
+                <span className="text-[11px] px-0.5">Deposit</span>
+                {bundlrData.showDeposit ? (
+                  <BiChevronUp className="pb-0.5" />
+                ) : (
+                  <BiChevronDown className="pb-0.5" />
+                )}
               </button>
             </span>
           </div>
@@ -64,6 +68,7 @@ const BundlrInfo: FC<Props> = ({
               className="!py-1.5"
               placeholder="100 MATIC"
               autoComplete="off"
+              min={0}
               value={bundlrData.deposit || ''}
               onChange={(e) => {
                 setBundlrData({

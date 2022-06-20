@@ -8,7 +8,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { FC } from 'react'
-import { AiOutlineComment } from 'react-icons/ai'
+import { MdPublishedWithChanges } from 'react-icons/md'
 import { LenstubePublication } from 'src/types/local'
 dayjs.extend(relativeTime)
 
@@ -16,22 +16,22 @@ type Props = {
   video: LenstubePublication
 }
 
-const CommentedVideoCard: FC<Props> = ({ video }) => {
-  const commentedOn = video.commentOn as LenstubePublication
+const MirroredVideoCard: FC<Props> = ({ video }) => {
+  const mirrorOf = video.mirrorOf as LenstubePublication
   const isSensitiveContent = getIsSensitiveContent(
-    commentedOn.metadata?.attributes
+    mirrorOf.metadata?.attributes
   )
 
   return (
     <div className="overflow-hidden group bg-gray-50 rounded-xl dark:bg-[#181818]">
-      <Link href={`/watch/${commentedOn.pubId}`}>
+      <Link href={`/watch/${mirrorOf.id}`}>
         <a>
           <div className="relative rounded-t-xl aspect-w-16 aspect-h-8">
             <img
               src={imageCdn(
                 isSensitiveContent
                   ? `${STATIC_ASSETS}/images/sensor-blur.png`
-                  : getThumbnailUrl(commentedOn)
+                  : getThumbnailUrl(video)
               )}
               alt=""
               draggable={false}
@@ -53,7 +53,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
             <a className="flex-none mt-0.5">
               <img
                 className="w-8 h-8 rounded-xl"
-                src={getProfilePicture(video.profile)}
+                src={getProfilePicture(mirrorOf.profile)}
                 alt=""
                 draggable={false}
               />
@@ -61,32 +61,31 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
           </Link>
           <div className="flex flex-col items-start flex-1">
             <div className="flex w-full items-start justify-between space-x-1.5">
-              <Link href={`/watch/${commentedOn.pubId}`}>
+              <Link href={`/watch/${mirrorOf.id}`}>
                 <a className="font-medium text-[15px] line-clamp-2 opacity-80">
-                  {commentedOn.metadata?.name}
+                  {video.metadata?.name}
                 </a>
               </Link>
             </div>
             <Link passHref href={`/${video.profile?.handle}`}>
               <a className="text-xs hover:opacity-100 opacity-70">
-                {commentedOn.profile?.handle}
+                {mirrorOf.profile?.handle}
               </a>
             </Link>
           </div>
         </div>
-        <div className="relative pb-1.5 pt-2 overflow-hidden text-sm opacity-90">
+        <div className="relative pb-1.5 pt-4 overflow-hidden text-sm opacity-90">
           <>
-            <div className="absolute left-3 bottom-5 pb-2 inset-0 flex justify-center w-1.5">
+            <div className="absolute left-3 bottom-2.5 pb-2 inset-0 flex justify-center w-1.5">
               <div className="w-0.5 bg-gray-300 dark:bg-gray-700 pointer-events-none" />
             </div>
-            <Tooltip content="Commented">
-              <span className="absolute m-2 bottom-1 opacity-70">
-                <AiOutlineComment />
+            <Tooltip content="Mirrored">
+              <span className="absolute m-2 mb-0 bottom-1 opacity-70">
+                <MdPublishedWithChanges />
               </span>
             </Tooltip>
           </>
           <div className="pl-8">
-            <div className="text-xs line-clamp-1">{video.metadata.content}</div>
             <div className="flex items-center text-xs leading-3 opacity-70">
               <Link href={`/${video.profile?.handle}`}>
                 <a className="opacity-90 hover:opacity-100">
@@ -105,4 +104,4 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
   )
 }
 
-export default CommentedVideoCard
+export default MirroredVideoCard

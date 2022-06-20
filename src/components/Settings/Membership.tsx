@@ -232,6 +232,7 @@ const Membership = ({ channel }: Props) => {
               <Input
                 label="Amount"
                 type="number"
+                min={0}
                 placeholder="10"
                 autoComplete="off"
                 required

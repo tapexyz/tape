@@ -19,7 +19,8 @@ const SuggestedVideos = () => {
         sortCriteria: 'LATEST',
         limit: 10,
         sources: [LENSTUBE_APP_ID],
-        publicationTypes: ['POST']
+        publicationTypes: ['POST'],
+        noRandomize: false
       }
     },
     onCompleted(data) {
@@ -38,7 +39,8 @@ const SuggestedVideos = () => {
             sortCriteria: 'LATEST',
             limit: 10,
             sources: [LENSTUBE_APP_ID],
-            publicationTypes: ['POST']
+            publicationTypes: ['POST'],
+            noRandomize: false
           }
         }
       }).then(({ data }: any) => {

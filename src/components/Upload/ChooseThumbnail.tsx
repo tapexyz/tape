@@ -3,10 +3,10 @@ import { generateVideoThumbnails } from '@rajesh896/video-thumbnails-generator'
 import { dataURLtoFile } from '@utils/functions/getFileFromDataURL'
 import imageCdn from '@utils/functions/imageCdn'
 import { uploadImageToIPFS } from '@utils/functions/uploadToIPFS'
+import useDraggableScroll from '@utils/hooks/useDraggableScroll'
 import clsx from 'clsx'
-import { ChangeEvent, FC, useEffect, useState } from 'react'
-import { FiUpload } from 'react-icons/fi'
-import { IoMdClose } from 'react-icons/io'
+import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
+import { BsCardImage } from 'react-icons/bs'
 import { IPFSUploadResult } from 'src/types/local'
 
 interface Props {
@@ -23,16 +23,18 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     Array<{ ipfsUrl: string; url: string }>
   >([])
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1)
+  const scrollRef = useRef<null | HTMLDivElement>(null)
+  const { onMouseDown } = useDraggableScroll(scrollRef)
 
   const generateThumbnails = (file: File) => {
-    generateVideoThumbnails(file, 4, '').then(async (thumbnailArray) => {
+    generateVideoThumbnails(file, 6, '').then(async (thumbnailArray) => {
       let thumbnails: Array<{ ipfsUrl: string; url: string }> = []
       thumbnailArray.forEach((t) => {
         thumbnails.push({ url: t, ipfsUrl: '' })
       })
       setThumbnails(thumbnails)
-      setSelectedThumbnailIndex(0)
-      const file = await dataURLtoFile(thumbnails[0].url, 'thumbnail.jpeg')
+      setSelectedThumbnailIndex(1)
+      const file = await dataURLtoFile(thumbnails[1].url, 'thumbnail.jpeg')
       const ipfsResult = await uploadThumbnailToIpfs(file)
       setThumbnails(
         thumbnails.map((t, i) => {
@@ -84,12 +86,6 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     }
   }
 
-  const onClearUpload = () => {
-    setSelectedThumbnailIpfsUrl('')
-    afterUpload(null)
-    setSelectedThumbnailIndex(-1)
-  }
-
   return (
     <div className="w-full">
       {label && (
@@ -112,47 +108,43 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
             draggable={false}
             loading="eager"
           />
-          <button
-            onClick={() => onClearUpload()}
-            className="absolute p-1 bg-white rounded-full outline-none cursor-pointer dark:bg-gray-800 top-1.5 right-1.5"
-          >
-            <IoMdClose className="text-red-500" />
-          </button>
-        </div>
-      ) : uploading ? (
-        <div className="h-[200px]">
-          <div className="grid h-full place-items-center">
-            <Loader />
-          </div>
         </div>
       ) : (
-        <label className="flex flex-col items-center w-full p-3 space-y-3 border border-gray-200 border-dashed cursor-pointer rounded-xl focus:outline-none dark:border-gray-800">
+        <div className="h-[200px]">
+          <div className="grid h-full place-items-center">
+            {uploading ? <Loader /> : ''}
+          </div>
+        </div>
+      )}
+      <div
+        ref={scrollRef}
+        onMouseDown={onMouseDown}
+        className="flex flex-row py-1 mt-2 space-x-2 overflow-x-auto cursor-grab no-scrollbar"
+      >
+        <label className="flex flex-col items-center justify-center flex-none w-32 h-16 p-5 border border-gray-200 border-dashed cursor-pointer rounded-xl focus:outline-none dark:border-gray-800">
           <input
             type="file"
             accept=".png, .jpg, .jpeg"
             className="hidden w-full"
             onChange={handleUpload}
           />
-          <FiUpload className="text-lg" />
-          <p className="text-xs opacity-50">
-            SVG, PNG, JPG (recommended - 1280x720px)
-          </p>
+          <BsCardImage className="text-lg" />
         </label>
-      )}
-      <div className="flex mx-0.5 mt-2 space-x-1">
         {thumbnails.map((thumbnail, idx) => {
           return (
             <button
               key={idx}
               onClick={() => onSelectThumbnail(idx)}
-              className={clsx('rounded focus:outline-none', {
-                'ring ring-indigo-500': selectedThumbnailIndex === idx
-              })}
+              className={clsx(
+                'rounded cursor-grab flex-none focus:outline-none',
+                {
+                  'ring ring-indigo-500': selectedThumbnailIndex === idx
+                }
+              )}
             >
               <img
-                className="object-cover w-full h-12 rounded"
+                className="object-cover w-32 h-16 rounded"
                 src={thumbnail.url}
-                height="300"
                 alt=""
                 draggable={false}
               />
