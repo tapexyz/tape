@@ -24,7 +24,7 @@ const Activity: FC<Props> = ({ channel }) => {
         </div>
         <div className="lg:w-4/5">
           <Tab.Group>
-            <Tab.List className="flex">
+            <Tab.List className="flex overflow-x-auto no-scrollbar">
               <Tab
                 className={({ selected }) =>
                   clsx(

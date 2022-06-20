@@ -15,7 +15,8 @@ const NotificationTrigger = () => {
     hasNewNotification,
     setHasNewNotification,
     notificationCount,
-    setNotificationCount
+    setNotificationCount,
+    isAuthenticated
   } = useAppStore()
 
   const { data: notificationsData } = useQuery(NOTIFICATION_COUNT_QUERY, {
@@ -46,6 +47,8 @@ const NotificationTrigger = () => {
     setNotificationCount(notificationsData?.notifications?.pageInfo?.totalCount)
     setHasNewNotification(false)
   }
+
+  if (!isAuthenticated) return null
 
   return (
     <Popover

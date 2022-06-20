@@ -1,15 +1,12 @@
-import { Button } from '@components/UIElements/Button'
-import useAppStore from '@lib/store'
 import { HOME } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import React, { useState } from 'react'
-import { AiOutlineSearch } from 'react-icons/ai'
+import React from 'react'
 
-import GlobalSearch from './GlobalSearch'
 import Login from './Login'
 
+const GlobalSearchBar = dynamic(() => import('./Search/GlobalSearchBar'))
 const NewVideoTrigger = dynamic(
   () => import('../../components/Channel/NewVideoTrigger')
 )
@@ -18,17 +15,14 @@ const NotificationTrigger = dynamic(
 )
 
 const Header = () => {
-  const { isAuthenticated } = useAppStore()
-  const [showSearch, setShowSearch] = useState(false)
-
   return (
     <div
       className={clsx(
-        'fixed z-10 flex md:left-[94px] right-2 left-2 md:right-4 items-center justify-between bg-white dark:bg-black h-14 md:h-16'
+        'fixed z-10 flex md:left-[94px] right-2 left-2 md:right-4 items-center bg-white dark:bg-black h-14 md:h-16'
       )}
     >
-      <div className="flex items-center flex-1 space-x-4">
-        <div className="flex items-center">
+      <div className="flex w-3/4 md:justify-end">
+        <div className="flex items-center space-x-1.5 md:space-x-0">
           <Link href={HOME}>
             <a className="block md:hidden">
               <img
@@ -39,30 +33,15 @@ const Header = () => {
               />
             </a>
           </Link>
-          {showSearch && <GlobalSearch setShowSearch={setShowSearch} />}
-          <button
-            onClick={() => setShowSearch(true)}
-            className="hidden text-sm opacity-80 hover:opacity-100 md:flex focus:outline-none items-center space-x-1 text-left py-1.5 rounded"
-          >
-            <AiOutlineSearch />
-            <span>Search</span>
-          </button>
+          <span />
+        </div>
+        <div className="hidden md:block">
+          <GlobalSearchBar />
         </div>
       </div>
-      <div className="flex flex-row items-center space-x-3">
-        <Button
-          variant="secondary"
-          className="!p-0 md:hidden"
-          onClick={() => setShowSearch(true)}
-        >
-          Search
-        </Button>
-        {isAuthenticated && (
-          <>
-            <NotificationTrigger />
-            <NewVideoTrigger />
-          </>
-        )}
+      <div className="flex flex-row items-center justify-end w-1/2 space-x-3">
+        <NotificationTrigger />
+        <NewVideoTrigger />
         <Login />
       </div>
     </div>
