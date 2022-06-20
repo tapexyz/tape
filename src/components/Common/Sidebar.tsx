@@ -7,10 +7,7 @@ import { FiHome } from 'react-icons/fi'
 import { MdOutlineVideoLibrary } from 'react-icons/md'
 import { RiLeafLine } from 'react-icons/ri'
 
-const MoreTrigger = dynamic(
-  () => import('../../components/Common/MoreTrigger'),
-  { ssr: false }
-)
+const MoreTrigger = dynamic(() => import('../../components/Common/MoreTrigger'))
 
 const Sidebar = () => {
   const router = useRouter()

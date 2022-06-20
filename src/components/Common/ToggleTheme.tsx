@@ -6,17 +6,21 @@ const ToggleTheme = () => {
   const { theme, setTheme } = useTheme()
 
   return (
-    <div className="flex flex-col w-full">
-      <button
-        onClick={() => {
-          setTheme(theme === 'dark' ? 'light' : 'dark')
-        }}
-        className="flex items-center px-2 py-1.5 space-x-2 text-sm rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none opacity-70 hover:opacity-100"
-      >
-        {theme === 'light' ? <MdOutlineDarkMode /> : <MdOutlineWbSunny />}
-        <span>{theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}</span>
-      </button>
-    </div>
+    <button
+      onClick={() => {
+        setTheme(theme === 'dark' ? 'light' : 'dark')
+      }}
+      className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+    >
+      {theme === 'light' ? (
+        <MdOutlineDarkMode className="text-lg" />
+      ) : (
+        <MdOutlineWbSunny className="text-lg" />
+      )}
+      <span className="text-sm whitespace-nowrap">
+        {theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}
+      </span>
+    </button>
   )
 }
 
