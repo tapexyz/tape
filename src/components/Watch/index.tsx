@@ -25,9 +25,8 @@ const VideoDetails = () => {
   const {
     query: { id }
   } = useRouter()
-  const { selectedChannel, addToRecentlyWatched, isAuthenticated } =
-    useAppStore()
-  const { data, error, loading, refetch } = useQuery(VIDEO_DETAIL_QUERY, {
+  const { selectedChannel, addToRecentlyWatched } = useAppStore()
+  const { data, error, loading } = useQuery(VIDEO_DETAIL_QUERY, {
     variables: {
       request: { publicationId: id },
       reactionRequest: selectedChannel
@@ -38,17 +37,6 @@ const VideoDetails = () => {
     skip: !id
   })
   const video = data?.publication as LenstubePublication
-
-  useEffect(() => {
-    refetch({
-      request: { publicationId: id },
-      reactionRequest: selectedChannel
-        ? { profileId: selectedChannel?.id }
-        : null,
-      sources: [LENSTUBE_APP_ID]
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated])
 
   useEffect(() => {
     if (video) addToRecentlyWatched(video)

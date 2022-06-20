@@ -14,7 +14,9 @@ import { AiOutlineComment } from 'react-icons/ai'
 import { PaginatedResultInfo } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
-const Timeline = dynamic(() => import('../../Home/Timeline'))
+const Timeline = dynamic(() => import('../../Home/Timeline'), {
+  loading: () => <TimelineShimmer />
+})
 
 const SeeAllCommented = () => {
   const { selectedChannel, isAuthenticated } = useAppStore()

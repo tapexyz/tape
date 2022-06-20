@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { WebBundlr } from '@bundlr-network/client'
 import {
-  ALCHEMY_RPC_URL,
   BUNDLR_CURRENCY,
-  BUNDLR_NODE_URL
+  BUNDLR_NODE_URL,
+  POLYGON_RPC_URL
 } from '@utils/constants'
 import { FetchSignerResult } from '@wagmi/core'
 import { Profile } from 'src/types'
@@ -90,7 +90,7 @@ export const useAppStore = create(
             BUNDLR_CURRENCY,
             signer?.provider,
             {
-              providerUrl: ALCHEMY_RPC_URL
+              providerUrl: POLYGON_RPC_URL
             }
           )
           await bundlr.utils.getBundlerAddress(BUNDLR_CURRENCY)

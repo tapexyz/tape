@@ -9,7 +9,9 @@ import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PaginatedResultInfo, Profile } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
-const Timeline = dynamic(() => import('../../Home/Timeline'))
+const Timeline = dynamic(() => import('../../Home/Timeline'), {
+  loading: () => <TimelineShimmer />
+})
 
 type Props = {
   channel: Profile

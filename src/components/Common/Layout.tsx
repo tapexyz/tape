@@ -1,6 +1,8 @@
+import { useQuery } from '@apollo/client'
 import useAppStore from '@lib/store'
 import { AUTH_ROUTES, POLYGON_CHAIN_ID } from '@utils/constants'
 import { getToastOptions } from '@utils/functions/getToastOptions'
+import { CURRENT_USER_QUERY } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import { AUTH } from '@utils/url-path'
 import clsx from 'clsx'
@@ -9,7 +11,8 @@ import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactNode, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { useConnect, useDisconnect, useNetwork } from 'wagmi'
+import { Profile } from 'src/types'
+import { useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi'
 
 import Header from './Header'
 import Sidebar from './Sidebar'
@@ -27,13 +30,29 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
     setSelectedChannel,
     setIsAuthenticated,
     isAuthenticated,
-    selectedChannel
+    selectedChannel,
+    setChannels
   } = useAppStore()
   const { resolvedTheme } = useTheme()
   const { activeConnector } = useConnect()
   const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
   const { mounted } = useIsMounted()
+  const { data: account } = useAccount()
+
+  useQuery(CURRENT_USER_QUERY, {
+    variables: { ownedBy: account?.address },
+    skip: !isAuthenticated || !account?.address,
+    onCompleted(data) {
+      const channels: Profile[] = data?.profiles?.items
+      if (channels.length === 0) {
+        setSelectedChannel(null)
+      } else {
+        setChannels(channels)
+        if (!selectedChannel) setSelectedChannel(channels[0])
+      }
+    }
+  })
 
   useEffect(() => {
     if (!isAuthenticated && AUTH_ROUTES.includes(pathname)) {
