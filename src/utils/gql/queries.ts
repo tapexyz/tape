@@ -802,16 +802,6 @@ export const CREATE_FOLLOW_TYPED_DATA = gql`
   }
 `
 
-export const DOES_FOLLOW = gql`
-  query ($request: DoesFollowRequest!) {
-    doesFollow(request: $request) {
-      followerAddress
-      profileId
-      follows
-    }
-  }
-`
-
 export const CHANNEL_FOLLOW_MODULE_QUERY = gql`
   query Profile($request: ProfileQueryRequest!) {
     profiles(request: $request) {
