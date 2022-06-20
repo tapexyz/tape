@@ -1,4 +1,3 @@
-import SquareButtonShimmer from '@components/Shimmers/SquareButtonShimmer'
 import { EXPLORE, HOME, LIBRARY } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -8,10 +7,10 @@ import { FiHome } from 'react-icons/fi'
 import { MdOutlineVideoLibrary } from 'react-icons/md'
 import { RiLeafLine } from 'react-icons/ri'
 
-const ToggleTheme = dynamic(() => import('./ToggleTheme'), {
-  loading: () => <SquareButtonShimmer />,
-  ssr: false
-})
+const MoreTrigger = dynamic(
+  () => import('../../components/Common/MoreTrigger'),
+  { ssr: false }
+)
 
 const Sidebar = () => {
   const router = useRouter()
@@ -19,7 +18,7 @@ const Sidebar = () => {
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 items-start justify-between hidden w-[68px] p-1 m-2 bg-white border shadow dark:border-gray-900 rounded-xl dark:bg-black md:flex md:flex-col">
+    <div className="fixed top-0 bottom-0 left-0 z-10 items-start justify-between hidden w-[68px] p-1 m-2 bg-white border shadow dark:border-gray-900 rounded-xl dark:bg-black md:flex md:flex-col">
       <div className="flex flex-col w-full text-center space-y-1.5">
         <div className="relative p-3">
           <span className="text-[10px] font-semibold absolute text-indigo-500 top-2 right-1 opacity-80 rounded-full">
@@ -80,7 +79,7 @@ const Sidebar = () => {
           </Link>
         </div>
       </div>
-      <ToggleTheme />
+      <MoreTrigger />
     </div>
   )
 }

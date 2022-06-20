@@ -106,12 +106,7 @@ const VideoReaction: FC<Props> = ({ video }) => {
 
   return (
     <div className="flex items-center justify-end space-x-4">
-      <Button
-        disabled={reaction.isDisliked}
-        variant="secondary"
-        className="!p-0"
-        onClick={() => likeVideo()}
-      >
+      <Button variant="secondary" className="!p-0" onClick={() => likeVideo()}>
         <span
           className={clsx('flex items-center space-x-1 outline-none', {
             'text-indigo-500 font-semibold': reaction.isLiked
@@ -122,7 +117,6 @@ const VideoReaction: FC<Props> = ({ video }) => {
         </span>
       </Button>
       <Button
-        disabled={reaction.isLiked}
         variant="secondary"
         className="!p-0"
         onClick={() => dislikeVideo()}

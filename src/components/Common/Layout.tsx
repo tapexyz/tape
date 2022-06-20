@@ -9,7 +9,7 @@ import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import React, { FC, ReactNode, useEffect } from 'react'
+import React, { FC, ReactNode, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { Profile } from 'src/types'
 import { useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi'
@@ -40,10 +40,11 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
   const { disconnect } = useDisconnect()
   const { mounted } = useIsMounted()
   const { data: account } = useAccount()
+  const [pageLoading, setPageLoading] = useState(true)
 
   const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: account?.address },
-    skip: !isAuthenticated || !account?.address,
+    skip: !isAuthenticated,
     onCompleted(data) {
       const channels: Profile[] = data?.profiles?.items
       if (channels.length === 0) {
@@ -69,6 +70,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
       localStorage.removeItem('app-storage')
       disconnect()
     }
+    setPageLoading(false)
     if (
       refreshToken &&
       accessToken &&
@@ -91,7 +93,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, disconnect, activeConnector, setSelectedChannel])
 
-  if (loading && mounted) return <FullPageLoader />
+  if (loading || pageLoading) return <FullPageLoader />
 
   return (
     <>

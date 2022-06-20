@@ -1,28 +1,23 @@
 import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
+import Recents from '@components/Explore/Recents'
 import useAppStore from '@lib/store'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
-import { useConnect } from 'wagmi'
 
 const Recommended = dynamic(() => import('./Recommended'))
-const HomeFeed = dynamic(() => import('./Feed'))
 const Trending = dynamic(() => import('../Explore/Trending'))
 
 const Home: NextPage = () => {
-  const { isAuthenticated, selectedChannel } = useAppStore()
-  const { activeConnector } = useConnect()
+  const { isAuthenticated } = useAppStore()
 
   return (
     <Layout>
       <MetaTags />
       <Recommended />
       <div className="md:my-5">
-        {isAuthenticated && activeConnector && selectedChannel?.id ? (
-          <HomeFeed />
-        ) : (
-          <Trending />
-        )}
+        {/* {isAuthenticated ? <HomeFeed /> : <Trending />} */}
+        {isAuthenticated ? <Recents /> : <Trending />}
       </div>
     </Layout>
   )
