@@ -1,5 +1,5 @@
+import ButtonShimmer from '@components/Shimmers/ButtonShimmer'
 import SquareButtonShimmer from '@components/Shimmers/SquareButtonShimmer'
-import useAppStore from '@lib/store'
 import { HOME } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -14,15 +14,15 @@ const MoreTrigger = dynamic(
   { loading: () => <SquareButtonShimmer /> }
 )
 const NewVideoTrigger = dynamic(
-  () => import('../../components/Channel/NewVideoTrigger')
+  () => import('../../components/Channel/NewVideoTrigger'),
+  { loading: () => <ButtonShimmer /> }
 )
 const NotificationTrigger = dynamic(
-  () => import('../../components/Notifications/NotificationTrigger')
+  () => import('../../components/Notifications/NotificationTrigger'),
+  { loading: () => <SquareButtonShimmer /> }
 )
 
 const Header = () => {
-  const { isAuthenticated } = useAppStore()
-
   return (
     <div
       className={clsx(
@@ -46,12 +46,8 @@ const Header = () => {
         <GlobalSearchBar />
       </div>
       <div className="flex flex-row items-center space-x-3">
-        {isAuthenticated && (
-          <>
-            <NotificationTrigger />
-            <NewVideoTrigger />
-          </>
-        )}
+        <NotificationTrigger />
+        <NewVideoTrigger />
         <Login />
       </div>
     </div>

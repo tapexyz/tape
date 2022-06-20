@@ -14,6 +14,7 @@ import { Toaster } from 'react-hot-toast'
 import { Profile } from 'src/types'
 import { useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi'
 
+import FullPageLoader from './FullPageLoader'
 import Header from './Header'
 import Sidebar from './Sidebar'
 const CreateChannel = dynamic(() => import('./CreateChannel'))
@@ -40,7 +41,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
   const { mounted } = useIsMounted()
   const { data: account } = useAccount()
 
-  useQuery(CURRENT_USER_QUERY, {
+  const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: account?.address },
     skip: !isAuthenticated || !account?.address,
     onCompleted(data) {
@@ -89,6 +90,8 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, disconnect, activeConnector, setSelectedChannel])
+
+  if (loading && mounted) return <FullPageLoader />
 
   return (
     <>
