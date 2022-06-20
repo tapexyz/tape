@@ -19,4 +19,4 @@
 Decentralized video-sharing social media platform (similar to YouTube), using Lens Protocol  🌿
 
 ## License
-Lenstube is open-sourced software licensed under the [MIT license](LICENSE).
+Lenstube is open-sourced software licensed under the [MIT license](LICENSE)
