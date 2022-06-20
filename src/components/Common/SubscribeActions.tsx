@@ -1,12 +1,6 @@
-import { useQuery } from '@apollo/client'
 import JoinChannel from '@components/Channel/BasicInfo/JoinChannel'
 import Subscribe from '@components/Channel/BasicInfo/Subscribe'
 import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
-import ButtonShimmer from '@components/Shimmers/ButtonShimmer'
-import useAppStore from '@lib/store'
-import { ZERO_ADDRESS } from '@utils/constants'
-import { DOES_FOLLOW } from '@utils/gql/queries'
-import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
 import { Profile } from 'src/types'
 
@@ -16,33 +10,14 @@ type Props = {
 }
 
 const SubscribeActions: FC<Props> = ({ channel, subscribeType }) => {
-  const { selectedChannel } = useAppStore()
-  const {
-    query: { id }
-  } = useRouter()
-  const channelId = channel?.id || id?.toString().split('-')[0]
-  const { data, loading } = useQuery(DOES_FOLLOW, {
-    variables: {
-      request: {
-        followInfos: {
-          followerAddress: selectedChannel?.ownedBy ?? ZERO_ADDRESS,
-          profileId: channelId
-        }
-      }
-    },
-    skip: !selectedChannel || !channelId
-  })
-
-  const isSubscriber = (data?.doesFollow[0].follows as boolean) ?? false
+  const isSubscriber = channel.isFollowedByMe
   const [subscriber, setSubscriber] = useState(isSubscriber)
 
   useEffect(() => {
     setSubscriber(isSubscriber)
-  }, [data, isSubscriber])
+  }, [isSubscriber])
 
-  return loading ? (
-    <ButtonShimmer />
-  ) : (
+  return (
     <>
       {subscriber ? (
         <UnSubscribe

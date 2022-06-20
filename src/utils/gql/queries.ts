@@ -16,6 +16,7 @@ export const MinimalProfileFields = gql`
     handle
     bio
     ownedBy
+    isFollowedByMe
     attributes {
       key
       value
@@ -301,6 +302,7 @@ export const PROFILE_QUERY = gql`
         handle
         ownedBy
         name
+        isFollowedByMe
         attributes {
           key
           value
@@ -409,6 +411,7 @@ export const PostFieldsFragment = gql`
       ...MinimalCollectModuleFields
     }
     hidden
+    hasCollectedByMe
     stats {
       totalAmountOfComments
       totalAmountOfCollects

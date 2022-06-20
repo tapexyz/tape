@@ -113,8 +113,17 @@ const MintVideo: FC<Props> = ({ video }) => {
 
   return (
     <div>
-      <Tooltip content={loading ? 'Minting' : 'Mint as NFT'} placement="top">
-        <span>
+      <Tooltip
+        content={
+          loading
+            ? 'Minting'
+            : video.hasCollectedByMe
+            ? 'Mint as NFT again'
+            : 'Mint as NFT'
+        }
+        placement="top"
+      >
+        <div>
           <Button
             className="!px-2"
             disabled={loading}
@@ -127,7 +136,7 @@ const MintVideo: FC<Props> = ({ video }) => {
               <SiOpenmined className="text-xl" />
             )}
           </Button>
-        </span>
+        </div>
       </Tooltip>
     </div>
   )
