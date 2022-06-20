@@ -11,7 +11,7 @@ const ExploreFeed = () => {
     <div>
       <div className="w-full col-span-9">
         <Tab.Group>
-          <Tab.List className="flex">
+          <Tab.List className="flex overflow-x-auto no-scrollbar">
             <Tab
               className={({ selected }) =>
                 clsx(

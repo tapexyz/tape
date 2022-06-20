@@ -10,11 +10,16 @@ import {
   FcVideoProjector
 } from 'react-icons/fc'
 import { GiMailShirt } from 'react-icons/gi'
+import { HiFire } from 'react-icons/hi'
 import { MdOutlineSportsHandball } from 'react-icons/md'
 
 import CategoryItem from './CategoryItem'
 
 const categories = [
+  {
+    name: 'Trending',
+    icon: <HiFire className="text-red-500 md:text-4xl" />
+  },
   { name: 'Technology', icon: <FcElectronics className="md:text-4xl" /> },
   { name: 'Music', icon: <FcMusic className="md:text-4xl" /> },
   { name: 'Movies', icon: <FcVideoProjector className="md:text-4xl" /> },
