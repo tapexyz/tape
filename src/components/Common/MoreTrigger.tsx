@@ -5,12 +5,9 @@ import {
   LENSTUBE_TWITTER_HANDLE
 } from '@utils/constants'
 import { DISCORD, PRIVACY } from '@utils/url-path'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React from 'react'
 import { TbGridDots } from 'react-icons/tb'
-
-const ToggleTheme = dynamic(() => import('./ToggleTheme'))
 
 const MoreTrigger = () => {
   return (
@@ -65,7 +62,15 @@ const MoreTrigger = () => {
             </Link>
           </div>
           <hr className="my-1 border-gray-200 dark:border-gray-800" />
-          <ToggleTheme />
+          <Link href="https://vercel.com/?utm_source=Lenstube&utm_campaign=oss">
+            <a
+              target="_blank"
+              className="px-1 py-1.5 text-sm"
+              rel="noreferrer noopener"
+            >
+              ▲ Powered by Vercel
+            </a>
+          </Link>
         </div>
       </div>
     </Popover>

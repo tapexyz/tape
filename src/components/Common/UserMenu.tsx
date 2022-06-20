@@ -8,7 +8,7 @@ import { CURRENT_USER_QUERY } from '@utils/gql/queries'
 import { LENSTUBE_PATH, SETTINGS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
-import React, { FC, useState } from 'react'
+import React, { useState } from 'react'
 import { AiOutlinePlus, AiOutlineUserSwitch } from 'react-icons/ai'
 import { BiArrowBack, BiCheck, BiMoviePlay } from 'react-icons/bi'
 import { IoAnalyticsOutline } from 'react-icons/io5'
@@ -16,9 +16,9 @@ import { VscDebugDisconnect } from 'react-icons/vsc'
 import { Profile } from 'src/types'
 import { useAccount, useDisconnect } from 'wagmi'
 
-type Props = {}
+import ToggleTheme from './ToggleTheme'
 
-const UserMenu: FC<Props> = () => {
+const UserMenu = () => {
   const {
     channels,
     setShowCreateChannel,
@@ -189,6 +189,7 @@ const UserMenu: FC<Props> = () => {
                   </a>
                 </Link>
               )}
+              <ToggleTheme />
               <button
                 className={clsx(
                   'flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
