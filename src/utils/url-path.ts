@@ -10,5 +10,6 @@ export const COMMENTED_LIBRARY = '/library/commented'
 export const SETTINGS = '/settings'
 export const SETTINGS_MEMBERSHIP = '/settings/membership'
 export const SETTINGS_PERMISSIONS = '/settings/permissions'
+export const PRIVACY = '/privacy'
 
 export const DISCORD = '/discord'

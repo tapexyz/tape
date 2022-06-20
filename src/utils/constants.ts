@@ -51,7 +51,7 @@ export const ERROR_MESSAGE = 'Oops, something went something!'
 export const SIGN_IN_REQUIRED_MESSAGE = 'Sign in required'
 
 // App Id
-export const LENSTUBE_APP_ID = 'Lenstube'
+export const LENSTUBE_APP_ID = 'lenstube'
 
 // auth routes
 export const AUTH_ROUTES = [
@@ -66,7 +66,7 @@ export const ADMIN_ROUTES = ['/lt']
 
 // handles
 export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'
-
+export const LENSTUBE_GITHUB_HANDLE = 'sasicodes/lenstube'
 // admins
 export const ADMIN_IDS = IS_MAINNET ? [] : ['0x2f']
 
