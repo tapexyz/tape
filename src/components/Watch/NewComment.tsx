@@ -215,6 +215,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           autoComplete="off"
           rows={1}
           hideErrorMessage
+          className="!py-1.5 md:!py-2"
           validationError={errors.comment?.message}
         />
         <Button disabled={loading}>{buttonText}</Button>

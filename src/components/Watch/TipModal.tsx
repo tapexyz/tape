@@ -9,6 +9,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   RELAYER_ENABLED,
+  SIGN_IN_REQUIRED_MESSAGE,
   STATIC_ASSETS
 } from '@utils/constants'
 import imageCdn from '@utils/functions/imageCdn'
@@ -61,7 +62,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   })
   const watchTipQuantity = watch('tipQuantity', 1)
 
-  const { selectedChannel } = usePersistStore()
+  const { selectedChannel, isAuthenticated } = usePersistStore()
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState<string | null>(null)
   const { sendTransactionAsync } = useSendTransaction({
@@ -216,6 +217,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   }
 
   const onSendTip = () => {
+    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
     setButtonText('Sending...')
     const amountToSend = getValues('tipQuantity') * 1
