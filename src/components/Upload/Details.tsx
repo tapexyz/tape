@@ -77,6 +77,7 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
   const { data: signer } = useSigner()
   const { getBundlrInstance } = useAppStore()
   const { selectedChannel } = usePersistStore()
+
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)

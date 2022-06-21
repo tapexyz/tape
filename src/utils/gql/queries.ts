@@ -240,6 +240,9 @@ export const CURRENT_USER_QUERY = gql`
         isDefault
       }
     }
+    userSigNonces {
+      lensHubOnChainSigNonce
+    }
   }
   ${MinimalProfileFields}
 `

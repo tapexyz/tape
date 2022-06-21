@@ -28,7 +28,7 @@ interface Props {
 
 const Layout: FC<Props> = ({ children, hideHeader }) => {
   const { pathname, replace, asPath } = useRouter()
-  const { setChannels } = useAppStore()
+  const { setChannels, setUserSigNonce } = useAppStore()
   const {
     setSelectedChannel,
     selectedChannel,
@@ -52,6 +52,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
         setSelectedChannel(null)
       } else {
         setChannels(channels)
+        setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
         if (!selectedChannel) setSelectedChannel(channels[0])
       }
     }
@@ -77,6 +78,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
       accessToken &&
       accessToken !== 'undefined' &&
       refreshToken !== 'undefined' &&
+      selectedChannel &&
       activeChain?.id === POLYGON_CHAIN_ID
     ) {
       setIsAuthenticated(true)

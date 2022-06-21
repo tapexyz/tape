@@ -15,6 +15,8 @@ interface AppState {
   showCreateChannel: boolean
   notificationCount: number
   hasNewNotification: boolean
+  userSigNonce: number
+  setUserSigNonce: (userSigNonce: number) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
   setChannels: (channels: Profile[]) => void
   setRecommendedChannels: (channels: Profile[]) => void
@@ -23,12 +25,14 @@ interface AppState {
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
 }
 
-export const useAppStore = create<AppState>((set, get) => ({
+export const useAppStore = create<AppState>((set) => ({
   channels: [],
   recommendedChannels: [],
   showCreateChannel: false,
   notificationCount: 0,
   hasNewNotification: false,
+  userSigNonce: 0,
+  setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
   setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),
   setNotificationCount: (notificationCount) =>
     set(() => ({ notificationCount })),

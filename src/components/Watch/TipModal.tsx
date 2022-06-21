@@ -4,6 +4,7 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -63,6 +64,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const watchTipQuantity = watch('tipQuantity', 1)
 
   const { selectedChannel, isAuthenticated } = usePersistStore()
+  const { userSigNonce, setUserSigNonce } = useAppStore()
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState<string | null>(null)
   const { sendTransactionAsync } = useSendTransaction({
@@ -129,6 +131,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         value: omitKey(typedData?.value, '__typename')
       })
         .then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           setButtonText('Commenting...')
           const { v, r, s } = utils.splitSignature(signature)
           if (RELAYER_ENABLED) {
@@ -199,6 +202,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     })
     createTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: selectedChannel?.id,
           publicationId: video?.id,
