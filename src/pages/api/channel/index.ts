@@ -22,10 +22,12 @@ export default async function handler(
       return res.status(200).json({ success: true, channel: data?.profile })
     } else {
       return res
-        .status(404)
-        .json({ success: false, message: 'No channel found' })
+        .status(200)
+        .json({ success: false, message: 'No channel found', channel: null })
     }
   } catch (e) {
-    return res.status(200).json({ success: false, message: ERROR_MESSAGE })
+    return res
+      .status(200)
+      .json({ success: false, message: ERROR_MESSAGE, channel: null })
   }
 }

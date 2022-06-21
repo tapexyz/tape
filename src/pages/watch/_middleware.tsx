@@ -19,9 +19,9 @@ export async function middleware(req: NextRequest) {
   if (!ua.os.name) {
     const result = await fetch(`${url.origin}/api/video?id=${id}`)
     const data = await result.json()
-    const video: LenstubePublication = data?.video
 
     if (data?.success) {
+      const video: LenstubePublication = data?.video
       const title = video?.metadata.name || ''
       const description =
         video.metadata?.description ||

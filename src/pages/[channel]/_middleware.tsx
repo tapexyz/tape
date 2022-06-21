@@ -13,6 +13,7 @@ export async function middleware(req: NextRequest) {
   if (!ua.os.name) {
     const result = await fetch(`${url.origin}/api/channel?name=${channelName}`)
     const data = await result.json()
+
     if (data?.success) {
       const channel: Profile = data?.channel
       const handle = `${channel?.handle} - Lenstube`
@@ -20,7 +21,7 @@ export async function middleware(req: NextRequest) {
       const pfp = getProfilePicture(channel)
       return new Response(
         `<!DOCTYPE html>
-        <html lang="en">
+         <html lang="en">
             <head>
             <title>${handle}</title>
             <meta charset="UTF-8">
