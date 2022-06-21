@@ -23,7 +23,7 @@ export const clearStorage = () => {
 
 const authLink = new ApolloLink((operation, forward) => {
   const accessToken = localStorage.getItem('accessToken')
-  if (!accessToken) {
+  if (!accessToken || accessToken === 'undefined') {
     clearStorage()
     return forward(operation)
   } else {
