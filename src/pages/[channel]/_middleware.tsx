@@ -13,8 +13,8 @@ export async function middleware(req: NextRequest) {
   if (!ua.os.name) {
     const result = await fetch(`${url.origin}/api/channel?name=${channelName}`)
     const data = await result.json()
-    const channel: Profile = data?.channel
     if (data?.success) {
+      const channel: Profile = data?.channel
       const handle = `${channel?.handle} - Lenstube`
       const bio = channel.bio || 'Lenstube channel'
       const pfp = getProfilePicture(channel)
@@ -45,7 +45,7 @@ export async function middleware(req: NextRequest) {
         {
           headers: {
             'Content-Type': 'text/html',
-            'Cache-Control': 's-maxage=31536000'
+            'Cache-Control': 's-maxage=86400'
           }
         }
       )

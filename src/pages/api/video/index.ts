@@ -20,7 +20,7 @@ export default async function handler(
       variables: { request: { publicationId: id } }
     })
     if (data?.publication) {
-      res.setHeader('Cache-Control', 's-maxage=31536000')
+      res.setHeader('Cache-Control', 's-maxage=86400')
       return res.status(200).json({ success: true, video: data?.publication })
     } else {
       return res.status(404).json({ success: false, message: 'No video found' })

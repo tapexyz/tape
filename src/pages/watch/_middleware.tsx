@@ -54,7 +54,7 @@ export async function middleware(req: NextRequest) {
         {
           headers: {
             'Content-Type': 'text/html',
-            'Cache-Control': 's-maxage=31536000'
+            'Cache-Control': 's-maxage=86400'
           }
         }
       )

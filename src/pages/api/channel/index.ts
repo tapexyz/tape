@@ -18,7 +18,7 @@ export default async function handler(
       variables: { request: { handle: name } }
     })
     if (data?.profile) {
-      res.setHeader('Cache-Control', 's-maxage=31536000')
+      res.setHeader('Cache-Control', 's-maxage=86400')
       return res.status(200).json({ success: true, channel: data?.profile })
     } else {
       return res
@@ -26,6 +26,6 @@ export default async function handler(
         .json({ success: false, message: 'No channel found' })
     }
   } catch (e) {
-    return res.status(500).json({ success: false, message: ERROR_MESSAGE })
+    return res.status(200).json({ success: false, message: ERROR_MESSAGE })
   }
 }
