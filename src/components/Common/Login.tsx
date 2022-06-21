@@ -19,9 +19,8 @@ const ConnectWalletButton = dynamic(() => import('./ConnectWalletButton'))
 const Login = () => {
   const router = useRouter()
   const { data: accountData } = useAccount()
-  const { setChannels, setSelectedChannel, setShowCreateChannel } =
-    useAppStore()
-  const { setIsAuthenticated } = usePersistStore()
+  const { setChannels, setShowCreateChannel } = useAppStore()
+  const { setIsAuthenticated, setSelectedChannel } = usePersistStore()
   const { signMessageAsync, isLoading: signing } = useSignMessage()
 
   const [loadChallenge, { error: errorChallenge, loading: loadingChallenge }] =

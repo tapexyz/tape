@@ -12,12 +12,10 @@ import create from 'zustand'
 interface AppState {
   channels: Profile[] | []
   recommendedChannels: Profile[] | []
-  selectedChannel: Profile | null
   showCreateChannel: boolean
   notificationCount: number
   hasNewNotification: boolean
   setShowCreateChannel: (showCreateChannel: boolean) => void
-  setSelectedChannel: (channel: Profile | null) => void
   setChannels: (channels: Profile[]) => void
   setRecommendedChannels: (channels: Profile[]) => void
   setNotificationCount: (count: number) => void
@@ -28,12 +26,10 @@ interface AppState {
 export const useAppStore = create<AppState>((set, get) => ({
   channels: [],
   recommendedChannels: [],
-  selectedChannel: null,
   showCreateChannel: false,
   notificationCount: 0,
   hasNewNotification: false,
   setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),
-  setSelectedChannel: (channel) => set(() => ({ selectedChannel: channel })),
   setNotificationCount: (notificationCount) =>
     set(() => ({ notificationCount })),
   setChannels: (channels) => set(() => ({ channels })),

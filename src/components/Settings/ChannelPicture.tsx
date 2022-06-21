@@ -1,7 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { LENSHUB_PROXY_ADDRESS, RELAYER_ENABLED } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
@@ -22,7 +22,7 @@ type Props = {
 }
 
 const ChannelPicture: FC<Props> = ({ channel }) => {
-  const { selectedChannel, setSelectedChannel } = useAppStore()
+  const { selectedChannel, setSelectedChannel } = usePersistStore()
   const [selectedPfp, setSelectedPfp] = useState('')
   const [loading, setLoading] = useState(false)
 

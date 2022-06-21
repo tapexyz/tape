@@ -28,8 +28,13 @@ interface Props {
 
 const Layout: FC<Props> = ({ children, hideHeader }) => {
   const { pathname, replace, asPath } = useRouter()
-  const { setSelectedChannel, selectedChannel, setChannels } = useAppStore()
-  const { setIsAuthenticated, isAuthenticated } = usePersistStore()
+  const { setChannels } = useAppStore()
+  const {
+    setSelectedChannel,
+    selectedChannel,
+    setIsAuthenticated,
+    isAuthenticated
+  } = usePersistStore()
   const { resolvedTheme } = useTheme()
   const { activeConnector } = useConnect()
   const { activeChain } = useNetwork()

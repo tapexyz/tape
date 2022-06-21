@@ -20,14 +20,9 @@ import { useAccount, useDisconnect } from 'wagmi'
 import ToggleTheme from './ToggleTheme'
 
 const UserMenu = () => {
-  const {
-    channels,
-    setShowCreateChannel,
-    setSelectedChannel,
-    selectedChannel,
-    setChannels
-  } = useAppStore()
-  const { setIsAuthenticated } = usePersistStore()
+  const { channels, setShowCreateChannel, setChannels } = useAppStore()
+  const { setSelectedChannel, selectedChannel, setIsAuthenticated } =
+    usePersistStore()
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
   const { disconnect } = useDisconnect()
   const [getChannels] = useLazyQuery(CURRENT_USER_QUERY)
