@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -31,7 +31,8 @@ type Props = {
 const MintVideo: FC<Props> = ({ video }) => {
   const { data: accountData } = useAccount()
   const [loading, setLoading] = useState(false)
-  const { isAuthenticated } = useAppStore()
+  const { isAuthenticated } = usePersistStore()
+
   const { signTypedDataAsync } = useSignTypedData({
     onError() {
       setLoading(false)

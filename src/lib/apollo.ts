@@ -18,7 +18,7 @@ const httpLink = new HttpLink({
 export const clearStorage = () => {
   localStorage.removeItem('accessToken')
   localStorage.removeItem('refreshToken')
-  localStorage.removeItem('app-storage')
+  localStorage.removeItem('lenstube.store')
 }
 
 const authLink = new ApolloLink((operation, forward) => {

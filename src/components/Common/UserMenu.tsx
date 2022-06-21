@@ -2,6 +2,7 @@ import { useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
@@ -24,9 +25,9 @@ const UserMenu = () => {
     setShowCreateChannel,
     setSelectedChannel,
     selectedChannel,
-    setIsAuthenticated,
     setChannels
   } = useAppStore()
+  const { setIsAuthenticated } = usePersistStore()
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
   const { disconnect } = useDisconnect()
   const [getChannels] = useLazyQuery(CURRENT_USER_QUERY)

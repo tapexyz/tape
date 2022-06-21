@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { NOTIFICATION_COUNT_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
@@ -15,9 +16,9 @@ const NotificationTrigger = () => {
     hasNewNotification,
     setHasNewNotification,
     notificationCount,
-    setNotificationCount,
-    isAuthenticated
+    setNotificationCount
   } = useAppStore()
+  const { isAuthenticated } = usePersistStore()
 
   const { data: notificationsData } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: selectedChannel?.id } },

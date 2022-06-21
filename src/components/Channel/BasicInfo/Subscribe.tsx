@@ -1,7 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED,
@@ -27,7 +27,7 @@ type Props = {
 const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Subscribe')
-  const { isAuthenticated } = useAppStore()
+  const { isAuthenticated } = usePersistStore()
 
   const { signTypedDataAsync } = useSignTypedData({
     onError() {

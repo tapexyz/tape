@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client'
 import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
 import { HIDE_PUBLICATION } from '@utils/gql/queries'
 import Link from 'next/link'
@@ -20,9 +21,9 @@ const VideoOptions = ({
   video: LenstubePublication
   setShowShare: React.Dispatch<boolean>
 }) => {
-  const { addToWatchLater, removeFromWatchLater, watchLater, selectedChannel } =
-    useAppStore()
-
+  const { selectedChannel } = useAppStore()
+  const { addToWatchLater, removeFromWatchLater, watchLater } =
+    usePersistStore()
   const [hideVideo] = useMutation(HIDE_PUBLICATION, {
     onCompleted() {
       toast.success('Video deleted')

@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { AUTH_ROUTES, POLYGON_CHAIN_ID } from '@utils/constants'
 import { getToastOptions } from '@utils/functions/getToastOptions'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
@@ -27,13 +28,8 @@ interface Props {
 
 const Layout: FC<Props> = ({ children, hideHeader }) => {
   const { pathname, replace, asPath } = useRouter()
-  const {
-    setSelectedChannel,
-    setIsAuthenticated,
-    isAuthenticated,
-    selectedChannel,
-    setChannels
-  } = useAppStore()
+  const { setSelectedChannel, selectedChannel, setChannels } = useAppStore()
+  const { setIsAuthenticated, isAuthenticated } = usePersistStore()
   const { resolvedTheme } = useTheme()
   const { activeConnector } = useConnect()
   const { activeChain } = useNetwork()
@@ -67,7 +63,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
       setSelectedChannel(null)
       localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
-      localStorage.removeItem('app-storage')
+      localStorage.removeItem('lenstube.store')
       disconnect()
     }
     setPageLoading(false)
@@ -76,7 +72,6 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
       accessToken &&
       accessToken !== 'undefined' &&
       refreshToken !== 'undefined' &&
-      selectedChannel &&
       activeChain?.id === POLYGON_CHAIN_ID
     ) {
       setIsAuthenticated(true)

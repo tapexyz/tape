@@ -294,7 +294,11 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
             )}
           </span>
           <Button disabled={loading} onClick={() => {}}>
-            {buttonText ? buttonText : `Send ${watchTipQuantity * 1} MATIC`}
+            {buttonText
+              ? buttonText
+              : `Send ${
+                  isNaN(watchTipQuantity * 1) ? 0 : watchTipQuantity * 1
+                } MATIC`}
           </Button>
         </div>
       </form>

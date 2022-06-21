@@ -1,7 +1,7 @@
 import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { UPLOAD } from '@utils/url-path'
 import Link from 'next/link'
 import React from 'react'
@@ -9,7 +9,7 @@ import { AiOutlineVideoCameraAdd } from 'react-icons/ai'
 import { HiOutlineStatusOnline, HiOutlineUpload } from 'react-icons/hi'
 
 const NewVideoTrigger = () => {
-  const { isAuthenticated } = useAppStore()
+  const { isAuthenticated } = usePersistStore()
   if (!isAuthenticated) return null
 
   return (
