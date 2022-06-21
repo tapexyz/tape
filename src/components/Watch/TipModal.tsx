@@ -4,7 +4,7 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
@@ -61,7 +61,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   })
   const watchTipQuantity = watch('tipQuantity', 1)
 
-  const { selectedChannel } = useAppStore()
+  const { selectedChannel } = usePersistStore()
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState<string | null>(null)
   const { sendTransactionAsync } = useSendTransaction({

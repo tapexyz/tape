@@ -12,13 +12,12 @@ const Notifications = dynamic(() => import('.'))
 
 const NotificationTrigger = () => {
   const {
-    selectedChannel,
     hasNewNotification,
     setHasNewNotification,
     notificationCount,
     setNotificationCount
   } = useAppStore()
-  const { isAuthenticated } = usePersistStore()
+  const { isAuthenticated, selectedChannel } = usePersistStore()
 
   const { data: notificationsData } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: selectedChannel?.id } },

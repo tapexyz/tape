@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { FEED_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
@@ -18,7 +18,7 @@ const Timeline = dynamic(() => import('../../components/Home/Timeline'), {
 const HomeFeed = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { selectedChannel } = useAppStore()
+  const { selectedChannel } = usePersistStore()
 
   const { data, loading, error, fetchMore } = useQuery(FEED_QUERY, {
     variables: {

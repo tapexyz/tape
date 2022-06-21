@@ -6,6 +6,7 @@ import VideoPlayer from '@components/Common/VideoPlayer'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import {
   ARWEAVE_WEBSITE_URL,
   BUNDLR_CURRENCY,
@@ -74,7 +75,8 @@ MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 const Details: FC<Props> = ({ video, afterUpload }) => {
   const { data: account } = useAccount()
   const { data: signer } = useSigner()
-  const { getBundlrInstance, selectedChannel } = useAppStore()
+  const { getBundlrInstance } = useAppStore()
+  const { selectedChannel } = usePersistStore()
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)

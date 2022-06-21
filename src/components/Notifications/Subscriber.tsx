@@ -1,4 +1,4 @@
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { POLYGONSCAN_URL } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const SubscriberNotification: FC<Props> = ({ notification }) => {
-  const { selectedChannel } = useAppStore()
+  const { selectedChannel } = usePersistStore()
 
   return (
     <div>

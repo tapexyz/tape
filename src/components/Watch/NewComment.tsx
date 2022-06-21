@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -39,8 +38,7 @@ type FormData = z.infer<typeof formSchema>
 const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Comment')
-  const { selectedChannel } = useAppStore()
-  const { isAuthenticated } = usePersistStore()
+  const { isAuthenticated, selectedChannel } = usePersistStore()
 
   const {
     register,

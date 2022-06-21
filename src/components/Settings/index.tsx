@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { PROFILE_QUERY } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import {
@@ -23,7 +23,7 @@ const Membership = dynamic(() => import('./Membership'))
 const SideNav = dynamic(() => import('./SideNav'))
 
 const Settings = () => {
-  const { selectedChannel } = useAppStore()
+  const { selectedChannel } = usePersistStore()
   const { mounted } = useIsMounted()
   const router = useRouter()
 

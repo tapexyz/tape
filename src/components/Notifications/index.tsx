@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { NOTIFICATIONS_QUERY } from '@utils/gql/queries'
 import clsx from 'clsx'
@@ -13,7 +13,7 @@ import { Notification, PaginatedResultInfo } from 'src/types'
 const SubscriberNotification = dynamic(() => import('./Subscriber'))
 
 const Notifications = () => {
-  const { selectedChannel } = useAppStore()
+  const { selectedChannel } = usePersistStore()
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {

@@ -1,7 +1,7 @@
 import SubscribeActions from '@components/Common/SubscribeActions'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import getCoverPicture from '@utils/functions/getCoverPicture'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
@@ -17,7 +17,7 @@ type Props = {
 
 const BasicInfo: FC<Props> = ({ channel }) => {
   const router = useRouter()
-  const { selectedChannel } = useAppStore()
+  const { selectedChannel } = usePersistStore()
 
   const subscribeType = channel?.followModule?.__typename
 

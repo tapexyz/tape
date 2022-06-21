@@ -3,7 +3,6 @@ import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
 import VideoDetailShimmer from '@components/Shimmers/VideoDetailShimmer'
-import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { VIDEO_DETAIL_QUERY } from '@utils/gql/queries'
@@ -26,8 +25,7 @@ const VideoDetails = () => {
   const {
     query: { id }
   } = useRouter()
-  const { selectedChannel } = useAppStore()
-  const { addToRecentlyWatched } = usePersistStore()
+  const { addToRecentlyWatched, selectedChannel } = usePersistStore()
   const { data, error, loading } = useQuery(VIDEO_DETAIL_QUERY, {
     variables: {
       request: { publicationId: id },
