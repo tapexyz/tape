@@ -554,7 +554,7 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
             )}
           </div>
 
-          <div>
+          <div className="mt-4 md:mt-0">
             <p className="text-sm opacity-60">
               By posting, you are agreeing that you own the content and its not
               sensitive for the audience.
