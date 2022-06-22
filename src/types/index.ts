@@ -2493,6 +2493,7 @@ export enum TimelineType {
   CollectComment = 'COLLECT_COMMENT',
   CollectPost = 'COLLECT_POST',
   Comment = 'COMMENT',
+  Mirror = 'MIRROR',
   Post = 'POST'
 }
 
