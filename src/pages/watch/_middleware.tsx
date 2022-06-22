@@ -47,7 +47,7 @@ export async function middleware(req: NextRequest) {
             <meta property="twitter:description" content="${description}" />
             <meta property="twitter:image" content="${cover}" />
             <meta property="twitter:image:width" content="600" />
-            <meta property="twitter:image:height" content="400" />
+            <meta property="twitter:image:height" content="500" />
             <meta property="twitter:creator" content="${LENSTUBE_TWITTER_HANDLE}" />
             </head>
         </html>`,

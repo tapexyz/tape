@@ -29,7 +29,8 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
     activeConnector,
     error,
     isConnecting,
-    pendingConnector
+    pendingConnector,
+    isConnected
   } = useConnect()
   const { activeChain, switchNetwork } = useNetwork()
 
@@ -146,7 +147,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
           ) : null}
         </div>
       </Modal>
-      {activeConnector?.id ? (
+      {activeConnector?.id && isConnected ? (
         activeChain?.id === POLYGON_CHAIN_ID ? (
           isAuthenticated ? (
             <UserMenu />
