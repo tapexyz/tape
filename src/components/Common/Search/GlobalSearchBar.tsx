@@ -30,7 +30,7 @@ export default function GlobalSearchBar() {
   }, [debouncedValue])
 
   return (
-    <div className="w-72">
+    <div className="w-80">
       <div>
         <div className="relative mt-1">
           <div className="relative w-full overflow-hidden border border-gray-200 cursor-default dark:border-gray-800 rounded-xl sm:text-sm">

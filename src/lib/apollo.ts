@@ -7,6 +7,7 @@ import {
 } from '@apollo/client'
 import { API_URL } from '@utils/constants'
 import { REFRESH_AUTHENTICATION_MUTATION } from '@utils/gql/queries'
+import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import result from 'src/types'
 
@@ -30,10 +31,10 @@ const authLink = new ApolloLink((operation, forward) => {
     const accessTokenDecrypted: any = jwtDecode(accessToken)
     const isExpireSoon = Date.now() >= accessTokenDecrypted.exp * 1000
     if (isExpireSoon) {
-      fetch(API_URL, {
+      axios(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+        data: JSON.stringify({
           operationName: 'Refresh',
           query: REFRESH_AUTHENTICATION_MUTATION,
           variables: {
@@ -41,8 +42,7 @@ const authLink = new ApolloLink((operation, forward) => {
           }
         })
       })
-        .then((res) => res.json())
-        .then((res) => {
+        .then(({ data: res }) => {
           operation.setContext({
             headers: {
               'x-access-token': `Bearer ${res?.data?.refresh?.accessToken}`
