@@ -1,4 +1,3 @@
-import usePersistStore from '@lib/store/persist'
 import { POLYGONSCAN_URL } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
@@ -8,25 +7,23 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { FC } from 'react'
-import { NewFollowerNotification, Notification, Profile } from 'src/types'
+import { NewCollectNotification, Notification, Profile } from 'src/types'
 
 dayjs.extend(relativeTime)
 
 interface Props {
-  notification: NewFollowerNotification & Notification & { profile: Profile }
+  notification: NewCollectNotification & Notification & { profile: Profile }
 }
 
-const SubscriberNotification: FC<Props> = ({ notification }) => {
-  const { selectedChannel } = usePersistStore()
-
+const CollectedNotification: FC<Props> = ({ notification }) => {
   return (
-    <div>
+    <>
       <div className="flex items-center space-x-3">
         {notification?.wallet?.defaultProfile ? (
           <Link href={`/${notification?.wallet?.defaultProfile?.handle}`}>
             <a className="inline-flex items-center space-x-1.5 font-base">
               <img
-                className="w-4 h-4 rounded-full"
+                className="w-4 h-4 rounded"
                 src={getProfilePicture(notification.wallet.defaultProfile)}
                 alt=""
                 draggable={false}
@@ -42,7 +39,7 @@ const SubscriberNotification: FC<Props> = ({ notification }) => {
             rel="noreferrer noopener"
           >
             <img
-              className="w-4 h-4 rounded-full"
+              className="w-4 h-4 rounded"
               src={imageCdn(
                 getRandomProfilePicture(notification.wallet.address)
               )}
@@ -55,14 +52,25 @@ const SubscriberNotification: FC<Props> = ({ notification }) => {
       </div>
       <div className="flex items-center justify-between">
         <span className="text-gray-600 dark:text-gray-400">
-          {selectedChannel?.followModule ? 'joined' : 'subscribed'} the channel
+          minted your
+          <Link
+            href={`/watch/${notification?.collectedPublication.id}`}
+            prefetch={false}
+          >
+            <a
+              href={`/watch/${notification?.collectedPublication.id}`}
+              className="ml-1 text-indigo-500"
+            >
+              video
+            </a>
+          </Link>
         </span>
         <div className="flex items-center space-x-1 text-xs text-gray-400">
           <span>{dayjs(new Date(notification?.createdAt)).fromNow()}</span>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
-export default SubscriberNotification
+export default CollectedNotification

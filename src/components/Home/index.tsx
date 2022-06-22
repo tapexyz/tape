@@ -1,10 +1,10 @@
 import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
-import Recents from '@components/Explore/Recents'
 import usePersistStore from '@lib/store/persist'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 
+const Recents = dynamic(() => import('../Explore/Recents'))
 const Recommended = dynamic(() => import('./Recommended'))
 const Trending = dynamic(() => import('../Explore/Trending'))
 

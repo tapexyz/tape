@@ -16,7 +16,7 @@ const SuggestedVideos = () => {
   const { loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
-        sortCriteria: 'LATEST',
+        sortCriteria: 'TOP_COMMENTED',
         limit: 10,
         sources: [LENSTUBE_APP_ID],
         publicationTypes: ['POST'],
@@ -36,7 +36,7 @@ const SuggestedVideos = () => {
         variables: {
           request: {
             cursor: pageInfo?.next,
-            sortCriteria: 'LATEST',
+            sortCriteria: 'TOP_COMMENTED',
             limit: 10,
             sources: [LENSTUBE_APP_ID],
             publicationTypes: ['POST'],

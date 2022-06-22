@@ -25,7 +25,8 @@ const HomeFeed = () => {
       request: {
         profileId: selectedChannel?.id,
         limit: 12,
-        sources: [LENSTUBE_APP_ID]
+        sources: [LENSTUBE_APP_ID],
+        timelineTypes: ['POST']
       }
     },
     fetchPolicy: 'no-cache',
@@ -45,6 +46,7 @@ const HomeFeed = () => {
             profileId: selectedChannel?.id,
             cursor: pageInfo?.next,
             limit: 8,
+            timelineTypes: ['POST'],
             sources: [LENSTUBE_APP_ID]
           }
         }

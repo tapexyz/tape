@@ -10,7 +10,11 @@ import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { Notification, PaginatedResultInfo } from 'src/types'
 
-const SubscriberNotification = dynamic(() => import('./Subscriber'))
+const SubscribedNotification = dynamic(() => import('./Subscribed'))
+const CommentedNotification = dynamic(() => import('./Commented'))
+const MentionedNotification = dynamic(() => import('./Mentioned'))
+const MirroredNotification = dynamic(() => import('./Mirrored'))
+const CollectedNotification = dynamic(() => import('./Collected'))
 
 const Notifications = () => {
   const { selectedChannel } = usePersistStore()
@@ -61,20 +65,30 @@ const Notifications = () => {
 
   return (
     <>
-      {notifications?.map(
-        (notification: Notification, index: number) =>
-          notification?.__typename === 'NewFollowerNotification' &&
-          notification.createdAt && (
-            <div
-              className={clsx('pb-2', {
-                'pb-0': notifications.length - 1 === index
-              })}
-              key={index}
-            >
-              <SubscriberNotification notification={notification as any} />
-            </div>
-          )
-      )}
+      {notifications?.map((notification: Notification, index: number) => (
+        <div
+          className={clsx('pb-2', {
+            'pb-0': notifications.length - 1 === index
+          })}
+          key={index}
+        >
+          {notification?.__typename === 'NewFollowerNotification' && (
+            <SubscribedNotification notification={notification as any} />
+          )}
+          {notification?.__typename === 'NewCommentNotification' && (
+            <CommentedNotification notification={notification as any} />
+          )}
+          {notification?.__typename === 'NewMentionNotification' && (
+            <MentionedNotification notification={notification as any} />
+          )}
+          {notification?.__typename === 'NewMirrorNotification' && (
+            <MirroredNotification notification={notification} />
+          )}
+          {notification?.__typename === 'NewCollectNotification' && (
+            <CollectedNotification notification={notification as any} />
+          )}
+        </div>
+      ))}
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-10">
           <Loader />
