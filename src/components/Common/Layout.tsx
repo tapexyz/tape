@@ -79,6 +79,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
       accessToken !== 'undefined' &&
       refreshToken !== 'undefined' &&
       selectedChannel &&
+      isAuthenticated &&
       activeChain?.id === POLYGON_CHAIN_ID
     ) {
       setIsAuthenticated(true)
