@@ -7,6 +7,7 @@ import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import * as Sentry from '@sentry/nextjs'
 import {
   ARWEAVE_WEBSITE_URL,
   BUNDLR_CURRENCY,
@@ -229,8 +230,8 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
           )
         })
         .catch((e) => {
-          console.log('🚀 ~ file: Details.tsx ~ depositToBundlr ~ e', e)
           toast.error(`Failed to deposit`)
+          Sentry.captureException(e)
         })
         .finally(async () => {
           fetchBalance()
@@ -278,7 +279,7 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
       const { playbackId } = await playbackResponse.json()
       return playbackId
     } catch (error) {
-      console.log('🚀 ~ file: Details.tsx ~ getPlaybackId ~ error', error)
+      Sentry.captureException(error)
       return null
     }
   }
@@ -317,12 +318,12 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
       })
       setIsUploadedToBundlr(true)
       setButtonText('Post Video')
-    } catch (error) {
-      console.log('🚀 ~ file: Details.tsx ~ uploadToBundlr ~ error', error)
+    } catch (error: any) {
       toast.error('Failed to upload video!')
       setButtonText('Upload Video')
       setIsUploadedToBundlr(false)
       setDisableSubmit(false)
+      Sentry.captureException(error)
     }
   }
 
