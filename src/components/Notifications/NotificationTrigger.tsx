@@ -65,7 +65,7 @@ const NotificationTrigger = () => {
         </Button>
       }
     >
-      <div className="p-1 max-h-96 mt-1.5 w-72 overflow-x-hidden overflow-y-auto border shadow-xl border-gray-100 rounded-lg dark:border-gray-800 bg-secondary">
+      <div className="p-1 max-h-96 mt-1.5 w-80 overflow-x-hidden overflow-y-auto border shadow-xl border-gray-100 rounded-lg dark:border-gray-800 bg-secondary">
         <div className="flex flex-col p-2 text-sm transition duration-150 ease-in-out rounded-lg">
           <Notifications />
         </div>

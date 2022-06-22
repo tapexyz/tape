@@ -28,7 +28,7 @@ const MirroredNotification: FC<Props> = ({ notification }) => {
         </Link>
       </div>
       <div className="flex items-center justify-between">
-        <span className="text-gray-600 truncate dark:text-gray-400">
+        <span className="text-sm text-gray-600 truncate dark:text-gray-400">
           mirrored your video
         </span>
         <div className="flex items-center flex-none space-x-1 text-xs text-gray-400">

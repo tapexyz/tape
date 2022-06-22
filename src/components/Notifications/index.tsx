@@ -64,10 +64,10 @@ const Notifications = () => {
   if (data?.notifications?.items?.length === 0) return <NoDataFound />
 
   return (
-    <>
+    <div className="p-2 md:p-0">
       {notifications?.map((notification: Notification, index: number) => (
         <div
-          className={clsx('pb-2', {
+          className={clsx('pb-3', {
             'pb-0': notifications.length - 1 === index
           })}
           key={index}
@@ -94,7 +94,7 @@ const Notifications = () => {
           <Loader />
         </span>
       )}
-    </>
+    </div>
   )
 }
 

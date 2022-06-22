@@ -1,7 +1,8 @@
-import { EXPLORE, HOME, LIBRARY } from '@utils/url-path'
+import { EXPLORE, HOME, LIBRARY, NOTIFICATIONS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { AiOutlineBell } from 'react-icons/ai'
 import { FiHome } from 'react-icons/fi'
 import { MdOutlineVideoLibrary } from 'react-icons/md'
 import { RiLeafLine } from 'react-icons/ri'
@@ -15,7 +16,7 @@ const MobileBottomNav = () => {
     <div className="fixed inset-x-0 bottom-0 md:hidden">
       <div
         className={clsx(
-          'grid gap-2 grid-cols-3 px-4 py-2 bg-white border-t border-gray-300 dark:border-gray-700 dark:bg-black space-between'
+          'grid grid-cols-4 py-2 bg-white border-t border-gray-300 dark:border-gray-700 dark:bg-black space-between'
         )}
       >
         <Link href={HOME}>
@@ -23,7 +24,7 @@ const MobileBottomNav = () => {
             <FiHome
               className={clsx('text-lg opacity-60', {
                 'text-indigo-500 text-xl font-bold opacity-100':
-                  isActivePath('/')
+                  isActivePath(EXPLORE)
               })}
             />
           </a>
@@ -33,7 +34,17 @@ const MobileBottomNav = () => {
             <RiLeafLine
               className={clsx('text-lg opacity-60', {
                 'text-indigo-500 text-xl font-bold opacity-100':
-                  isActivePath('/explore')
+                  isActivePath(EXPLORE)
+              })}
+            />
+          </a>
+        </Link>
+        <Link href={NOTIFICATIONS}>
+          <a className="flex items-center justify-center w-full gap-2 px-2 py-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
+            <AiOutlineBell
+              className={clsx('text-lg opacity-60', {
+                'text-indigo-500 text-xl font-bold opacity-100':
+                  isActivePath(NOTIFICATIONS)
               })}
             />
           </a>
@@ -43,7 +54,7 @@ const MobileBottomNav = () => {
             <MdOutlineVideoLibrary
               className={clsx('text-lg opacity-60', {
                 'text-indigo-500 text-xl font-bold opacity-100':
-                  isActivePath('/library')
+                  isActivePath(LIBRARY)
               })}
             />
           </a>
