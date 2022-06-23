@@ -93,10 +93,10 @@ const UploadPage = () => {
                   <FiUpload className="text-6xl" />
                 </span>
                 <span className="space-y-10 opacity-80">
-                  <div className="text-2xl font-medium md:text-4xl">
+                  <div className="text-2xl font-semibold md:text-4xl">
                     Drag and drop <br /> video to upload
                   </div>
-                  <Button size="xl">Or choose file</Button>
+                  <Button size="xl">or choose file</Button>
                   <div className="text-sm">(Maximum size 2 GB for now)</div>
                 </span>
               </>
