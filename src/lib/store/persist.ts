@@ -9,6 +9,8 @@ interface AppPerisistState {
   selectedChannel: Profile | null
   recentlyWatched: LenstubePublication[] | []
   watchLater: LenstubePublication[] | []
+  notificationCount: number
+  setNotificationCount: (count: number) => void
   setSelectedChannel: (channel: Profile | null) => void
   setIsAuthenticated: (auth: boolean) => void
   addToRecentlyWatched: (video: LenstubePublication) => void
@@ -23,6 +25,9 @@ export const usePersistStore = create(
       recentlyWatched: [],
       watchLater: [],
       selectedChannel: null,
+      notificationCount: 0,
+      setNotificationCount: (notificationCount) =>
+        set(() => ({ notificationCount })),
       setSelectedChannel: (channel) =>
         set(() => ({ selectedChannel: channel })),
       addToRecentlyWatched: (video) => {

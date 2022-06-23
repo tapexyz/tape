@@ -11,13 +11,13 @@ import { AiOutlineBell } from 'react-icons/ai'
 const Notifications = dynamic(() => import('.'))
 
 const NotificationTrigger = () => {
+  const { hasNewNotification, setHasNewNotification } = useAppStore()
   const {
-    hasNewNotification,
-    setHasNewNotification,
+    isAuthenticated,
+    selectedChannel,
     notificationCount,
     setNotificationCount
-  } = useAppStore()
-  const { isAuthenticated, selectedChannel } = usePersistStore()
+  } = usePersistStore()
 
   const { data: notificationsData } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: selectedChannel?.id } },
@@ -26,22 +26,15 @@ const NotificationTrigger = () => {
 
   useEffect(() => {
     if (selectedChannel && notificationsData) {
-      setHasNewNotification(
-        notificationCount !==
-          notificationsData?.notifications?.pageInfo?.totalCount
-      )
+      const currentCount =
+        notificationsData?.notifications?.pageInfo?.totalCount
+      setHasNewNotification(notificationCount !== currentCount)
       setNotificationCount(
         notificationsData?.notifications?.pageInfo?.totalCount
       )
     }
-  }, [
-    selectedChannel,
-    notificationsData,
-    notificationsData?.notifications?.pageInfo?.totalCount,
-    notificationCount,
-    setHasNewNotification,
-    setNotificationCount
-  ])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedChannel, notificationsData])
 
   const onClickNotification = () => {
     setNotificationCount(notificationsData?.notifications?.pageInfo?.totalCount)
