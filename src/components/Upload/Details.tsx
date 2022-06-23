@@ -270,13 +270,10 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
 
   const getPlaybackId = async (url: string) => {
     try {
-      const playbackResponse = await fetch('/api/video/playback', {
-        method: 'POST',
-        body: JSON.stringify({
-          url
-        })
+      const playbackResponse = await axios.post('/api/video/playback', {
+        url
       })
-      const { playbackId } = await playbackResponse.json()
+      const { playbackId } = playbackResponse.data
       return playbackId
     } catch (error) {
       Sentry.captureException(error)

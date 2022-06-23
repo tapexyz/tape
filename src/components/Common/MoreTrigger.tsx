@@ -7,7 +7,7 @@ import {
 import { DISCORD, PRIVACY } from '@utils/url-path'
 import Link from 'next/link'
 import React from 'react'
-import { TbGridDots } from 'react-icons/tb'
+import { BsThreeDots } from 'react-icons/bs'
 
 const MoreTrigger = () => {
   return (
@@ -16,7 +16,7 @@ const MoreTrigger = () => {
         <Tooltip content="More" placement="right">
           <div className="flex flex-col space-y-2 mb-0.5">
             <button className="flex p-3 py-4 justify-center rounded-lg hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-70 hover:opacity-100">
-              <TbGridDots />
+              <BsThreeDots />
             </button>
           </div>
         </Tooltip>
