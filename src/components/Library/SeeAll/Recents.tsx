@@ -1,4 +1,3 @@
-import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -20,7 +19,7 @@ const SeeAllRecents = () => {
   }, [recentlyWatched])
 
   return (
-    <Layout>
+    <>
       <MetaTags title="Recently watched Videos" />
       <div className="flex flex-col space-y-4">
         <div className="flex items-center justify-between">
@@ -32,7 +31,7 @@ const SeeAllRecents = () => {
         {videos?.length === 0 && <NoDataFound text="No watched videos yet." />}
         <Timeline videos={videos} />
       </div>
-    </Layout>
+    </>
   )
 }
 

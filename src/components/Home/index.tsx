@@ -1,4 +1,3 @@
-import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import usePersistStore from '@lib/store/persist'
 import { NextPage } from 'next'
@@ -12,13 +11,13 @@ const Home: NextPage = () => {
   const { isAuthenticated } = usePersistStore()
 
   return (
-    <Layout>
+    <>
       <MetaTags />
       <Recommended />
       <div className="md:my-5">
         {isAuthenticated ? <HomeFeed /> : <Trending />}
       </div>
-    </Layout>
+    </>
   )
 }
 

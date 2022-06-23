@@ -1,4 +1,3 @@
-import Layout from '@components/Common/Layout'
 import { Button } from '@components/UIElements/Button'
 import { HOME } from '@utils/url-path'
 import Head from 'next/head'
@@ -6,7 +5,7 @@ import Link from 'next/link'
 
 export default function Custom404() {
   return (
-    <Layout>
+    <>
       <Head>
         <title>404</title>
       </Head>
@@ -26,6 +25,6 @@ export default function Custom404() {
           </Link>
         </div>
       </div>
-    </Layout>
+    </>
   )
 }

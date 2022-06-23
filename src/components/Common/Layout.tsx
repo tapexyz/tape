@@ -23,10 +23,9 @@ const MobileBottomNav = dynamic(() => import('./MobileBottomNav'))
 
 interface Props {
   children: ReactNode
-  hideHeader?: boolean
 }
 
-const Layout: FC<Props> = ({ children, hideHeader }) => {
+const Layout: FC<Props> = ({ children }) => {
   const { pathname, replace, asPath } = useRouter()
   const { setChannels, setUserSigNonce } = useAppStore()
   const {
@@ -42,6 +41,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
   const { mounted } = useIsMounted()
   const { data: account } = useAccount()
   const [pageLoading, setPageLoading] = useState(true)
+  const isSignInPage = pathname === AUTH
 
   const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: account?.address },
@@ -107,7 +107,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
             'w-full md:pl-[94px] pl-2 pr-2 md:pr-4 max-w-[110rem] mx-auto'
           )}
         >
-          {!hideHeader && <Header />}
+          {!isSignInPage && <Header />}
           <div className="pt-16">{children}</div>
         </div>
       </div>
