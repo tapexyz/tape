@@ -70,7 +70,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
       localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
       localStorage.removeItem('lenstube.store')
-      disconnect()
+      disconnect && disconnect()
     }
     setPageLoading(false)
     if (
@@ -86,7 +86,7 @@ const Layout: FC<Props> = ({ children, hideHeader }) => {
       if (isAuthenticated) logout()
     }
     if (!activeConnector?.id && mounted) {
-      disconnect()
+      disconnect && disconnect()
       setIsAuthenticated(false)
     }
     activeConnector?.on('change', () => {

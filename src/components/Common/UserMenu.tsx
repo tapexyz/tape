@@ -34,7 +34,7 @@ const UserMenu = () => {
     setSelectedChannel(null)
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
-    disconnect()
+    disconnect && disconnect()
   }
 
   const onSelectChannel = (channel: Profile) => {

@@ -24,7 +24,7 @@ const MobileBottomNav = () => {
             <FiHome
               className={clsx('text-lg opacity-60', {
                 'text-indigo-500 text-xl font-bold opacity-100':
-                  isActivePath(EXPLORE)
+                  isActivePath(HOME)
               })}
             />
           </a>

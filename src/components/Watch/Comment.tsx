@@ -6,6 +6,7 @@ import clsx from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
 import { AiFillHeart } from 'react-icons/ai'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
@@ -33,17 +34,21 @@ const Comment: FC<Props> = ({ comment }) => {
 
   return (
     <div className="flex items-start w-full">
-      <div className="flex-none mr-3">
-        <img
-          src={getProfilePicture(comment.profile)}
-          className="w-8 h-8 rounded-xl"
-          draggable={false}
-          alt=""
-        />
-      </div>
+      <Link href={`/${comment.profile?.handle}`}>
+        <a className="flex-none mr-3 mt-0.5">
+          <img
+            src={getProfilePicture(comment.profile)}
+            className="rounded-lg w-7 h-7"
+            draggable={false}
+            alt=""
+          />
+        </a>
+      </Link>
       <div className="flex flex-col items-start mr-2">
         <span className="flex items-center mb-1 space-x-2">
-          <h1 className="text-sm font-medium">{comment?.profile.handle}</h1>
+          <Link href={`/${comment.profile?.handle}`}>
+            <a className="text-sm font-medium">{comment?.profile.handle}</a>
+          </Link>
           {checkValueInAttributes(
             comment?.metadata.attributes as Attribute[],
             'tip'
@@ -59,7 +64,7 @@ const Comment: FC<Props> = ({ comment }) => {
           </span>
         </span>
         <p
-          className={clsx('mt-2 text-sm opacity-80', {
+          className={clsx('text-sm opacity-80', {
             'line-clamp-2': clamped,
             '': !clamped
           })}
