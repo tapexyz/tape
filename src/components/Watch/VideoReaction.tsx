@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import {
   ADD_REACTION_MUTATION,
@@ -17,7 +17,8 @@ type Props = {
 }
 
 const VideoReaction: FC<Props> = ({ video }) => {
-  const { selectedChannel, isAuthenticated } = useAppStore()
+  const { isAuthenticated, selectedChannel } = usePersistStore()
+
   const [reaction, setReaction] = useState({
     isLiked: video.reaction === 'UPVOTE',
     isDisliked: video.reaction === 'DOWNVOTE',

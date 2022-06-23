@@ -2,7 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED,
@@ -28,7 +28,7 @@ type Props = {
 
 const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
-  const { selectedChannel, isAuthenticated } = useAppStore()
+  const { isAuthenticated, selectedChannel } = usePersistStore()
 
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {

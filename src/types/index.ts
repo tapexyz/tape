@@ -1707,6 +1707,13 @@ export type PaginatedNotificationResult = {
   pageInfo: PaginatedResultInfo;
 };
 
+/** The paginated wallet result */
+export type PaginatedProfilePublicationsForSaleResult = {
+  __typename?: 'PaginatedProfilePublicationsForSaleResult';
+  items: Array<PublicationForSale>;
+  pageInfo: PaginatedResultInfo;
+};
+
 /** The paginated profile result */
 export type PaginatedProfileResult = {
   __typename?: 'PaginatedProfileResult';
@@ -1862,6 +1869,15 @@ export type ProfileFollowModuleSettings = {
 
 export type ProfileMedia = MediaSet | NftImage;
 
+export type ProfilePublicationsForSaleRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>;
+  limit?: InputMaybe<Scalars['LimitScalar']>;
+  /** Profile id */
+  profileId: Scalars['ProfileId'];
+  /** The App Id */
+  sources?: InputMaybe<Array<Scalars['Sources']>>;
+};
+
 export type ProfileQueryRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>;
   /** The handles for the profile */
@@ -1940,6 +1956,8 @@ export type ProfileStats = {
 };
 
 export type Publication = Comment | Mirror | Post;
+
+export type PublicationForSale = Comment | Post;
 
 export type PublicationMetadataStatus = {
   __typename?: 'PublicationMetadataStatus';
@@ -2086,6 +2104,7 @@ export type Query = {
   ping: Scalars['String'];
   profile?: Maybe<Profile>;
   profileFollowModuleBeenRedeemed: Scalars['Boolean'];
+  profilePublicationsForSale: PaginatedProfilePublicationsForSaleResult;
   profileRevenue: ProfileRevenueResult;
   profiles: PaginatedProfileResult;
   publication?: Maybe<Publication>;
@@ -2197,6 +2216,11 @@ export type QueryProfileArgs = {
 
 export type QueryProfileFollowModuleBeenRedeemedArgs = {
   request: ProfileFollowModuleBeenRedeemedRequest;
+};
+
+
+export type QueryProfilePublicationsForSaleArgs = {
+  request: ProfilePublicationsForSaleRequest;
 };
 
 
@@ -2460,7 +2484,18 @@ export type TimelineRequest = {
   profileId: Scalars['ProfileId'];
   /** The App Id */
   sources?: InputMaybe<Array<Scalars['Sources']>>;
+  /** The timeline types you wish to include, if nothing passed in will bring back all */
+  timelineTypes?: InputMaybe<Array<TimelineType>>;
 };
+
+/** Timeline types */
+export enum TimelineType {
+  CollectComment = 'COLLECT_COMMENT',
+  CollectPost = 'COLLECT_POST',
+  Comment = 'COMMENT',
+  Mirror = 'MIRROR',
+  Post = 'POST'
+}
 
 export type TransactionError = {
   __typename?: 'TransactionError';
@@ -2595,6 +2630,10 @@ export type WhoCollectedPublicationRequest = {
     "Publication": [
       "Comment",
       "Mirror",
+      "Post"
+    ],
+    "PublicationForSale": [
+      "Comment",
       "Post"
     ],
     "PublicationSearchResultItem": [

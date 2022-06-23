@@ -2,7 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED,
@@ -30,7 +30,7 @@ type Props = {
 const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
-  const { isAuthenticated } = useAppStore()
+  const { isAuthenticated } = usePersistStore()
   const [buttonText, setButtonText] = useState('Join Channel')
   const { signTypedDataAsync } = useSignTypedData({
     onError() {

@@ -1,5 +1,6 @@
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
+import Tooltip from '@components/UIElements/Tooltip'
 import { BUNDLR_CURRENCY, BUNDLR_WEBSITE_URL } from '@utils/constants'
 import Link from 'next/link'
 import React, { FC } from 'react'
@@ -25,11 +26,17 @@ const BundlrInfo: FC<Props> = ({
       <div>
         <div className="flex flex-col">
           <div className="text-[11px] inline-flex rounded justify-between items-center font-semibold uppercase opacity-70">
-            <span className="inline-flex space-x-1.5">
+            <span className="flex items-center space-x-1.5">
               <span>Your Balance</span>
-              <button type="button" onClick={() => fetchBalance()}>
-                <MdRefresh className="text-sm" />
-              </button>
+              <Tooltip content="Refresh balance" placement="top">
+                <button
+                  type="button"
+                  className="pb-[2.5px] focus:outline-none"
+                  onClick={() => fetchBalance()}
+                >
+                  <MdRefresh className="text-sm" />
+                </button>
+              </Tooltip>
             </span>
             <Link href={BUNDLR_WEBSITE_URL}>
               <a target="_blank" rel="noreferer" className="text-[11px]">
@@ -65,7 +72,6 @@ const BundlrInfo: FC<Props> = ({
             <Input
               label="Amount to deposit"
               type="number"
-              className="!py-1.5"
               placeholder="100 MATIC"
               autoComplete="off"
               min={0}

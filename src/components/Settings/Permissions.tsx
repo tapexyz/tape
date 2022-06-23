@@ -1,7 +1,7 @@
 import { useLazyQuery, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
 import {
   ALLOWANCE_SETTINGS_QUERY,
@@ -17,7 +17,7 @@ const getFollowModule = (modules: ApprovedAllowanceAmount[]) => {
 }
 
 const Permissions = () => {
-  const { selectedChannel } = useAppStore()
+  const { selectedChannel } = usePersistStore()
   const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
   const [loading, setLoading] = useState(false)
 

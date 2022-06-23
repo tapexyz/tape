@@ -162,7 +162,7 @@ const BasicInfo = ({ channel }: Props) => {
   const onSaveBasicInfo = async (data: FormData) => {
     setLoading(true)
     const { ipfsUrl } = await uploadDataToIPFS({
-      name: channel.name,
+      name: data.displayName,
       bio: data.description,
       cover_picture: coverImage,
       attributes: [

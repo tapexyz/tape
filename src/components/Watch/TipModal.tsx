@@ -5,10 +5,12 @@ import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   RELAYER_ENABLED,
+  SIGN_IN_REQUIRED_MESSAGE,
   STATIC_ASSETS
 } from '@utils/constants'
 import imageCdn from '@utils/functions/imageCdn'
@@ -61,7 +63,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   })
   const watchTipQuantity = watch('tipQuantity', 1)
 
-  const { selectedChannel } = useAppStore()
+  const { selectedChannel, isAuthenticated } = usePersistStore()
+  const { userSigNonce, setUserSigNonce } = useAppStore()
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState<string | null>(null)
   const { sendTransactionAsync } = useSendTransaction({
@@ -128,6 +131,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         value: omitKey(typedData?.value, '__typename')
       })
         .then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           setButtonText('Commenting...')
           const { v, r, s } = utils.splitSignature(signature)
           if (RELAYER_ENABLED) {
@@ -198,6 +202,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     })
     createTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: selectedChannel?.id,
           publicationId: video?.id,
@@ -216,6 +221,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   }
 
   const onSendTip = () => {
+    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
     setButtonText('Sending...')
     const amountToSend = getValues('tipQuantity') * 1
@@ -294,7 +300,11 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
             )}
           </span>
           <Button disabled={loading} onClick={() => {}}>
-            {buttonText ? buttonText : `Send ${watchTipQuantity * 1} MATIC`}
+            {buttonText
+              ? buttonText
+              : `Send ${
+                  isNaN(watchTipQuantity * 1) ? 0 : watchTipQuantity * 1
+                } MATIC`}
           </Button>
         </div>
       </form>

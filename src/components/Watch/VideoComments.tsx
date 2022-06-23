@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { COMMENT_FEED_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
@@ -25,7 +25,7 @@ const VideoComments: FC<Props> = ({ video }) => {
   const {
     query: { id }
   } = useRouter()
-  const { isAuthenticated } = useAppStore()
+  const { isAuthenticated } = usePersistStore()
 
   const [comments, setComments] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()

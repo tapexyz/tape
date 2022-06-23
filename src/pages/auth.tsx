@@ -1,13 +1,13 @@
 import Layout from '@components/Common/Layout'
 import Login from '@components/Common/Login'
 import MetaTags from '@components/Common/MetaTags'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { HOME } from '@utils/url-path'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 export default function AuthRequiredPage() {
-  const { isAuthenticated } = useAppStore()
+  const { isAuthenticated } = usePersistStore()
   const router = useRouter()
   useEffect(() => {
     if (isAuthenticated) {

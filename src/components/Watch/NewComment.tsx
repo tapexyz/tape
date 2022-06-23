@@ -4,6 +4,7 @@ import { Button } from '@components/UIElements/Button'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
@@ -38,7 +39,9 @@ type FormData = z.infer<typeof formSchema>
 const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Comment')
-  const { selectedChannel, isAuthenticated } = useAppStore()
+  const { isAuthenticated, selectedChannel } = usePersistStore()
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+
   const {
     register,
     handleSubmit,
@@ -111,6 +114,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         value: omitKey(typedData?.value, '__typename')
       })
         .then((signature) => {
+          setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = utils.splitSignature(signature)
           setButtonText('Commenting...')
           if (RELAYER_ENABLED) {
@@ -175,6 +179,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     })
     createTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: selectedChannel?.id,
           publicationId: video?.id,
@@ -198,7 +203,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     <div className="my-1">
       <form
         onSubmit={handleSubmit(submitComment)}
-        className="flex items-center mb-2 space-x-3"
+        className="flex items-start mb-2 space-x-3"
       >
         <div className="flex-none">
           <img
@@ -214,6 +219,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           autoComplete="off"
           rows={1}
           hideErrorMessage
+          className="!py-1.5 md:!py-2"
           validationError={errors.comment?.message}
         />
         <Button disabled={loading}>{buttonText}</Button>

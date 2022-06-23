@@ -2,6 +2,7 @@ import { useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
@@ -19,14 +20,9 @@ import { useAccount, useDisconnect } from 'wagmi'
 import ToggleTheme from './ToggleTheme'
 
 const UserMenu = () => {
-  const {
-    channels,
-    setShowCreateChannel,
-    setSelectedChannel,
-    selectedChannel,
-    setIsAuthenticated,
-    setChannels
-  } = useAppStore()
+  const { channels, setShowCreateChannel, setChannels } = useAppStore()
+  const { setSelectedChannel, selectedChannel, setIsAuthenticated } =
+    usePersistStore()
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
   const { disconnect } = useDisconnect()
   const [getChannels] = useLazyQuery(CURRENT_USER_QUERY)
@@ -38,7 +34,7 @@ const UserMenu = () => {
     setSelectedChannel(null)
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
-    disconnect()
+    disconnect && disconnect()
   }
 
   const onSelectChannel = (channel: Profile) => {

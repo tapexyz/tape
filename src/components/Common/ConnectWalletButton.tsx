@@ -1,7 +1,7 @@
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { POLYGON_CHAIN_ID } from '@utils/constants'
 import { getWalletInfo } from '@utils/functions/getWalletInfo'
 import useIsMounted from '@utils/hooks/useIsMounted'
@@ -20,7 +20,7 @@ type Props = {
 }
 
 const ConnectWalletButton = ({ handleSign, signing }: Props) => {
-  const { selectedChannel } = useAppStore()
+  const { isAuthenticated } = usePersistStore()
   const [showModal, setShowModal] = useState(false)
   const { data: account } = useAccount()
   const {
@@ -29,7 +29,8 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
     activeConnector,
     error,
     isConnecting,
-    pendingConnector
+    pendingConnector,
+    isConnected
   } = useConnect()
   const { activeChain, switchNetwork } = useNetwork()
 
@@ -146,9 +147,9 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
           ) : null}
         </div>
       </Modal>
-      {activeConnector?.id ? (
+      {activeConnector?.id && isConnected ? (
         activeChain?.id === POLYGON_CHAIN_ID ? (
-          selectedChannel ? (
+          isAuthenticated ? (
             <UserMenu />
           ) : (
             <Button
@@ -156,7 +157,8 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
               onClick={() => handleSign()}
               disabled={signing}
             >
-              Sign In with Ethereum
+              Sign In{' '}
+              <span className="hidden md:inline-block">with Ethereum</span>
             </Button>
           )
         ) : (

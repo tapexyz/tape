@@ -1,5 +1,6 @@
 import { useLazyQuery, useMutation } from '@apollo/client'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { ERROR_MESSAGE } from '@utils/constants'
 import {
   AUTHENTICATE_MUTATION,
@@ -18,12 +19,8 @@ const ConnectWalletButton = dynamic(() => import('./ConnectWalletButton'))
 const Login = () => {
   const router = useRouter()
   const { data: accountData } = useAccount()
-  const {
-    setChannels,
-    setSelectedChannel,
-    setIsAuthenticated,
-    setShowCreateChannel
-  } = useAppStore()
+  const { setChannels, setShowCreateChannel } = useAppStore()
+  const { setIsAuthenticated, setSelectedChannel } = usePersistStore()
   const { signMessageAsync, isLoading: signing } = useSignMessage()
 
   const [loadChallenge, { error: errorChallenge, loading: loadingChallenge }] =

@@ -1,5 +1,5 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { WATCH_LATER_LIBRARY } from '@utils/url-path'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -10,7 +10,7 @@ import { LenstubePublication } from 'src/types/local'
 const VideoCard = dynamic(() => import('../../Common/VideoCard'))
 
 const WatchLater = () => {
-  const { watchLater } = useAppStore()
+  const { watchLater } = usePersistStore()
   const [videos, setVideos] = useState<LenstubePublication[]>([])
 
   useEffect(() => {

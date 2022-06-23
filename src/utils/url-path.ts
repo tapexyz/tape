@@ -1,6 +1,7 @@
 export const HOME = '/'
 export const EXPLORE = '/explore'
 export const LIBRARY = '/library'
+export const NOTIFICATIONS = '/notifications'
 export const UPLOAD = '/upload'
 export const AUTH = '/auth'
 export const LENSTUBE_PATH = '/lt'

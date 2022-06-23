@@ -240,6 +240,9 @@ export const CURRENT_USER_QUERY = gql`
         isDefault
       }
     }
+    userSigNonces {
+      lensHubOnChainSigNonce
+    }
   }
   ${MinimalProfileFields}
 `
@@ -348,105 +351,6 @@ export const RECOMMENDED_PROFILES_QUERY = gql`
   ${MinimalProfileFields}
 `
 
-export const NOTIFICATION_COUNT_QUERY = gql`
-  query NotificationCount($request: NotificationRequest!) {
-    notifications(request: $request) {
-      pageInfo {
-        totalCount
-      }
-    }
-  }
-`
-
-// currently showing only new follow
-export const NOTIFICATIONS_QUERY = gql`
-  query Notifications($request: NotificationRequest!) {
-    notifications(request: $request) {
-      items {
-        ... on NewFollowerNotification {
-          wallet {
-            address
-            defaultProfile {
-              ...MinimalProfileFields
-            }
-          }
-          createdAt
-        }
-      }
-      pageInfo {
-        next
-      }
-    }
-  }
-  ${MinimalProfileFields}
-`
-
-export const SEARCH_CHANNELS_QUERY = gql`
-  query SearchChannels($request: SearchQueryRequest!) {
-    search(request: $request) {
-      ... on ProfileSearchResult {
-        items {
-          ...MinimalProfileFields
-        }
-      }
-    }
-  }
-  ${MinimalProfileFields}
-`
-
-export const PostFieldsFragment = gql`
-  fragment PostFields on Post {
-    id
-    reaction(request: $reactionRequest)
-    profile {
-      ...MinimalProfileFields
-    }
-    collectedBy {
-      address
-      defaultProfile {
-        handle
-      }
-    }
-    collectModule {
-      ...MinimalCollectModuleFields
-    }
-    hidden
-    hasCollectedByMe
-    stats {
-      totalAmountOfComments
-      totalAmountOfCollects
-      totalAmountOfMirrors
-      totalUpvotes
-      totalDownvotes
-    }
-    metadata {
-      name
-      description
-      content
-      description
-      media {
-        original {
-          url
-          mimeType
-        }
-      }
-      cover {
-        original {
-          url
-        }
-      }
-      attributes {
-        value
-        traitType
-      }
-    }
-    createdAt
-    appId
-  }
-  ${MinimalProfileFields}
-  ${MinimalCollectModuleFields}
-`
-
 export const CollectModuleFields = gql`
   fragment CollectModuleFields on CollectModule {
     ... on FreeCollectModuleSettings {
@@ -515,6 +419,210 @@ export const CollectModuleFields = gql`
       }
     }
   }
+`
+
+export const NOTIFICATION_COUNT_QUERY = gql`
+  query NotificationCount($request: NotificationRequest!) {
+    notifications(request: $request) {
+      pageInfo {
+        totalCount
+      }
+    }
+  }
+`
+
+// currently showing only new follow
+export const NOTIFICATIONS_QUERY = gql`
+  query Notifications($request: NotificationRequest!) {
+    notifications(request: $request) {
+      items {
+        ... on NewFollowerNotification {
+          wallet {
+            address
+            defaultProfile {
+              ...MinimalProfileFields
+            }
+          }
+          createdAt
+        }
+        ... on NewMentionNotification {
+          mentionPublication {
+            ... on Post {
+              id
+              profile {
+                ...MinimalProfileFields
+              }
+              metadata {
+                content
+              }
+            }
+            ... on Comment {
+              id
+              profile {
+                ...MinimalProfileFields
+              }
+              metadata {
+                content
+              }
+            }
+          }
+          createdAt
+        }
+        ... on NewCommentNotification {
+          profile {
+            ...MinimalProfileFields
+          }
+          comment {
+            id
+            metadata {
+              content
+            }
+            commentOn {
+              ... on Post {
+                id
+              }
+              ... on Comment {
+                id
+              }
+              ... on Mirror {
+                id
+              }
+            }
+          }
+          createdAt
+        }
+        ... on NewMirrorNotification {
+          profile {
+            ...MinimalProfileFields
+          }
+          publication {
+            ... on Post {
+              id
+              metadata {
+                name
+                content
+                attributes {
+                  value
+                }
+              }
+            }
+            ... on Comment {
+              id
+              metadata {
+                name
+                content
+                attributes {
+                  value
+                }
+              }
+            }
+          }
+          createdAt
+        }
+        ... on NewCollectNotification {
+          wallet {
+            address
+            defaultProfile {
+              ...MinimalProfileFields
+            }
+          }
+          collectedPublication {
+            ... on Post {
+              id
+              metadata {
+                ...MetadataFields
+              }
+              collectModule {
+                ...CollectModuleFields
+              }
+            }
+            ... on Comment {
+              id
+              metadata {
+                ...MetadataFields
+              }
+              collectModule {
+                ...CollectModuleFields
+              }
+            }
+          }
+          createdAt
+        }
+      }
+      pageInfo {
+        next
+      }
+    }
+  }
+  ${MinimalProfileFields}
+  ${CollectModuleFields}
+  ${MetadataFields}
+`
+
+export const SEARCH_CHANNELS_QUERY = gql`
+  query SearchChannels($request: SearchQueryRequest!) {
+    search(request: $request) {
+      ... on ProfileSearchResult {
+        items {
+          ...MinimalProfileFields
+        }
+      }
+    }
+  }
+  ${MinimalProfileFields}
+`
+
+export const PostFieldsFragment = gql`
+  fragment PostFields on Post {
+    id
+    reaction(request: $reactionRequest)
+    profile {
+      ...MinimalProfileFields
+    }
+    collectedBy {
+      address
+      defaultProfile {
+        handle
+      }
+    }
+    collectModule {
+      ...MinimalCollectModuleFields
+    }
+    hidden
+    hasCollectedByMe
+    stats {
+      totalAmountOfComments
+      totalAmountOfCollects
+      totalAmountOfMirrors
+      totalUpvotes
+      totalDownvotes
+    }
+    metadata {
+      name
+      description
+      content
+      description
+      media {
+        original {
+          url
+          mimeType
+        }
+      }
+      cover {
+        original {
+          url
+        }
+      }
+      attributes {
+        value
+        traitType
+      }
+    }
+    createdAt
+    appId
+  }
+  ${MinimalProfileFields}
+  ${MinimalCollectModuleFields}
 `
 
 export const EXPLORE_QUERY = gql`

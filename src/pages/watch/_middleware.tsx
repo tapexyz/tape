@@ -19,9 +19,9 @@ export async function middleware(req: NextRequest) {
   if (!ua.os.name) {
     const result = await fetch(`${url.origin}/api/video?id=${id}`)
     const data = await result.json()
-    const video: LenstubePublication = data?.video
 
     if (data?.success) {
+      const video: LenstubePublication = data?.video
       const title = video?.metadata.name || ''
       const description =
         video.metadata?.description ||
@@ -47,14 +47,14 @@ export async function middleware(req: NextRequest) {
             <meta property="twitter:description" content="${description}" />
             <meta property="twitter:image" content="${cover}" />
             <meta property="twitter:image:width" content="600" />
-            <meta property="twitter:image:height" content="400" />
+            <meta property="twitter:image:height" content="500" />
             <meta property="twitter:creator" content="${LENSTUBE_TWITTER_HANDLE}" />
             </head>
         </html>`,
         {
           headers: {
             'Content-Type': 'text/html',
-            'Cache-Control': 's-maxage=31536000'
+            'Cache-Control': 's-maxage=86400'
           }
         }
       )

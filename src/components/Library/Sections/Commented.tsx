@@ -1,10 +1,9 @@
 import { useQuery } from '@apollo/client'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { PROFILE_FEED_QUERY } from '@utils/gql/queries'
-import useIsMounted from '@utils/hooks/useIsMounted'
 import { COMMENTED_LIBRARY } from '@utils/url-path'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -16,8 +15,7 @@ import CommentedVideoCard from '../CommentedVideoCard'
 
 const Commented = () => {
   const [commented, setCommented] = useState<LenstubePublication[]>([])
-  const { selectedChannel, isAuthenticated } = useAppStore()
-  const { mounted } = useIsMounted()
+  const { isAuthenticated, selectedChannel } = usePersistStore()
 
   const { loading, data } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
@@ -51,11 +49,10 @@ const Commented = () => {
       {!isAuthenticated && (
         <NoDataFound text="Sign In to view videos that you commented on." />
       )}
-      {loading && mounted && <TimelineShimmer />}
-      {!data?.publications?.items.length &&
-        mounted &&
-        !loading &&
-        isAuthenticated && <NoDataFound text="This list has no videos." />}
+      {loading && <TimelineShimmer />}
+      {!data?.publications?.items.length && !loading && isAuthenticated && (
+        <NoDataFound text="This list has no videos." />
+      )}
       <div className="grid gap-x-4 lg:grid-cols-4 gap-y-1.5 md:gap-y-6 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
         {commented?.map((video: LenstubePublication, idx: number) => (
           <CommentedVideoCard key={idx} video={video as LenstubePublication} />

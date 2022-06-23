@@ -21,7 +21,7 @@ const Trending = () => {
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
-        sortCriteria: 'LATEST', // should be TOP_COMMENTED
+        sortCriteria: 'TOP_COMMENTED',
         limit: 12,
         noRandomize: false,
         sources: [LENSTUBE_APP_ID],
@@ -40,7 +40,7 @@ const Trending = () => {
       fetchMore({
         variables: {
           request: {
-            sortCriteria: 'LATEST', // should be TOP_COMMENTED
+            sortCriteria: 'TOP_COMMENTED',
             cursor: pageInfo?.next,
             limit: 8,
             noRandomize: false,

@@ -41,7 +41,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
           </div>
         </Link>
         <div className="flex flex-col flex-1">
-          <div className="flex flex-wrap justify-between py-2">
+          <div className="flex flex-wrap justify-between py-2 gap-y-2">
             <div className="flex flex-col items-start mr-2">
               <Link href={`/${channel?.handle}`}>
                 <a className="font-semibold">{channel?.handle}</a>

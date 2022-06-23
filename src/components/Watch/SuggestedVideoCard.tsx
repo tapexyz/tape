@@ -13,34 +13,44 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
   const [showShare, setShowShare] = useState(false)
 
   return (
-    <div className="flex justify-between group">
+    <div className="flex justify-between overflow-hidden group">
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
-      <div className="flex justify-between truncate">
-        <Link href={`/watch/${video.id}`}>
-          <a className="flex-none overflow-hidden rounded-lg cursor-pointer">
-            <img
-              src={imageCdn(getThumbnailUrl(video))}
-              alt=""
-              draggable={false}
-              className="object-cover object-center h-24 w-44"
-            />
-          </a>
-        </Link>
-        <div className="flex items-start px-2.5">
-          <div className="flex flex-col items-start flex-1 pb-1">
-            <span className="flex w-full items-start justify-between space-x-1.5">
+      <div className="flex justify-between">
+        <div className="flex-none overflow-hidden rounded-lg">
+          <Link href={`/watch/${video.id}`}>
+            <a className="rounded-lg cursor-pointer">
+              <img
+                src={imageCdn(getThumbnailUrl(video))}
+                alt=""
+                draggable={false}
+                className="object-cover object-center h-20 w-36"
+              />
+            </a>
+          </Link>
+        </div>
+        <div className="px-2.5 overflow-hidden">
+          <div className="flex flex-col items-start pb-1">
+            <div className="flex w-full items-start overflow-hidden justify-between space-x-1.5">
               <Link passHref href={`/watch/${video.id}`}>
-                <a className="mb-1.5 text-sm font-medium line-clamp-2">
-                  {video.metadata?.name}
+                <a className="overflow-hidden text-sm font-medium line-clamp-1">
+                  <span className="flex line-clamp-1">
+                    {video.metadata?.name}
+                  </span>
                 </a>
               </Link>
-            </span>
-            <Link href={`/${video.profile?.handle}`}>
-              <a className="text-xs truncate hover:opacity-100 opacity-70">
-                {video.profile?.handle}
-              </a>
-            </Link>
-            <div className="flex items-center text-[11px] opacity-70 mt-0.5">
+            </div>
+            <div className="truncate">
+              <Link href={`/${video.profile?.handle}`}>
+                <a className="text-xs truncate hover:opacity-100 opacity-70">
+                  {video.profile?.handle}
+                </a>
+              </Link>
+            </div>
+            <div className="flex truncate items-center text-[11px] opacity-70 mt-0.5">
+              <span className="whitespace-nowrap">
+                {video.stats?.totalUpvotes} likes
+              </span>
+              <span className="middot" />
               <span>{dayjs(new Date(video.createdAt)).fromNow()}</span>
             </div>
           </div>

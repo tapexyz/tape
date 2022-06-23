@@ -84,7 +84,7 @@ const UploadPage = () => {
             <div
               {...getRootProps()}
               className={clsx(
-                'p-10 md:p-20 md:w-2/3 focus:outline-none border-gray-500 grid place-items-center text-center border border-dashed rounded-2xl',
+                'w-full p-10 md:p-20 md:w-2/3 focus:outline-none border-gray-500 grid place-items-center text-center border border-dashed rounded-2xl',
                 { 'border-green-500': isDragActive }
               )}
             >

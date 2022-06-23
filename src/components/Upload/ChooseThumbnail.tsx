@@ -1,6 +1,6 @@
 import { Loader } from '@components/UIElements/Loader'
 import { generateVideoThumbnails } from '@rajesh896/video-thumbnails-generator'
-import { dataURLtoFile } from '@utils/functions/getFileFromDataURL'
+import { getFileFromDataURL } from '@utils/functions/getFileFromDataURL'
 import imageCdn from '@utils/functions/imageCdn'
 import { uploadImageToIPFS } from '@utils/functions/uploadToIPFS'
 import useDraggableScroll from '@utils/hooks/useDraggableScroll'
@@ -15,6 +15,8 @@ interface Props {
   afterUpload: (result: IPFSUploadResult | null) => void
   file: File | null
 }
+
+const DEFAULT_THUMBNAIL_INDEX = 1
 
 const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const [uploading, setUploading] = useState(false)
@@ -33,12 +35,15 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
         thumbnails.push({ url: t, ipfsUrl: '' })
       })
       setThumbnails(thumbnails)
-      setSelectedThumbnailIndex(1)
-      const file = await dataURLtoFile(thumbnails[1].url, 'thumbnail.jpeg')
+      setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX)
+      const file = await getFileFromDataURL(
+        thumbnails[DEFAULT_THUMBNAIL_INDEX].url,
+        'thumbnail.jpeg'
+      )
       const ipfsResult = await uploadThumbnailToIpfs(file)
       setThumbnails(
         thumbnails.map((t, i) => {
-          if (i === 0) t.ipfsUrl = ipfsResult.ipfsUrl
+          if (i === DEFAULT_THUMBNAIL_INDEX) t.ipfsUrl = ipfsResult.ipfsUrl
           return t
         })
       )
@@ -73,7 +78,10 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const onSelectThumbnail = async (index: number) => {
     setSelectedThumbnailIndex(index)
     if (thumbnails[index].ipfsUrl === '') {
-      const file = await dataURLtoFile(thumbnails[index].url, 'thumbnail.jpeg')
+      const file = await getFileFromDataURL(
+        thumbnails[index].url,
+        'thumbnail.jpeg'
+      )
       const ipfsResult = await uploadThumbnailToIpfs(file)
       setThumbnails(
         thumbnails.map((t, i) => {

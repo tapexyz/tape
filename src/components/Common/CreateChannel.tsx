@@ -7,13 +7,11 @@ import useAppStore from '@lib/store'
 import { IS_MAINNET } from '@utils/constants'
 import { getHandle } from '@utils/functions/getHandle'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
-import { isEmptyString } from '@utils/functions/isEmptyString'
 import { CREATE_PROFILE_MUTATION } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 import * as z from 'zod'
 
 import PendingTxnLoader from './PendingTxnLoader'
@@ -46,6 +44,11 @@ const CreateChannel = () => {
   const [createProfile, { data, reset }] = useMutation(
     CREATE_PROFILE_MUTATION,
     {
+      onCompleted(data) {
+        if (data?.createProfile?.reason) {
+          setCreating(false)
+        }
+      },
       onError() {
         setCreating(false)
       }
@@ -66,12 +69,6 @@ const CreateChannel = () => {
 
   const onCreate = ({ channelName }: FormData) => {
     const username = channelName.toLowerCase()
-    if (isEmptyString(username)) {
-      return toast.error('Field is required.')
-    }
-    if (username.length < 5 || username.length > 30) {
-      return toast.error('Handle should be 5-30 letters long.')
-    }
     setCreating(true)
     createProfile({
       variables: {
@@ -124,11 +121,13 @@ const CreateChannel = () => {
           </div>
 
           <div className="flex items-center justify-between">
-            <span className="w-1/2 truncate">
+            <span className="flex-wrap w-2/3">
               {data?.createProfile?.reason && (
                 <div>
                   <p className="text-xs font-medium text-red-500">
-                    {data?.createProfile?.reason}
+                    {data?.createProfile?.reason === 'HANDLE_TAKEN'
+                      ? 'Channel already exists, try unique.'
+                      : data?.createProfile?.reason}
                   </p>
                 </div>
               )}

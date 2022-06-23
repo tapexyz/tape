@@ -6,6 +6,8 @@ import VideoPlayer from '@components/Common/VideoPlayer'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
+import * as Sentry from '@sentry/nextjs'
 import {
   ARWEAVE_WEBSITE_URL,
   BUNDLR_CURRENCY,
@@ -74,7 +76,9 @@ MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 const Details: FC<Props> = ({ video, afterUpload }) => {
   const { data: account } = useAccount()
   const { data: signer } = useSigner()
-  const { getBundlrInstance, selectedChannel } = useAppStore()
+  const { getBundlrInstance } = useAppStore()
+  const { selectedChannel } = usePersistStore()
+
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -226,8 +230,8 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
           )
         })
         .catch((e) => {
-          console.log('🚀 ~ file: Details.tsx ~ depositToBundlr ~ e', e)
           toast.error(`Failed to deposit`)
+          Sentry.captureException(e)
         })
         .finally(async () => {
           fetchBalance()
@@ -275,7 +279,7 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
       const { playbackId } = await playbackResponse.json()
       return playbackId
     } catch (error) {
-      console.log('🚀 ~ file: Details.tsx ~ getPlaybackId ~ error', error)
+      Sentry.captureException(error)
       return null
     }
   }
@@ -314,12 +318,12 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
       })
       setIsUploadedToBundlr(true)
       setButtonText('Post Video')
-    } catch (error) {
-      console.log('🚀 ~ file: Details.tsx ~ uploadToBundlr ~ error', error)
+    } catch (error: any) {
       toast.error('Failed to upload video!')
       setButtonText('Upload Video')
       setIsUploadedToBundlr(false)
       setDisableSubmit(false)
+      Sentry.captureException(error)
     }
   }
 
@@ -487,69 +491,78 @@ const Details: FC<Props> = ({ video, afterUpload }) => {
           setVideoMeta={setVideoMeta}
           onThumbnailUpload={onThumbnailUpload}
         />
-        <div className="flex flex-col items-start">
-          <div
-            className={clsx('overflow-hidden w-full', {
-              'rounded-t-lg': uploadMeta.uploading,
-              'rounded-lg': !uploadMeta.uploading
-            })}
-          >
-            <MemoizedVideoPlayer source={video.preview} />
-          </div>
-          <Tooltip content={`Uploaded (${uploadMeta.percent}%)`}>
-            <div className="w-full overflow-hidden bg-gray-200 rounded-b-full">
-              <div
-                className={clsx('bg-indigo-800 bg-brand-500', {
-                  'h-[6px]': uploadMeta.uploading,
-                  'h-0': !uploadMeta.uploading
-                })}
-                style={{
-                  width: `${uploadMeta.percent}%`
-                }}
-              />
+        <div className="flex flex-col items-start justify-between">
+          <div className="flex flex-col w-full">
+            <div
+              className={clsx('overflow-hidden w-full', {
+                'rounded-t-lg': uploadMeta.uploading,
+                'rounded-lg': !uploadMeta.uploading
+              })}
+            >
+              <MemoizedVideoPlayer source={video.preview} />
             </div>
-          </Tooltip>
+            <Tooltip content={`Uploaded (${uploadMeta.percent}%)`}>
+              <div className="w-full overflow-hidden bg-gray-200 rounded-b-full">
+                <div
+                  className={clsx('bg-indigo-800 bg-brand-500', {
+                    'h-[6px]': uploadMeta.uploading,
+                    'h-0': !uploadMeta.uploading
+                  })}
+                  style={{
+                    width: `${uploadMeta.percent}%`
+                  }}
+                />
+              </div>
+            </Tooltip>
 
-          {isLessThan100MB(video.file?.size) && !showBundlrDetails ? (
-            <div className="mt-2">
-              <span className="text-sm opacity-60">
-                This video size is less than 100MB and can be uploaded to IPFS
-                for free,
-                <br /> would you like to proceed?
+            {isLessThan100MB(video.file?.size) && !showBundlrDetails ? (
+              <div className="mt-2">
+                <span className="text-sm opacity-60">
+                  This video size is less than 100MB and can be uploaded to IPFS
+                  for free,
+                  <br /> would you like to proceed?
+                </span>
+                {uploadToIpfs ? (
+                  <button
+                    onClick={() => setUploadToIpfs(false)}
+                    className="ml-2 text-green-500 outline-none"
+                  >
+                    <BiCheck />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setUploadToIpfs(true)}
+                    className="ml-2 text-sm text-indigo-500 outline-none"
+                  >
+                    Yes
+                  </button>
+                )}
+              </div>
+            ) : (
+              <span className="mt-2 text-sm opacity-60">
+                This video will be uploaded to Arweave permanent storage.
               </span>
-              {uploadToIpfs ? (
-                <button
-                  onClick={() => setUploadToIpfs(false)}
-                  className="ml-2 text-green-500 outline-none"
-                >
-                  <BiCheck />
-                </button>
-              ) : (
-                <button
-                  onClick={() => setUploadToIpfs(true)}
-                  className="ml-2 text-sm text-indigo-500 outline-none"
-                >
-                  Yes
-                </button>
-              )}
-            </div>
-          ) : (
-            <span className="mt-2 text-sm opacity-60">
-              This video will be uploaded to Arweave permanent storage.
-            </span>
-          )}
+            )}
 
-          {showBundlrDetails && (
-            <BundlrInfo
-              bundlrData={bundlrData}
-              setBundlrData={setBundlrData}
-              depositToBundlr={depositToBundlr}
-              fetchBalance={fetchBalance}
-            />
-          )}
+            {showBundlrDetails && (
+              <BundlrInfo
+                bundlrData={bundlrData}
+                setBundlrData={setBundlrData}
+                depositToBundlr={depositToBundlr}
+                fetchBalance={fetchBalance}
+              />
+            )}
+          </div>
+
+          <div className="mt-4 md:mt-0">
+            <p className="text-sm opacity-60">
+              By posting, you are agreeing that you own the content and its not
+              sensitive for the audience.
+            </p>
+          </div>
         </div>
       </div>
-      <div className="flex items-center justify-end mt-3">
+      <div className="flex items-center justify-end mt-4">
         <span className="mr-4">
           {videoMeta.videoSource && (
             <span className="text-xs text-green-500">Video uploaded</span>

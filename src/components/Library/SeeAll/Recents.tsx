@@ -2,7 +2,7 @@ import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import dynamic from 'next/dynamic'
 import React, { useEffect, useState } from 'react'
 import { MdHistory } from 'react-icons/md'
@@ -12,7 +12,7 @@ const Timeline = dynamic(() => import('../../Home/Timeline'), {
 })
 
 const SeeAllRecents = () => {
-  const { recentlyWatched } = useAppStore()
+  const { recentlyWatched } = usePersistStore()
   const [videos, setVideos] = useState<LenstubePublication[]>([])
 
   useEffect(() => {
