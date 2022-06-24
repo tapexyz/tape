@@ -29,7 +29,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
 
   return (
     <div>
-      <div className="flex justify-between w-full my-2">
+      <div className="flex justify-between w-full mt-2">
         <Link href={`/${channel?.handle}`} passHref>
           <div className="flex-none mt-2.5 mr-3 cursor-pointer">
             <img
@@ -58,14 +58,16 @@ const AboutChannel: FC<Props> = ({ video }) => {
               />
             </div>
           </div>
-          <p
-            className={clsx('mt-2 text-sm opacity-80', {
-              'line-clamp-3': clamped,
-              '': !clamped
-            })}
-          >
-            <InterweaveContent content={video.metadata.description} />
-          </p>
+          {video.metadata.description && (
+            <p
+              className={clsx('mt-2 text-sm opacity-80', {
+                'line-clamp-3': clamped,
+                '': !clamped
+              })}
+            >
+              <InterweaveContent content={video.metadata.description} />
+            </p>
+          )}
 
           {showMore && (
             <button

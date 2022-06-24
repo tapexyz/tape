@@ -27,7 +27,7 @@ export default function AuthRequiredPage() {
         />
         <div className="flex flex-col items-center justify-center py-10">
           <h1 className="mb-4 text-3xl font-bold">Sign In Required</h1>
-          <div className="mb-6">
+          <div className="mb-6 text-center">
             Connect Wallet & Sign with Ethereum to continue,
           </div>
           <div>
