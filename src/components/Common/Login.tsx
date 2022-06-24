@@ -30,8 +30,12 @@ const Login = () => {
   const [authenticate, { error: errorAuthenticate }] = useMutation(
     AUTHENTICATE_MUTATION
   )
-  const [getChannels, { error: errorProfiles }] =
-    useLazyQuery(CURRENT_USER_QUERY)
+  const [getChannels, { error: errorProfiles }] = useLazyQuery(
+    CURRENT_USER_QUERY,
+    {
+      fetchPolicy: 'no-cache'
+    }
+  )
 
   useEffect(() => {
     if (
@@ -66,9 +70,9 @@ const Login = () => {
               variables: { ownedBy: accountData?.address }
             }).then((res) => {
               if (res.data.profiles.items.length === 0) {
-                setShowCreateChannel(true)
                 setSelectedChannel(null)
                 setIsAuthenticated(false)
+                setShowCreateChannel(true)
               } else {
                 const channels: Profile[] = res?.data?.profiles?.items
                 setChannels(channels)

@@ -109,11 +109,7 @@ const UserMenu = () => {
         ) : (
           <>
             <div className="flex flex-col space-y-1 text-sm transition duration-150 ease-in-out rounded-lg">
-              <div
-                className={clsx(
-                  'inline-flex items-center p-2 py-4 space-x-2 rounded-lg'
-                )}
-              >
+              <div className="inline-flex items-center p-2 py-4 space-x-2 rounded-lg">
                 <img
                   className="object-cover rounded-xl w-9 h-9"
                   src={getProfilePicture(selectedChannel)}
