@@ -8,10 +8,7 @@ class LenstubeDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-          <link
-            href="https://assets.lenstube.xyz/fonts/font.css"
-            rel="stylesheet"
-          />
+          <link href={`${STATIC_ASSETS}/fonts/font.css`} rel="stylesheet" />
           <link
             rel="shortcut icon"
             href={`${STATIC_ASSETS}/images/favicons/favicon.ico`}
