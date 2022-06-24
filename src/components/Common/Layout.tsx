@@ -15,10 +15,18 @@ import { Profile } from 'src/types'
 import { useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
-const Header = dynamic(() => import('./Header'))
-const Sidebar = dynamic(() => import('./Sidebar'))
-const CreateChannel = dynamic(() => import('./CreateChannel'))
-const MobileBottomNav = dynamic(() => import('./MobileBottomNav'))
+const Header = dynamic(() => import('./Header'), {
+  suspense: true
+})
+const Sidebar = dynamic(() => import('./Sidebar'), {
+  suspense: true
+})
+const CreateChannel = dynamic(() => import('./CreateChannel'), {
+  suspense: true
+})
+const MobileBottomNav = dynamic(() => import('./MobileBottomNav'), {
+  suspense: true
+})
 
 interface Props {
   children: ReactNode

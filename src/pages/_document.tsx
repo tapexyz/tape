@@ -1,23 +1,10 @@
 import { STATIC_ASSETS } from '@utils/constants'
-import Document, {
-  DocumentContext,
-  DocumentProps,
-  Head,
-  Html,
-  Main,
-  NextScript
-} from 'next/document'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
 
-type Props = Record<string, unknown> & DocumentProps
-class LenstubeDocument extends Document<Props> {
-  static async getInitialProps(context: DocumentContext) {
-    const initialProps = await Document.getInitialProps(context)
-    return { ...initialProps }
-  }
-
+class LenstubeDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />

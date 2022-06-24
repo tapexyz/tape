@@ -47,7 +47,7 @@ const wagmiClient = createClient({
   provider
 })
 
-function MyApp({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <WagmiConfig client={wagmiClient}>
       <ApolloProvider client={apolloClient}>
@@ -61,4 +61,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   )
 }
 
-export default MyApp
+export default App
