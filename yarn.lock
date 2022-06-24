@@ -19,10 +19,10 @@
     jsonpointer "^5.0.0"
     leven "^3.1.0"
 
-"@apollo/client@^3.6.8":
-  version "3.6.8"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.6.8.tgz#97e876fdbc4c287652a61895fd2b6f0b157a7667"
-  integrity sha512-p/J6KRHZZPGX0bZtMLvRFAIcReYsRYGg+Jz9MkgabWPy0L8rwgyolq9fvKsNqkH888Tj9Yvwrxz9V84KfcORJA==
+"@apollo/client@^3.6.9":
+  version "3.6.9"
+  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.6.9.tgz#ad0ee2e3a3c92dbed4acd6917b6158a492739d94"
+  integrity sha512-Y1yu8qa2YeaCUBVuw08x8NHenFi0sw2I3KCu7Kw9mDSu86HmmtHJkCAifKVrN2iPgDTW/BbP3EpSV8/EQCcxZA==
   dependencies:
     "@graphql-typed-document-node/core" "^3.1.1"
     "@wry/context" "^0.6.0"
@@ -1068,10 +1068,10 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@bundlr-network/client@^0.7.13":
-  version "0.7.13"
-  resolved "https://registry.yarnpkg.com/@bundlr-network/client/-/client-0.7.13.tgz#523ecb75f493ef95c1c22427ce728071b756d9c4"
-  integrity sha512-BVJSGcnE898oN5e3AhTU6zz4R53BS2x8y0gpuFWqivyX8RtTR3GLYTZf+dp3SChiVlUphuLZah3Ap6xp1fDVnQ==
+"@bundlr-network/client@^0.7.14":
+  version "0.7.14"
+  resolved "https://registry.yarnpkg.com/@bundlr-network/client/-/client-0.7.14.tgz#cc6f9e64d60225f9aa8436e5727641941c0a3bd2"
+  integrity sha512-WeNF6smgFJ/Ca/lWE8JXFA5C/1qLBTMAas9JgBB0cZceEVGsEynGOZFYlCdQFtTwpwU2hHci0NM0cpLnWKLimw==
   dependencies:
     "@solana/wallet-adapter-base" "^0.9.2"
     "@solana/web3.js" "^1.36.0"
@@ -6157,10 +6157,10 @@ internal-slot@^1.0.3:
     has "^1.0.3"
     side-channel "^1.0.4"
 
-interweave-autolink@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/interweave-autolink/-/interweave-autolink-5.0.0.tgz#7ecd7c921dae8bfc55c27e18d2f63d8fbcc1e931"
-  integrity sha512-Hg+QTtul/57LesVouaBrvgknT01+2vx4Te8VOwV7PjEvmP0LQs2XYD2ZyF5uWRTn51mnSESAtz/Kx/MElwS50Q==
+interweave-autolink@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/interweave-autolink/-/interweave-autolink-5.1.0.tgz#a5a5438c45c5e4d631838473845be1fdd38a664b"
+  integrity sha512-WOEakAdwqv/W2H85cLdigkpMM7o6qVg4CWM6iO5cHrFCywwUh+ILVmZgX1tHphEpa55sFdzpKNO2EHhAjbR4GA==
 
 interweave@^13.0.0:
   version "13.0.0"

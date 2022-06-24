@@ -10,8 +10,8 @@
     "codegen": "graphql-codegen"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.8",
-    "@bundlr-network/client": "^0.7.13",
+    "@apollo/client": "^3.6.9",
+    "@bundlr-network/client": "^0.7.14",
     "@headlessui/react": "^1.6.5",
     "@hookform/resolvers": "^2.9.1",
     "@rajesh896/video-thumbnails-generator": "^2.3.9",
@@ -26,7 +26,7 @@
     "ethers": "^5.6.9",
     "graphql": "^16.5.0",
     "interweave": "^13.0.0",
-    "interweave-autolink": "^5.0.0",
+    "interweave-autolink": "^5.1.0",
     "jwt-decode": "^3.1.2",
     "next": "12.1.6",
     "next-pwa": "^5.5.4",

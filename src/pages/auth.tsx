@@ -1,4 +1,3 @@
-import Layout from '@components/Common/Layout'
 import Login from '@components/Common/Login'
 import MetaTags from '@components/Common/MetaTags'
 import usePersistStore from '@lib/store/persist'
@@ -16,7 +15,7 @@ export default function AuthRequiredPage() {
   }, [isAuthenticated, router])
 
   return (
-    <Layout hideHeader>
+    <>
       <MetaTags title="Login" />
       <div className="flex flex-col items-center justify-start h-full mt-10 md:mt-20">
         <img
@@ -28,12 +27,14 @@ export default function AuthRequiredPage() {
         />
         <div className="flex flex-col items-center justify-center py-10">
           <h1 className="mb-4 text-3xl font-bold">Sign In Required</h1>
-          <div className="mb-6">Sign with Ethereum to continue,</div>
+          <div className="mb-6 text-center">
+            Connect Wallet & Sign with Ethereum to continue,
+          </div>
           <div>
             <Login />
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   )
 }

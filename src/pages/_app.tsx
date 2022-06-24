@@ -1,6 +1,7 @@
 import '../styles/index.css'
 
 import { ApolloProvider } from '@apollo/client'
+import Layout from '@components/Common/Layout'
 import apolloClient from '@lib/apollo'
 import { IS_MAINNET, POLYGON_CHAIN_ID, POLYGON_RPC_URL } from '@utils/constants'
 import type { AppProps } from 'next/app'
@@ -51,7 +52,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <WagmiConfig client={wagmiClient}>
       <ApolloProvider client={apolloClient}>
         <ThemeProvider defaultTheme="light" attribute="class">
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </ThemeProvider>
       </ApolloProvider>
     </WagmiConfig>

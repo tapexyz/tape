@@ -10,7 +10,7 @@ type Data = {
 const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method === 'POST') {
     try {
-      const body = JSON.parse(req.body)
+      const body = req.body
       const parsed = new URL(body.url)
       if (!body.url || !parsed)
         res.status(200).json({ playbackId: null, success: false })
