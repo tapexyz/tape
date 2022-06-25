@@ -58,6 +58,7 @@ export const AUTH_ROUTES = [
   '/upload',
   '/settings',
   '/lt',
+  '/feed',
   '/report/[id]',
   '/settings/membership',
   '/settings/permissions'
