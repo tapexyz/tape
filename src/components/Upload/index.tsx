@@ -1,4 +1,3 @@
-import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
@@ -74,7 +73,7 @@ const UploadPage = () => {
   })
 
   return (
-    <Layout>
+    <>
       <MetaTags title="Upload Video" />
       <div className="my-6">
         {video.preview ? (
@@ -105,7 +104,7 @@ const UploadPage = () => {
           </div>
         )}
       </div>
-    </Layout>
+    </>
   )
 }
 

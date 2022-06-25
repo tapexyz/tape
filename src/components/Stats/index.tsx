@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client'
-import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import usePersistStore from '@lib/store/persist'
@@ -39,7 +38,7 @@ const Stats = () => {
   const stats: GlobalProtocolStats = data?.globalProtocolStats
 
   return (
-    <Layout>
+    <>
       <MetaTags title="Lenstube Stats" />
       {loading && !mounted ? (
         <Loader />
@@ -80,7 +79,7 @@ const Stats = () => {
           </div>
         </>
       )}
-    </Layout>
+    </>
   )
 }
 

@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client'
-import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
 import usePersistStore from '@lib/store/persist'
@@ -45,7 +44,7 @@ const Settings = () => {
   } = data?.profiles?.items[0]
 
   return (
-    <Layout>
+    <>
       <MetaTags title="Channel Settings" />
       {(loading || !mounted) && <SettingsShimmer />}
       {!loading && !error && channel ? (
@@ -62,7 +61,7 @@ const Settings = () => {
           </div>
         </div>
       ) : null}
-    </Layout>
+    </>
   )
 }
 

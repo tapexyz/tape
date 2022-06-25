@@ -1,11 +1,20 @@
 import '../styles/index.css'
 
 import { ApolloProvider } from '@apollo/client'
-import AppWrapper from '@components/Common/AppWrapper'
+import Layout from '@components/Common/Layout'
 import apolloClient from '@lib/apollo'
-import { IS_MAINNET, POLYGON_CHAIN_ID, POLYGON_RPC_URL } from '@utils/constants'
+import usePersistStore from '@lib/store/persist'
+import {
+  AUTH_ROUTES,
+  IS_MAINNET,
+  POLYGON_CHAIN_ID,
+  POLYGON_RPC_URL
+} from '@utils/constants'
+import { AUTH } from '@utils/url-path'
 import type { AppProps } from 'next/app'
+import { useRouter } from 'next/router'
 import { ThemeProvider } from 'next-themes'
+import { useEffect } from 'react'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from 'wagmi/connectors/injected'
@@ -48,13 +57,22 @@ const wagmiClient = createClient({
 })
 
 const App = ({ Component, pageProps }: AppProps) => {
+  const { isAuthenticated } = usePersistStore()
+  const { pathname, replace, asPath } = useRouter()
+
+  useEffect(() => {
+    if (!isAuthenticated && AUTH_ROUTES.includes(pathname)) {
+      replace(`${AUTH}?next=${asPath}`)
+    }
+  }, [isAuthenticated, pathname, asPath, replace])
+
   return (
     <WagmiConfig client={wagmiClient}>
       <ApolloProvider client={apolloClient}>
         <ThemeProvider defaultTheme="light" attribute="class">
-          <AppWrapper>
+          <Layout>
             <Component {...pageProps} />
-          </AppWrapper>
+          </Layout>
         </ThemeProvider>
       </ApolloProvider>
     </WagmiConfig>
