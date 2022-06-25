@@ -1,3 +1,4 @@
+import Layout from '@components/Common/Layout'
 import { Button } from '@components/UIElements/Button'
 import { HOME } from '@utils/url-path'
 import Head from 'next/head'
@@ -5,7 +6,7 @@ import Link from 'next/link'
 
 export default function Custom500() {
   return (
-    <>
+    <Layout>
       <Head>
         <title>500 - Server Error</title>
       </Head>
@@ -30,6 +31,6 @@ export default function Custom500() {
           </Link>
         </div>
       </div>
-    </>
+    </Layout>
   )
 }

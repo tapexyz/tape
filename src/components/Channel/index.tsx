@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
 import { PROFILE_QUERY } from '@utils/gql/queries'
@@ -26,7 +27,7 @@ const Channel = () => {
   const channel: Profile = data?.profiles?.items[0]
 
   return (
-    <>
+    <Layout>
       {loading && <ChannelShimmer />}
       {!loading && !error && channel ? (
         <>
@@ -35,7 +36,7 @@ const Channel = () => {
           <Activities channel={channel} />
         </>
       ) : null}
-    </>
+    </Layout>
   )
 }
 

@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
@@ -60,7 +61,7 @@ const ExploreCategory = () => {
   if (!query.category && isReady) return <Custom404 />
 
   return (
-    <>
+    <Layout>
       <MetaTags title={categoryName?.toString() || ''} />
       <div>
         <h1 className="font-semibold capitalize md:text-2xl">{categoryName}</h1>
@@ -81,7 +82,7 @@ const ExploreCategory = () => {
           )}
         </div>
       </div>
-    </>
+    </Layout>
   )
 }
 

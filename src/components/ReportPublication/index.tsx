@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client'
+import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
 import { CREATE_REPORT_PUBLICATION_MUTATION } from '@utils/gql/queries'
@@ -58,7 +59,7 @@ const ReportPublication = () => {
   }
 
   return (
-    <>
+    <Layout>
       <MetaTags title="Report Publication" />
       <div className="flex justify-center">
         <div className="w-full p-3 bg-white rounded-md lg:w-1/2 dark:bg-black">
@@ -105,7 +106,7 @@ const ReportPublication = () => {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   )
 }
 

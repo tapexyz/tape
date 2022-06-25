@@ -10,12 +10,12 @@ const LiveStudio = () => {
   //   );
 
   return (
-    // <>
+    // <Layout>
     <div className="">
       {/* <VideoDetails /> */}
       <Custom404 />
     </div>
-    // </>
+    // </Layout>
   )
 }
 

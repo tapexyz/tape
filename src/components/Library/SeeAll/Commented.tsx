@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
@@ -63,7 +64,7 @@ const SeeAllCommented = () => {
   })
 
   return (
-    <>
+    <Layout>
       <MetaTags title="Commented Videos" />
       <div className="flex flex-col space-y-4 md:mb-4">
         <div className="flex items-center justify-between">
@@ -87,7 +88,7 @@ const SeeAllCommented = () => {
           </>
         )}
       </div>
-    </>
+    </Layout>
   )
 }
 

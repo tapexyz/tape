@@ -1,3 +1,4 @@
+import Layout from '@components/Common/Layout'
 import Login from '@components/Common/Login'
 import MetaTags from '@components/Common/MetaTags'
 import usePersistStore from '@lib/store/persist'
@@ -15,7 +16,7 @@ export default function AuthRequiredPage() {
   }, [isAuthenticated, router])
 
   return (
-    <>
+    <Layout hideHeader>
       <MetaTags title="Login" />
       <div className="flex flex-col items-center justify-start h-full mt-10 md:mt-20">
         <img
@@ -35,6 +36,6 @@ export default function AuthRequiredPage() {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   )
 }

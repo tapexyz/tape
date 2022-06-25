@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import Layout from '@components/Common/Layout'
 import MetaTags from '@components/Common/MetaTags'
 import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
 import VideoDetailShimmer from '@components/Shimmers/VideoDetailShimmer'
@@ -42,11 +43,16 @@ const VideoDetails = () => {
   }, [video, addToRecentlyWatched])
 
   if (error) return <Custom500 />
-  if (loading || !data) return <VideoDetailShimmer />
+  if (loading || !data)
+    return (
+      <Layout>
+        <VideoDetailShimmer />
+      </Layout>
+    )
   if (!data?.publication && video?.__typename !== 'Post') return <Custom404 />
 
   return (
-    <>
+    <Layout>
       <MetaTags title={video?.metadata?.name ?? 'Watch'} />
       {!loading && !error && video ? (
         <>
@@ -62,7 +68,7 @@ const VideoDetails = () => {
           </div>
         </>
       ) : null}
-    </>
+    </Layout>
   )
 }
 
