@@ -4,7 +4,7 @@ import useHls from '@utils/hooks/useHLS'
 import clsx from 'clsx'
 import Hls from 'hls.js'
 import Plyr, { APITypes, PlyrProps, usePlyr } from 'plyr-react'
-import React, { FC } from 'react'
+import React, { FC, forwardRef, useRef } from 'react'
 
 interface Props {
   source: string
@@ -29,7 +29,7 @@ const defaultControls = [
   'airplay',
   'fullscreen'
 ]
-const HlsPlayer = React.forwardRef<APITypes, PlyrProps & { hlsSource: string }>(
+const HlsPlayer = forwardRef<APITypes, PlyrProps & { hlsSource: string }>(
   (props, ref) => {
     const { source, options = null, hlsSource } = props
     const raptorRef = usePlyr(ref, {
@@ -57,7 +57,7 @@ const VideoPlayer: FC<Props> = ({
     tooltips: { controls: true, seek: true },
     ratio
   }
-  const ref = React.useRef<APITypes>(null)
+  const ref = useRef<APITypes>(null)
   const supported = Hls.isSupported()
 
   return (

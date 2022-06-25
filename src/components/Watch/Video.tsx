@@ -30,7 +30,6 @@ const MemoizedVideoPlayer = React.memo(
 MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 
 const Video: FC<Props> = ({ video }) => {
-  console.log('🚀 ~ file: Video.tsx ~ line 33 ~ video', video)
   return (
     <div className="overflow-hidden">
       <MemoizedVideoPlayer
