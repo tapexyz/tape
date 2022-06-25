@@ -3,14 +3,13 @@ import MetaTags from '@components/Common/MetaTags'
 import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
 import VideoDetailShimmer from '@components/Shimmers/VideoDetailShimmer'
 import usePersistStore from '@lib/store/persist'
-import * as Sentry from '@sentry/nextjs'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { getPlaybackIdFromUrl } from '@utils/functions/getVideoUrl'
 import { VIDEO_DETAIL_QUERY } from '@utils/gql/queries'
 import axios from 'axios'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { LenstubePublication } from 'src/types/local'
@@ -42,7 +41,6 @@ const VideoDetails = () => {
     skip: !id,
     onCompleted(data) {
       let currentVideo = data?.publication as LenstubePublication
-      addToRecentlyWatched(currentVideo)
       const playbackId = getPlaybackIdFromUrl(currentVideo)
       if (playbackId) {
         axios
@@ -52,9 +50,8 @@ const VideoDetails = () => {
             videoObject.hls = data.meta.source[0]
             setVideo(videoObject)
           })
-          .catch((e) => {
+          .catch(() => {
             setVideo(currentVideo)
-            Sentry.captureException(e)
           })
           .finally(() => setLoading(false))
       } else {
@@ -63,6 +60,10 @@ const VideoDetails = () => {
       }
     }
   })
+
+  useEffect(() => {
+    if (video) addToRecentlyWatched(video)
+  }, [video, addToRecentlyWatched])
 
   if (error) return <Custom500 />
   if (loading || !data) return <VideoDetailShimmer />
