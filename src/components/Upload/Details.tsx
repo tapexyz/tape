@@ -59,7 +59,6 @@ const MemoizedVideoPlayer = React.memo(({ source }: PlayerProps) => (
     source={source}
     wrapperClassName="!rounded-b-none"
     autoPlay={false}
-    ratio="16:9"
     controls={[
       'play',
       'progress',

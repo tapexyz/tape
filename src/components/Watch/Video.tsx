@@ -4,7 +4,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
 import React, { FC } from 'react'
 import { SiOpenmined } from 'react-icons/si'
-import { LenstubePublication } from 'src/types/local'
+import { HLSData, LenstubePublication } from 'src/types/local'
 
 const VideoPlayer = dynamic(() => import('../Common/VideoPlayer'))
 const VideoActions = dynamic(() => import('./VideoActions'))
@@ -18,20 +18,25 @@ type Props = {
 type PlayerProps = {
   source: string
   poster: string
+  hls: HLSData
 }
 
-const MemoizedVideoPlayer = React.memo(({ source, poster }: PlayerProps) => (
-  <VideoPlayer source={source} poster={poster} ratio="16:9" />
-))
+const MemoizedVideoPlayer = React.memo(
+  ({ source, poster, hls }: PlayerProps) => (
+    <VideoPlayer source={source} poster={poster} hlsSource={hls?.url} />
+  )
+)
 
 MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 
 const Video: FC<Props> = ({ video }) => {
+  console.log('🚀 ~ file: Video.tsx ~ line 33 ~ video', video)
   return (
     <div className="overflow-hidden">
       <MemoizedVideoPlayer
         source={getVideoUrl(video)}
         poster={video?.metadata?.cover?.original.url}
+        hls={video.hls}
       />
       <div className="flex items-center justify-between">
         <div>
