@@ -12,7 +12,7 @@ const Home: NextPage = () => {
     <>
       <MetaTags />
       {/* <Recommended /> */}
-      <div className="md:my-5">
+      <div className="md:my-2">
         <Recents />
       </div>
     </>

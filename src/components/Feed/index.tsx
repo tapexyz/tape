@@ -6,7 +6,7 @@ const Feed: NextPage = () => {
   return (
     <>
       <MetaTags />
-      <div className="md:my-5">
+      <div className="md:my-2">
         <HomeFeed />
       </div>
     </>
