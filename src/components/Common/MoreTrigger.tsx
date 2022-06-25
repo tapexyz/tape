@@ -1,5 +1,4 @@
 import Popover from '@components/UIElements/Popover'
-import Tooltip from '@components/UIElements/Tooltip'
 import {
   LENSTUBE_GITHUB_HANDLE,
   LENSTUBE_TWITTER_HANDLE
@@ -13,13 +12,11 @@ const MoreTrigger = () => {
   return (
     <Popover
       trigger={
-        <Tooltip content="More" placement="right">
-          <div className="flex flex-col space-y-2 mb-0.5">
-            <button className="flex p-3 py-4 justify-center rounded-lg hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-70 hover:opacity-100">
-              <BsThreeDots />
-            </button>
-          </div>
-        </Tooltip>
+        <div className="flex flex-col space-y-2 mb-0.5">
+          <button className="flex p-3 py-4 justify-center rounded-lg hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-70 hover:opacity-100">
+            <BsThreeDots />
+          </button>
+        </div>
       }
       position="bottom"
       positionClassName="left-[72px] -bottom-1"

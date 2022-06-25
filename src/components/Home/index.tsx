@@ -3,7 +3,6 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 
-const Recommended = dynamic(() => import('./Recommended'))
 const Recents = dynamic(() => import('../Explore/Recents'), {
   loading: () => <TimelineShimmer />
 })
@@ -12,7 +11,7 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaTags />
-      <Recommended />
+      {/* <Recommended /> */}
       <div className="md:my-5">
         <Recents />
       </div>
