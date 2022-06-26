@@ -8,7 +8,7 @@ import { BUNDLR_CURRENCY, BUNDLR_WEBSITE_URL } from '@utils/constants'
 import { parseToAtomicUnits } from '@utils/functions/parseToAtomicUnits'
 import { utils } from 'ethers'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { MdRefresh } from 'react-icons/md'
@@ -18,16 +18,8 @@ import { useAccount, useSigner } from 'wagmi'
 const BundlrInfo = () => {
   const { data: account } = useAccount()
   const { data: signer } = useSigner()
-  const { uploadedVideo, getBundlrInstance } = useAppStore()
-
-  const [bundlrData, setBundlrData] = useState<BundlrDataState>({
-    balance: '0',
-    estimatedPrice: '0',
-    deposit: null,
-    instance: null,
-    depositing: false,
-    showDeposit: false
-  })
+  const { uploadedVideo, getBundlrInstance, bundlrData, setBundlrData } =
+    useAppStore()
 
   useEffect(() => {
     initBundlr()
@@ -35,13 +27,12 @@ const BundlrInfo = () => {
   }, [])
 
   const initBundlr = async () => {
-    if (signer && account?.address) {
+    if (signer?.provider && account?.address) {
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
-        setBundlrData((bundlrData) => ({
-          ...bundlrData,
-          instance: bundlr
-        }))
+        let data: BundlrDataState = bundlrData
+        data.instance = bundlr
+        setBundlrData(data)
         await fetchBalance(bundlr)
         await estimatePrice(bundlr)
       }
@@ -83,10 +74,9 @@ const BundlrInfo = () => {
     const instance = bundlr || bundlrData.instance
     if (account?.address && instance) {
       const balance = await instance.getBalance(account.address)
-      setBundlrData((bundlrData) => ({
-        ...bundlrData,
-        balance: utils.formatEther(balance.toString())
-      }))
+      let data: BundlrDataState = bundlrData
+      data.balance = utils.formatEther(balance.toString())
+      setBundlrData(data)
     }
   }
 
@@ -96,10 +86,9 @@ const BundlrInfo = () => {
       BUNDLR_CURRENCY,
       uploadedVideo.buffer.length
     )
-    setBundlrData((bundlrData) => ({
-      ...bundlrData,
-      estimatedPrice: utils.formatEther(price.toString())
-    }))
+    let data: BundlrDataState = bundlrData
+    data.estimatedPrice = utils.formatEther(price.toString())
+    setBundlrData(data)
   }
 
   return (

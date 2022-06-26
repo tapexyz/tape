@@ -44,10 +44,7 @@ const Details = () => {
   }
 
   return (
-    <form
-      className="max-w-6xl gap-5 mx-auto"
-      onSubmit={handleSubmit(onSubmitForm)}
-    >
+    <form onSubmit={handleSubmit(onSubmitForm)}>
       <div className="grid h-full gap-5 md:grid-cols-2">
         <div>
           <div className="relative">
@@ -112,7 +109,7 @@ const Details = () => {
         </div>
       </div>
       <div className="flex items-center justify-end mt-4">
-        <Button>Next</Button>
+        <Button>Upload Video</Button>
       </div>
     </form>
   )

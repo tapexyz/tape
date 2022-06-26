@@ -7,7 +7,7 @@ import {
 } from '@utils/constants'
 import { FetchSignerResult } from '@wagmi/core'
 import { Profile } from 'src/types'
-import { UploadedVideo } from 'src/types/local'
+import { BundlrDataState, UploadedVideo } from 'src/types/local'
 import create from 'zustand'
 
 interface AppState {
@@ -23,6 +23,8 @@ interface AppState {
   setChannels: (channels: Profile[]) => void
   setRecommendedChannels: (channels: Profile[]) => void
   setHasNewNotification: (value: boolean) => void
+  bundlrData: BundlrDataState
+  setBundlrData: (bundlrData: BundlrDataState) => void
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
 }
 
@@ -42,6 +44,15 @@ export const useAppStore = create<AppState>((set) => ({
     thumbnail: '',
     isAdultContent: false
   },
+  bundlrData: {
+    balance: '0',
+    estimatedPrice: '0',
+    deposit: null,
+    instance: null,
+    depositing: false,
+    showDeposit: false
+  },
+  setBundlrData: (bundlrData) => set(() => ({ bundlrData })),
   setUploadedVideo: (uploadedVideo) => set(() => ({ uploadedVideo })),
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
   setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),

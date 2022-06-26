@@ -5,7 +5,7 @@ import Details from './Details'
 
 const UploadSteps = () => {
   return (
-    <div className="max-w-4xl gap-5 mx-auto my-10">
+    <div className="max-w-5xl gap-5 mx-auto my-10">
       <MetaTags title="Video Details" />
       <div className="mt-10">
         <Details />
