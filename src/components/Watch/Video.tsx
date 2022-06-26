@@ -1,7 +1,6 @@
 import { getVideoUrl } from '@utils/functions/getVideoUrl'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import Hls from 'hls.js'
 import dynamic from 'next/dynamic'
 import React, { FC } from 'react'
 import { SiOpenmined } from 'react-icons/si'
@@ -36,22 +35,22 @@ const MemoizedHlsVideoPlayer = React.memo(
 MemoizedHlsVideoPlayer.displayName = 'MemoizedHlsVideoPlayer'
 
 const Video: FC<Props> = ({ video }) => {
-  const isHlsSupported = Hls.isSupported()
+  // const isHlsSupported = Hls.isSupported()
 
   return (
     <div className="overflow-hidden">
-      {isHlsSupported && video.hls ? (
+      {/* {isHlsSupported && video.hls ? (
         <MemoizedHlsVideoPlayer
           hls={video.hls}
           poster={video?.metadata?.cover?.original.url}
         />
-      ) : (
-        <MemoizedVideoPlayer
-          source={getVideoUrl(video)}
-          poster={video?.metadata?.cover?.original.url}
-          hls={video.hls}
-        />
-      )}
+      ) : ( */}
+      <MemoizedVideoPlayer
+        source={getVideoUrl(video)}
+        poster={video?.metadata?.cover?.original.url}
+        hls={video.hls}
+      />
+      {/* )} */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="mt-4 text-lg font-medium line-clamp-2">
