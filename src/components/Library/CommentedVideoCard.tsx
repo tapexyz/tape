@@ -86,7 +86,9 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
             </Tooltip>
           </>
           <div className="pl-8">
-            <div className="text-xs line-clamp-1">{video.metadata.content}</div>
+            <div className="text-xs line-clamp-1">
+              {video.metadata?.content}
+            </div>
             <div className="flex items-center text-xs leading-3 opacity-70">
               <Link href={`/${video.profile?.handle}`}>
                 <a className="opacity-90 hover:opacity-100">
