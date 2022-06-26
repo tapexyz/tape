@@ -7,6 +7,7 @@ import {
 } from '@utils/constants'
 import { FetchSignerResult } from '@wagmi/core'
 import { Profile } from 'src/types'
+import { UploadedVideo } from 'src/types/local'
 import create from 'zustand'
 
 interface AppState {
@@ -15,6 +16,8 @@ interface AppState {
   showCreateChannel: boolean
   hasNewNotification: boolean
   userSigNonce: number
+  uploadedVideo: UploadedVideo
+  setUploadedVideo: (video: UploadedVideo) => void
   setUserSigNonce: (userSigNonce: number) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
   setChannels: (channels: Profile[]) => void
@@ -29,6 +32,17 @@ export const useAppStore = create<AppState>((set) => ({
   showCreateChannel: false,
   hasNewNotification: false,
   userSigNonce: 0,
+  uploadedVideo: {
+    buffer: null,
+    preview: '',
+    videoType: '',
+    file: null,
+    title: '',
+    description: '',
+    thumbnail: '',
+    isAdultContent: false
+  },
+  setUploadedVideo: (uploadedVideo) => set(() => ({ uploadedVideo })),
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
   setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),
   setChannels: (channels) => set(() => ({ channels })),

@@ -2,13 +2,17 @@ import { Input } from '@components/UIElements/Input'
 import RadioInput from '@components/UIElements/RadioInput'
 import clsx from 'clsx'
 import React, { FC } from 'react'
-import { IPFSUploadResult, VideoUpload, VideoUploadForm } from 'src/types/local'
+import {
+  IPFSUploadResult,
+  UploadedVideo,
+  VideoUploadForm
+} from 'src/types/local'
 
 import ChooseThumbnail from './ChooseThumbnail'
 
 type Props = {
   videoMeta: VideoUploadForm
-  video: VideoUpload
+  video: UploadedVideo
   setVideoMeta: React.Dispatch<VideoUploadForm>
   // eslint-disable-next-line no-unused-vars
   onThumbnailUpload: (data: IPFSUploadResult | null) => void

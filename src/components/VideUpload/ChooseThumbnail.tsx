@@ -101,7 +101,9 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       {label && (
         <div className="flex items-center mb-1 space-x-1.5">
           <div
-            className={clsx('text-[11px] font-semibold uppercase opacity-70')}
+            className={clsx(
+              'text-[11px] required font-semibold uppercase opacity-70'
+            )}
           >
             {label}
           </div>

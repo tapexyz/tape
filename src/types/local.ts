@@ -16,11 +16,15 @@ export type BundlrDataState = {
   showDeposit: boolean
 }
 
-export type VideoUpload = {
+export type UploadedVideo = {
   buffer: Buffer | null
   preview: string
   videoType: string
   file: File | null
+  title: string
+  description: string
+  thumbnail: string
+  isAdultContent: boolean
 }
 
 export type LenstubePublication = Post &
