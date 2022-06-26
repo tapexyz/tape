@@ -4,9 +4,7 @@ import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
 import VideoDetailShimmer from '@components/Shimmers/VideoDetailShimmer'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
-import { getPlaybackIdFromUrl } from '@utils/functions/getVideoUrl'
 import { VIDEO_DETAIL_QUERY } from '@utils/gql/queries'
-import axios from 'axios'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -41,23 +39,25 @@ const VideoDetails = () => {
     skip: !id,
     onCompleted(data) {
       let currentVideo = data?.publication as LenstubePublication
-      const playbackId = getPlaybackIdFromUrl(currentVideo)
-      if (playbackId) {
-        axios
-          .get(`https://livepeer.studio/api/playback/${playbackId}`)
-          .then(({ data }) => {
-            let videoObject = { ...currentVideo }
-            videoObject.hls = data.meta.source[0]
-            setVideo(videoObject)
-          })
-          .catch(() => {
-            setVideo(currentVideo)
-          })
-          .finally(() => setLoading(false))
-      } else {
-        setVideo(currentVideo)
-        setLoading(false)
-      }
+      // const playbackId = getPlaybackIdFromUrl(currentVideo)
+      // if (playbackId) {
+      //   axios
+      //     .get(`https://livepeer.studio/api/playback/${playbackId}`)
+      //     .then(({ data }) => {
+      //       let videoObject = { ...currentVideo }
+      //       videoObject.hls = data.meta.source[0]
+      //       setVideo(videoObject)
+      //     })
+      //     .catch(() => {
+      //       setVideo(currentVideo)
+      //     })
+      //     .finally(() => setLoading(false))
+      // } else {
+      //   setVideo(currentVideo)
+      //   setLoading(false)
+      // }
+      setVideo(currentVideo)
+      setLoading(false)
     }
   })
 
