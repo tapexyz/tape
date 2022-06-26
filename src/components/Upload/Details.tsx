@@ -2,7 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { WebBundlr } from '@bundlr-network/client'
 import PendingTxnLoader from '@components/Common/PendingTxnLoader'
-import VideoPlayer from '@components/Common/VideoPlayer'
+import VideoPlayer from '@components/Common/Players/VideoPlayer'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
@@ -57,9 +57,9 @@ type PlayerProps = {
 const MemoizedVideoPlayer = React.memo(({ source }: PlayerProps) => (
   <VideoPlayer
     source={source}
+    poster=""
     wrapperClassName="!rounded-b-none"
     autoPlay={false}
-    ratio="16:9"
     controls={[
       'play',
       'progress',

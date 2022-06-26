@@ -23,11 +23,19 @@ export type VideoUpload = {
   file: File | null
 }
 
-export type LenstubePublication = Post & Comment & Mirror & { pubId: string }
+export type LenstubePublication = Post &
+  Comment &
+  Mirror & { pubId: string } & { hls: HLSData }
 
 export type IPFSUploadResult = {
   hash: string
   ipfsUrl: string
+  type: string
+}
+
+export type HLSData = {
+  hrn: string
+  url: string
   type: string
 }
 
