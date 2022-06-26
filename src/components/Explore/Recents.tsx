@@ -19,7 +19,7 @@ const Recents = () => {
       request: {
         sortCriteria: 'LATEST',
         limit: 12,
-        noRandomize: true,
+        noRandomize: false,
         sources: [LENSTUBE_APP_ID],
         publicationTypes: ['POST']
       }
@@ -39,7 +39,7 @@ const Recents = () => {
             sortCriteria: 'LATEST',
             cursor: pageInfo?.next,
             limit: 8,
-            noRandomize: true,
+            noRandomize: false,
             sources: [LENSTUBE_APP_ID],
             publicationTypes: ['POST']
           }

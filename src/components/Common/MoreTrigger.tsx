@@ -60,9 +60,7 @@ const MoreTrigger = () => {
           </div>
           <div className="rounded-lg hover:bg-gray-50 opacity-80 hover:opacity-100 dark:hover:bg-gray-900">
             <Link href={PRIVACY}>
-              <a className="block px-2.5 py-1.5" target="_blank">
-                Privacy
-              </a>
+              <a className="block px-2.5 py-1.5">Privacy</a>
             </Link>
           </div>
           <hr className="my-1 border-gray-200 dark:border-gray-800" />
