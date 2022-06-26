@@ -57,6 +57,7 @@ type PlayerProps = {
 const MemoizedVideoPlayer = React.memo(({ source }: PlayerProps) => (
   <VideoPlayer
     source={source}
+    poster=""
     wrapperClassName="!rounded-b-none"
     autoPlay={false}
     controls={[

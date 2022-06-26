@@ -28,9 +28,11 @@ const MemoizedVideoPlayer = React.memo(({ source, poster }: PlayerProps) => (
 ))
 MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 
-const MemoizedHlsVideoPlayer = React.memo(({ hls }: { hls: HLSData }) => (
-  <HlsVideoPlayer hlsSource={hls?.url} />
-))
+const MemoizedHlsVideoPlayer = React.memo(
+  ({ hls, poster }: { hls: HLSData; poster: string }) => (
+    <HlsVideoPlayer hlsSource={hls?.url} poster={poster} />
+  )
+)
 MemoizedHlsVideoPlayer.displayName = 'MemoizedHlsVideoPlayer'
 
 const Video: FC<Props> = ({ video }) => {
@@ -39,7 +41,10 @@ const Video: FC<Props> = ({ video }) => {
   return (
     <div className="overflow-hidden">
       {isHlsSupported && video.hls ? (
-        <MemoizedHlsVideoPlayer hls={video.hls} />
+        <MemoizedHlsVideoPlayer
+          hls={video.hls}
+          poster={video?.metadata?.cover?.original.url}
+        />
       ) : (
         <MemoizedVideoPlayer
           source={getVideoUrl(video)}

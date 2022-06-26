@@ -1,5 +1,6 @@
 import 'plyr-react/dist/plyr.css'
 
+import imageCdn from '@utils/functions/imageCdn'
 import clsx from 'clsx'
 import Plyr from 'plyr-react'
 import React, { FC } from 'react'
@@ -7,7 +8,7 @@ import React, { FC } from 'react'
 interface Props {
   source: string
   wrapperClassName?: string
-  poster?: string
+  poster: string
   controls?: string[]
   autoPlay?: boolean
   ratio?: string
@@ -55,7 +56,7 @@ const VideoPlayer: FC<Props> = ({
               provider: 'html5'
             }
           ],
-          poster: poster ?? source
+          poster: imageCdn(poster) ?? source
         }}
         options={options}
       />
