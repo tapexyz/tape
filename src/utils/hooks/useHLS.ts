@@ -1,11 +1,11 @@
 import Hls from 'hls.js'
 import { Options } from 'plyr'
-import React, { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const useHls = (src: string, options: Options | null) => {
-  const hls = React.useRef<Hls>(new Hls())
-  const hasQuality = React.useRef<boolean>(false)
-  const [plyrOptions, setPlyrOptions] = React.useState<Options | null>(options)
+  const hls = useRef<Hls>(new Hls())
+  const hasQuality = useRef<boolean>(false)
+  const [plyrOptions, setPlyrOptions] = useState<Options | null>(options)
 
   useEffect(() => {
     hasQuality.current = false
@@ -32,7 +32,6 @@ const useHls = (src: string, options: Options | null) => {
         options: levels.map((level) => level.height),
         forced: true,
         onChange: (newQuality: number) => {
-          console.log('changes', newQuality)
           levels.forEach((level, levelIndex) => {
             if (level.height === newQuality) {
               hls.current.currentLevel = levelIndex
