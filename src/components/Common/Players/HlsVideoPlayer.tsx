@@ -9,7 +9,6 @@ import { defaultPlyrControls } from './VideoPlayer'
 
 interface Props {
   wrapperClassName?: string
-  poster?: string
   controls?: string[]
   autoPlay?: boolean
   ratio?: string

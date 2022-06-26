@@ -7,8 +7,8 @@ import React, { FC } from 'react'
 import { SiOpenmined } from 'react-icons/si'
 import { HLSData, LenstubePublication } from 'src/types/local'
 
-const VideoPlayer = dynamic(() => import('../Common/VideoPlayer'))
-const HlsVideoPlayer = dynamic(() => import('../Common/HlsVideoPlayer'))
+const VideoPlayer = dynamic(() => import('../Common/Players/VideoPlayer'))
+const HlsVideoPlayer = dynamic(() => import('../Common/Players/HlsVideoPlayer'))
 const VideoActions = dynamic(() => import('./VideoActions'))
 
 dayjs.extend(relativeTime)
@@ -28,11 +28,9 @@ const MemoizedVideoPlayer = React.memo(({ source, poster }: PlayerProps) => (
 ))
 MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 
-const MemoizedHlsVideoPlayer = React.memo(
-  ({ poster, hls }: { poster: string; hls: HLSData }) => (
-    <HlsVideoPlayer poster={poster} hlsSource={hls?.url} />
-  )
-)
+const MemoizedHlsVideoPlayer = React.memo(({ hls }: { hls: HLSData }) => (
+  <HlsVideoPlayer hlsSource={hls?.url} />
+))
 MemoizedHlsVideoPlayer.displayName = 'MemoizedHlsVideoPlayer'
 
 const Video: FC<Props> = ({ video }) => {
@@ -41,10 +39,7 @@ const Video: FC<Props> = ({ video }) => {
   return (
     <div className="overflow-hidden">
       {isHlsSupported && video.hls ? (
-        <MemoizedHlsVideoPlayer
-          poster={video?.metadata?.cover?.original.url}
-          hls={video.hls}
-        />
+        <MemoizedHlsVideoPlayer hls={video.hls} />
       ) : (
         <MemoizedVideoPlayer
           source={getVideoUrl(video)}
