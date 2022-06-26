@@ -17,7 +17,7 @@ const SuggestedVideos = () => {
     variables: {
       request: {
         sortCriteria: 'TOP_COMMENTED',
-        limit: 10,
+        limit: 8,
         sources: [LENSTUBE_APP_ID],
         publicationTypes: ['POST'],
         noRandomize: false
@@ -37,7 +37,7 @@ const SuggestedVideos = () => {
           request: {
             cursor: pageInfo?.next,
             sortCriteria: 'TOP_COMMENTED',
-            limit: 10,
+            limit: 8,
             sources: [LENSTUBE_APP_ID],
             publicationTypes: ['POST'],
             noRandomize: false

@@ -22,7 +22,7 @@ const HlsPlayer = forwardRef<APITypes, PlyrProps & { hlsSource: string }>(
       ...useHls(hlsSource, options),
       source
     }) as React.MutableRefObject<HTMLVideoElement>
-    return <video ref={raptorRef} className="plyr-react plyr" />
+    return <video autoPlay ref={raptorRef} className="plyr-react plyr" />
   }
 )
 HlsPlayer.displayName = 'CustomHlsPlyr'
