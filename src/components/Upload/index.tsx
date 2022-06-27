@@ -1,7 +1,8 @@
 import useAppStore from '@lib/store'
+import dynamic from 'next/dynamic'
 
-import DropZone from './DropZone'
-import UploadSteps from './UploadSteps'
+const DropZone = dynamic(() => import('./DropZone'))
+const UploadSteps = dynamic(() => import('./UploadSteps'))
 
 const UploadPage = () => {
   const { uploadedVideo } = useAppStore()
