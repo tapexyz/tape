@@ -59,30 +59,26 @@ const UploadSteps = () => {
       })
     }
   })
-  const { data: writePostData, write: writePostContract } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY_ADDRESS,
-      contractInterface: LENSHUB_PROXY_ABI
+  const { data: writePostData, write: writePostContract } = useContractWrite({
+    addressOrName: LENSHUB_PROXY_ADDRESS,
+    contractInterface: LENSHUB_PROXY_ABI,
+    functionName: 'postWithSig',
+    onSuccess() {
+      setUploadedVideo({
+        ...uploadedVideo,
+        buttonText: 'Indexing...',
+        loading: true
+      })
     },
-    'postWithSig',
-    {
-      onSuccess() {
-        setUploadedVideo({
-          ...uploadedVideo,
-          buttonText: 'Indexing...',
-          loading: true
-        })
-      },
-      onError(error: any) {
-        toast.error(`Failed - ${error?.data?.message ?? error?.message}`)
-        setUploadedVideo({
-          ...uploadedVideo,
-          buttonText: 'Post Video',
-          loading: false
-        })
-      }
+    onError(error: any) {
+      toast.error(`Failed - ${error?.data?.message ?? error?.message}`)
+      setUploadedVideo({
+        ...uploadedVideo,
+        buttonText: 'Post Video',
+        loading: false
+      })
     }
-  )
+  })
 
   const { indexed } = usePendingTxn(
     writePostData?.hash || broadcastData?.broadcast?.txHash,

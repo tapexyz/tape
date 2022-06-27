@@ -56,19 +56,15 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       toast.error(error.message)
     }
   })
-  const { write: writeComment, data: writeCommentData } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY_ADDRESS,
-      contractInterface: LENSHUB_PROXY_ABI
-    },
-    'commentWithSig',
-    {
-      onSuccess() {
-        setButtonText('Indexing...')
-        reset()
-      }
+  const { write: writeComment, data: writeCommentData } = useContractWrite({
+    addressOrName: LENSHUB_PROXY_ADDRESS,
+    contractInterface: LENSHUB_PROXY_ABI,
+    functionName: 'commentWithSig',
+    onSuccess() {
+      setButtonText('Indexing...')
+      reset()
     }
-  )
+  })
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onError(error) {

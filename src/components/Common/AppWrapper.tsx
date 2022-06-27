@@ -5,7 +5,7 @@ import { POLYGON_CHAIN_ID } from '@utils/constants'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
 import React, { FC, ReactNode, useEffect, useState } from 'react'
 import { Profile } from 'src/types'
-import { useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi'
+import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
 
@@ -15,10 +15,9 @@ interface Props {
 }
 const AppWrapper: FC<Props> = ({ children }) => {
   const [pageLoading, setPageLoading] = useState(true)
-  const { activeConnector } = useConnect()
-  const { activeChain } = useNetwork()
+  const { chain } = useNetwork()
   const { disconnect } = useDisconnect()
-  const { data: account } = useAccount()
+  const { address, connector } = useAccount()
   const { setChannels, setUserSigNonce } = useAppStore()
 
   const {
@@ -29,7 +28,7 @@ const AppWrapper: FC<Props> = ({ children }) => {
   } = usePersistStore()
 
   const { loading } = useQuery(CURRENT_USER_QUERY, {
-    variables: { ownedBy: account?.address },
+    variables: { ownedBy: address },
     skip: !isAuthenticated,
     onCompleted(data) {
       const channels: Profile[] = data?.profiles?.items
@@ -63,21 +62,21 @@ const AppWrapper: FC<Props> = ({ children }) => {
       accessToken !== 'undefined' &&
       refreshToken !== 'undefined' &&
       selectedChannel &&
-      activeChain?.id === POLYGON_CHAIN_ID
+      chain?.id === POLYGON_CHAIN_ID
     ) {
       setIsAuthenticated(true)
     } else {
       if (isAuthenticated) logout()
     }
-    if (!activeConnector?.id) {
+    if (!connector?.id) {
       if (disconnect) disconnect()
       setIsAuthenticated(false)
     }
-    activeConnector?.on('change', () => {
+    connector?.on('change', () => {
       logout()
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated, disconnect, activeConnector, setSelectedChannel])
+  }, [isAuthenticated, disconnect, connector, setSelectedChannel])
 
   if (loading || pageLoading) return <FullPageLoader />
 

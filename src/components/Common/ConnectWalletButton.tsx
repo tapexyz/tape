@@ -10,7 +10,13 @@ import React, { useState } from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { BiError } from 'react-icons/bi'
 import { BsThreeDots } from 'react-icons/bs'
-import { Connector, useAccount, useConnect, useNetwork } from 'wagmi'
+import {
+  Connector,
+  useAccount,
+  useConnect,
+  useNetwork,
+  useSwitchNetwork
+} from 'wagmi'
 
 import UserMenu from './UserMenu'
 
@@ -22,23 +28,17 @@ type Props = {
 const ConnectWalletButton = ({ handleSign, signing }: Props) => {
   const { isAuthenticated } = usePersistStore()
   const [showModal, setShowModal] = useState(false)
-  const { data: account } = useAccount()
-  const {
-    connectAsync,
-    connectors,
-    activeConnector,
-    error,
-    isConnecting,
-    pendingConnector,
-    isConnected
-  } = useConnect()
-  const { activeChain, switchNetwork } = useNetwork()
+  const { address, connector, isConnecting, isConnected } = useAccount()
+  const { connectAsync, connectors, error, pendingConnector } = useConnect()
+  const { switchNetwork } = useSwitchNetwork()
+  const { chain } = useNetwork()
 
   const walletConnect = connectors.find((w) => w.id === 'walletConnect')
 
   const { mounted } = useIsMounted()
+
   const onConnect = async (x: Connector) => {
-    await connectAsync(x).then(({ account }) => {
+    await connectAsync({ connector: x }).then(({ account }) => {
       if (account) setShowModal(false)
     })
   }
@@ -52,17 +52,17 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
         show={showModal}
       >
         <div className="inline-block w-full mt-4 space-y-3 overflow-hidden text-left align-middle transition-all transform">
-          {activeConnector && (
+          {connector && (
             <div className="w-full p-4 space-y-2 border border-gray-300 rounded-lg dark:border-gray-600">
               <div className="flex items-center justify-between">
                 <h6 className="text-sm text-gray-600 dark:text-gray-400">
-                  Connected with {activeConnector?.name}
+                  Connected with {connector?.name}
                 </h6>
                 <span className="inline-block px-3 py-0.5 text-xs bg-gray-100 rounded-lg dark:bg-gray-800">
-                  {activeChain?.name}
+                  {chain?.name}
                 </span>
               </div>
-              <h6 className="text-sm truncate">{account?.address}</h6>
+              <h6 className="text-sm truncate">{address}</h6>
             </div>
           )}
           <div className="grid grid-cols-3 gap-3">
@@ -75,13 +75,13 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
                       'w-full relative flex space-y-3 items-center flex-col rounded-lg p-4 dark:bg-gray-900 bg-gray-100',
                       {
                         'hover:shadow-inner dark:hover:opacity-80':
-                          wallet.id !== account?.connector?.id
+                          wallet.id !== connector?.id
                       }
                     )}
                     onClick={() => onConnect(wallet)}
                     disabled={
                       mounted
-                        ? !wallet.ready || wallet.id === account?.connector?.id
+                        ? !wallet.ready || wallet.id === connector?.id
                         : false
                     }
                   >
@@ -104,7 +104,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
                             <Loader size="sm" />
                           </span>
                         )}
-                        {!signing && wallet.id === account?.connector?.id && (
+                        {!signing && wallet.id === connector?.id && (
                           <span className="absolute top-2 right-2">
                             <AiOutlineCheck className="text-indigo-800" />
                           </span>
@@ -131,7 +131,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
                 <span>
                   {isConnecting &&
                     walletConnect.id === pendingConnector?.id && <Loader />}
-                  {!signing && walletConnect.id === account?.connector?.id && (
+                  {!signing && walletConnect.id === connector?.id && (
                     <AiOutlineCheck className="text-indigo-800" />
                   )}
                 </span>
@@ -147,8 +147,8 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
           ) : null}
         </div>
       </Modal>
-      {activeConnector?.id && isConnected ? (
-        activeChain?.id === POLYGON_CHAIN_ID ? (
+      {connector?.id && isConnected ? (
+        chain?.id === POLYGON_CHAIN_ID ? (
           isAuthenticated ? (
             <UserMenu />
           ) : (

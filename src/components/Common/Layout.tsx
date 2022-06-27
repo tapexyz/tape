@@ -12,7 +12,7 @@ import { useTheme } from 'next-themes'
 import React, { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { Profile } from 'src/types'
-import { useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi'
+import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
 const Header = dynamic(() => import('./Header'), {
@@ -42,16 +42,15 @@ const Layout: FC<Props> = ({ children }) => {
     isAuthenticated
   } = usePersistStore()
   const { resolvedTheme } = useTheme()
-  const { isDisconnected, activeConnector } = useConnect()
-  const { activeChain } = useNetwork()
+  const { chain } = useNetwork()
   const { disconnect } = useDisconnect()
   const { mounted } = useIsMounted()
-  const { data: account } = useAccount()
+  const { address, connector, isDisconnected } = useAccount()
   const [pageLoading, setPageLoading] = useState(true)
   const isSignInPage = pathname === AUTH
 
   const { loading } = useQuery(CURRENT_USER_QUERY, {
-    variables: { ownedBy: account?.address },
+    variables: { ownedBy: address },
     skip: !isAuthenticated,
     onCompleted(data) {
       const channels: Profile[] = data?.profiles?.items
@@ -88,7 +87,7 @@ const Layout: FC<Props> = ({ children }) => {
       accessToken !== 'undefined' &&
       refreshToken !== 'undefined' &&
       selectedChannel &&
-      activeChain?.id === POLYGON_CHAIN_ID
+      chain?.id === POLYGON_CHAIN_ID
     ) {
       setIsAuthenticated(true)
     } else {
@@ -98,14 +97,14 @@ const Layout: FC<Props> = ({ children }) => {
       if (disconnect) disconnect()
       setIsAuthenticated(false)
     }
-    activeConnector?.on('change', () => {
+    connector?.on('change', () => {
       logout()
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isAuthenticated,
     disconnect,
-    activeConnector,
+    connector,
     isDisconnected,
     setSelectedChannel
   ])

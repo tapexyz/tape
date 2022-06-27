@@ -39,23 +39,19 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   })
   const { data: signer } = useSigner()
 
-  const { write: writeJoinChannel, data: writeData } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY_ADDRESS,
-      contractInterface: LENSHUB_PROXY_ABI
+  const { write: writeJoinChannel, data: writeData } = useContractWrite({
+    addressOrName: LENSHUB_PROXY_ADDRESS,
+    contractInterface: LENSHUB_PROXY_ABI,
+    functionName: 'followWithSig',
+    onSuccess() {
+      setButtonText('Joining...')
     },
-    'followWithSig',
-    {
-      onSuccess() {
-        setButtonText('Joining...')
-      },
-      onError(error: any) {
-        toast.error(`Failed - ${error?.data?.message ?? error?.message}`)
-        setLoading(false)
-        setButtonText('Join Channel')
-      }
+    onError(error: any) {
+      toast.error(`Failed - ${error?.data?.message ?? error?.message}`)
+      setLoading(false)
+      setButtonText('Join Channel')
     }
-  )
+  })
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onCompleted(data) {
       if (data?.broadcast?.reason !== 'NOT_ALLOWED') {

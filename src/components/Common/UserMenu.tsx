@@ -24,7 +24,7 @@ const UserMenu = () => {
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
   const { disconnect } = useDisconnect()
   const [getChannels] = useLazyQuery(CURRENT_USER_QUERY)
-  const { data: account } = useAccount()
+  const { address } = useAccount()
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 
   const logout = () => {
@@ -42,7 +42,7 @@ const UserMenu = () => {
 
   const onSelectSwitchChannel = () => {
     getChannels({
-      variables: { ownedBy: account?.address },
+      variables: { ownedBy: address },
       fetchPolicy: 'no-cache'
     }).then((res) => {
       const allChannels: Profile[] = res?.data?.profiles?.items

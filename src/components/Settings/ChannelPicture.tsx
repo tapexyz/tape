@@ -32,20 +32,16 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       setSelectedPfp(getProfilePicture(channel))
     }
   })
-  const { data: pfpData, write: writePfpUri } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY_ADDRESS,
-      contractInterface: LENSHUB_PROXY_ABI
-    },
-    'setProfileImageURIWithSig',
-    {
-      onError(error: any) {
-        setLoading(false)
-        setSelectedPfp(getProfilePicture(channel))
-        toast.error(error?.data?.message || error?.message)
-      }
+  const { data: pfpData, write: writePfpUri } = useContractWrite({
+    addressOrName: LENSHUB_PROXY_ADDRESS,
+    contractInterface: LENSHUB_PROXY_ABI,
+    functionName: 'setProfileImageURIWithSig',
+    onError(error: any) {
+      setLoading(false)
+      setSelectedPfp(getProfilePicture(channel))
+      toast.error(error?.data?.message || error?.message)
     }
-  )
+  })
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onError(error) {
       toast.error(error.message)

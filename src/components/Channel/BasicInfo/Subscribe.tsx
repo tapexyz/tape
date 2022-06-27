@@ -35,23 +35,19 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     }
   })
   const { data: signer } = useSigner()
-  const { write: writeSubscribe, data: writeData } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY_ADDRESS,
-      contractInterface: LENSHUB_PROXY_ABI
+  const { write: writeSubscribe, data: writeData } = useContractWrite({
+    addressOrName: LENSHUB_PROXY_ADDRESS,
+    contractInterface: LENSHUB_PROXY_ABI,
+    functionName: 'followWithSig',
+    onSuccess() {
+      setButtonText('Subscribing...')
     },
-    'followWithSig',
-    {
-      onSuccess() {
-        setButtonText('Subscribing...')
-      },
-      onError(error: any) {
-        toast.error(`Failed - ${error?.data?.message ?? error?.message}`)
-        setLoading(false)
-        setButtonText('Subscribe')
-      }
+    onError(error: any) {
+      toast.error(`Failed - ${error?.data?.message ?? error?.message}`)
+      setLoading(false)
+      setButtonText('Subscribe')
     }
-  )
+  })
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onCompleted(data) {
       if (data?.broadcast?.reason !== 'NOT_ALLOWED') {

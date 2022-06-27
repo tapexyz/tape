@@ -79,16 +79,15 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     }
   })
 
-  const { write: writeComment, data: writeCommentData } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY_ADDRESS,
-      contractInterface: LENSHUB_PROXY_ABI
-    },
-    'commentWithSig',
-    {
-      onSuccess() {}
+  const { write: writeComment, data: writeCommentData } = useContractWrite({
+    addressOrName: LENSHUB_PROXY_ADDRESS,
+    contractInterface: LENSHUB_PROXY_ABI,
+    functionName: 'commentWithSig',
+    onError(error) {
+      setLoading(false)
+      toast.error(error.message)
     }
-  )
+  })
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onError(error) {
