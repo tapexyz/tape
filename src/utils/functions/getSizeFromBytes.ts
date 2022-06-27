@@ -9,3 +9,6 @@ export const getSizeFromBytes = (bytes: number) => {
   }
   return 'n/a'
 }
+
+export const isLessThan100MB = (bytes: number | undefined) =>
+  bytes ? (bytes / 1024 ** 2 < 100 ? true : false) : false

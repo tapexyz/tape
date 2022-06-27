@@ -10,6 +10,33 @@ import { Profile } from 'src/types'
 import { BundlrDataState, UploadedVideo } from 'src/types/local'
 import create from 'zustand'
 
+export const UPLOADED_VIDEO_FORM_DEFAULTS = {
+  buffer: null,
+  preview: '',
+  videoType: '',
+  file: null,
+  title: '',
+  description: '',
+  thumbnail: '',
+  thumbnailType: '',
+  videoSource: '',
+  percent: 0,
+  playbackId: '',
+  isAdultContent: false,
+  isUploadToIpfs: false,
+  loading: false,
+  buttonText: 'Upload Video'
+}
+
+export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {
+  balance: '0',
+  estimatedPrice: '0',
+  deposit: null,
+  instance: null,
+  depositing: false,
+  showDeposit: false
+}
+
 interface AppState {
   channels: Profile[] | []
   recommendedChannels: Profile[] | []
@@ -34,24 +61,8 @@ export const useAppStore = create<AppState>((set) => ({
   showCreateChannel: false,
   hasNewNotification: false,
   userSigNonce: 0,
-  uploadedVideo: {
-    buffer: null,
-    preview: '',
-    videoType: '',
-    file: null,
-    title: '',
-    description: '',
-    thumbnail: '',
-    isAdultContent: false
-  },
-  bundlrData: {
-    balance: '0',
-    estimatedPrice: '0',
-    deposit: null,
-    instance: null,
-    depositing: false,
-    showDeposit: false
-  },
+  uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
+  bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
   setBundlrData: (bundlrData) => set(() => ({ bundlrData })),
   setUploadedVideo: (uploadedVideo) => set(() => ({ uploadedVideo })),
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),

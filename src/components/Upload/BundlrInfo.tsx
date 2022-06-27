@@ -6,6 +6,7 @@ import useAppStore from '@lib/store'
 import * as Sentry from '@sentry/nextjs'
 import { BUNDLR_CURRENCY, BUNDLR_WEBSITE_URL } from '@utils/constants'
 import { parseToAtomicUnits } from '@utils/functions/parseToAtomicUnits'
+import useIsMounted from '@utils/hooks/useIsMounted'
 import { utils } from 'ethers'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
@@ -20,14 +21,16 @@ const BundlrInfo = () => {
   const { data: signer } = useSigner()
   const { uploadedVideo, getBundlrInstance, bundlrData, setBundlrData } =
     useAppStore()
+  const { mounted } = useIsMounted()
 
   useEffect(() => {
-    initBundlr()
+    if (signer?.provider && mounted) initBundlr()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [signer?.provider])
 
   const initBundlr = async () => {
-    if (signer?.provider && account?.address) {
+    if (signer?.provider && account?.address && !bundlrData.instance) {
+      toast('Estimating upload cost...')
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
         let data: BundlrDataState = bundlrData
@@ -96,7 +99,7 @@ const BundlrInfo = () => {
       <div className="flex flex-col">
         <div className="inline-flex items-center justify-between text-xs font-semibold rounded opacity-70">
           <span className="flex items-center space-x-1.5">
-            <span>Your Balance</span>
+            <span>Your Storage Balance</span>
             <Tooltip content="Refresh balance" placement="top">
               <button
                 type="button"
@@ -108,11 +111,7 @@ const BundlrInfo = () => {
             </Tooltip>
           </span>
           <Link href={BUNDLR_WEBSITE_URL}>
-            <a
-              target="_blank"
-              rel="noreferer"
-              className="text-[11px] uppercase"
-            >
+            <a target="_blank" rel="noreferer" className="text-[11px]">
               {BUNDLR_CURRENCY}
             </a>
           </Link>
@@ -171,7 +170,7 @@ const BundlrInfo = () => {
       )}
       <div>
         <span className="inline-flex flex-col text-xs font-semibold opacity-70">
-          Estimated cost to upload
+          Estimated Cost to Upload
         </span>
         <div className="text-xl font-semibold">{bundlrData.estimatedPrice}</div>
       </div>

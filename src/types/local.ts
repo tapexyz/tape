@@ -24,7 +24,14 @@ export type UploadedVideo = {
   title: string
   description: string
   thumbnail: string
+  thumbnailType: string
+  playbackId: string
+  percent: number
   isAdultContent: boolean
+  isUploadToIpfs: boolean
+  loading: boolean
+  videoSource: string
+  buttonText: string
 }
 
 export type LenstubePublication = Post &

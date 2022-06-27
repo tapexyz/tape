@@ -1,10 +1,15 @@
 import VideoPlayer from '@components/Common/Players/VideoPlayer'
+import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import { getSizeFromBytes } from '@utils/functions/getSizeFromBytes'
+import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import clsx from 'clsx'
 import React from 'react'
+import toast from 'react-hot-toast'
+import { IoCopyOutline } from 'react-icons/io5'
 
 import BundlrInfo from './BundlrInfo'
+import UploadMethod from './UploadMethod'
 
 type PlayerProps = {
   source: string
@@ -23,13 +28,18 @@ MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 
 const Video = () => {
   const { uploadedVideo } = useAppStore()
+  const [, copy] = useCopyToClipboard()
 
+  const onCopyKey = (value: string) => {
+    copy(value)
+    toast.success('Video link copied')
+  }
   return (
     <div className="flex flex-col w-full">
       <div
-        className={clsx('overflow-hidden rounded-xl w-full', {
-          // 'rounded-t-lg': uploadMeta.uploading,
-          // 'rounded-lg': !uploadMeta.uploading
+        className={clsx('overflow-hidden w-full', {
+          'rounded-t-xl': uploadedVideo.loading,
+          'rounded-xl': !uploadedVideo.loading && uploadedVideo.percent === 0
         })}
       >
         <MemoizedVideoPlayer
@@ -37,19 +47,22 @@ const Video = () => {
           poster={uploadedVideo.thumbnail}
         />
       </div>
-      {/* <Tooltip content={`Uploaded (${uploadMeta.percent}%)`}>
-              <div className="w-full overflow-hidden bg-gray-200 rounded-b-full">
-                <div
-                  className={clsx('bg-indigo-800 bg-brand-500', {
-                    'h-[6px]': uploadMeta.uploading,
-                    'h-0': !uploadMeta.uploading
-                  })}
-                  style={{
-                    width: `${uploadMeta.percent}%`
-                  }}
-                />
-              </div>
-            </Tooltip> */}
+      <Tooltip content={`Uploaded (${uploadedVideo.percent}%)`}>
+        <div
+          className={clsx('w-full overflow-hidden bg-gray-200 rounded-b-full', {
+            invisible: uploadedVideo.percent === 0
+          })}
+        >
+          <div
+            className={clsx('h-[6px]', {
+              'bg-indigo-800': uploadedVideo.percent !== 0
+            })}
+            style={{
+              width: `${uploadedVideo.percent}%`
+            }}
+          />
+        </div>
+      </Tooltip>
       <div className="p-1 mt-3 rounded-lg">
         <div>
           <div className="text-xs font-semibold opacity-70">Title</div>
@@ -63,10 +76,30 @@ const Video = () => {
         )}
         <div className="mt-4">
           <div className="text-xs font-semibold opacity-70">Video Link</div>
-          <span>{uploadedVideo.file?.name}</span>
+          <div className="flex items-center">
+            {uploadedVideo.videoSource ? (
+              <>
+                <span className="truncate">{uploadedVideo.videoSource}</span>
+                <button
+                  className="pl-2 hover:opacity-60 focus:outline-none"
+                  onClick={() => onCopyKey(uploadedVideo.videoSource)}
+                  type="button"
+                >
+                  <IoCopyOutline />
+                </button>
+              </>
+            ) : (
+              '-'
+            )}
+          </div>
         </div>
+        {!uploadedVideo.isUploadToIpfs && (
+          <div className="mt-4">
+            <BundlrInfo />
+          </div>
+        )}
         <div className="mt-4">
-          <BundlrInfo />
+          <UploadMethod />
         </div>
       </div>
     </div>

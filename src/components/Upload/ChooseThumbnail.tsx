@@ -11,7 +11,7 @@ import { IPFSUploadResult } from 'src/types/local'
 interface Props {
   label: string
   // eslint-disable-next-line no-unused-vars
-  afterUpload: (ipfsUrl: string) => void
+  afterUpload: (ipfsUrl: string, thumbnailType: string) => void
   file: File | null
 }
 
@@ -64,7 +64,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     setUploading(true)
     const result: IPFSUploadResult = await uploadImageToIPFS(file)
     setUploading(false)
-    afterUpload(result.ipfsUrl)
+    afterUpload(result.ipfsUrl, file.type || 'image/jpeg')
     return result
   }
 
@@ -92,7 +92,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
         })
       )
     } else {
-      afterUpload(thumbnails[index].ipfsUrl)
+      afterUpload(thumbnails[index].ipfsUrl, 'image/jpeg')
     }
   }
 
@@ -110,7 +110,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       <div
         ref={scrollRef}
         onMouseDown={onMouseDown}
-        className="flex flex-row py-1 mt-2 space-x-2 overflow-x-auto cursor-grab no-scrollbar"
+        className="flex flex-row py-1 pr-2 mt-2 space-x-2 overflow-x-auto cursor-grab no-scrollbar"
       >
         <label className="flex flex-col items-center justify-center flex-none w-32 h-16 border border-gray-200 border-dashed rounded-lg cursor-pointer opacity-80 focus:outline-none dark:border-gray-800">
           <input

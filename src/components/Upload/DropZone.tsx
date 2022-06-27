@@ -8,7 +8,7 @@ import toast from 'react-hot-toast'
 import { FiUpload } from 'react-icons/fi'
 
 const DropZone = () => {
-  const { setUploadedVideo } = useAppStore()
+  const { setUploadedVideo, uploadedVideo } = useAppStore()
 
   const uploadVideo = async (files: File[]) => {
     const file = files[0]
@@ -20,6 +20,7 @@ const DropZone = () => {
           if (reader.result) {
             let buffer = Buffer.from(reader.result as string)
             setUploadedVideo({
+              ...uploadedVideo,
               buffer,
               preview,
               videoType: file.type || 'video/mp4',
