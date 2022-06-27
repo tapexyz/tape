@@ -151,7 +151,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             />
             <label
               htmlFor="default-checkbox"
-              className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              className="ml-2 text-sm opacity-80"
             >
               I own the content and it does not contain illegal or sensitive
               information.

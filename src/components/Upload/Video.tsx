@@ -39,7 +39,9 @@ const Video = () => {
       <div
         className={clsx('overflow-hidden w-full', {
           'rounded-t-xl': uploadedVideo.loading,
-          'rounded-xl': !uploadedVideo.loading && uploadedVideo.percent === 0
+          'rounded-xl':
+            (!uploadedVideo.loading && uploadedVideo.percent === 0) ||
+            !uploadedVideo.isUploadToIpfs
         })}
       >
         <MemoizedVideoPlayer
@@ -64,7 +66,7 @@ const Video = () => {
         </div>
       </Tooltip>
       <div className="p-1 mt-3 rounded-lg">
-        <div>
+        <div className="truncate">
           <div className="text-xs font-semibold opacity-70">Title</div>
           <span>{uploadedVideo.file?.name}</span>
         </div>

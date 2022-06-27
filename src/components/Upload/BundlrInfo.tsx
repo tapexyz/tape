@@ -117,7 +117,7 @@ const BundlrInfo = () => {
           </Link>
         </div>
         <div className="flex justify-between">
-          <span className="text-xl font-semibold">{bundlrData.balance}</span>
+          <span className="text-lg font-medium">{bundlrData.balance}</span>
           <span>
             <button
               type="button"
@@ -137,7 +137,7 @@ const BundlrInfo = () => {
       </div>
       {bundlrData.showDeposit && (
         <div>
-          <div className="inline-flex flex-col text-xs font-semibold opacity-70">
+          <div className="inline-flex flex-col text-xs font-medium opacity-70">
             Amount to deposit
           </div>
           <div className="flex items-end space-x-2">
@@ -172,7 +172,7 @@ const BundlrInfo = () => {
         <span className="inline-flex flex-col text-xs font-semibold opacity-70">
           Estimated Cost to Upload
         </span>
-        <div className="text-xl font-semibold">{bundlrData.estimatedPrice}</div>
+        <div className="text-lg font-medium">{bundlrData.estimatedPrice}</div>
       </div>
     </div>
   )
