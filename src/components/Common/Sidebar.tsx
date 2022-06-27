@@ -1,10 +1,10 @@
-import { EXPLORE, HOME, LIBRARY } from '@utils/url-path'
+import { EXPLORE, FEED, HOME, LIBRARY } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FiHome } from 'react-icons/fi'
-import { MdOutlineVideoLibrary } from 'react-icons/md'
+import { MdOutlineSubscriptions, MdOutlineVideoLibrary } from 'react-icons/md'
 import { RiLeafLine } from 'react-icons/ri'
 
 const MoreTrigger = dynamic(() => import('../../components/Common/MoreTrigger'))
@@ -43,6 +43,19 @@ const Sidebar = () => {
               <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
                 <FiHome className="text-xl" />
                 <p className="text-[11px] font-medium">Home</p>
+              </div>
+            </a>
+          </Link>
+          <Link href={FEED} passHref>
+            <a
+              className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
+                'bg-indigo-50 dark:bg-[#181818]': isActivePath(FEED),
+                'hover:bg-gray-50 dark:hover:bg-[#181818]': !isActivePath(FEED)
+              })}
+            >
+              <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
+                <MdOutlineSubscriptions className="text-xl" />
+                <p className="text-[11px] font-medium">Feed</p>
               </div>
             </a>
           </Link>

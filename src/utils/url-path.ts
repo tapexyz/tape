@@ -1,5 +1,6 @@
 export const HOME = '/'
 export const EXPLORE = '/explore'
+export const FEED = '/feed'
 export const LIBRARY = '/library'
 export const NOTIFICATIONS = '/notifications'
 export const UPLOAD = '/upload'

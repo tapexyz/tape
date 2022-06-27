@@ -17,8 +17,6 @@ import { VscDebugDisconnect } from 'react-icons/vsc'
 import { Profile } from 'src/types'
 import { useAccount, useDisconnect } from 'wagmi'
 
-import ToggleTheme from './ToggleTheme'
-
 const UserMenu = () => {
   const { channels, setShowCreateChannel, setChannels } = useAppStore()
   const { setSelectedChannel, selectedChannel, setIsAuthenticated } =
@@ -34,7 +32,7 @@ const UserMenu = () => {
     setSelectedChannel(null)
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
-    disconnect && disconnect()
+    if (disconnect) disconnect()
   }
 
   const onSelectChannel = (channel: Profile) => {
@@ -181,7 +179,6 @@ const UserMenu = () => {
                   </a>
                 </Link>
               )}
-              <ToggleTheme />
               <button
                 className={clsx(
                   'flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'

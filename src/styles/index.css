@@ -26,6 +26,7 @@ body {
 .middot:after {
   content: '•';
   margin: 0 4px;
+  opacity: 50%;
 }
 
 /* Chrome, Safari, Edge, Opera */

@@ -7,7 +7,35 @@ import {
 } from '@utils/constants'
 import { FetchSignerResult } from '@wagmi/core'
 import { Profile } from 'src/types'
+import { BundlrDataState, UploadedVideo } from 'src/types/local'
 import create from 'zustand'
+
+export const UPLOADED_VIDEO_FORM_DEFAULTS = {
+  buffer: null,
+  preview: '',
+  videoType: '',
+  file: null,
+  title: '',
+  description: '',
+  thumbnail: '',
+  thumbnailType: '',
+  videoSource: '',
+  percent: 0,
+  playbackId: '',
+  isAdultContent: false,
+  isUploadToIpfs: false,
+  loading: false,
+  buttonText: 'Upload Video'
+}
+
+export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {
+  balance: '0',
+  estimatedPrice: '0',
+  deposit: null,
+  instance: null,
+  depositing: false,
+  showDeposit: false
+}
 
 interface AppState {
   channels: Profile[] | []
@@ -15,11 +43,15 @@ interface AppState {
   showCreateChannel: boolean
   hasNewNotification: boolean
   userSigNonce: number
+  uploadedVideo: UploadedVideo
+  setUploadedVideo: (video: UploadedVideo) => void
   setUserSigNonce: (userSigNonce: number) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
   setChannels: (channels: Profile[]) => void
   setRecommendedChannels: (channels: Profile[]) => void
   setHasNewNotification: (value: boolean) => void
+  bundlrData: BundlrDataState
+  setBundlrData: (bundlrData: BundlrDataState) => void
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
 }
 
@@ -29,6 +61,10 @@ export const useAppStore = create<AppState>((set) => ({
   showCreateChannel: false,
   hasNewNotification: false,
   userSigNonce: 0,
+  uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
+  bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
+  setBundlrData: (bundlrData) => set(() => ({ bundlrData })),
+  setUploadedVideo: (uploadedVideo) => set(() => ({ uploadedVideo })),
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
   setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),
   setChannels: (channels) => set(() => ({ channels })),

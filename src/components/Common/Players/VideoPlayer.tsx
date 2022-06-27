@@ -1,5 +1,6 @@
 import 'plyr-react/dist/plyr.css'
 
+import imageCdn from '@utils/functions/imageCdn'
 import clsx from 'clsx'
 import Plyr from 'plyr-react'
 import React, { FC } from 'react'
@@ -7,13 +8,13 @@ import React, { FC } from 'react'
 interface Props {
   source: string
   wrapperClassName?: string
-  poster?: string
+  poster: string
   controls?: string[]
   autoPlay?: boolean
-  ratio?: string | undefined
+  ratio?: string
 }
 
-const defaultControls = [
+export const defaultPlyrControls = [
   'play-large',
   'play',
   'progress',
@@ -29,12 +30,20 @@ const defaultControls = [
 
 const VideoPlayer: FC<Props> = ({
   source,
-  controls = defaultControls,
+  controls = defaultPlyrControls,
   poster,
   autoPlay = true,
-  ratio = undefined,
+  ratio = '16:9',
   wrapperClassName
 }) => {
+  const options = {
+    controls: controls,
+    autoplay: autoPlay,
+    autopause: true,
+    tooltips: { controls: true, seek: true },
+    ratio
+  }
+
   return (
     <div className={clsx('overflow-hidden rounded-xl', wrapperClassName)}>
       <Plyr
@@ -47,15 +56,9 @@ const VideoPlayer: FC<Props> = ({
               provider: 'html5'
             }
           ],
-          poster: poster ?? source
+          poster: imageCdn(poster) ?? source
         }}
-        options={{
-          controls: controls,
-          autoplay: autoPlay,
-          autopause: true,
-          tooltips: { controls: true, seek: true },
-          ratio
-        }}
+        options={options}
       />
     </div>
   )

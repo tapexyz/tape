@@ -6,20 +6,27 @@ import { getToastOptions } from '@utils/functions/getToastOptions'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import { AUTH } from '@utils/url-path'
-import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import React, { FC, ReactNode, useEffect, useState } from 'react'
+import React, { FC, ReactNode, Suspense, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { Profile } from 'src/types'
 import { useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
-import Header from './Header'
-import Sidebar from './Sidebar'
-const CreateChannel = dynamic(() => import('./CreateChannel'))
-const MobileBottomNav = dynamic(() => import('./MobileBottomNav'))
+const Header = dynamic(() => import('./Header'), {
+  suspense: true
+})
+const Sidebar = dynamic(() => import('./Sidebar'), {
+  suspense: true
+})
+const CreateChannel = dynamic(() => import('./CreateChannel'), {
+  suspense: true
+})
+const MobileBottomNav = dynamic(() => import('./MobileBottomNav'), {
+  suspense: true
+})
 
 interface Props {
   children: ReactNode
@@ -35,7 +42,7 @@ const Layout: FC<Props> = ({ children }) => {
     isAuthenticated
   } = usePersistStore()
   const { resolvedTheme } = useTheme()
-  const { activeConnector } = useConnect()
+  const { isDisconnected, activeConnector } = useConnect()
   const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
   const { mounted } = useIsMounted()
@@ -64,14 +71,16 @@ const Layout: FC<Props> = ({ children }) => {
     }
     const accessToken = localStorage.getItem('accessToken')
     const refreshToken = localStorage.getItem('refreshToken')
+
     const logout = () => {
       setIsAuthenticated(false)
       setSelectedChannel(null)
       localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
       localStorage.removeItem('lenstube.store')
-      disconnect && disconnect()
+      if (disconnect) disconnect()
     }
+
     setPageLoading(false)
     if (
       refreshToken &&
@@ -85,37 +94,41 @@ const Layout: FC<Props> = ({ children }) => {
     } else {
       if (isAuthenticated) logout()
     }
-    if (!activeConnector?.id && mounted) {
-      disconnect && disconnect()
+    if (isDisconnected && mounted) {
+      if (disconnect) disconnect()
       setIsAuthenticated(false)
     }
     activeConnector?.on('change', () => {
       logout()
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated, disconnect, activeConnector, setSelectedChannel])
+  }, [
+    isAuthenticated,
+    disconnect,
+    activeConnector,
+    isDisconnected,
+    setSelectedChannel
+  ])
 
   if (loading || pageLoading) return <FullPageLoader />
 
   return (
     <>
-      <div className="flex pb-14 md:pb-0">
-        <Sidebar />
-        <CreateChannel />
-        <div
-          className={clsx(
-            'w-full md:pl-[94px] pl-2 pr-2 md:pr-4 max-w-[110rem] mx-auto'
-          )}
-        >
-          {!isSignInPage && <Header />}
-          <div className="pt-16">{children}</div>
-        </div>
-      </div>
       <Toaster
         position="top-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
-      <MobileBottomNav />
+      <Suspense fallback={<FullPageLoader />}>
+        <div className="flex pb-14 md:pb-0">
+          <Sidebar />
+          <CreateChannel />
+          <div className="w-full md:pl-[94px] pl-2 pr-2 md:pr-4 max-w-[110rem] mx-auto">
+            {!isSignInPage && <Header />}
+            <div className="pt-16">{children}</div>
+          </div>
+        </div>
+        <MobileBottomNav />
+      </Suspense>
     </>
   )
 }

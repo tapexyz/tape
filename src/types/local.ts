@@ -16,18 +16,37 @@ export type BundlrDataState = {
   showDeposit: boolean
 }
 
-export type VideoUpload = {
+export type UploadedVideo = {
   buffer: Buffer | null
   preview: string
   videoType: string
   file: File | null
+  title: string
+  description: string
+  thumbnail: string
+  thumbnailType: string
+  playbackId: string
+  percent: number
+  isAdultContent: boolean
+  isUploadToIpfs: boolean
+  loading: boolean
+  videoSource: string
+  buttonText: string
 }
 
-export type LenstubePublication = Post & Comment & Mirror & { pubId: string }
+export type LenstubePublication = Post &
+  Comment &
+  Mirror & { pubId: string } & { hls: HLSData }
 
 export type IPFSUploadResult = {
   hash: string
   ipfsUrl: string
+  type: string
+}
+
+export type HLSData = {
+  hrn: string
+  url: string
   type: string
 }
 

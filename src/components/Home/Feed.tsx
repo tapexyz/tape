@@ -5,15 +5,12 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { FEED_QUERY } from '@utils/gql/queries'
-import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PaginatedResultInfo } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
-const Timeline = dynamic(() => import('../../components/Home/Timeline'), {
-  loading: () => <TimelineShimmer />
-})
+import Timeline from './Timeline'
 
 const HomeFeed = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([])

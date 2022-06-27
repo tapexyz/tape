@@ -1,6 +1,5 @@
 import { useTheme } from 'next-themes'
 import React from 'react'
-import { MdOutlineDarkMode, MdOutlineWbSunny } from 'react-icons/md'
 
 const ToggleTheme = () => {
   const { theme, setTheme } = useTheme()
@@ -10,16 +9,9 @@ const ToggleTheme = () => {
       onClick={() => {
         setTheme(theme === 'dark' ? 'light' : 'dark')
       }}
-      className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+      className="inline-flex px-2.5 py-1.5 items-center w-full space-x-2 rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900"
     >
-      {theme === 'light' ? (
-        <MdOutlineDarkMode className="text-lg" />
-      ) : (
-        <MdOutlineWbSunny className="text-lg" />
-      )}
-      <span className="text-sm whitespace-nowrap">
-        {theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}
-      </span>
+      {theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}
     </button>
   )
 }

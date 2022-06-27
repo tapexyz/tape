@@ -1,20 +1,19 @@
 import MetaTags from '@components/Common/MetaTags'
-import Trending from '@components/Explore/Trending'
-import usePersistStore from '@lib/store/persist'
+import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 
-import HomeFeed from './Feed'
-import Recommended from './Recommended'
+const Recents = dynamic(() => import('../Explore/Recents'), {
+  loading: () => <TimelineShimmer />
+})
 
 const Home: NextPage = () => {
-  const { isAuthenticated } = usePersistStore()
-
   return (
     <>
       <MetaTags />
-      <Recommended />
-      <div className="md:my-5">
-        {isAuthenticated ? <HomeFeed /> : <Trending />}
+      {/* <Recommended /> */}
+      <div className="md:my-2">
+        <Recents />
       </div>
     </>
   )
