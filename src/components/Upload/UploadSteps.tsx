@@ -18,7 +18,7 @@ import { BROADCAST_MUTATION, CREATE_POST_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import axios from 'axios'
 import { utils } from 'ethers'
-import React from 'react'
+import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { CreatePostBroadcastItemResult } from 'src/types'
 import { v4 as uuidv4 } from 'uuid'
@@ -28,10 +28,6 @@ import Details, { VideoFormData } from './Details'
 
 const UploadSteps = () => {
   const { setUploadedVideo, uploadedVideo, bundlrData } = useAppStore()
-  console.log(
-    '🚀 ~ file: UploadSteps.tsx ~ line 31 ~ UploadSteps ~ uploadedVideo',
-    uploadedVideo
-  )
   const { selectedChannel } = usePersistStore()
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -88,7 +84,17 @@ const UploadSteps = () => {
     }
   )
 
-  usePendingTxn(writePostData?.hash || broadcastData?.broadcast?.txHash, true)
+  const { indexed } = usePendingTxn(
+    writePostData?.hash || broadcastData?.broadcast?.txHash,
+    true
+  )
+
+  useEffect(() => {
+    if (indexed) {
+      setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [indexed])
 
   const getPlaybackId = async (url: string) => {
     try {
@@ -108,9 +114,13 @@ const UploadSteps = () => {
     if (parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice))
       return toast.error('Insufficient balance')
     try {
-      toast('Requesting signature...')
+      setUploadedVideo({
+        ...uploadedVideo,
+        ...data,
+        loading: true,
+        buttonText: 'Uploading to Arweave...'
+      })
       const bundlr = bundlrData.instance
-      toast('Uploading to arweave...')
       const tags = [{ name: 'Content-Type', value: 'video/mp4' }]
       const tx = bundlr.createTransaction(uploadedVideo.buffer, {
         tags: tags
@@ -121,15 +131,16 @@ const UploadSteps = () => {
         tx.id,
         tx.getRaw().length
       )
-      toast('Processing...')
       const playbackId = await getPlaybackId(
         `${ARWEAVE_WEBSITE_URL}/${response.data.id}`
       )
       setUploadedVideo({
         ...uploadedVideo,
+        ...data,
         videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
         playbackId,
-        ...data
+        buttonText: 'Post Video',
+        loading: false
       })
     } catch (error: any) {
       toast.error('Failed to upload video!')
