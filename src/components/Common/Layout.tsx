@@ -42,7 +42,7 @@ const Layout: FC<Props> = ({ children }) => {
     isAuthenticated
   } = usePersistStore()
   const { resolvedTheme } = useTheme()
-  const { activeConnector } = useConnect()
+  const { isDisconnected, activeConnector } = useConnect()
   const { activeChain } = useNetwork()
   const { disconnect } = useDisconnect()
   const { mounted } = useIsMounted()
@@ -94,7 +94,7 @@ const Layout: FC<Props> = ({ children }) => {
     } else {
       if (isAuthenticated) logout()
     }
-    if (!activeConnector?.id && mounted) {
+    if (isDisconnected && mounted) {
       if (disconnect) disconnect()
       setIsAuthenticated(false)
     }
@@ -102,7 +102,13 @@ const Layout: FC<Props> = ({ children }) => {
       logout()
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated, disconnect, activeConnector, setSelectedChannel])
+  }, [
+    isAuthenticated,
+    disconnect,
+    activeConnector,
+    isDisconnected,
+    setSelectedChannel
+  ])
 
   if (loading || pageLoading) return <FullPageLoader />
 

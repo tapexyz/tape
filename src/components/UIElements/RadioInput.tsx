@@ -10,11 +10,11 @@ type Props = {
 const RadioInput: FC<Props> = ({ question, checked, onChange }) => {
   return (
     <div>
-      <label className="text-sm required">{question}</label>
+      <label className="text-sm">{question}</label>
       <div className="flex space-x-4 items-center mt-1.5 text-xs">
         <div className="flex items-center">
           <input
-            className="w-3 h-3 text-indigo-600 bg-gray-100 border-gray-300 focus:outline-none dark:bg-gray-700 dark:border-gray-900"
+            className="w-3 h-3 text-indigo-600 bg-indigo-100 border-indigo-300 focus:outline-none dark:bg-indigo-700 dark:border-indigo-900"
             type="radio"
             id="option1"
             checked={checked}
@@ -29,7 +29,7 @@ const RadioInput: FC<Props> = ({ question, checked, onChange }) => {
         </div>
         <div className="flex items-center">
           <input
-            className="w-3 h-3 text-indigo-600 bg-gray-100 border-gray-300 focus:outline-none dark:bg-gray-700 dark:border-gray-600"
+            className="w-3 h-3 text-indigo-600 bg-indigo-100 border-gray-300 focus:outline-none dark:bg-indigo-700 dark:border-indigo-600"
             type="radio"
             id="option2"
             checked={!checked}
