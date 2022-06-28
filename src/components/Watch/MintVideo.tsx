@@ -29,7 +29,7 @@ type Props = {
 }
 
 const MintVideo: FC<Props> = ({ video }) => {
-  const { data: accountData } = useAccount()
+  const { address } = useAccount()
   const [loading, setLoading] = useState(false)
   const { isAuthenticated } = usePersistStore()
 
@@ -38,19 +38,15 @@ const MintVideo: FC<Props> = ({ video }) => {
       setLoading(false)
     }
   })
-  const { data: writtenData, write: writeCollectWithSig } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY_ADDRESS,
-      contractInterface: LENSHUB_PROXY_ABI
-    },
-    'collectWithSig',
-    {
-      onError(error: any) {
-        setLoading(false)
-        toast.error(error?.data?.message ?? error?.message)
-      }
+  const { data: writtenData, write: writeCollectWithSig } = useContractWrite({
+    addressOrName: LENSHUB_PROXY_ADDRESS,
+    contractInterface: LENSHUB_PROXY_ABI,
+    functionName: 'collectWithSig',
+    onError(error: any) {
+      setLoading(false)
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onError(error) {
@@ -88,7 +84,7 @@ const MintVideo: FC<Props> = ({ video }) => {
         } else {
           writeCollectWithSig({
             args: {
-              collector: accountData?.address,
+              collector: address,
               profileId: typedData?.value.profileId,
               pubId: typedData?.value.pubId,
               data: typedData.value.data,

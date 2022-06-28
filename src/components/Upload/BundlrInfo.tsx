@@ -17,7 +17,7 @@ import { BundlrDataState } from 'src/types/local'
 import { useAccount, useSigner } from 'wagmi'
 
 const BundlrInfo = () => {
-  const { data: account } = useAccount()
+  const { address } = useAccount()
   const { data: signer } = useSigner()
   const { uploadedVideo, getBundlrInstance, bundlrData, setBundlrData } =
     useAppStore()
@@ -29,7 +29,7 @@ const BundlrInfo = () => {
   }, [signer?.provider])
 
   const initBundlr = async () => {
-    if (signer?.provider && account?.address && !bundlrData.instance) {
+    if (signer?.provider && address && !bundlrData.instance) {
       toast('Estimating upload cost...')
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
@@ -75,8 +75,8 @@ const BundlrInfo = () => {
 
   const fetchBalance = async (bundlr?: WebBundlr) => {
     const instance = bundlr || bundlrData.instance
-    if (account?.address && instance) {
-      const balance = await instance.getBalance(account.address)
+    if (address && instance) {
+      const balance = await instance.getBalance(address)
       let data: BundlrDataState = bundlrData
       data.balance = utils.formatEther(balance.toString())
       setBundlrData(data)
