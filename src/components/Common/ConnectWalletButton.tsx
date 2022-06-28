@@ -166,7 +166,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
             onClick={() => switchNetwork && switchNetwork(POLYGON_CHAIN_ID)}
             variant="danger"
           >
-            <span className="text-white">Wrong network</span>
+            <span className="text-white">Switch network</span>
           </Button>
         )
       ) : (
