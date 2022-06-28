@@ -61,7 +61,8 @@ export const AUTH_ROUTES = [
   '/feed',
   '/report/[id]',
   '/settings/membership',
-  '/settings/permissions'
+  '/settings/permissions',
+  '/notifications'
 ]
 export const ADMIN_ROUTES = ['/lt']
 
