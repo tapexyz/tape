@@ -199,7 +199,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     <div className="my-1">
       <form
         onSubmit={handleSubmit(submitComment)}
-        className="flex items-start mb-2 space-x-3"
+        className="flex items-start mb-2 space-x-1 md:space-x-3"
       >
         <div className="flex-none">
           <img

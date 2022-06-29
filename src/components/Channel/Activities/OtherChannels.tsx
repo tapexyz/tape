@@ -19,7 +19,7 @@ const OtherChannels: FC<Props> = ({ channel }) => {
   })
   const allChannels: Profile[] = data?.profiles?.items
 
-  if (loading) return <OtherChannelsShimmer />
+  if (!loading) return <OtherChannelsShimmer />
 
   if (data?.profiles?.items?.length === 1) {
     return <NoDataFound text="No other channels found." />

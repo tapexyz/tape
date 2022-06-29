@@ -13,7 +13,7 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
   const [showShare, setShowShare] = useState(false)
 
   return (
-    <div className="flex justify-between overflow-hidden group">
+    <div className="flex justify-between group">
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <div className="flex justify-between">
         <div className="flex-none overflow-hidden rounded-lg">

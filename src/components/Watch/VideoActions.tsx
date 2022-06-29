@@ -21,7 +21,7 @@ const VideoActions: FC<Props> = ({ video }) => {
   const [showTip, setShowTip] = useState(false)
 
   return (
-    <div className="flex items-center justify-end mt-4 space-x-4 md:mt-0">
+    <div className="flex items-center justify-end mt-4 space-x-2.5 md:space-x-4 md:mt-0">
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <TipModal show={showTip} setShowTip={setShowTip} video={video} />
 
