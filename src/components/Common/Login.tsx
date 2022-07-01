@@ -72,7 +72,10 @@ const Login = () => {
             getChannels({
               variables: { ownedBy: address }
             }).then((res) => {
-              if (!res.data && res.data?.profiles?.items.length === 0) {
+              if (
+                !res.data?.profiles ||
+                res.data?.profiles?.items.length === 0
+              ) {
                 setSelectedChannel(null)
                 setIsAuthenticated(false)
                 setShowCreateChannel(true)

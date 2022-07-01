@@ -6,7 +6,7 @@ const Hashtag = ({ ...props }: any) => {
   return (
     <span className="inline-flex items-center space-x-1">
       <span>
-        <Link href={`/explore/${props.display.slice(1)}`} prefetch={false}>
+        <Link href={`/explore/${props.display?.slice(1)}`}>
           {props.display}
         </Link>
       </span>

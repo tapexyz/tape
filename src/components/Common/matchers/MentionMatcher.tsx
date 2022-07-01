@@ -3,11 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 const ChannelLink = ({ ...props }: any) => {
-  return (
-    <Link href={`/${props.display.slice(1)}`} prefetch={false}>
-      {props.display}
-    </Link>
-  )
+  return <Link href={`/${props.display?.slice(1)}`}>{props.display}</Link>
 }
 
 export class MentionMatcher extends Matcher {
