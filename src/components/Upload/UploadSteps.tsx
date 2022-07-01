@@ -141,6 +141,12 @@ const UploadSteps = () => {
     } catch (error: any) {
       toast.error('Failed to upload video!')
       Sentry.captureException(error)
+      setUploadedVideo({
+        ...uploadedVideo,
+        ...data,
+        buttonText: 'Upload Video',
+        loading: false
+      })
     }
   }
 
