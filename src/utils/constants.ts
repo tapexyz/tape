@@ -19,9 +19,10 @@ export const IMAGEKIT_URL = IS_MAINNET
 
 export const IPFS_GATEWAY = 'https://ipfs.infura.io/ipfs'
 
-export const POLYGON_RPC_URL = IS_MAINNET
-  ? `https://rpc.ankr.com/polygon`
-  : `https://rpc.ankr.com/polygon_mumbai`
+// export const POLYGON_RPC_URL = IS_MAINNET
+//   ? `https://rpc.ankr.com/polygon`
+//   : `https://rpc.ankr.com/polygon_mumbai`
+export const POLYGON_RPC_URL = process.env.NEXT_PUBLIC_POLYGON_RPC_URL
 
 // Bundlr
 export const BUNDLR_NODE_URL = IS_MAINNET
