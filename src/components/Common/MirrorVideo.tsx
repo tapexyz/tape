@@ -36,19 +36,15 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
       setLoading(false)
     }
   })
-  const { write: mirrorWithSig, data: mirrorData } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY_ADDRESS,
-      contractInterface: LENSHUB_PROXY_ABI
-    },
-    'mirrorWithSig',
-    {
-      onError(error: any) {
-        toast.error(error?.data?.message || error?.message)
-        setLoading(false)
-      }
+  const { write: mirrorWithSig, data: mirrorData } = useContractWrite({
+    addressOrName: LENSHUB_PROXY_ADDRESS,
+    contractInterface: LENSHUB_PROXY_ABI,
+    functionName: 'mirrorWithSig',
+    onError(error: any) {
+      toast.error(error?.data?.message || error?.message)
+      setLoading(false)
     }
-  )
+  })
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onError(error) {

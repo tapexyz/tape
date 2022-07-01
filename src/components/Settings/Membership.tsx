@@ -65,19 +65,15 @@ const Membership = ({ channel }: Props) => {
     }
   })
 
-  const { data: writtenData, write: writeFollow } = useContractWrite(
-    {
-      addressOrName: LENSHUB_PROXY_ADDRESS,
-      contractInterface: LENSHUB_PROXY_ABI
-    },
-    'setFollowModuleWithSig',
-    {
-      onError(error: any) {
-        setLoading(false)
-        toast.error(error?.data?.message ?? error?.message)
-      }
+  const { data: writtenData, write: writeFollow } = useContractWrite({
+    addressOrName: LENSHUB_PROXY_ADDRESS,
+    contractInterface: LENSHUB_PROXY_ABI,
+    functionName: 'setFollowModuleWithSig',
+    onError(error: any) {
+      setLoading(false)
+      toast.error(error?.data?.message ?? error?.message)
     }
-  )
+  })
   const { indexed } = usePendingTxn(
     writtenData?.hash || broadcastData?.broadcast?.txHash
   )

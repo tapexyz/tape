@@ -106,7 +106,7 @@ const VideoReaction: FC<Props> = ({ video }) => {
   }
 
   return (
-    <div className="flex items-center justify-end space-x-4">
+    <div className="flex items-center justify-end space-x-2.5 md:space-x-4">
       <Button variant="secondary" className="!p-0" onClick={() => likeVideo()}>
         <span
           className={clsx('flex items-center space-x-1 outline-none', {

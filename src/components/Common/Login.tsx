@@ -18,7 +18,7 @@ const ConnectWalletButton = dynamic(() => import('./ConnectWalletButton'))
 
 const Login = () => {
   const router = useRouter()
-  const { data: accountData } = useAccount()
+  const { address } = useAccount()
   const { setChannels, setShowCreateChannel } = useAppStore()
   const { setIsAuthenticated, setSelectedChannel } = usePersistStore()
   const { signMessageAsync, isLoading: signing } = useSignMessage()
@@ -53,13 +53,16 @@ const Login = () => {
 
   const handleSign = () => {
     loadChallenge({
-      variables: { request: { address: accountData?.address } }
+      variables: { request: { address: address } }
     }).then((res) => {
+      if (!res?.data?.challenge?.text) {
+        return toast.error(ERROR_MESSAGE)
+      }
       signMessageAsync({ message: res.data?.challenge.text }).then(
         (signature) => {
           authenticate({
             variables: {
-              request: { address: accountData?.address, signature }
+              request: { address: address, signature }
             }
           }).then((res) => {
             const accessToken = res.data.authenticate.accessToken
@@ -67,7 +70,7 @@ const Login = () => {
             localStorage.setItem('accessToken', accessToken)
             localStorage.setItem('refreshToken', refreshToken)
             getChannels({
-              variables: { ownedBy: accountData?.address }
+              variables: { ownedBy: address }
             }).then((res) => {
               if (res.data.profiles.items.length === 0) {
                 setSelectedChannel(null)

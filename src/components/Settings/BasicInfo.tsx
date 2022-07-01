@@ -80,19 +80,15 @@ const BasicInfo = ({ channel }: Props) => {
     }
   })
 
-  const { write: writeMetaData, data: writtenData } = useContractWrite(
-    {
-      addressOrName: LENS_PERIPHERY_ADDRESS,
-      contractInterface: LENS_PERIPHERY_ABI
-    },
-    'setProfileMetadataURIWithSig',
-    {
-      onError(error: any) {
-        toast.error(error?.data?.message ?? error?.message)
-        setLoading(false)
-      }
+  const { write: writeMetaData, data: writtenData } = useContractWrite({
+    addressOrName: LENS_PERIPHERY_ADDRESS,
+    contractInterface: LENS_PERIPHERY_ABI,
+    functionName: 'setProfileMetadataURIWithSig',
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
+      setLoading(false)
     }
-  )
+  })
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onError(error) {
