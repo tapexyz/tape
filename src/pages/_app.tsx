@@ -5,6 +5,7 @@ import Layout from '@components/Common/Layout'
 import apolloClient from '@lib/apollo'
 import usePersistStore from '@lib/store/persist'
 import {
+  ALCHEMY_KEY,
   AUTH_ROUTES,
   IS_MAINNET,
   POLYGON_CHAIN_ID,
@@ -19,11 +20,11 @@ import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
 
 const { chains, provider } = configureChains(
   [IS_MAINNET ? chain.polygon : chain.polygonMumbai],
-  [jsonRpcProvider({ rpc: () => ({ http: POLYGON_RPC_URL }) })]
+  [alchemyProvider({ alchemyId: ALCHEMY_KEY })]
 )
 
 const connectors = () => {
