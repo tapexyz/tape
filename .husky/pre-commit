@@ -19,17 +19,29 @@ yarn check-format ||
 # Check ESLint Standards
 yarn check-lint ||
 (
-        echo '😤🏀👋😤 Get that weak s**t out of here! 😤🏀👋😤 
-                ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
+        echo '
+
+        😤🏀👋😤 Get that weak s**t out of here! 😤🏀👋😤 
+        ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.
+                
+        '
         false; 
 )
 
 # Check tsconfig standards
 yarn check-types ||
 (
-    echo '🤡😂❌🤡 Failed Type check. 🤡😂❌🤡
-            Are you seriously trying to write that? Make the changes required above.'
+    echo '
+    
+    🤡😂❌🤡 Failed Type check. 🤡😂❌🤡
+    Are you seriously trying to write that? Make the changes required above.
+    
+    '
     false;
 )
 
-echo '✅✅✅✅ You win this time... I am committing this now. ✅✅✅✅'
+echo '
+
+✅✅✅✅ You win this time... committing the changes. ✅✅✅✅
+
+'
