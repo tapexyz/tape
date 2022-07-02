@@ -19,14 +19,14 @@ const OtherChannels: FC<Props> = ({ channel }) => {
   })
   const allChannels: Profile[] = data?.profiles?.items
 
-  if (!loading) return <OtherChannelsShimmer />
+  if (loading) return <OtherChannelsShimmer />
 
   if (data?.profiles?.items?.length === 1) {
     return <NoDataFound text="No other channels found." />
   }
 
   return (
-    <div className="flex flex-wrap justify-center gap-3 md:justify-start md:space-x-3">
+    <div className="flex flex-wrap justify-center gap-3 md:justify-start">
       {allChannels.map(
         (el, idx) =>
           el.id !== channel.id && <OtherChannelCard channel={el} key={idx} />
