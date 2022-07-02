@@ -262,7 +262,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         <div className="mt-4">
           <TextArea
             label="Message"
-            markAsRequired
             {...register('message')}
             placeholder="Say something nice"
             autoComplete="off"
