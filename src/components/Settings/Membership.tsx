@@ -280,6 +280,9 @@ const Membership = ({ channel }: Props) => {
             </div>
           </div>
           <div className="flex justify-end mt-4">
+            <Button variant="secondary" onClick={() => setShowForm(false)}>
+              Cancel
+            </Button>
             <Button disabled={loading}>
               {loading ? 'Loading...' : 'Set Membership'}
             </Button>

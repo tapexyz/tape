@@ -157,8 +157,8 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
               onClick={() => handleSign()}
               disabled={signing}
             >
-              Sign In{' '}
-              <span className="hidden md:inline-block">with Ethereum</span>
+              Sign In
+              <span className="hidden ml-1 md:inline-block">with Ethereum</span>
             </Button>
           )
         ) : (
@@ -170,7 +170,10 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
           </Button>
         )
       ) : (
-        <Button onClick={() => setShowModal(true)}>Connect Wallet</Button>
+        <Button onClick={() => setShowModal(true)}>
+          Connect
+          <span className="hidden ml-1 md:inline-block">Wallet</span>
+        </Button>
       )}
     </>
   )
