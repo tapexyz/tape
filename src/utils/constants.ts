@@ -13,16 +13,14 @@ export const POLYGONSCAN_URL = IS_MAINNET
   : 'https://mumbai.polygonscan.com'
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
-export const IMAGEKIT_URL = IS_MAINNET
-  ? 'https://ik.imagekit.io/lenstube'
-  : 'https://ik.imagekit.io/lenstube/testnet'
+export const IMAGE_CDN_URL = 'https://i0.wp.com'
 
 export const IPFS_GATEWAY = 'https://ipfs.infura.io/ipfs'
 
-// export const POLYGON_RPC_URL = IS_MAINNET
-//   ? `https://rpc.ankr.com/polygon`
-//   : `https://rpc.ankr.com/polygon_mumbai`
-export const POLYGON_RPC_URL = process.env.NEXT_PUBLIC_POLYGON_RPC_URL as string
+export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY as string
+export const POLYGON_RPC_URL = IS_MAINNET
+  ? `https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`
+  : `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`
 
 // Bundlr
 export const BUNDLR_NODE_URL = IS_MAINNET

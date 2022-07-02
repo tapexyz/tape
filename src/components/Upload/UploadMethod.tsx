@@ -7,6 +7,8 @@ import { BiCheck } from 'react-icons/bi'
 const UploadMethod = () => {
   const { uploadedVideo, setUploadedVideo } = useAppStore()
 
+  if (uploadedVideo.videoSource) return null
+
   return (
     <>
       {isLessThan100MB(uploadedVideo.file?.size) ? (
@@ -20,12 +22,7 @@ const UploadMethod = () => {
               <Tooltip content="Click to revert" placement="top">
                 <button
                   type="button"
-                  onClick={() => {
-                    setUploadedVideo({
-                      ...uploadedVideo,
-                      isUploadToIpfs: false
-                    })
-                  }}
+                  onClick={() => setUploadedVideo({ isUploadToIpfs: false })}
                   className="ml-2 text-green-500 outline-none"
                 >
                   <BiCheck />
@@ -34,9 +31,7 @@ const UploadMethod = () => {
             ) : (
               <button
                 type="button"
-                onClick={() => {
-                  setUploadedVideo({ ...uploadedVideo, isUploadToIpfs: true })
-                }}
+                onClick={() => setUploadedVideo({ isUploadToIpfs: true })}
                 className="ml-2 text-sm text-indigo-500 outline-none"
               >
                 Yes

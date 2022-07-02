@@ -44,14 +44,14 @@ interface AppState {
   hasNewNotification: boolean
   userSigNonce: number
   uploadedVideo: UploadedVideo
-  setUploadedVideo: (video: UploadedVideo) => void
+  setUploadedVideo: (video: { [k: string]: any }) => void
   setUserSigNonce: (userSigNonce: number) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
   setChannels: (channels: Profile[]) => void
   setRecommendedChannels: (channels: Profile[]) => void
   setHasNewNotification: (value: boolean) => void
   bundlrData: BundlrDataState
-  setBundlrData: (bundlrData: BundlrDataState) => void
+  setBundlrData: (bundlrData: { [k: string]: any }) => void
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
 }
 
@@ -63,8 +63,12 @@ export const useAppStore = create<AppState>((set) => ({
   userSigNonce: 0,
   uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
   bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
-  setBundlrData: (bundlrData) => set(() => ({ bundlrData })),
-  setUploadedVideo: (uploadedVideo) => set(() => ({ uploadedVideo })),
+  setBundlrData: (bundlrData) =>
+    set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrData } })),
+  setUploadedVideo: (videoData) =>
+    set((state) => ({
+      uploadedVideo: { ...state.uploadedVideo, ...videoData }
+    })),
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
   setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),
   setChannels: (channels) => set(() => ({ channels })),

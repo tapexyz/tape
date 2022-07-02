@@ -21,12 +21,6 @@ const Header = dynamic(() => import('./Header'), {
 const Sidebar = dynamic(() => import('./Sidebar'), {
   suspense: true
 })
-const CreateChannel = dynamic(() => import('./CreateChannel'), {
-  suspense: true
-})
-const MobileBottomNav = dynamic(() => import('./MobileBottomNav'), {
-  suspense: true
-})
 
 interface Props {
   children: ReactNode
@@ -65,11 +59,13 @@ const Layout: FC<Props> = ({ children }) => {
   })
 
   useEffect(() => {
+    // Allow only user is authenticated
     if (!isAuthenticated && AUTH_ROUTES.includes(pathname)) {
       replace(`${AUTH}?next=${asPath}`)
     }
     const accessToken = localStorage.getItem('accessToken')
     const refreshToken = localStorage.getItem('refreshToken')
+    setPageLoading(false)
 
     const logout = () => {
       setIsAuthenticated(false)
@@ -80,7 +76,6 @@ const Layout: FC<Props> = ({ children }) => {
       if (disconnect) disconnect()
     }
 
-    setPageLoading(false)
     if (
       refreshToken &&
       accessToken &&
@@ -118,15 +113,13 @@ const Layout: FC<Props> = ({ children }) => {
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <Suspense fallback={<FullPageLoader />}>
-        <div className="flex pb-14 md:pb-0">
+        <div className="flex overflow-x-hidden pb-14 md:pb-0">
           <Sidebar />
-          <CreateChannel />
           <div className="w-full md:pl-[94px] pl-2 pr-2 md:pr-4 max-w-[110rem] mx-auto">
             {!isSignInPage && <Header />}
             <div className="pt-16">{children}</div>
           </div>
         </div>
-        <MobileBottomNav />
       </Suspense>
     </>
   )

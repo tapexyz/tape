@@ -13,6 +13,7 @@ const NewVideoTrigger = dynamic(
 const NotificationTrigger = dynamic(
   () => import('../../components/Notifications/NotificationTrigger')
 )
+const CreateChannel = dynamic(() => import('./CreateChannel'))
 
 const Header = () => {
   return (
@@ -21,6 +22,7 @@ const Header = () => {
         'fixed z-10 flex md:left-[94px] right-2 left-2 md:right-4 items-center bg-white dark:bg-black h-14 md:h-16'
       )}
     >
+      <CreateChannel />
       <div className="flex justify-between flex-1 md:w-3/4 md:justify-end">
         <div className="flex items-center space-x-1.5 md:space-x-0">
           <Link href={HOME}>

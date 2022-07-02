@@ -6,7 +6,7 @@ import usePersistStore from '@lib/store/persist'
 import { NOTIFICATION_COUNT_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
-import { AiOutlineBell } from 'react-icons/ai'
+import { CgBell } from 'react-icons/cg'
 
 const Notifications = dynamic(() => import('.'))
 
@@ -51,7 +51,7 @@ const NotificationTrigger = () => {
           className="!p-[9px] !hidden md:!block"
           onClick={() => onClickNotification()}
         >
-          <AiOutlineBell className="text-sm md:text-lg" />
+          <CgBell className="text-lg" />
           {hasNewNotification && (
             <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full -top-1 -right-1" />
           )}

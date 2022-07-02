@@ -52,7 +52,7 @@ const formSchema = z.object({
     .min(5, { message: 'Description should be atleast 5 characters' })
     .max(1000, { message: 'Description should not exceed 1000 characters' }),
   twitter: z.string(),
-  website: z.string()
+  website: z.string().url({ message: 'Invalid website URL' })
 })
 type FormData = z.infer<typeof formSchema>
 
@@ -111,28 +111,30 @@ const BasicInfo = ({ channel }: Props) => {
   const [createSetProfileMetadataTypedData] = useMutation(
     SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
     {
-      onCompleted(data) {
+      async onCompleted(data) {
         const { typedData, id } = data.createSetProfileMetadataTypedData
-        signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        }).then((signature) => {
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omitKey(typedData?.domain, '__typename'),
+            types: omitKey(typedData?.types, '__typename'),
+            value: omitKey(typedData?.value, '__typename')
+          })
           const { profileId, metadata } = typedData?.value
           const { v, r, s } = utils.splitSignature(signature)
+          const args = {
+            user: channel?.ownedBy,
+            profileId,
+            metadata,
+            sig: { v, r, s, deadline: typedData.value.deadline }
+          }
           if (RELAYER_ENABLED) {
             broadcast({ variables: { request: { id, signature } } })
           } else {
-            writeMetaData({
-              args: {
-                user: channel?.ownedBy,
-                profileId,
-                metadata,
-                sig: { v, r, s, deadline: typedData.value.deadline }
-              }
-            })
+            writeMetaData({ args })
           }
-        })
+        } catch (error) {
+          setLoading(false)
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)
@@ -143,7 +145,7 @@ const BasicInfo = ({ channel }: Props) => {
 
   const onCopyChannelUrl = (value: string) => {
     copy(value)
-    toast.success('Copied to clipboard 🎉')
+    toast.success('Copied to clipboard')
   }
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -259,7 +261,7 @@ const BasicInfo = ({ channel }: Props) => {
       <div className="mt-6">
         <Input
           label="Display Name"
-          required
+          markAsRequired
           type="text"
           placeholder="T Series"
           {...register('displayName')}
@@ -270,7 +272,7 @@ const BasicInfo = ({ channel }: Props) => {
         <TextArea
           label="Channel Description"
           placeholder="More about your channel"
-          required
+          markAsRequired
           rows={4}
           validationError={errors.description?.message}
           {...register('description')}

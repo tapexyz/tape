@@ -53,7 +53,7 @@ const Login = () => {
 
   const handleSign = () => {
     loadChallenge({
-      variables: { request: { address: address } }
+      variables: { request: { address } }
     }).then((res) => {
       if (!res?.data?.challenge?.text) {
         return toast.error(ERROR_MESSAGE)
@@ -62,7 +62,7 @@ const Login = () => {
         (signature) => {
           authenticate({
             variables: {
-              request: { address: address, signature }
+              request: { address, signature }
             }
           }).then((res) => {
             const accessToken = res.data.authenticate.accessToken
@@ -72,7 +72,10 @@ const Login = () => {
             getChannels({
               variables: { ownedBy: address }
             }).then((res) => {
-              if (res.data.profiles.items.length === 0) {
+              if (
+                !res.data?.profiles ||
+                res.data?.profiles?.items.length === 0
+              ) {
                 setSelectedChannel(null)
                 setIsAuthenticated(false)
                 setShowCreateChannel(true)

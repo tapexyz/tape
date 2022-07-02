@@ -4,7 +4,11 @@ import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import * as Sentry from '@sentry/nextjs'
-import { BUNDLR_CURRENCY, BUNDLR_WEBSITE_URL } from '@utils/constants'
+import {
+  BUNDLR_CURRENCY,
+  BUNDLR_WEBSITE_URL,
+  POLYGON_CHAIN_ID
+} from '@utils/constants'
 import { parseToAtomicUnits } from '@utils/functions/parseToAtomicUnits'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import { utils } from 'ethers'
@@ -13,8 +17,7 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { MdRefresh } from 'react-icons/md'
-import { BundlrDataState } from 'src/types/local'
-import { useAccount, useSigner } from 'wagmi'
+import { useAccount, useBalance, useSigner } from 'wagmi'
 
 const BundlrInfo = () => {
   const { address } = useAccount()
@@ -22,6 +25,10 @@ const BundlrInfo = () => {
   const { uploadedVideo, getBundlrInstance, bundlrData, setBundlrData } =
     useAppStore()
   const { mounted } = useIsMounted()
+  const { data: userBalance } = useBalance({
+    addressOrName: address,
+    chainId: POLYGON_CHAIN_ID
+  })
 
   useEffect(() => {
     if (signer?.provider && mounted) initBundlr()
@@ -33,9 +40,7 @@ const BundlrInfo = () => {
       toast('Estimating upload cost...')
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
-        let data: BundlrDataState = bundlrData
-        data.instance = bundlr
-        setBundlrData(data)
+        setBundlrData({ instance: bundlr })
         await fetchBalance(bundlr)
         await estimatePrice(bundlr)
       }
@@ -44,13 +49,19 @@ const BundlrInfo = () => {
 
   const depositToBundlr = async () => {
     if (bundlrData.instance && bundlrData.deposit) {
+      const depositAmount = parseFloat(bundlrData.deposit)
       const value = parseToAtomicUnits(
-        parseFloat(bundlrData.deposit),
+        depositAmount,
         bundlrData.instance.currencyConfig.base[1]
       )
       if (!value) return toast.error('Invalid deposit amount')
-      setBundlrData({ ...bundlrData, depositing: true })
-      await bundlrData.instance
+      if (
+        userBalance?.formatted &&
+        parseFloat(userBalance?.formatted) < depositAmount
+      )
+        return toast.error('Insufficient funds in your wallet')
+      setBundlrData({ depositing: true })
+      bundlrData.instance
         .fund(value)
         .then((res) => {
           toast.success(
@@ -58,13 +69,12 @@ const BundlrInfo = () => {
           )
         })
         .catch((e) => {
-          toast.error(`Failed to deposit`)
+          toast.error('Failed to deposit')
           Sentry.captureException(e)
         })
         .finally(async () => {
-          fetchBalance()
+          await fetchBalance()
           setBundlrData({
-            ...bundlrData,
             deposit: null,
             showDeposit: false,
             depositing: false
@@ -77,9 +87,9 @@ const BundlrInfo = () => {
     const instance = bundlr || bundlrData.instance
     if (address && instance) {
       const balance = await instance.getBalance(address)
-      let data: BundlrDataState = bundlrData
-      data.balance = utils.formatEther(balance.toString())
-      setBundlrData(data)
+      setBundlrData({
+        balance: utils.formatEther(balance.toString())
+      })
     }
   }
 
@@ -87,11 +97,11 @@ const BundlrInfo = () => {
     if (!uploadedVideo.buffer) return
     const price = await bundlr.utils.getPrice(
       BUNDLR_CURRENCY,
-      uploadedVideo.buffer.length
+      uploadedVideo.buffer?.length
     )
-    let data: BundlrDataState = bundlrData
-    data.estimatedPrice = utils.formatEther(price.toString())
-    setBundlrData(data)
+    setBundlrData({
+      estimatedPrice: utils.formatEther(price.toString())
+    })
   }
 
   return (
@@ -122,10 +132,7 @@ const BundlrInfo = () => {
             <button
               type="button"
               onClick={() =>
-                setBundlrData({
-                  ...bundlrData,
-                  showDeposit: !bundlrData.showDeposit
-                })
+                setBundlrData({ showDeposit: !bundlrData.showDeposit })
               }
               className="inline-flex py-0.5 items-center pl-1.5 pr-0.5 bg-gray-100 rounded-full focus:outline-none dark:bg-gray-800"
             >
@@ -149,10 +156,7 @@ const BundlrInfo = () => {
               min={0}
               value={bundlrData.deposit || ''}
               onChange={(e) => {
-                setBundlrData({
-                  ...bundlrData,
-                  deposit: e.target.value
-                })
+                setBundlrData({ deposit: e.target.value })
               }}
             />
             <div>

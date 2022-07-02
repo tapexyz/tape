@@ -28,6 +28,12 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   const [buttonText, setButtonText] = useState(subscribeText)
   const { data: signer } = useSigner()
   const { isAuthenticated } = usePersistStore()
+
+  const onError = () => {
+    setLoading(false)
+    setButtonText(subscribeText)
+  }
+
   const {} = useWaitForTransaction({
     enabled: txnHash.length > 0,
     hash: txnHash,
@@ -41,62 +47,48 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
       )
       setLoading(false)
     },
-    onError() {
-      setLoading(false)
-    }
+    onError
   })
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError() {
-      setLoading(false)
-      setButtonText(subscribeText)
-    }
+    onError
   })
 
   const [createUnsubscribeTypedData] = useMutation(CREATE_UNFOLLOW_TYPED_DATA, {
-    onCompleted({
-      createUnfollowTypedData
-    }: {
-      createUnfollowTypedData: CreateUnfollowBroadcastItemResult
-    }) {
-      const { typedData } = createUnfollowTypedData
-      signTypedDataAsync({
-        domain: omitKey(typedData?.domain, '__typename'),
-        types: omitKey(typedData?.types, '__typename'),
-        value: omitKey(typedData?.value, '__typename')
-      })
-        .then(async (data) => {
-          const { v, r, s } = utils.splitSignature(data)
-          const sig = {
-            v,
-            r,
-            s,
-            deadline: typedData.value.deadline
-          }
-          // load up the follower nft contract
-          const followNftContract = new ethers.Contract(
-            typedData.domain.verifyingContract,
-            FOLLOW_NFT_ABI,
-            signer as Signer
-          )
-          const txn = await followNftContract.burnWithSig(
-            typedData?.value.tokenId,
-            sig
-          )
-          if (txn.hash) {
-            setTxnHash(txn.hash)
-          }
+    async onCompleted(data) {
+      const { typedData } =
+        data.createUnfollowTypedData as CreateUnfollowBroadcastItemResult
+      try {
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
         })
-        .catch((err) => {
-          toast.error(err.message)
-          setLoading(false)
-          setButtonText(subscribeText)
-        })
+        const { v, r, s } = utils.splitSignature(signature)
+        const sig = {
+          v,
+          r,
+          s,
+          deadline: typedData.value.deadline
+        }
+        // load up the follower nft contract
+        const followNftContract = new ethers.Contract(
+          typedData.domain.verifyingContract,
+          FOLLOW_NFT_ABI,
+          signer as Signer
+        )
+        const txn = await followNftContract.burnWithSig(
+          typedData?.value.tokenId,
+          sig
+        )
+        if (txn.hash) setTxnHash(txn.hash)
+      } catch (error) {
+        onError()
+      }
     },
     onError(error) {
       toast.error(error.message ?? ERROR_MESSAGE)
-      setLoading(false)
-      setButtonText(subscribeText)
+      onError()
     }
   })
 

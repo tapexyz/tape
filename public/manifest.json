@@ -7,7 +7,7 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/?utm_source=homescreen&utm_medium=shortcut",
-  "iconPath": "https://assets.lenstube.xyz/images/icons/icon-512x512.png",
+  "iconPath": "/lenstube.svg",
   "categories": ["social", "entertainment"],
   "icons": [
     {

@@ -67,32 +67,31 @@ const MintVideo: FC<Props> = ({ video }) => {
   }, [indexed])
 
   const [createCollectTypedData] = useMutation(CREATE_COLLECT_TYPED_DATA, {
-    onCompleted({
-      createCollectTypedData
-    }: {
-      createCollectTypedData: CreateCollectBroadcastItemResult
-    }) {
-      const { typedData, id } = createCollectTypedData
-      signTypedDataAsync({
-        domain: omitKey(typedData?.domain, '__typename'),
-        types: omitKey(typedData?.types, '__typename'),
-        value: omitKey(typedData?.value, '__typename')
-      }).then((signature) => {
+    async onCompleted(data) {
+      const { typedData, id } =
+        data.createCollectTypedData as CreateCollectBroadcastItemResult
+      try {
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
+        })
         const { v, r, s } = utils.splitSignature(signature)
+        const args = {
+          collector: address,
+          profileId: typedData?.value.profileId,
+          pubId: typedData?.value.pubId,
+          data: typedData.value.data,
+          sig: { v, r, s, deadline: typedData.value.deadline }
+        }
         if (RELAYER_ENABLED) {
           broadcast({ variables: { request: { id, signature } } })
         } else {
-          writeCollectWithSig({
-            args: {
-              collector: address,
-              profileId: typedData?.value.profileId,
-              pubId: typedData?.value.pubId,
-              data: typedData.value.data,
-              sig: { v, r, s, deadline: typedData.value.deadline }
-            }
-          })
+          writeCollectWithSig({ args })
         }
-      })
+      } catch (error) {
+        setLoading(false)
+      }
     },
     onError(error) {
       toast.error(error.message ?? ERROR_MESSAGE)

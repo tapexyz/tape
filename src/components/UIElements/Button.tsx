@@ -55,7 +55,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
           {
             'border border-indigo-500': variant === 'primary',
             'bg-transparent': variant === 'secondary',
-            'bg-transparent group-hover:border group-hover:border-indigo-500':
+            'bg-transparent !transition-none group-hover:border group-hover:border-indigo-500':
               variant === 'outlined',
             'border-red-500 border': variant === 'danger',
             'group-hover:translate-x-0.5 group-hover:translate-y-0.5':

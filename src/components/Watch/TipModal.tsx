@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
+import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -67,33 +68,28 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState<string | null>(null)
+
+  const onError = () => {
+    setLoading(false)
+    setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
+  }
+
   const { sendTransactionAsync } = useSendTransaction({
-    onError() {
-      setLoading(false)
-    }
+    onError
   })
   const { signTypedDataAsync } = useSignTypedData({
-    onError(error) {
-      setLoading(false)
-      toast.error(error.message)
-    }
+    onError
   })
 
   const { write: writeComment, data: writeCommentData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'commentWithSig',
-    onError(error) {
-      setLoading(false)
-      toast.error(error.message)
-    }
+    onError
   })
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
-    onError(error) {
-      toast.error(error.message)
-      setLoading(false)
-    }
+    onError
   })
 
   const { indexed } = usePendingTxn(
@@ -111,7 +107,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   }, [indexed])
 
   const [createTypedData] = useMutation(CREATE_COMMENT_TYPED_DATA, {
-    onCompleted(data) {
+    async onCompleted(data) {
       const { typedData, id } = data.createCommentTypedData
       const {
         profileId,
@@ -124,44 +120,37 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         referenceModuleData,
         referenceModuleInitData
       } = typedData?.value
-      signTypedDataAsync({
-        domain: omitKey(typedData?.domain, '__typename'),
-        types: omitKey(typedData?.types, '__typename'),
-        value: omitKey(typedData?.value, '__typename')
-      })
-        .then((signature) => {
-          setUserSigNonce(userSigNonce + 1)
-          setButtonText('Commenting...')
-          const { v, r, s } = utils.splitSignature(signature)
-          if (RELAYER_ENABLED) {
-            broadcast({ variables: { request: { id, signature } } })
-          } else {
-            writeComment({
-              args: {
-                profileId,
-                profileIdPointed,
-                pubIdPointed,
-                contentURI,
-                collectModule,
-                collectModuleInitData,
-                referenceModule,
-                referenceModuleData,
-                referenceModuleInitData,
-                sig: { v, r, s, deadline: typedData.value.deadline }
-              }
-            })
-          }
+      try {
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
         })
-        .catch(() => {
-          setLoading(false)
-          setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
-        })
+        setUserSigNonce(userSigNonce + 1)
+        setButtonText('Commenting...')
+        const { v, r, s } = utils.splitSignature(signature)
+        const args = {
+          profileId,
+          profileIdPointed,
+          pubIdPointed,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleData,
+          referenceModuleInitData,
+          sig: { v, r, s, deadline: typedData.value.deadline }
+        }
+        if (RELAYER_ENABLED) {
+          broadcast({ variables: { request: { id, signature } } })
+        } else {
+          writeComment({ args })
+        }
+      } catch (error) {
+        onError()
+      }
     },
-    onError(error) {
-      toast.error(error.message)
-      setLoading(false)
-      setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
-    }
+    onError
   })
 
   const submitComment = async () => {
@@ -271,19 +260,16 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           </span>
         </div>
         <div className="mt-4">
-          <div className="flex items-center mb-1 space-x-1.5">
-            <div className="text-[11px] font-semibold uppercase opacity-70">
-              Message
-            </div>
-          </div>
-          <textarea
+          <TextArea
+            label="Message"
+            markAsRequired
             {...register('message')}
             placeholder="Say something nice"
             autoComplete="off"
             className="w-full p-2 text-sm bg-white border border-gray-200 outline-none focus:ring-1 focus:ring-indigo-500 rounded-xl dark:bg-gray-900 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20"
             rows={3}
           />
-          <div className="text-[11px] mx-1 opacity-50">
+          <div className="text-[11px] mx-1 mt-1 opacity-50">
             This will be published as public comment.
           </div>
         </div>

@@ -34,7 +34,7 @@ export const usePersistStore = create(
         const alreadyExists = get().recentlyWatched.find(
           (el) => el.id === video.id
         )
-        const newList = get().recentlyWatched.slice(0, 7)
+        const newList = get().recentlyWatched?.slice(0, 7)
         set(() => ({
           recentlyWatched: alreadyExists
             ? get().recentlyWatched

@@ -30,8 +30,7 @@ const formSchema = z.object({
 export type VideoFormData = z.infer<typeof formSchema>
 
 type Props = {
-  // eslint-disable-next-line no-unused-vars
-  onUpload: (data: VideoFormData) => void
+  onUpload: () => void
   onCancel: () => void
 }
 
@@ -53,11 +52,12 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
   })
 
   const onSubmitForm = (data: VideoFormData) => {
-    onUpload(data)
+    setUploadedVideo(data)
+    onUpload()
   }
 
   const onThumbnailUpload = (ipfsUrl: string, thumbnailType: string) => {
-    setUploadedVideo({ ...uploadedVideo, thumbnail: ipfsUrl, thumbnailType })
+    setUploadedVideo({ thumbnail: ipfsUrl, thumbnailType })
   }
 
   return (
@@ -73,6 +73,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 autoComplete="off"
                 validationError={errors.title?.message}
                 autoFocus
+                markAsRequired
               />
               <div className="absolute top-0 flex items-center justify-end mt-1 right-1">
                 <span

@@ -92,7 +92,7 @@ const Permissions = () => {
     <div className="p-4 bg-white divide-y divide-gray-200 rounded-lg dark:divide-gray-900 dark:bg-black">
       <div className="mb-6">
         <h1 className="mb-1 text-xl font-semibold">Access permissions</h1>
-        <p className="text-xs opacity-80">
+        <p className="text-sm opacity-80">
           These are the modules which you allowed to automatically debit funds
           from your account. You can see the information here and revoke access
           anytime.
@@ -130,7 +130,7 @@ const Permissions = () => {
                 Allow{' '}
                 {getFollowModule(data?.approvedModuleAllowanceAmount)?.module}
               </h6>
-              <p className="text-xs opacity-70">
+              <p className="text-sm opacity-70">
                 Allows subscriber to join the channel by paying a fee specified
                 by the channel owner.
               </p>
@@ -140,6 +140,7 @@ const Permissions = () => {
                 ?.allowance === '0x00' ? (
                 <Button
                   disabled={isLoading || loading}
+                  loading={isLoading || loading}
                   onClick={() => handleClick(true)}
                 >
                   Allow
@@ -149,6 +150,7 @@ const Permissions = () => {
                   disabled={isLoading || loading}
                   onClick={() => handleClick(false)}
                   variant="danger"
+                  loading={isLoading || loading}
                 >
                   Revoke
                 </Button>
