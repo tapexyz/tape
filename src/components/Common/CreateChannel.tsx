@@ -82,7 +82,7 @@ const CreateChannel = () => {
 
   return (
     <Modal
-      title={IS_MAINNET ? 'Claim Handle 🌿' : 'Create Channel 🌿'}
+      title={IS_MAINNET ? 'Claim Handle' : 'Create Channel'}
       onClose={() => setShowCreateChannel(false)}
       show={mounted && showCreateChannel}
       panelClassName="max-w-md"

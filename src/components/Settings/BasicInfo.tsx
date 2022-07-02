@@ -145,7 +145,7 @@ const BasicInfo = ({ channel }: Props) => {
 
   const onCopyChannelUrl = (value: string) => {
     copy(value)
-    toast.success('Copied to clipboard 🎉')
+    toast.success('Copied to clipboard')
   }
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {

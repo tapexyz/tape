@@ -85,7 +85,7 @@ const Membership = ({ channel }: Props) => {
   useEffect(() => {
     if (indexed) {
       setLoading(false)
-      toast.success('Membership updated 🎉')
+      toast.success('Membership updated')
       refetch({ request: { profileIds: channel?.id } })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -164,7 +164,7 @@ const Membership = ({ channel }: Props) => {
   return (
     <div className="p-4 bg-white rounded-lg dark:bg-black">
       <div className="mb-5">
-        <h1 className="mb-1 text-xl font-semibold">Grow with Lens 🌿</h1>
+        <h1 className="mb-1 text-xl font-semibold">Grow with Lens</h1>
         <p className="text-xs opacity-80">
           You can set up a subscription fee for your channel and provide
           exclusive offers and perks to the subscribers, also people can pay and
