@@ -25,7 +25,7 @@ import { CreatePostBroadcastItemResult } from 'src/types'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
-import Details, { VideoFormData } from './Details'
+import Details from './Details'
 
 const UploadSteps = () => {
   const { setUploadedVideo, uploadedVideo, bundlrData } = useAppStore()
@@ -33,7 +33,6 @@ const UploadSteps = () => {
 
   const onError = () => {
     setUploadedVideo({
-      ...uploadedVideo,
       buttonText: 'Post Video',
       loading: false
     })
@@ -49,7 +48,6 @@ const UploadSteps = () => {
     onCompleted(data) {
       if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
         setUploadedVideo({
-          ...uploadedVideo,
           buttonText: 'Indexing...',
           loading: true
         })
@@ -66,7 +64,6 @@ const UploadSteps = () => {
     functionName: 'postWithSig',
     onSuccess() {
       setUploadedVideo({
-        ...uploadedVideo,
         buttonText: 'Indexing...',
         loading: true
       })
@@ -102,14 +99,12 @@ const UploadSteps = () => {
     }
   }
 
-  const uploadToBundlr = async (data: VideoFormData) => {
+  const uploadToBundlr = async () => {
     if (!bundlrData.instance || !uploadedVideo.buffer) return
     if (parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice))
       return toast.error('Insufficient balance')
     try {
       setUploadedVideo({
-        ...uploadedVideo,
-        ...data,
         loading: true,
         buttonText: 'Uploading to Arweave...'
       })
@@ -128,8 +123,6 @@ const UploadSteps = () => {
         `${ARWEAVE_WEBSITE_URL}/${response.data.id}`
       )
       setUploadedVideo({
-        ...uploadedVideo,
-        ...data,
         videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
         playbackId,
         buttonText: 'Post Video',
@@ -139,15 +132,13 @@ const UploadSteps = () => {
       toast.error('Failed to upload video!')
       Sentry.captureException(error)
       setUploadedVideo({
-        ...uploadedVideo,
-        ...data,
         buttonText: 'Upload Video',
         loading: false
       })
     }
   }
 
-  const uploadToIpfsWithProgress = async (data: VideoFormData) => {
+  const uploadToIpfsWithProgress = async () => {
     toast('Uploading to IPFS...')
     const formData = new FormData()
     formData.append('file', uploadedVideo.file as File, 'img')
@@ -160,11 +151,9 @@ const UploadSteps = () => {
             (progressEvent.loaded * 100) / progressEvent.total
           )
           setUploadedVideo({
-            ...uploadedVideo,
             buttonText: 'Uploading...',
             loading: true,
-            percent: percentCompleted,
-            ...data
+            percent: percentCompleted
           })
         }
       }
@@ -174,12 +163,11 @@ const UploadSteps = () => {
         `${IPFS_GATEWAY}/${response.data.Hash}`
       )
       setUploadedVideo({
-        ...uploadedVideo,
-        ...data,
         percent: 100,
         videoSource: `${IPFS_GATEWAY}/${response.data.Hash}`,
         playbackId,
-        buttonText: 'Post Video'
+        buttonText: 'Post Video',
+        loading: false
       })
     } else {
       toast.error('Upload failed!')
@@ -229,7 +217,6 @@ const UploadSteps = () => {
 
   const createPublication = async () => {
     setUploadedVideo({
-      ...uploadedVideo,
       buttonText: 'Storing metadata...',
       loading: true
     })
@@ -289,7 +276,6 @@ const UploadSteps = () => {
       appId: LENSTUBE_APP_ID
     })
     setUploadedVideo({
-      ...uploadedVideo,
       buttonText: 'Posting video...',
       loading: true
     })
@@ -312,15 +298,15 @@ const UploadSteps = () => {
     })
   }
 
-  const onUpload = (data: VideoFormData) => {
+  const onUpload = () => {
     if (uploadedVideo.videoSource) return createPublication()
     else {
       if (
         isLessThan100MB(uploadedVideo.file?.size) &&
         uploadedVideo.isUploadToIpfs
       ) {
-        return uploadToIpfsWithProgress(data)
-      } else uploadToBundlr(data)
+        return uploadToIpfsWithProgress()
+      } else uploadToBundlr()
     }
   }
 

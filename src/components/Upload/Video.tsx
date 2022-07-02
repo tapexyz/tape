@@ -57,7 +57,7 @@ const Video = () => {
         >
           <div
             className={clsx('h-[6px]', {
-              'bg-indigo-800': uploadedVideo.percent !== 0
+              'bg-indigo-500': uploadedVideo.percent !== 0
             })}
             style={{
               width: `${uploadedVideo.percent}%`
