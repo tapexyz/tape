@@ -8,6 +8,7 @@ interface Props extends ComponentProps<'textarea'> {
   className?: string
   validationError?: string
   hideErrorMessage?: boolean
+  markAsRequired?: boolean
 }
 
 export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
@@ -18,6 +19,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
       className = '',
       id,
       hideErrorMessage = false,
+      markAsRequired,
       ...props
     },
     ref
@@ -30,7 +32,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
               className={clsx(
                 'text-[11px] font-semibold uppercase opacity-70',
                 {
-                  required: props.required
+                  required: markAsRequired
                 }
               )}
             >

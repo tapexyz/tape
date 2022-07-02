@@ -73,6 +73,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 autoComplete="off"
                 validationError={errors.title?.message}
                 autoFocus
+                markAsRequired
               />
               <div className="absolute top-0 flex items-center justify-end mt-1 right-1">
                 <span

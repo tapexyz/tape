@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
+import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -259,19 +260,16 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           </span>
         </div>
         <div className="mt-4">
-          <div className="flex items-center mb-1 space-x-1.5">
-            <div className="text-[11px] font-semibold uppercase opacity-70">
-              Message
-            </div>
-          </div>
-          <textarea
+          <TextArea
+            label="Message"
+            markAsRequired
             {...register('message')}
             placeholder="Say something nice"
             autoComplete="off"
             className="w-full p-2 text-sm bg-white border border-gray-200 outline-none focus:ring-1 focus:ring-indigo-500 rounded-xl dark:bg-gray-900 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20"
             rows={3}
           />
-          <div className="text-[11px] mx-1 opacity-50">
+          <div className="text-[11px] mx-1 mt-1 opacity-50">
             This will be published as public comment.
           </div>
         </div>

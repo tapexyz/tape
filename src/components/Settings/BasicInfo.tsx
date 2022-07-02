@@ -261,7 +261,7 @@ const BasicInfo = ({ channel }: Props) => {
       <div className="mt-6">
         <Input
           label="Display Name"
-          required
+          markAsRequired
           type="text"
           placeholder="T Series"
           {...register('displayName')}
@@ -272,7 +272,7 @@ const BasicInfo = ({ channel }: Props) => {
         <TextArea
           label="Channel Description"
           placeholder="More about your channel"
-          required
+          markAsRequired
           rows={4}
           validationError={errors.description?.message}
           {...register('description')}
