@@ -16,7 +16,7 @@ import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { Profile } from 'src/types'
+import { CreateFollowBroadcastItemResult, Profile } from 'src/types'
 import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
 
 type Props = {
@@ -29,10 +29,13 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const [buttonText, setButtonText] = useState('Subscribe')
   const { isAuthenticated } = usePersistStore()
 
+  const onError = () => {
+    setLoading(false)
+    setButtonText('Subscribe')
+  }
+
   const { signTypedDataAsync } = useSignTypedData({
-    onError() {
-      setLoading(false)
-    }
+    onError
   })
   const { data: signer } = useSigner()
   const { write: writeSubscribe, data: writeData } = useContractWrite({
@@ -43,22 +46,18 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
       setButtonText('Subscribing...')
     },
     onError(error: any) {
-      toast.error(`Failed - ${error?.data?.message ?? error?.message}`)
-      setLoading(false)
-      setButtonText('Subscribe')
+      toast.error(error?.data?.message ?? error?.message)
+      onError()
     }
   })
+
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onCompleted(data) {
       if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
         setButtonText('Indexing...')
       }
     },
-    onError(error) {
-      toast.error(error.message)
-      setLoading(false)
-      setButtonText('Subscribe')
-    }
+    onError
   })
 
   const { indexed } = usePendingTxn(
@@ -76,45 +75,40 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   }, [indexed])
 
   const [createSubscribeTypedData] = useMutation(CREATE_FOLLOW_TYPED_DATA, {
-    onCompleted(data) {
-      const { typedData, id } = data.createFollowTypedData
-      signTypedDataAsync({
-        domain: omitKey(typedData?.domain, '__typename'),
-        types: omitKey(typedData?.types, '__typename'),
-        value: omitKey(typedData?.value, '__typename')
-      })
-        .then(async (signature) => {
-          const { profileIds, datas } = typedData?.value
-          const { v, r, s } = utils.splitSignature(signature)
-          const args = {
-            follower: signer?.getAddress(),
-            profileIds,
-            datas,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
-          }
-          if (RELAYER_ENABLED) {
-            broadcast({ variables: { request: { id, signature } } })
-          } else {
-            writeSubscribe({
-              args
-            })
-          }
+    async onCompleted(data) {
+      const { typedData, id } =
+        data.createFollowTypedData as CreateFollowBroadcastItemResult
+      try {
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
         })
-        .catch((err) => {
-          toast.error(err.message)
-          setLoading(false)
-          setButtonText('Subscribe')
-        })
+        const { v, r, s } = utils.splitSignature(signature)
+        const { profileIds, datas } = typedData?.value
+        const args = {
+          follower: signer?.getAddress(),
+          profileIds,
+          datas,
+          sig: {
+            v,
+            r,
+            s,
+            deadline: typedData.value.deadline
+          }
+        }
+        if (RELAYER_ENABLED) {
+          broadcast({ variables: { request: { id, signature } } })
+        } else {
+          writeSubscribe({
+            args
+          })
+        }
+      } catch (error) {
+        onError()
+      }
     },
-    onError() {
-      setButtonText('Subscribe')
-      setLoading(false)
-    }
+    onError
   })
 
   const subscribe = () => {

@@ -21,7 +21,12 @@ import clsx from 'clsx'
 import { utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { Erc20, FeeFollowModuleSettings, Profile } from 'src/types'
+import {
+  CreateSetFollowModuleBroadcastItemResult,
+  Erc20,
+  FeeFollowModuleSettings,
+  Profile
+} from 'src/types'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
@@ -89,30 +94,32 @@ const Membership = ({ channel }: Props) => {
   const [setFollowModuleTypedData] = useMutation(
     SET_FOLLOW_MODULE_TYPED_DATA_MUTATION,
     {
-      onCompleted(data) {
-        const { typedData, id } = data.createSetFollowModuleTypedData
+      async onCompleted(data) {
+        const { typedData, id } =
+          data.createSetFollowModuleTypedData as CreateSetFollowModuleBroadcastItemResult
         const { profileId, followModule, followModuleInitData } =
           typedData?.value
-
-        signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        }).then((signature) => {
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omitKey(typedData?.domain, '__typename'),
+            types: omitKey(typedData?.types, '__typename'),
+            value: omitKey(typedData?.value, '__typename')
+          })
           const { v, r, s } = utils.splitSignature(signature)
+          const args = {
+            profileId,
+            followModule,
+            followModuleInitData,
+            sig: { v, r, s, deadline: typedData.value.deadline }
+          }
           if (RELAYER_ENABLED) {
             broadcast({ variables: { request: { id, signature } } })
           } else {
-            writeFollow({
-              args: {
-                profileId,
-                followModule,
-                followModuleInitData,
-                sig: { v, r, s, deadline: typedData.value.deadline }
-              }
-            })
+            writeFollow({ args })
           }
-        })
+        } catch (error) {
+          setLoading(false)
+        }
       },
       onError(error) {
         setLoading(false)

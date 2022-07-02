@@ -22,6 +22,7 @@ import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import { CreateCommentBroadcastItemResult } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -50,9 +51,15 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   })
+
+  const onError = () => {
+    setButtonText('Comment')
+    setLoading(false)
+  }
+
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
-      setLoading(false)
+      onError()
       toast.error(error.message)
     }
   })
@@ -69,8 +76,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onError(error) {
       toast.error(error.message)
-      setLoading(false)
-      setButtonText('Comment')
+      onError()
     }
   })
 
@@ -90,8 +96,9 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   }, [indexed])
 
   const [createTypedData] = useMutation(CREATE_COMMENT_TYPED_DATA, {
-    onCompleted(data) {
-      const { typedData, id } = data.createCommentTypedData
+    async onCompleted(data) {
+      const { typedData, id } =
+        data.createCommentTypedData as CreateCommentBroadcastItemResult
       const {
         profileId,
         profileIdPointed,
@@ -104,44 +111,37 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         referenceModuleInitData
       } = typedData?.value
       setButtonText('Signing...')
-      signTypedDataAsync({
-        domain: omitKey(typedData?.domain, '__typename'),
-        types: omitKey(typedData?.types, '__typename'),
-        value: omitKey(typedData?.value, '__typename')
-      })
-        .then((signature) => {
-          setUserSigNonce(userSigNonce + 1)
-          const { v, r, s } = utils.splitSignature(signature)
-          setButtonText('Commenting...')
-          if (RELAYER_ENABLED) {
-            broadcast({ variables: { request: { id, signature } } })
-          } else {
-            writeComment({
-              args: {
-                profileId,
-                profileIdPointed,
-                pubIdPointed,
-                contentURI,
-                collectModule,
-                collectModuleInitData,
-                referenceModule,
-                referenceModuleData,
-                referenceModuleInitData,
-                sig: { v, r, s, deadline: typedData.value.deadline }
-              }
-            })
-          }
+      try {
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
         })
-        .catch(() => {
-          setButtonText('Comment')
-          setLoading(false)
-        })
+        setUserSigNonce(userSigNonce + 1)
+        const { v, r, s } = utils.splitSignature(signature)
+        const args = {
+          profileId,
+          profileIdPointed,
+          pubIdPointed,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleData,
+          referenceModuleInitData,
+          sig: { v, r, s, deadline: typedData.value.deadline }
+        }
+        setButtonText('Commenting...')
+        if (RELAYER_ENABLED) {
+          broadcast({ variables: { request: { id, signature } } })
+        } else {
+          writeComment({ args })
+        }
+      } catch (error) {
+        onError()
+      }
     },
-    onError(error) {
-      toast.error(error.message)
-      setButtonText('Comment')
-      setLoading(false)
-    }
+    onError
   })
 
   const submitComment = async (data: FormData) => {

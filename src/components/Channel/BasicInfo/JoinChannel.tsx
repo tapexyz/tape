@@ -32,10 +32,14 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const [isAllowed, setIsAllowed] = useState(false)
   const { isAuthenticated } = usePersistStore()
   const [buttonText, setButtonText] = useState('Join Channel')
+
+  const onError = () => {
+    setLoading(false)
+    setButtonText('Join Channel')
+  }
+
   const { signTypedDataAsync } = useSignTypedData({
-    onError() {
-      setLoading(false)
-    }
+    onError
   })
   const { data: signer } = useSigner()
 
@@ -47,9 +51,8 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
       setButtonText('Joining...')
     },
     onError(error: any) {
-      toast.error(`Failed - ${error?.data?.message ?? error?.message}`)
-      setLoading(false)
-      setButtonText('Join Channel')
+      toast.error(error?.data?.message ?? error?.message)
+      onError()
     }
   })
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
@@ -58,11 +61,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
         setButtonText('Indexing...')
       }
     },
-    onError(error) {
-      toast.error(error.message)
-      setLoading(false)
-      setButtonText('Join Channel')
-    }
+    onError
   })
 
   const { indexed } = usePendingTxn(
@@ -102,13 +101,14 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   })
 
   const [createJoinTypedData] = useMutation(CREATE_FOLLOW_TYPED_DATA, {
-    onCompleted(data) {
+    async onCompleted(data) {
       const { typedData, id } = data.createFollowTypedData
-      signTypedDataAsync({
-        domain: omitKey(typedData?.domain, '__typename'),
-        types: omitKey(typedData?.types, '__typename'),
-        value: omitKey(typedData?.value, '__typename')
-      }).then(async (signature) => {
+      try {
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
+        })
         const { v, r, s } = utils.splitSignature(signature)
         const args = {
           follower: signer?.getAddress(),
@@ -126,12 +126,13 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
         } else {
           writeJoinChannel({ args })
         }
-      })
+      } catch (error) {
+        onError()
+      }
     },
     onError(error) {
       toast.error(error.message)
-      setLoading(false)
-      setButtonText('Join Channel')
+      onError()
     }
   })
 
@@ -166,7 +167,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     <Tooltip
       content={
         followModule
-          ? `Pay ${followModule.amount.value} ${followModule.amount.asset.symbol}`
+          ? `Pay Membership - ${followModule.amount.value} ${followModule.amount.asset.symbol}`
           : buttonText
       }
       placement="top"

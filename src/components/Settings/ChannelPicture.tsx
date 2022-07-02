@@ -13,7 +13,7 @@ import { utils } from 'ethers'
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
-import { Profile } from 'src/types'
+import { CreateSetProfileImageUriBroadcastItemResult, Profile } from 'src/types'
 import { IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -68,27 +68,31 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const [createSetProfileImageURITypedData] = useMutation(
     SET_PFP_URI_TYPED_DATA,
     {
-      onCompleted(data) {
-        const { typedData, id } = data.createSetProfileImageURITypedData
-        signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        }).then((signature) => {
+      async onCompleted(data) {
+        const { typedData, id } =
+          data.createSetProfileImageURITypedData as CreateSetProfileImageUriBroadcastItemResult
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omitKey(typedData?.domain, '__typename'),
+            types: omitKey(typedData?.types, '__typename'),
+            value: omitKey(typedData?.value, '__typename')
+          })
           const { profileId, imageURI } = typedData?.value
           const { v, r, s } = utils.splitSignature(signature)
+          const args = {
+            profileId,
+            imageURI,
+            sig: { v, r, s, deadline: typedData.value.deadline }
+          }
           if (RELAYER_ENABLED) {
             broadcast({ variables: { request: { id, signature } } })
           } else {
-            writePfpUri({
-              args: {
-                profileId,
-                imageURI,
-                sig: { v, r, s, deadline: typedData.value.deadline }
-              }
-            })
+            writePfpUri({ args })
           }
-        })
+        } catch (error) {
+          setLoading(false)
+          setSelectedPfp(getProfilePicture(channel))
+        }
       },
       onError(error) {
         setLoading(false)

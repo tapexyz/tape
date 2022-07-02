@@ -18,6 +18,7 @@ import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { MdPublishedWithChanges } from 'react-icons/md'
+import { CreateMirrorBroadcastItemResult } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -67,8 +68,9 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   }, [indexed])
 
   const [createMirrorTypedData] = useMutation(CREATE_MIRROR_TYPED_DATA, {
-    onCompleted(data) {
-      const { id, typedData } = data.createMirrorTypedData
+    async onCompleted(data) {
+      const { id, typedData } =
+        data.createMirrorTypedData as CreateMirrorBroadcastItemResult
       const {
         profileId,
         profileIdPointed,
@@ -77,11 +79,12 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
         referenceModuleData,
         referenceModuleInitData
       } = typedData?.value
-      signTypedDataAsync({
-        domain: omitKey(typedData?.domain, '__typename'),
-        types: omitKey(typedData?.types, '__typename'),
-        value: omitKey(typedData?.value, '__typename')
-      }).then((signature) => {
+      try {
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
+        })
         const { v, r, s } = utils.splitSignature(signature)
         const sig = { v, r, s, deadline: typedData.value.deadline }
         const inputStruct = {
@@ -98,7 +101,9 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
         } else {
           mirrorWithSig({ args: inputStruct })
         }
-      })
+      } catch (error) {
+        setLoading(false)
+      }
     },
     onError(error) {
       toast.error(error.message)
@@ -129,7 +134,11 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
         onClick={() => mirrorVideo()}
         className="p-3.5 bg-gray-200 dark:bg-gray-800 rounded-full"
       >
-        {loading ? <Loader size="sm" /> : <MdPublishedWithChanges />}
+        {loading ? (
+          <Loader size="sm" className="m-[1px]" />
+        ) : (
+          <MdPublishedWithChanges />
+        )}
       </button>
     </Tooltip>
   )

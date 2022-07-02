@@ -67,33 +67,28 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const { userSigNonce, setUserSigNonce } = useAppStore()
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState<string | null>(null)
+
+  const onError = () => {
+    setLoading(false)
+    setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
+  }
+
   const { sendTransactionAsync } = useSendTransaction({
-    onError() {
-      setLoading(false)
-    }
+    onError
   })
   const { signTypedDataAsync } = useSignTypedData({
-    onError(error) {
-      setLoading(false)
-      toast.error(error.message)
-    }
+    onError
   })
 
   const { write: writeComment, data: writeCommentData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'commentWithSig',
-    onError(error) {
-      setLoading(false)
-      toast.error(error.message)
-    }
+    onError
   })
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
-    onError(error) {
-      toast.error(error.message)
-      setLoading(false)
-    }
+    onError
   })
 
   const { indexed } = usePendingTxn(
@@ -111,7 +106,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   }, [indexed])
 
   const [createTypedData] = useMutation(CREATE_COMMENT_TYPED_DATA, {
-    onCompleted(data) {
+    async onCompleted(data) {
       const { typedData, id } = data.createCommentTypedData
       const {
         profileId,
@@ -124,44 +119,37 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         referenceModuleData,
         referenceModuleInitData
       } = typedData?.value
-      signTypedDataAsync({
-        domain: omitKey(typedData?.domain, '__typename'),
-        types: omitKey(typedData?.types, '__typename'),
-        value: omitKey(typedData?.value, '__typename')
-      })
-        .then((signature) => {
-          setUserSigNonce(userSigNonce + 1)
-          setButtonText('Commenting...')
-          const { v, r, s } = utils.splitSignature(signature)
-          if (RELAYER_ENABLED) {
-            broadcast({ variables: { request: { id, signature } } })
-          } else {
-            writeComment({
-              args: {
-                profileId,
-                profileIdPointed,
-                pubIdPointed,
-                contentURI,
-                collectModule,
-                collectModuleInitData,
-                referenceModule,
-                referenceModuleData,
-                referenceModuleInitData,
-                sig: { v, r, s, deadline: typedData.value.deadline }
-              }
-            })
-          }
+      try {
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
         })
-        .catch(() => {
-          setLoading(false)
-          setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
-        })
+        setUserSigNonce(userSigNonce + 1)
+        setButtonText('Commenting...')
+        const { v, r, s } = utils.splitSignature(signature)
+        const args = {
+          profileId,
+          profileIdPointed,
+          pubIdPointed,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleData,
+          referenceModuleInitData,
+          sig: { v, r, s, deadline: typedData.value.deadline }
+        }
+        if (RELAYER_ENABLED) {
+          broadcast({ variables: { request: { id, signature } } })
+        } else {
+          writeComment({ args })
+        }
+      } catch (error) {
+        onError()
+      }
     },
-    onError(error) {
-      toast.error(error.message)
-      setLoading(false)
-      setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
-    }
+    onError
   })
 
   const submitComment = async () => {

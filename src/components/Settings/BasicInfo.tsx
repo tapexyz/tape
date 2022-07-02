@@ -111,28 +111,30 @@ const BasicInfo = ({ channel }: Props) => {
   const [createSetProfileMetadataTypedData] = useMutation(
     SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
     {
-      onCompleted(data) {
+      async onCompleted(data) {
         const { typedData, id } = data.createSetProfileMetadataTypedData
-        signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        }).then((signature) => {
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omitKey(typedData?.domain, '__typename'),
+            types: omitKey(typedData?.types, '__typename'),
+            value: omitKey(typedData?.value, '__typename')
+          })
           const { profileId, metadata } = typedData?.value
           const { v, r, s } = utils.splitSignature(signature)
+          const args = {
+            user: channel?.ownedBy,
+            profileId,
+            metadata,
+            sig: { v, r, s, deadline: typedData.value.deadline }
+          }
           if (RELAYER_ENABLED) {
             broadcast({ variables: { request: { id, signature } } })
           } else {
-            writeMetaData({
-              args: {
-                user: channel?.ownedBy,
-                profileId,
-                metadata,
-                sig: { v, r, s, deadline: typedData.value.deadline }
-              }
-            })
+            writeMetaData({ args })
           }
-        })
+        } catch (error) {
+          setLoading(false)
+        }
       },
       onError(error) {
         toast.error(error.message ?? ERROR_MESSAGE)

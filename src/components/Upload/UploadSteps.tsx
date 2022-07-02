@@ -9,6 +9,7 @@ import {
   IPFS_GATEWAY,
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
+  LENSTUBE_URL,
   RELAYER_ENABLED
 } from '@utils/constants'
 import { isLessThan100MB } from '@utils/functions/getSizeFromBytes'
@@ -30,14 +31,18 @@ const UploadSteps = () => {
   const { setUploadedVideo, uploadedVideo, bundlrData } = useAppStore()
   const { selectedChannel } = usePersistStore()
 
+  const onError = () => {
+    setUploadedVideo({
+      ...uploadedVideo,
+      buttonText: 'Post Video',
+      loading: false
+    })
+  }
+
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
-      setUploadedVideo({
-        ...uploadedVideo,
-        buttonText: 'Post Video',
-        loading: false
-      })
+      onError()
     }
   })
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
@@ -52,11 +57,7 @@ const UploadSteps = () => {
     },
     onError(error) {
       toast.error(error.message)
-      setUploadedVideo({
-        ...uploadedVideo,
-        buttonText: 'Post Video',
-        loading: false
-      })
+      onError()
     }
   })
   const { data: writePostData, write: writePostContract } = useContractWrite({
@@ -71,12 +72,8 @@ const UploadSteps = () => {
       })
     },
     onError(error: any) {
-      toast.error(`Failed - ${error?.data?.message ?? error?.message}`)
-      setUploadedVideo({
-        ...uploadedVideo,
-        buttonText: 'Post Video',
-        loading: false
-      })
+      toast.error(error?.data?.message ?? error?.message)
+      onError()
     }
   })
 
@@ -190,12 +187,9 @@ const UploadSteps = () => {
   }
 
   const [createTypedData] = useMutation(CREATE_POST_TYPED_DATA, {
-    onCompleted({
-      createPostTypedData
-    }: {
-      createPostTypedData: CreatePostBroadcastItemResult
-    }) {
-      const { typedData, id } = createPostTypedData
+    async onCompleted(data) {
+      const { typedData, id } =
+        data.createPostTypedData as CreatePostBroadcastItemResult
       const {
         profileId,
         contentURI,
@@ -204,11 +198,12 @@ const UploadSteps = () => {
         referenceModule,
         referenceModuleInitData
       } = typedData?.value
-      signTypedDataAsync({
-        domain: omitKey(typedData?.domain, '__typename'),
-        types: omitKey(typedData?.types, '__typename'),
-        value: omitKey(typedData?.value, '__typename')
-      }).then((signature) => {
+      try {
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
+        })
         const { v, r, s } = utils.splitSignature(signature)
         const args = {
           profileId,
@@ -219,22 +214,16 @@ const UploadSteps = () => {
           referenceModuleInitData,
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
-        if (RELAYER_ENABLED) {
+        if (RELAYER_ENABLED)
           broadcast({ variables: { request: { id, signature } } })
-        } else {
-          writePostContract({
-            args
-          })
-        }
-      })
+        else writePostContract({ args })
+      } catch (error) {
+        onError()
+      }
     },
     onError(error) {
       toast.error(error.message)
-      setUploadedVideo({
-        ...uploadedVideo,
-        buttonText: 'Post Video',
-        loading: false
-      })
+      onError()
     }
   })
 
@@ -289,7 +278,7 @@ const UploadSteps = () => {
       metadata_id: uuidv4(),
       description: uploadedVideo.description,
       content: `${uploadedVideo.title}\n\n${uploadedVideo.description}`,
-      external_url: null,
+      external_url: LENSTUBE_URL,
       animation_url: uploadedVideo.videoSource,
       image: uploadedVideo.thumbnail,
       cover: uploadedVideo.thumbnail,
