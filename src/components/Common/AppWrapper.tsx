@@ -1,47 +1,31 @@
 import { useQuery } from '@apollo/client'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { AUTH_ROUTES, POLYGON_CHAIN_ID } from '@utils/constants'
-import { getToastOptions } from '@utils/functions/getToastOptions'
+import { POLYGON_CHAIN_ID } from '@utils/constants'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
-import useIsMounted from '@utils/hooks/useIsMounted'
-import { AUTH } from '@utils/url-path'
-import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
-import { useTheme } from 'next-themes'
-import React, { FC, ReactNode, Suspense, useEffect, useState } from 'react'
-import { Toaster } from 'react-hot-toast'
+import React, { FC, ReactNode, useEffect, useState } from 'react'
 import { Profile } from 'src/types'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
-const Header = dynamic(() => import('./Header'), {
-  suspense: true
-})
-const Sidebar = dynamic(() => import('./Sidebar'), {
-  suspense: true
-})
 
 interface Props {
   children: ReactNode
+  hideHeader?: boolean
 }
-
-const Layout: FC<Props> = ({ children }) => {
-  const { pathname, replace, asPath } = useRouter()
+const AppWrapper: FC<Props> = ({ children }) => {
+  const [pageLoading, setPageLoading] = useState(true)
+  const { chain } = useNetwork()
+  const { disconnect } = useDisconnect()
+  const { address, connector } = useAccount()
   const { setChannels, setUserSigNonce } = useAppStore()
+
   const {
     setSelectedChannel,
     selectedChannel,
-    setIsAuthenticated,
-    isAuthenticated
+    isAuthenticated,
+    setIsAuthenticated
   } = usePersistStore()
-  const { resolvedTheme } = useTheme()
-  const { chain } = useNetwork()
-  const { disconnect } = useDisconnect()
-  const { mounted } = useIsMounted()
-  const { address, connector, isDisconnected } = useAccount()
-  const [pageLoading, setPageLoading] = useState(true)
-  const isSignInPage = pathname === AUTH
 
   const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: address },
@@ -59,13 +43,8 @@ const Layout: FC<Props> = ({ children }) => {
   })
 
   useEffect(() => {
-    // Allow only user is authenticated
-    if (!isAuthenticated && AUTH_ROUTES.includes(pathname)) {
-      replace(`${AUTH}?next=${asPath}`)
-    }
     const accessToken = localStorage.getItem('accessToken')
     const refreshToken = localStorage.getItem('refreshToken')
-    setPageLoading(false)
 
     const logout = () => {
       setIsAuthenticated(false)
@@ -75,6 +54,7 @@ const Layout: FC<Props> = ({ children }) => {
       localStorage.removeItem('lenstube.store')
       if (disconnect) disconnect()
     }
+    setPageLoading(false)
 
     if (
       refreshToken &&
@@ -88,7 +68,7 @@ const Layout: FC<Props> = ({ children }) => {
     } else {
       if (isAuthenticated) logout()
     }
-    if (isDisconnected && mounted) {
+    if (!connector?.id) {
       if (disconnect) disconnect()
       setIsAuthenticated(false)
     }
@@ -96,33 +76,11 @@ const Layout: FC<Props> = ({ children }) => {
       logout()
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    isAuthenticated,
-    disconnect,
-    connector,
-    isDisconnected,
-    setSelectedChannel
-  ])
+  }, [isAuthenticated, disconnect, connector, setSelectedChannel])
 
   if (loading || pageLoading) return <FullPageLoader />
 
-  return (
-    <>
-      <Toaster
-        position="top-right"
-        toastOptions={getToastOptions(resolvedTheme)}
-      />
-      <Suspense fallback={<FullPageLoader />}>
-        <div className="flex overflow-x-hidden pb-14 md:pb-0">
-          <Sidebar />
-          <div className="w-full md:pl-[94px] pl-2 pr-2 md:pr-4 max-w-[110rem] mx-auto">
-            {!isSignInPage && <Header />}
-            <div className="pt-16">{children}</div>
-          </div>
-        </div>
-      </Suspense>
-    </>
-  )
+  return <>{children}</>
 }
 
-export default Layout
+export default AppWrapper

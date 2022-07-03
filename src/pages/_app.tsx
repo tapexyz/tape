@@ -71,7 +71,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     <WagmiConfig client={wagmiClient}>
       <ApolloProvider client={apolloClient}>
         <ThemeProvider defaultTheme="light" attribute="class">
-          <Layout ua={pageProps.ua ?? true}>
+          <Layout>
             <Component {...pageProps} />
           </Layout>
         </ThemeProvider>
