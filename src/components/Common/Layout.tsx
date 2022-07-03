@@ -24,9 +24,10 @@ const Sidebar = dynamic(() => import('./Sidebar'), {
 
 interface Props {
   children: ReactNode
+  ua: boolean
 }
 
-const Layout: FC<Props> = ({ children }) => {
+const Layout: FC<Props> = ({ children, ua }) => {
   const { pathname, replace, asPath } = useRouter()
   const { setChannels, setUserSigNonce } = useAppStore()
   const {
@@ -103,8 +104,7 @@ const Layout: FC<Props> = ({ children }) => {
     isDisconnected,
     setSelectedChannel
   ])
-
-  if (loading || pageLoading) return <FullPageLoader />
+  if (ua && (loading || pageLoading)) return <FullPageLoader />
 
   return (
     <>

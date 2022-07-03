@@ -7,6 +7,7 @@ import {
   CHALLENGE_QUERY,
   CURRENT_USER_QUERY
 } from '@utils/gql/queries'
+import cookie from 'cookie-cutter'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
@@ -83,6 +84,9 @@ const Login = () => {
                 const channels: Profile[] = res?.data?.profiles?.items
                 setChannels(channels)
                 setSelectedChannel(res.data.profiles.items[0])
+                cookie.set('channelId', res.data.profiles.items[0].id, {
+                  secure: true
+                })
                 setIsAuthenticated(true)
                 if (router.query?.next) {
                   router.push(router.query?.next as string)
