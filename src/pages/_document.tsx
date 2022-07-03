@@ -35,12 +35,6 @@ class LenstubeDocument extends Document {
           />
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#000000" />
-          <script
-            async
-            defer
-            data-website-id="2ecff432-293c-4211-8639-f4a4bf65551d"
-            src="https://analytics.lenstube.xyz/umami.js"
-          ></script>
         </Head>
         <body>
           <Main />
