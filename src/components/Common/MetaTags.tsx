@@ -8,11 +8,10 @@ type Props = {
   description?: string
   image?: string
   date?: string
-  isLarge?: boolean
 }
 
 const MetaTags: FC<Props> = (props) => {
-  const { description, title, image, isLarge } = props
+  const { description, title, image } = props
   const router = useRouter()
 
   const meta = {
@@ -27,7 +26,6 @@ const MetaTags: FC<Props> = (props) => {
   return (
     <Head>
       <title>{meta.title}</title>
-      <meta charSet="UTF-8" />
       <meta name="robots" content="follow, index" />
       <meta content={meta.description} name="description" />
       <meta
@@ -44,19 +42,18 @@ const MetaTags: FC<Props> = (props) => {
       <meta property="og:description" content={meta.description} />
       <meta property="og:title" content={meta.title} />
       <meta property="og:image" content={meta.image} />
-      <meta property="og:image:width" content={isLarge ? '600' : '400'} />
-      <meta property="og:image:height" content={isLarge ? '300' : '400'} />
-      <meta
-        name="twitter:card"
-        content={isLarge ? 'summary_large_image' : 'summary'}
-      />
-      <meta property="twitter:image:width" content={isLarge ? '600' : '400'} />
-      <meta property="twitter:image:height" content={isLarge ? '300' : '400'} />
+      <meta property="og:image:width" content="400" />
+      <meta property="og:image:height" content="400" />
+      <meta name="twitter:card" content="summary" />
+      <meta property="twitter:image:width" content="400" />
+      <meta property="twitter:image:height" content="400" />
       <meta name="twitter:site" content="Lenstube" />
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta property="twitter:image:src" content={meta.image} />
       <meta property="twitter:creator" content={LENSTUBE_TWITTER_HANDLE} />
+      <link rel="preconnect" href="https://ik.imagekit.io" />
+      <link rel="dns-prefetch" href="https://ik.imagekit.io" />
       <link rel="preconnect" href="https://assets.lenstube.xyz" />
       <link rel="dns-prefetch" href="https://assets.lenstube.xyz" />
       <link rel="preconnect" href="https://ipfs.infura.io" />

@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { setCookie } from '@utils/functions/setCookie'
 import { Profile } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 import create from 'zustand'
@@ -29,10 +28,8 @@ export const usePersistStore = create(
       notificationCount: 0,
       setNotificationCount: (notificationCount) =>
         set(() => ({ notificationCount })),
-      setSelectedChannel: (channel) => {
-        setCookie('channelId', channel?.id || '')
-        set(() => ({ selectedChannel: channel }))
-      },
+      setSelectedChannel: (channel) =>
+        set(() => ({ selectedChannel: channel })),
       addToRecentlyWatched: (video) => {
         const alreadyExists = get().recentlyWatched.find(
           (el) => el.id === video.id
