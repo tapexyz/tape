@@ -115,7 +115,6 @@ const CreateChannel = () => {
               type="text"
               placeholder="T Series"
               autoComplete="off"
-              markAsRequired
               validationError={errors.channelName?.message}
             />
           </div>

@@ -13,18 +13,9 @@ const useHls = (src: string, options: Options | null) => {
 
   useEffect(() => {
     hls.current.loadSource(src)
-    // NOTE: although it is more reactive to use the ref, but it seems that plyr wants to use the old as lazy process
     hls.current.attachMedia(document.querySelector('.plyr-react')!)
-    /**
-     * You can all your custom event listener here
-     * For this example we iterate over the qualities and pass them to plyr player
-     * ref.current.plyr.play() ❌
-     * console.log.bind(console, 'MANIFEST_PARSED') ✅
-     * NOTE: you can only start play the audio here
-     * Uncaught (in promise) DOMException: play() failed because the user didn't interact with the document first.
-     */
     hls.current.on(Hls.Events.MANIFEST_PARSED, () => {
-      if (hasQuality.current) return // early quit if already set
+      if (hasQuality.current) return
 
       const levels = hls.current.levels
       const quality: Options['quality'] = {

@@ -19,10 +19,10 @@ const Activity: FC<Props> = ({ channel }) => {
   return (
     <div className="my-4 md:ml-5 md:my-6">
       <div className="grid w-full grid-cols-12 md:space-x-2">
-        <div className="col-span-12 my-3 lg:col-span-3">
+        <div className="col-span-12 my-3  lg:col-span-2">
           <About channel={channel} />
         </div>
-        <div className="col-span-12 lg:col-span-9">
+        <div className="col-span-12 lg:col-span-10">
           <Tab.Group>
             <Tab.List className="flex overflow-x-auto no-scrollbar">
               <Tab

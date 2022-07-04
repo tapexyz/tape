@@ -227,7 +227,7 @@ const Membership = ({ channel }: Props) => {
           <div className="grid gap-3 md:grid-cols-2">
             <div>
               <div className="flex items-center mb-1 space-x-1.5">
-                <div className="text-[11px] required font-semibold uppercase opacity-70">
+                <div className="text-[11px] font-semibold uppercase opacity-70">
                   Currency
                 </div>
               </div>
@@ -262,7 +262,6 @@ const Membership = ({ channel }: Props) => {
                 type="number"
                 min={0}
                 placeholder="10"
-                markAsRequired
                 autoComplete="off"
                 {...register('amount')}
                 validationError={errors.amount?.message}
@@ -273,7 +272,6 @@ const Membership = ({ channel }: Props) => {
                 label="Recipient"
                 placeholder="0x00..."
                 autoComplete="off"
-                markAsRequired
                 validationError={errors.recipient?.message}
                 {...register('recipient')}
               />

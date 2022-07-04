@@ -7,18 +7,9 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   type?: string
   className?: string
   validationError?: string
-  markAsRequired?: boolean
 }
 export const Input = forwardRef<HTMLInputElement, Props>(function Input(
-  {
-    label,
-    type = 'text',
-    validationError,
-    className = '',
-    markAsRequired,
-    id,
-    ...props
-  },
+  { label, type = 'text', validationError, className = '', id, ...props },
   ref
 ) {
   return (
@@ -26,9 +17,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
       {label && (
         <div className="flex items-center mb-1 space-x-1.5">
           <div
-            className={clsx('text-[11px] font-semibold uppercase opacity-70', {
-              required: markAsRequired
-            })}
+            className={clsx('text-[11px] font-semibold uppercase opacity-70')}
           >
             {label}
           </div>

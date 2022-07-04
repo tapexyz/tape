@@ -43,11 +43,6 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
-.required:after {
-  content: ' *';
-  color: red;
-}
-
 html {
   --plyr-color-main: #6366f1;
 }

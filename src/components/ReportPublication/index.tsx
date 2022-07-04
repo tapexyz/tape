@@ -68,7 +68,7 @@ const ReportPublication = () => {
           </h1>
           <div className="mt-4">
             <label
-              className="block text-xs font-semibold uppercase required opacity-70"
+              className="block text-xs font-semibold uppercase opacity-70"
               htmlFor="report"
             >
               Reason

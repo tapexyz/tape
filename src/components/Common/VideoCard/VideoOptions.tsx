@@ -4,6 +4,7 @@ import usePersistStore from '@lib/store/persist'
 import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
 import { HIDE_PUBLICATION } from '@utils/gql/queries'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineDelete } from 'react-icons/ai'
@@ -22,9 +23,11 @@ const VideoOptions = ({
 }) => {
   const { addToWatchLater, removeFromWatchLater, watchLater, selectedChannel } =
     usePersistStore()
+  const router = useRouter()
   const [hideVideo] = useMutation(HIDE_PUBLICATION, {
     onCompleted() {
       toast.success('Video deleted')
+      router.reload()
     }
   })
 
