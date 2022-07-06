@@ -55,6 +55,7 @@ export const LENSTUBE_APP_ID = 'lenstube'
 // auth routes
 export const AUTH_ROUTES = [
   '/upload',
+  '/live',
   '/settings',
   '/lt',
   '/feed',

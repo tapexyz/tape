@@ -58,3 +58,10 @@ export type VideoUploadForm = {
   description: string
   adultContent: boolean
 }
+
+export type StreamData = {
+  streamKey: string
+  hostUrl: string
+  playbackId: string
+  streamId: string
+}

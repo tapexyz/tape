@@ -1,10 +1,14 @@
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
-import React, { useState } from 'react'
+import React, { FC } from 'react'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
+import { StreamData } from 'src/types/local'
 
-const StreamDetails = () => {
-  const [showStreamKey, setShowStreamKey] = useState(false)
+type Props = {
+  stream: StreamData
+}
+
+const StreamDetails: FC<Props> = ({ stream }) => {
   const [, copy] = useCopyToClipboard()
 
   const onCopyKey = (value: string) => {
@@ -13,56 +17,31 @@ const StreamDetails = () => {
   }
 
   return (
-    <div className="mt-2">
-      <div className="text-[11px] font-semibold uppercase opacity-70">
-        Stream Details
+    <div className="p-1">
+      <div className="mt-4">
+        <div className="text-xs font-semibold opacity-70">Stream URL</div>
+        <div className="flex items-center justify-between">
+          <span>{stream.hostUrl}</span>
+          <button
+            className="hover:opacity-60 focus:outline-none"
+            onClick={() => onCopyKey(stream.hostUrl)}
+            type="button"
+          >
+            <IoCopyOutline />
+          </button>
+        </div>
       </div>
-      <div className="mt-2">
-        <div className="grid grid-cols-2 text-sm">
-          <div className="mb-2 opacity-50">Stream name</div>
-          <div>My first stream</div>
-          <div className="mb-2 opacity-50">Stream key</div>
-          <div>
-            <div className="flex items-center space-x-2 text-left">
-              {showStreamKey ? (
-                <button
-                  className="focus:outline-none"
-                  onClick={() => setShowStreamKey((show) => !show)}
-                >
-                  04a9-vs3-fot9-7yq
-                </button>
-              ) : (
-                <button
-                  className="hover:opacity-100 opacity-60 focus:outline-none"
-                  onClick={() => setShowStreamKey((show) => !show)}
-                >
-                  Reveal key
-                </button>
-              )}
-              <button
-                className="hover:opacity-60 focus:outline-none"
-                onClick={() => onCopyKey('04a9-vs3-fot9-7yq')}
-                type="button"
-              >
-                <IoCopyOutline />
-              </button>
-            </div>
-          </div>
-          <div className="mb-2 opacity-50">Stream URL</div>
-          <div>
-            <div className="flex items-center space-x-2">
-              <span>rtmp://rtmp.livepeer.com/live</span>
-              <button
-                className="hover:opacity-60 focus:outline-none"
-                onClick={() => onCopyKey('rtmp://rtmp.livepeer.com/live')}
-                type="button"
-              >
-                <IoCopyOutline />
-              </button>
-            </div>
-          </div>
-          <div className="mb-2 opacity-50">Stream ID</div>
-          <div>04a9e50b-76c9-473a-b88d-a5848220ca</div>
+      <div className="mt-4">
+        <div className="text-xs font-semibold opacity-70">Stream Key</div>
+        <div className="flex items-center justify-between">
+          <span>{stream.streamKey}</span>
+          <button
+            className="hover:opacity-60 focus:outline-none"
+            onClick={() => onCopyKey(stream.streamKey)}
+            type="button"
+          >
+            <IoCopyOutline />
+          </button>
         </div>
       </div>
     </div>
