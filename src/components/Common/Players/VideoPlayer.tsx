@@ -1,6 +1,7 @@
-import 'plyr/dist/plyr.css'
+import 'plyr-react/dist/plyr.css'
 
 import imageCdn from '@utils/functions/imageCdn'
+import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import clsx from 'clsx'
 import { APITypes, PlyrInstance, PlyrProps, usePlyr } from 'plyr-react'
 import React, { FC, useCallback, useEffect, useState } from 'react'
@@ -48,6 +49,7 @@ const CustomPlyrInstance = React.forwardRef<APITypes, customPlyrProps>(
     const [isShown, setIsShown] = useState(false)
     const [position, setPosition] = useState({ x: 0, y: 0 })
     const [loop, setIsLoop] = useState(false)
+    const [, copy] = useCopyToClipboard()
 
     React.useEffect(() => {
       const { current } = ref as React.MutableRefObject<APITypes>
@@ -63,7 +65,6 @@ const CustomPlyrInstance = React.forwardRef<APITypes, customPlyrProps>(
         api.plyr.currentTime = Number(time || 0)
       }
       //Set seek time when meta data fully downloaded
-      // api.plyr.on('loadeddata', onDataLoaded)
       api.plyr.on('loadedmetadata', onDataLoaded)
     })
 
@@ -87,7 +88,7 @@ const CustomPlyrInstance = React.forwardRef<APITypes, customPlyrProps>(
       const api = current as { plyr: PlyrInstance }
       const url = new URL(window.location.href)
       url.searchParams.set('t', api.plyr.currentTime.toFixed(2).toString())
-      navigator.clipboard.writeText(url.href)
+      copy(url.href)
       toast.success('Link copied to clipboard')
     }
 
@@ -100,7 +101,7 @@ const CustomPlyrInstance = React.forwardRef<APITypes, customPlyrProps>(
     }
 
     const onCopyVideoUrl = () => {
-      navigator.clipboard.writeText(window.location.href.split('?')[0])
+      copy(window.location.href.split('?')[0])
       toast.success('Link copied to clipboard')
     }
 
