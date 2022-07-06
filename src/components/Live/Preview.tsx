@@ -1,6 +1,5 @@
-import axios from 'axios'
 import clsx from 'clsx'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { StreamData } from 'src/types/local'
 
 type Props = {
@@ -8,24 +7,24 @@ type Props = {
 }
 
 const Preview: FC<Props> = ({ stream }) => {
-  const [isStreamActive, setIsStreamActive] = useState(false)
-  const [currentInterval, setCurrentInterval] = useState<NodeJS.Timer>()
+  const [isStreamActive] = useState(false)
+  // const [currentInterval, setCurrentInterval] = useState<NodeJS.Timer>()
 
-  const pollStream = async () => {
-    const response = await axios.get(`/api/video/stream?id=${stream.streamId}`)
-    if (response.data.success) {
-      setIsStreamActive(response.data.isActive)
-    }
-  }
+  // const pollStream = async () => {
+  //   const response = await axios.get(`/api/video/stream?id=${stream.streamId}`)
+  //   if (response.data.success) {
+  //     setIsStreamActive(response.data.isActive)
+  //   }
+  // }
 
-  useEffect(() => {
-    if (stream.streamId) {
-      clearInterval(currentInterval)
-      const id = setInterval(() => pollStream(), 2000)
-      setCurrentInterval(id)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stream.streamId])
+  // useEffect(() => {
+  //   if (stream.streamId) {
+  //     clearInterval(currentInterval)
+  //     const id = setInterval(() => pollStream(), 2000)
+  //     setCurrentInterval(id)
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [stream.streamId])
 
   return (
     <div className="relative overflow-hidden rounded-xl">
