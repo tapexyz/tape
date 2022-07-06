@@ -14,8 +14,10 @@ const StreamDetails = () => {
 
   return (
     <div className="mt-2">
-      <h1 className="text-xs font-semibold uppercase">Stream Details</h1>
-      <div className="mt-2 md:mt-4">
+      <div className="text-[11px] font-semibold uppercase opacity-70">
+        Stream Details
+      </div>
+      <div className="mt-2">
         <div className="grid grid-cols-2 text-sm">
           <div className="mb-2 opacity-50">Stream name</div>
           <div>My first stream</div>
@@ -23,10 +25,14 @@ const StreamDetails = () => {
           <div>
             <div className="flex items-center space-x-2 text-left">
               {showStreamKey ? (
-                <span>04a9-vs3-fot9-7yq</span>
+                <button
+                  className="focus:outline-none"
+                  onClick={() => setShowStreamKey((show) => !show)}
+                >
+                  04a9-vs3-fot9-7yq
+                </button>
               ) : (
                 <button
-                  type="button"
                   className="hover:opacity-100 opacity-60 focus:outline-none"
                   onClick={() => setShowStreamKey((show) => !show)}
                 >
