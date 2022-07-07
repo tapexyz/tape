@@ -28,11 +28,13 @@ const PlayerContextMenu = forwardRef<APITypes, Props>(
       const api = current as { plyr: PlyrInstance }
       api.plyr.loop = !api.plyr.loop
       setIsLoop(api.plyr.loop)
+      hideContextMenu()
     }
 
     const onCopyVideoUrl = () => {
       copy(`${LENSTUBE_URL}${asPath}`)
       toast.success('Video link copied')
+      hideContextMenu()
     }
 
     const onCopyAtCurrentTime = () => {
@@ -42,6 +44,7 @@ const PlayerContextMenu = forwardRef<APITypes, Props>(
       const selectedTime = plyrApi.plyr.currentTime.toFixed(2).toString()
       copy(`${LENSTUBE_URL}${asPath}?t=${selectedTime}`)
       toast.success(`Video link copied`)
+      hideContextMenu()
     }
 
     return (

@@ -8,8 +8,6 @@ yarn check-format ||
 (
     echo '
     
-        🤢🤮🤢🤮 Your styling looks disgusting. 🤢🤮🤢🤮
-
         Prettier Check Failed. Run yarn format, add changes and try commit again.
         
         ';
@@ -21,7 +19,6 @@ yarn check-lint ||
 (
         echo '
 
-        😤🏀👋😤 Get that weak s**t out of here! 😤🏀👋😤 
         ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.
                 
         '
@@ -33,8 +30,7 @@ yarn check-types ||
 (
     echo '
     
-    🤡😂❌🤡 Failed Type check. 🤡😂❌🤡
-    Are you seriously trying to write that? Make the changes required above.
+    ❌ Failed Type check ❌
     
     '
     false;
@@ -42,6 +38,6 @@ yarn check-types ||
 
 echo '
 
-✅✅✅✅ You win this time... committing the changes. ✅✅✅✅
+✅✅✅✅ Looks good... committing the changes. ✅✅✅✅
 
 '
