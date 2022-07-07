@@ -41,6 +41,7 @@ const CustomPlyrInstance = forwardRef<APITypes, customPlyrProps>(
     const raptorRef = usePlyr(ref, { options, source })
     const [showContextMenu, setShowContextMenu] = useState(false)
     const [position, setPosition] = useState({ x: 0, y: 0 })
+    const [isVideoLoop, setIsVideoLoop] = useState(false)
 
     useEffect(() => {
       const { current } = ref as React.MutableRefObject<APITypes>
@@ -81,6 +82,8 @@ const CustomPlyrInstance = forwardRef<APITypes, customPlyrProps>(
             position={position}
             ref={ref}
             hideContextMenu={() => setShowContextMenu(false)}
+            isVideoLoop={isVideoLoop}
+            setIsVideoLoop={setIsVideoLoop}
           />
         )}
       </div>
