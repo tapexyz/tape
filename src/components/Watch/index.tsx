@@ -1,7 +1,10 @@
 import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
-import VideoDetailShimmer from '@components/Shimmers/VideoDetailShimmer'
+import {
+  SuggestedVideosShimmer,
+  VideoDetailShimmer
+} from '@components/Shimmers/VideoDetailShimmer'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { VIDEO_DETAIL_QUERY } from '@utils/gql/queries'
@@ -12,7 +15,9 @@ import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { LenstubePublication } from 'src/types/local'
 
-const SuggestedVideos = dynamic(() => import('./SuggestedVideos'))
+const SuggestedVideos = dynamic(() => import('./SuggestedVideos'), {
+  loading: () => <SuggestedVideosShimmer />
+})
 const VideoComments = dynamic(() => import('./VideoComments'))
 const AboutChannel = dynamic(() => import('./AboutChannel'))
 
