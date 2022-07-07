@@ -18,7 +18,7 @@ type Props = {
 
 const PlayerContextMenu = forwardRef<APITypes, Props>(
   ({ position, hideContextMenu, isVideoLoop, setIsVideoLoop }, ref) => {
-    const { asPath } = useRouter()
+    const { query } = useRouter()
     const [, copy] = useCopyToClipboard()
     const contextMenuRef = useRef(null)
     useOutsideClick(contextMenuRef, () => hideContextMenu())
@@ -34,7 +34,7 @@ const PlayerContextMenu = forwardRef<APITypes, Props>(
     }
 
     const onCopyVideoUrl = () => {
-      copy(`${LENSTUBE_URL}${asPath}`)
+      copy(`${LENSTUBE_URL}/watch/${query.id}`)
       toast.success('Video link copied')
       hideContextMenu()
     }
@@ -44,14 +44,14 @@ const PlayerContextMenu = forwardRef<APITypes, Props>(
       if (current.plyr?.source === null) return
       const plyrApi = current as { plyr: PlyrInstance }
       const selectedTime = plyrApi.plyr.currentTime.toFixed(2).toString()
-      copy(`${LENSTUBE_URL}${asPath}?t=${selectedTime}`)
+      copy(`${LENSTUBE_URL}/watch/${query.id}?t=${selectedTime}`)
       toast.success(`Video link copied`)
       hideContextMenu()
     }
 
     return (
       <div
-        className="absolute p-2 text-sm text-white bg-gray-900 bg-opacity-90 rounded-xl"
+        className="absolute z-[1] p-2 text-sm text-white bg-gray-900 bg-opacity-90 rounded-xl"
         style={{ top: position.y, left: position.x }}
         ref={contextMenuRef}
       >

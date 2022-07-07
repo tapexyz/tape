@@ -4,6 +4,7 @@ import React from 'react'
 
 import { HashtagMatcher } from './matchers/HashtagMatcher'
 import { MentionMatcher } from './matchers/MentionMatcher'
+import { TimeMatcher } from './matchers/TimeMatcher'
 
 const InterweaveContent = ({ content }: { content: string }) => {
   return (
@@ -12,6 +13,7 @@ const InterweaveContent = ({ content }: { content: string }) => {
         content={content}
         newWindow
         matchers={[
+          new TimeMatcher('time'),
           new HashtagMatcher('hashtag'),
           new MentionMatcher('mention'),
           new UrlMatcher('url', { validateTLD: false })

@@ -25,7 +25,7 @@ export const defaultPlyrControls = [
   'play-large',
   'play',
   'progress',
-  'current-time',
+  'duration',
   'mute',
   'volume',
   'captions',
@@ -113,9 +113,7 @@ const VideoPlayer: FC<Props> = ({
   }
 
   return (
-    <div
-      className={clsx('wrapper overflow-hidden rounded-xl', wrapperClassName)}
-    >
+    <div className={clsx('overflow-hidden rounded-xl', wrapperClassName)}>
       <CustomPlyrInstance
         ref={ref}
         source={{
