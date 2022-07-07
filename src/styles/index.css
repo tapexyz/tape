@@ -6,8 +6,9 @@
 
 body {
   font-family: 'Matter', sans-serif;
-  @apply bg-white dark:bg-black dark:text-white text-black min-h-screen;
+  @apply bg-white dark:bg-black dark:text-white text-black min-h-screen overflow-y-scroll;
 }
+
 .text-secondary {
   @apply text-gray-700 dark:text-gray-300;
 }

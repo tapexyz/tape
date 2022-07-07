@@ -104,7 +104,7 @@ export type ApprovedModuleAllowanceAmountRequest = {
 export type Attribute = {
   __typename?: 'Attribute';
   /** The display type */
-  displayType?: Maybe<MetadataDisplayType>;
+  displayType?: Maybe<Scalars['String']>;
   /** identifier of this attribute, we will update by this id  */
   key: Scalars['String'];
   /** The trait type - can be anything its the name it will render so include spaces */
@@ -1005,6 +1005,11 @@ export type FollowRequest = {
   follow: Array<Follow>;
 };
 
+export type FollowRevenueResult = {
+  __typename?: 'FollowRevenueResult';
+  revenues: Array<RevenueAggregate>;
+};
+
 export type Follower = {
   __typename?: 'Follower';
   totalAmountOfTimesFollowed: Scalars['Int'];
@@ -1094,55 +1099,6 @@ export type GlobalProtocolStatsRequest = {
   sources?: InputMaybe<Array<Scalars['Sources']>>;
   /** Unix time to timestamp - if not supplied it go to the present timestamp */
   toTimestamp?: InputMaybe<Scalars['UnixTimestamp']>;
-};
-
-export type HasCollectedItem = {
-  __typename?: 'HasCollectedItem';
-  collected: Scalars['Boolean'];
-  collectedTimes: Scalars['Int'];
-  publicationId: Scalars['InternalPublicationId'];
-};
-
-export type HasCollectedPublicationRequest = {
-  /** Internal publication ids */
-  publicationIds: Array<Scalars['InternalPublicationId']>;
-  /** Wallet address */
-  walletAddress: Scalars['EthereumAddress'];
-};
-
-export type HasCollectedRequest = {
-  collectRequests: Array<HasCollectedPublicationRequest>;
-};
-
-export type HasCollectedResult = {
-  __typename?: 'HasCollectedResult';
-  results: Array<HasCollectedItem>;
-  /** Wallet address */
-  walletAddress: Scalars['EthereumAddress'];
-};
-
-export type HasMirroredItem = {
-  __typename?: 'HasMirroredItem';
-  mirrored: Scalars['Boolean'];
-  publicationId: Scalars['InternalPublicationId'];
-};
-
-export type HasMirroredProfileRequest = {
-  /** Profile id */
-  profileId: Scalars['ProfileId'];
-  /** Internal publication ids */
-  publicationIds: Array<Scalars['InternalPublicationId']>;
-};
-
-export type HasMirroredRequest = {
-  profilesRequest: Array<HasMirroredProfileRequest>;
-};
-
-export type HasMirroredResult = {
-  __typename?: 'HasMirroredResult';
-  /** Profile id */
-  profileId: Scalars['ProfileId'];
-  results: Array<HasMirroredItem>;
 };
 
 export type HasTxHashBeenIndexedRequest = {
@@ -1867,7 +1823,30 @@ export type ProfileFollowModuleSettings = {
   type: FollowModules;
 };
 
+export type ProfileFollowRevenueQueryRequest = {
+  /** The profile id */
+  profileId: Scalars['ProfileId'];
+};
+
 export type ProfileMedia = MediaSet | NftImage;
+
+export type ProfilePublicationRevenueQueryRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>;
+  limit?: InputMaybe<Scalars['LimitScalar']>;
+  /** The profile id */
+  profileId: Scalars['ProfileId'];
+  /** The App Id */
+  sources?: InputMaybe<Array<Scalars['Sources']>>;
+  /** The revenue types */
+  types?: InputMaybe<Array<PublicationTypes>>;
+};
+
+/** The paginated revenue result */
+export type ProfilePublicationRevenueResult = {
+  __typename?: 'ProfilePublicationRevenueResult';
+  items: Array<PublicationRevenue>;
+  pageInfo: PaginatedResultInfo;
+};
 
 export type ProfilePublicationsForSaleRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>;
@@ -1890,31 +1869,6 @@ export type ProfileQueryRequest = {
   /** The mirrored publication id */
   whoMirroredPublicationId?: InputMaybe<Scalars['InternalPublicationId']>;
 };
-
-export type ProfileRevenueQueryRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>;
-  limit?: InputMaybe<Scalars['LimitScalar']>;
-  /** The profile id */
-  profileId: Scalars['ProfileId'];
-  /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']>>;
-  /** The revenue types */
-  types?: InputMaybe<Array<ProfileRevenueTypes>>;
-};
-
-/** The paginated revenue result */
-export type ProfileRevenueResult = {
-  __typename?: 'ProfileRevenueResult';
-  items: Array<PublicationRevenue>;
-  pageInfo: PaginatedResultInfo;
-};
-
-/** profile revenue request types */
-export enum ProfileRevenueTypes {
-  Comment = 'COMMENT',
-  Mirror = 'MIRROR',
-  Post = 'POST'
-}
 
 /** Profile search results */
 export type ProfileSearchResult = {
@@ -2008,10 +1962,8 @@ export enum PublicationReportingSensitiveSubreason {
 /** The social comment */
 export type PublicationRevenue = {
   __typename?: 'PublicationRevenue';
-  earnings: Erc20Amount;
-  /** Protocol treasury fee % */
-  protocolFee: Scalars['Float'];
   publication: Publication;
+  revenue: RevenueAggregate;
 };
 
 export type PublicationRevenueQueryRequest = {
@@ -2092,10 +2044,6 @@ export type Query = {
   following: PaginatedFollowingResult;
   generateModuleCurrencyApprovalData: GenerateModuleCurrencyApproval;
   globalProtocolStats: GlobalProtocolStats;
-  /** @deprecated you should use the `hasCollectedByMe` field resolver on the publication, this will be removed from on 1st of July 2022 */
-  hasCollected: Array<HasCollectedResult>;
-  /** @deprecated you should use the `mirrors` field resolver passing in the profile id the user is active on, this lives on the publication, this will be removed from on 1st of July 2022 */
-  hasMirrored: Array<HasMirroredResult>;
   hasTxHashBeenIndexed: TransactionResult;
   nftOwnershipChallenge: NftOwnershipChallengeResult;
   nfts: NfTsResult;
@@ -2104,8 +2052,9 @@ export type Query = {
   ping: Scalars['String'];
   profile?: Maybe<Profile>;
   profileFollowModuleBeenRedeemed: Scalars['Boolean'];
+  profileFollowRevenue: FollowRevenueResult;
+  profilePublicationRevenue: ProfilePublicationRevenueResult;
   profilePublicationsForSale: PaginatedProfilePublicationsForSaleResult;
-  profileRevenue: ProfileRevenueResult;
   profiles: PaginatedProfileResult;
   publication?: Maybe<Publication>;
   publicationRevenue?: Maybe<PublicationRevenue>;
@@ -2174,16 +2123,6 @@ export type QueryGlobalProtocolStatsArgs = {
 };
 
 
-export type QueryHasCollectedArgs = {
-  request: HasCollectedRequest;
-};
-
-
-export type QueryHasMirroredArgs = {
-  request: HasMirroredRequest;
-};
-
-
 export type QueryHasTxHashBeenIndexedArgs = {
   request: HasTxHashBeenIndexedRequest;
 };
@@ -2219,13 +2158,18 @@ export type QueryProfileFollowModuleBeenRedeemedArgs = {
 };
 
 
-export type QueryProfilePublicationsForSaleArgs = {
-  request: ProfilePublicationsForSaleRequest;
+export type QueryProfileFollowRevenueArgs = {
+  request: ProfileFollowRevenueQueryRequest;
 };
 
 
-export type QueryProfileRevenueArgs = {
-  request: ProfileRevenueQueryRequest;
+export type QueryProfilePublicationRevenueArgs = {
+  request: ProfilePublicationRevenueQueryRequest;
+};
+
+
+export type QueryProfilePublicationsForSaleArgs = {
+  request: ProfilePublicationsForSaleRequest;
 };
 
 
@@ -2270,7 +2214,7 @@ export type QueryWhoCollectedPublicationArgs = {
 
 export type ReactionFieldResolverRequest = {
   /** Profile id */
-  profileId: Scalars['ProfileId'];
+  profileId?: InputMaybe<Scalars['ProfileId']>;
 };
 
 export type ReactionRequest = {
@@ -2349,6 +2293,11 @@ export type ReservedClaimableHandle = {
   handle: Scalars['Handle'];
   id: Scalars['HandleClaimIdScalar'];
   source: Scalars['String'];
+};
+
+export type RevenueAggregate = {
+  __typename?: 'RevenueAggregate';
+  total: Erc20Amount;
 };
 
 export type RevertCollectModuleSettings = {

@@ -14,17 +14,21 @@ dayjs.extend(relativeTime)
 
 type Props = {
   video: LenstubePublication
+  time?: number
 }
 
 type PlayerProps = {
   source: string
   poster: string
   hls: HLSData
+  time?: number
 }
 
-const MemoizedVideoPlayer = React.memo(({ source, poster }: PlayerProps) => (
-  <VideoPlayer source={source} poster={poster} />
-))
+const MemoizedVideoPlayer = React.memo(
+  ({ source, poster, time }: PlayerProps) => (
+    <VideoPlayer source={source} poster={poster} time={time} />
+  )
+)
 MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 
 const MemoizedHlsVideoPlayer = React.memo(
@@ -34,7 +38,7 @@ const MemoizedHlsVideoPlayer = React.memo(
 )
 MemoizedHlsVideoPlayer.displayName = 'MemoizedHlsVideoPlayer'
 
-const Video: FC<Props> = ({ video }) => {
+const Video: FC<Props> = ({ video, time }) => {
   // const isHlsSupported = Hls.isSupported()
 
   return (
@@ -49,6 +53,7 @@ const Video: FC<Props> = ({ video }) => {
         source={getVideoUrl(video)}
         poster={video?.metadata?.cover?.original.url}
         hls={video.hls}
+        time={time}
       />
       {/* )} */}
       <div className="flex items-center justify-between">

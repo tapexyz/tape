@@ -3,7 +3,6 @@ import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
 import usePersistStore from '@lib/store/persist'
 import { PROFILE_QUERY } from '@utils/gql/queries'
-import useIsMounted from '@utils/hooks/useIsMounted'
 import {
   SETTINGS,
   SETTINGS_MEMBERSHIP,
@@ -23,7 +22,6 @@ const SideNav = dynamic(() => import('./SideNav'))
 
 const Settings = () => {
   const { selectedChannel } = usePersistStore()
-  const { mounted } = useIsMounted()
   const router = useRouter()
 
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
@@ -46,7 +44,7 @@ const Settings = () => {
   return (
     <>
       <MetaTags title="Channel Settings" />
-      {(loading || !mounted) && <SettingsShimmer />}
+      {loading && <SettingsShimmer />}
       {!loading && !error && channel ? (
         <div className="grid gap-4 md:grid-cols-4">
           <div className="md:col-span-1">

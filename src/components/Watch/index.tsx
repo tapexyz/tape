@@ -22,7 +22,7 @@ const Video = dynamic(() => import('./Video'), {
 
 const VideoDetails = () => {
   const {
-    query: { id }
+    query: { id, t }
   } = useRouter()
   const { addToRecentlyWatched, selectedChannel } = usePersistStore()
   const [video, setVideo] = useState<LenstubePublication>()
@@ -76,7 +76,7 @@ const VideoDetails = () => {
         <>
           <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
             <div className="col-span-3 space-y-3 divide-y divide-gray-200 dark:divide-gray-900">
-              <Video video={video} />
+              <Video video={video} time={Number(t)} />
               <AboutChannel video={video} />
               <VideoComments video={video} />
             </div>

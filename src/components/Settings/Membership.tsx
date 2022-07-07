@@ -66,7 +66,12 @@ const Membership = ({ channel }: Props) => {
     loading: moduleLoading
   } = useQuery(CHANNEL_FOLLOW_MODULE_QUERY, {
     variables: { request: { profileIds: channel?.id } },
-    skip: !channel?.id
+    skip: !channel?.id,
+    onCompleted(data) {
+      const activeFollowModule: FeeFollowModuleSettings =
+        data?.profiles?.items[0]?.followModule
+      setShowForm(activeFollowModule ? false : true)
+    }
   })
   const activeFollowModule: FeeFollowModuleSettings =
     followModuleData?.profiles?.items[0]?.followModule
@@ -222,7 +227,7 @@ const Membership = ({ channel }: Props) => {
         </div>
       )}
 
-      {(showForm || !activeFollowModule) && !moduleLoading ? (
+      {showForm && !moduleLoading ? (
         <form onSubmit={handleSubmit(onSubmitForm)}>
           <div className="grid gap-3 md:grid-cols-2">
             <div>
@@ -278,9 +283,11 @@ const Membership = ({ channel }: Props) => {
             </div>
           </div>
           <div className="flex justify-end mt-4">
-            <Button variant="secondary" onClick={() => setShowForm(false)}>
-              Cancel
-            </Button>
+            {activeFollowModule && (
+              <Button variant="secondary" onClick={() => setShowForm(false)}>
+                Cancel
+              </Button>
+            )}
             <Button disabled={loading}>
               {loading ? 'Loading...' : 'Set Membership'}
             </Button>

@@ -53,14 +53,18 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     pfpData?.hash || broadcastData?.broadcast?.txHash
   )
 
+  const onCompleted = () => {
+    if (selectedChannel && selectedPfp)
+      setSelectedChannel({
+        ...selectedChannel,
+        picture: { original: { url: selectedPfp } }
+      })
+  }
+
   useEffect(() => {
     if (indexed) {
       setLoading(false)
-      if (selectedChannel && selectedPfp)
-        setSelectedChannel({
-          ...selectedChannel,
-          picture: { original: { url: selectedPfp } }
-        })
+      onCompleted()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])

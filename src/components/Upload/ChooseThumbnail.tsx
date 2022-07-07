@@ -108,9 +108,11 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
         </div>
       )}
       <div
-        ref={scrollRef}
-        onMouseDown={onMouseDown}
-        className="flex flex-row py-1 pr-2 mt-2 space-x-2 overflow-x-auto cursor-grab no-scrollbar"
+        ref={thumbnails.length > 0 ? scrollRef : null}
+        onMouseDown={thumbnails.length > 0 ? onMouseDown : () => {}}
+        className={clsx('flex flex-row py-1 pr-2 mt-2 space-x-2', {
+          'overflow-x-auto cursor-grab no-scrollbar': thumbnails.length > 0
+        })}
       >
         <label className="flex flex-col items-center justify-center flex-none w-32 h-16 border border-gray-200 border-dashed rounded-lg cursor-pointer opacity-80 focus:outline-none dark:border-gray-800">
           <input
@@ -131,7 +133,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
               className={clsx(
                 'rounded-lg relative cursor-grab flex-none focus:outline-none',
                 {
-                  'ring ring-indigo-500': selectedThumbnailIndex === idx
+                  'ring-2 ring-indigo-500': selectedThumbnailIndex === idx
                 }
               )}
             >
