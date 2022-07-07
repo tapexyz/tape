@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-const ChapterLink = ({ ...props }: any) => {
+const TimeLink = ({ ...props }: any) => {
   const { query } = useRouter()
   return (
     <Link href={`/watch/${query.id}?t=${getSecondsFromTime(props.display)}`}>
@@ -15,7 +15,7 @@ const ChapterLink = ({ ...props }: any) => {
 
 export class TimeMatcher extends Matcher {
   replaceWith(match: string, props: any) {
-    return React.createElement(ChapterLink, props, match)
+    return React.createElement(TimeLink, props, match)
   }
 
   asTag(): string {
