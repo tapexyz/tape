@@ -164,6 +164,7 @@ export const CommentFieldsFragment = gql`
     profile {
       ...MinimalProfileFields
     }
+    reaction(request: $reactionRequest)
     collectedBy {
       address
       defaultProfile {
@@ -219,6 +220,7 @@ export const CommentFieldsFragment = gql`
         profile {
           ...MinimalProfileFields
         }
+        reaction(request: $reactionRequest)
         metadata {
           name
           content
@@ -706,7 +708,10 @@ export const PROFILE_FEED_QUERY = gql`
 `
 
 export const COMMENT_FEED_QUERY = gql`
-  query CommentFeed($request: PublicationsQueryRequest!) {
+  query CommentFeed(
+    $request: PublicationsQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+  ) {
     publications(request: $request) {
       items {
         ... on Comment {

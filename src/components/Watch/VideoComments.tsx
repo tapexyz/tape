@@ -25,7 +25,7 @@ const VideoComments: FC<Props> = ({ video }) => {
   const {
     query: { id }
   } = useRouter()
-  const { isAuthenticated } = usePersistStore()
+  const { isAuthenticated, selectedChannel } = usePersistStore()
 
   const [comments, setComments] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
@@ -37,7 +37,10 @@ const VideoComments: FC<Props> = ({ video }) => {
           commentsOf: id,
           limit: 10,
           sources: [LENSTUBE_APP_ID]
-        }
+        },
+        reactionRequest: selectedChannel
+          ? { profileId: selectedChannel?.id }
+          : null
       },
       skip: !id,
       fetchPolicy: 'no-cache',
@@ -54,7 +57,10 @@ const VideoComments: FC<Props> = ({ video }) => {
         commentsOf: id,
         limit: 10,
         sources: [LENSTUBE_APP_ID]
-      }
+      },
+      reactionRequest: selectedChannel
+        ? { profileId: selectedChannel?.id }
+        : null
     })
   }
 
@@ -68,7 +74,10 @@ const VideoComments: FC<Props> = ({ video }) => {
             cursor: pageInfo?.next,
             limit: 10,
             sources: [LENSTUBE_APP_ID]
-          }
+          },
+          reactionRequest: selectedChannel
+            ? { profileId: selectedChannel?.id }
+            : null
         }
       }).then(({ data }: any) => {
         setPageInfo(data?.publications?.pageInfo)

@@ -10,7 +10,7 @@ import { LenstubePublication } from 'src/types/local'
 
 import TipModal from './TipModal'
 
-const VideoReaction = dynamic(() => import('./VideoReaction'))
+const PublicationReaction = dynamic(() => import('./PublicationReaction'))
 
 type Props = {
   video: LenstubePublication
@@ -25,7 +25,7 @@ const VideoActions: FC<Props> = ({ video }) => {
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <TipModal show={showTip} setShowTip={setShowTip} video={video} />
 
-      <VideoReaction video={video} />
+      <PublicationReaction publication={video} />
       <Button
         variant="secondary"
         className="!p-0"
