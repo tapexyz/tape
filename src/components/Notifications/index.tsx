@@ -65,6 +65,7 @@ const Notifications = () => {
 
   return (
     <div className="p-2 md:p-0">
+      <h1 className="mb-4 text-lg font-medium">Notifications</h1>
       {notifications?.map((notification: Notification, index: number) => (
         <div
           className={clsx('pb-3', {

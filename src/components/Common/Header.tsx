@@ -1,8 +1,10 @@
-import { HOME } from '@utils/url-path'
+import useAppStore from '@lib/store'
+import { HOME, NOTIFICATIONS } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React from 'react'
+import { CgBell } from 'react-icons/cg'
 
 import Login from './Login'
 
@@ -16,6 +18,8 @@ const NotificationTrigger = dynamic(
 const CreateChannel = dynamic(() => import('./CreateChannel'))
 
 const Header = () => {
+  const { hasNewNotification } = useAppStore()
+
   return (
     <div
       className={clsx(
@@ -43,6 +47,14 @@ const Header = () => {
       </div>
       <div className="flex flex-row items-center justify-end space-x-3 md:w-2/5">
         <NotificationTrigger />
+        <Link href={NOTIFICATIONS}>
+          <a className="relative p-1 md:hidden">
+            <CgBell className="text-lg" />
+            {hasNewNotification && (
+              <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-0 right-0" />
+            )}
+          </a>
+        </Link>
         <NewVideoTrigger />
         <Login />
       </div>
