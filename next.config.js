@@ -5,7 +5,7 @@ const { withSentryConfig } = require('@sentry/nextjs')
 const moduleExports = withPWA({
   pwa: {
     dest: 'public',
-    disable: process.env.NODE_ENV === 'development',
+    disable: false,
     runtimeCaching
   },
   reactStrictMode: process.env.NODE_ENV === 'production'
