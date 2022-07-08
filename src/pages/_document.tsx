@@ -29,10 +29,6 @@ class LenstubeDocument extends Document {
             sizes="16x16"
             href={`${STATIC_ASSETS}/images/favicons/favicon-16x16.png`}
           />
-          <link
-            rel="manifest"
-            href={`${STATIC_ASSETS}/images/favicons/site.webmanifest`}
-          />
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#000000" />
         </Head>
