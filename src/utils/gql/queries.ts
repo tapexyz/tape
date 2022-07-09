@@ -23,6 +23,7 @@ export const MinimalProfileFields = gql`
     }
     stats {
       totalFollowers
+      totalPosts
     }
     picture {
       ... on MediaSet {
@@ -1104,6 +1105,7 @@ export const OG_PROFILE_QUERY = gql`
       bio
       stats {
         totalFollowers
+        totalPosts
         totalFollowing
       }
       picture {
@@ -1232,6 +1234,34 @@ export const CREATE_MIRROR_TYPED_DATA = gql`
           referenceModule
           referenceModuleData
           referenceModuleInitData
+        }
+      }
+    }
+  }
+`
+
+export const CREATE_BURN_PROFILE_TYPED_DATA = gql`
+  mutation CreateBurnProfileTypedData($request: BurnProfileRequest!) {
+    createBurnProfileTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        types {
+          BurnWithSig {
+            name
+            type
+          }
+        }
+        value {
+          nonce
+          deadline
+          tokenId
         }
       }
     }

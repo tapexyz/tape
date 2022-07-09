@@ -1,5 +1,6 @@
 import {
   SETTINGS,
+  SETTINGS_DANGER_ZONE,
   SETTINGS_MEMBERSHIP,
   SETTINGS_PERMISSIONS
 } from '@utils/url-path'
@@ -9,6 +10,7 @@ import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import { AiOutlineUser } from 'react-icons/ai'
 import { BsShieldLock } from 'react-icons/bs'
+import { IoWarningOutline } from 'react-icons/io5'
 import { RiVipDiamondLine } from 'react-icons/ri'
 
 import ChannelPicture from './ChannelPicture'
@@ -62,6 +64,19 @@ const SideNav: FC<Props> = ({ channel }) => {
             )}
           >
             <BsShieldLock /> <span>Permissions</span>
+          </a>
+        </Link>
+        <Link href={SETTINGS_DANGER_ZONE}>
+          <a
+            className={clsx(
+              'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-red-100 text-red-500 hover:dark:bg-red-900/60',
+              {
+                'bg-red-100 dark:bg-red-900/60':
+                  isActivePath(SETTINGS_DANGER_ZONE)
+              }
+            )}
+          >
+            <IoWarningOutline /> <span>Danger Zone</span>
           </a>
         </Link>
       </div>

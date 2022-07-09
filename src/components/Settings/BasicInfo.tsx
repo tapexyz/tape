@@ -212,14 +212,14 @@ const BasicInfo = ({ channel }: Props) => {
       onSubmit={handleSubmit(onSaveBasicInfo)}
       className="p-4 bg-white rounded-lg dark:bg-black"
     >
-      <div className="relative flex-none w-full group">
+      <div className="relative flex-none w-full">
         <img
           src={coverImage ?? imageCdn(channel?.coverPicture?.original?.url)}
           className="object-cover object-center w-full h-48 bg-white rounded-xl md:h-56 dark:bg-gray-900"
           draggable={false}
           alt="Cover Image"
         />
-        <label className="absolute p-1 px-3 text-sm bg-white rounded-md cursor-pointer lg:invisible group-hover:visible dark:bg-black top-2 right-2">
+        <label className="absolute p-1 px-3 text-sm bg-white rounded-md cursor-pointer dark:bg-black top-2 right-2">
           Change
           <input
             type="file"
@@ -282,6 +282,7 @@ const BasicInfo = ({ channel }: Props) => {
           placeholder="johndoe"
           {...register('twitter')}
           validationError={errors.twitter?.message}
+          prefix="https://twitter.com/"
         />
       </div>
       <div className="mt-4">

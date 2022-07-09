@@ -5,6 +5,7 @@ import usePersistStore from '@lib/store/persist'
 import { PROFILE_QUERY } from '@utils/gql/queries'
 import {
   SETTINGS,
+  SETTINGS_DANGER_ZONE,
   SETTINGS_MEMBERSHIP,
   SETTINGS_PERMISSIONS
 } from '@utils/url-path'
@@ -19,6 +20,7 @@ const BasicInfo = dynamic(() => import('./BasicInfo'))
 const Permissions = dynamic(() => import('./Permissions'))
 const Membership = dynamic(() => import('./Membership'))
 const SideNav = dynamic(() => import('./SideNav'))
+const DangerZone = dynamic(() => import('./DangerZone'))
 
 const Settings = () => {
   const { selectedChannel } = usePersistStore()
@@ -56,6 +58,7 @@ const Settings = () => {
               <Membership channel={channel} />
             )}
             {router.pathname === SETTINGS_PERMISSIONS && <Permissions />}
+            {router.pathname === SETTINGS_DANGER_ZONE && <DangerZone />}
           </div>
         </div>
       ) : null}
