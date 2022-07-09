@@ -22,6 +22,25 @@ const CollectModuleType = () => {
     })
   }
 
+  const getSelectedCollectType = () => {
+    const followerOnly = uploadedVideo.collectModule.followerOnly
+    const amount = uploadedVideo.collectModule.amount?.value
+    if (uploadedVideo.collectModule.type === 'revertCollectModule') {
+      return 'No one can mint this publication'
+    }
+    if (uploadedVideo.collectModule.isFree) {
+      return `${
+        followerOnly ? 'Only Subscribers' : 'Anyone'
+      } can mint this publication for free`
+    } else if (!uploadedVideo.collectModule.isFree) {
+      return `${
+        followerOnly ? 'Only Subscribers' : 'Anyone'
+      } can mint this publication for given fees - ${amount}`
+    } else if (uploadedVideo.collectModule.followerOnly) {
+      return 'Anyone can mint this publication for free'
+    }
+  }
+
   return (
     <>
       <div className="flex items-center mb-1 space-x-1.5">
@@ -34,7 +53,7 @@ const CollectModuleType = () => {
         onClick={() => setShowModal(true)}
         className="flex items-center justify-between w-full px-4 py-3 text-sm border border-gray-200 focus:outline-none dark:border-gray-800 rounded-xl"
       >
-        <span>Anyone can mint this publication</span>
+        <span>{getSelectedCollectType()}</span>
         <AiOutlineCheck />
       </button>
       <Modal
