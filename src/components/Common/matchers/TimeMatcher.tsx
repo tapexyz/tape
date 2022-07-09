@@ -1,4 +1,4 @@
-import { getSecondsFromTime } from '@utils/functions/getSecondsFromTime'
+import { getSecondsFromTime } from '@utils/functions/formatTime'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import { useRouter } from 'next/router'

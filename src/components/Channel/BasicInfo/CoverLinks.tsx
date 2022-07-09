@@ -1,4 +1,4 @@
-import { getKeyFromAttributes } from '@utils/functions/getFromAttributes'
+import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import React from 'react'
 import { HiOutlineGlobe } from 'react-icons/hi'
 import { RiTwitterLine } from 'react-icons/ri'
@@ -8,25 +8,25 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
   return (
     <div className="absolute bottom-2 right-2">
       <div className="flex space-x-2">
-        {getKeyFromAttributes(channel.attributes, 'website') && (
+        {getValueFromKeyInAttributes(channel.attributes, 'website') && (
           <a
-            href={getKeyFromAttributes(channel.attributes, 'website')}
+            href={getValueFromKeyInAttributes(channel.attributes, 'website')}
             target="_blank"
             rel="noreferer noreferrer"
-            className="p-2 bg-white rounded-lg dark:bg-gray-900 bg-opacity-60"
+            className="p-2 bg-white rounded-lg dark:bg-gray-900 bg-opacity-80"
           >
             <HiOutlineGlobe />
           </a>
         )}
-        {getKeyFromAttributes(channel.attributes, 'twitter') && (
+        {getValueFromKeyInAttributes(channel.attributes, 'twitter') && (
           <a
-            href={`https://twitter.com/${getKeyFromAttributes(
+            href={`https://twitter.com/${getValueFromKeyInAttributes(
               channel.attributes,
               'twitter'
             )}`}
             target="_blank"
             rel="noreferer noreferrer"
-            className="p-2 bg-white rounded-lg dark:bg-gray-900 bg-opacity-60"
+            className="p-2 bg-white rounded-lg dark:bg-gray-900 bg-opacity-80"
           >
             <RiTwitterLine />
           </a>

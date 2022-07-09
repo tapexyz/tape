@@ -1,10 +1,10 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@utils/constants'
-import { getKeyFromAttributes } from '@utils/functions/getFromAttributes'
+import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import React, { FC } from 'react'
 import { AiOutlineNumber } from 'react-icons/ai'
-import { HiOutlineGlobe } from 'react-icons/hi'
+import { HiOutlineGlobe, HiOutlineLocationMarker } from 'react-icons/hi'
 import { RiShieldKeyholeLine, RiTwitterLine } from 'react-icons/ri'
 import { Profile } from 'src/types'
 
@@ -29,11 +29,11 @@ const About: FC<Props> = ({ channel }) => {
       <div className="flex flex-col space-y-3">
         <h6 className="text-xs font-semibold uppercase opacity-80">Links</h6>
         <div className="space-y-1.5">
-          {getKeyFromAttributes(attributes, 'website') && (
+          {getValueFromKeyInAttributes(attributes, 'website') && (
             <div className="flex items-center space-x-1">
               <HiOutlineGlobe />
               <a
-                href={getKeyFromAttributes(attributes, 'website')}
+                href={getValueFromKeyInAttributes(attributes, 'website')}
                 target="_blank"
                 rel="noreferer noreferrer"
                 className="hover:text-indigo-500"
@@ -42,11 +42,11 @@ const About: FC<Props> = ({ channel }) => {
               </a>
             </div>
           )}
-          {getKeyFromAttributes(attributes, 'twitter') && (
+          {getValueFromKeyInAttributes(attributes, 'twitter') && (
             <div className="flex items-center space-x-1">
               <RiTwitterLine />
               <a
-                href={`https://twitter.com/${getKeyFromAttributes(
+                href={`https://twitter.com/${getValueFromKeyInAttributes(
                   attributes,
                   'twitter'
                 )}`}
@@ -80,6 +80,12 @@ const About: FC<Props> = ({ channel }) => {
       </div>
       <div className="inline-flex flex-col space-y-3">
         <h6 className="text-xs font-semibold uppercase opacity-80">Others</h6>
+        {getValueFromKeyInAttributes(attributes, 'location') && (
+          <div className="flex items-center space-x-1">
+            <HiOutlineLocationMarker />
+            <span>{getValueFromKeyInAttributes(attributes, 'location')}</span>
+          </div>
+        )}
         <Tooltip content={parseInt(channel.id)} placement="right">
           <span className="inline-flex items-center space-x-1">
             <AiOutlineNumber />

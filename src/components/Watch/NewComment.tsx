@@ -158,15 +158,15 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
       attributes: [
         {
-          traitType: 'string',
-          trait_type: 'publication',
+          displayType: 'string',
+          traitType: 'publication',
           key: 'publication',
           value: 'comment'
         },
         {
-          traitType: 'string',
+          displayType: 'string',
+          traitType: 'app',
           key: 'app',
-          trait_type: 'app',
           value: LENSTUBE_APP_ID
         }
       ],

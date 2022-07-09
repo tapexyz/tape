@@ -12,7 +12,7 @@ import {
   RELAYER_ENABLED
 } from '@utils/constants'
 import getCoverPicture from '@utils/functions/getCoverPicture'
-import { getKeyFromAttributes } from '@utils/functions/getFromAttributes'
+import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
 import {
@@ -69,8 +69,8 @@ const BasicInfo = ({ channel }: Props) => {
     defaultValues: {
       displayName: channel.name || '',
       description: channel.bio || '',
-      twitter: getKeyFromAttributes(channel?.attributes, 'twitter'),
-      website: getKeyFromAttributes(channel?.attributes, 'website')
+      twitter: getValueFromKeyInAttributes(channel?.attributes, 'twitter'),
+      website: getValueFromKeyInAttributes(channel?.attributes, 'website')
     }
   })
   const { signTypedDataAsync } = useSignTypedData({
@@ -165,30 +165,30 @@ const BasicInfo = ({ channel }: Props) => {
       cover_picture: coverImage,
       attributes: [
         {
-          traitType: 'string',
+          displayType: 'string',
+          traitType: 'website',
           key: 'website',
-          trait_type: 'website',
           value: data.website
         },
         {
-          traitType: 'string',
+          displayType: 'string',
+          traitType: 'location',
           key: 'location',
-          trait_type: 'location',
-          value: getKeyFromAttributes(
+          value: getValueFromKeyInAttributes(
             channel.attributes as Attribute[],
             'location'
           )
         },
         {
-          traitType: 'string',
-          trait_type: 'twitter',
+          displayType: 'string',
+          traitType: 'twitter',
           key: 'twitter',
           value: data.twitter
         },
         {
-          traitType: 'string',
+          displayType: 'string',
+          traitType: 'app',
           key: 'app',
-          trait_type: 'app',
           value: LENSTUBE_APP_ID
         }
       ],
