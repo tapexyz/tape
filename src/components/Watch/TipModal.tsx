@@ -142,7 +142,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
         if (RELAYER_ENABLED) {
-          broadcast({ variables: { request: { id, signature } } })
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.reason) writeComment({ args })
         } else {
           writeComment({ args })
         }
@@ -167,21 +170,21 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
       attributes: [
         {
-          traitType: 'string',
-          trait_type: 'publication',
+          displayType: 'string',
+          traitType: 'publication',
           key: 'publication',
           value: 'comment'
         },
         {
-          traitType: 'string',
+          displayType: 'string',
+          traitType: 'app',
           key: 'app',
-          trait_type: 'app',
           value: LENSTUBE_APP_ID
         },
         {
-          traitType: 'string',
+          displayType: 'string',
+          traitType: 'type',
           key: 'type',
-          trait_type: 'type',
           value: 'tip'
         }
       ],

@@ -13,17 +13,18 @@ import { AiOutlineDislike, AiOutlineLike } from 'react-icons/ai'
 import { LenstubePublication } from 'src/types/local'
 
 type Props = {
-  video: LenstubePublication
+  publication: LenstubePublication
+  size?: 'xs' | 'sm'
 }
 
-const VideoReaction: FC<Props> = ({ video }) => {
+const VideoReaction: FC<Props> = ({ publication, size = 'sm' }) => {
   const { isAuthenticated, selectedChannel } = usePersistStore()
 
   const [reaction, setReaction] = useState({
-    isLiked: video.reaction === 'UPVOTE',
-    isDisliked: video.reaction === 'DOWNVOTE',
-    likeCount: video.stats.totalUpvotes,
-    dislikeCount: video.stats.totalDownvotes
+    isLiked: publication.reaction === 'UPVOTE',
+    isDisliked: publication.reaction === 'DOWNVOTE',
+    likeCount: publication.stats.totalUpvotes,
+    dislikeCount: publication.stats.totalDownvotes
   })
 
   const [addReaction] = useMutation(ADD_REACTION_MUTATION, {
@@ -55,7 +56,7 @@ const VideoReaction: FC<Props> = ({ video }) => {
           request: {
             profileId: selectedChannel?.id,
             reaction: 'UPVOTE',
-            publicationId: video.id
+            publicationId: publication.id
           }
         }
       })
@@ -65,7 +66,7 @@ const VideoReaction: FC<Props> = ({ video }) => {
           request: {
             profileId: selectedChannel?.id,
             reaction: 'UPVOTE',
-            publicationId: video.id
+            publicationId: publication.id
           }
         }
       })
@@ -88,7 +89,7 @@ const VideoReaction: FC<Props> = ({ video }) => {
           request: {
             profileId: selectedChannel?.id,
             reaction: 'DOWNVOTE',
-            publicationId: video.id
+            publicationId: publication.id
           }
         }
       })
@@ -98,7 +99,7 @@ const VideoReaction: FC<Props> = ({ video }) => {
           request: {
             profileId: selectedChannel?.id,
             reaction: 'DOWNVOTE',
-            publicationId: video.id
+            publicationId: publication.id
           }
         }
       })
@@ -113,8 +114,10 @@ const VideoReaction: FC<Props> = ({ video }) => {
             'text-indigo-500 font-semibold': reaction.isLiked
           })}
         >
-          <AiOutlineLike />
-          <span>{reaction.likeCount > 0 ? reaction.likeCount : 'Like'}</span>
+          <AiOutlineLike className={clsx({ 'text-xs': size === 'xs' })} />
+          <span className={clsx({ 'text-xs': size === 'xs' })}>
+            {reaction.likeCount > 0 ? reaction.likeCount : 'Like'}
+          </span>
         </span>
       </Button>
       <Button
@@ -127,8 +130,8 @@ const VideoReaction: FC<Props> = ({ video }) => {
             'text-indigo-500 font-semibold': reaction.isDisliked
           })}
         >
-          <AiOutlineDislike />
-          <span>
+          <AiOutlineDislike className={clsx({ 'text-xs': size === 'xs' })} />
+          <span className={clsx({ 'text-xs': size === 'xs' })}>
             {reaction.dislikeCount > 0 ? reaction.dislikeCount : 'Dislike'}
           </span>
         </span>

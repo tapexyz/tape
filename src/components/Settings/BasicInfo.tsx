@@ -12,7 +12,7 @@ import {
   RELAYER_ENABLED
 } from '@utils/constants'
 import getCoverPicture from '@utils/functions/getCoverPicture'
-import { getKeyFromAttributes } from '@utils/functions/getFromAttributes'
+import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
 import {
@@ -69,8 +69,8 @@ const BasicInfo = ({ channel }: Props) => {
     defaultValues: {
       displayName: channel.name || '',
       description: channel.bio || '',
-      twitter: getKeyFromAttributes(channel?.attributes, 'twitter'),
-      website: getKeyFromAttributes(channel?.attributes, 'website')
+      twitter: getValueFromKeyInAttributes(channel?.attributes, 'twitter'),
+      website: getValueFromKeyInAttributes(channel?.attributes, 'website')
     }
   })
   const { signTypedDataAsync } = useSignTypedData({
@@ -128,7 +128,10 @@ const BasicInfo = ({ channel }: Props) => {
             sig: { v, r, s, deadline: typedData.value.deadline }
           }
           if (RELAYER_ENABLED) {
-            broadcast({ variables: { request: { id, signature } } })
+            const { data } = await broadcast({
+              variables: { request: { id, signature } }
+            })
+            if (data?.broadcast?.reason) writeMetaData({ args })
           } else {
             writeMetaData({ args })
           }
@@ -165,30 +168,30 @@ const BasicInfo = ({ channel }: Props) => {
       cover_picture: coverImage,
       attributes: [
         {
-          traitType: 'string',
+          displayType: 'string',
+          traitType: 'website',
           key: 'website',
-          trait_type: 'website',
           value: data.website
         },
         {
-          traitType: 'string',
+          displayType: 'string',
+          traitType: 'location',
           key: 'location',
-          trait_type: 'location',
-          value: getKeyFromAttributes(
+          value: getValueFromKeyInAttributes(
             channel.attributes as Attribute[],
             'location'
           )
         },
         {
-          traitType: 'string',
-          trait_type: 'twitter',
+          displayType: 'string',
+          traitType: 'twitter',
           key: 'twitter',
           value: data.twitter
         },
         {
-          traitType: 'string',
+          displayType: 'string',
+          traitType: 'app',
           key: 'app',
-          trait_type: 'app',
           value: LENSTUBE_APP_ID
         }
       ],
@@ -212,14 +215,14 @@ const BasicInfo = ({ channel }: Props) => {
       onSubmit={handleSubmit(onSaveBasicInfo)}
       className="p-4 bg-white rounded-lg dark:bg-black"
     >
-      <div className="relative flex-none w-full group">
+      <div className="relative flex-none w-full">
         <img
           src={coverImage ?? imageCdn(channel?.coverPicture?.original?.url)}
           className="object-cover object-center w-full h-48 bg-white rounded-xl md:h-56 dark:bg-gray-900"
           draggable={false}
           alt="Cover Image"
         />
-        <label className="absolute p-1 px-3 text-sm bg-white rounded-md cursor-pointer lg:invisible group-hover:visible dark:bg-black top-2 right-2">
+        <label className="absolute p-1 px-3 text-sm bg-white rounded-md cursor-pointer dark:bg-black top-2 right-2">
           Change
           <input
             type="file"
@@ -282,6 +285,7 @@ const BasicInfo = ({ channel }: Props) => {
           placeholder="johndoe"
           {...register('twitter')}
           validationError={errors.twitter?.message}
+          prefix="https://twitter.com/"
         />
       </div>
       <div className="mt-4">

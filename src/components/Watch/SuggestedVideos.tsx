@@ -3,7 +3,8 @@ import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
-import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PaginatedResultInfo } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
@@ -11,9 +12,12 @@ import { LenstubePublication } from 'src/types/local'
 import SuggestedVideoCard from './SuggestedVideoCard'
 
 const SuggestedVideos = () => {
+  const {
+    query: { id }
+  } = useRouter()
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
+  const { loading, error, fetchMore, refetch } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
         sortCriteria: 'LATEST',
@@ -28,6 +32,10 @@ const SuggestedVideos = () => {
       setVideos(data?.explorePublications?.items)
     }
   })
+
+  useEffect(() => {
+    refetch()
+  }, [id, refetch])
 
   const { observe } = useInView({
     threshold: 1,

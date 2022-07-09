@@ -138,7 +138,10 @@ const Membership = ({ channel }: Props) => {
             sig: { v, r, s, deadline: typedData.value.deadline }
           }
           if (RELAYER_ENABLED) {
-            broadcast({ variables: { request: { id, signature } } })
+            const { data } = await broadcast({
+              variables: { request: { id, signature } }
+            })
+            if (data?.broadcast?.reason) writeFollow({ args })
           } else {
             writeFollow({ args })
           }
@@ -250,7 +253,7 @@ const Membership = ({ channel }: Props) => {
                       key={idx}
                       value={`${currency.address}-${currency.symbol}`}
                     >
-                      {currency.name}
+                      {currency.symbol}
                     </option>
                   )
                 )}

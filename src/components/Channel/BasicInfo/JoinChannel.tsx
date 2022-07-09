@@ -122,7 +122,10 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
           }
         }
         if (RELAYER_ENABLED) {
-          broadcast({ variables: { request: { id, signature } } })
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.reason) writeJoinChannel({ args })
         } else {
           writeJoinChannel({ args })
         }

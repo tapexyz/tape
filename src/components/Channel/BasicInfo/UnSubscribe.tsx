@@ -34,7 +34,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
     setButtonText(subscribeText)
   }
 
-  const {} = useWaitForTransaction({
+  useWaitForTransaction({
     enabled: txnHash.length > 0,
     hash: txnHash,
     onSuccess() {

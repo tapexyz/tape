@@ -85,7 +85,10 @@ const MintVideo: FC<Props> = ({ video }) => {
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
         if (RELAYER_ENABLED) {
-          broadcast({ variables: { request: { id, signature } } })
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.reason) writeCollectWithSig({ args })
         } else {
           writeCollectWithSig({ args })
         }

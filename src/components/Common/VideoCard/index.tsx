@@ -1,4 +1,6 @@
 import { STATIC_ASSETS } from '@utils/constants'
+import { getTimeFromSeconds } from '@utils/functions/formatTime'
+import { getValueFromTraitType } from '@utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from '@utils/functions/getIsSensitiveContent'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
@@ -7,6 +9,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { FC, useState } from 'react'
+import { Attribute } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 import ShareModal from './ShareModal'
@@ -21,6 +24,10 @@ type Props = {
 const VideoCard: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
   const isSensitiveContent = getIsSensitiveContent(video.metadata?.attributes)
+  const videoDuration = getValueFromTraitType(
+    video.metadata.attributes as Attribute[],
+    'durationInSeconds'
+  )
 
   return (
     <div className="bg-gray-50 rounded-xl dark:bg-[#181818] group">
@@ -49,12 +56,19 @@ const VideoCard: FC<Props> = ({ video }) => {
                   alt=""
                 />
                 {isSensitiveContent && (
-                  <div className="absolute top-2 left-3">
-                    <span className="py-0.5 text-[10px] px-2 text-black bg-white rounded-full">
+                  <div>
+                    <span className="py-0.5 text-xs absolute top-2 left-2 px-2 text-black bg-white rounded-full">
                       Sensitive Content
                     </span>
                   </div>
                 )}
+                {!isSensitiveContent && videoDuration ? (
+                  <div>
+                    <span className="py-0.5 absolute bottom-2 right-2 text-xs px-1 text-white bg-black rounded">
+                      {getTimeFromSeconds(videoDuration)}
+                    </span>
+                  </div>
+                ) : null}
               </div>
             </a>
           </Link>

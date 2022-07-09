@@ -6,10 +6,13 @@ import getCoverPicture from '@utils/functions/getCoverPicture'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import { SETTINGS } from '@utils/url-path'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { Profile } from 'src/types'
+
+const CoverLinks = dynamic(() => import('./CoverLinks'))
 
 type Props = {
   channel: Profile & any
@@ -33,11 +36,13 @@ const BasicInfo: FC<Props> = ({ channel }) => {
             style={{
               backgroundImage: `url(${imageCdn(getCoverPicture(channel))})`
             }}
-            className="absolute w-full bg-white bg-center bg-no-repeat bg-cover rounded-lg dark:bg-gray-900 -z-10 h-44 md:h-72"
-          />
+            className="absolute w-full bg-white bg-center bg-no-repeat bg-cover rounded-lg dark:bg-gray-900 h-44 md:h-72"
+          >
+            <CoverLinks channel={channel} />
+          </div>
         </span>
         <div className="flex items-center pt-2 md:pt-0 md:pl-4 mt-44 md:mt-72">
-          <div className="flex-none mr-4 md:mr-6">
+          <div className="flex-none z-[1] mr-4 md:mr-6">
             <img
               src={getProfilePicture(channel)}
               className="object-cover w-24 h-24 bg-white border-4 border-white dark:border-black rounded-xl dark:bg-gray-900 md:-mt-10 md:w-32 md:h-32"

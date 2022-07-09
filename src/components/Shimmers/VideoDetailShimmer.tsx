@@ -16,7 +16,7 @@ export const SuggestedVideosShimmer = () => {
   )
 }
 
-const VideoDetailShimmer = () => {
+export const VideoDetailShimmer = () => {
   return (
     <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
       <div className="col-span-3">
@@ -26,5 +26,3 @@ const VideoDetailShimmer = () => {
     </div>
   )
 }
-
-export default VideoDetailShimmer

@@ -1,10 +1,17 @@
 import { Attribute } from 'src/types'
 
-export const getKeyFromAttributes = (
+export const getValueFromKeyInAttributes = (
   attributes: Attribute[] | null | undefined,
   key: string
 ) => {
   return attributes?.find((el) => el.key === key)?.value
+}
+
+export const getValueFromTraitType = (
+  attributes: Attribute[] | null | undefined,
+  traitType: string
+) => {
+  return attributes?.find((el) => el.traitType === traitType)?.value
 }
 
 export const checkValueInAttributes = (

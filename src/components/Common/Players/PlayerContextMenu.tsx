@@ -43,7 +43,7 @@ const PlayerContextMenu = forwardRef<APITypes, Props>(
       const { current } = ref as React.MutableRefObject<APITypes>
       if (current.plyr?.source === null) return
       const plyrApi = current as { plyr: PlyrInstance }
-      const selectedTime = plyrApi.plyr.currentTime.toFixed(2).toString()
+      const selectedTime = Math.trunc(plyrApi.plyr.currentTime)
       copy(`${LENSTUBE_URL}/watch/${query.id}?t=${selectedTime}`)
       toast.success(`Video link copied`)
       hideContextMenu()

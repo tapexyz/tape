@@ -202,9 +202,12 @@ const UploadSteps = () => {
           referenceModuleInitData,
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
-        if (RELAYER_ENABLED)
-          broadcast({ variables: { request: { id, signature } } })
-        else writePostContract({ args })
+        if (RELAYER_ENABLED) {
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.reason) writePostContract({ args })
+        } else writePostContract({ args })
       } catch (error) {
         onError()
       }
@@ -228,21 +231,21 @@ const UploadSteps = () => {
     ]
     let attributes = [
       {
-        traitType: 'string',
+        displayType: 'string',
+        traitType: 'publication',
         key: 'publication',
-        trait_type: 'publication',
         value: 'video'
       },
       {
-        traitType: 'string',
-        trait_type: 'handle',
+        displayType: 'string',
+        traitType: 'handle',
         key: 'handle',
         value: `@${selectedChannel?.handle}`
       },
       {
-        traitType: 'string',
+        displayType: 'string',
+        traitType: 'app',
         key: 'app',
-        trait_type: 'app',
         value: 'lenstube'
       }
     ]
@@ -252,10 +255,18 @@ const UploadSteps = () => {
         type: uploadedVideo.videoType
       })
     }
+    if (uploadedVideo.durationInSeconds) {
+      attributes.push({
+        displayType: 'string',
+        traitType: 'durationInSeconds',
+        key: 'durationInSeconds',
+        value: uploadedVideo.durationInSeconds.toString()
+      })
+    }
     if (uploadedVideo.isAdultContent) {
       attributes.push({
-        traitType: 'string',
-        trait_type: 'content',
+        displayType: 'string',
+        traitType: 'content',
         key: 'content',
         value: 'sensitive'
       })

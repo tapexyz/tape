@@ -25,7 +25,8 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   isAdultContent: false,
   isUploadToIpfs: false,
   loading: false,
-  buttonText: 'Upload Video'
+  buttonText: 'Upload Video',
+  durationInSeconds: null
 }
 
 export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {

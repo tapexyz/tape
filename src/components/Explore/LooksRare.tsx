@@ -22,7 +22,7 @@ const LooksRare = () => {
     variables: {
       request: {
         sortCriteria: 'TOP_COLLECTED',
-        limit: 12,
+        limit: 8,
         noRandomize: true,
         sources: [LENSTUBE_APP_ID],
         publicationTypes: ['POST']

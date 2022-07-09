@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { CURRENT_USER_QUERY } from '@utils/gql/queries'
+import { PROFILE_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
 import React, { FC } from 'react'
 import { Profile } from 'src/types'
@@ -13,9 +13,11 @@ type Props = {
 }
 
 const OtherChannels: FC<Props> = ({ channel }) => {
-  const { data, loading } = useQuery(CURRENT_USER_QUERY, {
-    variables: { ownedBy: channel.ownedBy },
-    skip: !channel?.ownedBy
+  const { data, loading } = useQuery(PROFILE_QUERY, {
+    variables: {
+      request: { handles: channel.handle }
+    },
+    skip: !channel.id
   })
   const allChannels: Profile[] = data?.profiles?.items
 
@@ -27,7 +29,7 @@ const OtherChannels: FC<Props> = ({ channel }) => {
 
   return (
     <div className="flex flex-wrap justify-center gap-3 md:justify-start">
-      {allChannels.map(
+      {allChannels?.map(
         (el, idx) =>
           el.id !== channel.id && <OtherChannelCard channel={el} key={idx} />
       )}

@@ -32,6 +32,7 @@ export type UploadedVideo = {
   loading: boolean
   videoSource: string
   buttonText: string
+  durationInSeconds: string | null
 }
 
 export type LenstubePublication = Post &

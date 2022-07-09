@@ -1,7 +1,10 @@
 import 'plyr-react/dist/plyr.css'
 
+import useAppStore from '@lib/store'
 import imageCdn from '@utils/functions/imageCdn'
+import { UPLOAD } from '@utils/url-path'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 import { APITypes, PlyrInstance, PlyrProps, usePlyr } from 'plyr-react'
 import React, { FC, forwardRef, useEffect, useState } from 'react'
 
@@ -17,7 +20,7 @@ interface Props {
   time?: number
 }
 
-interface customPlyrProps extends PlyrProps {
+interface CustomPlyrProps extends PlyrProps {
   time?: number
 }
 
@@ -36,12 +39,14 @@ export const defaultPlyrControls = [
   'disableContextMenu'
 ]
 
-const CustomPlyrInstance = forwardRef<APITypes, customPlyrProps>(
+const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
   ({ source, options, time }, ref) => {
     const raptorRef = usePlyr(ref, { options, source })
     const [showContextMenu, setShowContextMenu] = useState(false)
     const [position, setPosition] = useState({ x: 0, y: 0 })
     const [isVideoLoop, setIsVideoLoop] = useState(false)
+    const { pathname } = useRouter()
+    const { setUploadedVideo } = useAppStore()
 
     useEffect(() => {
       const { current } = ref as React.MutableRefObject<APITypes>
@@ -54,6 +59,11 @@ const CustomPlyrInstance = forwardRef<APITypes, customPlyrProps>(
 
       const onDataLoaded = () => {
         api.plyr.off('loadeddata', onDataLoaded)
+        if (pathname === UPLOAD && api.plyr.duration) {
+          setUploadedVideo({
+            durationInSeconds: api.plyr.duration.toFixed(2)
+          })
+        }
         api.plyr.currentTime = Number(time || 0)
       }
       // Set seek time when meta data fully downloaded
@@ -77,7 +87,7 @@ const CustomPlyrInstance = forwardRef<APITypes, customPlyrProps>(
           ref={raptorRef as React.MutableRefObject<HTMLVideoElement>}
           className="plyr-react plyr"
         />
-        {showContextMenu && (
+        {showContextMenu && pathname === '/watch/[id]' && (
           <PlayerContextMenu
             position={position}
             ref={ref}

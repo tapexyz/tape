@@ -6,6 +6,7 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
+  "id": "/",
   "start_url": "/?utm_source=homescreen&utm_medium=shortcut",
   "iconPath": "/lenstube.svg",
   "categories": ["social", "entertainment"],
