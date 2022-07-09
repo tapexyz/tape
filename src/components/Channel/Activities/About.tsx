@@ -6,15 +6,14 @@ import React, { FC } from 'react'
 import { AiOutlineNumber } from 'react-icons/ai'
 import { HiOutlineGlobe, HiOutlineLocationMarker } from 'react-icons/hi'
 import { RiShieldKeyholeLine, RiTwitterLine } from 'react-icons/ri'
-import { Profile } from 'src/types'
+import { Attribute, Profile } from 'src/types'
 
 type Props = {
   channel: Profile
 }
 
 const About: FC<Props> = ({ channel }) => {
-  const attributes = channel?.attributes
-  if (!attributes?.length) return null
+  const attributes = channel?.attributes as Attribute[]
 
   return (
     <div className="space-y-4 md:pr-4 md:space-y-6">
