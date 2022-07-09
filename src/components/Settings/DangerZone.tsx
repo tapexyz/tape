@@ -119,7 +119,7 @@ const DangerZone = () => {
           </span>
         </div>
       </div>
-      <div className="px-2">
+      <div className="flex flex-wrap items-center justify-between px-2">
         <div className="mb-4">
           <h1 className="mb-1 text-xl font-semibold">Delete Channel</h1>
           <p className="text-sm opacity-80">
