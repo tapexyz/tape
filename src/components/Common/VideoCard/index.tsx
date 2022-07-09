@@ -56,15 +56,15 @@ const VideoCard: FC<Props> = ({ video }) => {
                   alt=""
                 />
                 {isSensitiveContent && (
-                  <div className="absolute top-2 left-3">
-                    <span className="py-0.5 text-[10px] px-2 text-black bg-white rounded-full">
+                  <div>
+                    <span className="py-0.5 text-xs absolute top-2 left-2 px-2 text-black bg-white rounded-full">
                       Sensitive Content
                     </span>
                   </div>
                 )}
                 {!isSensitiveContent && videoDuration ? (
-                  <div className="absolute top-2 left-3">
-                    <span className="py-0.5 text-[10px] px-1 text-white bg-black rounded">
+                  <div>
+                    <span className="py-0.5 absolute bottom-2 right-2 text-xs px-1 text-white bg-black rounded">
                       {getTimeFromSeconds(videoDuration)}
                     </span>
                   </div>
