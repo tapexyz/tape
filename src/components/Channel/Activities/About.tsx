@@ -86,18 +86,18 @@ const About: FC<Props> = ({ channel }) => {
             <span>{getValueFromKeyInAttributes(attributes, 'location')}</span>
           </div>
         )}
-        <Tooltip content={parseInt(channel.id)} placement="right">
-          <span className="inline-flex items-center space-x-1">
-            <AiOutlineNumber />
+        <span className="inline-flex items-center space-x-1">
+          <AiOutlineNumber />
+          <Tooltip content={`ID - ${parseInt(channel.id)}`} placement="right">
             <span>{channel.id}</span>
-          </span>
-        </Tooltip>
-        <Tooltip content="Owner address" placement="right">
-          <span className="inline-flex items-center space-x-1">
-            <RiShieldKeyholeLine />
+          </Tooltip>
+        </span>
+        <span className="inline-flex items-center space-x-1">
+          <RiShieldKeyholeLine />
+          <Tooltip content="Owner address" placement="right">
             <span>{shortenAddress(channel.ownedBy)}</span>
-          </span>
-        </Tooltip>
+          </Tooltip>
+        </span>
       </div>
     </div>
   )
