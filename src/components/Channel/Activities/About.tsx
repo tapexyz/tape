@@ -80,24 +80,26 @@ const About: FC<Props> = ({ channel }) => {
       </div>
       <div className="inline-flex flex-col space-y-3">
         <h6 className="text-xs font-semibold uppercase opacity-80">Others</h6>
-        {getValueFromKeyInAttributes(attributes, 'location') && (
+        <div className="space-y-1.5">
+          {getValueFromKeyInAttributes(attributes, 'location') && (
+            <div className="flex items-center space-x-1">
+              <HiOutlineLocationMarker />
+              <span>{getValueFromKeyInAttributes(attributes, 'location')}</span>
+            </div>
+          )}
           <div className="flex items-center space-x-1">
-            <HiOutlineLocationMarker />
-            <span>{getValueFromKeyInAttributes(attributes, 'location')}</span>
+            <AiOutlineNumber />
+            <Tooltip content={`ID - ${parseInt(channel.id)}`} placement="right">
+              <span>{channel.id}</span>
+            </Tooltip>
           </div>
-        )}
-        <span className="inline-flex items-center space-x-1">
-          <AiOutlineNumber />
-          <Tooltip content={`ID - ${parseInt(channel.id)}`} placement="right">
-            <span>{channel.id}</span>
-          </Tooltip>
-        </span>
-        <span className="inline-flex items-center space-x-1">
-          <RiShieldKeyholeLine />
-          <Tooltip content="Owner address" placement="right">
-            <span>{shortenAddress(channel.ownedBy)}</span>
-          </Tooltip>
-        </span>
+          <div className="flex items-center space-x-1">
+            <RiShieldKeyholeLine />
+            <Tooltip content="Owner address" placement="right">
+              <span>{shortenAddress(channel.ownedBy)}</span>
+            </Tooltip>
+          </div>
+        </div>
       </div>
     </div>
   )
