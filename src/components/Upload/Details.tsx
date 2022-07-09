@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import ChooseThumbnail from './ChooseThumbnail'
+import CollectModuleType from './CollectModuleType'
 import Video from './Video'
 
 const formSchema = z.object({
@@ -121,6 +122,9 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   {errors?.thumbnail?.message}
                 </p>
               )}
+            </div>
+            <div className="mt-4">
+              <CollectModuleType />
             </div>
             <div className="mt-4">
               <RadioInput

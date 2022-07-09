@@ -33,6 +33,16 @@ export type UploadedVideo = {
   videoSource: string
   buttonText: string
   durationInSeconds: string | null
+  collectModule: CollectModuleType
+  disableComments: boolean
+}
+
+export type CollectModuleType = {
+  type: string
+  amount?: { currency?: string; value: string }
+  referralFee?: number
+  followerOnly?: boolean
+  isFree?: boolean
 }
 
 export type LenstubePublication = Post &

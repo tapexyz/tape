@@ -3,7 +3,8 @@ import { WebBundlr } from '@bundlr-network/client'
 import {
   BUNDLR_CURRENCY,
   BUNDLR_NODE_URL,
-  POLYGON_RPC_URL
+  POLYGON_RPC_URL,
+  WMATIC_TOKEN_ADDRESS
 } from '@utils/constants'
 import { FetchSignerResult } from '@wagmi/core'
 import { Profile } from 'src/types'
@@ -26,7 +27,15 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   isUploadToIpfs: false,
   loading: false,
   buttonText: 'Upload Video',
-  durationInSeconds: null
+  durationInSeconds: null,
+  collectModule: {
+    type: 'freeCollectModule',
+    amount: { currency: WMATIC_TOKEN_ADDRESS, value: '' },
+    referralFee: 0,
+    followerOnly: false,
+    isFree: true
+  },
+  disableComments: false
 }
 
 export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {

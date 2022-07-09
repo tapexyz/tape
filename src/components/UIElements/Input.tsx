@@ -8,6 +8,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
   validationError?: string
   prefix?: string
+  suffix?: string
 }
 export const Input = forwardRef<HTMLInputElement, Props>(function Input(
   {
@@ -17,6 +18,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
     className = '',
     id,
     prefix,
+    suffix,
     ...props
   },
   ref
@@ -45,7 +47,8 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
               'focus:ring-1 focus:ring-indigo-500': !validationError?.length,
               '!border-red-500': validationError?.length,
               'rounded-r-xl': prefix,
-              'rounded-xl': !prefix
+              'rounded-xl': !prefix && !suffix,
+              'rounded-l-xl': suffix
             },
             'bg-white text-sm px-2.5 py-2 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 outline-none disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 w-full',
             className
@@ -54,6 +57,11 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
           type={type}
           {...props}
         />
+        {suffix && (
+          <span className="inline-flex items-center px-4 text-sm bg-gray-100 border border-l-0 border-gray-200 opacity-80 rounded-r-xl dark:bg-gray-900 dark:border-gray-800">
+            {suffix}
+          </span>
+        )}
       </div>
       {validationError && (
         <div className="mx-1 mt-1 text-xs font-medium text-red-500">
