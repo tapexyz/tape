@@ -32,26 +32,25 @@ const CollectModuleType = () => {
       return `${
         followerOnly ? 'Only Subscribers' : 'Anyone'
       } can mint this publication for free`
-    } else if (!uploadedVideo.collectModule.isFree) {
+    }
+    if (!uploadedVideo.collectModule.isFree) {
       return `${
         followerOnly ? 'Only Subscribers' : 'Anyone'
       } can mint this publication for given fees - ${amount}`
-    } else if (uploadedVideo.collectModule.followerOnly) {
-      return 'Anyone can mint this publication for free'
     }
   }
 
   return (
     <>
       <div className="flex items-center mb-1 space-x-1.5">
-        <div className={'text-[11px] font-semibold uppercase opacity-70'}>
+        <div className="text-[11px] font-semibold uppercase opacity-70">
           Collect Type
         </div>
       </div>
       <button
         type="button"
         onClick={() => setShowModal(true)}
-        className="flex items-center justify-between w-full px-4 py-3 text-sm border border-gray-200 focus:outline-none dark:border-gray-800 rounded-xl"
+        className="flex items-center justify-between w-full px-4 py-3 text-sm text-left border border-gray-200 focus:outline-none dark:border-gray-800 rounded-xl"
       >
         <span>{getSelectedCollectType()}</span>
         <AiOutlineCheck />
