@@ -17,24 +17,8 @@ const ChannelShimmer = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-12 gap-4 mt-4 md:mt-6">
-        <div className="hidden space-y-2 lg:block lg:col-span-3">
-          <div className="flex items-center ml-5 space-x-2">
-            <div className="w-4 h-4 bg-gray-200 rounded-md dark:bg-gray-700"></div>
-            <div className="w-1/2 h-3 bg-gray-200 rounded dark:bg-gray-700"></div>
-          </div>
-          <div className="flex items-center ml-5 space-x-2">
-            <div className="w-4 h-4 bg-gray-200 rounded-md dark:bg-gray-700"></div>
-            <div className="w-1/2 h-3 bg-gray-200 rounded dark:bg-gray-700"></div>
-          </div>
-          <div className="flex items-center ml-5 space-x-2">
-            <div className="w-4 h-4 bg-gray-200 rounded-md dark:bg-gray-700"></div>
-            <div className="w-1/2 h-3 bg-gray-200 rounded dark:bg-gray-700"></div>
-          </div>
-        </div>
-        <div className="w-full col-span-12 lg:col-span-9">
-          <TimelineShimmer />
-        </div>
+      <div className="mt-4 md:mt-6">
+        <TimelineShimmer />
       </div>
     </div>
   )

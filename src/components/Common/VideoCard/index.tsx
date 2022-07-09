@@ -25,7 +25,7 @@ const VideoCard: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
   const isSensitiveContent = getIsSensitiveContent(video.metadata?.attributes)
   const videoDuration = getValueFromTraitType(
-    video.metadata.attributes as Attribute[],
+    video.metadata?.attributes as Attribute[],
     'durationInSeconds'
   )
 
@@ -53,7 +53,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                   )}
                   draggable={false}
                   className="object-cover object-center w-full h-full rounded-t-xl lg:w-full lg:h-full"
-                  alt=""
+                  alt="thumbnail"
                 />
                 {isSensitiveContent && (
                   <div>

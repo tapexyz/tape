@@ -1,5 +1,7 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import { STATIC_ASSETS } from '@utils/constants'
+import { getTimeFromSeconds } from '@utils/functions/formatTime'
+import { getValueFromTraitType } from '@utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from '@utils/functions/getIsSensitiveContent'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
@@ -9,6 +11,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import { AiOutlineComment } from 'react-icons/ai'
+import { Attribute } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 dayjs.extend(relativeTime)
 
@@ -20,6 +23,10 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
   const commentedOn = video.commentOn as LenstubePublication
   const isSensitiveContent = getIsSensitiveContent(
     commentedOn.metadata?.attributes
+  )
+  const videoDuration = getValueFromTraitType(
+    commentedOn.metadata?.attributes as Attribute[],
+    'durationInSeconds'
   )
 
   return (
@@ -44,6 +51,13 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
                 </span>
               </div>
             )}
+            {!isSensitiveContent && videoDuration ? (
+              <div>
+                <span className="py-0.5 absolute bottom-2 right-2 text-xs px-1 text-white bg-black rounded">
+                  {getTimeFromSeconds(videoDuration)}
+                </span>
+              </div>
+            ) : null}
           </div>
         </a>
       </Link>
