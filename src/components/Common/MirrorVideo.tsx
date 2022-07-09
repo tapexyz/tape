@@ -97,7 +97,10 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
           sig
         }
         if (RELAYER_ENABLED) {
-          broadcast({ variables: { request: { id, signature } } })
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.reason) mirrorWithSig({ args: inputStruct })
         } else {
           mirrorWithSig({ args: inputStruct })
         }

@@ -202,9 +202,12 @@ const UploadSteps = () => {
           referenceModuleInitData,
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
-        if (RELAYER_ENABLED)
-          broadcast({ variables: { request: { id, signature } } })
-        else writePostContract({ args })
+        if (RELAYER_ENABLED) {
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.reason) writePostContract({ args })
+        } else writePostContract({ args })
       } catch (error) {
         onError()
       }

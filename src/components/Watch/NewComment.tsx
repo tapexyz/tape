@@ -133,7 +133,10 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         }
         setButtonText('Commenting...')
         if (RELAYER_ENABLED) {
-          broadcast({ variables: { request: { id, signature } } })
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.reason) writeComment({ args })
         } else {
           writeComment({ args })
         }
