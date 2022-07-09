@@ -15,6 +15,7 @@ type PlayerProps = {
   source: string
   poster: string
 }
+
 const MemoizedVideoPlayer = React.memo(({ source, poster }: PlayerProps) => (
   <VideoPlayer
     source={source}
@@ -24,6 +25,7 @@ const MemoizedVideoPlayer = React.memo(({ source, poster }: PlayerProps) => (
     controls={['play', 'progress', 'mute', 'volume', 'fullscreen']}
   />
 ))
+
 MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 
 const Video = () => {
