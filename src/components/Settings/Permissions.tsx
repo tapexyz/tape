@@ -111,7 +111,7 @@ const Permissions = () => {
               {data?.enabledModuleCurrencies?.map(
                 (currency: Erc20, idx: number) => (
                   <option key={idx} value={currency.address}>
-                    {currency.name}
+                    {currency.symbol}
                   </option>
                 )
               )}
