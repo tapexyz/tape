@@ -19,7 +19,7 @@ const formSchema = z.object({
     .max(100, { message: 'Title should not exceed 100 characters' }),
   description: z
     .string()
-    .max(100, { message: 'Title should not exceed 100 characters' }),
+    .max(5000, { message: 'Description should not exceed 5000 characters' }),
   thumbnail: z.string(),
   isAdultContent: z.boolean(),
   acceptTerms: z.boolean({
@@ -89,7 +89,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               <TextArea
                 {...register('description')}
                 label="Description"
-                placeholder="Describe more about your video"
+                placeholder="Describe more about your video, can be hashtags or chapters"
                 autoComplete="off"
                 validationError={errors.description?.message}
                 rows={5}

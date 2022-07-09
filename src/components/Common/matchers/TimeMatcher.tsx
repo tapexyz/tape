@@ -23,14 +23,10 @@ export class TimeMatcher extends Matcher {
   }
 
   match(value: string) {
-    return this.doMatch(
-      value,
-      /^(0?[0-9]|1[0-9]):[0-5][0-9]|:[0-5][0-9]$/,
-      (matches) => {
-        return {
-          display: matches[0]
-        }
+    return this.doMatch(value, /\d{2}:\d{2}:\d{2}|\d{2}:\d{2}/, (matches) => {
+      return {
+        display: matches[0]
       }
-    )
+    })
   }
 }
