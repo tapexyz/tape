@@ -125,7 +125,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.result?.reason) writeJoinChannel({ args })
+          if (data?.broadcast?.reason) writeJoinChannel({ args })
         } else {
           writeJoinChannel({ args })
         }

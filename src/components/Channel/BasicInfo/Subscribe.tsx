@@ -101,7 +101,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.result?.reason) writeSubscribe({ args })
+          if (data?.broadcast?.reason) writeSubscribe({ args })
         } else {
           writeSubscribe({
             args

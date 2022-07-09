@@ -131,7 +131,7 @@ const BasicInfo = ({ channel }: Props) => {
             const { data } = await broadcast({
               variables: { request: { id, signature } }
             })
-            if (data?.broadcast?.result?.reason) writeMetaData({ args })
+            if (data?.broadcast?.reason) writeMetaData({ args })
           } else {
             writeMetaData({ args })
           }

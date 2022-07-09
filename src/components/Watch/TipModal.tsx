@@ -145,7 +145,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.result?.reason) writeComment({ args })
+          if (data?.broadcast?.reason) writeComment({ args })
         } else {
           writeComment({ args })
         }

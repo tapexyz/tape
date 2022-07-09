@@ -88,7 +88,7 @@ const MintVideo: FC<Props> = ({ video }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.result?.reason) writeCollectWithSig({ args })
+          if (data?.broadcast?.reason) writeCollectWithSig({ args })
         } else {
           writeCollectWithSig({ args })
         }

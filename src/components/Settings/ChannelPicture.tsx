@@ -92,7 +92,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             const { data } = await broadcast({
               variables: { request: { id, signature } }
             })
-            if (data?.broadcast?.result?.reason) writePfpUri({ args })
+            if (data?.broadcast?.reason) writePfpUri({ args })
           } else {
             writePfpUri({ args })
           }

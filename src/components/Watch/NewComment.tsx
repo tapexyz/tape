@@ -136,7 +136,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.result?.reason) writeComment({ args })
+          if (data?.broadcast?.reason) writeComment({ args })
         } else {
           writeComment({ args })
         }

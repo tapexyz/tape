@@ -206,7 +206,7 @@ const UploadSteps = () => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.result?.reason) writePostContract({ args })
+          if (data?.broadcast?.reason) writePostContract({ args })
         } else writePostContract({ args })
       } catch (error) {
         onError()

@@ -141,7 +141,7 @@ const Membership = ({ channel }: Props) => {
             const { data } = await broadcast({
               variables: { request: { id, signature } }
             })
-            if (data?.broadcast?.result?.reason) writeFollow({ args })
+            if (data?.broadcast?.reason) writeFollow({ args })
           } else {
             writeFollow({ args })
           }
