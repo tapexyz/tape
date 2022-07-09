@@ -87,7 +87,7 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
           ref={raptorRef as React.MutableRefObject<HTMLVideoElement>}
           className="plyr-react plyr"
         />
-        {showContextMenu && (
+        {showContextMenu && pathname === '/watch/[id]' && (
           <PlayerContextMenu
             position={position}
             ref={ref}

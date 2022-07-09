@@ -252,6 +252,14 @@ const UploadSteps = () => {
         type: uploadedVideo.videoType
       })
     }
+    if (uploadedVideo.durationInSeconds) {
+      attributes.push({
+        traitType: 'string',
+        trait_type: 'durationInSeconds',
+        key: 'durationInSeconds',
+        value: uploadedVideo.durationInSeconds.toString()
+      })
+    }
     if (uploadedVideo.isAdultContent) {
       attributes.push({
         traitType: 'string',
