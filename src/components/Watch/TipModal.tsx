@@ -142,7 +142,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
         if (RELAYER_ENABLED) {
-          broadcast({ variables: { request: { id, signature } } })
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.result?.reason) writeComment({ args })
         } else {
           writeComment({ args })
         }

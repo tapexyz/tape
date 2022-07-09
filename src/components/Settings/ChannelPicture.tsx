@@ -89,7 +89,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             sig: { v, r, s, deadline: typedData.value.deadline }
           }
           if (RELAYER_ENABLED) {
-            broadcast({ variables: { request: { id, signature } } })
+            const { data } = await broadcast({
+              variables: { request: { id, signature } }
+            })
+            if (data?.broadcast?.result?.reason) writePfpUri({ args })
           } else {
             writePfpUri({ args })
           }
