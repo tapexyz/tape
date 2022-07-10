@@ -57,7 +57,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
   if (loading) return <TimelineShimmer />
 
   if (data?.publications?.items?.length === 0) {
-    return <NoDataFound text="No videos uploaded." />
+    return <NoDataFound isCenter withImage text="No videos found" />
   }
 
   return (
