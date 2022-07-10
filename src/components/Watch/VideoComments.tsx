@@ -109,17 +109,21 @@ const VideoComments: FC<Props> = ({ video }) => {
           <span className="text-xs">(Sign in required to comment)</span>
         )}
       </div>
-      {data?.publications?.items.length === 0 && !onlySubscribersCanComment && (
+      {data?.publications?.items.length === 0 && (
         <NoDataFound text="Be the first to comment." />
       )}
-      {!onlySubscribersCanComment ? (
-        <NewComment video={video} refetchComments={() => refetchComments()} />
+      {onlySubscribersCanComment ? (
+        video.profile.isFollowedByMe ? (
+          <NewComment video={video} refetchComments={() => refetchComments()} />
+        ) : (
+          <Alert variant="warning">
+            <span>
+              Only {isMembership ? 'members' : 'subscribers'} can comment
+            </span>
+          </Alert>
+        )
       ) : (
-        <Alert variant="warning">
-          <span>
-            Only {isMembership ? 'members' : 'subscribers'} can comment
-          </span>
-        </Alert>
+        <NewComment video={video} refetchComments={() => refetchComments()} />
       )}
       {!error && !loading && (
         <>

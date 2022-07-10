@@ -81,7 +81,7 @@ const MintModal: FC<Props> = ({
               </div>
             )}
             {collectModule?.endTimestamp && (
-              <div className="flex flex-col">
+              <div className="flex flex-col mb-3">
                 <span className="mb-0.5 text-xs">Mint ends</span>
                 <span className="text-lg">
                   {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
@@ -89,7 +89,15 @@ const MintModal: FC<Props> = ({
                 </span>
               </div>
             )}
-            <div className="flex justify-end mt-3">
+            {collectModule?.referralFee && (
+              <div className="flex flex-col mb-3">
+                <span className="mb-0.5 text-xs">Referral Fee</span>
+                <span className="text-lg">
+                  <b>{collectModule.referralFee} %</b> referral fee
+                </span>
+              </div>
+            )}
+            <div className="flex justify-end">
               {isAllowed ? (
                 collectModule?.followerOnly && !video.profile.isFollowedByMe ? (
                   <div className="flex text-xs">
