@@ -62,7 +62,7 @@ const About: FC<Props> = ({ channel }) => {
             <span className="pr-0.5 grayscale" role="img">
               <img
                 src={`${STATIC_ASSETS}/images/lenster-logo.svg`}
-                alt=""
+                alt="lenster"
                 className="w-3.5 h-3.5"
                 draggable={false}
               />

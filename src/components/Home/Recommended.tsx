@@ -52,7 +52,7 @@ const Recommended = () => {
               <img
                 className="w-8 h-8 rounded-xl"
                 src={getProfilePicture(channel)}
-                alt=""
+                alt="channel picture"
                 draggable={false}
               />
               <div className="flex flex-col items-start">

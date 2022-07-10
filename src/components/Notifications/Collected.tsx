@@ -24,8 +24,8 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
             <a className="inline-flex items-center space-x-1.5 font-base">
               <img
                 className="w-4 h-4 rounded"
-                src={getProfilePicture(notification.wallet.defaultProfile)}
-                alt=""
+                src={getProfilePicture(notification.wallet?.defaultProfile)}
+                alt="channel picture"
                 draggable={false}
               />
               <div>{notification?.wallet?.defaultProfile?.handle}</div>
@@ -43,7 +43,7 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
               src={imageCdn(
                 getRandomProfilePicture(notification.wallet.address)
               )}
-              alt=""
+              alt="channel picture"
               draggable={false}
             />
             <div>{shortenAddress(notification?.wallet?.address)}</div>

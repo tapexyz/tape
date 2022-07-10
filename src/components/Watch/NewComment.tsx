@@ -210,7 +210,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
             src={getProfilePicture(selectedChannel)}
             className="w-8 h-8 md:w-9 md:h-9 rounded-xl"
             draggable={false}
-            alt=""
+            alt="channel picture"
           />
         </div>
         <TextArea

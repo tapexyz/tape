@@ -72,7 +72,7 @@ export default function GlobalSearchBar() {
                             className="w-5 h-5 rounded-md"
                             src={getProfilePicture(channel)}
                             draggable={false}
-                            alt=""
+                            alt="channel picture"
                           />
                           <p className="text-base truncate line-clamp-1">
                             {channel.handle}

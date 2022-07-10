@@ -11,7 +11,7 @@ const ImageAttachments: FC<Props> = ({ attachments }) => {
         <span key={idx}>
           <img
             src={attachment.original?.url}
-            alt=""
+            alt="attachment"
             className="object-cover w-10 h-10 rounded"
           />
         </span>

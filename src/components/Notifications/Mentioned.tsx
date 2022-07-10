@@ -23,7 +23,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
             <img
               className="w-4 h-4 rounded"
               src={getProfilePicture(notification?.mentionPublication.profile)}
-              alt=""
+              alt="channel picture"
               draggable={false}
             />
             <div>{notification?.mentionPublication?.profile?.handle}</div>

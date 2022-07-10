@@ -60,7 +60,7 @@ const UserMenu = () => {
           <img
             className="object-cover bg-white rounded-lg dark:bg-black w-7 h-7 md:rounded-xl md:w-9 md:h-9"
             src={getProfilePicture(selectedChannel)}
-            alt=""
+            alt="channel picture"
             draggable={false}
           />
         </Button>
@@ -92,7 +92,7 @@ const UserMenu = () => {
                     <img
                       className="w-6 h-6 rounded-lg"
                       src={getProfilePicture(channel)}
-                      alt=""
+                      alt="channel picture"
                       draggable={false}
                     />
                     <span className="truncate whitespace-nowrap">
@@ -111,7 +111,7 @@ const UserMenu = () => {
                 <img
                   className="object-cover rounded-xl w-9 h-9"
                   src={getProfilePicture(selectedChannel)}
-                  alt=""
+                  alt="channel picture"
                   draggable={false}
                 />
                 <div className="flex flex-col items-start">

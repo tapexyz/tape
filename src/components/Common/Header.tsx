@@ -35,7 +35,7 @@ const Header = () => {
                 src="/lenstube.svg"
                 draggable={false}
                 className="w-5 h-5"
-                alt=""
+                alt="lenstube"
               />
             </a>
           </Link>

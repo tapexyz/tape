@@ -29,7 +29,7 @@ const Sidebar = () => {
                   src="/lenstube.svg"
                   draggable={false}
                   className="w-6 h-6 ml-0.5"
-                  alt=""
+                  alt="lenstube"
                 />
               </a>
             </Link>

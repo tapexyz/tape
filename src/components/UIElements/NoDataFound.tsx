@@ -18,7 +18,7 @@ export const NoDataFound = ({
         <img
           src={imageCdn(`${STATIC_ASSETS}/images/illustrations/no-results.png`)}
           className="w-32 my-4 md:w-36"
-          alt=""
+          alt="no results"
           draggable={false}
         />
       )}

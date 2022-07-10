@@ -140,7 +140,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
               <img
                 className="object-cover w-32 h-16 rounded-lg"
                 src={thumbnail.url}
-                alt=""
+                alt="thumbnail"
                 draggable={false}
               />
               {uploading && selectedThumbnailIndex === idx && (
