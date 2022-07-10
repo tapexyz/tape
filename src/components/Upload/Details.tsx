@@ -135,7 +135,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   setValue('disableComments', checked)
                 }}
                 question={
-                  <span>Do you want to disable comments and mirrors?</span>
+                  <span>Allow only subscribers to comment and mirror?</span>
                 }
               />
             </div>
@@ -154,7 +154,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               />
             </div>
           </div>
-          <div className="flex mt-4">
+          <div className="flex mt-6">
             <input
               id="default-checkbox"
               type="checkbox"
