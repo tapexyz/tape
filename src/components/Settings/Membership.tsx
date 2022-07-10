@@ -1,5 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation, useQuery } from '@apollo/client'
+import { AddressExplorerLink } from '@components/Common/ExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
@@ -186,7 +187,7 @@ const Membership = ({ channel }: Props) => {
     <div className="p-4 bg-white rounded-lg dark:bg-black">
       <div className="mb-5">
         <h1 className="mb-1 text-xl font-semibold">Grow with Lens</h1>
-        <p className="text-sm opacity-80">
+        <p className="text opacity-80">
           You can set up a subscription fee for your channel and provide
           exclusive offers and perks to the subscribers, also people can pay and
           support your work.
@@ -199,7 +200,7 @@ const Membership = ({ channel }: Props) => {
       )}
 
       {activeFollowModule && (
-        <div className="p-4 mb-6 border transition-all w-full bg-gradient-to-r from-[#41AAD4]/20 to-[#41EAD4]/20 rounded-md dark:border-gray-800">
+        <div className="p-6 mb-6 border transition-all w-full bg-gradient-to-r from-[#41AAD4]/20 to-[#41EAD4]/20 rounded-xl dark:border-gray-800">
           <div className="grid gap-y-4 md:grid-cols-3">
             <div>
               <span className="text-xs font-medium uppercase opacity-50">
@@ -222,9 +223,11 @@ const Membership = ({ channel }: Props) => {
               <span className="text-xs font-medium uppercase opacity-50">
                 Recipient
               </span>
-              <span className="block text-xl outline-none text-semibold">
-                {shortenAddress(activeFollowModule.recipient)}
-              </span>
+              <AddressExplorerLink address={activeFollowModule.recipient}>
+                <span className="block text-xl outline-none text-semibold">
+                  {shortenAddress(activeFollowModule.recipient)}
+                </span>
+              </AddressExplorerLink>
             </div>
           </div>
         </div>
