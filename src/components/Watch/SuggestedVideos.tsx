@@ -21,7 +21,7 @@ const SuggestedVideos = () => {
     variables: {
       request: {
         sortCriteria: 'LATEST',
-        limit: 8,
+        limit: 12,
         sources: [LENSTUBE_APP_ID],
         publicationTypes: ['POST'],
         noRandomize: false
