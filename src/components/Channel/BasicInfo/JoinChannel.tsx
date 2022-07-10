@@ -85,7 +85,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const followModule: FeeFollowModuleSettings =
     followModuleData?.profiles?.items[0]?.followModule
 
-  const {} = useQuery(ALLOWANCE_SETTINGS_QUERY, {
+  useQuery(ALLOWANCE_SETTINGS_QUERY, {
     variables: {
       request: {
         currencies: followModule?.amount?.asset?.address,

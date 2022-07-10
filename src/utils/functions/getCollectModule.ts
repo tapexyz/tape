@@ -42,3 +42,31 @@ export const getCollectModule = (selectCollectModule: CollectModuleType) => {
     }
   }
 }
+
+export const getCollectModuleConfig = (collectModule: string) => {
+  switch (collectModule) {
+    case 'FeeCollectModule':
+      return {
+        type: 'collectModule',
+        description:
+          'Allows subscriber to collect your publication by paying fees specified by you.'
+      }
+    case 'TimedFeeCollectModule':
+      return {
+        type: 'collectModule',
+        description:
+          'Allows subscriber to collect your publication within the time limit specified by you.'
+      }
+    case 'FeeFollowModule':
+      return {
+        type: 'followModule',
+        description:
+          'Allows subscriber to join the channel by paying a fee specified by the channel owner.'
+      }
+    default:
+      return {
+        type: '',
+        description: ''
+      }
+  }
+}

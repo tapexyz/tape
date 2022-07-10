@@ -24,6 +24,8 @@ import { CreateCollectBroadcastItemResult } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
+import MintModal from './MintModal'
+
 type Props = {
   video: LenstubePublication
 }
@@ -31,6 +33,7 @@ type Props = {
 const MintVideo: FC<Props> = ({ video }) => {
   const { address } = useAccount()
   const [loading, setLoading] = useState(false)
+  const [showMintModal, setShowMintModal] = useState(false)
   const { isAuthenticated } = usePersistStore()
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -102,8 +105,15 @@ const MintVideo: FC<Props> = ({ video }) => {
     }
   })
 
-  const handleMint = () => {
+  const handleMint = (validate = true) => {
     if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    const isFreeCollect =
+      video.collectModule.__typename === 'FreeCollectModuleSettings'
+    if (!isFreeCollect && validate) return setShowMintModal(true)
+    if (!validate) {
+      toast('Collecting as NFT...')
+      setShowMintModal(false)
+    }
     setLoading(true)
     createCollectTypedData({
       variables: { request: { publicationId: video?.id } }
@@ -112,6 +122,15 @@ const MintVideo: FC<Props> = ({ video }) => {
 
   return (
     <div>
+      {showMintModal && (
+        <MintModal
+          video={video}
+          showModal={showMintModal}
+          setShowModal={setShowMintModal}
+          handleMint={handleMint}
+          minting={loading}
+        />
+      )}
       <Tooltip
         content={
           loading

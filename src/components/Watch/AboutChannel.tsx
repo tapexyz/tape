@@ -51,7 +51,8 @@ const AboutChannel: FC<Props> = ({ video }) => {
               </span>
             </div>
             <div className="flex items-center space-x-2">
-              <MintVideo video={video} />
+              {video?.collectModule?.__typename !==
+                'RevertCollectModuleSettings' && <MintVideo video={video} />}
               <SubscribeActions
                 channel={channel}
                 subscribeType={subscribeType}

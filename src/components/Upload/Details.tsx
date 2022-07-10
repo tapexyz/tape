@@ -134,7 +134,9 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 onChange={(checked) => {
                   setValue('disableComments', checked)
                 }}
-                question={<span>Do you want to disable comments?</span>}
+                question={
+                  <span>Do you want to disable comments and mirrors?</span>
+                }
               />
             </div>
             <div className="mt-4">

@@ -18,7 +18,9 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
-              isTimedFeeCollect: false
+              isTimedFeeCollect: false,
+              isFeeCollect: false,
+              isFreeCollect: true
             })
           }
           className={clsx(
@@ -36,7 +38,9 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
-              isTimedFeeCollect: true
+              isTimedFeeCollect: true,
+              isFeeCollect: true,
+              isFreeCollect: false
             })
           }
           className={clsx(
