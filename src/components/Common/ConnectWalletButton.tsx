@@ -90,7 +90,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
                         src={getWalletInfo(wallet.id, wallet.name)?.logo}
                         className="rounded-md w-7 h-7"
                         draggable={false}
-                        alt=""
+                        alt="icon"
                       />
                     </div>
                     <div className="flex items-center justify-between flex-1 text-xs">

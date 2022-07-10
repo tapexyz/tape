@@ -50,7 +50,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                   `${STATIC_ASSETS}/images/social/twitter-logo.png`
                 )}
                 className="w-10 h-10 rounded-full"
-                alt=""
+                alt="twitter"
                 draggable={false}
               />
             </a>
@@ -60,7 +60,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                   `${STATIC_ASSETS}/images/social/reddit-logo.webp`
                 )}
                 className="w-10 h-10 rounded-full"
-                alt=""
+                alt="reddit"
                 draggable={false}
               />
             </a>
@@ -69,7 +69,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 src={imageCdn(
                   `${STATIC_ASSETS}/images/social/linkedin-logo.png`
                 )}
-                alt=""
+                alt="linkedin"
                 className="w-10 h-10 rounded-full"
                 draggable={false}
               />

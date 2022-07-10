@@ -134,7 +134,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           src={selectedPfp ? selectedPfp : getProfilePicture(channel)}
           className="object-cover w-32 h-32 border-2 rounded-full"
           draggable={false}
-          alt=""
+          alt="channel picture"
         />
         <label
           className={clsx(

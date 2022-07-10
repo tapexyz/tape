@@ -11,7 +11,7 @@ const FullPageLoader = () => {
           src="/lenstube.svg"
           draggable={false}
           className="w-10 h-10"
-          alt=""
+          alt="lenstube"
         />
       </div>
     </div>

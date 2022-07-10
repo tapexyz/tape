@@ -44,7 +44,7 @@ const Comment: FC<Props> = ({ comment }) => {
               src={getProfilePicture(comment.profile)}
               className="rounded-lg w-7 h-7"
               draggable={false}
-              alt=""
+              alt="channel picture"
             />
           </a>
         </Link>

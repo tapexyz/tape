@@ -28,7 +28,7 @@ const SubscribedNotification: FC<Props> = ({ notification }) => {
               <img
                 className="w-4 h-4 rounded"
                 src={getProfilePicture(notification.wallet.defaultProfile)}
-                alt=""
+                alt="channel picture"
                 draggable={false}
               />
               <div>{notification?.wallet?.defaultProfile?.handle}</div>
@@ -46,7 +46,7 @@ const SubscribedNotification: FC<Props> = ({ notification }) => {
               src={imageCdn(
                 getRandomProfilePicture(notification.wallet.address)
               )}
-              alt=""
+              alt="channel picture"
               draggable={false}
             />
             <div>{shortenAddress(notification?.wallet?.address)}</div>

@@ -40,7 +40,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
                   ? `${STATIC_ASSETS}/images/sensor-blur.png`
                   : getThumbnailUrl(video)
               )}
-              alt=""
+              alt="thumbnail"
               draggable={false}
               className="object-cover object-center w-full h-full rounded-t-xl lg:w-full lg:h-full"
             />
@@ -68,7 +68,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
               <img
                 className="w-8 h-8 rounded-xl"
                 src={getProfilePicture(mirrorOf.profile)}
-                alt=""
+                alt="channel picture"
                 draggable={false}
               />
             </a>

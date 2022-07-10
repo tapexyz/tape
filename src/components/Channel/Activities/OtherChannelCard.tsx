@@ -15,7 +15,7 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
           <img
             className="object-cover w-24 h-24 rounded-full"
             src={getProfilePicture(channel)}
-            alt=""
+            alt="channel picture"
             draggable={false}
           />
         </a>

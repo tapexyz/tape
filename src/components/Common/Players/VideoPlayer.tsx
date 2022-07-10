@@ -6,13 +6,7 @@ import { UPLOAD } from '@utils/url-path'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { APITypes, PlyrInstance, PlyrProps, usePlyr } from 'plyr-react'
-import React, {
-  EffectCallback,
-  FC,
-  forwardRef,
-  useEffect,
-  useState
-} from 'react'
+import React, { FC, forwardRef, useEffect, useState } from 'react'
 
 import PlayerContextMenu from './PlayerContextMenu'
 
@@ -54,20 +48,20 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
     const { pathname } = useRouter()
     const { setUploadedVideo } = useAppStore()
 
-    useEffect((): ReturnType<EffectCallback> => {
+    useEffect(() => {
       const { current } = ref as React.MutableRefObject<APITypes>
-      if (current.plyr.source === null) return
+      if (current.plyr?.source === null) return
       const api = current as { plyr: PlyrInstance }
 
-      api.plyr.on('ready', () => {
+      api.plyr?.on('ready', () => {
         api.plyr.currentTime = Number(time || 0)
       })
 
       const onDataLoaded = () => {
-        api.plyr.off('loadeddata', onDataLoaded)
-        if (pathname === UPLOAD && api.plyr.duration) {
+        api.plyr?.off('loadeddata', onDataLoaded)
+        if (pathname === UPLOAD && api.plyr?.duration) {
           setUploadedVideo({
-            durationInSeconds: api.plyr.duration.toFixed(2)
+            durationInSeconds: api.plyr?.duration.toFixed(2)
           })
         }
         api.plyr.currentTime = Number(time || 0)

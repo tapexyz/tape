@@ -47,7 +47,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
               src={getProfilePicture(channel)}
               className="object-cover w-24 h-24 bg-white border-4 border-white dark:border-black rounded-xl dark:bg-gray-900 md:-mt-10 md:w-32 md:h-32"
               draggable={false}
-              alt=""
+              alt="channel picture"
             />
           </div>
           <div className="flex flex-wrap justify-between flex-1 py-2 space-y-2">

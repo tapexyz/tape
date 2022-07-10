@@ -79,7 +79,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                   <img
                     className="w-8 h-8 rounded-xl"
                     src={getProfilePicture(video.profile)}
-                    alt=""
+                    alt="channel picture"
                     draggable={false}
                   />
                 </a>
