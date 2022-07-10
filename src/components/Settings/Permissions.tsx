@@ -108,9 +108,9 @@ const Permissions = () => {
     <div className="p-4 bg-white divide-y divide-gray-200 rounded-lg dark:divide-gray-900 dark:bg-black">
       <div className="mb-6">
         <h1 className="mb-1 text-xl font-semibold">Access permissions</h1>
-        <p className="text-sm opacity-80">
-          These are the modules which need to be allowed in order to use that
-          feature. You can comeback here and revoke access anytime.
+        <p className="opacity-80">
+          These are the collect modules which you allowed / need to allow to use
+          collect feature. You can allow and revoke access anytime.
         </p>
       </div>
       <div>
