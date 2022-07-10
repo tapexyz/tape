@@ -69,10 +69,10 @@ const DropZone = () => {
         >
           <>
             <input {...getInputProps()} />
-            <span className="flex justify-center mb-6 opacity-70">
+            <span className="flex justify-center mb-6 opacity-80">
               <FiUpload className="text-6xl" />
             </span>
-            <span className="space-y-10 opacity-80">
+            <span className="space-y-10">
               <div className="text-2xl font-semibold md:text-4xl">
                 Drag and drop <br /> video to upload
               </div>

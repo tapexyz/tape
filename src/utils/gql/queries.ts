@@ -99,6 +99,7 @@ export const MetadataFields = gql`
     }
     attributes {
       value
+      traitType
     }
   }
 `
@@ -128,6 +129,9 @@ export const MirrorFieldsFragment = gql`
         id
         profile {
           ...MinimalProfileFields
+        }
+        metadata {
+          ...MetadataFields
         }
         reaction(request: $reactionRequest)
         stats {
@@ -213,6 +217,10 @@ export const CommentFieldsFragment = gql`
             original {
               url
             }
+          }
+          attributes {
+            value
+            traitType
           }
         }
       }

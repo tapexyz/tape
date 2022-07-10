@@ -52,9 +52,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
           </div>
           <div className="flex flex-wrap justify-between flex-1 py-2 space-y-2">
             <div className="flex flex-col items-start mr-3">
-              <h1 className="font-bold md:text-xl">
-                {channel.name ?? channel?.handle}
-              </h1>
+              <h1 className="font-semibold md:text-2xl">{channel?.handle} </h1>
               <span className="inline-flex items-center space-x-1 text-sm md:text-base">
                 {channel?.stats.totalFollowers} subscribers
               </span>

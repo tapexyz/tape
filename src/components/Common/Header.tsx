@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <div
       className={clsx(
-        'fixed z-10 flex md:left-[94px] right-2 left-2 md:right-4 items-center bg-white dark:bg-black h-14 md:h-16'
+        'sticky top-0 left-0 right-0 z-10 flex w-full items-center bg-white dark:bg-black h-14 md:h-16'
       )}
     >
       <CreateChannel />

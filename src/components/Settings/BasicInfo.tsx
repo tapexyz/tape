@@ -246,7 +246,7 @@ const BasicInfo = ({ channel }: Props) => {
             Channel URL
           </div>
         </div>
-        <div className="flex items-center space-x-2 text-sm">
+        <div className="flex items-center space-x-2">
           <span>
             {LENSTUBE_URL}/{channel.handle}
           </span>

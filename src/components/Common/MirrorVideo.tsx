@@ -30,6 +30,8 @@ type Props = {
 const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
   const { isAuthenticated, selectedChannel } = usePersistStore()
+  const onlySubscribersCanMirror =
+    video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
 
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -130,8 +132,10 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     })
   }
 
+  if (onlySubscribersCanMirror) return null
+
   return (
-    <Tooltip placement="top-start" content="Mirror across Lens">
+    <Tooltip placement="top-start" content="Mirror video across Lens">
       <button
         disabled={loading}
         onClick={() => mirrorVideo()}

@@ -18,7 +18,7 @@ const Recents = () => {
     variables: {
       request: {
         sortCriteria: 'LATEST',
-        limit: 8,
+        limit: 12,
         noRandomize: false,
         sources: [LENSTUBE_APP_ID],
         publicationTypes: ['POST']
@@ -50,11 +50,12 @@ const Recents = () => {
       })
     }
   })
+
   return (
     <div>
       {loading && <TimelineShimmer />}
       {data?.explorePublications?.items.length === 0 && (
-        <NoDataFound text="No videos found." />
+        <NoDataFound isCenter withImage text="No videos found" />
       )}
       {!error && !loading && (
         <>

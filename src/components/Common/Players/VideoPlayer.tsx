@@ -6,7 +6,13 @@ import { UPLOAD } from '@utils/url-path'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { APITypes, PlyrInstance, PlyrProps, usePlyr } from 'plyr-react'
-import React, { FC, forwardRef, useEffect, useState } from 'react'
+import React, {
+  EffectCallback,
+  FC,
+  forwardRef,
+  useEffect,
+  useState
+} from 'react'
 
 import PlayerContextMenu from './PlayerContextMenu'
 
@@ -48,7 +54,7 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
     const { pathname } = useRouter()
     const { setUploadedVideo } = useAppStore()
 
-    useEffect(() => {
+    useEffect((): ReturnType<EffectCallback> => {
       const { current } = ref as React.MutableRefObject<APITypes>
       if (current.plyr.source === null) return
       const api = current as { plyr: PlyrInstance }
@@ -68,6 +74,10 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
       }
       // Set seek time when meta data fully downloaded
       api.plyr.on('loadedmetadata', onDataLoaded)
+
+      return () => {
+        api.plyr.pip = false
+      }
     })
 
     const onContextClick = (event: React.MouseEvent<HTMLDivElement>) => {

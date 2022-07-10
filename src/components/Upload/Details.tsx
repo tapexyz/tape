@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import ChooseThumbnail from './ChooseThumbnail'
+import CollectModuleType from './CollectModuleType'
 import Video from './Video'
 
 const formSchema = z.object({
@@ -19,9 +20,10 @@ const formSchema = z.object({
     .max(100, { message: 'Title should not exceed 100 characters' }),
   description: z
     .string()
-    .max(100, { message: 'Title should not exceed 100 characters' }),
+    .max(5000, { message: 'Description should not exceed 5000 characters' }),
   thumbnail: z.string(),
   isAdultContent: z.boolean(),
+  disableComments: z.boolean(),
   acceptTerms: z.boolean({
     invalid_type_error: 'You must accept Terms'
   })
@@ -47,7 +49,8 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       isAdultContent: false,
-      acceptTerms: false
+      acceptTerms: false,
+      disableComments: false
     }
   })
 
@@ -89,7 +92,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               <TextArea
                 {...register('description')}
                 label="Description"
-                placeholder="Describe more about your video"
+                placeholder="Describe more about your video, can be hashtags or chapters"
                 autoComplete="off"
                 validationError={errors.description?.message}
                 rows={5}
@@ -123,6 +126,20 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               )}
             </div>
             <div className="mt-4">
+              <CollectModuleType />
+            </div>
+            <div className="mt-4">
+              <RadioInput
+                checked={watch('disableComments')}
+                onChange={(checked) => {
+                  setValue('disableComments', checked)
+                }}
+                question={
+                  <span>Allow only subscribers to comment and mirror?</span>
+                }
+              />
+            </div>
+            <div className="mt-4">
               <RadioInput
                 checked={watch('isAdultContent')}
                 onChange={(checked) => {
@@ -137,7 +154,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               />
             </div>
           </div>
-          <div className="flex mt-4">
+          <div className="flex mt-6">
             <input
               id="default-checkbox"
               type="checkbox"

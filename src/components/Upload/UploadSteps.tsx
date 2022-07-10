@@ -12,6 +12,7 @@ import {
   LENSTUBE_URL,
   RELAYER_ENABLED
 } from '@utils/constants'
+import { getCollectModule } from '@utils/functions/getCollectModule'
 import { isLessThan100MB } from '@utils/functions/getSizeFromBytes'
 import omitKey from '@utils/functions/omitKey'
 import { uploadDataToIPFS } from '@utils/functions/uploadToIPFS'
@@ -290,19 +291,14 @@ const UploadSteps = () => {
       buttonText: 'Posting video...',
       loading: true
     })
-    // TODO: Add fields to select collect and reference module
     createTypedData({
       variables: {
         request: {
           profileId: selectedChannel?.id,
           contentURI: ipfsUrl,
-          collectModule: {
-            freeCollectModule: {
-              followerOnly: false
-            }
-          },
+          collectModule: getCollectModule(uploadedVideo.collectModule),
           referenceModule: {
-            followerOnlyReferenceModule: false
+            followerOnlyReferenceModule: uploadedVideo.disableComments
           }
         }
       }

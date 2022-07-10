@@ -1,16 +1,26 @@
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
+import { STATIC_ASSETS } from '@utils/constants'
+import { getTimeFromSeconds } from '@utils/functions/formatTime'
+import { getValueFromTraitType } from '@utils/functions/getFromAttributes'
+import { getIsSensitiveContent } from '@utils/functions/getIsSensitiveContent'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import imageCdn from '@utils/functions/imageCdn'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import { Attribute } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 dayjs.extend(relativeTime)
 
 const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
   const [showShare, setShowShare] = useState(false)
+  const isSensitiveContent = getIsSensitiveContent(video.metadata?.attributes)
+  const videoDuration = getValueFromTraitType(
+    video.metadata?.attributes as Attribute[],
+    'durationInSeconds'
+  )
 
   return (
     <div className="flex justify-between group">
@@ -19,12 +29,25 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
         <div className="flex-none overflow-hidden rounded-lg">
           <Link href={`/watch/${video.id}`}>
             <a className="rounded-lg cursor-pointer">
-              <img
-                src={imageCdn(getThumbnailUrl(video))}
-                alt=""
-                draggable={false}
-                className="object-cover object-center h-20 w-36"
-              />
+              <div className="relative">
+                <img
+                  src={imageCdn(
+                    isSensitiveContent
+                      ? `${STATIC_ASSETS}/images/sensor-blur.png`
+                      : getThumbnailUrl(video)
+                  )}
+                  alt="thumbnail"
+                  draggable={false}
+                  className="object-cover object-center h-20 w-36"
+                />
+                {!isSensitiveContent && videoDuration ? (
+                  <div>
+                    <span className="absolute bottom-1 right-1 text-[10px] px-1 text-white bg-black rounded">
+                      {getTimeFromSeconds(videoDuration)}
+                    </span>
+                  </div>
+                ) : null}
+              </div>
             </a>
           </Link>
         </div>

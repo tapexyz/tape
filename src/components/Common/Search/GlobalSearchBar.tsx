@@ -30,7 +30,7 @@ export default function GlobalSearchBar() {
   }, [debouncedValue])
 
   return (
-    <div className="lg:w-[34rem] md:w-80">
+    <div className="lg:w-96 md:w-80">
       <div>
         <div className="relative mt-1">
           <div className="relative w-full overflow-hidden border border-gray-200 cursor-default dark:border-gray-800 rounded-xl sm:text-sm">
@@ -58,7 +58,7 @@ export default function GlobalSearchBar() {
             {channels?.search?.items.map((channel: Profile) => (
               <div
                 key={channel.id}
-                className="relative px-2 cursor-default select-none hover:bg-gray-100 dark:hover:bg-gray-900"
+                className="relative pl-3 pr-4 cursor-default select-none hover:bg-gray-100 dark:hover:bg-gray-900"
               >
                 <>
                   <Link href={`/${channel?.handle}`} key={channel?.handle}>

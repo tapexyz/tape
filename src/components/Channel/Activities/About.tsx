@@ -1,3 +1,4 @@
+import { AddressExplorerLink } from '@components/Common/ExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
 import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@utils/constants'
 import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
@@ -94,9 +95,11 @@ const About: FC<Props> = ({ channel }) => {
           </div>
           <div className="flex items-center space-x-1">
             <RiShieldKeyholeLine />
-            <Tooltip content="Owner address" placement="right">
-              <span>{shortenAddress(channel.ownedBy)}</span>
-            </Tooltip>
+            <AddressExplorerLink address={channel.ownedBy}>
+              <Tooltip content="Owner address" placement="right">
+                <span>{shortenAddress(channel.ownedBy)}</span>
+              </Tooltip>
+            </AddressExplorerLink>
           </div>
         </div>
       </div>

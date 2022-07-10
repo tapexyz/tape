@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import Alert from '@components/Common/Alert'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -26,6 +27,10 @@ const VideoComments: FC<Props> = ({ video }) => {
     query: { id }
   } = useRouter()
   const { isAuthenticated, selectedChannel } = usePersistStore()
+  const onlySubscribersCanComment =
+    video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
+  const isMembership =
+    video.profile?.followModule?.__typename === 'FeeFollowModuleSettings'
 
   const [comments, setComments] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
@@ -107,7 +112,19 @@ const VideoComments: FC<Props> = ({ video }) => {
       {data?.publications?.items.length === 0 && (
         <NoDataFound text="Be the first to comment." />
       )}
-      <NewComment video={video} refetchComments={() => refetchComments()} />
+      {onlySubscribersCanComment ? (
+        video.profile.isFollowedByMe ? (
+          <NewComment video={video} refetchComments={() => refetchComments()} />
+        ) : (
+          <Alert variant="warning">
+            <span>
+              Only {isMembership ? 'members' : 'subscribers'} can comment
+            </span>
+          </Alert>
+        )
+      ) : (
+        <NewComment video={video} refetchComments={() => refetchComments()} />
+      )}
       {!error && !loading && (
         <>
           <div className="pt-5 space-y-4">

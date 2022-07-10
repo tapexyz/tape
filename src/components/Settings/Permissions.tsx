@@ -3,6 +3,7 @@ import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import usePersistStore from '@lib/store/persist'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
+import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
 import {
   ALLOWANCE_SETTINGS_QUERY,
   GENERATE_ALLOWANCE_QUERY
@@ -12,19 +13,20 @@ import toast from 'react-hot-toast'
 import { ApprovedAllowanceAmount, Erc20 } from 'src/types'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
-const getFollowModule = (modules: ApprovedAllowanceAmount[]) => {
-  return modules.find((el) => el.module === 'FeeFollowModule')
-}
+const collectModules = [
+  'FeeCollectModule',
+  'TimedFeeCollectModule',
+  'FeeFollowModule'
+]
 
 const Permissions = () => {
   const { selectedChannel } = usePersistStore()
   const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
-  const [loading, setLoading] = useState(false)
+  const [loadingModule, setLoadingModule] = useState('')
 
   const { data: txData, sendTransaction } = useSendTransaction({
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
-      setLoading(false)
     }
   })
 
@@ -37,22 +39,36 @@ const Permissions = () => {
       request: {
         currencies: [currency],
         followModules: ['FeeFollowModule'],
-        collectModules: ['FeeCollectModule'],
+        collectModules: [
+          'FreeCollectModule',
+          'FeeCollectModule',
+          'LimitedFeeCollectModule',
+          'LimitedTimedFeeCollectModule',
+          'TimedFeeCollectModule',
+          'RevertCollectModule'
+        ],
         referenceModules: ['FollowerOnlyReferenceModule']
       }
     },
     skip: !selectedChannel?.id
   })
-  const { isLoading } = useWaitForTransaction({
+  useWaitForTransaction({
     hash: txData?.hash,
     onSuccess() {
       toast.success('Permission updated')
-      setLoading(false)
+      setLoadingModule('')
       refetch({
         request: {
           currencies: [currency],
           followModules: ['FeeFollowModule'],
-          collectModules: ['FeeCollectModule'],
+          collectModules: [
+            'FreeCollectModule',
+            'FeeCollectModule',
+            'LimitedFeeCollectModule',
+            'LimitedTimedFeeCollectModule',
+            'TimedFeeCollectModule',
+            'RevertCollectModule'
+          ],
           referenceModules: ['FollowerOnlyReferenceModule']
         }
       })
@@ -64,14 +80,14 @@ const Permissions = () => {
 
   const [generateAllowanceQuery] = useLazyQuery(GENERATE_ALLOWANCE_QUERY)
 
-  const handleClick = (isAllow: boolean) => {
-    setLoading(true)
+  const handleClick = (isAllow: boolean, selectedModule: string) => {
+    setLoadingModule(selectedModule)
     generateAllowanceQuery({
       variables: {
         request: {
           currency,
-          value: isAllow ? '10000000' : '0',
-          followModule: 'FeeFollowModule'
+          value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : '0',
+          [getCollectModuleConfig(selectedModule).type]: selectedModule
         }
       }
     })
@@ -85,17 +101,16 @@ const Permissions = () => {
           }
         })
       })
-      .catch(() => setLoading(false))
+      .catch(() => setLoadingModule(''))
   }
 
   return (
     <div className="p-4 bg-white divide-y divide-gray-200 rounded-lg dark:divide-gray-900 dark:bg-black">
       <div className="mb-6">
         <h1 className="mb-1 text-xl font-semibold">Access permissions</h1>
-        <p className="text-sm opacity-80">
-          These are the modules which you allowed to automatically debit funds
-          from your account. You can see the information here and revoke access
-          anytime.
+        <p className="opacity-80">
+          These are the collect modules which you allowed / need to allow to use
+          collect feature. You can allow and revoke access anytime.
         </p>
       </div>
       <div>
@@ -123,41 +138,40 @@ const Permissions = () => {
             <Loader />
           </div>
         )}
-        {data && !gettingSettings && (
-          <div className="flex items-center pb-2 rounded-md">
-            <div className="flex-1">
-              <h6 className="text-base">
-                Allow{' '}
-                {getFollowModule(data?.approvedModuleAllowanceAmount)?.module}
-              </h6>
-              <p className="text-sm opacity-70">
-                Allows subscriber to join the channel by paying a fee specified
-                by the channel owner.
-              </p>
-            </div>
-            <div className="flex items-center flex-none ml-2 space-x-2">
-              {getFollowModule(data?.approvedModuleAllowanceAmount)
-                ?.allowance === '0x00' ? (
-                <Button
-                  disabled={isLoading || loading}
-                  loading={isLoading || loading}
-                  onClick={() => handleClick(true)}
-                >
-                  Allow
-                </Button>
-              ) : (
-                <Button
-                  disabled={isLoading || loading}
-                  onClick={() => handleClick(false)}
-                  variant="danger"
-                  loading={isLoading || loading}
-                >
-                  Revoke
-                </Button>
-              )}
-            </div>
-          </div>
-        )}
+        {!gettingSettings &&
+          data?.approvedModuleAllowanceAmount?.map(
+            (moduleItem: ApprovedAllowanceAmount, i: number) =>
+              collectModules.includes(moduleItem.module) && (
+                <div key={i} className="flex items-center pb-4 rounded-md">
+                  <div className="flex-1">
+                    <h6 className="text-base">Allow {moduleItem.module}</h6>
+                    <p className="text-sm opacity-70">
+                      {getCollectModuleConfig(moduleItem.module).description}
+                    </p>
+                  </div>
+                  <div className="flex items-center flex-none ml-2 space-x-2">
+                    {moduleItem?.allowance === '0x00' ? (
+                      <Button
+                        disabled={loadingModule === moduleItem.module}
+                        loading={loadingModule === moduleItem.module}
+                        onClick={() => handleClick(true, moduleItem.module)}
+                      >
+                        Allow
+                      </Button>
+                    ) : (
+                      <Button
+                        disabled={loadingModule === moduleItem.module}
+                        onClick={() => handleClick(false, moduleItem.module)}
+                        variant="danger"
+                        loading={loadingModule === moduleItem.module}
+                      >
+                        Revoke
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              )
+          )}
       </div>
     </div>
   )

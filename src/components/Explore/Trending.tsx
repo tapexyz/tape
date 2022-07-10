@@ -18,7 +18,7 @@ const Trending = () => {
     variables: {
       request: {
         sortCriteria: 'TOP_COMMENTED',
-        limit: 8,
+        limit: 12,
         noRandomize: false,
         sources: [LENSTUBE_APP_ID],
         publicationTypes: ['POST']
@@ -50,11 +50,12 @@ const Trending = () => {
       })
     }
   })
+
   return (
     <div>
       {loading && <TimelineShimmer />}
       {data?.explorePublications?.items.length === 0 && (
-        <NoDataFound text="No videos found." />
+        <NoDataFound isCenter withImage text="No videos found" />
       )}
       {!error && !loading && (
         <>

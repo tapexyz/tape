@@ -4,9 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  @apply  overflow-y-scroll;
+}
+
 body {
   font-family: 'Matter', sans-serif;
-  @apply bg-white dark:bg-black dark:text-white text-black min-h-screen overflow-y-scroll;
+  @apply bg-white dark:bg-black dark:text-white text-black min-h-screen;
 }
 
 .text-secondary {

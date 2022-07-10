@@ -15,16 +15,16 @@ type Props = {
 const OtherChannels: FC<Props> = ({ channel }) => {
   const { data, loading } = useQuery(PROFILE_QUERY, {
     variables: {
-      request: { handles: channel.handle }
+      request: { ownedBy: channel?.ownedBy }
     },
-    skip: !channel.id
+    skip: !channel?.ownedBy
   })
   const allChannels: Profile[] = data?.profiles?.items
 
   if (loading) return <OtherChannelsShimmer />
 
   if (data?.profiles?.items?.length === 1) {
-    return <NoDataFound text="No other channels found." />
+    return <NoDataFound isCenter withImage text="No other channels found" />
   }
 
   return (
