@@ -50,7 +50,7 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             }
           )}
         >
-          <span>Limit to 24 hours</span>
+          <span>Limit to 24 hours sale</span>
           {uploadedVideo.collectModule.isTimedFeeCollect && <AiOutlineCheck />}
         </button>
       </div>
