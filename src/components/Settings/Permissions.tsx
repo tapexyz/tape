@@ -172,43 +172,6 @@ const Permissions = () => {
                 </div>
               )
           )}
-        {/* {data && !gettingSettings && (
-          <>
-            <div className="flex items-center pb-4 rounded-md">
-              <div className="flex-1">
-                <h6 className="text-base">
-                  Allow{' '}
-                  {getFollowModule(data?.approvedModuleAllowanceAmount)?.module}
-                </h6>
-                <p className="text-sm opacity-70">
-                  Allows subscriber to join the channel by paying a fee
-                  specified by the channel owner.
-                </p>
-              </div>
-              <div className="flex items-center flex-none ml-2 space-x-2">
-                {getFollowModule(data?.approvedModuleAllowanceAmount)
-                  ?.allowance === '0x00' ? (
-                  <Button
-                    disabled={isLoading || loading}
-                    loading={isLoading || loading}
-                    onClick={() => handleClick(true)}
-                  >
-                    Allow
-                  </Button>
-                ) : (
-                  <Button
-                    disabled={isLoading || loading}
-                    onClick={() => handleClick(false)}
-                    variant="danger"
-                    loading={isLoading || loading}
-                  >
-                    Revoke
-                  </Button>
-                )}
-              </div>
-            </div>
-          </>
-        )} */}
       </div>
     </div>
   )
