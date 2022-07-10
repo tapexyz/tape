@@ -21,10 +21,7 @@ type Props = {
 
 const formSchema = z.object({
   currency: z.string(),
-  amount: z
-    .number({ invalid_type_error: 'Amount required' })
-    .min(1, { message: 'Amount required' })
-    .nonnegative({ message: 'Should to greater than zero' }),
+  amount: z.string().min(1, { message: 'Invalid amount' }),
   referralPercent: z
     .number()
     .max(100, { message: 'Percentage should be 0 to 100' })
@@ -47,7 +44,7 @@ const FeeCollectForm: FC<Props> = ({
       referralPercent: Number(uploadedVideo.collectModule.referralFee || 0),
       currency:
         uploadedVideo.collectModule.amount?.currency ?? WMATIC_TOKEN_ADDRESS,
-      amount: Number(uploadedVideo.collectModule.amount?.value)
+      amount: uploadedVideo.collectModule.amount?.value
     }
   })
   const { selectedChannel } = usePersistStore()
@@ -101,9 +98,12 @@ const FeeCollectForm: FC<Props> = ({
           type="number"
           label="Amount"
           placeholder="1.5"
+          min="0"
+          autoComplete="off"
+          max="100000"
           validationError={errors.amount?.message}
           {...register('amount', {
-            setValueAs: (v) => (v === '' ? undefined : parseInt(v, 10))
+            setValueAs: (v) => String(v)
           })}
         />
       </div>

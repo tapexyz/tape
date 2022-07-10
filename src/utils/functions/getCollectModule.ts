@@ -8,7 +8,10 @@ export const getCollectModule = (selectCollectModule: CollectModuleType) => {
     }
   }
   // Should collect by paying fee (anyone/ only subs)
-  if (selectCollectModule.isFeeCollect) {
+  if (
+    selectCollectModule.isFeeCollect &&
+    !selectCollectModule.isTimedFeeCollect
+  ) {
     return {
       feeCollectModule: {
         amount: {
@@ -22,7 +25,10 @@ export const getCollectModule = (selectCollectModule: CollectModuleType) => {
     }
   }
   // Should collect within 24 hrs (anyone/ only subs)
-  if (selectCollectModule.isTimedFeeCollect) {
+  if (
+    selectCollectModule.isFeeCollect &&
+    selectCollectModule.isTimedFeeCollect
+  ) {
     return {
       timedFeeCollectModule: {
         amount: {
@@ -49,19 +55,19 @@ export const getCollectModuleConfig = (collectModule: string) => {
       return {
         type: 'collectModule',
         description:
-          'Allows subscriber to collect your publication by paying fees specified by you.'
+          'Allow you to collect any publication by paying fees specified.'
       }
     case 'TimedFeeCollectModule':
       return {
         type: 'collectModule',
         description:
-          'Allows subscriber to collect your publication within the time limit specified by you.'
+          'Allow you to collect any publication within the time limit specified.'
       }
     case 'FeeFollowModule':
       return {
         type: 'followModule',
         description:
-          'Allows subscriber to join the channel by paying a fee specified by the channel owner.'
+          'Allows you to join any channel by paying a fee specified by the channel owner.'
       }
     default:
       return {

@@ -74,12 +74,13 @@ const CollectModuleType = () => {
               uploadedVideo={uploadedVideo}
             />
           )}
-          {!uploadedVideo.collectModule.isRevertCollect && (
-            <ChargeQuestion
-              setCollectType={setCollectType}
-              uploadedVideo={uploadedVideo}
-            />
-          )}
+          {!uploadedVideo.collectModule.isRevertCollect &&
+            !uploadedVideo.collectModule.isTimedFeeCollect && (
+              <ChargeQuestion
+                setCollectType={setCollectType}
+                uploadedVideo={uploadedVideo}
+              />
+            )}
           {!uploadedVideo.collectModule.isFreeCollect &&
           !uploadedVideo.collectModule.isRevertCollect ? (
             <FeeCollectForm

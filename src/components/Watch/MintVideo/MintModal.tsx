@@ -89,23 +89,29 @@ const MintModal: FC<Props> = ({
                 </span>
               </div>
             )}
-            {isAllowed ? (
-              <div className="flex justify-end">
-                <Button disabled={minting} onClick={() => handleMint(false)}>
-                  Mint
-                </Button>
-              </div>
-            ) : (
-              <Link href={SETTINGS_PERMISSIONS}>
-                <a className="float-right">
-                  <Button variant="secondary">
-                    <span className="flex items-center">
-                      Allow Fee Collect Module <BiChevronRight />
-                    </span>
+            <div className="flex justify-end mt-3">
+              {isAllowed ? (
+                collectModule?.followerOnly && !video.profile.isFollowedByMe ? (
+                  <div className="flex text-xs">
+                    Only Members / Subscribers can mint this publication
+                  </div>
+                ) : (
+                  <Button disabled={minting} onClick={() => handleMint(false)}>
+                    Mint
                   </Button>
-                </a>
-              </Link>
-            )}
+                )
+              ) : (
+                <Link href={SETTINGS_PERMISSIONS}>
+                  <a>
+                    <Button variant="secondary">
+                      <span className="flex items-center">
+                        Allow {collectModule.type} <BiChevronRight />
+                      </span>
+                    </Button>
+                  </a>
+                </Link>
+              )}
+            </div>
           </>
         ) : (
           <div className="py-6">
