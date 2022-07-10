@@ -86,7 +86,7 @@ const Permissions = () => {
       variables: {
         request: {
           currency,
-          value: isAllow ? '10000000' : '0',
+          value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : '0',
           [getCollectModuleConfig(selectedModule).type]: selectedModule
         }
       }
