@@ -60,7 +60,8 @@ const FeeCollectForm: FC<Props> = ({
   const onSubmit = (data: FormData) => {
     setCollectType({
       amount: { currency: data.currency, value: data.amount.toString() },
-      referralFee: data.referralPercent
+      referralFee: data.referralPercent,
+      recipient: selectedChannel?.ownedBy
     })
     setShowModal(false)
   }

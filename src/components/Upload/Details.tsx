@@ -23,6 +23,7 @@ const formSchema = z.object({
     .max(5000, { message: 'Description should not exceed 5000 characters' }),
   thumbnail: z.string(),
   isAdultContent: z.boolean(),
+  disableComments: z.boolean(),
   acceptTerms: z.boolean({
     invalid_type_error: 'You must accept Terms'
   })
@@ -48,7 +49,8 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       isAdultContent: false,
-      acceptTerms: false
+      acceptTerms: false,
+      disableComments: false
     }
   })
 
@@ -125,6 +127,15 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             </div>
             <div className="mt-4">
               <CollectModuleType />
+            </div>
+            <div className="mt-4">
+              <RadioInput
+                checked={watch('disableComments')}
+                onChange={(checked) => {
+                  setValue('disableComments', checked)
+                }}
+                question={<span>Do you want to disable comments?</span>}
+              />
             </div>
             <div className="mt-4">
               <RadioInput

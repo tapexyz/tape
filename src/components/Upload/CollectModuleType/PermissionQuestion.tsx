@@ -20,6 +20,7 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             setCollectType({
               isFreeCollect: true,
               isRevertCollect: false,
+              isFeeCollect: false,
               followerOnlyCollect: false
             })
           }

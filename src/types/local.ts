@@ -45,6 +45,7 @@ export type CollectModuleType = {
   amount?: { currency?: string; value: string }
   referralFee?: number
   followerOnlyCollect?: boolean
+  recipient?: string
 }
 
 export type LenstubePublication = Post &
