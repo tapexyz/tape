@@ -1,3 +1,4 @@
+import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import React, { useState } from 'react'
@@ -6,6 +7,7 @@ import { CollectModuleType } from 'src/types/local'
 
 import ChargeQuestion from './ChargeQuestion'
 import FeeCollectForm from './FeeCollectForm'
+import LimitQuestion from './LimitQuestion'
 import PermissionQuestion from './PermissionQuestion'
 
 const CollectModuleType = () => {
@@ -23,20 +25,20 @@ const CollectModuleType = () => {
   }
 
   const getSelectedCollectType = () => {
-    const followerOnly = uploadedVideo.collectModule.followerOnly
-    const amount = uploadedVideo.collectModule.amount?.value
-    if (uploadedVideo.collectModule.type === 'revertCollectModule') {
+    const followerOnlyCollect = uploadedVideo.collectModule.followerOnlyCollect
+    const isTimedFeeCollect = uploadedVideo.collectModule.isTimedFeeCollect
+    if (uploadedVideo.collectModule.isRevertCollect) {
       return 'No one can mint this publication'
     }
-    if (uploadedVideo.collectModule.isFree) {
+    if (uploadedVideo.collectModule.isFreeCollect) {
       return `${
-        followerOnly ? 'Only Subscribers' : 'Anyone'
-      } can mint this publication for free`
+        followerOnlyCollect ? 'Only Subscribers' : 'Anyone'
+      } can mint for free ${isTimedFeeCollect ? 'within 24hrs' : ''}`
     }
-    if (!uploadedVideo.collectModule.isFree) {
+    if (!uploadedVideo.collectModule.isFreeCollect) {
       return `${
-        followerOnly ? 'Only Subscribers' : 'Anyone'
-      } can mint this publication for given fees - ${amount}`
+        followerOnlyCollect ? 'Only Subscribers' : 'Anyone'
+      } can mint for given fees ${isTimedFeeCollect ? 'within 24hrs' : ''}`
     }
   }
 
@@ -61,25 +63,37 @@ const CollectModuleType = () => {
         onClose={() => setShowModal(false)}
         show={showModal}
       >
-        <div className="mt-4 space-y-3">
+        <div className="mt-4 space-y-4">
           <PermissionQuestion
             setCollectType={setCollectType}
             uploadedVideo={uploadedVideo}
           />
-          {uploadedVideo.collectModule.type !== 'revertCollectModule' && (
+          {!uploadedVideo.collectModule.isRevertCollect && (
+            <LimitQuestion
+              setCollectType={setCollectType}
+              uploadedVideo={uploadedVideo}
+            />
+          )}
+          {!uploadedVideo.collectModule.isRevertCollect && (
             <ChargeQuestion
               setCollectType={setCollectType}
               uploadedVideo={uploadedVideo}
             />
           )}
-          {!uploadedVideo.collectModule.isFree &&
-            uploadedVideo.collectModule.type !== 'revertCollectModule' && (
-              <FeeCollectForm
-                setCollectType={setCollectType}
-                uploadedVideo={uploadedVideo}
-                setShowModal={setShowModal}
-              />
-            )}
+          {!uploadedVideo.collectModule.isFreeCollect &&
+          !uploadedVideo.collectModule.isRevertCollect ? (
+            <FeeCollectForm
+              setCollectType={setCollectType}
+              uploadedVideo={uploadedVideo}
+              setShowModal={setShowModal}
+            />
+          ) : (
+            <div className="flex justify-end">
+              <Button type="button" onClick={() => setShowModal(false)}>
+                Set Collect Type
+              </Button>
+            </div>
+          )}
         </div>
       </Modal>
     </>

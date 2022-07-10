@@ -60,7 +60,6 @@ const FeeCollectForm: FC<Props> = ({
   const onSubmit = (data: FormData) => {
     setCollectType({
       amount: { currency: data.currency, value: data.amount.toString() },
-      type: 'feeCollectModule',
       referralFee: data.referralPercent
     })
     setShowModal(false)
@@ -83,8 +82,7 @@ const FeeCollectForm: FC<Props> = ({
           value={uploadedVideo.collectModule.amount?.currency}
           onChange={(e) => {
             setCollectType({
-              amount: { currency: e.target.value, value: '' },
-              type: 'feeCollectModule'
+              amount: { currency: e.target.value, value: '' }
             })
           }}
         >

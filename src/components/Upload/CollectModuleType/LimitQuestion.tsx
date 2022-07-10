@@ -9,50 +9,49 @@ type Props = {
   setCollectType: (data: CollectModuleType) => void
 }
 
-const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
+const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
   return (
     <div className="space-y-2">
-      <h6>Would you like to charge user?</h6>
+      <h6>Would you like to limit the mint duration?</h6>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <button
           type="button"
           onClick={() =>
             setCollectType({
-              isFreeCollect: true,
-              isFeeCollect: false
+              isTimedFeeCollect: false
             })
           }
           className={clsx(
             'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
             {
-              'border-indigo-500': uploadedVideo.collectModule.isFreeCollect
+              'border-indigo-500':
+                !uploadedVideo.collectModule.isTimedFeeCollect
             }
           )}
         >
-          <span>Mint for Free</span>
-          {uploadedVideo.collectModule.isFreeCollect && <AiOutlineCheck />}
+          <span>No Limit</span>
+          {!uploadedVideo.collectModule.isTimedFeeCollect && <AiOutlineCheck />}
         </button>
         <button
           type="button"
           onClick={() =>
             setCollectType({
-              isFreeCollect: false,
-              isFeeCollect: true
+              isTimedFeeCollect: true
             })
           }
           className={clsx(
             'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
             {
-              'border-indigo-500': uploadedVideo.collectModule.isFeeCollect
+              'border-indigo-500': uploadedVideo.collectModule.isTimedFeeCollect
             }
           )}
         >
-          <span>Yes, Some Amount</span>
-          {uploadedVideo.collectModule.isFeeCollect && <AiOutlineCheck />}
+          <span>Limit to 24 hours</span>
+          {uploadedVideo.collectModule.isTimedFeeCollect && <AiOutlineCheck />}
         </button>
       </div>
     </div>
   )
 }
 
-export default ChargeQuestion
+export default LimitQuestion

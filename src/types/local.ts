@@ -38,11 +38,13 @@ export type UploadedVideo = {
 }
 
 export type CollectModuleType = {
-  type: string
+  isTimedFeeCollect?: boolean
+  isFreeCollect?: boolean
+  isFeeCollect?: boolean
+  isRevertCollect?: boolean
   amount?: { currency?: string; value: string }
   referralFee?: number
-  followerOnly?: boolean
-  isFree?: boolean
+  followerOnlyCollect?: boolean
 }
 
 export type LenstubePublication = Post &

@@ -30,10 +30,13 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   durationInSeconds: null,
   collectModule: {
     type: 'freeCollectModule',
+    followerOnlyCollect: false,
     amount: { currency: WMATIC_TOKEN_ADDRESS, value: '' },
     referralFee: 0,
-    followerOnly: false,
-    isFree: true
+    isTimedFeeCollect: false,
+    isFreeCollect: true,
+    isFeeCollect: false,
+    isRevertCollect: false
   },
   disableComments: false
 }

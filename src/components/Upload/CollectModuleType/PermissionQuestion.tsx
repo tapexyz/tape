@@ -18,69 +18,61 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
-              type: 'freeCollectModule',
-              followerOnly: false,
-              isFree: true,
-              referralFee: 0
+              isFreeCollect: true,
+              isRevertCollect: false,
+              followerOnlyCollect: false
             })
           }
           className={clsx(
-            'flex items-center justify-between w-full px-4 py-3 text-sm border border-gray-200 hover:border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+            'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
             {
-              'border-indigo-500': !uploadedVideo.collectModule.followerOnly
+              'border-indigo-500':
+                !uploadedVideo.collectModule.followerOnlyCollect &&
+                !uploadedVideo.collectModule.isRevertCollect
             }
           )}
         >
           <span>Anyone</span>
-          {!uploadedVideo.collectModule.followerOnly && <AiOutlineCheck />}
+          {!uploadedVideo.collectModule.followerOnlyCollect &&
+            !uploadedVideo.collectModule.isRevertCollect && <AiOutlineCheck />}
         </button>
         <button
           type="button"
           onClick={() =>
             setCollectType({
-              type: 'freeCollectModule',
-              followerOnly: true,
-              isFree: true,
-              referralFee: 0
+              followerOnlyCollect: true,
+              isRevertCollect: false
             })
           }
           className={clsx(
-            'flex items-center justify-between w-full px-4 py-3 text-sm border border-gray-200 hover:border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+            'flex items-center justify-between w-full px-4 py-1 text-sm border border-gray-200 hover:border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
             {
               'border-indigo-500':
-                uploadedVideo.collectModule.followerOnly &&
-                uploadedVideo.collectModule.type !== 'revertCollectModule'
+                uploadedVideo.collectModule.followerOnlyCollect &&
+                !uploadedVideo.collectModule.isRevertCollect
             }
           )}
         >
           <span>Subscribers</span>
-          {uploadedVideo.collectModule.followerOnly &&
-            uploadedVideo.collectModule.type !== 'revertCollectModule' && (
-              <AiOutlineCheck />
-            )}
+          {uploadedVideo.collectModule.followerOnlyCollect &&
+            !uploadedVideo.collectModule.isRevertCollect && <AiOutlineCheck />}
         </button>
         <button
           type="button"
           onClick={() =>
             setCollectType({
-              type: 'revertCollectModule',
-              isFree: false,
-              followerOnly: true,
-              referralFee: 0
+              isRevertCollect: true
             })
           }
           className={clsx(
-            'flex items-center justify-between w-full px-4 py-3 text-sm border border-gray-200 hover:border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+            'flex items-center justify-between w-full px-4 py-1 text-sm border border-gray-200 hover:border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
             {
-              'border-indigo-500':
-                uploadedVideo.collectModule.type === 'revertCollectModule'
+              'border-indigo-500': uploadedVideo.collectModule.isRevertCollect
             }
           )}
         >
           <span>None</span>
-          {uploadedVideo.collectModule.type === 'revertCollectModule' && (
-            <AiOutlineCheck />
-          )}
+          {uploadedVideo.collectModule.isRevertCollect && <AiOutlineCheck />}
         </button>
       </div>
     </div>
