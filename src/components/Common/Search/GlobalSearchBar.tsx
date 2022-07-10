@@ -58,7 +58,7 @@ export default function GlobalSearchBar() {
             {channels?.search?.items.map((channel: Profile) => (
               <div
                 key={channel.id}
-                className="relative px-2 cursor-default select-none hover:bg-gray-100 dark:hover:bg-gray-900"
+                className="relative pl-3 pr-4 cursor-default select-none hover:bg-gray-100 dark:hover:bg-gray-900"
               >
                 <>
                   <Link href={`/${channel?.handle}`} key={channel?.handle}>
