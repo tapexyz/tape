@@ -109,15 +109,15 @@ const Layout: FC<Props> = ({ children }) => {
   return (
     <>
       <Toaster
-        position="top-right"
+        position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <Suspense fallback={<FullPageLoader />}>
-        <div className="flex overflow-x-hidden pb-14 md:pb-0">
+        <div className="flex pb-14 md:pb-0">
           <Sidebar />
           <div className="w-full md:pl-[94px] pl-2 pr-2 md:pr-4 max-w-[110rem] mx-auto">
             {!isSignInPage && <Header />}
-            <div className="pt-16">{children}</div>
+            <div className="py-3">{children}</div>
           </div>
         </div>
       </Suspense>

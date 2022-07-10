@@ -8,6 +8,7 @@ import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
+  LENSTUBE_URL,
   RELAYER_ENABLED
 } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
@@ -155,7 +156,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       metadata_id: uuidv4(),
       description: data.comment,
       content: data.comment,
-      external_url: null,
+      external_url: LENSTUBE_URL,
       image: null,
       imageMimeType: null,
       name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,

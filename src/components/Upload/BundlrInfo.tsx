@@ -90,6 +90,8 @@ const BundlrInfo = () => {
       setBundlrData({
         balance: utils.formatEther(balance.toString())
       })
+    } else {
+      initBundlr()
     }
   }
 

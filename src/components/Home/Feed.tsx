@@ -59,7 +59,7 @@ const HomeFeed = () => {
       <NoDataFound
         isCenter
         withImage
-        text="You got no videos in your timeline, explore."
+        text="You got no videos in your feed, explore."
       />
     )
   }

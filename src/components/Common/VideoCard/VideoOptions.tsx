@@ -55,7 +55,7 @@ const VideoOptions = ({
           {selectedChannel?.id === video?.profile?.id && (
             <button
               onClick={() => onHideVideo()}
-              className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg text-red-500 opacity-70 hover:opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
+              className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg text-red-500 opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
             >
               <AiOutlineDelete className="text-base" />
               <span className="whitespace-nowrap">Delete</span>

@@ -10,6 +10,7 @@ import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
+  LENSTUBE_URL,
   RELAYER_ENABLED,
   SIGN_IN_REQUIRED_MESSAGE,
   STATIC_ASSETS
@@ -164,7 +165,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       metadata_id: uuidv4(),
       description: getValues('message'),
       content: getValues('message'),
-      external_url: null,
+      external_url: LENSTUBE_URL,
       image: null,
       imageMimeType: null,
       name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
