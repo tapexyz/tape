@@ -109,7 +109,7 @@ const Layout: FC<Props> = ({ children }) => {
   return (
     <>
       <Toaster
-        position="top-right"
+        position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <Suspense fallback={<FullPageLoader />}>
