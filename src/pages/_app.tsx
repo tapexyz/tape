@@ -7,6 +7,7 @@ import usePersistStore from '@lib/store/persist'
 import {
   ALCHEMY_KEY,
   AUTH_ROUTES,
+  GOOGLE_ANALYTICS_ID,
   IS_MAINNET,
   POLYGON_CHAIN_ID,
   POLYGON_RPC_URL
@@ -14,6 +15,7 @@ import {
 import { AUTH } from '@utils/url-path'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
+import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
 import { useEffect } from 'react'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
@@ -76,6 +78,24 @@ const App = ({ Component, pageProps }: AppProps) => {
           </Layout>
         </ThemeProvider>
       </ApolloProvider>
+      {IS_MAINNET && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GOOGLE_ANALYTICS_ID}', {
+              page_path: window.location.pathname,
+            });
+            `}
+          </Script>
+        </>
+      )}
     </WagmiConfig>
   )
 }
