@@ -1,6 +1,8 @@
 import { useQuery } from '@apollo/client'
+import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { NOTIFICATIONS_QUERY } from '@utils/gql/queries'
@@ -17,7 +19,8 @@ const MirroredNotification = dynamic(() => import('./Mirrored'))
 const CollectedNotification = dynamic(() => import('./Collected'))
 
 const Notifications = () => {
-  const { selectedChannel } = usePersistStore()
+  const { selectedChannel, setNotificationCount } = usePersistStore()
+  const { setHasNewNotification } = useAppStore()
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
@@ -32,6 +35,10 @@ const Notifications = () => {
     onCompleted(data) {
       setPageInfo(data?.notifications?.pageInfo)
       setNotifications(data?.notifications?.items)
+      setTimeout(() => {
+        setNotificationCount(data?.notifications?.pageInfo?.totalCount)
+        setHasNewNotification(false)
+      }, 1000)
     }
   })
 
@@ -65,6 +72,7 @@ const Notifications = () => {
 
   return (
     <div className="p-2 md:p-0">
+      <MetaTags title="Notifications" />
       <h1 className="mb-4 text-lg font-medium md:hidden">Notifications</h1>
       {notifications?.map((notification: Notification, index: number) => (
         <div

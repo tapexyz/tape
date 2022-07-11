@@ -1,0 +1,7 @@
+Sitemap: https://lenstube.xyz/sitemap.xml
+
+User-agent: *
+Allow: /*
+
+Disallow: /_next/*
+Disallow: /api/*
