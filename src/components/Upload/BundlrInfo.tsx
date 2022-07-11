@@ -21,7 +21,11 @@ import { useAccount, useBalance, useSigner } from 'wagmi'
 
 const BundlrInfo = () => {
   const { address } = useAccount()
-  const { data: signer } = useSigner()
+  const { data: signer } = useSigner({
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
+    }
+  })
   const { uploadedVideo, getBundlrInstance, bundlrData, setBundlrData } =
     useAppStore()
   const { mounted } = useIsMounted()

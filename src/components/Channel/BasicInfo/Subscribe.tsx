@@ -37,7 +37,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const { data: signer } = useSigner()
+  const { data: signer } = useSigner({ onError })
   const { write: writeSubscribe, data: writeData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
