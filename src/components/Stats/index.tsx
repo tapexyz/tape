@@ -57,6 +57,11 @@ const Stats = () => {
               text="total comments"
             />
             <StatCard
+              icon={<FcSynchronize />}
+              count={stats?.totalMirrors}
+              text="total mirrors"
+            />
+            <StatCard
               icon={<FcLikePlaceholder />}
               count={stats?.totalFollows}
               text="total subscriptions"
@@ -70,11 +75,6 @@ const Stats = () => {
               icon={<FcCamcorderPro />}
               count={stats?.totalProfiles}
               text="total channels"
-            />
-            <StatCard
-              icon={<FcSynchronize />}
-              count={stats?.totalMirrors}
-              text="total mirrors"
             />
           </div>
         </>
