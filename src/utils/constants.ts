@@ -71,7 +71,7 @@ export const ADMIN_ROUTES = ['/lt']
 export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'
 export const LENSTUBE_GITHUB_HANDLE = 'sasicodes/lenstube'
 // admins
-export const ADMIN_IDS = IS_MAINNET ? [] : ['0x2f']
+export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']
 
 // misc
 export const GIT_DEPLOYED_COMMIT_SHA =

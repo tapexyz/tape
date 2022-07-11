@@ -1,4 +1,4 @@
-import { POLYGONSCAN_URL } from '@utils/constants'
+import { AddressExplorerLink } from '@components/Common/ExplorerLink'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
@@ -32,22 +32,19 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
             </a>
           </Link>
         ) : (
-          <a
-            className="inline-flex items-center space-x-1.5 font-base"
-            href={`${POLYGONSCAN_URL}/address/${notification?.wallet?.address}`}
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            <img
-              className="w-4 h-4 rounded"
-              src={imageCdn(
-                getRandomProfilePicture(notification.wallet.address)
-              )}
-              alt="channel picture"
-              draggable={false}
-            />
-            <div>{shortenAddress(notification?.wallet?.address)}</div>
-          </a>
+          <AddressExplorerLink address={notification?.wallet?.address}>
+            <span className="inline-flex items-center space-x-1.5 font-base">
+              <img
+                className="w-4 h-4 rounded"
+                src={imageCdn(
+                  getRandomProfilePicture(notification.wallet.address)
+                )}
+                alt="channel picture"
+                draggable={false}
+              />
+              <div>{shortenAddress(notification?.wallet?.address)}</div>
+            </span>
+          </AddressExplorerLink>
         )}
       </div>
       <div className="flex items-center justify-between">
