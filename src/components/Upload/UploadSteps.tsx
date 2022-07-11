@@ -7,6 +7,7 @@ import * as Sentry from '@sentry/nextjs'
 import {
   ARWEAVE_WEBSITE_URL,
   IPFS_GATEWAY,
+  IS_MAINNET,
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_URL,
@@ -88,6 +89,8 @@ const UploadSteps = () => {
   }, [indexed])
 
   const getPlaybackId = async (url: string) => {
+    // Only on production
+    if (!IS_MAINNET) return null
     try {
       const playbackResponse = await axios.post('/api/video/playback', {
         url
