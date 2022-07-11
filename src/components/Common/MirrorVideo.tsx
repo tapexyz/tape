@@ -132,7 +132,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     })
   }
 
-  if (onlySubscribersCanMirror) return null
+  if (onlySubscribersCanMirror && !video.profile.isFollowedByMe) return null
 
   return (
     <Tooltip placement="top-start" content="Mirror video across Lens">

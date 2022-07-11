@@ -7,6 +7,7 @@ import { CURRENT_USER_QUERY } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import { AUTH } from '@utils/url-path'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactNode, Suspense, useEffect, useState } from 'react'
@@ -108,6 +109,12 @@ const Layout: FC<Props> = ({ children }) => {
 
   return (
     <>
+      <Head>
+        <meta
+          name="theme-color"
+          content={resolvedTheme === 'dark' ? '#000000' : '#ffffff'}
+        />
+      </Head>
       <Toaster
         position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
