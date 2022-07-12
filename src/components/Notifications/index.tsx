@@ -44,20 +44,23 @@ const Notifications = () => {
 
   const { observe } = useInView({
     threshold: 0.5,
-    onEnter: () => {
-      fetchMore({
-        variables: {
-          request: {
-            profileId: selectedChannel?.id,
-            cursor: pageInfo?.next,
-            limit: 10,
-            sources: [LENSTUBE_APP_ID]
+    onEnter: async () => {
+      try {
+        const { data } = await fetchMore({
+          variables: {
+            request: {
+              profileId: selectedChannel?.id,
+              cursor: pageInfo?.next,
+              limit: 10,
+              sources: [LENSTUBE_APP_ID]
+            }
           }
-        }
-      }).then(({ data }: any) => {
+        })
         setPageInfo(data?.notifications?.pageInfo)
         setNotifications([...notifications, ...data?.notifications?.items])
-      })
+      } catch (error) {
+        console.log(error)
+      }
     }
   })
 

@@ -71,23 +71,26 @@ const VideoComments: FC<Props> = ({ video }) => {
 
   const { observe } = useInView({
     threshold: 0.5,
-    onEnter: () => {
-      fetchMore({
-        variables: {
-          request: {
-            commentsOf: id,
-            cursor: pageInfo?.next,
-            limit: 10,
-            sources: [LENSTUBE_APP_ID]
-          },
-          reactionRequest: selectedChannel
-            ? { profileId: selectedChannel?.id }
-            : null
-        }
-      }).then(({ data }: any) => {
+    onEnter: async () => {
+      try {
+        const { data } = await fetchMore({
+          variables: {
+            request: {
+              commentsOf: id,
+              cursor: pageInfo?.next,
+              limit: 10,
+              sources: [LENSTUBE_APP_ID]
+            },
+            reactionRequest: selectedChannel
+              ? { profileId: selectedChannel?.id }
+              : null
+          }
+        })
         setPageInfo(data?.publications?.pageInfo)
         setComments([...comments, ...data?.publications?.items])
-      })
+      } catch (error) {
+        console.log(error)
+      }
     }
   })
 

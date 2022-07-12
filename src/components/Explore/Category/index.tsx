@@ -40,21 +40,25 @@ const ExploreCategory = () => {
   })
 
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
-        variables: {
-          request: {
-            query: categoryName,
-            type: 'PUBLICATION',
-            cursor: pageInfo?.next,
-            limit: 8,
-            sources: [LENSTUBE_APP_ID]
+    threshold: 0.5,
+    onEnter: async () => {
+      try {
+        const { data } = await fetchMore({
+          variables: {
+            request: {
+              query: categoryName,
+              type: 'PUBLICATION',
+              cursor: pageInfo?.next,
+              limit: 8,
+              sources: [LENSTUBE_APP_ID]
+            }
           }
-        }
-      }).then(({ data }: any) => {
+        })
         setPageInfo(data?.search?.pageInfo)
         setVideos([...videos, ...data?.search?.items])
-      })
+      } catch (error) {
+        console.log(error)
+      }
     }
   })
   if (!query.category && isReady) return <Custom404 />
