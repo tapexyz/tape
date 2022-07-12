@@ -5,6 +5,7 @@ import imageCdn from '@utils/functions/imageCdn'
 import { UPLOAD } from '@utils/url-path'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
+import * as nsfwjs from 'nsfwjs'
 import { APITypes, PlyrInstance, PlyrProps, usePlyr } from 'plyr-react'
 import React, { FC, forwardRef, useEffect, useState } from 'react'
 
@@ -57,11 +58,21 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
         api.plyr.currentTime = Number(time || 0)
       })
 
-      const onDataLoaded = () => {
+      const onDataLoaded = async () => {
         api.plyr?.off('loadeddata', onDataLoaded)
         if (pathname === UPLOAD && api.plyr?.duration) {
+          const model = await nsfwjs.load()
+          const predictions = await model.classify(
+            document.getElementsByTagName('video')[0]
+          )
+          let pornPercentage =
+            predictions.find((i) => i.className === 'Porn')?.probability || 0
+
+          console.log('isPORN', Number((pornPercentage * 100).toFixed(2)) > 15)
+
           setUploadedVideo({
-            durationInSeconds: api.plyr?.duration.toFixed(2)
+            durationInSeconds: api.plyr.duration.toFixed(2),
+            isNSFW: Number((pornPercentage * 100).toFixed(2)) > 15
           })
         }
         api.plyr.currentTime = Number(time || 0)
