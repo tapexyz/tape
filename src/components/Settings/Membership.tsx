@@ -52,6 +52,7 @@ const Membership = ({ channel }: Props) => {
     handleSubmit,
     getValues,
     setValue,
+    watch,
     formState: { errors }
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -172,7 +173,7 @@ const Membership = ({ channel }: Props) => {
             : {
                 feeFollowModule: {
                   amount: {
-                    currency: getValues('token').split('-')[0],
+                    currency: getValues('token'),
                     value: getValues('amount')
                   },
                   recipient: getValues('recipient')
@@ -247,15 +248,12 @@ const Membership = ({ channel }: Props) => {
                 className={clsx(
                   'bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
                 )}
-                value={getValues('token')}
+                value={watch('token')}
                 onChange={(e) => setValue('token', e.target.value)}
               >
                 {enabledCurrencies?.enabledModuleCurrencies?.map(
                   (currency: Erc20, idx: number) => (
-                    <option
-                      key={idx}
-                      value={`${currency.address}-${currency.symbol}`}
-                    >
+                    <option key={idx} value={currency.address}>
                       {currency.symbol}
                     </option>
                   )

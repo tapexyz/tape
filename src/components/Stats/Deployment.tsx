@@ -27,7 +27,7 @@ const Deployment = () => {
         <Link
           href={`https://github.com/sasicodes/lenstube/commit/${GIT_DEPLOYED_COMMIT_SHA}`}
         >
-          <a target="_blank">
+          <a target="_blank" rel="noreferer noreferrer">
             <span className="p-1 px-3 text-xs text-indigo-500 bg-gray-100 rounded-lg">
               {GIT_DEPLOYED_COMMIT_SHA?.substring(0, 6)}
             </span>
