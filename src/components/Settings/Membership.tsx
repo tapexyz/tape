@@ -199,7 +199,7 @@ const Membership = ({ channel }: Props) => {
         </div>
       )}
 
-      {activeFollowModule && (
+      {activeFollowModule?.amount && (
         <div className="p-6 mb-6 border transition-all w-full bg-gradient-to-r from-[#41AAD4]/20 to-[#41EAD4]/20 rounded-xl dark:border-gray-800">
           <div className="grid gap-y-4 md:grid-cols-3">
             <div>
@@ -207,8 +207,8 @@ const Membership = ({ channel }: Props) => {
                 Amount
               </span>
               <h6 className="text-xl text-semibold">
-                {activeFollowModule.amount.value}{' '}
-                {activeFollowModule.amount.asset.symbol}
+                {activeFollowModule.amount?.value}{' '}
+                {activeFollowModule.amount?.asset?.symbol}
               </h6>
             </div>
             <div>
@@ -216,7 +216,7 @@ const Membership = ({ channel }: Props) => {
                 Token
               </span>
               <h6 className="text-xl text-semibold">
-                {activeFollowModule.amount.asset.name}
+                {activeFollowModule.amount?.asset?.name}
               </h6>
             </div>
             <div>
