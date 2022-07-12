@@ -1,8 +1,10 @@
-import { getVideoUrl } from '@utils/functions/getVideoUrl'
+import * as Sentry from '@sentry/nextjs'
+import { getPermanentVideoUrl, getVideoUrl } from '@utils/functions/getVideoUrl'
+import axios from 'axios'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { SiOpenmined } from 'react-icons/si'
 import { HLSData, LenstubePublication } from 'src/types/local'
 
@@ -40,6 +42,21 @@ MemoizedHlsVideoPlayer.displayName = 'MemoizedHlsVideoPlayer'
 
 const Video: FC<Props> = ({ video, time }) => {
   // const isHlsSupported = Hls.isSupported()
+  const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
+
+  const checkVideoResource = async () => {
+    try {
+      await axios.get(videoUrl)
+    } catch (error) {
+      setVideoUrl(getPermanentVideoUrl(video))
+      Sentry.captureException(error)
+    }
+  }
+
+  useEffect(() => {
+    checkVideoResource()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="overflow-hidden">
@@ -50,7 +67,7 @@ const Video: FC<Props> = ({ video, time }) => {
         />
       ) : ( */}
       <MemoizedVideoPlayer
-        source={getVideoUrl(video)}
+        source={videoUrl}
         poster={video?.metadata?.cover?.original.url}
         hls={video.hls}
         time={time}
