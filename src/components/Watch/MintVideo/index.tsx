@@ -20,7 +20,10 @@ import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { SiOpenmined } from 'react-icons/si'
-import { CreateCollectBroadcastItemResult } from 'src/types'
+import {
+  CreateCollectBroadcastItemResult,
+  FreeCollectModuleSettings
+} from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -109,7 +112,9 @@ const MintVideo: FC<Props> = ({ video }) => {
     if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     const isFreeCollect =
       video.collectModule.__typename === 'FreeCollectModuleSettings'
-    if (!isFreeCollect && validate) return setShowMintModal(true)
+    const collectModule = video.collectModule as FreeCollectModuleSettings
+    if ((!isFreeCollect || collectModule.followerOnly) && validate)
+      return setShowMintModal(true)
     if (!validate) {
       toast('Collecting as NFT...')
       setShowMintModal(false)

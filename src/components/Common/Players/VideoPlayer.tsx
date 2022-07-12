@@ -69,7 +69,7 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
         api.plyr?.off('loadeddata', onDataLoaded)
         if (pathname === UPLOAD && api.plyr?.duration) {
           const model = await nsfwjs.load()
-          const predictions = await model.classify(
+          const predictions = await model?.classify(
             document.getElementsByTagName('video')[0],
             3
           )
