@@ -163,7 +163,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
               disabled={signing}
             >
               Sign In
-              <span className="hidden ml-1 md:inline-block">with Ethereum</span>
+              <span className="hidden ml-1 md:inline-block">with Lens</span>
             </Button>
           )
         ) : (
