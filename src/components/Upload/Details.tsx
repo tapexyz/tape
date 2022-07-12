@@ -186,8 +186,9 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           <Alert variant="danger">
             <span className="inline-flex items-center">
               <AiFillCloseCircle className="mr-2 text-lg text-red-500" />
-              Video is not allowed in Lenstube! It contains adult or NSFW
-              content in some frames.
+              Sorry! Something about this video has tripped some content
+              warnings. It contains NSFW content in some frames, and so the
+              video is not allowed to post on Lenstube!
             </span>
           </Alert>
         </div>
