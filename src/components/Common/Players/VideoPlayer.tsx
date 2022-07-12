@@ -1,6 +1,8 @@
 import 'plyr-react/dist/plyr.css'
 
 import useAppStore from '@lib/store'
+import * as tf from '@tensorflow/tfjs'
+import { IS_MAINNET } from '@utils/constants'
 import { getIsNSFW } from '@utils/functions/getIsNSFW'
 import imageCdn from '@utils/functions/imageCdn'
 import { UPLOAD } from '@utils/url-path'
@@ -9,6 +11,10 @@ import { useRouter } from 'next/router'
 import * as nsfwjs from 'nsfwjs'
 import { APITypes, PlyrInstance, PlyrProps, usePlyr } from 'plyr-react'
 import React, { FC, forwardRef, useEffect, useState } from 'react'
+
+if (IS_MAINNET) {
+  tf.enableProdMode()
+}
 
 import PlayerContextMenu from './PlayerContextMenu'
 
@@ -64,7 +70,8 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
         if (pathname === UPLOAD && api.plyr?.duration) {
           const model = await nsfwjs.load()
           const predictions = await model.classify(
-            document.getElementsByTagName('video')[0]
+            document.getElementsByTagName('video')[0],
+            3
           )
           setUploadedVideo({
             durationInSeconds: api.plyr.duration.toFixed(2),
