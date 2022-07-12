@@ -111,19 +111,24 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
 
   const onPfpUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      setLoading(true)
-      const result: IPFSUploadResult = await uploadImageToIPFS(
-        e.target.files[0]
-      )
-      createSetProfileImageURITypedData({
-        variables: {
-          request: {
-            profileId: selectedChannel?.id,
-            url: result.ipfsUrl
+      try {
+        setLoading(true)
+        const result: IPFSUploadResult = await uploadImageToIPFS(
+          e.target.files[0]
+        )
+        createSetProfileImageURITypedData({
+          variables: {
+            request: {
+              profileId: selectedChannel?.id,
+              url: result.ipfsUrl
+            }
           }
-        }
-      })
-      setSelectedPfp(result.ipfsUrl)
+        })
+        setSelectedPfp(result.ipfsUrl)
+      } catch (error) {
+        console.log(error)
+        setLoading(false)
+      }
     }
   }
 

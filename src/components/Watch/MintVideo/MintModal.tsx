@@ -32,7 +32,7 @@ const MintModal: FC<Props> = ({
   minting
 }) => {
   const { selectedChannel } = usePersistStore()
-  const [isAllowed, setIsAllowed] = useState(false)
+  const [isAllowed, setIsAllowed] = useState(true)
   const { data, loading } = useQuery(VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY, {
     variables: { request: { publicationId: video?.id } }
   })
@@ -63,24 +63,32 @@ const MintModal: FC<Props> = ({
       <div className="mt-6">
         {!loading && !allowanceLoading ? (
           <>
-            <div className="flex flex-col mb-3">
-              <span className="text-xs">Amount</span>
-              <span className="space-x-1">
-                <span className="text-2xl font-semibold">
-                  {collectModule?.amount.value}
+            {collectModule?.amount ? (
+              <div className="flex flex-col mb-3">
+                <span className="text-xs">Amount</span>
+                <span className="space-x-1">
+                  <span className="text-2xl font-semibold">
+                    {collectModule?.amount?.value}
+                  </span>
+                  <span>{collectModule?.amount?.asset.symbol}</span>
                 </span>
-                <span>{collectModule?.amount?.asset.symbol}</span>
+              </div>
+            ) : null}
+            <div className="flex flex-col mb-3">
+              <span className="text-xs">Total Collects</span>
+              <span className="space-x-1">
+                <span>{video?.stats.totalAmountOfCollects}</span>
               </span>
             </div>
-            {collectModule?.recipient && (
+            {collectModule?.recipient ? (
               <div className="flex flex-col mb-3">
                 <span className="mb-0.5 text-xs">Recipient</span>
                 <span className="text-lg">
                   {shortenAddress(collectModule?.recipient)}
                 </span>
               </div>
-            )}
-            {collectModule?.endTimestamp && (
+            ) : null}
+            {collectModule?.endTimestamp ? (
               <div className="flex flex-col mb-3">
                 <span className="mb-0.5 text-xs">Mint ends</span>
                 <span className="text-lg">
@@ -88,15 +96,15 @@ const MintModal: FC<Props> = ({
                   {dayjs(collectModule.endTimestamp).format('hh:mm a')}
                 </span>
               </div>
-            )}
-            {collectModule?.referralFee && (
+            ) : null}
+            {collectModule?.referralFee ? (
               <div className="flex flex-col mb-3">
                 <span className="mb-0.5 text-xs">Referral Fee</span>
                 <span className="text-lg">
                   <b>{collectModule.referralFee} %</b> referral fee
                 </span>
               </div>
-            )}
+            ) : null}
             <div className="flex justify-end">
               {isAllowed ? (
                 collectModule?.followerOnly && !video.profile.isFollowedByMe ? (

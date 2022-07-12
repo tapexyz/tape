@@ -45,6 +45,7 @@ export const MinimalCollectModuleFields = gql`
   fragment MinimalCollectModuleFields on CollectModule {
     ... on FreeCollectModuleSettings {
       type
+      followerOnly
     }
     ... on FeeCollectModuleSettings {
       type

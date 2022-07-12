@@ -143,38 +143,43 @@ const UploadSteps = () => {
   }
 
   const uploadToIpfsWithProgress = async () => {
-    toast('Uploading to IPFS...')
-    const formData = new FormData()
-    formData.append('file', uploadedVideo.file as File, 'img')
-    const response: { data: { Hash: string } } = await axios.post(
-      'https://ipfs.infura.io:5001/api/v0/add',
-      formData,
-      {
-        onUploadProgress: function (progressEvent) {
-          const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          )
-          setUploadedVideo({
-            buttonText: 'Uploading...',
-            loading: true,
-            percent: percentCompleted
-          })
+    try {
+      toast('Uploading to IPFS...')
+      const formData = new FormData()
+      formData.append('file', uploadedVideo.file as File, 'img')
+      const response: { data: { Hash: string } } = await axios.post(
+        'https://ipfs.infura.io:5001/api/v0/add',
+        formData,
+        {
+          onUploadProgress: function (progressEvent) {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            )
+            setUploadedVideo({
+              buttonText: 'Uploading...',
+              loading: true,
+              percent: percentCompleted
+            })
+          }
         }
-      }
-    )
-    if (response.data) {
-      const playbackId = await getPlaybackId(
-        `${IPFS_GATEWAY}/${response.data.Hash}`
       )
-      setUploadedVideo({
-        percent: 100,
-        videoSource: `${IPFS_GATEWAY}/${response.data.Hash}`,
-        playbackId,
-        buttonText: 'Post Video',
-        loading: false
-      })
-    } else {
-      toast.error('Upload failed!')
+      if (response.data) {
+        const playbackId = await getPlaybackId(
+          `${IPFS_GATEWAY}/${response.data.Hash}`
+        )
+        setUploadedVideo({
+          percent: 100,
+          videoSource: `${IPFS_GATEWAY}/${response.data.Hash}`,
+          playbackId,
+          buttonText: 'Post Video',
+          loading: false
+        })
+      } else {
+        toast.error('Upload failed!')
+      }
+    } catch (error: any) {
+      toast.error(error.message)
+      console.log(error)
     }
   }
 

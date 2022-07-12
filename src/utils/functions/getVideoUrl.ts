@@ -7,6 +7,10 @@ export const getVideoUrl = (video: LenstubePublication) => {
   )
 }
 
+export const getPermanentVideoUrl = (video: LenstubePublication) => {
+  return video?.metadata?.media[0]?.original.url
+}
+
 export const getPlaybackIdFromUrl = (video: LenstubePublication) => {
   const url = video?.metadata?.media[1]?.original.url
   if (!url) return null

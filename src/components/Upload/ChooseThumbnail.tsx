@@ -75,6 +75,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
+      setSelectedThumbnailIndex(-1)
       const result = await uploadThumbnailToIpfs(e.target.files[0])
       const preview = URL.createObjectURL(e.target.files[0])
       setThumbnails([{ url: preview, ipfsUrl: result.ipfsUrl }, ...thumbnails])
@@ -150,7 +151,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
               />
               {uploading && selectedThumbnailIndex === idx && (
                 <div className="absolute top-1 right-1">
-                  <span className="">
+                  <span>
                     <Loader size="sm" className="!text-indigo-500" />
                   </span>
                 </div>
