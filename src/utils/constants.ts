@@ -4,7 +4,7 @@ export const LENSTUBE_URL = IS_MAINNET
   ? 'https://lenstube.xyz'
   : 'https://testnet.lenstube.xyz'
 
-export const RELAYER_ENABLED = true
+export const RELAYER_ENABLED = process.env.NEXT_PUBLIC_RELAYER_ENABLED
 export const API_URL = IS_MAINNET
   ? 'https://api.lens.dev'
   : 'https://api-mumbai.lens.dev'
