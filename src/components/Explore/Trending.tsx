@@ -32,22 +32,25 @@ const Trending = () => {
 
   const { observe } = useInView({
     threshold: 0.5,
-    onEnter: () => {
-      fetchMore({
-        variables: {
-          request: {
-            sortCriteria: 'TOP_COMMENTED',
-            cursor: pageInfo?.next,
-            limit: 8,
-            noRandomize: false,
-            sources: [LENSTUBE_APP_ID],
-            publicationTypes: ['POST']
+    onEnter: async () => {
+      try {
+        const { data } = await fetchMore({
+          variables: {
+            request: {
+              sortCriteria: 'TOP_COMMENTED',
+              cursor: pageInfo?.next,
+              limit: 8,
+              noRandomize: false,
+              sources: [LENSTUBE_APP_ID],
+              publicationTypes: ['POST']
+            }
           }
-        }
-      }).then(({ data }: any) => {
+        })
         setPageInfo(data?.explorePublications?.pageInfo)
         setVideos([...videos, ...data?.explorePublications?.items])
-      })
+      } catch (error) {
+        console.log(error)
+      }
     }
   })
 

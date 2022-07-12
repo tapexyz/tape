@@ -211,24 +211,23 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     })
   }
 
-  const onSendTip = () => {
+  const onSendTip = async () => {
     if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
     setButtonText('Sending...')
     const amountToSend = getValues('tipQuantity') * 1
-    sendTransactionAsync({
-      request: {
-        to: video.profile?.ownedBy,
-        value: BigNumber.from(utils.parseEther(amountToSend.toString()))
-      }
-    })
-      .then(() => {
-        submitComment()
+    try {
+      await sendTransactionAsync({
+        request: {
+          to: video.profile?.ownedBy,
+          value: BigNumber.from(utils.parseEther(amountToSend.toString()))
+        }
       })
-      .catch(() => {
-        setLoading(false)
-        setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
-      })
+      submitComment()
+    } catch (error) {
+      setLoading(false)
+      setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
+    }
   }
 
   return (

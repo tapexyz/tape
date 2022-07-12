@@ -55,48 +55,42 @@ const Login = () => {
       )
   }, [errorAuthenticate, errorChallenge, errorProfiles])
 
-  const handleSign = () => {
-    loadChallenge({
-      variables: { request: { address } }
-    }).then((res) => {
-      if (!res?.data?.challenge?.text) {
-        return toast.error(ERROR_MESSAGE)
+  const handleSign = async () => {
+    try {
+      const challenge = await loadChallenge({
+        variables: { request: { address } }
+      })
+      if (!challenge?.data?.challenge?.text) return toast.error(ERROR_MESSAGE)
+      const signature = await signMessageAsync({
+        message: challenge?.data?.challenge?.text
+      })
+      const result = await authenticate({
+        variables: { request: { address, signature } }
+      })
+      const accessToken = result.data.authenticate.accessToken
+      const refreshToken = result.data.authenticate.refreshToken
+      localStorage.setItem('accessToken', accessToken)
+      localStorage.setItem('refreshToken', refreshToken)
+      const { data: channelsData } = await getChannels({
+        variables: { ownedBy: address }
+      })
+      if (
+        !channelsData?.profiles ||
+        channelsData?.profiles?.items.length === 0
+      ) {
+        setSelectedChannel(null)
+        setIsAuthenticated(false)
+        setShowCreateChannel(true)
+      } else {
+        const channels: Profile[] = channelsData?.profiles?.items
+        setChannels(channels)
+        setSelectedChannel(channelsData.profiles.items[0])
+        setIsAuthenticated(true)
+        if (router.query?.next) router.push(router.query?.next as string)
       }
-      signMessageAsync({ message: res.data?.challenge.text }).then(
-        (signature) => {
-          authenticate({
-            variables: {
-              request: { address, signature }
-            }
-          }).then((res) => {
-            const accessToken = res.data.authenticate.accessToken
-            const refreshToken = res.data.authenticate.refreshToken
-            localStorage.setItem('accessToken', accessToken)
-            localStorage.setItem('refreshToken', refreshToken)
-            getChannels({
-              variables: { ownedBy: address }
-            }).then((res) => {
-              if (
-                !res.data?.profiles ||
-                res.data?.profiles?.items.length === 0
-              ) {
-                setSelectedChannel(null)
-                setIsAuthenticated(false)
-                setShowCreateChannel(true)
-              } else {
-                const channels: Profile[] = res?.data?.profiles?.items
-                setChannels(channels)
-                setSelectedChannel(res.data.profiles.items[0])
-                setIsAuthenticated(true)
-                if (router.query?.next) {
-                  router.push(router.query?.next as string)
-                }
-              }
-            })
-          })
-        }
-      )
-    })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

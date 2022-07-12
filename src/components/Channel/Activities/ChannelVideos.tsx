@@ -36,21 +36,24 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
     }
   })
   const { observe } = useInView({
-    onEnter: () => {
-      fetchMore({
-        variables: {
-          request: {
-            publicationTypes: 'POST',
-            profileId: channel?.id,
-            cursor: pageInfo?.next,
-            limit: 8,
-            sources: [LENSTUBE_APP_ID]
+    onEnter: async () => {
+      try {
+        const { data } = await fetchMore({
+          variables: {
+            request: {
+              publicationTypes: 'POST',
+              profileId: channel?.id,
+              cursor: pageInfo?.next,
+              limit: 8,
+              sources: [LENSTUBE_APP_ID]
+            }
           }
-        }
-      }).then(({ data }: any) => {
+        })
         setPageInfo(data?.publications?.pageInfo)
         setChannelVideos([...channelVideos, ...data?.publications?.items])
-      })
+      } catch (error) {
+        console.log(error)
+      }
     }
   })
 

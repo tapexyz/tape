@@ -36,21 +36,24 @@ const HomeFeed = () => {
 
   const { observe } = useInView({
     threshold: 0.5,
-    onEnter: () => {
-      fetchMore({
-        variables: {
-          request: {
-            profileId: selectedChannel?.id,
-            cursor: pageInfo?.next,
-            limit: 8,
-            timelineTypes: ['POST'],
-            sources: [LENSTUBE_APP_ID]
+    onEnter: async () => {
+      try {
+        const { data } = await fetchMore({
+          variables: {
+            request: {
+              profileId: selectedChannel?.id,
+              cursor: pageInfo?.next,
+              limit: 8,
+              timelineTypes: ['POST'],
+              sources: [LENSTUBE_APP_ID]
+            }
           }
-        }
-      }).then(({ data }: any) => {
+        })
         setPageInfo(data?.timeline?.pageInfo)
         setVideos([...videos, ...data?.timeline?.items])
-      })
+      } catch (error) {
+        console.log(error)
+      }
     }
   })
 

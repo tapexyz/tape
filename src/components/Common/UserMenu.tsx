@@ -40,15 +40,18 @@ const UserMenu = () => {
     setShowAccountSwitcher(false)
   }
 
-  const onSelectSwitchChannel = () => {
-    getChannels({
-      variables: { ownedBy: address },
-      fetchPolicy: 'no-cache'
-    }).then((res) => {
-      const allChannels: Profile[] = res?.data?.profiles?.items
+  const onSelectSwitchChannel = async () => {
+    try {
+      setShowAccountSwitcher(true)
+      const { data } = await getChannels({
+        variables: { ownedBy: address },
+        fetchPolicy: 'no-cache'
+      })
+      const allChannels: Profile[] = data?.profiles?.items
       setChannels(allChannels)
-    })
-    setShowAccountSwitcher(true)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   if (!selectedChannel) return null

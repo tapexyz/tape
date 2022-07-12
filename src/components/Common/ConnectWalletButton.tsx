@@ -43,9 +43,12 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
   const { mounted } = useIsMounted()
 
   const onConnect = async (x: Connector) => {
-    await connectAsync({ connector: x }).then(({ account }) => {
+    try {
+      const { account } = await connectAsync({ connector: x })
       if (account) setShowModal(false)
-    })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
