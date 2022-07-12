@@ -41,7 +41,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const { data: signer } = useSigner()
+  const { data: signer } = useSigner({ onError })
 
   const { write: writeJoinChannel, data: writeData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,

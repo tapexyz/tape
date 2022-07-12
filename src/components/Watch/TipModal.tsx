@@ -30,8 +30,7 @@ import toast from 'react-hot-toast'
 import { TbHeartHandshake } from 'react-icons/tb'
 import { LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
-import { useSendTransaction } from 'wagmi'
+import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
 
 type Props = {

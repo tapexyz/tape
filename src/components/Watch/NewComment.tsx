@@ -59,9 +59,9 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError(error: any) {
       onError()
-      toast.error(error.message)
+      toast.error(error?.data?.message ?? error?.message)
     }
   })
   const { write: writeComment, data: writeCommentData } = useContractWrite({

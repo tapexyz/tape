@@ -16,7 +16,10 @@ dayjs.extend(relativeTime)
 
 const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
   const [showShare, setShowShare] = useState(false)
-  const isSensitiveContent = getIsSensitiveContent(video.metadata?.attributes)
+  const isSensitiveContent = getIsSensitiveContent(
+    video.metadata?.attributes,
+    video.id
+  )
   const videoDuration = getValueFromTraitType(
     video.metadata?.attributes as Attribute[],
     'durationInSeconds'

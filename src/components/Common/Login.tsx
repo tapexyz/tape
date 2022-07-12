@@ -21,7 +21,11 @@ const Login = () => {
   const { address } = useAccount()
   const { setChannels, setShowCreateChannel } = useAppStore()
   const { setIsAuthenticated, setSelectedChannel } = usePersistStore()
-  const { signMessageAsync, isLoading: signing } = useSignMessage()
+  const { signMessageAsync, isLoading: signing } = useSignMessage({
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
+    }
+  })
 
   const [loadChallenge, { error: errorChallenge, loading: loadingChallenge }] =
     useLazyQuery(CHALLENGE_QUERY, {

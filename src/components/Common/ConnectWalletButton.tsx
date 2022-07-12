@@ -7,6 +7,7 @@ import { getWalletInfo } from '@utils/functions/getWalletInfo'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import clsx from 'clsx'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { BiError } from 'react-icons/bi'
 import { BsThreeDots } from 'react-icons/bs'
@@ -30,7 +31,11 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
   const [showModal, setShowModal] = useState(false)
   const { address, connector, isConnecting, isConnected } = useAccount()
   const { connectAsync, connectors, error, pendingConnector } = useConnect()
-  const { switchNetwork } = useSwitchNetwork()
+  const { switchNetwork } = useSwitchNetwork({
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
+    }
+  })
   const { chain } = useNetwork()
 
   const walletConnect = connectors.find((w) => w.id === 'walletConnect')

@@ -9,8 +9,7 @@ import { ethers, Signer, utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { CreateUnfollowBroadcastItemResult, Profile } from 'src/types'
-import { useSigner, useSignTypedData } from 'wagmi'
-import { useWaitForTransaction } from 'wagmi'
+import { useSigner, useSignTypedData, useWaitForTransaction } from 'wagmi'
 
 type Props = {
   channel: Profile
@@ -26,13 +25,13 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   const [loading, setLoading] = useState(false)
   const [txnHash, setTxnHash] = useState('')
   const [buttonText, setButtonText] = useState(subscribeText)
-  const { data: signer } = useSigner()
   const { isAuthenticated } = usePersistStore()
 
   const onError = () => {
     setLoading(false)
     setButtonText(subscribeText)
   }
+  const { data: signer } = useSigner({ onError })
 
   useWaitForTransaction({
     enabled: txnHash.length > 0,
