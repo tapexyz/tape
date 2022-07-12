@@ -23,7 +23,10 @@ type Props = {
 
 const VideoCard: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
-  const isSensitiveContent = getIsSensitiveContent(video.metadata?.attributes)
+  const isSensitiveContent = getIsSensitiveContent(
+    video.metadata?.attributes,
+    video.id
+  )
   const videoDuration = getValueFromTraitType(
     video.metadata?.attributes as Attribute[],
     'durationInSeconds'
