@@ -1,10 +1,12 @@
 import 'plyr-react/dist/plyr.css'
 
 import useAppStore from '@lib/store'
+import { SENSITIVE_CONTENT_LIMIT } from '@utils/constants'
 import imageCdn from '@utils/functions/imageCdn'
 import { UPLOAD } from '@utils/url-path'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
+import * as nsfwjs from 'nsfwjs'
 import { APITypes, PlyrInstance, PlyrProps, usePlyr } from 'plyr-react'
 import React, { FC, forwardRef, useEffect, useState } from 'react'
 
@@ -57,11 +59,20 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
         api.plyr.currentTime = Number(time || 0)
       })
 
-      const onDataLoaded = () => {
+      const onDataLoaded = async () => {
         api.plyr?.off('loadeddata', onDataLoaded)
         if (pathname === UPLOAD && api.plyr?.duration) {
+          const model = await nsfwjs.load()
+          const predictions = await model.classify(
+            document.getElementsByTagName('video')[0]
+          )
+          const nsfwPercentage =
+            predictions.find((i) => i.className === 'Porn')?.probability || 0
           setUploadedVideo({
-            durationInSeconds: api.plyr?.duration.toFixed(2)
+            durationInSeconds: api.plyr.duration.toFixed(2),
+            isNSFW:
+              Number((nsfwPercentage * 100).toFixed(2)) >
+              SENSITIVE_CONTENT_LIMIT
           })
         }
         api.plyr.currentTime = Number(time || 0)

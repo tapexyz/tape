@@ -9,8 +9,10 @@ type Props = {
 const Alert: FC<Props> = ({ children, variant = 'warning' }) => {
   return (
     <div
-      className={clsx('border rounded-xl text-sm p-4', {
-        'border-yellow-500 border-opacity-50': variant === 'warning'
+      className={clsx('border flex items-center rounded-xl text-sm p-4', {
+        'border-yellow-500 border-opacity-50': variant === 'warning',
+        'border-red-500 border-opacity-50': variant === 'danger',
+        'border-green-500 border-opacity-50': variant === 'success'
       })}
     >
       {children}

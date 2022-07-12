@@ -83,6 +83,7 @@ export const VERCEL_DEPLOYED_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV
 export const GOOGLE_ANALYTICS_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS
 
 // senstive content
+export const SENSITIVE_CONTENT_LIMIT = 15
 export const SENSITIVE_CONTENT = IS_MAINNET
   ? [
       '0x6e64-0x01',
