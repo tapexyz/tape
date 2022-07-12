@@ -1,3 +1,4 @@
+import Alert from '@components/Common/Alert'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import RadioInput from '@components/UIElements/RadioInput'
@@ -7,6 +8,7 @@ import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import React, { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import { AiFillCloseCircle } from 'react-icons/ai'
 import { z } from 'zod'
 
 import ChooseThumbnail from './ChooseThumbnail'
@@ -179,14 +181,26 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           <Video />
         </div>
       </div>
-      <div className="flex items-center justify-end mt-6">
-        <Button variant="secondary" onClick={() => onCancel()} type="button">
-          Cancel
-        </Button>
-        <Button disabled={uploadedVideo.loading} type="submit">
-          {uploadedVideo.buttonText}
-        </Button>
-      </div>
+      {uploadedVideo.isNSFW ? (
+        <div className="mt-6">
+          <Alert variant="danger">
+            <span className="inline-flex items-center">
+              <AiFillCloseCircle className="mr-2 text-lg text-red-500" />
+              Video not allowed in Lenstube! It contains adult or NSFW content
+              in few frames.
+            </span>
+          </Alert>
+        </div>
+      ) : (
+        <div className="flex items-center justify-end mt-6">
+          <Button variant="secondary" onClick={() => onCancel()} type="button">
+            Cancel
+          </Button>
+          <Button disabled={uploadedVideo.loading} type="submit">
+            {uploadedVideo.buttonText}
+          </Button>
+        </div>
+      )}
     </form>
   )
 }

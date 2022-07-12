@@ -35,6 +35,7 @@ export type UploadedVideo = {
   durationInSeconds: string | null
   collectModule: CollectModuleType
   disableComments: boolean
+  isNSFW: boolean
 }
 
 export type CollectModuleType = {

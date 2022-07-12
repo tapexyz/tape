@@ -38,7 +38,8 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
     isFeeCollect: false,
     isRevertCollect: false
   },
-  disableComments: false
+  disableComments: false,
+  isNSFW: false
 }
 
 export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {

@@ -1,6 +1,7 @@
 import 'plyr-react/dist/plyr.css'
 
 import useAppStore from '@lib/store'
+import { SENSITIVE_CONTENT_LIMIT } from '@utils/constants'
 import imageCdn from '@utils/functions/imageCdn'
 import { UPLOAD } from '@utils/url-path'
 import clsx from 'clsx'
@@ -65,14 +66,13 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
           const predictions = await model.classify(
             document.getElementsByTagName('video')[0]
           )
-          let pornPercentage =
+          const nsfwPercentage =
             predictions.find((i) => i.className === 'Porn')?.probability || 0
-
-          console.log('isPORN', Number((pornPercentage * 100).toFixed(2)) > 15)
-
           setUploadedVideo({
             durationInSeconds: api.plyr.duration.toFixed(2),
-            isNSFW: Number((pornPercentage * 100).toFixed(2)) > 15
+            isNSFW:
+              Number((nsfwPercentage * 100).toFixed(2)) >
+              SENSITIVE_CONTENT_LIMIT
           })
         }
         api.plyr.currentTime = Number(time || 0)
