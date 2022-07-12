@@ -27,28 +27,33 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const scrollRef = useRef<null | HTMLDivElement>(null)
   const { onMouseDown } = useDraggableScroll(scrollRef)
 
-  const generateThumbnails = (file: File) => {
-    generateVideoThumbnails(file, GENERATE_COUNT, '').then(
-      async (thumbnailArray) => {
-        let thumbnails: Array<{ ipfsUrl: string; url: string }> = []
-        thumbnailArray.forEach((t) => {
-          thumbnails.push({ url: t, ipfsUrl: '' })
+  const generateThumbnails = async (file: File) => {
+    try {
+      const thumbnailArray = await generateVideoThumbnails(
+        file,
+        GENERATE_COUNT,
+        ''
+      )
+      let thumbnails: Array<{ ipfsUrl: string; url: string }> = []
+      thumbnailArray.forEach((t) => {
+        thumbnails.push({ url: t, ipfsUrl: '' })
+      })
+      setThumbnails(thumbnails)
+      setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX)
+      const imageFile = await getFileFromDataURL(
+        thumbnails[DEFAULT_THUMBNAIL_INDEX].url,
+        'thumbnail.jpeg'
+      )
+      const ipfsResult = await uploadThumbnailToIpfs(imageFile)
+      setThumbnails(
+        thumbnails.map((t, i) => {
+          if (i === DEFAULT_THUMBNAIL_INDEX) t.ipfsUrl = ipfsResult.ipfsUrl
+          return t
         })
-        setThumbnails(thumbnails)
-        setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX)
-        const file = await getFileFromDataURL(
-          thumbnails[DEFAULT_THUMBNAIL_INDEX].url,
-          'thumbnail.jpeg'
-        )
-        const ipfsResult = await uploadThumbnailToIpfs(file)
-        setThumbnails(
-          thumbnails.map((t, i) => {
-            if (i === DEFAULT_THUMBNAIL_INDEX) t.ipfsUrl = ipfsResult.ipfsUrl
-            return t
-          })
-        )
-      }
-    )
+      )
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {

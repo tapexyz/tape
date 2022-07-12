@@ -65,25 +65,25 @@ const BundlrInfo = () => {
       )
         return toast.error('Insufficient funds in your wallet')
       setBundlrData({ depositing: true })
-      bundlrData.instance
-        .fund(value)
-        .then((res) => {
+      try {
+        const fundResult = await bundlrData.instance.fund(value)
+        if (fundResult)
           toast.success(
-            `Deposit of ${utils.formatEther(res?.quantity)} is done!`
+            `Deposit of ${utils.formatEther(
+              fundResult?.quantity
+            )} is done and it will be reflected in few seconds.`
           )
+      } catch (error) {
+        toast.error('Failed to deposit')
+        Sentry.captureException(error)
+      } finally {
+        await fetchBalance()
+        setBundlrData({
+          deposit: null,
+          showDeposit: false,
+          depositing: false
         })
-        .catch((e) => {
-          toast.error('Failed to deposit')
-          Sentry.captureException(e)
-        })
-        .finally(async () => {
-          await fetchBalance()
-          setBundlrData({
-            deposit: null,
-            showDeposit: false,
-            depositing: false
-          })
-        })
+      }
     }
   }
 

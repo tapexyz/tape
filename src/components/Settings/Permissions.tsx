@@ -80,28 +80,30 @@ const Permissions = () => {
 
   const [generateAllowanceQuery] = useLazyQuery(GENERATE_ALLOWANCE_QUERY)
 
-  const handleClick = (isAllow: boolean, selectedModule: string) => {
-    setLoadingModule(selectedModule)
-    generateAllowanceQuery({
-      variables: {
-        request: {
-          currency,
-          value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : '0',
-          [getCollectModuleConfig(selectedModule).type]: selectedModule
-        }
-      }
-    })
-      .then((result) => {
-        const generated = result?.data?.generateModuleCurrencyApprovalData
-        sendTransaction({
+  const handleClick = async (isAllow: boolean, selectedModule: string) => {
+    try {
+      setLoadingModule(selectedModule)
+      const { data } = await generateAllowanceQuery({
+        variables: {
           request: {
-            from: generated.from,
-            to: generated.to,
-            data: generated.data
+            currency,
+            value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : '0',
+            [getCollectModuleConfig(selectedModule).type]: selectedModule
           }
-        })
+        }
       })
-      .catch(() => setLoadingModule(''))
+      const generated = data?.generateModuleCurrencyApprovalData
+      sendTransaction({
+        request: {
+          from: generated.from,
+          to: generated.to,
+          data: generated.data
+        }
+      })
+    } catch (error) {
+      console.log(error)
+      setLoadingModule('')
+    }
   }
 
   return (

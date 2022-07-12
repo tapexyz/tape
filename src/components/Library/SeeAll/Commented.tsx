@@ -43,22 +43,25 @@ const SeeAllCommented = () => {
   })
 
   const { observe } = useInView({
-    threshold: 1,
-    onEnter: () => {
-      fetchMore({
-        variables: {
-          request: {
-            publicationTypes: 'COMMENT',
-            profileId: selectedChannel?.id,
-            cursor: pageInfo?.next,
-            limit: 12,
-            sources: [LENSTUBE_APP_ID]
+    threshold: 0.5,
+    onEnter: async () => {
+      try {
+        const { data } = await fetchMore({
+          variables: {
+            request: {
+              publicationTypes: 'COMMENT',
+              profileId: selectedChannel?.id,
+              cursor: pageInfo?.next,
+              limit: 12,
+              sources: [LENSTUBE_APP_ID]
+            }
           }
-        }
-      }).then(({ data }: any) => {
+        })
         setPageInfo(data?.publications?.pageInfo)
         setCommentedVideos([...commentedVideos, ...data?.publications?.items])
-      })
+      } catch (error) {
+        console.log(error)
+      }
     }
   })
 

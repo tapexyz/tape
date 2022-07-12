@@ -39,24 +39,28 @@ const SuggestedVideos = () => {
 
   const { observe } = useInView({
     threshold: 1,
-    onEnter: () => {
-      fetchMore({
-        variables: {
-          request: {
-            cursor: pageInfo?.next,
-            sortCriteria: 'LATEST',
-            limit: 8,
-            sources: [LENSTUBE_APP_ID],
-            publicationTypes: ['POST'],
-            noRandomize: false
+    onEnter: async () => {
+      try {
+        const { data } = await fetchMore({
+          variables: {
+            request: {
+              cursor: pageInfo?.next,
+              sortCriteria: 'LATEST',
+              limit: 8,
+              sources: [LENSTUBE_APP_ID],
+              publicationTypes: ['POST'],
+              noRandomize: false
+            }
           }
-        }
-      }).then(({ data }: any) => {
+        })
         setPageInfo(data?.explorePublications?.pageInfo)
         setVideos([...videos, ...data?.explorePublications?.items])
-      })
+      } catch (error) {
+        console.log(error)
+      }
     }
   })
+
   if (loading) {
     return <SuggestedVideosShimmer />
   }
