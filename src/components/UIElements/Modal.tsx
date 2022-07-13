@@ -36,11 +36,7 @@ const Modal: FC<Props> = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div
-            className={clsx(
-              'fixed inset-0 bg-gray-900 bg-opacity-50 dark:bg-opacity-80'
-            )}
-          />
+          <div className="fixed inset-0 bg-gray-900 bg-opacity-50 dark:bg-opacity-80" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">

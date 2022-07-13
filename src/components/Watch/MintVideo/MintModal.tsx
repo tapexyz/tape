@@ -125,9 +125,7 @@ const MintModal: FC<Props> = ({
             {collectModule?.referralFee ? (
               <div className="flex flex-col mb-3">
                 <span className="mb-0.5 text-sm">Referral Fee</span>
-                <span className="text-lg">
-                  <b>{collectModule.referralFee} %</b>
-                </span>
+                <span className="text-lg">{collectModule.referralFee} %</span>
               </div>
             ) : null}
             <div className="flex justify-end">
