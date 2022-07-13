@@ -15,21 +15,12 @@ const NewVideoTrigger = () => {
   return (
     <Popover
       trigger={
-        <>
-          <Button
-            size="sm"
-            className="md:!hidden"
-            icon={<AiOutlineVideoCameraAdd className="text-sm" />}
-          >
-            <span>New video</span>
-          </Button>
-          <Button
-            className="md:!block !hidden"
-            icon={<AiOutlineVideoCameraAdd className="text-lg" />}
-          >
-            <span>New video</span>
-          </Button>
-        </>
+        <Button
+          className="md:!block !hidden"
+          icon={<AiOutlineVideoCameraAdd className="text-lg" />}
+        >
+          <span>New video</span>
+        </Button>
       }
     >
       <div className="p-1 mt-1.5 overflow-hidden border border-gray-100 rounded-xl shadow-xl dark:border-gray-800 bg-secondary">
