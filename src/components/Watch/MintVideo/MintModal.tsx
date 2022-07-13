@@ -8,12 +8,13 @@ import {
   ALLOWANCE_SETTINGS_QUERY,
   VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY
 } from '@utils/gql/queries'
-import { SETTINGS_PERMISSIONS } from '@utils/url-path'
 import dayjs from 'dayjs'
-import Link from 'next/link'
-import React, { Dispatch, FC, useState } from 'react'
-import { BiChevronRight } from 'react-icons/bi'
-import { LenstubePublication } from 'src/types/local'
+import React, { Dispatch, FC, useEffect, useState } from 'react'
+import { LenstubeCollectModule, LenstubePublication } from 'src/types/local'
+import { useBalance } from 'wagmi'
+
+import BalanceAlert from './BalanceAlert'
+import PermissionAlert from './PermissionAlert'
 
 type Props = {
   showModal: boolean
@@ -33,10 +34,29 @@ const MintModal: FC<Props> = ({
 }) => {
   const { selectedChannel } = usePersistStore()
   const [isAllowed, setIsAllowed] = useState(true)
+  const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)
+
   const { data, loading } = useQuery(VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY, {
     variables: { request: { publicationId: video?.id } }
   })
-  const collectModule: any = data?.publication?.collectModule
+  const collectModule: LenstubeCollectModule = data?.publication?.collectModule
+
+  const { data: balanceData } = useBalance({
+    addressOrName: selectedChannel?.ownedBy,
+    token: collectModule?.amount?.asset?.address,
+    formatUnits: collectModule?.amount?.asset?.decimals,
+    watch: true
+  })
+
+  useEffect(() => {
+    if (
+      balanceData &&
+      parseFloat(balanceData?.formatted) <
+        parseFloat(collectModule?.amount?.value)
+    )
+      setHaveEnoughBalance(false)
+    else setHaveEnoughBalance(true)
+  }, [balanceData, collectModule?.amount?.value])
 
   const { loading: allowanceLoading } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
     variables: {
@@ -111,21 +131,15 @@ const MintModal: FC<Props> = ({
                   <div className="flex text-xs">
                     Only Members / Subscribers can mint this publication
                   </div>
-                ) : (
+                ) : haveEnoughBalance ? (
                   <Button disabled={minting} onClick={() => handleMint(false)}>
                     Mint
                   </Button>
+                ) : (
+                  <BalanceAlert collectModule={collectModule} />
                 )
               ) : (
-                <Link href={SETTINGS_PERMISSIONS}>
-                  <a>
-                    <Button variant="secondary">
-                      <span className="flex items-center">
-                        Allow {collectModule.type} <BiChevronRight />
-                      </span>
-                    </Button>
-                  </a>
-                </Link>
+                <PermissionAlert collectModule={collectModule} />
               )}
             </div>
           </>
