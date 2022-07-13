@@ -11,7 +11,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactNode, Suspense, useEffect, useState } from 'react'
-import { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 import { Profile } from 'src/types'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
@@ -38,7 +38,11 @@ const Layout: FC<Props> = ({ children }) => {
   } = usePersistStore()
   const { resolvedTheme } = useTheme()
   const { chain } = useNetwork()
-  const { disconnect } = useDisconnect()
+  const { disconnect } = useDisconnect({
+    onError(error) {
+      toast.error(error.message)
+    }
+  })
   const { mounted } = useIsMounted()
   const { address, connector, isDisconnected } = useAccount()
   const [pageLoading, setPageLoading] = useState(true)
