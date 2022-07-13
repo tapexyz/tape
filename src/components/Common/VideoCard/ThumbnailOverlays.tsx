@@ -41,7 +41,7 @@ const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
       )}
       {isArweave && isVideoOwner ? (
         <div>
-          <Tooltip content="Video Stored on Arweave" placement="left">
+          <Tooltip content="Video stored on Arweave" placement="left">
             <span className="absolute z-[1] rounded-full top-2 right-2">
               <img
                 src={`${STATIC_ASSETS}/images/social/arweave-logo.webp`}
