@@ -114,8 +114,9 @@ const MintVideo: FC<Props> = ({ video }) => {
     const isFreeCollect =
       video.collectModule.__typename === 'FreeCollectModuleSettings'
     const collectModule = video.collectModule as FreeCollectModuleSettings
-    if ((!isFreeCollect || collectModule.followerOnly) && validate)
+    if ((!isFreeCollect || collectModule.followerOnly) && validate) {
       return setShowMintModal(true)
+    }
     if (!validate) {
       toast('Collecting as NFT...')
       setShowMintModal(false)
