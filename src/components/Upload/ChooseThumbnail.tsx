@@ -128,7 +128,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
             onChange={handleUpload}
           />
           <BiImageAdd className="flex-none mb-1 text-lg" />
-          <span className="text-[9px]">Choose thumbnail</span>
+          <span className="text-[9px]">Upload thumbnail</span>
         </label>
         {thumbnails.map((thumbnail, idx) => {
           return (
