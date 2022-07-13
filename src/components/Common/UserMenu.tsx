@@ -10,6 +10,7 @@ import { LENSTUBE_PATH, SETTINGS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import { AiOutlinePlus, AiOutlineUserSwitch } from 'react-icons/ai'
 import { BiArrowBack, BiCheck, BiMoviePlay } from 'react-icons/bi'
 import { IoAnalyticsOutline } from 'react-icons/io5'
@@ -22,7 +23,11 @@ const UserMenu = () => {
   const { setSelectedChannel, selectedChannel, setIsAuthenticated } =
     usePersistStore()
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
-  const { disconnect } = useDisconnect()
+  const { disconnect } = useDisconnect({
+    onError(error) {
+      toast.error(error.message)
+    }
+  })
   const [getChannels] = useLazyQuery(CURRENT_USER_QUERY)
   const { address } = useAccount()
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
