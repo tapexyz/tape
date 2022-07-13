@@ -12,6 +12,7 @@ const InterweaveContent = ({ content }: { content: string }) => {
       <Interweave
         content={content}
         newWindow
+        escapeHtml
         matchers={[
           new TimeMatcher('time'),
           new HashtagMatcher('hashtag'),
