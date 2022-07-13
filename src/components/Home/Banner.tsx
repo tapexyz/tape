@@ -7,7 +7,7 @@ const Banner = () => {
   return !IS_MAINNET ? (
     <div className="mb-4">
       <Alert variant="success">
-        <div className="flex justify-between w-full">
+        <div className="flex flex-wrap justify-between w-full gap-2">
           <span>
             We are live on Polygon Mainnet 🎥 🌿. Head over to lenstube.xyz and
             try posting your content.
