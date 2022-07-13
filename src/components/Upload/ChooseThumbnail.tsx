@@ -77,7 +77,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     if (e.target.files?.length) {
       setSelectedThumbnailIndex(-1)
       const result = await uploadThumbnailToIpfs(e.target.files[0])
-      const preview = URL.createObjectURL(e.target.files[0])
+      const preview = window.URL?.createObjectURL(e.target.files[0])
       setThumbnails([{ url: preview, ipfsUrl: result.ipfsUrl }, ...thumbnails])
       setSelectedThumbnailIndex(0)
     }

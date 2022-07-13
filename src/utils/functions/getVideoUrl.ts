@@ -18,3 +18,13 @@ export const getPlaybackIdFromUrl = (video: LenstubePublication) => {
   const playbackId = pathname.split('/')[2]
   return playbackId
 }
+
+export const getIsArweaveUrl = (url: string) => {
+  const hostname = new URL(url).hostname
+  return hostname === 'arweave.net'
+}
+
+export const getIsIPFSUrl = (url: string) => {
+  const hostname = new URL(url).hostname
+  return hostname === 'ipfs.infura.io'
+}
