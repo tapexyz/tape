@@ -24,6 +24,8 @@ const VideoOptions = ({
   const { addToWatchLater, removeFromWatchLater, watchLater, selectedChannel } =
     usePersistStore()
   const router = useRouter()
+  const isVideoOwner = selectedChannel?.id === video?.profile?.id
+
   const [hideVideo] = useMutation(HIDE_PUBLICATION, {
     onCompleted() {
       toast.success('Video deleted')
@@ -52,7 +54,7 @@ const VideoOptions = ({
     >
       <div className="p-1 mt-0.5 overflow-hidden border border-gray-200 rounded-lg shadow dark:border-gray-800 bg-secondary">
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
-          {selectedChannel?.id === video?.profile?.id && (
+          {isVideoOwner && (
             <button
               onClick={() => onHideVideo()}
               className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg text-red-500 opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
