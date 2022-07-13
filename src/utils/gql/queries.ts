@@ -379,6 +379,7 @@ export const CollectModuleFields = gql`
       amount {
         asset {
           symbol
+          decimals
           address
         }
         value
@@ -394,6 +395,7 @@ export const CollectModuleFields = gql`
       amount {
         asset {
           symbol
+          decimals
           address
         }
         value
@@ -410,6 +412,7 @@ export const CollectModuleFields = gql`
       amount {
         asset {
           symbol
+          decimals
           address
         }
         value
@@ -425,6 +428,7 @@ export const CollectModuleFields = gql`
       amount {
         asset {
           symbol
+          decimals
           address
         }
         value
