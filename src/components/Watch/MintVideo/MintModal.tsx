@@ -48,18 +48,20 @@ const MintModal: FC<Props> = ({
     addressOrName: selectedChannel?.ownedBy,
     token: collectModule?.amount?.asset?.address,
     formatUnits: collectModule?.amount?.asset?.decimals,
-    watch: !!collectModule?.amount
+    watch: !!collectModule?.amount,
+    enabled: !!collectModule?.amount
   })
 
   useEffect(() => {
     if (
       balanceData &&
+      collectModule?.amount &&
       parseFloat(balanceData?.formatted) <
         parseFloat(collectModule?.amount?.value)
     )
       setHaveEnoughBalance(false)
     else setHaveEnoughBalance(true)
-  }, [balanceData, collectModule?.amount?.value])
+  }, [balanceData, collectModule?.amount?.value, collectModule?.amount])
 
   const { loading: allowanceLoading } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
     variables: {
@@ -124,7 +126,7 @@ const MintModal: FC<Props> = ({
               <div className="flex flex-col mb-3">
                 <span className="mb-0.5 text-sm">Referral Fee</span>
                 <span className="text-lg">
-                  <b>{collectModule.referralFee} %</b> referral fee
+                  <b>{collectModule.referralFee} %</b>
                 </span>
               </div>
             ) : null}
