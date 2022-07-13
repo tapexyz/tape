@@ -1,4 +1,3 @@
-import * as Sentry from '@sentry/nextjs'
 import { getPermanentVideoUrl, getVideoUrl } from '@utils/functions/getVideoUrl'
 import axios from 'axios'
 import dayjs from 'dayjs'
@@ -49,7 +48,6 @@ const Video: FC<Props> = ({ video, time }) => {
       await axios.get(videoUrl)
     } catch (error) {
       setVideoUrl(getPermanentVideoUrl(video))
-      Sentry.captureException(error)
     }
   }
 
