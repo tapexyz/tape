@@ -39,7 +39,7 @@ const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
           </span>
         </div>
       )}
-      {isArweave && isVideoOwner ? (
+      {isArweave && isVideoOwner && pathname === '/[channel]' ? (
         <div>
           <Tooltip content="Video stored on Arweave" placement="left">
             <span className="absolute z-[1] rounded-full top-2 right-2">
@@ -65,7 +65,7 @@ const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
           </Tooltip>
         </div>
       ) : null}
-      {!isSensitiveContent && videoDuration && pathname === '/[channel]' ? (
+      {!isSensitiveContent && videoDuration ? (
         <div>
           <span className="py-0.5 absolute bottom-2 right-2 text-xs px-1 text-white bg-black rounded">
             {getTimeFromSeconds(videoDuration)}
