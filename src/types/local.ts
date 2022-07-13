@@ -1,6 +1,16 @@
 import { WebBundlr } from '@bundlr-network/client'
 
-import { Comment, Mirror, Post } from '.'
+import {
+  Comment,
+  FeeCollectModuleSettings,
+  FreeCollectModuleSettings,
+  LimitedFeeCollectModuleSettings,
+  LimitedTimedFeeCollectModuleSettings,
+  Mirror,
+  Post,
+  RevertCollectModuleSettings,
+  TimedFeeCollectModuleSettings
+} from '.'
 
 export type VideoDraft = {
   preview: string
@@ -80,3 +90,10 @@ export type StreamData = {
   playbackId: string
   streamId: string
 }
+
+export type LenstubeCollectModule = FreeCollectModuleSettings &
+  FeeCollectModuleSettings &
+  RevertCollectModuleSettings &
+  TimedFeeCollectModuleSettings &
+  LimitedFeeCollectModuleSettings &
+  LimitedTimedFeeCollectModuleSettings

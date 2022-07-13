@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import Alert from '@components/Common/Alert'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
@@ -8,12 +9,13 @@ import {
   ALLOWANCE_SETTINGS_QUERY,
   VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY
 } from '@utils/gql/queries'
-import { SETTINGS_PERMISSIONS } from '@utils/url-path'
 import dayjs from 'dayjs'
-import Link from 'next/link'
-import React, { Dispatch, FC, useState } from 'react'
-import { BiChevronRight } from 'react-icons/bi'
-import { LenstubePublication } from 'src/types/local'
+import React, { Dispatch, FC, useEffect, useState } from 'react'
+import { LenstubeCollectModule, LenstubePublication } from 'src/types/local'
+import { useBalance } from 'wagmi'
+
+import BalanceAlert from './BalanceAlert'
+import PermissionAlert from './PermissionAlert'
 
 type Props = {
   showModal: boolean
@@ -33,10 +35,31 @@ const MintModal: FC<Props> = ({
 }) => {
   const { selectedChannel } = usePersistStore()
   const [isAllowed, setIsAllowed] = useState(true)
+  const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)
+  const isMembershipActive =
+    video.profile?.followModule?.__typename === 'FeeFollowModuleSettings'
+
   const { data, loading } = useQuery(VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY, {
     variables: { request: { publicationId: video?.id } }
   })
-  const collectModule: any = data?.publication?.collectModule
+  const collectModule: LenstubeCollectModule = data?.publication?.collectModule
+
+  const { data: balanceData } = useBalance({
+    addressOrName: selectedChannel?.ownedBy,
+    token: collectModule?.amount?.asset?.address,
+    formatUnits: collectModule?.amount?.asset?.decimals,
+    watch: !!collectModule?.amount
+  })
+
+  useEffect(() => {
+    if (
+      balanceData &&
+      parseFloat(balanceData?.formatted) <
+        parseFloat(collectModule?.amount?.value)
+    )
+      setHaveEnoughBalance(false)
+    else setHaveEnoughBalance(true)
+  }, [balanceData, collectModule?.amount?.value])
 
   const { loading: allowanceLoading } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
     variables: {
@@ -75,14 +98,14 @@ const MintModal: FC<Props> = ({
               </div>
             ) : null}
             <div className="flex flex-col mb-3">
-              <span className="text-xs">Total Collects</span>
+              <span className="text-sm">Total Collects</span>
               <span className="space-x-1">
                 <span>{video?.stats.totalAmountOfCollects}</span>
               </span>
             </div>
             {collectModule?.recipient ? (
               <div className="flex flex-col mb-3">
-                <span className="mb-0.5 text-xs">Recipient</span>
+                <span className="mb-0.5 text-sm">Recipient</span>
                 <span className="text-lg">
                   {shortenAddress(collectModule?.recipient)}
                 </span>
@@ -90,7 +113,7 @@ const MintModal: FC<Props> = ({
             ) : null}
             {collectModule?.endTimestamp ? (
               <div className="flex flex-col mb-3">
-                <span className="mb-0.5 text-xs">Mint ends</span>
+                <span className="mb-0.5 text-sm">Mint ends</span>
                 <span className="text-lg">
                   {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
                   {dayjs(collectModule.endTimestamp).format('hh:mm a')}
@@ -99,7 +122,7 @@ const MintModal: FC<Props> = ({
             ) : null}
             {collectModule?.referralFee ? (
               <div className="flex flex-col mb-3">
-                <span className="mb-0.5 text-xs">Referral Fee</span>
+                <span className="mb-0.5 text-sm">Referral Fee</span>
                 <span className="text-lg">
                   <b>{collectModule.referralFee} %</b> referral fee
                 </span>
@@ -108,24 +131,23 @@ const MintModal: FC<Props> = ({
             <div className="flex justify-end">
               {isAllowed ? (
                 collectModule?.followerOnly && !video.profile.isFollowedByMe ? (
-                  <div className="flex text-xs">
-                    Only Members / Subscribers can mint this publication
+                  <div className="flex-1">
+                    <Alert variant="warning">
+                      <div className="flex text-sm">
+                        Only {isMembershipActive ? 'Members' : 'Subscribers'}{' '}
+                        can mint this publication
+                      </div>
+                    </Alert>
                   </div>
-                ) : (
+                ) : haveEnoughBalance ? (
                   <Button disabled={minting} onClick={() => handleMint(false)}>
                     Mint
                   </Button>
+                ) : (
+                  <BalanceAlert collectModule={collectModule} />
                 )
               ) : (
-                <Link href={SETTINGS_PERMISSIONS}>
-                  <a>
-                    <Button variant="secondary">
-                      <span className="flex items-center">
-                        Allow {collectModule.type} <BiChevronRight />
-                      </span>
-                    </Button>
-                  </a>
-                </Link>
+                <PermissionAlert collectModule={collectModule} />
               )}
             </div>
           </>
