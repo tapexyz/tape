@@ -9,12 +9,15 @@ import {
   getIsIPFSUrl,
   getPermanentVideoUrl
 } from '@utils/functions/getVideoUrl'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { Attribute } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
   const { selectedChannel } = usePersistStore()
+  const { pathname } = useRouter()
+
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
   const isSensitiveContent = getIsSensitiveContent(
     video.metadata?.attributes,
@@ -49,7 +52,7 @@ const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
           </Tooltip>
         </div>
       ) : null}
-      {isIPFS && isVideoOwner ? (
+      {isIPFS && isVideoOwner && pathname === '/[channel]' ? (
         <div>
           <Tooltip content="Video stored on IPFS" placement="left">
             <span className="absolute z-[1] rounded-full top-2 right-2">
@@ -62,7 +65,7 @@ const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
           </Tooltip>
         </div>
       ) : null}
-      {!isSensitiveContent && videoDuration ? (
+      {!isSensitiveContent && videoDuration && pathname === '/[channel]' ? (
         <div>
           <span className="py-0.5 absolute bottom-2 right-2 text-xs px-1 text-white bg-black rounded">
             {getTimeFromSeconds(videoDuration)}
