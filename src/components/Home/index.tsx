@@ -6,12 +6,14 @@ import dynamic from 'next/dynamic'
 const Recents = dynamic(() => import('../Explore/Recents'), {
   loading: () => <TimelineShimmer />
 })
+const Banner = dynamic(() => import('./Banner'))
 
 const Home: NextPage = () => {
   return (
     <>
       <MetaTags />
       {/* <Recommended /> */}
+      <Banner />
       <div className="md:my-2">
         <Recents />
       </div>
