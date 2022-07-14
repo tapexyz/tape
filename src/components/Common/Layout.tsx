@@ -39,8 +39,8 @@ const Layout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
   const { chain } = useNetwork()
   const { disconnect } = useDisconnect({
-    onError(error) {
-      toast.error(error.message)
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
   })
   const { mounted } = useIsMounted()
