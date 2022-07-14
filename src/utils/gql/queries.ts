@@ -1,5 +1,11 @@
 import { gql } from '@apollo/client'
 
+export const PING_QUERY = gql`
+  query Ping {
+    ping
+  }
+`
+
 export const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
     refresh(request: $request) {

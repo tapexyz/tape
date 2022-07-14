@@ -1,5 +1,7 @@
+import { useQuery } from '@apollo/client'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { PING_QUERY } from '@utils/gql/queries'
 import { HOME, NOTIFICATIONS } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -20,7 +22,12 @@ const CreateChannel = dynamic(() => import('./CreateChannel'))
 
 const Header = () => {
   const { hasNewNotification } = useAppStore()
-  const { isAuthenticated } = usePersistStore()
+  const { isAuthenticated, selectedChannel } = usePersistStore()
+
+  useQuery(PING_QUERY, {
+    pollInterval: 900_000,
+    skip: !selectedChannel
+  })
 
   return (
     <div
