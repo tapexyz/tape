@@ -2,7 +2,7 @@ import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import usePersistStore from '@lib/store/persist'
-import { ERROR_MESSAGE, SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
+import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { CREATE_UNFOLLOW_TYPED_DATA } from '@utils/gql/queries'
 import { ethers, Signer, utils } from 'ethers'
@@ -83,13 +83,10 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
         )
         if (txn.hash) setTxnHash(txn.hash)
       } catch (error) {
-        onError()
+        onError(error)
       }
     },
-    onError(error) {
-      toast.error(error.message ?? ERROR_MESSAGE)
-      onError()
-    }
+    onError
   })
 
   const unsubscribe = () => {
