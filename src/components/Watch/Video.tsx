@@ -1,3 +1,4 @@
+import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
 import { getPermanentVideoUrl, getVideoUrl } from '@utils/functions/getVideoUrl'
 import axios from 'axios'
 import dayjs from 'dayjs'
@@ -7,7 +8,9 @@ import React, { FC, useEffect, useState } from 'react'
 import { SiOpenmined } from 'react-icons/si'
 import { HLSData, LenstubePublication } from 'src/types/local'
 
-const VideoPlayer = dynamic(() => import('../Common/Players/VideoPlayer'))
+const VideoPlayer = dynamic(() => import('../Common/Players/VideoPlayer'), {
+  loading: () => <VideoCardShimmer />
+})
 const HlsVideoPlayer = dynamic(() => import('../Common/Players/HlsVideoPlayer'))
 const VideoActions = dynamic(() => import('./VideoActions'))
 
