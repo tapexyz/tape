@@ -100,9 +100,7 @@ const UploadSteps = () => {
   )
 
   useEffect(() => {
-    if (indexed) {
-      setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
-    }
+    if (indexed) setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 

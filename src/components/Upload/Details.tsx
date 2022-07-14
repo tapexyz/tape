@@ -50,9 +50,12 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
   } = useForm<VideoFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      isAdultContent: false,
+      isAdultContent: uploadedVideo.isAdultContent ?? false,
       acceptTerms: false,
-      disableComments: false
+      disableComments: uploadedVideo.disableComments ?? false,
+      title: uploadedVideo.title,
+      description: uploadedVideo.description,
+      thumbnail: uploadedVideo.thumbnail
     }
   })
 
