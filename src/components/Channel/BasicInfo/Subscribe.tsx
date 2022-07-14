@@ -29,7 +29,8 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const [buttonText, setButtonText] = useState('Subscribe')
   const { isAuthenticated } = usePersistStore()
 
-  const onError = () => {
+  const onError = (error?: any) => {
+    if (error) toast.error(error?.data?.message ?? error?.message)
     setLoading(false)
     setButtonText('Subscribe')
   }
