@@ -46,10 +46,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onSuccess() {
       setButtonText('Subscribing...')
     },
-    onError(error: any) {
-      toast.error(error?.data?.message ?? error?.message)
-      onError()
-    }
+    onError
   })
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
@@ -109,7 +106,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
           })
         }
       } catch (error) {
-        onError()
+        onError(error)
       }
     },
     onError
