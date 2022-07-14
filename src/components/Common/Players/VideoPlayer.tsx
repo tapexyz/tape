@@ -16,6 +16,8 @@ if (IS_MAINNET) {
   tf.enableProdMode()
 }
 
+import { Loader } from '@components/UIElements/Loader'
+
 import PlayerContextMenu from './PlayerContextMenu'
 
 interface Props {
@@ -30,6 +32,7 @@ interface Props {
 
 interface CustomPlyrProps extends PlyrProps {
   time?: number
+  onMetadataLoaded: () => void
 }
 
 export const defaultPlyrControls = [
@@ -47,8 +50,16 @@ export const defaultPlyrControls = [
   'disableContextMenu'
 ]
 
+const MetadataLoader = () => (
+  <div className="absolute backdrop-filter saturate-150 inset-0 z-[1] backdrop-blur-sm bg-opacity-50 dark:bg-black bg-white">
+    <div className="grid h-full place-items-center">
+      <Loader />
+    </div>
+  </div>
+)
+
 const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
-  ({ source, options, time }, ref) => {
+  ({ source, options, time, onMetadataLoaded }, ref) => {
     const raptorRef = usePlyr(ref, { options, source })
     const [showContextMenu, setShowContextMenu] = useState(false)
     const [position, setPosition] = useState({ x: 0, y: 0 })
@@ -67,12 +78,13 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
 
       const onDataLoaded = async () => {
         api.plyr?.off('loadeddata', onDataLoaded)
+        const currentVideo = document.getElementsByTagName('video')[0]
+        currentVideo?.addEventListener('loadedmetadata', (event) => {
+          if (event.target) onMetadataLoaded()
+        })
         if (pathname === UPLOAD && api.plyr?.duration) {
           const model = await nsfwjs.load()
-          const predictions = await model?.classify(
-            document.getElementsByTagName('video')[0],
-            3
-          )
+          const predictions = await model?.classify(currentVideo, 3)
           setUploadedVideo({
             durationInSeconds: api.plyr.duration.toFixed(2),
             isNSFW: getIsNSFW(predictions)
@@ -131,6 +143,7 @@ const VideoPlayer: FC<Props> = ({
   time
 }) => {
   const ref = React.useRef<APITypes>(null)
+  const [isMetadataLoaded, setIsMetadataLoaded] = useState(false)
 
   const options = {
     controls: controls,
@@ -141,7 +154,10 @@ const VideoPlayer: FC<Props> = ({
   }
 
   return (
-    <div className={clsx('overflow-hidden rounded-xl', wrapperClassName)}>
+    <div
+      className={clsx('overflow-hidden relative rounded-xl', wrapperClassName)}
+    >
+      {!isMetadataLoaded && <MetadataLoader />}
       <CustomPlyrInstance
         ref={ref}
         source={{
@@ -156,6 +172,7 @@ const VideoPlayer: FC<Props> = ({
         }}
         options={options}
         time={time}
+        onMetadataLoaded={() => setIsMetadataLoaded(true)}
       />
     </div>
   )

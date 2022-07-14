@@ -7,6 +7,7 @@ import * as Sentry from '@sentry/nextjs'
 import {
   ARWEAVE_WEBSITE_URL,
   IPFS_GATEWAY,
+  IPFS_HTTP_API,
   IS_MAINNET,
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
@@ -25,13 +26,30 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { CreatePostBroadcastItemResult } from 'src/types'
 import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import {
+  useAccount,
+  useContractWrite,
+  useSigner,
+  useSignTypedData
+} from 'wagmi'
 
 import Details from './Details'
 
 const UploadSteps = () => {
-  const { setUploadedVideo, uploadedVideo, bundlrData } = useAppStore()
+  const {
+    setUploadedVideo,
+    uploadedVideo,
+    bundlrData,
+    setBundlrData,
+    getBundlrInstance
+  } = useAppStore()
   const { selectedChannel } = usePersistStore()
+  const { address } = useAccount()
+  const { data: signer } = useSigner({
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
+    }
+  })
 
   const onError = () => {
     setUploadedVideo({
@@ -82,9 +100,7 @@ const UploadSteps = () => {
   )
 
   useEffect(() => {
-    if (indexed) {
-      setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
-    }
+    if (indexed) setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
@@ -103,8 +119,20 @@ const UploadSteps = () => {
     }
   }
 
+  const initBundlr = async () => {
+    if (signer?.provider && address && !bundlrData.instance) {
+      toast('Estimating upload cost...')
+      const bundlr = await getBundlrInstance(signer)
+      if (bundlr) {
+        setBundlrData({ instance: bundlr })
+      }
+    }
+  }
+
   const uploadToBundlr = async () => {
-    if (!bundlrData.instance || !uploadedVideo.buffer) return
+    if (!bundlrData.instance) return initBundlr()
+    if (!uploadedVideo.buffer)
+      return toast.error('Video not uploaded correctly.')
     if (parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice))
       return toast.error('Insufficient balance')
     try {
@@ -133,8 +161,8 @@ const UploadSteps = () => {
         loading: false
       })
     } catch (error: any) {
+      if (error.code !== 4001) Sentry.captureException(error)
       toast.error('Failed to upload video!')
-      Sentry.captureException(error)
       setUploadedVideo({
         buttonText: 'Upload Video',
         loading: false
@@ -148,7 +176,7 @@ const UploadSteps = () => {
       const formData = new FormData()
       formData.append('file', uploadedVideo.file as File, 'img')
       const response: { data: { Hash: string } } = await axios.post(
-        'https://ipfs.infura.io:5001/api/v0/add',
+        IPFS_HTTP_API,
         formData,
         {
           onUploadProgress: function (progressEvent) {

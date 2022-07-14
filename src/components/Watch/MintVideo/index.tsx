@@ -40,9 +40,9 @@ const MintVideo: FC<Props> = ({ video }) => {
   const { isAuthenticated } = usePersistStore()
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError(error) {
+    onError(error: any) {
       setLoading(false)
-      toast.error(error.message)
+      toast.error(error?.data?.message ?? error?.message)
     }
   })
   const { data: writtenData, write: writeCollectWithSig } = useContractWrite({

@@ -39,8 +39,8 @@ const Layout: FC<Props> = ({ children }) => {
   const { resolvedTheme } = useTheme()
   const { chain } = useNetwork()
   const { disconnect } = useDisconnect({
-    onError(error) {
-      toast.error(error.message)
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
     }
   })
   const { mounted } = useIsMounted()
@@ -97,9 +97,9 @@ const Layout: FC<Props> = ({ children }) => {
       if (disconnect) disconnect()
       setIsAuthenticated(false)
     }
-    connector?.on('change', () => {
-      logout()
-    })
+    // connector?.on('change', () => {
+    // logout()
+    // })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isAuthenticated,

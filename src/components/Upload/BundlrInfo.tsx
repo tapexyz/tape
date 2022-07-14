@@ -39,6 +39,14 @@ const BundlrInfo = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signer?.provider])
 
+  useEffect(() => {
+    if (bundlrData.instance && mounted) {
+      fetchBalance(bundlrData.instance)
+      estimatePrice(bundlrData.instance)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bundlrData.instance])
+
   const initBundlr = async () => {
     if (signer?.provider && address && !bundlrData.instance) {
       toast('Estimating upload cost...')
@@ -52,38 +60,38 @@ const BundlrInfo = () => {
   }
 
   const depositToBundlr = async () => {
-    if (bundlrData.instance && bundlrData.deposit) {
-      const depositAmount = parseFloat(bundlrData.deposit)
-      const value = parseToAtomicUnits(
-        depositAmount,
-        bundlrData.instance.currencyConfig.base[1]
-      )
-      if (!value) return toast.error('Invalid deposit amount')
-      if (
-        userBalance?.formatted &&
-        parseFloat(userBalance?.formatted) < depositAmount
-      )
-        return toast.error('Insufficient funds in your wallet')
-      setBundlrData({ depositing: true })
-      try {
-        const fundResult = await bundlrData.instance.fund(value)
-        if (fundResult)
-          toast.success(
-            `Deposit of ${utils.formatEther(
-              fundResult?.quantity
-            )} is done and it will be reflected in few seconds.`
-          )
-      } catch (error) {
-        toast.error('Failed to deposit')
-        Sentry.captureException(error)
-      } finally {
-        await fetchBalance()
-        setBundlrData({
-          deposit: null,
-          showDeposit: false,
-          depositing: false
-        })
-      }
+    if (!bundlrData.instance) return initBundlr()
+    if (!bundlrData.deposit) return toast.error('Enter deposit amount')
+    const depositAmount = parseFloat(bundlrData.deposit)
+    const value = parseToAtomicUnits(
+      depositAmount,
+      bundlrData.instance.currencyConfig.base[1]
+    )
+    if (!value) return toast.error('Invalid deposit amount')
+    if (
+      userBalance?.formatted &&
+      parseFloat(userBalance?.formatted) < depositAmount
+    )
+      return toast.error('Insufficient funds in your wallet')
+    setBundlrData({ depositing: true })
+    try {
+      const fundResult = await bundlrData.instance.fund(value)
+      if (fundResult)
+        toast.success(
+          `Deposit of ${utils.formatEther(
+            fundResult?.quantity
+          )} is done and it will be reflected in few seconds.`
+        )
+    } catch (error: any) {
+      toast.error('Failed to deposit')
+      if (error.code !== 4001) Sentry.captureException(error)
+    } finally {
+      await fetchBalance()
+      setBundlrData({
+        deposit: null,
+        showDeposit: false,
+        depositing: false
+      })
     }
   }
 

@@ -1,4 +1,4 @@
-import { IPFS_GATEWAY } from '@utils/constants'
+import { IPFS_GATEWAY, IPFS_HTTP_API } from '@utils/constants'
 import axios from 'axios'
 import { IPFSUploadResult } from 'src/types/local'
 
@@ -6,7 +6,7 @@ const uploadDataToIPFS = async (data: any): Promise<IPFSUploadResult> => {
   try {
     const formData = new FormData()
     formData.append('data', JSON.stringify(data))
-    const uploaded = await axios('https://ipfs.infura.io:5001/api/v0/add', {
+    const uploaded = await axios(IPFS_HTTP_API, {
       method: 'POST',
       data: formData
     })
@@ -30,7 +30,7 @@ const uploadImageToIPFS = async (file: File): Promise<IPFSUploadResult> => {
   try {
     const formData = new FormData()
     formData.append('file', file, 'img')
-    const uploaded = await axios('https://ipfs.infura.io:5001/api/v0/add', {
+    const uploaded = await axios(IPFS_HTTP_API, {
       method: 'POST',
       data: formData
     })
