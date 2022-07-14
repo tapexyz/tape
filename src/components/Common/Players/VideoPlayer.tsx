@@ -50,6 +50,14 @@ export const defaultPlyrControls = [
   'disableContextMenu'
 ]
 
+const MetadataLoader = () => (
+  <div className="absolute backdrop-filter saturate-150 inset-0 z-[1] backdrop-blur-sm bg-opacity-50 dark:bg-black bg-white">
+    <div className="grid h-full place-items-center">
+      <Loader />
+    </div>
+  </div>
+)
+
 const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
   ({ source, options, time, onMetadataLoaded }, ref) => {
     const raptorRef = usePlyr(ref, { options, source })
@@ -149,13 +157,7 @@ const VideoPlayer: FC<Props> = ({
     <div
       className={clsx('overflow-hidden relative rounded-xl', wrapperClassName)}
     >
-      {!isMetadataLoaded && (
-        <div className="absolute inset-0 z-[1] backdrop-blur-lg bg-opacity-50 dark:bg-black bg-white">
-          <div className="grid h-full place-items-center">
-            <Loader />
-          </div>
-        </div>
-      )}
+      {!isMetadataLoaded && <MetadataLoader />}
       <CustomPlyrInstance
         ref={ref}
         source={{
