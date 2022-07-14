@@ -70,13 +70,13 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
 
       const onDataLoaded = async () => {
         api.plyr?.off('loadeddata', onDataLoaded)
-        onMetadataLoaded()
+        const currentVideo = document.getElementsByTagName('video')[0]
+        currentVideo?.addEventListener('loadedmetadata', (event) => {
+          if (event.target) onMetadataLoaded()
+        })
         if (pathname === UPLOAD && api.plyr?.duration) {
           const model = await nsfwjs.load()
-          const predictions = await model?.classify(
-            document.getElementsByTagName('video')[0],
-            3
-          )
+          const predictions = await model?.classify(currentVideo, 3)
           setUploadedVideo({
             durationInSeconds: api.plyr.duration.toFixed(2),
             isNSFW: getIsNSFW(predictions)
