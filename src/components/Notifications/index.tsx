@@ -5,7 +5,10 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
-import { NOTIFICATIONS_QUERY } from '@utils/gql/queries'
+import {
+  NOTIFICATION_COUNT_QUERY,
+  NOTIFICATIONS_QUERY
+} from '@utils/gql/queries'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
@@ -23,6 +26,10 @@ const Notifications = () => {
   const { setHasNewNotification } = useAppStore()
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  const { data: notificationsCountData } = useQuery(NOTIFICATION_COUNT_QUERY, {
+    variables: { request: { profileId: selectedChannel?.id } },
+    skip: !selectedChannel?.id
+  })
   const { data, loading, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
     variables: {
       request: {
@@ -36,7 +43,9 @@ const Notifications = () => {
       setPageInfo(data?.notifications?.pageInfo)
       setNotifications(data?.notifications?.items)
       setTimeout(() => {
-        setNotificationCount(data?.notifications?.pageInfo?.totalCount)
+        const totalCount =
+          notificationsCountData?.notifications?.pageInfo?.totalCount
+        setNotificationCount(totalCount ?? 0)
         setHasNewNotification(false)
       }, 1000)
     }

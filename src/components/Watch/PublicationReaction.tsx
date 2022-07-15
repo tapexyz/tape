@@ -29,12 +29,12 @@ const VideoReaction: FC<Props> = ({ publication, size = 'sm' }) => {
 
   const [addReaction] = useMutation(ADD_REACTION_MUTATION, {
     onError(error) {
-      toast.error(error.message)
+      toast.error(error?.message)
     }
   })
   const [removeReaction] = useMutation(REMOVE_REACTION_MUTATION, {
     onError(error) {
-      toast.error(error.message)
+      toast.error(error?.message)
     }
   })
 

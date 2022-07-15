@@ -44,7 +44,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   })
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onError(error) {
-      toast.error(error.message)
+      toast.error(error?.message)
       setLoading(false)
     }
   })
@@ -104,7 +104,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       onError(error) {
         setLoading(false)
         setSelectedPfp(getProfilePicture(channel))
-        toast.error(error.message)
+        toast.error(error?.message)
       }
     }
   )

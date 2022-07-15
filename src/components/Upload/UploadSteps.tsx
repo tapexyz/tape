@@ -74,7 +74,7 @@ const UploadSteps = () => {
       }
     },
     onError(error) {
-      toast.error(error.message)
+      toast.error(error?.message)
       onError()
     }
   })
@@ -250,7 +250,7 @@ const UploadSteps = () => {
       }
     },
     onError(error) {
-      toast.error(error.message)
+      toast.error(error?.message)
       onError()
     }
   })
