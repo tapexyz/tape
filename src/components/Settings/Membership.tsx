@@ -91,7 +91,7 @@ const Membership = ({ channel }: Props) => {
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onError(error) {
-      toast.error(error.message)
+      toast.error(error?.message)
       setLoading(false)
     }
   })
@@ -153,7 +153,7 @@ const Membership = ({ channel }: Props) => {
       },
       onError(error) {
         setLoading(false)
-        toast.error(error.message)
+        toast.error(error?.message)
       }
     }
   )

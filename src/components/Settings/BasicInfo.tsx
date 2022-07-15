@@ -92,7 +92,7 @@ const BasicInfo = ({ channel }: Props) => {
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onError(error) {
-      toast.error(error.message)
+      toast.error(error?.message)
       setLoading(false)
     }
   })

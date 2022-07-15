@@ -38,7 +38,7 @@ const DropZone = () => {
     fileRejections[0].errors.forEach((error) =>
       error.code === 'file-too-large'
         ? toast.error('Video size should not exceed 2GB')
-        : toast.error(error.message)
+        : toast.error(error?.message)
     )
   }
 

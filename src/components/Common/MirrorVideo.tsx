@@ -34,8 +34,8 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError(error) {
-      toast.error(error?.message)
+    onError(error: any) {
+      toast.error(error?.data?.message || error?.message)
       setLoading(false)
     }
   })
@@ -51,7 +51,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onError(error) {
-      toast.error(error.message)
+      toast.error(error?.message)
       setLoading(false)
     }
   })
@@ -111,7 +111,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
       }
     },
     onError(error) {
-      toast.error(error.message)
+      toast.error(error?.message)
       setLoading(false)
     }
   })

@@ -57,7 +57,7 @@ const MintVideo: FC<Props> = ({ video }) => {
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onError(error) {
-      toast.error(error.message)
+      toast.error(error?.message)
       setLoading(false)
     }
   })
@@ -104,7 +104,7 @@ const MintVideo: FC<Props> = ({ video }) => {
       }
     },
     onError(error) {
-      toast.error(error.message ?? ERROR_MESSAGE)
+      toast.error(error?.message ?? ERROR_MESSAGE)
       setLoading(false)
     }
   })

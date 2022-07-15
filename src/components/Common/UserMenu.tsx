@@ -24,8 +24,8 @@ const UserMenu = () => {
     usePersistStore()
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
   const { disconnect } = useDisconnect({
-    onError(error) {
-      toast.error(error.message)
+    onError(error: any) {
+      toast.error(error?.data?.message || error?.message)
     }
   })
   const [getChannels] = useLazyQuery(CURRENT_USER_QUERY)

@@ -134,7 +134,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
       }
     },
     onError(error) {
-      toast.error(error.message)
+      toast.error(error?.message)
       onError()
     }
   })
