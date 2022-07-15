@@ -206,7 +206,7 @@ const UploadSteps = () => {
         toast.error('Upload failed!')
       }
     } catch (error: any) {
-      toast.error(error.message)
+      toast.error(error?.data?.message ?? error?.message)
       console.log(error)
     }
   }
