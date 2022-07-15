@@ -59,8 +59,8 @@ const UploadSteps = () => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError(error) {
-      toast.error(error?.message)
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
       onError()
     }
   })
