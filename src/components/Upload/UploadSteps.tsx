@@ -245,11 +245,7 @@ const UploadSteps = () => {
         onError()
       }
     },
-    onError(error) {
-      console.log(error)
-      toast.error(error?.message)
-      onError()
-    }
+    onError
   })
 
   const createPublication = async () => {
