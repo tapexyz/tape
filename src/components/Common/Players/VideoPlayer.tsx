@@ -79,7 +79,7 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
       const onDataLoaded = async () => {
         api.plyr?.off('loadeddata', onDataLoaded)
         const currentVideo = document.getElementsByTagName('video')[0]
-        currentVideo?.addEventListener('loadedmetadata', (event) => {
+        currentVideo?.addEventListener('loadeddata', (event) => {
           if (event.target) onMetadataLoaded()
         })
         if (pathname === UPLOAD && api.plyr?.duration) {
