@@ -45,11 +45,7 @@ const UploadSteps = () => {
   } = useAppStore()
   const { selectedChannel } = usePersistStore()
   const { address } = useAccount()
-  const { data: signer } = useSigner({
-    onError(error: any) {
-      toast.error(error?.data?.message ?? error?.message)
-    }
-  })
+  const { data: signer } = useSigner()
 
   const onError = () => {
     setUploadedVideo({
@@ -59,8 +55,8 @@ const UploadSteps = () => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError(error) {
-      toast.error(error?.message)
+    onError(error: any) {
+      toast.error(error?.data?.message ?? error?.message)
       onError()
     }
   })
@@ -249,10 +245,7 @@ const UploadSteps = () => {
         onError()
       }
     },
-    onError(error) {
-      toast.error(error?.message)
-      onError()
-    }
+    onError
   })
 
   const createPublication = async () => {
