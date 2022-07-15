@@ -29,7 +29,7 @@ const authLink = new ApolloLink((operation, forward) => {
     return forward(operation)
   } else {
     const accessTokenDecrypted: any = jwtDecode(accessToken)
-    const isExpireSoon = Date.now() >= accessTokenDecrypted.exp * 5000
+    const isExpireSoon = Date.now() >= accessTokenDecrypted.exp * 1000
     if (isExpireSoon) {
       axios(API_URL, {
         method: 'POST',
