@@ -21,6 +21,7 @@ export type Scalars = {
   EthereumAddress: any;
   FollowModuleData: any;
   Handle: any;
+  HandleClaimIdScalar: any;
   InternalPublicationId: any;
   Jwt: any;
   LimitScalar: any;
@@ -41,6 +42,14 @@ export type Scalars = {
   UnixTimestamp: any;
   Url: any;
   Void: any;
+};
+
+export type AchRequest = {
+  ethereumAddress: Scalars['EthereumAddress'];
+  freeTextHandle?: InputMaybe<Scalars['Boolean']>;
+  handle?: InputMaybe<Scalars['CreateHandle']>;
+  overrideTradeMark: Scalars['Boolean'];
+  secret: Scalars['String'];
 };
 
 export type ApprovedAllowanceAmount = {
@@ -101,6 +110,19 @@ export type BurnProfileRequest = {
 export type ChallengeRequest = {
   /** The ethereum address you want to login with */
   address: Scalars['EthereumAddress'];
+};
+
+export type ClaimHandleRequest = {
+  /** The follow module */
+  followModule?: InputMaybe<FollowModuleParams>;
+  freeTextHandle?: InputMaybe<Scalars['CreateHandle']>;
+  id?: InputMaybe<Scalars['HandleClaimIdScalar']>;
+};
+
+export type ClaimableHandles = {
+  __typename?: 'ClaimableHandles';
+  canClaimFreeTextHandle: Scalars['Boolean'];
+  reservedHandles: Array<ReservedClaimableHandle>;
 };
 
 export type CollectModule = FeeCollectModuleSettings | FreeCollectModuleSettings | LimitedFeeCollectModuleSettings | LimitedTimedFeeCollectModuleSettings | RevertCollectModuleSettings | TimedFeeCollectModuleSettings;
@@ -1268,9 +1290,11 @@ export type ModuleInfo = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  ach?: Maybe<Scalars['Void']>;
   addReaction?: Maybe<Scalars['Void']>;
   authenticate: AuthenticationResult;
   broadcast: RelayResult;
+  claim: RelayResult;
   createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult;
   createCollectTypedData: CreateCollectBroadcastItemResult;
   createCommentTypedData: CreateCommentBroadcastItemResult;
@@ -1293,6 +1317,11 @@ export type Mutation = {
 };
 
 
+export type MutationAchArgs = {
+  request: AchRequest;
+};
+
+
 export type MutationAddReactionArgs = {
   request: ReactionRequest;
 };
@@ -1305,6 +1334,11 @@ export type MutationAuthenticateArgs = {
 
 export type MutationBroadcastArgs = {
   request: BroadcastRequest;
+};
+
+
+export type MutationClaimArgs = {
+  request: ClaimHandleRequest;
 };
 
 
@@ -1966,6 +2000,7 @@ export type Query = {
   __typename?: 'Query';
   approvedModuleAllowanceAmount: Array<ApprovedAllowanceAmount>;
   challenge: AuthChallengeResult;
+  claimableHandles: ClaimableHandles;
   defaultProfile?: Maybe<Profile>;
   doesFollow: Array<DoesFollowResponse>;
   enabledModuleCurrencies: Array<Erc20>;
@@ -2218,6 +2253,14 @@ export type ReportingReasonInputParams = {
   fraudReason?: InputMaybe<FraudReasonInputParams>;
   illegalReason?: InputMaybe<IllegalReasonInputParams>;
   sensitiveReason?: InputMaybe<SensitiveReasonInputParams>;
+};
+
+export type ReservedClaimableHandle = {
+  __typename?: 'ReservedClaimableHandle';
+  expiry: Scalars['DateTime'];
+  handle: Scalars['Handle'];
+  id: Scalars['HandleClaimIdScalar'];
+  source: Scalars['String'];
 };
 
 export type RevenueAggregate = {

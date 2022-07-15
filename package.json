@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
-    "@bundlr-network/client": "^0.7.14",
+    "@bundlr-network/client": "^0.7.15",
     "@headlessui/react": "^1.6.6",
     "@hookform/resolvers": "^2.9.5",
     "@rajesh896/video-thumbnails-generator": "^2.3.9",
@@ -54,10 +54,10 @@
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.8.0",
+    "@graphql-codegen/cli": "^2.8.1",
     "@graphql-codegen/fragment-matcher": "^3.3.0",
     "@graphql-codegen/typescript": "^2.7.1",
-    "@types/node": "18.0.3",
+    "@types/node": "18.0.4",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
     "@types/ua-parser-js": "^0.7.36",

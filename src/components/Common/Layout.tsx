@@ -10,7 +10,7 @@ import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import React, { FC, ReactNode, Suspense, useEffect, useState } from 'react'
+import React, { FC, ReactNode, Suspense, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { Profile } from 'src/types'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
@@ -45,7 +45,6 @@ const Layout: FC<Props> = ({ children }) => {
   })
   const { mounted } = useIsMounted()
   const { address, connector, isDisconnected } = useAccount()
-  const [pageLoading, setPageLoading] = useState(true)
   const isSignInPage = pathname === AUTH
 
   const { loading } = useQuery(CURRENT_USER_QUERY, {
@@ -70,7 +69,6 @@ const Layout: FC<Props> = ({ children }) => {
     }
     const accessToken = localStorage.getItem('accessToken')
     const refreshToken = localStorage.getItem('refreshToken')
-    setPageLoading(false)
 
     const logout = () => {
       setIsAuthenticated(false)
@@ -109,7 +107,7 @@ const Layout: FC<Props> = ({ children }) => {
     setSelectedChannel
   ])
 
-  if (loading || pageLoading) return <FullPageLoader />
+  if (loading || !mounted) return <FullPageLoader />
 
   return (
     <>
