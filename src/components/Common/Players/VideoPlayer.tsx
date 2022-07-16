@@ -80,19 +80,17 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
         api.plyr?.off('loadeddata', onDataLoaded)
         const currentVideo = document.getElementsByTagName('video')[0]
         currentVideo?.addEventListener('loadeddata', async (event) => {
-          if (event.target) {
-            onMetadataLoaded()
-            if (pathname === UPLOAD && api.plyr?.duration) {
-              const model = await nsfwjs.load()
-              const predictions = await model?.classify(currentVideo, 3)
-              setUploadedVideo({
-                durationInSeconds: api.plyr.duration.toFixed(2),
-                isNSFW: getIsNSFW(predictions)
-              })
-            }
-            api.plyr.currentTime = Number(time || 0)
-          }
+          if (event.target) onMetadataLoaded()
         })
+        if (pathname === UPLOAD && api.plyr?.duration) {
+          const model = await nsfwjs.load()
+          const predictions = await model?.classify(currentVideo, 3)
+          setUploadedVideo({
+            durationInSeconds: api.plyr.duration.toFixed(2),
+            isNSFW: getIsNSFW(predictions)
+          })
+        }
+        api.plyr.currentTime = Number(time || 0)
       }
       // Set seek time when meta data fully downloaded
       api.plyr.on('loadedmetadata', onDataLoaded)
