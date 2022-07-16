@@ -77,6 +77,10 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
       }
     }
 
+    const onDataLoaded = () => {
+      onMetadataLoaded()
+    }
+
     useEffect(() => {
       const { current } = ref as React.MutableRefObject<APITypes>
       if (current.plyr?.source === null) return
@@ -86,18 +90,10 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
         api.plyr.currentTime = Number(time || 0)
       })
 
-      const onDataLoaded = async () => {
-        api.plyr?.off('loadeddata', onDataLoaded)
-        const currentVideo = document.getElementsByTagName('video')[0]
-        currentVideo?.addEventListener('loadeddata', async (event) => {
-          if (event.target) {
-            onMetadataLoaded()
-            if (pathname === UPLOAD) {
-              analyseVideo(currentVideo)
-            }
-          }
-        })
+      const metaDataLoaded = () => {
         if (pathname === UPLOAD && api.plyr?.duration) {
+          const currentVideo = document.getElementsByTagName('video')[0]
+          analyseVideo(currentVideo)
           setUploadedVideo({
             durationInSeconds: api.plyr.duration.toFixed(2)
           })
@@ -105,7 +101,9 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
         api.plyr.currentTime = Number(time || 0)
       }
       // Set seek time when meta data fully downloaded
-      api.plyr.on('loadedmetadata', onDataLoaded)
+      api.plyr.on('loadedmetadata', metaDataLoaded)
+
+      api.plyr.on('loadeddata', onDataLoaded)
 
       return () => {
         api.plyr.pip = false
@@ -128,7 +126,7 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
         <video
           ref={raptorRef as React.MutableRefObject<HTMLVideoElement>}
           className="plyr-react plyr"
-          preload="metadata"
+          preload={pathname === UPLOAD ? 'auto' : 'metadata'}
         />
         {showContextMenu && pathname === '/watch/[id]' && (
           <PlayerContextMenu
