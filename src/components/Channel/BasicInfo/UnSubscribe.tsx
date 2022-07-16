@@ -1,7 +1,6 @@
 import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
-import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
@@ -27,7 +26,6 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   const [txnHash, setTxnHash] = useState('')
   const [buttonText, setButtonText] = useState(subscribeText)
   const { isAuthenticated } = usePersistStore()
-  const { userSigNonce, setUserSigNonce } = useAppStore()
 
   const onError = (error?: any) => {
     if (error) toast.error(error?.data?.message ?? error?.message)
@@ -66,7 +64,6 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
           types: omitKey(typedData?.types, '__typename'),
           value: omitKey(typedData?.value, '__typename')
         })
-        setUserSigNonce(userSigNonce + 1)
         const { v, r, s } = utils.splitSignature(signature)
         const sig = {
           v,
@@ -98,7 +95,6 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
     setButtonText('Unsubscribing...')
     createUnsubscribeTypedData({
       variables: {
-        options: { overrideSigNonce: userSigNonce },
         request: { profile: channel?.id }
       }
     })
