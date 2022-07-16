@@ -41,7 +41,9 @@ const UploadSteps = () => {
     uploadedVideo,
     bundlrData,
     setBundlrData,
-    getBundlrInstance
+    getBundlrInstance,
+    setUserSigNonce,
+    userSigNonce
   } = useAppStore()
   const { selectedChannel } = usePersistStore()
   const { address } = useAccount()
@@ -225,6 +227,7 @@ const UploadSteps = () => {
           types: omitKey(typedData?.types, '__typename'),
           value: omitKey(typedData?.value, '__typename')
         })
+        setUserSigNonce(userSigNonce + 1)
         const { v, r, s } = utils.splitSignature(signature)
         const args = {
           profileId,
@@ -322,6 +325,7 @@ const UploadSteps = () => {
     })
     createTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: selectedChannel?.id,
           contentURI: ipfsUrl,

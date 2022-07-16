@@ -748,8 +748,11 @@ export const COMMENT_FEED_QUERY = gql`
 `
 
 export const CREATE_POST_TYPED_DATA = gql`
-  mutation CreatePostTypedData($request: CreatePublicPostRequest!) {
-    createPostTypedData(request: $request) {
+  mutation CreatePostTypedData(
+    $options: TypedDataOptions
+    $request: CreatePublicPostRequest!
+  ) {
+    createPostTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -781,8 +784,11 @@ export const CREATE_POST_TYPED_DATA = gql`
 `
 
 export const CREATE_COMMENT_TYPED_DATA = gql`
-  mutation CreateCommentTypedData($request: CreatePublicCommentRequest!) {
-    createCommentTypedData(request: $request) {
+  mutation CreateCommentTypedData(
+    $options: TypedDataOptions
+    $request: CreatePublicCommentRequest!
+  ) {
+    createCommentTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -817,8 +823,11 @@ export const CREATE_COMMENT_TYPED_DATA = gql`
 `
 
 export const CREATE_COLLECT_TYPED_DATA = gql`
-  mutation CreateCollectTypedData($request: CreateCollectRequest!) {
-    createCollectTypedData(request: $request) {
+  mutation CreateCollectTypedData(
+    $options: TypedDataOptions
+    $request: CreateCollectRequest!
+  ) {
+    createCollectTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -907,8 +916,11 @@ export const CREATE_UNFOLLOW_TYPED_DATA = gql`
 `
 
 export const CREATE_FOLLOW_TYPED_DATA = gql`
-  mutation CreateFollowTypedData($request: FollowRequest!) {
-    createFollowTypedData(request: $request) {
+  mutation CreateFollowTypedData(
+    $options: TypedDataOptions
+    $request: FollowRequest!
+  ) {
+    createFollowTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -966,9 +978,10 @@ export const CREATE_REPORT_PUBLICATION_MUTATION = gql`
 
 export const SET_PROFILE_METADATA_TYPED_DATA_MUTATION = gql`
   mutation CreateSetProfileMetadataTypedData(
+    $options: TypedDataOptions
     $request: CreatePublicSetProfileMetadataURIRequest!
   ) {
-    createSetProfileMetadataTypedData(request: $request) {
+    createSetProfileMetadataTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -1015,9 +1028,10 @@ export const MODULES_CURRENCY_QUERY = gql`
 
 export const SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
   mutation CreateSetFollowModuleTypedData(
+    $options: TypedDataOptions
     $request: CreateSetFollowModuleRequest!
   ) {
-    createSetFollowModuleTypedData(request: $request) {
+    createSetFollowModuleTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
@@ -1260,8 +1274,11 @@ export const CREATE_MIRROR_TYPED_DATA = gql`
 `
 
 export const CREATE_BURN_PROFILE_TYPED_DATA = gql`
-  mutation CreateBurnProfileTypedData($request: BurnProfileRequest!) {
-    createBurnProfileTypedData(request: $request) {
+  mutation CreateBurnProfileTypedData(
+    $options: TypedDataOptions
+    $request: BurnProfileRequest!
+  ) {
+    createBurnProfileTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
