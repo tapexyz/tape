@@ -1,9 +1,12 @@
 import { Loader } from '@components/UIElements/Loader'
+import useAppStore from '@lib/store'
 import { generateVideoThumbnails } from '@rajesh896/video-thumbnails-generator'
 import { getFileFromDataURL } from '@utils/functions/getFileFromDataURL'
+import { getIsNSFW } from '@utils/functions/getIsNSFW'
 import { uploadImageToIPFS } from '@utils/functions/uploadToIPFS'
 import useDraggableScroll from '@utils/hooks/useDraggableScroll'
 import clsx from 'clsx'
+import * as nsfwjs from 'nsfwjs'
 import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import { BiImageAdd } from 'react-icons/bi'
 import { IPFSUploadResult } from 'src/types/local'
@@ -21,11 +24,12 @@ const GENERATE_COUNT = 2
 const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const [uploading, setUploading] = useState(false)
   const [thumbnails, setThumbnails] = useState<
-    Array<{ ipfsUrl: string; url: string }>
+    Array<{ ipfsUrl: string; url: string; isNSFWThumbnail: boolean }>
   >([])
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1)
   const scrollRef = useRef<null | HTMLDivElement>(null)
   const { onMouseDown } = useDraggableScroll(scrollRef)
+  const { setUploadedVideo } = useAppStore()
 
   const generateThumbnails = async (file: File) => {
     try {
@@ -34,9 +38,13 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
         GENERATE_COUNT,
         ''
       )
-      let thumbnails: Array<{ ipfsUrl: string; url: string }> = []
+      let thumbnails: Array<{
+        ipfsUrl: string
+        url: string
+        isNSFWThumbnail: boolean
+      }> = []
       thumbnailArray.forEach((t) => {
-        thumbnails.push({ url: t, ipfsUrl: '' })
+        thumbnails.push({ url: t, ipfsUrl: '', isNSFWThumbnail: false })
       })
       setThumbnails(thumbnails)
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX)
@@ -73,13 +81,27 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     return result
   }
 
+  const checkNsfw = async (source: string) => {
+    const img = document.createElement('img')
+    img.src = source
+    const model = await nsfwjs.load()
+    const predictions = await model?.classify(img, 3)
+    return getIsNSFW(predictions)
+  }
+
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       setSelectedThumbnailIndex(-1)
       const result = await uploadThumbnailToIpfs(e.target.files[0])
       const preview = window.URL?.createObjectURL(e.target.files[0])
-      setThumbnails([{ url: preview, ipfsUrl: result.ipfsUrl }, ...thumbnails])
+      const isNSFWThumbnail = await checkNsfw(preview)
+      setUploadedVideo({ isNSFWThumbnail })
+      setThumbnails([
+        { url: preview, ipfsUrl: result.ipfsUrl, isNSFWThumbnail },
+        ...thumbnails
+      ])
       setSelectedThumbnailIndex(0)
+      checkNsfw(preview)
     }
   }
 
@@ -99,6 +121,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       )
     } else {
       afterUpload(thumbnails[index].ipfsUrl, 'image/jpeg')
+      setUploadedVideo({ isNSFWThumbnail: thumbnails[index]?.isNSFWThumbnail })
     }
   }
 
@@ -139,7 +162,8 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
               className={clsx(
                 'rounded-lg relative cursor-grab flex-none focus:outline-none',
                 {
-                  'ring ring-indigo-500': selectedThumbnailIndex === idx
+                  'ring ring-indigo-500': selectedThumbnailIndex === idx,
+                  'ring !ring-red-500': thumbnail.isNSFWThumbnail
                 }
               )}
             >

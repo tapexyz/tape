@@ -46,6 +46,7 @@ export type UploadedVideo = {
   collectModule: CollectModuleType
   disableComments: boolean
   isNSFW: boolean
+  isNSFWThumbnail: boolean
 }
 
 export type CollectModuleType = {

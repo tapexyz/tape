@@ -184,7 +184,18 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           <Video />
         </div>
       </div>
-      {uploadedVideo.isNSFW ? (
+      {uploadedVideo.isNSFWThumbnail ? (
+        <div className="mt-6">
+          <Alert variant="danger">
+            <span className="inline-flex items-center">
+              <AiFillCloseCircle className="mr-2 text-lg text-red-500" />
+              Sorry! Selected thumbnail image has tripped some content warnings.
+              It contains NSFW content, Please choose different image to post on
+              Lenstube!
+            </span>
+          </Alert>
+        </div>
+      ) : uploadedVideo.isNSFW ? (
         <div className="mt-6">
           <Alert variant="danger">
             <span className="inline-flex items-center">
