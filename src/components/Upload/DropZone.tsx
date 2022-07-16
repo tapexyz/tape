@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
+import * as Sentry from '@sentry/nextjs'
 import clsx from 'clsx'
 import React from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
@@ -30,6 +31,7 @@ const DropZone = () => {
         reader.readAsArrayBuffer(file)
       }
     } catch (error) {
+      Sentry.captureException(error)
       toast.error('Error uploading file')
     }
   }
