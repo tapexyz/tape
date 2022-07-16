@@ -18,7 +18,7 @@ interface Props {
   file: File | null
 }
 
-const DEFAULT_THUMBNAIL_INDEX = 1
+const DEFAULT_THUMBNAIL_INDEX = 0
 const GENERATE_COUNT = 2
 
 const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
