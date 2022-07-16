@@ -46,7 +46,8 @@ const VideoCard: FC<Props> = ({ video }) => {
                   src={imageCdn(
                     isSensitiveContent
                       ? `${STATIC_ASSETS}/images/sensor-blur.png`
-                      : getThumbnailUrl(video)
+                      : getThumbnailUrl(video),
+                    'thumbnail'
                   )}
                   draggable={false}
                   className="object-cover object-center w-full h-full rounded-t-xl lg:w-full lg:h-full"

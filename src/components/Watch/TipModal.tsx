@@ -246,7 +246,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         <div className="flex items-center justify-center p-10 space-x-2 flex-nowrap">
           <span className="flex items-center space-x-4">
             <img
-              src={imageCdn(`${STATIC_ASSETS}/images/raise-hand.png`)}
+              src={imageCdn(
+                `${STATIC_ASSETS}/images/raise-hand.png`,
+                'avatar_lg'
+              )}
               alt="Raising Hand"
               className="h-10"
               loading="eager"

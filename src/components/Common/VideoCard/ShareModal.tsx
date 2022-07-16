@@ -47,7 +47,8 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             >
               <img
                 src={imageCdn(
-                  `${STATIC_ASSETS}/images/social/twitter-logo.png`
+                  `${STATIC_ASSETS}/images/social/twitter-logo.png`,
+                  'avatar'
                 )}
                 className="w-10 h-10 rounded-full"
                 alt="twitter"
@@ -57,7 +58,8 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             <a href={getSharableLink('reddit', video)}>
               <img
                 src={imageCdn(
-                  `${STATIC_ASSETS}/images/social/reddit-logo.webp`
+                  `${STATIC_ASSETS}/images/social/reddit-logo.webp`,
+                  'avatar'
                 )}
                 className="w-10 h-10 rounded-full"
                 alt="reddit"
@@ -67,7 +69,8 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             <a href={getSharableLink('linkedin', video)}>
               <img
                 src={imageCdn(
-                  `${STATIC_ASSETS}/images/social/linkedin-logo.png`
+                  `${STATIC_ASSETS}/images/social/linkedin-logo.png`,
+                  'avatar'
                 )}
                 alt="linkedin"
                 className="w-10 h-10 rounded-full"

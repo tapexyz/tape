@@ -39,7 +39,8 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
               src={imageCdn(
                 isSensitiveContent
                   ? `${STATIC_ASSETS}/images/sensor-blur.png`
-                  : getThumbnailUrl(commentedOn)
+                  : getThumbnailUrl(commentedOn),
+                'thumbnail'
               )}
               alt="cover"
               draggable={false}

@@ -37,7 +37,8 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
                   src={imageCdn(
                     isSensitiveContent
                       ? `${STATIC_ASSETS}/images/sensor-blur.png`
-                      : getThumbnailUrl(video)
+                      : getThumbnailUrl(video),
+                    'thumbnail'
                   )}
                   alt="thumbnail"
                   draggable={false}
