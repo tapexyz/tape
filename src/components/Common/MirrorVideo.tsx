@@ -124,6 +124,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     setLoading(true)
     createMirrorTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: selectedChannel?.id,
           publicationId: video?.id,

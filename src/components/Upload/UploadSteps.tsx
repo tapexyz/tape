@@ -325,6 +325,7 @@ const UploadSteps = () => {
     })
     createTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: selectedChannel?.id,
           contentURI: ipfsUrl,

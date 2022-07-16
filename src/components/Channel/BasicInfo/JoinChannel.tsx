@@ -153,6 +153,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     setButtonText('Joining...')
     createJoinTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: {
           follow: {
             profile: channel?.id,

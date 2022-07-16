@@ -126,7 +126,10 @@ const MintVideo: FC<Props> = ({ video }) => {
     }
     setLoading(true)
     createCollectTypedData({
-      variables: { request: { publicationId: video?.id } }
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request: { publicationId: video?.id }
+      }
     })
   }
 

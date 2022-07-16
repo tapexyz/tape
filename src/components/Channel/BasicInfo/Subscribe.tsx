@@ -121,6 +121,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     setButtonText('Subscribing...')
     createSubscribeTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: {
           follow: {
             profile: channel?.id

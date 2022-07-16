@@ -205,6 +205,7 @@ const BasicInfo = ({ channel }: Props) => {
 
     createSetProfileMetadataTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: channel?.id,
           metadata: ipfsUrl

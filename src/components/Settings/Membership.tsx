@@ -169,6 +169,7 @@ const Membership = ({ channel }: Props) => {
     setLoading(true)
     setFollowModuleTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: channel?.id,
           followModule: freeFollowModule

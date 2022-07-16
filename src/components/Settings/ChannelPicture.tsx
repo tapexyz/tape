@@ -121,6 +121,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         )
         createSetProfileImageURITypedData({
           variables: {
+            options: { overrideSigNonce: userSigNonce },
             request: {
               profileId: selectedChannel?.id,
               url: result.ipfsUrl

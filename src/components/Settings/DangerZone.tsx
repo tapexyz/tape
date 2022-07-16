@@ -87,6 +87,7 @@ const DangerZone = () => {
     setLoading(true)
     createBurnProfileTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: { profileId: selectedChannel?.id }
       }
     })

@@ -98,6 +98,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
     setButtonText('Unsubscribing...')
     createUnsubscribeTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: { profile: channel?.id }
       }
     })
