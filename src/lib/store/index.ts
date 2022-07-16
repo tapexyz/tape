@@ -39,7 +39,8 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
     isRevertCollect: false
   },
   disableComments: false,
-  isNSFW: false
+  isNSFW: false,
+  isNSFWThumbnail: false
 }
 
 export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {
