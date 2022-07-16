@@ -18,12 +18,22 @@
 
 Decentralized video-sharing social media platform (similar to YouTube), using Lens Protocol  🌿
 
+## Contributing
+
+We love your input! Please check out the [Contributing guide](/CONTRIBUTING.md) for guidelines.
+
+## Local Setup
+
+```
+cp .env.example .env
+yarn install
+yarn dev
+```
+and visit http://localhost:4783
+
 ## Static Assets
 
 [Lenstube Assets](https://github.com/sasicodes/lenstube-assets)
-
-## License
-Lenstube is open-sourced software licensed under the [MIT license](LICENSE).
 
 ---
 
