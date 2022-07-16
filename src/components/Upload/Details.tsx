@@ -6,7 +6,7 @@ import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
-import React, { FC } from 'react'
+import React, { FC, ReactNode } from 'react'
 import { useForm } from 'react-hook-form'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { z } from 'zod'
@@ -14,6 +14,17 @@ import { z } from 'zod'
 import ChooseThumbnail from './ChooseThumbnail'
 import CollectModuleType from './CollectModuleType'
 import Video from './Video'
+
+const ContentAlert = ({ message }: { message: ReactNode }) => (
+  <div className="mt-6">
+    <Alert variant="danger">
+      <span className="inline-flex items-center">
+        <AiFillCloseCircle className="mr-3 text-xl text-red-500" />
+        {message}
+      </span>
+    </Alert>
+  </div>
+)
 
 const formSchema = z.object({
   title: z
@@ -184,17 +195,26 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           <Video />
         </div>
       </div>
-      {uploadedVideo.isNSFW ? (
-        <div className="mt-6">
-          <Alert variant="danger">
-            <span className="inline-flex items-center">
-              <AiFillCloseCircle className="mr-2 text-lg text-red-500" />
+      {uploadedVideo.isNSFWThumbnail ? (
+        <ContentAlert
+          message={
+            <span>
+              Sorry! <b className="px-0.5">Selected thumbnail</b> image has
+              tripped some content warnings. It contains NSFW content, choose
+              different image to post.
+            </span>
+          }
+        />
+      ) : uploadedVideo.isNSFW ? (
+        <ContentAlert
+          message={
+            <span>
               Sorry! Something about this video has tripped some content
               warnings. It contains NSFW content in some frames, and so the
               video is not allowed to post on Lenstube!
             </span>
-          </Alert>
-        </div>
+          }
+        />
       ) : (
         <div className="flex items-center justify-end mt-6">
           <Button variant="secondary" onClick={() => onCancel()} type="button">
