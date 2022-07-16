@@ -2,6 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -31,6 +32,8 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
   const { isAuthenticated } = usePersistStore()
+  const { userSigNonce, setUserSigNonce } = useAppStore()
+
   const [buttonText, setButtonText] = useState('Join Channel')
 
   const onError = () => {
@@ -109,6 +112,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
           types: omitKey(typedData?.types, '__typename'),
           value: omitKey(typedData?.value, '__typename')
         })
+        setUserSigNonce(userSigNonce + 1)
         const { v, r, s } = utils.splitSignature(signature)
         const args = {
           follower: signer?.getAddress(),
