@@ -14,7 +14,7 @@ Pull requests are the best way to propose changes to the codebase. We actively w
 4. Issue that pull request!
 5. The Pull Request should be raised against main branch.
 
-In short, when you submit code changes, your submissions are understood to be under the same [MIT License](http://choosealicense.com/licenses/mit/) that covers the project. Feel free to contact us if that's a concern.
+Feel free to contact us if any issues.
 
 ## Report bugs
 We use GitHub issues to track public bugs. Report a bug by [opening a new issue](); it's that easy!
@@ -29,5 +29,3 @@ We use GitHub issues to track public bugs. Report a bug by [opening a new issue]
 - What actually happens
 - Additional info if any
 
-## License
-By contributing, you agree that your contributions will be licensed under its MIT License.
