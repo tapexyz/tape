@@ -28,7 +28,7 @@ const HlsPlayer = forwardRef<
   }) as React.MutableRefObject<HTMLVideoElement>
   return (
     <video
-      poster={imageCdn(poster)}
+      poster={imageCdn(poster, 'thumbnail')}
       autoPlay
       ref={raptorRef}
       className="plyr-react plyr"

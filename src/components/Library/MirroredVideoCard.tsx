@@ -39,7 +39,8 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
               src={imageCdn(
                 isSensitiveContent
                   ? `${STATIC_ASSETS}/images/sensor-blur.png`
-                  : getThumbnailUrl(video)
+                  : getThumbnailUrl(video),
+                'thumbnail'
               )}
               alt="thumbnail"
               draggable={false}

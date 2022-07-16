@@ -217,7 +217,10 @@ const BasicInfo = ({ channel }: Props) => {
     >
       <div className="relative flex-none w-full">
         <img
-          src={coverImage ?? imageCdn(channel?.coverPicture?.original?.url)}
+          src={
+            coverImage ??
+            imageCdn(channel?.coverPicture?.original?.url, 'thumbnail')
+          }
           className="object-cover object-center w-full h-48 bg-white rounded-xl md:h-56 dark:bg-gray-900"
           draggable={false}
           alt="Cover Image"

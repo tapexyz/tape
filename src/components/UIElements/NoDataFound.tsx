@@ -16,7 +16,10 @@ export const NoDataFound = ({
     >
       {withImage && (
         <img
-          src={imageCdn(`${STATIC_ASSETS}/images/illustrations/no-results.png`)}
+          src={imageCdn(
+            `${STATIC_ASSETS}/images/illustrations/no-results.png`,
+            'square'
+          )}
           className="w-32 my-4 md:w-36"
           alt="no results"
           draggable={false}

@@ -15,7 +15,9 @@ export const POLYGONSCAN_URL = IS_MAINNET
   : 'https://mumbai.polygonscan.com'
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
-export const IMAGE_CDN_URL = 'https://i0.wp.com'
+export const IMAGE_CDN_URL = IS_MAINNET
+  ? 'https://ik.imagekit.io/lenstube'
+  : 'https://i0.wp.com'
 
 export const IPFS_GATEWAY = 'https://ipfs.infura.io/ipfs'
 

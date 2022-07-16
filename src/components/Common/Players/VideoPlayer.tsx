@@ -171,7 +171,7 @@ const VideoPlayer: FC<Props> = ({
               provider: 'html5'
             }
           ],
-          poster: imageCdn(poster) ?? source
+          poster: imageCdn(poster, 'thumbnail') ?? source
         }}
         options={options}
         time={time}
