@@ -35,7 +35,8 @@ const HomeFeed = () => {
   })
 
   const { observe } = useInView({
-    threshold: 0.5,
+    threshold: 0,
+    rootMargin: '50px 0px',
     onEnter: async () => {
       try {
         const { data } = await fetchMore({
@@ -43,7 +44,7 @@ const HomeFeed = () => {
             request: {
               profileId: selectedChannel?.id,
               cursor: pageInfo?.next,
-              limit: 8,
+              limit: 16,
               timelineTypes: ['POST'],
               sources: [LENSTUBE_APP_ID]
             }
