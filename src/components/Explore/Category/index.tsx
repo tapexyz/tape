@@ -40,7 +40,6 @@ const ExploreCategory = () => {
   })
 
   const { observe } = useInView({
-    threshold: 0.5,
     onEnter: async () => {
       try {
         const { data } = await fetchMore({

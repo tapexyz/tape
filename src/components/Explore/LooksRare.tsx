@@ -35,7 +35,7 @@ const LooksRare = () => {
   })
 
   const { observe } = useInView({
-    threshold: 0.5,
+    rootMargin: '50px 0px',
     onEnter: async () => {
       try {
         const { data } = await fetchMore({
@@ -43,7 +43,7 @@ const LooksRare = () => {
             request: {
               sortCriteria: 'TOP_COLLECTED',
               cursor: pageInfo?.next,
-              limit: 8,
+              limit: 16,
               noRandomize: true,
               sources: [LENSTUBE_APP_ID],
               publicationTypes: ['POST']

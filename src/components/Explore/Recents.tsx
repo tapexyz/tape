@@ -31,7 +31,7 @@ const Recents = () => {
   })
 
   const { observe } = useInView({
-    threshold: 0.5,
+    rootMargin: '50px 0px',
     onEnter: async () => {
       try {
         const { data } = await fetchMore({
@@ -39,7 +39,7 @@ const Recents = () => {
             request: {
               sortCriteria: 'LATEST',
               cursor: pageInfo?.next,
-              limit: 8,
+              limit: 16,
               noRandomize: false,
               sources: [LENSTUBE_APP_ID],
               publicationTypes: ['POST']
