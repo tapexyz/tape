@@ -25,7 +25,7 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 
 const { chains, provider } = configureChains(
-  [IS_MAINNET ? chain.polygon : chain.polygonMumbai],
+  [IS_MAINNET ? chain.polygon : chain.polygonMumbai, chain.mainnet],
   [alchemyProvider({ alchemyId: ALCHEMY_KEY })]
 )
 
