@@ -31,7 +31,6 @@ const Trending = () => {
   })
 
   const { observe } = useInView({
-    threshold: 0,
     rootMargin: '50px 0px',
     onEnter: async () => {
       try {
