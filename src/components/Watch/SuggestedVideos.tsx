@@ -38,7 +38,8 @@ const SuggestedVideos = () => {
   }, [id, refetch])
 
   const { observe } = useInView({
-    threshold: 1,
+    threshold: 0,
+    rootMargin: '50px 0px',
     onEnter: async () => {
       try {
         const { data } = await fetchMore({
@@ -46,7 +47,7 @@ const SuggestedVideos = () => {
             request: {
               cursor: pageInfo?.next,
               sortCriteria: 'LATEST',
-              limit: 8,
+              limit: 16,
               sources: [LENSTUBE_APP_ID],
               publicationTypes: ['POST'],
               noRandomize: false
