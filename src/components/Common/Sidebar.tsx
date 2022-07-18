@@ -3,6 +3,8 @@ import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useTheme } from 'next-themes'
+import { BiMoon, BiSun } from 'react-icons/bi'
 import { FiHome } from 'react-icons/fi'
 import { MdOutlineSubscriptions, MdOutlineVideoLibrary } from 'react-icons/md'
 import { RiLeafLine } from 'react-icons/ri'
@@ -12,6 +14,8 @@ const MobileBottomNav = dynamic(() => import('./MobileBottomNav'))
 
 const Sidebar = () => {
   const router = useRouter()
+  const { theme, setTheme } = useTheme()
+
   const isActivePath = (path: string) => router.pathname === path
 
   return (
@@ -90,7 +94,17 @@ const Sidebar = () => {
             </Link>
           </div>
         </div>
-        <MoreTrigger />
+        <div className="flex flex-col w-full">
+          <button
+            onClick={() => {
+              setTheme(theme === 'dark' ? 'light' : 'dark')
+            }}
+            className="flex p-3 py-4 justify-center rounded-lg hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-90 hover:opacity-100"
+          >
+            {theme === 'light' ? <BiMoon /> : <BiSun />}
+          </button>
+          <MoreTrigger />
+        </div>
       </div>
     </>
   )

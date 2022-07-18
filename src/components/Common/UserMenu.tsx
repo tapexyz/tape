@@ -9,11 +9,13 @@ import { CURRENT_USER_QUERY } from '@utils/gql/queries'
 import { LENSTUBE_PATH, SETTINGS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
+import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlinePlus, AiOutlineUserSwitch } from 'react-icons/ai'
 import { BiArrowBack, BiCheck, BiMoviePlay } from 'react-icons/bi'
-import { IoAnalyticsOutline } from 'react-icons/io5'
+import { BsSun } from 'react-icons/bs'
+import { IoAnalyticsOutline, IoMoonOutline } from 'react-icons/io5'
 import { VscDebugDisconnect } from 'react-icons/vsc'
 import { Profile } from 'src/types'
 import { useAccount, useDisconnect } from 'wagmi'
@@ -22,6 +24,8 @@ const UserMenu = () => {
   const { channels, setShowCreateChannel, setChannels } = useAppStore()
   const { setSelectedChannel, selectedChannel, setIsAuthenticated } =
     usePersistStore()
+  const { theme, setTheme } = useTheme()
+
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
   const { disconnect } = useDisconnect({
     onError(error: any) {
@@ -187,6 +191,21 @@ const UserMenu = () => {
                   </a>
                 </Link>
               )}
+              <button
+                className={clsx(
+                  'flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
+                )}
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              >
+                {theme === 'light' ? (
+                  <IoMoonOutline className="text-base" />
+                ) : (
+                  <BsSun className="text-base" />
+                )}
+                <span className="truncate whitespace-nowrap">
+                  {theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}
+                </span>
+              </button>
               <button
                 className={clsx(
                   'flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
