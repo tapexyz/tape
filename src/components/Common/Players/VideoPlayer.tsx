@@ -77,9 +77,7 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
       }
     }
 
-    const onDataLoaded = () => {
-      onMetadataLoaded()
-    }
+    const onDataLoaded = () => onMetadataLoaded()
 
     useEffect(() => {
       const { current } = ref as React.MutableRefObject<APITypes>
@@ -100,9 +98,9 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
         }
         api.plyr.currentTime = Number(time || 0)
       }
-      // Set seek time when meta data fully downloaded
+      // Set seek time when meta data fully loaded
       api.plyr.on('loadedmetadata', metaDataLoaded)
-
+      // fired when the frame at the current playback
       api.plyr.on('loadeddata', onDataLoaded)
 
       return () => {
