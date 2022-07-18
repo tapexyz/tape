@@ -1,19 +1,16 @@
 import Popover from '@components/UIElements/Popover'
 import { LENSTUBE_TWITTER_HANDLE } from '@utils/constants'
 import { DISCORD, PRIVACY } from '@utils/url-path'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React from 'react'
 import { BsThreeDots } from 'react-icons/bs'
-
-const ToggleTheme = dynamic(() => import('./ToggleTheme'))
 
 const MoreTrigger = () => {
   return (
     <Popover
       trigger={
         <div className="flex flex-col space-y-2 mb-0.5">
-          <button className="flex p-3 py-4 justify-center rounded-lg hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-70 hover:opacity-100">
+          <button className="flex p-3 py-4 justify-center rounded-lg hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-90 hover:opacity-100">
             <BsThreeDots />
           </button>
         </div>
@@ -24,10 +21,6 @@ const MoreTrigger = () => {
     >
       <div className="p-2 max-h-96 mt-1.5 w-44 overflow-x-hidden overflow-y-auto border shadow-xl border-gray-100 rounded-xl dark:border-gray-800 bg-secondary">
         <div className="flex flex-col text-sm transition duration-150 ease-in-out">
-          <div className="text-[11px] cursor-default p-1 font-semibold uppercase opacity-50">
-            Theme
-          </div>
-          <ToggleTheme />
           <div className="text-[11px] cursor-default p-1 font-semibold uppercase opacity-50">
             More
           </div>
