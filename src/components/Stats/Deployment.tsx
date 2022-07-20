@@ -14,17 +14,17 @@ const Deployment = () => {
         {IS_MAINNET ? 'polygon' : 'mumbai'}
       </span>
       {GIT_DEPLOYED_BRANCH && (
-        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg">
+        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-[#181818]">
           {GIT_DEPLOYED_BRANCH}
         </span>
       )}
       {VERCEL_DEPLOYED_ENV && (
-        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg">
+        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-[#181818]">
           {VERCEL_DEPLOYED_ENV}
         </span>
       )}
       {GIT_DEPLOYED_COMMIT_SHA && (
-        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg">
+        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-[#181818]">
           <Link
             href={`https://github.com/sasicodes/lenstube/commit/${GIT_DEPLOYED_COMMIT_SHA}`}
           >
