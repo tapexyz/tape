@@ -123,7 +123,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   {getValues('description')?.length}/5000
                 </span>
               </div>
-              <span className="text-xs opacity-70">
+              {/* <span className="text-xs opacity-70">
                 Use
                 <button
                   type="button"
@@ -138,7 +138,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   #bytes
                 </button>
                 in description to upload video as Bytes
-              </span>
+              </span> */}
             </div>
             <div className="mt-4">
               <ChooseThumbnail
