@@ -342,6 +342,8 @@ const UploadSteps = () => {
   }
 
   const onUpload = () => {
+    if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail)
+      return toast.error('NSFW content not allowed')
     if (uploadedVideo.videoSource) return createPublication()
     else {
       if (
