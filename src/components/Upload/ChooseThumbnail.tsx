@@ -101,7 +101,6 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
         ...thumbnails
       ])
       setSelectedThumbnailIndex(0)
-      checkNsfw(preview)
     }
   }
 

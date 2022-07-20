@@ -55,10 +55,10 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
     const [position, setPosition] = useState({ x: 0, y: 0 })
     const [isVideoLoop, setIsVideoLoop] = useState(false)
     const { pathname } = useRouter()
-    const { setUploadedVideo } = useAppStore()
+    const { setUploadedVideo, uploadedVideo } = useAppStore()
 
     const analyseVideo = async (currentVideo: HTMLVideoElement) => {
-      if (currentVideo) {
+      if (currentVideo && !uploadedVideo.isNSFW) {
         const model = await nsfwjs.load()
         const predictions = await model?.classify(currentVideo, 3)
         setUploadedVideo({
