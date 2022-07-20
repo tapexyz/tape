@@ -15,10 +15,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
   return (
     <>
       <div className="flex items-center space-x-3">
-        <Link
-          href={`/${notification?.mentionPublication?.profile?.handle}`}
-          prefetch={false}
-        >
+        <Link href={`/${notification?.mentionPublication?.profile?.handle}`}>
           <a className="inline-flex items-center space-x-1.5 font-base">
             <img
               className="w-4 h-4 rounded"
@@ -32,10 +29,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
       </div>
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-600 truncate dark:text-gray-400">
-          <Link
-            href={`/watch/${notification?.mentionPublication.id}`}
-            prefetch={false}
-          >
+          <Link href={`/watch/${notification?.mentionPublication.id}`}>
             <a
               href={`/watch/${notification?.mentionPublication.id}`}
               className="mr-1 text-indigo-500"

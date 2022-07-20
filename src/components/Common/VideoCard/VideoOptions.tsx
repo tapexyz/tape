@@ -3,6 +3,7 @@ import Popover from '@components/UIElements/Popover'
 import usePersistStore from '@lib/store/persist'
 import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
 import { HIDE_PUBLICATION } from '@utils/gql/queries'
+import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -16,10 +17,12 @@ import { LenstubePublication } from 'src/types/local'
 
 const VideoOptions = ({
   video,
-  setShowShare
+  setShowShare,
+  showOnHover = true
 }: {
   video: LenstubePublication
   setShowShare: React.Dispatch<boolean>
+  showOnHover?: boolean
 }) => {
   const { addToWatchLater, removeFromWatchLater, watchLater, selectedChannel } =
     usePersistStore()
@@ -46,7 +49,11 @@ const VideoOptions = ({
   return (
     <Popover
       trigger={
-        <div className="p-1 lg:invisible group-hover:visible">
+        <div
+          className={clsx('p-1  group-hover:visible', {
+            'lg:invisible': showOnHover
+          })}
+        >
           <HiOutlineDotsVertical />
         </div>
       }

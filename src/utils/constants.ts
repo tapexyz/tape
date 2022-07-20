@@ -56,6 +56,7 @@ export const SIGN_IN_REQUIRED_MESSAGE = 'Sign in required'
 
 // App Id
 export const LENSTUBE_APP_ID = 'lenstube'
+export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
 
 // auth routes
 export const AUTH_ROUTES = [

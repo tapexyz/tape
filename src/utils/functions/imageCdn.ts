@@ -6,7 +6,7 @@ function removeHttp(url: string) {
 
 const imageCdn = (
   url: string,
-  type: 'thumbnail' | 'avatar' | 'avatar_lg' | 'square'
+  type: 'thumbnail' | 'avatar' | 'avatar_lg' | 'square' | 'thumbnail_v'
 ): string => {
   if (!url) return url
   return IS_MAINNET

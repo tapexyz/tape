@@ -51,10 +51,7 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-600 dark:text-gray-400">
           minted your
-          <Link
-            href={`/watch/${notification?.collectedPublication.id}`}
-            prefetch={false}
-          >
+          <Link href={`/watch/${notification?.collectedPublication.id}`}>
             <a
               href={`/watch/${notification?.collectedPublication.id}`}
               className="ml-1 text-indigo-500"

@@ -1,4 +1,4 @@
-import 'plyr-react/dist/plyr.css'
+import 'plyr-react/plyr.css'
 
 import imageCdn from '@utils/functions/imageCdn'
 import useHls from '@utils/hooks/useHLS'

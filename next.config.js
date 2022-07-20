@@ -1,6 +1,7 @@
 const withPWA = require('next-pwa')
 const runtimeCaching = require('next-pwa/cache')
 const { withSentryConfig } = require('@sentry/nextjs')
+const withTranspiled = require('next-transpile-modules')(['plyr-react'])
 
 const moduleExports = withPWA({
   pwa: {
@@ -32,4 +33,6 @@ const moduleExports = withPWA({
 const sentryWebpackPluginOptions = {
   silent: true
 }
-module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions)
+module.exports = withTranspiled(
+  withSentryConfig(moduleExports, sentryWebpackPluginOptions)
+)

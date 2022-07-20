@@ -32,9 +32,10 @@ import MintModal from './MintModal'
 
 type Props = {
   video: LenstubePublication
+  variant?: 'primary' | 'secondary'
 }
 
-const MintVideo: FC<Props> = ({ video }) => {
+const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const { address } = useAccount()
   const [loading, setLoading] = useState(false)
   const [showMintModal, setShowMintModal] = useState(false)
@@ -160,6 +161,7 @@ const MintVideo: FC<Props> = ({ video }) => {
             disabled={loading}
             onClick={() => handleMint()}
             size="md"
+            variant={variant}
           >
             {loading ? (
               <Loader size="md" />

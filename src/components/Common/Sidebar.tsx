@@ -1,4 +1,4 @@
-import { EXPLORE, FEED, HOME, LIBRARY } from '@utils/url-path'
+import { BYTES, EXPLORE, FEED, HOME, LIBRARY } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -6,7 +6,11 @@ import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import { BiMoon, BiSun } from 'react-icons/bi'
 import { FiHome } from 'react-icons/fi'
-import { MdOutlineSubscriptions, MdOutlineVideoLibrary } from 'react-icons/md'
+import {
+  MdOutlineSubscriptions,
+  MdOutlineVideoLibrary,
+  MdSlowMotionVideo
+} from 'react-icons/md'
 import { RiLeafLine } from 'react-icons/ri'
 
 const MoreTrigger = dynamic(() => import('../../components/Common/MoreTrigger'))
@@ -36,7 +40,7 @@ const Sidebar = () => {
             </Link>
           </div>
           <div className="flex flex-col w-full space-y-1">
-            <Link href={HOME} passHref>
+            <Link href={HOME}>
               <a
                 className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
                   'bg-indigo-50 dark:bg-[#181818]': isActivePath(HOME),
@@ -50,7 +54,7 @@ const Sidebar = () => {
                 </div>
               </a>
             </Link>
-            <Link href={FEED} passHref>
+            <Link href={FEED}>
               <a
                 className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
                   'bg-indigo-50 dark:bg-[#181818]': isActivePath(FEED),
@@ -64,7 +68,7 @@ const Sidebar = () => {
                 </div>
               </a>
             </Link>
-            <Link href={EXPLORE} passHref>
+            <Link href={EXPLORE}>
               <a
                 className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
                   'bg-indigo-50 dark:bg-[#181818]': isActivePath(EXPLORE),
@@ -78,7 +82,21 @@ const Sidebar = () => {
                 </div>
               </a>
             </Link>
-            <Link href={LIBRARY} passHref>
+            <Link href={BYTES}>
+              <a
+                className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
+                  'bg-indigo-50 dark:bg-[#181818]': isActivePath(BYTES),
+                  'hover:bg-gray-50 dark:hover:bg-[#181818]':
+                    !isActivePath(BYTES)
+                })}
+              >
+                <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
+                  <MdSlowMotionVideo className="text-xl" />
+                  <p className="text-[11px] font-medium">Bytes</p>
+                </div>
+              </a>
+            </Link>
+            <Link href={LIBRARY}>
               <a
                 className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
                   'bg-indigo-50 dark:bg-[#181818]': isActivePath(LIBRARY),

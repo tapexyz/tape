@@ -324,6 +324,11 @@ export const PROFILE_QUERY = gql`
         ownedBy
         name
         isFollowedByMe
+        onChainIdentity {
+          ens {
+            name
+          }
+        }
         attributes {
           key
           value

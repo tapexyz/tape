@@ -15,7 +15,7 @@ const MirroredNotification: FC<Props> = ({ notification }) => {
   return (
     <>
       <div className="flex items-center space-x-3">
-        <Link href={`/${notification?.profile?.handle}`} prefetch={false}>
+        <Link href={`/${notification?.profile?.handle}`}>
           <a className="inline-flex items-center space-x-1.5 font-base">
             <img
               className="w-4 h-4 rounded"

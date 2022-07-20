@@ -88,9 +88,11 @@ const VideoCard: FC<Props> = ({ video }) => {
                     {video.stats?.totalUpvotes} likes
                   </span>
                   <span className="middot" />
-                  <span className="whitespace-nowrap">
-                    {dayjs(new Date(video.createdAt)).fromNow()}
-                  </span>
+                  {video.createdAt && (
+                    <span className="whitespace-nowrap">
+                      {dayjs(new Date(video.createdAt)).fromNow()}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
