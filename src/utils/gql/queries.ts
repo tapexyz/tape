@@ -753,11 +753,8 @@ export const COMMENT_FEED_QUERY = gql`
 `
 
 export const CREATE_POST_TYPED_DATA = gql`
-  mutation CreatePostTypedData(
-    $options: TypedDataOptions
-    $request: CreatePublicPostRequest!
-  ) {
-    createPostTypedData(options: $options, request: $request) {
+  mutation CreatePostTypedData($request: CreatePublicPostRequest!) {
+    createPostTypedData(request: $request) {
       id
       expiresAt
       typedData {
@@ -789,11 +786,8 @@ export const CREATE_POST_TYPED_DATA = gql`
 `
 
 export const CREATE_COMMENT_TYPED_DATA = gql`
-  mutation CreateCommentTypedData(
-    $options: TypedDataOptions
-    $request: CreatePublicCommentRequest!
-  ) {
-    createCommentTypedData(options: $options, request: $request) {
+  mutation CreateCommentTypedData($request: CreatePublicCommentRequest!) {
+    createCommentTypedData(request: $request) {
       id
       expiresAt
       typedData {
@@ -828,11 +822,8 @@ export const CREATE_COMMENT_TYPED_DATA = gql`
 `
 
 export const CREATE_COLLECT_TYPED_DATA = gql`
-  mutation CreateCollectTypedData(
-    $options: TypedDataOptions
-    $request: CreateCollectRequest!
-  ) {
-    createCollectTypedData(options: $options, request: $request) {
+  mutation CreateCollectTypedData($request: CreateCollectRequest!) {
+    createCollectTypedData(request: $request) {
       id
       expiresAt
       typedData {
@@ -921,11 +912,8 @@ export const CREATE_UNFOLLOW_TYPED_DATA = gql`
 `
 
 export const CREATE_FOLLOW_TYPED_DATA = gql`
-  mutation CreateFollowTypedData(
-    $options: TypedDataOptions
-    $request: FollowRequest!
-  ) {
-    createFollowTypedData(options: $options, request: $request) {
+  mutation CreateFollowTypedData($request: FollowRequest!) {
+    createFollowTypedData(request: $request) {
       id
       expiresAt
       typedData {
@@ -983,10 +971,9 @@ export const CREATE_REPORT_PUBLICATION_MUTATION = gql`
 
 export const SET_PROFILE_METADATA_TYPED_DATA_MUTATION = gql`
   mutation CreateSetProfileMetadataTypedData(
-    $options: TypedDataOptions
     $request: CreatePublicSetProfileMetadataURIRequest!
   ) {
-    createSetProfileMetadataTypedData(options: $options, request: $request) {
+    createSetProfileMetadataTypedData(request: $request) {
       id
       expiresAt
       typedData {
@@ -1033,10 +1020,9 @@ export const MODULES_CURRENCY_QUERY = gql`
 
 export const SET_FOLLOW_MODULE_TYPED_DATA_MUTATION = gql`
   mutation CreateSetFollowModuleTypedData(
-    $options: TypedDataOptions
     $request: CreateSetFollowModuleRequest!
   ) {
-    createSetFollowModuleTypedData(options: $options, request: $request) {
+    createSetFollowModuleTypedData(request: $request) {
       id
       expiresAt
       typedData {
@@ -1172,11 +1158,8 @@ export const REMOVE_REACTION_MUTATION = gql`
   }
 `
 export const SET_PFP_URI_TYPED_DATA = gql`
-  mutation SetProfileImageUriTypedData(
-    $options: TypedDataOptions
-    $request: UpdateProfileImageRequest!
-  ) {
-    createSetProfileImageURITypedData(options: $options, request: $request) {
+  mutation SetProfileImageUriTypedData($request: UpdateProfileImageRequest!) {
+    createSetProfileImageURITypedData(request: $request) {
       id
       expiresAt
       typedData {
@@ -1243,11 +1226,8 @@ export const GET_LENSTUBE_STATS = gql`
 `
 
 export const CREATE_MIRROR_TYPED_DATA = gql`
-  mutation CreateMirrorTypedData(
-    $options: TypedDataOptions
-    $request: CreateMirrorRequest!
-  ) {
-    createMirrorTypedData(options: $options, request: $request) {
+  mutation CreateMirrorTypedData($request: CreateMirrorRequest!) {
+    createMirrorTypedData(request: $request) {
       id
       expiresAt
       typedData {
@@ -1279,11 +1259,8 @@ export const CREATE_MIRROR_TYPED_DATA = gql`
 `
 
 export const CREATE_BURN_PROFILE_TYPED_DATA = gql`
-  mutation CreateBurnProfileTypedData(
-    $options: TypedDataOptions
-    $request: BurnProfileRequest!
-  ) {
-    createBurnProfileTypedData(options: $options, request: $request) {
+  mutation CreateBurnProfileTypedData($request: BurnProfileRequest!) {
+    createBurnProfileTypedData(request: $request) {
       id
       expiresAt
       typedData {

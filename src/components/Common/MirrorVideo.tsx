@@ -2,7 +2,6 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -30,7 +29,6 @@ type Props = {
 
 const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
-  const { userSigNonce, setUserSigNonce } = useAppStore()
   const { isAuthenticated, selectedChannel } = usePersistStore()
   const onlySubscribersCanMirror =
     video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
@@ -89,7 +87,6 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
           types: omitKey(typedData?.types, '__typename'),
           value: omitKey(typedData?.value, '__typename')
         })
-        setUserSigNonce(userSigNonce + 1)
         const { v, r, s } = utils.splitSignature(signature)
         const sig = { v, r, s, deadline: typedData.value.deadline }
         const inputStruct = {
@@ -124,7 +121,6 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     setLoading(true)
     createMirrorTypedData({
       variables: {
-        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: selectedChannel?.id,
           publicationId: video?.id,

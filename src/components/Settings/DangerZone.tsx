@@ -2,7 +2,6 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { clearStorage } from '@lib/apollo'
-import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENSHUB_PROXY_ADDRESS } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
@@ -22,7 +21,6 @@ import {
 const DangerZone = () => {
   const { selectedChannel, setIsAuthenticated } = usePersistStore()
   const [loading, setLoading] = useState(false)
-  const { userSigNonce, setUserSigNonce } = useAppStore()
   const [txnHash, setTxnHash] = useState('')
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -70,7 +68,6 @@ const DangerZone = () => {
             types: omitKey(typedData?.types, '__typename'),
             value: omitKey(typedData?.value, '__typename')
           })
-          setUserSigNonce(userSigNonce + 1)
           const { tokenId } = typedData?.value
           const { v, r, s } = utils.splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
@@ -87,7 +84,6 @@ const DangerZone = () => {
     setLoading(true)
     createBurnProfileTypedData({
       variables: {
-        options: { overrideSigNonce: userSigNonce },
         request: { profileId: selectedChannel?.id }
       }
     })

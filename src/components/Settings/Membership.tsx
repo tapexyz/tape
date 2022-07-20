@@ -5,7 +5,6 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
 import {
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED,
@@ -48,7 +47,6 @@ type FormData = z.infer<typeof formSchema>
 const Membership = ({ channel }: Props) => {
   const [loading, setLoading] = useState(false)
   const [showForm, setShowForm] = useState(false)
-  const { userSigNonce, setUserSigNonce } = useAppStore()
   const {
     register,
     handleSubmit,
@@ -134,7 +132,6 @@ const Membership = ({ channel }: Props) => {
             types: omitKey(typedData?.types, '__typename'),
             value: omitKey(typedData?.value, '__typename')
           })
-          setUserSigNonce(userSigNonce + 1)
           const { v, r, s } = utils.splitSignature(signature)
           const args = {
             profileId,
@@ -169,7 +166,6 @@ const Membership = ({ channel }: Props) => {
     setLoading(true)
     setFollowModuleTypedData({
       variables: {
-        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: channel?.id,
           followModule: freeFollowModule
