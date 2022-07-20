@@ -20,7 +20,7 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
   return (
     <>
       <div className="flex items-center space-x-3">
-        <Link href={`/${notification?.profile?.handle}`} prefetch={false}>
+        <Link href={`/${notification?.profile?.handle}`}>
           <a className="inline-flex items-center space-x-1.5 font-base">
             <img
               className="w-4 h-4 rounded"
@@ -35,10 +35,7 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-600 truncate dark:text-gray-400">
           commented on your
-          <Link
-            href={`/watch/${notification?.comment?.commentOn.id}`}
-            prefetch={false}
-          >
+          <Link href={`/watch/${notification?.comment?.commentOn.id}`}>
             <a
               href={`/watch/${notification?.comment.id}`}
               className="ml-1 text-indigo-500"

@@ -70,7 +70,7 @@ const DropZone = () => {
           )}
         >
           <>
-            <input {...getInputProps()} />
+            <input {...getInputProps()} accept="video/mp4" />
             <span className="flex justify-center mb-6 opacity-80">
               <FiUpload className="text-6xl" />
             </span>

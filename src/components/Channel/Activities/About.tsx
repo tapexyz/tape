@@ -1,4 +1,3 @@
-import { ENS_NAME_ABI } from '@abis/ENS'
 import { AddressExplorerLink } from '@components/Common/ExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
 import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@utils/constants'
@@ -9,7 +8,6 @@ import { AiOutlineNumber } from 'react-icons/ai'
 import { HiOutlineGlobe, HiOutlineLocationMarker } from 'react-icons/hi'
 import { RiShieldKeyholeLine, RiTwitterLine } from 'react-icons/ri'
 import { Attribute, Profile } from 'src/types'
-import { useContractRead } from 'wagmi'
 
 type Props = {
   channel: Profile
@@ -17,15 +15,7 @@ type Props = {
 
 const About: FC<Props> = ({ channel }) => {
   const attributes = channel?.attributes as Attribute[]
-  const address = channel.ownedBy
-
-  const { data: ensData } = useContractRead({
-    addressOrName: '0x3671ae578e63fdf66ad4f3e12cc0c0d71ac7510c',
-    contractInterface: ENS_NAME_ABI,
-    functionName: 'getNames',
-    args: [[address]],
-    chainId: 1
-  })
+  const ensName = channel.onChainIdentity?.ens?.name
 
   return (
     <div className="space-y-4 md:pr-4 md:space-y-6">
@@ -40,7 +30,7 @@ const About: FC<Props> = ({ channel }) => {
       <div className="flex flex-col space-y-3">
         <h6 className="text-xs font-semibold uppercase opacity-80">Links</h6>
         <div className="space-y-1.5">
-          {ensData && (
+          {ensName && (
             <div className="flex items-center space-x-1">
               <span className="pr-0.5 grayscale" role="img">
                 <img
@@ -50,7 +40,7 @@ const About: FC<Props> = ({ channel }) => {
                   draggable={false}
                 />
               </span>
-              <span>{ensData[0]}</span>
+              <span>{ensName}</span>
             </div>
           )}
           {getValueFromKeyInAttributes(attributes, 'website') && (

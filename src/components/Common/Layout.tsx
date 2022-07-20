@@ -26,6 +26,7 @@ const Sidebar = dynamic(() => import('./Sidebar'), {
 interface Props {
   children: ReactNode
 }
+const NO_HEADER_PATHS = [AUTH]
 
 const Layout: FC<Props> = ({ children }) => {
   const { pathname, replace, asPath } = useRouter()
@@ -45,7 +46,6 @@ const Layout: FC<Props> = ({ children }) => {
   })
   const { mounted } = useIsMounted()
   const { address, connector, isDisconnected } = useAccount()
-  const isSignInPage = pathname === AUTH
 
   const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: address },
@@ -95,9 +95,9 @@ const Layout: FC<Props> = ({ children }) => {
       if (disconnect) disconnect()
       setIsAuthenticated(false)
     }
-    // connector?.on('change', () => {
-    // logout()
-    // })
+    connector?.on('change', () => {
+      logout()
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isAuthenticated,
@@ -122,11 +122,11 @@ const Layout: FC<Props> = ({ children }) => {
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <Suspense fallback={<FullPageLoader />}>
-        <div className="flex pb-14 md:pb-0">
+        <div className="flex pb-10 md:pb-0">
           <Sidebar />
           <div className="w-full md:pl-[94px] pl-2 pr-2 md:pr-4 max-w-[110rem] mx-auto">
-            {!isSignInPage && <Header />}
-            <div className="py-3">{children}</div>
+            {!NO_HEADER_PATHS.includes(pathname) && <Header />}
+            <div className="py-2">{children}</div>
           </div>
         </div>
       </Suspense>

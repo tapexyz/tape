@@ -11,9 +11,11 @@ import {
   IS_MAINNET,
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
   LENSTUBE_URL,
   RELAYER_ENABLED
 } from '@utils/constants'
+import { checkIsBytesVideo } from '@utils/functions/checkIsBytesVideo'
 import { getCollectModule } from '@utils/functions/getCollectModule'
 import { isLessThan100MB } from '@utils/functions/getSizeFromBytes'
 import omitKey from '@utils/functions/omitKey'
@@ -304,11 +306,12 @@ const UploadSteps = () => {
         value: 'sensitive'
       })
     }
+    const isBytesVideo = checkIsBytesVideo(uploadedVideo.description)
     const { ipfsUrl } = await uploadDataToIPFS({
       version: '1.0.0',
       metadata_id: uuidv4(),
       description: uploadedVideo.description,
-      content: `${uploadedVideo.title}\n\n${uploadedVideo.description}`,
+      content: `${uploadedVideo.title}\n\n${uploadedVideo.description}\n\n- published via Lenstube.`,
       external_url: LENSTUBE_URL,
       animation_url: uploadedVideo.videoSource,
       image: uploadedVideo.thumbnail,
@@ -317,7 +320,7 @@ const UploadSteps = () => {
       name: uploadedVideo.title,
       attributes,
       media,
-      appId: LENSTUBE_APP_ID
+      appId: isBytesVideo ? LENSTUBE_BYTES_APP_ID : LENSTUBE_APP_ID
     })
     setUploadedVideo({
       buttonText: 'Posting video...',

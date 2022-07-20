@@ -123,6 +123,22 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   {getValues('description')?.length}/5000
                 </span>
               </div>
+              {/* <span className="text-xs opacity-70">
+                Use
+                <button
+                  type="button"
+                  onClick={() =>
+                    setValue(
+                      'description',
+                      `${getValues('description')} #bytes`
+                    )
+                  }
+                  className="mx-1 text-indigo-500 outline-none"
+                >
+                  #bytes
+                </button>
+                in description to upload video as Bytes
+              </span> */}
             </div>
             <div className="mt-4">
               <ChooseThumbnail
