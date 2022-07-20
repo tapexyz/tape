@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -42,7 +41,6 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Comment')
   const { isAuthenticated, selectedChannel } = usePersistStore()
-  const { userSigNonce, setUserSigNonce } = useAppStore()
 
   const {
     register,
@@ -118,7 +116,6 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           types: omitKey(typedData?.types, '__typename'),
           value: omitKey(typedData?.value, '__typename')
         })
-        setUserSigNonce(userSigNonce + 1)
         const { v, r, s } = utils.splitSignature(signature)
         const args = {
           profileId,
@@ -179,7 +176,6 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     })
     createTypedData({
       variables: {
-        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: selectedChannel?.id,
           publicationId: video?.id,
