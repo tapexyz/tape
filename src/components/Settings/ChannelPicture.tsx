@@ -1,7 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
-import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENSHUB_PROXY_ADDRESS, RELAYER_ENABLED } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
@@ -26,7 +25,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const { selectedChannel, setSelectedChannel } = usePersistStore()
   const [selectedPfp, setSelectedPfp] = useState('')
   const [loading, setLoading] = useState(false)
-  const { userSigNonce, setUserSigNonce } = useAppStore()
 
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -83,7 +81,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             types: omitKey(typedData?.types, '__typename'),
             value: omitKey(typedData?.value, '__typename')
           })
-          setUserSigNonce(userSigNonce + 1)
           const { profileId, imageURI } = typedData?.value
           const { v, r, s } = utils.splitSignature(signature)
           const args = {
@@ -121,7 +118,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         )
         createSetProfileImageURITypedData({
           variables: {
-            options: { overrideSigNonce: userSigNonce },
             request: {
               profileId: selectedChannel?.id,
               url: result.ipfsUrl

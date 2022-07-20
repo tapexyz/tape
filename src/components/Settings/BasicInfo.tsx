@@ -4,7 +4,6 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
 import {
   ERROR_MESSAGE,
   LENS_PERIPHERY_ADDRESS,
@@ -59,7 +58,6 @@ type FormData = z.infer<typeof formSchema>
 
 const BasicInfo = ({ channel }: Props) => {
   const [, copy] = useCopyToClipboard()
-  const { userSigNonce, setUserSigNonce } = useAppStore()
   const [loading, setLoading] = useState(false)
   const [coverImage, setCoverImage] = useState(getCoverPicture(channel) || '')
   const {
@@ -121,7 +119,6 @@ const BasicInfo = ({ channel }: Props) => {
             types: omitKey(typedData?.types, '__typename'),
             value: omitKey(typedData?.value, '__typename')
           })
-          setUserSigNonce(userSigNonce + 1)
           const { profileId, metadata } = typedData?.value
           const { v, r, s } = utils.splitSignature(signature)
           const args = {
@@ -200,12 +197,13 @@ const BasicInfo = ({ channel }: Props) => {
       ],
       version: '1.0.0',
       metadata_id: uuidv4(),
+      previousMetadata: channel?.metadata,
+      createdOn: new Date(),
       appId: LENSTUBE_APP_ID
     })
 
     createSetProfileMetadataTypedData({
       variables: {
-        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: channel?.id,
           metadata: ipfsUrl

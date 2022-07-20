@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
   ERROR_MESSAGE,
@@ -40,7 +39,6 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const [loading, setLoading] = useState(false)
   const [showMintModal, setShowMintModal] = useState(false)
   const { isAuthenticated } = usePersistStore()
-  const { userSigNonce, setUserSigNonce } = useAppStore()
 
   const { signTypedDataAsync } = useSignTypedData({
     onError(error: any) {
@@ -86,7 +84,6 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
           types: omitKey(typedData?.types, '__typename'),
           value: omitKey(typedData?.value, '__typename')
         })
-        setUserSigNonce(userSigNonce + 1)
         const { v, r, s } = utils.splitSignature(signature)
         const args = {
           collector: address,
@@ -128,7 +125,6 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     setLoading(true)
     createCollectTypedData({
       variables: {
-        options: { overrideSigNonce: userSigNonce },
         request: { publicationId: video?.id }
       }
     })
