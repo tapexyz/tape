@@ -16,7 +16,11 @@
 
 ## About
 
-Decentralized video-sharing social media platform (similar to YouTube), using Lens Protocol  🌿
+Lenstube is a decentralized video-sharing social media platform, built using Lens Protocol  🌿
+
+## Community
+
+For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://lenstube.xyz/discord).
 
 ## Contributing
 
@@ -31,9 +35,12 @@ yarn dev
 ```
 and visit http://localhost:4783
 
-## Static Assets
+## Others
 
-[Lenstube Assets](https://github.com/sasicodes/lenstube-assets)
+- [Lenstube Assets](https://github.com/sasicodes/lenstube-assets)
+
+## License
+Lenstube is open-sourced software licensed under the [MIT license](LICENSE).
 
 ---
 
