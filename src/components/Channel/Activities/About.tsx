@@ -46,7 +46,7 @@ const About: FC<Props> = ({ channel }) => {
                 <span>{ensName}</span>
               </div>
             )}
-            {!channel?.onChainIdentity?.proofOfHumanity && (
+            {channel?.onChainIdentity?.proofOfHumanity && (
               <div className="flex items-center space-x-1">
                 <span className="pr-0.5" role="img">
                   <img
