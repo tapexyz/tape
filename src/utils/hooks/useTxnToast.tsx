@@ -10,7 +10,7 @@ const useTxnToast = () => {
         <div
           className={`${
             t.visible ? 'animate-enter' : 'animate-leave'
-          } max-w-sm w-full bg-white dark:bg-gray-800 shadow-lg rounded-xl pointer-events-auto flex items-center ring-1 ring-black ring-opacity-5`}
+          } max-w-sm w-full bg-white dark:bg-gray-800 shadow-lg rounded-xl pointer-events-auto flex items-center ring-1 ring-indigo-500 ring-opacity-60`}
         >
           <div className="flex-1 w-0 px-4 py-3">
             <div className="flex items-center">
