@@ -26,7 +26,7 @@ export const HashExplorerLink = ({
   children: ReactElement
 }) => {
   return (
-    <Link href={`${POLYGONSCAN_URL}/hash/${hash}`}>
+    <Link href={`${POLYGONSCAN_URL}/tx/${hash}`}>
       <a rel="noreferer noreferrer" target="_blank">
         {children}
       </a>

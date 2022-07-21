@@ -17,6 +17,7 @@ if (IS_MAINNET) {
 }
 
 import PlayerContextMenu from './PlayerContextMenu'
+import SensitiveWarning from './SensitiveWarning'
 
 interface Props {
   source: string
@@ -26,6 +27,7 @@ interface Props {
   autoPlay?: boolean
   ratio?: string
   time?: number
+  isSensitiveContent?: boolean
 }
 
 interface CustomPlyrProps extends PlyrProps {
@@ -147,10 +149,12 @@ const VideoPlayer: FC<Props> = ({
   autoPlay = true,
   ratio = '16:9',
   wrapperClassName,
-  time
+  time,
+  isSensitiveContent
 }) => {
   const ref = React.useRef<APITypes>(null)
   const [plyrControls, setPlyrControls] = useState<string[]>(['progress'])
+  const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
 
   const options = {
     controls: plyrControls,
@@ -162,22 +166,26 @@ const VideoPlayer: FC<Props> = ({
 
   return (
     <div className={clsx('overflow-hidden rounded-xl', wrapperClassName)}>
-      <CustomPlyrInstance
-        ref={ref}
-        source={{
-          type: 'video',
-          sources: [
-            {
-              src: source,
-              provider: 'html5'
-            }
-          ],
-          poster: imageCdn(poster, 'thumbnail') ?? source
-        }}
-        options={options}
-        time={time}
-        onVideoDataLoaded={() => setPlyrControls(controls)}
-      />
+      {sensitiveWarning ? (
+        <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
+      ) : (
+        <CustomPlyrInstance
+          ref={ref}
+          source={{
+            type: 'video',
+            sources: [
+              {
+                src: source,
+                provider: 'html5'
+              }
+            ],
+            poster: imageCdn(poster, 'thumbnail') ?? source
+          }}
+          options={options}
+          time={time}
+          onVideoDataLoaded={() => setPlyrControls(controls)}
+        />
+      )}
     </div>
   )
 }

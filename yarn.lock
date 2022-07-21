@@ -1836,10 +1836,10 @@
     "@ethersproject/properties" "^5.6.0"
     "@ethersproject/strings" "^5.6.1"
 
-"@graphql-codegen/cli@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-2.9.0.tgz#49870229c5f3f9c59068130fb899aad50ad1849b"
-  integrity sha512-4YnJLW+E3XKCtO6kfKLQKtaU/NfPmLi4izf/VTOH+7/uCaDGfPfRqkoyX1q7QtNxQC4l0Zn0ltbBJwguT/fuEg==
+"@graphql-codegen/cli@^2.9.1":
+  version "2.9.1"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-2.9.1.tgz#f3a0edd462cbefb69f9db7789b142a696a2930b4"
+  integrity sha512-RyGrJTKySi5irJjdgg/9GTnFSCJtKh1YGD9idh2CIsEbkbUx3M7aBk4A+W7Q1afLmC16l59KSXodG8Bqi2eJmg==
   dependencies:
     "@graphql-codegen/core" "2.6.0"
     "@graphql-codegen/plugin-helpers" "^2.6.0"
@@ -10169,9 +10169,9 @@ zustand@^4.0.0-rc.1:
   dependencies:
     use-sync-external-store "1.1.0"
 
-zustand@^4.0.0-rc.3:
-  version "4.0.0-rc.3"
-  resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.0.0-rc.3.tgz#690fef2c91b106bd6376452cba2b1533267747f9"
-  integrity sha512-vc7TKQJC6T8lx5EupnuUTWXahuRLYjrK9oWLvY+u65ZkLDjocgxDGMrl5VBuxyjXCXyJ3kquN3l/Y2yUj5ZDEg==
+zustand@^4.0.0-rc.4:
+  version "4.0.0-rc.4"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.0.0-rc.4.tgz#ed0e0f1fa3e1c7d0d9021739d862d88048d845da"
+  integrity sha512-BP35Rq40GBTKKtYyjLuZogzXGh289xqO8U8ivGIK43nRqURD2dEEImkUci1/jWRUz7J1OPJkUZuNySCho801gQ==
   dependencies:
     use-sync-external-store "1.2.0"
