@@ -13,6 +13,7 @@ import {
   CREATE_FOLLOW_TYPED_DATA
 } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
+import useTxnToast from '@utils/hooks/useTxnToast'
 import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -28,6 +29,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Subscribe')
   const { isAuthenticated } = usePersistStore()
+  const { showToast } = useTxnToast()
 
   const onError = (error?: any) => {
     if (error) toast.error(error?.data?.message ?? error?.message)
@@ -43,14 +45,16 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'followWithSig',
-    onSuccess() {
+    onSuccess(data) {
       setButtonText('Subscribing...')
+      showToast(data.hash)
     },
     onError
   })
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onCompleted(data) {
+      showToast(data?.broadcast?.txHash)
       if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
         setButtonText('Indexing...')
       }

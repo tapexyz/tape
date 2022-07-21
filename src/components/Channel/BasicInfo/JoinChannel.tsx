@@ -16,6 +16,7 @@ import {
   CREATE_FOLLOW_TYPED_DATA
 } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
+import useTxnToast from '@utils/hooks/useTxnToast'
 import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -31,6 +32,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
   const { isAuthenticated } = usePersistStore()
+  const { showToast } = useTxnToast()
 
   const [buttonText, setButtonText] = useState('Join Channel')
 
@@ -48,8 +50,9 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'followWithSig',
-    onSuccess() {
+    onSuccess(data) {
       setButtonText('Joining...')
+      showToast(data.hash)
     },
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
@@ -58,6 +61,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   })
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onCompleted(data) {
+      showToast(data.broadcast?.txHash)
       if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
         setButtonText('Indexing...')
       }

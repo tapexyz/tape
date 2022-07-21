@@ -5,6 +5,7 @@ import usePersistStore from '@lib/store/persist'
 import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { CREATE_UNFOLLOW_TYPED_DATA } from '@utils/gql/queries'
+import useTxnToast from '@utils/hooks/useTxnToast'
 import { ethers, Signer, utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -26,6 +27,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   const [txnHash, setTxnHash] = useState('')
   const [buttonText, setButtonText] = useState(subscribeText)
   const { isAuthenticated } = usePersistStore()
+  const { showToast } = useTxnToast()
 
   const onError = (error?: any) => {
     if (error) toast.error(error?.data?.message ?? error?.message)
@@ -81,7 +83,10 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
           typedData?.value.tokenId,
           sig
         )
-        if (txn.hash) setTxnHash(txn.hash)
+        if (txn.hash) {
+          setTxnHash(txn.hash)
+          showToast(txn.hash)
+        }
       } catch (error) {
         onError(error)
       }
