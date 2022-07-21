@@ -13,6 +13,7 @@ import {
   FcComments,
   FcLikePlaceholder,
   FcSynchronize,
+  FcTabletAndroid,
   FcVideoCall
 } from 'react-icons/fc'
 import { GlobalProtocolStats } from 'src/types'
@@ -36,6 +37,7 @@ const Stats = () => {
     return <Custom404 />
   }
   const stats: GlobalProtocolStats = data?.globalProtocolStats
+  const bytesStats: GlobalProtocolStats = data?.bytesStats
 
   return (
     <>
@@ -60,6 +62,11 @@ const Stats = () => {
               icon={<FcSynchronize />}
               count={stats?.totalMirrors}
               text="total mirrors"
+            />
+            <StatCard
+              icon={<FcTabletAndroid />}
+              count={bytesStats?.totalPosts}
+              text="total bytes"
             />
             <StatCard
               icon={<FcLikePlaceholder />}

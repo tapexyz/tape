@@ -1222,6 +1222,9 @@ export const GET_LENSTUBE_STATS = gql`
         value
       }
     }
+    bytesStats: globalProtocolStats(request: { sources: "lenstube-bytes" }) {
+      totalPosts
+    }
   }
 `
 
