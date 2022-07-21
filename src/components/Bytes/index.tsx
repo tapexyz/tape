@@ -65,7 +65,7 @@ const Bytes = () => {
   if (data?.explorePublications?.items?.length === 0) {
     return (
       <div className="grid h-[80vh] place-items-center">
-        <NoDataFound isCenter withImage text="No videos found" />
+        <NoDataFound isCenter withImage text="No bytes found" />
       </div>
     )
   }
