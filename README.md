@@ -42,6 +42,5 @@ and visit http://localhost:4783
 ## License
 Lenstube is open-sourced software licensed under the [MIT license](LICENSE).
 
----
 
 [![](https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg)](https://vercel.com/?utm_source=Lenstube&utm_campaign=oss)

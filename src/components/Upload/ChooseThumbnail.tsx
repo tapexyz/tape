@@ -84,6 +84,8 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const checkNsfw = async (source: string) => {
     const img = document.createElement('img')
     img.src = source
+    img.height = 200
+    img.width = 400
     const model = await nsfwjs.load()
     const predictions = await model?.classify(img, 3)
     return getIsNSFW(predictions)
