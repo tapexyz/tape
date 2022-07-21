@@ -11,13 +11,13 @@ import { useRouter } from 'next/router'
 import * as nsfwjs from 'nsfwjs'
 import { APITypes, PlyrInstance, PlyrProps, usePlyr } from 'plyr-react'
 import React, { FC, forwardRef, useEffect, useState } from 'react'
-import { TbAlertTriangle } from 'react-icons/tb'
 
 if (IS_MAINNET) {
   tf.enableProdMode()
 }
 
 import PlayerContextMenu from './PlayerContextMenu'
+import SensitiveWarning from './SensitiveWarning'
 
 interface Props {
   source: string
@@ -167,21 +167,7 @@ const VideoPlayer: FC<Props> = ({
   return (
     <div className={clsx('overflow-hidden rounded-xl', wrapperClassName)}>
       {sensitiveWarning ? (
-        <div className="bg-black rounded-xl aspect-video flex w-full h-96 text-white justify-center items-center text-lg px-10 space-x-5">
-          <TbAlertTriangle className="h-28 w-28" />
-          <div className="flex flex-col">
-            <div>
-              The following video has NSFW content and may inappropriate or
-              offensive to some audiences. Viewer discretion is advised
-            </div>
-            <button
-              className="bg-gray-800 px-6 py-2 mt-5 rounded w-80"
-              onClick={() => setSensitiveWarning(false)}
-            >
-              I understand & wish to proceed
-            </button>
-          </div>
-        </div>
+        <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
       ) : (
         <CustomPlyrInstance
           ref={ref}
