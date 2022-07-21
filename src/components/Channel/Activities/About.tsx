@@ -21,7 +21,7 @@ const About: FC<Props> = ({ channel }) => {
     <div className="space-y-4 md:pr-4 md:space-y-6">
       {channel?.bio && (
         <div className="flex flex-col space-y-3">
-          <h6 className="text-xs font-semibold uppercase opacity-80">
+          <h6 className="text-xs font-semibold uppercase opacity-70">
             Description
           </h6>
           <p>{channel?.bio}</p>
@@ -29,7 +29,7 @@ const About: FC<Props> = ({ channel }) => {
       )}
       {channel?.bio && (
         <div className="flex flex-col space-y-3">
-          <h6 className="text-xs font-semibold uppercase opacity-80">
+          <h6 className="text-xs font-semibold uppercase opacity-70">
             On-chain Identity
           </h6>
           <div className="space-y-1.5">
@@ -39,7 +39,7 @@ const About: FC<Props> = ({ channel }) => {
                   <img
                     src={`${STATIC_ASSETS}/images/social/ens.svg`}
                     alt="ens"
-                    className="w-4 h-4"
+                    className="w-5 h-5"
                     draggable={false}
                   />
                 </span>
@@ -52,7 +52,7 @@ const About: FC<Props> = ({ channel }) => {
                   <img
                     src={`${STATIC_ASSETS}/images/social/poh.png`}
                     alt="poh"
-                    className="w-4 h-4"
+                    className="w-5 h-5"
                     draggable={false}
                   />
                 </span>
@@ -63,7 +63,7 @@ const About: FC<Props> = ({ channel }) => {
         </div>
       )}
       <div className="flex flex-col space-y-3">
-        <h6 className="text-xs font-semibold uppercase opacity-80">Links</h6>
+        <h6 className="text-xs font-semibold uppercase opacity-70">Links</h6>
         <div className="space-y-1.5">
           {getValueFromKeyInAttributes(attributes, 'website') && (
             <div className="flex items-center space-x-1">
@@ -115,7 +115,7 @@ const About: FC<Props> = ({ channel }) => {
         </div>
       </div>
       <div className="inline-flex flex-col space-y-3">
-        <h6 className="text-xs font-semibold uppercase opacity-80">Others</h6>
+        <h6 className="text-xs font-semibold uppercase opacity-70">Others</h6>
         <div className="space-y-1.5">
           {getValueFromKeyInAttributes(attributes, 'location') && (
             <div className="flex items-center space-x-1">
