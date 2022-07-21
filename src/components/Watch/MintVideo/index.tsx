@@ -16,6 +16,7 @@ import {
   CREATE_COLLECT_TYPED_DATA
 } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
+import useTxnToast from '@utils/hooks/useTxnToast'
 import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -39,6 +40,7 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const [loading, setLoading] = useState(false)
   const [showMintModal, setShowMintModal] = useState(false)
   const { isAuthenticated } = usePersistStore()
+  const { showToast } = useTxnToast()
 
   const { signTypedDataAsync } = useSignTypedData({
     onError(error: any) {
@@ -53,6 +55,9 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     onError(error: any) {
       setLoading(false)
       toast.error(error?.data?.message ?? error?.message)
+    },
+    onSuccess(data) {
+      showToast(data?.hash)
     }
   })
 
@@ -60,6 +65,9 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     onError(error) {
       toast.error(error?.message)
       setLoading(false)
+    },
+    onCompleted(data) {
+      showToast(data?.broadcast?.txHash)
     }
   })
 
