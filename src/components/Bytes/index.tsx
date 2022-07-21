@@ -18,7 +18,7 @@ const Bytes = () => {
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
-        sortCriteria: 'LATEST',
+        sortCriteria: 'TOP_COLLECTED',
         limit: 5,
         noRandomize: false,
         sources: [LENSTUBE_BYTES_APP_ID],
@@ -38,7 +38,7 @@ const Bytes = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              sortCriteria: 'LATEST',
+              sortCriteria: 'TOP_COLLECTED',
               cursor: pageInfo?.next,
               limit: 10,
               noRandomize: false,
