@@ -7,7 +7,7 @@ type Props = {
 
 export default function SensitiveWarning({ acceptWarning }: Props) {
   return (
-    <div className="flex items-center justify-center w-full px-10 space-x-5 text-lg text-white bg-black aspect-h-9 rounded-xl aspect-video h-96">
+    <div className="flex items-center justify-center w-full h-56 md:h-[60vh] px-10 space-x-5 text-lg text-white bg-black rounded-xl">
       <IoWarningOutline className="h-28 w-28" />
       <div className="flex flex-col">
         <div className="text-base">
