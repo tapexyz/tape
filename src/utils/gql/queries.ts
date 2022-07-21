@@ -325,6 +325,10 @@ export const PROFILE_QUERY = gql`
         name
         isFollowedByMe
         onChainIdentity {
+          proofOfHumanity
+          sybilDotOrg {
+            verified
+          }
           ens {
             name
           }

@@ -27,22 +27,44 @@ const About: FC<Props> = ({ channel }) => {
           <p>{channel?.bio}</p>
         </div>
       )}
+      {channel?.bio && (
+        <div className="flex flex-col space-y-3">
+          <h6 className="text-xs font-semibold uppercase opacity-80">
+            On-chain Identity
+          </h6>
+          <div className="space-y-1.5">
+            {ensName && (
+              <div className="flex items-center space-x-1">
+                <span className="pr-0.5" role="img">
+                  <img
+                    src={`${STATIC_ASSETS}/images/social/ens.svg`}
+                    alt="ens"
+                    className="w-4 h-4"
+                    draggable={false}
+                  />
+                </span>
+                <span>{ensName}</span>
+              </div>
+            )}
+            {channel?.onChainIdentity?.proofOfHumanity && (
+              <div className="flex items-center space-x-1">
+                <span className="pr-0.5" role="img">
+                  <img
+                    src={`${STATIC_ASSETS}/images/social/poh.png`}
+                    alt="poh"
+                    className="w-4 h-4"
+                    draggable={false}
+                  />
+                </span>
+                <span>Proof of Humanity</span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
       <div className="flex flex-col space-y-3">
         <h6 className="text-xs font-semibold uppercase opacity-80">Links</h6>
         <div className="space-y-1.5">
-          {ensName && (
-            <div className="flex items-center space-x-1">
-              <span className="pr-0.5 grayscale" role="img">
-                <img
-                  src={`${STATIC_ASSETS}/images/social/ens.svg`}
-                  alt="ens"
-                  className="w-3.5 h-3.5"
-                  draggable={false}
-                />
-              </span>
-              <span>{ensName}</span>
-            </div>
-          )}
           {getValueFromKeyInAttributes(attributes, 'website') && (
             <div className="flex items-center space-x-1">
               <HiOutlineGlobe />
@@ -53,22 +75,6 @@ const About: FC<Props> = ({ channel }) => {
                 className="hover:text-indigo-500"
               >
                 Website
-              </a>
-            </div>
-          )}
-          {getValueFromKeyInAttributes(attributes, 'twitter') && (
-            <div className="flex items-center space-x-1">
-              <RiTwitterLine />
-              <a
-                href={`https://twitter.com/${getValueFromKeyInAttributes(
-                  attributes,
-                  'twitter'
-                )}`}
-                target="_blank"
-                rel="noreferer noreferrer"
-                className="hover:text-indigo-500"
-              >
-                Twitter
               </a>
             </div>
           )}
@@ -90,6 +96,22 @@ const About: FC<Props> = ({ channel }) => {
               Lenster
             </a>
           </div>
+          {getValueFromKeyInAttributes(attributes, 'twitter') && (
+            <div className="flex items-center space-x-1">
+              <RiTwitterLine />
+              <a
+                href={`https://twitter.com/${getValueFromKeyInAttributes(
+                  attributes,
+                  'twitter'
+                )}`}
+                target="_blank"
+                rel="noreferer noreferrer"
+                className="hover:text-indigo-500"
+              >
+                Twitter
+              </a>
+            </div>
+          )}
         </div>
       </div>
       <div className="inline-flex flex-col space-y-3">
