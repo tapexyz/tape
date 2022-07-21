@@ -4,4 +4,4 @@ updates:
     directory: "/"
     target-branch: "testnet"
     schedule:
-      interval: "weekly"
+      interval: "daily"
