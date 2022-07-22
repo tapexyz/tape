@@ -1,8 +1,9 @@
-import { STATIC_ASSETS } from '@utils/constants'
+import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@utils/constants'
 import { getIsSensitiveContent } from '@utils/functions/getIsSensitiveContent'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import imageCdn from '@utils/functions/imageCdn'
+import clsx from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
@@ -25,6 +26,7 @@ const VideoCard: FC<Props> = ({ video }) => {
     video.metadata?.attributes,
     video.id
   )
+  const isByte = video.appId === LENSTUBE_BYTES_APP_ID
 
   return (
     <div className="bg-gray-50 rounded-xl dark:bg-[#181818] group">
@@ -50,7 +52,13 @@ const VideoCard: FC<Props> = ({ video }) => {
                     'thumbnail'
                   )}
                   draggable={false}
-                  className="object-cover object-center w-full h-full rounded-t-xl lg:w-full lg:h-full"
+                  className={clsx(
+                    'object-center w-full h-full rounded-t-xl lg:w-full lg:h-full',
+                    {
+                      'object-contain bg-gray-100 dark:bg-gray-900': isByte,
+                      'object-cover bg-gray-100 dark:bg-gray-900': !isByte
+                    }
+                  )}
                   alt="thumbnail"
                 />
                 <ThumbnailOverlays video={video} />
@@ -69,7 +77,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                   />
                 </a>
               </Link>
-              <div className="grid grid-col flex-1 pb-1">
+              <div className="grid flex-1 pb-1 grid-col">
                 <div className="flex w-full items-start justify-between space-x-1.5 min-w-0">
                   <Link href={`/watch/${video.id}`}>
                     <a className="text-[15px] font-medium line-clamp-2 break-words">
