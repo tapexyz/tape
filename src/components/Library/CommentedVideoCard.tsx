@@ -75,10 +75,10 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
               />
             </a>
           </Link>
-          <div className="flex flex-col items-start flex-1">
-            <div className="flex w-full items-start justify-between space-x-1.5">
+          <div className="grid grid-col flex-1">
+            <div className="flex w-full items-start justify-between space-x-1.5 min-w-0">
               <Link href={`/watch/${commentedOn.pubId}`}>
-                <a className="font-medium text-[15px] line-clamp-1 opacity-80">
+                <a className="font-medium text-[15px] line-clamp-1 opacity-80 break-words">
                   {commentedOn.metadata?.name}
                 </a>
               </Link>

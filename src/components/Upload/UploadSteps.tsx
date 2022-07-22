@@ -308,7 +308,7 @@ const UploadSteps = () => {
       version: '1.0.0',
       metadata_id: uuidv4(),
       description: uploadedVideo.description,
-      content: `${uploadedVideo.title}\n\n${uploadedVideo.description}\n\n- published via Lenstube.`,
+      content: `${uploadedVideo.title}\n\n${uploadedVideo.description}`,
       external_url: LENSTUBE_URL,
       animation_url: uploadedVideo.videoSource,
       image: uploadedVideo.thumbnail,

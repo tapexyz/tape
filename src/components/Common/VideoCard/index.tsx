@@ -69,10 +69,10 @@ const VideoCard: FC<Props> = ({ video }) => {
                   />
                 </a>
               </Link>
-              <div className="flex flex-col items-start flex-1 pb-1">
-                <div className="flex w-full items-start justify-between space-x-1.5">
+              <div className="grid grid-col flex-1 pb-1">
+                <div className="flex w-full items-start justify-between space-x-1.5 min-w-0">
                   <Link href={`/watch/${video.id}`}>
-                    <a className="text-[15px] font-medium line-clamp-2">
+                    <a className="text-[15px] font-medium line-clamp-2 break-words">
                       {video.metadata?.name}
                     </a>
                   </Link>
