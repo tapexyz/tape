@@ -10,7 +10,7 @@ type Data = {
 const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   console.log(JSON.stringify(req.headers.origin))
   const origin = req.headers.origin
-  if (!origin || origin !== 'https://lenstube.xyz/')
+  if (!origin || origin !== 'https://lenstube.xyz')
     return res.status(401).json({ playbackId: null, success: false })
   if (req.method === 'POST') {
     try {
