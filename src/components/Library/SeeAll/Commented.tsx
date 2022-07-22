@@ -76,7 +76,7 @@ const SeeAllCommented = () => {
           </h1>
         </div>
         {(data?.publications?.items?.length === 0 || !isAuthenticated) && (
-          <NoDataFound text="No commented videos." />
+          <NoDataFound text="No comments on videos" isCenter withImage />
         )}
         {loading && <TimelineShimmer />}
         {!error && !loading && (
