@@ -1,6 +1,6 @@
 import type { predictionType } from 'nsfwjs'
 
-const SENSITIVE_CONTENT_LIMIT = 15
+const SENSITIVE_CONTENT_LIMIT = 20
 const SEXY_CONTENT_LIMIT = 90
 
 export const getIsNSFW = (predictions: predictionType[]): boolean => {

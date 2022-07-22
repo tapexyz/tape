@@ -1,3 +1,4 @@
+import { ClaimHandle } from '@components/Common/CreateChannel'
 import Login from '@components/Common/Login'
 import MetaTags from '@components/Common/MetaTags'
 import usePersistStore from '@lib/store/persist'
@@ -6,7 +7,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 export default function AuthRequiredPage() {
-  const { isAuthenticated } = usePersistStore()
+  const { isAuthenticated, isSignedUser } = usePersistStore()
   const router = useRouter()
   useEffect(() => {
     if (isAuthenticated) {
@@ -27,12 +28,20 @@ export default function AuthRequiredPage() {
         />
         <div className="flex flex-col items-center justify-center py-10">
           <h1 className="mb-4 text-3xl font-bold">Sign In Required</h1>
-          <div className="mb-6 text-center">
-            Connect Wallet & Sign with Lens to continue,
-          </div>
-          <div>
-            <Login />
-          </div>
+          {isAuthenticated && isSignedUser ? (
+            <>
+              <div className="mb-6 text-center">
+                Connect Wallet & Sign with Lens to continue,
+              </div>
+              <div>
+                <Login />
+              </div>
+            </>
+          ) : (
+            <div className="text-center">
+              <ClaimHandle />
+            </div>
+          )}
         </div>
       </div>
     </>
