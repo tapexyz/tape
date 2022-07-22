@@ -8,7 +8,10 @@ type Data = {
 }
 
 const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  console.log(JSON.stringify(req.headers))
+  console.log(JSON.stringify(req.headers.origin))
+  const origin = req.headers.origin
+  if (!origin || origin !== 'https://lenstube.xyz/')
+    res.status(401).json({ playbackId: null, success: false })
   if (req.method === 'POST') {
     try {
       const body = req.body
@@ -31,9 +34,10 @@ const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         }
       })
       if (response.data) {
-        res
-          .status(200)
-          .json({ playbackId: response.data?.asset?.playbackId, success: true })
+        res.status(200).json({
+          playbackId: response.data?.asset?.playbackId,
+          success: true
+        })
       } else {
         res.status(200).json({ playbackId: null, success: false })
         Sentry.captureException(response)
