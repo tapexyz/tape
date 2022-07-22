@@ -28,7 +28,11 @@ export default function AuthRequiredPage() {
         />
         <div className="flex flex-col items-center justify-center py-10">
           <h1 className="mb-4 text-3xl font-bold">Sign In Required</h1>
-          {isAuthenticated && isSignedUser ? (
+          {isSignedUser && !isAuthenticated ? (
+            <div className="text-center">
+              <ClaimHandle />
+            </div>
+          ) : (
             <>
               <div className="mb-6 text-center">
                 Connect Wallet & Sign with Lens to continue,
@@ -37,10 +41,6 @@ export default function AuthRequiredPage() {
                 <Login />
               </div>
             </>
-          ) : (
-            <div className="text-center">
-              <ClaimHandle />
-            </div>
           )}
         </div>
       </div>

@@ -47,8 +47,8 @@ const PermissionAlert: FC<Props> = ({
     }
   })
 
-  const handleAllowance = () => {
-    generateAllowanceQuery({
+  const handleAllowance = async () => {
+    const result = await generateAllowanceQuery({
       variables: {
         request: {
           currency: allowanceModule.currency,
@@ -57,11 +57,10 @@ const PermissionAlert: FC<Props> = ({
             allowanceModule.module
         }
       }
-    }).then((res) => {
-      const data = res?.data?.generateModuleCurrencyApprovalData
-      sendTransaction({
-        request: { from: data?.from, to: data?.to, data: data?.data }
-      })
+    })
+    const data = result?.data?.generateModuleCurrencyApprovalData
+    sendTransaction({
+      request: { from: data?.from, to: data?.to, data: data?.data }
     })
   }
 

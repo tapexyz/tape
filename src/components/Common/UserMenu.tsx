@@ -160,6 +160,18 @@ const UserMenu = () => {
               </div>
             </div>
             <div className="py-1 text-sm">
+              {isAdmin && (
+                <Link href={LENSTUBE_PATH}>
+                  <a
+                    className={clsx(
+                      'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    )}
+                  >
+                    <IoAnalyticsOutline className="text-lg" />
+                    <span className="truncate whitespace-nowrap">App Info</span>
+                  </a>
+                </Link>
+              )}
               {selectedChannel && (
                 <>
                   <Link href={`/${selectedChannel?.handle}`}>
@@ -201,18 +213,6 @@ const UserMenu = () => {
                     Create Channel
                   </span>
                 </button>
-              )}
-              {isAdmin && (
-                <Link href={LENSTUBE_PATH}>
-                  <a
-                    className={clsx(
-                      'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                    )}
-                  >
-                    <IoAnalyticsOutline className="text-lg" />
-                    <span className="truncate whitespace-nowrap">App Info</span>
-                  </a>
-                </Link>
               )}
               <button
                 className={clsx(
