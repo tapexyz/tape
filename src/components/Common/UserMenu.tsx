@@ -5,6 +5,7 @@ import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
+import imageCdn from '@utils/functions/imageCdn'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
 import { LENSTUBE_PATH, SETTINGS } from '@utils/url-path'
@@ -81,7 +82,10 @@ const UserMenu = () => {
             src={
               selectedChannel
                 ? getProfilePicture(selectedChannel)
-                : `https://cdn.stamp.fyi/avatar/eth:${address}?s=100`
+                : imageCdn(
+                    `https://cdn.stamp.fyi/avatar/eth:${address}?s=100`,
+                    'avatar'
+                  )
             }
             alt="channel picture"
             draggable={false}
@@ -136,7 +140,10 @@ const UserMenu = () => {
                   src={
                     selectedChannel
                       ? getProfilePicture(selectedChannel)
-                      : `https://cdn.stamp.fyi/avatar/eth:${address}?s=100`
+                      : imageCdn(
+                          `https://cdn.stamp.fyi/avatar/eth:${address}?s=100`,
+                          'avatar'
+                        )
                   }
                   alt="channel picture"
                   draggable={false}
