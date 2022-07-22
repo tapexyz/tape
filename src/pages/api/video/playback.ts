@@ -8,7 +8,7 @@ type Data = {
 }
 
 const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  console.log(req.headers.origin)
+  console.log(JSON.stringify(req.headers))
   if (req.method === 'POST') {
     try {
       const body = req.body
