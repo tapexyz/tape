@@ -8,12 +8,13 @@ type Data = {
 }
 
 const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+  console.log(req.headers.origin)
   if (req.method === 'POST') {
     try {
       const body = req.body
+      if (!body.url) res.status(200).json({ playbackId: null, success: false })
       const parsed = new URL(body.url)
-      if (!body.url || !parsed)
-        res.status(200).json({ playbackId: null, success: false })
+      if (!parsed) res.status(200).json({ playbackId: null, success: false })
       const splited = parsed.pathname.split('/')
       const name = splited[splited.length - 1]
       const livepeerKey = process.env.LIVEPEER_API_KEY
