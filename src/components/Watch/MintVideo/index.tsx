@@ -39,7 +39,7 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const { address } = useAccount()
   const [loading, setLoading] = useState(false)
   const [showMintModal, setShowMintModal] = useState(false)
-  const { isAuthenticated } = usePersistStore()
+  const { isSignedUser } = usePersistStore()
   const { showToast } = useTxnToast()
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -109,6 +109,7 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
           writeCollectWithSig({ args })
         }
       } catch (error) {
+        console.log(error)
         setLoading(false)
       }
     },
@@ -119,7 +120,7 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   })
 
   const handleMint = (validate = true) => {
-    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!isSignedUser) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     const isFreeCollect =
       video.collectModule.__typename === 'FreeCollectModuleSettings'
     const collectModule = video.collectModule as FreeCollectModuleSettings

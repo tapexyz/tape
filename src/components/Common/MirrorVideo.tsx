@@ -107,6 +107,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
           mirrorWithSig({ args: inputStruct })
         }
       } catch (error) {
+        console.log(error)
         setLoading(false)
       }
     },

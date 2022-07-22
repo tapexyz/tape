@@ -136,6 +136,7 @@ const BasicInfo = ({ channel }: Props) => {
             writeMetaData({ args })
           }
         } catch (error) {
+          console.log(error)
           setLoading(false)
         }
       },

@@ -147,6 +147,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           writeComment({ args })
         }
       } catch (error) {
+        console.log(error)
         onError()
       }
     },
@@ -221,6 +222,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       })
       submitComment()
     } catch (error) {
+      console.log(error)
       setLoading(false)
       setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
     }

@@ -31,6 +31,7 @@ const DropZone = () => {
         reader.readAsArrayBuffer(file)
       }
     } catch (error) {
+      console.log(error)
       Sentry.captureException(error)
       toast.error('Error uploading file')
     }

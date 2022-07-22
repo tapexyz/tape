@@ -40,6 +40,7 @@ const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     } catch (error) {
       res.status(200).json({ playbackId: null, success: false })
       Sentry.captureException(error)
+      console.log(error)
     }
   }
 }

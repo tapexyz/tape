@@ -105,6 +105,7 @@ export const useAppStore = create<AppState>((set) => ({
       await bundlr.ready()
       return bundlr
     } catch (error) {
+      console.log(error)
       return null
     }
   }

@@ -28,7 +28,7 @@ type Props = {
 const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Subscribe')
-  const { isAuthenticated } = usePersistStore()
+  const { isSignedUser } = usePersistStore()
   const { showToast } = useTxnToast()
 
   const onError = (error?: any) => {
@@ -110,14 +110,14 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
           })
         }
       } catch (error) {
-        onError(error)
+        console.log(error)
       }
     },
     onError
   })
 
   const subscribe = () => {
-    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!isSignedUser) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
     setButtonText('Subscribing...')
     createSubscribeTypedData({

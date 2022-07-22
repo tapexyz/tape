@@ -55,7 +55,7 @@ const Header = () => {
         </div>
       </div>
       <div className="flex flex-row items-center justify-end space-x-3 md:w-2/5">
-        <NotificationTrigger />
+        {isAuthenticated && <NotificationTrigger />}
         {isAuthenticated && (
           <Link href={NOTIFICATIONS}>
             <a className="relative p-1 md:hidden">
@@ -66,7 +66,7 @@ const Header = () => {
             </a>
           </Link>
         )}
-        <NewVideoTrigger />
+        {isAuthenticated && <NewVideoTrigger />}
         <Login />
       </div>
     </div>
