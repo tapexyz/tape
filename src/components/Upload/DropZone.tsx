@@ -12,8 +12,8 @@ const DropZone = () => {
   const { setUploadedVideo } = useAppStore()
 
   const uploadVideo = async (files: File[]) => {
-    const file = files[0]
     try {
+      const file = files[0]
       if (file) {
         const preview = URL.createObjectURL(file)
         let reader = new FileReader()
