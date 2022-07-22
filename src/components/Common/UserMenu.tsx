@@ -223,7 +223,7 @@ const UserMenu = () => {
               )}
               <button
                 className={clsx(
-                  'flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  'flex md:hidden items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                 )}
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               >
