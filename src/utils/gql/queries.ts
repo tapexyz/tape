@@ -924,8 +924,11 @@ export const CREATE_UNFOLLOW_TYPED_DATA = gql`
 `
 
 export const CREATE_FOLLOW_TYPED_DATA = gql`
-  mutation CreateFollowTypedData($request: FollowRequest!) {
-    createFollowTypedData(request: $request) {
+  mutation CreateFollowTypedData(
+    $options: TypedDataOptions
+    $request: FollowRequest!
+  ) {
+    createFollowTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {
