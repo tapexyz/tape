@@ -89,8 +89,8 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
           showToast(txn.hash)
         }
       } catch (error) {
-        logger.error('[Error UnSubscribe]', error)
         onError()
+        logger.error('[Error UnSubscribe]', error)
       }
     },
     onError
