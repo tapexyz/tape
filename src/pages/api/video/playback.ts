@@ -36,7 +36,7 @@ const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
           'Content-Type': 'application/json'
         }
       })
-      console.log('AFTER --->> ', origin)
+      console.log('AFTER --->> ', response)
       if (!response.data)
         return res.status(200).json({ playbackId: null, success: false })
       return res.status(200).json({
