@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/nextjs'
+import { withSentry } from '@sentry/nextjs'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -22,7 +22,6 @@ const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       const splited = parsed.pathname.split('/')
       const name = splited[splited.length - 1]
       const livepeerKey = process.env.LIVEPEER_API_KEY
-      console.log('IN --->> ', name, body.url)
       const response: any = await axios({
         method: 'post',
         url: 'https://livepeer.studio/api/asset/import',
@@ -35,7 +34,6 @@ const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
           'Content-Type': 'application/json'
         }
       })
-      console.log('OUT --->> ', response.data)
       if (!response.data)
         return res.status(200).json({ playbackId: null, success: false })
       return res.status(200).json({
@@ -48,4 +46,4 @@ const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   }
 }
 
-export default Sentry.withSentry(playback)
+export default withSentry(playback)
