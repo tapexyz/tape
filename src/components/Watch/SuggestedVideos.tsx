@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client'
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
+import logger from '@lib/logger'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
 import { useRouter } from 'next/router'
@@ -56,7 +57,7 @@ const SuggestedVideos = () => {
         setPageInfo(data?.explorePublications?.pageInfo)
         setVideos([...videos, ...data?.explorePublications?.items])
       } catch (error) {
-        console.log(error)
+        logger.error('[Error Fetch Suggested Videos]', error)
       }
     }
   })

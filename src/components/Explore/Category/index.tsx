@@ -3,6 +3,7 @@ import MetaTags from '@components/Common/MetaTags'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import logger from '@lib/logger'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { SEARCH_VIDEOS_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
@@ -56,7 +57,7 @@ const ExploreCategory = () => {
         setPageInfo(data?.search?.pageInfo)
         setVideos([...videos, ...data?.search?.items])
       } catch (error) {
-        console.log(error)
+        logger.error('[Error Fetch Explore Category]', error)
       }
     }
   })

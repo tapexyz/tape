@@ -2,6 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -107,8 +108,8 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
           mirrorWithSig({ args: inputStruct })
         }
       } catch (error) {
-        console.log(error)
         setLoading(false)
+        logger.error('[Error Mirror]', error)
       }
     },
     onError(error) {

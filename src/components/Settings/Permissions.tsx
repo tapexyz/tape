@@ -1,6 +1,7 @@
 import { useLazyQuery, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
 import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
@@ -101,8 +102,8 @@ const Permissions = () => {
         }
       })
     } catch (error) {
-      console.log(error)
       setLoadingModule('')
+      logger.error('[Error Update Permission]', error)
     }
   }
 

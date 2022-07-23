@@ -1,6 +1,7 @@
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import { POLYGON_CHAIN_ID } from '@utils/constants'
 import { getWalletInfo } from '@utils/functions/getWalletInfo'
@@ -47,7 +48,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
       const { account } = await connectAsync({ connector: x })
       if (account) setShowModal(false)
     } catch (error) {
-      console.log(error)
+      logger.error('[Error Connect Wallet]', error)
     }
   }
 

@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import {
   ERROR_MESSAGE,
@@ -109,8 +110,8 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
           writeCollectWithSig({ args })
         }
       } catch (error) {
-        console.log(error)
         setLoading(false)
+        logger.error('[Error Mint Video]', error)
       }
     },
     onError(error) {

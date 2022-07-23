@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
@@ -68,7 +69,7 @@ const Notifications = () => {
         setPageInfo(data?.notifications?.pageInfo)
         setNotifications([...notifications, ...data?.notifications?.items])
       } catch (error) {
-        console.log(error)
+        logger.error('[Error Fetch Notifications]', error)
       }
     }
   })

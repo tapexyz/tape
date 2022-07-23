@@ -1,4 +1,5 @@
 import { useLazyQuery, useMutation } from '@apollo/client'
+import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { ERROR_MESSAGE } from '@utils/constants'
@@ -91,7 +92,7 @@ const Login = () => {
         if (router.query?.next) router.push(router.query?.next as string)
       }
     } catch (error) {
-      console.log(error)
+      logger.error('[Error Sign In]', error)
     }
   }
 

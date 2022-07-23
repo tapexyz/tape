@@ -2,6 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { clearStorage } from '@lib/apollo'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import { LENSHUB_PROXY_ADDRESS } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
@@ -75,8 +76,8 @@ const DangerZone = () => {
           const sig = { v, r, s, deadline: typedData.value.deadline }
           writeDeleteProfile({ args: [tokenId, sig] })
         } catch (error) {
-          console.log(error)
           setLoading(false)
+          logger.error('[Error Delete Channel]', error)
         }
       },
       onError

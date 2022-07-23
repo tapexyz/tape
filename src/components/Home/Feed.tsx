@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { FEED_QUERY } from '@utils/gql/queries'
@@ -52,7 +53,7 @@ const HomeFeed = () => {
         setPageInfo(data?.timeline?.pageInfo)
         setVideos([...videos, ...data?.timeline?.items])
       } catch (error) {
-        console.log(error)
+        logger.error('[Error Fetch Timeline]', error)
       }
     }
   })

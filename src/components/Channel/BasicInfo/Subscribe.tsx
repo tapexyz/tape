@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -110,7 +111,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
           })
         }
       } catch (error) {
-        console.log(error)
+        logger.error('[Error Subscribe]', error)
       }
     },
     onError

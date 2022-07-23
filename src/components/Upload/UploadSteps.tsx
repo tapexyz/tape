@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
+import logger from '@lib/logger'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import * as Sentry from '@sentry/nextjs'
@@ -116,8 +117,8 @@ const UploadSteps = () => {
       const { playbackId } = playbackResponse.data
       return playbackId
     } catch (error) {
-      console.log(error)
       Sentry.captureException(error)
+      logger.error('[Error Get Playback]', error)
       return null
     }
   }
@@ -210,7 +211,7 @@ const UploadSteps = () => {
       }
     } catch (error: any) {
       toast.error(error?.data?.message ?? error?.message)
-      console.log(error)
+      logger.error('[Error Upload Video IPFS]', error)
     }
   }
 
@@ -249,8 +250,8 @@ const UploadSteps = () => {
           if (data?.broadcast?.reason) writePostContract({ args })
         } else writePostContract({ args })
       } catch (error) {
-        console.log(error)
         onError()
+        logger.error('[Error Post Video]', error)
       }
     },
     onError
