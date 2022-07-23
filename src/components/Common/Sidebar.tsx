@@ -87,9 +87,10 @@ const Sidebar = () => {
             <Link href={BYTES}>
               <a
                 className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
-                  'bg-indigo-50 dark:bg-[#181818]': isActivePath(BYTES),
+                  'bg-indigo-50 dark:bg-[#181818]':
+                    isActivePath(BYTES) || router.pathname === '/bytes/[id]',
                   'hover:bg-gray-50 dark:hover:bg-[#181818]':
-                    !isActivePath(BYTES)
+                    !isActivePath(BYTES) && router.pathname !== '/bytes/[id]'
                 })}
               >
                 <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
