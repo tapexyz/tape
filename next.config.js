@@ -1,11 +1,9 @@
+/** @type {import('next').NextConfig} */
 const withPWA = require('next-pwa')
 const runtimeCaching = require('next-pwa/cache')
 const { withSentryConfig } = require('@sentry/nextjs')
 const withTranspiled = require('next-transpile-modules')(['plyr-react'])
 
-/**
- * @type {import('next').NextConfig}
- */
 const moduleExports = withPWA({
   pwa: {
     dest: 'public',
