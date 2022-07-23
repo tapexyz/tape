@@ -23,6 +23,7 @@ const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       const splited = parsed.pathname.split('/')
       const name = splited[splited.length - 1]
       const livepeerKey = process.env.LIVEPEER_API_KEY
+      console.log('BEFORE --->> ', name, body.url)
       const response: any = await axios({
         method: 'post',
         url: 'https://livepeer.studio/api/asset/import',
@@ -35,14 +36,13 @@ const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
           'Content-Type': 'application/json'
         }
       })
-      if (response.data) {
-        return res.status(200).json({
-          playbackId: response.data?.asset?.playbackId,
-          success: true
-        })
-      } else {
+      console.log('AFTER --->> ', origin)
+      if (!response.data)
         return res.status(200).json({ playbackId: null, success: false })
-      }
+      return res.status(200).json({
+        playbackId: response.data?.asset?.playbackId,
+        success: true
+      })
     } catch (error) {
       return res.status(200).json({ playbackId: null, success: false })
     }
