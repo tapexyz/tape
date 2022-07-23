@@ -22,6 +22,7 @@ import omitKey from '@utils/functions/omitKey'
 import { uploadDataToIPFS } from '@utils/functions/uploadToIPFS'
 import { BROADCAST_MUTATION, CREATE_POST_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
+import useTxnToast from '@utils/hooks/useTxnToast'
 import axios from 'axios'
 import { utils } from 'ethers'
 import React, { useEffect } from 'react'
@@ -48,6 +49,7 @@ const UploadSteps = () => {
   const { selectedChannel } = usePersistStore()
   const { address } = useAccount()
   const { data: signer } = useSigner()
+  const { showToast } = useTxnToast()
 
   const onError = () => {
     setUploadedVideo({
@@ -65,6 +67,7 @@ const UploadSteps = () => {
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onCompleted(data) {
       if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
+        showToast(data?.broadcast?.txHash)
         setUploadedVideo({
           buttonText: 'Indexing...',
           loading: true
@@ -80,7 +83,8 @@ const UploadSteps = () => {
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'postWithSig',
-    onSuccess() {
+    onSuccess(data) {
+      showToast(data.hash)
       setUploadedVideo({
         buttonText: 'Indexing...',
         loading: true
