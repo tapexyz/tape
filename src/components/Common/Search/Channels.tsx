@@ -31,7 +31,7 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
                       className="w-5 h-5 rounded-md"
                       src={getProfilePicture(channel)}
                       draggable={false}
-                      alt="channel picture"
+                      alt="pfp"
                     />
                     <p className="text-base truncate line-clamp-1">
                       {channel?.handle}

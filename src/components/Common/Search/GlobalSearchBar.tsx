@@ -53,12 +53,12 @@ export default function GlobalSearchBar() {
           </div>
           <div
             className={clsx(
-              'absolute w-full mt-1 overflow-auto text-base bg-white dark:bg-[#181818] rounded-xl max-h-[80vh] ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
+              'absolute w-full mt-1 text-base bg-white dark:bg-[#181818] rounded-xl ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
               { hidden: debouncedValue.length === 0 }
             )}
           >
             <Tab.Group>
-              <Tab.List className="flex justify-center overflow-x-auto rounded no-scrollbar">
+              <Tab.List className="flex justify-center">
                 <Tab
                   className={({ selected }) =>
                     clsx(
@@ -91,14 +91,14 @@ export default function GlobalSearchBar() {
                 </Tab>
               </Tab.List>
               <Tab.Panels>
-                <Tab.Panel className="py-3 focus:outline-none">
+                <Tab.Panel className="overflow-y-auto max-h-[80vh] no-scrollbar focus:outline-none">
                   <Videos
                     results={channels?.search?.items}
                     loading={loading}
                     clearSearch={() => setKeyword('')}
                   />
                 </Tab.Panel>
-                <Tab.Panel className="py-3 focus:outline-none">
+                <Tab.Panel className="overflow-y-auto max-h-[80vh] no-scrollbar focus:outline-none">
                   <Channels
                     results={channels?.search?.items}
                     loading={loading}
