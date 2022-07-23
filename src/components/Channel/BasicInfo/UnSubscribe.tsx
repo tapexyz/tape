@@ -90,6 +90,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
         }
       } catch (error) {
         logger.error('[Error UnSubscribe]', error)
+        onError()
       }
     },
     onError
