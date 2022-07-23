@@ -1,6 +1,7 @@
 import { useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
+import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
@@ -66,7 +67,7 @@ const UserMenu = () => {
       const allChannels: Profile[] = data?.profiles?.items
       setChannels(allChannels)
     } catch (error) {
-      console.log(error)
+      logger.error('[Error Get Channels]', error)
     }
   }
 

@@ -1,3 +1,4 @@
+import logger from '@lib/logger'
 import { RefObject } from 'react'
 
 export default function useDraggableScroll(
@@ -8,7 +9,7 @@ export default function useDraggableScroll(
 ) {
   if (process.env.NODE_ENV === 'development') {
     if (typeof ref !== 'object' || typeof ref.current === 'undefined') {
-      console.error('`useDraggableScroll` expects a single ref argument.')
+      logger.error('[useDraggableScroll] expects a single ref argument.')
     }
   }
 

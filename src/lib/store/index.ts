@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { WebBundlr } from '@bundlr-network/client'
+import logger from '@lib/logger'
 import {
   BUNDLR_CURRENCY,
   BUNDLR_NODE_URL,
@@ -105,7 +106,7 @@ export const useAppStore = create<AppState>((set) => ({
       await bundlr.ready()
       return bundlr
     } catch (error) {
-      console.log(error)
+      logger.error('[Error Init Bundlr]', error)
       return null
     }
   }

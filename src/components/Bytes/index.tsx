@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
@@ -55,7 +56,7 @@ const Bytes = () => {
         setPageInfo(data?.explorePublications?.pageInfo)
         setBytes([...bytes, ...data?.explorePublications?.items])
       } catch (error) {
-        console.log(error)
+        logger.error('[Error Fetch Bytes]', error)
       }
     }
   })

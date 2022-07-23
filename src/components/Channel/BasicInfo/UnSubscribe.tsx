@@ -1,6 +1,7 @@
 import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
@@ -88,7 +89,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
           showToast(txn.hash)
         }
       } catch (error) {
-        console.log(error)
+        logger.error('[Error UnSubscribe]', error)
       }
     },
     onError

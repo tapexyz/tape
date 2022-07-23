@@ -3,6 +3,7 @@ import Alert from '@components/Common/Alert'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { COMMENT_FEED_QUERY } from '@utils/gql/queries'
@@ -89,7 +90,7 @@ const VideoComments: FC<Props> = ({ video }) => {
         setPageInfo(data?.publications?.pageInfo)
         setComments([...comments, ...data?.publications?.items])
       } catch (error) {
-        console.log(error)
+        logger.error('[Error Fetch Video Comments]', error)
       }
     }
   })

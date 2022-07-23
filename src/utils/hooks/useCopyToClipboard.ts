@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import logger from '@lib/logger'
 import { useState } from 'react'
 
 type CopiedValue = string | null
@@ -9,7 +10,7 @@ function useCopyToClipboard(): [CopiedValue, CopyFn] {
 
   const copy: CopyFn = async (text) => {
     if (!navigator?.clipboard) {
-      console.warn('Clipboard not supported')
+      logger.warn('[Copy to Clipboard Not Supported]')
       return false
     }
 
@@ -19,8 +20,8 @@ function useCopyToClipboard(): [CopiedValue, CopyFn] {
       setCopiedText(text)
       return true
     } catch (error) {
-      console.log(error)
       setCopiedText(null)
+      logger.error('[Error Copy to Clipboard]', error)
       return false
     }
   }

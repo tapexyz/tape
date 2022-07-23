@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import logger from '@lib/logger'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
@@ -53,7 +54,7 @@ const LooksRare = () => {
         setPageInfo(data?.explorePublications?.pageInfo)
         setVideos([...videos, ...data?.explorePublications?.items])
       } catch (error) {
-        console.log(error)
+        logger.error('[Error Fetch Looks Rare]', error)
       }
     }
   })

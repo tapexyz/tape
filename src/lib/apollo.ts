@@ -11,6 +11,8 @@ import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import result from 'src/types'
 
+import logger from './logger'
+
 const httpLink = new HttpLink({
   uri: API_URL,
   fetch
@@ -57,10 +59,10 @@ const authLink = new ApolloLink((operation, forward) => {
           localStorage.setItem('accessToken', access)
           localStorage.setItem('refreshToken', refresh)
         })
-        .catch((err) => {
-          console.error('Error refreshing token ' + err)
+        .catch((error) => {
           clearStorage()
           window.location.reload()
+          logger.error('[Error Refreshing Token]', error)
         })
     }
     operation.setContext({

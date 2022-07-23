@@ -4,6 +4,7 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import logger from '@lib/logger'
 import {
   ERROR_MESSAGE,
   LENS_PERIPHERY_ADDRESS,
@@ -144,8 +145,8 @@ const BasicInfo = ({ channel }: Props) => {
             writeMetaData({ args })
           }
         } catch (error) {
-          console.log(error)
           setLoading(false)
+          logger.error('[Error Set Basic info]', error)
         }
       },
       onError(error) {

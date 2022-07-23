@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import logger from '@lib/logger'
 import { LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { PROFILE_FEED_QUERY } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
@@ -52,7 +53,7 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
         setPageInfo(data?.publications?.pageInfo)
         setBytes([...bytes, ...data?.publications?.items])
       } catch (error) {
-        console.log(error)
+        logger.error('[Error Fetch Bytes]', error)
       }
     }
   })

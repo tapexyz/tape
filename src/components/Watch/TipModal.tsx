@@ -5,6 +5,7 @@ import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -147,8 +148,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           writeComment({ args })
         }
       } catch (error) {
-        console.log(error)
         onError()
+        logger.error('[Error Create Tip Comment]', error)
       }
     },
     onError
@@ -228,9 +229,9 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       })
       submitComment(data.hash)
     } catch (error) {
-      console.log(error)
       setLoading(false)
       setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
+      logger.error('[Error Send Tip]', error)
     }
   }
 

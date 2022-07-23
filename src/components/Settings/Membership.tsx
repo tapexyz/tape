@@ -5,6 +5,7 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { zodResolver } from '@hookform/resolvers/zod'
+import logger from '@lib/logger'
 import {
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED,
@@ -148,8 +149,8 @@ const Membership = ({ channel }: Props) => {
             writeFollow({ args })
           }
         } catch (error) {
-          console.log(error)
           setLoading(false)
+          logger.error('[Error Set Membership]', error)
         }
       },
       onError(error) {

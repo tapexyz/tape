@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -139,8 +140,8 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           writeComment({ args })
         }
       } catch (error) {
-        console.log(error)
         onError()
+        logger.error('[Error New Comment]', error)
       }
     },
     onError

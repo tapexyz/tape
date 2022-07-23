@@ -1,4 +1,5 @@
 import { Loader } from '@components/UIElements/Loader'
+import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { generateVideoThumbnails } from '@rajesh896/video-thumbnails-generator'
 import * as Sentry from '@sentry/nextjs'
@@ -61,7 +62,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
         })
       )
     } catch (error) {
-      console.log(error)
+      logger.error('[Error Generate Thumbnails]', error)
     }
   }
 

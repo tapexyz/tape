@@ -1,3 +1,4 @@
+import logger from '@lib/logger'
 import { IPFS_GATEWAY, IPFS_HTTP_API } from '@utils/constants'
 import axios from 'axios'
 import { IPFSUploadResult } from 'src/types/local'
@@ -17,7 +18,7 @@ const uploadDataToIPFS = async (data: any): Promise<IPFSUploadResult> => {
       type: 'application/json'
     }
   } catch (error) {
-    console.log(error)
+    logger.error('[Error IPFS Data Upload]', error)
     return {
       ipfsUrl: '',
       hash: '',
@@ -42,7 +43,7 @@ const uploadImageToIPFS = async (file: File): Promise<IPFSUploadResult> => {
       hash: Hash
     }
   } catch (error) {
-    console.log(error)
+    logger.error('[Error IPFS Image Upload]', error)
     return {
       ipfsUrl: '',
       hash: '',

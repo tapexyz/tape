@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import { LENSHUB_PROXY_ADDRESS, RELAYER_ENABLED } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
@@ -105,9 +106,9 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             writePfpUri({ args })
           }
         } catch (error) {
-          console.log(error)
           setLoading(false)
           setSelectedPfp(getProfilePicture(channel))
+          logger.error('[Error Set Pfp]', error)
         }
       },
       onError(error) {
@@ -135,8 +136,8 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         })
         setSelectedPfp(result.ipfsUrl)
       } catch (error) {
-        console.log(error)
         setLoading(false)
+        logger.error('[Error Pfp Upload]', error)
       }
     }
   }

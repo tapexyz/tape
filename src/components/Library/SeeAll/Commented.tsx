@@ -3,6 +3,7 @@ import MetaTags from '@components/Common/MetaTags'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { PROFILE_FEED_QUERY } from '@utils/gql/queries'
@@ -60,7 +61,7 @@ const SeeAllCommented = () => {
         setPageInfo(data?.publications?.pageInfo)
         setCommentedVideos([...commentedVideos, ...data?.publications?.items])
       } catch (error) {
-        console.log(error)
+        logger.error('[Error Fetch See All Commented]', error)
       }
     }
   })
