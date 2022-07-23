@@ -831,11 +831,8 @@ export const CREATE_COMMENT_TYPED_DATA = gql`
 `
 
 export const CREATE_COLLECT_TYPED_DATA = gql`
-  mutation CreateCollectTypedData(
-    $options: TypedDataOptions
-    $request: CreateCollectRequest!
-  ) {
-    createCollectTypedData(options: $options, request: $request) {
+  mutation CreateCollectTypedData($request: CreateCollectRequest!) {
+    createCollectTypedData(request: $request) {
       id
       expiresAt
       typedData {
@@ -924,11 +921,8 @@ export const CREATE_UNFOLLOW_TYPED_DATA = gql`
 `
 
 export const CREATE_FOLLOW_TYPED_DATA = gql`
-  mutation CreateFollowTypedData(
-    $options: TypedDataOptions
-    $request: FollowRequest!
-  ) {
-    createFollowTypedData(options: $options, request: $request) {
+  mutation CreateFollowTypedData($request: FollowRequest!) {
+    createFollowTypedData(request: $request) {
       id
       expiresAt
       typedData {

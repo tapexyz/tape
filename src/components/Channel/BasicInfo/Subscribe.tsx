@@ -2,7 +2,6 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import logger from '@lib/logger'
-import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -32,7 +31,6 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const [buttonText, setButtonText] = useState('Subscribe')
   const { isSignedUser } = usePersistStore()
   const { showToast } = useTxnToast()
-  const { userSigNonce, setUserSigNonce } = useAppStore()
 
   const onError = (error?: any) => {
     if (error) toast.error(error?.data?.message ?? error?.message)
@@ -89,7 +87,6 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
           types: omitKey(typedData?.types, '__typename'),
           value: omitKey(typedData?.value, '__typename')
         })
-        setUserSigNonce(userSigNonce + 1)
         const { v, r, s } = utils.splitSignature(signature)
         const { profileIds, datas } = typedData?.value
         const args = {
@@ -127,7 +124,6 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     setButtonText('Subscribing...')
     createSubscribeTypedData({
       variables: {
-        options: { overrideSigNonce: userSigNonce },
         request: {
           follow: {
             profile: channel?.id
