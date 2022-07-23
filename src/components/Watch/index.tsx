@@ -42,6 +42,7 @@ const VideoDetails = () => {
       sources: [LENSTUBE_APP_ID]
     },
     skip: !id,
+    fetchPolicy: 'no-cache',
     onCompleted(data) {
       let currentVideo = data?.publication as LenstubePublication
       // const playbackId = getPlaybackIdFromUrl(currentVideo)
