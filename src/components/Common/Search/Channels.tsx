@@ -10,7 +10,7 @@ interface Props {
   clearSearch: () => void
 }
 
-const Users: FC<Props> = ({ results, loading, clearSearch }) => {
+const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
   return (
     <>
       {results?.map((channel: Profile) => (
@@ -59,4 +59,4 @@ const Users: FC<Props> = ({ results, loading, clearSearch }) => {
   )
 }
 
-export default Users
+export default Channels

@@ -5,11 +5,13 @@ import { SEARCH_CHANNELS_QUERY, SEARCH_VIDEOS_QUERY } from '@utils/gql/queries'
 import useDebounce from '@utils/hooks/useDebounce'
 import useOutsideClick from '@utils/hooks/useOutsideClick'
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import { useEffect, useRef, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 
-import Users from './Users'
-import Videos from './Videos'
+const Videos = dynamic(() => import('./Videos'))
+const Channels = dynamic(() => import('./Channels'))
+
 export default function GlobalSearchBar() {
   const [activeSearch, setActiveSearch] = useState('PUBLICATION')
   const [keyword, setKeyword] = useState('')
@@ -33,13 +35,13 @@ export default function GlobalSearchBar() {
 
   return (
     <div className="lg:w-96 md:w-80">
-      <div>
+      <div ref={resultsRef}>
         <div className="relative mt-1">
           <div className="relative w-full overflow-hidden border border-gray-200 cursor-default dark:border-gray-800 rounded-xl sm:text-sm">
             <input
               className="w-full py-2 pl-3 pr-10 text-sm bg-transparent focus:outline-none"
               onChange={(event) => setKeyword(event.target.value)}
-              placeholder="Search by hashtag / channel name"
+              placeholder="Search by hashtag / channel"
               value={keyword}
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -50,21 +52,20 @@ export default function GlobalSearchBar() {
             </div>
           </div>
           <div
-            ref={resultsRef}
             className={clsx(
               'absolute w-full mt-1 overflow-auto text-base bg-white dark:bg-[#181818] rounded-xl max-h-[80vh] ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
               { hidden: debouncedValue.length === 0 }
             )}
           >
             <Tab.Group>
-              <Tab.List className="flex overflow-x-auto no-scrollbar justify-center rounded">
+              <Tab.List className="flex justify-center overflow-x-auto rounded no-scrollbar">
                 <Tab
                   className={({ selected }) =>
                     clsx(
-                      'px-4 py-2 border-b-2 text-sm focus:outline-none w-full hover:bg-indigo-500/[0.12]',
+                      'px-4 py-2 border-b-2 text-sm focus:outline-none w-full',
                       selected
                         ? 'border-indigo-500 opacity-100'
-                        : 'border-transparent opacity-50'
+                        : 'border-transparent opacity-50 hover:bg-indigo-500/[0.12]'
                     )
                   }
                   onClick={() => {
@@ -76,10 +77,10 @@ export default function GlobalSearchBar() {
                 <Tab
                   className={({ selected }) =>
                     clsx(
-                      'px-4 py-2 border-b-2 text-sm focus:outline-none w-full hover:bg-indigo-500/[0.12]',
+                      'px-4 py-2 border-b-2 text-sm focus:outline-none w-full',
                       selected
                         ? 'border-indigo-500 opacity-100'
-                        : 'border-transparent opacity-50'
+                        : 'border-transparent opacity-50 hover:bg-indigo-500/[0.12]'
                     )
                   }
                   onClick={() => {
@@ -98,7 +99,7 @@ export default function GlobalSearchBar() {
                   />
                 </Tab.Panel>
                 <Tab.Panel className="py-3 focus:outline-none">
-                  <Users
+                  <Channels
                     results={channels?.search?.items}
                     loading={loading}
                     clearSearch={() => setKeyword('')}
