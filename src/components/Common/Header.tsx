@@ -18,7 +18,6 @@ const NewVideoTrigger = dynamic(
 const NotificationTrigger = dynamic(
   () => import('../../components/Notifications/NotificationTrigger')
 )
-const CreateChannel = dynamic(() => import('./CreateChannel'))
 
 const Header = () => {
   const { hasNewNotification } = useAppStore()
@@ -35,7 +34,6 @@ const Header = () => {
         'sticky top-0 left-0 right-0 z-10 flex w-full items-center bg-white dark:bg-black h-14 md:h-16'
       )}
     >
-      <CreateChannel />
       <div className="flex justify-between flex-1 md:w-3/4 md:justify-end">
         <div className="flex items-center space-x-1.5 md:space-x-0">
           <Link href={HOME}>
@@ -55,7 +53,7 @@ const Header = () => {
         </div>
       </div>
       <div className="flex flex-row items-center justify-end space-x-3 md:w-2/5">
-        <NotificationTrigger />
+        {isAuthenticated && <NotificationTrigger />}
         {isAuthenticated && (
           <Link href={NOTIFICATIONS}>
             <a className="relative p-1 md:hidden">
@@ -66,7 +64,7 @@ const Header = () => {
             </a>
           </Link>
         )}
-        <NewVideoTrigger />
+        {isAuthenticated && <NewVideoTrigger />}
         <Login />
       </div>
     </div>

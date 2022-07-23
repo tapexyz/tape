@@ -27,7 +27,7 @@ type Props = {
 }
 
 const ConnectWalletButton = ({ handleSign, signing }: Props) => {
-  const { isAuthenticated } = usePersistStore()
+  const { isAuthenticated, isSignedUser } = usePersistStore()
   const [showModal, setShowModal] = useState(false)
   const { address, connector, isConnecting, isConnected } = useAccount()
   const { connectAsync, connectors, error, pendingConnector } = useConnect()
@@ -157,7 +157,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
       </Modal>
       {connector?.id && isConnected ? (
         chain?.id === POLYGON_CHAIN_ID ? (
-          isAuthenticated ? (
+          isAuthenticated || isSignedUser ? (
             <UserMenu />
           ) : (
             <Button

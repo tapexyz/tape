@@ -8,12 +8,16 @@ type Data = {
 }
 
 const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+  const origin = req.headers.origin
+  console.log('ORIGIN --->> ', origin)
+  // if (!origin || origin !== 'https://lenstube.xyz')
+  //   return res.status(401).json({ playbackId: null, success: false })
   if (req.method === 'POST') {
     try {
       const body = req.body
+      if (!body.url) res.status(200).json({ playbackId: null, success: false })
       const parsed = new URL(body.url)
-      if (!body.url || !parsed)
-        res.status(200).json({ playbackId: null, success: false })
+      if (!parsed) res.status(200).json({ playbackId: null, success: false })
       const splited = parsed.pathname.split('/')
       const name = splited[splited.length - 1]
       const livepeerKey = process.env.LIVEPEER_API_KEY
@@ -30,9 +34,10 @@ const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         }
       })
       if (response.data) {
-        res
-          .status(200)
-          .json({ playbackId: response.data?.asset?.playbackId, success: true })
+        res.status(200).json({
+          playbackId: response.data?.asset?.playbackId,
+          success: true
+        })
       } else {
         res.status(200).json({ playbackId: null, success: false })
         Sentry.captureException(response)
@@ -40,6 +45,7 @@ const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     } catch (error) {
       res.status(200).json({ playbackId: null, success: false })
       Sentry.captureException(error)
+      console.log(error)
     }
   }
 }

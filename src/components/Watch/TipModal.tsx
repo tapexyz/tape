@@ -147,13 +147,14 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           writeComment({ args })
         }
       } catch (error) {
+        console.log(error)
         onError()
       }
     },
     onError
   })
 
-  const submitComment = async () => {
+  const submitComment = async (txnHash: string) => {
     setLoading(true)
     setButtonText('Storing...')
     const { ipfsUrl } = await uploadDataToIPFS({
@@ -183,6 +184,12 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           traitType: 'type',
           key: 'type',
           value: 'tip'
+        },
+        {
+          displayType: 'string',
+          traitType: 'hash',
+          key: 'hash',
+          value: txnHash
         }
       ],
       media: [],
@@ -213,14 +220,15 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     setButtonText('Sending...')
     const amountToSend = getValues('tipQuantity') * 1
     try {
-      await sendTransactionAsync({
+      const data = await sendTransactionAsync({
         request: {
           to: video.profile?.ownedBy,
           value: BigNumber.from(utils.parseEther(amountToSend.toString()))
         }
       })
-      submitComment()
+      submitComment(data.hash)
     } catch (error) {
+      console.log(error)
       setLoading(false)
       setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
     }

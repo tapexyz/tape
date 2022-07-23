@@ -28,7 +28,9 @@ const SeeAllWatchLater = () => {
             <span>Watch Later</span>
           </h1>
         </div>
-        {videos?.length === 0 && <NoDataFound text="No videos added." />}
+        {videos?.length === 0 && (
+          <NoDataFound text="No videos added" isCenter withImage />
+        )}
         <Timeline videos={videos} />
       </div>
     </>

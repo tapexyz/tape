@@ -148,6 +148,7 @@ const Membership = ({ channel }: Props) => {
             writeFollow({ args })
           }
         } catch (error) {
+          console.log(error)
           setLoading(false)
         }
       },

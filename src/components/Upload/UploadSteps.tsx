@@ -112,6 +112,7 @@ const UploadSteps = () => {
       const { playbackId } = playbackResponse.data
       return playbackId
     } catch (error) {
+      console.log(error)
       Sentry.captureException(error)
       return null
     }
@@ -244,6 +245,7 @@ const UploadSteps = () => {
           if (data?.broadcast?.reason) writePostContract({ args })
         } else writePostContract({ args })
       } catch (error) {
+        console.log(error)
         onError()
       }
     },

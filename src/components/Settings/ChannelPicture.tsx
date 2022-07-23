@@ -97,6 +97,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             writePfpUri({ args })
           }
         } catch (error) {
+          console.log(error)
           setLoading(false)
           setSelectedPfp(getProfilePicture(channel))
         }

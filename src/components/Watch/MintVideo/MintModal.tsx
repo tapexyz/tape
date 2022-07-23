@@ -12,7 +12,7 @@ import {
 import dayjs from 'dayjs'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
 import { LenstubeCollectModule, LenstubePublication } from 'src/types/local'
-import { useBalance } from 'wagmi'
+import { useAccount, useBalance } from 'wagmi'
 
 import BalanceAlert from './BalanceAlert'
 import PermissionAlert from './PermissionAlert'
@@ -33,8 +33,9 @@ const MintModal: FC<Props> = ({
   handleMint,
   minting
 }) => {
-  const { selectedChannel } = usePersistStore()
+  const { selectedChannel, isSignedUser } = usePersistStore()
   const [isAllowed, setIsAllowed] = useState(true)
+  const { address } = useAccount()
   const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)
   const isMembershipActive =
     video.profile?.followModule?.__typename === 'FeeFollowModuleSettings'
@@ -45,7 +46,7 @@ const MintModal: FC<Props> = ({
   const collectModule: LenstubeCollectModule = data?.publication?.collectModule
 
   const { data: balanceData } = useBalance({
-    addressOrName: selectedChannel?.ownedBy,
+    addressOrName: selectedChannel?.ownedBy || address,
     token: collectModule?.amount?.asset?.address,
     formatUnits: collectModule?.amount?.asset?.decimals,
     watch: !!collectModule?.amount,
@@ -63,20 +64,25 @@ const MintModal: FC<Props> = ({
     else setHaveEnoughBalance(true)
   }, [balanceData, collectModule?.amount?.value, collectModule?.amount])
 
-  const { loading: allowanceLoading } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
-    variables: {
-      request: {
-        currencies: collectModule?.amount?.asset?.address,
-        followModules: [],
-        collectModules: collectModule?.type,
-        referenceModules: []
+  const { loading: allowanceLoading, data: allowanceData } = useQuery(
+    ALLOWANCE_SETTINGS_QUERY,
+    {
+      variables: {
+        request: {
+          currencies: collectModule?.amount?.asset?.address,
+          followModules: [],
+          collectModules: collectModule?.type,
+          referenceModules: []
+        }
+      },
+      skip: !collectModule?.amount?.asset?.address || !isSignedUser,
+      onCompleted(data) {
+        setIsAllowed(
+          data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00'
+        )
       }
-    },
-    skip: !collectModule?.amount?.asset?.address || !selectedChannel,
-    onCompleted(data) {
-      setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
     }
-  })
+  )
 
   return (
     <Modal
@@ -147,7 +153,14 @@ const MintModal: FC<Props> = ({
                   <BalanceAlert collectModule={collectModule} />
                 )
               ) : (
-                <PermissionAlert collectModule={collectModule} />
+                <PermissionAlert
+                  collectModule={collectModule}
+                  isAllowed={isAllowed}
+                  setIsAllowed={setIsAllowed}
+                  allowanceModule={
+                    allowanceData?.approvedModuleAllowanceAmount[0]
+                  }
+                />
               )}
             </div>
           </>

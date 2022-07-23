@@ -27,6 +27,26 @@ const formSchema = z.object({
 })
 type FormData = z.infer<typeof formSchema>
 
+export const ClaimHandle = () => (
+  <div className="mt-4">
+    <span className="text-sm opacity-70">
+      Your address does not seem to have Lens handle.
+    </span>
+    <div className="text-base">
+      Visit{' '}
+      <a
+        href="https://claim.lens.xyz/"
+        target="_blank"
+        className="text-indigo-500"
+        rel="noreferrer"
+      >
+        lens claiming site
+      </a>{' '}
+      to claim your handle and then check back here.
+    </div>
+  </div>
+)
+
 const CreateChannel = () => {
   const { setShowCreateChannel, showCreateChannel } = useAppStore()
   const [creating, setCreating] = useState(false)
@@ -88,23 +108,7 @@ const CreateChannel = () => {
       panelClassName="max-w-md"
     >
       {IS_MAINNET ? (
-        <div className="mt-4">
-          <span className="text-sm opacity-70">
-            Your address does not seem to have Lens handle.
-          </span>
-          <div className="text-base">
-            Visit{' '}
-            <a
-              href="https://claim.lens.xyz/"
-              target="_blank"
-              className="text-indigo-500"
-              rel="noreferrer"
-            >
-              lens claiming site
-            </a>{' '}
-            to claim your handle and then check back here.
-          </div>
-        </div>
+        <ClaimHandle />
       ) : (
         <form onSubmit={handleSubmit(onCreate)} className="space-y-4">
           <h6 className="text-sm opacity-70">Your new Lenstube channel</h6>

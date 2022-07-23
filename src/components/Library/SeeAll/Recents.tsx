@@ -28,7 +28,9 @@ const SeeAllRecents = () => {
             <span>Recently watched</span>
           </h1>
         </div>
-        {videos?.length === 0 && <NoDataFound text="No watched videos yet." />}
+        {videos?.length === 0 && (
+          <NoDataFound text="No watched videos yet" isCenter withImage />
+        )}
         <Timeline videos={videos} />
       </div>
     </>

@@ -19,7 +19,8 @@ import {
 } from 'wagmi'
 
 const DangerZone = () => {
-  const { selectedChannel, setIsAuthenticated } = usePersistStore()
+  const { selectedChannel, setIsAuthenticated, setIsSignedUser } =
+    usePersistStore()
   const [loading, setLoading] = useState(false)
   const [txnHash, setTxnHash] = useState('')
   const { signTypedDataAsync } = useSignTypedData({
@@ -51,6 +52,7 @@ const DangerZone = () => {
       setLoading(false)
       clearStorage()
       setIsAuthenticated(false)
+      setIsSignedUser(false)
       location.href = '/'
     },
     onError
@@ -73,6 +75,7 @@ const DangerZone = () => {
           const sig = { v, r, s, deadline: typedData.value.deadline }
           writeDeleteProfile({ args: [tokenId, sig] })
         } catch (error) {
+          console.log(error)
           setLoading(false)
         }
       },

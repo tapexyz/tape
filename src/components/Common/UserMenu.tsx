@@ -5,6 +5,8 @@ import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
+import imageCdn from '@utils/functions/imageCdn'
+import { shortenAddress } from '@utils/functions/shortenAddress'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
 import { LENSTUBE_PATH, SETTINGS } from '@utils/url-path'
 import clsx from 'clsx'
@@ -22,8 +24,13 @@ import { useAccount, useDisconnect } from 'wagmi'
 
 const UserMenu = () => {
   const { channels, setShowCreateChannel, setChannels } = useAppStore()
-  const { setSelectedChannel, selectedChannel, setIsAuthenticated } =
-    usePersistStore()
+  const {
+    setSelectedChannel,
+    selectedChannel,
+    setIsAuthenticated,
+    setIsSignedUser,
+    isSignedUser
+  } = usePersistStore()
   const { theme, setTheme } = useTheme()
 
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
@@ -37,6 +44,7 @@ const UserMenu = () => {
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 
   const logout = () => {
+    setIsSignedUser(false)
     setIsAuthenticated(false)
     setSelectedChannel(null)
     localStorage.removeItem('accessToken')
@@ -63,7 +71,7 @@ const UserMenu = () => {
     }
   }
 
-  if (!selectedChannel) return null
+  if (!isSignedUser) return null
 
   return (
     <Popover
@@ -71,7 +79,14 @@ const UserMenu = () => {
         <Button className="!p-0">
           <img
             className="object-cover bg-white rounded-lg dark:bg-black w-7 h-7 md:rounded-xl md:w-9 md:h-9"
-            src={getProfilePicture(selectedChannel)}
+            src={
+              selectedChannel
+                ? getProfilePicture(selectedChannel)
+                : imageCdn(
+                    `https://cdn.stamp.fyi/avatar/eth:${address}?s=100`,
+                    'avatar'
+                  )
+            }
             alt="channel picture"
             draggable={false}
           />
@@ -122,61 +137,34 @@ const UserMenu = () => {
               <div className="inline-flex items-center p-2 py-4 space-x-2 rounded-lg">
                 <img
                   className="object-cover rounded-xl w-9 h-9"
-                  src={getProfilePicture(selectedChannel)}
+                  src={
+                    selectedChannel
+                      ? getProfilePicture(selectedChannel)
+                      : imageCdn(
+                          `https://cdn.stamp.fyi/avatar/eth:${address}?s=100`,
+                          'avatar'
+                        )
+                  }
                   alt="channel picture"
                   draggable={false}
                 />
                 <div className="flex flex-col items-start">
-                  <h6 className="text-base truncate whitespace-nowrap">
-                    {selectedChannel?.handle}
-                  </h6>
-                  <Link href={SETTINGS}>
-                    <a className="text-xs font-medium text-indigo-500">
-                      Settings
-                    </a>
-                  </Link>
+                  {address && (
+                    <h6 className="text-base truncate whitespace-nowrap">
+                      {selectedChannel
+                        ? selectedChannel?.handle
+                        : shortenAddress(address)}
+                    </h6>
+                  )}
+                  {selectedChannel && (
+                    <Link href={SETTINGS}>
+                      <a className="text-xs font-medium text-indigo-500">
+                        Settings
+                      </a>
+                    </Link>
+                  )}
                 </div>
               </div>
-            </div>
-            <div className="py-1 text-sm">
-              <Link href={`/${selectedChannel?.handle}`}>
-                <a
-                  className={clsx(
-                    'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                  )}
-                >
-                  <BiMoviePlay className="text-lg" />
-                  <span className="truncate whitespace-nowrap">
-                    Your Channel
-                  </span>
-                </a>
-              </Link>
-              <button
-                className={clsx(
-                  'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                )}
-                onClick={() => {
-                  onSelectSwitchChannel()
-                }}
-              >
-                <AiOutlineUserSwitch className="text-lg" />
-                <span className="truncate whitespace-nowrap">
-                  Switch channel
-                </span>
-              </button>
-              {!IS_MAINNET && (
-                <button
-                  className={clsx(
-                    'flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                  )}
-                  onClick={() => setShowCreateChannel(true)}
-                >
-                  <AiOutlinePlus className="text-lg" />
-                  <span className="truncate whitespace-nowrap">
-                    Create Channel
-                  </span>
-                </button>
-              )}
             </div>
             <div className="py-1 text-sm">
               {isAdmin && (
@@ -191,9 +179,51 @@ const UserMenu = () => {
                   </a>
                 </Link>
               )}
+              {selectedChannel && (
+                <>
+                  <Link href={`/${selectedChannel?.handle}`}>
+                    <a
+                      className={clsx(
+                        'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
+                      )}
+                    >
+                      <BiMoviePlay className="text-lg" />
+                      <span className="truncate whitespace-nowrap">
+                        Your Channel
+                      </span>
+                    </a>
+                  </Link>
+                  <button
+                    className={clsx(
+                      'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    )}
+                    onClick={() => {
+                      onSelectSwitchChannel()
+                    }}
+                  >
+                    <AiOutlineUserSwitch className="text-lg" />
+                    <span className="truncate whitespace-nowrap">
+                      Switch channel
+                    </span>
+                  </button>
+                </>
+              )}
+              {!IS_MAINNET && (
+                <button
+                  className={clsx(
+                    'flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  )}
+                  onClick={() => setShowCreateChannel(true)}
+                >
+                  <AiOutlinePlus className="text-lg" />
+                  <span className="truncate whitespace-nowrap">
+                    Create Channel
+                  </span>
+                </button>
+              )}
               <button
                 className={clsx(
-                  'flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  'flex md:hidden items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                 )}
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               >

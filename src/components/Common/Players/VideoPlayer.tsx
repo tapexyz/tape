@@ -1,6 +1,7 @@
 import 'plyr-react/plyr.css'
 
 import useAppStore from '@lib/store'
+import * as Sentry from '@sentry/nextjs'
 import * as tf from '@tensorflow/tfjs'
 import { IS_MAINNET } from '@utils/constants'
 import { getIsNSFW } from '@utils/functions/getIsNSFW'
@@ -61,11 +62,15 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
 
     const analyseVideo = async (currentVideo: HTMLVideoElement) => {
       if (currentVideo && !uploadedVideo.isNSFW) {
-        const model = await nsfwjs.load()
-        const predictions = await model?.classify(currentVideo, 3)
-        setUploadedVideo({
-          isNSFW: getIsNSFW(predictions)
-        })
+        try {
+          const model = await nsfwjs.load()
+          const predictions = await model?.classify(currentVideo, 3)
+          setUploadedVideo({
+            isNSFW: getIsNSFW(predictions)
+          })
+        } catch (error) {
+          Sentry.captureException(error)
+        }
       }
     }
 

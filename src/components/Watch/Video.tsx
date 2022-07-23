@@ -56,6 +56,7 @@ const Video: FC<Props> = ({ video, time }) => {
     try {
       await axios.get(videoUrl)
     } catch (error) {
+      console.log(error)
       setVideoUrl(getPermanentVideoUrl(video))
     }
   }
