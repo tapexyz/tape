@@ -111,6 +111,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
           })
         }
       } catch (error) {
+        onError()
         logger.error('[Error Subscribe]', error)
       }
     },
