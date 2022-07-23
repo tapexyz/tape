@@ -28,8 +28,7 @@ const UserMenu = () => {
     setSelectedChannel,
     selectedChannel,
     setIsAuthenticated,
-    setIsSignedUser,
-    isSignedUser
+    setIsSignedUser
   } = usePersistStore()
   const { theme, setTheme } = useTheme()
 
@@ -70,8 +69,6 @@ const UserMenu = () => {
       console.log(error)
     }
   }
-
-  if (!isSignedUser) return null
 
   return (
     <Popover
