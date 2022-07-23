@@ -74,11 +74,10 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
       }
     }
 
-    const onDataLoaded = (event: Event) => {
+    const onDataLoaded = (event: Event, currentVideo: HTMLVideoElement) => {
       if (event.target) {
         onVideoDataLoaded()
         if (pathname === UPLOAD) {
-          const currentVideo = document.getElementsByTagName('video')[0]
           analyseVideo(currentVideo)
         }
       }
@@ -106,7 +105,7 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
 
       // fired when the frame at the current playback
       const currentVideo = document.getElementsByTagName('video')[0]
-      currentVideo.onloadeddata = (e) => onDataLoaded(e)
+      currentVideo.onloadeddata = (e) => onDataLoaded(e, currentVideo)
 
       return () => {
         api.plyr.pip = false
@@ -158,11 +157,10 @@ const VideoPlayer: FC<Props> = ({
   isSensitiveContent
 }) => {
   const ref = React.useRef<APITypes>(null)
-  const [plyrControls, setPlyrControls] = useState<string[]>(['progress'])
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
 
   const options = {
-    controls: plyrControls,
+    controls,
     autoplay: autoPlay,
     autopause: true,
     tooltips: { controls: true, seek: true },
@@ -188,7 +186,7 @@ const VideoPlayer: FC<Props> = ({
           }}
           options={options}
           time={time}
-          onVideoDataLoaded={() => setPlyrControls(controls)}
+          onVideoDataLoaded={() => {}}
         />
       )}
     </div>
