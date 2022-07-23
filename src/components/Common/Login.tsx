@@ -20,7 +20,8 @@ const Login = () => {
   const router = useRouter()
   const { address } = useAccount()
   const { setChannels, setShowCreateChannel } = useAppStore()
-  const { setIsAuthenticated, setSelectedChannel } = usePersistStore()
+  const { setIsAuthenticated, setSelectedChannel, setIsSignedUser } =
+    usePersistStore()
   const { signMessageAsync, isLoading: signing } = useSignMessage({
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
@@ -74,6 +75,7 @@ const Login = () => {
       const { data: channelsData } = await getChannels({
         variables: { ownedBy: address }
       })
+      setIsSignedUser(true)
       if (
         !channelsData?.profiles ||
         channelsData?.profiles?.items.length === 0

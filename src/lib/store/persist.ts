@@ -6,6 +6,7 @@ import { persist } from 'zustand/middleware'
 
 interface AppPerisistState {
   isAuthenticated: boolean
+  isSignedUser: boolean
   selectedChannel: Profile | null
   recentlyWatched: LenstubePublication[] | []
   watchLater: LenstubePublication[] | []
@@ -13,6 +14,7 @@ interface AppPerisistState {
   setNotificationCount: (count: number) => void
   setSelectedChannel: (channel: Profile | null) => void
   setIsAuthenticated: (auth: boolean) => void
+  setIsSignedUser: (auth: boolean) => void
   addToRecentlyWatched: (video: LenstubePublication) => void
   addToWatchLater: (video: LenstubePublication) => void
   removeFromWatchLater: (video: LenstubePublication) => void
@@ -22,6 +24,7 @@ export const usePersistStore = create(
   persist<AppPerisistState>(
     (set, get) => ({
       isAuthenticated: false,
+      isSignedUser: false,
       recentlyWatched: [],
       watchLater: [],
       selectedChannel: null,
@@ -56,7 +59,8 @@ export const usePersistStore = create(
           watchLater: videos
         }))
       },
-      setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated }))
+      setIsAuthenticated: (isAuthenticated) => set(() => ({ isAuthenticated })),
+      setIsSignedUser: (isSignedUser) => set(() => ({ isSignedUser }))
     }),
     {
       name: 'lenstube.store'

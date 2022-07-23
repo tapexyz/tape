@@ -1,12 +1,17 @@
+import { ClaimHandle } from '@components/Common/CreateChannel'
 import Login from '@components/Common/Login'
 import MetaTags from '@components/Common/MetaTags'
+import { Button } from '@components/UIElements/Button'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { IS_MAINNET } from '@utils/constants'
 import { HOME } from '@utils/url-path'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 export default function AuthRequiredPage() {
-  const { isAuthenticated } = usePersistStore()
+  const { isAuthenticated, isSignedUser } = usePersistStore()
+  const { setShowCreateChannel } = useAppStore()
   const router = useRouter()
   useEffect(() => {
     if (isAuthenticated) {
@@ -27,12 +32,33 @@ export default function AuthRequiredPage() {
         />
         <div className="flex flex-col items-center justify-center py-10">
           <h1 className="mb-4 text-3xl font-bold">Sign In Required</h1>
-          <div className="mb-6 text-center">
-            Connect Wallet & Sign with Lens to continue,
-          </div>
-          <div>
-            <Login />
-          </div>
+          {isSignedUser && !isAuthenticated ? (
+            <div className="text-center">
+              {IS_MAINNET ? (
+                <ClaimHandle />
+              ) : (
+                <div className="flex flex-col items-center">
+                  <span className="mb-4 text-sm opacity-70">
+                    Your address does not seem to have Lens handle.
+                  </span>
+                  <Button onClick={() => setShowCreateChannel(true)}>
+                    <span className="truncate whitespace-nowrap">
+                      Create Channel
+                    </span>
+                  </Button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <div className="mb-6 text-center">
+                Connect Wallet & Sign with Lens to continue,
+              </div>
+              <div>
+                <Login />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>

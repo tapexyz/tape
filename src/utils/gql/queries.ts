@@ -328,6 +328,11 @@ export const PROFILE_QUERY = gql`
           proofOfHumanity
           sybilDotOrg {
             verified
+            source {
+              twitter {
+                handle
+              }
+            }
           }
           ens {
             name

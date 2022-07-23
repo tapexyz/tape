@@ -23,7 +23,7 @@
     "@sentry/nextjs": "^7.7.0",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/line-clamp": "^0.4.0",
-    "@tensorflow/tfjs": "^3.18.0",
+    "@tensorflow/tfjs": "^3.19.0",
     "@tippyjs/react": "^4.2.6",
     "axios": "^0.27.2",
     "bignumber.js": "^9.0.2",
@@ -36,7 +36,6 @@
     "interweave-autolink": "^5.1.0",
     "jwt-decode": "^3.1.2",
     "next": "12.2.3",
-    "next-pwa": "^5.5.4",
     "next-themes": "^0.2.0",
     "next-transpile-modules": "^9.0.0",
     "nsfwjs": "^2.4.1",
@@ -51,7 +50,7 @@
     "ua-parser-js": "^1.0.2",
     "uuid": "^8.3.2",
     "wagmi": "^0.5.11",
-    "zod": "^3.17.9",
+    "zod": "^3.17.10",
     "zustand": "^4.0.0-rc.4"
   },
   "devDependencies": {

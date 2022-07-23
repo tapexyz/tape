@@ -46,6 +46,19 @@ const About: FC<Props> = ({ channel }) => {
                 <span>{ensName}</span>
               </div>
             )}
+            {channel?.onChainIdentity?.sybilDotOrg.verified && (
+              <div className="flex items-center space-x-1">
+                <span className="pr-0.5" role="img">
+                  <img
+                    src={`${STATIC_ASSETS}/images/social/sybil.png`}
+                    alt="sybil"
+                    className="w-5 h-5"
+                    draggable={false}
+                  />
+                </span>
+                <span>Sybil Verified</span>
+              </div>
+            )}
             {channel?.onChainIdentity?.proofOfHumanity && (
               <div className="flex items-center space-x-1">
                 <span className="pr-0.5" role="img">

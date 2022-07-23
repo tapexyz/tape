@@ -25,6 +25,7 @@ import {
 } from '@utils/gql/queries'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
+import useTxnToast from '@utils/hooks/useTxnToast'
 import { utils } from 'ethers'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -58,6 +59,7 @@ type FormData = z.infer<typeof formSchema>
 
 const BasicInfo = ({ channel }: Props) => {
   const [, copy] = useCopyToClipboard()
+  const { showToast } = useTxnToast()
   const [loading, setLoading] = useState(false)
   const [coverImage, setCoverImage] = useState(getCoverPicture(channel) || '')
   const {
@@ -87,6 +89,9 @@ const BasicInfo = ({ channel }: Props) => {
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
       setLoading(false)
+    },
+    onSuccess(data) {
+      showToast(data?.hash)
     }
   })
 
@@ -94,6 +99,9 @@ const BasicInfo = ({ channel }: Props) => {
     onError(error) {
       toast.error(error?.message)
       setLoading(false)
+    },
+    onCompleted(data) {
+      showToast(data?.broadcast?.txHash)
     }
   })
 
@@ -136,6 +144,7 @@ const BasicInfo = ({ channel }: Props) => {
             writeMetaData({ args })
           }
         } catch (error) {
+          console.log(error)
           setLoading(false)
         }
       },

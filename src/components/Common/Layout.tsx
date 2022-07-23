@@ -35,7 +35,9 @@ const Layout: FC<Props> = ({ children }) => {
     setSelectedChannel,
     selectedChannel,
     setIsAuthenticated,
-    isAuthenticated
+    setIsSignedUser,
+    isAuthenticated,
+    isSignedUser
   } = usePersistStore()
   const { resolvedTheme } = useTheme()
   const { chain } = useNetwork()
@@ -72,6 +74,7 @@ const Layout: FC<Props> = ({ children }) => {
 
     const logout = () => {
       setIsAuthenticated(false)
+      setIsSignedUser(false)
       setSelectedChannel(null)
       localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
@@ -94,6 +97,7 @@ const Layout: FC<Props> = ({ children }) => {
     if (isDisconnected && mounted) {
       if (disconnect) disconnect()
       setIsAuthenticated(false)
+      setIsSignedUser(false)
     }
     connector?.on('change', () => {
       logout()
@@ -104,7 +108,8 @@ const Layout: FC<Props> = ({ children }) => {
     disconnect,
     connector,
     isDisconnected,
-    setSelectedChannel
+    setSelectedChannel,
+    isSignedUser
   ])
 
   if (loading || !mounted) return <FullPageLoader />

@@ -139,6 +139,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           writeComment({ args })
         }
       } catch (error) {
+        console.log(error)
         onError()
       }
     },

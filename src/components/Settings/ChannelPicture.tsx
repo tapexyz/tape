@@ -8,6 +8,7 @@ import omitKey from '@utils/functions/omitKey'
 import { uploadImageToIPFS } from '@utils/functions/uploadToIPFS'
 import { BROADCAST_MUTATION, SET_PFP_URI_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
+import useTxnToast from '@utils/hooks/useTxnToast'
 import clsx from 'clsx'
 import { utils } from 'ethers'
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
@@ -25,6 +26,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const { selectedChannel, setSelectedChannel } = usePersistStore()
   const [selectedPfp, setSelectedPfp] = useState('')
   const [loading, setLoading] = useState(false)
+  const { showToast } = useTxnToast()
 
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
@@ -40,12 +42,18 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       setLoading(false)
       setSelectedPfp(getProfilePicture(channel))
       toast.error(error?.data?.message || error?.message)
+    },
+    onSuccess(data) {
+      showToast(data.hash)
     }
   })
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onError(error) {
       toast.error(error?.message)
       setLoading(false)
+    },
+    onCompleted(data) {
+      showToast(data?.broadcast?.txHash)
     }
   })
 
@@ -97,6 +105,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             writePfpUri({ args })
           }
         } catch (error) {
+          console.log(error)
           setLoading(false)
           setSelectedPfp(getProfilePicture(channel))
         }

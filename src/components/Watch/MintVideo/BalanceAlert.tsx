@@ -1,7 +1,14 @@
 import Alert from '@components/Common/Alert'
+import { IS_MAINNET } from '@utils/constants'
 import Link from 'next/link'
 import React from 'react'
 import { LenstubeCollectModule } from 'src/types/local'
+
+const getUniswapURL = (amount: number, outputCurrency: string): string => {
+  return `https://app.uniswap.org/#/swap?exactField=output&exactAmount=${amount}&outputCurrency=${outputCurrency}&chain=${
+    IS_MAINNET ? 'polygon' : 'polygon_mumbai'
+  }`
+}
 
 const BalanceAlert = ({
   collectModule
@@ -15,7 +22,12 @@ const BalanceAlert = ({
           <span>
             You don't have enough {collectModule?.amount?.asset?.symbol} token
           </span>
-          <Link href="https://app.uniswap.org/#/swap">
+          <Link
+            href={getUniswapURL(
+              parseFloat(collectModule?.amount.value),
+              collectModule?.amount?.asset?.address
+            )}
+          >
             <a
               rel="noreferer noreferrer"
               target="_blank"
