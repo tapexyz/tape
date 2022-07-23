@@ -77,7 +77,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                   />
                 </a>
               </Link>
-              <div className="grid flex-1 pb-1 grid-col">
+              <div className="grid flex-1 pb-1">
                 <div className="flex w-full items-start justify-between space-x-1.5 min-w-0">
                   <Link href={`/watch/${video.id}`}>
                     <a className="text-[15px] font-medium line-clamp-2 break-words">
