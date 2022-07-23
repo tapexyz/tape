@@ -6675,6 +6675,13 @@ near-seed-phrase@^0.2.0:
     near-hd-key "^1.2.1"
     tweetnacl "^1.0.2"
 
+next-axiom@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/next-axiom/-/next-axiom-0.11.0.tgz#4c9bfa0a481b6d25fc76162f2fbd670afe472969"
+  integrity sha512-E1WQ5v51m/3/ljTDVNGGTVtvd/Tx1QZOSkNwXe/Rs8xDLLDZ3sG72MofxnSpuVSQyZnjEUUt3/aDfHMVwikkvw==
+  dependencies:
+    whatwg-fetch "^3.6.2"
+
 next-themes@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/next-themes/-/next-themes-0.2.0.tgz#fdc507f61e95b3ae513dee8d4783bcec8c02e3a3"
@@ -8569,7 +8576,7 @@ web-streams-polyfill@^3.2.0:
   resolved "https://registry.yarnpkg.com/web-streams-polyfill/-/web-streams-polyfill-3.2.1.tgz#71c2718c52b45fd49dbeee88634b3a60ceab42a6"
   integrity sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q==
 
-whatwg-fetch@^3.4.1:
+whatwg-fetch@^3.4.1, whatwg-fetch@^3.6.2:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.6.2.tgz#dced24f37f2624ed0281725d51d0e2e3fe677f8c"
   integrity sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==
