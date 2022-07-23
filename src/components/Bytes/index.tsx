@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
 import React, { useState } from 'react'
@@ -12,6 +13,7 @@ import { LenstubePublication } from 'src/types/local'
 import ByteVideo from './ByteVideo'
 
 const Bytes = () => {
+  const { selectedChannel } = usePersistStore()
   const [bytes, setBytes] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
@@ -23,7 +25,10 @@ const Bytes = () => {
         noRandomize: false,
         sources: [LENSTUBE_BYTES_APP_ID],
         publicationTypes: ['POST']
-      }
+      },
+      reactionRequest: selectedChannel
+        ? { profileId: selectedChannel?.id }
+        : null
     },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
