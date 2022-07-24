@@ -105,12 +105,12 @@ const UserMenu = () => {
               <span className="py-2 text-sm">Channels</span>
             </div>
             <div className="py-1 text-sm">
-              {channels?.map((channel, idx) => (
+              {channels?.map((channel) => (
                 <button
                   className={clsx(
                     'flex w-full justify-between items-center px-2 py-1.5 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800'
                   )}
-                  key={idx}
+                  key={channel.id}
                   onClick={() => onSelectChannel(channel)}
                 >
                   <span className="inline-flex items-center space-x-1.5">
