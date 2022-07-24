@@ -33,8 +33,8 @@ const PlayerContextMenu = forwardRef<APITypes, Props>(
       hideContextMenu()
     }
 
-    const onCopyVideoUrl = () => {
-      copy(`${LENSTUBE_URL}/watch/${query.id}`)
+    const onCopyVideoUrl = async () => {
+      await copy(`${LENSTUBE_URL}/watch/${query.id}`)
       toast.success('Video link copied')
       hideContextMenu()
     }

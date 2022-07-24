@@ -12,15 +12,15 @@ import { FiUpload } from 'react-icons/fi'
 const DropZone = () => {
   const { setUploadedVideo } = useAppStore()
 
-  const uploadVideo = async (files: File[]) => {
+  const uploadVideo = (files: File[]) => {
     try {
       const file = files[0]
       if (file) {
         const preview = URL.createObjectURL(file)
-        let reader = new FileReader()
+        const reader = new FileReader()
         reader.onload = function () {
           if (reader.result) {
-            let buffer = Buffer.from(reader.result as string)
+            const buffer = Buffer.from(reader.result as string)
             setUploadedVideo({
               buffer,
               preview,

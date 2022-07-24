@@ -20,8 +20,8 @@ type Props = {
 const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
   const [, copy] = useCopyToClipboard()
 
-  const onCopyVideoUrl = () => {
-    copy(`${LENSTUBE_URL}/watch/${video.id}`)
+  const onCopyVideoUrl = async () => {
+    await copy(`${LENSTUBE_URL}/watch/${video.id}`)
     toast.success('Link copied to clipboard')
   }
 

@@ -7,7 +7,6 @@ type Props = {
   title?: string
   description?: string
   image?: string
-  date?: string
 }
 
 const MetaTags: FC<Props> = (props) => {

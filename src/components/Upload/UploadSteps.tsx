@@ -134,7 +134,7 @@ const UploadSteps = () => {
   }
 
   const uploadToBundlr = async () => {
-    if (!bundlrData.instance) return initBundlr()
+    if (!bundlrData.instance) return await initBundlr()
     if (!uploadedVideo.buffer)
       return toast.error('Video not uploaded correctly.')
     if (parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice))
@@ -262,13 +262,13 @@ const UploadSteps = () => {
       buttonText: 'Storing metadata...',
       loading: true
     })
-    let media = [
+    const media = [
       {
         item: uploadedVideo.videoSource,
         type: uploadedVideo.videoType
       }
     ]
-    let attributes = [
+    const attributes = [
       {
         displayType: 'string',
         traitType: 'publication',

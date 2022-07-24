@@ -44,7 +44,7 @@ const VideoDetails = () => {
     skip: !id,
     fetchPolicy: 'no-cache',
     onCompleted(data) {
-      let currentVideo = data?.publication as LenstubePublication
+      const currentVideo = data?.publication as LenstubePublication
       // const playbackId = getPlaybackIdFromUrl(currentVideo)
       // if (playbackId) {
       //   axios

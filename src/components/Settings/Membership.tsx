@@ -160,10 +160,6 @@ const Membership = ({ channel }: Props) => {
     }
   )
 
-  const onSubmitForm = () => {
-    setMembership(false)
-  }
-
   const setMembership = (freeFollowModule: boolean) => {
     setLoading(true)
     setFollowModuleTypedData({
@@ -184,6 +180,10 @@ const Membership = ({ channel }: Props) => {
         }
       }
     })
+  }
+
+  const onSubmitForm = () => {
+    setMembership(false)
   }
 
   return (

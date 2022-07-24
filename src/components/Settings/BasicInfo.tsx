@@ -156,8 +156,8 @@ const BasicInfo = ({ channel }: Props) => {
     }
   )
 
-  const onCopyChannelUrl = (value: string) => {
-    copy(value)
+  const onCopyChannelUrl = async (value: string) => {
+    await copy(value)
     toast.success('Copied to clipboard')
   }
 

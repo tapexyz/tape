@@ -33,6 +33,14 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const { onMouseDown } = useDraggableScroll(scrollRef)
   const { setUploadedVideo } = useAppStore()
 
+  const uploadThumbnailToIpfs = async (file: File) => {
+    setUploading(true)
+    const result: IPFSUploadResult = await uploadImageToIPFS(file)
+    setUploading(false)
+    afterUpload(result.ipfsUrl, file.type || 'image/jpeg')
+    return result
+  }
+
   const generateThumbnails = async (file: File) => {
     try {
       const thumbnailArray = await generateVideoThumbnails(
@@ -40,7 +48,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
         GENERATE_COUNT,
         ''
       )
-      let thumbnails: Array<{
+      const thumbnails: Array<{
         ipfsUrl: string
         url: string
         isNSFWThumbnail: boolean
@@ -74,14 +82,6 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file])
-
-  const uploadThumbnailToIpfs = async (file: File) => {
-    setUploading(true)
-    const result: IPFSUploadResult = await uploadImageToIPFS(file)
-    setUploading(false)
-    afterUpload(result.ipfsUrl, file.type || 'image/jpeg')
-    return result
-  }
 
   const checkNsfw = async (source: string) => {
     const img = document.createElement('img')
@@ -146,7 +146,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       )}
       <div
         ref={thumbnails.length > 0 ? scrollRef : null}
-        onMouseDown={thumbnails.length > 0 ? onMouseDown : () => {}}
+        onMouseDown={thumbnails.length > 0 ? onMouseDown : undefined}
         className={clsx('flex flex-row py-0.5 pr-2 space-x-2', {
           'overflow-x-auto cursor-grab no-scrollbar': thumbnails.length > 0
         })}
