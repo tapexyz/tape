@@ -1,4 +1,6 @@
+import CollectorsList from '@components/Common/CollectorsList'
 import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
+import Modal from '@components/UIElements/Modal'
 import logger from '@lib/logger'
 import { getIsSensitiveContent } from '@utils/functions/getIsSensitiveContent'
 import { getPermanentVideoUrl, getVideoUrl } from '@utils/functions/getVideoUrl'
@@ -51,6 +53,7 @@ MemoizedHlsVideoPlayer.displayName = 'MemoizedHlsVideoPlayer'
 const Video: FC<Props> = ({ video, time }) => {
   // const isHlsSupported = Hls.isSupported()
   const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
+  const [showCollectsModal, setShowCollectsModal] = useState(false)
 
   const checkVideoResource = async () => {
     try {
@@ -93,10 +96,21 @@ const Video: FC<Props> = ({ video, time }) => {
           </h1>
           <div className="flex items-center text-sm opacity-70">
             <div className="flex items-center">
-              <div className="flex items-center space-x-1">
+              <Modal
+                title="Collectors"
+                onClose={() => setShowCollectsModal(false)}
+                show={showCollectsModal}
+                panelClassName="max-w-md"
+              >
+                <CollectorsList video={video} />
+              </Modal>
+              <button
+                onClick={() => setShowCollectsModal(true)}
+                className="flex items-center space-x-1 outline-none"
+              >
                 <SiOpenmined className="text-xs" />
                 <span>{video.stats.totalAmountOfCollects} collects</span>
-              </div>
+              </button>
             </div>
             <span className="middot" />
             <span title={video.createdAt}>
