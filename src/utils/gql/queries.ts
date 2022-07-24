@@ -1297,3 +1297,21 @@ export const CREATE_BURN_PROFILE_TYPED_DATA = gql`
     }
   }
 `
+
+export const VIDEO_COLLECTORS_QUERY = gql`
+  query VideoCollectors($request: WhoCollectedPublicationRequest!) {
+    whoCollectedPublication(request: $request) {
+      items {
+        address
+        defaultProfile {
+          ...MinimalProfileFields
+        }
+      }
+      pageInfo {
+        next
+        totalCount
+      }
+    }
+  }
+  ${MinimalProfileFields}
+`

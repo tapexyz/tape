@@ -5,7 +5,7 @@ import { BiUser } from 'react-icons/bi'
 import { Profile } from 'src/types'
 
 interface Props {
-  results: Array<Profile>
+  results: Profile[]
   loading: boolean
   clearSearch: () => void
 }
