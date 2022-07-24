@@ -21,7 +21,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
   const {
     query: { id }
   } = useRouter()
-  const { setUpNext } = useAppStore()
+  const { setUpNextVideo } = useAppStore()
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { loading, error, fetchMore, refetch } = useQuery(EXPLORE_QUERY, {
@@ -37,7 +37,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
       setVideos(data?.explorePublications?.items)
-      setUpNext(
+      setUpNextVideo(
         data?.explorePublications?.items?.find(
           (video: LenstubePublication) => video.id !== currentVideoId
         )

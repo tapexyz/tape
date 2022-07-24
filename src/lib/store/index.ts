@@ -61,8 +61,8 @@ interface AppState {
   hasNewNotification: boolean
   userSigNonce: number
   uploadedVideo: UploadedVideo
-  upNext: LenstubePublication | null
-  setUpNext: (upNext: LenstubePublication) => void
+  upNextVideo: LenstubePublication | null
+  setUpNextVideo: (upNextVideo: LenstubePublication) => void
   setUploadedVideo: (video: { [k: string]: any }) => void
   setUserSigNonce: (userSigNonce: number) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
@@ -82,8 +82,8 @@ export const useAppStore = create<AppState>((set) => ({
   userSigNonce: 0,
   uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
   bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
-  upNext: null,
-  setUpNext: (upNext) => set(() => ({ upNext })),
+  upNextVideo: null,
+  setUpNextVideo: (upNextVideo) => set(() => ({ upNextVideo })),
   setBundlrData: (bundlrData) =>
     set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrData } })),
   setUploadedVideo: (videoData) =>

@@ -59,7 +59,7 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
     const [position, setPosition] = useState({ x: 0, y: 0 })
     const [isVideoLoop, setIsVideoLoop] = useState(false)
     const { pathname } = useRouter()
-    const { setUploadedVideo, uploadedVideo, upNext } = useAppStore()
+    const { setUploadedVideo, uploadedVideo, upNextVideo } = useAppStore()
     const [showNext, setShowNext] = useState(false)
     const router = useRouter()
 
@@ -119,7 +119,7 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
       currentVideo.onloadeddata = (e) => onDataLoaded(e, currentVideo)
 
       api.plyr?.on('ended', () => {
-        if (upNext) {
+        if (upNextVideo) {
           currentVideo.style.display = 'none'
           setShowNext(true)
         }
@@ -142,7 +142,7 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
     }
 
     const playNext = () => {
-      router.push(`/watch/${upNext?.id}`)
+      router.push(`/watch/${upNextVideo?.id}`)
     }
 
     const cancelPlayNext = () => {
@@ -163,7 +163,7 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
         />
         {showNext && (
           <NextVideo
-            video={upNext}
+            video={upNextVideo}
             playNext={playNext}
             cancelPlayNext={cancelPlayNext}
           />
