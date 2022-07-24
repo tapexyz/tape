@@ -1324,7 +1324,6 @@ export const CHANNEL_SUBSCRIBERS_QUERY = gql`
           address
           defaultProfile {
             ...MinimalProfileFields
-            isFollowedByMe
           }
         }
         totalAmountOfTimesFollowed
