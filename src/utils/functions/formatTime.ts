@@ -1,10 +1,10 @@
 export const getSecondsFromTime = (time: string) => {
-  let p: string[] = time.split(':'),
+  let timeSplitted: string[] = time.split(':'),
     seconds = 0,
-    m = 1
-  while (p.length > 0) {
-    seconds += m * parseInt(p.pop() ?? '0', 10)
-    m *= 60
+    minute = 1
+  while (timeSplitted.length > 0) {
+    seconds += minute * parseInt(timeSplitted.pop() ?? '0', 10)
+    minute *= 60
   }
   return seconds
 }
