@@ -8,14 +8,15 @@ import { getIsNSFW } from '@utils/functions/getIsNSFW'
 import imageCdn from '@utils/functions/imageCdn'
 import { UPLOAD } from '@utils/url-path'
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import * as nsfwjs from 'nsfwjs'
 import { APITypes, PlyrInstance, PlyrProps, usePlyr } from 'plyr-react'
 import React, { FC, forwardRef, useEffect, useState } from 'react'
 
-import NextVideo from './NextVideo'
 import PlayerContextMenu from './PlayerContextMenu'
 import SensitiveWarning from './SensitiveWarning'
+const NextVideo = dynamic(() => import('./NextVideo'))
 
 if (IS_MAINNET) {
   tf.enableProdMode()
@@ -112,7 +113,7 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
         api.plyr.currentTime = Number(time || 0)
       }
       // Set seek time when meta data fully loaded
-      api.plyr.on('loadedmetadata', metaDataLoaded)
+      api.plyr?.on('loadedmetadata', metaDataLoaded)
 
       // fired when the frame at the current playback
       currentVideo.onloadeddata = (e) => onDataLoaded(e, currentVideo)
@@ -125,7 +126,7 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
       })
 
       return () => {
-        api.plyr.pip = false
+        if (api.plyr) api.plyr.pip = false
       }
     })
 
