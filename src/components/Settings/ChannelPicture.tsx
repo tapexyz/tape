@@ -32,7 +32,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
-      setSelectedPfp(getProfilePicture(channel))
+      setSelectedPfp(getProfilePicture(channel, 'avatar'))
     }
   })
   const { data: pfpData, write: writePfpUri } = useContractWrite({
@@ -41,7 +41,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     functionName: 'setProfileImageURIWithSig',
     onError(error: any) {
       setLoading(false)
-      setSelectedPfp(getProfilePicture(channel))
+      setSelectedPfp(getProfilePicture(channel, 'avatar'))
       toast.error(error?.data?.message || error?.message)
     },
     onSuccess(data) {
@@ -107,13 +107,13 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           }
         } catch (error) {
           setLoading(false)
-          setSelectedPfp(getProfilePicture(channel))
+          setSelectedPfp(getProfilePicture(channel, 'avatar'))
           logger.error('[Error Set Pfp]', error)
         }
       },
       onError(error) {
         setLoading(false)
-        setSelectedPfp(getProfilePicture(channel))
+        setSelectedPfp(getProfilePicture(channel, 'avatar'))
         toast.error(error?.message)
       }
     }
@@ -145,7 +145,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   return (
     <div className="relative flex-none overflow-hidden rounded-full group">
       <img
-        src={selectedPfp ? selectedPfp : getProfilePicture(channel)}
+        src={selectedPfp ? selectedPfp : getProfilePicture(channel, 'avatar')}
         className="object-cover w-32 h-32 border-2 rounded-full"
         draggable={false}
         alt="channel picture"

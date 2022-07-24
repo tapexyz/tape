@@ -69,7 +69,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
             <a className="flex-none mt-0.5">
               <img
                 className="w-8 h-8 rounded-xl"
-                src={getProfilePicture(mirrorOf.profile)}
+                src={getProfilePicture(mirrorOf.profile, 'avatar')}
                 alt="channel picture"
                 draggable={false}
               />

@@ -71,7 +71,7 @@ const CollectorsList: FC<Props> = ({ video }) => {
                 <div className="flex items-center space-x-1.5">
                   <img
                     className="w-5 h-5 rounded"
-                    src={getProfilePicture(wallet?.defaultProfile)}
+                    src={getProfilePicture(wallet?.defaultProfile, 'avatar')}
                     alt="channel picture"
                     draggable={false}
                   />
