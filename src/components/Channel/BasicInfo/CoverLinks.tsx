@@ -20,10 +20,12 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
         )}
         {getValueFromKeyInAttributes(channel.attributes, 'twitter') && (
           <a
-            href={`https://twitter.com/${getValueFromKeyInAttributes(
-              channel.attributes,
-              'twitter'
-            )}`}
+            href={`https://twitter.com/${
+              getValueFromKeyInAttributes(
+                channel.attributes,
+                'twitter'
+              ) as string
+            }`}
             target="_blank"
             rel="noreferer noreferrer"
             className="p-2 bg-white rounded-lg dark:bg-gray-900 bg-opacity-80"

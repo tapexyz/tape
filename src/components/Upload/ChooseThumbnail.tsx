@@ -58,7 +58,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       })
       setThumbnails(thumbnails)
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX)
-      const imageFile = await getFileFromDataURL(
+      const imageFile = getFileFromDataURL(
         thumbnails[DEFAULT_THUMBNAIL_INDEX].url,
         'thumbnail.jpeg'
       )
@@ -116,10 +116,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const onSelectThumbnail = async (index: number) => {
     setSelectedThumbnailIndex(index)
     if (thumbnails[index].ipfsUrl === '') {
-      const file = await getFileFromDataURL(
-        thumbnails[index].url,
-        'thumbnail.jpeg'
-      )
+      const file = getFileFromDataURL(thumbnails[index].url, 'thumbnail.jpeg')
       const ipfsResult = await uploadThumbnailToIpfs(file)
       setThumbnails(
         thumbnails.map((t, i) => {

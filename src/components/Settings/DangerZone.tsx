@@ -129,7 +129,7 @@ const DangerZone = () => {
           <p className="text-sm opacity-80">
             Delete your channel and its data from Lens.
             <span className="ml-1 text-sm text-red-500">
-              It can't be reverted
+              It can not be reverted
             </span>
           </p>
         </div>

@@ -344,7 +344,7 @@ const UploadSteps = () => {
     })
   }
 
-  const onUpload = () => {
+  const onUpload = async () => {
     if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail)
       return toast.error('NSFW content not allowed')
     if (uploadedVideo.videoSource) return createPublication()
@@ -354,7 +354,7 @@ const UploadSteps = () => {
         uploadedVideo.isUploadToIpfs
       ) {
         return uploadToIpfsWithProgress()
-      } else uploadToBundlr()
+      } else await uploadToBundlr()
     }
   }
 
