@@ -143,34 +143,32 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   }
 
   return (
-    <>
-      <div className="relative flex-none overflow-hidden rounded-full group">
-        <img
-          src={selectedPfp ? selectedPfp : getProfilePicture(channel)}
-          className="object-cover w-32 h-32 border-2 rounded-full"
-          draggable={false}
-          alt="channel picture"
+    <div className="relative flex-none overflow-hidden rounded-full group">
+      <img
+        src={selectedPfp ? selectedPfp : getProfilePicture(channel)}
+        className="object-cover w-32 h-32 border-2 rounded-full"
+        draggable={false}
+        alt="channel picture"
+      />
+      <label
+        className={clsx(
+          'absolute top-0 grid w-32 h-32 bg-white rounded-full cursor-pointer bg-opacity-70 place-items-center backdrop-blur-lg invisible group-hover:visible dark:bg-black',
+          { '!visible': loading && !pfpData?.hash }
+        )}
+      >
+        {loading && !pfpData?.hash ? (
+          <Loader />
+        ) : (
+          <RiImageAddLine className="text-xl" />
+        )}
+        <input
+          type="file"
+          accept=".png, .jpg, .jpeg, .svg"
+          className="hidden w-full"
+          onChange={onPfpUpload}
         />
-        <label
-          className={clsx(
-            'absolute top-0 grid w-32 h-32 bg-white rounded-full cursor-pointer bg-opacity-70 place-items-center backdrop-blur-lg invisible group-hover:visible dark:bg-black',
-            { '!visible': loading && !pfpData?.hash }
-          )}
-        >
-          {loading && !pfpData?.hash ? (
-            <Loader />
-          ) : (
-            <RiImageAddLine className="text-xl" />
-          )}
-          <input
-            type="file"
-            accept=".png, .jpg, .jpeg, .svg"
-            className="hidden w-full"
-            onChange={onPfpUpload}
-          />
-        </label>
-      </div>
-    </>
+      </label>
+    </div>
   )
 }
 
