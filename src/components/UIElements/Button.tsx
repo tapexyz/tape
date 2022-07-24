@@ -62,7 +62,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
               !rest.disabled && variant !== 'outlined'
           }
         )}
-       />
+      />
       <span
         className={clsx(
           'absolute inset-0 w-full h-full rounded-lg md:rounded-xl',
@@ -72,7 +72,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
             'bg-red-500 border border-red-500': variant === 'danger'
           }
         )}
-       />
+      />
       <span
         className={clsx('relative flex items-center justify-center space-x-2', {
           'text-white': variant !== 'secondary' && variant !== 'outlined'
