@@ -25,8 +25,8 @@ const ByteActions: FC<Props> = ({ video }) => {
           publication={video}
           iconSize="2xl"
           textSize="xs"
-          isVertical={true}
-          showLabel={true}
+          isVertical
+          showLabel
         />
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
           <div className="hidden md:block">
