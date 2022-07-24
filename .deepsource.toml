@@ -1,0 +1,22 @@
+version = 1
+
+exclude_patterns = [
+  "node_modules",
+  ".next",
+  ".github",
+  ".husky",
+  ".vscode",
+  "src/types/index.ts",
+  "yarn.lock"
+]
+
+[[analyzers]]
+name = "javascript"
+enabled = true
+
+  [analyzers.meta]
+  plugins = ["react"]
+
+[[transformers]]
+name = "prettier"
+enabled = true
