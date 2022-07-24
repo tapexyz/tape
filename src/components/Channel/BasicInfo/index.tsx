@@ -1,5 +1,7 @@
 import SubscribeActions from '@components/Common/SubscribeActions'
+import SubscribersList from '@components/Common/SubscribersList'
 import { Button } from '@components/UIElements/Button'
+import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import usePersistStore from '@lib/store/persist'
 import getCoverPicture from '@utils/functions/getCoverPicture'
@@ -8,7 +10,7 @@ import imageCdn from '@utils/functions/imageCdn'
 import { SETTINGS } from '@utils/url-path'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { Profile } from 'src/types'
 
@@ -21,6 +23,7 @@ type Props = {
 const BasicInfo: FC<Props> = ({ channel }) => {
   const router = useRouter()
   const { selectedChannel } = usePersistStore()
+  const [showSubscribersModal, setShowSubscribersModal] = useState(false)
 
   const subscribeType = channel?.followModule?.__typename
 
@@ -56,9 +59,24 @@ const BasicInfo: FC<Props> = ({ channel }) => {
           <div className="flex flex-wrap justify-between flex-1 py-2 space-y-2">
             <div className="flex flex-col items-start mr-3">
               <h1 className="font-semibold md:text-2xl">{channel?.handle} </h1>
-              <span className="inline-flex items-center space-x-1 text-sm md:text-base">
-                {channel?.stats.totalFollowers} subscribers
-              </span>
+              <Modal
+                title="Subscribers"
+                onClose={() => setShowSubscribersModal(false)}
+                show={showSubscribersModal}
+                panelClassName="max-w-md"
+              >
+                <div className="max-h-[40vh] overflow-y-auto no-scrollbar">
+                  <SubscribersList channel={channel} />
+                </div>
+              </Modal>
+              <button
+                onClick={() => setShowSubscribersModal(true)}
+                className="outline-none"
+              >
+                <span className="inline-flex items-center space-x-1 text-sm md:text-base">
+                  {channel?.stats.totalFollowers} subscribers
+                </span>
+              </button>
             </div>
             <div className="flex items-center space-x-2">
               {channel?.id === selectedChannel?.id && (

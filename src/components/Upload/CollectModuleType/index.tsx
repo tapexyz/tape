@@ -59,7 +59,7 @@ const CollectModuleType = () => {
         onClose={() => setShowModal(false)}
         show={showModal}
       >
-        <div className="mt-4 space-y-4">
+        <div className="mt-2 space-y-4">
           <PermissionQuestion
             setCollectType={setCollectType}
             uploadedVideo={uploadedVideo}

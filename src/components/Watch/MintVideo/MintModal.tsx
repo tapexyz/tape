@@ -91,7 +91,7 @@ const MintModal: FC<Props> = ({
       onClose={() => setShowModal(false)}
       show={showModal}
     >
-      <div className="mt-6">
+      <div className="mt-4">
         {!loading && !allowanceLoading ? (
           <>
             {collectModule?.amount ? (

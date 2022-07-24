@@ -247,7 +247,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       show={show}
       panelClassName="max-w-md"
     >
-      <form className="mt-4" onSubmit={handleSubmit(onSendTip)}>
+      <form className="mt-2" onSubmit={handleSubmit(onSendTip)}>
         <div className="flex items-center justify-center p-10 space-x-2 flex-nowrap">
           <span className="flex items-center space-x-4">
             <img

@@ -1315,3 +1315,24 @@ export const VIDEO_COLLECTORS_QUERY = gql`
   }
   ${MinimalProfileFields}
 `
+
+export const CHANNEL_SUBSCRIBERS_QUERY = gql`
+  query Subscribers($request: FollowersRequest!) {
+    followers(request: $request) {
+      items {
+        wallet {
+          address
+          defaultProfile {
+            ...MinimalProfileFields
+          }
+        }
+        totalAmountOfTimesFollowed
+      }
+      pageInfo {
+        next
+        totalCount
+      }
+    }
+  }
+  ${MinimalProfileFields}
+`

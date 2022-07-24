@@ -7,8 +7,8 @@ const CategoriesShimmer = () => {
 
   return (
     <div className="hidden gap-4 my-1 md:grid sm:grid-cols-2 lg:grid-cols-7 md:grid-cols-4">
-      {cards.map((i, idx) => (
-        <CategoryItemShimmer key={`${i}_${idx}`} />
+      {cards.map((i) => (
+        <CategoryItemShimmer key={`${i}_key`} />
       ))}
     </div>
   )
