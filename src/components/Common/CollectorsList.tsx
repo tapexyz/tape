@@ -12,21 +12,20 @@ import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
 import { PaginatedResultInfo, Wallet } from 'src/types'
-import { LenstubePublication } from 'src/types/local'
 
 import { AddressExplorerLink } from './ExplorerLink'
 
 type Props = {
-  video: LenstubePublication
+  videoId: string
 }
 
-const CollectorsList: FC<Props> = ({ video }) => {
+const CollectorsList: FC<Props> = ({ videoId }) => {
   const [collectors, setCollectors] = useState<Wallet[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
   const { data, loading, fetchMore } = useQuery(VIDEO_COLLECTORS_QUERY, {
-    variables: { request: { publicationId: video.id, limit: 10 } },
-    skip: !video.id,
+    variables: { request: { publicationId: videoId, limit: 10 } },
+    skip: !videoId,
     onCompleted(data) {
       setPageInfo(data?.whoCollectedPublication?.pageInfo)
       setCollectors(data?.whoCollectedPublication?.items)
@@ -39,7 +38,7 @@ const CollectorsList: FC<Props> = ({ video }) => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              publicationId: video.id,
+              publicationId: videoId,
               cursor: pageInfo?.next,
               limit: 10
             }

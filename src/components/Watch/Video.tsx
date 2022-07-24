@@ -103,7 +103,7 @@ const Video: FC<Props> = ({ video, time }) => {
                 panelClassName="max-w-md"
               >
                 <div className="max-h-[40vh] overflow-y-auto no-scrollbar">
-                  <CollectorsList video={video} />
+                  <CollectorsList videoId={video.id} />
                 </div>
               </Modal>
               <button
