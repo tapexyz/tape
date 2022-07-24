@@ -57,7 +57,7 @@ const Modal: FC<Props> = ({
                 )}
               >
                 {title && (
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between pb-2">
                     <Dialog.Title
                       as="h3"
                       className="text-lg font-medium leading-6"

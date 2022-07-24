@@ -60,7 +60,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
         onClose={() => setShowModal(false)}
         show={showModal}
       >
-        <div className="inline-block w-full mt-4 space-y-3 overflow-hidden text-left align-middle transition-all transform">
+        <div className="inline-block w-full mt-2 space-y-3 overflow-hidden text-left align-middle transition-all transform">
           {connector && (
             <div className="w-full p-4 space-y-2 border border-gray-300 rounded-lg dark:border-gray-600">
               <div className="flex items-center justify-between">
