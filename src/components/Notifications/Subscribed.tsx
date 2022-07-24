@@ -27,7 +27,10 @@ const SubscribedNotification: FC<Props> = ({ notification }) => {
             <a className="inline-flex items-center space-x-1.5 font-base">
               <img
                 className="w-4 h-4 rounded"
-                src={getProfilePicture(notification.wallet.defaultProfile)}
+                src={getProfilePicture(
+                  notification.wallet.defaultProfile,
+                  'avatar'
+                )}
                 alt="channel picture"
                 draggable={false}
               />

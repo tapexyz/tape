@@ -137,7 +137,7 @@ const UserMenu = () => {
                   className="object-cover rounded-xl w-9 h-9"
                   src={
                     selectedChannel
-                      ? getProfilePicture(selectedChannel)
+                      ? getProfilePicture(selectedChannel, 'avatar')
                       : imageCdn(
                           `https://cdn.stamp.fyi/avatar/eth:${address}?s=100`,
                           'avatar'

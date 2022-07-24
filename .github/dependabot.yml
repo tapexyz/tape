@@ -2,6 +2,6 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
-    target-branch: "testnet"
+    target-branch: "main"
     schedule:
       interval: "daily"

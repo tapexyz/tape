@@ -40,7 +40,7 @@ const Comment: FC<Props> = ({ comment }) => {
         <Link href={`/${comment.profile?.handle}`}>
           <a className="flex-none mr-3 mt-0.5">
             <img
-              src={getProfilePicture(comment.profile)}
+              src={getProfilePicture(comment.profile, 'avatar')}
               className="rounded-lg w-7 h-7"
               draggable={false}
               alt="channel picture"
