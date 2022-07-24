@@ -126,13 +126,11 @@ const Permissions = () => {
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
             >
-              {data?.enabledModuleCurrencies?.map(
-                (currency: Erc20, idx: number) => (
-                  <option key={idx} value={currency.address}>
-                    {currency.symbol}
-                  </option>
-                )
-              )}
+              {data?.enabledModuleCurrencies?.map((currency: Erc20) => (
+                <option key={currency.address} value={currency.address}>
+                  {currency.symbol}
+                </option>
+              ))}
             </select>
           </div>
         )}
@@ -143,9 +141,12 @@ const Permissions = () => {
         )}
         {!gettingSettings &&
           data?.approvedModuleAllowanceAmount?.map(
-            (moduleItem: ApprovedAllowanceAmount, i: number) =>
+            (moduleItem: ApprovedAllowanceAmount) =>
               collectModules.includes(moduleItem.module) && (
-                <div key={i} className="flex items-center pb-4 rounded-md">
+                <div
+                  key={moduleItem.contractAddress}
+                  className="flex items-center pb-4 rounded-md"
+                >
                   <div className="flex-1">
                     <h6 className="text-base">Allow {moduleItem.module}</h6>
                     <p className="text-sm opacity-70">

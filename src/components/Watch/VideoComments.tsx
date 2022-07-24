@@ -132,8 +132,11 @@ const VideoComments: FC<Props> = ({ video }) => {
       {!error && !loading && (
         <>
           <div className="pt-5 space-y-4">
-            {comments?.map((comment: LenstubePublication, index: number) => (
-              <Comment key={`${comment?.id}_${index}`} comment={comment} />
+            {comments?.map((comment: LenstubePublication) => (
+              <Comment
+                key={`${comment?.id}_${comment.createdAt}`}
+                comment={comment}
+              />
             ))}
           </div>
           {pageInfo?.next && comments.length !== pageInfo?.totalCount && (

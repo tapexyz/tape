@@ -254,8 +254,8 @@ const Membership = ({ channel }: Props) => {
                 onChange={(e) => setValue('token', e.target.value)}
               >
                 {enabledCurrencies?.enabledModuleCurrencies?.map(
-                  (currency: Erc20, idx: number) => (
-                    <option key={idx} value={currency.address}>
+                  (currency: Erc20) => (
+                    <option key={currency.address} value={currency.address}>
                       {currency.symbol}
                     </option>
                   )

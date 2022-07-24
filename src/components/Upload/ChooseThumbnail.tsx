@@ -161,7 +161,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
         {thumbnails.map((thumbnail, idx) => {
           return (
             <button
-              key={idx}
+              key={thumbnail.url}
               type="button"
               onClick={() => onSelectThumbnail(idx)}
               className={clsx(

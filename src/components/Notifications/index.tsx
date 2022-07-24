@@ -92,7 +92,7 @@ const Notifications = () => {
           className={clsx('pb-3', {
             'pb-0': notifications.length - 1 === index
           })}
-          key={index}
+          key={notification.createdAt}
         >
           {notification?.__typename === 'NewFollowerNotification' && (
             <SubscribedNotification notification={notification as any} />
