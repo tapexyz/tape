@@ -62,9 +62,9 @@ const CollectorsList: FC<Props> = ({ video }) => {
     )
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 space-y-2">
       {collectors?.map((wallet: Wallet) => (
-        <div className="flex flex-col space-y-2" key={wallet.address}>
+        <div className="flex flex-col" key={wallet.address}>
           {wallet?.defaultProfile ? (
             <Link href={`/${wallet?.defaultProfile?.handle}`}>
               <a className="flex items-center justify-between font-base">

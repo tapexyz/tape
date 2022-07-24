@@ -102,7 +102,9 @@ const Video: FC<Props> = ({ video, time }) => {
                 show={showCollectsModal}
                 panelClassName="max-w-md"
               >
-                <CollectorsList video={video} />
+                <div className="max-h-[40vh] overflow-auto no-scrollbar">
+                  <CollectorsList video={video} />
+                </div>
               </Modal>
               <button
                 onClick={() => setShowCollectsModal(true)}
