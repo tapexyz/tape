@@ -69,9 +69,12 @@ const SuggestedVideos = () => {
         <div className="pb-3">
           <div className="space-y-3 md:gap-3 md:grid lg:flex lg:gap-0 lg:flex-col md:grid-cols-2">
             {videos?.map(
-              (video: LenstubePublication, index: number) =>
+              (video: LenstubePublication) =>
                 !video.hidden && (
-                  <SuggestedVideoCard video={video} key={index} />
+                  <SuggestedVideoCard
+                    video={video}
+                    key={`${video?.id}_${video.createdAt}`}
+                  />
                 )
             )}
           </div>

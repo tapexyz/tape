@@ -110,7 +110,7 @@ const UserMenu = () => {
                   className={clsx(
                     'flex w-full justify-between items-center px-2 py-1.5 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800'
                   )}
-                  key={idx}
+                  key={channel.id}
                   onClick={() => onSelectChannel(channel)}
                 >
                   <span className="inline-flex items-center space-x-1.5">

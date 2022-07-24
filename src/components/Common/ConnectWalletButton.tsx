@@ -75,11 +75,11 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
             </div>
           )}
           <div className="grid grid-cols-3 gap-3">
-            {connectors.map((wallet, i) => {
+            {connectors.map((wallet) => {
               return (
                 getWalletInfo(wallet.id, wallet.name) && (
                   <button
-                    key={i}
+                    key={wallet.id}
                     className={clsx(
                       'w-full relative flex space-y-3 items-center flex-col rounded-lg p-4 dark:bg-gray-900 bg-gray-100',
                       {

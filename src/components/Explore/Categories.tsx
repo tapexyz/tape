@@ -44,8 +44,8 @@ const categories = [
 const Categories = () => {
   return (
     <div className="hidden gap-4 my-1 md:grid sm:grid-cols-2 lg:grid-cols-7 md:grid-cols-4">
-      {categories.map((c, idx) => (
-        <CategoryItem category={c} key={idx} />
+      {categories.map((category) => (
+        <CategoryItem category={category} key={category.name} />
       ))}
     </div>
   )
