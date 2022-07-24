@@ -8,19 +8,19 @@ const getVideoUrl = (video: LenstubePublication) => {
 export const getSharableLink = (link: string, video: LenstubePublication) => {
   if (link === 'twitter') {
     return `https://twitter.com/intent/tweet?url=${getVideoUrl(video)}&text=${
-      video.metadata?.name
+      video.metadata?.name as string
     }&via=${LENSTUBE_TWITTER_HANDLE}&related=Lenstube&hashtags=Lenstube`
   }
   if (link === 'reddit') {
     return `https://www.reddit.com/submit?url=${getVideoUrl(video)}&title=${
-      video.metadata?.name
+      video.metadata?.name as string
     }`
   }
   if (link === 'linkedin') {
     return `https://www.linkedin.com/shareArticle/?url=${getVideoUrl(
       video
     )}&title=${video.metadata?.name}&summary=${
-      video.metadata?.description
+      video.metadata?.description as string
     }&source=Lenstube`
   }
 }
