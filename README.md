@@ -16,7 +16,7 @@
 
 ## About
 
-Lenstube is a decentralized video-sharing social media platform, built using Lens Protocol  🌿
+Lenstube is a decentralized video-sharing social media platform, built using Lens Protocol 🌿
 
 ## Community
 
@@ -33,6 +33,7 @@ cp .env.example .env
 yarn install
 yarn dev
 ```
+
 and visit http://localhost:4783
 
 ## Others
@@ -40,7 +41,7 @@ and visit http://localhost:4783
 - [Lenstube Assets](https://github.com/sasicodes/lenstube-assets)
 
 ## License
-Lenstube is open-sourced software licensed under the [MIT license](LICENSE).
 
+Lenstube is open-sourced software licensed under the [MIT license](LICENSE).
 
 [![](https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg)](https://vercel.com/?utm_source=Lenstube&utm_campaign=oss)

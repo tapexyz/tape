@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 html {
-  @apply  overflow-y-scroll;
+  @apply overflow-y-scroll;
 }
 
 body {
