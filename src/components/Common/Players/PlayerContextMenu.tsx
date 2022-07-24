@@ -39,12 +39,12 @@ const PlayerContextMenu = forwardRef<APITypes, Props>(
       hideContextMenu()
     }
 
-    const onCopyAtCurrentTime = () => {
+    const onCopyAtCurrentTime = async () => {
       const { current } = ref as React.MutableRefObject<APITypes>
       if (current.plyr?.source === null) return
       const plyrApi = current as { plyr: PlyrInstance }
       const selectedTime = Math.trunc(plyrApi.plyr.currentTime)
-      copy(`${LENSTUBE_URL}/watch/${query.id}?t=${selectedTime}`)
+      await copy(`${LENSTUBE_URL}/watch/${query.id}?t=${selectedTime}`)
       toast.success(`Video link copied`)
       hideContextMenu()
     }

@@ -20,7 +20,7 @@ const BalanceAlert = ({
       <Alert variant="warning">
         <div className="flex items-center justify-between flex-1">
           <span>
-            You don't have enough {collectModule?.amount?.asset?.symbol} token
+            Not enough {collectModule?.amount?.asset?.symbol} token balance
           </span>
           <Link
             href={getUniswapURL(
