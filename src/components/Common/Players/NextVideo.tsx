@@ -20,11 +20,8 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
   const [timeLeft, setTimeLeft] = useState(5)
 
   useEffect(() => {
-    if (timeLeft === 0) {
-      playNext()
-    }
+    if (timeLeft === 0) playNext()
     if (!timeLeft) return
-
     const intervalId = setInterval(() => {
       setTimeLeft(timeLeft - 1)
     }, 1000)
@@ -33,6 +30,7 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
   }, [timeLeft, playNext])
 
   if (!video) return null
+
   const isSensitiveContent = getIsSensitiveContent(
     video.metadata?.attributes,
     video.id
@@ -43,12 +41,12 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
   )
 
   return (
-    <div className="w-full h-3/4 absolute top-0 text-white">
-      <div className="flex justify-center h-full items-center">
-        <div className="mt-5">
-          <p>Up next in {timeLeft} seconds</p>
-          <div className="mt-3">
-            <div className="flex justify-between">
+    <div className="absolute top-0 w-full text-white h-3/4">
+      <div className="flex items-center justify-center h-full">
+        <div className="px-2 mt-3 md:mt-5">
+          <p className="text-sm md:text-base">Up next in {timeLeft} seconds</p>
+          <div className="mt-1 md:mt-3">
+            <div className="flex justify-between space-x-2">
               <div className="flex-none overflow-hidden rounded-lg">
                 <Link href={`/watch/${video.id}`}>
                   <a className="rounded-lg cursor-pointer">
@@ -62,7 +60,7 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
                         )}
                         alt="thumbnail"
                         draggable={false}
-                        className="object-cover object-center h-16 w-24 lg:h-32 lg:w-52 "
+                        className="object-cover object-center w-24 h-16 lg:h-32 lg:w-56 "
                       />
                       {!isSensitiveContent && videoDuration ? (
                         <div>
@@ -75,28 +73,27 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
                   </a>
                 </Link>
               </div>
-              <div className="px-2.5 overflow-hidden">
-                <div className="flex flex-col items-start pb-1">
-                  <div className="flex w-48 items-start overflow-hidden justify-between space-x-1.5">
+              <div className="overflow-hidden">
+                <div className="flex flex-col items-start">
+                  <div className="flex md:w-48 items-start overflow-hidden justify-between space-x-1.5">
                     <Link passHref href={`/watch/${video.id}`}>
-                      <a className="overflow-hidden text-lg font-medium line-clamp-1">
-                        <span className="flex line-clamp-2">
+                      <a className="overflow-hidden md:text-lg">
+                        <span className="flex md:font-medium line-clamp-2">
                           {video.metadata?.name}
                         </span>
                       </a>
                     </Link>
                   </div>
-                  <div className="truncate">
-                    <p className="text-xs truncate hover:opacity-100 opacity-70">
-                      {video.profile?.handle}
-                    </p>
-                  </div>
+                  <p className="text-xs truncate md:text-sm opacity-80">
+                    {video.profile?.handle}
+                  </p>
                 </div>
               </div>
             </div>
-            <div className="hidden lg:flex space-x-4 mt-5">
+            <div className="hidden mt-5 space-x-4 lg:flex">
               <Button
                 variant="secondary"
+                size="sm"
                 onClick={() => {
                   cancelPlayNext()
                 }}
@@ -107,6 +104,7 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
                 onClick={() => {
                   playNext()
                 }}
+                size="sm"
               >
                 Play Now
               </Button>
