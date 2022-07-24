@@ -62,12 +62,9 @@ const SuggestedVideos = () => {
     }
   })
 
-  if (loading) {
-    return <SuggestedVideosShimmer />
-  }
-
   return (
     <>
+      {loading && <SuggestedVideosShimmer />}
       {!error && !loading && (
         <div className="pb-3">
           <div className="space-y-3 md:gap-3 md:grid lg:flex lg:gap-0 lg:flex-col md:grid-cols-2">

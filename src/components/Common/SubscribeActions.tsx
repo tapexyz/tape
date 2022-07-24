@@ -17,19 +17,12 @@ const SubscribeActions: FC<Props> = ({ channel, subscribeType }) => {
     setSubscriber(isSubscriber)
   }, [isSubscriber])
 
-  return (
-    <>
-      {subscriber ? (
-        <UnSubscribe
-          channel={channel}
-          onUnSubscribe={() => setSubscriber(false)}
-        />
-      ) : subscribeType === 'FeeFollowModuleSettings' ? (
-        <JoinChannel channel={channel} onJoin={() => setSubscriber(true)} />
-      ) : (
-        <Subscribe channel={channel} onSubscribe={() => setSubscriber(true)} />
-      )}
-    </>
+  return subscriber ? (
+    <UnSubscribe channel={channel} onUnSubscribe={() => setSubscriber(false)} />
+  ) : subscribeType === 'FeeFollowModuleSettings' ? (
+    <JoinChannel channel={channel} onJoin={() => setSubscriber(true)} />
+  ) : (
+    <Subscribe channel={channel} onSubscribe={() => setSubscriber(true)} />
   )
 }
 

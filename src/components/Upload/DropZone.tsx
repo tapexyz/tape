@@ -71,19 +71,17 @@ const DropZone = () => {
             { 'border-green-500': isDragActive }
           )}
         >
-          <>
-            <input {...getInputProps()} accept="video/mp4" />
-            <span className="flex justify-center mb-6 opacity-80">
-              <FiUpload className="text-6xl" />
-            </span>
-            <span className="space-y-10">
-              <div className="text-2xl font-semibold md:text-4xl">
-                Drag and drop <br /> video to upload
-              </div>
-              <Button size="xl">or choose file</Button>
-              <div className="text-sm">(Maximum size 2 GB for now)</div>
-            </span>
-          </>
+          <input {...getInputProps()} accept="video/mp4" />
+          <span className="flex justify-center mb-6 opacity-80">
+            <FiUpload className="text-6xl" />
+          </span>
+          <span className="space-y-10">
+            <div className="text-2xl font-semibold md:text-4xl">
+              Drag and drop <br /> video to upload
+            </div>
+            <Button size="xl">or choose file</Button>
+            <div className="text-sm">(Maximum size 2 GB for now)</div>
+          </span>
         </div>
       </div>
     </div>
