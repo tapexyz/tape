@@ -9,7 +9,7 @@ export default function useDraggableScroll(
 ) {
   if (process.env.NODE_ENV === 'development') {
     if (typeof ref !== 'object' || typeof ref.current === 'undefined') {
-      logger.error('[useDraggableScroll] expects a single ref argument.')
+      logger.error('[useDraggableScroll]', 'Expects a single ref argument.')
     }
   }
 
