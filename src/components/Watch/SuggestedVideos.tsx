@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import logger from '@lib/logger'
+import useAppStore from '@lib/store'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
 import { useRouter } from 'next/router'
@@ -12,10 +13,11 @@ import { LenstubePublication } from 'src/types/local'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
 
-const SuggestedVideos = () => {
+const SuggestedVideos = ({ currentVideoId }: { currentVideoId: string }) => {
   const {
     query: { id }
   } = useRouter()
+  const { setUpNext } = useAppStore()
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { loading, error, fetchMore, refetch } = useQuery(EXPLORE_QUERY, {
@@ -31,6 +33,11 @@ const SuggestedVideos = () => {
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
       setVideos(data?.explorePublications?.items)
+      setUpNext(
+        data?.explorePublications?.items?.find(
+          (video: LenstubePublication) => video.id !== currentVideoId
+        )
+      )
     }
   })
 

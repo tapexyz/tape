@@ -13,12 +13,13 @@ import * as nsfwjs from 'nsfwjs'
 import { APITypes, PlyrInstance, PlyrProps, usePlyr } from 'plyr-react'
 import React, { FC, forwardRef, useEffect, useState } from 'react'
 
+import NextVideo from './NextVideo'
+import PlayerContextMenu from './PlayerContextMenu'
+import SensitiveWarning from './SensitiveWarning'
+
 if (IS_MAINNET) {
   tf.enableProdMode()
 }
-
-import PlayerContextMenu from './PlayerContextMenu'
-import SensitiveWarning from './SensitiveWarning'
 
 interface Props {
   source: string
@@ -37,7 +38,6 @@ interface CustomPlyrProps extends PlyrProps {
 }
 
 export const defaultPlyrControls = [
-  'play-large',
   'play',
   'progress',
   'duration',
@@ -58,7 +58,9 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
     const [position, setPosition] = useState({ x: 0, y: 0 })
     const [isVideoLoop, setIsVideoLoop] = useState(false)
     const { pathname } = useRouter()
-    const { setUploadedVideo, uploadedVideo } = useAppStore()
+    const { setUploadedVideo, uploadedVideo, upNext } = useAppStore()
+    const [showNext, setShowNext] = useState(false)
+    const router = useRouter()
 
     const analyseVideo = async (currentVideo: HTMLVideoElement) => {
       if (currentVideo && !uploadedVideo.isNSFW) {
@@ -90,6 +92,12 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
       const { current } = ref as React.MutableRefObject<APITypes>
       if (current.plyr?.source === null) return
       const api = current as { plyr: PlyrInstance }
+      const currentVideo = document.getElementsByTagName('video')[0]
+
+      api.plyr?.on('play', () => {
+        currentVideo.style.display = 'block'
+        setShowNext(false)
+      })
 
       api.plyr?.on('ready', () => {
         api.plyr.currentTime = Number(time || 0)
@@ -107,8 +115,14 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
       api.plyr.on('loadedmetadata', metaDataLoaded)
 
       // fired when the frame at the current playback
-      const currentVideo = document.getElementsByTagName('video')[0]
       currentVideo.onloadeddata = (e) => onDataLoaded(e, currentVideo)
+
+      api.plyr?.on('ended', () => {
+        if (upNext) {
+          currentVideo.style.display = 'none'
+          setShowNext(true)
+        }
+      })
 
       return () => {
         api.plyr.pip = false
@@ -126,14 +140,34 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
       setShowContextMenu(true)
     }
 
+    const playNext = () => {
+      router.push(`/watch/${upNext?.id}`)
+    }
+
+    const cancelPlayNext = () => {
+      setShowNext(false)
+    }
+
     return (
-      <div onContextMenu={onContextClick}>
+      <div
+        onContextMenu={onContextClick}
+        className={clsx({
+          relative: showNext
+        })}
+      >
         <video
           ref={raptorRef as React.MutableRefObject<HTMLVideoElement>}
           className="plyr-react plyr"
           preload={pathname === UPLOAD ? 'auto' : 'metadata'}
         />
-        {showContextMenu && pathname === '/watch/[id]' && (
+        {showNext && (
+          <NextVideo
+            video={upNext}
+            playNext={playNext}
+            cancelPlayNext={cancelPlayNext}
+          />
+        )}
+        {showContextMenu && pathname === '/watch/[id]' && !showNext && (
           <PlayerContextMenu
             position={position}
             ref={ref}
