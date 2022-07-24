@@ -1,4 +1,5 @@
 # Contributing to Lenstube
+
 We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
 
 - Reporting a bug
@@ -17,9 +18,11 @@ Pull requests are the best way to propose changes to the codebase. We actively w
 Feel free to contact us if any issues.
 
 ## Report bugs
+
 We use GitHub issues to track public bugs. Report a bug by [opening a new issue](); it's that easy!
 
 ## Write bug reports with detail, and background
+
 **Great Bug Reports** tend to have:
 
 - A quick summary and/or background
@@ -28,4 +31,3 @@ We use GitHub issues to track public bugs. Report a bug by [opening a new issue]
 - What you expected would happen
 - What actually happens
 - Additional info if any
-
