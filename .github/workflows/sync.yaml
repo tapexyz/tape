@@ -1,4 +1,4 @@
-name: Sync "testnet" from "main"
+name: Sync Testnet
 
 on:
   workflow_dispatch:
@@ -17,8 +17,8 @@ jobs:
       with:
         source_branch: "main"
         destination_branch: "testnet"
-        pr_title: "Sync `testnet` with `main`"
-        pr_body: "Sync `testnet` with `main`"
+        pr_title: "Sync testnet with main"
+        pr_body: "Sync testnet with main"
         pr_reviewer: "sasicodes"
         pr_label: "sync"
         github_token: ${{ secrets.GITHUB_TOKEN }}
