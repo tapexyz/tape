@@ -32,8 +32,8 @@ const Video = () => {
   const { uploadedVideo } = useAppStore()
   const [, copy] = useCopyToClipboard()
 
-  const onCopyKey = (value: string) => {
-    copy(value)
+  const onCopyKey = async (value: string) => {
+    await copy(value)
     toast.success('Video link copied')
   }
   return (

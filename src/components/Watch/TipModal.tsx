@@ -227,7 +227,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           value: BigNumber.from(utils.parseEther(amountToSend.toString()))
         }
       })
-      submitComment(data.hash)
+      await submitComment(data.hash)
     } catch (error) {
       setLoading(false)
       setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
@@ -293,7 +293,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
               </div>
             )}
           </span>
-          <Button disabled={loading} onClick={() => {}}>
+          <Button disabled={loading}>
             {buttonText
               ? buttonText
               : `Send ${

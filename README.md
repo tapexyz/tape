@@ -11,6 +11,12 @@
     <a href="https://twitter.com/lenstubexyz">
         <img src="https://img.shields.io/twitter/follow/lenstubexyz?label=lenstubexyz&style=flat&logo=twitter&color=1DA1F2" alt="Twitter">
     </a>
+    <a href="https://deepsource.io/gh/sasicodes/lenstube">
+        <img src="https://deepsource.io/gh/sasicodes/lenstube.svg/?label=active+issues&show_trend=true" alt="Deepsource">
+    </a>
+     <a href="https://github.com/sasicodes/lenstube/blob/main/LICENSE">
+        <img src="https://badgen.net/github/license/sasicodes/lenstube" alt="License">
+    </a>
 </div>
 <br>
 

@@ -25,7 +25,6 @@ type Props = {
 type PlayerProps = {
   source: string
   poster: string
-  hls: HLSData
   time?: number
   isSensitiveContent: boolean
 }
@@ -83,7 +82,6 @@ const Video: FC<Props> = ({ video, time }) => {
       <MemoizedVideoPlayer
         source={videoUrl}
         poster={video?.metadata?.cover?.original.url}
-        hls={video.hls}
         time={time}
         isSensitiveContent={isSensitiveContent}
       />

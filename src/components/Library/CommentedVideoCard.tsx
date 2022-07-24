@@ -75,7 +75,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
               />
             </a>
           </Link>
-          <div className="grid grid-col flex-1">
+          <div className="grid flex-1 grid-col">
             <div className="flex w-full items-start justify-between space-x-1.5 min-w-0">
               <Link href={`/watch/${commentedOn.pubId}`}>
                 <a className="font-medium text-[15px] line-clamp-1 opacity-80 break-words">
@@ -91,16 +91,14 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
           </div>
         </div>
         <div className="relative pb-1.5 pt-2 overflow-hidden text-sm opacity-90">
-          <>
-            <div className="absolute left-3 bottom-5 pb-2 inset-0 flex justify-center w-1.5">
-              <div className="w-0.5 bg-gray-300 dark:bg-gray-700 pointer-events-none" />
-            </div>
-            <Tooltip content="Commented">
-              <span className="absolute m-2 bottom-1 opacity-70">
-                <AiOutlineComment />
-              </span>
-            </Tooltip>
-          </>
+          <div className="absolute left-3 bottom-5 pb-2 inset-0 flex justify-center w-1.5">
+            <div className="w-0.5 bg-gray-300 dark:bg-gray-700 pointer-events-none" />
+          </div>
+          <Tooltip content="Commented">
+            <span className="absolute m-2 bottom-1 opacity-70">
+              <AiOutlineComment />
+            </span>
+          </Tooltip>
           <div className="pl-8">
             <div className="text-xs line-clamp-1">
               {video.metadata?.content}

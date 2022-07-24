@@ -40,7 +40,7 @@ const Preview: FC<Props> = ({ stream }) => {
           className="w-full bg-gray-300 dark:bg-gray-700"
           allow="autoplay; encrypted-media; picture-in-picture"
           sandbox="allow-scripts"
-        ></iframe>
+        />
       </div>
       <span
         className={clsx(

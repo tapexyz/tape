@@ -21,7 +21,6 @@ const PublicationReaction = dynamic(() => import('./PublicationReaction'))
 
 interface Props {
   comment: LenstubePublication
-  hideType?: boolean
 }
 
 const Comment: FC<Props> = ({ comment }) => {

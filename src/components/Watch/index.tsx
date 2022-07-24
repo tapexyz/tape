@@ -44,7 +44,7 @@ const VideoDetails = () => {
     skip: !id,
     fetchPolicy: 'no-cache',
     onCompleted(data) {
-      let currentVideo = data?.publication as LenstubePublication
+      const currentVideo = data?.publication as LenstubePublication
       // const playbackId = getPlaybackIdFromUrl(currentVideo)
       // if (playbackId) {
       //   axios
@@ -79,18 +79,16 @@ const VideoDetails = () => {
     <>
       <MetaTags title={video?.metadata?.name ?? 'Watch'} />
       {!loading && !error && video ? (
-        <>
-          <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
-            <div className="col-span-3 space-y-3 divide-y divide-gray-200 dark:divide-gray-900">
-              <Video video={video} time={Number(t)} />
-              <AboutChannel video={video} />
-              <VideoComments video={video} />
-            </div>
-            <div className="col-span-1">
-              <SuggestedVideos />
-            </div>
+        <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
+          <div className="col-span-3 space-y-3 divide-y divide-gray-200 dark:divide-gray-900">
+            <Video video={video} time={Number(t)} />
+            <AboutChannel video={video} />
+            <VideoComments video={video} />
           </div>
-        </>
+          <div className="col-span-1">
+            <SuggestedVideos />
+          </div>
+        </div>
       ) : null}
     </>
   )

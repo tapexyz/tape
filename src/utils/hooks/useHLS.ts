@@ -13,7 +13,9 @@ const useHls = (src: string, options: Options | null) => {
 
   useEffect(() => {
     hls.current.loadSource(src)
-    hls.current.attachMedia(document.querySelector('.plyr-react')!)
+    const player: HTMLVideoElement | null =
+      document.querySelector('.plyr-react')
+    if (player) hls.current.attachMedia(player)
     hls.current.on(Hls.Events.MANIFEST_PARSED, () => {
       if (hasQuality.current) return
 

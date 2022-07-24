@@ -11,8 +11,8 @@ type Props = {
 const StreamDetails: FC<Props> = ({ stream }) => {
   const [, copy] = useCopyToClipboard()
 
-  const onCopyKey = (value: string) => {
-    copy(value)
+  const onCopyKey = async (value: string) => {
+    await copy(value)
     toast.success('Copied to clipboard')
   }
 

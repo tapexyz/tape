@@ -18,7 +18,7 @@ const usePendingTxn = (txHash: string, isPublication?: boolean) => {
   )
 
   useEffect(() => {
-    const checkIsIndexed = async () => {
+    const checkIsIndexed = () => {
       if (data?.hasTxHashBeenIndexed?.indexed || data?.publication?.id) {
         stopPolling()
         if (isPublication && data?.publication?.id)

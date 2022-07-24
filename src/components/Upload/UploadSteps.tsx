@@ -134,7 +134,7 @@ const UploadSteps = () => {
   }
 
   const uploadToBundlr = async () => {
-    if (!bundlrData.instance) return initBundlr()
+    if (!bundlrData.instance) return await initBundlr()
     if (!uploadedVideo.buffer)
       return toast.error('Video not uploaded correctly.')
     if (parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice))
@@ -262,13 +262,13 @@ const UploadSteps = () => {
       buttonText: 'Storing metadata...',
       loading: true
     })
-    let media = [
+    const media = [
       {
         item: uploadedVideo.videoSource,
         type: uploadedVideo.videoType
       }
     ]
-    let attributes = [
+    const attributes = [
       {
         displayType: 'string',
         traitType: 'publication',
@@ -344,7 +344,7 @@ const UploadSteps = () => {
     })
   }
 
-  const onUpload = () => {
+  const onUpload = async () => {
     if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail)
       return toast.error('NSFW content not allowed')
     if (uploadedVideo.videoSource) return createPublication()
@@ -354,7 +354,7 @@ const UploadSteps = () => {
         uploadedVideo.isUploadToIpfs
       ) {
         return uploadToIpfsWithProgress()
-      } else uploadToBundlr()
+      } else await uploadToBundlr()
     }
   }
 

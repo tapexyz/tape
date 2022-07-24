@@ -12,15 +12,15 @@ import { FiUpload } from 'react-icons/fi'
 const DropZone = () => {
   const { setUploadedVideo } = useAppStore()
 
-  const uploadVideo = async (files: File[]) => {
+  const uploadVideo = (files: File[]) => {
     try {
       const file = files[0]
       if (file) {
         const preview = URL.createObjectURL(file)
-        let reader = new FileReader()
+        const reader = new FileReader()
         reader.onload = function () {
           if (reader.result) {
-            let buffer = Buffer.from(reader.result as string)
+            const buffer = Buffer.from(reader.result as string)
             setUploadedVideo({
               buffer,
               preview,
@@ -71,19 +71,17 @@ const DropZone = () => {
             { 'border-green-500': isDragActive }
           )}
         >
-          <>
-            <input {...getInputProps()} accept="video/mp4" />
-            <span className="flex justify-center mb-6 opacity-80">
-              <FiUpload className="text-6xl" />
-            </span>
-            <span className="space-y-10">
-              <div className="text-2xl font-semibold md:text-4xl">
-                Drag and drop <br /> video to upload
-              </div>
-              <Button size="xl">or choose file</Button>
-              <div className="text-sm">(Maximum size 2 GB for now)</div>
-            </span>
-          </>
+          <input {...getInputProps()} accept="video/mp4" />
+          <span className="flex justify-center mb-6 opacity-80">
+            <FiUpload className="text-6xl" />
+          </span>
+          <span className="space-y-10">
+            <div className="text-2xl font-semibold md:text-4xl">
+              Drag and drop <br /> video to upload
+            </div>
+            <Button size="xl">or choose file</Button>
+            <div className="text-sm">(Maximum size 2 GB for now)</div>
+          </span>
         </div>
       </div>
     </div>
