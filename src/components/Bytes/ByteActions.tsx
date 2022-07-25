@@ -31,6 +31,9 @@ const ByteActions: FC<Props> = ({ video }) => {
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
           <div className="hidden md:block">
             <MintVideo video={video} variant="secondary" />
+            <div className="text-xs text-center">
+              {video.stats?.totalAmountOfCollects}
+            </div>
           </div>
         )}
       </div>
