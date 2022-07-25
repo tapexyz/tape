@@ -2,20 +2,26 @@ import { useQuery } from '@apollo/client'
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import logger from '@lib/logger'
+import useAppStore from '@lib/store'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PaginatedResultInfo } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
 
-const SuggestedVideos = () => {
+type Props = {
+  currentVideoId: string
+}
+
+const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
   const {
     query: { id }
   } = useRouter()
+  const { setUpNextVideo } = useAppStore()
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { loading, error, fetchMore, refetch } = useQuery(EXPLORE_QUERY, {
@@ -31,6 +37,11 @@ const SuggestedVideos = () => {
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
       setVideos(data?.explorePublications?.items)
+      setUpNextVideo(
+        data?.explorePublications?.items?.find(
+          (video: LenstubePublication) => video.id !== currentVideoId
+        )
+      )
     }
   })
 
@@ -69,9 +80,12 @@ const SuggestedVideos = () => {
         <div className="pb-3">
           <div className="space-y-3 md:gap-3 md:grid lg:flex lg:gap-0 lg:flex-col md:grid-cols-2">
             {videos?.map(
-              (video: LenstubePublication, index: number) =>
+              (video: LenstubePublication) =>
                 !video.hidden && (
-                  <SuggestedVideoCard video={video} key={index} />
+                  <SuggestedVideoCard
+                    video={video}
+                    key={`${video?.id}_${video.createdAt}`}
+                  />
                 )
             )}
           </div>

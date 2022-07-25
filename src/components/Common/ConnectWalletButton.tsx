@@ -60,7 +60,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
         onClose={() => setShowModal(false)}
         show={showModal}
       >
-        <div className="inline-block w-full mt-4 space-y-3 overflow-hidden text-left align-middle transition-all transform">
+        <div className="inline-block w-full mt-2 space-y-3 overflow-hidden text-left align-middle transition-all transform">
           {connector && (
             <div className="w-full p-4 space-y-2 border border-gray-300 rounded-lg dark:border-gray-600">
               <div className="flex items-center justify-between">
@@ -75,11 +75,11 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
             </div>
           )}
           <div className="grid grid-cols-3 gap-3">
-            {connectors.map((wallet, i) => {
+            {connectors.map((wallet) => {
               return (
                 getWalletInfo(wallet.id, wallet.name) && (
                   <button
-                    key={i}
+                    key={wallet.id}
                     className={clsx(
                       'w-full relative flex space-y-3 items-center flex-col rounded-lg p-4 dark:bg-gray-900 bg-gray-100',
                       {

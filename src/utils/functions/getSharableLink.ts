@@ -19,7 +19,7 @@ export const getSharableLink = (link: string, video: LenstubePublication) => {
   if (link === 'linkedin') {
     return `https://www.linkedin.com/shareArticle/?url=${getVideoUrl(
       video
-    )}&title=${video.metadata?.name}&summary=${
+    )}&title=${video.metadata?.name as string}&summary=${
       video.metadata?.description as string
     }&source=Lenstube`
   }

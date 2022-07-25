@@ -7,8 +7,8 @@ type Props = {
 const ImageAttachments: FC<Props> = ({ attachments }) => {
   return (
     <div className="flex flex-wrap items-center space-x-2">
-      {attachments.map((attachment, idx) => (
-        <span key={idx}>
+      {attachments.map((attachment) => (
+        <span key={`${attachment.original}_key`}>
           <img
             src={attachment.original?.url}
             alt="attachment"

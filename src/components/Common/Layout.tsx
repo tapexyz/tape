@@ -5,7 +5,8 @@ import { AUTH_ROUTES, POLYGON_CHAIN_ID } from '@utils/constants'
 import { getToastOptions } from '@utils/functions/getToastOptions'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
-import { AUTH } from '@utils/url-path'
+import { AUTH, BYTES } from '@utils/url-path'
+import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -130,7 +131,14 @@ const Layout: FC<Props> = ({ children }) => {
         <div className="flex pb-10 md:pb-0">
           <Sidebar />
           <div className="w-full md:pl-[94px] pl-2 pr-2 md:pr-4 max-w-[110rem] mx-auto">
-            {!NO_HEADER_PATHS.includes(pathname) && <Header />}
+            <div
+              className={clsx({
+                'hidden md:block':
+                  pathname === BYTES || pathname === '/bytes/[id]'
+              })}
+            >
+              {!NO_HEADER_PATHS.includes(pathname) && <Header />}
+            </div>
             <div className="py-2">{children}</div>
           </div>
         </div>

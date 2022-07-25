@@ -10,6 +10,7 @@ import {
 import { FetchSignerResult } from '@wagmi/core'
 import { Profile } from 'src/types'
 import { BundlrDataState, UploadedVideo } from 'src/types/local'
+import { LenstubePublication } from 'src/types/local'
 import create from 'zustand'
 
 export const UPLOADED_VIDEO_FORM_DEFAULTS = {
@@ -60,6 +61,8 @@ interface AppState {
   hasNewNotification: boolean
   userSigNonce: number
   uploadedVideo: UploadedVideo
+  upNextVideo: LenstubePublication | null
+  setUpNextVideo: (upNextVideo: LenstubePublication) => void
   setUploadedVideo: (video: { [k: string]: any }) => void
   setUserSigNonce: (userSigNonce: number) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
@@ -79,6 +82,8 @@ export const useAppStore = create<AppState>((set) => ({
   userSigNonce: 0,
   uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
   bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
+  upNextVideo: null,
+  setUpNextVideo: (upNextVideo) => set(() => ({ upNextVideo })),
   setBundlrData: (bundlrData) =>
     set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrData } })),
   setUploadedVideo: (videoData) =>

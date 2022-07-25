@@ -86,7 +86,7 @@ const VideoDetails = () => {
             <VideoComments video={video} />
           </div>
           <div className="col-span-1">
-            <SuggestedVideos />
+            <SuggestedVideos currentVideoId={video?.id} />
           </div>
         </div>
       ) : null}

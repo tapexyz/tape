@@ -21,11 +21,11 @@ const AboutChannel: FC<Props> = ({ video }) => {
   const [showMore, setShowMore] = useState(false)
 
   useEffect(() => {
-    if (video.metadata.description.trim().length > 400) {
+    if (video.metadata?.description?.trim().length > 400) {
       setClamped(true)
       setShowMore(true)
     }
-  }, [video.metadata.description])
+  }, [video.metadata?.description])
 
   return (
     <div>
@@ -59,7 +59,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
               />
             </div>
           </div>
-          {video.metadata.description && (
+          {video.metadata?.description && (
             <p
               className={clsx('mt-2 text-sm opacity-80', {
                 'line-clamp-3': clamped,

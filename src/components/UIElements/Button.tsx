@@ -64,14 +64,14 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
         )}
       />
       <span
-        className={clsx(
-          'absolute inset-0 w-full h-full rounded-lg md:rounded-xl',
-          {
-            'bg-indigo-500 border border-indigo-500': variant === 'primary',
-            'bg-transparent': variant === 'secondary',
-            'bg-red-500 border border-red-500': variant === 'danger'
-          }
-        )}
+        className={clsx('absolute inset-0 w-full h-full rounded-lg', {
+          'bg-indigo-500 border border-indigo-500 md:rounded-xl':
+            variant === 'primary',
+          'bg-transparent md:rounded-xl': variant === 'secondary',
+          'bg-red-500 border border-red-500 md:rounded-xl':
+            variant === 'danger',
+          'md:rounded-lg': size === 'sm'
+        })}
       />
       <span
         className={clsx('relative flex items-center justify-center space-x-2', {

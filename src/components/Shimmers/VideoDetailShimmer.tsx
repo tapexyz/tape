@@ -9,8 +9,8 @@ export const SuggestedVideosShimmer = () => {
 
   return (
     <div className="col-span-1 space-y-2">
-      {cards.map((i, idx) => (
-        <SuggestedShimmer key={`${i}_${idx}`} />
+      {cards.map((i) => (
+        <SuggestedShimmer key={i} />
       ))}
     </div>
   )

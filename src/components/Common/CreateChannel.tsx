@@ -28,7 +28,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>
 
 export const ClaimHandle = () => (
-  <div className="mt-4">
+  <div className="mt-2">
     <span className="text-sm opacity-70">
       Your address does not seem to have Lens handle.
     </span>
@@ -112,7 +112,7 @@ const CreateChannel = () => {
       ) : (
         <form onSubmit={handleSubmit(onCreate)} className="space-y-4">
           <h6 className="text-sm opacity-70">Your new Lenstube channel</h6>
-          <div className="mt-4">
+          <div className="mt-2">
             <Input
               {...register('channelName')}
               label="Channel Name"

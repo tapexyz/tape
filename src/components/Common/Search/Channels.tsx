@@ -49,7 +49,7 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
         </div>
       ))}
       {!results?.length && !loading && (
-        <div className="relative px-4 text-center py-2.5 cursor-default select-none">
+        <div className="relative p-5 text-center cursor-default select-none">
           No results found.
         </div>
       )}
