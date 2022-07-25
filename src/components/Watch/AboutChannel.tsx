@@ -21,7 +21,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
   const [showMore, setShowMore] = useState(false)
 
   useEffect(() => {
-    if (video.metadata.description.trim().length > 400) {
+    if (video.metadata?.description?.trim().length > 400) {
       setClamped(true)
       setShowMore(true)
     }
