@@ -1,6 +1,4 @@
-import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import { getVideoUrl } from '@utils/functions/getVideoUrl'
-import imageCdn from '@utils/functions/imageCdn'
 import { useRouter } from 'next/router'
 import React, { FC, useRef, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -53,7 +51,6 @@ const ByteVideo: FC<Props> = ({ video }) => {
           ref={videoRef}
           disableRemotePlayback
           width="345"
-          poster={imageCdn(getThumbnailUrl(video), 'thumbnail_v')}
           className="md:rounded-xl min-w-[250px] w-[345px] 2xl:w-[450px] h-[78vh] bg-black md:h-[calc(100vh-9em)]"
           loop
         >
