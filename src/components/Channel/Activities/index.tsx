@@ -5,6 +5,7 @@ import { FC } from 'react'
 import { Profile } from 'src/types'
 
 import ChannelBytes from './ChannelBytes'
+import CollectedNFTs from './CollectedNFTs'
 import MirroredVideos from './MirroredVideos'
 
 const About = dynamic(() => import('./About'))
@@ -94,6 +95,18 @@ const Activity: FC<Props> = ({ channel }) => {
             >
               About
             </Tab>
+            <Tab
+              className={({ selected }) =>
+                clsx(
+                  'px-4 py-2 border-b-2 text-sm focus:outline-none',
+                  selected
+                    ? 'border-indigo-900 opacity-100'
+                    : 'border-transparent opacity-50'
+                )
+              }
+            >
+              NFTs
+            </Tab>
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel className="py-3 focus:outline-none">
@@ -113,6 +126,9 @@ const Activity: FC<Props> = ({ channel }) => {
             </Tab.Panel>
             <Tab.Panel className="py-3 focus:outline-none">
               <About channel={channel} />
+            </Tab.Panel>
+            <Tab.Panel className="py-3 focus:outline-none">
+              <CollectedNFTs channel={channel} />
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
