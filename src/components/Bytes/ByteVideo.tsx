@@ -35,12 +35,16 @@ const ByteVideo: FC<Props> = ({ video }) => {
   }, [])
 
   const onClickVideo = () => {
-    if (videoRef.current?.paused) {
-      videoRef.current?.play()
-      setIsPlaying(true)
-    } else {
-      videoRef.current?.pause()
-      setIsPlaying(false)
+    try {
+      if (videoRef.current?.paused) {
+        videoRef.current?.play()
+        setIsPlaying(true)
+      } else {
+        videoRef.current?.pause()
+        setIsPlaying(false)
+      }
+    } catch (error) {
+      logger.error('[Error Play Byte]', error)
     }
   }
 
