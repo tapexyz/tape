@@ -1,6 +1,7 @@
 import { useLazyQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { Tab } from '@headlessui/react'
+import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { SEARCH_CHANNELS_QUERY, SEARCH_VIDEOS_QUERY } from '@utils/gql/queries'
 import useDebounce from '@utils/hooks/useDebounce'
 import useOutsideClick from '@utils/hooks/useOutsideClick'
@@ -27,7 +28,12 @@ export default function GlobalSearchBar() {
     if (keyword.trim().length)
       searchChannels({
         variables: {
-          request: { type: activeSearch, query: keyword, limit: 10 }
+          request: {
+            type: activeSearch,
+            query: keyword,
+            limit: 10,
+            sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+          }
         }
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
