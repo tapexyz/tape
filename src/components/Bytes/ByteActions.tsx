@@ -12,15 +12,15 @@ const ByteActions: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
 
   return (
-    <div className="flex flex-col justify-between w-12">
-      <div className="items-center hidden py-2 space-y-4 md:flex md:flex-col">
+    <div className="flex-col justify-between hidden w-12 md:flex">
+      <div className="flex items-center py-2 space-y-4 md:flex-col">
         <VideoOptions
           video={video}
           setShowShare={setShowShare}
           showOnHover={false}
         />
       </div>
-      <div className="items-center hidden py-3 space-y-2 md:flex md:flex-col">
+      <div className="flex items-center py-3 space-y-2 md:flex-col">
         <PublicationReaction
           publication={video}
           iconSize="2xl"
