@@ -15,7 +15,10 @@ type Props = {
 
 const About: FC<Props> = ({ channel }) => {
   const attributes = channel?.attributes as Attribute[]
-  const ensName = channel.onChainIdentity?.ens?.name
+  const hasOnChainId =
+    channel.onChainIdentity?.ens ||
+    channel.onChainIdentity?.proofOfHumanity ||
+    channel.onChainIdentity?.sybilDotOrg
 
   return (
     <div className="space-y-4 md:pr-4 md:space-y-6">
@@ -27,13 +30,13 @@ const About: FC<Props> = ({ channel }) => {
           <p>{channel?.bio}</p>
         </div>
       )}
-      {channel?.bio && (
+      {hasOnChainId && (
         <div className="flex flex-col space-y-3">
           <h6 className="text-xs font-semibold uppercase opacity-70">
             On-chain Identity
           </h6>
           <div className="space-y-1.5">
-            {ensName && (
+            {channel.onChainIdentity?.ens?.name && (
               <div className="flex items-center space-x-1">
                 <span className="pr-0.5" role="img">
                   <img
@@ -43,7 +46,7 @@ const About: FC<Props> = ({ channel }) => {
                     draggable={false}
                   />
                 </span>
-                <span>{ensName}</span>
+                <span>{channel.onChainIdentity?.ens?.name}</span>
               </div>
             )}
             {channel?.onChainIdentity?.sybilDotOrg.verified && (
