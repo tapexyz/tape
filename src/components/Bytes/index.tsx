@@ -21,7 +21,7 @@ const Bytes = () => {
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
-        sortCriteria: 'TOP_COLLECTED',
+        sortCriteria: 'LATEST',
         limit: 5,
         noRandomize: false,
         sources: [LENSTUBE_BYTES_APP_ID],
@@ -31,7 +31,6 @@ const Bytes = () => {
         ? { profileId: selectedChannel?.id }
         : null
     },
-    fetchPolicy: 'no-cache',
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
       setBytes(data?.explorePublications?.items)
@@ -45,7 +44,7 @@ const Bytes = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              sortCriteria: 'TOP_COLLECTED',
+              sortCriteria: 'LATEST',
               cursor: pageInfo?.next,
               limit: 10,
               noRandomize: false,

@@ -50,9 +50,9 @@
     "react-icons": "^4.4.0",
     "ua-parser-js": "^1.0.2",
     "uuid": "^8.3.2",
-    "wagmi": "^0.5.11",
+    "wagmi": "^0.5.12",
     "zod": "^3.17.10",
-    "zustand": "^4.0.0-rc.4"
+    "zustand": "^4.0.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.9.1",
@@ -63,7 +63,7 @@
     "@types/react-dom": "18.0.6",
     "@types/ua-parser-js": "^0.7.36",
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
     "autoprefixer": "^10.4.7",
     "eslint": "8.20.0",
     "eslint-config-next": "12.2.3",
