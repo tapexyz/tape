@@ -16,9 +16,9 @@ type Props = {
 const About: FC<Props> = ({ channel }) => {
   const attributes = channel?.attributes as Attribute[]
   const hasOnChainId =
-    channel.onChainIdentity?.ens ||
+    channel.onChainIdentity?.ens?.name ||
     channel.onChainIdentity?.proofOfHumanity ||
-    channel.onChainIdentity?.sybilDotOrg
+    channel.onChainIdentity?.sybilDotOrg.verified
 
   return (
     <div className="space-y-4 md:pr-4 md:space-y-6">
