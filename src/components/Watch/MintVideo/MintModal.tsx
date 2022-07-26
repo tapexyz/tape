@@ -46,7 +46,7 @@ const MintModal: FC<Props> = ({
   })
   const collectModule: LenstubeCollectModule = data?.publication?.collectModule
 
-  const { data: balanceData } = useBalance({
+  const { data: balanceData, isLoading: balanceLoading } = useBalance({
     addressOrName: selectedChannel?.ownedBy || address,
     token: collectModule?.amount?.asset?.address,
     formatUnits: collectModule?.amount?.asset?.decimals,
@@ -147,6 +147,10 @@ const MintModal: FC<Props> = ({
                         can mint this publication
                       </div>
                     </Alert>
+                  </div>
+                ) : balanceLoading ? (
+                  <div className="flex justify-center w-full py-2">
+                    <Loader />
                   </div>
                 ) : haveEnoughBalance ? (
                   <Button disabled={minting} onClick={() => handleMint(false)}>
