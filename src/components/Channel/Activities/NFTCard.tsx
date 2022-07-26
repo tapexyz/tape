@@ -1,4 +1,5 @@
 import { IS_MAINNET, NFT_MARKETPLACE_URL } from '@utils/constants'
+import imageCdn from '@utils/functions/imageCdn'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import { Nft } from 'src/types'
@@ -11,20 +12,14 @@ const NFTCard: FC<Props> = ({ nft }) => {
   return (
     <div className="bg-gray-50 rounded-xl dark:bg-[#181818] group">
       <div className="h-48">
-        {nft.originalContent?.animatedUrl ? (
-          <iframe
-            src={nft.originalContent.animatedUrl}
-            className="w-full h-full rounded-t-xl"
-            sandbox="allow-scripts"
-            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-          />
-        ) : (
-          <img
-            className="w-full h-full"
-            src={nft.originalContent?.uri || nft.contentURI}
-            alt="nft"
-          />
-        )}
+        <img
+          className="w-full h-full rounded-t-xl"
+          src={imageCdn(
+            nft.originalContent?.uri || nft.contentURI,
+            'thumbnail'
+          )}
+          alt="nft"
+        />
       </div>
       <Link
         href={`${NFT_MARKETPLACE_URL}/assets/${
