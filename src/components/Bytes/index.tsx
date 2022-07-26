@@ -31,6 +31,7 @@ const Bytes = () => {
         ? { profileId: selectedChannel?.id }
         : null
     },
+    fetchPolicy: 'no-cache',
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
       setBytes(data?.explorePublications?.items)

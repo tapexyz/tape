@@ -15,6 +15,7 @@ import logger from './logger'
 
 const httpLink = new HttpLink({
   uri: API_URL,
+  fetchOptions: 'no-cors',
   fetch
 })
 

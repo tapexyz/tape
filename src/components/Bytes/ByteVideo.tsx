@@ -1,6 +1,8 @@
-import { getVideoUrl } from '@utils/functions/getVideoUrl'
+import logger from '@lib/logger'
+import { getPermanentVideoUrl, getVideoUrl } from '@utils/functions/getVideoUrl'
+import axios from 'axios'
 import { useRouter } from 'next/router'
-import React, { FC, useRef, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { LenstubePublication } from 'src/types/local'
 
@@ -16,14 +18,33 @@ const ByteVideo: FC<Props> = ({ video }) => {
   const router = useRouter()
   const [playing, setIsPlaying] = useState(true)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
+
+  const checkVideoResource = async () => {
+    try {
+      await axios.get(videoUrl)
+    } catch (error) {
+      setVideoUrl(getPermanentVideoUrl(video))
+      logger.error('[Error Invalid Byte Playback]', error)
+    }
+  }
+
+  useEffect(() => {
+    checkVideoResource()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const onClickVideo = () => {
-    if (videoRef.current?.paused) {
-      videoRef.current?.play()
-      setIsPlaying(true)
-    } else {
-      videoRef.current?.pause()
-      setIsPlaying(false)
+    try {
+      if (videoRef.current?.paused) {
+        videoRef.current?.play()
+        setIsPlaying(true)
+      } else {
+        videoRef.current?.pause()
+        setIsPlaying(false)
+      }
+    } catch (error) {
+      logger.error('[Error Play Byte]', error)
     }
   }
 
@@ -54,7 +75,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
           className="md:rounded-xl min-w-[250px] w-[345px] 2xl:w-[450px] h-[88vh] bg-black md:h-[calc(100vh-9em)]"
           loop
         >
-          <source src={getVideoUrl(video)} type="video/mp4" />
+          <source src={videoUrl} type="video/mp4" />
         </video>
         <TopOverlay playing={playing} onClickPlayPause={onClickVideo} />
         <BottomOverlay video={video} />
