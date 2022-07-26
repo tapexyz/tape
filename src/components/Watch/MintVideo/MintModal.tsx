@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client'
 import Alert from '@components/Common/Alert'
+import { AddressExplorerLink } from '@components/Common/ExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
@@ -114,9 +115,11 @@ const MintModal: FC<Props> = ({
             {collectModule?.recipient ? (
               <div className="flex flex-col mb-3">
                 <span className="mb-0.5 text-sm">Recipient</span>
-                <span className="text-lg">
-                  {shortenAddress(collectModule?.recipient)}
-                </span>
+                <AddressExplorerLink address={collectModule?.recipient}>
+                  <span className="text-lg">
+                    {shortenAddress(collectModule?.recipient)}
+                  </span>
+                </AddressExplorerLink>
               </div>
             ) : null}
             {collectModule?.endTimestamp ? (
