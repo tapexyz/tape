@@ -5,7 +5,7 @@ export const getWalletInfo = (id: string, name: string) => {
     case 'injected':
       if (name === 'MetaMask')
         return {
-          logo: `${STATIC_ASSETS}/images/metamask.svg`,
+          logo: `${STATIC_ASSETS}/images/metamask.png`,
           label: 'MetaMask'
         }
       if (name === 'Brave Wallet')
