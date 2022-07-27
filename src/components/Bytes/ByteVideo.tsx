@@ -1,7 +1,6 @@
 import logger from '@lib/logger'
 import { getPermanentVideoUrl, getVideoUrl } from '@utils/functions/getVideoUrl'
 import axios from 'axios'
-import { useRouter } from 'next/router'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { LenstubePublication } from 'src/types/local'
@@ -15,7 +14,6 @@ type Props = {
 }
 
 const ByteVideo: FC<Props> = ({ video }) => {
-  const router = useRouter()
   const [playing, setIsPlaying] = useState(true)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
@@ -53,13 +51,11 @@ const ByteVideo: FC<Props> = ({ video }) => {
     onLeave: () => {
       videoRef.current?.pause()
       setIsPlaying(false)
-      router.push(`/bytes/${video.id}`, undefined, { shallow: true })
     },
     onEnter: () => {
       videoRef.current?.load()
       videoRef.current?.play()
       setIsPlaying(true)
-      router.push(`/bytes/${video.id}`, undefined, { shallow: true })
     }
   })
 
