@@ -38,7 +38,11 @@ const BottomOverlay: FC<Props> = ({ video }) => {
         </div>
         <div className="flex items-center space-x-2">
           {video?.collectModule?.__typename !==
-            'RevertCollectModuleSettings' && <MintVideo video={video} />}
+            'RevertCollectModuleSettings' && (
+            <div className="md:hidden">
+              <MintVideo video={video} />
+            </div>
+          )}
           <SubscribeActions
             channel={video.profile}
             subscribeType={subscribeType}

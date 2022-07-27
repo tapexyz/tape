@@ -29,12 +29,12 @@ const ByteActions: FC<Props> = ({ video }) => {
           showLabel
         />
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
-          <>
+          <div>
             <MintVideo video={video} variant="secondary" />
             <div className="text-xs text-center">
-              {video.stats?.totalAmountOfCollects}
+              {video.stats?.totalAmountOfCollects || 'Mint'}
             </div>
-          </>
+          </div>
         )}
       </div>
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
