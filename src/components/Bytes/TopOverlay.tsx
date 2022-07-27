@@ -16,8 +16,10 @@ const TopOverlay: FC<Props> = ({ onClickPlayPause, playing }) => {
     >
       <div className="flex items-center justify-between">
         <div className="p-3 md:hidden">
-          <Link passHref href={HOME}>
-            <BsArrowLeft className="text-2xl text-white" />
+          <Link href={HOME}>
+            <a>
+              <BsArrowLeft className="text-2xl text-white" />
+            </a>
           </Link>
         </div>
         <div className="hidden p-3 group-hover:block">
