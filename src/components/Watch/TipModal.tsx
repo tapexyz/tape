@@ -80,9 +80,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   }
 
   const { config: prepareTxn } = usePrepareSendTransaction({
-    request: {
-      to: video.profile?.ownedBy
-    }
+    request: {}
   })
   const { sendTransactionAsync } = useSendTransaction({
     ...prepareTxn,
