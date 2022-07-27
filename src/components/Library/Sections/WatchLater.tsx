@@ -30,9 +30,7 @@ const WatchLater = () => {
           </a>
         </Link>
       </div>
-      {!videos.length && (
-        <NoDataFound withImage isCenter text="This list has no videos." />
-      )}
+      {!videos.length && <NoDataFound text="This list has no videos." />}
       <div className="grid gap-x-4 lg:grid-cols-4 gap-y-1 md:gap-y-6 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
         {videos.map((video: LenstubePublication) => (
           <VideoCard key={`${video.id}_${video.createdAt}`} video={video} />
