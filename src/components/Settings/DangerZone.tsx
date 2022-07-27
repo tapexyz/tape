@@ -15,6 +15,7 @@ import Custom404 from 'src/pages/404'
 import { CreateBurnProfileBroadcastItemResult } from 'src/types'
 import {
   useContractWrite,
+  usePrepareContractWrite,
   useSignTypedData,
   useWaitForTransaction
 } from 'wagmi'
@@ -35,10 +36,13 @@ const DangerZone = () => {
     toast.error(error?.data?.message ?? error?.message)
   }
 
-  const { write: writeDeleteProfile } = useContractWrite({
+  const { config: prepareBurn } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
-    functionName: 'burnWithSig',
+    functionName: 'burnWithSig'
+  })
+  const { write: writeDeleteProfile } = useContractWrite({
+    ...prepareBurn,
     onError,
     onSuccess(data) {
       setTxnHash(data.hash)
@@ -74,7 +78,7 @@ const DangerZone = () => {
           const { tokenId } = typedData?.value
           const { v, r, s } = utils.splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
-          writeDeleteProfile({ args: [tokenId, sig] })
+          writeDeleteProfile?.({ recklesslySetUnpreparedArgs: [tokenId, sig] })
         } catch (error) {
           setLoading(false)
           logger.error('[Error Delete Channel]', error)

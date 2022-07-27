@@ -19,7 +19,12 @@ import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { CreateFollowBroadcastItemResult, Profile } from 'src/types'
-import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useSigner,
+  useSignTypedData
+} from 'wagmi'
 
 type Props = {
   channel: Profile
@@ -42,10 +47,13 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onError
   })
   const { data: signer } = useSigner({ onError })
-  const { write: writeSubscribe, data: writeData } = useContractWrite({
+  const { config: prepareSubscribe } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
-    functionName: 'followWithSig',
+    functionName: 'followWithSig'
+  })
+  const { write: writeSubscribe, data: writeData } = useContractWrite({
+    ...prepareSubscribe,
     onSuccess(data) {
       setButtonText('Subscribing...')
       showToast(data.hash)
@@ -104,10 +112,11 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason) writeSubscribe({ args })
+          if (data?.broadcast?.reason)
+            writeSubscribe?.({ recklesslySetUnpreparedArgs: args })
         } else {
-          writeSubscribe({
-            args
+          writeSubscribe?.({
+            recklesslySetUnpreparedArgs: args
           })
         }
       } catch (error) {

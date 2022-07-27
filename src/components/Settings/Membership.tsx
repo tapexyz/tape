@@ -31,7 +31,11 @@ import {
   FeeFollowModuleSettings,
   Profile
 } from 'src/types'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useSignTypedData
+} from 'wagmi'
 import { z } from 'zod'
 
 type Props = {
@@ -97,10 +101,13 @@ const Membership = ({ channel }: Props) => {
     }
   })
 
-  const { data: writtenData, write: writeFollow } = useContractWrite({
+  const { config: prepareSetFollow } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
-    functionName: 'setFollowModuleWithSig',
+    functionName: 'setFollowModuleWithSig'
+  })
+  const { data: writtenData, write: writeFollow } = useContractWrite({
+    ...prepareSetFollow,
     onError(error: any) {
       setLoading(false)
       toast.error(error?.data?.message ?? error?.message)
@@ -144,9 +151,10 @@ const Membership = ({ channel }: Props) => {
             const { data } = await broadcast({
               variables: { request: { id, signature } }
             })
-            if (data?.broadcast?.reason) writeFollow({ args })
+            if (data?.broadcast?.reason)
+              writeFollow?.({ recklesslySetUnpreparedArgs: args })
           } else {
-            writeFollow({ args })
+            writeFollow?.({ recklesslySetUnpreparedArgs: args })
           }
         } catch (error) {
           setLoading(false)
