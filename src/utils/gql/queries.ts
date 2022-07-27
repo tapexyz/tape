@@ -1336,3 +1336,29 @@ export const CHANNEL_SUBSCRIBERS_QUERY = gql`
   }
   ${MinimalProfileFields}
 `
+export const COLLECTED_NFTS_QUERY = gql`
+  query Nfts($request: NFTsRequest!) {
+    nfts(request: $request) {
+      items {
+        contractName
+        contractAddress
+        tokenId
+        name
+        description
+        contentURI
+        originalContent {
+          animatedUrl
+          uri
+          metaType
+        }
+        chainId
+        collectionName
+        ercType
+      }
+      pageInfo {
+        next
+        totalCount
+      }
+    }
+  }
+`
