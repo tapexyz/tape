@@ -5,6 +5,7 @@ import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import { POLYGON_CHAIN_ID } from '@utils/constants'
 import { getWalletInfo } from '@utils/functions/getWalletInfo'
+import imageCdn from '@utils/functions/imageCdn'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import clsx from 'clsx'
 import React, { useState } from 'react'
@@ -96,7 +97,10 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
                   >
                     <div className="flex items-center">
                       <img
-                        src={getWalletInfo(wallet.id, wallet.name)?.logo}
+                        src={imageCdn(
+                          getWalletInfo(wallet.id, wallet.name)?.logo as string,
+                          'avatar'
+                        )}
                         className="rounded-md w-7 h-7"
                         draggable={false}
                         alt="icon"

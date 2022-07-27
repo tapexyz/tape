@@ -27,6 +27,9 @@ export const POLYGON_RPC_URL = IS_MAINNET
   : `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`
 export const IPFS_HTTP_API = 'https://ipfs.infura.io:5001/api/v0/add'
 
+export const NFT_MARKETPLACE_URL = IS_MAINNET
+  ? 'https://opensea.io'
+  : 'https://testnets.opensea.io'
 // Bundlr
 export const BUNDLR_NODE_URL = IS_MAINNET
   ? 'https://node1.bundlr.network'
