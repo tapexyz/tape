@@ -2,10 +2,11 @@ import { useQuery } from '@apollo/client'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { AUTH_ROUTES, POLYGON_CHAIN_ID } from '@utils/constants'
+import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
 import { getToastOptions } from '@utils/functions/getToastOptions'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
-import { AUTH, BYTES } from '@utils/url-path'
+import { AUTH } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
@@ -128,18 +129,35 @@ const Layout: FC<Props> = ({ children }) => {
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <Suspense fallback={<FullPageLoader />}>
-        <div className="flex pb-10 md:pb-0">
+        <div
+          className={clsx('flex pb-10 md:pb-0', {
+            '!pb-0': getShowFullScreen(pathname)
+          })}
+        >
           <Sidebar />
-          <div className="w-full md:pl-[94px] pl-2 pr-2 md:pr-4 max-w-[110rem] mx-auto">
+          <div
+            className={clsx(
+              'w-full md:pl-[94px] md:pr-4 max-w-[110rem] mx-auto',
+              {
+                'px-0': getShowFullScreen(pathname),
+                'pl-2 pr-2': !getShowFullScreen(pathname)
+              }
+            )}
+          >
             <div
               className={clsx({
-                'hidden md:block':
-                  pathname === BYTES || pathname === '/bytes/[id]'
+                'hidden md:block': getShowFullScreen(pathname)
               })}
             >
               {!NO_HEADER_PATHS.includes(pathname) && <Header />}
             </div>
-            <div className="py-2">{children}</div>
+            <div
+              className={clsx('py-2', {
+                '!p-0': getShowFullScreen(pathname)
+              })}
+            >
+              {children}
+            </div>
           </div>
         </div>
       </Suspense>
