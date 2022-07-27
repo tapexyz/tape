@@ -12,7 +12,7 @@ type Props = {
 const NFTCard: FC<Props> = ({ nft }) => {
   return (
     <div className="bg-gray-50 rounded-xl dark:bg-[#181818] group">
-      <div className="h-48">
+      <div className="aspect-h-9 aspect-w-16">
         <img
           className="w-full h-full rounded-t-xl"
           src={imageCdn(sanitizeIpfsUrl(nft.originalContent?.uri), 'thumbnail')}
