@@ -1,3 +1,4 @@
+import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
 import { BYTES, EXPLORE, FEED, HOME, LIBRARY } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -25,7 +26,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <MobileBottomNav />
+      {!getShowFullScreen(router.pathname) && <MobileBottomNav />}
       <CreateChannel />
       <div className="fixed top-0 bottom-0 left-0 z-10 items-start justify-between hidden w-[68px] p-1 m-2 bg-white border shadow dark:border-gray-900 rounded-xl dark:bg-black md:flex md:flex-col">
         <div className="flex flex-col w-full text-center space-y-1.5">
