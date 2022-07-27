@@ -16,7 +16,7 @@ const NFTCard: FC<Props> = ({ nft }) => {
         <img
           className="w-full h-full rounded-t-xl"
           src={imageCdn(sanitizeIpfsUrl(nft.originalContent?.uri), 'thumbnail')}
-          alt="nft"
+          alt={nft.name}
         />
       </div>
       <Link
