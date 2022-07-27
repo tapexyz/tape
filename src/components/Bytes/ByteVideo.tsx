@@ -72,7 +72,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
           ref={videoRef}
           disableRemotePlayback
           width="345"
-          className="md:rounded-xl min-w-[250px] w-[345px] 2xl:w-[450px] h-[88vh] bg-black md:h-[calc(100vh-9em)]"
+          className="md:rounded-xl min-w-[250px] w-screen md:w-[345px] 2xl:w-[450px] h-screen bg-black md:h-[calc(100vh-9em)]"
           loop
         >
           <source src={videoUrl} type="video/mp4" />

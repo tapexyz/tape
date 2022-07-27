@@ -1,11 +1,14 @@
-import { EXPLORE, FEED, HOME, LIBRARY, UPLOAD } from '@utils/url-path'
+import { BYTES, FEED, HOME, LIBRARY, UPLOAD } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { BsPlusCircle } from 'react-icons/bs'
 import { FiHome } from 'react-icons/fi'
-import { MdOutlineSubscriptions, MdOutlineVideoLibrary } from 'react-icons/md'
-import { RiLeafLine } from 'react-icons/ri'
+import {
+  MdOutlineSubscriptions,
+  MdOutlineVideoLibrary,
+  MdSlowMotionVideo
+} from 'react-icons/md'
 
 const MobileBottomNav = () => {
   const router = useRouter()
@@ -29,6 +32,21 @@ const MobileBottomNav = () => {
             <span className="text-[9px]">Home</span>
           </a>
         </Link>
+        <Link href={BYTES}>
+          <a className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
+            <MdSlowMotionVideo
+              className={clsx('text-xl opacity-80', {
+                'text-indigo-500 opacity-100': isActivePath(BYTES)
+              })}
+            />
+            <span className="text-[9px]">Bytes</span>
+          </a>
+        </Link>
+        <Link href={UPLOAD}>
+          <a className="flex flex-col items-center justify-center w-full text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
+            <BsPlusCircle className="text-3xl opacity-80" />
+          </a>
+        </Link>
         <Link href={FEED}>
           <a className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
             <MdOutlineSubscriptions
@@ -37,21 +55,6 @@ const MobileBottomNav = () => {
               })}
             />
             <span className="text-[9px]">Feed</span>
-          </a>
-        </Link>
-        <Link href={UPLOAD}>
-          <a className="flex flex-col items-center justify-center w-full text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
-            <BsPlusCircle className="text-3xl opacity-80" />
-          </a>
-        </Link>
-        <Link href={EXPLORE}>
-          <a className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
-            <RiLeafLine
-              className={clsx('text-xl opacity-80', {
-                'text-indigo-500 opacity-100': isActivePath(EXPLORE)
-              })}
-            />
-            <span className="text-[9px]">Explore</span>
           </a>
         </Link>
         <Link href={LIBRARY}>

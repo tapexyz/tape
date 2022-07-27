@@ -6,6 +6,7 @@ import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
+import Head from 'next/head'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PaginatedResultInfo } from 'src/types'
@@ -78,9 +79,12 @@ const Bytes = () => {
 
   return (
     <div className="overflow-y-hidden">
+      <Head>
+        <meta name="theme-color" content="#000000" />
+      </Head>
       <MetaTags title="Bytes" />
       {!error && !loading && (
-        <div className="h-[calc(100vh-5rem)] overflow-y-scroll no-scrollbar snap-y snap-mandatory scroll-smooth">
+        <div className="md:h-[calc(100vh-5rem)] h-screen overflow-y-scroll no-scrollbar snap-y snap-mandatory scroll-smooth">
           {bytes?.map((video: LenstubePublication) => (
             <ByteVideo video={video} key={`${video?.id}_${video.createdAt}`} />
           ))}
