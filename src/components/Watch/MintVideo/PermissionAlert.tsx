@@ -39,6 +39,7 @@ const PermissionAlert: FC<Props> = ({
     sendTransaction
   } = useSendTransaction({
     ...prepareTxn,
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }

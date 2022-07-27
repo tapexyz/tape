@@ -84,7 +84,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   })
   const { sendTransactionAsync } = useSendTransaction({
     ...prepareTxn,
-    onError
+    onError,
+    mode: 'recklesslyUnprepared'
   })
   const { signTypedDataAsync } = useSignTypedData({
     onError

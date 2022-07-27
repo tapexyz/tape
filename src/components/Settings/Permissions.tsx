@@ -34,6 +34,7 @@ const Permissions = () => {
   })
   const { data: txData, sendTransaction } = useSendTransaction({
     ...prepareTxn,
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
