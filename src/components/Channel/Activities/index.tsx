@@ -80,7 +80,7 @@ const Activity: FC<Props> = ({ channel }) => {
                 )
               }
             >
-              Collected
+              Collected NFTs
             </Tab>
             <Tab
               className={({ selected }) =>

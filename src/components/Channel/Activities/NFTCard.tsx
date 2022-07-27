@@ -1,5 +1,6 @@
 import { IS_MAINNET, NFT_MARKETPLACE_URL } from '@utils/constants'
 import imageCdn from '@utils/functions/imageCdn'
+import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import { Nft } from 'src/types'
@@ -14,10 +15,7 @@ const NFTCard: FC<Props> = ({ nft }) => {
       <div className="h-48">
         <img
           className="w-full h-full rounded-t-xl"
-          src={imageCdn(
-            nft.originalContent?.uri || nft.contentURI,
-            'thumbnail'
-          )}
+          src={imageCdn(sanitizeIpfsUrl(nft.originalContent?.uri), 'thumbnail')}
           alt="nft"
         />
       </div>
