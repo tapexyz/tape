@@ -28,7 +28,7 @@ export { reportWebVitals } from 'next-axiom'
 
 const { chains, provider } = configureChains(
   [IS_MAINNET ? chain.polygon : chain.polygonMumbai, chain.mainnet],
-  [alchemyProvider({ alchemyId: ALCHEMY_KEY })]
+  [alchemyProvider({ apiKey: ALCHEMY_KEY })]
 )
 
 const connectors = () => {

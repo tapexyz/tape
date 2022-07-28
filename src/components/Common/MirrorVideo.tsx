@@ -21,7 +21,11 @@ import toast from 'react-hot-toast'
 import { MdPublishedWithChanges } from 'react-icons/md'
 import { CreateMirrorBroadcastItemResult } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useSignTypedData
+} from 'wagmi'
 
 type Props = {
   video: LenstubePublication
@@ -40,10 +44,15 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
       setLoading(false)
     }
   })
-  const { write: mirrorWithSig, data: mirrorData } = useContractWrite({
+
+  const { config: prepareMirror } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'mirrorWithSig',
+    enabled: false
+  })
+  const { write: mirrorWithSig, data: mirrorData } = useContractWrite({
+    ...prepareMirror,
     onError(error: any) {
       toast.error(error?.data?.message || error?.message)
       setLoading(false)
@@ -103,9 +112,10 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason) mirrorWithSig({ args: inputStruct })
+          if (data?.broadcast?.reason)
+            mirrorWithSig?.({ recklesslySetUnpreparedArgs: inputStruct })
         } else {
-          mirrorWithSig({ args: inputStruct })
+          mirrorWithSig?.({ recklesslySetUnpreparedArgs: inputStruct })
         }
       } catch (error) {
         setLoading(false)

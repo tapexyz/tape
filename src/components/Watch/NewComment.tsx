@@ -26,7 +26,11 @@ import toast from 'react-hot-toast'
 import { CreateCommentBroadcastItemResult } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useSignTypedData
+} from 'wagmi'
 import { z } from 'zod'
 
 type Props = {
@@ -63,10 +67,15 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
-  const { write: writeComment, data: writeCommentData } = useContractWrite({
+
+  const { config: prepareCommentWrite } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'commentWithSig',
+    enabled: false
+  })
+  const { write: writeComment, data: writeCommentData } = useContractWrite({
+    ...prepareCommentWrite,
     onSuccess() {
       setButtonText('Indexing...')
       reset()
@@ -135,9 +144,10 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason) writeComment({ args })
+          if (data?.broadcast?.reason)
+            writeComment?.({ recklesslySetUnpreparedArgs: args })
         } else {
-          writeComment({ args })
+          writeComment?.({ recklesslySetUnpreparedArgs: args })
         }
       } catch (error) {
         onError()
