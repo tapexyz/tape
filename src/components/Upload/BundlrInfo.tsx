@@ -34,18 +34,6 @@ const BundlrInfo = () => {
     chainId: POLYGON_CHAIN_ID
   })
 
-  const initBundlr = async () => {
-    if (signer?.provider && address && !bundlrData.instance) {
-      toast('Estimating upload cost...')
-      const bundlr = await getBundlrInstance(signer)
-      if (bundlr) {
-        setBundlrData({ instance: bundlr })
-        await fetchBalance(bundlr)
-        await estimatePrice(bundlr)
-      }
-    }
-  }
-
   const fetchBalance = async (bundlr?: WebBundlr) => {
     const instance = bundlr || bundlrData.instance
     if (address && instance) {
@@ -53,8 +41,6 @@ const BundlrInfo = () => {
       setBundlrData({
         balance: utils.formatEther(balance.toString())
       })
-    } else {
-      await initBundlr()
     }
   }
 
@@ -69,6 +55,18 @@ const BundlrInfo = () => {
     })
   }
 
+  const initBundlr = async () => {
+    if (signer?.provider && address && !bundlrData.instance) {
+      toast('Estimating upload cost...')
+      const bundlr = await getBundlrInstance(signer)
+      if (bundlr) {
+        setBundlrData({ instance: bundlr })
+        await fetchBalance(bundlr)
+        await estimatePrice(bundlr)
+      }
+    }
+  }
+
   useEffect(() => {
     if (signer?.provider && mounted) initBundlr()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -78,6 +76,8 @@ const BundlrInfo = () => {
     if (bundlrData.instance && mounted) {
       fetchBalance(bundlrData.instance)
       estimatePrice(bundlrData.instance)
+    } else {
+      initBundlr()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bundlrData.instance])
