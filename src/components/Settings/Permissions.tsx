@@ -12,7 +12,11 @@ import {
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { ApprovedAllowanceAmount, Erc20 } from 'src/types'
-import { useSendTransaction, useWaitForTransaction } from 'wagmi'
+import {
+  usePrepareSendTransaction,
+  useSendTransaction,
+  useWaitForTransaction
+} from 'wagmi'
 
 const collectModules = [
   'FeeCollectModule',
@@ -25,7 +29,12 @@ const Permissions = () => {
   const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
   const [loadingModule, setLoadingModule] = useState('')
 
+  const { config: prepareTxn } = usePrepareSendTransaction({
+    request: {}
+  })
   const { data: txData, sendTransaction } = useSendTransaction({
+    ...prepareTxn,
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
@@ -94,8 +103,8 @@ const Permissions = () => {
         }
       })
       const generated = data?.generateModuleCurrencyApprovalData
-      sendTransaction({
-        request: {
+      sendTransaction?.({
+        recklesslySetUnpreparedRequest: {
           from: generated.from,
           to: generated.to,
           data: generated.data

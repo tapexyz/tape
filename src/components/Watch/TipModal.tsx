@@ -30,7 +30,13 @@ import toast from 'react-hot-toast'
 import { TbHeartHandshake } from 'react-icons/tb'
 import { LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  usePrepareSendTransaction,
+  useSendTransaction,
+  useSignTypedData
+} from 'wagmi'
 import { z } from 'zod'
 
 type Props = {
@@ -73,17 +79,26 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
   }
 
+  const { config: prepareTxn } = usePrepareSendTransaction({
+    request: {}
+  })
   const { sendTransactionAsync } = useSendTransaction({
-    onError
+    ...prepareTxn,
+    onError,
+    mode: 'recklesslyUnprepared'
   })
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
 
-  const { write: writeComment, data: writeCommentData } = useContractWrite({
+  const { config: prepareCommentWrite } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'commentWithSig',
+    enabled: false
+  })
+  const { write: writeComment, data: writeCommentData } = useContractWrite({
+    ...prepareCommentWrite,
     onError
   })
 
@@ -143,9 +158,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason) writeComment({ args })
+          if (data?.broadcast?.reason)
+            writeComment?.({ recklesslySetUnpreparedArgs: args })
         } else {
-          writeComment({ args })
+          writeComment?.({ recklesslySetUnpreparedArgs: args })
         }
       } catch (error) {
         onError()
@@ -221,13 +237,13 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     setButtonText('Sending...')
     const amountToSend = getValues('tipQuantity') * 1
     try {
-      const data = await sendTransactionAsync({
-        request: {
+      const data = await sendTransactionAsync?.({
+        recklesslySetUnpreparedRequest: {
           to: video.profile?.ownedBy,
           value: BigNumber.from(utils.parseEther(amountToSend.toString()))
         }
       })
-      await submitComment(data.hash)
+      if (data?.hash) await submitComment(data.hash)
     } catch (error) {
       setLoading(false)
       setButtonText(`Send ${watchTipQuantity * 1} MATIC`)

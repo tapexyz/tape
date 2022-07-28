@@ -33,6 +33,7 @@ import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
   useContractWrite,
+  usePrepareContractWrite,
   useSigner,
   useSignTypedData
 } from 'wagmi'
@@ -80,10 +81,15 @@ const UploadSteps = () => {
       onError()
     }
   })
-  const { data: writePostData, write: writePostContract } = useContractWrite({
+
+  const { config: preparePostWrite } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'postWithSig',
+    enabled: false
+  })
+  const { data: writePostData, write: writePostContract } = useContractWrite({
+    ...preparePostWrite,
     onSuccess(data) {
       showToast(data.hash)
       setUploadedVideo({
@@ -247,8 +253,9 @@ const UploadSteps = () => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason) writePostContract({ args })
-        } else writePostContract({ args })
+          if (data?.broadcast?.reason)
+            writePostContract?.({ recklesslySetUnpreparedArgs: args })
+        } else writePostContract?.({ recklesslySetUnpreparedArgs: args })
       } catch (error) {
         onError()
         logger.error('[Error Post Video]', error)
