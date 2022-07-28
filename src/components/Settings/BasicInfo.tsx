@@ -35,7 +35,11 @@ import { IoCopyOutline } from 'react-icons/io5'
 import { Attribute, MediaSet, Profile } from 'src/types'
 import { IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useSignTypedData
+} from 'wagmi'
 import { z } from 'zod'
 
 type Props = {
@@ -82,11 +86,14 @@ const BasicInfo = ({ channel }: Props) => {
       setLoading(false)
     }
   })
-
-  const { write: writeMetaData, data: writtenData } = useContractWrite({
+  const { config: prepareSetProfile } = usePrepareContractWrite({
     addressOrName: LENS_PERIPHERY_ADDRESS,
     contractInterface: LENS_PERIPHERY_ABI,
     functionName: 'setProfileMetadataURIWithSig',
+    enabled: false
+  })
+  const { write: writeMetaData, data: writtenData } = useContractWrite({
+    ...prepareSetProfile,
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
       setLoading(false)
@@ -140,9 +147,10 @@ const BasicInfo = ({ channel }: Props) => {
             const { data } = await broadcast({
               variables: { request: { id, signature } }
             })
-            if (data?.broadcast?.reason) writeMetaData({ args })
+            if (data?.broadcast?.reason)
+              writeMetaData?.({ recklesslySetUnpreparedArgs: args })
           } else {
-            writeMetaData({ args })
+            writeMetaData?.({ recklesslySetUnpreparedArgs: args })
           }
         } catch (error) {
           setLoading(false)
