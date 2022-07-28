@@ -104,7 +104,8 @@ const Membership = ({ channel }: Props) => {
   const { config: prepareSetFollow } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
-    functionName: 'setFollowModuleWithSig'
+    functionName: 'setFollowModuleWithSig',
+    enabled: false
   })
   const { data: writtenData, write: writeFollow } = useContractWrite({
     ...prepareSetFollow,

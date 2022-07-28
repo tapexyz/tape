@@ -48,7 +48,8 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   const { config: prepareMirror } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
-    functionName: 'mirrorWithSig'
+    functionName: 'mirrorWithSig',
+    enabled: false
   })
   const { write: mirrorWithSig, data: mirrorData } = useContractWrite({
     ...prepareMirror,

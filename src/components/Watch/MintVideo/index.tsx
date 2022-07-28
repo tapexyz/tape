@@ -58,7 +58,8 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const { config: prepareCollectWrite } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
-    functionName: 'collectWithSig'
+    functionName: 'collectWithSig',
+    enabled: false
   })
   const { data: writtenData, write: writeCollectWithSig } = useContractWrite({
     ...prepareCollectWrite,

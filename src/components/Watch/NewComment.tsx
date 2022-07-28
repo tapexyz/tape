@@ -71,7 +71,8 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const { config: prepareCommentWrite } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
-    functionName: 'commentWithSig'
+    functionName: 'commentWithSig',
+    enabled: false
   })
   const { write: writeComment, data: writeCommentData } = useContractWrite({
     ...prepareCommentWrite,

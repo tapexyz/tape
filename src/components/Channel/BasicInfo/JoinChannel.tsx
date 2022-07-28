@@ -53,7 +53,8 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const { config: prepareWrite } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
-    functionName: 'followWithSig'
+    functionName: 'followWithSig',
+    enabled: false
   })
   const { write: writeJoinChannel, data: writeData } = useContractWrite({
     ...prepareWrite,

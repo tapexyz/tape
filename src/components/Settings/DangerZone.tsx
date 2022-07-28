@@ -39,7 +39,8 @@ const DangerZone = () => {
   const { config: prepareBurn } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
-    functionName: 'burnWithSig'
+    functionName: 'burnWithSig',
+    enabled: false
   })
   const { write: writeDeleteProfile } = useContractWrite({
     ...prepareBurn,

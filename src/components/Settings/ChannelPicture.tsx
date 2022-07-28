@@ -42,7 +42,8 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const { config: prepareSetProfileImage } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
-    functionName: 'setProfileImageURIWithSig'
+    functionName: 'setProfileImageURIWithSig',
+    enabled: false
   })
   const { data: pfpData, write: writePfpUri } = useContractWrite({
     ...prepareSetProfileImage,

@@ -89,7 +89,8 @@ const BasicInfo = ({ channel }: Props) => {
   const { config: prepareSetProfile } = usePrepareContractWrite({
     addressOrName: LENS_PERIPHERY_ADDRESS,
     contractInterface: LENS_PERIPHERY_ABI,
-    functionName: 'setProfileMetadataURIWithSig'
+    functionName: 'setProfileMetadataURIWithSig',
+    enabled: false
   })
   const { write: writeMetaData, data: writtenData } = useContractWrite({
     ...prepareSetProfile,

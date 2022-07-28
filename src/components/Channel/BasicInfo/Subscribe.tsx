@@ -50,7 +50,8 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const { config: prepareSubscribe } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
-    functionName: 'followWithSig'
+    functionName: 'followWithSig',
+    enabled: false
   })
   const { write: writeSubscribe, data: writeData } = useContractWrite({
     ...prepareSubscribe,

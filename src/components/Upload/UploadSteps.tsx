@@ -85,7 +85,8 @@ const UploadSteps = () => {
   const { config: preparePostWrite } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
-    functionName: 'postWithSig'
+    functionName: 'postWithSig',
+    enabled: false
   })
   const { data: writePostData, write: writePostContract } = useContractWrite({
     ...preparePostWrite,
