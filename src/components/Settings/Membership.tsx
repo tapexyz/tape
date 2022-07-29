@@ -114,9 +114,10 @@ const Membership = ({ channel }: Props) => {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
-  const { indexed } = usePendingTxn(
-    writtenData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writtenData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
   useEffect(() => {
     if (indexed) {
       setLoading(false)

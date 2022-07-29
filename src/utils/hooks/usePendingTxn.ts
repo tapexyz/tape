@@ -3,16 +3,22 @@ import { PUBLICATION_STATUS_QUERY, TX_STATUS_QUERY } from '@utils/gql/queries'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
-const usePendingTxn = (txHash: string, isPublication?: boolean) => {
+type Props = {
+  txHash?: string
+  txId?: string
+  isPublication?: boolean
+}
+
+const usePendingTxn = ({ txHash, txId, isPublication = false }: Props) => {
   const router = useRouter()
 
   const { data, loading, stopPolling } = useQuery(
     isPublication ? PUBLICATION_STATUS_QUERY : TX_STATUS_QUERY,
     {
       variables: {
-        request: { txHash }
+        request: { txHash, txId }
       },
-      skip: !txHash || !txHash?.length,
+      skip: !txHash && !txHash?.length && !txId && !txId?.length,
       pollInterval: 1000
     }
   )

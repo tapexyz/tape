@@ -47,6 +47,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onError
   })
   const { data: signer } = useSigner({ onError })
+
   const { config: prepareSubscribe } = usePrepareContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
@@ -72,9 +73,10 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onError
   })
 
-  const { indexed } = usePendingTxn(
-    writeData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writeData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
 
   useEffect(() => {
     if (indexed) {

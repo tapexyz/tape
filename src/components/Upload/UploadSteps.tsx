@@ -103,10 +103,11 @@ const UploadSteps = () => {
     }
   })
 
-  const { indexed } = usePendingTxn(
-    writePostData?.hash || broadcastData?.broadcast?.txHash,
-    true
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writePostData?.hash || broadcastData?.broadcast?.txHash,
+    txId: broadcastData?.broadcast?.txId,
+    isPublication: true
+  })
 
   useEffect(() => {
     if (indexed) setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)

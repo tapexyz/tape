@@ -66,9 +66,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     }
   })
 
-  const { indexed } = usePendingTxn(
-    pfpData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: pfpData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
 
   const onCompleted = () => {
     if (selectedChannel && selectedPfp)

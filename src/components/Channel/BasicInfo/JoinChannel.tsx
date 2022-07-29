@@ -77,9 +77,10 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     onError
   })
 
-  const { indexed } = usePendingTxn(
-    writeData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writeData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
 
   useEffect(() => {
     if (indexed) {

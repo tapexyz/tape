@@ -106,9 +106,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
-  const { indexed } = usePendingTxn(
-    writeCommentData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writeCommentData?.hash || broadcastData?.broadcast?.txHash,
+    txId: broadcastData?.broadcast?.txId
+  })
 
   useEffect(() => {
     if (indexed) {

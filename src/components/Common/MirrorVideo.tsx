@@ -66,9 +66,10 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     }
   })
 
-  const { indexed } = usePendingTxn(
-    mirrorData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: mirrorData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
 
   useEffect(() => {
     if (indexed) {
