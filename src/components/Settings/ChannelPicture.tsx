@@ -17,11 +17,7 @@ import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
 import { CreateSetProfileImageUriBroadcastItemResult, Profile } from 'src/types'
 import { IPFSUploadResult } from 'src/types/local'
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
   channel: Profile
@@ -39,14 +35,17 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       setSelectedPfp(getProfilePicture(channel, 'avatar'))
     }
   })
-  const { config: prepareSetProfileImage } = usePrepareContractWrite({
+  // const { config: prepareSetProfileImage } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'setProfileImageURIWithSig',
+  //   enabled: false
+  // })
+  const { data: pfpData, write: writePfpUri } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'setProfileImageURIWithSig',
-    enabled: false
-  })
-  const { data: pfpData, write: writePfpUri } = useContractWrite({
-    ...prepareSetProfileImage,
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       setLoading(false)
       setSelectedPfp(getProfilePicture(channel, 'avatar'))

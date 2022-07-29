@@ -21,12 +21,7 @@ import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { FeeFollowModuleSettings, Profile } from 'src/types'
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useSigner,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
 
 type Props = {
   channel: Profile
@@ -50,14 +45,17 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     onError
   })
   const { data: signer } = useSigner({ onError })
-  const { config: prepareWrite } = usePrepareContractWrite({
+  // const { config: prepareWrite } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'followWithSig',
+  //   enabled: false
+  // })
+  const { write: writeJoinChannel, data: writeData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'followWithSig',
-    enabled: false
-  })
-  const { write: writeJoinChannel, data: writeData } = useContractWrite({
-    ...prepareWrite,
+    mode: 'recklesslyUnprepared',
     onSuccess(data) {
       setButtonText('Joining...')
       showToast(data.hash)

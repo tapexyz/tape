@@ -26,11 +26,7 @@ import toast from 'react-hot-toast'
 import { CreateCommentBroadcastItemResult } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
 
 type Props = {
@@ -68,14 +64,17 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     }
   })
 
-  const { config: prepareCommentWrite } = usePrepareContractWrite({
+  // const { config: prepareCommentWrite } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'commentWithSig',
+  //   enabled: false
+  // })
+  const { write: writeComment, data: writeCommentData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'commentWithSig',
-    enabled: false
-  })
-  const { write: writeComment, data: writeCommentData } = useContractWrite({
-    ...prepareCommentWrite,
+    mode: 'recklesslyUnprepared',
     onSuccess() {
       setButtonText('Indexing...')
       reset()
