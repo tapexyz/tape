@@ -138,14 +138,16 @@ const PublicationReaction: FC<Props> = ({
               'text-xs': iconSize === 'xs',
               'text-xl': iconSize === 'xl',
               'text-2xl': iconSize === '2xl',
-              'text-white md:text-inherit': iconType === 'filled'
+              'text-white md:text-inherit': iconType === 'filled',
+              'text-indigo-500': reaction.isLiked
             })}
           />
           {showLabel && (
             <span
               className={clsx({
                 'text-xs': textSize === 'xs',
-                'text-white md:text-inherit': iconType === 'filled'
+                'text-white md:text-inherit': iconType === 'filled',
+                'text-indigo-500': reaction.isLiked
               })}
             >
               {reaction.likeCount > 0 ? reaction.likeCount : 'Like'}
@@ -170,14 +172,16 @@ const PublicationReaction: FC<Props> = ({
               'text-xs': iconSize === 'xs',
               'text-xl': iconSize === 'xl',
               'text-2xl': iconSize === '2xl',
-              'text-white md:text-inherit': iconType === 'filled'
+              'text-white md:text-inherit': iconType === 'filled',
+              'text-indigo-500': reaction.isDisliked
             })}
           />
           {showLabel && (
             <span
               className={clsx({
                 'text-xs': textSize === 'xs',
-                'text-white md:text-inherit': iconType === 'filled'
+                'text-white md:text-inherit': iconType === 'filled',
+                'text-indigo-500': reaction.isDisliked
               })}
             >
               {reaction.dislikeCount > 0 ? reaction.dislikeCount : 'Dislike'}
