@@ -15,7 +15,6 @@ import Custom404 from 'src/pages/404'
 import { CreateBurnProfileBroadcastItemResult } from 'src/types'
 import {
   useContractWrite,
-  usePrepareContractWrite,
   useSignTypedData,
   useWaitForTransaction
 } from 'wagmi'
@@ -36,14 +35,17 @@ const DangerZone = () => {
     toast.error(error?.data?.message ?? error?.message)
   }
 
-  const { config: prepareBurn } = usePrepareContractWrite({
+  // const { config: prepareBurn } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'burnWithSig',
+  //   enabled: false
+  // })
+  const { write: writeDeleteProfile } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'burnWithSig',
-    enabled: false
-  })
-  const { write: writeDeleteProfile } = useContractWrite({
-    ...prepareBurn,
+    mode: 'recklesslyUnprepared',
     onError,
     onSuccess(data) {
       setTxnHash(data.hash)

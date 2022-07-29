@@ -19,12 +19,7 @@ import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { CreateFollowBroadcastItemResult, Profile } from 'src/types'
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useSigner,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
 
 type Props = {
   channel: Profile
@@ -47,14 +42,18 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onError
   })
   const { data: signer } = useSigner({ onError })
-  const { config: prepareSubscribe } = usePrepareContractWrite({
+
+  // const { config: prepareSubscribe } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'followWithSig',
+  //   enabled: false
+  // })
+  const { write: writeSubscribe, data: writeData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'followWithSig',
-    enabled: false
-  })
-  const { write: writeSubscribe, data: writeData } = useContractWrite({
-    ...prepareSubscribe,
+    mode: 'recklesslyUnprepared',
     onSuccess(data) {
       setButtonText('Subscribing...')
       showToast(data.hash)
@@ -72,9 +71,10 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onError
   })
 
-  const { indexed } = usePendingTxn(
-    writeData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writeData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
 
   useEffect(() => {
     if (indexed) {

@@ -300,6 +300,9 @@ export const TX_STATUS_QUERY = gql`
     hasTxHashBeenIndexed(request: $request) {
       ... on TransactionIndexedResult {
         indexed
+        txReceipt {
+          transactionHash
+        }
       }
     }
   }
@@ -1198,6 +1201,7 @@ export const BROADCAST_MUTATION = gql`
   mutation Broadcast($request: BroadcastRequest!) {
     broadcast(request: $request) {
       ... on RelayerResult {
+        txId
         txHash
       }
       ... on RelayError {

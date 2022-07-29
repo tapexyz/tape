@@ -33,7 +33,6 @@ import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
   useContractWrite,
-  usePrepareContractWrite,
   useSigner,
   useSignTypedData
 } from 'wagmi'
@@ -82,14 +81,17 @@ const UploadSteps = () => {
     }
   })
 
-  const { config: preparePostWrite } = usePrepareContractWrite({
+  // const { config: preparePostWrite } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'postWithSig',
+  //   enabled: false
+  // })
+  const { data: writePostData, write: writePostContract } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'postWithSig',
-    enabled: false
-  })
-  const { data: writePostData, write: writePostContract } = useContractWrite({
-    ...preparePostWrite,
+    mode: 'recklesslyUnprepared',
     onSuccess(data) {
       showToast(data.hash)
       setUploadedVideo({
@@ -103,10 +105,10 @@ const UploadSteps = () => {
     }
   })
 
-  const { indexed } = usePendingTxn(
-    writePostData?.hash || broadcastData?.broadcast?.txHash,
-    true
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writePostData?.hash || broadcastData?.broadcast?.txHash,
+    isPublication: true
+  })
 
   useEffect(() => {
     if (indexed) setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)

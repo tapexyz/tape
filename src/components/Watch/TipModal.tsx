@@ -32,7 +32,6 @@ import { LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import {
   useContractWrite,
-  usePrepareContractWrite,
   usePrepareSendTransaction,
   useSendTransaction,
   useSignTypedData
@@ -91,14 +90,17 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
-  const { config: prepareCommentWrite } = usePrepareContractWrite({
+  // const { config: prepareCommentWrite } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'commentWithSig',
+  //   enabled: false
+  // })
+  const { write: writeComment, data: writeCommentData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'commentWithSig',
-    enabled: false
-  })
-  const { write: writeComment, data: writeCommentData } = useContractWrite({
-    ...prepareCommentWrite,
+    mode: 'recklesslyUnprepared',
     onError
   })
 
@@ -106,9 +108,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
-  const { indexed } = usePendingTxn(
-    writeCommentData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writeCommentData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
 
   useEffect(() => {
     if (indexed) {

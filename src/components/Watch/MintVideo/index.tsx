@@ -27,12 +27,7 @@ import {
   FreeCollectModuleSettings
 } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
-import {
-  useAccount,
-  useContractWrite,
-  usePrepareContractWrite,
-  useSignTypedData
-} from 'wagmi'
+import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 import MintModal from './MintModal'
 
@@ -55,14 +50,17 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     }
   })
 
-  const { config: prepareCollectWrite } = usePrepareContractWrite({
+  // const { config: prepareCollectWrite } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'collectWithSig',
+  //   enabled: false
+  // })
+  const { data: writtenData, write: writeCollectWithSig } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'collectWithSig',
-    enabled: false
-  })
-  const { data: writtenData, write: writeCollectWithSig } = useContractWrite({
-    ...prepareCollectWrite,
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       setLoading(false)
       toast.error(error?.data?.message ?? error?.message)
@@ -82,9 +80,10 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     }
   })
 
-  const { indexed } = usePendingTxn(
-    writtenData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writtenData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
 
   useEffect(() => {
     if (indexed) {
