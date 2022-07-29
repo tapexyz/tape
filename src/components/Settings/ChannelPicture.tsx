@@ -77,6 +77,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         ...selectedChannel,
         picture: { original: { url: selectedPfp } }
       })
+    toast.success('Channel image updated')
   }
 
   useEffect(() => {

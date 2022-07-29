@@ -105,7 +105,6 @@ const UploadSteps = () => {
 
   const { indexed } = usePendingTxn({
     txHash: writePostData?.hash || broadcastData?.broadcast?.txHash,
-    txId: broadcastData?.broadcast?.txId,
     isPublication: true
   })
 

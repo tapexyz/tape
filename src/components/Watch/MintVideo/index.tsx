@@ -83,8 +83,8 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   })
 
   const { indexed } = usePendingTxn({
-    txHash: writtenData?.hash || broadcastData?.broadcast?.txHash,
-    txId: broadcastData?.broadcast?.txId
+    txHash: writtenData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
   })
 
   useEffect(() => {

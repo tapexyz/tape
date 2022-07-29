@@ -90,8 +90,8 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   })
 
   const { indexed } = usePendingTxn({
-    txHash: writeCommentData?.hash || broadcastData?.broadcast?.txHash,
-    txId: broadcastData?.broadcast?.txId
+    txHash: writeCommentData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
   })
 
   useEffect(() => {
