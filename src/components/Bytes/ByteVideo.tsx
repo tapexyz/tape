@@ -1,3 +1,4 @@
+import MintVideo from '@components/Watch/MintVideo'
 import logger from '@lib/logger'
 import { getPermanentVideoUrl, getVideoUrl } from '@utils/functions/getVideoUrl'
 import axios from 'axios'
@@ -68,16 +69,30 @@ const ByteVideo: FC<Props> = ({ video }) => {
           ref={videoRef}
           disableRemotePlayback
           width="345"
-          className="md:rounded-xl min-w-[250px] w-screen md:w-[345px] 2xl:w-[450px] h-screen bg-black md:h-[calc(100vh-9em)]"
+          className="md:rounded-xl min-w-[250px] w-screen md:w-[345px] 2xl:w-[450px] h-screen bg-black md:h-[calc(100vh-145px)]"
           loop
         >
           <source src={videoUrl} type="video/mp4" />
         </video>
         <TopOverlay playing={playing} onClickPlayPause={onClickVideo} />
         <BottomOverlay video={video} />
+        <div className="absolute md:hidden right-2 top-1/2">
+          <ByteActions video={video} />
+          {video?.collectModule?.__typename !==
+            'RevertCollectModuleSettings' && (
+            <div className="text-center text-white md:text-gray-500">
+              <MintVideo video={video} variant="secondary" />
+              <div className="text-xs">
+                {video.stats?.totalAmountOfCollects || 'Mint'}
+              </div>
+            </div>
+          )}
+        </div>
         <div ref={observe} />
       </div>
-      <ByteActions video={video} />
+      <div className="hidden md:flex">
+        <ByteActions video={video} />
+      </div>
     </div>
   )
 }
