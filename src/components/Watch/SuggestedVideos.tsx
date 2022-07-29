@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import logger from '@lib/logger'
-import useAppStore from '@lib/store'
+import usePlayerStore from '@lib/store/player'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
 import { useRouter } from 'next/router'
@@ -21,7 +21,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
   const {
     query: { id }
   } = useRouter()
-  const { setUpNextVideo } = useAppStore()
+  const { setUpNextVideo } = usePlayerStore()
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { loading, error, fetchMore, refetch } = useQuery(EXPLORE_QUERY, {

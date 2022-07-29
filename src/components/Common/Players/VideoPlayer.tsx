@@ -1,6 +1,7 @@
 import 'plyr-react/plyr.css'
 
 import useAppStore from '@lib/store'
+import usePlayerStore from '@lib/store/player'
 import * as Sentry from '@sentry/nextjs'
 import * as tf from '@tensorflow/tfjs'
 import { IS_MAINNET } from '@utils/constants'
@@ -59,7 +60,8 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
     const [position, setPosition] = useState({ x: 0, y: 0 })
     const [isVideoLoop, setIsVideoLoop] = useState(false)
     const { pathname } = useRouter()
-    const { setUploadedVideo, uploadedVideo, upNextVideo } = useAppStore()
+    const { setUploadedVideo, uploadedVideo } = useAppStore()
+    const { upNextVideo } = usePlayerStore()
     const [showNext, setShowNext] = useState(false)
     const router = useRouter()
 
