@@ -82,11 +82,17 @@ const BasicInfo = ({ channel }: Props) => {
       setLoading(false)
     }
   })
-
+  // const { config: prepareSetProfile } = usePrepareContractWrite({
+  //   addressOrName: LENS_PERIPHERY_ADDRESS,
+  //   contractInterface: LENS_PERIPHERY_ABI,
+  //   functionName: 'setProfileMetadataURIWithSig',
+  //   enabled: false
+  // })
   const { write: writeMetaData, data: writtenData } = useContractWrite({
     addressOrName: LENS_PERIPHERY_ADDRESS,
     contractInterface: LENS_PERIPHERY_ABI,
     functionName: 'setProfileMetadataURIWithSig',
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
       setLoading(false)
@@ -106,9 +112,10 @@ const BasicInfo = ({ channel }: Props) => {
     }
   })
 
-  const { indexed } = usePendingTxn(
-    writtenData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writtenData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
 
   useEffect(() => {
     if (indexed) {
@@ -140,9 +147,10 @@ const BasicInfo = ({ channel }: Props) => {
             const { data } = await broadcast({
               variables: { request: { id, signature } }
             })
-            if (data?.broadcast?.reason) writeMetaData({ args })
+            if (data?.broadcast?.reason)
+              writeMetaData?.({ recklesslySetUnpreparedArgs: args })
           } else {
-            writeMetaData({ args })
+            writeMetaData?.({ recklesslySetUnpreparedArgs: args })
           }
         } catch (error) {
           setLoading(false)

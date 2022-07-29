@@ -40,10 +40,18 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
       setLoading(false)
     }
   })
+
+  // const { config: prepareMirror } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'mirrorWithSig',
+  //   enabled: false
+  // })
   const { write: mirrorWithSig, data: mirrorData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'mirrorWithSig',
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       toast.error(error?.data?.message || error?.message)
       setLoading(false)
@@ -57,9 +65,10 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     }
   })
 
-  const { indexed } = usePendingTxn(
-    mirrorData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: mirrorData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
 
   useEffect(() => {
     if (indexed) {
@@ -103,9 +112,10 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason) mirrorWithSig({ args: inputStruct })
+          if (data?.broadcast?.reason)
+            mirrorWithSig?.({ recklesslySetUnpreparedArgs: inputStruct })
         } else {
-          mirrorWithSig({ args: inputStruct })
+          mirrorWithSig?.({ recklesslySetUnpreparedArgs: inputStruct })
         }
       } catch (error) {
         setLoading(false)

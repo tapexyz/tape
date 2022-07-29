@@ -1,5 +1,7 @@
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
+import { DisLikeButton } from '@components/UIElements/DisLikeButton'
+import { LikeButton } from '@components/UIElements/LikeButton'
 import usePersistStore from '@lib/store/persist'
 import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import {
@@ -9,7 +11,6 @@ import {
 import clsx from 'clsx'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
-import { AiOutlineDislike, AiOutlineLike } from 'react-icons/ai'
 import { LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -18,6 +19,7 @@ type Props = {
   textSize?: 'xs' | 'sm' | 'xl' | '2xl'
   isVertical?: boolean
   showLabel?: boolean
+  iconType?: string
 }
 
 const PublicationReaction: FC<Props> = ({
@@ -25,7 +27,8 @@ const PublicationReaction: FC<Props> = ({
   iconSize = 'sm',
   textSize = 'sm',
   isVertical = false,
-  showLabel = true
+  showLabel = true,
+  iconType = 'outline'
 }) => {
   const { isAuthenticated, selectedChannel } = usePersistStore()
 
@@ -129,15 +132,22 @@ const PublicationReaction: FC<Props> = ({
             'flex-col space-y-1': isVertical
           })}
         >
-          <AiOutlineLike
+          <LikeButton
+            iconType={iconType}
             className={clsx({
               'text-xs': iconSize === 'xs',
               'text-xl': iconSize === 'xl',
-              'text-2xl': iconSize === '2xl'
+              'text-2xl': iconSize === '2xl',
+              'text-white md:text-inherit': iconType === 'filled'
             })}
           />
           {showLabel && (
-            <span className={clsx({ 'text-xs': textSize === 'xs' })}>
+            <span
+              className={clsx({
+                'text-xs': textSize === 'xs',
+                'text-white md:text-inherit': iconType === 'filled'
+              })}
+            >
               {reaction.likeCount > 0 ? reaction.likeCount : 'Like'}
             </span>
           )}
@@ -154,15 +164,22 @@ const PublicationReaction: FC<Props> = ({
             'flex-col space-y-1': isVertical
           })}
         >
-          <AiOutlineDislike
+          <DisLikeButton
+            iconType={iconType}
             className={clsx({
               'text-xs': iconSize === 'xs',
               'text-xl': iconSize === 'xl',
-              'text-2xl': iconSize === '2xl'
+              'text-2xl': iconSize === '2xl',
+              'text-white md:text-inherit': iconType === 'filled'
             })}
           />
           {showLabel && (
-            <span className={clsx({ 'text-xs': textSize === 'xs' })}>
+            <span
+              className={clsx({
+                'text-xs': textSize === 'xs',
+                'text-white md:text-inherit': iconType === 'filled'
+              })}
+            >
               {reaction.dislikeCount > 0 ? reaction.dislikeCount : 'Dislike'}
             </span>
           )}

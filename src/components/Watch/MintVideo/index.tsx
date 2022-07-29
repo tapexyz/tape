@@ -49,10 +49,18 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
+
+  // const { config: prepareCollectWrite } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'collectWithSig',
+  //   enabled: false
+  // })
   const { data: writtenData, write: writeCollectWithSig } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'collectWithSig',
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       setLoading(false)
       toast.error(error?.data?.message ?? error?.message)
@@ -72,9 +80,10 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     }
   })
 
-  const { indexed } = usePendingTxn(
-    writtenData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writtenData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
 
   useEffect(() => {
     if (indexed) {
@@ -105,9 +114,10 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason) writeCollectWithSig({ args })
+          if (data?.broadcast?.reason)
+            writeCollectWithSig?.({ recklesslySetUnpreparedArgs: args })
         } else {
-          writeCollectWithSig({ args })
+          writeCollectWithSig?.({ recklesslySetUnpreparedArgs: args })
         }
       } catch (error) {
         setLoading(false)

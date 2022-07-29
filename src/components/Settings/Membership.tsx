@@ -97,18 +97,26 @@ const Membership = ({ channel }: Props) => {
     }
   })
 
+  // const { config: prepareSetFollow } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'setFollowModuleWithSig',
+  //   enabled: false
+  // })
   const { data: writtenData, write: writeFollow } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'setFollowModuleWithSig',
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       setLoading(false)
       toast.error(error?.data?.message ?? error?.message)
     }
   })
-  const { indexed } = usePendingTxn(
-    writtenData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writtenData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
   useEffect(() => {
     if (indexed) {
       setLoading(false)
@@ -144,9 +152,10 @@ const Membership = ({ channel }: Props) => {
             const { data } = await broadcast({
               variables: { request: { id, signature } }
             })
-            if (data?.broadcast?.reason) writeFollow({ args })
+            if (data?.broadcast?.reason)
+              writeFollow?.({ recklesslySetUnpreparedArgs: args })
           } else {
-            writeFollow({ args })
+            writeFollow?.({ recklesslySetUnpreparedArgs: args })
           }
         } catch (error) {
           setLoading(false)

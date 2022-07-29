@@ -45,11 +45,17 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     onError
   })
   const { data: signer } = useSigner({ onError })
-
+  // const { config: prepareWrite } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'followWithSig',
+  //   enabled: false
+  // })
   const { write: writeJoinChannel, data: writeData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'followWithSig',
+    mode: 'recklesslyUnprepared',
     onSuccess(data) {
       setButtonText('Joining...')
       showToast(data.hash)
@@ -69,9 +75,10 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     onError
   })
 
-  const { indexed } = usePendingTxn(
-    writeData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writeData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
 
   useEffect(() => {
     if (indexed) {
@@ -130,9 +137,10 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason) writeJoinChannel({ args })
+          if (data?.broadcast?.reason)
+            writeJoinChannel?.({ recklesslySetUnpreparedArgs: args })
         } else {
-          writeJoinChannel({ args })
+          writeJoinChannel?.({ recklesslySetUnpreparedArgs: args })
         }
       } catch (error) {
         onError()

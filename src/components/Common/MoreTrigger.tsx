@@ -1,5 +1,8 @@
 import Popover from '@components/UIElements/Popover'
-import { LENSTUBE_TWITTER_HANDLE } from '@utils/constants'
+import {
+  LENSTUBE_GITHUB_HANDLE,
+  LENSTUBE_TWITTER_HANDLE
+} from '@utils/constants'
 import { DISCORD, PRIVACY } from '@utils/url-path'
 import Link from 'next/link'
 import React from 'react'
@@ -35,6 +38,13 @@ const MoreTrigger = () => {
             <Link href={`https://twitter.com/${LENSTUBE_TWITTER_HANDLE}`}>
               <a className="block px-2.5 py-1.5" target="_blank">
                 Twitter
+              </a>
+            </Link>
+          </div>
+          <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
+            <Link href={`https://github.com/${LENSTUBE_GITHUB_HANDLE}`}>
+              <a className="block px-2.5 py-1.5" target="_blank">
+                Star Us
               </a>
             </Link>
           </div>

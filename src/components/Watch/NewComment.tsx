@@ -63,10 +63,18 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
+
+  // const { config: prepareCommentWrite } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'commentWithSig',
+  //   enabled: false
+  // })
   const { write: writeComment, data: writeCommentData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'commentWithSig',
+    mode: 'recklesslyUnprepared',
     onSuccess() {
       setButtonText('Indexing...')
       reset()
@@ -80,9 +88,10 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     }
   })
 
-  const { indexed } = usePendingTxn(
-    writeCommentData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writeCommentData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
 
   useEffect(() => {
     if (indexed) {
@@ -135,9 +144,10 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason) writeComment({ args })
+          if (data?.broadcast?.reason)
+            writeComment?.({ recklesslySetUnpreparedArgs: args })
         } else {
-          writeComment({ args })
+          writeComment?.({ recklesslySetUnpreparedArgs: args })
         }
       } catch (error) {
         onError()

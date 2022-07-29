@@ -42,10 +42,18 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onError
   })
   const { data: signer } = useSigner({ onError })
+
+  // const { config: prepareSubscribe } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'followWithSig',
+  //   enabled: false
+  // })
   const { write: writeSubscribe, data: writeData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'followWithSig',
+    mode: 'recklesslyUnprepared',
     onSuccess(data) {
       setButtonText('Subscribing...')
       showToast(data.hash)
@@ -63,9 +71,10 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onError
   })
 
-  const { indexed } = usePendingTxn(
-    writeData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writeData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
 
   useEffect(() => {
     if (indexed) {
@@ -104,10 +113,11 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason) writeSubscribe({ args })
+          if (data?.broadcast?.reason)
+            writeSubscribe?.({ recklesslySetUnpreparedArgs: args })
         } else {
-          writeSubscribe({
-            args
+          writeSubscribe?.({
+            recklesslySetUnpreparedArgs: args
           })
         }
       } catch (error) {

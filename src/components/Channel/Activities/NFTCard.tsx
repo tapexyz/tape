@@ -1,4 +1,8 @@
-import { IS_MAINNET, NFT_MARKETPLACE_URL } from '@utils/constants'
+import {
+  IS_MAINNET,
+  NFT_MARKETPLACE_URL,
+  STATIC_ASSETS
+} from '@utils/constants'
 import imageCdn from '@utils/functions/imageCdn'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import Link from 'next/link'
@@ -13,11 +17,23 @@ const NFTCard: FC<Props> = ({ nft }) => {
   return (
     <div className="bg-gray-50 rounded-xl dark:bg-[#181818] group">
       <div className="aspect-h-9 aspect-w-16">
-        <img
-          className="w-full h-full rounded-t-xl"
-          src={imageCdn(sanitizeIpfsUrl(nft.originalContent?.uri), 'thumbnail')}
-          alt={nft.name}
-        />
+        {nft?.originalContent?.animatedUrl ? (
+          <iframe
+            className="w-full h-full sm:rounded-t-[10px]"
+            src={nft?.originalContent?.animatedUrl}
+          />
+        ) : (
+          <img
+            className="object-cover w-full h-full rounded-t-xl"
+            src={imageCdn(
+              nft.originalContent?.uri
+                ? sanitizeIpfsUrl(nft.originalContent?.uri)
+                : `${STATIC_ASSETS}/images/placeholder.webp`,
+              'thumbnail'
+            )}
+            alt={nft.name}
+          />
+        )}
       </div>
       <Link
         href={`${NFT_MARKETPLACE_URL}/assets/${

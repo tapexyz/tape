@@ -7,7 +7,11 @@ import React, { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
 import { ApprovedAllowanceAmount } from 'src/types'
 import { LenstubeCollectModule } from 'src/types/local'
-import { useSendTransaction, useWaitForTransaction } from 'wagmi'
+import {
+  usePrepareSendTransaction,
+  useSendTransaction,
+  useWaitForTransaction
+} from 'wagmi'
 
 type Props = {
   collectModule: LenstubeCollectModule
@@ -25,11 +29,17 @@ const PermissionAlert: FC<Props> = ({
   const [generateAllowanceQuery, { loading }] = useLazyQuery(
     GENERATE_ALLOWANCE_QUERY
   )
+
+  const { config: prepareTxn } = usePrepareSendTransaction({
+    request: {}
+  })
   const {
     data: txData,
     isLoading: transactionLoading,
     sendTransaction
   } = useSendTransaction({
+    ...prepareTxn,
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
@@ -59,8 +69,12 @@ const PermissionAlert: FC<Props> = ({
       }
     })
     const data = result?.data?.generateModuleCurrencyApprovalData
-    sendTransaction({
-      request: { from: data?.from, to: data?.to, data: data?.data }
+    sendTransaction?.({
+      recklesslySetUnpreparedRequest: {
+        from: data?.from,
+        to: data?.to,
+        data: data?.data
+      }
     })
   }
 

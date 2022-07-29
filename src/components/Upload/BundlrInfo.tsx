@@ -41,8 +41,6 @@ const BundlrInfo = () => {
       setBundlrData({
         balance: utils.formatEther(balance.toString())
       })
-    } else {
-      await initBundlr()
     }
   }
 
@@ -78,6 +76,8 @@ const BundlrInfo = () => {
     if (bundlrData.instance && mounted) {
       fetchBalance(bundlrData.instance)
       estimatePrice(bundlrData.instance)
+    } else {
+      initBundlr()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bundlrData.instance])

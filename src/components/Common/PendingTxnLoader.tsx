@@ -14,7 +14,10 @@ const PendingTxnLoader: FC<Props> = ({
   onIndexed,
   isPublication = false
 }) => {
-  const { indexed, data } = usePendingTxn(txnHash || '', isPublication)
+  const { indexed, data } = usePendingTxn({
+    txHash: txnHash || '',
+    isPublication
+  })
 
   useEffect(() => {
     if (indexed) onIndexed(data)

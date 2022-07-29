@@ -80,10 +80,18 @@ const UploadSteps = () => {
       onError()
     }
   })
+
+  // const { config: preparePostWrite } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'postWithSig',
+  //   enabled: false
+  // })
   const { data: writePostData, write: writePostContract } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'postWithSig',
+    mode: 'recklesslyUnprepared',
     onSuccess(data) {
       showToast(data.hash)
       setUploadedVideo({
@@ -97,10 +105,10 @@ const UploadSteps = () => {
     }
   })
 
-  const { indexed } = usePendingTxn(
-    writePostData?.hash || broadcastData?.broadcast?.txHash,
-    true
-  )
+  const { indexed } = usePendingTxn({
+    txHash: writePostData?.hash || broadcastData?.broadcast?.txHash,
+    isPublication: true
+  })
 
   useEffect(() => {
     if (indexed) setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
@@ -247,8 +255,9 @@ const UploadSteps = () => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason) writePostContract({ args })
-        } else writePostContract({ args })
+          if (data?.broadcast?.reason)
+            writePostContract?.({ recklesslySetUnpreparedArgs: args })
+        } else writePostContract?.({ recklesslySetUnpreparedArgs: args })
       } catch (error) {
         onError()
         logger.error('[Error Post Video]', error)

@@ -35,10 +35,17 @@ const DangerZone = () => {
     toast.error(error?.data?.message ?? error?.message)
   }
 
+  // const { config: prepareBurn } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'burnWithSig',
+  //   enabled: false
+  // })
   const { write: writeDeleteProfile } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'burnWithSig',
+    mode: 'recklesslyUnprepared',
     onError,
     onSuccess(data) {
       setTxnHash(data.hash)
@@ -74,7 +81,7 @@ const DangerZone = () => {
           const { tokenId } = typedData?.value
           const { v, r, s } = utils.splitSignature(signature)
           const sig = { v, r, s, deadline: typedData.value.deadline }
-          writeDeleteProfile({ args: [tokenId, sig] })
+          writeDeleteProfile?.({ recklesslySetUnpreparedArgs: [tokenId, sig] })
         } catch (error) {
           setLoading(false)
           logger.error('[Error Delete Channel]', error)

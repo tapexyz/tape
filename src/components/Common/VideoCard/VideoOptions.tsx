@@ -50,9 +50,12 @@ const VideoOptions = ({
     <Popover
       trigger={
         <div
-          className={clsx('p-1  group-hover:visible', {
-            'lg:invisible': showOnHover
-          })}
+          className={clsx(
+            'p-1 text-white md:text-inherit group-hover:visible',
+            {
+              'lg:invisible': showOnHover
+            }
+          )}
         >
           <HiOutlineDotsVertical />
         </div>

@@ -35,10 +35,17 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       setSelectedPfp(getProfilePicture(channel, 'avatar'))
     }
   })
+  // const { config: prepareSetProfileImage } = usePrepareContractWrite({
+  //   addressOrName: LENSHUB_PROXY_ADDRESS,
+  //   contractInterface: LENSHUB_PROXY_ABI,
+  //   functionName: 'setProfileImageURIWithSig',
+  //   enabled: false
+  // })
   const { data: pfpData, write: writePfpUri } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'setProfileImageURIWithSig',
+    mode: 'recklesslyUnprepared',
     onError(error: any) {
       setLoading(false)
       setSelectedPfp(getProfilePicture(channel, 'avatar'))
@@ -58,9 +65,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     }
   })
 
-  const { indexed } = usePendingTxn(
-    pfpData?.hash || broadcastData?.broadcast?.txHash
-  )
+  const { indexed } = usePendingTxn({
+    txHash: pfpData?.hash,
+    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  })
 
   const onCompleted = () => {
     if (selectedChannel && selectedPfp)
@@ -68,6 +76,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         ...selectedChannel,
         picture: { original: { url: selectedPfp } }
       })
+    toast.success('Channel image updated')
   }
 
   useEffect(() => {
@@ -101,9 +110,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             const { data } = await broadcast({
               variables: { request: { id, signature } }
             })
-            if (data?.broadcast?.reason) writePfpUri({ args })
+            if (data?.broadcast?.reason)
+              writePfpUri?.({ recklesslySetUnpreparedArgs: args })
           } else {
-            writePfpUri({ args })
+            writePfpUri?.({ recklesslySetUnpreparedArgs: args })
           }
         } catch (error) {
           setLoading(false)
