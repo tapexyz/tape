@@ -21,14 +21,25 @@ const ByteActions: FC<Props> = ({ video }) => {
         />
       </div>
       <div className="items-center py-3 space-y-1 md:flex md:flex-col">
-        <PublicationReaction
-          publication={video}
-          iconSize="2xl"
-          iconType="filled"
-          textSize="xs"
-          isVertical
-          showLabel
-        />
+        <div className="md:hidden">
+          <PublicationReaction
+            publication={video}
+            iconSize="2xl"
+            iconType="filled"
+            textSize="xs"
+            isVertical
+            showLabel
+          />
+        </div>
+        <div className="hidden md:block">
+          <PublicationReaction
+            publication={video}
+            iconSize="2xl"
+            textSize="xs"
+            isVertical
+            showLabel
+          />
+        </div>
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
           <div className="hidden md:block">
             <MintVideo video={video} variant="secondary" />
