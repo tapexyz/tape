@@ -115,7 +115,7 @@ export default function GlobalSearchBar() {
             </Tab.Group>
 
             {loading && (
-              <div className="flex justify-center p-4">
+              <div className="flex justify-center p-5">
                 <Loader />
               </div>
             )}
