@@ -24,7 +24,7 @@ const PlayPause: FC<VideoRefOnly> = ({ videoRef }) => {
           className="md:w-6 md:h-6"
           viewBox="0 0 24 24"
         >
-          <path fill="currentColor" d="M14 19h4V5h-4M6 19h4V5H6v14Z"></path>
+          <path fill="currentColor" d="M14 19h4V5h-4M6 19h4V5H6v14Z" />
         </svg>
       ) : (
         <svg
