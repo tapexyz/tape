@@ -4,7 +4,7 @@ import MetaTags from '@components/Common/MetaTags'
 import logger from '@lib/logger'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import * as Sentry from '@sentry/nextjs'
+import Sentry from '@sentry/nextjs'
 import {
   ARWEAVE_WEBSITE_URL,
   IPFS_GATEWAY,

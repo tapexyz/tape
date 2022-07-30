@@ -4,7 +4,7 @@ import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import * as Sentry from '@sentry/nextjs'
+import Sentry from '@sentry/nextjs'
 import {
   BUNDLR_CURRENCY,
   BUNDLR_WEBSITE_URL,
