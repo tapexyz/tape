@@ -1,4 +1,4 @@
-import { SENSITIVE_CONTENT } from '@utils/constants'
+import { SENSITIVE_CONTENT } from '@utils/data/sensitives'
 import { MetadataAttributeOutput } from 'src/types'
 
 export const getIsSensitiveContent = (
