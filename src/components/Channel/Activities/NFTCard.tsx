@@ -19,6 +19,7 @@ const NFTCard: FC<Props> = ({ nft }) => {
       <div className="aspect-h-9 aspect-w-16">
         {nft?.originalContent?.animatedUrl ? (
           <iframe
+            sandbox="allow-scripts"
             className="w-full h-full sm:rounded-t-[10px]"
             src={nft?.originalContent?.animatedUrl}
           />
