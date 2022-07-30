@@ -7,12 +7,14 @@ import { persist } from 'zustand/middleware'
 interface AppPerisistState {
   isAuthenticated: boolean
   isSignedUser: boolean
+  autoPlay: boolean
   selectedChannel: Profile | null
   recentlyWatched: LenstubePublication[] | []
   watchLater: LenstubePublication[] | []
   notificationCount: number
   setNotificationCount: (count: number) => void
   setSelectedChannel: (channel: Profile | null) => void
+  setAutoPlay: (auto: boolean) => void
   setIsAuthenticated: (auth: boolean) => void
   setIsSignedUser: (auth: boolean) => void
   addToRecentlyWatched: (video: LenstubePublication) => void
@@ -25,10 +27,12 @@ export const usePersistStore = create(
     (set, get) => ({
       isAuthenticated: false,
       isSignedUser: false,
+      autoPlay: true,
       recentlyWatched: [],
       watchLater: [],
       selectedChannel: null,
       notificationCount: 0,
+      setAutoPlay: (autoPlay) => set(() => ({ autoPlay })),
       setNotificationCount: (notificationCount) =>
         set(() => ({ notificationCount })),
       setSelectedChannel: (channel) =>
