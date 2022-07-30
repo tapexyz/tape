@@ -1,5 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
+import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
 import { clearStorage } from '@lib/apollo'
 import logger from '@lib/logger'
@@ -118,7 +119,13 @@ const DangerZone = () => {
             {selectedChannel.name && (
               <h6 className="font-medium">{selectedChannel.name}</h6>
             )}
-            <span className="text-sm">{selectedChannel.handle}</span>
+            <span className="flex items-center space-x-1">
+              <span className="text-sm">{selectedChannel?.handle}</span>
+              <IsVerified
+                id={selectedChannel?.id}
+                className="text-xs text-gray-500"
+              />
+            </span>
           </div>
         </div>
         <div className="flex space-x-2">

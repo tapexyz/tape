@@ -13,6 +13,7 @@ import { BiUser } from 'react-icons/bi'
 import { Follower, PaginatedResultInfo, Profile } from 'src/types'
 
 import { AddressExplorerLink } from './ExplorerLink'
+import IsVerified from './IsVerified'
 
 type Props = {
   channel: Profile
@@ -72,7 +73,10 @@ const SubscribersList: FC<Props> = ({ channel }) => {
                     alt="channel picture"
                     draggable={false}
                   />
-                  <div>{subscriber.wallet?.defaultProfile?.handle}</div>
+                  <div className="flex items-center space-x-1">
+                    <span>{subscriber.wallet?.defaultProfile?.handle}</span>
+                    <IsVerified id={subscriber.wallet?.defaultProfile?.id} />
+                  </div>
                 </div>
                 <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">
                   <BiUser />

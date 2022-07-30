@@ -1,3 +1,4 @@
+import IsVerified from '@components/Common/IsVerified'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -26,7 +27,13 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
               alt="channel picture"
               draggable={false}
             />
-            <div>{notification?.mentionPublication?.profile?.handle}</div>
+            <div className="flex items-center space-x-0.5">
+              <span>{notification?.mentionPublication?.profile?.handle}</span>
+              <IsVerified
+                id={notification?.mentionPublication?.profile?.id}
+                className="text-xs text-gray-500"
+              />
+            </div>
           </a>
         </Link>
       </div>

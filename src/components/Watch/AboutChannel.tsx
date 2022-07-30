@@ -1,4 +1,5 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
+import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
@@ -44,7 +45,10 @@ const AboutChannel: FC<Props> = ({ video }) => {
           <div className="flex flex-wrap justify-between py-2 gap-y-2">
             <div className="flex flex-col items-start mr-2">
               <Link href={`/${channel?.handle}`}>
-                <a className="font-semibold">{channel?.handle}</a>
+                <a className="flex items-center space-x-1 font-semibold">
+                  <span>{channel?.handle}</span>
+                  <IsVerified id={channel.id} />
+                </a>
               </Link>
               <span className="inline-flex items-center space-x-1 text-xs">
                 {channel?.stats.totalFollowers} subscribers

@@ -1,3 +1,4 @@
+import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
 import { STATIC_ASSETS } from '@utils/constants'
 import { getTimeFromSeconds } from '@utils/functions/formatTime'
@@ -83,9 +84,13 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
                 </a>
               </Link>
             </div>
-            <Link passHref href={`/${video.profile?.handle}`}>
-              <a className="text-xs hover:opacity-100 opacity-70">
-                {commentedOn.profile?.handle}
+            <Link href={`/${commentedOn.profile?.handle}`}>
+              <a className="flex items-center text-xs space-x-0.5 hover:opacity-100 opacity-70">
+                <span>{commentedOn.profile?.handle}</span>
+                <IsVerified
+                  id={commentedOn.profile?.id}
+                  className="text-xs text-gray-500"
+                />
               </a>
             </Link>
           </div>
@@ -104,12 +109,6 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
               {video.metadata?.content}
             </div>
             <div className="flex items-center text-xs leading-3 opacity-70">
-              <Link href={`/${video.profile?.handle}`}>
-                <a className="opacity-90 hover:opacity-100">
-                  {video.profile?.handle}
-                </a>
-              </Link>
-              <span className="middot" />
               <span title={video.createdAt}>
                 {dayjs(new Date(video.createdAt)).fromNow()}
               </span>

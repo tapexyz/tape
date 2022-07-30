@@ -1,3 +1,4 @@
+import IsVerified from '@components/Common/IsVerified'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import { STATIC_ASSETS } from '@utils/constants'
@@ -69,7 +70,13 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
             <div className="truncate">
               <Link href={`/${video.profile?.handle}`}>
                 <a className="text-xs truncate hover:opacity-100 opacity-70">
-                  {video.profile?.handle}
+                  <div className="flex items-center space-x-0.5">
+                    <span>{video?.profile?.handle}</span>
+                    <IsVerified
+                      id={video?.profile.id}
+                      className="text-xs text-gray-500"
+                    />
+                  </div>
                 </a>
               </Link>
             </div>

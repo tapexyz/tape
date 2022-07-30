@@ -1,5 +1,6 @@
 import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
 import { useMutation } from '@apollo/client'
+import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
@@ -261,7 +262,10 @@ const BasicInfo = ({ channel }: Props) => {
             Channel
           </div>
         </div>
-        <h6>{channel.handle}</h6>
+        <h6 className="flex items-center space-x-1">
+          <span>{channel?.handle}</span>
+          <IsVerified id={channel?.id} className="text-xs text-gray-500" />
+        </h6>
       </div>
       <div className="mt-4">
         <div className="flex items-center mb-1">
