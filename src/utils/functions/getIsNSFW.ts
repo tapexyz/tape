@@ -4,15 +4,13 @@ const SENSITIVE_CONTENT_LIMIT = 20
 const SEXY_CONTENT_LIMIT = 90
 
 export const getIsNSFW = (predictions: predictionType[]): boolean => {
-  const nsfwPercentage =
-    predictions.find((i) => i.className === 'Porn')?.probability || 0
-  const hentaiPercentage =
+  const porn = predictions.find((i) => i.className === 'Porn')?.probability || 0
+  const hentai =
     predictions.find((i) => i.className === 'Hentai')?.probability || 0
-  const sexyPercentage =
-    predictions.find((i) => i.className === 'Sexy')?.probability || 0
+  const sexy = predictions.find((i) => i.className === 'Sexy')?.probability || 0
   const isNSFW =
-    Number((nsfwPercentage * 100).toFixed(2)) > SENSITIVE_CONTENT_LIMIT ||
-    Number((hentaiPercentage * 100).toFixed(2)) > SENSITIVE_CONTENT_LIMIT ||
-    Number((sexyPercentage * 100).toFixed(2)) > SEXY_CONTENT_LIMIT
+    Number((porn * 100).toFixed(2)) > SENSITIVE_CONTENT_LIMIT ||
+    Number((hentai * 100).toFixed(2)) > SENSITIVE_CONTENT_LIMIT ||
+    Number((sexy * 100).toFixed(2)) > SEXY_CONTENT_LIMIT
   return isNSFW
 }
