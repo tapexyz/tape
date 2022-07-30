@@ -10,6 +10,8 @@ import React, { FC, useEffect, useState } from 'react'
 import { Attribute } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
+import IsVerified from '../IsVerified'
+
 type Props = {
   video: LenstubePublication | null
   playNext: () => void
@@ -84,8 +86,9 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
                       </a>
                     </Link>
                   </div>
-                  <p className="text-xs truncate md:text-sm opacity-80">
-                    {video.profile?.handle}
+                  <p className="flex items-center space-x-1 text-xs truncate md:text-sm opacity-80">
+                    <span>{video.profile?.handle}</span>
+                    <IsVerified id={video.profile?.id} size="xs" />
                   </p>
                 </div>
               </div>

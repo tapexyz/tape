@@ -1,4 +1,4 @@
-import Tooltip from '@components/UIElements/Tooltip'
+import IsVerified from '@components/Common/IsVerified'
 import { STATIC_ASSETS } from '@utils/constants'
 import { getTimeFromSeconds } from '@utils/functions/formatTime'
 import { getValueFromTraitType } from '@utils/functions/getFromAttributes'
@@ -83,9 +83,10 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
                 </a>
               </Link>
             </div>
-            <Link passHref href={`/${video.profile?.handle}`}>
-              <a className="text-xs hover:opacity-100 opacity-70">
-                {mirrorOf.profile?.handle}
+            <Link href={`/${mirrorOf.profile?.handle}`}>
+              <a className="flex text-xs items-center space-x-0.5 hover:opacity-100 opacity-70">
+                <span>{mirrorOf.profile?.handle}</span>
+                <IsVerified id={mirrorOf.profile?.id} size="xs" />
               </a>
             </Link>
           </div>
@@ -94,21 +95,13 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
           <div className="absolute left-3 bottom-2.5 pb-2 inset-0 flex justify-center w-1.5">
             <div className="w-0.5 bg-gray-300 dark:bg-gray-700 pointer-events-none" />
           </div>
-          <Tooltip content="Mirrored">
-            <span className="absolute m-2 mb-0 bottom-1 opacity-70">
-              <MdPublishedWithChanges />
-            </span>
-          </Tooltip>
+          <span className="absolute m-2 mb-0 bottom-1 opacity-70">
+            <MdPublishedWithChanges />
+          </span>
           <div className="pl-8">
             <div className="flex items-center text-xs leading-3 opacity-70">
-              <Link href={`/${video.profile?.handle}`}>
-                <a className="opacity-90 hover:opacity-100">
-                  {video.profile?.handle}
-                </a>
-              </Link>
-              <span className="middot" />
               <span title={video.createdAt}>
-                {dayjs(new Date(video.createdAt)).fromNow()}
+                Mirrored {dayjs(new Date(video.createdAt)).fromNow()}
               </span>
             </div>
           </div>
