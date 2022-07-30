@@ -61,7 +61,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
             <div className="flex flex-col items-start mr-3">
               <h1 className="flex items-center space-x-1.5 font-semibold md:text-2xl">
                 <span>{channel?.handle}</span>
-                <Tooltip content="Verified" placement="right">
+                <Tooltip content="Verified Creator" placement="right">
                   <span>
                     <IsVerified id={channel?.id} size="lg" />
                   </span>
