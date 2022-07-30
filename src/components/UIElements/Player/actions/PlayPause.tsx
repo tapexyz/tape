@@ -9,10 +9,6 @@ const PlayPause: FC<VideoRefOnly> = ({ videoRef }) => {
 
   const onClick = () => {
     togglePlay({ videoRef })
-    console.log(
-      '🚀 ~ file: PlayPause.tsx ~ line 13 ~ onClick ~ videoRef.current?.paused',
-      videoRef.current?.paused
-    )
   }
 
   return (

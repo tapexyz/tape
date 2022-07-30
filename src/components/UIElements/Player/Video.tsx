@@ -14,13 +14,21 @@ const Video: FC<VideoRefOnly> = ({ videoRef }) => {
   }
 
   return (
-    <video
-      controlsList="nodownload"
-      className="aspect-video rounded-xl"
-      src="https://livepeercdn.com/asset/5f86c5tcrnezabww/video"
-      ref={videoRef}
-      onClick={onClickVideo}
-    />
+    <div id="lenstube-player-container">
+      <video
+        controlsList="nodownload"
+        id="lenstube-player"
+        className="w-full aspect-video rounded-xl"
+        ref={videoRef}
+        onClick={onClickVideo}
+        onContextMenu={(event) => event.preventDefault()}
+      >
+        <source
+          src="https://livepeercdn.com/asset/5f86c5tcrnezabww/video"
+          type="video/mp4"
+        />
+      </video>
+    </div>
   )
 }
 
