@@ -75,7 +75,10 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   }
 
   useEffect(() => {
-    if (file) generateThumbnails(file)
+    if (file)
+      generateThumbnails(file).catch((error) =>
+        logger.error('[Error Generate Thumbnails from File]', error)
+      )
     return () => {
       setSelectedThumbnailIndex(-1)
       setThumbnails([])
