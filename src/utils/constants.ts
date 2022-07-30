@@ -73,22 +73,3 @@ export const GIT_DEPLOYED_COMMIT_SHA =
 export const GIT_DEPLOYED_BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
 export const VERCEL_DEPLOYED_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV
 export const GOOGLE_ANALYTICS_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS
-
-export const filters = [
-  { name: 'Explore' },
-  { name: 'Trending' },
-  { name: 'Web3' },
-  { name: 'Blockchain' },
-  { name: 'Ethereum' },
-  { name: 'NFT' },
-  { name: 'Music' },
-  { name: 'Movies' },
-  { name: 'Games' },
-  { name: 'Technology' },
-  { name: 'News' },
-  { name: 'Learning' },
-  { name: 'Education' },
-  { name: 'Sports' },
-  { name: 'Beauty' },
-  { name: 'Fashion' }
-]
