@@ -4,7 +4,7 @@ import { VideoRefOnly } from '../Video'
 import AutoPlay from './AutoPlay'
 import Duration from './Duration'
 import Fullscreen from './FullScreen'
-import PIP from './PIP'
+import Pip from './Pip'
 import PlayPause from './PlayPause'
 import UpNext from './UpNext'
 import Volume from './Volume'
@@ -21,7 +21,7 @@ const Actions: FC<VideoRefOnly> = ({ videoRef }) => {
         </div>
         <div className="flex items-center space-x-4">
           <AutoPlay />
-          <PIP videoRef={videoRef} />
+          <Pip videoRef={videoRef} />
           <Fullscreen videoRef={videoRef} />
         </div>
       </div>
