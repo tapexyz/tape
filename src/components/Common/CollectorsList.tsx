@@ -77,7 +77,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
                   />
                   <div className="flex items-center space-x-1">
                     <span>{wallet?.defaultProfile?.handle}</span>
-                    <IsVerified id={wallet?.defaultProfile?.id} />
+                    <IsVerified id={wallet?.defaultProfile?.id} size="xs" />
                   </div>
                 </div>
                 <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">

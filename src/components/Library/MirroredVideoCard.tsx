@@ -86,10 +86,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
             <Link href={`/${video.profile?.handle}`}>
               <a className="flex text-xs items-center space-x-0.5 hover:opacity-100 opacity-70">
                 <span>{mirrorOf.profile?.handle}</span>
-                <IsVerified
-                  id={mirrorOf.profile?.id}
-                  className="text-xs text-gray-500"
-                />
+                <IsVerified id={mirrorOf.profile?.id} size="xs" />
               </a>
             </Link>
           </div>

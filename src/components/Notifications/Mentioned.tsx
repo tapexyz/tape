@@ -31,7 +31,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
               <span>{notification?.mentionPublication?.profile?.handle}</span>
               <IsVerified
                 id={notification?.mentionPublication?.profile?.id}
-                className="text-xs text-gray-500"
+                size="xs"
               />
             </div>
           </a>

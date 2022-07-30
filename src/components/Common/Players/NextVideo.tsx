@@ -88,7 +88,7 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
                   </div>
                   <p className="flex items-center space-x-1 text-xs truncate md:text-sm opacity-80">
                     <span>{video.profile?.handle}</span>
-                    <IsVerified id={video.profile?.id} />
+                    <IsVerified id={video.profile?.id} size="xs" />
                   </p>
                 </div>
               </div>

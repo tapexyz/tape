@@ -87,10 +87,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
             <Link href={`/${commentedOn.profile?.handle}`}>
               <a className="flex items-center text-xs space-x-0.5 hover:opacity-100 opacity-70">
                 <span>{commentedOn.profile?.handle}</span>
-                <IsVerified
-                  id={commentedOn.profile?.id}
-                  className="text-xs text-gray-500"
-                />
+                <IsVerified id={commentedOn.profile?.id} size="xs" />
               </a>
             </Link>
           </div>

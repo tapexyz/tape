@@ -121,10 +121,7 @@ const DangerZone = () => {
             )}
             <span className="flex items-center space-x-1">
               <span className="text-sm">{selectedChannel?.handle}</span>
-              <IsVerified
-                id={selectedChannel?.id}
-                className="text-xs text-gray-500"
-              />
+              <IsVerified id={selectedChannel?.id} size="xs" />
             </span>
           </div>
         </div>

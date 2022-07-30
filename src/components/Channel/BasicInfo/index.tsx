@@ -63,10 +63,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 <span>{channel?.handle}</span>
                 <Tooltip content="Verified" placement="right">
                   <span>
-                    <IsVerified
-                      id={channel?.id}
-                      className="text-lg text-gray-500"
-                    />
+                    <IsVerified id={channel?.id} size="lg" />
                   </span>
                 </Tooltip>
               </h1>

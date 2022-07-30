@@ -264,7 +264,7 @@ const BasicInfo = ({ channel }: Props) => {
         </div>
         <h6 className="flex items-center space-x-1">
           <span>{channel?.handle}</span>
-          <IsVerified id={channel?.id} className="text-xs text-gray-500" />
+          <IsVerified id={channel?.id} size="xs" />
         </h6>
       </div>
       <div className="mt-4">

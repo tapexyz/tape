@@ -75,7 +75,10 @@ const SubscribersList: FC<Props> = ({ channel }) => {
                   />
                   <div className="flex items-center space-x-1">
                     <span>{subscriber.wallet?.defaultProfile?.handle}</span>
-                    <IsVerified id={subscriber.wallet?.defaultProfile?.id} />
+                    <IsVerified
+                      id={subscriber.wallet?.defaultProfile?.id}
+                      size="xs"
+                    />
                   </div>
                 </div>
                 <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">

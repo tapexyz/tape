@@ -39,7 +39,7 @@ const SubscribedNotification: FC<Props> = ({ notification }) => {
                 <span>{notification?.wallet?.defaultProfile?.handle}</span>
                 <IsVerified
                   id={notification?.wallet?.defaultProfile?.id}
-                  className="text-xs text-gray-500"
+                  size="xs"
                 />
               </div>
             </a>

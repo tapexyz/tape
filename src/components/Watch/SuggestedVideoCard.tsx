@@ -72,10 +72,7 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
                 <a className="text-xs truncate hover:opacity-100 opacity-70">
                   <div className="flex items-center space-x-0.5">
                     <span>{video?.profile?.handle}</span>
-                    <IsVerified
-                      id={video?.profile.id}
-                      className="text-xs text-gray-500"
-                    />
+                    <IsVerified id={video?.profile.id} size="xs" />
                   </div>
                 </a>
               </Link>

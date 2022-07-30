@@ -31,10 +31,7 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
             />
             <div className="flex items-center space-x-0.5">
               <span>{notification?.profile?.handle}</span>
-              <IsVerified
-                id={notification?.profile?.id}
-                className="text-xs text-gray-500"
-              />
+              <IsVerified id={notification?.profile?.id} size="xs" />
             </div>
           </a>
         </Link>

@@ -90,10 +90,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                 <Link href={`/${video.profile?.handle}`}>
                   <a className="flex items-center space-x-0.5 text-xs hover:opacity-100 opacity-70">
                     <span>{video.profile?.handle}</span>
-                    <IsVerified
-                      id={video.profile?.id}
-                      className="text-xs text-gray-500"
-                    />
+                    <IsVerified id={video.profile?.id} size="xs" />
                   </a>
                 </Link>
                 <div className="flex overflow-hidden items-center space-x-1 text-[11px] opacity-70">
