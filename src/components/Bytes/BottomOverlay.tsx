@@ -1,3 +1,4 @@
+import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
@@ -27,7 +28,13 @@ const BottomOverlay: FC<Props> = ({ video }) => {
                 alt="channel picture"
               />
               <div className="flex flex-col items-start text-white">
-                <h6>{channel?.handle}</h6>
+                <h6 className="flex items-center space-x-1">
+                  <span>{channel?.handle}</span>
+                  <IsVerified
+                    id={channel?.id}
+                    color="text-gray-300 dark:text-gray-300"
+                  />
+                </h6>
                 <span className="inline-flex items-center space-x-1 text-xs">
                   {channel?.stats.totalFollowers} subscribers
                 </span>

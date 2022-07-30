@@ -14,6 +14,7 @@ import { BiUser } from 'react-icons/bi'
 import { PaginatedResultInfo, Wallet } from 'src/types'
 
 import { AddressExplorerLink } from './ExplorerLink'
+import IsVerified from './IsVerified'
 
 type Props = {
   videoId: string
@@ -74,7 +75,10 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
                     alt="channel picture"
                     draggable={false}
                   />
-                  <div>{wallet?.defaultProfile?.handle}</div>
+                  <div className="flex items-center space-x-1">
+                    <span>{wallet?.defaultProfile?.handle}</span>
+                    <IsVerified id={wallet?.defaultProfile?.id} size="xs" />
+                  </div>
                 </div>
                 <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">
                   <BiUser />

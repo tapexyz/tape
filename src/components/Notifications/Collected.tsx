@@ -1,4 +1,5 @@
 import { AddressExplorerLink } from '@components/Common/ExplorerLink'
+import IsVerified from '@components/Common/IsVerified'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
@@ -31,7 +32,13 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
                 alt="channel picture"
                 draggable={false}
               />
-              <div>{notification?.wallet?.defaultProfile?.handle}</div>
+              <div className="flex items-center space-x-0.5">
+                <span>{notification?.wallet?.defaultProfile?.handle}</span>
+                <IsVerified
+                  id={notification?.wallet?.defaultProfile?.id}
+                  size="xs"
+                />
+              </div>
             </a>
           </Link>
         ) : (

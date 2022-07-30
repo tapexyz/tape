@@ -1,4 +1,5 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
+import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
 import { checkValueInAttributes } from '@utils/functions/getFromAttributes'
 import getProfilePicture from '@utils/functions/getProfilePicture'
@@ -50,7 +51,10 @@ const Comment: FC<Props> = ({ comment }) => {
         <div className="flex flex-col items-start mr-2">
           <span className="flex items-center mb-1 space-x-2">
             <Link href={`/${comment.profile?.handle}`}>
-              <a className="text-sm font-medium">{comment?.profile.handle}</a>
+              <a className="flex items-center space-x-1 text-sm font-medium">
+                <span>{comment?.profile?.handle}</span>
+                <IsVerified id={comment?.profile.id} />
+              </a>
             </Link>
             {checkValueInAttributes(
               comment?.metadata.attributes as Attribute[],
