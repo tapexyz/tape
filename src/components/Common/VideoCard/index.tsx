@@ -10,6 +10,7 @@ import Link from 'next/link'
 import React, { FC, useState } from 'react'
 import { LenstubePublication } from 'src/types/local'
 
+import IsVerified from '../IsVerified'
 import ShareModal from './ShareModal'
 import ThumbnailOverlays from './ThumbnailOverlays'
 import VideoOptions from './VideoOptions'
@@ -87,8 +88,9 @@ const VideoCard: FC<Props> = ({ video }) => {
                   <VideoOptions video={video} setShowShare={setShowShare} />
                 </div>
                 <Link href={`/${video.profile?.handle}`}>
-                  <a className="text-xs hover:opacity-100 opacity-70">
-                    {video.profile?.handle}
+                  <a className="flex items-center space-x-0.5 text-xs hover:opacity-100 opacity-70">
+                    <span>{video.profile?.handle}</span>
+                    <IsVerified id={video.profile?.id} size="xs" />
                   </a>
                 </Link>
                 <div className="flex overflow-hidden items-center space-x-1 text-[11px] opacity-70">

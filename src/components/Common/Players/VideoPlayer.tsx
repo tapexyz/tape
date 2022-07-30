@@ -2,7 +2,7 @@ import 'plyr-react/plyr.css'
 
 import useAppStore from '@lib/store'
 import usePlayerStore from '@lib/store/player'
-import * as Sentry from '@sentry/nextjs'
+import { captureException } from '@sentry/nextjs'
 import * as tf from '@tensorflow/tfjs'
 import { IS_MAINNET } from '@utils/constants'
 import { getIsNSFW } from '@utils/functions/getIsNSFW'
@@ -74,7 +74,7 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
             isNSFW: getIsNSFW(predictions)
           })
         } catch (error) {
-          Sentry.captureException(error)
+          captureException(error)
         }
       }
     }

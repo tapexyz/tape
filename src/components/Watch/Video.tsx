@@ -65,7 +65,9 @@ const Video: FC<Props> = ({ video, time }) => {
   }
 
   useEffect(() => {
-    checkVideoResource()
+    checkVideoResource().catch((error) =>
+      logger.error('[Error Invalid Playback]', error)
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

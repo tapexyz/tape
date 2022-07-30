@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import * as Sentry from '@sentry/nextjs'
+import { captureException } from '@sentry/nextjs'
 import clsx from 'clsx'
 import React from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
@@ -32,7 +32,7 @@ const DropZone = () => {
         reader.readAsArrayBuffer(file)
       }
     } catch (error) {
-      Sentry.captureException(error)
+      captureException(error)
       toast.error('Error uploading file')
       logger.error('[Error Upload Video]', error)
     }

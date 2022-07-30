@@ -12,7 +12,7 @@ import useIsMounted from '@utils/hooks/useIsMounted'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
+import z from 'zod'
 
 import PendingTxnLoader from './PendingTxnLoader'
 

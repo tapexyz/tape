@@ -2,8 +2,9 @@ import { WebBundlr } from '@bundlr-network/client'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
+import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import * as Sentry from '@sentry/nextjs'
+import { captureException } from '@sentry/nextjs'
 import {
   BUNDLR_CURRENCY,
   BUNDLR_WEBSITE_URL,
@@ -68,16 +69,21 @@ const BundlrInfo = () => {
   }
 
   useEffect(() => {
-    if (signer?.provider && mounted) initBundlr()
+    if (signer?.provider && mounted)
+      initBundlr().catch((error) => logger.error('[Error Init Bundlr]', error))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signer?.provider])
 
   useEffect(() => {
     if (bundlrData.instance && mounted) {
-      fetchBalance(bundlrData.instance)
-      estimatePrice(bundlrData.instance)
+      fetchBalance(bundlrData.instance).catch((error) =>
+        logger.error('[Error Fetch Bundlr Balance]', error)
+      )
+      estimatePrice(bundlrData.instance).catch((error) =>
+        logger.error('[Error Estimate Video Price ]', error)
+      )
     } else {
-      initBundlr()
+      initBundlr().catch((error) => logger.error('[Error Init Bundlr]', error))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bundlrData.instance])
@@ -107,7 +113,7 @@ const BundlrInfo = () => {
         )
     } catch (error: any) {
       toast.error('Failed to deposit')
-      if (error.code !== 4001) Sentry.captureException(error)
+      if (error.code !== 4001) captureException(error)
     } finally {
       await fetchBalance()
       setBundlrData({

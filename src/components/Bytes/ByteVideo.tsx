@@ -29,7 +29,9 @@ const ByteVideo: FC<Props> = ({ video }) => {
   }
 
   useEffect(() => {
-    checkVideoResource()
+    checkVideoResource().catch((error) =>
+      logger.error('[Error Invalid Byte Playback]', error)
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

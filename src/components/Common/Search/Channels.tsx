@@ -4,6 +4,8 @@ import React, { FC } from 'react'
 import { BiUser } from 'react-icons/bi'
 import { Profile } from 'src/types'
 
+import IsVerified from '../IsVerified'
+
 interface Props {
   results: Profile[]
   loading: boolean
@@ -32,9 +34,12 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
                     draggable={false}
                     alt="pfp"
                   />
-                  <p className="text-base truncate line-clamp-1">
-                    {channel?.handle}
-                  </p>
+                  <div className="flex items-center space-x-1">
+                    <p className="text-base truncate line-clamp-1">
+                      <span>{channel?.handle}</span>
+                    </p>
+                    <IsVerified id={channel?.id} size="xs" />
+                  </div>
                 </div>
                 <span className="inline-flex items-center space-x-1 text-xs whitespace-nowrap opacity-60">
                   <BiUser />

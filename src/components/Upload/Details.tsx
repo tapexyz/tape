@@ -133,7 +133,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                       `${getValues('description')} #bytes`
                     )
                   }
-                  className="mx-1 text-indigo-500 outline-none"
+                  className="mx-1 text-indigo-500 outline-none dark:text-indigo-400"
                 >
                   #bytes
                 </button>
