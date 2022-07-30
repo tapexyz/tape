@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 
 import { VideoRefOnly } from '../Video'
 
-const PIP: FC<VideoRefOnly> = ({ videoRef }) => {
+const Pip: FC<VideoRefOnly> = ({ videoRef }) => {
   const onClick = () => {
     if (!videoRef.current) return
     videoRef.current.requestPictureInPicture()
@@ -30,4 +30,4 @@ const PIP: FC<VideoRefOnly> = ({ videoRef }) => {
   )
 }
 
-export default PIP
+export default Pip
