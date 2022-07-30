@@ -156,7 +156,7 @@ const UserMenu = () => {
                   )}
                   {selectedChannel && (
                     <Link href={SETTINGS}>
-                      <a className="text-xs font-medium text-indigo-500">
+                      <a className="text-xs font-medium text-indigo-500 dark:text-indigo-400">
                         Settings
                       </a>
                     </Link>
