@@ -61,21 +61,6 @@ export const SIGN_IN_REQUIRED_MESSAGE = 'Sign in required'
 export const LENSTUBE_APP_ID = 'lenstube'
 export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
 
-// auth routes
-export const AUTH_ROUTES = [
-  '/upload',
-  '/live',
-  '/settings',
-  '/lt',
-  '/feed',
-  '/report/[id]',
-  '/settings/membership',
-  '/settings/permissions',
-  '/settings/danger',
-  '/notifications'
-]
-export const ADMIN_ROUTES = ['/lt']
-
 // handles
 export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'
 export const LENSTUBE_GITHUB_HANDLE = 'sasicodes/lenstube'
@@ -88,22 +73,3 @@ export const GIT_DEPLOYED_COMMIT_SHA =
 export const GIT_DEPLOYED_BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
 export const VERCEL_DEPLOYED_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV
 export const GOOGLE_ANALYTICS_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS
-
-// senstive content
-export const SENSITIVE_CONTENT = IS_MAINNET
-  ? [
-      '0x6e64-0x01',
-      '0x79f2-0x09',
-      '0x4e24-0x05',
-      '0x79f2-0x0d',
-      '0x923a-0x02',
-      '0x99-0x3d',
-      '0x9b5d-0x02',
-      '0x9cb4-0x1d',
-      '0x9cb4-0x1c',
-      '0x8441-0x02',
-      '0x9b5d-0x03',
-      '0x0dc2-0x05',
-      '0x9cb4-0x3c'
-    ]
-  : []

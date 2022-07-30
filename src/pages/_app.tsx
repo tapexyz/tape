@@ -6,12 +6,12 @@ import apolloClient from '@lib/apollo'
 import usePersistStore from '@lib/store/persist'
 import {
   ALCHEMY_KEY,
-  AUTH_ROUTES,
   GOOGLE_ANALYTICS_ID,
   IS_MAINNET,
   POLYGON_CHAIN_ID,
   POLYGON_RPC_URL
 } from '@utils/constants'
+import { AUTH_ROUTES } from '@utils/data/auth-routes'
 import { AUTH } from '@utils/url-path'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
