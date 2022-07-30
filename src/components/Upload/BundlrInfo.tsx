@@ -4,7 +4,7 @@ import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import Sentry from '@sentry/nextjs'
+import { captureException } from '@sentry/nextjs'
 import {
   BUNDLR_CURRENCY,
   BUNDLR_WEBSITE_URL,
@@ -113,7 +113,7 @@ const BundlrInfo = () => {
         )
     } catch (error: any) {
       toast.error('Failed to deposit')
-      if (error.code !== 4001) Sentry.captureException(error)
+      if (error.code !== 4001) captureException(error)
     } finally {
       await fetchBalance()
       setBundlrData({

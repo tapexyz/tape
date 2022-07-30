@@ -2,7 +2,7 @@ import { Loader } from '@components/UIElements/Loader'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { generateVideoThumbnails } from '@rajesh896/video-thumbnails-generator'
-import Sentry from '@sentry/nextjs'
+import { captureException } from '@sentry/nextjs'
 import { getFileFromDataURL } from '@utils/functions/getFileFromDataURL'
 import { getIsNSFW } from '@utils/functions/getIsNSFW'
 import { uploadImageToIPFS } from '@utils/functions/uploadToIPFS'
@@ -96,7 +96,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       const model = await nsfwjs.load()
       predictions = await model?.classify(img, 3)
     } catch (error) {
-      Sentry.captureException(error)
+      captureException(error)
     }
     return getIsNSFW(predictions)
   }
