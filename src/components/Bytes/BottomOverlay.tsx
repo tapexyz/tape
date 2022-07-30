@@ -31,7 +31,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
                 <h6 className="flex items-center space-x-1">
                   <span>{channel?.handle}</span>
                   <IsVerified
-                    id={video.profile?.id}
+                    id={channel?.id}
                     color="text-gray-300 dark:text-gray-300"
                   />
                 </h6>
