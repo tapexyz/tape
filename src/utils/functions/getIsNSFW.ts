@@ -14,7 +14,12 @@ export const getIsNSFW = (predictions: predictionType[]): boolean => {
     Number((hentai * 100).toFixed(2)) > SENSITIVE_CONTENT_LIMIT ||
     Number((sexy * 100).toFixed(2)) > SEXY_CONTENT_LIMIT
 
-  if (isNSFW) logger.error('[Error NSFW Detected]', { porn, sexy, hentai })
+  if (isNSFW)
+    logger.error('[Error NSFW Detected]', {
+      porn: Number((porn * 100).toFixed(2)),
+      sexy: Number((sexy * 100).toFixed(2)),
+      hentai: Number((hentai * 100).toFixed(2))
+    })
 
   return isNSFW
 }
