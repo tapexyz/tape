@@ -1,0 +1,21 @@
+name: Auto-PR
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  pull-request:
+    name: Open PR to testnet
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      name: checkout
+
+    - uses: repo-sync/pull-request@v2
+      name: pull-request
+      with:
+        destination_branch: "testnet"
+        pr_title: "Pulling ${{ github.ref }} into testnet"
+        pr_body: "👑 **An automated PR**"
+        pr_reviewer: "sasicodes"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
