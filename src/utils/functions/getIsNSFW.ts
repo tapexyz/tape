@@ -1,3 +1,4 @@
+import logger from '@lib/logger'
 import type { predictionType } from 'nsfwjs'
 
 const SENSITIVE_CONTENT_LIMIT = 20
@@ -12,5 +13,8 @@ export const getIsNSFW = (predictions: predictionType[]): boolean => {
     Number((porn * 100).toFixed(2)) > SENSITIVE_CONTENT_LIMIT ||
     Number((hentai * 100).toFixed(2)) > SENSITIVE_CONTENT_LIMIT ||
     Number((sexy * 100).toFixed(2)) > SEXY_CONTENT_LIMIT
+
+  if (isNSFW) logger.error('[Error NSFW Detected]', { porn, sexy, hentai })
+
   return isNSFW
 }
