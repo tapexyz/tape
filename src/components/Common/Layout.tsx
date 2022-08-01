@@ -145,13 +145,11 @@ const Layout: FC<Props> = ({ children }) => {
               }
             )}
           >
-            <div
-              className={clsx({
-                'hidden md:block': getShowFullScreen(pathname)
-              })}
-            >
-              {!NO_HEADER_PATHS.includes(pathname) && <Header />}
-            </div>
+            {!NO_HEADER_PATHS.includes(pathname) && (
+              <Header
+                className={getShowFullScreen(pathname) ? 'hidden md:flex' : ''}
+              />
+            )}
             <div
               className={clsx('py-2', {
                 '!p-0': getShowFullScreen(pathname)
