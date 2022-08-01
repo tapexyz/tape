@@ -61,13 +61,12 @@ const Header: FC<Props> = ({ className }) => {
           <GlobalSearchBar />
         </div>
       </div>
-      <div className="flex flex-row items-center justify-end space-x-2 md:space-x-3 md:w-2/5">
-        <button className="outline-none md:hidden">
-          <AiOutlineSearch
-            className="text-lg"
-            aria-hidden="true"
-            onClick={() => setSearchModal(true)}
-          />
+      <div className="flex flex-row items-center justify-end space-x-3 md:w-2/5">
+        <button
+          onClick={() => setSearchModal(true)}
+          className="outline-none md:hidden"
+        >
+          <AiOutlineSearch className="text-lg" aria-hidden="true" />
         </button>
         {isAuthenticated && <NotificationTrigger />}
         {isAuthenticated && (
