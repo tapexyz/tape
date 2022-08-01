@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React from 'react'
+import { FC } from 'react'
 import { CgBell } from 'react-icons/cg'
 
 import Login from './Login'
@@ -19,7 +20,11 @@ const NotificationTrigger = dynamic(
   () => import('../../components/Notifications/NotificationTrigger')
 )
 
-const Header = () => {
+type Props = {
+  className?: string
+}
+
+const Header: FC<Props> = ({ className }) => {
   const { hasNewNotification } = useAppStore()
   const { isAuthenticated, selectedChannel } = usePersistStore()
 
@@ -31,7 +36,8 @@ const Header = () => {
   return (
     <div
       className={clsx(
-        'sticky top-0 left-0 right-0 z-10 flex w-full items-center bg-white dark:bg-black h-14 md:h-16'
+        'sticky top-0 left-0 right-0 z-10 flex w-full items-center bg-white dark:bg-black h-14 md:h-16',
+        className
       )}
     >
       <div className="flex justify-between flex-1 md:w-3/4 md:justify-end">
