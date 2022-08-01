@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { PING_QUERY } from '@utils/gql/queries'
@@ -6,8 +7,9 @@ import { HOME, NOTIFICATIONS } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import { FC } from 'react'
+import { AiOutlineSearch } from 'react-icons/ai'
 import { CgBell } from 'react-icons/cg'
 
 import Login from './Login'
@@ -27,6 +29,7 @@ type Props = {
 const Header: FC<Props> = ({ className }) => {
   const { hasNewNotification } = useAppStore()
   const { isAuthenticated, selectedChannel } = usePersistStore()
+  const [showShowModal, setSearchModal] = useState(false)
 
   useQuery(PING_QUERY, {
     pollInterval: 900_000,
@@ -70,9 +73,25 @@ const Header: FC<Props> = ({ className }) => {
             </a>
           </Link>
         )}
+        <AiOutlineSearch
+          className="md:hidden w-5 h-5 text-gray-400"
+          aria-hidden="true"
+          onClick={() => setSearchModal(true)}
+        />
         {isAuthenticated && <NewVideoTrigger />}
         <Login />
       </div>
+
+      <Modal
+        title="Search"
+        onClose={() => setSearchModal(false)}
+        show={showShowModal}
+        panelClassName="max-w-md h-full"
+      >
+        <div className="max-h-[80vh] overflow-y-auto no-scrollbar">
+          <GlobalSearchBar />
+        </div>
+      </Modal>
     </div>
   )
 }

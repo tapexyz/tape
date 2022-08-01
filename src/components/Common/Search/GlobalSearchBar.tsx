@@ -59,7 +59,7 @@ export default function GlobalSearchBar() {
           </div>
           <div
             className={clsx(
-              'absolute w-full mt-1 text-base bg-white overflow-hidden dark:bg-[#181818] rounded-xl ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
+              'md:absolute w-full mt-1 text-base bg-white overflow-hidden dark:bg-[#181818] rounded-xl ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
               { hidden: debouncedValue.length === 0 }
             )}
           >
