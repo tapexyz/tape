@@ -61,7 +61,14 @@ const Header: FC<Props> = ({ className }) => {
           <GlobalSearchBar />
         </div>
       </div>
-      <div className="flex flex-row items-center justify-end space-x-3 md:w-2/5">
+      <div className="flex flex-row items-center justify-end space-x-2 md:space-x-3 md:w-2/5">
+        <button className="outline-none md:hidden">
+          <AiOutlineSearch
+            className="text-lg"
+            aria-hidden="true"
+            onClick={() => setSearchModal(true)}
+          />
+        </button>
         {isAuthenticated && <NotificationTrigger />}
         {isAuthenticated && (
           <Link href={NOTIFICATIONS}>
@@ -73,11 +80,6 @@ const Header: FC<Props> = ({ className }) => {
             </a>
           </Link>
         )}
-        <AiOutlineSearch
-          className="md:hidden w-5 h-5 text-gray-400"
-          aria-hidden="true"
-          onClick={() => setSearchModal(true)}
-        />
         {isAuthenticated && <NewVideoTrigger />}
         <Login />
       </div>
