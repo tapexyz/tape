@@ -10,7 +10,9 @@ export const getCollectModule = (selectCollectModule: CollectModuleType) => {
   // Should collect by paying fee (anyone/ only subs)
   if (
     selectCollectModule.isFeeCollect &&
-    !selectCollectModule.isTimedFeeCollect
+    !selectCollectModule.isTimedFeeCollect &&
+    !selectCollectModule.isLimitedFeeCollect &&
+    !selectCollectModule.isLimitedTimeFeeCollect
   ) {
     return {
       feeCollectModule: {
@@ -25,7 +27,10 @@ export const getCollectModule = (selectCollectModule: CollectModuleType) => {
     }
   }
   // Should collect with limited mints, unlimited time (anyone/ only subs)
-  if (selectCollectModule.isLimitedFeeCollect) {
+  if (
+    selectCollectModule.isLimitedFeeCollect &&
+    !selectCollectModule.isLimitedTimeFeeCollect
+  ) {
     return {
       limitedFeeCollectModule: {
         collectLimit: selectCollectModule.collectLimit,
@@ -92,6 +97,18 @@ export const getCollectModuleConfig = (collectModule: string) => {
         type: 'collectModule',
         description:
           'Allow you to collect any publication within the time limit specified.'
+      }
+    case 'LimitedFeeCollectModule':
+      return {
+        type: 'collectModule',
+        description:
+          'Allow you to collect any publication with the mint limit specified.'
+      }
+    case 'LimitedTimedFeeCollectModule':
+      return {
+        type: 'collectModule',
+        description:
+          'Allow you to collect any publication with the time and mint limit specified.'
       }
     case 'FeeFollowModule':
       return {

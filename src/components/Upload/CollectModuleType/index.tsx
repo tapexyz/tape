@@ -36,7 +36,7 @@ const CollectModuleType = () => {
     }
     if (!uploadedVideo.collectModule.isFreeCollect) {
       return `${followerOnlyCollect ? 'Only Subscribers' : 'Anyone'} can mint ${
-        isLimitedFeeCollect ? `max of ${collectLimit}` : ''
+        isLimitedFeeCollect ? `maximum of ${collectLimit}` : ''
       } for given fees ${isTimedFeeCollect ? 'within 24hrs' : ''}`
     }
   }

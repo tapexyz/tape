@@ -44,7 +44,7 @@ const MoreTrigger = () => {
           <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
             <Link href={`https://github.com/${LENSTUBE_GITHUB_HANDLE}`}>
               <a className="block px-2.5 py-1.5" target="_blank">
-                Star Us
+                Github
               </a>
             </Link>
           </div>
