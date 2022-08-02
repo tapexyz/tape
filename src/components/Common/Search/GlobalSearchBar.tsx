@@ -7,13 +7,17 @@ import useDebounce from '@utils/hooks/useDebounce'
 import useOutsideClick from '@utils/hooks/useOutsideClick'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
-import { useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 
 const Videos = dynamic(() => import('./Videos'))
 const Channels = dynamic(() => import('./Channels'))
 
-export default function GlobalSearchBar() {
+interface Props {
+  onSearchResults?: () => void
+}
+
+const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
   const [activeSearch, setActiveSearch] = useState('PUBLICATION')
   const [keyword, setKeyword] = useState('')
   const debouncedValue = useDebounce<string>(keyword, 500)
@@ -38,6 +42,11 @@ export default function GlobalSearchBar() {
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue, activeSearch])
+
+  const clearSearch = () => {
+    setKeyword('')
+    onSearchResults?.()
+  }
 
   return (
     <div className="lg:w-96 md:w-80">
@@ -101,14 +110,14 @@ export default function GlobalSearchBar() {
                   <Videos
                     results={channels?.search?.items}
                     loading={loading}
-                    clearSearch={() => setKeyword('')}
+                    clearSearch={clearSearch}
                   />
                 </Tab.Panel>
                 <Tab.Panel className="overflow-y-auto max-h-[80vh] no-scrollbar focus:outline-none">
                   <Channels
                     results={channels?.search?.items}
                     loading={loading}
-                    clearSearch={() => setKeyword('')}
+                    clearSearch={clearSearch}
                   />
                 </Tab.Panel>
               </Tab.Panels>
@@ -125,3 +134,4 @@ export default function GlobalSearchBar() {
     </div>
   )
 }
+export default GlobalSearchBar
