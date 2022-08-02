@@ -24,6 +24,36 @@ export const getCollectModule = (selectCollectModule: CollectModuleType) => {
       }
     }
   }
+  // Should collect with limited mints, unlimited time (anyone/ only subs)
+  if (selectCollectModule.isLimitedFeeCollect) {
+    return {
+      limitedFeeCollectModule: {
+        collectLimit: selectCollectModule.collectLimit,
+        amount: {
+          currency: selectCollectModule.amount?.currency,
+          value: selectCollectModule.amount?.value
+        },
+        recipient: selectCollectModule.recipient,
+        referralFee: selectCollectModule.referralFee,
+        followerOnly: selectCollectModule.followerOnlyCollect
+      }
+    }
+  }
+  // Should collect with limited mints, withing 24hrs (anyone/ only subs)
+  if (selectCollectModule.isLimitedTimeFeeCollect) {
+    return {
+      limitedTimedFeeCollectModule: {
+        collectLimit: selectCollectModule.collectLimit,
+        amount: {
+          currency: selectCollectModule.amount?.currency,
+          value: selectCollectModule.amount?.value
+        },
+        recipient: selectCollectModule.recipient,
+        referralFee: selectCollectModule.referralFee,
+        followerOnly: selectCollectModule.followerOnlyCollect
+      }
+    }
+  }
   // Should collect within 24 hrs (anyone/ only subs)
   if (
     selectCollectModule.isFeeCollect &&

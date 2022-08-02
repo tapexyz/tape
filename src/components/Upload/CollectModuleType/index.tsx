@@ -7,6 +7,7 @@ import { CollectModuleType } from 'src/types/local'
 
 import ChargeQuestion from './ChargeQuestion'
 import FeeCollectForm from './FeeCollectForm'
+import LimitDurationQuestion from './LimitDurationQuestion'
 import LimitQuestion from './LimitQuestion'
 import PermissionQuestion from './PermissionQuestion'
 
@@ -23,6 +24,8 @@ const CollectModuleType = () => {
   const getSelectedCollectType = () => {
     const followerOnlyCollect = uploadedVideo.collectModule.followerOnlyCollect
     const isTimedFeeCollect = uploadedVideo.collectModule.isTimedFeeCollect
+    const isLimitedFeeCollect = uploadedVideo.collectModule.isLimitedFeeCollect
+    const collectLimit = uploadedVideo.collectModule.collectLimit
     if (uploadedVideo.collectModule.isRevertCollect) {
       return 'No one can mint this publication'
     }
@@ -32,9 +35,9 @@ const CollectModuleType = () => {
       } can mint for free ${isTimedFeeCollect ? 'within 24hrs' : ''}`
     }
     if (!uploadedVideo.collectModule.isFreeCollect) {
-      return `${
-        followerOnlyCollect ? 'Only Subscribers' : 'Anyone'
-      } can mint for given fees ${isTimedFeeCollect ? 'within 24hrs' : ''}`
+      return `${followerOnlyCollect ? 'Only Subscribers' : 'Anyone'} can mint ${
+        isLimitedFeeCollect ? `max of ${collectLimit}` : ''
+      } for given fees ${isTimedFeeCollect ? 'within 24hrs' : ''}`
     }
   }
 
@@ -55,7 +58,7 @@ const CollectModuleType = () => {
       </button>
       <Modal
         title="Select collect type"
-        panelClassName="max-w-md"
+        panelClassName="max-w-lg"
         onClose={() => setShowModal(false)}
         show={showModal}
       >
@@ -65,13 +68,20 @@ const CollectModuleType = () => {
             uploadedVideo={uploadedVideo}
           />
           {!uploadedVideo.collectModule.isRevertCollect && (
+            <LimitDurationQuestion
+              setCollectType={setCollectType}
+              uploadedVideo={uploadedVideo}
+            />
+          )}
+          {!uploadedVideo.collectModule.isRevertCollect && (
             <LimitQuestion
               setCollectType={setCollectType}
               uploadedVideo={uploadedVideo}
             />
           )}
           {!uploadedVideo.collectModule.isRevertCollect &&
-            !uploadedVideo.collectModule.isTimedFeeCollect && (
+            !uploadedVideo.collectModule.isTimedFeeCollect &&
+            !uploadedVideo.collectModule.isLimitedFeeCollect && (
               <ChargeQuestion
                 setCollectType={setCollectType}
                 uploadedVideo={uploadedVideo}
