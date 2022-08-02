@@ -90,7 +90,7 @@ const Header: FC<Props> = ({ className }) => {
         panelClassName="max-w-md h-full"
       >
         <div className="max-h-[80vh] overflow-y-auto no-scrollbar">
-          <GlobalSearchBar />
+          <GlobalSearchBar onSearchResults={() => setSearchModal(false)} />
         </div>
       </Modal>
     </div>
