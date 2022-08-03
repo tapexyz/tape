@@ -23,9 +23,9 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             })
           }
           className={clsx(
-            'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+            'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
             {
-              'border-indigo-500': uploadedVideo.collectModule.isFreeCollect
+              '!border-indigo-500': uploadedVideo.collectModule.isFreeCollect
             }
           )}
         >
@@ -41,9 +41,9 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             })
           }
           className={clsx(
-            'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+            'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
             {
-              'border-indigo-500': uploadedVideo.collectModule.isFeeCollect
+              '!border-indigo-500': uploadedVideo.collectModule.isFeeCollect
             }
           )}
         >
