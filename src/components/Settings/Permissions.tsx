@@ -21,7 +21,9 @@ import {
 const collectModules = [
   'FeeCollectModule',
   'TimedFeeCollectModule',
-  'FeeFollowModule'
+  'FeeFollowModule',
+  'LimitedFeeCollectModule',
+  'LimitedTimedFeeCollectModule'
 ]
 
 const Permissions = () => {

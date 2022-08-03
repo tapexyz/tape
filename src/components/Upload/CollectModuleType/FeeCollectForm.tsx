@@ -6,7 +6,7 @@ import usePersistStore from '@lib/store/persist'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
 import { MODULES_CURRENCY_QUERY } from '@utils/gql/queries'
 import clsx from 'clsx'
-import React, { Dispatch, FC } from 'react'
+import React, { Dispatch, FC, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Erc20 } from 'src/types'
 import { CollectModuleType, UploadedVideo } from 'src/types/local'
@@ -22,6 +22,7 @@ type Props = {
 const formSchema = z.object({
   currency: z.string(),
   amount: z.string().min(1, { message: 'Invalid amount' }),
+  collectLimit: z.string().min(1, { message: 'Invalid collect limit' }),
   referralPercent: z
     .number()
     .max(100, { message: 'Percentage should be 0 to 100' })
@@ -37,17 +38,30 @@ const FeeCollectForm: FC<Props> = ({
   const {
     register,
     formState: { errors },
-    handleSubmit
+    handleSubmit,
+    unregister
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       referralPercent: Number(uploadedVideo.collectModule.referralFee || 0),
       currency:
         uploadedVideo.collectModule.amount?.currency ?? WMATIC_TOKEN_ADDRESS,
-      amount: uploadedVideo.collectModule.amount?.value
+      amount: uploadedVideo.collectModule.amount?.value,
+      collectLimit: uploadedVideo.collectModule.collectLimit || '1'
     }
   })
   const { selectedChannel } = usePersistStore()
+
+  useEffect(() => {
+    if (
+      uploadedVideo.collectModule.isLimitedFeeCollect ||
+      uploadedVideo.collectModule.isLimitedTimeFeeCollect
+    ) {
+      register('collectLimit')
+    } else {
+      unregister('collectLimit')
+    }
+  }, [uploadedVideo.collectModule, register, unregister])
 
   const { data: enabledCurrencies } = useQuery(MODULES_CURRENCY_QUERY, {
     variables: { request: { profileIds: selectedChannel?.id } },
@@ -58,7 +72,8 @@ const FeeCollectForm: FC<Props> = ({
     setCollectType({
       amount: { currency: data.currency, value: data.amount.toString() },
       referralFee: data.referralPercent,
-      recipient: selectedChannel?.ownedBy
+      recipient: selectedChannel?.ownedBy,
+      collectLimit: data.collectLimit
     })
     setShowModal(false)
   }
@@ -117,6 +132,23 @@ const FeeCollectForm: FC<Props> = ({
           validationError={errors.referralPercent?.message}
         />
       </div>
+      {uploadedVideo.collectModule.isLimitedFeeCollect ||
+      uploadedVideo.collectModule.isLimitedTimeFeeCollect ? (
+        <div>
+          <Input
+            type="number"
+            label="Collect Limit"
+            placeholder="3"
+            min="0"
+            autoComplete="off"
+            suffix="per user"
+            validationError={errors.collectLimit?.message}
+            {...register('collectLimit', {
+              setValueAs: (v) => String(v)
+            })}
+          />
+        </div>
+      ) : null}
       <div className="flex justify-end">
         <Button type="button" onClick={() => handleSubmit(onSubmit)()}>
           Set Collect Type
