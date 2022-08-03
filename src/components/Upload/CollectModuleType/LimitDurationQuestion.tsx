@@ -23,7 +23,9 @@ const LimitDurationQuestion: FC<Props> = ({
             setCollectType({
               isTimedFeeCollect: false,
               isFeeCollect: false,
-              isFreeCollect: true
+              isFreeCollect: uploadedVideo.collectModule.isLimitedFeeCollect
+                ? false
+                : true
             })
           }
           className={clsx(
@@ -42,7 +44,10 @@ const LimitDurationQuestion: FC<Props> = ({
           onClick={() =>
             setCollectType({
               isTimedFeeCollect: true,
-              isLimitedFeeCollect: false,
+              isLimitedFeeCollect: uploadedVideo.collectModule
+                .isLimitedFeeCollect
+                ? true
+                : false,
               isFeeCollect: true,
               isFreeCollect: false
             })
