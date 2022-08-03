@@ -54,6 +54,25 @@ const MintModal: FC<Props> = ({
     enabled: !!collectModule?.amount
   })
 
+  const {
+    loading: allowanceLoading,
+    data: allowanceData,
+    refetch: refetchAllowance
+  } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
+    variables: {
+      request: {
+        currencies: collectModule?.amount?.asset?.address,
+        followModules: [],
+        collectModules: collectModule?.type,
+        referenceModules: []
+      }
+    },
+    skip: !collectModule?.amount?.asset?.address || !isSignedUser,
+    onCompleted(data) {
+      setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
+    }
+  })
+
   useEffect(() => {
     if (
       balanceData &&
@@ -63,27 +82,13 @@ const MintModal: FC<Props> = ({
     )
       setHaveEnoughBalance(false)
     else setHaveEnoughBalance(true)
-  }, [balanceData, collectModule?.amount?.value, collectModule?.amount])
-
-  const { loading: allowanceLoading, data: allowanceData } = useQuery(
-    ALLOWANCE_SETTINGS_QUERY,
-    {
-      variables: {
-        request: {
-          currencies: collectModule?.amount?.asset?.address,
-          followModules: [],
-          collectModules: collectModule?.type,
-          referenceModules: []
-        }
-      },
-      skip: !collectModule?.amount?.asset?.address || !isSignedUser,
-      onCompleted(data) {
-        setIsAllowed(
-          data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00'
-        )
-      }
-    }
-  )
+    refetchAllowance()
+  }, [
+    balanceData,
+    collectModule?.amount?.value,
+    collectModule?.amount,
+    refetchAllowance
+  ])
 
   return (
     <Modal

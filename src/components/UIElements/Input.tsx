@@ -58,7 +58,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
           {...props}
         />
         {suffix && (
-          <span className="inline-flex items-center px-4 text-sm bg-gray-100 border border-l-0 border-gray-200 opacity-80 rounded-r-xl dark:bg-gray-900 dark:border-gray-800">
+          <span className="inline-flex items-center px-4 text-sm bg-gray-100 border border-l-0 border-gray-200 whitespace-nowrap opacity-80 rounded-r-xl dark:bg-gray-900 dark:border-gray-800">
             {suffix}
           </span>
         )}
