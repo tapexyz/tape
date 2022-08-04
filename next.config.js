@@ -16,6 +16,10 @@ const moduleExports = withAxiom(
         async rewrites() {
           return [
             {
+              source: '/sitemap.xml',
+              destination: 'https://assets.lenstube.xyz/sitemaps/sitemap.xml'
+            },
+            {
               source: '/sitemaps/:match*',
               destination: 'https://assets.lenstube.xyz/sitemaps/:match*'
             }
