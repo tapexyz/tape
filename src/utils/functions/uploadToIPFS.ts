@@ -14,6 +14,7 @@ const uploadDataToIPFS = async (data: any): Promise<IPFSUploadResult> => {
     const { Hash }: { Hash: string } = await uploaded.data
     return {
       ipfsUrl: `${IPFS_GATEWAY}/${Hash}`,
+      url: `${IPFS_GATEWAY}/${Hash}`,
       hash: Hash,
       type: 'application/json'
     }
@@ -21,6 +22,7 @@ const uploadDataToIPFS = async (data: any): Promise<IPFSUploadResult> => {
     logger.error('[Error IPFS Data Upload]', error)
     return {
       ipfsUrl: '',
+      url: '',
       hash: '',
       type: 'application/json'
     }
@@ -39,6 +41,7 @@ const uploadImageToIPFS = async (file: File): Promise<IPFSUploadResult> => {
 
     return {
       ipfsUrl: `https://ipfs.infura.io/ipfs/${Hash}`,
+      url: `https://ipfs.infura.io/ipfs/${Hash}`,
       type: file.type || 'image/jpeg',
       hash: Hash
     }
@@ -46,6 +49,7 @@ const uploadImageToIPFS = async (file: File): Promise<IPFSUploadResult> => {
     logger.error('[Error IPFS Image Upload]', error)
     return {
       ipfsUrl: '',
+      url: '',
       hash: '',
       type: file.type
     }

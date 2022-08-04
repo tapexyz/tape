@@ -70,6 +70,7 @@ export type LenstubePublication = Post &
 export type IPFSUploadResult = {
   hash: string
   ipfsUrl: string
+  url: string
   type: string
 }
 

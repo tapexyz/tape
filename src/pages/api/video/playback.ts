@@ -1,3 +1,4 @@
+import logger from '@lib/logger'
 import { withSentry } from '@sentry/nextjs'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -41,6 +42,7 @@ const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         success: true
       })
     } catch (error) {
+      logger.error('[Error API metadata Upload]', error)
       return res.status(200).json({ playbackId: null, success: false })
     }
   }
