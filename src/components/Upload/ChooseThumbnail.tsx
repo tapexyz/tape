@@ -1,17 +1,23 @@
+import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { generateVideoThumbnails } from '@rajesh896/video-thumbnails-generator'
 import { captureException } from '@sentry/nextjs'
+import * as tf from '@tensorflow/tfjs'
+import { IS_MAINNET } from '@utils/constants'
 import { getFileFromDataURL } from '@utils/functions/getFileFromDataURL'
 import { getIsNSFW } from '@utils/functions/getIsNSFW'
 import { uploadImageToIPFS } from '@utils/functions/uploadToIPFS'
-import useDraggableScroll from '@utils/hooks/useDraggableScroll'
 import clsx from 'clsx'
 import * as nsfwjs from 'nsfwjs'
-import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { BiImageAdd } from 'react-icons/bi'
 import { IPFSUploadResult } from 'src/types/local'
+
+if (IS_MAINNET) {
+  tf.enableProdMode()
+}
 
 interface Props {
   label: string
@@ -21,7 +27,7 @@ interface Props {
 }
 
 const DEFAULT_THUMBNAIL_INDEX = 0
-const GENERATE_COUNT = 2
+export const THUMBNAIL_GENERATE_COUNT = 6
 
 const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const [uploading, setUploading] = useState(false)
@@ -29,8 +35,6 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     Array<{ ipfsUrl: string; url: string; isNSFWThumbnail: boolean }>
   >([])
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1)
-  const scrollRef = useRef<null | HTMLDivElement>(null)
-  const { onMouseDown } = useDraggableScroll(scrollRef)
   const { setUploadedVideo } = useAppStore()
 
   const uploadThumbnailToIpfs = async (file: File) => {
@@ -45,7 +49,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     try {
       const thumbnailArray = await generateVideoThumbnails(
         file,
-        GENERATE_COUNT,
+        THUMBNAIL_GENERATE_COUNT,
         ''
       )
       const thumbnails: Array<{
@@ -144,14 +148,8 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
           </div>
         </div>
       )}
-      <div
-        ref={thumbnails.length > 0 ? scrollRef : null}
-        onMouseDown={thumbnails.length > 0 ? onMouseDown : undefined}
-        className={clsx('flex flex-row py-0.5 pr-2 space-x-2', {
-          'overflow-x-auto cursor-grab no-scrollbar': thumbnails.length > 0
-        })}
-      >
-        <label className="flex flex-col items-center justify-center flex-none w-32 h-16 border border-gray-200 cursor-pointer rounded-xl opacity-80 focus:outline-none dark:border-gray-800">
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 place-items-start py-0.5 pr-2 gap-3">
+        <label className="flex flex-col items-center justify-center flex-none w-full h-16 border border-gray-200 cursor-pointer max-w-32 rounded-xl opacity-80 focus:outline-none dark:border-gray-800">
           <input
             type="file"
             accept=".png, .jpg, .jpeg"
@@ -159,8 +157,9 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
             onChange={handleUpload}
           />
           <BiImageAdd className="flex-none mb-1 text-lg" />
-          <span className="text-[9px]">Upload thumbnail</span>
+          <span className="text-[10px]">Upload thumbnail</span>
         </label>
+        {!thumbnails.length && <ThumbnailsShimmer />}
         {thumbnails.map((thumbnail, idx) => {
           return (
             <button
@@ -168,7 +167,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
               type="button"
               onClick={() => onSelectThumbnail(idx)}
               className={clsx(
-                'rounded-lg relative cursor-grab flex-none focus:outline-none',
+                'rounded-lg w-full relative cursor-grab flex-none focus:outline-none',
                 {
                   'ring ring-indigo-500': selectedThumbnailIndex === idx,
                   'ring !ring-red-500': thumbnail.isNSFWThumbnail
@@ -176,7 +175,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
               )}
             >
               <img
-                className="object-cover w-32 h-16 rounded-lg"
+                className="object-cover w-full h-16 rounded-lg md:w-32"
                 src={thumbnail.url}
                 alt="thumbnail"
                 draggable={false}
@@ -184,7 +183,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
               {uploading && selectedThumbnailIndex === idx && (
                 <div className="absolute top-1 right-1">
                   <span>
-                    <Loader size="sm" className="!text-indigo-500" />
+                    <Loader size="sm" className="!text-white" />
                   </span>
                 </div>
               )}
