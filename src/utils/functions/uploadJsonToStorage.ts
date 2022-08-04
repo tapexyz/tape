@@ -6,7 +6,7 @@ import { uploadDataToIPFS } from './uploadToIPFS'
 const uploadJsonToStorage = async (
   data: Record<string, string | object[] | null>
 ) => {
-  const { url } = !IS_MAINNET
+  const { url } = IS_MAINNET
     ? await uploadToAr(data)
     : await uploadDataToIPFS(data)
   return url
