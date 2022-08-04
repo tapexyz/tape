@@ -157,7 +157,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 </p>
               )}
             </div>
-            <div className="mt-4">
+            <div className="mt-6">
               <CollectModuleType />
             </div>
             <div className="mt-4">
