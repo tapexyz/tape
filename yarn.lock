@@ -6179,10 +6179,10 @@ near-seed-phrase@^0.2.0:
     near-hd-key "^1.2.1"
     tweetnacl "^1.0.2"
 
-next-axiom@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/next-axiom/-/next-axiom-0.11.0.tgz#4c9bfa0a481b6d25fc76162f2fbd670afe472969"
-  integrity sha512-E1WQ5v51m/3/ljTDVNGGTVtvd/Tx1QZOSkNwXe/Rs8xDLLDZ3sG72MofxnSpuVSQyZnjEUUt3/aDfHMVwikkvw==
+next-axiom@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/next-axiom/-/next-axiom-0.11.1.tgz#71d1fc1e525d59c6471a36c1e47256e0353aebfb"
+  integrity sha512-v2Z3hXgqdxsqtWxGCLzzKs9YjETcQQTk8ucHZO1tfJl/v7Bn7VS6SU+39uR9DNOr9lLf/sQfNe9dwTwW8RUHkg==
   dependencies:
     whatwg-fetch "^3.6.2"
 
