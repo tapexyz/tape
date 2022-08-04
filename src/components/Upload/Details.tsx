@@ -123,7 +123,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   {getValues('description')?.length}/5000
                 </span>
               </div>
-              <span className="text-xs opacity-70">
+              <span className="text-sm opacity-70">
                 Use
                 <button
                   type="button"
@@ -133,7 +133,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                       `${getValues('description')} #bytes`
                     )
                   }
-                  className="mx-1 text-indigo-500 outline-none dark:text-indigo-400"
+                  className="mx-1 text-indigo-600 outline-none dark:text-indigo-400"
                 >
                   #bytes
                 </button>

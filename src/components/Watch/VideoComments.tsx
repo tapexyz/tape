@@ -100,12 +100,12 @@ const VideoComments: FC<Props> = ({ video }) => {
   return (
     <div className="pb-4">
       <div className="flex items-center justify-between">
-        <h1 className="inline-flex items-center my-4 space-x-2 text-lg">
+        <h1 className="flex items-center my-4 space-x-2 text-lg">
           <AiOutlineComment />
           <span className="font-semibold">Comments</span>
           {data?.publications?.pageInfo.totalCount ? (
-            <span className="text-sm font-light">
-              ({data?.publications?.pageInfo.totalCount})
+            <span className="text-sm">
+              ( {data?.publications?.pageInfo.totalCount} )
             </span>
           ) : null}
         </h1>
