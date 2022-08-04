@@ -6,7 +6,7 @@ import usePersistStore from '@lib/store/persist'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
 import { MODULES_CURRENCY_QUERY } from '@utils/gql/queries'
 import clsx from 'clsx'
-import React, { Dispatch, FC, useEffect } from 'react'
+import React, { Dispatch, FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Erc20 } from 'src/types'
 import { CollectModuleType, UploadedVideo } from 'src/types/local'
@@ -51,6 +51,7 @@ const FeeCollectForm: FC<Props> = ({
     }
   })
   const { selectedChannel } = usePersistStore()
+  const [selectedCurrencySymbol, setSelectedCurrencySymbol] = useState('WMATIC')
 
   useEffect(() => {
     if (
@@ -62,6 +63,10 @@ const FeeCollectForm: FC<Props> = ({
       unregister('collectLimit')
     }
   }, [uploadedVideo.collectModule, register, unregister])
+
+  const getCurrencySymbol = (currencies: Erc20[], address: string) => {
+    return currencies.find((c) => c.address === address)?.symbol as string
+  }
 
   const { data: enabledCurrencies } = useQuery(MODULES_CURRENCY_QUERY, {
     variables: { request: { profileIds: selectedChannel?.id } },
@@ -97,6 +102,12 @@ const FeeCollectForm: FC<Props> = ({
             setCollectType({
               amount: { currency: e.target.value, value: '' }
             })
+            setSelectedCurrencySymbol(
+              getCurrencySymbol(
+                enabledCurrencies.enabledModuleCurrencies,
+                e.target.value
+              )
+            )
           }}
         >
           {enabledCurrencies?.enabledModuleCurrencies?.map(
@@ -116,6 +127,7 @@ const FeeCollectForm: FC<Props> = ({
           min="0"
           autoComplete="off"
           max="100000"
+          suffix={selectedCurrencySymbol}
           validationError={errors.amount?.message}
           {...register('amount', {
             setValueAs: (v) => String(v)

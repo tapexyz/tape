@@ -9,13 +9,13 @@ type Data = {
   success: boolean
 }
 
-const PRIVATE_KEY = process.env.PRIVATE_KEY
+const PRIVATE_KEY = process.env.PRIVATE_KEY_FOR_BUNDLR
 
 const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const origin = req.headers.origin
   if (!origin || origin !== 'https://lenstube.xyz')
     return res.status(401).json({ url: null, id: null, success: false })
-  if (req.method !== 'POST' && !req.body)
+  if (req.method !== 'POST' || !req.body)
     return res.status(400).json({ success: false, url: null, id: null })
   const jsonString = JSON.stringify(req.body)
   try {
