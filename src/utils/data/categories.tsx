@@ -14,7 +14,6 @@ import { MdOutlineSportsHandball } from 'react-icons/md'
 
 export const MOBILE_VIEW_CATEGORIES = [
   { name: 'Explore', path: '/explore' },
-  { name: 'Trending', path: '/explore/trending' },
   { name: 'Web3', path: '/explore/web3' },
   { name: 'Blockchain', path: '/explore/blockchain' },
   { name: 'Ethereum', path: '/explore/ethereum' },
@@ -25,6 +24,7 @@ export const MOBILE_VIEW_CATEGORIES = [
   { name: 'Technology', path: '/explore/technology' },
   { name: 'News', path: '/explore/news' },
   { name: 'Learning', path: '/explore/learning' },
+  { name: 'Trending', path: '/explore/trending' },
   { name: 'Education', path: '/explore/education' },
   { name: 'Sports', path: '/explore/sports' },
   { name: 'Beauty', path: '/explore/beauty' },
