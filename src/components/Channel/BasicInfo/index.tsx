@@ -12,7 +12,7 @@ import { SETTINGS } from '@utils/url-path'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
-import { AiOutlineEdit } from 'react-icons/ai'
+import { FiSettings } from 'react-icons/fi'
 import { Profile } from 'src/types'
 
 const CoverLinks = dynamic(() => import('./CoverLinks'))
@@ -88,13 +88,13 @@ const BasicInfo: FC<Props> = ({ channel }) => {
             </div>
             <div className="flex items-center space-x-2">
               {channel?.id === selectedChannel?.id && (
-                <Tooltip content="Customize Channel" placement="top">
+                <Tooltip content="Channel settings" placement="top">
                   <Button
                     variant="outlined"
                     onClick={() => onClickCustomize()}
                     className="!p-2 md:!p-2.5"
                   >
-                    <AiOutlineEdit className="text-lg" />
+                    <FiSettings className="text-lg" />
                   </Button>
                 </Tooltip>
               )}
