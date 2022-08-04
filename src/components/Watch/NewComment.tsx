@@ -13,7 +13,7 @@ import {
 } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
-import { uploadDataToIPFS } from '@utils/functions/uploadToIPFS'
+import uploadJsonToStorage from '@utils/functions/uploadJsonToStorage'
 import {
   BROADCAST_MUTATION,
   CREATE_COMMENT_TYPED_DATA
@@ -160,7 +160,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const submitComment = async (data: FormData) => {
     setButtonText('Storing metadata...')
     setLoading(true)
-    const { ipfsUrl } = await uploadDataToIPFS({
+    const url = await uploadJsonToStorage({
       version: '1.0.0',
       metadata_id: uuidv4(),
       description: data.comment,
@@ -191,7 +191,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         request: {
           profileId: selectedChannel?.id,
           publicationId: video?.id,
-          contentURI: ipfsUrl,
+          contentURI: url,
           collectModule: {
             freeCollectModule: {
               followerOnly: false
