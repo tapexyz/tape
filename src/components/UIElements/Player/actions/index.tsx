@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 
+import Progress from '../Progress'
 import { VideoRefOnly } from '../Video'
 import AutoPlay from './AutoPlay'
 import Duration from './Duration'
@@ -11,8 +12,9 @@ import Volume from './Volume'
 
 const Actions: FC<VideoRefOnly> = ({ videoRef }) => {
   return (
-    <div className="absolute bottom-0 w-full p-2 text-white md:p-4">
-      <div className="flex items-center justify-between">
+    <div className="absolute bottom-0 w-full text-white md:px-4">
+      <Progress />
+      <div className="flex items-center justify-between py-3">
         <div className="flex items-center space-x-4">
           <PlayPause videoRef={videoRef} />
           <UpNext />
