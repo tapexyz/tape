@@ -9,7 +9,7 @@ import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import { CURRENT_USER_QUERY } from '@utils/gql/queries'
-import { LENSTUBE_PATH, SETTINGS } from '@utils/url-path'
+import { LENSTUBE_STATS, SETTINGS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
@@ -166,7 +166,7 @@ const UserMenu = () => {
             </div>
             <div className="py-1 text-sm">
               {isAdmin && (
-                <Link href={LENSTUBE_PATH}>
+                <Link href={LENSTUBE_STATS}>
                   <a
                     className={clsx(
                       'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'

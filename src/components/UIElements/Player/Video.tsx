@@ -24,7 +24,7 @@ const Video: FC<VideoRefOnly> = ({ videoRef }) => {
         onContextMenu={(event) => event.preventDefault()}
       >
         <source
-          src="https://livepeercdn.com/asset/5f86c5tcrnezabww/video"
+          src="https://livepeercdn.com/asset/f57br80ajsnzxotu/video"
           type="video/mp4"
         />
       </video>
