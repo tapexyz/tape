@@ -17,7 +17,7 @@ import {
 } from '@utils/constants'
 import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
-import { uploadDataToIPFS } from '@utils/functions/uploadToIPFS'
+import uploadJsonToStorage from '@utils/functions/uploadJsonToStorage'
 import {
   BROADCAST_MUTATION,
   CREATE_COMMENT_TYPED_DATA
@@ -73,7 +73,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState<string | null>(null)
 
-  const onError = () => {
+  const onError = (error: any) => {
+    toast.error(error?.data?.message ?? error.message)
     setLoading(false)
     setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
   }
@@ -167,7 +168,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           writeComment?.({ recklesslySetUnpreparedArgs: args })
         }
       } catch (error) {
-        onError()
+        onError(error)
         logger.error('[Error Create Tip Comment]', error)
       }
     },
@@ -177,7 +178,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const submitComment = async (txnHash: string) => {
     setLoading(true)
     setButtonText('Storing...')
-    const { ipfsUrl } = await uploadDataToIPFS({
+    const url = await uploadJsonToStorage({
       version: '1.0.0',
       metadata_id: uuidv4(),
       description: getValues('message'),
@@ -220,7 +221,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         request: {
           profileId: selectedChannel?.id,
           publicationId: video?.id,
-          contentURI: ipfsUrl,
+          contentURI: url,
           collectModule: {
             freeCollectModule: {
               followerOnly: false

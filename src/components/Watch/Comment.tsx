@@ -1,7 +1,11 @@
+import { HashExplorerLink } from '@components/Common/ExplorerLink'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
-import { checkValueInAttributes } from '@utils/functions/getFromAttributes'
+import {
+  checkValueInAttributes,
+  getValueFromTraitType
+} from '@utils/functions/getFromAttributes'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
@@ -49,7 +53,7 @@ const Comment: FC<Props> = ({ comment }) => {
           </a>
         </Link>
         <div className="flex flex-col items-start mr-2">
-          <span className="flex items-center mb-1 space-x-2">
+          <span className="flex items-center mb-1 space-x-1">
             <Link href={`/${comment.profile?.handle}`}>
               <a className="flex items-center space-x-1 text-sm font-medium">
                 <span>{comment?.profile?.handle}</span>
@@ -62,7 +66,16 @@ const Comment: FC<Props> = ({ comment }) => {
             ) && (
               <Tooltip placement="top" content="Tipper">
                 <span>
-                  <AiFillHeart className="text-xs text-pink-500" />
+                  <HashExplorerLink
+                    hash={
+                      getValueFromTraitType(
+                        comment?.metadata.attributes as Attribute[],
+                        'hash'
+                      ) || ''
+                    }
+                  >
+                    <AiFillHeart className="text-sm text-pink-500" />
+                  </HashExplorerLink>
                 </span>
               </Tooltip>
             )}
