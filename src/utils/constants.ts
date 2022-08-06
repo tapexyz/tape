@@ -66,6 +66,7 @@ export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
 // handles
 export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'
 export const LENSTUBE_GITHUB_HANDLE = 'sasicodes/lenstube'
+export const LENSTUBE_STATUS_PAGE = 'https://status.lenstube.xyz'
 // admins
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']
 
