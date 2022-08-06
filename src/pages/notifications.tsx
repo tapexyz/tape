@@ -1,5 +1,4 @@
-import dynamic from 'next/dynamic'
-const Notifications = dynamic(() => import('../components/Notifications'))
+import Notifications from '@components/Notifications'
 
 const notifications = () => {
   return <Notifications />
