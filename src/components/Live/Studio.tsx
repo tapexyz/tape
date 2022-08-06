@@ -5,6 +5,7 @@ import RadioInput from '@components/UIElements/RadioInput'
 import { TextArea } from '@components/UIElements/TextArea'
 import ChooseThumbnail from '@components/Upload/ChooseThumbnail'
 import { zodResolver } from '@hookform/resolvers/zod'
+import trimify from '@utils/functions/trimify'
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -55,7 +56,7 @@ const Studio = () => {
     setLoading(true)
     setButtonText('Creating Stream')
     const response = await axios.post('/api/video/stream', {
-      name: data.title
+      name: trimify(data.title)
     })
     setLoading(false)
     setButtonText('Create Stream')

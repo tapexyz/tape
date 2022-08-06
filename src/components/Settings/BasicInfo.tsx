@@ -17,6 +17,7 @@ import getCoverPicture from '@utils/functions/getCoverPicture'
 import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
+import trimify from '@utils/functions/trimify'
 import {
   uploadDataToIPFS,
   uploadImageToIPFS
@@ -183,7 +184,7 @@ const BasicInfo = ({ channel }: Props) => {
     setLoading(true)
     const { ipfsUrl } = await uploadDataToIPFS({
       name: data.displayName,
-      bio: data.description,
+      bio: trimify(data.description),
       cover_picture: coverImage,
       attributes: [
         {

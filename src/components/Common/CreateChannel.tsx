@@ -7,6 +7,7 @@ import useAppStore from '@lib/store'
 import { IS_MAINNET } from '@utils/constants'
 import { getHandle } from '@utils/functions/getHandle'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
+import trimify from '@utils/functions/trimify'
 import { CREATE_PROFILE_MUTATION } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import { useRouter } from 'next/router'
@@ -88,7 +89,7 @@ const CreateChannel = () => {
   }
 
   const onCreate = ({ channelName }: FormData) => {
-    const username = channelName.toLowerCase()
+    const username = trimify(channelName.toLowerCase())
     setCreating(true)
     createProfile({
       variables: {

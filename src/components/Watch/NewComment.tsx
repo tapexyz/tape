@@ -13,6 +13,7 @@ import {
 } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
+import trimify from '@utils/functions/trimify'
 import uploadJsonToStorage from '@utils/functions/uploadJsonToStorage'
 import {
   BROADCAST_MUTATION,
@@ -34,7 +35,10 @@ type Props = {
   refetchComments: () => void
 }
 const formSchema = z.object({
-  comment: z.string().min(1, { message: 'Enter valid comment' })
+  comment: z
+    .string()
+    .min(1, { message: 'Enter valid comment' })
+    .max(5000, { message: 'Comment should not exceed 5000 characters' })
 })
 type FormData = z.infer<typeof formSchema>
 
@@ -163,8 +167,8 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     const url = await uploadJsonToStorage({
       version: '1.0.0',
       metadata_id: uuidv4(),
-      description: data.comment,
-      content: data.comment,
+      description: trimify(data.comment),
+      content: trimify(data.comment),
       external_url: LENSTUBE_URL,
       image: null,
       imageMimeType: null,
