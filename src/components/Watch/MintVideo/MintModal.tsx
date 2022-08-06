@@ -36,7 +36,6 @@ const MintModal: FC<Props> = ({
   minting
 }) => {
   const { selectedChannel, isSignedUser } = usePersistStore()
-  const [revenue, setRevenue] = useState(0)
   const [isAllowed, setIsAllowed] = useState(true)
   const { address } = useAccount()
   const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)
@@ -62,15 +61,8 @@ const MintModal: FC<Props> = ({
         publicationId: video?.id
       }
     },
-    skip: !video?.id,
-    onCompleted() {}
+    skip: !video?.id
   })
-
-  useEffect(() => {
-    setRevenue(
-      parseFloat(revenueData?.publicationRevenue?.revenue?.total?.value ?? 0)
-    )
-  }, [revenueData])
 
   const {
     loading: allowanceLoading,
@@ -149,7 +141,10 @@ const MintModal: FC<Props> = ({
               <div className="flex flex-col mb-3">
                 <span className="text-xs">Revenue</span>
                 <span className="space-x-1">
-                  <span className="text-2xl font-semibold">{revenue}</span>
+                  <span className="text-2xl font-semibold">
+                    {revenueData?.publicationRevenue?.revenue?.total?.value ??
+                      0}
+                  </span>
                   <span>{collectModule?.amount?.asset.symbol}</span>
                 </span>
               </div>

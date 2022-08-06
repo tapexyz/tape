@@ -2,6 +2,14 @@ import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import { FC } from 'react'
+import {
+  AiOutlineComment,
+  AiOutlineInfoCircle,
+  AiOutlineVideoCamera
+} from 'react-icons/ai'
+import { BiMoviePlay } from 'react-icons/bi'
+import { GiMirrorMirror, GiMonkey } from 'react-icons/gi'
+import { MdOutlineAnalytics, MdOutlineSlowMotionVideo } from 'react-icons/md'
 import { Profile } from 'src/types'
 
 const About = dynamic(() => import('./About'))
@@ -11,6 +19,7 @@ const ChannelVideos = dynamic(() => import('./ChannelVideos'))
 const MirroredVideos = dynamic(() => import('./MirroredVideos'))
 const CollectedNFTs = dynamic(() => import('./CollectedNFTs'))
 const ChannelBytes = dynamic(() => import('./ChannelBytes'))
+const ChannelStats = dynamic(() => import('./ChannelStats'))
 
 type Props = {
   channel: Profile
@@ -25,86 +34,106 @@ const Activity: FC<Props> = ({ channel }) => {
             <Tab
               className={({ selected }) =>
                 clsx(
-                  'px-4 py-2 border-b-2 text-sm focus:outline-none',
+                  'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
                   selected
                     ? 'border-indigo-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
             >
-              Videos
+              <AiOutlineVideoCamera />
+              <span>Videos</span>
             </Tab>
             <Tab
               className={({ selected }) =>
                 clsx(
-                  'px-4 py-2 border-b-2 text-sm focus:outline-none',
+                  'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
                   selected
                     ? 'border-indigo-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
             >
-              Bytes
+              <MdOutlineSlowMotionVideo />
+              <span>Bytes</span>
             </Tab>
             <Tab
               className={({ selected }) =>
                 clsx(
-                  'px-4 py-2 border-b-2 text-sm focus:outline-none',
+                  'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
                   selected
                     ? 'border-indigo-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
             >
-              Commented
+              <AiOutlineComment />
+              <span>Commented</span>
             </Tab>
             <Tab
               className={({ selected }) =>
                 clsx(
-                  'px-4 py-2 border-b-2 text-sm focus:outline-none',
+                  'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
                   selected
                     ? 'border-indigo-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
             >
-              Mirrored
+              <GiMirrorMirror />
+              <span>Mirrored</span>
             </Tab>
             <Tab
               className={({ selected }) =>
                 clsx(
-                  'px-4 py-2 border-b-2 whitespace-nowrap text-sm focus:outline-none',
+                  'px-4 py-2 flex items-center space-x-2 border-b-2 whitespace-nowrap text-sm focus:outline-none',
                   selected
                     ? 'border-indigo-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
             >
-              Collected NFTs
+              <GiMonkey />
+              <span>NFTs</span>
             </Tab>
             <Tab
               className={({ selected }) =>
                 clsx(
-                  'px-4 py-2 border-b-2 text-sm focus:outline-none',
+                  'px-4 py-2 border-b-2 flex items-center space-x-2 text-sm focus:outline-none',
                   selected
                     ? 'border-indigo-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
             >
-              Channels
+              <BiMoviePlay />
+              <span>Channels</span>
             </Tab>
             <Tab
               className={({ selected }) =>
                 clsx(
-                  'px-4 py-2 border-b-2 text-sm focus:outline-none',
+                  'px-4 py-2 border-b-2 flex items-center space-x-2 text-sm focus:outline-none',
                   selected
                     ? 'border-indigo-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
             >
-              About
+              <MdOutlineAnalytics />
+              <span>Stats</span>
+            </Tab>
+            <Tab
+              className={({ selected }) =>
+                clsx(
+                  'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                  selected
+                    ? 'border-indigo-900 opacity-100'
+                    : 'border-transparent opacity-50'
+                )
+              }
+            >
+              <AiOutlineInfoCircle />
+              <span>About</span>
             </Tab>
           </Tab.List>
           <Tab.Panels>
@@ -125,6 +154,9 @@ const Activity: FC<Props> = ({ channel }) => {
             </Tab.Panel>
             <Tab.Panel className="py-3 focus:outline-none">
               <OtherChannels channel={channel} />
+            </Tab.Panel>
+            <Tab.Panel className="py-3 focus:outline-none">
+              <ChannelStats channel={channel} />
             </Tab.Panel>
             <Tab.Panel className="py-3 focus:outline-none">
               <About channel={channel} />
