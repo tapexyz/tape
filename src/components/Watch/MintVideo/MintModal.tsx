@@ -8,6 +8,7 @@ import usePersistStore from '@lib/store/persist'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import {
   ALLOWANCE_SETTINGS_QUERY,
+  PUBLICATION_REVENUE_QUERY,
   VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY
 } from '@utils/gql/queries'
 import dayjs from 'dayjs'
@@ -35,6 +36,7 @@ const MintModal: FC<Props> = ({
   minting
 }) => {
   const { selectedChannel, isSignedUser } = usePersistStore()
+  const [revenue, setRevenue] = useState(0)
   const [isAllowed, setIsAllowed] = useState(true)
   const { address } = useAccount()
   const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)
@@ -53,6 +55,22 @@ const MintModal: FC<Props> = ({
     watch: !!collectModule?.amount,
     enabled: !!collectModule?.amount
   })
+
+  const { data: revenueData } = useQuery(PUBLICATION_REVENUE_QUERY, {
+    variables: {
+      request: {
+        publicationId: video?.id
+      }
+    },
+    skip: !video?.id,
+    onCompleted() {}
+  })
+
+  useEffect(() => {
+    setRevenue(
+      parseFloat(revenueData?.publicationRevenue?.revenue?.total?.value ?? 0)
+    )
+  }, [revenueData])
 
   const {
     loading: allowanceLoading,
@@ -125,6 +143,15 @@ const MintModal: FC<Props> = ({
                     {shortenAddress(collectModule?.recipient)}
                   </span>
                 </AddressExplorerLink>
+              </div>
+            ) : null}
+            {revenueData?.publicationRevenue ? (
+              <div className="flex flex-col mb-3">
+                <span className="text-xs">Revenue</span>
+                <span className="space-x-1">
+                  <span className="text-2xl font-semibold">{revenue}</span>
+                  <span>{collectModule?.amount?.asset.symbol}</span>
+                </span>
               </div>
             ) : null}
             {collectModule?.endTimestamp ? (

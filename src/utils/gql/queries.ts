@@ -1366,3 +1366,15 @@ export const COLLECTED_NFTS_QUERY = gql`
     }
   }
 `
+
+export const PUBLICATION_REVENUE_QUERY = gql`
+  query PublicationRevenue($request: PublicationRevenueQueryRequest!) {
+    publicationRevenue(request: $request) {
+      revenue {
+        total {
+          value
+        }
+      }
+    }
+  }
+`
