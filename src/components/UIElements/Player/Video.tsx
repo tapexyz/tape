@@ -6,11 +6,10 @@ export type VideoRefOnly = {
 }
 
 const Video: FC<VideoRefOnly> = ({ videoRef }) => {
-  const { playing, setPlaying, togglePlay } = usePlayerStore()
+  const { togglePlay } = usePlayerStore()
 
   const onClickVideo = () => {
     togglePlay({ videoRef })
-    setPlaying(!playing)
   }
 
   return (
