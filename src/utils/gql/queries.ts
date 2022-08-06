@@ -351,6 +351,8 @@ export const PROFILE_QUERY = gql`
           totalFollowing
           totalPosts
           totalComments
+          totalMirrors
+          totalCollects
         }
         picture {
           ... on MediaSet {
