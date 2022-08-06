@@ -20,6 +20,7 @@ import { checkIsBytesVideo } from '@utils/functions/checkIsBytesVideo'
 import { getCollectModule } from '@utils/functions/getCollectModule'
 import { isLessThan100MB } from '@utils/functions/getSizeFromBytes'
 import omitKey from '@utils/functions/omitKey'
+import trimify from '@utils/functions/trimify'
 import { uploadDataToIPFS } from '@utils/functions/uploadToIPFS'
 import { BROADCAST_MUTATION, CREATE_POST_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
@@ -323,14 +324,14 @@ const UploadSteps = () => {
     const { ipfsUrl } = await uploadDataToIPFS({
       version: '1.0.0',
       metadata_id: uuidv4(),
-      description: uploadedVideo.description,
+      description: trimify(uploadedVideo.description),
       content: `${uploadedVideo.title}\n\n${uploadedVideo.description}`,
       external_url: LENSTUBE_URL,
       animation_url: uploadedVideo.videoSource,
       image: uploadedVideo.thumbnail,
       cover: uploadedVideo.thumbnail,
       imageMimeType: uploadedVideo.thumbnailType,
-      name: uploadedVideo.title,
+      name: trimify(uploadedVideo.title),
       attributes,
       media,
       appId: isBytesVideo ? LENSTUBE_BYTES_APP_ID : LENSTUBE_APP_ID
