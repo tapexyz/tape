@@ -11,13 +11,16 @@ import { CgBell } from 'react-icons/cg'
 const Notifications = dynamic(() => import('.'))
 
 const NotificationTrigger = () => {
-  const { hasNewNotification, setHasNewNotification } = useAppStore()
-  const {
-    isAuthenticated,
-    selectedChannel,
-    notificationCount,
-    setNotificationCount
-  } = usePersistStore()
+  const setHasNewNotification = useAppStore(
+    (state) => state.setHasNewNotification
+  )
+  const hasNewNotification = useAppStore((state) => state.hasNewNotification)
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const notificationCount = usePersistStore((state) => state.notificationCount)
+  const setNotificationCount = usePersistStore(
+    (state) => state.setNotificationCount
+  )
 
   const { data: notificationsData } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: selectedChannel?.id } },

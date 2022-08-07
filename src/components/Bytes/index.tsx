@@ -15,7 +15,8 @@ import { LenstubePublication } from 'src/types/local'
 import ByteVideo from './ByteVideo'
 
 const Bytes = () => {
-  const { selectedChannel } = usePersistStore()
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+
   const [bytes, setBytes] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 

@@ -11,8 +11,8 @@ const Timeline = dynamic(() => import('../../Home/Timeline'), {
 })
 
 const SeeAllWatchLater = () => {
-  const { watchLater } = usePersistStore()
   const [videos, setVideos] = useState<LenstubePublication[]>([])
+  const watchLater = usePersistStore((state) => state.watchLater)
 
   useEffect(() => {
     setVideos(watchLater)

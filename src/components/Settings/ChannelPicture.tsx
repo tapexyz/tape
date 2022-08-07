@@ -24,9 +24,13 @@ type Props = {
 }
 
 const ChannelPicture: FC<Props> = ({ channel }) => {
-  const { selectedChannel, setSelectedChannel } = usePersistStore()
   const [selectedPfp, setSelectedPfp] = useState('')
   const [loading, setLoading] = useState(false)
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const setSelectedChannel = usePersistStore(
+    (state) => state.setSelectedChannel
+  )
+
   const { showToast } = useTxnToast()
 
   const { signTypedDataAsync } = useSignTypedData({

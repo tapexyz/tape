@@ -23,10 +23,17 @@ const MirroredNotification = dynamic(() => import('./Mirrored'))
 const CollectedNotification = dynamic(() => import('./Collected'))
 
 const Notifications = () => {
-  const { selectedChannel, setNotificationCount } = usePersistStore()
-  const { setHasNewNotification } = useAppStore()
+  const setNotificationCount = usePersistStore(
+    (state) => state.setNotificationCount
+  )
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+
+  const setHasNewNotification = useAppStore(
+    (state) => state.setHasNewNotification
+  )
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+
   const { data: notificationsCountData } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: selectedChannel?.id } },
     skip: !selectedChannel?.id

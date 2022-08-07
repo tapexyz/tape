@@ -4,7 +4,8 @@ import clsx from 'clsx'
 import React from 'react'
 
 const AutoPlay = () => {
-  const { autoPlay, setAutoPlay } = usePersistStore()
+  const autoPlay = usePersistStore((state) => state.autoPlay)
+  const setAutoPlay = usePersistStore((state) => state.setAutoPlay)
 
   const onClick = () => {
     setAutoPlay(!autoPlay)

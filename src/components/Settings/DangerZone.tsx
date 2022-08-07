@@ -21,8 +21,12 @@ import {
 } from 'wagmi'
 
 const DangerZone = () => {
-  const { selectedChannel, setIsAuthenticated, setIsSignedUser } =
-    usePersistStore()
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const setIsAuthenticated = usePersistStore(
+    (state) => state.setIsAuthenticated
+  )
+  const setIsSignedUser = usePersistStore((state) => state.setIsSignedUser)
+
   const [loading, setLoading] = useState(false)
   const [txnHash, setTxnHash] = useState('')
   const { signTypedDataAsync } = useSignTypedData({

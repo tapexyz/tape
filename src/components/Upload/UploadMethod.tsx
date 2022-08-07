@@ -5,7 +5,8 @@ import React from 'react'
 import { BiCheck } from 'react-icons/bi'
 
 const UploadMethod = () => {
-  const { uploadedVideo, setUploadedVideo } = useAppStore()
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
   if (uploadedVideo.videoSource) return null
 

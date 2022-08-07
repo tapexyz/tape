@@ -5,7 +5,8 @@ import React from 'react'
 import { VideoRefOnly } from '../Video'
 
 const Volume: FC<VideoRefOnly> = ({ videoRef }) => {
-  const { muted, setMuted } = usePlayerStore()
+  const muted = usePlayerStore((state) => state.muted)
+  const setMuted = usePlayerStore((state) => state.setMuted)
 
   const onClick = () => {
     if (!videoRef.current) return

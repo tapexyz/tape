@@ -29,7 +29,11 @@ const VideoDetails = () => {
   const {
     query: { id, t }
   } = useRouter()
-  const { addToRecentlyWatched, selectedChannel } = usePersistStore()
+  const addToRecentlyWatched = usePersistStore(
+    (state) => state.addToRecentlyWatched
+  )
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+
   const [video, setVideo] = useState<LenstubePublication>()
   const [loading, setLoading] = useState(true)
 

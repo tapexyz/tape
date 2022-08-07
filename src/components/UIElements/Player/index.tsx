@@ -7,7 +7,7 @@ import Video from './Video'
 
 const LenstubePlayer = () => {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const { playing } = usePlayerStore()
+  const playing = usePlayerStore((state) => state.playing)
 
   return (
     <div className="relative group">

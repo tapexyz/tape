@@ -35,7 +35,9 @@ const MintModal: FC<Props> = ({
   handleMint,
   minting
 }) => {
-  const { selectedChannel, isSignedUser } = usePersistStore()
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const isSignedUser = usePersistStore((state) => state.isSignedUser)
+
   const [isAllowed, setIsAllowed] = useState(true)
   const { address } = useAccount()
   const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)

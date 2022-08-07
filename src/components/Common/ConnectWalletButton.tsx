@@ -29,7 +29,9 @@ type Props = {
 }
 
 const ConnectWalletButton = ({ handleSign, signing }: Props) => {
-  const { isAuthenticated, isSignedUser } = usePersistStore()
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const isSignedUser = usePersistStore((state) => state.isSignedUser)
+
   const [showModal, setShowModal] = useState(false)
   const { address, connector, isConnecting, isConnected } = useAccount()
   const { connectAsync, connectors, error, pendingConnector } = useConnect()

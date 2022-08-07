@@ -35,7 +35,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     Array<{ ipfsUrl: string; url: string; isNSFWThumbnail: boolean }>
   >([])
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1)
-  const { setUploadedVideo } = useAppStore()
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
   const uploadThumbnailToIpfs = async (file: File) => {
     setUploading(true)

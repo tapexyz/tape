@@ -5,7 +5,8 @@ import React from 'react'
 import { VideoRefOnly } from '../Video'
 
 const PlayPause: FC<VideoRefOnly> = ({ videoRef }) => {
-  const { playing, togglePlay } = usePlayerStore()
+  const playing = usePlayerStore((state) => state.playing)
+  const togglePlay = usePlayerStore((state) => state.togglePlay)
 
   const onClick = () => {
     togglePlay({ videoRef })

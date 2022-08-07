@@ -23,7 +23,7 @@ const Deployment = dynamic(() => import('./Deployment'))
 const Custom404 = dynamic(() => import('../../pages/404'))
 
 const Stats = () => {
-  const { selectedChannel } = usePersistStore()
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
   const { mounted } = useIsMounted()
   const { data, loading } = useQuery(GET_LENSTUBE_STATS, {
     variables: {

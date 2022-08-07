@@ -4,8 +4,8 @@ import { useRouter } from 'next/router'
 import React from 'react'
 
 const UpNext = () => {
-  const { upNextVideo } = usePlayerStore()
   const router = useRouter()
+  const upNextVideo = usePlayerStore((state) => state.upNextVideo)
 
   const onClick = () => {
     router.push(`/watch/${upNextVideo?.id}`)

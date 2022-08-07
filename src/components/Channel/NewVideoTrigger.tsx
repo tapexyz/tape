@@ -9,7 +9,8 @@ import { AiOutlineVideoCameraAdd } from 'react-icons/ai'
 import { HiOutlineStatusOnline, HiOutlineUpload } from 'react-icons/hi'
 
 const NewVideoTrigger = () => {
-  const { isAuthenticated } = usePersistStore()
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+
   if (!isAuthenticated) return null
 
   return (

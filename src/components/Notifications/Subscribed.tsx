@@ -18,7 +18,7 @@ interface Props {
 }
 
 const SubscribedNotification: FC<Props> = ({ notification }) => {
-  const { selectedChannel } = usePersistStore()
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
 
   return (
     <>

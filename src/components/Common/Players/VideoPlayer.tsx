@@ -60,8 +60,10 @@ const CustomPlyrInstance = forwardRef<APITypes, CustomPlyrProps>(
     const [position, setPosition] = useState({ x: 0, y: 0 })
     const [isVideoLoop, setIsVideoLoop] = useState(false)
     const { pathname } = useRouter()
-    const { setUploadedVideo, uploadedVideo } = useAppStore()
-    const { upNextVideo } = usePlayerStore()
+    const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+    const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+    const upNextVideo = usePlayerStore((state) => state.upNextVideo)
+
     const [showNext, setShowNext] = useState(false)
     const router = useRouter()
 

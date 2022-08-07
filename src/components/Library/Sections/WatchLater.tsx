@@ -10,8 +10,8 @@ import { LenstubePublication } from 'src/types/local'
 const VideoCard = dynamic(() => import('../../Common/VideoCard'))
 
 const WatchLater = () => {
-  const { watchLater } = usePersistStore()
   const [videos, setVideos] = useState<LenstubePublication[]>([])
+  const watchLater = usePersistStore((state) => state.watchLater)
 
   useEffect(() => {
     setVideos(watchLater)

@@ -30,7 +30,9 @@ type Props = {
 
 const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
-  const { isAuthenticated, selectedChannel } = usePersistStore()
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+
   const onlySubscribersCanMirror =
     video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
 

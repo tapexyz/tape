@@ -45,7 +45,8 @@ type FormData = z.infer<typeof formSchema>
 const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Comment')
-  const { isAuthenticated, selectedChannel } = usePersistStore()
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
 
   const {
     register,

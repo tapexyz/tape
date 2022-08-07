@@ -12,7 +12,7 @@ import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { LenstubePublication } from 'src/types/local'
 
 const CommentOptions = ({ comment }: { comment: LenstubePublication }) => {
-  const { selectedChannel } = usePersistStore()
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
   const router = useRouter()
 
   const [hideComment] = useMutation(HIDE_PUBLICATION, {
