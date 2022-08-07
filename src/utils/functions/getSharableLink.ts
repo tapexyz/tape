@@ -1,22 +1,30 @@
-import { LENSTUBE_TWITTER_HANDLE, LENSTUBE_URL } from '@utils/constants'
+import {
+  LENSTER_WEBSITE_URL,
+  LENSTUBE_TWITTER_HANDLE,
+  LENSTUBE_URL
+} from '@utils/constants'
 import { LenstubePublication } from 'src/types/local'
 
 const getVideoUrl = (video: LenstubePublication) => {
   return `${LENSTUBE_URL}/watch/${video.id}`
 }
 
-export const getSharableLink = (link: string, video: LenstubePublication) => {
-  if (link === 'twitter') {
+type Link = 'lenster' | 'twitter' | 'reddit' | 'linkedin'
+
+export const getSharableLink = (link: Link, video: LenstubePublication) => {
+  if (link === 'lenster') {
+    return `${LENSTER_WEBSITE_URL}/?url=${getVideoUrl(video)}&text=${
+      video.metadata?.name as string
+    }&hashtags=Lenstube`
+  } else if (link === 'twitter') {
     return `https://twitter.com/intent/tweet?url=${getVideoUrl(video)}&text=${
       video.metadata?.name as string
     }&via=${LENSTUBE_TWITTER_HANDLE}&related=Lenstube&hashtags=Lenstube`
-  }
-  if (link === 'reddit') {
+  } else if (link === 'reddit') {
     return `https://www.reddit.com/submit?url=${getVideoUrl(video)}&title=${
       video.metadata?.name as string
     }`
-  }
-  if (link === 'linkedin') {
+  } else if (link === 'linkedin') {
     return `https://www.linkedin.com/shareArticle/?url=${getVideoUrl(
       video
     )}&title=${video.metadata?.name as string}&summary=${
