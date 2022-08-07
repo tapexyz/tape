@@ -54,7 +54,7 @@ const Layout: FC<Props> = ({ children }) => {
     }
   })
   const { mounted } = useIsMounted()
-  const { address, connector, isDisconnected } = useAccount()
+  const { address, isDisconnected } = useAccount()
 
   const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: address },
@@ -106,15 +106,18 @@ const Layout: FC<Props> = ({ children }) => {
       setIsAuthenticated(false)
       setIsSignedUser(false)
     }
-    connector?.on('change', () => {
+    const ownerAddress = selectedChannel?.ownedBy
+    if (ownerAddress !== undefined && ownerAddress !== address) {
       logout()
-    })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isAuthenticated,
-    disconnect,
-    connector,
     isDisconnected,
+    address,
+    chain,
+    selectedChannel,
+    disconnect,
     setSelectedChannel,
     isSignedUser
   ])

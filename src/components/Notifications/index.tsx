@@ -11,16 +11,15 @@ import {
   NOTIFICATIONS_QUERY
 } from '@utils/gql/queries'
 import clsx from 'clsx'
-import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { Notification, PaginatedResultInfo } from 'src/types'
 
-const SubscribedNotification = dynamic(() => import('./Subscribed'))
-const CommentedNotification = dynamic(() => import('./Commented'))
-const MentionedNotification = dynamic(() => import('./Mentioned'))
-const MirroredNotification = dynamic(() => import('./Mirrored'))
-const CollectedNotification = dynamic(() => import('./Collected'))
+import CollectedNotification from './Collected'
+import CommentedNotification from './Commented'
+import MentionedNotification from './Mentioned'
+import MirroredNotification from './Mirrored'
+import SubscribedNotification from './Subscribed'
 
 const Notifications = () => {
   const setNotificationCount = usePersistStore(
