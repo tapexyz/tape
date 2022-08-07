@@ -15,7 +15,7 @@ export const getSharableLink = (link: Link, video: LenstubePublication) => {
   if (link === 'lenster') {
     return `${LENSTER_WEBSITE_URL}/?url=${getVideoUrl(video)}&text=${
       video.metadata?.name as string
-    }&hashtags=Lenstube`
+    }&hashtags=Lenstube&preview=true`
   } else if (link === 'twitter') {
     return `https://twitter.com/intent/tweet?url=${getVideoUrl(video)}&text=${
       video.metadata?.name as string
