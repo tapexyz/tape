@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
-import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
+import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
 import {
   SuggestedVideosShimmer,
   VideoDetailShimmer
@@ -22,7 +22,7 @@ const VideoComments = dynamic(() => import('./VideoComments'))
 const AboutChannel = dynamic(() => import('./AboutChannel'))
 
 const Video = dynamic(() => import('./Video'), {
-  loading: () => <VideoCardShimmer />
+  loading: () => <CardShimmer />
 })
 
 const VideoDetails = () => {

@@ -14,9 +14,9 @@
     <a href="https://deepsource.io/gh/sasicodes/lenstube">
         <img src="https://deepsource.io/gh/sasicodes/lenstube.svg/?label=active+issues&show_trend=true" alt="Deepsource">
     </a>
-    <span>
+    <a href="https://status.lenstube.xyz">
         <img src="https://api.checklyhq.com/v1/badges/groups/307334?style=flat&theme=default&responseTime=true" alt="Status">
-    </span>
+    </a>
     <a href="https://github.com/sasicodes/lenstube/blob/main/LICENSE">
         <img src="https://badgen.net/github/license/sasicodes/lenstube" alt="License">
     </a>

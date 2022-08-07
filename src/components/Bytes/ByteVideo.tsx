@@ -63,7 +63,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
   })
 
   return (
-    <div ref={observe} className="flex justify-center md:mt-5 snap-center">
+    <div ref={observe} className="flex justify-center md:mt-6 snap-center">
       <div className="relative">
         <video
           onContextMenu={(event) => event.preventDefault()}

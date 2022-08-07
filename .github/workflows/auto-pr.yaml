@@ -17,5 +17,4 @@ jobs:
         destination_branch: "testnet"
         pr_title: "Pulling ${{ github.ref }} into testnet"
         pr_body: "👑 **An automated PR**"
-        pr_reviewer: "sasicodes"
         github_token: ${{ secrets.GITHUB_TOKEN }}

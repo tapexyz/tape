@@ -351,6 +351,8 @@ export const PROFILE_QUERY = gql`
           totalFollowing
           totalPosts
           totalComments
+          totalMirrors
+          totalCollects
         }
         picture {
           ... on MediaSet {
@@ -1362,6 +1364,18 @@ export const COLLECTED_NFTS_QUERY = gql`
       pageInfo {
         next
         totalCount
+      }
+    }
+  }
+`
+
+export const PUBLICATION_REVENUE_QUERY = gql`
+  query PublicationRevenue($request: PublicationRevenueQueryRequest!) {
+    publicationRevenue(request: $request) {
+      revenue {
+        total {
+          value
+        }
       }
     }
   }

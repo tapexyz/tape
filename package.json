@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
-    "@bundlr-network/client": "^0.7.15",
+    "@bundlr-network/client": "^0.7.16",
     "@headlessui/react": "^1.6.6",
     "@hookform/resolvers": "^2.9.7",
     "@rajesh896/video-thumbnails-generator": "^2.3.9",
@@ -50,7 +50,7 @@
     "react-icons": "^4.4.0",
     "ua-parser-js": "^1.0.2",
     "uuid": "^8.3.2",
-    "wagmi": "^0.6.0",
+    "wagmi": "^0.6.1",
     "zod": "^3.17.10",
     "zustand": "^4.0.0"
   },
@@ -71,9 +71,9 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.0",
-    "postcss": "^8.4.13",
+    "postcss": "^8.4.16",
     "prettier": "^2.7.1",
-    "tailwindcss": "^3.1.7",
+    "tailwindcss": "^3.1.8",
     "typescript": "4.7.4"
   }
 }
