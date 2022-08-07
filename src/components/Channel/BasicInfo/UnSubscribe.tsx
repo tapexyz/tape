@@ -27,7 +27,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   const [loading, setLoading] = useState(false)
   const [txnHash, setTxnHash] = useState('')
   const [buttonText, setButtonText] = useState(subscribeText)
-  const { isAuthenticated } = usePersistStore()
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
   const { showToast } = useTxnToast()
 
   const onError = (error?: any) => {

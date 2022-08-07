@@ -27,7 +27,9 @@ const VideoComments: FC<Props> = ({ video }) => {
   const {
     query: { id }
   } = useRouter()
-  const { isAuthenticated, selectedChannel } = usePersistStore()
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+
   const onlySubscribersCanComment =
     video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
   const isMembership =

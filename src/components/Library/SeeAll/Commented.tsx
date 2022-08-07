@@ -19,7 +19,8 @@ const Timeline = dynamic(() => import('../../Home/Timeline'), {
 })
 
 const SeeAllCommented = () => {
-  const { isAuthenticated, selectedChannel } = usePersistStore()
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
 
   const [commentedVideos, setCommentedVideos] = useState<LenstubePublication[]>(
     []

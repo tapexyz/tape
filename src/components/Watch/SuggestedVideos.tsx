@@ -21,7 +21,8 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
   const {
     query: { id }
   } = useRouter()
-  const { setUpNextVideo } = usePlayerStore()
+  const setUpNextVideo = usePlayerStore((state) => state.setUpNextVideo)
+
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { loading, error, fetchMore, refetch } = useQuery(EXPLORE_QUERY, {

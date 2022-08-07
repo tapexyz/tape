@@ -10,8 +10,11 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 export default function AuthRequiredPage() {
-  const { isAuthenticated, isSignedUser } = usePersistStore()
-  const { setShowCreateChannel } = useAppStore()
+  const setShowCreateChannel = useAppStore(
+    (state) => state.setShowCreateChannel
+  )
+  const isSignedUser = usePersistStore((state) => state.isSignedUser)
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
   const router = useRouter()
   useEffect(() => {
     if (isAuthenticated) {

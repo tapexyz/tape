@@ -23,7 +23,7 @@ type Props = {
 
 const BasicInfo: FC<Props> = ({ channel }) => {
   const router = useRouter()
-  const { selectedChannel } = usePersistStore()
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
   const [showSubscribersModal, setShowSubscribersModal] = useState(false)
 
   const subscribeType = channel?.followModule?.__typename

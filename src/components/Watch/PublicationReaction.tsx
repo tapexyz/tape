@@ -30,7 +30,8 @@ const PublicationReaction: FC<Props> = ({
   showLabel = true,
   iconType = 'outline'
 }) => {
-  const { isAuthenticated, selectedChannel } = usePersistStore()
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
 
   const [reaction, setReaction] = useState({
     isLiked: publication.reaction === 'UPVOTE',

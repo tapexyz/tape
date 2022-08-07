@@ -2,7 +2,8 @@ import usePlayerStore from '@lib/store/player'
 import React from 'react'
 
 const Progress = () => {
-  const { duration, currentTime } = usePlayerStore()
+  const duration = usePlayerStore((state) => state.duration)
+  const currentTime = usePlayerStore((state) => state.currentTime)
   const percent = currentTime ? ((currentTime / duration) * 100).toFixed(2) : 0
 
   return (

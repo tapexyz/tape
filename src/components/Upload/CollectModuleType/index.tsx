@@ -13,7 +13,8 @@ import PermissionQuestion from './PermissionQuestion'
 
 const CollectModuleType = () => {
   const [showModal, setShowModal] = useState(false)
-  const { uploadedVideo, setUploadedVideo } = useAppStore()
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
   const setCollectType = (data: CollectModuleType) => {
     setUploadedVideo({

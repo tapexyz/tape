@@ -1,4 +1,4 @@
-import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
+import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
 import logger from '@lib/logger'
 import { getIsSensitiveContent } from '@utils/functions/getIsSensitiveContent'
 import { getPermanentVideoUrl, getVideoUrl } from '@utils/functions/getVideoUrl'
@@ -9,7 +9,7 @@ import { HLSData, LenstubePublication } from 'src/types/local'
 
 import VideoMeta from './VideoMeta'
 const VideoPlayer = dynamic(() => import('../Common/Players/VideoPlayer'), {
-  loading: () => <VideoCardShimmer />
+  loading: () => <CardShimmer />
 })
 const HlsVideoPlayer = dynamic(() => import('../Common/Players/HlsVideoPlayer'))
 const VideoActions = dynamic(() => import('./VideoActions'))

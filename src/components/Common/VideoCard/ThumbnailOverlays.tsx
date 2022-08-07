@@ -15,7 +15,8 @@ import { Attribute } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
-  const { selectedChannel } = usePersistStore()
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+
   const { pathname } = useRouter()
 
   const isVideoOwner = selectedChannel?.id === video?.profile?.id

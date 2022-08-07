@@ -29,7 +29,7 @@ type Props = {
 const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Subscribe')
-  const { isSignedUser } = usePersistStore()
+  const isSignedUser = usePersistStore((state) => state.isSignedUser)
   const { showToast } = useTxnToast()
 
   const onError = (error?: any) => {

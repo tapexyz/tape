@@ -50,7 +50,7 @@ const FeeCollectForm: FC<Props> = ({
       collectLimit: uploadedVideo.collectModule.collectLimit || '1'
     }
   })
-  const { selectedChannel } = usePersistStore()
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
   const [selectedCurrencySymbol, setSelectedCurrencySymbol] = useState('WMATIC')
 
   useEffect(() => {

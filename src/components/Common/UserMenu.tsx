@@ -24,13 +24,20 @@ import { Profile } from 'src/types'
 import { useAccount, useDisconnect } from 'wagmi'
 
 const UserMenu = () => {
-  const { channels, setShowCreateChannel, setChannels } = useAppStore()
-  const {
-    setSelectedChannel,
-    selectedChannel,
-    setIsAuthenticated,
-    setIsSignedUser
-  } = usePersistStore()
+  const setChannels = useAppStore((state) => state.setChannels)
+  const setShowCreateChannel = useAppStore(
+    (state) => state.setShowCreateChannel
+  )
+  const channels = useAppStore((state) => state.channels)
+  const setSelectedChannel = usePersistStore(
+    (state) => state.setSelectedChannel
+  )
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const setIsSignedUser = usePersistStore((state) => state.setIsSignedUser)
+  const setIsAuthenticated = usePersistStore(
+    (state) => state.setIsAuthenticated
+  )
+
   const { theme, setTheme } = useTheme()
 
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)

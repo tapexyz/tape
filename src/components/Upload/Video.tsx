@@ -29,7 +29,8 @@ const MemoizedVideoPlayer = React.memo(({ source, poster }: PlayerProps) => (
 MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 
 const Video = () => {
-  const { uploadedVideo } = useAppStore()
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+
   const [, copy] = useCopyToClipboard()
 
   const onCopyKey = async (value: string) => {

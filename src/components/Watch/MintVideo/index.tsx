@@ -40,8 +40,8 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const { address } = useAccount()
   const [loading, setLoading] = useState(false)
   const [showMintModal, setShowMintModal] = useState(false)
-  const { isSignedUser } = usePersistStore()
   const { showToast } = useTxnToast()
+  const isSignedUser = usePersistStore((state) => state.isSignedUser)
 
   const { signTypedDataAsync } = useSignTypedData({
     onError(error: any) {

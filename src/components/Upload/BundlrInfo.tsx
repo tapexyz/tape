@@ -27,8 +27,11 @@ const BundlrInfo = () => {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
-  const { uploadedVideo, getBundlrInstance, bundlrData, setBundlrData } =
-    useAppStore()
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)
+  const bundlrData = useAppStore((state) => state.bundlrData)
+  const setBundlrData = useAppStore((state) => state.setBundlrData)
+
   const { mounted } = useIsMounted()
   const { data: userBalance } = useBalance({
     addressOrName: address,

@@ -69,9 +69,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   })
   const watchTipQuantity = watch('tipQuantity', 1)
 
-  const { selectedChannel, isAuthenticated } = usePersistStore()
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState<string | null>(null)
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error.message)

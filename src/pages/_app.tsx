@@ -62,7 +62,7 @@ const wagmiClient = createClient({
 })
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const { isAuthenticated } = usePersistStore()
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
   const { pathname, replace, asPath } = useRouter()
 
   useEffect(() => {

@@ -33,15 +33,19 @@ const NO_HEADER_PATHS = [AUTH]
 
 const Layout: FC<Props> = ({ children }) => {
   const { pathname, replace, asPath } = useRouter()
-  const { setChannels, setUserSigNonce } = useAppStore()
-  const {
-    setSelectedChannel,
-    selectedChannel,
-    setIsAuthenticated,
-    setIsSignedUser,
-    isAuthenticated,
-    isSignedUser
-  } = usePersistStore()
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const setChannels = useAppStore((state) => state.setChannels)
+  const setSelectedChannel = usePersistStore(
+    (state) => state.setSelectedChannel
+  )
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const setIsAuthenticated = usePersistStore(
+    (state) => state.setIsAuthenticated
+  )
+  const setIsSignedUser = usePersistStore((state) => state.setIsSignedUser)
+  const isSignedUser = usePersistStore((state) => state.isSignedUser)
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+
   const { resolvedTheme } = useTheme()
   const { chain } = useNetwork()
   const { disconnect } = useDisconnect({

@@ -27,7 +27,7 @@ const collectModules = [
 ]
 
 const Permissions = () => {
-  const { selectedChannel } = usePersistStore()
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
   const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
   const [loadingModule, setLoadingModule] = useState('')
 

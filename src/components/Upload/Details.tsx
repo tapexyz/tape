@@ -50,7 +50,9 @@ type Props = {
 }
 
 const Details: FC<Props> = ({ onUpload, onCancel }) => {
-  const { uploadedVideo, setUploadedVideo } = useAppStore()
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+
   const {
     register,
     handleSubmit,

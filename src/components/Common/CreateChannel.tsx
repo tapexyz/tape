@@ -49,7 +49,10 @@ export const ClaimHandle = () => (
 )
 
 const CreateChannel = () => {
-  const { setShowCreateChannel, showCreateChannel } = useAppStore()
+  const showCreateChannel = useAppStore((state) => state.showCreateChannel)
+  const setShowCreateChannel = useAppStore(
+    (state) => state.setShowCreateChannel
+  )
   const [creating, setCreating] = useState(false)
   const { mounted } = useIsMounted()
   const router = useRouter()

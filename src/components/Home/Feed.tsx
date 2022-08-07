@@ -16,7 +16,7 @@ import Timeline from './Timeline'
 const HomeFeed = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { selectedChannel } = usePersistStore()
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
 
   const { data, loading, error, fetchMore } = useQuery(FEED_QUERY, {
     variables: {

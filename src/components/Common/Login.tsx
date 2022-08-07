@@ -20,9 +20,18 @@ const ConnectWalletButton = dynamic(() => import('./ConnectWalletButton'))
 const Login = () => {
   const router = useRouter()
   const { address } = useAccount()
-  const { setChannels, setShowCreateChannel } = useAppStore()
-  const { setIsAuthenticated, setSelectedChannel, setIsSignedUser } =
-    usePersistStore()
+  const setShowCreateChannel = useAppStore(
+    (state) => state.setShowCreateChannel
+  )
+  const setChannels = useAppStore((state) => state.setChannels)
+  const setIsAuthenticated = usePersistStore(
+    (state) => state.setIsAuthenticated
+  )
+  const setSelectedChannel = usePersistStore(
+    (state) => state.setSelectedChannel
+  )
+  const setIsSignedUser = usePersistStore((state) => state.setIsSignedUser)
+
   const { signMessageAsync, isLoading: signing } = useSignMessage({
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)

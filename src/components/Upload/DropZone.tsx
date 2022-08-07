@@ -10,7 +10,7 @@ import toast from 'react-hot-toast'
 import { FiUpload } from 'react-icons/fi'
 
 const DropZone = () => {
-  const { setUploadedVideo } = useAppStore()
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
   const uploadVideo = (files: File[]) => {
     try {

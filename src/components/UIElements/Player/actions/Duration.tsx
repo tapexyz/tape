@@ -6,7 +6,10 @@ import React from 'react'
 import { VideoRefOnly } from '../Video'
 
 const Duration: FC<VideoRefOnly> = ({ videoRef }) => {
-  const { setCurrentTime, setDuration, duration } = usePlayerStore()
+  const setCurrentTime = usePlayerStore((state) => state.setCurrentTime)
+  const setDuration = usePlayerStore((state) => state.setDuration)
+  const duration = usePlayerStore((state) => state.duration)
+
   const [playingStamp, setPlayingStamp] = useState('00:00')
 
   useEffect(() => {

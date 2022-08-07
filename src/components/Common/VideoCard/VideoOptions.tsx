@@ -24,8 +24,13 @@ const VideoOptions = ({
   setShowShare: React.Dispatch<boolean>
   showOnHover?: boolean
 }) => {
-  const { addToWatchLater, removeFromWatchLater, watchLater, selectedChannel } =
-    usePersistStore()
+  const addToWatchLater = usePersistStore((state) => state.addToWatchLater)
+  const watchLater = usePersistStore((state) => state.watchLater)
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const removeFromWatchLater = usePersistStore(
+    (state) => state.removeFromWatchLater
+  )
+
   const router = useRouter()
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
 

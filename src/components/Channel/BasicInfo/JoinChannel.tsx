@@ -31,10 +31,10 @@ type Props = {
 const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
-  const { isAuthenticated } = usePersistStore()
-  const { showToast } = useTxnToast()
-
   const [buttonText, setButtonText] = useState('Join Channel')
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+
+  const { showToast } = useTxnToast()
 
   const onError = () => {
     setLoading(false)

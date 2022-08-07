@@ -12,7 +12,7 @@ const UploadSteps = dynamic(() => import('./UploadSteps'), {
 })
 
 const UploadPage = () => {
-  const { uploadedVideo } = useAppStore()
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
 
   return uploadedVideo?.file ? <UploadSteps /> : <DropZone />
 }

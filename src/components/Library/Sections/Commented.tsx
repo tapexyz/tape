@@ -15,7 +15,8 @@ import CommentedVideoCard from '../CommentedVideoCard'
 
 const Commented = () => {
   const [commented, setCommented] = useState<LenstubePublication[]>([])
-  const { isAuthenticated, selectedChannel } = usePersistStore()
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
 
   const { loading, data } = useQuery(PROFILE_FEED_QUERY, {
     variables: {

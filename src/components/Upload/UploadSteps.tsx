@@ -41,14 +41,12 @@ import {
 import Details from './Details'
 
 const UploadSteps = () => {
-  const {
-    setUploadedVideo,
-    uploadedVideo,
-    bundlrData,
-    setBundlrData,
-    getBundlrInstance
-  } = useAppStore()
-  const { selectedChannel } = usePersistStore()
+  const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)
+  const setBundlrData = useAppStore((state) => state.setBundlrData)
+  const bundlrData = useAppStore((state) => state.bundlrData)
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
   const { address } = useAccount()
   const { data: signer } = useSigner()
   const { showToast } = useTxnToast()

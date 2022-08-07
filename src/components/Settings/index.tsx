@@ -23,8 +23,8 @@ const SideNav = dynamic(() => import('./SideNav'))
 const DangerZone = dynamic(() => import('./DangerZone'))
 
 const Settings = () => {
-  const { selectedChannel } = usePersistStore()
   const router = useRouter()
+  const selectedChannel = usePersistStore((state) => state.selectedChannel)
 
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
     variables: {
