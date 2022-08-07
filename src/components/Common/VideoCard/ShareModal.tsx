@@ -42,6 +42,20 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             className="rounded-full"
             target="_blank"
             rel="noreferrer"
+            href={getSharableLink('lenster', video)}
+          >
+            <img
+              src={`${STATIC_ASSETS}/images/lenster-logo.svg`}
+              className="w-10 h-10 rounded-full"
+              alt="lenster"
+              draggable={false}
+            />
+          </a>
+          <span className="middot" />
+          <a
+            className="rounded-full"
+            target="_blank"
+            rel="noreferrer"
             href={getSharableLink('twitter', video)}
           >
             <img

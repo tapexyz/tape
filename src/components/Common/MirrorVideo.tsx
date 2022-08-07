@@ -18,7 +18,7 @@ import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { MdPublishedWithChanges } from 'react-icons/md'
+import { AiOutlineRetweet } from 'react-icons/ai'
 import { CreateMirrorBroadcastItemResult } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -158,7 +158,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
         {loading ? (
           <Loader size="sm" className="m-[1px]" />
         ) : (
-          <MdPublishedWithChanges />
+          <AiOutlineRetweet />
         )}
       </button>
     </Tooltip>
