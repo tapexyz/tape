@@ -153,7 +153,6 @@ const FeeCollectForm: FC<Props> = ({
             placeholder="3"
             min="0"
             autoComplete="off"
-            suffix="per user"
             validationError={errors.collectLimit?.message}
             {...register('collectLimit', {
               setValueAs: (v) => String(v)
