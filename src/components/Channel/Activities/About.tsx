@@ -1,4 +1,5 @@
 import { AddressExplorerLink } from '@components/Common/ExplorerLink'
+import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
 import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@utils/constants'
 import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
@@ -27,7 +28,7 @@ const About: FC<Props> = ({ channel }) => {
           <h6 className="text-xs font-semibold uppercase opacity-70">
             Description
           </h6>
-          <p>{channel?.bio}</p>
+          <InterweaveContent content={channel?.bio} />
         </div>
       )}
       {hasOnChainId && (
