@@ -7,19 +7,15 @@ import { MentionMatcher } from './matchers/MentionMatcher'
 import { TimeMatcher } from './matchers/TimeMatcher'
 
 const InterweaveContent = ({ content }: { content: string }) => {
+  const matchers = [
+    new TimeMatcher('time'),
+    new HashtagMatcher('hashtag'),
+    new MentionMatcher('mention'),
+    new UrlMatcher('url', { validateTLD: false })
+  ]
   return (
     <span className="interweave-content">
-      <Interweave
-        content={content}
-        newWindow
-        escapeHtml
-        matchers={[
-          new TimeMatcher('time'),
-          new HashtagMatcher('hashtag'),
-          new MentionMatcher('mention'),
-          new UrlMatcher('url', { validateTLD: false })
-        ]}
-      />
+      <Interweave content={content} newWindow escapeHtml matchers={matchers} />
     </span>
   )
 }
