@@ -12,7 +12,7 @@ type Props = {
 const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
   return (
     <div className="space-y-2">
-      <h6>Would you like to limit the mints per user?</h6>
+      <h6>Would you like to limit the mints?</h6>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <button
           type="button"
