@@ -25,7 +25,7 @@ type Props = {
   channel: Profile
 }
 
-const Activity: FC<Props> = ({ channel }) => {
+const Activities: FC<Props> = ({ channel }) => {
   return (
     <div className="my-4 md:ml-6 md:my-6">
       <div className="w-full">
@@ -168,4 +168,4 @@ const Activity: FC<Props> = ({ channel }) => {
   )
 }
 
-export default Activity
+export default Activities

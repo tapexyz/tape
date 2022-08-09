@@ -7,19 +7,11 @@ interface Props extends ComponentProps<'textarea'> {
   type?: string
   className?: string
   validationError?: string
-  hideErrorMessage?: boolean
 }
 
 export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
   function TextArea(
-    {
-      label,
-      validationError,
-      className = '',
-      id,
-      hideErrorMessage = false,
-      ...props
-    },
+    { label, validationError, className = '', id, ...props },
     ref
   ) {
     return (
@@ -48,7 +40,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
             {...props}
           />
         </div>
-        {validationError && !hideErrorMessage && (
+        {validationError && (
           <div className="mx-1 mt-1 text-xs font-medium text-red-500">
             {validationError}
           </div>

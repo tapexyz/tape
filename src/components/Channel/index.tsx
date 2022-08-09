@@ -6,9 +6,9 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { Profile } from 'src/types'
 
+import Activities from './Activities'
 import BasicInfo from './BasicInfo'
 
-const Activities = dynamic(() => import('./Activities'))
 const Custom500 = dynamic(() => import('../../pages/500'))
 const Custom404 = dynamic(() => import('../../pages/404'))
 
