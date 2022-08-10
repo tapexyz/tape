@@ -16,7 +16,8 @@ import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { MediaSet, Profile } from 'src/types'
 
-const BasicInfo = dynamic(() => import('./BasicInfo'))
+import BasicInfo from './BasicInfo'
+
 const Permissions = dynamic(() => import('./Permissions'))
 const Membership = dynamic(() => import('./Membership'))
 const SideNav = dynamic(() => import('./SideNav'))
