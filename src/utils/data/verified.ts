@@ -2,6 +2,7 @@ import { IS_MAINNET } from '@utils/constants'
 
 export const VERIFIED_CHANNELS = IS_MAINNET
   ? [
+      '0x8dec', // thisisvoya.lens
       '0x2e09', //defidad.lens
       '0x8b61', // bankless.lens
       '0x1c19', //gabriel.lens
