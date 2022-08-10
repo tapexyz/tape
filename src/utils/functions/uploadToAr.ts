@@ -3,7 +3,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 
 const uploadToAr = async (
-  data: Record<string, string | object[] | null>
+  data: Record<string, any | null>
 ): Promise<{ url: string | null }> => {
   try {
     const response = await axios.post('/api/metadata/upload', data)

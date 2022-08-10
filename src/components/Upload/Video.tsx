@@ -9,7 +9,6 @@ import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
 
 import BundlrInfo from './BundlrInfo'
-import UploadMethod from './UploadMethod'
 
 type PlayerProps = {
   source: string
@@ -103,9 +102,6 @@ const Video = () => {
             <BundlrInfo />
           </div>
         )}
-        <div className="mt-4">
-          <UploadMethod />
-        </div>
       </div>
     </div>
   )

@@ -1,17 +1,13 @@
-import { IMAGE_CDN_URL, IS_MAINNET } from '@utils/constants'
+import { IMAGE_CDN_URL } from '@utils/constants'
 
-function removeHttp(url: string) {
-  return url.replace(/^https?:\/\//, '')
-}
+import { sanitizeIpfsUrl } from './sanitizeIpfsUrl'
 
 const imageCdn = (
   url: string,
   type: 'thumbnail' | 'avatar' | 'avatar_lg' | 'square' | 'thumbnail_v'
 ): string => {
   if (!url) return url
-  return IS_MAINNET
-    ? `${IMAGE_CDN_URL}/tr:n-${type}/${url}`
-    : `${IMAGE_CDN_URL}/${removeHttp(url)}`
+  return `${IMAGE_CDN_URL}/tr:n-${type}/${sanitizeIpfsUrl(url)}`
 }
 
 export default imageCdn

@@ -18,10 +18,8 @@ import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
 import trimify from '@utils/functions/trimify'
-import {
-  uploadDataToIPFS,
-  uploadImageToIPFS
-} from '@utils/functions/uploadToIPFS'
+import uploadToAr from '@utils/functions/uploadToAr'
+import { uploadImageToIPFS } from '@utils/functions/uploadToIPFS'
 import {
   BROADCAST_MUTATION,
   SET_PROFILE_METADATA_TYPED_DATA_MUTATION
@@ -182,7 +180,7 @@ const BasicInfo = ({ channel }: Props) => {
 
   const onSaveBasicInfo = async (data: FormData) => {
     setLoading(true)
-    const { ipfsUrl } = await uploadDataToIPFS({
+    const { url } = await uploadToAr({
       name: data.displayName,
       bio: trimify(data.description),
       cover_picture: coverImage,
@@ -226,7 +224,7 @@ const BasicInfo = ({ channel }: Props) => {
       variables: {
         request: {
           profileId: channel?.id,
-          metadata: ipfsUrl
+          metadata: url
         }
       }
     })

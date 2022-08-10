@@ -24,7 +24,12 @@ export const getIsArweaveUrl = (url: string) => {
   return hostname === 'arweave.net'
 }
 
-export const getIsIPFSUrl = (url: string) => {
+export const getIsInfuraUrl = (url: string) => {
   const hostname = new URL(url).hostname
   return hostname === 'ipfs.infura.io'
+}
+
+export const getIsIPFSUrl = (url: string) => {
+  const hostname = new URL(url).hostname
+  return hostname === 'ipfs.infura.io' || hostname === 'lenstube.infura-ipfs.io'
 }

@@ -17,15 +17,14 @@ export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 export const IMAGE_CDN_URL = IS_MAINNET
   ? 'https://ik.imagekit.io/lenstube'
-  : 'https://i0.wp.com'
+  : 'https://ik.imagekit.io/lenstube/testnet'
 
-export const IPFS_GATEWAY = 'https://ipfs.infura.io/ipfs'
+export const IPFS_GATEWAY = 'https://lenstube.infura-ipfs.io/ipfs'
 
 export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY as string
 export const POLYGON_RPC_URL = IS_MAINNET
   ? `https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`
   : `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`
-export const IPFS_HTTP_API = 'https://ipfs.infura.io:5001/api/v0/add'
 
 export const NFT_MARKETPLACE_URL = IS_MAINNET
   ? 'https://opensea.io'

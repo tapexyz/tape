@@ -17,7 +17,7 @@ import {
 } from '@utils/constants'
 import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
-import uploadJsonToStorage from '@utils/functions/uploadJsonToStorage'
+import uploadToAr from '@utils/functions/uploadToAr'
 import {
   BROADCAST_MUTATION,
   CREATE_COMMENT_TYPED_DATA
@@ -179,7 +179,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const submitComment = async (txnHash: string) => {
     setLoading(true)
     setButtonText('Storing...')
-    const url = await uploadJsonToStorage({
+    const { url } = await uploadToAr({
       version: '1.0.0',
       metadata_id: uuidv4(),
       description: getValues('message'),

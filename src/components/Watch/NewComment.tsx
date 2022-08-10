@@ -14,7 +14,7 @@ import {
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
 import trimify from '@utils/functions/trimify'
-import uploadJsonToStorage from '@utils/functions/uploadJsonToStorage'
+import uploadToAr from '@utils/functions/uploadToAr'
 import {
   BROADCAST_MUTATION,
   CREATE_COMMENT_TYPED_DATA
@@ -165,7 +165,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const submitComment = async (data: FormData) => {
     setButtonText('Storing metadata...')
     setLoading(true)
-    const url = await uploadJsonToStorage({
+    const { url } = await uploadToAr({
       version: '1.0.0',
       metadata_id: uuidv4(),
       description: trimify(data.comment),

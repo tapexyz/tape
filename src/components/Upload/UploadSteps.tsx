@@ -7,8 +7,6 @@ import usePersistStore from '@lib/store/persist'
 import { captureException } from '@sentry/nextjs'
 import {
   ARWEAVE_WEBSITE_URL,
-  IPFS_GATEWAY,
-  IPFS_HTTP_API,
   IS_MAINNET,
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
@@ -18,10 +16,9 @@ import {
 } from '@utils/constants'
 import { checkIsBytesVideo } from '@utils/functions/checkIsBytesVideo'
 import { getCollectModule } from '@utils/functions/getCollectModule'
-import { isLessThan100MB } from '@utils/functions/getSizeFromBytes'
 import omitKey from '@utils/functions/omitKey'
 import trimify from '@utils/functions/trimify'
-import { uploadDataToIPFS } from '@utils/functions/uploadToIPFS'
+import uploadToAr from '@utils/functions/uploadToAr'
 import { BROADCAST_MUTATION, CREATE_POST_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import useTxnToast from '@utils/hooks/useTxnToast'
@@ -181,47 +178,6 @@ const UploadSteps = () => {
     }
   }
 
-  const uploadToIpfsWithProgress = async () => {
-    try {
-      toast('Uploading to IPFS...')
-      const formData = new FormData()
-      formData.append('file', uploadedVideo.file as File, 'img')
-      const response: { data: { Hash: string } } = await axios.post(
-        IPFS_HTTP_API,
-        formData,
-        {
-          onUploadProgress: function (progressEvent) {
-            const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            )
-            setUploadedVideo({
-              buttonText: 'Uploading...',
-              loading: true,
-              percent: percentCompleted
-            })
-          }
-        }
-      )
-      if (response.data) {
-        const playbackId = await getPlaybackId(
-          `${IPFS_GATEWAY}/${response.data.Hash}`
-        )
-        setUploadedVideo({
-          percent: 100,
-          videoSource: `${IPFS_GATEWAY}/${response.data.Hash}`,
-          playbackId,
-          buttonText: 'Post Video',
-          loading: false
-        })
-      } else {
-        toast.error('Upload failed!')
-      }
-    } catch (error: any) {
-      toast.error(error?.data?.message ?? error?.message)
-      logger.error('[Error Upload Video IPFS]', error)
-    }
-  }
-
   const [createTypedData] = useMutation(CREATE_POST_TYPED_DATA, {
     async onCompleted(data) {
       const { typedData, id } =
@@ -319,7 +275,7 @@ const UploadSteps = () => {
       })
     }
     const isBytesVideo = checkIsBytesVideo(uploadedVideo.description)
-    const { ipfsUrl } = await uploadDataToIPFS({
+    const { url } = await uploadToAr({
       version: '1.0.0',
       metadata_id: uuidv4(),
       description: trimify(uploadedVideo.description),
@@ -342,7 +298,7 @@ const UploadSteps = () => {
       variables: {
         request: {
           profileId: selectedChannel?.id,
-          contentURI: ipfsUrl,
+          contentURI: url,
           collectModule: getCollectModule(uploadedVideo.collectModule),
           referenceModule: {
             followerOnlyReferenceModule: uploadedVideo.disableComments
@@ -356,14 +312,7 @@ const UploadSteps = () => {
     if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail)
       return toast.error('NSFW content not allowed')
     if (uploadedVideo.videoSource) return createPublication()
-    else {
-      if (
-        isLessThan100MB(uploadedVideo.file?.size) &&
-        uploadedVideo.isUploadToIpfs
-      ) {
-        return uploadToIpfsWithProgress()
-      } else await uploadToBundlr()
-    }
+    else await uploadToBundlr()
   }
 
   const onCancel = () => {
