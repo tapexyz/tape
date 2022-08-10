@@ -1,6 +1,10 @@
 import Bundlr from '@bundlr-network/client'
 import { withSentry } from '@sentry/nextjs'
-import { BUNDLR_CURRENCY, BUNDLR_NODE_2_URL } from '@utils/constants'
+import {
+  API_ORIGINS,
+  BUNDLR_CURRENCY,
+  BUNDLR_NODE_2_URL
+} from '@utils/constants'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
@@ -13,7 +17,7 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY_FOR_BUNDLR
 
 const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const origin = req.headers.origin
-  if (!origin || origin !== 'https://lenstube.xyz')
+  if (!origin || !API_ORIGINS.includes(origin))
     return res.status(401).json({ url: null, id: null, success: false })
   if (req.method !== 'POST' || !req.body)
     return res.status(400).json({ success: false, url: null, id: null })

@@ -1,5 +1,6 @@
 import logger from '@lib/logger'
 import { withSentry } from '@sentry/nextjs'
+import { API_ORIGINS } from '@utils/constants'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -10,7 +11,7 @@ type Data = {
 
 const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const origin = req.headers.origin
-  if (!origin || origin !== 'https://lenstube.xyz')
+  if (!origin || !API_ORIGINS.includes(origin))
     return res.status(401).json({ playbackId: null, success: false })
   if (req.method === 'POST') {
     try {

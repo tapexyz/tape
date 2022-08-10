@@ -1,7 +1,8 @@
 import logger from '@lib/logger'
-import { IPFS_GATEWAY } from '@utils/constants'
 import axios from 'axios'
 import { IPFSUploadResult } from 'src/types/local'
+
+const WEB3_STORAGE_TOKEN = process.env.NEXT_PUBLIC_WEB3_STORAGE_TOKEN
 
 const uploadImageToIPFS = async (file: File): Promise<IPFSUploadResult> => {
   try {
@@ -11,17 +12,17 @@ const uploadImageToIPFS = async (file: File): Promise<IPFSUploadResult> => {
       method: 'POST',
       data: formData,
       headers: {
-        'Content-Type': 'multipart/form-data'
-        // Authorization: `Bearer <token>`
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${WEB3_STORAGE_TOKEN}`
       }
     })
-    const { hash }: { hash: string } = await uploaded.data
+    const { cid }: { cid: string } = await uploaded.data
 
     return {
-      ipfsUrl: `${IPFS_GATEWAY}/${hash}`,
-      url: `${IPFS_GATEWAY}/${hash}`,
+      ipfsUrl: `https://${cid}.ipfs.dweb.link`,
+      url: `https://${cid}.ipfs.dweb.link`,
       type: file.type || 'image/jpeg',
-      hash
+      hash: ''
     }
   } catch (error) {
     logger.error('[Error IPFS Image Upload]', error)
