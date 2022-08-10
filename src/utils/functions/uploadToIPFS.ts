@@ -35,4 +35,4 @@ const uploadImageToIPFS = async (file: File): Promise<IPFSUploadResult> => {
   }
 }
 
-export { uploadImageToIPFS }
+export default uploadImageToIPFS

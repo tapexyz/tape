@@ -19,7 +19,7 @@ import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
 import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
-import { uploadImageToIPFS } from '@utils/functions/uploadToIPFS'
+import uploadImageToIPFS from '@utils/functions/uploadToIPFS'
 import {
   BROADCAST_MUTATION,
   SET_PROFILE_METADATA_TYPED_DATA_MUTATION
