@@ -24,7 +24,7 @@ const BalanceAlert = ({
           </span>
           <Link
             href={getUniswapURL(
-              parseFloat(collectModule?.amount.value),
+              parseFloat(collectModule?.amount?.value),
               collectModule?.amount?.asset?.address
             )}
           >
