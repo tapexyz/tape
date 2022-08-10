@@ -1001,7 +1001,7 @@
     "@graphql-codegen/plugin-helpers" "^2.6.2"
     tslib "~2.4.0"
 
-"@graphql-codegen/plugin-helpers@^2.5.0", "@graphql-codegen/plugin-helpers@^2.6.1", "@graphql-codegen/plugin-helpers@^2.6.2":
+"@graphql-codegen/plugin-helpers@^2.6.2":
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-2.6.2.tgz#3c65d89fc9b61914235fc7cb14f1d48492d27944"
   integrity sha512-bt5PNix0MwzWP53UdaYm6URrVMWU8RlQhrTSLFjxQ8ShS5zoTlQtpZJGZc5ONqFgKa83qbUmzXUtP8oRVVn8zw==
@@ -2150,10 +2150,10 @@
     "@typescript-eslint/types" "5.33.0"
     eslint-visitor-keys "^3.3.0"
 
-"@wagmi/core@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.5.1.tgz#a9de4d529c84195a015134da82960c4f9eb2e968"
-  integrity sha512-EgFppUNDLVtjThSoGqr3yzY/jq5qZUPhCgfubcPGET8Xd1OMoag/Z85e2krcxkVZ+ExWPSUGCFLau4odd2PDFQ==
+"@wagmi/core@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.5.2.tgz#38ce1c23907fafe8311185b2f0ea0a915661908d"
+  integrity sha512-Mbwq+ZMkxgPnEMXE+ldwseqRtryeeHokMMEMOGVuvUyrjJyn2mta2d6Yt2mMdfeqLVD6FfcSeKU4Pq8IscbaCw==
   dependencies:
     eventemitter3 "^4.0.7"
     zustand "^4.0.0-rc.1"
@@ -7980,13 +7980,13 @@ vlq@^2.0.4:
   resolved "https://registry.yarnpkg.com/vlq/-/vlq-2.0.4.tgz#6057b85729245b9829e3cc7755f95b228d4fe041"
   integrity sha512-aodjPa2wPQFkra1G8CzJBTHXhgk3EVSwxSWXNPr1fgdFLUb8kvLV1iEb6rFgasIsjP82HWI6dsb5Io26DDnasA==
 
-wagmi@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.6.1.tgz#f9b0fa41a1774cb402205e8ec552aa02793fe674"
-  integrity sha512-QS/QDlRz6vVt8ZcKqaR7OGawQcN6mC/qCEhmO1qAmXx3LTkNyszBDJOdvn6AuGAljFowqb6aqD87RcKfjyEhyQ==
+wagmi@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.6.2.tgz#c399a0bea5fdb64551aa0410b1f18685dccca93a"
+  integrity sha512-P+zeCzUCEgojvG5RjwNDOIBf3AlHUZ5pE6r6dNy7mBh1E80fZSmOq4gPohgSZkTNPh+iqB4q6xcMlwSRbBfcmA==
   dependencies:
     "@coinbase/wallet-sdk" "^3.3.0"
-    "@wagmi/core" "^0.5.1"
+    "@wagmi/core" "^0.5.2"
     "@walletconnect/ethereum-provider" "^1.7.8"
     react-query "4.0.0-beta.23"
     use-sync-external-store "^1.2.0"
