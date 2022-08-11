@@ -6,7 +6,7 @@ import { captureException } from '@sentry/nextjs'
 import * as tf from '@tensorflow/tfjs'
 import { IS_MAINNET } from '@utils/constants'
 import { getIsNSFW } from '@utils/functions/getIsNSFW'
-import imageCdn from '@utils/functions/imageCdn'
+import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import { UPLOAD } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -224,7 +224,7 @@ const VideoPlayer: FC<Props> = ({
                 provider: 'html5'
               }
             ],
-            poster: imageCdn(poster, 'thumbnail') ?? source
+            poster: sanitizeIpfsUrl(poster) ?? source
           }}
           options={options}
           time={time}
