@@ -5,6 +5,7 @@ import { sanitizeIpfsUrl } from './sanitizeIpfsUrl'
 
 const getThumbnailUrl = (video: LenstubePublication): string => {
   const url = video.metadata?.cover?.original.url || video.metadata?.image
+  if (!url) return `${STATIC_ASSETS}/images/fallbackThumbnail.png`
   return sanitizeIpfsUrl(url) ?? `${STATIC_ASSETS}/images/fallbackThumbnail.png`
 }
 
