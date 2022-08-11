@@ -167,10 +167,14 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       setButtonText('Storing metadata...')
       setLoading(true)
       const { url } = await uploadToAr({
-        version: '1.0.0',
+        version: '2.0.0',
         metadata_id: uuidv4(),
         description: trimify(data.comment),
         content: trimify(data.comment),
+        locale: 'en',
+        tags: ['lenstube'],
+        mainContentFocus: 'TEXT_ONLY',
+        // contentWarning: 'SENSITIVE', // TODO
         external_url: LENSTUBE_URL,
         image: null,
         imageMimeType: null,

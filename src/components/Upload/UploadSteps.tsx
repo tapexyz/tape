@@ -277,10 +277,14 @@ const UploadSteps = () => {
       }
       const isBytesVideo = checkIsBytesVideo(uploadedVideo.description)
       const { url } = await uploadToAr({
-        version: '1.0.0',
+        version: '2.0.0',
         metadata_id: uuidv4(),
         description: trimify(uploadedVideo.description),
         content: `${uploadedVideo.title}\n\n${uploadedVideo.description}`,
+        locale: 'en',
+        tags: ['lenstube'],
+        mainContentFocus: 'VIDEO',
+        // contentWarning: 'SENSITIVE', // TODO
         external_url: LENSTUBE_URL,
         animation_url: uploadedVideo.videoSource,
         image: uploadedVideo.thumbnail,

@@ -181,10 +181,14 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       setLoading(true)
       setButtonText('Storing...')
       const { url } = await uploadToAr({
-        version: '1.0.0',
+        version: '2.0.0',
         metadata_id: uuidv4(),
         description: getValues('message'),
         content: getValues('message'),
+        locale: 'en',
+        tags: ['lenstube'],
+        mainContentFocus: 'TEXT_ONLY',
+        // contentWarning: 'SENSITIVE', // TODO
         external_url: LENSTUBE_URL,
         image: null,
         imageMimeType: null,

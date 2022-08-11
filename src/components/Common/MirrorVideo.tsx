@@ -14,9 +14,8 @@ import {
   BROADCAST_MUTATION,
   CREATE_MIRROR_TYPED_DATA
 } from '@utils/gql/queries'
-import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { utils } from 'ethers'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineRetweet } from 'react-icons/ai'
 import { CreateMirrorBroadcastItemResult } from 'src/types'
@@ -49,7 +48,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   //   functionName: 'mirrorWithSig',
   //   enabled: false
   // })
-  const { write: mirrorWithSig, data: mirrorData } = useContractWrite({
+  const { write: mirrorWithSig } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'mirrorWithSig',
@@ -57,29 +56,25 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     onError(error: any) {
       toast.error(error?.data?.message || error?.message)
       setLoading(false)
+    },
+    onSuccess() {
+      onMirrorSuccess()
+      toast.success('Mirrored video across lens.')
+      setLoading(false)
     }
   })
 
-  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast] = useMutation(BROADCAST_MUTATION, {
     onError(error) {
       toast.error(error?.message)
       setLoading(false)
-    }
-  })
-
-  const { indexed } = usePendingTxn({
-    txHash: mirrorData?.hash,
-    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
-  })
-
-  useEffect(() => {
-    if (indexed) {
+    },
+    onCompleted() {
       onMirrorSuccess()
-      toast.success(`Mirrored video across lens.`)
+      toast.success('Mirrored video across lens.')
       setLoading(false)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [indexed])
+  })
 
   const [createMirrorTypedData] = useMutation(CREATE_MIRROR_TYPED_DATA, {
     async onCompleted(data) {

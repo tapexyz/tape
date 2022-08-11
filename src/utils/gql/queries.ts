@@ -93,6 +93,8 @@ export const MetadataFields = gql`
     name
     description
     content
+    contentWarning
+    tags
     cover {
       original {
         url
@@ -198,7 +200,6 @@ export const CommentFieldsFragment = gql`
       name
       description
       content
-      description
       media {
         original {
           url
@@ -642,7 +643,8 @@ export const PostFieldsFragment = gql`
       name
       description
       content
-      description
+      contentWarning
+      tags
       media {
         original {
           url
