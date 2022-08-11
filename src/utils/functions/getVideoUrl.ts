@@ -19,17 +19,11 @@ export const getPlaybackIdFromUrl = (video: LenstubePublication) => {
   return playbackId
 }
 
-export const getIsArweaveUrl = (url: string) => {
-  const hostname = new URL(url).hostname
-  return hostname === 'arweave.net'
-}
-
 export const getIsInfuraUrl = (url: string) => {
   const hostname = new URL(url).hostname
   return hostname === 'ipfs.infura.io'
 }
 
 export const getIsIPFSUrl = (url: string) => {
-  const hostname = new URL(url).hostname
-  return hostname === 'ipfs.infura.io' || hostname === 'lenstube.infura-ipfs.io'
+  return url.includes('ipfs')
 }
