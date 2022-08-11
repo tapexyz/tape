@@ -17,6 +17,7 @@ import getCoverPicture from '@utils/functions/getCoverPicture'
 import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
+import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
 import uploadImageToIPFS from '@utils/functions/uploadToIPFS'
@@ -174,7 +175,7 @@ const BasicInfo = ({ channel }: Props) => {
       const result: IPFSUploadResult = await uploadImageToIPFS(
         e.target.files[0]
       )
-      setCoverImage(result.ipfsUrl)
+      setCoverImage(result.url)
     }
   }
 
@@ -238,8 +239,11 @@ const BasicInfo = ({ channel }: Props) => {
       <div className="relative flex-none w-full">
         <img
           src={
-            coverImage ??
-            imageCdn(channel?.coverPicture?.original?.url, 'thumbnail')
+            sanitizeIpfsUrl(coverImage) ??
+            imageCdn(
+              sanitizeIpfsUrl(channel?.coverPicture?.original?.url),
+              'thumbnail'
+            )
           }
           className="object-cover object-center w-full h-48 bg-white rounded-xl md:h-56 dark:bg-gray-900"
           draggable={false}

@@ -8,6 +8,7 @@ import * as tf from '@tensorflow/tfjs'
 import { IS_MAINNET } from '@utils/constants'
 import { getFileFromDataURL } from '@utils/functions/getFileFromDataURL'
 import { getIsNSFW } from '@utils/functions/getIsNSFW'
+import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import uploadImageToIPFS from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import * as nsfwjs from 'nsfwjs'
@@ -41,7 +42,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     setUploading(true)
     const result: IPFSUploadResult = await uploadImageToIPFS(file)
     setUploading(false)
-    afterUpload(result.ipfsUrl, file.type || 'image/jpeg')
+    afterUpload(result.url, file.type || 'image/jpeg')
     return result
   }
 
@@ -69,7 +70,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       const ipfsResult = await uploadThumbnailToIpfs(imageFile)
       setThumbnails(
         thumbnails.map((t, i) => {
-          if (i === DEFAULT_THUMBNAIL_INDEX) t.ipfsUrl = ipfsResult.ipfsUrl
+          if (i === DEFAULT_THUMBNAIL_INDEX) t.ipfsUrl = ipfsResult.url
           return t
         })
       )
@@ -113,7 +114,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       const isNSFWThumbnail = await checkNsfw(preview)
       setUploadedVideo({ isNSFWThumbnail })
       setThumbnails([
-        { url: preview, ipfsUrl: result.ipfsUrl, isNSFWThumbnail },
+        { url: preview, ipfsUrl: result.url, isNSFWThumbnail },
         ...thumbnails
       ])
       setSelectedThumbnailIndex(0)
@@ -127,7 +128,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       const ipfsResult = await uploadThumbnailToIpfs(file)
       setThumbnails(
         thumbnails.map((t, i) => {
-          if (i === index) t.ipfsUrl = ipfsResult.ipfsUrl
+          if (i === index) t.ipfsUrl = ipfsResult.url
           return t
         })
       )
@@ -176,7 +177,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
             >
               <img
                 className="object-cover w-full h-16 rounded-lg md:w-32"
-                src={thumbnail.url}
+                src={sanitizeIpfsUrl(thumbnail.url)}
                 alt="thumbnail"
                 draggable={false}
               />

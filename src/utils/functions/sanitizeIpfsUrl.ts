@@ -4,10 +4,10 @@ import { getIsInfuraUrl } from './getVideoUrl'
 
 export const sanitizeIpfsUrl = (url: string) => {
   return url.startsWith('ipfs://')
-    ? `${IPFS_GATEWAY}/${url.split('//')[1].substring(0, 46)}`
+    ? url.replace('ipfs://', IPFS_GATEWAY)
     : url.startsWith('Qm')
-    ? `${IPFS_GATEWAY}/${url}`
+    ? `${IPFS_GATEWAY}${url}`
     : getIsInfuraUrl(url)
-    ? url.replace('ipfs.infura.io', 'lenstube.infura-ipfs.io')
+    ? url.replace('https://ipfs.infura.io/', IPFS_GATEWAY)
     : url
 }

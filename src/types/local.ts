@@ -68,8 +68,6 @@ export type LenstubePublication = Post &
   Mirror & { pubId: string } & { hls: HLSData }
 
 export type IPFSUploadResult = {
-  hash: string
-  ipfsUrl: string
   url: string
   type: string
 }

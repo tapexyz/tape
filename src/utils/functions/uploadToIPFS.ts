@@ -19,17 +19,13 @@ const uploadImageToIPFS = async (file: File): Promise<IPFSUploadResult> => {
     const { cid }: { cid: string } = await uploaded.data
 
     return {
-      ipfsUrl: `https://${cid}.ipfs.dweb.link`,
-      url: `https://${cid}.ipfs.dweb.link`,
-      type: file.type || 'image/jpeg',
-      hash: ''
+      url: `ipfs://${cid}`,
+      type: file.type || 'image/jpeg'
     }
   } catch (error) {
     logger.error('[Error IPFS Image Upload]', error)
     return {
-      ipfsUrl: '',
       url: '',
-      hash: '',
       type: file.type
     }
   }

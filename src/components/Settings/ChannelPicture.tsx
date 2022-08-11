@@ -6,6 +6,7 @@ import usePersistStore from '@lib/store/persist'
 import { LENSHUB_PROXY_ADDRESS, RELAYER_ENABLED } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
+import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import uploadImageToIPFS from '@utils/functions/uploadToIPFS'
 import { BROADCAST_MUTATION, SET_PFP_URI_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
@@ -144,11 +145,11 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           variables: {
             request: {
               profileId: selectedChannel?.id,
-              url: result.ipfsUrl
+              url: result.url
             }
           }
         })
-        setSelectedPfp(result.ipfsUrl)
+        setSelectedPfp(result.url)
       } catch (error) {
         setLoading(false)
         logger.error('[Error Pfp Upload]', error)
@@ -159,7 +160,11 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   return (
     <div className="relative flex-none overflow-hidden rounded-full group">
       <img
-        src={selectedPfp ? selectedPfp : getProfilePicture(channel, 'avatar')}
+        src={
+          selectedPfp
+            ? sanitizeIpfsUrl(selectedPfp)
+            : getProfilePicture(channel, 'avatar')
+        }
         className="object-cover w-32 h-32 border-2 rounded-full"
         draggable={false}
         alt="channel picture"

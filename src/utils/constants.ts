@@ -19,7 +19,7 @@ export const IMAGE_CDN_URL = IS_MAINNET
   ? 'https://ik.imagekit.io/lenstube'
   : 'https://ik.imagekit.io/lenstube/testnet'
 
-export const IPFS_GATEWAY = 'https://lenstube.infura-ipfs.io/ipfs'
+export const IPFS_GATEWAY = 'https://cf-ipfs.com/ipfs/'
 
 export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY as string
 export const POLYGON_RPC_URL = IS_MAINNET
