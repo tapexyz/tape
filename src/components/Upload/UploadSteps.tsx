@@ -222,90 +222,94 @@ const UploadSteps = () => {
   })
 
   const createPublication = async () => {
-    setUploadedVideo({
-      buttonText: 'Storing metadata...',
-      loading: true
-    })
-    const media = [
-      {
-        item: uploadedVideo.videoSource,
-        type: uploadedVideo.videoType
+    try {
+      setUploadedVideo({
+        buttonText: 'Storing metadata...',
+        loading: true
+      })
+      const media = [
+        {
+          item: uploadedVideo.videoSource,
+          type: uploadedVideo.videoType
+        }
+      ]
+      const attributes = [
+        {
+          displayType: 'string',
+          traitType: 'publication',
+          key: 'publication',
+          value: 'video'
+        },
+        {
+          displayType: 'string',
+          traitType: 'handle',
+          key: 'handle',
+          value: `@${selectedChannel?.handle}`
+        },
+        {
+          displayType: 'string',
+          traitType: 'app',
+          key: 'app',
+          value: 'lenstube'
+        }
+      ]
+      if (uploadedVideo.playbackId) {
+        media.push({
+          item: `https://livepeercdn.com/asset/${uploadedVideo.playbackId}/video`,
+          type: uploadedVideo.videoType
+        })
       }
-    ]
-    const attributes = [
-      {
-        displayType: 'string',
-        traitType: 'publication',
-        key: 'publication',
-        value: 'video'
-      },
-      {
-        displayType: 'string',
-        traitType: 'handle',
-        key: 'handle',
-        value: `@${selectedChannel?.handle}`
-      },
-      {
-        displayType: 'string',
-        traitType: 'app',
-        key: 'app',
-        value: 'lenstube'
+      if (uploadedVideo.durationInSeconds) {
+        attributes.push({
+          displayType: 'string',
+          traitType: 'durationInSeconds',
+          key: 'durationInSeconds',
+          value: uploadedVideo.durationInSeconds.toString()
+        })
       }
-    ]
-    if (uploadedVideo.playbackId) {
-      media.push({
-        item: `https://livepeercdn.com/asset/${uploadedVideo.playbackId}/video`,
-        type: uploadedVideo.videoType
+      if (uploadedVideo.isAdultContent) {
+        attributes.push({
+          displayType: 'string',
+          traitType: 'content',
+          key: 'content',
+          value: 'sensitive'
+        })
+      }
+      const isBytesVideo = checkIsBytesVideo(uploadedVideo.description)
+      const { url } = await uploadToAr({
+        version: '1.0.0',
+        metadata_id: uuidv4(),
+        description: trimify(uploadedVideo.description),
+        content: `${uploadedVideo.title}\n\n${uploadedVideo.description}`,
+        external_url: LENSTUBE_URL,
+        animation_url: uploadedVideo.videoSource,
+        image: uploadedVideo.thumbnail,
+        cover: uploadedVideo.thumbnail,
+        imageMimeType: uploadedVideo.thumbnailType,
+        name: trimify(uploadedVideo.title),
+        attributes,
+        media,
+        appId: isBytesVideo ? LENSTUBE_BYTES_APP_ID : LENSTUBE_APP_ID
       })
-    }
-    if (uploadedVideo.durationInSeconds) {
-      attributes.push({
-        displayType: 'string',
-        traitType: 'durationInSeconds',
-        key: 'durationInSeconds',
-        value: uploadedVideo.durationInSeconds.toString()
+      setUploadedVideo({
+        buttonText: 'Posting video...',
+        loading: true
       })
-    }
-    if (uploadedVideo.isAdultContent) {
-      attributes.push({
-        displayType: 'string',
-        traitType: 'content',
-        key: 'content',
-        value: 'sensitive'
-      })
-    }
-    const isBytesVideo = checkIsBytesVideo(uploadedVideo.description)
-    const { url } = await uploadToAr({
-      version: '1.0.0',
-      metadata_id: uuidv4(),
-      description: trimify(uploadedVideo.description),
-      content: `${uploadedVideo.title}\n\n${uploadedVideo.description}`,
-      external_url: LENSTUBE_URL,
-      animation_url: uploadedVideo.videoSource,
-      image: uploadedVideo.thumbnail,
-      cover: uploadedVideo.thumbnail,
-      imageMimeType: uploadedVideo.thumbnailType,
-      name: trimify(uploadedVideo.title),
-      attributes,
-      media,
-      appId: isBytesVideo ? LENSTUBE_BYTES_APP_ID : LENSTUBE_APP_ID
-    })
-    setUploadedVideo({
-      buttonText: 'Posting video...',
-      loading: true
-    })
-    createTypedData({
-      variables: {
-        request: {
-          profileId: selectedChannel?.id,
-          contentURI: url,
-          collectModule: getCollectModule(uploadedVideo.collectModule),
-          referenceModule: {
-            followerOnlyReferenceModule: uploadedVideo.disableComments
+      createTypedData({
+        variables: {
+          request: {
+            profileId: selectedChannel?.id,
+            contentURI: url,
+            collectModule: getCollectModule(uploadedVideo.collectModule),
+            referenceModule: {
+              followerOnlyReferenceModule: uploadedVideo.disableComments
+            }
           }
         }
-      }
-    })
+      })
+    } catch (error) {
+      logger.error('[Error Store & Post Video]', error)
+    }
   }
 
   const onUpload = async () => {

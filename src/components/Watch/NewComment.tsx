@@ -163,51 +163,55 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   })
 
   const submitComment = async (data: FormData) => {
-    setButtonText('Storing metadata...')
-    setLoading(true)
-    const { url } = await uploadToAr({
-      version: '1.0.0',
-      metadata_id: uuidv4(),
-      description: trimify(data.comment),
-      content: trimify(data.comment),
-      external_url: LENSTUBE_URL,
-      image: null,
-      imageMimeType: null,
-      name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
-      attributes: [
-        {
-          displayType: 'string',
-          traitType: 'publication',
-          key: 'publication',
-          value: 'comment'
-        },
-        {
-          displayType: 'string',
-          traitType: 'app',
-          key: 'app',
-          value: LENSTUBE_APP_ID
-        }
-      ],
-      media: [],
-      appId: LENSTUBE_APP_ID
-    })
-    createTypedData({
-      variables: {
-        request: {
-          profileId: selectedChannel?.id,
-          publicationId: video?.id,
-          contentURI: url,
-          collectModule: {
-            freeCollectModule: {
-              followerOnly: false
-            }
+    try {
+      setButtonText('Storing metadata...')
+      setLoading(true)
+      const { url } = await uploadToAr({
+        version: '1.0.0',
+        metadata_id: uuidv4(),
+        description: trimify(data.comment),
+        content: trimify(data.comment),
+        external_url: LENSTUBE_URL,
+        image: null,
+        imageMimeType: null,
+        name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
+        attributes: [
+          {
+            displayType: 'string',
+            traitType: 'publication',
+            key: 'publication',
+            value: 'comment'
           },
-          referenceModule: {
-            followerOnlyReferenceModule: false
+          {
+            displayType: 'string',
+            traitType: 'app',
+            key: 'app',
+            value: LENSTUBE_APP_ID
+          }
+        ],
+        media: [],
+        appId: LENSTUBE_APP_ID
+      })
+      createTypedData({
+        variables: {
+          request: {
+            profileId: selectedChannel?.id,
+            publicationId: video?.id,
+            contentURI: url,
+            collectModule: {
+              freeCollectModule: {
+                followerOnly: false
+              }
+            },
+            referenceModule: {
+              followerOnlyReferenceModule: false
+            }
           }
         }
-      }
-    })
+      })
+    } catch (error) {
+      logger.error('[Error Store & Post Comment]', error)
+    }
   }
 
   if (!selectedChannel || !isAuthenticated) return null

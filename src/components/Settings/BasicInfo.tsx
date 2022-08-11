@@ -181,54 +181,58 @@ const BasicInfo = ({ channel }: Props) => {
 
   const onSaveBasicInfo = async (data: FormData) => {
     setLoading(true)
-    const { url } = await uploadToAr({
-      name: data.displayName,
-      bio: trimify(data.description),
-      cover_picture: coverImage,
-      attributes: [
-        {
-          displayType: 'string',
-          traitType: 'website',
-          key: 'website',
-          value: data.website
-        },
-        {
-          displayType: 'string',
-          traitType: 'location',
-          key: 'location',
-          value: getValueFromKeyInAttributes(
-            channel.attributes as Attribute[],
-            'location'
-          )
-        },
-        {
-          displayType: 'string',
-          traitType: 'twitter',
-          key: 'twitter',
-          value: data.twitter
-        },
-        {
-          displayType: 'string',
-          traitType: 'app',
-          key: 'app',
-          value: LENSTUBE_APP_ID
-        }
-      ],
-      version: '1.0.0',
-      metadata_id: uuidv4(),
-      previousMetadata: channel?.metadata,
-      createdOn: new Date(),
-      appId: LENSTUBE_APP_ID
-    })
+    try {
+      const { url } = await uploadToAr({
+        name: data.displayName,
+        bio: trimify(data.description),
+        cover_picture: coverImage,
+        attributes: [
+          {
+            displayType: 'string',
+            traitType: 'website',
+            key: 'website',
+            value: data.website
+          },
+          {
+            displayType: 'string',
+            traitType: 'location',
+            key: 'location',
+            value: getValueFromKeyInAttributes(
+              channel.attributes as Attribute[],
+              'location'
+            )
+          },
+          {
+            displayType: 'string',
+            traitType: 'twitter',
+            key: 'twitter',
+            value: data.twitter
+          },
+          {
+            displayType: 'string',
+            traitType: 'app',
+            key: 'app',
+            value: LENSTUBE_APP_ID
+          }
+        ],
+        version: '1.0.0',
+        metadata_id: uuidv4(),
+        previousMetadata: channel?.metadata,
+        createdOn: new Date(),
+        appId: LENSTUBE_APP_ID
+      })
 
-    createSetProfileMetadataTypedData({
-      variables: {
-        request: {
-          profileId: channel?.id,
-          metadata: url
+      createSetProfileMetadataTypedData({
+        variables: {
+          request: {
+            profileId: channel?.id,
+            metadata: url
+          }
         }
-      }
-    })
+      })
+    } catch (error) {
+      logger.error('[Error Store & Save Basic info]', error)
+    }
   }
 
   return (

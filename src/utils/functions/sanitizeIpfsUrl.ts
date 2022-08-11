@@ -2,6 +2,7 @@ import { IPFS_GATEWAY } from '@utils/constants'
 
 export const sanitizeIpfsUrl = (url: string) => {
   const gateway = IPFS_GATEWAY
+  if (!url) return url
 
   return url
     .replace(/^Qm[1-9A-Za-z]{44}/gm, `${gateway}${url}`)

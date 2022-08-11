@@ -177,63 +177,67 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   })
 
   const submitComment = async (txnHash: string) => {
-    setLoading(true)
-    setButtonText('Storing...')
-    const { url } = await uploadToAr({
-      version: '1.0.0',
-      metadata_id: uuidv4(),
-      description: getValues('message'),
-      content: getValues('message'),
-      external_url: LENSTUBE_URL,
-      image: null,
-      imageMimeType: null,
-      name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
-      attributes: [
-        {
-          displayType: 'string',
-          traitType: 'publication',
-          key: 'publication',
-          value: 'comment'
-        },
-        {
-          displayType: 'string',
-          traitType: 'app',
-          key: 'app',
-          value: LENSTUBE_APP_ID
-        },
-        {
-          displayType: 'string',
-          traitType: 'type',
-          key: 'type',
-          value: 'tip'
-        },
-        {
-          displayType: 'string',
-          traitType: 'hash',
-          key: 'hash',
-          value: txnHash
-        }
-      ],
-      media: [],
-      appId: LENSTUBE_APP_ID
-    })
-    createTypedData({
-      variables: {
-        request: {
-          profileId: selectedChannel?.id,
-          publicationId: video?.id,
-          contentURI: url,
-          collectModule: {
-            freeCollectModule: {
-              followerOnly: false
-            }
+    try {
+      setLoading(true)
+      setButtonText('Storing...')
+      const { url } = await uploadToAr({
+        version: '1.0.0',
+        metadata_id: uuidv4(),
+        description: getValues('message'),
+        content: getValues('message'),
+        external_url: LENSTUBE_URL,
+        image: null,
+        imageMimeType: null,
+        name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
+        attributes: [
+          {
+            displayType: 'string',
+            traitType: 'publication',
+            key: 'publication',
+            value: 'comment'
           },
-          referenceModule: {
-            followerOnlyReferenceModule: false
+          {
+            displayType: 'string',
+            traitType: 'app',
+            key: 'app',
+            value: LENSTUBE_APP_ID
+          },
+          {
+            displayType: 'string',
+            traitType: 'type',
+            key: 'type',
+            value: 'tip'
+          },
+          {
+            displayType: 'string',
+            traitType: 'hash',
+            key: 'hash',
+            value: txnHash
+          }
+        ],
+        media: [],
+        appId: LENSTUBE_APP_ID
+      })
+      createTypedData({
+        variables: {
+          request: {
+            profileId: selectedChannel?.id,
+            publicationId: video?.id,
+            contentURI: url,
+            collectModule: {
+              freeCollectModule: {
+                followerOnly: false
+              }
+            },
+            referenceModule: {
+              followerOnlyReferenceModule: false
+            }
           }
         }
-      }
-    })
+      })
+    } catch (error) {
+      logger.error('[Error Store & Tip Video]', error)
+    }
   }
 
   const onSendTip = async () => {
