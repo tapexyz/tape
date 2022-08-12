@@ -44,7 +44,10 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             href={getSharableLink('lenster', video)}
           >
             <img
-              src={`${STATIC_ASSETS}/images/lenster-logo.svg`}
+              src={imageCdn(
+                `${STATIC_ASSETS}/images/lenster-logo.svg`,
+                'avatar_lg'
+              )}
               className="w-10 h-10 rounded-full"
               alt="lenster"
               draggable={false}
@@ -60,7 +63,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             <img
               src={imageCdn(
                 `${STATIC_ASSETS}/images/social/twitter-logo.png`,
-                'avatar'
+                'avatar_lg'
               )}
               className="w-10 h-10 rounded-full"
               alt="twitter"
@@ -71,7 +74,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             <img
               src={imageCdn(
                 `${STATIC_ASSETS}/images/social/reddit-logo.webp`,
-                'avatar'
+                'avatar_lg'
               )}
               className="w-10 h-10 rounded-full"
               alt="reddit"
@@ -82,7 +85,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             <img
               src={imageCdn(
                 `${STATIC_ASSETS}/images/social/linkedin-logo.png`,
-                'avatar'
+                'avatar_lg'
               )}
               alt="linkedin"
               className="w-10 h-10 rounded-full"
