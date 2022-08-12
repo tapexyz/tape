@@ -26,7 +26,8 @@ const LooksRare = () => {
         limit: 12,
         noRandomize: true,
         sources: [LENSTUBE_APP_ID],
-        publicationTypes: ['POST']
+        publicationTypes: ['POST'],
+        metadata: { mainContentFocus: ['VIDEO'] }
       }
     },
     onCompleted(data) {
@@ -47,7 +48,8 @@ const LooksRare = () => {
               limit: 16,
               noRandomize: true,
               sources: [LENSTUBE_APP_ID],
-              publicationTypes: ['POST']
+              publicationTypes: ['POST'],
+              metadata: { mainContentFocus: ['VIDEO'] }
             }
           }
         })

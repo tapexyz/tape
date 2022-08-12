@@ -55,7 +55,9 @@ const formSchema = z.object({
     .min(5, { message: 'Description should be atleast 5 characters' })
     .max(1000, { message: 'Description should not exceed 1000 characters' }),
   twitter: z.string(),
-  website: z.string().url({ message: 'Invalid website URL' })
+  website: z
+    .string()
+    .url({ message: 'Enter valid website URL (eg. https://lenstube.xyz)' })
 })
 type FormData = z.infer<typeof formSchema>
 

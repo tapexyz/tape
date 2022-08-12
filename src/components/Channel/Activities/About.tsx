@@ -2,6 +2,7 @@ import { AddressExplorerLink } from '@components/Common/ExplorerLink'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
 import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@utils/constants'
+import { formatUrl } from '@utils/functions/formatUrl'
 import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import React, { FC } from 'react'
@@ -86,7 +87,9 @@ const About: FC<Props> = ({ channel }) => {
             <div className="flex items-center space-x-1">
               <HiOutlineGlobe />
               <a
-                href={getValueFromKeyInAttributes(attributes, 'website')}
+                href={formatUrl(
+                  getValueFromKeyInAttributes(attributes, 'website') as string
+                )}
                 target="_blank"
                 rel="noreferer noreferrer"
                 className="hover:text-indigo-500"
