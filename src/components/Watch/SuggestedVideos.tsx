@@ -32,7 +32,6 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
         limit: 12,
         sources: [LENSTUBE_APP_ID],
         publicationTypes: ['POST'],
-        metadata: { mainContentFocus: ['VIDEO'] },
         noRandomize: false
       }
     },
@@ -63,7 +62,6 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
               limit: 16,
               sources: [LENSTUBE_APP_ID],
               publicationTypes: ['POST'],
-              metadata: { mainContentFocus: ['VIDEO'] },
               noRandomize: false
             }
           }

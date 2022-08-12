@@ -27,8 +27,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
         publicationTypes: 'POST',
         profileId: channel?.id,
         limit: 8,
-        sources: [LENSTUBE_APP_ID],
-        metadata: { mainContentFocus: ['VIDEO'] }
+        sources: [LENSTUBE_APP_ID]
       }
     },
     skip: !channel?.id,
@@ -47,8 +46,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
               profileId: channel?.id,
               cursor: pageInfo?.next,
               limit: 8,
-              sources: [LENSTUBE_APP_ID],
-              metadata: { mainContentFocus: ['VIDEO'] }
+              sources: [LENSTUBE_APP_ID]
             }
           }
         })

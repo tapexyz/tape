@@ -22,8 +22,7 @@ const Trending = () => {
         limit: 12,
         noRandomize: false,
         sources: [LENSTUBE_APP_ID],
-        publicationTypes: ['POST'],
-        metadata: { mainContentFocus: ['VIDEO'] }
+        publicationTypes: ['POST']
       }
     },
     onCompleted(data) {
@@ -44,8 +43,7 @@ const Trending = () => {
               limit: 16,
               noRandomize: false,
               sources: [LENSTUBE_APP_ID],
-              publicationTypes: ['POST'],
-              metadata: { mainContentFocus: ['VIDEO'] }
+              publicationTypes: ['POST']
             }
           }
         })

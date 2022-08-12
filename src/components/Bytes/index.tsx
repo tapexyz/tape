@@ -27,8 +27,7 @@ const Bytes = () => {
         limit: 5,
         noRandomize: false,
         sources: [LENSTUBE_BYTES_APP_ID],
-        publicationTypes: ['POST'],
-        metadata: { mainContentFocus: ['VIDEO'] }
+        publicationTypes: ['POST']
       },
       reactionRequest: selectedChannel
         ? { profileId: selectedChannel?.id }
@@ -52,8 +51,7 @@ const Bytes = () => {
               limit: 10,
               noRandomize: false,
               sources: [LENSTUBE_BYTES_APP_ID],
-              publicationTypes: ['POST'],
-              metadata: { mainContentFocus: ['VIDEO'] }
+              publicationTypes: ['POST']
             }
           }
         })
