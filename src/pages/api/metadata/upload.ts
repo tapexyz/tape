@@ -24,7 +24,11 @@ const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const jsonString = JSON.stringify(req.body)
   try {
     const bundlr = new Bundlr(BUNDLR_NODE_2_URL, BUNDLR_CURRENCY, PRIVATE_KEY)
-    const tx = bundlr.createTransaction(jsonString)
+    const tags = [
+      { name: 'Content-Type', value: 'application/json' },
+      { name: 'App-Name', value: 'Lenstube' }
+    ]
+    const tx = bundlr.createTransaction(jsonString, { tags })
     await tx.sign()
     const id = tx.id
     await tx.upload()

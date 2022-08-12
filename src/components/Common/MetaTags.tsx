@@ -55,8 +55,6 @@ const MetaTags: FC<Props> = (props) => {
       <link rel="dns-prefetch" href="https://ik.imagekit.io" />
       <link rel="preconnect" href="https://assets.lenstube.xyz" />
       <link rel="dns-prefetch" href="https://assets.lenstube.xyz" />
-      <link rel="preconnect" href="https://lenstube.infura-ipfs.io" />
-      <link rel="dns-prefetch" href="https://lenstube.infura-ipfs.io" />
     </Head>
   )
 }

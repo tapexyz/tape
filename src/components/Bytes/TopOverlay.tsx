@@ -1,4 +1,5 @@
 import { HOME } from '@utils/url-path'
+import clsx from 'clsx'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import { BsArrowLeft, BsPauseFill, BsPlayFill } from 'react-icons/bs'
@@ -22,7 +23,12 @@ const TopOverlay: FC<Props> = ({ onClickPlayPause, playing }) => {
             </a>
           </Link>
         </div>
-        <div className="hidden p-3 group-hover:block">
+        <div
+          className={clsx('p-3', {
+            'group-hover:block hidden': playing,
+            block: !playing
+          })}
+        >
           <div>
             {playing ? (
               <BsPauseFill className="text-2xl text-white" />

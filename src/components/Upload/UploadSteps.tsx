@@ -149,7 +149,10 @@ const UploadSteps = () => {
         buttonText: 'Uploading to Arweave...'
       })
       const bundlr = bundlrData.instance
-      const tags = [{ name: 'Content-Type', value: 'video/mp4' }]
+      const tags = [
+        { name: 'Content-Type', value: 'video/mp4' },
+        { name: 'App-Name', value: 'Lenstube' }
+      ]
       const tx = bundlr.createTransaction(uploadedVideo.buffer, {
         tags: tags
       })

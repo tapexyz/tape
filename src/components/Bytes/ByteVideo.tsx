@@ -15,7 +15,7 @@ type Props = {
 }
 
 const ByteVideo: FC<Props> = ({ video }) => {
-  const [playing, setIsPlaying] = useState(true)
+  const [playing, setIsPlaying] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
 
@@ -57,8 +57,13 @@ const ByteVideo: FC<Props> = ({ video }) => {
     },
     onEnter: () => {
       videoRef.current?.load()
-      videoRef.current?.play()
-      setIsPlaying(true)
+      videoRef.current
+        ?.play()
+        .then(() => setIsPlaying(true))
+        .catch((e) => {
+          setIsPlaying(false)
+          logger.error('[Error AutoPlay Byte]', e)
+        })
     }
   })
 
