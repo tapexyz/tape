@@ -59,7 +59,7 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
                         )}
                         alt="thumbnail"
                         draggable={false}
-                        className="object-cover object-center w-24 h-16 lg:h-32 lg:w-56 "
+                        className="object-cover object-center w-24 h-12 lg:h-32 lg:w-56 "
                       />
                       {!isSensitiveContent && videoDuration ? (
                         <div>
@@ -90,13 +90,11 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
                 </div>
               </div>
             </div>
-            <div className="hidden mt-5 space-x-4 lg:flex">
+            <div className="flex mt-2 space-x-4 md:mt-5">
               <Button
                 variant="secondary"
                 size="sm"
-                onClick={() => {
-                  cancelPlayNext()
-                }}
+                onClick={() => cancelPlayNext()}
               >
                 Cancel
               </Button>

@@ -17,7 +17,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
   const [showMirrorsModal, setShowMirrorsModal] = useState(false)
 
   return (
-    <div className="flex items-center text-sm opacity-70">
+    <div className="flex flex-wrap items-center text-sm opacity-70">
       <div className="flex items-center">
         <Modal
           title="Collectors"

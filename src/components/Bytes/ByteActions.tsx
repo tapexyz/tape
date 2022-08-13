@@ -20,7 +20,7 @@ const ByteActions: FC<Props> = ({ video }) => {
           showOnHover={false}
         />
       </div>
-      <div className="items-center py-3 space-y-1 md:flex md:flex-col">
+      <div className="items-center py-2.5 space-y-1 md:flex md:flex-col">
         <div className="md:hidden">
           <PublicationReaction
             publication={video}

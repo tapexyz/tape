@@ -1,6 +1,8 @@
 import MintVideo from '@components/Watch/MintVideo'
 import logger from '@lib/logger'
+import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import { getPermanentVideoUrl, getVideoUrl } from '@utils/functions/getVideoUrl'
+import imageCdn from '@utils/functions/imageCdn'
 import axios from 'axios'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -15,7 +17,7 @@ type Props = {
 }
 
 const ByteVideo: FC<Props> = ({ video }) => {
-  const [playing, setIsPlaying] = useState(false)
+  const [playing, setIsPlaying] = useState(true)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
 
@@ -74,12 +76,14 @@ const ByteVideo: FC<Props> = ({ video }) => {
           onContextMenu={(event) => event.preventDefault()}
           onClick={() => onClickVideo()}
           ref={videoRef}
+          preload="metadata"
           disableRemotePlayback
           width="345"
+          poster={imageCdn(getThumbnailUrl(video), 'thumbnail')}
           className="md:rounded-xl min-w-[250px] w-screen md:w-[345px] 2xl:w-[450px] h-screen bg-black md:h-[calc(100vh-145px)]"
           loop
         >
-          <source src={videoUrl} type="video/mp4" />
+          <source ref={observe} src={videoUrl} type="video/mp4" />
         </video>
         <TopOverlay playing={playing} onClickPlayPause={onClickVideo} />
         <BottomOverlay video={video} />
@@ -95,7 +99,6 @@ const ByteVideo: FC<Props> = ({ video }) => {
             </div>
           )}
         </div>
-        <div ref={observe} />
       </div>
       <div className="hidden md:flex">
         <ByteActions video={video} />
