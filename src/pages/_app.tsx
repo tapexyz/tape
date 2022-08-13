@@ -6,6 +6,7 @@ import apolloClient from '@lib/apollo'
 import usePersistStore from '@lib/store/persist'
 import {
   ALCHEMY_KEY,
+  APP_NAME,
   GOOGLE_ANALYTICS_ID,
   IS_MAINNET,
   POLYGON_CHAIN_ID,
@@ -48,7 +49,7 @@ const connectors = () => {
     new CoinbaseWalletConnector({
       chains,
       options: {
-        appName: 'Lenstube',
+        appName: APP_NAME,
         jsonRpcUrl: POLYGON_RPC_URL
       }
     })

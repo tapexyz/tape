@@ -28,6 +28,10 @@ import React, { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { TbHeartHandshake } from 'react-icons/tb'
+import {
+  PublicationMainFocus,
+  PublicationMetadataDisplayTypes
+} from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import {
@@ -187,33 +191,32 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         content: getValues('message'),
         locale: 'en',
         tags: ['lenstube'],
-        mainContentFocus: 'TEXT_ONLY',
-        // contentWarning: 'SENSITIVE', // TODO
+        mainContentFocus: PublicationMainFocus.TextOnly,
         external_url: LENSTUBE_URL,
         image: null,
         imageMimeType: null,
         name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
         attributes: [
           {
-            displayType: 'string',
+            displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'publication',
             key: 'publication',
             value: 'comment'
           },
           {
-            displayType: 'string',
+            displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'app',
             key: 'app',
             value: LENSTUBE_APP_ID
           },
           {
-            displayType: 'string',
+            displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'type',
             key: 'type',
             value: 'tip'
           },
           {
-            displayType: 'string',
+            displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'hash',
             key: 'hash',
             value: txnHash

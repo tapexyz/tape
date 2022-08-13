@@ -23,7 +23,7 @@ type Props = {
 const CommentedVideoCard: FC<Props> = ({ video }) => {
   const commentedOn = video.commentOn as LenstubePublication
   const isSensitiveContent = getIsSensitiveContent(
-    commentedOn.metadata?.attributes,
+    commentedOn.metadata,
     video.id
   )
   const videoDuration = getValueFromTraitType(

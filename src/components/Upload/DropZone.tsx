@@ -79,7 +79,7 @@ const DropZone = () => {
             <div className="text-2xl font-semibold md:text-4xl">
               Drag and drop <br /> video to upload
             </div>
-            <Button size="xl">or choose file</Button>
+            <Button size="xl">or choose video</Button>
             <div className="text-sm">(Maximum size 2 GB for now)</div>
           </span>
         </div>

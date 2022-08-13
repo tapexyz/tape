@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { z } from 'zod'
 
-import ChooseThumbnail from './ChooseThumbnail'
+import Category from './Category'
 import CollectModuleType from './CollectModuleType'
 import Video from './Video'
 
@@ -34,8 +34,7 @@ const formSchema = z.object({
   description: z
     .string()
     .max(5000, { message: 'Description should not exceed 5000 characters' }),
-  thumbnail: z.string(),
-  isAdultContent: z.boolean(),
+  isSensitiveContent: z.boolean(),
   disableComments: z.boolean(),
   acceptTerms: z.boolean({
     invalid_type_error: 'You must accept Terms'
@@ -63,22 +62,17 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
   } = useForm<VideoFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      isAdultContent: uploadedVideo.isAdultContent ?? false,
+      isSensitiveContent: uploadedVideo.isSensitiveContent ?? false,
       acceptTerms: false,
       disableComments: uploadedVideo.disableComments ?? false,
       title: uploadedVideo.title,
-      description: uploadedVideo.description,
-      thumbnail: uploadedVideo.thumbnail
+      description: uploadedVideo.description
     }
   })
 
   const onSubmitForm = (data: VideoFormData) => {
     setUploadedVideo(data)
     onUpload()
-  }
-
-  const onThumbnailUpload = (ipfsUrl: string, thumbnailType: string) => {
-    setUploadedVideo({ thumbnail: ipfsUrl, thumbnailType })
   }
 
   return (
@@ -98,11 +92,10 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               <div className="absolute top-0 flex items-center justify-end mt-1 right-1">
                 <span
                   className={clsx('text-[10px] opacity-50', {
-                    'text-red-500 !opacity-100':
-                      getValues('title')?.length > 100
+                    'text-red-500 !opacity-100': watch('title')?.length > 100
                   })}
                 >
-                  {getValues('title')?.length}/100
+                  {watch('title')?.length}/100
                 </span>
               </div>
             </div>
@@ -119,10 +112,10 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 <span
                   className={clsx('text-[10px] opacity-50', {
                     'text-red-500 !opacity-100':
-                      getValues('description')?.length > 5000
+                      watch('description')?.length > 5000
                   })}
                 >
-                  {getValues('description')?.length}/5000
+                  {watch('description')?.length}/5000
                 </span>
               </div>
               <span className="text-sm opacity-70">
@@ -143,24 +136,10 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               </span>
             </div>
             <div className="mt-4">
-              <ChooseThumbnail
-                label="Thumbnail"
-                file={uploadedVideo.file}
-                afterUpload={(ipfsUrl: string, thumbnailType: string) => {
-                  if (ipfsUrl) {
-                    setValue('thumbnail', ipfsUrl)
-                    onThumbnailUpload(ipfsUrl, thumbnailType)
-                  }
-                }}
-              />
-              {errors?.thumbnail?.message && (
-                <p className="text-xs font-medium text-red-500">
-                  {errors?.thumbnail?.message}
-                </p>
-              )}
-            </div>
-            <div className="mt-6">
               <CollectModuleType />
+            </div>
+            <div className="mt-4">
+              <Category />
             </div>
             <div className="mt-4">
               <RadioInput
@@ -175,14 +154,14 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             </div>
             <div className="mt-4">
               <RadioInput
-                checked={watch('isAdultContent')}
+                checked={watch('isSensitiveContent')}
                 onChange={(checked) => {
-                  setValue('isAdultContent', checked)
+                  setValue('isSensitiveContent', checked)
                 }}
                 question={
                   <span>
-                    Do you want to restrict this video to an{' '}
-                    <span className="font-semibold">adult</span> audience?
+                    Does this video contain sensitive information that targets
+                    an adult audience?
                   </span>
                 }
               />
@@ -204,8 +183,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               htmlFor="default-checkbox"
               className="ml-2 text-sm opacity-80"
             >
-              I own the content and it does not contain illegal or sensitive
-              information.
+              I own the content and it does not contain illegal information.
             </label>
           </div>
         </div>

@@ -21,10 +21,7 @@ type Props = {
 
 const MirroredVideoCard: FC<Props> = ({ video }) => {
   const mirrorOf = video.mirrorOf as LenstubePublication
-  const isSensitiveContent = getIsSensitiveContent(
-    mirrorOf.metadata?.attributes,
-    video.id
-  )
+  const isSensitiveContent = getIsSensitiveContent(mirrorOf.metadata, video.id)
   const videoDuration = getValueFromTraitType(
     mirrorOf.metadata?.attributes as Attribute[],
     'durationInSeconds'

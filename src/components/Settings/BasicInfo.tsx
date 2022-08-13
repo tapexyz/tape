@@ -185,7 +185,7 @@ const BasicInfo = ({ channel }: Props) => {
     setLoading(true)
     try {
       const { url } = await uploadToAr({
-        name: data.displayName,
+        name: data.displayName || '',
         bio: trimify(data.description),
         cover_picture: coverImage,
         attributes: [
@@ -199,10 +199,11 @@ const BasicInfo = ({ channel }: Props) => {
             displayType: 'string',
             traitType: 'location',
             key: 'location',
-            value: getValueFromKeyInAttributes(
-              channel.attributes as Attribute[],
-              'location'
-            )
+            value:
+              getValueFromKeyInAttributes(
+                channel.attributes as Attribute[],
+                'location'
+              ) || ''
           },
           {
             displayType: 'string',

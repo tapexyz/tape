@@ -1,4 +1,5 @@
 import { Button } from '@components/UIElements/Button'
+import { APP_NAME } from '@utils/constants'
 import { HOME } from '@utils/url-path'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -12,7 +13,7 @@ export default function Custom404() {
       <div className="flex flex-col items-center justify-start h-full mt-10 md:mt-20">
         <img
           src="/lenstube.svg"
-          alt="LensTube"
+          alt={APP_NAME}
           draggable={false}
           height={50}
           width={50}

@@ -9,6 +9,7 @@ import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
 
 import BundlrInfo from './BundlrInfo'
+import ChooseThumbnail from './ChooseThumbnail'
 
 type PlayerProps = {
   source: string
@@ -29,6 +30,7 @@ MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 
 const Video = () => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
   const [, copy] = useCopyToClipboard()
 
@@ -36,6 +38,11 @@ const Video = () => {
     await copy(value)
     toast.success('Video link copied')
   }
+
+  const onThumbnailUpload = (ipfsUrl: string, thumbnailType: string) => {
+    setUploadedVideo({ thumbnail: ipfsUrl, thumbnailType })
+  }
+
   return (
     <div className="flex flex-col w-full">
       <div
@@ -67,10 +74,28 @@ const Video = () => {
           />
         </div>
       </Tooltip>
+      <div className="mt-2">
+        <ChooseThumbnail
+          label="Thumbnail"
+          file={uploadedVideo.file}
+          afterUpload={(ipfsUrl: string, thumbnailType: string) => {
+            if (ipfsUrl) {
+              onThumbnailUpload(ipfsUrl, thumbnailType)
+            }
+          }}
+        />
+        {!uploadedVideo.thumbnail.length && uploadedVideo.videoSource && (
+          <p className="mt-2 text-xs font-medium text-red-500">
+            Please choose a thumbnail
+          </p>
+        )}
+      </div>
       <div className="p-1 mt-3 rounded-lg">
         <div className="truncate">
           <div className="text-xs font-semibold opacity-70">Title</div>
-          <span>{uploadedVideo.file?.name}</span>
+          <span title={uploadedVideo.file?.name}>
+            {uploadedVideo.file?.name}
+          </span>
         </div>
         {uploadedVideo.file?.size && (
           <div className="mt-4">
@@ -79,7 +104,7 @@ const Video = () => {
           </div>
         )}
         <div className="mt-4">
-          <div className="text-xs font-semibold opacity-70">Video Link</div>
+          <div className="text-xs font-semibold opacity-70">Arweave Link</div>
           <div className="flex items-center">
             {uploadedVideo.videoSource ? (
               <>

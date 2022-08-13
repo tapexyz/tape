@@ -65,10 +65,7 @@ const Video: FC<Props> = ({ video, time }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const isSensitiveContent = getIsSensitiveContent(
-    video.metadata?.attributes,
-    video.id
-  )
+  const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
 
   return (
     <div className="overflow-hidden">

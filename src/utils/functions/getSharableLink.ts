@@ -1,4 +1,5 @@
 import {
+  APP_NAME,
   LENSTER_WEBSITE_URL,
   LENSTUBE_TWITTER_HANDLE,
   LENSTUBE_URL
@@ -29,6 +30,6 @@ export const getSharableLink = (link: Link, video: LenstubePublication) => {
       video
     )}&title=${video.metadata?.name as string}&summary=${
       video.metadata?.description as string
-    }&source=Lenstube`
+    }&source=${APP_NAME}`
   }
 }

@@ -1,12 +1,13 @@
 import { SENSITIVE_CONTENT } from '@utils/data/sensitives'
-import { MetadataAttributeOutput } from 'src/types'
+import { MetadataOutput } from 'src/types'
 
 export const getIsSensitiveContent = (
-  attributes: MetadataAttributeOutput[] | null,
+  metadata: MetadataOutput | null,
   videoId: string
-) => {
+): boolean => {
   return (
-    !!attributes?.find((el) => el.value === 'sensitive') ||
-    SENSITIVE_CONTENT.includes(videoId)
+    !!metadata?.attributes?.find((el) => el.value === 'sensitive') ||
+    SENSITIVE_CONTENT.includes(videoId) ||
+    !!metadata?.contentWarning
   )
 }

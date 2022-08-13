@@ -1,11 +1,13 @@
 import { WebBundlr } from '@bundlr-network/client'
 
 import {
+  Attribute,
   Comment,
   FeeCollectModuleSettings,
   FreeCollectModuleSettings,
   LimitedFeeCollectModuleSettings,
   LimitedTimedFeeCollectModuleSettings,
+  MetadataAttributeOutput,
   Mirror,
   Post,
   RevertCollectModuleSettings,
@@ -36,8 +38,9 @@ export type UploadedVideo = {
   thumbnail: string
   thumbnailType: string
   playbackId: string
+  videoCategory: { tag: string; name: string }
   percent: number
-  isAdultContent: boolean
+  isSensitiveContent: boolean
   isUploadToIpfs: boolean
   loading: boolean
   videoSource: string
@@ -92,6 +95,20 @@ export type StreamData = {
   hostUrl: string
   playbackId: string
   streamId: string
+}
+
+export type MetadataObjectType = {
+  [key: string]:
+    | string
+    | string[]
+    | MetadataAttributeOutput[]
+    | Attribute[]
+    | {
+        item: string
+        type: string
+      }[]
+    | Date
+    | null
 }
 
 export type LenstubeCollectModule = FreeCollectModuleSettings &

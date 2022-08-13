@@ -42,6 +42,7 @@ interface CustomPlyrProps extends PlyrProps {
 export const defaultPlyrControls = [
   'play',
   'progress',
+  'current-time',
   'duration',
   'mute',
   'volume',

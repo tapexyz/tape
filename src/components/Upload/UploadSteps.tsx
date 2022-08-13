@@ -6,6 +6,7 @@ import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { captureException } from '@sentry/nextjs'
 import {
+  APP_NAME,
   ARWEAVE_WEBSITE_URL,
   IS_MAINNET,
   LENSHUB_PROXY_ADDRESS,
@@ -26,7 +27,14 @@ import axios from 'axios'
 import { utils } from 'ethers'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { CreatePostBroadcastItemResult } from 'src/types'
+import {
+  CreatePostBroadcastItemResult,
+  MetadataAttributeOutput,
+  PublicationContentWarning,
+  PublicationMainFocus,
+  PublicationMetadataDisplayTypes
+} from 'src/types'
+import { MetadataObjectType } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
@@ -151,7 +159,7 @@ const UploadSteps = () => {
       const bundlr = bundlrData.instance
       const tags = [
         { name: 'Content-Type', value: 'video/mp4' },
-        { name: 'App-Name', value: 'Lenstube' }
+        { name: 'App-Name', value: APP_NAME }
       ]
       const tx = bundlr.createTransaction(uploadedVideo.buffer, {
         tags: tags
@@ -236,24 +244,21 @@ const UploadSteps = () => {
           type: uploadedVideo.videoType
         }
       ]
-      const attributes = [
+      const attributes: MetadataAttributeOutput[] = [
         {
-          displayType: 'string',
+          displayType: PublicationMetadataDisplayTypes.String,
           traitType: 'publication',
-          key: 'publication',
           value: 'video'
         },
         {
-          displayType: 'string',
+          displayType: PublicationMetadataDisplayTypes.String,
           traitType: 'handle',
-          key: 'handle',
           value: `@${selectedChannel?.handle}`
         },
         {
-          displayType: 'string',
+          displayType: PublicationMetadataDisplayTypes.String,
           traitType: 'app',
-          key: 'app',
-          value: 'lenstube'
+          value: LENSTUBE_APP_ID
         }
       ]
       if (uploadedVideo.playbackId) {
@@ -264,40 +269,35 @@ const UploadSteps = () => {
       }
       if (uploadedVideo.durationInSeconds) {
         attributes.push({
-          displayType: 'string',
+          displayType: PublicationMetadataDisplayTypes.String,
           traitType: 'durationInSeconds',
-          key: 'durationInSeconds',
           value: uploadedVideo.durationInSeconds.toString()
         })
       }
-      if (uploadedVideo.isAdultContent) {
-        attributes.push({
-          displayType: 'string',
-          traitType: 'content',
-          key: 'content',
-          value: 'sensitive'
-        })
-      }
       const isBytesVideo = checkIsBytesVideo(uploadedVideo.description)
-      const { url } = await uploadToAr({
+      let metadata: MetadataObjectType = {
         version: '2.0.0',
         metadata_id: uuidv4(),
         description: trimify(uploadedVideo.description),
-        content: `${uploadedVideo.title}\n\n${uploadedVideo.description}`,
+        content: trimify(
+          `${uploadedVideo.title}\n\n${uploadedVideo.description}`
+        ),
         locale: 'en',
-        tags: ['lenstube'],
-        mainContentFocus: 'VIDEO',
-        // contentWarning: 'SENSITIVE', // TODO
+        tags: [uploadedVideo.videoCategory.tag, 'lenstube'],
+        mainContentFocus: PublicationMainFocus.Video,
         external_url: LENSTUBE_URL,
         animation_url: uploadedVideo.videoSource,
         image: uploadedVideo.thumbnail,
-        cover: uploadedVideo.thumbnail,
         imageMimeType: uploadedVideo.thumbnailType,
         name: trimify(uploadedVideo.title),
         attributes,
         media,
         appId: isBytesVideo ? LENSTUBE_BYTES_APP_ID : LENSTUBE_APP_ID
-      })
+      }
+      if (uploadedVideo.isSensitiveContent) {
+        metadata.contentWarning = PublicationContentWarning.Sensitive
+      }
+      const { url } = await uploadToAr(metadata)
       setUploadedVideo({
         buttonText: 'Posting video...',
         loading: true

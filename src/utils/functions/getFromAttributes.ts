@@ -1,5 +1,6 @@
 import { Attribute } from 'src/types'
 
+// key available only profile metadata
 export const getValueFromKeyInAttributes = (
   attributes: Attribute[] | null | undefined,
   key: string

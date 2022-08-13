@@ -1,5 +1,6 @@
 import Popover from '@components/UIElements/Popover'
 import {
+  APP_NAME,
   LENSTUBE_GITHUB_HANDLE,
   LENSTUBE_STATUS_PAGE,
   LENSTUBE_TWITTER_HANDLE
@@ -66,7 +67,9 @@ const MoreTrigger = () => {
           </div>
           <hr className="my-1 border-gray-200 dark:border-gray-800" />
           <div className="rounded-lg hover:bg-gray-50 opacity-80 hover:opacity-100 dark:hover:bg-gray-900">
-            <Link href="https://vercel.com/?utm_source=Lenstube&utm_campaign=oss">
+            <Link
+              href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
+            >
               <a
                 rel="noreferrer noopener"
                 className="block space-x-2 p-1.5"

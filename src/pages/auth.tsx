@@ -4,7 +4,7 @@ import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { IS_MAINNET } from '@utils/constants'
+import { APP_NAME, IS_MAINNET } from '@utils/constants'
 import { HOME } from '@utils/url-path'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
@@ -28,7 +28,7 @@ export default function AuthRequiredPage() {
       <div className="flex flex-col items-center justify-start h-full mt-10 md:mt-20">
         <img
           src="/lenstube.svg"
-          alt="LensTube"
+          alt={APP_NAME}
           draggable={false}
           height={50}
           width={50}

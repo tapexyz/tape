@@ -33,10 +33,7 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
 
   if (!video) return null
 
-  const isSensitiveContent = getIsSensitiveContent(
-    video.metadata?.attributes,
-    video.id
-  )
+  const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const videoDuration = getValueFromTraitType(
     video.metadata?.attributes as Attribute[],
     'durationInSeconds'

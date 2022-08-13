@@ -24,7 +24,11 @@ import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { CreateCommentBroadcastItemResult } from 'src/types'
+import {
+  CreateCommentBroadcastItemResult,
+  PublicationMainFocus,
+  PublicationMetadataDisplayTypes
+} from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -173,21 +177,20 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         content: trimify(data.comment),
         locale: 'en',
         tags: ['lenstube'],
-        mainContentFocus: 'TEXT_ONLY',
-        // contentWarning: 'SENSITIVE', // TODO
+        mainContentFocus: PublicationMainFocus.TextOnly,
         external_url: LENSTUBE_URL,
         image: null,
         imageMimeType: null,
         name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
         attributes: [
           {
-            displayType: 'string',
+            displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'publication',
             key: 'publication',
             value: 'comment'
           },
           {
-            displayType: 'string',
+            displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'app',
             key: 'app',
             value: LENSTUBE_APP_ID

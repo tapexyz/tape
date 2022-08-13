@@ -26,7 +26,7 @@ const formSchema = z.object({
     .max(100, { message: 'Title should not exceed 100 characters' }),
   thumbnail: z.string(),
   thumbnailType: z.string(),
-  isAdultContent: z.boolean()
+  isSensitiveContent: z.boolean()
 })
 export type VideoFormData = z.infer<typeof formSchema>
 
@@ -48,7 +48,7 @@ const Studio = () => {
   } = useForm<VideoFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      isAdultContent: false
+      isSensitiveContent: false
     }
   })
 
@@ -109,9 +109,9 @@ const Studio = () => {
             </div>
             <div className="mt-4">
               <RadioInput
-                checked={watch('isAdultContent')}
+                checked={watch('isSensitiveContent')}
                 onChange={(checked) => {
-                  setValue('isAdultContent', checked)
+                  setValue('isSensitiveContent', checked)
                 }}
                 question={
                   <span>

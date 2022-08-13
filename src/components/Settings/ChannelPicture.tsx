@@ -163,7 +163,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         src={
           selectedPfp
             ? sanitizeIpfsUrl(selectedPfp)
-            : getProfilePicture(channel, 'avatar')
+            : getProfilePicture(channel, 'avatar_lg')
         }
         className="object-cover w-32 h-32 border-2 rounded-full"
         draggable={false}

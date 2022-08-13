@@ -7,6 +7,7 @@ import {
   POLYGON_RPC_URL,
   WMATIC_TOKEN_ADDRESS
 } from '@utils/constants'
+import { CREATOR_VIDEO_CATEGORIES } from '@utils/data/categories'
 import { FetchSignerResult } from '@wagmi/core'
 import { Profile } from 'src/types'
 import { BundlrDataState, UploadedVideo } from 'src/types/local'
@@ -24,11 +25,12 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   videoSource: '',
   percent: 0,
   playbackId: '',
-  isAdultContent: false,
+  isSensitiveContent: false,
   isUploadToIpfs: false,
   loading: false,
   buttonText: 'Upload Video',
   durationInSeconds: null,
+  videoCategory: CREATOR_VIDEO_CATEGORIES[0],
   collectModule: {
     type: 'freeCollectModule',
     followerOnlyCollect: false,

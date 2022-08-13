@@ -19,10 +19,7 @@ const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
   const { pathname } = useRouter()
 
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
-  const isSensitiveContent = getIsSensitiveContent(
-    video.metadata?.attributes,
-    video.id
-  )
+  const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const isIPFS = getIsIPFSUrl(getPermanentVideoUrl(video))
   const videoDuration = getValueFromTraitType(
     video.metadata?.attributes as Attribute[],

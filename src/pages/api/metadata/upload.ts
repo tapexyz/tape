@@ -2,6 +2,7 @@ import Bundlr from '@bundlr-network/client'
 import { withSentry } from '@sentry/nextjs'
 import {
   API_ORIGINS,
+  APP_NAME,
   BUNDLR_CURRENCY,
   BUNDLR_NODE_2_URL
 } from '@utils/constants'
@@ -26,7 +27,7 @@ const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const bundlr = new Bundlr(BUNDLR_NODE_2_URL, BUNDLR_CURRENCY, PRIVATE_KEY)
     const tags = [
       { name: 'Content-Type', value: 'application/json' },
-      { name: 'App-Name', value: 'Lenstube' }
+      { name: 'App-Name', value: APP_NAME }
     ]
     const tx = bundlr.createTransaction(jsonString, { tags })
     await tx.sign()

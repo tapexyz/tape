@@ -23,10 +23,7 @@ type Props = {
 
 const VideoCard: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
-  const isSensitiveContent = getIsSensitiveContent(
-    video.metadata?.attributes,
-    video.id
-  )
+  const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const isByte = video.appId === LENSTUBE_BYTES_APP_ID
 
   return (

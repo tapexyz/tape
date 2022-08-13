@@ -1,4 +1,8 @@
-import { LENSTUBE_TWITTER_HANDLE, STATIC_ASSETS } from '@utils/constants'
+import {
+  APP_NAME,
+  LENSTUBE_TWITTER_HANDLE,
+  STATIC_ASSETS
+} from '@utils/constants'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
@@ -14,7 +18,7 @@ const MetaTags: FC<Props> = (props) => {
   const router = useRouter()
 
   const meta = {
-    title: title ?? 'Lenstube',
+    title: title ?? APP_NAME,
     description:
       description ??
       'Lenstube is a decentralized video-sharing social media platform built with Lens protocol.',
