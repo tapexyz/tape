@@ -10,7 +10,7 @@ const Fullscreen: FC<VideoRefOnly> = ({ videoRef }) => {
   }
 
   return (
-    <button onClick={onClick}>
+    <button type="button" onClick={onClick}>
       <Tooltip content="Full screen" placement="top">
         <span>
           <svg

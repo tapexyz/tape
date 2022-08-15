@@ -12,7 +12,7 @@ const AutoPlay = () => {
   }
 
   return (
-    <button onClick={onClick}>
+    <button type="button" onClick={onClick}>
       <Tooltip
         content={`Autoplay is ${autoPlay ? 'on' : 'off'}`}
         placement="top"

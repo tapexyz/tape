@@ -16,6 +16,7 @@ export default function SensitiveWarning({ acceptWarning }: Props) {
         </div>
         <div>
           <button
+            type="button"
             className="px-5 py-2 mt-5 text-sm bg-gray-800 outline-none rounded-xl"
             onClick={() => acceptWarning()}
           >

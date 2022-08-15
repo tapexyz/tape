@@ -71,6 +71,7 @@ const VideoOptions = ({
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
           {isVideoOwner && (
             <button
+              type="button"
               onClick={() => onHideVideo()}
               className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg text-red-500 opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
             >
@@ -79,6 +80,7 @@ const VideoOptions = ({
             </button>
           )}
           <button
+            type="button"
             onClick={() =>
               isAlreadyAddedToWatchLater(video, watchLater)
                 ? removeFromWatchLater(video)
@@ -94,6 +96,7 @@ const VideoOptions = ({
             </span>
           </button>
           <button
+            type="button"
             onClick={() => setShowShare(true)}
             className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
           >

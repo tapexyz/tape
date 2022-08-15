@@ -12,6 +12,7 @@ type Props = {
 const TopOverlay: FC<Props> = ({ onClickPlayPause, playing }) => {
   return (
     <button
+      type="button"
       onClick={() => onClickPlayPause()}
       className="absolute top-0 left-0 right-0 w-full outline-none cursor-default pb-96 group"
     >

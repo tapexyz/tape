@@ -19,7 +19,7 @@ const Volume: FC<VideoRefOnly> = ({ videoRef }) => {
   }
 
   return (
-    <button onClick={onClick}>
+    <button type="button" onClick={onClick}>
       {muted ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"

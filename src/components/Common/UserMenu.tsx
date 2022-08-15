@@ -104,6 +104,7 @@ const UserMenu = () => {
           <>
             <div className="flex opacity-70 items-centerspace-x-2">
               <button
+                type="button"
                 className="p-2 outline-none"
                 onClick={() => setShowAccountSwitcher(false)}
               >
@@ -114,6 +115,7 @@ const UserMenu = () => {
             <div className="py-1 text-sm">
               {channels?.map((channel) => (
                 <button
+                  type="button"
                   className={clsx(
                     'flex w-full justify-between items-center px-2 py-1.5 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800'
                   )}
@@ -199,6 +201,7 @@ const UserMenu = () => {
                     </a>
                   </Link>
                   <button
+                    type="button"
                     className={clsx(
                       'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                     )}
@@ -213,6 +216,7 @@ const UserMenu = () => {
               )}
               {!IS_MAINNET && (
                 <button
+                  type="button"
                   className={clsx(
                     'flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                   )}
@@ -225,6 +229,7 @@ const UserMenu = () => {
                 </button>
               )}
               <button
+                type="button"
                 className={clsx(
                   'flex md:hidden items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                 )}
@@ -240,6 +245,7 @@ const UserMenu = () => {
                 </span>
               </button>
               <button
+                type="button"
                 className={clsx(
                   'flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
                 )}

@@ -40,6 +40,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           </div>
         </Modal>
         <button
+          type="button"
           onClick={() => setShowCollectsModal(true)}
           className="flex items-center space-x-1 outline-none"
         >
@@ -48,6 +49,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
         </button>
         <span className="px-1 middot" />
         <button
+          type="button"
           onClick={() => setShowMirrorsModal(true)}
           className="flex items-center space-x-1 outline-none"
         >

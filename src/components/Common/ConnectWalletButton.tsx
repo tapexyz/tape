@@ -82,6 +82,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
               return (
                 getWalletInfo(wallet.id, wallet.name) && (
                   <button
+                    type="button"
                     key={wallet.id}
                     className={clsx(
                       'w-full relative flex space-y-3 items-center flex-col rounded-lg p-4 dark:bg-gray-900 bg-gray-100',
@@ -133,6 +134,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
           </div>
           {walletConnect && (
             <button
+              type="button"
               className={clsx(
                 'w-full space-x-2 flex justify-center items-center rounded-lg p-4 dark:bg-gray-900 bg-gray-100'
               )}

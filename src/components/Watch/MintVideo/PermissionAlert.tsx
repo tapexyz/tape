@@ -82,6 +82,7 @@ const PermissionAlert: FC<Props> = ({
     <div className="flex-1">
       <Alert variant="warning">
         <button
+          type="button"
           disabled={transactionLoading || waiting || loading}
           className="flex justify-center mx-auto outline-none"
           onClick={() => handleAllowance()}

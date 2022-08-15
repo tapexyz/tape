@@ -118,6 +118,7 @@ const Sidebar = () => {
         </div>
         <div className="flex flex-col w-full">
           <button
+            type="button"
             onClick={() => {
               setTheme(theme === 'dark' ? 'light' : 'dark')
             }}

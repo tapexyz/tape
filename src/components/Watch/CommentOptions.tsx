@@ -45,6 +45,7 @@ const CommentOptions = ({ comment }: { comment: LenstubePublication }) => {
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
           {selectedChannel?.id === comment?.profile?.id && (
             <button
+              type="button"
               onClick={() => onHideComment()}
               className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg text-red-500 hover:bg-red-100 dark:hover:bg-red-900"
             >

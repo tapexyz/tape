@@ -33,6 +33,7 @@ const NewVideoTrigger = () => {
             </a>
           </Link>
           <button
+            type="button"
             disabled
             className="inline-flex opacity-40 items-center px-4 py-1.5 space-x-2 rounded-lg"
           >

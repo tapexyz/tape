@@ -146,6 +146,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   return (
     <Tooltip placement="top-start" content="Mirror video across Lens">
       <button
+        type="button"
         disabled={loading}
         onClick={() => mirrorVideo()}
         className="p-3.5 bg-gray-200 dark:bg-gray-800 rounded-full"

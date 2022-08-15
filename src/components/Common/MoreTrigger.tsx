@@ -15,7 +15,10 @@ const MoreTrigger = () => {
     <Popover
       trigger={
         <div className="flex flex-col space-y-2 mb-0.5">
-          <button className="flex p-3 py-4 justify-center rounded-lg hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-90 hover:opacity-100">
+          <button
+            type="button"
+            className="flex p-3 py-4 justify-center rounded-lg hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-90 hover:opacity-100"
+          >
             <BsThreeDots />
           </button>
         </div>

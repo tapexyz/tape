@@ -8,13 +8,11 @@ import FeedFilters from './FeedFilters'
 const Recents = dynamic(() => import('../Explore/Recents'), {
   loading: () => <TimelineShimmer />
 })
-const Banner = dynamic(() => import('./Banner'))
 
 const Home: NextPage = () => {
   return (
     <>
       <MetaTags />
-      <Banner />
       <FeedFilters />
       <div className="md:my-2">
         <Recents />

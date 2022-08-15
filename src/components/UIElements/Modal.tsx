@@ -65,6 +65,7 @@ const Modal: FC<Props> = ({
                       {title}
                     </Dialog.Title>
                     <button
+                      type="button"
                       className="p-1 bg-gray-100 rounded-md focus:outline-none dark:bg-gray-900"
                       onClick={() => onClose()}
                     >

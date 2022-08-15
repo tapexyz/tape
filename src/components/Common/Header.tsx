@@ -64,6 +64,7 @@ const Header: FC<Props> = ({ className }) => {
       </div>
       <div className="flex flex-row items-center justify-end space-x-3 md:w-2/5">
         <button
+          type="button"
           onClick={() => setSearchModal(true)}
           className="outline-none md:hidden"
         >

@@ -10,7 +10,7 @@ const Pip: FC<VideoRefOnly> = ({ videoRef }) => {
   }
 
   return (
-    <button onClick={onClick}>
+    <button type="button" onClick={onClick}>
       <Tooltip content="Miniplayer" placement="top">
         <span>
           <svg

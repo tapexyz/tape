@@ -78,6 +78,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 </div>
               </Modal>
               <button
+                type="button"
                 onClick={() => setShowSubscribersModal(true)}
                 className="outline-none"
               >
