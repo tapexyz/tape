@@ -275,7 +275,7 @@ const UploadSteps = () => {
         })
       }
       const isBytesVideo = checkIsBytesVideo(uploadedVideo.description)
-      let metadata: MetadataObjectType = {
+      const metadata: MetadataObjectType = {
         version: '2.0.0',
         metadata_id: uuidv4(),
         description: trimify(uploadedVideo.description),
