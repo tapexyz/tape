@@ -376,6 +376,10 @@ export const PROFILE_QUERY = gql`
           __typename
         }
       }
+      pageInfo {
+        totalCount
+        next
+      }
     }
   }
 `
