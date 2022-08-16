@@ -26,6 +26,7 @@ const Bytes = () => {
         sortCriteria: 'LATEST',
         limit: 5,
         noRandomize: false,
+        timestamp: 1,
         sources: [LENSTUBE_BYTES_APP_ID],
         publicationTypes: ['POST']
       },
@@ -50,6 +51,7 @@ const Bytes = () => {
               cursor: pageInfo?.next,
               limit: 10,
               noRandomize: false,
+              timestamp: 1,
               sources: [LENSTUBE_BYTES_APP_ID],
               publicationTypes: ['POST']
             }
