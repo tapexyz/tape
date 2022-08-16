@@ -9,7 +9,13 @@ import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
 import { CgBell } from 'react-icons/cg'
 
-const Notifications = dynamic(() => import('.'), { loading: () => <Loader /> })
+const Notifications = dynamic(() => import('.'), {
+  loading: () => (
+    <span className="p-5">
+      <Loader />
+    </span>
+  )
+})
 
 const NotificationTrigger = () => {
   const setHasNewNotification = useAppStore(
