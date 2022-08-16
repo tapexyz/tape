@@ -32,7 +32,7 @@ const ChannelStats: FC<Props> = ({ channel }) => {
       <StatCard
         icon={<FcVideoCall />}
         count={stats?.totalPosts}
-        text="total videos"
+        text="total posts"
       />
       <StatCard
         icon={<FcComments />}
