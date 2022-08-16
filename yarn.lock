@@ -6735,10 +6735,10 @@ neo-async@^2.5.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-next-axiom@^0.12.1:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/next-axiom/-/next-axiom-0.12.1.tgz#08e132382033a89e13f7badbe1c21095dedd66ea"
-  integrity sha512-VVj7fwxkxAovq6olxotC1aI0SbwqjDbOKk+MvVF8Qv/+fwvQoXTjs0vCLywEOc1+u8b31jxbsJiHkhoSHrnPWA==
+next-axiom@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/next-axiom/-/next-axiom-0.13.0.tgz#1858b2a83ac7594393d477243fd74da47909564b"
+  integrity sha512-yWNsTd2abreXa9KBYeAhhVCsTFClZI37jUG0c+CfkENxl51EpSVlY+dWSA8hGJQtXWOXKs6yeW1PaiVr2NU1rw==
   dependencies:
     whatwg-fetch "^3.6.2"
 
