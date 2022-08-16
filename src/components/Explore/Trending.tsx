@@ -21,7 +21,6 @@ const Trending = () => {
         sortCriteria: 'TOP_COMMENTED',
         limit: 12,
         noRandomize: false,
-        timestamp: 1,
         sources: [LENSTUBE_APP_ID],
         publicationTypes: ['POST']
       }
@@ -42,7 +41,6 @@ const Trending = () => {
               sortCriteria: 'TOP_COMMENTED',
               cursor: pageInfo?.next,
               limit: 16,
-              timestamp: 1,
               noRandomize: false,
               sources: [LENSTUBE_APP_ID],
               publicationTypes: ['POST']
