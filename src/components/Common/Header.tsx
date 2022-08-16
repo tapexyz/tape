@@ -33,7 +33,7 @@ const Header: FC<Props> = ({ className }) => {
   const [showShowModal, setSearchModal] = useState(false)
 
   useQuery(PING_QUERY, {
-    pollInterval: 900_000,
+    pollInterval: 600_000,
     skip: !selectedChannel
   })
 
