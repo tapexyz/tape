@@ -182,6 +182,7 @@ const UploadSteps = () => {
     } catch (error: any) {
       if (error.code !== 4001) captureException(error)
       toast.error('Failed to upload video!')
+      logger.error('[Error Bundlr Upload Video]', error)
       setUploadedVideo({
         buttonText: 'Upload Video',
         loading: false
