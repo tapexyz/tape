@@ -18,7 +18,7 @@ const DropZone = () => {
       if (file) {
         const preview = URL.createObjectURL(file)
         const reader = new FileReader()
-        reader.onload = function () {
+        reader.onload = () => {
           if (reader.result) {
             const buffer = Buffer.from(reader.result as string)
             setUploadedVideo({
@@ -51,9 +51,6 @@ const DropZone = () => {
     onDropRejected,
     accept: {
       'video/mp4': []
-      // 'video/webm': ['.webm'],
-      // 'video/ogv': ['.ogv'],
-      // 'video/ogg': ['.ogg']
     },
     maxFiles: 1,
     multiple: false,

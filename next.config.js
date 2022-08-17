@@ -31,6 +31,11 @@ const moduleExports = withAxiom(
               source: '/discord',
               destination: 'https://discord.com/invite/eVwVdZ3WM9',
               permanent: true
+            },
+            {
+              source: '/donate',
+              destination: 'https://gitcoin.co/grants/6972/lenstube',
+              permanent: true
             }
           ]
         }

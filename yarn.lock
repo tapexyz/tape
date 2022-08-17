@@ -678,16 +678,16 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
-"@bundlr-network/client@^0.7.17":
-  version "0.7.17"
-  resolved "https://registry.yarnpkg.com/@bundlr-network/client/-/client-0.7.17.tgz#0a4c41534640f9038e5d7d1d8cf1cc2571b185b7"
-  integrity sha512-1qTDrwgmgeh0pO24JbeGt2W8GlpWYkVnQ8AhEZ02Lm00J7RALSyma3C5pNlKuvAQBczL1r9KhLr9KHK1og3J0g==
+"@bundlr-network/client@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@bundlr-network/client/-/client-0.8.0.tgz#4502a7a56d13b21d1601b19ef9f0a40d2470d9a0"
+  integrity sha512-RaRrfsTt1x0Sus5aIYveOESwfYdNXpvZfgAkp+Q/CBMTI4QM6XSaAhqNlar+TCQDKYCP5fLUU5Pc2CuLZYvrOQ==
   dependencies:
     "@solana/wallet-adapter-base" "^0.9.2"
     "@solana/web3.js" "^1.36.0"
     "@supercharge/promise-pool" "^2.1.0"
     algosdk "^1.13.1"
-    arbundles "^0.6.20"
+    arbundles "^0.6.21"
     arweave "^1.11.4"
     async-retry "^1.3.3"
     axios "^0.25.0"
@@ -2103,10 +2103,10 @@
     "@types/node" "*"
     form-data "^3.0.0"
 
-"@types/node@*", "@types/node@18.7.5":
-  version "18.7.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.5.tgz#f1c1d4b7d8231c0278962347163656f9c36f3e83"
-  integrity sha512-NcKK6Ts+9LqdHJaW6HQmgr7dT/i3GOHG+pt6BiWv++5SnjtRd4NXeiuN2kA153SjhXPR/AhHIPHPbrsbpUVOww==
+"@types/node@*", "@types/node@18.7.6":
+  version "18.7.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.6.tgz#31743bc5772b6ac223845e18c3fc26f042713c83"
+  integrity sha512-EdxgKRXgYsNITy5mjjXjVE/CS8YENSdhiagGrLqjG0pvA2owgJ6i4l7wy/PFZGC0B1/H20lWKN7ONVDNYDZm7A==
 
 "@types/node@11.11.6":
   version "11.11.6"
@@ -2722,10 +2722,10 @@ aproba@^1.0.3:
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"
   integrity sha512-Y9J6ZjXtoYh8RnXVCMOU/ttDmk1aBjunq9vO0ta5x85WDQiQfUF9sIPBITdbiiIVcBo03Hi3jMxigBtsddlXRw==
 
-arbundles@^0.6.20:
-  version "0.6.20"
-  resolved "https://registry.yarnpkg.com/arbundles/-/arbundles-0.6.20.tgz#2d4692de39777defe8188e61808f09dc0a5a6fc7"
-  integrity sha512-p5Z0Yf8EUfHKomA9vk2W4dq533yfb4MrSmxDGF3Fity6l1sp7+vEH0HviUyA7D4hfToinjKiGtDEgkaXijbIOQ==
+arbundles@^0.6.21:
+  version "0.6.21"
+  resolved "https://registry.yarnpkg.com/arbundles/-/arbundles-0.6.21.tgz#bb58df31386b8eabf9b5851d79190e9a82b16842"
+  integrity sha512-QB5Slc84ZF/fBYEMQ376cvKchad3eHoJOPUsAlrFQXe6fmTAFqLLyKSeqLlcAgzRyecZYdBHCARN0212qgbFYA==
   dependencies:
     "@noble/ed25519" "^1.6.1"
     "@randlabs/myalgo-connect" "^1.1.2"
@@ -5318,10 +5318,10 @@ graphql-ws@^5.4.1:
   resolved "https://registry.yarnpkg.com/graphql-ws/-/graphql-ws-5.9.1.tgz#9c0fa48ceb695d61d574ed3ab21b426729e87f2d"
   integrity sha512-mL/SWGBwIT9Meq0NlfS55yXXTOeWPMbK7bZBEZhFu46bcGk1coTx2Sdtzxdk+9yHWngD+Fk1PZDWaAutQa9tpw==
 
-graphql@^16.5.0:
-  version "16.5.0"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.5.0.tgz#41b5c1182eaac7f3d47164fb247f61e4dfb69c85"
-  integrity sha512-qbHgh8Ix+j/qY+a/ZcJnFQ+j8ezakqPiHwPiZhV/3PgGlgf96QMBB5/f2rkiC9sgLoy/xvT6TSiaf2nTHJh5iA==
+graphql@^16.6.0:
+  version "16.6.0"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.6.0.tgz#c2dcffa4649db149f6282af726c8c83f1c7c5fdb"
+  integrity sha512-KPIBPDlW7NxrbT/eh4qPXz5FiFdL5UbaA0XUNz2Rp3Z3hqBSkbj0GVjwFDztsWVauZUWsbKHgMg++sk8UX0bkw==
 
 har-schema@^2.0.0:
   version "2.0.0"
@@ -5443,10 +5443,10 @@ hi-base32@^0.5.1:
   resolved "https://registry.yarnpkg.com/hi-base32/-/hi-base32-0.5.1.tgz#1279f2ddae2673219ea5870c2121d2a33132857e"
   integrity sha512-EmBBpvdYh/4XxsnUybsPag6VikPYnN30td+vQk+GI3qpahVEG9+gTkG0aXVxTjBqQ5T6ijbWIu77O+C5WFWsnA==
 
-hls.js@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/hls.js/-/hls.js-1.2.0.tgz#e213773be09d6f99f08cefbf608c4a1fe226f998"
-  integrity sha512-QIEQIUpBRhcpBMq3NA+/qozG8lbNfVekuX7kCMUlhiVu4382xFWsnwcuBe/CA4Gp/wB/pf2aRBaGRFlxh/FN8g==
+hls.js@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/hls.js/-/hls.js-1.2.1.tgz#09b0207c60fcb3340a88e8d3d1523799fe5fbedf"
+  integrity sha512-+m/5+ikSpmQQvb6FmVWZUZfzvTJMn/QVfiCGP1Oq9WW4RKrAvxlExkhhbcVGgGqLNPFk1kdFkVQur//wKu3JVw==
 
 hmac-drbg@^1.0.1:
   version "1.0.1"

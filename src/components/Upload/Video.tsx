@@ -48,9 +48,7 @@ const Video = () => {
       <div
         className={clsx('overflow-hidden w-full', {
           'rounded-t-xl': uploadedVideo.loading,
-          'rounded-xl':
-            (!uploadedVideo.loading && uploadedVideo.percent === 0) ||
-            !uploadedVideo.isUploadToIpfs
+          'rounded-xl': !uploadedVideo.loading && uploadedVideo.percent === 0
         })}
       >
         <MemoizedVideoPlayer

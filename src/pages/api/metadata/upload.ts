@@ -29,10 +29,9 @@ const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       { name: 'Content-Type', value: 'application/json' },
       { name: 'App-Name', value: APP_NAME }
     ]
-    const tx = bundlr.createTransaction(jsonString, { tags })
-    await tx.sign()
-    const id = tx.id
-    await tx.upload()
+    const uploader = bundlr.uploader.chunkedUploader
+    const result = await uploader.uploadData(Buffer.from(jsonString), { tags })
+    const id = result.data.id
     return res.status(200).json({
       success: true,
       url: `https://arweave.net/${id}`,
