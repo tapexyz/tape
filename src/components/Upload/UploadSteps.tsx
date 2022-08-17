@@ -165,11 +165,21 @@ const UploadSteps = () => {
         tags: tags
       })
       await tx.sign()
-      const response = await bundlr.uploader.chunkedTransactionUploader(
-        tx.getRaw(),
-        tx.id,
-        tx.getRaw().length
-      )
+      const uploader = bundlr.uploader.chunkedUploader
+      uploader.setBatchSize(2)
+      uploader.setChunkSize(5000000) // 5 MB
+      uploader.on('chunkUpload', (chunkInfo) => {
+        const fileSize = uploadedVideo?.file?.size as number
+        const percentCompleted = Math.round(
+          (chunkInfo.totalUploaded * 100) / fileSize
+        )
+        setUploadedVideo({
+          loading: true,
+          percent: percentCompleted
+        })
+      })
+      const upload = uploader.uploadTransaction(tx)
+      const response = await upload
       const playbackId = await getPlaybackId(
         `${ARWEAVE_WEBSITE_URL}/${response.data.id}`
       )
