@@ -30,7 +30,7 @@
     "clsx": "^1.2.1",
     "dayjs": "^1.11.5",
     "ethers": "^5.6.9",
-    "graphql": "^16.5.0",
+    "graphql": "^16.6.0",
     "hls.js": "^1.2.1",
     "interweave": "^13.0.0",
     "interweave-autolink": "^5.1.0",
