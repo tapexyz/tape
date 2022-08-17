@@ -5443,10 +5443,10 @@ hi-base32@^0.5.1:
   resolved "https://registry.yarnpkg.com/hi-base32/-/hi-base32-0.5.1.tgz#1279f2ddae2673219ea5870c2121d2a33132857e"
   integrity sha512-EmBBpvdYh/4XxsnUybsPag6VikPYnN30td+vQk+GI3qpahVEG9+gTkG0aXVxTjBqQ5T6ijbWIu77O+C5WFWsnA==
 
-hls.js@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/hls.js/-/hls.js-1.2.0.tgz#e213773be09d6f99f08cefbf608c4a1fe226f998"
-  integrity sha512-QIEQIUpBRhcpBMq3NA+/qozG8lbNfVekuX7kCMUlhiVu4382xFWsnwcuBe/CA4Gp/wB/pf2aRBaGRFlxh/FN8g==
+hls.js@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/hls.js/-/hls.js-1.2.1.tgz#09b0207c60fcb3340a88e8d3d1523799fe5fbedf"
+  integrity sha512-+m/5+ikSpmQQvb6FmVWZUZfzvTJMn/QVfiCGP1Oq9WW4RKrAvxlExkhhbcVGgGqLNPFk1kdFkVQur//wKu3JVw==
 
 hmac-drbg@^1.0.1:
   version "1.0.1"
