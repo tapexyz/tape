@@ -180,6 +180,9 @@ const UploadSteps = () => {
       })
       const upload = uploader.uploadTransaction(tx)
       const response = await upload
+      setUploadedVideo({
+        loading: false
+      })
       const playbackId = await getPlaybackId(
         `${ARWEAVE_WEBSITE_URL}/${response.data.id}`
       )

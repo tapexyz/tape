@@ -2,7 +2,6 @@ import { LENSTUBE_URL } from '@utils/constants'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import useOutsideClick from '@utils/hooks/useOutsideClick'
 import { useRouter } from 'next/router'
-import { APITypes, PlyrInstance } from 'plyr-react'
 import { forwardRef, useRef } from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineLink } from 'react-icons/ai'
@@ -16,7 +15,7 @@ type Props = {
   setIsVideoLoop: React.Dispatch<boolean>
 }
 
-const PlayerContextMenu = forwardRef<APITypes, Props>(
+const PlayerContextMenu = forwardRef<HTMLVmPlayerElement, Props>(
   ({ position, hideContextMenu, isVideoLoop, setIsVideoLoop }, ref) => {
     const { query } = useRouter()
     const [, copy] = useCopyToClipboard()
@@ -24,11 +23,10 @@ const PlayerContextMenu = forwardRef<APITypes, Props>(
     useOutsideClick(contextMenuRef, () => hideContextMenu())
 
     const toggleLoop = () => {
-      const { current } = ref as React.MutableRefObject<APITypes>
-      if (current.plyr.source === null) return
-      const api = current as { plyr: PlyrInstance }
-      const isLooped = api.plyr.loop
-      api.plyr.loop = !isLooped
+      const { current } = ref as React.MutableRefObject<HTMLVmPlayerElement>
+      if (!current) return
+      const isLooped = current.loop
+      current.loop = !isLooped
       setIsVideoLoop(!isLooped)
       hideContextMenu()
     }
@@ -40,10 +38,9 @@ const PlayerContextMenu = forwardRef<APITypes, Props>(
     }
 
     const onCopyAtCurrentTime = async () => {
-      const { current } = ref as React.MutableRefObject<APITypes>
-      if (current.plyr?.source === null) return
-      const plyrApi = current as { plyr: PlyrInstance }
-      const selectedTime = Math.trunc(plyrApi.plyr.currentTime)
+      const { current } = ref as React.MutableRefObject<HTMLVmPlayerElement>
+      if (!current) return
+      const selectedTime = Math.trunc(current.currentTime)
       await copy(`${LENSTUBE_URL}/watch/${query.id}?t=${selectedTime}`)
       toast.success(`Video link copied`)
       hideContextMenu()
@@ -51,7 +48,7 @@ const PlayerContextMenu = forwardRef<APITypes, Props>(
 
     return (
       <div
-        className="absolute z-[1] p-2 text-sm text-white bg-gray-900 bg-opacity-90 rounded-xl"
+        className="absolute z-10 p-2 text-sm text-white bg-gray-900 bg-opacity-90 rounded-xl"
         style={{ top: position.y, left: position.x }}
         ref={contextMenuRef}
       >

@@ -10,7 +10,7 @@ type Props = {
 }
 
 const SubscribeActions: FC<Props> = ({ channel, subscribeType }) => {
-  const isSubscriber = channel.isFollowedByMe
+  const isSubscriber = channel?.isFollowedByMe
   const [subscriber, setSubscriber] = useState(isSubscriber)
 
   useEffect(() => {

@@ -7,7 +7,9 @@ import {
 } from '@components/Shimmers/VideoDetailShimmer'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
+import { getPlaybackIdFromUrl } from '@utils/functions/getVideoUrl'
 import { VIDEO_DETAIL_QUERY } from '@utils/gql/queries'
+import axios from 'axios'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -37,6 +39,28 @@ const VideoDetails = () => {
   const [video, setVideo] = useState<LenstubePublication>()
   const [loading, setLoading] = useState(true)
 
+  const getHlsUrl = async (currentVideo: LenstubePublication) => {
+    const playbackId = getPlaybackIdFromUrl(currentVideo)
+    if (!playbackId) {
+      setVideo(currentVideo)
+      return setLoading(false)
+    }
+    try {
+      const { data } = await axios.get(
+        `https://livepeer.studio/api/playback/${playbackId}`
+      )
+      let videoObject = { ...currentVideo }
+      videoObject.hls = data.meta?.source[0]
+      setVideo(videoObject)
+    } catch (error) {
+      setVideo(currentVideo)
+    } finally {
+      setLoading(false)
+    }
+    setVideo(currentVideo)
+    setLoading(false)
+  }
+
   const { data, error } = useQuery(VIDEO_DETAIL_QUERY, {
     variables: {
       request: { publicationId: id },
@@ -47,27 +71,8 @@ const VideoDetails = () => {
     },
     skip: !id,
     fetchPolicy: 'no-cache',
-    onCompleted(data) {
-      const currentVideo = data?.publication as LenstubePublication
-      // const playbackId = getPlaybackIdFromUrl(currentVideo)
-      // if (playbackId) {
-      //   axios
-      //     .get(`https://livepeer.studio/api/playback/${playbackId}`)
-      //     .then(({ data }) => {
-      //       let videoObject = { ...currentVideo }
-      //       videoObject.hls = data.meta.source[0]
-      //       setVideo(videoObject)
-      //     })
-      //     .catch(() => {
-      //       setVideo(currentVideo)
-      //     })
-      //     .finally(() => setLoading(false))
-      // } else {
-      //   setVideo(currentVideo)
-      //   setLoading(false)
-      // }
-      setVideo(currentVideo)
-      setLoading(false)
+    onCompleted: async (data) => {
+      await getHlsUrl(data?.publication)
     }
   })
 

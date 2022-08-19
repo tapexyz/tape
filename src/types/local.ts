@@ -66,9 +66,7 @@ export type CollectModuleType = {
   recipient?: string
 }
 
-export type LenstubePublication = Post &
-  Comment &
-  Mirror & { pubId: string } & { hls: HLSData }
+export type LenstubePublication = Post & Comment & Mirror & { hls: HLSData }
 
 export type IPFSUploadResult = {
   url: string

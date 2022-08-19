@@ -33,7 +33,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
 
   return (
     <div className="overflow-hidden group bg-gray-50 rounded-xl dark:bg-[#181818]">
-      <Link href={`/watch/${commentedOn.pubId}`}>
+      <Link href={`/watch/${commentedOn.id}`}>
         <a>
           <div className="relative rounded-t-xl aspect-w-16 aspect-h-8">
             <img
@@ -78,7 +78,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
           </Link>
           <div className="grid flex-1 grid-col">
             <div className="flex w-full items-start justify-between space-x-1.5 min-w-0">
-              <Link href={`/watch/${commentedOn.pubId}`}>
+              <Link href={`/watch/${commentedOn.id}`}>
                 <a className="font-medium text-[15px] line-clamp-1 opacity-80 break-words">
                   {commentedOn.metadata?.name}
                 </a>
