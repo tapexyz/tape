@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client'
 import Popover from '@components/UIElements/Popover'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
 import { HIDE_PUBLICATION } from '@utils/gql/queries'
@@ -26,7 +27,7 @@ const VideoOptions = ({
 }) => {
   const addToWatchLater = usePersistStore((state) => state.addToWatchLater)
   const watchLater = usePersistStore((state) => state.watchLater)
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const removeFromWatchLater = usePersistStore(
     (state) => state.removeFromWatchLater
   )

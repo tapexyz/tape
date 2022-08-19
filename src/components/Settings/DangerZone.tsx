@@ -4,6 +4,7 @@ import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
 import { clearStorage } from '@lib/apollo'
 import logger from '@lib/logger'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENSHUB_PROXY_ADDRESS } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
@@ -21,7 +22,7 @@ import {
 } from 'wagmi'
 
 const DangerZone = () => {
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setIsAuthenticated = usePersistStore(
     (state) => state.setIsAuthenticated
   )

@@ -2,7 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import logger from '@lib/logger'
-import usePersistStore from '@lib/store/persist'
+import useAppStore from '@lib/store'
 import { LENSHUB_PROXY_ADDRESS, RELAYER_ENABLED } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
@@ -27,10 +27,8 @@ type Props = {
 const ChannelPicture: FC<Props> = ({ channel }) => {
   const [selectedPfp, setSelectedPfp] = useState('')
   const [loading, setLoading] = useState(false)
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
-  const setSelectedChannel = usePersistStore(
-    (state) => state.setSelectedChannel
-  )
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
 
   const { showToast } = useTxnToast()
 
@@ -40,12 +38,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       setSelectedPfp(getProfilePicture(channel, 'avatar'))
     }
   })
-  // const { config: prepareSetProfileImage } = usePrepareContractWrite({
-  //   addressOrName: LENSHUB_PROXY_ADDRESS,
-  //   contractInterface: LENSHUB_PROXY_ABI,
-  //   functionName: 'setProfileImageURIWithSig',
-  //   enabled: false
-  // })
+
   const { data: pfpData, write: writePfpUri } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,

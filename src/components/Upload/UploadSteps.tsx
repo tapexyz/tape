@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import logger from '@lib/logger'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import usePersistStore from '@lib/store/persist'
 import { captureException } from '@sentry/nextjs'
 import {
   APP_NAME,
@@ -51,7 +50,7 @@ const UploadSteps = () => {
   const bundlrData = useAppStore((state) => state.bundlrData)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const { address } = useAccount()
   const { data: signer } = useSigner()
   const { showToast } = useTxnToast()

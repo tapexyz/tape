@@ -5,6 +5,7 @@ import {
   SuggestedVideosShimmer,
   VideoDetailShimmer
 } from '@components/Shimmers/VideoDetailShimmer'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { getPlaybackIdFromUrl } from '@utils/functions/getVideoUrl'
@@ -34,7 +35,7 @@ const VideoDetails = () => {
   const addToRecentlyWatched = usePersistStore(
     (state) => state.addToRecentlyWatched
   )
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const [video, setVideo] = useState<LenstubePublication>()
   const [loading, setLoading] = useState(true)

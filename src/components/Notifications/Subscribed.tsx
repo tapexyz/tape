@@ -1,6 +1,6 @@
 import { AddressExplorerLink } from '@components/Common/ExplorerLink'
 import IsVerified from '@components/Common/IsVerified'
-import usePersistStore from '@lib/store/persist'
+import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const SubscribedNotification: FC<Props> = ({ notification }) => {
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   return (
     <>

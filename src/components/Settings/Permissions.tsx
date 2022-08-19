@@ -2,7 +2,7 @@ import { useLazyQuery, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import logger from '@lib/logger'
-import usePersistStore from '@lib/store/persist'
+import useAppStore from '@lib/store'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
 import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
 import {
@@ -27,7 +27,7 @@ const collectModules = [
 ]
 
 const Permissions = () => {
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
   const [loadingModule, setLoadingModule] = useState('')
 

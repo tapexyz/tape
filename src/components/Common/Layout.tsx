@@ -35,16 +35,18 @@ const Layout: FC<Props> = ({ children }) => {
   const { pathname, replace, asPath } = useRouter()
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
   const setChannels = useAppStore((state) => state.setChannels)
-  const setSelectedChannel = usePersistStore(
-    (state) => state.setSelectedChannel
-  )
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setIsAuthenticated = usePersistStore(
     (state) => state.setIsAuthenticated
   )
   const setIsSignedUser = usePersistStore((state) => state.setIsSignedUser)
   const isSignedUser = usePersistStore((state) => state.isSignedUser)
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const setSelectedChannelId = usePersistStore(
+    (state) => state.setSelectedChannelId
+  )
 
   const { resolvedTheme } = useTheme()
   const { chain } = useNetwork()
@@ -63,10 +65,15 @@ const Layout: FC<Props> = ({ children }) => {
       const channels: Profile[] = data?.profiles?.items
       if (channels.length === 0) {
         setSelectedChannel(null)
+        setSelectedChannelId(null)
       } else {
         setChannels(channels)
         setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
-        if (!selectedChannel) setSelectedChannel(channels[0])
+        const selectedChannel = channels.find(
+          (channel) => channel.id === selectedChannelId
+        )
+        setSelectedChannel(selectedChannel ?? channels[0])
+        setSelectedChannelId(selectedChannel?.id)
       }
     }
   })
@@ -82,6 +89,7 @@ const Layout: FC<Props> = ({ children }) => {
     const logout = () => {
       setIsAuthenticated(false)
       setIsSignedUser(false)
+      setSelectedChannelId(null)
       setSelectedChannel(null)
       localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
@@ -94,7 +102,7 @@ const Layout: FC<Props> = ({ children }) => {
       accessToken &&
       accessToken !== 'undefined' &&
       refreshToken !== 'undefined' &&
-      selectedChannel &&
+      selectedChannelId &&
       chain?.id === POLYGON_CHAIN_ID
     ) {
       setIsAuthenticated(true)

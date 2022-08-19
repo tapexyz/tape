@@ -1,5 +1,5 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import usePersistStore from '@lib/store/persist'
+import useAppStore from '@lib/store'
 import { STATIC_ASSETS } from '@utils/constants'
 import { getTimeFromSeconds } from '@utils/functions/formatTime'
 import { getValueFromTraitType } from '@utils/functions/getFromAttributes'
@@ -14,7 +14,7 @@ import { Attribute } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const { pathname } = useRouter()
 

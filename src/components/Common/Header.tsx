@@ -28,7 +28,7 @@ type Props = {
 
 const Header: FC<Props> = ({ className }) => {
   const hasNewNotification = useAppStore((state) => state.hasNewNotification)
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
   const [showShowModal, setSearchModal] = useState(false)
 

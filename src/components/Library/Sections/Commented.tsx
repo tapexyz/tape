@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { PROFILE_FEED_QUERY } from '@utils/gql/queries'
@@ -16,7 +17,7 @@ import CommentedVideoCard from '../CommentedVideoCard'
 const Commented = () => {
   const [commented, setCommented] = useState<LenstubePublication[]>([])
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const { loading, data } = useQuery(PROFILE_FEED_QUERY, {
     variables: {

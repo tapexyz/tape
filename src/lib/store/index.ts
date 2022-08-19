@@ -68,6 +68,8 @@ interface AppState {
   uploadedVideo: UploadedVideo
   bundlrData: BundlrDataState
   upNextVideo: LenstubePublication | null
+  selectedChannel: Profile | null
+  setSelectedChannel: (channel: Profile | null) => void
   setUploadedVideo: (video: { [k: string]: any }) => void
   setUserSigNonce: (userSigNonce: number) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
@@ -88,6 +90,8 @@ export const useAppStore = create<AppState>((set) => ({
   uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
   bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
   upNextVideo: null,
+  selectedChannel: null,
+  setSelectedChannel: (channel) => set(() => ({ selectedChannel: channel })),
   setUpNextVideo: (upNextVideo) => set(() => ({ upNextVideo })),
   setBundlrData: (bundlrData) =>
     set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrData } })),

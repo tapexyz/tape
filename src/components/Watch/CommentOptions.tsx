@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client'
 import Popover from '@components/UIElements/Popover'
-import usePersistStore from '@lib/store/persist'
+import useAppStore from '@lib/store'
 import { HIDE_PUBLICATION } from '@utils/gql/queries'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -12,7 +12,7 @@ import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { LenstubePublication } from 'src/types/local'
 
 const CommentOptions = ({ comment }: { comment: LenstubePublication }) => {
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const router = useRouter()
 
   const [hideComment] = useMutation(HIDE_PUBLICATION, {

@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
-import usePersistStore from '@lib/store/persist'
+import useAppStore from '@lib/store'
 import { ADMIN_IDS, LENSTUBE_APP_ID } from '@utils/constants'
 import { GET_LENSTUBE_STATS } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
@@ -23,7 +23,7 @@ const Deployment = dynamic(() => import('./Deployment'))
 const Custom404 = dynamic(() => import('../../pages/404'))
 
 const Stats = () => {
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const { mounted } = useIsMounted()
   const { data, loading } = useQuery(GET_LENSTUBE_STATS, {
     variables: {

@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
 import logger from '@lib/logger'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -30,7 +31,7 @@ type Props = {
 const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const onlySubscribersCanMirror =
     video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
