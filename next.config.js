@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const { withSentryConfig } = require('@sentry/nextjs')
-const withTranspiled = require('next-transpile-modules')(['plyr-react'])
+const withTranspiled = require('next-transpile-modules')([
+  '@vime/core',
+  '@vime/react'
+])
 const { withAxiom } = require('next-axiom')
 
 const sentryWebpackPluginOptions = {

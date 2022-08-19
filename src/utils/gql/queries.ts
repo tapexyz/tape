@@ -190,9 +190,6 @@ export const CommentFieldsFragment = gql`
       ...MinimalCollectModuleFields
     }
     stats {
-      totalAmountOfComments
-      totalAmountOfCollects
-      totalAmountOfMirrors
       totalDownvotes
       totalUpvotes
     }
@@ -213,14 +210,13 @@ export const CommentFieldsFragment = gql`
     }
     commentOn {
       ... on Post {
-        pubId: id
+        id
         createdAt
         profile {
           ...MinimalProfileFields
         }
         metadata {
           name
-          content
           cover {
             original {
               url
@@ -230,17 +226,6 @@ export const CommentFieldsFragment = gql`
             value
             traitType
           }
-        }
-      }
-      ... on Comment {
-        id
-        profile {
-          ...MinimalProfileFields
-        }
-        reaction(request: $reactionRequest)
-        metadata {
-          name
-          content
         }
       }
     }

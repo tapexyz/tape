@@ -164,8 +164,9 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
         {thumbnails.map((thumbnail, idx) => {
           return (
             <button
-              key={thumbnail.url}
+              key={idx}
               type="button"
+              disabled={uploading && selectedThumbnailIndex === idx}
               onClick={() => onSelectThumbnail(idx)}
               className={clsx(
                 'rounded-lg w-full relative cursor-grab flex-none focus:outline-none',

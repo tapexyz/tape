@@ -47,7 +47,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
               <Link href={`/${channel?.handle}`}>
                 <a className="flex items-center space-x-1 font-semibold">
                   <span>{channel?.handle}</span>
-                  <IsVerified id={channel.id} />
+                  <IsVerified id={channel?.id} />
                 </a>
               </Link>
               <span className="inline-flex items-center space-x-1 text-xs">

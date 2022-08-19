@@ -40,7 +40,7 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
   )
 
   return (
-    <div className="absolute top-0 w-full text-white h-3/4">
+    <div className="absolute top-0 z-[7] w-full text-white h-3/4">
       <div className="flex items-center justify-center h-full">
         <div className="px-2 mt-3 md:mt-5">
           <p className="text-sm md:text-base">Up next in {timeLeft} seconds</p>
@@ -83,10 +83,10 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
                       </a>
                     </Link>
                   </div>
-                  <p className="flex items-center space-x-1 text-xs truncate md:text-sm opacity-80">
+                  <div className="flex items-center space-x-1 text-xs truncate md:text-sm opacity-80">
                     <span>{video.profile?.handle}</span>
                     <IsVerified id={video.profile?.id} size="xs" />
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>

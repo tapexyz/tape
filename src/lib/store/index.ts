@@ -10,7 +10,11 @@ import {
 import { CREATOR_VIDEO_CATEGORIES } from '@utils/data/categories'
 import { FetchSignerResult } from '@wagmi/core'
 import { Profile } from 'src/types'
-import { BundlrDataState, UploadedVideo } from 'src/types/local'
+import {
+  BundlrDataState,
+  LenstubePublication,
+  UploadedVideo
+} from 'src/types/local'
 import create from 'zustand'
 
 export const UPLOADED_VIDEO_FORM_DEFAULTS = {
@@ -62,13 +66,15 @@ interface AppState {
   hasNewNotification: boolean
   userSigNonce: number
   uploadedVideo: UploadedVideo
+  bundlrData: BundlrDataState
+  upNextVideo: LenstubePublication | null
   setUploadedVideo: (video: { [k: string]: any }) => void
   setUserSigNonce: (userSigNonce: number) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
   setChannels: (channels: Profile[]) => void
   setRecommendedChannels: (channels: Profile[]) => void
   setHasNewNotification: (value: boolean) => void
-  bundlrData: BundlrDataState
+  setUpNextVideo: (upNextVideo: LenstubePublication) => void
   setBundlrData: (bundlrData: { [k: string]: any }) => void
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
 }
@@ -81,6 +87,8 @@ export const useAppStore = create<AppState>((set) => ({
   userSigNonce: 0,
   uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
   bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
+  upNextVideo: null,
+  setUpNextVideo: (upNextVideo) => set(() => ({ upNextVideo })),
   setBundlrData: (bundlrData) =>
     set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrData } })),
   setUploadedVideo: (videoData) =>

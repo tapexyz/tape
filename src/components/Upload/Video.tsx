@@ -1,38 +1,64 @@
-import VideoPlayer from '@components/Common/Players/VideoPlayer'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
+import { captureException } from '@sentry/nextjs'
+import * as tf from '@tensorflow/tfjs'
+import { IS_MAINNET } from '@utils/constants'
+import { getIsNSFW } from '@utils/functions/getIsNSFW'
 import { getSizeFromBytes } from '@utils/functions/getSizeFromBytes'
+import imageCdn from '@utils/functions/imageCdn'
+import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import clsx from 'clsx'
-import React from 'react'
+import * as nsfwjs from 'nsfwjs'
+import React, { useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
 
 import BundlrInfo from './BundlrInfo'
 import ChooseThumbnail from './ChooseThumbnail'
 
-type PlayerProps = {
-  source: string
-  poster: string
+if (IS_MAINNET) {
+  tf.enableProdMode()
 }
-
-const MemoizedVideoPlayer = React.memo(({ source, poster }: PlayerProps) => (
-  <VideoPlayer
-    source={source}
-    poster={poster}
-    wrapperClassName="!rounded-b-none"
-    autoPlay={false}
-    controls={['play', 'progress', 'mute', 'volume', 'fullscreen']}
-  />
-))
-
-MemoizedVideoPlayer.displayName = 'MemoizedVideoPlayer'
 
 const Video = () => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-
   const [, copy] = useCopyToClipboard()
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  const analyseVideo = async (currentVideo: HTMLVideoElement) => {
+    if (currentVideo && !uploadedVideo.isNSFW) {
+      try {
+        const model = await nsfwjs.load()
+        const predictions = await model?.classify(currentVideo, 3)
+        setUploadedVideo({
+          isNSFW: getIsNSFW(predictions)
+        })
+      } catch (error) {
+        captureException(error)
+      }
+    }
+  }
+
+  const onDataLoaded = async (event: Event) => {
+    if (videoRef.current?.duration) {
+      setUploadedVideo({
+        durationInSeconds: videoRef.current.duration.toFixed(2)
+      })
+    }
+    if (event.target) {
+      const currentVideo = document.getElementsByTagName('video')[0]
+      await analyseVideo(currentVideo)
+    }
+  }
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.onloadeddata = onDataLoaded
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [videoRef])
 
   const onCopyKey = async (value: string) => {
     await copy(value)
@@ -46,15 +72,24 @@ const Video = () => {
   return (
     <div className="flex flex-col w-full">
       <div
-        className={clsx('overflow-hidden w-full', {
-          'rounded-t-xl': uploadedVideo.loading,
-          'rounded-xl': !uploadedVideo.loading && uploadedVideo.percent === 0
+        className={clsx('overflow-hidden rounded-xl w-full', {
+          '!rounded-b-none': uploadedVideo.percent !== 0
         })}
       >
-        <MemoizedVideoPlayer
-          source={uploadedVideo.preview}
-          poster={uploadedVideo.thumbnail}
-        />
+        <video
+          ref={videoRef}
+          className="w-full aspect-[16/9]"
+          disablePictureInPicture
+          disableRemotePlayback
+          controlsList="nodownload noplaybackrate"
+          poster={imageCdn(
+            sanitizeIpfsUrl(uploadedVideo.thumbnail),
+            'thumbnail'
+          )}
+          controls
+        >
+          <source src={uploadedVideo.preview} type="video/mp4" />
+        </video>
       </div>
       <Tooltip content={`Uploaded (${uploadedVideo.percent}%)`}>
         <div
@@ -72,7 +107,7 @@ const Video = () => {
           />
         </div>
       </Tooltip>
-      <div className="mt-2">
+      <div className="mt-4">
         <ChooseThumbnail
           label="Thumbnail"
           file={uploadedVideo.file}
@@ -90,7 +125,7 @@ const Video = () => {
       </div>
       <div className="p-1 mt-3 rounded-lg">
         <div className="truncate">
-          <div className="text-xs font-semibold opacity-70">Title</div>
+          <div className="text-xs font-semibold opacity-70">Name</div>
           <span title={uploadedVideo.file?.name}>
             {uploadedVideo.file?.name}
           </span>

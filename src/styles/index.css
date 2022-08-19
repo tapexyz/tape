@@ -48,10 +48,6 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
-html {
-  --plyr-color-main: #6366f1;
-}
-
 /* walletconnect */
 .-walletlink-css-reset body {
   @apply !bg-transparent;
@@ -70,4 +66,11 @@ html {
 }
 .tippy-box[data-theme~='light'] > .tippy-arrow::before {
   transform: scale(0.7);
+}
+
+vm-player video {
+  @apply flex-1 h-auto w-auto aspect-[16/9];
+}
+vm-player video.sc-vm-file {
+  @apply border-inherit align-middle w-full outline-none;
 }
