@@ -330,6 +330,9 @@ export const PROFILE_QUERY = gql`
         isFollowedByMe
         onChainIdentity {
           proofOfHumanity
+          worldcoin {
+            isHuman
+          }
           sybilDotOrg {
             verified
             source {

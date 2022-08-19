@@ -20,6 +20,7 @@ const About: FC<Props> = ({ channel }) => {
   const hasOnChainId =
     channel.onChainIdentity?.ens?.name ||
     channel.onChainIdentity?.proofOfHumanity ||
+    channel.onChainIdentity?.worldcoin ||
     channel.onChainIdentity?.sybilDotOrg.verified
 
   return (
@@ -75,6 +76,19 @@ const About: FC<Props> = ({ channel }) => {
                   />
                 </span>
                 <span>Proof of Humanity</span>
+              </div>
+            )}
+            {!channel?.onChainIdentity?.worldcoin.isHuman && (
+              <div className="flex items-center space-x-1">
+                <span className="pr-0.5" role="img">
+                  <img
+                    src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
+                    alt="worldcoin"
+                    className="w-5 h-5"
+                    draggable={false}
+                  />
+                </span>
+                <span>Worldcoin</span>
               </div>
             )}
           </div>

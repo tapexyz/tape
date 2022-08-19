@@ -1,9 +1,12 @@
+import { getHandle } from '@utils/functions/getHandle'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
 
 const ChannelLink = ({ ...props }: any) => {
-  return <Link href={`/${props.display?.slice(1)}`}>{props.display}</Link>
+  return (
+    <Link href={`/${getHandle(props.display?.slice(1))}`}>{props.display}</Link>
+  )
 }
 
 export class MentionMatcher extends Matcher {

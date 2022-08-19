@@ -141,7 +141,7 @@ const UserMenu = () => {
         ) : (
           <>
             <div className="flex flex-col space-y-1 text-sm transition duration-150 ease-in-out rounded-lg">
-              <div className="inline-flex items-center p-2 py-4 space-x-2 rounded-lg">
+              <div className="inline-flex items-center p-2 py-3 space-x-2 rounded-lg">
                 <img
                   className="object-cover rounded-xl w-9 h-9"
                   src={
@@ -155,9 +155,16 @@ const UserMenu = () => {
                   alt="channel picture"
                   draggable={false}
                 />
-                <div className="flex flex-col items-start">
+                <div className="grid">
                   {address && (
-                    <h6 className="text-base truncate whitespace-nowrap">
+                    <h6
+                      title={
+                        selectedChannel
+                          ? selectedChannel?.handle
+                          : shortenAddress(address)
+                      }
+                      className="text-base truncate"
+                    >
                       {selectedChannel
                         ? selectedChannel?.handle
                         : shortenAddress(address)}
