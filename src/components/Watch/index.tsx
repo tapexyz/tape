@@ -71,8 +71,9 @@ const VideoDetails = () => {
     },
     skip: !id,
     fetchPolicy: 'no-cache',
-    onCompleted: async (data) => {
-      await getHlsUrl(data?.publication)
+    onCompleted: async (result) => {
+      setLoading(true)
+      await getHlsUrl(result?.publication)
     }
   })
 
