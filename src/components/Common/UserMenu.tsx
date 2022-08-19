@@ -29,11 +29,12 @@ const UserMenu = () => {
     (state) => state.setShowCreateChannel
   )
   const channels = useAppStore((state) => state.channels)
-  const setSelectedChannel = usePersistStore(
-    (state) => state.setSelectedChannel
-  )
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setIsSignedUser = usePersistStore((state) => state.setIsSignedUser)
+  const setSelectedChannelId = usePersistStore(
+    (state) => state.setSelectedChannelId
+  )
   const setIsAuthenticated = usePersistStore(
     (state) => state.setIsAuthenticated
   )
@@ -54,6 +55,7 @@ const UserMenu = () => {
     setIsSignedUser(false)
     setIsAuthenticated(false)
     setSelectedChannel(null)
+    setSelectedChannelId(null)
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
     if (disconnect) disconnect()
@@ -61,6 +63,7 @@ const UserMenu = () => {
 
   const onSelectChannel = (channel: Profile) => {
     setSelectedChannel(channel)
+    setSelectedChannelId(channel.id)
     setShowAccountSwitcher(false)
   }
 

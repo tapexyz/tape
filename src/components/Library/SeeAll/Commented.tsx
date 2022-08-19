@@ -4,6 +4,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import logger from '@lib/logger'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { PROFILE_FEED_QUERY } from '@utils/gql/queries'
@@ -20,7 +21,7 @@ const Timeline = dynamic(() => import('../../Home/Timeline'), {
 
 const SeeAllCommented = () => {
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const [commentedVideos, setCommentedVideos] = useState<LenstubePublication[]>(
     []

@@ -6,6 +6,7 @@ import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import logger from '@lib/logger'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -76,7 +77,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState<string | null>(null)
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error.message)

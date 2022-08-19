@@ -4,6 +4,7 @@ import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import logger from '@lib/logger'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { COMMENT_FEED_QUERY } from '@utils/gql/queries'
@@ -28,7 +29,7 @@ const VideoComments: FC<Props> = ({ video }) => {
     query: { id }
   } = useRouter()
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const onlySubscribersCanComment =
     video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'

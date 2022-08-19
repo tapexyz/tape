@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { DisLikeButton } from '@components/UIElements/DisLikeButton'
 import { LikeButton } from '@components/UIElements/LikeButton'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import {
@@ -31,7 +32,7 @@ const PublicationReaction: FC<Props> = ({
   iconType = 'outline'
 }) => {
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const [reaction, setReaction] = useState({
     isLiked: publication.reaction === 'UPVOTE',

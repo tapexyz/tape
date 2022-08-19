@@ -25,7 +25,7 @@ const Notifications = () => {
   const setNotificationCount = usePersistStore(
     (state) => state.setNotificationCount
   )
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const setHasNewNotification = useAppStore(
     (state) => state.setHasNewNotification

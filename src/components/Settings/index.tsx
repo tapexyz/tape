@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
-import usePersistStore from '@lib/store/persist'
+import useAppStore from '@lib/store'
 import { PROFILE_QUERY } from '@utils/gql/queries'
 import {
   SETTINGS,
@@ -25,7 +25,7 @@ const DangerZone = dynamic(() => import('./DangerZone'))
 
 const Settings = () => {
   const router = useRouter()
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
     variables: {

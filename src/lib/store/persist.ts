@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { Profile } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
@@ -8,12 +7,12 @@ interface AppPerisistState {
   isAuthenticated: boolean
   isSignedUser: boolean
   autoPlay: boolean
-  selectedChannel: Profile | null
+  selectedChannelId: string | null
   recentlyWatched: LenstubePublication[] | []
   watchLater: LenstubePublication[] | []
   notificationCount: number
   setNotificationCount: (count: number) => void
-  setSelectedChannel: (channel: Profile | null) => void
+  setSelectedChannelId: (id: string | null) => void
   setAutoPlay: (auto: boolean) => void
   setIsAuthenticated: (auth: boolean) => void
   setIsSignedUser: (auth: boolean) => void
@@ -30,13 +29,12 @@ export const usePersistStore = create(
       autoPlay: true,
       recentlyWatched: [],
       watchLater: [],
-      selectedChannel: null,
+      selectedChannelId: null,
       notificationCount: 0,
       setAutoPlay: (autoPlay) => set(() => ({ autoPlay })),
       setNotificationCount: (notificationCount) =>
         set(() => ({ notificationCount })),
-      setSelectedChannel: (channel) =>
-        set(() => ({ selectedChannel: channel })),
+      setSelectedChannelId: (id) => set(() => ({ selectedChannelId: id })),
       addToRecentlyWatched: (video) => {
         const alreadyExists = get().recentlyWatched.find(
           (el) => el.id === video.id

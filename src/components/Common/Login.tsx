@@ -27,10 +27,11 @@ const Login = () => {
   const setIsAuthenticated = usePersistStore(
     (state) => state.setIsAuthenticated
   )
-  const setSelectedChannel = usePersistStore(
-    (state) => state.setSelectedChannel
-  )
+  const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const setIsSignedUser = usePersistStore((state) => state.setIsSignedUser)
+  const setSelectedChannelId = usePersistStore(
+    (state) => state.setSelectedChannelId
+  )
 
   const { signMessageAsync, isLoading: signing } = useSignMessage({
     onError(error: any) {
@@ -91,12 +92,14 @@ const Login = () => {
         channelsData?.profiles?.items.length === 0
       ) {
         setSelectedChannel(null)
+        setSelectedChannelId(null)
         setIsAuthenticated(false)
         setShowCreateChannel(true)
       } else {
         const channels: Profile[] = channelsData?.profiles?.items
         setChannels(channels)
-        setSelectedChannel(channelsData.profiles.items[0])
+        setSelectedChannel(channels[0])
+        setSelectedChannelId(channels[0].id)
         setIsAuthenticated(true)
         if (router.query?.next) router.push(router.query?.next as string)
       }

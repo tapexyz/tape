@@ -23,7 +23,7 @@ const NotificationTrigger = () => {
   )
   const hasNewNotification = useAppStore((state) => state.hasNewNotification)
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const notificationCount = usePersistStore((state) => state.notificationCount)
   const setNotificationCount = usePersistStore(
     (state) => state.setNotificationCount

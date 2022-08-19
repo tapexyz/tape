@@ -3,7 +3,7 @@ import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import logger from '@lib/logger'
-import usePersistStore from '@lib/store/persist'
+import useAppStore from '@lib/store'
 import { LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
 import Head from 'next/head'
@@ -15,7 +15,7 @@ import { LenstubePublication } from 'src/types/local'
 import ByteVideo from './ByteVideo'
 
 const Bytes = () => {
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const [bytes, setBytes] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()

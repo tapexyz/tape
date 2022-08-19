@@ -4,7 +4,7 @@ import SubscribersList from '@components/Common/SubscribersList'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import usePersistStore from '@lib/store/persist'
+import useAppStore from '@lib/store'
 import getCoverPicture from '@utils/functions/getCoverPicture'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
@@ -23,7 +23,7 @@ type Props = {
 
 const BasicInfo: FC<Props> = ({ channel }) => {
   const router = useRouter()
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [showSubscribersModal, setShowSubscribersModal] = useState(false)
 
   const subscribeType = channel?.followModule?.__typename

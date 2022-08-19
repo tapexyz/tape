@@ -4,6 +4,7 @@ import { AddressExplorerLink } from '@components/Common/ExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import {
@@ -35,7 +36,7 @@ const MintModal: FC<Props> = ({
   handleMint,
   minting
 }) => {
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const isSignedUser = usePersistStore((state) => state.isSignedUser)
 
   const [isAllowed, setIsAllowed] = useState(true)

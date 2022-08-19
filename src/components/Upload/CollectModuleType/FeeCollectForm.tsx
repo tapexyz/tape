@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
-import usePersistStore from '@lib/store/persist'
+import useAppStore from '@lib/store'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
 import { MODULES_CURRENCY_QUERY } from '@utils/gql/queries'
 import clsx from 'clsx'
@@ -50,7 +50,7 @@ const FeeCollectForm: FC<Props> = ({
       collectLimit: uploadedVideo.collectModule.collectLimit || '1'
     }
   })
-  const selectedChannel = usePersistStore((state) => state.selectedChannel)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [selectedCurrencySymbol, setSelectedCurrencySymbol] = useState('WMATIC')
 
   useEffect(() => {
