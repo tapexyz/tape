@@ -57,8 +57,6 @@ const VideoDetails = () => {
     } finally {
       setLoading(false)
     }
-    setVideo(currentVideo)
-    setLoading(false)
   }
 
   const { data, error } = useQuery(VIDEO_DETAIL_QUERY, {
