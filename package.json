@@ -20,7 +20,7 @@
     "@headlessui/react": "^1.6.6",
     "@hookform/resolvers": "^2.9.7",
     "@rajesh896/video-thumbnails-generator": "^2.3.9",
-    "@sentry/nextjs": "^7.10.0",
+    "@sentry/nextjs": "^7.11.1",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/line-clamp": "^0.4.0",
     "@tensorflow/tfjs": "^3.19.0",
@@ -49,7 +49,7 @@
     "react-hot-toast": "^2.3.0",
     "react-icons": "^4.4.0",
     "uuid": "^8.3.2",
-    "wagmi": "^0.6.3",
+    "wagmi": "^0.6.4",
     "zod": "^3.18.0",
     "zustand": "^4.1.0"
   },
