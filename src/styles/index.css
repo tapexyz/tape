@@ -68,6 +68,9 @@ input[type='number'] {
   transform: scale(0.7);
 }
 
+vm-player {
+  --vm-player-font-family: 'Matter', sans-serif !important;
+}
 vm-player video {
   @apply flex-1 h-auto w-auto aspect-[16/9];
 }
