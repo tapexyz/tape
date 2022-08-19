@@ -52,6 +52,7 @@ export type AchRequest = {
   ethereumAddress: Scalars['EthereumAddress'];
   freeTextHandle?: InputMaybe<Scalars['Boolean']>;
   handle?: InputMaybe<Scalars['CreateHandle']>;
+  overrideAlreadyClaimed: Scalars['Boolean'];
   overrideTradeMark: Scalars['Boolean'];
   secret: Scalars['String'];
 };
@@ -130,6 +131,13 @@ export type ClaimHandleRequest = {
   freeTextHandle?: InputMaybe<Scalars['CreateHandle']>;
   id?: InputMaybe<Scalars['HandleClaimIdScalar']>;
 };
+
+/** The claim status */
+export enum ClaimStatus {
+  AlreadyClaimed = 'ALREADY_CLAIMED',
+  ClaimFailed = 'CLAIM_FAILED',
+  NotClaimed = 'NOT_CLAIMED'
+}
 
 export type ClaimableHandles = {
   __typename?: 'ClaimableHandles';
@@ -1185,6 +1193,10 @@ export type MainPostReference = Mirror | Post;
 /** The Media url */
 export type Media = {
   __typename?: 'Media';
+  /** The alt tags for accessibility */
+  altTag?: Maybe<Scalars['String']>;
+  /** The cover for any video or audio you attached */
+  cover?: Maybe<Scalars['String']>;
   /** Height - will always be null on the public API */
   height?: Maybe<Scalars['Int']>;
   /** The image/audio/video mime type for the publication */
@@ -1636,6 +1648,8 @@ export type OnChainIdentity = {
   proofOfHumanity: Scalars['Boolean'];
   /** The sybil dot org information */
   sybilDotOrg: SybilDotOrgIdentity;
+  /** The worldcoin identity */
+  worldcoin: WorldcoinIdentity;
 };
 
 /** The nft type */
@@ -2140,6 +2154,7 @@ export type Query = {
   approvedModuleAllowanceAmount: Array<ApprovedAllowanceAmount>;
   challenge: AuthChallengeResult;
   claimableHandles: ClaimableHandles;
+  claimableStatus: ClaimStatus;
   defaultProfile?: Maybe<Profile>;
   doesFollow: Array<DoesFollowResponse>;
   enabledModuleCurrencies: Array<Erc20>;
@@ -2168,8 +2183,10 @@ export type Query = {
   publicationRevenue?: Maybe<PublicationRevenue>;
   publications: PaginatedPublicationResult;
   recommendedProfiles: Array<Profile>;
+  rel?: Maybe<Scalars['Void']>;
   search: SearchResult;
   timeline: PaginatedTimelineResult;
+  txIdToTxHash: Scalars['TxHash'];
   userSigNonces: UserSigNonces;
   verify: Scalars['Boolean'];
   whoCollectedPublication: PaginatedWhoCollectedResult;
@@ -2311,6 +2328,11 @@ export type QueryPublicationsArgs = {
 };
 
 
+export type QueryRelArgs = {
+  request: RelRequest;
+};
+
+
 export type QuerySearchArgs = {
   request: SearchQueryRequest;
 };
@@ -2318,6 +2340,11 @@ export type QuerySearchArgs = {
 
 export type QueryTimelineArgs = {
   request: TimelineRequest;
+};
+
+
+export type QueryTxIdToTxHashArgs = {
+  txId: Scalars['TxId'];
 };
 
 
@@ -2366,6 +2393,11 @@ export enum ReferenceModules {
 export type RefreshRequest = {
   /** The refresh token */
   refreshToken: Scalars['Jwt'];
+};
+
+export type RelRequest = {
+  ethereumAddress: Scalars['EthereumAddress'];
+  secret: Scalars['String'];
 };
 
 export type RelayError = {
@@ -2681,6 +2713,12 @@ export type WhoCollectedPublicationRequest = {
   limit?: InputMaybe<Scalars['LimitScalar']>;
   /** Internal publication id */
   publicationId: Scalars['InternalPublicationId'];
+};
+
+export type WorldcoinIdentity = {
+  __typename?: 'WorldcoinIdentity';
+  /** If the profile has verified as a user */
+  isHuman: Scalars['Boolean'];
 };
 
 
