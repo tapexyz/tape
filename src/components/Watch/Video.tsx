@@ -30,14 +30,14 @@ const Video: FC<Props> = ({ video, time }) => {
       await axios.get(videoUrl)
     } catch (error) {
       setVideoUrl(getPermanentVideoUrl(video))
-      logger.error('[Error Invalid Playback]', error)
+      logger.error('[Error Invalid Watch Playback]', error)
     }
   }
 
   useEffect(() => {
     if (!video.hls) {
       checkVideoResource().catch((error) =>
-        logger.error('[Error Invalid Playback]', error)
+        logger.error('[Error Invalid Watch Playback]', error)
       )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

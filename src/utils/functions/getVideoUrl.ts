@@ -1,10 +1,12 @@
 import { LenstubePublication } from 'src/types/local'
 
+import { sanitizeIpfsUrl } from './sanitizeIpfsUrl'
+
 export const getVideoUrl = (video: LenstubePublication) => {
-  return (
+  const url =
     video?.metadata?.media[1]?.original.url ||
     video?.metadata?.media[0]?.original.url
-  )
+  return sanitizeIpfsUrl(url)
 }
 
 export const getPermanentVideoUrl = (video: LenstubePublication) => {
@@ -17,11 +19,6 @@ export const getPlaybackIdFromUrl = (video: LenstubePublication) => {
   const pathname = new URL(url).pathname
   const playbackId = pathname.split('/')[2]
   return playbackId
-}
-
-export const getIsInfuraUrl = (url: string) => {
-  const hostname = new URL(url).hostname
-  return hostname === 'ipfs.infura.io'
 }
 
 export const getIsIPFSUrl = (url: string) => {

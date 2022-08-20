@@ -16,6 +16,7 @@ import { IoCopyOutline } from 'react-icons/io5'
 
 import BundlrInfo from './BundlrInfo'
 import ChooseThumbnail from './ChooseThumbnail'
+import UploadMethod from './UploadMethod'
 
 if (IS_MAINNET) {
   tf.enableProdMode()
@@ -137,7 +138,7 @@ const Video = () => {
           </div>
         )}
         <div className="mt-4">
-          <div className="text-xs font-semibold opacity-70">Arweave Link</div>
+          <div className="text-xs font-semibold opacity-70">Video Link</div>
           <div className="flex items-center">
             {uploadedVideo.videoSource ? (
               <>
@@ -160,6 +161,9 @@ const Video = () => {
             <BundlrInfo />
           </div>
         )}
+        <div className="mt-4">
+          <UploadMethod />
+        </div>
       </div>
     </div>
   )

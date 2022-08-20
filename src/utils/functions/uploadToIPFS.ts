@@ -5,18 +5,30 @@ import { v4 as uuidv4 } from 'uuid'
 
 const authKey = process.env.NEXT_PUBLIC_ESTUARY_AUTHORIZATION_KEY as string
 
-const uploadImageToIPFS = async (file: File): Promise<IPFSUploadResult> => {
+const uploadMediaToIPFS = async (
+  file: File,
+  // eslint-disable-next-line no-unused-vars
+  onProgress?: (percentage: number) => void
+): Promise<IPFSUploadResult> => {
   try {
     const formData = new FormData()
     formData.append('data', file, uuidv4())
-    const uploaded = await axios(`https://shuttle-5.estuary.tech/content/add`, {
-      method: 'POST',
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${authKey}`
+    const uploaded = await axios.post(
+      `https://shuttle-5.estuary.tech/content/add`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${authKey}`
+        },
+        onUploadProgress: function (progressEvent) {
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          )
+          onProgress?.(percentCompleted)
+        }
       }
-    })
+    )
     const { cid }: { cid: string } = await uploaded.data
 
     return {
@@ -24,7 +36,7 @@ const uploadImageToIPFS = async (file: File): Promise<IPFSUploadResult> => {
       type: file.type || 'image/jpeg'
     }
   } catch (error) {
-    logger.error('[Error IPFS Image Upload]', error)
+    logger.error('[Error IPFS Media Upload]', error)
     return {
       url: '',
       type: file.type
@@ -32,4 +44,4 @@ const uploadImageToIPFS = async (file: File): Promise<IPFSUploadResult> => {
   }
 }
 
-export default uploadImageToIPFS
+export default uploadMediaToIPFS
