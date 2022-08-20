@@ -7,6 +7,7 @@ import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
+  ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_URL,
@@ -16,6 +17,7 @@ import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
 import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
+import { CREATE_COMMENT_VIA_DISPATHCER } from '@utils/gql/dispatcher'
 import {
   BROADCAST_MUTATION,
   CREATE_COMMENT_TYPED_DATA
@@ -62,24 +64,16 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     resolver: zodResolver(formSchema)
   })
 
-  const onError = () => {
+  const onError = (error: any) => {
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setButtonText('Comment')
     setLoading(false)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError(error: any) {
-      onError()
-      toast.error(error?.data?.message ?? error?.message)
-    }
+    onError
   })
 
-  // const { config: prepareCommentWrite } = usePrepareContractWrite({
-  //   addressOrName: LENSHUB_PROXY_ADDRESS,
-  //   contractInterface: LENSHUB_PROXY_ABI,
-  //   functionName: 'commentWithSig',
-  //   enabled: false
-  // })
   const { write: writeComment, data: writeCommentData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
@@ -92,15 +86,21 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   })
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
-    onError(error) {
-      toast.error(error.message)
-      onError()
-    }
+    onError
   })
+
+  const [createCommentViaDispatcher, { data: dispatcherData }] = useMutation(
+    CREATE_COMMENT_VIA_DISPATHCER,
+    {
+      onError
+    }
+  )
 
   const { indexed } = usePendingTxn({
     txHash: writeCommentData?.hash,
-    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+    txId:
+      broadcastData?.broadcast?.txId ??
+      dispatcherData?.createCommentViaDispatcher?.txId
   })
 
   useEffect(() => {
@@ -114,7 +114,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
-  const [createTypedData] = useMutation(CREATE_COMMENT_TYPED_DATA, {
+  const [createCommentTypedData] = useMutation(CREATE_COMMENT_TYPED_DATA, {
     async onCompleted(data) {
       const { typedData, id } =
         data.createCommentTypedData as CreateCommentBroadcastItemResult
@@ -160,8 +160,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           writeComment?.({ recklesslySetUnpreparedArgs: args })
         }
       } catch (error) {
-        onError()
-        logger.error('[Error New Comment]', error)
+        logger.error('[Error New Comment Typed Data]', error)
       }
     },
     onError
@@ -200,23 +199,29 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         media: [],
         appId: LENSTUBE_APP_ID
       })
-      createTypedData({
-        variables: {
-          request: {
-            profileId: selectedChannel?.id,
-            publicationId: video?.id,
-            contentURI: url,
-            collectModule: {
-              freeCollectModule: {
-                followerOnly: false
-              }
-            },
-            referenceModule: {
-              followerOnlyReferenceModule: false
-            }
+      setButtonText('Commenting...')
+      const request = {
+        profileId: selectedChannel?.id,
+        publicationId: video?.id,
+        contentURI: url,
+        collectModule: {
+          freeCollectModule: {
+            followerOnly: false
           }
+        },
+        referenceModule: {
+          followerOnlyReferenceModule: false
         }
-      })
+      }
+      if (selectedChannel?.dispatcher?.canUseRelay) {
+        createCommentViaDispatcher({ variables: { request } })
+      } else {
+        createCommentTypedData({
+          variables: {
+            request
+          }
+        })
+      }
     } catch (error) {
       logger.error('[Error Store & Post Comment]', error)
     }

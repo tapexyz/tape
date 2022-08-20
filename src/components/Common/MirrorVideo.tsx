@@ -6,11 +6,13 @@ import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
+  ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED,
   SIGN_IN_REQUIRED_MESSAGE
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
+import { CREATE_MIRROR_VIA_DISPATHCER } from '@utils/gql/dispatcher'
 import {
   BROADCAST_MUTATION,
   CREATE_MIRROR_TYPED_DATA
@@ -36,45 +38,41 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   const onlySubscribersCanMirror =
     video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
 
+  const onError = (error: any) => {
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+    setLoading(false)
+  }
+
+  const onCompleted = () => {
+    onMirrorSuccess()
+    toast.success('Mirrored video across lens.')
+    setLoading(false)
+  }
+
   const { signTypedDataAsync } = useSignTypedData({
-    onError(error: any) {
-      toast.error(error?.data?.message || error?.message)
-      setLoading(false)
-    }
+    onError
   })
 
-  // const { config: prepareMirror } = usePrepareContractWrite({
-  //   addressOrName: LENSHUB_PROXY_ADDRESS,
-  //   contractInterface: LENSHUB_PROXY_ABI,
-  //   functionName: 'mirrorWithSig',
-  //   enabled: false
-  // })
+  const [createMirrorViaDispatcher] = useMutation(
+    CREATE_MIRROR_VIA_DISPATHCER,
+    {
+      onError,
+      onCompleted
+    }
+  )
+
   const { write: mirrorWithSig } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'mirrorWithSig',
     mode: 'recklesslyUnprepared',
-    onError(error: any) {
-      toast.error(error?.data?.message || error?.message)
-      setLoading(false)
-    },
-    onSuccess() {
-      onMirrorSuccess()
-      toast.success('Mirrored video across lens.')
-      setLoading(false)
-    }
+    onError,
+    onSuccess: () => onCompleted
   })
 
   const [broadcast] = useMutation(BROADCAST_MUTATION, {
-    onError(error) {
-      toast.error(error?.message)
-      setLoading(false)
-    },
-    onCompleted() {
-      onMirrorSuccess()
-      toast.success('Mirrored video across lens.')
-      setLoading(false)
-    }
+    onError,
+    onCompleted
   })
 
   const [createMirrorTypedData] = useMutation(CREATE_MIRROR_TYPED_DATA, {
@@ -116,30 +114,27 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
           mirrorWithSig?.({ recklesslySetUnpreparedArgs: inputStruct })
         }
       } catch (error) {
-        setLoading(false)
-        logger.error('[Error Mirror]', error)
+        logger.error('[Error Mirror Video Typed Data]', error)
       }
     },
-    onError(error) {
-      toast.error(error?.message)
-      setLoading(false)
-    }
+    onError
   })
 
   const mirrorVideo = () => {
     if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
-    createMirrorTypedData({
-      variables: {
-        request: {
-          profileId: selectedChannel?.id,
-          publicationId: video?.id,
-          referenceModule: {
-            followerOnlyReferenceModule: false
-          }
-        }
+    const request = {
+      profileId: selectedChannel?.id,
+      publicationId: video?.id,
+      referenceModule: {
+        followerOnlyReferenceModule: false
       }
-    })
+    }
+    if (selectedChannel?.dispatcher?.canUseRelay) {
+      createMirrorViaDispatcher({ variables: { request } })
+    } else {
+      createMirrorTypedData({ variables: { request } })
+    }
   }
 
   if (onlySubscribersCanMirror && !video.profile.isFollowedByMe) return null

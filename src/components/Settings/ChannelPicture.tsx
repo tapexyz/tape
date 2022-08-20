@@ -3,11 +3,16 @@ import { useMutation } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import { LENSHUB_PROXY_ADDRESS, RELAYER_ENABLED } from '@utils/constants'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  RELAYER_ENABLED
+} from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import uploadImageToIPFS from '@utils/functions/uploadToIPFS'
+import { CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER } from '@utils/gql/dispatcher'
 import { BROADCAST_MUTATION, SET_PFP_URI_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import useTxnToast from '@utils/hooks/useTxnToast'
@@ -32,6 +37,16 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
 
   const { showToast } = useTxnToast()
 
+  const onError = (error: any) => {
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+    setLoading(false)
+    setSelectedPfp(getProfilePicture(channel, 'avatar'))
+  }
+
+  const onCompleted = (hash: string) => {
+    showToast(hash)
+  }
+
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -44,31 +59,31 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'setProfileImageURIWithSig',
     mode: 'recklesslyUnprepared',
-    onError(error: any) {
-      setLoading(false)
-      setSelectedPfp(getProfilePicture(channel, 'avatar'))
-      toast.error(error?.data?.message || error?.message)
-    },
-    onSuccess(data) {
-      showToast(data.hash)
-    }
+    onError,
+    onSuccess: (data) => onCompleted(data.hash)
   })
+
+  const [createSetProfileImageViaDispatcher, { data: dispatcherData }] =
+    useMutation(CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER, {
+      onError,
+      onCompleted: (data) =>
+        onCompleted(data?.createSetProfileImageURIViaDispatcher?.txHash)
+    })
+
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
-    onError(error) {
-      toast.error(error?.message)
-      setLoading(false)
-    },
-    onCompleted(data) {
-      showToast(data?.broadcast?.txHash)
-    }
+    onError,
+    onCompleted: (data) => onCompleted(data?.broadcast?.txHash)
   })
 
   const { indexed } = usePendingTxn({
     txHash: pfpData?.hash,
-    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+    txId:
+      dispatcherData?.createSetProfileImageURIViaDispatcher.txId ??
+      broadcastData?.broadcast?.txId
   })
 
-  const onCompleted = () => {
+  const onIndexed = () => {
+    setLoading(false)
     if (selectedChannel && selectedPfp)
       setSelectedChannel({
         ...selectedChannel,
@@ -78,10 +93,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   }
 
   useEffect(() => {
-    if (indexed) {
-      setLoading(false)
-      onCompleted()
-    }
+    if (indexed) onIndexed()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
@@ -114,16 +126,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             writePfpUri?.({ recklesslySetUnpreparedArgs: args })
           }
         } catch (error) {
-          setLoading(false)
-          setSelectedPfp(getProfilePicture(channel, 'avatar'))
-          logger.error('[Error Set Pfp]', error)
+          logger.error('[Error Set Pfp Typed Data]', error)
         }
       },
-      onError(error) {
-        setLoading(false)
-        setSelectedPfp(getProfilePicture(channel, 'avatar'))
-        toast.error(error?.message)
-      }
+      onError
     }
   )
 
@@ -134,17 +140,20 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         const result: IPFSUploadResult = await uploadImageToIPFS(
           e.target.files[0]
         )
-        createSetProfileImageURITypedData({
-          variables: {
-            request: {
-              profileId: selectedChannel?.id,
-              url: result.url
-            }
-          }
-        })
+        const request = {
+          profileId: selectedChannel?.id,
+          url: result.url
+        }
+        if (selectedChannel?.dispatcher?.canUseRelay) {
+          createSetProfileImageViaDispatcher({ variables: { request } })
+        } else {
+          createSetProfileImageURITypedData({
+            variables: { request }
+          })
+        }
         setSelectedPfp(result.url)
       } catch (error) {
-        setLoading(false)
+        onError(error)
         logger.error('[Error Pfp Upload]', error)
       }
     }

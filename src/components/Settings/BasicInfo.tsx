@@ -6,6 +6,7 @@ import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import logger from '@lib/logger'
+import useAppStore from '@lib/store'
 import {
   ERROR_MESSAGE,
   LENS_PERIPHERY_ADDRESS,
@@ -21,6 +22,7 @@ import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
 import uploadImageToIPFS from '@utils/functions/uploadToIPFS'
+import { CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER } from '@utils/gql/dispatcher'
 import {
   BROADCAST_MUTATION,
   SET_PROFILE_METADATA_TYPED_DATA_MUTATION
@@ -66,6 +68,8 @@ const BasicInfo = ({ channel }: Props) => {
   const { showToast } = useTxnToast()
   const [loading, setLoading] = useState(false)
   const [coverImage, setCoverImage] = useState(getCoverPicture(channel) || '')
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
+
   const {
     register,
     handleSubmit,
@@ -79,45 +83,46 @@ const BasicInfo = ({ channel }: Props) => {
       website: getValueFromKeyInAttributes(channel?.attributes, 'website')
     }
   })
+
+  const onError = (error: any) => {
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+    setLoading(false)
+  }
+
+  const onCompleted = (hash: string) => {
+    showToast(hash)
+  }
+
   const { signTypedDataAsync } = useSignTypedData({
-    onError(error) {
-      toast.error(error?.message)
-      setLoading(false)
-    }
+    onError
   })
-  // const { config: prepareSetProfile } = usePrepareContractWrite({
-  //   addressOrName: LENS_PERIPHERY_ADDRESS,
-  //   contractInterface: LENS_PERIPHERY_ABI,
-  //   functionName: 'setProfileMetadataURIWithSig',
-  //   enabled: false
-  // })
+
   const { write: writeMetaData, data: writtenData } = useContractWrite({
     addressOrName: LENS_PERIPHERY_ADDRESS,
     contractInterface: LENS_PERIPHERY_ABI,
     functionName: 'setProfileMetadataURIWithSig',
     mode: 'recklesslyUnprepared',
-    onError(error: any) {
-      toast.error(error?.data?.message ?? error?.message)
-      setLoading(false)
-    },
-    onSuccess(data) {
-      showToast(data?.hash)
-    }
+    onError,
+    onSuccess: (data) => onCompleted(data.hash)
   })
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
-    onError(error) {
-      toast.error(error?.message)
-      setLoading(false)
-    },
-    onCompleted(data) {
-      showToast(data?.broadcast?.txHash)
-    }
+    onError,
+    onCompleted: (data) => onCompleted(data.txHash)
   })
+
+  const [createSetProfileMetadataViaDispatcher, { data: dispatcherData }] =
+    useMutation(CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER, {
+      onError,
+      onCompleted: (data) =>
+        onCompleted(data.createSetProfileMetadataViaDispatcher.txHash)
+    })
 
   const { indexed } = usePendingTxn({
     txHash: writtenData?.hash,
-    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+    txId:
+      dispatcherData?.createSetProfileMetadataViaDispatcher?.txId ??
+      broadcastData?.broadcast?.txId
   })
 
   useEffect(() => {
@@ -156,14 +161,10 @@ const BasicInfo = ({ channel }: Props) => {
             writeMetaData?.({ recklesslySetUnpreparedArgs: args })
           }
         } catch (error) {
-          setLoading(false)
-          logger.error('[Error Set Basic info]', error)
+          logger.error('[Error Set Basic info Typed Data]', error)
         }
       },
-      onError(error) {
-        toast.error(error.message ?? ERROR_MESSAGE)
-        setLoading(false)
-      }
+      onError
     }
   )
 
@@ -224,15 +225,17 @@ const BasicInfo = ({ channel }: Props) => {
         createdOn: new Date(),
         appId: LENSTUBE_APP_ID
       })
-
-      createSetProfileMetadataTypedData({
-        variables: {
-          request: {
-            profileId: channel?.id,
-            metadata: url
-          }
-        }
-      })
+      const request = {
+        profileId: channel?.id,
+        metadata: url
+      }
+      if (selectedChannel?.dispatcher?.canUseRelay) {
+        createSetProfileMetadataViaDispatcher({ variables: { request } })
+      } else {
+        createSetProfileMetadataTypedData({
+          variables: { request }
+        })
+      }
     } catch (error) {
       logger.error('[Error Store & Save Basic info]', error)
     }

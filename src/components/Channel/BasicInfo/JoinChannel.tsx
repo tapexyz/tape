@@ -2,8 +2,10 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
+import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import {
+  ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED,
   SIGN_IN_REQUIRED_MESSAGE
@@ -36,7 +38,8 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
 
   const { showToast } = useTxnToast()
 
-  const onError = () => {
+  const onError = (error: any) => {
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
     setButtonText('Join Channel')
   }
@@ -45,12 +48,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     onError
   })
   const { data: signer } = useSigner({ onError })
-  // const { config: prepareWrite } = usePrepareContractWrite({
-  //   addressOrName: LENSHUB_PROXY_ADDRESS,
-  //   contractInterface: LENSHUB_PROXY_ABI,
-  //   functionName: 'followWithSig',
-  //   enabled: false
-  // })
+
   const { write: writeJoinChannel, data: writeData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
@@ -60,10 +58,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
       setButtonText('Joining...')
       showToast(data.hash)
     },
-    onError(error: any) {
-      toast.error(error?.data?.message ?? error?.message)
-      onError()
-    }
+    onError
   })
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onCompleted(data) {
@@ -143,13 +138,10 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
           writeJoinChannel?.({ recklesslySetUnpreparedArgs: args })
         }
       } catch (error) {
-        onError()
+        logger.error('[Error Join Channel Typed Data]', error)
       }
     },
-    onError(error) {
-      toast.error(error?.message)
-      onError()
-    }
+    onError
   })
 
   const joinChannel = () => {

@@ -8,7 +8,7 @@ import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import { shortenAddress } from '@utils/functions/shortenAddress'
-import { CURRENT_USER_QUERY } from '@utils/gql/queries'
+import { PROFILES_QUERY } from '@utils/gql/queries'
 import { LENSTUBE_STATS, SETTINGS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -47,7 +47,7 @@ const UserMenu = () => {
       toast.error(error?.data?.message || error?.message)
     }
   })
-  const [getChannels] = useLazyQuery(CURRENT_USER_QUERY)
+  const [getChannels] = useLazyQuery(PROFILES_QUERY)
   const { address } = useAccount()
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 

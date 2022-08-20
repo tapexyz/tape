@@ -7,6 +7,7 @@ import { captureException } from '@sentry/nextjs'
 import {
   APP_NAME,
   ARWEAVE_WEBSITE_URL,
+  ERROR_MESSAGE,
   IS_MAINNET,
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
@@ -19,6 +20,7 @@ import { getCollectModule } from '@utils/functions/getCollectModule'
 import omitKey from '@utils/functions/omitKey'
 import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
+import { CREATE_POST_VIA_DISPATHCER } from '@utils/gql/dispatcher'
 import { BROADCAST_MUTATION, CREATE_POST_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import useTxnToast from '@utils/hooks/useTxnToast'
@@ -55,41 +57,32 @@ const UploadSteps = () => {
   const { data: signer } = useSigner()
   const { showToast } = useTxnToast()
 
-  const onError = () => {
+  const onError = (error: any) => {
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setUploadedVideo({
       buttonText: 'Post Video',
       loading: false
     })
   }
 
-  const { signTypedDataAsync } = useSignTypedData({
-    onError(error: any) {
-      toast.error(error?.data?.message ?? error?.message)
-      onError()
+  const onCompleted = (data: any) => {
+    if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
+      showToast(data?.broadcast?.txHash)
+      setUploadedVideo({
+        buttonText: 'Indexing...',
+        loading: true
+      })
     }
+  }
+
+  const { signTypedDataAsync } = useSignTypedData({
+    onError
   })
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted(data) {
-      if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
-        showToast(data?.broadcast?.txHash)
-        setUploadedVideo({
-          buttonText: 'Indexing...',
-          loading: true
-        })
-      }
-    },
-    onError(error) {
-      toast.error(error?.message)
-      onError()
-    }
+    onCompleted,
+    onError
   })
 
-  // const { config: preparePostWrite } = usePrepareContractWrite({
-  //   addressOrName: LENSHUB_PROXY_ADDRESS,
-  //   contractInterface: LENSHUB_PROXY_ABI,
-  //   functionName: 'postWithSig',
-  //   enabled: false
-  // })
   const { data: writePostData, write: writePostContract } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
@@ -102,14 +95,22 @@ const UploadSteps = () => {
         loading: true
       })
     },
-    onError(error: any) {
-      toast.error(error?.data?.message ?? error?.message)
-      onError()
-    }
+    onError
   })
 
+  const [createPostViaDispatcher, { data: dispatcherData }] = useMutation(
+    CREATE_POST_VIA_DISPATHCER,
+    {
+      onError,
+      onCompleted
+    }
+  )
+
   const { indexed } = usePendingTxn({
-    txHash: writePostData?.hash || broadcastData?.broadcast?.txHash,
+    txHash:
+      dispatcherData?.createPostViaDispatcher?.txHash ??
+      broadcastData?.broadcast?.txHash ??
+      writePostData?.hash,
     isPublication: true
   })
 
@@ -238,8 +239,7 @@ const UploadSteps = () => {
             writePostContract?.({ recklesslySetUnpreparedArgs: args })
         } else writePostContract?.({ recklesslySetUnpreparedArgs: args })
       } catch (error) {
-        onError()
-        logger.error('[Error Post Video]', error)
+        logger.error('[Error Post Video Typed Data]', error)
       }
     },
     onError
@@ -315,18 +315,23 @@ const UploadSteps = () => {
         buttonText: 'Posting video...',
         loading: true
       })
-      createTypedData({
-        variables: {
-          request: {
-            profileId: selectedChannel?.id,
-            contentURI: url,
-            collectModule: getCollectModule(uploadedVideo.collectModule),
-            referenceModule: {
-              followerOnlyReferenceModule: uploadedVideo.disableComments
-            }
-          }
+      const request = {
+        profileId: selectedChannel?.id,
+        contentURI: url,
+        collectModule: getCollectModule(uploadedVideo.collectModule),
+        referenceModule: {
+          followerOnlyReferenceModule: uploadedVideo.disableComments
         }
-      })
+      }
+      if (selectedChannel?.dispatcher?.canUseRelay) {
+        createPostViaDispatcher({ variables: { request } })
+      } else {
+        createTypedData({
+          variables: {
+            request
+          }
+        })
+      }
     } catch (error) {
       logger.error('[Error Store & Post Video]', error)
     }

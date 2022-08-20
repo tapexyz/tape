@@ -6,7 +6,7 @@ import { ERROR_MESSAGE } from '@utils/constants'
 import {
   AUTHENTICATE_MUTATION,
   CHALLENGE_QUERY,
-  CURRENT_USER_QUERY
+  PROFILES_QUERY
 } from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -46,12 +46,9 @@ const Login = () => {
   const [authenticate, { error: errorAuthenticate }] = useMutation(
     AUTHENTICATE_MUTATION
   )
-  const [getChannels, { error: errorProfiles }] = useLazyQuery(
-    CURRENT_USER_QUERY,
-    {
-      fetchPolicy: 'no-cache'
-    }
-  )
+  const [getChannels, { error: errorProfiles }] = useLazyQuery(PROFILES_QUERY, {
+    fetchPolicy: 'no-cache'
+  })
 
   useEffect(() => {
     if (

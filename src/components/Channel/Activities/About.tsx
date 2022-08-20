@@ -20,7 +20,7 @@ const About: FC<Props> = ({ channel }) => {
   const hasOnChainId =
     channel.onChainIdentity?.ens?.name ||
     channel.onChainIdentity?.proofOfHumanity ||
-    channel.onChainIdentity?.worldcoin ||
+    channel.onChainIdentity?.worldcoin.isHuman ||
     channel.onChainIdentity?.sybilDotOrg.verified
 
   return (

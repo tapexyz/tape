@@ -5,7 +5,7 @@ import { POLYGON_CHAIN_ID } from '@utils/constants'
 import { AUTH_ROUTES } from '@utils/data/auth-routes'
 import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
 import { getToastOptions } from '@utils/functions/getToastOptions'
-import { CURRENT_USER_QUERY } from '@utils/gql/queries'
+import { PROFILES_QUERY } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import { AUTH } from '@utils/url-path'
 import clsx from 'clsx'
@@ -58,7 +58,7 @@ const Layout: FC<Props> = ({ children }) => {
   const { mounted } = useIsMounted()
   const { address, isDisconnected } = useAccount()
 
-  const { loading } = useQuery(CURRENT_USER_QUERY, {
+  const { loading } = useQuery(PROFILES_QUERY, {
     variables: { ownedBy: address },
     skip: !isAuthenticated,
     onCompleted(data) {

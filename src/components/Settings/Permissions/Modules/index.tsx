@@ -26,7 +26,7 @@ const collectModules = [
   'LimitedTimedFeeCollectModule'
 ]
 
-const Permissions = () => {
+const ModulePermissions = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
   const [loadingModule, setLoadingModule] = useState('')
@@ -69,21 +69,7 @@ const Permissions = () => {
     onSuccess() {
       toast.success('Permission updated')
       setLoadingModule('')
-      refetch({
-        request: {
-          currencies: [currency],
-          followModules: ['FeeFollowModule'],
-          collectModules: [
-            'FreeCollectModule',
-            'FeeCollectModule',
-            'LimitedFeeCollectModule',
-            'LimitedTimedFeeCollectModule',
-            'TimedFeeCollectModule',
-            'RevertCollectModule'
-          ],
-          referenceModules: ['FollowerOnlyReferenceModule']
-        }
-      })
+      refetch()
     },
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
@@ -119,8 +105,8 @@ const Permissions = () => {
   }
 
   return (
-    <div className="p-4 bg-white divide-y divide-gray-200 rounded-lg dark:divide-gray-900 dark:bg-black">
-      <div className="mb-6">
+    <div className="pt-6">
+      <div>
         <h1 className="mb-1 text-xl font-semibold">Access permissions</h1>
         <p className="opacity-80">
           These are the collect modules which you allowed / need to allow to use
@@ -129,7 +115,7 @@ const Permissions = () => {
       </div>
       <div>
         {!gettingSettings && data && (
-          <div className="flex justify-end py-4">
+          <div className="flex justify-end pt-3 pb-4 md:pt-0">
             <select
               placeholder="More about your stream"
               autoComplete="off"
@@ -192,4 +178,4 @@ const Permissions = () => {
   )
 }
 
-export default Permissions
+export default ModulePermissions

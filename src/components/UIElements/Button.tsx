@@ -8,13 +8,15 @@ import React, {
 
 import { Loader } from './Loader'
 
+export type ButtonVariants = 'primary' | 'secondary' | 'danger' | 'outlined'
+
 interface Props
   extends DetailedHTMLProps<
     ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
   size?: 'sm' | 'md' | 'lg' | 'xl'
-  variant?: 'primary' | 'secondary' | 'danger' | 'outlined'
+  variant?: ButtonVariants
   loading?: boolean
   children?: ReactNode
   icon?: ReactNode

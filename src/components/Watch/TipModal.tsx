@@ -97,12 +97,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
-  // const { config: prepareCommentWrite } = usePrepareContractWrite({
-  //   addressOrName: LENSHUB_PROXY_ADDRESS,
-  //   contractInterface: LENSHUB_PROXY_ABI,
-  //   functionName: 'commentWithSig',
-  //   enabled: false
-  // })
   const { write: writeComment, data: writeCommentData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
@@ -174,8 +168,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           writeComment?.({ recklesslySetUnpreparedArgs: args })
         }
       } catch (error) {
-        onError(error)
-        logger.error('[Error Create Tip Comment]', error)
+        logger.error('[Error Create Tip Comment Typed Data]', error)
       }
     },
     onError

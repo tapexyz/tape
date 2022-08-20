@@ -84,7 +84,7 @@ const PermissionAlert: FC<Props> = ({
         <button
           type="button"
           disabled={transactionLoading || waiting || loading}
-          className="flex justify-center mx-auto outline-none"
+          className="flex justify-center mx-auto text-sm outline-none"
           onClick={() => handleAllowance()}
         >
           {transactionLoading || waiting || loading ? (

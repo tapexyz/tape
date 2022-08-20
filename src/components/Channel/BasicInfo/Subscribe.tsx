@@ -32,8 +32,8 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const isSignedUser = usePersistStore((state) => state.isSignedUser)
   const { showToast } = useTxnToast()
 
-  const onError = (error?: any) => {
-    if (error) toast.error(error?.data?.message ?? error?.message)
+  const onError = (error: any) => {
+    toast.error(error?.data?.message ?? error?.message)
     setLoading(false)
     setButtonText('Subscribe')
   }
@@ -43,12 +43,6 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   })
   const { data: signer } = useSigner({ onError })
 
-  // const { config: prepareSubscribe } = usePrepareContractWrite({
-  //   addressOrName: LENSHUB_PROXY_ADDRESS,
-  //   contractInterface: LENSHUB_PROXY_ABI,
-  //   functionName: 'followWithSig',
-  //   enabled: false
-  // })
   const { write: writeSubscribe, data: writeData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
@@ -121,8 +115,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
           })
         }
       } catch (error) {
-        onError()
-        logger.error('[Error Subscribe]', error)
+        logger.error('[Error Subscribe Typed Data]', error)
       }
     },
     onError
