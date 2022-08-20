@@ -3,9 +3,9 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 
-import DispatcherAlert from './DispatcherAlert'
 import FeedFilters from './FeedFilters'
 
+const DispatcherAlert = dynamic(() => import('./DispatcherAlert'))
 const Recents = dynamic(() => import('../Explore/Recents'), {
   loading: () => <TimelineShimmer />
 })
