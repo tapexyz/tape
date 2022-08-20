@@ -16,7 +16,7 @@ const DispatcherAlert = () => {
       <div className="relative flex flex-col p-6 overflow-hidden lg:p-8 rounded-xl">
         <div className="absolute inset-0 w-full h-full bg-gray-100 bg-gradient-to-b dark:from-gray-800 dark:to-gray-900" />
         <div className="relative z-[1] flex flex-col items-start space-y-4 text-left">
-          <div className="flex hover:bg-gradient-to-r hover:from-orange-300 text-black hover:to-orange-200 items-center px-3 py-1 space-x-1.5 text-xs font-medium rounded-full bg-gradient-to-br from-orange-200 to-orange-300">
+          <div className="flex hover:bg-gradient-to-r text-black items-center px-3 py-1 space-x-1.5 text-xs font-medium rounded-full bg-gradient-to-br from-orange-200 to-orange-300">
             <HiOutlineSparkles className="text-base" />
             <span>Action Required</span>
           </div>
