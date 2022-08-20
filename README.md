@@ -18,6 +18,9 @@
      <a href="https://status.lenstube.xyz">
         <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
     </a>
+    <span>
+        <img src="https://img.shields.io/badge/dependabot-enabled-025e8c?logo=Dependabot" alt="Dependabot">
+    </span>
     <a href="https://github.com/sasicodes/lenstube/blob/main/LICENSE">
         <img src="https://badgen.net/github/license/sasicodes/lenstube" alt="License">
     </a>
