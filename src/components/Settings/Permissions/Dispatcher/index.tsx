@@ -5,7 +5,7 @@ import Toggle from './Toggle'
 
 const DispatcherPermissions = () => {
   return (
-    <div>
+    <div className="flex flex-wrap items-center justify-end md:justify-between">
       <div className="mb-2">
         <h1 className="mb-1 text-xl font-semibold">Dispatcher</h1>
         <p className="opacity-80">
