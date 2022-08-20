@@ -9,12 +9,12 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { FC } from 'react'
-import { NewFollowerNotification, Notification, Profile } from 'src/types'
+import { NewFollowerNotification } from 'src/types'
 
 dayjs.extend(relativeTime)
 
 interface Props {
-  notification: NewFollowerNotification & Notification & { profile: Profile }
+  notification: NewFollowerNotification
 }
 
 const SubscribedNotification: FC<Props> = ({ notification }) => {

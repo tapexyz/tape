@@ -3,6 +3,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 
+import DispatcherAlert from './DispatcherAlert'
 import FeedFilters from './FeedFilters'
 
 const Recents = dynamic(() => import('../Explore/Recents'), {
@@ -13,6 +14,7 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaTags />
+      <DispatcherAlert />
       <FeedFilters />
       <div className="md:my-2">
         <Recents />

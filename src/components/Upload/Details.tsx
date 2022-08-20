@@ -18,7 +18,7 @@ import Video from './Video'
 const ContentAlert = ({ message }: { message: ReactNode }) => (
   <div className="mt-6">
     <Alert variant="danger">
-      <span className="inline-flex items-center">
+      <span className="inline-flex items-center text-sm">
         <AiFillCloseCircle className="mr-3 text-xl text-red-500" />
         {message}
       </span>

@@ -98,22 +98,22 @@ const Notifications = () => {
           className={clsx('pb-3', {
             'pb-0': notifications.length - 1 === index
           })}
-          key={notification.createdAt}
+          key={notification.notificationId}
         >
           {notification?.__typename === 'NewFollowerNotification' && (
-            <SubscribedNotification notification={notification as any} />
+            <SubscribedNotification notification={notification} />
           )}
           {notification?.__typename === 'NewCommentNotification' && (
-            <CommentedNotification notification={notification as any} />
+            <CommentedNotification notification={notification} />
           )}
           {notification?.__typename === 'NewMentionNotification' && (
-            <MentionedNotification notification={notification as any} />
+            <MentionedNotification notification={notification} />
           )}
           {notification?.__typename === 'NewMirrorNotification' && (
             <MirroredNotification notification={notification} />
           )}
           {notification?.__typename === 'NewCollectNotification' && (
-            <CollectedNotification notification={notification as any} />
+            <CollectedNotification notification={notification} />
           )}
         </div>
       ))}

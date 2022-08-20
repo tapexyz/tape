@@ -124,7 +124,7 @@ const VideoComments: FC<Props> = ({ video }) => {
           <NewComment video={video} refetchComments={() => refetchComments()} />
         ) : (
           <Alert variant="warning">
-            <span>
+            <span className="text-sm">
               Only {isMembership ? 'members' : 'subscribers'} can comment
             </span>
           </Alert>

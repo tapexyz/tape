@@ -22,10 +22,7 @@ export const IMAGE_CDN_URL = IS_MAINNET
 
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/'
 
-export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY as string
-export const POLYGON_RPC_URL = IS_MAINNET
-  ? `https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`
-  : `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`
+export const POLYGON_RPC_URL = process.env.NEXT_PUBLIC_POLYGON_RPC_URL as string
 
 export const NFT_MARKETPLACE_URL = IS_MAINNET
   ? 'https://opensea.io'
@@ -35,7 +32,9 @@ export const BUNDLR_NODE_URL = IS_MAINNET
   ? 'https://node1.bundlr.network'
   : 'https://devnet.bundlr.network'
 
-export const BUNDLR_NODE_2_URL = 'https://node2.bundlr.network'
+export const BUNDLR_METADATA_UPLOAD_URL = IS_MAINNET
+  ? 'https://node2.bundlr.network'
+  : 'https://devnet.bundlr.network'
 export const BUNDLR_CURRENCY = 'matic'
 export const BUNDLR_WEBSITE_URL = 'https://bundlr.network'
 export const ARWEAVE_WEBSITE_URL = 'https://arweave.net'

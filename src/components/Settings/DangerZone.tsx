@@ -41,12 +41,6 @@ const DangerZone = () => {
     toast.error(error?.data?.message ?? error?.message)
   }
 
-  // const { config: prepareBurn } = usePrepareContractWrite({
-  //   addressOrName: LENSHUB_PROXY_ADDRESS,
-  //   contractInterface: LENSHUB_PROXY_ABI,
-  //   functionName: 'burnWithSig',
-  //   enabled: false
-  // })
   const { write: writeDeleteProfile } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
@@ -89,8 +83,7 @@ const DangerZone = () => {
           const sig = { v, r, s, deadline: typedData.value.deadline }
           writeDeleteProfile?.({ recklesslySetUnpreparedArgs: [tokenId, sig] })
         } catch (error) {
-          setLoading(false)
-          logger.error('[Error Delete Channel]', error)
+          logger.error('[Error Delete Channel Typed Data]', error)
         }
       },
       onError

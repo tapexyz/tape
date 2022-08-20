@@ -236,12 +236,15 @@ export const CommentFieldsFragment = gql`
   ${MinimalCollectModuleFields}
 `
 
-export const CURRENT_USER_QUERY = gql`
-  query CurrentUser($ownedBy: [EthereumAddress!]) {
+export const PROFILES_QUERY = gql`
+  query allProfiles($ownedBy: [EthereumAddress!]) {
     profiles(request: { ownedBy: $ownedBy }) {
       items {
         ...MinimalProfileFields
         isDefault
+        dispatcher {
+          canUseRelay
+        }
       }
     }
     userSigNonces {
@@ -312,6 +315,9 @@ export const PROFILE_QUERY = gql`
         handle
         ownedBy
         name
+        dispatcher {
+          canUseRelay
+        }
         isFollowedByMe
         onChainIdentity {
           proofOfHumanity

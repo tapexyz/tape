@@ -6,7 +6,6 @@ import Layout from '@components/Common/Layout'
 import apolloClient from '@lib/apollo'
 import usePersistStore from '@lib/store/persist'
 import {
-  ALCHEMY_KEY,
   APP_NAME,
   GOOGLE_ANALYTICS_ID,
   IS_MAINNET,
@@ -24,13 +23,19 @@ import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
-import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
 export { reportWebVitals } from 'next-axiom'
 
 const { chains, provider } = configureChains(
   [IS_MAINNET ? chain.polygon : chain.polygonMumbai, chain.mainnet],
-  [alchemyProvider({ apiKey: ALCHEMY_KEY })]
+  [
+    jsonRpcProvider({
+      rpc: () => ({
+        http: POLYGON_RPC_URL
+      })
+    })
+  ]
 )
 
 const connectors = () => {

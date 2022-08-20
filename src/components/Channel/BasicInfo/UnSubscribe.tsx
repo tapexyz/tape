@@ -30,8 +30,8 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
   const { showToast } = useTxnToast()
 
-  const onError = (error?: any) => {
-    if (error) toast.error(error?.data?.message ?? error?.message)
+  const onError = (error: any) => {
+    toast.error(error?.data?.message ?? error?.message)
     setLoading(false)
     setButtonText(subscribeText)
   }
@@ -89,8 +89,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
           showToast(txn.hash)
         }
       } catch (error) {
-        onError()
-        logger.error('[Error UnSubscribe]', error)
+        logger.error('[Error UnSubscribe Typed Data]', error)
       }
     },
     onError
