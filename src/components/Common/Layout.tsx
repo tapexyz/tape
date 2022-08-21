@@ -13,7 +13,7 @@ import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import React, { FC, ReactNode, Suspense, useEffect } from 'react'
+import React, { FC, ReactNode, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { Profile } from 'src/types'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
@@ -144,37 +144,35 @@ const Layout: FC<Props> = ({ children }) => {
         position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
-      <Suspense fallback={<FullPageLoader />}>
+      <div
+        className={clsx('flex pb-10 md:pb-0', {
+          '!pb-0': getShowFullScreen(pathname)
+        })}
+      >
+        <Sidebar />
         <div
-          className={clsx('flex pb-10 md:pb-0', {
-            '!pb-0': getShowFullScreen(pathname)
-          })}
+          className={clsx(
+            'w-full md:pl-[94px] md:pr-4 max-w-[110rem] mx-auto',
+            {
+              'px-0': getShowFullScreen(pathname),
+              'pl-2 pr-2': !getShowFullScreen(pathname)
+            }
+          )}
         >
-          <Sidebar />
+          {!NO_HEADER_PATHS.includes(pathname) && (
+            <Header
+              className={getShowFullScreen(pathname) ? 'hidden md:flex' : ''}
+            />
+          )}
           <div
-            className={clsx(
-              'w-full md:pl-[94px] md:pr-4 max-w-[110rem] mx-auto',
-              {
-                'px-0': getShowFullScreen(pathname),
-                'pl-2 pr-2': !getShowFullScreen(pathname)
-              }
-            )}
+            className={clsx('py-2', {
+              '!p-0': getShowFullScreen(pathname)
+            })}
           >
-            {!NO_HEADER_PATHS.includes(pathname) && (
-              <Header
-                className={getShowFullScreen(pathname) ? 'hidden md:flex' : ''}
-              />
-            )}
-            <div
-              className={clsx('py-2', {
-                '!p-0': getShowFullScreen(pathname)
-              })}
-            >
-              {children}
-            </div>
+            {children}
           </div>
         </div>
-      </Suspense>
+      </div>
     </>
   )
 }

@@ -3,5 +3,8 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     target-branch: "main"
+    reviewers:
+      - sasicodes
     schedule:
       interval: "daily"
+      rebase-strategy: auto

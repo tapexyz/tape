@@ -17,9 +17,12 @@ import {
 } from '@utils/constants'
 import { checkIsBytesVideo } from '@utils/functions/checkIsBytesVideo'
 import { getCollectModule } from '@utils/functions/getCollectModule'
+import { isLessThan100MB } from '@utils/functions/getSizeFromBytes'
 import omitKey from '@utils/functions/omitKey'
+import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
+import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
 import { CREATE_POST_VIA_DISPATHCER } from '@utils/gql/dispatcher'
 import { BROADCAST_MUTATION, CREATE_POST_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
@@ -143,6 +146,27 @@ const UploadSteps = () => {
         setBundlrData({ instance: bundlr })
       }
     }
+  }
+  const uploadVideoToIpfs = async () => {
+    const result = await uploadMediaToIPFS(
+      uploadedVideo.file as File,
+      (percentCompleted) => {
+        setUploadedVideo({
+          buttonText: 'Uploading to IPFS...',
+          loading: true,
+          percent: percentCompleted
+        })
+      }
+    )
+    if (!result.url) return toast.error('IPFS Upload failed!')
+    const playbackId = await getPlaybackId(sanitizeIpfsUrl(result.url))
+    setUploadedVideo({
+      percent: 100,
+      videoSource: result.url,
+      playbackId,
+      buttonText: 'Post Video',
+      loading: false
+    })
   }
 
   const uploadToBundlr = async () => {
@@ -340,7 +364,12 @@ const UploadSteps = () => {
   const onUpload = async () => {
     if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail)
       return toast.error('NSFW content not allowed')
-    if (uploadedVideo.videoSource) return createPublication()
+    else if (uploadedVideo.videoSource) return createPublication()
+    else if (
+      isLessThan100MB(uploadedVideo.file?.size) &&
+      uploadedVideo.isUploadToIpfs
+    )
+      return await uploadVideoToIpfs()
     else await uploadToBundlr()
   }
 

@@ -9,7 +9,7 @@ import { IS_MAINNET } from '@utils/constants'
 import { getFileFromDataURL } from '@utils/functions/getFileFromDataURL'
 import { getIsNSFW } from '@utils/functions/getIsNSFW'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
-import uploadImageToIPFS from '@utils/functions/uploadToIPFS'
+import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import * as nsfwjs from 'nsfwjs'
 import { ChangeEvent, FC, useEffect, useState } from 'react'
@@ -40,7 +40,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
 
   const uploadThumbnailToIpfs = async (file: File) => {
     setUploading(true)
-    const result: IPFSUploadResult = await uploadImageToIPFS(file)
+    const result: IPFSUploadResult = await uploadMediaToIPFS(file)
     setUploading(false)
     afterUpload(result.url, file.type || 'image/jpeg')
     return result

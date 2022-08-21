@@ -11,7 +11,7 @@ import {
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
-import uploadImageToIPFS from '@utils/functions/uploadToIPFS'
+import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
 import { CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER } from '@utils/gql/dispatcher'
 import { BROADCAST_MUTATION, SET_PFP_URI_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
@@ -137,7 +137,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     if (e.target.files?.length) {
       try {
         setLoading(true)
-        const result: IPFSUploadResult = await uploadImageToIPFS(
+        const result: IPFSUploadResult = await uploadMediaToIPFS(
           e.target.files[0]
         )
         const request = {

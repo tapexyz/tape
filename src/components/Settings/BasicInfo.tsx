@@ -21,7 +21,7 @@ import omitKey from '@utils/functions/omitKey'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
-import uploadImageToIPFS from '@utils/functions/uploadToIPFS'
+import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
 import { CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER } from '@utils/gql/dispatcher'
 import {
   BROADCAST_MUTATION,
@@ -175,7 +175,7 @@ const BasicInfo = ({ channel }: Props) => {
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      const result: IPFSUploadResult = await uploadImageToIPFS(
+      const result: IPFSUploadResult = await uploadMediaToIPFS(
         e.target.files[0]
       )
       setCoverImage(result.url)
