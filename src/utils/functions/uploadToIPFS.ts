@@ -28,7 +28,7 @@ const uploadMediaToIPFS = async (
           onProgress?.(percentCompleted)
         }
       }
-    })
+    )
     const { cid }: { cid: string } = await uploaded.data
 
     return {

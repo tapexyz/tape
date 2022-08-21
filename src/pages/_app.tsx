@@ -17,7 +17,6 @@ const Layout = dynamic(() => import('../components/Common/Layout'), {
   suspense: true
 })
 
-
 const App = ({ Component, pageProps }: AppProps) => {
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
   const { pathname, replace, asPath } = useRouter()
