@@ -1,71 +1,20 @@
 import '../styles/index.css'
 import '@vime/core/themes/default.css'
 
-import { ApolloProvider } from '@apollo/client'
-import Layout from '@components/Common/Layout'
-import apolloClient from '@lib/apollo'
+import FullPageLoader from '@components/Common/FullPageLoader'
 import usePersistStore from '@lib/store/persist'
-import {
-  APP_NAME,
-  GOOGLE_ANALYTICS_ID,
-  IS_MAINNET,
-  POLYGON_CHAIN_ID,
-  POLYGON_RPC_URL
-} from '@utils/constants'
 import { AUTH_ROUTES } from '@utils/data/auth-routes'
 import { AUTH } from '@utils/url-path'
 import type { AppProps } from 'next/app'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import Script from 'next/script'
-import { ThemeProvider } from 'next-themes'
-import { useEffect } from 'react'
-import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
+import { Suspense, useEffect } from 'react'
 
 export { reportWebVitals } from 'next-axiom'
 
-const { chains, provider } = configureChains(
-  [IS_MAINNET ? chain.polygon : chain.polygonMumbai, chain.mainnet],
-  [
-    jsonRpcProvider({
-      rpc: () => ({
-        http: POLYGON_RPC_URL
-      })
-    })
-  ]
-)
-
-const connectors = () => {
-  return [
-    new InjectedConnector({
-      chains,
-      options: {
-        shimDisconnect: true
-      }
-    }),
-    new WalletConnectConnector({
-      chains,
-      options: {
-        rpc: { [POLYGON_CHAIN_ID]: POLYGON_RPC_URL }
-      }
-    }),
-    new CoinbaseWalletConnector({
-      chains,
-      options: {
-        appName: APP_NAME,
-        jsonRpcUrl: POLYGON_RPC_URL
-      }
-    })
-  ]
-}
-
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors,
-  provider
+const Providers = dynamic(() => import('./Providers'), { suspense: true })
+const Layout = dynamic(() => import('../components/Common/Layout'), {
+  suspense: true
 })
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -79,33 +28,13 @@ const App = ({ Component, pageProps }: AppProps) => {
   }, [isAuthenticated, pathname, asPath, replace])
 
   return (
-    <WagmiConfig client={wagmiClient}>
-      <ApolloProvider client={apolloClient}>
-        <ThemeProvider defaultTheme="light" attribute="class">
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
-      </ApolloProvider>
-      {IS_MAINNET && (
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
-            strategy="afterInteractive"
-          />
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GOOGLE_ANALYTICS_ID}', {
-              page_path: window.location.pathname,
-            });
-            `}
-          </Script>
-        </>
-      )}
-    </WagmiConfig>
+    <Suspense fallback={<FullPageLoader />}>
+      <Providers>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Providers>
+    </Suspense>
   )
 }
 
