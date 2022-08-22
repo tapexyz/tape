@@ -69,15 +69,6 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     onCompleted
   })
 
-<<<<<<< HEAD
-  const [createProxyActionFreeCollect, { data: proxyActionData }] = useMutation(
-    PROXY_ACTION_MUTATION,
-    {
-      onError
-    }
-  )
-  const { txId } = useProxyActionStatus(proxyActionData?.proxyAction)
-
   const [createProxyActionFreeCollect] = useMutation(PROXY_ACTION_MUTATION, {
     onError,
     onCompleted
