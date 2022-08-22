@@ -25,7 +25,7 @@ const CommentOptions = ({ comment }: { comment: LenstubePublication }) => {
   const onHideComment = () => {
     if (
       confirm(
-        'This will hide your video from lens, are you sure want to continue?\n\nNote: This cannot be reverted.'
+        'This will hide your comment from lens, are you sure want to continue?\n\nNote: This cannot be reverted.'
       )
     ) {
       hideComment({ variables: { request: { publicationId: comment?.id } } })
