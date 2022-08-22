@@ -51,13 +51,13 @@
     "uuid": "^8.3.2",
     "wagmi": "^0.6.4",
     "zod": "^3.18.0",
-    "zustand": "^4.1.0"
+    "zustand": "^4.1.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.11.6",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
     "@graphql-codegen/typescript": "^2.7.3",
-    "@types/node": "18.7.8",
+    "@types/node": "18.7.9",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
     "@types/uuid": "^8.3.4",
