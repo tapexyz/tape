@@ -10,12 +10,11 @@ import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePictur
 import trimify from '@utils/functions/trimify'
 import { CREATE_PROFILE_MUTATION } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
+import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
-
-import PendingTxnLoader from './PendingTxnLoader'
 
 const formSchema = z.object({
   channelName: z
@@ -53,7 +52,8 @@ const CreateChannel = () => {
   const setShowCreateChannel = useAppStore(
     (state) => state.setShowCreateChannel
   )
-  const [creating, setCreating] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [buttonText, setButtonText] = useState('Create')
   const { mounted } = useIsMounted()
   const router = useRouter()
   const {
@@ -65,35 +65,47 @@ const CreateChannel = () => {
     resolver: zodResolver(formSchema)
   })
 
+  const onError = () => {
+    setLoading(false)
+    setButtonText('Create')
+  }
+
   const [createProfile, { data, reset }] = useMutation(
     CREATE_PROFILE_MUTATION,
     {
       onCompleted(data) {
+        setButtonText('Indexing...')
         if (data?.createProfile?.reason) {
-          setCreating(false)
+          setLoading(false)
         }
       },
-      onError() {
-        setCreating(false)
-      }
+      onError
     }
   )
 
   const onCancel = () => {
     setShowCreateChannel(false)
-    setCreating(false)
+    onError()
     reset()
   }
 
-  const onIndexed = () => {
-    setCreating(false)
-    setShowCreateChannel(false)
-    router.push(`/${getHandle(getValues().channelName)}`)
-  }
+  const { indexed } = usePendingTxn({
+    txHash: data?.createProfile?.txHash
+  })
+
+  useEffect(() => {
+    if (indexed) {
+      setLoading(false)
+      setShowCreateChannel(false)
+      router.push(`/${getHandle(getValues().channelName)}`)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [indexed])
 
   const onCreate = ({ channelName }: FormData) => {
     const username = trimify(channelName.toLowerCase())
-    setCreating(true)
+    setLoading(true)
+    setButtonText('Creating...')
     createProfile({
       variables: {
         request: {
@@ -140,26 +152,17 @@ const CreateChannel = () => {
               )}
             </span>
             <span className="flex items-center">
-              {data?.createProfile?.txHash ? (
-                <PendingTxnLoader
-                  txnHash={data?.createProfile?.txHash}
-                  onIndexed={() => onIndexed()}
-                />
-              ) : (
-                <>
-                  <Button
-                    type="button"
-                    disabled={creating}
-                    onClick={() => onCancel()}
-                    variant="secondary"
-                  >
-                    Cancel
-                  </Button>
-                  <Button type="submit" disabled={creating}>
-                    {creating ? 'Creating...' : 'Create'}
-                  </Button>
-                </>
-              )}
+              <Button
+                type="button"
+                disabled={loading}
+                onClick={() => onCancel()}
+                variant="secondary"
+              >
+                Cancel
+              </Button>
+              <Button type="submit" disabled={loading} loading={loading}>
+                {buttonText}
+              </Button>
             </span>
           </div>
         </form>

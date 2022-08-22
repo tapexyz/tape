@@ -17,10 +17,8 @@ import {
   CHANNEL_FOLLOW_MODULE_QUERY,
   CREATE_FOLLOW_TYPED_DATA
 } from '@utils/gql/queries'
-import usePendingTxn from '@utils/hooks/usePendingTxn'
-import useTxnToast from '@utils/hooks/useTxnToast'
 import { utils } from 'ethers'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { FeeFollowModuleSettings, Profile } from 'src/types'
 import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
@@ -36,12 +34,17 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const [buttonText, setButtonText] = useState('Join Channel')
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
 
-  const { showToast } = useTxnToast()
-
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
     setButtonText('Join Channel')
+  }
+
+  const onCompleted = () => {
+    onJoin()
+    toast.success(`Joined ${channel.handle}`)
+    setButtonText('Joined Channel')
+    setLoading(false)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -49,41 +52,19 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   })
   const { data: signer } = useSigner({ onError })
 
-  const { write: writeJoinChannel, data: writeData } = useContractWrite({
+  const { write: writeJoinChannel } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess(data) {
-      setButtonText('Joining...')
-      showToast(data.hash)
-    },
-    onError
-  })
-  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
-    onCompleted(data) {
-      showToast(data.broadcast?.txHash)
-      if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
-        setButtonText('Indexing...')
-      }
-    },
+    onSuccess: onCompleted,
     onError
   })
 
-  const { indexed } = usePendingTxn({
-    txHash: writeData?.hash,
-    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+  const [broadcast] = useMutation(BROADCAST_MUTATION, {
+    onCompleted,
+    onError
   })
-
-  useEffect(() => {
-    if (indexed) {
-      onJoin()
-      toast.success(`Joined ${channel.handle}`)
-      setButtonText('Joined Channel')
-      setLoading(false)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [indexed])
 
   const { data: followModuleData } = useQuery(CHANNEL_FOLLOW_MODULE_QUERY, {
     variables: { request: { profileIds: channel?.id } },

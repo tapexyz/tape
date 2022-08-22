@@ -14,11 +14,9 @@ import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
 import { CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER } from '@utils/gql/dispatcher'
 import { BROADCAST_MUTATION, SET_PFP_URI_TYPED_DATA } from '@utils/gql/queries'
-import usePendingTxn from '@utils/hooks/usePendingTxn'
-import useTxnToast from '@utils/hooks/useTxnToast'
 import clsx from 'clsx'
 import { utils } from 'ethers'
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
 import { CreateSetProfileImageUriBroadcastItemResult, Profile } from 'src/types'
@@ -35,54 +33,13 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
 
-  const { showToast } = useTxnToast()
-
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
     setSelectedPfp(getProfilePicture(channel, 'avatar'))
   }
 
-  const onCompleted = (hash: string) => {
-    showToast(hash)
-  }
-
-  const { signTypedDataAsync } = useSignTypedData({
-    onError(error) {
-      toast.error(error?.message)
-      setSelectedPfp(getProfilePicture(channel, 'avatar'))
-    }
-  })
-
-  const { data: pfpData, write: writePfpUri } = useContractWrite({
-    addressOrName: LENSHUB_PROXY_ADDRESS,
-    contractInterface: LENSHUB_PROXY_ABI,
-    functionName: 'setProfileImageURIWithSig',
-    mode: 'recklesslyUnprepared',
-    onError,
-    onSuccess: (data) => onCompleted(data.hash)
-  })
-
-  const [createSetProfileImageViaDispatcher, { data: dispatcherData }] =
-    useMutation(CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER, {
-      onError,
-      onCompleted: (data) =>
-        onCompleted(data?.createSetProfileImageURIViaDispatcher?.txHash)
-    })
-
-  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
-    onError,
-    onCompleted: (data) => onCompleted(data?.broadcast?.txHash)
-  })
-
-  const { indexed } = usePendingTxn({
-    txHash: pfpData?.hash,
-    txId:
-      dispatcherData?.createSetProfileImageURIViaDispatcher.txId ??
-      broadcastData?.broadcast?.txId
-  })
-
-  const onIndexed = () => {
+  const onCompleted = () => {
     setLoading(false)
     if (selectedChannel && selectedPfp)
       setSelectedChannel({
@@ -92,10 +49,31 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     toast.success('Channel image updated')
   }
 
-  useEffect(() => {
-    if (indexed) onIndexed()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [indexed])
+  const { signTypedDataAsync } = useSignTypedData({
+    onError
+  })
+
+  const { data: pfpData, write: writePfpUri } = useContractWrite({
+    addressOrName: LENSHUB_PROXY_ADDRESS,
+    contractInterface: LENSHUB_PROXY_ABI,
+    functionName: 'setProfileImageURIWithSig',
+    mode: 'recklesslyUnprepared',
+    onError,
+    onSuccess: onCompleted
+  })
+
+  const [createSetProfileImageViaDispatcher] = useMutation(
+    CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER,
+    {
+      onError,
+      onCompleted
+    }
+  )
+
+  const [broadcast] = useMutation(BROADCAST_MUTATION, {
+    onError,
+    onCompleted
+  })
 
   const [createSetProfileImageURITypedData] = useMutation(
     SET_PFP_URI_TYPED_DATA,
@@ -126,6 +104,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             writePfpUri?.({ recklesslySetUnpreparedArgs: args })
           }
         } catch (error) {
+          setLoading(false)
           logger.error('[Error Set Pfp Typed Data]', error)
         }
       },

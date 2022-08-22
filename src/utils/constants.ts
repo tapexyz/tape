@@ -57,6 +57,7 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
 export const ERROR_MESSAGE = 'Oops, something went something!'
 export const SIGN_IN_REQUIRED_MESSAGE = 'Sign in required'
+export const TRANSACTION_SUBMITTED = 'Transaction submitted'
 
 // App Id
 export const LENSTUBE_APP_ID = 'lenstube'

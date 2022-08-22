@@ -297,7 +297,7 @@ const Membership = ({ channel }: Props) => {
                 Cancel
               </Button>
             )}
-            <Button disabled={loading}>
+            <Button loading={loading} disabled={loading}>
               {loading ? 'Loading...' : 'Set Membership'}
             </Button>
           </div>
@@ -308,6 +308,7 @@ const Membership = ({ channel }: Props) => {
           <Button onClick={() => setShowForm(true)}>Update</Button>
           <Button
             variant="danger"
+            loading={loading}
             disabled={loading}
             onClick={() => setMembership(true)}
           >

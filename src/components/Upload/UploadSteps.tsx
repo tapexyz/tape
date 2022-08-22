@@ -33,12 +33,13 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import {
   CreatePostBroadcastItemResult,
-  MetadataAttributeOutput,
+  MetadataAttributeInput,
   PublicationContentWarning,
   PublicationMainFocus,
-  PublicationMetadataDisplayTypes
+  PublicationMetadataDisplayTypes,
+  PublicationMetadataMediaInput,
+  PublicationMetadataV2Input
 } from 'src/types'
-import { MetadataObjectType } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
@@ -275,13 +276,13 @@ const UploadSteps = () => {
         buttonText: 'Storing metadata...',
         loading: true
       })
-      const media = [
+      const media: Array<PublicationMetadataMediaInput> = [
         {
           item: uploadedVideo.videoSource,
           type: uploadedVideo.videoType
         }
       ]
-      const attributes: MetadataAttributeOutput[] = [
+      const attributes: MetadataAttributeInput[] = [
         {
           displayType: PublicationMetadataDisplayTypes.String,
           traitType: 'publication',
@@ -312,7 +313,7 @@ const UploadSteps = () => {
         })
       }
       const isBytesVideo = checkIsBytesVideo(uploadedVideo.description)
-      const metadata: MetadataObjectType = {
+      const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
         metadata_id: uuidv4(),
         description: trimify(uploadedVideo.description),

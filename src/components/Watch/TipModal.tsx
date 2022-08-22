@@ -177,7 +177,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const submitComment = async (txnHash: string) => {
     try {
       setLoading(true)
-      setButtonText('Storing...')
+      setButtonText('Uploading to Arweave...')
       const { url } = await uploadToAr({
         version: '2.0.0',
         metadata_id: uuidv4(),
@@ -194,25 +194,21 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           {
             displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'publication',
-            key: 'publication',
             value: 'comment'
           },
           {
             displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'app',
-            key: 'app',
             value: LENSTUBE_APP_ID
           },
           {
             displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'type',
-            key: 'type',
             value: 'tip'
           },
           {
             displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'hash',
-            key: 'hash',
             value: txnHash
           }
         ],

@@ -7,7 +7,6 @@ import {
   FreeCollectModuleSettings,
   LimitedFeeCollectModuleSettings,
   LimitedTimedFeeCollectModuleSettings,
-  MetadataAttributeOutput,
   Mirror,
   Post,
   RevertCollectModuleSettings,
@@ -95,18 +94,13 @@ export type StreamData = {
   streamId: string
 }
 
-export type MetadataObjectType = {
-  [key: string]:
-    | string
-    | string[]
-    | MetadataAttributeOutput[]
-    | Attribute[]
-    | {
-        item: string
-        type: string
-      }[]
-    | Date
-    | null
+export type ProfileMetadata = {
+  version: string
+  metadata_id: string
+  name: string | null
+  bio: string | null
+  cover_picture: string | null
+  attributes: Attribute[]
 }
 
 export type LenstubeCollectModule = FreeCollectModuleSettings &
