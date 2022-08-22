@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic'
 import FeedFilters from './FeedFilters'
 
 const DispatcherAlert = dynamic(() => import('./DispatcherAlert'))
-const Recents = dynamic(() => import('../Explore/Recents'), {
+const LooksRare = dynamic(() => import('../Explore/LooksRare'), {
   loading: () => <TimelineShimmer />
 })
 
@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       <DispatcherAlert />
       <FeedFilters />
       <div className="md:my-2">
-        <Recents />
+        <LooksRare />
       </div>
     </>
   )
