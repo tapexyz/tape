@@ -12,7 +12,9 @@ import { Suspense, useEffect } from 'react'
 
 export { reportWebVitals } from 'next-axiom'
 
-const Providers = dynamic(() => import('./Providers'), { suspense: true })
+const Providers = dynamic(() => import('../components/Common/Providers'), {
+  suspense: true
+})
 const Layout = dynamic(() => import('../components/Common/Layout'), {
   suspense: true
 })
