@@ -1,6 +1,6 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import { isLessThan100MB } from '@utils/functions/getSizeFromBytes'
+import { isLessThan100MB } from '@utils/functions/formatBytes'
 import React from 'react'
 import { BiCheck } from 'react-icons/bi'
 

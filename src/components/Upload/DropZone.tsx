@@ -1,85 +1,104 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Button } from '@components/UIElements/Button'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import { captureException } from '@sentry/nextjs'
+import useDragAndDrop from '@utils/hooks/useDragAndDrop'
 import clsx from 'clsx'
+import fileReaderStream from 'filereader-stream'
 import React from 'react'
-import { FileRejection, useDropzone } from 'react-dropzone'
 import toast from 'react-hot-toast'
 import { FiUpload } from 'react-icons/fi'
 
 const DropZone = () => {
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const {
+    dragOver,
+    setDragOver,
+    onDragOver,
+    onDragLeave,
+    fileDropError,
+    setFileDropError
+  } = useDragAndDrop()
 
-  const uploadVideo = (files: File[]) => {
+  const uploadVideo = (file: File) => {
     try {
-      const file = files[0]
       if (file) {
         const preview = URL.createObjectURL(file)
-        const reader = new FileReader()
-        reader.onload = () => {
-          if (reader.result) {
-            const buffer = Buffer.from(reader.result as string)
-            setUploadedVideo({
-              buffer,
-              preview,
-              videoType: file.type || 'video/mp4',
-              file
-            })
-          }
-        }
-        reader.readAsArrayBuffer(file)
+        setUploadedVideo({
+          stream: fileReaderStream(file),
+          preview,
+          videoType: file.type || 'video/mp4',
+          file
+        })
       }
     } catch (error) {
-      captureException(error)
       toast.error('Error uploading file')
       logger.error('[Error Upload Video]', error)
     }
   }
 
-  const onDropRejected = (fileRejections: FileRejection[]) => {
-    fileRejections[0].errors.forEach((error) =>
-      error.code === 'file-too-large'
-        ? toast.error('Video size should not exceed 2GB')
-        : toast.error(error?.message)
-    )
+  const validateFile = (file: File) => {
+    if (file.type !== 'video/mp4') {
+      toast.error('Only mp4 files are supported!')
+      return setFileDropError('Only mp4 files are supported!')
+    }
+    uploadVideo(file)
   }
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: uploadVideo,
-    onDropRejected,
-    accept: {
-      'video/mp4': []
-    },
-    maxFiles: 1,
-    multiple: false,
-    maxSize: 2147483648 // 2 GB
-  })
+  const onDrop = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault()
+    setDragOver(false)
+    validateFile(e?.dataTransfer?.files[0])
+  }
+
+  const onChooseFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) validateFile(e?.target?.files[0])
+  }
 
   return (
     <div>
       <MetaTags title="Select Video" />
       <div className="relative flex flex-col items-center justify-center flex-1 my-20">
-        <div
-          {...getRootProps()}
+        <label
           className={clsx(
             'w-full p-10 md:p-20 md:w-2/3 focus:outline-none border-gray-500 grid place-items-center text-center border border-dashed rounded-3xl',
-            { 'border-green-500': isDragActive }
+            { '!border-green-500': dragOver }
           )}
+          htmlFor="video-upload"
+          onDragOver={onDragOver}
+          onDragLeave={onDragLeave}
+          onDrop={onDrop}
         >
-          <input {...getInputProps()} accept="video/mp4" />
+          <input
+            type="file"
+            className="hidden"
+            name="video-upload"
+            accept="video/mp4"
+          />
           <span className="flex justify-center mb-6 opacity-80">
             <FiUpload className="text-6xl" />
           </span>
-          <span className="space-y-10">
+          <span className="space-y-10 md:space-y-14">
             <div className="text-2xl font-semibold md:text-4xl">
-              Drag and drop <br /> video to upload
+              <span>
+                Drag and drop <br /> video to upload
+              </span>
             </div>
-            <Button size="xl">or choose video</Button>
-            <div className="text-sm">(Maximum size 2 GB for now)</div>
+            <div>
+              <label className="px-8 py-4 text-lg text-white bg-indigo-500 cursor-pointer rounded-xl">
+                or choose video
+                <input
+                  onChange={onChooseFile}
+                  type="file"
+                  className="hidden"
+                  accept="video/mp4"
+                />
+              </label>
+            </div>
+            {fileDropError && (
+              <div className="font-medium text-red-500">{fileDropError}</div>
+            )}
           </span>
-        </div>
+        </label>
       </div>
     </div>
   )

@@ -3,8 +3,8 @@ import useAppStore from '@lib/store'
 import { captureException } from '@sentry/nextjs'
 import * as tf from '@tensorflow/tfjs'
 import { IS_MAINNET } from '@utils/constants'
+import { formatBytes } from '@utils/functions/formatBytes'
 import { getIsNSFW } from '@utils/functions/getIsNSFW'
-import { getSizeFromBytes } from '@utils/functions/getSizeFromBytes'
 import imageCdn from '@utils/functions/imageCdn'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
@@ -134,7 +134,7 @@ const Video = () => {
         {uploadedVideo.file?.size && (
           <div className="mt-4">
             <div className="text-xs font-semibold opacity-70">Size</div>
-            <span>{getSizeFromBytes(uploadedVideo.file?.size)}</span>
+            <span>{formatBytes(uploadedVideo.file?.size)}</span>
           </div>
         )}
         <div className="mt-4">

@@ -27,8 +27,15 @@ export type BundlrDataState = {
   showDeposit: boolean
 }
 
+export type FileReaderStreamType = NodeJS.ReadableStream & {
+  name: string
+  size: number
+  type: string
+  lastModified: string
+}
+
 export type UploadedVideo = {
-  buffer: Buffer | null
+  stream: FileReaderStreamType | null
   preview: string
   videoType: string
   file: File | null

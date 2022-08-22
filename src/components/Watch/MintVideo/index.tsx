@@ -9,8 +9,7 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED,
-  SIGN_IN_REQUIRED_MESSAGE,
-  TRANSACTION_SUBMITTED
+  SIGN_IN_REQUIRED_MESSAGE
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { PROXY_ACTION_MUTATION } from '@utils/gql/proxy-action'
@@ -49,7 +48,7 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
 
   const onCompleted = () => {
     setLoading(false)
-    toast.success(TRANSACTION_SUBMITTED)
+    toast.success('Collected as NFT')
   }
 
   const { signTypedDataAsync } = useSignTypedData({

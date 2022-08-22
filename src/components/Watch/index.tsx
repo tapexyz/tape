@@ -8,6 +8,7 @@ import {
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
+import { getIsHlsSupported } from '@utils/functions/getIsHlsSupported'
 import { getPlaybackIdFromUrl } from '@utils/functions/getVideoUrl'
 import { VIDEO_DETAIL_QUERY } from '@utils/gql/queries'
 import axios from 'axios'
@@ -51,7 +52,9 @@ const VideoDetails = () => {
         `https://livepeer.studio/api/playback/${playbackId}`
       )
       let videoObject = { ...currentVideo }
-      videoObject.hls = data.meta?.source[0]
+      if (getIsHlsSupported()) {
+        videoObject.hls = data.meta?.source[0]
+      }
       setVideo(videoObject)
     } catch (error) {
       setVideo(currentVideo)

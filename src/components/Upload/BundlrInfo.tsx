@@ -4,7 +4,6 @@ import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import { captureException } from '@sentry/nextjs'
 import {
   BUNDLR_CURRENCY,
   BUNDLR_WEBSITE_URL,
@@ -49,10 +48,11 @@ const BundlrInfo = () => {
   }
 
   const estimatePrice = async (bundlr: WebBundlr) => {
-    if (!uploadedVideo.buffer) return
+    if (!uploadedVideo.stream)
+      return toast.error('Upload cost estimation failed!')
     const price = await bundlr.utils.getPrice(
       BUNDLR_CURRENCY,
-      uploadedVideo.buffer?.length
+      uploadedVideo.stream?.size
     )
     setBundlrData({
       estimatedPrice: utils.formatEther(price.toString())
@@ -116,7 +116,7 @@ const BundlrInfo = () => {
         )
     } catch (error: any) {
       toast.error('Failed to deposit')
-      if (error.code !== 4001) captureException(error)
+      logger.error('[Error Bundlr Deposit]', error)
     } finally {
       await fetchBalance()
       setBundlrData({

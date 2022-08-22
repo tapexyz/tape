@@ -15,7 +15,6 @@ const moduleExports = withAxiom(
     withSentryConfig(
       {
         reactStrictMode: process.env.NODE_ENV === 'production',
-        trailingSlash: false,
         async rewrites() {
           return [
             {
