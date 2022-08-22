@@ -1,8 +1,8 @@
 import { useMutation } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
+import { ERROR_MESSAGE } from '@utils/constants'
 import { CREATE_REPORT_PUBLICATION_MUTATION } from '@utils/gql/queries'
-import { HOME } from '@utils/url-path'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -12,25 +12,30 @@ import { RiSpamLine } from 'react-icons/ri'
 const ReportPublication = () => {
   const {
     query: { id },
-    push
+    back
   } = useRouter()
   const [reason, setReason] = useState('ILLEGAL-ANIMAL_ABUSE')
   const [createReport, { data, loading: reporting, error }] = useMutation(
-    CREATE_REPORT_PUBLICATION_MUTATION
+    CREATE_REPORT_PUBLICATION_MUTATION,
+    {
+      onError(error: any) {
+        toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+      }
+    }
   )
 
   useEffect(() => {
     if (data) {
       toast.success('Publication reported successfully.')
-      push(HOME)
+      back()
     }
-    if (error?.message) toast.error(error.message)
-  }, [error, data, push])
+  }, [error, data, back])
 
   const getReasonType = (type: string) => {
     if (type === 'ILLEGAL') return 'illegalReason'
     if (type === 'FRAUD') return 'fraudReason'
     if (type === 'SENSITIVE') return 'sensitiveReason'
+    if (type === 'SPAM') return 'spamReason'
     return 'illegalReason'
   }
 
@@ -83,9 +88,25 @@ const ReportPublication = () => {
                 )}
                 id="report"
               >
+                <optgroup label="SPAM">
+                  <option value="SPAM-FAKE_ENGAGEMENT">Fake Engagement</option>
+                  <option value="SPAM-MANIPULATION_ALGO">
+                    Algorithm Manipulation
+                  </option>
+                  <option value="SPAM-MISLEADING">Misleading</option>
+                  <option value="SPAM-MISUSE_HASHTAGS">Misuse Hashtags</option>
+                  <option value="SPAM-REPETITIVE">Repetitive</option>
+                  <option value="SPAM-UNRELATED">Unrelated</option>
+                  <option value="SPAM-SOMETHING_ELSE">Something Else</option>
+                </optgroup>
                 <optgroup label="ILLEGAL">
                   <option value="ILLEGAL-ANIMAL_ABUSE">Animal Abuse</option>
                   <option value="ILLEGAL-HUMAN_ABUSE">Human Abuse</option>
+                  <option value="ILLEGAL-DIRECT_THREAT">Direct threat</option>
+                  <option value="ILLEGAL-THREAT_INDIVIDUAL">
+                    Threat Individual
+                  </option>
+                  <option value="ILLEGAL-VIOLENCE">Violence</option>
                 </optgroup>
                 <optgroup label="FRAUD">
                   <option value="FRAUD-SCAM">Scam</option>

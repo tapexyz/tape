@@ -29,13 +29,17 @@ import {
 } from '@utils/gql/queries'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
-import useTxnToast from '@utils/hooks/useTxnToast'
 import { utils } from 'ethers'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
-import { Attribute, MediaSet, Profile } from 'src/types'
+import {
+  Attribute,
+  MediaSet,
+  Profile,
+  PublicationMetadataDisplayTypes
+} from 'src/types'
 import { IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -65,8 +69,8 @@ type FormData = z.infer<typeof formSchema>
 
 const BasicInfo = ({ channel }: Props) => {
   const [, copy] = useCopyToClipboard()
-  const { showToast } = useTxnToast()
   const [loading, setLoading] = useState(false)
+  const [buttonText, setButtonText] = useState('Save')
   const [coverImage, setCoverImage] = useState(getCoverPicture(channel) || '')
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
@@ -89,8 +93,9 @@ const BasicInfo = ({ channel }: Props) => {
     setLoading(false)
   }
 
-  const onCompleted = (hash: string) => {
-    showToast(hash)
+  const onCompleted = () => {
+    toast.success('Channel details updated')
+    setButtonText('Indexing...')
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -103,19 +108,18 @@ const BasicInfo = ({ channel }: Props) => {
     functionName: 'setProfileMetadataURIWithSig',
     mode: 'recklesslyUnprepared',
     onError,
-    onSuccess: (data) => onCompleted(data.hash)
+    onSuccess: onCompleted
   })
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onError,
-    onCompleted: (data) => onCompleted(data.txHash)
+    onCompleted
   })
 
   const [createSetProfileMetadataViaDispatcher, { data: dispatcherData }] =
     useMutation(CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER, {
       onError,
-      onCompleted: (data) =>
-        onCompleted(data.createSetProfileMetadataViaDispatcher.txHash)
+      onCompleted
     })
 
   const { indexed } = usePendingTxn({
@@ -128,7 +132,7 @@ const BasicInfo = ({ channel }: Props) => {
   useEffect(() => {
     if (indexed) {
       setLoading(false)
-      toast.success('Channel info updated')
+      setButtonText('Save')
     }
   }, [indexed])
 
@@ -185,19 +189,21 @@ const BasicInfo = ({ channel }: Props) => {
   const onSaveBasicInfo = async (data: FormData) => {
     setLoading(true)
     try {
+      setButtonText('Uploading to Arweave...')
       const { url } = await uploadToAr({
-        name: data.displayName || '',
+        version: '1.0.0',
+        name: data.displayName || null,
         bio: trimify(data.description),
         cover_picture: coverImage,
         attributes: [
           {
-            displayType: 'string',
+            displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'website',
             key: 'website',
             value: data.website
           },
           {
-            displayType: 'string',
+            displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'location',
             key: 'location',
             value:
@@ -207,28 +213,25 @@ const BasicInfo = ({ channel }: Props) => {
               ) || ''
           },
           {
-            displayType: 'string',
+            displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'twitter',
             key: 'twitter',
             value: data.twitter
           },
           {
-            displayType: 'string',
+            displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'app',
             key: 'app',
             value: LENSTUBE_APP_ID
           }
         ],
-        version: '1.0.0',
-        metadata_id: uuidv4(),
-        previousMetadata: channel?.metadata,
-        createdOn: new Date(),
-        appId: LENSTUBE_APP_ID
+        metadata_id: uuidv4()
       })
       const request = {
         profileId: channel?.id,
         metadata: url
       }
+      setButtonText('Saving...')
       if (selectedChannel?.dispatcher?.canUseRelay) {
         createSetProfileMetadataViaDispatcher({ variables: { request } })
       } else {
@@ -237,6 +240,8 @@ const BasicInfo = ({ channel }: Props) => {
         })
       }
     } catch (error) {
+      setButtonText('Save')
+      setLoading(false)
       logger.error('[Error Store & Save Basic info]', error)
     }
   }
@@ -337,7 +342,9 @@ const BasicInfo = ({ channel }: Props) => {
         />
       </div>
       <div className="flex justify-end mt-4">
-        <Button disabled={loading}>{loading ? 'Saving...' : 'Save'}</Button>
+        <Button disabled={loading} loading={loading}>
+          {buttonText}
+        </Button>
       </div>
     </form>
   )

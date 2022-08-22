@@ -168,7 +168,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
 
   const submitComment = async (data: FormData) => {
     try {
-      setButtonText('Storing metadata...')
+      setButtonText('Uploading to Arweave...')
       setLoading(true)
       const { url } = await uploadToAr({
         version: '2.0.0',
@@ -186,13 +186,11 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           {
             displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'publication',
-            key: 'publication',
             value: 'comment'
           },
           {
             displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'app',
-            key: 'app',
             value: LENSTUBE_APP_ID
           }
         ],

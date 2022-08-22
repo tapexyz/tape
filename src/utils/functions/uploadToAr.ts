@@ -1,10 +1,11 @@
 import logger from '@lib/logger'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { MetadataObjectType } from 'src/types/local'
+import { PublicationMetadataV2Input } from 'src/types'
+import { ProfileMetadata } from 'src/types/local'
 
 const uploadToAr = async (
-  data: MetadataObjectType
+  data: PublicationMetadataV2Input | ProfileMetadata
 ): Promise<{ url: string | null }> => {
   try {
     const response = await axios.post('/api/metadata/upload', data)

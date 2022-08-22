@@ -144,10 +144,11 @@ const DangerZone = () => {
         </div>
         <Button
           disabled={loading}
+          loading={loading}
           onClick={() => onClickDelete()}
           variant="danger"
         >
-          {loading ? 'Deleting...' : 'Delete'}
+          Delete
         </Button>
       </div>
     </div>

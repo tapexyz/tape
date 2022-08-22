@@ -17,11 +17,8 @@ import {
   BROADCAST_MUTATION,
   CREATE_COLLECT_TYPED_DATA
 } from '@utils/gql/queries'
-import usePendingTxn from '@utils/hooks/usePendingTxn'
-import useProxyActionStatus from '@utils/hooks/useProxyActionStatus'
-import useTxnToast from '@utils/hooks/useTxnToast'
 import { utils } from 'ethers'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { SiOpenmined } from 'react-icons/si'
 import {
@@ -42,7 +39,6 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const { address } = useAccount()
   const [loading, setLoading] = useState(false)
   const [showMintModal, setShowMintModal] = useState(false)
-  const { showToast } = useTxnToast()
   const isSignedUser = usePersistStore((state) => state.isSignedUser)
 
   const onError = (error: any) => {
@@ -50,31 +46,30 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     setLoading(false)
   }
 
+  const onCompleted = () => {
+    setLoading(false)
+    toast.success('Collected as NFT')
+  }
+
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
 
-  const { data: writtenData, write: writeCollectWithSig } = useContractWrite({
+  const { write: writeCollectWithSig } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
     onError,
-    onSuccess(data) {
-      showToast(data?.hash)
-    }
+    onCompleted
   })
 
-  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
-    onError(error) {
-      toast.error(error?.message)
-      setLoading(false)
-    },
-    onCompleted(data) {
-      showToast(data?.broadcast?.txHash)
-    }
+  const [broadcast] = useMutation(BROADCAST_MUTATION, {
+    onError,
+    onCompleted
   })
 
+<<<<<<< HEAD
   const [createProxyActionFreeCollect, { data: proxyActionData }] = useMutation(
     PROXY_ACTION_MUTATION,
     {
@@ -83,17 +78,10 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   )
   const { txId } = useProxyActionStatus(proxyActionData?.proxyAction)
 
-  const { indexed } = usePendingTxn({
-    txHash: writtenData?.hash,
-    txId: txId ?? broadcastData?.broadcast?.txId
+  const [createProxyActionFreeCollect] = useMutation(PROXY_ACTION_MUTATION, {
+    onError,
+    onCompleted
   })
-
-  useEffect(() => {
-    if (indexed) {
-      setLoading(false)
-      toast.success('Collected as NFT')
-    }
-  }, [indexed])
 
   const [createCollectTypedData] = useMutation(CREATE_COLLECT_TYPED_DATA, {
     async onCompleted(data) {

@@ -6,12 +6,11 @@ import usePersistStore from '@lib/store/persist'
 import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { CREATE_UNFOLLOW_TYPED_DATA } from '@utils/gql/queries'
-import useTxnToast from '@utils/hooks/useTxnToast'
 import { ethers, Signer, utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { CreateUnfollowBroadcastItemResult, Profile } from 'src/types'
-import { useSigner, useSignTypedData, useWaitForTransaction } from 'wagmi'
+import { useSigner, useSignTypedData } from 'wagmi'
 
 type Props = {
   channel: Profile
@@ -25,33 +24,24 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
       ? 'Joined channel'
       : 'Subscribed'
   const [loading, setLoading] = useState(false)
-  const [txnHash, setTxnHash] = useState('')
   const [buttonText, setButtonText] = useState(subscribeText)
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
-  const { showToast } = useTxnToast()
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message)
     setLoading(false)
     setButtonText(subscribeText)
   }
-  const { data: signer } = useSigner({ onError })
+  const onCompleted = () => {
+    toast.success(`Unsubscribed ${channel.handle}`)
+    onUnSubscribe()
+    setButtonText(
+      subscribeType === 'FeeFollowModuleSettings' ? 'Join channel' : 'Subscribe'
+    )
+    setLoading(false)
+  }
 
-  useWaitForTransaction({
-    enabled: txnHash.length > 0,
-    hash: txnHash,
-    onSuccess() {
-      toast.success(`Unsubscribed ${channel.handle}`)
-      onUnSubscribe()
-      setButtonText(
-        subscribeType === 'FeeFollowModuleSettings'
-          ? 'Join channel'
-          : 'Subscribe'
-      )
-      setLoading(false)
-    },
-    onError
-  })
+  const { data: signer } = useSigner({ onError })
 
   const { signTypedDataAsync } = useSignTypedData({
     onError
@@ -84,11 +74,10 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
           typedData?.value.tokenId,
           sig
         )
-        if (txn.hash) {
-          setTxnHash(txn.hash)
-          showToast(txn.hash)
-        }
+        if (txn.hash) onCompleted()
       } catch (error) {
+        setLoading(false)
+        setButtonText(subscribeText)
         logger.error('[Error UnSubscribe Typed Data]', error)
       }
     },

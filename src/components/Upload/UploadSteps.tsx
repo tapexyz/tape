@@ -16,8 +16,8 @@ import {
   RELAYER_ENABLED
 } from '@utils/constants'
 import { checkIsBytesVideo } from '@utils/functions/checkIsBytesVideo'
+import { isLessThan100MB } from '@utils/functions/formatBytes'
 import { getCollectModule } from '@utils/functions/getCollectModule'
-import { isLessThan100MB } from '@utils/functions/getSizeFromBytes'
 import omitKey from '@utils/functions/omitKey'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import trimify from '@utils/functions/trimify'
@@ -33,12 +33,13 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import {
   CreatePostBroadcastItemResult,
-  MetadataAttributeOutput,
+  MetadataAttributeInput,
   PublicationContentWarning,
   PublicationMainFocus,
-  PublicationMetadataDisplayTypes
+  PublicationMetadataDisplayTypes,
+  PublicationMetadataMediaInput,
+  PublicationMetadataV2Input
 } from 'src/types'
-import { MetadataObjectType } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
@@ -171,7 +172,7 @@ const UploadSteps = () => {
 
   const uploadToBundlr = async () => {
     if (!bundlrData.instance) return await initBundlr()
-    if (!uploadedVideo.buffer)
+    if (!uploadedVideo.stream)
       return toast.error('Video not uploaded correctly.')
     if (parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice))
       return toast.error('Insufficient balance')
@@ -185,13 +186,8 @@ const UploadSteps = () => {
         { name: 'Content-Type', value: 'video/mp4' },
         { name: 'App-Name', value: APP_NAME }
       ]
-      const tx = bundlr.createTransaction(uploadedVideo.buffer, {
-        tags: tags
-      })
-      await tx.sign()
       const uploader = bundlr.uploader.chunkedUploader
-      uploader.setBatchSize(2)
-      uploader.setChunkSize(5000000) // 5 MB
+      uploader.setChunkSize(10000000) // 10 MB
       uploader.on('chunkUpload', (chunkInfo) => {
         const fileSize = uploadedVideo?.file?.size as number
         const percentCompleted = Math.round(
@@ -202,7 +198,9 @@ const UploadSteps = () => {
           percent: percentCompleted
         })
       })
-      const upload = uploader.uploadTransaction(tx)
+      const upload = uploader.uploadData(uploadedVideo.stream as any, {
+        tags: tags
+      })
       const response = await upload
       setUploadedVideo({
         loading: false
@@ -217,7 +215,6 @@ const UploadSteps = () => {
         loading: false
       })
     } catch (error: any) {
-      if (error.code !== 4001) captureException(error)
       toast.error('Failed to upload video!')
       logger.error('[Error Bundlr Upload Video]', error)
       setUploadedVideo({
@@ -275,13 +272,13 @@ const UploadSteps = () => {
         buttonText: 'Storing metadata...',
         loading: true
       })
-      const media = [
+      const media: Array<PublicationMetadataMediaInput> = [
         {
           item: uploadedVideo.videoSource,
           type: uploadedVideo.videoType
         }
       ]
-      const attributes: MetadataAttributeOutput[] = [
+      const attributes: MetadataAttributeInput[] = [
         {
           displayType: PublicationMetadataDisplayTypes.String,
           traitType: 'publication',
@@ -312,7 +309,7 @@ const UploadSteps = () => {
         })
       }
       const isBytesVideo = checkIsBytesVideo(uploadedVideo.description)
-      const metadata: MetadataObjectType = {
+      const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
         metadata_id: uuidv4(),
         description: trimify(uploadedVideo.description),

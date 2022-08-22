@@ -1,4 +1,4 @@
-export const getSizeFromBytes = (bytes: number) => {
+export const formatBytes = (bytes: number) => {
   if (bytes) {
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
     const i = Math.min(
