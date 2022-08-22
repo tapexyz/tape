@@ -12,11 +12,13 @@ import {
   SIGN_IN_REQUIRED_MESSAGE
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
+import { PROXY_ACTION_MUTATION } from '@utils/gql/proxy-action'
 import {
   BROADCAST_MUTATION,
   CREATE_COLLECT_TYPED_DATA
 } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
+import useProxyActionStatus from '@utils/hooks/useProxyActionStatus'
 import useTxnToast from '@utils/hooks/useTxnToast'
 import { utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
@@ -43,11 +45,13 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const { showToast } = useTxnToast()
   const isSignedUser = usePersistStore((state) => state.isSignedUser)
 
+  const onError = (error: any) => {
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+    setLoading(false)
+  }
+
   const { signTypedDataAsync } = useSignTypedData({
-    onError(error: any) {
-      setLoading(false)
-      toast.error(error?.data?.message ?? error?.message)
-    }
+    onError
   })
 
   const { data: writtenData, write: writeCollectWithSig } = useContractWrite({
@@ -55,10 +59,7 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
-    onError(error: any) {
-      setLoading(false)
-      toast.error(error?.data?.message ?? error?.message)
-    },
+    onError,
     onSuccess(data) {
       showToast(data?.hash)
     }
@@ -74,9 +75,17 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     }
   })
 
+  const [createProxyActionFreeCollect, { data: proxyActionData }] = useMutation(
+    PROXY_ACTION_MUTATION,
+    {
+      onError
+    }
+  )
+  const { txId } = useProxyActionStatus(proxyActionData?.proxyAction)
+
   const { indexed } = usePendingTxn({
     txHash: writtenData?.hash,
-    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+    txId: txId ?? broadcastData?.broadcast?.txId
   })
 
   useEffect(() => {
@@ -118,10 +127,7 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
         logger.error('[Error Mint Video]', error)
       }
     },
-    onError(error) {
-      toast.error(error?.message ?? ERROR_MESSAGE)
-      setLoading(false)
-    }
+    onError
   })
 
   const handleMint = (validate = true) => {
@@ -137,11 +143,26 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
       setShowMintModal(false)
     }
     setLoading(true)
-    createCollectTypedData({
-      variables: {
-        request: { publicationId: video?.id }
-      }
-    })
+    if (isFreeCollect) {
+      // Using proxyAction to free collect without signing
+      createProxyActionFreeCollect({
+        variables: {
+          request: {
+            collect: {
+              freeCollect: {
+                publicationId: video?.id
+              }
+            }
+          }
+        }
+      })
+    } else {
+      createCollectTypedData({
+        variables: {
+          request: { publicationId: video?.id }
+        }
+      })
+    }
   }
 
   return (
