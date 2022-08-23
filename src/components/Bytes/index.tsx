@@ -24,7 +24,7 @@ const Bytes = () => {
     variables: {
       request: {
         sortCriteria: 'LATEST',
-        limit: 5,
+        limit: 10,
         noRandomize: false,
         sources: [LENSTUBE_BYTES_APP_ID],
         publicationTypes: ['POST']
