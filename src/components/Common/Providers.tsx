@@ -2,12 +2,10 @@ import { ApolloProvider } from '@apollo/client'
 import apolloClient from '@lib/apollo'
 import {
   APP_NAME,
-  GOOGLE_ANALYTICS_ID,
   IS_MAINNET,
   POLYGON_CHAIN_ID,
   POLYGON_RPC_URL
 } from '@utils/constants'
-import Script from 'next/script'
 import { ThemeProvider } from 'next-themes'
 import React, { ReactNode } from 'react'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
@@ -65,24 +63,6 @@ const Providers = ({ children }: { children: ReactNode }) => {
           {children}
         </ThemeProvider>
       </ApolloProvider>
-      {IS_MAINNET && (
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
-            strategy="afterInteractive"
-          />
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GOOGLE_ANALYTICS_ID}', {
-              page_path: window.location.pathname,
-            });
-            `}
-          </Script>
-        </>
-      )}
     </WagmiConfig>
   )
 }

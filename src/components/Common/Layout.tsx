@@ -1,7 +1,11 @@
 import { useQuery } from '@apollo/client'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { POLYGON_CHAIN_ID } from '@utils/constants'
+import {
+  MIXPANEL_API_HOST,
+  MIXPANEL_TOKEN,
+  POLYGON_CHAIN_ID
+} from '@utils/constants'
 import { AUTH_ROUTES } from '@utils/data/auth-routes'
 import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
 import { getToastOptions } from '@utils/functions/getToastOptions'
@@ -9,6 +13,7 @@ import { PROFILES_QUERY } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import { AUTH } from '@utils/url-path'
 import clsx from 'clsx'
+import mixpanel from 'mixpanel-browser'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -30,6 +35,12 @@ interface Props {
   children: ReactNode
 }
 const NO_HEADER_PATHS = [AUTH]
+
+if (MIXPANEL_TOKEN) {
+  mixpanel.init(MIXPANEL_TOKEN, {
+    api_host: MIXPANEL_API_HOST
+  })
+}
 
 const Layout: FC<Props> = ({ children }) => {
   const { pathname, replace, asPath } = useRouter()

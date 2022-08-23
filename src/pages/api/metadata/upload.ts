@@ -15,7 +15,7 @@ type Data = {
   success: boolean
 }
 
-const PRIVATE_KEY = process.env.PRIVATE_KEY_FOR_BUNDLR
+const PRIVATE_KEY = process.env.BUNDLR_PRIVATE_KEY
 
 const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const origin = req.headers.origin
