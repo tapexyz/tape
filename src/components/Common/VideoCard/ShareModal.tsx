@@ -3,6 +3,7 @@ import { LENSTUBE_URL, STATIC_ASSETS } from '@utils/constants'
 import { getSharableLink } from '@utils/functions/getSharableLink'
 import imageCdn from '@utils/functions/imageCdn'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
+import { Mixpanel, TRACK } from '@utils/track'
 import React, { FC } from 'react'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
@@ -22,6 +23,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
   const onCopyVideoUrl = async () => {
     await copy(`${LENSTUBE_URL}/watch/${video.id}`)
     toast.success('Link copied to clipboard')
+    Mixpanel.track(TRACK.COPY.VIDEO_URL)
   }
 
   return (
@@ -41,6 +43,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             className="rounded-full"
             target="_blank"
             rel="noreferrer"
+            onClick={() => Mixpanel.track(TRACK.SHARE_VIDEO.LENSTER)}
             href={getSharableLink('lenster', video)}
           >
             <img
@@ -59,6 +62,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             target="_blank"
             rel="noreferrer"
             href={getSharableLink('twitter', video)}
+            onClick={() => Mixpanel.track(TRACK.SHARE_VIDEO.TWITTER)}
           >
             <img
               src={imageCdn(
@@ -70,7 +74,12 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
               draggable={false}
             />
           </a>
-          <a href={getSharableLink('reddit', video)}>
+          <a
+            href={getSharableLink('reddit', video)}
+            onClick={() => Mixpanel.track(TRACK.SHARE_VIDEO.REDDIT)}
+            target="_blank"
+            rel="noreferrer"
+          >
             <img
               src={imageCdn(
                 `${STATIC_ASSETS}/images/social/reddit-logo.webp`,
@@ -81,7 +90,12 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
               draggable={false}
             />
           </a>
-          <a href={getSharableLink('linkedin', video)}>
+          <a
+            href={getSharableLink('linkedin', video)}
+            target="_blank"
+            onClick={() => Mixpanel.track(TRACK.SHARE_VIDEO.LINKEDIN)}
+            rel="noreferrer"
+          >
             <img
               src={imageCdn(
                 `${STATIC_ASSETS}/images/social/linkedin-logo.png`,

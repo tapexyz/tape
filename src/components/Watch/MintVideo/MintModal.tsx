@@ -12,6 +12,7 @@ import {
   PUBLICATION_REVENUE_QUERY,
   VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY
 } from '@utils/gql/queries'
+import { Mixpanel, TRACK } from '@utils/track'
 import dayjs from 'dayjs'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
 import { LenstubeCollectModule, LenstubePublication } from 'src/types/local'
@@ -49,6 +50,10 @@ const MintModal: FC<Props> = ({
     variables: { request: { publicationId: video?.id } }
   })
   const collectModule: LenstubeCollectModule = data?.publication?.collectModule
+
+  useEffect(() => {
+    Mixpanel.track(TRACK.COLLECT.OPEN)
+  }, [])
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     addressOrName: selectedChannel?.ownedBy || address,

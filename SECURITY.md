@@ -26,4 +26,3 @@ If we verify a reported security vulnerability, our policy is:
   release branch.
 
 - We will keep you informed of the progress towards resolving the problem.
-

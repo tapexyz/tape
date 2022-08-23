@@ -17,6 +17,7 @@ import {
   BROADCAST_MUTATION,
   CREATE_COLLECT_TYPED_DATA
 } from '@utils/gql/queries'
+import { Mixpanel, TRACK } from '@utils/track'
 import { utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -123,6 +124,7 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     }
     setLoading(true)
     if (isFreeCollect) {
+      Mixpanel.track(TRACK.COLLECT.FREE)
       // Using proxyAction to free collect without signing
       createProxyActionFreeCollect({
         variables: {
@@ -136,6 +138,7 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
         }
       })
     } else {
+      Mixpanel.track(TRACK.COLLECT.FEE)
       createCollectTypedData({
         variables: {
           request: { publicationId: video?.id }

@@ -5,6 +5,7 @@ import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { SEARCH_CHANNELS_QUERY, SEARCH_VIDEOS_QUERY } from '@utils/gql/queries'
 import useDebounce from '@utils/hooks/useDebounce'
 import useOutsideClick from '@utils/hooks/useOutsideClick'
+import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import { FC, useEffect, useRef, useState } from 'react'
@@ -28,8 +29,8 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
     activeSearch === 'PROFILE' ? SEARCH_CHANNELS_QUERY : SEARCH_VIDEOS_QUERY
   )
 
-  useEffect(() => {
-    if (keyword.trim().length)
+  const onDebounce = () => {
+    if (keyword.trim().length) {
       searchChannels({
         variables: {
           request: {
@@ -40,6 +41,14 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
           }
         }
       })
+      Mixpanel.track(
+        activeSearch === 'PROFILE' ? TRACK.SEARCH_CHANNELS : TRACK.SEARCH_VIDEOS
+      )
+    }
+  }
+
+  useEffect(() => {
+    onDebounce()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue, activeSearch])
 
