@@ -22,13 +22,11 @@ interface Props {
   wrapperClassName?: string
   poster: string
   ratio?: string
-  time?: number
   isSensitiveContent?: boolean
   hls?: HLSData
 }
 
 interface PlayerProps {
-  time?: number
   source: string
   ratio?: string
   poster: string
@@ -186,8 +184,7 @@ const VideoPlayer: FC<Props> = ({
   ratio = '16:9',
   wrapperClassName,
   isSensitiveContent,
-  hls,
-  time
+  hls
 }) => {
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
 
@@ -199,7 +196,6 @@ const VideoPlayer: FC<Props> = ({
         <PlayerInstance
           source={source}
           ratio={ratio}
-          time={time}
           poster={poster}
           hls={hls}
         />
