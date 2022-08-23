@@ -11,6 +11,7 @@ import { LENSTUBE_APP_ID } from '@utils/constants'
 import { getIsHlsSupported } from '@utils/functions/getIsHlsSupported'
 import { getPlaybackIdFromUrl } from '@utils/functions/getVideoUrl'
 import { VIDEO_DETAIL_QUERY } from '@utils/gql/queries'
+import { Mixpanel, TRACK } from '@utils/track'
 import axios from 'axios'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -40,6 +41,10 @@ const VideoDetails = () => {
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
   const [video, setVideo] = useState<LenstubePublication>()
   const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    Mixpanel.track(TRACK.PAGE_VIEW.WATCH)
+  }, [])
 
   const getHlsUrl = async (currentVideo: LenstubePublication) => {
     const playbackId = getPlaybackIdFromUrl(currentVideo)

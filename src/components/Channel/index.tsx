@@ -2,8 +2,10 @@ import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
 import { PROFILE_QUERY } from '@utils/gql/queries'
+import { Mixpanel, TRACK } from '@utils/track'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { Profile } from 'src/types'
 
 import Activities from './Activities'
@@ -14,6 +16,11 @@ const Custom404 = dynamic(() => import('../../pages/404'))
 
 const Channel = () => {
   const { query } = useRouter()
+
+  useEffect(() => {
+    Mixpanel.track(TRACK.PAGE_VIEW.CHANNEL)
+  }, [])
+
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
     variables: {
       request: { handles: query.channel }

@@ -6,8 +6,9 @@ import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
+import { Mixpanel, TRACK } from '@utils/track'
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PaginatedResultInfo } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
@@ -19,6 +20,10 @@ const Bytes = () => {
 
   const [bytes, setBytes] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+
+  useEffect(() => {
+    Mixpanel.track(TRACK.PAGE_VIEW.BYTES)
+  }, [])
 
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {

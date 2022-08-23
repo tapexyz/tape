@@ -10,8 +10,9 @@ import {
   NOTIFICATION_COUNT_QUERY,
   NOTIFICATIONS_QUERY
 } from '@utils/gql/queries'
+import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { Notification, PaginatedResultInfo } from 'src/types'
 
@@ -32,6 +33,9 @@ const Notifications = () => {
   )
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  useEffect(() => {
+    Mixpanel.track(TRACK.PAGE_VIEW.NOTIFICATIONS)
+  }, [])
 
   const { data: notificationsCountData } = useQuery(NOTIFICATION_COUNT_QUERY, {
     variables: { request: { profileId: selectedChannel?.id } },

@@ -3,6 +3,7 @@ import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
 import { ERROR_MESSAGE } from '@utils/constants'
 import { CREATE_REPORT_PUBLICATION_MUTATION } from '@utils/gql/queries'
+import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -23,6 +24,10 @@ const ReportPublication = () => {
       }
     }
   )
+
+  useEffect(() => {
+    Mixpanel.track(TRACK.PAGE_VIEW.REPORT)
+  }, [])
 
   useEffect(() => {
     if (data) {
