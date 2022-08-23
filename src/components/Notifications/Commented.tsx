@@ -40,12 +40,7 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
               notification?.comment?.commentOn?.id
             }`}
           >
-            <a
-              href={`/watch/${notification?.comment.id}`}
-              className="ml-1 text-indigo-500"
-            >
-              video
-            </a>
+            <a className="ml-1 text-indigo-500">video</a>
           </Link>
         </span>
         <div className="flex items-center flex-none space-x-1 text-xs text-gray-400">
