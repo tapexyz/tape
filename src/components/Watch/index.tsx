@@ -37,7 +37,7 @@ const VideoDetails = () => {
     (state) => state.addToRecentlyWatched
   )
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-
+  const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
   const [video, setVideo] = useState<LenstubePublication>()
   const [loading, setLoading] = useState(true)
 
@@ -83,6 +83,10 @@ const VideoDetails = () => {
     if (video) addToRecentlyWatched(video)
   }, [video, addToRecentlyWatched])
 
+  useEffect(() => {
+    setVideoWatchTime(Number(t))
+  }, [t, setVideoWatchTime])
+
   if (error) return <Custom500 />
   if (loading || !data) return <VideoDetailShimmer />
   if (!data?.publication && video?.__typename !== 'Post') return <Custom404 />
@@ -93,7 +97,7 @@ const VideoDetails = () => {
       {!loading && !error && video ? (
         <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
           <div className="col-span-3 space-y-3 divide-y divide-gray-200 dark:divide-gray-900">
-            <Video video={video} time={Number(t)} />
+            <Video video={video} />
             <AboutChannel video={video} />
             <VideoComments video={video} />
           </div>

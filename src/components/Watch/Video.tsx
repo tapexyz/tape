@@ -18,10 +18,9 @@ const VideoPlayer = dynamic(() => import('../Common/Players/VideoPlayer'), {
 
 type Props = {
   video: LenstubePublication
-  time?: number
 }
 
-const Video: FC<Props> = ({ video, time }) => {
+const Video: FC<Props> = ({ video }) => {
   const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
 
@@ -52,7 +51,6 @@ const Video: FC<Props> = ({ video, time }) => {
           sanitizeIpfsUrl(video?.metadata?.cover?.original.url),
           'thumbnail'
         )}
-        time={time}
         isSensitiveContent={isSensitiveContent}
       />
       <div className="flex items-center justify-between">

@@ -69,6 +69,8 @@ interface AppState {
   bundlrData: BundlrDataState
   upNextVideo: LenstubePublication | null
   selectedChannel: Profile | null
+  videoWatchTime: number
+  setVideoWatchTime: (videoWatchTime: number) => void
   setSelectedChannel: (channel: Profile | null) => void
   setUploadedVideo: (video: { [k: string]: any }) => void
   setUserSigNonce: (userSigNonce: number) => void
@@ -91,6 +93,8 @@ export const useAppStore = create<AppState>((set) => ({
   bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
   upNextVideo: null,
   selectedChannel: null,
+  videoWatchTime: 0,
+  setVideoWatchTime: (videoWatchTime) => set(() => ({ videoWatchTime })),
   setSelectedChannel: (channel) => set(() => ({ selectedChannel: channel })),
   setUpNextVideo: (upNextVideo) => set(() => ({ upNextVideo })),
   setBundlrData: (bundlrData) =>
