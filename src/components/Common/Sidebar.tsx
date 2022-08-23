@@ -1,4 +1,5 @@
 import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
+import { Mixpanel, TRACK } from '@utils/track'
 import { BYTES, EXPLORE, FEED, HOME, LIBRARY } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -23,6 +24,13 @@ const Sidebar = () => {
   const { theme, setTheme } = useTheme()
 
   const isActivePath = (path: string) => router.pathname === path
+
+  const onToggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark')
+    Mixpanel.track(
+      theme === 'dark' ? TRACK.SYSTEM.THEME.DARK : TRACK.SYSTEM.THEME.LIGHT
+    )
+  }
 
   return (
     <>
@@ -119,9 +127,7 @@ const Sidebar = () => {
         <div className="flex flex-col w-full">
           <button
             type="button"
-            onClick={() => {
-              setTheme(theme === 'dark' ? 'light' : 'dark')
-            }}
+            onClick={() => onToggleTheme()}
             className="flex p-3 py-4 justify-center rounded-lg hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-90 hover:opacity-100"
           >
             {theme === 'light' ? <BiMoon /> : <BiSun />}

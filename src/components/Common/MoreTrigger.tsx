@@ -5,6 +5,7 @@ import {
   LENSTUBE_STATUS_PAGE,
   LENSTUBE_TWITTER_HANDLE
 } from '@utils/constants'
+import { Mixpanel, TRACK } from '@utils/track'
 import { DISCORD, PRIVACY } from '@utils/url-path'
 import Link from 'next/link'
 import React from 'react'
@@ -16,6 +17,7 @@ const MoreTrigger = () => {
       trigger={
         <div className="flex flex-col space-y-2 mb-0.5">
           <button
+            onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.OPEN)}
             type="button"
             className="flex p-3 py-4 justify-center rounded-lg hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-90 hover:opacity-100"
           >
@@ -34,28 +36,44 @@ const MoreTrigger = () => {
           </div>
           <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
             <Link href={DISCORD}>
-              <a className="block px-2.5 py-1.5" target="_blank">
+              <a
+                onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.DISCORD)}
+                className="block px-2.5 py-1.5"
+                target="_blank"
+              >
                 Discord
               </a>
             </Link>
           </div>
           <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
             <Link href={`https://twitter.com/${LENSTUBE_TWITTER_HANDLE}`}>
-              <a className="block px-2.5 py-1.5" target="_blank">
+              <a
+                onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.TWITTER)}
+                className="block px-2.5 py-1.5"
+                target="_blank"
+              >
                 Twitter
               </a>
             </Link>
           </div>
           <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
             <Link href={`https://github.com/${LENSTUBE_GITHUB_HANDLE}`}>
-              <a className="block px-2.5 py-1.5" target="_blank">
+              <a
+                onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.GITHUB)}
+                className="block px-2.5 py-1.5"
+                target="_blank"
+              >
                 Github
               </a>
             </Link>
           </div>
           <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
             <Link href={LENSTUBE_STATUS_PAGE}>
-              <a className="block px-2.5 py-1.5" target="_blank">
+              <a
+                onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
+                className="block px-2.5 py-1.5"
+                target="_blank"
+              >
                 Status
               </a>
             </Link>
