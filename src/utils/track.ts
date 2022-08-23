@@ -3,6 +3,8 @@ import mixpanel, { Dict } from 'mixpanel-browser'
 import { IS_MAINNET, MIXPANEL_TOKEN } from './constants'
 
 export const TRACK = {
+  SEARCH_CHANNELS: 'Search Channels',
+  SEARCH_VIDEOS: 'Search Videos',
   SYSTEM: {
     THEME: {
       DARK: 'Seleted Dark Theme',
