@@ -24,6 +24,10 @@ const moduleExports = withAxiom(
             {
               source: '/sitemaps/:match*',
               destination: 'https://assets.lenstube.xyz/sitemaps/:match*'
+            },
+            {
+              source: '/collect/:match*',
+              destination: 'https://api.mixpanel.com/:match*'
             }
           ]
         },
