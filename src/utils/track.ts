@@ -3,6 +3,18 @@ import mixpanel, { Dict } from 'mixpanel-browser'
 import { IS_MAINNET, MIXPANEL_TOKEN } from './constants'
 
 export const TRACK = {
+  COLLECT: {
+    OPEN: 'Open Collect',
+    FREE: 'Collected for Free',
+    FEE: 'Collected for Fee'
+  },
+  COPY: { VIDEO_URL: 'Copy Video Url' },
+  SHARE_VIDEO: {
+    LENSTER: 'Share to Lenster',
+    TWITTER: 'Share to Twitter',
+    REDDIT: 'Share to Reddit',
+    LINKEDIN: 'Share to LinkedIn'
+  },
   SEARCH_CHANNELS: 'Search Channels',
   SEARCH_VIDEOS: 'Search Videos',
   SYSTEM: {
