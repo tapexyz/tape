@@ -35,14 +35,14 @@ interface PlayerProps {
   hls?: HLSData
 }
 
-const PlayerInstance = ({ time, source, ratio, hls, poster }: PlayerProps) => {
+const PlayerInstance = ({ source, ratio, hls, poster }: PlayerProps) => {
   const playerRef = useRef<HTMLVmPlayerElement>()
   const [showContextMenu, setShowContextMenu] = useState(false)
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isVideoLoop, setIsVideoLoop] = useState(false)
   const { pathname } = useRouter()
   const upNextVideo = useAppStore((state) => state.upNextVideo)
-
+  const videoWatchTime = useAppStore((state) => state.videoWatchTime)
   const [showNext, setShowNext] = useState(false)
   const router = useRouter()
 
@@ -82,6 +82,11 @@ const PlayerInstance = ({ time, source, ratio, hls, poster }: PlayerProps) => {
   }
 
   useEffect(() => {
+    if (!playerRef.current) return
+    playerRef.current.currentTime = Number(videoWatchTime || 0)
+  }, [playerRef, videoWatchTime])
+
+  useEffect(() => {
     const currentVideo = document.getElementsByTagName('video')[0]
     if (!currentVideo) return
     currentVideo.onplaying = () => {
@@ -95,9 +100,8 @@ const PlayerInstance = ({ time, source, ratio, hls, poster }: PlayerProps) => {
       }
     }
     currentVideo.onloadedmetadata = () => {
-      currentVideo.currentTime = Number(time || 0)
+      currentVideo.currentTime = Number(videoWatchTime || 0)
     }
-
     if (playerRef.current) handleKeyboardShortcuts()
   })
 
