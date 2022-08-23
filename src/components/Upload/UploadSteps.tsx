@@ -27,6 +27,7 @@ import { CREATE_POST_VIA_DISPATHCER } from '@utils/gql/dispatcher'
 import { BROADCAST_MUTATION, CREATE_POST_TYPED_DATA } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import useTxnToast from '@utils/hooks/useTxnToast'
+import { Mixpanel, TRACK } from '@utils/track'
 import axios from 'axios'
 import { utils } from 'ethers'
 import React, { useEffect } from 'react'
@@ -60,6 +61,10 @@ const UploadSteps = () => {
   const { address } = useAccount()
   const { data: signer } = useSigner()
   const { showToast } = useTxnToast()
+
+  useEffect(() => {
+    Mixpanel.track(TRACK.PAGE_VIEW.UPLOAD.STEPS)
+  }, [])
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)

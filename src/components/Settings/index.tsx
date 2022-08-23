@@ -3,6 +3,7 @@ import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
 import useAppStore from '@lib/store'
 import { PROFILE_QUERY } from '@utils/gql/queries'
+import { Mixpanel, TRACK } from '@utils/track'
 import {
   SETTINGS,
   SETTINGS_DANGER_ZONE,
@@ -11,7 +12,7 @@ import {
 } from '@utils/url-path'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { MediaSet, Profile } from 'src/types'
@@ -26,6 +27,9 @@ const DangerZone = dynamic(() => import('./DangerZone'))
 const Settings = () => {
   const router = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  useEffect(() => {
+    Mixpanel.track(TRACK.PAGE_VIEW.SETTINGS)
+  }, [])
 
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
     variables: {

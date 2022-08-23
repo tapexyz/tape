@@ -2,9 +2,10 @@ import MetaTags from '@components/Common/MetaTags'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import useDragAndDrop from '@utils/hooks/useDragAndDrop'
+import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
-import React from 'react'
+import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { FiUpload } from 'react-icons/fi'
 
@@ -18,6 +19,10 @@ const DropZone = () => {
     fileDropError,
     setFileDropError
   } = useDragAndDrop()
+
+  useEffect(() => {
+    Mixpanel.track(TRACK.PAGE_VIEW.UPLOAD.DROPZONE)
+  }, [])
 
   const uploadVideo = (file: File) => {
     try {

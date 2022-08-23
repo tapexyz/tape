@@ -1,7 +1,12 @@
 import MetaTags from '@components/Common/MetaTags'
-import React from 'react'
+import { Mixpanel, TRACK } from '@utils/track'
+import React, { useEffect } from 'react'
 
-const index = () => {
+const Privacy = () => {
+  useEffect(() => {
+    Mixpanel.track(TRACK.PAGE_VIEW.PRIVACY)
+  }, [])
+
   return (
     <div className="space-y-5 md:py-10">
       <MetaTags title="Privacy Policy" />
@@ -66,4 +71,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Privacy

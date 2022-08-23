@@ -6,7 +6,8 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import logger from '@lib/logger'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
-import React, { useState } from 'react'
+import { Mixpanel, TRACK } from '@utils/track'
+import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PaginatedResultInfo } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
@@ -14,6 +15,9 @@ import { LenstubePublication } from 'src/types/local'
 const Recents = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  useEffect(() => {
+    Mixpanel.track(TRACK.PAGE_VIEW.EXPLORE_RECENT)
+  }, [])
 
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
