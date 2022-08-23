@@ -19,7 +19,8 @@ export const TRACK = {
     SETTINGS: 'Settings Page',
     WATCH: 'Watch Page',
     BYTES: 'Bytes Page',
-    NOTIFICATIONS: 'Notifications Page'
+    NOTIFICATIONS: 'Notifications Page',
+    LIBRARY: 'Library Page'
   }
 }
 

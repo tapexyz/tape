@@ -5,9 +5,8 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import logger from '@lib/logger'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { EXPLORE_QUERY } from '@utils/gql/queries'
-import { Mixpanel, TRACK } from '@utils/track'
 import dynamic from 'next/dynamic'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PaginatedResultInfo } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
@@ -19,9 +18,6 @@ const Timeline = dynamic(() => import('../Home/Timeline'), {
 const LooksRare = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.EXPLORE_RARE)
-  }, [])
 
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {

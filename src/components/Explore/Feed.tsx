@@ -1,4 +1,5 @@
 import { Tab } from '@headlessui/react'
+import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
 import React from 'react'
 
@@ -7,6 +8,9 @@ import Recents from './Recents'
 import Trending from './Trending'
 
 const ExploreFeed = () => {
+  const onClickLooksRare = () => {
+    Mixpanel.track(TRACK.PAGE_VIEW.EXPLORE_RARE)
+  }
   return (
     <div>
       <div className="w-full col-span-9">
@@ -56,7 +60,10 @@ const ExploreFeed = () => {
             <Tab.Panel className="py-3 focus:outline-none">
               <Trending />
             </Tab.Panel>
-            <Tab.Panel className="py-3 focus:outline-none">
+            <Tab.Panel
+              onClick={() => onClickLooksRare()}
+              className="py-3 focus:outline-none"
+            >
               <LooksRare />
             </Tab.Panel>
           </Tab.Panels>
