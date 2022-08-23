@@ -6,7 +6,9 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 const PING_QUERY = gql`
   query Ping {
-    ping
+    profile(request: { profileId: "0x2d" }) {
+      id
+    }
   }
 `
 
@@ -15,9 +17,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { data, networkStatus } = await nodeClient.query({
       query: PING_QUERY
     })
-    return res
-      .status(networkStatus === 7 ? 200 : 500)
-      .json({ success: networkStatus === 7, ping: data?.ping })
+    return res.status(networkStatus === 7 ? 200 : 500).json({
+      success: networkStatus === 7,
+      ping: data?.profile?.id === '0x2d' ? 'pong' : 'oops'
+    })
   } catch (error) {
     logger.error('[API Error Ping]', error)
     return res.status(500).json({ success: false, message: ERROR_MESSAGE })
