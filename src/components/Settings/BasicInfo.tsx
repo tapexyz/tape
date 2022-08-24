@@ -16,6 +16,7 @@ import {
   RELAYER_ENABLED,
   TALLY_VERIFICATION_FORM_URL
 } from '@utils/constants'
+import { VERIFIED_CHANNELS } from '@utils/data/verified'
 import getCoverPicture from '@utils/functions/getCoverPicture'
 import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import imageCdn from '@utils/functions/imageCdn'
@@ -288,7 +289,7 @@ const BasicInfo = ({ channel }: Props) => {
             <span>{channel?.handle}</span>
             <IsVerified id={channel?.id} size="xs" />
           </h6>
-          {IS_MAINNET && (
+          {IS_MAINNET && !VERIFIED_CHANNELS.includes(channel?.id) && (
             <Link href={TALLY_VERIFICATION_FORM_URL}>
               <a
                 target="_blank"
