@@ -23,7 +23,7 @@
     "@sentry/nextjs": "^7.11.1",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/line-clamp": "^0.4.0",
-    "@tensorflow/tfjs": "^3.19.0",
+    "@tensorflow/tfjs": "^3.20.0",
     "@tippyjs/react": "^4.2.6",
     "@vime/core": "^5.3.1",
     "@vime/react": "^5.3.1",
