@@ -26,16 +26,16 @@ type Props = {
   setShowModal: Dispatch<boolean>
   video: LenstubePublication
   // eslint-disable-next-line no-unused-vars
-  handleMint: (validate: boolean) => void
-  minting: boolean
+  handleCollect: (validate: boolean) => void
+  collecting: boolean
 }
 
-const MintModal: FC<Props> = ({
+const CollectModal: FC<Props> = ({
   showModal,
   setShowModal,
   video,
-  handleMint,
-  minting
+  handleCollect,
+  collecting
 }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const isSignedUser = usePersistStore((state) => state.isSignedUser)
@@ -100,9 +100,12 @@ const MintModal: FC<Props> = ({
     )
       setHaveEnoughBalance(false)
     else setHaveEnoughBalance(true)
-    refetchAllowance()
+    if (collectModule) {
+      refetchAllowance()
+    }
   }, [
     balanceData,
+    collectModule,
     collectModule?.amount?.value,
     collectModule?.amount,
     refetchAllowance
@@ -110,7 +113,7 @@ const MintModal: FC<Props> = ({
 
   return (
     <Modal
-      title="Mint Video"
+      title="Collect Video"
       panelClassName="max-w-md"
       onClose={() => setShowModal(false)}
       show={showModal}
@@ -120,7 +123,7 @@ const MintModal: FC<Props> = ({
           <>
             {collectModule?.amount ? (
               <div className="flex flex-col mb-3">
-                <span className="text-xs">Amount</span>
+                <span className="text-sm">Price</span>
                 <span className="space-x-1">
                   <span className="text-2xl font-semibold">
                     {collectModule?.amount?.value}
@@ -159,7 +162,7 @@ const MintModal: FC<Props> = ({
             ) : null}
             {collectModule?.endTimestamp ? (
               <div className="flex flex-col mb-3">
-                <span className="mb-0.5 text-sm">Mint ends</span>
+                <span className="mb-0.5 text-sm">Ends At</span>
                 <span className="text-lg">
                   {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
                   {dayjs(collectModule.endTimestamp).format('hh:mm a')}
@@ -177,9 +180,9 @@ const MintModal: FC<Props> = ({
                 collectModule?.followerOnly && !video.profile.isFollowedByMe ? (
                   <div className="flex-1">
                     <Alert variant="warning">
-                      <div className="flex text-sm">
+                      <div className="flex px-2">
                         Only {isMembershipActive ? 'Members' : 'Subscribers'}{' '}
-                        can mint this publication
+                        can collect this publication
                       </div>
                     </Alert>
                   </div>
@@ -188,8 +191,11 @@ const MintModal: FC<Props> = ({
                     <Loader />
                   </div>
                 ) : haveEnoughBalance ? (
-                  <Button disabled={minting} onClick={() => handleMint(false)}>
-                    Mint
+                  <Button
+                    disabled={collecting}
+                    onClick={() => handleCollect(false)}
+                  >
+                    Collect Now
                   </Button>
                 ) : (
                   <BalanceAlert collectModule={collectModule} />
@@ -216,4 +222,4 @@ const MintModal: FC<Props> = ({
   )
 }
 
-export default MintModal
+export default CollectModal

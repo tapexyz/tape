@@ -63,8 +63,8 @@ export type CollectModuleType = {
   isFreeCollect?: boolean
   isFeeCollect?: boolean
   isRevertCollect?: boolean
-  isLimitedFeeCollect?: boolean // collect only specified mints
-  isLimitedTimeFeeCollect?: boolean // collect only specified mints in 24hrs
+  isLimitedFeeCollect?: boolean
+  isLimitedTimeFeeCollect?: boolean
   amount?: { currency?: string; value: string }
   referralFee?: number
   collectLimit?: string

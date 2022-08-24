@@ -1,4 +1,4 @@
-import MintVideo from '@components/Watch/MintVideo'
+import CollectVideo from '@components/Watch/CollectVideo'
 import logger from '@lib/logger'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import { getPermanentVideoUrl, getVideoUrl } from '@utils/functions/getVideoUrl'
@@ -92,9 +92,9 @@ const ByteVideo: FC<Props> = ({ video }) => {
           {video?.collectModule?.__typename !==
             'RevertCollectModuleSettings' && (
             <div className="text-center text-white md:text-gray-500">
-              <MintVideo video={video} variant="secondary" />
+              <CollectVideo video={video} variant="secondary" />
               <div className="text-xs">
-                {video.stats?.totalAmountOfCollects || 'Mint'}
+                {video.stats?.totalAmountOfCollects || 'Collect'}
               </div>
             </div>
           )}

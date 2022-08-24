@@ -85,6 +85,22 @@ const FeeCollectForm: FC<Props> = ({
 
   return (
     <form className="space-y-3">
+      {uploadedVideo.collectModule.isLimitedFeeCollect ||
+      uploadedVideo.collectModule.isLimitedTimeFeeCollect ? (
+        <div>
+          <Input
+            type="number"
+            label="Collect Limit"
+            placeholder="3"
+            min="0"
+            autoComplete="off"
+            validationError={errors.collectLimit?.message}
+            {...register('collectLimit', {
+              setValueAs: (v) => String(v)
+            })}
+          />
+        </div>
+      ) : null}
       <div>
         <div className="flex items-center mb-1 space-x-1.5">
           <div className="text-[11px] font-semibold uppercase opacity-70">
@@ -144,22 +160,6 @@ const FeeCollectForm: FC<Props> = ({
           validationError={errors.referralPercent?.message}
         />
       </div>
-      {uploadedVideo.collectModule.isLimitedFeeCollect ||
-      uploadedVideo.collectModule.isLimitedTimeFeeCollect ? (
-        <div>
-          <Input
-            type="number"
-            label="Collect Limit"
-            placeholder="3"
-            min="0"
-            autoComplete="off"
-            validationError={errors.collectLimit?.message}
-            {...register('collectLimit', {
-              setValueAs: (v) => String(v)
-            })}
-          />
-        </div>
-      ) : null}
       <div className="flex justify-end">
         <Button type="button" onClick={() => handleSubmit(onSubmit)()}>
           Set Collect Type

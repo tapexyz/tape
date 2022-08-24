@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { PROXY_ACTION_STATUS_QUERY } from '@utils/gql/proxy-action'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 
 const useProxyActionStatus = (proxyActionId: string) => {
   const { data, loading, stopPolling } = useQuery(PROXY_ACTION_STATUS_QUERY, {
@@ -11,14 +11,15 @@ const useProxyActionStatus = (proxyActionId: string) => {
     pollInterval: 1000
   })
 
-  useEffect(() => {
-    const checkIsMinted = () => {
-      if (data?.proxyActionStatus?.txId) {
-        stopPolling()
-      }
+  const checkIsTxnSubmitted = useCallback(() => {
+    if (data?.proxyActionStatus?.txId) {
+      stopPolling()
     }
-    checkIsMinted()
-  }, [data, stopPolling])
+  }, [data?.proxyActionStatus?.txId, stopPolling])
+
+  useEffect(() => {
+    checkIsTxnSubmitted()
+  }, [data, stopPolling, checkIsTxnSubmitted])
 
   return {
     txId: data?.proxyActionStatus?.txId,

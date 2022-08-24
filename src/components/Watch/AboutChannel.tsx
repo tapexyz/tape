@@ -9,7 +9,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { LenstubePublication } from 'src/types/local'
 
-const MintVideo = dynamic(() => import('./MintVideo'))
+const CollectVideo = dynamic(() => import('./CollectVideo'))
 
 type Props = {
   video: LenstubePublication
@@ -56,7 +56,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
             </div>
             <div className="flex items-center space-x-2">
               {video?.collectModule?.__typename !==
-                'RevertCollectModuleSettings' && <MintVideo video={video} />}
+                'RevertCollectModuleSettings' && <CollectVideo video={video} />}
               <SubscribeActions
                 channel={channel}
                 subscribeType={subscribeType}

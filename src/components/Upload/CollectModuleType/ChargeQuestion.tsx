@@ -29,7 +29,7 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             }
           )}
         >
-          <span>Mint for Free</span>
+          <span>Collect for Free</span>
           {uploadedVideo.collectModule.isFreeCollect && <AiOutlineCheck />}
         </button>
         <button

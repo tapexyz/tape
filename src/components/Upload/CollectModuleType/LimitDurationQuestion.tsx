@@ -15,7 +15,7 @@ const LimitDurationQuestion: FC<Props> = ({
 }) => {
   return (
     <div className="space-y-2">
-      <h6>Would you like to limit the mint duration?</h6>
+      <h6>Would you like to limit the collect duration?</h6>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <button
           type="button"
