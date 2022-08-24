@@ -12,6 +12,7 @@ import omitKey from '@utils/functions/omitKey'
 import { CREATE_SET_DISPATCHER_TYPED_DATA } from '@utils/gql/dispatcher'
 import { BROADCAST_MUTATION, PROFILE_QUERY } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
+import { Mixpanel, TRACK } from '@utils/track'
 import { utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -60,6 +61,7 @@ const Toggle = () => {
   useEffect(() => {
     if (indexed) {
       toast.success(`Dispatcher ${canUseRelay ? 'disabled' : 'enabled'}`)
+      Mixpanel.track(TRACK.DISPATCHER_ENABLED)
       refetchChannel({
         variables: {
           request: { handles: selectedChannel?.handle }

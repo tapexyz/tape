@@ -3,6 +3,7 @@ import mixpanel, { Dict } from 'mixpanel-browser'
 import { IS_MAINNET, MIXPANEL_TOKEN } from './constants'
 
 export const TRACK = {
+  DISPATCHER_ENABLED: 'Dispatcher Enabled',
   COLLECT: {
     OPEN: 'Open Collect',
     FREE: 'Collected for Free',
