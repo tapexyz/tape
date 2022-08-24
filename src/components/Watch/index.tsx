@@ -56,7 +56,7 @@ const VideoDetails = () => {
       const { data } = await axios.get(
         `https://livepeer.studio/api/playback/${playbackId}`
       )
-      let videoObject = { ...currentVideo }
+      const videoObject = { ...currentVideo }
       if (getIsHlsSupported()) {
         videoObject.hls = data.meta?.source[0]
       }

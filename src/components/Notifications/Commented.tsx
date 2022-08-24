@@ -34,13 +34,13 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-600 truncate dark:text-gray-400">
           commented on your
-          <Link href={`/watch/${notification.comment.commentOn!.id}`}>
-            <a
-              href={`/watch/${notification?.comment.id}`}
-              className="ml-1 text-indigo-500"
-            >
-              video
-            </a>
+          <Link
+            href={`/watch/${
+              notification?.comment?.commentOn &&
+              notification?.comment?.commentOn?.id
+            }`}
+          >
+            <a className="ml-1 text-indigo-500">video</a>
           </Link>
         </span>
         <div className="flex items-center flex-none space-x-1 text-xs text-gray-400">
