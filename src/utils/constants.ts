@@ -39,6 +39,8 @@ export const BUNDLR_CURRENCY = 'matic'
 export const BUNDLR_WEBSITE_URL = 'https://bundlr.network'
 export const ARWEAVE_WEBSITE_URL = 'https://arweave.net'
 
+export const TALLY_VERIFICATION_FORM_URL = 'https://tally.so/r/mY5e80'
+
 export const LENSTER_WEBSITE_URL = IS_MAINNET
   ? 'https://lenster.xyz'
   : 'https://testnet.lenster.xyz'

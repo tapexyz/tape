@@ -9,11 +9,14 @@ import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import {
   ERROR_MESSAGE,
+  IS_MAINNET,
   LENS_PERIPHERY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_URL,
-  RELAYER_ENABLED
+  RELAYER_ENABLED,
+  TALLY_VERIFICATION_FORM_URL
 } from '@utils/constants'
+import { VERIFIED_CHANNELS } from '@utils/data/verified'
 import getCoverPicture from '@utils/functions/getCoverPicture'
 import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import imageCdn from '@utils/functions/imageCdn'
@@ -30,6 +33,7 @@ import {
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { utils } from 'ethers'
+import Link from 'next/link'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -280,10 +284,23 @@ const BasicInfo = ({ channel }: Props) => {
             Channel
           </div>
         </div>
-        <h6 className="flex items-center space-x-1">
-          <span>{channel?.handle}</span>
-          <IsVerified id={channel?.id} size="xs" />
-        </h6>
+        <div className="flex items-center space-x-3">
+          <h6 className="flex items-center space-x-1">
+            <span>{channel?.handle}</span>
+            <IsVerified id={channel?.id} size="xs" />
+          </h6>
+          {IS_MAINNET && !VERIFIED_CHANNELS.includes(channel?.id) && (
+            <Link href={TALLY_VERIFICATION_FORM_URL}>
+              <a
+                target="_blank"
+                rel="noreferer noreferrer"
+                className="text-sm text-transparent bg-clip-text bg-gradient-to-br from-purple-500 to-indigo-600"
+              >
+                ( Get Verified )
+              </a>
+            </Link>
+          )}
+        </div>
       </div>
       <div className="mt-4">
         <div className="flex items-center mb-1">
