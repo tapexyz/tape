@@ -1,4 +1,4 @@
-const omitKey = (object: any, key: string) => {
+const omitKey = (object: { [key: string]: any }, key: string) => {
   delete object[key]
   return object
 }
