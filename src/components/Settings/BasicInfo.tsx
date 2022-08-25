@@ -32,6 +32,7 @@ import {
 } from '@utils/gql/queries'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
+import { Mixpanel, TRACK } from '@utils/track'
 import { utils } from 'ethers'
 import Link from 'next/link'
 import React, { ChangeEvent, useEffect, useState } from 'react'
@@ -74,7 +75,6 @@ type FormData = z.infer<typeof formSchema>
 const BasicInfo = ({ channel }: Props) => {
   const [, copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
-  const [buttonText, setButtonText] = useState('Save')
   const [coverImage, setCoverImage] = useState(getCoverPicture(channel) || '')
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
@@ -99,7 +99,7 @@ const BasicInfo = ({ channel }: Props) => {
 
   const onCompleted = () => {
     toast.success('Channel details updated')
-    setButtonText('Indexing...')
+    Mixpanel.track(TRACK.UPDATED_CHANNEL_INFO)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -136,7 +136,6 @@ const BasicInfo = ({ channel }: Props) => {
   useEffect(() => {
     if (indexed) {
       setLoading(false)
-      setButtonText('Save')
     }
   }, [indexed])
 
@@ -169,6 +168,7 @@ const BasicInfo = ({ channel }: Props) => {
             writeMetaData?.({ recklesslySetUnpreparedArgs: args })
           }
         } catch (error) {
+          setLoading(false)
           logger.error('[Error Set Basic info Typed Data]', error)
         }
       },
@@ -193,7 +193,6 @@ const BasicInfo = ({ channel }: Props) => {
   const onSaveBasicInfo = async (data: FormData) => {
     setLoading(true)
     try {
-      setButtonText('Uploading to Arweave...')
       const { url } = await uploadToAr({
         version: '1.0.0',
         name: data.displayName || null,
@@ -235,7 +234,6 @@ const BasicInfo = ({ channel }: Props) => {
         profileId: channel?.id,
         metadata: url
       }
-      setButtonText('Saving...')
       if (selectedChannel?.dispatcher?.canUseRelay) {
         createSetProfileMetadataViaDispatcher({ variables: { request } })
       } else {
@@ -244,7 +242,6 @@ const BasicInfo = ({ channel }: Props) => {
         })
       }
     } catch (error) {
-      setButtonText('Save')
       setLoading(false)
       logger.error('[Error Store & Save Basic info]', error)
     }
@@ -292,6 +289,7 @@ const BasicInfo = ({ channel }: Props) => {
           {IS_MAINNET && !VERIFIED_CHANNELS.includes(channel?.id) && (
             <Link href={TALLY_VERIFICATION_FORM_URL}>
               <a
+                onClick={() => Mixpanel.track(TRACK.GET_VERIFIED)}
                 target="_blank"
                 rel="noreferer noreferrer"
                 className="text-sm text-transparent bg-clip-text bg-gradient-to-br from-purple-500 to-indigo-600"
@@ -360,7 +358,7 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="flex justify-end mt-4">
         <Button disabled={loading} loading={loading}>
-          {buttonText}
+          Save
         </Button>
       </div>
     </form>

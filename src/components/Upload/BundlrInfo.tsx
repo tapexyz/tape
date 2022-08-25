@@ -9,7 +9,6 @@ import {
   BUNDLR_WEBSITE_URL,
   POLYGON_CHAIN_ID
 } from '@utils/constants'
-import { parseToAtomicUnits } from '@utils/functions/parseToAtomicUnits'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import { utils } from 'ethers'
 import Link from 'next/link'
@@ -95,16 +94,16 @@ const BundlrInfo = () => {
     if (!bundlrData.instance) return await initBundlr()
     if (!bundlrData.deposit) return toast.error('Enter deposit amount')
     const depositAmount = parseFloat(bundlrData.deposit)
-    const value = parseToAtomicUnits(
-      depositAmount,
-      bundlrData.instance.currencyConfig.base[1]
-    )
-    if (!value) return toast.error('Invalid deposit amount')
+    const value = utils.parseUnits(depositAmount.toString())._hex
+    if (!value || Number(value) < 1) {
+      return toast.error('Invalid deposit amount')
+    }
     if (
       userBalance?.formatted &&
       parseFloat(userBalance?.formatted) < depositAmount
-    )
+    ) {
       return toast.error('Insufficient funds in your wallet')
+    }
     setBundlrData({ depositing: true })
     try {
       const fundResult = await bundlrData.instance.fund(value)
@@ -186,10 +185,11 @@ const BundlrInfo = () => {
               <Button
                 type="button"
                 disabled={bundlrData.depositing}
+                loading={bundlrData.depositing}
                 onClick={() => depositToBundlr()}
                 className="mb-0.5 !py-1.5"
               >
-                {bundlrData.depositing ? 'Loading...' : 'Deposit'}
+                Deposit
               </Button>
             </div>
           </div>

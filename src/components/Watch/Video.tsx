@@ -9,9 +9,9 @@ import dynamic from 'next/dynamic'
 import React, { FC, useEffect, useState } from 'react'
 import { LenstubePublication } from 'src/types/local'
 
+import VideoActions from './VideoActions'
 import VideoMeta from './VideoMeta'
 
-const VideoActions = dynamic(() => import('./VideoActions'))
 const VideoPlayer = dynamic(() => import('../Common/Players/VideoPlayer'), {
   loading: () => <CardShimmer />
 })

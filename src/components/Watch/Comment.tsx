@@ -20,7 +20,6 @@ import { LenstubePublication } from 'src/types/local'
 
 dayjs.extend(relativeTime)
 
-const ImageAttachments = dynamic(() => import('../Common/ImageAttachments'))
 const CommentOptions = dynamic(() => import('./CommentOptions'))
 const PublicationReaction = dynamic(() => import('./PublicationReaction'))
 
@@ -114,9 +113,6 @@ const Comment: FC<Props> = ({ comment }) => {
               )}
             </button>
           )}
-          <span className="mt-1">
-            <ImageAttachments attachments={comment?.metadata?.media} />
-          </span>
           {!comment.hidden && (
             <div className="mt-1">
               <PublicationReaction iconSize="xs" publication={comment} />

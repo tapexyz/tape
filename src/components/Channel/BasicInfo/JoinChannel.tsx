@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import logger from '@lib/logger'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
   ERROR_MESSAGE,
@@ -33,6 +34,8 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const [isAllowed, setIsAllowed] = useState(false)
   const [buttonText, setButtonText] = useState('Join Channel')
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -109,6 +112,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
             deadline: typedData.value.deadline
           }
         }
+        setUserSigNonce(userSigNonce + 1)
         if (RELAYER_ENABLED) {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
@@ -135,6 +139,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     setButtonText('Joining...')
     createJoinTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: {
           follow: {
             profile: channel?.id,

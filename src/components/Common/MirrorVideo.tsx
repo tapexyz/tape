@@ -32,6 +32,8 @@ type Props = {
 
 const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
@@ -67,7 +69,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     functionName: 'mirrorWithSig',
     mode: 'recklesslyUnprepared',
     onError,
-    onSuccess: () => onCompleted
+    onSuccess: onCompleted
   })
 
   const [broadcast] = useMutation(BROADCAST_MUTATION, {
@@ -104,6 +106,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
           referenceModuleInitData,
           sig
         }
+        setUserSigNonce(userSigNonce + 1)
         if (RELAYER_ENABLED) {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
@@ -114,6 +117,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
           mirrorWithSig?.({ recklesslySetUnpreparedArgs: inputStruct })
         }
       } catch (error) {
+        setLoading(false)
         logger.error('[Error Mirror Video Typed Data]', error)
       }
     },
@@ -133,7 +137,12 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     if (selectedChannel?.dispatcher?.canUseRelay) {
       createMirrorViaDispatcher({ variables: { request } })
     } else {
-      createMirrorTypedData({ variables: { request } })
+      createMirrorTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      })
     }
   }
 

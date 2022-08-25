@@ -78,6 +78,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const [buttonText, setButtonText] = useState<string | null>(null)
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error.message)
@@ -124,7 +126,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
-  const [createTypedData] = useMutation(CREATE_COMMENT_TYPED_DATA, {
+  const [createCommentTypedData] = useMutation(CREATE_COMMENT_TYPED_DATA, {
     async onCompleted(data) {
       const { typedData, id } = data.createCommentTypedData
       const {
@@ -158,6 +160,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           referenceModuleInitData,
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
+        setUserSigNonce(userSigNonce + 1)
         if (RELAYER_ENABLED) {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
@@ -215,8 +218,9 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         media: [],
         appId: LENSTUBE_APP_ID
       })
-      createTypedData({
+      createCommentTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: {
             profileId: selectedChannel?.id,
             publicationId: video?.id,

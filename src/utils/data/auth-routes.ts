@@ -1,7 +1,6 @@
 // auth routes
 export const AUTH_ROUTES = [
   '/upload',
-  '/live',
   '/settings',
   '/feed',
   '/report/[id]',

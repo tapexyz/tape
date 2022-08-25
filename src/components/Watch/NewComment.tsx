@@ -54,6 +54,8 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const [buttonText, setButtonText] = useState('Comment')
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
   const {
     register,
@@ -150,6 +152,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
         setButtonText('Commenting...')
+        setUserSigNonce(userSigNonce + 1)
         if (RELAYER_ENABLED) {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
@@ -216,6 +219,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       } else {
         createCommentTypedData({
           variables: {
+            options: { overrideSigNonce: userSigNonce },
             request
           }
         })

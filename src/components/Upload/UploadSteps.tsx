@@ -92,7 +92,7 @@ const UploadSteps = () => {
     onError
   })
 
-  const { write: writePostContract } = useContractWrite({
+  const { write: writePostContract, data: writePostData } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'postWithSig',
@@ -107,9 +107,20 @@ const UploadSteps = () => {
     onError
   })
 
-  const [createPostViaDispatcher] = useMutation(CREATE_POST_VIA_DISPATHCER, {
-    onError,
-    onCompleted
+  const [createPostViaDispatcher, { data: dispatcherData }] = useMutation(
+    CREATE_POST_VIA_DISPATHCER,
+    {
+      onError,
+      onCompleted
+    }
+  )
+
+  usePendingTxn({
+    txHash:
+      dispatcherData?.createPostViaDispatcher?.txHash ??
+      broadcastData?.broadcast?.txHash ??
+      writePostData?.hash,
+    isPublication: true
   })
 
   const getPlaybackId = async (url: string) => {

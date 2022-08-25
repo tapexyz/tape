@@ -32,6 +32,8 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const [loading, setLoading] = useState(false)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -94,6 +96,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             imageURI,
             sig: { v, r, s, deadline: typedData.value.deadline }
           }
+          setUserSigNonce(userSigNonce + 1)
           if (RELAYER_ENABLED) {
             const { data } = await broadcast({
               variables: { request: { id, signature } }
@@ -127,7 +130,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           createSetProfileImageViaDispatcher({ variables: { request } })
         } else {
           createSetProfileImageURITypedData({
-            variables: { request }
+            variables: { options: { overrideSigNonce: userSigNonce }, request }
           })
         }
         setSelectedPfp(result.url)

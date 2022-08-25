@@ -23,6 +23,8 @@ const Toggle = () => {
   const [loading, setLoading] = useState(false)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
   const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
 
   const onError = (error: any) => {
@@ -93,6 +95,7 @@ const Toggle = () => {
             dispatcher,
             sig: { v, r, s, deadline }
           }
+          setUserSigNonce(userSigNonce + 1)
           if (RELAYER_ENABLED) {
             const { data } = await broadcast({
               variables: { request: { id, signature } }
@@ -113,6 +116,7 @@ const Toggle = () => {
     setLoading(true)
     createDispatcherTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: selectedChannel?.id,
           enable: !canUseRelay
