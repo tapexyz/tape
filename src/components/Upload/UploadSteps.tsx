@@ -25,7 +25,6 @@ import uploadToAr from '@utils/functions/uploadToAr'
 import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
 import { CREATE_POST_VIA_DISPATHCER } from '@utils/gql/dispatcher'
 import { BROADCAST_MUTATION, CREATE_POST_TYPED_DATA } from '@utils/gql/queries'
-import usePendingTxn from '@utils/hooks/usePendingTxn'
 import useTxnToast from '@utils/hooks/useTxnToast'
 import { Mixpanel, TRACK } from '@utils/track'
 import axios from 'axios'
@@ -76,6 +75,7 @@ const UploadSteps = () => {
 
   const onCompleted = (data: any) => {
     if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
+      Mixpanel.track(TRACK.UPLOADED_VIDEO)
       showToast(data?.broadcast?.txHash)
       setUploadedVideo({
         buttonText: 'Indexing...',
@@ -87,12 +87,12 @@ const UploadSteps = () => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
     onError
   })
 
-  const { data: writePostData, write: writePostContract } = useContractWrite({
+  const { write: writePostContract } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'postWithSig',
@@ -107,26 +107,10 @@ const UploadSteps = () => {
     onError
   })
 
-  const [createPostViaDispatcher, { data: dispatcherData }] = useMutation(
-    CREATE_POST_VIA_DISPATHCER,
-    {
-      onError,
-      onCompleted
-    }
-  )
-
-  const { indexed } = usePendingTxn({
-    txHash:
-      dispatcherData?.createPostViaDispatcher?.txHash ??
-      broadcastData?.broadcast?.txHash ??
-      writePostData?.hash,
-    isPublication: true
+  const [createPostViaDispatcher] = useMutation(CREATE_POST_VIA_DISPATHCER, {
+    onError,
+    onCompleted
   })
-
-  useEffect(() => {
-    if (indexed) setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [indexed])
 
   const getPlaybackId = async (url: string) => {
     // Only on production

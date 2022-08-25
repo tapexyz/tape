@@ -4,6 +4,7 @@ import { IS_MAINNET, MIXPANEL_TOKEN } from './constants'
 
 export const TRACK = {
   DISPATCHER_ENABLED: 'Dispatcher Enabled',
+  UPLOADED_VIDEO: 'Uploaded Video',
   COLLECT: {
     OPEN: 'Open Collect',
     FREE: 'Collected for Free',

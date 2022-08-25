@@ -836,8 +836,11 @@ export const CREATE_COMMENT_TYPED_DATA = gql`
 `
 
 export const CREATE_COLLECT_TYPED_DATA = gql`
-  mutation CreateCollectTypedData($request: CreateCollectRequest!) {
-    createCollectTypedData(request: $request) {
+  mutation CreateCollectTypedData(
+    $options: TypedDataOptions
+    $request: CreateCollectRequest!
+  ) {
+    createCollectTypedData(options: $options, request: $request) {
       id
       expiresAt
       typedData {

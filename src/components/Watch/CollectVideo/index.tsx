@@ -4,6 +4,7 @@ import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
 import logger from '@lib/logger'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
   ERROR_MESSAGE,
@@ -29,18 +30,20 @@ import {
 import { LenstubePublication } from 'src/types/local'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
-import MintModal from './MintModal'
+import CollectModal from './CollectModal'
 
 type Props = {
   video: LenstubePublication
   variant?: 'primary' | 'secondary'
 }
 
-const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
+const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const { address } = useAccount()
   const [loading, setLoading] = useState(false)
-  const [showMintModal, setShowMintModal] = useState(false)
+  const [showCollectModal, setShowCollectModal] = useState(false)
   const isSignedUser = usePersistStore((state) => state.isSignedUser)
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -93,6 +96,7 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
           data: typedData.value.data,
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
+        setUserSigNonce(userSigNonce + 1)
         if (RELAYER_ENABLED) {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
@@ -104,23 +108,23 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
         }
       } catch (error) {
         setLoading(false)
-        logger.error('[Error Mint Video]', error)
+        logger.error('[Error Collect Video]', error)
       }
     },
     onError
   })
 
-  const handleMint = (validate = true) => {
+  const handleCollect = (validate = true) => {
     if (!isSignedUser) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     const isFreeCollect =
       video.collectModule.__typename === 'FreeCollectModuleSettings'
     const collectModule = video.collectModule as FreeCollectModuleSettings
     if ((!isFreeCollect || collectModule.followerOnly) && validate) {
-      return setShowMintModal(true)
+      return setShowCollectModal(true)
     }
     if (!validate) {
       toast('Collecting as NFT...')
-      setShowMintModal(false)
+      setShowCollectModal(false)
     }
     setLoading(true)
     if (isFreeCollect) {
@@ -129,11 +133,7 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
       createProxyActionFreeCollect({
         variables: {
           request: {
-            collect: {
-              freeCollect: {
-                publicationId: video?.id
-              }
-            }
+            collect: { freeCollect: { publicationId: video?.id } }
           }
         }
       })
@@ -141,6 +141,7 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
       Mixpanel.track(TRACK.COLLECT.FEE)
       createCollectTypedData({
         variables: {
+          options: { overrideSigNonce: userSigNonce },
           request: { publicationId: video?.id }
         }
       })
@@ -149,30 +150,30 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
 
   return (
     <div>
-      {showMintModal && (
-        <MintModal
+      {showCollectModal && (
+        <CollectModal
           video={video}
-          showModal={showMintModal}
-          setShowModal={setShowMintModal}
-          handleMint={handleMint}
-          minting={loading}
+          showModal={showCollectModal}
+          setShowModal={setShowCollectModal}
+          handleCollect={handleCollect}
+          collecting={loading}
         />
       )}
       <Tooltip
         content={
           loading
-            ? 'Minting'
+            ? 'Collecting'
             : video.hasCollectedByMe
-            ? 'Mint as NFT again'
-            : 'Mint as NFT'
+            ? 'Already Collected'
+            : 'Collect as NFT'
         }
         placement="top"
       >
         <div>
           <Button
             className="!px-2"
-            disabled={loading}
-            onClick={() => handleMint()}
+            disabled={loading || video.hasCollectedByMe}
+            onClick={() => handleCollect()}
             size="md"
             variant={variant}
           >
@@ -188,4 +189,4 @@ const MintVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   )
 }
 
-export default MintVideo
+export default CollectVideo

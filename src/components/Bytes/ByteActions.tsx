@@ -1,6 +1,6 @@
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
-import MintVideo from '@components/Watch/MintVideo'
+import CollectVideo from '@components/Watch/CollectVideo'
 import PublicationReaction from '@components/Watch/PublicationReaction'
 import React, { FC, useState } from 'react'
 import { LenstubePublication } from 'src/types/local'
@@ -42,9 +42,9 @@ const ByteActions: FC<Props> = ({ video }) => {
         </div>
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
           <div className="hidden md:block">
-            <MintVideo video={video} variant="secondary" />
+            <CollectVideo video={video} variant="secondary" />
             <div className="text-xs text-center">
-              {video.stats?.totalAmountOfCollects || 'Mint'}
+              {video.stats?.totalAmountOfCollects || 'Collect'}
             </div>
           </div>
         )}

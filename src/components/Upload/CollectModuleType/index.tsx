@@ -28,15 +28,17 @@ const CollectModuleType = () => {
     const isLimitedFeeCollect = uploadedVideo.collectModule.isLimitedFeeCollect
     const collectLimit = uploadedVideo.collectModule.collectLimit
     if (uploadedVideo.collectModule.isRevertCollect) {
-      return 'No one can mint this publication'
+      return 'No one can collect this publication'
     }
     if (uploadedVideo.collectModule.isFreeCollect) {
       return `${
         followerOnlyCollect ? 'Only Subscribers' : 'Anyone'
-      } can mint for free ${isTimedFeeCollect ? 'within 24hrs' : ''}`
+      } can collect for free ${isTimedFeeCollect ? 'within 24hrs' : ''}`
     }
     if (!uploadedVideo.collectModule.isFreeCollect) {
-      return `${followerOnlyCollect ? 'Only Subscribers' : 'Anyone'} can mint ${
+      return `${
+        followerOnlyCollect ? 'Only Subscribers' : 'Anyone'
+      } can collect ${
         isLimitedFeeCollect ? `maximum of ${collectLimit}` : ''
       } for given fees ${isTimedFeeCollect ? 'within 24hrs' : ''}`
     }

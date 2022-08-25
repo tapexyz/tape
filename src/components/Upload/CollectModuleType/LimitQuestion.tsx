@@ -12,7 +12,7 @@ type Props = {
 const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
   return (
     <div className="space-y-2">
-      <h6>Would you like to limit the mints?</h6>
+      <h6>Would you like to limit the collects?</h6>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <button
           type="button"
@@ -34,7 +34,7 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             }
           )}
         >
-          <span>Unlimited mints</span>
+          <span>Unlimited collects</span>
           {!uploadedVideo.collectModule.isLimitedFeeCollect && (
             <AiOutlineCheck />
           )}
@@ -60,7 +60,7 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             }
           )}
         >
-          <span>Limited mint</span>
+          <span>Limited collect</span>
           {uploadedVideo.collectModule.isLimitedFeeCollect && (
             <AiOutlineCheck />
           )}
