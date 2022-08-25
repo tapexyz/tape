@@ -313,9 +313,7 @@ const Membership = ({ channel }: Props) => {
             disabled={loading}
             onClick={() => setMembership(true)}
           >
-            <span className="text-white">
-              {loading ? 'Disabling...' : 'Disable'}
-            </span>
+            <span className="text-white">Disable</span>
           </Button>
         </div>
       )}

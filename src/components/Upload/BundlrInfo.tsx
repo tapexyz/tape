@@ -84,8 +84,6 @@ const BundlrInfo = () => {
       estimatePrice(bundlrData.instance).catch((error) =>
         logger.error('[Error Estimate Video Price ]', error)
       )
-    } else {
-      initBundlr().catch((error) => logger.error('[Error Init Bundlr]', error))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bundlrData.instance])
