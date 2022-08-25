@@ -38,7 +38,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
-    setSelectedPfp(getProfilePicture(channel, 'avatar'))
+    setSelectedPfp(getProfilePicture(channel, 'avatar_lg'))
   }
 
   const onCompleted = () => {
