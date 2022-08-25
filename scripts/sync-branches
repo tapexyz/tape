@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#/ Usage: script/sync-branches
+#/ Usage: scripts/sync-branches
 #/ Sync testnet with main branch.
 
 echo "Syncing testnet branch with main branch 🔄"
