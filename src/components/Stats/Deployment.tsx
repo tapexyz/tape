@@ -5,7 +5,7 @@ import {
   RELAYER_ENABLED,
   VERCEL_DEPLOYED_ENV
 } from '@utils/constants'
-import { Link } from 'interweave-autolink'
+import Link from 'next/link'
 import React from 'react'
 
 const Deployment = () => {
