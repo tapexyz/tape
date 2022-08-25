@@ -6,7 +6,9 @@ import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import logger from '@lib/logger'
+import useAppStore from '@lib/store'
 import {
+  ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED,
   WMATIC_TOKEN_ADDRESS
@@ -48,6 +50,8 @@ type FormData = z.infer<typeof formSchema>
 const Membership = ({ channel }: Props) => {
   const [loading, setLoading] = useState(false)
   const [showForm, setShowForm] = useState(false)
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
   const {
     register,
     handleSubmit,
@@ -62,6 +66,11 @@ const Membership = ({ channel }: Props) => {
       token: WMATIC_TOKEN_ADDRESS
     }
   })
+
+  const onError = (error: any) => {
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+    setLoading(false)
+  }
 
   const {
     data: followModuleData,
@@ -80,10 +89,7 @@ const Membership = ({ channel }: Props) => {
     followModuleData?.profiles?.items[0]?.followModule
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError(error) {
-      toast.error(error?.message)
-      setLoading(false)
-    }
+    onError
   })
   const { data: enabledCurrencies } = useQuery(MODULES_CURRENCY_QUERY, {
     variables: { request: { profileIds: channel?.id } },
@@ -91,10 +97,7 @@ const Membership = ({ channel }: Props) => {
   })
 
   const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
-    onError(error) {
-      toast.error(error?.message)
-      setLoading(false)
-    }
+    onError
   })
 
   const { data: writtenData, write: writeFollow } = useContractWrite({
@@ -102,15 +105,14 @@ const Membership = ({ channel }: Props) => {
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
-    onError(error: any) {
-      setLoading(false)
-      toast.error(error?.data?.message ?? error?.message)
-    }
+    onError
   })
+
   const { indexed } = usePendingTxn({
     txHash: writtenData?.hash,
     txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
   })
+
   useEffect(() => {
     if (indexed) {
       setLoading(false)
@@ -121,7 +123,7 @@ const Membership = ({ channel }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
-  const [setFollowModuleTypedData] = useMutation(
+  const [createSetFollowModuleTypedData] = useMutation(
     SET_FOLLOW_MODULE_TYPED_DATA_MUTATION,
     {
       async onCompleted(data) {
@@ -142,6 +144,7 @@ const Membership = ({ channel }: Props) => {
             followModuleInitData,
             sig: { v, r, s, deadline: typedData.value.deadline }
           }
+          setUserSigNonce(userSigNonce + 1)
           if (RELAYER_ENABLED) {
             const { data } = await broadcast({
               variables: { request: { id, signature } }
@@ -156,17 +159,15 @@ const Membership = ({ channel }: Props) => {
           logger.error('[Error Set Membership]', error)
         }
       },
-      onError(error) {
-        setLoading(false)
-        toast.error(error?.message)
-      }
+      onError
     }
   )
 
   const setMembership = (freeFollowModule: boolean) => {
     setLoading(true)
-    setFollowModuleTypedData({
+    createSetFollowModuleTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: channel?.id,
           followModule: freeFollowModule
@@ -298,7 +299,7 @@ const Membership = ({ channel }: Props) => {
               </Button>
             )}
             <Button loading={loading} disabled={loading}>
-              {loading ? 'Loading...' : 'Set Membership'}
+              Set Membership
             </Button>
           </div>
         </form>

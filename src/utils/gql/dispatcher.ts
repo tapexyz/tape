@@ -1,8 +1,11 @@
 import { gql } from '@apollo/client'
 
 export const CREATE_SET_DISPATCHER_TYPED_DATA = gql`
-  mutation CreateSetDispatcherTypedData($request: SetDispatcherRequest!) {
-    createSetDispatcherTypedData(request: $request) {
+  mutation CreateSetDispatcherTypedData(
+    $options: TypedDataOptions
+    $request: SetDispatcherRequest!
+  ) {
+    createSetDispatcherTypedData(options: $options, request: $request) {
       id
       typedData {
         types {

@@ -74,12 +74,12 @@ const Layout: FC<Props> = ({ children }) => {
     skip: !isAuthenticated,
     onCompleted(data) {
       const channels: Profile[] = data?.profiles?.items
+      setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
       if (channels.length === 0) {
         setSelectedChannel(null)
         setSelectedChannelId(null)
       } else {
         setChannels(channels)
-        setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
         const selectedChannel = channels.find(
           (channel) => channel.id === selectedChannelId
         )

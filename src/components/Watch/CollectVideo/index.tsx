@@ -41,6 +41,9 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const { address } = useAccount()
   const [loading, setLoading] = useState(false)
   const [showCollectModal, setShowCollectModal] = useState(false)
+  const [alreadyCollected, setAlreadyCollected] = useState(
+    video.hasCollectedByMe
+  )
   const isSignedUser = usePersistStore((state) => state.isSignedUser)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
@@ -52,6 +55,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
 
   const onCompleted = () => {
     setLoading(false)
+    setAlreadyCollected(true)
     toast.success('Collected as NFT')
   }
 
@@ -163,7 +167,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
         content={
           loading
             ? 'Collecting'
-            : video.hasCollectedByMe
+            : alreadyCollected
             ? 'Already Collected'
             : 'Collect as NFT'
         }
@@ -172,7 +176,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
         <div>
           <Button
             className="!px-2"
-            disabled={loading || video.hasCollectedByMe}
+            disabled={loading || alreadyCollected}
             onClick={() => handleCollect()}
             size="md"
             variant={variant}

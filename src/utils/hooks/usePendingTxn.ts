@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import { PUBLICATION_STATUS_QUERY, TX_STATUS_QUERY } from '@utils/gql/queries'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import toast from 'react-hot-toast'
 
 type Props = {
   txHash?: string
@@ -23,15 +24,22 @@ const usePendingTxn = ({ txHash, txId, isPublication = false }: Props) => {
     }
   )
 
-  useEffect(() => {
-    const checkIsIndexed = () => {
-      if (data?.hasTxHashBeenIndexed?.indexed || data?.publication?.id) {
-        stopPolling()
-        if (isPublication && data?.publication?.id)
-          router.push(`/watch/${data?.publication?.id}`)
+  const checkIsIndexed = () => {
+    if (data?.hasTxHashBeenIndexed?.reason) {
+      stopPolling()
+      return toast.error(`Relay Error - ${data?.hasTxHashBeenIndexed?.reason}`)
+    }
+    if (data?.hasTxHashBeenIndexed?.indexed || data?.publication?.id) {
+      stopPolling()
+      if (isPublication && data?.publication?.id) {
+        router.push(`/watch/${data?.publication?.id}`)
       }
     }
+  }
+
+  useEffect(() => {
     checkIsIndexed()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, stopPolling, isPublication, router])
 
   return {
