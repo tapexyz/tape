@@ -2,6 +2,7 @@ import {
   GIT_DEPLOYED_BRANCH,
   GIT_DEPLOYED_COMMIT_SHA,
   IS_MAINNET,
+  RELAYER_ENABLED,
   VERCEL_DEPLOYED_ENV
 } from '@utils/constants'
 import { Link } from 'interweave-autolink'
@@ -21,6 +22,11 @@ const Deployment = () => {
       {VERCEL_DEPLOYED_ENV && (
         <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-[#181818]">
           {VERCEL_DEPLOYED_ENV}
+        </span>
+      )}
+      {RELAYER_ENABLED && (
+        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-[#181818]">
+          Relayer Enabled
         </span>
       )}
       {GIT_DEPLOYED_COMMIT_SHA && (
