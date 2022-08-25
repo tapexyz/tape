@@ -26,7 +26,7 @@ const Deployment = () => {
       )}
       {RELAYER_ENABLED && (
         <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-[#181818]">
-          Relayer Enabled
+          Relayer
         </span>
       )}
       {GIT_DEPLOYED_COMMIT_SHA && (
