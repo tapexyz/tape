@@ -5,7 +5,8 @@ export const LENSTUBE_URL = IS_MAINNET
   : 'https://testnet.lenstube.xyz'
 
 export const APP_NAME = 'Lenstube'
-export const RELAYER_ENABLED = false
+export const RELAYER_ENABLED =
+  process.env.NEXT_PUBLIC_RELAYER_ENABLED === 'true'
 
 export const API_URL = IS_MAINNET
   ? 'https://api.lens.dev'
