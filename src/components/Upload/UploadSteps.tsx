@@ -25,6 +25,7 @@ import uploadToAr from '@utils/functions/uploadToAr'
 import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
 import { CREATE_POST_VIA_DISPATHCER } from '@utils/gql/dispatcher'
 import { BROADCAST_MUTATION, CREATE_POST_TYPED_DATA } from '@utils/gql/queries'
+import usePendingTxn from '@utils/hooks/usePendingTxn'
 import useTxnToast from '@utils/hooks/useTxnToast'
 import { Mixpanel, TRACK } from '@utils/track'
 import axios from 'axios'
@@ -87,7 +88,7 @@ const UploadSteps = () => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const [broadcast] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
     onCompleted,
     onError
   })
