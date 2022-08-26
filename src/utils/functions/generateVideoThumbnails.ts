@@ -38,9 +38,9 @@ export const generateVideoThumbnails = (
       video.src = URL.createObjectURL(file)
       video.onloadeddata = async () => {
         let thumbnailArray = []
-        const avergeSplitTime = Math.floor(video.duration / count)
+        const averageSplitTime = Math.floor(video.duration / count)
         for (let i = 0; i < count; i++) {
-          const currentTime = avergeSplitTime * i
+          const currentTime = averageSplitTime * i
           const thumbnail = await canvasImageFromVideo(file, currentTime)
           thumbnailArray.push(thumbnail)
         }
