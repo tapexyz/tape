@@ -18,10 +18,10 @@ import Custom500 from 'src/pages/500'
 import { MediaSet, Profile } from 'src/types'
 
 import BasicInfo from './BasicInfo'
+import SideNav from './SideNav'
 
 const Permissions = dynamic(() => import('./Permissions'))
 const Membership = dynamic(() => import('./Membership'))
-const SideNav = dynamic(() => import('./SideNav'))
 const DangerZone = dynamic(() => import('./DangerZone'))
 
 const Settings = () => {

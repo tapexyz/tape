@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
-import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
 import {
   SuggestedVideosShimmer,
   VideoDetailShimmer
@@ -20,15 +19,13 @@ import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { LenstubePublication } from 'src/types/local'
 
+import Video from './Video'
+
 const SuggestedVideos = dynamic(() => import('./SuggestedVideos'), {
   loading: () => <SuggestedVideosShimmer />
 })
 const VideoComments = dynamic(() => import('./VideoComments'))
 const AboutChannel = dynamic(() => import('./AboutChannel'))
-
-const Video = dynamic(() => import('./Video'), {
-  loading: () => <CardShimmer />
-})
 
 const VideoDetails = () => {
   const {
