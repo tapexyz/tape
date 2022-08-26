@@ -30,25 +30,6 @@ export const CREATOR_VIDEO_CATEGORIES = [
   { name: 'Travel & Events', tag: 'travel' }
 ]
 
-export const MOBILE_VIEW_CATEGORIES = [
-  { name: 'Explore', path: '/explore' },
-  { name: 'Web3', path: '/explore/web3' },
-  { name: 'Blockchain', path: '/explore/blockchain' },
-  { name: 'Ethereum', path: '/explore/ethereum' },
-  { name: 'NFT', path: '/explore/nft' },
-  { name: 'Music', path: '/explore/music' },
-  { name: 'Movies', path: '/explore/movies' },
-  { name: 'Games', path: '/explore/games' },
-  { name: 'Technology', path: '/explore/technology' },
-  { name: 'News', path: '/explore/news' },
-  { name: 'Learning', path: '/explore/learning' },
-  { name: 'Trending', path: '/explore/trending' },
-  { name: 'Education', path: '/explore/education' },
-  { name: 'Sports', path: '/explore/sports' },
-  { name: 'Beauty', path: '/explore/beauty' },
-  { name: 'Fashion', path: '/explore/fashion' }
-]
-
 export const WEB_VIEW_CATEGORIES = [
   {
     name: 'Trending',

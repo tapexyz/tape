@@ -667,3 +667,13 @@ export const PUBLICATION_REVENUE_QUERY = gql`
     }
   }
 `
+
+export const GET_ALL_TAGS = gql`
+  query AllTags($request: AllPublicationsTagsRequest!) {
+    allPublicationsTags(request: $request) {
+      items {
+        tag
+      }
+    }
+  }
+`

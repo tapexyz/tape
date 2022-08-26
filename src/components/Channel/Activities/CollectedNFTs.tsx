@@ -19,6 +19,7 @@ type Props = {
 const CollectedNFTs: FC<Props> = ({ channel }) => {
   const [collectedNFTs, setCollectedNFTs] = useState<Nft[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+
   const { data, loading, error, fetchMore } = useQuery(COLLECTED_NFTS_QUERY, {
     variables: {
       request: {
@@ -32,6 +33,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
       setCollectedNFTs(data?.nfts?.items)
     }
   })
+
   const { observe } = useInView({
     onEnter: async () => {
       try {

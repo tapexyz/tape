@@ -3,7 +3,7 @@ import MetaTags from '@components/Common/MetaTags'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { SEARCH_VIDEOS_QUERY } from '@gql/queries'
+import { EXPLORE_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import dynamic from 'next/dynamic'
@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
-import { PaginatedResultInfo } from 'src/types'
+import { PaginatedResultInfo, PublicationTypes } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 const Timeline = dynamic(() => import('../../Home/Timeline'), {
@@ -19,18 +19,19 @@ const Timeline = dynamic(() => import('../../Home/Timeline'), {
 })
 
 const ExploreCategory = () => {
-  const { query, isReady } = useRouter()
+  const { query } = useRouter()
   const categoryName = query.category
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
-  const { data, loading, error, fetchMore } = useQuery(SEARCH_VIDEOS_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
-        query: categoryName,
-        type: 'PUBLICATION',
-        limit: 8,
-        sources: [LENSTUBE_APP_ID]
+        metadata: { tags: { all: [query.category] } },
+        publicationTypes: [PublicationTypes.Post],
+        limit: 12,
+        sources: [LENSTUBE_APP_ID],
+        sortCriteria: 'TOP_COLLECTED'
       }
     },
     skip: !query.category,
@@ -46,11 +47,11 @@ const ExploreCategory = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              query: categoryName,
-              type: 'PUBLICATION',
-              cursor: pageInfo?.next,
-              limit: 8,
-              sources: [LENSTUBE_APP_ID]
+              metadata: { tags: { all: [query.category] } },
+              publicationTypes: [PublicationTypes.Post],
+              limit: 12,
+              sources: [LENSTUBE_APP_ID],
+              sortCriteria: 'TOP_COLLECTED'
             }
           }
         })
@@ -61,7 +62,7 @@ const ExploreCategory = () => {
       }
     }
   })
-  if (!query.category && isReady) return <Custom404 />
+  if (!query.category) return <Custom404 />
 
   return (
     <>
