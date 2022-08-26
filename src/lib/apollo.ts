@@ -8,8 +8,8 @@ import {
 import { RetryLink } from '@apollo/client/link/retry'
 import { REFRESH_AUTHENTICATION_MUTATION } from '@gql/queries/auth'
 import { API_URL } from '@utils/constants'
+import { parseJwt } from '@utils/functions/parseJwt'
 import axios from 'axios'
-import jwtDecode from 'jwt-decode'
 import result from 'src/types'
 
 import logger from './logger'
@@ -42,8 +42,7 @@ const authLink = new ApolloLink((operation, forward) => {
     clearStorage()
     return forward(operation)
   } else {
-    const accessTokenDecrypted: any = jwtDecode(accessToken)
-    const isExpireSoon = Date.now() >= accessTokenDecrypted.exp * 1000
+    const isExpireSoon = Date.now() >= parseJwt(accessToken)?.exp * 1000
     if (isExpireSoon) {
       axios(API_URL, {
         method: 'POST',
