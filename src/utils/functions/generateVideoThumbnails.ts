@@ -25,7 +25,7 @@ const canvasImageFromVideo = (
   })
 }
 
-export const generateVideoThumbnails = async (
+export const generateVideoThumbnails = (
   file: File,
   count: number
 ): Promise<string[]> => {
