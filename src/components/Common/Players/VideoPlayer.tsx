@@ -8,14 +8,13 @@ import {
   Video
 } from '@vime/react'
 import clsx from 'clsx'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { FC, Ref, useEffect, useRef, useState } from 'react'
 import { HLSData } from 'src/types/local'
 
+import NextVideo from './NextVideo'
 import PlayerContextMenu from './PlayerContextMenu'
 import SensitiveWarning from './SensitiveWarning'
-const NextVideo = dynamic(() => import('./NextVideo'))
 
 interface Props {
   source: string

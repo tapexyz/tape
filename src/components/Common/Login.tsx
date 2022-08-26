@@ -5,14 +5,13 @@ import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { ERROR_MESSAGE } from '@utils/constants'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { Profile } from 'src/types'
 import { useAccount, useSignMessage } from 'wagmi'
 
-const ConnectWalletButton = dynamic(() => import('./ConnectWalletButton'))
+import ConnectWalletButton from './ConnectWalletButton'
 
 const Login = () => {
   const router = useRouter()

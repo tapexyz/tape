@@ -6,18 +6,13 @@ import usePersistStore from '@lib/store/persist'
 import { AUTH_ROUTES } from '@utils/data/auth-routes'
 import { AUTH } from '@utils/url-path'
 import type { AppProps } from 'next/app'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 
 export { reportWebVitals } from 'next-axiom'
 
-const Providers = dynamic(() => import('../components/Common/Providers'), {
-  suspense: true
-})
-const Layout = dynamic(() => import('../components/Common/Layout'), {
-  suspense: true
-})
+const Providers = lazy(() => import('../components/Common/Providers'))
+const Layout = lazy(() => import('../components/Common/Layout'))
 
 const App = ({ Component, pageProps }: AppProps) => {
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)

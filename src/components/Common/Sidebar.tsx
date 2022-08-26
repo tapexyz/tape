@@ -15,9 +15,10 @@ import {
 } from 'react-icons/md'
 import { RiLeafLine } from 'react-icons/ri'
 
+import MobileBottomNav from './MobileBottomNav'
+
 const CreateChannel = dynamic(() => import('./CreateChannel'))
 const MoreTrigger = dynamic(() => import('../../components/Common/MoreTrigger'))
-const MobileBottomNav = dynamic(() => import('./MobileBottomNav'))
 
 const Sidebar = () => {
   const router = useRouter()

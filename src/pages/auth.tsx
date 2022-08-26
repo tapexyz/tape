@@ -15,12 +15,12 @@ export default function AuthRequiredPage() {
   )
   const isSignedUser = usePersistStore((state) => state.isSignedUser)
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
-  const router = useRouter()
+  const { replace, query } = useRouter()
   useEffect(() => {
     if (isAuthenticated) {
-      router.push(router.query?.next ? (router.query?.next as string) : HOME)
+      replace(query?.next ? (query?.next as string) : HOME)
     }
-  }, [isAuthenticated, router])
+  }, [isAuthenticated, query, replace])
 
   return (
     <>

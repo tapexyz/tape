@@ -16,7 +16,6 @@ import useIsMounted from '@utils/hooks/useIsMounted'
 import { AUTH } from '@utils/url-path'
 import clsx from 'clsx'
 import mixpanel from 'mixpanel-browser'
-import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
@@ -26,12 +25,8 @@ import { Profile } from 'src/types'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
-const Header = dynamic(() => import('./Header'), {
-  suspense: true
-})
-const Sidebar = dynamic(() => import('./Sidebar'), {
-  suspense: true
-})
+import Header from './Header'
+import Sidebar from './Sidebar'
 
 interface Props {
   children: ReactNode

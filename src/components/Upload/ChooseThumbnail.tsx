@@ -2,10 +2,10 @@ import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import { generateVideoThumbnails } from '@rajesh896/video-thumbnails-generator'
 import { captureException } from '@sentry/nextjs'
 import * as tf from '@tensorflow/tfjs'
 import { IS_MAINNET } from '@utils/constants'
+import { generateVideoThumbnails } from '@utils/functions/generateVideoThumbnails'
 import { getFileFromDataURL } from '@utils/functions/getFileFromDataURL'
 import { getIsNSFW } from '@utils/functions/getIsNSFW'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
@@ -28,7 +28,7 @@ interface Props {
 }
 
 const DEFAULT_THUMBNAIL_INDEX = 0
-export const THUMBNAIL_GENERATE_COUNT = 6
+export const THUMBNAIL_GENERATE_COUNT = 7
 
 const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const [uploading, setUploading] = useState(false)
@@ -50,8 +50,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     try {
       const thumbnailArray = await generateVideoThumbnails(
         file,
-        THUMBNAIL_GENERATE_COUNT,
-        ''
+        THUMBNAIL_GENERATE_COUNT
       )
       const thumbnails: Array<{
         ipfsUrl: string

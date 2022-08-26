@@ -89,7 +89,7 @@ const authLink = new ApolloLink((operation, forward) => {
 const cache = new InMemoryCache({ possibleTypes: result.possibleTypes })
 
 const apolloClient = new ApolloClient({
-  link: from([authLink, httpLink, retryLink]),
+  link: from([authLink, retryLink, httpLink]),
   cache
 })
 

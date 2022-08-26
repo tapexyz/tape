@@ -1,11 +1,12 @@
 import { useQuery } from '@apollo/client'
+import NewVideoTrigger from '@components/Channel/NewVideoTrigger'
+import NotificationTrigger from '@components/Notifications/NotificationTrigger'
 import Modal from '@components/UIElements/Modal'
 import { PING_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { HOME, NOTIFICATIONS } from '@utils/url-path'
 import clsx from 'clsx'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { FC } from 'react'
@@ -13,14 +14,7 @@ import { AiOutlineSearch } from 'react-icons/ai'
 import { CgBell } from 'react-icons/cg'
 
 import Login from './Login'
-
-const GlobalSearchBar = dynamic(() => import('./Search/GlobalSearchBar'))
-const NewVideoTrigger = dynamic(
-  () => import('../../components/Channel/NewVideoTrigger')
-)
-const NotificationTrigger = dynamic(
-  () => import('../../components/Notifications/NotificationTrigger')
-)
+import GlobalSearchBar from './Search/GlobalSearchBar'
 
 type Props = {
   className?: string

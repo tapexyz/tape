@@ -147,7 +147,9 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
                 <span>Other wallets</span>
                 <span>
                   {isConnecting &&
-                    walletConnect.id === pendingConnector?.id && <Loader />}
+                    walletConnect.id === pendingConnector?.id && (
+                      <Loader size="sm" className="ml-3" />
+                    )}
                   {!signing && walletConnect.id === connector?.id && (
                     <AiOutlineCheck className="text-indigo-800" />
                   )}
