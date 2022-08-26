@@ -2,14 +2,11 @@ import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { NOTIFICATION_COUNT_QUERY, NOTIFICATIONS_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
-import {
-  NOTIFICATION_COUNT_QUERY,
-  NOTIFICATIONS_QUERY
-} from '@utils/gql/queries'
 import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
@@ -102,7 +99,7 @@ const Notifications = () => {
           className={clsx('pb-3', {
             'pb-0': notifications.length - 1 === index
           })}
-          key={notification.notificationId}
+          key={`${notification.notificationId}_${index}`}
         >
           {notification?.__typename === 'NewFollowerNotification' && (
             <SubscribedNotification notification={notification} />

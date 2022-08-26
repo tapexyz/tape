@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import StatCard from '@components/Stats/StatCard'
-import { PROFILE_QUERY } from '@utils/gql/queries'
+import { PROFILE_QUERY } from '@gql/queries'
 import React, { FC } from 'react'
 import {
   FcCamcorderPro,

@@ -1,14 +1,14 @@
 import { useLazyQuery, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
+import {
+  ALLOWANCE_SETTINGS_QUERY,
+  GENERATE_ALLOWANCE_QUERY
+} from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
 import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
-import {
-  ALLOWANCE_SETTINGS_QUERY,
-  GENERATE_ALLOWANCE_QUERY
-} from '@utils/gql/queries'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { ApprovedAllowanceAmount, Erc20 } from 'src/types'

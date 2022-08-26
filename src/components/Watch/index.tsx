@@ -5,12 +5,12 @@ import {
   SuggestedVideosShimmer,
   VideoDetailShimmer
 } from '@components/Shimmers/VideoDetailShimmer'
+import { VIDEO_DETAIL_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import { getIsHlsSupported } from '@utils/functions/getIsHlsSupported'
 import { getPlaybackIdFromUrl } from '@utils/functions/getVideoUrl'
-import { VIDEO_DETAIL_QUERY } from '@utils/gql/queries'
 import { Mixpanel, TRACK } from '@utils/track'
 import axios from 'axios'
 import dynamic from 'next/dynamic'

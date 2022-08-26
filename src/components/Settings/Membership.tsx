@@ -4,6 +4,12 @@ import { AddressExplorerLink } from '@components/Common/ExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
+import {
+  BROADCAST_MUTATION,
+  CHANNEL_FOLLOW_MODULE_QUERY,
+  MODULES_CURRENCY_QUERY
+} from '@gql/queries'
+import { SET_FOLLOW_MODULE_TYPED_DATA_MUTATION } from '@gql/queries/typed-data'
 import { zodResolver } from '@hookform/resolvers/zod'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
@@ -15,12 +21,6 @@ import {
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { shortenAddress } from '@utils/functions/shortenAddress'
-import {
-  BROADCAST_MUTATION,
-  CHANNEL_FOLLOW_MODULE_QUERY,
-  MODULES_CURRENCY_QUERY,
-  SET_FOLLOW_MODULE_TYPED_DATA_MUTATION
-} from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import clsx from 'clsx'
 import { utils } from 'ethers'

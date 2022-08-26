@@ -3,6 +3,9 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
+import { BROADCAST_MUTATION } from '@gql/queries'
+import { PROXY_ACTION_MUTATION } from '@gql/queries/proxy-action'
+import { CREATE_COLLECT_TYPED_DATA } from '@gql/queries/typed-data'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -13,11 +16,6 @@ import {
   SIGN_IN_REQUIRED_MESSAGE
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
-import { PROXY_ACTION_MUTATION } from '@utils/gql/proxy-action'
-import {
-  BROADCAST_MUTATION,
-  CREATE_COLLECT_TYPED_DATA
-} from '@utils/gql/queries'
 import { Mixpanel, TRACK } from '@utils/track'
 import { utils } from 'ethers'
 import React, { FC, useState } from 'react'

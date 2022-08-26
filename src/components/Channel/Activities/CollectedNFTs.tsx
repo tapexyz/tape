@@ -2,9 +2,9 @@ import { useQuery } from '@apollo/client'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { COLLECTED_NFTS_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import { POLYGON_CHAIN_ID } from '@utils/constants'
-import { COLLECTED_NFTS_QUERY } from '@utils/gql/queries'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PaginatedResultInfo, Profile } from 'src/types'
@@ -23,7 +23,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
     variables: {
       request: {
         ownerAddress: channel.ownedBy,
-        limit: 8,
+        limit: 12,
         chainIds: [POLYGON_CHAIN_ID]
       }
     },

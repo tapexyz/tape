@@ -2,13 +2,10 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { DisLikeButton } from '@components/UIElements/DisLikeButton'
 import { LikeButton } from '@components/UIElements/LikeButton'
+import { ADD_REACTION_MUTATION, REMOVE_REACTION_MUTATION } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
-import {
-  ADD_REACTION_MUTATION,
-  REMOVE_REACTION_MUTATION
-} from '@utils/gql/queries'
 import clsx from 'clsx'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'

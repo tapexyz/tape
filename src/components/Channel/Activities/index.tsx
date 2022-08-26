@@ -13,7 +13,8 @@ import { GiMirrorMirror, GiMonkey } from 'react-icons/gi'
 import { MdOutlineAnalytics, MdOutlineSlowMotionVideo } from 'react-icons/md'
 import { Profile } from 'src/types'
 
-const About = dynamic(() => import('./About'))
+import About from './About'
+
 const OtherChannels = dynamic(() => import('./OtherChannels'))
 const CommentedVideos = dynamic(() => import('./CommentedVideos'), {
   loading: () => <TimelineShimmer />

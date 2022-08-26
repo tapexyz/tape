@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client'
-import { PROXY_ACTION_STATUS_QUERY } from '@utils/gql/proxy-action'
+import { PROXY_ACTION_STATUS_QUERY } from '@gql/queries/proxy-action'
 import { useCallback, useEffect } from 'react'
 
 const useProxyActionStatus = (proxyActionId: string) => {

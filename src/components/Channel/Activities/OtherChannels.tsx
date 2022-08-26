@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { PROFILE_QUERY } from '@utils/gql/queries'
+import { PROFILE_QUERY } from '@gql/queries'
 import dynamic from 'next/dynamic'
 import React, { FC } from 'react'
 import { Profile } from 'src/types'

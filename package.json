@@ -12,7 +12,8 @@
     "check-types": "tsc --pretty --noEmit",
     "check-format": "prettier --check \"./src/**/*.{ts,tsx}\"",
     "check-lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "format": "prettier --write \"./src/**/*.{ts,tsx}\""
+    "format": "prettier --write \"./src/**/*.{ts,tsx}\"",
+    "lint:fix": "npx eslint --fix ."
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",

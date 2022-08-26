@@ -1,6 +1,8 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useLazyQuery, useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
+import { BROADCAST_MUTATION, PROFILE_QUERY } from '@gql/queries'
+import { CREATE_SET_DISPATCHER_TYPED_DATA } from '@gql/queries/dispatcher'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import {
@@ -9,8 +11,6 @@ import {
   RELAYER_ENABLED
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
-import { CREATE_SET_DISPATCHER_TYPED_DATA } from '@utils/gql/dispatcher'
-import { BROADCAST_MUTATION, PROFILE_QUERY } from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { Mixpanel, TRACK } from '@utils/track'
 import { utils } from 'ethers'

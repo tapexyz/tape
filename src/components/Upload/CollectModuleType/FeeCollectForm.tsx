@@ -1,10 +1,8 @@
-import { useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
-import { MODULES_CURRENCY_QUERY } from '@utils/gql/queries'
 import clsx from 'clsx'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -17,6 +15,7 @@ type Props = {
   // eslint-disable-next-line no-unused-vars
   setCollectType: (data: CollectModuleType) => void
   setShowModal: Dispatch<boolean>
+  enabledCurrencies: { enabledModuleCurrencies: Array<Erc20> }
 }
 
 const formSchema = z.object({
@@ -33,7 +32,8 @@ export type FormData = z.infer<typeof formSchema>
 const FeeCollectForm: FC<Props> = ({
   uploadedVideo,
   setCollectType,
-  setShowModal
+  setShowModal,
+  enabledCurrencies
 }) => {
   const {
     register,
@@ -67,11 +67,6 @@ const FeeCollectForm: FC<Props> = ({
   const getCurrencySymbol = (currencies: Erc20[], address: string) => {
     return currencies.find((c) => c.address === address)?.symbol as string
   }
-
-  const { data: enabledCurrencies } = useQuery(MODULES_CURRENCY_QUERY, {
-    variables: { request: { profileIds: selectedChannel?.id } },
-    skip: !selectedChannel?.id
-  })
 
   const onSubmit = (data: FormData) => {
     setCollectType({

@@ -1,18 +1,16 @@
 import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
-import { PROFILE_QUERY } from '@utils/gql/queries'
+import { PROFILE_QUERY } from '@gql/queries'
 import { Mixpanel, TRACK } from '@utils/track'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import Custom404 from 'src/pages/404'
+import Custom500 from 'src/pages/500'
 import { Profile } from 'src/types'
 
 import Activities from './Activities'
 import BasicInfo from './BasicInfo'
-
-const Custom500 = dynamic(() => import('../../pages/500'))
-const Custom404 = dynamic(() => import('../../pages/404'))
 
 const Channel = () => {
   const { query } = useRouter()

@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client'
-import { PUBLICATION_STATUS_QUERY, TX_STATUS_QUERY } from '@utils/gql/queries'
+import { PUBLICATION_STATUS_QUERY, TX_STATUS_QUERY } from '@gql/queries'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import toast from 'react-hot-toast'

@@ -25,6 +25,12 @@ const VideoCard: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const isByte = video.appId === LENSTUBE_BYTES_APP_ID
+  const thumbnailUrl = imageCdn(
+    isSensitiveContent
+      ? `${STATIC_ASSETS}/images/sensor-blur.png`
+      : getThumbnailUrl(video),
+    isByte ? 'thumbnail_v' : 'thumbnail'
+  )
 
   return (
     <div className="bg-gray-50 rounded-xl dark:bg-[#181818] group">
@@ -43,18 +49,13 @@ const VideoCard: FC<Props> = ({ video }) => {
             <a>
               <div className="relative rounded-t-xl aspect-w-16 aspect-h-9">
                 <img
-                  src={imageCdn(
-                    isSensitiveContent
-                      ? `${STATIC_ASSETS}/images/sensor-blur.png`
-                      : getThumbnailUrl(video),
-                    'thumbnail'
-                  )}
+                  src={thumbnailUrl}
                   draggable={false}
                   className={clsx(
-                    'object-center w-full h-full rounded-t-xl lg:w-full lg:h-full',
+                    'object-center bg-gray-100 dark:bg-gray-900 w-full h-full rounded-t-xl lg:w-full lg:h-full',
                     {
-                      'object-contain bg-gray-100 dark:bg-gray-900': isByte,
-                      'object-cover bg-gray-100 dark:bg-gray-900': !isByte
+                      'object-contain': isByte,
+                      'object-cover': !isByte
                     }
                   )}
                   alt="thumbnail"

@@ -20,7 +20,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
     <div className="flex flex-wrap items-center text-sm opacity-70">
       <div className="flex items-center">
         <Modal
-          title="Collectors"
+          title="Collected By"
           onClose={() => setShowCollectsModal(false)}
           show={showCollectsModal}
           panelClassName="max-w-md"

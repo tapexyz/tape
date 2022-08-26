@@ -1,4 +1,5 @@
-import { useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
+import { PROFILES_QUERY } from '@gql/queries'
 import { clearStorage } from '@lib/apollo'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -11,7 +12,6 @@ import { AUTH_ROUTES } from '@utils/data/auth-routes'
 import { getIsAuthTokensAvailable } from '@utils/functions/getIsAuthTokensAvailable'
 import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
 import { getToastOptions } from '@utils/functions/getToastOptions'
-import { PROFILES_QUERY } from '@utils/gql/queries'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import { AUTH } from '@utils/url-path'
 import clsx from 'clsx'
@@ -81,9 +81,8 @@ const Layout: FC<Props> = ({ children }) => {
     setIsAuthenticated(false)
   }
 
-  useQuery(PROFILES_QUERY, {
+  const [loadProfiles] = useLazyQuery(PROFILES_QUERY, {
     variables: { ownedBy: address },
-    skip: !isSignedUser || !address,
     onCompleted: (data) => {
       const channels: Profile[] = data?.profiles?.items
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
@@ -97,12 +96,14 @@ const Layout: FC<Props> = ({ children }) => {
       } else {
         resetAuthState()
       }
-      setLoading(false)
-    },
-    onError: () => {
-      setLoading(false)
     }
   })
+
+  useEffect(() => {
+    if (!isAuthenticated) return setLoading(false)
+    loadProfiles().finally(() => setLoading(false))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const validateAuthentication = () => {
     if (!isAuthenticated && AUTH_ROUTES.includes(pathname)) {
@@ -128,7 +129,6 @@ const Layout: FC<Props> = ({ children }) => {
     if (shouldLogout && connectedUser) {
       logout()
     }
-    setLoading(false)
   }
 
   useEffect(() => {

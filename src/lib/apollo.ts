@@ -5,13 +5,24 @@ import {
   HttpLink,
   InMemoryCache
 } from '@apollo/client'
+import { RetryLink } from '@apollo/client/link/retry'
+import { REFRESH_AUTHENTICATION_MUTATION } from '@gql/queries/auth'
 import { API_URL } from '@utils/constants'
-import { REFRESH_AUTHENTICATION_MUTATION } from '@utils/gql/queries'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import result from 'src/types'
 
 import logger from './logger'
+
+const retryLink = new RetryLink({
+  delay: {
+    initial: 100
+  },
+  attempts: {
+    max: 2,
+    retryIf: (error) => !!error
+  }
+})
 
 const httpLink = new HttpLink({
   uri: API_URL,
@@ -78,7 +89,7 @@ const authLink = new ApolloLink((operation, forward) => {
 const cache = new InMemoryCache({ possibleTypes: result.possibleTypes })
 
 const apolloClient = new ApolloClient({
-  link: from([authLink, httpLink]),
+  link: from([authLink, httpLink, retryLink]),
   cache
 })
 

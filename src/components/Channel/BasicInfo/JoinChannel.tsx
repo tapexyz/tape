@@ -2,6 +2,12 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
+import {
+  ALLOWANCE_SETTINGS_QUERY,
+  BROADCAST_MUTATION,
+  CHANNEL_FOLLOW_MODULE_QUERY
+} from '@gql/queries'
+import { CREATE_FOLLOW_TYPED_DATA } from '@gql/queries/typed-data'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -12,12 +18,6 @@ import {
   SIGN_IN_REQUIRED_MESSAGE
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
-import {
-  ALLOWANCE_SETTINGS_QUERY,
-  BROADCAST_MUTATION,
-  CHANNEL_FOLLOW_MODULE_QUERY,
-  CREATE_FOLLOW_TYPED_DATA
-} from '@utils/gql/queries'
 import { utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'

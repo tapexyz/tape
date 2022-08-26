@@ -1,5 +1,7 @@
+import { useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
+import { MODULES_CURRENCY_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import React, { useState } from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
@@ -15,12 +17,18 @@ const CollectModuleType = () => {
   const [showModal, setShowModal] = useState(false)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const setCollectType = (data: CollectModuleType) => {
     setUploadedVideo({
       collectModule: { ...uploadedVideo.collectModule, ...data }
     })
   }
+
+  const { data: enabledCurrencies } = useQuery(MODULES_CURRENCY_QUERY, {
+    variables: { request: { profileIds: selectedChannel?.id } },
+    skip: !selectedChannel?.id
+  })
 
   const getSelectedCollectType = () => {
     const followerOnlyCollect = uploadedVideo.collectModule.followerOnlyCollect
@@ -96,6 +104,7 @@ const CollectModuleType = () => {
               setCollectType={setCollectType}
               uploadedVideo={uploadedVideo}
               setShowModal={setShowModal}
+              enabledCurrencies={enabledCurrencies}
             />
           ) : (
             <div className="flex justify-end">

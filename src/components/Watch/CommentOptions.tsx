@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client'
 import Popover from '@components/UIElements/Popover'
+import { HIDE_PUBLICATION } from '@gql/queries'
 import useAppStore from '@lib/store'
-import { HIDE_PUBLICATION } from '@utils/gql/queries'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'

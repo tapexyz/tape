@@ -4,6 +4,9 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
+import { BROADCAST_MUTATION } from '@gql/queries'
+import { CREATE_COMMENT_VIA_DISPATHCER } from '@gql/queries/dispatcher'
+import { CREATE_COMMENT_TYPED_DATA } from '@gql/queries/typed-data'
 import { zodResolver } from '@hookform/resolvers/zod'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
@@ -19,10 +22,6 @@ import {
 import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
 import uploadToAr from '@utils/functions/uploadToAr'
-import {
-  BROADCAST_MUTATION,
-  CREATE_COMMENT_TYPED_DATA
-} from '@utils/gql/queries'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { BigNumber, utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
@@ -111,9 +110,18 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
+  const [createCommentViaDispatcher, { data: dispatcherData }] = useMutation(
+    CREATE_COMMENT_VIA_DISPATHCER,
+    {
+      onError
+    }
+  )
+
   const { indexed } = usePendingTxn({
     txHash: writeCommentData?.hash,
-    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+    txId:
+      broadcastData?.broadcast?.txId ??
+      dispatcherData?.createCommentViaDispatcher?.txId
   })
 
   useEffect(() => {
@@ -218,24 +226,30 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         media: [],
         appId: LENSTUBE_APP_ID
       })
-      createCommentTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            profileId: selectedChannel?.id,
-            publicationId: video?.id,
-            contentURI: url,
-            collectModule: {
-              freeCollectModule: {
-                followerOnly: false
-              }
-            },
-            referenceModule: {
-              followerOnlyReferenceModule: false
-            }
+
+      const request = {
+        profileId: selectedChannel?.id,
+        publicationId: video?.id,
+        contentURI: url,
+        collectModule: {
+          freeCollectModule: {
+            followerOnly: false
           }
+        },
+        referenceModule: {
+          followerOnlyReferenceModule: false
         }
-      })
+      }
+      if (selectedChannel?.dispatcher?.canUseRelay) {
+        createCommentViaDispatcher({ variables: { request } })
+      } else {
+        createCommentTypedData({
+          variables: {
+            options: { overrideSigNonce: userSigNonce },
+            request
+          }
+        })
+      }
     } catch (error) {
       logger.error('[Error Store & Tip Video]', error)
     }

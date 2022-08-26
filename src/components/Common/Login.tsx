@@ -1,13 +1,10 @@
 import { useLazyQuery, useMutation } from '@apollo/client'
+import { PROFILES_QUERY } from '@gql/queries'
+import { AUTHENTICATE_MUTATION, CHALLENGE_QUERY } from '@gql/queries/auth'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { ERROR_MESSAGE } from '@utils/constants'
-import {
-  AUTHENTICATE_MUTATION,
-  CHALLENGE_QUERY,
-  PROFILES_QUERY
-} from '@utils/gql/queries'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'

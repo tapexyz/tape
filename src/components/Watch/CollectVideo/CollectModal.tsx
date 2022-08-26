@@ -4,14 +4,14 @@ import { AddressExplorerLink } from '@components/Common/ExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
-import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
-import { shortenAddress } from '@utils/functions/shortenAddress'
 import {
   ALLOWANCE_SETTINGS_QUERY,
   PUBLICATION_REVENUE_QUERY,
   VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY
-} from '@utils/gql/queries'
+} from '@gql/queries'
+import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
+import { shortenAddress } from '@utils/functions/shortenAddress'
 import { Mixpanel, TRACK } from '@utils/track'
 import dayjs from 'dayjs'
 import React, { Dispatch, FC, useEffect, useState } from 'react'

@@ -1,8 +1,8 @@
 import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
+import { PROFILE_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
-import { PROFILE_QUERY } from '@utils/gql/queries'
 import { Mixpanel, TRACK } from '@utils/track'
 import {
   SETTINGS,

@@ -43,6 +43,7 @@ const PlayerInstance = ({ source, ratio, hls, poster }: PlayerProps) => {
   const videoWatchTime = useAppStore((state) => state.videoWatchTime)
   const [showNext, setShowNext] = useState(false)
   const router = useRouter()
+  const currentVideo = document.getElementsByTagName('video')[0]
 
   const handleKeyboardShortcuts = () => {
     if (!playerRef.current) return
@@ -85,7 +86,6 @@ const PlayerInstance = ({ source, ratio, hls, poster }: PlayerProps) => {
   }, [playerRef, videoWatchTime])
 
   useEffect(() => {
-    const currentVideo = document.getElementsByTagName('video')[0]
     if (!currentVideo) return
     currentVideo.onplaying = () => {
       currentVideo.style.display = 'block'
@@ -119,6 +119,7 @@ const PlayerInstance = ({ source, ratio, hls, poster }: PlayerProps) => {
   }
 
   const cancelPlayNext = () => {
+    currentVideo.style.display = 'block'
     setShowNext(false)
   }
 

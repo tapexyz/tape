@@ -1,10 +1,9 @@
 import IsVerified from '@components/Common/IsVerified'
+import SubscribeActions from '@components/Common/SubscribeActions'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React from 'react'
 import { Profile } from 'src/types'
-const SubscribeActions = dynamic(() => import('../../Common/SubscribeActions'))
 
 const OtherChannelCard = ({ channel }: { channel: Profile }) => {
   const subscribeType = channel?.followModule?.__typename
