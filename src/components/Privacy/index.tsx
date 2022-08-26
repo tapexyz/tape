@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import { Mixpanel, TRACK } from '@utils/track'
+import Link from 'next/link'
 import React, { useEffect } from 'react'
 
 const Privacy = () => {
@@ -14,14 +15,14 @@ const Privacy = () => {
       <span>Last updated - Jun 26, 2022</span>
       <p>
         At Lenstube, accessible from{' '}
-        <a
+        <Link
           href="https://lenstube.xyz"
           target="_blank"
           rel="noopener noreferrer"
           className="text-indigo-500"
         >
           https://lenstube.xyz
-        </a>
+        </Link>
         , one of our main priorities is the privacy of our visitors. This
         Privacy Policy document contains types of information that is collected
         and recorded by Lenstube and how we use it.

@@ -140,10 +140,13 @@ const BundlrInfo = () => {
               </button>
             </Tooltip>
           </span>
-          <Link href={BUNDLR_WEBSITE_URL}>
-            <a target="_blank" rel="noreferer" className="text-[11px]">
-              {BUNDLR_CURRENCY}
-            </a>
+          <Link
+            href={BUNDLR_WEBSITE_URL}
+            target="_blank"
+            rel="noreferer"
+            className="text-[11px]"
+          >
+            {BUNDLR_CURRENCY}
           </Link>
         </div>
         <div className="flex justify-between">

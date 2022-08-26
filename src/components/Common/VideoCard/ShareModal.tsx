@@ -4,6 +4,7 @@ import { getSharableLink } from '@utils/functions/getSharableLink'
 import imageCdn from '@utils/functions/imageCdn'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import { Mixpanel, TRACK } from '@utils/track'
+import Link from 'next/link'
 import React, { FC } from 'react'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
@@ -39,7 +40,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             video={video}
             onMirrorSuccess={() => setShowShare(false)}
           />
-          <a
+          <Link
             className="rounded-full"
             target="_blank"
             rel="noreferrer"
@@ -55,9 +56,9 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
               alt="lenster"
               draggable={false}
             />
-          </a>
+          </Link>
           <span className="middot" />
-          <a
+          <Link
             className="rounded-full"
             target="_blank"
             rel="noreferrer"
@@ -73,8 +74,8 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
               alt="twitter"
               draggable={false}
             />
-          </a>
-          <a
+          </Link>
+          <Link
             href={getSharableLink('reddit', video)}
             onClick={() => Mixpanel.track(TRACK.SHARE_VIDEO.REDDIT)}
             target="_blank"
@@ -89,8 +90,8 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
               alt="reddit"
               draggable={false}
             />
-          </a>
-          <a
+          </Link>
+          <Link
             href={getSharableLink('linkedin', video)}
             target="_blank"
             onClick={() => Mixpanel.track(TRACK.SHARE_VIDEO.LINKEDIN)}
@@ -105,7 +106,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
               className="w-10 h-10 rounded-full"
               draggable={false}
             />
-          </a>
+          </Link>
         </div>
         <div className="flex items-center justify-between p-2 border border-gray-200 rounded-lg dark:border-gray-800">
           <div className="text-sm truncate select-all">

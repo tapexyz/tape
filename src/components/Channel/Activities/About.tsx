@@ -5,6 +5,7 @@ import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@utils/constants'
 import { formatUrl } from '@utils/functions/formatUrl'
 import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import { shortenAddress } from '@utils/functions/shortenAddress'
+import Link from 'next/link'
 import React, { FC } from 'react'
 import { AiOutlineNumber } from 'react-icons/ai'
 import { HiOutlineGlobe, HiOutlineLocationMarker } from 'react-icons/hi'
@@ -100,7 +101,7 @@ const About: FC<Props> = ({ channel }) => {
           {getValueFromKeyInAttributes(attributes, 'website') && (
             <div className="flex items-center space-x-1">
               <HiOutlineGlobe />
-              <a
+              <Link
                 href={formatUrl(
                   getValueFromKeyInAttributes(attributes, 'website') as string
                 )}
@@ -109,7 +110,7 @@ const About: FC<Props> = ({ channel }) => {
                 className="hover:text-indigo-500"
               >
                 Website
-              </a>
+              </Link>
             </div>
           )}
           <div className="flex items-center space-x-1">
@@ -121,19 +122,19 @@ const About: FC<Props> = ({ channel }) => {
                 draggable={false}
               />
             </span>
-            <a
+            <Link
               href={`${LENSTER_WEBSITE_URL}/u/${channel?.handle}`}
               target="_blank"
               rel="noreferer noreferrer"
               className="hover:text-indigo-500"
             >
               Lenster
-            </a>
+            </Link>
           </div>
           {getValueFromKeyInAttributes(attributes, 'twitter') && (
             <div className="flex items-center space-x-1">
               <RiTwitterLine />
-              <a
+              <Link
                 href={`https://twitter.com/${
                   getValueFromKeyInAttributes(attributes, 'twitter') as string
                 }`}
@@ -142,7 +143,7 @@ const About: FC<Props> = ({ channel }) => {
                 className="hover:text-indigo-500"
               >
                 Twitter
-              </a>
+              </Link>
             </div>
           )}
         </div>

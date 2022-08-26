@@ -40,15 +40,13 @@ const Header: FC<Props> = ({ className }) => {
     >
       <div className="flex justify-between flex-1 md:w-3/4 md:justify-end">
         <div className="flex items-center space-x-1.5 md:space-x-0">
-          <Link href={HOME}>
-            <a className="block md:hidden">
-              <img
-                src="/lenstube.svg"
-                draggable={false}
-                className="w-5 h-5"
-                alt="lenstube"
-              />
-            </a>
+          <Link href={HOME} className="block md:hidden">
+            <img
+              src="/lenstube.svg"
+              draggable={false}
+              className="w-5 h-5"
+              alt="lenstube"
+            />
           </Link>
           <span />
         </div>
@@ -66,13 +64,11 @@ const Header: FC<Props> = ({ className }) => {
         </button>
         {isAuthenticated && <NotificationTrigger />}
         {isAuthenticated && (
-          <Link href={NOTIFICATIONS}>
-            <a className="relative p-1 md:hidden">
-              <CgBell className="text-lg" />
-              {hasNewNotification && (
-                <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-0 right-0" />
-              )}
-            </a>
+          <Link href={NOTIFICATIONS} className="relative p-1 md:hidden">
+            <CgBell className="text-lg" />
+            {hasNewNotification && (
+              <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-0 right-0" />
+            )}
           </Link>
         )}
         {isAuthenticated && <NewVideoTrigger />}

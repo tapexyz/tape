@@ -41,23 +41,25 @@ const Comment: FC<Props> = ({ comment }) => {
   return (
     <div className="flex items-start justify-between group">
       <div className="flex items-start justify-between">
-        <Link href={`/${comment.profile?.handle}`}>
-          <a className="flex-none mr-3 mt-0.5">
-            <img
-              src={getProfilePicture(comment.profile, 'avatar')}
-              className="rounded-lg w-7 h-7"
-              draggable={false}
-              alt="channel picture"
-            />
-          </a>
+        <Link
+          href={`/${comment.profile?.handle}`}
+          className="flex-none mr-3 mt-0.5"
+        >
+          <img
+            src={getProfilePicture(comment.profile, 'avatar')}
+            className="rounded-lg w-7 h-7"
+            draggable={false}
+            alt="channel picture"
+          />
         </Link>
         <div className="flex flex-col items-start mr-2">
           <span className="flex items-center mb-1 space-x-1">
-            <Link href={`/${comment.profile?.handle}`}>
-              <a className="flex items-center space-x-1 text-sm font-medium">
-                <span>{comment?.profile?.handle}</span>
-                <IsVerified id={comment?.profile.id} />
-              </a>
+            <Link
+              href={`/${comment.profile?.handle}`}
+              className="flex items-center space-x-1 text-sm font-medium"
+            >
+              <span>{comment?.profile?.handle}</span>
+              <IsVerified id={comment?.profile.id} />
             </Link>
             {checkValueInAttributes(
               comment?.metadata.attributes as Attribute[],

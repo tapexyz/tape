@@ -19,27 +19,28 @@ const BottomOverlay: FC<Props> = ({ video }) => {
       </div>
       <div className="flex items-center justify-between">
         <div>
-          <Link href={`/${channel?.handle}`}>
-            <a className="flex items-center flex-none space-x-2 cursor-pointer">
-              <img
-                src={getProfilePicture(channel, 'avatar')}
-                className="w-9 h-9 rounded-xl"
-                draggable={false}
-                alt="channel picture"
-              />
-              <div className="flex flex-col items-start text-white">
-                <h6 className="flex items-center space-x-1">
-                  <span>{channel?.handle}</span>
-                  <IsVerified
-                    id={channel?.id}
-                    color="text-gray-300 dark:text-gray-300"
-                  />
-                </h6>
-                <span className="inline-flex items-center space-x-1 text-xs">
-                  {channel?.stats.totalFollowers} subscribers
-                </span>
-              </div>
-            </a>
+          <Link
+            href={`/${channel?.handle}`}
+            className="flex items-center flex-none space-x-2 cursor-pointer"
+          >
+            <img
+              src={getProfilePicture(channel, 'avatar')}
+              className="w-9 h-9 rounded-xl"
+              draggable={false}
+              alt="channel picture"
+            />
+            <div className="flex flex-col items-start text-white">
+              <h6 className="flex items-center space-x-1">
+                <span>{channel?.handle}</span>
+                <IsVerified
+                  id={channel?.id}
+                  color="text-gray-300 dark:text-gray-300"
+                />
+              </h6>
+              <span className="inline-flex items-center space-x-1 text-xs">
+                {channel?.stats.totalFollowers} subscribers
+              </span>
+            </div>
           </Link>
         </div>
         <div className="flex items-center space-x-2">

@@ -10,10 +10,12 @@ export const AddressExplorerLink = ({
   children: ReactElement
 }) => {
   return (
-    <Link href={`${POLYGONSCAN_URL}/address/${address}`}>
-      <a rel="noreferer noreferrer" target="_blank">
-        {children}
-      </a>
+    <Link
+      href={`${POLYGONSCAN_URL}/address/${address}`}
+      rel="noreferer noreferrer"
+      target="_blank"
+    >
+      {children}
     </Link>
   )
 }
@@ -26,10 +28,12 @@ export const HashExplorerLink = ({
   children: ReactElement
 }) => {
   return (
-    <Link href={`${POLYGONSCAN_URL}/tx/${hash}`}>
-      <a rel="noreferer noreferrer" target="_blank">
-        {children}
-      </a>
+    <Link
+      href={`${POLYGONSCAN_URL}/tx/${hash}`}
+      rel="noreferer noreferrer"
+      target="_blank"
+    >
+      {children}
     </Link>
   )
 }

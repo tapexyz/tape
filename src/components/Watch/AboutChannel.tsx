@@ -44,11 +44,12 @@ const AboutChannel: FC<Props> = ({ video }) => {
         <div className="flex flex-col flex-1">
           <div className="flex flex-wrap justify-between py-2 gap-y-2">
             <div className="flex flex-col items-start mr-2">
-              <Link href={`/${channel?.handle}`}>
-                <a className="flex items-center space-x-1 font-semibold">
-                  <span>{channel?.handle}</span>
-                  <IsVerified id={channel?.id} />
-                </a>
+              <Link
+                href={`/${channel?.handle}`}
+                className="flex items-center space-x-1 font-semibold"
+              >
+                <span>{channel?.handle}</span>
+                <IsVerified id={channel?.id} />
               </Link>
               <span className="inline-flex items-center space-x-1 text-xs">
                 {channel?.stats.totalFollowers} subscribers

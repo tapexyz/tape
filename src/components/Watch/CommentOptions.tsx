@@ -53,11 +53,12 @@ const CommentOptions = ({ comment }: { comment: LenstubePublication }) => {
               <span className="whitespace-nowrap">Delete</span>
             </button>
           )}
-          <Link href={`/report/${comment.id}`}>
-            <a className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
-              <FiFlag className="text-sm ml-0.5" />
-              <span className="whitespace-nowrap">Report</span>
-            </a>
+          <Link
+            href={`/report/${comment.id}`}
+            className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
+            <FiFlag className="text-sm ml-0.5" />
+            <span className="whitespace-nowrap">Report</span>
           </Link>
         </div>
       </div>

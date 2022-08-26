@@ -12,6 +12,7 @@ import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePictur
 import trimify from '@utils/functions/trimify'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -35,14 +36,14 @@ export const ClaimHandle = () => (
     </span>
     <div className="text-base">
       Visit{' '}
-      <a
+      <Link
         href="https://claim.lens.xyz/"
         target="_blank"
         className="text-indigo-500"
         rel="noreferrer"
       >
         lens claiming site
-      </a>{' '}
+      </Link>{' '}
       to claim your handle and then check back here.
     </div>
   </div>

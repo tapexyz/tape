@@ -61,33 +61,34 @@ const SubscribersList: FC<Props> = ({ channel }) => {
       {subscribers?.map((subscriber: Follower) => (
         <div className="flex flex-col" key={subscriber.wallet.address}>
           {subscriber.wallet?.defaultProfile ? (
-            <Link href={`/${subscriber.wallet?.defaultProfile?.handle}`}>
-              <a className="flex items-center justify-between font-base">
-                <div className="flex items-center space-x-1.5">
-                  <img
-                    className="w-5 h-5 rounded"
-                    src={getProfilePicture(
-                      subscriber.wallet?.defaultProfile,
-                      'avatar'
-                    )}
-                    alt="channel picture"
-                    draggable={false}
+            <Link
+              href={`/${subscriber.wallet?.defaultProfile?.handle}`}
+              className="flex items-center justify-between font-base"
+            >
+              <div className="flex items-center space-x-1.5">
+                <img
+                  className="w-5 h-5 rounded"
+                  src={getProfilePicture(
+                    subscriber.wallet?.defaultProfile,
+                    'avatar'
+                  )}
+                  alt="channel picture"
+                  draggable={false}
+                />
+                <div className="flex items-center space-x-1">
+                  <span>{subscriber.wallet?.defaultProfile?.handle}</span>
+                  <IsVerified
+                    id={subscriber.wallet?.defaultProfile?.id}
+                    size="xs"
                   />
-                  <div className="flex items-center space-x-1">
-                    <span>{subscriber.wallet?.defaultProfile?.handle}</span>
-                    <IsVerified
-                      id={subscriber.wallet?.defaultProfile?.id}
-                      size="xs"
-                    />
-                  </div>
                 </div>
-                <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">
-                  <BiUser />
-                  <span>
-                    {subscriber.wallet.defaultProfile.stats.totalFollowers}
-                  </span>
-                </div>
-              </a>
+              </div>
+              <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">
+                <BiUser />
+                <span>
+                  {subscriber.wallet.defaultProfile.stats.totalFollowers}
+                </span>
+              </div>
             </Link>
           ) : (
             <AddressExplorerLink address={subscriber.wallet?.address}>

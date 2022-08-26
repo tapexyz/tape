@@ -30,54 +30,48 @@ const SideNav: FC<Props> = ({ channel }) => {
         <ChannelPicture channel={channel} />
       </div>
       <div className="flex flex-col m-1 space-y-1 text-sm">
-        <Link href={SETTINGS}>
-          <a
-            className={clsx(
-              'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-900',
-              { 'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS) }
-            )}
-          >
-            <AiOutlineUser /> <span>Basic Info</span>
-          </a>
+        <Link
+          href={SETTINGS}
+          className={clsx(
+            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-900',
+            { 'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS) }
+          )}
+        >
+          <AiOutlineUser /> <span>Basic Info</span>
         </Link>
-        <Link href={SETTINGS_MEMBERSHIP}>
-          <a
-            className={clsx(
-              'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-900',
-              {
-                'bg-gray-100 dark:bg-gray-900':
-                  isActivePath(SETTINGS_MEMBERSHIP)
-              }
-            )}
-          >
-            <RiVipDiamondLine /> <span>Membership</span>
-          </a>
+        <Link
+          href={SETTINGS_MEMBERSHIP}
+          className={clsx(
+            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-900',
+            {
+              'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS_MEMBERSHIP)
+            }
+          )}
+        >
+          <RiVipDiamondLine /> <span>Membership</span>
         </Link>
-        <Link href={SETTINGS_PERMISSIONS}>
-          <a
-            className={clsx(
-              'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-900',
-              {
-                'bg-gray-100 dark:bg-gray-900':
-                  isActivePath(SETTINGS_PERMISSIONS)
-              }
-            )}
-          >
-            <BsShieldLock /> <span>Permissions</span>
-          </a>
+        <Link
+          href={SETTINGS_PERMISSIONS}
+          className={clsx(
+            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-900',
+            {
+              'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS_PERMISSIONS)
+            }
+          )}
+        >
+          <BsShieldLock /> <span>Permissions</span>
         </Link>
-        <Link href={SETTINGS_DANGER_ZONE}>
-          <a
-            className={clsx(
-              'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-red-100 text-red-500 hover:dark:bg-red-900/60',
-              {
-                'bg-red-100 dark:bg-red-900/60':
-                  isActivePath(SETTINGS_DANGER_ZONE)
-              }
-            )}
-          >
-            <IoWarningOutline /> <span>Danger Zone</span>
-          </a>
+        <Link
+          href={SETTINGS_DANGER_ZONE}
+          className={clsx(
+            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-red-100 text-red-500 hover:dark:bg-red-900/60',
+            {
+              'bg-red-100 dark:bg-red-900/60':
+                isActivePath(SETTINGS_DANGER_ZONE)
+            }
+          )}
+        >
+          <IoWarningOutline /> <span>Danger Zone</span>
         </Link>
       </div>
     </div>

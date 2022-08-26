@@ -24,25 +24,26 @@ const SubscribedNotification: FC<Props> = ({ notification }) => {
     <>
       <div className="flex items-center space-x-3">
         {notification?.wallet?.defaultProfile ? (
-          <Link href={`/${notification?.wallet?.defaultProfile?.handle}`}>
-            <a className="inline-flex items-center space-x-1.5 font-base">
-              <img
-                className="w-4 h-4 rounded"
-                src={getProfilePicture(
-                  notification.wallet.defaultProfile,
-                  'avatar'
-                )}
-                alt="channel picture"
-                draggable={false}
+          <Link
+            href={`/${notification?.wallet?.defaultProfile?.handle}`}
+            className="inline-flex items-center space-x-1.5 font-base"
+          >
+            <img
+              className="w-4 h-4 rounded"
+              src={getProfilePicture(
+                notification.wallet.defaultProfile,
+                'avatar'
+              )}
+              alt="channel picture"
+              draggable={false}
+            />
+            <div className="flex items-center space-x-0.5">
+              <span>{notification?.wallet?.defaultProfile?.handle}</span>
+              <IsVerified
+                id={notification?.wallet?.defaultProfile?.id}
+                size="xs"
               />
-              <div className="flex items-center space-x-0.5">
-                <span>{notification?.wallet?.defaultProfile?.handle}</span>
-                <IsVerified
-                  id={notification?.wallet?.defaultProfile?.id}
-                  size="xs"
-                />
-              </div>
-            </a>
+            </div>
           </Link>
         ) : (
           <AddressExplorerLink address={notification?.wallet?.address}>

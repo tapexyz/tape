@@ -15,6 +15,9 @@ const moduleExports = withAxiom(
     withSentryConfig(
       {
         reactStrictMode: process.env.NODE_ENV === 'production',
+        experimental: {
+          newNextLinkBehavior: true
+        },
         async rewrites() {
           return [
             {
