@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import { clearStorage } from '@lib/apollo'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
@@ -7,6 +8,7 @@ import {
   POLYGON_CHAIN_ID
 } from '@utils/constants'
 import { AUTH_ROUTES } from '@utils/data/auth-routes'
+import { getIsAuthTokensAvailable } from '@utils/functions/getIsAuthTokensAvailable'
 import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
 import { getToastOptions } from '@utils/functions/getToastOptions'
 import { PROFILES_QUERY } from '@utils/gql/queries'
@@ -18,7 +20,7 @@ import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import React, { FC, ReactNode, useEffect } from 'react'
+import React, { FC, ReactNode, useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { Profile } from 'src/types'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
@@ -43,7 +45,6 @@ if (MIXPANEL_TOKEN) {
 }
 
 const Layout: FC<Props> = ({ children }) => {
-  const { pathname, replace, asPath } = useRouter()
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
   const setChannels = useAppStore((state) => state.setChannels)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
@@ -59,87 +60,81 @@ const Layout: FC<Props> = ({ children }) => {
     (state) => state.setSelectedChannelId
   )
 
-  const { resolvedTheme } = useTheme()
   const { chain } = useNetwork()
+  const { resolvedTheme } = useTheme()
   const { disconnect } = useDisconnect({
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
   const { mounted } = useIsMounted()
-  const { address, isDisconnected } = useAccount()
 
-  const { loading } = useQuery(PROFILES_QUERY, {
+  const connectedUser = isAuthenticated || isSignedUser
+  const [loading, setLoading] = useState(connectedUser)
+  const { address, isDisconnected } = useAccount()
+  const { pathname, replace, asPath } = useRouter()
+  const showFullScreen = getShowFullScreen(pathname)
+
+  const resetAuthState = () => {
+    setSelectedChannel(null)
+    setSelectedChannelId(null)
+    setIsAuthenticated(false)
+  }
+
+  useQuery(PROFILES_QUERY, {
     variables: { ownedBy: address },
-    skip: !isAuthenticated,
-    onCompleted(data) {
+    skip: !isSignedUser || !address,
+    onCompleted: (data) => {
       const channels: Profile[] = data?.profiles?.items
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
-      if (channels.length === 0) {
-        setSelectedChannel(null)
-        setSelectedChannelId(null)
-      } else {
+      if (channels.length) {
         setChannels(channels)
         const selectedChannel = channels.find(
           (channel) => channel.id === selectedChannelId
         )
         setSelectedChannel(selectedChannel ?? channels[0])
         setSelectedChannelId(selectedChannel?.id)
+      } else {
+        resetAuthState()
       }
+      setLoading(false)
+    },
+    onError: () => {
+      setLoading(false)
     }
   })
 
-  useEffect(() => {
-    // Allow only user is authenticated
+  const validateAuthentication = () => {
     if (!isAuthenticated && AUTH_ROUTES.includes(pathname)) {
-      replace(`${AUTH}?next=${asPath}`)
+      replace(`${AUTH}?next=${asPath}`) // redirect to signin page
     }
-    const accessToken = localStorage.getItem('accessToken')
-    const refreshToken = localStorage.getItem('refreshToken')
-
     const logout = () => {
-      setIsAuthenticated(false)
       setIsSignedUser(false)
-      setSelectedChannelId(null)
-      setSelectedChannel(null)
-      localStorage.removeItem('accessToken')
-      localStorage.removeItem('refreshToken')
-      localStorage.removeItem('lenstube.store')
-      if (disconnect) disconnect()
-    }
-
-    if (
-      refreshToken &&
-      accessToken &&
-      accessToken !== 'undefined' &&
-      refreshToken !== 'undefined' &&
-      selectedChannelId &&
-      chain?.id === POLYGON_CHAIN_ID
-    ) {
-      setIsAuthenticated(true)
-    } else {
-      if (isAuthenticated) logout()
-    }
-    if (isDisconnected && mounted) {
-      if (disconnect) disconnect()
-      setIsAuthenticated(false)
-      setIsSignedUser(false)
+      resetAuthState()
+      clearStorage()
+      disconnect?.()
     }
     const ownerAddress = selectedChannel?.ownedBy
-    if (ownerAddress !== undefined && ownerAddress !== address) {
+    const isWrongNetworkChain = chain?.id !== POLYGON_CHAIN_ID
+    const isSwitchedAccount =
+      ownerAddress !== undefined && ownerAddress !== address
+    const shouldLogout =
+      !getIsAuthTokensAvailable() ||
+      !selectedChannelId ||
+      isWrongNetworkChain ||
+      isDisconnected ||
+      isSwitchedAccount
+
+    if (shouldLogout && connectedUser) {
       logout()
     }
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    isAuthenticated,
-    isDisconnected,
-    address,
-    chain,
-    selectedChannel,
-    disconnect,
-    setSelectedChannel,
-    isSignedUser
-  ])
+  }, [isDisconnected, address, chain, disconnect, isAuthenticated])
 
   if (loading || !mounted) return <FullPageLoader />
 
@@ -157,7 +152,7 @@ const Layout: FC<Props> = ({ children }) => {
       />
       <div
         className={clsx('flex pb-10 md:pb-0', {
-          '!pb-0': getShowFullScreen(pathname)
+          '!pb-0': showFullScreen
         })}
       >
         <Sidebar />
@@ -165,19 +160,17 @@ const Layout: FC<Props> = ({ children }) => {
           className={clsx(
             'w-full md:pl-[94px] md:pr-4 max-w-[110rem] mx-auto',
             {
-              'px-0': getShowFullScreen(pathname),
-              'pl-2 pr-2': !getShowFullScreen(pathname)
+              'px-0': showFullScreen,
+              'pl-2 pr-2': !showFullScreen
             }
           )}
         >
           {!NO_HEADER_PATHS.includes(pathname) && (
-            <Header
-              className={getShowFullScreen(pathname) ? 'hidden md:flex' : ''}
-            />
+            <Header className={showFullScreen ? 'hidden md:flex' : ''} />
           )}
           <div
             className={clsx('py-2', {
-              '!p-0': getShowFullScreen(pathname)
+              '!p-0': showFullScreen
             })}
           >
             {children}

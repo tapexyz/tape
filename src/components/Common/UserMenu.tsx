@@ -1,6 +1,7 @@
 import { useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
+import { clearStorage } from '@lib/apollo'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -56,9 +57,8 @@ const UserMenu = () => {
     setIsAuthenticated(false)
     setSelectedChannel(null)
     setSelectedChannelId(null)
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('refreshToken')
-    if (disconnect) disconnect()
+    clearStorage()
+    disconnect?.()
   }
 
   const onSelectChannel = (channel: Profile) => {
