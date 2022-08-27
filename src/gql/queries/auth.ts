@@ -1,5 +1,25 @@
 import { gql } from '@apollo/client'
 
+export const CURRENT_USER = gql`
+  query currentUser($ownedBy: [EthereumAddress!]) {
+    profiles(request: { ownedBy: $ownedBy }) {
+      items {
+        id
+        dispatcher {
+          canUseRelay
+        }
+        picture {
+          ... on MediaSet {
+            original {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
 // We are using this via axios, so it should be string mutation
 export const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {

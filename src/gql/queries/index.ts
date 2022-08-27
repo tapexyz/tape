@@ -18,9 +18,6 @@ export const PROFILES_QUERY = gql`
     profiles(request: { ownedBy: $ownedBy }) {
       items {
         ...ProfileFields
-        dispatcher {
-          canUseRelay
-        }
       }
     }
     userSigNonces {

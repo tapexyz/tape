@@ -26,7 +26,6 @@ const DangerZone = () => {
   const setIsAuthenticated = usePersistStore(
     (state) => state.setIsAuthenticated
   )
-  const setIsSignedUser = usePersistStore((state) => state.setIsSignedUser)
 
   const [loading, setLoading] = useState(false)
   const [txnHash, setTxnHash] = useState('')
@@ -60,7 +59,6 @@ const DangerZone = () => {
       setLoading(false)
       clearStorage()
       setIsAuthenticated(false)
-      setIsSignedUser(false)
       location.href = '/'
     },
     onError

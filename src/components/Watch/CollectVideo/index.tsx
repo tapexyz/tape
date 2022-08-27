@@ -42,7 +42,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const [alreadyCollected, setAlreadyCollected] = useState(
     video.hasCollectedByMe
   )
-  const isSignedUser = usePersistStore((state) => state.isSignedUser)
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
@@ -117,7 +117,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   })
 
   const handleCollect = (validate = true) => {
-    if (!isSignedUser) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     const isFreeCollect =
       video.collectModule.__typename === 'FreeCollectModuleSettings'
     const collectModule = video.collectModule as FreeCollectModuleSettings

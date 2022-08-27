@@ -5,9 +5,9 @@ import { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useEffect } from 'react'
 
+import DispatcherAlert from './DispatcherAlert'
 import FeedFilters from './FeedFilters'
 
-const DispatcherAlert = dynamic(() => import('./DispatcherAlert'))
 const LooksRare = dynamic(() => import('../Explore/LooksRare'), {
   loading: () => <TimelineShimmer />
 })

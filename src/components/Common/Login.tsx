@@ -6,7 +6,7 @@ import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { ERROR_MESSAGE } from '@utils/constants'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { Profile } from 'src/types'
 import { useAccount, useSignMessage } from 'wagmi'
@@ -16,6 +16,7 @@ import ConnectWalletButton from './ConnectWalletButton'
 const Login = () => {
   const router = useRouter()
   const { address } = useAccount()
+  const [loading, setLoading] = useState(false)
   const setShowCreateChannel = useAppStore(
     (state) => state.setShowCreateChannel
   )
@@ -24,21 +25,26 @@ const Login = () => {
     (state) => state.setIsAuthenticated
   )
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
-  const setIsSignedUser = usePersistStore((state) => state.setIsSignedUser)
   const setSelectedChannelId = usePersistStore(
     (state) => state.setSelectedChannelId
   )
 
-  const { signMessageAsync, isLoading: signing } = useSignMessage({
-    onError(error: any) {
-      toast.error(error?.data?.message ?? error?.message)
-    }
+  const onError = (error: any) => {
+    toast.error(error?.data?.message ?? error?.message)
+    setLoading(false)
+  }
+
+  const { signMessageAsync } = useSignMessage({
+    onError
   })
 
-  const [loadChallenge, { error: errorChallenge, loading: loadingChallenge }] =
-    useLazyQuery(CHALLENGE_QUERY, {
-      fetchPolicy: 'no-cache' // if cache old challenge persist issue (InvalidSignature)
-    })
+  const [loadChallenge, { error: errorChallenge }] = useLazyQuery(
+    CHALLENGE_QUERY,
+    {
+      fetchPolicy: 'no-cache', // if cache old challenge persist issue (InvalidSignature)
+      onError
+    }
+  )
   const [authenticate, { error: errorAuthenticate }] = useMutation(
     AUTHENTICATE_MUTATION
   )
@@ -62,6 +68,7 @@ const Login = () => {
 
   const handleSign = async () => {
     try {
+      setLoading(true)
       const challenge = await loadChallenge({
         variables: { request: { address } }
       })
@@ -79,7 +86,6 @@ const Login = () => {
       const { data: channelsData } = await getChannels({
         variables: { ownedBy: address }
       })
-      setIsSignedUser(true)
       if (
         !channelsData?.profiles ||
         channelsData?.profiles?.items.length === 0
@@ -96,17 +102,14 @@ const Login = () => {
         setIsAuthenticated(true)
         if (router.query?.next) router.push(router.query?.next as string)
       }
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       logger.error('[Error Sign In]', error)
     }
   }
 
-  return (
-    <ConnectWalletButton
-      handleSign={handleSign}
-      signing={signing || loadingChallenge}
-    />
-  )
+  return <ConnectWalletButton handleSign={handleSign} signing={loading} />
 }
 
 export default Login
