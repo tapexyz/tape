@@ -667,3 +667,20 @@ export const PUBLICATION_REVENUE_QUERY = gql`
     }
   }
 `
+export const MUTUAL_FOLLOWERS_QUERY = gql`
+  query MutualFollowersProfiles(
+    $request: MutualFollowersProfilesQueryRequest!
+  ) {
+    mutualFollowersProfiles(request: $request) {
+      items {
+        ...ProfileFields
+        isFollowedByMe
+      }
+      pageInfo {
+        next
+        totalCount
+      }
+    }
+  }
+  ${ProfileFields}
+`
