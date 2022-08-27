@@ -1,6 +1,6 @@
 import { useLazyQuery, useQuery } from '@apollo/client'
 import { PROFILES_QUERY } from '@gql/queries'
-import { CURRENT_USER } from '@gql/queries/auth'
+import { CURRENT_USER_QUERY } from '@gql/queries/auth'
 import { clearStorage } from '@lib/apollo'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -90,7 +90,7 @@ const Layout: FC<Props> = ({ children }) => {
     }
   })
 
-  const { loading } = useQuery(CURRENT_USER, {
+  const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: address },
     skip: !isAuthenticated,
     onCompleted: (data) => {
