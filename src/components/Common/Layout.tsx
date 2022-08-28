@@ -1,5 +1,6 @@
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery, useQuery } from '@apollo/client'
 import { PROFILES_QUERY } from '@gql/queries'
+import { CURRENT_USER_QUERY } from '@gql/queries/auth'
 import { clearStorage } from '@lib/apollo'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -19,7 +20,7 @@ import mixpanel from 'mixpanel-browser'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import React, { FC, ReactNode, useEffect, useState } from 'react'
+import React, { FC, ReactNode, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { Profile } from 'src/types'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
@@ -47,8 +48,6 @@ const Layout: FC<Props> = ({ children }) => {
   const setIsAuthenticated = usePersistStore(
     (state) => state.setIsAuthenticated
   )
-  const setIsSignedUser = usePersistStore((state) => state.setIsSignedUser)
-  const isSignedUser = usePersistStore((state) => state.isSignedUser)
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const setSelectedChannelId = usePersistStore(
@@ -64,8 +63,6 @@ const Layout: FC<Props> = ({ children }) => {
   })
   const { mounted } = useIsMounted()
 
-  const connectedUser = isAuthenticated || isSignedUser
-  const [loading, setLoading] = useState(connectedUser)
   const { address, isDisconnected } = useAccount()
   const { pathname, replace, asPath } = useRouter()
   const showFullScreen = getShowFullScreen(pathname)
@@ -76,36 +73,39 @@ const Layout: FC<Props> = ({ children }) => {
     setIsAuthenticated(false)
   }
 
-  const [loadProfiles] = useLazyQuery(PROFILES_QUERY, {
+  const setUserChannels = (channels: Profile[]) => {
+    setChannels(channels)
+    const selectedChannel = channels.find(
+      (channel) => channel.id === selectedChannelId
+    )
+    setSelectedChannel(selectedChannel ?? channels[0])
+    setSelectedChannelId(selectedChannel?.id)
+  }
+
+  const [loadAllChannels] = useLazyQuery(PROFILES_QUERY, {
     variables: { ownedBy: address },
     onCompleted: (data) => {
-      const channels: Profile[] = data?.profiles?.items
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
-      if (channels.length) {
-        setChannels(channels)
-        const selectedChannel = channels.find(
-          (channel) => channel.id === selectedChannelId
-        )
-        setSelectedChannel(selectedChannel ?? channels[0])
-        setSelectedChannelId(selectedChannel?.id)
-      } else {
-        resetAuthState()
-      }
+      setUserChannels(data?.profiles?.items)
     }
   })
 
-  useEffect(() => {
-    if (!isAuthenticated) return setLoading(false)
-    loadProfiles().finally(() => setLoading(false))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const { loading } = useQuery(CURRENT_USER_QUERY, {
+    variables: { ownedBy: address },
+    skip: !isAuthenticated,
+    onCompleted: (data) => {
+      const channels: Profile[] = data?.profiles?.items
+      if (!channels.length) return resetAuthState()
+      setUserChannels(channels)
+      loadAllChannels()
+    }
+  })
 
   const validateAuthentication = () => {
     if (!isAuthenticated && AUTH_ROUTES.includes(pathname)) {
       replace(`${AUTH}?next=${asPath}`) // redirect to signin page
     }
     const logout = () => {
-      setIsSignedUser(false)
       resetAuthState()
       clearStorage()
       disconnect?.()
@@ -121,7 +121,7 @@ const Layout: FC<Props> = ({ children }) => {
       isDisconnected ||
       isSwitchedAccount
 
-    if (shouldLogout && connectedUser) {
+    if (shouldLogout && isAuthenticated) {
       logout()
     }
   }

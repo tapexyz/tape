@@ -16,7 +16,7 @@ import { Mixpanel, TRACK } from '@utils/track'
 import dayjs from 'dayjs'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
 import { LenstubeCollectModule, LenstubePublication } from 'src/types/local'
-import { useAccount, useBalance } from 'wagmi'
+import { useBalance } from 'wagmi'
 
 import BalanceAlert from './BalanceAlert'
 import PermissionAlert from './PermissionAlert'
@@ -38,10 +38,9 @@ const CollectModal: FC<Props> = ({
   collecting
 }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const isSignedUser = usePersistStore((state) => state.isSignedUser)
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
 
   const [isAllowed, setIsAllowed] = useState(true)
-  const { address } = useAccount()
   const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)
   const isMembershipActive =
     video.profile?.followModule?.__typename === 'FeeFollowModuleSettings'
@@ -56,7 +55,7 @@ const CollectModal: FC<Props> = ({
   }, [])
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
-    addressOrName: selectedChannel?.ownedBy || address,
+    addressOrName: selectedChannel?.ownedBy,
     token: collectModule?.amount?.asset?.address,
     formatUnits: collectModule?.amount?.asset?.decimals,
     watch: !!collectModule?.amount,
@@ -85,7 +84,7 @@ const CollectModal: FC<Props> = ({
         referenceModules: []
       }
     },
-    skip: !collectModule?.amount?.asset?.address || !isSignedUser,
+    skip: !collectModule?.amount?.asset?.address || !isAuthenticated,
     onCompleted(data) {
       setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
     }

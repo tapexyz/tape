@@ -8,7 +8,6 @@ import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import imageCdn from '@utils/functions/imageCdn'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import { LENSTUBE_STATS, SETTINGS } from '@utils/url-path'
 import clsx from 'clsx'
@@ -31,8 +30,9 @@ const UserMenu = () => {
   )
   const channels = useAppStore((state) => state.channels)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const setIsSignedUser = usePersistStore((state) => state.setIsSignedUser)
+  const selectedChannel = useAppStore(
+    (state) => state.selectedChannel as Profile
+  )
   const setSelectedChannelId = usePersistStore(
     (state) => state.setSelectedChannelId
   )
@@ -53,7 +53,6 @@ const UserMenu = () => {
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 
   const logout = () => {
-    setIsSignedUser(false)
     setIsAuthenticated(false)
     setSelectedChannel(null)
     setSelectedChannelId(null)
@@ -87,14 +86,7 @@ const UserMenu = () => {
         <Button className="!p-0">
           <img
             className="object-cover bg-white rounded-lg dark:bg-black w-7 h-7 md:rounded-xl md:w-9 md:h-9"
-            src={
-              selectedChannel
-                ? getProfilePicture(selectedChannel)
-                : imageCdn(
-                    `https://cdn.stamp.fyi/avatar/eth:${address}?s=100`,
-                    'avatar'
-                  )
-            }
+            src={getProfilePicture(selectedChannel)}
             alt="channel picture"
             draggable={false}
           />
@@ -147,14 +139,7 @@ const UserMenu = () => {
               <div className="inline-flex items-center p-2 py-3 space-x-2 rounded-lg">
                 <img
                   className="object-cover rounded-xl w-9 h-9"
-                  src={
-                    selectedChannel
-                      ? getProfilePicture(selectedChannel, 'avatar')
-                      : imageCdn(
-                          `https://cdn.stamp.fyi/avatar/eth:${address}?s=100`,
-                          'avatar'
-                        )
-                  }
+                  src={getProfilePicture(selectedChannel, 'avatar')}
                   alt="channel picture"
                   draggable={false}
                 />

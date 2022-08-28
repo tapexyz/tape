@@ -7,6 +7,10 @@ import { useEffect } from 'react'
 import DispatcherAlert from './DispatcherAlert'
 import FeedFilters from './FeedFilters'
 
+const LooksRare = dynamic(() => import('../Explore/LooksRare'), {
+  loading: () => <TimelineShimmer />
+})
+
 const Home: NextPage = () => {
   useEffect(() => {
     Mixpanel.track(TRACK.PAGE_VIEW.HOME)

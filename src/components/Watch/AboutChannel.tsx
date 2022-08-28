@@ -29,57 +29,53 @@ const AboutChannel: FC<Props> = ({ video }) => {
   }, [video.metadata?.description])
 
   return (
-    <div>
-      <div className="flex justify-between w-full mt-2">
-        <Link href={`/${channel?.handle}`} passHref>
-          <div className="flex-none mt-2.5 mr-3 cursor-pointer">
-            <img
-              src={getProfilePicture(channel, 'avatar')}
-              className="w-10 h-10 rounded-xl"
-              draggable={false}
-              alt="channel picture"
-            />
-          </div>
-        </Link>
-        <div className="flex flex-col flex-1">
-          <div className="flex flex-wrap justify-between py-2 gap-y-2">
-            <div className="flex flex-col items-start mr-2">
-              <Link
-                href={`/${channel?.handle}`}
-                className="flex items-center space-x-1 font-semibold"
-              >
-                <span>{channel?.handle}</span>
-                <IsVerified id={channel?.id} />
-              </Link>
-              <span className="inline-flex items-center space-x-1 text-xs">
-                {channel?.stats.totalFollowers} subscribers
-              </span>
-            </div>
-            <div className="flex items-center space-x-2">
-              {video?.collectModule?.__typename !==
-                'RevertCollectModuleSettings' && <CollectVideo video={video} />}
-              <SubscribeActions
-                channel={channel}
-                subscribeType={subscribeType}
-              />
-            </div>
-          </div>
-          {video.metadata?.description && (
-            <p
-              className={clsx('mt-2 text-sm opacity-80', {
-                'line-clamp-3': clamped,
-                '': !clamped
-              })}
+    <div className="flex items-start justify-between w-full mt-2">
+      <Link href={`/${channel?.handle}`}>
+        <div className="flex-none mt-2.5 mr-3 cursor-pointer">
+          <img
+            src={getProfilePicture(channel, 'avatar')}
+            className="w-10 h-10 rounded-xl"
+            draggable={false}
+            alt="channel picture"
+          />
+        </div>
+      </Link>
+      <div className="flex flex-col flex-1">
+        <div className="flex flex-wrap justify-between py-2 gap-y-2">
+          <div className="flex flex-col items-start mr-2">
+            <Link
+              href={`/${channel?.handle}`}
+              className="flex items-center space-x-1 font-semibold"
             >
-              <InterweaveContent content={video.metadata.description} />
-            </p>
-          )}
-
-          {showMore && (
+              <span>{channel?.handle}</span>
+              <IsVerified id={channel?.id} />
+            </Link>
+            <span className="inline-flex items-center space-x-1 text-xs">
+              {channel?.stats.totalFollowers} subscribers
+            </span>
+          </div>
+          <div className="flex items-center space-x-2">
+            {video?.collectModule?.__typename !==
+              'RevertCollectModuleSettings' && <CollectVideo video={video} />}
+            <SubscribeActions channel={channel} subscribeType={subscribeType} />
+          </div>
+        </div>
+        {video.metadata?.description && (
+          <p
+            className={clsx('mt-2 text-sm opacity-80', {
+              'line-clamp-3': clamped,
+              '': !clamped
+            })}
+          >
+            <InterweaveContent content={video.metadata.description} />
+          </p>
+        )}
+        {showMore && (
+          <div className="inline-flex mt-3">
             <button
               type="button"
               onClick={() => setClamped(!clamped)}
-              className="flex items-center mt-2 text-xs outline-none hover:opacity-100 opacity-60"
+              className="flex items-center text-xs outline-none hover:opacity-100 opacity-60"
             >
               {clamped ? (
                 <>
@@ -91,8 +87,8 @@ const AboutChannel: FC<Props> = ({ video }) => {
                 </>
               )}
             </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   )

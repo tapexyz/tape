@@ -2,6 +2,7 @@ import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
 import logger from '@lib/logger'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { POLYGON_CHAIN_ID } from '@utils/constants'
 import { getWalletInfo } from '@utils/functions/getWalletInfo'
@@ -30,7 +31,7 @@ type Props = {
 
 const ConnectWalletButton = ({ handleSign, signing }: Props) => {
   const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
-  const isSignedUser = usePersistStore((state) => state.isSignedUser)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const [showModal, setShowModal] = useState(false)
   const { address, connector, isConnecting, isConnected } = useAccount()
@@ -168,7 +169,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
       </Modal>
       {connector?.id && isConnected ? (
         chain?.id === POLYGON_CHAIN_ID ? (
-          isAuthenticated || isSignedUser ? (
+          isAuthenticated && selectedChannel ? (
             <UserMenu />
           ) : (
             <Button
