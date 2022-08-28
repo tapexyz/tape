@@ -664,14 +664,11 @@ export const PUBLICATION_REVENUE_QUERY = gql`
     }
   }
 `
-export const MUTUAL_FOLLOWERS_QUERY = gql`
-  query MutualFollowersProfiles(
-    $request: MutualFollowersProfilesQueryRequest!
-  ) {
+export const MUTUAL_SUBSCRIBERS_QUERY = gql`
+  query MutualSubscribers($request: MutualFollowersProfilesQueryRequest!) {
     mutualFollowersProfiles(request: $request) {
       items {
         ...ProfileFields
-        isFollowedByMe
       }
       pageInfo {
         next

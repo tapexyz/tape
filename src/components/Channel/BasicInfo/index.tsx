@@ -28,6 +28,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [showSubscribersModal, setShowSubscribersModal] = useState(false)
 
+  const isOwnChannel = channel?.id === selectedChannel?.id
   const subscribeType = channel?.followModule?.__typename
 
   const onClickCustomize = () => {
@@ -88,10 +89,12 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                   {channel?.stats.totalFollowers} subscribers
                 </span>
               </button>
-              {channel?.id && <MutualFollowers channel={channel} />}
             </div>
             <div className="flex items-center space-x-2">
-              {channel?.id === selectedChannel?.id && (
+              {channel?.id && !isOwnChannel ? (
+                <MutualFollowers viewingChannelId={channel.id} />
+              ) : null}
+              {isOwnChannel && (
                 <Tooltip content="Channel settings" placement="top">
                   <Button
                     variant="outlined"
