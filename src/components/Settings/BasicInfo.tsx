@@ -71,7 +71,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>
 
 const BasicInfo = ({ channel }: Props) => {
-  const [, copy] = useCopyToClipboard()
+  const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
   const [coverImage, setCoverImage] = useState(getCoverPicture(channel) || '')
   const selectedChannel = useAppStore((state) => state.selectedChannel)
