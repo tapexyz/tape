@@ -21,9 +21,6 @@ const Login = () => {
     (state) => state.setShowCreateChannel
   )
   const setChannels = useAppStore((state) => state.setChannels)
-  const setIsAuthenticated = usePersistStore(
-    (state) => state.setIsAuthenticated
-  )
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const setSelectedChannelId = usePersistStore(
     (state) => state.setSelectedChannelId
@@ -92,14 +89,12 @@ const Login = () => {
       ) {
         setSelectedChannel(null)
         setSelectedChannelId(null)
-        setIsAuthenticated(false)
         setShowCreateChannel(true)
       } else {
         const channels: Profile[] = channelsData?.profiles?.items
         setChannels(channels)
         setSelectedChannel(channels[0])
         setSelectedChannelId(channels[0].id)
-        setIsAuthenticated(true)
         if (router.query?.next) router.push(router.query?.next as string)
       }
       setLoading(false)

@@ -28,7 +28,7 @@ const PublicationReaction: FC<Props> = ({
   showLabel = true,
   iconType = 'outline'
 }) => {
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const [reaction, setReaction] = useState({
@@ -50,7 +50,7 @@ const PublicationReaction: FC<Props> = ({
   })
 
   const likeVideo = () => {
-    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setReaction((reaction) => ({
       likeCount: reaction.isLiked
         ? reaction.likeCount - 1
@@ -85,7 +85,7 @@ const PublicationReaction: FC<Props> = ({
   }
 
   const dislikeVideo = () => {
-    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setReaction((reaction) => ({
       likeCount: reaction.isLiked ? reaction.likeCount - 1 : reaction.likeCount,
       dislikeCount: reaction.isDisliked

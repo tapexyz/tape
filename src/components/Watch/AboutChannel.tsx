@@ -3,13 +3,12 @@ import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { LenstubePublication } from 'src/types/local'
 
-const CollectVideo = dynamic(() => import('./CollectVideo'))
+import CollectVideo from './CollectVideo'
 
 type Props = {
   video: LenstubePublication

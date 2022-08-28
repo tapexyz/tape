@@ -23,7 +23,7 @@ type Props = {
 const Header: FC<Props> = ({ className }) => {
   const hasNewNotification = useAppStore((state) => state.hasNewNotification)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const [showShowModal, setSearchModal] = useState(false)
 
   useQuery(PING_QUERY, {
@@ -62,16 +62,18 @@ const Header: FC<Props> = ({ className }) => {
         >
           <AiOutlineSearch className="text-lg" aria-hidden="true" />
         </button>
-        {isAuthenticated && <NotificationTrigger />}
-        {isAuthenticated && (
-          <Link href={NOTIFICATIONS} className="relative p-1 md:hidden">
-            <CgBell className="text-lg" />
-            {hasNewNotification && (
-              <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-0 right-0" />
-            )}
-          </Link>
-        )}
-        {isAuthenticated && <NewVideoTrigger />}
+        {selectedChannelId ? (
+          <>
+            <NotificationTrigger />
+            <Link href={NOTIFICATIONS} className="relative p-1 md:hidden">
+              <CgBell className="text-lg" />
+              {hasNewNotification && (
+                <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-0 right-0" />
+              )}
+            </Link>
+            <NewVideoTrigger />
+          </>
+        ) : null}
         <Login />
       </div>
 

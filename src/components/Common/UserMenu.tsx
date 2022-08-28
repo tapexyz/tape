@@ -36,9 +36,6 @@ const UserMenu = () => {
   const setSelectedChannelId = usePersistStore(
     (state) => state.setSelectedChannelId
   )
-  const setIsAuthenticated = usePersistStore(
-    (state) => state.setIsAuthenticated
-  )
 
   const { theme, setTheme } = useTheme()
 
@@ -53,7 +50,6 @@ const UserMenu = () => {
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 
   const logout = () => {
-    setIsAuthenticated(false)
     setSelectedChannel(null)
     setSelectedChannelId(null)
     clearStorage()

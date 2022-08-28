@@ -1,9 +1,6 @@
 import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
-import {
-  SuggestedVideosShimmer,
-  VideoDetailShimmer
-} from '@components/Shimmers/VideoDetailShimmer'
+import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { VIDEO_DETAIL_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -12,20 +9,16 @@ import { getIsHlsSupported } from '@utils/functions/getIsHlsSupported'
 import { getPlaybackIdFromUrl } from '@utils/functions/getVideoUrl'
 import { Mixpanel, TRACK } from '@utils/track'
 import axios from 'axios'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { LenstubePublication } from 'src/types/local'
 
+import AboutChannel from './AboutChannel'
+import SuggestedVideos from './SuggestedVideos'
 import Video from './Video'
-
-const SuggestedVideos = dynamic(() => import('./SuggestedVideos'), {
-  loading: () => <SuggestedVideosShimmer />
-})
-const VideoComments = dynamic(() => import('./VideoComments'))
-const AboutChannel = dynamic(() => import('./AboutChannel'))
+import VideoComments from './VideoComments'
 
 const VideoDetails = () => {
   const {

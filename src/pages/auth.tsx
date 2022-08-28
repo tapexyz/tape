@@ -7,13 +7,13 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 export default function AuthRequiredPage() {
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const { replace, query } = useRouter()
   useEffect(() => {
-    if (isAuthenticated) {
+    if (selectedChannelId) {
       replace(query?.next ? (query?.next as string) : HOME)
     }
-  }, [isAuthenticated, query, replace])
+  }, [selectedChannelId, query, replace])
 
   return (
     <>

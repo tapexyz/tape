@@ -6,7 +6,6 @@ import { CREATE_BURN_PROFILE_TYPED_DATA } from '@gql/queries/typed-data'
 import { clearStorage } from '@lib/apollo'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
 import { LENSHUB_PROXY_ADDRESS } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
@@ -23,10 +22,6 @@ import {
 
 const DangerZone = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const setIsAuthenticated = usePersistStore(
-    (state) => state.setIsAuthenticated
-  )
-
   const [loading, setLoading] = useState(false)
   const [txnHash, setTxnHash] = useState('')
   const { signTypedDataAsync } = useSignTypedData({
@@ -58,7 +53,6 @@ const DangerZone = () => {
       toast.success('Channel deleted')
       setLoading(false)
       clearStorage()
-      setIsAuthenticated(false)
       location.href = '/'
     },
     onError
