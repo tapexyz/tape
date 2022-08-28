@@ -169,7 +169,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
 
   const submitComment = async (data: FormData) => {
     try {
-      setButtonText('Uploading to Arweave...')
+      setButtonText('Uploading...')
       setLoading(true)
       const { url } = await uploadToAr({
         version: '2.0.0',
