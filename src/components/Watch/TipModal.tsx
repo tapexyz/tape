@@ -226,7 +226,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         media: [],
         appId: LENSTUBE_APP_ID
       })
-
+      setButtonText('Commenting...')
       const request = {
         profileId: selectedChannel?.id,
         publicationId: video?.id,
