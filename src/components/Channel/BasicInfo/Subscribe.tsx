@@ -29,6 +29,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Subscribe')
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
