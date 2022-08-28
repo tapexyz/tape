@@ -5,7 +5,6 @@ import Modal from '@components/UIElements/Modal'
 import { CREATE_PROFILE_MUTATION } from '@gql/queries'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
 import { IS_MAINNET } from '@utils/constants'
 import { getHandle } from '@utils/functions/getHandle'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
@@ -51,7 +50,6 @@ export const ClaimHandle = () => (
 
 const CreateChannel = () => {
   const showCreateChannel = useAppStore((state) => state.showCreateChannel)
-  const isSignedUser = usePersistStore((state) => state.isSignedUser)
   const setShowCreateChannel = useAppStore(
     (state) => state.setShowCreateChannel
   )
@@ -118,8 +116,6 @@ const CreateChannel = () => {
       }
     })
   }
-
-  if (!isSignedUser) return null
 
   return (
     <Modal

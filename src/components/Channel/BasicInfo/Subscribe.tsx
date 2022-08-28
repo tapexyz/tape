@@ -15,7 +15,7 @@ type Props = {
 const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Subscribe')
-  const isSignedUser = usePersistStore((state) => state.isSignedUser)
+  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -36,7 +36,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   })
 
   const subscribe = () => {
-    if (!isSignedUser) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
     setButtonText('Subscribing...')
     createProxyActionFreeFollow({

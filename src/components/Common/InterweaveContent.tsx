@@ -1,5 +1,5 @@
 import { Interweave } from 'interweave'
-import { UrlMatcher } from 'interweave-autolink'
+import { EmailMatcher, UrlMatcher } from 'interweave-autolink'
 import React from 'react'
 
 import { HashtagMatcher } from './matchers/HashtagMatcher'
@@ -10,6 +10,7 @@ const InterweaveContent = ({ content }: { content: string }) => {
   const matchers = [
     new TimeMatcher('time'),
     new HashtagMatcher('hashtag'),
+    new EmailMatcher('email'),
     new MentionMatcher('mention'),
     new UrlMatcher('url', { validateTLD: false })
   ]

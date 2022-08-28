@@ -99,21 +99,23 @@ const Comment: FC<Props> = ({ comment }) => {
             )}
           </p>
           {showMore && (
-            <button
-              type="button"
-              onClick={() => setClamped(!clamped)}
-              className="flex items-center mt-2 text-xs outline-none hover:opacity-100 opacity-60"
-            >
-              {clamped ? (
-                <>
-                  Show more <BiChevronDown className="text-sm" />
-                </>
-              ) : (
-                <>
-                  Show less <BiChevronUp className="text-sm" />
-                </>
-              )}
-            </button>
+            <div className="inline-flex mt-3">
+              <button
+                type="button"
+                onClick={() => setClamped(!clamped)}
+                className="flex items-center mt-2 text-xs outline-none hover:opacity-100 opacity-60"
+              >
+                {clamped ? (
+                  <>
+                    Show more <BiChevronDown className="text-sm" />
+                  </>
+                ) : (
+                  <>
+                    Show less <BiChevronUp className="text-sm" />
+                  </>
+                )}
+              </button>
+            </div>
           )}
           {!comment.hidden && (
             <div className="mt-1">
