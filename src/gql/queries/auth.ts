@@ -5,6 +5,7 @@ export const CURRENT_USER_QUERY = gql`
     profiles(request: { ownedBy: $ownedBy }) {
       items {
         id
+        handle
         dispatcher {
           canUseRelay
         }

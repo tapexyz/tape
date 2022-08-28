@@ -136,6 +136,7 @@ const PlayerInstance = ({ source, ratio, hls, poster }: PlayerProps) => {
           aspectRatio={ratio}
           autopause
           autoplay
+          muted
           icons="material"
         >
           {hls?.url ? (

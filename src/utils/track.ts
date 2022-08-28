@@ -7,6 +7,10 @@ export const TRACK = {
   GET_VERIFIED: 'Get Verified',
   UPLOADED_VIDEO: 'Uploaded Video',
   UPDATED_CHANNEL_INFO: 'Updated Channel Info',
+  EMBED_VIDEO: {
+    OPEN: 'Open Embed',
+    COPY: 'Copy Embed'
+  },
   COLLECT: {
     OPEN: 'Open Collect',
     FREE: 'Collected for Free',

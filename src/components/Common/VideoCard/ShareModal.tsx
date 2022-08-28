@@ -10,6 +10,7 @@ import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
 import { LenstubePublication } from 'src/types/local'
 
+import EmbedVideo from '../EmbedVideo'
 import MirrorVideo from '../MirrorVideo'
 
 type Props = {
@@ -19,7 +20,7 @@ type Props = {
 }
 
 const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
-  const [, copy] = useCopyToClipboard()
+  const [copy] = useCopyToClipboard()
 
   const onCopyVideoUrl = async () => {
     await copy(`${LENSTUBE_URL}/watch/${video.id}`)
@@ -36,6 +37,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
     >
       <div className="mt-2">
         <div className="flex items-center mb-4 space-x-2 overflow-x-auto flex-nowrap no-scrollbar">
+          <EmbedVideo videoId={video.id} onClose={() => setShowShare(false)} />
           <MirrorVideo
             video={video}
             onMirrorSuccess={() => setShowShare(false)}
