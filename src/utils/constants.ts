@@ -3,6 +3,9 @@ export const STATIC_ASSETS = 'https://assets.lenstube.xyz'
 export const LENSTUBE_URL = IS_MAINNET
   ? 'https://lenstube.xyz'
   : 'https://testnet.lenstube.xyz'
+export const LENSTUBE_EMBED_URL = IS_MAINNET
+  ? 'https://embed.lenstube.xyz'
+  : 'https://test-embed.lenstube.xyz'
 
 export const APP_NAME = 'Lenstube'
 export const RELAYER_ENABLED =
