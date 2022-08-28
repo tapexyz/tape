@@ -15,6 +15,8 @@ import React, { FC, useState } from 'react'
 import { FiSettings } from 'react-icons/fi'
 import { Profile } from 'src/types'
 
+import MutualFollowers from '../Activities/MutualFollowers'
+
 const CoverLinks = dynamic(() => import('./CoverLinks'))
 
 type Props = {
@@ -86,6 +88,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                   {channel?.stats.totalFollowers} subscribers
                 </span>
               </button>
+              {channel?.id && <MutualFollowers channel={channel} />}
             </div>
             <div className="flex items-center space-x-2">
               {channel?.id === selectedChannel?.id && (
