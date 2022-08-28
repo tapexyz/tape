@@ -34,31 +34,30 @@ const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
 
   return (
     <div className="flex mt-1 space-x-2 text-sm">
-      <div
-        className="flex -space-x-1.5 cursor-pointer"
-        onClick={() => {
-          setShowMutualSubscribersModal(true)
-        }}
-      >
-        {mutualSubscribers?.map((channel: Profile) => (
-          <Tooltip key={channel?.id} content={channel?.handle} placement="top">
+      <Tooltip content="Also watching this channel" placement="top">
+        <div
+          className="flex -space-x-1.5 cursor-pointer"
+          onClick={() => {
+            setShowMutualSubscribersModal(true)
+          }}
+        >
+          {mutualSubscribers?.map((channel: Profile) => (
             <img
               key={channel?.id}
+              title={channel?.handle}
               className="border rounded-full w-7 h-7 dark:border-gray-700/80"
               src={getProfilePicture(channel)}
               draggable={false}
               alt={channel?.handle}
             />
-          </Tooltip>
-        ))}
-        {moreCount ? (
-          <Tooltip content="Also watching this channel" placement="top">
+          ))}
+          {moreCount ? (
             <div className="flex items-center justify-center bg-white border rounded-full dark:bg-gray-900 w-7 h-7 dark:border-gray-700/80">
               <span className="text-[10px]">+ {moreCount}</span>
             </div>
-          </Tooltip>
-        ) : null}
-      </div>
+          ) : null}
+        </div>
+      </Tooltip>
 
       <Modal
         title="Channels you may know"
