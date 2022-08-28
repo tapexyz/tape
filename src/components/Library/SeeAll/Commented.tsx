@@ -20,7 +20,7 @@ const Timeline = dynamic(() => import('../../Home/Timeline'), {
 })
 
 const SeeAllCommented = () => {
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const [commentedVideos, setCommentedVideos] = useState<LenstubePublication[]>(
@@ -78,7 +78,7 @@ const SeeAllCommented = () => {
             <span>Commented Videos</span>
           </h1>
         </div>
-        {(data?.publications?.items?.length === 0 || !isAuthenticated) && (
+        {(data?.publications?.items?.length === 0 || !selectedChannelId) && (
           <NoDataFound text="No comments on videos" isCenter withImage />
         )}
         {loading && <TimelineShimmer />}

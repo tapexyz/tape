@@ -59,7 +59,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
       </div>
       <span className="px-1 middot" />
       <span title={video.createdAt}>
-        uploaded {dayjs(new Date(video.createdAt)).fromNow()}
+        uploaded {dayjs(new Date(video.createdAt))?.fromNow()}
       </span>
     </div>
   )

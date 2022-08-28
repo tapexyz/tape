@@ -28,7 +28,7 @@ const VideoComments: FC<Props> = ({ video }) => {
   const {
     query: { id }
   } = useRouter()
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const onlySubscribersCanComment =
@@ -112,7 +112,7 @@ const VideoComments: FC<Props> = ({ video }) => {
             </span>
           ) : null}
         </h1>
-        {!isAuthenticated && (
+        {!selectedChannelId && (
           <span className="text-xs">(Sign in required to comment)</span>
         )}
       </div>

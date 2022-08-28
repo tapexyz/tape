@@ -45,10 +45,6 @@ const Layout: FC<Props> = ({ children }) => {
   const setChannels = useAppStore((state) => state.setChannels)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const setIsAuthenticated = usePersistStore(
-    (state) => state.setIsAuthenticated
-  )
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const setSelectedChannelId = usePersistStore(
     (state) => state.setSelectedChannelId
@@ -70,7 +66,6 @@ const Layout: FC<Props> = ({ children }) => {
   const resetAuthState = () => {
     setSelectedChannel(null)
     setSelectedChannelId(null)
-    setIsAuthenticated(false)
   }
 
   const setUserChannels = (channels: Profile[]) => {
@@ -92,7 +87,7 @@ const Layout: FC<Props> = ({ children }) => {
 
   const { loading } = useQuery(CURRENT_USER_QUERY, {
     variables: { ownedBy: address },
-    skip: !isAuthenticated,
+    skip: !selectedChannelId,
     onCompleted: (data) => {
       const channels: Profile[] = data?.profiles?.items
       if (!channels.length) return resetAuthState()
@@ -102,7 +97,7 @@ const Layout: FC<Props> = ({ children }) => {
   })
 
   const validateAuthentication = () => {
-    if (!isAuthenticated && AUTH_ROUTES.includes(pathname)) {
+    if (!selectedChannelId && AUTH_ROUTES.includes(pathname)) {
       replace(`${AUTH}?next=${asPath}`) // redirect to signin page
     }
     const logout = () => {
@@ -116,12 +111,11 @@ const Layout: FC<Props> = ({ children }) => {
       ownerAddress !== undefined && ownerAddress !== address
     const shouldLogout =
       !getIsAuthTokensAvailable() ||
-      !selectedChannelId ||
       isWrongNetworkChain ||
       isDisconnected ||
       isSwitchedAccount
 
-    if (shouldLogout && isAuthenticated) {
+    if (shouldLogout && selectedChannelId) {
       logout()
     }
   }
@@ -129,7 +123,7 @@ const Layout: FC<Props> = ({ children }) => {
   useEffect(() => {
     validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDisconnected, address, chain, disconnect, isAuthenticated])
+  }, [isDisconnected, address, chain, disconnect, selectedChannelId])
 
   if (loading || !mounted) return <FullPageLoader />
 
