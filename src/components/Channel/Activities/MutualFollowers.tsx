@@ -1,17 +1,21 @@
 import { useQuery } from '@apollo/client'
+import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import { MUTUAL_SUBSCRIBERS_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Profile } from 'src/types'
 
+import MutualFollowersList from './MutualFollowersList'
 type Props = {
   viewingChannelId: string
 }
 
 const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const [showMutualSubscribersModal, setShowMutualSubscribersModal] =
+    useState(false)
 
   const { data } = useQuery(MUTUAL_SUBSCRIBERS_QUERY, {
     variables: {
@@ -30,9 +34,9 @@ const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
 
   return (
     <div className="flex mt-1 space-x-2 text-sm">
-      <Tooltip content="Also watching this channel" placement="top">
-        <div className="flex -space-x-1.5">
-          {mutualSubscribers.map((channel: Profile) => (
+      <div className="flex -space-x-1.5 cursor-pointer">
+        {mutualSubscribers?.map((channel: Profile) => (
+          <Tooltip key={channel?.id} content={channel?.handle} placement="top">
             <img
               key={channel?.id}
               className="border rounded-full w-7 h-7 dark:border-gray-700/80"
@@ -40,14 +44,32 @@ const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
               draggable={false}
               alt={channel?.handle}
             />
-          ))}
-          {moreCount ? (
-            <div className="flex items-center justify-center bg-white border rounded-full dark:bg-gray-900 w-7 h-7 dark:border-gray-700/80">
+          </Tooltip>
+        ))}
+        {moreCount ? (
+          <Tooltip content="Also watching this channel" placement="top">
+            <div
+              className="flex items-center justify-center bg-white border rounded-full dark:bg-gray-900 w-7 h-7 dark:border-gray-700/80"
+              onClick={() => {
+                setShowMutualSubscribersModal(true)
+              }}
+            >
               <span className="text-[10px]">+ {moreCount}</span>
             </div>
-          ) : null}
+          </Tooltip>
+        ) : null}
+      </div>
+
+      <Modal
+        title="Channels you may know"
+        onClose={() => setShowMutualSubscribersModal(false)}
+        show={showMutualSubscribersModal}
+        panelClassName="max-w-md"
+      >
+        <div className="max-h-[40vh] overflow-y-auto no-scrollbar">
+          <MutualFollowersList viewingChannelId={viewingChannelId} />
         </div>
-      </Tooltip>
+      </Modal>
     </div>
   )
 }
