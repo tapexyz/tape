@@ -4,6 +4,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { MUTUAL_SUBSCRIBERS_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
+import { Mixpanel, TRACK } from '@utils/track'
 import React, { FC, useState } from 'react'
 import { Profile } from 'src/types'
 
@@ -28,6 +29,11 @@ const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
     skip: !viewingChannelId
   })
 
+  const onClickMutuals = () => {
+    setShowMutualSubscribersModal(true)
+    Mixpanel.track(TRACK.OPENED_MUTUAL_CHANNELS)
+  }
+
   const mutualSubscribers = data?.mutualFollowersProfiles?.items as Profile[]
   const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount
   const moreCount = totalCount - 5 > 0 ? totalCount - 5 : 0
@@ -35,11 +41,10 @@ const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
   return (
     <div className="flex mt-1 space-x-2 text-sm">
       <Tooltip content="Being watched by channels" placement="top">
-        <div
+        <button
+          type="button"
           className="flex -space-x-1.5 cursor-pointer"
-          onClick={() => {
-            setShowMutualSubscribersModal(true)
-          }}
+          onClick={() => onClickMutuals()}
         >
           {mutualSubscribers?.map((channel: Profile) => (
             <img
@@ -56,7 +61,7 @@ const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
               <span className="text-[10px]">+ {moreCount}</span>
             </div>
           ) : null}
-        </div>
+        </button>
       </Tooltip>
       <Modal
         title="Channels you may know"
