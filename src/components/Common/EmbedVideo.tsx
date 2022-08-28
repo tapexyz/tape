@@ -52,7 +52,9 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
                 onClick={() => onCopyCode()}
                 className="p-4 text-left border dark:border-gray-800 rounded-xl"
               >
-                <code className="select-all opacity-60">{iframeCode}</code>
+                <code className="text-sm select-all opacity-60">
+                  {iframeCode}
+                </code>
               </button>
             </div>
           </div>
