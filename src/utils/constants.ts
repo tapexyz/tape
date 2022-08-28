@@ -1,4 +1,4 @@
-export const IS_MAINNET = process.env.NEXT_PUBLIC_IS_MAINNET === 'true'
+export const IS_MAINNET = true
 export const STATIC_ASSETS = 'https://assets.lenstube.xyz'
 export const LENSTUBE_URL = IS_MAINNET
   ? 'https://lenstube.xyz'
@@ -79,7 +79,7 @@ export const GIT_DEPLOYED_COMMIT_SHA =
   process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
 export const GIT_DEPLOYED_BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
 export const VERCEL_DEPLOYED_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV
-export const MIXPANEL_API_HOST = '/collect'
+export const MIXPANEL_API_HOST = 'https://helpers.lenstube.xyz/collect'
 export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN
 
 export const API_ORIGINS = [
