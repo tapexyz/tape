@@ -30,7 +30,7 @@ type Props = {
 }
 
 const ConnectWalletButton = ({ handleSign, signing }: Props) => {
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const [showModal, setShowModal] = useState(false)
@@ -169,7 +169,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
       </Modal>
       {connector?.id && isConnected ? (
         chain?.id === POLYGON_CHAIN_ID ? (
-          isAuthenticated && selectedChannel ? (
+          selectedChannelId && selectedChannel ? (
             <UserMenu />
           ) : (
             <Button

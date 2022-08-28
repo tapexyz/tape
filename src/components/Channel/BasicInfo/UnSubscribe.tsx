@@ -25,7 +25,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
       : 'Subscribed'
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState(subscribeText)
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message)
@@ -85,7 +85,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   })
 
   const unsubscribe = () => {
-    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
     setButtonText('Unsubscribing...')
     createUnsubscribeTypedData({

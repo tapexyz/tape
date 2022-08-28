@@ -38,7 +38,7 @@ const CollectModal: FC<Props> = ({
   collecting
 }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
 
   const [isAllowed, setIsAllowed] = useState(true)
   const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)
@@ -84,7 +84,7 @@ const CollectModal: FC<Props> = ({
         referenceModules: []
       }
     },
-    skip: !collectModule?.amount?.asset?.address || !isAuthenticated,
+    skip: !collectModule?.amount?.asset?.address || !selectedChannelId,
     onCompleted(data) {
       setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
     }

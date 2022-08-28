@@ -51,7 +51,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Comment')
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
@@ -227,7 +227,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     }
   }
 
-  if (!selectedChannel || !isAuthenticated) return null
+  if (!selectedChannel || !selectedChannelId) return null
 
   return (
     <div className="my-1">

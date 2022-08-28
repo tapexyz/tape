@@ -33,7 +33,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
   const [buttonText, setButtonText] = useState('Join Channel')
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
@@ -85,7 +85,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
         referenceModules: []
       }
     },
-    skip: !followModule?.amount?.asset?.address || !isAuthenticated,
+    skip: !followModule?.amount?.asset?.address || !selectedChannelId,
     onCompleted(data) {
       setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
     }
@@ -130,7 +130,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   })
 
   const joinChannel = () => {
-    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     if (!isAllowed)
       return toast.error(
         `Menu -> Settings -> Permissions and allow fee follow module for ${followModule.amount.asset.symbol}.`

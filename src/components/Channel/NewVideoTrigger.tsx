@@ -9,9 +9,9 @@ import { AiOutlineVideoCameraAdd } from 'react-icons/ai'
 import { HiOutlineStatusOnline, HiOutlineUpload } from 'react-icons/hi'
 
 const NewVideoTrigger = () => {
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
 
-  if (!isAuthenticated) return null
+  if (!selectedChannelId) return null
 
   return (
     <Popover

@@ -75,7 +75,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
 
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState<string | null>(null)
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
@@ -256,7 +256,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   }
 
   const onSendTip = async () => {
-    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
     setButtonText('Sending...')
     const amountToSend = getValues('tipQuantity') * 1
