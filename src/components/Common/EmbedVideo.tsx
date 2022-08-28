@@ -43,7 +43,7 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
                 src={`${LENSTUBE_EMBED_URL}/${videoId}`}
                 title="Lenstube video player"
                 frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;"
+                allow="accelerometer; autoplay; clipboard-write; gyroscope;"
                 allowFullScreen
               ></iframe>
             </div>
