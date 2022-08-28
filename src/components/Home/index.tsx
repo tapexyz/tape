@@ -1,16 +1,11 @@
 import MetaTags from '@components/Common/MetaTags'
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
+import LooksRare from '@components/Explore/LooksRare'
 import { Mixpanel, TRACK } from '@utils/track'
 import { NextPage } from 'next'
-import dynamic from 'next/dynamic'
 import { useEffect } from 'react'
 
 import DispatcherAlert from './DispatcherAlert'
 import FeedFilters from './FeedFilters'
-
-const LooksRare = dynamic(() => import('../Explore/LooksRare'), {
-  loading: () => <TimelineShimmer />
-})
 
 const Home: NextPage = () => {
   useEffect(() => {

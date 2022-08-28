@@ -1,6 +1,5 @@
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import { Button } from '@components/UIElements/Button'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { FC, useState } from 'react'
 import { FiFlag } from 'react-icons/fi'
@@ -8,9 +7,8 @@ import { RiShareForwardLine } from 'react-icons/ri'
 import { TbHeartHandshake } from 'react-icons/tb'
 import { LenstubePublication } from 'src/types/local'
 
+import PublicationReaction from './PublicationReaction'
 import TipModal from './TipModal'
-
-const PublicationReaction = dynamic(() => import('./PublicationReaction'))
 
 type Props = {
   video: LenstubePublication

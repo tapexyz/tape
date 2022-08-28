@@ -11,6 +11,7 @@ export const TRACK = {
     OPEN: 'Open Embed',
     COPY: 'Copy Embed'
   },
+  OPENED_MUTUAL_CHANNELS: 'Opened Mutual Channels',
   COLLECT: {
     OPEN: 'Open Collect',
     FREE: 'Collected for Free',

@@ -14,14 +14,13 @@ import { MdOutlineAnalytics, MdOutlineSlowMotionVideo } from 'react-icons/md'
 import { Profile } from 'src/types'
 
 import About from './About'
+import ChannelVideos from './ChannelVideos'
 
 const OtherChannels = dynamic(() => import('./OtherChannels'))
 const CommentedVideos = dynamic(() => import('./CommentedVideos'), {
   loading: () => <TimelineShimmer />
 })
-const ChannelVideos = dynamic(() => import('./ChannelVideos'), {
-  loading: () => <TimelineShimmer />
-})
+
 const MirroredVideos = dynamic(() => import('./MirroredVideos'), {
   loading: () => <TimelineShimmer />
 })

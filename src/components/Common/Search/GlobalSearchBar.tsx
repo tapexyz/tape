@@ -7,12 +7,11 @@ import useDebounce from '@utils/hooks/useDebounce'
 import useOutsideClick from '@utils/hooks/useOutsideClick'
 import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
-import dynamic from 'next/dynamic'
 import { FC, useEffect, useRef, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 
-const Videos = dynamic(() => import('./Videos'))
-const Channels = dynamic(() => import('./Channels'))
+import Channels from './Channels'
+import Videos from './Videos'
 
 interface Props {
   onSearchResults?: () => void
