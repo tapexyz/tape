@@ -48,7 +48,7 @@ const MutualFollowers: FC<Props> = ({ channel }) => {
           .filter((item, index) => index < mutualFollwersShowLimit)
           .map((profile: Profile, index) => (
             <span key={profile.id}>
-              {profile.name ?? profile?.handle}
+              {profile?.handle}
               {index < mutualFollwersShowLimit - 1 &&
                 mutualFollwers.length > 1 &&
                 ', '}
