@@ -14,7 +14,7 @@ const MutualFollowers: FC<Props> = ({ channel }) => {
   const [mutualFollwers, setMutualFollwers] = useState<Profile[]>([])
   const [totalCount, setTotalCount] = useState(0)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const { data } = useQuery(MUTUAL_FOLLOWERS_QUERY, {
+  useQuery(MUTUAL_FOLLOWERS_QUERY, {
     variables: {
       request: {
         viewingProfileId: channel?.id,
