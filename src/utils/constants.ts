@@ -1,4 +1,4 @@
-export const IS_MAINNET = true
+export const IS_MAINNET = process.env.NEXT_PUBLIC_IS_MAINNET === 'true'
 export const STATIC_ASSETS = 'https://assets.lenstube.xyz'
 export const LENSTUBE_URL = IS_MAINNET
   ? 'https://lenstube.xyz'
