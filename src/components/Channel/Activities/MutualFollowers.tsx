@@ -3,7 +3,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { MUTUAL_SUBSCRIBERS_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { Profile } from 'src/types'
 
 type Props = {
@@ -11,10 +11,9 @@ type Props = {
 }
 
 const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
-  const [mutualFollowers, setMutualFollowers] = useState<Profile[]>([])
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
-  useQuery(MUTUAL_SUBSCRIBERS_QUERY, {
+  const { data } = useQuery(MUTUAL_SUBSCRIBERS_QUERY, {
     variables: {
       request: {
         viewingProfileId: viewingChannelId,
@@ -22,17 +21,18 @@ const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
         limit: 5
       }
     },
-    skip: !viewingChannelId,
-    onCompleted(data) {
-      setMutualFollowers(data?.mutualFollowersProfiles?.items)
-    }
+    skip: !viewingChannelId
   })
+
+  const mutualSubscribers = data?.mutualFollowersProfiles?.items as Profile[]
+  const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount
+  const moreCount = totalCount - 5 > 0 ? totalCount - 5 : 0
 
   return (
     <div className="flex mt-1 space-x-2 text-sm">
       <Tooltip content="Also watching this channel" placement="top">
-        <div className="flex -space-x-2">
-          {mutualFollowers.map((channel: Profile) => (
+        <div className="flex -space-x-1.5">
+          {mutualSubscribers.map((channel: Profile) => (
             <img
               key={channel?.id}
               className="border rounded-full w-7 h-7 dark:border-gray-700/80"
@@ -41,6 +41,11 @@ const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
               alt={channel?.handle}
             />
           ))}
+          {moreCount ? (
+            <div className="flex items-center justify-center bg-white border rounded-full dark:bg-gray-900 w-7 h-7 dark:border-gray-700/80">
+              <span className="text-[10px]">+ {moreCount}</span>
+            </div>
+          ) : null}
         </div>
       </Tooltip>
     </div>

@@ -90,7 +90,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 </span>
               </button>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-3">
               {channel?.id && !isOwnChannel ? (
                 <MutualFollowers viewingChannelId={channel.id} />
               ) : null}
