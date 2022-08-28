@@ -15,7 +15,7 @@ import React, { FC, useState } from 'react'
 import { FiSettings } from 'react-icons/fi'
 import { Profile } from 'src/types'
 
-import MutualFollowers from '../Activities/MutualFollowers'
+import MutualFollowers from '../Mutual/MutualFollowers'
 
 const CoverLinks = dynamic(() => import('./CoverLinks'))
 

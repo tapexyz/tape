@@ -34,7 +34,7 @@ const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
 
   return (
     <div className="flex mt-1 space-x-2 text-sm">
-      <Tooltip content="Also watching this channel" placement="top">
+      <Tooltip content="Being watched by channels" placement="top">
         <div
           className="flex -space-x-1.5 cursor-pointer"
           onClick={() => {
@@ -58,7 +58,6 @@ const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
           ) : null}
         </div>
       </Tooltip>
-
       <Modal
         title="Channels you may know"
         onClose={() => setShowMutualSubscribersModal(false)}
