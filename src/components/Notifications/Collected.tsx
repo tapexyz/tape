@@ -65,6 +65,7 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
           <Link
             href={`/watch/${notification?.collectedPublication.id}`}
             className="ml-1 text-indigo-500"
+            prefetch={false}
           >
             video
           </Link>

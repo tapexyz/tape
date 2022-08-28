@@ -7,7 +7,10 @@ import React from 'react'
 const TimeLink = ({ ...props }: any) => {
   const { query } = useRouter()
   return (
-    <Link href={`/watch/${query.id}?t=${getSecondsFromTime(props.display)}`}>
+    <Link
+      prefetch={false}
+      href={`/watch/${query.id}?t=${getSecondsFromTime(props.display)}`}
+    >
       {props.display}
     </Link>
   )

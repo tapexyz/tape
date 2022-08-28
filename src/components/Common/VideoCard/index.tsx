@@ -45,7 +45,7 @@ const VideoCard: FC<Props> = ({ video }) => {
             show={showShare}
             setShowShare={setShowShare}
           />
-          <Link href={`/watch/${video.id}`}>
+          <Link href={`/watch/${video.id}`} prefetch={false}>
             <div className="relative rounded-t-xl aspect-w-16 aspect-h-9">
               <img
                 src={thumbnailUrl}
@@ -64,7 +64,11 @@ const VideoCard: FC<Props> = ({ video }) => {
           </Link>
           <div className="p-2">
             <div className="flex items-start space-x-2.5">
-              <Link href={`/watch/${video.id}`} className="flex-none mt-0.5">
+              <Link
+                href={`/watch/${video.id}`}
+                prefetch={false}
+                className="flex-none mt-0.5"
+              >
                 <img
                   className="w-8 h-8 rounded-xl"
                   src={getProfilePicture(video.profile)}
@@ -76,6 +80,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                 <div className="flex w-full items-start justify-between space-x-1.5 min-w-0">
                   <Link
                     href={`/watch/${video.id}`}
+                    prefetch={false}
                     className="text-[15px] font-medium line-clamp-2 break-words"
                   >
                     {video.metadata?.name}

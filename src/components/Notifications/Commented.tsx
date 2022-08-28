@@ -40,6 +40,7 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
               notification?.comment?.commentOn &&
               notification?.comment?.commentOn?.id
             }`}
+            prefetch={false}
             className="ml-1 text-indigo-500"
           >
             video

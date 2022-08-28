@@ -44,7 +44,7 @@ const VideoActions: FC<Props> = ({ video }) => {
           <span>Share</span>
         </span>
       </Button>
-      <Link href={`/report/${video.id}`} passHref>
+      <Link href={`/report/${video.id}`}>
         <Button variant="secondary" className="!p-0">
           <span className="flex items-center space-x-1">
             <FiFlag className="text-xs" />

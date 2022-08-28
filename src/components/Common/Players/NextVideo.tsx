@@ -50,6 +50,7 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
                 <Link
                   href={`/watch/${video.id}`}
                   className="rounded-lg cursor-pointer"
+                  prefetch={false}
                 >
                   <div className="relative">
                     <img
@@ -77,8 +78,8 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
                 <div className="flex flex-col items-start">
                   <div className="flex md:w-48 items-start overflow-hidden justify-between space-x-1.5">
                     <Link
-                      passHref
                       href={`/watch/${video.id}`}
+                      prefetch={false}
                       className="overflow-hidden md:text-lg"
                     >
                       <span className="flex md:font-medium line-clamp-2">

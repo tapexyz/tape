@@ -30,6 +30,7 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
         <div className="flex-none overflow-hidden rounded-lg">
           <Link
             href={`/watch/${video.id}`}
+            prefetch={false}
             className="rounded-lg cursor-pointer"
           >
             <div className="relative">
@@ -58,8 +59,8 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
           <div className="flex flex-col items-start pb-1">
             <div className="flex w-full items-start overflow-hidden justify-between space-x-1.5">
               <Link
-                passHref
                 href={`/watch/${video.id}`}
+                prefetch={false}
                 className="overflow-hidden text-sm font-medium line-clamp-1"
               >
                 <span className="flex line-clamp-1">

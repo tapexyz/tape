@@ -43,6 +43,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
           <Link
             href={`/watch/${notification?.mentionPublication.id}`}
             className="mr-1 text-indigo-500"
+            prefetch={false}
           >
             mentioned
           </Link>

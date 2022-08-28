@@ -20,6 +20,7 @@ const Videos: FC<Props> = ({ results, loading, clearSearch }) => {
         >
           <Link
             href={`/watch/${result?.id}`}
+            prefetch={false}
             key={result?.id}
             className="flex flex-col justify-center py-2 space-y-1 rounded-xl"
           >
