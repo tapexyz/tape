@@ -33,7 +33,7 @@ const VideoCard: FC<Props> = ({ video }) => {
   )
 
   return (
-    <div className="bg-gray-50 rounded-xl dark:bg-[#181818] group">
+    <div className="bg-gray-50 rounded-xl dark:bg-[#181818] group hover:scale-110 transform transition duration-700">
       {video.hidden ? (
         <div className="grid h-full place-items-center">
           <span className="text-xs">Video Hidden by User</span>
@@ -46,12 +46,12 @@ const VideoCard: FC<Props> = ({ video }) => {
             setShowShare={setShowShare}
           />
           <Link href={`/watch/${video.id}`}>
-            <div className="group relative rounded-t-xl aspect-w-16 aspect-h-9 overflow-hidden">
+            <div className="relative rounded-t-xl aspect-w-16 aspect-h-9">
               <img
                 src={thumbnailUrl}
                 draggable={false}
                 className={clsx(
-                  'group-hover:scale-125 transform transition duration-700 object-center bg-gray-100 dark:bg-gray-900 w-full h-full rounded-t-xl lg:w-full lg:h-full ',
+                  'object-center bg-gray-100 dark:bg-gray-900 w-full h-full rounded-t-xl lg:w-full lg:h-full ',
                   {
                     'object-contain': isByte,
                     'object-cover': !isByte
