@@ -46,12 +46,12 @@ const VideoCard: FC<Props> = ({ video }) => {
             setShowShare={setShowShare}
           />
           <Link href={`/watch/${video.id}`}>
-            <div className="relative rounded-t-xl aspect-w-16 aspect-h-9">
+            <div className="group relative rounded-t-xl aspect-w-16 aspect-h-9 overflow-hidden">
               <img
                 src={thumbnailUrl}
                 draggable={false}
                 className={clsx(
-                  'object-center bg-gray-100 dark:bg-gray-900 w-full h-full rounded-t-xl lg:w-full lg:h-full',
+                  'group-hover:scale-125 transform transition duration-700 object-center bg-gray-100 dark:bg-gray-900 w-full h-full rounded-t-xl lg:w-full lg:h-full ',
                   {
                     'object-contain': isByte,
                     'object-cover': !isByte
