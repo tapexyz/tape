@@ -54,6 +54,7 @@ and visit http://localhost:4783
 
 ## Others
 
+- [Lenstube Embeds](https://github.com/lenstube-xyz/embed)
 - [Lenstube Assets](https://github.com/lenstube-xyz/assets)
 
 ## License
