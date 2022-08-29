@@ -40,7 +40,8 @@ const MutualFollowersList: FC<Props> = ({ viewingChannelId }) => {
           request: {
             viewingProfileId: viewingChannelId,
             yourProfileId: selectedChannel?.id,
-            limit: 10
+            limit: 10,
+            cursor: pageInfo?.next
           }
         }
       })
