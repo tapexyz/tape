@@ -8,7 +8,7 @@ export const SuggestedVideosShimmer = () => {
   const cards = useMemo(() => Array(8).fill(1), [])
 
   return (
-    <div className="hidden col-span-1 space-y-2 md:block">
+    <div className="col-span-1 space-y-2">
       {cards.map((i, idx) => (
         <SuggestedShimmer key={`${i}_${idx}`} />
       ))}
@@ -32,8 +32,8 @@ export const VideoDetailShimmer = () => {
             <div className="w-10 h-5 bg-gray-300 rounded-md dark:bg-gray-700" />
             <div className="w-10 h-5 bg-gray-300 rounded-md dark:bg-gray-700" />
             <div className="w-10 h-5 bg-gray-300 rounded-md dark:bg-gray-700" />
-            <div className="w-1/6 h-5 bg-gray-300 rounded-md dark:bg-gray-700" />
-            <div className="w-1/6 h-5 bg-gray-300 rounded-md dark:bg-gray-700" />
+            <div className="w-20 h-5 bg-gray-300 rounded-md dark:bg-gray-700" />
+            <div className="w-20 h-5 bg-gray-300 rounded-md dark:bg-gray-700" />
           </div>
           <div className="flex items-center justify-between w-full">
             <span className="flex items-center flex-1 space-x-2">
