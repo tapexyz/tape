@@ -121,6 +121,13 @@ const Layout: FC<Props> = ({ children }) => {
   }
 
   useEffect(() => {
+    // Remove service worker
+    // TODO: remove after a month
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      for (let registration of registrations) {
+        registration.unregister()
+      }
+    })
     validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisconnected, address, chain, disconnect, selectedChannelId])
