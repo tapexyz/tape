@@ -22,7 +22,7 @@ import {
   useSwitchNetwork
 } from 'wagmi'
 
-import UserMenu from './UserMenu'
+import UserMenu from '../UserMenu'
 
 type Props = {
   handleSign: () => void

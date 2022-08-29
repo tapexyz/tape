@@ -13,7 +13,7 @@ import { FC } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { CgBell } from 'react-icons/cg'
 
-import Login from './Login'
+import Login from './Auth/Login'
 import GlobalSearchBar from './Search/GlobalSearchBar'
 
 type Props = {

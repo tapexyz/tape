@@ -1,4 +1,4 @@
-import Login from '@components/Common/Login'
+import Login from '@components/Common/Auth/Login'
 import MetaTags from '@components/Common/MetaTags'
 import usePersistStore from '@lib/store/persist'
 import { APP_NAME } from '@utils/constants'
