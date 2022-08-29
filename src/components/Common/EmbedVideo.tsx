@@ -53,7 +53,7 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; gyroscope;"
                 allowFullScreen
-               />
+              />
             </div>
             <div className="col-span-2">
               <button
