@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://assets.lenstube.xyz/images/brand/banner.png" alt="Logo">
+    <img src="https://assets.lenstube.xyz/images/brand/banner.png" alt="banner">
     <h1>Lenstube</h1>
     <p>Decentralized video-sharing social media platform.</p>
     <a href="https://lenstube.xyz">lenstube.xyz</a>
@@ -17,6 +17,9 @@
     </a>
      <a href="https://status.lenstube.xyz">
         <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
+    </a>
+    <a href="https://lenstube.checklyhq.com">
+        <img src="https://api.checklyhq.com/v1/badges/checks/2278c22c-37af-4c6a-bebc-b48169fdcc78?style=flat&theme=default&responseTime=true" alt="Better Uptime">
     </a>
     <span>
         <img src="https://img.shields.io/badge/dependabot-enabled-025e8c?logo=Dependabot" alt="Dependabot">

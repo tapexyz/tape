@@ -46,6 +46,7 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
           <div className="flex flex-col space-y-3">
             <div className="w-full">
               <iframe
+                sandbox=""
                 className="aspect-[16/9] w-full rounded-lg"
                 src={`${LENSTUBE_EMBED_URL}/${videoId}`}
                 title="Lenstube video player"
@@ -56,6 +57,7 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
             </div>
             <div className="col-span-2">
               <button
+                type="button"
                 onClick={() => onCopyCode()}
                 className="p-4 text-left border select-all dark:border-gray-800 rounded-xl"
               >

@@ -104,7 +104,9 @@ const Login = () => {
     }
   }
 
-  return <ConnectWalletButton handleSign={handleSign} signing={loading} />
+  return (
+    <ConnectWalletButton handleSign={() => handleSign()} signing={loading} />
+  )
 }
 
 export default Login
