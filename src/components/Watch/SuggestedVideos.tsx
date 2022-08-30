@@ -83,10 +83,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
             {videos?.map(
               (video: LenstubePublication) =>
                 !video.hidden && (
-                  <SuggestedVideoCard
-                    video={video}
-                    key={`${video?.id}_${video.createdAt}`}
-                  />
+                  <SuggestedVideoCard video={video} key={video?.id} />
                 )
             )}
           </div>

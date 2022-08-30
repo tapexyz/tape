@@ -1,5 +1,5 @@
-import { AddressExplorerLink } from '@components/Common/ExplorerLink'
 import InterweaveContent from '@components/Common/InterweaveContent'
+import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
 import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@utils/constants'
 import { formatUrl } from '@utils/functions/formatUrl'

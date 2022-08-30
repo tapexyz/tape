@@ -9,6 +9,7 @@ import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { LenstubePublication } from 'src/types/local'
 
 import CollectVideo from './CollectVideo'
+import MetaInfo from './MetaInfo'
 
 type Props = {
   video: LenstubePublication
@@ -59,7 +60,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
             <SubscribeActions channel={channel} subscribeType={subscribeType} />
           </div>
         </div>
-        {video.metadata?.description && (
+        {video?.metadata?.description && (
           <p
             className={clsx('mt-2 text-sm opacity-80', {
               'line-clamp-3': clamped,
@@ -88,6 +89,9 @@ const AboutChannel: FC<Props> = ({ video }) => {
             </button>
           </div>
         )}
+        <div className="flex justify-end mt-2">
+          <MetaInfo video={video} />
+        </div>
       </div>
     </div>
   )

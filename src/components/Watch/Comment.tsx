@@ -1,6 +1,6 @@
-import { HashExplorerLink } from '@components/Common/ExplorerLink'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
+import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
 import {
   checkValueInAttributes,

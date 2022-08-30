@@ -408,9 +408,6 @@ export const VIDEO_DETAIL_QUERY = gql`
     publication(request: $request) {
       ... on Post {
         ...PostFields
-        referenceModule {
-          __typename
-        }
       }
     }
   }

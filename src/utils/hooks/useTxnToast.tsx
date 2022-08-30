@@ -1,4 +1,4 @@
-import { HashExplorerLink } from '@components/Common/ExplorerLink'
+import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { CgSandClock } from 'react-icons/cg'

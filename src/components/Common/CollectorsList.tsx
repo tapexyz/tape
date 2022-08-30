@@ -13,8 +13,8 @@ import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
 import { PaginatedResultInfo, Wallet } from 'src/types'
 
-import { AddressExplorerLink } from './ExplorerLink'
 import IsVerified from './IsVerified'
+import AddressExplorerLink from './Links/AddressExplorerLink'
 
 type Props = {
   videoId: string

@@ -319,7 +319,7 @@ const UploadSteps = () => {
           `${uploadedVideo.title}\n\n${uploadedVideo.description}`
         ),
         locale: 'en',
-        tags: [uploadedVideo.videoCategory.tag, 'lenstube'],
+        tags: [uploadedVideo.videoCategory.tag],
         mainContentFocus: PublicationMainFocus.Video,
         external_url: LENSTUBE_URL,
         animation_url: uploadedVideo.videoSource,
