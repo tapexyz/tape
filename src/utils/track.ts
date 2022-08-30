@@ -6,6 +6,8 @@ export const TRACK = {
   DISPATCHER_ENABLED: 'Dispatcher Enabled',
   GET_VERIFIED: 'Get Verified',
   UPLOADED_VIDEO: 'Uploaded Video',
+  CLICKED_BYTES_TAG_AT_UPLOAD: 'Clicked Bytes During Upload',
+  UPLOADED_BYTE_VIDEO: 'Uploaded Byte Video',
   UPDATED_CHANNEL_INFO: 'Updated Channel Info',
   EMBED_VIDEO: {
     OPEN: 'Open Embed',

@@ -346,6 +346,9 @@ const UploadSteps = () => {
           followerOnlyReferenceModule: uploadedVideo.disableComments
         }
       }
+      if (isBytesVideo) {
+        Mixpanel.track(TRACK.UPLOADED_BYTE_VIDEO)
+      }
       if (selectedChannel?.dispatcher?.canUseRelay) {
         createPostViaDispatcher({ variables: { request } })
       } else {
