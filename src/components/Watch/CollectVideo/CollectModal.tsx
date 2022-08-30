@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import Alert from '@components/Common/Alert'
-import { AddressExplorerLink } from '@components/Common/ExplorerLink'
+import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'

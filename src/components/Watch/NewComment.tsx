@@ -177,7 +177,6 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         description: trimify(data.comment),
         content: trimify(data.comment),
         locale: 'en',
-        tags: ['lenstube'],
         mainContentFocus: PublicationMainFocus.TextOnly,
         external_url: LENSTUBE_URL,
         image: null,

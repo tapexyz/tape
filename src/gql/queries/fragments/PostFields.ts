@@ -16,9 +16,14 @@ export const PostFields = gql`
         handle
       }
     }
+    referenceModule {
+      __typename
+    }
     collectModule {
       ...CollectFields
     }
+    collectNftAddress
+    onChainContentURI
     hidden
     hasCollectedByMe
     stats {

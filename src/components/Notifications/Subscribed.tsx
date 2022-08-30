@@ -1,5 +1,5 @@
-import { AddressExplorerLink } from '@components/Common/ExplorerLink'
 import IsVerified from '@components/Common/IsVerified'
+import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'

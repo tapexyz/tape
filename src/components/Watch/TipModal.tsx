@@ -195,7 +195,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         description: getValues('message'),
         content: getValues('message'),
         locale: 'en',
-        tags: ['lenstube'],
         mainContentFocus: PublicationMainFocus.TextOnly,
         external_url: LENSTUBE_URL,
         image: null,
