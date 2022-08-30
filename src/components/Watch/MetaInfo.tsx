@@ -20,37 +20,42 @@ const MetaInfo: FC<Props> = ({ video }) => {
   const isIPFS = getIsIPFSUrl(getPermanentVideoUrl(video))
 
   return (
-    <div className="flex items-center space-x-1 opacity-80">
+    <div className="flex flex-wrap items-center space-x-1 opacity-80">
       {video?.metadata?.tags[0] && (
         <div className="flex items-center space-x-1 text-sm">
           <AiOutlineTag />
-          <span>{getTagName(video.metadata.tags[0])}</span>
+          <span className="whitespace-nowrap">
+            {getTagName(video.metadata.tags[0])}
+          </span>
         </div>
       )}
       <span className="middot" />
+
       {isIPFS ? (
         <IPFSLink hash={getMetadataHash(video)}>
           <div className="flex items-center space-x-1">
-            <div className="text-xs uppercase">Metadata</div>
+            <div className="text-sm whitespace-nowrap">View Metadata</div>
             <BiLinkExternal className="text-sm" />
           </div>
         </IPFSLink>
       ) : (
         <ArweaveExplorerLink txId={getMetadataHash(video)}>
           <div className="flex items-center space-x-1">
-            <div className="text-xs uppercase">Metadata</div>
+            <div className="text-sm whitespace-nowrap">View Metadata</div>
             <BiLinkExternal className="text-sm" />
           </div>
         </ArweaveExplorerLink>
       )}
-      <span className="middot" />
       {video.collectNftAddress && (
-        <TokenExplorerLink address={video.collectNftAddress}>
-          <div className="flex items-center space-x-1">
-            <div className="text-xs uppercase">View NFT</div>
-            <BiLinkExternal className="text-sm" />
-          </div>
-        </TokenExplorerLink>
+        <div className="items-center hidden space-x-1 md:flex">
+          <span className="middot" />
+          <TokenExplorerLink address={video.collectNftAddress}>
+            <div className="flex items-center space-x-1">
+              <div className="text-sm whitespace-nowrap">View Token</div>
+              <BiLinkExternal className="text-sm" />
+            </div>
+          </TokenExplorerLink>
+        </div>
       )}
     </div>
   )
