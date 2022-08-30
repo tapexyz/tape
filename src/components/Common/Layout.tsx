@@ -1,7 +1,6 @@
 import { useLazyQuery, useQuery } from '@apollo/client'
 import { PROFILES_QUERY } from '@gql/queries'
 import { CURRENT_USER_QUERY } from '@gql/queries/auth'
-import { clearStorage } from '@lib/apollo'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
@@ -10,6 +9,7 @@ import {
   POLYGON_CHAIN_ID
 } from '@utils/constants'
 import { AUTH_ROUTES } from '@utils/data/auth-routes'
+import clearLocalStorage from '@utils/functions/clearLocalStorage'
 import { getIsAuthTokensAvailable } from '@utils/functions/getIsAuthTokensAvailable'
 import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
 import { getToastOptions } from '@utils/functions/getToastOptions'
@@ -102,7 +102,7 @@ const Layout: FC<Props> = ({ children }) => {
     }
     const logout = () => {
       resetAuthState()
-      clearStorage()
+      clearLocalStorage()
       disconnect?.()
     }
     const ownerAddress = selectedChannel?.ownedBy
