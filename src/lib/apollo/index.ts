@@ -26,9 +26,4 @@ const apolloClient = new ApolloClient({
   cache
 })
 
-export const nodeClient = new ApolloClient({
-  link: httpLink,
-  cache
-})
-
 export default apolloClient
