@@ -1,6 +1,6 @@
 ## Description
 
-Fixes # (issue)
+Closes # (issue)
 
 ## Type of change
 

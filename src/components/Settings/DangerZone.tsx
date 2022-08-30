@@ -3,10 +3,10 @@ import { useMutation } from '@apollo/client'
 import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
 import { CREATE_BURN_PROFILE_TYPED_DATA } from '@gql/queries/typed-data'
-import { clearStorage } from '@lib/apollo'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { LENSHUB_PROXY_ADDRESS } from '@utils/constants'
+import clearLocalStorage from '@utils/functions/clearLocalStorage'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
@@ -52,7 +52,7 @@ const DangerZone = () => {
     onSuccess() {
       toast.success('Channel deleted')
       setLoading(false)
-      clearStorage()
+      clearLocalStorage()
       location.href = '/'
     },
     onError

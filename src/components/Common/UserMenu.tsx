@@ -2,11 +2,11 @@ import { useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
 import { PROFILES_QUERY } from '@gql/queries'
-import { clearStorage } from '@lib/apollo'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
+import clearLocalStorage from '@utils/functions/clearLocalStorage'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import { LENSTUBE_STATS, SETTINGS } from '@utils/url-path'
@@ -52,7 +52,7 @@ const UserMenu = () => {
   const logout = () => {
     setSelectedChannel(null)
     setSelectedChannelId(null)
-    clearStorage()
+    clearLocalStorage()
     disconnect?.()
   }
 
