@@ -60,7 +60,7 @@
     "@next/bundle-analyzer": "^12.2.5",
     "@types/mixpanel-browser": "^2.38.0",
     "@types/node": "18.7.14",
-    "@types/react": "18.0.17",
+    "@types/react": "18.0.18",
     "@types/react-dom": "18.0.6",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
