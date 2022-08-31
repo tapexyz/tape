@@ -5,6 +5,6 @@ updates:
     target-branch: "main"
     reviewers:
       - sasicodes
+    rebase-strategy: auto
     schedule:
       interval: "daily"
-      rebase-strategy: auto
