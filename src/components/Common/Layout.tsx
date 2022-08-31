@@ -1,6 +1,5 @@
-import { useLazyQuery, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { PROFILES_QUERY } from '@gql/queries'
-import { CURRENT_USER_QUERY } from '@gql/queries/auth'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
@@ -77,22 +76,14 @@ const Layout: FC<Props> = ({ children }) => {
     setSelectedChannelId(selectedChannel?.id)
   }
 
-  const [loadAllChannels] = useLazyQuery(PROFILES_QUERY, {
-    variables: { ownedBy: address },
-    onCompleted: (data) => {
-      setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
-      setUserChannels(data?.profiles?.items)
-    }
-  })
-
-  const { loading } = useQuery(CURRENT_USER_QUERY, {
+  const { loading } = useQuery(PROFILES_QUERY, {
     variables: { ownedBy: address },
     skip: !selectedChannelId,
     onCompleted: (data) => {
       const channels: Profile[] = data?.profiles?.items
       if (!channels.length) return resetAuthState()
       setUserChannels(channels)
-      loadAllChannels()
+      setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
     }
   })
 
