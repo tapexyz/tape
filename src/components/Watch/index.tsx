@@ -74,12 +74,15 @@ const VideoDetails = () => {
       await getHlsUrl(result?.publication)
     }
   })
+  const isPost: boolean =
+    data?.publication && data?.publication?.__typename === 'Post'
 
   useEffect(() => {
-    if (video && video?.__typename === 'Post') {
+    if (isPost && video) {
       addToRecentlyWatched(video)
     }
-  }, [video, addToRecentlyWatched])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [video])
 
   useEffect(() => {
     setVideoWatchTime(Number(t))
@@ -87,7 +90,7 @@ const VideoDetails = () => {
 
   if (error) return <Custom500 />
   if (loading || !data) return <VideoDetailShimmer />
-  if (!data?.publication || video?.__typename !== 'Post') return <Custom404 />
+  if (!isPost) return <Custom404 />
 
   return (
     <>
