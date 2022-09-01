@@ -89,7 +89,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                   <span>{video.profile?.handle}</span>
                   <IsVerified id={video.profile?.id} size="xs" />
                 </Link>
-                <div className="flex overflow-hidden items-center space-x-1 text-[11px] opacity-70">
+                <div className="flex overflow-hidden items-center text-[11px] opacity-70">
                   <span className="whitespace-nowrap">
                     {video.stats?.totalUpvotes} likes
                   </span>
