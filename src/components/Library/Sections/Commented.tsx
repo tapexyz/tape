@@ -10,6 +10,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { AiOutlineComment } from 'react-icons/ai'
 import { BiChevronRight } from 'react-icons/bi'
+import { PublicationTypes } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 import CommentedVideoCard from '../CommentedVideoCard'
@@ -22,7 +23,7 @@ const Commented = () => {
   const { loading, data } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: {
-        publicationTypes: 'COMMENT',
+        publicationTypes: [PublicationTypes.Comment],
         profileId: selectedChannel?.id,
         limit: 4,
         sources: [LENSTUBE_APP_ID]

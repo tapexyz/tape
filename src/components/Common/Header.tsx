@@ -1,8 +1,6 @@
-import { useQuery } from '@apollo/client'
 import NewVideoTrigger from '@components/Channel/NewVideoTrigger'
 import NotificationTrigger from '@components/Notifications/NotificationTrigger'
 import Modal from '@components/UIElements/Modal'
-import { PING_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { HOME, NOTIFICATIONS } from '@utils/url-path'
@@ -22,14 +20,8 @@ type Props = {
 
 const Header: FC<Props> = ({ className }) => {
   const hasNewNotification = useAppStore((state) => state.hasNewNotification)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const [showShowModal, setSearchModal] = useState(false)
-
-  useQuery(PING_QUERY, {
-    pollInterval: 600_000,
-    skip: !selectedChannel
-  })
 
   return (
     <div

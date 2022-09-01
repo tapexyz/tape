@@ -7,12 +7,6 @@ import { MirrorFields } from './fragments/MirrorFields'
 import { PostFields } from './fragments/PostFields'
 import { ProfileFields } from './fragments/ProfileFields'
 
-export const PING_QUERY = gql`
-  query Ping {
-    ping
-  }
-`
-
 export const PROFILES_QUERY = gql`
   query allProfiles($ownedBy: [EthereumAddress!]) {
     profiles(request: { ownedBy: $ownedBy }) {

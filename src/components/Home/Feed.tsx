@@ -7,7 +7,11 @@ import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo, PublicationMainFocus } from 'src/types'
+import {
+  PaginatedResultInfo,
+  PublicationMainFocus,
+  PublicationTypes
+} from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 import Timeline from './Timeline'
@@ -22,8 +26,8 @@ const HomeFeed = () => {
       request: {
         profileId: selectedChannel?.id,
         limit: 12,
-        timelineTypes: ['POST'],
-        metadata: { mainContentFocus: PublicationMainFocus.Video }
+        timelineTypes: [PublicationTypes.Post],
+        metadata: { mainContentFocus: [PublicationMainFocus.Video] }
       }
     },
     skip: !selectedChannel?.id,
@@ -43,7 +47,7 @@ const HomeFeed = () => {
               profileId: selectedChannel?.id,
               cursor: pageInfo?.next,
               limit: 12,
-              timelineTypes: ['POST']
+              timelineTypes: [PublicationTypes.Post]
             }
           }
         })

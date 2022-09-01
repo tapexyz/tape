@@ -12,7 +12,7 @@ import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { AiOutlineComment } from 'react-icons/ai'
-import { PaginatedResultInfo } from 'src/types'
+import { PaginatedResultInfo, PublicationTypes } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 const Timeline = dynamic(() => import('../../Home/Timeline'), {
@@ -31,7 +31,7 @@ const SeeAllCommented = () => {
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: {
-        publicationTypes: 'COMMENT',
+        publicationTypes: [PublicationTypes.Comment],
         profileId: selectedChannel?.id,
         limit: 12,
         sources: [LENSTUBE_APP_ID]
@@ -52,7 +52,7 @@ const SeeAllCommented = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              publicationTypes: 'COMMENT',
+              publicationTypes: [PublicationTypes.Comment],
               profileId: selectedChannel?.id,
               cursor: pageInfo?.next,
               limit: 12,

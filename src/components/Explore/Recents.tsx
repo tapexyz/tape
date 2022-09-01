@@ -9,7 +9,7 @@ import { LENSTUBE_APP_ID } from '@utils/constants'
 import { Mixpanel, TRACK } from '@utils/track'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo } from 'src/types'
+import { PaginatedResultInfo, PublicationTypes } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 const Recents = () => {
@@ -26,7 +26,7 @@ const Recents = () => {
         limit: 12,
         noRandomize: true,
         sources: [LENSTUBE_APP_ID],
-        publicationTypes: ['POST']
+        publicationTypes: [PublicationTypes.Post]
       }
     },
     onCompleted(data) {
@@ -47,7 +47,7 @@ const Recents = () => {
               limit: 16,
               noRandomize: true,
               sources: [LENSTUBE_APP_ID],
-              publicationTypes: ['POST']
+              publicationTypes: [PublicationTypes.Post]
             }
           }
         })
