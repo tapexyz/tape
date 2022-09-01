@@ -38,6 +38,7 @@ export const PostFields = gql`
       description
       content
       contentWarning
+      mainContentFocus
       tags
       media {
         original {

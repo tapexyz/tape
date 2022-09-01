@@ -26,7 +26,6 @@ const HomeFeed = () => {
         metadata: { mainContentFocus: PublicationMainFocus.Video }
       }
     },
-    fetchPolicy: 'no-cache',
     skip: !selectedChannel?.id,
     onCompleted(data) {
       setPageInfo(data?.timeline?.pageInfo)
