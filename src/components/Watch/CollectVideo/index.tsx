@@ -20,7 +20,7 @@ import { Mixpanel, TRACK } from '@utils/track'
 import { utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
-import { SiOpenmined } from 'react-icons/si'
+import { HiOutlineCollection } from 'react-icons/hi'
 import {
   CreateCollectBroadcastItemResult,
   FreeCollectModuleSettings
@@ -182,7 +182,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
             {loading ? (
               <Loader size="md" />
             ) : (
-              <SiOpenmined className="text-xl" />
+              <HiOutlineCollection className="text-xl" />
             )}
           </Button>
         </div>

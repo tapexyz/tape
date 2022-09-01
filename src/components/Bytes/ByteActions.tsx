@@ -12,7 +12,7 @@ const ByteActions: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
 
   return (
-    <div className="flex-col items-center justify-between w-12 md:flex">
+    <div className="flex-col items-center justify-between w-12 md:w-14 md:flex">
       <div className="flex justify-center p-2 space-y-4 md:flex-col">
         <VideoOptions
           video={video}
@@ -43,7 +43,7 @@ const ByteActions: FC<Props> = ({ video }) => {
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
           <div className="hidden md:block">
             <CollectVideo video={video} variant="secondary" />
-            <div className="text-xs text-center">
+            <div className="text-xs leading-3 text-center">
               {video.stats?.totalAmountOfCollects || 'Collect'}
             </div>
           </div>
