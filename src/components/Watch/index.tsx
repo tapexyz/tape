@@ -4,7 +4,6 @@ import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { VIDEO_DETAIL_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { LENSTUBE_APP_ID } from '@utils/constants'
 import { getIsHlsSupported } from '@utils/functions/getIsHlsSupported'
 import { getPlaybackIdFromUrl } from '@utils/functions/getVideoUrl'
 import { Mixpanel, TRACK } from '@utils/track'
@@ -63,20 +62,27 @@ const VideoDetails = () => {
       request: { publicationId: id },
       reactionRequest: selectedChannel
         ? { profileId: selectedChannel?.id }
-        : null,
-      sources: [LENSTUBE_APP_ID]
+        : null
     },
     skip: !id,
     fetchPolicy: 'no-cache',
     onCompleted: async (result) => {
       setLoading(true)
+      if (!result.publication || result?.publication?.__typename !== 'Post') {
+        return setLoading(false)
+      }
       await getHlsUrl(result?.publication)
     }
   })
+  const isPost: boolean =
+    data?.publication && data?.publication?.__typename === 'Post'
 
   useEffect(() => {
-    if (video) addToRecentlyWatched(video)
-  }, [video, addToRecentlyWatched])
+    if (isPost && video) {
+      addToRecentlyWatched(video)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [video])
 
   useEffect(() => {
     setVideoWatchTime(Number(t))
@@ -84,7 +90,7 @@ const VideoDetails = () => {
 
   if (error) return <Custom500 />
   if (loading || !data) return <VideoDetailShimmer />
-  if (!data?.publication && video?.__typename !== 'Post') return <Custom404 />
+  if (!isPost) return <Custom404 />
 
   return (
     <>

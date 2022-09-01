@@ -5,10 +5,9 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { PROFILE_FEED_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
-import { LENSTUBE_APP_ID } from '@utils/constants'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo, Profile } from 'src/types'
+import { PaginatedResultInfo, Profile, PublicationMainFocus } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -24,7 +23,7 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
         publicationTypes: 'MIRROR',
         profileId: channel?.id,
         limit: 12,
-        sources: [LENSTUBE_APP_ID]
+        metadata: { mainContentFocus: PublicationMainFocus.Video }
       }
     },
     skip: !channel?.id,
@@ -42,8 +41,7 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
               publicationTypes: 'MIRROR',
               profileId: channel?.id,
               cursor: pageInfo?.next,
-              limit: 8,
-              sources: [LENSTUBE_APP_ID]
+              limit: 12
             }
           }
         })

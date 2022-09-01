@@ -45,7 +45,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           className="flex items-center space-x-1 outline-none"
         >
           <SiOpenmined className="text-xs" />
-          <span>{video.stats.totalAmountOfCollects} collects</span>
+          <span>{video.stats?.totalAmountOfCollects} collects</span>
         </button>
         <span className="px-1 middot" />
         <button
@@ -54,7 +54,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           className="flex items-center space-x-1 outline-none"
         >
           <FiRepeat className="text-xs" />
-          <span>{video.stats.totalAmountOfMirrors} mirrors</span>
+          <span>{video.stats?.totalAmountOfMirrors} mirrors</span>
         </button>
       </div>
       <span className="px-1 middot" />
