@@ -353,10 +353,7 @@ export const FEED_QUERY = gql`
 `
 
 export const PROFILE_FEED_QUERY = gql`
-  query ProfileFeed(
-    $request: PublicationsQueryRequest!
-    $reactionRequest: ReactionFieldResolverRequest
-  ) {
+  query ProfileFeed($request: PublicationsQueryRequest!) {
     publications(request: $request) {
       items {
         ... on Post {

@@ -8,7 +8,7 @@ import { LENSTUBE_APP_ID } from '@utils/constants'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo } from 'src/types'
+import { PaginatedResultInfo, PublicationTypes } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
@@ -31,7 +31,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
         sortCriteria: 'LATEST',
         limit: 12,
         sources: [LENSTUBE_APP_ID],
-        publicationTypes: ['POST'],
+        publicationTypes: [PublicationTypes.Post],
         noRandomize: false
       }
     },
@@ -61,7 +61,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
               sortCriteria: 'LATEST',
               limit: 12,
               sources: [LENSTUBE_APP_ID],
-              publicationTypes: ['POST'],
+              publicationTypes: [PublicationTypes.Post],
               noRandomize: false
             }
           }

@@ -10,7 +10,7 @@ import { EXPLORE } from '@utils/url-path'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo } from 'src/types'
+import { PaginatedResultInfo, PublicationTypes } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 const LooksRare = () => {
@@ -24,7 +24,7 @@ const LooksRare = () => {
         limit: 12,
         noRandomize: true,
         sources: [LENSTUBE_APP_ID],
-        publicationTypes: ['POST']
+        publicationTypes: [PublicationTypes.Post]
       }
     },
     onCompleted(data) {
@@ -45,7 +45,7 @@ const LooksRare = () => {
               limit: 16,
               noRandomize: true,
               sources: [LENSTUBE_APP_ID],
-              publicationTypes: ['POST']
+              publicationTypes: [PublicationTypes.Post]
             }
           }
         })

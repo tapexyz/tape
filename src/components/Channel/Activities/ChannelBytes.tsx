@@ -8,7 +8,7 @@ import logger from '@lib/logger'
 import { LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo, Profile } from 'src/types'
+import { PaginatedResultInfo, Profile, PublicationTypes } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -21,7 +21,7 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: {
-        publicationTypes: 'POST',
+        publicationTypes: [PublicationTypes.Post],
         profileId: channel?.id,
         limit: 12,
         sources: [LENSTUBE_BYTES_APP_ID]
@@ -39,7 +39,7 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              publicationTypes: 'POST',
+              publicationTypes: [PublicationTypes.Post],
               profileId: channel?.id,
               cursor: pageInfo?.next,
               limit: 8,
