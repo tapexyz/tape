@@ -3,10 +3,7 @@ import IPFSLink from '@components/Common/Links/IPFSLink'
 import TokenExplorerLink from '@components/Common/Links/TokenExplorerLink'
 import getMetadataHash from '@utils/functions/getMetadataHash'
 import getTagName from '@utils/functions/getTagName'
-import {
-  getIsIPFSUrl,
-  getPermanentVideoUrl
-} from '@utils/functions/getVideoUrl'
+import { getIsIPFSUrl } from '@utils/functions/getVideoUrl'
 import React, { FC } from 'react'
 import { AiOutlineTag } from 'react-icons/ai'
 import { BiLinkExternal } from 'react-icons/bi'
@@ -17,7 +14,7 @@ type Props = {
 }
 
 const MetaInfo: FC<Props> = ({ video }) => {
-  const isIPFS = getIsIPFSUrl(getPermanentVideoUrl(video))
+  const isIPFS = getIsIPFSUrl(video.onChainContentURI)
 
   return (
     <div className="flex flex-wrap items-center space-x-1 opacity-80">
@@ -29,7 +26,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
           </span>
         </div>
       )}
-      <span className="middot" />
+      {video?.metadata?.tags[0] && <span className="middot" />}
 
       {isIPFS ? (
         <IPFSLink hash={getMetadataHash(video)}>
