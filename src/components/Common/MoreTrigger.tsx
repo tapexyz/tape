@@ -36,32 +36,12 @@ const MoreTrigger = () => {
           </div>
           <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
             <Link
-              href={`https://roadmap.lenstube.xyz`}
-              onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)}
+              href={LENSTUBE_STATUS_PAGE}
+              onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
               className="block px-2.5 py-1.5"
               target="_blank"
             >
-              Roadmap
-            </Link>
-          </div>
-          <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
-            <Link
-              href={DISCORD}
-              onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.DISCORD)}
-              className="block px-2.5 py-1.5"
-              target="_blank"
-            >
-              Discord
-            </Link>
-          </div>
-          <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
-            <Link
-              href={`https://twitter.com/${LENSTUBE_TWITTER_HANDLE}`}
-              onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.TWITTER)}
-              className="block px-2.5 py-1.5"
-              target="_blank"
-            >
-              Twitter
+              Status
             </Link>
           </div>
           <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
@@ -76,12 +56,32 @@ const MoreTrigger = () => {
           </div>
           <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
             <Link
-              href={LENSTUBE_STATUS_PAGE}
-              onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
+              href={`https://twitter.com/${LENSTUBE_TWITTER_HANDLE}`}
+              onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.TWITTER)}
               className="block px-2.5 py-1.5"
               target="_blank"
             >
-              Status
+              Twitter
+            </Link>
+          </div>
+          <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
+            <Link
+              href={DISCORD}
+              onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.DISCORD)}
+              className="block px-2.5 py-1.5"
+              target="_blank"
+            >
+              Discord
+            </Link>
+          </div>
+          <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
+            <Link
+              href={`https://roadmap.lenstube.xyz`}
+              onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)}
+              className="block px-2.5 py-1.5"
+              target="_blank"
+            >
+              Give Feedback
             </Link>
           </div>
           <div className="text-[11px] cursor-default p-1 font-semibold uppercase opacity-50">
