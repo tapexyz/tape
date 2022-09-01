@@ -1,12 +1,10 @@
 import { useLazyQuery } from '@apollo/client'
-import Alert from '@components/Common/Alert'
-import { Loader } from '@components/UIElements/Loader'
+import { Button } from '@components/UIElements/Button'
 import { GENERATE_ALLOWANCE_QUERY } from '@gql/queries'
 import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
 import React, { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
 import { ApprovedAllowanceAmount } from 'src/types'
-import { LenstubeCollectModule } from 'src/types/local'
 import {
   usePrepareSendTransaction,
   useSendTransaction,
@@ -14,14 +12,12 @@ import {
 } from 'wagmi'
 
 type Props = {
-  collectModule: LenstubeCollectModule
   setIsAllowed: Dispatch<boolean>
   isAllowed: boolean
   allowanceModule: ApprovedAllowanceAmount
 }
 
 const PermissionAlert: FC<Props> = ({
-  collectModule,
   setIsAllowed,
   isAllowed,
   allowanceModule
@@ -79,24 +75,14 @@ const PermissionAlert: FC<Props> = ({
   }
 
   return (
-    <div className="flex-1">
-      <Alert variant="warning">
-        <button
-          type="button"
-          disabled={transactionLoading || waiting || loading}
-          className="flex justify-center mx-auto text-sm outline-none"
-          onClick={() => handleAllowance()}
-        >
-          {transactionLoading || waiting || loading ? (
-            <Loader />
-          ) : (
-            <span className="flex items-center justify-center">
-              Allow {collectModule.type} for{' '}
-              {collectModule?.amount?.asset?.symbol}
-            </span>
-          )}
-        </button>
-      </Alert>
+    <div className="flex justify-end">
+      <Button
+        loading={transactionLoading || waiting || loading}
+        onClick={() => handleAllowance()}
+        disabled={transactionLoading || waiting || loading}
+      >
+        Allow Module
+      </Button>
     </div>
   )
 }

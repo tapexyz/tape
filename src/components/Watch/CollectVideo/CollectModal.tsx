@@ -185,7 +185,7 @@ const CollectModal: FC<Props> = ({
                       </div>
                     </Alert>
                   </div>
-                ) : balanceLoading ? (
+                ) : balanceLoading && !haveEnoughBalance ? (
                   <div className="flex justify-center w-full py-2">
                     <Loader />
                   </div>
@@ -201,7 +201,6 @@ const CollectModal: FC<Props> = ({
                 )
               ) : (
                 <PermissionAlert
-                  collectModule={collectModule}
                   isAllowed={isAllowed}
                   setIsAllowed={setIsAllowed}
                   allowanceModule={
