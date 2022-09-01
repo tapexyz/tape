@@ -59,7 +59,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
             request: {
               cursor: pageInfo?.next,
               sortCriteria: 'LATEST',
-              limit: 16,
+              limit: 12,
               sources: [LENSTUBE_APP_ID],
               publicationTypes: ['POST'],
               noRandomize: false
