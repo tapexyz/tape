@@ -36,6 +36,16 @@ const MoreTrigger = () => {
           </div>
           <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
             <Link
+              href={`https://roadmap.lenstube.xyz`}
+              onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)}
+              className="block px-2.5 py-1.5"
+              target="_blank"
+            >
+              Roadmap
+            </Link>
+          </div>
+          <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
+            <Link
               href={DISCORD}
               onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.DISCORD)}
               className="block px-2.5 py-1.5"

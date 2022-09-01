@@ -37,6 +37,7 @@ export const TRACK = {
       OPEN: 'Open More Menu',
       GITHUB: 'Click Github',
       DISCORD: 'Click Discord',
+      ROADMAP: 'Click Roadmap',
       STATUS: 'Click Status',
       TWITTER: 'Click Twitter'
     }
