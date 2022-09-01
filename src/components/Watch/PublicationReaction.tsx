@@ -34,8 +34,8 @@ const PublicationReaction: FC<Props> = ({
   const [reaction, setReaction] = useState({
     isLiked: publication.reaction === 'UPVOTE',
     isDisliked: publication.reaction === 'DOWNVOTE',
-    likeCount: publication.stats.totalUpvotes,
-    dislikeCount: publication.stats.totalDownvotes
+    likeCount: publication.stats?.totalUpvotes,
+    dislikeCount: publication.stats?.totalDownvotes
   })
 
   const [addReaction] = useMutation(ADD_REACTION_MUTATION, {

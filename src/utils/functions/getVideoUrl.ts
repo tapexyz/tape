@@ -22,5 +22,5 @@ export const getPlaybackIdFromUrl = (video: LenstubePublication) => {
 }
 
 export const getIsIPFSUrl = (url: string) => {
-  return url.includes('ipfs')
+  return url?.includes('ipfs')
 }
