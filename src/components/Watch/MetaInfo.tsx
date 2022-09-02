@@ -1,8 +1,8 @@
 import ArweaveExplorerLink from '@components/Common/Links/ArweaveExplorerLink'
 import IPFSLink from '@components/Common/Links/IPFSLink'
 import TokenExplorerLink from '@components/Common/Links/TokenExplorerLink'
+import getCategoryName from '@utils/functions/getCategoryName'
 import getMetadataHash from '@utils/functions/getMetadataHash'
-import getTagName from '@utils/functions/getTagName'
 import { getIsIPFSUrl } from '@utils/functions/getVideoUrl'
 import React, { FC } from 'react'
 import { AiOutlineTag } from 'react-icons/ai'
@@ -22,7 +22,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
         <div className="flex items-center space-x-1 text-sm">
           <AiOutlineTag />
           <span className="whitespace-nowrap">
-            {getTagName(video.metadata.tags[0])}
+            {getCategoryName(video.metadata.tags[0])}
           </span>
         </div>
       )}
