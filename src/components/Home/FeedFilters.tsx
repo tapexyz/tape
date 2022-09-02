@@ -16,7 +16,7 @@ const FeedFilters = () => {
       </Link>
       {CREATOR_VIDEO_CATEGORIES.map(({ tag }) => (
         <Link
-          href={tag}
+          href={`/explore/${tag.toLowerCase()}`}
           key={tag}
           className="rounded-full border text-xs border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-[#181818] px-3 py-1 transition duration-300 ease-in-out"
         >

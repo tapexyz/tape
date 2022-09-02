@@ -74,7 +74,7 @@ const ExploreCategory = () => {
         <h1 className="font-semibold capitalize md:text-2xl">{categoryName}</h1>
         <div className="my-4">
           {loading && <TimelineShimmer />}
-          {data?.search?.items?.length === 0 && (
+          {data?.explorePublications?.items?.length === 0 && (
             <NoDataFound isCenter withImage text="No videos found" />
           )}
           {!error && !loading && (
