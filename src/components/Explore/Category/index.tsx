@@ -7,6 +7,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { EXPLORE_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
+import getCategoryName from '@utils/functions/getCategoryName'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -20,7 +21,7 @@ import { LenstubePublication } from 'src/types/local'
 
 const ExploreCategory = () => {
   const { query } = useRouter()
-  const categoryName = query.category
+  const categoryName = query.category as string
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
@@ -74,7 +75,9 @@ const ExploreCategory = () => {
     <>
       <MetaTags title={categoryName?.toString() || ''} />
       <div>
-        <h1 className="font-semibold capitalize md:text-2xl">{categoryName}</h1>
+        <h1 className="font-semibold capitalize md:text-2xl">
+          {getCategoryName(categoryName)}
+        </h1>
         <div className="my-4">
           {loading && <TimelineShimmer />}
           {data?.explorePublications?.items?.length === 0 && (
