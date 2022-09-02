@@ -6,12 +6,15 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { EXPLORE_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
-import { LENSTUBE_APP_ID } from '@utils/constants'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
-import { PaginatedResultInfo, PublicationTypes } from 'src/types'
+import {
+  PaginatedResultInfo,
+  PublicationMainFocus,
+  PublicationTypes
+} from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 const ExploreCategory = () => {
@@ -23,17 +26,19 @@ const ExploreCategory = () => {
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
-        metadata: { tags: { all: [query.category] } },
+        metadata: {
+          tags: { all: [query.category] },
+          mainContentFocus: [PublicationMainFocus.Video]
+        },
         publicationTypes: [PublicationTypes.Post],
-        limit: 12,
-        sources: [LENSTUBE_APP_ID],
+        limit: 16,
         sortCriteria: 'TOP_COLLECTED'
       }
     },
     skip: !query.category,
     onCompleted(data) {
-      setPageInfo(data?.search?.pageInfo)
-      setVideos(data?.search?.items)
+      setPageInfo(data?.explorePublications?.pageInfo)
+      setVideos(data?.explorePublications?.items)
     }
   })
 
@@ -43,16 +48,18 @@ const ExploreCategory = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              metadata: { tags: { all: [query.category] } },
+              metadata: {
+                tags: { all: [query.category] },
+                mainContentFocus: [PublicationMainFocus.Video]
+              },
               publicationTypes: [PublicationTypes.Post],
               limit: 12,
-              sources: [LENSTUBE_APP_ID],
               sortCriteria: 'TOP_COLLECTED'
             }
           }
         })
-        setPageInfo(data?.search?.pageInfo)
-        setVideos([...videos, ...data?.search?.items])
+        setPageInfo(data?.explorePublications?.pageInfo)
+        setVideos([...videos, ...data?.explorePublications?.items])
       } catch (error) {
         logger.error('[Error Fetch Explore Category]', error)
       }

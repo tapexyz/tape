@@ -6,8 +6,8 @@ import CategoryItem from './CategoryItem'
 const Categories = () => {
   return (
     <div className="hidden gap-4 my-1 md:grid sm:grid-cols-2 lg:grid-cols-7 md:grid-cols-4">
-      {CREATOR_VIDEO_CATEGORIES.map((item) => (
-        <CategoryItem category={item} key={item.tag} />
+      {CREATOR_VIDEO_CATEGORIES.map((category) => (
+        <CategoryItem category={category} key={category.tag} />
       ))}
     </div>
   )
