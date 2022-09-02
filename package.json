@@ -23,7 +23,7 @@
     "@hookform/resolvers": "^2.9.7",
     "@sentry/nextjs": "^7.12.0",
     "@tailwindcss/aspect-ratio": "^0.4.1",
-    "@tailwindcss/line-clamp": "^0.4.0",
+    "@tailwindcss/line-clamp": "^0.4.1",
     "@tensorflow/tfjs": "^3.20.0",
     "@tippyjs/react": "^4.2.6",
     "@vime/core": "^5.3.1",
