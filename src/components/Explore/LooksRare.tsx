@@ -72,7 +72,7 @@ const LooksRare = () => {
             </span>
           ) : (
             <div className="p-10 text-center text-indigo-500">
-              <Link href={EXPLORE}>Explore all</Link>
+              <Link href={EXPLORE}>Explore Videos</Link>
             </div>
           )}
         </>

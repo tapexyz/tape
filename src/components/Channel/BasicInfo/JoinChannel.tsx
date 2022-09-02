@@ -157,15 +157,20 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     })
   }
 
+  const joinTooltipText = followModule ? (
+    <span>
+      Pay Membership of
+      <b className="ml-1 space-x-1">
+        <span>{followModule?.amount?.value}</span>
+        <span>{followModule?.amount?.asset.symbol}</span>
+      </b>
+    </span>
+  ) : (
+    buttonText
+  )
+
   return (
-    <Tooltip
-      content={
-        followModule
-          ? `Pay Membership - ${followModule.amount.value} ${followModule.amount.asset.symbol}`
-          : buttonText
-      }
-      placement="top"
-    >
+    <Tooltip content={joinTooltipText} placement="top">
       <span>
         <Button onClick={() => joinChannel()} disabled={loading}>
           {buttonText}

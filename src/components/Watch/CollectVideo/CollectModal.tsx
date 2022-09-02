@@ -6,8 +6,7 @@ import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
 import {
   ALLOWANCE_SETTINGS_QUERY,
-  PUBLICATION_REVENUE_QUERY,
-  VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY
+  PUBLICATION_REVENUE_QUERY
 } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -28,6 +27,8 @@ type Props = {
   // eslint-disable-next-line no-unused-vars
   handleCollect: (validate: boolean) => void
   collecting: boolean
+  fetchingCollectModule: boolean
+  collectModule: LenstubeCollectModule
 }
 
 const CollectModal: FC<Props> = ({
@@ -35,7 +36,9 @@ const CollectModal: FC<Props> = ({
   setShowModal,
   video,
   handleCollect,
-  collecting
+  collecting,
+  collectModule,
+  fetchingCollectModule
 }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
@@ -44,11 +47,6 @@ const CollectModal: FC<Props> = ({
   const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)
   const isMembershipActive =
     video.profile?.followModule?.__typename === 'FeeFollowModuleSettings'
-
-  const { data, loading } = useQuery(VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY, {
-    variables: { request: { publicationId: video?.id } }
-  })
-  const collectModule: LenstubeCollectModule = data?.publication?.collectModule
 
   useEffect(() => {
     Mixpanel.track(TRACK.COLLECT.OPEN)
@@ -118,7 +116,7 @@ const CollectModal: FC<Props> = ({
       show={showModal}
     >
       <div className="mt-4">
-        {!loading && !allowanceLoading ? (
+        {!fetchingCollectModule && !allowanceLoading ? (
           <>
             {collectModule?.amount ? (
               <div className="flex flex-col mb-3">
