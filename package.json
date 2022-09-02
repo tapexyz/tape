@@ -38,7 +38,7 @@
     "interweave-autolink": "^5.1.0",
     "mixpanel-browser": "^2.45.0",
     "next": "12.2.5",
-    "next-axiom": "^0.13.0",
+    "next-axiom": "^0.14.0",
     "next-themes": "^0.2.0",
     "next-transpile-modules": "^9.0.0",
     "nsfwjs": "^2.4.1",
