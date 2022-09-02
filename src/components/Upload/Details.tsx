@@ -5,10 +5,12 @@ import RadioInput from '@components/UIElements/RadioInput'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
+import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
 import React, { FC, ReactNode } from 'react'
 import { useForm } from 'react-hook-form'
 import { AiFillCloseCircle } from 'react-icons/ai'
+import { MdOutlineSlowMotionVideo } from 'react-icons/md'
 import { z } from 'zod'
 
 import Category from './Category'
@@ -118,22 +120,26 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   {watch('description')?.length}/5000
                 </span>
               </div>
-              <span className="text-sm opacity-70">
-                Use
-                <button
-                  type="button"
-                  onClick={() =>
-                    setValue(
-                      'description',
-                      `${getValues('description')} #bytes`
-                    )
-                  }
-                  className="mx-1 text-indigo-600 outline-none dark:text-indigo-400"
-                >
-                  #bytes
-                </button>
-                in description to upload video as Bytes
-              </span>
+              <div className="flex mt-2 text-opacity-80 text-black text-sm items-center px-3 py-1 space-x-1.5 font-medium rounded-full bg-gradient-to-br from-orange-200 to-orange-100">
+                <MdOutlineSlowMotionVideo className="flex-none text-base" />
+                <span>
+                  Try adding
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setValue(
+                        'description',
+                        `${getValues('description')} #bytes`
+                      )
+                      Mixpanel.track(TRACK.CLICKED_BYTES_TAG_AT_UPLOAD)
+                    }}
+                    className="mx-1 text-indigo-600 outline-none dark:text-indigo-400"
+                  >
+                    #bytes
+                  </button>
+                  in your description to upload this video as Bytes
+                </span>
+              </div>
             </div>
             <div className="mt-4">
               <CollectModuleType />

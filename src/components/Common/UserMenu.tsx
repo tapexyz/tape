@@ -2,13 +2,12 @@ import { useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Popover from '@components/UIElements/Popover'
 import { PROFILES_QUERY } from '@gql/queries'
-import { clearStorage } from '@lib/apollo'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
+import clearLocalStorage from '@utils/functions/clearLocalStorage'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import imageCdn from '@utils/functions/imageCdn'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import { LENSTUBE_STATS, SETTINGS } from '@utils/url-path'
 import clsx from 'clsx'
@@ -31,13 +30,11 @@ const UserMenu = () => {
   )
   const channels = useAppStore((state) => state.channels)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const setIsSignedUser = usePersistStore((state) => state.setIsSignedUser)
+  const selectedChannel = useAppStore(
+    (state) => state.selectedChannel as Profile
+  )
   const setSelectedChannelId = usePersistStore(
     (state) => state.setSelectedChannelId
-  )
-  const setIsAuthenticated = usePersistStore(
-    (state) => state.setIsAuthenticated
   )
 
   const { theme, setTheme } = useTheme()
@@ -53,11 +50,9 @@ const UserMenu = () => {
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 
   const logout = () => {
-    setIsSignedUser(false)
-    setIsAuthenticated(false)
     setSelectedChannel(null)
     setSelectedChannelId(null)
-    clearStorage()
+    clearLocalStorage()
     disconnect?.()
   }
 
@@ -87,14 +82,7 @@ const UserMenu = () => {
         <Button className="!p-0">
           <img
             className="object-cover bg-white rounded-lg dark:bg-black w-7 h-7 md:rounded-xl md:w-9 md:h-9"
-            src={
-              selectedChannel
-                ? getProfilePicture(selectedChannel)
-                : imageCdn(
-                    `https://cdn.stamp.fyi/avatar/eth:${address}?s=100`,
-                    'avatar'
-                  )
-            }
+            src={getProfilePicture(selectedChannel)}
             alt="channel picture"
             draggable={false}
           />
@@ -147,14 +135,7 @@ const UserMenu = () => {
               <div className="inline-flex items-center p-2 py-3 space-x-2 rounded-lg">
                 <img
                   className="object-cover rounded-xl w-9 h-9"
-                  src={
-                    selectedChannel
-                      ? getProfilePicture(selectedChannel, 'avatar')
-                      : imageCdn(
-                          `https://cdn.stamp.fyi/avatar/eth:${address}?s=100`,
-                          'avatar'
-                        )
-                  }
+                  src={getProfilePicture(selectedChannel, 'avatar')}
                   alt="channel picture"
                   draggable={false}
                 />
@@ -174,10 +155,11 @@ const UserMenu = () => {
                     </h6>
                   )}
                   {selectedChannel && (
-                    <Link href={SETTINGS}>
-                      <a className="text-xs font-medium text-indigo-500 dark:text-indigo-400">
-                        Settings
-                      </a>
+                    <Link
+                      href={SETTINGS}
+                      className="text-xs font-medium text-indigo-500 dark:text-indigo-400"
+                    >
+                      Settings
                     </Link>
                   )}
                 </div>
@@ -185,30 +167,28 @@ const UserMenu = () => {
             </div>
             <div className="py-1 text-sm">
               {isAdmin && (
-                <Link href={LENSTUBE_STATS}>
-                  <a
-                    className={clsx(
-                      'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                    )}
-                  >
-                    <IoAnalyticsOutline className="text-lg" />
-                    <span className="truncate whitespace-nowrap">App Info</span>
-                  </a>
+                <Link
+                  href={LENSTUBE_STATS}
+                  className={clsx(
+                    'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  )}
+                >
+                  <IoAnalyticsOutline className="text-lg" />
+                  <span className="truncate whitespace-nowrap">App Info</span>
                 </Link>
               )}
               {selectedChannel && (
                 <>
-                  <Link href={`/${selectedChannel?.handle}`}>
-                    <a
-                      className={clsx(
-                        'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                      )}
-                    >
-                      <BiMoviePlay className="text-lg" />
-                      <span className="truncate whitespace-nowrap">
-                        Your Channel
-                      </span>
-                    </a>
+                  <Link
+                    href={`/${selectedChannel?.handle}`}
+                    className={clsx(
+                      'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    )}
+                  >
+                    <BiMoviePlay className="text-lg" />
+                    <span className="truncate whitespace-nowrap">
+                      Your Channel
+                    </span>
                   </Link>
                   <button
                     type="button"

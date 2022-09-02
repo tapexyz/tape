@@ -61,25 +61,26 @@ const MirroredList: FC<Props> = ({ videoId }) => {
     <div className="mt-4 space-y-3">
       {mirroredList?.map((profile: Profile) => (
         <div className="flex flex-col" key={profile.ownedBy}>
-          <Link href={`/${profile?.handle}`}>
-            <a className="flex items-center justify-between font-base">
-              <div className="flex items-center space-x-1.5">
-                <img
-                  className="w-5 h-5 rounded"
-                  src={getProfilePicture(profile, 'avatar')}
-                  alt="channel picture"
-                  draggable={false}
-                />
-                <div className="flex items-center space-x-1">
-                  <span>{profile?.handle}</span>
-                  <IsVerified id={profile?.id} size="xs" />
-                </div>
+          <Link
+            href={`/${profile?.handle}`}
+            className="flex items-center justify-between font-base"
+          >
+            <div className="flex items-center space-x-1.5">
+              <img
+                className="w-5 h-5 rounded"
+                src={getProfilePicture(profile, 'avatar')}
+                alt="channel picture"
+                draggable={false}
+              />
+              <div className="flex items-center space-x-1">
+                <span>{profile?.handle}</span>
+                <IsVerified id={profile?.id} size="xs" />
               </div>
-              <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">
-                <BiUser />
-                <span>{profile.stats.totalFollowers}</span>
-              </div>
-            </a>
+            </div>
+            <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">
+              <BiUser />
+              <span>{profile.stats.totalFollowers}</span>
+            </div>
           </Link>
         </div>
       ))}

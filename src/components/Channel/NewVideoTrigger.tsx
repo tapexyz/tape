@@ -9,9 +9,9 @@ import { AiOutlineVideoCameraAdd } from 'react-icons/ai'
 import { HiOutlineStatusOnline, HiOutlineUpload } from 'react-icons/hi'
 
 const NewVideoTrigger = () => {
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
 
-  if (!isAuthenticated) return null
+  if (!selectedChannelId) return null
 
   return (
     <Popover
@@ -26,11 +26,12 @@ const NewVideoTrigger = () => {
     >
       <div className="p-1 mt-1.5 overflow-hidden border border-gray-100 rounded-xl shadow-xl dark:border-gray-800 bg-secondary">
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-md">
-          <Link href={UPLOAD}>
-            <a className="inline-flex items-center px-4 py-1.5 space-x-2 rounded-lg opacity-90 hover:opacity-100 hover:bg-gray-200 dark:hover:bg-gray-800">
-              <HiOutlineUpload />
-              <span className="whitespace-nowrap">Upload Video</span>
-            </a>
+          <Link
+            href={UPLOAD}
+            className="inline-flex items-center px-4 py-1.5 space-x-2 rounded-lg opacity-90 hover:opacity-100 hover:bg-gray-200 dark:hover:bg-gray-800"
+          >
+            <HiOutlineUpload />
+            <span className="whitespace-nowrap">Upload Video</span>
           </Link>
           <button
             type="button"

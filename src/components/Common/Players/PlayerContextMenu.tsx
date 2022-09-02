@@ -18,7 +18,7 @@ type Props = {
 const PlayerContextMenu = forwardRef<HTMLVmPlayerElement, Props>(
   ({ position, hideContextMenu, isVideoLoop, setIsVideoLoop }, ref) => {
     const { query } = useRouter()
-    const [, copy] = useCopyToClipboard()
+    const [copy] = useCopyToClipboard()
     const contextMenuRef = useRef(null)
     useOutsideClick(contextMenuRef, () => hideContextMenu())
 

@@ -1,6 +1,5 @@
-import { useLazyQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { PROFILES_QUERY } from '@gql/queries'
-import { clearStorage } from '@lib/apollo'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
@@ -9,6 +8,7 @@ import {
   POLYGON_CHAIN_ID
 } from '@utils/constants'
 import { AUTH_ROUTES } from '@utils/data/auth-routes'
+import clearLocalStorage from '@utils/functions/clearLocalStorage'
 import { getIsAuthTokensAvailable } from '@utils/functions/getIsAuthTokensAvailable'
 import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
 import { getToastOptions } from '@utils/functions/getToastOptions'
@@ -19,7 +19,7 @@ import mixpanel from 'mixpanel-browser'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import React, { FC, ReactNode, useEffect, useState } from 'react'
+import React, { FC, ReactNode, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { Profile } from 'src/types'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
@@ -44,12 +44,6 @@ const Layout: FC<Props> = ({ children }) => {
   const setChannels = useAppStore((state) => state.setChannels)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const setIsAuthenticated = usePersistStore(
-    (state) => state.setIsAuthenticated
-  )
-  const setIsSignedUser = usePersistStore((state) => state.setIsSignedUser)
-  const isSignedUser = usePersistStore((state) => state.isSignedUser)
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const setSelectedChannelId = usePersistStore(
     (state) => state.setSelectedChannelId
@@ -64,8 +58,6 @@ const Layout: FC<Props> = ({ children }) => {
   })
   const { mounted } = useIsMounted()
 
-  const connectedUser = isAuthenticated || isSignedUser
-  const [loading, setLoading] = useState(connectedUser)
   const { address, isDisconnected } = useAccount()
   const { pathname, replace, asPath } = useRouter()
   const showFullScreen = getShowFullScreen(pathname)
@@ -73,41 +65,35 @@ const Layout: FC<Props> = ({ children }) => {
   const resetAuthState = () => {
     setSelectedChannel(null)
     setSelectedChannelId(null)
-    setIsAuthenticated(false)
   }
 
-  const [loadProfiles] = useLazyQuery(PROFILES_QUERY, {
+  const setUserChannels = (channels: Profile[]) => {
+    setChannels(channels)
+    const selectedChannel = channels.find(
+      (channel) => channel.id === selectedChannelId
+    )
+    setSelectedChannel(selectedChannel ?? channels[0])
+    setSelectedChannelId(selectedChannel?.id)
+  }
+
+  const { loading } = useQuery(PROFILES_QUERY, {
     variables: { ownedBy: address },
+    skip: !selectedChannelId,
     onCompleted: (data) => {
       const channels: Profile[] = data?.profiles?.items
+      if (!channels.length) return resetAuthState()
+      setUserChannels(channels)
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
-      if (channels.length) {
-        setChannels(channels)
-        const selectedChannel = channels.find(
-          (channel) => channel.id === selectedChannelId
-        )
-        setSelectedChannel(selectedChannel ?? channels[0])
-        setSelectedChannelId(selectedChannel?.id)
-      } else {
-        resetAuthState()
-      }
     }
   })
 
-  useEffect(() => {
-    if (!isAuthenticated) return setLoading(false)
-    loadProfiles().finally(() => setLoading(false))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   const validateAuthentication = () => {
-    if (!isAuthenticated && AUTH_ROUTES.includes(pathname)) {
+    if (!selectedChannelId && AUTH_ROUTES.includes(pathname)) {
       replace(`${AUTH}?next=${asPath}`) // redirect to signin page
     }
     const logout = () => {
-      setIsSignedUser(false)
       resetAuthState()
-      clearStorage()
+      clearLocalStorage()
       disconnect?.()
     }
     const ownerAddress = selectedChannel?.ownedBy
@@ -116,20 +102,26 @@ const Layout: FC<Props> = ({ children }) => {
       ownerAddress !== undefined && ownerAddress !== address
     const shouldLogout =
       !getIsAuthTokensAvailable() ||
-      !selectedChannelId ||
       isWrongNetworkChain ||
       isDisconnected ||
       isSwitchedAccount
 
-    if (shouldLogout && connectedUser) {
+    if (shouldLogout && selectedChannelId) {
       logout()
     }
   }
 
   useEffect(() => {
+    // Remove service worker
+    // TODO: remove after a month
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      for (const registration of registrations) {
+        registration.unregister()
+      }
+    })
     validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDisconnected, address, chain, disconnect, isAuthenticated])
+  }, [isDisconnected, address, chain, disconnect, selectedChannelId])
 
   if (loading || !mounted) return <FullPageLoader />
 

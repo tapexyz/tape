@@ -5,10 +5,13 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { FEED_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import { LENSTUBE_APP_ID } from '@utils/constants'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo } from 'src/types'
+import {
+  PaginatedResultInfo,
+  PublicationMainFocus,
+  PublicationTypes
+} from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 import Timeline from './Timeline'
@@ -23,11 +26,10 @@ const HomeFeed = () => {
       request: {
         profileId: selectedChannel?.id,
         limit: 12,
-        sources: [LENSTUBE_APP_ID],
-        timelineTypes: ['POST']
+        timelineTypes: [PublicationTypes.Post],
+        metadata: { mainContentFocus: [PublicationMainFocus.Video] }
       }
     },
-    fetchPolicy: 'no-cache',
     skip: !selectedChannel?.id,
     onCompleted(data) {
       setPageInfo(data?.timeline?.pageInfo)
@@ -44,9 +46,8 @@ const HomeFeed = () => {
             request: {
               profileId: selectedChannel?.id,
               cursor: pageInfo?.next,
-              limit: 16,
-              timelineTypes: ['POST'],
-              sources: [LENSTUBE_APP_ID]
+              limit: 12,
+              timelineTypes: [PublicationTypes.Post]
             }
           }
         })

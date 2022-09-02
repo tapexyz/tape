@@ -1,10 +1,11 @@
-import { AddressExplorerLink } from '@components/Common/ExplorerLink'
 import InterweaveContent from '@components/Common/InterweaveContent'
+import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
 import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@utils/constants'
 import { formatUrl } from '@utils/functions/formatUrl'
 import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import { shortenAddress } from '@utils/functions/shortenAddress'
+import Link from 'next/link'
 import React, { FC } from 'react'
 import { AiOutlineNumber } from 'react-icons/ai'
 import { HiOutlineGlobe, HiOutlineLocationMarker } from 'react-icons/hi'
@@ -38,58 +39,46 @@ const About: FC<Props> = ({ channel }) => {
           <h6 className="text-xs font-semibold uppercase opacity-70">
             On-chain Identity
           </h6>
-          <div className="space-y-1.5">
+          <div className="flex items-center space-x-2">
             {channel.onChainIdentity?.ens?.name && (
-              <div className="flex items-center space-x-1">
-                <span className="pr-0.5" role="img">
-                  <img
-                    src={`${STATIC_ASSETS}/images/social/ens.svg`}
-                    alt="ens"
-                    className="w-5 h-5"
-                    draggable={false}
-                  />
-                </span>
-                <span>{channel.onChainIdentity?.ens?.name}</span>
-              </div>
+              <Tooltip content={channel.onChainIdentity?.ens?.name}>
+                <img
+                  src={`${STATIC_ASSETS}/images/social/ens.svg`}
+                  alt="ens"
+                  className="w-8 h-8"
+                  draggable={false}
+                />
+              </Tooltip>
             )}
             {channel?.onChainIdentity?.sybilDotOrg.verified && (
-              <div className="flex items-center space-x-1">
-                <span className="pr-0.5" role="img">
-                  <img
-                    src={`${STATIC_ASSETS}/images/social/sybil.png`}
-                    alt="sybil"
-                    className="w-5 h-5"
-                    draggable={false}
-                  />
-                </span>
-                <span>Sybil Verified</span>
-              </div>
+              <Tooltip content="Sybil Verified">
+                <img
+                  src={`${STATIC_ASSETS}/images/social/sybil.png`}
+                  alt="sybil"
+                  className="w-9 h-9"
+                  draggable={false}
+                />
+              </Tooltip>
             )}
             {channel?.onChainIdentity?.proofOfHumanity && (
-              <div className="flex items-center space-x-1">
-                <span className="pr-0.5" role="img">
-                  <img
-                    src={`${STATIC_ASSETS}/images/social/poh.png`}
-                    alt="poh"
-                    className="w-5 h-5"
-                    draggable={false}
-                  />
-                </span>
-                <span>Proof of Humanity</span>
-              </div>
+              <Tooltip content="Proof of Humanity">
+                <img
+                  src={`${STATIC_ASSETS}/images/social/poh.png`}
+                  alt="poh"
+                  className="w-9 h-9"
+                  draggable={false}
+                />
+              </Tooltip>
             )}
             {channel?.onChainIdentity?.worldcoin.isHuman && (
-              <div className="flex items-center space-x-1">
-                <span className="pr-0.5" role="img">
-                  <img
-                    src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
-                    alt="worldcoin"
-                    className="w-5 h-5"
-                    draggable={false}
-                  />
-                </span>
-                <span>Worldcoin</span>
-              </div>
+              <Tooltip content="Proof of Personhood">
+                <img
+                  src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
+                  alt="worldcoin"
+                  className="w-9 h-9"
+                  draggable={false}
+                />
+              </Tooltip>
             )}
           </div>
         </div>
@@ -100,7 +89,7 @@ const About: FC<Props> = ({ channel }) => {
           {getValueFromKeyInAttributes(attributes, 'website') && (
             <div className="flex items-center space-x-1">
               <HiOutlineGlobe />
-              <a
+              <Link
                 href={formatUrl(
                   getValueFromKeyInAttributes(attributes, 'website') as string
                 )}
@@ -109,7 +98,7 @@ const About: FC<Props> = ({ channel }) => {
                 className="hover:text-indigo-500"
               >
                 Website
-              </a>
+              </Link>
             </div>
           )}
           <div className="flex items-center space-x-1">
@@ -121,19 +110,19 @@ const About: FC<Props> = ({ channel }) => {
                 draggable={false}
               />
             </span>
-            <a
+            <Link
               href={`${LENSTER_WEBSITE_URL}/u/${channel?.handle}`}
               target="_blank"
               rel="noreferer noreferrer"
               className="hover:text-indigo-500"
             >
               Lenster
-            </a>
+            </Link>
           </div>
           {getValueFromKeyInAttributes(attributes, 'twitter') && (
             <div className="flex items-center space-x-1">
               <RiTwitterLine />
-              <a
+              <Link
                 href={`https://twitter.com/${
                   getValueFromKeyInAttributes(attributes, 'twitter') as string
                 }`}
@@ -142,7 +131,7 @@ const About: FC<Props> = ({ channel }) => {
                 className="hover:text-indigo-500"
               >
                 Twitter
-              </a>
+              </Link>
             </div>
           )}
         </div>

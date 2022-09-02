@@ -319,7 +319,7 @@ const UploadSteps = () => {
           `${uploadedVideo.title}\n\n${uploadedVideo.description}`
         ),
         locale: 'en',
-        tags: [uploadedVideo.videoCategory.tag, 'lenstube'],
+        tags: [uploadedVideo.videoCategory.tag],
         mainContentFocus: PublicationMainFocus.Video,
         external_url: LENSTUBE_URL,
         animation_url: uploadedVideo.videoSource,
@@ -345,6 +345,9 @@ const UploadSteps = () => {
         referenceModule: {
           followerOnlyReferenceModule: uploadedVideo.disableComments
         }
+      }
+      if (isBytesVideo) {
+        Mixpanel.track(TRACK.UPLOADED_BYTE_VIDEO)
       }
       if (selectedChannel?.dispatcher?.canUseRelay) {
         createPostViaDispatcher({ variables: { request } })

@@ -15,7 +15,7 @@ const canvasImageFromVideo = (
     }
     video.oncanplay = () => {
       setTimeout(() => {
-        let ctx = canvas.getContext('2d')
+        const ctx = canvas.getContext('2d')
         canvas.width = video.videoWidth
         canvas.height = video.videoHeight
         ctx?.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
@@ -37,10 +37,10 @@ export const generateVideoThumbnails = (
       video.muted = true
       video.src = URL.createObjectURL(file)
       video.onloadeddata = async () => {
-        let thumbnailArray = []
-        const avergeSplitTime = Math.floor(video.duration / count)
+        const thumbnailArray = []
+        const averageSplitTime = Math.floor(video.duration / count)
         for (let i = 0; i < count; i++) {
-          const currentTime = avergeSplitTime * i
+          const currentTime = averageSplitTime * i
           const thumbnail = await canvasImageFromVideo(file, currentTime)
           thumbnailArray.push(thumbnail)
         }

@@ -1,3 +1,4 @@
+import { STATIC_ASSETS } from '@utils/constants'
 import { LenstubePublication } from 'src/types/local'
 
 import { sanitizeIpfsUrl } from './sanitizeIpfsUrl'
@@ -6,6 +7,7 @@ export const getVideoUrl = (video: LenstubePublication) => {
   const url =
     video?.metadata?.media[1]?.original.url ||
     video?.metadata?.media[0]?.original.url
+  if (!url) return `${STATIC_ASSETS}/images/fallbackThumbnail.png`
   return sanitizeIpfsUrl(url)
 }
 
@@ -22,5 +24,5 @@ export const getPlaybackIdFromUrl = (video: LenstubePublication) => {
 }
 
 export const getIsIPFSUrl = (url: string) => {
-  return url.includes('ipfs')
+  return url?.includes('ipfs')
 }

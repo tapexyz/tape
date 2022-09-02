@@ -25,7 +25,7 @@ if (IS_MAINNET) {
 const Video = () => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-  const [, copy] = useCopyToClipboard()
+  const [copy] = useCopyToClipboard()
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const analyseVideo = async (currentVideo: HTMLVideoElement) => {

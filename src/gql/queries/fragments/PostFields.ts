@@ -16,9 +16,14 @@ export const PostFields = gql`
         handle
       }
     }
+    referenceModule {
+      __typename
+    }
     collectModule {
       ...CollectFields
     }
+    collectNftAddress
+    onChainContentURI
     hidden
     hasCollectedByMe
     stats {
@@ -33,6 +38,7 @@ export const PostFields = gql`
       description
       content
       contentWarning
+      mainContentFocus
       tags
       media {
         original {

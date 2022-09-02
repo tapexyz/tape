@@ -24,10 +24,11 @@ const WatchLater = () => {
           <MdOutlineWatchLater />
           <span>Watch Later</span>
         </h1>
-        <Link href={WATCH_LATER_LIBRARY}>
-          <a className="flex items-center space-x-0.5 text-xs text-indigo-500">
-            <span>See all</span> <BiChevronRight />
-          </a>
+        <Link
+          href={WATCH_LATER_LIBRARY}
+          className="flex items-center space-x-0.5 text-xs text-indigo-500"
+        >
+          <span>See all</span> <BiChevronRight />
         </Link>
       </div>
       {!videos.length && <NoDataFound text="This list has no videos." />}

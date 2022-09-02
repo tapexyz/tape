@@ -42,6 +42,7 @@ type Props = {
 const formSchema = z.object({
   comment: z
     .string()
+    .trim()
     .min(1, { message: 'Enter valid comment' })
     .max(5000, { message: 'Comment should not exceed 5000 characters' })
 })
@@ -51,7 +52,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Comment')
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
@@ -169,7 +170,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
 
   const submitComment = async (data: FormData) => {
     try {
-      setButtonText('Uploading to Arweave...')
+      setButtonText('Uploading...')
       setLoading(true)
       const { url } = await uploadToAr({
         version: '2.0.0',
@@ -177,7 +178,6 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         description: trimify(data.comment),
         content: trimify(data.comment),
         locale: 'en',
-        tags: ['lenstube'],
         mainContentFocus: PublicationMainFocus.TextOnly,
         external_url: LENSTUBE_URL,
         image: null,
@@ -227,7 +227,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     }
   }
 
-  if (!selectedChannel || !isAuthenticated) return null
+  if (!selectedChannel || !selectedChannelId) return null
 
   return (
     <div className="my-1">

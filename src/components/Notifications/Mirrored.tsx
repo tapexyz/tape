@@ -16,19 +16,20 @@ const MirroredNotification: FC<Props> = ({ notification }) => {
   return (
     <>
       <div className="flex items-center space-x-3">
-        <Link href={`/${notification?.profile?.handle}`}>
-          <a className="inline-flex items-center space-x-1.5 font-base">
-            <img
-              className="w-4 h-4 rounded"
-              src={getProfilePicture(notification.profile, 'avatar')}
-              alt="channel picture"
-              draggable={false}
-            />
-            <div className="flex items-center space-x-0.5">
-              <span>{notification?.profile?.handle}</span>
-              <IsVerified id={notification?.profile?.id} size="xs" />
-            </div>
-          </a>
+        <Link
+          href={`/${notification?.profile?.handle}`}
+          className="inline-flex items-center space-x-1.5 font-base"
+        >
+          <img
+            className="w-4 h-4 rounded"
+            src={getProfilePicture(notification.profile, 'avatar')}
+            alt="channel picture"
+            draggable={false}
+          />
+          <div className="flex items-center space-x-0.5">
+            <span>{notification?.profile?.handle}</span>
+            <IsVerified id={notification?.profile?.id} size="xs" />
+          </div>
         </Link>
       </div>
       <div className="flex items-center justify-between">

@@ -7,20 +7,11 @@ import { MirrorFields } from './fragments/MirrorFields'
 import { PostFields } from './fragments/PostFields'
 import { ProfileFields } from './fragments/ProfileFields'
 
-export const PING_QUERY = gql`
-  query Ping {
-    ping
-  }
-`
-
 export const PROFILES_QUERY = gql`
   query allProfiles($ownedBy: [EthereumAddress!]) {
     profiles(request: { ownedBy: $ownedBy }) {
       items {
         ...ProfileFields
-        dispatcher {
-          canUseRelay
-        }
       }
     }
     userSigNonces {
@@ -411,9 +402,6 @@ export const VIDEO_DETAIL_QUERY = gql`
     publication(request: $request) {
       ... on Post {
         ...PostFields
-        referenceModule {
-          __typename
-        }
       }
     }
   }
@@ -667,13 +655,17 @@ export const PUBLICATION_REVENUE_QUERY = gql`
     }
   }
 `
-
-export const GET_ALL_TAGS = gql`
-  query AllTags($request: AllPublicationsTagsRequest!) {
-    allPublicationsTags(request: $request) {
+export const MUTUAL_SUBSCRIBERS_QUERY = gql`
+  query MutualSubscribers($request: MutualFollowersProfilesQueryRequest!) {
+    mutualFollowersProfiles(request: $request) {
       items {
-        tag
+        ...ProfileFields
+      }
+      pageInfo {
+        next
+        totalCount
       }
     }
   }
+  ${ProfileFields}
 `

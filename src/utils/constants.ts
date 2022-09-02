@@ -1,8 +1,14 @@
+/**
+ * !!! CHANGING VALUES MIGHT BREAK THINGS !!!
+ */
 export const IS_MAINNET = process.env.NEXT_PUBLIC_IS_MAINNET === 'true'
 export const STATIC_ASSETS = 'https://assets.lenstube.xyz'
 export const LENSTUBE_URL = IS_MAINNET
   ? 'https://lenstube.xyz'
   : 'https://testnet.lenstube.xyz'
+export const LENSTUBE_EMBED_URL = IS_MAINNET
+  ? 'https://embed.lenstube.xyz'
+  : 'https://test-embed.lenstube.xyz'
 
 export const APP_NAME = 'Lenstube'
 export const RELAYER_ENABLED =
@@ -66,7 +72,7 @@ export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
 
 // handles
 export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'
-export const LENSTUBE_GITHUB_HANDLE = 'sasicodes/lenstube'
+export const LENSTUBE_GITHUB_HANDLE = 'lenstube-xyz'
 export const LENSTUBE_STATUS_PAGE = 'https://status.lenstube.xyz'
 // admins
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']

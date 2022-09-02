@@ -7,7 +7,6 @@ import { COMMENT_FEED_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { LENSTUBE_APP_ID } from '@utils/constants'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
@@ -28,7 +27,7 @@ const VideoComments: FC<Props> = ({ video }) => {
   const {
     query: { id }
   } = useRouter()
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const onlySubscribersCanComment =
@@ -44,8 +43,7 @@ const VideoComments: FC<Props> = ({ video }) => {
       variables: {
         request: {
           commentsOf: id,
-          limit: 10,
-          sources: [LENSTUBE_APP_ID]
+          limit: 10
         },
         reactionRequest: selectedChannel
           ? { profileId: selectedChannel?.id }
@@ -64,8 +62,7 @@ const VideoComments: FC<Props> = ({ video }) => {
     refetch({
       request: {
         commentsOf: id,
-        limit: 10,
-        sources: [LENSTUBE_APP_ID]
+        limit: 10
       },
       reactionRequest: selectedChannel
         ? { profileId: selectedChannel?.id }
@@ -82,8 +79,7 @@ const VideoComments: FC<Props> = ({ video }) => {
             request: {
               commentsOf: id,
               cursor: pageInfo?.next,
-              limit: 10,
-              sources: [LENSTUBE_APP_ID]
+              limit: 10
             },
             reactionRequest: selectedChannel
               ? { profileId: selectedChannel?.id }
@@ -112,7 +108,7 @@ const VideoComments: FC<Props> = ({ video }) => {
             </span>
           ) : null}
         </h1>
-        {!isAuthenticated && (
+        {!selectedChannelId && (
           <span className="text-xs">(Sign in required to comment)</span>
         )}
       </div>

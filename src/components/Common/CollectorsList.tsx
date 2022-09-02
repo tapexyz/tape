@@ -13,8 +13,8 @@ import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
 import { PaginatedResultInfo, Wallet } from 'src/types'
 
-import { AddressExplorerLink } from './ExplorerLink'
 import IsVerified from './IsVerified'
+import AddressExplorerLink from './Links/AddressExplorerLink'
 
 type Props = {
   videoId: string
@@ -66,25 +66,26 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
       {collectors?.map((wallet: Wallet) => (
         <div className="flex flex-col" key={wallet.address}>
           {wallet?.defaultProfile ? (
-            <Link href={`/${wallet?.defaultProfile?.handle}`}>
-              <a className="flex items-center justify-between font-base">
-                <div className="flex items-center space-x-1.5">
-                  <img
-                    className="w-5 h-5 rounded"
-                    src={getProfilePicture(wallet?.defaultProfile, 'avatar')}
-                    alt="channel picture"
-                    draggable={false}
-                  />
-                  <div className="flex items-center space-x-1">
-                    <span>{wallet?.defaultProfile?.handle}</span>
-                    <IsVerified id={wallet?.defaultProfile?.id} size="xs" />
-                  </div>
+            <Link
+              href={`/${wallet?.defaultProfile?.handle}`}
+              className="flex items-center justify-between font-base"
+            >
+              <div className="flex items-center space-x-1.5">
+                <img
+                  className="w-5 h-5 rounded"
+                  src={getProfilePicture(wallet?.defaultProfile, 'avatar')}
+                  alt="channel picture"
+                  draggable={false}
+                />
+                <div className="flex items-center space-x-1">
+                  <span>{wallet?.defaultProfile?.handle}</span>
+                  <IsVerified id={wallet?.defaultProfile?.id} size="xs" />
                 </div>
-                <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">
-                  <BiUser />
-                  <span>{wallet.defaultProfile.stats.totalFollowers}</span>
-                </div>
-              </a>
+              </div>
+              <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">
+                <BiUser />
+                <span>{wallet.defaultProfile.stats.totalFollowers}</span>
+              </div>
             </Link>
           ) : (
             <AddressExplorerLink address={wallet?.address}>

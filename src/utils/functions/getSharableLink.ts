@@ -32,4 +32,5 @@ export const getSharableLink = (link: Link, video: LenstubePublication) => {
       video.metadata?.description as string
     }&source=${APP_NAME}`
   }
+  return ''
 }

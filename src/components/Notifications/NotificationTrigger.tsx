@@ -22,7 +22,7 @@ const NotificationTrigger = () => {
     (state) => state.setHasNewNotification
   )
   const hasNewNotification = useAppStore((state) => state.hasNewNotification)
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const notificationCount = usePersistStore((state) => state.notificationCount)
   const setNotificationCount = usePersistStore(
@@ -51,7 +51,7 @@ const NotificationTrigger = () => {
     setHasNewNotification(false)
   }
 
-  if (!isAuthenticated) return null
+  if (!selectedChannelId) return null
 
   return (
     <Popover

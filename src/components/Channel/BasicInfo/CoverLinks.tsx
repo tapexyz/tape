@@ -1,4 +1,5 @@
 import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
+import Link from 'next/link'
 import React from 'react'
 import { HiOutlineGlobe } from 'react-icons/hi'
 import { RiTwitterLine } from 'react-icons/ri'
@@ -9,17 +10,22 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
     <div className="absolute bottom-2 right-2">
       <div className="flex space-x-2">
         {getValueFromKeyInAttributes(channel.attributes, 'website') && (
-          <a
-            href={getValueFromKeyInAttributes(channel.attributes, 'website')}
+          <Link
+            href={
+              getValueFromKeyInAttributes(
+                channel.attributes,
+                'website'
+              ) as string
+            }
             target="_blank"
             rel="noreferer noreferrer"
             className="p-2 bg-white rounded-lg dark:bg-gray-900 bg-opacity-80"
           >
             <HiOutlineGlobe />
-          </a>
+          </Link>
         )}
         {getValueFromKeyInAttributes(channel.attributes, 'twitter') && (
-          <a
+          <Link
             href={`https://twitter.com/${
               getValueFromKeyInAttributes(
                 channel.attributes,
@@ -31,7 +37,7 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
             className="p-2 bg-white rounded-lg dark:bg-gray-900 bg-opacity-80"
           >
             <RiTwitterLine />
-          </a>
+          </Link>
         )}
       </div>
     </div>

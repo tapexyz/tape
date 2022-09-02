@@ -35,70 +35,73 @@ const MoreTrigger = () => {
             More
           </div>
           <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
-            <Link href={DISCORD}>
-              <a
-                onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.DISCORD)}
-                className="block px-2.5 py-1.5"
-                target="_blank"
-              >
-                Discord
-              </a>
+            <Link
+              href={LENSTUBE_STATUS_PAGE}
+              onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
+              className="block px-2.5 py-1.5"
+              target="_blank"
+            >
+              Status
             </Link>
           </div>
           <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
-            <Link href={`https://twitter.com/${LENSTUBE_TWITTER_HANDLE}`}>
-              <a
-                onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.TWITTER)}
-                className="block px-2.5 py-1.5"
-                target="_blank"
-              >
-                Twitter
-              </a>
+            <Link
+              href={`https://github.com/${LENSTUBE_GITHUB_HANDLE}`}
+              onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.GITHUB)}
+              className="block px-2.5 py-1.5"
+              target="_blank"
+            >
+              Github
             </Link>
           </div>
           <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
-            <Link href={`https://github.com/${LENSTUBE_GITHUB_HANDLE}`}>
-              <a
-                onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.GITHUB)}
-                className="block px-2.5 py-1.5"
-                target="_blank"
-              >
-                Github
-              </a>
+            <Link
+              href={`https://twitter.com/${LENSTUBE_TWITTER_HANDLE}`}
+              onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.TWITTER)}
+              className="block px-2.5 py-1.5"
+              target="_blank"
+            >
+              Twitter
             </Link>
           </div>
           <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
-            <Link href={LENSTUBE_STATUS_PAGE}>
-              <a
-                onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
-                className="block px-2.5 py-1.5"
-                target="_blank"
-              >
-                Status
-              </a>
+            <Link
+              href={DISCORD}
+              onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.DISCORD)}
+              className="block px-2.5 py-1.5"
+              target="_blank"
+            >
+              Discord
+            </Link>
+          </div>
+          <div className="rounded-lg opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900">
+            <Link
+              href={`https://roadmap.lenstube.xyz`}
+              onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)}
+              className="block px-2.5 py-1.5"
+              target="_blank"
+            >
+              Give Feedback
             </Link>
           </div>
           <div className="text-[11px] cursor-default p-1 font-semibold uppercase opacity-50">
             Legal
           </div>
           <div className="rounded-lg hover:bg-gray-50 opacity-80 hover:opacity-100 dark:hover:bg-gray-900">
-            <Link href={PRIVACY}>
-              <a className="block px-2.5 py-1.5">Privacy</a>
+            <Link href={PRIVACY} className="block px-2.5 py-1.5">
+              Privacy
             </Link>
           </div>
           <hr className="my-1 border-gray-200 dark:border-gray-800" />
           <div className="rounded-lg hover:bg-gray-50 opacity-80 hover:opacity-100 dark:hover:bg-gray-900">
             <Link
               href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
+              rel="noreferrer noopener"
+              className="block space-x-2 p-1.5"
+              target="_blank"
             >
-              <a
-                rel="noreferrer noopener"
-                className="block space-x-2 p-1.5"
-                target="_blank"
-              >
-                <span>▲</span>
-                <span>Powered by Vercel</span>
-              </a>
+              <span>▲</span>
+              <span>Powered by Vercel</span>
             </Link>
           </div>
         </div>

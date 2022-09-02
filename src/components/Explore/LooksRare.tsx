@@ -6,9 +6,11 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { EXPLORE_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import { LENSTUBE_APP_ID } from '@utils/constants'
+import { EXPLORE } from '@utils/url-path'
+import Link from 'next/link'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo } from 'src/types'
+import { PaginatedResultInfo, PublicationTypes } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 const LooksRare = () => {
@@ -22,7 +24,7 @@ const LooksRare = () => {
         limit: 12,
         noRandomize: true,
         sources: [LENSTUBE_APP_ID],
-        publicationTypes: ['POST']
+        publicationTypes: [PublicationTypes.Post]
       }
     },
     onCompleted(data) {
@@ -43,7 +45,7 @@ const LooksRare = () => {
               limit: 16,
               noRandomize: true,
               sources: [LENSTUBE_APP_ID],
-              publicationTypes: ['POST']
+              publicationTypes: [PublicationTypes.Post]
             }
           }
         })
@@ -64,10 +66,14 @@ const LooksRare = () => {
       {!error && !loading && (
         <>
           <Timeline videos={videos} />
-          {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && videos.length !== pageInfo?.totalCount ? (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>
+          ) : (
+            <div className="p-10 text-center text-indigo-500">
+              <Link href={EXPLORE}>Explore Videos</Link>
+            </div>
           )}
         </>
       )}

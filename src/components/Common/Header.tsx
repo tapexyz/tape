@@ -1,8 +1,6 @@
-import { useQuery } from '@apollo/client'
 import NewVideoTrigger from '@components/Channel/NewVideoTrigger'
 import NotificationTrigger from '@components/Notifications/NotificationTrigger'
 import Modal from '@components/UIElements/Modal'
-import { PING_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { HOME, NOTIFICATIONS } from '@utils/url-path'
@@ -13,7 +11,7 @@ import { FC } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { CgBell } from 'react-icons/cg'
 
-import Login from './Login'
+import Login from './Auth/Login'
 import GlobalSearchBar from './Search/GlobalSearchBar'
 
 type Props = {
@@ -22,14 +20,8 @@ type Props = {
 
 const Header: FC<Props> = ({ className }) => {
   const hasNewNotification = useAppStore((state) => state.hasNewNotification)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const [showShowModal, setSearchModal] = useState(false)
-
-  useQuery(PING_QUERY, {
-    pollInterval: 600_000,
-    skip: !selectedChannel
-  })
 
   return (
     <div
@@ -40,15 +32,13 @@ const Header: FC<Props> = ({ className }) => {
     >
       <div className="flex justify-between flex-1 md:w-3/4 md:justify-end">
         <div className="flex items-center space-x-1.5 md:space-x-0">
-          <Link href={HOME}>
-            <a className="block md:hidden">
-              <img
-                src="/lenstube.svg"
-                draggable={false}
-                className="w-5 h-5"
-                alt="lenstube"
-              />
-            </a>
+          <Link href={HOME} className="block md:hidden">
+            <img
+              src="/lenstube.svg"
+              draggable={false}
+              className="w-5 h-5"
+              alt="lenstube"
+            />
           </Link>
           <span />
         </div>
@@ -64,18 +54,18 @@ const Header: FC<Props> = ({ className }) => {
         >
           <AiOutlineSearch className="text-lg" aria-hidden="true" />
         </button>
-        {isAuthenticated && <NotificationTrigger />}
-        {isAuthenticated && (
-          <Link href={NOTIFICATIONS}>
-            <a className="relative p-1 md:hidden">
+        {selectedChannelId ? (
+          <>
+            <NotificationTrigger />
+            <Link href={NOTIFICATIONS} className="relative p-1 md:hidden">
               <CgBell className="text-lg" />
               {hasNewNotification && (
                 <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-0 right-0" />
               )}
-            </a>
-          </Link>
-        )}
-        {isAuthenticated && <NewVideoTrigger />}
+            </Link>
+            <NewVideoTrigger />
+          </>
+        ) : null}
         <Login />
       </div>
 

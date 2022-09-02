@@ -27,14 +27,11 @@ const BalanceAlert = ({
               parseFloat(collectModule?.amount?.value),
               collectModule?.amount?.asset?.address
             )}
+            rel="noreferer noreferrer"
+            target="_blank"
+            className="text-indigo-500"
           >
-            <a
-              rel="noreferer noreferrer"
-              target="_blank"
-              className="text-indigo-500"
-            >
-              Swap
-            </a>
+            Swap
           </Link>
         </div>
       </Alert>

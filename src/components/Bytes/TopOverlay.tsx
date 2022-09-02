@@ -19,9 +19,7 @@ const TopOverlay: FC<Props> = ({ onClickPlayPause, playing }) => {
       <div className="flex items-center justify-between">
         <div className="p-3 md:hidden">
           <Link href={HOME}>
-            <a>
-              <BsArrowLeft className="text-2xl text-white" />
-            </a>
+            <BsArrowLeft className="text-2xl text-white" />
           </Link>
         </div>
         <div

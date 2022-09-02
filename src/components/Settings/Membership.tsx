@@ -1,6 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation, useQuery } from '@apollo/client'
-import { AddressExplorerLink } from '@components/Common/ExplorerLink'
+import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'

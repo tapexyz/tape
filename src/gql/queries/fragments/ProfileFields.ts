@@ -8,6 +8,9 @@ export const ProfileFields = gql`
     bio
     ownedBy
     isFollowedByMe
+    dispatcher {
+      canUseRelay
+    }
     attributes {
       key
       value

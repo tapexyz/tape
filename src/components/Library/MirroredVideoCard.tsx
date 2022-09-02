@@ -30,61 +30,59 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
   return (
     <div className="overflow-hidden group bg-gray-50 rounded-xl dark:bg-[#181818]">
       <Link href={`/watch/${mirrorOf.id}`}>
-        <a>
-          <div className="relative rounded-t-xl aspect-w-16 aspect-h-8">
-            <img
-              src={imageCdn(
-                isSensitiveContent
-                  ? `${STATIC_ASSETS}/images/sensor-blur.png`
-                  : getThumbnailUrl(video),
-                'thumbnail'
-              )}
-              alt="thumbnail"
-              draggable={false}
-              className="object-cover object-center w-full h-full rounded-t-xl lg:w-full lg:h-full"
-            />
-            {isSensitiveContent && (
-              <div className="absolute top-2 left-3">
-                <span className="py-0.5 text-[10px] px-2 text-black bg-white rounded-full">
-                  Sensitive Content
-                </span>
-              </div>
+        <div className="relative rounded-t-xl aspect-w-16 aspect-h-8">
+          <img
+            src={imageCdn(
+              isSensitiveContent
+                ? `${STATIC_ASSETS}/images/sensor-blur.png`
+                : getThumbnailUrl(video),
+              'thumbnail'
             )}
-            {!isSensitiveContent && videoDuration ? (
-              <div>
-                <span className="py-0.5 absolute bottom-2 right-2 text-xs px-1 text-white bg-black rounded">
-                  {getTimeFromSeconds(videoDuration)}
-                </span>
-              </div>
-            ) : null}
-          </div>
-        </a>
+            alt="thumbnail"
+            draggable={false}
+            className="object-cover object-center w-full h-full rounded-t-xl lg:w-full lg:h-full"
+          />
+          {isSensitiveContent && (
+            <div className="absolute top-2 left-3">
+              <span className="py-0.5 text-[10px] px-2 text-black bg-white rounded-full">
+                Sensitive Content
+              </span>
+            </div>
+          )}
+          {!isSensitiveContent && videoDuration ? (
+            <div>
+              <span className="py-0.5 absolute bottom-2 right-2 text-xs px-1 text-white bg-black rounded">
+                {getTimeFromSeconds(videoDuration)}
+              </span>
+            </div>
+          ) : null}
+        </div>
       </Link>
       <div className="p-2">
         <div className="flex items-start space-x-2.5">
-          <Link href={`/${video.profile?.handle}`}>
-            <a className="flex-none mt-0.5">
-              <img
-                className="w-8 h-8 rounded-xl"
-                src={getProfilePicture(mirrorOf.profile, 'avatar')}
-                alt="channel picture"
-                draggable={false}
-              />
-            </a>
+          <Link href={`/${video.profile?.handle}`} className="flex-none mt-0.5">
+            <img
+              className="w-8 h-8 rounded-xl"
+              src={getProfilePicture(mirrorOf.profile, 'avatar')}
+              alt="channel picture"
+              draggable={false}
+            />
           </Link>
           <div className="grid flex-1 grid-col">
             <div className="flex w-full items-start justify-between space-x-1.5 min-w-0">
-              <Link href={`/watch/${mirrorOf.id}`}>
-                <a className="font-medium text-[15px] line-clamp-1 opacity-80 break-words">
-                  {video.metadata?.name}
-                </a>
+              <Link
+                href={`/watch/${mirrorOf.id}`}
+                className="font-medium text-[15px] line-clamp-1 opacity-80 break-words"
+              >
+                {video.metadata?.name}
               </Link>
             </div>
-            <Link href={`/${mirrorOf.profile?.handle}`}>
-              <a className="flex text-xs items-center space-x-0.5 hover:opacity-100 opacity-70">
-                <span>{mirrorOf.profile?.handle}</span>
-                <IsVerified id={mirrorOf.profile?.id} size="xs" />
-              </a>
+            <Link
+              href={`/${mirrorOf.profile?.handle}`}
+              className="flex text-[13px] items-center space-x-0.5 hover:opacity-100 opacity-70"
+            >
+              <span>{mirrorOf.profile?.handle}</span>
+              <IsVerified id={mirrorOf.profile?.id} size="xs" />
             </Link>
           </div>
         </div>

@@ -10,19 +10,20 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { AiOutlineComment } from 'react-icons/ai'
 import { BiChevronRight } from 'react-icons/bi'
+import { PublicationTypes } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 import CommentedVideoCard from '../CommentedVideoCard'
 
 const Commented = () => {
   const [commented, setCommented] = useState<LenstubePublication[]>([])
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const { loading, data } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: {
-        publicationTypes: 'COMMENT',
+        publicationTypes: [PublicationTypes.Comment],
         profileId: selectedChannel?.id,
         limit: 4,
         sources: [LENSTUBE_APP_ID]
@@ -42,17 +43,18 @@ const Commented = () => {
           <AiOutlineComment />
           <span>Commented</span>
         </h1>
-        <Link href={COMMENTED_LIBRARY}>
-          <a className="flex items-center space-x-0.5 text-xs text-indigo-500">
-            <span>See all</span> <BiChevronRight />
-          </a>
+        <Link
+          href={COMMENTED_LIBRARY}
+          className="flex items-center space-x-0.5 text-xs text-indigo-500"
+        >
+          <span>See all</span> <BiChevronRight />
         </Link>
       </div>
-      {!isAuthenticated && (
+      {!selectedChannelId && (
         <NoDataFound text="Sign In to view videos that you commented on." />
       )}
       {loading && <TimelineShimmer />}
-      {!data?.publications?.items.length && !loading && isAuthenticated && (
+      {!data?.publications?.items.length && !loading && selectedChannelId && (
         <NoDataFound text="This list has no videos." />
       )}
       <div className="grid gap-x-4 lg:grid-cols-4 gap-y-1.5 md:gap-y-6 2xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">

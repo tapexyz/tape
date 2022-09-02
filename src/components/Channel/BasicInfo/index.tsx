@@ -15,6 +15,8 @@ import React, { FC, useState } from 'react'
 import { FiSettings } from 'react-icons/fi'
 import { Profile } from 'src/types'
 
+import MutualFollowers from '../Mutual/MutualFollowers'
+
 const CoverLinks = dynamic(() => import('./CoverLinks'))
 
 type Props = {
@@ -26,6 +28,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [showSubscribersModal, setShowSubscribersModal] = useState(false)
 
+  const isOwnChannel = channel?.id === selectedChannel?.id
   const subscribeType = channel?.followModule?.__typename
 
   const onClickCustomize = () => {
@@ -87,8 +90,11 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 </span>
               </button>
             </div>
-            <div className="flex items-center space-x-2">
-              {channel?.id === selectedChannel?.id && (
+            <div className="flex items-center space-x-3">
+              {channel?.id && !isOwnChannel ? (
+                <MutualFollowers viewingChannelId={channel.id} />
+              ) : null}
+              {isOwnChannel && (
                 <Tooltip content="Channel settings" placement="top">
                   <Button
                     variant="outlined"

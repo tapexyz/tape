@@ -10,7 +10,7 @@ import { Mixpanel, TRACK } from '@utils/track'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo } from 'src/types'
+import { PaginatedResultInfo, PublicationTypes } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 import ByteVideo from './ByteVideo'
@@ -32,7 +32,7 @@ const Bytes = () => {
         limit: 10,
         noRandomize: false,
         sources: [LENSTUBE_BYTES_APP_ID],
-        publicationTypes: ['POST']
+        publicationTypes: [PublicationTypes.Post]
       },
       reactionRequest: selectedChannel
         ? { profileId: selectedChannel?.id }
@@ -56,7 +56,7 @@ const Bytes = () => {
               limit: 10,
               noRandomize: false,
               sources: [LENSTUBE_BYTES_APP_ID],
-              publicationTypes: ['POST']
+              publicationTypes: [PublicationTypes.Post]
             }
           }
         })

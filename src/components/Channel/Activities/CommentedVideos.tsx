@@ -8,7 +8,7 @@ import logger from '@lib/logger'
 import { LENSTUBE_APP_ID } from '@utils/constants'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo, Profile } from 'src/types'
+import { PaginatedResultInfo, Profile, PublicationTypes } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -21,7 +21,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: {
-        publicationTypes: 'COMMENT',
+        publicationTypes: [PublicationTypes.Comment],
         profileId: channel?.id,
         limit: 12,
         sources: [LENSTUBE_APP_ID]
@@ -39,7 +39,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              publicationTypes: 'COMMENT',
+              publicationTypes: [PublicationTypes.Comment],
               profileId: channel?.id,
               cursor: pageInfo?.next,
               limit: 8,

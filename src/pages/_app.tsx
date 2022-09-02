@@ -15,14 +15,14 @@ const Providers = lazy(() => import('../components/Common/Providers'))
 const Layout = lazy(() => import('../components/Common/Layout'))
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const { pathname, replace, asPath } = useRouter()
 
   useEffect(() => {
-    if (!isAuthenticated && AUTH_ROUTES.includes(pathname)) {
+    if (!selectedChannelId && AUTH_ROUTES.includes(pathname)) {
       replace(`${AUTH}?next=${asPath}`)
     }
-  }, [isAuthenticated, pathname, asPath, replace])
+  }, [selectedChannelId, pathname, asPath, replace])
 
   return (
     <Suspense fallback={<FullPageLoader />}>

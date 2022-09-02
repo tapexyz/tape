@@ -4,11 +4,13 @@ import { getSharableLink } from '@utils/functions/getSharableLink'
 import imageCdn from '@utils/functions/imageCdn'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import { Mixpanel, TRACK } from '@utils/track'
+import Link from 'next/link'
 import React, { FC } from 'react'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
 import { LenstubePublication } from 'src/types/local'
 
+import EmbedVideo from '../EmbedVideo'
 import MirrorVideo from '../MirrorVideo'
 
 type Props = {
@@ -18,7 +20,7 @@ type Props = {
 }
 
 const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
-  const [, copy] = useCopyToClipboard()
+  const [copy] = useCopyToClipboard()
 
   const onCopyVideoUrl = async () => {
     await copy(`${LENSTUBE_URL}/watch/${video.id}`)
@@ -35,11 +37,12 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
     >
       <div className="mt-2">
         <div className="flex items-center mb-4 space-x-2 overflow-x-auto flex-nowrap no-scrollbar">
+          <EmbedVideo videoId={video.id} onClose={() => setShowShare(false)} />
           <MirrorVideo
             video={video}
             onMirrorSuccess={() => setShowShare(false)}
           />
-          <a
+          <Link
             className="rounded-full"
             target="_blank"
             rel="noreferrer"
@@ -52,12 +55,13 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 'avatar_lg'
               )}
               className="w-10 h-10 rounded-full"
+              loading="eager"
               alt="lenster"
               draggable={false}
             />
-          </a>
+          </Link>
           <span className="middot" />
-          <a
+          <Link
             className="rounded-full"
             target="_blank"
             rel="noreferrer"
@@ -69,12 +73,13 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 `${STATIC_ASSETS}/images/social/twitter-logo.png`,
                 'avatar_lg'
               )}
+              loading="eager"
               className="w-10 h-10 rounded-full"
               alt="twitter"
               draggable={false}
             />
-          </a>
-          <a
+          </Link>
+          <Link
             href={getSharableLink('reddit', video)}
             onClick={() => Mixpanel.track(TRACK.SHARE_VIDEO.REDDIT)}
             target="_blank"
@@ -86,11 +91,12 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 'avatar_lg'
               )}
               className="w-10 h-10 rounded-full"
+              loading="eager"
               alt="reddit"
               draggable={false}
             />
-          </a>
-          <a
+          </Link>
+          <Link
             href={getSharableLink('linkedin', video)}
             target="_blank"
             onClick={() => Mixpanel.track(TRACK.SHARE_VIDEO.LINKEDIN)}
@@ -101,11 +107,12 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 `${STATIC_ASSETS}/images/social/linkedin-logo.png`,
                 'avatar_lg'
               )}
+              loading="eager"
               alt="linkedin"
               className="w-10 h-10 rounded-full"
               draggable={false}
             />
-          </a>
+          </Link>
         </div>
         <div className="flex items-center justify-between p-2 border border-gray-200 rounded-lg dark:border-gray-800">
           <div className="text-sm truncate select-all">

@@ -6,7 +6,14 @@ export const TRACK = {
   DISPATCHER_ENABLED: 'Dispatcher Enabled',
   GET_VERIFIED: 'Get Verified',
   UPLOADED_VIDEO: 'Uploaded Video',
+  CLICKED_BYTES_TAG_AT_UPLOAD: 'Clicked Bytes During Upload',
+  UPLOADED_BYTE_VIDEO: 'Uploaded Byte Video',
   UPDATED_CHANNEL_INFO: 'Updated Channel Info',
+  EMBED_VIDEO: {
+    OPEN: 'Open Embed',
+    COPY: 'Copy Embed'
+  },
+  OPENED_MUTUAL_CHANNELS: 'Opened Mutual Channels',
   COLLECT: {
     OPEN: 'Open Collect',
     FREE: 'Collected for Free',
@@ -30,6 +37,7 @@ export const TRACK = {
       OPEN: 'Open More Menu',
       GITHUB: 'Click Github',
       DISCORD: 'Click Discord',
+      ROADMAP: 'Click Roadmap',
       STATUS: 'Click Status',
       TWITTER: 'Click Twitter'
     }

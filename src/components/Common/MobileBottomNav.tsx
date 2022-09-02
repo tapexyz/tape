@@ -22,50 +22,55 @@ const MobileBottomNav = () => {
           'grid grid-cols-5 bg-white border-t border-gray-300 dark:border-gray-700 dark:bg-black space-between'
         )}
       >
-        <Link href={HOME}>
-          <a className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
-            <FiHome
-              className={clsx('text-lg opacity-80', {
-                'text-indigo-500 opacity-100': isActivePath(HOME)
-              })}
-            />
-            <span className="text-[9px]">Home</span>
-          </a>
+        <Link
+          href={HOME}
+          className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid"
+        >
+          <FiHome
+            className={clsx('text-lg opacity-80', {
+              'text-indigo-500 opacity-100': isActivePath(HOME)
+            })}
+          />
+          <span className="text-[9px]">Home</span>
         </Link>
-        <Link href={BYTES}>
-          <a className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
-            <MdSlowMotionVideo
-              className={clsx('text-xl opacity-80', {
-                'text-indigo-500 opacity-100': isActivePath(BYTES)
-              })}
-            />
-            <span className="text-[9px]">Bytes</span>
-          </a>
+        <Link
+          href={BYTES}
+          className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid"
+        >
+          <MdSlowMotionVideo
+            className={clsx('text-xl opacity-80', {
+              'text-indigo-500 opacity-100': isActivePath(BYTES)
+            })}
+          />
+          <span className="text-[9px]">Bytes</span>
         </Link>
-        <Link href={UPLOAD}>
-          <a className="flex flex-col items-center justify-center w-full text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
-            <BsPlusCircle className="text-3xl opacity-80" />
-          </a>
+        <Link
+          href={UPLOAD}
+          className="flex flex-col items-center justify-center w-full text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid"
+        >
+          <BsPlusCircle className="text-3xl opacity-80" />
         </Link>
-        <Link href={FEED}>
-          <a className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
-            <MdOutlineSubscriptions
-              className={clsx('text-xl opacity-80', {
-                'text-indigo-500 opacity-100': isActivePath(FEED)
-              })}
-            />
-            <span className="text-[9px]">Feed</span>
-          </a>
+        <Link
+          href={FEED}
+          className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid"
+        >
+          <MdOutlineSubscriptions
+            className={clsx('text-xl opacity-80', {
+              'text-indigo-500 opacity-100': isActivePath(FEED)
+            })}
+          />
+          <span className="text-[9px]">Feed</span>
         </Link>
-        <Link href={LIBRARY}>
-          <a className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid">
-            <MdOutlineVideoLibrary
-              className={clsx('text-xl opacity-80', {
-                'text-indigo-500 opacity-100': isActivePath(LIBRARY)
-              })}
-            />
-            <span className="text-[9px]">Library</span>
-          </a>
+        <Link
+          href={LIBRARY}
+          className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 transition-all duration-150 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid"
+        >
+          <MdOutlineVideoLibrary
+            className={clsx('text-xl opacity-80', {
+              'text-indigo-500 opacity-100': isActivePath(LIBRARY)
+            })}
+          />
+          <span className="text-[9px]">Library</span>
         </Link>
       </div>
     </div>

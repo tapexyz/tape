@@ -75,7 +75,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
 
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState<string | null>(null)
-  const isAuthenticated = usePersistStore((state) => state.isAuthenticated)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
@@ -195,7 +195,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         description: getValues('message'),
         content: getValues('message'),
         locale: 'en',
-        tags: ['lenstube'],
         mainContentFocus: PublicationMainFocus.TextOnly,
         external_url: LENSTUBE_URL,
         image: null,
@@ -226,7 +225,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         media: [],
         appId: LENSTUBE_APP_ID
       })
-
+      setButtonText('Commenting...')
       const request = {
         profileId: selectedChannel?.id,
         publicationId: video?.id,
@@ -256,7 +255,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   }
 
   const onSendTip = async () => {
-    if (!isAuthenticated) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
     setButtonText('Sending...')
     const amountToSend = getValues('tipQuantity') * 1

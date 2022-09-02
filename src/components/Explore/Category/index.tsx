@@ -1,22 +1,18 @@
 import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
+import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { EXPLORE_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import { LENSTUBE_APP_ID } from '@utils/constants'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
 import { PaginatedResultInfo, PublicationTypes } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
-
-const Timeline = dynamic(() => import('../../Home/Timeline'), {
-  loading: () => <TimelineShimmer />
-})
 
 const ExploreCategory = () => {
   const { query } = useRouter()

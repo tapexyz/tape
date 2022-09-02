@@ -25,10 +25,11 @@ const Recents = () => {
           <MdHistory />
           <span>Recents</span>
         </h1>
-        <Link href={RECENTS_LIBRARY}>
-          <a className="flex items-center space-x-0.5 text-xs text-indigo-500">
-            <span>See all</span> <BiChevronRight />
-          </a>
+        <Link
+          href={RECENTS_LIBRARY}
+          className="flex items-center space-x-0.5 text-xs text-indigo-500"
+        >
+          <span>See all</span> <BiChevronRight />
         </Link>
       </div>
       {!videos.length && <NoDataFound text="No recently watched videos" />}
