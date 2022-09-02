@@ -1,9 +1,12 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
-import { BROADCAST_MUTATION } from '@gql/queries'
+import {
+  BROADCAST_MUTATION,
+  VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY
+} from '@gql/queries'
 import { PROXY_ACTION_MUTATION } from '@gql/queries/proxy-action'
 import { CREATE_COLLECT_TYPED_DATA } from '@gql/queries/typed-data'
 import logger from '@lib/logger'
@@ -25,7 +28,7 @@ import {
   CreateCollectBroadcastItemResult,
   FreeCollectModuleSettings
 } from 'src/types'
-import { LenstubePublication } from 'src/types/local'
+import { LenstubeCollectModule, LenstubePublication } from 'src/types/local'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 import CollectModal from './CollectModal'
@@ -60,6 +63,14 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
+
+  const { data, loading: fetchingCollectModule } = useQuery(
+    VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY,
+    {
+      variables: { request: { publicationId: video?.id } }
+    }
+  )
+  const collectModule: LenstubeCollectModule = data?.publication?.collectModule
 
   const { write: writeCollectWithSig } = useContractWrite({
     addressOrName: LENSHUB_PROXY_ADDRESS,
@@ -116,10 +127,10 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     onError
   })
 
+  const isFreeCollect =
+    video.collectModule.__typename === 'FreeCollectModuleSettings'
   const handleCollect = (validate = true) => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
-    const isFreeCollect =
-      video.collectModule.__typename === 'FreeCollectModuleSettings'
     const collectModule = video.collectModule as FreeCollectModuleSettings
     if ((!isFreeCollect || collectModule.followerOnly) && validate) {
       return setShowCollectModal(true)
@@ -149,6 +160,17 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
       })
     }
   }
+  const collectTooltipText = isFreeCollect ? (
+    'Collect as NFT'
+  ) : (
+    <span>
+      Collect as NFT for
+      <b className="ml-1 space-x-1">
+        <span>{collectModule?.amount?.value}</span>
+        <span>{collectModule?.amount?.asset.symbol}</span>
+      </b>
+    </span>
+  )
 
   return (
     <div>
@@ -159,6 +181,8 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
           setShowModal={setShowCollectModal}
           handleCollect={handleCollect}
           collecting={loading}
+          collectModule={collectModule}
+          fetchingCollectModule={fetchingCollectModule}
         />
       )}
       <Tooltip
@@ -167,7 +191,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
             ? 'Collecting'
             : alreadyCollected
             ? 'Already Collected'
-            : 'Collect as NFT'
+            : collectTooltipText
         }
         placement="top"
       >

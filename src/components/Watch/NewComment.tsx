@@ -42,6 +42,7 @@ type Props = {
 const formSchema = z.object({
   comment: z
     .string()
+    .trim()
     .min(1, { message: 'Enter valid comment' })
     .max(5000, { message: 'Comment should not exceed 5000 characters' })
 })

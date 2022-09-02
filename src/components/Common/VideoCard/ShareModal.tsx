@@ -55,6 +55,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 'avatar_lg'
               )}
               className="w-10 h-10 rounded-full"
+              loading="eager"
               alt="lenster"
               draggable={false}
             />
@@ -72,6 +73,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 `${STATIC_ASSETS}/images/social/twitter-logo.png`,
                 'avatar_lg'
               )}
+              loading="eager"
               className="w-10 h-10 rounded-full"
               alt="twitter"
               draggable={false}
@@ -89,6 +91,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 'avatar_lg'
               )}
               className="w-10 h-10 rounded-full"
+              loading="eager"
               alt="reddit"
               draggable={false}
             />
@@ -104,6 +107,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 `${STATIC_ASSETS}/images/social/linkedin-logo.png`,
                 'avatar_lg'
               )}
+              loading="eager"
               alt="linkedin"
               className="w-10 h-10 rounded-full"
               draggable={false}
