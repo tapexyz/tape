@@ -11,6 +11,8 @@ export const TRACK = {
   UPDATE_CHANNEL_INFO: 'Clicked Channel Info',
   CHANGE_CHANNEL_COVER: 'Clicked Channel Cover',
   UPLOADED_BYTE_VIDEO: 'Uploaded Byte Video',
+  UPLOADED_TO_IPFS: 'Uploaded to IPFS',
+  UPLOADED_TO_ARWEAVE: 'Uploaded to Arweave',
   UPDATED_CHANNEL_INFO: 'Updated Channel Info',
   EMBED_VIDEO: {
     OPEN: 'Open Embed',

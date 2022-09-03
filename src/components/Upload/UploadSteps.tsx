@@ -170,6 +170,7 @@ const UploadSteps = () => {
       buttonText: 'Post Video',
       loading: false
     })
+    Mixpanel.track(TRACK.UPLOADED_TO_IPFS)
   }
 
   const uploadToBundlr = async () => {
@@ -216,6 +217,7 @@ const UploadSteps = () => {
         buttonText: 'Post Video',
         loading: false
       })
+      Mixpanel.track(TRACK.UPLOADED_TO_ARWEAVE)
     } catch (error: any) {
       toast.error('Failed to upload video!')
       logger.error('[Error Bundlr Upload Video]', error)
