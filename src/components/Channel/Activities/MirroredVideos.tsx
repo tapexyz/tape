@@ -46,7 +46,8 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
               publicationTypes: [PublicationTypes.Mirror],
               profileId: channel?.id,
               cursor: pageInfo?.next,
-              limit: 12
+              limit: 12,
+              metadata: { mainContentFocus: [PublicationMainFocus.Video] }
             }
           }
         })

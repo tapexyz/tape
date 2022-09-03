@@ -5,7 +5,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { PROFILE_FEED_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
-import { LENSTUBE_APP_ID } from '@utils/constants'
+import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PaginatedResultInfo, Profile, PublicationTypes } from 'src/types'
@@ -24,7 +24,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
         publicationTypes: [PublicationTypes.Comment],
         profileId: channel?.id,
         limit: 12,
-        sources: [LENSTUBE_APP_ID]
+        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
       }
     },
     skip: !channel?.id,
@@ -43,7 +43,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
               profileId: channel?.id,
               cursor: pageInfo?.next,
               limit: 8,
-              sources: [LENSTUBE_APP_ID]
+              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
             }
           }
         })

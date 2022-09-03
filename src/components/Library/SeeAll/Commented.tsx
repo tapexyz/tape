@@ -7,7 +7,7 @@ import { PROFILE_FEED_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { LENSTUBE_APP_ID } from '@utils/constants'
+import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -34,7 +34,7 @@ const SeeAllCommented = () => {
         publicationTypes: [PublicationTypes.Comment],
         profileId: selectedChannel?.id,
         limit: 12,
-        sources: [LENSTUBE_APP_ID]
+        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
       }
     },
     skip: !selectedChannel?.id,
@@ -56,7 +56,7 @@ const SeeAllCommented = () => {
               profileId: selectedChannel?.id,
               cursor: pageInfo?.next,
               limit: 12,
-              sources: [LENSTUBE_APP_ID]
+              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
             }
           }
         })

@@ -5,7 +5,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { EXPLORE_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
-import { LENSTUBE_APP_ID } from '@utils/constants'
+import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { Mixpanel, TRACK } from '@utils/track'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -25,7 +25,7 @@ const Trending = () => {
         sortCriteria: 'TOP_COMMENTED',
         limit: 12,
         noRandomize: false,
-        sources: [LENSTUBE_APP_ID],
+        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
         publicationTypes: [PublicationTypes.Post]
       }
     },
@@ -46,7 +46,7 @@ const Trending = () => {
               cursor: pageInfo?.next,
               limit: 16,
               noRandomize: false,
-              sources: [LENSTUBE_APP_ID],
+              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
               publicationTypes: [PublicationTypes.Post]
             }
           }

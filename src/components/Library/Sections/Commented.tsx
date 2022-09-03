@@ -4,7 +4,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { PROFILE_FEED_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { LENSTUBE_APP_ID } from '@utils/constants'
+import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { COMMENTED_LIBRARY } from '@utils/url-path'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -26,7 +26,7 @@ const Commented = () => {
         publicationTypes: [PublicationTypes.Comment],
         profileId: selectedChannel?.id,
         limit: 4,
-        sources: [LENSTUBE_APP_ID]
+        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
       }
     },
     skip: !selectedChannel?.id,

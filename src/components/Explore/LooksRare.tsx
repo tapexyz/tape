@@ -5,7 +5,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { EXPLORE_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
-import { LENSTUBE_APP_ID } from '@utils/constants'
+import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { EXPLORE } from '@utils/url-path'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -23,7 +23,7 @@ const LooksRare = () => {
         sortCriteria: 'TOP_COLLECTED',
         limit: 12,
         noRandomize: true,
-        sources: [LENSTUBE_APP_ID],
+        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
         publicationTypes: [PublicationTypes.Post]
       }
     },
@@ -44,7 +44,7 @@ const LooksRare = () => {
               cursor: pageInfo?.next,
               limit: 16,
               noRandomize: true,
-              sources: [LENSTUBE_APP_ID],
+              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
               publicationTypes: [PublicationTypes.Post]
             }
           }

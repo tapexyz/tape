@@ -4,7 +4,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { EXPLORE_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import { LENSTUBE_APP_ID } from '@utils/constants'
+import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -30,7 +30,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
       request: {
         sortCriteria: 'LATEST',
         limit: 12,
-        sources: [LENSTUBE_APP_ID],
+        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
         publicationTypes: [PublicationTypes.Post],
         noRandomize: false
       }
@@ -60,7 +60,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
               cursor: pageInfo?.next,
               sortCriteria: 'LATEST',
               limit: 12,
-              sources: [LENSTUBE_APP_ID],
+              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
               publicationTypes: [PublicationTypes.Post],
               noRandomize: false
             }
