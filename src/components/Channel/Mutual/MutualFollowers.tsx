@@ -26,7 +26,7 @@ const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
         limit: 5
       }
     },
-    skip: !viewingChannelId
+    skip: !viewingChannelId || !selectedChannel?.id
   })
 
   const onClickMutuals = () => {
