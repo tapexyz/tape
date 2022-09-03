@@ -9,6 +9,7 @@ import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
 import clearLocalStorage from '@utils/functions/clearLocalStorage'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { shortenAddress } from '@utils/functions/shortenAddress'
+import { Mixpanel, TRACK } from '@utils/track'
 import { LENSTUBE_STATS, SETTINGS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -156,6 +157,9 @@ const UserMenu = () => {
                   )}
                   {selectedChannel && (
                     <Link
+                      onClick={() =>
+                        Mixpanel.track(TRACK.CLICK_CHANNEL_SETTINGS)
+                      }
                       href={SETTINGS}
                       className="text-xs font-medium text-indigo-500 dark:text-indigo-400"
                     >

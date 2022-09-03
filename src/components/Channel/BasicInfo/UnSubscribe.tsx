@@ -1,15 +1,20 @@
 import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
+import { BROADCAST_MUTATION } from '@gql/queries'
 import { CREATE_UNFOLLOW_TYPED_DATA } from '@gql/queries/typed-data'
 import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
-import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
+import { RELAYER_ENABLED, SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { ethers, Signer, utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
-import { CreateUnfollowBroadcastItemResult, Profile } from 'src/types'
+import {
+  CreateBurnEip712TypedData,
+  CreateUnfollowBroadcastItemResult,
+  Profile
+} from 'src/types'
 import { useSigner, useSignTypedData } from 'wagmi'
 
 type Props = {
@@ -47,34 +52,56 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
     onError
   })
 
+  const [broadcast] = useMutation(BROADCAST_MUTATION, {
+    onCompleted(data) {
+      if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
+        onCompleted()
+      }
+    },
+    onError
+  })
+
+  const burnWithSig = async (
+    signature: string,
+    typedData: CreateBurnEip712TypedData
+  ) => {
+    const { v, r, s } = utils.splitSignature(signature)
+    const sig = {
+      v,
+      r,
+      s,
+      deadline: typedData.value.deadline
+    }
+    const followNftContract = new ethers.Contract(
+      typedData.domain.verifyingContract,
+      FOLLOW_NFT_ABI,
+      signer as Signer
+    )
+    const txn = await followNftContract.burnWithSig(
+      typedData?.value.tokenId,
+      sig
+    )
+    if (txn.hash) onCompleted()
+  }
+
   const [createUnsubscribeTypedData] = useMutation(CREATE_UNFOLLOW_TYPED_DATA, {
     async onCompleted(data) {
-      const { typedData } =
+      const { typedData, id } =
         data.createUnfollowTypedData as CreateUnfollowBroadcastItemResult
       try {
-        const signature = await signTypedDataAsync({
+        const signature: string = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),
           value: omitKey(typedData?.value, '__typename')
         })
-        const { v, r, s } = utils.splitSignature(signature)
-        const sig = {
-          v,
-          r,
-          s,
-          deadline: typedData.value.deadline
+        if (RELAYER_ENABLED) {
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.reason) await burnWithSig(signature, typedData)
+        } else {
+          await burnWithSig(signature, typedData)
         }
-        // load up the follower nft contract
-        const followNftContract = new ethers.Contract(
-          typedData.domain.verifyingContract,
-          FOLLOW_NFT_ABI,
-          signer as Signer
-        )
-        const txn = await followNftContract.burnWithSig(
-          typedData?.value.tokenId,
-          sig
-        )
-        if (txn.hash) onCompleted()
       } catch (error) {
         setLoading(false)
         setButtonText(subscribeText)

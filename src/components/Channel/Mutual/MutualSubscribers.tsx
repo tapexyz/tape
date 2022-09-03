@@ -8,12 +8,12 @@ import { Mixpanel, TRACK } from '@utils/track'
 import React, { FC, useState } from 'react'
 import { Profile } from 'src/types'
 
-import MutualFollowersList from './MutualFollowersList'
+import MutualSubscribersList from './MutualSubscribersList'
 type Props = {
   viewingChannelId: string
 }
 
-const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
+const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [showMutualSubscribersModal, setShowMutualSubscribersModal] =
     useState(false)
@@ -26,7 +26,7 @@ const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
         limit: 5
       }
     },
-    skip: !viewingChannelId
+    skip: !viewingChannelId || !selectedChannel?.id
   })
 
   const onClickMutuals = () => {
@@ -70,11 +70,11 @@ const MutualFollowers: FC<Props> = ({ viewingChannelId }) => {
         panelClassName="max-w-md"
       >
         <div className="max-h-[40vh] overflow-y-auto no-scrollbar">
-          <MutualFollowersList viewingChannelId={viewingChannelId} />
+          <MutualSubscribersList viewingChannelId={viewingChannelId} />
         </div>
       </Modal>
     </div>
   )
 }
 
-export default MutualFollowers
+export default MutualSubscribers

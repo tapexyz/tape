@@ -189,6 +189,7 @@ const BasicInfo = ({ channel }: Props) => {
   }
 
   const onSaveBasicInfo = async (data: FormData) => {
+    Mixpanel.track(TRACK.UPDATE_CHANNEL_INFO)
     setLoading(true)
     try {
       const { url } = await uploadToAr({
@@ -263,9 +264,10 @@ const BasicInfo = ({ channel }: Props) => {
           draggable={false}
           alt="Cover Image"
         />
-        <label className="absolute p-1 px-3 text-sm bg-white rounded-md cursor-pointer dark:bg-black top-2 right-2">
+        <label className="absolute p-1 px-3 text-sm bg-white rounded-lg cursor-pointer dark:bg-black bottom-2 left-2">
           Change
           <input
+            onClick={() => Mixpanel.track(TRACK.CHANGE_CHANNEL_COVER)}
             type="file"
             accept=".png, .jpg, .jpeg, .svg"
             className="hidden w-full"

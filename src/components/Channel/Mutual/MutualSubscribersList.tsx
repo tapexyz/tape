@@ -14,7 +14,7 @@ type Props = {
   viewingChannelId: string
 }
 
-const MutualFollowersList: FC<Props> = ({ viewingChannelId }) => {
+const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const [mutualSubscribers, setMutualSubscribers] = useState<Profile[]>([])
@@ -96,4 +96,4 @@ const MutualFollowersList: FC<Props> = ({ viewingChannelId }) => {
   )
 }
 
-export default MutualFollowersList
+export default MutualSubscribersList

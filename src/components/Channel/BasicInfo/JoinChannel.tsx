@@ -133,7 +133,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     if (!isAllowed)
       return toast.error(
-        `Menu -> Settings -> Permissions and allow fee follow module for ${followModule.amount.asset.symbol}.`
+        `Menu -> Settings -> Permissions and allow fee follow module for ${followModule?.amount?.asset?.symbol}.`
       )
     setLoading(true)
     setButtonText('Joining...')

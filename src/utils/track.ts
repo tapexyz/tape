@@ -7,6 +7,9 @@ export const TRACK = {
   GET_VERIFIED: 'Get Verified',
   UPLOADED_VIDEO: 'Uploaded Video',
   CLICKED_BYTES_TAG_AT_UPLOAD: 'Clicked Bytes During Upload',
+  CLICK_CHANNEL_SETTINGS: 'Clicked Channel Settings',
+  UPDATE_CHANNEL_INFO: 'Clicked Channel Info',
+  CHANGE_CHANNEL_COVER: 'Clicked Channel Cover',
   UPLOADED_BYTE_VIDEO: 'Uploaded Byte Video',
   UPDATED_CHANNEL_INFO: 'Updated Channel Info',
   EMBED_VIDEO: {
