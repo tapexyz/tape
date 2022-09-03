@@ -8,6 +8,7 @@ import useAppStore from '@lib/store'
 import getCoverPicture from '@utils/functions/getCoverPicture'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
+import { Mixpanel, TRACK } from '@utils/track'
 import { SETTINGS } from '@utils/url-path'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -15,7 +16,7 @@ import React, { FC, useState } from 'react'
 import { FiSettings } from 'react-icons/fi'
 import { Profile } from 'src/types'
 
-import MutualFollowers from '../Mutual/MutualFollowers'
+import MutualSubscribers from '../Mutual/MutualSubscribers'
 
 const CoverLinks = dynamic(() => import('./CoverLinks'))
 
@@ -32,6 +33,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
   const subscribeType = channel?.followModule?.__typename
 
   const onClickCustomize = () => {
+    Mixpanel.track(TRACK.CLICK_CHANNEL_SETTINGS)
     router.push(SETTINGS)
   }
 
@@ -92,7 +94,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
             </div>
             <div className="flex items-center space-x-3">
               {channel?.id && !isOwnChannel ? (
-                <MutualFollowers viewingChannelId={channel.id} />
+                <MutualSubscribers viewingChannelId={channel.id} />
               ) : null}
               {isOwnChannel && (
                 <Tooltip content="Channel settings" placement="top">
