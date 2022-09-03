@@ -46,7 +46,6 @@ const Notifications = () => {
         sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
       }
     },
-    fetchPolicy: 'no-cache',
     onCompleted(data) {
       setPageInfo(data?.notifications?.pageInfo)
       setNotifications(data?.notifications?.items)

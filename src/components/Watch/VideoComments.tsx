@@ -50,7 +50,6 @@ const VideoComments: FC<Props> = ({ video }) => {
           : null
       },
       skip: !id,
-      fetchPolicy: 'no-cache',
       onCompleted(data) {
         setPageInfo(data?.publications?.pageInfo)
         setComments(data?.publications?.items)

@@ -65,7 +65,6 @@ const VideoDetails = () => {
         : null
     },
     skip: !id,
-    fetchPolicy: 'no-cache',
     onCompleted: async (result) => {
       setLoading(true)
       if (!result.publication || result?.publication?.__typename !== 'Post') {

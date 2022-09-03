@@ -30,7 +30,6 @@ const Commented = () => {
       }
     },
     skip: !selectedChannel?.id,
-    fetchPolicy: 'no-cache',
     onCompleted(data) {
       setCommented(data?.publications?.items)
     }
