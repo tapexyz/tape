@@ -47,7 +47,8 @@ const HomeFeed = () => {
               profileId: selectedChannel?.id,
               cursor: pageInfo?.next,
               limit: 12,
-              timelineTypes: [PublicationTypes.Post]
+              timelineTypes: [PublicationTypes.Post],
+              metadata: { mainContentFocus: [PublicationMainFocus.Video] }
             }
           }
         })

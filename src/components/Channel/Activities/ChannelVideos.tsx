@@ -45,6 +45,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
             request: {
               publicationTypes: [PublicationTypes.Post],
               profileId: channel?.id,
+              metadata: { mainContentFocus: [PublicationMainFocus.Video] },
               limit: 12,
               cursor: pageInfo?.next
             }
