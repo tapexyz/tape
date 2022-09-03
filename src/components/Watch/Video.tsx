@@ -1,10 +1,12 @@
 import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
+import logger from '@lib/logger'
 import { getIsSensitiveContent } from '@utils/functions/getIsSensitiveContent'
-import { getVideoUrl } from '@utils/functions/getVideoUrl'
+import { getPermanentVideoUrl, getVideoUrl } from '@utils/functions/getVideoUrl'
 import imageCdn from '@utils/functions/imageCdn'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
+import axios from 'axios'
 import dynamic from 'next/dynamic'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { LenstubePublication } from 'src/types/local'
 
 import VideoActions from './VideoActions'
@@ -19,27 +21,26 @@ type Props = {
 }
 
 const Video: FC<Props> = ({ video }) => {
-  // const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
-  const [videoUrl] = useState(getVideoUrl(video))
+  const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
 
-  // const checkVideoResource = async () => {
-  //   try {
-  //     await axios.get(videoUrl)
-  //   } catch (error) {
-  //     setVideoUrl(getPermanentVideoUrl(video))
-  //     logger.error('[Error Invalid Watch Playback]', error)
-  //   }
-  // }
+  const checkVideoResource = async () => {
+    try {
+      await axios.get(videoUrl)
+    } catch (error) {
+      setVideoUrl(getPermanentVideoUrl(video))
+      logger.error('[Error Invalid Watch Playback]', error)
+    }
+  }
 
-  // useEffect(() => {
-  //   if (!video.hls) {
-  //     checkVideoResource().catch((error) =>
-  //       logger.error('[Error Invalid Watch Playback]', error)
-  //     )
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
+  useEffect(() => {
+    if (!video.hls) {
+      checkVideoResource().catch((error) =>
+        logger.error('[Error Invalid Watch Playback]', error)
+      )
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="overflow-hidden">

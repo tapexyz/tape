@@ -1,9 +1,10 @@
 import CollectVideo from '@components/Watch/CollectVideo'
 import logger from '@lib/logger'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
-import { getVideoUrl } from '@utils/functions/getVideoUrl'
+import { getPermanentVideoUrl, getVideoUrl } from '@utils/functions/getVideoUrl'
 import imageCdn from '@utils/functions/imageCdn'
-import React, { FC, useRef, useState } from 'react'
+import axios from 'axios'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { LenstubePublication } from 'src/types/local'
 
@@ -18,24 +19,23 @@ type Props = {
 const ByteVideo: FC<Props> = ({ video }) => {
   const [playing, setIsPlaying] = useState(true)
   const videoRef = useRef<HTMLVideoElement>(null)
-  // const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
-  const [videoUrl] = useState(getVideoUrl(video))
+  const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
 
-  // const checkVideoResource = async () => {
-  //   try {
-  //     await axios.get(videoUrl)
-  //   } catch (error) {
-  //     setVideoUrl(getPermanentVideoUrl(video))
-  //     logger.error('[Error Invalid Byte Playback]', error)
-  //   }
-  // }
+  const checkVideoResource = async () => {
+    try {
+      await axios.get(videoUrl)
+    } catch (error) {
+      setVideoUrl(getPermanentVideoUrl(video))
+      logger.error('[Error Invalid Byte Playback]', error)
+    }
+  }
 
-  // useEffect(() => {
-  //   checkVideoResource().catch((error) =>
-  //     logger.error('[Error Invalid Byte Playback]', error)
-  //   )
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
+  useEffect(() => {
+    checkVideoResource().catch((error) =>
+      logger.error('[Error Invalid Byte Playback]', error)
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const onClickVideo = () => {
     try {
