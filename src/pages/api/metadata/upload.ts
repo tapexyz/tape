@@ -25,9 +25,8 @@ const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   }
   if (req.method !== 'POST' || !req.body)
     return res.status(400).json({ url: null, id: null, success: false })
-
-  const payload = JSON.stringify(req.body)
   try {
+    const payload = JSON.stringify(req.body)
     const bundlr = new Bundlr(
       BUNDLR_METADATA_UPLOAD_URL,
       BUNDLR_CURRENCY,
