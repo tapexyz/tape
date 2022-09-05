@@ -7,6 +7,7 @@ import { BiTimeFive } from 'react-icons/bi'
 import { HiOutlineCollection } from 'react-icons/hi'
 import { TiPointOfInterest } from 'react-icons/ti'
 
+import Curated from './Curated'
 import LooksRare from './LooksRare'
 import Recents from './Recents'
 import Trending from './Trending'
@@ -75,7 +76,7 @@ const ExploreFeed = () => {
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel className="py-3 focus:outline-none">
-              <Recents />
+              <Curated />
             </Tab.Panel>
             <Tab.Panel className="py-3 focus:outline-none">
               <Recents />
