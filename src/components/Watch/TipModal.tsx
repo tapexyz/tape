@@ -23,6 +23,7 @@ import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
 import uploadToAr from '@utils/functions/uploadToAr'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
+import { Mixpanel, TRACK } from '@utils/track'
 import { BigNumber, utils } from 'ethers'
 import React, { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -266,6 +267,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           value: BigNumber.from(utils.parseEther(amountToSend.toString()))
         }
       })
+      Mixpanel.track(TRACK.TIP.SENT)
       if (data?.hash) await submitComment(data.hash)
     } catch (error) {
       setLoading(false)

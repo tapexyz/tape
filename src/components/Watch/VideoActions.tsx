@@ -1,5 +1,6 @@
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import { Button } from '@components/UIElements/Button'
+import { Mixpanel, TRACK } from '@utils/track'
 import Link from 'next/link'
 import React, { FC, useState } from 'react'
 import { FiFlag } from 'react-icons/fi'
@@ -27,7 +28,10 @@ const VideoActions: FC<Props> = ({ video }) => {
       <Button
         variant="secondary"
         className="!p-0"
-        onClick={() => setShowTip(true)}
+        onClick={() => {
+          Mixpanel.track(TRACK.TIP.OPEN)
+          setShowTip(true)
+        }}
       >
         <span className="flex items-center space-x-1">
           <TbHeartHandshake />

@@ -24,6 +24,10 @@ export const TRACK = {
     FREE: 'Collected for Free',
     FEE: 'Collected for Fee'
   },
+  TIP: {
+    OPEN: 'Open Tip Modal',
+    SENT: 'Sent Tip'
+  },
   COPY: { VIDEO_URL: 'Copy Video Url' },
   SHARE_VIDEO: {
     LENSTER: 'Share to Lenster',
