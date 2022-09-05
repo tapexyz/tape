@@ -10,7 +10,11 @@ import { EXPLORE } from '@utils/url-path'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo, PublicationTypes } from 'src/types'
+import {
+  PaginatedResultInfo,
+  PublicationSortCriteria,
+  PublicationTypes
+} from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 const LooksRare = () => {
@@ -20,7 +24,7 @@ const LooksRare = () => {
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
-        sortCriteria: 'TOP_COLLECTED',
+        sortCriteria: PublicationSortCriteria.TopCollected,
         limit: 12,
         noRandomize: true,
         sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
@@ -40,7 +44,7 @@ const LooksRare = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              sortCriteria: 'TOP_COLLECTED',
+              sortCriteria: PublicationSortCriteria.TopCollected,
               cursor: pageInfo?.next,
               limit: 16,
               noRandomize: true,

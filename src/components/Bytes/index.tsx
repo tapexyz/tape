@@ -10,7 +10,11 @@ import { Mixpanel, TRACK } from '@utils/track'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo, PublicationTypes } from 'src/types'
+import {
+  PaginatedResultInfo,
+  PublicationSortCriteria,
+  PublicationTypes
+} from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 import ByteVideo from './ByteVideo'
@@ -28,7 +32,7 @@ const Bytes = () => {
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
-        sortCriteria: 'LATEST',
+        sortCriteria: PublicationSortCriteria.Latest,
         limit: 10,
         noRandomize: false,
         sources: [LENSTUBE_BYTES_APP_ID],
@@ -51,7 +55,7 @@ const Bytes = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              sortCriteria: 'LATEST',
+              sortCriteria: PublicationSortCriteria.Latest,
               cursor: pageInfo?.next,
               limit: 10,
               noRandomize: false,

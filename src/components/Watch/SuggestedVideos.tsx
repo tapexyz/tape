@@ -8,7 +8,11 @@ import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo, PublicationTypes } from 'src/types'
+import {
+  PaginatedResultInfo,
+  PublicationSortCriteria,
+  PublicationTypes
+} from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
@@ -28,7 +32,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
   const { loading, error, fetchMore, refetch } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
-        sortCriteria: 'LATEST',
+        sortCriteria: PublicationSortCriteria.Latest,
         limit: 12,
         sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
         publicationTypes: [PublicationTypes.Post],
@@ -58,7 +62,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
           variables: {
             request: {
               cursor: pageInfo?.next,
-              sortCriteria: 'LATEST',
+              sortCriteria: PublicationSortCriteria.Latest,
               limit: 12,
               sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
               publicationTypes: [PublicationTypes.Post],

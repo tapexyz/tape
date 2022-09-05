@@ -16,7 +16,7 @@ import {
 } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
-const Recents = () => {
+const Curated = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   useEffect(() => {
@@ -26,7 +26,7 @@ const Recents = () => {
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
-        sortCriteria: PublicationSortCriteria.Latest,
+        sortCriteria: PublicationSortCriteria.CuratedProfiles,
         limit: 12,
         noRandomize: true,
         sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
@@ -46,7 +46,7 @@ const Recents = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              sortCriteria: PublicationSortCriteria.Latest,
+              sortCriteria: PublicationSortCriteria.CuratedProfiles,
               cursor: pageInfo?.next,
               limit: 16,
               noRandomize: true,
@@ -83,4 +83,4 @@ const Recents = () => {
   )
 }
 
-export default Recents
+export default Curated

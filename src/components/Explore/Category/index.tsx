@@ -15,6 +15,7 @@ import Custom404 from 'src/pages/404'
 import {
   PaginatedResultInfo,
   PublicationMainFocus,
+  PublicationSortCriteria,
   PublicationTypes
 } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
@@ -34,7 +35,7 @@ const ExploreCategory = () => {
         },
         publicationTypes: [PublicationTypes.Post],
         limit: 16,
-        sortCriteria: 'TOP_COLLECTED',
+        sortCriteria: PublicationSortCriteria.TopCollected,
         sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
       }
     },
@@ -57,7 +58,7 @@ const ExploreCategory = () => {
               },
               publicationTypes: [PublicationTypes.Post],
               limit: 12,
-              sortCriteria: 'TOP_COLLECTED',
+              sortCriteria: PublicationSortCriteria.TopCollected,
               sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
             }
           }

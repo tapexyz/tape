@@ -9,7 +9,11 @@ import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { Mixpanel, TRACK } from '@utils/track'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo, PublicationTypes } from 'src/types'
+import {
+  PaginatedResultInfo,
+  PublicationSortCriteria,
+  PublicationTypes
+} from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 const Trending = () => {
@@ -22,7 +26,7 @@ const Trending = () => {
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
-        sortCriteria: 'TOP_COMMENTED',
+        sortCriteria: PublicationSortCriteria.TopCommented,
         limit: 12,
         noRandomize: false,
         sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
@@ -42,7 +46,7 @@ const Trending = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              sortCriteria: 'TOP_COMMENTED',
+              sortCriteria: PublicationSortCriteria.TopCommented,
               cursor: pageInfo?.next,
               limit: 16,
               noRandomize: false,
