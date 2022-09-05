@@ -20,7 +20,7 @@ const Curated = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.EXPLORE_RECENT)
+    Mixpanel.track(TRACK.PAGE_VIEW.EXPLORE_CURATED)
   }, [])
 
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {

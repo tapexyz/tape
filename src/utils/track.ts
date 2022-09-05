@@ -58,6 +58,7 @@ export const TRACK = {
     EXPLORE_TRENDING: 'Trending Page',
     EXPLORE_RARE: 'Looks Rare Page',
     EXPLORE_RECENT: 'Recents Page',
+    EXPLORE_CURATED: 'Curated Page',
     PRIVACY: 'Privacy Page',
     REPORT: 'Report Page',
     UPLOAD: {
