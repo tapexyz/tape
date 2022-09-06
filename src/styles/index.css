@@ -76,3 +76,16 @@ vm-player video {
 vm-player video.sc-vm-file {
   @apply border-inherit align-middle w-full outline-none;
 }
+
+.input-mentions-title {
+  @apply w-full min-h-[2.4rem] text-sm;
+}
+.input-mentions-description {
+  @apply min-h-[7rem] w-full text-sm;
+}
+.input-mentions-description textarea, .input-mentions-title textarea {
+  @apply bg-white text-sm resize-y px-2.5 py-2 rounded-xl focus:ring-1 focus:ring-indigo-500 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 outline-none disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 w-full;
+}
+.input-mentions-description__suggestions, .input-mentions-title__suggestions {
+  @apply !bg-white dark:!bg-gray-800 p-1 !mt-8 !border dark:border-gray-700 rounded-xl w-56;
+}
