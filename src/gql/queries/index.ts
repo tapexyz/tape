@@ -14,9 +14,6 @@ export const PROFILES_QUERY = gql`
         ...ProfileFields
       }
     }
-    userSigNonces {
-      lensHubOnChainSigNonce
-    }
   }
   ${ProfileFields}
 `

@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client'
 
+import { ProfileFields } from './fragments/ProfileFields'
+
 // We are using this via axios, so it should be string mutation
 export const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -8,6 +10,20 @@ export const REFRESH_AUTHENTICATION_MUTATION = `
       refreshToken
     }
   }
+`
+
+export const CURRENT_USER_PROFILES_QUERY = gql`
+  query UserProfiles($ownedBy: [EthereumAddress!]) {
+    profiles(request: { ownedBy: $ownedBy }) {
+      items {
+        ...ProfileFields
+      }
+    }
+    userSigNonces {
+      lensHubOnChainSigNonce
+    }
+  }
+  ${ProfileFields}
 `
 
 export const AUTHENTICATE_MUTATION = gql`
