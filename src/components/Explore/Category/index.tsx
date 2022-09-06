@@ -35,7 +35,7 @@ const ExploreCategory = () => {
         },
         publicationTypes: [PublicationTypes.Post],
         limit: 16,
-        sortCriteria: PublicationSortCriteria.TopCollected,
+        sortCriteria: PublicationSortCriteria.Latest,
         sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
       }
     },
@@ -58,7 +58,7 @@ const ExploreCategory = () => {
               },
               publicationTypes: [PublicationTypes.Post],
               limit: 12,
-              sortCriteria: PublicationSortCriteria.TopCollected,
+              sortCriteria: PublicationSortCriteria.Latest,
               sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
             }
           }
