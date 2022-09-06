@@ -31,6 +31,8 @@ const BasicInfo: FC<Props> = ({ channel }) => {
 
   const isOwnChannel = channel?.id === selectedChannel?.id
   const subscribeType = channel?.followModule?.__typename
+  const isMember =
+    selectedChannel?.followModule?.__typename === 'FeeFollowModuleSettings'
 
   const onClickCustomize = () => {
     Mixpanel.track(TRACK.CLICK_CHANNEL_SETTINGS)
@@ -94,7 +96,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 </button>
                 {channel.isFollowing && (
                   <span className="px-2 py-0.5 text-xs dark:bg-gray-800 bg-gray-100 rounded-full">
-                    Subscriber
+                    {isMember ? 'Member' : 'Subscriber'}
                   </span>
                 )}
               </div>

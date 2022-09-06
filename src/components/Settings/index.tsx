@@ -39,8 +39,11 @@ const Settings = () => {
   })
 
   if (error) return <Custom500 />
+  if (loading || !data) return <SettingsShimmer />
+
   if (!data?.profile || (!selectedChannel && router.isReady))
     return <Custom404 />
+
   const channel: Profile & {
     coverPicture: MediaSet
   } = data?.profile
@@ -48,7 +51,6 @@ const Settings = () => {
   return (
     <>
       <MetaTags title="Channel Settings" />
-      {loading && <SettingsShimmer />}
       {!loading && !error && channel ? (
         <div className="grid gap-4 md:grid-cols-4">
           <div className="md:col-span-1">

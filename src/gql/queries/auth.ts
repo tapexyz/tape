@@ -13,8 +13,8 @@ export const REFRESH_AUTHENTICATION_MUTATION = `
 `
 
 export const CURRENT_USER_PROFILES_QUERY = gql`
-  query UserProfiles($ownedBy: [EthereumAddress!]) {
-    profiles(request: { ownedBy: $ownedBy }) {
+  query userChannels($request: ProfileQueryRequest!) {
+    profiles(request: $request) {
       items {
         ...ProfileFields
       }
