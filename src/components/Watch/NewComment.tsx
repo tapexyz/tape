@@ -1,7 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
-import { TextArea } from '@components/UIElements/TextArea'
+import InputMentions from '@components/UIElements/InputMentions'
 import { BROADCAST_MUTATION } from '@gql/queries'
 import { CREATE_COMMENT_VIA_DISPATHCER } from '@gql/queries/dispatcher'
 import { CREATE_COMMENT_TYPED_DATA } from '@gql/queries/typed-data'
@@ -57,10 +57,12 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
   const {
-    register,
+    clearErrors,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
+    watch,
+    setValue
   } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   })
@@ -243,13 +245,16 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
             alt="channel picture"
           />
         </div>
-        <TextArea
-          {...register('comment')}
+        <InputMentions
           placeholder="How's this video?"
           autoComplete="off"
-          rows={1}
-          className="!py-1.5 md:!py-2"
           validationError={errors.comment?.message}
+          value={watch('comment')}
+          onContentChange={(value) => {
+            setValue('comment', value)
+            clearErrors('comment')
+          }}
+          mentionsSelector="input-mentions-single"
         />
         <Button disabled={loading}>{buttonText}</Button>
       </form>

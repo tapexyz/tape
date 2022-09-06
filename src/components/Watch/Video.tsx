@@ -1,3 +1,4 @@
+import InterweaveContent from '@components/Common/InterweaveContent'
 import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
 import logger from '@lib/logger'
 import { getIsSensitiveContent } from '@utils/functions/getIsSensitiveContent'
@@ -56,7 +57,7 @@ const Video: FC<Props> = ({ video }) => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="mt-4 text-lg font-medium line-clamp-2">
-            {video.metadata?.name}
+            <InterweaveContent content={video.metadata?.name as string} />
           </h1>
           <VideoMeta video={video} />
         </div>

@@ -93,7 +93,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   clearErrors('title')
                 }}
                 autoFocus
-                mentionsSelector="input-mentions-title"
+                mentionsSelector="input-mentions-single"
               />
               <div className="absolute top-0 flex items-center justify-end mt-1 right-1">
                 <span
@@ -117,7 +117,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   clearErrors('description')
                 }}
                 rows={5}
-                mentionsSelector="input-mentions-description"
+                mentionsSelector="input-mentions-textarea"
               />
               <div className="absolute top-0 flex items-center justify-end mt-1 right-1">
                 <span
