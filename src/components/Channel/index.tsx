@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
 import { PROFILE_QUERY } from '@gql/queries'
+import useAppStore from '@lib/store'
 import { Mixpanel, TRACK } from '@utils/track'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
@@ -14,6 +15,7 @@ import BasicInfo from './BasicInfo'
 
 const Channel = () => {
   const { query } = useRouter()
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   useEffect(() => {
     Mixpanel.track(TRACK.PAGE_VIEW.CHANNEL)
@@ -21,22 +23,23 @@ const Channel = () => {
 
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
     variables: {
-      request: { handles: query.channel }
+      request: { handle: query.channel },
+      who: selectedChannel?.id ?? null
     },
     skip: !query.channel
   })
 
   if (error) return <Custom500 />
-  if (data?.profiles?.items?.length === 0) return <Custom404 />
+  if (loading || !data) return <ChannelShimmer />
+  if (!data?.profile) return <Custom404 />
 
-  const channel: Profile = data?.profiles?.items[0]
+  const channel: Profile = data?.profile
 
   return (
     <>
-      {loading && <ChannelShimmer />}
+      <MetaTags title={channel?.handle} />
       {!loading && !error && channel ? (
         <>
-          <MetaTags title={channel?.handle} />
           <BasicInfo channel={channel} />
           <Activities channel={channel} />
         </>

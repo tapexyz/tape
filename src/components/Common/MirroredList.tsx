@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { PROFILE_QUERY } from '@gql/queries'
+import { PROFILES_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
@@ -20,8 +20,10 @@ const MirroredList: FC<Props> = ({ videoId }) => {
   const [mirroredList, setMirroredList] = useState<Profile[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
-  const { data, loading, fetchMore } = useQuery(PROFILE_QUERY, {
-    variables: { request: { whoMirroredPublicationId: videoId, limit: 10 } },
+  const { data, loading, fetchMore } = useQuery(PROFILES_QUERY, {
+    variables: {
+      request: { whoMirroredPublicationId: videoId, limit: 10 }
+    },
     skip: !videoId,
     onCompleted(data) {
       setPageInfo(data?.profiles?.pageInfo)

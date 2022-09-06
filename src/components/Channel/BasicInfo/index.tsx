@@ -21,7 +21,7 @@ import MutualSubscribers from '../Mutual/MutualSubscribers'
 const CoverLinks = dynamic(() => import('./CoverLinks'))
 
 type Props = {
-  channel: Profile & any
+  channel: Profile
 }
 
 const BasicInfo: FC<Props> = ({ channel }) => {
@@ -31,6 +31,8 @@ const BasicInfo: FC<Props> = ({ channel }) => {
 
   const isOwnChannel = channel?.id === selectedChannel?.id
   const subscribeType = channel?.followModule?.__typename
+  const isMember =
+    selectedChannel?.followModule?.__typename === 'FeeFollowModuleSettings'
 
   const onClickCustomize = () => {
     Mixpanel.track(TRACK.CLICK_CHANNEL_SETTINGS)
@@ -62,7 +64,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
               alt="channel picture"
             />
           </div>
-          <div className="flex flex-wrap justify-between flex-1 py-2 space-y-2">
+          <div className="flex flex-wrap justify-between flex-1 py-2 space-y-3">
             <div className="flex flex-col items-start mr-3">
               <h1 className="flex items-center space-x-1.5 font-semibold md:text-2xl">
                 <span>{channel?.handle}</span>
@@ -82,17 +84,24 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                   <SubscribersList channel={channel} />
                 </div>
               </Modal>
-              <button
-                type="button"
-                onClick={() => setShowSubscribersModal(true)}
-                className="outline-none"
-              >
-                <span className="inline-flex items-center space-x-1 text-sm md:text-base">
-                  {channel?.stats.totalFollowers} subscribers
-                </span>
-              </button>
+              <div className="flex items-center space-x-2">
+                <button
+                  type="button"
+                  onClick={() => setShowSubscribersModal(true)}
+                  className="outline-none"
+                >
+                  <span className="inline-flex items-center space-x-1 text-sm whitespace-nowrap md:text-base">
+                    {channel?.stats.totalFollowers} subscribers
+                  </span>
+                </button>
+                {channel.isFollowing && (
+                  <span className="px-2 py-0.5 text-xs dark:bg-gray-800 bg-gray-100 rounded-full">
+                    {isMember ? 'Member' : 'Subscriber'}
+                  </span>
+                )}
+              </div>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center ml-auto space-x-3">
               {channel?.id && !isOwnChannel ? (
                 <MutualSubscribers viewingChannelId={channel.id} />
               ) : null}

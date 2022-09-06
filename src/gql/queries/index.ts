@@ -8,14 +8,11 @@ import { PostFields } from './fragments/PostFields'
 import { ProfileFields } from './fragments/ProfileFields'
 
 export const PROFILES_QUERY = gql`
-  query allProfiles($ownedBy: [EthereumAddress!]) {
-    profiles(request: { ownedBy: $ownedBy }) {
+  query allProfiles($request: ProfileQueryRequest!) {
+    profiles(request: $request) {
       items {
         ...ProfileFields
       }
-    }
-    userSigNonces {
-      lensHubOnChainSigNonce
     }
   }
   ${ProfileFields}
@@ -61,70 +58,65 @@ export const PUBLICATION_STATUS_QUERY = gql`
 `
 
 export const PROFILE_QUERY = gql`
-  query Profile($request: ProfileQueryRequest!) {
-    profiles(request: $request) {
-      items {
-        id
-        handle
-        ownedBy
-        name
-        dispatcher {
-          canUseRelay
+  query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
+    profile(request: $request) {
+      id
+      handle
+      ownedBy
+      name
+      dispatcher {
+        canUseRelay
+      }
+      isFollowedByMe
+      isFollowing(who: $who)
+      onChainIdentity {
+        proofOfHumanity
+        worldcoin {
+          isHuman
         }
-        isFollowedByMe
-        onChainIdentity {
-          proofOfHumanity
-          worldcoin {
-            isHuman
-          }
-          sybilDotOrg {
-            verified
-            source {
-              twitter {
-                handle
-              }
-            }
-          }
-          ens {
-            name
-          }
-        }
-        attributes {
-          key
-          value
-        }
-        bio
-        stats {
-          totalFollowers
-          totalPosts
-          totalComments
-          totalMirrors
-          totalCollects
-        }
-        picture {
-          ... on MediaSet {
-            original {
-              url
-            }
-          }
-          ... on NftImage {
-            uri
-          }
-        }
-        coverPicture {
-          ... on MediaSet {
-            original {
-              url
+        sybilDotOrg {
+          verified
+          source {
+            twitter {
+              handle
             }
           }
         }
-        followModule {
-          __typename
+        ens {
+          name
         }
       }
-      pageInfo {
-        totalCount
-        next
+      attributes {
+        key
+        value
+      }
+      bio
+      stats {
+        totalFollowers
+        totalPosts
+        totalComments
+        totalMirrors
+        totalCollects
+      }
+      picture {
+        ... on MediaSet {
+          original {
+            url
+          }
+        }
+        ... on NftImage {
+          uri
+        }
+      }
+      coverPicture {
+        ... on MediaSet {
+          original {
+            url
+          }
+        }
+      }
+      followModule {
+        __typename
       }
     }
   }

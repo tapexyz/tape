@@ -33,25 +33,24 @@ const Settings = () => {
 
   const { data, loading, error } = useQuery(PROFILE_QUERY, {
     variables: {
-      request: { handles: selectedChannel?.handle }
+      request: { handle: selectedChannel?.handle }
     },
     skip: !selectedChannel?.handle
   })
 
   if (error) return <Custom500 />
-  if (
-    data?.profiles?.items?.length === 0 ||
-    (!selectedChannel && router.isReady)
-  )
+  if (loading || !data) return <SettingsShimmer />
+
+  if (!data?.profile || (!selectedChannel && router.isReady))
     return <Custom404 />
+
   const channel: Profile & {
     coverPicture: MediaSet
-  } = data?.profiles?.items[0]
+  } = data?.profile
 
   return (
     <>
       <MetaTags title="Channel Settings" />
-      {loading && <SettingsShimmer />}
       {!loading && !error && channel ? (
         <div className="grid gap-4 md:grid-cols-4">
           <div className="md:col-span-1">

@@ -13,6 +13,8 @@ type Props = {
   viewingChannelId: string
 }
 
+const FETCH_COUNT = 4
+
 const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [showMutualSubscribersModal, setShowMutualSubscribersModal] =
@@ -23,7 +25,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
       request: {
         viewingProfileId: viewingChannelId,
         yourProfileId: selectedChannel?.id,
-        limit: 5
+        limit: FETCH_COUNT
       }
     },
     skip: !viewingChannelId || !selectedChannel?.id
@@ -36,7 +38,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
 
   const mutualSubscribers = data?.mutualFollowersProfiles?.items as Profile[]
   const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount
-  const moreCount = totalCount - 5 > 0 ? totalCount - 5 : 0
+  const moreCount = totalCount - FETCH_COUNT > 0 ? totalCount - FETCH_COUNT : 0
 
   return (
     <div className="flex mt-1 space-x-2 text-sm">

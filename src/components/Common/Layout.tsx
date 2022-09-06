@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client'
-import { PROFILES_QUERY } from '@gql/queries'
+import { CURRENT_USER_PROFILES_QUERY } from '@gql/queries/auth'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
@@ -76,8 +76,10 @@ const Layout: FC<Props> = ({ children }) => {
     setSelectedChannelId(selectedChannel?.id)
   }
 
-  const { loading } = useQuery(PROFILES_QUERY, {
-    variables: { ownedBy: address },
+  const { loading } = useQuery(CURRENT_USER_PROFILES_QUERY, {
+    variables: {
+      request: { ownedBy: address }
+    },
     skip: !selectedChannelId,
     onCompleted: (data) => {
       const channels: Profile[] = data?.profiles?.items
