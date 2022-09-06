@@ -67,7 +67,9 @@ const UserMenu = () => {
     try {
       setShowAccountSwitcher(true)
       const { data } = await getChannels({
-        variables: { ownedBy: address },
+        variables: {
+          request: { ownedBy: address }
+        },
         fetchPolicy: 'no-cache'
       })
       const allChannels: Profile[] = data?.profiles?.items

@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { PROFILE_QUERY } from '@gql/queries'
+import { PROFILES_QUERY } from '@gql/queries'
 import dynamic from 'next/dynamic'
 import React, { FC } from 'react'
 import { Profile } from 'src/types'
@@ -13,7 +13,7 @@ type Props = {
 }
 
 const OtherChannels: FC<Props> = ({ channel }) => {
-  const { data, loading } = useQuery(PROFILE_QUERY, {
+  const { data, loading } = useQuery(PROFILES_QUERY, {
     variables: {
       request: { ownedBy: channel?.ownedBy }
     },

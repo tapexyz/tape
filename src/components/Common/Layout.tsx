@@ -77,7 +77,9 @@ const Layout: FC<Props> = ({ children }) => {
   }
 
   const { loading } = useQuery(PROFILES_QUERY, {
-    variables: { ownedBy: address },
+    variables: {
+      request: { ownedBy: address }
+    },
     skip: !selectedChannelId,
     onCompleted: (data) => {
       const channels: Profile[] = data?.profiles?.items

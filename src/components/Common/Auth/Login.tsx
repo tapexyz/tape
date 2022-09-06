@@ -81,7 +81,9 @@ const Login = () => {
       localStorage.setItem('accessToken', accessToken)
       localStorage.setItem('refreshToken', refreshToken)
       const { data: channelsData } = await getChannels({
-        variables: { ownedBy: address }
+        variables: {
+          request: { ownedBy: address }
+        }
       })
       if (
         !channelsData?.profiles ||

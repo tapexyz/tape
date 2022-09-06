@@ -55,8 +55,8 @@ const Toggle = () => {
 
   const [refetchChannel] = useLazyQuery(PROFILE_QUERY, {
     onCompleted(data) {
-      const channels: Profile[] = data?.profiles?.items
-      setSelectedChannel(channels[0])
+      const channel: Profile = data?.profile
+      setSelectedChannel(channel)
     }
   })
 
@@ -66,7 +66,7 @@ const Toggle = () => {
       Mixpanel.track(TRACK.DISPATCHER_ENABLED)
       refetchChannel({
         variables: {
-          request: { handles: selectedChannel?.handle }
+          request: { handle: selectedChannel?.handle }
         },
         fetchPolicy: 'no-cache'
       })
