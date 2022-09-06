@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useLazyQuery } from '@apollo/client'
 import { SEARCH_CHANNELS_QUERY } from '@gql/queries'
+import logger from '@lib/logger'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
 import { ComponentProps, FC, useId } from 'react'
@@ -33,16 +34,21 @@ const InputMentions: FC<Props> = ({
     callback: (data: SuggestionDataItem[]) => void
   ) => {
     if (!query) return
-    const { data } = await searchChannels({
-      variables: { request: { type: 'PROFILE', query, limit: 5 } }
-    })
-    const channels = data?.search?.items?.map((channel: Profile) => ({
-      id: channel.handle,
-      display: channel.handle,
-      picture: getProfilePicture(channel),
-      followers: channel.stats.totalFollowers
-    }))
-    callback(channels)
+    try {
+      const { data } = await searchChannels({
+        variables: { request: { type: 'PROFILE', query, limit: 5 } }
+      })
+      const channels = data?.search?.items?.map((channel: Profile) => ({
+        id: channel.handle,
+        display: channel.handle,
+        picture: getProfilePicture(channel),
+        followers: channel.stats.totalFollowers
+      }))
+      callback(channels)
+    } catch (error) {
+      callback([])
+      logger.error('[Error Failed to fetch channel suggestions]', error)
+    }
   }
 
   return (
