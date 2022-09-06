@@ -2,6 +2,7 @@ import { IS_MAINNET } from '@utils/constants'
 
 export const VERIFIED_CHANNELS = IS_MAINNET
   ? [
+      '0xf803', // wearenewt.lens
       '0x0ace', // rehash.lens
       '0xf1b1', // millionrecords.lens
       '0xb493', // niftycomedians.lens
@@ -14,6 +15,7 @@ export const VERIFIED_CHANNELS = IS_MAINNET
       '0x0160', // ethglobal.lens
       '0x9797', // ethdubai.lens
       '0x24', // bradorbradley.lens
+      '0x03', // aavegrants.lens
       '0x2d' // sasicodes.lens
     ]
   : ['0x2f', '0x3675']
