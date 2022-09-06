@@ -64,6 +64,9 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     watch,
     setValue
   } = useForm<FormData>({
+    defaultValues: {
+      comment: ''
+    },
     resolver: zodResolver(formSchema)
   })
 

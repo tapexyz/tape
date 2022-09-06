@@ -46,7 +46,7 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
           <div className="flex flex-col space-y-3">
             <div className="w-full">
               <iframe
-                sandbox="allow-scripts"
+                sandbox="allow-scripts allow-same-origin"
                 className="aspect-[16/9] w-full"
                 src={`${LENSTUBE_EMBED_URL}/${videoId}`}
                 title="Lenstube video player"
