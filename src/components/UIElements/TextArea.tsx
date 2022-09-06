@@ -1,19 +1,16 @@
 import clsx from 'clsx'
-import { ComponentProps, forwardRef } from 'react'
+import { ComponentProps, forwardRef, useId } from 'react'
 
 interface Props extends ComponentProps<'textarea'> {
   label?: string
-  id?: string
   type?: string
   className?: string
   validationError?: string
 }
 
 export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
-  function TextArea(
-    { label, validationError, className = '', id, ...props },
-    ref
-  ) {
+  function TextArea({ label, validationError, className = '', ...props }, ref) {
+    const id = useId()
     return (
       <label className="w-full" htmlFor={id}>
         {label && (
