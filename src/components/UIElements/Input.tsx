@@ -1,9 +1,8 @@
 import clsx from 'clsx'
-import { forwardRef, InputHTMLAttributes } from 'react'
+import { forwardRef, InputHTMLAttributes, useId } from 'react'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
-  id?: string
   type?: string
   className?: string
   validationError?: string
@@ -16,13 +15,13 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
     type = 'text',
     validationError,
     className = '',
-    id,
     prefix,
     suffix,
     ...props
   },
   ref
 ) {
+  const id = useId()
   return (
     <label className="w-full" htmlFor={id}>
       {label && (

@@ -1,8 +1,7 @@
 import Alert from '@components/Common/Alert'
 import { Button } from '@components/UIElements/Button'
-import { Input } from '@components/UIElements/Input'
+import InputMentions from '@components/UIElements/InputMentions'
 import RadioInput from '@components/UIElements/RadioInput'
-import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import { Mixpanel, TRACK } from '@utils/track'
@@ -55,12 +54,12 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
   const {
-    register,
     handleSubmit,
     getValues,
     formState: { errors },
     setValue,
-    watch
+    watch,
+    clearErrors
   } = useForm<VideoFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -83,13 +82,18 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
         <div className="flex flex-col justify-between">
           <div>
             <div className="relative">
-              <Input
-                {...register('title')}
+              <InputMentions
                 label="Title"
                 placeholder="Title that describes your video"
                 autoComplete="off"
                 validationError={errors.title?.message}
+                value={watch('title')}
+                onContentChange={(value) => {
+                  setValue('title', value)
+                  clearErrors('title')
+                }}
                 autoFocus
+                mentionsSelector="input-mentions-single"
               />
               <div className="absolute top-0 flex items-center justify-end mt-1 right-1">
                 <span
@@ -102,13 +106,18 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               </div>
             </div>
             <div className="relative mt-4">
-              <TextArea
-                {...register('description')}
+              <InputMentions
                 label="Description"
-                placeholder="Describe more about your video, can be hashtags or chapters"
+                placeholder="Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)"
                 autoComplete="off"
                 validationError={errors.description?.message}
+                value={watch('description')}
+                onContentChange={(value) => {
+                  setValue('description', value)
+                  clearErrors('description')
+                }}
                 rows={5}
+                mentionsSelector="input-mentions-textarea"
               />
               <div className="absolute top-0 flex items-center justify-end mt-1 right-1">
                 <span
