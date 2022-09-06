@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
-import LooksRare from '@components/Explore/LooksRare'
+import Curated from '@components/Explore/Curated'
 import { Mixpanel, TRACK } from '@utils/track'
 import { NextPage } from 'next'
 import { useEffect } from 'react'
@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       <DispatcherAlert />
       <FeedFilters />
       <div className="md:my-2">
-        <LooksRare />
+        <Curated />
       </div>
     </>
   )
