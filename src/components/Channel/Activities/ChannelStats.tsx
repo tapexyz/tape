@@ -25,7 +25,7 @@ const ChannelStats: FC<Props> = ({ channel }) => {
     },
     skip: !channel?.ownedBy
   })
-  const allChannels: Profile[] = data?.profiles?.items
+  const allChannels: Profile[] = data?.profiles?.items || []
 
   return (
     <div className="grid grid-cols-2 gap-4 lg:grid-cols-6 md:grid-cols-3">
@@ -56,7 +56,7 @@ const ChannelStats: FC<Props> = ({ channel }) => {
       />
       <StatCard
         icon={<FcCamcorderPro />}
-        count={allChannels.length}
+        count={allChannels?.length}
         text="total channels"
       />
     </div>
