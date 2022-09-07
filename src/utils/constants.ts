@@ -26,6 +26,8 @@ export const IMAGE_CDN_URL = IS_MAINNET
   ? 'https://ik.imagekit.io/lenstube'
   : 'https://ik.imagekit.io/lenstube/testnet'
 
+export const VIDEO_CDN_URL = 'https://cdn.livepeer.com'
+
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/'
 
 export const POLYGON_RPC_URL = process.env.NEXT_PUBLIC_POLYGON_RPC_URL as string

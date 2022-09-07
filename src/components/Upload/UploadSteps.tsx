@@ -16,7 +16,8 @@ import {
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
   LENSTUBE_URL,
-  RELAYER_ENABLED
+  RELAYER_ENABLED,
+  VIDEO_CDN_URL
 } from '@utils/constants'
 import { checkIsBytesVideo } from '@utils/functions/checkIsBytesVideo'
 import { isLessThan100MB } from '@utils/functions/formatBytes'
@@ -301,7 +302,7 @@ const UploadSteps = () => {
       ]
       if (uploadedVideo.playbackId) {
         media.push({
-          item: `https://livepeercdn.com/asset/${uploadedVideo.playbackId}/video`,
+          item: `${VIDEO_CDN_URL}/asset/${uploadedVideo.playbackId}/video`,
           type: uploadedVideo.videoType
         })
       }
