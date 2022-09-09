@@ -1827,10 +1827,10 @@
   resolved "https://registry.yarnpkg.com/@n1ru4l/graphql-live-query/-/graphql-live-query-0.10.0.tgz#2306151630b0e74b017cc1067ebbea351acf56f8"
   integrity sha512-qZ7OHH/NB0NcG/Xa7irzgjE63UH0CkofZT0Bw4Ko6iRFagPRHBM8RgFXwTt/6JbFGIEUS4STRtaFoc/Eq/ZtzQ==
 
-"@next/bundle-analyzer@^12.2.5":
-  version "12.2.5"
-  resolved "https://registry.yarnpkg.com/@next/bundle-analyzer/-/bundle-analyzer-12.2.5.tgz#6aca94359b1a1f933dfb0a89d5f4d0b1fb86e3e5"
-  integrity sha512-lj7ese4GnfbO8tCc9/g1O3/hzgb+pVkrsNgfF929CgZHCFQxplqxY++MIO4aCFwzt0vDx0KL78LOVxzjDDKjlA==
+"@next/bundle-analyzer@^12.3.0":
+  version "12.3.0"
+  resolved "https://registry.yarnpkg.com/@next/bundle-analyzer/-/bundle-analyzer-12.3.0.tgz#0a4ef7462c5d18fecc119bf681fdc1dc394318ed"
+  integrity sha512-hzRLHIrtwOiGEku9rmG7qZk+OQhnqQOL+ycl2XrjBaztBN/xaqnjoG4+HEf9L7ELN943BR+K/ZlaF2OEgbGm+Q==
   dependencies:
     webpack-bundle-analyzer "4.3.0"
 
