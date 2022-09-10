@@ -19,6 +19,9 @@ const moduleExports = withBundleAnalyzer(
     withTranspiled(
       withSentryConfig(
         {
+          sentry: {
+            hideSourceMaps: true
+          },
           reactStrictMode: process.env.NODE_ENV === 'production',
           experimental: {
             newNextLinkBehavior: true
