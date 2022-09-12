@@ -17,6 +17,7 @@ import CollectedNotification from './Collected'
 import CommentedNotification from './Commented'
 import MentionedNotification from './Mentioned'
 import MirroredNotification from './Mirrored'
+import ReactedNotification from './Reacted'
 import SubscribedNotification from './Subscribed'
 
 const Notifications = () => {
@@ -114,6 +115,9 @@ const Notifications = () => {
           )}
           {notification?.__typename === 'NewCollectNotification' && (
             <CollectedNotification notification={notification} />
+          )}
+          {notification?.__typename === 'NewReactionNotification' && (
+            <ReactedNotification notification={notification} />
           )}
         </div>
       ))}

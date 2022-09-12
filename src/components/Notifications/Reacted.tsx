@@ -4,15 +4,15 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { FC } from 'react'
-import { NewMirrorNotification, Notification, Profile } from 'src/types'
+import { NewReactionNotification, Notification, Profile } from 'src/types'
 
 dayjs.extend(relativeTime)
 
 interface Props {
-  notification: NewMirrorNotification & Notification & { profile: Profile }
+  notification: NewReactionNotification & Notification & { profile: Profile }
 }
 
-const MirroredNotification: FC<Props> = ({ notification }) => {
+const ReactedNotification: FC<Props> = ({ notification }) => {
   return (
     <>
       <div className="flex items-center space-x-3">
@@ -34,7 +34,7 @@ const MirroredNotification: FC<Props> = ({ notification }) => {
       </div>
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-600 truncate dark:text-gray-400">
-          mirrored your{' '}
+          {notification.reaction === 'UPVOTE' ? 'liked' : 'dislisked'} your
           <Link
             href={`/watch/${notification?.publication.id}`}
             className="ml-1 text-indigo-500"
@@ -50,4 +50,4 @@ const MirroredNotification: FC<Props> = ({ notification }) => {
   )
 }
 
-export default MirroredNotification
+export default ReactedNotification
