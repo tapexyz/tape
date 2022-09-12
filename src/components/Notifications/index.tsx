@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
+import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { NOTIFICATION_COUNT_QUERY, NOTIFICATIONS_QUERY } from '@gql/queries'
@@ -81,19 +82,15 @@ const Notifications = () => {
     }
   })
 
-  if (loading)
-    return (
-      <span className="p-5">
-        <Loader />
-      </span>
-    )
-
   if (data?.notifications?.items?.length === 0) return <NoDataFound />
 
   return (
-    <div className="p-2 md:p-0">
+    <div className="mx-auto md:p-0 md:container md:max-w-2xl">
       <MetaTags title="Notifications" />
-      <h1 className="mb-4 text-lg font-medium md:hidden">Notifications</h1>
+      <h1 className="mb-4 text-lg font-medium md:mb-6 md:text-xl">
+        Notifications
+      </h1>
+      {loading && <NotificationsShimmer />}
       {notifications?.map((notification: Notification, index: number) => (
         <div
           className={clsx('pb-3', {
