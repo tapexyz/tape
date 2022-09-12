@@ -2,7 +2,6 @@ import { gql } from '@apollo/client'
 
 import { CollectFields } from './fragments/CollectFields'
 import { CommentFields } from './fragments/CommentFields'
-import { MetadataFields } from './fragments/MetadataFields'
 import { MirrorFields } from './fragments/MirrorFields'
 import { PostFields } from './fragments/PostFields'
 import { ProfileFields } from './fragments/ProfileFields'
@@ -163,17 +162,11 @@ export const NOTIFICATIONS_QUERY = gql`
               profile {
                 ...ProfileFields
               }
-              metadata {
-                content
-              }
             }
             ... on Comment {
               id
               profile {
                 ...ProfileFields
-              }
-              metadata {
-                content
               }
             }
           }
@@ -186,9 +179,6 @@ export const NOTIFICATIONS_QUERY = gql`
           }
           comment {
             id
-            metadata {
-              content
-            }
             commentOn {
               ... on Post {
                 id
@@ -211,23 +201,9 @@ export const NOTIFICATIONS_QUERY = gql`
           publication {
             ... on Post {
               id
-              metadata {
-                name
-                content
-                attributes {
-                  value
-                }
-              }
             }
             ... on Comment {
               id
-              metadata {
-                name
-                content
-                attributes {
-                  value
-                }
-              }
             }
           }
           createdAt
@@ -243,21 +219,28 @@ export const NOTIFICATIONS_QUERY = gql`
           collectedPublication {
             ... on Post {
               id
-              metadata {
-                ...MetadataFields
-              }
-              collectModule {
-                ...CollectFields
-              }
             }
             ... on Comment {
               id
-              metadata {
-                ...MetadataFields
-              }
-              collectModule {
-                ...CollectFields
-              }
+            }
+          }
+          createdAt
+        }
+        ... on NewReactionNotification {
+          notificationId
+          profile {
+            ...ProfileFields
+          }
+          reaction
+          publication {
+            ... on Comment {
+              id
+            }
+            ... on Post {
+              id
+            }
+            ... on Mirror {
+              id
             }
           }
           createdAt
@@ -269,8 +252,6 @@ export const NOTIFICATIONS_QUERY = gql`
     }
   }
   ${ProfileFields}
-  ${CollectFields}
-  ${MetadataFields}
 `
 
 export const SEARCH_CHANNELS_QUERY = gql`

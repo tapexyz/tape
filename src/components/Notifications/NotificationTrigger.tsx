@@ -1,21 +1,13 @@
 import { useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
-import { Loader } from '@components/UIElements/Loader'
 import Popover from '@components/UIElements/Popover'
 import { NOTIFICATION_COUNT_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
 import { CgBell } from 'react-icons/cg'
 
-const Notifications = dynamic(() => import('.'), {
-  loading: () => (
-    <span className="p-5">
-      <Loader />
-    </span>
-  )
-})
+import Notifications from '.'
 
 const NotificationTrigger = () => {
   const setHasNewNotification = useAppStore(
