@@ -6,7 +6,11 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { SEARCH_VIDEOS_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
-import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
+import {
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID
+} from '@utils/constants'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -26,7 +30,8 @@ const ExploreHashtag = () => {
         query: hashtag,
         type: 'PUBLICATION',
         limit: 12,
-        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+        customFilters: LENS_CUSTOM_FILTERS
       }
     },
     skip: !hashtag,
@@ -46,7 +51,8 @@ const ExploreHashtag = () => {
               type: 'PUBLICATION',
               cursor: pageInfo?.next,
               limit: 12,
-              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+              customFilters: LENS_CUSTOM_FILTERS
             }
           }
         })

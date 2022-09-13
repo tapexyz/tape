@@ -79,6 +79,8 @@ export const LENSTUBE_STATUS_PAGE = 'https://status.lenstube.xyz'
 // admins
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']
 
+export const LENS_CUSTOM_FILTERS = ['GARDENERS']
+
 // misc
 export const GIT_DEPLOYED_COMMIT_SHA =
   process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA

@@ -1305,6 +1305,8 @@ export type MetadataAttributeOutput = {
 /** The metadata output */
 export type MetadataOutput = {
   __typename?: 'MetadataOutput';
+  /** The main focus of the publication */
+  animatedUrl?: Maybe<Scalars['Url']>;
   /** The attributes */
   attributes: Array<MetadataAttributeOutput>;
   /** This is the metadata content for the publication, should be markdown */
