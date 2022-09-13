@@ -14,7 +14,7 @@ const uploadMediaToIPFS = async (
     const formData = new FormData()
     formData.append('data', file, uuidv4())
     const uploaded = await axios.post(
-      `https://shuttle-5.estuary.tech/content/add`,
+      `https://shuttle-4.estuary.tech/content/add`,
       formData,
       {
         headers: {
