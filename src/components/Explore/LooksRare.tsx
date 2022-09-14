@@ -19,20 +19,22 @@ import {
 } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
+const request = {
+  sortCriteria: PublicationSortCriteria.TopCollected,
+  limit: 16,
+  noRandomize: true,
+  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+  publicationTypes: [PublicationTypes.Post],
+  customFilters: LENS_CUSTOM_FILTERS
+}
+
 const LooksRare = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
-      request: {
-        sortCriteria: PublicationSortCriteria.TopCollected,
-        limit: 12,
-        noRandomize: true,
-        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-        publicationTypes: [PublicationTypes.Post],
-        customFilters: LENS_CUSTOM_FILTERS
-      }
+      request
     },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
@@ -47,13 +49,8 @@ const LooksRare = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              sortCriteria: PublicationSortCriteria.TopCollected,
-              cursor: pageInfo?.next,
-              limit: 16,
-              noRandomize: true,
-              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-              publicationTypes: [PublicationTypes.Post],
-              customFilters: LENS_CUSTOM_FILTERS
+              ...request,
+              cursor: pageInfo?.next
             }
           }
         })

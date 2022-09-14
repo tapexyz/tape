@@ -24,6 +24,14 @@ import {
 } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
+const request = {
+  publicationTypes: [PublicationTypes.Post],
+  limit: 16,
+  sortCriteria: PublicationSortCriteria.Latest,
+  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+  customFilters: LENS_CUSTOM_FILTERS
+}
+
 const ExploreCategory = () => {
   const { query } = useRouter()
   const categoryName = query.category as string
@@ -33,15 +41,11 @@ const ExploreCategory = () => {
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
+        ...request,
         metadata: {
           tags: { all: [query.category] },
           mainContentFocus: [PublicationMainFocus.Video]
-        },
-        publicationTypes: [PublicationTypes.Post],
-        limit: 16,
-        sortCriteria: PublicationSortCriteria.Latest,
-        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-        customFilters: LENS_CUSTOM_FILTERS
+        }
       }
     },
     skip: !query.category,
@@ -57,15 +61,12 @@ const ExploreCategory = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
+              ...request,
               metadata: {
                 tags: { all: [query.category] },
                 mainContentFocus: [PublicationMainFocus.Video]
               },
-              publicationTypes: [PublicationTypes.Post],
-              limit: 12,
-              sortCriteria: PublicationSortCriteria.Latest,
-              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-              customFilters: LENS_CUSTOM_FILTERS
+              cursor: pageInfo?.next
             }
           }
         })

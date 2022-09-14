@@ -20,17 +20,21 @@ type Props = {
   channel: Profile
 }
 
+const request = {
+  publicationTypes: [PublicationTypes.Post],
+  limit: 12,
+  metadata: { mainContentFocus: [PublicationMainFocus.Video] },
+  customFilters: LENS_CUSTOM_FILTERS
+}
+
 const ChannelVideos: FC<Props> = ({ channel }) => {
   const [channelVideos, setChannelVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: {
-        publicationTypes: [PublicationTypes.Post],
-        profileId: channel?.id,
-        limit: 12,
-        metadata: { mainContentFocus: [PublicationMainFocus.Video] },
-        customFilters: LENS_CUSTOM_FILTERS
+        ...request,
+        profileId: channel?.id
       }
     },
     skip: !channel?.id,
@@ -45,12 +49,9 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              publicationTypes: [PublicationTypes.Post],
+              ...request,
               profileId: channel?.id,
-              metadata: { mainContentFocus: [PublicationMainFocus.Video] },
-              limit: 12,
-              cursor: pageInfo?.next,
-              customFilters: LENS_CUSTOM_FILTERS
+              cursor: pageInfo?.next
             }
           }
         })

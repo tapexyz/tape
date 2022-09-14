@@ -19,6 +19,13 @@ import { AiOutlineComment } from 'react-icons/ai'
 import { PaginatedResultInfo, PublicationTypes } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
+const request = {
+  publicationTypes: [PublicationTypes.Comment],
+  limit: 16,
+  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+  customFilters: LENS_CUSTOM_FILTERS
+}
+
 const SeeAllCommented = () => {
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
@@ -31,11 +38,8 @@ const SeeAllCommented = () => {
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: {
-        publicationTypes: [PublicationTypes.Comment],
         profileId: selectedChannel?.id,
-        limit: 12,
-        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-        customFilters: LENS_CUSTOM_FILTERS
+        ...request
       }
     },
     skip: !selectedChannel?.id,
@@ -52,12 +56,9 @@ const SeeAllCommented = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              publicationTypes: [PublicationTypes.Comment],
               profileId: selectedChannel?.id,
               cursor: pageInfo?.next,
-              limit: 12,
-              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-              customFilters: LENS_CUSTOM_FILTERS
+              ...request
             }
           }
         })
