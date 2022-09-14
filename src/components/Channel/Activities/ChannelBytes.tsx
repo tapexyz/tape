@@ -5,7 +5,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { PROFILE_FEED_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
-import { LENSTUBE_BYTES_APP_ID } from '@utils/constants'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { PaginatedResultInfo, Profile, PublicationTypes } from 'src/types'
@@ -24,7 +24,8 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
         publicationTypes: [PublicationTypes.Post],
         profileId: channel?.id,
         limit: 12,
-        sources: [LENSTUBE_BYTES_APP_ID]
+        sources: [LENSTUBE_BYTES_APP_ID],
+        customFilters: LENS_CUSTOM_FILTERS
       }
     },
     skip: !channel?.id,
@@ -43,7 +44,8 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
               profileId: channel?.id,
               cursor: pageInfo?.next,
               limit: 8,
-              sources: [LENSTUBE_BYTES_APP_ID]
+              sources: [LENSTUBE_BYTES_APP_ID],
+              customFilters: LENS_CUSTOM_FILTERS
             }
           }
         })

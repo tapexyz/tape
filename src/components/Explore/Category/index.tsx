@@ -6,7 +6,11 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { EXPLORE_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
-import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
+import {
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID
+} from '@utils/constants'
 import getCategoryName from '@utils/functions/getCategoryName'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
@@ -36,7 +40,8 @@ const ExploreCategory = () => {
         publicationTypes: [PublicationTypes.Post],
         limit: 16,
         sortCriteria: PublicationSortCriteria.Latest,
-        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+        customFilters: LENS_CUSTOM_FILTERS
       }
     },
     skip: !query.category,
@@ -59,7 +64,8 @@ const ExploreCategory = () => {
               publicationTypes: [PublicationTypes.Post],
               limit: 12,
               sortCriteria: PublicationSortCriteria.Latest,
-              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+              customFilters: LENS_CUSTOM_FILTERS
             }
           }
         })

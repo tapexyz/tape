@@ -5,7 +5,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { EXPLORE_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import { LENSTUBE_BYTES_APP_ID } from '@utils/constants'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import { Mixpanel, TRACK } from '@utils/track'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
@@ -36,7 +36,8 @@ const Bytes = () => {
         limit: 10,
         noRandomize: false,
         sources: [LENSTUBE_BYTES_APP_ID],
-        publicationTypes: [PublicationTypes.Post]
+        publicationTypes: [PublicationTypes.Post],
+        customFilters: LENS_CUSTOM_FILTERS
       },
       reactionRequest: selectedChannel
         ? { profileId: selectedChannel?.id }
@@ -60,7 +61,8 @@ const Bytes = () => {
               limit: 10,
               noRandomize: false,
               sources: [LENSTUBE_BYTES_APP_ID],
-              publicationTypes: [PublicationTypes.Post]
+              publicationTypes: [PublicationTypes.Post],
+              customFilters: LENS_CUSTOM_FILTERS
             }
           }
         })
