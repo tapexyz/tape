@@ -41,11 +41,11 @@ const ExploreCategory = () => {
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
       request: {
-        ...request,
         metadata: {
           tags: { all: [query.category] },
           mainContentFocus: [PublicationMainFocus.Video]
-        }
+        },
+        ...request
       }
     },
     skip: !query.category,
@@ -61,12 +61,11 @@ const ExploreCategory = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              ...request,
               metadata: {
                 tags: { all: [query.category] },
                 mainContentFocus: [PublicationMainFocus.Video]
               },
-              cursor: pageInfo?.next
+              ...request
             }
           }
         })
