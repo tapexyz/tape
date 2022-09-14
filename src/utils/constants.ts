@@ -1,3 +1,5 @@
+import { CustomFiltersTypes } from 'src/types'
+
 /**
  * !!! CHANGING VALUES MIGHT BREAK THINGS !!!
  */
@@ -79,7 +81,7 @@ export const LENSTUBE_STATUS_PAGE = 'https://status.lenstube.xyz'
 // admins
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']
 
-export const LENS_CUSTOM_FILTERS = ['GARDENERS']
+export const LENS_CUSTOM_FILTERS = [CustomFiltersTypes.Gardeners]
 
 // misc
 export const GIT_DEPLOYED_COMMIT_SHA =
