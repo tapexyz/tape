@@ -2,6 +2,7 @@
 import { useLazyQuery } from '@apollo/client'
 import { SEARCH_CHANNELS_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
+import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
 import { ComponentProps, FC, useId } from 'react'
@@ -36,7 +37,14 @@ const InputMentions: FC<Props> = ({
     if (!query) return
     try {
       const { data } = await searchChannels({
-        variables: { request: { type: 'PROFILE', query, limit: 5 } }
+        variables: {
+          request: {
+            type: 'PROFILE',
+            query,
+            limit: 5,
+            customFilters: LENS_CUSTOM_FILTERS
+          }
+        }
       })
       const channels = data?.search?.items?.map((channel: Profile) => ({
         id: channel.handle,

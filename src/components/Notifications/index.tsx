@@ -7,7 +7,11 @@ import { NOTIFICATION_COUNT_QUERY, NOTIFICATIONS_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
+import {
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID
+} from '@utils/constants'
 import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
@@ -37,7 +41,12 @@ const Notifications = () => {
   }, [])
 
   const { data: notificationsCountData } = useQuery(NOTIFICATION_COUNT_QUERY, {
-    variables: { request: { profileId: selectedChannel?.id } },
+    variables: {
+      request: {
+        profileId: selectedChannel?.id,
+        customFilters: LENS_CUSTOM_FILTERS
+      }
+    },
     skip: !selectedChannel?.id
   })
   const { data, loading, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
@@ -45,7 +54,8 @@ const Notifications = () => {
       request: {
         profileId: selectedChannel?.id,
         limit: 10,
-        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+        customFilters: LENS_CUSTOM_FILTERS
       }
     },
     onCompleted(data) {
@@ -70,7 +80,8 @@ const Notifications = () => {
               profileId: selectedChannel?.id,
               cursor: pageInfo?.next,
               limit: 10,
-              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+              customFilters: LENS_CUSTOM_FILTERS
             }
           }
         })

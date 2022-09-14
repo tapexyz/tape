@@ -2,7 +2,11 @@ import { useLazyQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { SEARCH_CHANNELS_QUERY, SEARCH_VIDEOS_QUERY } from '@gql/queries'
 import { Tab } from '@headlessui/react'
-import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
+import {
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID
+} from '@utils/constants'
 import useDebounce from '@utils/hooks/useDebounce'
 import useOutsideClick from '@utils/hooks/useOutsideClick'
 import { Mixpanel, TRACK } from '@utils/track'
@@ -36,7 +40,8 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
             type: activeSearch,
             query: keyword,
             limit: 10,
-            sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+            sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+            customFilters: LENS_CUSTOM_FILTERS
           }
         }
       })

@@ -7,6 +7,7 @@ import { COMMENT_FEED_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
@@ -47,7 +48,8 @@ const VideoComments: FC<Props> = ({ video }) => {
         },
         reactionRequest: selectedChannel
           ? { profileId: selectedChannel?.id }
-          : null
+          : null,
+        customFilters: LENS_CUSTOM_FILTERS
       },
       skip: !id,
       onCompleted(data) {
@@ -65,7 +67,8 @@ const VideoComments: FC<Props> = ({ video }) => {
       },
       reactionRequest: selectedChannel
         ? { profileId: selectedChannel?.id }
-        : null
+        : null,
+      customFilters: LENS_CUSTOM_FILTERS
     })
   }
 
@@ -82,7 +85,8 @@ const VideoComments: FC<Props> = ({ video }) => {
             },
             reactionRequest: selectedChannel
               ? { profileId: selectedChannel?.id }
-              : null
+              : null,
+            customFilters: LENS_CUSTOM_FILTERS
           }
         })
         setPageInfo(data?.publications?.pageInfo)

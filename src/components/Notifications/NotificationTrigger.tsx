@@ -4,6 +4,7 @@ import Popover from '@components/UIElements/Popover'
 import { NOTIFICATION_COUNT_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import React, { useEffect } from 'react'
 import { CgBell } from 'react-icons/cg'
 
@@ -22,7 +23,12 @@ const NotificationTrigger = () => {
   )
 
   const { data: notificationsData } = useQuery(NOTIFICATION_COUNT_QUERY, {
-    variables: { request: { profileId: selectedChannel?.id } },
+    variables: {
+      request: {
+        profileId: selectedChannel?.id,
+        customFilters: LENS_CUSTOM_FILTERS
+      }
+    },
     skip: !selectedChannel?.id
   })
 

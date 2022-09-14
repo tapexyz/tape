@@ -5,6 +5,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { PROFILE_FEED_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
+import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
@@ -28,7 +29,8 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
         publicationTypes: [PublicationTypes.Post],
         profileId: channel?.id,
         limit: 12,
-        metadata: { mainContentFocus: [PublicationMainFocus.Video] }
+        metadata: { mainContentFocus: [PublicationMainFocus.Video] },
+        customFilters: LENS_CUSTOM_FILTERS
       }
     },
     skip: !channel?.id,
@@ -47,7 +49,8 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
               profileId: channel?.id,
               metadata: { mainContentFocus: [PublicationMainFocus.Video] },
               limit: 12,
-              cursor: pageInfo?.next
+              cursor: pageInfo?.next,
+              customFilters: LENS_CUSTOM_FILTERS
             }
           }
         })
