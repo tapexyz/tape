@@ -42,7 +42,7 @@ const ExploreCategory = () => {
     variables: {
       request: {
         metadata: {
-          tags: { all: [query.category] },
+          tags: { oneOf: [query.category] },
           mainContentFocus: [PublicationMainFocus.Video]
         },
         ...request
@@ -62,7 +62,7 @@ const ExploreCategory = () => {
           variables: {
             request: {
               metadata: {
-                tags: { all: [query.category] },
+                tags: { oneOf: [query.category] },
                 mainContentFocus: [PublicationMainFocus.Video]
               },
               ...request
