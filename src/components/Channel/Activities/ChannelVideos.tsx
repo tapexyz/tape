@@ -22,7 +22,7 @@ type Props = {
 
 const request = {
   publicationTypes: [PublicationTypes.Post],
-  limit: 12,
+  limit: 16,
   metadata: { mainContentFocus: [PublicationMainFocus.Video] },
   customFilters: LENS_CUSTOM_FILTERS
 }

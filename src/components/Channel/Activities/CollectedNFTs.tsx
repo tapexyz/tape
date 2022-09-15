@@ -17,7 +17,7 @@ type Props = {
 }
 
 const request = {
-  limit: 12,
+  limit: 16,
   chainIds: [POLYGON_CHAIN_ID]
 }
 

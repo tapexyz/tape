@@ -21,7 +21,7 @@ type Props = {
 
 const request = {
   publicationTypes: [PublicationTypes.Comment],
-  limit: 12,
+  limit: 16,
   sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
   customFilters: LENS_CUSTOM_FILTERS
 }
