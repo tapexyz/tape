@@ -52,7 +52,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
   }
 
   const { observe } = useInView({
-    rootMargin: '1000px 0px',
+    threshold: 1,
     onLeave: () => {
       videoRef.current?.pause()
       setIsPlaying(false)
