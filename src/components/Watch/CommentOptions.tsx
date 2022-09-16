@@ -2,16 +2,20 @@ import { useMutation } from '@apollo/client'
 import Popover from '@components/UIElements/Popover'
 import { HIDE_PUBLICATION } from '@gql/queries'
 import useAppStore from '@lib/store'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { FiFlag } from 'react-icons/fi'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { LenstubePublication } from 'src/types/local'
 
-const CommentOptions = ({ comment }: { comment: LenstubePublication }) => {
+type Props = {
+  setShowReport: Dispatch<boolean>
+  comment: LenstubePublication
+}
+
+const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const router = useRouter()
 
@@ -53,13 +57,14 @@ const CommentOptions = ({ comment }: { comment: LenstubePublication }) => {
               <span className="whitespace-nowrap">Delete</span>
             </button>
           )}
-          <Link
-            href={`/report/${comment.id}`}
+          <button
+            type="button"
+            onClick={() => setShowReport(true)}
             className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <FiFlag className="text-sm ml-0.5" />
             <span className="whitespace-nowrap">Report</span>
-          </Link>
+          </button>
         </div>
       </div>
     </Popover>

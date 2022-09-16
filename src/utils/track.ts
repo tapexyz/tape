@@ -51,6 +51,7 @@ export const TRACK = {
       TWITTER: 'Click Twitter'
     }
   },
+  REPORT: 'Report Publication',
   PAGE_VIEW: {
     HOME: 'Home Page',
     EXPLORE: 'Explore Page',
@@ -59,7 +60,6 @@ export const TRACK = {
     EXPLORE_RECENT: 'Recents Page',
     EXPLORE_CURATED: 'Curated Page',
     PRIVACY: 'Privacy Page',
-    REPORT: 'Report Page',
     UPLOAD: {
       DROPZONE: 'DropZone Page',
       STEPS: 'Upload Steps Page'

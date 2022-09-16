@@ -1,4 +1,5 @@
 import IsVerified from '@components/Common/IsVerified'
+import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import { STATIC_ASSETS } from '@utils/constants'
@@ -16,6 +17,7 @@ import { LenstubePublication } from 'src/types/local'
 dayjs.extend(relativeTime)
 
 const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
+  const [showReport, setShowReport] = useState(false)
   const [showShare, setShowShare] = useState(false)
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const videoDuration = getValueFromTraitType(
@@ -26,6 +28,11 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
   return (
     <div className="flex justify-between group">
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
+      <ReportModal
+        video={video}
+        show={showReport}
+        setShowReport={setShowReport}
+      />
       <div className="flex justify-between">
         <div className="flex-none overflow-hidden rounded-lg">
           <Link
@@ -58,7 +65,6 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
           <div className="flex flex-col items-start pb-1">
             <div className="flex w-full items-start overflow-hidden justify-between space-x-1.5">
               <Link
-                passHref
                 href={`/watch/${video.id}`}
                 className="overflow-hidden text-sm font-medium line-clamp-1"
               >
@@ -88,7 +94,11 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
           </div>
         </div>
       </div>
-      <VideoOptions video={video} setShowShare={setShowShare} />
+      <VideoOptions
+        setShowReport={setShowReport}
+        video={video}
+        setShowShare={setShowShare}
+      />
     </div>
   )
 }

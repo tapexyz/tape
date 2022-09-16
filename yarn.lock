@@ -2589,10 +2589,10 @@
     "@typescript-eslint/types" "5.37.0"
     eslint-visitor-keys "^3.3.0"
 
-"@vime/core@^5.3.1":
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/@vime/core/-/core-5.3.1.tgz#2df60b8a5c959808d98d29ca4ee63ef9d1ca22b5"
-  integrity sha512-FbBla3WhQ72rWZUBR93XVpNAJwOMdQeWx8ZbRffYL5PXq0PzqSnjrYcE1KIsnmDt6v2jsOxh4hT264Rts5jBKQ==
+"@vime/core@^5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@vime/core/-/core-5.3.3.tgz#80544f30e5315e008e35124d32dce76be240c4c7"
+  integrity sha512-bGn6bwiOwI/0d+P+gLH9U3ySK4tar6Qiv7g+RR+c7iuCsl0S16/wP1G677PiglJTvM3wuo2wD3hztMEkiWfvhw==
   dependencies:
     "@stencil/core" "2.5.2"
     "@types/fscreen" "^1.0.1"
@@ -2600,10 +2600,10 @@
     mitt "^3.0.0"
     stencil-wormhole "^3.4.1"
 
-"@vime/react@^5.3.1":
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/@vime/react/-/react-5.3.1.tgz#918fd447fa9428a7e3e4d984d5c4c646b55438ea"
-  integrity sha512-MnWua6FCQ84af1k4jan1aaLmL57UF2WKwqhw8fw9PQ3Rz7W+vdPEb9VmNnyNZ3PessQRg5O7R94QRvUNKqkGog==
+"@vime/react@^5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@vime/react/-/react-5.3.3.tgz#fbf380c9b5074b9bef42406a1ff541cca2eae3b1"
+  integrity sha512-5NvoCyl7HYFfbp9jNQE1lpi/DoaFI8FLvkgOkkwhPrN+mRJTgP+oh6+ExhmyBWyQAtmJ5hyKUea35Qamfpsc+w==
   dependencies:
     "@seznam/compose-react-refs" "^1.0.4"
 

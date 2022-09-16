@@ -5,36 +5,32 @@ import { CREATE_REPORT_PUBLICATION_MUTATION } from '@gql/queries'
 import { ERROR_MESSAGE } from '@utils/constants'
 import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { RiSpamLine } from 'react-icons/ri'
+import { LenstubePublication } from 'src/types/local'
 
-const ReportPublication = () => {
-  const {
-    query: { id },
-    back
-  } = useRouter()
+type Props = {
+  publication: LenstubePublication
+  onSuccess: () => void
+}
+
+const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
   const [reason, setReason] = useState('ILLEGAL-ANIMAL_ABUSE')
-  const [createReport, { data, loading: reporting, error }] = useMutation(
+  const [createReport, { loading: reporting }] = useMutation(
     CREATE_REPORT_PUBLICATION_MUTATION,
     {
       onError(error: any) {
         toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+      },
+      onCompleted() {
+        Mixpanel.track(TRACK.REPORT)
+        toast.success('Publication reported successfully.')
+        onSuccess()
       }
     }
   )
 
-  useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.REPORT)
-  }, [])
-
-  useEffect(() => {
-    if (data) {
-      toast.success('Publication reported successfully.')
-      back()
-    }
-  }, [error, data, back])
+  useEffect(() => {}, [])
 
   const getReasonType = (type: string) => {
     if (type === 'ILLEGAL') return 'illegalReason'
@@ -50,7 +46,7 @@ const ReportPublication = () => {
     createReport({
       variables: {
         request: {
-          publicationId: id,
+          publicationId: publication.id,
           reason: {
             [getReasonType(type)]: {
               reason: type,
@@ -71,11 +67,13 @@ const ReportPublication = () => {
     <>
       <MetaTags title="Report Publication" />
       <div className="flex justify-center">
-        <div className="w-full p-3 bg-white rounded-md lg:w-1/2 dark:bg-black">
-          <h1 className="inline-flex items-center space-x-2 text-lg font-semibold">
-            <RiSpamLine />
-            <span>Report</span>
-          </h1>
+        <div className="w-full">
+          <div className="opacity-60">
+            <h1>{publication.metadata.name}</h1>
+            <span className="text-sm italic">
+              by {publication.profile.handle}
+            </span>
+          </div>
           <div className="mt-4">
             <label
               className="block text-xs font-semibold uppercase opacity-70"
@@ -124,8 +122,12 @@ const ReportPublication = () => {
               </select>
             </div>
             <div className="flex justify-end mt-4 mb-1">
-              <Button disabled={reporting} onClick={() => onReport()}>
-                {reporting ? 'Reporting' : 'Report'}
+              <Button
+                disabled={reporting}
+                loading={reporting}
+                onClick={() => onReport()}
+              >
+                Report
               </Button>
             </div>
           </div>

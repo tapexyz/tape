@@ -77,7 +77,6 @@ const NextVideo: FC<Props> = ({ video, playNext, cancelPlayNext }) => {
                 <div className="flex flex-col items-start">
                   <div className="flex md:w-48 items-start overflow-hidden justify-between space-x-1.5">
                     <Link
-                      passHref
                       href={`/watch/${video.id}`}
                       className="overflow-hidden md:text-lg"
                     >
