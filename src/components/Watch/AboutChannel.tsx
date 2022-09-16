@@ -1,6 +1,7 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
+import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -51,7 +52,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
               <IsVerified id={channel?.id} />
             </Link>
             <span className="inline-flex items-center space-x-1 text-xs">
-              {channel?.stats.totalFollowers} subscribers
+              {formatNumber(channel?.stats.totalFollowers)} subscribers
             </span>
           </div>
           <div className="flex items-center space-x-2">

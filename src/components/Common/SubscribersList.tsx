@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { CHANNEL_SUBSCRIBERS_QUERY } from '@gql/queries'
+import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
@@ -33,6 +34,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
   })
 
   const { observe } = useInView({
+    rootMargin: '1000px 0px',
     onEnter: async () => {
       const { data } = await fetchMore({
         variables: {
@@ -86,7 +88,9 @@ const SubscribersList: FC<Props> = ({ channel }) => {
               <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">
                 <BiUser />
                 <span>
-                  {subscriber.wallet.defaultProfile.stats.totalFollowers}
+                  {formatNumber(
+                    subscriber.wallet.defaultProfile.stats.totalFollowers
+                  )}
                 </span>
               </div>
             </Link>

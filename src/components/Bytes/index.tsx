@@ -52,7 +52,7 @@ const Bytes = () => {
   })
 
   const { observe } = useInView({
-    rootMargin: '50px 0px',
+    rootMargin: '1000px 0px',
     onEnter: async () => {
       try {
         const { data } = await fetchMore({

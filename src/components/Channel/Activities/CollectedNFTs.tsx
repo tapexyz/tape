@@ -39,6 +39,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
   })
 
   const { observe } = useInView({
+    rootMargin: '1000px 0px',
     onEnter: async () => {
       try {
         const { data } = await fetchMore({

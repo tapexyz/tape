@@ -1,5 +1,6 @@
 import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
+import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
 import React from 'react'
@@ -31,7 +32,7 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
           </Link>
         </div>
         <div className="text-xs text-center opacity-70">
-          {channel.stats.totalFollowers} subscribers
+          {formatNumber(channel.stats.totalFollowers)} subscribers
         </div>
       </div>
       <SubscribeActions channel={channel} subscribeType={subscribeType} />

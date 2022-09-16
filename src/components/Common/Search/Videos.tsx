@@ -1,3 +1,4 @@
+import { formatNumber } from '@utils/functions/formatNumber'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import { AiOutlineLike } from 'react-icons/ai'
@@ -31,7 +32,7 @@ const Videos: FC<Props> = ({ results, loading, clearSearch }) => {
               </div>
               <span className="inline-flex items-center space-x-1 text-xs whitespace-nowrap opacity-60">
                 <AiOutlineLike className="text-xs" />
-                <span>{result.stats.totalUpvotes}</span>
+                <span>{formatNumber(result.stats.totalUpvotes)}</span>
               </span>
             </span>
           </Link>

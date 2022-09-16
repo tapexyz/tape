@@ -1,3 +1,4 @@
+import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
 import React, { FC } from 'react'
@@ -43,7 +44,7 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
               </div>
               <span className="inline-flex items-center space-x-1 text-xs whitespace-nowrap opacity-60">
                 <BiUser />
-                <span>{channel.stats.totalFollowers}</span>
+                <span>{formatNumber(channel.stats.totalFollowers)}</span>
               </span>
             </span>
             {channel.bio && (

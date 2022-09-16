@@ -5,6 +5,7 @@ import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
+import { formatNumber } from '@utils/functions/formatNumber'
 import getCoverPicture from '@utils/functions/getCoverPicture'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
@@ -91,7 +92,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                   className="outline-none"
                 >
                   <span className="inline-flex items-center space-x-1 text-sm whitespace-nowrap md:text-base">
-                    {channel?.stats.totalFollowers} subscribers
+                    {formatNumber(channel?.stats.totalFollowers)} subscribers
                   </span>
                 </button>
                 {channel.isFollowing && (

@@ -3,6 +3,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { VIDEO_COLLECTORS_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
+import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
@@ -34,6 +35,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
   })
 
   const { observe } = useInView({
+    rootMargin: '1000px 0px',
     onEnter: async () => {
       try {
         const { data } = await fetchMore({
@@ -84,7 +86,9 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
               </div>
               <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">
                 <BiUser />
-                <span>{wallet.defaultProfile.stats.totalFollowers}</span>
+                <span>
+                  {formatNumber(wallet.defaultProfile.stats.totalFollowers)}
+                </span>
               </div>
             </Link>
           ) : (
