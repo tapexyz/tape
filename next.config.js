@@ -41,7 +41,8 @@ const moduleExports = withBundleAnalyzer(
           return [
             {
               source: '/discord',
-              destination: 'https://discord.com/invite/eVwVdZ3WM9',
+              destination:
+                'https://discord.com/servers/lenstube-980882088783913010',
               permanent: true
             },
             {
