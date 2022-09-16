@@ -11,6 +11,7 @@ import React, { FC, useState } from 'react'
 import { LenstubePublication } from 'src/types/local'
 
 import IsVerified from '../IsVerified'
+import ReportModal from './ReportModal'
 import ShareModal from './ShareModal'
 import ThumbnailOverlays from './ThumbnailOverlays'
 import VideoOptions from './VideoOptions'
@@ -23,6 +24,7 @@ type Props = {
 
 const VideoCard: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
+  const [showReport, setShowReport] = useState(false)
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const isByte = video.appId === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
@@ -44,6 +46,11 @@ const VideoCard: FC<Props> = ({ video }) => {
             video={video}
             show={showShare}
             setShowShare={setShowShare}
+          />
+          <ReportModal
+            video={video}
+            show={showReport}
+            setShowReport={setShowReport}
           />
           <Link href={`/watch/${video.id}`}>
             <div className="relative rounded-t-xl aspect-w-16 aspect-h-9">
@@ -80,7 +87,11 @@ const VideoCard: FC<Props> = ({ video }) => {
                   >
                     {video.metadata?.name}
                   </Link>
-                  <VideoOptions video={video} setShowShare={setShowShare} />
+                  <VideoOptions
+                    video={video}
+                    setShowShare={setShowShare}
+                    setShowReport={setShowReport}
+                  />
                 </div>
                 <Link
                   href={`/${video.profile?.handle}`}

@@ -1,3 +1,4 @@
+import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import CollectVideo from '@components/Watch/CollectVideo'
@@ -10,6 +11,7 @@ type Props = {
 }
 const ByteActions: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
+  const [showReport, setShowReport] = useState(false)
 
   return (
     <div className="flex-col items-center justify-between w-12 md:w-14 md:flex">
@@ -17,6 +19,7 @@ const ByteActions: FC<Props> = ({ video }) => {
         <VideoOptions
           video={video}
           setShowShare={setShowShare}
+          setShowReport={setShowReport}
           showOnHover={false}
         />
       </div>
@@ -50,6 +53,11 @@ const ByteActions: FC<Props> = ({ video }) => {
         )}
       </div>
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
+      <ReportModal
+        video={video}
+        show={showReport}
+        setShowReport={setShowReport}
+      />
     </div>
   )
 }

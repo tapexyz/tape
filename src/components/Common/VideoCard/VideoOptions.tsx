@@ -5,7 +5,6 @@ import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
 import clsx from 'clsx'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import toast from 'react-hot-toast'
@@ -19,10 +18,12 @@ import { LenstubePublication } from 'src/types/local'
 const VideoOptions = ({
   video,
   setShowShare,
+  setShowReport,
   showOnHover = true
 }: {
   video: LenstubePublication
   setShowShare: React.Dispatch<boolean>
+  setShowReport: React.Dispatch<boolean>
   showOnHover?: boolean
 }) => {
   const addToWatchLater = usePersistStore((state) => state.addToWatchLater)
@@ -104,13 +105,14 @@ const VideoOptions = ({
             <RiShareForwardLine className="text-base" />
             <span className="whitespace-nowrap">Share</span>
           </button>
-          <Link
-            href={`/report/${video.id}`}
+          <button
+            type="button"
+            onClick={() => setShowReport(true)}
             className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <FiFlag className="text-sm ml-0.5" />
             <span className="whitespace-nowrap">Report</span>
-          </Link>
+          </button>
         </div>
       </div>
     </Popover>

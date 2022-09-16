@@ -25,7 +25,7 @@ export default function Custom500() {
             We track these errors automatically, but if the problem persists
             feel free to contact us. In the meantime, try refreshing.
           </div>
-          <Link href={HOME} passHref>
+          <Link href={HOME}>
             <Button>Go Home</Button>
           </Link>
         </div>
