@@ -8,7 +8,7 @@ const NotificationsShimmer = () => {
       {notifications.map((i, idx) => (
         <div key={`${i}_${idx}`} className="flex space-x-1">
           <div className="w-4 h-4 bg-gray-300 rounded dark:bg-gray-700" />
-          <div className="flex-1 py-1 space-y-2">
+          <div className="flex-1 pb-1 space-y-2">
             <span className="space-y-2">
               <div className="w-1/2 h-2.5 bg-gray-300 rounded dark:bg-gray-700" />
               <div className="grid grid-cols-3 gap-x-2">
