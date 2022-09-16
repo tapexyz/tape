@@ -20,6 +20,15 @@ import {
 } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
+const request = {
+  sortCriteria: PublicationSortCriteria.TopCommented,
+  limit: 16,
+  noRandomize: false,
+  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+  publicationTypes: [PublicationTypes.Post],
+  customFilters: LENS_CUSTOM_FILTERS
+}
+
 const Trending = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
@@ -29,14 +38,7 @@ const Trending = () => {
 
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
-      request: {
-        sortCriteria: PublicationSortCriteria.TopCommented,
-        limit: 12,
-        noRandomize: false,
-        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-        publicationTypes: [PublicationTypes.Post],
-        customFilters: LENS_CUSTOM_FILTERS
-      }
+      request
     },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
@@ -51,13 +53,8 @@ const Trending = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              sortCriteria: PublicationSortCriteria.TopCommented,
-              cursor: pageInfo?.next,
-              limit: 16,
-              noRandomize: false,
-              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-              publicationTypes: [PublicationTypes.Post],
-              customFilters: LENS_CUSTOM_FILTERS
+              ...request,
+              cursor: pageInfo?.next
             }
           }
         })

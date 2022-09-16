@@ -18,6 +18,13 @@ import Custom404 from 'src/pages/404'
 import { PaginatedResultInfo } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
+const request = {
+  type: 'PUBLICATION',
+  limit: 16,
+  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+  customFilters: LENS_CUSTOM_FILTERS
+}
+
 const ExploreHashtag = () => {
   const { query } = useRouter()
   const hashtag = query.hashtag
@@ -28,10 +35,7 @@ const ExploreHashtag = () => {
     variables: {
       request: {
         query: hashtag,
-        type: 'PUBLICATION',
-        limit: 12,
-        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-        customFilters: LENS_CUSTOM_FILTERS
+        ...request
       }
     },
     skip: !hashtag,
@@ -47,12 +51,9 @@ const ExploreHashtag = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
+              ...request,
               query: hashtag,
-              type: 'PUBLICATION',
-              cursor: pageInfo?.next,
-              limit: 12,
-              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-              customFilters: LENS_CUSTOM_FILTERS
+              cursor: pageInfo?.next
             }
           }
         })

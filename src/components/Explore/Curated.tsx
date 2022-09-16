@@ -20,6 +20,15 @@ import {
 } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
+const request = {
+  sortCriteria: PublicationSortCriteria.CuratedProfiles,
+  limit: 16,
+  noRandomize: true,
+  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+  publicationTypes: [PublicationTypes.Post],
+  customFilters: LENS_CUSTOM_FILTERS
+}
+
 const Curated = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
@@ -28,16 +37,7 @@ const Curated = () => {
   }, [])
 
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
-    variables: {
-      request: {
-        sortCriteria: PublicationSortCriteria.CuratedProfiles,
-        limit: 12,
-        noRandomize: true,
-        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-        publicationTypes: [PublicationTypes.Post],
-        customFilters: LENS_CUSTOM_FILTERS
-      }
-    },
+    variables: { request },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
       setVideos(data?.explorePublications?.items)
@@ -51,13 +51,8 @@ const Curated = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              sortCriteria: PublicationSortCriteria.CuratedProfiles,
-              cursor: pageInfo?.next,
-              limit: 16,
-              noRandomize: true,
-              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-              publicationTypes: [PublicationTypes.Post],
-              customFilters: LENS_CUSTOM_FILTERS
+              ...request,
+              cursor: pageInfo?.next
             }
           }
         })

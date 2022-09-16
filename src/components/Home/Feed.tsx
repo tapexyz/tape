@@ -16,6 +16,12 @@ import { LenstubePublication } from 'src/types/local'
 
 import Timeline from './Timeline'
 
+const request = {
+  limit: 16,
+  timelineTypes: [PublicationTypes.Post],
+  metadata: { mainContentFocus: [PublicationMainFocus.Video] }
+}
+
 const HomeFeed = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
@@ -25,9 +31,7 @@ const HomeFeed = () => {
     variables: {
       request: {
         profileId: selectedChannel?.id,
-        limit: 12,
-        timelineTypes: [PublicationTypes.Post],
-        metadata: { mainContentFocus: [PublicationMainFocus.Video] }
+        ...request
       }
     },
     skip: !selectedChannel?.id,
@@ -46,9 +50,7 @@ const HomeFeed = () => {
             request: {
               profileId: selectedChannel?.id,
               cursor: pageInfo?.next,
-              limit: 12,
-              timelineTypes: [PublicationTypes.Post],
-              metadata: { mainContentFocus: [PublicationMainFocus.Video] }
+              ...request
             }
           }
         })

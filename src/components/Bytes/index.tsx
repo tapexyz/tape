@@ -19,6 +19,15 @@ import { LenstubePublication } from 'src/types/local'
 
 import ByteVideo from './ByteVideo'
 
+const request = {
+  sortCriteria: PublicationSortCriteria.Latest,
+  limit: 10,
+  noRandomize: false,
+  sources: [LENSTUBE_BYTES_APP_ID],
+  publicationTypes: [PublicationTypes.Post],
+  customFilters: LENS_CUSTOM_FILTERS
+}
+
 const Bytes = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
@@ -31,14 +40,7 @@ const Bytes = () => {
 
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
-      request: {
-        sortCriteria: PublicationSortCriteria.Latest,
-        limit: 10,
-        noRandomize: false,
-        sources: [LENSTUBE_BYTES_APP_ID],
-        publicationTypes: [PublicationTypes.Post],
-        customFilters: LENS_CUSTOM_FILTERS
-      },
+      request,
       reactionRequest: selectedChannel
         ? { profileId: selectedChannel?.id }
         : null
@@ -56,13 +58,8 @@ const Bytes = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              sortCriteria: PublicationSortCriteria.Latest,
-              cursor: pageInfo?.next,
-              limit: 10,
-              noRandomize: false,
-              sources: [LENSTUBE_BYTES_APP_ID],
-              publicationTypes: [PublicationTypes.Post],
-              customFilters: LENS_CUSTOM_FILTERS
+              ...request,
+              cursor: pageInfo?.next
             }
           }
         })

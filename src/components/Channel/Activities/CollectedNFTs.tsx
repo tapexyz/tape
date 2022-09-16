@@ -16,6 +16,11 @@ type Props = {
   channel: Profile
 }
 
+const request = {
+  limit: 16,
+  chainIds: [POLYGON_CHAIN_ID]
+}
+
 const CollectedNFTs: FC<Props> = ({ channel }) => {
   const [collectedNFTs, setCollectedNFTs] = useState<Nft[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
@@ -23,9 +28,8 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
   const { data, loading, error, fetchMore } = useQuery(COLLECTED_NFTS_QUERY, {
     variables: {
       request: {
-        ownerAddress: channel.ownedBy,
-        limit: 12,
-        chainIds: [POLYGON_CHAIN_ID]
+        ...request,
+        ownerAddress: channel.ownedBy
       }
     },
     onCompleted(data) {
@@ -40,10 +44,9 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
         const { data } = await fetchMore({
           variables: {
             request: {
+              ...request,
               ownerAddress: channel.ownedBy,
-              limit: 8,
-              cursor: pageInfo?.next,
-              chainIds: [POLYGON_CHAIN_ID]
+              cursor: pageInfo?.next
             }
           }
         })

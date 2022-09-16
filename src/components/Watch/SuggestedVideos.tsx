@@ -25,6 +25,15 @@ type Props = {
   currentVideoId: string
 }
 
+const request = {
+  sortCriteria: PublicationSortCriteria.Latest,
+  limit: 16,
+  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+  publicationTypes: [PublicationTypes.Post],
+  noRandomize: false,
+  customFilters: LENS_CUSTOM_FILTERS
+}
+
 const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
   const {
     query: { id }
@@ -35,14 +44,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { loading, error, fetchMore, refetch } = useQuery(EXPLORE_QUERY, {
     variables: {
-      request: {
-        sortCriteria: PublicationSortCriteria.Latest,
-        limit: 12,
-        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-        publicationTypes: [PublicationTypes.Post],
-        noRandomize: false,
-        customFilters: LENS_CUSTOM_FILTERS
-      }
+      request
     },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
@@ -66,13 +68,8 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              cursor: pageInfo?.next,
-              sortCriteria: PublicationSortCriteria.Latest,
-              limit: 12,
-              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-              publicationTypes: [PublicationTypes.Post],
-              noRandomize: false,
-              customFilters: LENS_CUSTOM_FILTERS
+              ...request,
+              cursor: pageInfo?.next
             }
           }
         })

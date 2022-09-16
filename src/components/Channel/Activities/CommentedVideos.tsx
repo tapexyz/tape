@@ -19,17 +19,21 @@ type Props = {
   channel: Profile
 }
 
+const request = {
+  publicationTypes: [PublicationTypes.Comment],
+  limit: 16,
+  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+  customFilters: LENS_CUSTOM_FILTERS
+}
+
 const CommentedVideos: FC<Props> = ({ channel }) => {
   const [channelVideos, setChannelVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
     variables: {
       request: {
-        publicationTypes: [PublicationTypes.Comment],
-        profileId: channel?.id,
-        limit: 12,
-        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-        customFilters: LENS_CUSTOM_FILTERS
+        ...request,
+        profileId: channel?.id
       }
     },
     skip: !channel?.id,
@@ -44,12 +48,9 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              publicationTypes: [PublicationTypes.Comment],
+              ...request,
               profileId: channel?.id,
-              cursor: pageInfo?.next,
-              limit: 8,
-              sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-              customFilters: LENS_CUSTOM_FILTERS
+              cursor: pageInfo?.next
             }
           }
         })
