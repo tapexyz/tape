@@ -7,6 +7,7 @@ import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { LENSHUB_PROXY_ADDRESS } from '@utils/constants'
 import clearLocalStorage from '@utils/functions/clearLocalStorage'
+import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
@@ -117,10 +118,12 @@ const DangerZone = () => {
         </div>
         <div className="flex space-x-2">
           <span>
-            {selectedChannel.stats.totalPosts} <small>videos</small>
+            {formatNumber(selectedChannel.stats.totalPosts)}{' '}
+            <small>videos</small>
           </span>
           <span>
-            {selectedChannel.stats.totalFollowers} <small>subscribers</small>
+            {formatNumber(selectedChannel.stats.totalFollowers)}{' '}
+            <small>subscribers</small>
           </span>
         </div>
       </div>

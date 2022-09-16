@@ -26,7 +26,7 @@ import ReactedNotification from './Reacted'
 import SubscribedNotification from './Subscribed'
 
 const request = {
-  limit: 10,
+  limit: 20,
   sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
   customFilters: LENS_CUSTOM_FILTERS
 }
@@ -76,7 +76,7 @@ const Notifications = () => {
   })
 
   const { observe } = useInView({
-    threshold: 0.5,
+    rootMargin: '1000px 0px',
     onEnter: async () => {
       try {
         const { data } = await fetchMore({

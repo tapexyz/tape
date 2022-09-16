@@ -10,6 +10,7 @@ import {
 } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { formatNumber } from '@utils/functions/formatNumber'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import { Mixpanel, TRACK } from '@utils/track'
 import dayjs from 'dayjs'
@@ -132,7 +133,7 @@ const CollectModal: FC<Props> = ({
             <div className="flex flex-col mb-3">
               <span className="text-sm">Total Collects</span>
               <span className="space-x-1">
-                <span>{video?.stats.totalAmountOfCollects}</span>
+                <span>{formatNumber(video?.stats.totalAmountOfCollects)}</span>
               </span>
             </div>
             {collectModule?.recipient ? (

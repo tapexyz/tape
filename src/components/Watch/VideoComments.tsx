@@ -73,7 +73,7 @@ const VideoComments: FC<Props> = ({ video }) => {
   }
 
   const { observe } = useInView({
-    threshold: 0.5,
+    rootMargin: '1000px 0px',
     onEnter: async () => {
       try {
         const { data } = await fetchMore({

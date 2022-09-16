@@ -1,5 +1,6 @@
 import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
+import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
 import React, { FC } from 'react'
@@ -38,7 +39,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
                 />
               </h6>
               <span className="inline-flex items-center space-x-1 text-xs">
-                {channel?.stats.totalFollowers} subscribers
+                {formatNumber(channel?.stats.totalFollowers)} subscribers
               </span>
             </div>
           </Link>
