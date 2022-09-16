@@ -26,7 +26,7 @@ import ReactedNotification from './Reacted'
 import SubscribedNotification from './Subscribed'
 
 const request = {
-  limit: 10,
+  limit: 20,
   sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
   customFilters: LENS_CUSTOM_FILTERS
 }
