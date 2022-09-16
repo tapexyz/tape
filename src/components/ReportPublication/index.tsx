@@ -81,7 +81,7 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
             >
               Reason
             </label>
-            <div className="mt-3">
+            <div className="mt-1">
               <select
                 onChange={(e) => handleChange(e)}
                 value={reason}
