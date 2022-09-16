@@ -61,6 +61,10 @@ const ExploreCategory = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
+              metadata: {
+                tags: { oneOf: [query.category] },
+                mainContentFocus: [PublicationMainFocus.Video]
+              },
               cursor: pageInfo?.next,
               ...request
             }
