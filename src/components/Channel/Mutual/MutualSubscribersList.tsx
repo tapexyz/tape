@@ -34,7 +34,6 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
   })
 
   const { observe } = useInView({
-    rootMargin: '1000px 0px',
     onEnter: async () => {
       const { data } = await fetchMore({
         variables: {
