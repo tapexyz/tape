@@ -1,6 +1,7 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
+import ReportModal from '@components/Common/VideoCard/ReportModal'
 import Tooltip from '@components/UIElements/Tooltip'
 import {
   checkValueInAttributes,
@@ -30,6 +31,7 @@ interface Props {
 const Comment: FC<Props> = ({ comment }) => {
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
+  const [showReport, setShowReport] = useState(false)
 
   useEffect(() => {
     if (comment?.metadata?.content.trim().length > 100) {
@@ -125,7 +127,12 @@ const Comment: FC<Props> = ({ comment }) => {
         </div>
       </div>
       <div>
-        <CommentOptions comment={comment} />
+        <ReportModal
+          video={comment}
+          show={showReport}
+          setShowReport={setShowReport}
+        />
+        <CommentOptions comment={comment} setShowReport={setShowReport} />
       </div>
     </div>
   )
