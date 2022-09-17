@@ -257,13 +257,14 @@ const UploadSteps = () => {
           referenceModuleInitData,
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
-        if (RELAYER_ENABLED) {
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.reason)
-            writePostContract?.({ recklesslySetUnpreparedArgs: args })
-        } else writePostContract?.({ recklesslySetUnpreparedArgs: args })
+        if (!RELAYER_ENABLED) {
+          return writePostContract?.({ recklesslySetUnpreparedArgs: args })
+        }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.reason)
+          writePostContract?.({ recklesslySetUnpreparedArgs: args })
       } catch (error) {
         logger.error('[Error Post Video Typed Data]', error)
       }

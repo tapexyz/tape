@@ -145,15 +145,14 @@ const Membership = ({ channel }: Props) => {
             sig: { v, r, s, deadline: typedData.value.deadline }
           }
           setUserSigNonce(userSigNonce + 1)
-          if (RELAYER_ENABLED) {
-            const { data } = await broadcast({
-              variables: { request: { id, signature } }
-            })
-            if (data?.broadcast?.reason)
-              writeFollow?.({ recklesslySetUnpreparedArgs: args })
-          } else {
-            writeFollow?.({ recklesslySetUnpreparedArgs: args })
+          if (!RELAYER_ENABLED) {
+            return writeFollow?.({ recklesslySetUnpreparedArgs: args })
           }
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.reason)
+            writeFollow?.({ recklesslySetUnpreparedArgs: args })
         } catch (error) {
           setLoading(false)
           logger.error('[Error Set Membership]', error)

@@ -113,15 +113,14 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
           }
         }
         setUserSigNonce(userSigNonce + 1)
-        if (RELAYER_ENABLED) {
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.reason)
-            writeJoinChannel?.({ recklesslySetUnpreparedArgs: args })
-        } else {
-          writeJoinChannel?.({ recklesslySetUnpreparedArgs: args })
+        if (!RELAYER_ENABLED) {
+          return writeJoinChannel?.({ recklesslySetUnpreparedArgs: args })
         }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.reason)
+          writeJoinChannel?.({ recklesslySetUnpreparedArgs: args })
       } catch (error) {
         logger.error('[Error Join Channel Typed Data]', error)
       }

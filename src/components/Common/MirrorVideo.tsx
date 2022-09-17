@@ -105,15 +105,14 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
           sig
         }
         setUserSigNonce(userSigNonce + 1)
-        if (RELAYER_ENABLED) {
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.reason)
-            mirrorWithSig?.({ recklesslySetUnpreparedArgs: inputStruct })
-        } else {
-          mirrorWithSig?.({ recklesslySetUnpreparedArgs: inputStruct })
+        if (!RELAYER_ENABLED) {
+          return mirrorWithSig?.({ recklesslySetUnpreparedArgs: inputStruct })
         }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.reason)
+          mirrorWithSig?.({ recklesslySetUnpreparedArgs: inputStruct })
       } catch (error) {
         setLoading(false)
         logger.error('[Error Mirror Video Typed Data]', error)

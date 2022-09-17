@@ -95,17 +95,16 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
             deadline: typedData.value.deadline
           }
         }
-        if (RELAYER_ENABLED) {
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.reason)
-            writeSubscribe?.({ recklesslySetUnpreparedArgs: args })
-        } else {
-          writeSubscribe?.({
+        if (!RELAYER_ENABLED) {
+          return writeSubscribe?.({
             recklesslySetUnpreparedArgs: args
           })
         }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.reason)
+          writeSubscribe?.({ recklesslySetUnpreparedArgs: args })
       } catch (error) {
         logger.error('[Error Subscribe Typed Data]', error)
       }

@@ -94,14 +94,13 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
           types: omitKey(typedData?.types, '__typename'),
           value: omitKey(typedData?.value, '__typename')
         })
-        if (RELAYER_ENABLED) {
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.reason) await burnWithSig(signature, typedData)
-        } else {
-          await burnWithSig(signature, typedData)
+        if (!RELAYER_ENABLED) {
+          return await burnWithSig(signature, typedData)
         }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.reason) await burnWithSig(signature, typedData)
       } catch (error) {
         setLoading(false)
         setButtonText(subscribeText)

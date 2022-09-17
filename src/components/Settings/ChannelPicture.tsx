@@ -98,15 +98,14 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             sig: { v, r, s, deadline: typedData.value.deadline }
           }
           setUserSigNonce(userSigNonce + 1)
-          if (RELAYER_ENABLED) {
-            const { data } = await broadcast({
-              variables: { request: { id, signature } }
-            })
-            if (data?.broadcast?.reason)
-              writePfpUri?.({ recklesslySetUnpreparedArgs: args })
-          } else {
-            writePfpUri?.({ recklesslySetUnpreparedArgs: args })
+          if (!RELAYER_ENABLED) {
+            return writePfpUri?.({ recklesslySetUnpreparedArgs: args })
           }
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.reason)
+            writePfpUri?.({ recklesslySetUnpreparedArgs: args })
         } catch (error) {
           setLoading(false)
           logger.error('[Error Set Pfp Typed Data]', error)

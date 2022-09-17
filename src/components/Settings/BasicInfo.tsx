@@ -156,15 +156,14 @@ const BasicInfo = ({ channel }: Props) => {
             metadata,
             sig: { v, r, s, deadline: typedData.value.deadline }
           }
-          if (RELAYER_ENABLED) {
-            const { data } = await broadcast({
-              variables: { request: { id, signature } }
-            })
-            if (data?.broadcast?.reason)
-              writeMetaData?.({ recklesslySetUnpreparedArgs: args })
-          } else {
-            writeMetaData?.({ recklesslySetUnpreparedArgs: args })
+          if (!RELAYER_ENABLED) {
+            return writeMetaData?.({ recklesslySetUnpreparedArgs: args })
           }
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.reason)
+            writeMetaData?.({ recklesslySetUnpreparedArgs: args })
         } catch (error) {
           setLoading(false)
           logger.error('[Error Set Basic info Typed Data]', error)

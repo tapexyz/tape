@@ -110,15 +110,14 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
         setUserSigNonce(userSigNonce + 1)
-        if (RELAYER_ENABLED) {
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.reason)
-            writeCollectWithSig?.({ recklesslySetUnpreparedArgs: args })
-        } else {
-          writeCollectWithSig?.({ recklesslySetUnpreparedArgs: args })
+        if (!RELAYER_ENABLED) {
+          return writeCollectWithSig?.({ recklesslySetUnpreparedArgs: args })
         }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.reason)
+          writeCollectWithSig?.({ recklesslySetUnpreparedArgs: args })
       } catch (error) {
         setLoading(false)
         logger.error('[Error Collect Video]', error)

@@ -157,15 +157,14 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         }
         setButtonText('Commenting...')
         setUserSigNonce(userSigNonce + 1)
-        if (RELAYER_ENABLED) {
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.reason)
-            writeComment?.({ recklesslySetUnpreparedArgs: args })
-        } else {
-          writeComment?.({ recklesslySetUnpreparedArgs: args })
+        if (!RELAYER_ENABLED) {
+          return writeComment?.({ recklesslySetUnpreparedArgs: args })
         }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.reason)
+          writeComment?.({ recklesslySetUnpreparedArgs: args })
       } catch (error) {
         logger.error('[Error New Comment Typed Data]', error)
       }
