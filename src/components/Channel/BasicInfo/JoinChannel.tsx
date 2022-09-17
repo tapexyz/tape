@@ -32,7 +32,6 @@ type Props = {
 const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
-  const [buttonText, setButtonText] = useState('Join Channel')
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
@@ -40,13 +39,11 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
-    setButtonText('Join Channel')
   }
 
   const onCompleted = () => {
     onJoin()
     toast.success(`Joined ${channel.handle}`)
-    setButtonText('Joined Channel')
     setLoading(false)
   }
 
@@ -135,7 +132,6 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
         `Menu -> Settings -> Permissions and allow fee follow module for ${followModule?.amount?.asset?.symbol}.`
       )
     setLoading(true)
-    setButtonText('Joining...')
     createJoinTypedData({
       variables: {
         options: { overrideSigNonce: userSigNonce },
@@ -165,14 +161,18 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
       </b>
     </span>
   ) : (
-    buttonText
+    'Join Channel'
   )
 
   return (
     <Tooltip content={joinTooltipText} placement="top">
       <span>
-        <Button onClick={() => joinChannel()} disabled={loading}>
-          {buttonText}
+        <Button
+          onClick={() => joinChannel()}
+          loading={loading}
+          disabled={loading}
+        >
+          Join Channel
         </Button>
       </span>
     </Tooltip>

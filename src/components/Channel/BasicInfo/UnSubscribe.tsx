@@ -23,26 +23,16 @@ type Props = {
 }
 
 const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
-  const subscribeType = channel?.followModule?.__typename
-  const subscribeText =
-    subscribeType === 'FeeFollowModuleSettings'
-      ? 'Joined channel'
-      : 'Subscribed'
   const [loading, setLoading] = useState(false)
-  const [buttonText, setButtonText] = useState(subscribeText)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message)
     setLoading(false)
-    setButtonText(subscribeText)
   }
   const onCompleted = () => {
     toast.success(`Unsubscribed ${channel.handle}`)
     onUnSubscribe()
-    setButtonText(
-      subscribeType === 'FeeFollowModuleSettings' ? 'Join channel' : 'Subscribe'
-    )
     setLoading(false)
   }
 
@@ -103,7 +93,6 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
         if (data?.broadcast?.reason) await burnWithSig(signature, typedData)
       } catch (error) {
         setLoading(false)
-        setButtonText(subscribeText)
         logger.error('[Error UnSubscribe Typed Data]', error)
       }
     },
@@ -113,7 +102,6 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   const unsubscribe = () => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
-    setButtonText('Unsubscribing...')
     createUnsubscribeTypedData({
       variables: {
         request: { profile: channel?.id }
@@ -122,8 +110,8 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   }
 
   return (
-    <Button disabled={loading} onClick={() => unsubscribe()}>
-      {buttonText}
+    <Button disabled={loading} loading={loading} onClick={() => unsubscribe()}>
+      Unsubscribe
     </Button>
   )
 }
