@@ -364,8 +364,7 @@ const UploadSteps = () => {
         contentURI: url,
         collectModule: getCollectModule(uploadedVideo.collectModule),
         referenceModule: {
-          followerOnlyReferenceModule: uploadedVideo.disableComments,
-          unknownReferenceModule: null
+          followerOnlyReferenceModule: uploadedVideo.disableComments
         }
       }
       if (isBytesVideo) {
