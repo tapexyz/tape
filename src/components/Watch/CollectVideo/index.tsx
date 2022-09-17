@@ -128,6 +128,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
 
   const isFreeCollect =
     video.collectModule.__typename === 'FreeCollectModuleSettings'
+
   const handleCollect = (validate = true) => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     const collectModule = video.collectModule as FreeCollectModuleSettings
@@ -139,26 +140,26 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
       setShowCollectModal(false)
     }
     setLoading(true)
-    if (isFreeCollect) {
-      Mixpanel.track(TRACK.COLLECT.FREE)
-      // Using proxyAction to free collect without signing
-      createProxyActionFreeCollect({
-        variables: {
-          request: {
-            collect: { freeCollect: { publicationId: video?.id } }
-          }
-        }
-      })
-    } else {
+    if (!isFreeCollect) {
       Mixpanel.track(TRACK.COLLECT.FEE)
-      createCollectTypedData({
+      return createCollectTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: { publicationId: video?.id }
         }
       })
     }
+    Mixpanel.track(TRACK.COLLECT.FREE)
+    // Using proxyAction to free collect without signing
+    createProxyActionFreeCollect({
+      variables: {
+        request: {
+          collect: { freeCollect: { publicationId: video?.id } }
+        }
+      }
+    })
   }
+
   const collectTooltipText = isFreeCollect ? (
     'Collect as NFT'
   ) : (
