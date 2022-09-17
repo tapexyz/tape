@@ -27,20 +27,17 @@ type Props = {
 
 const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const [loading, setLoading] = useState(false)
-  const [buttonText, setButtonText] = useState('Subscribe')
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
-    setButtonText('Subscribe')
   }
 
   const onCompleted = () => {
     onSubscribe()
     toast.success(`Subscribed to ${channel.handle}`)
-    setButtonText('Subscribed')
     setLoading(false)
   }
 
@@ -95,17 +92,16 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
             deadline: typedData.value.deadline
           }
         }
-        if (RELAYER_ENABLED) {
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.reason)
-            writeSubscribe?.({ recklesslySetUnpreparedArgs: args })
-        } else {
-          writeSubscribe?.({
+        if (!RELAYER_ENABLED) {
+          return writeSubscribe?.({
             recklesslySetUnpreparedArgs: args
           })
         }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.reason)
+          writeSubscribe?.({ recklesslySetUnpreparedArgs: args })
       } catch (error) {
         logger.error('[Error Subscribe Typed Data]', error)
       }
@@ -116,7 +112,6 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const subscribe = () => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
-    setButtonText('Subscribing...')
     if (channel.followModule) {
       return createSubscribeTypedData({
         variables: {
@@ -147,8 +142,8 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   }
 
   return (
-    <Button onClick={() => subscribe()} disabled={loading}>
-      {buttonText}
+    <Button onClick={() => subscribe()} loading={loading} disabled={loading}>
+      Subscribe
     </Button>
   )
 }

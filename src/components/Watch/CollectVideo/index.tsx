@@ -110,15 +110,14 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
         setUserSigNonce(userSigNonce + 1)
-        if (RELAYER_ENABLED) {
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.reason)
-            writeCollectWithSig?.({ recklesslySetUnpreparedArgs: args })
-        } else {
-          writeCollectWithSig?.({ recklesslySetUnpreparedArgs: args })
+        if (!RELAYER_ENABLED) {
+          return writeCollectWithSig?.({ recklesslySetUnpreparedArgs: args })
         }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.reason)
+          writeCollectWithSig?.({ recklesslySetUnpreparedArgs: args })
       } catch (error) {
         setLoading(false)
         logger.error('[Error Collect Video]', error)
@@ -129,6 +128,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
 
   const isFreeCollect =
     video.collectModule.__typename === 'FreeCollectModuleSettings'
+
   const handleCollect = (validate = true) => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     const collectModule = video.collectModule as FreeCollectModuleSettings
@@ -140,26 +140,26 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
       setShowCollectModal(false)
     }
     setLoading(true)
-    if (isFreeCollect) {
-      Mixpanel.track(TRACK.COLLECT.FREE)
-      // Using proxyAction to free collect without signing
-      createProxyActionFreeCollect({
-        variables: {
-          request: {
-            collect: { freeCollect: { publicationId: video?.id } }
-          }
-        }
-      })
-    } else {
+    if (!isFreeCollect) {
       Mixpanel.track(TRACK.COLLECT.FEE)
-      createCollectTypedData({
+      return createCollectTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: { publicationId: video?.id }
         }
       })
     }
+    Mixpanel.track(TRACK.COLLECT.FREE)
+    // Using proxyAction to free collect without signing
+    createProxyActionFreeCollect({
+      variables: {
+        request: {
+          collect: { freeCollect: { publicationId: video?.id } }
+        }
+      }
+    })
   }
+
   const collectTooltipText = isFreeCollect ? (
     'Collect as NFT'
   ) : (

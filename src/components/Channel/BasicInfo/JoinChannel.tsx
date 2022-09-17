@@ -32,7 +32,6 @@ type Props = {
 const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
-  const [buttonText, setButtonText] = useState('Join Channel')
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
@@ -40,13 +39,11 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
-    setButtonText('Join Channel')
   }
 
   const onCompleted = () => {
     onJoin()
     toast.success(`Joined ${channel.handle}`)
-    setButtonText('Joined Channel')
     setLoading(false)
   }
 
@@ -113,15 +110,14 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
           }
         }
         setUserSigNonce(userSigNonce + 1)
-        if (RELAYER_ENABLED) {
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.reason)
-            writeJoinChannel?.({ recklesslySetUnpreparedArgs: args })
-        } else {
-          writeJoinChannel?.({ recklesslySetUnpreparedArgs: args })
+        if (!RELAYER_ENABLED) {
+          return writeJoinChannel?.({ recklesslySetUnpreparedArgs: args })
         }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.reason)
+          writeJoinChannel?.({ recklesslySetUnpreparedArgs: args })
       } catch (error) {
         logger.error('[Error Join Channel Typed Data]', error)
       }
@@ -133,10 +129,9 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     if (!isAllowed)
       return toast.error(
-        `Menu -> Settings -> Permissions and allow fee follow module for ${followModule?.amount?.asset?.symbol}.`
+        `Goto Settings -> Permissions and allow fee follow module for ${followModule?.amount?.asset?.symbol}.`
       )
     setLoading(true)
-    setButtonText('Joining...')
     createJoinTypedData({
       variables: {
         options: { overrideSigNonce: userSigNonce },
@@ -166,14 +161,18 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
       </b>
     </span>
   ) : (
-    buttonText
+    'Join Channel'
   )
 
   return (
     <Tooltip content={joinTooltipText} placement="top">
       <span>
-        <Button onClick={() => joinChannel()} disabled={loading}>
-          {buttonText}
+        <Button
+          onClick={() => joinChannel()}
+          loading={loading}
+          disabled={loading}
+        >
+          Join Channel
         </Button>
       </span>
     </Tooltip>

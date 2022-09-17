@@ -27,6 +27,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import {
   CreateCommentBroadcastItemResult,
+  CreatePublicPostRequest,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes
 } from 'src/types'
@@ -157,21 +158,35 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         }
         setButtonText('Commenting...')
         setUserSigNonce(userSigNonce + 1)
-        if (RELAYER_ENABLED) {
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.reason)
-            writeComment?.({ recklesslySetUnpreparedArgs: args })
-        } else {
-          writeComment?.({ recklesslySetUnpreparedArgs: args })
+        if (!RELAYER_ENABLED) {
+          return writeComment?.({ recklesslySetUnpreparedArgs: args })
         }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.reason)
+          writeComment?.({ recklesslySetUnpreparedArgs: args })
       } catch (error) {
         logger.error('[Error New Comment Typed Data]', error)
       }
     },
     onError
   })
+
+  const signTypedData = (request: CreatePublicPostRequest) => {
+    createCommentTypedData({
+      variables: { options: { overrideSigNonce: userSigNonce }, request }
+    })
+  }
+
+  const createViaDispatcher = async (request: CreatePublicPostRequest) => {
+    const { data } = await createCommentViaDispatcher({
+      variables: { request }
+    })
+    if (!data?.createCommentViaDispatcher) {
+      signTypedData(request)
+    }
+  }
 
   const submitComment = async (data: FormData) => {
     try {
@@ -217,16 +232,11 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           followerOnlyReferenceModule: false
         }
       }
-      if (selectedChannel?.dispatcher?.canUseRelay) {
-        createCommentViaDispatcher({ variables: { request } })
-      } else {
-        createCommentTypedData({
-          variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request
-          }
-        })
+      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+      if (!canUseDispatcher) {
+        return signTypedData(request)
       }
+      await createViaDispatcher(request)
     } catch (error) {
       logger.error('[Error Store & Post Comment]', error)
     }

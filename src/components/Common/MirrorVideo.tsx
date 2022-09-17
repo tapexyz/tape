@@ -19,7 +19,7 @@ import { utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineRetweet } from 'react-icons/ai'
-import { CreateMirrorBroadcastItemResult } from 'src/types'
+import { CreateMirrorBroadcastItemResult, CreateMirrorRequest } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -95,7 +95,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
         })
         const { v, r, s } = utils.splitSignature(signature)
         const sig = { v, r, s, deadline: typedData.value.deadline }
-        const inputStruct = {
+        const args = {
           profileId,
           profileIdPointed,
           pubIdPointed,
@@ -105,15 +105,14 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
           sig
         }
         setUserSigNonce(userSigNonce + 1)
-        if (RELAYER_ENABLED) {
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.reason)
-            mirrorWithSig?.({ recklesslySetUnpreparedArgs: inputStruct })
-        } else {
-          mirrorWithSig?.({ recklesslySetUnpreparedArgs: inputStruct })
+        if (!RELAYER_ENABLED) {
+          return mirrorWithSig?.({ recklesslySetUnpreparedArgs: args })
         }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.reason)
+          mirrorWithSig?.({ recklesslySetUnpreparedArgs: args })
       } catch (error) {
         setLoading(false)
         logger.error('[Error Mirror Video Typed Data]', error)
@@ -122,7 +121,25 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     onError
   })
 
-  const mirrorVideo = () => {
+  const signTypedData = (request: CreateMirrorRequest) => {
+    createMirrorTypedData({
+      variables: {
+        options: { overrideSigNonce: userSigNonce },
+        request
+      }
+    })
+  }
+
+  const createViaDispatcher = async (request: CreateMirrorRequest) => {
+    const { data } = await createMirrorViaDispatcher({
+      variables: { request }
+    })
+    if (!data?.createMirrorViaDispatcher) {
+      signTypedData(request)
+    }
+  }
+
+  const mirrorVideo = async () => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
     const request = {
@@ -132,16 +149,11 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
         followerOnlyReferenceModule: false
       }
     }
-    if (selectedChannel?.dispatcher?.canUseRelay) {
-      createMirrorViaDispatcher({ variables: { request } })
-    } else {
-      createMirrorTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
-        }
-      })
+    const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+    if (!canUseDispatcher) {
+      return signTypedData(request)
     }
+    createViaDispatcher(request)
   }
 
   if (onlySubscribersCanMirror && !video.profile.isFollowedByMe) return null

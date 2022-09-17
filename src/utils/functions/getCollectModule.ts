@@ -1,6 +1,9 @@
+import { CollectModuleParams } from 'src/types'
 import { CollectModuleType } from 'src/types/local'
 
-export const getCollectModule = (selectCollectModule: CollectModuleType) => {
+export const getCollectModule = (
+  selectCollectModule: CollectModuleType
+): CollectModuleParams => {
   // No one can collect the post
   if (selectCollectModule.isRevertCollect) {
     return {
@@ -18,11 +21,11 @@ export const getCollectModule = (selectCollectModule: CollectModuleType) => {
       feeCollectModule: {
         amount: {
           currency: selectCollectModule.amount?.currency,
-          value: selectCollectModule.amount?.value
+          value: selectCollectModule.amount?.value as string
         },
         recipient: selectCollectModule.recipient,
-        referralFee: selectCollectModule.referralFee,
-        followerOnly: selectCollectModule.followerOnlyCollect
+        referralFee: selectCollectModule.referralFee as number,
+        followerOnly: selectCollectModule.followerOnlyCollect as boolean
       }
     }
   }
@@ -33,14 +36,14 @@ export const getCollectModule = (selectCollectModule: CollectModuleType) => {
   ) {
     return {
       limitedFeeCollectModule: {
-        collectLimit: selectCollectModule.collectLimit,
+        collectLimit: selectCollectModule.collectLimit as string,
         amount: {
           currency: selectCollectModule.amount?.currency,
-          value: selectCollectModule.amount?.value
+          value: selectCollectModule.amount?.value as string
         },
         recipient: selectCollectModule.recipient,
-        referralFee: selectCollectModule.referralFee,
-        followerOnly: selectCollectModule.followerOnlyCollect
+        referralFee: selectCollectModule.referralFee as number,
+        followerOnly: selectCollectModule.followerOnlyCollect as boolean
       }
     }
   }
@@ -48,14 +51,14 @@ export const getCollectModule = (selectCollectModule: CollectModuleType) => {
   if (selectCollectModule.isLimitedTimeFeeCollect) {
     return {
       limitedTimedFeeCollectModule: {
-        collectLimit: selectCollectModule.collectLimit,
+        collectLimit: selectCollectModule.collectLimit as string,
         amount: {
           currency: selectCollectModule.amount?.currency,
-          value: selectCollectModule.amount?.value
+          value: selectCollectModule.amount?.value as string
         },
         recipient: selectCollectModule.recipient,
-        referralFee: selectCollectModule.referralFee,
-        followerOnly: selectCollectModule.followerOnlyCollect
+        referralFee: selectCollectModule.referralFee as number,
+        followerOnly: selectCollectModule.followerOnlyCollect as boolean
       }
     }
   }
@@ -68,18 +71,18 @@ export const getCollectModule = (selectCollectModule: CollectModuleType) => {
       timedFeeCollectModule: {
         amount: {
           currency: selectCollectModule.amount?.currency,
-          value: selectCollectModule.amount?.value
+          value: selectCollectModule.amount?.value as string
         },
         recipient: selectCollectModule.recipient,
-        referralFee: selectCollectModule.referralFee,
-        followerOnly: selectCollectModule.followerOnlyCollect
+        referralFee: selectCollectModule.referralFee as number,
+        followerOnly: selectCollectModule.followerOnlyCollect as boolean
       }
     }
   }
   // Post is free to collect
   return {
     freeCollectModule: {
-      followerOnly: selectCollectModule.followerOnlyCollect
+      followerOnly: selectCollectModule.followerOnlyCollect as boolean
     }
   }
 }

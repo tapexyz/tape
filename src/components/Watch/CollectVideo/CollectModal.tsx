@@ -98,7 +98,7 @@ const CollectModal: FC<Props> = ({
     )
       setHaveEnoughBalance(false)
     else setHaveEnoughBalance(true)
-    if (collectModule) {
+    if (collectModule?.amount?.asset?.address && selectedChannelId) {
       refetchAllowance()
     }
   }, [
@@ -106,7 +106,8 @@ const CollectModal: FC<Props> = ({
     collectModule,
     collectModule?.amount?.value,
     collectModule?.amount,
-    refetchAllowance
+    refetchAllowance,
+    selectedChannelId
   ])
 
   return (

@@ -82,7 +82,7 @@ const UserMenu = () => {
   return (
     <Popover
       trigger={
-        <Button className="!p-0">
+        <Button className="!p-0 flex-none">
           <img
             className="object-cover bg-white rounded-lg dark:bg-black w-7 h-7 md:rounded-xl md:w-9 md:h-9"
             src={getProfilePicture(selectedChannel)}

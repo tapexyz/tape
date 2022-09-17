@@ -39,6 +39,7 @@ import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
 import {
   Attribute,
+  CreatePublicSetProfileMetadataUriRequest,
   MediaSet,
   Profile,
   PublicationMetadataDisplayTypes
@@ -96,7 +97,7 @@ const BasicInfo = ({ channel }: Props) => {
   }
 
   const onCompleted = () => {
-    toast.success('Channel details updated')
+    toast.success('Channel details submitted')
     Mixpanel.track(TRACK.UPDATED_CHANNEL_INFO)
   }
 
@@ -156,15 +157,14 @@ const BasicInfo = ({ channel }: Props) => {
             metadata,
             sig: { v, r, s, deadline: typedData.value.deadline }
           }
-          if (RELAYER_ENABLED) {
-            const { data } = await broadcast({
-              variables: { request: { id, signature } }
-            })
-            if (data?.broadcast?.reason)
-              writeMetaData?.({ recklesslySetUnpreparedArgs: args })
-          } else {
-            writeMetaData?.({ recklesslySetUnpreparedArgs: args })
+          if (!RELAYER_ENABLED) {
+            return writeMetaData?.({ recklesslySetUnpreparedArgs: args })
           }
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.reason)
+            writeMetaData?.({ recklesslySetUnpreparedArgs: args })
         } catch (error) {
           setLoading(false)
           logger.error('[Error Set Basic info Typed Data]', error)
@@ -185,6 +185,23 @@ const BasicInfo = ({ channel }: Props) => {
         e.target.files[0]
       )
       setCoverImage(result.url)
+    }
+  }
+
+  const signTypedData = (request: CreatePublicSetProfileMetadataUriRequest) => {
+    createSetProfileMetadataTypedData({
+      variables: { request }
+    })
+  }
+
+  const createViaDispatcher = async (
+    request: CreatePublicSetProfileMetadataUriRequest
+  ) => {
+    const { data } = await createSetProfileMetadataViaDispatcher({
+      variables: { request }
+    })
+    if (!data?.createSetProfileMetadataViaDispatcher) {
+      signTypedData(request)
     }
   }
 
@@ -233,13 +250,11 @@ const BasicInfo = ({ channel }: Props) => {
         profileId: channel?.id,
         metadata: url
       }
-      if (selectedChannel?.dispatcher?.canUseRelay) {
-        createSetProfileMetadataViaDispatcher({ variables: { request } })
-      } else {
-        createSetProfileMetadataTypedData({
-          variables: { request }
-        })
+      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+      if (!canUseDispatcher) {
+        return signTypedData(request)
       }
+      createViaDispatcher(request)
     } catch (error) {
       setLoading(false)
       logger.error('[Error Store & Save Basic info]', error)

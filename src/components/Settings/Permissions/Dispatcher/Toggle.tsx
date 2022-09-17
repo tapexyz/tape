@@ -96,15 +96,14 @@ const Toggle = () => {
             sig: { v, r, s, deadline }
           }
           setUserSigNonce(userSigNonce + 1)
-          if (RELAYER_ENABLED) {
-            const { data } = await broadcast({
-              variables: { request: { id, signature } }
-            })
-            if (data?.broadcast?.reason)
-              writeDispatch?.({ recklesslySetUnpreparedArgs: args })
-          } else {
-            writeDispatch?.({ recklesslySetUnpreparedArgs: args })
+          if (!RELAYER_ENABLED) {
+            return writeDispatch?.({ recklesslySetUnpreparedArgs: args })
           }
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.reason)
+            writeDispatch?.({ recklesslySetUnpreparedArgs: args })
         } catch (error) {
           logger.error('[Error Set Dispatcher]', error)
         }

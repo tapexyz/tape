@@ -9,7 +9,8 @@ const DispatcherPermissions = () => {
       <div className="mb-2">
         <h1 className="mb-1 text-xl font-semibold">Dispatcher</h1>
         <p className="opacity-80">
-          Interact with {APP_NAME} without signing any of your transactions.
+          Dispacher helps interact with {APP_NAME} without signing any of your
+          transactions.
         </p>
       </div>
       <div className="flex justify-end mt-3">

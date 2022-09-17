@@ -36,6 +36,7 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import {
   CreatePostBroadcastItemResult,
+  CreatePublicPostRequest,
   MetadataAttributeInput,
   PublicationContentWarning,
   PublicationMainFocus,
@@ -151,6 +152,7 @@ const UploadSteps = () => {
       }
     }
   }
+
   const uploadVideoToIpfs = async () => {
     const result = await uploadMediaToIPFS(
       uploadedVideo.file as File,
@@ -229,7 +231,7 @@ const UploadSteps = () => {
     }
   }
 
-  const [createTypedData] = useMutation(CREATE_POST_TYPED_DATA, {
+  const [createPostTypedData] = useMutation(CREATE_POST_TYPED_DATA, {
     async onCompleted(data) {
       const { typedData, id } =
         data.createPostTypedData as CreatePostBroadcastItemResult
@@ -257,19 +259,35 @@ const UploadSteps = () => {
           referenceModuleInitData,
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
-        if (RELAYER_ENABLED) {
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.reason)
-            writePostContract?.({ recklesslySetUnpreparedArgs: args })
-        } else writePostContract?.({ recklesslySetUnpreparedArgs: args })
+        if (!RELAYER_ENABLED) {
+          return writePostContract?.({ recklesslySetUnpreparedArgs: args })
+        }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.reason)
+          writePostContract?.({ recklesslySetUnpreparedArgs: args })
       } catch (error) {
         logger.error('[Error Post Video Typed Data]', error)
       }
     },
     onError
   })
+
+  const signTypedData = (request: CreatePublicPostRequest) => {
+    createPostTypedData({
+      variables: { request }
+    })
+  }
+
+  const createViaDispatcher = async (request: CreatePublicPostRequest) => {
+    const { data } = await createPostViaDispatcher({
+      variables: { request }
+    })
+    if (!data?.createPostViaDispatcher) {
+      signTypedData(request)
+    }
+  }
 
   const createPublication = async () => {
     try {
@@ -292,7 +310,7 @@ const UploadSteps = () => {
         {
           displayType: PublicationMetadataDisplayTypes.String,
           traitType: 'handle',
-          value: `@${selectedChannel?.handle}`
+          value: `${selectedChannel?.handle}`
         },
         {
           displayType: PublicationMetadataDisplayTypes.String,
@@ -352,15 +370,11 @@ const UploadSteps = () => {
       if (isBytesVideo) {
         Mixpanel.track(TRACK.UPLOADED_BYTE_VIDEO)
       }
-      if (selectedChannel?.dispatcher?.canUseRelay) {
-        createPostViaDispatcher({ variables: { request } })
-      } else {
-        createTypedData({
-          variables: {
-            request
-          }
-        })
+      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+      if (!canUseDispatcher) {
+        return signTypedData(request)
       }
+      await createViaDispatcher(request)
     } catch (error) {
       logger.error('[Error Store & Post Video]', error)
     }

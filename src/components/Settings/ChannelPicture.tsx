@@ -20,7 +20,11 @@ import { utils } from 'ethers'
 import React, { ChangeEvent, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
-import { CreateSetProfileImageUriBroadcastItemResult, Profile } from 'src/types'
+import {
+  CreateSetProfileImageUriBroadcastItemResult,
+  Profile,
+  UpdateProfileImageRequest
+} from 'src/types'
 import { IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -98,15 +102,14 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             sig: { v, r, s, deadline: typedData.value.deadline }
           }
           setUserSigNonce(userSigNonce + 1)
-          if (RELAYER_ENABLED) {
-            const { data } = await broadcast({
-              variables: { request: { id, signature } }
-            })
-            if (data?.broadcast?.reason)
-              writePfpUri?.({ recklesslySetUnpreparedArgs: args })
-          } else {
-            writePfpUri?.({ recklesslySetUnpreparedArgs: args })
+          if (!RELAYER_ENABLED) {
+            return writePfpUri?.({ recklesslySetUnpreparedArgs: args })
           }
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.reason)
+            writePfpUri?.({ recklesslySetUnpreparedArgs: args })
         } catch (error) {
           setLoading(false)
           logger.error('[Error Set Pfp Typed Data]', error)
@@ -115,6 +118,21 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       onError
     }
   )
+
+  const signTypedData = (request: UpdateProfileImageRequest) => {
+    createSetProfileImageURITypedData({
+      variables: { options: { overrideSigNonce: userSigNonce }, request }
+    })
+  }
+
+  const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
+    const { data } = await createSetProfileImageViaDispatcher({
+      variables: { request }
+    })
+    if (!data?.createSetProfileImageURIViaDispatcher) {
+      signTypedData(request)
+    }
+  }
 
   const onPfpUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
@@ -127,14 +145,12 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           profileId: selectedChannel?.id,
           url: result.url
         }
-        if (selectedChannel?.dispatcher?.canUseRelay) {
-          createSetProfileImageViaDispatcher({ variables: { request } })
-        } else {
-          createSetProfileImageURITypedData({
-            variables: { options: { overrideSigNonce: userSigNonce }, request }
-          })
-        }
         setSelectedPfp(result.url)
+        const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+        if (!canUseDispatcher) {
+          return signTypedData(request)
+        }
+        await createViaDispatcher(request)
       } catch (error) {
         onError(error)
         logger.error('[Error Pfp Upload]', error)
