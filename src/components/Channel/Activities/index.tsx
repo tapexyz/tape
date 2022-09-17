@@ -1,7 +1,5 @@
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
-import dynamic from 'next/dynamic'
 import { FC } from 'react'
 import {
   AiOutlineComment,
@@ -14,23 +12,13 @@ import { MdOutlineAnalytics, MdOutlineSlowMotionVideo } from 'react-icons/md'
 import { Profile } from 'src/types'
 
 import About from './About'
+import ChannelBytes from './ChannelBytes'
+import ChannelStats from './ChannelStats'
 import ChannelVideos from './ChannelVideos'
-
-const OtherChannels = dynamic(() => import('./OtherChannels'))
-const CommentedVideos = dynamic(() => import('./CommentedVideos'), {
-  loading: () => <TimelineShimmer />
-})
-
-const MirroredVideos = dynamic(() => import('./MirroredVideos'), {
-  loading: () => <TimelineShimmer />
-})
-const CollectedNFTs = dynamic(() => import('./CollectedNFTs'), {
-  loading: () => <TimelineShimmer />
-})
-const ChannelBytes = dynamic(() => import('./ChannelBytes'), {
-  loading: () => <TimelineShimmer />
-})
-const ChannelStats = dynamic(() => import('./ChannelStats'))
+import CollectedNFTs from './CollectedNFTs'
+import CommentedVideos from './CommentedVideos'
+import MirroredVideos from './MirroredVideos'
+import OtherChannels from './OtherChannels'
 
 type Props = {
   channel: Profile

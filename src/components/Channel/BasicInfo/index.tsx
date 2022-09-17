@@ -5,7 +5,6 @@ import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import { formatNumber } from '@utils/functions/formatNumber'
 import getCoverPicture from '@utils/functions/getCoverPicture'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
@@ -32,8 +31,6 @@ const BasicInfo: FC<Props> = ({ channel }) => {
 
   const isOwnChannel = channel?.id === selectedChannel?.id
   const subscribeType = channel?.followModule?.__typename
-  const isMember =
-    selectedChannel?.followModule?.__typename === 'FeeFollowModuleSettings'
 
   const onClickCustomize = () => {
     Mixpanel.track(TRACK.CLICK_CHANNEL_SETTINGS)
@@ -92,12 +89,12 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                   className="outline-none"
                 >
                   <span className="inline-flex items-center space-x-1 text-sm whitespace-nowrap md:text-base">
-                    {formatNumber(channel?.stats.totalFollowers)} subscribers
+                    {channel?.stats.totalFollowers} subscribers
                   </span>
                 </button>
                 {channel.isFollowing && (
                   <span className="px-2 py-0.5 text-xs dark:bg-gray-800 bg-gray-100 rounded-full">
-                    {isMember ? 'Member' : 'Subscriber'}
+                    Subscribed you
                   </span>
                 )}
               </div>
