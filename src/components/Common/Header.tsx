@@ -30,9 +30,9 @@ const Header: FC<Props> = ({ className }) => {
         className
       )}
     >
-      <div className="flex justify-between flex-1 md:w-3/4 md:justify-end">
-        <div className="flex items-center space-x-1.5 md:space-x-0">
-          <Link href={HOME} className="block md:hidden">
+      <div className="flex items-center justify-between w-full">
+        <div className="md:w-[330px]">
+          <Link href={HOME} className="block md:invisible">
             <img
               src="/lenstube.svg"
               draggable={false}
@@ -40,33 +40,32 @@ const Header: FC<Props> = ({ className }) => {
               alt="lenstube"
             />
           </Link>
-          <span />
         </div>
         <div className="hidden md:block">
           <GlobalSearchBar />
         </div>
-      </div>
-      <div className="flex flex-row items-center justify-end space-x-3 md:w-2/5">
-        <button
-          type="button"
-          onClick={() => setSearchModal(true)}
-          className="outline-none md:hidden"
-        >
-          <AiOutlineSearch className="text-lg" aria-hidden="true" />
-        </button>
-        {selectedChannelId ? (
-          <>
-            <NotificationTrigger />
-            <Link href={NOTIFICATIONS} className="relative p-1 md:hidden">
-              <CgBell className="text-lg" />
-              {hasNewNotification && (
-                <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-0 right-0" />
-              )}
-            </Link>
-            <NewVideoTrigger />
-          </>
-        ) : null}
-        <Login />
+        <div className="flex flex-row items-center justify-end space-x-3 md:w-96">
+          <button
+            type="button"
+            onClick={() => setSearchModal(true)}
+            className="outline-none md:hidden"
+          >
+            <AiOutlineSearch className="text-lg" aria-hidden="true" />
+          </button>
+          {selectedChannelId ? (
+            <>
+              <NotificationTrigger />
+              <Link href={NOTIFICATIONS} className="relative p-1 md:hidden">
+                <CgBell className="text-lg" />
+                {hasNewNotification && (
+                  <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-0 right-0" />
+                )}
+              </Link>
+              <NewVideoTrigger />
+            </>
+          ) : null}
+          <Login />
+        </div>
       </div>
 
       <Modal
