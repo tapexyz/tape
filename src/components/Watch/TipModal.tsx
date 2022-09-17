@@ -30,6 +30,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { TbHeartHandshake } from 'react-icons/tb'
 import {
+  CreatePublicPostRequest,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes
 } from 'src/types'
@@ -185,6 +186,21 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
+  const signTypedData = (request: CreatePublicPostRequest) => {
+    createCommentTypedData({
+      variables: { options: { overrideSigNonce: userSigNonce }, request }
+    })
+  }
+
+  const createViaDispatcher = async (request: CreatePublicPostRequest) => {
+    const { data } = await createCommentViaDispatcher({
+      variables: { request }
+    })
+    if (!data?.createCommentViaDispatcher) {
+      signTypedData(request)
+    }
+  }
+
   const submitComment = async (txnHash: string) => {
     try {
       setLoading(true)
@@ -239,16 +255,11 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           followerOnlyReferenceModule: false
         }
       }
-      if (selectedChannel?.dispatcher?.canUseRelay) {
-        createCommentViaDispatcher({ variables: { request } })
-      } else {
-        createCommentTypedData({
-          variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request
-          }
-        })
+      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+      if (!canUseDispatcher) {
+        return signTypedData(request)
       }
+      await createViaDispatcher(request)
     } catch (error) {
       logger.error('[Error Store & Tip Video]', error)
     }

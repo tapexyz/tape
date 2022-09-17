@@ -39,6 +39,7 @@ import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
 import {
   Attribute,
+  CreatePublicSetProfileMetadataUriRequest,
   MediaSet,
   Profile,
   PublicationMetadataDisplayTypes
@@ -96,7 +97,7 @@ const BasicInfo = ({ channel }: Props) => {
   }
 
   const onCompleted = () => {
-    toast.success('Channel details updated')
+    toast.success('Channel details submitted')
     Mixpanel.track(TRACK.UPDATED_CHANNEL_INFO)
   }
 
@@ -187,6 +188,23 @@ const BasicInfo = ({ channel }: Props) => {
     }
   }
 
+  const signTypedData = (request: CreatePublicSetProfileMetadataUriRequest) => {
+    createSetProfileMetadataTypedData({
+      variables: { request }
+    })
+  }
+
+  const createViaDispatcher = async (
+    request: CreatePublicSetProfileMetadataUriRequest
+  ) => {
+    const { data } = await createSetProfileMetadataViaDispatcher({
+      variables: { request }
+    })
+    if (!data?.createSetProfileMetadataViaDispatcher) {
+      signTypedData(request)
+    }
+  }
+
   const onSaveBasicInfo = async (data: FormData) => {
     Mixpanel.track(TRACK.UPDATE_CHANNEL_INFO)
     setLoading(true)
@@ -232,13 +250,11 @@ const BasicInfo = ({ channel }: Props) => {
         profileId: channel?.id,
         metadata: url
       }
-      if (selectedChannel?.dispatcher?.canUseRelay) {
-        createSetProfileMetadataViaDispatcher({ variables: { request } })
-      } else {
-        createSetProfileMetadataTypedData({
-          variables: { request }
-        })
+      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+      if (!canUseDispatcher) {
+        return signTypedData(request)
       }
+      createViaDispatcher(request)
     } catch (error) {
       setLoading(false)
       logger.error('[Error Store & Save Basic info]', error)
