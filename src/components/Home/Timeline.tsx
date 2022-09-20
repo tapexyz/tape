@@ -1,17 +1,8 @@
 import VideoCard from '@components/Common/VideoCard'
-import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
-import dynamic from 'next/dynamic'
+import CommentedVideoCard from '@components/Library/CommentedVideoCard'
+import MirroredVideoCard from '@components/Library/MirroredVideoCard'
 import React, { FC } from 'react'
 import { LenstubePublication } from 'src/types/local'
-
-const CommentedVideoCard = dynamic(
-  () => import('../Library/CommentedVideoCard'),
-  { loading: () => <VideoCardShimmer /> }
-)
-const MirroredVideoCard = dynamic(
-  () => import('../Library/MirroredVideoCard'),
-  { loading: () => <VideoCardShimmer /> }
-)
 
 type Props = {
   videos: LenstubePublication[]
