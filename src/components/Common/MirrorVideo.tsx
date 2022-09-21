@@ -153,7 +153,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     if (!canUseDispatcher) {
       return signTypedData(request)
     }
-    createViaDispatcher(request)
+    await createViaDispatcher(request)
   }
 
   if (onlySubscribersCanMirror && !video.profile.isFollowedByMe) return null
