@@ -5,7 +5,7 @@ import { CREATE_REPORT_PUBLICATION_MUTATION } from '@gql/queries'
 import { ERROR_MESSAGE } from '@utils/constants'
 import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { LenstubePublication } from 'src/types/local'
 
@@ -29,8 +29,6 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
       }
     }
   )
-
-  useEffect(() => {}, [])
 
   const getReasonType = (type: string) => {
     if (type === 'ILLEGAL') return 'illegalReason'

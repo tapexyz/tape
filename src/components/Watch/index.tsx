@@ -4,10 +4,10 @@ import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { VIDEO_DETAIL_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import getHlsData from '@utils/functions/getHlsData'
 import { getIsHlsSupported } from '@utils/functions/getIsHlsSupported'
 import { getPlaybackIdFromUrl } from '@utils/functions/getVideoUrl'
 import { Mixpanel, TRACK } from '@utils/track'
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Custom404 from 'src/pages/404'
@@ -35,19 +35,17 @@ const VideoDetails = () => {
     Mixpanel.track(TRACK.PAGE_VIEW.WATCH)
   }, [])
 
-  const getHlsUrl = async (currentVideo: LenstubePublication) => {
+  const fetchHls = async (currentVideo: LenstubePublication) => {
     const playbackId = getPlaybackIdFromUrl(currentVideo)
     if (!playbackId) {
       setVideo(currentVideo)
       return setLoading(false)
     }
     try {
-      const { data } = await axios.get(
-        `https://livepeer.studio/api/playback/${playbackId}`
-      )
+      const hls = await getHlsData(playbackId)
       const videoObject = { ...currentVideo }
-      if (getIsHlsSupported()) {
-        videoObject.hls = data.meta?.source[0]
+      if (getIsHlsSupported() && hls) {
+        videoObject.hls = hls
       }
       setVideo(videoObject)
     } catch (error) {
@@ -70,7 +68,7 @@ const VideoDetails = () => {
       if (!result.publication || result?.publication?.__typename !== 'Post') {
         return setLoading(false)
       }
-      await getHlsUrl(result?.publication)
+      await fetchHls(result?.publication)
     }
   })
   const isPost: boolean =
