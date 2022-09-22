@@ -124,6 +124,16 @@ export type BurnProfileRequest = {
   profileId: Scalars['ProfileId'];
 };
 
+export type CanCommentResponse = {
+  __typename?: 'CanCommentResponse';
+  result: Scalars['Boolean'];
+};
+
+export type CanMirrorResponse = {
+  __typename?: 'CanMirrorResponse';
+  result: Scalars['Boolean'];
+};
+
 /** The challenge request */
 export type ChallengeRequest = {
   /** The ethereum address you want to login with */
@@ -189,6 +199,8 @@ export type Comment = {
   __typename?: 'Comment';
   /** ID of the source */
   appId?: Maybe<Scalars['Sources']>;
+  canComment: CanCommentResponse;
+  canMirror: CanMirrorResponse;
   /** The collect module */
   collectModule: CollectModule;
   /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
@@ -220,6 +232,18 @@ export type Comment = {
   referenceModule?: Maybe<ReferenceModule>;
   /** The publication stats */
   stats: PublicationStats;
+};
+
+
+/** The social comment */
+export type CommentCanCommentArgs = {
+  profileId?: InputMaybe<Scalars['ProfileId']>;
+};
+
+
+/** The social comment */
+export type CommentCanMirrorArgs = {
+  profileId?: InputMaybe<Scalars['ProfileId']>;
 };
 
 
@@ -792,6 +816,28 @@ export type DefaultProfileRequest = {
   ethereumAddress: Scalars['EthereumAddress'];
 };
 
+export type DegreesOfSeparationReferenceModuleParams = {
+  /** Applied to comments */
+  commentsRestricted: Scalars['Boolean'];
+  /** Degrees of separation */
+  degreesOfSeparation: Scalars['Int'];
+  /** Applied to mirrors */
+  mirrorsRestricted: Scalars['Boolean'];
+};
+
+export type DegreesOfSeparationReferenceModuleSettings = {
+  __typename?: 'DegreesOfSeparationReferenceModuleSettings';
+  /** Applied to comments */
+  commentsRestricted: Scalars['Boolean'];
+  contractAddress: Scalars['ContractAddress'];
+  /** Degrees of separation */
+  degreesOfSeparation: Scalars['Int'];
+  /** Applied to mirrors */
+  mirrorsRestricted: Scalars['Boolean'];
+  /** The reference modules enum */
+  type: ReferenceModules;
+};
+
 /** The dispatcher */
 export type Dispatcher = {
   __typename?: 'Dispatcher';
@@ -1343,6 +1389,8 @@ export type Mirror = {
   __typename?: 'Mirror';
   /** ID of the source */
   appId?: Maybe<Scalars['Sources']>;
+  canComment: CanCommentResponse;
+  canMirror: CanMirrorResponse;
   /** The collect module */
   collectModule: CollectModule;
   /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
@@ -1367,6 +1415,18 @@ export type Mirror = {
   referenceModule?: Maybe<ReferenceModule>;
   /** The publication stats */
   stats: PublicationStats;
+};
+
+
+/** The social mirror */
+export type MirrorCanCommentArgs = {
+  profileId?: InputMaybe<Scalars['ProfileId']>;
+};
+
+
+/** The social mirror */
+export type MirrorCanMirrorArgs = {
+  profileId?: InputMaybe<Scalars['ProfileId']>;
 };
 
 
@@ -1891,6 +1951,8 @@ export type Post = {
   __typename?: 'Post';
   /** ID of the source */
   appId?: Maybe<Scalars['Sources']>;
+  canComment: CanCommentResponse;
+  canMirror: CanMirrorResponse;
   /** The collect module */
   collectModule: CollectModule;
   /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
@@ -1916,6 +1978,18 @@ export type Post = {
   referenceModule?: Maybe<ReferenceModule>;
   /** The publication stats */
   stats: PublicationStats;
+};
+
+
+/** The social post */
+export type PostCanCommentArgs = {
+  profileId?: InputMaybe<Scalars['ProfileId']>;
+};
+
+
+/** The social post */
+export type PostCanMirrorArgs = {
+  profileId?: InputMaybe<Scalars['ProfileId']>;
 };
 
 
@@ -2718,9 +2792,11 @@ export type RecommendedProfileOptions = {
   disableML?: InputMaybe<Scalars['Boolean']>;
 };
 
-export type ReferenceModule = FollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings;
+export type ReferenceModule = DegreesOfSeparationReferenceModuleSettings | FollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings;
 
 export type ReferenceModuleParams = {
+  /** The degrees of seperation reference module */
+  degreesOfSeparationReferenceModule?: InputMaybe<DegreesOfSeparationReferenceModuleParams>;
   /** The follower only reference module */
   followerOnlyReferenceModule?: InputMaybe<Scalars['Boolean']>;
   /** A unknown reference module */
@@ -2729,6 +2805,7 @@ export type ReferenceModuleParams = {
 
 /** The reference module types */
 export enum ReferenceModules {
+  DegreesOfSeparationReferenceModule = 'DegreesOfSeparationReferenceModule',
   FollowerOnlyReferenceModule = 'FollowerOnlyReferenceModule',
   UnknownReferenceModule = 'UnknownReferenceModule'
 }
@@ -3212,6 +3289,7 @@ export type WorldcoinIdentity = {
       "Post"
     ],
     "ReferenceModule": [
+      "DegreesOfSeparationReferenceModuleSettings",
       "FollowOnlyReferenceModuleSettings",
       "UnknownReferenceModuleSettings"
     ],
