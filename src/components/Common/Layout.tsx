@@ -90,7 +90,7 @@ const Layout: FC<Props> = ({ children }) => {
   })
 
   const validateAuthentication = () => {
-    if (!selectedChannelId && AUTH_ROUTES.includes(pathname)) {
+    if (!selectedChannel && AUTH_ROUTES.includes(pathname)) {
       replace(`${AUTH}?next=${asPath}`) // redirect to signin page
     }
     const logout = () => {
