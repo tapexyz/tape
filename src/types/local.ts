@@ -53,9 +53,18 @@ export type UploadedVideo = {
   buttonText: string
   durationInSeconds: string | null
   collectModule: CollectModuleType
-  disableComments: boolean
+  referenceModule: ReferenceModuleType
   isNSFW: boolean
   isNSFWThumbnail: boolean
+}
+
+export type ReferenceModuleType = {
+  followerOnlyReferenceModule: boolean
+  degreesOfSeparationReferenceModule?: {
+    commentsRestricted: boolean
+    mirrorsRestricted: boolean
+    degreesOfSeparation: number
+  }
 }
 
 export type CollectModuleType = {

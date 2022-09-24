@@ -364,7 +364,18 @@ const UploadSteps = () => {
         contentURI: url,
         collectModule: getCollectModule(uploadedVideo.collectModule),
         referenceModule: {
-          followerOnlyReferenceModule: uploadedVideo.disableComments
+          followerOnlyReferenceModule:
+            uploadedVideo.referenceModule.followerOnlyReferenceModule,
+          degreesOfSeparationReferenceModule: {
+            commentsRestricted:
+              !!uploadedVideo.referenceModule.degreesOfSeparationReferenceModule
+                ?.degreesOfSeparation,
+            mirrorsRestricted:
+              !!uploadedVideo.referenceModule.degreesOfSeparationReferenceModule
+                ?.degreesOfSeparation,
+            degreesOfSeparation: uploadedVideo.referenceModule
+              .degreesOfSeparationReferenceModule?.degreesOfSeparation as number
+          }
         }
       }
       if (isBytesVideo) {

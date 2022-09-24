@@ -45,7 +45,14 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
     isFeeCollect: false,
     isRevertCollect: false
   },
-  disableComments: false,
+  referenceModule: {
+    followerOnlyReferenceModule: false,
+    degreesOfSeparationReferenceModule: {
+      commentsRestricted: false,
+      mirrorsRestricted: false,
+      degreesOfSeparation: 0
+    }
+  },
   isNSFW: false,
   isNSFWThumbnail: false
 }
