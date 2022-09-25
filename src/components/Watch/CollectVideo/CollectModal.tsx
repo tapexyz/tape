@@ -25,18 +25,17 @@ type Props = {
   showModal: boolean
   setShowModal: Dispatch<boolean>
   video: LenstubePublication
-  // eslint-disable-next-line no-unused-vars
-  handleCollect: (validate: boolean) => void
   collecting: boolean
   fetchingCollectModule: boolean
   collectModule: LenstubeCollectModule
+  collectNow: () => void
 }
 
 const CollectModal: FC<Props> = ({
   showModal,
   setShowModal,
   video,
-  handleCollect,
+  collectNow,
   collecting,
   collectModule,
   fetchingCollectModule
@@ -48,6 +47,8 @@ const CollectModal: FC<Props> = ({
   const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)
   const isMembershipActive =
     video.profile?.followModule?.__typename === 'FeeFollowModuleSettings'
+  const isFreeCollect =
+    video.collectModule.__typename === 'FreeCollectModuleSettings'
 
   useEffect(() => {
     Mixpanel.track(TRACK.COLLECT.OPEN)
@@ -190,11 +191,8 @@ const CollectModal: FC<Props> = ({
                     <Loader />
                   </div>
                 ) : haveEnoughBalance ? (
-                  <Button
-                    disabled={collecting}
-                    onClick={() => handleCollect(false)}
-                  >
-                    Collect Now
+                  <Button disabled={collecting} onClick={() => collectNow()}>
+                    {isFreeCollect ? 'Collect for free' : 'Collect Now'}
                   </Button>
                 ) : (
                   <BalanceAlert collectModule={collectModule} />
