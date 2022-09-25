@@ -17,6 +17,7 @@ import {
   RELAYER_ENABLED
 } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
+import getUserLocale from '@utils/functions/getUserLocale'
 import omitKey from '@utils/functions/omitKey'
 import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
@@ -197,7 +198,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         metadata_id: uuidv4(),
         description: trimify(data.comment),
         content: trimify(data.comment),
-        locale: 'en',
+        locale: getUserLocale(),
         mainContentFocus: PublicationMainFocus.TextOnly,
         external_url: LENSTUBE_URL,
         image: null,

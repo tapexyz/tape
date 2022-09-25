@@ -45,13 +45,13 @@ const formSchema = z.object({
 export type VideoFormData = z.infer<typeof formSchema>
 
 type Props = {
-  onUpload: () => void
+  // eslint-disable-next-line no-unused-vars
+  onUpload: (data: VideoFormData) => void
   onCancel: () => void
 }
 
 const Details: FC<Props> = ({ onUpload, onCancel }) => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
   const {
     handleSubmit,
@@ -72,8 +72,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
   })
 
   const onSubmitForm = (data: VideoFormData) => {
-    setUploadedVideo(data)
-    onUpload()
+    onUpload(data)
   }
 
   return (
