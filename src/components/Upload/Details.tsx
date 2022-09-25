@@ -232,7 +232,11 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           <Button variant="secondary" onClick={() => onCancel()} type="button">
             Cancel
           </Button>
-          <Button disabled={uploadedVideo.loading} type="submit">
+          <Button
+            loading={uploadedVideo.loading}
+            disabled={uploadedVideo.loading}
+            type="submit"
+          >
             {uploadedVideo.buttonText}
           </Button>
         </div>
