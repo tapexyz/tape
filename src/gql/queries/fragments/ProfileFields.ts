@@ -7,6 +7,7 @@ export const ProfileFields = gql`
     handle
     bio
     ownedBy
+    isDefault
     isFollowedByMe
     dispatcher {
       canUseRelay

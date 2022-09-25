@@ -94,9 +94,10 @@ const Login = () => {
         setShowCreateChannel(true)
       } else {
         const channels: Profile[] = channelsData?.profiles?.items
+        const defaultChannel = channels.find((channel) => channel.isDefault)!
         setChannels(channels)
-        setSelectedChannel(channels[0])
-        setSelectedChannelId(channels[0].id)
+        setSelectedChannel(defaultChannel)
+        setSelectedChannelId(defaultChannel?.id)
         if (router.query?.next) router.push(router.query?.next as string)
       }
       setLoading(false)
