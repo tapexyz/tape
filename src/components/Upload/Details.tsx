@@ -30,10 +30,12 @@ const ContentAlert = ({ message }: { message: ReactNode }) => (
 const formSchema = z.object({
   title: z
     .string()
+    .trim()
     .min(5, { message: 'Title should be atleast 5 characters' })
     .max(100, { message: 'Title should not exceed 100 characters' }),
   description: z
     .string()
+    .trim()
     .max(5000, { message: 'Description should not exceed 5000 characters' }),
   isSensitiveContent: z.boolean(),
   disableComments: z.boolean(),
