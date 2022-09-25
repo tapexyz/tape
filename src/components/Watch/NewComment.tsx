@@ -87,7 +87,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'commentWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess() {
+    onSuccess: () => {
       setButtonText('Indexing...')
       reset()
     }

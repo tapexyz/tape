@@ -75,7 +75,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
     onError,
-    onCompleted
+    onSuccess: onCompleted
   })
 
   const [broadcast] = useMutation(BROADCAST_MUTATION, {

@@ -109,7 +109,7 @@ const UploadSteps = () => {
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess(data) {
+    onSuccess: (data) => {
       showToast(data.hash)
       setUploadedVideo({
         buttonText: 'Indexing...',

@@ -42,9 +42,7 @@ const DangerZone = () => {
     functionName: 'burnWithSig',
     mode: 'recklesslyUnprepared',
     onError,
-    onSuccess(data) {
-      setTxnHash(data.hash)
-    }
+    onSuccess: (data) => setTxnHash(data.hash)
   })
 
   useWaitForTransaction({
