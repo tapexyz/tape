@@ -48,9 +48,7 @@ export const usePersistStore = create(
         }))
       },
       removeFromWatchLater: (video) => {
-        const index = get().watchLater.findIndex((el) => el.id === video.id)
-        const videos = get().watchLater
-        videos.splice(index, 1)
+        const videos = get().watchLater.filter((el) => el.id !== video.id)
         set(() => ({
           watchLater: videos
         }))
