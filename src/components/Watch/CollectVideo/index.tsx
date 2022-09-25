@@ -127,7 +127,6 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     video.collectModule.__typename === 'FreeCollectModuleSettings'
 
   const collectNow = () => {
-    toast('Collecting as NFT...')
     setShowCollectModal(false)
     setLoading(true)
     if (!isFreeCollect) {
