@@ -75,6 +75,7 @@ const UploadSteps = () => {
     if (uploadedVideo.videoSource) {
       resetToDefaults()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onError = (error: any) => {
