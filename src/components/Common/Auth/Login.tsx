@@ -94,7 +94,7 @@ const Login = () => {
         setShowCreateChannel(true)
       } else {
         const channels: Profile[] = channelsData?.profiles?.items
-        const defaultChannel = channels.find((channel) => channel.isDefault)!
+        const defaultChannel = channels.find((channel) => channel.isDefault)
         setChannels(channels)
         setSelectedChannel(defaultChannel ?? channels[0])
         setSelectedChannelId(defaultChannel?.id ?? channels[0].id)
