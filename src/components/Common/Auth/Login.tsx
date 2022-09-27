@@ -103,6 +103,7 @@ const Login = () => {
       setLoading(false)
     } catch (error) {
       setLoading(false)
+      toast.error('Failed to signin')
       logger.error('[Error Sign In]', error)
     }
   }
