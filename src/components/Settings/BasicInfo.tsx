@@ -29,11 +29,10 @@ import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
 import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
-import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { Mixpanel, TRACK } from '@utils/track'
 import { utils } from 'ethers'
 import Link from 'next/link'
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
@@ -99,13 +98,14 @@ const BasicInfo = ({ channel }: Props) => {
   const onCompleted = () => {
     toast.success('Channel details submitted')
     Mixpanel.track(TRACK.UPDATED_CHANNEL_INFO)
+    setLoading(false)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
 
-  const { write: writeMetaData, data: writtenData } = useContractWrite({
+  const { write: writeMetaData } = useContractWrite({
     addressOrName: LENS_PERIPHERY_ADDRESS,
     contractInterface: LENS_PERIPHERY_ABI,
     functionName: 'setProfileMetadataURIWithSig',
@@ -114,29 +114,18 @@ const BasicInfo = ({ channel }: Props) => {
     onSuccess: onCompleted
   })
 
-  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast] = useMutation(BROADCAST_MUTATION, {
     onError,
     onCompleted
   })
 
-  const [createSetProfileMetadataViaDispatcher, { data: dispatcherData }] =
-    useMutation(CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER, {
+  const [createSetProfileMetadataViaDispatcher] = useMutation(
+    CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER,
+    {
       onError,
       onCompleted
-    })
-
-  const { indexed } = usePendingTxn({
-    txHash: writtenData?.hash,
-    txId:
-      dispatcherData?.createSetProfileMetadataViaDispatcher?.txId ??
-      broadcastData?.broadcast?.txId
-  })
-
-  useEffect(() => {
-    if (indexed) {
-      setLoading(false)
     }
-  }, [indexed])
+  )
 
   const [createSetProfileMetadataTypedData] = useMutation(
     SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
