@@ -8,7 +8,7 @@ import WatchLater from './Sections/WatchLater'
 
 const Library = () => {
   useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.LIBRARY)
+    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.LIBRARY })
   }, [])
   return (
     <>

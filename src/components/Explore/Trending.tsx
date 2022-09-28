@@ -33,7 +33,7 @@ const Trending = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.EXPLORE_TRENDING)
+    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE_TRENDING })
   }, [])
 
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {

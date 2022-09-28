@@ -7,8 +7,9 @@ import ExploreFeed from './Feed'
 
 const Explore = () => {
   useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.EXPLORE)
+    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE })
   }, [])
+
   return (
     <>
       <MetaTags title="Explore" />

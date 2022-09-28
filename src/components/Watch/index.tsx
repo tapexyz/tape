@@ -32,7 +32,7 @@ const VideoDetails = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.WATCH)
+    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.WATCH })
   }, [])
 
   const fetchHls = async (currentVideo: LenstubePublication) => {

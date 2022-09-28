@@ -71,7 +71,8 @@ const UploadSteps = () => {
   }
 
   useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.UPLOAD.STEPS)
+    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.UPLOAD.STEPS })
+
     if (uploadedVideo.videoSource) {
       resetToDefaults()
     }

@@ -42,8 +42,9 @@ const Notifications = () => {
   )
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+
   useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.NOTIFICATIONS)
+    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.NOTIFICATIONS })
   }, [])
 
   const { data: notificationsCountData } = useQuery(NOTIFICATION_COUNT_QUERY, {
