@@ -12,7 +12,7 @@ export const getVideoUrl = (video: LenstubePublication) => {
 }
 
 export const getPermanentVideoUrl = (video: LenstubePublication) => {
-  return video?.metadata?.media[0]?.original.url
+  return sanitizeIpfsUrl(video?.metadata?.media[0]?.original.url)
 }
 
 export const getPlaybackIdFromUrl = (video: LenstubePublication) => {
