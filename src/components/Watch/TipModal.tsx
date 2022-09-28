@@ -197,7 +197,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     const { data } = await createCommentViaDispatcher({
       variables: { request }
     })
-    if (!data?.createCommentViaDispatcher.txId) {
+    if (!data?.createCommentViaDispatcher?.txId) {
       signTypedData(request)
     }
   }

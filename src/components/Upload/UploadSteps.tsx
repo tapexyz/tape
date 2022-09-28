@@ -71,7 +71,8 @@ const UploadSteps = () => {
   }
 
   useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.UPLOAD.STEPS)
+    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.UPLOAD.STEPS })
+
     if (uploadedVideo.videoSource) {
       resetToDefaults()
     }
@@ -87,7 +88,10 @@ const UploadSteps = () => {
   }
 
   const onCompleted = (data: any) => {
-    if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
+    if (
+      data?.broadcast?.reason !== 'NOT_ALLOWED' &&
+      !data.createPostViaDispatcher?.reason
+    ) {
       Mixpanel.track(TRACK.UPLOADED_VIDEO)
       showToast(data?.broadcast?.txHash)
       setUploadedVideo({
@@ -296,7 +300,7 @@ const UploadSteps = () => {
     const { data } = await createPostViaDispatcher({
       variables: { request }
     })
-    if (!data?.createPostViaDispatcher.txId) {
+    if (!data?.createPostViaDispatcher?.txId) {
       signTypedData(request)
     }
   }

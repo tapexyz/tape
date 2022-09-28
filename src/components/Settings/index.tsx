@@ -28,7 +28,7 @@ const Settings = () => {
   const router = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.SETTINGS)
+    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.SETTINGS })
   }, [])
 
   const { data, loading, error } = useQuery(PROFILE_QUERY, {

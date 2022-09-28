@@ -134,7 +134,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     const { data } = await createMirrorViaDispatcher({
       variables: { request }
     })
-    if (!data?.createMirrorViaDispatcher.txId) {
+    if (!data?.createMirrorViaDispatcher?.txId) {
       signTypedData(request)
     }
   }

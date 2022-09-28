@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 
 const Privacy = () => {
   useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.PRIVACY)
+    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.PRIVACY })
   }, [])
 
   return (

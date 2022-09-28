@@ -9,7 +9,7 @@ import FeedFilters from './FeedFilters'
 
 const Home: NextPage = () => {
   useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.HOME)
+    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.HOME })
   }, [])
   return (
     <>

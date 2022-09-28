@@ -113,16 +113,12 @@ const Video = () => {
           label="Thumbnail"
           file={uploadedVideo.file}
           afterUpload={(ipfsUrl: string, thumbnailType: string) => {
-            if (ipfsUrl) {
-              onThumbnailUpload(ipfsUrl, thumbnailType)
+            if (!ipfsUrl?.length) {
+              return toast.error('Failed to upload thumbnail')
             }
+            onThumbnailUpload(ipfsUrl, thumbnailType)
           }}
         />
-        {!uploadedVideo.thumbnail.length && uploadedVideo.videoSource && (
-          <p className="mt-2 text-xs font-medium text-red-500">
-            Please choose a thumbnail
-          </p>
-        )}
       </div>
       <div className="p-1 mt-3 rounded-lg">
         <div className="truncate">

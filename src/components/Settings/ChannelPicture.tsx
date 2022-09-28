@@ -129,7 +129,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     const { data } = await createSetProfileImageViaDispatcher({
       variables: { request }
     })
-    if (!data?.createSetProfileImageURIViaDispatcher.txId) {
+    if (!data?.createSetProfileImageURIViaDispatcher?.txId) {
       signTypedData(request)
     }
   }

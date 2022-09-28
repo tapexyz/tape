@@ -35,7 +35,7 @@ const Bytes = () => {
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
   useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.BYTES)
+    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.BYTES })
   }, [])
 
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {

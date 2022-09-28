@@ -184,7 +184,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     const { data } = await createCommentViaDispatcher({
       variables: { request }
     })
-    if (!data?.createCommentViaDispatcher.txId) {
+    if (!data?.createCommentViaDispatcher?.txId) {
       signTypedData(request)
     }
   }

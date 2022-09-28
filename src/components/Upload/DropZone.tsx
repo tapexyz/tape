@@ -21,7 +21,7 @@ const DropZone = () => {
   } = useDragAndDrop()
 
   useEffect(() => {
-    Mixpanel.track(TRACK.PAGE_VIEW.UPLOAD.DROPZONE)
+    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.UPLOAD.DROPZONE })
   }, [])
 
   const uploadVideo = (file: File) => {
