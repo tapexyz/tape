@@ -94,14 +94,16 @@ const Login = () => {
         setShowCreateChannel(true)
       } else {
         const channels: Profile[] = channelsData?.profiles?.items
+        const defaultChannel = channels.find((channel) => channel.isDefault)
         setChannels(channels)
-        setSelectedChannel(channels[0])
-        setSelectedChannelId(channels[0].id)
+        setSelectedChannel(defaultChannel ?? channels[0])
+        setSelectedChannelId(defaultChannel?.id ?? channels[0].id)
         if (router.query?.next) router.push(router.query?.next as string)
       }
       setLoading(false)
     } catch (error) {
       setLoading(false)
+      toast.error('Failed to signin')
       logger.error('[Error Sign In]', error)
     }
   }

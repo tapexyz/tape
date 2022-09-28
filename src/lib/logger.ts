@@ -1,8 +1,9 @@
 import { log } from 'next-axiom'
 
 const logger = {
-  log: (...args: any) => {
-    console.log(...args)
+  log: (message: string, info: any) => {
+    console.log(message, info)
+    log.info(message, info)
   },
   warn: (...args: any) => {
     console.warn(...args)

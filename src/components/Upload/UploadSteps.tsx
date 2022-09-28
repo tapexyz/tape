@@ -22,6 +22,7 @@ import {
 import { checkIsBytesVideo } from '@utils/functions/checkIsBytesVideo'
 import { isLessThan100MB } from '@utils/functions/formatBytes'
 import { getCollectModule } from '@utils/functions/getCollectModule'
+import getUserLocale from '@utils/functions/getUserLocale'
 import omitKey from '@utils/functions/omitKey'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import trimify from '@utils/functions/trimify'
@@ -52,7 +53,7 @@ import {
   useSignTypedData
 } from 'wagmi'
 
-import Details from './Details'
+import Details, { VideoFormData } from './Details'
 
 const UploadSteps = () => {
   const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)
@@ -65,8 +66,16 @@ const UploadSteps = () => {
   const { data: signer } = useSigner()
   const { showToast } = useTxnToast()
 
+  const resetToDefaults = () => {
+    setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
+  }
+
   useEffect(() => {
     Mixpanel.track(TRACK.PAGE_VIEW.UPLOAD.STEPS)
+    if (uploadedVideo.videoSource) {
+      resetToDefaults()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onError = (error: any) => {
@@ -101,7 +110,7 @@ const UploadSteps = () => {
     contractInterface: LENSHUB_PROXY_ABI,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess(data) {
+    onSuccess: (data) => {
       showToast(data.hash)
       setUploadedVideo({
         buttonText: 'Indexing...',
@@ -169,11 +178,13 @@ const UploadSteps = () => {
     setUploadedVideo({
       percent: 100,
       videoSource: result.url,
-      playbackId,
-      buttonText: 'Post Video',
-      loading: false
+      playbackId
     })
     Mixpanel.track(TRACK.UPLOADED_TO_IPFS)
+    return createPublication({
+      videoSource: result.url,
+      playbackId
+    })
   }
 
   const uploadToBundlr = async () => {
@@ -216,16 +227,17 @@ const UploadSteps = () => {
       )
       setUploadedVideo({
         videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
-        playbackId,
-        buttonText: 'Post Video',
-        loading: false
+        playbackId
       })
       Mixpanel.track(TRACK.UPLOADED_TO_ARWEAVE)
+      return createPublication({
+        videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
+        playbackId
+      })
     } catch (error: any) {
       toast.error('Failed to upload video!')
       logger.error('[Error Bundlr Upload Video]', error)
       setUploadedVideo({
-        buttonText: 'Upload Video',
         loading: false
       })
     }
@@ -289,12 +301,20 @@ const UploadSteps = () => {
     }
   }
 
-  const createPublication = async () => {
+  const createPublication = async ({
+    videoSource,
+    playbackId
+  }: {
+    videoSource: string
+    playbackId: string
+  }) => {
     try {
       setUploadedVideo({
         buttonText: 'Storing metadata...',
         loading: true
       })
+      uploadedVideo.playbackId = playbackId
+      uploadedVideo.videoSource = videoSource
       const media: Array<PublicationMetadataMediaInput> = [
         {
           item: uploadedVideo.videoSource,
@@ -339,7 +359,7 @@ const UploadSteps = () => {
         content: trimify(
           `${uploadedVideo.title}\n\n${uploadedVideo.description}`
         ),
-        locale: 'en',
+        locale: getUserLocale(),
         tags: [uploadedVideo.videoCategory.tag],
         mainContentFocus: PublicationMainFocus.Video,
         external_url: LENSTUBE_URL,
@@ -391,10 +411,14 @@ const UploadSteps = () => {
     }
   }
 
-  const onUpload = async () => {
+  const onUpload = async (data: VideoFormData) => {
+    uploadedVideo.title = data.title
+    uploadedVideo.description = data.description
+    uploadedVideo.isSensitiveContent = data.isSensitiveContent
+    uploadedVideo.disableComments = data.disableComments
+    setUploadedVideo({ ...uploadedVideo })
     if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail)
       return toast.error('NSFW content not allowed')
-    else if (uploadedVideo.videoSource) return createPublication()
     else if (
       isLessThan100MB(uploadedVideo.file?.size) &&
       uploadedVideo.isUploadToIpfs
@@ -403,15 +427,11 @@ const UploadSteps = () => {
     else await uploadToBundlr()
   }
 
-  const onCancel = () => {
-    setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
-  }
-
   return (
     <div className="max-w-5xl gap-5 mx-auto my-10">
       <MetaTags title="Video Details" />
       <div className="mt-10">
-        <Details onCancel={onCancel} onUpload={onUpload} />
+        <Details onCancel={resetToDefaults} onUpload={onUpload} />
       </div>
     </div>
   )

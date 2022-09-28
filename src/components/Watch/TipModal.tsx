@@ -19,6 +19,7 @@ import {
   SIGN_IN_REQUIRED_MESSAGE,
   STATIC_ASSETS
 } from '@utils/constants'
+import getUserLocale from '@utils/functions/getUserLocale'
 import imageCdn from '@utils/functions/imageCdn'
 import omitKey from '@utils/functions/omitKey'
 import uploadToAr from '@utils/functions/uploadToAr'
@@ -210,7 +211,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         metadata_id: uuidv4(),
         description: getValues('message'),
         content: getValues('message'),
-        locale: 'en',
+        locale: getUserLocale(),
         mainContentFocus: PublicationMainFocus.TextOnly,
         external_url: LENSTUBE_URL,
         image: null,

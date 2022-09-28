@@ -2,6 +2,8 @@ import { IS_MAINNET } from '@utils/constants'
 
 export const VERIFIED_CHANNELS = IS_MAINNET
   ? [
+      '0xeca7', // ethdaily.lens
+      '0xad5d', // zerion.lens
       '0xb17c', // perpetual.lens
       '0x0ce0', // camirusso.lens
       '0xf803', // wearenewt.lens

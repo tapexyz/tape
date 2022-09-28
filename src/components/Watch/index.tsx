@@ -87,7 +87,7 @@ const VideoDetails = () => {
 
   if (error) return <Custom500 />
   if (loading || !data) return <VideoDetailShimmer />
-  if (!isPost) return <Custom404 />
+  if (!isPost || data?.publication.hidden) return <Custom404 />
 
   return (
     <>

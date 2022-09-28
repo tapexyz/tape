@@ -24,10 +24,7 @@ import { utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { HiOutlineCollection } from 'react-icons/hi'
-import {
-  CreateCollectBroadcastItemResult,
-  FreeCollectModuleSettings
-} from 'src/types'
+import { CreateCollectBroadcastItemResult } from 'src/types'
 import { LenstubeCollectModule, LenstubePublication } from 'src/types/local'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -78,7 +75,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
     onError,
-    onCompleted
+    onSuccess: onCompleted
   })
 
   const [broadcast] = useMutation(BROADCAST_MUTATION, {
@@ -129,16 +126,8 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const isFreeCollect =
     video.collectModule.__typename === 'FreeCollectModuleSettings'
 
-  const handleCollect = (validate = true) => {
-    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
-    const collectModule = video.collectModule as FreeCollectModuleSettings
-    if ((!isFreeCollect || collectModule.followerOnly) && validate) {
-      return setShowCollectModal(true)
-    }
-    if (!validate) {
-      toast('Collecting as NFT...')
-      setShowCollectModal(false)
-    }
+  const collectNow = () => {
+    setShowCollectModal(false)
     setLoading(true)
     if (!isFreeCollect) {
       Mixpanel.track(TRACK.COLLECT.FEE)
@@ -160,6 +149,11 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     })
   }
 
+  const onClickCollect = () => {
+    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    return setShowCollectModal(true)
+  }
+
   const collectTooltipText = isFreeCollect ? (
     'Collect as NFT'
   ) : (
@@ -179,7 +173,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
           video={video}
           showModal={showCollectModal}
           setShowModal={setShowCollectModal}
-          handleCollect={handleCollect}
+          collectNow={collectNow}
           collecting={loading}
           collectModule={collectModule}
           fetchingCollectModule={fetchingCollectModule}
@@ -199,7 +193,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
           <Button
             className="!px-2"
             disabled={loading || alreadyCollected}
-            onClick={() => handleCollect()}
+            onClick={() => onClickCollect()}
             size="md"
             variant={variant}
           >

@@ -31,10 +31,12 @@ const ContentAlert = ({ message }: { message: ReactNode }) => (
 const formSchema = z.object({
   title: z
     .string()
+    .trim()
     .min(5, { message: 'Title should be atleast 5 characters' })
     .max(100, { message: 'Title should not exceed 100 characters' }),
   description: z
     .string()
+    .trim()
     .max(5000, { message: 'Description should not exceed 5000 characters' }),
   isSensitiveContent: z.boolean(),
   acceptTerms: z.boolean({
@@ -45,13 +47,13 @@ const formSchema = z.object({
 export type VideoFormData = z.infer<typeof formSchema>
 
 type Props = {
-  onUpload: () => void
+  // eslint-disable-next-line no-unused-vars
+  onUpload: (data: VideoFormData) => void
   onCancel: () => void
 }
 
 const Details: FC<Props> = ({ onUpload, onCancel }) => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
   const {
     handleSubmit,
@@ -71,8 +73,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
   })
 
   const onSubmitForm = (data: VideoFormData) => {
-    setUploadedVideo(data)
-    onUpload()
+    onUpload(data)
   }
 
   return (
@@ -222,7 +223,11 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           <Button variant="secondary" onClick={() => onCancel()} type="button">
             Cancel
           </Button>
-          <Button disabled={uploadedVideo.loading} type="submit">
+          <Button
+            loading={uploadedVideo.loading}
+            disabled={uploadedVideo.loading}
+            type="submit"
+          >
             {uploadedVideo.buttonText}
           </Button>
         </div>

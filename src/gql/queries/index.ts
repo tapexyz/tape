@@ -235,6 +235,11 @@ export const NOTIFICATIONS_QUERY = gql`
           publication {
             ... on Comment {
               id
+              mainPost {
+                ... on Post {
+                  id
+                }
+              }
             }
             ... on Post {
               id
