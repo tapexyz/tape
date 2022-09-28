@@ -37,6 +37,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   >([])
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
 
   const uploadThumbnailToIpfs = async (file: File) => {
     setUploading(true)
@@ -192,6 +193,11 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
           )
         })}
       </div>
+      {!uploadedVideo.thumbnail.length && !uploading && thumbnails.length ? (
+        <p className="mt-2 text-xs font-medium text-red-500">
+          Please choose a thumbnail
+        </p>
+      ) : null}
     </div>
   )
 }
