@@ -200,7 +200,7 @@ const BasicInfo = ({ channel }: Props) => {
     const { data } = await createSetProfileMetadataViaDispatcher({
       variables: { request }
     })
-    if (!data?.createSetProfileMetadataViaDispatcher) {
+    if (!data?.createSetProfileMetadataViaDispatcher.txId) {
       signTypedData(request)
     }
   }

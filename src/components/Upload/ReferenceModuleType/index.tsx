@@ -1,5 +1,6 @@
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
+import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import React, { useState } from 'react'
@@ -26,9 +27,9 @@ const ReferenceModuleType = () => {
     if (!followerOnlyReferenceModule && !degreesOfSeparation) {
       return 'Anyone can comment or mirror'
     } else if (followerOnlyReferenceModule) {
-      return 'Only subscribers can comment or mirror'
+      return 'Only my subscribers can comment or mirror'
     } else if (degreesOfSeparation && degreesOfSeparation > 0) {
-      return 'Only channels that I subscribed and their 4 level of subscribers'
+      return 'Only channels that I subscribed to and their network'
     }
   }
 
@@ -59,7 +60,12 @@ const ReferenceModuleType = () => {
               type="button"
               onClick={() =>
                 setReferenceType({
-                  followerOnlyReferenceModule: false
+                  followerOnlyReferenceModule: false,
+                  degreesOfSeparationReferenceModule: {
+                    commentsRestricted: false,
+                    mirrorsRestricted: false,
+                    degreesOfSeparation: 0
+                  }
                 })
               }
               className={clsx(
@@ -84,7 +90,12 @@ const ReferenceModuleType = () => {
               type="button"
               onClick={() =>
                 setReferenceType({
-                  followerOnlyReferenceModule: true
+                  followerOnlyReferenceModule: true,
+                  degreesOfSeparationReferenceModule: {
+                    commentsRestricted: false,
+                    mirrorsRestricted: false,
+                    degreesOfSeparation: 0
+                  }
                 })
               }
               className={clsx(
@@ -101,32 +112,34 @@ const ReferenceModuleType = () => {
               )}
             </button>
           </div>
-          <button
-            type="button"
-            onClick={() =>
-              setReferenceType({
-                followerOnlyReferenceModule: false,
-                degreesOfSeparationReferenceModule: {
-                  commentsRestricted: true,
-                  mirrorsRestricted: true,
-                  degreesOfSeparation: 4
-                }
-              })
-            }
-            className={clsx(
-              'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
-              {
-                '!border-indigo-500':
-                  uploadedVideo.referenceModule
-                    ?.degreesOfSeparationReferenceModule
-                    ?.degreesOfSeparation === 4
+          <Tooltip content="Defaults to 4 degrees of subscribers in the network">
+            <button
+              type="button"
+              onClick={() =>
+                setReferenceType({
+                  followerOnlyReferenceModule: false,
+                  degreesOfSeparationReferenceModule: {
+                    commentsRestricted: true,
+                    mirrorsRestricted: true,
+                    degreesOfSeparation: 4
+                  }
+                })
               }
-            )}
-          >
-            <span>Only channels that I subscribed and their subscribers</span>
-            {uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
-              ?.degreesOfSeparation === 4 && <AiOutlineCheck />}
-          </button>
+              className={clsx(
+                'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+                {
+                  '!border-indigo-500':
+                    uploadedVideo.referenceModule
+                      ?.degreesOfSeparationReferenceModule
+                      ?.degreesOfSeparation === 4
+                }
+              )}
+            >
+              <span>Only channels that I subscribed to and their network</span>
+              {uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
+                ?.degreesOfSeparation === 4 && <AiOutlineCheck />}
+            </button>
+          </Tooltip>
           <div className="flex justify-end">
             <Button type="button" onClick={() => setShowModal(false)}>
               Set Preference

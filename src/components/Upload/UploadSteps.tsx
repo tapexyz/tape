@@ -296,7 +296,7 @@ const UploadSteps = () => {
     const { data } = await createPostViaDispatcher({
       variables: { request }
     })
-    if (!data?.createPostViaDispatcher) {
+    if (!data?.createPostViaDispatcher.txId) {
       signTypedData(request)
     }
   }
