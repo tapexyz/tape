@@ -18,24 +18,17 @@ const ReferenceModuleType = () => {
   }
 
   const getSelectedReferenceType = () => {
-    const followerOnlyCollect = uploadedVideo.collectModule.followerOnlyCollect
-    const isTimedFeeCollect = uploadedVideo.collectModule.isTimedFeeCollect
-    const isLimitedFeeCollect = uploadedVideo.collectModule.isLimitedFeeCollect
-    const collectLimit = uploadedVideo.collectModule.collectLimit
-    if (uploadedVideo.collectModule.isRevertCollect) {
-      return 'No one can collect this publication'
-    }
-    if (uploadedVideo.collectModule.isFreeCollect) {
-      return `${
-        followerOnlyCollect ? 'Only Subscribers' : 'Anyone'
-      } can collect for free ${isTimedFeeCollect ? 'within 24hrs' : ''}`
-    }
-    if (!uploadedVideo.collectModule.isFreeCollect) {
-      return `${
-        followerOnlyCollect ? 'Only Subscribers' : 'Anyone'
-      } can collect ${
-        isLimitedFeeCollect ? `maximum of ${collectLimit}` : ''
-      } for given fees ${isTimedFeeCollect ? 'within 24hrs' : ''}`
+    const followerOnlyReferenceModule =
+      uploadedVideo.referenceModule.followerOnlyReferenceModule
+    const degreesOfSeparation =
+      uploadedVideo.referenceModule.degreesOfSeparationReferenceModule
+        ?.degreesOfSeparation
+    if (!followerOnlyReferenceModule && !degreesOfSeparation) {
+      return 'Anyone can comment or mirror'
+    } else if (followerOnlyReferenceModule) {
+      return 'Only subscribers can comment or mirror'
+    } else if (degreesOfSeparation && degreesOfSeparation > 0) {
+      return 'Only channels that I subscribed and their 4 level of subscribers'
     }
   }
 
@@ -61,51 +54,63 @@ const ReferenceModuleType = () => {
         show={showModal}
       >
         <div className="mt-2 space-y-4">
-          <button
-            type="button"
-            onClick={() =>
-              setReferenceType({
-                followerOnlyReferenceModule: false
-              })
-            }
-            className={clsx(
-              'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
-              {
-                '!border-indigo-500':
-                  !uploadedVideo.referenceModule?.followerOnlyReferenceModule
+          <div className="flex items-center space-x-3">
+            <button
+              type="button"
+              onClick={() =>
+                setReferenceType({
+                  followerOnlyReferenceModule: false
+                })
               }
-            )}
-          >
-            <span>Anyone can comment and mirror</span>
-            {!uploadedVideo.referenceModule?.followerOnlyReferenceModule && (
-              <AiOutlineCheck />
-            )}
-          </button>
-          <button
-            type="button"
-            onClick={() =>
-              setReferenceType({
-                followerOnlyReferenceModule: true
-              })
-            }
-            className={clsx(
-              'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
-              {
-                '!border-indigo-500':
-                  uploadedVideo.referenceModule?.followerOnlyReferenceModule
+              className={clsx(
+                'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+                {
+                  '!border-indigo-500':
+                    !uploadedVideo.referenceModule
+                      ?.followerOnlyReferenceModule &&
+                    !uploadedVideo.referenceModule
+                      .degreesOfSeparationReferenceModule?.degreesOfSeparation
+                }
+              )}
+            >
+              <span>Anyone</span>
+              {!uploadedVideo.referenceModule?.followerOnlyReferenceModule &&
+                !uploadedVideo.referenceModule
+                  .degreesOfSeparationReferenceModule?.degreesOfSeparation && (
+                  <AiOutlineCheck />
+                )}
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                setReferenceType({
+                  followerOnlyReferenceModule: true
+                })
               }
-            )}
-          >
-            <span>Only my subscribers</span>
-            {uploadedVideo.referenceModule?.followerOnlyReferenceModule && (
-              <AiOutlineCheck />
-            )}
-          </button>
+              className={clsx(
+                'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+                {
+                  '!border-indigo-500':
+                    uploadedVideo.referenceModule?.followerOnlyReferenceModule
+                }
+              )}
+            >
+              <span>Only my subscribers</span>
+              {uploadedVideo.referenceModule?.followerOnlyReferenceModule && (
+                <AiOutlineCheck />
+              )}
+            </button>
+          </div>
           <button
             type="button"
             onClick={() =>
               setReferenceType({
-                followerOnlyReferenceModule: true
+                followerOnlyReferenceModule: false,
+                degreesOfSeparationReferenceModule: {
+                  commentsRestricted: true,
+                  mirrorsRestricted: true,
+                  degreesOfSeparation: 4
+                }
               })
             }
             className={clsx(
@@ -114,17 +119,17 @@ const ReferenceModuleType = () => {
                 '!border-indigo-500':
                   uploadedVideo.referenceModule
                     ?.degreesOfSeparationReferenceModule
-                    ?.degreesOfSeparation === 1
+                    ?.degreesOfSeparation === 4
               }
             )}
           >
-            <span>Only channels that I subscribed</span>
+            <span>Only channels that I subscribed and their subscribers</span>
             {uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
-              ?.degreesOfSeparation === 1 && <AiOutlineCheck />}
+              ?.degreesOfSeparation === 4 && <AiOutlineCheck />}
           </button>
           <div className="flex justify-end">
             <Button type="button" onClick={() => setShowModal(false)}>
-              Set Collect Type
+              Set Preference
             </Button>
           </div>
         </div>

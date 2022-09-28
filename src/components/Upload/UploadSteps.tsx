@@ -415,7 +415,6 @@ const UploadSteps = () => {
     uploadedVideo.title = data.title
     uploadedVideo.description = data.description
     uploadedVideo.isSensitiveContent = data.isSensitiveContent
-    uploadedVideo.disableComments = data.disableComments
     setUploadedVideo({ ...uploadedVideo })
     if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail)
       return toast.error('NSFW content not allowed')
