@@ -171,6 +171,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         alt="channel picture"
       />
       <label
+        htmlFor="choosePfp"
         className={clsx(
           'absolute top-0 grid w-32 h-32 bg-white rounded-full cursor-pointer bg-opacity-70 place-items-center backdrop-blur-lg invisible group-hover:visible dark:bg-black',
           { '!visible': loading && !pfpData?.hash }
@@ -182,6 +183,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           <RiImageAddLine className="text-xl" />
         )}
         <input
+          id="choosePfp"
           type="file"
           accept=".png, .jpg, .jpeg, .svg"
           className="hidden w-full"

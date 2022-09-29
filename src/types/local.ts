@@ -49,6 +49,7 @@ export type UploadedVideo = {
   isSensitiveContent: boolean
   isUploadToIpfs: boolean
   loading: boolean
+  uploadingThumbnail: boolean
   videoSource: string
   buttonText: string
   durationInSeconds: string | null

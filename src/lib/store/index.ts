@@ -32,6 +32,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   isSensitiveContent: false,
   isUploadToIpfs: false,
   loading: false,
+  uploadingThumbnail: false,
   buttonText: 'Post Video',
   durationInSeconds: null,
   videoCategory: CREATOR_VIDEO_CATEGORIES[0],

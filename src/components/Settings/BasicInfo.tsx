@@ -268,9 +268,13 @@ const BasicInfo = ({ channel }: Props) => {
           draggable={false}
           alt="Cover Image"
         />
-        <label className="absolute p-1 px-3 text-sm bg-white rounded-lg cursor-pointer dark:bg-black bottom-2 left-2">
+        <label
+          htmlFor="chooseCover"
+          className="absolute p-1 px-3 text-sm bg-white rounded-lg cursor-pointer dark:bg-black bottom-2 left-2"
+        >
           Change
           <input
+            id="chooseCover"
             onClick={() => Mixpanel.track(TRACK.CHANGE_CHANNEL_COVER)}
             type="file"
             accept=".png, .jpg, .jpeg, .svg"
