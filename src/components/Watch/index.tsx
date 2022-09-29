@@ -60,7 +60,8 @@ const VideoDetails = () => {
       request: { publicationId: id },
       reactionRequest: selectedChannel
         ? { profileId: selectedChannel?.id }
-        : null
+        : null,
+      channelId: selectedChannel?.id ?? null
     },
     skip: !id,
     onCompleted: async (result) => {

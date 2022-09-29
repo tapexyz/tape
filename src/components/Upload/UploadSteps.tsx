@@ -383,6 +383,11 @@ const UploadSteps = () => {
         buttonText: 'Posting video...',
         loading: true
       })
+      console.log(
+        '🚀 ~ file: UploadSteps.tsx ~ line 396 ~ UploadSteps ~ uploadedVideo',
+        uploadedVideo
+      )
+
       const request = {
         profileId: selectedChannel?.id,
         contentURI: url,

@@ -20,9 +20,9 @@ const ReferenceModuleType = () => {
 
   const getSelectedReferenceType = () => {
     const followerOnlyReferenceModule =
-      uploadedVideo.referenceModule.followerOnlyReferenceModule
+      uploadedVideo?.referenceModule?.followerOnlyReferenceModule
     const degreesOfSeparation =
-      uploadedVideo.referenceModule.degreesOfSeparationReferenceModule
+      uploadedVideo?.referenceModule?.degreesOfSeparationReferenceModule
         ?.degreesOfSeparation
     if (!followerOnlyReferenceModule && !degreesOfSeparation) {
       return 'Anyone can comment or mirror'
@@ -74,15 +74,15 @@ const ReferenceModuleType = () => {
                   '!border-indigo-500':
                     !uploadedVideo.referenceModule
                       ?.followerOnlyReferenceModule &&
-                    !uploadedVideo.referenceModule
-                      .degreesOfSeparationReferenceModule?.degreesOfSeparation
+                    !uploadedVideo?.referenceModule
+                      ?.degreesOfSeparationReferenceModule?.degreesOfSeparation
                 }
               )}
             >
               <span>Anyone</span>
-              {!uploadedVideo.referenceModule?.followerOnlyReferenceModule &&
-                !uploadedVideo.referenceModule
-                  .degreesOfSeparationReferenceModule?.degreesOfSeparation && (
+              {!uploadedVideo?.referenceModule?.followerOnlyReferenceModule &&
+                !uploadedVideo?.referenceModule
+                  ?.degreesOfSeparationReferenceModule?.degreesOfSeparation && (
                   <AiOutlineCheck />
                 )}
             </button>
@@ -99,7 +99,7 @@ const ReferenceModuleType = () => {
                 })
               }
               className={clsx(
-                'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+                'flex items-center text-left justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
                 {
                   '!border-indigo-500':
                     uploadedVideo.referenceModule?.followerOnlyReferenceModule
@@ -108,11 +108,11 @@ const ReferenceModuleType = () => {
             >
               <span>Only my subscribers</span>
               {uploadedVideo.referenceModule?.followerOnlyReferenceModule && (
-                <AiOutlineCheck />
+                <AiOutlineCheck className="flex-none" />
               )}
             </button>
           </div>
-          <Tooltip content="Defaults to 4 degrees of subscribers in the network">
+          <Tooltip content="Channels you subscribed, their subscriptions and so on upto 4 levels can comment and mirror">
             <button
               type="button"
               onClick={() =>
@@ -126,7 +126,7 @@ const ReferenceModuleType = () => {
                 })
               }
               className={clsx(
-                'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+                'flex items-center text-left justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
                 {
                   '!border-indigo-500':
                     uploadedVideo.referenceModule
@@ -135,9 +135,13 @@ const ReferenceModuleType = () => {
                 }
               )}
             >
-              <span>Only channels that I subscribed to and their network</span>
+              <span>
+                My subscriptions and channels 4 degrees away in their network
+              </span>
               {uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
-                ?.degreesOfSeparation === 4 && <AiOutlineCheck />}
+                ?.degreesOfSeparation === 4 && (
+                <AiOutlineCheck className="flex-none" />
+              )}
             </button>
           </Tooltip>
           <div className="flex justify-end">

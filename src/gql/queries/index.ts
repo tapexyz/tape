@@ -276,6 +276,7 @@ export const EXPLORE_QUERY = gql`
   query Explore(
     $request: ExplorePublicationRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $channelId: ProfileId
   ) {
     explorePublications(request: $request) {
       items {
@@ -300,6 +301,7 @@ export const FEED_QUERY = gql`
   query HomeFeed(
     $request: TimelineRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $channelId: ProfileId
   ) {
     timeline(request: $request) {
       items {
@@ -328,6 +330,7 @@ export const PROFILE_FEED_QUERY = gql`
   query ProfileFeed(
     $request: PublicationsQueryRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $channelId: ProfileId
   ) {
     publications(request: $request) {
       items {
@@ -376,6 +379,7 @@ export const VIDEO_DETAIL_QUERY = gql`
   query VideoDetails(
     $request: PublicationQueryRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $channelId: ProfileId
   ) {
     publication(request: $request) {
       ... on Post {
@@ -482,6 +486,7 @@ export const SEARCH_VIDEOS_QUERY = gql`
   query SearchVideos(
     $request: SearchQueryRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $channelId: ProfileId
   ) {
     search(request: $request) {
       ... on PublicationSearchResult {
