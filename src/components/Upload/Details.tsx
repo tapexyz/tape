@@ -233,11 +233,13 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             Cancel
           </Button>
           <Button
-            loading={uploadedVideo.loading}
-            disabled={uploadedVideo.loading}
+            loading={uploadedVideo.loading || uploadedVideo.uploadingThumbnail}
+            disabled={uploadedVideo.loading || uploadedVideo.uploadingThumbnail}
             type="submit"
           >
-            {uploadedVideo.buttonText}
+            {uploadedVideo.uploadingThumbnail
+              ? 'Uploading thumbnail'
+              : uploadedVideo.buttonText}
           </Button>
         </div>
       )}

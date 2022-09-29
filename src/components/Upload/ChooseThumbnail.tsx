@@ -31,7 +31,6 @@ const DEFAULT_THUMBNAIL_INDEX = 0
 export const THUMBNAIL_GENERATE_COUNT = 7
 
 const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
-  const [uploading, setUploading] = useState(false)
   const [thumbnails, setThumbnails] = useState<
     Array<{ ipfsUrl: string; url: string; isNSFWThumbnail: boolean }>
   >([])
@@ -40,9 +39,9 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
 
   const uploadThumbnailToIpfs = async (file: File) => {
-    setUploading(true)
+    setUploadedVideo({ uploadingThumbnail: true })
     const result: IPFSUploadResult = await uploadMediaToIPFS(file)
-    setUploading(false)
+    setUploadedVideo({ uploadingThumbnail: false })
     afterUpload(result.url, file.type || 'image/jpeg')
     return result
   }
@@ -150,8 +149,12 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
         </div>
       )}
       <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 place-items-start py-0.5 gap-3">
-        <label className="flex flex-col items-center justify-center flex-none w-full h-16 border border-gray-200 cursor-pointer max-w-32 rounded-xl opacity-80 focus:outline-none dark:border-gray-800">
+        <label
+          htmlFor="chooseThumbnail"
+          className="flex flex-col items-center justify-center flex-none w-full h-16 border border-gray-200 cursor-pointer max-w-32 rounded-xl opacity-80 focus:outline-none dark:border-gray-800"
+        >
           <input
+            id="chooseThumbnail"
             type="file"
             accept=".png, .jpg, .jpeg"
             className="hidden w-full"
@@ -166,7 +169,10 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
             <button
               key={idx}
               type="button"
-              disabled={uploading && selectedThumbnailIndex === idx}
+              disabled={
+                uploadedVideo.uploadingThumbnail &&
+                selectedThumbnailIndex === idx
+              }
               onClick={() => onSelectThumbnail(idx)}
               className={clsx(
                 'rounded-lg w-full relative cursor-grab flex-none focus:outline-none',
@@ -182,18 +188,21 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
                 alt="thumbnail"
                 draggable={false}
               />
-              {uploading && selectedThumbnailIndex === idx && (
-                <div className="absolute top-1 right-1">
-                  <span>
-                    <Loader size="sm" className="!text-white" />
-                  </span>
-                </div>
-              )}
+              {uploadedVideo.uploadingThumbnail &&
+                selectedThumbnailIndex === idx && (
+                  <div className="absolute top-1 right-1">
+                    <span>
+                      <Loader size="sm" className="!text-white" />
+                    </span>
+                  </div>
+                )}
             </button>
           )
         })}
       </div>
-      {!uploadedVideo.thumbnail.length && !uploading && thumbnails.length ? (
+      {!uploadedVideo.thumbnail.length &&
+      !uploadedVideo.uploadingThumbnail &&
+      thumbnails.length ? (
         <p className="mt-2 text-xs font-medium text-red-500">
           Please choose a thumbnail
         </p>

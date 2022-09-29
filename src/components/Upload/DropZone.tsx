@@ -89,9 +89,13 @@ const DropZone = () => {
               </span>
             </div>
             <div>
-              <label className="px-8 py-4 text-lg text-white bg-indigo-500 cursor-pointer rounded-xl">
+              <label
+                htmlFor="chooseVideo"
+                className="px-8 py-4 text-lg text-white bg-indigo-500 cursor-pointer rounded-xl"
+              >
                 or choose video
                 <input
+                  id="chooseVideo"
                   onChange={onChooseFile}
                   type="file"
                   className="hidden"
