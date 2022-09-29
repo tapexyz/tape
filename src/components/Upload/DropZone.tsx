@@ -68,7 +68,7 @@ const DropZone = () => {
             'w-full p-10 md:p-20 md:w-2/3 focus:outline-none border-gray-500 grid place-items-center text-center border border-dashed rounded-3xl',
             { '!border-green-500': dragOver }
           )}
-          htmlFor="video-upload"
+          htmlFor="dropVideo"
           onDragOver={onDragOver}
           onDragLeave={onDragLeave}
           onDrop={onDrop}
@@ -76,7 +76,7 @@ const DropZone = () => {
           <input
             type="file"
             className="hidden"
-            name="video-upload"
+            id="dropVideo"
             accept="video/mp4"
           />
           <span className="flex justify-center mb-6 opacity-80">
