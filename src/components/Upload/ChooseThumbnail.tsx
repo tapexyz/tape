@@ -149,8 +149,12 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
         </div>
       )}
       <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 place-items-start py-0.5 gap-3">
-        <label className="flex flex-col items-center justify-center flex-none w-full h-16 border border-gray-200 cursor-pointer max-w-32 rounded-xl opacity-80 focus:outline-none dark:border-gray-800">
+        <label
+          htmlFor="chooseThumbnail"
+          className="flex flex-col items-center justify-center flex-none w-full h-16 border border-gray-200 cursor-pointer max-w-32 rounded-xl opacity-80 focus:outline-none dark:border-gray-800"
+        >
           <input
+            id="chooseThumbnail"
             type="file"
             accept=".png, .jpg, .jpeg"
             className="hidden w-full"
