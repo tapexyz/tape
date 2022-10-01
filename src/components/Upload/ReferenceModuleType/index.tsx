@@ -25,9 +25,9 @@ const ReferenceModuleType = () => {
       uploadedVideo?.referenceModule?.degreesOfSeparationReferenceModule
         ?.degreesOfSeparation
     if (!followerOnlyReferenceModule && !degreesOfSeparation) {
-      return 'Anyone can comment or mirror'
+      return 'Anyone can comment and mirror'
     } else if (followerOnlyReferenceModule) {
-      return 'Only my subscribers can comment or mirror'
+      return 'Only my subscribers can comment and mirror'
     } else if (degreesOfSeparation && degreesOfSeparation > 0) {
       return 'Only channels that I subscribed to and their network'
     }
@@ -112,7 +112,7 @@ const ReferenceModuleType = () => {
               )}
             </button>
           </div>
-          <Tooltip content="Channels you subscribed, their subscriptions and so on upto 2 levels can comment and mirror">
+          <Tooltip content="Channels you subscribed, their subscriptions and so on upto 3 levels can comment and mirror">
             <button
               type="button"
               onClick={() =>
@@ -121,7 +121,7 @@ const ReferenceModuleType = () => {
                   degreesOfSeparationReferenceModule: {
                     commentsRestricted: true,
                     mirrorsRestricted: true,
-                    degreesOfSeparation: 2
+                    degreesOfSeparation: 3
                   }
                 })
               }
@@ -131,15 +131,15 @@ const ReferenceModuleType = () => {
                   '!border-indigo-500':
                     uploadedVideo.referenceModule
                       ?.degreesOfSeparationReferenceModule
-                      ?.degreesOfSeparation === 2
+                      ?.degreesOfSeparation === 3
                 }
               )}
             >
               <span>
-                My subscriptions and channels 2 degrees away in their network
+                My subscriptions and channels 3 degrees away in their network
               </span>
               {uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
-                ?.degreesOfSeparation === 2 && (
+                ?.degreesOfSeparation === 3 && (
                 <AiOutlineCheck className="flex-none" />
               )}
             </button>
