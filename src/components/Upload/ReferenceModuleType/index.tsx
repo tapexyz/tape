@@ -112,7 +112,7 @@ const ReferenceModuleType = () => {
               )}
             </button>
           </div>
-          <Tooltip content="Channels you subscribed, their subscriptions and so on upto 4 levels can comment and mirror">
+          <Tooltip content="Channels you subscribed, their subscriptions and so on upto 2 levels can comment and mirror">
             <button
               type="button"
               onClick={() =>
@@ -121,7 +121,7 @@ const ReferenceModuleType = () => {
                   degreesOfSeparationReferenceModule: {
                     commentsRestricted: true,
                     mirrorsRestricted: true,
-                    degreesOfSeparation: 4
+                    degreesOfSeparation: 2
                   }
                 })
               }
@@ -131,15 +131,15 @@ const ReferenceModuleType = () => {
                   '!border-indigo-500':
                     uploadedVideo.referenceModule
                       ?.degreesOfSeparationReferenceModule
-                      ?.degreesOfSeparation === 4
+                      ?.degreesOfSeparation === 2
                 }
               )}
             >
               <span>
-                My subscriptions and channels 4 degrees away in their network
+                My subscriptions and channels 2 degrees away in their network
               </span>
               {uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
-                ?.degreesOfSeparation === 4 && (
+                ?.degreesOfSeparation === 2 && (
                 <AiOutlineCheck className="flex-none" />
               )}
             </button>
