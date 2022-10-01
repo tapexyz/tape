@@ -3,13 +3,15 @@ import Popover from '@components/UIElements/Popover'
 import { HIDE_PUBLICATION } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { getPermanentVideoUrl } from '@utils/functions/getVideoUrl'
 import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
 import clsx from 'clsx'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineDelete } from 'react-icons/ai'
-import { FiFlag } from 'react-icons/fi'
+import { FiExternalLink, FiFlag } from 'react-icons/fi'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { MdOutlineWatchLater } from 'react-icons/md'
 import { RiShareForwardLine } from 'react-icons/ri'
@@ -71,16 +73,14 @@ const VideoOptions = ({
     >
       <div className="p-1 mt-0.5 overflow-hidden border border-gray-200 rounded-lg shadow dark:border-gray-800 bg-secondary">
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
-          {isVideoOwner && (
-            <button
-              type="button"
-              onClick={() => onHideVideo()}
-              className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg text-red-500 opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
-            >
-              <AiOutlineDelete className="text-base" />
-              <span className="whitespace-nowrap">Delete</span>
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={() => setShowShare(true)}
+            className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
+            <RiShareForwardLine className="text-base" />
+            <span className="whitespace-nowrap">Share</span>
+          </button>
           <button
             type="button"
             onClick={() =>
@@ -97,14 +97,24 @@ const VideoOptions = ({
                 : 'Watch Later'}
             </span>
           </button>
-          <button
-            type="button"
-            onClick={() => setShowShare(true)}
-            className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            <RiShareForwardLine className="text-base" />
-            <span className="whitespace-nowrap">Share</span>
-          </button>
+          {isVideoOwner && (
+            <>
+              <Link href={getPermanentVideoUrl(video)} target="_blank">
+                <div className="flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <FiExternalLink className="text-base" />
+                  <span className="whitespace-nowrap">Raw Video</span>
+                </div>
+              </Link>
+              <button
+                type="button"
+                onClick={() => onHideVideo()}
+                className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg text-red-500 opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
+              >
+                <AiOutlineDelete className="text-base" />
+                <span className="whitespace-nowrap">Delete</span>
+              </button>
+            </>
+          )}
           <button
             type="button"
             onClick={() => setShowReport(true)}
