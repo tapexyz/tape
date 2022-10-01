@@ -185,7 +185,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         <input
           id="choosePfp"
           type="file"
-          accept=".png, .jpg, .jpeg, .svg"
+          accept=".png, .jpg, .jpeg, .svg, .gif"
           className="hidden w-full"
           onChange={onPfpUpload}
         />
