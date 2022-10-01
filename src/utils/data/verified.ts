@@ -2,6 +2,7 @@ import { IS_MAINNET } from '@utils/constants'
 
 export const VERIFIED_CHANNELS = IS_MAINNET
   ? [
+      '0x28a2', // nader.lens
       '0xeca7', // ethdaily.lens
       '0xad5d', // zerion.lens
       '0xb17c', // perpetual.lens
