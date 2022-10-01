@@ -43,7 +43,8 @@ const Bytes = () => {
       request,
       reactionRequest: selectedChannel
         ? { profileId: selectedChannel?.id }
-        : null
+        : null,
+      channelId: selectedChannel?.id ?? null
     },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
