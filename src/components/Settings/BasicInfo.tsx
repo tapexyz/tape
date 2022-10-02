@@ -37,7 +37,6 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
 import {
-  Attribute,
   CreatePublicSetProfileMetadataUriRequest,
   MediaSet,
   Profile,
@@ -64,6 +63,7 @@ const formSchema = z.object({
     .min(5, { message: 'Description should be atleast 5 characters' })
     .max(1000, { message: 'Description should not exceed 1000 characters' }),
   twitter: z.string(),
+  location: z.string(),
   website: z
     .string()
     .url({ message: 'Enter valid website URL (eg. https://lenstube.xyz)' })
@@ -85,6 +85,7 @@ const BasicInfo = ({ channel }: Props) => {
     defaultValues: {
       displayName: channel.name || '',
       description: channel.bio || '',
+      location: getValueFromKeyInAttributes(channel?.attributes, 'location'),
       twitter: getValueFromKeyInAttributes(channel?.attributes, 'twitter'),
       website: getValueFromKeyInAttributes(channel?.attributes, 'website')
     }
@@ -214,11 +215,7 @@ const BasicInfo = ({ channel }: Props) => {
             displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'location',
             key: 'location',
-            value:
-              getValueFromKeyInAttributes(
-                channel.attributes as Attribute[],
-                'location'
-              ) || ''
+            value: data.location
           },
           {
             displayType: PublicationMetadataDisplayTypes.String,
@@ -361,6 +358,14 @@ const BasicInfo = ({ channel }: Props) => {
           placeholder="https://johndoe.xyz"
           {...register('website')}
           validationError={errors.website?.message}
+        />
+      </div>
+      <div className="mt-4">
+        <Input
+          label="Location"
+          placeholder="Metaverse"
+          {...register('location')}
+          validationError={errors.location?.message}
         />
       </div>
       <div className="flex justify-end mt-4">
