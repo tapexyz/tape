@@ -38,15 +38,21 @@ Lenstube is a decentralized video-sharing social media platform, built using Len
 
 For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://lenstube.xyz/discord).
 
-## Contributing
+## Getting Started
 
-We love your input! Please check out the [Contributing guide](/CONTRIBUTING.md) for guidelines.
+To get started with `lenstube` development, run the following commands:
 
-## Local Setup
 
 ```
 cp .env.example .env
+```
+
+Install all dependencies,
+```
 yarn install
+```
+Start the application,
+```
 yarn dev
 ```
 
@@ -54,11 +60,25 @@ and visit http://localhost:4783
 
 ## Others
 
-- [Lenstube Embeds](https://github.com/lenstube-xyz/embed)
 - [Lenstube Assets](https://github.com/lenstube-xyz/assets)
+- [Lenstube Embeds](https://github.com/lenstube-xyz/embed)
+
+
+## Contributors
+
+We love contributors! Feel free to contribute to this project but please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or PR so you understand the branching strategy and local development environment.
+
+<a href="https://github.com/lenstube-xyz/lenstube/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=lenstube-xyz/lenstube" />
+</a>
 
 ## License
 
 Lenstube is open-sourced software licensed under the [MIT license](LICENSE).
 
-[![](https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg)](https://vercel.com/?utm_source=Lenstube&utm_campaign=oss)
+
+<p>
+<a rel="noopener noreferrer" target="_blank" href="https://vercel.com/?utm_source=Lenstube&utm_campaign=oss">
+<img height="34px" src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg" alt="Powered by vercel">
+</a>
+</p>
