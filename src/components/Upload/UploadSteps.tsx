@@ -166,6 +166,105 @@ const UploadSteps = () => {
     }
   }
 
+  const createPublication = async ({
+    videoSource,
+    playbackId
+  }: {
+    videoSource: string
+    playbackId: string
+  }) => {
+    try {
+      setUploadedVideo({
+        buttonText: 'Storing metadata...',
+        loading: true
+      })
+      uploadedVideo.playbackId = playbackId
+      uploadedVideo.videoSource = videoSource
+      const media: Array<PublicationMetadataMediaInput> = [
+        {
+          item: uploadedVideo.videoSource,
+          type: uploadedVideo.videoType
+        }
+      ]
+      const attributes: MetadataAttributeInput[] = [
+        {
+          displayType: PublicationMetadataDisplayTypes.String,
+          traitType: 'publication',
+          value: 'video'
+        },
+        {
+          displayType: PublicationMetadataDisplayTypes.String,
+          traitType: 'handle',
+          value: `${selectedChannel?.handle}`
+        },
+        {
+          displayType: PublicationMetadataDisplayTypes.String,
+          traitType: 'app',
+          value: LENSTUBE_APP_ID
+        }
+      ]
+      if (uploadedVideo.playbackId) {
+        media.push({
+          item: `${VIDEO_CDN_URL}/asset/${uploadedVideo.playbackId}/video`,
+          type: uploadedVideo.videoType
+        })
+      }
+      if (uploadedVideo.durationInSeconds) {
+        attributes.push({
+          displayType: PublicationMetadataDisplayTypes.String,
+          traitType: 'durationInSeconds',
+          value: uploadedVideo.durationInSeconds.toString()
+        })
+      }
+      const isBytesVideo = checkIsBytesVideo(uploadedVideo.description)
+      const metadata: PublicationMetadataV2Input = {
+        version: '2.0.0',
+        metadata_id: uuidv4(),
+        description: trimify(uploadedVideo.description),
+        content: trimify(
+          `${uploadedVideo.title}\n\n${uploadedVideo.description}`
+        ),
+        locale: getUserLocale(),
+        tags: [uploadedVideo.videoCategory.tag],
+        mainContentFocus: PublicationMainFocus.Video,
+        external_url: LENSTUBE_URL,
+        animation_url: uploadedVideo.videoSource,
+        image: uploadedVideo.thumbnail,
+        imageMimeType: uploadedVideo.thumbnailType,
+        name: trimify(uploadedVideo.title),
+        attributes,
+        media,
+        appId: isBytesVideo ? LENSTUBE_BYTES_APP_ID : LENSTUBE_APP_ID
+      }
+      if (uploadedVideo.isSensitiveContent) {
+        metadata.contentWarning = PublicationContentWarning.Sensitive
+      }
+      const { url } = await uploadToAr(metadata)
+      setUploadedVideo({
+        buttonText: 'Posting video...',
+        loading: true
+      })
+      const request = {
+        profileId: selectedChannel?.id,
+        contentURI: url,
+        collectModule: getCollectModule(uploadedVideo.collectModule),
+        referenceModule: {
+          followerOnlyReferenceModule: uploadedVideo.disableComments
+        }
+      }
+      if (isBytesVideo) {
+        Mixpanel.track(TRACK.UPLOADED_BYTE_VIDEO)
+      }
+      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+      if (!canUseDispatcher) {
+        return signTypedData(request)
+      }
+      await createViaDispatcher(request)
+    } catch (error) {
+      logger.error('[Error Store & Post Video]', error)
+    }
+  }
+
   const uploadVideoToIpfs = async () => {
     const result = await uploadMediaToIPFS(
       uploadedVideo.file as File,
@@ -302,105 +401,6 @@ const UploadSteps = () => {
     })
     if (!data?.createPostViaDispatcher?.txId) {
       signTypedData(request)
-    }
-  }
-
-  const createPublication = async ({
-    videoSource,
-    playbackId
-  }: {
-    videoSource: string
-    playbackId: string
-  }) => {
-    try {
-      setUploadedVideo({
-        buttonText: 'Storing metadata...',
-        loading: true
-      })
-      uploadedVideo.playbackId = playbackId
-      uploadedVideo.videoSource = videoSource
-      const media: Array<PublicationMetadataMediaInput> = [
-        {
-          item: uploadedVideo.videoSource,
-          type: uploadedVideo.videoType
-        }
-      ]
-      const attributes: MetadataAttributeInput[] = [
-        {
-          displayType: PublicationMetadataDisplayTypes.String,
-          traitType: 'publication',
-          value: 'video'
-        },
-        {
-          displayType: PublicationMetadataDisplayTypes.String,
-          traitType: 'handle',
-          value: `${selectedChannel?.handle}`
-        },
-        {
-          displayType: PublicationMetadataDisplayTypes.String,
-          traitType: 'app',
-          value: LENSTUBE_APP_ID
-        }
-      ]
-      if (uploadedVideo.playbackId) {
-        media.push({
-          item: `${VIDEO_CDN_URL}/asset/${uploadedVideo.playbackId}/video`,
-          type: uploadedVideo.videoType
-        })
-      }
-      if (uploadedVideo.durationInSeconds) {
-        attributes.push({
-          displayType: PublicationMetadataDisplayTypes.String,
-          traitType: 'durationInSeconds',
-          value: uploadedVideo.durationInSeconds.toString()
-        })
-      }
-      const isBytesVideo = checkIsBytesVideo(uploadedVideo.description)
-      const metadata: PublicationMetadataV2Input = {
-        version: '2.0.0',
-        metadata_id: uuidv4(),
-        description: trimify(uploadedVideo.description),
-        content: trimify(
-          `${uploadedVideo.title}\n\n${uploadedVideo.description}`
-        ),
-        locale: getUserLocale(),
-        tags: [uploadedVideo.videoCategory.tag],
-        mainContentFocus: PublicationMainFocus.Video,
-        external_url: LENSTUBE_URL,
-        animation_url: uploadedVideo.videoSource,
-        image: uploadedVideo.thumbnail,
-        imageMimeType: uploadedVideo.thumbnailType,
-        name: trimify(uploadedVideo.title),
-        attributes,
-        media,
-        appId: isBytesVideo ? LENSTUBE_BYTES_APP_ID : LENSTUBE_APP_ID
-      }
-      if (uploadedVideo.isSensitiveContent) {
-        metadata.contentWarning = PublicationContentWarning.Sensitive
-      }
-      const { url } = await uploadToAr(metadata)
-      setUploadedVideo({
-        buttonText: 'Posting video...',
-        loading: true
-      })
-      const request = {
-        profileId: selectedChannel?.id,
-        contentURI: url,
-        collectModule: getCollectModule(uploadedVideo.collectModule),
-        referenceModule: {
-          followerOnlyReferenceModule: uploadedVideo.disableComments
-        }
-      }
-      if (isBytesVideo) {
-        Mixpanel.track(TRACK.UPLOADED_BYTE_VIDEO)
-      }
-      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
-      if (!canUseDispatcher) {
-        return signTypedData(request)
-      }
-      await createViaDispatcher(request)
-    } catch (error) {
-      logger.error('[Error Store & Post Video]', error)
     }
   }
 
