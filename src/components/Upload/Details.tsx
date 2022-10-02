@@ -183,25 +183,6 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               />
             </div>
           </div>
-          <div className="flex mt-6">
-            <input
-              id="default-checkbox"
-              type="checkbox"
-              checked={watch('acceptTerms')}
-              onChange={(e) => {
-                setValue('acceptTerms', e.target.checked)
-              }}
-              value=""
-              required
-              className="w-4 h-4 mt-[1px] text-indigo-600 bg-gray-100 border-gray-300 rounded-lg focus:outline-none dark:bg-gray-700 dark:border-gray-600"
-            />
-            <label
-              htmlFor="default-checkbox"
-              className="ml-2 text-sm opacity-80"
-            >
-              I own the content and it does not contain illegal information.
-            </label>
-          </div>
         </div>
         <div className="flex flex-col items-start justify-between">
           <Video />
