@@ -18,6 +18,7 @@ export type VideoDraft = {
   title: string
   description: string
 }
+
 export type BundlrDataState = {
   instance: WebBundlr | null
   balance: string
@@ -32,6 +33,29 @@ export type FileReaderStreamType = NodeJS.ReadableStream & {
   size: number
   type: string
   lastModified: string
+}
+
+export type CollectModuleType = {
+  isTimedFeeCollect?: boolean
+  isFreeCollect?: boolean
+  isFeeCollect?: boolean
+  isRevertCollect?: boolean
+  isLimitedFeeCollect?: boolean
+  isLimitedTimeFeeCollect?: boolean
+  amount?: { currency?: string; value: string }
+  referralFee?: number
+  collectLimit?: string
+  followerOnlyCollect?: boolean
+  recipient?: string
+}
+
+export type ReferenceModuleType = {
+  followerOnlyReferenceModule: boolean
+  degreesOfSeparationReferenceModule?: {
+    commentsRestricted: boolean
+    mirrorsRestricted: boolean
+    degreesOfSeparation: number
+  }
 }
 
 export type UploadedVideo = {
@@ -59,38 +83,15 @@ export type UploadedVideo = {
   isNSFWThumbnail: boolean
 }
 
-export type ReferenceModuleType = {
-  followerOnlyReferenceModule: boolean
-  degreesOfSeparationReferenceModule?: {
-    commentsRestricted: boolean
-    mirrorsRestricted: boolean
-    degreesOfSeparation: number
-  }
-}
-
-export type CollectModuleType = {
-  isTimedFeeCollect?: boolean
-  isFreeCollect?: boolean
-  isFeeCollect?: boolean
-  isRevertCollect?: boolean
-  isLimitedFeeCollect?: boolean
-  isLimitedTimeFeeCollect?: boolean
-  amount?: { currency?: string; value: string }
-  referralFee?: number
-  collectLimit?: string
-  followerOnlyCollect?: boolean
-  recipient?: string
+export type HLSData = {
+  hrn: string
+  url: string
+  type: string
 }
 
 export type LenstubePublication = Post & Comment & Mirror & { hls: HLSData }
 
 export type IPFSUploadResult = {
-  url: string
-  type: string
-}
-
-export type HLSData = {
-  hrn: string
   url: string
   type: string
 }
