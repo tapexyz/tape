@@ -116,19 +116,15 @@ const VideoComments: FC<Props> = ({ video }) => {
       {data?.publications?.items.length === 0 && (
         <NoDataFound text="Be the first to comment." />
       )}
-      {video?.canComment ? (
-        video.profile.isFollowedByMe ? (
-          <NewComment video={video} refetchComments={() => refetchComments()} />
-        ) : (
-          <Alert variant="warning">
-            <span className="text-sm">
-              Only {isMembership ? 'members' : 'subscribers'} can comment on
-              this publication
-            </span>
-          </Alert>
-        )
-      ) : (
+      {video?.canComment.result ? (
         <NewComment video={video} refetchComments={() => refetchComments()} />
+      ) : (
+        <Alert variant="warning">
+          <span className="text-sm">
+            Only {isMembership ? 'members' : 'subscribers'} can comment on this
+            publication
+          </span>
+        </Alert>
       )}
       {!error && !loading && (
         <>

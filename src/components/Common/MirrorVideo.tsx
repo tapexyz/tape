@@ -153,7 +153,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     await createViaDispatcher(request)
   }
 
-  if (video?.canMirror) return null
+  if (!video?.canMirror.result) return null
 
   return (
     <Tooltip placement="top-start" content="Mirror video across Lens">
