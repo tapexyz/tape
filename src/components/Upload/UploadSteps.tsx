@@ -302,12 +302,8 @@ const UploadSteps = () => {
         buttonText: 'Posting video...',
         loading: true
       })
-      console.log(
-        '🚀 ~ file: UploadSteps.tsx ~ line 396 ~ UploadSteps ~ uploadedVideo',
-        uploadedVideo
-      )
 
-      const referenceModuleDOS = {
+      const referenceModuleDegrees = {
         commentsRestricted:
           !!uploadedVideo.referenceModule.degreesOfSeparationReferenceModule
             ?.degreesOfSeparation,
@@ -327,7 +323,7 @@ const UploadSteps = () => {
             uploadedVideo.referenceModule.followerOnlyReferenceModule,
           degreesOfSeparationReferenceModule: uploadedVideo?.referenceModule
             ?.degreesOfSeparationReferenceModule
-            ? referenceModuleDOS
+            ? referenceModuleDegrees
             : null
         }
       }
