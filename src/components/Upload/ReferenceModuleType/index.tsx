@@ -112,7 +112,7 @@ const ReferenceModuleType = () => {
               )}
             </button>
           </div>
-          <Tooltip content="Channels you subscribed, their subscriptions and so on upto 3 levels can comment and mirror">
+          <Tooltip content="Channels you subscribed, their subscriptions and so on upto 3 levels can comment and mirror to reduce spams.">
             <button
               type="button"
               onClick={() =>
@@ -136,7 +136,7 @@ const ReferenceModuleType = () => {
               )}
             >
               <span>
-                My subscriptions and channels 3 degrees away in their network
+                My subscriptions and their subscibers, so on upto 3 degrees
               </span>
               {uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
                 ?.degreesOfSeparation === 3 && (
