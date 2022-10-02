@@ -305,13 +305,13 @@ const UploadSteps = () => {
 
       const referenceModuleDegrees = {
         commentsRestricted:
-          !!uploadedVideo.referenceModule.degreesOfSeparationReferenceModule
+          !!uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
             ?.degreesOfSeparation,
         mirrorsRestricted:
-          !!uploadedVideo.referenceModule.degreesOfSeparationReferenceModule
+          !!uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
             ?.degreesOfSeparation,
         degreesOfSeparation: uploadedVideo.referenceModule
-          .degreesOfSeparationReferenceModule?.degreesOfSeparation as number
+          ?.degreesOfSeparationReferenceModule?.degreesOfSeparation as number
       }
 
       const request = {
@@ -320,8 +320,8 @@ const UploadSteps = () => {
         collectModule: getCollectModule(uploadedVideo.collectModule),
         referenceModule: {
           followerOnlyReferenceModule:
-            uploadedVideo.referenceModule.followerOnlyReferenceModule,
-          degreesOfSeparationReferenceModule: uploadedVideo?.referenceModule
+            uploadedVideo.referenceModule?.followerOnlyReferenceModule,
+          degreesOfSeparationReferenceModule: uploadedVideo.referenceModule
             ?.degreesOfSeparationReferenceModule
             ? referenceModuleDegrees
             : null
