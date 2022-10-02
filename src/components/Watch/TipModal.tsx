@@ -86,7 +86,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error.message)
     setLoading(false)
-    setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
+    setButtonText(`Send ${Number(watchTipQuantity) * 1} MATIC`)
   }
 
   const { config: prepareTxn } = usePrepareSendTransaction({
@@ -130,7 +130,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   useEffect(() => {
     if (indexed) {
       setLoading(false)
-      setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
+      setButtonText(`Send ${Number(watchTipQuantity) * 1} MATIC`)
       toast.success('Tipped successfully.')
       setShowTip(false)
     }
@@ -270,7 +270,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
     setButtonText('Sending...')
-    const amountToSend = getValues('tipQuantity') * 1
+    const amountToSend = Number(getValues('tipQuantity')) * 1
     try {
       const data = await sendTransactionAsync?.({
         recklesslySetUnpreparedRequest: {
@@ -282,7 +282,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       if (data?.hash) await submitComment(data.hash)
     } catch (error) {
       setLoading(false)
-      setButtonText(`Send ${watchTipQuantity * 1} MATIC`)
+      setButtonText(`Send ${Number(watchTipQuantity)* 1} MATIC`)
       logger.error('[Error Send Tip]', error)
     }
   }
@@ -349,7 +349,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
             {buttonText
               ? buttonText
               : `Send ${
-                  isNaN(watchTipQuantity * 1) ? 0 : watchTipQuantity * 1
+                  isNaN(Number(watchTipQuantity) * 1) ? 0 : Number(watchTipQuantity) * 1
                 } MATIC`}
           </Button>
         </div>
