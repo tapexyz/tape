@@ -5,7 +5,7 @@ const getUserLocale = () => {
     navigator.languages && navigator.languages?.length
       ? navigator.languages[0]
       : navigator.language
-  logger.log('[LOG => USER LOCALE]', JSON.stringify(locale))
+  logger.log('[LOG => USER LOCALE]', locale)
   return 'en'
 }
 

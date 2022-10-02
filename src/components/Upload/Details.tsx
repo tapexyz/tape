@@ -14,6 +14,7 @@ import { z } from 'zod'
 
 import Category from './Category'
 import CollectModuleType from './CollectModuleType'
+import ReferenceModuleType from './ReferenceModuleType'
 import Video from './Video'
 
 const ContentAlert = ({ message }: { message: ReactNode }) => (
@@ -37,8 +38,7 @@ const formSchema = z.object({
     .string()
     .trim()
     .max(5000, { message: 'Description should not exceed 5000 characters' }),
-  isSensitiveContent: z.boolean(),
-  disableComments: z.boolean()
+  isSensitiveContent: z.boolean()
 })
 
 export type VideoFormData = z.infer<typeof formSchema>
@@ -63,7 +63,6 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       isSensitiveContent: uploadedVideo.isSensitiveContent ?? false,
-      disableComments: uploadedVideo.disableComments ?? false,
       title: uploadedVideo.title,
       description: uploadedVideo.description
     }
@@ -154,15 +153,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               <Category />
             </div>
             <div className="mt-4">
-              <RadioInput
-                checked={watch('disableComments')}
-                onChange={(checked) => {
-                  setValue('disableComments', checked)
-                }}
-                question={
-                  <span>Allow only subscribers to comment and mirror?</span>
-                }
-              />
+              <ReferenceModuleType />
             </div>
             <div className="mt-4">
               <RadioInput

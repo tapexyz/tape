@@ -302,12 +302,29 @@ const UploadSteps = () => {
         buttonText: 'Posting video...',
         loading: true
       })
+
+      const referenceModuleDegrees = {
+        commentsRestricted:
+          !!uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
+            ?.degreesOfSeparation,
+        mirrorsRestricted:
+          !!uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
+            ?.degreesOfSeparation,
+        degreesOfSeparation: uploadedVideo.referenceModule
+          ?.degreesOfSeparationReferenceModule?.degreesOfSeparation as number
+      }
+
       const request = {
         profileId: selectedChannel?.id,
         contentURI: url,
         collectModule: getCollectModule(uploadedVideo.collectModule),
         referenceModule: {
-          followerOnlyReferenceModule: uploadedVideo.disableComments
+          followerOnlyReferenceModule:
+            uploadedVideo.referenceModule?.followerOnlyReferenceModule,
+          degreesOfSeparationReferenceModule: uploadedVideo.referenceModule
+            ?.degreesOfSeparationReferenceModule
+            ? referenceModuleDegrees
+            : null
         }
       }
       if (isBytesVideo) {
@@ -399,7 +416,8 @@ const UploadSteps = () => {
       toast.error('Failed to upload video!')
       logger.error('[Error Bundlr Upload Video]', error)
       setUploadedVideo({
-        loading: false
+        loading: false,
+        buttonText: 'Post Video'
       })
     }
   }
@@ -408,7 +426,6 @@ const UploadSteps = () => {
     uploadedVideo.title = data.title
     uploadedVideo.description = data.description
     uploadedVideo.isSensitiveContent = data.isSensitiveContent
-    uploadedVideo.disableComments = data.disableComments
     setUploadedVideo({ ...uploadedVideo })
     if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail)
       return toast.error('NSFW content not allowed')

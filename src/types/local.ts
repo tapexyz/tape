@@ -18,6 +18,7 @@ export type VideoDraft = {
   title: string
   description: string
 }
+
 export type BundlrDataState = {
   instance: WebBundlr | null
   balance: string
@@ -48,6 +49,15 @@ export type CollectModuleType = {
   recipient?: string
 }
 
+export type ReferenceModuleType = {
+  followerOnlyReferenceModule: boolean
+  degreesOfSeparationReferenceModule?: {
+    commentsRestricted: boolean
+    mirrorsRestricted: boolean
+    degreesOfSeparation: number
+  } | null
+}
+
 export type UploadedVideo = {
   stream: FileReaderStreamType | null
   preview: string
@@ -68,7 +78,7 @@ export type UploadedVideo = {
   buttonText: string
   durationInSeconds: string | null
   collectModule: CollectModuleType
-  disableComments: boolean
+  referenceModule: ReferenceModuleType
   isNSFW: boolean
   isNSFWThumbnail: boolean
 }
