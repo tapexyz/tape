@@ -282,7 +282,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       if (data?.hash) await submitComment(data.hash)
     } catch (error) {
       setLoading(false)
-      setButtonText(`Send ${Number(watchTipQuantity)* 1} MATIC`)
+      setButtonText(`Send ${Number(watchTipQuantity) * 1} MATIC`)
       logger.error('[Error Send Tip]', error)
     }
   }
@@ -349,7 +349,9 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
             {buttonText
               ? buttonText
               : `Send ${
-                  isNaN(Number(watchTipQuantity) * 1) ? 0 : Number(watchTipQuantity) * 1
+                  isNaN(Number(watchTipQuantity) * 1)
+                    ? 0
+                    : Number(watchTipQuantity) * 1
                 } MATIC`}
           </Button>
         </div>
