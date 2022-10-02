@@ -38,10 +38,7 @@ const formSchema = z.object({
     .trim()
     .max(5000, { message: 'Description should not exceed 5000 characters' }),
   isSensitiveContent: z.boolean(),
-  disableComments: z.boolean(),
-  acceptTerms: z.boolean({
-    invalid_type_error: 'You must accept Terms'
-  })
+  disableComments: z.boolean()
 })
 
 export type VideoFormData = z.infer<typeof formSchema>
@@ -66,7 +63,6 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       isSensitiveContent: uploadedVideo.isSensitiveContent ?? false,
-      acceptTerms: false,
       disableComments: uploadedVideo.disableComments ?? false,
       title: uploadedVideo.title,
       description: uploadedVideo.description
