@@ -166,87 +166,6 @@ const UploadSteps = () => {
     }
   }
 
-  const uploadVideoToIpfs = async () => {
-    const result = await uploadMediaToIPFS(
-      uploadedVideo.file as File,
-      (percentCompleted) => {
-        setUploadedVideo({
-          buttonText: 'Uploading to IPFS...',
-          loading: true,
-          percent: percentCompleted
-        })
-      }
-    )
-    if (!result.url) return toast.error('IPFS Upload failed!')
-    const playbackId = await getPlaybackId(sanitizeIpfsUrl(result.url))
-    setUploadedVideo({
-      percent: 100,
-      videoSource: result.url,
-      playbackId
-    })
-    Mixpanel.track(TRACK.UPLOADED_TO_IPFS)
-    return createPublication({
-      videoSource: result.url,
-      playbackId
-    })
-  }
-
-  const uploadToBundlr = async () => {
-    if (!bundlrData.instance) return await initBundlr()
-    if (!uploadedVideo.stream)
-      return toast.error('Video not uploaded correctly.')
-    if (parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice))
-      return toast.error('Insufficient balance')
-    try {
-      setUploadedVideo({
-        loading: true,
-        buttonText: 'Uploading to Arweave...'
-      })
-      const bundlr = bundlrData.instance
-      const tags = [
-        { name: 'Content-Type', value: 'video/mp4' },
-        { name: 'App-Name', value: APP_NAME }
-      ]
-      const uploader = bundlr.uploader.chunkedUploader
-      uploader.setChunkSize(10000000) // 10 MB
-      uploader.on('chunkUpload', (chunkInfo) => {
-        const fileSize = uploadedVideo?.file?.size as number
-        const percentCompleted = Math.round(
-          (chunkInfo.totalUploaded * 100) / fileSize
-        )
-        setUploadedVideo({
-          loading: true,
-          percent: percentCompleted
-        })
-      })
-      const upload = uploader.uploadData(uploadedVideo.stream as any, {
-        tags: tags
-      })
-      const response = await upload
-      setUploadedVideo({
-        loading: false
-      })
-      const playbackId = await getPlaybackId(
-        `${ARWEAVE_WEBSITE_URL}/${response.data.id}`
-      )
-      setUploadedVideo({
-        videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
-        playbackId
-      })
-      Mixpanel.track(TRACK.UPLOADED_TO_ARWEAVE)
-      return createPublication({
-        videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
-        playbackId
-      })
-    } catch (error: any) {
-      toast.error('Failed to upload video!')
-      logger.error('[Error Bundlr Upload Video]', error)
-      setUploadedVideo({
-        loading: false
-      })
-    }
-  }
-
   const [createPostTypedData] = useMutation(CREATE_POST_TYPED_DATA, {
     async onCompleted(data) {
       const { typedData, id } =
@@ -401,6 +320,87 @@ const UploadSteps = () => {
       await createViaDispatcher(request)
     } catch (error) {
       logger.error('[Error Store & Post Video]', error)
+    }
+  }
+
+  const uploadVideoToIpfs = async () => {
+    const result = await uploadMediaToIPFS(
+      uploadedVideo.file as File,
+      (percentCompleted) => {
+        setUploadedVideo({
+          buttonText: 'Uploading to IPFS...',
+          loading: true,
+          percent: percentCompleted
+        })
+      }
+    )
+    if (!result.url) return toast.error('IPFS Upload failed!')
+    const playbackId = await getPlaybackId(sanitizeIpfsUrl(result.url))
+    setUploadedVideo({
+      percent: 100,
+      videoSource: result.url,
+      playbackId
+    })
+    Mixpanel.track(TRACK.UPLOADED_TO_IPFS)
+    return createPublication({
+      videoSource: result.url,
+      playbackId
+    })
+  }
+
+  const uploadToBundlr = async () => {
+    if (!bundlrData.instance) return await initBundlr()
+    if (!uploadedVideo.stream)
+      return toast.error('Video not uploaded correctly.')
+    if (parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice))
+      return toast.error('Insufficient balance')
+    try {
+      setUploadedVideo({
+        loading: true,
+        buttonText: 'Uploading to Arweave...'
+      })
+      const bundlr = bundlrData.instance
+      const tags = [
+        { name: 'Content-Type', value: 'video/mp4' },
+        { name: 'App-Name', value: APP_NAME }
+      ]
+      const uploader = bundlr.uploader.chunkedUploader
+      uploader.setChunkSize(10000000) // 10 MB
+      uploader.on('chunkUpload', (chunkInfo) => {
+        const fileSize = uploadedVideo?.file?.size as number
+        const percentCompleted = Math.round(
+          (chunkInfo.totalUploaded * 100) / fileSize
+        )
+        setUploadedVideo({
+          loading: true,
+          percent: percentCompleted
+        })
+      })
+      const upload = uploader.uploadData(uploadedVideo.stream as any, {
+        tags: tags
+      })
+      const response = await upload
+      setUploadedVideo({
+        loading: false
+      })
+      const playbackId = await getPlaybackId(
+        `${ARWEAVE_WEBSITE_URL}/${response.data.id}`
+      )
+      setUploadedVideo({
+        videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
+        playbackId
+      })
+      Mixpanel.track(TRACK.UPLOADED_TO_ARWEAVE)
+      return createPublication({
+        videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
+        playbackId
+      })
+    } catch (error: any) {
+      toast.error('Failed to upload video!')
+      logger.error('[Error Bundlr Upload Video]', error)
+      setUploadedVideo({
+        loading: false
+      })
     }
   }
 
