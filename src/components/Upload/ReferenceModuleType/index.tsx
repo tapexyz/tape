@@ -130,7 +130,7 @@ const ReferenceModuleType = () => {
               )}
             >
               <span>
-                My subscriptions and their subscibers, so on upto 3 degrees
+                My subscriptions and their subscribers, so on upto 3 degrees
               </span>
               {uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
                 ?.degreesOfSeparation === 3 && (

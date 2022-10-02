@@ -420,7 +420,8 @@ const UploadSteps = () => {
       toast.error('Failed to upload video!')
       logger.error('[Error Bundlr Upload Video]', error)
       setUploadedVideo({
-        loading: false
+        loading: false,
+        buttonText: 'Post Video'
       })
     }
   }
