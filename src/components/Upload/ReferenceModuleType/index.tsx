@@ -1,6 +1,5 @@
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
-import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import React, { useState } from 'react'
@@ -31,8 +30,21 @@ const ReferenceModuleType = () => {
       degreesOfSeparationReferenceModule &&
       degreesOfSeparationReferenceModule.degreesOfSeparation < 5
     ) {
-      return 'Only channels that I subscribed to and their network'
+      return `Channels subscribed upto ${degreesOfSeparationReferenceModule.degreesOfSeparation} degrees away from my network`
     }
+  }
+
+  const onSelectReferenceDegree = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setReferenceType({
+      followerOnlyReferenceModule: false,
+      degreesOfSeparationReferenceModule: {
+        commentsRestricted: true,
+        mirrorsRestricted: true,
+        degreesOfSeparation: Number(event.target.value)
+      }
+    })
   }
 
   return (
@@ -51,7 +63,7 @@ const ReferenceModuleType = () => {
         <AiOutlineCheck />
       </button>
       <Modal
-        title="Who can comment or mirror this publication?"
+        title="Who can comment and mirror this publication?"
         panelClassName="max-w-lg"
         onClose={() => setShowModal(false)}
         show={showModal}
@@ -96,48 +108,70 @@ const ReferenceModuleType = () => {
                 'flex items-center text-left justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
                 {
                   '!border-indigo-500':
-                    uploadedVideo.referenceModule?.followerOnlyReferenceModule
+                    uploadedVideo.referenceModule
+                      ?.followerOnlyReferenceModule &&
+                    !uploadedVideo.referenceModule
+                      ?.degreesOfSeparationReferenceModule
                 }
               )}
             >
               <span>Only my subscribers</span>
-              {uploadedVideo.referenceModule?.followerOnlyReferenceModule && (
-                <AiOutlineCheck className="flex-none" />
-              )}
+              {uploadedVideo.referenceModule?.followerOnlyReferenceModule &&
+                !uploadedVideo.referenceModule
+                  ?.degreesOfSeparationReferenceModule && (
+                  <AiOutlineCheck className="flex-none" />
+                )}
             </button>
           </div>
-          <Tooltip content="Channels you subscribed, their subscriptions and so on upto 3 levels can comment and mirror to reduce spams.">
-            <button
-              type="button"
-              onClick={() =>
-                setReferenceType({
-                  followerOnlyReferenceModule: false,
-                  degreesOfSeparationReferenceModule: {
-                    commentsRestricted: true,
-                    mirrorsRestricted: true,
-                    degreesOfSeparation: 3
-                  }
-                })
-              }
-              className={clsx(
-                'flex items-center text-left justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
-                {
-                  '!border-indigo-500':
+          <button
+            type="button"
+            onClick={() =>
+              setReferenceType({
+                followerOnlyReferenceModule: false,
+                degreesOfSeparationReferenceModule: {
+                  commentsRestricted: true,
+                  mirrorsRestricted: true,
+                  degreesOfSeparation:
                     uploadedVideo.referenceModule
                       ?.degreesOfSeparationReferenceModule
-                      ?.degreesOfSeparation === 3
+                      ?.degreesOfSeparation ?? 3
                 }
-              )}
-            >
-              <span>
-                My subscriptions and their subscribers, so on upto 3 degrees
-              </span>
-              {uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
-                ?.degreesOfSeparation === 3 && (
-                <AiOutlineCheck className="flex-none" />
-              )}
-            </button>
-          </Tooltip>
+              })
+            }
+            className={clsx(
+              'flex items-center text-left justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+              {
+                '!border-indigo-500':
+                  uploadedVideo.referenceModule
+                    ?.degreesOfSeparationReferenceModule !== null
+              }
+            )}
+          >
+            <span className="max-w-[95%]">
+              Only channels that I subscribed and their subscriptions, so on
+              upto
+              <select
+                onChange={onSelectReferenceDegree}
+                onClick={(e) => e.preventDefault()}
+                value={
+                  uploadedVideo.referenceModule
+                    ?.degreesOfSeparationReferenceModule?.degreesOfSeparation ??
+                  '3'
+                }
+                className="px-0.5 text-sm mx-1 border rounded dark:border-gray-800 focus:outline-none"
+              >
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+              degrees away from my network
+            </span>
+            {uploadedVideo.referenceModule
+              ?.degreesOfSeparationReferenceModule !== null && (
+              <AiOutlineCheck className="flex-none" />
+            )}
+          </button>
           <div className="flex justify-end">
             <Button type="button" onClick={() => setShowModal(false)}>
               Set Preference
