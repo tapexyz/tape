@@ -31,8 +31,6 @@ const VideoComments: FC<Props> = ({ video }) => {
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
-  const onlySubscribersCanComment =
-    video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
   const isMembership =
     video.profile?.followModule?.__typename === 'FeeFollowModuleSettings'
 
@@ -118,13 +116,14 @@ const VideoComments: FC<Props> = ({ video }) => {
       {data?.publications?.items.length === 0 && (
         <NoDataFound text="Be the first to comment." />
       )}
-      {onlySubscribersCanComment ? (
+      {video?.canComment ? (
         video.profile.isFollowedByMe ? (
           <NewComment video={video} refetchComments={() => refetchComments()} />
         ) : (
           <Alert variant="warning">
             <span className="text-sm">
-              Only {isMembership ? 'members' : 'subscribers'} can comment
+              Only {isMembership ? 'members' : 'subscribers'} can comment on
+              this publication
             </span>
           </Alert>
         )

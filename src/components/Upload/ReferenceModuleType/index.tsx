@@ -21,14 +21,16 @@ const ReferenceModuleType = () => {
   const getSelectedReferenceType = () => {
     const followerOnlyReferenceModule =
       uploadedVideo?.referenceModule?.followerOnlyReferenceModule
-    const degreesOfSeparation =
+    const degreesOfSeparationReferenceModule =
       uploadedVideo?.referenceModule?.degreesOfSeparationReferenceModule
-        ?.degreesOfSeparation
-    if (!followerOnlyReferenceModule && !degreesOfSeparation) {
+    if (!followerOnlyReferenceModule && !degreesOfSeparationReferenceModule) {
       return 'Anyone can comment and mirror'
     } else if (followerOnlyReferenceModule) {
       return 'Only my subscribers can comment and mirror'
-    } else if (degreesOfSeparation && degreesOfSeparation > 0) {
+    } else if (
+      degreesOfSeparationReferenceModule &&
+      degreesOfSeparationReferenceModule.degreesOfSeparation < 5
+    ) {
       return 'Only channels that I subscribed to and their network'
     }
   }
@@ -61,11 +63,7 @@ const ReferenceModuleType = () => {
               onClick={() =>
                 setReferenceType({
                   followerOnlyReferenceModule: false,
-                  degreesOfSeparationReferenceModule: {
-                    commentsRestricted: false,
-                    mirrorsRestricted: false,
-                    degreesOfSeparation: 0
-                  }
+                  degreesOfSeparationReferenceModule: null
                 })
               }
               className={clsx(
@@ -91,11 +89,7 @@ const ReferenceModuleType = () => {
               onClick={() =>
                 setReferenceType({
                   followerOnlyReferenceModule: true,
-                  degreesOfSeparationReferenceModule: {
-                    commentsRestricted: false,
-                    mirrorsRestricted: false,
-                    degreesOfSeparation: 0
-                  }
+                  degreesOfSeparationReferenceModule: null
                 })
               }
               className={clsx(

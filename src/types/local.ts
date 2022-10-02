@@ -55,7 +55,7 @@ export type ReferenceModuleType = {
     commentsRestricted: boolean
     mirrorsRestricted: boolean
     degreesOfSeparation: number
-  }
+  } | null
 }
 
 export type UploadedVideo = {

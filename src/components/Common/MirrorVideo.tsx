@@ -35,9 +35,6 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
-  const onlySubscribersCanMirror =
-    video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
-
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
@@ -156,7 +153,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
     await createViaDispatcher(request)
   }
 
-  if (onlySubscribersCanMirror && !video.profile.isFollowedByMe) return null
+  if (video?.canMirror) return null
 
   return (
     <Tooltip placement="top-start" content="Mirror video across Lens">

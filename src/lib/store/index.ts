@@ -48,11 +48,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   },
   referenceModule: {
     followerOnlyReferenceModule: false,
-    degreesOfSeparationReferenceModule: {
-      commentsRestricted: false,
-      mirrorsRestricted: false,
-      degreesOfSeparation: 0
-    }
+    degreesOfSeparationReferenceModule: null
   },
   isNSFW: false,
   isNSFWThumbnail: false

@@ -307,6 +307,17 @@ const UploadSteps = () => {
         uploadedVideo
       )
 
+      const referenceModuleDOS = {
+        commentsRestricted:
+          !!uploadedVideo.referenceModule.degreesOfSeparationReferenceModule
+            ?.degreesOfSeparation,
+        mirrorsRestricted:
+          !!uploadedVideo.referenceModule.degreesOfSeparationReferenceModule
+            ?.degreesOfSeparation,
+        degreesOfSeparation: uploadedVideo.referenceModule
+          .degreesOfSeparationReferenceModule?.degreesOfSeparation as number
+      }
+
       const request = {
         profileId: selectedChannel?.id,
         contentURI: url,
@@ -314,16 +325,10 @@ const UploadSteps = () => {
         referenceModule: {
           followerOnlyReferenceModule:
             uploadedVideo.referenceModule.followerOnlyReferenceModule,
-          degreesOfSeparationReferenceModule: {
-            commentsRestricted:
-              !!uploadedVideo.referenceModule.degreesOfSeparationReferenceModule
-                ?.degreesOfSeparation,
-            mirrorsRestricted:
-              !!uploadedVideo.referenceModule.degreesOfSeparationReferenceModule
-                ?.degreesOfSeparation,
-            degreesOfSeparation: uploadedVideo.referenceModule
-              .degreesOfSeparationReferenceModule?.degreesOfSeparation as number
-          }
+          degreesOfSeparationReferenceModule: uploadedVideo?.referenceModule
+            ?.degreesOfSeparationReferenceModule
+            ? referenceModuleDOS
+            : null
         }
       }
       if (isBytesVideo) {
