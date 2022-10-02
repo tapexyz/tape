@@ -166,6 +166,64 @@ const UploadSteps = () => {
     }
   }
 
+  const [createPostTypedData] = useMutation(CREATE_POST_TYPED_DATA, {
+    async onCompleted(data) {
+      const { typedData, id } =
+        data.createPostTypedData as CreatePostBroadcastItemResult
+      const {
+        profileId,
+        contentURI,
+        collectModule,
+        collectModuleInitData,
+        referenceModule,
+        referenceModuleInitData
+      } = typedData?.value
+      try {
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
+        })
+        const { v, r, s } = utils.splitSignature(signature)
+        const args = {
+          profileId,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleInitData,
+          sig: { v, r, s, deadline: typedData.value.deadline }
+        }
+        if (!RELAYER_ENABLED) {
+          return writePostContract?.({ recklesslySetUnpreparedArgs: args })
+        }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.reason)
+          writePostContract?.({ recklesslySetUnpreparedArgs: args })
+      } catch (error) {
+        logger.error('[Error Post Video Typed Data]', error)
+      }
+    },
+    onError
+  })
+
+  const signTypedData = (request: CreatePublicPostRequest) => {
+    createPostTypedData({
+      variables: { request }
+    })
+  }
+
+  const createViaDispatcher = async (request: CreatePublicPostRequest) => {
+    const { data } = await createPostViaDispatcher({
+      variables: { request }
+    })
+    if (!data?.createPostViaDispatcher?.txId) {
+      signTypedData(request)
+    }
+  }
+
   const createPublication = async ({
     videoSource,
     playbackId
@@ -343,64 +401,6 @@ const UploadSteps = () => {
       setUploadedVideo({
         loading: false
       })
-    }
-  }
-
-  const [createPostTypedData] = useMutation(CREATE_POST_TYPED_DATA, {
-    async onCompleted(data) {
-      const { typedData, id } =
-        data.createPostTypedData as CreatePostBroadcastItemResult
-      const {
-        profileId,
-        contentURI,
-        collectModule,
-        collectModuleInitData,
-        referenceModule,
-        referenceModuleInitData
-      } = typedData?.value
-      try {
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
-        const { v, r, s } = utils.splitSignature(signature)
-        const args = {
-          profileId,
-          contentURI,
-          collectModule,
-          collectModuleInitData,
-          referenceModule,
-          referenceModuleInitData,
-          sig: { v, r, s, deadline: typedData.value.deadline }
-        }
-        if (!RELAYER_ENABLED) {
-          return writePostContract?.({ recklesslySetUnpreparedArgs: args })
-        }
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcast?.reason)
-          writePostContract?.({ recklesslySetUnpreparedArgs: args })
-      } catch (error) {
-        logger.error('[Error Post Video Typed Data]', error)
-      }
-    },
-    onError
-  })
-
-  const signTypedData = (request: CreatePublicPostRequest) => {
-    createPostTypedData({
-      variables: { request }
-    })
-  }
-
-  const createViaDispatcher = async (request: CreatePublicPostRequest) => {
-    const { data } = await createPostViaDispatcher({
-      variables: { request }
-    })
-    if (!data?.createPostViaDispatcher?.txId) {
-      signTypedData(request)
     }
   }
 
