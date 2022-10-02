@@ -42,16 +42,18 @@ For a place to have open discussions on features, voice your ideas, or get help 
 
 To get started with `lenstube` development, run the following commands:
 
-
 ```
 cp .env.example .env
 ```
 
 Install all dependencies,
+
 ```
 yarn install
 ```
+
 Start the application,
+
 ```
 yarn dev
 ```
@@ -62,7 +64,6 @@ and visit http://localhost:4783
 
 - [Lenstube Assets](https://github.com/lenstube-xyz/assets)
 - [Lenstube Embeds](https://github.com/lenstube-xyz/embed)
-
 
 ## Contributors
 
@@ -75,7 +76,6 @@ We love contributors! Feel free to contribute to this project but please read th
 ## License
 
 Lenstube is open-sourced software licensed under the [MIT license](LICENSE).
-
 
 <p>
 <a rel="noopener noreferrer" target="_blank" href="https://vercel.com/?utm_source=Lenstube&utm_campaign=oss">
