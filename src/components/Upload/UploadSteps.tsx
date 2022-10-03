@@ -302,14 +302,13 @@ const UploadSteps = () => {
         buttonText: 'Posting video...',
         loading: true
       })
-
+      const isRestricted = Boolean(
+        uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
+          ?.degreesOfSeparation
+      )
       const referenceModuleDegrees = {
-        commentsRestricted:
-          !!uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
-            ?.degreesOfSeparation,
-        mirrorsRestricted:
-          !!uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
-            ?.degreesOfSeparation,
+        commentsRestricted: isRestricted,
+        mirrorsRestricted: isRestricted,
         degreesOfSeparation: uploadedVideo.referenceModule
           ?.degreesOfSeparationReferenceModule?.degreesOfSeparation as number
       }
