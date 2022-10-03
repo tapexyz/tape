@@ -54,11 +54,13 @@ const VideoOptions = ({
       hideVideo({ variables: { request: { publicationId: video?.id } } })
     }
   }
-  function onClickWatchLater() {
+
+  const onClickWatchLater = () => {
     isAlreadyAddedToWatchLater(video, watchLater)
       ? removeFromWatchLater(video)
       : addToWatchLater(video)
   }
+
   return (
     <Popover
       trigger={
