@@ -31,10 +31,8 @@ const VideoComments: FC<Props> = ({ video }) => {
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
-  const onlySubscribersCanComment =
+  const isFollowerOnlyReferenceModule =
     video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
-  const isMembership =
-    video.profile?.followModule?.__typename === 'FeeFollowModuleSettings'
 
   const [comments, setComments] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
@@ -118,18 +116,16 @@ const VideoComments: FC<Props> = ({ video }) => {
       {data?.publications?.items.length === 0 && (
         <NoDataFound text="Be the first to comment." />
       )}
-      {onlySubscribersCanComment ? (
-        video.profile.isFollowedByMe ? (
-          <NewComment video={video} refetchComments={() => refetchComments()} />
-        ) : (
-          <Alert variant="warning">
-            <span className="text-sm">
-              Only {isMembership ? 'members' : 'subscribers'} can comment
-            </span>
-          </Alert>
-        )
-      ) : (
+      {video?.canComment.result ? (
         <NewComment video={video} refetchComments={() => refetchComments()} />
+      ) : (
+        <Alert variant="warning">
+          <span className="text-sm">
+            {isFollowerOnlyReferenceModule
+              ? 'Only subscribers can comment on this publication'
+              : `Only subscribers within ${video.profile.handle}'s preferred network can comment`}
+          </span>
+        </Alert>
       )}
       {!error && !loading && (
         <>

@@ -19,6 +19,12 @@ export const PostFields = gql`
     referenceModule {
       __typename
     }
+    canComment(profileId: $channelId) {
+      result
+    }
+    canMirror(profileId: $channelId) {
+      result
+    }
     collectModule {
       ...CollectFields
     }

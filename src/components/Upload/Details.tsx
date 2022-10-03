@@ -14,6 +14,7 @@ import { z } from 'zod'
 
 import Category from './Category'
 import CollectModuleType from './CollectModuleType'
+import ReferenceModuleType from './ReferenceModuleType'
 import Video from './Video'
 
 const ContentAlert = ({ message }: { message: ReactNode }) => (
@@ -37,11 +38,7 @@ const formSchema = z.object({
     .string()
     .trim()
     .max(5000, { message: 'Description should not exceed 5000 characters' }),
-  isSensitiveContent: z.boolean(),
-  disableComments: z.boolean(),
-  acceptTerms: z.boolean({
-    invalid_type_error: 'You must accept Terms'
-  })
+  isSensitiveContent: z.boolean()
 })
 
 export type VideoFormData = z.infer<typeof formSchema>
@@ -66,8 +63,6 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       isSensitiveContent: uploadedVideo.isSensitiveContent ?? false,
-      acceptTerms: false,
-      disableComments: uploadedVideo.disableComments ?? false,
       title: uploadedVideo.title,
       description: uploadedVideo.description
     }
@@ -158,15 +153,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               <Category />
             </div>
             <div className="mt-4">
-              <RadioInput
-                checked={watch('disableComments')}
-                onChange={(checked) => {
-                  setValue('disableComments', checked)
-                }}
-                question={
-                  <span>Allow only subscribers to comment and mirror?</span>
-                }
-              />
+              <ReferenceModuleType />
             </div>
             <div className="mt-4">
               <RadioInput
@@ -182,25 +169,6 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 }
               />
             </div>
-          </div>
-          <div className="flex mt-6">
-            <input
-              id="default-checkbox"
-              type="checkbox"
-              checked={watch('acceptTerms')}
-              onChange={(e) => {
-                setValue('acceptTerms', e.target.checked)
-              }}
-              value=""
-              required
-              className="w-4 h-4 mt-[1px] text-indigo-600 bg-gray-100 border-gray-300 rounded-lg focus:outline-none dark:bg-gray-700 dark:border-gray-600"
-            />
-            <label
-              htmlFor="default-checkbox"
-              className="ml-2 text-sm opacity-80"
-            >
-              I own the content and it does not contain illegal information.
-            </label>
           </div>
         </div>
         <div className="flex flex-col items-start justify-between">
