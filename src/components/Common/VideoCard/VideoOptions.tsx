@@ -55,6 +55,12 @@ const VideoOptions = ({
     }
   }
 
+  const onClickWatchLater = () => {
+    isAlreadyAddedToWatchLater(video, watchLater)
+      ? removeFromWatchLater(video)
+      : addToWatchLater(video)
+  }
+
   return (
     <Popover
       trigger={
@@ -83,11 +89,7 @@ const VideoOptions = ({
           </button>
           <button
             type="button"
-            onClick={() =>
-              isAlreadyAddedToWatchLater(video, watchLater)
-                ? removeFromWatchLater(video)
-                : addToWatchLater(video)
-            }
+            onClick={() => onClickWatchLater()}
             className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <MdOutlineWatchLater className="text-base" />
