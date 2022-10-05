@@ -22,8 +22,9 @@ const uploadMediaToIPFS = async (
           Authorization: `Bearer ${authKey}`
         },
         onUploadProgress: function (progressEvent) {
+          const total = progressEvent.total ?? 0
           const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
+            (progressEvent.loaded * 100) / total
           )
           onProgress?.(percentCompleted)
         }
