@@ -2367,10 +2367,10 @@
     "@types/node" "*"
     form-data "^3.0.0"
 
-"@types/node@*", "@types/node@18.8.1":
-  version "18.8.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.8.1.tgz#33e6759935f7a82821b72fb936e66f6b99a36173"
-  integrity sha512-vuYaNuEIbOYLTLUAJh50ezEbvxrD43iby+lpUA2aa148Nh5kX/AVO/9m1Ahmbux2iU5uxJTNF9g2Y+31uml7RQ==
+"@types/node@*", "@types/node@18.8.3":
+  version "18.8.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.8.3.tgz#ce750ab4017effa51aed6a7230651778d54e327c"
+  integrity sha512-0os9vz6BpGwxGe9LOhgP/ncvYN5Tx1fNcd2TM3rD/aCGBkysb+ZWpXEocG24h6ZzOi13+VB8HndAQFezsSOw1w==
 
 "@types/node@11.11.6":
   version "11.11.6"
@@ -7318,10 +7318,10 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-hook-form@^7.36.1:
-  version "7.36.1"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.36.1.tgz#82a311fe8cbe75e689fd4529f083b7c983da6520"
-  integrity sha512-EbYYkCG2p8ywe7ikOH2l02lAFMrrrslZi1I8fqd8ifDGNAkhomHZQzQsP6ksvzrWBKntRe8b5L5L7Zsd+Gm02Q==
+react-hook-form@^7.37.0:
+  version "7.37.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.37.0.tgz#4d1738f092d3d8a3ade34ee892d97350b1032b19"
+  integrity sha512-6NFTxsnw+EXSpNNvLr5nFMjPdYKRryQcelTHg7zwBB6vAzfPIcZq4AExP4heVlwdzntepQgwiOQW4z7Mr99Lsg==
 
 react-hot-toast@^2.4.0:
   version "2.4.0"
