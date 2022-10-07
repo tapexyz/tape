@@ -24,7 +24,7 @@
     "@sentry/nextjs": "^7.14.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/line-clamp": "^0.4.2",
-    "@tensorflow/tfjs": "^3.20.0",
+    "@tensorflow/tfjs": "^3.21.0",
     "@tippyjs/react": "^4.2.6",
     "@vime/core": "^5.3.3",
     "@vime/react": "^5.3.3",
@@ -54,12 +54,12 @@
     "zustand": "^4.1.1"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.13.2",
+    "@graphql-codegen/cli": "^2.13.5",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
     "@graphql-codegen/typescript": "^2.7.3",
     "@next/bundle-analyzer": "^12.3.1",
     "@types/mixpanel-browser": "^2.38.0",
-    "@types/node": "18.8.1",
+    "@types/node": "18.8.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "@types/react-mentions": "^4.1.6",
