@@ -74,7 +74,7 @@ type FormData = z.infer<typeof formSchema>
 const BasicInfo = ({ channel }: Props) => {
   const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
-  const [imageLoading, setImageLoading] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [coverImage, setCoverImage] = useState(getCoverPicture(channel) || '')
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
@@ -173,12 +173,12 @@ const BasicInfo = ({ channel }: Props) => {
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      setImageLoading(true)
+      setUploading(true)
       const result: IPFSUploadResult = await uploadMediaToIPFS(
         e.target.files[0]
       )
       setCoverImage(result.url)
-      setImageLoading(false)
+      setUploading(false)
     }
   }
 
@@ -257,7 +257,7 @@ const BasicInfo = ({ channel }: Props) => {
       className="p-4 bg-white rounded-lg dark:bg-black"
     >
       <div className="relative flex-none w-full">
-        {imageLoading && (
+        {uploading && (
           <div className="absolute rounded-xl bg-black w-full h-full flex items-center justify-center z-10 opacity-40">
             <Loader className="-ml-5" />
           </div>
