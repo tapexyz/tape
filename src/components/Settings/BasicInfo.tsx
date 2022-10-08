@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client'
 import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
+import { Loader } from '@components/UIElements/Loader'
 import { TextArea } from '@components/UIElements/TextArea'
 import { BROADCAST_MUTATION } from '@gql/queries'
 import { CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER } from '@gql/queries/dispatcher'
@@ -81,6 +82,7 @@ type FormData = z.infer<typeof formSchema>
 const BasicInfo = ({ channel }: Props) => {
   const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [coverImage, setCoverImage] = useState(getCoverPicture(channel) || '')
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
@@ -179,10 +181,12 @@ const BasicInfo = ({ channel }: Props) => {
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
+      setUploading(true)
       const result: IPFSUploadResult = await uploadMediaToIPFS(
         e.target.files[0]
       )
       setCoverImage(result.url)
+      setUploading(false)
     }
   }
 
@@ -261,6 +265,12 @@ const BasicInfo = ({ channel }: Props) => {
       className="p-4 bg-white rounded-lg dark:bg-black"
     >
       <div className="relative flex-none w-full">
+        {uploading && (
+          <div className="absolute rounded-xl bg-black w-full h-full flex items-center justify-center z-10 opacity-40">
+            <Loader className="-ml-5" />
+          </div>
+        )}
+
         <img
           src={
             sanitizeIpfsUrl(coverImage) ??
