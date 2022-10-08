@@ -54,20 +54,28 @@ type Props = {
   }
 }
 const formSchema = z.object({
-  displayName: z
-    .string()
-    .min(4, { message: 'Name should be atleast 5 characters' })
-    .max(30, { message: 'Name should not exceed 30 characters' })
-    .optional(),
-  description: z
-    .string()
-    .min(5, { message: 'Description should be atleast 5 characters' })
-    .max(1000, { message: 'Description should not exceed 1000 characters' }),
+  displayName: z.union([
+    z
+      .string()
+      .min(4, { message: 'Name should be atleast 5 characters' })
+      .max(30, { message: 'Name should not exceed 30 characters' }),
+    z.string().max(0)
+  ]),
+  description: z.union([
+    z
+      .string()
+      .min(5, { message: 'Description should be atleast 5 characters' })
+      .max(1000, { message: 'Description should not exceed 1000 characters' }),
+    z.string().max(0)
+  ]),
   twitter: z.string(),
   location: z.string(),
-  website: z
-    .string()
-    .url({ message: 'Enter valid website URL (eg. https://lenstube.xyz)' })
+  website: z.union([
+    z
+      .string()
+      .url({ message: 'Enter valid website URL (eg. https://lenstube.xyz)' }),
+    z.string().max(0)
+  ])
 })
 type FormData = z.infer<typeof formSchema>
 
