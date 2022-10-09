@@ -39,7 +39,8 @@ const FeeCollectForm: FC<Props> = ({
     register,
     formState: { errors },
     handleSubmit,
-    unregister
+    unregister,
+    setError
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -69,6 +70,9 @@ const FeeCollectForm: FC<Props> = ({
   }
 
   const onSubmit = (data: FormData) => {
+    if (Number(data.amount) === 0) {
+      return setError('amount', { message: 'Amount should be greater than 0' })
+    }
     setCollectType({
       amount: { currency: data.currency, value: data.amount.toString() },
       referralFee: data.referralPercent,
