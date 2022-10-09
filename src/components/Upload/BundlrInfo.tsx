@@ -10,6 +10,7 @@ import {
   POLYGON_CHAIN_ID
 } from '@utils/constants'
 import useIsMounted from '@utils/hooks/useIsMounted'
+import { Mixpanel, TRACK } from '@utils/track'
 import { utils } from 'ethers'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
@@ -105,12 +106,14 @@ const BundlrInfo = () => {
     setBundlrData({ depositing: true })
     try {
       const fundResult = await bundlrData.instance.fund(value)
-      if (fundResult)
+      if (fundResult) {
         toast.success(
           `Deposit of ${utils.formatEther(
             fundResult?.quantity
           )} is done and it will be reflected in few seconds.`
         )
+        Mixpanel.track(TRACK.DEPOSIT_MATIC)
+      }
     } catch (error: any) {
       toast.error('Failed to deposit')
       logger.error('[Error Bundlr Deposit]', error)
