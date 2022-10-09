@@ -121,12 +121,6 @@ const Video = () => {
         />
       </div>
       <div className="p-1 mt-3 rounded-lg">
-        <div className="truncate">
-          <div className="text-xs font-semibold opacity-70">Name</div>
-          <span title={uploadedVideo.file?.name}>
-            {uploadedVideo.file?.name}
-          </span>
-        </div>
         {uploadedVideo.file?.size && (
           <div className="mt-4">
             <div className="text-xs font-semibold opacity-70">Size</div>
