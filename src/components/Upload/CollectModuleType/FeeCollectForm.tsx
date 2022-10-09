@@ -73,6 +73,11 @@ const FeeCollectForm: FC<Props> = ({
     if (Number(data.amount) === 0) {
       return setError('amount', { message: 'Amount should be greater than 0' })
     }
+    if (Number(data.collectLimit) === 0) {
+      return setError('collectLimit', {
+        message: 'Collect limit should be greater than 0'
+      })
+    }
     setCollectType({
       amount: { currency: data.currency, value: data.amount.toString() },
       referralFee: data.referralPercent,
@@ -91,7 +96,7 @@ const FeeCollectForm: FC<Props> = ({
             type="number"
             label="Collect Limit"
             placeholder="3"
-            min="0"
+            min="1"
             autoComplete="off"
             validationError={errors.collectLimit?.message}
             {...register('collectLimit', {
