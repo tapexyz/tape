@@ -19,7 +19,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
         <h1 className="text-white line-clamp-2">{video.metadata.name}</h1>
       </div>
       <div className="flex items-center justify-between">
-        <div>
+        <div className="min-w-0">
           <Link
             href={`/${channel?.handle}`}
             className="flex items-center flex-none space-x-2 cursor-pointer"
@@ -30,9 +30,9 @@ const BottomOverlay: FC<Props> = ({ video }) => {
               draggable={false}
               alt="channel picture"
             />
-            <div className="flex flex-col items-start text-white">
-              <h6 className="flex items-center space-x-1">
-                <span>{channel?.handle}</span>
+            <div className="flex flex-col items-start text-white min-w-0">
+              <h6 className="flex items-center space-x-1 max-w-full">
+                <span className="truncate">{channel?.handle}</span>
                 <IsVerified
                   id={channel?.id}
                   color="text-gray-300 dark:text-gray-300"
