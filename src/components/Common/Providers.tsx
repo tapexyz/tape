@@ -1,17 +1,19 @@
 import { ApolloProvider } from '@apollo/client'
 import apolloClient from '@lib/apollo'
 import {
-  APP_NAME,
-  IS_MAINNET,
-  POLYGON_CHAIN_ID,
-  POLYGON_RPC_URL
-} from '@utils/constants'
+  connectorsForWallets,
+  RainbowKitProvider
+} from '@rainbow-me/rainbowkit'
+import {
+  coinbaseWallet,
+  metaMaskWallet,
+  rainbowWallet,
+  walletConnectWallet
+} from '@rainbow-me/rainbowkit/wallets'
+import { APP_NAME, IS_MAINNET, POLYGON_RPC_URL } from '@utils/constants'
 import { ThemeProvider } from 'next-themes'
 import React, { ReactNode } from 'react'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
 const { chains, provider } = configureChains(
@@ -25,29 +27,41 @@ const { chains, provider } = configureChains(
   ]
 )
 
-const connectors = () => {
-  return [
-    new InjectedConnector({
-      chains,
-      options: {
-        shimDisconnect: true
-      }
-    }),
-    new WalletConnectConnector({
-      chains,
-      options: {
-        rpc: { [POLYGON_CHAIN_ID]: POLYGON_RPC_URL }
-      }
-    }),
-    new CoinbaseWalletConnector({
-      chains,
-      options: {
-        appName: APP_NAME,
-        jsonRpcUrl: POLYGON_RPC_URL
-      }
-    })
-  ]
-}
+const connectors = connectorsForWallets([
+  {
+    groupName: 'Recommended',
+    wallets: [
+      metaMaskWallet({ chains, shimDisconnect: true }),
+      rainbowWallet({ chains }),
+      coinbaseWallet({ appName: APP_NAME, chains }),
+      walletConnectWallet({ chains })
+    ]
+  }
+])
+
+// const connectors = () => {
+//   return [
+//     new InjectedConnector({
+//       chains,
+//       options: {
+//         shimDisconnect: true
+//       }
+//     }),
+//     new WalletConnectConnector({
+//       chains,
+//       options: {
+//         rpc: { [POLYGON_CHAIN_ID]: POLYGON_RPC_URL }
+//       }
+//     }),
+//     new CoinbaseWalletConnector({
+//       chains,
+//       options: {
+//         appName: APP_NAME,
+//         jsonRpcUrl: POLYGON_RPC_URL
+//       }
+//     })
+//   ]
+// }
 
 const wagmiClient = createClient({
   autoConnect: true,
@@ -58,11 +72,13 @@ const wagmiClient = createClient({
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <WagmiConfig client={wagmiClient}>
-      <ApolloProvider client={apolloClient}>
-        <ThemeProvider defaultTheme="light" attribute="class">
-          {children}
-        </ThemeProvider>
-      </ApolloProvider>
+      <RainbowKitProvider chains={chains}>
+        <ApolloProvider client={apolloClient}>
+          <ThemeProvider defaultTheme="light" attribute="class">
+            {children}
+          </ThemeProvider>
+        </ApolloProvider>
+      </RainbowKitProvider>
     </WagmiConfig>
   )
 }
