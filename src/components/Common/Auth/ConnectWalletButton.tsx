@@ -4,6 +4,7 @@ import Modal from '@components/UIElements/Modal'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { POLYGON_CHAIN_ID } from '@utils/constants'
 import { getWalletInfo } from '@utils/functions/getWalletInfo'
 import imageCdn from '@utils/functions/imageCdn'
@@ -46,6 +47,8 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
   const walletConnect = connectors.find((w) => w.id === 'walletConnect')
 
   const { mounted } = useIsMounted()
+
+  const { openConnectModal } = useConnectModal()
 
   const onConnect = async (x: Connector) => {
     try {
@@ -190,7 +193,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
           </Button>
         )
       ) : (
-        <Button onClick={() => setShowModal(true)}>
+        <Button onClick={openConnectModal}>
           Connect
           <span className="hidden ml-1 md:inline-block">Wallet</span>
         </Button>

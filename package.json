@@ -21,6 +21,7 @@
     "@bundlr-network/client": "^0.9.0-b8",
     "@headlessui/react": "^1.7.3",
     "@hookform/resolvers": "^2.9.8",
+    "@rainbow-me/rainbowkit": "^0.7.1",
     "@sentry/nextjs": "^7.14.2",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/line-clamp": "^0.4.2",

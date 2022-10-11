@@ -1,5 +1,6 @@
 import '../styles/index.css'
 import '@vime/core/themes/default.css'
+import '@rainbow-me/rainbowkit/styles.css'
 
 import FullPageLoader from '@components/Common/FullPageLoader'
 import usePersistStore from '@lib/store/persist'
