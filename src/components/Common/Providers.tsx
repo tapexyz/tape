@@ -6,6 +6,7 @@ import {
 } from '@rainbow-me/rainbowkit'
 import {
   coinbaseWallet,
+  injectedWallet,
   metaMaskWallet,
   rainbowWallet,
   walletConnectWallet
@@ -31,6 +32,7 @@ const connectors = connectorsForWallets([
   {
     groupName: 'Recommended',
     wallets: [
+      injectedWallet({ chains, shimDisconnect: true }),
       metaMaskWallet({ chains, shimDisconnect: true }),
       rainbowWallet({ chains }),
       coinbaseWallet({ appName: APP_NAME, chains }),
@@ -38,30 +40,6 @@ const connectors = connectorsForWallets([
     ]
   }
 ])
-
-// const connectors = () => {
-//   return [
-//     new InjectedConnector({
-//       chains,
-//       options: {
-//         shimDisconnect: true
-//       }
-//     }),
-//     new WalletConnectConnector({
-//       chains,
-//       options: {
-//         rpc: { [POLYGON_CHAIN_ID]: POLYGON_RPC_URL }
-//       }
-//     }),
-//     new CoinbaseWalletConnector({
-//       chains,
-//       options: {
-//         appName: APP_NAME,
-//         jsonRpcUrl: POLYGON_RPC_URL
-//       }
-//     })
-//   ]
-// }
 
 const wagmiClient = createClient({
   autoConnect: true,
