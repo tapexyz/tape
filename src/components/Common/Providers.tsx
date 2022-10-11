@@ -2,6 +2,8 @@ import { ApolloProvider } from '@apollo/client'
 import apolloClient from '@lib/apollo'
 import {
   connectorsForWallets,
+  darkTheme,
+  lightTheme,
   RainbowKitProvider
 } from '@rainbow-me/rainbowkit'
 import {
@@ -12,7 +14,7 @@ import {
   walletConnectWallet
 } from '@rainbow-me/rainbowkit/wallets'
 import { APP_NAME, IS_MAINNET, POLYGON_RPC_URL } from '@utils/constants'
-import { ThemeProvider } from 'next-themes'
+import { ThemeProvider, useTheme } from 'next-themes'
 import React, { ReactNode } from 'react'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
@@ -47,16 +49,27 @@ const wagmiClient = createClient({
   provider
 })
 
+// Enables usage of theme in RainbowKitProvider
+const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
+  const { theme } = useTheme()
+  return (
+    <RainbowKitProvider
+      chains={chains}
+      theme={theme === 'light' ? lightTheme() : darkTheme()}
+    >
+      {children}
+    </RainbowKitProvider>
+  )
+}
+
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
-        <ApolloProvider client={apolloClient}>
-          <ThemeProvider defaultTheme="light" attribute="class">
-            {children}
-          </ThemeProvider>
-        </ApolloProvider>
-      </RainbowKitProvider>
+      <ThemeProvider defaultTheme="light" attribute="class">
+        <RainbowKitProviderWrapper>
+          <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
+        </RainbowKitProviderWrapper>
+      </ThemeProvider>
     </WagmiConfig>
   )
 }
