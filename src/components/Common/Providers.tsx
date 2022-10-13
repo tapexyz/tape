@@ -55,7 +55,7 @@ const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <RainbowKitProvider
       chains={chains}
-      theme={theme === 'light' ? lightTheme() : darkTheme()}
+      theme={theme === 'dark' ? darkTheme() : lightTheme()}
     >
       {children}
     </RainbowKitProvider>
