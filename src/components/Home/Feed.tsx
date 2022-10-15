@@ -73,7 +73,7 @@ const HomeFeed = () => {
     )
   }
 
-  if (error) {
+  if (!loading && error) {
     return <Custom500 />
   }
 
