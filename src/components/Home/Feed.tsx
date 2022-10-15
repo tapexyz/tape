@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import VideoCard from '@components/Common/VideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -8,22 +9,21 @@ import useAppStore from '@lib/store'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
+  FeedEventItemType,
+  FeedItem,
   PaginatedResultInfo,
-  PublicationMainFocus,
-  PublicationTypes
+  PublicationMainFocus
 } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
-import Timeline from './Timeline'
-
 const request = {
-  limit: 16,
-  timelineTypes: [PublicationTypes.Post],
+  limit: 50,
+  feedEventItemTypes: [FeedEventItemType.Post],
   metadata: { mainContentFocus: [PublicationMainFocus.Video] }
 }
 
 const HomeFeed = () => {
-  const [videos, setVideos] = useState<LenstubePublication[]>([])
+  const [videos, setVideos] = useState<FeedItem[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
@@ -35,9 +35,9 @@ const HomeFeed = () => {
       }
     },
     skip: !selectedChannel?.id,
-    onCompleted(data) {
-      setPageInfo(data?.timeline?.pageInfo)
-      setVideos(data?.timeline?.items)
+    onCompleted: (data) => {
+      setPageInfo(data?.feed?.pageInfo)
+      setVideos(data?.feed?.items)
     }
   })
 
@@ -54,10 +54,10 @@ const HomeFeed = () => {
             }
           }
         })
-        setPageInfo(data?.timeline?.pageInfo)
-        setVideos([...videos, ...data?.timeline?.items])
+        setPageInfo(data?.feed?.pageInfo)
+        setVideos([...videos, ...data?.feed?.items])
       } catch (error) {
-        logger.error('[Error Fetch Timeline]', error)
+        logger.error('[Error Fetch Feed]', error)
       }
     }
   })
@@ -67,7 +67,7 @@ const HomeFeed = () => {
       <NoDataFound
         isCenter
         withImage
-        text="You got no videos in your feed, explore."
+        text="You got no videos in your feed, explore!"
       />
     )
   }
@@ -77,7 +77,17 @@ const HomeFeed = () => {
       {loading && <TimelineShimmer />}
       {!error && !loading && (
         <>
-          <Timeline videos={videos} />
+          <div className="grid gap-x-5 lg:grid-cols-4 md:gap-y-8 gap-y-2 2xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
+            {videos?.map((feedItem: FeedItem) => {
+              const video = feedItem.root
+              return (
+                <VideoCard
+                  key={`${video?.id}_${video.createdAt}`}
+                  video={video as LenstubePublication}
+                />
+              )
+            })}
+          </div>
           {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
