@@ -47,7 +47,8 @@ const VideoComments: FC<Props> = ({ video }) => {
         reactionRequest: selectedChannel
           ? { profileId: selectedChannel?.id }
           : null,
-        customFilters: LENS_CUSTOM_FILTERS
+        customFilters: LENS_CUSTOM_FILTERS,
+        channelId: selectedChannel?.id ?? null
       },
       skip: !id,
       onCompleted(data) {
@@ -66,7 +67,8 @@ const VideoComments: FC<Props> = ({ video }) => {
       reactionRequest: selectedChannel
         ? { profileId: selectedChannel?.id }
         : null,
-      customFilters: LENS_CUSTOM_FILTERS
+      customFilters: LENS_CUSTOM_FILTERS,
+      channelId: selectedChannel?.id ?? null
     })
   }
 
@@ -84,7 +86,8 @@ const VideoComments: FC<Props> = ({ video }) => {
             reactionRequest: selectedChannel
               ? { profileId: selectedChannel?.id }
               : null,
-            customFilters: LENS_CUSTOM_FILTERS
+            customFilters: LENS_CUSTOM_FILTERS,
+            channelId: selectedChannel?.id ?? null
           }
         })
         setPageInfo(data?.publications?.pageInfo)

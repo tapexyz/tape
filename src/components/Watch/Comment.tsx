@@ -14,9 +14,9 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
-import { AiFillHeart } from 'react-icons/ai'
+import { AiFillHeart, AiOutlinePlayCircle } from 'react-icons/ai'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
-import { Attribute } from 'src/types'
+import { Attribute, PublicationMainFocus } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
 dayjs.extend(relativeTime)
@@ -26,6 +26,20 @@ const PublicationReaction = dynamic(() => import('./PublicationReaction'))
 
 interface Props {
   comment: LenstubePublication
+}
+
+const VideoComment: FC<Props> = ({ comment }) => {
+  return (
+    <div className="my-2 py-3 px-4 border dark:border-gray-700 rounded-xl">
+      <Link
+        href={`/watch/${comment.id}`}
+        className="flex items-center space-x-2.5"
+      >
+        <AiOutlinePlayCircle className="w-5 h-5" />
+        <span>Watch Video</span>
+      </Link>
+    </div>
+  )
 }
 
 const Comment: FC<Props> = ({ comment }) => {
@@ -39,6 +53,10 @@ const Comment: FC<Props> = ({ comment }) => {
       setShowMore(true)
     }
   }, [comment?.metadata?.content])
+
+  const getIsVideoComment = () => {
+    return comment.metadata.mainContentFocus === PublicationMainFocus.Video
+  }
 
   return (
     <div className="flex items-start justify-between group">
@@ -96,6 +114,8 @@ const Comment: FC<Props> = ({ comment }) => {
               <span className="text-xs italic opacity-80">
                 Comment deleted by user!
               </span>
+            ) : getIsVideoComment() ? (
+              <VideoComment comment={comment} />
             ) : (
               <InterweaveContent content={comment?.metadata?.content} />
             )}
