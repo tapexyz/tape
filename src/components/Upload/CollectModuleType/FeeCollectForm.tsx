@@ -12,7 +12,6 @@ import { z } from 'zod'
 
 type Props = {
   uploadedVideo: UploadedVideo
-  // eslint-disable-next-line no-unused-vars
   setCollectType: (data: CollectModuleType) => void
   setShowModal: Dispatch<boolean>
   enabledCurrencies: { enabledModuleCurrencies: Array<Erc20> }

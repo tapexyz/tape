@@ -3,7 +3,6 @@ import React, { FC, useId } from 'react'
 type Props = {
   question: React.ReactNode
   checked: boolean
-  // eslint-disable-next-line no-unused-vars
   onChange: (b: boolean) => void
 }
 
@@ -17,7 +16,6 @@ const RadioInput: FC<Props> = ({ question, checked, onChange }) => {
           <input
             className="w-3 h-3 text-indigo-600 bg-indigo-100 border-indigo-300 focus:outline-none dark:bg-indigo-700 dark:border-indigo-900"
             type="radio"
-            id={`option1_${id}`}
             checked={checked}
             onChange={() => onChange(true)}
           />

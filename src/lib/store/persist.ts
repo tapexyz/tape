@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { LenstubePublication } from 'src/types/local'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'

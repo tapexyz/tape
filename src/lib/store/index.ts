@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { WebBundlr } from '@bundlr-network/client'
 import logger from '@lib/logger'
 import {

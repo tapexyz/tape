@@ -7,7 +7,6 @@ const authKey = process.env.NEXT_PUBLIC_ESTUARY_AUTHORIZATION_KEY as string
 
 const uploadMediaToIPFS = async (
   file: File,
-  // eslint-disable-next-line no-unused-vars
   onProgress?: (percentage: number) => void
 ): Promise<IPFSUploadResult> => {
   try {

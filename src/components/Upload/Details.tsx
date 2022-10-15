@@ -44,7 +44,6 @@ const formSchema = z.object({
 export type VideoFormData = z.infer<typeof formSchema>
 
 type Props = {
-  // eslint-disable-next-line no-unused-vars
   onUpload: (data: VideoFormData) => void
   onCancel: () => void
 }
