@@ -19,7 +19,7 @@ import { LenstubePublication } from 'src/types/local'
 
 const request = {
   limit: 50,
-  feedEventItemTypes: [FeedEventItemType.Post, FeedEventItemType.Comment],
+  feedEventItemTypes: [FeedEventItemType.Post],
   metadata: { mainContentFocus: [PublicationMainFocus.Video] }
 }
 
