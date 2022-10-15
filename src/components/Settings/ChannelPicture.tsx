@@ -61,8 +61,8 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   })
 
   const { data: pfpData, write: writePfpUri } = useContractWrite({
-    addressOrName: LENSHUB_PROXY_ADDRESS,
-    contractInterface: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'setProfileImageURIWithSig',
     mode: 'recklesslyUnprepared',
     onError,
@@ -103,13 +103,13 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           }
           setUserSigNonce(userSigNonce + 1)
           if (!RELAYER_ENABLED) {
-            return writePfpUri?.({ recklesslySetUnpreparedArgs: args })
+            return writePfpUri?.({ recklesslySetUnpreparedArgs: [args] })
           }
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
           if (data?.broadcast?.reason)
-            writePfpUri?.({ recklesslySetUnpreparedArgs: args })
+            writePfpUri?.({ recklesslySetUnpreparedArgs: [args] })
         } catch (error) {
           setLoading(false)
           logger.error('[Error Set Pfp Typed Data]', error)

@@ -53,8 +53,8 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const { data: signer } = useSigner({ onError })
 
   const { write: writeJoinChannel } = useContractWrite({
-    addressOrName: LENSHUB_PROXY_ADDRESS,
-    contractInterface: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
@@ -111,13 +111,13 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
         }
         setUserSigNonce(userSigNonce + 1)
         if (!RELAYER_ENABLED) {
-          return writeJoinChannel?.({ recklesslySetUnpreparedArgs: args })
+          return writeJoinChannel?.({ recklesslySetUnpreparedArgs: [args] })
         }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.reason)
-          writeJoinChannel?.({ recklesslySetUnpreparedArgs: args })
+          writeJoinChannel?.({ recklesslySetUnpreparedArgs: [args] })
       } catch (error) {
         logger.error('[Error Join Channel Typed Data]', error)
       }

@@ -37,8 +37,8 @@ const Toggle = () => {
   })
 
   const { write: writeDispatch, data: writeData } = useContractWrite({
-    addressOrName: LENSHUB_PROXY_ADDRESS,
-    contractInterface: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'setDispatcherWithSig',
     mode: 'recklesslyUnprepared',
     onError
@@ -97,13 +97,13 @@ const Toggle = () => {
           }
           setUserSigNonce(userSigNonce + 1)
           if (!RELAYER_ENABLED) {
-            return writeDispatch?.({ recklesslySetUnpreparedArgs: args })
+            return writeDispatch?.({ recklesslySetUnpreparedArgs: [args] })
           }
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
           if (data?.broadcast?.reason)
-            writeDispatch?.({ recklesslySetUnpreparedArgs: args })
+            writeDispatch?.({ recklesslySetUnpreparedArgs: [args] })
         } catch (error) {
           logger.error('[Error Set Dispatcher]', error)
         }

@@ -37,12 +37,7 @@ import {
 } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
-import {
-  useContractWrite,
-  usePrepareSendTransaction,
-  useSendTransaction,
-  useSignTypedData
-} from 'wagmi'
+import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
 
 type Props = {
@@ -89,11 +84,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     setButtonText(`Send ${Number(watchTipQuantity) * 1} MATIC`)
   }
 
-  const { config: prepareTxn } = usePrepareSendTransaction({
-    request: {}
-  })
   const { sendTransactionAsync } = useSendTransaction({
-    ...prepareTxn,
+    request: {},
     onError,
     mode: 'recklesslyUnprepared'
   })
@@ -102,8 +94,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   })
 
   const { write: writeComment, data: writeCommentData } = useContractWrite({
-    addressOrName: LENSHUB_PROXY_ADDRESS,
-    contractInterface: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'commentWithSig',
     mode: 'recklesslyUnprepared',
     onError
@@ -173,13 +165,13 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         }
         setUserSigNonce(userSigNonce + 1)
         if (!RELAYER_ENABLED) {
-          return writeComment?.({ recklesslySetUnpreparedArgs: args })
+          return writeComment?.({ recklesslySetUnpreparedArgs: [args] })
         }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.reason)
-          writeComment?.({ recklesslySetUnpreparedArgs: args })
+          writeComment?.({ recklesslySetUnpreparedArgs: [args] })
       } catch (error) {
         logger.error('[Error Create Tip Comment Typed Data]', error)
       }

@@ -110,8 +110,8 @@ const UploadSteps = () => {
   })
 
   const { write: writePostContract, data: writePostData } = useContractWrite({
-    addressOrName: LENSHUB_PROXY_ADDRESS,
-    contractInterface: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: (data) => {
@@ -195,13 +195,13 @@ const UploadSteps = () => {
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
         if (!RELAYER_ENABLED) {
-          return writePostContract?.({ recklesslySetUnpreparedArgs: args })
+          return writePostContract?.({ recklesslySetUnpreparedArgs: [args] })
         }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.reason)
-          writePostContract?.({ recklesslySetUnpreparedArgs: args })
+          writePostContract?.({ recklesslySetUnpreparedArgs: [args] })
       } catch (error) {
         logger.error('[Error Post Video Typed Data]', error)
       }

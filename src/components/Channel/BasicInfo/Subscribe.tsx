@@ -47,8 +47,8 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const { data: signer } = useSigner({ onError })
 
   const { write: writeSubscribe } = useContractWrite({
-    addressOrName: LENSHUB_PROXY_ADDRESS,
-    contractInterface: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
@@ -94,14 +94,14 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
         }
         if (!RELAYER_ENABLED) {
           return writeSubscribe?.({
-            recklesslySetUnpreparedArgs: args
+            recklesslySetUnpreparedArgs: [args]
           })
         }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.reason)
-          writeSubscribe?.({ recklesslySetUnpreparedArgs: args })
+          writeSubscribe?.({ recklesslySetUnpreparedArgs: [args] })
       } catch (error) {
         logger.error('[Error Subscribe Typed Data]', error)
       }
