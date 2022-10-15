@@ -22,7 +22,6 @@ if (IS_MAINNET) {
 
 interface Props {
   label: string
-  // eslint-disable-next-line no-unused-vars
   afterUpload: (ipfsUrl: string, thumbnailType: string) => void
   file: File | null
 }

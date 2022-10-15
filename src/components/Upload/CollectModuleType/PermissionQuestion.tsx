@@ -5,7 +5,6 @@ import { CollectModuleType, UploadedVideo } from 'src/types/local'
 
 type Props = {
   uploadedVideo: UploadedVideo
-  // eslint-disable-next-line no-unused-vars
   setCollectType: (data: CollectModuleType) => void
 }
 

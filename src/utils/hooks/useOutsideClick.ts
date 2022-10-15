@@ -4,7 +4,6 @@ type AnyEvent = MouseEvent | TouchEvent
 
 const useOutsideClick = <T extends HTMLElement = HTMLElement>(
   ref: RefObject<T>,
-  // eslint-disable-next-line no-unused-vars
   handler: (event: AnyEvent) => void
 ): void => {
   useEffect(() => {

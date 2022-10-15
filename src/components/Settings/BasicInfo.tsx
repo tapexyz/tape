@@ -117,8 +117,8 @@ const BasicInfo = ({ channel }: Props) => {
   })
 
   const { write: writeMetaData } = useContractWrite({
-    addressOrName: LENS_PERIPHERY_ADDRESS,
-    contractInterface: LENS_PERIPHERY_ABI,
+    address: LENS_PERIPHERY_ADDRESS,
+    abi: LENS_PERIPHERY_ABI,
     functionName: 'setProfileMetadataURIWithSig',
     mode: 'recklesslyUnprepared',
     onError,
@@ -158,13 +158,13 @@ const BasicInfo = ({ channel }: Props) => {
             sig: { v, r, s, deadline: typedData.value.deadline }
           }
           if (!RELAYER_ENABLED) {
-            return writeMetaData?.({ recklesslySetUnpreparedArgs: args })
+            return writeMetaData?.({ recklesslySetUnpreparedArgs: [args] })
           }
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
           if (data?.broadcast?.reason)
-            writeMetaData?.({ recklesslySetUnpreparedArgs: args })
+            writeMetaData?.({ recklesslySetUnpreparedArgs: [args] })
         } catch (error) {
           setLoading(false)
           logger.error('[Error Set Basic info Typed Data]', error)

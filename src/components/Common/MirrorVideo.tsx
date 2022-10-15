@@ -59,8 +59,8 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   )
 
   const { write: mirrorWithSig } = useContractWrite({
-    addressOrName: LENSHUB_PROXY_ADDRESS,
-    contractInterface: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'mirrorWithSig',
     mode: 'recklesslyUnprepared',
     onError,
@@ -103,13 +103,13 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
         }
         setUserSigNonce(userSigNonce + 1)
         if (!RELAYER_ENABLED) {
-          return mirrorWithSig?.({ recklesslySetUnpreparedArgs: args })
+          return mirrorWithSig?.({ recklesslySetUnpreparedArgs: [args] })
         }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.reason)
-          mirrorWithSig?.({ recklesslySetUnpreparedArgs: args })
+          mirrorWithSig?.({ recklesslySetUnpreparedArgs: [args] })
       } catch (error) {
         setLoading(false)
         logger.error('[Error Mirror Video Typed Data]', error)

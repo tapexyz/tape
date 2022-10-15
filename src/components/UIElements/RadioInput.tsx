@@ -3,7 +3,6 @@ import React, { FC, useId } from 'react'
 type Props = {
   question: React.ReactNode
   checked: boolean
-  // eslint-disable-next-line no-unused-vars
   onChange: (b: boolean) => void
 }
 

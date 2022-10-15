@@ -5,11 +5,7 @@ import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
 import React, { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
 import { ApprovedAllowanceAmount } from 'src/types'
-import {
-  usePrepareSendTransaction,
-  useSendTransaction,
-  useWaitForTransaction
-} from 'wagmi'
+import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
 type Props = {
   setIsAllowed: Dispatch<boolean>
@@ -26,15 +22,12 @@ const PermissionAlert: FC<Props> = ({
     GENERATE_ALLOWANCE_QUERY
   )
 
-  const { config: prepareTxn } = usePrepareSendTransaction({
-    request: {}
-  })
   const {
     data: txData,
     isLoading: transactionLoading,
     sendTransaction
   } = useSendTransaction({
-    ...prepareTxn,
+    request: {},
     mode: 'recklesslyUnprepared',
     onError(error: any) {
       toast.error(error?.data?.message ?? error?.message)

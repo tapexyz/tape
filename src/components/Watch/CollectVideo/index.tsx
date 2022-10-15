@@ -70,8 +70,8 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const collectModule: LenstubeCollectModule = data?.publication?.collectModule
 
   const { write: writeCollectWithSig } = useContractWrite({
-    addressOrName: LENSHUB_PROXY_ADDRESS,
-    contractInterface: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
     onError,
@@ -108,13 +108,13 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
         }
         setUserSigNonce(userSigNonce + 1)
         if (!RELAYER_ENABLED) {
-          return writeCollectWithSig?.({ recklesslySetUnpreparedArgs: args })
+          return writeCollectWithSig?.({ recklesslySetUnpreparedArgs: [args] })
         }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.reason)
-          writeCollectWithSig?.({ recklesslySetUnpreparedArgs: args })
+          writeCollectWithSig?.({ recklesslySetUnpreparedArgs: [args] })
       } catch (error) {
         setLoading(false)
         logger.error('[Error Collect Video]', error)

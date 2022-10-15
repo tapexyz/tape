@@ -101,8 +101,8 @@ const Membership = ({ channel }: Props) => {
   })
 
   const { data: writtenData, write: writeFollow } = useContractWrite({
-    addressOrName: LENSHUB_PROXY_ADDRESS,
-    contractInterface: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
     onError
@@ -146,13 +146,13 @@ const Membership = ({ channel }: Props) => {
           }
           setUserSigNonce(userSigNonce + 1)
           if (!RELAYER_ENABLED) {
-            return writeFollow?.({ recklesslySetUnpreparedArgs: args })
+            return writeFollow?.({ recklesslySetUnpreparedArgs: [args] })
           }
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
           if (data?.broadcast?.reason)
-            writeFollow?.({ recklesslySetUnpreparedArgs: args })
+            writeFollow?.({ recklesslySetUnpreparedArgs: [args] })
         } catch (error) {
           setLoading(false)
           logger.error('[Error Set Membership]', error)

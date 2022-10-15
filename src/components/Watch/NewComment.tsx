@@ -83,8 +83,8 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
   })
 
   const { write: writeComment, data: writeCommentData } = useContractWrite({
-    addressOrName: LENSHUB_PROXY_ADDRESS,
-    contractInterface: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'commentWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: () => {
@@ -160,13 +160,13 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         setButtonText('Commenting...')
         setUserSigNonce(userSigNonce + 1)
         if (!RELAYER_ENABLED) {
-          return writeComment?.({ recklesslySetUnpreparedArgs: args })
+          return writeComment?.({ recklesslySetUnpreparedArgs: [args] })
         }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.reason)
-          writeComment?.({ recklesslySetUnpreparedArgs: args })
+          writeComment?.({ recklesslySetUnpreparedArgs: [args] })
       } catch (error) {
         logger.error('[Error New Comment Typed Data]', error)
       }

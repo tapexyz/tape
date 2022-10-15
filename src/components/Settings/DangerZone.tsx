@@ -24,7 +24,7 @@ import {
 const DangerZone = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [loading, setLoading] = useState(false)
-  const [txnHash, setTxnHash] = useState('')
+  const [txnHash, setTxnHash] = useState<`0x${string}`>()
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
@@ -37,8 +37,8 @@ const DangerZone = () => {
   }
 
   const { write: writeDeleteProfile } = useContractWrite({
-    addressOrName: LENSHUB_PROXY_ADDRESS,
-    contractInterface: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'burnWithSig',
     mode: 'recklesslyUnprepared',
     onError,
@@ -46,7 +46,7 @@ const DangerZone = () => {
   })
 
   useWaitForTransaction({
-    enabled: txnHash.length > 0,
+    enabled: txnHash && txnHash.length > 0,
     hash: txnHash,
     onSuccess() {
       toast.success('Channel deleted')

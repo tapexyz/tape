@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useLazyQuery } from '@apollo/client'
 import { SEARCH_CHANNELS_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
