@@ -8,6 +8,7 @@ import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import Custom500 from 'src/pages/500'
 import {
   FeedEventItemType,
   FeedItem,
@@ -62,7 +63,7 @@ const HomeFeed = () => {
     }
   })
 
-  if (data?.timeline?.items?.length === 0) {
+  if (data?.feed?.items?.length === 0) {
     return (
       <NoDataFound
         isCenter
@@ -70,6 +71,10 @@ const HomeFeed = () => {
         text="You got no videos in your feed, explore!"
       />
     )
+  }
+
+  if (error) {
+    return <Custom500 />
   }
 
   return (
