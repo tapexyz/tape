@@ -16,6 +16,7 @@ const RadioInput: FC<Props> = ({ question, checked, onChange }) => {
           <input
             className="w-3 h-3 text-indigo-600 bg-indigo-100 border-indigo-300 focus:outline-none dark:bg-indigo-700 dark:border-indigo-900"
             type="radio"
+            id={`option1_${id}`}
             checked={checked}
             onChange={() => onChange(true)}
           />

@@ -83,7 +83,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
       }
     },
     skip: !followModule?.amount?.asset?.address || !selectedChannelId,
-    onCompleted(data) {
+    onCompleted: (data) => {
       setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
     }
   })
