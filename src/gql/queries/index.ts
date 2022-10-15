@@ -357,6 +357,7 @@ export const COMMENT_FEED_QUERY = gql`
   query CommentFeed(
     $request: PublicationsQueryRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $channelId: ProfileId
   ) {
     publications(request: $request) {
       items {
@@ -383,9 +384,13 @@ export const VIDEO_DETAIL_QUERY = gql`
       ... on Post {
         ...PostFields
       }
+      ... on Comment {
+        ...CommentFields
+      }
     }
   }
   ${PostFields}
+  ${CommentFields}
 `
 
 export const VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY = gql`

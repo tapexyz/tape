@@ -66,17 +66,23 @@ const VideoDetails = () => {
     skip: !id,
     onCompleted: async (result) => {
       setLoading(true)
-      if (!result.publication || result?.publication?.__typename !== 'Post') {
+      const stopLoading =
+        result?.publication?.__typename !== 'Post' &&
+        result?.publication?.__typename !== 'Comment'
+      if (!result.publication || stopLoading) {
         return setLoading(false)
       }
       await fetchHls(result?.publication)
     }
   })
-  const isPost: boolean =
-    data?.publication && data?.publication?.__typename === 'Post'
+
+  const canWatch =
+    data?.publication &&
+    (data?.publication?.__typename === 'Post' ||
+      data?.publication?.__typename === 'Comment')
 
   useEffect(() => {
-    if (isPost && video) {
+    if (canWatch && video) {
       addToRecentlyWatched(video)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,7 +94,7 @@ const VideoDetails = () => {
 
   if (error) return <Custom500 />
   if (loading || !data) return <VideoDetailShimmer />
-  if (!isPost || data?.publication.hidden) return <Custom404 />
+  if (!canWatch || data?.publication.hidden) return <Custom404 />
 
   return (
     <>

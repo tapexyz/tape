@@ -6,37 +6,60 @@ import { ProfileFields } from './ProfileFields'
 export const CommentFields = gql`
   fragment CommentFields on Comment {
     id
+    reaction(request: $reactionRequest)
     profile {
       ...ProfileFields
     }
-    reaction(request: $reactionRequest)
     collectedBy {
       address
       defaultProfile {
         handle
       }
     }
-    hidden
     collectModule {
       ...CollectFields
     }
+    referenceModule {
+      __typename
+    }
+    canComment(profileId: $channelId) {
+      result
+    }
+    canMirror(profileId: $channelId) {
+      result
+    }
+    collectNftAddress
+    onChainContentURI
+    hidden
+    hasCollectedByMe
     stats {
-      totalDownvotes
+      totalAmountOfComments
+      totalAmountOfCollects
+      totalAmountOfMirrors
       totalUpvotes
+      totalDownvotes
     }
     metadata {
       name
       description
       content
+      contentWarning
+      mainContentFocus
+      tags
       media {
         original {
           url
           mimeType
         }
       }
+      cover {
+        original {
+          url
+        }
+      }
       attributes {
-        traitType
         value
+        traitType
       }
     }
     commentOn {
