@@ -17,7 +17,7 @@ import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import { utils } from 'ethers'
-import React, { ChangeEvent, FC, useState } from 'react'
+import React, { ChangeEvent, FC, useState, useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
 import {
@@ -27,9 +27,23 @@ import {
 } from 'src/types'
 import { IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
+import Cropper from 'react-easy-crop'
+import { Point, Area } from 'react-easy-crop/types'
+import Slider from '@material-ui/core/Slider'
+import Modal from '@components/UIElements/Modal'
+import { getOrientation, Orientation } from 'get-orientation/browser'
+import { getCroppedImg, getRotatedImage } from './canvasUtils'
+import { Button } from '@components/UIElements/Button'
 
 type Props = {
   channel: Profile
+  // onClose: () => void
+}
+
+const ORIENTATION_TO_ANGLE = {
+  '3': 180,
+  '6': 90,
+  '8': -90
 }
 
 const ChannelPicture: FC<Props> = ({ channel }) => {
@@ -39,7 +53,44 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
+  const [zoom, setZoom] = useState(1)
+  const [showModal, setShowModal] = useState(false)
+  const [imageSrc, setImageSrc] = useState(null)
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
+  const [rotation, setRotation] = useState(0)
+  const [croppedImage, setCroppedImage] = useState(null)
 
+  const closeModal = () => {
+    setShowModal(false)
+    // onClose()
+  }
+  const openModal = () => {
+    setShowModal(true)
+    // Mixpanel.track(TRACK.EMBED_VIDEO.OPEN)
+  }
+  const onCropComplete = useCallback(
+    (croppedArea: any, croppedAreaPixels: any) => {
+      setCroppedAreaPixels(croppedAreaPixels)
+    },
+    []
+  )
+
+  const selectCroppedImage = useCallback(async () => {
+    try {
+      const croppedImage: any = await getCroppedImg(
+        imageSrc,
+        croppedAreaPixels,
+        rotation
+      )
+      console.log('done', { croppedImage })
+      setCroppedImage(croppedImage)
+      setSelectedPfp(croppedImage)
+      closeModal()
+    } catch (e) {
+      console.error(e)
+    }
+  }, [imageSrc, croppedAreaPixels, rotation])
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
@@ -133,28 +184,59 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       signTypedData(request)
     }
   }
-
+  function readFile(file: any) {
+    return new Promise((resolve) => {
+      const reader = new FileReader()
+      reader.addEventListener('load', () => resolve(reader.result), false)
+      reader.readAsDataURL(file)
+    })
+  }
   const onPfpUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(`imageSrc: ${imageSrc}`)
+    // toggle Modal
     if (e.target.files?.length) {
+      // debug - to be removed
+      console.log('selected channel picture to upload')
       try {
-        setLoading(true)
-        const result: IPFSUploadResult = await uploadMediaToIPFS(
-          e.target.files[0]
-        )
-        const request = {
-          profileId: selectedChannel?.id,
-          url: result.url
-        }
-        setSelectedPfp(result.url)
-        const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
-        if (!canUseDispatcher) {
-          return signTypedData(request)
-        }
-        await createViaDispatcher(request)
+        const file = e.target.files[0]
+        let imageDataUrl: any = await readFile(file)
+        // FOR SPINNNER
+        // setLoading(true)
+
+        /// apply rotation if needed
+        // const orientation = await getOrientation(file)
+        // const rotation = ORIENTATION_TO_ANGLE[orientation]
+        // if (rotation) {
+        //   imageDataUrl = await getRotatedImage(imageDataUrl, rotation)
+        // }
+        console.log(`imageDataUrl:${imageDataUrl}`)
+        setImageSrc(imageDataUrl)
+        setShowModal(true)
+        // setSelectedPfp(imageDataUrl)
       } catch (error) {
         onError(error)
-        logger.error('[Error Pfp Upload]', error)
+        logger.error('[Error Pfp Crop]', error)
       }
+
+      // try {
+      //   setLoading(true)
+      //   const result: IPFSUploadResult = await uploadMediaToIPFS(
+      //     e.target.files[0]
+      //   )
+      //   const request = {
+      //     profileId: selectedChannel?.id,
+      //     url: result.url
+      //   }
+      //   setSelectedPfp(result.url)
+      //   const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+      //   if (!canUseDispatcher) {
+      //     return signTypedData(request)
+      //   }
+      //   await createViaDispatcher(request)
+      // } catch (error) {
+      //   onError(error)
+      //   logger.error('[Error Pfp Upload]', error)
+      // }
     }
   }
 
@@ -188,7 +270,52 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           accept=".png, .jpg, .jpeg, .svg, .gif"
           className="hidden w-full"
           onChange={onPfpUpload}
+          // onClick={() => openModal()}
         />
+        {imageSrc ? (
+          <Modal
+            title="Crop Channel Picture"
+            onClose={closeModal}
+            show={showModal}
+            // panelClassName="w-full h-full"
+            panelClassName="max-w-xl h-full"
+          >
+            {/* <div className="flex items-center p-3"> */}
+            <div className="flex flex-col mb-3">
+              <Cropper
+                // image="https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000"
+                image={imageSrc}
+                crop={crop}
+                zoom={zoom}
+                aspect={1 / 1}
+                onCropChange={setCrop}
+                onCropComplete={onCropComplete}
+                onZoomChange={setZoom}
+              />
+              <Slider
+                value={zoom}
+                min={1}
+                max={3}
+                step={0.1}
+                aria-labelledby="Zoom"
+                onChange={(e, zoom) => setZoom(Number(zoom))}
+                classes={{ root: 'slider' }}
+              />
+              <Button
+                className="w-32"
+                onClick={selectCroppedImage}
+                color="primary"
+                // classes={{ root: classes.cropButton }}
+              >
+                Show Result
+              </Button>
+            </div>
+
+            <div className="flex flex-col mb-3"></div>
+          </Modal>
+        ) : (
+          ''
+        )}
       </label>
     </div>
   )
