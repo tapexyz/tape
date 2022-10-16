@@ -20,7 +20,7 @@ import { LenstubePublication } from 'src/types/local'
 import ByteVideo from './ByteVideo'
 
 const request = {
-  sortCriteria: PublicationSortCriteria.Latest,
+  sortCriteria: PublicationSortCriteria.CuratedProfiles,
   limit: 10,
   noRandomize: false,
   sources: [LENSTUBE_BYTES_APP_ID],
