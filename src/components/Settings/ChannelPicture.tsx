@@ -31,19 +31,14 @@ import Cropper from 'react-easy-crop'
 import { Point, Area } from 'react-easy-crop/types'
 import Slider from '@material-ui/core/Slider'
 import Modal from '@components/UIElements/Modal'
-import { getOrientation, Orientation } from 'get-orientation/browser'
-import { getCroppedImg, getRotatedImage } from './canvasUtils'
+import {
+  getCroppedImg,
+  getRotatedImage
+} from '../../utils/functions/canvasUtils'
 import { Button } from '@components/UIElements/Button'
 
 type Props = {
   channel: Profile
-  // onClose: () => void
-}
-
-const ORIENTATION_TO_ANGLE = {
-  '3': 180,
-  '6': 90,
-  '8': -90
 }
 
 const ChannelPicture: FC<Props> = ({ channel }) => {
@@ -83,7 +78,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         croppedAreaPixels,
         rotation
       )
-      console.log('done', { croppedImage })
+      // console.log('done', { croppedImage })
       setCroppedImage(croppedImage)
       setSelectedPfp(croppedImage)
       closeModal()
@@ -192,24 +187,11 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     })
   }
   const onPfpUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(`imageSrc: ${imageSrc}`)
     // toggle Modal
     if (e.target.files?.length) {
-      // debug - to be removed
-      console.log('selected channel picture to upload')
       try {
         const file = e.target.files[0]
         let imageDataUrl: any = await readFile(file)
-        // FOR SPINNNER
-        // setLoading(true)
-
-        /// apply rotation if needed
-        // const orientation = await getOrientation(file)
-        // const rotation = ORIENTATION_TO_ANGLE[orientation]
-        // if (rotation) {
-        //   imageDataUrl = await getRotatedImage(imageDataUrl, rotation)
-        // }
-        console.log(`imageDataUrl:${imageDataUrl}`)
         setImageSrc(imageDataUrl)
         setShowModal(true)
         // setSelectedPfp(imageDataUrl)
@@ -270,20 +252,17 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           accept=".png, .jpg, .jpeg, .svg, .gif"
           className="hidden w-full"
           onChange={onPfpUpload}
-          // onClick={() => openModal()}
         />
         {imageSrc ? (
           <Modal
             title="Crop Channel Picture"
             onClose={closeModal}
             show={showModal}
-            // panelClassName="w-full h-full"
             panelClassName="w-1/2 h-3/4"
           >
             <div className="relative h-3/4">
               <div className="flex">
                 <Cropper
-                  // image="https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000"
                   image={imageSrc}
                   crop={crop}
                   zoom={zoom}
@@ -306,12 +285,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
                 onChange={(e, zoom) => setZoom(Number(zoom))}
                 classes={{ root: 'slider' }}
               />
-              {/* place button bottom right */}
               <Button
                 className="w-32 h-10 mt-4 ml-auto"
                 onClick={selectCroppedImage}
                 color="primary"
-                // classes={{ root: classes.cropButton }}
               >
                 Crop
               </Button>

@@ -1,4 +1,4 @@
-export const createImage = (url: any) =>
+export const createImage = (url: string) =>
   new Promise((resolve, reject) => {
     const image = new Image()
     image.addEventListener('load', () => resolve(image))
@@ -14,14 +14,13 @@ export function getRadianAngle(degreeValue: any) {
 /**
  * Returns the new bounding area of a rotated rectangle.
  */
-export function rotateSize(width: any, height: any, rotation: any) {
+export function rotateSize(width: number, height: number, rotation: number) {
   const rotRad = getRadianAngle(rotation)
-
   return {
     width:
       Math.abs(Math.cos(rotRad) * width) + Math.abs(Math.sin(rotRad) * height),
     height:
-      Math.abs(Math.sin(rotRad) * width) + Math.abs(Math.cos(rotRad) * height),
+      Math.abs(Math.sin(rotRad) * width) + Math.abs(Math.cos(rotRad) * height)
   }
 }
 
@@ -36,7 +35,7 @@ export async function getCroppedImg(
 ) {
   const image: any = await createImage(imageSrc)
   const canvas = document.createElement('canvas')
-  const ctx = canvas.getContext('2d')
+  const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d')
 
   if (!ctx) {
     return null
@@ -91,11 +90,10 @@ export async function getCroppedImg(
   })
 }
 
-export async function getRotatedImage(imageSrc: any, rotation = 0) {
+export async function getRotatedImage(imageSrc: string, rotation = 0) {
   const image: any = await createImage(imageSrc)
   const canvas = document.createElement('canvas')
-  const ctx: any = canvas.getContext('2d')
-
+  const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d')
   const orientationChanged =
     rotation === 90 || rotation === -90 || rotation === 270 || rotation === -270
   if (orientationChanged) {
@@ -106,9 +104,9 @@ export async function getRotatedImage(imageSrc: any, rotation = 0) {
     canvas.height = image.height
   }
 
-  ctx.translate(canvas.width / 2, canvas.height / 2)
-  ctx.rotate((rotation * Math.PI) / 180)
-  ctx.drawImage(image, -image.width / 2, -image.height / 2)
+  ctx?.translate(canvas.width / 2, canvas.height / 2)
+  ctx?.rotate((rotation * Math.PI) / 180)
+  ctx?.drawImage(image, -image.width / 2, -image.height / 2)
 
   return new Promise((resolve) => {
     canvas.toBlob((file: any) => {
