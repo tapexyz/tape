@@ -12,7 +12,7 @@ type Props = {
   crop: { x: number; y: number }
   setCrop: React.Dispatch<{ x: number; y: number }>
   onCropComplete: (croppedArea: any, croppedAreaPixels: any) => void
-  imageSrc: string | null
+  imageSrc: string | undefined
   rotation: number
   setRotation: React.Dispatch<number>
   selectCroppedImage: () => void
