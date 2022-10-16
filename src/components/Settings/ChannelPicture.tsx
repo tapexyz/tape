@@ -51,15 +51,12 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const [imageSrc, setImageSrc] = useState(null)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
   const [rotation, setRotation] = useState(0)
-  const [croppedImage, setCroppedImage] = useState(null)
 
   const closeModal = () => {
     setShowModal(false)
     // onClose()
   }
-  const openModal = () => {
-    setShowModal(true)
-  }
+
   const onCropComplete = useCallback(
     (croppedArea: any, croppedAreaPixels: any) => {
       setCroppedAreaPixels(croppedAreaPixels)
@@ -78,7 +75,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         rotation
       )
       console.log('done', { croppedImage })
-      setCroppedImage(croppedImage)
       setSelectedPfp(croppedImage)
       closeModal()
     } catch (e) {
@@ -294,7 +290,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
                 max={360}
                 step={1}
                 aria-labelledby="Rotation"
-                // classes={{ root: classes.slider }}
                 onChange={(e, rotation) => setRotation(Number(rotation))}
               />
               <Button
