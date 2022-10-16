@@ -31,10 +31,7 @@ import Cropper from 'react-easy-crop'
 import { Point, Area } from 'react-easy-crop/types'
 import Slider from '@material-ui/core/Slider'
 import Modal from '@components/UIElements/Modal'
-import {
-  getCroppedImg,
-  getRotatedImage
-} from '../../utils/functions/canvasUtils'
+import { getCroppedImg } from '@utils/functions/canvasUtils'
 import { Button } from '@components/UIElements/Button'
 
 type Props = {
@@ -62,7 +59,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   }
   const openModal = () => {
     setShowModal(true)
-    // Mixpanel.track(TRACK.EMBED_VIDEO.OPEN)
   }
   const onCropComplete = useCallback(
     (croppedArea: any, croppedAreaPixels: any) => {
@@ -72,13 +68,16 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   )
 
   const selectCroppedImage = useCallback(async () => {
+    console.log(`zoom:${zoom}`)
+    console.log(`rotation:${rotation}`)
+
     try {
       const croppedImage: any = await getCroppedImg(
         imageSrc,
         croppedAreaPixels,
         rotation
       )
-      // console.log('done', { croppedImage })
+      console.log('done', { croppedImage })
       setCroppedImage(croppedImage)
       setSelectedPfp(croppedImage)
       closeModal()
@@ -266,8 +265,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
                   image={imageSrc}
                   crop={crop}
                   zoom={zoom}
+                  rotation={rotation}
                   aspect={1 / 1}
                   onCropChange={setCrop}
+                  onRotationChange={setRotation}
                   onCropComplete={onCropComplete}
                   onZoomChange={setZoom}
                   cropShape="round"
@@ -275,7 +276,8 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
                 />
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col h-10 mt-4 ml-auto">
+              Zoom
               <Slider
                 value={zoom}
                 min={1}
@@ -285,8 +287,18 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
                 onChange={(e, zoom) => setZoom(Number(zoom))}
                 classes={{ root: 'slider' }}
               />
+              Rotate
+              <Slider
+                value={rotation}
+                min={0}
+                max={360}
+                step={1}
+                aria-labelledby="Rotation"
+                // classes={{ root: classes.slider }}
+                onChange={(e, rotation) => setRotation(Number(rotation))}
+              />
               <Button
-                className="w-32 h-10 mt-4 ml-auto"
+                className="w-32 h-10 p-4"
                 onClick={selectCroppedImage}
                 color="primary"
               >
