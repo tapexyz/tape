@@ -25,12 +25,6 @@ import MirroredNotification from './Mirrored'
 import ReactedNotification from './Reacted'
 import SubscribedNotification from './Subscribed'
 
-const request = {
-  limit: 20,
-  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-  customFilters: LENS_CUSTOM_FILTERS
-}
-
 const Notifications = () => {
   const setNotificationCount = usePersistStore(
     (state) => state.setNotificationCount
@@ -57,12 +51,16 @@ const Notifications = () => {
     skip: !selectedChannel?.id
   })
 
+  const request = {
+    limit: 20,
+    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+    customFilters: LENS_CUSTOM_FILTERS,
+    profileId: selectedChannel?.id
+  }
+
   const { data, loading, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
     variables: {
-      request: {
-        profileId: selectedChannel?.id,
-        ...request
-      }
+      request
     },
     onCompleted(data) {
       setPageInfo(data?.notifications?.pageInfo)
@@ -83,7 +81,6 @@ const Notifications = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              profileId: selectedChannel?.id,
               cursor: pageInfo?.next,
               ...request
             }

@@ -24,29 +24,27 @@ import {
 } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
-const request = {
-  publicationTypes: [PublicationTypes.Post],
-  limit: 16,
-  sortCriteria: PublicationSortCriteria.Latest,
-  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-  customFilters: LENS_CUSTOM_FILTERS
-}
-
 const ExploreCategory = () => {
   const { query } = useRouter()
   const categoryName = query.category as string
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
+  const request = {
+    publicationTypes: [PublicationTypes.Post],
+    limit: 16,
+    sortCriteria: PublicationSortCriteria.Latest,
+    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+    customFilters: LENS_CUSTOM_FILTERS,
+    metadata: {
+      tags: { oneOf: [query.category] },
+      mainContentFocus: [PublicationMainFocus.Video]
+    }
+  }
+
   const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
     variables: {
-      request: {
-        metadata: {
-          tags: { oneOf: [query.category] },
-          mainContentFocus: [PublicationMainFocus.Video]
-        },
-        ...request
-      }
+      request
     },
     skip: !query.category,
     onCompleted(data) {
@@ -62,10 +60,6 @@ const ExploreCategory = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              metadata: {
-                tags: { oneOf: [query.category] },
-                mainContentFocus: [PublicationMainFocus.Video]
-              },
               cursor: pageInfo?.next,
               ...request
             }

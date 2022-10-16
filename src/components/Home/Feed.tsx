@@ -17,23 +17,20 @@ import {
 } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 
-const request = {
-  limit: 50,
-  feedEventItemTypes: [FeedEventItemType.Post, FeedEventItemType.Comment],
-  metadata: { mainContentFocus: [PublicationMainFocus.Video] }
-}
-
 const HomeFeed = () => {
   const [videos, setVideos] = useState<FeedItem[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
+  const request = {
+    limit: 50,
+    feedEventItemTypes: [FeedEventItemType.Post, FeedEventItemType.Comment],
+    metadata: { mainContentFocus: [PublicationMainFocus.Video] },
+    profileId: selectedChannel?.id
+  }
   const { data, loading, error, fetchMore } = useQuery(FEED_QUERY, {
     variables: {
-      request: {
-        profileId: selectedChannel?.id,
-        ...request
-      }
+      request
     },
     skip: !selectedChannel?.id,
     onCompleted: (data) => {
@@ -49,7 +46,6 @@ const HomeFeed = () => {
         const { data } = await fetchMore({
           variables: {
             request: {
-              profileId: selectedChannel?.id,
               cursor: pageInfo?.next,
               ...request
             }
