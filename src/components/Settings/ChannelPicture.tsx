@@ -33,6 +33,7 @@ import Slider from '@material-ui/core/Slider'
 import Modal from '@components/UIElements/Modal'
 import { getCroppedImg } from '@utils/functions/canvasUtils'
 import { Button } from '@components/UIElements/Button'
+import { getFileFromBlob } from '@utils/functions/getFileFromBlob'
 
 type Props = {
   channel: Profile
@@ -52,35 +53,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
   const [rotation, setRotation] = useState(0)
 
-  const closeModal = () => {
-    setShowModal(false)
-    // onClose()
-  }
-
-  const onCropComplete = useCallback(
-    (croppedArea: any, croppedAreaPixels: any) => {
-      setCroppedAreaPixels(croppedAreaPixels)
-    },
-    []
-  )
-
-  const selectCroppedImage = useCallback(async () => {
-    console.log(`zoom:${zoom}`)
-    console.log(`rotation:${rotation}`)
-
-    try {
-      const croppedImage: any = await getCroppedImg(
-        imageSrc,
-        croppedAreaPixels,
-        rotation
-      )
-      console.log('done', { croppedImage })
-      setSelectedPfp(croppedImage)
-      closeModal()
-    } catch (e) {
-      console.error(e)
-    }
-  }, [imageSrc, croppedAreaPixels, rotation])
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
@@ -181,7 +153,69 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       reader.readAsDataURL(file)
     })
   }
-  const onPfpUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+
+  const closeModal = () => {
+    setShowModal(false)
+    // onClose()
+  }
+
+  const onCropComplete = useCallback(
+    (croppedArea: any, croppedAreaPixels: any) => {
+      setCroppedAreaPixels(croppedAreaPixels)
+    },
+    []
+  )
+
+  const selectCroppedImage = useCallback(async () => {
+    console.log(`zoom:${zoom}`)
+    console.log(`rotation:${rotation}`)
+
+    try {
+      const croppedImage: any = await getCroppedImg(
+        imageSrc,
+        croppedAreaPixels,
+        rotation
+      )
+      console.log('done', { croppedImage })
+      setSelectedPfp(croppedImage)
+      // upload pfp
+      const imageFile = getFileFromBlob(croppedImage, 'profilePicture.jpeg')
+      console.log('imageFile', imageFile)
+      console.log(`${typeof imageFile}`)
+      await pfpUpload(imageFile)
+      closeModal()
+    } catch (e) {
+      console.error(e)
+    }
+  }, [imageSrc, croppedAreaPixels, rotation])
+
+  const pfpUpload = async (file: File) => {
+    if (file) {
+      console.log('trying to upload')
+      try {
+        setLoading(true)
+        const result: IPFSUploadResult = await uploadMediaToIPFS(
+          // e.target.files[0]
+          file
+        )
+        const request = {
+          profileId: selectedChannel?.id,
+          url: result.url
+        }
+        setSelectedPfp(result.url)
+        const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+        if (!canUseDispatcher) {
+          return signTypedData(request)
+        }
+        await createViaDispatcher(request)
+      } catch (error) {
+        onError(error)
+        logger.error('[Error Pfp Upload]', error)
+      }
+      return null
+    }
+  }
+  const onPfpSelect = async (e: ChangeEvent<HTMLInputElement>) => {
     // toggle Modal
     if (e.target.files?.length) {
       try {
@@ -194,26 +228,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         onError(error)
         logger.error('[Error Pfp Crop]', error)
       }
-
-      // try {
-      //   setLoading(true)
-      //   const result: IPFSUploadResult = await uploadMediaToIPFS(
-      //     e.target.files[0]
-      //   )
-      //   const request = {
-      //     profileId: selectedChannel?.id,
-      //     url: result.url
-      //   }
-      //   setSelectedPfp(result.url)
-      //   const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
-      //   if (!canUseDispatcher) {
-      //     return signTypedData(request)
-      //   }
-      //   await createViaDispatcher(request)
-      // } catch (error) {
-      //   onError(error)
-      //   logger.error('[Error Pfp Upload]', error)
-      // }
     }
   }
 
@@ -246,7 +260,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           type="file"
           accept=".png, .jpg, .jpeg, .svg, .gif"
           className="hidden w-full"
-          onChange={onPfpUpload}
+          onChange={onPfpSelect}
         />
         {imageSrc ? (
           <Modal
