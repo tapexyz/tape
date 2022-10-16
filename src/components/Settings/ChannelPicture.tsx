@@ -19,7 +19,7 @@ import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import { utils } from 'ethers'
-import React, { ChangeEvent, FC, useCallback, useState } from 'react'
+import React, { ChangeEvent, FC, useCallback, useEffect, useState } from 'react'
 import { Point } from 'react-easy-crop/types'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
@@ -47,9 +47,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const [showModal, setShowModal] = useState(false)
-  const [imageSrc, setImageSrc] = useState(null)
+  const [imageSrc, setImageSrc] = useState<string>('')
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
   const [rotation, setRotation] = useState(0)
+  const [croppedPfp, setCroppedPfp] = useState<Blob | null>(null)
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -154,7 +155,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
 
   const closeModal = () => {
     setShowModal(false)
-    // onClose()
   }
 
   const onCropComplete = useCallback(
@@ -166,13 +166,9 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
 
   const pfpUpload = async (file: File) => {
     if (file) {
-      console.log('trying to upload')
       try {
         setLoading(true)
-        const result: IPFSUploadResult = await uploadMediaToIPFS(
-          // e.target.files[0]
-          file
-        )
+        const result: IPFSUploadResult = await uploadMediaToIPFS(file)
         const request = {
           profileId: selectedChannel?.id,
           url: result.url
@@ -187,9 +183,17 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         onError(error)
         logger.error('[Error Pfp Upload]', error)
       }
-      return null
     }
   }
+
+  useEffect(() => {
+    if (croppedPfp) {
+      const imageFile = getFileFromBlob(croppedPfp, 'profilePicture.jpeg')
+      pfpUpload(imageFile)
+    }
+    // eslint-disable-next-line
+  }, [croppedPfp])
+
   const selectCroppedImage = useCallback(async () => {
     try {
       const croppedImage: any = await getCroppedImg(
@@ -197,13 +201,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         croppedAreaPixels,
         rotation
       )
-      console.log('done', { croppedImage })
-      setSelectedPfp(croppedImage)
-      // upload pfp
-      const imageFile = getFileFromBlob(croppedImage, 'profilePicture.jpeg')
-      console.log('imageFile', imageFile)
-      console.log(`${typeof imageFile}`)
-      await pfpUpload(imageFile)
+      setCroppedPfp(croppedImage)
       closeModal()
     } catch (e) {
       console.error(e)
@@ -211,17 +209,16 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   }, [imageSrc, croppedAreaPixels, rotation])
 
   const onPfpSelect = async (e: ChangeEvent<HTMLInputElement>) => {
-    // toggle Modal
     if (e.target.files?.length) {
       try {
         const file = e.target.files[0]
         let imageDataUrl: any = await readFile(file)
         setImageSrc(imageDataUrl)
         setShowModal(true)
-        // setSelectedPfp(imageDataUrl)
       } catch (error) {
         onError(error)
         logger.error('[Error Pfp Crop]', error)
+        setCroppedPfp(null)
       }
     }
   }
