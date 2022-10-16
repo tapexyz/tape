@@ -278,20 +278,25 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             onClose={closeModal}
             show={showModal}
             // panelClassName="w-full h-full"
-            panelClassName="max-w-xl h-full"
+            panelClassName="w-1/2 h-3/4"
           >
-            {/* <div className="flex items-center p-3"> */}
-            <div className="flex flex-col mb-3">
-              <Cropper
-                // image="https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000"
-                image={imageSrc}
-                crop={crop}
-                zoom={zoom}
-                aspect={1 / 1}
-                onCropChange={setCrop}
-                onCropComplete={onCropComplete}
-                onZoomChange={setZoom}
-              />
+            <div className="relative h-3/4">
+              <div className="flex">
+                <Cropper
+                  // image="https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000"
+                  image={imageSrc}
+                  crop={crop}
+                  zoom={zoom}
+                  aspect={1 / 1}
+                  onCropChange={setCrop}
+                  onCropComplete={onCropComplete}
+                  onZoomChange={setZoom}
+                  cropShape="round"
+                  objectFit="auto-cover"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col">
               <Slider
                 value={zoom}
                 min={1}
@@ -301,17 +306,16 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
                 onChange={(e, zoom) => setZoom(Number(zoom))}
                 classes={{ root: 'slider' }}
               />
+              {/* place button bottom right */}
               <Button
-                className="w-32"
+                className="w-32 h-10 mt-4 ml-auto"
                 onClick={selectCroppedImage}
                 color="primary"
                 // classes={{ root: classes.cropButton }}
               >
-                Show Result
+                Crop
               </Button>
             </div>
-
-            <div className="flex flex-col mb-3"></div>
           </Modal>
         ) : (
           ''
