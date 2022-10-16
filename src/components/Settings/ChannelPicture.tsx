@@ -1,23 +1,30 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
+import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
+import Modal from '@components/UIElements/Modal'
 import { BROADCAST_MUTATION } from '@gql/queries'
 import { CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER } from '@gql/queries/dispatcher'
 import { SET_PFP_URI_TYPED_DATA } from '@gql/queries/typed-data'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
+import Slider from '@material-ui/core/Slider'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED
 } from '@utils/constants'
+import { getCroppedImg } from '@utils/functions/canvasUtils'
+import { getFileFromBlob } from '@utils/functions/getFileFromBlob'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import { utils } from 'ethers'
-import React, { ChangeEvent, FC, useState, useCallback } from 'react'
+import React, { ChangeEvent, FC, useCallback, useState } from 'react'
+import Cropper from 'react-easy-crop'
+import { Point } from 'react-easy-crop/types'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
 import {
@@ -27,13 +34,6 @@ import {
 } from 'src/types'
 import { IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
-import Cropper from 'react-easy-crop'
-import { Point, Area } from 'react-easy-crop/types'
-import Slider from '@material-ui/core/Slider'
-import Modal from '@components/UIElements/Modal'
-import { getCroppedImg } from '@utils/functions/canvasUtils'
-import { Button } from '@components/UIElements/Button'
-import { getFileFromBlob } from '@utils/functions/getFileFromBlob'
 
 type Props = {
   channel: Profile
@@ -166,29 +166,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     []
   )
 
-  const selectCroppedImage = useCallback(async () => {
-    console.log(`zoom:${zoom}`)
-    console.log(`rotation:${rotation}`)
-
-    try {
-      const croppedImage: any = await getCroppedImg(
-        imageSrc,
-        croppedAreaPixels,
-        rotation
-      )
-      console.log('done', { croppedImage })
-      setSelectedPfp(croppedImage)
-      // upload pfp
-      const imageFile = getFileFromBlob(croppedImage, 'profilePicture.jpeg')
-      console.log('imageFile', imageFile)
-      console.log(`${typeof imageFile}`)
-      await pfpUpload(imageFile)
-      closeModal()
-    } catch (e) {
-      console.error(e)
-    }
-  }, [imageSrc, croppedAreaPixels, rotation])
-
   const pfpUpload = async (file: File) => {
     if (file) {
       console.log('trying to upload')
@@ -215,6 +192,26 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       return null
     }
   }
+  const selectCroppedImage = useCallback(async () => {
+    try {
+      const croppedImage: any = await getCroppedImg(
+        imageSrc,
+        croppedAreaPixels,
+        rotation
+      )
+      console.log('done', { croppedImage })
+      setSelectedPfp(croppedImage)
+      // upload pfp
+      const imageFile = getFileFromBlob(croppedImage, 'profilePicture.jpeg')
+      console.log('imageFile', imageFile)
+      console.log(`${typeof imageFile}`)
+      await pfpUpload(imageFile)
+      closeModal()
+    } catch (e) {
+      console.error(e)
+    }
+  }, [imageSrc, croppedAreaPixels, rotation])
+
   const onPfpSelect = async (e: ChangeEvent<HTMLInputElement>) => {
     // toggle Modal
     if (e.target.files?.length) {
