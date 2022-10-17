@@ -4,7 +4,7 @@ export const getFileFromBlob = (theBlob: Blob, fileName: string): File => {
     fileName,
     {
       lastModified: new Date().getTime(),
-      type: theBlob.type
+      type: 'image/jpeg'
     }
   )
 }
