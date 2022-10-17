@@ -8634,10 +8634,10 @@ vlq@^2.0.4:
   resolved "https://registry.yarnpkg.com/vlq/-/vlq-2.0.4.tgz#6057b85729245b9829e3cc7755f95b228d4fe041"
   integrity sha512-aodjPa2wPQFkra1G8CzJBTHXhgk3EVSwxSWXNPr1fgdFLUb8kvLV1iEb6rFgasIsjP82HWI6dsb5Io26DDnasA==
 
-wagmi@^0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.7.3.tgz#6cc62f8115aafcf00696354009ae61fdcae6531b"
-  integrity sha512-2HWgshtByBPZ3/Px8rTKtY3K6uZPwC8kW5mPtZnFllQuHGDBPwPi1/zKWLz5yY/02/9JaGrUVlggCcIysIVq2Q==
+wagmi@^0.7.4:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.7.4.tgz#aca7d60b68b6e274c69f6a42652ac26e93c11b1d"
+  integrity sha512-EeseLNIdOhiX6N9M+zbqgC3bOWfpUYvVAphXKZeIxY0kkkGWr8xfKbpOAF/CQzV7Qk2txK8yCTOyIePgikUgxA==
   dependencies:
     "@coinbase/wallet-sdk" "^3.5.3"
     "@tanstack/query-sync-storage-persister" "^4.10.1"
