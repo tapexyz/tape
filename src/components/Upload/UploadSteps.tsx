@@ -19,8 +19,8 @@ import {
   RELAYER_ENABLED,
   VIDEO_CDN_URL
 } from '@utils/constants'
+import canUploadedToIpfs from '@utils/functions/canUploadedToIpfs'
 import { checkIsBytesVideo } from '@utils/functions/checkIsBytesVideo'
-import { isLessThan100MB } from '@utils/functions/formatBytes'
 import { getCollectModule } from '@utils/functions/getCollectModule'
 import getUserLocale from '@utils/functions/getUserLocale'
 import omitKey from '@utils/functions/omitKey'
@@ -429,7 +429,7 @@ const UploadSteps = () => {
     if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail)
       return toast.error('NSFW content not allowed')
     else if (
-      isLessThan100MB(uploadedVideo.file?.size) &&
+      canUploadedToIpfs(uploadedVideo.file?.size) &&
       uploadedVideo.isUploadToIpfs
     )
       return await uploadVideoToIpfs()

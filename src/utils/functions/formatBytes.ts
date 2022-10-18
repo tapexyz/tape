@@ -1,4 +1,4 @@
-export const formatBytes = (bytes: number) => {
+const formatBytes = (bytes: number) => {
   if (bytes) {
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
     const i = Math.min(
@@ -10,5 +10,4 @@ export const formatBytes = (bytes: number) => {
   return 'n/a'
 }
 
-export const isLessThan100MB = (bytes: number | undefined) =>
-  bytes ? (bytes / 1024 ** 2 < 100 ? true : false) : false
+export default formatBytes
