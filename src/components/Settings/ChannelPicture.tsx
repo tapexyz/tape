@@ -14,7 +14,7 @@ import {
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
-import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
+import uploadToIPFS3 from '@utils/functions/uploadToIPFS3'
 import clsx from 'clsx'
 import { utils } from 'ethers'
 import React, { ChangeEvent, FC, useState } from 'react'
@@ -138,9 +138,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     if (e.target.files?.length) {
       try {
         setLoading(true)
-        const result: IPFSUploadResult = await uploadMediaToIPFS(
-          e.target.files[0]
-        )
+        const result: IPFSUploadResult = await uploadToIPFS3(e.target.files[0])
         const request = {
           profileId: selectedChannel?.id,
           url: result.url
