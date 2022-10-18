@@ -28,7 +28,7 @@ import omitKey from '@utils/functions/omitKey'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
-import uploadToIPFS3 from '@utils/functions/uploadToIPFS3'
+import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import { Mixpanel, TRACK } from '@utils/track'
 import { utils } from 'ethers'
@@ -182,7 +182,7 @@ const BasicInfo = ({ channel }: Props) => {
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       setUploading(true)
-      const result: IPFSUploadResult = await uploadToIPFS3(e.target.files[0])
+      const result: IPFSUploadResult = await uploadToIPFS(e.target.files[0])
       setCoverImage(result.url)
       setUploading(false)
     }

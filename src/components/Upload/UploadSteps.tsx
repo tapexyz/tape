@@ -27,7 +27,7 @@ import omitKey from '@utils/functions/omitKey'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
-import uploadToIPFS3 from '@utils/functions/uploadToIPFS3'
+import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import useTxnToast from '@utils/hooks/useTxnToast'
 import { Mixpanel, TRACK } from '@utils/track'
@@ -340,7 +340,7 @@ const UploadSteps = () => {
   }
 
   const uploadVideoToIpfs = async () => {
-    const result = await uploadToIPFS3(
+    const result = await uploadToIPFS(
       uploadedVideo.file as File,
       (percentCompleted) => {
         setUploadedVideo({
