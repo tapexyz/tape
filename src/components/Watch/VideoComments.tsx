@@ -24,6 +24,11 @@ type Props = {
   video: LenstubePublication
 }
 
+const request = {
+  limit: 10,
+  customFilters: LENS_CUSTOM_FILTERS
+}
+
 const VideoComments: FC<Props> = ({ video }) => {
   const {
     query: { id }
@@ -41,13 +46,13 @@ const VideoComments: FC<Props> = ({ video }) => {
     {
       variables: {
         request: {
-          commentsOf: id,
-          limit: 10
+          ...request,
+          commentsOf: id
         },
         reactionRequest: selectedChannel
           ? { profileId: selectedChannel?.id }
           : null,
-        customFilters: LENS_CUSTOM_FILTERS
+        channelId: selectedChannel?.id ?? null
       },
       skip: !id,
       onCompleted(data) {
@@ -61,12 +66,12 @@ const VideoComments: FC<Props> = ({ video }) => {
     refetch({
       request: {
         commentsOf: id,
-        limit: 10
+        ...request
       },
       reactionRequest: selectedChannel
         ? { profileId: selectedChannel?.id }
         : null,
-      customFilters: LENS_CUSTOM_FILTERS
+      channelId: selectedChannel?.id ?? null
     })
   }
 
@@ -79,12 +84,13 @@ const VideoComments: FC<Props> = ({ video }) => {
             request: {
               commentsOf: id,
               cursor: pageInfo?.next,
-              limit: 10
+              ...request
             },
             reactionRequest: selectedChannel
               ? { profileId: selectedChannel?.id }
               : null,
-            customFilters: LENS_CUSTOM_FILTERS
+            customFilters: LENS_CUSTOM_FILTERS,
+            channelId: selectedChannel?.id ?? null
           }
         })
         setPageInfo(data?.publications?.pageInfo)

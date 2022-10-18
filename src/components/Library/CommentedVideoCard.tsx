@@ -67,7 +67,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
           <Link href={`/${video.profile?.handle}`} className="flex-none mt-0.5">
             <img
               className="w-8 h-8 rounded-xl"
-              src={getProfilePicture(video.profile, 'avatar')}
+              src={getProfilePicture(commentedOn?.profile, 'avatar')}
               alt="channel picture"
               draggable={false}
             />

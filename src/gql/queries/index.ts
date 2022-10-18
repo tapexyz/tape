@@ -298,21 +298,20 @@ export const EXPLORE_QUERY = gql`
 `
 
 export const FEED_QUERY = gql`
-  query HomeFeed(
-    $request: TimelineRequest!
+  query Feed(
+    $request: FeedRequest!
     $reactionRequest: ReactionFieldResolverRequest
     $channelId: ProfileId
   ) {
-    timeline(request: $request) {
+    feed(request: $request) {
       items {
-        ... on Post {
-          ...PostFields
-        }
-        ... on Comment {
-          ...CommentFields
-        }
-        ... on Mirror {
-          ...MirrorFields
+        root {
+          ... on Post {
+            ...PostFields
+          }
+          ... on Comment {
+            ...CommentFields
+          }
         }
       }
       pageInfo {
@@ -323,7 +322,6 @@ export const FEED_QUERY = gql`
   }
   ${PostFields}
   ${CommentFields}
-  ${MirrorFields}
 `
 
 export const PROFILE_FEED_QUERY = gql`
@@ -359,6 +357,7 @@ export const COMMENT_FEED_QUERY = gql`
   query CommentFeed(
     $request: PublicationsQueryRequest!
     $reactionRequest: ReactionFieldResolverRequest
+    $channelId: ProfileId
   ) {
     publications(request: $request) {
       items {
@@ -385,9 +384,13 @@ export const VIDEO_DETAIL_QUERY = gql`
       ... on Post {
         ...PostFields
       }
+      ... on Comment {
+        ...CommentFields
+      }
     }
   }
   ${PostFields}
+  ${CommentFields}
 `
 
 export const VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY = gql`
