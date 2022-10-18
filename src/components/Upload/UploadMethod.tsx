@@ -1,6 +1,8 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import canUploadedToIpfs from '@utils/functions/canUploadedToIpfs'
+import canUploadedToIpfs, {
+  FREE_UPLOAD_LIMIT
+} from '@utils/functions/canUploadedToIpfs'
 import React from 'react'
 import { BiCheck } from 'react-icons/bi'
 
@@ -13,8 +15,8 @@ const UploadMethod = () => {
   return canUploadedToIpfs(uploadedVideo.file?.size) ? (
     <div className="flex items-start">
       <div className="px-3 py-1 text-sm border-l-4 opacity-60">
-        This video size is less than 100MB and can be uploaded to IPFS for free,
-        would you like to proceed?
+        This video size is less than {FREE_UPLOAD_LIMIT}MB and can be uploaded
+        to IPFS for free, would you like to proceed?
       </div>
       <div className="pt-0.5">
         {uploadedVideo.isUploadToIpfs ? (

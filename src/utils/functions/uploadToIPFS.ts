@@ -1,6 +1,7 @@
 import { S3 } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
 import logger from '@lib/logger'
+import { IS_MAINNET } from '@utils/constants'
 import axios from 'axios'
 import { IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
@@ -100,7 +101,9 @@ const uploadToIPFS = async (
   file: File,
   onProgress?: (percentage: number) => void
 ): Promise<IPFSUploadResult> => {
-  const { url, type } = await everland(file, onProgress)
+  const { url, type } = IS_MAINNET
+    ? await everland(file, onProgress)
+    : await estuary(file, onProgress)
   return { url, type }
 }
 
