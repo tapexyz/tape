@@ -29,7 +29,7 @@ const MoreTrigger = () => {
       positionClassName="left-[72px] -bottom-1"
       className="w-full"
     >
-      <div className="p-2 max-h-96 mt-1.5 w-44 overflow-x-hidden overflow-y-auto border shadow-xl border-gray-100 rounded-xl dark:border-gray-800 bg-secondary">
+      <div className="p-2 max-h-96 mt-1.5 w-48 overflow-x-hidden overflow-y-auto border shadow-xl border-gray-100 rounded-xl dark:border-gray-800 bg-secondary">
         <div className="flex flex-col text-sm transition duration-150 ease-in-out">
           <div className="text-[11px] cursor-default p-1 font-semibold uppercase opacity-50">
             More
@@ -93,6 +93,27 @@ const MoreTrigger = () => {
             </Link>
           </div>
           <hr className="my-1 border-gray-200 dark:border-gray-800" />
+          <div className="text-[11px] cursor-default p-1 font-semibold uppercase opacity-50">
+            Powered by
+          </div>
+          <div className="rounded-lg hover:bg-gray-50 opacity-80 hover:opacity-100 dark:hover:bg-gray-900">
+            <Link
+              href={`https://livepeer.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
+              rel="noreferrer noopener"
+              className="space-x-2 p-1.5 flex items-center"
+              target="_blank"
+            >
+              <span>
+                <img
+                  src={`lenstube.svg`}
+                  alt="lvpr"
+                  className="w-3.5 h-3.5"
+                  draggable={false}
+                />
+              </span>
+              <span>Livepeer</span>
+            </Link>
+          </div>
           <div className="rounded-lg hover:bg-gray-50 opacity-80 hover:opacity-100 dark:hover:bg-gray-900">
             <Link
               href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
@@ -101,7 +122,7 @@ const MoreTrigger = () => {
               target="_blank"
             >
               <span>▲</span>
-              <span>Powered by Vercel</span>
+              <span>Vercel</span>
             </Link>
           </div>
         </div>
