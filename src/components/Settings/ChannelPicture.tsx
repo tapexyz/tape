@@ -172,11 +172,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const pfpUpload = async (file: File) => {
     if (file) {
       try {
-        // debug
-        console.log('file')
-        console.log(typeof file)
-
-        console.log(file)
         setLoading(true)
         const result: IPFSUploadResult = await uploadMediaToIPFS(file)
         const request = {
@@ -210,7 +205,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         croppedAreaPixels,
         rotation
       )
-      console.log(`Cropped image: ${croppedImage}`)
       const croppedImageFile = getFileFromDataURL(croppedImage, 'cropped.jpeg')
       setCroppedPfp(croppedImageFile)
       closeModal()
