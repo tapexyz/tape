@@ -19,15 +19,15 @@ import {
   RELAYER_ENABLED,
   VIDEO_CDN_URL
 } from '@utils/constants'
+import canUploadedToIpfs from '@utils/functions/canUploadedToIpfs'
 import { checkIsBytesVideo } from '@utils/functions/checkIsBytesVideo'
-import { isLessThan100MB } from '@utils/functions/formatBytes'
 import { getCollectModule } from '@utils/functions/getCollectModule'
 import getUserLocale from '@utils/functions/getUserLocale'
 import omitKey from '@utils/functions/omitKey'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
-import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
+import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import useTxnToast from '@utils/hooks/useTxnToast'
 import { Mixpanel, TRACK } from '@utils/track'
@@ -342,7 +342,7 @@ const UploadSteps = () => {
   }
 
   const uploadVideoToIpfs = async () => {
-    const result = await uploadMediaToIPFS(
+    const result = await uploadToIPFS(
       uploadedVideo.file as File,
       (percentCompleted) => {
         setUploadedVideo({
@@ -431,7 +431,7 @@ const UploadSteps = () => {
     if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail)
       return toast.error('NSFW content not allowed')
     else if (
-      isLessThan100MB(uploadedVideo.file?.size) &&
+      canUploadedToIpfs(uploadedVideo.file?.size) &&
       uploadedVideo.isUploadToIpfs
     )
       return await uploadVideoToIpfs()
