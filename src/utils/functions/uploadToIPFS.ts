@@ -29,7 +29,7 @@ export const everland = async (
   try {
     const params = {
       Bucket: bucketName,
-      Key: `${uuidv4()}_${file.name}`,
+      Key: uuidv4(),
       Body: file,
       ContentType: file.type
     }
