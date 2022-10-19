@@ -241,7 +241,8 @@ const UploadSteps = () => {
       const media: Array<PublicationMetadataMediaInput> = [
         {
           item: uploadedVideo.videoSource,
-          type: uploadedVideo.videoType
+          type: uploadedVideo.videoType,
+          cover: uploadedVideo.thumbnail
         }
       ]
       const attributes: MetadataAttributeInput[] = [
@@ -264,7 +265,8 @@ const UploadSteps = () => {
       if (uploadedVideo.playbackId) {
         media.push({
           item: `${VIDEO_CDN_URL}/asset/${uploadedVideo.playbackId}/video`,
-          type: uploadedVideo.videoType
+          type: uploadedVideo.videoType,
+          cover: uploadedVideo.thumbnail
         })
       }
       if (uploadedVideo.durationInSeconds) {
