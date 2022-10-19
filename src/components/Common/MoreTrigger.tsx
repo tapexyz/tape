@@ -92,7 +92,6 @@ const MoreTrigger = () => {
               Privacy
             </Link>
           </div>
-          <hr className="my-1 border-gray-200 dark:border-gray-800" />
           <div className="text-[11px] cursor-default p-1 font-semibold uppercase opacity-50">
             Powered by
           </div>
@@ -107,7 +106,7 @@ const MoreTrigger = () => {
                 <img
                   src={`lenstube.svg`}
                   alt="lvpr"
-                  className="w-3.5 h-3.5"
+                  className="w-3 h-3"
                   draggable={false}
                 />
               </span>
