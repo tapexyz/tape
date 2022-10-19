@@ -3,7 +3,8 @@ import {
   APP_NAME,
   LENSTUBE_GITHUB_HANDLE,
   LENSTUBE_STATUS_PAGE,
-  LENSTUBE_TWITTER_HANDLE
+  LENSTUBE_TWITTER_HANDLE,
+  STATIC_ASSETS
 } from '@utils/constants'
 import { Mixpanel, TRACK } from '@utils/track'
 import { DISCORD, PRIVACY } from '@utils/url-path'
@@ -104,7 +105,7 @@ const MoreTrigger = () => {
             >
               <span>
                 <img
-                  src={`lenstube.svg`}
+                  src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
                   alt="lvpr"
                   className="w-3 h-3"
                   draggable={false}
