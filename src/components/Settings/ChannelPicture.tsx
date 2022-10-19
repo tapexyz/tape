@@ -173,7 +173,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     if (file) {
       try {
         setLoading(true)
-        const result: IPFSUploadResult = await uploadMediaToIPFS(file)
+        const result: IPFSUploadResult = await uploadToIPFS(file)
         const request = {
           profileId: selectedChannel?.id,
           url: result.url
