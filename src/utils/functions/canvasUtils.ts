@@ -27,7 +27,7 @@ export function rotateSize(width: number, height: number, rotation: number) {
 /**
  * This function was adapted from the one in the ReadMe of https://github.com/DominicTobias/react-image-crop
  */
-export async function getCroppedImg(
+export async function getCroppedImgUrl(
   imageSrc: any,
   pixelCrop: any,
   rotation = 0,
@@ -80,12 +80,12 @@ export async function getCroppedImg(
   ctx.putImageData(data, 0, 0)
 
   // As Base64 string
-  // return canvas.toDataURL('image/jpeg');
+  return canvas.toDataURL('image/jpeg')
 
   // As a blob
-  return new Promise((resolve) => {
-    canvas.toBlob((file: any) => {
-      resolve(URL.createObjectURL(file))
-    }, 'image/jpeg')
-  })
+  // return new Promise((resolve) => {
+  //   canvas.toBlob((file: any) => {
+  //     resolve(URL.createObjectURL(file))
+  //   }, 'image/jpeg')
+  // })
 }
