@@ -52,7 +52,7 @@
     "react-icons": "^4.6.0",
     "react-mentions": "^4.4.7",
     "uuid": "^9.0.0",
-    "wagmi": "^0.7.4",
+    "wagmi": "^0.7.5",
     "zod": "^3.19.1",
     "zustand": "^4.1.2"
   },
@@ -67,7 +67,7 @@
     "@types/react-dom": "18.0.6",
     "@types/react-mentions": "^4.1.7",
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
     "autoprefixer": "^10.4.12",
     "eslint": "8.25.0",
     "eslint-config-next": "12.3.1",
