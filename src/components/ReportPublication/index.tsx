@@ -15,7 +15,7 @@ type Props = {
 }
 
 const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
-  const [reason, setReason] = useState('ILLEGAL-ANIMAL_ABUSE')
+  const [reason, setReason] = useState('SPAM-FAKE_ENGAGEMENT')
   const [createReport, { loading: reporting }] = useMutation(
     CREATE_REPORT_PUBLICATION_MUTATION,
     {
