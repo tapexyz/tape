@@ -98,7 +98,7 @@ const MoreTrigger = () => {
           </div>
           <div className="rounded-lg hover:bg-gray-50 opacity-80 hover:opacity-100 dark:hover:bg-gray-900">
             <Link
-              href={`https://livepeer.studio/?utm_source=${APP_NAME}&utm_campaign=oss`}
+              href={`https://livepeer.studio/?utm_source=${APP_NAME}`}
               rel="noreferrer noopener"
               className="space-x-2 p-1.5 flex items-center"
               target="_blank"
