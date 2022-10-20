@@ -114,7 +114,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     setLoading(true)
     if (channel.followModule) {
       if (channel?.followModule?.__typename === 'ProfileFollowModuleSettings') {
-        toast.error('Requesting signature...')
+        toast('Requesting signature...')
       }
       return createSubscribeTypedData({
         variables: {
