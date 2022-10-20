@@ -9,22 +9,28 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { Profile } from 'src/types'
-import { useAccount, useSignMessage } from 'wagmi'
+import { useAccount, useNetwork, useSignMessage } from 'wagmi'
 
+import { POLYGON_CHAIN_ID } from '../../../utils/constants'
 import ConnectWalletButton from './ConnectWalletButton'
 
 const Login = () => {
   const router = useRouter()
-  const { address } = useAccount()
+  const { address, connector, isConnected } = useAccount()
   const [loading, setLoading] = useState(false)
   const setShowCreateChannel = useAppStore(
     (state) => state.setShowCreateChannel
   )
   const setChannels = useAppStore((state) => state.setChannels)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const setSelectedChannelId = usePersistStore(
     (state) => state.setSelectedChannelId
   )
+
+  const { chain } = useNetwork()
+  const [signatureRequested, setSignatureRequested] = useState(false)
 
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message)
@@ -107,6 +113,20 @@ const Login = () => {
       logger.error('[Error Sign In]', error)
     }
   }
+
+  useEffect(() => {
+    if (
+      connector?.id &&
+      isConnected &&
+      chain?.id === POLYGON_CHAIN_ID &&
+      !selectedChannel &&
+      !selectedChannelId &&
+      !signatureRequested
+    ) {
+      setSignatureRequested(true)
+      handleSign()
+    }
+  }, [connector, isConnected, chain])
 
   return (
     <ConnectWalletButton handleSign={() => handleSign()} signing={loading} />
