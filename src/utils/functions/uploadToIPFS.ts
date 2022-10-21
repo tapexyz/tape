@@ -19,7 +19,8 @@ const client = new S3({
     accessKeyId,
     secretAccessKey
   },
-  region
+  region,
+  maxAttempts: 3
 })
 
 export const everland = async (
