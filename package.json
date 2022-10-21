@@ -18,11 +18,11 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.0",
-    "@aws-sdk/client-s3": "^3.190.0",
+    "@aws-sdk/client-s3": "^3.193.0",
     "@aws-sdk/lib-storage": "^3.190.0",
     "@bundlr-network/client": "^0.9.0-b8",
     "@headlessui/react": "^1.7.3",
-    "@hookform/resolvers": "^2.9.9",
+    "@hookform/resolvers": "^2.9.10",
     "@rainbow-me/rainbowkit": "^0.7.1",
     "@sentry/nextjs": "^7.16.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -62,7 +62,7 @@
     "@graphql-codegen/typescript": "^2.7.5",
     "@next/bundle-analyzer": "^12.3.1",
     "@types/mixpanel-browser": "^2.38.0",
-    "@types/node": "18.11.2",
+    "@types/node": "18.11.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "@types/react-mentions": "^4.1.7",
@@ -77,7 +77,7 @@
     "husky": "^8.0.0",
     "postcss": "^8.4.18",
     "prettier": "^2.7.1",
-    "tailwindcss": "^3.1.8",
+    "tailwindcss": "^3.2.0",
     "typescript": "4.8.4"
   }
 }
