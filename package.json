@@ -51,6 +51,7 @@
     "react-hook-form": "^7.37.0",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.6.0",
+    "react-image-crop": "^10.0.8",
     "react-mentions": "^4.4.7",
     "uuid": "^9.0.0",
     "wagmi": "^0.7.3",

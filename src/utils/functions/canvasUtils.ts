@@ -89,3 +89,42 @@ export async function getCroppedImgUrl(
   //   }, 'image/jpeg')
   // })
 }
+
+
+export const getCroppedImgUrl2 = async (
+  image: any,
+  crop:
+    {
+      x: number, y: number, width: number,
+      height: number
+      // aspect: number 
+    },
+
+) => {
+  try {
+    const canvas = document.createElement("canvas");
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
+    ctx?.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
+
+    const base64Image = canvas.toDataURL("image/jpeg", 1);
+    return base64Image;
+    // setResult(base64Image);
+
+  } catch (e) {
+    console.log("cropped the image");
+  }
+}

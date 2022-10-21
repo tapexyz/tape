@@ -11,7 +11,10 @@ import {
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED
 } from '@utils/constants'
-import { getCroppedImgUrl } from '@utils/functions/canvasUtils'
+import {
+  getCroppedImgUrl,
+  getCroppedImgUrl2
+} from '@utils/functions/canvasUtils'
 import { getFileFromDataURL } from '@utils/functions/getFileFromDataURL'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
@@ -19,7 +22,14 @@ import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import { utils } from 'ethers'
-import React, { ChangeEvent, FC, useCallback, useEffect, useState } from 'react'
+import React, {
+  ChangeEvent,
+  FC,
+  useCallback,
+  useEffect,
+  useState,
+  useRef
+} from 'react'
 import { Area, Point } from 'react-easy-crop/types'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
@@ -30,9 +40,19 @@ import {
 } from 'src/types'
 import { IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
-
+import { Button } from '@components/UIElements/Button'
+import Modal from '@components/UIElements/Modal'
 import CropModal from './CropModal'
-
+// react-image-crop
+import ReactCrop, {
+  centerCrop,
+  makeAspectCrop,
+  Crop,
+  PixelCrop
+} from 'react-image-crop'
+import useDebounce from '@utils/hooks/useDebounce'
+import { canvasPreview } from './canvasPreview'
+import { useDebounceEffect } from '@utils/hooks/useDebounceEffect'
 type Props = {
   channel: Profile
 }
@@ -44,7 +64,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
-  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
+  // const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const [showModal, setShowModal] = useState(false)
   const [imageSrc, setImageSrc] = useState<string>('')
@@ -57,6 +77,76 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const [rotation, setRotation] = useState(0)
   const [croppedPfp, setCroppedPfp] = useState<File | null>(null)
 
+  // react-image-crop
+  const [imgSrc, setImgSrc] = useState('')
+  const previewCanvasRef = useRef<HTMLCanvasElement>(null)
+  const imgRef = useRef<HTMLImageElement>(null)
+  const [crop, setCrop] = useState<Crop>()
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
+  const [scale, setScale] = useState(1)
+  const [rotate, setRotate] = useState(0)
+  const [aspect, setAspect] = useState<number | undefined>(16 / 9)
+  console.log(`crop`, crop)
+  console.log(`scale`, scale)
+  console.log(`rotate`, rotate)
+  console.log(`aspect`, aspect)
+
+  useDebounceEffect(
+    async () => {
+      if (
+        completedCrop?.width &&
+        completedCrop?.height &&
+        imgRef.current &&
+        previewCanvasRef.current
+      ) {
+        // We use canvasPreview as it's much faster than imgPreview.
+        canvasPreview(
+          imgRef.current,
+          previewCanvasRef.current,
+          completedCrop,
+          scale,
+          rotate
+        )
+      }
+    },
+    100,
+    [completedCrop, scale, rotate]
+  )
+
+  // This is to demonstate how to make and center a % aspect crop
+  // which is a bit trickier so we use some helper functions.
+  const centerAspectCrop = (
+    mediaWidth: number,
+    mediaHeight: number,
+    aspect: number
+  ) => {
+    return centerCrop(
+      makeAspectCrop(
+        {
+          unit: '%',
+          width: 90
+        },
+        aspect,
+        mediaWidth,
+        mediaHeight
+      ),
+      mediaWidth,
+      mediaHeight
+    )
+  }
+  const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    if (aspect) {
+      const { width, height } = e.currentTarget
+      setCrop(centerAspectCrop(width, height, aspect))
+    }
+  }
+  //save the resulted image
+  const [result, setResult] = useState<string | undefined>('')
+
+  const cropImageHandler = async () => {
+    const croppedImage2 = await getCroppedImgUrl2(imageSrc, croppedAreaPixels)
+    setResult(croppedImage2)
+  }
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
@@ -162,12 +252,12 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     setShowModal(false)
   }
 
-  const onCropComplete = useCallback(
-    (croppedArea: Area, croppedAreaPixels: Area) => {
-      setCroppedAreaPixels(croppedAreaPixels)
-    },
-    []
-  )
+  // const onCropComplete = useCallback(
+  //   (croppedArea: Area, croppedAreaPixels: Area) => {
+  //     setCroppedAreaPixels(croppedAreaPixels)
+  //   },
+  //   []
+  // )
 
   const pfpUpload = async (file: File) => {
     if (file) {
@@ -191,12 +281,12 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     }
   }
 
-  useEffect(() => {
-    if (croppedPfp) {
-      pfpUpload(croppedPfp)
-    }
-    // eslint-disable-next-line
-  }, [croppedPfp])
+  // useEffect(() => {
+  //   if (croppedPfp) {
+  //     pfpUpload(croppedPfp)
+  //   }
+  //   // eslint-disable-next-line
+  // }, [croppedPfp])
 
   const selectCroppedImage = useCallback(async () => {
     try {
@@ -220,11 +310,28 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         let imageDataUrl: any = await readFile(file)
         setImageSrc(imageDataUrl)
         setShowModal(true)
+        setImgSrc(imageDataUrl)
+        // react-image-crop
+        // const imageUrl = URL.createObjectURL(file)
+        // console.log(`imageDataUrl: ${imageDataUrl}`)
+        // console.log(`imageUrl: ${imageUrl}`)
+        // setSrcImg(imageUrl)
       } catch (error) {
         onError(error)
         logger.error('[Error Pfp Crop]', error)
         setCroppedPfp(null)
       }
+    }
+  }
+  function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.files && e.target.files.length > 0) {
+      setCrop(undefined) // Makes crop preview update between images.
+      const reader = new FileReader()
+      reader.addEventListener('load', () =>
+        setImgSrc(reader.result?.toString() || '')
+      )
+      reader.readAsDataURL(e.target.files[0])
+      setShowModal(true)
     }
   }
 
@@ -258,8 +365,9 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           accept=".png, .jpg, .jpeg, .svg, .gif"
           className="hidden w-full"
           onChange={onPfpSelect}
+          // onChange={onSelectFile}
         />
-        <CropModal
+        {/* <CropModal
           show={showModal}
           setShowCrop={setShowModal}
           zoom={zoom}
@@ -271,8 +379,48 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           rotation={rotation}
           setRotation={setRotation}
           selectCroppedImage={selectCroppedImage}
-        />
+        /> */}
+        <Modal
+          title="Crop Channel Picture"
+          onClose={() => setShowModal(false)}
+          show={showModal}
+          // panelClassName="w-1/2 h-3/4"
+        >
+          <div>
+            <div className="flex"></div>
+            <ReactCrop
+              crop={crop}
+              onChange={(_, percentCrop) => setCrop(percentCrop)}
+              onComplete={(c) => setCompletedCrop(c)}
+              aspect={aspect}
+            >
+              <img
+                ref={imgRef}
+                alt="Crop me"
+                src={imgSrc}
+                style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
+                onLoad={onImageLoad}
+              />
+              <div>Image crop</div>
+            </ReactCrop>
+            <div>
+              {!!completedCrop && (
+                <canvas
+                  ref={previewCanvasRef}
+                  style={{
+                    border: '1px solid black',
+                    objectFit: 'contain',
+                    width: completedCrop.width,
+                    height: completedCrop.height
+                  }}
+                />
+              )}
+            </div>
+          </div>
+        </Modal>
       </label>
+
+      <button onClick={cropImageHandler}>Crop Image</button>
     </div>
   )
 }
