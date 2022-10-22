@@ -1,6 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
-import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
 import { BROADCAST_MUTATION } from '@gql/queries'
 import { CREATE_MIRROR_VIA_DISPATHCER } from '@gql/queries/dispatcher'
@@ -18,17 +17,17 @@ import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
-import { AiOutlineRetweet } from 'react-icons/ai'
 import { CreateMirrorBroadcastItemResult, CreateMirrorRequest } from 'src/types'
 import { LenstubePublication } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
   video: LenstubePublication
-  onMirrorSuccess: () => void
+  onMirrorSuccess?: () => void
+  children: React.ReactNode
 }
 
-const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
+const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
@@ -41,7 +40,7 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   }
 
   const onCompleted = () => {
-    onMirrorSuccess()
+    onMirrorSuccess?.()
     toast.success('Mirrored video across lens.')
     setLoading(false)
   }
@@ -156,19 +155,20 @@ const MirrorVideo: FC<Props> = ({ video, onMirrorSuccess }) => {
   if (!video?.canMirror.result) return null
 
   return (
-    <Tooltip placement="top-start" content="Mirror video across Lens">
-      <button
-        type="button"
-        disabled={loading}
-        onClick={() => mirrorVideo()}
-        className="p-3.5 bg-gray-200 dark:bg-gray-800 rounded-full"
-      >
-        {loading ? (
-          <Loader size="sm" className="m-[1px]" />
-        ) : (
-          <AiOutlineRetweet />
-        )}
-      </button>
+    <Tooltip
+      placement="top-start"
+      content={loading ? 'Mirroring' : 'Mirror video across Lens'}
+    >
+      <div className="flex">
+        <button
+          type="button"
+          className="disabled:opacity-50"
+          disabled={loading}
+          onClick={() => mirrorVideo()}
+        >
+          {children}
+        </button>
+      </div>
     </Tooltip>
   )
 }

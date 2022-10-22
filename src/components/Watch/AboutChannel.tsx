@@ -1,11 +1,14 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
+import MirrorVideo from '@components/Common/MirrorVideo'
 import SubscribeActions from '@components/Common/SubscribeActions'
+import { Button } from '@components/UIElements/Button'
 import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
+import { AiOutlineRetweet } from 'react-icons/ai'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { LenstubePublication } from 'src/types/local'
 
@@ -21,6 +24,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
   const subscribeType = channel?.followModule?.__typename
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
+  const [showShare, setShowShare] = useState(false)
 
   useEffect(() => {
     if (video.metadata?.description?.trim().length > 400) {
@@ -58,6 +62,15 @@ const AboutChannel: FC<Props> = ({ video }) => {
           <div className="flex items-center space-x-2">
             {video?.collectModule?.__typename !==
               'RevertCollectModuleSettings' && <CollectVideo video={video} />}
+            <div className="md:block hidden">
+              <MirrorVideo video={video}>
+                <div>
+                  <Button size="md" className="!px-2">
+                    <AiOutlineRetweet className="text-xl" />
+                  </Button>
+                </div>
+              </MirrorVideo>
+            </div>
             <SubscribeActions channel={channel} subscribeType={subscribeType} />
           </div>
         </div>
