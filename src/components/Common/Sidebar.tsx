@@ -55,10 +55,12 @@ const Sidebar = () => {
           <div className="flex flex-col w-full space-y-1">
             <Link
               href={HOME}
-              className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
-                'bg-indigo-50 dark:bg-[#181818]': isActivePath(HOME),
-                'hover:bg-gray-50 dark:hover:bg-[#181818]': !isActivePath(HOME)
-              })}
+              className={clsx(
+                'rounded-lg py-2 2xl:py-2.5 group',
+                isActivePath(HOME)
+                  ? 'bg-indigo-50 dark:bg-[#181818]'
+                  : 'hover:bg-gray-50 dark:hover:bg-[#181818]'
+              )}
             >
               <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
                 <FiHome className="text-xl" />
@@ -67,10 +69,12 @@ const Sidebar = () => {
             </Link>
             <Link
               href={FEED}
-              className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
-                'bg-indigo-50 dark:bg-[#181818]': isActivePath(FEED),
-                'hover:bg-gray-50 dark:hover:bg-[#181818]': !isActivePath(FEED)
-              })}
+              className={clsx(
+                'rounded-lg py-2 2xl:py-2.5 group',
+                isActivePath(FEED)
+                  ? 'bg-indigo-50 dark:bg-[#181818]'
+                  : 'hover:bg-gray-50 dark:hover:bg-[#181818]'
+              )}
             >
               <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
                 <MdOutlineSubscriptions className="text-xl" />
@@ -79,11 +83,12 @@ const Sidebar = () => {
             </Link>
             <Link
               href={EXPLORE}
-              className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
-                'bg-indigo-50 dark:bg-[#181818]': isActivePath(EXPLORE),
-                'hover:bg-gray-50 dark:hover:bg-[#181818]':
-                  !isActivePath(EXPLORE)
-              })}
+              className={clsx(
+                'rounded-lg py-2 2xl:py-2.5 group',
+                isActivePath(EXPLORE)
+                  ? 'bg-indigo-50 dark:bg-[#181818]'
+                  : 'hover:bg-gray-50 dark:hover:bg-[#181818]'
+              )}
             >
               <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
                 <RiLeafLine className="text-xl" />
@@ -106,11 +111,12 @@ const Sidebar = () => {
             </Link>
             <Link
               href={LIBRARY}
-              className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
-                'bg-indigo-50 dark:bg-[#181818]': isActivePath(LIBRARY),
-                'hover:bg-gray-50 dark:hover:bg-[#181818]':
-                  !isActivePath(LIBRARY)
-              })}
+              className={clsx(
+                'rounded-lg py-2 2xl:py-2.5 group',
+                isActivePath(LIBRARY)
+                  ? 'bg-indigo-50 dark:bg-[#181818]'
+                  : 'hover:bg-gray-50 dark:hover:bg-[#181818]'
+              )}
             >
               <div className="flex flex-col items-center pt-0.5 space-y-1 group-hover:opacity-100 opacity-80">
                 <MdOutlineVideoLibrary className="text-xl" />

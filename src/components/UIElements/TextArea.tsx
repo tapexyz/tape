@@ -15,9 +15,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
       <label className="w-full" htmlFor={id}>
         {label && (
           <div className="flex items-center mb-1 space-x-1.5">
-            <div
-              className={clsx('text-[11px] font-semibold uppercase opacity-70')}
-            >
+            <div className="text-[11px] font-semibold uppercase opacity-70">
               {label}
             </div>
           </div>
@@ -26,10 +24,9 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
           <textarea
             id={id}
             className={clsx(
-              {
-                'focus:ring-1 focus:ring-indigo-500': !validationError?.length,
-                '!border-red-500': validationError?.length
-              },
+              validationError?.length
+                ? '!border-red-500'
+                : 'focus:ring-1 focus:ring-indigo-500',
               'bg-white text-sm px-2.5 py-2 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 outline-none disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 w-full',
               className
             )}

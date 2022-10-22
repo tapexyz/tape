@@ -145,10 +145,7 @@ const Layout: FC<Props> = ({ children }) => {
         <div
           className={clsx(
             'w-full md:pl-[94px] md:pr-4 max-w-[110rem] mx-auto',
-            {
-              'px-0': showFullScreen,
-              'pl-2 pr-2': !showFullScreen
-            }
+            showFullScreen ? 'px-0' : 'pl-2 pr-2'
           )}
         >
           {!NO_HEADER_PATHS.includes(pathname) && (

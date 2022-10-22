@@ -59,10 +59,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                 draggable={false}
                 className={clsx(
                   'object-center bg-gray-100 dark:bg-gray-900 w-full h-full rounded-t-xl lg:w-full lg:h-full',
-                  {
-                    'object-contain': isByte,
-                    'object-cover': !isByte
-                  }
+                  isByte ? 'object-contain' : 'object-cover'
                 )}
                 alt="thumbnail"
               />
