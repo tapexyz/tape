@@ -1,0 +1,24 @@
+name: Graphql Codegen
+on: 
+  schedule:
+    - cron: '0 0 * * 1-5'
+jobs:
+  build:
+    name: Generate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: install
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: codegen
+      - uses: EndBug/add-and-commit@v9 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          author_name: 'Sasi'
+          message: 'chore: gql codegen'
+          new_branch: codegen
+
