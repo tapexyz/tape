@@ -1,7 +1,6 @@
 name: Graphql Codegen
 on: 
-  schedule:
-    - cron: '0 0 * * 1-5'
+  workflow_dispatch:
 jobs:
   build:
     name: Generate
