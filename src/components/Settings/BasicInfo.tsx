@@ -77,7 +77,7 @@ const formSchema = z.object({
     z.string().max(0)
   ])
 })
-type FormData = z.infer<typeof formSchema>
+type FormData = z.infer<typeof formSchema> & { coverImage?: string }
 
 const BasicInfo = ({ channel }: Props) => {
   const [copy] = useCopyToClipboard()
@@ -205,7 +205,7 @@ const BasicInfo = ({ channel }: Props) => {
         version: '1.0.0',
         name: data.displayName || null,
         bio: trimify(data.description),
-        cover_picture: coverImage,
+        cover_picture: data.coverImage ?? coverImage,
         attributes: [
           {
             displayType: PublicationMetadataDisplayTypes.String,
@@ -255,7 +255,7 @@ const BasicInfo = ({ channel }: Props) => {
       const result: IPFSUploadResult = await uploadToIPFS(e.target.files[0])
       setCoverImage(result.url)
       setUploading(false)
-      onSaveBasicInfo({ ...getValues() })
+      onSaveBasicInfo({ ...getValues(), coverImage: result.url })
     }
   }
 
