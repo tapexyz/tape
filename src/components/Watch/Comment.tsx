@@ -104,7 +104,7 @@ const Comment: FC<Props> = ({ comment }) => {
               {dayjs(new Date(comment?.createdAt)).fromNow()}
             </span>
           </span>
-          <p
+          <div
             className={clsx('text-sm opacity-80', {
               'line-clamp-2': clamped,
               '': !clamped
@@ -119,7 +119,7 @@ const Comment: FC<Props> = ({ comment }) => {
             ) : (
               <InterweaveContent content={comment?.metadata?.content} />
             )}
-          </p>
+          </div>
           {showMore && (
             <div className="inline-flex mt-3">
               <button
