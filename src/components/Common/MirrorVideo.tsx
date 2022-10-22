@@ -159,7 +159,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       placement="top-start"
       content={loading ? 'Mirroring' : 'Mirror video across Lens'}
     >
-      <div>
+      <div className="flex">
         <button
           type="button"
           className="disabled:opacity-50"
