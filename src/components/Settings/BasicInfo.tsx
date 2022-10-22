@@ -254,8 +254,8 @@ const BasicInfo = ({ channel }: Props) => {
       setUploading(true)
       const result: IPFSUploadResult = await uploadToIPFS(e.target.files[0])
       setCoverImage(result.url)
-      onSaveBasicInfo({ ...getValues() })
       setUploading(false)
+      onSaveBasicInfo({ ...getValues() })
     }
   }
 
