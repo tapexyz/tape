@@ -45,9 +45,7 @@ const Popover: FC<Props> = ({
         positionClassName
       )}
     >
-      <HPopover.Panel className={clsx(panelClassName)}>
-        {children}
-      </HPopover.Panel>
+      <HPopover.Panel className={panelClassName}>{children}</HPopover.Panel>
     </Transition>
   </HPopover>
 )

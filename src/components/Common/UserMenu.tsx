@@ -11,7 +11,6 @@ import getProfilePicture from '@utils/functions/getProfilePicture'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import { Mixpanel, TRACK } from '@utils/track'
 import { LENSTUBE_STATS, SETTINGS } from '@utils/url-path'
-import clsx from 'clsx'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
@@ -110,9 +109,7 @@ const UserMenu = () => {
               {channels?.map((channel) => (
                 <button
                   type="button"
-                  className={clsx(
-                    'flex w-full justify-between items-center px-2 py-1.5 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800'
-                  )}
+                  className="flex w-full justify-between items-center px-2 py-1.5 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   key={channel.id}
                   onClick={() => onSelectChannel(channel)}
                 >
@@ -175,9 +172,7 @@ const UserMenu = () => {
               {isAdmin && (
                 <Link
                   href={LENSTUBE_STATS}
-                  className={clsx(
-                    'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                  )}
+                  className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   <IoAnalyticsOutline className="text-lg" />
                   <span className="truncate whitespace-nowrap">App Info</span>
@@ -187,9 +182,7 @@ const UserMenu = () => {
                 <>
                   <Link
                     href={`/${selectedChannel?.handle}`}
-                    className={clsx(
-                      'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                    )}
+                    className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
                     <BiMoviePlay className="text-lg" />
                     <span className="truncate whitespace-nowrap">
@@ -198,9 +191,7 @@ const UserMenu = () => {
                   </Link>
                   <button
                     type="button"
-                    className={clsx(
-                      'inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                    )}
+                    className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
                     onClick={() => onSelectSwitchChannel()}
                   >
                     <AiOutlineUserSwitch className="text-lg" />
@@ -213,9 +204,7 @@ const UserMenu = () => {
               {!IS_MAINNET && (
                 <button
                   type="button"
-                  className={clsx(
-                    'flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                  )}
+                  className="flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setShowCreateChannel(true)}
                 >
                   <AiOutlinePlus className="text-lg" />
@@ -226,9 +215,7 @@ const UserMenu = () => {
               )}
               <button
                 type="button"
-                className={clsx(
-                  'flex md:hidden items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                )}
+                className="flex md:hidden items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               >
                 {theme === 'light' ? (
@@ -242,9 +229,7 @@ const UserMenu = () => {
               </button>
               <button
                 type="button"
-                className={clsx(
-                  'flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800'
-                )}
+                className="flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
                 onClick={() => logout()}
               >
                 <VscDebugDisconnect className="text-lg" />

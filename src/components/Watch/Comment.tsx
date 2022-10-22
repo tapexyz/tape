@@ -105,10 +105,10 @@ const Comment: FC<Props> = ({ comment }) => {
             </span>
           </span>
           <div
-            className={clsx('text-sm opacity-80', {
-              'line-clamp-2': clamped,
-              '': !clamped
-            })}
+            className={clsx(
+              'text-sm opacity-80',
+              clamped ? 'line-clamp-2' : ''
+            )}
           >
             {comment?.hidden ? (
               <span className="text-xs italic opacity-80">
