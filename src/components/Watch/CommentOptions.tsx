@@ -39,7 +39,7 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
   return (
     <Popover
       trigger={
-        <div className="p-1 lg:invisible group-hover:visible">
+        <div className="p-1">
           <HiOutlineDotsVertical />
         </div>
       }

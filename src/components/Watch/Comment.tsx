@@ -59,7 +59,7 @@ const Comment: FC<Props> = ({ comment }) => {
   }
 
   return (
-    <div className="flex items-start justify-between group">
+    <div className="flex items-start justify-between">
       <div className="flex items-start justify-between">
         <Link
           href={`/${comment.profile?.handle}`}
