@@ -64,6 +64,8 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-600 dark:text-gray-400">
           collected your
+          {notification.collectedPublication.__typename === 'Comment' &&
+            ' comment on'}
           <Menu.Item
             as={NextLink}
             href={`/watch/${notification?.collectedPublication.id}`}
