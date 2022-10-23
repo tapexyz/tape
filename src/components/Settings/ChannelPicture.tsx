@@ -150,7 +150,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         }
         await createViaDispatcher(request)
       } catch (error) {
-        onError(error)
+        onError(error as CustomErrorWithData)
         logger.error('[Error Pfp Upload]', error)
       }
     }
