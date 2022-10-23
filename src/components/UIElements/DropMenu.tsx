@@ -19,7 +19,12 @@ export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
   </Link>
 )
 
-const DropMenu: FC<Props> = ({ trigger, children, position = 'right' }) => (
+const DropMenu: FC<Props> = ({
+  trigger,
+  children,
+  positionClassName,
+  position = 'right'
+}) => (
   <Menu as="div" className="relative">
     <Menu.Button as="div" className="flex cursor-pointer">
       {trigger}
@@ -31,11 +36,15 @@ const DropMenu: FC<Props> = ({ trigger, children, position = 'right' }) => (
       leave="transition duration-75 ease-out"
       leaveFrom="transform scale-100 opacity-100"
       leaveTo="transform scale-95 opacity-0"
-      className={clsx('absolute z-10', {
-        'right-0': position === 'right',
-        'left-0': position === 'left',
-        'bottom-0': position === 'bottom'
-      })}
+      className={clsx(
+        'absolute z-10',
+        {
+          'right-0': position === 'right',
+          'left-0': position === 'left',
+          'bottom-0': position === 'bottom'
+        },
+        positionClassName
+      )}
     >
       <Menu.Items static>{children}</Menu.Items>
     </Transition>

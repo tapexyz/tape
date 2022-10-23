@@ -16,7 +16,7 @@ const MoreTrigger = () => {
   return (
     <DropMenu
       trigger={
-        <div className="flex flex-col space-y-2 mb-0.5">
+        <div className="flex flex-1 flex-col space-y-2 mb-0.5">
           <button
             onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.OPEN)}
             type="button"
