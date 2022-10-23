@@ -32,6 +32,7 @@ import {
   FeeFollowModuleSettings,
   Profile
 } from 'src/types'
+import { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
 
@@ -66,7 +67,7 @@ const Membership = ({ channel }: Props) => {
     }
   })
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
   }

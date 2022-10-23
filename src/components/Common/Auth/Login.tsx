@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { Profile } from 'src/types'
+import { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useSignMessage } from 'wagmi'
 
 import ConnectWalletButton from './ConnectWalletButton'
@@ -26,7 +27,7 @@ const Login = () => {
     (state) => state.setSelectedChannelId
   )
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message)
     setLoading(false)
   }

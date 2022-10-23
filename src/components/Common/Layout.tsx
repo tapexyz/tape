@@ -22,6 +22,7 @@ import { useTheme } from 'next-themes'
 import React, { FC, ReactNode, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { Profile } from 'src/types'
+import { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
@@ -52,7 +53,7 @@ const Layout: FC<Props> = ({ children }) => {
   const { chain } = useNetwork()
   const { resolvedTheme } = useTheme()
   const { disconnect } = useDisconnect({
-    onError(error: any) {
+    onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message ?? error?.message)
     }
   })

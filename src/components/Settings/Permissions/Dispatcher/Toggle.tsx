@@ -17,6 +17,7 @@ import { utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { CreateSetDispatcherBroadcastItemResult, Profile } from 'src/types'
+import { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Toggle = () => {
@@ -27,7 +28,7 @@ const Toggle = () => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
   const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     toast.error(error?.message ?? ERROR_MESSAGE)
     setLoading(false)
   }
