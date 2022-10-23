@@ -6,7 +6,7 @@ import { ERROR_MESSAGE } from '@utils/constants'
 import { Mixpanel, TRACK } from '@utils/track'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
-import { LenstubePublication } from 'src/types/local'
+import { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 
 type Props = {
   publication: LenstubePublication
@@ -18,7 +18,7 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
   const [createReport, { loading: reporting }] = useMutation(
     CREATE_REPORT_PUBLICATION_MUTATION,
     {
-      onError(error: any) {
+      onError(error: CustomErrorWithData) {
         toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
       },
       onCompleted() {

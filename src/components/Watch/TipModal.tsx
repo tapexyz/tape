@@ -35,7 +35,7 @@ import {
   PublicationMainFocus,
   PublicationMetadataDisplayTypes
 } from 'src/types'
-import { LenstubePublication } from 'src/types/local'
+import { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -78,7 +78,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error.message)
     setLoading(false)
     setButtonText(`Send ${Number(watchTipQuantity) * 1} MATIC`)

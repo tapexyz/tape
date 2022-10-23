@@ -32,7 +32,7 @@ import {
   PublicationMainFocus,
   PublicationMetadataDisplayTypes
 } from 'src/types'
-import { LenstubePublication } from 'src/types/local'
+import { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -72,7 +72,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     resolver: zodResolver(formSchema)
   })
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setButtonText('Comment')
     setLoading(false)

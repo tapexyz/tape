@@ -127,3 +127,9 @@ export type LenstubeCollectModule = FreeCollectModuleSettings &
   TimedFeeCollectModuleSettings &
   LimitedFeeCollectModuleSettings &
   LimitedTimedFeeCollectModuleSettings
+
+export interface CustomErrorWithData extends Error {
+  data?: {
+    message: string
+  }
+}

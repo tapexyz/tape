@@ -43,7 +43,7 @@ import {
   Profile,
   PublicationMetadataDisplayTypes
 } from 'src/types'
-import { IPFSUploadResult } from 'src/types/local'
+import { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -102,7 +102,7 @@ const BasicInfo = ({ channel }: Props) => {
     }
   })
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
   }

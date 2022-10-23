@@ -18,7 +18,7 @@ import { utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { CreateMirrorBroadcastItemResult, CreateMirrorRequest } from 'src/types'
-import { LenstubePublication } from 'src/types/local'
+import { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
@@ -34,7 +34,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
   }

@@ -21,6 +21,7 @@ import { BsSun } from 'react-icons/bs'
 import { IoAnalyticsOutline, IoMoonOutline } from 'react-icons/io5'
 import { VscDebugDisconnect } from 'react-icons/vsc'
 import { Profile } from 'src/types'
+import { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useDisconnect } from 'wagmi'
 
 const UserMenu = () => {
@@ -41,7 +42,7 @@ const UserMenu = () => {
 
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
   const { disconnect } = useDisconnect({
-    onError(error: any) {
+    onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message || error?.message)
     }
   })
