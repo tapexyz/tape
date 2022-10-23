@@ -1,7 +1,8 @@
 import { useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
-import Popover from '@components/UIElements/Popover'
+import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { PROFILES_QUERY } from '@gql/queries'
+import { Menu } from '@headlessui/react'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -11,7 +12,6 @@ import getProfilePicture from '@utils/functions/getProfilePicture'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import { Mixpanel, TRACK } from '@utils/track'
 import { LENSTUBE_STATS, SETTINGS } from '@utils/url-path'
-import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -79,7 +79,7 @@ const UserMenu = () => {
   }
 
   return (
-    <Popover
+    <DropMenu
       trigger={
         <Button className="!p-0 flex-none">
           <img
@@ -90,7 +90,6 @@ const UserMenu = () => {
           />
         </Button>
       }
-      triggerClassName="right-0 flex item-center"
     >
       <div className="px-1 mt-1.5 w-48 divide-y shadow-xl max-h-96 divide-gray-200 dark:divide-gray-800 overflow-hidden border border-gray-200 rounded-lg dark:border-gray-800 bg-secondary">
         {showAccountSwitcher ? (
@@ -155,7 +154,8 @@ const UserMenu = () => {
                     </h6>
                   )}
                   {selectedChannel && (
-                    <Link
+                    <Menu.Item
+                      as={NextLink}
                       onClick={() =>
                         Mixpanel.track(TRACK.CLICK_CHANNEL_SETTINGS)
                       }
@@ -163,24 +163,26 @@ const UserMenu = () => {
                       className="text-xs font-medium text-indigo-500 dark:text-indigo-400"
                     >
                       Settings
-                    </Link>
+                    </Menu.Item>
                   )}
                 </div>
               </div>
             </div>
             <div className="py-1 text-sm">
               {isAdmin && (
-                <Link
+                <Menu.Item
+                  as={NextLink}
                   href={LENSTUBE_STATS}
                   className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   <IoAnalyticsOutline className="text-lg" />
                   <span className="truncate whitespace-nowrap">App Info</span>
-                </Link>
+                </Menu.Item>
               )}
               {selectedChannel && (
                 <>
-                  <Link
+                  <Menu.Item
+                    as={NextLink}
                     href={`/${selectedChannel?.handle}`}
                     className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
@@ -188,7 +190,7 @@ const UserMenu = () => {
                     <span className="truncate whitespace-nowrap">
                       Your Channel
                     </span>
-                  </Link>
+                  </Menu.Item>
                   <button
                     type="button"
                     className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -239,7 +241,7 @@ const UserMenu = () => {
           </>
         )}
       </div>
-    </Popover>
+    </DropMenu>
   )
 }
 

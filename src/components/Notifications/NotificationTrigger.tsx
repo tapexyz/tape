@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
-import Popover from '@components/UIElements/Popover'
+import DropMenu from '@components/UIElements/DropMenu'
 import { NOTIFICATION_COUNT_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -52,7 +52,7 @@ const NotificationTrigger = () => {
   if (!selectedChannelId) return null
 
   return (
-    <Popover
+    <DropMenu
       trigger={
         <Button
           variant="outlined"
@@ -71,7 +71,7 @@ const NotificationTrigger = () => {
           <Notifications />
         </div>
       </div>
-    </Popover>
+    </DropMenu>
   )
 }
 

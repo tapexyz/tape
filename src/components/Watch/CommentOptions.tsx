@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client'
-import Popover from '@components/UIElements/Popover'
+import DropMenu from '@components/UIElements/DropMenu'
 import { HIDE_PUBLICATION } from '@gql/queries'
 import useAppStore from '@lib/store'
 import { useRouter } from 'next/router'
@@ -37,13 +37,12 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
   }
 
   return (
-    <Popover
+    <DropMenu
       trigger={
         <div className="p-1">
           <HiOutlineDotsVertical />
         </div>
       }
-      panelClassName="right-0"
     >
       <div className="p-1 mt-0.5 overflow-hidden border border-gray-200 rounded-lg shadow dark:border-gray-800 bg-secondary">
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
@@ -67,7 +66,7 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
           </button>
         </div>
       </div>
-    </Popover>
+    </DropMenu>
   )
 }
 
