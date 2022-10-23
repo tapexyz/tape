@@ -1,3 +1,7 @@
+import {
+  PixelCrop
+} from 'react-image-crop'
+
 export const createImage = (url: string) =>
   new Promise((resolve, reject) => {
     const image = new Image()
@@ -92,21 +96,28 @@ export async function getCroppedImgUrl(
 
 
 export const getCroppedImgUrl2 = async (
-  image: any,
-  crop:
-    {
-      x: number, y: number, width: number,
-      height: number
-      // aspect: number 
-    },
+  imageSrc: string,
+  // crop:
+  //   {
+  //     x: number, y: number, width: number,
+  //     height: number
+  //     // aspect: number 
+  //   },
+  crop: PixelCrop
 
 ) => {
   try {
+    const image: any = await createImage(imageSrc)
+    console.log(`image:${image}`)
     const canvas = document.createElement("canvas");
+
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
     canvas.width = crop.width;
     canvas.height = crop.height;
+    console.log(`scaleX:${scaleX}`)
+    console.log(`scaleY:${scaleY}`)
+
     const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
     ctx?.drawImage(
       image,
@@ -119,7 +130,7 @@ export const getCroppedImgUrl2 = async (
       crop.width,
       crop.height
     );
-
+    console.log(`canvas:${canvas}`)
     const base64Image = canvas.toDataURL("image/jpeg", 1);
     return base64Image;
     // setResult(base64Image);

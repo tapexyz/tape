@@ -40,8 +40,6 @@ import {
 } from 'src/types'
 import { IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
-import { Button } from '@components/UIElements/Button'
-import Modal from '@components/UIElements/Modal'
 // import CropModal from './CropModal'
 // react-image-crop
 import ReactCrop, {
@@ -50,9 +48,6 @@ import ReactCrop, {
   Crop,
   PixelCrop
 } from 'react-image-crop'
-import useDebounce from '@utils/hooks/useDebounce'
-import { canvasPreview } from './canvasPreview'
-import { useDebounceEffect } from '@utils/hooks/useDebounceEffect'
 // test crop modal
 import CropModal from './CropModal'
 type Props = {
@@ -81,7 +76,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const [croppedPfp, setCroppedPfp] = useState<File | null>(null)
 
   // react-image-crop
-  const [imgSrc, setImgSrc] = useState('')
+  const [imgSrc, setImgSrc] = useState<HTMLImageElement>()
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
   const [crop, setCrop] = useState<{
@@ -99,10 +94,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   //save the resulted image
   const [result, setResult] = useState<string | undefined>('')
 
-  const cropImageHandler = async () => {
-    const croppedImage2 = await getCroppedImgUrl2(imageSrc, croppedAreaPixels)
-    setResult(croppedImage2)
-  }
+  // const cropImageHandler = async () => {
+  //   const croppedImage2 = await getCroppedImgUrl2(imageSrc, croppedAreaPixels)
+  //   setResult(croppedImage2)
+  // }
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
@@ -122,7 +117,12 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-
+  // convert image string to HTMLImageElement
+  const convertImageToHTMLImageElement = (image: string) => {
+    const img = new Image()
+    img.src = image
+    return img
+  }
   const { data: pfpData, write: writePfpUri } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
@@ -237,27 +237,46 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     }
   }
 
-  // useEffect(() => {
-  //   if (croppedPfp) {
-  //     pfpUpload(croppedPfp)
-  //   }
-  //   // eslint-disable-next-line
-  // }, [croppedPfp])
+  useEffect(() => {
+    if (croppedPfp) {
+      pfpUpload(croppedPfp)
+    }
+    // eslint-disable-next-line
+  }, [croppedPfp])
 
   const selectCroppedImage = useCallback(async () => {
-    try {
-      const croppedImage: any = await getCroppedImgUrl(
-        imageSrc,
-        croppedAreaPixels,
-        rotation
-      )
-      const croppedImageFile = getFileFromDataURL(croppedImage, 'cropped.jpeg')
-      setCroppedPfp(croppedImageFile)
-      closeModal()
-    } catch (e) {
-      console.error(e)
+    console.log(`completedCrop.height: ${completedCrop?.height}`)
+    console.log(`completedCrop.width: ${completedCrop?.width}`)
+    console.log(`completedCrop.x: ${completedCrop?.x}`)
+    console.log(`completedCrop.y: ${completedCrop?.y}`)
+    // console.log(`previewCanvasRef.current: ${previewCanvasRef.current}
+    if (completedCrop) {
+      try {
+        // const croppedImage: any = await getCroppedImgUrl(
+        //   imageSrc,
+        //   croppedAreaPixels,
+        //   rotation
+        // )
+        const croppedImage: any = await getCroppedImgUrl2(
+          imageSrc,
+          completedCrop
+        )
+        console.log(`croppedImage: ${croppedImage}`)
+
+        const croppedImageFile = getFileFromDataURL(
+          croppedImage,
+          'cropped.jpeg'
+        )
+        setCroppedPfp(croppedImageFile)
+        closeModal()
+      } catch (e) {
+        console.error(e)
+      }
     }
-  }, [imageSrc, croppedAreaPixels, rotation])
+  }, [
+    // imageSrc, croppedAreaPixels, rotation
+    completedCrop
+  ])
 
   const onPfpSelect = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {

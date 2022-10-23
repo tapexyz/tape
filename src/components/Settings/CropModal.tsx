@@ -8,7 +8,6 @@ import ReactCrop, {
   PixelCrop,
   PercentCrop
 } from 'react-image-crop'
-import useDebounce from '@utils/hooks/useDebounce'
 import { canvasPreview } from './canvasPreview'
 import { useDebounceEffect } from '@utils/hooks/useDebounceEffect'
 
