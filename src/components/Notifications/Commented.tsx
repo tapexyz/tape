@@ -1,8 +1,9 @@
 import IsVerified from '@components/Common/IsVerified'
+import { NextLink } from '@components/UIElements/DropMenu'
+import { Menu } from '@headlessui/react'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import Link from 'next/link'
 import React, { FC } from 'react'
 import { NewCommentNotification } from 'src/types'
 
@@ -16,7 +17,8 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
   return (
     <>
       <div className="flex items-center space-x-3">
-        <Link
+        <Menu.Item
+          as={NextLink}
           href={`/${notification?.profile?.handle}`}
           className="inline-flex items-center space-x-1.5 font-base"
         >
@@ -30,12 +32,13 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
             <span>{notification?.profile?.handle}</span>
             <IsVerified id={notification?.profile?.id} size="xs" />
           </div>
-        </Link>
+        </Menu.Item>
       </div>
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-600 truncate dark:text-gray-400">
           commented on your
-          <Link
+          <Menu.Item
+            as={NextLink}
             href={`/watch/${
               notification?.comment?.commentOn &&
               notification?.comment?.commentOn?.id
@@ -43,7 +46,7 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
             className="ml-1 text-indigo-500"
           >
             video
-          </Link>
+          </Menu.Item>
         </span>
         <div className="flex items-center flex-none space-x-1 text-xs text-gray-400">
           <span>{dayjs(new Date(notification?.createdAt)).fromNow()}</span>

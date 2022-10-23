@@ -1,12 +1,13 @@
 import IsVerified from '@components/Common/IsVerified'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
+import { NextLink } from '@components/UIElements/DropMenu'
+import { Menu } from '@headlessui/react'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import Link from 'next/link'
 import React, { FC } from 'react'
 import { NewCollectNotification } from 'src/types'
 
@@ -21,7 +22,8 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
     <>
       <div className="flex items-center space-x-3">
         {notification?.wallet?.defaultProfile ? (
-          <Link
+          <Menu.Item
+            as={NextLink}
             href={`/${notification?.wallet?.defaultProfile?.handle}`}
             className="inline-flex items-center space-x-1.5 font-base"
           >
@@ -41,7 +43,7 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
                 size="xs"
               />
             </div>
-          </Link>
+          </Menu.Item>
         ) : (
           <AddressExplorerLink address={notification?.wallet?.address}>
             <span className="inline-flex items-center space-x-1.5 font-base">
@@ -62,12 +64,13 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-600 dark:text-gray-400">
           collected your
-          <Link
+          <Menu.Item
+            as={NextLink}
             href={`/watch/${notification?.collectedPublication.id}`}
             className="ml-1 text-indigo-500"
           >
             video
-          </Link>
+          </Menu.Item>
         </span>
         <div className="flex items-center space-x-1 text-xs text-gray-400">
           <span>{dayjs(new Date(notification?.createdAt)).fromNow()}</span>
