@@ -30,7 +30,7 @@ import React, {
   useState,
   useRef
 } from 'react'
-import { Area, Point } from 'react-easy-crop/types'
+// import { Area, Point } from 'react-easy-crop/types'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
 import {
@@ -42,7 +42,7 @@ import { IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
-import CropModal from './CropModal'
+// import CropModal from './CropModal'
 // react-image-crop
 import ReactCrop, {
   centerCrop,
@@ -53,9 +53,12 @@ import ReactCrop, {
 import useDebounce from '@utils/hooks/useDebounce'
 import { canvasPreview } from './canvasPreview'
 import { useDebounceEffect } from '@utils/hooks/useDebounceEffect'
+// test crop modal
+import CropModal from './CropModal'
 type Props = {
   channel: Profile
 }
+import 'react-image-crop/dist/ReactCrop.css'
 
 const ChannelPicture: FC<Props> = ({ channel }) => {
   const [selectedPfp, setSelectedPfp] = useState('')
@@ -68,7 +71,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const [zoom, setZoom] = useState(1)
   const [showModal, setShowModal] = useState(false)
   const [imageSrc, setImageSrc] = useState<string>('')
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>({
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState({
     x: 0,
     y: 0,
     width: 0,
@@ -81,65 +84,18 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const [imgSrc, setImgSrc] = useState('')
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
-  const [crop, setCrop] = useState<Crop>()
+  const [crop, setCrop] = useState<{
+    x: number
+    y: number
+    width: number
+    height: number
+    unit: 'px' | '%'
+  }>()
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
   const [scale, setScale] = useState(1)
   const [rotate, setRotate] = useState(0)
-  const [aspect, setAspect] = useState<number | undefined>(16 / 9)
-  console.log(`crop`, crop)
-  console.log(`scale`, scale)
-  console.log(`rotate`, rotate)
-  console.log(`aspect`, aspect)
+  const [aspect, setAspect] = useState<number | undefined>(1)
 
-  useDebounceEffect(
-    async () => {
-      if (
-        completedCrop?.width &&
-        completedCrop?.height &&
-        imgRef.current &&
-        previewCanvasRef.current
-      ) {
-        // We use canvasPreview as it's much faster than imgPreview.
-        canvasPreview(
-          imgRef.current,
-          previewCanvasRef.current,
-          completedCrop,
-          scale,
-          rotate
-        )
-      }
-    },
-    100,
-    [completedCrop, scale, rotate]
-  )
-
-  // This is to demonstate how to make and center a % aspect crop
-  // which is a bit trickier so we use some helper functions.
-  const centerAspectCrop = (
-    mediaWidth: number,
-    mediaHeight: number,
-    aspect: number
-  ) => {
-    return centerCrop(
-      makeAspectCrop(
-        {
-          unit: '%',
-          width: 90
-        },
-        aspect,
-        mediaWidth,
-        mediaHeight
-      ),
-      mediaWidth,
-      mediaHeight
-    )
-  }
-  const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    if (aspect) {
-      const { width, height } = e.currentTarget
-      setCrop(centerAspectCrop(width, height, aspect))
-    }
-  }
   //save the resulted image
   const [result, setResult] = useState<string | undefined>('')
 
@@ -367,60 +323,24 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           onChange={onPfpSelect}
           // onChange={onSelectFile}
         />
-        {/* <CropModal
+        <CropModal
           show={showModal}
           setShowCrop={setShowModal}
-          zoom={zoom}
-          setZoom={setZoom}
-          crop={crop}
+          crop={crop!}
           setCrop={setCrop}
-          onCropComplete={onCropComplete}
-          imageSrc={imageSrc}
-          rotation={rotation}
-          setRotation={setRotation}
+          setCompletedCrop={setCompletedCrop}
+          aspect={aspect!}
+          imgRef={imgRef}
+          imgSrc={imgSrc}
+          scale={scale}
+          rotate={rotate}
+          completedCrop={completedCrop!}
+          previewCanvasRef={previewCanvasRef}
           selectCroppedImage={selectCroppedImage}
-        /> */}
-        <Modal
-          title="Crop Channel Picture"
-          onClose={() => setShowModal(false)}
-          show={showModal}
-          // panelClassName="w-1/2 h-3/4"
-        >
-          <div>
-            <div className="flex"></div>
-            <ReactCrop
-              crop={crop}
-              onChange={(_, percentCrop) => setCrop(percentCrop)}
-              onComplete={(c) => setCompletedCrop(c)}
-              aspect={aspect}
-            >
-              <img
-                ref={imgRef}
-                alt="Crop me"
-                src={imgSrc}
-                style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
-                onLoad={onImageLoad}
-              />
-              <div>Image crop</div>
-            </ReactCrop>
-            <div>
-              {!!completedCrop && (
-                <canvas
-                  ref={previewCanvasRef}
-                  style={{
-                    border: '1px solid black',
-                    objectFit: 'contain',
-                    width: completedCrop.width,
-                    height: completedCrop.height
-                  }}
-                />
-              )}
-            </div>
-          </div>
-        </Modal>
+        />
       </label>
 
-      <button onClick={cropImageHandler}>Crop Image</button>
+      {/* <button onClick={cropImageHandler}>Crop Image</button> */}
     </div>
   )
 }
