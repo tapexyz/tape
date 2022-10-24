@@ -125,8 +125,8 @@ const CropModal: FC<Props> = ({
             onLoad={onImageLoad}
           />
         </ReactCrop>
-        <div className="text-lg font-medium leading-6">Crop Preview:</div>
         <canvas
+          hidden={true}
           ref={previewCanvasRef}
           className={'relative translate-x-1/2 translate-y-4'}
           style={{
