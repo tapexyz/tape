@@ -200,7 +200,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         content: trimify(data.comment),
         locale: getUserLocale(),
         mainContentFocus: PublicationMainFocus.TextOnly,
-        external_url: LENSTUBE_URL,
+        external_url: `${LENSTUBE_URL}/watch/${video?.id}`,
         image: null,
         imageMimeType: null,
         name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,

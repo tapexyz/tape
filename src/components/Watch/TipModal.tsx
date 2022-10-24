@@ -205,7 +205,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         content: getValues('message'),
         locale: getUserLocale(),
         mainContentFocus: PublicationMainFocus.TextOnly,
-        external_url: LENSTUBE_URL,
+        external_url: `${LENSTUBE_URL}/watch/${video?.id}`,
         image: null,
         imageMimeType: null,
         name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
