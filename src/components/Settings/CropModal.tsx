@@ -107,11 +107,11 @@ const CropModal: FC<Props> = ({
       title="Crop Channel Picture"
       onClose={() => setShowCrop(false)}
       show={show}
-      panelClassName="max-w-2xl h-fit-content"
+      panelClassName="max-w-[50vh]"
     >
-      <div className="flex-col relative place-items-center">
+      <div className="max-h-[80vh] overflow-y-auto no-scrollbar">
         <ReactCrop
-          circularCrop={true}
+          circularCrop={false}
           crop={crop}
           onChange={(_, percentCrop) => setCrop(percentCrop)}
           onComplete={(c) => setCompletedCrop(c)}
@@ -125,9 +125,10 @@ const CropModal: FC<Props> = ({
             onLoad={onImageLoad}
           />
         </ReactCrop>
-        <div>Crop Preview:</div>
+        <div className="text-lg font-medium leading-6">Crop Preview:</div>
         <canvas
           ref={previewCanvasRef}
+          className={'relative translate-x-1/2 translate-y-4'}
           style={{
             border: '1px solid black',
             objectFit: 'contain',
