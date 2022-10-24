@@ -43,7 +43,7 @@ import {
   Profile,
   PublicationMetadataDisplayTypes
 } from 'src/types'
-import { IPFSUploadResult } from 'src/types/local'
+import { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -77,7 +77,7 @@ const formSchema = z.object({
     z.string().max(0)
   ])
 })
-type FormData = z.infer<typeof formSchema>
+type FormData = z.infer<typeof formSchema> & { coverImage?: string }
 
 const BasicInfo = ({ channel }: Props) => {
   const [copy] = useCopyToClipboard()
@@ -89,7 +89,8 @@ const BasicInfo = ({ channel }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    getValues
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -101,7 +102,7 @@ const BasicInfo = ({ channel }: Props) => {
     }
   })
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
   }
@@ -179,15 +180,6 @@ const BasicInfo = ({ channel }: Props) => {
     toast.success('Copied to clipboard')
   }
 
-  const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
-      setUploading(true)
-      const result: IPFSUploadResult = await uploadToIPFS(e.target.files[0])
-      setCoverImage(result.url)
-      setUploading(false)
-    }
-  }
-
   const signTypedData = (request: CreatePublicSetProfileMetadataUriRequest) => {
     createSetProfileMetadataTypedData({
       variables: { request }
@@ -213,7 +205,7 @@ const BasicInfo = ({ channel }: Props) => {
         version: '1.0.0',
         name: data.displayName || null,
         bio: trimify(data.description),
-        cover_picture: coverImage,
+        cover_picture: data.coverImage ?? coverImage,
         attributes: [
           {
             displayType: PublicationMetadataDisplayTypes.String,
@@ -257,6 +249,16 @@ const BasicInfo = ({ channel }: Props) => {
     }
   }
 
+  const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      setUploading(true)
+      const result: IPFSUploadResult = await uploadToIPFS(e.target.files[0])
+      setCoverImage(result.url)
+      setUploading(false)
+      onSaveBasicInfo({ ...getValues(), coverImage: result.url })
+    }
+  }
+
   return (
     <form
       onSubmit={handleSubmit(onSaveBasicInfo)}
@@ -265,10 +267,9 @@ const BasicInfo = ({ channel }: Props) => {
       <div className="relative flex-none w-full">
         {uploading && (
           <div className="absolute rounded-xl bg-black w-full h-full flex items-center justify-center z-10 opacity-40">
-            <Loader className="-ml-5" />
+            <Loader />
           </div>
         )}
-
         <img
           src={
             sanitizeIpfsUrl(coverImage) ??

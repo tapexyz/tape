@@ -1,12 +1,12 @@
 import { useMutation } from '@apollo/client'
-import Popover from '@components/UIElements/Popover'
+import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { HIDE_PUBLICATION } from '@gql/queries'
+import { Menu } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { getPermanentVideoUrl } from '@utils/functions/getVideoUrl'
 import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
 import clsx from 'clsx'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import toast from 'react-hot-toast'
@@ -62,7 +62,7 @@ const VideoOptions = ({
   }
 
   return (
-    <Popover
+    <DropMenu
       trigger={
         <div
           className={clsx(
@@ -75,7 +75,6 @@ const VideoOptions = ({
           <HiOutlineDotsVertical />
         </div>
       }
-      panelClassName="right-0"
     >
       <div className="p-1 mt-0.5 overflow-hidden border border-gray-200 rounded-lg shadow dark:border-gray-800 bg-secondary">
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
@@ -101,12 +100,16 @@ const VideoOptions = ({
           </button>
           {isVideoOwner && (
             <>
-              <Link href={getPermanentVideoUrl(video)} target="_blank">
+              <Menu.Item
+                as={NextLink}
+                href={getPermanentVideoUrl(video)}
+                target="_blank"
+              >
                 <div className="flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
                   <FiExternalLink className="text-base" />
                   <span className="whitespace-nowrap">Raw Video</span>
                 </div>
-              </Link>
+              </Menu.Item>
               <button
                 type="button"
                 onClick={() => onHideVideo()}
@@ -127,7 +130,7 @@ const VideoOptions = ({
           </button>
         </div>
       </div>
-    </Popover>
+    </DropMenu>
   )
 }
 

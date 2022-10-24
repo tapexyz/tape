@@ -7,6 +7,7 @@ import { Mixpanel, TRACK } from '@utils/track'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import toast from 'react-hot-toast'
+import { AiOutlineRetweet } from 'react-icons/ai'
 import { IoCopyOutline } from 'react-icons/io5'
 import { LenstubePublication } from 'src/types/local'
 
@@ -41,7 +42,11 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
           <MirrorVideo
             video={video}
             onMirrorSuccess={() => setShowShare(false)}
-          />
+          >
+            <div className="p-3.5 bg-gray-200 dark:bg-gray-800 rounded-full">
+              <AiOutlineRetweet />
+            </div>
+          </MirrorVideo>
           <Link
             className="rounded-full"
             target="_blank"

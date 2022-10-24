@@ -22,7 +22,6 @@ import {
 import omitKey from '@utils/functions/omitKey'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
-import clsx from 'clsx'
 import { utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -33,6 +32,7 @@ import {
   FeeFollowModuleSettings,
   Profile
 } from 'src/types'
+import { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
 
@@ -67,7 +67,7 @@ const Membership = ({ channel }: Props) => {
     }
   })
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
   }
@@ -250,9 +250,7 @@ const Membership = ({ channel }: Props) => {
               </div>
               <select
                 autoComplete="off"
-                className={clsx(
-                  'bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
-                )}
+                className="bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full"
                 value={watch('token')}
                 onChange={(e) => setValue('token', e.target.value)}
               >

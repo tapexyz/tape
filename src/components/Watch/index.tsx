@@ -82,7 +82,7 @@ const VideoDetails = () => {
       data?.publication?.__typename === 'Comment')
 
   useEffect(() => {
-    if (canWatch && video) {
+    if (data?.publication?.__typename === 'Post' && video) {
       addToRecentlyWatched(video)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

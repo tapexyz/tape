@@ -17,12 +17,13 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { MdRefresh } from 'react-icons/md'
+import { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useBalance, useSigner } from 'wagmi'
 
 const BundlrInfo = () => {
   const { address } = useAccount()
   const { data: signer } = useSigner({
-    onError(error: any) {
+    onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
@@ -114,7 +115,7 @@ const BundlrInfo = () => {
         )
         Mixpanel.track(TRACK.DEPOSIT_MATIC)
       }
-    } catch (error: any) {
+    } catch (error) {
       toast.error('Failed to deposit')
       logger.error('[Error Bundlr Deposit]', error)
     } finally {

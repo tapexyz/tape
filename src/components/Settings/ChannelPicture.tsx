@@ -25,7 +25,7 @@ import {
   Profile,
   UpdateProfileImageRequest
 } from 'src/types'
-import { IPFSUploadResult } from 'src/types/local'
+import { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
@@ -40,7 +40,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
     setSelectedPfp(getProfilePicture(channel, 'avatar_lg'))
@@ -150,7 +150,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         }
         await createViaDispatcher(request)
       } catch (error) {
-        onError(error)
+        onError(error as CustomErrorWithData)
         logger.error('[Error Pfp Upload]', error)
       }
     }

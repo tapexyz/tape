@@ -12,6 +12,7 @@ import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { ApprovedAllowanceAmount, Erc20 } from 'src/types'
+import { CustomErrorWithData } from 'src/types/local'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
 const collectModules = [
@@ -30,7 +31,7 @@ const ModulePermissions = () => {
   const { data: txData, sendTransaction } = useSendTransaction({
     request: {},
     mode: 'recklesslyUnprepared',
-    onError(error: any) {
+    onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
@@ -64,7 +65,7 @@ const ModulePermissions = () => {
       setLoadingModule('')
       refetch()
     },
-    onError(error: any) {
+    onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
