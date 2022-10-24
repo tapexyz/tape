@@ -1,17 +1,17 @@
+import 'react-image-crop/dist/ReactCrop.css'
+
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
-import React, { FC, ChangeEvent } from 'react'
+import { useDebounceEffect } from '@utils/hooks/useDebounceEffect'
+import React, { FC } from 'react'
 import ReactCrop, {
   centerCrop,
-  makeAspectCrop,
   Crop,
-  PixelCrop,
-  PercentCrop
+  makeAspectCrop,
+  PixelCrop
 } from 'react-image-crop'
-import { canvasPreview } from './canvasPreview'
-import { useDebounceEffect } from '@utils/hooks/useDebounceEffect'
 
-import 'react-image-crop/dist/ReactCrop.css'
+import { canvasPreview } from '../../utils/functions/canvasPreview'
 
 type Props = {
   show: boolean
@@ -25,17 +25,14 @@ type Props = {
     unit: 'px' | '%'
   }>
   setCompletedCrop: (crop: PixelCrop) => void
-  // onCropComplete: (croppedArea: any, croppedAreaPixels: any) => void
-
-  aspect: number
   imgRef: React.RefObject<HTMLImageElement>
   imgSrc: string
   previewCanvasRef: React.RefObject<HTMLCanvasElement>
-  scale: number
-  rotate: number
+  // aspect: number
+  // scale: number
+  // rotate: number
   completedCrop: PixelCrop
   selectCroppedImage: () => void
-  cropImageNow: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 const CropModal: FC<Props> = ({
@@ -44,23 +41,21 @@ const CropModal: FC<Props> = ({
   crop,
   setCrop,
   setCompletedCrop,
-  // onCropComplete,
-  aspect,
   imgRef,
   imgSrc,
-  scale,
-  rotate,
+  // aspect,
+  // scale,
+  // rotate,
   completedCrop,
   previewCanvasRef,
-  selectCroppedImage,
-  cropImageNow
+  selectCroppedImage
 }) => {
-  // This is to demonstate how to make and center a % aspect crop
+  // This is to demonstrate how to make and center a % aspect crop
   // which is a bit trickier so we use some helper functions.
   const centerAspectCrop = (
     mediaWidth: number,
     mediaHeight: number,
-    aspect: number
+    aspect: number = 1
   ) => {
     return centerCrop(
       makeAspectCrop(
@@ -76,6 +71,10 @@ const CropModal: FC<Props> = ({
       mediaHeight
     )
   }
+  // set values
+  const scale = 1
+  const rotate = 0
+  const aspect = 1
   const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
     if (aspect) {
       const { width, height } = e.currentTarget
@@ -108,14 +107,14 @@ const CropModal: FC<Props> = ({
       title="Crop Channel Picture"
       onClose={() => setShowCrop(false)}
       show={show}
-      panelClassName="w-1/2 h-3/4"
+      panelClassName="max-w-2xl h-fit-content"
     >
-      <div className="flex-row relative">
+      <div className="flex-col relative place-items-center">
         <ReactCrop
+          circularCrop={true}
           crop={crop}
           onChange={(_, percentCrop) => setCrop(percentCrop)}
           onComplete={(c) => setCompletedCrop(c)}
-          // onComplete={onCropComplete}
           aspect={aspect}
         >
           <img
@@ -126,31 +125,25 @@ const CropModal: FC<Props> = ({
             onLoad={onImageLoad}
           />
         </ReactCrop>
-        <div>Image crop</div>
-        {/* {!!completedCrop && ( */}
-        <canvas
-          ref={previewCanvasRef}
-          style={{
-            border: '1px solid black',
-            objectFit: 'contain',
-            width: completedCrop?.width | 0,
-            height: completedCrop?.height | 0
-          }}
-        />
-        {/* </div> */}
+        {/* <div>Image crop</div> */}
+        <div className="max-w-xs max-h-xs">
+          <canvas
+            ref={previewCanvasRef}
+            style={{
+              border: '1px solid black',
+              objectFit: 'contain',
+              width: completedCrop?.width | 0,
+              height: completedCrop?.height | 0
+            }}
+          />
+        </div>
+
         <Button
           className="absolute bottom-0 right-0 flex h-10 mt-4 ml-auto"
           onClick={selectCroppedImage}
           color="primary"
         >
           Crop
-        </Button>
-        <Button
-          className="absolute bottom-0 right-0 flex h-10 mt-4 ml-auto"
-          onClick={cropImageNow}
-          color="primary"
-        >
-          Crop Image now
         </Button>
       </div>
     </Modal>
