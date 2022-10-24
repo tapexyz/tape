@@ -62,9 +62,7 @@ const InputMentions: FC<Props> = ({
     <label className="w-full" htmlFor={id}>
       {label && (
         <div className="flex items-center mb-1 space-x-1.5">
-          <div
-            className={clsx('text-[11px] font-semibold uppercase opacity-70')}
-          >
+          <div className="text-[11px] font-semibold uppercase opacity-70">
             {label}
           </div>
         </div>

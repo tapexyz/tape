@@ -25,12 +25,13 @@ export const POLYGONSCAN_URL = IS_MAINNET
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 export const IMAGE_CDN_URL = IS_MAINNET
-  ? 'https://ik.imagekit.io/lenstube'
-  : 'https://ik.imagekit.io/lenstube/testnet'
+  ? 'https://ik.imagekit.io/lenstubeik'
+  : 'https://ik.imagekit.io/lenstubeik/testnet'
 
 export const VIDEO_CDN_URL = 'https://cdn.livepeer.com'
 
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/'
+// export const IPFS_GATEWAY = 'https://ipfs.4everland.io/ipfs/'
 
 export const POLYGON_RPC_URL = process.env.NEXT_PUBLIC_POLYGON_RPC_URL as string
 

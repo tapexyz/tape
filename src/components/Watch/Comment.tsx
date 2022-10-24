@@ -59,7 +59,7 @@ const Comment: FC<Props> = ({ comment }) => {
   }
 
   return (
-    <div className="flex items-start justify-between group">
+    <div className="flex items-start justify-between">
       <div className="flex items-start justify-between">
         <Link
           href={`/${comment.profile?.handle}`}
@@ -104,11 +104,11 @@ const Comment: FC<Props> = ({ comment }) => {
               {dayjs(new Date(comment?.createdAt)).fromNow()}
             </span>
           </span>
-          <p
-            className={clsx('text-sm opacity-80', {
-              'line-clamp-2': clamped,
-              '': !clamped
-            })}
+          <div
+            className={clsx(
+              'text-sm opacity-80',
+              clamped ? 'line-clamp-2' : ''
+            )}
           >
             {comment?.hidden ? (
               <span className="text-xs italic opacity-80">
@@ -119,7 +119,7 @@ const Comment: FC<Props> = ({ comment }) => {
             ) : (
               <InterweaveContent content={comment?.metadata?.content} />
             )}
-          </p>
+          </div>
           {showMore && (
             <div className="inline-flex mt-3">
               <button

@@ -4,9 +4,7 @@ import React from 'react'
 import { AiOutlineFire } from 'react-icons/ai'
 import { BiTimeFive } from 'react-icons/bi'
 import { HiOutlineCollection } from 'react-icons/hi'
-import { TiPointOfInterest } from 'react-icons/ti'
 
-import Curated from './Curated'
 import LooksRare from './LooksRare'
 import Recents from './Recents'
 import Trending from './Trending'
@@ -53,19 +51,6 @@ const ExploreFeed = () => {
                 )
               }
             >
-              <TiPointOfInterest />
-              <span>Curated</span>
-            </Tab>
-            <Tab
-              className={({ selected }) =>
-                clsx(
-                  'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
-                  selected
-                    ? 'border-indigo-900 opacity-100'
-                    : 'border-transparent opacity-50'
-                )
-              }
-            >
               <BiTimeFive />
               <span>Recents</span>
             </Tab>
@@ -76,9 +61,6 @@ const ExploreFeed = () => {
             </Tab.Panel>
             <Tab.Panel className="py-3 focus:outline-none">
               <Trending />
-            </Tab.Panel>
-            <Tab.Panel className="py-3 focus:outline-none">
-              <Curated />
             </Tab.Panel>
             <Tab.Panel className="py-3 focus:outline-none">
               <Recents />

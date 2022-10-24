@@ -9,7 +9,7 @@ import { generateVideoThumbnails } from '@utils/functions/generateVideoThumbnail
 import { getFileFromDataURL } from '@utils/functions/getFileFromDataURL'
 import { getIsNSFW } from '@utils/functions/getIsNSFW'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
-import uploadMediaToIPFS from '@utils/functions/uploadToIPFS'
+import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import * as nsfwjs from 'nsfwjs'
 import { ChangeEvent, FC, useEffect, useState } from 'react'
@@ -39,7 +39,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
 
   const uploadThumbnailToIpfs = async (file: File) => {
     setUploadedVideo({ uploadingThumbnail: true })
-    const result: IPFSUploadResult = await uploadMediaToIPFS(file)
+    const result: IPFSUploadResult = await uploadToIPFS(file)
     setUploadedVideo({ uploadingThumbnail: false })
     afterUpload(result.url, file.type || 'image/jpeg')
     return result
@@ -140,9 +140,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     <div className="w-full">
       {label && (
         <div className="flex items-center mb-1 space-x-1.5">
-          <div
-            className={clsx('text-[11px] font-semibold uppercase opacity-70')}
-          >
+          <div className="text-[11px] font-semibold uppercase opacity-70">
             {label}
           </div>
         </div>

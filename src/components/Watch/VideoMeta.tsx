@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import React, { FC, useState } from 'react'
 import { FiRepeat } from 'react-icons/fi'
-import { SiOpenmined } from 'react-icons/si'
+import { HiOutlineCollection } from 'react-icons/hi'
 import { LenstubePublication } from 'src/types/local'
 
 dayjs.extend(relativeTime)
@@ -44,7 +44,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           onClick={() => setShowCollectsModal(true)}
           className="flex items-center space-x-1 outline-none"
         >
-          <SiOpenmined className="text-xs" />
+          <HiOutlineCollection className="text-xs" />
           <span>{video.stats?.totalAmountOfCollects} collects</span>
         </button>
         <span className="px-1 middot" />

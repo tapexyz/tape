@@ -4,7 +4,6 @@ import { Button } from '@components/UIElements/Button'
 import { CREATE_REPORT_PUBLICATION_MUTATION } from '@gql/queries'
 import { ERROR_MESSAGE } from '@utils/constants'
 import { Mixpanel, TRACK } from '@utils/track'
-import clsx from 'clsx'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { LenstubePublication } from 'src/types/local'
@@ -15,7 +14,7 @@ type Props = {
 }
 
 const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
-  const [reason, setReason] = useState('ILLEGAL-ANIMAL_ABUSE')
+  const [reason, setReason] = useState('SPAM-FAKE_ENGAGEMENT')
   const [createReport, { loading: reporting }] = useMutation(
     CREATE_REPORT_PUBLICATION_MUTATION,
     {
@@ -84,9 +83,7 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
                 onChange={(e) => handleChange(e)}
                 value={reason}
                 name="report"
-                className={clsx(
-                  'bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
-                )}
+                className="bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full"
                 id="report"
               >
                 <optgroup label="SPAM">

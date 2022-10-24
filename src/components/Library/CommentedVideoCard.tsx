@@ -64,7 +64,10 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
       </Link>
       <div className="p-2">
         <div className="flex items-start space-x-2.5">
-          <Link href={`/${video.profile?.handle}`} className="flex-none mt-0.5">
+          <Link
+            href={`/${commentedOn.profile?.handle}`}
+            className="flex-none mt-0.5"
+          >
             <img
               className="w-8 h-8 rounded-xl"
               src={getProfilePicture(commentedOn?.profile, 'avatar')}

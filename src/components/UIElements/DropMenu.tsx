@@ -1,5 +1,6 @@
-import { Popover as HPopover, Transition } from '@headlessui/react'
+import { Menu, Transition } from '@headlessui/react'
 import clsx from 'clsx'
+import Link from 'next/link'
 import { FC, ReactElement, ReactNode } from 'react'
 
 interface Props {
@@ -12,22 +13,22 @@ interface Props {
   position?: 'right' | 'left' | 'bottom'
 }
 
-const Popover: FC<Props> = ({
+export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
+  <Link href={href} {...rest}>
+    {children}
+  </Link>
+)
+
+const DropMenu: FC<Props> = ({
   trigger,
   children,
-  panelClassName,
-  triggerClassName,
   positionClassName,
-  className,
   position = 'right'
 }) => (
-  <HPopover className={clsx('relative', className)}>
-    <HPopover.Button
-      as="div"
-      className={clsx('cursor-pointer', triggerClassName)}
-    >
+  <Menu as="div" className="relative">
+    <Menu.Button as="div" className="flex cursor-pointer">
       {trigger}
-    </HPopover.Button>
+    </Menu.Button>
     <Transition
       enter="transition duration-200 ease-out"
       enterFrom="transform scale-95 opacity-0"
@@ -45,11 +46,9 @@ const Popover: FC<Props> = ({
         positionClassName
       )}
     >
-      <HPopover.Panel className={clsx(panelClassName)}>
-        {children}
-      </HPopover.Panel>
+      <Menu.Items static>{children}</Menu.Items>
     </Transition>
-  </HPopover>
+  </Menu>
 )
 
-export default Popover
+export default DropMenu

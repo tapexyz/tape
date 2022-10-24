@@ -3,7 +3,6 @@ import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
-import clsx from 'clsx'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Erc20 } from 'src/types'
@@ -112,9 +111,7 @@ const FeeCollectForm: FC<Props> = ({
         </div>
         <select
           autoComplete="off"
-          className={clsx(
-            'bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full'
-          )}
+          className="bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full"
           {...register('currency')}
           value={uploadedVideo.collectModule.amount?.currency}
           onChange={(e) => {
