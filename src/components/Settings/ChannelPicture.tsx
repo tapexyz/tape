@@ -53,16 +53,11 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
   const [showModal, setShowModal] = useState(false)
   const [croppedPfp, setCroppedPfp] = useState<File | null>(null)
-  // react-image-crop
   const [imgSrc, setImgSrc] = useState<string>()
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
   const [crop, setCrop] = useState<Crop>()
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
-  // const [scale, setScale] = useState(1)
-  // const [rotate, setRotate] = useState(0)
-  // const [aspect, setAspect] = useState<number | undefined>(1)
-
   const onError = (error: any) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
@@ -207,10 +202,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           imageData64!,
           'previewFile.jpeg'
         )
-        console.log(`myNewCroppedFile: ${myNewCroppedFile}`)
-        console.log(`imageData64: ${imageData64}`)
         setCroppedPfp(myNewCroppedFile)
-
         closeModal()
       } catch (e) {
         console.error(e)
@@ -272,9 +264,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           setCompletedCrop={setCompletedCrop}
           imgRef={imgRef}
           imgSrc={imgSrc!}
-          // aspect={aspect!}
-          // scale={scale}
-          // rotate={rotate}
           completedCrop={completedCrop!}
           previewCanvasRef={previewCanvasRef}
           selectCroppedImage={selectCroppedImage}

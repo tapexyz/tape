@@ -125,19 +125,16 @@ const CropModal: FC<Props> = ({
             onLoad={onImageLoad}
           />
         </ReactCrop>
-        {/* <div>Image crop</div> */}
-        <div className="max-w-xs max-h-xs">
-          <canvas
-            ref={previewCanvasRef}
-            style={{
-              border: '1px solid black',
-              objectFit: 'contain',
-              width: completedCrop?.width | 0,
-              height: completedCrop?.height | 0
-            }}
-          />
-        </div>
-
+        <div>Crop Preview:</div>
+        <canvas
+          ref={previewCanvasRef}
+          style={{
+            border: '1px solid black',
+            objectFit: 'contain',
+            width: '50%',
+            height: '50%'
+          }}
+        />
         <Button
           className="absolute bottom-0 right-0 flex h-10 mt-4 ml-auto"
           onClick={selectCroppedImage}
