@@ -112,6 +112,7 @@ const CropModal: FC<Props> = ({
       <div className="max-h-[80vh] overflow-y-auto no-scrollbar">
         <ReactCrop
           circularCrop={false}
+          className="mt-6 mb-2"
           crop={crop}
           onChange={(_, percentCrop) => setCrop(percentCrop)}
           onComplete={(c) => setCompletedCrop(c)}
