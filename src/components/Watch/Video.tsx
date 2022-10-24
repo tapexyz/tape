@@ -29,9 +29,8 @@ const Video: FC<Props> = ({ video }) => {
   const checkVideoResource = async () => {
     try {
       await axios.get(videoUrl)
-    } catch (error) {
+    } catch {
       setVideoUrl(getPermanentVideoUrl(video))
-      logger.error('[Error Invalid Watch Playback]', error)
     }
   }
 
