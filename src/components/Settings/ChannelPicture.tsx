@@ -11,10 +11,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED
 } from '@utils/constants'
-import {
-  getCroppedImgUrl,
-  getCroppedImgUrl2
-} from '@utils/functions/canvasUtils'
+import { getCroppedImgUrl } from '@utils/functions/canvasUtils'
 import { getFileFromDataURL } from '@utils/functions/getFileFromDataURL'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
@@ -76,7 +73,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const [croppedPfp, setCroppedPfp] = useState<File | null>(null)
 
   // react-image-crop
-  const [imgSrc, setImgSrc] = useState<HTMLImageElement>()
+  const [imgSrc, setImgSrc] = useState<string>()
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
   const [crop, setCrop] = useState<{
@@ -117,12 +114,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  // convert image string to HTMLImageElement
-  const convertImageToHTMLImageElement = (image: string) => {
-    const img = new Image()
-    img.src = image
-    return img
-  }
+
   const { data: pfpData, write: writePfpUri } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
@@ -249,25 +241,46 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     console.log(`completedCrop.width: ${completedCrop?.width}`)
     console.log(`completedCrop.x: ${completedCrop?.x}`)
     console.log(`completedCrop.y: ${completedCrop?.y}`)
+    console.log(`crop.x: ${crop?.x}`)
+    console.log(`crop.y: ${crop?.y}`)
+    console.log(`crop.height: ${crop?.height}`)
+    console.log(`crop.width: ${crop?.width}`)
+
     // console.log(`previewCanvasRef.current: ${previewCanvasRef.current}
-    if (completedCrop) {
+    if (previewCanvasRef) {
       try {
         // const croppedImage: any = await getCroppedImgUrl(
         //   imageSrc,
         //   croppedAreaPixels,
         //   rotation
         // )
-        const croppedImage: any = await getCroppedImgUrl2(
-          imageSrc,
-          completedCrop
-        )
-        console.log(`croppedImage: ${croppedImage}`)
+        // const croppedImage: any = await getCroppedImgUrl(
+        //   imageSrc,
+        //   completedCrop
+        // )
+        // console.log(`croppedImage: ${croppedImage}`)
+        // if (crop) {
+        //   const croppedImage2: any = await getCroppedImgUrl(imageSrc, crop)
+        //   console.log(`croppedImage2: ${croppedImage2}`)
+        // }
 
-        const croppedImageFile = getFileFromDataURL(
-          croppedImage,
-          'cropped.jpeg'
-        )
-        setCroppedPfp(croppedImageFile)
+        // const croppedImageFile = getFileFromDataURL(
+        //   croppedImage,
+        //   'cropped.jpeg'
+        // )
+        // console.log(`croppedImageFile: ${croppedImageFile}`)
+
+        // via canvas method
+        const canvasRef = previewCanvasRef.current
+        const imageData64 = canvasRef?.toDataURL('image/jpeg')
+        const myFilename = 'previewFile.jpeg'
+
+        // file to be uploaded
+        const myNewCroppedFile = await dataUrlToFile(imageData64!, myFilename)
+        console.log(`myNewCroppedFile: ${myNewCroppedFile}`)
+        console.log(`imageData64: ${imageData64}`)
+        setCroppedPfp(myNewCroppedFile)
+
         closeModal()
       } catch (e) {
         console.error(e)
@@ -275,9 +288,40 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     }
   }, [
     // imageSrc, croppedAreaPixels, rotation
+    imageSrc,
     completedCrop
   ])
+  // export async function dataUrlToFile(dataUrl: string, fileName: string): Promise<File> {
+  const dataUrlToFile = async (
+    dataUrl: string,
+    fileName: string
+  ): Promise<File> => {
+    const res: Response = await fetch(dataUrl)
+    const blob: Blob = await res.blob()
+    return new File([blob], fileName, { type: 'image/png' })
+  }
+  const handleDownloadClick = async (event: ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    // const { imgSrc } = this.state
+    if (imgSrc) {
+      // const canvasRef = this.imagePreviewCanvasRef.current
+      const canvasRef = previewCanvasRef.current
 
+      // const { imgSrcExt } = this.state
+      // const imageData64 = canvasRef?.toDataURL('image/' + imgSrcExt)
+      // const myFilename = 'previewFile.' + imgSrcExt
+      const imageData64 = canvasRef?.toDataURL('image/jpeg')
+      const myFilename = 'previewFile.jpeg'
+
+      // file to be uploaded
+      const myNewCroppedFile = await dataUrlToFile(imageData64!, myFilename)
+      console.log(`myNewCroppedFile: ${myNewCroppedFile}`)
+      console.log(`imageData64: ${imageData64}`)
+      // download file
+      // downloadBase64File(imageData64, myFilename)
+      // this.handleClearToDefault()
+    }
+  }
   const onPfpSelect = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       try {
@@ -298,18 +342,64 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       }
     }
   }
-  function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
-    if (e.target.files && e.target.files.length > 0) {
-      setCrop(undefined) // Makes crop preview update between images.
-      const reader = new FileReader()
-      reader.addEventListener('load', () =>
-        setImgSrc(reader.result?.toString() || '')
+  // function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
+  //   if (e.target.files && e.target.files.length > 0) {
+  //     setCrop(undefined) // Makes crop preview update between images.
+  //     const reader = new FileReader()
+  //     reader.addEventListener('load', () =>
+  //       setImgSrc(reader.result?.toString() || '')
+  //     )
+  //     reader.readAsDataURL(e.target.files[0])
+  //     setShowModal(true)
+  //   }
+  // }
+  // const onCropComplete = useCallback(
+  //   (croppedArea: PixelCrop, croppedAreaPixels: PixelCrop) => {
+  //     setCroppedAreaPixels(croppedAreaPixels)
+  //   },
+  //   []
+  // )
+
+  const cropImageNow = () => {
+    if (crop) {
+      // convert image string to HTMLImageElement
+      const image = new Image()
+      image.src = imageSrc
+      const canvas = document.createElement('canvas')
+      const scaleX = image.naturalWidth / image.width
+      const scaleY = image.naturalHeight / image.height
+      canvas.width = crop.width
+      canvas.height = crop.height
+      const ctx = canvas.getContext('2d')
+
+      if (!ctx) {
+        throw new Error('No 2d context')
+      }
+
+      const pixelRatio = window.devicePixelRatio
+      canvas.width = crop.width * pixelRatio
+      canvas.height = crop.height * pixelRatio
+      ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
+      ctx.imageSmoothingQuality = 'high'
+
+      ctx.drawImage(
+        image,
+        crop.x * scaleX,
+        crop.y * scaleY,
+        crop.width * scaleX,
+        crop.height * scaleY,
+        0,
+        0,
+        crop.width,
+        crop.height
       )
-      reader.readAsDataURL(e.target.files[0])
-      setShowModal(true)
+
+      // Converting to base64
+      const base64Image = canvas.toDataURL('image/jpeg')
+      // setOutput(base64Image)
+      console.log(base64Image)
     }
   }
-
   return (
     <div className="relative flex-none overflow-hidden rounded-full group">
       <img
@@ -348,14 +438,16 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           crop={crop!}
           setCrop={setCrop}
           setCompletedCrop={setCompletedCrop}
+          // onCropComplete={onCropComplete}
           aspect={aspect!}
           imgRef={imgRef}
-          imgSrc={imgSrc}
+          imgSrc={imgSrc!}
           scale={scale}
           rotate={rotate}
           completedCrop={completedCrop!}
           previewCanvasRef={previewCanvasRef}
           selectCroppedImage={selectCroppedImage}
+          cropImageNow={handleDownloadClick}
         />
       </label>
 

@@ -1,6 +1,6 @@
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
-import React, { FC } from 'react'
+import React, { FC, ChangeEvent } from 'react'
 import ReactCrop, {
   centerCrop,
   makeAspectCrop,
@@ -25,6 +25,8 @@ type Props = {
     unit: 'px' | '%'
   }>
   setCompletedCrop: (crop: PixelCrop) => void
+  // onCropComplete: (croppedArea: any, croppedAreaPixels: any) => void
+
   aspect: number
   imgRef: React.RefObject<HTMLImageElement>
   imgSrc: string
@@ -33,6 +35,7 @@ type Props = {
   rotate: number
   completedCrop: PixelCrop
   selectCroppedImage: () => void
+  cropImageNow: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 const CropModal: FC<Props> = ({
@@ -41,6 +44,7 @@ const CropModal: FC<Props> = ({
   crop,
   setCrop,
   setCompletedCrop,
+  // onCropComplete,
   aspect,
   imgRef,
   imgSrc,
@@ -48,7 +52,8 @@ const CropModal: FC<Props> = ({
   rotate,
   completedCrop,
   previewCanvasRef,
-  selectCroppedImage
+  selectCroppedImage,
+  cropImageNow
 }) => {
   // This is to demonstate how to make and center a % aspect crop
   // which is a bit trickier so we use some helper functions.
@@ -110,6 +115,7 @@ const CropModal: FC<Props> = ({
           crop={crop}
           onChange={(_, percentCrop) => setCrop(percentCrop)}
           onComplete={(c) => setCompletedCrop(c)}
+          // onComplete={onCropComplete}
           aspect={aspect}
         >
           <img
@@ -138,6 +144,13 @@ const CropModal: FC<Props> = ({
           color="primary"
         >
           Crop
+        </Button>
+        <Button
+          className="absolute bottom-0 right-0 flex h-10 mt-4 ml-auto"
+          onClick={cropImageNow}
+          color="primary"
+        >
+          Crop Image now
         </Button>
       </div>
     </Modal>

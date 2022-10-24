@@ -34,6 +34,7 @@ export function rotateSize(width: number, height: number, rotation: number) {
 export async function getCroppedImgUrl(
   imageSrc: any,
   pixelCrop: any,
+  // pixelCrop: PixelCrop,
   rotation = 0,
   flip = { horizontal: false, vertical: false }
 ) {
@@ -73,7 +74,8 @@ export async function getCroppedImgUrl(
     pixelCrop.x,
     pixelCrop.y,
     pixelCrop.width,
-    pixelCrop.height
+    pixelCrop.height,
+
   )
 
   // set canvas width to final desired crop size - this will clear existing context
@@ -94,48 +96,3 @@ export async function getCroppedImgUrl(
   // })
 }
 
-
-export const getCroppedImgUrl2 = async (
-  imageSrc: string,
-  // crop:
-  //   {
-  //     x: number, y: number, width: number,
-  //     height: number
-  //     // aspect: number 
-  //   },
-  crop: PixelCrop
-
-) => {
-  try {
-    const image: any = await createImage(imageSrc)
-    console.log(`image:${image}`)
-    const canvas = document.createElement("canvas");
-
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    canvas.width = crop.width;
-    canvas.height = crop.height;
-    console.log(`scaleX:${scaleX}`)
-    console.log(`scaleY:${scaleY}`)
-
-    const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
-    ctx?.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      crop.width,
-      crop.height
-    );
-    console.log(`canvas:${canvas}`)
-    const base64Image = canvas.toDataURL("image/jpeg", 1);
-    return base64Image;
-    // setResult(base64Image);
-
-  } catch (e) {
-    console.log("cropped the image");
-  }
-}
