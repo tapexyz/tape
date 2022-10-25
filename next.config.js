@@ -19,6 +19,7 @@ const moduleExports = withBundleAnalyzer(
         },
         reactStrictMode: process.env.NODE_ENV === 'production',
         experimental: {
+          scrollRestoration: true,
           newNextLinkBehavior: true
         },
         async rewrites() {
