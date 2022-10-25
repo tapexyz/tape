@@ -15,6 +15,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
 import { CreateBurnProfileBroadcastItemResult } from 'src/types'
+import { CustomErrorWithData } from 'src/types/local'
 import {
   useContractWrite,
   useSignTypedData,
@@ -31,7 +32,7 @@ const DangerZone = () => {
     }
   })
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     setLoading(false)
     toast.error(error?.data?.message ?? error?.message)
   }

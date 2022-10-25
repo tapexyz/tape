@@ -15,6 +15,7 @@ import {
   CreateUnfollowBroadcastItemResult,
   Profile
 } from 'src/types'
+import { CustomErrorWithData } from 'src/types/local'
 import { useSigner, useSignTypedData } from 'wagmi'
 
 type Props = {
@@ -26,7 +27,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   const [loading, setLoading] = useState(false)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message)
     setLoading(false)
   }

@@ -5,6 +5,7 @@ import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
 import React, { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
 import { ApprovedAllowanceAmount } from 'src/types'
+import { CustomErrorWithData } from 'src/types/local'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
 type Props = {
@@ -29,7 +30,7 @@ const PermissionAlert: FC<Props> = ({
   } = useSendTransaction({
     request: {},
     mode: 'recklesslyUnprepared',
-    onError(error: any) {
+    onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
@@ -41,7 +42,7 @@ const PermissionAlert: FC<Props> = ({
       )
       setIsAllowed(!isAllowed)
     },
-    onError(error: any) {
+    onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message ?? error?.message)
     }
   })

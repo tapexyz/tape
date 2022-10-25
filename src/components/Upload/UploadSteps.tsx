@@ -45,6 +45,7 @@ import {
   PublicationMetadataMediaInput,
   PublicationMetadataV2Input
 } from 'src/types'
+import { CustomErrorWithData } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
@@ -79,7 +80,7 @@ const UploadSteps = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setUploadedVideo({
       buttonText: 'Post Video',
@@ -287,7 +288,7 @@ const UploadSteps = () => {
         locale: getUserLocale(),
         tags: [uploadedVideo.videoCategory.tag],
         mainContentFocus: PublicationMainFocus.Video,
-        external_url: LENSTUBE_URL,
+        external_url: `${LENSTUBE_URL}/${selectedChannel?.handle}`,
         animation_url: uploadedVideo.videoSource,
         image: uploadedVideo.thumbnail,
         imageMimeType: uploadedVideo.thumbnailType,
@@ -413,7 +414,7 @@ const UploadSteps = () => {
         videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
         playbackId
       })
-    } catch (error: any) {
+    } catch (error) {
       toast.error('Failed to upload video!')
       logger.error('[Error Bundlr Upload Video]', error)
       setUploadedVideo({

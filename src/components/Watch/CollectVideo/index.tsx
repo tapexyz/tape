@@ -25,7 +25,11 @@ import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { HiOutlineCollection } from 'react-icons/hi'
 import { CreateCollectBroadcastItemResult } from 'src/types'
-import { LenstubeCollectModule, LenstubePublication } from 'src/types/local'
+import {
+  CustomErrorWithData,
+  LenstubeCollectModule,
+  LenstubePublication
+} from 'src/types/local'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 import CollectModal from './CollectModal'
@@ -46,7 +50,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
   }

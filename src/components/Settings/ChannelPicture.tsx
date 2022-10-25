@@ -34,7 +34,7 @@ import {
   Profile,
   UpdateProfileImageRequest
 } from 'src/types'
-import { IPFSUploadResult } from 'src/types/local'
+import { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 import CropModal from './CropModal'
@@ -58,7 +58,8 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const imgRef = useRef<HTMLImageElement>(null)
   const [crop, setCrop] = useState<Crop>()
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
-  const onError = (error: any) => {
+
+  const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
     setSelectedPfp(getProfilePicture(channel, 'avatar_lg'))
@@ -179,7 +180,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         }
         await createViaDispatcher(request)
       } catch (error) {
-        onError(error)
+        onError(error as CustomErrorWithData)
         logger.error('[Error Pfp Upload]', error)
       }
     }
