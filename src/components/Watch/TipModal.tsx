@@ -31,7 +31,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { TbHeartHandshake } from 'react-icons/tb'
 import {
-  CreatePublicPostRequest,
+  CreatePublicCommentRequest,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes
 } from 'src/types'
@@ -179,13 +179,13 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
-  const signTypedData = (request: CreatePublicPostRequest) => {
+  const signTypedData = (request: CreatePublicCommentRequest) => {
     createCommentTypedData({
       variables: { options: { overrideSigNonce: userSigNonce }, request }
     })
   }
 
-  const createViaDispatcher = async (request: CreatePublicPostRequest) => {
+  const createViaDispatcher = async (request: CreatePublicCommentRequest) => {
     const { data } = await createCommentViaDispatcher({
       variables: { request }
     })

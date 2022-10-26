@@ -81,8 +81,9 @@ const ByteVideo: FC<Props> = ({ video }) => {
           poster={imageCdn(getThumbnailUrl(video), 'thumbnail')}
           className="md:rounded-xl min-w-[250px] w-screen md:w-[345px] 2xl:w-[450px] h-screen bg-black md:h-[calc(100vh-145px)]"
           loop
+          src={videoUrl}
         >
-          <source ref={observe} src={videoUrl} type="video/mp4" />
+          <source ref={observe} src={videoUrl} />
         </video>
         <TopOverlay playing={playing} onClickPlayPause={onClickVideo} />
         <BottomOverlay video={video} />
