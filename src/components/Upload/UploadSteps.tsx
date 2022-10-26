@@ -142,7 +142,7 @@ const UploadSteps = () => {
   })
 
   const getPlaybackId = async (url: string) => {
-    // Only on production
+    // Only on production and mp4 (only supported on livepeer)
     if (!IS_MAINNET || uploadedVideo.videoType !== 'video/mp4') return null
     try {
       const playbackResponse = await axios.post('/api/video/playback', {
