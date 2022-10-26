@@ -88,6 +88,7 @@ const Video = () => {
             'thumbnail'
           )}
           controls
+          src={uploadedVideo.preview}
         >
           <source
             src={uploadedVideo.preview}
