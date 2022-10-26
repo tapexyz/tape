@@ -143,7 +143,7 @@ const UploadSteps = () => {
 
   const getPlaybackId = async (url: string) => {
     // Only on production
-    if (!IS_MAINNET) return null
+    if (!IS_MAINNET && uploadedVideo.videoType !== 'video/mp4') return null
     try {
       const playbackResponse = await axios.post('/api/video/playback', {
         url
