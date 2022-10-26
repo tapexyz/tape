@@ -23,7 +23,6 @@ const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   try {
     const splited = parsed.pathname.split('/')
     const name = splited[splited.length - 1]
-    const livepeerKey = LIVEPEER_API_KEY
     const response: any = await axios({
       method: 'post',
       url: 'https://livepeer.studio/api/asset/import',
@@ -32,7 +31,7 @@ const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         name
       },
       headers: {
-        Authorization: `Bearer ${livepeerKey}`,
+        Authorization: `Bearer ${LIVEPEER_API_KEY}`,
         'Content-Type': 'application/json'
       }
     })
