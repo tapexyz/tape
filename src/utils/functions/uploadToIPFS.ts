@@ -1,23 +1,23 @@
 import { S3 } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
 import logger from '@lib/logger'
-import { IS_MAINNET } from '@utils/constants'
+import {
+  ESTUARY_AUTHORIZATION_KEY,
+  EVER_API_KEY,
+  EVER_API_SECRET,
+  EVER_BUCKET_NAME,
+  IS_MAINNET
+} from '@utils/constants'
 import axios from 'axios'
 import { IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 
-const estuaryAuthKey = process.env
-  .NEXT_PUBLIC_ESTUARY_AUTHORIZATION_KEY as string
-
-const accessKeyId = process.env.NEXT_PUBLIC_EVER_API_KEY as string
-const secretAccessKey = process.env.NEXT_PUBLIC_EVER_API_SECRET as string
-const bucketName = process.env.NEXT_PUBLIC_EVER_BUCKET_NAME as string
 const region = 'us-west-2'
 const client = new S3({
   endpoint: 'https://endpoint.4everland.co',
   credentials: {
-    accessKeyId,
-    secretAccessKey
+    accessKeyId: EVER_API_KEY,
+    secretAccessKey: EVER_API_SECRET
   },
   region,
   maxAttempts: 3
@@ -29,7 +29,7 @@ export const everland = async (
 ) => {
   try {
     const params = {
-      Bucket: bucketName,
+      Bucket: EVER_BUCKET_NAME,
       Key: uuidv4(),
       Body: file,
       ContentType: file.type
@@ -72,7 +72,7 @@ export const estuary = async (
       {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${estuaryAuthKey}`
+          Authorization: `Bearer ${ESTUARY_AUTHORIZATION_KEY}`
         },
         onUploadProgress: function (progressEvent) {
           const total = progressEvent.total ?? 0

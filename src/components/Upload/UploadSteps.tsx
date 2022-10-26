@@ -380,7 +380,7 @@ const UploadSteps = () => {
       })
       const bundlr = bundlrData.instance
       const tags = [
-        { name: 'Content-Type', value: 'video/mp4' },
+        { name: 'Content-Type', value: uploadedVideo.videoType || 'video/mp4' },
         { name: 'App-Name', value: APP_NAME }
       ]
       const uploader = bundlr.uploader.chunkedUploader

@@ -149,7 +149,7 @@ const PlayerInstance = ({ source, ratio, hls, poster }: PlayerProps) => {
               autoPiP
               poster={poster}
             >
-              <source data-src={source} type="video/mp4" />
+              <source data-src={source} />
             </Video>
           )}
           <DefaultUi noControls>

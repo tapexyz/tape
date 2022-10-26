@@ -89,7 +89,10 @@ const Video = () => {
           )}
           controls
         >
-          <source src={uploadedVideo.preview} type="video/mp4" />
+          <source
+            src={uploadedVideo.preview}
+            type={uploadedVideo.videoType || 'video/mp4'}
+          />
         </video>
       </div>
       <Tooltip content={`Uploaded (${uploadedVideo.percent}%)`}>

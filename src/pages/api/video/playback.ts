@@ -1,5 +1,5 @@
 import logger from '@lib/logger'
-import { API_ORIGINS } from '@utils/constants'
+import { API_ORIGINS, LIVEPEER_API_KEY } from '@utils/constants'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -23,7 +23,7 @@ const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   try {
     const splited = parsed.pathname.split('/')
     const name = splited[splited.length - 1]
-    const livepeerKey = process.env.LIVEPEER_API_KEY
+    const livepeerKey = LIVEPEER_API_KEY
     const response: any = await axios({
       method: 'post',
       url: 'https://livepeer.studio/api/asset/import',

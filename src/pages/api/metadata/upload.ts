@@ -5,6 +5,7 @@ import {
   APP_NAME,
   BUNDLR_CURRENCY,
   BUNDLR_METADATA_UPLOAD_URL,
+  BUNDLR_PRIVATE_KEY,
   IS_MAINNET
 } from '@utils/constants'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -14,8 +15,6 @@ type Data = {
   id: string | null
   success: boolean
 }
-
-const PRIVATE_KEY = process.env.BUNDLR_PRIVATE_KEY
 
 const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const origin = req.headers.origin
@@ -30,7 +29,7 @@ const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const bundlr = new Bundlr(
       BUNDLR_METADATA_UPLOAD_URL,
       BUNDLR_CURRENCY,
-      PRIVATE_KEY
+      BUNDLR_PRIVATE_KEY
     )
     const tags = [
       { name: 'Content-Type', value: 'application/json' },

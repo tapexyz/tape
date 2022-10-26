@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
+import { ALLOWED_VIDEO_TYPES } from '@utils/constants'
 import useDragAndDrop from '@utils/hooks/useDragAndDrop'
 import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
@@ -42,9 +43,9 @@ const DropZone = () => {
   }
 
   const validateFile = (file: File) => {
-    if (file.type !== 'video/mp4') {
-      toast.error('Only mp4 files are supported!')
-      return setFileDropError('Only mp4 files are supported!')
+    if (!ALLOWED_VIDEO_TYPES.includes(file.type)) {
+      toast.error('Video format are supported!')
+      return setFileDropError('Video format are supported!')
     }
     uploadVideo(file)
   }
@@ -77,7 +78,7 @@ const DropZone = () => {
             type="file"
             className="hidden"
             id="dropVideo"
-            accept="video/mp4"
+            accept={ALLOWED_VIDEO_TYPES.join(',')}
           />
           <span className="flex justify-center mb-6 opacity-80">
             <FiUpload className="text-6xl" />
@@ -99,7 +100,7 @@ const DropZone = () => {
                   onChange={onChooseFile}
                   type="file"
                   className="hidden"
-                  accept="video/mp4"
+                  accept={ALLOWED_VIDEO_TYPES.join(',')}
                 />
               </label>
             </div>

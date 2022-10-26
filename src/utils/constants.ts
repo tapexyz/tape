@@ -3,7 +3,12 @@ import { CustomFiltersTypes } from 'src/types'
 /**
  * !!! CHANGING VALUES MIGHT BREAK THINGS !!!
  */
+export const APP_NAME = 'Lenstube'
+
 export const IS_MAINNET = process.env.NEXT_PUBLIC_IS_MAINNET === 'true'
+export const RELAYER_ENABLED =
+  process.env.NEXT_PUBLIC_RELAYER_ENABLED === 'true'
+
 export const STATIC_ASSETS = 'https://assets.lenstube.xyz'
 export const LENSTUBE_URL = IS_MAINNET
   ? 'https://lenstube.xyz'
@@ -12,50 +17,49 @@ export const LENSTUBE_EMBED_URL = IS_MAINNET
   ? 'https://embed.lenstube.xyz'
   : 'https://test-embed.lenstube.xyz'
 
-export const APP_NAME = 'Lenstube'
-export const RELAYER_ENABLED =
-  process.env.NEXT_PUBLIC_RELAYER_ENABLED === 'true'
-
+// lens
 export const API_URL = IS_MAINNET
   ? 'https://api.lens.dev'
   : 'https://api-mumbai.lens.dev'
+
+// polygon
+export const POLYGON_RPC_URL = process.env.NEXT_PUBLIC_POLYGON_RPC_URL as string
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://mumbai.polygonscan.com'
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
+// cdn
 export const IMAGE_CDN_URL = IS_MAINNET
   ? 'https://ik.imagekit.io/lenstubeik'
   : 'https://ik.imagekit.io/lenstubeik/testnet'
-
 export const VIDEO_CDN_URL = 'https://cdn.livepeer.com'
 
+// ipfs
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/'
-// export const IPFS_GATEWAY = 'https://ipfs.4everland.io/ipfs/'
+export const ESTUARY_AUTHORIZATION_KEY = process.env
+  .NEXT_PUBLIC_ESTUARY_AUTHORIZATION_KEY as string
+export const EVER_API_KEY = process.env.NEXT_PUBLIC_EVER_API_KEY as string
+export const EVER_API_SECRET = process.env.NEXT_PUBLIC_EVER_API_SECRET as string
+export const EVER_BUCKET_NAME = process.env
+  .NEXT_PUBLIC_EVER_BUCKET_NAME as string
 
-export const POLYGON_RPC_URL = process.env.NEXT_PUBLIC_POLYGON_RPC_URL as string
+// livepeer
+export const LIVEPEER_API_KEY = process.env.LIVEPEER_API_KEY as string
 
-export const NFT_MARKETPLACE_URL = IS_MAINNET
-  ? 'https://opensea.io'
-  : 'https://testnets.opensea.io'
-// Bundlr
+// bundlr
 export const BUNDLR_NODE_URL = IS_MAINNET
   ? 'https://node1.bundlr.network'
   : 'https://devnet.bundlr.network'
-
 export const BUNDLR_METADATA_UPLOAD_URL = IS_MAINNET
   ? 'https://node2.bundlr.network'
   : 'https://devnet.bundlr.network'
 export const BUNDLR_CURRENCY = 'matic'
 export const BUNDLR_WEBSITE_URL = 'https://bundlr.network'
 export const ARWEAVE_WEBSITE_URL = 'https://arweave.net'
+export const BUNDLR_PRIVATE_KEY = process.env.BUNDLR_PRIVATE_KEY as string
 
-export const TALLY_VERIFICATION_FORM_URL = 'https://tally.so/r/mY5e80'
-
-export const LENSTER_WEBSITE_URL = IS_MAINNET
-  ? 'https://lenster.xyz'
-  : 'https://testnet.lenster.xyz'
-
+// contract addresses
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
   ? '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d'
   : '0x60Ae865ee4C725cd04353b5AAb364553f56ceF82'
@@ -65,24 +69,42 @@ export const LENS_PERIPHERY_ADDRESS = IS_MAINNET
 export const WMATIC_TOKEN_ADDRESS = IS_MAINNET
   ? '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270'
   : '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
-
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
+// error messages
 export const ERROR_MESSAGE = 'Oops, something went something!'
 export const SIGN_IN_REQUIRED_MESSAGE = 'Sign in required'
 
-// App Id
+// App Ids
 export const LENSTUBE_APP_ID = 'lenstube'
 export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
 
-// handles
+// official
 export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'
 export const LENSTUBE_GITHUB_HANDLE = 'lenstube-xyz'
 export const LENSTUBE_STATUS_PAGE = 'https://status.lenstube.xyz'
-// admins
+export const TALLY_VERIFICATION_FORM_URL = 'https://tally.so/r/mY5e80'
+
+// admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']
 
+// lens
 export const LENS_CUSTOM_FILTERS = [CustomFiltersTypes.Gardeners]
+export const ALLOWED_VIDEO_TYPES = [
+  'video/mp4',
+  'video/mpeg',
+  'video/ogg',
+  'video/webm',
+  'video/quicktime'
+]
+
+// other apps
+export const LENSTER_WEBSITE_URL = IS_MAINNET
+  ? 'https://lenster.xyz'
+  : 'https://testnet.lenster.xyz'
+export const NFT_MARKETPLACE_URL = IS_MAINNET
+  ? 'https://opensea.io'
+  : 'https://testnets.opensea.io'
 
 // misc
 export const GIT_DEPLOYED_COMMIT_SHA =
