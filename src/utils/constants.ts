@@ -53,6 +53,7 @@ export const EVER_API_KEY = process.env.NEXT_PUBLIC_EVER_API_KEY as string
 export const EVER_API_SECRET = process.env.NEXT_PUBLIC_EVER_API_SECRET as string
 export const EVER_BUCKET_NAME = process.env
   .NEXT_PUBLIC_EVER_BUCKET_NAME as string
+export const EVER_TEMP_BUCKET_NAME = process.env.EVER_TEMP_BUCKET_NAME as string
 
 // livepeer
 export const LIVEPEER_API_KEY = process.env.LIVEPEER_API_KEY as string
