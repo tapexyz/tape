@@ -24,7 +24,6 @@ const AboutChannel: FC<Props> = ({ video }) => {
   const subscribeType = channel?.followModule?.__typename
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
-  const [showShare, setShowShare] = useState(false)
 
   useEffect(() => {
     if (video.metadata?.description?.trim().length > 400) {

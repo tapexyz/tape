@@ -8,7 +8,8 @@ import {
   FcNews,
   FcOrganization,
   FcReadingEbook,
-  FcVideoProjector
+  FcVideoProjector,
+  FcVoicemail
 } from 'react-icons/fc'
 import { GiPopcorn } from 'react-icons/gi'
 import {
@@ -22,6 +23,11 @@ export const CREATOR_VIDEO_CATEGORIES = [
     name: 'People & Blogs',
     tag: 'people',
     icon: <FcReadingEbook className="w-6 h-6" />
+  },
+  {
+    name: 'Podcast',
+    tag: 'podcast',
+    icon: <FcVoicemail className="w-6 h-6" />
   },
   {
     name: 'Autos & Vehicles',

@@ -6,6 +6,7 @@ import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import getHlsData from '@utils/functions/getHlsData'
 import { getIsHlsSupported } from '@utils/functions/getIsHlsSupported'
+import getVideoMimeType from '@utils/functions/getVideoMimeType'
 import { getPlaybackIdFromUrl } from '@utils/functions/getVideoUrl'
 import { Mixpanel, TRACK } from '@utils/track'
 import { useRouter } from 'next/router'
@@ -44,7 +45,10 @@ const VideoDetails = () => {
     try {
       const hls = await getHlsData(playbackId)
       const videoObject = { ...currentVideo }
-      if (getIsHlsSupported() && hls) {
+      if (
+        getIsHlsSupported(getVideoMimeType(currentVideo.metadata.media)) &&
+        hls
+      ) {
         videoObject.hls = hls
       }
       setVideo(videoObject)

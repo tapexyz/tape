@@ -142,8 +142,8 @@ const UploadSteps = () => {
   })
 
   const getPlaybackId = async (url: string) => {
-    // Only on production
-    if (!IS_MAINNET) return null
+    // Only on production and mp4 (only supported on livepeer)
+    if (!IS_MAINNET || uploadedVideo.videoType !== 'video/mp4') return null
     try {
       const playbackResponse = await axios.post('/api/video/playback', {
         url
@@ -380,7 +380,7 @@ const UploadSteps = () => {
       })
       const bundlr = bundlrData.instance
       const tags = [
-        { name: 'Content-Type', value: 'video/mp4' },
+        { name: 'Content-Type', value: uploadedVideo.videoType || 'video/mp4' },
         { name: 'App-Name', value: APP_NAME }
       ]
       const uploader = bundlr.uploader.chunkedUploader

@@ -48,7 +48,7 @@ const Comment: FC<Props> = ({ comment }) => {
   const [showReport, setShowReport] = useState(false)
 
   useEffect(() => {
-    if (comment?.metadata?.content.trim().length > 100) {
+    if (comment?.metadata?.content.trim().length > 200) {
       setClamped(true)
       setShowMore(true)
     }
