@@ -29,7 +29,7 @@
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tensorflow/tfjs": "^4.0.0",
     "@tippyjs/react": "^4.2.6",
-    "@vercel/analytics": "^0.1.1",
+    "@vercel/analytics": "^0.1.2",
     "@vime/core": "^5.3.3",
     "@vime/react": "^5.3.3",
     "axios": "^1.1.3",
@@ -58,7 +58,7 @@
     "zustand": "^4.1.3"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.13.7",
+    "@graphql-codegen/cli": "^2.13.8",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
     "@graphql-codegen/typescript": "^2.8.0",
     "@next/bundle-analyzer": "^13.0.0",
