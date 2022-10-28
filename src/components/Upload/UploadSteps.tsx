@@ -428,15 +428,19 @@ const UploadSteps = () => {
     uploadedVideo.title = data.title
     uploadedVideo.description = data.description
     uploadedVideo.isSensitiveContent = data.isSensitiveContent
-    setUploadedVideo({ ...uploadedVideo })
-    if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail)
+    if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail) {
       return toast.error('NSFW content not allowed')
-    else if (
+    }
+    uploadedVideo.loading = true
+    setUploadedVideo({ ...uploadedVideo })
+    if (
       canUploadedToIpfs(uploadedVideo.file?.size) &&
       uploadedVideo.isUploadToIpfs
-    )
+    ) {
       return await uploadVideoToIpfs()
-    else await uploadToBundlr()
+    } else {
+      await uploadToBundlr()
+    }
   }
 
   return (

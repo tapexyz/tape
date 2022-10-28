@@ -3,34 +3,32 @@ import { Upload } from '@aws-sdk/lib-storage'
 import logger from '@lib/logger'
 import {
   ESTUARY_AUTHORIZATION_KEY,
-  EVER_API_KEY,
-  EVER_API_SECRET,
-  EVER_BUCKET_NAME,
-  IS_MAINNET
+  NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME
 } from '@utils/constants'
 import axios from 'axios'
 import { IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
-
-const region = 'us-west-2'
-const client = new S3({
-  endpoint: 'https://endpoint.4everland.co',
-  credentials: {
-    accessKeyId: EVER_API_KEY,
-    secretAccessKey: EVER_API_SECRET
-  },
-  region,
-  maxAttempts: 3
-})
 
 export const everland = async (
   file: File,
   onProgress?: (percentage: number) => void
 ) => {
   try {
+    const token = await axios.get('/api/sts/token')
+    const client = new S3({
+      endpoint: 'https://endpoint.4everland.co',
+      region: 'us-west-2',
+      credentials: {
+        accessKeyId: token.data?.accessKeyId,
+        secretAccessKey: token.data?.secretAccessKey,
+        sessionToken: token.data?.sessionToken
+      },
+      maxAttempts: 3
+    })
+    const filePath = token.data?.dir + uuidv4()
     const params = {
-      Bucket: EVER_BUCKET_NAME,
-      Key: uuidv4(),
+      Bucket: NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME,
+      Key: filePath,
       Body: file,
       ContentType: file.type
     }
@@ -44,11 +42,12 @@ export const everland = async (
       onProgress?.(progress)
     })
     await task.done()
-    const result = await client.headObject(params)
-    const metadata = result.Metadata
+    const result = await axios.post('/api/sts/upload', {
+      filePath
+    })
     return {
-      url: `ipfs://${metadata?.['ipfs-hash']}`,
-      type: file.type || 'image/jpeg'
+      url: `ipfs://${result.data.hash}`,
+      type: result?.data?.type ?? file.type
     }
   } catch (error) {
     logger.error('[Error IPFS3 Media Upload]', error)
@@ -102,9 +101,7 @@ const uploadToIPFS = async (
   file: File,
   onProgress?: (percentage: number) => void
 ): Promise<IPFSUploadResult> => {
-  const { url, type } = IS_MAINNET
-    ? await everland(file, onProgress)
-    : await estuary(file, onProgress)
+  const { url, type } = await everland(file, onProgress)
   return { url, type }
 }
 

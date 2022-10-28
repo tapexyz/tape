@@ -2,10 +2,10 @@ import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts'
 import logger from '@lib/logger'
 import {
   API_ORIGINS,
-  EVER_API_KEY,
-  EVER_API_SECRET,
-  EVER_TEMP_BUCKET_NAME,
-  IS_MAINNET
+  EVER_ACCESS_KEY,
+  EVER_ACCESS_SECRET,
+  IS_MAINNET,
+  NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME
 } from '@utils/constants'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { v4 as uuidv4 } from 'uuid'
@@ -19,15 +19,6 @@ type Data = {
   success: boolean
 }
 
-const stsClient = new STSClient({
-  endpoint: 'https://endpoint.4everland.co',
-  region: 'us-west-2',
-  credentials: {
-    accessKeyId: EVER_API_KEY,
-    secretAccessKey: EVER_API_SECRET
-  }
-})
-
 const sts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const origin = req.headers.origin
   if (IS_MAINNET) {
@@ -36,6 +27,14 @@ const sts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   }
   if (req.method !== 'GET') return res.status(400).json({ success: false })
   try {
+    const stsClient = new STSClient({
+      endpoint: 'https://endpoint.4everland.co',
+      region: 'us-west-2',
+      credentials: {
+        accessKeyId: EVER_ACCESS_KEY,
+        secretAccessKey: EVER_ACCESS_SECRET
+      }
+    })
     // Using the date as the folder name makes it easier to clean up invalid expired files and release storage.
     // Random folder name to avoid users overwriting existing files.
     const dir = new Date().toISOString().split('T')[0] + '/' + uuidv4()
@@ -51,21 +50,26 @@ const sts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
                         "s3:AbortMultipartUpload"
                     ],
                     "Resource": [
-                        "arn:aws:s3:::${EVER_TEMP_BUCKET_NAME}/${dir}/*"
+                        "arn:aws:s3:::${NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME}/${dir}/*"
                     ]
                 }
             ]
         }`
     }
+
     const data = await stsClient.send(
-      new AssumeRoleCommand({ ...params, RoleArn: '', RoleSessionName: '' })
+      new AssumeRoleCommand({
+        ...params,
+        RoleArn: undefined,
+        RoleSessionName: undefined
+      })
     )
     return res.json({
       success: true,
       accessKeyId: data.Credentials?.AccessKeyId,
       secretAccessKey: data.Credentials?.SecretAccessKey,
       sessionToken: data.Credentials?.SessionToken,
-      bucketName: EVER_TEMP_BUCKET_NAME,
+      bucketName: NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME,
       dir: dir + '/'
     })
   } catch (error) {
