@@ -10,9 +10,6 @@ import BundlrInfo from './BundlrInfo'
 
 const UploadMethod = () => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const bundlrData = useAppStore((state) => state.bundlrData)
-  const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)
-  const setBundlrData = useAppStore((state) => state.setBundlrData)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
   const isUnderFreeLimit = canUploadedToIpfs(uploadedVideo.file?.size)
