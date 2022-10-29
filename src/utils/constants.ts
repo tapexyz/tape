@@ -48,6 +48,8 @@ export const VIDEO_CDN_URL = 'https://cdn.livepeer.com'
 // ipfs
 export const IPFS_FREE_UPLOAD_LIMIT = 100
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/'
+export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
+export const EVER_REGION = 'us-west-2'
 export const EVER_ACCESS_KEY = process.env.EVER_ACCESS_KEY as string
 export const EVER_ACCESS_SECRET = process.env.EVER_ACCESS_SECRET as string
 export const EVER_BUCKET_NAME = process.env.EVER_BUCKET_NAME as string

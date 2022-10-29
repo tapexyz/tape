@@ -4,6 +4,8 @@ import {
   API_ORIGINS,
   EVER_ACCESS_KEY,
   EVER_ACCESS_SECRET,
+  EVER_ENDPOINT,
+  EVER_REGION,
   IS_MAINNET,
   NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME
 } from '@utils/constants'
@@ -27,8 +29,8 @@ const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method !== 'POST') return res.status(400).json({ success: false })
   try {
     const stsClient = new STSClient({
-      endpoint: 'https://endpoint.4everland.co',
-      region: 'us-west-2',
+      endpoint: EVER_ENDPOINT,
+      region: EVER_REGION,
       credentials: {
         accessKeyId: EVER_ACCESS_KEY,
         secretAccessKey: EVER_ACCESS_SECRET
