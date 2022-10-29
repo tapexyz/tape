@@ -9,10 +9,11 @@ import imageCdn from '@utils/functions/imageCdn'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import clsx from 'clsx'
+import Link from 'next/link'
 import * as nsfwjs from 'nsfwjs'
 import React, { useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
-import { IoCopyOutline } from 'react-icons/io5'
+import { FiExternalLink } from 'react-icons/fi'
 
 import BundlrInfo from './BundlrInfo'
 import ChooseThumbnail from './ChooseThumbnail'
@@ -63,7 +64,7 @@ const Video = () => {
 
   const onCopyKey = async (value: string) => {
     await copy(value)
-    toast.success('Video link copied')
+    toast.success('Video source copied')
   }
 
   const onThumbnailUpload = (ipfsUrl: string, thumbnailType: string) => {
@@ -72,11 +73,7 @@ const Video = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <div
-        className={clsx('overflow-hidden rounded-xl w-full', {
-          '!rounded-b-none': uploadedVideo.percent !== 0
-        })}
-      >
+      <div className="overflow-hidden relative rounded-xl rounded-b-none w-full">
         <video
           ref={videoRef}
           className="w-full aspect-[16/9]"
@@ -95,17 +92,36 @@ const Video = () => {
             type={uploadedVideo.videoType || 'video/mp4'}
           />
         </video>
+        <div className="py-0.5 absolute top-2 px-2 left-2 text-xs uppercase bg-orange-100 text-black rounded-full">
+          {uploadedVideo.file?.size && (
+            <span className="whitespace-nowrap font-medium">
+              {formatBytes(uploadedVideo.file?.size)}
+            </span>
+          )}
+        </div>
+        {uploadedVideo.videoSource && (
+          <Tooltip placement="left" content="Raw video URL">
+            <div className="absolute top-2 p-1 px-1.5 right-2 text-xs bg-orange-100 text-black rounded-full">
+              <Link
+                href={uploadedVideo.videoSource}
+                className="whitespace-nowrap font-medium"
+                target="_blank"
+              >
+                <FiExternalLink />
+              </Link>
+            </div>
+          </Tooltip>
+        )}
       </div>
       <Tooltip content={`Uploaded (${uploadedVideo.percent}%)`}>
-        <div
-          className={clsx('w-full overflow-hidden bg-gray-200 rounded-b-full', {
-            invisible: uploadedVideo.percent === 0
-          })}
-        >
+        <div className="w-full overflow-hidden bg-gray-200 rounded-b-full">
           <div
-            className={clsx('h-[6px]', {
-              'bg-indigo-500': uploadedVideo.percent !== 0
-            })}
+            className={clsx(
+              'h-[6px]',
+              uploadedVideo.percent !== 0
+                ? 'bg-indigo-500'
+                : 'bg-gray-300 dark:bg-gray-800'
+            )}
             style={{
               width: `${uploadedVideo.percent}%`
             }}
@@ -124,40 +140,9 @@ const Video = () => {
           }}
         />
       </div>
-      <div className="p-1 mt-3 rounded-lg">
-        {uploadedVideo.file?.size && (
-          <div className="mt-4">
-            <div className="text-xs font-semibold opacity-70">Size</div>
-            <span>{formatBytes(uploadedVideo.file?.size)}</span>
-          </div>
-        )}
-        <div className="mt-4">
-          <div className="text-xs font-semibold opacity-70">Video Link</div>
-          <div className="flex items-center">
-            {uploadedVideo.videoSource ? (
-              <>
-                <span className="truncate">{uploadedVideo.videoSource}</span>
-                <button
-                  className="pl-2 hover:opacity-60 focus:outline-none"
-                  onClick={() => onCopyKey(uploadedVideo.videoSource)}
-                  type="button"
-                >
-                  <IoCopyOutline />
-                </button>
-              </>
-            ) : (
-              '-'
-            )}
-          </div>
-        </div>
-        {!uploadedVideo.isUploadToIpfs && (
-          <div className="mt-4">
-            <BundlrInfo />
-          </div>
-        )}
-        <div className="mt-4">
-          <UploadMethod />
-        </div>
+      <div className="rounded-lg">
+        {!uploadedVideo.isUploadToIpfs && <BundlrInfo />}
+        <UploadMethod />
       </div>
     </div>
   )

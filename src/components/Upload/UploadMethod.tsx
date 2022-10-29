@@ -12,7 +12,7 @@ const UploadMethod = () => {
   if (uploadedVideo.videoSource) return null
 
   return canUploadedToIpfs(uploadedVideo.file?.size) ? (
-    <div className="flex items-start">
+    <div className="flex items-start mt-4">
       <div className="px-3 py-1 text-sm border-l-4 opacity-60">
         This video size is less than {IPFS_FREE_UPLOAD_LIMIT}MB and can be
         uploaded to IPFS for free, would you like to proceed?

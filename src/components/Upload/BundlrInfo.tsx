@@ -129,7 +129,7 @@ const BundlrInfo = () => {
   }
 
   return (
-    <div className="w-full space-y-3">
+    <div className="w-full mt-4 space-y-2">
       <div className="flex flex-col">
         <div className="inline-flex items-center justify-between text-xs font-semibold rounded opacity-70">
           <span className="flex items-center space-x-1.5">
