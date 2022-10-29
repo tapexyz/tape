@@ -36,7 +36,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
     variables: {
       request
     },
-    fetchPolicy: 'no-cache',
+    fetchPolicy: 'cache-and-network',
     skip: !channel?.id,
     onCompleted(data) {
       setPageInfo(data?.publications?.pageInfo)
