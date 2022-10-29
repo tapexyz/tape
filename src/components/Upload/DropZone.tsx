@@ -78,6 +78,7 @@ const DropZone = () => {
           <input
             type="file"
             className="hidden"
+            onChange={onChooseFile}
             id="dropVideo"
             accept={ALLOWED_VIDEO_TYPES.join(',')}
           />

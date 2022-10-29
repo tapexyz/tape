@@ -100,8 +100,9 @@ const Video = () => {
         {uploadedVideo.videoSource && (
           <Tooltip placement="left" content="Copy source URL">
             <button
+              type="button"
               onClick={() => onCopyVideoSource(uploadedVideo.videoSource)}
-              className="absolute outline-none top-2 p-1 px-1.5 right-2 text-xs bg-orange-100 text-black rounded-full"
+              className="absolute outline-none top-2 p-1 px-1.5 right-2 text-xs bg-orange-100 text-black rounded-xl"
             >
               <IoCopyOutline />
             </button>
