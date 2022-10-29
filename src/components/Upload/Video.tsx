@@ -90,7 +90,7 @@ const Video = () => {
             type={uploadedVideo.videoType || 'video/mp4'}
           />
         </video>
-        <div className="py-0.5 absolute top-2 px-2 left-2 text-xs uppercase bg-orange-100 text-black rounded-full">
+        <div className="py-0.5 absolute top-2 px-2 left-2 text-xs uppercase bg-orange-200 text-black rounded-full">
           {uploadedVideo.file?.size && (
             <span className="whitespace-nowrap font-semibold">
               {formatBytes(uploadedVideo.file?.size)}
@@ -102,7 +102,7 @@ const Video = () => {
             <button
               type="button"
               onClick={() => onCopyVideoSource(uploadedVideo.videoSource)}
-              className="absolute outline-none top-2 p-1 px-1.5 right-2 text-xs bg-orange-100 text-black rounded-lg"
+              className="absolute outline-none top-2 p-1 px-1.5 right-2 text-xs bg-orange-200 text-black rounded-lg"
             >
               <IoCopyOutline />
             </button>

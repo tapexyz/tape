@@ -73,10 +73,11 @@ const BundlrInfo = () => {
   }
 
   useEffect(() => {
-    if (signer?.provider && mounted)
+    if (signer?.provider && mounted) {
       initBundlr().catch((error) => logger.error('[Error Init Bundlr]', error))
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signer?.provider])
+  }, [signer?.provider, mounted])
 
   useEffect(() => {
     if (bundlrData.instance && mounted) {
