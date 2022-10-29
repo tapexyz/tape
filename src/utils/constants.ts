@@ -5,7 +5,7 @@ import { CustomFiltersTypes } from 'src/types'
  */
 export const APP_NAME = 'Lenstube'
 
-export const IS_MAINNET = process.env.NEXT_PUBLIC_IS_MAINNET === 'true'
+export const IS_MAINNET = process.env.NEXT_PUBLIC_ENVIRONMENT === 'mainnet'
 export const RELAYER_ENABLED =
   process.env.NEXT_PUBLIC_RELAYER_ENABLED === 'true'
 
