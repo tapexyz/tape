@@ -18,8 +18,7 @@ type Data = {
 }
 
 const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  const origin = req.headers.origin
-  console.log('🚀 ~ file: token.ts ~ line 24 ~ token ~ origin', origin)
+  console.log('🚀 ~ file: token.ts ~ line 22 ~ token ~ origin', req.headers)
   // if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
   //   return res.status(403).json({ success: false })
   // }
