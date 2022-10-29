@@ -1,8 +1,10 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts'
 import logger from '@lib/logger'
 import {
+  API_ORIGINS,
   EVER_ACCESS_KEY,
   EVER_ACCESS_SECRET,
+  IS_MAINNET,
   NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME
 } from '@utils/constants'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -18,11 +20,11 @@ type Data = {
 }
 
 const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  console.log('🚀 ~ file: token.ts ~ line 22 ~ token ~ origin', req.headers)
-  // if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
-  //   return res.status(403).json({ success: false })
-  // }
-  if (req.method !== 'GET') return res.status(400).json({ success: false })
+  const origin = req.headers.origin
+  if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
+    return res.status(403).json({ success: false })
+  }
+  if (req.method !== 'POST') return res.status(400).json({ success: false })
   try {
     const stsClient = new STSClient({
       endpoint: 'https://endpoint.4everland.co',

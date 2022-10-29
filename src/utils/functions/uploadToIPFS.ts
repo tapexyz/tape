@@ -11,7 +11,7 @@ export const everland = async (
   onProgress?: (percentage: number) => void
 ) => {
   try {
-    const token = await axios.get('/api/sts/token')
+    const token = await axios.post('/api/sts/token', { fileSize: file.size })
     const client = new S3({
       endpoint: 'https://endpoint.4everland.co',
       region: 'us-west-2',
