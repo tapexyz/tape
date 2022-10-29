@@ -19,6 +19,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.198.0",
     "@apollo/client": "^3.7.1",
+    "@aws-sdk/client-sts": "^3.197.0",
     "@aws-sdk/lib-storage": "^3.197.0",
     "@bundlr-network/client": "^0.9.0-b8",
     "@headlessui/react": "^1.7.3",
