@@ -4,7 +4,6 @@ import {
   API_ORIGINS,
   EVER_ACCESS_KEY,
   EVER_ACCESS_SECRET,
-  IS_MAINNET,
   NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME
 } from '@utils/constants'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -21,7 +20,7 @@ type Data = {
 
 const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const origin = req.headers.origin
-  if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
+  if (!origin || !API_ORIGINS.includes(origin)) {
     return res.status(403).json({ success: false })
   }
   if (req.method !== 'GET') return res.status(400).json({ success: false })
