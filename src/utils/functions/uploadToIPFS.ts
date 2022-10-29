@@ -1,11 +1,7 @@
 import { S3 } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
 import logger from '@lib/logger'
-import {
-  ESTUARY_AUTHORIZATION_KEY,
-  IS_MAINNET,
-  NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME
-} from '@utils/constants'
+import { NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME } from '@utils/constants'
 import axios from 'axios'
 import { IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
@@ -57,52 +53,11 @@ export const everland = async (
   }
 }
 
-export const estuary = async (
-  file: File,
-  onProgress?: (percentage: number) => void
-) => {
-  try {
-    const formData = new FormData()
-    formData.append('data', file, uuidv4())
-    const uploaded = await axios.post(
-      `https://shuttle-5.estuary.tech/content/add`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${ESTUARY_AUTHORIZATION_KEY}`
-        },
-        onUploadProgress: function (progressEvent) {
-          const total = progressEvent.total ?? 0
-          const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / total
-          )
-          onProgress?.(percentCompleted)
-        }
-      }
-    )
-    const { cid }: { cid: string } = await uploaded.data
-
-    return {
-      url: `ipfs://${cid}`,
-      type: file.type || 'image/jpeg'
-    }
-  } catch (error) {
-    logger.error('[Error IPFS Media Upload]', error)
-    return {
-      url: '',
-      type: file.type
-    }
-  }
-}
-
 const uploadToIPFS = async (
   file: File,
   onProgress?: (percentage: number) => void
 ): Promise<IPFSUploadResult> => {
-  const { url, type } = IS_MAINNET
-    ? await everland(file, onProgress)
-    : await estuary(file, onProgress)
+  const { url, type } = await everland(file, onProgress)
   return { url, type }
 }
 
