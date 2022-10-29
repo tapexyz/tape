@@ -3,6 +3,7 @@ import { Upload } from '@aws-sdk/lib-storage'
 import logger from '@lib/logger'
 import {
   ESTUARY_AUTHORIZATION_KEY,
+  IS_MAINNET,
   NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME
 } from '@utils/constants'
 import axios from 'axios'
@@ -34,7 +35,7 @@ export const everland = async (
     }
     const task = new Upload({
       client,
-      queueSize: 3, // 3 MiB
+      queueSize: 3,
       params
     })
     task.on('httpUploadProgress', (e) => {
@@ -42,9 +43,7 @@ export const everland = async (
       onProgress?.(progress)
     })
     await task.done()
-    const result = await axios.post('/api/sts/upload', {
-      filePath
-    })
+    const result = await axios.post('/api/sts/upload', { filePath })
     return {
       url: `ipfs://${result.data.hash}`,
       type: result?.data?.type ?? file.type
@@ -101,7 +100,9 @@ const uploadToIPFS = async (
   file: File,
   onProgress?: (percentage: number) => void
 ): Promise<IPFSUploadResult> => {
-  const { url, type } = await everland(file, onProgress)
+  const { url, type } = IS_MAINNET
+    ? await everland(file, onProgress)
+    : await estuary(file, onProgress)
   return { url, type }
 }
 

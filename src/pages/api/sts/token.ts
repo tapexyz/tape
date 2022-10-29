@@ -19,7 +19,7 @@ type Data = {
   success: boolean
 }
 
-const sts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const origin = req.headers.origin
   if (IS_MAINNET) {
     if (!origin || !API_ORIGINS.includes(origin))
@@ -69,7 +69,6 @@ const sts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       accessKeyId: data.Credentials?.AccessKeyId,
       secretAccessKey: data.Credentials?.SecretAccessKey,
       sessionToken: data.Credentials?.SessionToken,
-      bucketName: NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME,
       dir: dir + '/'
     })
   } catch (error) {
@@ -78,4 +77,4 @@ const sts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   }
 }
 
-export default sts
+export default token

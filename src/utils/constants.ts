@@ -46,6 +46,7 @@ export const IMAGE_CDN_URL = IS_MAINNET
 export const VIDEO_CDN_URL = 'https://cdn.livepeer.com'
 
 // ipfs
+export const IPFS_FREE_UPLOAD_LIMIT = 100
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/'
 export const ESTUARY_AUTHORIZATION_KEY = process.env
   .NEXT_PUBLIC_ESTUARY_AUTHORIZATION_KEY as string
