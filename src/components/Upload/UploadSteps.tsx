@@ -29,7 +29,6 @@ import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
 import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
-import useTxnToast from '@utils/hooks/useTxnToast'
 import { Mixpanel, TRACK } from '@utils/track'
 import axios from 'axios'
 import { utils } from 'ethers'
@@ -65,7 +64,6 @@ const UploadSteps = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const { address } = useAccount()
   const { data: signer } = useSigner()
-  const { showToast } = useTxnToast()
 
   const resetToDefaults = () => {
     setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
@@ -94,7 +92,6 @@ const UploadSteps = () => {
       !data.createPostViaDispatcher?.reason
     ) {
       Mixpanel.track(TRACK.UPLOADED_VIDEO)
-      showToast(data?.broadcast?.txHash)
       setUploadedVideo({
         buttonText: 'Indexing...',
         loading: true
@@ -115,8 +112,7 @@ const UploadSteps = () => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: (data) => {
-      showToast(data.hash)
+    onSuccess: () => {
       setUploadedVideo({
         buttonText: 'Indexing...',
         loading: true
@@ -134,10 +130,10 @@ const UploadSteps = () => {
   )
 
   usePendingTxn({
-    txHash:
-      dispatcherData?.createPostViaDispatcher?.txHash ??
-      broadcastData?.broadcast?.txHash ??
-      writePostData?.hash,
+    txId:
+      dispatcherData?.createPostViaDispatcher?.txId ??
+      broadcastData?.broadcast?.txId,
+    txHash: writePostData?.hash,
     isPublication: true
   })
 
