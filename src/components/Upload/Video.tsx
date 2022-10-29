@@ -102,7 +102,7 @@ const Video = () => {
             <button
               type="button"
               onClick={() => onCopyVideoSource(uploadedVideo.videoSource)}
-              className="absolute outline-none top-2 p-1 px-1.5 right-2 text-xs bg-orange-100 text-black rounded-xl"
+              className="absolute outline-none top-2 p-1 px-1.5 right-2 text-xs bg-orange-100 text-black rounded-lg"
             >
               <IoCopyOutline />
             </button>
