@@ -39,7 +39,7 @@ const VideoOptions = ({
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
 
   const [hideVideo] = useMutation(HIDE_PUBLICATION, {
-    onCompleted() {
+    onCompleted: () => {
       toast.success('Video deleted')
       router.reload()
     }
