@@ -5,7 +5,7 @@ const getMediaSource = (): typeof MediaSource | undefined => {
   return self.MediaSource || ((self as any).WebKitMediaSource as MediaSource)
 }
 
-export const getIsHlsSupported = (mimeType: string): boolean => {
+export const getIsHlsSupported = (): boolean => {
   const mediaSource = getMediaSource()
   if (!mediaSource) {
     return false
@@ -14,8 +14,7 @@ export const getIsHlsSupported = (mimeType: string): boolean => {
   const isTypeSupported =
     mediaSource &&
     typeof mediaSource.isTypeSupported === 'function' &&
-    mediaSource.isTypeSupported(mimeType)
-
+    mediaSource.isTypeSupported('video/mp4; codecs="avc1.42E01E,mp4a.40.2"')
   // if SourceBuffer is exposed ensure its API is valid
   // safari and old version of Chrome doe not expose SourceBuffer globally so checking SourceBuffer.prototype is impossible
   const sourceBufferValidAPI =
