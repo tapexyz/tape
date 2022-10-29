@@ -1,11 +1,9 @@
 import { S3 } from '@aws-sdk/client-s3'
 import logger from '@lib/logger'
 import {
-  API_ORIGINS,
   EVER_ACCESS_KEY,
   EVER_ACCESS_SECRET,
   EVER_BUCKET_NAME,
-  IS_MAINNET,
   NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME
 } from '@utils/constants'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -29,9 +27,10 @@ const s3Client = new S3({
 
 const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const origin = req.headers.origin
-  if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
-    return res.status(403).json({ success: false })
-  }
+  console.log('🚀 ~ file: upload.ts ~ line 32 ~ upload ~ origin', origin)
+  // if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
+  //   return res.status(403).json({ success: false })
+  // }
   if (req.method !== 'POST') return res.status(400).json({ success: false })
   try {
     const tempFilename = req.body['filePath']

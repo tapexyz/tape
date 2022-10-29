@@ -1,12 +1,10 @@
 import Bundlr from '@bundlr-network/client'
 import logger from '@lib/logger'
 import {
-  API_ORIGINS,
   APP_NAME,
   BUNDLR_CURRENCY,
   BUNDLR_METADATA_UPLOAD_URL,
-  BUNDLR_PRIVATE_KEY,
-  IS_MAINNET
+  BUNDLR_PRIVATE_KEY
 } from '@utils/constants'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -18,9 +16,10 @@ type Data = {
 
 const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const origin = req.headers.origin
-  if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
-    return res.status(403).json({ url: null, id: null, success: false })
-  }
+  console.log('🚀 ~ file: upload.ts ~ line 21 ~ upload ~ origin', origin)
+  // if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
+  //   return res.status(403).json({ url: null, id: null, success: false })
+  // }
   if (req.method !== 'POST' || !req.body)
     return res.status(400).json({ url: null, id: null, success: false })
   try {
