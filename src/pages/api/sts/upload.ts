@@ -27,11 +27,10 @@ const s3Client = new S3({
   maxAttempts: 3
 })
 
-const sts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const origin = req.headers.origin
-  if (IS_MAINNET) {
-    if (!origin || !API_ORIGINS.includes(origin))
-      return res.status(403).json({ success: false })
+  if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
+    return res.status(403).json({ success: false })
   }
   if (req.method !== 'POST') return res.status(400).json({ success: false })
   try {
@@ -69,4 +68,4 @@ const sts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   }
 }
 
-export default sts
+export default upload

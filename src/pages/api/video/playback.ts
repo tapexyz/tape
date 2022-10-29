@@ -1,5 +1,5 @@
 import logger from '@lib/logger'
-import { API_ORIGINS, LIVEPEER_API_KEY } from '@utils/constants'
+import { API_ORIGINS, IS_MAINNET, LIVEPEER_API_KEY } from '@utils/constants'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -10,15 +10,20 @@ type Data = {
 
 const playback = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const origin = req.headers.origin
-  if (!origin || !API_ORIGINS.includes(origin))
+  if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
     return res.status(403).json({ playbackId: null, success: false })
-  if (req.method !== 'POST' || !req.body)
+  }
+  if (req.method !== 'POST' || !req.body) {
     return res.status(400).json({ playbackId: null, success: false })
+  }
   const body = req.body
-  if (!body.url)
+  if (!body.url) {
     return res.status(400).json({ playbackId: null, success: false })
+  }
   const parsed = new URL(body.url)
-  if (!parsed) return res.status(400).json({ playbackId: null, success: false })
+  if (!parsed) {
+    return res.status(400).json({ playbackId: null, success: false })
+  }
 
   try {
     const splited = parsed.pathname.split('/')
