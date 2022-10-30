@@ -5,6 +5,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import {
+  BUNDLR_CONNECT_MESSAGE,
   BUNDLR_CURRENCY,
   BUNDLR_WEBSITE_URL,
   POLYGON_CHAIN_ID
@@ -62,7 +63,7 @@ const BundlrInfo = () => {
 
   const initBundlr = async () => {
     if (signer?.provider && address && !bundlrData.instance) {
-      toast('Initializing & Estimating upload cost...')
+      toast(BUNDLR_CONNECT_MESSAGE)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
         setBundlrData({ instance: bundlr })
