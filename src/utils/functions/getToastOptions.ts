@@ -21,5 +21,5 @@ export const getToastOptions = (theme: string | undefined) => ({
   loading: {
     className: '!border-l-2 !rounded !border-yellow-500 overflow-hidden'
   },
-  duration: 3000
+  duration: 4000
 })
