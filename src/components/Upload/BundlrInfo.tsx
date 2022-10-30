@@ -5,6 +5,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import {
+  BUNDLR_CONNECT_MESSAGE,
   BUNDLR_CURRENCY,
   BUNDLR_WEBSITE_URL,
   POLYGON_CHAIN_ID
@@ -62,7 +63,7 @@ const BundlrInfo = () => {
 
   const initBundlr = async () => {
     if (signer?.provider && address && !bundlrData.instance) {
-      toast('Estimating upload cost...')
+      toast(BUNDLR_CONNECT_MESSAGE)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
         setBundlrData({ instance: bundlr })
@@ -73,10 +74,11 @@ const BundlrInfo = () => {
   }
 
   useEffect(() => {
-    if (signer?.provider && mounted)
+    if (signer?.provider && mounted) {
       initBundlr().catch((error) => logger.error('[Error Init Bundlr]', error))
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signer?.provider])
+  }, [signer?.provider, mounted])
 
   useEffect(() => {
     if (bundlrData.instance && mounted) {
@@ -129,7 +131,7 @@ const BundlrInfo = () => {
   }
 
   return (
-    <div className="w-full space-y-3">
+    <div className="w-full mt-4 space-y-2">
       <div className="flex flex-col">
         <div className="inline-flex items-center justify-between text-xs font-semibold rounded opacity-70">
           <span className="flex items-center space-x-1.5">

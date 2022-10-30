@@ -5,6 +5,8 @@ import {
   EVER_ACCESS_KEY,
   EVER_ACCESS_SECRET,
   EVER_BUCKET_NAME,
+  EVER_ENDPOINT,
+  EVER_REGION,
   IS_MAINNET,
   NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME
 } from '@utils/constants'
@@ -18,8 +20,8 @@ type Data = {
 }
 
 const s3Client = new S3({
-  endpoint: 'https://endpoint.4everland.co',
-  region: 'us-west-2',
+  endpoint: EVER_ENDPOINT,
+  region: EVER_REGION,
   credentials: {
     accessKeyId: EVER_ACCESS_KEY,
     secretAccessKey: EVER_ACCESS_SECRET

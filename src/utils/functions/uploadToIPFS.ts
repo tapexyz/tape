@@ -1,7 +1,11 @@
 import { S3 } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
 import logger from '@lib/logger'
-import { NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME } from '@utils/constants'
+import {
+  EVER_ENDPOINT,
+  EVER_REGION,
+  NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME
+} from '@utils/constants'
 import axios from 'axios'
 import { IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
@@ -13,8 +17,8 @@ export const everland = async (
   try {
     const token = await axios.post('/api/sts/token', { fileSize: file.size })
     const client = new S3({
-      endpoint: 'https://endpoint.4everland.co',
-      region: 'us-west-2',
+      endpoint: EVER_ENDPOINT,
+      region: EVER_REGION,
       credentials: {
         accessKeyId: token.data?.accessKeyId,
         secretAccessKey: token.data?.secretAccessKey,

@@ -10,6 +10,7 @@ import { captureException } from '@sentry/nextjs'
 import {
   APP_NAME,
   ARWEAVE_WEBSITE_URL,
+  BUNDLR_CONNECT_MESSAGE,
   ERROR_MESSAGE,
   IS_MAINNET,
   LENSHUB_PROXY_ADDRESS,
@@ -155,7 +156,7 @@ const UploadSteps = () => {
 
   const initBundlr = async () => {
     if (signer?.provider && address && !bundlrData.instance) {
-      toast('Estimating upload cost...')
+      toast(BUNDLR_CONNECT_MESSAGE)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
         setBundlrData({ instance: bundlr })
@@ -364,11 +365,17 @@ const UploadSteps = () => {
   }
 
   const uploadToBundlr = async () => {
-    if (!bundlrData.instance) return await initBundlr()
-    if (!uploadedVideo.stream)
+    if (!bundlrData.instance) {
+      return await initBundlr()
+    }
+    if (!uploadedVideo.stream) {
       return toast.error('Video not uploaded correctly.')
-    if (parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice))
+    }
+    if (
+      parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice)
+    ) {
       return toast.error('Insufficient balance')
+    }
     try {
       setUploadedVideo({
         loading: true,
