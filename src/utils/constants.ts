@@ -71,7 +71,7 @@ export const BUNDLR_WEBSITE_URL = 'https://bundlr.network'
 export const ARWEAVE_WEBSITE_URL = 'https://arweave.net'
 export const BUNDLR_PRIVATE_KEY = process.env.BUNDLR_PRIVATE_KEY as string
 export const BUNDLR_CONNECT_MESSAGE =
-  'Sign to initializing & estimating upload...'
+  'Sign to initialize & estimating upload...'
 
 // error messages
 export const ERROR_MESSAGE = 'Oops, something went something!'
