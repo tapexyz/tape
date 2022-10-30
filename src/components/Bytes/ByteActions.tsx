@@ -1,9 +1,12 @@
+import MirrorVideo from '@components/Common/MirrorVideo'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
+import { Button } from '@components/UIElements/Button'
 import CollectVideo from '@components/Watch/CollectVideo'
 import PublicationReaction from '@components/Watch/PublicationReaction'
 import React, { FC, useState } from 'react'
+import { AiOutlineRetweet } from 'react-icons/ai'
 import { LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -24,17 +27,7 @@ const ByteActions: FC<Props> = ({ video }) => {
         />
       </div>
       <div className="items-center py-2.5 space-y-1 md:flex md:flex-col">
-        <div className="md:hidden">
-          <PublicationReaction
-            publication={video}
-            iconSize="2xl"
-            iconType="filled"
-            textSize="xs"
-            isVertical
-            showLabel
-          />
-        </div>
-        <div className="hidden md:block">
+        <div className="text-white md:text-inherit">
           <PublicationReaction
             publication={video}
             iconSize="2xl"
@@ -51,6 +44,16 @@ const ByteActions: FC<Props> = ({ video }) => {
             </div>
           </div>
         )}
+        <div className="text-white text-center md:text-inherit">
+          <MirrorVideo video={video}>
+            <Button variant="secondary" className="!px-0">
+              <AiOutlineRetweet className="text-xl" />
+            </Button>
+            <div className="text-xs leading-3">
+              {video.stats?.totalAmountOfMirrors || 'Mirror'}
+            </div>
+          </MirrorVideo>
+        </div>
       </div>
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <ReportModal
