@@ -17,8 +17,8 @@
     "analyse-bundle": "ANALYZE=true yarn build"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.198.0",
     "@apollo/client": "^3.7.1",
+    "@aws-sdk/client-s3": "^3.198.0",
     "@aws-sdk/client-sts": "^3.197.0",
     "@aws-sdk/lib-storage": "^3.197.0",
     "@bundlr-network/client": "^0.9.0-b8",
@@ -66,7 +66,7 @@
     "@types/mixpanel-browser": "^2.38.0",
     "@types/node": "18.11.7",
     "@types/react": "18.0.24",
-    "@types/react-dom": "18.0.7",
+    "@types/react-dom": "18.0.8",
     "@types/react-mentions": "^4.1.7",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
