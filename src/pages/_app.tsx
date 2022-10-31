@@ -6,7 +6,6 @@ import FullPageLoader from '@components/Common/FullPageLoader'
 import usePersistStore from '@lib/store/persist'
 import { AUTH_ROUTES } from '@utils/data/auth-routes'
 import { AUTH } from '@utils/url-path'
-import { Analytics } from '@vercel/analytics/react'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { lazy, Suspense, useEffect } from 'react'
@@ -30,7 +29,6 @@ const App = ({ Component, pageProps }: AppProps) => {
     <Suspense fallback={<FullPageLoader />}>
       <Providers>
         <Layout>
-          <Analytics />
           <Component {...pageProps} />
         </Layout>
       </Providers>
