@@ -63,10 +63,10 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
         </div>
         <div className="px-2.5 overflow-hidden">
           <div className="flex flex-col items-start pb-1">
-            <div className="flex w-full items-start overflow-hidden justify-between space-x-1.5">
+            <div className="grid break-words w-full overflow-hidden">
               <Link
                 href={`/watch/${video.id}`}
-                className="overflow-hidden text-sm font-medium line-clamp-1"
+                className="text-sm font-medium line-clamp-1"
               >
                 <span className="flex line-clamp-2">
                   {video.metadata?.name}
