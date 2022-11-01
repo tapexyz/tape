@@ -1,8 +1,7 @@
 {
   "name": "lenstube",
   "description": "Decentralized video-sharing social media platform.",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.1-beta",
   "scripts": {
     "dev": "next dev --port 4783",
     "build": "next build",
@@ -68,7 +67,7 @@
     "@types/react-dom": "18.0.8",
     "@types/react-mentions": "^4.1.7",
     "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
     "autoprefixer": "^10.4.13",
     "eslint": "8.26.0",
     "eslint-config-next": "13.0.0",
