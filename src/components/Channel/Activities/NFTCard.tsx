@@ -1,6 +1,6 @@
 import {
   IS_MAINNET,
-  NFT_MARKETPLACE_URL,
+  OPENSEA_MARKETPLACE_URL,
   STATIC_ASSETS
 } from '@utils/constants'
 import imageCdn from '@utils/functions/imageCdn'
@@ -37,7 +37,7 @@ const NFTCard: FC<Props> = ({ nft }) => {
         )}
       </div>
       <Link
-        href={`${NFT_MARKETPLACE_URL}/assets/${
+        href={`${OPENSEA_MARKETPLACE_URL}/assets/${
           IS_MAINNET ? 'matic/' : 'mumbai/'
         }${nft.contractAddress}/${nft.tokenId}`.toLowerCase()}
         target="_blank"

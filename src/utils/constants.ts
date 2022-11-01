@@ -103,9 +103,12 @@ export const ALLOWED_VIDEO_TYPES = [
 export const LENSTER_WEBSITE_URL = IS_MAINNET
   ? 'https://lenster.xyz'
   : 'https://testnet.lenster.xyz'
-export const NFT_MARKETPLACE_URL = IS_MAINNET
+export const OPENSEA_MARKETPLACE_URL = IS_MAINNET
   ? 'https://opensea.io'
   : 'https://testnets.opensea.io'
+export const RARIBLE_MARKETPLACE_URL = IS_MAINNET
+  ? 'https://rarible.com'
+  : 'https://testnet.rarible.com'
 
 // misc
 export const GIT_DEPLOYED_COMMIT_SHA =
