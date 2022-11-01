@@ -6,8 +6,11 @@
 </div>
 <br>
 <div align="center">
-  <a href="https://lenstube.xyz/discord">
+    <a href="https://lenstube.xyz/discord">
        <img src="https://img.shields.io/discord/980882088783913010.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
+    </a>
+    <a href="https://www.gitpoap.io/gh/lenstube-xyz/lenstube">
+        <img src="https://public-api.gitpoap.io/v1/repo/lenstube-xyz/lenstube/badge" alt="Gitpoap">
     </a>
     <a href="https://twitter.com/lenstubexyz">
         <img src="https://img.shields.io/twitter/follow/lenstubexyz?label=lenstubexyz&style=flat&logo=twitter&color=1DA1F2" alt="Twitter">
