@@ -1,8 +1,7 @@
 {
   "name": "lenstube",
   "description": "Decentralized video-sharing social media platform.",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.1-beta",
   "scripts": {
     "dev": "next dev --port 4783",
     "build": "next build",
