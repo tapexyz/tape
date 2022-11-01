@@ -46,7 +46,7 @@ export const IMAGE_CDN_URL = IS_MAINNET
 export const VIDEO_CDN_URL = 'https://cdn.livepeer.com'
 
 // ipfs
-export const IPFS_FREE_UPLOAD_LIMIT = 500
+export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 500 : 100
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/'
 export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
