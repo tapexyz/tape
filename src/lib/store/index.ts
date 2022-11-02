@@ -128,6 +128,9 @@ export const useAppStore = create<AppState>((set) => ({
       return bundlr
     } catch (error) {
       logger.error('[Error Init Bundlr]', error)
+      set((state) => ({
+        uploadedVideo: { ...state.uploadedVideo, loading: false }
+      }))
       return null
     }
   }

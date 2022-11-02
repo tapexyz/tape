@@ -5,7 +5,7 @@ import { CustomFiltersTypes } from 'src/types'
  */
 export const APP_NAME = 'Lenstube'
 
-export const IS_MAINNET = process.env.NEXT_PUBLIC_IS_MAINNET === 'true'
+export const IS_MAINNET = process.env.NEXT_PUBLIC_ENVIRONMENT === 'mainnet'
 export const RELAYER_ENABLED =
   process.env.NEXT_PUBLIC_RELAYER_ENABLED === 'true'
 
@@ -46,13 +46,15 @@ export const IMAGE_CDN_URL = IS_MAINNET
 export const VIDEO_CDN_URL = 'https://cdn.livepeer.com'
 
 // ipfs
+export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 500 : 100
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/'
-export const ESTUARY_AUTHORIZATION_KEY = process.env
-  .NEXT_PUBLIC_ESTUARY_AUTHORIZATION_KEY as string
-export const EVER_API_KEY = process.env.NEXT_PUBLIC_EVER_API_KEY as string
-export const EVER_API_SECRET = process.env.NEXT_PUBLIC_EVER_API_SECRET as string
-export const EVER_BUCKET_NAME = process.env
-  .NEXT_PUBLIC_EVER_BUCKET_NAME as string
+export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
+export const EVER_REGION = 'us-west-2'
+export const EVER_ACCESS_KEY = process.env.EVER_ACCESS_KEY as string
+export const EVER_ACCESS_SECRET = process.env.EVER_ACCESS_SECRET as string
+export const EVER_BUCKET_NAME = process.env.EVER_BUCKET_NAME as string
+export const NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME = process.env
+  .NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME as string
 
 // livepeer
 export const LIVEPEER_API_KEY = process.env.LIVEPEER_API_KEY as string
@@ -68,6 +70,7 @@ export const BUNDLR_CURRENCY = 'matic'
 export const BUNDLR_WEBSITE_URL = 'https://bundlr.network'
 export const ARWEAVE_WEBSITE_URL = 'https://arweave.net'
 export const BUNDLR_PRIVATE_KEY = process.env.BUNDLR_PRIVATE_KEY as string
+export const BUNDLR_CONNECT_MESSAGE = 'Sign to initialize & estimate upload...'
 
 // error messages
 export const ERROR_MESSAGE = 'Oops, something went something!'
@@ -100,9 +103,12 @@ export const ALLOWED_VIDEO_TYPES = [
 export const LENSTER_WEBSITE_URL = IS_MAINNET
   ? 'https://lenster.xyz'
   : 'https://testnet.lenster.xyz'
-export const NFT_MARKETPLACE_URL = IS_MAINNET
+export const OPENSEA_MARKETPLACE_URL = IS_MAINNET
   ? 'https://opensea.io'
   : 'https://testnets.opensea.io'
+export const RARIBLE_MARKETPLACE_URL = IS_MAINNET
+  ? 'https://rarible.com'
+  : 'https://testnet.rarible.com'
 
 // misc
 export const GIT_DEPLOYED_COMMIT_SHA =

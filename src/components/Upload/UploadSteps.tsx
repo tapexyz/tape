@@ -10,6 +10,7 @@ import { captureException } from '@sentry/nextjs'
 import {
   APP_NAME,
   ARWEAVE_WEBSITE_URL,
+  BUNDLR_CONNECT_MESSAGE,
   ERROR_MESSAGE,
   IS_MAINNET,
   LENSHUB_PROXY_ADDRESS,
@@ -29,7 +30,6 @@ import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
 import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
-import useTxnToast from '@utils/hooks/useTxnToast'
 import { Mixpanel, TRACK } from '@utils/track'
 import axios from 'axios'
 import { utils } from 'ethers'
@@ -65,7 +65,6 @@ const UploadSteps = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const { address } = useAccount()
   const { data: signer } = useSigner()
-  const { showToast } = useTxnToast()
 
   const resetToDefaults = () => {
     setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
@@ -94,7 +93,6 @@ const UploadSteps = () => {
       !data.createPostViaDispatcher?.reason
     ) {
       Mixpanel.track(TRACK.UPLOADED_VIDEO)
-      showToast(data?.broadcast?.txHash)
       setUploadedVideo({
         buttonText: 'Indexing...',
         loading: true
@@ -115,8 +113,7 @@ const UploadSteps = () => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: (data) => {
-      showToast(data.hash)
+    onSuccess: () => {
       setUploadedVideo({
         buttonText: 'Indexing...',
         loading: true
@@ -134,10 +131,10 @@ const UploadSteps = () => {
   )
 
   usePendingTxn({
-    txHash:
-      dispatcherData?.createPostViaDispatcher?.txHash ??
-      broadcastData?.broadcast?.txHash ??
-      writePostData?.hash,
+    txId:
+      dispatcherData?.createPostViaDispatcher?.txId ??
+      broadcastData?.broadcast?.txId,
+    txHash: writePostData?.hash,
     isPublication: true
   })
 
@@ -159,7 +156,7 @@ const UploadSteps = () => {
 
   const initBundlr = async () => {
     if (signer?.provider && address && !bundlrData.instance) {
-      toast('Estimating upload cost...')
+      toast(BUNDLR_CONNECT_MESSAGE)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
         setBundlrData({ instance: bundlr })
@@ -368,11 +365,17 @@ const UploadSteps = () => {
   }
 
   const uploadToBundlr = async () => {
-    if (!bundlrData.instance) return await initBundlr()
-    if (!uploadedVideo.stream)
+    if (!bundlrData.instance) {
+      return await initBundlr()
+    }
+    if (!uploadedVideo.stream) {
       return toast.error('Video not uploaded correctly.')
-    if (parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice))
+    }
+    if (
+      parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice)
+    ) {
       return toast.error('Insufficient balance')
+    }
     try {
       setUploadedVideo({
         loading: true,
@@ -428,15 +431,19 @@ const UploadSteps = () => {
     uploadedVideo.title = data.title
     uploadedVideo.description = data.description
     uploadedVideo.isSensitiveContent = data.isSensitiveContent
-    setUploadedVideo({ ...uploadedVideo })
-    if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail)
+    if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail) {
       return toast.error('NSFW content not allowed')
-    else if (
+    }
+    uploadedVideo.loading = true
+    setUploadedVideo({ ...uploadedVideo })
+    if (
       canUploadedToIpfs(uploadedVideo.file?.size) &&
       uploadedVideo.isUploadToIpfs
-    )
+    ) {
       return await uploadVideoToIpfs()
-    else await uploadToBundlr()
+    } else {
+      await uploadToBundlr()
+    }
   }
 
   return (

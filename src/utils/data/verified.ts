@@ -2,6 +2,10 @@ import { IS_MAINNET } from '@utils/constants'
 
 export const VERIFIED_CHANNELS = IS_MAINNET
   ? [
+      '0x011f55', //chriscomrie.lens
+      '0x012d4e', // connectthecoast.lens
+      '0xa68c', // juampi.lens
+      '0xe5cc', // alarke.lens
       '0x28a2', // nader.lens
       '0xeca7', // ethdaily.lens
       '0xad5d', // zerion.lens
@@ -21,6 +25,7 @@ export const VERIFIED_CHANNELS = IS_MAINNET
       '0x9797', // ethdubai.lens
       '0x24', // bradorbradley.lens
       '0x03', // aavegrants.lens
+      '0x01', // lensprotocol
       '0x2d' // sasicodes.lens
     ]
   : ['0x2f', '0x3675']

@@ -1,5 +1,8 @@
 {
   "parser": "@typescript-eslint/parser",
+  "env": {
+    "es2022": true
+  },
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
@@ -8,7 +11,8 @@
     "@typescript-eslint",
     "unused-imports",
     "simple-import-sort",
-    "prettier"
+    "prettier",
+    "unicorn"
   ],
   "extends": ["next", "next/core-web-vitals"],
   "rules": {
@@ -26,7 +30,9 @@
     "@next/next/no-img-element": "off",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
-    "jsx-a11y/role-supports-aria-props": "off"
+    "jsx-a11y/role-supports-aria-props": "off",
+    "unicorn/no-lonely-if": "error",
+    "unicorn/no-useless-undefined": "error"
   },
   "ignorePatterns": ["/src/types/index.ts"]
 }

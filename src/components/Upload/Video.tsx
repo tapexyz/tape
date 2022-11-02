@@ -14,7 +14,6 @@ import React, { useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
 
-import BundlrInfo from './BundlrInfo'
 import ChooseThumbnail from './ChooseThumbnail'
 import UploadMethod from './UploadMethod'
 
@@ -61,9 +60,9 @@ const Video = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoRef])
 
-  const onCopyKey = async (value: string) => {
+  const onCopyVideoSource = async (value: string) => {
     await copy(value)
-    toast.success('Video link copied')
+    toast.success('Video source copied')
   }
 
   const onThumbnailUpload = (ipfsUrl: string, thumbnailType: string) => {
@@ -72,11 +71,7 @@ const Video = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <div
-        className={clsx('overflow-hidden rounded-xl w-full', {
-          '!rounded-b-none': uploadedVideo.percent !== 0
-        })}
-      >
+      <div className="overflow-hidden relative rounded-xl rounded-b-none w-full">
         <video
           ref={videoRef}
           className="w-full aspect-[16/9]"
@@ -95,17 +90,34 @@ const Video = () => {
             type={uploadedVideo.videoType || 'video/mp4'}
           />
         </video>
+        <div className="py-0.5 absolute top-2 px-2 left-2 text-xs uppercase bg-orange-200 text-black rounded-full">
+          {uploadedVideo.file?.size && (
+            <span className="whitespace-nowrap font-semibold">
+              {formatBytes(uploadedVideo.file?.size)}
+            </span>
+          )}
+        </div>
+        {uploadedVideo.videoSource && (
+          <Tooltip placement="left" content="Copy source URL">
+            <button
+              type="button"
+              onClick={() => onCopyVideoSource(uploadedVideo.videoSource)}
+              className="absolute outline-none top-2 p-1 px-1.5 right-2 text-xs bg-orange-200 text-black rounded-lg"
+            >
+              <IoCopyOutline />
+            </button>
+          </Tooltip>
+        )}
       </div>
       <Tooltip content={`Uploaded (${uploadedVideo.percent}%)`}>
-        <div
-          className={clsx('w-full overflow-hidden bg-gray-200 rounded-b-full', {
-            invisible: uploadedVideo.percent === 0
-          })}
-        >
+        <div className="w-full overflow-hidden bg-gray-200 rounded-b-full">
           <div
-            className={clsx('h-[6px]', {
-              'bg-indigo-500': uploadedVideo.percent !== 0
-            })}
+            className={clsx(
+              'h-[6px]',
+              uploadedVideo.percent !== 0
+                ? 'bg-indigo-500'
+                : 'bg-gray-300 dark:bg-gray-800'
+            )}
             style={{
               width: `${uploadedVideo.percent}%`
             }}
@@ -124,40 +136,8 @@ const Video = () => {
           }}
         />
       </div>
-      <div className="p-1 mt-3 rounded-lg">
-        {uploadedVideo.file?.size && (
-          <div className="mt-4">
-            <div className="text-xs font-semibold opacity-70">Size</div>
-            <span>{formatBytes(uploadedVideo.file?.size)}</span>
-          </div>
-        )}
-        <div className="mt-4">
-          <div className="text-xs font-semibold opacity-70">Video Link</div>
-          <div className="flex items-center">
-            {uploadedVideo.videoSource ? (
-              <>
-                <span className="truncate">{uploadedVideo.videoSource}</span>
-                <button
-                  className="pl-2 hover:opacity-60 focus:outline-none"
-                  onClick={() => onCopyKey(uploadedVideo.videoSource)}
-                  type="button"
-                >
-                  <IoCopyOutline />
-                </button>
-              </>
-            ) : (
-              '-'
-            )}
-          </div>
-        </div>
-        {!uploadedVideo.isUploadToIpfs && (
-          <div className="mt-4">
-            <BundlrInfo />
-          </div>
-        )}
-        <div className="mt-4">
-          <UploadMethod />
-        </div>
+      <div className="rounded-lg">
+        <UploadMethod />
       </div>
     </div>
   )
