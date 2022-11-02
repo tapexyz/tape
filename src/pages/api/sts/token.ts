@@ -44,7 +44,8 @@ const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
                     "Effect": "Allow",
                     "Action": [
                         "s3:PutObject",
-                        "s3:GetObject"
+                        "s3:GetObject",
+                        "s3:AbortMultipartUpload"
                     ],
                     "Resource": [
                         "arn:aws:s3:::${NEXT_PUBLIC_EVER_BUCKET_NAME}/*"
