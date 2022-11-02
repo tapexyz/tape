@@ -7,10 +7,9 @@ import {
   EVER_ENDPOINT,
   EVER_REGION,
   IS_MAINNET,
-  NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME
+  NEXT_PUBLIC_EVER_BUCKET_NAME
 } from '@utils/constants'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { v4 as uuidv4 } from 'uuid'
 
 type Data = {
   accessKeyId?: string
@@ -36,9 +35,6 @@ const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         secretAccessKey: EVER_ACCESS_SECRET
       }
     })
-    // Using the date as the folder name makes it easier to clean up invalid expired files and release storage.
-    // Random folder name to avoid users overwriting existing files.
-    const dir = new Date().toISOString().split('T')[0] + '/' + uuidv4()
     const params = {
       DurationSeconds: 3600,
       Policy: `{
@@ -48,10 +44,10 @@ const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
                     "Effect": "Allow",
                     "Action": [
                         "s3:PutObject",
-                        "s3:AbortMultipartUpload"
+                        "s3:GetObject"
                     ],
                     "Resource": [
-                        "arn:aws:s3:::${NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME}/${dir}/*"
+                        "arn:aws:s3:::${NEXT_PUBLIC_EVER_BUCKET_NAME}/*"
                     ]
                 }
             ]
@@ -69,8 +65,7 @@ const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       success: true,
       accessKeyId: data.Credentials?.AccessKeyId,
       secretAccessKey: data.Credentials?.SecretAccessKey,
-      sessionToken: data.Credentials?.SessionToken,
-      dir: dir + '/'
+      sessionToken: data.Credentials?.SessionToken
     })
   } catch (error) {
     logger.error('[API Error Get STS]', error)
