@@ -4,7 +4,7 @@ import logger from '@lib/logger'
 import {
   EVER_ENDPOINT,
   EVER_REGION,
-  NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME
+  NEXT_PUBLIC_EVER_BUCKET_NAME
 } from '@utils/constants'
 import axios from 'axios'
 import { IPFSUploadResult } from 'src/types/local'
@@ -26,10 +26,10 @@ export const everland = async (
       },
       maxAttempts: 3
     })
-    const filePath = token.data?.dir + uuidv4()
+    const fileKey = uuidv4()
     const params = {
-      Bucket: NEXT_PUBLIC_EVER_TEMP_BUCKET_NAME,
-      Key: filePath,
+      Bucket: NEXT_PUBLIC_EVER_BUCKET_NAME,
+      Key: fileKey,
       Body: file,
       ContentType: file.type
     }
@@ -43,10 +43,11 @@ export const everland = async (
       onProgress?.(progress)
     })
     await task.done()
-    const result = await axios.post('/api/sts/upload', { filePath })
+    const result = await client.headObject(params)
+    const metadata = result.Metadata
     return {
-      url: `ipfs://${result.data.hash}`,
-      type: result?.data?.type ?? file.type
+      url: `ipfs://${metadata?.['ipfs-hash']}`,
+      type: file.type
     }
   } catch (error) {
     logger.error('[Error IPFS3 Media Upload]', error)
