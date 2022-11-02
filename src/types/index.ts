@@ -2908,6 +2908,8 @@ export enum ReactionTypes {
 export type RecommendedProfileOptions = {
   /** If you wish to turn ML off */
   disableML?: InputMaybe<Scalars['Boolean']>;
+  /** If you wish to shuffle the results */
+  shuffle?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type ReferenceModule = DegreesOfSeparationReferenceModuleSettings | FollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings;
