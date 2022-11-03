@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { VIDEO_COLLECTORS_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
@@ -12,7 +11,7 @@ import Link from 'next/link'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
-import { PaginatedResultInfo, Wallet } from 'src/types'
+import { CollectorsDocument, PaginatedResultInfo, Wallet } from 'src/types/lens'
 
 import IsVerified from './IsVerified'
 import AddressExplorerLink from './Links/AddressExplorerLink'
@@ -25,12 +24,12 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
   const [collectors, setCollectors] = useState<Wallet[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
-  const { data, loading, fetchMore } = useQuery(VIDEO_COLLECTORS_QUERY, {
+  const { data, loading, fetchMore } = useQuery(CollectorsDocument, {
     variables: { request: { publicationId: videoId, limit: 10 } },
     skip: !videoId,
     onCompleted(data) {
       setPageInfo(data?.whoCollectedPublication?.pageInfo)
-      setCollectors(data?.whoCollectedPublication?.items)
+      setCollectors(data?.whoCollectedPublication?.items as Wallet[])
     }
   })
 
@@ -47,7 +46,10 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
           }
         })
         setPageInfo(data?.whoCollectedPublication?.pageInfo)
-        setCollectors([...collectors, ...data?.whoCollectedPublication?.items])
+        setCollectors([
+          ...collectors,
+          ...(data?.whoCollectedPublication?.items as Wallet[])
+        ])
       } catch (error) {
         logger.error('[Error Fetch Collectors]', error)
       }

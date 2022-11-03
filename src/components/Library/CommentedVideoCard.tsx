@@ -12,7 +12,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import { AiOutlineComment } from 'react-icons/ai'
-import { Attribute } from 'src/types'
+import { Attribute } from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 dayjs.extend(relativeTime)
 

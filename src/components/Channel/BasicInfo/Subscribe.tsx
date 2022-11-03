@@ -1,9 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
-import { BROADCAST_MUTATION } from '@gql/queries'
-import { PROXY_ACTION_MUTATION } from '@gql/queries/proxy-action'
-import { CREATE_FOLLOW_TYPED_DATA } from '@gql/queries/typed-data'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -17,7 +14,13 @@ import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
-import { CreateFollowBroadcastItemResult, Profile } from 'src/types'
+import {
+  BroadcastDocument,
+  CreateFollowBroadcastItemResult,
+  CreateFollowTypedDataDocument,
+  Profile,
+  ProxyActionDocument
+} from 'src/types/lens'
 import { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
 
@@ -56,59 +59,62 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onError
   })
 
-  const [broadcast] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast] = useMutation(BroadcastDocument, {
     onCompleted(data) {
-      if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
+      if (data?.broadcast?.__typename === 'RelayerResult') {
         onCompleted()
       }
     },
     onError
   })
 
-  const [createProxyActionFreeFollow] = useMutation(PROXY_ACTION_MUTATION, {
+  const [createProxyActionFreeFollow] = useMutation(ProxyActionDocument, {
     onError,
     onCompleted
   })
 
-  const [createSubscribeTypedData] = useMutation(CREATE_FOLLOW_TYPED_DATA, {
-    async onCompleted(data) {
-      const { typedData, id } =
-        data.createFollowTypedData as CreateFollowBroadcastItemResult
-      try {
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
-        const { v, r, s } = utils.splitSignature(signature)
-        const { profileIds, datas } = typedData?.value
-        const args = {
-          follower: signer?.getAddress(),
-          profileIds,
-          datas,
-          sig: {
-            v,
-            r,
-            s,
-            deadline: typedData.value.deadline
-          }
-        }
-        if (!RELAYER_ENABLED) {
-          return writeSubscribe?.({
-            recklesslySetUnpreparedArgs: [args]
+  const [createSubscribeTypedData] = useMutation(
+    CreateFollowTypedDataDocument,
+    {
+      async onCompleted(data) {
+        const { typedData, id } =
+          data.createFollowTypedData as CreateFollowBroadcastItemResult
+        try {
+          const signature = await signTypedDataAsync({
+            domain: omitKey(typedData?.domain, '__typename'),
+            types: omitKey(typedData?.types, '__typename'),
+            value: omitKey(typedData?.value, '__typename')
           })
+          const { v, r, s } = utils.splitSignature(signature)
+          const { profileIds, datas } = typedData?.value
+          const args = {
+            follower: signer?.getAddress(),
+            profileIds,
+            datas,
+            sig: {
+              v,
+              r,
+              s,
+              deadline: typedData.value.deadline
+            }
+          }
+          if (!RELAYER_ENABLED) {
+            return writeSubscribe?.({
+              recklesslySetUnpreparedArgs: [args]
+            })
+          }
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.__typename === 'RelayError')
+            writeSubscribe?.({ recklesslySetUnpreparedArgs: [args] })
+        } catch (error) {
+          logger.error('[Error Subscribe Typed Data]', error)
         }
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcast?.reason)
-          writeSubscribe?.({ recklesslySetUnpreparedArgs: [args] })
-      } catch (error) {
-        logger.error('[Error Subscribe Typed Data]', error)
-      }
-    },
-    onError
-  })
+      },
+      onError
+    }
+  )
 
   const subscribe = () => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
@@ -120,16 +126,18 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
       return createSubscribeTypedData({
         variables: {
           request: {
-            follow: {
-              profile: channel?.id,
-              followModule:
-                channel?.followModule?.__typename ===
-                'ProfileFollowModuleSettings'
-                  ? {
-                      profileFollowModule: { profileId: selectedChannel?.id }
-                    }
-                  : null
-            }
+            follow: [
+              {
+                profile: channel.id,
+                followModule:
+                  channel?.followModule?.__typename ===
+                  'ProfileFollowModuleSettings'
+                    ? {
+                        profileFollowModule: { profileId: selectedChannel?.id }
+                      }
+                    : null
+              }
+            ]
           }
         }
       })

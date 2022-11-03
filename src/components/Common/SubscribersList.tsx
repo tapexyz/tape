@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { CHANNEL_SUBSCRIBERS_QUERY } from '@gql/queries'
 import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
@@ -11,7 +10,12 @@ import Link from 'next/link'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
-import { Follower, PaginatedResultInfo, Profile } from 'src/types'
+import {
+  Follower,
+  PaginatedResultInfo,
+  Profile,
+  SubscribersDocument
+} from 'src/types/lens'
 
 import IsVerified from './IsVerified'
 import AddressExplorerLink from './Links/AddressExplorerLink'
@@ -24,12 +28,12 @@ const SubscribersList: FC<Props> = ({ channel }) => {
   const [subscribers, setSubscribers] = useState<Follower[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
-  const { data, loading, fetchMore } = useQuery(CHANNEL_SUBSCRIBERS_QUERY, {
+  const { data, loading, fetchMore } = useQuery(SubscribersDocument, {
     variables: { request: { profileId: channel?.id, limit: 10 } },
     skip: !channel?.id,
     onCompleted(data) {
       setPageInfo(data?.followers?.pageInfo)
-      setSubscribers(data?.followers?.items)
+      setSubscribers(data?.followers?.items as Follower[])
     }
   })
 
@@ -45,7 +49,10 @@ const SubscribersList: FC<Props> = ({ channel }) => {
         }
       })
       setPageInfo(data?.followers?.pageInfo)
-      setSubscribers([...subscribers, ...data?.followers?.items])
+      setSubscribers([
+        ...subscribers,
+        ...(data?.followers?.items as Follower[])
+      ])
     }
   })
 

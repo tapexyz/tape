@@ -3,12 +3,16 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { PROFILE_FEED_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo, Profile, PublicationTypes } from 'src/types'
+import {
+  PaginatedResultInfo,
+  Profile,
+  ProfilePostsDocument,
+  PublicationTypes
+} from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -25,7 +29,7 @@ const request = {
 const ChannelBytes: FC<Props> = ({ channel }) => {
   const [bytes, setBytes] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(ProfilePostsDocument, {
     variables: {
       request: {
         ...request,
@@ -35,7 +39,7 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
     skip: !channel?.id,
     onCompleted(data) {
       setPageInfo(data?.publications?.pageInfo)
-      setBytes(data?.publications?.items)
+      setBytes(data?.publications?.items as LenstubePublication[])
     }
   })
   const { observe } = useInView({
@@ -52,7 +56,10 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
           }
         })
         setPageInfo(data?.publications?.pageInfo)
-        setBytes([...bytes, ...data?.publications?.items])
+        setBytes([
+          ...bytes,
+          ...(data?.publications?.items as LenstubePublication[])
+        ])
       } catch (error) {
         logger.error('[Error Fetch Bytes]', error)
       }

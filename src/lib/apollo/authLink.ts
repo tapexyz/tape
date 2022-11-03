@@ -1,10 +1,18 @@
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client'
-import { REFRESH_AUTHENTICATION_MUTATION } from '@gql/queries/auth'
 import logger from '@lib/logger'
 import { API_URL } from '@utils/constants'
 import clearLocalStorage from '@utils/functions/clearLocalStorage'
 import { parseJwt } from '@utils/functions/parseJwt'
 import axios from 'axios'
+
+const REFRESH_AUTHENTICATION_MUTATION = `
+  mutation Refresh($request: RefreshRequest!) {
+    refresh(request: $request) {
+      accessToken
+      refreshToken
+    }
+  }
+`
 
 const authLink = new ApolloLink((operation, forward) => {
   const accessToken = localStorage.getItem('accessToken')

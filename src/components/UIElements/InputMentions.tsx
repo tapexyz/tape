@@ -1,12 +1,15 @@
 import { useLazyQuery } from '@apollo/client'
-import { SEARCH_CHANNELS_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
 import { ComponentProps, FC, useId } from 'react'
 import { Mention, MentionsInput, SuggestionDataItem } from 'react-mentions'
-import { Profile } from 'src/types'
+import {
+  Profile,
+  SearchProfilesDocument,
+  SearchRequestTypes
+} from 'src/types/lens'
 
 interface Props extends ComponentProps<'textarea'> {
   label?: string
@@ -27,7 +30,7 @@ const InputMentions: FC<Props> = ({
   ...props
 }) => {
   const id = useId()
-  const [searchChannels] = useLazyQuery(SEARCH_CHANNELS_QUERY)
+  const [searchChannels] = useLazyQuery(SearchProfilesDocument)
 
   const fetchSuggestions = async (
     query: string,
@@ -38,13 +41,14 @@ const InputMentions: FC<Props> = ({
       const { data } = await searchChannels({
         variables: {
           request: {
-            type: 'PROFILE',
+            type: SearchRequestTypes.Profile,
             query,
             limit: 5,
             customFilters: LENS_CUSTOM_FILTERS
           }
         }
       })
+      // @ts-ignore
       const channels = data?.search?.items?.map((channel: Profile) => ({
         id: channel.handle,
         display: channel.handle,

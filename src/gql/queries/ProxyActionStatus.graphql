@@ -1,0 +1,11 @@
+query proxyActionStatus($proxyActionId: ProxyActionId!) {
+  proxyActionStatus(proxyActionId: $proxyActionId) {
+    ... on ProxyActionStatusResult {
+      txId
+      status
+    }
+    ... on ProxyActionError {
+      reason
+    }
+  }
+}

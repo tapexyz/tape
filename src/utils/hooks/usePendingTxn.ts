@@ -1,9 +1,9 @@
 import { useQuery } from '@apollo/client'
-import { TX_STATUS_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect } from 'react'
 import toast from 'react-hot-toast'
+import { HasTxHashBeenIndexedDocument } from 'src/types/lens'
 
 type Props = {
   txHash?: string
@@ -15,21 +15,24 @@ const usePendingTxn = ({ txHash, txId, isPublication }: Props) => {
   const router = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
-  const { data, loading, stopPolling } = useQuery(TX_STATUS_QUERY, {
-    variables: {
-      request: { txHash, txId }
-    },
-    skip: !txHash && !txHash?.length && !txId && !txId?.length,
-    pollInterval: 1000
-  })
+  const { data, loading, stopPolling } = useQuery(
+    HasTxHashBeenIndexedDocument,
+    {
+      variables: {
+        request: { txHash, txId }
+      },
+      skip: !txHash && !txHash?.length && !txId && !txId?.length,
+      pollInterval: 1000
+    }
+  )
 
   const checkIsIndexed = useCallback(() => {
     if (
-      data?.hasTxHashBeenIndexed?.indexed ||
-      data?.hasTxHashBeenIndexed?.reason
+      data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' ||
+      data?.hasTxHashBeenIndexed?.__typename === 'TransactionError'
     ) {
       stopPolling()
-      if (data?.hasTxHashBeenIndexed?.reason) {
+      if (data?.hasTxHashBeenIndexed?.__typename === 'TransactionError') {
         return toast.error(
           `Relay Error - ${data?.hasTxHashBeenIndexed?.reason}`
         )
@@ -39,8 +42,7 @@ const usePendingTxn = ({ txHash, txId, isPublication }: Props) => {
   }, [
     router,
     stopPolling,
-    data?.hasTxHashBeenIndexed?.indexed,
-    data?.hasTxHashBeenIndexed?.reason,
+    data?.hasTxHashBeenIndexed,
     selectedChannel?.handle,
     isPublication
   ])
@@ -51,7 +53,8 @@ const usePendingTxn = ({ txHash, txId, isPublication }: Props) => {
 
   return {
     data,
-    indexed: data?.hasTxHashBeenIndexed?.indexed,
+    indexed:
+      data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult',
     loading
   }
 }

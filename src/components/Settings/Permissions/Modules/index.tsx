@@ -1,17 +1,21 @@
 import { useLazyQuery, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
-import {
-  ALLOWANCE_SETTINGS_QUERY,
-  GENERATE_ALLOWANCE_QUERY
-} from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
 import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-import { ApprovedAllowanceAmount, Erc20 } from 'src/types'
+import {
+  ApprovedAllowanceAmount,
+  ApprovedModuleAllowanceAmountDocument,
+  CollectModules,
+  Erc20,
+  FollowModules,
+  GenerateModuleCurrencyApprovalDataDocument,
+  ReferenceModules
+} from 'src/types/lens'
 import { CustomErrorWithData } from 'src/types/local'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
@@ -40,20 +44,20 @@ const ModulePermissions = () => {
     data,
     refetch,
     loading: gettingSettings
-  } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
+  } = useQuery(ApprovedModuleAllowanceAmountDocument, {
     variables: {
       request: {
         currencies: [currency],
-        followModules: ['FeeFollowModule'],
+        followModules: [FollowModules.FeeFollowModule],
         collectModules: [
-          'FreeCollectModule',
-          'FeeCollectModule',
-          'LimitedFeeCollectModule',
-          'LimitedTimedFeeCollectModule',
-          'TimedFeeCollectModule',
-          'RevertCollectModule'
+          CollectModules.FreeCollectModule,
+          CollectModules.FeeCollectModule,
+          CollectModules.LimitedFeeCollectModule,
+          CollectModules.LimitedTimedFeeCollectModule,
+          CollectModules.TimedFeeCollectModule,
+          CollectModules.RevertCollectModule
         ],
-        referenceModules: ['FollowerOnlyReferenceModule']
+        referenceModules: [ReferenceModules.FollowerOnlyReferenceModule]
       }
     },
     skip: !selectedChannel?.id
@@ -70,7 +74,9 @@ const ModulePermissions = () => {
     }
   })
 
-  const [generateAllowanceQuery] = useLazyQuery(GENERATE_ALLOWANCE_QUERY)
+  const [generateAllowanceQuery] = useLazyQuery(
+    GenerateModuleCurrencyApprovalDataDocument
+  )
 
   const handleClick = async (isAllow: boolean, selectedModule: string) => {
     try {
@@ -87,9 +93,9 @@ const ModulePermissions = () => {
       const generated = data?.generateModuleCurrencyApprovalData
       sendTransaction?.({
         recklesslySetUnpreparedRequest: {
-          from: generated.from,
-          to: generated.to,
-          data: generated.data
+          from: generated?.from,
+          to: generated?.to,
+          data: generated?.data
         }
       })
     } catch (error) {

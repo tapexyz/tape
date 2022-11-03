@@ -11,7 +11,7 @@ import {
   Post,
   RevertCollectModuleSettings,
   TimedFeeCollectModuleSettings
-} from '.'
+} from './lens'
 
 export type VideoDraft = {
   preview: string

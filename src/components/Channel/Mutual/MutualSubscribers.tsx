@@ -1,12 +1,11 @@
 import { useQuery } from '@apollo/client'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import { MUTUAL_SUBSCRIBERS_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { Mixpanel, TRACK } from '@utils/track'
 import React, { FC, useState } from 'react'
-import { Profile } from 'src/types'
+import { MutualFollowersDocument, Profile } from 'src/types/lens'
 
 import MutualSubscribersList from './MutualSubscribersList'
 type Props = {
@@ -20,7 +19,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
   const [showMutualSubscribersModal, setShowMutualSubscribersModal] =
     useState(false)
 
-  const { data } = useQuery(MUTUAL_SUBSCRIBERS_QUERY, {
+  const { data } = useQuery(MutualFollowersDocument, {
     variables: {
       request: {
         viewingProfileId: viewingChannelId,
@@ -37,7 +36,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
   }
 
   const mutualSubscribers = data?.mutualFollowersProfiles?.items as Profile[]
-  const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount
+  const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount ?? 0
   const moreCount = totalCount - FETCH_COUNT > 0 ? totalCount - FETCH_COUNT : 0
 
   return (

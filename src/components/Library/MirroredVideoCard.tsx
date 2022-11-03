@@ -11,7 +11,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import { MdPublishedWithChanges } from 'react-icons/md'
-import { Attribute } from 'src/types'
+import { Attribute } from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 dayjs.extend(relativeTime)
 

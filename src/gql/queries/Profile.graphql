@@ -1,0 +1,62 @@
+query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
+  profile(request: $request) {
+    id
+    handle
+    ownedBy
+    name
+    dispatcher {
+      canUseRelay
+    }
+    isFollowedByMe
+    isFollowing(who: $who)
+    onChainIdentity {
+      proofOfHumanity
+      worldcoin {
+        isHuman
+      }
+      sybilDotOrg {
+        verified
+        source {
+          twitter {
+            handle
+          }
+        }
+      }
+      ens {
+        name
+      }
+    }
+    attributes {
+      key
+      value
+    }
+    bio
+    stats {
+      totalFollowers
+      totalPosts
+      totalComments
+      totalMirrors
+      totalCollects
+    }
+    picture {
+      ... on MediaSet {
+        original {
+          url
+        }
+      }
+      ... on NftImage {
+        uri
+      }
+    }
+    coverPicture {
+      ... on MediaSet {
+        original {
+          url
+        }
+      }
+    }
+    followModule {
+      __typename
+    }
+  }
+}

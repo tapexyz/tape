@@ -8,7 +8,7 @@ import {
 } from '@utils/constants'
 import { CREATOR_VIDEO_CATEGORIES } from '@utils/data/categories'
 import { FetchSignerResult } from '@wagmi/core'
-import { Profile } from 'src/types'
+import { Profile } from 'src/types/lens'
 import {
   BundlrDataState,
   LenstubePublication,

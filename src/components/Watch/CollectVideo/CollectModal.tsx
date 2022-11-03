@@ -4,10 +4,6 @@ import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
-import {
-  ALLOWANCE_SETTINGS_QUERY,
-  PUBLICATION_REVENUE_QUERY
-} from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { formatNumber } from '@utils/functions/formatNumber'
@@ -15,6 +11,11 @@ import { shortenAddress } from '@utils/functions/shortenAddress'
 import { Mixpanel, TRACK } from '@utils/track'
 import dayjs from 'dayjs'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
+import {
+  ApprovedAllowanceAmount,
+  ApprovedModuleAllowanceAmountDocument,
+  PublicationRevenueDocument
+} from 'src/types/lens'
 import { LenstubeCollectModule, LenstubePublication } from 'src/types/local'
 import { useBalance } from 'wagmi'
 
@@ -62,7 +63,7 @@ const CollectModal: FC<Props> = ({
     enabled: !!collectModule?.amount
   })
 
-  const { data: revenueData } = useQuery(PUBLICATION_REVENUE_QUERY, {
+  const { data: revenueData } = useQuery(PublicationRevenueDocument, {
     variables: {
       request: {
         publicationId: video?.id
@@ -75,12 +76,12 @@ const CollectModal: FC<Props> = ({
     loading: allowanceLoading,
     data: allowanceData,
     refetch: refetchAllowance
-  } = useQuery(ALLOWANCE_SETTINGS_QUERY, {
+  } = useQuery(ApprovedModuleAllowanceAmountDocument, {
     variables: {
       request: {
         currencies: collectModule?.amount?.asset?.address,
         followModules: [],
-        collectModules: collectModule?.type,
+        collectModules: [collectModule?.type],
         referenceModules: []
       }
     },
@@ -202,7 +203,8 @@ const CollectModal: FC<Props> = ({
                   isAllowed={isAllowed}
                   setIsAllowed={setIsAllowed}
                   allowanceModule={
-                    allowanceData?.approvedModuleAllowanceAmount[0]
+                    allowanceData
+                      ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount
                   }
                 />
               )}

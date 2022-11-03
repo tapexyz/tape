@@ -1,10 +1,12 @@
 import { useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
-import { GENERATE_ALLOWANCE_QUERY } from '@gql/queries'
 import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
 import React, { Dispatch, FC } from 'react'
 import toast from 'react-hot-toast'
-import { ApprovedAllowanceAmount } from 'src/types'
+import {
+  ApprovedAllowanceAmount,
+  GenerateModuleCurrencyApprovalDataDocument
+} from 'src/types/lens'
 import { CustomErrorWithData } from 'src/types/local'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
@@ -20,7 +22,7 @@ const PermissionAlert: FC<Props> = ({
   allowanceModule
 }) => {
   const [generateAllowanceQuery, { loading }] = useLazyQuery(
-    GENERATE_ALLOWANCE_QUERY
+    GenerateModuleCurrencyApprovalDataDocument
   )
 
   const {

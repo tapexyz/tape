@@ -1,0 +1,10 @@
+query UserProfiles($request: ProfileQueryRequest!) {
+  profiles(request: $request) {
+    items {
+      ...ProfileFields
+    }
+  }
+  userSigNonces {
+    lensHubOnChainSigNonce
+  }
+}

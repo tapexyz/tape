@@ -4,7 +4,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { PROFILE_FEED_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -16,7 +15,11 @@ import {
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { AiOutlineComment } from 'react-icons/ai'
-import { PaginatedResultInfo, PublicationTypes } from 'src/types'
+import {
+  PaginatedResultInfo,
+  ProfileCommentsDocument,
+  PublicationTypes
+} from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 const SeeAllCommented = () => {
@@ -36,16 +39,19 @@ const SeeAllCommented = () => {
     profileId: selectedChannel?.id
   }
 
-  const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
-    variables: {
-      request
-    },
-    skip: !selectedChannel?.id,
-    onCompleted(data) {
-      setPageInfo(data?.publications?.pageInfo)
-      setCommentedVideos(data?.publications?.items)
+  const { data, loading, error, fetchMore } = useQuery(
+    ProfileCommentsDocument,
+    {
+      variables: {
+        request
+      },
+      skip: !selectedChannel?.id,
+      onCompleted(data) {
+        setPageInfo(data?.publications?.pageInfo)
+        setCommentedVideos(data?.publications?.items as LenstubePublication[])
+      }
     }
-  })
+  )
 
   const { observe } = useInView({
     rootMargin: '1000px 0px',
@@ -60,7 +66,10 @@ const SeeAllCommented = () => {
           }
         })
         setPageInfo(data?.publications?.pageInfo)
-        setCommentedVideos([...commentedVideos, ...data?.publications?.items])
+        setCommentedVideos([
+          ...commentedVideos,
+          ...(data?.publications?.items as LenstubePublication[])
+        ])
       } catch (error) {
         logger.error('[Error Fetch See All Commented]', error)
       }

@@ -59,7 +59,9 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^2.13.11",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
+    "@graphql-codegen/typed-document-node": "^2.3.6",
     "@graphql-codegen/typescript": "^2.8.1",
+    "@graphql-codegen/typescript-operations": "^2.5.6",
     "@next/bundle-analyzer": "^13.0.1",
     "@types/mixpanel-browser": "^2.38.0",
     "@types/node": "18.11.9",

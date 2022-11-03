@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { PROFILE_FEED_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
@@ -14,7 +13,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { AiOutlineComment } from 'react-icons/ai'
 import { BiChevronRight } from 'react-icons/bi'
-import { PublicationTypes } from 'src/types'
+import { ProfileCommentsDocument, PublicationTypes } from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 import CommentedVideoCard from '../CommentedVideoCard'
@@ -24,7 +23,7 @@ const Commented = () => {
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
-  const { loading, data } = useQuery(PROFILE_FEED_QUERY, {
+  const { loading, data } = useQuery(ProfileCommentsDocument, {
     variables: {
       request: {
         publicationTypes: [PublicationTypes.Comment],
@@ -36,7 +35,7 @@ const Commented = () => {
     },
     skip: !selectedChannel?.id,
     onCompleted(data) {
-      setCommented(data?.publications?.items)
+      setCommented(data?.publications?.items as LenstubePublication[])
     }
   })
 

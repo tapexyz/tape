@@ -1,9 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import Tooltip from '@components/UIElements/Tooltip'
-import { BROADCAST_MUTATION } from '@gql/queries'
-import { CREATE_MIRROR_VIA_DISPATHCER } from '@gql/queries/dispatcher'
-import { CREATE_MIRROR_TYPED_DATA } from '@gql/queries/typed-data'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -17,7 +14,13 @@ import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
-import { CreateMirrorBroadcastItemResult, CreateMirrorRequest } from 'src/types'
+import {
+  BroadcastDocument,
+  CreateMirrorBroadcastItemResult,
+  CreateMirrorRequest,
+  CreateMirrorTypedDataDocument,
+  CreateMirrorViaDispatcherDocument
+} from 'src/types/lens'
 import { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -50,7 +53,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   })
 
   const [createMirrorViaDispatcher] = useMutation(
-    CREATE_MIRROR_VIA_DISPATHCER,
+    CreateMirrorViaDispatcherDocument,
     {
       onError,
       onCompleted
@@ -66,12 +69,12 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onSuccess: onCompleted
   })
 
-  const [broadcast] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast] = useMutation(BroadcastDocument, {
     onError,
     onCompleted
   })
 
-  const [createMirrorTypedData] = useMutation(CREATE_MIRROR_TYPED_DATA, {
+  const [createMirrorTypedData] = useMutation(CreateMirrorTypedDataDocument, {
     async onCompleted(data) {
       const { id, typedData } =
         data.createMirrorTypedData as CreateMirrorBroadcastItemResult
@@ -107,7 +110,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.reason)
+        if (data?.broadcast?.__typename === 'RelayError')
           mirrorWithSig?.({ recklesslySetUnpreparedArgs: [args] })
       } catch (error) {
         setLoading(false)
@@ -130,7 +133,10 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     const { data } = await createMirrorViaDispatcher({
       variables: { request }
     })
-    if (!data?.createMirrorViaDispatcher?.txId) {
+    if (
+      data?.createMirrorViaDispatcher.__typename === 'RelayerResult' &&
+      !data?.createMirrorViaDispatcher?.txId
+    ) {
       signTypedData(request)
     }
   }

@@ -16,7 +16,7 @@ import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
 import { AiFillHeart, AiOutlinePlayCircle } from 'react-icons/ai'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
-import { Attribute, PublicationMainFocus } from 'src/types'
+import { Attribute, PublicationMainFocus } from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 dayjs.extend(relativeTime)

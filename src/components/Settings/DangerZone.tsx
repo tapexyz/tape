@@ -2,7 +2,6 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
-import { CREATE_BURN_PROFILE_TYPED_DATA } from '@gql/queries/typed-data'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { LENSHUB_PROXY_ADDRESS } from '@utils/constants'
@@ -14,7 +13,10 @@ import { utils } from 'ethers'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
-import { CreateBurnProfileBroadcastItemResult } from 'src/types'
+import {
+  CreateBurnProfileBroadcastItemResult,
+  CreateBurnProfileTypedDataDocument
+} from 'src/types/lens'
 import { CustomErrorWithData } from 'src/types/local'
 import {
   useContractWrite,
@@ -59,7 +61,7 @@ const DangerZone = () => {
   })
 
   const [createBurnProfileTypedData] = useMutation(
-    CREATE_BURN_PROFILE_TYPED_DATA,
+    CreateBurnProfileTypedDataDocument,
     {
       async onCompleted(data) {
         const { typedData } =

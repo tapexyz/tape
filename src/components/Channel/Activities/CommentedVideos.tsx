@@ -3,7 +3,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { PROFILE_FEED_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import {
   LENS_CUSTOM_FILTERS,
@@ -12,7 +11,12 @@ import {
 } from '@utils/constants'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo, Profile, PublicationTypes } from 'src/types'
+import {
+  PaginatedResultInfo,
+  Profile,
+  ProfileCommentsDocument,
+  PublicationTypes
+} from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -30,16 +34,19 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: channel?.id
   }
-  const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
-    variables: {
-      request
-    },
-    skip: !channel?.id,
-    onCompleted(data) {
-      setPageInfo(data?.publications?.pageInfo)
-      setChannelVideos(data?.publications?.items)
+  const { data, loading, error, fetchMore } = useQuery(
+    ProfileCommentsDocument,
+    {
+      variables: {
+        request
+      },
+      skip: !channel?.id,
+      onCompleted(data) {
+        setPageInfo(data?.publications?.pageInfo)
+        setChannelVideos(data?.publications?.items as LenstubePublication[])
+      }
     }
-  })
+  )
   const { observe } = useInView({
     rootMargin: '1000px 0px',
     onEnter: async () => {
@@ -53,7 +60,10 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
           }
         })
         setPageInfo(data?.publications?.pageInfo)
-        setChannelVideos([...channelVideos, ...data?.publications?.items])
+        setChannelVideos([
+          ...channelVideos,
+          ...(data?.publications?.items as LenstubePublication[])
+        ])
       } catch (error) {
         logger.error('[Error Fetch Commented Videos]', error)
       }

@@ -2,7 +2,6 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
-import { CREATE_PROFILE_MUTATION } from '@gql/queries'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import { IS_MAINNET } from '@utils/constants'
@@ -15,6 +14,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { CreateProfileDocument } from 'src/types/lens'
 import z from 'zod'
 
 const formSchema = z.object({
@@ -71,18 +71,15 @@ const CreateChannel = () => {
     setButtonText('Create')
   }
 
-  const [createProfile, { data, reset }] = useMutation(
-    CREATE_PROFILE_MUTATION,
-    {
-      onCompleted(data) {
-        setButtonText('Indexing...')
-        if (data?.createProfile?.reason) {
-          setLoading(false)
-        }
-      },
-      onError
-    }
-  )
+  const [createProfile, { data, reset }] = useMutation(CreateProfileDocument, {
+    onCompleted(data) {
+      setButtonText('Indexing...')
+      if (data?.createProfile?.__typename === 'RelayError') {
+        setLoading(false)
+      }
+    },
+    onError
+  })
 
   const onCancel = () => {
     setShowCreateChannel(false)
@@ -91,6 +88,7 @@ const CreateChannel = () => {
   }
 
   const { indexed } = usePendingTxn({
+    // @ts-ignore
     txHash: data?.createProfile?.txHash
   })
 
@@ -142,7 +140,7 @@ const CreateChannel = () => {
 
           <div className="flex items-center justify-between">
             <span className="flex-wrap w-2/3">
-              {data?.createProfile?.reason && (
+              {data?.createProfile?.__typename === 'RelayError' && (
                 <div>
                   <p className="text-xs font-medium text-red-500">
                     {data?.createProfile?.reason === 'HANDLE_TAKEN'

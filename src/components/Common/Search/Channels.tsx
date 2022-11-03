@@ -3,7 +3,7 @@ import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import { BiUser } from 'react-icons/bi'
-import { Profile } from 'src/types'
+import { Profile } from 'src/types/lens'
 
 import IsVerified from '../IsVerified'
 

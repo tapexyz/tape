@@ -7,7 +7,7 @@ import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import imageCdn from '@utils/functions/imageCdn'
 import Link from 'next/link'
 import React, { FC, useEffect, useState } from 'react'
-import { Attribute } from 'src/types'
+import { Attribute } from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 import IsVerified from '../IsVerified'

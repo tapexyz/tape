@@ -2,12 +2,6 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
-import {
-  ALLOWANCE_SETTINGS_QUERY,
-  BROADCAST_MUTATION,
-  CHANNEL_FOLLOW_MODULE_QUERY
-} from '@gql/queries'
-import { CREATE_FOLLOW_TYPED_DATA } from '@gql/queries/typed-data'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -21,7 +15,15 @@ import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
-import { FeeFollowModuleSettings, Profile } from 'src/types'
+import {
+  ApprovedModuleAllowanceAmountDocument,
+  BroadcastDocument,
+  CreateFollowTypedDataDocument,
+  FeeFollowModuleSettings,
+  FollowModules,
+  Profile,
+  ProfileFollowModuleDocument
+} from 'src/types/lens'
 import { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
 
@@ -62,23 +64,23 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     onError
   })
 
-  const [broadcast] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast] = useMutation(BroadcastDocument, {
     onCompleted,
     onError
   })
 
-  const { data: followModuleData } = useQuery(CHANNEL_FOLLOW_MODULE_QUERY, {
+  const { data: followModuleData } = useQuery(ProfileFollowModuleDocument, {
     variables: { request: { profileIds: channel?.id } },
     skip: !channel?.id
   })
-  const followModule: FeeFollowModuleSettings =
-    followModuleData?.profiles?.items[0]?.followModule
+  const followModule = followModuleData?.profiles?.items[0]
+    ?.followModule as FeeFollowModuleSettings
 
-  useQuery(ALLOWANCE_SETTINGS_QUERY, {
+  useQuery(ApprovedModuleAllowanceAmountDocument, {
     variables: {
       request: {
         currencies: followModule?.amount?.asset?.address,
-        followModules: 'FeeFollowModule',
+        followModules: [FollowModules.FeeFollowModule],
         collectModules: [],
         referenceModules: []
       }
@@ -89,7 +91,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     }
   })
 
-  const [createJoinTypedData] = useMutation(CREATE_FOLLOW_TYPED_DATA, {
+  const [createJoinTypedData] = useMutation(CreateFollowTypedDataDocument, {
     async onCompleted(data) {
       const { typedData, id } = data.createFollowTypedData
       try {
@@ -117,7 +119,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.reason)
+        if ((data?.broadcast as any)?.reason)
           writeJoinChannel?.({ recklesslySetUnpreparedArgs: [args] })
       } catch (error) {
         logger.error('[Error Join Channel Typed Data]', error)
@@ -137,17 +139,19 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
       variables: {
         options: { overrideSigNonce: userSigNonce },
         request: {
-          follow: {
-            profile: channel?.id,
-            followModule: {
-              feeFollowModule: {
-                amount: {
-                  currency: followModule?.amount?.asset?.address,
-                  value: followModule?.amount?.value
+          follow: [
+            {
+              profile: channel?.id,
+              followModule: {
+                feeFollowModule: {
+                  amount: {
+                    currency: followModule?.amount?.asset?.address,
+                    value: followModule?.amount?.value
+                  }
                 }
               }
             }
-          }
+          ]
         }
       }
     })

@@ -2,13 +2,16 @@ import { useQuery } from '@apollo/client'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { COLLECTED_NFTS_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import { POLYGON_CHAIN_ID } from '@utils/constants'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PaginatedResultInfo, Profile } from 'src/types'
-import { Nft } from 'src/types'
+import {
+  PaginatedResultInfo,
+  Profile,
+  ProfileNfTsDocument
+} from 'src/types/lens'
+import { Nft } from 'src/types/lens'
 
 import NFTCard from './NFTCard'
 
@@ -25,7 +28,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
   const [collectedNFTs, setCollectedNFTs] = useState<Nft[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
-  const { data, loading, error, fetchMore } = useQuery(COLLECTED_NFTS_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(ProfileNfTsDocument, {
     variables: {
       request: {
         ...request,
@@ -34,7 +37,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
     },
     onCompleted(data) {
       setPageInfo(data?.nfts?.pageInfo)
-      setCollectedNFTs(data?.nfts?.items)
+      setCollectedNFTs(data?.nfts?.items as Nft[])
     }
   })
 
@@ -52,7 +55,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
           }
         })
         setPageInfo(data?.nfts?.pageInfo)
-        setCollectedNFTs([...collectedNFTs, ...data?.nfts?.items])
+        setCollectedNFTs([...collectedNFTs, ...(data?.nfts?.items as Nft[])])
       } catch (error) {
         logger.error('[Error Fetch Collected NFTs]', error)
       }
@@ -61,7 +64,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
 
   if (loading) return <TimelineShimmer />
 
-  if (data?.publications?.items?.length === 0) {
+  if (data?.nfts?.items?.length === 0) {
     return <NoDataFound isCenter withImage text="No NFTs found" />
   }
 

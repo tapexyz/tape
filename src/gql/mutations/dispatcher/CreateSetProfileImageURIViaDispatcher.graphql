@@ -1,0 +1,7 @@
+mutation CreateSetProfileImageURIViaDispatcher(
+  $request: UpdateProfileImageRequest!
+) {
+  createSetProfileImageURIViaDispatcher(request: $request) {
+    ...RelayerResult
+  }
+}

@@ -5,7 +5,7 @@ import useAppStore from '@lib/store'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Erc20 } from 'src/types'
+import { Erc20 } from 'src/types/lens'
 import { CollectModuleType, UploadedVideo } from 'src/types/local'
 import { z } from 'zod'
 

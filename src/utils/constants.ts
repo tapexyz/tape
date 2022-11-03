@@ -1,4 +1,4 @@
-import { CustomFiltersTypes } from 'src/types'
+import { CustomFiltersTypes } from 'src/types/lens'
 
 /**
  * !!! CHANGING VALUES MIGHT BREAK THINGS !!!

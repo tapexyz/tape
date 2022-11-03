@@ -1,0 +1,20 @@
+query Explore(
+  $request: ExplorePublicationRequest!
+  $reactionRequest: ReactionFieldResolverRequest
+  $channelId: ProfileId
+) {
+  explorePublications(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Comment {
+        ...CommentFields
+      }
+    }
+    pageInfo {
+      totalCount
+      next
+    }
+  }
+}

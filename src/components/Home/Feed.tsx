@@ -3,18 +3,18 @@ import VideoCard from '@components/Common/VideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { FEED_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
 import {
+  FeedDocument,
   FeedEventItemType,
   FeedItem,
   PaginatedResultInfo,
   PublicationMainFocus
-} from 'src/types'
+} from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 const HomeFeed = () => {
@@ -28,14 +28,14 @@ const HomeFeed = () => {
     metadata: { mainContentFocus: [PublicationMainFocus.Video] },
     profileId: selectedChannel?.id
   }
-  const { data, loading, error, fetchMore } = useQuery(FEED_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(FeedDocument, {
     variables: {
       request
     },
     skip: !selectedChannel?.id,
     onCompleted: (data) => {
       setPageInfo(data?.feed?.pageInfo)
-      setVideos(data?.feed?.items)
+      setVideos(data?.feed?.items as FeedItem[])
     }
   })
 
@@ -52,7 +52,7 @@ const HomeFeed = () => {
           }
         })
         setPageInfo(data?.feed?.pageInfo)
-        setVideos([...videos, ...data?.feed?.items])
+        setVideos([...videos, ...(data?.feed?.items as FeedItem[])])
       } catch (error) {
         logger.error('[Error Fetch Feed]', error)
       }

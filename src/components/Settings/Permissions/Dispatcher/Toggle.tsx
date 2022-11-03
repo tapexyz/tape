@@ -1,8 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useLazyQuery, useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
-import { BROADCAST_MUTATION, PROFILE_QUERY } from '@gql/queries'
-import { CREATE_SET_DISPATCHER_TYPED_DATA } from '@gql/queries/dispatcher'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import {
@@ -16,7 +14,13 @@ import { Mixpanel, TRACK } from '@utils/track'
 import { utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { CreateSetDispatcherBroadcastItemResult, Profile } from 'src/types'
+import {
+  BroadcastDocument,
+  CreateSetDispatcherBroadcastItemResult,
+  CreateSetDispatcherTypedDataDocument,
+  Profile,
+  ProfileDocument
+} from 'src/types/lens'
 import { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -45,18 +49,19 @@ const Toggle = () => {
     onError
   })
 
-  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast, { data: broadcastData }] = useMutation(BroadcastDocument, {
     onError
   })
 
   const { indexed } = usePendingTxn({
     txHash: writeData?.hash,
+    // @ts-ignore
     txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
   })
 
-  const [refetchChannel] = useLazyQuery(PROFILE_QUERY, {
+  const [refetchChannel] = useLazyQuery(ProfileDocument, {
     onCompleted(data) {
-      const channel: Profile = data?.profile
+      const channel = data?.profile as Profile
       setSelectedChannel(channel)
     }
   })
@@ -77,7 +82,7 @@ const Toggle = () => {
   }, [indexed])
 
   const [createDispatcherTypedData] = useMutation(
-    CREATE_SET_DISPATCHER_TYPED_DATA,
+    CreateSetDispatcherTypedDataDocument,
     {
       onCompleted: async ({ createSetDispatcherTypedData }) => {
         const { id, typedData } =
@@ -103,7 +108,7 @@ const Toggle = () => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason)
+          if (data?.broadcast?.__typename === 'RelayError')
             writeDispatch?.({ recklesslySetUnpreparedArgs: [args] })
         } catch (error) {
           logger.error('[Error Set Dispatcher]', error)

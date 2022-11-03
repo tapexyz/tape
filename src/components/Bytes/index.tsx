@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { EXPLORE_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
@@ -11,10 +10,11 @@ import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
+  ExploreDocument,
   PaginatedResultInfo,
   PublicationSortCriteria,
   PublicationTypes
-} from 'src/types'
+} from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 import ByteVideo from './ByteVideo'
@@ -38,7 +38,7 @@ const Bytes = () => {
     Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.BYTES })
   }, [])
 
-  const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(ExploreDocument, {
     variables: {
       request,
       reactionRequest: selectedChannel
@@ -48,7 +48,7 @@ const Bytes = () => {
     },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
-      setBytes(data?.explorePublications?.items)
+      setBytes(data?.explorePublications?.items as LenstubePublication[])
     }
   })
 
@@ -65,7 +65,10 @@ const Bytes = () => {
           }
         })
         setPageInfo(data?.explorePublications?.pageInfo)
-        setBytes([...bytes, ...data?.explorePublications?.items])
+        setBytes([
+          ...bytes,
+          ...(data?.explorePublications?.items as LenstubePublication[])
+        ])
       } catch (error) {
         logger.error('[Error Fetch Bytes]', error)
       }

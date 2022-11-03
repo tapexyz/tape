@@ -5,9 +5,6 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { TextArea } from '@components/UIElements/TextArea'
-import { BROADCAST_MUTATION } from '@gql/queries'
-import { CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER } from '@gql/queries/dispatcher'
-import { SET_PROFILE_METADATA_TYPED_DATA_MUTATION } from '@gql/queries/typed-data'
 import { zodResolver } from '@hookform/resolvers/zod'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
@@ -38,11 +35,14 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
 import {
+  BroadcastDocument,
   CreatePublicSetProfileMetadataUriRequest,
+  CreateSetProfileMetadataTypedDataDocument,
+  CreateSetProfileMetadataViaDispatcherDocument,
   MediaSet,
   Profile,
   PublicationMetadataDisplayTypes
-} from 'src/types'
+} from 'src/types/lens'
 import { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -126,13 +126,13 @@ const BasicInfo = ({ channel }: Props) => {
     onSuccess: onCompleted
   })
 
-  const [broadcast] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast] = useMutation(BroadcastDocument, {
     onError,
     onCompleted
   })
 
   const [createSetProfileMetadataViaDispatcher] = useMutation(
-    CREATE_SET_PROFILE_METADATA_VIA_DISPATHCER,
+    CreateSetProfileMetadataViaDispatcherDocument,
     {
       onError,
       onCompleted
@@ -140,7 +140,7 @@ const BasicInfo = ({ channel }: Props) => {
   )
 
   const [createSetProfileMetadataTypedData] = useMutation(
-    SET_PROFILE_METADATA_TYPED_DATA_MUTATION,
+    CreateSetProfileMetadataTypedDataDocument,
     {
       async onCompleted(data) {
         const { typedData, id } = data.createSetProfileMetadataTypedData
@@ -164,7 +164,7 @@ const BasicInfo = ({ channel }: Props) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason)
+          if (data?.broadcast?.__typename === 'RelayError')
             writeMetaData?.({ recklesslySetUnpreparedArgs: [args] })
         } catch (error) {
           setLoading(false)
@@ -192,7 +192,11 @@ const BasicInfo = ({ channel }: Props) => {
     const { data } = await createSetProfileMetadataViaDispatcher({
       variables: { request }
     })
-    if (!data?.createSetProfileMetadataViaDispatcher?.txId) {
+    if (
+      data?.createSetProfileMetadataViaDispatcher.__typename ===
+        'RelayerResult' &&
+      !data?.createSetProfileMetadataViaDispatcher?.txId
+    ) {
       signTypedData(request)
     }
   }

@@ -1,11 +1,11 @@
 import { useMutation } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
-import { CREATE_REPORT_PUBLICATION_MUTATION } from '@gql/queries'
 import { ERROR_MESSAGE } from '@utils/constants'
 import { Mixpanel, TRACK } from '@utils/track'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
+import { ReportPublicationDocument } from 'src/types/lens'
 import { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -16,7 +16,7 @@ type Props = {
 const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
   const [reason, setReason] = useState('SPAM-FAKE_ENGAGEMENT')
   const [createReport, { loading: reporting }] = useMutation(
-    CREATE_REPORT_PUBLICATION_MUTATION,
+    ReportPublicationDocument,
     {
       onError(error: CustomErrorWithData) {
         toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
