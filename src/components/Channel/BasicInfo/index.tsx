@@ -43,10 +43,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         <span>
           <div
             style={{
-              backgroundImage: `url(${imageCdn(
-                getCoverPicture(channel),
-                'thumbnail'
-              )})`
+              backgroundImage: `url(${imageCdn(getCoverPicture(channel))})`
             }}
             className="absolute w-full bg-white bg-center bg-no-repeat bg-cover rounded-lg dark:bg-gray-900 h-44 md:h-72"
           >

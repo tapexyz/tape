@@ -4,10 +4,12 @@ import { sanitizeIpfsUrl } from './sanitizeIpfsUrl'
 
 const imageCdn = (
   url: string,
-  type: 'thumbnail' | 'avatar' | 'avatar_lg' | 'square' | 'thumbnail_v'
+  type?: 'thumbnail' | 'avatar' | 'avatar_lg' | 'square' | 'thumbnail_v'
 ): string => {
   if (!url) return url
-  return `${IMAGE_CDN_URL}/tr:n-${type}/${sanitizeIpfsUrl(url)}`
+  return type
+    ? `${IMAGE_CDN_URL}/tr:n-${type}/${sanitizeIpfsUrl(url)}`
+    : `${IMAGE_CDN_URL}/${sanitizeIpfsUrl(url)}`
 }
 
 export default imageCdn
