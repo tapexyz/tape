@@ -14,6 +14,7 @@ import {
   RELAYER_ENABLED
 } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
+import getTextNftUrl from '@utils/functions/getTextNftUrl'
 import getUserLocale from '@utils/functions/getUserLocale'
 import omitKey from '@utils/functions/omitKey'
 import trimify from '@utils/functions/trimify'
@@ -198,6 +199,13 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     try {
       setButtonText('Uploading...')
       setLoading(true)
+
+      const textNftImageUrl = await getTextNftUrl(
+        trimify(data.comment),
+        selectedChannel?.handle,
+        new Date().toLocaleString()
+      )
+
       const { url } = await uploadToAr({
         version: '2.0.0',
         metadata_id: uuidv4(),
@@ -206,8 +214,8 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         locale: getUserLocale(),
         mainContentFocus: PublicationMainFocus.TextOnly,
         external_url: `${LENSTUBE_URL}/watch/${video?.id}`,
-        image: null,
-        imageMimeType: null,
+        image: textNftImageUrl,
+        imageMimeType: 'image/svg+xml',
         name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
         attributes: [
           {
