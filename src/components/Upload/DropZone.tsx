@@ -32,7 +32,7 @@ const DropZone = () => {
         setUploadedVideo({
           stream: fileReaderStream(file),
           preview,
-          videoType: file.type || 'video/mp4',
+          videoType: file?.type || 'video/mp4',
           file
         })
       }
@@ -43,7 +43,7 @@ const DropZone = () => {
   }
 
   const validateFile = (file: File) => {
-    if (!ALLOWED_VIDEO_TYPES.includes(file.type)) {
+    if (!ALLOWED_VIDEO_TYPES.includes(file?.type)) {
       const errorMessage = 'Video format not supported!'
       toast.error(errorMessage)
       return setFileDropError(errorMessage)
