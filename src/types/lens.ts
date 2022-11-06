@@ -14836,7 +14836,7 @@ export const ProxyActionStatusDocument = {
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'proxyActionStatus' },
+      name: { kind: 'Name', value: 'ProxyActionStatus' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',

@@ -1,4 +1,4 @@
-query proxyActionStatus($proxyActionId: ProxyActionId!) {
+query ProxyActionStatus($proxyActionId: ProxyActionId!) {
   proxyActionStatus(proxyActionId: $proxyActionId) {
     ... on ProxyActionStatusResult {
       txId
