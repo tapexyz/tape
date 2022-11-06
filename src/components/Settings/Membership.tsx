@@ -111,8 +111,10 @@ const Membership = ({ channel }: Props) => {
 
   const { indexed } = usePendingTxn({
     txHash: writtenData?.hash,
-    // @ts-ignore
-    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+    txId:
+      broadcastData?.broadcast.__typename === 'RelayerResult'
+        ? broadcastData?.broadcast?.txId
+        : undefined
   })
 
   useEffect(() => {
@@ -153,8 +155,7 @@ const Membership = ({ channel }: Props) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          // @ts-ignore
-          if (data?.broadcast?.reason)
+          if (data?.broadcast?.__typename === 'RelayError')
             writeFollow?.({ recklesslySetUnpreparedArgs: [args] })
         } catch (error) {
           setLoading(false)

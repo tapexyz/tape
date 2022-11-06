@@ -55,8 +55,10 @@ const Toggle = () => {
 
   const { indexed } = usePendingTxn({
     txHash: writeData?.hash,
-    // @ts-ignore
-    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+    txId:
+      broadcastData?.broadcast.__typename === 'RelayerResult'
+        ? broadcastData?.broadcast?.txId
+        : undefined
   })
 
   const [refetchChannel] = useLazyQuery(ProfileDocument, {
