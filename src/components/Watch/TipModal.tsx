@@ -196,8 +196,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     const { data } = await createCommentViaDispatcher({
       variables: { request }
     })
-    // @ts-ignore
-    if (!data?.createCommentViaDispatcher?.txId) {
+    if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
       signTypedData(request)
     }
   }
@@ -218,11 +217,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         imageMimeType: null,
         name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
         attributes: [
-          {
-            displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'publication',
-            value: 'comment'
-          },
           {
             displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'app',

@@ -192,10 +192,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     const { data } = await createCommentViaDispatcher({
       variables: { request }
     })
-    if (
-      data?.createCommentViaDispatcher.__typename === 'RelayerResult' &&
-      !data?.createCommentViaDispatcher?.txId
-    ) {
+    if (data?.createCommentViaDispatcher.__typename === 'RelayError') {
       signTypedData(request)
     }
   }

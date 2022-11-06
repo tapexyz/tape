@@ -253,11 +253,6 @@ const UploadSteps = () => {
       const attributes: MetadataAttributeInput[] = [
         {
           displayType: PublicationMetadataDisplayTypes.String,
-          traitType: 'publication',
-          value: 'video'
-        },
-        {
-          displayType: PublicationMetadataDisplayTypes.String,
           traitType: 'handle',
           value: `${selectedChannel?.handle}`
         },
