@@ -130,9 +130,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       variables: { request }
     })
     if (
-      data?.createSetProfileImageURIViaDispatcher.__typename ===
-        'RelayerResult' &&
-      !data?.createSetProfileImageURIViaDispatcher?.txId
+      data?.createSetProfileImageURIViaDispatcher.__typename === 'RelayError'
     ) {
       signTypedData(request)
     }

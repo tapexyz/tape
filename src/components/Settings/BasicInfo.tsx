@@ -193,9 +193,7 @@ const BasicInfo = ({ channel }: Props) => {
       variables: { request }
     })
     if (
-      data?.createSetProfileMetadataViaDispatcher.__typename ===
-        'RelayerResult' &&
-      !data?.createSetProfileMetadataViaDispatcher?.txId
+      data?.createSetProfileMetadataViaDispatcher.__typename === 'RelayError'
     ) {
       signTypedData(request)
     }
