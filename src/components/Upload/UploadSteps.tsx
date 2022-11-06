@@ -130,12 +130,17 @@ const UploadSteps = () => {
     }
   )
 
+  const broadcastTxId =
+    broadcastData?.broadcast.__typename === 'RelayerResult'
+      ? broadcastData?.broadcast?.txId
+      : null
+  const dispatcherTxId =
+    dispatcherData?.createPostViaDispatcher.__typename == 'RelayerResult'
+      ? dispatcherData?.createPostViaDispatcher?.txId
+      : null
+
   usePendingTxn({
-    txId:
-      (dispatcherData?.createPostViaDispatcher.__typename === 'RelayerResult' &&
-        dispatcherData?.createPostViaDispatcher?.txId) ??
-      (broadcastData?.broadcast.__typename === 'RelayerResult' &&
-        broadcastData?.broadcast?.txId),
+    txId: dispatcherTxId ?? broadcastTxId,
     txHash: writePostData?.hash,
     isPublication: true
   })

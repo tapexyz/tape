@@ -112,13 +112,18 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     }
   )
 
+  const broadcastTxId =
+    broadcastData?.broadcast.__typename === 'RelayerResult'
+      ? broadcastData?.broadcast?.txId
+      : null
+  const dispatcherTxId =
+    dispatcherData?.createCommentViaDispatcher.__typename == 'RelayerResult'
+      ? dispatcherData?.createCommentViaDispatcher?.txId
+      : null
+
   const { indexed } = usePendingTxn({
     txHash: writeCommentData?.hash,
-    txId:
-      // @ts-ignore
-      broadcastData?.broadcast?.txId ??
-      // @ts-ignore
-      dispatcherData?.createCommentViaDispatcher?.txId
+    txId: broadcastTxId ?? dispatcherTxId
   })
 
   useEffect(() => {
