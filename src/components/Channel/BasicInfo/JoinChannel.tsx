@@ -119,7 +119,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if ((data?.broadcast as any)?.reason)
+        if (data?.broadcast.__typename === 'RelayError')
           writeJoinChannel?.({ recklesslySetUnpreparedArgs: [args] })
       } catch (error) {
         logger.error('[Error Join Channel Typed Data]', error)
