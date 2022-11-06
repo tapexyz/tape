@@ -1,82 +1,71 @@
-fragment CommentFields on Comment {
-  id
-  reaction(request: $reactionRequest)
-  profile {
-    ...ProfileFields
+fragment CollectFields on CollectModule {
+  ... on FreeCollectModuleSettings {
+    type
+    contractAddress
+    followerOnly
   }
-  collectedBy {
-    address
-    defaultProfile {
-      handle
-    }
-  }
-  collectModule {
-    ...CollectFields
-  }
-  referenceModule {
-    __typename
-  }
-  canComment(profileId: $channelId) {
-    result
-  }
-  canMirror(profileId: $channelId) {
-    result
-  }
-  collectNftAddress
-  onChainContentURI
-  hidden
-  hasCollectedByMe
-  stats {
-    totalAmountOfComments
-    totalAmountOfCollects
-    totalAmountOfMirrors
-    totalUpvotes
-    totalDownvotes
-  }
-  metadata {
-    name
-    description
-    content
-    contentWarning
-    mainContentFocus
-    tags
-    media {
-      original {
-        url
-        mimeType
+  ... on FeeCollectModuleSettings {
+    type
+    recipient
+    referralFee
+    contractAddress
+    followerOnly
+    amount {
+      asset {
+        symbol
+        decimals
+        address
       }
-    }
-    cover {
-      original {
-        url
-      }
-    }
-    attributes {
       value
-      traitType
     }
   }
-  commentOn {
-    ... on Post {
-      id
-      createdAt
-      profile {
-        ...ProfileFields
+  ... on LimitedFeeCollectModuleSettings {
+    type
+    collectLimit
+    recipient
+    referralFee
+    contractAddress
+    followerOnly
+    amount {
+      asset {
+        symbol
+        decimals
+        address
       }
-      metadata {
-        name
-        cover {
-          original {
-            url
-          }
-        }
-        attributes {
-          value
-          traitType
-        }
-      }
+      value
     }
   }
-  createdAt
-  appId
+  ... on LimitedTimedFeeCollectModuleSettings {
+    type
+    collectLimit
+    recipient
+    endTimestamp
+    referralFee
+    contractAddress
+    followerOnly
+    amount {
+      asset {
+        symbol
+        decimals
+        address
+      }
+      value
+    }
+  }
+  ... on TimedFeeCollectModuleSettings {
+    type
+    recipient
+    endTimestamp
+    referralFee
+    contractAddress
+    followerOnly
+    amount {
+      asset {
+        symbol
+        decimals
+        address
+      }
+      value
+    }
+  }
 }
