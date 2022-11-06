@@ -36,7 +36,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
   const resultsRef = useRef(null)
   useOutsideClick(resultsRef, () => setKeyword(''))
 
-  const [searchChannels, { data: channels, loading }] = useLazyQuery(
+  const [searchChannels, { data, loading }] = useLazyQuery(
     activeSearch === 'PROFILE'
       ? SearchProfilesDocument
       : SearchPublicationsDocument
@@ -60,6 +60,9 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
       )
     }
   }
+
+  // @ts-ignore
+  const channels = data?.search?.items
 
   useEffect(() => {
     onDebounce()
@@ -130,20 +133,18 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
               </Tab.List>
               <Tab.Panels>
                 <Tab.Panel className="overflow-y-auto max-h-[80vh] no-scrollbar focus:outline-none">
-                  {channels?.search?.__typename ===
-                    'PublicationSearchResult' && (
+                  {data?.search?.__typename === 'PublicationSearchResult' && (
                     <Videos
-                      // @ts-ignore
-                      results={channels?.search?.items as LenstubePublication[]}
+                      results={channels as LenstubePublication[]}
                       loading={loading}
                       clearSearch={clearSearch}
                     />
                   )}
                 </Tab.Panel>
                 <Tab.Panel className="overflow-y-auto max-h-[80vh] no-scrollbar focus:outline-none">
-                  {channels?.search?.__typename === 'ProfileSearchResult' && (
+                  {data?.search?.__typename === 'ProfileSearchResult' && (
                     <Channels
-                      results={channels?.search?.items as Profile[]}
+                      results={channels as Profile[]}
                       loading={loading}
                       clearSearch={clearSearch}
                     />

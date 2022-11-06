@@ -42,11 +42,11 @@ const ExploreHashtag = () => {
         request
       },
       skip: !hashtag,
-      onCompleted(data) {
-        // @ts-ignore
-        setPageInfo(data?.search?.pageInfo)
-        // @ts-ignore
-        setVideos(data?.search?.items as LenstubePublication[])
+      onCompleted: (data) => {
+        if (data.search.__typename === 'PublicationSearchResult') {
+          setPageInfo(data?.search?.pageInfo)
+          setVideos(data?.search?.items as LenstubePublication[])
+        }
       }
     }
   )
@@ -67,13 +67,13 @@ const ExploreHashtag = () => {
             }
           }
         })
-        // @ts-ignore
-        setPageInfo(data?.search?.pageInfo)
-        setVideos([
-          ...videos,
-          // @ts-ignore
-          ...(data?.search?.items as LenstubePublication[])
-        ])
+        if (data.search.__typename === 'PublicationSearchResult') {
+          setPageInfo(data?.search?.pageInfo)
+          setVideos([
+            ...videos,
+            ...(data?.search?.items as LenstubePublication[])
+          ])
+        }
       } catch (error) {
         logger.error('[Error Fetch Explore Hashtag]', error)
       }
