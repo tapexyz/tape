@@ -27,12 +27,16 @@ const usePendingTxn = ({ txHash, txId, isPublication }: Props) => {
   )
 
   const checkIsIndexed = useCallback(() => {
-    if (
-      data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' ||
-      data?.hasTxHashBeenIndexed?.__typename === 'TransactionError'
-    ) {
-      stopPolling()
+    if (data?.hasTxHashBeenIndexed?.__typename) {
+      if (
+        data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' &&
+        data?.hasTxHashBeenIndexed?.indexed
+      ) {
+        stopPolling()
+      }
+
       if (data?.hasTxHashBeenIndexed?.__typename === 'TransactionError') {
+        stopPolling()
         return toast.error(
           `Relay Error - ${data?.hasTxHashBeenIndexed?.reason}`
         )
@@ -54,7 +58,8 @@ const usePendingTxn = ({ txHash, txId, isPublication }: Props) => {
   return {
     data,
     indexed:
-      data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult',
+      data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' &&
+      data.hasTxHashBeenIndexed.indexed,
     loading
   }
 }

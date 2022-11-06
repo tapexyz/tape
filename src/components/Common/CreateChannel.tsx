@@ -76,6 +76,7 @@ const CreateChannel = () => {
       setButtonText('Indexing...')
       if (data?.createProfile?.__typename === 'RelayError') {
         setLoading(false)
+        setButtonText('Create')
       }
     },
     onError
