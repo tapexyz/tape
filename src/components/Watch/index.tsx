@@ -79,7 +79,8 @@ const VideoDetails = () => {
   const canWatch =
     data?.publication &&
     (data?.publication?.__typename === 'Post' ||
-      data?.publication?.__typename === 'Comment')
+      data?.publication?.__typename === 'Comment') &&
+    !data.publication.hidden
 
   useEffect(() => {
     if (data?.publication?.__typename === 'Post' && video) {
@@ -94,8 +95,7 @@ const VideoDetails = () => {
 
   if (error) return <Custom500 />
   if (loading || !data) return <VideoDetailShimmer />
-  // @ts-ignore
-  if (!canWatch || data?.publication?.hidden) return <Custom404 />
+  if (!canWatch) return <Custom404 />
 
   return (
     <>
