@@ -89,8 +89,10 @@ const CreateChannel = () => {
   }
 
   const { indexed } = usePendingTxn({
-    // @ts-ignore
-    txHash: data?.createProfile?.txHash
+    txHash:
+      data?.createProfile.__typename === 'RelayerResult'
+        ? data?.createProfile?.txHash
+        : null
   })
 
   useEffect(() => {

@@ -133,10 +133,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     const { data } = await createMirrorViaDispatcher({
       variables: { request }
     })
-    if (
-      data?.createMirrorViaDispatcher.__typename === 'RelayerResult' &&
-      !data?.createMirrorViaDispatcher?.txId
-    ) {
+    if (data?.createMirrorViaDispatcher.__typename === 'RelayError') {
       signTypedData(request)
     }
   }
