@@ -132,10 +132,10 @@ const UploadSteps = () => {
 
   usePendingTxn({
     txId:
-      // @ts-ignore
-      dispatcherData?.createPostViaDispatcher?.txId ??
-      // @ts-ignore
-      broadcastData?.broadcast?.txId,
+      (dispatcherData?.createPostViaDispatcher.__typename === 'RelayerResult' &&
+        dispatcherData?.createPostViaDispatcher?.txId) ??
+      (broadcastData?.broadcast.__typename === 'RelayerResult' &&
+        broadcastData?.broadcast?.txId),
     txHash: writePostData?.hash,
     isPublication: true
   })
@@ -219,10 +219,7 @@ const UploadSteps = () => {
     const { data } = await createPostViaDispatcher({
       variables: { request }
     })
-    if (
-      data?.createPostViaDispatcher.__typename === 'RelayerResult' &&
-      !data?.createPostViaDispatcher?.txId
-    ) {
+    if (data?.createPostViaDispatcher.__typename === 'RelayError') {
       signTypedData(request)
     }
   }

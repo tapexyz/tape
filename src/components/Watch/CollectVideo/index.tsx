@@ -71,8 +71,10 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
       variables: { request: { publicationId: video?.id } }
     }
   )
-  const collectModule = // @ts-ignore
-    data?.publication?.collectModule as LenstubeCollectModule
+  const collectModule =
+    data?.publication?.__typename === 'Post'
+      ? (data?.publication?.collectModule as LenstubeCollectModule)
+      : null
 
   const { write: writeCollectWithSig } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
@@ -118,9 +120,9 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        // @ts-ignore
-        if (data?.broadcast?.reason)
+        if (data?.broadcast?.__typename === 'RelayError') {
           writeCollectWithSig?.({ recklesslySetUnpreparedArgs: [args] })
+        }
       } catch (error) {
         setLoading(false)
         logger.error('[Error Collect Video]', error)
@@ -174,7 +176,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
 
   return (
     <div>
-      {showCollectModal && (
+      {showCollectModal && collectModule && (
         <CollectModal
           video={video}
           showModal={showCollectModal}
