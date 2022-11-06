@@ -73,7 +73,6 @@ const CollectModuleType = () => {
       <Modal
         title="Select collect type"
         panelClassName="max-w-lg"
-        onClose={() => setShowModal(false)}
         show={showModal}
       >
         <div className="mt-2 space-y-4">

@@ -47,7 +47,9 @@ const UploadMethod = () => {
           className={({ selected }) =>
             clsx(
               'w-full rounded-xl disabled:opacity-30 text-sm font-medium leading-5 focus:outline-none',
-              selected ? 'bg-white' : 'enabled:hover:bg-white/[0.5]'
+              selected
+                ? 'bg-white dark:bg-black'
+                : 'enabled:hover:bg-white/[0.5]'
             )
           }
           onClick={() => setUploadedVideo({ isUploadToIpfs: true })}

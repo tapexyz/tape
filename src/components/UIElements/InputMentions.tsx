@@ -48,14 +48,16 @@ const InputMentions: FC<Props> = ({
           }
         }
       })
-      // @ts-ignore
-      const channels = data?.search?.items?.map((channel: Profile) => ({
-        id: channel.handle,
-        display: channel.handle,
-        picture: getProfilePicture(channel),
-        followers: channel.stats.totalFollowers
-      }))
-      callback(channels)
+      if (data?.search.__typename === 'ProfileSearchResult') {
+        const profiles = data?.search?.items as Profile[]
+        const channels = profiles?.map((channel: Profile) => ({
+          id: channel.handle,
+          display: channel.handle,
+          picture: getProfilePicture(channel),
+          followers: channel.stats.totalFollowers
+        }))
+        callback(channels)
+      }
     } catch (error) {
       callback([])
       logger.error('[Error Failed to fetch channel suggestions]', error)
