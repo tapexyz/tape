@@ -12,7 +12,10 @@ const useProxyActionStatus = (proxyActionId: string) => {
   })
 
   const checkIsTxnSubmitted = useCallback(() => {
-    if (data?.proxyActionStatus?.__typename === 'ProxyActionStatusResult') {
+    if (
+      data?.proxyActionStatus?.__typename === 'ProxyActionStatusResult' &&
+      data?.proxyActionStatus?.txId
+    ) {
       stopPolling()
     }
   }, [data?.proxyActionStatus, stopPolling])
@@ -22,7 +25,10 @@ const useProxyActionStatus = (proxyActionId: string) => {
   }, [data, stopPolling, checkIsTxnSubmitted])
 
   return {
-    txId: data?.proxyActionStatus?.__typename === 'ProxyActionStatusResult',
+    txId:
+      data?.proxyActionStatus?.__typename === 'ProxyActionStatusResult'
+        ? data?.proxyActionStatus?.txId
+        : null,
     loading
   }
 }
