@@ -1,5 +1,6 @@
 import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 import { FC } from 'react'
 import {
   AiOutlineComment,
@@ -25,10 +26,33 @@ type Props = {
 }
 
 const Activities: FC<Props> = ({ channel }) => {
+  const { query } = useRouter()
+
+  const getDefaultTab = () => {
+    switch (query.tab) {
+      case 'bytes':
+        return 1
+      case 'commented':
+        return 2
+      case 'mirrored':
+        return 3
+      case 'nfts':
+        return 4
+      case 'channels':
+        return 5
+      case 'stats':
+        return 6
+      case 'about':
+        return 7
+      default:
+        return 0
+    }
+  }
+
   return (
     <div className="my-4 md:ml-6 md:my-6">
       <div className="w-full">
-        <Tab.Group>
+        <Tab.Group defaultIndex={getDefaultTab()}>
           <Tab.List className="flex overflow-x-auto no-scrollbar">
             <Tab
               className={({ selected }) =>
