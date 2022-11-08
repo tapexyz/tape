@@ -2,7 +2,6 @@ import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import { captureException } from '@sentry/nextjs'
 import * as tf from '@tensorflow/tfjs'
 import { IS_MAINNET } from '@utils/constants'
 import { generateVideoThumbnails } from '@utils/functions/generateVideoThumbnails'
@@ -99,7 +98,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       const model = await nsfwjs.load()
       predictions = await model?.classify(img, 3)
     } catch (error) {
-      captureException(error)
+      logger.error('[Error Check NSFW]', error)
     }
     return getIsNSFW(predictions)
   }

@@ -1,6 +1,6 @@
 import Tooltip from '@components/UIElements/Tooltip'
+import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import { captureException } from '@sentry/nextjs'
 import * as tf from '@tensorflow/tfjs'
 import { IS_MAINNET } from '@utils/constants'
 import formatBytes from '@utils/functions/formatBytes'
@@ -36,7 +36,7 @@ const Video = () => {
           isNSFW: getIsNSFW(predictions)
         })
       } catch (error) {
-        captureException(error)
+        logger.error('[Error Analyse Video]', error)
       }
     }
   }
