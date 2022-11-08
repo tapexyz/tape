@@ -6567,7 +6567,6 @@ export type ProfileFollowModuleQuery = {
 export type ProfileMirrorsQueryVariables = Exact<{
   request: PublicationsQueryRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']>
 }>
 
 export type ProfileMirrorsQuery = {
@@ -14525,17 +14524,6 @@ export const ProfileMirrorsDocument = {
           type: {
             kind: 'NamedType',
             name: { kind: 'Name', value: 'ReactionFieldResolverRequest' }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'channelId' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ProfileId' }
           }
         }
       ],
