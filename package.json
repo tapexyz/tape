@@ -75,7 +75,7 @@
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-unicorn": "^44.0.2",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "husky": "^8.0.0",
+    "husky": "^8.0.2",
     "postcss": "^8.4.18",
     "prettier": "^2.7.1",
     "tailwindcss": "^3.2.2",
