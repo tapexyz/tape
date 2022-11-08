@@ -6,7 +6,6 @@ import { CREATE_POST_VIA_DISPATHCER } from '@gql/queries/dispatcher'
 import { CREATE_POST_TYPED_DATA } from '@gql/queries/typed-data'
 import logger from '@lib/logger'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import { captureException } from '@sentry/nextjs'
 import {
   APP_NAME,
   ARWEAVE_WEBSITE_URL,
@@ -148,7 +147,6 @@ const UploadSteps = () => {
       const { playbackId } = playbackResponse.data
       return playbackId
     } catch (error) {
-      captureException(error)
       logger.error('[Error Get Playback]', error)
       return null
     }
