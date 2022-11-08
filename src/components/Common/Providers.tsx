@@ -54,6 +54,7 @@ const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
   const { theme } = useTheme()
   return (
     <RainbowKitProvider
+      modalSize="compact"
       chains={chains}
       theme={theme === 'dark' ? darkTheme() : lightTheme()}
     >
