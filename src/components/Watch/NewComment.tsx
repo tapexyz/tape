@@ -2,9 +2,6 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import InputMentions from '@components/UIElements/InputMentions'
-import { BROADCAST_MUTATION } from '@gql/queries'
-import { CREATE_COMMENT_VIA_DISPATHCER } from '@gql/queries/dispatcher'
-import { CREATE_COMMENT_TYPED_DATA } from '@gql/queries/typed-data'
 import { zodResolver } from '@hookform/resolvers/zod'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
@@ -28,11 +25,14 @@ import React, { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import {
+  BroadcastDocument,
   CreateCommentBroadcastItemResult,
-  CreatePublicPostRequest,
+  CreateCommentTypedDataDocument,
+  CreateCommentViaDispatcherDocument,
+  CreatePublicCommentRequest,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes
-} from 'src/types'
+} from 'src/types/lens'
 import { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -94,22 +94,29 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     }
   })
 
-  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast, { data: broadcastData }] = useMutation(BroadcastDocument, {
     onError
   })
 
   const [createCommentViaDispatcher, { data: dispatcherData }] = useMutation(
-    CREATE_COMMENT_VIA_DISPATHCER,
+    CreateCommentViaDispatcherDocument,
     {
       onError
     }
   )
 
+  const broadcastTxId =
+    broadcastData?.broadcast.__typename === 'RelayerResult'
+      ? broadcastData?.broadcast?.txId
+      : null
+  const dispatcherTxId =
+    dispatcherData?.createCommentViaDispatcher.__typename == 'RelayerResult'
+      ? dispatcherData?.createCommentViaDispatcher?.txId
+      : null
+
   const { indexed } = usePendingTxn({
     txHash: writeCommentData?.hash,
-    txId:
-      broadcastData?.broadcast?.txId ??
-      dispatcherData?.createCommentViaDispatcher?.txId
+    txId: broadcastTxId ?? dispatcherTxId
   })
 
   useEffect(() => {
@@ -123,7 +130,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
-  const [createCommentTypedData] = useMutation(CREATE_COMMENT_TYPED_DATA, {
+  const [createCommentTypedData] = useMutation(CreateCommentTypedDataDocument, {
     async onCompleted(data) {
       const { typedData, id } =
         data.createCommentTypedData as CreateCommentBroadcastItemResult
@@ -166,7 +173,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.reason)
+        if (data?.broadcast?.__typename === 'RelayError')
           writeComment?.({ recklesslySetUnpreparedArgs: [args] })
       } catch (error) {
         logger.error('[Error New Comment Typed Data]', error)
@@ -175,17 +182,17 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     onError
   })
 
-  const signTypedData = (request: CreatePublicPostRequest) => {
+  const signTypedData = (request: CreatePublicCommentRequest) => {
     createCommentTypedData({
       variables: { options: { overrideSigNonce: userSigNonce }, request }
     })
   }
 
-  const createViaDispatcher = async (request: CreatePublicPostRequest) => {
+  const createViaDispatcher = async (request: CreatePublicCommentRequest) => {
     const { data } = await createCommentViaDispatcher({
       variables: { request }
     })
-    if (!data?.createCommentViaDispatcher?.txId) {
+    if (data?.createCommentViaDispatcher.__typename === 'RelayError') {
       signTypedData(request)
     }
   }

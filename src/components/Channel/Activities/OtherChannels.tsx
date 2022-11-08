@@ -1,10 +1,9 @@
 import { useQuery } from '@apollo/client'
 import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { PROFILES_QUERY } from '@gql/queries'
 import dynamic from 'next/dynamic'
 import React, { FC } from 'react'
-import { Profile } from 'src/types'
+import { AllProfilesDocument, Profile } from 'src/types/lens'
 
 const OtherChannelCard = dynamic(() => import('./OtherChannelCard'))
 
@@ -13,13 +12,13 @@ type Props = {
 }
 
 const OtherChannels: FC<Props> = ({ channel }) => {
-  const { data, loading } = useQuery(PROFILES_QUERY, {
+  const { data, loading } = useQuery(AllProfilesDocument, {
     variables: {
       request: { ownedBy: channel?.ownedBy }
     },
     skip: !channel?.ownedBy
   })
-  const allChannels: Profile[] = data?.profiles?.items
+  const allChannels = data?.profiles?.items as Profile[]
 
   if (loading) return <OtherChannelsShimmer />
 

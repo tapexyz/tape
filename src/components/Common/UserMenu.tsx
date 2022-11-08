@@ -1,7 +1,6 @@
 import { useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
-import { PROFILES_QUERY } from '@gql/queries'
 import { Menu } from '@headlessui/react'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
@@ -20,7 +19,7 @@ import { BiArrowBack, BiCheck, BiMoviePlay } from 'react-icons/bi'
 import { BsSun } from 'react-icons/bs'
 import { IoAnalyticsOutline, IoMoonOutline } from 'react-icons/io5'
 import { VscDebugDisconnect } from 'react-icons/vsc'
-import { Profile } from 'src/types'
+import { AllProfilesDocument, Profile } from 'src/types/lens'
 import { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useDisconnect } from 'wagmi'
 
@@ -46,7 +45,7 @@ const UserMenu = () => {
       toast.error(error?.data?.message || error?.message)
     }
   })
-  const [getChannels] = useLazyQuery(PROFILES_QUERY)
+  const [getChannels] = useLazyQuery(AllProfilesDocument)
   const { address } = useAccount()
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 
@@ -68,11 +67,11 @@ const UserMenu = () => {
       setShowAccountSwitcher(true)
       const { data } = await getChannels({
         variables: {
-          request: { ownedBy: address }
+          request: { ownedBy: [address] }
         },
         fetchPolicy: 'no-cache'
       })
-      const allChannels: Profile[] = data?.profiles?.items
+      const allChannels = data?.profiles?.items as Profile[]
       setChannels(allChannels)
     } catch (error) {
       logger.error('[Error Get Channels]', error)

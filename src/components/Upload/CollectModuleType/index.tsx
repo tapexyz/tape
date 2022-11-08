@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
-import { MODULES_CURRENCY_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import React, { useState } from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
+import { EnabledModuleCurrrenciesDocument } from 'src/types/lens'
 import { CollectModuleType } from 'src/types/local'
 
 import ChargeQuestion from './ChargeQuestion'
@@ -25,10 +25,13 @@ const CollectModuleType = () => {
     })
   }
 
-  const { data: enabledCurrencies } = useQuery(MODULES_CURRENCY_QUERY, {
-    variables: { request: { profileIds: selectedChannel?.id } },
-    skip: !selectedChannel?.id
-  })
+  const { data: enabledCurrencies } = useQuery(
+    EnabledModuleCurrrenciesDocument,
+    {
+      variables: { request: { profileIds: selectedChannel?.id } },
+      skip: !selectedChannel?.id
+    }
+  )
 
   const getSelectedCollectType = () => {
     const followerOnlyCollect = uploadedVideo.collectModule.followerOnlyCollect
@@ -70,7 +73,6 @@ const CollectModuleType = () => {
       <Modal
         title="Select collect type"
         panelClassName="max-w-lg"
-        onClose={() => setShowModal(false)}
         show={showModal}
       >
         <div className="mt-2 space-y-4">
@@ -99,7 +101,8 @@ const CollectModuleType = () => {
               />
             )}
           {!uploadedVideo.collectModule.isFreeCollect &&
-          !uploadedVideo.collectModule.isRevertCollect ? (
+          !uploadedVideo.collectModule.isRevertCollect &&
+          enabledCurrencies ? (
             <FeeCollectForm
               setCollectType={setCollectType}
               uploadedVideo={uploadedVideo}

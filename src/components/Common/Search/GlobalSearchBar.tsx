@@ -1,6 +1,5 @@
 import { useLazyQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
-import { SEARCH_CHANNELS_QUERY, SEARCH_VIDEOS_QUERY } from '@gql/queries'
 import { Tab } from '@headlessui/react'
 import {
   LENS_CUSTOM_FILTERS,
@@ -13,6 +12,13 @@ import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
 import { FC, useEffect, useRef, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
+import {
+  Profile,
+  SearchProfilesDocument,
+  SearchPublicationsDocument,
+  SearchRequestTypes
+} from 'src/types/lens'
+import { LenstubePublication } from 'src/types/local'
 
 import Channels from './Channels'
 import Videos from './Videos'
@@ -22,14 +28,18 @@ interface Props {
 }
 
 const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
-  const [activeSearch, setActiveSearch] = useState('PUBLICATION')
+  const [activeSearch, setActiveSearch] = useState(
+    SearchRequestTypes.Publication
+  )
   const [keyword, setKeyword] = useState('')
   const debouncedValue = useDebounce<string>(keyword, 500)
   const resultsRef = useRef(null)
   useOutsideClick(resultsRef, () => setKeyword(''))
 
-  const [searchChannels, { data: channels, loading }] = useLazyQuery(
-    activeSearch === 'PROFILE' ? SEARCH_CHANNELS_QUERY : SEARCH_VIDEOS_QUERY
+  const [searchChannels, { data, loading }] = useLazyQuery(
+    activeSearch === 'PROFILE'
+      ? SearchProfilesDocument
+      : SearchPublicationsDocument
   )
 
   const onDebounce = () => {
@@ -50,6 +60,9 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
       )
     }
   }
+
+  // @ts-ignore
+  const channels = data?.search?.items
 
   useEffect(() => {
     onDebounce()
@@ -97,7 +110,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     )
                   }
                   onClick={() => {
-                    setActiveSearch('PUBLICATION')
+                    setActiveSearch(SearchRequestTypes.Publication)
                   }}
                 >
                   Videos
@@ -112,7 +125,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     )
                   }
                   onClick={() => {
-                    setActiveSearch('PROFILE')
+                    setActiveSearch(SearchRequestTypes.Profile)
                   }}
                 >
                   Channels
@@ -120,18 +133,22 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
               </Tab.List>
               <Tab.Panels>
                 <Tab.Panel className="overflow-y-auto max-h-[80vh] no-scrollbar focus:outline-none">
-                  <Videos
-                    results={channels?.search?.items}
-                    loading={loading}
-                    clearSearch={clearSearch}
-                  />
+                  {data?.search?.__typename === 'PublicationSearchResult' && (
+                    <Videos
+                      results={channels as LenstubePublication[]}
+                      loading={loading}
+                      clearSearch={clearSearch}
+                    />
+                  )}
                 </Tab.Panel>
                 <Tab.Panel className="overflow-y-auto max-h-[80vh] no-scrollbar focus:outline-none">
-                  <Channels
-                    results={channels?.search?.items}
-                    loading={loading}
-                    clearSearch={clearSearch}
-                  />
+                  {data?.search?.__typename === 'ProfileSearchResult' && (
+                    <Channels
+                      results={channels as Profile[]}
+                      loading={loading}
+                      clearSearch={clearSearch}
+                    />
+                  )}
                 </Tab.Panel>
               </Tab.Panels>
             </Tab.Group>

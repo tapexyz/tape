@@ -4,9 +4,6 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
-import { BROADCAST_MUTATION } from '@gql/queries'
-import { CREATE_COMMENT_VIA_DISPATHCER } from '@gql/queries/dispatcher'
-import { CREATE_COMMENT_TYPED_DATA } from '@gql/queries/typed-data'
 import { zodResolver } from '@hookform/resolvers/zod'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
@@ -31,10 +28,13 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { TbHeartHandshake } from 'react-icons/tb'
 import {
+  BroadcastDocument,
+  CreateCommentTypedDataDocument,
+  CreateCommentViaDispatcherDocument,
   CreatePublicCommentRequest,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes
-} from 'src/types'
+} from 'src/types/lens'
 import { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
@@ -101,22 +101,29 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
-  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast, { data: broadcastData }] = useMutation(BroadcastDocument, {
     onError
   })
 
   const [createCommentViaDispatcher, { data: dispatcherData }] = useMutation(
-    CREATE_COMMENT_VIA_DISPATHCER,
+    CreateCommentViaDispatcherDocument,
     {
       onError
     }
   )
 
+  const broadcastTxId =
+    broadcastData?.broadcast.__typename === 'RelayerResult'
+      ? broadcastData?.broadcast?.txId
+      : null
+  const dispatcherTxId =
+    dispatcherData?.createCommentViaDispatcher.__typename == 'RelayerResult'
+      ? dispatcherData?.createCommentViaDispatcher?.txId
+      : null
+
   const { indexed } = usePendingTxn({
     txHash: writeCommentData?.hash,
-    txId:
-      broadcastData?.broadcast?.txId ??
-      dispatcherData?.createCommentViaDispatcher?.txId
+    txId: broadcastTxId ?? dispatcherTxId
   })
 
   useEffect(() => {
@@ -129,7 +136,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
-  const [createCommentTypedData] = useMutation(CREATE_COMMENT_TYPED_DATA, {
+  const [createCommentTypedData] = useMutation(CreateCommentTypedDataDocument, {
     async onCompleted(data) {
       const { typedData, id } = data.createCommentTypedData
       const {
@@ -170,7 +177,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.reason)
+        if (data?.broadcast?.__typename === 'RelayError')
           writeComment?.({ recklesslySetUnpreparedArgs: [args] })
       } catch (error) {
         logger.error('[Error Create Tip Comment Typed Data]', error)
@@ -189,7 +196,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     const { data } = await createCommentViaDispatcher({
       variables: { request }
     })
-    if (!data?.createCommentViaDispatcher?.txId) {
+    if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
       signTypedData(request)
     }
   }
@@ -210,11 +217,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         imageMimeType: null,
         name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
         attributes: [
-          {
-            displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'publication',
-            value: 'comment'
-          },
           {
             displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'app',

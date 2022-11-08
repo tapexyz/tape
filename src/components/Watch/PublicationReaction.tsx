@@ -1,6 +1,5 @@
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
-import { ADD_REACTION_MUTATION, REMOVE_REACTION_MUTATION } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
@@ -9,6 +8,11 @@ import clsx from 'clsx'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineDislike, AiOutlineLike } from 'react-icons/ai'
+import {
+  AddReactionDocument,
+  ReactionTypes,
+  RemoveReactionDocument
+} from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -36,12 +40,12 @@ const PublicationReaction: FC<Props> = ({
     dislikeCount: publication.stats?.totalDownvotes
   })
 
-  const [addReaction] = useMutation(ADD_REACTION_MUTATION, {
+  const [addReaction] = useMutation(AddReactionDocument, {
     onError(error) {
       toast.error(error?.message)
     }
   })
-  const [removeReaction] = useMutation(REMOVE_REACTION_MUTATION, {
+  const [removeReaction] = useMutation(RemoveReactionDocument, {
     onError(error) {
       toast.error(error?.message)
     }
@@ -64,7 +68,7 @@ const PublicationReaction: FC<Props> = ({
         variables: {
           request: {
             profileId: selectedChannel?.id,
-            reaction: 'UPVOTE',
+            reaction: ReactionTypes.Upvote,
             publicationId: publication.id
           }
         }
@@ -74,7 +78,7 @@ const PublicationReaction: FC<Props> = ({
         variables: {
           request: {
             profileId: selectedChannel?.id,
-            reaction: 'UPVOTE',
+            reaction: ReactionTypes.Upvote,
             publicationId: publication.id
           }
         }
@@ -97,7 +101,7 @@ const PublicationReaction: FC<Props> = ({
         variables: {
           request: {
             profileId: selectedChannel?.id,
-            reaction: 'DOWNVOTE',
+            reaction: ReactionTypes.Downvote,
             publicationId: publication.id
           }
         }
@@ -107,7 +111,7 @@ const PublicationReaction: FC<Props> = ({
         variables: {
           request: {
             profileId: selectedChannel?.id,
-            reaction: 'DOWNVOTE',
+            reaction: ReactionTypes.Downvote,
             publicationId: publication.id
           }
         }

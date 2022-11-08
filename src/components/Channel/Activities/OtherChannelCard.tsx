@@ -4,7 +4,7 @@ import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
 import React from 'react'
-import { Profile } from 'src/types'
+import { Profile } from 'src/types/lens'
 
 const OtherChannelCard = ({ channel }: { channel: Profile }) => {
   const subscribeType = channel?.followModule?.__typename

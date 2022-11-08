@@ -1,0 +1,11 @@
+query MutualFollowers($request: MutualFollowersProfilesQueryRequest!) {
+  mutualFollowersProfiles(request: $request) {
+    items {
+      ...ProfileFields
+    }
+    pageInfo {
+      next
+      totalCount
+    }
+  }
+}

@@ -3,7 +3,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { EXPLORE_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import {
   LENS_CUSTOM_FILTERS,
@@ -14,10 +13,11 @@ import { Mixpanel, TRACK } from '@utils/track'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
+  ExploreDocument,
   PaginatedResultInfo,
   PublicationSortCriteria,
   PublicationTypes
-} from 'src/types'
+} from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 const request = {
@@ -37,11 +37,11 @@ const Curated = () => {
     Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE_CURATED })
   }, [])
 
-  const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(ExploreDocument, {
     variables: { request },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
-      setVideos(data?.explorePublications?.items)
+      setVideos(data?.explorePublications?.items as LenstubePublication[])
     }
   })
 
@@ -58,7 +58,10 @@ const Curated = () => {
           }
         })
         setPageInfo(data?.explorePublications?.pageInfo)
-        setVideos([...videos, ...data?.explorePublications?.items])
+        setVideos([
+          ...videos,
+          ...(data?.explorePublications?.items as LenstubePublication[])
+        ])
       } catch (error) {
         logger.error('[Error Fetch Recents]', error)
       }

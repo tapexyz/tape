@@ -3,7 +3,6 @@ import Alert from '@components/Common/Alert'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { COMMENT_FEED_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -13,7 +12,7 @@ import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { AiOutlineComment } from 'react-icons/ai'
-import { PaginatedResultInfo } from 'src/types'
+import { PaginatedResultInfo, ProfileCommentsDocument } from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 import NewComment from './NewComment'
@@ -42,7 +41,7 @@ const VideoComments: FC<Props> = ({ video }) => {
   const [comments, setComments] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const { data, loading, error, fetchMore, refetch } = useQuery(
-    COMMENT_FEED_QUERY,
+    ProfileCommentsDocument,
     {
       variables: {
         request: {
@@ -57,7 +56,7 @@ const VideoComments: FC<Props> = ({ video }) => {
       skip: !id,
       onCompleted(data) {
         setPageInfo(data?.publications?.pageInfo)
-        setComments(data?.publications?.items)
+        setComments(data?.publications?.items as LenstubePublication[])
       }
     }
   )
@@ -94,7 +93,10 @@ const VideoComments: FC<Props> = ({ video }) => {
           }
         })
         setPageInfo(data?.publications?.pageInfo)
-        setComments([...comments, ...data?.publications?.items])
+        setComments([
+          ...comments,
+          ...(data?.publications?.items as LenstubePublication[])
+        ])
       } catch (error) {
         logger.error('[Error Fetch Video Comments]', error)
       }

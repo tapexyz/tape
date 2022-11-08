@@ -3,7 +3,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { PROFILE_FEED_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import React, { FC, useState } from 'react'
@@ -11,9 +10,10 @@ import { useInView } from 'react-cool-inview'
 import {
   PaginatedResultInfo,
   Profile,
+  ProfileMirrorsDocument,
   PublicationMainFocus,
   PublicationTypes
-} from 'src/types'
+} from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -30,7 +30,7 @@ const request = {
 const MirroredVideos: FC<Props> = ({ channel }) => {
   const [channelVideos, setChannelVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { data, loading, error, fetchMore } = useQuery(PROFILE_FEED_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(ProfileMirrorsDocument, {
     variables: {
       request: {
         ...request,
@@ -40,7 +40,7 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
     skip: !channel?.id,
     onCompleted(data) {
       setPageInfo(data?.publications?.pageInfo)
-      setChannelVideos(data?.publications?.items)
+      setChannelVideos(data?.publications?.items as LenstubePublication[])
     }
   })
   const { observe } = useInView({
@@ -57,7 +57,10 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
           }
         })
         setPageInfo(data?.publications?.pageInfo)
-        setChannelVideos([...channelVideos, ...data?.publications?.items])
+        setChannelVideos([
+          ...channelVideos,
+          ...(data?.publications?.items as LenstubePublication[])
+        ])
       } catch (error) {
         logger.error('[Error Fetch Mirrored Videos]', error)
       }

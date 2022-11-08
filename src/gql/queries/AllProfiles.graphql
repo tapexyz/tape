@@ -1,0 +1,11 @@
+query AllProfiles($request: ProfileQueryRequest!) {
+  profiles(request: $request) {
+    items {
+      ...ProfileFields
+    }
+    pageInfo {
+      totalCount
+      next
+    }
+  }
+}

@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
-import { PROFILE_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import { Mixpanel, TRACK } from '@utils/track'
 import {
@@ -15,7 +14,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import { MediaSet, Profile } from 'src/types'
+import { MediaSet, Profile, ProfileDocument } from 'src/types/lens'
 
 import BasicInfo from './BasicInfo'
 import SideNav from './SideNav'
@@ -31,7 +30,7 @@ const Settings = () => {
     Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.SETTINGS })
   }, [])
 
-  const { data, loading, error } = useQuery(PROFILE_QUERY, {
+  const { data, loading, error } = useQuery(ProfileDocument, {
     variables: {
       request: { handle: selectedChannel?.handle }
     },
@@ -44,9 +43,9 @@ const Settings = () => {
   if (!data?.profile || (!selectedChannel && router.isReady))
     return <Custom404 />
 
-  const channel: Profile & {
+  const channel = data?.profile as Profile & {
     coverPicture: MediaSet
-  } = data?.profile
+  }
 
   return (
     <>

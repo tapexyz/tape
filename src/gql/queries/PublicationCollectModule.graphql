@@ -1,0 +1,10 @@
+query PublicationCollectModule($request: PublicationQueryRequest!) {
+  publication(request: $request) {
+    ... on Post {
+      collectNftAddress
+      collectModule {
+        ...CollectFields
+      }
+    }
+  }
+}

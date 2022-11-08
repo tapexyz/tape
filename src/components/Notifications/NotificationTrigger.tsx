@@ -1,12 +1,12 @@
 import { useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import DropMenu from '@components/UIElements/DropMenu'
-import { NOTIFICATION_COUNT_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import React, { useEffect } from 'react'
 import { CgBell } from 'react-icons/cg'
+import { NotificationCountDocument } from 'src/types/lens'
 
 import Notifications from '.'
 
@@ -22,7 +22,7 @@ const NotificationTrigger = () => {
     (state) => state.setNotificationCount
   )
 
-  const { data: notificationsData } = useQuery(NOTIFICATION_COUNT_QUERY, {
+  const { data: notificationsData } = useQuery(NotificationCountDocument, {
     variables: {
       request: {
         profileId: selectedChannel?.id,
@@ -38,14 +38,16 @@ const NotificationTrigger = () => {
         notificationsData?.notifications?.pageInfo?.totalCount
       setHasNewNotification(notificationCount !== currentCount)
       setNotificationCount(
-        notificationsData?.notifications?.pageInfo?.totalCount
+        notificationsData?.notifications?.pageInfo?.totalCount as number
       )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedChannel, notificationsData])
 
   const onClickNotification = () => {
-    setNotificationCount(notificationsData?.notifications?.pageInfo?.totalCount)
+    setNotificationCount(
+      notificationsData?.notifications?.pageInfo?.totalCount as number
+    )
     setHasNewNotification(false)
   }
 

@@ -3,12 +3,6 @@ import { useMutation, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
-import {
-  BROADCAST_MUTATION,
-  VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY
-} from '@gql/queries'
-import { PROXY_ACTION_MUTATION } from '@gql/queries/proxy-action'
-import { CREATE_COLLECT_TYPED_DATA } from '@gql/queries/typed-data'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -24,7 +18,13 @@ import { utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { HiOutlineCollection } from 'react-icons/hi'
-import { CreateCollectBroadcastItemResult } from 'src/types'
+import {
+  BroadcastDocument,
+  CreateCollectBroadcastItemResult,
+  CreateCollectTypedDataDocument,
+  ProxyActionDocument,
+  PublicationCollectModuleDocument
+} from 'src/types/lens'
 import {
   CustomErrorWithData,
   LenstubeCollectModule,
@@ -66,12 +66,15 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   })
 
   const { data, loading: fetchingCollectModule } = useQuery(
-    VIDEO_DETAIL_WITH_COLLECT_DETAIL_QUERY,
+    PublicationCollectModuleDocument,
     {
       variables: { request: { publicationId: video?.id } }
     }
   )
-  const collectModule: LenstubeCollectModule = data?.publication?.collectModule
+  const collectModule =
+    data?.publication?.__typename === 'Post'
+      ? (data?.publication?.collectModule as LenstubeCollectModule)
+      : null
 
   const { write: writeCollectWithSig } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
@@ -82,17 +85,17 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     onSuccess: onCompleted
   })
 
-  const [broadcast] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast] = useMutation(BroadcastDocument, {
     onError,
     onCompleted
   })
 
-  const [createProxyActionFreeCollect] = useMutation(PROXY_ACTION_MUTATION, {
+  const [createProxyActionFreeCollect] = useMutation(ProxyActionDocument, {
     onError,
     onCompleted
   })
 
-  const [createCollectTypedData] = useMutation(CREATE_COLLECT_TYPED_DATA, {
+  const [createCollectTypedData] = useMutation(CreateCollectTypedDataDocument, {
     async onCompleted(data) {
       const { typedData, id } =
         data.createCollectTypedData as CreateCollectBroadcastItemResult
@@ -117,8 +120,9 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.reason)
+        if (data?.broadcast?.__typename === 'RelayError') {
           writeCollectWithSig?.({ recklesslySetUnpreparedArgs: [args] })
+        }
       } catch (error) {
         setLoading(false)
         logger.error('[Error Collect Video]', error)
@@ -172,7 +176,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
 
   return (
     <div>
-      {showCollectModal && (
+      {showCollectModal && collectModule && (
         <CollectModal
           video={video}
           showModal={showCollectModal}

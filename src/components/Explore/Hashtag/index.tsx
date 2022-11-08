@@ -4,7 +4,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { SEARCH_VIDEOS_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import {
   LENS_CUSTOM_FILTERS,
@@ -15,35 +14,45 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
-import { PaginatedResultInfo } from 'src/types'
+import {
+  PaginatedResultInfo,
+  SearchPublicationsDocument,
+  SearchRequestTypes
+} from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
-
-const request = {
-  type: 'PUBLICATION',
-  limit: 16,
-  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-  customFilters: LENS_CUSTOM_FILTERS
-}
 
 const ExploreHashtag = () => {
   const { query } = useRouter()
-  const hashtag = query.hashtag
+  const hashtag = query.hashtag as string
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
-  const { data, loading, error, fetchMore } = useQuery(SEARCH_VIDEOS_QUERY, {
-    variables: {
-      request: {
-        query: hashtag,
-        ...request
+  const request = {
+    type: SearchRequestTypes.Publication,
+    limit: 16,
+    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+    customFilters: LENS_CUSTOM_FILTERS,
+    query: hashtag
+  }
+
+  const { data, loading, error, fetchMore } = useQuery(
+    SearchPublicationsDocument,
+    {
+      variables: {
+        request
+      },
+      skip: !hashtag,
+      onCompleted: (data) => {
+        if (data.search.__typename === 'PublicationSearchResult') {
+          setPageInfo(data?.search?.pageInfo)
+          setVideos(data?.search?.items as LenstubePublication[])
+        }
       }
-    },
-    skip: !hashtag,
-    onCompleted(data) {
-      setPageInfo(data?.search?.pageInfo)
-      setVideos(data?.search?.items)
     }
-  })
+  )
+
+  // @ts-ignore
+  const searchItems = data?.search?.items
 
   const { observe } = useInView({
     rootMargin: '1000px 0px',
@@ -58,8 +67,13 @@ const ExploreHashtag = () => {
             }
           }
         })
-        setPageInfo(data?.search?.pageInfo)
-        setVideos([...videos, ...data?.search?.items])
+        if (data.search.__typename === 'PublicationSearchResult') {
+          setPageInfo(data?.search?.pageInfo)
+          setVideos([
+            ...videos,
+            ...(data?.search?.items as LenstubePublication[])
+          ])
+        }
       } catch (error) {
         logger.error('[Error Fetch Explore Hashtag]', error)
       }
@@ -74,7 +88,7 @@ const ExploreHashtag = () => {
         <h1 className="font-semibold md:text-2xl">#{hashtag}</h1>
         <div className="my-4">
           {loading && <TimelineShimmer />}
-          {data?.search?.items?.length === 0 && (
+          {searchItems?.length === 0 && (
             <NoDataFound isCenter withImage text="No videos found" />
           )}
           {!error && !loading && (

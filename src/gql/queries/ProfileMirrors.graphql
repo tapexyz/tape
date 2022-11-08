@@ -1,0 +1,17 @@
+query ProfileMirrors(
+  $request: PublicationsQueryRequest!
+  $reactionRequest: ReactionFieldResolverRequest
+  $channelId: ProfileId
+) {
+  publications(request: $request) {
+    items {
+      ... on Mirror {
+        ...MirrorFields
+      }
+    }
+    pageInfo {
+      totalCount
+      next
+    }
+  }
+}

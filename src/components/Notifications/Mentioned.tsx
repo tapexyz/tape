@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { FC } from 'react'
-import { NewMentionNotification } from 'src/types'
+import { NewMentionNotification } from 'src/types/lens'
 
 dayjs.extend(relativeTime)
 

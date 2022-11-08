@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { STATIC_ASSETS } from '@utils/constants'
-import { Profile } from 'src/types'
+import { Profile } from 'src/types/lens'
 
 const getCoverPicture = (channel: Profile): string => {
   return (

@@ -3,7 +3,6 @@ import MetaTags from '@components/Common/MetaTags'
 import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { NOTIFICATION_COUNT_QUERY, NOTIFICATIONS_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -16,7 +15,12 @@ import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { Notification, PaginatedResultInfo } from 'src/types'
+import {
+  Notification,
+  NotificationCountDocument,
+  NotificationsDocument,
+  PaginatedResultInfo
+} from 'src/types/lens'
 
 import CollectedNotification from './Collected'
 import CommentedNotification from './Commented'
@@ -41,7 +45,7 @@ const Notifications = () => {
     Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.NOTIFICATIONS })
   }, [])
 
-  const { data: notificationsCountData } = useQuery(NOTIFICATION_COUNT_QUERY, {
+  const { data: notificationsCountData } = useQuery(NotificationCountDocument, {
     variables: {
       request: {
         profileId: selectedChannel?.id,
@@ -58,13 +62,13 @@ const Notifications = () => {
     profileId: selectedChannel?.id
   }
 
-  const { data, loading, fetchMore } = useQuery(NOTIFICATIONS_QUERY, {
+  const { data, loading, fetchMore } = useQuery(NotificationsDocument, {
     variables: {
       request
     },
     onCompleted(data) {
       setPageInfo(data?.notifications?.pageInfo)
-      setNotifications(data?.notifications?.items)
+      setNotifications(data?.notifications?.items as Notification[])
       setTimeout(() => {
         const totalCount =
           notificationsCountData?.notifications?.pageInfo?.totalCount
@@ -87,7 +91,10 @@ const Notifications = () => {
           }
         })
         setPageInfo(data?.notifications?.pageInfo)
-        setNotifications([...notifications, ...data?.notifications?.items])
+        setNotifications([
+          ...notifications,
+          ...(data?.notifications?.items as Notification[])
+        ])
       } catch (error) {
         logger.error('[Error Fetch Notifications]', error)
       }

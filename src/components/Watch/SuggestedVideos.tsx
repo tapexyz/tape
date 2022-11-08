@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
-import { EXPLORE_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import {
@@ -13,10 +12,11 @@ import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
+  ExploreDocument,
   PaginatedResultInfo,
   PublicationSortCriteria,
   PublicationTypes
-} from 'src/types'
+} from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
@@ -42,17 +42,19 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
 
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { loading, error, fetchMore, refetch } = useQuery(EXPLORE_QUERY, {
+  const { loading, error, fetchMore, refetch } = useQuery(ExploreDocument, {
     variables: {
       request
     },
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
-      setVideos(data?.explorePublications?.items)
+      const publications = data?.explorePublications
+        ?.items as LenstubePublication[]
+      setVideos(publications)
       setUpNextVideo(
-        data?.explorePublications?.items?.find(
+        publications?.find(
           (video: LenstubePublication) => video.id !== currentVideoId
-        )
+        ) as LenstubePublication
       )
     }
   })
@@ -74,7 +76,10 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
           }
         })
         setPageInfo(data?.explorePublications?.pageInfo)
-        setVideos([...videos, ...data?.explorePublications?.items])
+        setVideos([
+          ...videos,
+          ...(data?.explorePublications?.items as LenstubePublication[])
+        ])
       } catch (error) {
         logger.error('[Error Fetch Suggested Videos]', error)
       }

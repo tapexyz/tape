@@ -10,7 +10,7 @@ import React, { FC } from 'react'
 import { AiOutlineNumber } from 'react-icons/ai'
 import { HiOutlineGlobe, HiOutlineLocationMarker } from 'react-icons/hi'
 import { RiShieldKeyholeLine, RiTwitterLine } from 'react-icons/ri'
-import { Attribute, Profile } from 'src/types'
+import { Attribute, Profile } from 'src/types/lens'
 
 type Props = {
   channel: Profile

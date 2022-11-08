@@ -1,0 +1,23 @@
+query GlobalProtocolStats($request: GlobalProtocolStatsRequest) {
+  globalProtocolStats(request: $request) {
+    totalProfiles
+    totalBurntProfiles
+    totalPosts
+    totalMirrors
+    totalComments
+    totalCollects
+    totalFollows
+    totalRevenue {
+      asset {
+        name
+        symbol
+        decimals
+        address
+      }
+      value
+    }
+  }
+  bytesStats: globalProtocolStats(request: { sources: "lenstube-bytes" }) {
+    totalPosts
+  }
+}

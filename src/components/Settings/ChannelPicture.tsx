@@ -1,9 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useMutation } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
-import { BROADCAST_MUTATION } from '@gql/queries'
-import { CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER } from '@gql/queries/dispatcher'
-import { SET_PFP_URI_TYPED_DATA } from '@gql/queries/typed-data'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import {
@@ -21,10 +18,13 @@ import React, { ChangeEvent, FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
 import {
+  BroadcastDocument,
   CreateSetProfileImageUriBroadcastItemResult,
+  CreateSetProfileImageUriTypedDataDocument,
+  CreateSetProfileImageUriViaDispatcherDocument,
   Profile,
   UpdateProfileImageRequest
-} from 'src/types'
+} from 'src/types/lens'
 import { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -70,20 +70,20 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   })
 
   const [createSetProfileImageViaDispatcher] = useMutation(
-    CREATE_SET_PROFILE_IMAGE_URI_VIA_DISPATHCER,
+    CreateSetProfileImageUriViaDispatcherDocument,
     {
       onError,
       onCompleted
     }
   )
 
-  const [broadcast] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast] = useMutation(BroadcastDocument, {
     onError,
     onCompleted
   })
 
   const [createSetProfileImageURITypedData] = useMutation(
-    SET_PFP_URI_TYPED_DATA,
+    CreateSetProfileImageUriTypedDataDocument,
     {
       async onCompleted(data) {
         const { typedData, id } =
@@ -108,7 +108,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason)
+          if (data?.broadcast?.__typename === 'RelayError')
             writePfpUri?.({ recklesslySetUnpreparedArgs: [args] })
         } catch (error) {
           setLoading(false)
@@ -129,7 +129,9 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     const { data } = await createSetProfileImageViaDispatcher({
       variables: { request }
     })
-    if (!data?.createSetProfileImageURIViaDispatcher?.txId) {
+    if (
+      data?.createSetProfileImageURIViaDispatcher.__typename === 'RelayError'
+    ) {
       signTypedData(request)
     }
   }

@@ -1,6 +1,4 @@
 import { useLazyQuery, useMutation } from '@apollo/client'
-import { PROFILES_QUERY } from '@gql/queries'
-import { AUTHENTICATE_MUTATION, CHALLENGE_QUERY } from '@gql/queries/auth'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -8,7 +6,12 @@ import { ERROR_MESSAGE } from '@utils/constants'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { Profile } from 'src/types'
+import {
+  AllProfilesDocument,
+  AuthenticateDocument,
+  ChallengeDocument,
+  Profile
+} from 'src/types/lens'
 import { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useSignMessage } from 'wagmi'
 
@@ -37,18 +40,20 @@ const Login = () => {
   })
 
   const [loadChallenge, { error: errorChallenge }] = useLazyQuery(
-    CHALLENGE_QUERY,
+    ChallengeDocument,
     {
       fetchPolicy: 'no-cache', // if cache old challenge persist issue (InvalidSignature)
       onError
     }
   )
-  const [authenticate, { error: errorAuthenticate }] = useMutation(
-    AUTHENTICATE_MUTATION
+  const [authenticate, { error: errorAuthenticate }] =
+    useMutation(AuthenticateDocument)
+  const [getChannels, { error: errorProfiles }] = useLazyQuery(
+    AllProfilesDocument,
+    {
+      fetchPolicy: 'no-cache'
+    }
   )
-  const [getChannels, { error: errorProfiles }] = useLazyQuery(PROFILES_QUERY, {
-    fetchPolicy: 'no-cache'
-  })
 
   useEffect(() => {
     if (
@@ -77,13 +82,13 @@ const Login = () => {
       const result = await authenticate({
         variables: { request: { address, signature } }
       })
-      const accessToken = result.data.authenticate.accessToken
-      const refreshToken = result.data.authenticate.refreshToken
+      const accessToken = result.data?.authenticate.accessToken
+      const refreshToken = result.data?.authenticate.refreshToken
       localStorage.setItem('accessToken', accessToken)
       localStorage.setItem('refreshToken', refreshToken)
       const { data: channelsData } = await getChannels({
         variables: {
-          request: { ownedBy: address }
+          request: { ownedBy: [address] }
         }
       })
       if (
@@ -94,7 +99,7 @@ const Login = () => {
         setSelectedChannelId(null)
         setShowCreateChannel(true)
       } else {
-        const channels: Profile[] = channelsData?.profiles?.items
+        const channels = channelsData?.profiles?.items as Profile[]
         const defaultChannel = channels.find((channel) => channel.isDefault)
         setChannels(channels)
         setSelectedChannel(defaultChannel ?? channels[0])

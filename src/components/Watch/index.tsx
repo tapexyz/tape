@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
-import { VIDEO_DETAIL_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import getHlsData from '@utils/functions/getHlsData'
@@ -12,6 +11,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
+import { PublicationDetailsDocument } from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 import AboutChannel from './AboutChannel'
@@ -55,7 +55,7 @@ const VideoDetails = () => {
     }
   }
 
-  const { data, error } = useQuery(VIDEO_DETAIL_QUERY, {
+  const { data, error } = useQuery(PublicationDetailsDocument, {
     variables: {
       request: { publicationId: id },
       reactionRequest: selectedChannel
@@ -72,14 +72,15 @@ const VideoDetails = () => {
       if (!result.publication || stopLoading) {
         return setLoading(false)
       }
-      await fetchHls(result?.publication)
+      await fetchHls(result?.publication as LenstubePublication)
     }
   })
 
   const canWatch =
     data?.publication &&
     (data?.publication?.__typename === 'Post' ||
-      data?.publication?.__typename === 'Comment')
+      data?.publication?.__typename === 'Comment') &&
+    !data.publication.hidden
 
   useEffect(() => {
     if (data?.publication?.__typename === 'Post' && video) {
@@ -94,7 +95,7 @@ const VideoDetails = () => {
 
   if (error) return <Custom500 />
   if (loading || !data) return <VideoDetailShimmer />
-  if (!canWatch || data?.publication.hidden) return <Custom404 />
+  if (!canWatch) return <Custom404 />
 
   return (
     <>

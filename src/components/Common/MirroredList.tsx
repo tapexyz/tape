@@ -1,14 +1,17 @@
 import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { PROFILES_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
-import { PaginatedResultInfo, Profile } from 'src/types'
+import {
+  AllProfilesDocument,
+  PaginatedResultInfo,
+  Profile
+} from 'src/types/lens'
 
 import IsVerified from './IsVerified'
 
@@ -20,14 +23,14 @@ const MirroredList: FC<Props> = ({ videoId }) => {
   const [mirroredList, setMirroredList] = useState<Profile[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
-  const { data, loading, fetchMore } = useQuery(PROFILES_QUERY, {
+  const { data, loading, fetchMore } = useQuery(AllProfilesDocument, {
     variables: {
       request: { whoMirroredPublicationId: videoId, limit: 10 }
     },
     skip: !videoId,
-    onCompleted(data) {
+    onCompleted: (data) => {
       setPageInfo(data?.profiles?.pageInfo)
-      setMirroredList(data?.profiles?.items)
+      setMirroredList(data?.profiles?.items as Profile[])
     }
   })
 
@@ -44,7 +47,10 @@ const MirroredList: FC<Props> = ({ videoId }) => {
           }
         })
         setPageInfo(data?.profiles?.pageInfo)
-        setMirroredList([...mirroredList, ...data?.profiles?.items])
+        setMirroredList([
+          ...mirroredList,
+          ...(data?.profiles?.items as Profile[])
+        ])
       } catch (error) {
         logger.error('[Error Fetch Collectors]', error)
       }

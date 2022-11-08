@@ -4,12 +4,6 @@ import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
-import {
-  BROADCAST_MUTATION,
-  CHANNEL_FOLLOW_MODULE_QUERY,
-  MODULES_CURRENCY_QUERY
-} from '@gql/queries'
-import { SET_FOLLOW_MODULE_TYPED_DATA_MUTATION } from '@gql/queries/typed-data'
 import { zodResolver } from '@hookform/resolvers/zod'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
@@ -27,11 +21,15 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import {
+  BroadcastDocument,
   CreateSetFollowModuleBroadcastItemResult,
+  CreateSetFollowModuleTypedDataDocument,
+  EnabledModuleCurrrenciesDocument,
   Erc20,
   FeeFollowModuleSettings,
-  Profile
-} from 'src/types'
+  Profile,
+  ProfileFollowModuleDocument
+} from 'src/types/lens'
 import { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -76,27 +74,30 @@ const Membership = ({ channel }: Props) => {
     data: followModuleData,
     refetch,
     loading: moduleLoading
-  } = useQuery(CHANNEL_FOLLOW_MODULE_QUERY, {
+  } = useQuery(ProfileFollowModuleDocument, {
     variables: { request: { profileIds: channel?.id } },
     skip: !channel?.id,
     onCompleted(data) {
-      const activeFollowModule: FeeFollowModuleSettings =
-        data?.profiles?.items[0]?.followModule
+      const activeFollowModule = data?.profiles?.items[0]
+        ?.followModule as FeeFollowModuleSettings
       setShowForm(activeFollowModule ? false : true)
     }
   })
-  const activeFollowModule: FeeFollowModuleSettings =
-    followModuleData?.profiles?.items[0]?.followModule
+  const activeFollowModule = followModuleData?.profiles?.items[0]
+    ?.followModule as FeeFollowModuleSettings
 
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const { data: enabledCurrencies } = useQuery(MODULES_CURRENCY_QUERY, {
-    variables: { request: { profileIds: channel?.id } },
-    skip: !channel?.id
-  })
+  const { data: enabledCurrencies } = useQuery(
+    EnabledModuleCurrrenciesDocument,
+    {
+      variables: { request: { profileIds: channel?.id } },
+      skip: !channel?.id
+    }
+  )
 
-  const [broadcast, { data: broadcastData }] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast, { data: broadcastData }] = useMutation(BroadcastDocument, {
     onError
   })
 
@@ -110,7 +111,10 @@ const Membership = ({ channel }: Props) => {
 
   const { indexed } = usePendingTxn({
     txHash: writtenData?.hash,
-    txId: broadcastData ? broadcastData?.broadcast?.txId : undefined
+    txId:
+      broadcastData?.broadcast.__typename === 'RelayerResult'
+        ? broadcastData?.broadcast?.txId
+        : undefined
   })
 
   useEffect(() => {
@@ -124,7 +128,7 @@ const Membership = ({ channel }: Props) => {
   }, [indexed])
 
   const [createSetFollowModuleTypedData] = useMutation(
-    SET_FOLLOW_MODULE_TYPED_DATA_MUTATION,
+    CreateSetFollowModuleTypedDataDocument,
     {
       async onCompleted(data) {
         const { typedData, id } =
@@ -151,7 +155,7 @@ const Membership = ({ channel }: Props) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.reason)
+          if (data?.broadcast?.__typename === 'RelayError')
             writeFollow?.({ recklesslySetUnpreparedArgs: [args] })
         } catch (error) {
           setLoading(false)

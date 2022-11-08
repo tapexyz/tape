@@ -34,5 +34,5 @@
     "unicorn/no-lonely-if": "error",
     "unicorn/no-useless-undefined": "error"
   },
-  "ignorePatterns": ["/src/types/index.ts"]
+  "ignorePatterns": ["/src/types/lens.ts"]
 }

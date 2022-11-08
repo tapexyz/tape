@@ -2,14 +2,17 @@ import { useQuery } from '@apollo/client'
 import IsVerified from '@components/Common/IsVerified'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { MUTUAL_SUBSCRIBERS_QUERY } from '@gql/queries'
 import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
-import { PaginatedResultInfo, Profile } from 'src/types'
+import {
+  MutualFollowersDocument,
+  PaginatedResultInfo,
+  Profile
+} from 'src/types/lens'
 type Props = {
   viewingChannelId: string
 }
@@ -18,7 +21,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const [mutualSubscribers, setMutualSubscribers] = useState<Profile[]>([])
-  const { data, loading, fetchMore } = useQuery(MUTUAL_SUBSCRIBERS_QUERY, {
+  const { data, loading, fetchMore } = useQuery(MutualFollowersDocument, {
     variables: {
       request: {
         viewingProfileId: viewingChannelId,
@@ -29,7 +32,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
     skip: !viewingChannelId,
     onCompleted(data) {
       setPageInfo(data?.mutualFollowersProfiles?.pageInfo)
-      setMutualSubscribers(data?.mutualFollowersProfiles?.items)
+      setMutualSubscribers(data?.mutualFollowersProfiles?.items as Profile[])
     }
   })
 
@@ -45,10 +48,10 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
           }
         }
       })
-      setPageInfo(data?.followers?.pageInfo)
+      setPageInfo(data?.mutualFollowersProfiles?.pageInfo)
       setMutualSubscribers([
         ...mutualSubscribers,
-        ...data?.mutualFollowersProfiles?.items
+        ...(data?.mutualFollowersProfiles?.items as Profile[])
       ])
     }
   })

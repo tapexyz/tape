@@ -10,7 +10,7 @@ import {
 import { BiMoviePlay } from 'react-icons/bi'
 import { GiMirrorMirror, GiMonkey } from 'react-icons/gi'
 import { MdOutlineAnalytics, MdOutlineSlowMotionVideo } from 'react-icons/md'
-import { Profile } from 'src/types'
+import { Profile } from 'src/types/lens'
 
 import About from './About'
 import ChannelBytes from './ChannelBytes'

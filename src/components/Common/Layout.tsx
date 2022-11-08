@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client'
-import { CURRENT_USER_PROFILES_QUERY } from '@gql/queries/auth'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
@@ -21,7 +20,7 @@ import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React, { FC, ReactNode, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
-import { Profile } from 'src/types'
+import { Profile, UserProfilesDocument } from 'src/types/lens'
 import { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
@@ -77,13 +76,13 @@ const Layout: FC<Props> = ({ children }) => {
     setSelectedChannelId(selectedChannel?.id)
   }
 
-  const { loading } = useQuery(CURRENT_USER_PROFILES_QUERY, {
+  const { loading } = useQuery(UserProfilesDocument, {
     variables: {
-      request: { ownedBy: address }
+      request: { ownedBy: [address] }
     },
     skip: !selectedChannelId,
     onCompleted: (data) => {
-      const channels: Profile[] = data?.profiles?.items
+      const channels = data?.profiles?.items as Profile[]
       if (!channels.length) return resetAuthState()
       setUserChannels(channels)
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)

@@ -6,10 +6,10 @@ import { MdOutlineClose } from 'react-icons/md'
 type Props = {
   show: boolean
   title?: React.ReactNode
-  onClose: () => void
+  onClose?: () => void
   children: React.ReactNode
   panelClassName?: string
-  preventAutoClose?: boolean
+  autoClose?: boolean
 }
 
 const Modal: FC<Props> = ({
@@ -18,14 +18,14 @@ const Modal: FC<Props> = ({
   children,
   title,
   panelClassName,
-  preventAutoClose = true
+  autoClose = true
 }) => {
   return (
     <Transition appear show={show} as={Fragment}>
       <Dialog
         as="div"
         className="relative z-20"
-        onClose={() => (preventAutoClose ? null : onClose())}
+        onClose={() => (autoClose ? null : onClose?.())}
       >
         <Transition.Child
           as={Fragment}
@@ -64,13 +64,15 @@ const Modal: FC<Props> = ({
                     >
                       {title}
                     </Dialog.Title>
-                    <button
-                      type="button"
-                      className="p-1 bg-gray-100 rounded-md focus:outline-none dark:bg-gray-900"
-                      onClick={() => onClose()}
-                    >
-                      <MdOutlineClose />
-                    </button>
+                    {onClose && (
+                      <button
+                        type="button"
+                        className="p-1 bg-gray-100 rounded-md focus:outline-none dark:bg-gray-900"
+                        onClick={() => onClose?.()}
+                      >
+                        <MdOutlineClose />
+                      </button>
+                    )}
                   </div>
                 )}
                 {children}

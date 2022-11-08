@@ -1,8 +1,6 @@
 import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
 import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
-import { BROADCAST_MUTATION } from '@gql/queries'
-import { CREATE_UNFOLLOW_TYPED_DATA } from '@gql/queries/typed-data'
 import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import { RELAYER_ENABLED, SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
@@ -11,10 +9,12 @@ import { ethers, Signer, utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
+  BroadcastDocument,
   CreateBurnEip712TypedData,
   CreateUnfollowBroadcastItemResult,
+  CreateUnfollowTypedDataDocument,
   Profile
-} from 'src/types'
+} from 'src/types/lens'
 import { CustomErrorWithData } from 'src/types/local'
 import { useSigner, useSignTypedData } from 'wagmi'
 
@@ -43,9 +43,9 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
     onError
   })
 
-  const [broadcast] = useMutation(BROADCAST_MUTATION, {
+  const [broadcast] = useMutation(BroadcastDocument, {
     onCompleted(data) {
-      if (data?.broadcast?.reason !== 'NOT_ALLOWED') {
+      if (data?.broadcast?.__typename === 'RelayerResult') {
         onCompleted()
       }
     },
@@ -75,30 +75,34 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
     if (txn.hash) onCompleted()
   }
 
-  const [createUnsubscribeTypedData] = useMutation(CREATE_UNFOLLOW_TYPED_DATA, {
-    async onCompleted(data) {
-      const { typedData, id } =
-        data.createUnfollowTypedData as CreateUnfollowBroadcastItemResult
-      try {
-        const signature: string = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
-        if (!RELAYER_ENABLED) {
-          return await burnWithSig(signature, typedData)
+  const [createUnsubscribeTypedData] = useMutation(
+    CreateUnfollowTypedDataDocument,
+    {
+      async onCompleted(data) {
+        const { typedData, id } =
+          data.createUnfollowTypedData as CreateUnfollowBroadcastItemResult
+        try {
+          const signature: string = await signTypedDataAsync({
+            domain: omitKey(typedData?.domain, '__typename'),
+            types: omitKey(typedData?.types, '__typename'),
+            value: omitKey(typedData?.value, '__typename')
+          })
+          if (!RELAYER_ENABLED) {
+            return await burnWithSig(signature, typedData)
+          }
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcast?.__typename === 'RelayError')
+            await burnWithSig(signature, typedData)
+        } catch (error) {
+          setLoading(false)
+          logger.error('[Error UnSubscribe Typed Data]', error)
         }
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcast?.reason) await burnWithSig(signature, typedData)
-      } catch (error) {
-        setLoading(false)
-        logger.error('[Error UnSubscribe Typed Data]', error)
-      }
-    },
-    onError
-  })
+      },
+      onError
+    }
+  )
 
   const unsubscribe = () => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)

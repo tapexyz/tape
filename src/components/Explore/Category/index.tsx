@@ -4,7 +4,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { EXPLORE_QUERY } from '@gql/queries'
 import logger from '@lib/logger'
 import {
   LENS_CUSTOM_FILTERS,
@@ -17,11 +16,12 @@ import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
 import {
+  ExploreDocument,
   PaginatedResultInfo,
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes
-} from 'src/types'
+} from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
 const ExploreCategory = () => {
@@ -37,19 +37,19 @@ const ExploreCategory = () => {
     sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      tags: { oneOf: [query.category] },
+      tags: { oneOf: [categoryName] },
       mainContentFocus: [PublicationMainFocus.Video]
     }
   }
 
-  const { data, loading, error, fetchMore } = useQuery(EXPLORE_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(ExploreDocument, {
     variables: {
       request
     },
     skip: !query.category,
     onCompleted(data) {
       setPageInfo(data?.explorePublications?.pageInfo)
-      setVideos(data?.explorePublications?.items)
+      setVideos(data?.explorePublications?.items as LenstubePublication[])
     }
   })
 
@@ -66,7 +66,10 @@ const ExploreCategory = () => {
           }
         })
         setPageInfo(data?.explorePublications?.pageInfo)
-        setVideos([...videos, ...data?.explorePublications?.items])
+        setVideos([
+          ...videos,
+          ...(data?.explorePublications?.items as LenstubePublication[])
+        ])
       } catch (error) {
         logger.error('[Error Fetch Explore Category]', error)
       }
