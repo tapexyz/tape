@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import logger from '@lib/logger'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import { captureException } from '@sentry/nextjs'
 import {
   APP_NAME,
   ARWEAVE_WEBSITE_URL,
@@ -155,7 +154,6 @@ const UploadSteps = () => {
       const { playbackId } = playbackResponse.data
       return playbackId
     } catch (error) {
-      captureException(error)
       logger.error('[Error Get Playback]', error)
       return null
     }
