@@ -3,6 +3,7 @@ import { Button } from '@components/UIElements/Button'
 import DropMenu from '@components/UIElements/DropMenu'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { Analytics, TRACK } from '@utils/analytics'
 import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import React, { useEffect } from 'react'
 import { CgBell } from 'react-icons/cg'
@@ -45,6 +46,7 @@ const NotificationTrigger = () => {
   }, [selectedChannel, notificationsData])
 
   const onClickNotification = () => {
+    Analytics.track(TRACK.CLICK_NOTIFICATIONS)
     setNotificationCount(
       notificationsData?.notifications?.pageInfo?.totalCount as number
     )

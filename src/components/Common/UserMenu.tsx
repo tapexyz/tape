@@ -81,7 +81,10 @@ const UserMenu = () => {
   return (
     <DropMenu
       trigger={
-        <Button className="!p-0 flex-none">
+        <Button
+          onClick={() => Analytics.track(TRACK.CLICK_USER_MENU)}
+          className="!p-0 flex-none"
+        >
           <img
             className="object-cover bg-white rounded-lg dark:bg-black w-7 h-7 md:rounded-xl md:w-9 md:h-9"
             src={getProfilePicture(selectedChannel)}

@@ -3,6 +3,7 @@ import NotificationTrigger from '@components/Notifications/NotificationTrigger'
 import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { Analytics, TRACK } from '@utils/analytics'
 import { HOME, NOTIFICATIONS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -55,7 +56,11 @@ const Header: FC<Props> = ({ className }) => {
           {selectedChannelId ? (
             <>
               <NotificationTrigger />
-              <Link href={NOTIFICATIONS} className="relative p-1 md:hidden">
+              <Link
+                onClick={() => Analytics.track(TRACK.CLICK_NOTIFICATIONS)}
+                href={NOTIFICATIONS}
+                className="relative p-1 md:hidden"
+              >
                 <CgBell className="text-lg" />
                 {hasNewNotification && (
                   <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-0 right-0" />

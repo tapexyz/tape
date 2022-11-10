@@ -2,6 +2,7 @@ import IsVerified from '@components/Common/IsVerified'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
+import { Analytics, TRACK } from '@utils/analytics'
 import { STATIC_ASSETS } from '@utils/constants'
 import { getTimeFromSeconds } from '@utils/functions/formatTime'
 import { getValueFromTraitType } from '@utils/functions/getFromAttributes'
@@ -26,7 +27,10 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
   )
 
   return (
-    <div className="flex justify-between group">
+    <div
+      onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
+      className="flex justify-between group"
+    >
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <ReportModal
         video={video}

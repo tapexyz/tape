@@ -27,6 +27,11 @@ export const TRACK = {
     OPEN: 'Open Embed',
     COPY: 'Copy Embed'
   },
+  NEW_COMMENT: 'New Comment',
+  CLICK_VIDEO: 'Click Video',
+  CLICK_VIDEO_OPTIONS: 'Click Video Options',
+  CLICK_NOTIFICATIONS: 'Click Notifications',
+  CLICK_USER_MENU: 'Click User Menu',
   OPENED_MUTUAL_CHANNELS: 'Opened Mutual Channels',
   COLLECT: {
     OPEN: 'Open Collect',

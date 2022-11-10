@@ -1,3 +1,4 @@
+import { Analytics, TRACK } from '@utils/analytics'
 import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@utils/constants'
 import { getIsSensitiveContent } from '@utils/functions/getIsSensitiveContent'
 import getProfilePicture from '@utils/functions/getProfilePicture'
@@ -35,7 +36,10 @@ const VideoCard: FC<Props> = ({ video }) => {
   )
 
   return (
-    <div className="bg-gray-50 rounded-xl dark:bg-[#181818] group">
+    <div
+      onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
+      className="bg-gray-50 rounded-xl dark:bg-[#181818] group"
+    >
       {video.hidden ? (
         <div className="grid h-full place-items-center">
           <span className="text-xs">Video Hidden by User</span>

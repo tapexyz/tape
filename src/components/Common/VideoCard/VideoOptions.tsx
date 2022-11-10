@@ -3,6 +3,7 @@ import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { Analytics, TRACK } from '@utils/analytics'
 import { getPermanentVideoUrl } from '@utils/functions/getVideoUrl'
 import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
 import clsx from 'clsx'
@@ -65,6 +66,7 @@ const VideoOptions = ({
     <DropMenu
       trigger={
         <div
+          onClick={() => Analytics.track(TRACK.CLICK_VIDEO_OPTIONS)}
           className={clsx(
             'p-1 text-white md:text-inherit group-hover:visible',
             {
