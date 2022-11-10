@@ -502,10 +502,10 @@
   dependencies:
     tslib "^2.3.1"
 
-"@aws-sdk/lib-storage@^3.204.0":
-  version "3.204.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/lib-storage/-/lib-storage-3.204.0.tgz#dbbab0e3e2cc4ecd04425f5434cc86f9d50eda60"
-  integrity sha512-U+N/AG4EkGnlW4asWqiXY3aLMUwuTEaKS0RXetBncXId1rkkSczj0X1XeewiSHQLeSll+bvvYsn3wbgsfj53tA==
+"@aws-sdk/lib-storage@^3.207.0":
+  version "3.207.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/lib-storage/-/lib-storage-3.207.0.tgz#22778705f82bdbc98faf9581a6ceff4d36647173"
+  integrity sha512-FY5mIT4DmdJMCev+kIvKSokkG0+TsHZGXCUj5di3wrt3iSdUXn3xBH0EcPQCD5og4wQF21uUc84cBXe9eNmk9w==
   dependencies:
     "@aws-sdk/middleware-endpoint" "3.201.0"
     "@aws-sdk/smithy-client" "3.201.0"
