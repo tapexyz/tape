@@ -1,3 +1,4 @@
+import { Analytics, TRACK } from '@utils/analytics'
 import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import Link from 'next/link'
 import React from 'react'
@@ -11,6 +12,9 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
       <div className="flex space-x-2">
         {getValueFromKeyInAttributes(channel.attributes, 'website') && (
           <Link
+            onClick={() =>
+              Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
+            }
             href={
               getValueFromKeyInAttributes(
                 channel.attributes,
@@ -26,6 +30,9 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
         )}
         {getValueFromKeyInAttributes(channel.attributes, 'twitter') && (
           <Link
+            onClick={() =>
+              Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
+            }
             href={`https://twitter.com/${
               getValueFromKeyInAttributes(
                 channel.attributes,

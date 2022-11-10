@@ -41,7 +41,8 @@ export const TRACK = {
     CLICK_CHANNEL_NFTS: 'Click Channel NFTs',
     CLICK_OTHER_CHANNELS: 'Click Other Channels',
     CLICK_CHANNEL_STATS: 'Click Channel Stats',
-    CLICK_CHANNEL_ABOUT: 'Click Channel About'
+    CLICK_CHANNEL_ABOUT: 'Click Channel About',
+    CLICK_CHANNEL_COVER_LINKS: 'Click Channel Cover Links'
   },
   SUBSCRIBE_CHANNEL: 'Subscribe Channel',
   UNSUBSCRIBE_CHANNEL: 'Unsubscribe Channel',
