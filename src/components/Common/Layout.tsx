@@ -143,16 +143,13 @@ const Layout: FC<Props> = ({ children }) => {
       >
         <Sidebar />
         <div
-          className={clsx(
-            'w-full md:pl-[94px] md:pr-4 max-w-[110rem] mx-auto',
-            showFullScreen ? 'px-0' : 'pl-2 pr-2'
-          )}
+          className={clsx('w-full md:pl-[90px]', showFullScreen ? 'px-0' : '')}
         >
           {!NO_HEADER_PATHS.includes(pathname) && (
             <Header className={showFullScreen ? 'hidden md:flex' : ''} />
           )}
           <div
-            className={clsx('py-2', {
+            className={clsx('py-2 ultrawide:max-w-[110rem] mx-auto md:px-2', {
               '!p-0': showFullScreen
             })}
           >

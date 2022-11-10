@@ -5,7 +5,6 @@ import { NextPage } from 'next'
 import { useEffect } from 'react'
 
 import DispatcherAlert from './DispatcherAlert'
-import FeedFilters from './FeedFilters'
 
 const Home: NextPage = () => {
   useEffect(() => {
@@ -15,7 +14,6 @@ const Home: NextPage = () => {
     <>
       <MetaTags />
       <DispatcherAlert />
-      <FeedFilters />
       <div className="md:my-2">
         <Curated />
       </div>

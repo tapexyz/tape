@@ -37,7 +37,7 @@ const Sidebar = () => {
     <>
       {!getShowFullScreen(router.pathname) && <MobileBottomNav />}
       <CreateChannel />
-      <div className="fixed top-0 bottom-0 left-0 z-10 items-start justify-between hidden w-[68px] p-1 m-2 bg-white border shadow dark:border-gray-900 rounded-xl dark:bg-black md:flex md:flex-col">
+      <div className="fixed top-0 bottom-0 left-0 z-10 items-start justify-between hidden w-[90px] bg-white dark:bg-[#171A23] md:flex md:flex-col">
         <div className="flex flex-col w-full text-center space-y-1.5">
           <div className="p-3">
             <Link
@@ -56,7 +56,7 @@ const Sidebar = () => {
             <Link
               href={HOME}
               className={clsx(
-                'rounded-lg py-2 2xl:py-2.5 group',
+                'py-2 2xl:py-2.5 group',
                 isActivePath(HOME)
                   ? 'bg-indigo-50 dark:bg-[#181818]'
                   : 'hover:bg-gray-50 dark:hover:bg-[#181818]'
@@ -70,7 +70,7 @@ const Sidebar = () => {
             <Link
               href={FEED}
               className={clsx(
-                'rounded-lg py-2 2xl:py-2.5 group',
+                'py-2 2xl:py-2.5 group',
                 isActivePath(FEED)
                   ? 'bg-indigo-50 dark:bg-[#181818]'
                   : 'hover:bg-gray-50 dark:hover:bg-[#181818]'
@@ -84,7 +84,7 @@ const Sidebar = () => {
             <Link
               href={EXPLORE}
               className={clsx(
-                'rounded-lg py-2 2xl:py-2.5 group',
+                'py-2 2xl:py-2.5 group',
                 isActivePath(EXPLORE)
                   ? 'bg-indigo-50 dark:bg-[#181818]'
                   : 'hover:bg-gray-50 dark:hover:bg-[#181818]'
@@ -97,7 +97,7 @@ const Sidebar = () => {
             </Link>
             <Link
               href={BYTES}
-              className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
+              className={clsx('py-2 2xl:py-2.5 group', {
                 'bg-indigo-50 dark:bg-[#181818]':
                   isActivePath(BYTES) || router.pathname === '/bytes/[id]',
                 'hover:bg-gray-50 dark:hover:bg-[#181818]':
@@ -112,7 +112,7 @@ const Sidebar = () => {
             <Link
               href={LIBRARY}
               className={clsx(
-                'rounded-lg py-2 2xl:py-2.5 group',
+                'py-2 2xl:py-2.5 group',
                 isActivePath(LIBRARY)
                   ? 'bg-indigo-50 dark:bg-[#181818]'
                   : 'hover:bg-gray-50 dark:hover:bg-[#181818]'
@@ -129,7 +129,7 @@ const Sidebar = () => {
           <button
             type="button"
             onClick={() => onToggleTheme()}
-            className="flex p-3 py-4 justify-center rounded-lg hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-90 hover:opacity-100"
+            className="flex p-3 py-4 justify-center hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-90 hover:opacity-100"
           >
             {theme === 'light' ? <BiMoon /> : <BiSun />}
           </button>

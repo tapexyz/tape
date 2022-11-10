@@ -53,7 +53,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
     >
       <span
         className={clsx(
-          'absolute focus:outline-none inset-0 w-full h-full transition duration-200 ease-in-out transform rounded-lg md:rounded-xl',
+          'absolute focus:outline-none inset-0 w-full h-full transition duration-200 ease-in-out transform rounded-full md:rounded-full',
           {
             'border border-indigo-500': variant === 'primary',
             'bg-transparent': variant === 'secondary',
@@ -66,13 +66,13 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
         )}
       />
       <span
-        className={clsx('absolute inset-0 w-full h-full rounded-lg', {
-          'bg-indigo-500 border border-indigo-500 md:rounded-xl':
+        className={clsx('absolute inset-0 w-full h-full rounded-full', {
+          'bg-indigo-500 border border-indigo-500 md:rounded-full':
             variant === 'primary',
-          'bg-transparent md:rounded-xl': variant === 'secondary',
-          'bg-red-500 border border-red-500 md:rounded-xl':
+          'bg-transparent md:rounded-full': variant === 'secondary',
+          'bg-red-500 border border-red-500 md:rounded-full':
             variant === 'danger',
-          'md:rounded-lg': size === 'sm'
+          'md:rounded-full': size === 'sm'
         })}
       />
       <span

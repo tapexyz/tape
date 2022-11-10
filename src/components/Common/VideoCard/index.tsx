@@ -36,10 +36,7 @@ const VideoCard: FC<Props> = ({ video }) => {
   )
 
   return (
-    <div
-      onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
-      className="bg-gray-50 rounded-xl dark:bg-[#181818] group"
-    >
+    <div onClick={() => Analytics.track(TRACK.CLICK_VIDEO)} className="group">
       {video.hidden ? (
         <div className="grid h-full place-items-center">
           <span className="text-xs">Video Hidden by User</span>
@@ -57,12 +54,12 @@ const VideoCard: FC<Props> = ({ video }) => {
             setShowReport={setShowReport}
           />
           <Link href={`/watch/${video.id}`}>
-            <div className="relative rounded-t-xl aspect-w-16 aspect-h-9">
+            <div className="relative overflow-hidden aspect-w-16 aspect-h-9">
               <img
                 src={thumbnailUrl}
                 draggable={false}
                 className={clsx(
-                  'object-center bg-gray-100 dark:bg-gray-900 w-full h-full rounded-t-xl lg:w-full lg:h-full',
+                  'object-center bg-gray-100 dark:bg-gray-900 w-full h-full md:rounded-xl lg:w-full lg:h-full',
                   isByte ? 'object-contain' : 'object-cover'
                 )}
                 alt="thumbnail"
@@ -74,7 +71,7 @@ const VideoCard: FC<Props> = ({ video }) => {
             <div className="flex items-start space-x-2.5">
               <Link href={`/watch/${video.id}`} className="flex-none mt-0.5">
                 <img
-                  className="w-8 h-8 rounded-xl"
+                  className="w-8 h-8 rounded-full"
                   src={getProfilePicture(video.profile)}
                   alt="channel picture"
                   draggable={false}
@@ -84,7 +81,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                 <div className="flex w-full items-start justify-between space-x-1.5 min-w-0">
                   <Link
                     href={`/watch/${video.id}`}
-                    className="text-[15px] font-medium line-clamp-2 break-words"
+                    className="text-sm font-semibold line-clamp-2 break-words"
                   >
                     {video.metadata?.name}
                   </Link>

@@ -5,12 +5,12 @@
 @tailwind utilities;
 
 html {
-  @apply overflow-y-scroll;
+  @apply overflow-y-scroll antialiased;
 }
 
 body {
   font-family: 'Matter', sans-serif;
-  @apply bg-white dark:bg-black dark:text-white text-black min-h-screen;
+  @apply dark:text-white bg-gradient-to-bl from-indigo-100 via-white dark:via-black dark:from-[#151a2c] dark:to-[#242B49] to-white text-black min-h-screen;
 }
 
 .text-secondary {
