@@ -55,7 +55,10 @@ const VideoActions: FC<Props> = ({ video }) => {
         </span>
       </Button>
       <Button
-        onClick={() => setShowReport(true)}
+        onClick={() => {
+          Analytics.track(TRACK.DISLIKE_VIDEO)
+          setShowReport(true)
+        }}
         variant="secondary"
         className="!p-0"
       >

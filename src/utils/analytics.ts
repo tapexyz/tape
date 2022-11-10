@@ -29,6 +29,8 @@ export const TRACK = {
   },
   NEW_COMMENT: 'New Comment',
   CLICK_VIDEO: 'Click Video',
+  LIKE_VIDEO: 'Like Video',
+  DISLIKE_VIDEO: 'Dislike Video',
   CLICK_VIDEO_OPTIONS: 'Click Video Options',
   CLICK_NOTIFICATIONS: 'Click Notifications',
   CLICK_USER_MENU: 'Click User Menu',

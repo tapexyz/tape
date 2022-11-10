@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { Analytics, TRACK } from '@utils/analytics'
 import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import { formatNumber } from '@utils/functions/formatNumber'
 import clsx from 'clsx'
@@ -53,6 +54,7 @@ const PublicationReaction: FC<Props> = ({
 
   const likeVideo = () => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    Analytics.track(TRACK.LIKE_VIDEO)
     setReaction((reaction) => ({
       likeCount: reaction.isLiked
         ? reaction.likeCount - 1
@@ -88,6 +90,7 @@ const PublicationReaction: FC<Props> = ({
 
   const dislikeVideo = () => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    Analytics.track(TRACK.DISLIKE_VIDEO)
     setReaction((reaction) => ({
       likeCount: reaction.isLiked ? reaction.likeCount - 1 : reaction.likeCount,
       dislikeCount: reaction.isDisliked
