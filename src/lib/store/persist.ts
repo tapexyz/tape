@@ -11,9 +11,6 @@ interface AppPerisistState {
   setNotificationCount: (count: number) => void
   setSelectedChannelId: (id: string | null) => void
   setAutoPlay: (auto: boolean) => void
-  addToRecentlyWatched: (video: LenstubePublication) => void
-  addToWatchLater: (video: LenstubePublication) => void
-  removeFromWatchLater: (video: LenstubePublication) => void
 }
 
 export const usePersistStore = create(
@@ -27,31 +24,7 @@ export const usePersistStore = create(
       setAutoPlay: (autoPlay) => set(() => ({ autoPlay })),
       setNotificationCount: (notificationCount) =>
         set(() => ({ notificationCount })),
-      setSelectedChannelId: (id) => set(() => ({ selectedChannelId: id })),
-      addToRecentlyWatched: (video) => {
-        const alreadyExists = get().recentlyWatched.find(
-          (el) => el.id === video.id
-        )
-        const newList = get().recentlyWatched?.slice(0, 7)
-        set(() => ({
-          recentlyWatched: alreadyExists
-            ? get().recentlyWatched
-            : [video, ...newList]
-        }))
-      },
-      addToWatchLater: (video) => {
-        const alreadyExists = get().watchLater.find((el) => el.id === video.id)
-        const newList = get().watchLater.splice(0, 7)
-        set(() => ({
-          watchLater: alreadyExists ? get().watchLater : [video, ...newList]
-        }))
-      },
-      removeFromWatchLater: (video) => {
-        const videos = get().watchLater.filter((el) => el.id !== video.id)
-        set(() => ({
-          watchLater: videos
-        }))
-      }
+      setSelectedChannelId: (id) => set(() => ({ selectedChannelId: id }))
     }),
     {
       name: 'lenstube.store'

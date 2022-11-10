@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
 import getHlsData from '@utils/functions/getHlsData'
 import { getIsHlsSupported } from '@utils/functions/getIsHlsSupported'
@@ -23,9 +22,6 @@ const VideoDetails = () => {
   const {
     query: { id, t }
   } = useRouter()
-  const addToRecentlyWatched = usePersistStore(
-    (state) => state.addToRecentlyWatched
-  )
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
   const [video, setVideo] = useState<LenstubePublication>()
@@ -81,13 +77,6 @@ const VideoDetails = () => {
     (data?.publication?.__typename === 'Post' ||
       data?.publication?.__typename === 'Comment') &&
     !data.publication.hidden
-
-  useEffect(() => {
-    if (data?.publication?.__typename === 'Post' && video) {
-      addToRecentlyWatched(video)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [video])
 
   useEffect(() => {
     setVideoWatchTime(Number(t))

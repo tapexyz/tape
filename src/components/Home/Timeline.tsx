@@ -1,6 +1,6 @@
+import CommentedVideoCard from '@components/Channel/CommentedVideoCard'
+import MirroredVideoCard from '@components/Channel/MirroredVideoCard'
 import VideoCard from '@components/Common/VideoCard'
-import CommentedVideoCard from '@components/Library/CommentedVideoCard'
-import MirroredVideoCard from '@components/Library/MirroredVideoCard'
 import React, { FC } from 'react'
 import { LenstubePublication } from 'src/types/local'
 

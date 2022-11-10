@@ -1,20 +1,17 @@
 import { Analytics, TRACK } from '@utils/analytics'
 import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
-import { BYTES, EXPLORE, FEED, HOME, LIBRARY } from '@utils/url-path'
+import { BYTES, EXPLORE, FEED, HOME } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import { BiMoon, BiSun } from 'react-icons/bi'
-import { FiHome } from 'react-icons/fi'
-import {
-  MdOutlineSubscriptions,
-  MdOutlineVideoLibrary,
-  MdSlowMotionVideo
-} from 'react-icons/md'
-import { RiLeafLine } from 'react-icons/ri'
 
+import BytesOutline from './Icons/BytesOutline'
+import ExploreOutline from './Icons/ExploreOutline'
+import FeedOutline from './Icons/FeedOutline'
+import HomeOutline from './Icons/HomeOutline'
 import MobileBottomNav from './MobileBottomNav'
 
 const CreateChannel = dynamic(() => import('./CreateChannel'))
@@ -63,7 +60,7 @@ const Sidebar = () => {
               )}
             >
               <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
-                <FiHome className="text-xl" />
+                <HomeOutline />
                 <p className="text-[11px] font-medium">Home</p>
               </div>
             </Link>
@@ -77,7 +74,7 @@ const Sidebar = () => {
               )}
             >
               <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
-                <MdOutlineSubscriptions className="text-xl" />
+                <FeedOutline />
                 <p className="text-[11px] font-medium">Feed</p>
               </div>
             </Link>
@@ -91,7 +88,7 @@ const Sidebar = () => {
               )}
             >
               <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
-                <RiLeafLine className="text-xl" />
+                <ExploreOutline />
                 <p className="text-[11px] font-medium">Explore</p>
               </div>
             </Link>
@@ -105,22 +102,8 @@ const Sidebar = () => {
               })}
             >
               <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
-                <MdSlowMotionVideo className="text-xl" />
+                <BytesOutline />
                 <p className="text-[11px] font-medium">Bytes</p>
-              </div>
-            </Link>
-            <Link
-              href={LIBRARY}
-              className={clsx(
-                'py-2 2xl:py-2.5 group',
-                isActivePath(LIBRARY)
-                  ? 'bg-indigo-50 dark:bg-[#181818]'
-                  : 'hover:bg-gray-50 dark:hover:bg-[#181818]'
-              )}
-            >
-              <div className="flex flex-col items-center pt-0.5 space-y-1 group-hover:opacity-100 opacity-80">
-                <MdOutlineVideoLibrary className="text-xl" />
-                <p className="text-[11px] font-medium">Library</p>
               </div>
             </Link>
           </div>
