@@ -5,11 +5,11 @@ import { Menu } from '@headlessui/react'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { Analytics, TRACK } from '@utils/analytics'
 import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
 import clearLocalStorage from '@utils/functions/clearLocalStorage'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { shortenAddress } from '@utils/functions/shortenAddress'
-import { Mixpanel, TRACK } from '@utils/track'
 import { LENSTUBE_STATS, SETTINGS } from '@utils/url-path'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
@@ -157,7 +157,7 @@ const UserMenu = () => {
                     <Menu.Item
                       as={NextLink}
                       onClick={() =>
-                        Mixpanel.track(TRACK.CLICK_CHANNEL_SETTINGS)
+                        Analytics.track(TRACK.CLICK_CHANNEL_SETTINGS)
                       }
                       href={SETTINGS}
                       className="text-xs font-medium text-indigo-500 dark:text-indigo-400"

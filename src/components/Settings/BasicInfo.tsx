@@ -8,6 +8,7 @@ import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
+import { Analytics, TRACK } from '@utils/analytics'
 import {
   ERROR_MESSAGE,
   IS_MAINNET,
@@ -27,7 +28,6 @@ import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
 import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
-import { Mixpanel, TRACK } from '@utils/track'
 import { utils } from 'ethers'
 import Link from 'next/link'
 import React, { ChangeEvent, useState } from 'react'
@@ -109,7 +109,7 @@ const BasicInfo = ({ channel }: Props) => {
 
   const onCompleted = () => {
     toast.success('Channel details submitted')
-    Mixpanel.track(TRACK.UPDATED_CHANNEL_INFO)
+    Analytics.track(TRACK.UPDATED_CHANNEL_INFO)
     setLoading(false)
   }
 
@@ -200,7 +200,7 @@ const BasicInfo = ({ channel }: Props) => {
   }
 
   const onSaveBasicInfo = async (data: FormData) => {
-    Mixpanel.track(TRACK.UPDATE_CHANNEL_INFO)
+    Analytics.track(TRACK.UPDATE_CHANNEL_INFO)
     setLoading(true)
     try {
       const { url } = await uploadToAr({
@@ -291,7 +291,7 @@ const BasicInfo = ({ channel }: Props) => {
           Change
           <input
             id="chooseCover"
-            onClick={() => Mixpanel.track(TRACK.CHANGE_CHANNEL_COVER)}
+            onClick={() => Analytics.track(TRACK.CHANGE_CHANNEL_COVER)}
             type="file"
             accept=".png, .jpg, .jpeg, .svg"
             className="hidden w-full"
@@ -313,7 +313,7 @@ const BasicInfo = ({ channel }: Props) => {
           {IS_MAINNET && !VERIFIED_CHANNELS.includes(channel?.id) && (
             <Link
               href={TALLY_VERIFICATION_FORM_URL}
-              onClick={() => Mixpanel.track(TRACK.GET_VERIFIED)}
+              onClick={() => Analytics.track(TRACK.GET_VERIFIED)}
               target="_blank"
               rel="noreferer noreferrer"
               className="text-sm text-transparent bg-clip-text bg-gradient-to-br from-purple-500 to-indigo-600"

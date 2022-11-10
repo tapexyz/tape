@@ -1,6 +1,7 @@
 import { useLazyQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { Tab } from '@headlessui/react'
+import { Analytics, TRACK } from '@utils/analytics'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -8,7 +9,6 @@ import {
 } from '@utils/constants'
 import useDebounce from '@utils/hooks/useDebounce'
 import useOutsideClick from '@utils/hooks/useOutsideClick'
-import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
 import { FC, useEffect, useRef, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
@@ -55,7 +55,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
           }
         }
       })
-      Mixpanel.track(
+      Analytics.track(
         activeSearch === 'PROFILE' ? TRACK.SEARCH_CHANNELS : TRACK.SEARCH_VIDEOS
       )
     }

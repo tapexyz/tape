@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import logger from '@lib/logger'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import { Analytics, TRACK } from '@utils/analytics'
 import {
   APP_NAME,
   ARWEAVE_WEBSITE_URL,
@@ -26,7 +27,6 @@ import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
 import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
-import { Mixpanel, TRACK } from '@utils/track'
 import axios from 'axios'
 import { utils } from 'ethers'
 import React, { useEffect } from 'react'
@@ -70,7 +70,7 @@ const UploadSteps = () => {
   }
 
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.UPLOAD.STEPS })
+    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.UPLOAD.STEPS })
 
     if (uploadedVideo.videoSource) {
       resetToDefaults()
@@ -91,7 +91,7 @@ const UploadSteps = () => {
       data?.broadcast?.reason !== 'NOT_ALLOWED' &&
       !data.createPostViaDispatcher?.reason
     ) {
-      Mixpanel.track(TRACK.UPLOADED_VIDEO)
+      Analytics.track(TRACK.UPLOADED_VIDEO)
       setUploadedVideo({
         buttonText: 'Indexing...',
         loading: true
@@ -327,7 +327,7 @@ const UploadSteps = () => {
         }
       }
       if (isBytesVideo) {
-        Mixpanel.track(TRACK.UPLOADED_BYTE_VIDEO)
+        Analytics.track(TRACK.UPLOADED_BYTE_VIDEO)
       }
       const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
       if (!canUseDispatcher) {
@@ -357,7 +357,7 @@ const UploadSteps = () => {
       videoSource: result.url,
       playbackId
     })
-    Mixpanel.track(TRACK.UPLOADED_TO_IPFS)
+    Analytics.track(TRACK.UPLOADED_TO_IPFS)
     return createPublication({
       videoSource: result.url,
       playbackId
@@ -412,7 +412,7 @@ const UploadSteps = () => {
         videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
         playbackId
       })
-      Mixpanel.track(TRACK.UPLOADED_TO_ARWEAVE)
+      Analytics.track(TRACK.UPLOADED_TO_ARWEAVE)
       return createPublication({
         videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
         playbackId

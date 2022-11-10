@@ -2,6 +2,14 @@ import mixpanel, { Dict } from 'mixpanel-browser'
 
 import { IS_MAINNET, MIXPANEL_TOKEN } from './constants'
 
+export const Analytics = {
+  track: (eventName: string, payload?: Dict) => {
+    if (MIXPANEL_TOKEN && IS_MAINNET) {
+      mixpanel.track(eventName, payload)
+    }
+  }
+}
+
 export const TRACK = {
   DISPATCHER_ENABLED: 'Dispatcher Enabled',
   GET_VERIFIED: 'Get Verified',
@@ -70,13 +78,5 @@ export const TRACK = {
     BYTES: 'Bytes Page',
     NOTIFICATIONS: 'Notifications Page',
     LIBRARY: 'Library Page'
-  }
-}
-
-export const Mixpanel = {
-  track: (eventName: string, payload?: Dict) => {
-    if (MIXPANEL_TOKEN && IS_MAINNET) {
-      mixpanel.track(eventName, payload)
-    }
   }
 }

@@ -6,12 +6,12 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { Analytics, TRACK } from '@utils/analytics'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID
 } from '@utils/constants'
-import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -42,7 +42,7 @@ const Notifications = () => {
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.NOTIFICATIONS })
+    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.NOTIFICATIONS })
   }, [])
 
   const { data: notificationsCountData } = useQuery(NotificationCountDocument, {

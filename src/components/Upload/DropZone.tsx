@@ -1,9 +1,9 @@
 import MetaTags from '@components/Common/MetaTags'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
+import { Analytics, TRACK } from '@utils/analytics'
 import { ALLOWED_VIDEO_TYPES } from '@utils/constants'
 import useDragAndDrop from '@utils/hooks/useDragAndDrop'
-import { Mixpanel, TRACK } from '@utils/track'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
 import React, { useEffect } from 'react'
@@ -22,7 +22,7 @@ const DropZone = () => {
   } = useDragAndDrop()
 
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.UPLOAD.DROPZONE })
+    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.UPLOAD.DROPZONE })
   }, [])
 
   const uploadVideo = (file: File) => {

@@ -1,9 +1,9 @@
 import Modal from '@components/UIElements/Modal'
+import { Analytics, TRACK } from '@utils/analytics'
 import { LENSTUBE_URL, STATIC_ASSETS } from '@utils/constants'
 import { getSharableLink } from '@utils/functions/getSharableLink'
 import imageCdn from '@utils/functions/imageCdn'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
-import { Mixpanel, TRACK } from '@utils/track'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import toast from 'react-hot-toast'
@@ -26,7 +26,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
   const onCopyVideoUrl = async () => {
     await copy(`${LENSTUBE_URL}/watch/${video.id}`)
     toast.success('Link copied to clipboard')
-    Mixpanel.track(TRACK.COPY.VIDEO_URL)
+    Analytics.track(TRACK.COPY.VIDEO_URL)
   }
 
   return (
@@ -51,7 +51,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             className="rounded-full"
             target="_blank"
             rel="noreferrer"
-            onClick={() => Mixpanel.track(TRACK.SHARE_VIDEO.LENSTER)}
+            onClick={() => Analytics.track(TRACK.SHARE_VIDEO.LENSTER)}
             href={getSharableLink('lenster', video)}
           >
             <img
@@ -71,7 +71,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             target="_blank"
             rel="noreferrer"
             href={getSharableLink('twitter', video)}
-            onClick={() => Mixpanel.track(TRACK.SHARE_VIDEO.TWITTER)}
+            onClick={() => Analytics.track(TRACK.SHARE_VIDEO.TWITTER)}
           >
             <img
               src={imageCdn(
@@ -86,7 +86,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
           </Link>
           <Link
             href={getSharableLink('reddit', video)}
-            onClick={() => Mixpanel.track(TRACK.SHARE_VIDEO.REDDIT)}
+            onClick={() => Analytics.track(TRACK.SHARE_VIDEO.REDDIT)}
             target="_blank"
             rel="noreferrer"
           >
@@ -104,7 +104,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
           <Link
             href={getSharableLink('linkedin', video)}
             target="_blank"
-            onClick={() => Mixpanel.track(TRACK.SHARE_VIDEO.LINKEDIN)}
+            onClick={() => Analytics.track(TRACK.SHARE_VIDEO.LINKEDIN)}
             rel="noreferrer"
           >
             <img

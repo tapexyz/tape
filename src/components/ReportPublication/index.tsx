@@ -1,8 +1,8 @@
 import { useMutation } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
+import { Analytics, TRACK } from '@utils/analytics'
 import { ERROR_MESSAGE } from '@utils/constants'
-import { Mixpanel, TRACK } from '@utils/track'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { ReportPublicationDocument } from 'src/types/lens'
@@ -22,7 +22,7 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
         toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
       },
       onCompleted() {
-        Mixpanel.track(TRACK.REPORT)
+        Analytics.track(TRACK.REPORT)
         toast.success('Publication reported successfully.')
         onSuccess()
       }

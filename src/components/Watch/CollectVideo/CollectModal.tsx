@@ -6,9 +6,9 @@ import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { Analytics, TRACK } from '@utils/analytics'
 import { formatNumber } from '@utils/functions/formatNumber'
 import { shortenAddress } from '@utils/functions/shortenAddress'
-import { Mixpanel, TRACK } from '@utils/track'
 import dayjs from 'dayjs'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
 import {
@@ -52,7 +52,7 @@ const CollectModal: FC<Props> = ({
     video.collectModule.__typename === 'FreeCollectModuleSettings'
 
   useEffect(() => {
-    Mixpanel.track(TRACK.COLLECT.OPEN)
+    Analytics.track(TRACK.COLLECT.OPEN)
   }, [])
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
