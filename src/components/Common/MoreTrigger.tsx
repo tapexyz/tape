@@ -27,7 +27,7 @@ const MoreTrigger = () => {
         </div>
       }
       position="bottom"
-      positionClassName="left-[72px] -bottom-1"
+      positionClassName="left-[90px] -bottom-1"
       className="w-full"
     >
       <div className="p-2 max-h-96 mt-1.5 w-48 overflow-x-hidden overflow-y-auto border shadow-xl border-gray-100 rounded-xl dark:border-gray-800 bg-secondary">

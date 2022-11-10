@@ -78,14 +78,14 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
     <div className="md:w-96">
       <div ref={resultsRef}>
         <div className="relative">
-          <div className="relative w-full overflow-hidden border border-gray-200 cursor-default dark:border-gray-800 rounded-xl sm:text-sm">
+          <div className="relative w-full overflow-hidden border border-gray-200 cursor-default dark:border-gray-800 rounded-full sm:text-sm">
             <input
-              className="w-full py-2 pl-3 pr-10 text-sm bg-transparent focus:outline-none"
+              className="w-full py-2 pl-4 pr-10 text-sm bg-transparent focus:outline-none"
               onChange={(event) => setKeyword(event.target.value)}
               placeholder="Search by hashtag / channel"
               value={keyword}
             />
-            <div className="absolute inset-y-0 right-0 flex items-center pr-2">
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3">
               <AiOutlineSearch
                 className="w-5 h-5 text-gray-400"
                 aria-hidden="true"

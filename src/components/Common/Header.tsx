@@ -86,10 +86,10 @@ const Header: FC<Props> = ({ className }) => {
               type="button"
               onClick={() => setActiveFilter('all')}
               className={clsx(
-                'px-3.5 capitalize py-1 text-xs border dark:bg-gray-800 bg-gray-100 rounded-lg',
+                'px-3.5 capitalize py-1 text-xs border dark:border-gray-700 rounded-full',
                 activeFilter === 'all'
-                  ? 'border-gray-500'
-                  : 'border-transparent'
+                  ? 'bg-black text-white'
+                  : 'dark:bg-gray-800 bg-gray-100'
               )}
             >
               All
@@ -100,10 +100,10 @@ const Header: FC<Props> = ({ className }) => {
                 onClick={() => setActiveFilter(category.tag)}
                 key={category.tag}
                 className={clsx(
-                  'px-3.5 capitalize py-1 whitespace-nowrap text-xs border dark:bg-gray-800 bg-gray-100 rounded-lg',
+                  'px-3.5 capitalize py-1 text-xs border dark:border-gray-700 rounded-full whitespace-nowrap',
                   activeFilter === category.tag
-                    ? 'border-gray-500'
-                    : 'border-transparent'
+                    ? 'bg-black text-white'
+                    : 'dark:bg-gray-800 bg-gray-100'
                 )}
               >
                 {category.name}
