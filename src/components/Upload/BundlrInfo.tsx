@@ -4,6 +4,7 @@ import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
+import { Analytics, TRACK } from '@utils/analytics'
 import {
   BUNDLR_CONNECT_MESSAGE,
   BUNDLR_CURRENCY,
@@ -11,7 +12,6 @@ import {
   POLYGON_CHAIN_ID
 } from '@utils/constants'
 import useIsMounted from '@utils/hooks/useIsMounted'
-import { Mixpanel, TRACK } from '@utils/track'
 import { utils } from 'ethers'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
@@ -115,7 +115,7 @@ const BundlrInfo = () => {
             fundResult?.quantity
           )} is done and it will be reflected in few seconds.`
         )
-        Mixpanel.track(TRACK.DEPOSIT_MATIC)
+        Analytics.track(TRACK.DEPOSIT_MATIC)
       }
     } catch (error) {
       toast.error('Failed to deposit')

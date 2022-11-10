@@ -2,8 +2,8 @@ import { useQuery } from '@apollo/client'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
+import { Analytics, TRACK } from '@utils/analytics'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import { Mixpanel, TRACK } from '@utils/track'
 import React, { FC, useState } from 'react'
 import { MutualFollowersDocument, Profile } from 'src/types/lens'
 
@@ -32,7 +32,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
 
   const onClickMutuals = () => {
     setShowMutualSubscribersModal(true)
-    Mixpanel.track(TRACK.OPENED_MUTUAL_CHANNELS)
+    Analytics.track(TRACK.OPENED_MUTUAL_CHANNELS)
   }
 
   const mutualSubscribers = data?.mutualFollowersProfiles?.items as Profile[]

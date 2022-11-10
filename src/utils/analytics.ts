@@ -2,6 +2,14 @@ import mixpanel, { Dict } from 'mixpanel-browser'
 
 import { IS_MAINNET, MIXPANEL_TOKEN } from './constants'
 
+export const Analytics = {
+  track: (eventName: string, payload?: Dict) => {
+    if (MIXPANEL_TOKEN && IS_MAINNET) {
+      mixpanel.track(eventName, payload)
+    }
+  }
+}
+
 export const TRACK = {
   DISPATCHER_ENABLED: 'Dispatcher Enabled',
   GET_VERIFIED: 'Get Verified',
@@ -19,6 +27,30 @@ export const TRACK = {
     OPEN: 'Open Embed',
     COPY: 'Copy Embed'
   },
+  NEW_COMMENT: 'New Comment',
+  CLICK_VIDEO: 'Click Video',
+  DELETE_VIDEO: 'Delete Video',
+  CLICK_WATCH_LATER: 'Click Watch Later',
+  CLICK_VIEW_METADATA: 'Click View Metadata',
+  CLICK_VIEW_TOKEN: 'Click View Token',
+  CHANNEL: {
+    CLICK_CHANNEL_VIDEOS: 'Click Channel Videos',
+    CLICK_CHANNEL_BYTES: 'Click Channel Bytes',
+    CLICK_CHANNEL_COMMENTED: 'Click Channel Commented',
+    CLICK_CHANNEL_MIRRORED: 'Click Channel Mirrored',
+    CLICK_CHANNEL_NFTS: 'Click Channel NFTs',
+    CLICK_OTHER_CHANNELS: 'Click Other Channels',
+    CLICK_CHANNEL_STATS: 'Click Channel Stats',
+    CLICK_CHANNEL_ABOUT: 'Click Channel About',
+    CLICK_CHANNEL_COVER_LINKS: 'Click Channel Cover Links'
+  },
+  SUBSCRIBE_CHANNEL: 'Subscribe Channel',
+  UNSUBSCRIBE_CHANNEL: 'Unsubscribe Channel',
+  LIKE_VIDEO: 'Like Video',
+  DISLIKE_VIDEO: 'Dislike Video',
+  CLICK_VIDEO_OPTIONS: 'Click Video Options',
+  CLICK_NOTIFICATIONS: 'Click Notifications',
+  CLICK_USER_MENU: 'Click User Menu',
   OPENED_MUTUAL_CHANNELS: 'Opened Mutual Channels',
   COLLECT: {
     OPEN: 'Open Collect',
@@ -70,13 +102,5 @@ export const TRACK = {
     BYTES: 'Bytes Page',
     NOTIFICATIONS: 'Notifications Page',
     LIBRARY: 'Library Page'
-  }
-}
-
-export const Mixpanel = {
-  track: (eventName: string, payload?: Dict) => {
-    if (MIXPANEL_TOKEN && IS_MAINNET) {
-      mixpanel.track(eventName, payload)
-    }
   }
 }

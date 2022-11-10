@@ -6,6 +6,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { Analytics, TRACK } from '@utils/analytics'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -13,7 +14,6 @@ import {
   SIGN_IN_REQUIRED_MESSAGE
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
-import { Mixpanel, TRACK } from '@utils/track'
 import { utils } from 'ethers'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -138,7 +138,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     setShowCollectModal(false)
     setLoading(true)
     if (!isFreeCollect) {
-      Mixpanel.track(TRACK.COLLECT.FEE)
+      Analytics.track(TRACK.COLLECT.FEE)
       return createCollectTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
@@ -146,7 +146,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
         }
       })
     }
-    Mixpanel.track(TRACK.COLLECT.FREE)
+    Analytics.track(TRACK.COLLECT.FREE)
     // Using proxyAction to free collect without signing
     createProxyActionFreeCollect({
       variables: {

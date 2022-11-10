@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Mixpanel, TRACK } from '@utils/track'
+import { Analytics, TRACK } from '@utils/analytics'
 import { useEffect } from 'react'
 
 import Commented from './Sections/Commented'
@@ -8,7 +8,7 @@ import WatchLater from './Sections/WatchLater'
 
 const Library = () => {
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.LIBRARY })
+    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.LIBRARY })
   }, [])
   return (
     <>

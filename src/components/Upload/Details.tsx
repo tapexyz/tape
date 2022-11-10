@@ -4,7 +4,7 @@ import InputMentions from '@components/UIElements/InputMentions'
 import RadioInput from '@components/UIElements/RadioInput'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
-import { Mixpanel, TRACK } from '@utils/track'
+import { Analytics, TRACK } from '@utils/analytics'
 import clsx from 'clsx'
 import React, { FC, ReactNode } from 'react'
 import { useForm } from 'react-hook-form'
@@ -135,7 +135,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                         'description',
                         `${getValues('description')} #bytes`
                       )
-                      Mixpanel.track(TRACK.CLICKED_BYTES_TAG_AT_UPLOAD)
+                      Analytics.track(TRACK.CLICKED_BYTES_TAG_AT_UPLOAD)
                     }}
                     className="mx-1 text-indigo-600 outline-none dark:text-indigo-400"
                   >

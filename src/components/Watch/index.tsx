@@ -3,10 +3,10 @@ import MetaTags from '@components/Common/MetaTags'
 import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { Analytics, TRACK } from '@utils/analytics'
 import getHlsData from '@utils/functions/getHlsData'
 import { getIsHlsSupported } from '@utils/functions/getIsHlsSupported'
 import { getPlaybackIdFromUrl } from '@utils/functions/getVideoUrl'
-import { Mixpanel, TRACK } from '@utils/track'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Custom404 from 'src/pages/404'
@@ -32,7 +32,7 @@ const VideoDetails = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.WATCH })
+    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.WATCH })
   }, [])
 
   const fetchHls = async (currentVideo: LenstubePublication) => {

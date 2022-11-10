@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import Curated from '@components/Explore/Curated'
-import { Mixpanel, TRACK } from '@utils/track'
+import { Analytics, TRACK } from '@utils/analytics'
 import { NextPage } from 'next'
 import { useEffect } from 'react'
 
@@ -9,7 +9,7 @@ import FeedFilters from './FeedFilters'
 
 const Home: NextPage = () => {
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.HOME })
+    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.HOME })
   }, [])
   return (
     <>

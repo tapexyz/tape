@@ -4,12 +4,12 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import logger from '@lib/logger'
+import { Analytics, TRACK } from '@utils/analytics'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID
 } from '@utils/constants'
-import { Mixpanel, TRACK } from '@utils/track'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
@@ -33,7 +33,7 @@ const Recents = () => {
   const [videos, setVideos] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE_RECENT })
+    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE_RECENT })
   }, [])
 
   const { data, loading, error, fetchMore } = useQuery(ExploreDocument, {

@@ -1,5 +1,6 @@
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
+import { Analytics, TRACK } from '@utils/analytics'
 import {
   APP_NAME,
   LENSTUBE_GITHUB_HANDLE,
@@ -7,7 +8,6 @@ import {
   LENSTUBE_TWITTER_HANDLE,
   STATIC_ASSETS
 } from '@utils/constants'
-import { Mixpanel, TRACK } from '@utils/track'
 import { DISCORD, PRIVACY } from '@utils/url-path'
 import React from 'react'
 import { BsThreeDots } from 'react-icons/bs'
@@ -18,7 +18,7 @@ const MoreTrigger = () => {
       trigger={
         <div className="flex flex-1 flex-col space-y-2 mb-0.5">
           <button
-            onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.OPEN)}
+            onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.OPEN)}
             type="button"
             className="flex p-3 py-4 justify-center rounded-lg hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-90 hover:opacity-100"
           >
@@ -39,7 +39,7 @@ const MoreTrigger = () => {
             as={NextLink}
             className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900"
             href={LENSTUBE_STATUS_PAGE}
-            onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
+            onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
             target="_blank"
           >
             Status
@@ -48,7 +48,7 @@ const MoreTrigger = () => {
             as={NextLink}
             className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900"
             href={`https://github.com/${LENSTUBE_GITHUB_HANDLE}`}
-            onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.GITHUB)}
+            onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.GITHUB)}
             target="_blank"
           >
             Github
@@ -57,7 +57,7 @@ const MoreTrigger = () => {
             as={NextLink}
             className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900"
             href={`https://twitter.com/${LENSTUBE_TWITTER_HANDLE}`}
-            onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.TWITTER)}
+            onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.TWITTER)}
             target="_blank"
           >
             Twitter
@@ -66,7 +66,7 @@ const MoreTrigger = () => {
             as={NextLink}
             className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900"
             href={DISCORD}
-            onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.DISCORD)}
+            onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.DISCORD)}
             target="_blank"
           >
             Discord
@@ -75,7 +75,7 @@ const MoreTrigger = () => {
             as={NextLink}
             className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100 hover:bg-gray-50 dark:hover:bg-gray-900"
             href={`https://roadmap.lenstube.xyz`}
-            onClick={() => Mixpanel.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)}
+            onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)}
             target="_blank"
           >
             Give Feedback

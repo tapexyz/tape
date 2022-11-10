@@ -1,5 +1,6 @@
 import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
+import { Analytics, TRACK } from '@utils/analytics'
 import { STATIC_ASSETS } from '@utils/constants'
 import { getTimeFromSeconds } from '@utils/functions/formatTime'
 import { getValueFromTraitType } from '@utils/functions/getFromAttributes'
@@ -32,7 +33,10 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
   )
 
   return (
-    <div className="overflow-hidden group bg-gray-50 rounded-xl dark:bg-[#181818]">
+    <div
+      onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
+      className="overflow-hidden group bg-gray-50 rounded-xl dark:bg-[#181818]"
+    >
       <Link href={`/watch/${commentedOn.id}`}>
         <div className="relative rounded-t-xl aspect-w-16 aspect-h-8">
           <img

@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
+import { Analytics, TRACK } from '@utils/analytics'
 import { RELAYER_ENABLED, SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { ethers, Signer, utils } from 'ethers'
@@ -35,6 +36,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
     toast.success(`Unsubscribed ${channel.handle}`)
     onUnSubscribe()
     setLoading(false)
+    Analytics.track(TRACK.UNSUBSCRIBE_CHANNEL)
   }
 
   const { data: signer } = useSigner({ onError })

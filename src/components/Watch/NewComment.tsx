@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { Analytics, TRACK } from '@utils/analytics'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -126,6 +127,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       setButtonText('Comment')
       reset()
       toast.success('Commented successfully.')
+      Analytics.track(TRACK.NEW_COMMENT)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])

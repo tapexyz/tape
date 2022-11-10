@@ -1,8 +1,8 @@
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
+import { Analytics, TRACK } from '@utils/analytics'
 import { LENSTUBE_EMBED_URL } from '@utils/constants'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
-import { Mixpanel, TRACK } from '@utils/track'
 import React, { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 import { FiCode } from 'react-icons/fi'
@@ -19,7 +19,7 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
   const iframeCode = `<iframe width="560" height="315" src="${LENSTUBE_EMBED_URL}/${videoId}" title="Lenstube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen></iframe>`
 
   const onCopyCode = () => {
-    Mixpanel.track(TRACK.EMBED_VIDEO.COPY)
+    Analytics.track(TRACK.EMBED_VIDEO.COPY)
     copy(iframeCode)
     toast.success('Copied to clipboard')
   }
@@ -31,7 +31,7 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
 
   const openModal = () => {
     setShowModal(true)
-    Mixpanel.track(TRACK.EMBED_VIDEO.OPEN)
+    Analytics.track(TRACK.EMBED_VIDEO.OPEN)
   }
 
   return (

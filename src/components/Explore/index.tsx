@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Mixpanel, TRACK } from '@utils/track'
+import { Analytics, TRACK } from '@utils/analytics'
 import { useEffect } from 'react'
 
 import Categories from './Categories'
@@ -7,7 +7,7 @@ import ExploreFeed from './Feed'
 
 const Explore = () => {
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE })
+    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE })
   }, [])
 
   return (

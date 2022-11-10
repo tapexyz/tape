@@ -1,11 +1,11 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Mixpanel, TRACK } from '@utils/track'
+import { Analytics, TRACK } from '@utils/analytics'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 
 const Privacy = () => {
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.PRIVACY })
+    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.PRIVACY })
   }, [])
 
   return (

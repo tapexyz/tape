@@ -3,6 +3,7 @@ import { useLazyQuery, useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
+import { Analytics, TRACK } from '@utils/analytics'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -10,7 +11,6 @@ import {
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
-import { Mixpanel, TRACK } from '@utils/track'
 import { utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -71,7 +71,7 @@ const Toggle = () => {
   useEffect(() => {
     if (indexed) {
       toast.success(`Dispatcher ${canUseRelay ? 'disabled' : 'enabled'}`)
-      Mixpanel.track(TRACK.DISPATCHER_ENABLED)
+      Analytics.track(TRACK.DISPATCHER_ENABLED)
       refetchChannel({
         variables: {
           request: { handle: selectedChannel?.handle }

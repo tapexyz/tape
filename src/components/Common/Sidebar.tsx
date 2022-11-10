@@ -1,5 +1,5 @@
+import { Analytics, TRACK } from '@utils/analytics'
 import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
-import { Mixpanel, TRACK } from '@utils/track'
 import { BYTES, EXPLORE, FEED, HOME, LIBRARY } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -28,7 +28,7 @@ const Sidebar = () => {
 
   const onToggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark')
-    Mixpanel.track(
+    Analytics.track(
       theme === 'dark' ? TRACK.SYSTEM.THEME.DARK : TRACK.SYSTEM.THEME.LIGHT
     )
   }

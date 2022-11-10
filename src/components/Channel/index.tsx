@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
 import useAppStore from '@lib/store'
-import { Mixpanel, TRACK } from '@utils/track'
+import { Analytics, TRACK } from '@utils/analytics'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
@@ -17,7 +17,7 @@ const Channel = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.CHANNEL })
+    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.CHANNEL })
   }, [])
 
   const { data, loading, error } = useQuery(ProfileDocument, {

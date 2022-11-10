@@ -1,7 +1,7 @@
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import { Button } from '@components/UIElements/Button'
-import { Mixpanel, TRACK } from '@utils/track'
+import { Analytics, TRACK } from '@utils/analytics'
 import React, { FC, useState } from 'react'
 import { FiFlag } from 'react-icons/fi'
 import { RiShareForwardLine } from 'react-icons/ri'
@@ -35,7 +35,7 @@ const VideoActions: FC<Props> = ({ video }) => {
         variant="secondary"
         className="!p-0"
         onClick={() => {
-          Mixpanel.track(TRACK.TIP.OPEN)
+          Analytics.track(TRACK.TIP.OPEN)
           setShowTip(true)
         }}
       >
@@ -55,7 +55,10 @@ const VideoActions: FC<Props> = ({ video }) => {
         </span>
       </Button>
       <Button
-        onClick={() => setShowReport(true)}
+        onClick={() => {
+          Analytics.track(TRACK.DISLIKE_VIDEO)
+          setShowReport(true)
+        }}
         variant="secondary"
         className="!p-0"
       >

@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
 import useAppStore from '@lib/store'
-import { Mixpanel, TRACK } from '@utils/track'
+import { Analytics, TRACK } from '@utils/analytics'
 import {
   SETTINGS,
   SETTINGS_DANGER_ZONE,
@@ -27,7 +27,7 @@ const Settings = () => {
   const router = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   useEffect(() => {
-    Mixpanel.track('Pageview', { path: TRACK.PAGE_VIEW.SETTINGS })
+    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.SETTINGS })
   }, [])
 
   const { data, loading, error } = useQuery(ProfileDocument, {

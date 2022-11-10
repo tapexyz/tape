@@ -4,6 +4,7 @@ import { Button } from '@components/UIElements/Button'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { Analytics, TRACK } from '@utils/analytics'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -43,6 +44,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onSubscribe()
     toast.success(`Subscribed to ${channel.handle}`)
     setLoading(false)
+    Analytics.track(TRACK.SUBSCRIBE_CHANNEL)
   }
 
   const { signTypedDataAsync } = useSignTypedData({

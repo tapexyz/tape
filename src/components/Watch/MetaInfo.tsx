@@ -1,6 +1,7 @@
 import ArweaveExplorerLink from '@components/Common/Links/ArweaveExplorerLink'
 import IPFSLink from '@components/Common/Links/IPFSLink'
 import TokenExplorerLink from '@components/Common/Links/TokenExplorerLink'
+import { Analytics, TRACK } from '@utils/analytics'
 import getCategoryName from '@utils/functions/getCategoryName'
 import getMetadataHash from '@utils/functions/getMetadataHash'
 import { getIsIPFSUrl } from '@utils/functions/getVideoUrl'
@@ -30,21 +31,30 @@ const MetaInfo: FC<Props> = ({ video }) => {
 
       {isIPFS ? (
         <IPFSLink hash={getMetadataHash(video)}>
-          <div className="flex items-center space-x-1">
+          <div
+            onClick={() => Analytics.track(TRACK.CLICK_VIEW_METADATA)}
+            className="flex items-center space-x-1"
+          >
             <div className="text-sm whitespace-nowrap">View Metadata</div>
             <BiLinkExternal className="text-sm" />
           </div>
         </IPFSLink>
       ) : (
         <ArweaveExplorerLink txId={getMetadataHash(video)}>
-          <div className="flex items-center space-x-1">
+          <div
+            onClick={() => Analytics.track(TRACK.CLICK_VIEW_METADATA)}
+            className="flex items-center space-x-1"
+          >
             <div className="text-sm whitespace-nowrap">View Metadata</div>
             <BiLinkExternal className="text-sm" />
           </div>
         </ArweaveExplorerLink>
       )}
       {video.collectNftAddress && (
-        <div className="items-center hidden space-x-1 md:flex">
+        <div
+          onClick={() => Analytics.track(TRACK.CLICK_VIEW_TOKEN)}
+          className="items-center hidden space-x-1 md:flex"
+        >
           <span className="middot" />
           <TokenExplorerLink address={video.collectNftAddress}>
             <div className="flex items-center space-x-1">
