@@ -42,6 +42,7 @@ const VideoOptions = ({
   const [hideVideo] = useMutation(HidePublicationDocument, {
     onCompleted: () => {
       toast.success('Video deleted')
+      Analytics.track(TRACK.DELETE_VIDEO)
       router.reload()
     }
   })
@@ -57,6 +58,7 @@ const VideoOptions = ({
   }
 
   const onClickWatchLater = () => {
+    Analytics.track(TRACK.CLICK_WATCH_LATER)
     isAlreadyAddedToWatchLater(video, watchLater)
       ? removeFromWatchLater(video)
       : addToWatchLater(video)

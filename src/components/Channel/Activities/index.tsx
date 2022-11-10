@@ -1,4 +1,5 @@
 import { Tab } from '@headlessui/react'
+import { Analytics, TRACK } from '@utils/analytics'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
@@ -55,6 +56,9 @@ const Activities: FC<Props> = ({ channel }) => {
         <Tab.Group defaultIndex={getDefaultTab()}>
           <Tab.List className="flex overflow-x-auto no-scrollbar">
             <Tab
+              onClick={() =>
+                Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_VIDEOS)
+              }
               className={({ selected }) =>
                 clsx(
                   'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
@@ -68,6 +72,7 @@ const Activities: FC<Props> = ({ channel }) => {
               <span>Videos</span>
             </Tab>
             <Tab
+              onClick={() => Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_BYTES)}
               className={({ selected }) =>
                 clsx(
                   'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
@@ -81,6 +86,9 @@ const Activities: FC<Props> = ({ channel }) => {
               <span>Bytes</span>
             </Tab>
             <Tab
+              onClick={() =>
+                Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COMMENTED)
+              }
               className={({ selected }) =>
                 clsx(
                   'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
@@ -94,6 +102,9 @@ const Activities: FC<Props> = ({ channel }) => {
               <span>Commented</span>
             </Tab>
             <Tab
+              onClick={() =>
+                Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_MIRRORED)
+              }
               className={({ selected }) =>
                 clsx(
                   'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
@@ -107,6 +118,7 @@ const Activities: FC<Props> = ({ channel }) => {
               <span>Mirrored</span>
             </Tab>
             <Tab
+              onClick={() => Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_NFTS)}
               className={({ selected }) =>
                 clsx(
                   'px-4 py-2 flex items-center space-x-2 border-b-2 whitespace-nowrap text-sm focus:outline-none',
@@ -120,6 +132,9 @@ const Activities: FC<Props> = ({ channel }) => {
               <span>NFTs</span>
             </Tab>
             <Tab
+              onClick={() =>
+                Analytics.track(TRACK.CHANNEL.CLICK_OTHER_CHANNELS)
+              }
               className={({ selected }) =>
                 clsx(
                   'px-4 py-2 border-b-2 flex items-center space-x-2 text-sm focus:outline-none',
@@ -133,6 +148,7 @@ const Activities: FC<Props> = ({ channel }) => {
               <span>Channels</span>
             </Tab>
             <Tab
+              onClick={() => Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_STATS)}
               className={({ selected }) =>
                 clsx(
                   'px-4 py-2 border-b-2 flex items-center space-x-2 text-sm focus:outline-none',
@@ -146,6 +162,7 @@ const Activities: FC<Props> = ({ channel }) => {
               <span>Stats</span>
             </Tab>
             <Tab
+              onClick={() => Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_ABOUT)}
               className={({ selected }) =>
                 clsx(
                   'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
