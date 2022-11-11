@@ -6,6 +6,7 @@ import {
   lightTheme,
   RainbowKitProvider
 } from '@rainbow-me/rainbowkit'
+import { ThemeOptions } from '@rainbow-me/rainbowkit/dist/themes/baseTheme'
 import {
   coinbaseWallet,
   injectedWallet,
@@ -52,11 +53,18 @@ const wagmiClient = createClient({
 // Enables usage of theme in RainbowKitProvider
 const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
   const { theme } = useTheme()
+  const themeOptions: ThemeOptions = {
+    fontStack: 'system',
+    overlayBlur: 'small',
+    accentColor: '#6366f1'
+  }
   return (
     <RainbowKitProvider
       modalSize="compact"
       chains={chains}
-      theme={theme === 'dark' ? darkTheme() : lightTheme()}
+      theme={
+        theme === 'dark' ? darkTheme(themeOptions) : lightTheme(themeOptions)
+      }
     >
       {children}
     </RainbowKitProvider>

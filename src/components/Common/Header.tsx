@@ -38,7 +38,7 @@ const Header: FC<Props> = ({ className }) => {
       )}
     >
       <div className="w-full">
-        <div className="flex desktop:px-6 px-2 items-center justify-between w-full">
+        <div className="flex ultrawide:px-6 px-2 items-center justify-between w-full">
           <div className="md:w-[330px]">
             <Link href={HOME} className="block md:invisible">
               <img
@@ -86,7 +86,7 @@ const Header: FC<Props> = ({ className }) => {
               type="button"
               onClick={() => setActiveFilter('all')}
               className={clsx(
-                'px-3.5 capitalize py-1 text-xs border dark:border-gray-700 rounded-full',
+                'px-3.5 capitalize py-1 text-xs border border-gray-200 dark:border-gray-700 rounded-full',
                 activeFilter === 'all'
                   ? 'bg-black text-white'
                   : 'dark:bg-gray-800 bg-gray-100'
@@ -100,7 +100,7 @@ const Header: FC<Props> = ({ className }) => {
                 onClick={() => setActiveFilter(category.tag)}
                 key={category.tag}
                 className={clsx(
-                  'px-3.5 capitalize py-1 text-xs border dark:border-gray-700 rounded-full whitespace-nowrap',
+                  'px-3.5 capitalize py-1 text-xs border border-gray-200 dark:border-gray-700 rounded-full whitespace-nowrap',
                   activeFilter === category.tag
                     ? 'bg-black text-white'
                     : 'dark:bg-gray-800 bg-gray-100'

@@ -60,7 +60,7 @@ const Sidebar = () => {
               )}
             >
               <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
-                <HomeOutline />
+                <HomeOutline className="w-5 h-5" />
                 <p className="text-[11px] font-medium">Home</p>
               </div>
             </Link>
@@ -74,7 +74,7 @@ const Sidebar = () => {
               )}
             >
               <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
-                <FeedOutline />
+                <FeedOutline className="w-5 h-5" />
                 <p className="text-[11px] font-medium">Feed</p>
               </div>
             </Link>
@@ -88,7 +88,7 @@ const Sidebar = () => {
               )}
             >
               <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
-                <ExploreOutline />
+                <ExploreOutline className="w-5 h-5" />
                 <p className="text-[11px] font-medium">Explore</p>
               </div>
             </Link>
@@ -102,7 +102,7 @@ const Sidebar = () => {
               })}
             >
               <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
-                <BytesOutline />
+                <BytesOutline className="w-5 h-5" />
                 <p className="text-[11px] font-medium">Bytes</p>
               </div>
             </Link>
