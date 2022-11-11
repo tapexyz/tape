@@ -11,7 +11,6 @@ import useDebounce from '@utils/hooks/useDebounce'
 import useOutsideClick from '@utils/hooks/useOutsideClick'
 import clsx from 'clsx'
 import { FC, useEffect, useRef, useState } from 'react'
-import { AiOutlineSearch } from 'react-icons/ai'
 import {
   Profile,
   SearchProfilesDocument,
@@ -20,6 +19,7 @@ import {
 } from 'src/types/lens'
 import { LenstubePublication } from 'src/types/local'
 
+import SearchOutline from '../Icons/SearchOutline'
 import Channels from './Channels'
 import Videos from './Videos'
 
@@ -86,8 +86,8 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
               value={keyword}
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-              <AiOutlineSearch
-                className="w-5 h-5 text-gray-400"
+              <SearchOutline
+                className="w-4 h-4 text-gray-400"
                 aria-hidden="true"
               />
             </div>
