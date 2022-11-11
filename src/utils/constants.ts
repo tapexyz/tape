@@ -45,7 +45,7 @@ export const IMAGE_CDN_URL = IS_MAINNET
   : 'https://ik.imagekit.io/lenstube/testnet'
 export const VIDEO_CDN_URL = 'https://cdn.livepeer.com'
 
-export const SCROLL_ROOT_MARGIN = '20% 0px'
+export const SCROLL_ROOT_MARGIN = '30% 0px'
 
 // ipfs
 export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 500 : 100
