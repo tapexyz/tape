@@ -10,24 +10,23 @@ import {
 } from '@utils/constants'
 import { DISCORD, PRIVACY } from '@utils/url-path'
 import React from 'react'
-import { BsThreeDots } from 'react-icons/bs'
+
+import ChevronRightOutline from './Icons/ChevronRightOutline'
 
 const MoreTrigger = () => {
   return (
     <DropMenu
       trigger={
-        <div className="flex flex-1 flex-col space-y-2 mb-0.5">
-          <button
-            onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.OPEN)}
-            type="button"
-            className="flex p-3 py-4 justify-center rounded-lg hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-90 hover:opacity-100"
-          >
-            <BsThreeDots />
-          </button>
-        </div>
+        <button
+          onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.OPEN)}
+          type="button"
+          className="flex px-3 py-4 w-12 h-12 justify-center rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none opacity-90 hover:opacity-100"
+        >
+          <ChevronRightOutline className="w-4 h-4" />
+        </button>
       }
       position="bottom"
-      positionClassName="left-[90px] -bottom-1"
+      positionClassName="left-[72px] -bottom-1"
       className="w-full"
     >
       <div className="p-2 max-h-96 mt-1.5 w-48 overflow-x-hidden overflow-y-auto border shadow-xl border-gray-100 rounded-xl dark:border-gray-800 bg-secondary">
