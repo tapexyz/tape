@@ -68,7 +68,8 @@ const FeeCollectForm: FC<Props> = ({
   }
 
   const onSubmit = (data: FormData) => {
-    if (Number(data.amount) === 0) {
+    const amount = Number(data.amount)
+    if (amount === 0) {
       return setError('amount', { message: 'Amount should be greater than 0' })
     }
     if (Number(data.collectLimit) === 0) {
@@ -77,7 +78,10 @@ const FeeCollectForm: FC<Props> = ({
       })
     }
     setCollectType({
-      amount: { currency: data.currency, value: data.amount.toString() },
+      amount: {
+        currency: data.currency,
+        value: amount.toString()
+      },
       referralFee: data.referralPercent,
       recipient: selectedChannel?.ownedBy,
       collectLimit: data.collectLimit
