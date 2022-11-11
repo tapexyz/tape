@@ -6,7 +6,8 @@ import useAppStore from '@lib/store'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID
+  LENSTUBE_BYTES_APP_ID,
+  SCROLL_ROOT_MARGIN
 } from '@utils/constants'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
@@ -64,7 +65,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
   }, [id, refetch])
 
   const { observe } = useInView({
-    rootMargin: '1000px 0px',
+    rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       try {
         const { data } = await fetchMore({

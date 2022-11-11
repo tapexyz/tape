@@ -6,7 +6,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { LENS_CUSTOM_FILTERS } from '@utils/constants'
+import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@utils/constants'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
@@ -75,7 +75,7 @@ const VideoComments: FC<Props> = ({ video }) => {
   }
 
   const { observe } = useInView({
-    rootMargin: '1000px 0px',
+    rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       try {
         const { data } = await fetchMore({

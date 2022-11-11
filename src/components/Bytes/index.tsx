@@ -5,7 +5,11 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { Analytics, TRACK } from '@utils/analytics'
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
+import {
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID,
+  SCROLL_ROOT_MARGIN
+} from '@utils/constants'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -53,7 +57,7 @@ const Bytes = () => {
   })
 
   const { observe } = useInView({
-    rootMargin: '1000px 0px',
+    rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       try {
         const { data } = await fetchMore({
