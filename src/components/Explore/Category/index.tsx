@@ -8,7 +8,8 @@ import logger from '@lib/logger'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID
+  LENSTUBE_BYTES_APP_ID,
+  SCROLL_ROOT_MARGIN
 } from '@utils/constants'
 import getCategoryName from '@utils/functions/getCategoryName'
 import { useRouter } from 'next/router'
@@ -54,7 +55,7 @@ const ExploreCategory = () => {
   })
 
   const { observe } = useInView({
-    rootMargin: '1000px 0px',
+    rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       try {
         const { data } = await fetchMore({
