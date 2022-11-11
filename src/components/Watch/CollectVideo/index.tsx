@@ -159,22 +159,22 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
 
   const shopCollects = () => {
     if (!video) {
-      return;
+      return
     }
-    var pubId = '';
+    var pubId = ''
     if (video.__typename === 'Mirror') {
       if (!video.mirrorOf) {
-        return;
+        return
       }
-      pubId = video.mirrorOf.id;
+      pubId = video.mirrorOf.id
     } else {
-      pubId = video.id;
+      pubId = video.id
     }
-    const decimalProfileId = parseInt(pubId.split('-')[0], 16);
-    const decimalPubId = parseInt(pubId.split('-')[1], 16);
-    const marketplacePublicationId = decimalProfileId + '_' + decimalPubId;
-    const marketplaceUrl = 'http://lensport.io/p/' + marketplacePublicationId;
-    window.open(marketplaceUrl);
+    const decimalProfileId = parseInt(pubId.split('-')[0], 16)
+    const decimalPubId = parseInt(pubId.split('-')[1], 16)
+    const marketplacePublicationId = decimalProfileId + '_' + decimalPubId
+    const marketplaceUrl = 'http://lensport.io/p/' + marketplacePublicationId
+    window.open(marketplaceUrl)
   }
 
   const onClickCollect = () => {

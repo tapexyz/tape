@@ -181,7 +181,8 @@ const CollectModal: FC<Props> = ({
             <div className="flex justify-end">
               <span className="flex items-center space-x-2">
                 {isAllowed ? (
-                  collectModule?.followerOnly && !video.profile.isFollowedByMe ? (
+                  collectModule?.followerOnly &&
+                  !video.profile.isFollowedByMe ? (
                     <div className="flex-1">
                       <Alert variant="warning">
                         <div className="flex px-2">
@@ -211,9 +212,7 @@ const CollectModal: FC<Props> = ({
                     }
                   />
                 )}
-                <Button onClick={() => shopCollects()}>
-                  Shop Collects
-                </Button>
+                <Button onClick={() => shopCollects()}>Shop Collects</Button>
               </span>
             </div>
           </>

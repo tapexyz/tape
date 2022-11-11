@@ -1,4 +1,4 @@
-schema: https://api.lens.dev
+schema: https://api-mumbai.lens.dev
 documents: "**/*.graphql"
 hooks:
   afterOneFileWrite:
