@@ -157,6 +157,26 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     })
   }
 
+  const shopCollects = () => {
+    if (!video) {
+      return;
+    }
+    var pubId = '';
+    if (video.__typename === 'Mirror') {
+      if (!video.mirrorOf) {
+        return;
+      }
+      pubId = video.mirrorOf.id;
+    } else {
+      pubId = video.id;
+    }
+    const decimalProfileId = parseInt(pubId.split('-')[0], 16);
+    const decimalPubId = parseInt(pubId.split('-')[1], 16);
+    const marketplacePublicationId = decimalProfileId + '_' + decimalPubId;
+    const marketplaceUrl = 'http://lensport.io/p/' + marketplacePublicationId;
+    window.open(marketplaceUrl);
+  }
+
   const onClickCollect = () => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     return setShowCollectModal(true)
@@ -182,6 +202,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
           showModal={showCollectModal}
           setShowModal={setShowCollectModal}
           collectNow={collectNow}
+          shopCollects={shopCollects}
           collecting={loading}
           collectModule={collectModule}
           fetchingCollectModule={fetchingCollectModule}
