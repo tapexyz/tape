@@ -149,7 +149,7 @@ const Layout: FC<Props> = ({ children }) => {
             showFullScreen ? 'px-0' : '',
             sidebarCollapsed || pathname === '/watch/[id]'
               ? 'md:pl-[90px]'
-              : 'md:pl-[170px]'
+              : 'md:pl-[180px]'
           )}
         >
           {!NO_HEADER_PATHS.includes(pathname) && (

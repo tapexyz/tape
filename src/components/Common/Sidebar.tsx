@@ -1,6 +1,5 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import usePersistStore from '@lib/store/persist'
-import { Analytics, TRACK } from '@utils/analytics'
 import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
 import { BYTES, EXPLORE, FEED, HOME } from '@utils/url-path'
 import clsx from 'clsx'
@@ -35,16 +34,16 @@ const Sidebar = () => {
       <div
         className={clsx(
           'fixed top-0 bottom-0 left-0 z-10 items-start justify-between hidden bg-white dark:bg-theme md:flex md:flex-col',
-          sidebarCollapsed ? 'w-[90px]' : 'w-[170px]'
+          sidebarCollapsed ? 'w-[90px]' : 'w-[180px]'
         )}
       >
         <div
           className={clsx(
             'flex flex-col space-y-2',
-            sidebarCollapsed ? 'self-center' : 'px-3 w-full'
+            sidebarCollapsed ? 'self-center' : 'px-[18px] w-full'
           )}
         >
-          <div className="p-3">
+          <div className={clsx('py-3', sidebarCollapsed ? 'px-3' : 'px-3.5')}>
             <Link
               href={HOME}
               className="flex items-center pt-1 focus:outline-none"
@@ -66,12 +65,12 @@ const Sidebar = () => {
               <Link
                 href={HOME}
                 className={clsx(
-                  'py-2 2xl:py-2.5 flex items-center group rounded-full',
+                  'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
                   isActivePath(HOME)
                     ? 'bg-indigo-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
-                    ? 'w-12 h-12 justify-center'
+                    ? 'w-12 justify-center'
                     : 'w-full px-4 space-x-3'
                 )}
               >
@@ -87,16 +86,16 @@ const Sidebar = () => {
               <Link
                 href={FEED}
                 className={clsx(
-                  'py-2 2xl:py-2.5 flex items-center group rounded-full',
+                  'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
                   isActivePath(FEED)
                     ? 'bg-indigo-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
-                    ? 'w-12 h-12 justify-center'
+                    ? 'w-12 justify-center'
                     : 'w-full px-4 space-x-3'
                 )}
               >
-                <FeedOutline className="w-5 h-5" />
+                <FeedOutline className="w-5 h-5 flex-none" />
                 {!sidebarCollapsed && (
                   <span className="text-sm">Subscriptions</span>
                 )}
@@ -110,12 +109,12 @@ const Sidebar = () => {
               <Link
                 href={BYTES}
                 className={clsx(
-                  'py-2 2xl:py-2.5 flex items-center group rounded-full',
+                  'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
                   isActivePath(BYTES) || router.pathname === '/bytes/[id]'
                     ? 'bg-indigo-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
-                    ? 'w-12 h-12 justify-center'
+                    ? 'w-12 justify-center'
                     : 'w-full px-4 space-x-3'
                 )}
               >
@@ -131,12 +130,12 @@ const Sidebar = () => {
               <Link
                 href={EXPLORE}
                 className={clsx(
-                  'py-2 2xl:py-2.5 flex items-center group rounded-full',
+                  'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
                   isActivePath(EXPLORE)
                     ? 'bg-indigo-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
-                    ? 'w-12 h-12 justify-center'
+                    ? 'w-12 justify-center'
                     : 'w-full px-4 space-x-3'
                 )}
               >
@@ -154,10 +153,7 @@ const Sidebar = () => {
         >
           {!sidebarCollapsed && <Footer />}
           <button
-            onClick={() => {
-              Analytics.track(TRACK.SYSTEM.MORE_MENU.OPEN)
-              setSidebarCollapsed(!sidebarCollapsed)
-            }}
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
             type="button"
             className={clsx(
               'flex p-3.5 mt-2 items-center justify-center rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none opacity-90 hover:opacity-100',
