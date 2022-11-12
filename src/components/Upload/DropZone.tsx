@@ -94,7 +94,7 @@ const DropZone = () => {
             <div>
               <label
                 htmlFor="chooseVideo"
-                className="px-8 py-4 text-lg text-white bg-indigo-500 cursor-pointer rounded-xl"
+                className="px-8 py-4 text-lg text-white bg-indigo-500 cursor-pointer rounded-full"
               >
                 or choose video
                 <input
