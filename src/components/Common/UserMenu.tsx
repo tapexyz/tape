@@ -94,7 +94,7 @@ const UserMenu = () => {
         </Button>
       }
     >
-      <div className="px-1 mt-1.5 w-48 divide-y shadow-xl max-h-96 divide-gray-200 dark:divide-gray-800 overflow-hidden border border-gray-200 rounded-lg dark:border-gray-800 bg-secondary">
+      <div className="px-1 mt-1.5 w-48 divide-y shadow max-h-96 divide-gray-200 dark:divide-gray-800 overflow-hidden border border-gray-100 rounded-xl dark:border-gray-800 bg-secondary">
         {showAccountSwitcher ? (
           <>
             <div className="flex opacity-70 items-centerspace-x-2">

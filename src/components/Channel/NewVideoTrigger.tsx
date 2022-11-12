@@ -1,3 +1,4 @@
+import NewVideoOutline from '@components/Common/Icons/NewVideoOutline'
 import { Button } from '@components/UIElements/Button'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -5,7 +6,6 @@ import { Menu } from '@headlessui/react'
 import usePersistStore from '@lib/store/persist'
 import { UPLOAD } from '@utils/url-path'
 import React from 'react'
-import { AiOutlineVideoCameraAdd } from 'react-icons/ai'
 import { HiOutlineStatusOnline, HiOutlineUpload } from 'react-icons/hi'
 
 const NewVideoTrigger = () => {
@@ -18,7 +18,7 @@ const NewVideoTrigger = () => {
       trigger={
         <Button
           className="md:!block !hidden"
-          icon={<AiOutlineVideoCameraAdd className="text-lg" />}
+          icon={<NewVideoOutline className="w-4 h-4" />}
         >
           <span>New video</span>
         </Button>
@@ -29,7 +29,7 @@ const NewVideoTrigger = () => {
           <Menu.Item
             as={NextLink}
             href={UPLOAD}
-            className="inline-flex items-center px-4 py-1.5 space-x-2 rounded-lg opacity-90 hover:opacity-100 hover:bg-gray-200 dark:hover:bg-gray-800"
+            className="inline-flex items-center px-2.5 py-1.5 space-x-2 rounded-lg opacity-90 hover:opacity-100 hover:bg-gray-200 dark:hover:bg-gray-800"
           >
             <HiOutlineUpload />
             <span className="whitespace-nowrap">Upload Video</span>
@@ -38,7 +38,7 @@ const NewVideoTrigger = () => {
             <button
               type="button"
               disabled
-              className="inline-flex opacity-40 items-center px-4 py-1.5 space-x-2 rounded-lg"
+              className="inline-flex opacity-40 items-center px-2.5 py-1.5 space-x-2 rounded-lg"
             >
               <Tooltip content="Coming soon">
                 <span className="inline-flex items-center space-x-2">

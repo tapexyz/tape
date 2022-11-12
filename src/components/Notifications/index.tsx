@@ -98,7 +98,7 @@ const Notifications = () => {
   return (
     <div className="mx-auto md:p-0 md:container md:max-w-2xl">
       <MetaTags title="Notifications" />
-      <h1 className="mb-4 text-lg font-medium md:hidden">Notifications</h1>
+      <h1 className="mb-4 text-lg font-semibold">Notifications</h1>
       {loading && <NotificationsShimmer />}
       {notifications?.map((notification: Notification, index: number) => (
         <div
