@@ -76,7 +76,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
     <div className="md:w-96">
       <div ref={resultsRef}>
         <div className="relative">
-          <div className="relative w-full overflow-hidden border border-gray-200 cursor-default dark:border-gray-800 rounded-full sm:text-sm">
+          <div className="relative w-full overflow-hidden border border-gray-200 cursor-default dark:border-gray-700 rounded-full sm:text-sm">
             <input
               className="w-full py-2 pl-4 pr-10 text-sm bg-transparent focus:outline-none"
               onChange={(event) => setKeyword(event.target.value)}

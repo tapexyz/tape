@@ -15,7 +15,7 @@ const MobileBottomNav = () => {
     <div className="fixed inset-x-0 bottom-0 z-[4] md:hidden">
       <div
         className={clsx(
-          'grid grid-cols-5 bg-white border-t border-gray-300 dark:border-gray-700 dark:bg-black space-between'
+          'grid grid-cols-5 bg-white border-t border-gray-300 dark:border-gray-700 dark:bg-theme space-between'
         )}
       >
         <Link

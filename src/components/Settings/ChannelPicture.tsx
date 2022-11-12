@@ -173,7 +173,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       <label
         htmlFor="choosePfp"
         className={clsx(
-          'absolute top-0 grid w-32 h-32 bg-white rounded-full cursor-pointer bg-opacity-70 place-items-center backdrop-blur-lg invisible group-hover:visible dark:bg-black',
+          'absolute top-0 grid w-32 h-32 bg-white rounded-full cursor-pointer bg-opacity-70 place-items-center backdrop-blur-lg invisible group-hover:visible dark:bg-theme',
           { '!visible': loading && !pfpData?.hash }
         )}
       >
