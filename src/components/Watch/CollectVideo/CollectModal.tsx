@@ -33,7 +33,6 @@ type Props = {
   fetchingCollectModule: boolean
   collectModule: LenstubeCollectModule
   collectNow: () => void
-  shopCollects: () => void
 }
 
 const CollectModal: FC<Props> = ({
@@ -41,7 +40,6 @@ const CollectModal: FC<Props> = ({
   setShowModal,
   video,
   collectNow,
-  shopCollects,
   collecting,
   collectModule,
   fetchingCollectModule
