@@ -22,5 +22,5 @@ export const getIsHlsSupported = (): boolean => {
     (sourceBuffer.prototype &&
       typeof sourceBuffer.prototype.appendBuffer === 'function' &&
       typeof sourceBuffer.prototype.remove === 'function')
-  return !!isTypeSupported && !!sourceBufferValidAPI
+  return Boolean(isTypeSupported) && Boolean(sourceBufferValidAPI)
 }

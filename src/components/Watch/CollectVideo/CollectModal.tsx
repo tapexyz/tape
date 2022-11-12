@@ -61,8 +61,8 @@ const CollectModal: FC<Props> = ({
     addressOrName: selectedChannel?.ownedBy,
     token: collectModule?.amount?.asset?.address,
     formatUnits: collectModule?.amount?.asset?.decimals,
-    watch: !!collectModule?.amount,
-    enabled: !!collectModule?.amount
+    watch: Boolean(collectModule?.amount),
+    enabled: Boolean(collectModule?.amount)
   })
 
   const { data: revenueData } = useQuery(PublicationRevenueDocument, {
