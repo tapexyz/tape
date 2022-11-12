@@ -178,42 +178,41 @@ const CollectModal: FC<Props> = ({
                 <span className="text-lg">{collectModule.referralFee} %</span>
               </div>
             ) : null}
-            <div className="flex justify-end">
-              <span className="flex items-center space-x-2">
-                {isAllowed ? (
-                  collectModule?.followerOnly &&
-                  !video.profile.isFollowedByMe ? (
-                    <div className="flex-1">
-                      <Alert variant="warning">
-                        <div className="flex px-2">
-                          Only {isMembershipActive ? 'Members' : 'Subscribers'}{' '}
-                          can collect this publication
-                        </div>
-                      </Alert>
-                    </div>
-                  ) : balanceLoading && !haveEnoughBalance ? (
-                    <div className="flex justify-center w-full py-2">
-                      <Loader />
-                    </div>
-                  ) : haveEnoughBalance ? (
-                    <Button disabled={collecting} onClick={() => collectNow()}>
-                      {isFreeCollect ? 'Collect for free' : 'Collect Now'}
-                    </Button>
-                  ) : (
-                    <BalanceAlert collectModule={collectModule} />
-                  )
+            <div className="flex justify-end space-x-2">
+              {isAllowed ? (
+                collectModule?.followerOnly && !video.profile.isFollowedByMe ? (
+                  <div className="flex-1">
+                    <Alert variant="warning">
+                      <div className="flex px-2">
+                        Only {isMembershipActive ? 'Members' : 'Subscribers'}{' '}
+                        can collect this publication
+                      </div>
+                    </Alert>
+                  </div>
+                ) : balanceLoading && !haveEnoughBalance ? (
+                  <div className="flex justify-center w-full py-2">
+                    <Loader />
+                  </div>
+                ) : haveEnoughBalance ? (
+                  <Button disabled={collecting} onClick={() => collectNow()}>
+                    {isFreeCollect ? 'Collect for free' : 'Collect Now'}
+                  </Button>
                 ) : (
-                  <PermissionAlert
-                    isAllowed={isAllowed}
-                    setIsAllowed={setIsAllowed}
-                    allowanceModule={
-                      allowanceData
-                        ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount
-                    }
-                  />
-                )}
+                  <BalanceAlert collectModule={collectModule} />
+                )
+              ) : (
+                <PermissionAlert
+                  isAllowed={isAllowed}
+                  setIsAllowed={setIsAllowed}
+                  allowanceModule={
+                    allowanceData
+                      ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount
+                  }
+                />
+              )}
+              {video?.stats.totalAmountOfCollects > 0 ? (
                 <Button onClick={() => shopCollects()}>Shop Collects</Button>
-              </span>
+              ) : null}
             </div>
           </>
         ) : (

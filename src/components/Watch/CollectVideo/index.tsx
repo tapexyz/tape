@@ -10,8 +10,9 @@ import { Analytics, TRACK } from '@utils/analytics'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
+  LENSPORT_MARKETPLACE_URL,
   RELAYER_ENABLED,
-  SIGN_IN_REQUIRED_MESSAGE
+  SIGN_IN_REQUIRED_MESSAGE,
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
@@ -161,19 +162,11 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     if (!video) {
       return
     }
-    var pubId = ''
-    if (video.__typename === 'Mirror') {
-      if (!video.mirrorOf) {
-        return
-      }
-      pubId = video.mirrorOf.id
-    } else {
-      pubId = video.id
-    }
+    const pubId = video.id ?? video.mirrorOf?.id
     const decimalProfileId = parseInt(pubId.split('-')[0], 16)
     const decimalPubId = parseInt(pubId.split('-')[1], 16)
     const marketplacePublicationId = decimalProfileId + '_' + decimalPubId
-    const marketplaceUrl = 'http://lensport.io/p/' + marketplacePublicationId
+    const marketplaceUrl = `${LENSPORT_MARKETPLACE_URL}/p/${marketplacePublicationId}`
     window.open(marketplaceUrl)
   }
 
