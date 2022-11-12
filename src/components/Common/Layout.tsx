@@ -44,6 +44,7 @@ const Layout: FC<Props> = ({ children }) => {
   const setChannels = useAppStore((state) => state.setChannels)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const setSelectedChannelId = usePersistStore(
     (state) => state.setSelectedChannelId
@@ -143,13 +144,19 @@ const Layout: FC<Props> = ({ children }) => {
       >
         <Sidebar />
         <div
-          className={clsx('w-full md:pl-[90px]', showFullScreen ? 'px-0' : '')}
+          className={clsx(
+            'w-full',
+            showFullScreen ? 'px-0' : '',
+            sidebarCollapsed || pathname === '/watch/[id]'
+              ? 'md:pl-[90px]'
+              : 'md:pl-[170px]'
+          )}
         >
           {!NO_HEADER_PATHS.includes(pathname) && (
             <Header className={showFullScreen ? 'hidden md:flex' : ''} />
           )}
           <div
-            className={clsx('py-2 ultrawide:max-w-[110rem] mx-auto md:px-2', {
+            className={clsx('py-6 ultrawide:max-w-[110rem] mx-auto md:px-2', {
               '!p-0': showFullScreen
             })}
           >

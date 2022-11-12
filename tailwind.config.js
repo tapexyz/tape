@@ -9,6 +9,9 @@ module.exports = {
         laptop: '1024px',
         desktop: '1280px',
         ultrawide: '1800px'
+      },
+      colors: {
+        theme: '#151a2c'
       }
     }
   },
