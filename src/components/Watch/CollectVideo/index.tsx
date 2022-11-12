@@ -12,7 +12,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   LENSPORT_MARKETPLACE_URL,
   RELAYER_ENABLED,
-  SIGN_IN_REQUIRED_MESSAGE,
+  SIGN_IN_REQUIRED_MESSAGE
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
