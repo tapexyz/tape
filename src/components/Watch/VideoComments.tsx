@@ -3,7 +3,6 @@ import Alert from '@components/Common/Alert'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@utils/constants'
@@ -97,9 +96,7 @@ const VideoComments: FC<Props> = ({ video }) => {
           ...comments,
           ...(data?.publications?.items as LenstubePublication[])
         ])
-      } catch (error) {
-        logger.error('[Error Fetch Video Comments]', error)
-      }
+      } catch {}
     }
   })
 

@@ -4,7 +4,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -75,9 +74,7 @@ const ExploreHashtag = () => {
             ...(data?.search?.items as LenstubePublication[])
           ])
         }
-      } catch (error) {
-        logger.error('[Error Fetch Explore Hashtag]', error)
-      }
+      } catch {}
     }
   })
   if (!hashtag) return <Custom404 />

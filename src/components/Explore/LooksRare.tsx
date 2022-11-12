@@ -3,7 +3,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -60,9 +59,7 @@ const LooksRare = () => {
           ...videos,
           ...(data?.explorePublications?.items as LenstubePublication[])
         ])
-      } catch (error) {
-        logger.error('[Error Fetch Looks Rare]', error)
-      }
+      } catch {}
     }
   })
 

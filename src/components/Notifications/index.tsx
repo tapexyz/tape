@@ -3,7 +3,6 @@ import MetaTags from '@components/Common/MetaTags'
 import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
@@ -96,9 +95,7 @@ const Notifications = () => {
           ...notifications,
           ...(data?.notifications?.items as Notification[])
         ])
-      } catch (error) {
-        logger.error('[Error Fetch Notifications]', error)
-      }
+      } catch {}
     }
   })
 

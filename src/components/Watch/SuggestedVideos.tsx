@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import {
   LENS_CUSTOM_FILTERS,
@@ -81,9 +80,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
           ...videos,
           ...(data?.explorePublications?.items as LenstubePublication[])
         ])
-      } catch (error) {
-        logger.error('[Error Fetch Suggested Videos]', error)
-      }
+      } catch {}
     }
   })
 

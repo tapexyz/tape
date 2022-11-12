@@ -3,7 +3,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@utils/constants'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -61,9 +60,7 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
           ...channelVideos,
           ...(data?.publications?.items as LenstubePublication[])
         ])
-      } catch (error) {
-        logger.error('[Error Fetch Mirrored Videos]', error)
-      }
+      } catch {}
     }
   })
 

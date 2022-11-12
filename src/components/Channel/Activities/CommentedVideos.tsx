@@ -3,7 +3,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -65,9 +64,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
           ...channelVideos,
           ...(data?.publications?.items as LenstubePublication[])
         ])
-      } catch (error) {
-        logger.error('[Error Fetch Commented Videos]', error)
-      }
+      } catch {}
     }
   })
 

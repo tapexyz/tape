@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
@@ -50,9 +49,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
           ...collectors,
           ...(data?.whoCollectedPublication?.items as Wallet[])
         ])
-      } catch (error) {
-        logger.error('[Error Fetch Collectors]', error)
-      }
+      } catch {}
     }
   })
 

@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import { POLYGON_CHAIN_ID, SCROLL_ROOT_MARGIN } from '@utils/constants'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -56,9 +55,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
         })
         setPageInfo(data?.nfts?.pageInfo)
         setCollectedNFTs([...collectedNFTs, ...(data?.nfts?.items as Nft[])])
-      } catch (error) {
-        logger.error('[Error Fetch Collected NFTs]', error)
-      }
+      } catch {}
     }
   })
 

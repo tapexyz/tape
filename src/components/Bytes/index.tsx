@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { Analytics, TRACK } from '@utils/analytics'
 import {
@@ -73,9 +72,7 @@ const Bytes = () => {
           ...bytes,
           ...(data?.explorePublications?.items as LenstubePublication[])
         ])
-      } catch (error) {
-        logger.error('[Error Fetch Bytes]', error)
-      }
+      } catch {}
     }
   })
 

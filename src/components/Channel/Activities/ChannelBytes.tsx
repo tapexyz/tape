@@ -3,7 +3,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
@@ -64,9 +63,7 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
           ...bytes,
           ...(data?.publications?.items as LenstubePublication[])
         ])
-      } catch (error) {
-        logger.error('[Error Fetch Bytes]', error)
-      }
+      } catch {}
     }
   })
 

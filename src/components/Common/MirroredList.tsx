@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
 import React, { FC, useState } from 'react'
@@ -51,9 +50,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
           ...mirroredList,
           ...(data?.profiles?.items as Profile[])
         ])
-      } catch (error) {
-        logger.error('[Error Fetch Collectors]', error)
-      }
+      } catch {}
     }
   })
 

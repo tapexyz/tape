@@ -3,7 +3,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import { Analytics, TRACK } from '@utils/analytics'
 import {
   LENS_CUSTOM_FILTERS,
@@ -63,9 +62,7 @@ const Curated = () => {
           ...videos,
           ...(data?.explorePublications?.items as LenstubePublication[])
         ])
-      } catch (error) {
-        logger.error('[Error Fetch Recents]', error)
-      }
+      } catch {}
     }
   })
 
