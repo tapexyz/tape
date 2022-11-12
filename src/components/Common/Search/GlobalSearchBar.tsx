@@ -28,9 +28,7 @@ interface Props {
 }
 
 const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
-  const [activeSearch, setActiveSearch] = useState(
-    SearchRequestTypes.Publication
-  )
+  const [activeSearch, setActiveSearch] = useState(SearchRequestTypes.Profile)
   const [keyword, setKeyword] = useState('')
   const debouncedValue = useDebounce<string>(keyword, 500)
   const resultsRef = useRef(null)
@@ -110,10 +108,10 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     )
                   }
                   onClick={() => {
-                    setActiveSearch(SearchRequestTypes.Publication)
+                    setActiveSearch(SearchRequestTypes.Profile)
                   }}
                 >
-                  Videos
+                  Channels
                 </Tab>
                 <Tab
                   className={({ selected }) =>
@@ -125,26 +123,26 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     )
                   }
                   onClick={() => {
-                    setActiveSearch(SearchRequestTypes.Profile)
+                    setActiveSearch(SearchRequestTypes.Publication)
                   }}
                 >
-                  Channels
+                  Videos
                 </Tab>
               </Tab.List>
               <Tab.Panels>
                 <Tab.Panel className="overflow-y-auto max-h-[80vh] no-scrollbar focus:outline-none">
-                  {data?.search?.__typename === 'PublicationSearchResult' && (
-                    <Videos
-                      results={channels as LenstubePublication[]}
+                  {data?.search?.__typename === 'ProfileSearchResult' && (
+                    <Channels
+                      results={channels as Profile[]}
                       loading={loading}
                       clearSearch={clearSearch}
                     />
                   )}
                 </Tab.Panel>
                 <Tab.Panel className="overflow-y-auto max-h-[80vh] no-scrollbar focus:outline-none">
-                  {data?.search?.__typename === 'ProfileSearchResult' && (
-                    <Channels
-                      results={channels as Profile[]}
+                  {data?.search?.__typename === 'PublicationSearchResult' && (
+                    <Videos
+                      results={channels as LenstubePublication[]}
                       loading={loading}
                       clearSearch={clearSearch}
                     />

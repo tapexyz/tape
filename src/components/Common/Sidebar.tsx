@@ -147,7 +147,7 @@ const Sidebar = () => {
         </div>
         <div
           className={clsx(
-            'flex flex-col mb-4',
+            'flex flex-col mb-1',
             sidebarCollapsed ? 'mx-auto' : 'px-3'
           )}
         >
@@ -156,8 +156,8 @@ const Sidebar = () => {
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
             type="button"
             className={clsx(
-              'flex p-3.5 mt-2 items-center justify-center rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none opacity-90 hover:opacity-100',
-              sidebarCollapsed ? 'h-12 w-12' : 'w-full'
+              'flex p-3.5 mt-2 items-center h-12 justify-center rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none opacity-90 hover:opacity-100',
+              sidebarCollapsed ? 'w-12' : 'w-full'
             )}
           >
             {sidebarCollapsed ? (
