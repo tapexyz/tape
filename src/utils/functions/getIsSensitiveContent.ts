@@ -6,8 +6,8 @@ export const getIsSensitiveContent = (
   videoId: string
 ): boolean => {
   return (
-    !!metadata?.attributes?.find((el) => el.value === 'sensitive') ||
+    Boolean(metadata?.attributes?.find((el) => el.value === 'sensitive')) ||
     SENSITIVE_CONTENT.includes(videoId) ||
-    !!metadata?.contentWarning
+    Boolean(metadata?.contentWarning)
   )
 }
