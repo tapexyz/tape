@@ -1,19 +1,23 @@
+import { useQuery } from '@apollo/client'
 import NewVideoTrigger from '@components/Channel/NewVideoTrigger'
-import NotificationTrigger from '@components/Notifications/NotificationTrigger'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
+import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import { CREATOR_VIDEO_CATEGORIES } from '@utils/data/categories'
-import { EXPLORE, HOME } from '@utils/url-path'
+import { EXPLORE, HOME, NOTIFICATIONS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import { FC } from 'react'
+import { NotificationCountDocument } from 'src/types/lens'
 
 import Login from './Auth/Login'
+import BellOutline from './Icons/BellOutline'
 import MoonOutline from './Icons/MoonOutline'
 import SearchOutline from './Icons/SearchOutline'
 import SunOutline from './Icons/SunOutline'
@@ -24,13 +28,42 @@ type Props = {
 }
 
 const Header: FC<Props> = ({ className }) => {
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const [showShowModal, setSearchModal] = useState(false)
   const [activeFilter, setActiveFilter] = useState('all')
   const { theme, setTheme } = useTheme()
   const { pathname } = useRouter()
-
   const showFilter = pathname === HOME || pathname === EXPLORE
+
+  const hasNewNotification = useAppStore((state) => state.hasNewNotification)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const notificationCount = usePersistStore((state) => state.notificationCount)
+  const setNotificationCount = usePersistStore(
+    (state) => state.setNotificationCount
+  )
+  const setHasNewNotification = useAppStore(
+    (state) => state.setHasNewNotification
+  )
+
+  useQuery(NotificationCountDocument, {
+    variables: {
+      request: {
+        profileId: selectedChannel?.id,
+        customFilters: LENS_CUSTOM_FILTERS
+      }
+    },
+    skip: !selectedChannel?.id,
+    onCompleted: (notificationsData) => {
+      if (selectedChannel && notificationsData) {
+        const currentCount =
+          notificationsData?.notifications?.pageInfo?.totalCount
+        setHasNewNotification(notificationCount !== currentCount)
+        setNotificationCount(
+          notificationsData?.notifications?.pageInfo?.totalCount as number
+        )
+      }
+    }
+  })
 
   return (
     <div
@@ -82,7 +115,18 @@ const Header: FC<Props> = ({ className }) => {
             </Button>
             {selectedChannelId ? (
               <>
-                <NotificationTrigger />
+                <Link
+                  onClick={() => Analytics.track(TRACK.CLICK_NOTIFICATIONS)}
+                  href={NOTIFICATIONS}
+                  className="relative p-1"
+                >
+                  <Button variant="outlined" className="!p-[9px]">
+                    <BellOutline className="w-4 h-4" />
+                    {hasNewNotification && (
+                      <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-0 right-0" />
+                    )}
+                  </Button>
+                </Link>
                 <NewVideoTrigger />
               </>
             ) : null}

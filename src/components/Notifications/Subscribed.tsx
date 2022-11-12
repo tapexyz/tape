@@ -66,7 +66,7 @@ const SubscribedNotification: FC<Props> = ({ notification }) => {
         <span className="text-sm text-gray-600 dark:text-gray-400">
           {selectedChannel?.followModule ? 'joined' : 'subscribed'} the channel
         </span>
-        <div className="flex items-center space-x-1 text-xs text-gray-400">
+        <div className="flex items-center space-x-1 text-xs text-gray-500">
           <span>{dayjs(new Date(notification?.createdAt)).fromNow()}</span>
         </div>
       </div>

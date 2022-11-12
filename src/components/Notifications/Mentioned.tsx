@@ -48,7 +48,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
           </Link>
           your channel
         </span>
-        <div className="flex items-center flex-none space-x-1 text-xs text-gray-400">
+        <div className="flex items-center flex-none space-x-1 text-xs text-gray-500">
           <span>{dayjs(new Date(notification?.createdAt)).fromNow()}</span>
         </div>
       </div>

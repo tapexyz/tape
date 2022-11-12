@@ -45,7 +45,7 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
             video
           </Link>
         </span>
-        <div className="flex items-center flex-none space-x-1 text-xs text-gray-400">
+        <div className="flex items-center flex-none space-x-1 text-xs text-gray-500">
           <span>{dayjs(new Date(notification?.createdAt)).fromNow()}</span>
         </div>
       </div>

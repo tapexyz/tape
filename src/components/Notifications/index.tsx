@@ -5,7 +5,6 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { Analytics, TRACK } from '@utils/analytics'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -13,7 +12,7 @@ import {
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
 import clsx from 'clsx'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
   Notification,
@@ -34,16 +33,11 @@ const Notifications = () => {
     (state) => state.setNotificationCount
   )
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-
   const setHasNewNotification = useAppStore(
     (state) => state.setHasNewNotification
   )
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-
-  useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.NOTIFICATIONS })
-  }, [])
 
   const { data: notificationsCountData } = useQuery(NotificationCountDocument, {
     variables: {
