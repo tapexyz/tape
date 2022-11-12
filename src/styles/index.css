@@ -32,7 +32,7 @@ body {
 
 .middot:after {
   content: '•';
-  @apply flex mx-1 text-[10px] opacity-50;
+  @apply flex mx-1.5 text-[10px] opacity-60;
 }
 
 /* Chrome, Safari, Edge, Opera */
