@@ -35,10 +35,10 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
   return (
     <div
       onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
-      className="overflow-hidden group bg-gray-50 rounded-xl dark:bg-[#181818]"
+      className="overflow-hidden group rounded-xl"
     >
       <Link href={`/watch/${commentedOn.id}`}>
-        <div className="relative rounded-t-xl aspect-w-16 aspect-h-8">
+        <div className="relative rounded-xl aspect-w-16 aspect-h-8">
           <img
             src={imageCdn(
               isSensitiveContent
@@ -48,7 +48,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
             )}
             alt="cover"
             draggable={false}
-            className="object-cover object-center w-full h-full rounded-t-xl lg:w-full lg:h-full"
+            className="object-cover object-center w-full h-full rounded-xl lg:w-full lg:h-full"
           />
           {isSensitiveContent && (
             <div className="absolute top-2 left-3">

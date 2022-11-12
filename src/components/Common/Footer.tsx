@@ -15,6 +15,14 @@ const Footer = () => {
       <div className="grid grid-cols-2 text-sm">
         <Link
           className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
+          href={`https://roadmap.lenstube.xyz`}
+          onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)}
+          target="_blank"
+        >
+          Feedback
+        </Link>
+        <Link
+          className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
           href={LENSTUBE_STATUS_PAGE}
           onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
           target="_blank"
@@ -45,14 +53,7 @@ const Footer = () => {
         >
           Discord
         </Link>
-        <Link
-          className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-          href={`https://roadmap.lenstube.xyz`}
-          onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)}
-          target="_blank"
-        >
-          Feedback
-        </Link>
+
         <Link
           className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
           href={PRIVACY}
@@ -70,14 +71,12 @@ const Footer = () => {
           rel="noreferrer noopener"
           target="_blank"
         >
-          <span>
-            <img
-              src={`${STATIC_ASSETS}/images/livepeer.png`}
-              alt="lvpr"
-              className="w-3 h-3 flex-none"
-              draggable={false}
-            />
-          </span>
+          <img
+            src={`${STATIC_ASSETS}/images/livepeer.png`}
+            alt="lvpr"
+            className="w-3 h-3 flex-none"
+            draggable={false}
+          />
           <span>Livepeer</span>
         </Link>
         <Link

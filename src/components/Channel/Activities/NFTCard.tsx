@@ -15,12 +15,12 @@ type Props = {
 
 const NFTCard: FC<Props> = ({ nft }) => {
   return (
-    <div className="bg-gray-50 rounded-xl dark:bg-[#181818] group">
+    <div className="rounded-xl group">
       <div className="aspect-h-9 aspect-w-16">
         {nft?.originalContent?.animatedUrl ? (
           <iframe
             sandbox="allow-scripts"
-            className="w-full h-full sm:rounded-t-[10px]"
+            className="w-full h-full md:rounded-xl"
             src={nft?.originalContent?.animatedUrl}
           />
         ) : (

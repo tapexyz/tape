@@ -11,26 +11,26 @@ import React from 'react'
 const Deployment = () => {
   return (
     <div className="flex items-center mb-4 space-x-2">
-      <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-[#181818]">
+      <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-theme">
         {IS_MAINNET ? 'polygon' : 'mumbai'}
       </span>
       {GIT_DEPLOYED_BRANCH && (
-        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-[#181818]">
+        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-theme">
           {GIT_DEPLOYED_BRANCH}
         </span>
       )}
       {VERCEL_DEPLOYED_ENV && (
-        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-[#181818]">
+        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-theme">
           {VERCEL_DEPLOYED_ENV}
         </span>
       )}
       {RELAYER_ENABLED && (
-        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-[#181818]">
+        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-theme">
           Relayer
         </span>
       )}
       {GIT_DEPLOYED_COMMIT_SHA && (
-        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-[#181818]">
+        <span className="p-1 px-3 text-xs bg-gray-100 rounded-lg dark:bg-theme">
           <Link
             href={`https://github.com/lenstube-xyz/lenstube/commit/${GIT_DEPLOYED_COMMIT_SHA}`}
             target="_blank"
