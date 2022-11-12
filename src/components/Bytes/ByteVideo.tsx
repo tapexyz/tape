@@ -4,6 +4,7 @@ import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import { getPermanentVideoUrl, getVideoUrl } from '@utils/functions/getVideoUrl'
 import imageCdn from '@utils/functions/imageCdn'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { LenstubePublication } from 'src/types/local'
@@ -17,8 +18,10 @@ type Props = {
 }
 
 const ByteVideo: FC<Props> = ({ video }) => {
-  const [playing, setIsPlaying] = useState(true)
+  const router = useRouter()
+
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [playing, setIsPlaying] = useState(true)
   const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
 
   const checkVideoResource = async () => {
@@ -57,6 +60,9 @@ const ByteVideo: FC<Props> = ({ video }) => {
       setIsPlaying(false)
     },
     onEnter: () => {
+      router.push(`/bytes/?id=${video?.id}`, undefined, {
+        shallow: true
+      })
       videoRef.current?.load()
       videoRef.current
         ?.play()

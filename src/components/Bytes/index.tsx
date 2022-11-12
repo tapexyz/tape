@@ -10,6 +10,7 @@ import {
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
@@ -32,8 +33,8 @@ const request = {
 }
 
 const Bytes = () => {
+  const router = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-
   const [bytes, setBytes] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
@@ -49,9 +50,13 @@ const Bytes = () => {
         : null,
       channelId: selectedChannel?.id ?? null
     },
-    onCompleted(data) {
+    onCompleted: (data) => {
       setPageInfo(data?.explorePublications?.pageInfo)
-      setBytes(data?.explorePublications?.items as LenstubePublication[])
+      const items = data?.explorePublications?.items as LenstubePublication[]
+      setBytes(items)
+      router.push(`/bytes/?id=${items[0]?.id}`, undefined, {
+        shallow: true
+      })
     }
   })
 
