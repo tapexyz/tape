@@ -5,6 +5,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
+import { SCROLL_ROOT_MARGIN } from '@utils/constants'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
@@ -40,7 +41,7 @@ const HomeFeed = () => {
   })
 
   const { observe } = useInView({
-    rootMargin: '1000px 0px',
+    rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       try {
         const { data } = await fetchMore({
