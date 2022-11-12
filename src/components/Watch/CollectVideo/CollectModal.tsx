@@ -235,9 +235,6 @@ const CollectModal: FC<Props> = ({
                   }
                 />
               )}
-              {video?.stats.totalAmountOfCollects > 0 ? (
-                <Button onClick={() => shopCollects()}>Shop Collects</Button>
-              ) : null}
             </div>
           </>
         ) : (
