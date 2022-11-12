@@ -12,6 +12,9 @@ module.exports = {
       },
       colors: {
         theme: '#151a2c'
+      },
+      transitionProperty: {
+        width: 'width'
       }
     }
   },

@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import BellOutline from '@components/Common/Icons/BellOutline'
 import { Button } from '@components/UIElements/Button'
 import DropMenu from '@components/UIElements/DropMenu'
 import useAppStore from '@lib/store'
@@ -6,7 +7,6 @@ import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
 import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import React, { useEffect } from 'react'
-import { CgBell } from 'react-icons/cg'
 import { NotificationCountDocument } from 'src/types/lens'
 
 import Notifications from '.'
@@ -60,10 +60,10 @@ const NotificationTrigger = () => {
       trigger={
         <Button
           variant="outlined"
-          className="!p-[9px] !hidden md:!block"
+          className="!p-[9px]"
           onClick={() => onClickNotification()}
         >
-          <CgBell className="text-lg" />
+          <BellOutline className="w-4 h-4" />
           {hasNewNotification && (
             <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full -top-1 -right-1" />
           )}

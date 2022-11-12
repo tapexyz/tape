@@ -2,18 +2,16 @@ import NewVideoTrigger from '@components/Channel/NewVideoTrigger'
 import NotificationTrigger from '@components/Notifications/NotificationTrigger'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
-import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
 import { CREATOR_VIDEO_CATEGORIES } from '@utils/data/categories'
-import { EXPLORE, HOME, NOTIFICATIONS } from '@utils/url-path'
+import { EXPLORE, HOME } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import { FC } from 'react'
-import { CgBell } from 'react-icons/cg'
 
 import Login from './Auth/Login'
 import MoonOutline from './Icons/MoonOutline'
@@ -26,7 +24,6 @@ type Props = {
 }
 
 const Header: FC<Props> = ({ className }) => {
-  const hasNewNotification = useAppStore((state) => state.hasNewNotification)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const [showShowModal, setSearchModal] = useState(false)
   const [activeFilter, setActiveFilter] = useState('all')
@@ -63,7 +60,7 @@ const Header: FC<Props> = ({ className }) => {
               onClick={() => setSearchModal(true)}
               className="!p-[10px] md:hidden"
             >
-              <SearchOutline className="w-3.5 h-3.5" aria-hidden="true" />
+              <SearchOutline className="w-4 h-4" aria-hidden="true" />
             </Button>
             <Button
               variant="outlined"
@@ -86,16 +83,6 @@ const Header: FC<Props> = ({ className }) => {
             {selectedChannelId ? (
               <>
                 <NotificationTrigger />
-                <Link
-                  onClick={() => Analytics.track(TRACK.CLICK_NOTIFICATIONS)}
-                  href={NOTIFICATIONS}
-                  className="relative p-1 md:hidden"
-                >
-                  <CgBell className="text-lg" />
-                  {hasNewNotification && (
-                    <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full top-0 right-0" />
-                  )}
-                </Link>
                 <NewVideoTrigger />
               </>
             ) : null}

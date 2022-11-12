@@ -86,7 +86,7 @@ const UserMenu = () => {
           className="!p-0 flex-none"
         >
           <img
-            className="object-cover bg-white rounded-full dark:bg-black w-7 h-7 md:w-9 md:h-9"
+            className="object-cover bg-white rounded-full dark:bg-black w-8 h-8 md:w-9 md:h-9"
             src={getProfilePicture(selectedChannel)}
             alt="channel picture"
             draggable={false}
