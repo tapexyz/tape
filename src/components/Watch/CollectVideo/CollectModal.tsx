@@ -135,11 +135,20 @@ const CollectModal: FC<Props> = ({
                 </span>
               </div>
             ) : null}
-            <div className="flex flex-col mb-3">
-              <span className="text-sm">Total Collects</span>
-              <span className="space-x-1">
-                <span>{formatNumber(video?.stats.totalAmountOfCollects)}</span>
-              </span>
+            <div className="flex items-center justify-between">
+              <div className="flex flex-col mb-3">
+                <span className="text-sm">Total Collects</span>
+                <span className="space-x-1">
+                  <span>
+                    {formatNumber(video?.stats.totalAmountOfCollects)}
+                  </span>
+                </span>
+              </div>
+              {video?.stats.totalAmountOfCollects > 0 ? (
+                <div>
+                  <Button onClick={() => shopCollects()}>Shop Collects</Button>
+                </div>
+              ) : null}
             </div>
             {collectModule?.recipient ? (
               <div className="flex flex-col mb-3">
@@ -210,9 +219,6 @@ const CollectModal: FC<Props> = ({
                   }
                 />
               )}
-              {video?.stats.totalAmountOfCollects > 0 ? (
-                <Button onClick={() => shopCollects()}>Shop Collects</Button>
-              ) : null}
             </div>
           </>
         ) : (
