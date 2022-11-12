@@ -33,6 +33,7 @@ type Props = {
   fetchingCollectModule: boolean
   collectModule: LenstubeCollectModule
   collectNow: () => void
+  shopCollects: () => void
 }
 
 const CollectModal: FC<Props> = ({
@@ -40,6 +41,7 @@ const CollectModal: FC<Props> = ({
   setShowModal,
   video,
   collectNow,
+  shopCollects,
   collecting,
   collectModule,
   fetchingCollectModule
@@ -233,6 +235,9 @@ const CollectModal: FC<Props> = ({
                   }
                 />
               )}
+              {video?.stats.totalAmountOfCollects > 0 ? (
+                <Button onClick={() => shopCollects()}>Shop Collects</Button>
+              ) : null}
             </div>
           </>
         ) : (
