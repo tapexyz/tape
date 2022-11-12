@@ -26,7 +26,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
       request: {
         viewingProfileId: viewingChannelId,
         yourProfileId: selectedChannel?.id,
-        limit: 10
+        limit: 30
       }
     },
     skip: !viewingChannelId,
@@ -43,7 +43,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
           request: {
             viewingProfileId: viewingChannelId,
             yourProfileId: selectedChannel?.id,
-            limit: 10,
+            limit: 30,
             cursor: pageInfo?.next
           }
         }

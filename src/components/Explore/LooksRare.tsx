@@ -21,7 +21,7 @@ import { LenstubePublication } from 'src/types/local'
 
 const request = {
   sortCriteria: PublicationSortCriteria.TopCollected,
-  limit: 16,
+  limit: 30,
   noRandomize: true,
   sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
   publicationTypes: [PublicationTypes.Post],

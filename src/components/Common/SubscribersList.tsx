@@ -29,7 +29,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
   const { data, loading, fetchMore } = useQuery(SubscribersDocument, {
-    variables: { request: { profileId: channel?.id, limit: 10 } },
+    variables: { request: { profileId: channel?.id, limit: 30 } },
     skip: !channel?.id,
     onCompleted(data) {
       setPageInfo(data?.followers?.pageInfo)
@@ -44,7 +44,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
           request: {
             profileId: channel?.id,
             cursor: pageInfo?.next,
-            limit: 10
+            limit: 30
           }
         }
       })

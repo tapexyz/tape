@@ -29,7 +29,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
 
   const request = {
     publicationTypes: [PublicationTypes.Comment],
-    limit: 16,
+    limit: 30,
     sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: channel?.id

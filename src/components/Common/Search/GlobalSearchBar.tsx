@@ -47,7 +47,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
           request: {
             type: activeSearch,
             query: keyword,
-            limit: 10,
+            limit: 30,
             sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
             customFilters: LENS_CUSTOM_FILTERS
           }

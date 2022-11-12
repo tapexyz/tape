@@ -56,7 +56,7 @@ const Notifications = () => {
   })
 
   const request = {
-    limit: 20,
+    limit: 30,
     sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: selectedChannel?.id

@@ -22,7 +22,7 @@ import { LenstubePublication } from 'src/types/local'
 
 const request = {
   sortCriteria: PublicationSortCriteria.TopCommented,
-  limit: 16,
+  limit: 30,
   noRandomize: false,
   sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
   publicationTypes: [PublicationTypes.Post],

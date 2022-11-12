@@ -27,7 +27,7 @@ type Props = {
 
 const request = {
   sortCriteria: PublicationSortCriteria.TopCommented,
-  limit: 16,
+  limit: 30,
   sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
   publicationTypes: [PublicationTypes.Post],
   noRandomize: false,

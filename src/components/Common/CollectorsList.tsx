@@ -40,7 +40,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
             request: {
               publicationId: videoId,
               cursor: pageInfo?.next,
-              limit: 10
+              limit: 30
             }
           }
         })

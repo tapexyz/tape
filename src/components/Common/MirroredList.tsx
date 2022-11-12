@@ -41,7 +41,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
             request: {
               whoMirroredPublicationId: videoId,
               cursor: pageInfo?.next,
-              limit: 10
+              limit: 30
             }
           }
         })

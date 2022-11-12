@@ -29,7 +29,7 @@ const ExploreHashtag = () => {
 
   const request = {
     type: SearchRequestTypes.Publication,
-    limit: 16,
+    limit: 30,
     sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
     customFilters: LENS_CUSTOM_FILTERS,
     query: hashtag

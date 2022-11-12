@@ -23,7 +23,7 @@ type Props = {
 }
 
 const request = {
-  limit: 10,
+  limit: 30,
   customFilters: LENS_CUSTOM_FILTERS
 }
 

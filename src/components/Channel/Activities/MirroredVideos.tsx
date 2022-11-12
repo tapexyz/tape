@@ -21,7 +21,7 @@ type Props = {
 
 const request = {
   publicationTypes: [PublicationTypes.Mirror],
-  limit: 16,
+  limit: 30,
   metadata: { mainContentFocus: [PublicationMainFocus.Video] },
   customFilters: LENS_CUSTOM_FILTERS
 }

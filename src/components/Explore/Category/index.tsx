@@ -32,7 +32,7 @@ const ExploreCategory = () => {
 
   const request = {
     publicationTypes: [PublicationTypes.Post],
-    limit: 16,
+    limit: 30,
     sortCriteria: PublicationSortCriteria.Latest,
     sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
     customFilters: LENS_CUSTOM_FILTERS,
