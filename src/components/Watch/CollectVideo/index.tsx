@@ -10,7 +10,6 @@ import { Analytics, TRACK } from '@utils/analytics'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  LENSPORT_MARKETPLACE_URL,
   RELAYER_ENABLED,
   SIGN_IN_REQUIRED_MESSAGE
 } from '@utils/constants'
@@ -158,18 +157,6 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     })
   }
 
-  const shopCollects = () => {
-    if (!video) {
-      return
-    }
-    const pubId = video.id ?? video.mirrorOf?.id
-    const decimalProfileId = parseInt(pubId.split('-')[0], 16)
-    const decimalPubId = parseInt(pubId.split('-')[1], 16)
-    const marketplacePublicationId = decimalProfileId + '_' + decimalPubId
-    const marketplaceUrl = `${LENSPORT_MARKETPLACE_URL}/p/${marketplacePublicationId}`
-    window.open(marketplaceUrl)
-  }
-
   const onClickCollect = () => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     return setShowCollectModal(true)
@@ -195,7 +182,6 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
           showModal={showCollectModal}
           setShowModal={setShowCollectModal}
           collectNow={collectNow}
-          shopCollects={shopCollects}
           collecting={loading}
           collectModule={collectModule}
           fetchingCollectModule={fetchingCollectModule}

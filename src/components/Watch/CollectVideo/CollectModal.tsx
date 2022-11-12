@@ -7,9 +7,11 @@ import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
+import { LENSPORT_MARKETPLACE_URL } from '@utils/constants'
 import { formatNumber } from '@utils/functions/formatNumber'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import dayjs from 'dayjs'
+import Link from 'next/link'
 import React, { Dispatch, FC, useEffect, useState } from 'react'
 import {
   ApprovedAllowanceAmount,
@@ -30,7 +32,6 @@ type Props = {
   fetchingCollectModule: boolean
   collectModule: LenstubeCollectModule
   collectNow: () => void
-  shopCollects: () => void
 }
 
 const CollectModal: FC<Props> = ({
@@ -38,7 +39,6 @@ const CollectModal: FC<Props> = ({
   setShowModal,
   video,
   collectNow,
-  shopCollects,
   collecting,
   collectModule,
   fetchingCollectModule
@@ -114,6 +114,15 @@ const CollectModal: FC<Props> = ({
     selectedChannelId
   ])
 
+  const getShopCollectsUrl = () => {
+    const pubId = video?.id ?? video.mirrorOf?.id
+    const decimalProfileId = parseInt(pubId.split('-')[0], 16)
+    const decimalPubId = parseInt(pubId.split('-')[1], 16)
+    const marketplacePublicationId = decimalProfileId + '_' + decimalPubId
+    const marketplaceUrl = `${LENSPORT_MARKETPLACE_URL}/p/${marketplacePublicationId}`
+    return marketplaceUrl
+  }
+
   return (
     <Modal
       title="Collect Video"
@@ -124,6 +133,25 @@ const CollectModal: FC<Props> = ({
       <div className="mt-4">
         {!fetchingCollectModule && !allowanceLoading ? (
           <>
+            <div className="flex items-center justify-between">
+              <div className="flex flex-col mb-3">
+                <span className="text-sm">Total Collects</span>
+                <span className="space-x-1">
+                  <span className="text-lg">
+                    {formatNumber(video?.stats.totalAmountOfCollects)}
+                  </span>
+                </span>
+              </div>
+              {video?.stats.totalAmountOfCollects > 0 ? (
+                <Link
+                  href={getShopCollectsUrl()}
+                  className="text-indigo-500"
+                  target="_blank"
+                >
+                  Shop Collects
+                </Link>
+              ) : null}
+            </div>
             {collectModule?.amount ? (
               <div className="flex flex-col mb-3">
                 <span className="text-sm">Price</span>
@@ -135,21 +163,6 @@ const CollectModal: FC<Props> = ({
                 </span>
               </div>
             ) : null}
-            <div className="flex items-center justify-between">
-              <div className="flex flex-col mb-3">
-                <span className="text-sm">Total Collects</span>
-                <span className="space-x-1">
-                  <span>
-                    {formatNumber(video?.stats.totalAmountOfCollects)}
-                  </span>
-                </span>
-              </div>
-              {video?.stats.totalAmountOfCollects > 0 ? (
-                <div>
-                  <Button onClick={() => shopCollects()}>Shop Collects</Button>
-                </div>
-              ) : null}
-            </div>
             {collectModule?.recipient ? (
               <div className="flex flex-col mb-3">
                 <span className="mb-0.5 text-sm">Recipient</span>
