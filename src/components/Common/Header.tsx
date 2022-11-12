@@ -11,16 +11,13 @@ import { EXPLORE, HOME, NOTIFICATIONS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import { FC } from 'react'
 import { NotificationCountDocument } from 'src/types/lens'
 
 import Login from './Auth/Login'
 import BellOutline from './Icons/BellOutline'
-import MoonOutline from './Icons/MoonOutline'
 import SearchOutline from './Icons/SearchOutline'
-import SunOutline from './Icons/SunOutline'
 import GlobalSearchBar from './Search/GlobalSearchBar'
 
 type Props = {
@@ -30,7 +27,6 @@ type Props = {
 const Header: FC<Props> = ({ className }) => {
   const [showShowModal, setSearchModal] = useState(false)
   const [activeFilter, setActiveFilter] = useState('all')
-  const { theme, setTheme } = useTheme()
   const { pathname } = useRouter()
   const showFilter = pathname === HOME || pathname === EXPLORE
 
@@ -94,24 +90,6 @@ const Header: FC<Props> = ({ className }) => {
               className="!p-[10px] md:hidden"
             >
               <SearchOutline className="w-4 h-4" aria-hidden="true" />
-            </Button>
-            <Button
-              variant="outlined"
-              className="!p-[10px] !"
-              onClick={() => {
-                setTheme(theme === 'dark' ? 'light' : 'dark')
-                Analytics.track(
-                  theme === 'dark'
-                    ? TRACK.SYSTEM.THEME.LIGHT
-                    : TRACK.SYSTEM.THEME.DARK
-                )
-              }}
-            >
-              {theme === 'dark' ? (
-                <SunOutline className="w-4 h-4" />
-              ) : (
-                <MoonOutline className="w-4 h-4" />
-              )}
             </Button>
             {selectedChannelId ? (
               <>

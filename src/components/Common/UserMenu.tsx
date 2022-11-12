@@ -15,13 +15,17 @@ import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlinePlus, AiOutlineUserSwitch } from 'react-icons/ai'
-import { BiArrowBack, BiCheck, BiMoviePlay } from 'react-icons/bi'
-import { BsSun } from 'react-icons/bs'
-import { IoAnalyticsOutline, IoMoonOutline } from 'react-icons/io5'
-import { VscDebugDisconnect } from 'react-icons/vsc'
+import { BiArrowBack, BiCheck } from 'react-icons/bi'
 import { AllProfilesDocument, Profile } from 'src/types/lens'
 import { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useDisconnect } from 'wagmi'
+
+import ChannelHeartOutline from './Icons/ChannelHeartOutline'
+import CogOutline from './Icons/CogOutline'
+import GraphOutline from './Icons/GraphOutline'
+import HandWaveOutline from './Icons/HandWaveOutline'
+import MoonOutline from './Icons/MoonOutline'
+import SunOutline from './Icons/SunOutline'
 
 const UserMenu = () => {
   const setChannels = useAppStore((state) => state.setChannels)
@@ -176,9 +180,9 @@ const UserMenu = () => {
                 <Menu.Item
                   as={NextLink}
                   href={LENSTUBE_STATS}
-                  className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
-                  <IoAnalyticsOutline className="text-lg" />
+                  <GraphOutline className="w-4 h-4" />
                   <span className="truncate whitespace-nowrap">App Info</span>
                 </Menu.Item>
               )}
@@ -187,29 +191,31 @@ const UserMenu = () => {
                   <Menu.Item
                     as={NextLink}
                     href={`/${selectedChannel?.handle}`}
-                    className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="inline-flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
-                    <BiMoviePlay className="text-lg" />
+                    <ChannelHeartOutline className="w-4 h-4" />
                     <span className="truncate whitespace-nowrap">
                       Your Channel
                     </span>
                   </Menu.Item>
-                  <button
-                    type="button"
-                    className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    onClick={() => onSelectSwitchChannel()}
-                  >
-                    <AiOutlineUserSwitch className="text-lg" />
-                    <span className="truncate whitespace-nowrap">
-                      Switch channel
-                    </span>
-                  </button>
+                  {!IS_MAINNET && (
+                    <button
+                      type="button"
+                      className="inline-flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                      onClick={() => onSelectSwitchChannel()}
+                    >
+                      <AiOutlineUserSwitch className="text-lg" />
+                      <span className="truncate whitespace-nowrap">
+                        Switch channel
+                      </span>
+                    </button>
+                  )}
                 </>
               )}
               {!IS_MAINNET && (
                 <button
                   type="button"
-                  className="flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setShowCreateChannel(true)}
                 >
                   <AiOutlinePlus className="text-lg" />
@@ -220,13 +226,23 @@ const UserMenu = () => {
               )}
               <button
                 type="button"
-                className="flex md:hidden items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                onClick={() => setShowCreateChannel(true)}
+              >
+                <CogOutline className="w-4 h-4" />
+                <span className="truncate whitespace-nowrap">
+                  Channel Settings
+                </span>
+              </button>
+              <button
+                type="button"
+                className="flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               >
-                {theme === 'light' ? (
-                  <IoMoonOutline className="text-base" />
+                {theme === 'dark' ? (
+                  <SunOutline className="w-4 h-4" />
                 ) : (
-                  <BsSun className="text-base" />
+                  <MoonOutline className="w-4 h-4" />
                 )}
                 <span className="truncate whitespace-nowrap">
                   {theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}
@@ -234,10 +250,10 @@ const UserMenu = () => {
               </button>
               <button
                 type="button"
-                className="flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                 onClick={() => logout()}
               >
-                <VscDebugDisconnect className="text-lg" />
+                <HandWaveOutline className="w-4 h-4" />
                 <span className="truncate whitespace-nowrap">Disconnect</span>
               </button>
             </div>

@@ -7,7 +7,6 @@ import useIsMounted from '@utils/hooks/useIsMounted'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import {
-  FcCamcorderPro,
   FcCollect,
   FcComments,
   FcLikePlaceholder,
@@ -79,11 +78,6 @@ const Stats = () => {
               icon={<FcCollect />}
               count={stats?.totalCollects}
               text="total collects"
-            />
-            <StatCard
-              icon={<FcCamcorderPro />}
-              count={stats?.totalProfiles}
-              text="total channels"
             />
           </div>
         </>
