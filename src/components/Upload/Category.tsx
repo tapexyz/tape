@@ -21,7 +21,7 @@ const Category = () => {
         onChange={(category) => setUploadedVideo({ videoCategory: category })}
       >
         <div className="relative mt-1">
-          <Listbox.Button className="relative w-full py-2.5 pl-4 pr-10 text-left border dark:border-gray-800 border-gray-200 rounded-xl focus:outline-none sm:text-sm">
+          <Listbox.Button className="relative w-full py-2.5 pl-4 pr-10 text-left border dark:border-gray-700 border-gray-300 rounded-xl focus:outline-none sm:text-sm">
             <span className="block truncate">
               {uploadedVideo.videoCategory.name}
             </span>

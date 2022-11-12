@@ -254,7 +254,7 @@ const Membership = ({ channel }: Props) => {
               </div>
               <select
                 autoComplete="off"
-                className="bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full"
+                className="bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-300 dark:border-gray-700 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full"
                 value={watch('token')}
                 onChange={(e) => setValue('token', e.target.value)}
               >

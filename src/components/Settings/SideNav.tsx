@@ -33,7 +33,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         <Link
           href={SETTINGS}
           className={clsx(
-            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-900',
+            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
             { 'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS) }
           )}
         >
@@ -42,7 +42,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         <Link
           href={SETTINGS_MEMBERSHIP}
           className={clsx(
-            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-900',
+            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
             {
               'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS_MEMBERSHIP)
             }
@@ -53,7 +53,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         <Link
           href={SETTINGS_PERMISSIONS}
           className={clsx(
-            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-900',
+            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
             {
               'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS_PERMISSIONS)
             }

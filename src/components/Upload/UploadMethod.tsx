@@ -36,7 +36,7 @@ const UploadMethod = () => {
           className={({ selected }) =>
             clsx(
               'w-full rounded-xl py-2.5 text-sm font-medium leading-5 focus:outline-none',
-              selected ? 'bg-white dark:bg-theme' : 'hover:bg-white/[0.5]'
+              selected ? 'bg-white dark:bg-theme' : 'hover:bg-white/[0.12]'
             )
           }
           onClick={onClickArweave}
@@ -49,7 +49,7 @@ const UploadMethod = () => {
               'w-full rounded-xl disabled:opacity-30 text-sm font-medium leading-5 focus:outline-none',
               selected
                 ? 'bg-white dark:bg-theme'
-                : 'enabled:hover:bg-white/[0.5]'
+                : 'enabled:hover:bg-white/[0.12]'
             )
           }
           onClick={() => setUploadedVideo({ isUploadToIpfs: true })}

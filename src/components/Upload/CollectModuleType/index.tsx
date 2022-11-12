@@ -65,7 +65,7 @@ const CollectModuleType = () => {
       <button
         type="button"
         onClick={() => setShowModal(true)}
-        className="flex items-center justify-between w-full px-4 py-2.5 text-sm text-left border border-gray-200 focus:outline-none dark:border-gray-800 rounded-xl"
+        className="flex items-center justify-between w-full px-4 py-2.5 text-sm text-left border border-gray-300 focus:outline-none dark:border-gray-700 rounded-xl"
       >
         <span>{getSelectedCollectType()}</span>
         <AiOutlineCheck />
