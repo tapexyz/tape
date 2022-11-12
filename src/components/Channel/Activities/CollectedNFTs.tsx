@@ -3,7 +3,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import logger from '@lib/logger'
-import { POLYGON_CHAIN_ID } from '@utils/constants'
+import { POLYGON_CHAIN_ID, SCROLL_ROOT_MARGIN } from '@utils/constants'
 import React, { FC, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
@@ -42,7 +42,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
   })
 
   const { observe } = useInView({
-    rootMargin: '1000px 0px',
+    rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       try {
         const { data } = await fetchMore({
