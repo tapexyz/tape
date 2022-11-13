@@ -27,10 +27,11 @@ type Props = {
 const Header: FC<Props> = ({ className }) => {
   const { pathname } = useRouter()
   const [showShowModal, setSearchModal] = useState(false)
-  const [activeFilter, setActiveFilter] = useState('all')
   const showFilter = pathname === HOME || pathname === EXPLORE
 
   const hasNewNotification = useAppStore((state) => state.hasNewNotification)
+  const activeTagFilter = useAppStore((state) => state.activeTagFilter)
+  const setActiveTagFilter = useAppStore((state) => state.setActiveTagFilter)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const notificationCount = usePersistStore((state) => state.notificationCount)
@@ -116,10 +117,10 @@ const Header: FC<Props> = ({ className }) => {
           <div className="flex px-2 overflow-x-auto touch-pan-x no-scrollbar pt-4 space-x-2 ultrawide:max-w-[110rem] mx-auto">
             <button
               type="button"
-              onClick={() => setActiveFilter('all')}
+              onClick={() => setActiveTagFilter('all')}
               className={clsx(
                 'px-3.5 capitalize py-1 text-xs border border-gray-200 dark:border-gray-700 rounded-full',
-                activeFilter === 'all'
+                activeTagFilter === 'all'
                   ? 'bg-black text-white'
                   : 'dark:bg-gray-800 bg-gray-100'
               )}
@@ -129,11 +130,11 @@ const Header: FC<Props> = ({ className }) => {
             {CREATOR_VIDEO_CATEGORIES.map((category) => (
               <button
                 type="button"
-                onClick={() => setActiveFilter(category.tag)}
+                onClick={() => setActiveTagFilter(category.tag)}
                 key={category.tag}
                 className={clsx(
                   'px-3.5 capitalize py-1 text-xs border border-gray-200 dark:border-gray-700 rounded-full whitespace-nowrap',
-                  activeFilter === category.tag
+                  activeTagFilter === category.tag
                     ? 'bg-black text-white'
                     : 'dark:bg-gray-800 bg-gray-100'
                 )}
