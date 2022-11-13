@@ -1,3 +1,4 @@
+import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import MirrorVideo from '@components/Common/MirrorVideo'
@@ -9,7 +10,6 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { AiOutlineRetweet } from 'react-icons/ai'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import type { LenstubePublication } from 'src/types/local'
 
@@ -66,7 +66,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
               <MirrorVideo video={video}>
                 <div>
                   <Button size="md" className="!px-2">
-                    <AiOutlineRetweet className="text-xl" />
+                    <MirrorOutline className="w-5 h-5" />
                   </Button>
                 </div>
               </MirrorVideo>

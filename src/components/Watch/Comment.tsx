@@ -142,8 +142,8 @@ const Comment: FC<Props> = ({ comment }) => {
             </div>
           )}
           {!comment.hidden && (
-            <div className="mt-1">
-              <PublicationReaction iconSize="xs" publication={comment} />
+            <div className="mt-2">
+              <PublicationReaction publication={comment} />
             </div>
           )}
         </div>

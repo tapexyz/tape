@@ -1,4 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
+import CollectOutline from '@components/Common/Icons/CollectOutline'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -17,7 +18,6 @@ import { utils } from 'ethers'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { HiOutlineCollection } from 'react-icons/hi'
 import type { CreateCollectBroadcastItemResult } from 'src/types/lens'
 import {
   useCreateCollectTypedDataMutation,
@@ -94,7 +94,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   })
 
   const [createCollectTypedData] = useCreateCollectTypedDataMutation({
-    async onCompleted(data) {
+    onCompleted: async (data) => {
       const { typedData, id } =
         data.createCollectTypedData as CreateCollectBroadcastItemResult
       try {
@@ -206,7 +206,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
             {loading ? (
               <Loader size="md" />
             ) : (
-              <HiOutlineCollection className="text-xl" />
+              <CollectOutline className="w-5 h-5" />
             )}
           </Button>
         </div>

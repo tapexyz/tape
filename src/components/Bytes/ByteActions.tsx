@@ -1,3 +1,4 @@
+import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import MirrorVideo from '@components/Common/MirrorVideo'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
@@ -7,7 +8,6 @@ import CollectVideo from '@components/Watch/CollectVideo'
 import PublicationReaction from '@components/Watch/PublicationReaction'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { AiOutlineRetweet } from 'react-icons/ai'
 import type { LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -27,15 +27,24 @@ const ByteActions: FC<Props> = ({ video }) => {
           showOnHover={false}
         />
       </div>
-      <div className="items-center py-2.5 space-y-1 md:flex md:flex-col">
+      <div className="items-center py-2.5 space-y-1.5 md:flex md:flex-col">
         <div className="text-white md:text-inherit">
           <PublicationReaction
             publication={video}
-            iconSize="2xl"
-            textSize="xs"
+            iconSize="lg"
             isVertical
             showLabel
           />
+        </div>
+        <div className="text-white text-center md:text-inherit">
+          <MirrorVideo video={video}>
+            <Button variant="secondary" className="!px-0">
+              <MirrorOutline className="w-6 h-6" />
+            </Button>
+            <div className="text-xs leading-3">
+              {video.stats?.totalAmountOfMirrors || 'Mirror'}
+            </div>
+          </MirrorVideo>
         </div>
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
           <div className="hidden md:block">
@@ -45,16 +54,6 @@ const ByteActions: FC<Props> = ({ video }) => {
             </div>
           </div>
         )}
-        <div className="text-white text-center md:text-inherit">
-          <MirrorVideo video={video}>
-            <Button variant="secondary" className="!px-0">
-              <AiOutlineRetweet className="text-xl" />
-            </Button>
-            <div className="text-xs leading-3">
-              {video.stats?.totalAmountOfMirrors || 'Mirror'}
-            </div>
-          </MirrorVideo>
-        </div>
       </div>
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <ReportModal
