@@ -31,20 +31,22 @@ import axios from 'axios'
 import { utils } from 'ethers'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import {
-  BroadcastDocument,
+import type {
   CreatePostBroadcastItemResult,
-  CreatePostTypedDataDocument,
-  CreatePostViaDispatcherDocument,
   CreatePublicPostRequest,
   MetadataAttributeInput,
-  PublicationContentWarning,
-  PublicationMainFocus,
-  PublicationMetadataDisplayTypes,
   PublicationMetadataMediaInput,
   PublicationMetadataV2Input
 } from 'src/types/lens'
-import { CustomErrorWithData } from 'src/types/local'
+import {
+  BroadcastDocument,
+  CreatePostTypedDataDocument,
+  CreatePostViaDispatcherDocument,
+  PublicationContentWarning,
+  PublicationMainFocus,
+  PublicationMetadataDisplayTypes
+} from 'src/types/lens'
+import type { CustomErrorWithData } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
@@ -53,7 +55,8 @@ import {
   useSignTypedData
 } from 'wagmi'
 
-import Details, { VideoFormData } from './Details'
+import type { VideoFormData } from './Details'
+import Details from './Details'
 
 const UploadSteps = () => {
   const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)

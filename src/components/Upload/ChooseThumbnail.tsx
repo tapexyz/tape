@@ -11,9 +11,10 @@ import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import * as nsfwjs from 'nsfwjs'
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import type { ChangeEvent, FC } from 'react'
+import { useEffect, useState } from 'react'
 import { BiImageAdd } from 'react-icons/bi'
-import { IPFSUploadResult } from 'src/types/local'
+import type { IPFSUploadResult } from 'src/types/local'
 
 if (IS_MAINNET) {
   tf.enableProdMode()

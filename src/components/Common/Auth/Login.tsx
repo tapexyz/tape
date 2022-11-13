@@ -6,13 +6,13 @@ import { ERROR_MESSAGE } from '@utils/constants'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import type { Profile } from 'src/types/lens'
 import {
   AllProfilesDocument,
   AuthenticateDocument,
-  ChallengeDocument,
-  Profile
+  ChallengeDocument
 } from 'src/types/lens'
-import { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useSignMessage } from 'wagmi'
 
 import ConnectWalletButton from './ConnectWalletButton'

@@ -30,20 +30,23 @@ import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import { utils } from 'ethers'
 import Link from 'next/link'
-import React, { ChangeEvent, useState } from 'react'
+import type { ChangeEvent } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
+import type {
+  CreatePublicSetProfileMetadataUriRequest,
+  MediaSet,
+  Profile
+} from 'src/types/lens'
 import {
   BroadcastDocument,
-  CreatePublicSetProfileMetadataUriRequest,
   CreateSetProfileMetadataTypedDataDocument,
   CreateSetProfileMetadataViaDispatcherDocument,
-  MediaSet,
-  Profile,
   PublicationMetadataDisplayTypes
 } from 'src/types/lens'
-import { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
+import type { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'

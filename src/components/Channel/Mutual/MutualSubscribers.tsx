@@ -4,8 +4,10 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import { Analytics, TRACK } from '@utils/analytics'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import React, { FC, useState } from 'react'
-import { MutualFollowersDocument, Profile } from 'src/types/lens'
+import type { FC } from 'react'
+import React, { useState } from 'react'
+import type { Profile } from 'src/types/lens'
+import { MutualFollowersDocument } from 'src/types/lens'
 
 import MutualSubscribersList from './MutualSubscribersList'
 type Props = {

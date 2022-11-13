@@ -13,11 +13,9 @@ import { utils } from 'ethers'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
-import {
-  CreateBurnProfileBroadcastItemResult,
-  CreateBurnProfileTypedDataDocument
-} from 'src/types/lens'
-import { CustomErrorWithData } from 'src/types/local'
+import type { CreateBurnProfileBroadcastItemResult } from 'src/types/lens'
+import { CreateBurnProfileTypedDataDocument } from 'src/types/lens'
+import type { CustomErrorWithData } from 'src/types/local'
 import {
   useContractWrite,
   useSignTypedData,

@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client'
 import StatCard from '@components/Stats/StatCard'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import {
   FcCamcorderPro,
   FcCollect,
@@ -9,7 +10,8 @@ import {
   FcSynchronize,
   FcVideoCall
 } from 'react-icons/fc'
-import { AllProfilesDocument, Profile, ProfileStats } from 'src/types/lens'
+import type { Profile, ProfileStats } from 'src/types/lens'
+import { AllProfilesDocument } from 'src/types/lens'
 
 type Props = {
   channel: Profile

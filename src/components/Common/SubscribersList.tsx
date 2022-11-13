@@ -7,15 +7,12 @@ import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePictur
 import imageCdn from '@utils/functions/imageCdn'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import Link from 'next/link'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
-import {
-  Follower,
-  PaginatedResultInfo,
-  Profile,
-  SubscribersDocument
-} from 'src/types/lens'
+import type { Follower, PaginatedResultInfo, Profile } from 'src/types/lens'
+import { SubscribersDocument } from 'src/types/lens'
 
 import IsVerified from './IsVerified'
 import AddressExplorerLink from './Links/AddressExplorerLink'

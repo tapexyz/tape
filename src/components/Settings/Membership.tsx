@@ -20,17 +20,19 @@ import { utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import {
-  BroadcastDocument,
+import type {
   CreateSetFollowModuleBroadcastItemResult,
-  CreateSetFollowModuleTypedDataDocument,
-  EnabledModuleCurrrenciesDocument,
   Erc20,
   FeeFollowModuleSettings,
-  Profile,
+  Profile
+} from 'src/types/lens'
+import {
+  BroadcastDocument,
+  CreateSetFollowModuleTypedDataDocument,
+  EnabledModuleCurrrenciesDocument,
   ProfileFollowModuleDocument
 } from 'src/types/lens'
-import { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
 

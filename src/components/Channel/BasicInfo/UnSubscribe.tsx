@@ -6,17 +6,21 @@ import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
 import { RELAYER_ENABLED, SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
-import { ethers, Signer, utils } from 'ethers'
-import React, { FC, useState } from 'react'
+import type { Signer } from 'ethers'
+import { ethers, utils } from 'ethers'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import {
-  BroadcastDocument,
+import type {
   CreateBurnEip712TypedData,
   CreateUnfollowBroadcastItemResult,
-  CreateUnfollowTypedDataDocument,
   Profile
 } from 'src/types/lens'
-import { CustomErrorWithData } from 'src/types/local'
+import {
+  BroadcastDocument,
+  CreateUnfollowTypedDataDocument
+} from 'src/types/lens'
+import type { CustomErrorWithData } from 'src/types/local'
 import { useSigner, useSignTypedData } from 'wagmi'
 
 type Props = {

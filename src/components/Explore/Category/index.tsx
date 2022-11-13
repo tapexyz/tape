@@ -15,14 +15,14 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
+import type { PaginatedResultInfo } from 'src/types/lens'
 import {
   ExploreDocument,
-  PaginatedResultInfo,
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes
 } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 const ExploreCategory = () => {
   const { query } = useRouter()

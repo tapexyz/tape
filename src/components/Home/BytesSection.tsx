@@ -13,11 +13,11 @@ import {
   PublicationSortCriteria,
   PublicationTypes
 } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 const request = {
   sortCriteria: PublicationSortCriteria.CuratedProfiles,
-  limit: 20,
+  limit: 30,
   noRandomize: false,
   sources: [LENSTUBE_BYTES_APP_ID],
   publicationTypes: [PublicationTypes.Post],
@@ -32,7 +32,7 @@ const BytesSection = () => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE_CURATED })
   }, [])
 
-  const { data, loading, error } = useQuery(ExploreDocument, {
+  const { data, error } = useQuery(ExploreDocument, {
     variables: { request },
     onCompleted: (data) => {
       setBytes(data?.explorePublications?.items as LenstubePublication[])

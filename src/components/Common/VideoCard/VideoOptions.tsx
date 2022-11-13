@@ -13,7 +13,7 @@ import { FiExternalLink, FiFlag } from 'react-icons/fi'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { RiShareForwardLine } from 'react-icons/ri'
 import { HidePublicationDocument } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 const VideoOptions = ({
   video,

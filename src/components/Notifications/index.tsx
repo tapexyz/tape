@@ -14,11 +14,10 @@ import {
 import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import type { Notification, PaginatedResultInfo } from 'src/types/lens'
 import {
-  Notification,
   NotificationCountDocument,
-  NotificationsDocument,
-  PaginatedResultInfo
+  NotificationsDocument
 } from 'src/types/lens'
 
 import CollectedNotification from './Collected'

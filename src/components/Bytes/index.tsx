@@ -13,14 +13,14 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import type { PaginatedResultInfo } from 'src/types/lens'
 import {
   ExploreDocument,
-  PaginatedResultInfo,
   PublicationDetailsDocument,
   PublicationSortCriteria,
   PublicationTypes
 } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 import ByteVideo from './ByteVideo'
 

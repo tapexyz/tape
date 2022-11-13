@@ -3,14 +3,12 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { POLYGON_CHAIN_ID, SCROLL_ROOT_MARGIN } from '@utils/constants'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import {
-  PaginatedResultInfo,
-  Profile,
-  ProfileNfTsDocument
-} from 'src/types/lens'
-import { Nft } from 'src/types/lens'
+import type { PaginatedResultInfo, Profile } from 'src/types/lens'
+import type { Nft } from 'src/types/lens'
+import { ProfileNfTsDocument } from 'src/types/lens'
 
 import NFTCard from './NFTCard'
 

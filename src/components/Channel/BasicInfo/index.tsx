@@ -12,9 +12,10 @@ import imageCdn from '@utils/functions/imageCdn'
 import { SETTINGS } from '@utils/url-path'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import { FiSettings } from 'react-icons/fi'
-import { Profile } from 'src/types/lens'
+import type { Profile } from 'src/types/lens'
 
 import MutualSubscribers from '../Mutual/MutualSubscribers'
 

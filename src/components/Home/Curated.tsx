@@ -11,13 +11,13 @@ import {
 } from '@utils/constants'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import type { PaginatedResultInfo } from 'src/types/lens'
 import {
   ExploreDocument,
-  PaginatedResultInfo,
   PublicationSortCriteria,
   PublicationTypes
 } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 const request = {
   sortCriteria: PublicationSortCriteria.CuratedProfiles,

@@ -12,13 +12,17 @@ import { formatNumber } from '@utils/functions/formatNumber'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import dayjs from 'dayjs'
 import Link from 'next/link'
-import React, { Dispatch, FC, useEffect, useState } from 'react'
+import type { Dispatch, FC } from 'react'
+import React, { useEffect, useState } from 'react'
+import type { ApprovedAllowanceAmount } from 'src/types/lens'
 import {
-  ApprovedAllowanceAmount,
   ApprovedModuleAllowanceAmountDocument,
   PublicationRevenueDocument
 } from 'src/types/lens'
-import { LenstubeCollectModule, LenstubePublication } from 'src/types/local'
+import type {
+  LenstubeCollectModule,
+  LenstubePublication
+} from 'src/types/local'
 import { useBalance } from 'wagmi'
 
 import BalanceAlert from './BalanceAlert'

@@ -1,8 +1,9 @@
 import { formatNumber } from '@utils/functions/formatNumber'
 import Link from 'next/link'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import { AiOutlineLike } from 'react-icons/ai'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 interface Props {
   results: LenstubePublication[]

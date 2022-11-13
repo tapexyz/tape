@@ -1,8 +1,8 @@
 import logger from '@lib/logger'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { PublicationMetadataV2Input } from 'src/types/lens'
-import { ProfileMetadata } from 'src/types/local'
+import type { PublicationMetadataV2Input } from 'src/types/lens'
+import type { ProfileMetadata } from 'src/types/local'
 
 const uploadToAr = async (
   data: PublicationMetadataV2Input | ProfileMetadata

@@ -3,14 +3,12 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
-import {
-  AllProfilesDocument,
-  PaginatedResultInfo,
-  Profile
-} from 'src/types/lens'
+import type { PaginatedResultInfo, Profile } from 'src/types/lens'
+import { AllProfilesDocument } from 'src/types/lens'
 
 import IsVerified from './IsVerified'
 

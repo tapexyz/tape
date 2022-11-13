@@ -3,10 +3,11 @@ import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
 import { Analytics, TRACK } from '@utils/analytics'
 import { ERROR_MESSAGE } from '@utils/constants'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { ReportPublicationDocument } from 'src/types/lens'
-import { CustomErrorWithData, LenstubePublication } from 'src/types/local'
+import type { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 
 type Props = {
   publication: LenstubePublication

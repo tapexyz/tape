@@ -5,7 +5,8 @@ import {
 } from '@utils/constants'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 
 type Props = {
   title?: string

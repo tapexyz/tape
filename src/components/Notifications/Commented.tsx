@@ -3,8 +3,9 @@ import getProfilePicture from '@utils/functions/getProfilePicture'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
-import React, { FC } from 'react'
-import { NewCommentNotification } from 'src/types/lens'
+import type { FC } from 'react'
+import React from 'react'
+import type { NewCommentNotification } from 'src/types/lens'
 
 dayjs.extend(relativeTime)
 

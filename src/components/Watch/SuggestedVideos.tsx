@@ -9,15 +9,16 @@ import {
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
 import { useRouter } from 'next/router'
-import React, { FC, useEffect, useState } from 'react'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import type { PaginatedResultInfo } from 'src/types/lens'
 import {
   ExploreDocument,
-  PaginatedResultInfo,
   PublicationSortCriteria,
   PublicationTypes
 } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
 

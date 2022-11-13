@@ -6,8 +6,9 @@ import {
 import imageCdn from '@utils/functions/imageCdn'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import Link from 'next/link'
-import React, { FC } from 'react'
-import { Nft } from 'src/types/lens'
+import type { FC } from 'react'
+import React from 'react'
+import type { Nft } from 'src/types/lens'
 
 type Props = {
   nft: Nft

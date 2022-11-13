@@ -6,7 +6,7 @@ import {
   lightTheme,
   RainbowKitProvider
 } from '@rainbow-me/rainbowkit'
-import { ThemeOptions } from '@rainbow-me/rainbowkit/dist/themes/baseTheme'
+import type { ThemeOptions } from '@rainbow-me/rainbowkit/dist/themes/baseTheme'
 import {
   coinbaseWallet,
   injectedWallet,
@@ -16,7 +16,8 @@ import {
 } from '@rainbow-me/rainbowkit/wallets'
 import { APP_NAME, IS_MAINNET, POLYGON_RPC_URL } from '@utils/constants'
 import { ThemeProvider, useTheme } from 'next-themes'
-import React, { ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import React from 'react'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 

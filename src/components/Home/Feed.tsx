@@ -8,14 +8,13 @@ import { SCROLL_ROOT_MARGIN } from '@utils/constants'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
+import type { FeedItem, PaginatedResultInfo } from 'src/types/lens'
 import {
   FeedDocument,
   FeedEventItemType,
-  FeedItem,
-  PaginatedResultInfo,
   PublicationMainFocus
 } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 const HomeFeed = () => {
   const [videos, setVideos] = useState<FeedItem[]>([])

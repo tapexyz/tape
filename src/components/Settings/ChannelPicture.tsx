@@ -14,18 +14,21 @@ import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import { utils } from 'ethers'
-import React, { ChangeEvent, FC, useState } from 'react'
+import type { ChangeEvent, FC } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
-import {
-  BroadcastDocument,
+import type {
   CreateSetProfileImageUriBroadcastItemResult,
-  CreateSetProfileImageUriTypedDataDocument,
-  CreateSetProfileImageUriViaDispatcherDocument,
   Profile,
   UpdateProfileImageRequest
 } from 'src/types/lens'
-import { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
+import {
+  BroadcastDocument,
+  CreateSetProfileImageUriTypedDataDocument,
+  CreateSetProfileImageUriViaDispatcherDocument
+} from 'src/types/lens'
+import type { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {

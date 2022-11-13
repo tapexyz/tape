@@ -7,8 +7,9 @@ import { shortenAddress } from '@utils/functions/shortenAddress'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
-import React, { FC } from 'react'
-import { NewCollectNotification } from 'src/types/lens'
+import type { FC } from 'react'
+import React from 'react'
+import type { NewCollectNotification } from 'src/types/lens'
 
 dayjs.extend(relativeTime)
 

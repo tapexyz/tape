@@ -1,7 +1,8 @@
 import clsx from 'clsx'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
-import { CollectModuleType, UploadedVideo } from 'src/types/local'
+import type { CollectModuleType, UploadedVideo } from 'src/types/local'
 
 type Props = {
   uploadedVideo: UploadedVideo

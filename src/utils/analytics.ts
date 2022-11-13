@@ -1,4 +1,5 @@
-import mixpanel, { Dict } from 'mixpanel-browser'
+import type { Dict } from 'mixpanel-browser'
+import mixpanel from 'mixpanel-browser'
 
 import { IS_MAINNET, MIXPANEL_TOKEN } from './constants'
 

@@ -1,10 +1,6 @@
 import clsx from 'clsx'
-import React, {
-  ButtonHTMLAttributes,
-  DetailedHTMLProps,
-  forwardRef,
-  ReactNode
-} from 'react'
+import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
+import React, { forwardRef } from 'react'
 
 import { Loader } from './Loader'
 

@@ -23,19 +23,20 @@ import omitKey from '@utils/functions/omitKey'
 import uploadToAr from '@utils/functions/uploadToAr'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { BigNumber, utils } from 'ethers'
-import React, { FC, useEffect, useState } from 'react'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { TbHeartHandshake } from 'react-icons/tb'
+import type { CreatePublicCommentRequest } from 'src/types/lens'
 import {
   BroadcastDocument,
   CreateCommentTypedDataDocument,
   CreateCommentViaDispatcherDocument,
-  CreatePublicCommentRequest,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes
 } from 'src/types/lens'
-import { CustomErrorWithData, LenstubePublication } from 'src/types/local'
+import type { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
 import { z } from 'zod'

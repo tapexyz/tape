@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
 import Curated from '@components/Home/Curated'
 import { Analytics, TRACK } from '@utils/analytics'
-import { NextPage } from 'next'
+import type { NextPage } from 'next'
 import { useEffect } from 'react'
 
 import BytesSection from './BytesSection'

@@ -13,18 +13,18 @@ import {
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+import type { FeeFollowModuleSettings, Profile } from 'src/types/lens'
 import {
   ApprovedModuleAllowanceAmountDocument,
   BroadcastDocument,
   CreateFollowTypedDataDocument,
-  FeeFollowModuleSettings,
   FollowModules,
-  Profile,
   ProfileFollowModuleDocument
 } from 'src/types/lens'
-import { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
 
 type Props = {

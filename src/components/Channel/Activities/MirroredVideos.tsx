@@ -4,16 +4,16 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@utils/constants'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import type { PaginatedResultInfo, Profile } from 'src/types/lens'
 import {
-  PaginatedResultInfo,
-  Profile,
   ProfileMirrorsDocument,
   PublicationMainFocus,
   PublicationTypes
 } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 type Props = {
   channel: Profile

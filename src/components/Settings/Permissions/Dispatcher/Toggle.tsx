@@ -14,14 +14,16 @@ import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import type {
+  CreateSetDispatcherBroadcastItemResult,
+  Profile
+} from 'src/types/lens'
 import {
   BroadcastDocument,
-  CreateSetDispatcherBroadcastItemResult,
   CreateSetDispatcherTypedDataDocument,
-  Profile,
   ProfileDocument
 } from 'src/types/lens'
-import { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Toggle = () => {

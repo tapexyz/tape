@@ -2,13 +2,14 @@ import { useMutation } from '@apollo/client'
 import DropMenu from '@components/UIElements/DropMenu'
 import useAppStore from '@lib/store'
 import { useRouter } from 'next/router'
-import React, { Dispatch, FC } from 'react'
+import type { Dispatch, FC } from 'react'
+import React from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { FiFlag } from 'react-icons/fi'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { HidePublicationDocument } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 type Props = {
   setShowReport: Dispatch<boolean>

@@ -4,7 +4,7 @@ import {
   LENSTUBE_TWITTER_HANDLE,
   LENSTUBE_URL
 } from '@utils/constants'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 const getVideoUrl = (video: LenstubePublication) => {
   return `${LENSTUBE_URL}/watch/${video.id}`

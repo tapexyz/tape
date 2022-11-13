@@ -14,12 +14,9 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
-import {
-  PaginatedResultInfo,
-  SearchPublicationsDocument,
-  SearchRequestTypes
-} from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { PaginatedResultInfo } from 'src/types/lens'
+import { SearchPublicationsDocument, SearchRequestTypes } from 'src/types/lens'
+import type { LenstubePublication } from 'src/types/local'
 
 const ExploreHashtag = () => {
   const { query } = useRouter()

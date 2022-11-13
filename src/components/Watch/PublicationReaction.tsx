@@ -6,7 +6,8 @@ import { Analytics, TRACK } from '@utils/analytics'
 import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import { formatNumber } from '@utils/functions/formatNumber'
 import clsx from 'clsx'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineDislike, AiOutlineLike } from 'react-icons/ai'
 import {
@@ -14,7 +15,7 @@ import {
   ReactionTypes,
   RemoveReactionDocument
 } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 type Props = {
   publication: LenstubePublication

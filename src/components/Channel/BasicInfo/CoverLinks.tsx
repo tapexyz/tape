@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import { HiOutlineGlobe } from 'react-icons/hi'
 import { RiTwitterLine } from 'react-icons/ri'
-import { Profile } from 'src/types/lens'
+import type { Profile } from 'src/types/lens'
 
 const CoverLinks = ({ channel }: { channel: Profile }) => {
   return (

@@ -11,10 +11,11 @@ import imageCdn from '@utils/functions/imageCdn'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import { AiOutlineComment } from 'react-icons/ai'
-import { Attribute } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { Attribute } from 'src/types/lens'
+import type { LenstubePublication } from 'src/types/local'
 dayjs.extend(relativeTime)
 
 type Props = {

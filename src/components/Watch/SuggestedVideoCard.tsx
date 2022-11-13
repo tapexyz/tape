@@ -13,8 +13,8 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { Attribute } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { Attribute } from 'src/types/lens'
+import type { LenstubePublication } from 'src/types/local'
 dayjs.extend(relativeTime)
 
 const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {

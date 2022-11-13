@@ -1,8 +1,9 @@
 import CommentedVideoCard from '@components/Channel/CommentedVideoCard'
 import MirroredVideoCard from '@components/Channel/MirroredVideoCard'
 import VideoCard from '@components/Common/VideoCard'
-import React, { FC } from 'react'
-import { LenstubePublication } from 'src/types/local'
+import type { FC } from 'react'
+import React from 'react'
+import type { LenstubePublication } from 'src/types/local'
 
 type Props = {
   videos: LenstubePublication[]

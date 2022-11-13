@@ -14,10 +14,8 @@ import {
   FcTabletAndroid,
   FcVideoCall
 } from 'react-icons/fc'
-import {
-  GlobalProtocolStats,
-  GlobalProtocolStatsDocument
-} from 'src/types/lens'
+import type { GlobalProtocolStats } from 'src/types/lens'
+import { GlobalProtocolStatsDocument } from 'src/types/lens'
 
 const StatCard = dynamic(() => import('./StatCard'))
 const Deployment = dynamic(() => import('./Deployment'))

@@ -5,9 +5,10 @@ import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import { Button } from '@components/UIElements/Button'
 import CollectVideo from '@components/Watch/CollectVideo'
 import PublicationReaction from '@components/Watch/PublicationReaction'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import { AiOutlineRetweet } from 'react-icons/ai'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 type Props = {
   video: LenstubePublication

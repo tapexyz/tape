@@ -8,15 +8,12 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import {
-  PaginatedResultInfo,
-  Profile,
-  ProfilePostsDocument,
-  PublicationTypes
-} from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { PaginatedResultInfo, Profile } from 'src/types/lens'
+import { ProfilePostsDocument, PublicationTypes } from 'src/types/lens'
+import type { LenstubePublication } from 'src/types/local'
 
 type Props = {
   channel: Profile

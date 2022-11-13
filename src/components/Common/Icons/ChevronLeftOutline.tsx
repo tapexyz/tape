@@ -1,5 +1,5 @@
+import type { SVGProps } from 'react'
 import React from 'react'
-import { SVGProps } from 'react'
 
 const ChevronLeftOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg

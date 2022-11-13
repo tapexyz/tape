@@ -15,17 +15,18 @@ import {
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { HiOutlineCollection } from 'react-icons/hi'
+import type { CreateCollectBroadcastItemResult } from 'src/types/lens'
 import {
   BroadcastDocument,
-  CreateCollectBroadcastItemResult,
   CreateCollectTypedDataDocument,
   ProxyActionDocument,
   PublicationCollectModuleDocument
 } from 'src/types/lens'
-import {
+import type {
   CustomErrorWithData,
   LenstubeCollectModule,
   LenstubePublication

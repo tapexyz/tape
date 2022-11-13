@@ -7,9 +7,9 @@ import {
   WMATIC_TOKEN_ADDRESS
 } from '@utils/constants'
 import { CREATOR_VIDEO_CATEGORIES } from '@utils/data/categories'
-import { FetchSignerResult } from '@wagmi/core'
-import { Profile } from 'src/types/lens'
-import {
+import type { FetchSignerResult } from '@wagmi/core'
+import type { Profile } from 'src/types/lens'
+import type {
   BundlrDataState,
   LenstubePublication,
   UploadedVideo

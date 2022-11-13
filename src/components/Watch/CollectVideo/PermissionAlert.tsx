@@ -1,13 +1,12 @@
 import { useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
-import React, { Dispatch, FC } from 'react'
+import type { Dispatch, FC } from 'react'
+import React from 'react'
 import toast from 'react-hot-toast'
-import {
-  ApprovedAllowanceAmount,
-  GenerateModuleCurrencyApprovalDataDocument
-} from 'src/types/lens'
-import { CustomErrorWithData } from 'src/types/local'
+import type { ApprovedAllowanceAmount } from 'src/types/lens'
+import { GenerateModuleCurrencyApprovalDataDocument } from 'src/types/lens'
+import type { CustomErrorWithData } from 'src/types/local'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
 type Props = {

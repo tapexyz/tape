@@ -3,13 +3,12 @@ import logger from '@lib/logger'
 import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
-import { ComponentProps, FC, useId } from 'react'
-import { Mention, MentionsInput, SuggestionDataItem } from 'react-mentions'
-import {
-  Profile,
-  SearchProfilesDocument,
-  SearchRequestTypes
-} from 'src/types/lens'
+import type { ComponentProps, FC } from 'react'
+import { useId } from 'react'
+import type { SuggestionDataItem } from 'react-mentions'
+import { Mention, MentionsInput } from 'react-mentions'
+import type { Profile } from 'src/types/lens'
+import { SearchProfilesDocument, SearchRequestTypes } from 'src/types/lens'
 
 interface Props extends ComponentProps<'textarea'> {
   label?: string
