@@ -2,30 +2,30 @@ import { useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
 import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
 import clearLocalStorage from '@utils/functions/clearLocalStorage'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import { shortenAddress } from '@utils/functions/shortenAddress'
-import { LENSTUBE_STATS, SETTINGS } from '@utils/url-path'
+import { LENSTUBE_STATS } from '@utils/url-path'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { AiOutlinePlus, AiOutlineUserSwitch } from 'react-icons/ai'
-import { BiArrowBack, BiCheck } from 'react-icons/bi'
 import { AllProfilesDocument, Profile } from 'src/types/lens'
 import { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useDisconnect } from 'wagmi'
 
 import ChannelHeartOutline from './Icons/ChannelHeartOutline'
+import CheckOutline from './Icons/CheckOutline'
+import ChevronLeftOutline from './Icons/ChevronLeftOutline'
 import CogOutline from './Icons/CogOutline'
 import GraphOutline from './Icons/GraphOutline'
 import HandWaveOutline from './Icons/HandWaveOutline'
 import MoonOutline from './Icons/MoonOutline'
+import PlusOutline from './Icons/PlusOutline'
 import SunOutline from './Icons/SunOutline'
+import SwitchChannelOutline from './Icons/SwitchChannelOutline'
 
 const UserMenu = () => {
   const setChannels = useAppStore((state) => state.setChannels)
@@ -77,9 +77,7 @@ const UserMenu = () => {
       })
       const allChannels = data?.profiles?.items as Profile[]
       setChannels(allChannels)
-    } catch (error) {
-      logger.error('[Error Get Channels]', error)
-    }
+    } catch {}
   }
 
   return (
@@ -101,16 +99,14 @@ const UserMenu = () => {
       <div className="px-1 mt-1.5 w-48 divide-y shadow max-h-96 divide-gray-200 dark:divide-gray-800 overflow-hidden border border-gray-100 rounded-xl dark:border-gray-800 bg-secondary dark:bg-theme">
         {showAccountSwitcher ? (
           <>
-            <div className="flex opacity-70 items-centerspace-x-2">
-              <button
-                type="button"
-                className="p-2 outline-none"
-                onClick={() => setShowAccountSwitcher(false)}
-              >
-                <BiArrowBack />
-              </button>
+            <button
+              type="button"
+              className="flex opacity-70 pl-2 outline-none items-center space-x-2"
+              onClick={() => setShowAccountSwitcher(false)}
+            >
+              <ChevronLeftOutline className="w-3 h-3" />
               <span className="py-2 text-sm">Channels</span>
-            </div>
+            </button>
             <div className="py-1 text-sm">
               {channels?.map((channel) => (
                 <button
@@ -130,7 +126,9 @@ const UserMenu = () => {
                       {channel.handle}
                     </span>
                   </span>
-                  {selectedChannel?.id === channel.id && <BiCheck />}
+                  {selectedChannel?.id === channel.id && (
+                    <CheckOutline className="w-3 h-3" />
+                  )}
                 </button>
               ))}
             </div>
@@ -140,38 +138,19 @@ const UserMenu = () => {
             <div className="flex flex-col space-y-1 text-sm transition duration-150 ease-in-out rounded-lg">
               <div className="inline-flex items-center p-2 py-3 space-x-2 rounded-lg">
                 <img
-                  className="object-cover rounded-xl w-9 h-9"
+                  className="object-cover rounded-full w-9 h-9"
                   src={getProfilePicture(selectedChannel, 'avatar')}
                   alt="channel picture"
                   draggable={false}
                 />
                 <div className="grid">
-                  {address && (
-                    <h6
-                      title={
-                        selectedChannel
-                          ? selectedChannel?.handle
-                          : shortenAddress(address)
-                      }
-                      className="text-base truncate"
-                    >
-                      {selectedChannel
-                        ? selectedChannel?.handle
-                        : shortenAddress(address)}
-                    </h6>
-                  )}
-                  {selectedChannel && (
-                    <Menu.Item
-                      as={NextLink}
-                      onClick={() =>
-                        Analytics.track(TRACK.CLICK_CHANNEL_SETTINGS)
-                      }
-                      href={SETTINGS}
-                      className="text-xs font-medium text-indigo-500 dark:text-indigo-400"
-                    >
-                      Settings
-                    </Menu.Item>
-                  )}
+                  <span className="text-xs opacity-70">Connected as</span>
+                  <h6
+                    title={selectedChannel?.handle}
+                    className="text-base truncate leading-4"
+                  >
+                    {selectedChannel?.handle}
+                  </h6>
                 </div>
               </div>
             </div>
@@ -198,18 +177,16 @@ const UserMenu = () => {
                       Your Channel
                     </span>
                   </Menu.Item>
-                  {!IS_MAINNET && (
-                    <button
-                      type="button"
-                      className="inline-flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                      onClick={() => onSelectSwitchChannel()}
-                    >
-                      <AiOutlineUserSwitch className="text-lg" />
-                      <span className="truncate whitespace-nowrap">
-                        Switch channel
-                      </span>
-                    </button>
-                  )}
+                  <button
+                    type="button"
+                    className="inline-flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                    onClick={() => onSelectSwitchChannel()}
+                  >
+                    <SwitchChannelOutline className="w-4 h-4" />
+                    <span className="truncate whitespace-nowrap">
+                      Switch channel
+                    </span>
+                  </button>
                 </>
               )}
               {!IS_MAINNET && (
@@ -218,7 +195,7 @@ const UserMenu = () => {
                   className="flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setShowCreateChannel(true)}
                 >
-                  <AiOutlinePlus className="text-lg" />
+                  <PlusOutline className="w-4 h-4" />
                   <span className="truncate whitespace-nowrap">
                     Create Channel
                   </span>

@@ -7,7 +7,6 @@ import { Analytics, TRACK } from '@utils/analytics'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
 import React, { useEffect, useState } from 'react'
@@ -24,7 +23,7 @@ const request = {
   sortCriteria: PublicationSortCriteria.CuratedProfiles,
   limit: 30,
   noRandomize: true,
-  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+  sources: [LENSTUBE_APP_ID],
   publicationTypes: [PublicationTypes.Post],
   customFilters: LENS_CUSTOM_FILTERS
 }
