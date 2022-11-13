@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
 import { Analytics, TRACK } from '@utils/analytics'
@@ -6,7 +5,7 @@ import { ERROR_MESSAGE } from '@utils/constants'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { ReportPublicationDocument } from 'src/types/lens'
+import { useReportPublicationMutation } from 'src/types/lens'
 import type { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -16,19 +15,17 @@ type Props = {
 
 const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
   const [reason, setReason] = useState('SPAM-FAKE_ENGAGEMENT')
-  const [createReport, { loading: reporting }] = useMutation(
-    ReportPublicationDocument,
-    {
-      onError(error: CustomErrorWithData) {
-        toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
-      },
-      onCompleted() {
-        Analytics.track(TRACK.REPORT)
-        toast.success('Publication reported successfully.')
-        onSuccess()
-      }
+
+  const [createReport, { loading: reporting }] = useReportPublicationMutation({
+    onError: (error: CustomErrorWithData) => {
+      toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+    },
+    onCompleted: () => {
+      Analytics.track(TRACK.REPORT)
+      toast.success('Publication reported successfully.')
+      onSuccess()
     }
-  )
+  })
 
   const getReasonType = (type: string) => {
     if (type === 'ILLEGAL') return 'illegalReason'

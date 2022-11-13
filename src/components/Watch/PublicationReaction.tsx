@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -11,9 +10,9 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineDislike, AiOutlineLike } from 'react-icons/ai'
 import {
-  AddReactionDocument,
   ReactionTypes,
-  RemoveReactionDocument
+  useAddReactionMutation,
+  useRemoveReactionMutation
 } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
@@ -42,13 +41,13 @@ const PublicationReaction: FC<Props> = ({
     dislikeCount: publication.stats?.totalDownvotes
   })
 
-  const [addReaction] = useMutation(AddReactionDocument, {
-    onError(error) {
+  const [addReaction] = useAddReactionMutation({
+    onError: (error) => {
       toast.error(error?.message)
     }
   })
-  const [removeReaction] = useMutation(RemoveReactionDocument, {
-    onError(error) {
+  const [removeReaction] = useRemoveReactionMutation({
+    onError: (error) => {
       toast.error(error?.message)
     }
   })

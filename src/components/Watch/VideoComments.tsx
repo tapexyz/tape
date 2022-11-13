@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import Alert from '@components/Common/Alert'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Loader } from '@components/UIElements/Loader'
@@ -9,11 +8,10 @@ import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@utils/constants'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
 import { AiOutlineComment } from 'react-icons/ai'
-import type { PaginatedResultInfo } from 'src/types/lens'
-import { ProfileCommentsDocument } from 'src/types/lens'
+import { useProfileCommentsQuery } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 import NewComment from './NewComment'
@@ -22,11 +20,6 @@ const Comment = dynamic(() => import('./Comment'))
 
 type Props = {
   video: LenstubePublication
-}
-
-const request = {
-  limit: 30,
-  customFilters: LENS_CUSTOM_FILTERS
 }
 
 const VideoComments: FC<Props> = ({ video }) => {
@@ -39,66 +32,45 @@ const VideoComments: FC<Props> = ({ video }) => {
   const isFollowerOnlyReferenceModule =
     video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
 
-  const [comments, setComments] = useState<LenstubePublication[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { data, loading, error, fetchMore, refetch } = useQuery(
-    ProfileCommentsDocument,
-    {
-      variables: {
-        request: {
-          ...request,
-          commentsOf: id
-        },
-        reactionRequest: selectedChannel
-          ? { profileId: selectedChannel?.id }
-          : null,
-        channelId: selectedChannel?.id ?? null
-      },
-      skip: !id,
-      onCompleted(data) {
-        setPageInfo(data?.publications?.pageInfo)
-        setComments(data?.publications?.items as LenstubePublication[])
-      }
-    }
-  )
+  const request = {
+    limit: 30,
+    customFilters: LENS_CUSTOM_FILTERS,
+    commentsOf: id
+  }
+  const variables = {
+    request,
+    reactionRequest: selectedChannel
+      ? { profileId: selectedChannel?.id }
+      : null,
+    channelId: selectedChannel?.id ?? null
+  }
+
+  const { data, loading, error, fetchMore, refetch } = useProfileCommentsQuery({
+    variables,
+    skip: !id
+  })
+
+  const comments = data?.publications?.items as LenstubePublication[]
+  const pageInfo = data?.publications?.pageInfo
 
   const refetchComments = () => {
     refetch({
-      request: {
-        commentsOf: id,
-        ...request
-      },
-      reactionRequest: selectedChannel
-        ? { profileId: selectedChannel?.id }
-        : null,
-      channelId: selectedChannel?.id ?? null
+      ...variables
     })
   }
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              commentsOf: id,
-              cursor: pageInfo?.next,
-              ...request
-            },
-            reactionRequest: selectedChannel
-              ? { profileId: selectedChannel?.id }
-              : null,
-            customFilters: LENS_CUSTOM_FILTERS,
-            channelId: selectedChannel?.id ?? null
+      await fetchMore({
+        variables: {
+          ...variables,
+          request: {
+            ...request,
+            cursor: pageInfo?.next
           }
-        })
-        setPageInfo(data?.publications?.pageInfo)
-        setComments([
-          ...comments,
-          ...(data?.publications?.items as LenstubePublication[])
-        ])
-      } catch {}
+        }
+      })
     }
   })
 

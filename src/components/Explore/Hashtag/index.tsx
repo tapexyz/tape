@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
@@ -11,18 +10,15 @@ import {
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
-import type { PaginatedResultInfo } from 'src/types/lens'
-import { SearchPublicationsDocument, SearchRequestTypes } from 'src/types/lens'
+import { SearchRequestTypes, useSearchPublicationsQuery } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 const ExploreHashtag = () => {
   const { query } = useRouter()
   const hashtag = query.hashtag as string
-  const [videos, setVideos] = useState<LenstubePublication[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
   const request = {
     type: SearchRequestTypes.Publication,
@@ -32,64 +28,52 @@ const ExploreHashtag = () => {
     query: hashtag
   }
 
-  const { data, loading, error, fetchMore } = useQuery(
-    SearchPublicationsDocument,
-    {
-      variables: {
-        request
-      },
-      skip: !hashtag,
-      onCompleted: (data) => {
-        if (data.search.__typename === 'PublicationSearchResult') {
-          setPageInfo(data?.search?.pageInfo)
-          setVideos(data?.search?.items as LenstubePublication[])
-        }
-      }
-    }
-  )
+  const { data, loading, error, fetchMore } = useSearchPublicationsQuery({
+    variables: {
+      request
+    },
+    skip: !hashtag
+  })
 
-  // @ts-ignore
-  const searchItems = data?.search?.items
+  const videos =
+    data?.search.__typename === 'PublicationSearchResult'
+      ? (data?.search?.items as LenstubePublication[])
+      : []
+  const pageInfo =
+    data?.search.__typename === 'PublicationSearchResult'
+      ? data?.search?.pageInfo
+      : null
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              ...request,
-              query: hashtag,
-              cursor: pageInfo?.next
-            }
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            cursor: pageInfo?.next
           }
-        })
-        if (data.search.__typename === 'PublicationSearchResult') {
-          setPageInfo(data?.search?.pageInfo)
-          setVideos([
-            ...videos,
-            ...(data?.search?.items as LenstubePublication[])
-          ])
         }
-      } catch {}
+      })
     }
   })
+
   if (!hashtag) return <Custom404 />
 
   return (
     <>
-      <MetaTags title={hashtag?.toString() || ''} />
+      <MetaTags title={hashtag?.toString()} />
       <div>
         <h1 className="font-semibold md:text-2xl">#{hashtag}</h1>
         <div className="my-4">
           {loading && <TimelineShimmer />}
-          {searchItems?.length === 0 && (
+          {videos?.length === 0 && (
             <NoDataFound isCenter withImage text="No videos found" />
           )}
           {!error && !loading && (
             <>
               <Timeline videos={videos} />
-              {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
+              {pageInfo?.next && videos?.length !== pageInfo?.totalCount && (
                 <span ref={observe} className="flex justify-center p-10">
                   <Loader />
                 </span>

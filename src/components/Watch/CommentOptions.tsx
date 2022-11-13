@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/client'
 import DropMenu from '@components/UIElements/DropMenu'
 import useAppStore from '@lib/store'
 import { useRouter } from 'next/router'
@@ -8,7 +7,7 @@ import toast from 'react-hot-toast'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { FiFlag } from 'react-icons/fi'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
-import { HidePublicationDocument } from 'src/types/lens'
+import { useHidePublicationMutation } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -20,8 +19,8 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const router = useRouter()
 
-  const [hideComment] = useMutation(HidePublicationDocument, {
-    onCompleted() {
+  const [hideComment] = useHidePublicationMutation({
+    onCompleted: () => {
       toast.success('Comment deleted')
       router.reload()
     }

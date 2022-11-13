@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import logger from '@lib/logger'
@@ -17,13 +16,11 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { FeeFollowModuleSettings, Profile } from 'src/types/lens'
-import {
-  ApprovedModuleAllowanceAmountDocument,
-  BroadcastDocument,
-  CreateFollowTypedDataDocument,
-  FollowModules,
-  ProfileFollowModuleDocument
-} from 'src/types/lens'
+import { useBroadcastMutation } from 'src/types/lens'
+import { useCreateFollowTypedDataMutation } from 'src/types/lens'
+import { useApprovedModuleAllowanceAmountQuery } from 'src/types/lens'
+import { useProfileFollowModuleQuery } from 'src/types/lens'
+import { FollowModules } from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
 
@@ -64,19 +61,20 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     onError
   })
 
-  const [broadcast] = useMutation(BroadcastDocument, {
+  const [broadcast] = useBroadcastMutation({
     onCompleted,
     onError
   })
 
-  const { data: followModuleData } = useQuery(ProfileFollowModuleDocument, {
+  const { data: followModuleData } = useProfileFollowModuleQuery({
     variables: { request: { profileIds: channel?.id } },
     skip: !channel?.id
   })
+
   const followModule = followModuleData?.profiles?.items[0]
     ?.followModule as FeeFollowModuleSettings
 
-  useQuery(ApprovedModuleAllowanceAmountDocument, {
+  useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
         currencies: followModule?.amount?.asset?.address,
@@ -91,7 +89,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     }
   })
 
-  const [createJoinTypedData] = useMutation(CreateFollowTypedDataDocument, {
+  const [createJoinTypedData] = useCreateFollowTypedDataMutation({
     async onCompleted(data) {
       const { typedData, id } = data.createFollowTypedData
       try {

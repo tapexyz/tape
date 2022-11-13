@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { formatNumber } from '@utils/functions/formatNumber'
@@ -8,11 +7,11 @@ import imageCdn from '@utils/functions/imageCdn'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
-import type { PaginatedResultInfo, Wallet } from 'src/types/lens'
-import { CollectorsDocument } from 'src/types/lens'
+import type { Wallet } from 'src/types/lens'
+import { useCollectorsQuery } from 'src/types/lens'
 
 import IsVerified from './IsVerified'
 import AddressExplorerLink from './Links/AddressExplorerLink'
@@ -22,41 +21,31 @@ type Props = {
 }
 
 const CollectorsList: FC<Props> = ({ videoId }) => {
-  const [collectors, setCollectors] = useState<Wallet[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  const request = { publicationId: videoId, limit: 30 }
 
-  const { data, loading, fetchMore } = useQuery(CollectorsDocument, {
-    variables: { request: { publicationId: videoId, limit: 10 } },
-    skip: !videoId,
-    onCompleted(data) {
-      setPageInfo(data?.whoCollectedPublication?.pageInfo)
-      setCollectors(data?.whoCollectedPublication?.items as Wallet[])
-    }
+  const { data, loading, fetchMore } = useCollectorsQuery({
+    variables: { request },
+    skip: !videoId
   })
+
+  const collectors = data?.whoCollectedPublication?.items as Wallet[]
+  const pageInfo = data?.whoCollectedPublication?.pageInfo
 
   const { observe } = useInView({
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              publicationId: videoId,
-              cursor: pageInfo?.next,
-              limit: 30
-            }
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            cursor: pageInfo?.next
           }
-        })
-        setPageInfo(data?.whoCollectedPublication?.pageInfo)
-        setCollectors([
-          ...collectors,
-          ...(data?.whoCollectedPublication?.items as Wallet[])
-        ])
-      } catch {}
+        }
+      })
     }
   })
 
   if (loading) return <Loader />
-  if (data?.whoCollectedPublication?.items?.length === 0)
+  if (collectors?.length === 0)
     return (
       <div className="pt-5">
         <NoDataFound text="No collectors yet" isCenter />

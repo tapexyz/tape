@@ -1,4 +1,3 @@
-import { useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
@@ -13,7 +12,7 @@ import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { Profile } from 'src/types/lens'
-import { AllProfilesDocument } from 'src/types/lens'
+import { useAllProfilesLazyQuery } from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useDisconnect } from 'wagmi'
 
@@ -50,7 +49,7 @@ const UserMenu = () => {
       toast.error(error?.data?.message || error?.message)
     }
   })
-  const [getChannels] = useLazyQuery(AllProfilesDocument)
+  const [getChannels] = useAllProfilesLazyQuery()
   const { address } = useAccount()
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 

@@ -1,4 +1,3 @@
-import { useLazyQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -14,12 +13,9 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import type { PaginatedResultInfo } from 'src/types/lens'
-import {
-  ExploreDocument,
-  PublicationDetailsDocument,
-  PublicationSortCriteria,
-  PublicationTypes
-} from 'src/types/lens'
+import { usePublicationDetailsLazyQuery } from 'src/types/lens'
+import { useExploreLazyQuery } from 'src/types/lens'
+import { PublicationSortCriteria, PublicationTypes } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 import ByteVideo from './ByteVideo'
@@ -40,33 +36,29 @@ const Bytes = () => {
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const [singleByte, setSingleByte] = useState<LenstubePublication>()
 
-  const [fetchPublication, { loading: singleByteLoading }] = useLazyQuery(
-    PublicationDetailsDocument
-  )
+  const [fetchPublication, { loading: singleByteLoading }] =
+    usePublicationDetailsLazyQuery()
 
-  const [fetchAllBytes, { loading, error, fetchMore }] = useLazyQuery(
-    ExploreDocument,
-    {
-      variables: {
-        request,
-        reactionRequest: selectedChannel
-          ? { profileId: selectedChannel?.id }
-          : null,
-        channelId: selectedChannel?.id ?? null
-      },
-      onCompleted: (data) => {
-        setPageInfo(data?.explorePublications?.pageInfo)
-        const items = data?.explorePublications?.items as LenstubePublication[]
-        setBytes(items)
-        const publicationId = router.query.id
-        if (!publicationId) {
-          router.push(`/bytes/?id=${items[0]?.id}`, undefined, {
-            shallow: true
-          })
-        }
+  const [fetchAllBytes, { loading, error, fetchMore }] = useExploreLazyQuery({
+    variables: {
+      request,
+      reactionRequest: selectedChannel
+        ? { profileId: selectedChannel?.id }
+        : null,
+      channelId: selectedChannel?.id ?? null
+    },
+    onCompleted: (data) => {
+      setPageInfo(data?.explorePublications?.pageInfo)
+      const items = data?.explorePublications?.items as LenstubePublication[]
+      setBytes(items)
+      const publicationId = router.query.id
+      if (!publicationId) {
+        router.push(`/bytes/?id=${items[0]?.id}`, undefined, {
+          shallow: true
+        })
       }
     }
-  )
+  })
 
   const fetchSingleByte = async () => {
     const publicationId = router.query.id

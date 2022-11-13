@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
@@ -15,16 +14,17 @@ import {
   FcVideoCall
 } from 'react-icons/fc'
 import type { GlobalProtocolStats } from 'src/types/lens'
-import { GlobalProtocolStatsDocument } from 'src/types/lens'
+import { useGlobalProtocolStatsQuery } from 'src/types/lens'
 
 const StatCard = dynamic(() => import('./StatCard'))
 const Deployment = dynamic(() => import('./Deployment'))
 const Custom404 = dynamic(() => import('../../pages/404'))
 
 const Stats = () => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const { mounted } = useIsMounted()
-  const { data, loading } = useQuery(GlobalProtocolStatsDocument, {
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
+
+  const { data, loading } = useGlobalProtocolStatsQuery({
     variables: {
       request: {
         sources: [LENSTUBE_APP_ID]
@@ -32,9 +32,10 @@ const Stats = () => {
     }
   })
 
-  if (!ADMIN_IDS.includes(selectedChannel?.id) && mounted) {
+  if (!ADMIN_IDS.includes(selectedChannel?.id)) {
     return <Custom404 />
   }
+
   const stats = data?.globalProtocolStats as GlobalProtocolStats
   const bytesStats = data?.bytesStats as GlobalProtocolStats
 

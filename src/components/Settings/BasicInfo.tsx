@@ -1,5 +1,4 @@
 import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
-import { useMutation } from '@apollo/client'
 import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
@@ -40,12 +39,10 @@ import type {
   MediaSet,
   Profile
 } from 'src/types/lens'
-import {
-  BroadcastDocument,
-  CreateSetProfileMetadataTypedDataDocument,
-  CreateSetProfileMetadataViaDispatcherDocument,
-  PublicationMetadataDisplayTypes
-} from 'src/types/lens'
+import { useBroadcastMutation } from 'src/types/lens'
+import { useCreateSetProfileMetadataTypedDataMutation } from 'src/types/lens'
+import { useCreateSetProfileMetadataViaDispatcherMutation } from 'src/types/lens'
+import { PublicationMetadataDisplayTypes } from 'src/types/lens'
 import type { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -129,23 +126,20 @@ const BasicInfo = ({ channel }: Props) => {
     onSuccess: onCompleted
   })
 
-  const [broadcast] = useMutation(BroadcastDocument, {
+  const [broadcast] = useBroadcastMutation({
     onError,
     onCompleted
   })
 
-  const [createSetProfileMetadataViaDispatcher] = useMutation(
-    CreateSetProfileMetadataViaDispatcherDocument,
-    {
+  const [createSetProfileMetadataViaDispatcher] =
+    useCreateSetProfileMetadataViaDispatcherMutation({
       onError,
       onCompleted
-    }
-  )
+    })
 
-  const [createSetProfileMetadataTypedData] = useMutation(
-    CreateSetProfileMetadataTypedDataDocument,
-    {
-      async onCompleted(data) {
+  const [createSetProfileMetadataTypedData] =
+    useCreateSetProfileMetadataTypedDataMutation({
+      onCompleted: async (data) => {
         const { typedData, id } = data.createSetProfileMetadataTypedData
         try {
           const signature = await signTypedDataAsync({
@@ -175,8 +169,7 @@ const BasicInfo = ({ channel }: Props) => {
         }
       },
       onError
-    }
-  )
+    })
 
   const onCopyChannelUrl = async (value: string) => {
     await copy(value)

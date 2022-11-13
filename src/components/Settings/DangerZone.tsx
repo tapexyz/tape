@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation } from '@apollo/client'
 import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
 import logger from '@lib/logger'
@@ -14,7 +13,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
 import type { CreateBurnProfileBroadcastItemResult } from 'src/types/lens'
-import { CreateBurnProfileTypedDataDocument } from 'src/types/lens'
+import { useCreateBurnProfileTypedDataMutation } from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import {
   useContractWrite,
@@ -58,29 +57,26 @@ const DangerZone = () => {
     onError
   })
 
-  const [createBurnProfileTypedData] = useMutation(
-    CreateBurnProfileTypedDataDocument,
-    {
-      async onCompleted(data) {
-        const { typedData } =
-          data.createBurnProfileTypedData as CreateBurnProfileBroadcastItemResult
-        try {
-          const signature = await signTypedDataAsync({
-            domain: omitKey(typedData?.domain, '__typename'),
-            types: omitKey(typedData?.types, '__typename'),
-            value: omitKey(typedData?.value, '__typename')
-          })
-          const { tokenId } = typedData?.value
-          const { v, r, s } = utils.splitSignature(signature)
-          const sig = { v, r, s, deadline: typedData.value.deadline }
-          writeDeleteProfile?.({ recklesslySetUnpreparedArgs: [tokenId, sig] })
-        } catch (error) {
-          logger.error('[Error Delete Channel Typed Data]', error)
-        }
-      },
-      onError
-    }
-  )
+  const [createBurnProfileTypedData] = useCreateBurnProfileTypedDataMutation({
+    onCompleted: async (data) => {
+      const { typedData } =
+        data.createBurnProfileTypedData as CreateBurnProfileBroadcastItemResult
+      try {
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
+        })
+        const { tokenId } = typedData?.value
+        const { v, r, s } = utils.splitSignature(signature)
+        const sig = { v, r, s, deadline: typedData.value.deadline }
+        writeDeleteProfile?.({ recklesslySetUnpreparedArgs: [tokenId, sig] })
+      } catch (error) {
+        logger.error('[Error Delete Channel Typed Data]', error)
+      }
+    },
+    onError
+  })
 
   const onClickDelete = () => {
     setLoading(true)

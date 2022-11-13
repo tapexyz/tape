@@ -36,11 +36,11 @@ function cursorBasedPagination<T extends CursorBasedPagination>(
       if (!existing) {
         return incoming
       }
-      const existingItems = existing.items
-      const incomingItems = incoming.items
+      const existingItems = existing.items ?? []
+      const incomingItems = incoming.items ?? []
       return {
         ...incoming,
-        items: existingItems.concat(incomingItems),
+        items: existingItems?.concat(incomingItems),
         pageInfo: incoming.pageInfo
       } as SafeReadonly<T>
     }

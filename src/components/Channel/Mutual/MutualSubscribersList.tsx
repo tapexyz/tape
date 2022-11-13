@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import IsVerified from '@components/Common/IsVerified'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -6,56 +5,48 @@ import useAppStore from '@lib/store'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
-import type { PaginatedResultInfo, Profile } from 'src/types/lens'
-import { MutualFollowersDocument } from 'src/types/lens'
+import type { Profile } from 'src/types/lens'
+import { useMutualFollowersQuery } from 'src/types/lens'
 type Props = {
   viewingChannelId: string
 }
 
 const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const [mutualSubscribers, setMutualSubscribers] = useState<Profile[]>([])
-  const { data, loading, fetchMore } = useQuery(MutualFollowersDocument, {
+  const request = {
+    viewingProfileId: viewingChannelId,
+    yourProfileId: selectedChannel?.id,
+    limit: 30
+  }
+
+  const { data, loading, fetchMore } = useMutualFollowersQuery({
     variables: {
-      request: {
-        viewingProfileId: viewingChannelId,
-        yourProfileId: selectedChannel?.id,
-        limit: 30
-      }
+      request
     },
-    skip: !viewingChannelId,
-    onCompleted(data) {
-      setPageInfo(data?.mutualFollowersProfiles?.pageInfo)
-      setMutualSubscribers(data?.mutualFollowersProfiles?.items as Profile[])
-    }
+    skip: !viewingChannelId
   })
+
+  const mutualSubscribers = data?.mutualFollowersProfiles?.items as Profile[]
+  const pageInfo = data?.mutualFollowersProfiles?.pageInfo
 
   const { observe } = useInView({
     onEnter: async () => {
-      const { data } = await fetchMore({
+      await fetchMore({
         variables: {
           request: {
-            viewingProfileId: viewingChannelId,
-            yourProfileId: selectedChannel?.id,
-            limit: 30,
+            ...request,
             cursor: pageInfo?.next
           }
         }
       })
-      setPageInfo(data?.mutualFollowersProfiles?.pageInfo)
-      setMutualSubscribers([
-        ...mutualSubscribers,
-        ...(data?.mutualFollowersProfiles?.items as Profile[])
-      ])
     }
   })
 
   if (loading) return <Loader />
-  if (data?.mutualFollowersProfiles?.items?.length === 0)
+  if (mutualSubscribers?.length === 0)
     return (
       <div className="pt-5">
         <NoDataFound text="No subscribers" isCenter />

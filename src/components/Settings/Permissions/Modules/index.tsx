@@ -1,4 +1,3 @@
-import { useLazyQuery, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import logger from '@lib/logger'
@@ -8,13 +7,9 @@ import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { ApprovedAllowanceAmount, Erc20 } from 'src/types/lens'
-import {
-  ApprovedModuleAllowanceAmountDocument,
-  CollectModules,
-  FollowModules,
-  GenerateModuleCurrencyApprovalDataDocument,
-  ReferenceModules
-} from 'src/types/lens'
+import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'src/types/lens'
+import { useApprovedModuleAllowanceAmountQuery } from 'src/types/lens'
+import { CollectModules, FollowModules, ReferenceModules } from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
@@ -43,7 +38,7 @@ const ModulePermissions = () => {
     data,
     refetch,
     loading: gettingSettings
-  } = useQuery(ApprovedModuleAllowanceAmountDocument, {
+  } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
         currencies: [currency],
@@ -73,9 +68,8 @@ const ModulePermissions = () => {
     }
   })
 
-  const [generateAllowanceQuery] = useLazyQuery(
-    GenerateModuleCurrencyApprovalDataDocument
-  )
+  const [generateAllowanceQuery] =
+    useGenerateModuleCurrencyApprovalDataLazyQuery()
 
   const handleClick = async (isAllow: boolean, selectedModule: string) => {
     try {

@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
@@ -7,7 +6,7 @@ import getProfilePicture from '@utils/functions/getProfilePicture'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import type { Profile } from 'src/types/lens'
-import { MutualFollowersDocument } from 'src/types/lens'
+import { useMutualFollowersQuery } from 'src/types/lens'
 
 import MutualSubscribersList from './MutualSubscribersList'
 type Props = {
@@ -21,7 +20,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
   const [showMutualSubscribersModal, setShowMutualSubscribersModal] =
     useState(false)
 
-  const { data } = useQuery(MutualFollowersDocument, {
+  const { data } = useMutualFollowersQuery({
     variables: {
       request: {
         viewingProfileId: viewingChannelId,

@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -21,11 +20,11 @@ import toast from 'react-hot-toast'
 import { HiOutlineCollection } from 'react-icons/hi'
 import type { CreateCollectBroadcastItemResult } from 'src/types/lens'
 import {
-  BroadcastDocument,
-  CreateCollectTypedDataDocument,
-  ProxyActionDocument,
-  PublicationCollectModuleDocument
+  useCreateCollectTypedDataMutation,
+  useProxyActionMutation
 } from 'src/types/lens'
+import { useBroadcastMutation } from 'src/types/lens'
+import { usePublicationCollectModuleQuery } from 'src/types/lens'
 import type {
   CustomErrorWithData,
   LenstubeCollectModule,
@@ -66,12 +65,10 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     onError
   })
 
-  const { data, loading: fetchingCollectModule } = useQuery(
-    PublicationCollectModuleDocument,
-    {
+  const { data, loading: fetchingCollectModule } =
+    usePublicationCollectModuleQuery({
       variables: { request: { publicationId: video?.id } }
-    }
-  )
+    })
   const collectModule =
     data?.publication?.__typename === 'Post'
       ? (data?.publication?.collectModule as LenstubeCollectModule)
@@ -86,17 +83,17 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     onSuccess: onCompleted
   })
 
-  const [broadcast] = useMutation(BroadcastDocument, {
+  const [broadcast] = useBroadcastMutation({
     onError,
     onCompleted
   })
 
-  const [createProxyActionFreeCollect] = useMutation(ProxyActionDocument, {
+  const [createProxyActionFreeCollect] = useProxyActionMutation({
     onError,
     onCompleted
   })
 
-  const [createCollectTypedData] = useMutation(CreateCollectTypedDataDocument, {
+  const [createCollectTypedData] = useCreateCollectTypedDataMutation({
     async onCompleted(data) {
       const { typedData, id } =
         data.createCollectTypedData as CreateCollectBroadcastItemResult

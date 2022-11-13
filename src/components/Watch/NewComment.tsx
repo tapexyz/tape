@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -30,10 +29,10 @@ import type {
   CreateCommentBroadcastItemResult,
   CreatePublicCommentRequest
 } from 'src/types/lens'
+import { useCreateCommentTypedDataMutation } from 'src/types/lens'
+import { useCreateCommentViaDispatcherMutation } from 'src/types/lens'
+import { useBroadcastMutation } from 'src/types/lens'
 import {
-  BroadcastDocument,
-  CreateCommentTypedDataDocument,
-  CreateCommentViaDispatcherDocument,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes
 } from 'src/types/lens'
@@ -98,16 +97,14 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     }
   })
 
-  const [broadcast, { data: broadcastData }] = useMutation(BroadcastDocument, {
+  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
     onError
   })
 
-  const [createCommentViaDispatcher, { data: dispatcherData }] = useMutation(
-    CreateCommentViaDispatcherDocument,
-    {
+  const [createCommentViaDispatcher, { data: dispatcherData }] =
+    useCreateCommentViaDispatcherMutation({
       onError
-    }
-  )
+    })
 
   const broadcastTxId =
     broadcastData?.broadcast.__typename === 'RelayerResult'
@@ -135,8 +132,8 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
-  const [createCommentTypedData] = useMutation(CreateCommentTypedDataDocument, {
-    async onCompleted(data) {
+  const [createCommentTypedData] = useCreateCommentTypedDataMutation({
+    onCompleted: async (data) => {
       const { typedData, id } =
         data.createCommentTypedData as CreateCommentBroadcastItemResult
       const {

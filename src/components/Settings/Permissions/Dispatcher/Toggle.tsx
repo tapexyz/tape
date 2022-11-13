@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useLazyQuery, useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
@@ -18,11 +17,9 @@ import type {
   CreateSetDispatcherBroadcastItemResult,
   Profile
 } from 'src/types/lens'
-import {
-  BroadcastDocument,
-  CreateSetDispatcherTypedDataDocument,
-  ProfileDocument
-} from 'src/types/lens'
+import { useProfileLazyQuery } from 'src/types/lens'
+import { useBroadcastMutation } from 'src/types/lens'
+import { useCreateSetDispatcherTypedDataMutation } from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -51,7 +48,7 @@ const Toggle = () => {
     onError
   })
 
-  const [broadcast, { data: broadcastData }] = useMutation(BroadcastDocument, {
+  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
     onError
   })
 
@@ -63,8 +60,8 @@ const Toggle = () => {
         : undefined
   })
 
-  const [refetchChannel] = useLazyQuery(ProfileDocument, {
-    onCompleted(data) {
+  const [refetchChannel] = useProfileLazyQuery({
+    onCompleted: (data) => {
       const channel = data?.profile as Profile
       setSelectedChannel(channel)
     }
@@ -85,42 +82,39 @@ const Toggle = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
-  const [createDispatcherTypedData] = useMutation(
-    CreateSetDispatcherTypedDataDocument,
-    {
-      onCompleted: async ({ createSetDispatcherTypedData }) => {
-        const { id, typedData } =
-          createSetDispatcherTypedData as CreateSetDispatcherBroadcastItemResult
-        const { deadline } = typedData?.value
-        try {
-          const signature = await signTypedDataAsync({
-            domain: omitKey(typedData?.domain, '__typename'),
-            types: omitKey(typedData?.types, '__typename'),
-            value: omitKey(typedData?.value, '__typename')
-          })
-          const { profileId, dispatcher } = typedData?.value
-          const { v, r, s } = utils.splitSignature(signature)
-          const args = {
-            profileId,
-            dispatcher,
-            sig: { v, r, s, deadline }
-          }
-          setUserSigNonce(userSigNonce + 1)
-          if (!RELAYER_ENABLED) {
-            return writeDispatch?.({ recklesslySetUnpreparedArgs: [args] })
-          }
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.__typename === 'RelayError')
-            writeDispatch?.({ recklesslySetUnpreparedArgs: [args] })
-        } catch (error) {
-          logger.error('[Error Set Dispatcher]', error)
+  const [createDispatcherTypedData] = useCreateSetDispatcherTypedDataMutation({
+    onCompleted: async ({ createSetDispatcherTypedData }) => {
+      const { id, typedData } =
+        createSetDispatcherTypedData as CreateSetDispatcherBroadcastItemResult
+      const { deadline } = typedData?.value
+      try {
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
+        })
+        const { profileId, dispatcher } = typedData?.value
+        const { v, r, s } = utils.splitSignature(signature)
+        const args = {
+          profileId,
+          dispatcher,
+          sig: { v, r, s, deadline }
         }
-      },
-      onError
-    }
-  )
+        setUserSigNonce(userSigNonce + 1)
+        if (!RELAYER_ENABLED) {
+          return writeDispatch?.({ recklesslySetUnpreparedArgs: [args] })
+        }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.__typename === 'RelayError')
+          writeDispatch?.({ recklesslySetUnpreparedArgs: [args] })
+      } catch (error) {
+        logger.error('[Error Set Dispatcher]', error)
+      }
+    },
+    onError
+  })
   const onClick = () => {
     setLoading(true)
     createDispatcherTypedData({

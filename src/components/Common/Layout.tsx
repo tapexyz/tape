@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
@@ -22,7 +21,7 @@ import type { FC, ReactNode } from 'react'
 import React, { useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import type { Profile } from 'src/types/lens'
-import { UserProfilesDocument } from 'src/types/lens'
+import { useUserProfilesQuery } from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
@@ -60,7 +59,6 @@ const Layout: FC<Props> = ({ children }) => {
     }
   })
   const { mounted } = useIsMounted()
-
   const { address, isDisconnected } = useAccount()
   const { pathname, replace, asPath } = useRouter()
   const showFullScreen = getShowFullScreen(pathname)
@@ -79,7 +77,7 @@ const Layout: FC<Props> = ({ children }) => {
     setSelectedChannelId(selectedChannel?.id)
   }
 
-  const { loading } = useQuery(UserProfilesDocument, {
+  const { loading } = useUserProfilesQuery({
     variables: {
       request: { ownedBy: [address] }
     },

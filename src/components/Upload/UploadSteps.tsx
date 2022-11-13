@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import logger from '@lib/logger'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
@@ -38,10 +37,10 @@ import type {
   PublicationMetadataMediaInput,
   PublicationMetadataV2Input
 } from 'src/types/lens'
+import { useCreatePostTypedDataMutation } from 'src/types/lens'
+import { useCreatePostViaDispatcherMutation } from 'src/types/lens'
+import { useBroadcastMutation } from 'src/types/lens'
 import {
-  BroadcastDocument,
-  CreatePostTypedDataDocument,
-  CreatePostViaDispatcherDocument,
   PublicationContentWarning,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes
@@ -105,7 +104,7 @@ const UploadSteps = () => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const [broadcast, { data: broadcastData }] = useMutation(BroadcastDocument, {
+  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
     onCompleted,
     onError
   })
@@ -124,13 +123,11 @@ const UploadSteps = () => {
     onError
   })
 
-  const [createPostViaDispatcher, { data: dispatcherData }] = useMutation(
-    CreatePostViaDispatcherDocument,
-    {
+  const [createPostViaDispatcher, { data: dispatcherData }] =
+    useCreatePostViaDispatcherMutation({
       onError,
       onCompleted
-    }
-  )
+    })
 
   const broadcastTxId =
     broadcastData?.broadcast.__typename === 'RelayerResult'
@@ -172,8 +169,8 @@ const UploadSteps = () => {
     }
   }
 
-  const [createPostTypedData] = useMutation(CreatePostTypedDataDocument, {
-    async onCompleted(data) {
+  const [createPostTypedData] = useCreatePostTypedDataMutation({
+    onCompleted: async (data) => {
       const { typedData, id } =
         data.createPostTypedData as CreatePostBroadcastItemResult
       const {

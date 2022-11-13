@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
@@ -10,14 +9,10 @@ import {
 } from '@utils/constants'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
-import type { PaginatedResultInfo } from 'src/types/lens'
-import {
-  ExploreDocument,
-  PublicationSortCriteria,
-  PublicationTypes
-} from 'src/types/lens'
+import { useExploreQuery } from 'src/types/lens'
+import { PublicationSortCriteria, PublicationTypes } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
@@ -41,17 +36,13 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
   } = useRouter()
   const setUpNextVideo = useAppStore((state) => state.setUpNextVideo)
 
-  const [videos, setVideos] = useState<LenstubePublication[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { loading, error, fetchMore, refetch } = useQuery(ExploreDocument, {
+  const { data, loading, error, fetchMore, refetch } = useExploreQuery({
     variables: {
       request
     },
-    onCompleted(data) {
-      setPageInfo(data?.explorePublications?.pageInfo)
+    onCompleted: (data) => {
       const publications = data?.explorePublications
         ?.items as LenstubePublication[]
-      setVideos(publications)
       setUpNextVideo(
         publications?.find(
           (video: LenstubePublication) => video.id !== currentVideoId
@@ -60,6 +51,9 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
     }
   })
 
+  const videos = data?.explorePublications?.items as LenstubePublication[]
+  const pageInfo = data?.explorePublications?.pageInfo
+
   useEffect(() => {
     refetch()
   }, [id, refetch])
@@ -67,21 +61,14 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              ...request,
-              cursor: pageInfo?.next
-            }
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            cursor: pageInfo?.next
           }
-        })
-        setPageInfo(data?.explorePublications?.pageInfo)
-        setVideos([
-          ...videos,
-          ...(data?.explorePublications?.items as LenstubePublication[])
-        ])
-      } catch {}
+        }
+      })
     }
   })
 

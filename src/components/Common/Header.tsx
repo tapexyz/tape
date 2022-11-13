@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import NewVideoTrigger from '@components/Channel/NewVideoTrigger'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
@@ -13,7 +12,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { NotificationCountDocument } from 'src/types/lens'
+import { useNotificationCountQuery } from 'src/types/lens'
 
 import Login from './Auth/Login'
 import BellOutline from './Icons/BellOutline'
@@ -42,7 +41,7 @@ const Header: FC<Props> = ({ className }) => {
     (state) => state.setHasNewNotification
   )
 
-  useQuery(NotificationCountDocument, {
+  useNotificationCountQuery({
     variables: {
       request: {
         profileId: selectedChannel?.id,

@@ -1,4 +1,3 @@
-import { useLazyQuery, useMutation } from '@apollo/client'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -7,11 +6,9 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import type { Profile } from 'src/types/lens'
-import {
-  AllProfilesDocument,
-  AuthenticateDocument,
-  ChallengeDocument
-} from 'src/types/lens'
+import { useAllProfilesLazyQuery } from 'src/types/lens'
+import { useChallengeLazyQuery } from 'src/types/lens'
+import { useAuthenticateMutation } from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useSignMessage } from 'wagmi'
 
@@ -39,21 +36,14 @@ const Login = () => {
     onError
   })
 
-  const [loadChallenge, { error: errorChallenge }] = useLazyQuery(
-    ChallengeDocument,
-    {
-      fetchPolicy: 'no-cache', // if cache old challenge persist issue (InvalidSignature)
-      onError
-    }
-  )
-  const [authenticate, { error: errorAuthenticate }] =
-    useMutation(AuthenticateDocument)
-  const [getChannels, { error: errorProfiles }] = useLazyQuery(
-    AllProfilesDocument,
-    {
-      fetchPolicy: 'no-cache'
-    }
-  )
+  const [loadChallenge, { error: errorChallenge }] = useChallengeLazyQuery({
+    fetchPolicy: 'no-cache', // if cache old challenge persist issue (InvalidSignature)
+    onError
+  })
+  const [authenticate, { error: errorAuthenticate }] = useAuthenticateMutation()
+  const [getChannels, { error: errorProfiles }] = useAllProfilesLazyQuery({
+    fetchPolicy: 'no-cache'
+  })
 
   useEffect(() => {
     if (

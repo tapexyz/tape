@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
@@ -23,11 +22,9 @@ import type {
   Profile,
   UpdateProfileImageRequest
 } from 'src/types/lens'
-import {
-  BroadcastDocument,
-  CreateSetProfileImageUriTypedDataDocument,
-  CreateSetProfileImageUriViaDispatcherDocument
-} from 'src/types/lens'
+import { useCreateSetProfileImageUriTypedDataMutation } from 'src/types/lens'
+import { useBroadcastMutation } from 'src/types/lens'
+import { useCreateSetProfileImageUriViaDispatcherMutation } from 'src/types/lens'
 import type { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -72,23 +69,20 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     onSuccess: onCompleted
   })
 
-  const [createSetProfileImageViaDispatcher] = useMutation(
-    CreateSetProfileImageUriViaDispatcherDocument,
-    {
+  const [createSetProfileImageViaDispatcher] =
+    useCreateSetProfileImageUriViaDispatcherMutation({
       onError,
       onCompleted
-    }
-  )
+    })
 
-  const [broadcast] = useMutation(BroadcastDocument, {
+  const [broadcast] = useBroadcastMutation({
     onError,
     onCompleted
   })
 
-  const [createSetProfileImageURITypedData] = useMutation(
-    CreateSetProfileImageUriTypedDataDocument,
-    {
-      async onCompleted(data) {
+  const [createSetProfileImageURITypedData] =
+    useCreateSetProfileImageUriTypedDataMutation({
+      onCompleted: async (data) => {
         const { typedData, id } =
           data.createSetProfileImageURITypedData as CreateSetProfileImageUriBroadcastItemResult
         try {
@@ -119,8 +113,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         }
       },
       onError
-    }
-  )
+    })
 
   const signTypedData = (request: UpdateProfileImageRequest) => {
     createSetProfileImageURITypedData({

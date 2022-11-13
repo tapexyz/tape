@@ -1,14 +1,13 @@
-import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
-import type { PaginatedResultInfo, Profile } from 'src/types/lens'
-import { AllProfilesDocument } from 'src/types/lens'
+import type { Profile } from 'src/types/lens'
+import { useAllProfilesQuery } from 'src/types/lens'
 
 import IsVerified from './IsVerified'
 
@@ -17,43 +16,33 @@ type Props = {
 }
 
 const MirroredList: FC<Props> = ({ videoId }) => {
-  const [mirroredList, setMirroredList] = useState<Profile[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  const request = { whoMirroredPublicationId: videoId, limit: 30 }
 
-  const { data, loading, fetchMore } = useQuery(AllProfilesDocument, {
+  const { data, loading, fetchMore } = useAllProfilesQuery({
     variables: {
-      request: { whoMirroredPublicationId: videoId, limit: 10 }
+      request
     },
-    skip: !videoId,
-    onCompleted: (data) => {
-      setPageInfo(data?.profiles?.pageInfo)
-      setMirroredList(data?.profiles?.items as Profile[])
-    }
+    skip: !videoId
   })
+
+  const mirroredByProfiles = data?.profiles?.items as Profile[]
+  const pageInfo = data?.profiles?.pageInfo
 
   const { observe } = useInView({
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              whoMirroredPublicationId: videoId,
-              cursor: pageInfo?.next,
-              limit: 30
-            }
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            cursor: pageInfo?.next
           }
-        })
-        setPageInfo(data?.profiles?.pageInfo)
-        setMirroredList([
-          ...mirroredList,
-          ...(data?.profiles?.items as Profile[])
-        ])
-      } catch {}
+        }
+      })
     }
   })
 
   if (loading) return <Loader />
-  if (data?.profiles?.items?.length === 0)
+  if (mirroredByProfiles?.length === 0)
     return (
       <div className="pt-5">
         <NoDataFound text="No mirrors yet" isCenter />
@@ -62,7 +51,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
 
   return (
     <div className="mt-4 space-y-3">
-      {mirroredList?.map((profile: Profile) => (
+      {mirroredByProfiles?.map((profile: Profile) => (
         <div className="flex flex-col" key={profile.ownedBy}>
           <Link
             href={`/${profile?.handle}`}
@@ -87,7 +76,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
           </Link>
         </div>
       ))}
-      {pageInfo?.next && mirroredList.length !== pageInfo?.totalCount && (
+      {pageInfo?.next && mirroredByProfiles.length !== pageInfo?.totalCount && (
         <span ref={observe} className="p-5">
           <Loader />
         </span>

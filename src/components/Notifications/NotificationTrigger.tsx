@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import BellOutline from '@components/Common/Icons/BellOutline'
 import { Button } from '@components/UIElements/Button'
 import DropMenu from '@components/UIElements/DropMenu'
@@ -7,7 +6,7 @@ import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
 import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import React, { useEffect } from 'react'
-import { NotificationCountDocument } from 'src/types/lens'
+import { useNotificationCountQuery } from 'src/types/lens'
 
 import Notifications from '.'
 
@@ -23,7 +22,7 @@ const NotificationTrigger = () => {
     (state) => state.setNotificationCount
   )
 
-  const { data: notificationsData } = useQuery(NotificationCountDocument, {
+  const { data: notificationsData } = useNotificationCountQuery({
     variables: {
       request: {
         profileId: selectedChannel?.id,

@@ -1,18 +1,14 @@
-import { useQuery } from '@apollo/client'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@utils/constants'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
-import type { PaginatedResultInfo, Profile } from 'src/types/lens'
-import {
-  ProfileMirrorsDocument,
-  PublicationMainFocus,
-  PublicationTypes
-} from 'src/types/lens'
+import type { Profile } from 'src/types/lens'
+import { useProfileMirrorsQuery } from 'src/types/lens'
+import { PublicationMainFocus, PublicationTypes } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -27,46 +23,37 @@ const request = {
 }
 
 const MirroredVideos: FC<Props> = ({ channel }) => {
-  const [channelVideos, setChannelVideos] = useState<LenstubePublication[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { data, loading, error, fetchMore } = useQuery(ProfileMirrorsDocument, {
+  const { data, loading, error, fetchMore } = useProfileMirrorsQuery({
     variables: {
       request: {
         ...request,
         profileId: channel?.id
       }
     },
-    skip: !channel?.id,
-    onCompleted(data) {
-      setPageInfo(data?.publications?.pageInfo)
-      setChannelVideos(data?.publications?.items as LenstubePublication[])
-    }
+    skip: !channel?.id
   })
+
+  const channelVideos = data?.publications?.items as LenstubePublication[]
+  const pageInfo = data?.publications?.pageInfo
+
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              ...request,
-              profileId: channel?.id,
-              cursor: pageInfo?.next
-            }
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            profileId: channel?.id,
+            cursor: pageInfo?.next
           }
-        })
-        setPageInfo(data?.publications?.pageInfo)
-        setChannelVideos([
-          ...channelVideos,
-          ...(data?.publications?.items as LenstubePublication[])
-        ])
-      } catch {}
+        }
+      })
     }
   })
 
   if (loading) return <TimelineShimmer />
 
-  if (data?.publications?.items?.length === 0) {
+  if (channelVideos?.length === 0) {
     return <NoDataFound isCenter withImage text="No mirrors found" />
   }
 

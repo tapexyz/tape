@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
@@ -12,12 +11,11 @@ import {
 } from '@utils/constants'
 import getCategoryName from '@utils/functions/getCategoryName'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
-import type { PaginatedResultInfo } from 'src/types/lens'
+import { useExploreQuery } from 'src/types/lens'
 import {
-  ExploreDocument,
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes
@@ -27,8 +25,6 @@ import type { LenstubePublication } from 'src/types/local'
 const ExploreCategory = () => {
   const { query } = useRouter()
   const categoryName = query.category as string
-  const [videos, setVideos] = useState<LenstubePublication[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
   const request = {
     publicationTypes: [PublicationTypes.Post],
@@ -42,35 +38,27 @@ const ExploreCategory = () => {
     }
   }
 
-  const { data, loading, error, fetchMore } = useQuery(ExploreDocument, {
+  const { data, loading, error, fetchMore } = useExploreQuery({
     variables: {
       request
     },
-    skip: !query.category,
-    onCompleted(data) {
-      setPageInfo(data?.explorePublications?.pageInfo)
-      setVideos(data?.explorePublications?.items as LenstubePublication[])
-    }
+    skip: !query.category
   })
+
+  const videos = data?.explorePublications?.items as LenstubePublication[]
+  const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              cursor: pageInfo?.next,
-              ...request
-            }
+      await fetchMore({
+        variables: {
+          request: {
+            cursor: pageInfo?.next,
+            ...request
           }
-        })
-        setPageInfo(data?.explorePublications?.pageInfo)
-        setVideos([
-          ...videos,
-          ...(data?.explorePublications?.items as LenstubePublication[])
-        ])
-      } catch {}
+        }
+      })
     }
   })
   if (!query.category) return <Custom404 />
@@ -84,7 +72,7 @@ const ExploreCategory = () => {
         </h1>
         <div className="my-4">
           {loading && <TimelineShimmer />}
-          {data?.explorePublications?.items?.length === 0 && (
+          {videos?.length === 0 && (
             <NoDataFound isCenter withImage text="No videos found" />
           )}
           {!error && !loading && (

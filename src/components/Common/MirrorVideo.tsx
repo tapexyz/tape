@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation } from '@apollo/client'
 import Tooltip from '@components/UIElements/Tooltip'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
@@ -19,11 +18,9 @@ import type {
   CreateMirrorBroadcastItemResult,
   CreateMirrorRequest
 } from 'src/types/lens'
-import {
-  BroadcastDocument,
-  CreateMirrorTypedDataDocument,
-  CreateMirrorViaDispatcherDocument
-} from 'src/types/lens'
+import { useCreateMirrorViaDispatcherMutation } from 'src/types/lens'
+import { useCreateMirrorTypedDataMutation } from 'src/types/lens'
+import { useBroadcastMutation } from 'src/types/lens'
 import type { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -55,13 +52,10 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onError
   })
 
-  const [createMirrorViaDispatcher] = useMutation(
-    CreateMirrorViaDispatcherDocument,
-    {
-      onError,
-      onCompleted
-    }
-  )
+  const [createMirrorViaDispatcher] = useCreateMirrorViaDispatcherMutation({
+    onError,
+    onCompleted
+  })
 
   const { write: mirrorWithSig } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
@@ -72,13 +66,13 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onSuccess: onCompleted
   })
 
-  const [broadcast] = useMutation(BroadcastDocument, {
+  const [broadcast] = useBroadcastMutation({
     onError,
     onCompleted
   })
 
-  const [createMirrorTypedData] = useMutation(CreateMirrorTypedDataDocument, {
-    async onCompleted(data) {
+  const [createMirrorTypedData] = useCreateMirrorTypedDataMutation({
+    onCompleted: async (data) => {
       const { id, typedData } =
         data.createMirrorTypedData as CreateMirrorBroadcastItemResult
       const {

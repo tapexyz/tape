@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/client'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import useAppStore from '@lib/store'
@@ -12,7 +11,7 @@ import { AiOutlineDelete } from 'react-icons/ai'
 import { FiExternalLink, FiFlag } from 'react-icons/fi'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { RiShareForwardLine } from 'react-icons/ri'
-import { HidePublicationDocument } from 'src/types/lens'
+import { useHidePublicationMutation } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 const VideoOptions = ({
@@ -30,7 +29,7 @@ const VideoOptions = ({
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
 
-  const [hideVideo] = useMutation(HidePublicationDocument, {
+  const [hideVideo] = useHidePublicationMutation({
     onCompleted: () => {
       toast.success('Video deleted')
       Analytics.track(TRACK.DELETE_VIDEO)

@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import Alert from '@components/Common/Alert'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
@@ -15,10 +14,8 @@ import Link from 'next/link'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import type { ApprovedAllowanceAmount } from 'src/types/lens'
-import {
-  ApprovedModuleAllowanceAmountDocument,
-  PublicationRevenueDocument
-} from 'src/types/lens'
+import { useApprovedModuleAllowanceAmountQuery } from 'src/types/lens'
+import { usePublicationRevenueQuery } from 'src/types/lens'
 import type {
   LenstubeCollectModule,
   LenstubePublication
@@ -69,7 +66,7 @@ const CollectModal: FC<Props> = ({
     enabled: Boolean(collectModule?.amount)
   })
 
-  const { data: revenueData } = useQuery(PublicationRevenueDocument, {
+  const { data: revenueData } = usePublicationRevenueQuery({
     variables: {
       request: {
         publicationId: video?.id
@@ -82,7 +79,7 @@ const CollectModal: FC<Props> = ({
     loading: allowanceLoading,
     data: allowanceData,
     refetch: refetchAllowance
-  } = useQuery(ApprovedModuleAllowanceAmountDocument, {
+  } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
         currencies: collectModule?.amount?.asset?.address,
@@ -92,7 +89,7 @@ const CollectModal: FC<Props> = ({
       }
     },
     skip: !collectModule?.amount?.asset?.address || !selectedChannelId,
-    onCompleted(data) {
+    onCompleted: (data) => {
       setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
     }
   })

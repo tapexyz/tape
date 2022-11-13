@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
@@ -29,10 +28,10 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { TbHeartHandshake } from 'react-icons/tb'
 import type { CreatePublicCommentRequest } from 'src/types/lens'
+import { useCreateCommentTypedDataMutation } from 'src/types/lens'
+import { useCreateCommentViaDispatcherMutation } from 'src/types/lens'
+import { useBroadcastMutation } from 'src/types/lens'
 import {
-  BroadcastDocument,
-  CreateCommentTypedDataDocument,
-  CreateCommentViaDispatcherDocument,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes
 } from 'src/types/lens'
@@ -102,16 +101,14 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
-  const [broadcast, { data: broadcastData }] = useMutation(BroadcastDocument, {
+  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
     onError
   })
 
-  const [createCommentViaDispatcher, { data: dispatcherData }] = useMutation(
-    CreateCommentViaDispatcherDocument,
-    {
+  const [createCommentViaDispatcher, { data: dispatcherData }] =
+    useCreateCommentViaDispatcherMutation({
       onError
-    }
-  )
+    })
 
   const broadcastTxId =
     broadcastData?.broadcast.__typename === 'RelayerResult'
@@ -137,8 +134,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
-  const [createCommentTypedData] = useMutation(CreateCommentTypedDataDocument, {
-    async onCompleted(data) {
+  const [createCommentTypedData] = useCreateCommentTypedDataMutation({
+    onCompleted: async (data) => {
       const { typedData, id } = data.createCommentTypedData
       const {
         profileId,

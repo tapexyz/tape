@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
@@ -10,7 +9,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import { PublicationDetailsDocument } from 'src/types/lens'
+import { usePublicationDetailsQuery } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 import AboutChannel from './AboutChannel'
@@ -51,7 +50,7 @@ const VideoDetails = () => {
     }
   }
 
-  const { data, error } = useQuery(PublicationDetailsDocument, {
+  const { data, error } = usePublicationDetailsQuery({
     variables: {
       request: { publicationId: id },
       reactionRequest: selectedChannel

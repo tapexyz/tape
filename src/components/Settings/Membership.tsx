@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation, useQuery } from '@apollo/client'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
@@ -26,12 +25,10 @@ import type {
   FeeFollowModuleSettings,
   Profile
 } from 'src/types/lens'
-import {
-  BroadcastDocument,
-  CreateSetFollowModuleTypedDataDocument,
-  EnabledModuleCurrrenciesDocument,
-  ProfileFollowModuleDocument
-} from 'src/types/lens'
+import { useCreateSetFollowModuleTypedDataMutation } from 'src/types/lens'
+import { useProfileFollowModuleQuery } from 'src/types/lens'
+import { useBroadcastMutation } from 'src/types/lens'
+import { useEnabledModuleCurrrenciesQuery } from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -76,7 +73,7 @@ const Membership = ({ channel }: Props) => {
     data: followModuleData,
     refetch,
     loading: moduleLoading
-  } = useQuery(ProfileFollowModuleDocument, {
+  } = useProfileFollowModuleQuery({
     variables: { request: { profileIds: channel?.id } },
     skip: !channel?.id,
     onCompleted(data) {
@@ -91,15 +88,12 @@ const Membership = ({ channel }: Props) => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const { data: enabledCurrencies } = useQuery(
-    EnabledModuleCurrrenciesDocument,
-    {
-      variables: { request: { profileIds: channel?.id } },
-      skip: !channel?.id
-    }
-  )
+  const { data: enabledCurrencies } = useEnabledModuleCurrrenciesQuery({
+    variables: { request: { profileIds: channel?.id } },
+    skip: !channel?.id
+  })
 
-  const [broadcast, { data: broadcastData }] = useMutation(BroadcastDocument, {
+  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
     onError
   })
 
@@ -129,10 +123,9 @@ const Membership = ({ channel }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
-  const [createSetFollowModuleTypedData] = useMutation(
-    CreateSetFollowModuleTypedDataDocument,
-    {
-      async onCompleted(data) {
+  const [createSetFollowModuleTypedData] =
+    useCreateSetFollowModuleTypedDataMutation({
+      onCompleted: async (data) => {
         const { typedData, id } =
           data.createSetFollowModuleTypedData as CreateSetFollowModuleBroadcastItemResult
         const { profileId, followModule, followModuleInitData } =
@@ -165,8 +158,7 @@ const Membership = ({ channel }: Props) => {
         }
       },
       onError
-    }
-  )
+    })
 
   const setMembership = (freeFollowModule: boolean) => {
     setLoading(true)
