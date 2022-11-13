@@ -54,7 +54,7 @@ const Notifications = () => {
     variables: {
       request
     },
-    onCompleted(data) {
+    onCompleted: () => {
       setTimeout(() => {
         const totalCount =
           notificationsCountData?.notifications?.pageInfo?.totalCount

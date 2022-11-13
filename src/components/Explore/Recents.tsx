@@ -2,6 +2,7 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import useAppStore from '@lib/store'
 import { Analytics, TRACK } from '@utils/analytics'
 import {
   LENS_CUSTOM_FILTERS,
@@ -12,25 +13,33 @@ import {
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
+  PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
 } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
-const request = {
-  sortCriteria: PublicationSortCriteria.Latest,
-  limit: 30,
-  noRandomize: true,
-  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-  publicationTypes: [PublicationTypes.Post],
-  customFilters: LENS_CUSTOM_FILTERS
-}
-
 const Recents = () => {
+  const activeTagFilter = useAppStore((state) => state.activeTagFilter)
+
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE_RECENT })
   }, [])
+
+  const request = {
+    sortCriteria: PublicationSortCriteria.Latest,
+    limit: 30,
+    noRandomize: true,
+    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+    publicationTypes: [PublicationTypes.Post],
+    customFilters: LENS_CUSTOM_FILTERS,
+    metadata: {
+      tags:
+        activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
+      mainContentFocus: [PublicationMainFocus.Video]
+    }
+  }
 
   const { data, loading, error, fetchMore } = useExploreQuery({
     variables: {
@@ -55,12 +64,13 @@ const Recents = () => {
     }
   })
 
+  if (videos?.length === 0) {
+    return <NoDataFound isCenter withImage text="No videos found" />
+  }
+
   return (
     <div>
       {loading && <TimelineShimmer />}
-      {videos?.length === 0 && (
-        <NoDataFound isCenter withImage text="No videos found" />
-      )}
       {!error && !loading && (
         <>
           <Timeline videos={videos} />

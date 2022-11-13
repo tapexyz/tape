@@ -8,10 +8,10 @@ const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        feed: cursorBasedPagination(['request', ['profileId']]),
+        feed: cursorBasedPagination(['request', ['profileId', 'metadata']]),
         explorePublications: cursorBasedPagination([
           'request',
-          ['sortCriteria', 'noRandomize', 'profileId', 'sources']
+          ['sortCriteria', 'noRandomize', 'profileId', 'sources', 'metadata']
         ]),
         publications: cursorBasedPagination([
           'request',

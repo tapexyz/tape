@@ -14,13 +14,19 @@ import type { LenstubePublication } from 'src/types/local'
 
 const HomeFeed = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
   const request = {
     limit: 50,
     feedEventItemTypes: [FeedEventItemType.Post, FeedEventItemType.Comment],
-    metadata: { mainContentFocus: [PublicationMainFocus.Video] },
-    profileId: selectedChannel?.id
+    profileId: selectedChannel?.id,
+    metadata: {
+      tags:
+        activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
+      mainContentFocus: [PublicationMainFocus.Video]
+    }
   }
+
   const { data, loading, error, fetchMore } = useFeedQuery({
     variables: {
       request
@@ -45,7 +51,7 @@ const HomeFeed = () => {
     }
   })
 
-  if (data?.feed?.items?.length === 0) {
+  if (videos?.length === 0) {
     return (
       <NoDataFound
         isCenter

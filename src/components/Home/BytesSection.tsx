@@ -1,6 +1,7 @@
 import BytesOutline from '@components/Common/Icons/BytesOutline'
 import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
+import useAppStore from '@lib/store'
 import { Analytics, TRACK } from '@utils/analytics'
 import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
@@ -8,27 +9,34 @@ import imageCdn from '@utils/functions/imageCdn'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
 import {
+  PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
 } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
-const request = {
-  sortCriteria: PublicationSortCriteria.CuratedProfiles,
-  limit: 30,
-  noRandomize: false,
-  sources: [LENSTUBE_BYTES_APP_ID],
-  publicationTypes: [PublicationTypes.Post],
-  customFilters: LENS_CUSTOM_FILTERS
-}
-
 const BytesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
+  const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE_CURATED })
   }, [])
+
+  const request = {
+    sortCriteria: PublicationSortCriteria.CuratedProfiles,
+    limit: 30,
+    noRandomize: false,
+    sources: [LENSTUBE_BYTES_APP_ID],
+    publicationTypes: [PublicationTypes.Post],
+    customFilters: LENS_CUSTOM_FILTERS,
+    metadata: {
+      tags:
+        activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
+      mainContentFocus: [PublicationMainFocus.Video]
+    }
+  }
 
   const { data, error } = useExploreQuery({
     variables: { request }
@@ -74,7 +82,7 @@ const BytesSection = () => {
         className="flex scroll-smooth relative no-scrollbar items-start overflow-x-auto touch-pan-x space-x-4 mb-3"
       >
         {bytes.map((byte) => (
-          <Link href={`/bytes?id=${byte.id}`} key={byte.id}>
+          <Link href={`/bytes?id=${byte.id}`} className="w-44" key={byte.id}>
             <div className="aspect-[9/16] h-[300px]">
               <img
                 className="rounded-xl"

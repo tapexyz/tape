@@ -6,7 +6,7 @@ import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
 import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import { CREATOR_VIDEO_CATEGORIES } from '@utils/data/categories'
-import { EXPLORE, HOME, NOTIFICATIONS } from '@utils/url-path'
+import { EXPLORE, FEED, HOME, NOTIFICATIONS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -26,7 +26,8 @@ type Props = {
 const Header: FC<Props> = ({ className }) => {
   const { pathname } = useRouter()
   const [showShowModal, setSearchModal] = useState(false)
-  const showFilter = pathname === HOME || pathname === EXPLORE
+  const showFilter =
+    pathname === HOME || pathname === EXPLORE || pathname === FEED
 
   const hasNewNotification = useAppStore((state) => state.hasNewNotification)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)

@@ -10,7 +10,7 @@ html {
 
 body {
   font-family: 'Matter', sans-serif;
-  @apply dark:text-white bg-gradient-to-bl from-indigo-100 via-gray-100 bg-fixed dark:from-[#242B49] dark:to-theme to-gray-50 text-black min-h-screen;
+  @apply dark:text-white bg-gradient-to-bl from-indigo-100 via-gray-100 bg-fixed dark:via-[#242B49] dark:from-[#242B49] dark:to-theme to-gray-50 text-black min-h-screen;
 }
 
 .text-secondary {
