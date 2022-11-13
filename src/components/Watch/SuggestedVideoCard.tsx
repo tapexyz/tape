@@ -80,7 +80,7 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
             <div className="truncate">
               <Link
                 href={`/${video.profile?.handle}`}
-                className="text-xs truncate hover:opacity-100 opacity-70"
+                className="text-[13px] truncate hover:opacity-100 opacity-70"
               >
                 <div className="flex items-center space-x-0.5">
                   <span>{video?.profile?.handle}</span>
@@ -88,7 +88,7 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
                 </div>
               </Link>
             </div>
-            <div className="flex truncate items-center text-[11px] opacity-70 mt-0.5">
+            <div className="flex truncate items-center text-xs opacity-70 mt-0.5">
               <span className="whitespace-nowrap">
                 {video.stats?.totalUpvotes} likes
               </span>

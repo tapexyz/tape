@@ -78,8 +78,8 @@ const VideoCard: FC<Props> = ({ video }) => {
                   draggable={false}
                 />
               </Link>
-              <div className="grid flex-1 pb-1">
-                <div className="flex w-full items-start justify-between space-x-1.5 min-w-0">
+              <div className="grid flex-1">
+                <div className="flex pb-1 w-full items-start justify-between space-x-1.5 min-w-0">
                   <Link
                     href={`/watch/${video.id}`}
                     className="text-sm font-semibold line-clamp-2 break-words"
@@ -99,7 +99,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                   <span>{video.profile?.handle}</span>
                   <IsVerified id={video.profile?.id} size="xs" />
                 </Link>
-                <div className="flex overflow-hidden items-center text-[11px] opacity-70">
+                <div className="flex overflow-hidden items-center text-xs opacity-70">
                   <span className="whitespace-nowrap">
                     {video.stats?.totalUpvotes} likes
                   </span>

@@ -91,10 +91,10 @@ const BytesSection = () => {
                 draggable={false}
               />
             </div>
-            <h1 className="text-sm pt-2 line-clamp-2 break-words">
+            <h1 className="text-[13px] pt-2 line-clamp-2 break-words">
               {byte.metadata?.name}
             </h1>
-            <span className="text-[11px] opacity-70">
+            <span className="text-xs opacity-70">
               {byte.stats?.totalUpvotes} likes
             </span>
           </Link>
