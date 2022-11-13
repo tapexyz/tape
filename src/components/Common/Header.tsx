@@ -101,7 +101,7 @@ const Header: FC<Props> = ({ className }) => {
                   <Button variant="outlined" className="!p-[9px]">
                     <BellOutline className="w-4 h-4" />
                     {hasNewNotification && (
-                      <span className="absolute flex w-2 h-2 bg-red-500 rounded-full -top-0.5 right-0" />
+                      <span className="absolute flex w-2 h-2 bg-red-500 rounded-full -top-1 -right-0.5" />
                     )}
                   </Button>
                 </Link>

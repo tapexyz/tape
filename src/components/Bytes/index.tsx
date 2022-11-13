@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -16,6 +16,7 @@ import { useInView } from 'react-cool-inview'
 import {
   ExploreDocument,
   PaginatedResultInfo,
+  PublicationDetailsDocument,
   PublicationSortCriteria,
   PublicationTypes
 } from 'src/types/lens'
@@ -37,28 +38,59 @@ const Bytes = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [bytes, setBytes] = useState<LenstubePublication[]>([])
   const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  const [singleByte, setSingleByte] = useState<LenstubePublication>()
+
+  const [fetchPublication, { loading: singleByteLoading }] = useLazyQuery(
+    PublicationDetailsDocument
+  )
+
+  const [fetchAllBytes, { loading, error, fetchMore }] = useLazyQuery(
+    ExploreDocument,
+    {
+      variables: {
+        request,
+        reactionRequest: selectedChannel
+          ? { profileId: selectedChannel?.id }
+          : null,
+        channelId: selectedChannel?.id ?? null
+      },
+      onCompleted: (data) => {
+        setPageInfo(data?.explorePublications?.pageInfo)
+        const items = data?.explorePublications?.items as LenstubePublication[]
+        setBytes(items)
+        const publicationId = router.query.id
+        if (!publicationId) {
+          router.push(`/bytes/?id=${items[0]?.id}`, undefined, {
+            shallow: true
+          })
+        }
+      }
+    }
+  )
+
+  const fetchSingleByte = async () => {
+    const publicationId = router.query.id
+    if (!publicationId) return fetchAllBytes()
+    await fetchPublication({
+      variables: {
+        request: { publicationId },
+        reactionRequest: selectedChannel
+          ? { profileId: selectedChannel?.id }
+          : null,
+        channelId: selectedChannel?.id ?? null
+      },
+      onCompleted: (data) => {
+        setSingleByte(data.publication as LenstubePublication)
+        fetchAllBytes()
+      }
+    })
+  }
 
   useEffect(() => {
+    fetchSingleByte()
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.BYTES })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const { data, loading, error, fetchMore } = useQuery(ExploreDocument, {
-    variables: {
-      request,
-      reactionRequest: selectedChannel
-        ? { profileId: selectedChannel?.id }
-        : null,
-      channelId: selectedChannel?.id ?? null
-    },
-    onCompleted: (data) => {
-      setPageInfo(data?.explorePublications?.pageInfo)
-      const items = data?.explorePublications?.items as LenstubePublication[]
-      setBytes(items)
-      router.push(`/bytes/?id=${items[0]?.id}`, undefined, {
-        shallow: true
-      })
-    }
-  })
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
@@ -81,14 +113,14 @@ const Bytes = () => {
     }
   })
 
-  if (loading)
+  if (loading || singleByteLoading)
     return (
       <div className="grid h-[80vh] place-items-center">
         <Loader />
       </div>
     )
 
-  if (data?.explorePublications?.items?.length === 0) {
+  if (error) {
     return (
       <div className="grid h-[80vh] place-items-center">
         <NoDataFound isCenter withImage text="No bytes found" />
@@ -102,18 +134,17 @@ const Bytes = () => {
         <meta name="theme-color" content="#000000" />
       </Head>
       <MetaTags title="Bytes" />
-      {!error && !loading && (
-        <div className="md:h-[calc(100vh-70px)] h-screen overflow-y-scroll no-scrollbar snap-y snap-mandatory scroll-smooth">
-          {bytes?.map((video: LenstubePublication) => (
-            <ByteVideo video={video} key={`${video?.id}_${video.createdAt}`} />
-          ))}
-          {pageInfo?.next && bytes.length !== pageInfo?.totalCount && (
-            <span ref={observe} className="flex justify-center p-10">
-              <Loader />
-            </span>
-          )}
-        </div>
-      )}
+      <div className="md:h-[calc(100vh-70px)] h-screen overflow-y-scroll no-scrollbar snap-y snap-mandatory scroll-smooth">
+        {singleByte && <ByteVideo video={singleByte} />}
+        {bytes?.map((video: LenstubePublication) => (
+          <ByteVideo video={video} key={`${video?.id}_${video.createdAt}`} />
+        ))}
+        {pageInfo?.next && bytes.length !== pageInfo?.totalCount && (
+          <span ref={observe} className="flex justify-center p-10">
+            <Loader />
+          </span>
+        )}
+      </div>
     </div>
   )
 }

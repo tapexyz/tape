@@ -60,13 +60,13 @@ const BytesSection = () => {
         <div className="flex justify-end space-x-3">
           <button
             onClick={() => scroll(-scrollOffset)}
-            className="bg-gray-500 focus:outline-none bg-opacity-40 backdrop-blur-xl rounded-full p-2"
+            className="bg-gray-500 focus:outline-none bg-opacity-10 hover:bg-opacity-25 backdrop-blur-xl rounded-full p-2"
           >
             <ChevronLeftOutline className="h-4 w-4" />
           </button>
           <button
             onClick={() => scroll(scrollOffset)}
-            className="bg-gray-500 focus:outline-none bg-opacity-40 backdrop-blur-xl rounded-full p-2"
+            className="bg-gray-500 focus:outline-none bg-opacity-10 hover:bg-opacity-25 backdrop-blur-xl rounded-full p-2"
           >
             <ChevronRightOutline className="h-4 w-4" />
           </button>
