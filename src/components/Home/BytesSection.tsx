@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import BytesOutline from '@components/Common/Icons/BytesOutline'
 import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
@@ -7,11 +6,11 @@ import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import imageCdn from '@utils/functions/imageCdn'
 import Link from 'next/link'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import {
-  ExploreDocument,
   PublicationSortCriteria,
-  PublicationTypes
+  PublicationTypes,
+  useExploreQuery
 } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
@@ -25,19 +24,17 @@ const request = {
 }
 
 const BytesSection = () => {
-  const [bytes, setBytes] = useState<LenstubePublication[]>([])
   const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE_CURATED })
   }, [])
 
-  const { data, error } = useQuery(ExploreDocument, {
-    variables: { request },
-    onCompleted: (data) => {
-      setBytes(data?.explorePublications?.items as LenstubePublication[])
-    }
+  const { data, error } = useExploreQuery({
+    variables: { request }
   })
+
+  const bytes = data?.explorePublications?.items as LenstubePublication[]
 
   const sectionOffsetWidth = sectionRef.current?.offsetWidth ?? 1000
   const scrollOffset = sectionOffsetWidth / 2
@@ -46,7 +43,7 @@ const BytesSection = () => {
     if (sectionRef.current) sectionRef.current.scrollLeft += scrollOffset
   }
 
-  if (!data?.explorePublications?.items.length || error) {
+  if (!bytes?.length || error) {
     return null
   }
 

@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
@@ -9,13 +8,12 @@ import {
   LENSTUBE_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
-import type { PaginatedResultInfo } from 'src/types/lens'
 import {
-  ExploreDocument,
   PublicationSortCriteria,
-  PublicationTypes
+  PublicationTypes,
+  useExploreQuery
 } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
@@ -29,49 +27,38 @@ const request = {
 }
 
 const Curated = () => {
-  const [videos, setVideos] = useState<LenstubePublication[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE_CURATED })
   }, [])
 
-  const { data, loading, error, fetchMore } = useQuery(ExploreDocument, {
-    variables: { request },
-    onCompleted(data) {
-      setPageInfo(data?.explorePublications?.pageInfo)
-      setVideos(data?.explorePublications?.items as LenstubePublication[])
-    }
+  const { data, loading, error, fetchMore } = useExploreQuery({
+    variables: { request }
   })
+
+  const pageInfo = data?.explorePublications?.pageInfo
+  const videos = data?.explorePublications?.items as LenstubePublication[]
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              ...request,
-              cursor: pageInfo?.next
-            }
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            cursor: pageInfo?.next
           }
-        })
-        setPageInfo(data?.explorePublications?.pageInfo)
-        setVideos([
-          ...videos,
-          ...(data?.explorePublications?.items as LenstubePublication[])
-        ])
-      } catch {}
+        }
+      })
     }
   })
 
   return (
     <div>
       {loading && <TimelineShimmer />}
-      {data?.explorePublications?.items.length === 0 && (
+      {videos?.length === 0 && (
         <NoDataFound isCenter withImage text="No videos found" />
       )}
-      {!error && !loading && (
+      {!error && !loading && videos && (
         <>
           <Timeline videos={videos} />
           {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
