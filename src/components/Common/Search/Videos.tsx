@@ -2,8 +2,9 @@ import { formatNumber } from '@utils/functions/formatNumber'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { AiOutlineLike } from 'react-icons/ai'
 import type { LenstubePublication } from 'src/types/local'
+
+import LikeOutline from '../Icons/LikeOutline'
 
 interface Props {
   results: LenstubePublication[]
@@ -32,7 +33,7 @@ const Videos: FC<Props> = ({ results, loading, clearSearch }) => {
                 </p>
               </div>
               <span className="inline-flex items-center space-x-1 text-xs whitespace-nowrap opacity-60">
-                <AiOutlineLike className="text-xs" />
+                <LikeOutline className="w-3 h-3" />
                 <span>{formatNumber(result.stats.totalUpvotes)}</span>
               </span>
             </span>

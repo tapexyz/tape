@@ -1,4 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
+import HeartOutline from '@components/Common/Icons/HeartOutline'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
@@ -26,7 +27,6 @@ import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { TbHeartHandshake } from 'react-icons/tb'
 import type { CreatePublicCommentRequest } from 'src/types/lens'
 import { useCreateCommentTypedDataMutation } from 'src/types/lens'
 import { useCreateCommentViaDispatcherMutation } from 'src/types/lens'
@@ -283,7 +283,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     <Modal
       title={
         <span className="flex items-center space-x-2 outline-none">
-          <TbHeartHandshake />
+          <HeartOutline className="w-4 h-4" />
           <span>Tip {video.profile?.handle}</span>
         </span>
       }

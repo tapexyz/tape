@@ -1,3 +1,4 @@
+import UploadOutline from '@components/Common/Icons/UploadOutline'
 import MetaTags from '@components/Common/MetaTags'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
@@ -8,7 +9,6 @@ import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { FiUpload } from 'react-icons/fi'
 
 const DropZone = () => {
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
@@ -83,7 +83,7 @@ const DropZone = () => {
             accept={ALLOWED_VIDEO_TYPES.join(',')}
           />
           <span className="flex justify-center mb-6 opacity-80">
-            <FiUpload className="text-6xl" />
+            <UploadOutline className="w-14 h-14" />
           </span>
           <span className="space-y-10 md:space-y-14">
             <div className="text-2xl font-semibold md:text-4xl">

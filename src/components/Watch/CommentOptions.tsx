@@ -1,3 +1,5 @@
+import FlagOutline from '@components/Common/Icons/FlagOutline'
+import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import DropMenu from '@components/UIElements/DropMenu'
 import useAppStore from '@lib/store'
 import { useRouter } from 'next/router'
@@ -5,8 +7,6 @@ import type { Dispatch, FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineDelete } from 'react-icons/ai'
-import { FiFlag } from 'react-icons/fi'
-import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { useHidePublicationMutation } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
@@ -40,7 +40,7 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
     <DropMenu
       trigger={
         <div className="p-1">
-          <HiOutlineDotsVertical />
+          <ThreeDotsOutline className="w-3.5 h-3.5" />
         </div>
       }
     >
@@ -61,7 +61,7 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
             onClick={() => setShowReport(true)}
             className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
-            <FiFlag className="text-sm ml-0.5" />
+            <FlagOutline className="w-3.5 h-3.5" />
             <span className="whitespace-nowrap">Report</span>
           </button>
         </div>
