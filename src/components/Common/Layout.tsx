@@ -157,7 +157,7 @@ const Layout: FC<Props> = ({ children }) => {
           )}
           <div
             className={clsx(
-              '2xl:py-6 py-2 ultrawide:max-w-[110rem] mx-auto md:px-2',
+              '2xl:py-6 py-4 ultrawide:max-w-[110rem] mx-auto md:px-2',
               {
                 '!p-0': showFullScreen
               }
