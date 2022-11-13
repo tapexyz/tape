@@ -156,9 +156,12 @@ const Layout: FC<Props> = ({ children }) => {
             <Header className={showFullScreen ? 'hidden md:flex' : ''} />
           )}
           <div
-            className={clsx('py-6 ultrawide:max-w-[110rem] mx-auto md:px-2', {
-              '!p-0': showFullScreen
-            })}
+            className={clsx(
+              '2xl:py-6 py-2 ultrawide:max-w-[110rem] mx-auto md:px-2',
+              {
+                '!p-0': showFullScreen
+              }
+            )}
           >
             {children}
           </div>
