@@ -91,7 +91,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                   </span>
                 </button>
                 {channel.isFollowing && (
-                  <span className="px-2 py-0.5 text-xs dark:bg-gray-800 bg-gray-100 rounded-full">
+                  <span className="px-2 py-0.5 text-xs dark:bg-gray-700 bg-gray-200 rounded-full">
                     Subscribed you
                   </span>
                 )}

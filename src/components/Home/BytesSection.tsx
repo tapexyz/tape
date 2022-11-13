@@ -37,7 +37,7 @@ const BytesSection = () => {
   const bytes = data?.explorePublications?.items as LenstubePublication[]
 
   const sectionOffsetWidth = sectionRef.current?.offsetWidth ?? 1000
-  const scrollOffset = sectionOffsetWidth / 2
+  const scrollOffset = sectionOffsetWidth / 1.2
 
   const scroll = (scrollOffset: number) => {
     if (sectionRef.current) sectionRef.current.scrollLeft += scrollOffset

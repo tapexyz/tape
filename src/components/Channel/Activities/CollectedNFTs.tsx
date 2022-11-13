@@ -1,14 +1,12 @@
-import { useQuery } from '@apollo/client'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { POLYGON_CHAIN_ID, SCROLL_ROOT_MARGIN } from '@utils/constants'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
-import type { PaginatedResultInfo, Profile } from 'src/types/lens'
-import type { Nft } from 'src/types/lens'
-import { ProfileNfTsDocument } from 'src/types/lens'
+import type { Nft, Profile } from 'src/types/lens'
+import { useProfileNfTsQuery } from 'src/types/lens'
 
 import NFTCard from './NFTCard'
 
@@ -22,38 +20,30 @@ const request = {
 }
 
 const CollectedNFTs: FC<Props> = ({ channel }) => {
-  const [collectedNFTs, setCollectedNFTs] = useState<Nft[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-
-  const { data, loading, error, fetchMore } = useQuery(ProfileNfTsDocument, {
+  const { data, loading, error, fetchMore } = useProfileNfTsQuery({
     variables: {
       request: {
         ...request,
         ownerAddress: channel.ownedBy
       }
-    },
-    onCompleted(data) {
-      setPageInfo(data?.nfts?.pageInfo)
-      setCollectedNFTs(data?.nfts?.items as Nft[])
     }
   })
+
+  const collectedNFTs = data?.nfts?.items as Nft[]
+  const pageInfo = data?.nfts?.pageInfo
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              ...request,
-              ownerAddress: channel.ownedBy,
-              cursor: pageInfo?.next
-            }
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            ownerAddress: channel.ownedBy,
+            cursor: pageInfo?.next
           }
-        })
-        setPageInfo(data?.nfts?.pageInfo)
-        setCollectedNFTs([...collectedNFTs, ...(data?.nfts?.items as Nft[])])
-      } catch {}
+        }
+      })
     }
   })
 

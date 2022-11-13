@@ -3,28 +3,19 @@ import result from 'src/types/lens'
 
 import cursorBasedPagination from './cursorBasedPagination'
 
-const publicationKeyFields = () => {
-  return {
-    fields: {}
-  }
-}
-
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
   typePolicies: {
-    Post: publicationKeyFields(),
-    Comment: publicationKeyFields(),
-    Mirror: publicationKeyFields(),
     Query: {
       fields: {
         feed: cursorBasedPagination(['request', ['profileId']]),
         explorePublications: cursorBasedPagination([
           'request',
-          ['sortCriteria', 'noRandomize', 'profileId']
+          ['sortCriteria', 'noRandomize', 'profileId', 'sources']
         ]),
         publications: cursorBasedPagination([
           'request',
-          ['profileId', 'commentsOf', 'publicationTypes']
+          ['profileId', 'commentsOf', 'publicationTypes', 'sources']
         ]),
         nfts: cursorBasedPagination(['request', ['ownerAddress']]),
         notifications: cursorBasedPagination([

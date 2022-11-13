@@ -19,15 +19,14 @@ function cursorBasedPagination<T extends CursorBasedPagination>(
         return existing
       }
       const { items, pageInfo } = existing
-      // items that are not in the cache (for .e.g deleted publication)
-      const danglingItems = items?.filter((item) => !canRead(item))
+      const removedItems = items?.filter((item) => !canRead(item))
       return {
         ...existing,
         items,
         pageInfo: {
           ...pageInfo,
           totalCount: pageInfo?.totalCount
-            ? pageInfo.totalCount - danglingItems?.length
+            ? pageInfo.totalCount - removedItems?.length
             : null
         }
       } as SafeReadonly<T>
