@@ -25,9 +25,9 @@ type Props = {
 }
 
 const Header: FC<Props> = ({ className }) => {
+  const { pathname } = useRouter()
   const [showShowModal, setSearchModal] = useState(false)
   const [activeFilter, setActiveFilter] = useState('all')
-  const { pathname } = useRouter()
   const showFilter = pathname === HOME || pathname === EXPLORE
 
   const hasNewNotification = useAppStore((state) => state.hasNewNotification)
@@ -53,10 +53,10 @@ const Header: FC<Props> = ({ className }) => {
       if (selectedChannel && notificationsData) {
         const currentCount =
           notificationsData?.notifications?.pageInfo?.totalCount
+        const totalCount = notificationsData?.notifications?.pageInfo
+          ?.totalCount as number
         setHasNewNotification(notificationCount !== currentCount)
-        setNotificationCount(
-          notificationsData?.notifications?.pageInfo?.totalCount as number
-        )
+        setNotificationCount(totalCount)
       }
     }
   })
@@ -101,7 +101,7 @@ const Header: FC<Props> = ({ className }) => {
                   <Button variant="outlined" className="!p-[9px]">
                     <BellOutline className="w-4 h-4" />
                     {hasNewNotification && (
-                      <span className="absolute flex w-2 h-2 bg-red-500 rounded-full top-0 right-0" />
+                      <span className="absolute flex w-2 h-2 bg-red-500 rounded-full -top-0.5 right-0" />
                     )}
                   </Button>
                 </Link>
