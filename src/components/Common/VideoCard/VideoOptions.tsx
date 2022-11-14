@@ -1,7 +1,9 @@
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
+import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import { getPermanentVideoUrl } from '@utils/functions/getVideoUrl'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
@@ -29,6 +31,7 @@ const VideoOptions = ({
 }) => {
   const router = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
 
   const [hideVideo] = useHidePublicationMutation({
@@ -47,6 +50,11 @@ const VideoOptions = ({
     ) {
       hideVideo({ variables: { request: { publicationId: video?.id } } })
     }
+  }
+
+  const onClickReport = () => {
+    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    setShowReport(true)
   }
 
   return (
@@ -99,7 +107,7 @@ const VideoOptions = ({
           )}
           <button
             type="button"
-            onClick={() => setShowReport(true)}
+            onClick={() => onClickReport()}
             className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <FlagOutline className="w-3.5 h-3.5" />

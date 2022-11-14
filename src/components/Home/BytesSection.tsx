@@ -24,16 +24,6 @@ const BytesSection = () => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE_CURATED })
   }, [])
 
-  useEffect(() => {
-    const ref = sectionRef.current
-    if (ref) {
-      ref.addEventListener('wheel', (evt) => {
-        evt.preventDefault()
-        ref.scrollLeft += evt.deltaY
-      })
-    }
-  }, [sectionRef])
-
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 30,

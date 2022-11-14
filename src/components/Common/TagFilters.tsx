@@ -1,28 +1,14 @@
 import useAppStore from '@lib/store'
 import { CREATOR_VIDEO_CATEGORIES } from '@utils/data/categories'
 import clsx from 'clsx'
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 
 const TagFilters = () => {
-  const filtersRef = useRef<HTMLDivElement>(null)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
   const setActiveTagFilter = useAppStore((state) => state.setActiveTagFilter)
 
-  useEffect(() => {
-    const ref = filtersRef.current
-    if (ref) {
-      ref.addEventListener('wheel', (evt) => {
-        evt.preventDefault()
-        ref.scrollLeft += evt.deltaY
-      })
-    }
-  }, [filtersRef])
-
   return (
-    <div
-      ref={filtersRef}
-      className="flex px-2 scroll-smooth overflow-x-auto touch-pan-x no-scrollbar pt-4 space-x-2 ultrawide:max-w-[110rem] mx-auto"
-    >
+    <div className="flex px-2 scroll-smooth overflow-x-auto touch-pan-x no-scrollbar pt-4 space-x-2 ultrawide:max-w-[110rem] mx-auto">
       <button
         type="button"
         onClick={() => setActiveTagFilter('all')}
