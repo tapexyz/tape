@@ -1,7 +1,7 @@
 import { Menu, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { FC, ReactElement, ReactNode } from 'react'
+import type { FC, ReactElement, ReactNode } from 'react'
 
 interface Props {
   trigger: ReactNode
@@ -37,7 +37,7 @@ const DropMenu: FC<Props> = ({
       leaveFrom="transform scale-100 opacity-100"
       leaveTo="transform scale-95 opacity-0"
       className={clsx(
-        'absolute z-10',
+        'absolute z-10 outline-none',
         {
           'right-0': position === 'right',
           'left-0': position === 'left',

@@ -8,8 +8,9 @@ import { shortenAddress } from '@utils/functions/shortenAddress'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
-import React, { FC } from 'react'
-import { NewFollowerNotification } from 'src/types/lens'
+import type { FC } from 'react'
+import React from 'react'
+import type { NewFollowerNotification } from 'src/types/lens'
 
 dayjs.extend(relativeTime)
 
@@ -66,7 +67,7 @@ const SubscribedNotification: FC<Props> = ({ notification }) => {
         <span className="text-sm text-gray-600 dark:text-gray-400">
           {selectedChannel?.followModule ? 'joined' : 'subscribed'} the channel
         </span>
-        <div className="flex items-center space-x-1 text-xs text-gray-400">
+        <div className="flex items-center space-x-1 text-xs text-gray-500">
           <span>{dayjs(new Date(notification?.createdAt)).fromNow()}</span>
         </div>
       </div>

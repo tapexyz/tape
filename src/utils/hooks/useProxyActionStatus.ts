@@ -1,9 +1,8 @@
-import { useQuery } from '@apollo/client'
 import { useCallback, useEffect } from 'react'
-import { ProxyActionStatusDocument } from 'src/types/lens'
+import { useProxyActionStatusQuery } from 'src/types/lens'
 
 const useProxyActionStatus = (proxyActionId: string) => {
-  const { data, loading, stopPolling } = useQuery(ProxyActionStatusDocument, {
+  const { data, loading, stopPolling } = useProxyActionStatusQuery({
     variables: {
       proxyActionId
     },

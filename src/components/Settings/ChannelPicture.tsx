@@ -1,7 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import {
   ERROR_MESSAGE,
@@ -14,18 +12,21 @@ import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import { utils } from 'ethers'
-import React, { ChangeEvent, FC, useState } from 'react'
+import type { ChangeEvent, FC } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
-import {
-  BroadcastDocument,
+import type {
   CreateSetProfileImageUriBroadcastItemResult,
-  CreateSetProfileImageUriTypedDataDocument,
-  CreateSetProfileImageUriViaDispatcherDocument,
   Profile,
   UpdateProfileImageRequest
 } from 'src/types/lens'
-import { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
+import {
+  useBroadcastMutation,
+  useCreateSetProfileImageUriTypedDataMutation,
+  useCreateSetProfileImageUriViaDispatcherMutation
+} from 'src/types/lens'
+import type { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
@@ -69,23 +70,20 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     onSuccess: onCompleted
   })
 
-  const [createSetProfileImageViaDispatcher] = useMutation(
-    CreateSetProfileImageUriViaDispatcherDocument,
-    {
+  const [createSetProfileImageViaDispatcher] =
+    useCreateSetProfileImageUriViaDispatcherMutation({
       onError,
       onCompleted
-    }
-  )
+    })
 
-  const [broadcast] = useMutation(BroadcastDocument, {
+  const [broadcast] = useBroadcastMutation({
     onError,
     onCompleted
   })
 
-  const [createSetProfileImageURITypedData] = useMutation(
-    CreateSetProfileImageUriTypedDataDocument,
-    {
-      async onCompleted(data) {
+  const [createSetProfileImageURITypedData] =
+    useCreateSetProfileImageUriTypedDataMutation({
+      onCompleted: async (data) => {
         const { typedData, id } =
           data.createSetProfileImageURITypedData as CreateSetProfileImageUriBroadcastItemResult
         try {
@@ -110,14 +108,12 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           })
           if (data?.broadcast?.__typename === 'RelayError')
             writePfpUri?.({ recklesslySetUnpreparedArgs: [args] })
-        } catch (error) {
+        } catch {
           setLoading(false)
-          logger.error('[Error Set Pfp Typed Data]', error)
         }
       },
       onError
-    }
-  )
+    })
 
   const signTypedData = (request: UpdateProfileImageRequest) => {
     createSetProfileImageURITypedData({
@@ -153,7 +149,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         await createViaDispatcher(request)
       } catch (error) {
         onError(error as CustomErrorWithData)
-        logger.error('[Error Pfp Upload]', error)
       }
     }
   }
@@ -173,7 +168,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       <label
         htmlFor="choosePfp"
         className={clsx(
-          'absolute top-0 grid w-32 h-32 bg-white rounded-full cursor-pointer bg-opacity-70 place-items-center backdrop-blur-lg invisible group-hover:visible dark:bg-black',
+          'absolute top-0 grid w-32 h-32 bg-white rounded-full cursor-pointer bg-opacity-70 place-items-center backdrop-blur-lg invisible group-hover:visible dark:bg-theme',
           { '!visible': loading && !pfpData?.hash }
         )}
       >

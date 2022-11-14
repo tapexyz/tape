@@ -5,8 +5,9 @@ import { useRouter } from 'next/router'
 import { forwardRef, useRef } from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineLink } from 'react-icons/ai'
-import { BiCheck } from 'react-icons/bi'
 import { MdOutlineLoop } from 'react-icons/md'
+
+import CheckOutline from '../Icons/CheckOutline'
 
 type Props = {
   position: { x: number; y: number }
@@ -61,7 +62,7 @@ const PlayerContextMenu = forwardRef<HTMLVmPlayerElement, Props>(
               <MdOutlineLoop />
               <p className="flex-none">Loop</p>
             </div>
-            {isVideoLoop && <BiCheck className="text-lg" />}
+            {isVideoLoop && <CheckOutline className="h-4 w-4" />}
           </div>
         </div>
         <div

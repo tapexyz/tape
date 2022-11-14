@@ -1,77 +1,71 @@
-import { useQuery } from '@apollo/client'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
+import useAppStore from '@lib/store'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
-import React, { useState } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
 import {
-  ExploreDocument,
-  PaginatedResultInfo,
+  PublicationMainFocus,
   PublicationSortCriteria,
-  PublicationTypes
+  PublicationTypes,
+  useExploreQuery
 } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
-
-const request = {
-  sortCriteria: PublicationSortCriteria.TopCollected,
-  limit: 16,
-  noRandomize: true,
-  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-  publicationTypes: [PublicationTypes.Post],
-  customFilters: LENS_CUSTOM_FILTERS
-}
+import type { LenstubePublication } from 'src/types/local'
 
 const LooksRare = () => {
-  const [videos, setVideos] = useState<LenstubePublication[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
-  const { data, loading, error, fetchMore } = useQuery(ExploreDocument, {
+  const request = {
+    sortCriteria: PublicationSortCriteria.TopCollected,
+    limit: 30,
+    noRandomize: true,
+    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+    publicationTypes: [PublicationTypes.Post],
+    customFilters: LENS_CUSTOM_FILTERS,
+    metadata: {
+      tags:
+        activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
+      mainContentFocus: [PublicationMainFocus.Video]
+    }
+  }
+
+  const { data, loading, error, fetchMore } = useExploreQuery({
     variables: {
       request
-    },
-    onCompleted(data) {
-      setPageInfo(data?.explorePublications?.pageInfo)
-      setVideos(data?.explorePublications?.items as LenstubePublication[])
     }
   })
+
+  const videos = data?.explorePublications?.items as LenstubePublication[]
+  const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              ...request,
-              cursor: pageInfo?.next
-            }
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            cursor: pageInfo?.next
           }
-        })
-        setPageInfo(data?.explorePublications?.pageInfo)
-        setVideos([
-          ...videos,
-          ...(data?.explorePublications?.items as LenstubePublication[])
-        ])
-      } catch (error) {
-        logger.error('[Error Fetch Looks Rare]', error)
-      }
+        }
+      })
     }
   })
+
+  if (videos?.length === 0) {
+    return <NoDataFound isCenter withImage text="No videos found" />
+  }
 
   return (
     <div>
       {loading && <TimelineShimmer />}
-      {data?.explorePublications?.items.length === 0 && (
-        <NoDataFound isCenter withImage text="No videos found" />
-      )}
       {!error && !loading && (
         <>
           <Timeline videos={videos} />

@@ -4,9 +4,11 @@ import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import { getPermanentVideoUrl, getVideoUrl } from '@utils/functions/getVideoUrl'
 import imageCdn from '@utils/functions/imageCdn'
 import axios from 'axios'
-import React, { FC, useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
+import type { FC } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 import BottomOverlay from './BottomOverlay'
 import ByteActions from './ByteActions'
@@ -17,8 +19,10 @@ type Props = {
 }
 
 const ByteVideo: FC<Props> = ({ video }) => {
-  const [playing, setIsPlaying] = useState(true)
+  const router = useRouter()
+
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [playing, setIsPlaying] = useState(true)
   const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
 
   const checkVideoResource = async () => {
@@ -45,9 +49,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
         videoRef.current?.pause()
         setIsPlaying(false)
       }
-    } catch (error) {
-      logger.error('[Error Play Byte]', error)
-    }
+    } catch {}
   }
 
   const { observe } = useInView({
@@ -57,13 +59,15 @@ const ByteVideo: FC<Props> = ({ video }) => {
       setIsPlaying(false)
     },
     onEnter: () => {
+      router.push(`/bytes/?id=${video?.id}`, undefined, {
+        shallow: true
+      })
       videoRef.current?.load()
       videoRef.current
         ?.play()
         .then(() => setIsPlaying(true))
-        .catch((e) => {
+        .catch(() => {
           setIsPlaying(false)
-          logger.error('[Error AutoPlay Byte]', e)
         })
     }
   })
@@ -79,7 +83,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
           disableRemotePlayback
           width="345"
           poster={imageCdn(getThumbnailUrl(video), 'thumbnail')}
-          className="md:rounded-xl min-w-[250px] w-screen md:w-[345px] 2xl:w-[450px] h-screen bg-black md:h-[calc(100vh-145px)]"
+          className="md:rounded-xl min-w-[250px] w-screen md:w-[350px] ultrawide:w-[407px] h-screen bg-black md:h-[calc(100vh-145px)]"
           loop
           src={videoUrl}
         >

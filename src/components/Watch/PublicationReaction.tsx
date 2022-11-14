@@ -1,4 +1,5 @@
-import { useMutation } from '@apollo/client'
+import DislikeOutline from '@components/Common/Icons/DislikeOutline'
+import LikeOutline from '@components/Common/Icons/LikeOutline'
 import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -6,20 +7,20 @@ import { Analytics, TRACK } from '@utils/analytics'
 import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import { formatNumber } from '@utils/functions/formatNumber'
 import clsx from 'clsx'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { AiOutlineDislike, AiOutlineLike } from 'react-icons/ai'
 import {
-  AddReactionDocument,
   ReactionTypes,
-  RemoveReactionDocument
+  useAddReactionMutation,
+  useRemoveReactionMutation
 } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 type Props = {
   publication: LenstubePublication
-  iconSize?: 'xs' | 'sm' | 'xl' | '2xl'
-  textSize?: 'xs' | 'sm' | 'xl' | '2xl'
+  iconSize?: 'sm' | 'lg'
+  textSize?: 'sm' | 'lg'
   isVertical?: boolean
   showLabel?: boolean
 }
@@ -41,13 +42,13 @@ const PublicationReaction: FC<Props> = ({
     dislikeCount: publication.stats?.totalDownvotes
   })
 
-  const [addReaction] = useMutation(AddReactionDocument, {
-    onError(error) {
+  const [addReaction] = useAddReactionMutation({
+    onError: (error) => {
       toast.error(error?.message)
     }
   })
-  const [removeReaction] = useMutation(RemoveReactionDocument, {
-    onError(error) {
+  const [removeReaction] = useRemoveReactionMutation({
+    onError: (error) => {
       toast.error(error?.message)
     }
   })
@@ -124,10 +125,12 @@ const PublicationReaction: FC<Props> = ({
 
   return (
     <div
-      className={clsx('flex items-center justify-end', {
-        'flex-col space-y-2.5 md:space-y-4 p-1 px-3': isVertical,
-        'space-x-2.5 md:space-x-4': !isVertical
-      })}
+      className={clsx(
+        'flex items-center justify-end',
+        isVertical
+          ? 'flex-col space-y-2.5 md:space-y-4 px-3'
+          : 'space-x-2.5 md:space-x-4'
+      )}
     >
       <Button variant="secondary" className="!p-0" onClick={() => likeVideo()}>
         <span
@@ -136,18 +139,17 @@ const PublicationReaction: FC<Props> = ({
             'flex-col space-y-1': isVertical
           })}
         >
-          <AiOutlineLike
+          <LikeOutline
             className={clsx({
-              'text-xs': iconSize === 'xs',
-              'text-xl': iconSize === 'xl',
-              'text-2xl': iconSize === '2xl',
+              'w-3.5 h-3.5': iconSize === 'sm',
+              'w-6 h-6': iconSize === 'lg',
               'text-indigo-500': reaction.isLiked
             })}
           />
           {showLabel && (
             <span
               className={clsx({
-                'text-xs': textSize === 'xs',
+                'text-xs': textSize === 'sm',
                 'text-indigo-500': reaction.isLiked
               })}
             >
@@ -169,18 +171,17 @@ const PublicationReaction: FC<Props> = ({
             'flex-col space-y-1': isVertical
           })}
         >
-          <AiOutlineDislike
+          <DislikeOutline
             className={clsx({
-              'text-xs': iconSize === 'xs',
-              'text-xl': iconSize === 'xl',
-              'text-2xl': iconSize === '2xl',
+              'w-3.5 h-3.5': iconSize === 'sm',
+              'w-6 h-6': iconSize === 'lg',
               'text-indigo-500': reaction.isDisliked
             })}
           />
           {showLabel && (
             <span
               className={clsx({
-                'text-xs': textSize === 'xs',
+                'text-xs': textSize === 'sm',
                 'text-indigo-500': reaction.isDisliked
               })}
             >

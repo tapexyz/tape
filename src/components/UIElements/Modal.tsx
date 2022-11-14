@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import clsx from 'clsx'
-import { FC, Fragment } from 'react'
+import type { FC } from 'react'
+import { Fragment } from 'react'
 import { MdOutlineClose } from 'react-icons/md'
 
 type Props = {

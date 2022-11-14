@@ -1,48 +1,52 @@
-import { Analytics, TRACK } from '@utils/analytics'
+import Tooltip from '@components/UIElements/Tooltip'
+import usePersistStore from '@lib/store/persist'
 import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
-import { BYTES, EXPLORE, FEED, HOME, LIBRARY } from '@utils/url-path'
+import { BYTES, EXPLORE, FEED, HOME } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTheme } from 'next-themes'
-import { BiMoon, BiSun } from 'react-icons/bi'
-import { FiHome } from 'react-icons/fi'
-import {
-  MdOutlineSubscriptions,
-  MdOutlineVideoLibrary,
-  MdSlowMotionVideo
-} from 'react-icons/md'
-import { RiLeafLine } from 'react-icons/ri'
 
+import Footer from './Footer'
+import BytesOutline from './Icons/BytesOutline'
+import ChevronLeftOutline from './Icons/ChevronLeftOutline'
+import ChevronRightOutline from './Icons/ChevronRightOutline'
+import ExploreOutline from './Icons/ExploreOutline'
+import FeedOutline from './Icons/FeedOutline'
+import HomeOutline from './Icons/HomeOutline'
 import MobileBottomNav from './MobileBottomNav'
 
 const CreateChannel = dynamic(() => import('./CreateChannel'))
-const MoreTrigger = dynamic(() => import('../../components/Common/MoreTrigger'))
 
 const Sidebar = () => {
   const router = useRouter()
-  const { theme, setTheme } = useTheme()
+  const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
+  const setSidebarCollapsed = usePersistStore(
+    (state) => state.setSidebarCollapsed
+  )
 
   const isActivePath = (path: string) => router.pathname === path
-
-  const onToggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark')
-    Analytics.track(
-      theme === 'dark' ? TRACK.SYSTEM.THEME.DARK : TRACK.SYSTEM.THEME.LIGHT
-    )
-  }
 
   return (
     <>
       {!getShowFullScreen(router.pathname) && <MobileBottomNav />}
       <CreateChannel />
-      <div className="fixed top-0 bottom-0 left-0 z-10 items-start justify-between hidden w-[68px] p-1 m-2 bg-white border shadow dark:border-gray-900 rounded-xl dark:bg-black md:flex md:flex-col">
-        <div className="flex flex-col w-full text-center space-y-1.5">
-          <div className="p-3">
+      <div
+        className={clsx(
+          'fixed top-0 bottom-0 transition-width left-0 z-10 items-start justify-between hidden bg-white dark:bg-theme md:flex md:flex-col',
+          sidebarCollapsed ? 'w-[90px]' : 'w-[180px]'
+        )}
+      >
+        <div
+          className={clsx(
+            'flex flex-col space-y-2',
+            sidebarCollapsed ? 'self-center' : 'px-[18px] w-full'
+          )}
+        >
+          <div className={clsx('py-3', sidebarCollapsed ? 'px-3' : 'px-3.5')}>
             <Link
               href={HOME}
-              className="flex items-center justify-center pt-1 focus:outline-none"
+              className="flex items-center pt-1 focus:outline-none"
             >
               <img
                 src="/lenstube.svg"
@@ -52,88 +56,116 @@ const Sidebar = () => {
               />
             </Link>
           </div>
-          <div className="flex flex-col w-full space-y-1">
-            <Link
-              href={HOME}
-              className={clsx(
-                'rounded-lg py-2 2xl:py-2.5 group',
-                isActivePath(HOME)
-                  ? 'bg-indigo-50 dark:bg-[#181818]'
-                  : 'hover:bg-gray-50 dark:hover:bg-[#181818]'
-              )}
+          <div className="flex flex-col justify-center space-y-2">
+            <Tooltip
+              content="Home"
+              visible={sidebarCollapsed}
+              placement="right"
             >
-              <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
-                <FiHome className="text-xl" />
-                <p className="text-[11px] font-medium">Home</p>
-              </div>
-            </Link>
-            <Link
-              href={FEED}
-              className={clsx(
-                'rounded-lg py-2 2xl:py-2.5 group',
-                isActivePath(FEED)
-                  ? 'bg-indigo-50 dark:bg-[#181818]'
-                  : 'hover:bg-gray-50 dark:hover:bg-[#181818]'
-              )}
+              <Link
+                href={HOME}
+                className={clsx(
+                  'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
+                  isActivePath(HOME)
+                    ? 'bg-indigo-50 dark:bg-gray-800'
+                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                  sidebarCollapsed
+                    ? 'w-12 justify-center'
+                    : 'w-full px-4 space-x-3'
+                )}
+              >
+                <HomeOutline className="w-5 h-5" />
+                {!sidebarCollapsed && <span className="text-sm">Home</span>}
+              </Link>
+            </Tooltip>
+            <Tooltip
+              content="Subscriptions"
+              visible={sidebarCollapsed}
+              placement="right"
             >
-              <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
-                <MdOutlineSubscriptions className="text-xl" />
-                <p className="text-[11px] font-medium">Feed</p>
-              </div>
-            </Link>
-            <Link
-              href={EXPLORE}
-              className={clsx(
-                'rounded-lg py-2 2xl:py-2.5 group',
-                isActivePath(EXPLORE)
-                  ? 'bg-indigo-50 dark:bg-[#181818]'
-                  : 'hover:bg-gray-50 dark:hover:bg-[#181818]'
-              )}
+              <Link
+                href={FEED}
+                className={clsx(
+                  'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
+                  isActivePath(FEED)
+                    ? 'bg-indigo-50 dark:bg-gray-800'
+                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                  sidebarCollapsed
+                    ? 'w-12 justify-center'
+                    : 'w-full px-4 space-x-3'
+                )}
+              >
+                <FeedOutline className="w-5 h-5 flex-none" />
+                {!sidebarCollapsed && (
+                  <span className="text-sm">Subscriptions</span>
+                )}
+              </Link>
+            </Tooltip>
+            <Tooltip
+              content="Bytes"
+              visible={sidebarCollapsed}
+              placement="right"
             >
-              <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
-                <RiLeafLine className="text-xl" />
-                <p className="text-[11px] font-medium">Explore</p>
-              </div>
-            </Link>
-            <Link
-              href={BYTES}
-              className={clsx('rounded-lg py-2 2xl:py-2.5 group', {
-                'bg-indigo-50 dark:bg-[#181818]':
-                  isActivePath(BYTES) || router.pathname === '/bytes/[id]',
-                'hover:bg-gray-50 dark:hover:bg-[#181818]':
-                  !isActivePath(BYTES) && router.pathname !== '/bytes/[id]'
-              })}
+              <Link
+                href={BYTES}
+                className={clsx(
+                  'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
+                  isActivePath(BYTES) || router.pathname === '/bytes/[id]'
+                    ? 'bg-indigo-50 dark:bg-gray-800'
+                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                  sidebarCollapsed
+                    ? 'w-12 justify-center'
+                    : 'w-full px-4 space-x-3'
+                )}
+              >
+                <BytesOutline className="w-5 h-5" />
+                {!sidebarCollapsed && <span className="text-sm">Bytes</span>}
+              </Link>
+            </Tooltip>
+            <Tooltip
+              content="Explore"
+              visible={sidebarCollapsed}
+              placement="right"
             >
-              <div className="flex flex-col pt-0.5 items-center space-y-1 group-hover:opacity-100 opacity-80">
-                <MdSlowMotionVideo className="text-xl" />
-                <p className="text-[11px] font-medium">Bytes</p>
-              </div>
-            </Link>
-            <Link
-              href={LIBRARY}
-              className={clsx(
-                'rounded-lg py-2 2xl:py-2.5 group',
-                isActivePath(LIBRARY)
-                  ? 'bg-indigo-50 dark:bg-[#181818]'
-                  : 'hover:bg-gray-50 dark:hover:bg-[#181818]'
-              )}
-            >
-              <div className="flex flex-col items-center pt-0.5 space-y-1 group-hover:opacity-100 opacity-80">
-                <MdOutlineVideoLibrary className="text-xl" />
-                <p className="text-[11px] font-medium">Library</p>
-              </div>
-            </Link>
+              <Link
+                href={EXPLORE}
+                className={clsx(
+                  'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
+                  isActivePath(EXPLORE)
+                    ? 'bg-indigo-50 dark:bg-gray-800'
+                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                  sidebarCollapsed
+                    ? 'w-12 justify-center'
+                    : 'w-full px-4 space-x-3'
+                )}
+              >
+                <ExploreOutline className="w-5 h-5" />
+                {!sidebarCollapsed && <span className="text-sm">Explore</span>}
+              </Link>
+            </Tooltip>
           </div>
         </div>
-        <div className="flex flex-col w-full">
+        <div
+          className={clsx(
+            'flex flex-col mb-1',
+            sidebarCollapsed ? 'mx-auto' : 'px-3'
+          )}
+        >
+          {!sidebarCollapsed && <Footer />}
           <button
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
             type="button"
-            onClick={() => onToggleTheme()}
-            className="flex p-3 py-4 justify-center rounded-lg hover:bg-gray-50 dark:hover:bg-[#181818] focus:outline-none opacity-90 hover:opacity-100"
+            className={clsx(
+              'flex p-3.5 mt-2 items-center h-12 justify-center rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none opacity-90 hover:opacity-100',
+              sidebarCollapsed ? 'w-12' : 'w-full'
+            )}
           >
-            {theme === 'light' ? <BiMoon /> : <BiSun />}
+            {sidebarCollapsed ? (
+              <ChevronRightOutline className="w-3 h-3" />
+            ) : (
+              <ChevronLeftOutline className="w-3 h-3" />
+            )}
           </button>
-          <MoreTrigger />
         </div>
       </div>
     </>

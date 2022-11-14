@@ -1,6 +1,6 @@
-import { WebBundlr } from '@bundlr-network/client'
+import type { WebBundlr } from '@bundlr-network/client'
 
-import {
+import type {
   Attribute,
   Comment,
   FeeCollectModuleSettings,

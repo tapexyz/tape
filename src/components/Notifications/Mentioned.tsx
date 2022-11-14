@@ -3,8 +3,9 @@ import getProfilePicture from '@utils/functions/getProfilePicture'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
-import React, { FC } from 'react'
-import { NewMentionNotification } from 'src/types/lens'
+import type { FC } from 'react'
+import React from 'react'
+import type { NewMentionNotification } from 'src/types/lens'
 
 dayjs.extend(relativeTime)
 
@@ -48,7 +49,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
           </Link>
           your channel
         </span>
-        <div className="flex items-center flex-none space-x-1 text-xs text-gray-400">
+        <div className="flex items-center flex-none space-x-1 text-xs text-gray-500">
           <span>{dayjs(new Date(notification?.createdAt)).fromNow()}</span>
         </div>
       </div>

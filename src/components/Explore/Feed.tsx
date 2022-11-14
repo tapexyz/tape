@@ -16,68 +16,64 @@ const ExploreFeed = () => {
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 
   return (
-    <div>
-      <div className="w-full col-span-9">
-        <Tab.Group>
-          <Tab.List className="flex overflow-x-auto no-scrollbar">
-            <Tab
-              className={({ selected }) =>
-                clsx(
-                  'px-4 py-2 flex whitespace-nowrap items-center space-x-2 border-b-2 text-sm focus:outline-none',
-                  selected
-                    ? 'border-indigo-900 opacity-100'
-                    : 'border-transparent opacity-50'
-                )
-              }
-            >
-              <HiOutlineCollection />
-              <span>Looks Rare</span>
-            </Tab>
-            <Tab
-              className={({ selected }) =>
-                clsx(
-                  'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
-                  selected
-                    ? 'border-indigo-900 opacity-100'
-                    : 'border-transparent opacity-50'
-                )
-              }
-            >
-              <AiOutlineFire />
-              <span>Trending</span>
-            </Tab>
-            {isAdmin && (
-              <Tab
-                className={({ selected }) =>
-                  clsx(
-                    'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
-                    selected
-                      ? 'border-indigo-900 opacity-100'
-                      : 'border-transparent opacity-50'
-                  )
-                }
-              >
-                <BiTimeFive />
-                <span>Recents</span>
-              </Tab>
-            )}
-          </Tab.List>
-          <Tab.Panels>
-            <Tab.Panel className="py-3 focus:outline-none">
-              <LooksRare />
-            </Tab.Panel>
-            <Tab.Panel className="py-3 focus:outline-none">
-              <Trending />
-            </Tab.Panel>
-            {isAdmin && (
-              <Tab.Panel className="py-3 focus:outline-none">
-                <Recents />
-              </Tab.Panel>
-            )}
-          </Tab.Panels>
-        </Tab.Group>
-      </div>
-    </div>
+    <Tab.Group as="div" className="w-full col-span-9">
+      <Tab.List className="flex overflow-x-auto no-scrollbar">
+        <Tab
+          className={({ selected }) =>
+            clsx(
+              'px-4 py-2 flex whitespace-nowrap items-center space-x-2 border-b-2 text-sm focus:outline-none',
+              selected
+                ? 'border-indigo-900 opacity-100'
+                : 'border-transparent opacity-50'
+            )
+          }
+        >
+          <HiOutlineCollection />
+          <span>Looks Rare</span>
+        </Tab>
+        <Tab
+          className={({ selected }) =>
+            clsx(
+              'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
+              selected
+                ? 'border-indigo-900 opacity-100'
+                : 'border-transparent opacity-50'
+            )
+          }
+        >
+          <AiOutlineFire />
+          <span>Trending</span>
+        </Tab>
+        {isAdmin && (
+          <Tab
+            className={({ selected }) =>
+              clsx(
+                'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                selected
+                  ? 'border-indigo-900 opacity-100'
+                  : 'border-transparent opacity-50'
+              )
+            }
+          >
+            <BiTimeFive />
+            <span>Recents</span>
+          </Tab>
+        )}
+      </Tab.List>
+      <Tab.Panels>
+        <Tab.Panel className="py-3 focus:outline-none">
+          <LooksRare />
+        </Tab.Panel>
+        <Tab.Panel className="py-3 focus:outline-none">
+          <Trending />
+        </Tab.Panel>
+        {isAdmin && (
+          <Tab.Panel className="py-3 focus:outline-none">
+            <Recents />
+          </Tab.Panel>
+        )}
+      </Tab.Panels>
+    </Tab.Group>
   )
 }
 
