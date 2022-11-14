@@ -84,7 +84,7 @@ const Header: FC<Props> = ({ className }) => {
           </div>
           <div className="flex flex-row items-center justify-end space-x-2 md:space-x-3 md:w-96">
             <Button
-              variant="outlined"
+              variant="material"
               onClick={() => setSearchModal(true)}
               className="!p-[10px] md:hidden"
             >
@@ -97,7 +97,7 @@ const Header: FC<Props> = ({ className }) => {
                   href={NOTIFICATIONS}
                   className="relative p-1"
                 >
-                  <Button variant="outlined" className="!p-[9px]">
+                  <Button variant="material" className="!p-[9px]">
                     <BellOutline className="w-4 h-4" />
                     {hasNewNotification && (
                       <span className="absolute flex w-2 h-2 bg-red-500 rounded-full -top-1 -right-0.5" />

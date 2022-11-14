@@ -4,7 +4,7 @@ import React, { forwardRef } from 'react'
 
 import { Loader } from './Loader'
 
-export type ButtonVariants = 'primary' | 'secondary' | 'danger' | 'outlined'
+export type ButtonVariants = 'primary' | 'secondary' | 'danger' | 'material'
 
 interface Props
   extends DetailedHTMLProps<
@@ -53,11 +53,11 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
           {
             'border border-indigo-500': variant === 'primary',
             'bg-transparent': variant === 'secondary',
-            'bg-transparent !transition-none group-hover:border group-hover:border-indigo-500':
-              variant === 'outlined',
+            'bg-opacity-25 dark:group-hover:bg-indigo-900 group-hover:bg-indigo-100 !transition-none':
+              variant === 'material',
             'border-red-500 border': variant === 'danger',
             'group-hover:translate-x-0.5 group-hover:translate-y-0.5':
-              !rest.disabled && variant !== 'outlined'
+              !rest.disabled && variant !== 'material'
           }
         )}
       />
@@ -73,7 +73,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
       />
       <span
         className={clsx('relative flex items-center justify-center space-x-2', {
-          'text-white': variant !== 'secondary' && variant !== 'outlined'
+          'text-white': variant !== 'secondary' && variant !== 'material'
         })}
       >
         {icon}

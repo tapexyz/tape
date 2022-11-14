@@ -104,7 +104,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
               {isOwnChannel && (
                 <Tooltip content="Channel settings" placement="top">
                   <Button
-                    variant="outlined"
+                    variant="material"
                     onClick={() => onClickCustomize()}
                     className="!p-2 md:!p-2.5"
                   >

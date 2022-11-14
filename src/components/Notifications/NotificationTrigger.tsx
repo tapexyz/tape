@@ -58,7 +58,7 @@ const NotificationTrigger = () => {
     <DropMenu
       trigger={
         <Button
-          variant="outlined"
+          variant="material"
           className="!p-[9px]"
           onClick={() => onClickNotification()}
         >
