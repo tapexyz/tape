@@ -3,13 +3,10 @@ export const CREATOR_VIDEO_CATEGORIES = [
     name: 'People & Blogs',
     tag: 'people'
   },
+  { name: 'Music', tag: 'music' },
   {
     name: 'Podcast',
     tag: 'podcast'
-  },
-  {
-    name: 'Autos & Vehicles',
-    tag: 'vehicles'
   },
   {
     name: 'Comedy',
@@ -20,16 +17,8 @@ export const CREATOR_VIDEO_CATEGORIES = [
     tag: 'health'
   },
   {
-    name: 'Wellness',
-    tag: 'wellness'
-  },
-  {
     name: 'Education',
     tag: 'education'
-  },
-  {
-    name: 'Gadgets',
-    tag: 'gadgets'
   },
   {
     name: 'Entertainment',
@@ -55,7 +44,6 @@ export const CREATOR_VIDEO_CATEGORIES = [
     name: 'Howto & Style',
     tag: 'howto'
   },
-  { name: 'Music', tag: 'music' },
   {
     name: 'News & Politics',
     tag: 'news'
@@ -69,6 +57,10 @@ export const CREATOR_VIDEO_CATEGORIES = [
     tag: 'pets'
   },
   {
+    name: 'Wellness',
+    tag: 'wellness'
+  },
+  {
     name: 'Science & Technology',
     tag: 'technology'
   },
@@ -79,5 +71,13 @@ export const CREATOR_VIDEO_CATEGORIES = [
   {
     name: 'Travel & Events',
     tag: 'travel'
+  },
+  {
+    name: 'Gadgets',
+    tag: 'gadgets'
+  },
+  {
+    name: 'Autos & Vehicles',
+    tag: 'vehicles'
   }
 ]
