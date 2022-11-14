@@ -35,7 +35,7 @@ import CollectModal from './CollectModal'
 
 type Props = {
   video: LenstubePublication
-  variant?: 'primary' | 'secondary' | 'outlined'
+  variant?: 'primary' | 'secondary' | 'material'
 }
 
 const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {

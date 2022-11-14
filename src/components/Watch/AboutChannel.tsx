@@ -61,19 +61,19 @@ const AboutChannel: FC<Props> = ({ video }) => {
             </span>
           </div>
           <div className="flex items-center lg:space-x-4 space-x-2">
-            {video?.collectModule?.__typename !==
-              'RevertCollectModuleSettings' && (
-              <CollectVideo variant="outlined" video={video} />
-            )}
             <div className="md:block hidden">
               <MirrorVideo video={video}>
                 <div>
-                  <Button size="md" variant="outlined" className="!px-2">
+                  <Button size="md" variant="material" className="!px-2">
                     <MirrorOutline className="w-5 h-5" />
                   </Button>
                 </div>
               </MirrorVideo>
             </div>
+            {video?.collectModule?.__typename !==
+              'RevertCollectModuleSettings' && (
+              <CollectVideo variant="material" video={video} />
+            )}
             <SubscribeActions channel={channel} subscribeType={subscribeType} />
           </div>
         </div>
