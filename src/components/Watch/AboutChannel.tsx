@@ -1,3 +1,6 @@
+import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
+import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
+import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import MirrorVideo from '@components/Common/MirrorVideo'
@@ -7,10 +10,9 @@ import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
 import Link from 'next/link'
-import React, { FC, useEffect, useState } from 'react'
-import { AiOutlineRetweet } from 'react-icons/ai'
-import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
-import { LenstubePublication } from 'src/types/local'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
+import type { LenstubePublication } from 'src/types/local'
 
 import CollectVideo from './CollectVideo'
 import MetaInfo from './MetaInfo'
@@ -33,19 +35,19 @@ const AboutChannel: FC<Props> = ({ video }) => {
   }, [video.metadata?.description])
 
   return (
-    <div className="flex items-start justify-between w-full mt-2">
+    <div className="flex items-start justify-between w-full">
       <Link href={`/${channel?.handle}`}>
-        <div className="flex-none mt-2.5 mr-3 cursor-pointer">
+        <div className="flex-none mr-3 cursor-pointer">
           <img
             src={getProfilePicture(channel, 'avatar')}
-            className="w-10 h-10 rounded-xl"
+            className="w-10 h-10 rounded-full"
             draggable={false}
             alt="channel picture"
           />
         </div>
       </Link>
       <div className="flex flex-col flex-1 overflow-hidden break-words">
-        <div className="flex flex-wrap justify-between py-2 gap-y-2">
+        <div className="flex flex-wrap justify-between gap-y-2">
           <div className="flex flex-col items-start mr-2">
             <Link
               href={`/${channel?.handle}`}
@@ -58,14 +60,16 @@ const AboutChannel: FC<Props> = ({ video }) => {
               {formatNumber(channel?.stats.totalFollowers)} subscribers
             </span>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center lg:space-x-4 space-x-2">
             {video?.collectModule?.__typename !==
-              'RevertCollectModuleSettings' && <CollectVideo video={video} />}
+              'RevertCollectModuleSettings' && (
+              <CollectVideo variant="outlined" video={video} />
+            )}
             <div className="md:block hidden">
               <MirrorVideo video={video}>
                 <div>
-                  <Button size="md" className="!px-2">
-                    <AiOutlineRetweet className="text-xl" />
+                  <Button size="md" variant="outlined" className="!px-2">
+                    <MirrorOutline className="w-5 h-5" />
                   </Button>
                 </div>
               </MirrorVideo>
@@ -76,7 +80,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
         {video?.metadata?.description && (
           <p
             className={clsx(
-              'mt-2 text-sm opacity-80',
+              'mt-4 text-sm opacity-80',
               clamped ? 'line-clamp-3' : ''
             )}
           >
@@ -88,15 +92,15 @@ const AboutChannel: FC<Props> = ({ video }) => {
             <button
               type="button"
               onClick={() => setClamped(!clamped)}
-              className="flex items-center text-xs outline-none hover:opacity-100 opacity-60"
+              className="flex items-center text-sm outline-none text-indigo-500 hover:opacity-100 opacity-60"
             >
               {clamped ? (
                 <>
-                  Show more <BiChevronDown className="text-sm" />
+                  Show more <ChevronDownOutline className="h-3 ml-1 w-3" />
                 </>
               ) : (
                 <>
-                  Show less <BiChevronUp className="text-sm" />
+                  Show less <ChevronUpOutline className="h-3 w-3 ml-1" />
                 </>
               )}
             </button>

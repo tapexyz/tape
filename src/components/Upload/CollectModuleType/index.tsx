@@ -1,10 +1,9 @@
-import { useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import React, { useState } from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
-import { EnabledModuleCurrrenciesDocument } from 'src/types/lens'
+import { useEnabledModuleCurrrenciesQuery } from 'src/types/lens'
 import { CollectModuleType } from 'src/types/local'
 
 import ChargeQuestion from './ChargeQuestion'
@@ -25,13 +24,10 @@ const CollectModuleType = () => {
     })
   }
 
-  const { data: enabledCurrencies } = useQuery(
-    EnabledModuleCurrrenciesDocument,
-    {
-      variables: { request: { profileIds: selectedChannel?.id } },
-      skip: !selectedChannel?.id
-    }
-  )
+  const { data: enabledCurrencies } = useEnabledModuleCurrrenciesQuery({
+    variables: { request: { profileIds: selectedChannel?.id } },
+    skip: !selectedChannel?.id
+  })
 
   const getSelectedCollectType = () => {
     const followerOnlyCollect = uploadedVideo.collectModule.followerOnlyCollect
@@ -65,7 +61,7 @@ const CollectModuleType = () => {
       <button
         type="button"
         onClick={() => setShowModal(true)}
-        className="flex items-center justify-between w-full px-4 py-2.5 text-sm text-left border border-gray-200 focus:outline-none dark:border-gray-800 rounded-xl"
+        className="flex items-center justify-between w-full px-4 py-2.5 text-sm text-left border border-gray-300 focus:outline-none dark:border-gray-700 rounded-xl"
       >
         <span>{getSelectedCollectType()}</span>
         <AiOutlineCheck />

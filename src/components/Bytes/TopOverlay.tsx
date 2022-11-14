@@ -1,7 +1,8 @@
 import { HOME } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import { BsArrowLeft, BsPauseFill, BsPlayFill } from 'react-icons/bs'
 
 type Props = {

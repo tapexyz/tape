@@ -5,10 +5,11 @@ import { Analytics, TRACK } from '@utils/analytics'
 import getCategoryName from '@utils/functions/getCategoryName'
 import getMetadataHash from '@utils/functions/getMetadataHash'
 import { getIsIPFSUrl } from '@utils/functions/getVideoUrl'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import { AiOutlineTag } from 'react-icons/ai'
 import { BiLinkExternal } from 'react-icons/bi'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 type Props = {
   video: LenstubePublication

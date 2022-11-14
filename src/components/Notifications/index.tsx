@@ -1,12 +1,9 @@
-import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { Analytics, TRACK } from '@utils/analytics'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -14,13 +11,12 @@ import {
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
 import clsx from 'clsx'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
+import type { Notification } from 'src/types/lens'
 import {
-  Notification,
-  NotificationCountDocument,
-  NotificationsDocument,
-  PaginatedResultInfo
+  useNotificationCountQuery,
+  useNotificationsQuery
 } from 'src/types/lens'
 
 import CollectedNotification from './Collected'
@@ -35,18 +31,11 @@ const Notifications = () => {
     (state) => state.setNotificationCount
   )
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-
   const setHasNewNotification = useAppStore(
     (state) => state.setHasNewNotification
   )
-  const [notifications, setNotifications] = useState<Notification[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
 
-  useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.NOTIFICATIONS })
-  }, [])
-
-  const { data: notificationsCountData } = useQuery(NotificationCountDocument, {
+  const { data: notificationsCountData } = useNotificationCountQuery({
     variables: {
       request: {
         profileId: selectedChannel?.id,
@@ -57,19 +46,17 @@ const Notifications = () => {
   })
 
   const request = {
-    limit: 20,
+    limit: 30,
     sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: selectedChannel?.id
   }
 
-  const { data, loading, fetchMore } = useQuery(NotificationsDocument, {
+  const { data, loading, fetchMore } = useNotificationsQuery({
     variables: {
       request
     },
-    onCompleted(data) {
-      setPageInfo(data?.notifications?.pageInfo)
-      setNotifications(data?.notifications?.items as Notification[])
+    onCompleted: () => {
       setTimeout(() => {
         const totalCount =
           notificationsCountData?.notifications?.pageInfo?.totalCount
@@ -79,35 +66,29 @@ const Notifications = () => {
     }
   })
 
+  const notifications = data?.notifications?.items as Notification[]
+  const pageInfo = data?.notifications?.pageInfo
+
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              cursor: pageInfo?.next,
-              ...request
-            }
+      await fetchMore({
+        variables: {
+          request: {
+            cursor: pageInfo?.next,
+            ...request
           }
-        })
-        setPageInfo(data?.notifications?.pageInfo)
-        setNotifications([
-          ...notifications,
-          ...(data?.notifications?.items as Notification[])
-        ])
-      } catch (error) {
-        logger.error('[Error Fetch Notifications]', error)
-      }
+        }
+      })
     }
   })
 
-  if (data?.notifications?.items?.length === 0) return <NoDataFound />
+  if (notifications?.length === 0) return <NoDataFound />
 
   return (
     <div className="mx-auto md:p-0 md:container md:max-w-2xl">
       <MetaTags title="Notifications" />
-      <h1 className="mb-4 text-lg font-medium md:hidden">Notifications</h1>
+      <h1 className="mb-4 text-lg font-semibold">Notifications</h1>
       {loading && <NotificationsShimmer />}
       {notifications?.map((notification: Notification, index: number) => (
         <div

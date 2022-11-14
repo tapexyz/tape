@@ -12,9 +12,10 @@ import imageCdn from '@utils/functions/imageCdn'
 import { SETTINGS } from '@utils/url-path'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import { FiSettings } from 'react-icons/fi'
-import { Profile } from 'src/types/lens'
+import type { Profile } from 'src/types/lens'
 
 import MutualSubscribers from '../Mutual/MutualSubscribers'
 
@@ -90,7 +91,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                   </span>
                 </button>
                 {channel.isFollowing && (
-                  <span className="px-2 py-0.5 text-xs dark:bg-gray-800 bg-gray-100 rounded-full">
+                  <span className="px-2 py-0.5 text-xs dark:bg-gray-700 bg-gray-200 rounded-full">
                     Subscribed you
                   </span>
                 )}

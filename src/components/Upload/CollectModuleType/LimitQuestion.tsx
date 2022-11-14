@@ -1,7 +1,8 @@
 import clsx from 'clsx'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
-import { CollectModuleType, UploadedVideo } from 'src/types/local'
+import type { CollectModuleType, UploadedVideo } from 'src/types/local'
 
 type Props = {
   uploadedVideo: UploadedVideo
@@ -26,7 +27,7 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             })
           }
           className={clsx(
-            'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+            'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-300 hover:!border-indigo-500 focus:outline-none dark:border-gray-700 rounded-xl',
             {
               '!border-indigo-500':
                 !uploadedVideo.collectModule.isLimitedFeeCollect
@@ -52,7 +53,7 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             })
           }
           className={clsx(
-            'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+            'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-300 hover:!border-indigo-500 focus:outline-none dark:border-gray-700 rounded-xl',
             {
               '!border-indigo-500':
                 uploadedVideo.collectModule.isLimitedFeeCollect

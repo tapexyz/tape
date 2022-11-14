@@ -1,7 +1,9 @@
 import { VERIFIED_CHANNELS } from '@utils/data/verified'
 import clsx from 'clsx'
-import React, { FC } from 'react'
-import { MdVerified } from 'react-icons/md'
+import type { FC } from 'react'
+import React from 'react'
+
+import Verified from './Icons/Verified'
 
 type Props = {
   id: string
@@ -13,13 +15,12 @@ const IsVerified: FC<Props> = ({ id, size = 'sm', color }) => {
   if (!VERIFIED_CHANNELS.includes(id)) return null
   return (
     <div>
-      <MdVerified
+      <Verified
         className={clsx(
-          'text-gray-600 dark:text-gray-400',
           {
-            'text-xs': size === 'xs',
-            'text-sm': size === 'sm',
-            'text-lg': size === 'lg'
+            'w-2.5 h-2.5': size === 'xs',
+            'w-3 h-3': size === 'sm',
+            'w-4 h-4': size === 'lg'
           },
           color
         )}

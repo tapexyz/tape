@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import logger from '@lib/logger'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
@@ -31,20 +30,22 @@ import axios from 'axios'
 import { utils } from 'ethers'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import {
-  BroadcastDocument,
+import type {
   CreatePostBroadcastItemResult,
-  CreatePostTypedDataDocument,
-  CreatePostViaDispatcherDocument,
   CreatePublicPostRequest,
   MetadataAttributeInput,
-  PublicationContentWarning,
-  PublicationMainFocus,
-  PublicationMetadataDisplayTypes,
   PublicationMetadataMediaInput,
   PublicationMetadataV2Input
 } from 'src/types/lens'
-import { CustomErrorWithData } from 'src/types/local'
+import {
+  PublicationContentWarning,
+  PublicationMainFocus,
+  PublicationMetadataDisplayTypes,
+  useBroadcastMutation,
+  useCreatePostTypedDataMutation,
+  useCreatePostViaDispatcherMutation
+} from 'src/types/lens'
+import type { CustomErrorWithData } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
@@ -53,7 +54,8 @@ import {
   useSignTypedData
 } from 'wagmi'
 
-import Details, { VideoFormData } from './Details'
+import type { VideoFormData } from './Details'
+import Details from './Details'
 
 const UploadSteps = () => {
   const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)
@@ -102,7 +104,7 @@ const UploadSteps = () => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const [broadcast, { data: broadcastData }] = useMutation(BroadcastDocument, {
+  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
     onCompleted,
     onError
   })
@@ -121,13 +123,11 @@ const UploadSteps = () => {
     onError
   })
 
-  const [createPostViaDispatcher, { data: dispatcherData }] = useMutation(
-    CreatePostViaDispatcherDocument,
-    {
+  const [createPostViaDispatcher, { data: dispatcherData }] =
+    useCreatePostViaDispatcherMutation({
       onError,
       onCompleted
-    }
-  )
+    })
 
   const broadcastTxId =
     broadcastData?.broadcast.__typename === 'RelayerResult'
@@ -169,8 +169,8 @@ const UploadSteps = () => {
     }
   }
 
-  const [createPostTypedData] = useMutation(CreatePostTypedDataDocument, {
-    async onCompleted(data) {
+  const [createPostTypedData] = useCreatePostTypedDataMutation({
+    onCompleted: async (data) => {
       const { typedData, id } =
         data.createPostTypedData as CreatePostBroadcastItemResult
       const {
@@ -205,9 +205,7 @@ const UploadSteps = () => {
         })
         if (data?.broadcast?.__typename === 'RelayError')
           writePostContract?.({ recklesslySetUnpreparedArgs: [args] })
-      } catch (error) {
-        logger.error('[Error Post Video Typed Data]', error)
-      }
+      } catch {}
     },
     onError
   })

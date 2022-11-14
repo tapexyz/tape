@@ -7,7 +7,8 @@ import {
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import { AiOutlineUser } from 'react-icons/ai'
 import { BsShieldLock } from 'react-icons/bs'
 import { IoWarningOutline } from 'react-icons/io5'
@@ -25,7 +26,7 @@ const SideNav: FC<Props> = ({ channel }) => {
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div className="p-2 bg-white rounded-lg dark:bg-black">
+    <div className="p-2 bg-white rounded-xl dark:bg-theme">
       <div className="flex flex-col items-center py-4 space-y-2">
         <ChannelPicture channel={channel} />
       </div>
@@ -33,7 +34,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         <Link
           href={SETTINGS}
           className={clsx(
-            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-900',
+            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
             { 'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS) }
           )}
         >
@@ -42,7 +43,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         <Link
           href={SETTINGS_MEMBERSHIP}
           className={clsx(
-            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-900',
+            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
             {
               'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS_MEMBERSHIP)
             }
@@ -53,7 +54,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         <Link
           href={SETTINGS_PERMISSIONS}
           className={clsx(
-            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-900',
+            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
             {
               'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS_PERMISSIONS)
             }

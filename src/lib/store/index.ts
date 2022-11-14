@@ -7,9 +7,9 @@ import {
   WMATIC_TOKEN_ADDRESS
 } from '@utils/constants'
 import { CREATOR_VIDEO_CATEGORIES } from '@utils/data/categories'
-import { FetchSignerResult } from '@wagmi/core'
-import { Profile } from 'src/types/lens'
-import {
+import type { FetchSignerResult } from '@wagmi/core'
+import type { Profile } from 'src/types/lens'
+import type {
   BundlrDataState,
   LenstubePublication,
   UploadedVideo
@@ -73,6 +73,8 @@ interface AppState {
   upNextVideo: LenstubePublication | null
   selectedChannel: Profile | null
   videoWatchTime: number
+  activeTagFilter: string
+  setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
   setSelectedChannel: (channel: Profile | null) => void
   setUploadedVideo: (video: { [k: string]: any }) => void
@@ -97,6 +99,8 @@ export const useAppStore = create<AppState>((set) => ({
   upNextVideo: null,
   selectedChannel: null,
   videoWatchTime: 0,
+  activeTagFilter: 'all',
+  setActiveTagFilter: (activeTagFilter) => set(() => ({ activeTagFilter })),
   setVideoWatchTime: (videoWatchTime) => set(() => ({ videoWatchTime })),
   setSelectedChannel: (channel) => set(() => ({ selectedChannel: channel })),
   setUpNextVideo: (upNextVideo) => set(() => ({ upNextVideo })),

@@ -1,4 +1,5 @@
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core'
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -10,6 +11,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>
 }
+const defaultOptions = {} as const
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -8213,7369 +8215,6 @@ export type UserProfilesQuery = {
   userSigNonces: { __typename?: 'UserSigNonces'; lensHubOnChainSigNonce: any }
 }
 
-export const ProfileFieldsFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'ProfileFields' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Profile' }
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'handle' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'bio' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'ownedBy' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'isDefault' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'isFollowedByMe' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'dispatcher' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'canUseRelay' } }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'attributes' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'key' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'value' } }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'stats' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalFollowers' }
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'totalPosts' } }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'picture' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'MediaSet' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'original' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'url' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'NftImage' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'uri' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'followModule' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: '__typename' } }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<ProfileFieldsFragment, unknown>
-export const CollectFieldsFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'CollectFields' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'CollectModule' }
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'InlineFragment',
-            typeCondition: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'FreeCollectModuleSettings' }
-            },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'contractAddress' }
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'followerOnly' } }
-              ]
-            }
-          },
-          {
-            kind: 'InlineFragment',
-            typeCondition: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'FeeCollectModuleSettings' }
-            },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'recipient' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'referralFee' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'contractAddress' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'followerOnly' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'amount' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'asset' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'symbol' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'decimals' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'address' }
-                            }
-                          ]
-                        }
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'value' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'InlineFragment',
-            typeCondition: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'LimitedFeeCollectModuleSettings' }
-            },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'collectLimit' }
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'recipient' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'referralFee' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'contractAddress' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'followerOnly' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'amount' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'asset' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'symbol' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'decimals' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'address' }
-                            }
-                          ]
-                        }
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'value' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'InlineFragment',
-            typeCondition: {
-              kind: 'NamedType',
-              name: {
-                kind: 'Name',
-                value: 'LimitedTimedFeeCollectModuleSettings'
-              }
-            },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'collectLimit' }
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'recipient' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'endTimestamp' }
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'referralFee' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'contractAddress' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'followerOnly' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'amount' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'asset' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'symbol' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'decimals' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'address' }
-                            }
-                          ]
-                        }
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'value' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'InlineFragment',
-            typeCondition: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'TimedFeeCollectModuleSettings' }
-            },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'recipient' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'endTimestamp' }
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'referralFee' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'contractAddress' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'followerOnly' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'amount' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'asset' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'symbol' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'decimals' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'address' }
-                            }
-                          ]
-                        }
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'value' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<CollectFieldsFragment, unknown>
-export const CommentFieldsFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'CommentFields' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Comment' }
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'reaction' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'reactionRequest' }
-                }
-              }
-            ]
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'profile' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'ProfileFields' }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'collectedBy' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'defaultProfile' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'handle' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'collectModule' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'CollectFields' }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'referenceModule' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: '__typename' } }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'canComment' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'profileId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'channelId' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'result' } }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'canMirror' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'profileId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'channelId' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'result' } }
-              ]
-            }
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'collectNftAddress' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'onChainContentURI' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hidden' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hasCollectedByMe' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'stats' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalAmountOfComments' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalAmountOfCollects' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalAmountOfMirrors' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalUpvotes' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalDownvotes' }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'metadata' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'content' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'contentWarning' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'mainContentFocus' }
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'tags' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'media' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'original' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'url' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'mimeType' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'cover' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'original' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'url' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'attributes' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'value' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'traitType' }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'commentOn' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'Post' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'createdAt' }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'profile' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'ProfileFields' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'metadata' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'cover' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'original' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'url' }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'attributes' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'value' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'traitType' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'appId' } }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<CommentFieldsFragment, unknown>
-export const MetadataFieldsFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'MetadataFields' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'MetadataOutput' }
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'content' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'contentWarning' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'tags' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'cover' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'original' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'media' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'original' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'mimeType' }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'attributes' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'value' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'traitType' } }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<MetadataFieldsFragment, unknown>
-export const MirrorFieldsFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'MirrorFields' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Mirror' }
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'profile' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'handle' } }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'reaction' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'reactionRequest' }
-                }
-              }
-            ]
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'collectModule' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'CollectFields' }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'stats' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalUpvotes' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalAmountOfMirrors' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalAmountOfCollects' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalAmountOfComments' }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'metadata' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'MetadataFields' }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'mirrorOf' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'Post' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'profile' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'ProfileFields' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'metadata' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'MetadataFields' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'reaction' },
-                        arguments: [
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'request' },
-                            value: {
-                              kind: 'Variable',
-                              name: { kind: 'Name', value: 'reactionRequest' }
-                            }
-                          }
-                        ]
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'stats' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'totalUpvotes' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'totalAmountOfMirrors'
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'totalAmountOfCollects'
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'totalAmountOfComments'
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'Comment' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'profile' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'ProfileFields' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'reaction' },
-                        arguments: [
-                          {
-                            kind: 'Argument',
-                            name: { kind: 'Name', value: 'request' },
-                            value: {
-                              kind: 'Variable',
-                              name: { kind: 'Name', value: 'reactionRequest' }
-                            }
-                          }
-                        ]
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'stats' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'totalUpvotes' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'totalAmountOfMirrors'
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'totalAmountOfCollects'
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'totalAmountOfComments'
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'appId' } }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<MirrorFieldsFragment, unknown>
-export const PostFieldsFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'PostFields' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Post' }
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'reaction' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'reactionRequest' }
-                }
-              }
-            ]
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'profile' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'ProfileFields' }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'collectedBy' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'address' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'defaultProfile' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'handle' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'referenceModule' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: '__typename' } }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'canComment' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'profileId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'channelId' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'result' } }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'canMirror' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'profileId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'channelId' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'result' } }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'collectModule' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'CollectFields' }
-                }
-              ]
-            }
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'collectNftAddress' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'onChainContentURI' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hidden' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hasCollectedByMe' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'stats' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalAmountOfComments' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalAmountOfCollects' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalAmountOfMirrors' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalUpvotes' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalDownvotes' }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'metadata' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'content' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'contentWarning' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'mainContentFocus' }
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'tags' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'media' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'original' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'url' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'mimeType' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'cover' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'original' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'url' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'attributes' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'value' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'traitType' }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'appId' } }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<PostFieldsFragment, unknown>
-export const RelayerResultFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'RelayerResult' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'RelayResult' }
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'InlineFragment',
-            typeCondition: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'RelayerResult' }
-            },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'txId' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'txHash' } }
-              ]
-            }
-          },
-          {
-            kind: 'InlineFragment',
-            typeCondition: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'RelayError' }
-            },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'reason' } }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<RelayerResultFragment, unknown>
-export const AddReactionDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'AddReaction' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'ReactionRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'addReaction' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ]
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<AddReactionMutation, AddReactionMutationVariables>
-export const AuthenticateDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'Authenticate' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'SignedAuthChallenge' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'authenticate' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'accessToken' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'refreshToken' } }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  AuthenticateMutation,
-  AuthenticateMutationVariables
->
-export const BroadcastDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'Broadcast' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'BroadcastRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'broadcast' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'RelayerResult' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'txId' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'txHash' } }
-                    ]
-                  }
-                },
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'RelayError' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'reason' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<BroadcastMutation, BroadcastMutationVariables>
-export const CreateProfileDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateProfile' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreateProfileRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createProfile' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'RelayerResult' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'txHash' } }
-                    ]
-                  }
-                },
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'RelayError' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'reason' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  CreateProfileMutation,
-  CreateProfileMutationVariables
->
-export const HidePublicationDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'HidePublication' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'HidePublicationRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'hidePublication' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ]
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  HidePublicationMutation,
-  HidePublicationMutationVariables
->
-export const ProxyActionDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'proxyAction' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'ProxyActionRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'proxyAction' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ]
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<ProxyActionMutation, ProxyActionMutationVariables>
-export const RemoveReactionDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'RemoveReaction' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'ReactionRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'removeReaction' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ]
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  RemoveReactionMutation,
-  RemoveReactionMutationVariables
->
-export const ReportPublicationDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'ReportPublication' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'ReportPublicationRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'reportPublication' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ]
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  ReportPublicationMutation,
-  ReportPublicationMutationVariables
->
-export const CreateCommentViaDispatcherDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateCommentViaDispatcher' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreatePublicCommentRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createCommentViaDispatcher' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RelayerResult' }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...RelayerResultFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<
-  CreateCommentViaDispatcherMutation,
-  CreateCommentViaDispatcherMutationVariables
->
-export const CreateMirrorViaDispatcherDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateMirrorViaDispatcher' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreateMirrorRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createMirrorViaDispatcher' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RelayerResult' }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...RelayerResultFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<
-  CreateMirrorViaDispatcherMutation,
-  CreateMirrorViaDispatcherMutationVariables
->
-export const CreatePostViaDispatcherDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreatePostViaDispatcher' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreatePublicPostRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createPostViaDispatcher' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RelayerResult' }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...RelayerResultFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<
-  CreatePostViaDispatcherMutation,
-  CreatePostViaDispatcherMutationVariables
->
-export const CreateSetDispatcherTypedDataDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateSetDispatcherTypedData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'options' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'TypedDataOptions' }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'SetDispatcherRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createSetDispatcherTypedData' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'options' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'options' }
-                }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'typedData' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'types' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'SetDispatcherWithSig'
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'name' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'domain' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'chainId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'version' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'verifyingContract' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'value' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'nonce' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'deadline' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'profileId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'dispatcher' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  CreateSetDispatcherTypedDataMutation,
-  CreateSetDispatcherTypedDataMutationVariables
->
-export const CreateSetProfileImageUriViaDispatcherDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateSetProfileImageURIViaDispatcher' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'UpdateProfileImageRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: {
-              kind: 'Name',
-              value: 'createSetProfileImageURIViaDispatcher'
-            },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RelayerResult' }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...RelayerResultFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<
-  CreateSetProfileImageUriViaDispatcherMutation,
-  CreateSetProfileImageUriViaDispatcherMutationVariables
->
-export const CreateSetProfileMetadataViaDispatcherDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateSetProfileMetadataViaDispatcher' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: {
-                kind: 'Name',
-                value: 'CreatePublicSetProfileMetadataURIRequest'
-              }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: {
-              kind: 'Name',
-              value: 'createSetProfileMetadataViaDispatcher'
-            },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'RelayerResult' }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...RelayerResultFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<
-  CreateSetProfileMetadataViaDispatcherMutation,
-  CreateSetProfileMetadataViaDispatcherMutationVariables
->
-export const CreateBurnProfileTypedDataDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateBurnProfileTypedData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'BurnProfileRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createBurnProfileTypedData' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'typedData' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'domain' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'chainId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'version' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'verifyingContract' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'types' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'BurnWithSig' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'name' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'value' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'nonce' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'deadline' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'tokenId' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  CreateBurnProfileTypedDataMutation,
-  CreateBurnProfileTypedDataMutationVariables
->
-export const CreateCollectTypedDataDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateCollectTypedData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'options' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'TypedDataOptions' }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreateCollectRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createCollectTypedData' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'options' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'options' }
-                }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'typedData' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'types' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'CollectWithSig' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'name' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'domain' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'chainId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'version' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'verifyingContract' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'value' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'nonce' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'deadline' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'profileId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'pubId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'data' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  CreateCollectTypedDataMutation,
-  CreateCollectTypedDataMutationVariables
->
-export const CreateCommentTypedDataDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateCommentTypedData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'options' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'TypedDataOptions' }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreatePublicCommentRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createCommentTypedData' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'options' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'options' }
-                }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'typedData' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'types' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'CommentWithSig' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'name' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'domain' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'chainId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'version' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'verifyingContract' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'value' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'nonce' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'deadline' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'profileId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'profileIdPointed' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'pubIdPointed' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'contentURI' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'collectModule' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'collectModuleInitData'
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'referenceModule' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'referenceModuleData'
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'referenceModuleInitData'
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  CreateCommentTypedDataMutation,
-  CreateCommentTypedDataMutationVariables
->
-export const CreateFollowTypedDataDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateFollowTypedData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'options' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'TypedDataOptions' }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'FollowRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createFollowTypedData' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'options' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'options' }
-                }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'typedData' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'domain' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'chainId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'version' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'verifyingContract' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'types' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'FollowWithSig' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'name' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'value' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'nonce' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'deadline' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'profileIds' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'datas' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  CreateFollowTypedDataMutation,
-  CreateFollowTypedDataMutationVariables
->
-export const CreateMirrorTypedDataDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateMirrorTypedData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'options' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'TypedDataOptions' }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreateMirrorRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createMirrorTypedData' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'options' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'options' }
-                }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'typedData' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'types' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'MirrorWithSig' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'name' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'domain' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'chainId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'version' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'verifyingContract' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'value' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'nonce' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'deadline' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'profileId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'profileIdPointed' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'pubIdPointed' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'referenceModule' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'referenceModuleData'
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'referenceModuleInitData'
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  CreateMirrorTypedDataMutation,
-  CreateMirrorTypedDataMutationVariables
->
-export const CreatePostTypedDataDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreatePostTypedData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreatePublicPostRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createPostTypedData' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'typedData' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'types' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'PostWithSig' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'name' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'domain' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'chainId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'version' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'verifyingContract' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'value' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'nonce' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'deadline' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'profileId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'contentURI' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'collectModule' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'collectModuleInitData'
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'referenceModule' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'referenceModuleInitData'
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  CreatePostTypedDataMutation,
-  CreatePostTypedDataMutationVariables
->
-export const CreateSetFollowModuleTypedDataDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateSetFollowModuleTypedData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'options' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'TypedDataOptions' }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'CreateSetFollowModuleRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createSetFollowModuleTypedData' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'options' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'options' }
-                }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'typedData' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'types' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'SetFollowModuleWithSig'
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'name' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'domain' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'chainId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'version' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'verifyingContract' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'value' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'nonce' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'deadline' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'profileId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'followModule' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'followModuleInitData'
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  CreateSetFollowModuleTypedDataMutation,
-  CreateSetFollowModuleTypedDataMutationVariables
->
-export const CreateSetProfileImageUriTypedDataDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateSetProfileImageURITypedData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'options' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'TypedDataOptions' }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'UpdateProfileImageRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createSetProfileImageURITypedData' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'options' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'options' }
-                }
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'typedData' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'domain' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'chainId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'version' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'verifyingContract' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'types' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'SetProfileImageURIWithSig'
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'name' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'value' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'nonce' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'deadline' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'imageURI' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'profileId' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  CreateSetProfileImageUriTypedDataMutation,
-  CreateSetProfileImageUriTypedDataMutationVariables
->
-export const CreateSetProfileMetadataTypedDataDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateSetProfileMetadataTypedData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: {
-                kind: 'Name',
-                value: 'CreatePublicSetProfileMetadataURIRequest'
-              }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createSetProfileMetadataTypedData' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'typedData' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'types' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'SetProfileMetadataURIWithSig'
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'name' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'domain' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'chainId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'version' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'verifyingContract' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'value' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'nonce' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'deadline' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'profileId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'metadata' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  CreateSetProfileMetadataTypedDataMutation,
-  CreateSetProfileMetadataTypedDataMutationVariables
->
-export const AllProfilesDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'AllProfiles' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'ProfileQueryRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'profiles' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'ProfileFields' }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pageInfo' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' }
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'next' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...ProfileFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<AllProfilesQuery, AllProfilesQueryVariables>
-export const ApprovedModuleAllowanceAmountDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'ApprovedModuleAllowanceAmount' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: {
-                kind: 'Name',
-                value: 'ApprovedModuleAllowanceAmountRequest'
-              }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'approvedModuleAllowanceAmount' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'currency' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'module' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'allowance' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'contractAddress' }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'enabledModuleCurrencies' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'address' } }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  ApprovedModuleAllowanceAmountQuery,
-  ApprovedModuleAllowanceAmountQueryVariables
->
-export const ChallengeDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Challenge' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'ChallengeRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'challenge' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'text' } }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<ChallengeQuery, ChallengeQueryVariables>
-export const CollectorsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Collectors' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'WhoCollectedPublicationRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'whoCollectedPublication' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'address' }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'defaultProfile' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'ProfileFields' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pageInfo' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'next' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...ProfileFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<CollectorsQuery, CollectorsQueryVariables>
-export const CreateUnfollowTypedDataDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'CreateUnfollowTypedData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'UnfollowRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'createUnfollowTypedData' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'expiresAt' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'typedData' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'domain' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'chainId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'version' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'verifyingContract' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'types' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'BurnWithSig' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'name' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'value' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'nonce' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'deadline' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'tokenId' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  CreateUnfollowTypedDataMutation,
-  CreateUnfollowTypedDataMutationVariables
->
-export const EnabledModuleCurrrenciesDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'EnabledModuleCurrrencies' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'ProfileQueryRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'enabledModuleCurrencies' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'symbol' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'address' } }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'profiles' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'followModule' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: '__typename' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  EnabledModuleCurrrenciesQuery,
-  EnabledModuleCurrrenciesQueryVariables
->
-export const ExploreDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Explore' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'ExplorePublicationRequest' }
-            }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'reactionRequest' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ReactionFieldResolverRequest' }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'channelId' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ProfileId' }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'explorePublications' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'Post' }
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'PostFields' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'Comment' }
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'CommentFields' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pageInfo' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' }
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'next' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...PostFieldsFragmentDoc.definitions,
-    ...ProfileFieldsFragmentDoc.definitions,
-    ...CollectFieldsFragmentDoc.definitions,
-    ...CommentFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<ExploreQuery, ExploreQueryVariables>
-export const FeedDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Feed' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'FeedRequest' }
-            }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'reactionRequest' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ReactionFieldResolverRequest' }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'channelId' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ProfileId' }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'feed' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'root' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'InlineFragment',
-                              typeCondition: {
-                                kind: 'NamedType',
-                                name: { kind: 'Name', value: 'Post' }
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'FragmentSpread',
-                                    name: { kind: 'Name', value: 'PostFields' }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'InlineFragment',
-                              typeCondition: {
-                                kind: 'NamedType',
-                                name: { kind: 'Name', value: 'Comment' }
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'FragmentSpread',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'CommentFields'
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pageInfo' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'next' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...PostFieldsFragmentDoc.definitions,
-    ...ProfileFieldsFragmentDoc.definitions,
-    ...CollectFieldsFragmentDoc.definitions,
-    ...CommentFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<FeedQuery, FeedQueryVariables>
-export const GenerateModuleCurrencyApprovalDataDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GenerateModuleCurrencyApprovalData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: {
-                kind: 'Name',
-                value: 'GenerateModuleCurrencyApprovalDataRequest'
-              }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'generateModuleCurrencyApprovalData' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'to' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'from' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'data' } }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  GenerateModuleCurrencyApprovalDataQuery,
-  GenerateModuleCurrencyApprovalDataQueryVariables
->
-export const GlobalProtocolStatsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GlobalProtocolStats' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'GlobalProtocolStatsRequest' }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'globalProtocolStats' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalProfiles' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalBurntProfiles' }
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'totalPosts' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalMirrors' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalComments' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalCollects' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalFollows' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'totalRevenue' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'asset' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'symbol' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'decimals' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'address' }
-                            }
-                          ]
-                        }
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'value' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'bytesStats' },
-            name: { kind: 'Name', value: 'globalProtocolStats' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'sources' },
-                      value: {
-                        kind: 'StringValue',
-                        value: 'lenstube-bytes',
-                        block: false
-                      }
-                    }
-                  ]
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'totalPosts' } }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  GlobalProtocolStatsQuery,
-  GlobalProtocolStatsQueryVariables
->
-export const HasPublicationIndexedDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'HasPublicationIndexed' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'PublicationQueryRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'publication' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'Post' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  HasPublicationIndexedQuery,
-  HasPublicationIndexedQueryVariables
->
-export const HasTxHashBeenIndexedDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'HasTxHashBeenIndexed' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'HasTxHashBeenIndexedRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'hasTxHashBeenIndexed' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'TransactionIndexedResult' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'indexed' }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'txReceipt' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'transactionHash' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'TransactionError' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'reason' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  HasTxHashBeenIndexedQuery,
-  HasTxHashBeenIndexedQueryVariables
->
-export const MutualFollowersDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'MutualFollowers' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: {
-                kind: 'Name',
-                value: 'MutualFollowersProfilesQueryRequest'
-              }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'mutualFollowersProfiles' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'ProfileFields' }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pageInfo' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'next' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...ProfileFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<
-  MutualFollowersQuery,
-  MutualFollowersQueryVariables
->
-export const NotificationCountDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'NotificationCount' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'NotificationRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'notifications' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pageInfo' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  NotificationCountQuery,
-  NotificationCountQueryVariables
->
-export const NotificationsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Notifications' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'NotificationRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'notifications' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: {
-                            kind: 'Name',
-                            value: 'NewFollowerNotification'
-                          }
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'notificationId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'wallet' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'address' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'defaultProfile'
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'FragmentSpread',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'ProfileFields'
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'createdAt' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: {
-                            kind: 'Name',
-                            value: 'NewMentionNotification'
-                          }
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'notificationId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'mentionPublication'
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'Post' }
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'id' }
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'profile'
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'FragmentSpread',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'ProfileFields'
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'Comment' }
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'id' }
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'profile'
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'FragmentSpread',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'ProfileFields'
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'createdAt' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: {
-                            kind: 'Name',
-                            value: 'NewCommentNotification'
-                          }
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'notificationId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'profile' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'FragmentSpread',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'ProfileFields'
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'comment' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'id' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'commentOn' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'InlineFragment',
-                                          typeCondition: {
-                                            kind: 'NamedType',
-                                            name: {
-                                              kind: 'Name',
-                                              value: 'Post'
-                                            }
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'id'
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          kind: 'InlineFragment',
-                                          typeCondition: {
-                                            kind: 'NamedType',
-                                            name: {
-                                              kind: 'Name',
-                                              value: 'Comment'
-                                            }
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'id'
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          kind: 'InlineFragment',
-                                          typeCondition: {
-                                            kind: 'NamedType',
-                                            name: {
-                                              kind: 'Name',
-                                              value: 'Mirror'
-                                            }
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'id'
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'createdAt' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'NewMirrorNotification' }
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'notificationId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'profile' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'FragmentSpread',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'ProfileFields'
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'publication' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'Post' }
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'id' }
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'Comment' }
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'id' }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'createdAt' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: {
-                            kind: 'Name',
-                            value: 'NewCollectNotification'
-                          }
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'notificationId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'wallet' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'address' }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'defaultProfile'
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'FragmentSpread',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'ProfileFields'
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'collectedPublication'
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'Post' }
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'id' }
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'Comment' }
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'id' }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'createdAt' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: {
-                            kind: 'Name',
-                            value: 'NewReactionNotification'
-                          }
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'notificationId' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'profile' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'FragmentSpread',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'ProfileFields'
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'reaction' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'publication' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'Comment' }
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'id' }
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'mainPost'
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'InlineFragment',
-                                                typeCondition: {
-                                                  kind: 'NamedType',
-                                                  name: {
-                                                    kind: 'Name',
-                                                    value: 'Post'
-                                                  }
-                                                },
-                                                selectionSet: {
-                                                  kind: 'SelectionSet',
-                                                  selections: [
-                                                    {
-                                                      kind: 'Field',
-                                                      name: {
-                                                        kind: 'Name',
-                                                        value: 'id'
-                                                      }
-                                                    }
-                                                  ]
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'Post' }
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'id' }
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: {
-                                      kind: 'NamedType',
-                                      name: { kind: 'Name', value: 'Mirror' }
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'id' }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'createdAt' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pageInfo' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'next' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...ProfileFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<NotificationsQuery, NotificationsQueryVariables>
-export const ProfileDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Profile' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'SingleProfileQueryRequest' }
-            }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'who' } },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ProfileId' }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'profile' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'handle' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'ownedBy' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'dispatcher' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'canUseRelay' }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'isFollowedByMe' }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'isFollowing' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'who' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'who' }
-                      }
-                    }
-                  ]
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'onChainIdentity' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'proofOfHumanity' }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'worldcoin' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'isHuman' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'sybilDotOrg' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'verified' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'source' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'twitter' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'handle'
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'ens' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'attributes' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'key' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'value' } }
-                    ]
-                  }
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'bio' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'stats' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalFollowers' }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalPosts' }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalComments' }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalMirrors' }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCollects' }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'picture' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'MediaSet' }
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'original' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'url' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'NftImage' }
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'uri' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'coverPicture' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'MediaSet' }
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'original' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'url' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'followModule' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: '__typename' }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<ProfileQuery, ProfileQueryVariables>
-export const ProfileCommentsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'ProfileComments' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'PublicationsQueryRequest' }
-            }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'reactionRequest' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ReactionFieldResolverRequest' }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'channelId' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ProfileId' }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'publications' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'Comment' }
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'CommentFields' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pageInfo' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' }
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'next' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...CommentFieldsFragmentDoc.definitions,
-    ...ProfileFieldsFragmentDoc.definitions,
-    ...CollectFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<
-  ProfileCommentsQuery,
-  ProfileCommentsQueryVariables
->
-export const ProfileFollowModuleDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'ProfileFollowModule' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'ProfileQueryRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'profiles' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'followModule' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'InlineFragment',
-                              typeCondition: {
-                                kind: 'NamedType',
-                                name: {
-                                  kind: 'Name',
-                                  value: 'FeeFollowModuleSettings'
-                                }
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'amount' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'asset'
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'name'
-                                                }
-                                              },
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'symbol'
-                                                }
-                                              },
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'address'
-                                                }
-                                              },
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'decimals'
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'value' }
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'recipient' }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  ProfileFollowModuleQuery,
-  ProfileFollowModuleQueryVariables
->
-export const ProfileMirrorsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'ProfileMirrors' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'PublicationsQueryRequest' }
-            }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'reactionRequest' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ReactionFieldResolverRequest' }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'publications' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'Mirror' }
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'MirrorFields' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pageInfo' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' }
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'next' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...MirrorFieldsFragmentDoc.definitions,
-    ...CollectFieldsFragmentDoc.definitions,
-    ...MetadataFieldsFragmentDoc.definitions,
-    ...ProfileFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<ProfileMirrorsQuery, ProfileMirrorsQueryVariables>
-export const ProfileNfTsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'ProfileNFTs' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'NFTsRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'nfts' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'contractAddress' }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'tokenId' }
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'originalContent' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'animatedUrl' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'uri' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'metaType' }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'collectionName' }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pageInfo' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'next' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<ProfileNfTsQuery, ProfileNfTsQueryVariables>
-export const ProfilePostsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'ProfilePosts' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'PublicationsQueryRequest' }
-            }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'reactionRequest' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ReactionFieldResolverRequest' }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'channelId' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ProfileId' }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'publications' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'InlineFragment',
-                        typeCondition: {
-                          kind: 'NamedType',
-                          name: { kind: 'Name', value: 'Post' }
-                        },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'PostFields' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pageInfo' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' }
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'next' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...PostFieldsFragmentDoc.definitions,
-    ...ProfileFieldsFragmentDoc.definitions,
-    ...CollectFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<ProfilePostsQuery, ProfilePostsQueryVariables>
-export const ProxyActionStatusDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'ProxyActionStatus' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'proxyActionId' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'ProxyActionId' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'proxyActionStatus' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'proxyActionId' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'proxyActionId' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'ProxyActionStatusResult' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'txId' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'status' } }
-                    ]
-                  }
-                },
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'ProxyActionError' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'reason' } }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  ProxyActionStatusQuery,
-  ProxyActionStatusQueryVariables
->
-export const PublicationCollectModuleDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'PublicationCollectModule' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'PublicationQueryRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'publication' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'Post' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'collectNftAddress' }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'collectModule' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'CollectFields' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...CollectFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<
-  PublicationCollectModuleQuery,
-  PublicationCollectModuleQueryVariables
->
-export const PublicationDetailsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'PublicationDetails' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'PublicationQueryRequest' }
-            }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'reactionRequest' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ReactionFieldResolverRequest' }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'channelId' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ProfileId' }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'publication' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'Post' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'PostFields' }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'Comment' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'CommentFields' }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...PostFieldsFragmentDoc.definitions,
-    ...ProfileFieldsFragmentDoc.definitions,
-    ...CollectFieldsFragmentDoc.definitions,
-    ...CommentFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<
-  PublicationDetailsQuery,
-  PublicationDetailsQueryVariables
->
-export const PublicationRevenueDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'PublicationRevenue' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'PublicationRevenueQueryRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'publicationRevenue' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'revenue' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'total' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'value' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  ]
-} as unknown as DocumentNode<
-  PublicationRevenueQuery,
-  PublicationRevenueQueryVariables
->
-export const SearchProfilesDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'SearchProfiles' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'SearchQueryRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'search' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'ProfileSearchResult' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'items' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'ProfileFields' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...ProfileFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<SearchProfilesQuery, SearchProfilesQueryVariables>
-export const SearchPublicationsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'SearchPublications' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'SearchQueryRequest' }
-            }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'reactionRequest' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ReactionFieldResolverRequest' }
-          }
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'channelId' }
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'ProfileId' }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'search' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'InlineFragment',
-                  typeCondition: {
-                    kind: 'NamedType',
-                    name: { kind: 'Name', value: 'PublicationSearchResult' }
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'items' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'InlineFragment',
-                              typeCondition: {
-                                kind: 'NamedType',
-                                name: { kind: 'Name', value: 'Post' }
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'FragmentSpread',
-                                    name: { kind: 'Name', value: 'PostFields' }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              kind: 'InlineFragment',
-                              typeCondition: {
-                                kind: 'NamedType',
-                                name: { kind: 'Name', value: 'Comment' }
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'FragmentSpread',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'CommentFields'
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'pageInfo' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'next' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'totalCount' }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...PostFieldsFragmentDoc.definitions,
-    ...ProfileFieldsFragmentDoc.definitions,
-    ...CollectFieldsFragmentDoc.definitions,
-    ...CommentFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<
-  SearchPublicationsQuery,
-  SearchPublicationsQueryVariables
->
-export const SubscribersDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Subscribers' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'FollowersRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'followers' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'wallet' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'address' }
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'defaultProfile' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'FragmentSpread',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'ProfileFields'
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pageInfo' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'next' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'totalCount' }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...ProfileFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<SubscribersQuery, SubscribersQueryVariables>
-export const UserProfilesDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'UserProfiles' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'request' }
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'ProfileQueryRequest' }
-            }
-          }
-        }
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'profiles' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'request' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'request' }
-                }
-              }
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'ProfileFields' }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'userSigNonces' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'lensHubOnChainSigNonce' }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    ...ProfileFieldsFragmentDoc.definitions
-  ]
-} as unknown as DocumentNode<UserProfilesQuery, UserProfilesQueryVariables>
-
 export interface PossibleTypesResultData {
   possibleTypes: {
     [key: string]: string[]
@@ -15630,3 +8269,3860 @@ const result: PossibleTypesResultData = {
   }
 }
 export default result
+
+export const ProfileFieldsFragmentDoc = gql`
+  fragment ProfileFields on Profile {
+    id
+    name
+    handle
+    bio
+    ownedBy
+    isDefault
+    isFollowedByMe
+    dispatcher {
+      canUseRelay
+    }
+    attributes {
+      key
+      value
+    }
+    stats {
+      totalFollowers
+      totalPosts
+    }
+    picture {
+      ... on MediaSet {
+        original {
+          url
+        }
+      }
+      ... on NftImage {
+        uri
+      }
+    }
+    followModule {
+      __typename
+    }
+  }
+`
+export const CollectFieldsFragmentDoc = gql`
+  fragment CollectFields on CollectModule {
+    ... on FreeCollectModuleSettings {
+      type
+      contractAddress
+      followerOnly
+    }
+    ... on FeeCollectModuleSettings {
+      type
+      recipient
+      referralFee
+      contractAddress
+      followerOnly
+      amount {
+        asset {
+          symbol
+          decimals
+          address
+        }
+        value
+      }
+    }
+    ... on LimitedFeeCollectModuleSettings {
+      type
+      collectLimit
+      recipient
+      referralFee
+      contractAddress
+      followerOnly
+      amount {
+        asset {
+          symbol
+          decimals
+          address
+        }
+        value
+      }
+    }
+    ... on LimitedTimedFeeCollectModuleSettings {
+      type
+      collectLimit
+      recipient
+      endTimestamp
+      referralFee
+      contractAddress
+      followerOnly
+      amount {
+        asset {
+          symbol
+          decimals
+          address
+        }
+        value
+      }
+    }
+    ... on TimedFeeCollectModuleSettings {
+      type
+      recipient
+      endTimestamp
+      referralFee
+      contractAddress
+      followerOnly
+      amount {
+        asset {
+          symbol
+          decimals
+          address
+        }
+        value
+      }
+    }
+  }
+`
+export const CommentFieldsFragmentDoc = gql`
+  fragment CommentFields on Comment {
+    id
+    reaction(request: $reactionRequest)
+    profile {
+      ...ProfileFields
+    }
+    collectedBy {
+      address
+      defaultProfile {
+        handle
+      }
+    }
+    collectModule {
+      ...CollectFields
+    }
+    referenceModule {
+      __typename
+    }
+    canComment(profileId: $channelId) {
+      result
+    }
+    canMirror(profileId: $channelId) {
+      result
+    }
+    collectNftAddress
+    onChainContentURI
+    hidden
+    hasCollectedByMe
+    stats {
+      totalAmountOfComments
+      totalAmountOfCollects
+      totalAmountOfMirrors
+      totalUpvotes
+      totalDownvotes
+    }
+    metadata {
+      name
+      description
+      content
+      contentWarning
+      mainContentFocus
+      tags
+      media {
+        original {
+          url
+          mimeType
+        }
+      }
+      cover {
+        original {
+          url
+        }
+      }
+      attributes {
+        value
+        traitType
+      }
+    }
+    commentOn {
+      ... on Post {
+        id
+        createdAt
+        profile {
+          ...ProfileFields
+        }
+        metadata {
+          name
+          cover {
+            original {
+              url
+            }
+          }
+          attributes {
+            value
+            traitType
+          }
+        }
+      }
+    }
+    createdAt
+    appId
+  }
+  ${ProfileFieldsFragmentDoc}
+  ${CollectFieldsFragmentDoc}
+`
+export const MetadataFieldsFragmentDoc = gql`
+  fragment MetadataFields on MetadataOutput {
+    name
+    description
+    content
+    contentWarning
+    tags
+    cover {
+      original {
+        url
+      }
+    }
+    media {
+      original {
+        url
+        mimeType
+      }
+    }
+    attributes {
+      value
+      traitType
+    }
+  }
+`
+export const MirrorFieldsFragmentDoc = gql`
+  fragment MirrorFields on Mirror {
+    id
+    profile {
+      name
+      handle
+    }
+    reaction(request: $reactionRequest)
+    collectModule {
+      ...CollectFields
+    }
+    stats {
+      totalUpvotes
+      totalAmountOfMirrors
+      totalAmountOfCollects
+      totalAmountOfComments
+    }
+    metadata {
+      ...MetadataFields
+    }
+    mirrorOf {
+      ... on Post {
+        id
+        profile {
+          ...ProfileFields
+        }
+        metadata {
+          ...MetadataFields
+        }
+        reaction(request: $reactionRequest)
+        stats {
+          totalUpvotes
+          totalAmountOfMirrors
+          totalAmountOfCollects
+          totalAmountOfComments
+        }
+      }
+      ... on Comment {
+        id
+        profile {
+          ...ProfileFields
+        }
+        reaction(request: $reactionRequest)
+        stats {
+          totalUpvotes
+          totalAmountOfMirrors
+          totalAmountOfCollects
+          totalAmountOfComments
+        }
+      }
+    }
+    createdAt
+    appId
+  }
+  ${CollectFieldsFragmentDoc}
+  ${MetadataFieldsFragmentDoc}
+  ${ProfileFieldsFragmentDoc}
+`
+export const PostFieldsFragmentDoc = gql`
+  fragment PostFields on Post {
+    id
+    reaction(request: $reactionRequest)
+    profile {
+      ...ProfileFields
+    }
+    collectedBy {
+      address
+      defaultProfile {
+        handle
+      }
+    }
+    referenceModule {
+      __typename
+    }
+    canComment(profileId: $channelId) {
+      result
+    }
+    canMirror(profileId: $channelId) {
+      result
+    }
+    collectModule {
+      ...CollectFields
+    }
+    collectNftAddress
+    onChainContentURI
+    hidden
+    hasCollectedByMe
+    stats {
+      totalAmountOfComments
+      totalAmountOfCollects
+      totalAmountOfMirrors
+      totalUpvotes
+      totalDownvotes
+    }
+    metadata {
+      name
+      description
+      content
+      contentWarning
+      mainContentFocus
+      tags
+      media {
+        original {
+          url
+          mimeType
+        }
+      }
+      cover {
+        original {
+          url
+        }
+      }
+      attributes {
+        value
+        traitType
+      }
+    }
+    createdAt
+    appId
+  }
+  ${ProfileFieldsFragmentDoc}
+  ${CollectFieldsFragmentDoc}
+`
+export const RelayerResultFragmentDoc = gql`
+  fragment RelayerResult on RelayResult {
+    ... on RelayerResult {
+      txId
+      txHash
+    }
+    ... on RelayError {
+      reason
+    }
+  }
+`
+export const AddReactionDocument = gql`
+  mutation AddReaction($request: ReactionRequest!) {
+    addReaction(request: $request)
+  }
+`
+export type AddReactionMutationFn = Apollo.MutationFunction<
+  AddReactionMutation,
+  AddReactionMutationVariables
+>
+
+/**
+ * __useAddReactionMutation__
+ *
+ * To run a mutation, you first call `useAddReactionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddReactionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addReactionMutation, { data, loading, error }] = useAddReactionMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useAddReactionMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddReactionMutation,
+    AddReactionMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<AddReactionMutation, AddReactionMutationVariables>(
+    AddReactionDocument,
+    options
+  )
+}
+export type AddReactionMutationHookResult = ReturnType<
+  typeof useAddReactionMutation
+>
+export type AddReactionMutationResult =
+  Apollo.MutationResult<AddReactionMutation>
+export type AddReactionMutationOptions = Apollo.BaseMutationOptions<
+  AddReactionMutation,
+  AddReactionMutationVariables
+>
+export const AuthenticateDocument = gql`
+  mutation Authenticate($request: SignedAuthChallenge!) {
+    authenticate(request: $request) {
+      accessToken
+      refreshToken
+    }
+  }
+`
+export type AuthenticateMutationFn = Apollo.MutationFunction<
+  AuthenticateMutation,
+  AuthenticateMutationVariables
+>
+
+/**
+ * __useAuthenticateMutation__
+ *
+ * To run a mutation, you first call `useAuthenticateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAuthenticateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [authenticateMutation, { data, loading, error }] = useAuthenticateMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useAuthenticateMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AuthenticateMutation,
+    AuthenticateMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    AuthenticateMutation,
+    AuthenticateMutationVariables
+  >(AuthenticateDocument, options)
+}
+export type AuthenticateMutationHookResult = ReturnType<
+  typeof useAuthenticateMutation
+>
+export type AuthenticateMutationResult =
+  Apollo.MutationResult<AuthenticateMutation>
+export type AuthenticateMutationOptions = Apollo.BaseMutationOptions<
+  AuthenticateMutation,
+  AuthenticateMutationVariables
+>
+export const BroadcastDocument = gql`
+  mutation Broadcast($request: BroadcastRequest!) {
+    broadcast(request: $request) {
+      ... on RelayerResult {
+        txId
+        txHash
+      }
+      ... on RelayError {
+        reason
+      }
+    }
+  }
+`
+export type BroadcastMutationFn = Apollo.MutationFunction<
+  BroadcastMutation,
+  BroadcastMutationVariables
+>
+
+/**
+ * __useBroadcastMutation__
+ *
+ * To run a mutation, you first call `useBroadcastMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useBroadcastMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [broadcastMutation, { data, loading, error }] = useBroadcastMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useBroadcastMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    BroadcastMutation,
+    BroadcastMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<BroadcastMutation, BroadcastMutationVariables>(
+    BroadcastDocument,
+    options
+  )
+}
+export type BroadcastMutationHookResult = ReturnType<
+  typeof useBroadcastMutation
+>
+export type BroadcastMutationResult = Apollo.MutationResult<BroadcastMutation>
+export type BroadcastMutationOptions = Apollo.BaseMutationOptions<
+  BroadcastMutation,
+  BroadcastMutationVariables
+>
+export const CreateProfileDocument = gql`
+  mutation CreateProfile($request: CreateProfileRequest!) {
+    createProfile(request: $request) {
+      ... on RelayerResult {
+        txHash
+      }
+      ... on RelayError {
+        reason
+      }
+    }
+  }
+`
+export type CreateProfileMutationFn = Apollo.MutationFunction<
+  CreateProfileMutation,
+  CreateProfileMutationVariables
+>
+
+/**
+ * __useCreateProfileMutation__
+ *
+ * To run a mutation, you first call `useCreateProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createProfileMutation, { data, loading, error }] = useCreateProfileMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateProfileMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateProfileMutation,
+    CreateProfileMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateProfileMutation,
+    CreateProfileMutationVariables
+  >(CreateProfileDocument, options)
+}
+export type CreateProfileMutationHookResult = ReturnType<
+  typeof useCreateProfileMutation
+>
+export type CreateProfileMutationResult =
+  Apollo.MutationResult<CreateProfileMutation>
+export type CreateProfileMutationOptions = Apollo.BaseMutationOptions<
+  CreateProfileMutation,
+  CreateProfileMutationVariables
+>
+export const HidePublicationDocument = gql`
+  mutation HidePublication($request: HidePublicationRequest!) {
+    hidePublication(request: $request)
+  }
+`
+export type HidePublicationMutationFn = Apollo.MutationFunction<
+  HidePublicationMutation,
+  HidePublicationMutationVariables
+>
+
+/**
+ * __useHidePublicationMutation__
+ *
+ * To run a mutation, you first call `useHidePublicationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useHidePublicationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [hidePublicationMutation, { data, loading, error }] = useHidePublicationMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useHidePublicationMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    HidePublicationMutation,
+    HidePublicationMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    HidePublicationMutation,
+    HidePublicationMutationVariables
+  >(HidePublicationDocument, options)
+}
+export type HidePublicationMutationHookResult = ReturnType<
+  typeof useHidePublicationMutation
+>
+export type HidePublicationMutationResult =
+  Apollo.MutationResult<HidePublicationMutation>
+export type HidePublicationMutationOptions = Apollo.BaseMutationOptions<
+  HidePublicationMutation,
+  HidePublicationMutationVariables
+>
+export const ProxyActionDocument = gql`
+  mutation proxyAction($request: ProxyActionRequest!) {
+    proxyAction(request: $request)
+  }
+`
+export type ProxyActionMutationFn = Apollo.MutationFunction<
+  ProxyActionMutation,
+  ProxyActionMutationVariables
+>
+
+/**
+ * __useProxyActionMutation__
+ *
+ * To run a mutation, you first call `useProxyActionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useProxyActionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [proxyActionMutation, { data, loading, error }] = useProxyActionMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useProxyActionMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ProxyActionMutation,
+    ProxyActionMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<ProxyActionMutation, ProxyActionMutationVariables>(
+    ProxyActionDocument,
+    options
+  )
+}
+export type ProxyActionMutationHookResult = ReturnType<
+  typeof useProxyActionMutation
+>
+export type ProxyActionMutationResult =
+  Apollo.MutationResult<ProxyActionMutation>
+export type ProxyActionMutationOptions = Apollo.BaseMutationOptions<
+  ProxyActionMutation,
+  ProxyActionMutationVariables
+>
+export const RemoveReactionDocument = gql`
+  mutation RemoveReaction($request: ReactionRequest!) {
+    removeReaction(request: $request)
+  }
+`
+export type RemoveReactionMutationFn = Apollo.MutationFunction<
+  RemoveReactionMutation,
+  RemoveReactionMutationVariables
+>
+
+/**
+ * __useRemoveReactionMutation__
+ *
+ * To run a mutation, you first call `useRemoveReactionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveReactionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeReactionMutation, { data, loading, error }] = useRemoveReactionMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useRemoveReactionMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RemoveReactionMutation,
+    RemoveReactionMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    RemoveReactionMutation,
+    RemoveReactionMutationVariables
+  >(RemoveReactionDocument, options)
+}
+export type RemoveReactionMutationHookResult = ReturnType<
+  typeof useRemoveReactionMutation
+>
+export type RemoveReactionMutationResult =
+  Apollo.MutationResult<RemoveReactionMutation>
+export type RemoveReactionMutationOptions = Apollo.BaseMutationOptions<
+  RemoveReactionMutation,
+  RemoveReactionMutationVariables
+>
+export const ReportPublicationDocument = gql`
+  mutation ReportPublication($request: ReportPublicationRequest!) {
+    reportPublication(request: $request)
+  }
+`
+export type ReportPublicationMutationFn = Apollo.MutationFunction<
+  ReportPublicationMutation,
+  ReportPublicationMutationVariables
+>
+
+/**
+ * __useReportPublicationMutation__
+ *
+ * To run a mutation, you first call `useReportPublicationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useReportPublicationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [reportPublicationMutation, { data, loading, error }] = useReportPublicationMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useReportPublicationMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ReportPublicationMutation,
+    ReportPublicationMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    ReportPublicationMutation,
+    ReportPublicationMutationVariables
+  >(ReportPublicationDocument, options)
+}
+export type ReportPublicationMutationHookResult = ReturnType<
+  typeof useReportPublicationMutation
+>
+export type ReportPublicationMutationResult =
+  Apollo.MutationResult<ReportPublicationMutation>
+export type ReportPublicationMutationOptions = Apollo.BaseMutationOptions<
+  ReportPublicationMutation,
+  ReportPublicationMutationVariables
+>
+export const CreateCommentViaDispatcherDocument = gql`
+  mutation CreateCommentViaDispatcher($request: CreatePublicCommentRequest!) {
+    createCommentViaDispatcher(request: $request) {
+      ...RelayerResult
+    }
+  }
+  ${RelayerResultFragmentDoc}
+`
+export type CreateCommentViaDispatcherMutationFn = Apollo.MutationFunction<
+  CreateCommentViaDispatcherMutation,
+  CreateCommentViaDispatcherMutationVariables
+>
+
+/**
+ * __useCreateCommentViaDispatcherMutation__
+ *
+ * To run a mutation, you first call `useCreateCommentViaDispatcherMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCommentViaDispatcherMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCommentViaDispatcherMutation, { data, loading, error }] = useCreateCommentViaDispatcherMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateCommentViaDispatcherMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateCommentViaDispatcherMutation,
+    CreateCommentViaDispatcherMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateCommentViaDispatcherMutation,
+    CreateCommentViaDispatcherMutationVariables
+  >(CreateCommentViaDispatcherDocument, options)
+}
+export type CreateCommentViaDispatcherMutationHookResult = ReturnType<
+  typeof useCreateCommentViaDispatcherMutation
+>
+export type CreateCommentViaDispatcherMutationResult =
+  Apollo.MutationResult<CreateCommentViaDispatcherMutation>
+export type CreateCommentViaDispatcherMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateCommentViaDispatcherMutation,
+    CreateCommentViaDispatcherMutationVariables
+  >
+export const CreateMirrorViaDispatcherDocument = gql`
+  mutation CreateMirrorViaDispatcher($request: CreateMirrorRequest!) {
+    createMirrorViaDispatcher(request: $request) {
+      ...RelayerResult
+    }
+  }
+  ${RelayerResultFragmentDoc}
+`
+export type CreateMirrorViaDispatcherMutationFn = Apollo.MutationFunction<
+  CreateMirrorViaDispatcherMutation,
+  CreateMirrorViaDispatcherMutationVariables
+>
+
+/**
+ * __useCreateMirrorViaDispatcherMutation__
+ *
+ * To run a mutation, you first call `useCreateMirrorViaDispatcherMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMirrorViaDispatcherMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMirrorViaDispatcherMutation, { data, loading, error }] = useCreateMirrorViaDispatcherMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateMirrorViaDispatcherMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateMirrorViaDispatcherMutation,
+    CreateMirrorViaDispatcherMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateMirrorViaDispatcherMutation,
+    CreateMirrorViaDispatcherMutationVariables
+  >(CreateMirrorViaDispatcherDocument, options)
+}
+export type CreateMirrorViaDispatcherMutationHookResult = ReturnType<
+  typeof useCreateMirrorViaDispatcherMutation
+>
+export type CreateMirrorViaDispatcherMutationResult =
+  Apollo.MutationResult<CreateMirrorViaDispatcherMutation>
+export type CreateMirrorViaDispatcherMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateMirrorViaDispatcherMutation,
+    CreateMirrorViaDispatcherMutationVariables
+  >
+export const CreatePostViaDispatcherDocument = gql`
+  mutation CreatePostViaDispatcher($request: CreatePublicPostRequest!) {
+    createPostViaDispatcher(request: $request) {
+      ...RelayerResult
+    }
+  }
+  ${RelayerResultFragmentDoc}
+`
+export type CreatePostViaDispatcherMutationFn = Apollo.MutationFunction<
+  CreatePostViaDispatcherMutation,
+  CreatePostViaDispatcherMutationVariables
+>
+
+/**
+ * __useCreatePostViaDispatcherMutation__
+ *
+ * To run a mutation, you first call `useCreatePostViaDispatcherMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostViaDispatcherMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostViaDispatcherMutation, { data, loading, error }] = useCreatePostViaDispatcherMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreatePostViaDispatcherMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreatePostViaDispatcherMutation,
+    CreatePostViaDispatcherMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreatePostViaDispatcherMutation,
+    CreatePostViaDispatcherMutationVariables
+  >(CreatePostViaDispatcherDocument, options)
+}
+export type CreatePostViaDispatcherMutationHookResult = ReturnType<
+  typeof useCreatePostViaDispatcherMutation
+>
+export type CreatePostViaDispatcherMutationResult =
+  Apollo.MutationResult<CreatePostViaDispatcherMutation>
+export type CreatePostViaDispatcherMutationOptions = Apollo.BaseMutationOptions<
+  CreatePostViaDispatcherMutation,
+  CreatePostViaDispatcherMutationVariables
+>
+export const CreateSetDispatcherTypedDataDocument = gql`
+  mutation CreateSetDispatcherTypedData(
+    $options: TypedDataOptions
+    $request: SetDispatcherRequest!
+  ) {
+    createSetDispatcherTypedData(options: $options, request: $request) {
+      id
+      typedData {
+        types {
+          SetDispatcherWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          dispatcher
+        }
+      }
+    }
+  }
+`
+export type CreateSetDispatcherTypedDataMutationFn = Apollo.MutationFunction<
+  CreateSetDispatcherTypedDataMutation,
+  CreateSetDispatcherTypedDataMutationVariables
+>
+
+/**
+ * __useCreateSetDispatcherTypedDataMutation__
+ *
+ * To run a mutation, you first call `useCreateSetDispatcherTypedDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSetDispatcherTypedDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSetDispatcherTypedDataMutation, { data, loading, error }] = useCreateSetDispatcherTypedDataMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateSetDispatcherTypedDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateSetDispatcherTypedDataMutation,
+    CreateSetDispatcherTypedDataMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateSetDispatcherTypedDataMutation,
+    CreateSetDispatcherTypedDataMutationVariables
+  >(CreateSetDispatcherTypedDataDocument, options)
+}
+export type CreateSetDispatcherTypedDataMutationHookResult = ReturnType<
+  typeof useCreateSetDispatcherTypedDataMutation
+>
+export type CreateSetDispatcherTypedDataMutationResult =
+  Apollo.MutationResult<CreateSetDispatcherTypedDataMutation>
+export type CreateSetDispatcherTypedDataMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateSetDispatcherTypedDataMutation,
+    CreateSetDispatcherTypedDataMutationVariables
+  >
+export const CreateSetProfileImageUriViaDispatcherDocument = gql`
+  mutation CreateSetProfileImageURIViaDispatcher(
+    $request: UpdateProfileImageRequest!
+  ) {
+    createSetProfileImageURIViaDispatcher(request: $request) {
+      ...RelayerResult
+    }
+  }
+  ${RelayerResultFragmentDoc}
+`
+export type CreateSetProfileImageUriViaDispatcherMutationFn =
+  Apollo.MutationFunction<
+    CreateSetProfileImageUriViaDispatcherMutation,
+    CreateSetProfileImageUriViaDispatcherMutationVariables
+  >
+
+/**
+ * __useCreateSetProfileImageUriViaDispatcherMutation__
+ *
+ * To run a mutation, you first call `useCreateSetProfileImageUriViaDispatcherMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSetProfileImageUriViaDispatcherMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSetProfileImageUriViaDispatcherMutation, { data, loading, error }] = useCreateSetProfileImageUriViaDispatcherMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateSetProfileImageUriViaDispatcherMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateSetProfileImageUriViaDispatcherMutation,
+    CreateSetProfileImageUriViaDispatcherMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateSetProfileImageUriViaDispatcherMutation,
+    CreateSetProfileImageUriViaDispatcherMutationVariables
+  >(CreateSetProfileImageUriViaDispatcherDocument, options)
+}
+export type CreateSetProfileImageUriViaDispatcherMutationHookResult =
+  ReturnType<typeof useCreateSetProfileImageUriViaDispatcherMutation>
+export type CreateSetProfileImageUriViaDispatcherMutationResult =
+  Apollo.MutationResult<CreateSetProfileImageUriViaDispatcherMutation>
+export type CreateSetProfileImageUriViaDispatcherMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateSetProfileImageUriViaDispatcherMutation,
+    CreateSetProfileImageUriViaDispatcherMutationVariables
+  >
+export const CreateSetProfileMetadataViaDispatcherDocument = gql`
+  mutation CreateSetProfileMetadataViaDispatcher(
+    $request: CreatePublicSetProfileMetadataURIRequest!
+  ) {
+    createSetProfileMetadataViaDispatcher(request: $request) {
+      ...RelayerResult
+    }
+  }
+  ${RelayerResultFragmentDoc}
+`
+export type CreateSetProfileMetadataViaDispatcherMutationFn =
+  Apollo.MutationFunction<
+    CreateSetProfileMetadataViaDispatcherMutation,
+    CreateSetProfileMetadataViaDispatcherMutationVariables
+  >
+
+/**
+ * __useCreateSetProfileMetadataViaDispatcherMutation__
+ *
+ * To run a mutation, you first call `useCreateSetProfileMetadataViaDispatcherMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSetProfileMetadataViaDispatcherMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSetProfileMetadataViaDispatcherMutation, { data, loading, error }] = useCreateSetProfileMetadataViaDispatcherMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateSetProfileMetadataViaDispatcherMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateSetProfileMetadataViaDispatcherMutation,
+    CreateSetProfileMetadataViaDispatcherMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateSetProfileMetadataViaDispatcherMutation,
+    CreateSetProfileMetadataViaDispatcherMutationVariables
+  >(CreateSetProfileMetadataViaDispatcherDocument, options)
+}
+export type CreateSetProfileMetadataViaDispatcherMutationHookResult =
+  ReturnType<typeof useCreateSetProfileMetadataViaDispatcherMutation>
+export type CreateSetProfileMetadataViaDispatcherMutationResult =
+  Apollo.MutationResult<CreateSetProfileMetadataViaDispatcherMutation>
+export type CreateSetProfileMetadataViaDispatcherMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateSetProfileMetadataViaDispatcherMutation,
+    CreateSetProfileMetadataViaDispatcherMutationVariables
+  >
+export const CreateBurnProfileTypedDataDocument = gql`
+  mutation CreateBurnProfileTypedData($request: BurnProfileRequest!) {
+    createBurnProfileTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        types {
+          BurnWithSig {
+            name
+            type
+          }
+        }
+        value {
+          nonce
+          deadline
+          tokenId
+        }
+      }
+    }
+  }
+`
+export type CreateBurnProfileTypedDataMutationFn = Apollo.MutationFunction<
+  CreateBurnProfileTypedDataMutation,
+  CreateBurnProfileTypedDataMutationVariables
+>
+
+/**
+ * __useCreateBurnProfileTypedDataMutation__
+ *
+ * To run a mutation, you first call `useCreateBurnProfileTypedDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateBurnProfileTypedDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createBurnProfileTypedDataMutation, { data, loading, error }] = useCreateBurnProfileTypedDataMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateBurnProfileTypedDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateBurnProfileTypedDataMutation,
+    CreateBurnProfileTypedDataMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateBurnProfileTypedDataMutation,
+    CreateBurnProfileTypedDataMutationVariables
+  >(CreateBurnProfileTypedDataDocument, options)
+}
+export type CreateBurnProfileTypedDataMutationHookResult = ReturnType<
+  typeof useCreateBurnProfileTypedDataMutation
+>
+export type CreateBurnProfileTypedDataMutationResult =
+  Apollo.MutationResult<CreateBurnProfileTypedDataMutation>
+export type CreateBurnProfileTypedDataMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateBurnProfileTypedDataMutation,
+    CreateBurnProfileTypedDataMutationVariables
+  >
+export const CreateCollectTypedDataDocument = gql`
+  mutation CreateCollectTypedData(
+    $options: TypedDataOptions
+    $request: CreateCollectRequest!
+  ) {
+    createCollectTypedData(options: $options, request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          CollectWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          pubId
+          data
+        }
+      }
+    }
+  }
+`
+export type CreateCollectTypedDataMutationFn = Apollo.MutationFunction<
+  CreateCollectTypedDataMutation,
+  CreateCollectTypedDataMutationVariables
+>
+
+/**
+ * __useCreateCollectTypedDataMutation__
+ *
+ * To run a mutation, you first call `useCreateCollectTypedDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCollectTypedDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCollectTypedDataMutation, { data, loading, error }] = useCreateCollectTypedDataMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateCollectTypedDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateCollectTypedDataMutation,
+    CreateCollectTypedDataMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateCollectTypedDataMutation,
+    CreateCollectTypedDataMutationVariables
+  >(CreateCollectTypedDataDocument, options)
+}
+export type CreateCollectTypedDataMutationHookResult = ReturnType<
+  typeof useCreateCollectTypedDataMutation
+>
+export type CreateCollectTypedDataMutationResult =
+  Apollo.MutationResult<CreateCollectTypedDataMutation>
+export type CreateCollectTypedDataMutationOptions = Apollo.BaseMutationOptions<
+  CreateCollectTypedDataMutation,
+  CreateCollectTypedDataMutationVariables
+>
+export const CreateCommentTypedDataDocument = gql`
+  mutation CreateCommentTypedData(
+    $options: TypedDataOptions
+    $request: CreatePublicCommentRequest!
+  ) {
+    createCommentTypedData(options: $options, request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          CommentWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          profileIdPointed
+          pubIdPointed
+          contentURI
+          collectModule
+          collectModuleInitData
+          referenceModule
+          referenceModuleData
+          referenceModuleInitData
+        }
+      }
+    }
+  }
+`
+export type CreateCommentTypedDataMutationFn = Apollo.MutationFunction<
+  CreateCommentTypedDataMutation,
+  CreateCommentTypedDataMutationVariables
+>
+
+/**
+ * __useCreateCommentTypedDataMutation__
+ *
+ * To run a mutation, you first call `useCreateCommentTypedDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCommentTypedDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCommentTypedDataMutation, { data, loading, error }] = useCreateCommentTypedDataMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateCommentTypedDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateCommentTypedDataMutation,
+    CreateCommentTypedDataMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateCommentTypedDataMutation,
+    CreateCommentTypedDataMutationVariables
+  >(CreateCommentTypedDataDocument, options)
+}
+export type CreateCommentTypedDataMutationHookResult = ReturnType<
+  typeof useCreateCommentTypedDataMutation
+>
+export type CreateCommentTypedDataMutationResult =
+  Apollo.MutationResult<CreateCommentTypedDataMutation>
+export type CreateCommentTypedDataMutationOptions = Apollo.BaseMutationOptions<
+  CreateCommentTypedDataMutation,
+  CreateCommentTypedDataMutationVariables
+>
+export const CreateFollowTypedDataDocument = gql`
+  mutation CreateFollowTypedData(
+    $options: TypedDataOptions
+    $request: FollowRequest!
+  ) {
+    createFollowTypedData(options: $options, request: $request) {
+      id
+      expiresAt
+      typedData {
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        types {
+          FollowWithSig {
+            name
+            type
+          }
+        }
+        value {
+          nonce
+          deadline
+          profileIds
+          datas
+        }
+      }
+    }
+  }
+`
+export type CreateFollowTypedDataMutationFn = Apollo.MutationFunction<
+  CreateFollowTypedDataMutation,
+  CreateFollowTypedDataMutationVariables
+>
+
+/**
+ * __useCreateFollowTypedDataMutation__
+ *
+ * To run a mutation, you first call `useCreateFollowTypedDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateFollowTypedDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createFollowTypedDataMutation, { data, loading, error }] = useCreateFollowTypedDataMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateFollowTypedDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateFollowTypedDataMutation,
+    CreateFollowTypedDataMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateFollowTypedDataMutation,
+    CreateFollowTypedDataMutationVariables
+  >(CreateFollowTypedDataDocument, options)
+}
+export type CreateFollowTypedDataMutationHookResult = ReturnType<
+  typeof useCreateFollowTypedDataMutation
+>
+export type CreateFollowTypedDataMutationResult =
+  Apollo.MutationResult<CreateFollowTypedDataMutation>
+export type CreateFollowTypedDataMutationOptions = Apollo.BaseMutationOptions<
+  CreateFollowTypedDataMutation,
+  CreateFollowTypedDataMutationVariables
+>
+export const CreateMirrorTypedDataDocument = gql`
+  mutation CreateMirrorTypedData(
+    $options: TypedDataOptions
+    $request: CreateMirrorRequest!
+  ) {
+    createMirrorTypedData(options: $options, request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          MirrorWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          profileIdPointed
+          pubIdPointed
+          referenceModule
+          referenceModuleData
+          referenceModuleInitData
+        }
+      }
+    }
+  }
+`
+export type CreateMirrorTypedDataMutationFn = Apollo.MutationFunction<
+  CreateMirrorTypedDataMutation,
+  CreateMirrorTypedDataMutationVariables
+>
+
+/**
+ * __useCreateMirrorTypedDataMutation__
+ *
+ * To run a mutation, you first call `useCreateMirrorTypedDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMirrorTypedDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMirrorTypedDataMutation, { data, loading, error }] = useCreateMirrorTypedDataMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateMirrorTypedDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateMirrorTypedDataMutation,
+    CreateMirrorTypedDataMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateMirrorTypedDataMutation,
+    CreateMirrorTypedDataMutationVariables
+  >(CreateMirrorTypedDataDocument, options)
+}
+export type CreateMirrorTypedDataMutationHookResult = ReturnType<
+  typeof useCreateMirrorTypedDataMutation
+>
+export type CreateMirrorTypedDataMutationResult =
+  Apollo.MutationResult<CreateMirrorTypedDataMutation>
+export type CreateMirrorTypedDataMutationOptions = Apollo.BaseMutationOptions<
+  CreateMirrorTypedDataMutation,
+  CreateMirrorTypedDataMutationVariables
+>
+export const CreatePostTypedDataDocument = gql`
+  mutation CreatePostTypedData($request: CreatePublicPostRequest!) {
+    createPostTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          PostWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          contentURI
+          collectModule
+          collectModuleInitData
+          referenceModule
+          referenceModuleInitData
+        }
+      }
+    }
+  }
+`
+export type CreatePostTypedDataMutationFn = Apollo.MutationFunction<
+  CreatePostTypedDataMutation,
+  CreatePostTypedDataMutationVariables
+>
+
+/**
+ * __useCreatePostTypedDataMutation__
+ *
+ * To run a mutation, you first call `useCreatePostTypedDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostTypedDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostTypedDataMutation, { data, loading, error }] = useCreatePostTypedDataMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreatePostTypedDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreatePostTypedDataMutation,
+    CreatePostTypedDataMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreatePostTypedDataMutation,
+    CreatePostTypedDataMutationVariables
+  >(CreatePostTypedDataDocument, options)
+}
+export type CreatePostTypedDataMutationHookResult = ReturnType<
+  typeof useCreatePostTypedDataMutation
+>
+export type CreatePostTypedDataMutationResult =
+  Apollo.MutationResult<CreatePostTypedDataMutation>
+export type CreatePostTypedDataMutationOptions = Apollo.BaseMutationOptions<
+  CreatePostTypedDataMutation,
+  CreatePostTypedDataMutationVariables
+>
+export const CreateSetFollowModuleTypedDataDocument = gql`
+  mutation CreateSetFollowModuleTypedData(
+    $options: TypedDataOptions
+    $request: CreateSetFollowModuleRequest!
+  ) {
+    createSetFollowModuleTypedData(options: $options, request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          SetFollowModuleWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          followModule
+          followModuleInitData
+        }
+      }
+    }
+  }
+`
+export type CreateSetFollowModuleTypedDataMutationFn = Apollo.MutationFunction<
+  CreateSetFollowModuleTypedDataMutation,
+  CreateSetFollowModuleTypedDataMutationVariables
+>
+
+/**
+ * __useCreateSetFollowModuleTypedDataMutation__
+ *
+ * To run a mutation, you first call `useCreateSetFollowModuleTypedDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSetFollowModuleTypedDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSetFollowModuleTypedDataMutation, { data, loading, error }] = useCreateSetFollowModuleTypedDataMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateSetFollowModuleTypedDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateSetFollowModuleTypedDataMutation,
+    CreateSetFollowModuleTypedDataMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateSetFollowModuleTypedDataMutation,
+    CreateSetFollowModuleTypedDataMutationVariables
+  >(CreateSetFollowModuleTypedDataDocument, options)
+}
+export type CreateSetFollowModuleTypedDataMutationHookResult = ReturnType<
+  typeof useCreateSetFollowModuleTypedDataMutation
+>
+export type CreateSetFollowModuleTypedDataMutationResult =
+  Apollo.MutationResult<CreateSetFollowModuleTypedDataMutation>
+export type CreateSetFollowModuleTypedDataMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateSetFollowModuleTypedDataMutation,
+    CreateSetFollowModuleTypedDataMutationVariables
+  >
+export const CreateSetProfileImageUriTypedDataDocument = gql`
+  mutation CreateSetProfileImageURITypedData(
+    $options: TypedDataOptions
+    $request: UpdateProfileImageRequest!
+  ) {
+    createSetProfileImageURITypedData(options: $options, request: $request) {
+      id
+      expiresAt
+      typedData {
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        types {
+          SetProfileImageURIWithSig {
+            name
+            type
+          }
+        }
+        value {
+          nonce
+          deadline
+          imageURI
+          profileId
+        }
+      }
+    }
+  }
+`
+export type CreateSetProfileImageUriTypedDataMutationFn =
+  Apollo.MutationFunction<
+    CreateSetProfileImageUriTypedDataMutation,
+    CreateSetProfileImageUriTypedDataMutationVariables
+  >
+
+/**
+ * __useCreateSetProfileImageUriTypedDataMutation__
+ *
+ * To run a mutation, you first call `useCreateSetProfileImageUriTypedDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSetProfileImageUriTypedDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSetProfileImageUriTypedDataMutation, { data, loading, error }] = useCreateSetProfileImageUriTypedDataMutation({
+ *   variables: {
+ *      options: // value for 'options'
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateSetProfileImageUriTypedDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateSetProfileImageUriTypedDataMutation,
+    CreateSetProfileImageUriTypedDataMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateSetProfileImageUriTypedDataMutation,
+    CreateSetProfileImageUriTypedDataMutationVariables
+  >(CreateSetProfileImageUriTypedDataDocument, options)
+}
+export type CreateSetProfileImageUriTypedDataMutationHookResult = ReturnType<
+  typeof useCreateSetProfileImageUriTypedDataMutation
+>
+export type CreateSetProfileImageUriTypedDataMutationResult =
+  Apollo.MutationResult<CreateSetProfileImageUriTypedDataMutation>
+export type CreateSetProfileImageUriTypedDataMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateSetProfileImageUriTypedDataMutation,
+    CreateSetProfileImageUriTypedDataMutationVariables
+  >
+export const CreateSetProfileMetadataTypedDataDocument = gql`
+  mutation CreateSetProfileMetadataTypedData(
+    $request: CreatePublicSetProfileMetadataURIRequest!
+  ) {
+    createSetProfileMetadataTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          SetProfileMetadataURIWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          metadata
+        }
+      }
+    }
+  }
+`
+export type CreateSetProfileMetadataTypedDataMutationFn =
+  Apollo.MutationFunction<
+    CreateSetProfileMetadataTypedDataMutation,
+    CreateSetProfileMetadataTypedDataMutationVariables
+  >
+
+/**
+ * __useCreateSetProfileMetadataTypedDataMutation__
+ *
+ * To run a mutation, you first call `useCreateSetProfileMetadataTypedDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSetProfileMetadataTypedDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSetProfileMetadataTypedDataMutation, { data, loading, error }] = useCreateSetProfileMetadataTypedDataMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateSetProfileMetadataTypedDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateSetProfileMetadataTypedDataMutation,
+    CreateSetProfileMetadataTypedDataMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateSetProfileMetadataTypedDataMutation,
+    CreateSetProfileMetadataTypedDataMutationVariables
+  >(CreateSetProfileMetadataTypedDataDocument, options)
+}
+export type CreateSetProfileMetadataTypedDataMutationHookResult = ReturnType<
+  typeof useCreateSetProfileMetadataTypedDataMutation
+>
+export type CreateSetProfileMetadataTypedDataMutationResult =
+  Apollo.MutationResult<CreateSetProfileMetadataTypedDataMutation>
+export type CreateSetProfileMetadataTypedDataMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateSetProfileMetadataTypedDataMutation,
+    CreateSetProfileMetadataTypedDataMutationVariables
+  >
+export const AllProfilesDocument = gql`
+  query AllProfiles($request: ProfileQueryRequest!) {
+    profiles(request: $request) {
+      items {
+        ...ProfileFields
+      }
+      pageInfo {
+        totalCount
+        next
+      }
+    }
+  }
+  ${ProfileFieldsFragmentDoc}
+`
+
+/**
+ * __useAllProfilesQuery__
+ *
+ * To run a query within a React component, call `useAllProfilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllProfilesQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useAllProfilesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    AllProfilesQuery,
+    AllProfilesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<AllProfilesQuery, AllProfilesQueryVariables>(
+    AllProfilesDocument,
+    options
+  )
+}
+export function useAllProfilesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AllProfilesQuery,
+    AllProfilesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<AllProfilesQuery, AllProfilesQueryVariables>(
+    AllProfilesDocument,
+    options
+  )
+}
+export type AllProfilesQueryHookResult = ReturnType<typeof useAllProfilesQuery>
+export type AllProfilesLazyQueryHookResult = ReturnType<
+  typeof useAllProfilesLazyQuery
+>
+export type AllProfilesQueryResult = Apollo.QueryResult<
+  AllProfilesQuery,
+  AllProfilesQueryVariables
+>
+export const ApprovedModuleAllowanceAmountDocument = gql`
+  query ApprovedModuleAllowanceAmount(
+    $request: ApprovedModuleAllowanceAmountRequest!
+  ) {
+    approvedModuleAllowanceAmount(request: $request) {
+      currency
+      module
+      allowance
+      contractAddress
+    }
+    enabledModuleCurrencies {
+      name
+      symbol
+      decimals
+      address
+    }
+  }
+`
+
+/**
+ * __useApprovedModuleAllowanceAmountQuery__
+ *
+ * To run a query within a React component, call `useApprovedModuleAllowanceAmountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useApprovedModuleAllowanceAmountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useApprovedModuleAllowanceAmountQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useApprovedModuleAllowanceAmountQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ApprovedModuleAllowanceAmountQuery,
+    ApprovedModuleAllowanceAmountQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    ApprovedModuleAllowanceAmountQuery,
+    ApprovedModuleAllowanceAmountQueryVariables
+  >(ApprovedModuleAllowanceAmountDocument, options)
+}
+export function useApprovedModuleAllowanceAmountLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ApprovedModuleAllowanceAmountQuery,
+    ApprovedModuleAllowanceAmountQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    ApprovedModuleAllowanceAmountQuery,
+    ApprovedModuleAllowanceAmountQueryVariables
+  >(ApprovedModuleAllowanceAmountDocument, options)
+}
+export type ApprovedModuleAllowanceAmountQueryHookResult = ReturnType<
+  typeof useApprovedModuleAllowanceAmountQuery
+>
+export type ApprovedModuleAllowanceAmountLazyQueryHookResult = ReturnType<
+  typeof useApprovedModuleAllowanceAmountLazyQuery
+>
+export type ApprovedModuleAllowanceAmountQueryResult = Apollo.QueryResult<
+  ApprovedModuleAllowanceAmountQuery,
+  ApprovedModuleAllowanceAmountQueryVariables
+>
+export const ChallengeDocument = gql`
+  query Challenge($request: ChallengeRequest!) {
+    challenge(request: $request) {
+      text
+    }
+  }
+`
+
+/**
+ * __useChallengeQuery__
+ *
+ * To run a query within a React component, call `useChallengeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useChallengeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useChallengeQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useChallengeQuery(
+  baseOptions: Apollo.QueryHookOptions<ChallengeQuery, ChallengeQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ChallengeQuery, ChallengeQueryVariables>(
+    ChallengeDocument,
+    options
+  )
+}
+export function useChallengeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ChallengeQuery,
+    ChallengeQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ChallengeQuery, ChallengeQueryVariables>(
+    ChallengeDocument,
+    options
+  )
+}
+export type ChallengeQueryHookResult = ReturnType<typeof useChallengeQuery>
+export type ChallengeLazyQueryHookResult = ReturnType<
+  typeof useChallengeLazyQuery
+>
+export type ChallengeQueryResult = Apollo.QueryResult<
+  ChallengeQuery,
+  ChallengeQueryVariables
+>
+export const CollectorsDocument = gql`
+  query Collectors($request: WhoCollectedPublicationRequest!) {
+    whoCollectedPublication(request: $request) {
+      items {
+        address
+        defaultProfile {
+          ...ProfileFields
+        }
+      }
+      pageInfo {
+        next
+        totalCount
+      }
+    }
+  }
+  ${ProfileFieldsFragmentDoc}
+`
+
+/**
+ * __useCollectorsQuery__
+ *
+ * To run a query within a React component, call `useCollectorsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCollectorsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCollectorsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCollectorsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    CollectorsQuery,
+    CollectorsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<CollectorsQuery, CollectorsQueryVariables>(
+    CollectorsDocument,
+    options
+  )
+}
+export function useCollectorsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    CollectorsQuery,
+    CollectorsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<CollectorsQuery, CollectorsQueryVariables>(
+    CollectorsDocument,
+    options
+  )
+}
+export type CollectorsQueryHookResult = ReturnType<typeof useCollectorsQuery>
+export type CollectorsLazyQueryHookResult = ReturnType<
+  typeof useCollectorsLazyQuery
+>
+export type CollectorsQueryResult = Apollo.QueryResult<
+  CollectorsQuery,
+  CollectorsQueryVariables
+>
+export const CreateUnfollowTypedDataDocument = gql`
+  mutation CreateUnfollowTypedData($request: UnfollowRequest!) {
+    createUnfollowTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        types {
+          BurnWithSig {
+            name
+            type
+          }
+        }
+        value {
+          nonce
+          deadline
+          tokenId
+        }
+      }
+    }
+  }
+`
+export type CreateUnfollowTypedDataMutationFn = Apollo.MutationFunction<
+  CreateUnfollowTypedDataMutation,
+  CreateUnfollowTypedDataMutationVariables
+>
+
+/**
+ * __useCreateUnfollowTypedDataMutation__
+ *
+ * To run a mutation, you first call `useCreateUnfollowTypedDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUnfollowTypedDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUnfollowTypedDataMutation, { data, loading, error }] = useCreateUnfollowTypedDataMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateUnfollowTypedDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateUnfollowTypedDataMutation,
+    CreateUnfollowTypedDataMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateUnfollowTypedDataMutation,
+    CreateUnfollowTypedDataMutationVariables
+  >(CreateUnfollowTypedDataDocument, options)
+}
+export type CreateUnfollowTypedDataMutationHookResult = ReturnType<
+  typeof useCreateUnfollowTypedDataMutation
+>
+export type CreateUnfollowTypedDataMutationResult =
+  Apollo.MutationResult<CreateUnfollowTypedDataMutation>
+export type CreateUnfollowTypedDataMutationOptions = Apollo.BaseMutationOptions<
+  CreateUnfollowTypedDataMutation,
+  CreateUnfollowTypedDataMutationVariables
+>
+export const EnabledModuleCurrrenciesDocument = gql`
+  query EnabledModuleCurrrencies($request: ProfileQueryRequest!) {
+    enabledModuleCurrencies {
+      name
+      symbol
+      decimals
+      address
+    }
+    profiles(request: $request) {
+      items {
+        followModule {
+          __typename
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useEnabledModuleCurrrenciesQuery__
+ *
+ * To run a query within a React component, call `useEnabledModuleCurrrenciesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEnabledModuleCurrrenciesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEnabledModuleCurrrenciesQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useEnabledModuleCurrrenciesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    EnabledModuleCurrrenciesQuery,
+    EnabledModuleCurrrenciesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    EnabledModuleCurrrenciesQuery,
+    EnabledModuleCurrrenciesQueryVariables
+  >(EnabledModuleCurrrenciesDocument, options)
+}
+export function useEnabledModuleCurrrenciesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    EnabledModuleCurrrenciesQuery,
+    EnabledModuleCurrrenciesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    EnabledModuleCurrrenciesQuery,
+    EnabledModuleCurrrenciesQueryVariables
+  >(EnabledModuleCurrrenciesDocument, options)
+}
+export type EnabledModuleCurrrenciesQueryHookResult = ReturnType<
+  typeof useEnabledModuleCurrrenciesQuery
+>
+export type EnabledModuleCurrrenciesLazyQueryHookResult = ReturnType<
+  typeof useEnabledModuleCurrrenciesLazyQuery
+>
+export type EnabledModuleCurrrenciesQueryResult = Apollo.QueryResult<
+  EnabledModuleCurrrenciesQuery,
+  EnabledModuleCurrrenciesQueryVariables
+>
+export const ExploreDocument = gql`
+  query Explore(
+    $request: ExplorePublicationRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+    $channelId: ProfileId
+  ) {
+    explorePublications(request: $request) {
+      items {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Comment {
+          ...CommentFields
+        }
+      }
+      pageInfo {
+        totalCount
+        next
+      }
+    }
+  }
+  ${PostFieldsFragmentDoc}
+  ${CommentFieldsFragmentDoc}
+`
+
+/**
+ * __useExploreQuery__
+ *
+ * To run a query within a React component, call `useExploreQuery` and pass it any options that fit your needs.
+ * When your component renders, `useExploreQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useExploreQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *      reactionRequest: // value for 'reactionRequest'
+ *      channelId: // value for 'channelId'
+ *   },
+ * });
+ */
+export function useExploreQuery(
+  baseOptions: Apollo.QueryHookOptions<ExploreQuery, ExploreQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ExploreQuery, ExploreQueryVariables>(
+    ExploreDocument,
+    options
+  )
+}
+export function useExploreLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<ExploreQuery, ExploreQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ExploreQuery, ExploreQueryVariables>(
+    ExploreDocument,
+    options
+  )
+}
+export type ExploreQueryHookResult = ReturnType<typeof useExploreQuery>
+export type ExploreLazyQueryHookResult = ReturnType<typeof useExploreLazyQuery>
+export type ExploreQueryResult = Apollo.QueryResult<
+  ExploreQuery,
+  ExploreQueryVariables
+>
+export const FeedDocument = gql`
+  query Feed(
+    $request: FeedRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+    $channelId: ProfileId
+  ) {
+    feed(request: $request) {
+      items {
+        root {
+          ... on Post {
+            ...PostFields
+          }
+          ... on Comment {
+            ...CommentFields
+          }
+        }
+      }
+      pageInfo {
+        next
+        totalCount
+      }
+    }
+  }
+  ${PostFieldsFragmentDoc}
+  ${CommentFieldsFragmentDoc}
+`
+
+/**
+ * __useFeedQuery__
+ *
+ * To run a query within a React component, call `useFeedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFeedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFeedQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *      reactionRequest: // value for 'reactionRequest'
+ *      channelId: // value for 'channelId'
+ *   },
+ * });
+ */
+export function useFeedQuery(
+  baseOptions: Apollo.QueryHookOptions<FeedQuery, FeedQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<FeedQuery, FeedQueryVariables>(FeedDocument, options)
+}
+export function useFeedLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<FeedQuery, FeedQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<FeedQuery, FeedQueryVariables>(
+    FeedDocument,
+    options
+  )
+}
+export type FeedQueryHookResult = ReturnType<typeof useFeedQuery>
+export type FeedLazyQueryHookResult = ReturnType<typeof useFeedLazyQuery>
+export type FeedQueryResult = Apollo.QueryResult<FeedQuery, FeedQueryVariables>
+export const GenerateModuleCurrencyApprovalDataDocument = gql`
+  query GenerateModuleCurrencyApprovalData(
+    $request: GenerateModuleCurrencyApprovalDataRequest!
+  ) {
+    generateModuleCurrencyApprovalData(request: $request) {
+      to
+      from
+      data
+    }
+  }
+`
+
+/**
+ * __useGenerateModuleCurrencyApprovalDataQuery__
+ *
+ * To run a query within a React component, call `useGenerateModuleCurrencyApprovalDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGenerateModuleCurrencyApprovalDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGenerateModuleCurrencyApprovalDataQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useGenerateModuleCurrencyApprovalDataQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GenerateModuleCurrencyApprovalDataQuery,
+    GenerateModuleCurrencyApprovalDataQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GenerateModuleCurrencyApprovalDataQuery,
+    GenerateModuleCurrencyApprovalDataQueryVariables
+  >(GenerateModuleCurrencyApprovalDataDocument, options)
+}
+export function useGenerateModuleCurrencyApprovalDataLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GenerateModuleCurrencyApprovalDataQuery,
+    GenerateModuleCurrencyApprovalDataQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GenerateModuleCurrencyApprovalDataQuery,
+    GenerateModuleCurrencyApprovalDataQueryVariables
+  >(GenerateModuleCurrencyApprovalDataDocument, options)
+}
+export type GenerateModuleCurrencyApprovalDataQueryHookResult = ReturnType<
+  typeof useGenerateModuleCurrencyApprovalDataQuery
+>
+export type GenerateModuleCurrencyApprovalDataLazyQueryHookResult = ReturnType<
+  typeof useGenerateModuleCurrencyApprovalDataLazyQuery
+>
+export type GenerateModuleCurrencyApprovalDataQueryResult = Apollo.QueryResult<
+  GenerateModuleCurrencyApprovalDataQuery,
+  GenerateModuleCurrencyApprovalDataQueryVariables
+>
+export const GlobalProtocolStatsDocument = gql`
+  query GlobalProtocolStats($request: GlobalProtocolStatsRequest) {
+    globalProtocolStats(request: $request) {
+      totalProfiles
+      totalBurntProfiles
+      totalPosts
+      totalMirrors
+      totalComments
+      totalCollects
+      totalFollows
+      totalRevenue {
+        asset {
+          name
+          symbol
+          decimals
+          address
+        }
+        value
+      }
+    }
+    bytesStats: globalProtocolStats(request: { sources: "lenstube-bytes" }) {
+      totalPosts
+    }
+  }
+`
+
+/**
+ * __useGlobalProtocolStatsQuery__
+ *
+ * To run a query within a React component, call `useGlobalProtocolStatsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGlobalProtocolStatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGlobalProtocolStatsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useGlobalProtocolStatsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GlobalProtocolStatsQuery,
+    GlobalProtocolStatsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GlobalProtocolStatsQuery,
+    GlobalProtocolStatsQueryVariables
+  >(GlobalProtocolStatsDocument, options)
+}
+export function useGlobalProtocolStatsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GlobalProtocolStatsQuery,
+    GlobalProtocolStatsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GlobalProtocolStatsQuery,
+    GlobalProtocolStatsQueryVariables
+  >(GlobalProtocolStatsDocument, options)
+}
+export type GlobalProtocolStatsQueryHookResult = ReturnType<
+  typeof useGlobalProtocolStatsQuery
+>
+export type GlobalProtocolStatsLazyQueryHookResult = ReturnType<
+  typeof useGlobalProtocolStatsLazyQuery
+>
+export type GlobalProtocolStatsQueryResult = Apollo.QueryResult<
+  GlobalProtocolStatsQuery,
+  GlobalProtocolStatsQueryVariables
+>
+export const HasPublicationIndexedDocument = gql`
+  query HasPublicationIndexed($request: PublicationQueryRequest!) {
+    publication(request: $request) {
+      ... on Post {
+        id
+      }
+    }
+  }
+`
+
+/**
+ * __useHasPublicationIndexedQuery__
+ *
+ * To run a query within a React component, call `useHasPublicationIndexedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useHasPublicationIndexedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useHasPublicationIndexedQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useHasPublicationIndexedQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    HasPublicationIndexedQuery,
+    HasPublicationIndexedQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    HasPublicationIndexedQuery,
+    HasPublicationIndexedQueryVariables
+  >(HasPublicationIndexedDocument, options)
+}
+export function useHasPublicationIndexedLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    HasPublicationIndexedQuery,
+    HasPublicationIndexedQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    HasPublicationIndexedQuery,
+    HasPublicationIndexedQueryVariables
+  >(HasPublicationIndexedDocument, options)
+}
+export type HasPublicationIndexedQueryHookResult = ReturnType<
+  typeof useHasPublicationIndexedQuery
+>
+export type HasPublicationIndexedLazyQueryHookResult = ReturnType<
+  typeof useHasPublicationIndexedLazyQuery
+>
+export type HasPublicationIndexedQueryResult = Apollo.QueryResult<
+  HasPublicationIndexedQuery,
+  HasPublicationIndexedQueryVariables
+>
+export const HasTxHashBeenIndexedDocument = gql`
+  query HasTxHashBeenIndexed($request: HasTxHashBeenIndexedRequest!) {
+    hasTxHashBeenIndexed(request: $request) {
+      ... on TransactionIndexedResult {
+        indexed
+        txReceipt {
+          transactionHash
+        }
+      }
+      ... on TransactionError {
+        reason
+      }
+    }
+  }
+`
+
+/**
+ * __useHasTxHashBeenIndexedQuery__
+ *
+ * To run a query within a React component, call `useHasTxHashBeenIndexedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useHasTxHashBeenIndexedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useHasTxHashBeenIndexedQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useHasTxHashBeenIndexedQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    HasTxHashBeenIndexedQuery,
+    HasTxHashBeenIndexedQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    HasTxHashBeenIndexedQuery,
+    HasTxHashBeenIndexedQueryVariables
+  >(HasTxHashBeenIndexedDocument, options)
+}
+export function useHasTxHashBeenIndexedLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    HasTxHashBeenIndexedQuery,
+    HasTxHashBeenIndexedQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    HasTxHashBeenIndexedQuery,
+    HasTxHashBeenIndexedQueryVariables
+  >(HasTxHashBeenIndexedDocument, options)
+}
+export type HasTxHashBeenIndexedQueryHookResult = ReturnType<
+  typeof useHasTxHashBeenIndexedQuery
+>
+export type HasTxHashBeenIndexedLazyQueryHookResult = ReturnType<
+  typeof useHasTxHashBeenIndexedLazyQuery
+>
+export type HasTxHashBeenIndexedQueryResult = Apollo.QueryResult<
+  HasTxHashBeenIndexedQuery,
+  HasTxHashBeenIndexedQueryVariables
+>
+export const MutualFollowersDocument = gql`
+  query MutualFollowers($request: MutualFollowersProfilesQueryRequest!) {
+    mutualFollowersProfiles(request: $request) {
+      items {
+        ...ProfileFields
+      }
+      pageInfo {
+        next
+        totalCount
+      }
+    }
+  }
+  ${ProfileFieldsFragmentDoc}
+`
+
+/**
+ * __useMutualFollowersQuery__
+ *
+ * To run a query within a React component, call `useMutualFollowersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMutualFollowersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMutualFollowersQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useMutualFollowersQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    MutualFollowersQuery,
+    MutualFollowersQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<MutualFollowersQuery, MutualFollowersQueryVariables>(
+    MutualFollowersDocument,
+    options
+  )
+}
+export function useMutualFollowersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    MutualFollowersQuery,
+    MutualFollowersQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    MutualFollowersQuery,
+    MutualFollowersQueryVariables
+  >(MutualFollowersDocument, options)
+}
+export type MutualFollowersQueryHookResult = ReturnType<
+  typeof useMutualFollowersQuery
+>
+export type MutualFollowersLazyQueryHookResult = ReturnType<
+  typeof useMutualFollowersLazyQuery
+>
+export type MutualFollowersQueryResult = Apollo.QueryResult<
+  MutualFollowersQuery,
+  MutualFollowersQueryVariables
+>
+export const NotificationCountDocument = gql`
+  query NotificationCount($request: NotificationRequest!) {
+    notifications(request: $request) {
+      pageInfo {
+        totalCount
+      }
+    }
+  }
+`
+
+/**
+ * __useNotificationCountQuery__
+ *
+ * To run a query within a React component, call `useNotificationCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNotificationCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNotificationCountQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useNotificationCountQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    NotificationCountQuery,
+    NotificationCountQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    NotificationCountQuery,
+    NotificationCountQueryVariables
+  >(NotificationCountDocument, options)
+}
+export function useNotificationCountLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    NotificationCountQuery,
+    NotificationCountQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    NotificationCountQuery,
+    NotificationCountQueryVariables
+  >(NotificationCountDocument, options)
+}
+export type NotificationCountQueryHookResult = ReturnType<
+  typeof useNotificationCountQuery
+>
+export type NotificationCountLazyQueryHookResult = ReturnType<
+  typeof useNotificationCountLazyQuery
+>
+export type NotificationCountQueryResult = Apollo.QueryResult<
+  NotificationCountQuery,
+  NotificationCountQueryVariables
+>
+export const NotificationsDocument = gql`
+  query Notifications($request: NotificationRequest!) {
+    notifications(request: $request) {
+      items {
+        ... on NewFollowerNotification {
+          notificationId
+          wallet {
+            address
+            defaultProfile {
+              ...ProfileFields
+            }
+          }
+          createdAt
+        }
+        ... on NewMentionNotification {
+          notificationId
+          mentionPublication {
+            ... on Post {
+              id
+              profile {
+                ...ProfileFields
+              }
+            }
+            ... on Comment {
+              id
+              profile {
+                ...ProfileFields
+              }
+            }
+          }
+          createdAt
+        }
+        ... on NewCommentNotification {
+          notificationId
+          profile {
+            ...ProfileFields
+          }
+          comment {
+            id
+            commentOn {
+              ... on Post {
+                id
+              }
+              ... on Comment {
+                id
+              }
+              ... on Mirror {
+                id
+              }
+            }
+          }
+          createdAt
+        }
+        ... on NewMirrorNotification {
+          notificationId
+          profile {
+            ...ProfileFields
+          }
+          publication {
+            ... on Post {
+              id
+            }
+            ... on Comment {
+              id
+            }
+          }
+          createdAt
+        }
+        ... on NewCollectNotification {
+          notificationId
+          wallet {
+            address
+            defaultProfile {
+              ...ProfileFields
+            }
+          }
+          collectedPublication {
+            ... on Post {
+              id
+            }
+            ... on Comment {
+              id
+            }
+          }
+          createdAt
+        }
+        ... on NewReactionNotification {
+          notificationId
+          profile {
+            ...ProfileFields
+          }
+          reaction
+          publication {
+            ... on Comment {
+              id
+              mainPost {
+                ... on Post {
+                  id
+                }
+              }
+            }
+            ... on Post {
+              id
+            }
+            ... on Mirror {
+              id
+            }
+          }
+          createdAt
+        }
+      }
+      pageInfo {
+        next
+      }
+    }
+  }
+  ${ProfileFieldsFragmentDoc}
+`
+
+/**
+ * __useNotificationsQuery__
+ *
+ * To run a query within a React component, call `useNotificationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNotificationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNotificationsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useNotificationsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    NotificationsQuery,
+    NotificationsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<NotificationsQuery, NotificationsQueryVariables>(
+    NotificationsDocument,
+    options
+  )
+}
+export function useNotificationsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    NotificationsQuery,
+    NotificationsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<NotificationsQuery, NotificationsQueryVariables>(
+    NotificationsDocument,
+    options
+  )
+}
+export type NotificationsQueryHookResult = ReturnType<
+  typeof useNotificationsQuery
+>
+export type NotificationsLazyQueryHookResult = ReturnType<
+  typeof useNotificationsLazyQuery
+>
+export type NotificationsQueryResult = Apollo.QueryResult<
+  NotificationsQuery,
+  NotificationsQueryVariables
+>
+export const ProfileDocument = gql`
+  query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
+    profile(request: $request) {
+      id
+      handle
+      ownedBy
+      name
+      dispatcher {
+        canUseRelay
+      }
+      isFollowedByMe
+      isFollowing(who: $who)
+      onChainIdentity {
+        proofOfHumanity
+        worldcoin {
+          isHuman
+        }
+        sybilDotOrg {
+          verified
+          source {
+            twitter {
+              handle
+            }
+          }
+        }
+        ens {
+          name
+        }
+      }
+      attributes {
+        key
+        value
+      }
+      bio
+      stats {
+        totalFollowers
+        totalPosts
+        totalComments
+        totalMirrors
+        totalCollects
+      }
+      picture {
+        ... on MediaSet {
+          original {
+            url
+          }
+        }
+        ... on NftImage {
+          uri
+        }
+      }
+      coverPicture {
+        ... on MediaSet {
+          original {
+            url
+          }
+        }
+      }
+      followModule {
+        __typename
+      }
+    }
+  }
+`
+
+/**
+ * __useProfileQuery__
+ *
+ * To run a query within a React component, call `useProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *      who: // value for 'who'
+ *   },
+ * });
+ */
+export function useProfileQuery(
+  baseOptions: Apollo.QueryHookOptions<ProfileQuery, ProfileQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ProfileQuery, ProfileQueryVariables>(
+    ProfileDocument,
+    options
+  )
+}
+export function useProfileLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<ProfileQuery, ProfileQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ProfileQuery, ProfileQueryVariables>(
+    ProfileDocument,
+    options
+  )
+}
+export type ProfileQueryHookResult = ReturnType<typeof useProfileQuery>
+export type ProfileLazyQueryHookResult = ReturnType<typeof useProfileLazyQuery>
+export type ProfileQueryResult = Apollo.QueryResult<
+  ProfileQuery,
+  ProfileQueryVariables
+>
+export const ProfileCommentsDocument = gql`
+  query ProfileComments(
+    $request: PublicationsQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+    $channelId: ProfileId
+  ) {
+    publications(request: $request) {
+      items {
+        ... on Comment {
+          ...CommentFields
+        }
+      }
+      pageInfo {
+        totalCount
+        next
+      }
+    }
+  }
+  ${CommentFieldsFragmentDoc}
+`
+
+/**
+ * __useProfileCommentsQuery__
+ *
+ * To run a query within a React component, call `useProfileCommentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileCommentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileCommentsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *      reactionRequest: // value for 'reactionRequest'
+ *      channelId: // value for 'channelId'
+ *   },
+ * });
+ */
+export function useProfileCommentsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ProfileCommentsQuery,
+    ProfileCommentsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ProfileCommentsQuery, ProfileCommentsQueryVariables>(
+    ProfileCommentsDocument,
+    options
+  )
+}
+export function useProfileCommentsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ProfileCommentsQuery,
+    ProfileCommentsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    ProfileCommentsQuery,
+    ProfileCommentsQueryVariables
+  >(ProfileCommentsDocument, options)
+}
+export type ProfileCommentsQueryHookResult = ReturnType<
+  typeof useProfileCommentsQuery
+>
+export type ProfileCommentsLazyQueryHookResult = ReturnType<
+  typeof useProfileCommentsLazyQuery
+>
+export type ProfileCommentsQueryResult = Apollo.QueryResult<
+  ProfileCommentsQuery,
+  ProfileCommentsQueryVariables
+>
+export const ProfileFollowModuleDocument = gql`
+  query ProfileFollowModule($request: ProfileQueryRequest!) {
+    profiles(request: $request) {
+      items {
+        followModule {
+          ... on FeeFollowModuleSettings {
+            amount {
+              asset {
+                name
+                symbol
+                address
+                decimals
+              }
+              value
+            }
+            recipient
+          }
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useProfileFollowModuleQuery__
+ *
+ * To run a query within a React component, call `useProfileFollowModuleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileFollowModuleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileFollowModuleQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useProfileFollowModuleQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ProfileFollowModuleQuery,
+    ProfileFollowModuleQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    ProfileFollowModuleQuery,
+    ProfileFollowModuleQueryVariables
+  >(ProfileFollowModuleDocument, options)
+}
+export function useProfileFollowModuleLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ProfileFollowModuleQuery,
+    ProfileFollowModuleQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    ProfileFollowModuleQuery,
+    ProfileFollowModuleQueryVariables
+  >(ProfileFollowModuleDocument, options)
+}
+export type ProfileFollowModuleQueryHookResult = ReturnType<
+  typeof useProfileFollowModuleQuery
+>
+export type ProfileFollowModuleLazyQueryHookResult = ReturnType<
+  typeof useProfileFollowModuleLazyQuery
+>
+export type ProfileFollowModuleQueryResult = Apollo.QueryResult<
+  ProfileFollowModuleQuery,
+  ProfileFollowModuleQueryVariables
+>
+export const ProfileMirrorsDocument = gql`
+  query ProfileMirrors(
+    $request: PublicationsQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+  ) {
+    publications(request: $request) {
+      items {
+        ... on Mirror {
+          ...MirrorFields
+        }
+      }
+      pageInfo {
+        totalCount
+        next
+      }
+    }
+  }
+  ${MirrorFieldsFragmentDoc}
+`
+
+/**
+ * __useProfileMirrorsQuery__
+ *
+ * To run a query within a React component, call `useProfileMirrorsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileMirrorsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileMirrorsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *      reactionRequest: // value for 'reactionRequest'
+ *   },
+ * });
+ */
+export function useProfileMirrorsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ProfileMirrorsQuery,
+    ProfileMirrorsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ProfileMirrorsQuery, ProfileMirrorsQueryVariables>(
+    ProfileMirrorsDocument,
+    options
+  )
+}
+export function useProfileMirrorsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ProfileMirrorsQuery,
+    ProfileMirrorsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ProfileMirrorsQuery, ProfileMirrorsQueryVariables>(
+    ProfileMirrorsDocument,
+    options
+  )
+}
+export type ProfileMirrorsQueryHookResult = ReturnType<
+  typeof useProfileMirrorsQuery
+>
+export type ProfileMirrorsLazyQueryHookResult = ReturnType<
+  typeof useProfileMirrorsLazyQuery
+>
+export type ProfileMirrorsQueryResult = Apollo.QueryResult<
+  ProfileMirrorsQuery,
+  ProfileMirrorsQueryVariables
+>
+export const ProfileNfTsDocument = gql`
+  query ProfileNFTs($request: NFTsRequest!) {
+    nfts(request: $request) {
+      items {
+        contractAddress
+        tokenId
+        name
+        originalContent {
+          animatedUrl
+          uri
+          metaType
+        }
+        collectionName
+      }
+      pageInfo {
+        next
+        totalCount
+      }
+    }
+  }
+`
+
+/**
+ * __useProfileNfTsQuery__
+ *
+ * To run a query within a React component, call `useProfileNfTsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileNfTsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileNfTsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useProfileNfTsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ProfileNfTsQuery,
+    ProfileNfTsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ProfileNfTsQuery, ProfileNfTsQueryVariables>(
+    ProfileNfTsDocument,
+    options
+  )
+}
+export function useProfileNfTsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ProfileNfTsQuery,
+    ProfileNfTsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ProfileNfTsQuery, ProfileNfTsQueryVariables>(
+    ProfileNfTsDocument,
+    options
+  )
+}
+export type ProfileNfTsQueryHookResult = ReturnType<typeof useProfileNfTsQuery>
+export type ProfileNfTsLazyQueryHookResult = ReturnType<
+  typeof useProfileNfTsLazyQuery
+>
+export type ProfileNfTsQueryResult = Apollo.QueryResult<
+  ProfileNfTsQuery,
+  ProfileNfTsQueryVariables
+>
+export const ProfilePostsDocument = gql`
+  query ProfilePosts(
+    $request: PublicationsQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+    $channelId: ProfileId
+  ) {
+    publications(request: $request) {
+      items {
+        ... on Post {
+          ...PostFields
+        }
+      }
+      pageInfo {
+        totalCount
+        next
+      }
+    }
+  }
+  ${PostFieldsFragmentDoc}
+`
+
+/**
+ * __useProfilePostsQuery__
+ *
+ * To run a query within a React component, call `useProfilePostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfilePostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfilePostsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *      reactionRequest: // value for 'reactionRequest'
+ *      channelId: // value for 'channelId'
+ *   },
+ * });
+ */
+export function useProfilePostsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ProfilePostsQuery,
+    ProfilePostsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ProfilePostsQuery, ProfilePostsQueryVariables>(
+    ProfilePostsDocument,
+    options
+  )
+}
+export function useProfilePostsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ProfilePostsQuery,
+    ProfilePostsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ProfilePostsQuery, ProfilePostsQueryVariables>(
+    ProfilePostsDocument,
+    options
+  )
+}
+export type ProfilePostsQueryHookResult = ReturnType<
+  typeof useProfilePostsQuery
+>
+export type ProfilePostsLazyQueryHookResult = ReturnType<
+  typeof useProfilePostsLazyQuery
+>
+export type ProfilePostsQueryResult = Apollo.QueryResult<
+  ProfilePostsQuery,
+  ProfilePostsQueryVariables
+>
+export const ProxyActionStatusDocument = gql`
+  query ProxyActionStatus($proxyActionId: ProxyActionId!) {
+    proxyActionStatus(proxyActionId: $proxyActionId) {
+      ... on ProxyActionStatusResult {
+        txId
+        status
+      }
+      ... on ProxyActionError {
+        reason
+      }
+    }
+  }
+`
+
+/**
+ * __useProxyActionStatusQuery__
+ *
+ * To run a query within a React component, call `useProxyActionStatusQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProxyActionStatusQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProxyActionStatusQuery({
+ *   variables: {
+ *      proxyActionId: // value for 'proxyActionId'
+ *   },
+ * });
+ */
+export function useProxyActionStatusQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ProxyActionStatusQuery,
+    ProxyActionStatusQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    ProxyActionStatusQuery,
+    ProxyActionStatusQueryVariables
+  >(ProxyActionStatusDocument, options)
+}
+export function useProxyActionStatusLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ProxyActionStatusQuery,
+    ProxyActionStatusQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    ProxyActionStatusQuery,
+    ProxyActionStatusQueryVariables
+  >(ProxyActionStatusDocument, options)
+}
+export type ProxyActionStatusQueryHookResult = ReturnType<
+  typeof useProxyActionStatusQuery
+>
+export type ProxyActionStatusLazyQueryHookResult = ReturnType<
+  typeof useProxyActionStatusLazyQuery
+>
+export type ProxyActionStatusQueryResult = Apollo.QueryResult<
+  ProxyActionStatusQuery,
+  ProxyActionStatusQueryVariables
+>
+export const PublicationCollectModuleDocument = gql`
+  query PublicationCollectModule($request: PublicationQueryRequest!) {
+    publication(request: $request) {
+      ... on Post {
+        collectNftAddress
+        collectModule {
+          ...CollectFields
+        }
+      }
+    }
+  }
+  ${CollectFieldsFragmentDoc}
+`
+
+/**
+ * __usePublicationCollectModuleQuery__
+ *
+ * To run a query within a React component, call `usePublicationCollectModuleQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePublicationCollectModuleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePublicationCollectModuleQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function usePublicationCollectModuleQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    PublicationCollectModuleQuery,
+    PublicationCollectModuleQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    PublicationCollectModuleQuery,
+    PublicationCollectModuleQueryVariables
+  >(PublicationCollectModuleDocument, options)
+}
+export function usePublicationCollectModuleLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    PublicationCollectModuleQuery,
+    PublicationCollectModuleQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    PublicationCollectModuleQuery,
+    PublicationCollectModuleQueryVariables
+  >(PublicationCollectModuleDocument, options)
+}
+export type PublicationCollectModuleQueryHookResult = ReturnType<
+  typeof usePublicationCollectModuleQuery
+>
+export type PublicationCollectModuleLazyQueryHookResult = ReturnType<
+  typeof usePublicationCollectModuleLazyQuery
+>
+export type PublicationCollectModuleQueryResult = Apollo.QueryResult<
+  PublicationCollectModuleQuery,
+  PublicationCollectModuleQueryVariables
+>
+export const PublicationDetailsDocument = gql`
+  query PublicationDetails(
+    $request: PublicationQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+    $channelId: ProfileId
+  ) {
+    publication(request: $request) {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Comment {
+        ...CommentFields
+      }
+    }
+  }
+  ${PostFieldsFragmentDoc}
+  ${CommentFieldsFragmentDoc}
+`
+
+/**
+ * __usePublicationDetailsQuery__
+ *
+ * To run a query within a React component, call `usePublicationDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePublicationDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePublicationDetailsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *      reactionRequest: // value for 'reactionRequest'
+ *      channelId: // value for 'channelId'
+ *   },
+ * });
+ */
+export function usePublicationDetailsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    PublicationDetailsQuery,
+    PublicationDetailsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    PublicationDetailsQuery,
+    PublicationDetailsQueryVariables
+  >(PublicationDetailsDocument, options)
+}
+export function usePublicationDetailsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    PublicationDetailsQuery,
+    PublicationDetailsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    PublicationDetailsQuery,
+    PublicationDetailsQueryVariables
+  >(PublicationDetailsDocument, options)
+}
+export type PublicationDetailsQueryHookResult = ReturnType<
+  typeof usePublicationDetailsQuery
+>
+export type PublicationDetailsLazyQueryHookResult = ReturnType<
+  typeof usePublicationDetailsLazyQuery
+>
+export type PublicationDetailsQueryResult = Apollo.QueryResult<
+  PublicationDetailsQuery,
+  PublicationDetailsQueryVariables
+>
+export const PublicationRevenueDocument = gql`
+  query PublicationRevenue($request: PublicationRevenueQueryRequest!) {
+    publicationRevenue(request: $request) {
+      revenue {
+        total {
+          value
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __usePublicationRevenueQuery__
+ *
+ * To run a query within a React component, call `usePublicationRevenueQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePublicationRevenueQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePublicationRevenueQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function usePublicationRevenueQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    PublicationRevenueQuery,
+    PublicationRevenueQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    PublicationRevenueQuery,
+    PublicationRevenueQueryVariables
+  >(PublicationRevenueDocument, options)
+}
+export function usePublicationRevenueLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    PublicationRevenueQuery,
+    PublicationRevenueQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    PublicationRevenueQuery,
+    PublicationRevenueQueryVariables
+  >(PublicationRevenueDocument, options)
+}
+export type PublicationRevenueQueryHookResult = ReturnType<
+  typeof usePublicationRevenueQuery
+>
+export type PublicationRevenueLazyQueryHookResult = ReturnType<
+  typeof usePublicationRevenueLazyQuery
+>
+export type PublicationRevenueQueryResult = Apollo.QueryResult<
+  PublicationRevenueQuery,
+  PublicationRevenueQueryVariables
+>
+export const SearchProfilesDocument = gql`
+  query SearchProfiles($request: SearchQueryRequest!) {
+    search(request: $request) {
+      ... on ProfileSearchResult {
+        items {
+          ...ProfileFields
+        }
+      }
+    }
+  }
+  ${ProfileFieldsFragmentDoc}
+`
+
+/**
+ * __useSearchProfilesQuery__
+ *
+ * To run a query within a React component, call `useSearchProfilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchProfilesQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useSearchProfilesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    SearchProfilesQuery,
+    SearchProfilesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<SearchProfilesQuery, SearchProfilesQueryVariables>(
+    SearchProfilesDocument,
+    options
+  )
+}
+export function useSearchProfilesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SearchProfilesQuery,
+    SearchProfilesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<SearchProfilesQuery, SearchProfilesQueryVariables>(
+    SearchProfilesDocument,
+    options
+  )
+}
+export type SearchProfilesQueryHookResult = ReturnType<
+  typeof useSearchProfilesQuery
+>
+export type SearchProfilesLazyQueryHookResult = ReturnType<
+  typeof useSearchProfilesLazyQuery
+>
+export type SearchProfilesQueryResult = Apollo.QueryResult<
+  SearchProfilesQuery,
+  SearchProfilesQueryVariables
+>
+export const SearchPublicationsDocument = gql`
+  query SearchPublications(
+    $request: SearchQueryRequest!
+    $reactionRequest: ReactionFieldResolverRequest
+    $channelId: ProfileId
+  ) {
+    search(request: $request) {
+      ... on PublicationSearchResult {
+        items {
+          ... on Post {
+            ...PostFields
+          }
+          ... on Comment {
+            ...CommentFields
+          }
+        }
+        pageInfo {
+          next
+          totalCount
+        }
+      }
+    }
+  }
+  ${PostFieldsFragmentDoc}
+  ${CommentFieldsFragmentDoc}
+`
+
+/**
+ * __useSearchPublicationsQuery__
+ *
+ * To run a query within a React component, call `useSearchPublicationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchPublicationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchPublicationsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *      reactionRequest: // value for 'reactionRequest'
+ *      channelId: // value for 'channelId'
+ *   },
+ * });
+ */
+export function useSearchPublicationsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    SearchPublicationsQuery,
+    SearchPublicationsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    SearchPublicationsQuery,
+    SearchPublicationsQueryVariables
+  >(SearchPublicationsDocument, options)
+}
+export function useSearchPublicationsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SearchPublicationsQuery,
+    SearchPublicationsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    SearchPublicationsQuery,
+    SearchPublicationsQueryVariables
+  >(SearchPublicationsDocument, options)
+}
+export type SearchPublicationsQueryHookResult = ReturnType<
+  typeof useSearchPublicationsQuery
+>
+export type SearchPublicationsLazyQueryHookResult = ReturnType<
+  typeof useSearchPublicationsLazyQuery
+>
+export type SearchPublicationsQueryResult = Apollo.QueryResult<
+  SearchPublicationsQuery,
+  SearchPublicationsQueryVariables
+>
+export const SubscribersDocument = gql`
+  query Subscribers($request: FollowersRequest!) {
+    followers(request: $request) {
+      items {
+        wallet {
+          address
+          defaultProfile {
+            ...ProfileFields
+          }
+        }
+      }
+      pageInfo {
+        next
+        totalCount
+      }
+    }
+  }
+  ${ProfileFieldsFragmentDoc}
+`
+
+/**
+ * __useSubscribersQuery__
+ *
+ * To run a query within a React component, call `useSubscribersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSubscribersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSubscribersQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useSubscribersQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    SubscribersQuery,
+    SubscribersQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<SubscribersQuery, SubscribersQueryVariables>(
+    SubscribersDocument,
+    options
+  )
+}
+export function useSubscribersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SubscribersQuery,
+    SubscribersQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<SubscribersQuery, SubscribersQueryVariables>(
+    SubscribersDocument,
+    options
+  )
+}
+export type SubscribersQueryHookResult = ReturnType<typeof useSubscribersQuery>
+export type SubscribersLazyQueryHookResult = ReturnType<
+  typeof useSubscribersLazyQuery
+>
+export type SubscribersQueryResult = Apollo.QueryResult<
+  SubscribersQuery,
+  SubscribersQueryVariables
+>
+export const UserProfilesDocument = gql`
+  query UserProfiles($request: ProfileQueryRequest!) {
+    profiles(request: $request) {
+      items {
+        ...ProfileFields
+      }
+    }
+    userSigNonces {
+      lensHubOnChainSigNonce
+    }
+  }
+  ${ProfileFieldsFragmentDoc}
+`
+
+/**
+ * __useUserProfilesQuery__
+ *
+ * To run a query within a React component, call `useUserProfilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserProfilesQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useUserProfilesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    UserProfilesQuery,
+    UserProfilesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<UserProfilesQuery, UserProfilesQueryVariables>(
+    UserProfilesDocument,
+    options
+  )
+}
+export function useUserProfilesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    UserProfilesQuery,
+    UserProfilesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<UserProfilesQuery, UserProfilesQueryVariables>(
+    UserProfilesDocument,
+    options
+  )
+}
+export type UserProfilesQueryHookResult = ReturnType<
+  typeof useUserProfilesQuery
+>
+export type UserProfilesLazyQueryHookResult = ReturnType<
+  typeof useUserProfilesLazyQuery
+>
+export type UserProfilesQueryResult = Apollo.QueryResult<
+  UserProfilesQuery,
+  UserProfilesQueryVariables
+>

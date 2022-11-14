@@ -1,9 +1,8 @@
-import { useQuery } from '@apollo/client'
 import useAppStore from '@lib/store'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { HasTxHashBeenIndexedDocument } from 'src/types/lens'
+import { useHasTxHashBeenIndexedQuery } from 'src/types/lens'
 
 type Props = {
   txHash?: string
@@ -15,16 +14,13 @@ const usePendingTxn = ({ txHash, txId, isPublication }: Props) => {
   const router = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
-  const { data, loading, stopPolling } = useQuery(
-    HasTxHashBeenIndexedDocument,
-    {
-      variables: {
-        request: { txHash, txId }
-      },
-      skip: !txHash && !txHash?.length && !txId && !txId?.length,
-      pollInterval: 1000
-    }
-  )
+  const { data, loading, stopPolling } = useHasTxHashBeenIndexedQuery({
+    variables: {
+      request: { txHash, txId }
+    },
+    skip: !txHash && !txHash?.length && !txId && !txId?.length,
+    pollInterval: 1000
+  })
 
   const checkIsIndexed = useCallback(() => {
     if (data?.hasTxHashBeenIndexed?.__typename) {

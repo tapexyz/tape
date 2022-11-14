@@ -2,7 +2,7 @@ import { Tab } from '@headlessui/react'
 import { Analytics, TRACK } from '@utils/analytics'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import { FC } from 'react'
+import type { FC } from 'react'
 import {
   AiOutlineComment,
   AiOutlineInfoCircle,
@@ -11,7 +11,7 @@ import {
 import { BiMoviePlay } from 'react-icons/bi'
 import { GiMirrorMirror, GiMonkey } from 'react-icons/gi'
 import { MdOutlineAnalytics, MdOutlineSlowMotionVideo } from 'react-icons/md'
-import { Profile } from 'src/types/lens'
+import type { Profile } from 'src/types/lens'
 
 import About from './About'
 import ChannelBytes from './ChannelBytes'
