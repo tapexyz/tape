@@ -69,6 +69,7 @@ const ModulePermissions = () => {
     },
     onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message ?? error?.message)
+      setLoadingModule('')
     }
   })
 
