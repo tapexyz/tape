@@ -10,9 +10,8 @@ import {
 } from '@utils/constants'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
-import type { PaginatedResultInfo } from 'src/types/lens'
 import {
   PublicationSortCriteria,
   PublicationTypes,
@@ -35,33 +34,33 @@ const request = {
 const Bytes = () => {
   const router = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const [bytes, setBytes] = useState<LenstubePublication[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const [singleByte, setSingleByte] = useState<LenstubePublication>()
 
-  const [fetchPublication, { loading: singleByteLoading }] =
+  const [fetchPublication, { data: singleByte, loading: singleByteLoading }] =
     usePublicationDetailsLazyQuery()
 
-  const [fetchAllBytes, { loading, error, fetchMore }] = useExploreLazyQuery({
-    variables: {
-      request,
-      reactionRequest: selectedChannel
-        ? { profileId: selectedChannel?.id }
-        : null,
-      channelId: selectedChannel?.id ?? null
-    },
-    onCompleted: (data) => {
-      setPageInfo(data?.explorePublications?.pageInfo)
-      const items = data?.explorePublications?.items as LenstubePublication[]
-      setBytes(items)
-      const publicationId = router.query.id
-      if (!publicationId) {
-        router.push(`/bytes/?id=${items[0]?.id}`, undefined, {
-          shallow: true
-        })
+  const [fetchAllBytes, { data, loading, error, fetchMore }] =
+    useExploreLazyQuery({
+      variables: {
+        request,
+        reactionRequest: selectedChannel
+          ? { profileId: selectedChannel?.id }
+          : null,
+        channelId: selectedChannel?.id ?? null
+      },
+      onCompleted: (data) => {
+        const items = data?.explorePublications?.items as LenstubePublication[]
+        const publicationId = router.query.id
+        if (!publicationId) {
+          router.push(`/bytes/?id=${items[0]?.id}`, undefined, {
+            shallow: true
+          })
+        }
       }
-    }
-  })
+    })
+
+  const bytes = data?.explorePublications?.items as LenstubePublication[]
+  const pageInfo = data?.explorePublications?.pageInfo
+  const singleBytePublication = singleByte?.publication as LenstubePublication
 
   const fetchSingleByte = async () => {
     const publicationId = router.query.id
@@ -74,10 +73,7 @@ const Bytes = () => {
           : null,
         channelId: selectedChannel?.id ?? null
       },
-      onCompleted: (data) => {
-        setSingleByte(data.publication as LenstubePublication)
-        fetchAllBytes()
-      }
+      onCompleted: () => fetchAllBytes()
     })
   }
 
@@ -90,21 +86,14 @@ const Bytes = () => {
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              ...request,
-              cursor: pageInfo?.next
-            }
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            cursor: pageInfo?.next
           }
-        })
-        setPageInfo(data?.explorePublications?.pageInfo)
-        setBytes([
-          ...bytes,
-          ...(data?.explorePublications?.items as LenstubePublication[])
-        ])
-      } catch {}
+        }
+      })
     }
   })
 
@@ -130,7 +119,7 @@ const Bytes = () => {
       </Head>
       <MetaTags title="Bytes" />
       <div className="md:h-[calc(100vh-70px)] h-screen overflow-y-scroll no-scrollbar snap-y snap-mandatory scroll-smooth">
-        {singleByte && <ByteVideo video={singleByte} />}
+        {singleByte && <ByteVideo video={singleBytePublication} />}
         {bytes?.map((video: LenstubePublication) => (
           <ByteVideo video={video} key={`${video?.id}_${video.createdAt}`} />
         ))}
