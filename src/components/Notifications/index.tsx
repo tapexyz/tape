@@ -201,7 +201,7 @@ const Notifications = () => {
             </Tab>
           </Tab.List>
           {totalCount && Boolean(totalCount) ? (
-            <div className="text-right">
+            <div className="text-right hidden md:block">
               <span className="text-xs opacity-50">
                 ({formatNumber(totalCount)})
               </span>
