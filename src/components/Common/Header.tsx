@@ -5,7 +5,6 @@ import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
 import { LENS_CUSTOM_FILTERS } from '@utils/constants'
-import { CREATOR_VIDEO_CATEGORIES } from '@utils/data/categories'
 import { EXPLORE, FEED, HOME, NOTIFICATIONS } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -18,6 +17,7 @@ import Login from './Auth/Login'
 import BellOutline from './Icons/BellOutline'
 import SearchOutline from './Icons/SearchOutline'
 import GlobalSearchBar from './Search/GlobalSearchBar'
+import TagFilters from './TagFilters'
 
 type Props = {
   className?: string
@@ -30,8 +30,6 @@ const Header: FC<Props> = ({ className }) => {
     pathname === HOME || pathname === EXPLORE || pathname === FEED
 
   const hasNewNotification = useAppStore((state) => state.hasNewNotification)
-  const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-  const setActiveTagFilter = useAppStore((state) => state.setActiveTagFilter)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const notificationCount = usePersistStore((state) => state.notificationCount)
@@ -113,37 +111,7 @@ const Header: FC<Props> = ({ className }) => {
           </div>
         </div>
 
-        {showFilter && (
-          <div className="flex px-2 overflow-x-auto touch-pan-x no-scrollbar pt-4 space-x-2 ultrawide:max-w-[110rem] mx-auto">
-            <button
-              type="button"
-              onClick={() => setActiveTagFilter('all')}
-              className={clsx(
-                'px-3.5 capitalize py-1 text-xs border border-gray-200 dark:border-gray-700 rounded-full',
-                activeTagFilter === 'all'
-                  ? 'bg-black text-white'
-                  : 'dark:bg-gray-800 bg-gray-100'
-              )}
-            >
-              All
-            </button>
-            {CREATOR_VIDEO_CATEGORIES.map((category) => (
-              <button
-                type="button"
-                onClick={() => setActiveTagFilter(category.tag)}
-                key={category.tag}
-                className={clsx(
-                  'px-3.5 capitalize py-1 text-xs border border-gray-200 dark:border-gray-700 rounded-full whitespace-nowrap',
-                  activeTagFilter === category.tag
-                    ? 'bg-black text-white'
-                    : 'dark:bg-gray-800 bg-gray-100'
-                )}
-              >
-                {category.name}
-              </button>
-            ))}
-          </div>
-        )}
+        {showFilter && <TagFilters />}
       </div>
 
       <Modal

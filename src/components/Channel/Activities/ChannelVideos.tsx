@@ -33,7 +33,6 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
     variables: {
       request
     },
-    fetchPolicy: 'network-only',
     skip: !channel?.id
   })
 
