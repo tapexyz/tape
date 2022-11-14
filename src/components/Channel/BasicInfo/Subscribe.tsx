@@ -1,6 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
@@ -107,8 +106,8 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
         })
         if (data?.broadcast?.__typename === 'RelayError')
           writeSubscribe?.({ recklesslySetUnpreparedArgs: [args] })
-      } catch (error) {
-        logger.error('[Error Subscribe Typed Data]', error)
+      } catch {
+        setLoading(false)
       }
     },
     onError

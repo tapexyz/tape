@@ -13,18 +13,16 @@ type Props = {
   channel: Profile
 }
 
-const request = {
-  limit: 30,
-  chainIds: [POLYGON_CHAIN_ID]
-}
-
 const CollectedNFTs: FC<Props> = ({ channel }) => {
+  const request = {
+    limit: 30,
+    chainIds: [POLYGON_CHAIN_ID],
+    ownerAddress: channel.ownedBy
+  }
+
   const { data, loading, error, fetchMore } = useProfileNfTsQuery({
     variables: {
-      request: {
-        ...request,
-        ownerAddress: channel.ownedBy
-      }
+      request
     }
   })
 
@@ -38,7 +36,6 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
         variables: {
           request: {
             ...request,
-            ownerAddress: channel.ownedBy,
             cursor: pageInfo?.next
           }
         }

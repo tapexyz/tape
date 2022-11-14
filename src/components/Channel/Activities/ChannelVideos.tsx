@@ -2,11 +2,7 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import {
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@utils/constants'
+import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@utils/constants'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -28,7 +24,6 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
     limit: 16,
     metadata: { mainContentFocus: [PublicationMainFocus.Video] },
     customFilters: LENS_CUSTOM_FILTERS,
-    sources: [LENSTUBE_APP_ID],
     profileId: channel?.id
   }
 
