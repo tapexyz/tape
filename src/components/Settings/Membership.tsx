@@ -4,7 +4,6 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { zodResolver } from '@hookform/resolvers/zod'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import {
   ERROR_MESSAGE,
@@ -154,9 +153,8 @@ const Membership = ({ channel }: Props) => {
           })
           if (data?.broadcast?.__typename === 'RelayError')
             writeFollow?.({ recklesslySetUnpreparedArgs: [args] })
-        } catch (error) {
+        } catch {
           setLoading(false)
-          logger.error('[Error Set Membership]', error)
         }
       },
       onError

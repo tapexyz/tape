@@ -1,4 +1,3 @@
-import logger from '@lib/logger'
 import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
@@ -56,9 +55,8 @@ const InputMentions: FC<Props> = ({
         }))
         callback(channels)
       }
-    } catch (error) {
+    } catch {
       callback([])
-      logger.error('[Error Failed to fetch channel suggestions]', error)
     }
   }
 

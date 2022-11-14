@@ -3,7 +3,6 @@ import CollectOutline from '@components/Common/Icons/CollectOutline'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
@@ -121,9 +120,8 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
         if (data?.broadcast?.__typename === 'RelayError') {
           writeCollectWithSig?.({ recklesslySetUnpreparedArgs: [args] })
         }
-      } catch (error) {
+      } catch {
         setLoading(false)
-        logger.error('[Error Collect Video]', error)
       }
     },
     onError

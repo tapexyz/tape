@@ -177,8 +177,8 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         })
         if (data?.broadcast?.__typename === 'RelayError')
           writeComment?.({ recklesslySetUnpreparedArgs: [args] })
-      } catch (error) {
-        logger.error('[Error New Comment Typed Data]', error)
+      } catch {
+        setLoading(false)
       }
     },
     onError

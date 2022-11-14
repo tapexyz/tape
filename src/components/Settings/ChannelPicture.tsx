@@ -1,6 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Loader } from '@components/UIElements/Loader'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import {
   ERROR_MESSAGE,
@@ -109,9 +108,8 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           })
           if (data?.broadcast?.__typename === 'RelayError')
             writePfpUri?.({ recklesslySetUnpreparedArgs: [args] })
-        } catch (error) {
+        } catch {
           setLoading(false)
-          logger.error('[Error Set Pfp Typed Data]', error)
         }
       },
       onError
@@ -151,7 +149,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         await createViaDispatcher(request)
       } catch (error) {
         onError(error as CustomErrorWithData)
-        logger.error('[Error Pfp Upload]', error)
       }
     }
   }

@@ -1,7 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { LENSHUB_PROXY_ADDRESS } from '@utils/constants'
 import clearLocalStorage from '@utils/functions/clearLocalStorage'
@@ -71,8 +70,8 @@ const DangerZone = () => {
         const { v, r, s } = utils.splitSignature(signature)
         const sig = { v, r, s, deadline: typedData.value.deadline }
         writeDeleteProfile?.({ recklesslySetUnpreparedArgs: [tokenId, sig] })
-      } catch (error) {
-        logger.error('[Error Delete Channel Typed Data]', error)
+      } catch {
+        setLoading(false)
       }
     },
     onError

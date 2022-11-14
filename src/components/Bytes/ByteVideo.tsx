@@ -49,9 +49,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
         videoRef.current?.pause()
         setIsPlaying(false)
       }
-    } catch (error) {
-      logger.error('[Error Play Byte]', error)
-    }
+    } catch {}
   }
 
   const { observe } = useInView({
@@ -68,9 +66,8 @@ const ByteVideo: FC<Props> = ({ video }) => {
       videoRef.current
         ?.play()
         .then(() => setIsPlaying(true))
-        .catch((e) => {
+        .catch(() => {
           setIsPlaying(false)
-          logger.error('[Error AutoPlay Byte]', e)
         })
     }
   })

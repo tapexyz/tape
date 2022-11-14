@@ -177,8 +177,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         })
         if (data?.broadcast?.__typename === 'RelayError')
           writeComment?.({ recklesslySetUnpreparedArgs: [args] })
-      } catch (error) {
-        logger.error('[Error Create Tip Comment Typed Data]', error)
+      } catch {
+        setLoading(false)
       }
     },
     onError
@@ -253,9 +253,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         return signTypedData(request)
       }
       await createViaDispatcher(request)
-    } catch (error) {
-      logger.error('[Error Store & Tip Video]', error)
-    }
+    } catch {}
   }
 
   const onSendTip = async () => {

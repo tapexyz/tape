@@ -1,6 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Tooltip from '@components/UIElements/Tooltip'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
@@ -111,9 +110,8 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
         })
         if (data?.broadcast?.__typename === 'RelayError')
           mirrorWithSig?.({ recklesslySetUnpreparedArgs: [args] })
-      } catch (error) {
+      } catch {
         setLoading(false)
-        logger.error('[Error Mirror Video Typed Data]', error)
       }
     },
     onError

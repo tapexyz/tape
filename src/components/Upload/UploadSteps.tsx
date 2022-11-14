@@ -205,9 +205,7 @@ const UploadSteps = () => {
         })
         if (data?.broadcast?.__typename === 'RelayError')
           writePostContract?.({ recklesslySetUnpreparedArgs: [args] })
-      } catch (error) {
-        logger.error('[Error Post Video Typed Data]', error)
-      }
+      } catch {}
     },
     onError
   })

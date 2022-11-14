@@ -1,7 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
@@ -121,8 +120,8 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
         })
         if (data?.broadcast.__typename === 'RelayError')
           writeJoinChannel?.({ recklesslySetUnpreparedArgs: [args] })
-      } catch (error) {
-        logger.error('[Error Join Channel Typed Data]', error)
+      } catch {
+        setLoading(false)
       }
     },
     onError

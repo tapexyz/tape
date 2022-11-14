@@ -1,6 +1,5 @@
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
 import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
@@ -95,9 +94,8 @@ const ModulePermissions = () => {
           data: generated?.data
         }
       })
-    } catch (error) {
+    } catch {
       setLoadingModule('')
-      logger.error('[Error Update Permission]', error)
     }
   }
 

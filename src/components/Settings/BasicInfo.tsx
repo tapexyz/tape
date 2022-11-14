@@ -5,7 +5,6 @@ import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { Analytics, TRACK } from '@utils/analytics'
 import {
@@ -165,9 +164,8 @@ const BasicInfo = ({ channel }: Props) => {
           })
           if (data?.broadcast?.__typename === 'RelayError')
             writeMetaData?.({ recklesslySetUnpreparedArgs: [args] })
-        } catch (error) {
+        } catch {
           setLoading(false)
-          logger.error('[Error Set Basic info Typed Data]', error)
         }
       },
       onError
@@ -243,9 +241,8 @@ const BasicInfo = ({ channel }: Props) => {
         return signTypedData(request)
       }
       createViaDispatcher(request)
-    } catch (error) {
+    } catch {
       setLoading(false)
-      logger.error('[Error Store & Save Basic info]', error)
     }
   }
 
