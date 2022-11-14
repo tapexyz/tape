@@ -34,6 +34,7 @@ const ModulePermissions = () => {
     mode: 'recklesslyUnprepared',
     onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message ?? error?.message)
+      setLoadingModule('')
     }
   })
 
