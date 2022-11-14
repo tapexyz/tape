@@ -1,4 +1,5 @@
 import Alert from '@components/Common/Alert'
+import CommentOutline from '@components/Common/Icons/CommentOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -10,7 +11,6 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import { AiOutlineComment } from 'react-icons/ai'
 import { useProfileCommentsQuery } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
@@ -80,7 +80,7 @@ const VideoComments: FC<Props> = ({ video }) => {
     <div className="pb-4">
       <div className="flex items-center justify-between">
         <h1 className="flex items-center my-4 space-x-2 text-lg">
-          <AiOutlineComment />
+          <CommentOutline className="w-4 h-4" />
           <span className="font-semibold">Comments</span>
           {data?.publications?.pageInfo.totalCount ? (
             <span className="text-sm">

@@ -63,7 +63,7 @@ const VideoOptions = ({
         <div
           onClick={() => Analytics.track(TRACK.CLICK_VIDEO_OPTIONS)}
           className={clsx(
-            'p-1 text-white md:text-inherit group-hover:visible',
+            'py-1 text-white md:text-inherit group-hover:visible',
             {
               'lg:invisible': showOnHover
             }

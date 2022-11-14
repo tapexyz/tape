@@ -67,7 +67,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
           ) : null}
         </div>
       </Link>
-      <div className="p-2">
+      <div className="py-2">
         <div className="flex items-start space-x-2.5">
           <Link
             href={`/${commentedOn.profile?.handle}`}

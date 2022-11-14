@@ -68,7 +68,7 @@ const VideoCard: FC<Props> = ({ video }) => {
               <ThumbnailOverlays video={video} />
             </div>
           </Link>
-          <div className="p-2">
+          <div className="py-2">
             <div className="flex items-start space-x-2.5">
               <Link href={`/watch/${video.id}`} className="flex-none mt-0.5">
                 <img

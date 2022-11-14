@@ -45,7 +45,7 @@ const NotificationTrigger = () => {
   }, [selectedChannel, notificationsData])
 
   const onClickNotification = () => {
-    Analytics.track(TRACK.CLICK_NOTIFICATIONS)
+    Analytics.track(TRACK.NOTIFICATIONS.CLICK_NOTIFICATIONS)
     setNotificationCount(
       notificationsData?.notifications?.pageInfo?.totalCount as number
     )

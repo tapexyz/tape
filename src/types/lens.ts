@@ -6198,7 +6198,11 @@ export type NotificationsQuery = {
             | { __typename?: 'Post'; id: any }
         }
     >
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null }
+    pageInfo: {
+      __typename?: 'PaginatedResultInfo'
+      next?: any | null
+      totalCount?: number | null
+    }
   }
 }
 
@@ -11069,6 +11073,7 @@ export const NotificationsDocument = gql`
       }
       pageInfo {
         next
+        totalCount
       }
     }
   }
