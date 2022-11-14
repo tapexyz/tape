@@ -7,7 +7,8 @@ import { Analytics, TRACK } from '@utils/analytics'
 import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
 import clearLocalStorage from '@utils/functions/clearLocalStorage'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import { LENSTUBE_STATS } from '@utils/url-path'
+import { LENSTUBE_STATS, SETTINGS } from '@utils/url-path'
+import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -201,16 +202,15 @@ const UserMenu = () => {
                   </span>
                 </button>
               )}
-              <button
-                type="button"
+              <Link
+                href={SETTINGS}
                 className="flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                onClick={() => setShowCreateChannel(true)}
               >
                 <CogOutline className="w-4 h-4" />
                 <span className="truncate whitespace-nowrap">
                   Channel Settings
                 </span>
-              </button>
+              </Link>
               <button
                 type="button"
                 className="flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
