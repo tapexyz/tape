@@ -1,3 +1,5 @@
+import ExternalOutline from '@components/Common/Icons/ExternalOutline'
+import TagOutline from '@components/Common/Icons/TagOutline'
 import ArweaveExplorerLink from '@components/Common/Links/ArweaveExplorerLink'
 import IPFSLink from '@components/Common/Links/IPFSLink'
 import TokenExplorerLink from '@components/Common/Links/TokenExplorerLink'
@@ -7,8 +9,6 @@ import getMetadataHash from '@utils/functions/getMetadataHash'
 import { getIsIPFSUrl } from '@utils/functions/getVideoUrl'
 import type { FC } from 'react'
 import React from 'react'
-import { AiOutlineTag } from 'react-icons/ai'
-import { BiLinkExternal } from 'react-icons/bi'
 import type { LenstubePublication } from 'src/types/local'
 
 type Props = {
@@ -22,7 +22,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
     <div className="flex flex-wrap items-center space-x-1 opacity-80">
       {video?.metadata?.tags[0] && (
         <div className="flex items-center space-x-1 text-sm">
-          <AiOutlineTag />
+          <TagOutline className="w-4 h-4" />
           <span className="whitespace-nowrap">
             {getCategoryName(video.metadata.tags[0])}
           </span>
@@ -37,7 +37,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
             className="flex items-center space-x-1"
           >
             <div className="text-sm whitespace-nowrap">View Metadata</div>
-            <BiLinkExternal className="text-sm" />
+            <ExternalOutline className="w-3.5 h-3.5" />
           </div>
         </IPFSLink>
       ) : (
@@ -47,7 +47,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
             className="flex items-center space-x-1"
           >
             <div className="text-sm whitespace-nowrap">View Metadata</div>
-            <BiLinkExternal className="text-sm" />
+            <ExternalOutline className="w-3.5 h-3.5" />
           </div>
         </ArweaveExplorerLink>
       )}
@@ -60,7 +60,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
           <TokenExplorerLink address={video.collectNftAddress}>
             <div className="flex items-center space-x-1">
               <div className="text-sm whitespace-nowrap">View Token</div>
-              <BiLinkExternal className="text-sm" />
+              <ExternalOutline className="w-3.5 h-3.5" />
             </div>
           </TokenExplorerLink>
         </div>

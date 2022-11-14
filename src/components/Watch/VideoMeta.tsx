@@ -1,12 +1,12 @@
 import CollectorsList from '@components/Common/CollectorsList'
+import CollectOutline from '@components/Common/Icons/CollectOutline'
+import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import MirroredList from '@components/Common/MirroredList'
 import Modal from '@components/UIElements/Modal'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { FiRepeat } from 'react-icons/fi'
-import { HiOutlineCollection } from 'react-icons/hi'
 import type { LenstubePublication } from 'src/types/local'
 
 dayjs.extend(relativeTime)
@@ -45,7 +45,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           onClick={() => setShowCollectsModal(true)}
           className="flex items-center space-x-1 outline-none"
         >
-          <HiOutlineCollection className="text-xs" />
+          <CollectOutline className="w-3 h-3" />
           <span>{video.stats?.totalAmountOfCollects} collects</span>
         </button>
         <span className="px-1 middot" />
@@ -54,7 +54,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           onClick={() => setShowMirrorsModal(true)}
           className="flex items-center space-x-1 outline-none"
         >
-          <FiRepeat className="text-xs" />
+          <MirrorOutline className="w-3 h-3" />
           <span>{video.stats?.totalAmountOfMirrors} mirrors</span>
         </button>
       </div>

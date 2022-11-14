@@ -190,7 +190,7 @@ const VideoPlayer: FC<Props> = ({
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
 
   return (
-    <div className={clsx('overflow-hidden rounded-xl', wrapperClassName)}>
+    <div className={clsx('overflow-hidden md:rounded-xl', wrapperClassName)}>
       {sensitiveWarning ? (
         <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
       ) : (
