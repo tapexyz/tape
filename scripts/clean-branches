@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Deleting all branches except 'main', 'testnet' and 'stage' 🗑"
+git branch | grep -v "main" | grep -v "testnet" | grep -v "stage" | xargs git branch -D
+echo "Branches deleted 🎉"
