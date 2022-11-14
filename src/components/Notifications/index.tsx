@@ -1,4 +1,5 @@
 import BellOutline from '@components/Common/Icons/BellOutline'
+import CommentOutline from '@components/Common/Icons/CommentOutline'
 import LikeOutline from '@components/Common/Icons/LikeOutline'
 import MentionOutline from '@components/Common/Icons/MentionOutline'
 import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
@@ -177,7 +178,7 @@ const Notifications = () => {
               )
             }
           >
-            <SubscribeOutline className="w-3.5 h-3.5" />
+            <CommentOutline className="w-3.5 h-3.5" />
             <span>Comments</span>
           </Tab>
           <Tab
