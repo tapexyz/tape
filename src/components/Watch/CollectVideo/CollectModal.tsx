@@ -14,8 +14,10 @@ import Link from 'next/link'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import type { ApprovedAllowanceAmount } from 'src/types/lens'
-import { useApprovedModuleAllowanceAmountQuery } from 'src/types/lens'
-import { usePublicationRevenueQuery } from 'src/types/lens'
+import {
+  useApprovedModuleAllowanceAmountQuery,
+  usePublicationRevenueQuery
+} from 'src/types/lens'
 import type {
   LenstubeCollectModule,
   LenstubePublication

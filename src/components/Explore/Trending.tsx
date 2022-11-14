@@ -12,8 +12,12 @@ import {
 } from '@utils/constants'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
-import { PublicationMainFocus, useExploreQuery } from 'src/types/lens'
-import { PublicationSortCriteria, PublicationTypes } from 'src/types/lens'
+import {
+  PublicationMainFocus,
+  PublicationSortCriteria,
+  PublicationTypes,
+  useExploreQuery
+} from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 const Trending = () => {

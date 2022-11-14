@@ -39,10 +39,12 @@ import type {
   MediaSet,
   Profile
 } from 'src/types/lens'
-import { useBroadcastMutation } from 'src/types/lens'
-import { useCreateSetProfileMetadataTypedDataMutation } from 'src/types/lens'
-import { useCreateSetProfileMetadataViaDispatcherMutation } from 'src/types/lens'
-import { PublicationMetadataDisplayTypes } from 'src/types/lens'
+import {
+  PublicationMetadataDisplayTypes,
+  useBroadcastMutation,
+  useCreateSetProfileMetadataTypedDataMutation,
+  useCreateSetProfileMetadataViaDispatcherMutation
+} from 'src/types/lens'
 import type { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'

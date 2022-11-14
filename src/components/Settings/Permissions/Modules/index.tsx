@@ -7,9 +7,13 @@ import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { ApprovedAllowanceAmount, Erc20 } from 'src/types/lens'
-import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'src/types/lens'
-import { useApprovedModuleAllowanceAmountQuery } from 'src/types/lens'
-import { CollectModules, FollowModules, ReferenceModules } from 'src/types/lens'
+import {
+  CollectModules,
+  FollowModules,
+  ReferenceModules,
+  useApprovedModuleAllowanceAmountQuery,
+  useGenerateModuleCurrencyApprovalDataLazyQuery
+} from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 

@@ -22,9 +22,11 @@ import type {
   Profile,
   UpdateProfileImageRequest
 } from 'src/types/lens'
-import { useCreateSetProfileImageUriTypedDataMutation } from 'src/types/lens'
-import { useBroadcastMutation } from 'src/types/lens'
-import { useCreateSetProfileImageUriViaDispatcherMutation } from 'src/types/lens'
+import {
+  useBroadcastMutation,
+  useCreateSetProfileImageUriTypedDataMutation,
+  useCreateSetProfileImageUriViaDispatcherMutation
+} from 'src/types/lens'
 import type { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 

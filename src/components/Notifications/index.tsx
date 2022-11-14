@@ -14,8 +14,10 @@ import clsx from 'clsx'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import type { Notification } from 'src/types/lens'
-import { useNotificationCountQuery } from 'src/types/lens'
-import { useNotificationsQuery } from 'src/types/lens'
+import {
+  useNotificationCountQuery,
+  useNotificationsQuery
+} from 'src/types/lens'
 
 import CollectedNotification from './Collected'
 import CommentedNotification from './Commented'

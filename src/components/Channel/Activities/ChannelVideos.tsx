@@ -11,8 +11,11 @@ import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import type { Profile } from 'src/types/lens'
-import { useProfilePostsQuery } from 'src/types/lens'
-import { PublicationMainFocus, PublicationTypes } from 'src/types/lens'
+import {
+  PublicationMainFocus,
+  PublicationTypes,
+  useProfilePostsQuery
+} from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 type Props = {

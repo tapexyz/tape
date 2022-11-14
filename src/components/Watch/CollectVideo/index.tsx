@@ -20,11 +20,11 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CreateCollectBroadcastItemResult } from 'src/types/lens'
 import {
+  useBroadcastMutation,
   useCreateCollectTypedDataMutation,
-  useProxyActionMutation
+  useProxyActionMutation,
+  usePublicationCollectModuleQuery
 } from 'src/types/lens'
-import { useBroadcastMutation } from 'src/types/lens'
-import { usePublicationCollectModuleQuery } from 'src/types/lens'
 import type {
   CustomErrorWithData,
   LenstubeCollectModule,

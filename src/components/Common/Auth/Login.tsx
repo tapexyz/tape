@@ -6,9 +6,11 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import type { Profile } from 'src/types/lens'
-import { useAllProfilesLazyQuery } from 'src/types/lens'
-import { useChallengeLazyQuery } from 'src/types/lens'
-import { useAuthenticateMutation } from 'src/types/lens'
+import {
+  useAllProfilesLazyQuery,
+  useAuthenticateMutation,
+  useChallengeLazyQuery
+} from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useSignMessage } from 'wagmi'
 

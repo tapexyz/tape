@@ -7,8 +7,7 @@ import { useId } from 'react'
 import type { SuggestionDataItem } from 'react-mentions'
 import { Mention, MentionsInput } from 'react-mentions'
 import type { Profile } from 'src/types/lens'
-import { useSearchProfilesLazyQuery } from 'src/types/lens'
-import { SearchRequestTypes } from 'src/types/lens'
+import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'src/types/lens'
 
 interface Props extends ComponentProps<'textarea'> {
   label?: string

@@ -28,12 +28,12 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import type { CreatePublicCommentRequest } from 'src/types/lens'
-import { useCreateCommentTypedDataMutation } from 'src/types/lens'
-import { useCreateCommentViaDispatcherMutation } from 'src/types/lens'
-import { useBroadcastMutation } from 'src/types/lens'
 import {
   PublicationMainFocus,
-  PublicationMetadataDisplayTypes
+  PublicationMetadataDisplayTypes,
+  useBroadcastMutation,
+  useCreateCommentTypedDataMutation,
+  useCreateCommentViaDispatcherMutation
 } from 'src/types/lens'
 import type { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'

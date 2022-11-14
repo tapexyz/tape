@@ -25,10 +25,12 @@ import type {
   FeeFollowModuleSettings,
   Profile
 } from 'src/types/lens'
-import { useCreateSetFollowModuleTypedDataMutation } from 'src/types/lens'
-import { useProfileFollowModuleQuery } from 'src/types/lens'
-import { useBroadcastMutation } from 'src/types/lens'
-import { useEnabledModuleCurrrenciesQuery } from 'src/types/lens'
+import {
+  useBroadcastMutation,
+  useCreateSetFollowModuleTypedDataMutation,
+  useEnabledModuleCurrrenciesQuery,
+  useProfileFollowModuleQuery
+} from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'

@@ -8,8 +8,11 @@ import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
 import type { FeedItem } from 'src/types/lens'
-import { useFeedQuery } from 'src/types/lens'
-import { FeedEventItemType, PublicationMainFocus } from 'src/types/lens'
+import {
+  FeedEventItemType,
+  PublicationMainFocus,
+  useFeedQuery
+} from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 const HomeFeed = () => {

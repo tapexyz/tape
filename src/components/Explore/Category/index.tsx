@@ -14,11 +14,11 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
-import { useExploreQuery } from 'src/types/lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
-  PublicationTypes
+  PublicationTypes,
+  useExploreQuery
 } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 

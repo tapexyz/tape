@@ -17,6 +17,7 @@
   "extends": ["next", "next/core-web-vitals"],
   "rules": {
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "import/no-duplicates": ["error", { "considerQueryString": true }],
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
     "react/jsx-no-useless-fragment": 2,

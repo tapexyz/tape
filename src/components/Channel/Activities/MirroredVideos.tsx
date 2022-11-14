@@ -6,8 +6,11 @@ import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@utils/constants'
 import type { FC } from 'react'
 import { useInView } from 'react-cool-inview'
 import type { Profile } from 'src/types/lens'
-import { useProfileMirrorsQuery } from 'src/types/lens'
-import { PublicationMainFocus, PublicationTypes } from 'src/types/lens'
+import {
+  PublicationMainFocus,
+  PublicationTypes,
+  useProfileMirrorsQuery
+} from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 type Props = {

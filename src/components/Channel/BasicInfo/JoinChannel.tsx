@@ -16,11 +16,13 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { FeeFollowModuleSettings, Profile } from 'src/types/lens'
-import { useBroadcastMutation } from 'src/types/lens'
-import { useCreateFollowTypedDataMutation } from 'src/types/lens'
-import { useApprovedModuleAllowanceAmountQuery } from 'src/types/lens'
-import { useProfileFollowModuleQuery } from 'src/types/lens'
-import { FollowModules } from 'src/types/lens'
+import {
+  FollowModules,
+  useApprovedModuleAllowanceAmountQuery,
+  useBroadcastMutation,
+  useCreateFollowTypedDataMutation,
+  useProfileFollowModuleQuery
+} from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
 

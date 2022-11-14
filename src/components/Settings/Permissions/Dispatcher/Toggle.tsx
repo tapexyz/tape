@@ -17,9 +17,11 @@ import type {
   CreateSetDispatcherBroadcastItemResult,
   Profile
 } from 'src/types/lens'
-import { useProfileLazyQuery } from 'src/types/lens'
-import { useBroadcastMutation } from 'src/types/lens'
-import { useCreateSetDispatcherTypedDataMutation } from 'src/types/lens'
+import {
+  useBroadcastMutation,
+  useCreateSetDispatcherTypedDataMutation,
+  useProfileLazyQuery
+} from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 

@@ -16,8 +16,11 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CreateFollowBroadcastItemResult, Profile } from 'src/types/lens'
-import { useCreateFollowTypedDataMutation } from 'src/types/lens'
-import { useBroadcastMutation, useProxyActionMutation } from 'src/types/lens'
+import {
+  useBroadcastMutation,
+  useCreateFollowTypedDataMutation,
+  useProxyActionMutation
+} from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
 

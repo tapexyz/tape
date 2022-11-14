@@ -15,8 +15,10 @@ import type {
   CreateUnfollowBroadcastItemResult,
   Profile
 } from 'src/types/lens'
-import { useCreateUnfollowTypedDataMutation } from 'src/types/lens'
-import { useBroadcastMutation } from 'src/types/lens'
+import {
+  useBroadcastMutation,
+  useCreateUnfollowTypedDataMutation
+} from 'src/types/lens'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useSigner, useSignTypedData } from 'wagmi'
 

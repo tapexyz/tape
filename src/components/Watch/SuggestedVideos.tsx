@@ -11,8 +11,11 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
-import { useExploreQuery } from 'src/types/lens'
-import { PublicationSortCriteria, PublicationTypes } from 'src/types/lens'
+import {
+  PublicationSortCriteria,
+  PublicationTypes,
+  useExploreQuery
+} from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
