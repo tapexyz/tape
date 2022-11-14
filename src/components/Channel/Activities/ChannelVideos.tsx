@@ -21,7 +21,7 @@ type Props = {
 const ChannelVideos: FC<Props> = ({ channel }) => {
   const request = {
     publicationTypes: [PublicationTypes.Post],
-    limit: 16,
+    limit: 32,
     metadata: { mainContentFocus: [PublicationMainFocus.Video] },
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: channel?.id
