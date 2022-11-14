@@ -50,7 +50,14 @@ export const TRACK = {
   LIKE_VIDEO: 'Like Video',
   DISLIKE_VIDEO: 'Dislike Video',
   CLICK_VIDEO_OPTIONS: 'Click Video Options',
-  CLICK_NOTIFICATIONS: 'Click Notifications',
+  NOTIFICATIONS: {
+    CLICK_NOTIFICATIONS: 'Click Notifications',
+    CLICK_MENTIONS: 'Click Mention Notifications',
+    CLICK_ALL: 'Click All Notifications',
+    CLICK_LIKES: 'Click Likes Notifications',
+    CLICK_COMMENTS: 'Click Comment Notifications',
+    CLICK_SUBSCRIPTIONS: 'Click Subscribe Notifications'
+  },
   CLICK_USER_MENU: 'Click User Menu',
   OPENED_MUTUAL_CHANNELS: 'Opened Mutual Channels',
   COLLECT: {

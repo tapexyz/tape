@@ -93,7 +93,9 @@ const Header: FC<Props> = ({ className }) => {
             {selectedChannelId ? (
               <>
                 <Link
-                  onClick={() => Analytics.track(TRACK.CLICK_NOTIFICATIONS)}
+                  onClick={() =>
+                    Analytics.track(TRACK.NOTIFICATIONS.CLICK_NOTIFICATIONS)
+                  }
                   href={NOTIFICATIONS}
                   className="relative p-1"
                 >

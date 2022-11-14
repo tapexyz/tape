@@ -1,7 +1,7 @@
 import type { SVGProps } from 'react'
 import React from 'react'
 
-const SunOutline = (props: SVGProps<SVGSVGElement>) => (
+const CommentOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
     viewBox="0 0 22 22"
@@ -17,4 +17,4 @@ const SunOutline = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-export default SunOutline
+export default CommentOutline
