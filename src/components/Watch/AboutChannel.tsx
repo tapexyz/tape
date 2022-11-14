@@ -106,7 +106,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
             </button>
           </div>
         )}
-        <div className="flex justify-end mt-4">
+        <div className="flex justify-end mt-5">
           <MetaInfo video={video} />
         </div>
       </div>
