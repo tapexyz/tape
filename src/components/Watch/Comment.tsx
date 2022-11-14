@@ -13,11 +13,13 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import React, { FC, useEffect, useState } from 'react'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiFillHeart, AiOutlinePlayCircle } from 'react-icons/ai'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
-import { Attribute, PublicationMainFocus } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { Attribute } from 'src/types/lens'
+import { PublicationMainFocus } from 'src/types/lens'
+import type { LenstubePublication } from 'src/types/local'
 
 dayjs.extend(relativeTime)
 
@@ -67,7 +69,7 @@ const Comment: FC<Props> = ({ comment }) => {
         >
           <img
             src={getProfilePicture(comment.profile, 'avatar')}
-            className="rounded-lg w-7 h-7"
+            className="rounded-full w-7 h-7"
             draggable={false}
             alt="channel picture"
           />
@@ -140,8 +142,8 @@ const Comment: FC<Props> = ({ comment }) => {
             </div>
           )}
           {!comment.hidden && (
-            <div className="mt-1">
-              <PublicationReaction iconSize="xs" publication={comment} />
+            <div className="mt-2">
+              <PublicationReaction publication={comment} />
             </div>
           )}
         </div>

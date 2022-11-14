@@ -11,9 +11,10 @@ import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import * as nsfwjs from 'nsfwjs'
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import type { ChangeEvent, FC } from 'react'
+import { useEffect, useState } from 'react'
 import { BiImageAdd } from 'react-icons/bi'
-import { IPFSUploadResult } from 'src/types/local'
+import type { IPFSUploadResult } from 'src/types/local'
 
 if (IS_MAINNET) {
   tf.enableProdMode()
@@ -147,7 +148,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 place-items-start py-0.5 gap-3">
         <label
           htmlFor="chooseThumbnail"
-          className="flex flex-col items-center justify-center flex-none w-full h-16 border border-gray-200 cursor-pointer max-w-32 rounded-xl opacity-80 focus:outline-none dark:border-gray-800"
+          className="flex flex-col items-center justify-center flex-none w-full h-16 border border-gray-300 cursor-pointer max-w-32 rounded-xl opacity-80 focus:outline-none dark:border-gray-700"
         >
           <input
             id="chooseThumbnail"

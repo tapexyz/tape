@@ -1,4 +1,4 @@
-import { WebBundlr } from '@bundlr-network/client'
+import type { WebBundlr } from '@bundlr-network/client'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -18,7 +18,7 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { MdRefresh } from 'react-icons/md'
-import { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useBalance, useSigner } from 'wagmi'
 
 const BundlrInfo = () => {

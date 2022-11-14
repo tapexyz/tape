@@ -1,5 +1,6 @@
 import clsx from 'clsx'
-import { ComponentProps, forwardRef, useId } from 'react'
+import type { ComponentProps } from 'react'
+import { forwardRef, useId } from 'react'
 
 interface Props extends ComponentProps<'textarea'> {
   label?: string
@@ -27,7 +28,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
               validationError?.length
                 ? '!border-red-500'
                 : 'focus:ring-1 focus:ring-indigo-500',
-              'bg-white text-sm px-2.5 py-2 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 outline-none disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 w-full',
+              'bg-white text-sm px-2.5 py-2 rounded-xl dark:bg-gray-900 border border-gray-300 dark:border-gray-700 outline-none disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 w-full',
               className
             )}
             ref={ref}

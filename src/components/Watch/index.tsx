@@ -1,8 +1,6 @@
-import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
 import getHlsData from '@utils/functions/getHlsData'
 import { getIsHlsSupported } from '@utils/functions/getIsHlsSupported'
@@ -11,8 +9,8 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import { PublicationDetailsDocument } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import { usePublicationDetailsQuery } from 'src/types/lens'
+import type { LenstubePublication } from 'src/types/local'
 
 import AboutChannel from './AboutChannel'
 import SuggestedVideos from './SuggestedVideos'
@@ -23,9 +21,6 @@ const VideoDetails = () => {
   const {
     query: { id, t }
   } = useRouter()
-  const addToRecentlyWatched = usePersistStore(
-    (state) => state.addToRecentlyWatched
-  )
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
   const [video, setVideo] = useState<LenstubePublication>()
@@ -55,7 +50,7 @@ const VideoDetails = () => {
     }
   }
 
-  const { data, error } = useQuery(PublicationDetailsDocument, {
+  const { data, error } = usePublicationDetailsQuery({
     variables: {
       request: { publicationId: id },
       reactionRequest: selectedChannel
@@ -83,13 +78,6 @@ const VideoDetails = () => {
     !data.publication.hidden
 
   useEffect(() => {
-    if (data?.publication?.__typename === 'Post' && video) {
-      addToRecentlyWatched(video)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [video])
-
-  useEffect(() => {
     setVideoWatchTime(Number(t))
   }, [t, setVideoWatchTime])
 
@@ -102,9 +90,11 @@ const VideoDetails = () => {
       <MetaTags title={video?.metadata?.name ?? 'Watch'} />
       {!loading && !error && video ? (
         <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
-          <div className="col-span-3 space-y-3 divide-y divide-gray-200 dark:divide-gray-900">
+          <div className="col-span-3 space-y-3.5">
             <Video video={video} />
+            <hr className="border border-gray-200 dark:border-gray-800" />
             <AboutChannel video={video} />
+            <hr className="border border-gray-200 dark:border-gray-800" />
             <VideoComments video={video} />
           </div>
           <div className="col-span-1">

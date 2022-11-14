@@ -1,22 +1,19 @@
-import { useLazyQuery, useQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
 import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
+import type { ApprovedAllowanceAmount, Erc20 } from 'src/types/lens'
 import {
-  ApprovedAllowanceAmount,
-  ApprovedModuleAllowanceAmountDocument,
   CollectModules,
-  Erc20,
   FollowModules,
-  GenerateModuleCurrencyApprovalDataDocument,
-  ReferenceModules
+  ReferenceModules,
+  useApprovedModuleAllowanceAmountQuery,
+  useGenerateModuleCurrencyApprovalDataLazyQuery
 } from 'src/types/lens'
-import { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types/local'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
 const collectModules = [
@@ -44,7 +41,7 @@ const ModulePermissions = () => {
     data,
     refetch,
     loading: gettingSettings
-  } = useQuery(ApprovedModuleAllowanceAmountDocument, {
+  } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
         currencies: [currency],
@@ -74,9 +71,8 @@ const ModulePermissions = () => {
     }
   })
 
-  const [generateAllowanceQuery] = useLazyQuery(
-    GenerateModuleCurrencyApprovalDataDocument
-  )
+  const [generateAllowanceQuery] =
+    useGenerateModuleCurrencyApprovalDataLazyQuery()
 
   const handleClick = async (isAllow: boolean, selectedModule: string) => {
     try {
@@ -98,9 +94,8 @@ const ModulePermissions = () => {
           data: generated?.data
         }
       })
-    } catch (error) {
+    } catch {
       setLoadingModule('')
-      logger.error('[Error Update Permission]', error)
     }
   }
 
@@ -119,7 +114,7 @@ const ModulePermissions = () => {
             <select
               placeholder="More about your stream"
               autoComplete="off"
-              className="bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none"
+              className="bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-300 dark:border-gray-700 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none"
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
             >

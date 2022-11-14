@@ -1,12 +1,10 @@
 import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
-import { useMutation } from '@apollo/client'
 import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { Analytics, TRACK } from '@utils/analytics'
 import {
@@ -30,20 +28,23 @@ import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import { utils } from 'ethers'
 import Link from 'next/link'
-import React, { ChangeEvent, useState } from 'react'
+import type { ChangeEvent } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
-import {
-  BroadcastDocument,
+import type {
   CreatePublicSetProfileMetadataUriRequest,
-  CreateSetProfileMetadataTypedDataDocument,
-  CreateSetProfileMetadataViaDispatcherDocument,
   MediaSet,
-  Profile,
-  PublicationMetadataDisplayTypes
+  Profile
 } from 'src/types/lens'
-import { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
+import {
+  PublicationMetadataDisplayTypes,
+  useBroadcastMutation,
+  useCreateSetProfileMetadataTypedDataMutation,
+  useCreateSetProfileMetadataViaDispatcherMutation
+} from 'src/types/lens'
+import type { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -126,23 +127,20 @@ const BasicInfo = ({ channel }: Props) => {
     onSuccess: onCompleted
   })
 
-  const [broadcast] = useMutation(BroadcastDocument, {
+  const [broadcast] = useBroadcastMutation({
     onError,
     onCompleted
   })
 
-  const [createSetProfileMetadataViaDispatcher] = useMutation(
-    CreateSetProfileMetadataViaDispatcherDocument,
-    {
+  const [createSetProfileMetadataViaDispatcher] =
+    useCreateSetProfileMetadataViaDispatcherMutation({
       onError,
       onCompleted
-    }
-  )
+    })
 
-  const [createSetProfileMetadataTypedData] = useMutation(
-    CreateSetProfileMetadataTypedDataDocument,
-    {
-      async onCompleted(data) {
+  const [createSetProfileMetadataTypedData] =
+    useCreateSetProfileMetadataTypedDataMutation({
+      onCompleted: async (data) => {
         const { typedData, id } = data.createSetProfileMetadataTypedData
         try {
           const signature = await signTypedDataAsync({
@@ -166,14 +164,12 @@ const BasicInfo = ({ channel }: Props) => {
           })
           if (data?.broadcast?.__typename === 'RelayError')
             writeMetaData?.({ recklesslySetUnpreparedArgs: [args] })
-        } catch (error) {
+        } catch {
           setLoading(false)
-          logger.error('[Error Set Basic info Typed Data]', error)
         }
       },
       onError
-    }
-  )
+    })
 
   const onCopyChannelUrl = async (value: string) => {
     await copy(value)
@@ -245,9 +241,8 @@ const BasicInfo = ({ channel }: Props) => {
         return signTypedData(request)
       }
       createViaDispatcher(request)
-    } catch (error) {
+    } catch {
       setLoading(false)
-      logger.error('[Error Store & Save Basic info]', error)
     }
   }
 
@@ -264,7 +259,7 @@ const BasicInfo = ({ channel }: Props) => {
   return (
     <form
       onSubmit={handleSubmit(onSaveBasicInfo)}
-      className="p-4 bg-white rounded-lg dark:bg-black"
+      className="p-4 bg-white rounded-lg dark:bg-theme"
     >
       <div className="relative flex-none w-full">
         {uploading && (
@@ -286,7 +281,7 @@ const BasicInfo = ({ channel }: Props) => {
         />
         <label
           htmlFor="chooseCover"
-          className="absolute p-1 px-3 text-sm bg-white rounded-lg cursor-pointer dark:bg-black bottom-2 left-2"
+          className="absolute p-1 px-3 text-sm bg-white rounded-lg cursor-pointer dark:bg-theme bottom-2 left-2"
         >
           Change
           <input

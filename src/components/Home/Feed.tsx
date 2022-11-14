@@ -1,66 +1,60 @@
-import { useQuery } from '@apollo/client'
 import VideoCard from '@components/Common/VideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { SCROLL_ROOT_MARGIN } from '@utils/constants'
-import React, { useState } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
+import type { FeedItem } from 'src/types/lens'
 import {
-  FeedDocument,
   FeedEventItemType,
-  FeedItem,
-  PaginatedResultInfo,
-  PublicationMainFocus
+  PublicationMainFocus,
+  useFeedQuery
 } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 const HomeFeed = () => {
-  const [videos, setVideos] = useState<FeedItem[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
   const request = {
     limit: 50,
     feedEventItemTypes: [FeedEventItemType.Post, FeedEventItemType.Comment],
-    metadata: { mainContentFocus: [PublicationMainFocus.Video] },
-    profileId: selectedChannel?.id
+    profileId: selectedChannel?.id,
+    metadata: {
+      tags:
+        activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
+      mainContentFocus: [PublicationMainFocus.Video]
+    }
   }
-  const { data, loading, error, fetchMore } = useQuery(FeedDocument, {
+
+  const { data, loading, error, fetchMore } = useFeedQuery({
     variables: {
       request
     },
-    skip: !selectedChannel?.id,
-    onCompleted: (data) => {
-      setPageInfo(data?.feed?.pageInfo)
-      setVideos(data?.feed?.items as FeedItem[])
-    }
+    skip: !selectedChannel?.id
   })
+
+  const videos = data?.feed?.items as FeedItem[]
+  const pageInfo = data?.feed?.pageInfo
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              cursor: pageInfo?.next,
-              ...request
-            }
+      await fetchMore({
+        variables: {
+          request: {
+            cursor: pageInfo?.next,
+            ...request
           }
-        })
-        setPageInfo(data?.feed?.pageInfo)
-        setVideos([...videos, ...(data?.feed?.items as FeedItem[])])
-      } catch (error) {
-        logger.error('[Error Fetch Feed]', error)
-      }
+        }
+      })
     }
   })
 
-  if (data?.feed?.items?.length === 0) {
+  if (videos?.length === 0) {
     return (
       <NoDataFound
         isCenter

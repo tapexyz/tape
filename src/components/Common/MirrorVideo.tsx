@@ -1,7 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation } from '@apollo/client'
 import Tooltip from '@components/UIElements/Tooltip'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
@@ -12,16 +10,19 @@ import {
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import {
-  BroadcastDocument,
+import type {
   CreateMirrorBroadcastItemResult,
-  CreateMirrorRequest,
-  CreateMirrorTypedDataDocument,
-  CreateMirrorViaDispatcherDocument
+  CreateMirrorRequest
 } from 'src/types/lens'
-import { CustomErrorWithData, LenstubePublication } from 'src/types/local'
+import {
+  useBroadcastMutation,
+  useCreateMirrorTypedDataMutation,
+  useCreateMirrorViaDispatcherMutation
+} from 'src/types/lens'
+import type { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
@@ -52,13 +53,10 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onError
   })
 
-  const [createMirrorViaDispatcher] = useMutation(
-    CreateMirrorViaDispatcherDocument,
-    {
-      onError,
-      onCompleted
-    }
-  )
+  const [createMirrorViaDispatcher] = useCreateMirrorViaDispatcherMutation({
+    onError,
+    onCompleted
+  })
 
   const { write: mirrorWithSig } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
@@ -69,13 +67,13 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onSuccess: onCompleted
   })
 
-  const [broadcast] = useMutation(BroadcastDocument, {
+  const [broadcast] = useBroadcastMutation({
     onError,
     onCompleted
   })
 
-  const [createMirrorTypedData] = useMutation(CreateMirrorTypedDataDocument, {
-    async onCompleted(data) {
+  const [createMirrorTypedData] = useCreateMirrorTypedDataMutation({
+    onCompleted: async (data) => {
       const { id, typedData } =
         data.createMirrorTypedData as CreateMirrorBroadcastItemResult
       const {
@@ -112,9 +110,8 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
         })
         if (data?.broadcast?.__typename === 'RelayError')
           mirrorWithSig?.({ recklesslySetUnpreparedArgs: [args] })
-      } catch (error) {
+      } catch {
         setLoading(false)
-        logger.error('[Error Mirror Video Typed Data]', error)
       }
     },
     onError

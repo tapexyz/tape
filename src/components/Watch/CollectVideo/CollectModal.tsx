@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import Alert from '@components/Common/Alert'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
@@ -12,13 +11,17 @@ import { formatNumber } from '@utils/functions/formatNumber'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import dayjs from 'dayjs'
 import Link from 'next/link'
-import React, { Dispatch, FC, useEffect, useState } from 'react'
+import type { Dispatch, FC } from 'react'
+import React, { useEffect, useState } from 'react'
+import type { ApprovedAllowanceAmount } from 'src/types/lens'
 import {
-  ApprovedAllowanceAmount,
-  ApprovedModuleAllowanceAmountDocument,
-  PublicationRevenueDocument
+  useApprovedModuleAllowanceAmountQuery,
+  usePublicationRevenueQuery
 } from 'src/types/lens'
-import { LenstubeCollectModule, LenstubePublication } from 'src/types/local'
+import type {
+  LenstubeCollectModule,
+  LenstubePublication
+} from 'src/types/local'
 import { useBalance } from 'wagmi'
 
 import BalanceAlert from './BalanceAlert'
@@ -65,7 +68,7 @@ const CollectModal: FC<Props> = ({
     enabled: Boolean(collectModule?.amount)
   })
 
-  const { data: revenueData } = useQuery(PublicationRevenueDocument, {
+  const { data: revenueData } = usePublicationRevenueQuery({
     variables: {
       request: {
         publicationId: video?.id
@@ -78,7 +81,7 @@ const CollectModal: FC<Props> = ({
     loading: allowanceLoading,
     data: allowanceData,
     refetch: refetchAllowance
-  } = useQuery(ApprovedModuleAllowanceAmountDocument, {
+  } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
         currencies: collectModule?.amount?.asset?.address,
@@ -88,7 +91,7 @@ const CollectModal: FC<Props> = ({
       }
     },
     skip: !collectModule?.amount?.asset?.address || !selectedChannelId,
-    onCompleted(data) {
+    onCompleted: (data) => {
       setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
     }
   })

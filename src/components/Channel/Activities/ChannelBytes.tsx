@@ -1,72 +1,51 @@
-import { useQuery } from '@apollo/client'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
-import {
-  PaginatedResultInfo,
-  Profile,
-  ProfilePostsDocument,
-  PublicationTypes
-} from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { Profile } from 'src/types/lens'
+import { PublicationTypes, useProfilePostsQuery } from 'src/types/lens'
+import type { LenstubePublication } from 'src/types/local'
 
 type Props = {
   channel: Profile
 }
 
-const request = {
-  publicationTypes: [PublicationTypes.Post],
-  limit: 16,
-  sources: [LENSTUBE_BYTES_APP_ID],
-  customFilters: LENS_CUSTOM_FILTERS
-}
-
 const ChannelBytes: FC<Props> = ({ channel }) => {
-  const [bytes, setBytes] = useState<LenstubePublication[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
-  const { data, loading, error, fetchMore } = useQuery(ProfilePostsDocument, {
-    variables: {
-      request: {
-        ...request,
-        profileId: channel?.id
-      }
-    },
-    skip: !channel?.id,
-    onCompleted(data) {
-      setPageInfo(data?.publications?.pageInfo)
-      setBytes(data?.publications?.items as LenstubePublication[])
-    }
+  const request = {
+    publicationTypes: [PublicationTypes.Post],
+    limit: 30,
+    sources: [LENSTUBE_BYTES_APP_ID],
+    customFilters: LENS_CUSTOM_FILTERS,
+    profileId: channel?.id
+  }
+
+  const { data, loading, error, fetchMore } = useProfilePostsQuery({
+    variables: { request },
+    skip: !channel?.id
   })
+
+  const bytes = data?.publications?.items as LenstubePublication[]
+  const pageInfo = data?.publications?.pageInfo
+
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              ...request,
-              profileId: channel?.id,
-              cursor: pageInfo?.next
-            }
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            cursor: pageInfo?.next
           }
-        })
-        setPageInfo(data?.publications?.pageInfo)
-        setBytes([
-          ...bytes,
-          ...(data?.publications?.items as LenstubePublication[])
-        ])
-      } catch (error) {
-        logger.error('[Error Fetch Bytes]', error)
-      }
+        }
+      })
     }
   })
 

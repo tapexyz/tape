@@ -1,4 +1,5 @@
-import mixpanel, { Dict } from 'mixpanel-browser'
+import type { Dict } from 'mixpanel-browser'
+import mixpanel from 'mixpanel-browser'
 
 import { IS_MAINNET, MIXPANEL_TOKEN } from './constants'
 
@@ -100,7 +101,6 @@ export const TRACK = {
     SETTINGS: 'Settings Page',
     WATCH: 'Watch Page',
     BYTES: 'Bytes Page',
-    NOTIFICATIONS: 'Notifications Page',
-    LIBRARY: 'Library Page'
+    NOTIFICATIONS: 'Notifications Page'
   }
 }

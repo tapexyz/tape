@@ -7,8 +7,9 @@ import { shortenAddress } from '@utils/functions/shortenAddress'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
-import React, { FC } from 'react'
-import { NewCollectNotification } from 'src/types/lens'
+import type { FC } from 'react'
+import React from 'react'
+import type { NewCollectNotification } from 'src/types/lens'
 
 dayjs.extend(relativeTime)
 
@@ -71,7 +72,7 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
             video
           </Link>
         </span>
-        <div className="flex items-center space-x-1 text-xs text-gray-400">
+        <div className="flex items-center space-x-1 text-xs text-gray-500">
           <span>{dayjs(new Date(notification?.createdAt)).fromNow()}</span>
         </div>
       </div>

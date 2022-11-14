@@ -1,6 +1,7 @@
 import { RARIBLE_MARKETPLACE_URL } from '@utils/constants'
 import Link from 'next/link'
-import React, { ReactElement } from 'react'
+import type { ReactElement } from 'react'
+import React from 'react'
 
 const TokenExplorerLink = ({
   address,

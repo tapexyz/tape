@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
@@ -14,7 +13,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { CreateProfileDocument } from 'src/types/lens'
+import { useCreateProfileMutation } from 'src/types/lens'
 import z from 'zod'
 
 const formSchema = z.object({
@@ -71,8 +70,8 @@ const CreateChannel = () => {
     setButtonText('Create')
   }
 
-  const [createProfile, { data, reset }] = useMutation(CreateProfileDocument, {
-    onCompleted(data) {
+  const [createProfile, { data, reset }] = useCreateProfileMutation({
+    onCompleted: (data) => {
       setButtonText('Indexing...')
       if (data?.createProfile?.__typename === 'RelayError') {
         setLoading(false)
