@@ -123,5 +123,6 @@ export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN
 export const API_ORIGINS = [
   'https://lenstube.xyz',
   'https://testnet.lenstube.xyz',
+  'https://stage.lenstube.xyz',
   'http://localhost:4783'
 ]
