@@ -1,5 +1,4 @@
-import React from 'react'
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 
 import SuggestedShimmer from './SuggestedShimmer'
 import { CardShimmer } from './VideoCardShimmer'

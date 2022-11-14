@@ -1,12 +1,13 @@
+import FlagOutline from '@components/Common/Icons/FlagOutline'
+import HeartOutline from '@components/Common/Icons/HeartOutline'
+import ShareOutline from '@components/Common/Icons/ShareOutline'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import { Button } from '@components/UIElements/Button'
 import { Analytics, TRACK } from '@utils/analytics'
-import React, { FC, useState } from 'react'
-import { FiFlag } from 'react-icons/fi'
-import { RiShareForwardLine } from 'react-icons/ri'
-import { TbHeartHandshake } from 'react-icons/tb'
-import { LenstubePublication } from 'src/types/local'
+import type { FC } from 'react'
+import React, { useState } from 'react'
+import type { LenstubePublication } from 'src/types/local'
 
 import PublicationReaction from './PublicationReaction'
 import TipModal from './TipModal'
@@ -30,7 +31,7 @@ const VideoActions: FC<Props> = ({ video }) => {
         video={video}
       />
 
-      <PublicationReaction publication={video} />
+      <PublicationReaction publication={video} textSize="lg" />
       <Button
         variant="secondary"
         className="!p-0"
@@ -40,7 +41,7 @@ const VideoActions: FC<Props> = ({ video }) => {
         }}
       >
         <span className="flex items-center space-x-1">
-          <TbHeartHandshake />
+          <HeartOutline className="w-3.5 h-3.5" />
           <span>Tip</span>
         </span>
       </Button>
@@ -50,7 +51,7 @@ const VideoActions: FC<Props> = ({ video }) => {
         onClick={() => setShowShare(true)}
       >
         <span className="flex items-center space-x-1">
-          <RiShareForwardLine />
+          <ShareOutline className="w-3.5 h-3.5" />
           <span>Share</span>
         </span>
       </Button>
@@ -63,7 +64,7 @@ const VideoActions: FC<Props> = ({ video }) => {
         className="!p-0"
       >
         <span className="flex items-center space-x-1">
-          <FiFlag className="text-xs" />
+          <FlagOutline className="w-3.5 h-3.5" />
           <span>Report</span>
         </span>
       </Button>

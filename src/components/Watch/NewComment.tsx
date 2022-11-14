@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -22,19 +21,22 @@ import trimify from '@utils/functions/trimify'
 import uploadToAr from '@utils/functions/uploadToAr'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { utils } from 'ethers'
-import React, { FC, useEffect, useState } from 'react'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import {
-  BroadcastDocument,
+import type {
   CreateCommentBroadcastItemResult,
-  CreateCommentTypedDataDocument,
-  CreateCommentViaDispatcherDocument,
-  CreatePublicCommentRequest,
-  PublicationMainFocus,
-  PublicationMetadataDisplayTypes
+  CreatePublicCommentRequest
 } from 'src/types/lens'
-import { CustomErrorWithData, LenstubePublication } from 'src/types/local'
+import {
+  PublicationMainFocus,
+  PublicationMetadataDisplayTypes,
+  useBroadcastMutation,
+  useCreateCommentTypedDataMutation,
+  useCreateCommentViaDispatcherMutation
+} from 'src/types/lens'
+import type { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -95,16 +97,14 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     }
   })
 
-  const [broadcast, { data: broadcastData }] = useMutation(BroadcastDocument, {
+  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
     onError
   })
 
-  const [createCommentViaDispatcher, { data: dispatcherData }] = useMutation(
-    CreateCommentViaDispatcherDocument,
-    {
+  const [createCommentViaDispatcher, { data: dispatcherData }] =
+    useCreateCommentViaDispatcherMutation({
       onError
-    }
-  )
+    })
 
   const broadcastTxId =
     broadcastData?.broadcast.__typename === 'RelayerResult'
@@ -132,8 +132,8 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
-  const [createCommentTypedData] = useMutation(CreateCommentTypedDataDocument, {
-    async onCompleted(data) {
+  const [createCommentTypedData] = useCreateCommentTypedDataMutation({
+    onCompleted: async (data) => {
       const { typedData, id } =
         data.createCommentTypedData as CreateCommentBroadcastItemResult
       const {
@@ -177,8 +177,8 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         })
         if (data?.broadcast?.__typename === 'RelayError')
           writeComment?.({ recklesslySetUnpreparedArgs: [args] })
-      } catch (error) {
-        logger.error('[Error New Comment Typed Data]', error)
+      } catch {
+        setLoading(false)
       }
     },
     onError
@@ -271,7 +271,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         <div className="flex-none">
           <img
             src={getProfilePicture(selectedChannel, 'avatar')}
-            className="w-8 h-8 md:w-9 md:h-9 rounded-xl"
+            className="w-8 h-8 md:w-9 md:h-9 rounded-full"
             draggable={false}
             alt="channel picture"
           />

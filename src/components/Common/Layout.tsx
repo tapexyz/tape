@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import {
@@ -18,10 +17,12 @@ import mixpanel from 'mixpanel-browser'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import React, { FC, ReactNode, useEffect } from 'react'
+import type { FC, ReactNode } from 'react'
+import React, { useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
-import { Profile, UserProfilesDocument } from 'src/types/lens'
-import { CustomErrorWithData } from 'src/types/local'
+import type { Profile } from 'src/types/lens'
+import { useUserProfilesQuery } from 'src/types/lens'
+import type { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
@@ -44,6 +45,7 @@ const Layout: FC<Props> = ({ children }) => {
   const setChannels = useAppStore((state) => state.setChannels)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const setSelectedChannelId = usePersistStore(
     (state) => state.setSelectedChannelId
@@ -57,7 +59,6 @@ const Layout: FC<Props> = ({ children }) => {
     }
   })
   const { mounted } = useIsMounted()
-
   const { address, isDisconnected } = useAccount()
   const { pathname, replace, asPath } = useRouter()
   const showFullScreen = getShowFullScreen(pathname)
@@ -76,7 +77,7 @@ const Layout: FC<Props> = ({ children }) => {
     setSelectedChannelId(selectedChannel?.id)
   }
 
-  const { loading } = useQuery(UserProfilesDocument, {
+  const { loading } = useUserProfilesQuery({
     variables: {
       request: { ownedBy: [address] }
     },
@@ -144,17 +145,23 @@ const Layout: FC<Props> = ({ children }) => {
         <Sidebar />
         <div
           className={clsx(
-            'w-full md:pl-[94px] md:pr-4 max-w-[110rem] mx-auto',
-            showFullScreen ? 'px-0' : 'pl-2 pr-2'
+            'w-full',
+            showFullScreen ? 'px-0' : '',
+            sidebarCollapsed || pathname === '/watch/[id]'
+              ? 'md:pl-[90px]'
+              : 'md:pl-[180px]'
           )}
         >
           {!NO_HEADER_PATHS.includes(pathname) && (
             <Header className={showFullScreen ? 'hidden md:flex' : ''} />
           )}
           <div
-            className={clsx('py-2', {
-              '!p-0': showFullScreen
-            })}
+            className={clsx(
+              '2xl:py-6 py-4 ultrawide:max-w-[110rem] mx-auto md:px-2',
+              {
+                '!p-0': showFullScreen
+              }
+            )}
           >
             {children}
           </div>

@@ -18,9 +18,8 @@ function useCopyToClipboard(): [CopyFn, CopiedValue] {
       await navigator.clipboard.writeText(text)
       setCopiedText(text)
       return true
-    } catch (error) {
+    } catch {
       setCopiedText(null)
-      logger.error('[Error Copy to Clipboard]', error)
       return false
     }
   }

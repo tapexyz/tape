@@ -6,11 +6,12 @@ import { formatUrl } from '@utils/functions/formatUrl'
 import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import Link from 'next/link'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import { AiOutlineNumber } from 'react-icons/ai'
 import { HiOutlineGlobe, HiOutlineLocationMarker } from 'react-icons/hi'
 import { RiShieldKeyholeLine, RiTwitterLine } from 'react-icons/ri'
-import { Attribute, Profile } from 'src/types/lens'
+import type { Attribute, Profile } from 'src/types/lens'
 
 type Props = {
   channel: Profile

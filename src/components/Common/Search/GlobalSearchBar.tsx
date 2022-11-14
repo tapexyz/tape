@@ -10,16 +10,17 @@ import {
 import useDebounce from '@utils/hooks/useDebounce'
 import useOutsideClick from '@utils/hooks/useOutsideClick'
 import clsx from 'clsx'
-import { FC, useEffect, useRef, useState } from 'react'
-import { AiOutlineSearch } from 'react-icons/ai'
+import type { FC } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import type { Profile } from 'src/types/lens'
 import {
-  Profile,
   SearchProfilesDocument,
   SearchPublicationsDocument,
   SearchRequestTypes
 } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
+import SearchOutline from '../Icons/SearchOutline'
 import Channels from './Channels'
 import Videos from './Videos'
 
@@ -28,9 +29,7 @@ interface Props {
 }
 
 const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
-  const [activeSearch, setActiveSearch] = useState(
-    SearchRequestTypes.Publication
-  )
+  const [activeSearch, setActiveSearch] = useState(SearchRequestTypes.Profile)
   const [keyword, setKeyword] = useState('')
   const debouncedValue = useDebounce<string>(keyword, 500)
   const resultsRef = useRef(null)
@@ -49,7 +48,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
           request: {
             type: activeSearch,
             query: keyword,
-            limit: 10,
+            limit: 30,
             sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
             customFilters: LENS_CUSTOM_FILTERS
           }
@@ -77,24 +76,24 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
   return (
     <div className="md:w-96">
       <div ref={resultsRef}>
-        <div className="relative mt-1">
-          <div className="relative w-full overflow-hidden border border-gray-200 cursor-default dark:border-gray-800 rounded-xl sm:text-sm">
+        <div className="relative">
+          <div className="relative w-full overflow-hidden border border-gray-200 cursor-default dark:border-gray-700 rounded-full sm:text-sm">
             <input
-              className="w-full py-2 pl-3 pr-10 text-sm bg-transparent focus:outline-none"
+              className="w-full py-2 pl-4 pr-10 text-sm bg-transparent focus:outline-none"
               onChange={(event) => setKeyword(event.target.value)}
               placeholder="Search by hashtag / channel"
               value={keyword}
             />
-            <div className="absolute inset-y-0 right-0 flex items-center pr-2">
-              <AiOutlineSearch
-                className="w-5 h-5 text-gray-400"
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+              <SearchOutline
+                className="w-4 h-4 text-gray-400"
                 aria-hidden="true"
               />
             </div>
           </div>
           <div
             className={clsx(
-              'md:absolute w-full mt-1 text-base bg-white overflow-hidden dark:bg-[#181818] rounded-xl ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
+              'md:absolute w-full mt-1 text-base bg-white overflow-hidden dark:bg-theme rounded-xl ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
               { hidden: debouncedValue.length === 0 }
             )}
           >
@@ -110,10 +109,10 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     )
                   }
                   onClick={() => {
-                    setActiveSearch(SearchRequestTypes.Publication)
+                    setActiveSearch(SearchRequestTypes.Profile)
                   }}
                 >
-                  Videos
+                  Channels
                 </Tab>
                 <Tab
                   className={({ selected }) =>
@@ -125,26 +124,26 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     )
                   }
                   onClick={() => {
-                    setActiveSearch(SearchRequestTypes.Profile)
+                    setActiveSearch(SearchRequestTypes.Publication)
                   }}
                 >
-                  Channels
+                  Videos
                 </Tab>
               </Tab.List>
               <Tab.Panels>
                 <Tab.Panel className="overflow-y-auto max-h-[80vh] no-scrollbar focus:outline-none">
-                  {data?.search?.__typename === 'PublicationSearchResult' && (
-                    <Videos
-                      results={channels as LenstubePublication[]}
+                  {data?.search?.__typename === 'ProfileSearchResult' && (
+                    <Channels
+                      results={channels as Profile[]}
                       loading={loading}
                       clearSearch={clearSearch}
                     />
                   )}
                 </Tab.Panel>
                 <Tab.Panel className="overflow-y-auto max-h-[80vh] no-scrollbar focus:outline-none">
-                  {data?.search?.__typename === 'ProfileSearchResult' && (
-                    <Channels
-                      results={channels as Profile[]}
+                  {data?.search?.__typename === 'PublicationSearchResult' && (
+                    <Videos
+                      results={channels as LenstubePublication[]}
                       loading={loading}
                       clearSearch={clearSearch}
                     />

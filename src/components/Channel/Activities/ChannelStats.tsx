@@ -1,6 +1,6 @@
-import { useQuery } from '@apollo/client'
 import StatCard from '@components/Stats/StatCard'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import {
   FcCamcorderPro,
   FcCollect,
@@ -9,7 +9,8 @@ import {
   FcSynchronize,
   FcVideoCall
 } from 'react-icons/fc'
-import { AllProfilesDocument, Profile, ProfileStats } from 'src/types/lens'
+import type { Profile, ProfileStats } from 'src/types/lens'
+import { useAllProfilesQuery } from 'src/types/lens'
 
 type Props = {
   channel: Profile
@@ -18,12 +19,13 @@ type Props = {
 const ChannelStats: FC<Props> = ({ channel }) => {
   const stats: ProfileStats = channel.stats
 
-  const { data } = useQuery(AllProfilesDocument, {
+  const { data } = useAllProfilesQuery({
     variables: {
       request: { ownedBy: channel?.ownedBy }
     },
     skip: !channel?.ownedBy
   })
+
   const allChannels = data?.profiles?.items as Profile[]
 
   return (

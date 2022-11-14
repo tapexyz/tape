@@ -1,7 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
@@ -13,16 +11,16 @@ import {
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+import type { CreateFollowBroadcastItemResult, Profile } from 'src/types/lens'
 import {
-  BroadcastDocument,
-  CreateFollowBroadcastItemResult,
-  CreateFollowTypedDataDocument,
-  Profile,
-  ProxyActionDocument
+  useBroadcastMutation,
+  useCreateFollowTypedDataMutation,
+  useProxyActionMutation
 } from 'src/types/lens'
-import { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
 
 type Props = {
@@ -61,7 +59,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onError
   })
 
-  const [broadcast] = useMutation(BroadcastDocument, {
+  const [broadcast] = useBroadcastMutation({
     onCompleted(data) {
       if (data?.broadcast?.__typename === 'RelayerResult') {
         onCompleted()
@@ -70,53 +68,50 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onError
   })
 
-  const [createProxyActionFreeFollow] = useMutation(ProxyActionDocument, {
+  const [createProxyActionFreeFollow] = useProxyActionMutation({
     onError,
     onCompleted
   })
 
-  const [createSubscribeTypedData] = useMutation(
-    CreateFollowTypedDataDocument,
-    {
-      async onCompleted(data) {
-        const { typedData, id } =
-          data.createFollowTypedData as CreateFollowBroadcastItemResult
-        try {
-          const signature = await signTypedDataAsync({
-            domain: omitKey(typedData?.domain, '__typename'),
-            types: omitKey(typedData?.types, '__typename'),
-            value: omitKey(typedData?.value, '__typename')
-          })
-          const { v, r, s } = utils.splitSignature(signature)
-          const { profileIds, datas } = typedData?.value
-          const args = {
-            follower: signer?.getAddress(),
-            profileIds,
-            datas,
-            sig: {
-              v,
-              r,
-              s,
-              deadline: typedData.value.deadline
-            }
+  const [createSubscribeTypedData] = useCreateFollowTypedDataMutation({
+    onCompleted: async (data) => {
+      const { typedData, id } =
+        data.createFollowTypedData as CreateFollowBroadcastItemResult
+      try {
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
+        })
+        const { v, r, s } = utils.splitSignature(signature)
+        const { profileIds, datas } = typedData?.value
+        const args = {
+          follower: signer?.getAddress(),
+          profileIds,
+          datas,
+          sig: {
+            v,
+            r,
+            s,
+            deadline: typedData.value.deadline
           }
-          if (!RELAYER_ENABLED) {
-            return writeSubscribe?.({
-              recklesslySetUnpreparedArgs: [args]
-            })
-          }
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.__typename === 'RelayError')
-            writeSubscribe?.({ recklesslySetUnpreparedArgs: [args] })
-        } catch (error) {
-          logger.error('[Error Subscribe Typed Data]', error)
         }
-      },
-      onError
-    }
-  )
+        if (!RELAYER_ENABLED) {
+          return writeSubscribe?.({
+            recklesslySetUnpreparedArgs: [args]
+          })
+        }
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.__typename === 'RelayError')
+          writeSubscribe?.({ recklesslySetUnpreparedArgs: [args] })
+      } catch {
+        setLoading(false)
+      }
+    },
+    onError
+  })
 
   const subscribe = () => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)

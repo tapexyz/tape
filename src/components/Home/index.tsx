@@ -1,11 +1,11 @@
 import MetaTags from '@components/Common/MetaTags'
-import Curated from '@components/Explore/Curated'
+import Curated from '@components/Home/Curated'
 import { Analytics, TRACK } from '@utils/analytics'
-import { NextPage } from 'next'
+import type { NextPage } from 'next'
 import { useEffect } from 'react'
 
+import BytesSection from './BytesSection'
 import DispatcherAlert from './DispatcherAlert'
-import FeedFilters from './FeedFilters'
 
 const Home: NextPage = () => {
   useEffect(() => {
@@ -15,10 +15,10 @@ const Home: NextPage = () => {
     <>
       <MetaTags />
       <DispatcherAlert />
-      <FeedFilters />
-      <div className="md:my-2">
-        <Curated />
+      <div className="hidden lg:block">
+        <BytesSection />
       </div>
+      <Curated />
     </>
   )
 }

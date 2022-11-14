@@ -1,9 +1,8 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation, useQuery } from '@apollo/client'
+import CollectOutline from '@components/Common/Icons/CollectOutline'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
@@ -15,17 +14,17 @@ import {
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { HiOutlineCollection } from 'react-icons/hi'
+import type { CreateCollectBroadcastItemResult } from 'src/types/lens'
 import {
-  BroadcastDocument,
-  CreateCollectBroadcastItemResult,
-  CreateCollectTypedDataDocument,
-  ProxyActionDocument,
-  PublicationCollectModuleDocument
+  useBroadcastMutation,
+  useCreateCollectTypedDataMutation,
+  useProxyActionMutation,
+  usePublicationCollectModuleQuery
 } from 'src/types/lens'
-import {
+import type {
   CustomErrorWithData,
   LenstubeCollectModule,
   LenstubePublication
@@ -36,7 +35,7 @@ import CollectModal from './CollectModal'
 
 type Props = {
   video: LenstubePublication
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'outlined'
 }
 
 const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
@@ -65,12 +64,10 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     onError
   })
 
-  const { data, loading: fetchingCollectModule } = useQuery(
-    PublicationCollectModuleDocument,
-    {
+  const { data, loading: fetchingCollectModule } =
+    usePublicationCollectModuleQuery({
       variables: { request: { publicationId: video?.id } }
-    }
-  )
+    })
   const collectModule =
     data?.publication?.__typename === 'Post'
       ? (data?.publication?.collectModule as LenstubeCollectModule)
@@ -85,18 +82,18 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
     onSuccess: onCompleted
   })
 
-  const [broadcast] = useMutation(BroadcastDocument, {
+  const [broadcast] = useBroadcastMutation({
     onError,
     onCompleted
   })
 
-  const [createProxyActionFreeCollect] = useMutation(ProxyActionDocument, {
+  const [createProxyActionFreeCollect] = useProxyActionMutation({
     onError,
     onCompleted
   })
 
-  const [createCollectTypedData] = useMutation(CreateCollectTypedDataDocument, {
-    async onCompleted(data) {
+  const [createCollectTypedData] = useCreateCollectTypedDataMutation({
+    onCompleted: async (data) => {
       const { typedData, id } =
         data.createCollectTypedData as CreateCollectBroadcastItemResult
       try {
@@ -123,9 +120,8 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
         if (data?.broadcast?.__typename === 'RelayError') {
           writeCollectWithSig?.({ recklesslySetUnpreparedArgs: [args] })
         }
-      } catch (error) {
+      } catch {
         setLoading(false)
-        logger.error('[Error Collect Video]', error)
       }
     },
     onError
@@ -208,7 +204,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
             {loading ? (
               <Loader size="md" />
             ) : (
-              <HiOutlineCollection className="text-xl" />
+              <CollectOutline className="w-5 h-5" />
             )}
           </Button>
         </div>

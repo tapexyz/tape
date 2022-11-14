@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
 const NotificationsShimmer = () => {
-  const notifications = useMemo(() => Array(14).fill(1), [])
+  const notifications = useMemo(() => Array(20).fill(1), [])
 
   return (
     <div className="space-y-2 animate-pulse">

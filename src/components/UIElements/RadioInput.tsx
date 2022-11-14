@@ -1,4 +1,5 @@
-import React, { FC, useId } from 'react'
+import type { FC } from 'react'
+import React, { useId } from 'react'
 
 type Props = {
   question: React.ReactNode

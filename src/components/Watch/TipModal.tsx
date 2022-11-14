@@ -1,5 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation } from '@apollo/client'
+import HeartOutline from '@components/Common/Icons/HeartOutline'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
@@ -23,19 +23,19 @@ import omitKey from '@utils/functions/omitKey'
 import uploadToAr from '@utils/functions/uploadToAr'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { BigNumber, utils } from 'ethers'
-import React, { FC, useEffect, useState } from 'react'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { TbHeartHandshake } from 'react-icons/tb'
+import type { CreatePublicCommentRequest } from 'src/types/lens'
 import {
-  BroadcastDocument,
-  CreateCommentTypedDataDocument,
-  CreateCommentViaDispatcherDocument,
-  CreatePublicCommentRequest,
   PublicationMainFocus,
-  PublicationMetadataDisplayTypes
+  PublicationMetadataDisplayTypes,
+  useBroadcastMutation,
+  useCreateCommentTypedDataMutation,
+  useCreateCommentViaDispatcherMutation
 } from 'src/types/lens'
-import { CustomErrorWithData, LenstubePublication } from 'src/types/local'
+import type { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -101,16 +101,14 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
-  const [broadcast, { data: broadcastData }] = useMutation(BroadcastDocument, {
+  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
     onError
   })
 
-  const [createCommentViaDispatcher, { data: dispatcherData }] = useMutation(
-    CreateCommentViaDispatcherDocument,
-    {
+  const [createCommentViaDispatcher, { data: dispatcherData }] =
+    useCreateCommentViaDispatcherMutation({
       onError
-    }
-  )
+    })
 
   const broadcastTxId =
     broadcastData?.broadcast.__typename === 'RelayerResult'
@@ -136,8 +134,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
-  const [createCommentTypedData] = useMutation(CreateCommentTypedDataDocument, {
-    async onCompleted(data) {
+  const [createCommentTypedData] = useCreateCommentTypedDataMutation({
+    onCompleted: async (data) => {
       const { typedData, id } = data.createCommentTypedData
       const {
         profileId,
@@ -179,8 +177,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         })
         if (data?.broadcast?.__typename === 'RelayError')
           writeComment?.({ recklesslySetUnpreparedArgs: [args] })
-      } catch (error) {
-        logger.error('[Error Create Tip Comment Typed Data]', error)
+      } catch {
+        setLoading(false)
       }
     },
     onError
@@ -255,9 +253,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         return signTypedData(request)
       }
       await createViaDispatcher(request)
-    } catch (error) {
-      logger.error('[Error Store & Tip Video]', error)
-    }
+    } catch {}
   }
 
   const onSendTip = async () => {
@@ -285,7 +281,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     <Modal
       title={
         <span className="flex items-center space-x-2 outline-none">
-          <TbHeartHandshake />
+          <HeartOutline className="w-4 h-4" />
           <span>Tip {video.profile?.handle}</span>
         </span>
       }

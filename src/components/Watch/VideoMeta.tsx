@@ -3,10 +3,11 @@ import MirroredList from '@components/Common/MirroredList'
 import Modal from '@components/UIElements/Modal'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React, { useState } from 'react'
 import { FiRepeat } from 'react-icons/fi'
 import { HiOutlineCollection } from 'react-icons/hi'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 dayjs.extend(relativeTime)
 

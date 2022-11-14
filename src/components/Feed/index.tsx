@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import HomeFeed from '@components/Home/Feed'
-import { NextPage } from 'next'
+import type { NextPage } from 'next'
 
 const Feed: NextPage = () => {
   return (

@@ -5,13 +5,14 @@ import { getSharableLink } from '@utils/functions/getSharableLink'
 import imageCdn from '@utils/functions/imageCdn'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import Link from 'next/link'
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import toast from 'react-hot-toast'
-import { AiOutlineRetweet } from 'react-icons/ai'
 import { IoCopyOutline } from 'react-icons/io5'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 import EmbedVideo from '../EmbedVideo'
+import MirrorOutline from '../Icons/MirrorOutline'
 import MirrorVideo from '../MirrorVideo'
 
 type Props = {
@@ -44,7 +45,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             onMirrorSuccess={() => setShowShare(false)}
           >
             <div className="p-3.5 bg-gray-200 dark:bg-gray-800 rounded-full">
-              <AiOutlineRetweet />
+              <MirrorOutline className="w-5 h-5" />
             </div>
           </MirrorVideo>
           <Link
