@@ -1,5 +1,6 @@
 #!/bin/bash
 
+git checkout main
 echo "Syncing testnet branch with main branch 🔄"
 git pull origin main
 git checkout testnet
