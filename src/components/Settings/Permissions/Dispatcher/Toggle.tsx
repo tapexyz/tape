@@ -1,6 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { Analytics, TRACK } from '@utils/analytics'
 import {
@@ -111,8 +110,8 @@ const Toggle = () => {
         })
         if (data?.broadcast?.__typename === 'RelayError')
           writeDispatch?.({ recklesslySetUnpreparedArgs: [args] })
-      } catch (error) {
-        logger.error('[Error Set Dispatcher]', error)
+      } catch {
+        setLoading(false)
       }
     },
     onError

@@ -1,6 +1,5 @@
 import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
 import { Button } from '@components/UIElements/Button'
-import logger from '@lib/logger'
 import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
 import { RELAYER_ENABLED, SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
@@ -98,9 +97,8 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
         })
         if (data?.broadcast?.__typename === 'RelayError')
           await burnWithSig(signature, typedData)
-      } catch (error) {
+      } catch {
         setLoading(false)
-        logger.error('[Error UnSubscribe Typed Data]', error)
       }
     },
     onError
