@@ -1,27 +1,32 @@
-import { useLazyQuery } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
 import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
 import clearLocalStorage from '@utils/functions/clearLocalStorage'
 import getProfilePicture from '@utils/functions/getProfilePicture'
-import { shortenAddress } from '@utils/functions/shortenAddress'
 import { LENSTUBE_STATS, SETTINGS } from '@utils/url-path'
+import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { AiOutlinePlus, AiOutlineUserSwitch } from 'react-icons/ai'
-import { BiArrowBack, BiCheck, BiMoviePlay } from 'react-icons/bi'
-import { BsSun } from 'react-icons/bs'
-import { IoAnalyticsOutline, IoMoonOutline } from 'react-icons/io5'
-import { VscDebugDisconnect } from 'react-icons/vsc'
-import { AllProfilesDocument, Profile } from 'src/types/lens'
-import { CustomErrorWithData } from 'src/types/local'
+import type { Profile } from 'src/types/lens'
+import { useAllProfilesLazyQuery } from 'src/types/lens'
+import type { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useDisconnect } from 'wagmi'
+
+import ChannelHeartOutline from './Icons/ChannelHeartOutline'
+import CheckOutline from './Icons/CheckOutline'
+import ChevronLeftOutline from './Icons/ChevronLeftOutline'
+import CogOutline from './Icons/CogOutline'
+import GraphOutline from './Icons/GraphOutline'
+import HandWaveOutline from './Icons/HandWaveOutline'
+import MoonOutline from './Icons/MoonOutline'
+import PlusOutline from './Icons/PlusOutline'
+import SunOutline from './Icons/SunOutline'
+import SwitchChannelOutline from './Icons/SwitchChannelOutline'
 
 const UserMenu = () => {
   const setChannels = useAppStore((state) => state.setChannels)
@@ -45,7 +50,7 @@ const UserMenu = () => {
       toast.error(error?.data?.message || error?.message)
     }
   })
-  const [getChannels] = useLazyQuery(AllProfilesDocument)
+  const [getChannels] = useAllProfilesLazyQuery()
   const { address } = useAccount()
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 
@@ -73,9 +78,7 @@ const UserMenu = () => {
       })
       const allChannels = data?.profiles?.items as Profile[]
       setChannels(allChannels)
-    } catch (error) {
-      logger.error('[Error Get Channels]', error)
-    }
+    } catch {}
   }
 
   return (
@@ -86,7 +89,7 @@ const UserMenu = () => {
           className="!p-0 flex-none"
         >
           <img
-            className="object-cover bg-white rounded-lg dark:bg-black w-7 h-7 md:rounded-xl md:w-9 md:h-9"
+            className="object-cover bg-white rounded-full dark:bg-theme w-8 h-8 md:w-9 md:h-9"
             src={getProfilePicture(selectedChannel)}
             alt="channel picture"
             draggable={false}
@@ -94,19 +97,17 @@ const UserMenu = () => {
         </Button>
       }
     >
-      <div className="px-1 mt-1.5 w-48 divide-y shadow-xl max-h-96 divide-gray-200 dark:divide-gray-800 overflow-hidden border border-gray-200 rounded-lg dark:border-gray-800 bg-secondary">
+      <div className="px-1 mt-1.5 w-48 divide-y shadow max-h-96 divide-gray-200 dark:divide-gray-800 overflow-hidden border border-gray-100 rounded-xl dark:border-gray-800 bg-secondary dark:bg-theme">
         {showAccountSwitcher ? (
           <>
-            <div className="flex opacity-70 items-centerspace-x-2">
-              <button
-                type="button"
-                className="p-2 outline-none"
-                onClick={() => setShowAccountSwitcher(false)}
-              >
-                <BiArrowBack />
-              </button>
+            <button
+              type="button"
+              className="flex opacity-70 pl-2 outline-none items-center space-x-2"
+              onClick={() => setShowAccountSwitcher(false)}
+            >
+              <ChevronLeftOutline className="w-3 h-3" />
               <span className="py-2 text-sm">Channels</span>
-            </div>
+            </button>
             <div className="py-1 text-sm">
               {channels?.map((channel) => (
                 <button
@@ -126,7 +127,9 @@ const UserMenu = () => {
                       {channel.handle}
                     </span>
                   </span>
-                  {selectedChannel?.id === channel.id && <BiCheck />}
+                  {selectedChannel?.id === channel.id && (
+                    <CheckOutline className="w-3 h-3" />
+                  )}
                 </button>
               ))}
             </div>
@@ -136,38 +139,19 @@ const UserMenu = () => {
             <div className="flex flex-col space-y-1 text-sm transition duration-150 ease-in-out rounded-lg">
               <div className="inline-flex items-center p-2 py-3 space-x-2 rounded-lg">
                 <img
-                  className="object-cover rounded-xl w-9 h-9"
+                  className="object-cover rounded-full w-9 h-9"
                   src={getProfilePicture(selectedChannel, 'avatar')}
                   alt="channel picture"
                   draggable={false}
                 />
                 <div className="grid">
-                  {address && (
-                    <h6
-                      title={
-                        selectedChannel
-                          ? selectedChannel?.handle
-                          : shortenAddress(address)
-                      }
-                      className="text-base truncate"
-                    >
-                      {selectedChannel
-                        ? selectedChannel?.handle
-                        : shortenAddress(address)}
-                    </h6>
-                  )}
-                  {selectedChannel && (
-                    <Menu.Item
-                      as={NextLink}
-                      onClick={() =>
-                        Analytics.track(TRACK.CLICK_CHANNEL_SETTINGS)
-                      }
-                      href={SETTINGS}
-                      className="text-xs font-medium text-indigo-500 dark:text-indigo-400"
-                    >
-                      Settings
-                    </Menu.Item>
-                  )}
+                  <span className="text-xs opacity-70">Connected as</span>
+                  <h6
+                    title={selectedChannel?.handle}
+                    className="text-base truncate leading-4"
+                  >
+                    {selectedChannel?.handle}
+                  </h6>
                 </div>
               </div>
             </div>
@@ -176,9 +160,9 @@ const UserMenu = () => {
                 <Menu.Item
                   as={NextLink}
                   href={LENSTUBE_STATS}
-                  className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
-                  <IoAnalyticsOutline className="text-lg" />
+                  <GraphOutline className="w-4 h-4" />
                   <span className="truncate whitespace-nowrap">App Info</span>
                 </Menu.Item>
               )}
@@ -187,19 +171,19 @@ const UserMenu = () => {
                   <Menu.Item
                     as={NextLink}
                     href={`/${selectedChannel?.handle}`}
-                    className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="inline-flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
-                    <BiMoviePlay className="text-lg" />
+                    <ChannelHeartOutline className="w-4 h-4" />
                     <span className="truncate whitespace-nowrap">
                       Your Channel
                     </span>
                   </Menu.Item>
                   <button
                     type="button"
-                    className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="inline-flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                     onClick={() => onSelectSwitchChannel()}
                   >
-                    <AiOutlineUserSwitch className="text-lg" />
+                    <SwitchChannelOutline className="w-4 h-4" />
                     <span className="truncate whitespace-nowrap">
                       Switch channel
                     </span>
@@ -209,24 +193,33 @@ const UserMenu = () => {
               {!IS_MAINNET && (
                 <button
                   type="button"
-                  className="flex items-center w-full px-2 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setShowCreateChannel(true)}
                 >
-                  <AiOutlinePlus className="text-lg" />
+                  <PlusOutline className="w-4 h-4" />
                   <span className="truncate whitespace-nowrap">
                     Create Channel
                   </span>
                 </button>
               )}
+              <Link
+                href={SETTINGS}
+                className="flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
+                <CogOutline className="w-4 h-4" />
+                <span className="truncate whitespace-nowrap">
+                  Channel Settings
+                </span>
+              </Link>
               <button
                 type="button"
-                className="flex md:hidden items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               >
-                {theme === 'light' ? (
-                  <IoMoonOutline className="text-base" />
+                {theme === 'dark' ? (
+                  <SunOutline className="w-4 h-4" />
                 ) : (
-                  <BsSun className="text-base" />
+                  <MoonOutline className="w-4 h-4" />
                 )}
                 <span className="truncate whitespace-nowrap">
                   {theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}
@@ -234,10 +227,10 @@ const UserMenu = () => {
               </button>
               <button
                 type="button"
-                className="flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                 onClick={() => logout()}
               >
-                <VscDebugDisconnect className="text-lg" />
+                <HandWaveOutline className="w-4 h-4" />
                 <span className="truncate whitespace-nowrap">Disconnect</span>
               </button>
             </div>

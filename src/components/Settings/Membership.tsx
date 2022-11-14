@@ -1,11 +1,9 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useMutation, useQuery } from '@apollo/client'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { zodResolver } from '@hookform/resolvers/zod'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import {
   ERROR_MESSAGE,
@@ -20,17 +18,19 @@ import { utils } from 'ethers'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import {
-  BroadcastDocument,
+import type {
   CreateSetFollowModuleBroadcastItemResult,
-  CreateSetFollowModuleTypedDataDocument,
-  EnabledModuleCurrrenciesDocument,
   Erc20,
   FeeFollowModuleSettings,
-  Profile,
-  ProfileFollowModuleDocument
+  Profile
 } from 'src/types/lens'
-import { CustomErrorWithData } from 'src/types/local'
+import {
+  useBroadcastMutation,
+  useCreateSetFollowModuleTypedDataMutation,
+  useEnabledModuleCurrrenciesQuery,
+  useProfileFollowModuleQuery
+} from 'src/types/lens'
+import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
 
@@ -74,7 +74,7 @@ const Membership = ({ channel }: Props) => {
     data: followModuleData,
     refetch,
     loading: moduleLoading
-  } = useQuery(ProfileFollowModuleDocument, {
+  } = useProfileFollowModuleQuery({
     variables: { request: { profileIds: channel?.id } },
     skip: !channel?.id,
     onCompleted(data) {
@@ -89,15 +89,12 @@ const Membership = ({ channel }: Props) => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const { data: enabledCurrencies } = useQuery(
-    EnabledModuleCurrrenciesDocument,
-    {
-      variables: { request: { profileIds: channel?.id } },
-      skip: !channel?.id
-    }
-  )
+  const { data: enabledCurrencies } = useEnabledModuleCurrrenciesQuery({
+    variables: { request: { profileIds: channel?.id } },
+    skip: !channel?.id
+  })
 
-  const [broadcast, { data: broadcastData }] = useMutation(BroadcastDocument, {
+  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
     onError
   })
 
@@ -127,10 +124,9 @@ const Membership = ({ channel }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
-  const [createSetFollowModuleTypedData] = useMutation(
-    CreateSetFollowModuleTypedDataDocument,
-    {
-      async onCompleted(data) {
+  const [createSetFollowModuleTypedData] =
+    useCreateSetFollowModuleTypedDataMutation({
+      onCompleted: async (data) => {
         const { typedData, id } =
           data.createSetFollowModuleTypedData as CreateSetFollowModuleBroadcastItemResult
         const { profileId, followModule, followModuleInitData } =
@@ -157,14 +153,12 @@ const Membership = ({ channel }: Props) => {
           })
           if (data?.broadcast?.__typename === 'RelayError')
             writeFollow?.({ recklesslySetUnpreparedArgs: [args] })
-        } catch (error) {
+        } catch {
           setLoading(false)
-          logger.error('[Error Set Membership]', error)
         }
       },
       onError
-    }
-  )
+    })
 
   const setMembership = (freeFollowModule: boolean) => {
     setLoading(true)
@@ -194,7 +188,7 @@ const Membership = ({ channel }: Props) => {
   }
 
   return (
-    <div className="p-4 bg-white rounded-lg dark:bg-black">
+    <div className="p-4 bg-white rounded-xl dark:bg-theme">
       <div className="mb-5">
         <h1 className="mb-1 text-xl font-semibold">Grow with Lens</h1>
         <p className="text opacity-80">
@@ -254,7 +248,7 @@ const Membership = ({ channel }: Props) => {
               </div>
               <select
                 autoComplete="off"
-                className="bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full"
+                className="bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-300 dark:border-gray-700 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full"
                 value={watch('token')}
                 onChange={(e) => setValue('token', e.target.value)}
               >

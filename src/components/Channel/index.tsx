@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
 import useAppStore from '@lib/store'
@@ -7,7 +6,8 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import { Profile, ProfileDocument } from 'src/types/lens'
+import type { Profile } from 'src/types/lens'
+import { useProfileQuery } from 'src/types/lens'
 
 import Activities from './Activities'
 import BasicInfo from './BasicInfo'
@@ -20,7 +20,7 @@ const Channel = () => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.CHANNEL })
   }, [])
 
-  const { data, loading, error } = useQuery(ProfileDocument, {
+  const { data, loading, error } = useProfileQuery({
     variables: {
       request: { handle: query.channel },
       who: selectedChannel?.id ?? null

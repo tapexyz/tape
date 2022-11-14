@@ -6,9 +6,10 @@ import { getIsSensitiveContent } from '@utils/functions/getIsSensitiveContent'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import imageCdn from '@utils/functions/imageCdn'
 import Link from 'next/link'
-import React, { FC, useEffect, useState } from 'react'
-import { Attribute } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
+import type { Attribute } from 'src/types/lens'
+import type { LenstubePublication } from 'src/types/local'
 
 import IsVerified from '../IsVerified'
 

@@ -1,8 +1,9 @@
 import JoinChannel from '@components/Channel/BasicInfo/JoinChannel'
 import Subscribe from '@components/Channel/BasicInfo/Subscribe'
 import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
-import React, { FC, useEffect, useState } from 'react'
-import { Profile } from 'src/types/lens'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
+import type { Profile } from 'src/types/lens'
 
 type Props = {
   channel: Profile

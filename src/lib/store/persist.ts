@@ -1,4 +1,4 @@
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -7,51 +7,29 @@ interface AppPerisistState {
   selectedChannelId: string | null
   recentlyWatched: LenstubePublication[] | []
   watchLater: LenstubePublication[] | []
+  sidebarCollapsed: boolean
   notificationCount: number
   setNotificationCount: (count: number) => void
+  setSidebarCollapsed: (collapsed: boolean) => void
   setSelectedChannelId: (id: string | null) => void
   setAutoPlay: (auto: boolean) => void
-  addToRecentlyWatched: (video: LenstubePublication) => void
-  addToWatchLater: (video: LenstubePublication) => void
-  removeFromWatchLater: (video: LenstubePublication) => void
 }
 
 export const usePersistStore = create(
   persist<AppPerisistState>(
-    (set, get) => ({
+    (set) => ({
       autoPlay: true,
       recentlyWatched: [],
       watchLater: [],
       selectedChannelId: null,
+      sidebarCollapsed: true,
       notificationCount: 0,
+      setSidebarCollapsed: (sidebarCollapsed) =>
+        set(() => ({ sidebarCollapsed })),
       setAutoPlay: (autoPlay) => set(() => ({ autoPlay })),
       setNotificationCount: (notificationCount) =>
         set(() => ({ notificationCount })),
-      setSelectedChannelId: (id) => set(() => ({ selectedChannelId: id })),
-      addToRecentlyWatched: (video) => {
-        const alreadyExists = get().recentlyWatched.find(
-          (el) => el.id === video.id
-        )
-        const newList = get().recentlyWatched?.slice(0, 7)
-        set(() => ({
-          recentlyWatched: alreadyExists
-            ? get().recentlyWatched
-            : [video, ...newList]
-        }))
-      },
-      addToWatchLater: (video) => {
-        const alreadyExists = get().watchLater.find((el) => el.id === video.id)
-        const newList = get().watchLater.splice(0, 7)
-        set(() => ({
-          watchLater: alreadyExists ? get().watchLater : [video, ...newList]
-        }))
-      },
-      removeFromWatchLater: (video) => {
-        const videos = get().watchLater.filter((el) => el.id !== video.id)
-        set(() => ({
-          watchLater: videos
-        }))
-      }
+      setSelectedChannelId: (id) => set(() => ({ selectedChannelId: id }))
     }),
     {
       name: 'lenstube.store'

@@ -1,22 +1,22 @@
-import { useMutation } from '@apollo/client'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
+import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import { getPermanentVideoUrl } from '@utils/functions/getVideoUrl'
-import { isAlreadyAddedToWatchLater } from '@utils/functions/isAlreadyAddedToWatchLater'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineDelete } from 'react-icons/ai'
-import { FiExternalLink, FiFlag } from 'react-icons/fi'
-import { HiOutlineDotsVertical } from 'react-icons/hi'
-import { MdOutlineWatchLater } from 'react-icons/md'
-import { RiShareForwardLine } from 'react-icons/ri'
-import { HidePublicationDocument } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import { FiExternalLink } from 'react-icons/fi'
+import { useHidePublicationMutation } from 'src/types/lens'
+import type { LenstubePublication } from 'src/types/local'
+
+import FlagOutline from '../Icons/FlagOutline'
+import ShareOutline from '../Icons/ShareOutline'
+import ThreeDotsOutline from '../Icons/ThreeDotsOutline'
 
 const VideoOptions = ({
   video,
@@ -29,17 +29,12 @@ const VideoOptions = ({
   setShowReport: React.Dispatch<boolean>
   showOnHover?: boolean
 }) => {
-  const addToWatchLater = usePersistStore((state) => state.addToWatchLater)
-  const watchLater = usePersistStore((state) => state.watchLater)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const removeFromWatchLater = usePersistStore(
-    (state) => state.removeFromWatchLater
-  )
-
   const router = useRouter()
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
 
-  const [hideVideo] = useMutation(HidePublicationDocument, {
+  const [hideVideo] = useHidePublicationMutation({
     onCompleted: () => {
       toast.success('Video deleted')
       Analytics.track(TRACK.DELETE_VIDEO)
@@ -57,11 +52,9 @@ const VideoOptions = ({
     }
   }
 
-  const onClickWatchLater = () => {
-    Analytics.track(TRACK.CLICK_WATCH_LATER)
-    isAlreadyAddedToWatchLater(video, watchLater)
-      ? removeFromWatchLater(video)
-      : addToWatchLater(video)
+  const onClickReport = () => {
+    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    setShowReport(true)
   }
 
   return (
@@ -76,7 +69,7 @@ const VideoOptions = ({
             }
           )}
         >
-          <HiOutlineDotsVertical />
+          <ThreeDotsOutline className="w-3.5 h-3.5" />
         </div>
       }
     >
@@ -87,20 +80,8 @@ const VideoOptions = ({
             onClick={() => setShowShare(true)}
             className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
-            <RiShareForwardLine className="text-base" />
+            <ShareOutline className="w-3.5 h-3.5" />
             <span className="whitespace-nowrap">Share</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => onClickWatchLater()}
-            className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            <MdOutlineWatchLater className="text-base" />
-            <span className="whitespace-nowrap">
-              {isAlreadyAddedToWatchLater(video, watchLater)
-                ? 'Remove from Watch Later'
-                : 'Watch Later'}
-            </span>
           </button>
           {isVideoOwner && (
             <>
@@ -126,10 +107,10 @@ const VideoOptions = ({
           )}
           <button
             type="button"
-            onClick={() => setShowReport(true)}
+            onClick={() => onClickReport()}
             className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
-            <FiFlag className="text-sm ml-0.5" />
+            <FlagOutline className="w-3.5 h-3.5" />
             <span className="whitespace-nowrap">Report</span>
           </button>
         </div>

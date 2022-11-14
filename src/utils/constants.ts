@@ -45,7 +45,7 @@ export const IMAGE_CDN_URL = IS_MAINNET
   : 'https://ik.imagekit.io/lenstube/testnet'
 export const VIDEO_CDN_URL = 'https://cdn.livepeer.com'
 
-export const SCROLL_ROOT_MARGIN = '30% 0px'
+export const SCROLL_ROOT_MARGIN = '40% 0px'
 
 // ipfs
 export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 500 : 100
@@ -123,5 +123,6 @@ export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN
 export const API_ORIGINS = [
   'https://lenstube.xyz',
   'https://testnet.lenstube.xyz',
+  'https://stage.lenstube.xyz',
   'http://localhost:4783'
 ]

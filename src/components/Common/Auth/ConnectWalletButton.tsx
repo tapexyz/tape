@@ -5,7 +5,7 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { POLYGON_CHAIN_ID } from '@utils/constants'
 import React from 'react'
 import toast from 'react-hot-toast'
-import { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi'
 
 import UserMenu from '../UserMenu'

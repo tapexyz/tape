@@ -9,8 +9,9 @@ import {
 } from '@vime/react'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import React, { FC, Ref, useEffect, useRef, useState } from 'react'
-import { HLSData } from 'src/types/local'
+import type { FC, Ref } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import type { HLSData } from 'src/types/local'
 
 import NextVideo from './NextVideo'
 import PlayerContextMenu from './PlayerContextMenu'

@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { formatNumber } from '@utils/functions/formatNumber'
@@ -7,15 +6,12 @@ import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePictur
 import imageCdn from '@utils/functions/imageCdn'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import Link from 'next/link'
-import React, { FC, useState } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
-import {
-  Follower,
-  PaginatedResultInfo,
-  Profile,
-  SubscribersDocument
-} from 'src/types/lens'
+import type { Follower, Profile } from 'src/types/lens'
+import { useSubscribersQuery } from 'src/types/lens'
 
 import IsVerified from './IsVerified'
 import AddressExplorerLink from './Links/AddressExplorerLink'
@@ -25,39 +21,31 @@ type Props = {
 }
 
 const SubscribersList: FC<Props> = ({ channel }) => {
-  const [subscribers, setSubscribers] = useState<Follower[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  const request = { profileId: channel?.id, limit: 30 }
 
-  const { data, loading, fetchMore } = useQuery(SubscribersDocument, {
-    variables: { request: { profileId: channel?.id, limit: 10 } },
-    skip: !channel?.id,
-    onCompleted(data) {
-      setPageInfo(data?.followers?.pageInfo)
-      setSubscribers(data?.followers?.items as Follower[])
-    }
+  const { data, loading, fetchMore } = useSubscribersQuery({
+    variables: { request },
+    skip: !channel?.id
   })
+
+  const subscribers = data?.followers?.items as Follower[]
+  const pageInfo = data?.followers?.pageInfo
 
   const { observe } = useInView({
     onEnter: async () => {
-      const { data } = await fetchMore({
+      await fetchMore({
         variables: {
           request: {
-            profileId: channel?.id,
-            cursor: pageInfo?.next,
-            limit: 10
+            ...request,
+            cursor: pageInfo?.next
           }
         }
       })
-      setPageInfo(data?.followers?.pageInfo)
-      setSubscribers([
-        ...subscribers,
-        ...(data?.followers?.items as Follower[])
-      ])
     }
   })
 
   if (loading) return <Loader />
-  if (data?.followers?.items?.length === 0)
+  if (subscribers?.length === 0)
     return (
       <div className="pt-5">
         <NoDataFound text="No subscribers" isCenter />

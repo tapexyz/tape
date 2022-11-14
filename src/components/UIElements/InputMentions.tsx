@@ -1,15 +1,12 @@
-import { useLazyQuery } from '@apollo/client'
-import logger from '@lib/logger'
 import { LENS_CUSTOM_FILTERS } from '@utils/constants'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
-import { ComponentProps, FC, useId } from 'react'
-import { Mention, MentionsInput, SuggestionDataItem } from 'react-mentions'
-import {
-  Profile,
-  SearchProfilesDocument,
-  SearchRequestTypes
-} from 'src/types/lens'
+import type { ComponentProps, FC } from 'react'
+import { useId } from 'react'
+import type { SuggestionDataItem } from 'react-mentions'
+import { Mention, MentionsInput } from 'react-mentions'
+import type { Profile } from 'src/types/lens'
+import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'src/types/lens'
 
 interface Props extends ComponentProps<'textarea'> {
   label?: string
@@ -30,7 +27,7 @@ const InputMentions: FC<Props> = ({
   ...props
 }) => {
   const id = useId()
-  const [searchChannels] = useLazyQuery(SearchProfilesDocument)
+  const [searchChannels] = useSearchProfilesLazyQuery()
 
   const fetchSuggestions = async (
     query: string,
@@ -58,9 +55,8 @@ const InputMentions: FC<Props> = ({
         }))
         callback(channels)
       }
-    } catch (error) {
+    } catch {
       callback([])
-      logger.error('[Error Failed to fetch channel suggestions]', error)
     }
   }
 
@@ -97,7 +93,7 @@ const InputMentions: FC<Props> = ({
             ) => (
               <div
                 className={clsx('flex truncate px-1.5 py-1.5 space-x-1', {
-                  'bg-indigo-50 rounded dark:bg-black': focused
+                  'bg-indigo-50 rounded dark:bg-theme': focused
                 })}
               >
                 <img

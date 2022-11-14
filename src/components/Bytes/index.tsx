@@ -1,8 +1,6 @@
-import { useQuery } from '@apollo/client'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { Analytics, TRACK } from '@utils/analytics'
 import {
@@ -11,15 +9,16 @@ import {
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
 import Head from 'next/head'
-import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
-  ExploreDocument,
-  PaginatedResultInfo,
   PublicationSortCriteria,
-  PublicationTypes
+  PublicationTypes,
+  useExploreLazyQuery,
+  usePublicationDetailsLazyQuery
 } from 'src/types/lens'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 import ByteVideo from './ByteVideo'
 
@@ -33,60 +32,79 @@ const request = {
 }
 
 const Bytes = () => {
+  const router = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
-  const [bytes, setBytes] = useState<LenstubePublication[]>([])
-  const [pageInfo, setPageInfo] = useState<PaginatedResultInfo>()
+  const [fetchPublication, { data: singleByte, loading: singleByteLoading }] =
+    usePublicationDetailsLazyQuery()
+
+  const [fetchAllBytes, { data, loading, error, fetchMore }] =
+    useExploreLazyQuery({
+      variables: {
+        request,
+        reactionRequest: selectedChannel
+          ? { profileId: selectedChannel?.id }
+          : null,
+        channelId: selectedChannel?.id ?? null
+      },
+      onCompleted: (data) => {
+        const items = data?.explorePublications?.items as LenstubePublication[]
+        const publicationId = router.query.id
+        if (!publicationId) {
+          router.push(`/bytes/?id=${items[0]?.id}`, undefined, {
+            shallow: true
+          })
+        }
+      }
+    })
+
+  const bytes = data?.explorePublications?.items as LenstubePublication[]
+  const pageInfo = data?.explorePublications?.pageInfo
+  const singleBytePublication = singleByte?.publication as LenstubePublication
+
+  const fetchSingleByte = async () => {
+    const publicationId = router.query.id
+    if (!publicationId) return fetchAllBytes()
+    await fetchPublication({
+      variables: {
+        request: { publicationId },
+        reactionRequest: selectedChannel
+          ? { profileId: selectedChannel?.id }
+          : null,
+        channelId: selectedChannel?.id ?? null
+      },
+      onCompleted: () => fetchAllBytes()
+    })
+  }
 
   useEffect(() => {
+    fetchSingleByte()
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.BYTES })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const { data, loading, error, fetchMore } = useQuery(ExploreDocument, {
-    variables: {
-      request,
-      reactionRequest: selectedChannel
-        ? { profileId: selectedChannel?.id }
-        : null,
-      channelId: selectedChannel?.id ?? null
-    },
-    onCompleted(data) {
-      setPageInfo(data?.explorePublications?.pageInfo)
-      setBytes(data?.explorePublications?.items as LenstubePublication[])
-    }
-  })
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
     onEnter: async () => {
-      try {
-        const { data } = await fetchMore({
-          variables: {
-            request: {
-              ...request,
-              cursor: pageInfo?.next
-            }
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            cursor: pageInfo?.next
           }
-        })
-        setPageInfo(data?.explorePublications?.pageInfo)
-        setBytes([
-          ...bytes,
-          ...(data?.explorePublications?.items as LenstubePublication[])
-        ])
-      } catch (error) {
-        logger.error('[Error Fetch Bytes]', error)
-      }
+        }
+      })
     }
   })
 
-  if (loading)
+  if (loading || singleByteLoading)
     return (
       <div className="grid h-[80vh] place-items-center">
         <Loader />
       </div>
     )
 
-  if (data?.explorePublications?.items?.length === 0) {
+  if (error) {
     return (
       <div className="grid h-[80vh] place-items-center">
         <NoDataFound isCenter withImage text="No bytes found" />
@@ -100,18 +118,17 @@ const Bytes = () => {
         <meta name="theme-color" content="#000000" />
       </Head>
       <MetaTags title="Bytes" />
-      {!error && !loading && (
-        <div className="md:h-[calc(100vh-70px)] h-screen overflow-y-scroll no-scrollbar snap-y snap-mandatory scroll-smooth">
-          {bytes?.map((video: LenstubePublication) => (
-            <ByteVideo video={video} key={`${video?.id}_${video.createdAt}`} />
-          ))}
-          {pageInfo?.next && bytes.length !== pageInfo?.totalCount && (
-            <span ref={observe} className="flex justify-center p-10">
-              <Loader />
-            </span>
-          )}
-        </div>
-      )}
+      <div className="md:h-[calc(100vh-70px)] h-screen overflow-y-scroll no-scrollbar snap-y snap-mandatory scroll-smooth">
+        {singleByte && <ByteVideo video={singleBytePublication} />}
+        {bytes?.map((video: LenstubePublication) => (
+          <ByteVideo video={video} key={`${video?.id}_${video.createdAt}`} />
+        ))}
+        {pageInfo?.next && bytes.length !== pageInfo?.totalCount && (
+          <span ref={observe} className="flex justify-center p-10">
+            <Loader />
+          </span>
+        )}
+      </div>
     </div>
   )
 }
