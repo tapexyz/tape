@@ -15,7 +15,7 @@ type Props = {
 
 const CollectedNFTs: FC<Props> = ({ channel }) => {
   const request = {
-    limit: 30,
+    limit: 32,
     chainIds: [POLYGON_CHAIN_ID],
     ownerAddress: channel.ownedBy
   }

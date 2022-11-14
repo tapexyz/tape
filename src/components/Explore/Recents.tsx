@@ -29,7 +29,7 @@ const Recents = () => {
 
   const request = {
     sortCriteria: PublicationSortCriteria.Latest,
-    limit: 30,
+    limit: 32,
     noRandomize: true,
     sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
     publicationTypes: [PublicationTypes.Post],
