@@ -53,7 +53,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
     <div className="w-full">
       {!error && !loading && (
         <>
-          <div className="grid gap-x-5 lg:grid-cols-4 md:gap-y-8 gap-y-2 2xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-col-1">
+          <div className="grid gap-x-4 2xl:grid-cols-5 md:gap-y-8 gap-y-2 ultrawide:grid-cols-6 laptop:grid-cols-4 md:grid-cols-2 grid-col-1">
             {collectedNFTs?.map((nft: Nft) => (
               <NFTCard
                 key={`${nft.contractAddress}_${nft.tokenId}`}
