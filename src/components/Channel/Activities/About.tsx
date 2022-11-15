@@ -2,7 +2,6 @@ import InterweaveContent from '@components/Common/InterweaveContent'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
 import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@utils/constants'
-import { formatUrl } from '@utils/functions/formatUrl'
 import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import Link from 'next/link'
@@ -91,9 +90,12 @@ const About: FC<Props> = ({ channel }) => {
             <div className="flex items-center space-x-1">
               <HiOutlineGlobe />
               <Link
-                href={formatUrl(
-                  getValueFromKeyInAttributes(attributes, 'website') as string
-                )}
+                href={`https://${getValueFromKeyInAttributes(
+                  attributes,
+                  'website'
+                )
+                  ?.replace('https://', '')
+                  .replace('http://', '')}`}
                 target="_blank"
                 rel="noreferer noreferrer"
                 className="hover:text-indigo-500"
@@ -124,9 +126,10 @@ const About: FC<Props> = ({ channel }) => {
             <div className="flex items-center space-x-1">
               <RiTwitterLine />
               <Link
-                href={`https://twitter.com/${
-                  getValueFromKeyInAttributes(attributes, 'twitter') as string
-                }`}
+                href={`https://twitter.com/${getValueFromKeyInAttributes(
+                  attributes,
+                  'twitter'
+                )}`}
                 target="_blank"
                 rel="noreferer noreferrer"
                 className="hover:text-indigo-500"
