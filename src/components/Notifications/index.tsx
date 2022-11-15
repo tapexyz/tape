@@ -112,100 +112,102 @@ const Notifications = () => {
     <div className="mx-auto md:p-0 px-2 my-2 md:container md:max-w-2xl">
       <MetaTags title="Notifications" />
       <Tab.Group as="div" className="w-full">
-        <Tab.List className="flex mb-3 overflow-x-auto space-x-4 no-scrollbar">
-          <Tab
-            onClick={() => {
-              setActiveFilter({ ...initialFilters })
-              Analytics.track(TRACK.NOTIFICATIONS.CLICK_ALL)
-            }}
-            className={({ selected }) =>
-              clsx(
-                'pb-1 flex px-1 items-center space-x-2 border-b-2 text-sm focus:outline-none',
-                selected
-                  ? 'border-indigo-900 opacity-100'
-                  : 'border-transparent opacity-50'
-              )
-            }
-          >
-            <BellOutline className="w-3.5 h-3.5" />
-            <span className="whitespace-nowrap">All Notifications</span>
-          </Tab>
-          <Tab
-            onClick={() => {
-              setActiveFilter({ ...initialFilters, subscriptions: true })
-              Analytics.track(TRACK.NOTIFICATIONS.CLICK_SUBSCRIPTIONS)
-            }}
-            className={({ selected }) =>
-              clsx(
-                'pb-1 px-1 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
-                selected
-                  ? 'border-indigo-900 opacity-100'
-                  : 'border-transparent opacity-50'
-              )
-            }
-          >
-            <SubscribeOutline className="w-3.5 h-3.5" />
-            <span>Subscriptions</span>
-          </Tab>
-          <Tab
-            onClick={() => {
-              setActiveFilter({ ...initialFilters, likes: true })
-              Analytics.track(TRACK.NOTIFICATIONS.CLICK_LIKES)
-            }}
-            className={({ selected }) =>
-              clsx(
-                'pb-1 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
-                selected
-                  ? 'border-indigo-900 opacity-100'
-                  : 'border-transparent opacity-50'
-              )
-            }
-          >
-            <LikeOutline className="w-3.5 h-3.5" />
-            <span>Likes</span>
-          </Tab>
-          <Tab
-            onClick={() => {
-              setActiveFilter({ ...initialFilters, comments: true })
-              Analytics.track(TRACK.NOTIFICATIONS.CLICK_COMMENTS)
-            }}
-            className={({ selected }) =>
-              clsx(
-                'pb-1 flex px-1 items-center space-x-2 border-b-2 text-sm focus:outline-none',
-                selected
-                  ? 'border-indigo-900 opacity-100'
-                  : 'border-transparent opacity-50'
-              )
-            }
-          >
-            <CommentOutline className="w-3.5 h-3.5" />
-            <span>Comments</span>
-          </Tab>
-          <Tab
-            onClick={() => {
-              setActiveFilter({ ...initialFilters, mentions: true })
-              Analytics.track(TRACK.NOTIFICATIONS.CLICK_MENTIONS)
-            }}
-            className={({ selected }) =>
-              clsx(
-                'pb-1 flex px-1 items-center space-x-2 border-b-2 text-sm focus:outline-none',
-                selected
-                  ? 'border-indigo-900 opacity-100'
-                  : 'border-transparent opacity-50'
-              )
-            }
-          >
-            <MentionOutline className="w-3.5 h-3.5" />
-            <span>Mentions</span>
-          </Tab>
-        </Tab.List>
-        {totalCount && Boolean(totalCount) ? (
-          <div className="mb-2 text-right">
-            <span className="text-xs opacity-50">
-              (showing {formatNumber(totalCount)} notifications)
-            </span>
-          </div>
-        ) : null}
+        <div className="flex items-center justify-between mb-4">
+          <Tab.List className="flex w-full overflow-x-auto space-x-4 no-scrollbar">
+            <Tab
+              onClick={() => {
+                setActiveFilter({ ...initialFilters })
+                Analytics.track(TRACK.NOTIFICATIONS.CLICK_ALL)
+              }}
+              className={({ selected }) =>
+                clsx(
+                  'py-2 flex px-1 items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                  selected
+                    ? 'border-indigo-900 opacity-100'
+                    : 'border-transparent opacity-50'
+                )
+              }
+            >
+              <BellOutline className="w-3.5 h-3.5" />
+              <span className="whitespace-nowrap">All Notifications</span>
+            </Tab>
+            <Tab
+              onClick={() => {
+                setActiveFilter({ ...initialFilters, subscriptions: true })
+                Analytics.track(TRACK.NOTIFICATIONS.CLICK_SUBSCRIPTIONS)
+              }}
+              className={({ selected }) =>
+                clsx(
+                  'py-2 px-1 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                  selected
+                    ? 'border-indigo-900 opacity-100'
+                    : 'border-transparent opacity-50'
+                )
+              }
+            >
+              <SubscribeOutline className="w-3.5 h-3.5" />
+              <span>Subscriptions</span>
+            </Tab>
+            <Tab
+              onClick={() => {
+                setActiveFilter({ ...initialFilters, likes: true })
+                Analytics.track(TRACK.NOTIFICATIONS.CLICK_LIKES)
+              }}
+              className={({ selected }) =>
+                clsx(
+                  'py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                  selected
+                    ? 'border-indigo-900 opacity-100'
+                    : 'border-transparent opacity-50'
+                )
+              }
+            >
+              <LikeOutline className="w-3.5 h-3.5" />
+              <span>Likes</span>
+            </Tab>
+            <Tab
+              onClick={() => {
+                setActiveFilter({ ...initialFilters, comments: true })
+                Analytics.track(TRACK.NOTIFICATIONS.CLICK_COMMENTS)
+              }}
+              className={({ selected }) =>
+                clsx(
+                  'py-2 flex px-1 items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                  selected
+                    ? 'border-indigo-900 opacity-100'
+                    : 'border-transparent opacity-50'
+                )
+              }
+            >
+              <CommentOutline className="w-3.5 h-3.5" />
+              <span>Comments</span>
+            </Tab>
+            <Tab
+              onClick={() => {
+                setActiveFilter({ ...initialFilters, mentions: true })
+                Analytics.track(TRACK.NOTIFICATIONS.CLICK_MENTIONS)
+              }}
+              className={({ selected }) =>
+                clsx(
+                  'py-2 flex px-1 items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                  selected
+                    ? 'border-indigo-900 opacity-100'
+                    : 'border-transparent opacity-50'
+                )
+              }
+            >
+              <MentionOutline className="w-3.5 h-3.5" />
+              <span>Mentions</span>
+            </Tab>
+          </Tab.List>
+          {totalCount && Boolean(totalCount) ? (
+            <div className="text-right hidden md:block">
+              <span className="text-xs opacity-50">
+                ({formatNumber(totalCount)})
+              </span>
+            </div>
+          ) : null}
+        </div>
         <Tab.Panels>
           {loading && <NotificationsShimmer />}
           {notifications?.length === 0 && (

@@ -1,3 +1,3 @@
 export const checkIsBytesVideo = (content: string) => {
-  return content.includes('#bytes')
+  return content.toLowerCase().includes('#bytes')
 }

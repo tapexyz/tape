@@ -1,7 +1,7 @@
+import CheckOutline from '@components/Common/Icons/CheckOutline'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
-import { AiOutlineCheck } from 'react-icons/ai'
 import type { CollectModuleType, UploadedVideo } from 'src/types/local'
 
 type Props = {
@@ -30,7 +30,9 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           )}
         >
           <span>Collect for Free</span>
-          {uploadedVideo.collectModule.isFreeCollect && <AiOutlineCheck />}
+          {uploadedVideo.collectModule.isFreeCollect && (
+            <CheckOutline className="w-3 h-3" />
+          )}
         </button>
         <button
           type="button"
@@ -48,7 +50,9 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           )}
         >
           <span>Yes, Some Amount</span>
-          {uploadedVideo.collectModule.isFeeCollect && <AiOutlineCheck />}
+          {uploadedVideo.collectModule.isFeeCollect && (
+            <CheckOutline className="w-3 h-3" />
+          )}
         </button>
       </div>
     </div>

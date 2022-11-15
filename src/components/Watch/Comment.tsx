@@ -1,3 +1,5 @@
+import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
+import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
@@ -16,7 +18,6 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { AiFillHeart, AiOutlinePlayCircle } from 'react-icons/ai'
-import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import type { Attribute } from 'src/types/lens'
 import { PublicationMainFocus } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
@@ -131,11 +132,11 @@ const Comment: FC<Props> = ({ comment }) => {
               >
                 {clamped ? (
                   <>
-                    Show more <BiChevronDown className="text-sm" />
+                    Show more <ChevronDownOutline className="h-3 ml-1 w-3" />
                   </>
                 ) : (
                   <>
-                    Show less <BiChevronUp className="text-sm" />
+                    Show less <ChevronUpOutline className="h-3 w-3 ml-1" />
                   </>
                 )}
               </button>

@@ -4,6 +4,8 @@ import { CustomFiltersTypes } from 'src/types/lens'
  * !!! CHANGING VALUES MIGHT BREAK THINGS !!!
  */
 export const APP_NAME = 'Lenstube'
+export const APP_DESCRIPTION =
+  'Lenstube is a decentralized video-sharing social media platform built with Lens protocol.'
 
 export const IS_MAINNET = process.env.NEXT_PUBLIC_ENVIRONMENT === 'mainnet'
 export const RELAYER_ENABLED =

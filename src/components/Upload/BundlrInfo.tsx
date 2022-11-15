@@ -1,4 +1,6 @@
 import type { WebBundlr } from '@bundlr-network/client'
+import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
+import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -16,7 +18,6 @@ import { utils } from 'ethers'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { MdRefresh } from 'react-icons/md'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useBalance, useSigner } from 'wagmi'
@@ -166,7 +167,11 @@ const BundlrInfo = () => {
               className="inline-flex py-0.5 items-center pl-1.5 pr-0.5 bg-gray-100 rounded-full focus:outline-none dark:bg-gray-800"
             >
               <span className="text-xs px-0.5">Deposit</span>
-              {bundlrData.showDeposit ? <BiChevronUp /> : <BiChevronDown />}
+              {bundlrData.showDeposit ? (
+                <ChevronUpOutline className="h-3 w-3 ml-1" />
+              ) : (
+                <ChevronDownOutline className="h-3 w-3 ml-1" />
+              )}
             </button>
           </span>
         </div>

@@ -98,6 +98,8 @@ export const TRACK = {
     EXPLORE: 'Explore Page',
     CHANNEL: 'Channel Page',
     EXPLORE_TRENDING: 'Trending Page',
+    EXPLORE_INTERESTING: 'Interesting Page',
+    EXPLORE_POPULAR: 'Popular Page',
     EXPLORE_RECENT: 'Recents Page',
     EXPLORE_CURATED: 'Curated Page',
     PRIVACY: 'Privacy Page',

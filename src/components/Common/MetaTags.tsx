@@ -1,4 +1,5 @@
 import {
+  APP_DESCRIPTION,
   APP_NAME,
   LENSTUBE_TWITTER_HANDLE,
   STATIC_ASSETS
@@ -20,9 +21,7 @@ const MetaTags: FC<Props> = (props) => {
 
   const meta = {
     title: title ?? APP_NAME,
-    description:
-      description ??
-      'Lenstube is a decentralized video-sharing social media platform built with Lens protocol.',
+    description: description ?? APP_DESCRIPTION,
     image: image ?? `${STATIC_ASSETS}/images/seo/og.png`,
     type: 'website'
   }

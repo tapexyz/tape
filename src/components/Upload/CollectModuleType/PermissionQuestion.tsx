@@ -1,7 +1,7 @@
+import CheckOutline from '@components/Common/Icons/CheckOutline'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
-import { AiOutlineCheck } from 'react-icons/ai'
 import type { CollectModuleType, UploadedVideo } from 'src/types/local'
 
 type Props = {
@@ -35,7 +35,9 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
         >
           <span>Anyone</span>
           {!uploadedVideo.collectModule.followerOnlyCollect &&
-            !uploadedVideo.collectModule.isRevertCollect && <AiOutlineCheck />}
+            !uploadedVideo.collectModule.isRevertCollect && (
+              <CheckOutline className="w-3 h-3" />
+            )}
         </button>
         <button
           type="button"
@@ -56,7 +58,9 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
         >
           <span>Subscribers</span>
           {uploadedVideo.collectModule.followerOnlyCollect &&
-            !uploadedVideo.collectModule.isRevertCollect && <AiOutlineCheck />}
+            !uploadedVideo.collectModule.isRevertCollect && (
+              <CheckOutline className="w-3 h-3" />
+            )}
         </button>
         <button
           type="button"
@@ -73,7 +77,9 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           )}
         >
           <span>None</span>
-          {uploadedVideo.collectModule.isRevertCollect && <AiOutlineCheck />}
+          {uploadedVideo.collectModule.isRevertCollect && (
+            <CheckOutline className="w-3 h-3" />
+          )}
         </button>
       </div>
     </div>
