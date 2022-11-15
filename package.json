@@ -46,7 +46,7 @@
     "react": "18.2.0",
     "react-cool-inview": "^3.0.1",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.39.3",
+    "react-hook-form": "^7.39.4",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.6.0",
     "react-mentions": "^4.4.7",
