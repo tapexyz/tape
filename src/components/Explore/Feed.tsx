@@ -4,6 +4,7 @@ import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import { Analytics, TRACK } from '@utils/analytics'
@@ -187,6 +188,9 @@ const ExploreFeed = () => {
       </Tab.List>
       <Tab.Panels className="my-3">
         {loading && <TimelineShimmer />}
+        {videos.length === 0 && (
+          <NoDataFound isCenter withImage text="No videos found" />
+        )}
         {!error && !loading && (
           <>
             <Timeline videos={videos} />
