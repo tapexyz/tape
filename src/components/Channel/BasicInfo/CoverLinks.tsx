@@ -15,12 +15,12 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
             onClick={() =>
               Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
             }
-            href={
-              getValueFromKeyInAttributes(
-                channel.attributes,
-                'website'
-              ) as string
-            }
+            href={`https://${getValueFromKeyInAttributes(
+              channel.attributes,
+              'website'
+            )
+              ?.replace('https://', '')
+              .replace('http://', '')}`}
             target="_blank"
             rel="noreferer noreferrer"
             className="p-2 bg-white rounded-lg dark:bg-gray-900 bg-opacity-80"
@@ -33,12 +33,10 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
             onClick={() =>
               Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
             }
-            href={`https://twitter.com/${
-              getValueFromKeyInAttributes(
-                channel.attributes,
-                'twitter'
-              ) as string
-            }`}
+            href={`https://twitter.com/${getValueFromKeyInAttributes(
+              channel.attributes,
+              'twitter'
+            )}`}
             target="_blank"
             rel="noreferer noreferrer"
             className="p-2 bg-white rounded-lg dark:bg-gray-900 bg-opacity-80"
