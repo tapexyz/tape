@@ -188,7 +188,7 @@ const ExploreFeed = () => {
       </Tab.List>
       <Tab.Panels className="my-3">
         {loading && <TimelineShimmer />}
-        {videos.length === 0 && (
+        {videos?.length === 0 && (
           <NoDataFound isCenter withImage text="No videos found" />
         )}
         {!error && !loading && (
