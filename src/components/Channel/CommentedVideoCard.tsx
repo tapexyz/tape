@@ -1,3 +1,4 @@
+import CommentOutline from '@components/Common/Icons/CommentOutline'
 import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
 import { Analytics, TRACK } from '@utils/analytics'
@@ -13,7 +14,6 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { AiOutlineComment } from 'react-icons/ai'
 import type { Attribute } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 dayjs.extend(relativeTime)
@@ -104,7 +104,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
           </div>
           <Tooltip content="Commented">
             <span className="absolute m-2 bottom-1 opacity-70">
-              <AiOutlineComment />
+              <CommentOutline className="w-3.5 h-3.5" />
             </span>
           </Tooltip>
           <div className="pl-8">

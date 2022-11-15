@@ -1,9 +1,8 @@
+import CheckOutline from '@components/Common/Icons/CheckOutline'
 import { Listbox, Transition } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import { CREATOR_VIDEO_CATEGORIES } from '@utils/data/categories'
 import React, { Fragment } from 'react'
-import { AiOutlineCheck } from 'react-icons/ai'
-import { HiOutlineSelector } from 'react-icons/hi'
 
 const Category = () => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
@@ -25,8 +24,8 @@ const Category = () => {
             <span className="block truncate">
               {uploadedVideo.videoCategory.name}
             </span>
-            <span className="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none">
-              <HiOutlineSelector className="text-lg" />
+            <span className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+              <CheckOutline className="w-3 h-3" />
             </span>
           </Listbox.Button>
           <Transition
@@ -56,8 +55,8 @@ const Category = () => {
                         {category.name}
                       </span>
                       {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-500">
-                          <AiOutlineCheck />
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                          <CheckOutline className="w-3 h-3" />
                         </span>
                       ) : null}
                     </>

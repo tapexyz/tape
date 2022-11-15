@@ -1,8 +1,8 @@
+import CheckOutline from '@components/Common/Icons/CheckOutline'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import React, { useState } from 'react'
-import { AiOutlineCheck } from 'react-icons/ai'
 import { useEnabledModuleCurrrenciesQuery } from 'src/types/lens'
 import { CollectModuleType } from 'src/types/local'
 
@@ -64,7 +64,7 @@ const CollectModuleType = () => {
         className="flex items-center justify-between w-full px-4 py-2.5 text-sm text-left border border-gray-300 focus:outline-none dark:border-gray-700 rounded-xl"
       >
         <span>{getSelectedCollectType()}</span>
-        <AiOutlineCheck />
+        <CheckOutline className="w-3 h-3" />
       </button>
       <Modal
         title="Select collect type"

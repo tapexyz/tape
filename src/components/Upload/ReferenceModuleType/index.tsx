@@ -1,9 +1,9 @@
+import CheckOutline from '@components/Common/Icons/CheckOutline'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import React, { useState } from 'react'
-import { AiOutlineCheck } from 'react-icons/ai'
 import { ReferenceModuleType } from 'src/types/local'
 
 const ReferenceModuleType = () => {
@@ -60,7 +60,7 @@ const ReferenceModuleType = () => {
         className="flex items-center justify-between w-full px-4 py-2.5 text-sm text-left border border-gray-300 focus:outline-none dark:border-gray-700 rounded-xl"
       >
         <span>{getSelectedReferenceType()}</span>
-        <AiOutlineCheck />
+        <CheckOutline className="w-3 h-3" />
       </button>
       <Modal
         title="Who can comment and mirror this publication?"
@@ -93,7 +93,7 @@ const ReferenceModuleType = () => {
               {!uploadedVideo?.referenceModule?.followerOnlyReferenceModule &&
                 !uploadedVideo?.referenceModule
                   ?.degreesOfSeparationReferenceModule?.degreesOfSeparation && (
-                  <AiOutlineCheck />
+                  <CheckOutline className="w-3 h-3" />
                 )}
             </button>
             <button
@@ -119,7 +119,7 @@ const ReferenceModuleType = () => {
               {uploadedVideo.referenceModule?.followerOnlyReferenceModule &&
                 !uploadedVideo.referenceModule
                   ?.degreesOfSeparationReferenceModule && (
-                  <AiOutlineCheck className="flex-none" />
+                  <CheckOutline className="w-3 h-3 flex-none" />
                 )}
             </button>
           </div>
@@ -169,7 +169,7 @@ const ReferenceModuleType = () => {
             </span>
             {uploadedVideo.referenceModule
               ?.degreesOfSeparationReferenceModule !== null && (
-              <AiOutlineCheck className="flex-none" />
+              <CheckOutline className="w-3 h-3 flex-none" />
             )}
           </button>
           <div className="flex justify-end">
