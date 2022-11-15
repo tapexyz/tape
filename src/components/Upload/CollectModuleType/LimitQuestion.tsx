@@ -1,7 +1,7 @@
+import CheckOutline from '@components/Common/Icons/CheckOutline'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
-import { AiOutlineCheck } from 'react-icons/ai'
 import type { CollectModuleType, UploadedVideo } from 'src/types/local'
 
 type Props = {
@@ -36,7 +36,7 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
         >
           <span>Unlimited collects</span>
           {!uploadedVideo.collectModule.isLimitedFeeCollect && (
-            <AiOutlineCheck />
+            <CheckOutline className="w-3 h-3" />
           )}
         </button>
         <button
@@ -62,7 +62,7 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
         >
           <span>Limited collect</span>
           {uploadedVideo.collectModule.isLimitedFeeCollect && (
-            <AiOutlineCheck />
+            <CheckOutline className="w-3 h-3" />
           )}
         </button>
       </div>
