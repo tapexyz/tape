@@ -53,6 +53,10 @@ export const CREATOR_VIDEO_CATEGORIES = [
     tag: 'nonprofits'
   },
   {
+    name: 'Promotions',
+    tag: 'promotions'
+  },
+  {
     name: 'Pets & Animals',
     tag: 'pets'
   },
