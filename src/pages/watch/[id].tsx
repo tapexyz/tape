@@ -7,6 +7,10 @@ export default VideoDetails
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const parser = new UAParser()
   const os = parser.getOS()
+  console.log(
+    '🚀 ~ file: [id].tsx ~ line 10 ~ constgetServerSideProps:GetServerSideProps= ~ os',
+    os
+  )
   const pubId = context.params?.id
   if (!os.name && pubId) {
     context.res.setHeader('Cache-Control', 'public, s-maxage=86400')
