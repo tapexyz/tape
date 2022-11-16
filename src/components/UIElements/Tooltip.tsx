@@ -1,5 +1,3 @@
-import 'tippy.js/dist/tippy.css'
-
 import Tippy from '@tippyjs/react'
 import clsx from 'clsx'
 import React from 'react'
