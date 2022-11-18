@@ -53,7 +53,6 @@ const Footer = () => {
         >
           Discord
         </Link>
-
         <Link
           className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
           href={PRIVACY}
