@@ -17,7 +17,7 @@ export const CREATOR_VIDEO_CATEGORIES = [
     tag: 'health'
   },
   {
-    name: 'Food and Cooking',
+    name: 'Food & Cooking',
     tag: 'food'
   },
   {
