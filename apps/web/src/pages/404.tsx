@@ -3,6 +3,7 @@ import { APP_NAME } from '@utils/constants'
 import { HOME } from '@utils/url-path'
 import Head from 'next/head'
 import Link from 'next/link'
+import React from 'react'
 
 export default function Custom404() {
   return (

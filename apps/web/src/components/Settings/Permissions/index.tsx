@@ -1,3 +1,5 @@
+import React from 'react'
+
 import DispatcherPermissions from './Dispatcher'
 import ModulePermissions from './Modules'
 

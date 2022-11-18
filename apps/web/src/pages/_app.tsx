@@ -9,7 +9,7 @@ import { AUTH_ROUTES } from '@utils/data/auth-routes'
 import { AUTH } from '@utils/url-path'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
-import { lazy, Suspense, useEffect } from 'react'
+import React, { lazy, Suspense, useEffect } from 'react'
 
 export { reportWebVitals } from 'next-axiom'
 

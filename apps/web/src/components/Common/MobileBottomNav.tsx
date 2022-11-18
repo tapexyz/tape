@@ -2,6 +2,7 @@ import { BYTES, EXPLORE, FEED, HOME, UPLOAD } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import React from 'react'
 
 import BytesOutline from './Icons/BytesOutline'
 import ExploreOutline from './Icons/ExploreOutline'

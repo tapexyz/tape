@@ -3,6 +3,7 @@ import { Analytics, TRACK } from '@utils/analytics'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
+import React from 'react'
 import {
   AiOutlineComment,
   AiOutlineInfoCircle,

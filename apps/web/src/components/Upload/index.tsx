@@ -1,4 +1,5 @@
 import useAppStore from '@lib/store'
+import React from 'react'
 
 import DropZone from './DropZone'
 import UploadSteps from './UploadSteps'
