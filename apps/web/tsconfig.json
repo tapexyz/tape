@@ -11,5 +11,6 @@
       "@abis*": ["src/abis*"],
       "@gql*": ["src/gql*"]
     }
-  }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/index.css"]
 }

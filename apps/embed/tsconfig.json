@@ -8,5 +8,6 @@
       "@components*": ["src/components*"],
       "@lib*": ["src/lib*"]
     }
-  }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/index.css"]
 }
