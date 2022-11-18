@@ -11,7 +11,7 @@ import useDebounce from '@utils/hooks/useDebounce'
 import useOutsideClick from '@utils/hooks/useOutsideClick'
 import clsx from 'clsx'
 import type { FC } from 'react'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import type { Profile } from 'src/types/lens'
 import {
   SearchProfilesDocument,

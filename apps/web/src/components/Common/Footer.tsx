@@ -8,6 +8,7 @@ import {
 } from '@utils/constants'
 import { DISCORD, PRIVACY } from '@utils/url-path'
 import Link from 'next/link'
+import React from 'react'
 
 const Footer = () => {
   return (

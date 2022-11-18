@@ -4,7 +4,7 @@ import usePersistStore from '@lib/store/persist'
 import { APP_NAME } from '@utils/constants'
 import { HOME } from '@utils/url-path'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 export default function AuthRequiredPage() {
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)

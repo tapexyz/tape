@@ -1,5 +1,6 @@
 import { STATIC_ASSETS } from '@utils/constants'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
+import React from 'react'
 
 class LenstubeDocument extends Document {
   render() {
