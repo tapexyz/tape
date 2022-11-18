@@ -25,6 +25,7 @@
     "react-icons": "^4.6.0"
   },
   "devDependencies": {
+    "tsconfig": "*",
     "eslint-config-weblint": "*",
     "@types/mixpanel-browser": "^2.38.0",
     "@types/node": "18.11.9",
