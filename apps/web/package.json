@@ -56,7 +56,7 @@
     "@graphql-codegen/typescript": "^2.8.2",
     "@graphql-codegen/typescript-operations": "^2.5.7",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
-    "@next/bundle-analyzer": "^13.0.1",
+    "@next/bundle-analyzer": "^13.0.4",
     "@types/mixpanel-browser": "^2.38.0",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
