@@ -11,8 +11,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-format": "prettier --check \"apps/**/*.{ts,tsx}\"",
     "check-lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "npx eslint --fix ."
