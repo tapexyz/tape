@@ -1,6 +1,7 @@
 {
   "name": "lenstube",
-  "version": "0.0.0",
+  "description": "Decentralized video-sharing social media platform.",
+  "version": "1.0.1-beta",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -10,8 +11,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-format": "prettier --check \"apps/**/*.{ts,tsx}\"",
     "check-lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "npx eslint --fix ."

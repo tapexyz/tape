@@ -115,7 +115,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       ? broadcastData?.broadcast?.txId
       : null
   const dispatcherTxId =
-    dispatcherData?.createCommentViaDispatcher.__typename == 'RelayerResult'
+    dispatcherData?.createCommentViaDispatcher.__typename === 'RelayerResult'
       ? dispatcherData?.createCommentViaDispatcher?.txId
       : null
 

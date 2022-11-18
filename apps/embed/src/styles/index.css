@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply min-h-screen bg-black;
+}
+
+vm-player {
+  --vm-player-font-family: 'Matter', sans-serif !important;
+}
+vm-player video {
+  @apply flex-1 h-auto w-auto aspect-[16/9];
+}
+vm-player video.sc-vm-file {
+  @apply border-inherit align-middle w-full outline-none;
+}

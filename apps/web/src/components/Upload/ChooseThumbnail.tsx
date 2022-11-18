@@ -12,7 +12,7 @@ import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import * as nsfwjs from 'nsfwjs'
 import type { ChangeEvent, FC } from 'react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BiImageAdd } from 'react-icons/bi'
 import type { IPFSUploadResult } from 'src/types/local'
 

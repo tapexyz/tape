@@ -57,7 +57,7 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 To get started with `lenstube` development, run the following commands:
 
 ```
-cp .env.example .env
+cd apps/web & cp .env.example .env
 ```
 
 Install all dependencies,

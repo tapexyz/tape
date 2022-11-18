@@ -27,7 +27,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
               notification?.mentionPublication.profile,
               'avatar'
             )}
-            alt="channel picture"
+            alt={notification?.mentionPublication?.profile?.handle}
             draggable={false}
           />
           <div className="flex items-center space-x-0.5">
