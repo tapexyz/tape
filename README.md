@@ -50,17 +50,19 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 ### Apps and Packages
 
-- `web`: a NextJS app
+- `web`: NextJs Lenstube website
+- `embed`: NextJs application for video embeds
+- `assets`: Static assets
 
 ## Getting Started
 
 To get started with `lenstube` development, run the following commands:
 
 ```
-cd apps/web & cp .env.example .env
+cd apps/web && cp .env.example .env
 ```
 
-Install all dependencies,
+Install all dependencies from repository root,
 
 ```
 yarn install
@@ -70,14 +72,15 @@ Start the application,
 
 ```
 yarn dev
+
+or
+
+<!-- run only web application -->
+
+npx turbo run dev --filter web
 ```
 
 and visit http://localhost:4783
-
-## Others
-
-- [Lenstube Assets](https://github.com/lenstube-xyz/assets)
-- [Lenstube Embeds](https://github.com/lenstube-xyz/embed)
 
 ## Contributors
 
