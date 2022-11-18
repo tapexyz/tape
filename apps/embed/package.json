@@ -1,13 +1,13 @@
 {
   "name": "embed",
-  "version": "0.1.0",
+  "description": "Embed Video",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write \"./src/**/*.{ts,tsx}\""
+    "lint": "next lint"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
