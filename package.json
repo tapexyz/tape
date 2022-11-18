@@ -10,9 +10,14 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prepare": "husky install",
+    "check-format": "prettier --check \"apps/**/*.{ts,tsx}\"",
+    "check-lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "npx eslint --fix ."
   },
   "devDependencies": {
+    "husky": "^8.0.2",
     "prettier": "latest",
     "turbo": "latest"
   },
