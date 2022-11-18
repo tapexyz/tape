@@ -4,9 +4,9 @@
     "baseUrl": ".",
     "noEmit": true,
     "paths": {
-      "@utils*": ["/src/utils*"],
-      "@components*": ["/src/components*"],
-      "@lib*": ["/src/lib*"]
+      "@utils*": ["src/utils*"],
+      "@components*": ["src/components*"],
+      "@lib*": ["src/lib*"]
     }
   }
 }
