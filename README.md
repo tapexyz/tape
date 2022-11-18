@@ -1,4 +1,3 @@
-
 <div align="center">
     <img src="https://assets.lenstube.xyz/images/brand/banner.png" alt="banner">
     <h1>Lenstube</h1>
