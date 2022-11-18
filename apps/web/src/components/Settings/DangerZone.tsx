@@ -97,7 +97,7 @@ const DangerZone = () => {
               src={getProfilePicture(selectedChannel, 'avatar')}
               className="rounded-full w-9 h-9"
               draggable={false}
-              alt="pfp"
+              alt={selectedChannel?.handle}
             />
           </div>
           <div className="flex flex-col">
