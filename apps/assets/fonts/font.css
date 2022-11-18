@@ -1,143 +1,143 @@
 @font-face {
-    font-family: 'Matter';
-    src: url('Matter-Bold.eot');
-    src: local('Matter Bold'), local('Matter-Bold'),
-        url('Matter-Bold.eot?#iefix') format('embedded-opentype'),
-        url('Matter-Bold.woff2') format('woff2'),
-        url('Matter-Bold.woff') format('woff'),
-        url('Matter-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
+  font-family: "Matter";
+  src: url("Matter-Bold.eot");
+  src: local("Matter Bold"), local("Matter-Bold"),
+    url("Matter-Bold.eot?#iefix") format("embedded-opentype"),
+    url("Matter-Bold.woff2") format("woff2"),
+    url("Matter-Bold.woff") format("woff"),
+    url("Matter-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Matter';
-    src: url('Matter-BoldItalic.eot');
-    src: local('Matter Bold Italic'), local('Matter-BoldItalic'),
-        url('Matter-BoldItalic.eot?#iefix') format('embedded-opentype'),
-        url('Matter-BoldItalic.woff2') format('woff2'),
-        url('Matter-BoldItalic.woff') format('woff'),
-        url('Matter-BoldItalic.ttf') format('truetype');
-    font-weight: bold;
-    font-style: italic;
+  font-family: "Matter";
+  src: url("Matter-BoldItalic.eot");
+  src: local("Matter Bold Italic"), local("Matter-BoldItalic"),
+    url("Matter-BoldItalic.eot?#iefix") format("embedded-opentype"),
+    url("Matter-BoldItalic.woff2") format("woff2"),
+    url("Matter-BoldItalic.woff") format("woff"),
+    url("Matter-BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Matter';
-    src: url('Matter-SemiBold.eot');
-    src: local('Matter SemiBold'), local('Matter-SemiBold'),
-        url('Matter-SemiBold.eot?#iefix') format('embedded-opentype'),
-        url('Matter-SemiBold.woff2') format('woff2'),
-        url('Matter-SemiBold.woff') format('woff'),
-        url('Matter-SemiBold.ttf') format('truetype');
-    font-weight: 600;
-    font-style: normal;
+  font-family: "Matter";
+  src: url("Matter-SemiBold.eot");
+  src: local("Matter SemiBold"), local("Matter-SemiBold"),
+    url("Matter-SemiBold.eot?#iefix") format("embedded-opentype"),
+    url("Matter-SemiBold.woff2") format("woff2"),
+    url("Matter-SemiBold.woff") format("woff"),
+    url("Matter-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Matter';
-    src: url('Matter-MediumItalic.eot');
-    src: local('Matter Medium Italic'), local('Matter-MediumItalic'),
-        url('Matter-MediumItalic.eot?#iefix') format('embedded-opentype'),
-        url('Matter-MediumItalic.woff2') format('woff2'),
-        url('Matter-MediumItalic.woff') format('woff'),
-        url('Matter-MediumItalic.ttf') format('truetype');
-    font-weight: 500;
-    font-style: italic;
+  font-family: "Matter";
+  src: url("Matter-MediumItalic.eot");
+  src: local("Matter Medium Italic"), local("Matter-MediumItalic"),
+    url("Matter-MediumItalic.eot?#iefix") format("embedded-opentype"),
+    url("Matter-MediumItalic.woff2") format("woff2"),
+    url("Matter-MediumItalic.woff") format("woff"),
+    url("Matter-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Matter';
-    src: url('Matter-Heavy.eot');
-    src: local('Matter Heavy'), local('Matter-Heavy'),
-        url('Matter-Heavy.eot?#iefix') format('embedded-opentype'),
-        url('Matter-Heavy.woff2') format('woff2'),
-        url('Matter-Heavy.woff') format('woff'),
-        url('Matter-Heavy.ttf') format('truetype');
-    font-weight: 900;
-    font-style: normal;
+  font-family: "Matter";
+  src: url("Matter-Heavy.eot");
+  src: local("Matter Heavy"), local("Matter-Heavy"),
+    url("Matter-Heavy.eot?#iefix") format("embedded-opentype"),
+    url("Matter-Heavy.woff2") format("woff2"),
+    url("Matter-Heavy.woff") format("woff"),
+    url("Matter-Heavy.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Matter';
-    src: url('Matter-LightItalic.eot');
-    src: local('Matter Light Italic'), local('Matter-LightItalic'),
-        url('Matter-LightItalic.eot?#iefix') format('embedded-opentype'),
-        url('Matter-LightItalic.woff2') format('woff2'),
-        url('Matter-LightItalic.woff') format('woff'),
-        url('Matter-LightItalic.ttf') format('truetype');
-    font-weight: 300;
-    font-style: italic;
+  font-family: "Matter";
+  src: url("Matter-LightItalic.eot");
+  src: local("Matter Light Italic"), local("Matter-LightItalic"),
+    url("Matter-LightItalic.eot?#iefix") format("embedded-opentype"),
+    url("Matter-LightItalic.woff2") format("woff2"),
+    url("Matter-LightItalic.woff") format("woff"),
+    url("Matter-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Matter';
-    src: url('Matter-Medium.eot');
-    src: local('Matter Medium'), local('Matter-Medium'),
-        url('Matter-Medium.eot?#iefix') format('embedded-opentype'),
-        url('Matter-Medium.woff2') format('woff2'),
-        url('Matter-Medium.woff') format('woff'),
-        url('Matter-Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
+  font-family: "Matter";
+  src: url("Matter-Medium.eot");
+  src: local("Matter Medium"), local("Matter-Medium"),
+    url("Matter-Medium.eot?#iefix") format("embedded-opentype"),
+    url("Matter-Medium.woff2") format("woff2"),
+    url("Matter-Medium.woff") format("woff"),
+    url("Matter-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Matter';
-    src: url('Matter-SemiBoldItalic.eot');
-    src: local('Matter SemiBold Italic'), local('Matter-SemiBoldItalic'),
-        url('Matter-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
-        url('Matter-SemiBoldItalic.woff2') format('woff2'),
-        url('Matter-SemiBoldItalic.woff') format('woff'),
-        url('Matter-SemiBoldItalic.ttf') format('truetype');
-    font-weight: 600;
-    font-style: italic;
+  font-family: "Matter";
+  src: url("Matter-SemiBoldItalic.eot");
+  src: local("Matter SemiBold Italic"), local("Matter-SemiBoldItalic"),
+    url("Matter-SemiBoldItalic.eot?#iefix") format("embedded-opentype"),
+    url("Matter-SemiBoldItalic.woff2") format("woff2"),
+    url("Matter-SemiBoldItalic.woff") format("woff"),
+    url("Matter-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Matter';
-    src: url('Matter-HeavyItalic.eot');
-    src: local('Matter Heavy Italic'), local('Matter-HeavyItalic'),
-        url('Matter-HeavyItalic.eot?#iefix') format('embedded-opentype'),
-        url('Matter-HeavyItalic.woff2') format('woff2'),
-        url('Matter-HeavyItalic.woff') format('woff'),
-        url('Matter-HeavyItalic.ttf') format('truetype');
-    font-weight: 900;
-    font-style: italic;
+  font-family: "Matter";
+  src: url("Matter-HeavyItalic.eot");
+  src: local("Matter Heavy Italic"), local("Matter-HeavyItalic"),
+    url("Matter-HeavyItalic.eot?#iefix") format("embedded-opentype"),
+    url("Matter-HeavyItalic.woff2") format("woff2"),
+    url("Matter-HeavyItalic.woff") format("woff"),
+    url("Matter-HeavyItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Matter';
-    src: url('Matter-Light.eot');
-    src: local('Matter Light'), local('Matter-Light'),
-        url('Matter-Light.eot?#iefix') format('embedded-opentype'),
-        url('Matter-Light.woff2') format('woff2'),
-        url('Matter-Light.woff') format('woff'),
-        url('Matter-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
+  font-family: "Matter";
+  src: url("Matter-Light.eot");
+  src: local("Matter Light"), local("Matter-Light"),
+    url("Matter-Light.eot?#iefix") format("embedded-opentype"),
+    url("Matter-Light.woff2") format("woff2"),
+    url("Matter-Light.woff") format("woff"),
+    url("Matter-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Matter';
-    src: url('Matter-Regular.eot');
-    src: local('Matter Regular'), local('Matter-Regular'),
-        url('Matter-Regular.eot?#iefix') format('embedded-opentype'),
-        url('Matter-Regular.woff2') format('woff2'),
-        url('Matter-Regular.woff') format('woff'),
-        url('Matter-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Matter";
+  src: url("Matter-Regular.eot");
+  src: local("Matter Regular"), local("Matter-Regular"),
+    url("Matter-Regular.eot?#iefix") format("embedded-opentype"),
+    url("Matter-Regular.woff2") format("woff2"),
+    url("Matter-Regular.woff") format("woff"),
+    url("Matter-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Matter';
-    src: url('Matter-RegularItalic.eot');
-    src: local('Matter Regular Italic'), local('Matter-RegularItalic'),
-        url('Matter-RegularItalic.eot?#iefix') format('embedded-opentype'),
-        url('Matter-RegularItalic.woff2') format('woff2'),
-        url('Matter-RegularItalic.woff') format('woff'),
-        url('Matter-RegularItalic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: italic;
+  font-family: "Matter";
+  src: url("Matter-RegularItalic.eot");
+  src: local("Matter Regular Italic"), local("Matter-RegularItalic"),
+    url("Matter-RegularItalic.eot?#iefix") format("embedded-opentype"),
+    url("Matter-RegularItalic.woff2") format("woff2"),
+    url("Matter-RegularItalic.woff") format("woff"),
+    url("Matter-RegularItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
 }

@@ -8,16 +8,17 @@ Static assets repository for Lenstube Project.
 
 [Lensube Repository](https://github.com/lenstube-xyz/lenstube)
 
-
-## Images 
+## Images
 
 ```
 /images/*
 ```
 
 ## Sitemaps
+
 ```
 /sitemaps/channels/50000.txt
 /sitemaps/channels/100000.txt
 ```
+
 Consumed from [Lenster](https://github.com/lensterxyz/sitemap/tree/main/sitemaps/profiles)'s sitemap
