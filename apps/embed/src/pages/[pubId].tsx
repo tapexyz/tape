@@ -1,9 +1,9 @@
 import Video from '@components/Video'
 import { LENSTUBE_APP_ID, LENSTUBE_BYTE_APP_ID } from '@utils/constants'
-import { GetServerSideProps } from 'next'
+import type { GetServerSideProps } from 'next'
 import apolloNodeClient from 'src/gql/apollo'
 import { VIDEO_DETAIL_QUERY } from 'src/gql/queries'
-import { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types/local'
 
 export default Video
 

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { Profile } from 'src/types/lens'
 
 import { getIsDicebearImage } from './getIsDicebearImage'
