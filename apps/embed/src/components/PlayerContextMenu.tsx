@@ -1,7 +1,7 @@
 import { LENSTUBE_URL } from '@utils/constants'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import useOutsideClick from '@utils/hooks/useOutsideClick'
-import { forwardRef, useRef } from 'react'
+import React, { forwardRef, useRef } from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineLink } from 'react-icons/ai'
 import { BiCheck } from 'react-icons/bi'
