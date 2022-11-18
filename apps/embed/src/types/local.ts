@@ -1,4 +1,4 @@
-import {
+import type {
   Attribute,
   Comment,
   FeeCollectModuleSettings,
@@ -9,7 +9,7 @@ import {
   Post,
   RevertCollectModuleSettings,
   TimedFeeCollectModuleSettings
-} from '.'
+} from './lens'
 
 export type VideoDraft = {
   preview: string
@@ -22,6 +22,20 @@ export type FileReaderStreamType = NodeJS.ReadableStream & {
   size: number
   type: string
   lastModified: string
+}
+
+export type CollectModuleType = {
+  isTimedFeeCollect?: boolean
+  isFreeCollect?: boolean
+  isFeeCollect?: boolean
+  isRevertCollect?: boolean
+  isLimitedFeeCollect?: boolean
+  isLimitedTimeFeeCollect?: boolean
+  amount?: { currency?: string; value: string }
+  referralFee?: number
+  collectLimit?: string
+  followerOnlyCollect?: boolean
+  recipient?: string
 }
 
 export type UploadedVideo = {
@@ -48,29 +62,15 @@ export type UploadedVideo = {
   isNSFWThumbnail: boolean
 }
 
-export type CollectModuleType = {
-  isTimedFeeCollect?: boolean
-  isFreeCollect?: boolean
-  isFeeCollect?: boolean
-  isRevertCollect?: boolean
-  isLimitedFeeCollect?: boolean
-  isLimitedTimeFeeCollect?: boolean
-  amount?: { currency?: string; value: string }
-  referralFee?: number
-  collectLimit?: string
-  followerOnlyCollect?: boolean
-  recipient?: string
+export type HLSData = {
+  hrn: string
+  url: string
+  type: string
 }
 
 export type LenstubePublication = Post & Comment & Mirror & { hls: HLSData }
 
 export type IPFSUploadResult = {
-  url: string
-  type: string
-}
-
-export type HLSData = {
-  hrn: string
   url: string
   type: string
 }

@@ -7,9 +7,9 @@ import {
   Video
 } from '@vime/react'
 import clsx from 'clsx'
-import React, { FC, Ref, useEffect, useRef, useState } from 'react'
-import { HLSData } from 'src/types/local'
-import { LenstubePublication } from 'src/types/local'
+import type { FC, Ref } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import type { HLSData, LenstubePublication } from 'src/types/local'
 
 import PlayerContextMenu from './PlayerContextMenu'
 import SensitiveWarning from './SensitiveWarning'

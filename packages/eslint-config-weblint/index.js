@@ -1,23 +1,23 @@
-{
-  "parser": "@typescript-eslint/parser",
-  "env": {
-    "es2022": true
+module.exports = {
+  parser: "@typescript-eslint/parser",
+  env: {
+    es2022: true,
   },
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
   },
-  "plugins": [
+  plugins: [
     "@typescript-eslint",
     "unused-imports",
     "simple-import-sort",
     "prettier",
-    "unicorn"
+    "unicorn",
   ],
-  "extends": ["next", "next/core-web-vitals"],
-  "rules": {
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
-    "import/no-duplicates": ["error", { "considerQueryString": true }],
+  extends: ["next", "next/core-web-vitals"],
+  rules: {
+    "prettier/prettier": ["error", { endOfLine: "auto" }],
+    "import/no-duplicates": ["error", { considerQueryString: true }],
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
     "react/jsx-no-useless-fragment": 2,
@@ -35,7 +35,6 @@
     "simple-import-sort/exports": "error",
     "jsx-a11y/role-supports-aria-props": "off",
     "unicorn/no-lonely-if": "error",
-    "unicorn/no-useless-undefined": "error"
+    "unicorn/no-useless-undefined": "error",
   },
-  "ignorePatterns": ["/src/types/lens.ts"]
-}
+};
