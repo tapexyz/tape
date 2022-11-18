@@ -111,7 +111,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
       ? broadcastData?.broadcast?.txId
       : null
   const dispatcherTxId =
-    dispatcherData?.createCommentViaDispatcher.__typename == 'RelayerResult'
+    dispatcherData?.createCommentViaDispatcher.__typename === 'RelayerResult'
       ? dispatcherData?.createCommentViaDispatcher?.txId
       : null
 
