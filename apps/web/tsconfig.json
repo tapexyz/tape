@@ -6,7 +6,10 @@
     "paths": {
       "@utils*": ["src/utils*"],
       "@components*": ["src/components*"],
-      "@lib*": ["src/lib*"]
+      "@lib*": ["src/lib*"],
+      "@ui*": ["src/components/ui*"],
+      "@abis*": ["src/abis*"],
+      "@gql*": ["src/gql*"]
     }
   }
 }
