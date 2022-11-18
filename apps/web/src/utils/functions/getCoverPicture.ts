@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { STATIC_ASSETS } from '@utils/constants'
 import type { Profile } from 'src/types/lens'
 

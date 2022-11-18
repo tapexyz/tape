@@ -5,8 +5,9 @@ import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import truncate from '@utils/functions/truncate'
 import { Mixpanel, TRACK } from '@utils/track'
 import dynamic from 'next/dynamic'
-import { FC, useEffect } from 'react'
-import { LenstubePublication } from 'src/types/local'
+import type { FC } from 'react'
+import React, { useEffect } from 'react'
+import type { LenstubePublication } from 'src/types/local'
 
 import MetaTags from './MetaTags'
 
