@@ -8,7 +8,7 @@ import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
 import type { CreateBurnProfileBroadcastItemResult } from 'src/types/lens'
@@ -97,7 +97,7 @@ const DangerZone = () => {
               src={getProfilePicture(selectedChannel, 'avatar')}
               className="rounded-full w-9 h-9"
               draggable={false}
-              alt="pfp"
+              alt={selectedChannel?.handle}
             />
           </div>
           <div className="flex flex-col">

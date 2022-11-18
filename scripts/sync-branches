@@ -1,0 +1,15 @@
+#!/bin/bash
+
+git checkout main
+echo "Syncing testnet branch with main branch 🔄"
+git pull origin main
+git checkout testnet
+git merge main
+git push origin testnet
+git checkout stage
+echo "Syncing stage branch with main branch 🔄"
+git pull origin stage
+git merge main
+git push origin stage
+git checkout main
+echo "Branches synced 🎉"

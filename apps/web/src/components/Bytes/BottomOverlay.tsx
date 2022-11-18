@@ -15,7 +15,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
   const subscribeType = video.profile?.followModule?.__typename
   const channel = video.profile
   return (
-    <div className="absolute bottom-0 left-0 right-0 px-3 pt-5 pb-3">
+    <div className="absolute bottom-0 left-0 right-0 px-3 pt-5 pb-3 bg-gradient-to-t from-gray-900 to-transparent">
       <div className="pb-2">
         <h1 className="text-white line-clamp-2">{video.metadata.name}</h1>
       </div>
@@ -29,7 +29,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
               src={getProfilePicture(channel, 'avatar')}
               className="w-9 h-9 rounded-xl"
               draggable={false}
-              alt="channel picture"
+              alt={channel?.handle}
             />
             <div className="flex flex-col items-start text-white min-w-0">
               <h6 className="flex items-center space-x-1 max-w-full">

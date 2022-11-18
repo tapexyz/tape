@@ -14,8 +14,8 @@ import { MdOutlineSlowMotionVideo } from 'react-icons/md'
 import { z } from 'zod'
 
 import Category from './Category'
-import CollectModuleType from './CollectModuleType'
-import ReferenceModuleType from './ReferenceModuleType'
+import CollectModule from './CollectModule'
+import ReferenceModule from './ReferenceModule'
 import Video from './Video'
 
 const ContentAlert = ({ message }: { message: ReactNode }) => (
@@ -147,13 +147,13 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               </div>
             </div>
             <div className="mt-4">
-              <CollectModuleType />
+              <CollectModule />
             </div>
             <div className="mt-4">
               <Category />
             </div>
             <div className="mt-4">
-              <ReferenceModuleType />
+              <ReferenceModule />
             </div>
             <div className="mt-4">
               <RadioInput

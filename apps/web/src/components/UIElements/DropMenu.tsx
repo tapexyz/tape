@@ -2,6 +2,7 @@ import { Menu, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC, ReactElement, ReactNode } from 'react'
+import React from 'react'
 
 interface Props {
   trigger: ReactNode

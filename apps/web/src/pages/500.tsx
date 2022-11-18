@@ -2,6 +2,7 @@ import { Button } from '@components/UIElements/Button'
 import { HOME } from '@utils/url-path'
 import Head from 'next/head'
 import Link from 'next/link'
+import React from 'react'
 
 export default function Custom500() {
   return (

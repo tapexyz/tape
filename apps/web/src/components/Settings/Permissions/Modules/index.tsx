@@ -3,7 +3,7 @@ import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
 import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { ApprovedAllowanceAmount, Erc20 } from 'src/types/lens'
 import {

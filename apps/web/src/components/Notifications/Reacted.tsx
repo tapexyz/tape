@@ -28,7 +28,7 @@ const ReactedNotification: FC<Props> = ({ notification }) => {
           <img
             className="w-4 h-4 rounded"
             src={getProfilePicture(notification.profile, 'avatar')}
-            alt="channel picture"
+            alt={notification.profile?.handle}
             draggable={false}
           />
           <div className="flex items-center space-x-0.5">

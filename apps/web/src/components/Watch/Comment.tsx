@@ -72,7 +72,7 @@ const Comment: FC<Props> = ({ comment }) => {
             src={getProfilePicture(comment.profile, 'avatar')}
             className="rounded-full w-7 h-7"
             draggable={false}
-            alt="channel picture"
+            alt={comment.profile?.handle}
           />
         </Link>
         <div className="flex flex-col items-start mr-2">

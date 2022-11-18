@@ -134,7 +134,7 @@ const UploadSteps = () => {
       ? broadcastData?.broadcast?.txId
       : null
   const dispatcherTxId =
-    dispatcherData?.createPostViaDispatcher.__typename == 'RelayerResult'
+    dispatcherData?.createPostViaDispatcher.__typename === 'RelayerResult'
       ? dispatcherData?.createPostViaDispatcher?.txId
       : null
 

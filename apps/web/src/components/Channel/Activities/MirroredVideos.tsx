@@ -4,6 +4,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@utils/constants'
 import type { FC } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
 import type { Profile } from 'src/types/lens'
 import {
