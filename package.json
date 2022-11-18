@@ -1,6 +1,7 @@
 {
   "name": "lenstube",
-  "version": "0.0.0",
+  "description": "Decentralized video-sharing social media platform.",
+  "version": "1.0.1-beta",
   "private": true,
   "workspaces": [
     "apps/*",
