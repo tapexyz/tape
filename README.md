@@ -44,12 +44,20 @@ Lenstube is a decentralized video-sharing social media platform, built using Len
 
 For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://lenstube.xyz/discord).
 
+## What's inside?
+
+This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
+
+### Apps and Packages
+
+- `web`: a NextJS app
+
 ## Getting Started
 
 To get started with `lenstube` development, run the following commands:
 
 ```
-cp .env.example .env
+cd apps/web & cp .env.example .env
 ```
 
 Install all dependencies,
@@ -82,9 +90,3 @@ We love contributors! Feel free to contribute to this project but please read th
 ## License
 
 Lenstube is open-sourced software licensed under the [MIT license](LICENSE).
-
-<p>
-<a rel="noopener noreferrer" target="_blank" href="https://vercel.com/?utm_source=Lenstube&utm_campaign=oss">
-<img height="34px" src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg" alt="Powered by vercel">
-</a>
-</p>

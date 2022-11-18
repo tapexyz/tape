@@ -25,17 +25,6 @@ yarn check-lint ||
         false; 
 )
 
-# Check tsconfig standards
-yarn check-types ||
-(
-    echo '
-    
-    ❌ Failed Type check ❌
-    
-    '
-    false;
-)
-
 echo '
 
 ✅✅✅✅ Looks good... committing the changes. ✅✅✅✅

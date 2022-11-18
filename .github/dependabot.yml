@@ -1,7 +1,16 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "apps/web"
+    target-branch: "main"
+    reviewers:
+      - sasicodes
+    rebase-strategy: auto
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "apps/embed"
     target-branch: "main"
     reviewers:
       - sasicodes
