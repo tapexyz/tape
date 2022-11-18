@@ -273,7 +273,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
             src={getProfilePicture(selectedChannel, 'avatar')}
             className="w-8 h-8 md:w-9 md:h-9 rounded-full"
             draggable={false}
-            alt="channel picture"
+            alt={selectedChannel?.handle}
           />
         </div>
         <InputMentions
