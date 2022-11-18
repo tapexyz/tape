@@ -303,10 +303,52 @@
     "@aws-sdk/util-utf8-node" "3.208.0"
     tslib "^2.3.1"
 
-"@aws-sdk/client-sts@3.212.0", "@aws-sdk/client-sts@^3.211.0":
+"@aws-sdk/client-sts@3.212.0":
   version "3.212.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.212.0.tgz#6c18ae5b555443be753504218476a05b0c74d045"
   integrity sha512-Zl8665HT1Do/yfiFEtqEjLkHSkAo5Isg2QU65Kbknj2W2DFj92a1cRvMlHanDLxlpuoryGP9/u1efYZeWeIdlg==
+  dependencies:
+    "@aws-crypto/sha256-browser" "2.0.0"
+    "@aws-crypto/sha256-js" "2.0.0"
+    "@aws-sdk/config-resolver" "3.212.0"
+    "@aws-sdk/credential-provider-node" "3.212.0"
+    "@aws-sdk/fetch-http-handler" "3.212.0"
+    "@aws-sdk/hash-node" "3.212.0"
+    "@aws-sdk/invalid-dependency" "3.212.0"
+    "@aws-sdk/middleware-content-length" "3.212.0"
+    "@aws-sdk/middleware-endpoint" "3.212.0"
+    "@aws-sdk/middleware-host-header" "3.212.0"
+    "@aws-sdk/middleware-logger" "3.212.0"
+    "@aws-sdk/middleware-recursion-detection" "3.212.0"
+    "@aws-sdk/middleware-retry" "3.212.0"
+    "@aws-sdk/middleware-sdk-sts" "3.212.0"
+    "@aws-sdk/middleware-serde" "3.212.0"
+    "@aws-sdk/middleware-signing" "3.212.0"
+    "@aws-sdk/middleware-stack" "3.212.0"
+    "@aws-sdk/middleware-user-agent" "3.212.0"
+    "@aws-sdk/node-config-provider" "3.212.0"
+    "@aws-sdk/node-http-handler" "3.212.0"
+    "@aws-sdk/protocol-http" "3.212.0"
+    "@aws-sdk/smithy-client" "3.212.0"
+    "@aws-sdk/types" "3.212.0"
+    "@aws-sdk/url-parser" "3.212.0"
+    "@aws-sdk/util-base64" "3.208.0"
+    "@aws-sdk/util-body-length-browser" "3.188.0"
+    "@aws-sdk/util-body-length-node" "3.208.0"
+    "@aws-sdk/util-defaults-mode-browser" "3.212.0"
+    "@aws-sdk/util-defaults-mode-node" "3.212.0"
+    "@aws-sdk/util-endpoints" "3.212.0"
+    "@aws-sdk/util-user-agent-browser" "3.212.0"
+    "@aws-sdk/util-user-agent-node" "3.212.0"
+    "@aws-sdk/util-utf8-browser" "3.188.0"
+    "@aws-sdk/util-utf8-node" "3.208.0"
+    fast-xml-parser "4.0.11"
+    tslib "^2.3.1"
+
+"@aws-sdk/client-sts@^3.213.0":
+  version "3.213.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.213.0.tgz#cfc097ad1c4a02eec5623010a06f16a408014267"
+  integrity sha512-MCjtLaYVQJLIMeLubDc4yRjSyVVTOebKxhY4ix4cfpSA6X4jMc4gRY2eu4eja3qoISfHq/Ikrkxx9DD1+n1azg==
   dependencies:
     "@aws-crypto/sha256-browser" "2.0.0"
     "@aws-crypto/sha256-js" "2.0.0"
