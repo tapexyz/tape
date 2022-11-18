@@ -1,90 +1,76 @@
-<div align="center">
-    <img src="https://assets.lenstube.xyz/images/brand/banner.png" alt="banner">
-    <h1>Lenstube</h1>
-    <p>Decentralized video-sharing social media platform.</p>
-    <a href="https://lenstube.xyz">lenstube.xyz</a>
-</div>
-<br>
-<div align="center">
-    <a href="https://lenstube.xyz/discord">
-       <img src="https://img.shields.io/discord/980882088783913010.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
-    </a>
-    <a href="https://www.gitpoap.io/gh/lenstube-xyz/lenstube">
-        <img src="https://public-api.gitpoap.io/v1/repo/lenstube-xyz/lenstube/badge" alt="Gitpoap">
-    </a>
-    <a href="https://twitter.com/lenstubexyz">
-        <img src="https://img.shields.io/twitter/follow/lenstubexyz?label=lenstubexyz&style=flat&logo=twitter&color=1DA1F2" alt="Twitter">
-    </a>
-    <a href="https://deepsource.io/gh/lenstube-xyz/lenstube">
-        <img src="https://deepsource.io/gh/lenstube-xyz/lenstube.svg/?label=active+issues&show_trend=true" alt="Deepsource">
-    </a>
-     <a href="https://status.lenstube.xyz">
-        <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
-    </a>
-    <a href="https://lenstube.checklyhq.com">
-        <img src="https://api.checklyhq.com/v1/badges/checks/2278c22c-37af-4c6a-bebc-b48169fdcc78?style=flat&theme=default&responseTime=true" alt="Better Uptime">
-    </a>
-    <span>
-        <img src="https://img.shields.io/badge/dependabot-enabled-025e8c?logo=Dependabot" alt="Dependabot">
-    </span>
-    <span>
-        <img src="https://img.shields.io/github/stars/lenstube-xyz/lenstube" alt="Stargazers">
-    </span>
-    <a href="https://github.com/lenstube-xyz/lenstube/blob/main/LICENSE">
-        <img src="https://badgen.net/github/license/lenstube-xyz/lenstube" alt="License">
-    </a>
-</div>
-<br>
+# Lenstube Monorepo
 
-## About
+https://lenstube.xyz
 
-Lenstube is a decentralized video-sharing social media platform, built using Lens Protocol 🌿
+## What's inside?
 
-## Community
+This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
 
-For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://lenstube.xyz/discord).
+### Apps and Packages
 
-## Getting Started
+- `web`: a [Next.js](https://nextjs.org/) app
 
-To get started with `lenstube` development, run the following commands:
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+
+### Utilities
+
+This turborepo has some additional tools already setup for you:
+
+
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting
+
+
+
+### Build
+
+
+
+To build all apps and packages, run the following command:
+
+
 
 ```
-cp .env.example .env
-```
-
-Install all dependencies,
+yarn run build
 
 ```
-yarn install
+
+### Develop
+
+To develop all apps and packages, run the following command:
+
+
+```
+yarn run dev
+
 ```
 
-Start the application,
+### Remote Caching
+
+Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+
+
+
+By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+
+
 
 ```
-yarn dev
+npx turbo login
 ```
 
-and visit http://localhost:4783
 
-## Others
 
-- [Lenstube Assets](https://github.com/lenstube-xyz/assets)
-- [Lenstube Embeds](https://github.com/lenstube-xyz/embed)
+This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
 
-## Contributors
 
-We love contributors! Feel free to contribute to this project but please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or PR so you understand the branching strategy and local development environment.
 
-<a href="https://github.com/lenstube-xyz/lenstube/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=lenstube-xyz/lenstube" />
-</a>
+Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
 
-## License
 
-Lenstube is open-sourced software licensed under the [MIT license](LICENSE).
 
-<p>
-<a rel="noopener noreferrer" target="_blank" href="https://vercel.com/?utm_source=Lenstube&utm_campaign=oss">
-<img height="34px" src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg" alt="Powered by vercel">
-</a>
-</p>
+```
+npx turbo link
+```
+
