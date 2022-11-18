@@ -4,7 +4,7 @@ import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import React, { useState } from 'react'
 import { useEnabledModuleCurrrenciesQuery } from 'src/types/lens'
-import { CollectModuleType } from 'src/types/local'
+import type { CollectModuleType } from 'src/types/local'
 
 import ChargeQuestion from './ChargeQuestion'
 import FeeCollectForm from './FeeCollectForm'
@@ -12,7 +12,7 @@ import LimitDurationQuestion from './LimitDurationQuestion'
 import LimitQuestion from './LimitQuestion'
 import PermissionQuestion from './PermissionQuestion'
 
-const CollectModuleType = () => {
+const CollectModule = () => {
   const [showModal, setShowModal] = useState(false)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
@@ -118,4 +118,4 @@ const CollectModuleType = () => {
   )
 }
 
-export default CollectModuleType
+export default CollectModule
