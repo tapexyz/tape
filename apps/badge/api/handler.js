@@ -14,7 +14,7 @@ export default async function handler(request, response) {
   const { handle } = request.query
   console.log('🚀 ~ file: handler.js ~ line 5 ~ handler ~ handle', handle)
 
-  const res = await fetch(PROFILE_QUERY, {
+  const res = await fetch('https://api.lens.dev', {
     method: 'POST',
     body: JSON.stringify({
       operationName: 'Profile',
