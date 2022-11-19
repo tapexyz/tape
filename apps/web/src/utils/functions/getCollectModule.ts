@@ -1,5 +1,5 @@
 import type { CollectModuleParams } from 'lens'
-import type { CollectModuleType } from 'src/types/local'
+import type { CollectModuleType } from 'src/types'
 
 export const getCollectModule = (
   selectCollectModule: CollectModuleType

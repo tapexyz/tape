@@ -7,7 +7,7 @@ import type { Erc20 } from 'lens'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import type { CollectModuleType, UploadedVideo } from 'src/types/local'
+import type { CollectModuleType, UploadedVideo } from 'src/types'
 import { z } from 'zod'
 
 type Props = {

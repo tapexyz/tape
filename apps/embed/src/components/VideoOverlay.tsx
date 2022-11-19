@@ -3,7 +3,7 @@ import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 type Props = {
   video: LenstubePublication

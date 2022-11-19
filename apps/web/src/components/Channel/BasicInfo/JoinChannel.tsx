@@ -22,7 +22,7 @@ import {
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types'
 import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
 
 type Props = {

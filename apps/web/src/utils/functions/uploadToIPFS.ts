@@ -7,7 +7,7 @@ import {
   NEXT_PUBLIC_EVER_BUCKET_NAME
 } from '@utils/constants'
 import axios from 'axios'
-import type { IPFSUploadResult } from 'src/types/local'
+import type { IPFSUploadResult } from 'src/types'
 import { v4 as uuidv4 } from 'uuid'
 
 export const everland = async (

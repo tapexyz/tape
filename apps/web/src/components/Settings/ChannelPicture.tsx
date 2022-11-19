@@ -26,7 +26,7 @@ import type { ChangeEvent, FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
-import type { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
+import type { CustomErrorWithData, IPFSUploadResult } from 'src/types'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {

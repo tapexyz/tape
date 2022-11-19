@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { HLSData } from 'src/types/local'
+import type { HLSData } from 'src/types'
 
 import sanitizeLvprUrl from './sanitizeLvprUrl'
 

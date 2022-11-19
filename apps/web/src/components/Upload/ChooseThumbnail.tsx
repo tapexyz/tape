@@ -14,7 +14,7 @@ import * as nsfwjs from 'nsfwjs'
 import type { ChangeEvent, FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { BiImageAdd } from 'react-icons/bi'
-import type { IPFSUploadResult } from 'src/types/local'
+import type { IPFSUploadResult } from 'src/types'
 
 if (IS_MAINNET) {
   tf.enableProdMode()

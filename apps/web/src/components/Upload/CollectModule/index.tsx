@@ -4,7 +4,7 @@ import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import { useEnabledModuleCurrrenciesQuery } from 'lens'
 import React, { useState } from 'react'
-import type { CollectModuleType } from 'src/types/local'
+import type { CollectModuleType } from 'src/types'
 
 import ChargeQuestion from './ChargeQuestion'
 import FeeCollectForm from './FeeCollectForm'

@@ -7,7 +7,7 @@ import { Mixpanel, TRACK } from '@utils/track'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React, { useEffect } from 'react'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 import MetaTags from './MetaTags'
 

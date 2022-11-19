@@ -45,7 +45,7 @@ import {
 } from 'lens'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types'
 import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
