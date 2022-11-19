@@ -9,7 +9,7 @@ import {
 import clsx from 'clsx'
 import type { FC, Ref } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
-import type { HLSData, LenstubePublication } from 'src/types/local'
+import type { HLSData, LenstubePublication } from 'src/types'
 
 import PlayerContextMenu from './PlayerContextMenu'
 import SensitiveWarning from './SensitiveWarning'

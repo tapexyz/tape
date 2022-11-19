@@ -1,4 +1,4 @@
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 import { sanitizeIpfsUrl } from './sanitizeIpfsUrl'
 
