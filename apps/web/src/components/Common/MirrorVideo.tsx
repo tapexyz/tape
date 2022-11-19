@@ -10,18 +10,15 @@ import {
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
-import type { FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-import type {
-  CreateMirrorBroadcastItemResult,
-  CreateMirrorRequest
-} from 'src/types/lens'
+import type { CreateMirrorBroadcastItemResult, CreateMirrorRequest } from 'lens'
 import {
   useBroadcastMutation,
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
-} from 'src/types/lens'
+} from 'lens'
+import type { FC } from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import type { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 

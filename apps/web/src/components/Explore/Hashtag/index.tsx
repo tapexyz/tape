@@ -9,11 +9,11 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
+import { SearchRequestTypes, useSearchPublicationsQuery } from 'lens'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
-import { SearchRequestTypes, useSearchPublicationsQuery } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 const ExploreHashtag = () => {

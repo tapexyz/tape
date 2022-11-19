@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import type { Profile } from 'src/types/lens'
+import type { Profile } from 'lens'
 
 import { getIsDicebearImage } from './getIsDicebearImage'
 import { getRandomProfilePicture } from './getRandomProfilePicture'

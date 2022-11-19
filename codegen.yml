@@ -1,12 +1,12 @@
 overwrite: true
 schema: https://api-mumbai.lens.dev
-documents: "**/*.graphql"
+documents: "packages/lens/documents/**/*.graphql"
 hooks:
-  afterOneFileWrite:
+  afterAllFileWrite:
     - eslint --fix
     - prettier --write
 generates:
-  src/types/lens.ts:
+  packages/lens/generated.ts:
     plugins:
         - typescript
         - typescript-operations

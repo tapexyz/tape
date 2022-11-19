@@ -12,12 +12,18 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "prepare": "husky install",
+    "codegen": "graphql-codegen",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-format": "prettier --check \"apps/**/*.{ts,tsx}\"",
+    "check-format": "prettier --check \"**/*.{ts,tsx}\"",
     "check-lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "npx eslint --fix ."
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.13.11",
+    "@graphql-codegen/fragment-matcher": "^3.3.1",
+    "@graphql-codegen/typescript": "^2.8.2",
+    "@graphql-codegen/typescript-operations": "^2.5.7",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "husky": "^8.0.2",
     "prettier": "latest",
     "turbo": "latest"

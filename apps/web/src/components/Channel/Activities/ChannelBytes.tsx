@@ -7,11 +7,11 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
+import type { Profile } from 'lens'
+import { PublicationTypes, useProfilePostsQuery } from 'lens'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import type { Profile } from 'src/types/lens'
-import { PublicationTypes, useProfilePostsQuery } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 type Props = {

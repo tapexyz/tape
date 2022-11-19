@@ -12,20 +12,20 @@ import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
 import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import { utils } from 'ethers'
-import type { ChangeEvent, FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-import { RiImageAddLine } from 'react-icons/ri'
 import type {
   CreateSetProfileImageUriBroadcastItemResult,
   Profile,
   UpdateProfileImageRequest
-} from 'src/types/lens'
+} from 'lens'
 import {
   useBroadcastMutation,
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation
-} from 'src/types/lens'
+} from 'lens'
+import type { ChangeEvent, FC } from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
+import { RiImageAddLine } from 'react-icons/ri'
 import type { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 

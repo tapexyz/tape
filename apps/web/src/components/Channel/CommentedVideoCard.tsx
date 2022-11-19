@@ -11,10 +11,10 @@ import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import imageCdn from '@utils/functions/imageCdn'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import type { Attribute } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { Attribute } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 dayjs.extend(relativeTime)
 

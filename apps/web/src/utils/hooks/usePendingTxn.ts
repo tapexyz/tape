@@ -1,8 +1,8 @@
 import useAppStore from '@lib/store'
+import { useHasTxHashBeenIndexedQuery } from 'lens'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { useHasTxHashBeenIndexedQuery } from 'src/types/lens'
 
 type Props = {
   txHash?: string

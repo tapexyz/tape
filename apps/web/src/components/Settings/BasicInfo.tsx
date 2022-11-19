@@ -27,23 +27,23 @@ import uploadToAr from '@utils/functions/uploadToAr'
 import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import { utils } from 'ethers'
+import type {
+  CreatePublicSetProfileMetadataUriRequest,
+  MediaSet,
+  Profile
+} from 'lens'
+import {
+  PublicationMetadataDisplayTypes,
+  useBroadcastMutation,
+  useCreateSetProfileMetadataTypedDataMutation,
+  useCreateSetProfileMetadataViaDispatcherMutation
+} from 'lens'
 import Link from 'next/link'
 import type { ChangeEvent } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
-import type {
-  CreatePublicSetProfileMetadataUriRequest,
-  MediaSet,
-  Profile
-} from 'src/types/lens'
-import {
-  PublicationMetadataDisplayTypes,
-  useBroadcastMutation,
-  useCreateSetProfileMetadataTypedDataMutation,
-  useCreateSetProfileMetadataViaDispatcherMutation
-} from 'src/types/lens'
 import type { CustomErrorWithData, IPFSUploadResult } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'

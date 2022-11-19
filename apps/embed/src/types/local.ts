@@ -9,7 +9,7 @@ import type {
   Post,
   RevertCollectModuleSettings,
   TimedFeeCollectModuleSettings
-} from './lens'
+} from 'lens'
 
 export type VideoDraft = {
   preview: string

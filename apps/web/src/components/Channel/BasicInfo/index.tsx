@@ -10,12 +10,12 @@ import getCoverPicture from '@utils/functions/getCoverPicture'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import imageCdn from '@utils/functions/imageCdn'
 import { SETTINGS } from '@utils/url-path'
+import type { Profile } from 'lens'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { FiSettings } from 'react-icons/fi'
-import type { Profile } from 'src/types/lens'
 
 import MutualSubscribers from '../Mutual/MutualSubscribers'
 

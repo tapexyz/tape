@@ -6,14 +6,14 @@ import { Analytics, TRACK } from '@utils/analytics'
 import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
 import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
 import imageCdn from '@utils/functions/imageCdn'
-import Link from 'next/link'
-import React, { useEffect, useRef } from 'react'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'src/types/lens'
+} from 'lens'
+import Link from 'next/link'
+import React, { useEffect, useRef } from 'react'
 import type { LenstubePublication } from 'src/types/local'
 
 const BytesSection = () => {

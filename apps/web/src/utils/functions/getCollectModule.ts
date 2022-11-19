@@ -1,4 +1,4 @@
-import type { CollectModuleParams } from 'src/types/lens'
+import type { CollectModuleParams } from 'lens'
 import type { CollectModuleType } from 'src/types/local'
 
 export const getCollectModule = (

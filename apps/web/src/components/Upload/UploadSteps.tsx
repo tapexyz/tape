@@ -28,15 +28,13 @@ import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import axios from 'axios'
 import { utils } from 'ethers'
-import React, { useEffect } from 'react'
-import toast from 'react-hot-toast'
 import type {
   CreatePostBroadcastItemResult,
   CreatePublicPostRequest,
   MetadataAttributeInput,
   PublicationMetadataMediaInput,
   PublicationMetadataV2Input
-} from 'src/types/lens'
+} from 'lens'
 import {
   PublicationContentWarning,
   PublicationMainFocus,
@@ -44,7 +42,9 @@ import {
   useBroadcastMutation,
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
-} from 'src/types/lens'
+} from 'lens'
+import React, { useEffect } from 'react'
+import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import {

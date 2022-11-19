@@ -10,17 +10,14 @@ import {
 import omitKey from '@utils/functions/omitKey'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { utils } from 'ethers'
-import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
-import type {
-  CreateSetDispatcherBroadcastItemResult,
-  Profile
-} from 'src/types/lens'
+import type { CreateSetDispatcherBroadcastItemResult, Profile } from 'lens'
 import {
   useBroadcastMutation,
   useCreateSetDispatcherTypedDataMutation,
   useProfileLazyQuery
-} from 'src/types/lens'
+} from 'lens'
+import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 

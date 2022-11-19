@@ -23,18 +23,18 @@ import omitKey from '@utils/functions/omitKey'
 import uploadToAr from '@utils/functions/uploadToAr'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { BigNumber, utils } from 'ethers'
-import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import type { CreatePublicCommentRequest } from 'src/types/lens'
+import type { CreatePublicCommentRequest } from 'lens'
 import {
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
   useBroadcastMutation,
   useCreateCommentTypedDataMutation,
   useCreateCommentViaDispatcherMutation
-} from 'src/types/lens'
+} from 'lens'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import type { CustomErrorWithData, LenstubePublication } from 'src/types/local'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'

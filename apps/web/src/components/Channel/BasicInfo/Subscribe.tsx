@@ -11,15 +11,15 @@ import {
 } from '@utils/constants'
 import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
-import type { FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-import type { CreateFollowBroadcastItemResult, Profile } from 'src/types/lens'
+import type { CreateFollowBroadcastItemResult, Profile } from 'lens'
 import {
   useBroadcastMutation,
   useCreateFollowTypedDataMutation,
   useProxyActionMutation
-} from 'src/types/lens'
+} from 'lens'
+import type { FC } from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
 

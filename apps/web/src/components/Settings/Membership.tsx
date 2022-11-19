@@ -15,21 +15,21 @@ import omitKey from '@utils/functions/omitKey'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { utils } from 'ethers'
-import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 import type {
   CreateSetFollowModuleBroadcastItemResult,
   Erc20,
   FeeFollowModuleSettings,
   Profile
-} from 'src/types/lens'
+} from 'lens'
 import {
   useBroadcastMutation,
   useCreateSetFollowModuleTypedDataMutation,
   useEnabledModuleCurrrenciesQuery,
   useProfileFollowModuleQuery
-} from 'src/types/lens'
+} from 'lens'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'

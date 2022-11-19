@@ -1,4 +1,6 @@
 import StatCard from '@components/Stats/StatCard'
+import type { Profile, ProfileStats } from 'lens'
+import { useAllProfilesQuery } from 'lens'
 import type { FC } from 'react'
 import React from 'react'
 import {
@@ -9,8 +11,6 @@ import {
   FcSynchronize,
   FcVideoCall
 } from 'react-icons/fc'
-import type { Profile, ProfileStats } from 'src/types/lens'
-import { useAllProfilesQuery } from 'src/types/lens'
 
 type Props = {
   channel: Profile

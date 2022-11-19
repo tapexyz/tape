@@ -19,10 +19,10 @@ import {
 } from '@utils/constants'
 import { formatNumber } from '@utils/functions/formatNumber'
 import clsx from 'clsx'
+import type { Notification } from 'lens'
+import { NotificationTypes, useNotificationsQuery } from 'lens'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import type { Notification } from 'src/types/lens'
-import { NotificationTypes, useNotificationsQuery } from 'src/types/lens'
 
 import CollectedNotification from './Collected'
 import CommentedNotification from './Commented'

@@ -1,5 +1,5 @@
+import { useProxyActionStatusQuery } from 'lens'
 import { useCallback, useEffect } from 'react'
-import { useProxyActionStatusQuery } from 'src/types/lens'
 
 const useProxyActionStatus = (proxyActionId: string) => {
   const { data, loading, stopPolling } = useProxyActionStatusQuery({

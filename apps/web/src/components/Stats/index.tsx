@@ -3,6 +3,8 @@ import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
 import { ADMIN_IDS, LENSTUBE_APP_ID } from '@utils/constants'
 import useIsMounted from '@utils/hooks/useIsMounted'
+import type { GlobalProtocolStats } from 'lens'
+import { useGlobalProtocolStatsQuery } from 'lens'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import {
@@ -13,8 +15,6 @@ import {
   FcTabletAndroid,
   FcVideoCall
 } from 'react-icons/fc'
-import type { GlobalProtocolStats } from 'src/types/lens'
-import { useGlobalProtocolStatsQuery } from 'src/types/lens'
 
 const StatCard = dynamic(() => import('./StatCard'))
 const Deployment = dynamic(() => import('./Deployment'))

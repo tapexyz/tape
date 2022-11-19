@@ -7,15 +7,15 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
-import { useRouter } from 'next/router'
-import type { FC } from 'react'
-import React, { useEffect } from 'react'
-import { useInView } from 'react-cool-inview'
 import {
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'src/types/lens'
+} from 'lens'
+import { useRouter } from 'next/router'
+import type { FC } from 'react'
+import React, { useEffect } from 'react'
+import { useInView } from 'react-cool-inview'
 import type { LenstubePublication } from 'src/types/local'
 
 import SuggestedVideoCard from './SuggestedVideoCard'

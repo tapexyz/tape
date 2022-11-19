@@ -16,14 +16,14 @@ import {
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
 import clsx from 'clsx'
-import React, { useState } from 'react'
-import { useInView } from 'react-cool-inview'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'src/types/lens'
+} from 'lens'
+import React, { useState } from 'react'
+import { useInView } from 'react-cool-inview'
 import type { LenstubePublication } from 'src/types/local'
 
 const initialCriteria = {

@@ -2,9 +2,9 @@ import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
+import type { Profile } from 'lens'
 import Link from 'next/link'
 import React from 'react'
-import type { Profile } from 'src/types/lens'
 
 const OtherChannelCard = ({ channel }: { channel: Profile }) => {
   const subscribeType = channel?.followModule?.__typename

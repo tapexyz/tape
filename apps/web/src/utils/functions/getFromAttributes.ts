@@ -1,4 +1,4 @@
-import type { Attribute } from 'src/types/lens'
+import type { Attribute } from 'lens'
 
 // key available only profile metadata
 export const getValueFromKeyInAttributes = (

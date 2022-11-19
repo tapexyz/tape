@@ -8,13 +8,13 @@ import {
   SETTINGS_MEMBERSHIP,
   SETTINGS_PERMISSIONS
 } from '@utils/url-path'
+import type { MediaSet, Profile } from 'lens'
+import { useProfileQuery } from 'lens'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import type { MediaSet, Profile } from 'src/types/lens'
-import { useProfileQuery } from 'src/types/lens'
 
 import BasicInfo from './BasicInfo'
 import SideNav from './SideNav'
