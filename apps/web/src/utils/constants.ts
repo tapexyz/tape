@@ -50,7 +50,7 @@ export const VIDEO_CDN_URL = 'https://cdn.livepeer.com'
 export const SCROLL_ROOT_MARGIN = '40% 0px'
 
 // ipfs
-export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 500 : 100
+export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 1000 : 100
 export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/'
 export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
