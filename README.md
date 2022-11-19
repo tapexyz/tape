@@ -6,6 +6,9 @@
 </div>
 <br>
 <div align="center">
+    <a href="https://lenstube.xyz/sasicodes.lens">
+        <img src="https://lens-badge.vercel.app/api/badge/sasicodes.lens" alt="License">
+    </a>
     <a href="https://www.gitpoap.io/gh/lenstube-xyz/lenstube">
         <img src="https://public-api.gitpoap.io/v1/repo/lenstube-xyz/lenstube/badge" alt="Gitpoap">
     </a>
@@ -32,9 +35,6 @@
     </span>
     <a href="https://github.com/lenstube-xyz/lenstube/blob/main/LICENSE">
         <img src="https://badgen.net/github/license/lenstube-xyz/lenstube" alt="License">
-    </a>
-    <a href="https://lenstube.xyz/sasicodes.lens">
-        <img src="https://lens-badge.vercel.app/api/badge/sasicodes.lens" alt="License">
     </a>
 </div>
 <br>
