@@ -5,8 +5,8 @@ import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { Analytics, TRACK } from '@utils/analytics'
 import { LENS_CUSTOM_FILTERS } from '@utils/constants'
+import { useNotificationCountQuery } from 'lens'
 import React, { useEffect } from 'react'
-import { useNotificationCountQuery } from 'src/types/lens'
 
 import Notifications from '.'
 

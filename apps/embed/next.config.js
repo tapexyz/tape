@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
+const withTM = require('next-transpile-modules')(['lens'])
 
-const nextConfig = {
+const nextConfig = withTM({
   reactStrictMode: true,
   swcMinify: true,
   async rewrites() {
@@ -11,6 +12,6 @@ const nextConfig = {
       }
     ]
   }
-}
+})
 
 module.exports = nextConfig

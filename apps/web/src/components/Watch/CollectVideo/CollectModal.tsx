@@ -10,14 +10,14 @@ import { LENSPORT_MARKETPLACE_URL } from '@utils/constants'
 import { formatNumber } from '@utils/functions/formatNumber'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import dayjs from 'dayjs'
-import Link from 'next/link'
-import type { Dispatch, FC } from 'react'
-import React, { useEffect, useState } from 'react'
-import type { ApprovedAllowanceAmount } from 'src/types/lens'
+import type { ApprovedAllowanceAmount } from 'lens'
 import {
   useApprovedModuleAllowanceAmountQuery,
   usePublicationRevenueQuery
-} from 'src/types/lens'
+} from 'lens'
+import Link from 'next/link'
+import type { Dispatch, FC } from 'react'
+import React, { useEffect, useState } from 'react'
 import type {
   LenstubeCollectModule,
   LenstubePublication

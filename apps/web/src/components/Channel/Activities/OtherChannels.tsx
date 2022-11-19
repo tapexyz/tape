@@ -1,10 +1,10 @@
 import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import type { Profile } from 'lens'
+import { useAllProfilesQuery } from 'lens'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React from 'react'
-import type { Profile } from 'src/types/lens'
-import { useAllProfilesQuery } from 'src/types/lens'
 
 const OtherChannelCard = dynamic(() => import('./OtherChannelCard'))
 

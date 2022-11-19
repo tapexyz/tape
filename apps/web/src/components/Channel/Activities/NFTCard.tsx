@@ -5,10 +5,10 @@ import {
 } from '@utils/constants'
 import imageCdn from '@utils/functions/imageCdn'
 import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
+import type { Nft } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { Nft } from 'src/types/lens'
 
 type Props = {
   nft: Nft

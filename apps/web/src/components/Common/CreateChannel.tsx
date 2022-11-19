@@ -9,11 +9,11 @@ import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePictur
 import trimify from '@utils/functions/trimify'
 import useIsMounted from '@utils/hooks/useIsMounted'
 import usePendingTxn from '@utils/hooks/usePendingTxn'
+import { useCreateProfileMutation } from 'lens'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useCreateProfileMutation } from 'src/types/lens'
 import z from 'zod'
 
 const formSchema = z.object({

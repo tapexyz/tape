@@ -6,10 +6,10 @@ import imageCdn from '@utils/functions/imageCdn'
 import { shortenAddress } from '@utils/functions/shortenAddress'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import type { NewCollectNotification } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { NewCollectNotification } from 'src/types/lens'
 
 dayjs.extend(relativeTime)
 

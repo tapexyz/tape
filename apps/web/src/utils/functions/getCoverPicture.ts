@@ -1,5 +1,5 @@
 import { STATIC_ASSETS } from '@utils/constants'
-import type { Profile } from 'src/types/lens'
+import type { Profile } from 'lens'
 
 const getCoverPicture = (channel: Profile): string => {
   return (

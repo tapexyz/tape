@@ -8,16 +8,16 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
-import { useInView } from 'react-cool-inview'
 import {
   PublicationSortCriteria,
   PublicationTypes,
   useExploreLazyQuery,
   usePublicationDetailsLazyQuery
-} from 'src/types/lens'
+} from 'lens'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
+import { useInView } from 'react-cool-inview'
 import type { LenstubePublication } from 'src/types/local'
 
 import ByteVideo from './ByteVideo'

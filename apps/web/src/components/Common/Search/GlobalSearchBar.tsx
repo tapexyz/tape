@@ -10,14 +10,14 @@ import {
 import useDebounce from '@utils/hooks/useDebounce'
 import useOutsideClick from '@utils/hooks/useOutsideClick'
 import clsx from 'clsx'
-import type { FC } from 'react'
-import React, { useEffect, useRef, useState } from 'react'
-import type { Profile } from 'src/types/lens'
+import type { Profile } from 'lens'
 import {
   SearchProfilesDocument,
   SearchPublicationsDocument,
   SearchRequestTypes
-} from 'src/types/lens'
+} from 'lens'
+import type { FC } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import type { LenstubePublication } from 'src/types/local'
 
 import SearchOutline from '../Icons/SearchOutline'

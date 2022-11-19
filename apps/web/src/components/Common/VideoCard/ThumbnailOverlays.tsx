@@ -8,9 +8,9 @@ import {
   getIsIPFSUrl,
   getPermanentVideoUrl
 } from '@utils/functions/getVideoUrl'
+import type { Attribute } from 'lens'
 import { useRouter } from 'next/router'
 import React from 'react'
-import type { Attribute } from 'src/types/lens'
 import type { LenstubePublication } from 'src/types/local'
 
 const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {

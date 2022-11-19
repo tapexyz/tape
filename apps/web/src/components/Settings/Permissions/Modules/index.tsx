@@ -3,16 +3,16 @@ import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
 import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
 import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-import type { ApprovedAllowanceAmount, Erc20 } from 'src/types/lens'
+import type { ApprovedAllowanceAmount, Erc20 } from 'lens'
 import {
   CollectModules,
   FollowModules,
   ReferenceModules,
   useApprovedModuleAllowanceAmountQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
-} from 'src/types/lens'
+} from 'lens'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 

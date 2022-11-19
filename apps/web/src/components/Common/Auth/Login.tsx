@@ -2,15 +2,15 @@ import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { ERROR_MESSAGE } from '@utils/constants'
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
-import type { Profile } from 'src/types/lens'
+import type { Profile } from 'lens'
 import {
   useAllProfilesLazyQuery,
   useAuthenticateMutation,
   useChallengeLazyQuery
-} from 'src/types/lens'
+} from 'lens'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'src/types/local'
 import { useAccount, useSignMessage } from 'wagmi'
 

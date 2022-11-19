@@ -1,5 +1,4 @@
 import type { WebBundlr } from '@bundlr-network/client'
-
 import type {
   Attribute,
   Comment,
@@ -11,7 +10,7 @@ import type {
   Post,
   RevertCollectModuleSettings,
   TimedFeeCollectModuleSettings
-} from './lens'
+} from 'lens'
 
 export type VideoDraft = {
   preview: string

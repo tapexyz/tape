@@ -10,16 +10,16 @@ import {
   SCROLL_ROOT_MARGIN
 } from '@utils/constants'
 import getCategoryName from '@utils/functions/getCategoryName'
-import { useRouter } from 'next/router'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
-import Custom404 from 'src/pages/404'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'src/types/lens'
+} from 'lens'
+import { useRouter } from 'next/router'
+import React from 'react'
+import { useInView } from 'react-cool-inview'
+import Custom404 from 'src/pages/404'
 import type { LenstubePublication } from 'src/types/local'
 
 const ExploreCategory = () => {

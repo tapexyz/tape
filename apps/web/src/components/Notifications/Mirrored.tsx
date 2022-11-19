@@ -2,14 +2,10 @@ import IsVerified from '@components/Common/IsVerified'
 import getProfilePicture from '@utils/functions/getProfilePicture'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import type { NewMirrorNotification, Notification, Profile } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type {
-  NewMirrorNotification,
-  Notification,
-  Profile
-} from 'src/types/lens'
 
 dayjs.extend(relativeTime)
 

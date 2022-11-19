@@ -1,10 +1,10 @@
 import { formatNumber } from '@utils/functions/formatNumber'
 import getProfilePicture from '@utils/functions/getProfilePicture'
+import type { Profile } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import { BiUser } from 'react-icons/bi'
-import type { Profile } from 'src/types/lens'
 
 import IsVerified from '../IsVerified'
 

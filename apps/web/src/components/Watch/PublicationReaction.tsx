@@ -7,14 +7,14 @@ import { Analytics, TRACK } from '@utils/analytics'
 import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
 import { formatNumber } from '@utils/functions/formatNumber'
 import clsx from 'clsx'
-import type { FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
 import {
   ReactionTypes,
   useAddReactionMutation,
   useRemoveReactionMutation
-} from 'src/types/lens'
+} from 'lens'
+import type { FC } from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import type { LenstubePublication } from 'src/types/local'
 
 type Props = {
