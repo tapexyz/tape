@@ -33,6 +33,9 @@
     <a href="https://github.com/lenstube-xyz/lenstube/blob/main/LICENSE">
         <img src="https://badgen.net/github/license/lenstube-xyz/lenstube" alt="License">
     </a>
+    <a href="https://lenstube.xyz/sasicodes.lens">
+        <img src="https://lens-badge.vercel.app/api/badge/sasicodes.lens" alt="License">
+    </a>
 </div>
 <br>
 
