@@ -7,7 +7,7 @@
 <br>
 <div align="center">
     <a href="https://lenstube.xyz/sasicodes.lens">
-        <img src="https://lens-badge.vercel.app/api/badge/sasicodes.lens" alt="License">
+        <img src="https://lens-badge.vercel.app/api/badge/sasicodes.lens" alt="Lens">
     </a>
     <a href="https://www.gitpoap.io/gh/lenstube-xyz/lenstube">
         <img src="https://public-api.gitpoap.io/v1/repo/lenstube-xyz/lenstube/badge" alt="Gitpoap">
@@ -55,6 +55,7 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 - `web`: NextJs Lenstube website
 - `embed`: NextJs application for video embeds
+- `badge`: NextJs application for lens follow badges
 - `assets`: Static assets
 
 ## Getting Started
