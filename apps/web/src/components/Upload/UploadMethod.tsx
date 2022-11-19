@@ -31,7 +31,7 @@ const UploadMethod = () => {
       className="mt-4"
       defaultIndex={isUnderFreeLimit ? 1 : 0}
     >
-      <Tab.List className="flex space-x-1 rounded-xl bg-gray-100 dark:bg-gray-800 p-1">
+      <Tab.List className="flex space-x-1 rounded-xl bg-gray-200 dark:bg-gray-800 p-1">
         <Tab
           className={({ selected }) =>
             clsx(
