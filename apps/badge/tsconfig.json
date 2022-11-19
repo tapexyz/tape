@@ -1,11 +1,8 @@
 {
+  "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
-    "lib": ["ES2015"],
-    "module": "CommonJS",
-    "outDir": "./dist",
-    "rootDir": "./src"
+    "baseUrl": ".",
+    "noEmit": true
   },
-  "exclude": ["node_modules"],
-  "extends": "tsconfig/base.json",
-  "include": ["src"]
+  "include": ["**/*.ts"]
 }
