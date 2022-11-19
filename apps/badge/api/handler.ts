@@ -1,5 +1,3 @@
-import fetch from 'node-fetch'
-
 const PROFILE_QUERY = `
  query Profile($request: SingleProfileQueryRequest!) {
   profile(request: $request) {

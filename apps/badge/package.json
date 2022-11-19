@@ -2,6 +2,10 @@
   "name": "badge",
   "version": "0.0.0",
   "license": "MIT",
+  "scripts": {
+    "start": "vercel dev",
+    "deploy": "vercel deploy --prod"
+  },
   "dependencies": {
     "node-fetch": "^3.3.0"
   }
