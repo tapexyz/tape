@@ -24,7 +24,7 @@ import {
 } from 'lens'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 const initialCriteria = {
   trending: true,

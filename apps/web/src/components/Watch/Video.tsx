@@ -9,7 +9,7 @@ import axios from 'axios'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 import VideoActions from './VideoActions'
 import VideoMeta from './VideoMeta'

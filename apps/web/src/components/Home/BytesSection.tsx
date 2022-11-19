@@ -14,7 +14,7 @@ import {
 } from 'lens'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 const BytesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)

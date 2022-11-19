@@ -13,7 +13,7 @@ import {
 } from 'lens'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
 const collectModules = [

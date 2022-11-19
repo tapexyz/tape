@@ -9,7 +9,7 @@ import { FeedEventItemType, PublicationMainFocus, useFeedQuery } from 'lens'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 const HomeFeed = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)

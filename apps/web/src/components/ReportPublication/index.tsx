@@ -6,7 +6,7 @@ import { useReportPublicationMutation } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData, LenstubePublication } from 'src/types/local'
+import type { CustomErrorWithData, LenstubePublication } from 'src/types'
 
 type Props = {
   publication: LenstubePublication

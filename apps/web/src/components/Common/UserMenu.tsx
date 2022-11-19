@@ -14,7 +14,7 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types'
 import { useAccount, useDisconnect } from 'wagmi'
 
 import ChannelHeartOutline from './Icons/ChannelHeartOutline'

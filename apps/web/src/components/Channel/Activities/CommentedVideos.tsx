@@ -13,7 +13,7 @@ import { PublicationTypes, useProfileCommentsQuery } from 'lens'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 type Props = {
   channel: Profile

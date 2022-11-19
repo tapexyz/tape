@@ -11,7 +11,7 @@ import {
 import type { Attribute } from 'lens'
 import { useRouter } from 'next/router'
 import React from 'react'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)

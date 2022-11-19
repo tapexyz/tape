@@ -30,7 +30,7 @@ import {
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
 

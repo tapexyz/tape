@@ -20,7 +20,7 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { AiFillHeart, AiOutlinePlayCircle } from 'react-icons/ai'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 dayjs.extend(relativeTime)
 

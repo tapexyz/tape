@@ -4,7 +4,7 @@ import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import React, { useState } from 'react'
-import type { ReferenceModuleType } from 'src/types/local'
+import type { ReferenceModuleType } from 'src/types'
 
 const ReferenceModule = () => {
   const [showModal, setShowModal] = useState(false)

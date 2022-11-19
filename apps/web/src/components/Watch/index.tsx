@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 import AboutChannel from './AboutChannel'
 import SuggestedVideos from './SuggestedVideos'
