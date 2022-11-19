@@ -6,11 +6,11 @@
 </div>
 <br>
 <div align="center">
-    <a href="https://lenstube.xyz/discord">
-       <img src="https://img.shields.io/discord/980882088783913010.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
-    </a>
     <a href="https://www.gitpoap.io/gh/lenstube-xyz/lenstube">
         <img src="https://public-api.gitpoap.io/v1/repo/lenstube-xyz/lenstube/badge" alt="Gitpoap">
+    </a>
+    <a href="https://lenstube.xyz/discord">
+       <img src="https://img.shields.io/discord/980882088783913010.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
     </a>
     <a href="https://twitter.com/lenstubexyz">
         <img src="https://img.shields.io/twitter/follow/lenstubexyz?label=lenstubexyz&style=flat&logo=twitter&color=1DA1F2" alt="Twitter">
@@ -22,7 +22,7 @@
         <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
     </a>
     <a href="https://lenstube.checklyhq.com">
-        <img src="https://api.checklyhq.com/v1/badges/checks/2278c22c-37af-4c6a-bebc-b48169fdcc78?style=flat&theme=default&responseTime=true" alt="Better Uptime">
+        <img src="https://api.checklyhq.com/v1/badges/checks/2278c22c-37af-4c6a-bebc-b48169fdcc78?style=flat&responseTime=true" alt="Checkly">
     </a>
     <span>
         <img src="https://img.shields.io/badge/dependabot-enabled-025e8c?logo=Dependabot" alt="Dependabot">
