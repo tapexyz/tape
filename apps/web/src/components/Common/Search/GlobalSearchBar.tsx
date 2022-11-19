@@ -18,7 +18,7 @@ import {
 } from 'lens'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 import SearchOutline from '../Icons/SearchOutline'
 import Channels from './Channels'

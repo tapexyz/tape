@@ -28,7 +28,7 @@ import type {
   CustomErrorWithData,
   LenstubeCollectModule,
   LenstubePublication
-} from 'src/types/local'
+} from 'src/types'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 import CollectModal from './CollectModal'

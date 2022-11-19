@@ -1,5 +1,5 @@
 import { STATIC_ASSETS } from '@utils/constants'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 import { sanitizeIpfsUrl } from './sanitizeIpfsUrl'
 

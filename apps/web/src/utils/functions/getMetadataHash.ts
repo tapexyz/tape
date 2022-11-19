@@ -1,4 +1,4 @@
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 const getMetadataHash = (publication: LenstubePublication): string => {
   const hash = publication.onChainContentURI.split('/').pop()

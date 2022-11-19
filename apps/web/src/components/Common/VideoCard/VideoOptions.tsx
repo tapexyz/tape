@@ -12,7 +12,7 @@ import React from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { FiExternalLink } from 'react-icons/fi'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 import FlagOutline from '../Icons/FlagOutline'
 import ShareOutline from '../Icons/ShareOutline'

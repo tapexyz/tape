@@ -7,7 +7,7 @@ import { Button } from '@components/UIElements/Button'
 import { Analytics, TRACK } from '@utils/analytics'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 import PublicationReaction from './PublicationReaction'
 import TipModal from './TipModal'

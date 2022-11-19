@@ -9,7 +9,7 @@ import type { FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 import EmbedVideo from '../EmbedVideo'
 import MirrorOutline from '../Icons/MirrorOutline'

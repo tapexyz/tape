@@ -9,7 +9,7 @@ import type { Attribute } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 import IsVerified from '../IsVerified'
 

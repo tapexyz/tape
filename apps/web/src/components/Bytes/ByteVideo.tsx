@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'src/types'
 
 import BottomOverlay from './BottomOverlay'
 import ByteActions from './ByteActions'

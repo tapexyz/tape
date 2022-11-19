@@ -13,7 +13,7 @@ import type {
   BundlrDataState,
   LenstubePublication,
   UploadedVideo
-} from 'src/types/local'
+} from 'src/types'
 import create from 'zustand'
 
 export const UPLOADED_VIDEO_FORM_DEFAULTS = {

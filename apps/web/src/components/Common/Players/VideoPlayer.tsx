@@ -11,7 +11,7 @@ import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import type { FC, Ref } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
-import type { HLSData } from 'src/types/local'
+import type { HLSData } from 'src/types'
 
 import NextVideo from './NextVideo'
 import PlayerContextMenu from './PlayerContextMenu'

@@ -18,10 +18,7 @@ import {
 import Link from 'next/link'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import type {
-  LenstubeCollectModule,
-  LenstubePublication
-} from 'src/types/local'
+import type { LenstubeCollectModule, LenstubePublication } from 'src/types'
 import { useBalance } from 'wagmi'
 
 import BalanceAlert from './BalanceAlert'

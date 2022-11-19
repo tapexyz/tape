@@ -19,7 +19,7 @@ import Link from 'next/link'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { MdRefresh } from 'react-icons/md'
-import type { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types'
 import { useAccount, useBalance, useSigner } from 'wagmi'
 
 const BundlrInfo = () => {

@@ -13,7 +13,7 @@ import { useCreateBurnProfileTypedDataMutation } from 'lens'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
-import type { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types'
 import {
   useContractWrite,
   useSignTypedData,

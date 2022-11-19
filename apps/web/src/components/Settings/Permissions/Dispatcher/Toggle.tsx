@@ -18,7 +18,7 @@ import {
 } from 'lens'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'src/types'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Toggle = () => {
