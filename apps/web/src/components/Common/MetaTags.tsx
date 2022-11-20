@@ -1,13 +1,13 @@
-import {
-  APP_DESCRIPTION,
-  APP_NAME,
-  LENSTUBE_TWITTER_HANDLE,
-  STATIC_ASSETS
-} from '@utils/constants'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React from 'react'
+import {
+  LENSTUBE_APP_DESCRIPTION,
+  LENSTUBE_APP_NAME,
+  LENSTUBE_TWITTER_HANDLE,
+  STATIC_ASSETS
+} from 'utils'
 
 type Props = {
   title?: string
@@ -20,8 +20,8 @@ const MetaTags: FC<Props> = (props) => {
   const router = useRouter()
 
   const meta = {
-    title: title ?? APP_NAME,
-    description: description ?? APP_DESCRIPTION,
+    title: title ?? LENSTUBE_APP_NAME,
+    description: description ?? LENSTUBE_APP_DESCRIPTION,
     image: image ?? `${STATIC_ASSETS}/images/seo/og.png`,
     type: 'website'
   }

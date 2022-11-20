@@ -2,7 +2,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@utils/constants'
 import type { Profile } from 'lens'
 import {
   PublicationMainFocus,
@@ -12,7 +11,8 @@ import {
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import type { LenstubePublication } from 'src/types'
+import type { LenstubePublication } from 'utils'
+import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from 'utils'
 
 type Props = {
   channel: Profile

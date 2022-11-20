@@ -6,7 +6,6 @@ import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import Tooltip from '@components/UIElements/Tooltip'
 import { Menu } from '@headlessui/react'
 import usePersistStore from '@lib/store/persist'
-import { UPLOAD } from '@utils/url-path'
 import React from 'react'
 
 const NewVideoTrigger = () => {
@@ -29,7 +28,7 @@ const NewVideoTrigger = () => {
         <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-md">
           <Menu.Item
             as={NextLink}
-            href={UPLOAD}
+            href="/upload"
             className="inline-flex items-center px-2.5 py-1.5 space-x-2 rounded-lg opacity-90 hover:opacity-100 hover:bg-gray-200 dark:hover:bg-gray-800"
           >
             <UploadOutline className="w-3 h-3" />

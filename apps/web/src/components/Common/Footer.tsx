@@ -1,14 +1,14 @@
-import { Analytics, TRACK } from '@utils/analytics'
+import Link from 'next/link'
+import React from 'react'
 import {
-  APP_NAME,
+  Analytics,
+  LENSTUBE_APP_NAME,
   LENSTUBE_GITHUB_HANDLE,
   LENSTUBE_STATUS_PAGE,
   LENSTUBE_TWITTER_HANDLE,
-  STATIC_ASSETS
-} from '@utils/constants'
-import { DISCORD, PRIVACY } from '@utils/url-path'
-import Link from 'next/link'
-import React from 'react'
+  STATIC_ASSETS,
+  TRACK
+} from 'utils'
 
 const Footer = () => {
   return (
@@ -48,7 +48,7 @@ const Footer = () => {
         </Link>
         <Link
           className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-          href={DISCORD}
+          href="/discord"
           onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.DISCORD)}
           target="_blank"
         >
@@ -56,7 +56,7 @@ const Footer = () => {
         </Link>
         <Link
           className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-          href={PRIVACY}
+          href="/privacy"
         >
           Privacy
         </Link>
@@ -68,7 +68,7 @@ const Footer = () => {
         <div className="px-1">
           <Link
             className="rounded-lg opacity-80 space-x-2 p-1.5 flex text-sm items-center hover:opacity-100"
-            href={`https://livepeer.studio/?utm_source=${APP_NAME}`}
+            href={`https://livepeer.studio/?utm_source=${LENSTUBE_APP_NAME}`}
             rel="noreferrer noopener"
             target="_blank"
           >
@@ -82,7 +82,7 @@ const Footer = () => {
           </Link>
           <Link
             className="rounded-lg opacity-80 space-x-2 text-sm p-1.5 hover:opacity-100"
-            href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
+            href={`https://vercel.com/?utm_source=${LENSTUBE_APP_NAME}&utm_campaign=oss`}
             rel="noreferrer noopener"
             target="_blank"
           >

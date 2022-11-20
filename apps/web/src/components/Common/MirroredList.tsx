@@ -1,6 +1,5 @@
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import getProfilePicture from '@utils/functions/getProfilePicture'
 import type { Profile } from 'lens'
 import { useAllProfilesQuery } from 'lens'
 import Link from 'next/link'
@@ -8,6 +7,7 @@ import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 
 import IsVerified from './IsVerified'
 

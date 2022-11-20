@@ -1,15 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
-import {
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  RELAYER_ENABLED
-} from '@utils/constants'
-import getProfilePicture from '@utils/functions/getProfilePicture'
-import omitKey from '@utils/functions/omitKey'
-import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
-import uploadToIPFS from '@utils/functions/uploadToIPFS'
 import clsx from 'clsx'
 import { utils } from 'ethers'
 import type {
@@ -26,7 +17,12 @@ import type { ChangeEvent, FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
-import type { CustomErrorWithData, IPFSUploadResult } from 'src/types'
+import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
+import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS, RELAYER_ENABLED } from 'utils'
+import getProfilePicture from 'utils/functions/getProfilePicture'
+import omitKey from 'utils/functions/omitKey'
+import { sanitizeIpfsUrl } from 'utils/functions/sanitizeIpfsUrl'
+import uploadToIPFS from 'utils/functions/uploadToIPFS'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {

@@ -1,17 +1,5 @@
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import {
-  MIXPANEL_API_HOST,
-  MIXPANEL_TOKEN,
-  POLYGON_CHAIN_ID
-} from '@utils/constants'
-import { AUTH_ROUTES } from '@utils/data/auth-routes'
-import clearLocalStorage from '@utils/functions/clearLocalStorage'
-import { getIsAuthTokensAvailable } from '@utils/functions/getIsAuthTokensAvailable'
-import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
-import { getToastOptions } from '@utils/functions/getToastOptions'
-import useIsMounted from '@utils/hooks/useIsMounted'
-import { AUTH } from '@utils/url-path'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { useUserProfilesQuery } from 'lens'
@@ -22,7 +10,14 @@ import { useTheme } from 'next-themes'
 import type { FC, ReactNode } from 'react'
 import React, { useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
-import type { CustomErrorWithData } from 'src/types'
+import type { CustomErrorWithData } from 'utils'
+import { MIXPANEL_API_HOST, MIXPANEL_TOKEN, POLYGON_CHAIN_ID } from 'utils'
+import { AUTH_ROUTES } from 'utils/data/auth-routes'
+import clearLocalStorage from 'utils/functions/clearLocalStorage'
+import { getIsAuthTokensAvailable } from 'utils/functions/getIsAuthTokensAvailable'
+import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
+import { getToastOptions } from 'utils/functions/getToastOptions'
+import useIsMounted from 'utils/hooks/useIsMounted'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
@@ -32,7 +27,7 @@ import Sidebar from './Sidebar'
 interface Props {
   children: ReactNode
 }
-const NO_HEADER_PATHS = [AUTH]
+const NO_HEADER_PATHS = ['/auth']
 
 if (MIXPANEL_TOKEN) {
   mixpanel.init(MIXPANEL_TOKEN, {
@@ -96,7 +91,7 @@ const Layout: FC<Props> = ({ children }) => {
       !selectedChannelId &&
       AUTH_ROUTES.includes(pathname)
     ) {
-      replace(`${AUTH}?next=${asPath}`) // redirect to signin page
+      replace(`/auth?next=${asPath}`) // redirect to signin page
     }
     const logout = () => {
       resetAuthState()

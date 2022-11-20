@@ -1,5 +1,4 @@
 import { Button } from '@components/UIElements/Button'
-import { HOME } from '@utils/url-path'
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
@@ -26,7 +25,7 @@ export default function Custom500() {
             We track these errors automatically, but if the problem persists
             feel free to contact us. In the meantime, try refreshing.
           </div>
-          <Link href={HOME}>
+          <Link href="/">
             <Button>Go Home</Button>
           </Link>
         </div>

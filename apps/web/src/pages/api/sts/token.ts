@@ -1,5 +1,5 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts'
-import logger from '@lib/logger'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import {
   API_ORIGINS,
   EVER_ACCESS_KEY,
@@ -8,8 +8,8 @@ import {
   EVER_REGION,
   IS_MAINNET,
   NEXT_PUBLIC_EVER_BUCKET_NAME
-} from '@utils/constants'
-import type { NextApiRequest, NextApiResponse } from 'next'
+} from 'utils'
+import logger from 'utils/logger'
 
 type Data = {
   accessKeyId?: string
