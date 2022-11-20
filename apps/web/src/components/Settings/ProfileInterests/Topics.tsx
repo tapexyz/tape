@@ -7,7 +7,7 @@ import type { Profile } from 'lens'
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,
-  useProfileLazyQuery
+  useProfileQuery
 } from 'lens'
 import React, { useState } from 'react'
 
@@ -18,22 +18,20 @@ const Topics = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
 
-  const [refetchChannel] = useProfileLazyQuery({
+  const { refetch } = useProfileQuery({
+    variables: { request: { handle: selectedChannel?.handle } },
     onCompleted: (data) => {
       const channel = data?.profile as Profile
+      setSelectedTopics(data.profile?.interests ?? [])
       setSelectedChannel(channel)
     }
   })
+
   const { data, loading } = useProfileInterestsQuery()
   const [addProfileInterests, { loading: saving }] =
     useAddProfileInterestMutation({
       onCompleted: () => {
-        refetchChannel({
-          variables: {
-            request: { handle: selectedChannel?.handle }
-          },
-          fetchPolicy: 'no-cache'
-        })
+        refetch()
       }
     })
 
@@ -117,7 +115,7 @@ const Topics = () => {
           loading={saving}
           disabled={saving}
           onClick={() => saveInterests()}
-          className="!m-1"
+          className="!m-1 outline-none"
         >
           Save
         </Button>
