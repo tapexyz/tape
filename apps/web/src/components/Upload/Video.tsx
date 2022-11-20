@@ -1,3 +1,4 @@
+import CopyOutline from '@components/Common/Icons/CopyOutline'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import * as tf from '@tensorflow/tfjs'
@@ -5,7 +6,6 @@ import clsx from 'clsx'
 import * as nsfwjs from 'nsfwjs'
 import React, { useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
-import { IoCopyOutline } from 'react-icons/io5'
 import { IS_MAINNET } from 'utils'
 import formatBytes from 'utils/functions/formatBytes'
 import { getIsNSFW } from 'utils/functions/getIsNSFW'
@@ -104,7 +104,7 @@ const Video = () => {
               onClick={() => onCopyVideoSource(uploadedVideo.videoSource)}
               className="absolute outline-none top-2 p-1 px-1.5 right-2 text-xs bg-orange-200 text-black rounded-lg"
             >
-              <IoCopyOutline />
+              <CopyOutline className="w-3.5 h-3.5" />
             </button>
           </Tooltip>
         )}

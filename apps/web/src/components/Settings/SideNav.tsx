@@ -63,7 +63,6 @@ const SideNav: FC<Props> = ({ channel }) => {
         >
           <SubscribeOutline className="w-4 h-4" /> <span>Membership</span>
         </Link>
-
         <Link
           href={SETTINGS_PERMISSIONS}
           className={clsx(
