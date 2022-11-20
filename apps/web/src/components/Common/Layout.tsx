@@ -27,6 +27,7 @@ import Sidebar from './Sidebar'
 interface Props {
   children: ReactNode
 }
+
 const NO_HEADER_PATHS = ['/auth']
 
 if (MIXPANEL_TOKEN) {

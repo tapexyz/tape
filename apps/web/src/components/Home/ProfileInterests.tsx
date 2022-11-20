@@ -1,23 +1,24 @@
 import Topics from '@components/Settings/ProfileInterests/Topics'
+import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import SignalWave from '@components/UIElements/SignalWave'
 import useAppStore from '@lib/store'
-import React from 'react'
+import React, { useState } from 'react'
 import { HiOutlineSparkles } from 'react-icons/hi'
 
 const ProfileInterests = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const [showModal, setShowModal] = useState(
+    !selectedChannel?.interests?.length
+  )
 
   if (!selectedChannel || selectedChannel?.interests?.length) {
     return null
   }
 
   return (
-    <Modal
-      show={!selectedChannel.interests?.length}
-      panelClassName="max-w-xl !p-0"
-    >
-      <div className="relative flex w-full flex-col p-4 overflow-hidden lg:p-5 rounded-xl">
+    <Modal show={showModal} panelClassName="max-w-xl !p-0">
+      <div className="relative flex w-full flex-col p-4 overflow-hidden rounded-xl">
         <div className="absolute inset-0 w-full h-full bg-gray-100 bg-gradient-to-b dark:from-gray-800 dark:to-gray-900" />
         <div className="relative z-[1] flex flex-col items-start space-y-4 text-left">
           <div className="flex text-black items-center px-3 py-1 space-x-1 text-xs font-medium rounded-full bg-gradient-to-br from-orange-200 to-orange-300">
@@ -33,6 +34,9 @@ const ProfileInterests = () => {
             </p>
             <div className="max-h-96 w-full no-scrollbar overflow-y-auto">
               <Topics />
+            </div>
+            <div className="flex w-full justify-end">
+              <Button onClick={() => setShowModal(false)}>Save</Button>
             </div>
           </div>
         </div>

@@ -1,4 +1,3 @@
-import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
@@ -95,9 +94,6 @@ const Topics = () => {
           </div>
         )
       )}
-      <div className="flex bottom-0 right-0 sticky justify-end">
-        <Button className="!m-1 outline-none">Save</Button>
-      </div>
     </div>
   )
 }

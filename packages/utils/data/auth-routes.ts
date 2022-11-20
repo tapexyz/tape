@@ -5,6 +5,7 @@ export const AUTH_ROUTES = [
   '/feed',
   '/settings/membership',
   '/settings/permissions',
+  '/settings/interests',
   '/settings/danger',
   '/notifications'
 ]
