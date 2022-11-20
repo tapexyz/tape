@@ -5,14 +5,6 @@ import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { Analytics, TRACK } from '@utils/analytics'
-import {
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  RELAYER_ENABLED,
-  SIGN_IN_REQUIRED_MESSAGE
-} from '@utils/constants'
-import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
 import type { CreateCollectBroadcastItemResult } from 'lens'
 import {
@@ -28,7 +20,16 @@ import type {
   CustomErrorWithData,
   LenstubeCollectModule,
   LenstubePublication
-} from 'src/types'
+} from 'utils'
+import {
+  Analytics,
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  RELAYER_ENABLED,
+  SIGN_IN_REQUIRED_MESSAGE,
+  TRACK
+} from 'utils'
+import omitKey from 'utils/functions/omitKey'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 import CollectModal from './CollectModal'

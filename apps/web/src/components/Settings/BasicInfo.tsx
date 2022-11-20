@@ -6,26 +6,6 @@ import { Loader } from '@components/UIElements/Loader'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
-import { Analytics, TRACK } from '@utils/analytics'
-import {
-  ERROR_MESSAGE,
-  IS_MAINNET,
-  LENS_PERIPHERY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_URL,
-  RELAYER_ENABLED,
-  TALLY_VERIFICATION_FORM_URL
-} from '@utils/constants'
-import { VERIFIED_CHANNELS } from '@utils/data/verified'
-import getCoverPicture from '@utils/functions/getCoverPicture'
-import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
-import imageCdn from '@utils/functions/imageCdn'
-import omitKey from '@utils/functions/omitKey'
-import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
-import trimify from '@utils/functions/trimify'
-import uploadToAr from '@utils/functions/uploadToAr'
-import uploadToIPFS from '@utils/functions/uploadToIPFS'
-import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import { utils } from 'ethers'
 import type {
   CreatePublicSetProfileMetadataUriRequest,
@@ -44,7 +24,28 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
-import type { CustomErrorWithData, IPFSUploadResult } from 'src/types'
+import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
+import {
+  Analytics,
+  ERROR_MESSAGE,
+  IS_MAINNET,
+  LENS_PERIPHERY_ADDRESS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_WEBSITE_URL,
+  RELAYER_ENABLED,
+  TALLY_VERIFICATION_FORM_URL,
+  TRACK
+} from 'utils'
+import { VERIFIED_CHANNELS } from 'utils/data/verified'
+import getCoverPicture from 'utils/functions/getCoverPicture'
+import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
+import imageCdn from 'utils/functions/imageCdn'
+import omitKey from 'utils/functions/omitKey'
+import { sanitizeIpfsUrl } from 'utils/functions/sanitizeIpfsUrl'
+import trimify from 'utils/functions/trimify'
+import uploadToAr from 'utils/functions/uploadToAr'
+import uploadToIPFS from 'utils/functions/uploadToIPFS'
+import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -326,12 +327,12 @@ const BasicInfo = ({ channel }: Props) => {
         </div>
         <div className="flex items-center space-x-2">
           <span>
-            {LENSTUBE_URL}/{channel.handle}
+            {LENSTUBE_WEBSITE_URL}/{channel.handle}
           </span>
           <button
             className="hover:opacity-60 focus:outline-none"
             onClick={() =>
-              onCopyChannelUrl(`${LENSTUBE_URL}/${channel.handle}`)
+              onCopyChannelUrl(`${LENSTUBE_WEBSITE_URL}/${channel.handle}`)
             }
             type="button"
           >

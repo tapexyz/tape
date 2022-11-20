@@ -16,7 +16,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-format": "prettier --check \"**/*.{ts,tsx}\"",
     "check-lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "npx eslint --fix ."
+    "lint:fix": "eslint --fix ."
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.13.11",

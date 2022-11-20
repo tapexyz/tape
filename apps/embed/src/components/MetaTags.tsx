@@ -1,14 +1,14 @@
-import {
-  APP_NAME,
-  EMBED_URL,
-  LENSTUBE_TWITTER_HANDLE,
-  LENSTUBE_URL,
-  STATIC_ASSETS
-} from '@utils/constants'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React from 'react'
+import {
+  LENSTUBE_APP_NAME,
+  LENSTUBE_EMBED_URL,
+  LENSTUBE_TWITTER_HANDLE,
+  LENSTUBE_WEBSITE_URL,
+  STATIC_ASSETS
+} from 'utils'
 
 type Props = {
   title?: string
@@ -22,7 +22,7 @@ const MetaTags: FC<Props> = (props) => {
   const router = useRouter()
 
   const meta = {
-    title: title ?? APP_NAME,
+    title: title ?? LENSTUBE_APP_NAME,
     description:
       description ??
       'Lenstube is a decentralized video-sharing social media platform built with Lens protocol.',
@@ -40,10 +40,13 @@ const MetaTags: FC<Props> = (props) => {
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=5"
       />
-      <link rel="canonical" href={`${LENSTUBE_URL}/watch${router.asPath}`} />
+      <link
+        rel="canonical"
+        href={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
+      />
       <meta
         property="og:url"
-        content={`${LENSTUBE_URL}/watch${router.asPath}`}
+        content={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
       />
       <meta property="og:type" content={meta.type} />
       <meta property="og:site_name" content="Lenstube" />
@@ -58,12 +61,12 @@ const MetaTags: FC<Props> = (props) => {
       <meta property="og:video:height" content="720" />
       <meta
         property="og:video:url"
-        content={`${LENSTUBE_URL}/watch${router.asPath}`}
+        content={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
       />
       <meta property="og:video:type" content="text/html" />
       <meta
         property="og:video:secure_url"
-        content={`${LENSTUBE_URL}/watch${router.asPath}`}
+        content={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
       />
       <meta name="twitter:card" content="player" />
       <meta property="twitter:image:width" content="480" />
@@ -71,7 +74,10 @@ const MetaTags: FC<Props> = (props) => {
       <meta name="twitter:site" content="@lenstubexyz" />
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
-      <meta name="twitter:player" content={`${EMBED_URL}${router.asPath}`} />
+      <meta
+        name="twitter:player"
+        content={`${LENSTUBE_EMBED_URL}${router.asPath}`}
+      />
       <meta property="twitter:player:width" content="1280" />
       <meta property="twitter:player:height" content="720" />
       <meta property="twitter:image:src" content={meta.image} />
@@ -82,7 +88,7 @@ const MetaTags: FC<Props> = (props) => {
       <link
         rel="iframely player"
         type="text/html"
-        href={`${EMBED_URL}${router.asPath}`}
+        href={`${LENSTUBE_EMBED_URL}${router.asPath}`}
         media="(aspect-ratio: 1280/720)"
       />
     </Head>

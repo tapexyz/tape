@@ -1,12 +1,11 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import usePersistStore from '@lib/store/persist'
-import { getShowFullScreen } from '@utils/functions/getShowFullScreen'
-import { BYTES, EXPLORE, FEED, HOME } from '@utils/url-path'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
 
 import Footer from './Footer'
 import BytesOutline from './Icons/BytesOutline'
@@ -46,7 +45,7 @@ const Sidebar = () => {
         >
           <div className={clsx('py-3', sidebarCollapsed ? 'px-3' : 'px-3.5')}>
             <Link
-              href={HOME}
+              href="/"
               className="flex items-center pt-1 focus:outline-none"
             >
               <img
@@ -64,10 +63,10 @@ const Sidebar = () => {
               placement="right"
             >
               <Link
-                href={HOME}
+                href="/"
                 className={clsx(
                   'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
-                  isActivePath(HOME)
+                  isActivePath('/')
                     ? 'bg-indigo-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
@@ -85,10 +84,10 @@ const Sidebar = () => {
               placement="right"
             >
               <Link
-                href={FEED}
+                href="/feed"
                 className={clsx(
                   'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
-                  isActivePath(FEED)
+                  isActivePath('/feed')
                     ? 'bg-indigo-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
@@ -108,10 +107,10 @@ const Sidebar = () => {
               placement="right"
             >
               <Link
-                href={BYTES}
+                href="/bytes"
                 className={clsx(
                   'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
-                  isActivePath(BYTES) || router.pathname === '/bytes/[id]'
+                  isActivePath('/bytes') || router.pathname === '/bytes/[id]'
                     ? 'bg-indigo-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
@@ -129,10 +128,10 @@ const Sidebar = () => {
               placement="right"
             >
               <Link
-                href={EXPLORE}
+                href="/explore"
                 className={clsx(
                   'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
-                  isActivePath(EXPLORE)
+                  isActivePath('/explore')
                     ? 'bg-indigo-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed

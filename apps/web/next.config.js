@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const { withAxiom } = require('next-axiom')
-const withTM = require('next-transpile-modules')(['lens'])
+const withTM = require('next-transpile-modules')(['lens', 'utils'])
 
 const moduleExports = withTM(
   withAxiom({

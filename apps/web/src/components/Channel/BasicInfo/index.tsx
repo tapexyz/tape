@@ -5,17 +5,16 @@ import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import { Analytics, TRACK } from '@utils/analytics'
-import getCoverPicture from '@utils/functions/getCoverPicture'
-import getProfilePicture from '@utils/functions/getProfilePicture'
-import imageCdn from '@utils/functions/imageCdn'
-import { SETTINGS } from '@utils/url-path'
 import type { Profile } from 'lens'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { FiSettings } from 'react-icons/fi'
+import { Analytics, TRACK } from 'utils'
+import getCoverPicture from 'utils/functions/getCoverPicture'
+import getProfilePicture from 'utils/functions/getProfilePicture'
+import imageCdn from 'utils/functions/imageCdn'
 
 import MutualSubscribers from '../Mutual/MutualSubscribers'
 
@@ -35,7 +34,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
 
   const onClickCustomize = () => {
     Analytics.track(TRACK.CLICK_CHANNEL_SETTINGS)
-    router.push(SETTINGS)
+    router.push('/settings')
   }
 
   return (

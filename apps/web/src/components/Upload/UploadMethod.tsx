@@ -1,10 +1,10 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
-import { IPFS_FREE_UPLOAD_LIMIT } from '@utils/constants'
-import canUploadedToIpfs from '@utils/functions/canUploadedToIpfs'
 import clsx from 'clsx'
 import React, { useEffect } from 'react'
+import { IPFS_FREE_UPLOAD_LIMIT } from 'utils'
+import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
 
 import BundlrInfo from './BundlrInfo'
 
@@ -31,7 +31,7 @@ const UploadMethod = () => {
       className="mt-4"
       defaultIndex={isUnderFreeLimit ? 1 : 0}
     >
-      <Tab.List className="flex space-x-1 rounded-xl bg-gray-100 dark:bg-gray-800 p-1">
+      <Tab.List className="flex space-x-1 rounded-xl bg-gray-200 dark:bg-gray-800 p-1">
         <Tab
           className={({ selected }) =>
             clsx(

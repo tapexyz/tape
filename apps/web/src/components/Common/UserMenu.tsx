@@ -3,18 +3,16 @@ import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { Analytics, TRACK } from '@utils/analytics'
-import { ADMIN_IDS, IS_MAINNET } from '@utils/constants'
-import clearLocalStorage from '@utils/functions/clearLocalStorage'
-import getProfilePicture from '@utils/functions/getProfilePicture'
-import { LENSTUBE_STATS, SETTINGS } from '@utils/url-path'
 import type { Profile } from 'lens'
 import { useAllProfilesLazyQuery } from 'lens'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'src/types'
+import type { CustomErrorWithData } from 'utils'
+import { ADMIN_IDS, Analytics, IS_MAINNET, TRACK } from 'utils'
+import clearLocalStorage from 'utils/functions/clearLocalStorage'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 import { useAccount, useDisconnect } from 'wagmi'
 
 import ChannelHeartOutline from './Icons/ChannelHeartOutline'
@@ -159,7 +157,7 @@ const UserMenu = () => {
               {isAdmin && (
                 <Menu.Item
                   as={NextLink}
-                  href={LENSTUBE_STATS}
+                  href="/stats"
                   className="inline-flex items-center w-full px-2 py-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   <GraphOutline className="w-4 h-4" />
@@ -203,7 +201,7 @@ const UserMenu = () => {
                 </button>
               )}
               <Link
-                href={SETTINGS}
+                href="/settings"
                 className="flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 <CogOutline className="w-4 h-4" />

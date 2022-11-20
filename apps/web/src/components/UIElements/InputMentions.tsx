@@ -1,5 +1,3 @@
-import { LENS_CUSTOM_FILTERS } from '@utils/constants'
-import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens'
@@ -7,6 +5,8 @@ import type { ComponentProps, FC } from 'react'
 import React, { useId } from 'react'
 import type { SuggestionDataItem } from 'react-mentions'
 import { Mention, MentionsInput } from 'react-mentions'
+import { LENS_CUSTOM_FILTERS } from 'utils'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 
 interface Props extends ComponentProps<'textarea'> {
   label?: string

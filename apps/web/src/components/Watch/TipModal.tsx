@@ -5,23 +5,9 @@ import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import logger from '@lib/logger'
+import usePendingTxn from '@hooks/usePendingTxn'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { Analytics, TRACK } from '@utils/analytics'
-import {
-  LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_URL,
-  RELAYER_ENABLED,
-  SIGN_IN_REQUIRED_MESSAGE,
-  STATIC_ASSETS
-} from '@utils/constants'
-import getUserLocale from '@utils/functions/getUserLocale'
-import imageCdn from '@utils/functions/imageCdn'
-import omitKey from '@utils/functions/omitKey'
-import uploadToAr from '@utils/functions/uploadToAr'
-import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { BigNumber, utils } from 'ethers'
 import type { CreatePublicCommentRequest } from 'lens'
 import {
@@ -35,7 +21,22 @@ import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData, LenstubePublication } from 'src/types'
+import type { CustomErrorWithData, LenstubePublication } from 'utils'
+import {
+  Analytics,
+  LENSHUB_PROXY_ADDRESS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_WEBSITE_URL,
+  RELAYER_ENABLED,
+  SIGN_IN_REQUIRED_MESSAGE,
+  STATIC_ASSETS,
+  TRACK
+} from 'utils'
+import getUserLocale from 'utils/functions/getUserLocale'
+import imageCdn from 'utils/functions/imageCdn'
+import omitKey from 'utils/functions/omitKey'
+import uploadToAr from 'utils/functions/uploadToAr'
+import logger from 'utils/logger'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -210,7 +211,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         content: getValues('message'),
         locale: getUserLocale(),
         mainContentFocus: PublicationMainFocus.TextOnly,
-        external_url: `${LENSTUBE_URL}/watch/${video?.id}`,
+        external_url: `${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`,
         image: null,
         imageMimeType: null,
         name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
