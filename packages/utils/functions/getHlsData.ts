@@ -1,12 +1,7 @@
 import axios from 'axios'
 
+import type { HLSData } from '../custom-types'
 import sanitizeLvprUrl from './sanitizeLvprUrl'
-
-type HLSData = {
-  hrn: string
-  url: string
-  type: string
-}
 
 const getHlsData = async (playbackId: string) => {
   try {

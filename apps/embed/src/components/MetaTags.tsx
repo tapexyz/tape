@@ -8,7 +8,7 @@ import {
   LENSTUBE_TWITTER_HANDLE,
   LENSTUBE_WEBSITE_URL,
   STATIC_ASSETS
-} from 'utils/constants'
+} from 'utils'
 
 type Props = {
   title?: string

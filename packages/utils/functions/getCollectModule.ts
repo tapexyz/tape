@@ -1,17 +1,6 @@
 import type { CollectModuleParams } from 'lens'
-type CollectModuleType = {
-  isTimedFeeCollect?: boolean
-  isFreeCollect?: boolean
-  isFeeCollect?: boolean
-  isRevertCollect?: boolean
-  isLimitedFeeCollect?: boolean
-  isLimitedTimeFeeCollect?: boolean
-  amount?: { currency?: string; value: string }
-  referralFee?: number
-  collectLimit?: string
-  followerOnlyCollect?: boolean
-  recipient?: string
-}
+
+import type { CollectModuleType } from '../custom-types'
 
 export const getCollectModule = (
   selectedCollectModule: CollectModuleType

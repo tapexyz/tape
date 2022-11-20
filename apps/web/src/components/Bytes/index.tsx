@@ -12,13 +12,14 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
-import { Analytics, TRACK } from 'utils'
+import type { LenstubePublication } from 'utils'
 import {
+  Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from 'utils/constants'
-import type { LenstubePublication } from 'utils/custom-types'
+  SCROLL_ROOT_MARGIN,
+  TRACK
+} from 'utils'
 
 import ByteVideo from './ByteVideo'
 

@@ -4,7 +4,7 @@ import '@vime/core/themes/default.css'
 import mixpanel from 'mixpanel-browser'
 import type { AppProps } from 'next/app'
 import React from 'react'
-import { MIXPANEL_API_HOST, MIXPANEL_TOKEN } from 'utils/constants'
+import { MIXPANEL_API_HOST, MIXPANEL_TOKEN } from 'utils'
 
 function MyApp({ Component, pageProps }: AppProps) {
   if (MIXPANEL_TOKEN) {
