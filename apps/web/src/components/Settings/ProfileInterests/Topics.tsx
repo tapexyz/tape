@@ -50,7 +50,7 @@ const Topics = () => {
         ({ category, subCategories }) => (
           <div className="w-full space-y-1" key={category.id}>
             <h2 className="capitalize font-medium">{category.label}</h2>
-            <div className="flex flex-wrap items-center gap-1.5">
+            <div className="flex flex-wrap items-center gap-2">
               {subCategories?.map((subCategory) => (
                 <button
                   type="button"
@@ -59,7 +59,7 @@ const Topics = () => {
                     selectedTopics.length === MAX_TOPICS_ALLOWED
                   }
                   className={clsx(
-                    'flex items-center disabled:cursor-not-allowed justify-between px-4 py-1 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
+                    'flex items-center disabled:cursor-not-allowed justify-between px-3 py-0.5 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
                     {
                       'border-indigo-500': selectedTopics.includes(
                         subCategory.id
@@ -76,7 +76,7 @@ const Topics = () => {
                 <button
                   type="button"
                   className={clsx(
-                    'flex disabled:cursor-not-allowed items-center justify-between px-4 py-1 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
+                    'flex disabled:cursor-not-allowed items-center justify-between px-3 py-0.5 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
                     {
                       'border-indigo-500': selectedTopics.includes(category.id)
                     }
