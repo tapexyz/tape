@@ -2,11 +2,10 @@ import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
-import type { Profile } from 'lens'
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,
-  useProfileQuery
+  useRemoveProfileInterestMutation
 } from 'lens'
 import React, { useState } from 'react'
 import sanitizeProfileInterests from 'utils/functions/sanitizeProfileInterests'
@@ -14,49 +13,35 @@ import sanitizeProfileInterests from 'utils/functions/sanitizeProfileInterests'
 const MAX_TOPICS_ALLOWED = 12
 
 const Topics = () => {
-  const [selectedTopics, setSelectedTopics] = useState<string[]>([])
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
-
-  const { refetch } = useProfileQuery({
-    variables: { request: { handle: selectedChannel?.handle } },
-    onCompleted: (data) => {
-      const channel = data?.profile as Profile
-      setSelectedTopics(data.profile?.interests ?? [])
-      setSelectedChannel(channel)
-    }
-  })
+  const [selectedTopics, setSelectedTopics] = useState<string[]>(
+    selectedChannel?.interests ?? []
+  )
 
   const { data, loading } = useProfileInterestsQuery()
-  const [addProfileInterests, { loading: saving }] =
-    useAddProfileInterestMutation({
-      onCompleted: () => {
-        refetch()
-      }
-    })
+  const [addProfileInterests] = useAddProfileInterestMutation()
+  const [removeProfileInterests] = useRemoveProfileInterestMutation()
 
   const interestsData = (data?.profileInterests as string[]) || []
 
   const onSelectTopic = (topic: string) => {
-    if (selectedTopics.length === MAX_TOPICS_ALLOWED) return
-    if (!selectedTopics.includes(topic)) {
-      const interests = [...selectedTopics, topic]
-      return setSelectedTopics(interests)
-    }
-    const topics = [...selectedTopics]
-    topics.splice(topics.indexOf(topic), 1)
-    setSelectedTopics(topics)
-  }
-
-  const saveInterests = () => {
-    addProfileInterests({
-      variables: {
+    try {
+      const variables = {
         request: {
           profileId: selectedChannel?.id,
-          interests: selectedTopics
+          interests: [topic]
         }
       }
-    })
+      if (!selectedTopics.includes(topic)) {
+        const interests = [...selectedTopics, topic]
+        setSelectedTopics(interests)
+        return addProfileInterests({ variables })
+      }
+      const topics = [...selectedTopics]
+      topics.splice(topics.indexOf(topic), 1)
+      setSelectedTopics(topics)
+      removeProfileInterests({ variables })
+    } catch {}
   }
 
   return (
@@ -111,14 +96,7 @@ const Topics = () => {
         )
       )}
       <div className="flex bottom-0 right-0 sticky justify-end">
-        <Button
-          loading={saving}
-          disabled={saving}
-          onClick={() => saveInterests()}
-          className="!m-1 outline-none"
-        >
-          Save
-        </Button>
+        <Button className="!m-1 outline-none">Save</Button>
       </div>
     </div>
   )

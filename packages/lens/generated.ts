@@ -4619,6 +4619,15 @@ export type ProxyActionMutationVariables = Exact<{
 
 export type ProxyActionMutation = { __typename?: 'Mutation'; proxyAction: any }
 
+export type RemoveProfileInterestMutationVariables = Exact<{
+  request: RemoveProfileInterestsRequest
+}>
+
+export type RemoveProfileInterestMutation = {
+  __typename?: 'Mutation'
+  removeProfileInterests?: any | null
+}
+
 export type RemoveReactionMutationVariables = Exact<{
   request: ReactionRequest
 }>
@@ -9469,6 +9478,54 @@ export type ProxyActionMutationResult =
 export type ProxyActionMutationOptions = Apollo.BaseMutationOptions<
   ProxyActionMutation,
   ProxyActionMutationVariables
+>
+export const RemoveProfileInterestDocument = gql`
+  mutation RemoveProfileInterest($request: RemoveProfileInterestsRequest!) {
+    removeProfileInterests(request: $request)
+  }
+`
+export type RemoveProfileInterestMutationFn = Apollo.MutationFunction<
+  RemoveProfileInterestMutation,
+  RemoveProfileInterestMutationVariables
+>
+
+/**
+ * __useRemoveProfileInterestMutation__
+ *
+ * To run a mutation, you first call `useRemoveProfileInterestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveProfileInterestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeProfileInterestMutation, { data, loading, error }] = useRemoveProfileInterestMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useRemoveProfileInterestMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RemoveProfileInterestMutation,
+    RemoveProfileInterestMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    RemoveProfileInterestMutation,
+    RemoveProfileInterestMutationVariables
+  >(RemoveProfileInterestDocument, options)
+}
+export type RemoveProfileInterestMutationHookResult = ReturnType<
+  typeof useRemoveProfileInterestMutation
+>
+export type RemoveProfileInterestMutationResult =
+  Apollo.MutationResult<RemoveProfileInterestMutation>
+export type RemoveProfileInterestMutationOptions = Apollo.BaseMutationOptions<
+  RemoveProfileInterestMutation,
+  RemoveProfileInterestMutationVariables
 >
 export const RemoveReactionDocument = gql`
   mutation RemoveReaction($request: ReactionRequest!) {
