@@ -3,7 +3,7 @@ import apolloNodeClient from '@lib/apollo'
 import { PublicationDetailsDocument } from 'lens'
 import type { GetServerSideProps } from 'next'
 import type { LenstubePublication } from 'utils'
-import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from 'utils/constants'
+import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from 'utils'
 
 export default Video
 
