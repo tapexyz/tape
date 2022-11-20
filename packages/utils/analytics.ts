@@ -25,7 +25,8 @@ export const TRACK = {
   DEPOSIT_MATIC: 'Deposit Matic',
   EMBED_VIDEO: {
     OPEN: 'Open Embed',
-    COPY: 'Copy Embed'
+    COPY: 'Copy Embed',
+    LOADED: 'Embed Video Loaded'
   },
   NEW_COMMENT: 'New Comment',
   CLICK_VIDEO: 'Click Video',
