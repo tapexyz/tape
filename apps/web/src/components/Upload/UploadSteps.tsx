@@ -1,7 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import usePendingTxn from '@hooks/usePendingTxn'
-import logger from '@lib/logger'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import axios from 'axios'
 import { utils } from 'ethers'
@@ -47,6 +46,7 @@ import { sanitizeIpfsUrl } from 'utils/functions/sanitizeIpfsUrl'
 import trimify from 'utils/functions/trimify'
 import uploadToAr from 'utils/functions/uploadToAr'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
+import logger from 'utils/logger'
 import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,

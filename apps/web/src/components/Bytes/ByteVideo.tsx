@@ -1,5 +1,4 @@
 import CollectVideo from '@components/Watch/CollectVideo'
-import logger from '@lib/logger'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
@@ -9,6 +8,7 @@ import type { LenstubePublication } from 'utils/custom-types'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import { getPermanentVideoUrl, getVideoUrl } from 'utils/functions/getVideoUrl'
 import imageCdn from 'utils/functions/imageCdn'
+import logger from 'utils/logger'
 
 import BottomOverlay from './BottomOverlay'
 import ByteActions from './ByteActions'

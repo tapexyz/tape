@@ -1,5 +1,4 @@
 import Bundlr from '@bundlr-network/client'
-import logger from '@lib/logger'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {
   API_ORIGINS,
@@ -9,6 +8,7 @@ import {
   IS_MAINNET,
   LENSTUBE_APP_NAME
 } from 'utils'
+import logger from 'utils/logger'
 
 type Data = {
   url: string | null

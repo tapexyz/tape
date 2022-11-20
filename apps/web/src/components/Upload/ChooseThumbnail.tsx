@@ -1,6 +1,5 @@
 import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
 import { Loader } from '@components/UIElements/Loader'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import * as tf from '@tensorflow/tfjs'
 import clsx from 'clsx'
@@ -15,6 +14,7 @@ import { getFileFromDataURL } from 'utils/functions/getFileFromDataURL'
 import { getIsNSFW } from 'utils/functions/getIsNSFW'
 import { sanitizeIpfsUrl } from 'utils/functions/sanitizeIpfsUrl'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
+import logger from 'utils/logger'
 
 if (IS_MAINNET) {
   tf.enableProdMode()

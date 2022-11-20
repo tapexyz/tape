@@ -4,7 +4,6 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import { utils } from 'ethers'
 import Link from 'next/link'
@@ -21,6 +20,7 @@ import {
   TRACK
 } from 'utils'
 import useIsMounted from 'utils/hooks/useIsMounted'
+import logger from 'utils/logger'
 import { useAccount, useBalance, useSigner } from 'wagmi'
 
 const BundlrInfo = () => {

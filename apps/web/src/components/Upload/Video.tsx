@@ -1,5 +1,4 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import * as tf from '@tensorflow/tfjs'
 import clsx from 'clsx'
@@ -13,6 +12,7 @@ import { getIsNSFW } from 'utils/functions/getIsNSFW'
 import imageCdn from 'utils/functions/imageCdn'
 import { sanitizeIpfsUrl } from 'utils/functions/sanitizeIpfsUrl'
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
+import logger from 'utils/logger'
 
 import ChooseThumbnail from './ChooseThumbnail'
 import UploadMethod from './UploadMethod'

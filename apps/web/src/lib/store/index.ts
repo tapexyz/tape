@@ -1,5 +1,4 @@
 import { WebBundlr } from '@bundlr-network/client'
-import logger from '@lib/logger'
 import type { FetchSignerResult } from '@wagmi/core'
 import type { Profile } from 'lens'
 import type { BundlrDataState, LenstubePublication, UploadedVideo } from 'utils'
@@ -10,6 +9,7 @@ import {
   WMATIC_TOKEN_ADDRESS
 } from 'utils'
 import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
+import logger from 'utils/logger'
 import create from 'zustand'
 
 export const UPLOADED_VIDEO_FORM_DEFAULTS = {
