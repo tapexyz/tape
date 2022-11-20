@@ -132,3 +132,8 @@ export interface CustomErrorWithData extends Error {
     message: string
   }
 }
+
+export interface ProfileInterest {
+  category: { label: string; id: string }
+  subCategories: Array<{ label: string; id: string }>
+}

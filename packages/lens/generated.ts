@@ -3847,6 +3847,7 @@ export type CommentFieldsFragment = {
     bio?: string | null
     ownedBy: any
     isDefault: boolean
+    interests?: Array<any> | null
     isFollowedByMe: boolean
     dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
     attributes?: Array<{
@@ -4015,6 +4016,7 @@ export type CommentFieldsFragment = {
           bio?: string | null
           ownedBy: any
           isDefault: boolean
+          interests?: Array<any> | null
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
@@ -4216,6 +4218,7 @@ export type MirrorFieldsFragment = {
           bio?: string | null
           ownedBy: any
           isDefault: boolean
+          interests?: Array<any> | null
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
@@ -4265,6 +4268,7 @@ export type MirrorFieldsFragment = {
           bio?: string | null
           ownedBy: any
           isDefault: boolean
+          interests?: Array<any> | null
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
@@ -4343,6 +4347,7 @@ export type PostFieldsFragment = {
     bio?: string | null
     ownedBy: any
     isDefault: boolean
+    interests?: Array<any> | null
     isFollowedByMe: boolean
     dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
     attributes?: Array<{
@@ -4506,6 +4511,7 @@ export type ProfileFieldsFragment = {
   bio?: string | null
   ownedBy: any
   isDefault: boolean
+  interests?: Array<any> | null
   isFollowedByMe: boolean
   dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
   attributes?: Array<{
@@ -4544,6 +4550,15 @@ type RelayerResult_RelayerResult_Fragment = {
 export type RelayerResultFragment =
   | RelayerResult_RelayError_Fragment
   | RelayerResult_RelayerResult_Fragment
+
+export type AddProfileInterestMutationVariables = Exact<{
+  request: AddProfileInterestsRequest
+}>
+
+export type AddProfileInterestMutation = {
+  __typename?: 'Mutation'
+  addProfileInterests?: any | null
+}
 
 export type AddReactionMutationVariables = Exact<{
   request: ReactionRequest
@@ -5095,6 +5110,7 @@ export type AllProfilesQuery = {
       bio?: string | null
       ownedBy: any
       isDefault: boolean
+      interests?: Array<any> | null
       isFollowedByMe: boolean
       dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
       attributes?: Array<{
@@ -5179,6 +5195,7 @@ export type CollectorsQuery = {
         bio?: string | null
         ownedBy: any
         isDefault: boolean
+        interests?: Array<any> | null
         isFollowedByMe: boolean
         dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
         attributes?: Array<{
@@ -5307,6 +5324,7 @@ export type ExploreQuery = {
             bio?: string | null
             ownedBy: any
             isDefault: boolean
+            interests?: Array<any> | null
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
@@ -5482,6 +5500,7 @@ export type ExploreQuery = {
                   bio?: string | null
                   ownedBy: any
                   isDefault: boolean
+                  interests?: Array<any> | null
                   isFollowedByMe: boolean
                   dispatcher?: {
                     __typename?: 'Dispatcher'
@@ -5546,6 +5565,7 @@ export type ExploreQuery = {
             bio?: string | null
             ownedBy: any
             isDefault: boolean
+            interests?: Array<any> | null
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
@@ -5747,6 +5767,7 @@ export type FeedQuery = {
               bio?: string | null
               ownedBy: any
               isDefault: boolean
+              interests?: Array<any> | null
               isFollowedByMe: boolean
               dispatcher?: {
                 __typename?: 'Dispatcher'
@@ -5922,6 +5943,7 @@ export type FeedQuery = {
                     bio?: string | null
                     ownedBy: any
                     isDefault: boolean
+                    interests?: Array<any> | null
                     isFollowedByMe: boolean
                     dispatcher?: {
                       __typename?: 'Dispatcher'
@@ -5985,6 +6007,7 @@ export type FeedQuery = {
               bio?: string | null
               ownedBy: any
               isDefault: boolean
+              interests?: Array<any> | null
               isFollowedByMe: boolean
               dispatcher?: {
                 __typename?: 'Dispatcher'
@@ -6246,6 +6269,7 @@ export type MutualFollowersQuery = {
       bio?: string | null
       ownedBy: any
       isDefault: boolean
+      interests?: Array<any> | null
       isFollowedByMe: boolean
       dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
       attributes?: Array<{
@@ -6316,6 +6340,7 @@ export type NotificationsQuery = {
               bio?: string | null
               ownedBy: any
               isDefault: boolean
+              interests?: Array<any> | null
               isFollowedByMe: boolean
               dispatcher?: {
                 __typename?: 'Dispatcher'
@@ -6363,6 +6388,7 @@ export type NotificationsQuery = {
             bio?: string | null
             ownedBy: any
             isDefault: boolean
+            interests?: Array<any> | null
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
@@ -6417,6 +6443,7 @@ export type NotificationsQuery = {
               bio?: string | null
               ownedBy: any
               isDefault: boolean
+              interests?: Array<any> | null
               isFollowedByMe: boolean
               dispatcher?: {
                 __typename?: 'Dispatcher'
@@ -6464,6 +6491,7 @@ export type NotificationsQuery = {
                   bio?: string | null
                   ownedBy: any
                   isDefault: boolean
+                  interests?: Array<any> | null
                   isFollowedByMe: boolean
                   dispatcher?: {
                     __typename?: 'Dispatcher'
@@ -6505,6 +6533,7 @@ export type NotificationsQuery = {
                   bio?: string | null
                   ownedBy: any
                   isDefault: boolean
+                  interests?: Array<any> | null
                   isFollowedByMe: boolean
                   dispatcher?: {
                     __typename?: 'Dispatcher'
@@ -6548,6 +6577,7 @@ export type NotificationsQuery = {
             bio?: string | null
             ownedBy: any
             isDefault: boolean
+            interests?: Array<any> | null
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
@@ -6594,6 +6624,7 @@ export type NotificationsQuery = {
             bio?: string | null
             ownedBy: any
             isDefault: boolean
+            interests?: Array<any> | null
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
@@ -6656,6 +6687,7 @@ export type ProfileQuery = {
     handle: any
     ownedBy: any
     name?: string | null
+    interests?: Array<any> | null
     isFollowedByMe: boolean
     isFollowing: boolean
     bio?: string | null
@@ -6742,6 +6774,7 @@ export type ProfileCommentsQuery = {
             bio?: string | null
             ownedBy: any
             isDefault: boolean
+            interests?: Array<any> | null
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
@@ -6917,6 +6950,7 @@ export type ProfileCommentsQuery = {
                   bio?: string | null
                   ownedBy: any
                   isDefault: boolean
+                  interests?: Array<any> | null
                   isFollowedByMe: boolean
                   dispatcher?: {
                     __typename?: 'Dispatcher'
@@ -7005,6 +7039,13 @@ export type ProfileFollowModuleQuery = {
         | null
     }>
   }
+}
+
+export type ProfileInterestsQueryVariables = Exact<{ [key: string]: never }>
+
+export type ProfileInterestsQuery = {
+  __typename?: 'Query'
+  profileInterests: Array<any>
 }
 
 export type ProfileMirrorsQueryVariables = Exact<{
@@ -7155,6 +7196,7 @@ export type ProfileMirrorsQuery = {
                   bio?: string | null
                   ownedBy: any
                   isDefault: boolean
+                  interests?: Array<any> | null
                   isFollowedByMe: boolean
                   dispatcher?: {
                     __typename?: 'Dispatcher'
@@ -7204,6 +7246,7 @@ export type ProfileMirrorsQuery = {
                   bio?: string | null
                   ownedBy: any
                   isDefault: boolean
+                  interests?: Array<any> | null
                   isFollowedByMe: boolean
                   dispatcher?: {
                     __typename?: 'Dispatcher'
@@ -7337,6 +7380,7 @@ export type ProfilePostsQuery = {
             bio?: string | null
             ownedBy: any
             isDefault: boolean
+            interests?: Array<any> | null
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
@@ -7651,6 +7695,7 @@ export type PublicationDetailsQuery = {
           bio?: string | null
           ownedBy: any
           isDefault: boolean
+          interests?: Array<any> | null
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
@@ -7822,6 +7867,7 @@ export type PublicationDetailsQuery = {
                 bio?: string | null
                 ownedBy: any
                 isDefault: boolean
+                interests?: Array<any> | null
                 isFollowedByMe: boolean
                 dispatcher?: {
                   __typename?: 'Dispatcher'
@@ -7886,6 +7932,7 @@ export type PublicationDetailsQuery = {
           bio?: string | null
           ownedBy: any
           isDefault: boolean
+          interests?: Array<any> | null
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
@@ -8078,6 +8125,7 @@ export type SearchProfilesQuery = {
           bio?: string | null
           ownedBy: any
           isDefault: boolean
+          interests?: Array<any> | null
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
@@ -8142,6 +8190,7 @@ export type SearchPublicationsQuery = {
                 bio?: string | null
                 ownedBy: any
                 isDefault: boolean
+                interests?: Array<any> | null
                 isFollowedByMe: boolean
                 dispatcher?: {
                   __typename?: 'Dispatcher'
@@ -8317,6 +8366,7 @@ export type SearchPublicationsQuery = {
                       bio?: string | null
                       ownedBy: any
                       isDefault: boolean
+                      interests?: Array<any> | null
                       isFollowedByMe: boolean
                       dispatcher?: {
                         __typename?: 'Dispatcher'
@@ -8380,6 +8430,7 @@ export type SearchPublicationsQuery = {
                 bio?: string | null
                 ownedBy: any
                 isDefault: boolean
+                interests?: Array<any> | null
                 isFollowedByMe: boolean
                 dispatcher?: {
                   __typename?: 'Dispatcher'
@@ -8571,6 +8622,7 @@ export type SubscribersQuery = {
           bio?: string | null
           ownedBy: any
           isDefault: boolean
+          interests?: Array<any> | null
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
@@ -8626,6 +8678,7 @@ export type UserProfilesQuery = {
       bio?: string | null
       ownedBy: any
       isDefault: boolean
+      interests?: Array<any> | null
       isFollowedByMe: boolean
       dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
       attributes?: Array<{
@@ -8719,6 +8772,7 @@ export const ProfileFieldsFragmentDoc = gql`
     bio
     ownedBy
     isDefault
+    interests
     isFollowedByMe
     dispatcher {
       canUseRelay
@@ -9063,6 +9117,54 @@ export const RelayerResultFragmentDoc = gql`
     }
   }
 `
+export const AddProfileInterestDocument = gql`
+  mutation AddProfileInterest($request: AddProfileInterestsRequest!) {
+    addProfileInterests(request: $request)
+  }
+`
+export type AddProfileInterestMutationFn = Apollo.MutationFunction<
+  AddProfileInterestMutation,
+  AddProfileInterestMutationVariables
+>
+
+/**
+ * __useAddProfileInterestMutation__
+ *
+ * To run a mutation, you first call `useAddProfileInterestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddProfileInterestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addProfileInterestMutation, { data, loading, error }] = useAddProfileInterestMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useAddProfileInterestMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddProfileInterestMutation,
+    AddProfileInterestMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    AddProfileInterestMutation,
+    AddProfileInterestMutationVariables
+  >(AddProfileInterestDocument, options)
+}
+export type AddProfileInterestMutationHookResult = ReturnType<
+  typeof useAddProfileInterestMutation
+>
+export type AddProfileInterestMutationResult =
+  Apollo.MutationResult<AddProfileInterestMutation>
+export type AddProfileInterestMutationOptions = Apollo.BaseMutationOptions<
+  AddProfileInterestMutation,
+  AddProfileInterestMutationVariables
+>
 export const AddReactionDocument = gql`
   mutation AddReaction($request: ReactionRequest!) {
     addReaction(request: $request)
@@ -11577,6 +11679,7 @@ export const ProfileDocument = gql`
       dispatcher {
         canUseRelay
       }
+      interests
       isFollowedByMe
       isFollowing(who: $who)
       onChainIdentity {
@@ -11818,6 +11921,61 @@ export type ProfileFollowModuleLazyQueryHookResult = ReturnType<
 export type ProfileFollowModuleQueryResult = Apollo.QueryResult<
   ProfileFollowModuleQuery,
   ProfileFollowModuleQueryVariables
+>
+export const ProfileInterestsDocument = gql`
+  query ProfileInterests {
+    profileInterests
+  }
+`
+
+/**
+ * __useProfileInterestsQuery__
+ *
+ * To run a query within a React component, call `useProfileInterestsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileInterestsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileInterestsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useProfileInterestsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ProfileInterestsQuery,
+    ProfileInterestsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ProfileInterestsQuery, ProfileInterestsQueryVariables>(
+    ProfileInterestsDocument,
+    options
+  )
+}
+export function useProfileInterestsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ProfileInterestsQuery,
+    ProfileInterestsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    ProfileInterestsQuery,
+    ProfileInterestsQueryVariables
+  >(ProfileInterestsDocument, options)
+}
+export type ProfileInterestsQueryHookResult = ReturnType<
+  typeof useProfileInterestsQuery
+>
+export type ProfileInterestsLazyQueryHookResult = ReturnType<
+  typeof useProfileInterestsLazyQuery
+>
+export type ProfileInterestsQueryResult = Apollo.QueryResult<
+  ProfileInterestsQuery,
+  ProfileInterestsQueryVariables
 >
 export const ProfileMirrorsDocument = gql`
   query ProfileMirrors(
