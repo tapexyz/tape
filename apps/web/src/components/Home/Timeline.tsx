@@ -3,7 +3,7 @@ import MirroredVideoCard from '@components/Channel/MirroredVideoCard'
 import VideoCard from '@components/Common/VideoCard'
 import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'src/types'
+import type { LenstubePublication } from 'utils'
 
 type Props = {
   videos: LenstubePublication[]

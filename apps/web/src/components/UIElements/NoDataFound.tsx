@@ -1,7 +1,7 @@
-import { STATIC_ASSETS } from '@utils/constants'
-import imageCdn from '@utils/functions/imageCdn'
 import clsx from 'clsx'
 import React from 'react'
+import { STATIC_ASSETS } from 'utils'
+import imageCdn from 'utils/functions/imageCdn'
 
 export const NoDataFound = ({
   text = 'No data found',

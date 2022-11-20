@@ -2,12 +2,6 @@ import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
 import {
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@utils/constants'
-import {
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
@@ -16,7 +10,13 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
-import type { LenstubePublication } from 'src/types'
+import type { LenstubePublication } from 'utils'
+import {
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
+  SCROLL_ROOT_MARGIN
+} from 'utils'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
 

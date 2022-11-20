@@ -1,4 +1,3 @@
-import { HOME } from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -19,7 +18,7 @@ const TopOverlay: FC<Props> = ({ onClickPlayPause, playing }) => {
     >
       <div className="flex items-center justify-between">
         <div className="p-3 md:hidden">
-          <Link href={HOME}>
+          <Link href="/">
             <BsArrowLeft className="text-2xl text-white" />
           </Link>
         </div>

@@ -1,7 +1,5 @@
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { ERROR_MESSAGE } from '@utils/constants'
 import type { Profile } from 'lens'
 import {
   useAllProfilesLazyQuery,
@@ -11,7 +9,9 @@ import {
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'src/types'
+import type { CustomErrorWithData } from 'utils'
+import { ERROR_MESSAGE } from 'utils'
+import logger from 'utils/logger'
 import { useAccount, useSignMessage } from 'wagmi'
 
 import ConnectWalletButton from './ConnectWalletButton'

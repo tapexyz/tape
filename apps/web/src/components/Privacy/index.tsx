@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Analytics, TRACK } from '@utils/analytics'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
+import { Analytics, TRACK } from 'utils'
 
 const Privacy = () => {
   useEffect(() => {

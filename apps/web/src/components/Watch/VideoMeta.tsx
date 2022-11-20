@@ -7,7 +7,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import type { LenstubePublication } from 'src/types'
+import type { LenstubePublication } from 'utils'
 
 dayjs.extend(relativeTime)
 

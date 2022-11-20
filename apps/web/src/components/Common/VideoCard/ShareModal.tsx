@@ -1,15 +1,14 @@
 import Modal from '@components/UIElements/Modal'
-import { Analytics, TRACK } from '@utils/analytics'
-import { LENSTUBE_URL, STATIC_ASSETS } from '@utils/constants'
-import { getSharableLink } from '@utils/functions/getSharableLink'
-import imageCdn from '@utils/functions/imageCdn'
-import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { IoCopyOutline } from 'react-icons/io5'
-import type { LenstubePublication } from 'src/types'
+import type { LenstubePublication } from 'utils'
+import { Analytics, LENSTUBE_WEBSITE_URL, STATIC_ASSETS, TRACK } from 'utils'
+import { getSharableLink } from 'utils/functions/getSharableLink'
+import imageCdn from 'utils/functions/imageCdn'
+import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 
 import EmbedVideo from '../EmbedVideo'
 import MirrorOutline from '../Icons/MirrorOutline'
@@ -25,7 +24,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
   const [copy] = useCopyToClipboard()
 
   const onCopyVideoUrl = async () => {
-    await copy(`${LENSTUBE_URL}/watch/${video.id}`)
+    await copy(`${LENSTUBE_WEBSITE_URL}/watch/${video.id}`)
     toast.success('Link copied to clipboard')
     Analytics.track(TRACK.COPY.VIDEO_URL)
   }
@@ -122,7 +121,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
         </div>
         <div className="flex items-center justify-between p-2 border border-gray-200 rounded-lg dark:border-gray-800">
           <div className="text-sm truncate select-all">
-            {LENSTUBE_URL}/watch/{video.id}
+            {LENSTUBE_WEBSITE_URL}/watch/{video.id}
           </div>
           <button
             className="ml-2 hover:opacity-60 focus:outline-none"

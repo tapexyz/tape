@@ -3,13 +3,6 @@ import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import {
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  RELAYER_ENABLED,
-  SIGN_IN_REQUIRED_MESSAGE
-} from '@utils/constants'
-import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
 import type { FeeFollowModuleSettings, Profile } from 'lens'
 import {
@@ -22,7 +15,14 @@ import {
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'src/types'
+import type { CustomErrorWithData } from 'utils'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  RELAYER_ENABLED,
+  SIGN_IN_REQUIRED_MESSAGE
+} from 'utils'
+import omitKey from 'utils/functions/omitKey'
 import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
 
 type Props = {

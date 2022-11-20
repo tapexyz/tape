@@ -3,13 +3,13 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
-import { SCROLL_ROOT_MARGIN } from '@utils/constants'
 import type { FeedItem } from 'lens'
 import { FeedEventItemType, PublicationMainFocus, useFeedQuery } from 'lens'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
-import type { LenstubePublication } from 'src/types'
+import type { LenstubePublication } from 'utils'
+import { SCROLL_ROOT_MARGIN } from 'utils'
 
 const HomeFeed = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)

@@ -1,10 +1,10 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
-import { IPFS_FREE_UPLOAD_LIMIT } from '@utils/constants'
-import canUploadedToIpfs from '@utils/functions/canUploadedToIpfs'
 import clsx from 'clsx'
 import React, { useEffect } from 'react'
+import { IPFS_FREE_UPLOAD_LIMIT } from 'utils'
+import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
 
 import BundlrInfo from './BundlrInfo'
 

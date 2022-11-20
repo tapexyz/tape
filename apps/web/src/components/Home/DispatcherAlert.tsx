@@ -1,9 +1,9 @@
 import Toggle from '@components/Settings/Permissions/Dispatcher/Toggle'
 import SignalWave from '@components/UIElements/SignalWave'
 import useAppStore from '@lib/store'
-import { APP_NAME } from '@utils/constants'
 import React from 'react'
 import { HiOutlineSparkles } from 'react-icons/hi'
+import { LENSTUBE_APP_NAME } from 'utils'
 
 const DispatcherAlert = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
@@ -23,8 +23,8 @@ const DispatcherAlert = () => {
           </div>
           <div className="flex flex-wrap items-center justify-between flex-1 w-full gap-y-3 dark:text-gray-100">
             <p className="text-sm lg:text-lg md:text-md">
-              You can enable dispatcher to interact with {APP_NAME} without
-              signing any of your transactions.
+              You can enable dispatcher to interact with {LENSTUBE_APP_NAME}{' '}
+              without signing any of your transactions.
             </p>
             <Toggle />
           </div>

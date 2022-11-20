@@ -2,12 +2,6 @@ import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
-import { Analytics, TRACK } from '@utils/analytics'
-import {
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@utils/constants'
 import {
   PublicationSortCriteria,
   PublicationTypes,
@@ -18,7 +12,14 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
-import type { LenstubePublication } from 'src/types'
+import type { LenstubePublication } from 'utils'
+import {
+  Analytics,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID,
+  SCROLL_ROOT_MARGIN,
+  TRACK
+} from 'utils'
 
 import ByteVideo from './ByteVideo'
 

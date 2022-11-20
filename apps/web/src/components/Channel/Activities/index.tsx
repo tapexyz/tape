@@ -1,5 +1,4 @@
 import { Tab } from '@headlessui/react'
-import { Analytics, TRACK } from '@utils/analytics'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { useRouter } from 'next/router'
@@ -13,6 +12,7 @@ import {
 import { BiMoviePlay } from 'react-icons/bi'
 import { GiMirrorMirror, GiMonkey } from 'react-icons/gi'
 import { MdOutlineAnalytics, MdOutlineSlowMotionVideo } from 'react-icons/md'
+import { Analytics, TRACK } from 'utils'
 
 import About from './About'
 import ChannelBytes from './ChannelBytes'
