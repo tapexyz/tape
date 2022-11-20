@@ -2,10 +2,6 @@ import BytesOutline from '@components/Common/Icons/BytesOutline'
 import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import useAppStore from '@lib/store'
-import { Analytics, TRACK } from '@utils/analytics'
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@utils/constants'
-import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
-import imageCdn from '@utils/functions/imageCdn'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
@@ -14,7 +10,15 @@ import {
 } from 'lens'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
-import type { LenstubePublication } from 'src/types'
+import type { LenstubePublication } from 'utils'
+import {
+  Analytics,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID,
+  TRACK
+} from 'utils'
+import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
+import imageCdn from 'utils/functions/imageCdn'
 
 const BytesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)

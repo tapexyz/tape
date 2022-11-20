@@ -1,7 +1,7 @@
-import { getHandle } from '@utils/functions/getHandle'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
+import { getHandle } from 'utils/functions/getHandle'
 
 const ChannelLink = ({ ...props }: any) => {
   return (

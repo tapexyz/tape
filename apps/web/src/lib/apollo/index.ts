@@ -1,6 +1,6 @@
 import { ApolloClient, from, HttpLink } from '@apollo/client'
 import { RetryLink } from '@apollo/client/link/retry'
-import { API_URL } from '@utils/constants'
+import { API_URL } from 'utils'
 
 import authLink from './authLink'
 import cache from './cache'

@@ -1,7 +1,7 @@
-import { IPFS_GATEWAY } from '@utils/constants'
 import Link from 'next/link'
 import type { ReactElement } from 'react'
 import React from 'react'
+import { IPFS_GATEWAY } from 'utils'
 
 const IPFSLink = ({
   hash,

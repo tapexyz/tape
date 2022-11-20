@@ -2,7 +2,7 @@ import CheckOutline from '@components/Common/Icons/CheckOutline'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
-import type { CollectModuleType, UploadedVideo } from 'src/types'
+import type { CollectModuleType, UploadedVideo } from 'utils'
 
 type Props = {
   uploadedVideo: UploadedVideo

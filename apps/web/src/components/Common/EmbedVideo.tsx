@@ -1,12 +1,11 @@
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import { Analytics, TRACK } from '@utils/analytics'
-import { LENSTUBE_EMBED_URL } from '@utils/constants'
-import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { FiCode } from 'react-icons/fi'
+import { Analytics, LENSTUBE_EMBED_URL, TRACK } from 'utils'
+import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 
 type Props = {
   videoId: string

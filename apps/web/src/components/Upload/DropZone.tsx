@@ -2,13 +2,12 @@ import UploadOutline from '@components/Common/Icons/UploadOutline'
 import MetaTags from '@components/Common/MetaTags'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import { Analytics, TRACK } from '@utils/analytics'
-import { ALLOWED_VIDEO_TYPES } from '@utils/constants'
-import useDragAndDrop from '@utils/hooks/useDragAndDrop'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
+import { ALLOWED_VIDEO_TYPES, Analytics, TRACK } from 'utils'
+import useDragAndDrop from 'utils/hooks/useDragAndDrop'
 
 const DropZone = () => {
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)

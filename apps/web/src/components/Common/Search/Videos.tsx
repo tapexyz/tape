@@ -1,8 +1,8 @@
-import { formatNumber } from '@utils/functions/formatNumber'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'src/types'
+import type { LenstubePublication } from 'utils'
+import { formatNumber } from 'utils/functions/formatNumber'
 
 import LikeOutline from '../Icons/LikeOutline'
 

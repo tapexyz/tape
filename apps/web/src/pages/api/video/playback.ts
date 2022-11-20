@@ -1,7 +1,7 @@
 import logger from '@lib/logger'
-import { API_ORIGINS, IS_MAINNET, LIVEPEER_API_KEY } from '@utils/constants'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { API_ORIGINS, IS_MAINNET, LIVEPEER_API_KEY } from 'utils'
 
 type Data = {
   playbackId: string | null

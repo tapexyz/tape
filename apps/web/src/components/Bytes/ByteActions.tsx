@@ -8,7 +8,7 @@ import CollectVideo from '@components/Watch/CollectVideo'
 import PublicationReaction from '@components/Watch/PublicationReaction'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import type { LenstubePublication } from 'src/types'
+import type { LenstubePublication } from 'utils/custom-types'
 
 type Props = {
   video: LenstubePublication

@@ -1,4 +1,4 @@
-import type { LenstubePublication } from 'src/types'
+import type { LenstubePublication } from 'utils'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 

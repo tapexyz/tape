@@ -8,7 +8,7 @@ import type { Dispatch, FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineDelete } from 'react-icons/ai'
-import type { LenstubePublication } from 'src/types'
+import type { LenstubePublication } from 'utils'
 
 type Props = {
   setShowReport: Dispatch<boolean>

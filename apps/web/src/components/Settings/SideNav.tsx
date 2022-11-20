@@ -1,9 +1,3 @@
-import {
-  SETTINGS,
-  SETTINGS_DANGER_ZONE,
-  SETTINGS_MEMBERSHIP,
-  SETTINGS_PERMISSIONS
-} from '@utils/url-path'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -19,6 +13,11 @@ import ChannelPicture from './ChannelPicture'
 type Props = {
   channel: any
 }
+
+export const SETTINGS_MEMBERSHIP = '/settings/membership'
+export const SETTINGS_PERMISSIONS = '/settings/permissions'
+export const SETTINGS_DANGER_ZONE = '/settings/danger'
+export const SETTINGS = '/settings'
 
 const SideNav: FC<Props> = ({ channel }) => {
   const router = useRouter()

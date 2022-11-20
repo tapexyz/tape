@@ -1,12 +1,12 @@
+import Link from 'next/link'
+import React from 'react'
 import {
   GIT_DEPLOYED_BRANCH,
   GIT_DEPLOYED_COMMIT_SHA,
   IS_MAINNET,
   RELAYER_ENABLED,
   VERCEL_DEPLOYED_ENV
-} from '@utils/constants'
-import Link from 'next/link'
-import React from 'react'
+} from 'utils'
 
 const Deployment = () => {
   return (

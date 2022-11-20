@@ -6,20 +6,21 @@ import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import { Analytics, TRACK } from '@utils/analytics'
-import {
-  BUNDLR_CONNECT_MESSAGE,
-  BUNDLR_CURRENCY,
-  BUNDLR_WEBSITE_URL,
-  POLYGON_CHAIN_ID
-} from '@utils/constants'
-import useIsMounted from '@utils/hooks/useIsMounted'
 import { utils } from 'ethers'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { MdRefresh } from 'react-icons/md'
-import type { CustomErrorWithData } from 'src/types'
+import type { CustomErrorWithData } from 'utils'
+import {
+  Analytics,
+  BUNDLR_CONNECT_MESSAGE,
+  BUNDLR_CURRENCY,
+  BUNDLR_WEBSITE_URL,
+  POLYGON_CHAIN_ID,
+  TRACK
+} from 'utils'
+import useIsMounted from 'utils/hooks/useIsMounted'
 import { useAccount, useBalance, useSigner } from 'wagmi'
 
 const BundlrInfo = () => {
