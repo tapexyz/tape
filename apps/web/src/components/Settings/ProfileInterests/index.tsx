@@ -8,8 +8,8 @@ const ProfileInterests = () => {
       <p>
         Interests are off-chain and will be used to curate the way that API
         serves content.
+        <span className="text-yellow-600 block"> (Maximum 12 interests)</span>
       </p>
-      <span className="text-yellow-600"> (Maximum 12 interests)</span>
       <Topics />
     </div>
   )
