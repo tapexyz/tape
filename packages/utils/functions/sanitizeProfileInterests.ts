@@ -19,7 +19,7 @@ const sanitizeProfileInterests = (profileInterests: string[]) => {
       })
     interests.push({
       category: {
-        label: category.replaceAll('_', ' ').toLowerCase(),
+        label: category.replaceAll('_', ' & ').toLowerCase(),
         id: category
       },
       subCategories

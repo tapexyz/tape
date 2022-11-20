@@ -48,8 +48,8 @@ const ProfileInterests = () => {
           </div>
           <div className="flex flex-wrap items-center justify-between flex-1 w-full gap-y-3 dark:text-gray-100">
             <p className="text-xs">
-              Interests are now off-chain and will be used only to curate the
-              way that API serves content.
+              Interests are off-chain and will be used to curate the way that
+              API serves content.
               <span className="text-yellow-600"> (Maximum 12 interests)</span>
             </p>
             <div className="max-h-96 w-full no-scrollbar overflow-y-auto">

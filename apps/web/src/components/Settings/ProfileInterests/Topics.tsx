@@ -48,7 +48,7 @@ const Topics = () => {
       {loading && <Loader className="my-10" />}
       {sanitizeProfileInterests(interestsData)?.map(
         ({ category, subCategories }) => (
-          <div className="w-full space-y-1" key={category.id}>
+          <div className="w-full space-y-2" key={category.id}>
             <h2 className="capitalize font-medium">{category.label}</h2>
             <div className="flex flex-wrap items-center gap-2">
               {subCategories?.map((subCategory) => (
