@@ -9,11 +9,15 @@ export const CREATOR_VIDEO_CATEGORIES = [
     tag: 'podcast'
   },
   {
+    name: 'Hobbies & Interests',
+    tag: 'interests'
+  },
+  {
     name: 'Comedy',
     tag: 'comedy'
   },
   {
-    name: 'Health',
+    name: 'Health & Fitness',
     tag: 'health'
   },
   {
@@ -25,8 +29,16 @@ export const CREATOR_VIDEO_CATEGORIES = [
     tag: 'education'
   },
   {
+    name: 'Books & Literature',
+    tag: 'literature'
+  },
+  {
     name: 'Entertainment',
     tag: 'entertainment'
+  },
+  {
+    name: 'Home & Garden',
+    tag: 'garden'
   },
   {
     name: 'Crypto currency',
@@ -35,6 +47,10 @@ export const CREATOR_VIDEO_CATEGORIES = [
   {
     name: 'Film & Animation',
     tag: 'film'
+  },
+  {
+    name: 'Business',
+    tag: 'business'
   },
   {
     name: 'Gaming',
