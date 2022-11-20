@@ -1,7 +1,6 @@
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
-import sanitizeProfileInterests from '@utils/functions/sanitizeProfileInterests'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import {
@@ -10,6 +9,7 @@ import {
   useProfileQuery
 } from 'lens'
 import React, { useState } from 'react'
+import sanitizeProfileInterests from 'utils/functions/sanitizeProfileInterests'
 
 const MAX_TOPICS_ALLOWED = 12
 

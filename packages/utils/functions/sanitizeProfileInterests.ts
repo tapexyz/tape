@@ -1,4 +1,4 @@
-import type { ProfileInterest } from 'src/types'
+import type { ProfileInterest } from '../custom-types'
 
 const sanitizeProfileInterests = (profileInterests: string[]) => {
   if (!profileInterests) return []
