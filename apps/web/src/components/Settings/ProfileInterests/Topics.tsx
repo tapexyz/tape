@@ -59,7 +59,7 @@ const Topics = () => {
                     selectedTopics.length === MAX_TOPICS_ALLOWED
                   }
                   className={clsx(
-                    'flex items-center justify-between px-4 py-1 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
+                    'flex items-center disabled:cursor-not-allowed justify-between px-4 py-1 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
                     {
                       'border-indigo-500': selectedTopics.includes(
                         subCategory.id
@@ -76,7 +76,7 @@ const Topics = () => {
                 <button
                   type="button"
                   className={clsx(
-                    'flex items-center justify-between px-4 py-1 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
+                    'flex disabled:cursor-not-allowed items-center justify-between px-4 py-1 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
                     {
                       'border-indigo-500': selectedTopics.includes(category.id)
                     }

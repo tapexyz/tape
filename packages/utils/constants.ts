@@ -4,7 +4,8 @@ export const LENSTUBE_APP_NAME = 'Lenstube'
 export const LENSTUBE_APP_DESCRIPTION =
   'Lenstube is a decentralized video-sharing social media platform built with Lens protocol.'
 
-export const IS_MAINNET = process.env.NEXT_PUBLIC_ENVIRONMENT === 'mainnet'
+export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT
+export const IS_MAINNET = LENS_ENV === 'mainnet'
 export const RELAYER_ENABLED =
   process.env.NEXT_PUBLIC_RELAYER_ENABLED === 'true'
 
@@ -17,9 +18,17 @@ export const LENSTUBE_EMBED_URL = IS_MAINNET
   : 'https://test-embed.lenstube.xyz'
 
 // lens
-export const API_URL = IS_MAINNET
-  ? 'https://api.lens.dev'
-  : 'https://api-mumbai.lens.dev'
+export const MAINNET_API_URL = 'https://api.lens.dev'
+export const TESTNET_API_URL = 'https://api-mumbai.lens.dev'
+export const STAGING_MAINNET_API_URL =
+  'https://staging-api-social-polygon.lens.crtlkey.com'
+export const STAGING_TESTNET_API_URL =
+  'https://staging-api-social-mumbai.lens.crtlkey.com'
+export const STAGING_URL = IS_MAINNET
+  ? STAGING_MAINNET_API_URL
+  : STAGING_TESTNET_API_URL
+
+export const API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
   ? '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d'
   : '0x60Ae865ee4C725cd04353b5AAb364553f56ceF82'

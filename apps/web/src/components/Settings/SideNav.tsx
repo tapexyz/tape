@@ -42,17 +42,6 @@ const SideNav: FC<Props> = ({ channel }) => {
           <UserOutline className="w-4 h-4" /> <span>Basic Info</span>
         </Link>
         <Link
-          href={SETTINGS_INTERESTS}
-          className={clsx(
-            'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
-            {
-              'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS_INTERESTS)
-            }
-          )}
-        >
-          <InterestsOutline className="w-4 h-4" /> <span>Interests</span>
-        </Link>
-        <Link
           href={SETTINGS_MEMBERSHIP}
           className={clsx(
             'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
@@ -73,6 +62,17 @@ const SideNav: FC<Props> = ({ channel }) => {
           )}
         >
           <KeyOutline className="w-4 h-4" /> <span>Permissions</span>
+        </Link>
+        <Link
+          href={SETTINGS_INTERESTS}
+          className={clsx(
+            'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
+            {
+              'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS_INTERESTS)
+            }
+          )}
+        >
+          <InterestsOutline className="w-4 h-4" /> <span>Interests</span>
         </Link>
         <Link
           href={SETTINGS_DANGER_ZONE}
