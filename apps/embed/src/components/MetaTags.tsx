@@ -64,8 +64,12 @@ const MetaTags: FC<Props> = (props) => {
       <meta name="twitter:site" content="@lenstubexyz" />
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
-      <meta property="twitter:image:src" content={meta.image} />
+      <meta property="twitter:image" content={meta.image} />
       <meta property="twitter:creator" content={LENSTUBE_TWITTER_HANDLE} />
+      <meta
+        name="twitter:card"
+        content={videoUrl ? 'summary_large_image' : 'summary'}
+      />
 
       {videoUrl && (
         <>
@@ -81,13 +85,13 @@ const MetaTags: FC<Props> = (props) => {
             property="og:video:secure_url"
             content={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
           />
+          <meta name="twitter:card" content="player" />
           <meta
             name="twitter:player"
             content={`${LENSTUBE_EMBED_URL}${router.asPath}`}
           />
           <meta property="twitter:player:width" content="1280" />
           <meta property="twitter:player:height" content="720" />
-          <meta name="twitter:card" content="player" />
         </>
       )}
 
