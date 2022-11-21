@@ -1,18 +1,28 @@
+import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
+import type { Profile } from 'lens'
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,
+  useProfileLazyQuery,
   useRemoveProfileInterestMutation
 } from 'lens'
+import type { FC } from 'react'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import sanitizeProfileInterests from 'utils/functions/sanitizeProfileInterests'
 
 const MAX_TOPICS_ALLOWED = 12
 
-const Topics = () => {
+type Props = {
+  showSave?: boolean
+}
+
+const Topics: FC<Props> = ({ showSave }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const [selectedTopics, setSelectedTopics] = useState<string[]>(
     selectedChannel?.interests ?? []
   )
@@ -20,6 +30,14 @@ const Topics = () => {
   const { data, loading } = useProfileInterestsQuery()
   const [addProfileInterests] = useAddProfileInterestMutation()
   const [removeProfileInterests] = useRemoveProfileInterestMutation()
+
+  const [refetchChannel, { loading: saving }] = useProfileLazyQuery({
+    onCompleted: (data) => {
+      const channel = data?.profile as Profile
+      setSelectedChannel(channel)
+      toast.success('Interests updated')
+    }
+  })
 
   const interestsData = (data?.profileInterests as string[]) || []
 
@@ -41,6 +59,15 @@ const Topics = () => {
       setSelectedTopics(topics)
       removeProfileInterests({ variables })
     } catch {}
+  }
+
+  const onSave = () => {
+    refetchChannel({
+      variables: {
+        request: { handle: selectedChannel?.handle }
+      },
+      fetchPolicy: 'no-cache'
+    })
   }
 
   return (
@@ -93,6 +120,13 @@ const Topics = () => {
             </div>
           </div>
         )
+      )}
+      {showSave && (
+        <div className="flex w-full justify-end">
+          <Button disabled={saving} loading={saving} onClick={() => onSave()}>
+            Save
+          </Button>
+        </div>
       )}
     </div>
   )

@@ -7,6 +7,7 @@ import useAppStore from '@lib/store'
 import type { Profile } from 'lens'
 import { useProfileLazyQuery } from 'lens'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const ProfileInterests = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
@@ -19,6 +20,7 @@ const ProfileInterests = () => {
     onCompleted: (data) => {
       const channel = data?.profile as Profile
       setSelectedChannel(channel)
+      toast.success('Interests updated')
     }
   })
 

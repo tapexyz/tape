@@ -10,7 +10,7 @@ const ProfileInterests = () => {
         serves content.
         <span className="text-yellow-600 block"> (Maximum 12 interests)</span>
       </p>
-      <Topics />
+      <Topics showSave />
     </div>
   )
 }
