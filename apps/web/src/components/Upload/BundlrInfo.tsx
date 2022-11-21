@@ -37,7 +37,7 @@ const BundlrInfo = () => {
 
   const { mounted } = useIsMounted()
   const { data: userBalance } = useBalance({
-    addressOrName: address,
+    address,
     chainId: POLYGON_CHAIN_ID,
     watch: true
   })
