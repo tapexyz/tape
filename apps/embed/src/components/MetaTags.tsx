@@ -22,7 +22,7 @@ const MetaTags: FC<Props> = (props) => {
   const router = useRouter()
 
   const meta = {
-    title: title ?? LENSTUBE_APP_NAME,
+    title: `${title} ~ Lenstube` ?? LENSTUBE_APP_NAME,
     description:
       description ??
       'Lenstube is a decentralized video-sharing social media platform built with Lens protocol.',
@@ -53,35 +53,44 @@ const MetaTags: FC<Props> = (props) => {
       <meta property="og:description" content={meta.description} />
       <meta property="og:title" content={meta.title} />
       <meta property="og:image" content={meta.image} />
-      <meta property="og:image:width" content="480" />
-      <meta property="og:image:height" content="360" />
+      <meta property="og:image:width" content={videoUrl ? '480' : '400'} />
+      <meta property="og:image:height" content={videoUrl ? '360' : '400'} />
 
-      <meta property="og:video" content={meta.videoUrl} />
-      <meta property="og:video:width" content="1280" />
-      <meta property="og:video:height" content="720" />
+      <meta property="twitter:image:width" content={videoUrl ? '480' : '400'} />
       <meta
-        property="og:video:url"
-        content={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
+        property="twitter:image:height"
+        content={videoUrl ? '360' : '400'}
       />
-      <meta property="og:video:type" content="text/html" />
-      <meta
-        property="og:video:secure_url"
-        content={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
-      />
-      <meta name="twitter:card" content="player" />
-      <meta property="twitter:image:width" content="480" />
-      <meta property="twitter:image:height" content="360" />
       <meta name="twitter:site" content="@lenstubexyz" />
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
-      <meta
-        name="twitter:player"
-        content={`${LENSTUBE_EMBED_URL}${router.asPath}`}
-      />
-      <meta property="twitter:player:width" content="1280" />
-      <meta property="twitter:player:height" content="720" />
       <meta property="twitter:image:src" content={meta.image} />
       <meta property="twitter:creator" content={LENSTUBE_TWITTER_HANDLE} />
+
+      {videoUrl && (
+        <>
+          <meta property="og:video" content={meta.videoUrl} />
+          <meta property="og:video:width" content="1280" />
+          <meta property="og:video:height" content="720" />
+          <meta
+            property="og:video:url"
+            content={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
+          />
+          <meta property="og:video:type" content="text/html" />
+          <meta
+            property="og:video:secure_url"
+            content={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
+          />
+          <meta
+            name="twitter:player"
+            content={`${LENSTUBE_EMBED_URL}${router.asPath}`}
+          />
+          <meta property="twitter:player:width" content="1280" />
+          <meta property="twitter:player:height" content="720" />
+          <meta name="twitter:card" content="player" />
+        </>
+      )}
+
       <link rel="preconnect" href={STATIC_ASSETS} />
       <link rel="dns-prefetch" href={STATIC_ASSETS} />
       <link rel="shortcut icon" href="/favicon.ico" />
