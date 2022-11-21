@@ -70,7 +70,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
       <div className="py-2">
         <div className="flex items-start space-x-2.5">
           <Link
-            href={`/${commentedOn.profile?.handle}`}
+            href={`/channel/${commentedOn.profile?.handle}`}
             className="flex-none mt-0.5"
           >
             <img
@@ -90,7 +90,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
               </Link>
             </div>
             <Link
-              href={`/${commentedOn.profile?.handle}`}
+              href={`/channel/${commentedOn.profile?.handle}`}
               className="flex w-fit items-center text-[13px] space-x-0.5 hover:opacity-100 opacity-70"
             >
               <span>{commentedOn.profile?.handle}</span>

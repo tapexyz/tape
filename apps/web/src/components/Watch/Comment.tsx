@@ -65,7 +65,7 @@ const Comment: FC<Props> = ({ comment }) => {
     <div className="flex items-start justify-between">
       <div className="flex items-start justify-between">
         <Link
-          href={`/${comment.profile?.handle}`}
+          href={`/channel/${comment.profile?.handle}`}
           className="flex-none mr-3 mt-0.5"
         >
           <img
@@ -78,7 +78,7 @@ const Comment: FC<Props> = ({ comment }) => {
         <div className="flex flex-col items-start mr-2">
           <span className="flex items-center mb-1 space-x-1">
             <Link
-              href={`/${comment.profile?.handle}`}
+              href={`/channel/${comment.profile?.handle}`}
               className="flex items-center space-x-1 text-sm font-medium"
             >
               <span>{comment?.profile?.handle}</span>

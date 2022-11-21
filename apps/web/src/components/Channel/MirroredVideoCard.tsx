@@ -65,7 +65,10 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
       </Link>
       <div className="py-2">
         <div className="flex items-start space-x-2.5">
-          <Link href={`/${video.profile?.handle}`} className="flex-none mt-0.5">
+          <Link
+            href={`/channel/${video.profile?.handle}`}
+            className="flex-none mt-0.5"
+          >
             <img
               className="w-8 h-8 rounded-xl"
               src={getProfilePicture(mirrorOf.profile, 'avatar')}
@@ -83,7 +86,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
               </Link>
             </div>
             <Link
-              href={`/${mirrorOf.profile?.handle}`}
+              href={`/channel/${mirrorOf.profile?.handle}`}
               className="flex w-fit text-[13px] items-center space-x-0.5 hover:opacity-100 opacity-70"
             >
               <span>{mirrorOf.profile?.handle}</span>

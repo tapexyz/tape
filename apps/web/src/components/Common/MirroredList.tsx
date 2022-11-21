@@ -54,7 +54,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
       {mirroredByProfiles?.map((profile: Profile) => (
         <div className="flex flex-col" key={profile.ownedBy}>
           <Link
-            href={`/${profile?.handle}`}
+            href={`/channel/${profile?.handle}`}
             className="flex items-center justify-between font-base"
           >
             <div className="flex items-center space-x-1.5">

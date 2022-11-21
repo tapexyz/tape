@@ -78,7 +78,7 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
             </div>
             <div className="truncate">
               <Link
-                href={`/${video.profile?.handle}`}
+                href={`/channel/${video.profile?.handle}`}
                 className="text-[13px] truncate hover:opacity-100 opacity-70"
               >
                 <div className="flex items-center space-x-0.5">

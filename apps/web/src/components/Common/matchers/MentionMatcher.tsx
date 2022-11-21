@@ -5,7 +5,9 @@ import { getHandle } from 'utils/functions/getHandle'
 
 const ChannelLink = ({ ...props }: any) => {
   return (
-    <Link href={`/${getHandle(props.display?.slice(1))}`}>{props.display}</Link>
+    <Link href={`/channel/${getHandle(props.display?.slice(1))}`}>
+      {props.display}
+    </Link>
   )
 }
 

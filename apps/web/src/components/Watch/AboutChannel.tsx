@@ -36,7 +36,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
 
   return (
     <div className="flex items-start justify-between w-full">
-      <Link href={`/${channel?.handle}`}>
+      <Link href={`/channel/${channel?.handle}`}>
         <div className="flex-none mr-3 cursor-pointer">
           <img
             src={getProfilePicture(channel, 'avatar')}
@@ -50,7 +50,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
         <div className="flex flex-wrap justify-between gap-y-2">
           <div className="flex flex-col items-start mr-2">
             <Link
-              href={`/${channel?.handle}`}
+              href={`/channel/${channel?.handle}`}
               className="flex items-center space-x-1 font-semibold"
             >
               <span>{channel?.handle}</span>

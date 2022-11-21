@@ -37,7 +37,7 @@ const usePendingTxn = ({ txHash, txId, isPublication }: Props) => {
           `Relay Error - ${data?.hasTxHashBeenIndexed?.reason}`
         )
       }
-      if (isPublication) router.push(`/${selectedChannel?.handle}`)
+      if (isPublication) router.push(`/channel/${selectedChannel?.handle}`)
     }
   }, [
     router,
