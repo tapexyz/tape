@@ -82,7 +82,7 @@ export const BUNDLR_PRIVATE_KEY = process.env.BUNDLR_PRIVATE_KEY as string
 export const BUNDLR_CONNECT_MESSAGE = 'Sign to initialize & estimate upload...'
 
 // error messages
-export const ERROR_MESSAGE = 'Oops, something went something!'
+export const ERROR_MESSAGE = 'Oops, something went wrong!'
 export const SIGN_IN_REQUIRED_MESSAGE = 'Sign in required'
 
 // App Ids
