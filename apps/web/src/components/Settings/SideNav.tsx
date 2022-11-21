@@ -36,7 +36,7 @@ const SideNav: FC<Props> = ({ channel }) => {
           href={SETTINGS}
           className={clsx(
             'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
-            { 'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS) }
+            { 'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS) }
           )}
         >
           <UserOutline className="w-4 h-4" /> <span>Basic Info</span>
@@ -46,7 +46,7 @@ const SideNav: FC<Props> = ({ channel }) => {
           className={clsx(
             'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
             {
-              'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS_MEMBERSHIP)
+              'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS_MEMBERSHIP)
             }
           )}
         >
@@ -57,7 +57,7 @@ const SideNav: FC<Props> = ({ channel }) => {
           className={clsx(
             'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
             {
-              'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS_PERMISSIONS)
+              'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS_PERMISSIONS)
             }
           )}
         >
@@ -68,7 +68,7 @@ const SideNav: FC<Props> = ({ channel }) => {
           className={clsx(
             'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
             {
-              'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS_INTERESTS)
+              'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS_INTERESTS)
             }
           )}
         >

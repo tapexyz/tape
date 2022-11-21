@@ -95,7 +95,7 @@ const Topics: FC<Props> = ({ showSave }) => {
                   className={clsx(
                     'flex items-center disabled:cursor-not-allowed disabled:opacity-50 justify-between px-3 py-0.5 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
                     {
-                      'border-indigo-500': selectedTopics.includes(
+                      '!border-indigo-500': selectedTopics.includes(
                         subCategory.id
                       )
                     }
@@ -112,7 +112,7 @@ const Topics: FC<Props> = ({ showSave }) => {
                   className={clsx(
                     'flex disabled:cursor-not-allowed items-center disabled:opacity-50 justify-between px-3 py-0.5 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
                     {
-                      'border-indigo-500': selectedTopics.includes(category.id)
+                      '!border-indigo-500': selectedTopics.includes(category.id)
                     }
                   )}
                   disabled={
