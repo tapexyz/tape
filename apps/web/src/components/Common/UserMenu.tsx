@@ -168,7 +168,7 @@ const UserMenu = () => {
                 <>
                   <Menu.Item
                     as={NextLink}
-                    href={`/${selectedChannel?.handle}`}
+                    href={`/channel/${selectedChannel?.handle}`}
                     className="inline-flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
                     <ChannelHeartOutline className="w-4 h-4" />

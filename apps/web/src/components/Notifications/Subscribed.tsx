@@ -26,7 +26,7 @@ const SubscribedNotification: FC<Props> = ({ notification }) => {
       <div className="flex items-center space-x-3">
         {notification?.wallet?.defaultProfile ? (
           <Link
-            href={`/${notification?.wallet?.defaultProfile?.handle}`}
+            href={`/channel/${notification?.wallet?.defaultProfile?.handle}`}
             className="inline-flex items-center space-x-1.5 font-base"
           >
             <img

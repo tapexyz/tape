@@ -22,7 +22,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
       <div className="flex items-center justify-between">
         <div className="min-w-0">
           <Link
-            href={`/${channel?.handle}`}
+            href={`/channel/${channel?.handle}`}
             className="flex items-center flex-none space-x-2 cursor-pointer"
           >
             <img
