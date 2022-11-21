@@ -3,15 +3,13 @@ import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { Analytics, TRACK } from '@utils/analytics'
-import { LENS_CUSTOM_FILTERS } from '@utils/constants'
-import { EXPLORE, FEED, HOME, NOTIFICATIONS } from '@utils/url-path'
 import clsx from 'clsx'
+import { useNotificationCountQuery } from 'lens'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { useNotificationCountQuery } from 'src/types/lens'
+import { Analytics, LENS_CUSTOM_FILTERS, TRACK } from 'utils'
 
 import Login from './Auth/Login'
 import BellOutline from './Icons/BellOutline'
@@ -27,7 +25,7 @@ const Header: FC<Props> = ({ className }) => {
   const { pathname } = useRouter()
   const [showShowModal, setSearchModal] = useState(false)
   const showFilter =
-    pathname === HOME || pathname === EXPLORE || pathname === FEED
+    pathname === '/' || pathname === '/explore' || pathname === '/feed'
 
   const hasNewNotification = useAppStore((state) => state.hasNewNotification)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
@@ -70,7 +68,7 @@ const Header: FC<Props> = ({ className }) => {
       <div className="w-full">
         <div className="flex ultrawide:px-6 px-2 items-center justify-between w-full">
           <div className="md:w-[330px]">
-            <Link href={HOME} className="block md:invisible">
+            <Link href="/" className="block md:invisible">
               <img
                 src="/lenstube.svg"
                 draggable={false}
@@ -96,7 +94,7 @@ const Header: FC<Props> = ({ className }) => {
                   onClick={() =>
                     Analytics.track(TRACK.NOTIFICATIONS.CLICK_NOTIFICATIONS)
                   }
-                  href={NOTIFICATIONS}
+                  href="/notifications"
                   className="relative p-1"
                 >
                   <Button variant="material" className="!p-[9px]">

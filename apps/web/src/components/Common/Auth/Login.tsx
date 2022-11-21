@@ -1,17 +1,16 @@
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { ERROR_MESSAGE } from '@utils/constants'
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
-import type { Profile } from 'src/types/lens'
+import type { Profile } from 'lens'
 import {
   useAllProfilesLazyQuery,
   useAuthenticateMutation,
   useChallengeLazyQuery
-} from 'src/types/lens'
-import type { CustomErrorWithData } from 'src/types/local'
+} from 'lens'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import { ERROR_MESSAGE } from 'utils'
+import logger from 'utils/logger'
 import { useAccount, useSignMessage } from 'wagmi'
 
 import ConnectWalletButton from './ConnectWalletButton'
@@ -29,8 +28,7 @@ const Login = () => {
     (state) => state.setSelectedChannelId
   )
 
-  const onError = (error: CustomErrorWithData) => {
-    toast.error(error?.data?.message ?? error?.message)
+  const onError = () => {
     setLoading(false)
   }
 
@@ -101,7 +99,7 @@ const Login = () => {
       setLoading(false)
     } catch (error) {
       setLoading(false)
-      toast.error('Failed to signin')
+      toast.error('Sign in failed')
       logger.error('[Error Sign In]', error)
     }
   }

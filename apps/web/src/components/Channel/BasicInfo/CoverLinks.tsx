@@ -1,10 +1,10 @@
-import { Analytics, TRACK } from '@utils/analytics'
-import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
+import type { Profile } from 'lens'
 import Link from 'next/link'
 import React from 'react'
 import { HiOutlineGlobe } from 'react-icons/hi'
 import { RiTwitterLine } from 'react-icons/ri'
-import type { Profile } from 'src/types/lens'
+import { Analytics, TRACK } from 'utils'
+import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 
 const CoverLinks = ({ channel }: { channel: Profile }) => {
   return (

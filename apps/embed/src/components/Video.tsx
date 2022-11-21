@@ -1,13 +1,13 @@
-import { getIsSensitiveContent } from '@utils/functions/getIsSensitiveContent'
-import getThumbnailUrl from '@utils/functions/getThumbnailUrl'
-import { getVideoUrl } from '@utils/functions/getVideoUrl'
-import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
-import truncate from '@utils/functions/truncate'
-import { Mixpanel, TRACK } from '@utils/track'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React, { useEffect } from 'react'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'utils'
+import { Analytics, TRACK } from 'utils'
+import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
+import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
+import { getVideoUrl } from 'utils/functions/getVideoUrl'
+import { sanitizeIpfsUrl } from 'utils/functions/sanitizeIpfsUrl'
+import truncate from 'utils/functions/truncate'
 
 import MetaTags from './MetaTags'
 
@@ -23,7 +23,7 @@ const Video: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
 
   useEffect(() => {
-    Mixpanel.track(TRACK.EMBED_VIDEO_LOADED)
+    Analytics.track(TRACK.EMBED_VIDEO.LOADED)
   }, [])
 
   return (

@@ -2,14 +2,14 @@ import IsVerified from '@components/Common/IsVerified'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
-import getProfilePicture from '@utils/functions/getProfilePicture'
+import type { Profile } from 'lens'
+import { useMutualFollowersQuery } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import { BiUser } from 'react-icons/bi'
-import type { Profile } from 'src/types/lens'
-import { useMutualFollowersQuery } from 'src/types/lens'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 type Props = {
   viewingChannelId: string
 }

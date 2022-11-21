@@ -14,10 +14,10 @@ import {
   rainbowWallet,
   walletConnectWallet
 } from '@rainbow-me/rainbowkit/wallets'
-import { APP_NAME, IS_MAINNET, POLYGON_RPC_URL } from '@utils/constants'
 import { ThemeProvider, useTheme } from 'next-themes'
 import type { ReactNode } from 'react'
 import React from 'react'
+import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
@@ -39,7 +39,7 @@ const connectors = connectorsForWallets([
       injectedWallet({ chains, shimDisconnect: true }),
       metaMaskWallet({ chains, shimDisconnect: true }),
       rainbowWallet({ chains }),
-      coinbaseWallet({ appName: APP_NAME, chains }),
+      coinbaseWallet({ appName: LENSTUBE_APP_NAME, chains }),
       walletConnectWallet({ chains })
     ]
   }

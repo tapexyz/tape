@@ -3,21 +3,22 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
-import { Analytics, TRACK } from '@utils/analytics'
-import {
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@utils/constants'
-import React, { useEffect } from 'react'
-import { useInView } from 'react-cool-inview'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'src/types/lens'
-import type { LenstubePublication } from 'src/types/local'
+} from 'lens'
+import React, { useEffect } from 'react'
+import { useInView } from 'react-cool-inview'
+import type { LenstubePublication } from 'utils'
+import {
+  Analytics,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  SCROLL_ROOT_MARGIN,
+  TRACK
+} from 'utils'
 
 const Curated = () => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)

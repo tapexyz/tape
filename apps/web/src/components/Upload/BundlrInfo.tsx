@@ -4,22 +4,23 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
-import logger from '@lib/logger'
 import useAppStore from '@lib/store'
-import { Analytics, TRACK } from '@utils/analytics'
-import {
-  BUNDLR_CONNECT_MESSAGE,
-  BUNDLR_CURRENCY,
-  BUNDLR_WEBSITE_URL,
-  POLYGON_CHAIN_ID
-} from '@utils/constants'
-import useIsMounted from '@utils/hooks/useIsMounted'
 import { utils } from 'ethers'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { MdRefresh } from 'react-icons/md'
-import type { CustomErrorWithData } from 'src/types/local'
+import type { CustomErrorWithData } from 'utils'
+import {
+  Analytics,
+  BUNDLR_CONNECT_MESSAGE,
+  BUNDLR_CURRENCY,
+  BUNDLR_WEBSITE_URL,
+  POLYGON_CHAIN_ID,
+  TRACK
+} from 'utils'
+import useIsMounted from 'utils/hooks/useIsMounted'
+import logger from 'utils/logger'
 import { useAccount, useBalance, useSigner } from 'wagmi'
 
 const BundlrInfo = () => {
@@ -36,8 +37,9 @@ const BundlrInfo = () => {
 
   const { mounted } = useIsMounted()
   const { data: userBalance } = useBalance({
-    addressOrName: address,
-    chainId: POLYGON_CHAIN_ID
+    address,
+    chainId: POLYGON_CHAIN_ID,
+    watch: true
   })
 
   const fetchBalance = async (bundlr?: WebBundlr) => {
@@ -164,7 +166,7 @@ const BundlrInfo = () => {
               onClick={() =>
                 setBundlrData({ showDeposit: !bundlrData.showDeposit })
               }
-              className="inline-flex py-0.5 items-center pl-1.5 pr-0.5 bg-gray-100 rounded-full focus:outline-none dark:bg-gray-800"
+              className="inline-flex py-0.5 items-center pl-1.5 pr-1 bg-gray-200 rounded-full focus:outline-none dark:bg-gray-800"
             >
               <span className="text-xs px-0.5">Deposit</span>
               {bundlrData.showDeposit ? (

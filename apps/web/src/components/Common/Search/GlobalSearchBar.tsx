@@ -1,24 +1,25 @@
 import { useLazyQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { Tab } from '@headlessui/react'
-import { Analytics, TRACK } from '@utils/analytics'
-import {
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID
-} from '@utils/constants'
-import useDebounce from '@utils/hooks/useDebounce'
-import useOutsideClick from '@utils/hooks/useOutsideClick'
 import clsx from 'clsx'
-import type { FC } from 'react'
-import React, { useEffect, useRef, useState } from 'react'
-import type { Profile } from 'src/types/lens'
+import type { Profile } from 'lens'
 import {
   SearchProfilesDocument,
   SearchPublicationsDocument,
   SearchRequestTypes
-} from 'src/types/lens'
-import type { LenstubePublication } from 'src/types/local'
+} from 'lens'
+import type { FC } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import type { LenstubePublication } from 'utils'
+import {
+  Analytics,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
+  TRACK
+} from 'utils'
+import useDebounce from 'utils/hooks/useDebounce'
+import useOutsideClick from 'utils/hooks/useOutsideClick'
 
 import SearchOutline from '../Icons/SearchOutline'
 import Channels from './Channels'

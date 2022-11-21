@@ -7,24 +7,25 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
-import { Analytics, TRACK } from '@utils/analytics'
-import {
-  ADMIN_IDS,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@utils/constants'
 import clsx from 'clsx'
-import React, { useState } from 'react'
-import { useInView } from 'react-cool-inview'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'src/types/lens'
-import type { LenstubePublication } from 'src/types/local'
+} from 'lens'
+import React, { useState } from 'react'
+import { useInView } from 'react-cool-inview'
+import type { LenstubePublication } from 'utils'
+import {
+  ADMIN_IDS,
+  Analytics,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
+  SCROLL_ROOT_MARGIN,
+  TRACK
+} from 'utils'
 
 const initialCriteria = {
   trending: true,

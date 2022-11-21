@@ -2,17 +2,17 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@utils/constants'
-import type { FC } from 'react'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
-import type { Profile } from 'src/types/lens'
+import type { Profile } from 'lens'
 import {
   PublicationMainFocus,
   PublicationTypes,
   useProfileMirrorsQuery
-} from 'src/types/lens'
-import type { LenstubePublication } from 'src/types/local'
+} from 'lens'
+import type { FC } from 'react'
+import React from 'react'
+import { useInView } from 'react-cool-inview'
+import type { LenstubePublication } from 'utils'
+import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from 'utils'
 
 type Props = {
   channel: Profile

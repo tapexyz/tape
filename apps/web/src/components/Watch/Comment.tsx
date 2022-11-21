@@ -5,22 +5,22 @@ import IsVerified from '@components/Common/IsVerified'
 import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import Tooltip from '@components/UIElements/Tooltip'
-import {
-  checkValueInAttributes,
-  getValueFromTraitType
-} from '@utils/functions/getFromAttributes'
-import getProfilePicture from '@utils/functions/getProfilePicture'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import type { Attribute } from 'lens'
+import { PublicationMainFocus } from 'lens'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { AiFillHeart, AiOutlinePlayCircle } from 'react-icons/ai'
-import type { Attribute } from 'src/types/lens'
-import { PublicationMainFocus } from 'src/types/lens'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'utils'
+import {
+  checkValueInAttributes,
+  getValueFromTraitType
+} from 'utils/functions/getFromAttributes'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 
 dayjs.extend(relativeTime)
 

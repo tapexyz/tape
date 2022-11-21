@@ -4,23 +4,23 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@utils/constants'
-import getCategoryName from '@utils/functions/getCategoryName'
-import { useRouter } from 'next/router'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
-import Custom404 from 'src/pages/404'
-import {
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'src/types/lens'
-import type { LenstubePublication } from 'src/types/local'
+} from 'lens'
+import { useRouter } from 'next/router'
+import React from 'react'
+import { useInView } from 'react-cool-inview'
+import Custom404 from 'src/pages/404'
+import type { LenstubePublication } from 'utils'
+import {
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
+  SCROLL_ROOT_MARGIN
+} from 'utils'
+import getCategoryName from 'utils/functions/getCategoryName'
 
 const ExploreCategory = () => {
   const { query } = useRouter()

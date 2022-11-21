@@ -1,17 +1,14 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import { STATIC_ASSETS } from '@utils/constants'
-import { getTimeFromSeconds } from '@utils/functions/formatTime'
-import { getValueFromTraitType } from '@utils/functions/getFromAttributes'
-import { getIsSensitiveContent } from '@utils/functions/getIsSensitiveContent'
-import {
-  getIsIPFSUrl,
-  getPermanentVideoUrl
-} from '@utils/functions/getVideoUrl'
+import type { Attribute } from 'lens'
 import { useRouter } from 'next/router'
 import React from 'react'
-import type { Attribute } from 'src/types/lens'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'utils'
+import { STATIC_ASSETS } from 'utils'
+import { getTimeFromSeconds } from 'utils/functions/formatTime'
+import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
+import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
+import { getIsIPFSUrl, getPermanentVideoUrl } from 'utils/functions/getVideoUrl'
 
 const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)

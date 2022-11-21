@@ -1,11 +1,11 @@
 import IsVerified from '@components/Common/IsVerified'
-import getProfilePicture from '@utils/functions/getProfilePicture'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import type { NewCommentNotification } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { NewCommentNotification } from 'src/types/lens'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 
 dayjs.extend(relativeTime)
 

@@ -1,11 +1,11 @@
-import { LENSTUBE_URL } from '@utils/constants'
-import useCopyToClipboard from '@utils/hooks/useCopyToClipboard'
-import useOutsideClick from '@utils/hooks/useOutsideClick'
 import { useRouter } from 'next/router'
 import React, { forwardRef, useRef } from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineLink } from 'react-icons/ai'
 import { MdOutlineLoop } from 'react-icons/md'
+import { LENSTUBE_WEBSITE_URL } from 'utils'
+import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
+import useOutsideClick from 'utils/hooks/useOutsideClick'
 
 import CheckOutline from '../Icons/CheckOutline'
 
@@ -33,7 +33,7 @@ const PlayerContextMenu = forwardRef<HTMLVmPlayerElement, Props>(
     }
 
     const onCopyVideoUrl = async () => {
-      await copy(`${LENSTUBE_URL}/watch/${query.id}`)
+      await copy(`${LENSTUBE_WEBSITE_URL}/watch/${query.id}`)
       toast.success('Video link copied')
       hideContextMenu()
     }
@@ -42,7 +42,7 @@ const PlayerContextMenu = forwardRef<HTMLVmPlayerElement, Props>(
       const { current } = ref as React.MutableRefObject<HTMLVmPlayerElement>
       if (!current) return
       const selectedTime = Math.trunc(current.currentTime)
-      await copy(`${LENSTUBE_URL}/watch/${query.id}?t=${selectedTime}`)
+      await copy(`${LENSTUBE_WEBSITE_URL}/watch/${query.id}?t=${selectedTime}`)
       toast.success(`Video link copied`)
       hideContextMenu()
     }

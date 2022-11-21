@@ -5,23 +5,19 @@ import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { Analytics, TRACK } from '@utils/analytics'
-import { LENSPORT_MARKETPLACE_URL } from '@utils/constants'
-import { formatNumber } from '@utils/functions/formatNumber'
-import { shortenAddress } from '@utils/functions/shortenAddress'
 import dayjs from 'dayjs'
-import Link from 'next/link'
-import type { Dispatch, FC } from 'react'
-import React, { useEffect, useState } from 'react'
-import type { ApprovedAllowanceAmount } from 'src/types/lens'
+import type { ApprovedAllowanceAmount } from 'lens'
 import {
   useApprovedModuleAllowanceAmountQuery,
   usePublicationRevenueQuery
-} from 'src/types/lens'
-import type {
-  LenstubeCollectModule,
-  LenstubePublication
-} from 'src/types/local'
+} from 'lens'
+import Link from 'next/link'
+import type { Dispatch, FC } from 'react'
+import React, { useEffect, useState } from 'react'
+import type { LenstubeCollectModule, LenstubePublication } from 'utils'
+import { Analytics, LENSPORT_MARKETPLACE_URL, TRACK } from 'utils'
+import { formatNumber } from 'utils/functions/formatNumber'
+import { shortenAddress } from 'utils/functions/shortenAddress'
 import { useBalance } from 'wagmi'
 
 import BalanceAlert from './BalanceAlert'
@@ -61,7 +57,7 @@ const CollectModal: FC<Props> = ({
   }, [])
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
-    addressOrName: selectedChannel?.ownedBy,
+    address: selectedChannel?.ownedBy,
     token: collectModule?.amount?.asset?.address,
     formatUnits: collectModule?.amount?.asset?.decimals,
     watch: Boolean(collectModule?.amount),

@@ -1,42 +1,16 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
-import logger from '@lib/logger'
+import usePendingTxn from '@hooks/usePendingTxn'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import { Analytics, TRACK } from '@utils/analytics'
-import {
-  APP_NAME,
-  ARWEAVE_WEBSITE_URL,
-  BUNDLR_CONNECT_MESSAGE,
-  ERROR_MESSAGE,
-  IS_MAINNET,
-  LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  LENSTUBE_URL,
-  RELAYER_ENABLED,
-  VIDEO_CDN_URL
-} from '@utils/constants'
-import canUploadedToIpfs from '@utils/functions/canUploadedToIpfs'
-import { checkIsBytesVideo } from '@utils/functions/checkIsBytesVideo'
-import { getCollectModule } from '@utils/functions/getCollectModule'
-import getUserLocale from '@utils/functions/getUserLocale'
-import omitKey from '@utils/functions/omitKey'
-import { sanitizeIpfsUrl } from '@utils/functions/sanitizeIpfsUrl'
-import trimify from '@utils/functions/trimify'
-import uploadToAr from '@utils/functions/uploadToAr'
-import uploadToIPFS from '@utils/functions/uploadToIPFS'
-import usePendingTxn from '@utils/hooks/usePendingTxn'
 import axios from 'axios'
 import { utils } from 'ethers'
-import React, { useEffect } from 'react'
-import toast from 'react-hot-toast'
 import type {
   CreatePostBroadcastItemResult,
   CreatePublicPostRequest,
   MetadataAttributeInput,
   PublicationMetadataMediaInput,
   PublicationMetadataV2Input
-} from 'src/types/lens'
+} from 'lens'
 import {
   PublicationContentWarning,
   PublicationMainFocus,
@@ -44,8 +18,35 @@ import {
   useBroadcastMutation,
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
-} from 'src/types/lens'
-import type { CustomErrorWithData } from 'src/types/local'
+} from 'lens'
+import React, { useEffect } from 'react'
+import toast from 'react-hot-toast'
+import type { CustomErrorWithData } from 'utils'
+import {
+  Analytics,
+  ARWEAVE_WEBSITE_URL,
+  BUNDLR_CONNECT_MESSAGE,
+  ERROR_MESSAGE,
+  IS_MAINNET,
+  LENSHUB_PROXY_ADDRESS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_APP_NAME,
+  LENSTUBE_BYTES_APP_ID,
+  LENSTUBE_WEBSITE_URL,
+  RELAYER_ENABLED,
+  TRACK,
+  VIDEO_CDN_URL
+} from 'utils'
+import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
+import { checkIsBytesVideo } from 'utils/functions/checkIsBytesVideo'
+import { getCollectModule } from 'utils/functions/getCollectModule'
+import getUserLocale from 'utils/functions/getUserLocale'
+import omitKey from 'utils/functions/omitKey'
+import { sanitizeIpfsUrl } from 'utils/functions/sanitizeIpfsUrl'
+import trimify from 'utils/functions/trimify'
+import uploadToAr from 'utils/functions/uploadToAr'
+import uploadToIPFS from 'utils/functions/uploadToIPFS'
+import logger from 'utils/logger'
 import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
@@ -283,7 +284,7 @@ const UploadSteps = () => {
         locale: getUserLocale(),
         tags: [uploadedVideo.videoCategory.tag],
         mainContentFocus: PublicationMainFocus.Video,
-        external_url: `${LENSTUBE_URL}/${selectedChannel?.handle}`,
+        external_url: `${LENSTUBE_WEBSITE_URL}/${selectedChannel?.handle}`,
         animation_url: uploadedVideo.videoSource,
         image: uploadedVideo.thumbnail,
         imageMimeType: uploadedVideo.thumbnailType,
@@ -382,7 +383,7 @@ const UploadSteps = () => {
       const bundlr = bundlrData.instance
       const tags = [
         { name: 'Content-Type', value: uploadedVideo.videoType || 'video/mp4' },
-        { name: 'App-Name', value: APP_NAME }
+        { name: 'App-Name', value: LENSTUBE_APP_NAME }
       ]
       const uploader = bundlr.uploader.chunkedUploader
       uploader.setChunkSize(10000000) // 10 MB

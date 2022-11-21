@@ -1,8 +1,8 @@
 import useAppStore from '@lib/store'
-import { CREATOR_VIDEO_CATEGORIES } from '@utils/data/categories'
-import useHorizontalScroll from '@utils/hooks/useHorizantalScroll'
 import clsx from 'clsx'
 import React from 'react'
+import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
+import useHorizontalScroll from 'utils/hooks/useHorizantalScroll'
 
 const TagFilters = () => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)

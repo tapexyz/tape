@@ -1,9 +1,9 @@
 import Video from '@components/Video'
-import { LENSTUBE_APP_ID, LENSTUBE_BYTE_APP_ID } from '@utils/constants'
+import apolloNodeClient from '@lib/apollo'
+import { PublicationDetailsDocument } from 'lens'
 import type { GetServerSideProps } from 'next'
-import apolloNodeClient from 'src/gql/apollo'
-import { VIDEO_DETAIL_QUERY } from 'src/gql/queries'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'utils'
+import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from 'utils'
 
 export default Video
 
@@ -20,10 +20,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     return { notFound: true }
   }
   const { data, error } = await apolloNodeClient.query({
-    query: VIDEO_DETAIL_QUERY,
+    query: PublicationDetailsDocument,
     variables: {
       request: { publicationId: pubId },
-      sources: [LENSTUBE_APP_ID, LENSTUBE_BYTE_APP_ID]
+      sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
     }
   })
   if (!data.publication || error) {

@@ -1,16 +1,16 @@
 import IsVerified from '@components/Common/IsVerified'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import useAppStore from '@lib/store'
-import getProfilePicture from '@utils/functions/getProfilePicture'
-import { getRandomProfilePicture } from '@utils/functions/getRandomProfilePicture'
-import imageCdn from '@utils/functions/imageCdn'
-import { shortenAddress } from '@utils/functions/shortenAddress'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import type { NewFollowerNotification } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { NewFollowerNotification } from 'src/types/lens'
+import getProfilePicture from 'utils/functions/getProfilePicture'
+import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
+import imageCdn from 'utils/functions/imageCdn'
+import { shortenAddress } from 'utils/functions/shortenAddress'
 
 dayjs.extend(relativeTime)
 

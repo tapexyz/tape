@@ -3,19 +3,18 @@ import LikeOutline from '@components/Common/Icons/LikeOutline'
 import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { Analytics, TRACK } from '@utils/analytics'
-import { SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
-import { formatNumber } from '@utils/functions/formatNumber'
 import clsx from 'clsx'
-import type { FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
 import {
   ReactionTypes,
   useAddReactionMutation,
   useRemoveReactionMutation
-} from 'src/types/lens'
-import type { LenstubePublication } from 'src/types/local'
+} from 'lens'
+import type { FC } from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
+import type { LenstubePublication } from 'utils'
+import { Analytics, SIGN_IN_REQUIRED_MESSAGE, TRACK } from 'utils'
+import { formatNumber } from 'utils/functions/formatNumber'
 
 type Props = {
   publication: LenstubePublication

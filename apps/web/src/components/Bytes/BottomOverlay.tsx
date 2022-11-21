@@ -1,11 +1,11 @@
 import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
-import { formatNumber } from '@utils/functions/formatNumber'
-import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'utils/custom-types'
+import { formatNumber } from 'utils/functions/formatNumber'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 
 type Props = {
   video: LenstubePublication

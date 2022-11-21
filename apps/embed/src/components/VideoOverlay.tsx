@@ -1,9 +1,9 @@
-import { LENSTUBE_URL } from '@utils/constants'
-import getProfilePicture from '@utils/functions/getProfilePicture'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'utils'
+import { LENSTUBE_WEBSITE_URL } from 'utils/constants'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 
 type Props = {
   video: LenstubePublication
@@ -15,7 +15,7 @@ const VideoOverlay: FC<Props> = ({ video }) => {
       <div className="flex items-center justify-between p-2 space-x-6 bg-gradient-to-b to-transparent from-black/90">
         <div className="flex items-center flex-1">
           <Link
-            href={`${LENSTUBE_URL}/${video?.profile?.handle}`}
+            href={`${LENSTUBE_WEBSITE_URL}/${video?.profile?.handle}`}
             className="flex-none mr-3 cursor-pointer"
             target="_blank"
           >
@@ -28,14 +28,14 @@ const VideoOverlay: FC<Props> = ({ video }) => {
           </Link>
           <div className="flex flex-col">
             <Link
-              href={`${LENSTUBE_URL}/watch/${video?.id}`}
+              href={`${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`}
               className="break-words line-clamp-1"
               target="_blank"
             >
               <h1 className="font-semibold">{video?.metadata.name}</h1>
             </Link>
             <Link
-              href={`${LENSTUBE_URL}/${video?.profile.handle}`}
+              href={`${LENSTUBE_WEBSITE_URL}/${video?.profile.handle}`}
               className="leading-3 break-words line-clamp-1"
               target="_blank"
             >
@@ -49,7 +49,7 @@ const VideoOverlay: FC<Props> = ({ video }) => {
           <Link
             title="Watch on LensTube"
             className="flex items-center space-x-1.5"
-            href={`${LENSTUBE_URL}/watch/${video?.id}`}
+            href={`${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`}
             target="_blank"
           >
             <img

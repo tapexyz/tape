@@ -1,19 +1,19 @@
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
-import { WMATIC_TOKEN_ADDRESS } from '@utils/constants'
-import { getCollectModuleConfig } from '@utils/functions/getCollectModule'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-import type { ApprovedAllowanceAmount, Erc20 } from 'src/types/lens'
+import type { ApprovedAllowanceAmount, Erc20 } from 'lens'
 import {
   CollectModules,
   FollowModules,
   ReferenceModules,
   useApprovedModuleAllowanceAmountQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
-} from 'src/types/lens'
-import type { CustomErrorWithData } from 'src/types/local'
+} from 'lens'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
+import type { CustomErrorWithData } from 'utils'
+import { WMATIC_TOKEN_ADDRESS } from 'utils'
+import { getCollectModuleConfig } from 'utils/functions/getCollectModule'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
 const collectModules = [

@@ -1,8 +1,8 @@
 import Alert from '@components/Common/Alert'
-import { IS_MAINNET } from '@utils/constants'
 import Link from 'next/link'
 import React from 'react'
-import type { LenstubeCollectModule } from 'src/types/local'
+import type { LenstubeCollectModule } from 'utils'
+import { IS_MAINNET } from 'utils'
 
 const getUniswapURL = (amount: number, outputCurrency: string): string => {
   return `https://app.uniswap.org/#/swap?exactField=output&exactAmount=${amount}&outputCurrency=${outputCurrency}&chain=${

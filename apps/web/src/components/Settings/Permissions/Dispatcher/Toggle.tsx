@@ -1,27 +1,25 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
+import usePendingTxn from '@hooks/usePendingTxn'
 import useAppStore from '@lib/store'
-import { Analytics, TRACK } from '@utils/analytics'
-import {
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  RELAYER_ENABLED
-} from '@utils/constants'
-import omitKey from '@utils/functions/omitKey'
-import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { utils } from 'ethers'
-import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
-import type {
-  CreateSetDispatcherBroadcastItemResult,
-  Profile
-} from 'src/types/lens'
+import type { CreateSetDispatcherBroadcastItemResult, Profile } from 'lens'
 import {
   useBroadcastMutation,
   useCreateSetDispatcherTypedDataMutation,
   useProfileLazyQuery
-} from 'src/types/lens'
-import type { CustomErrorWithData } from 'src/types/local'
+} from 'lens'
+import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import type { CustomErrorWithData } from 'utils'
+import {
+  Analytics,
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  RELAYER_ENABLED,
+  TRACK
+} from 'utils'
+import omitKey from 'utils/functions/omitKey'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Toggle = () => {

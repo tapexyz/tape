@@ -4,33 +4,33 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { zodResolver } from '@hookform/resolvers/zod'
+import usePendingTxn from '@hooks/usePendingTxn'
 import useAppStore from '@lib/store'
-import {
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  RELAYER_ENABLED,
-  WMATIC_TOKEN_ADDRESS
-} from '@utils/constants'
-import omitKey from '@utils/functions/omitKey'
-import { shortenAddress } from '@utils/functions/shortenAddress'
-import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { utils } from 'ethers'
-import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 import type {
   CreateSetFollowModuleBroadcastItemResult,
   Erc20,
   FeeFollowModuleSettings,
   Profile
-} from 'src/types/lens'
+} from 'lens'
 import {
   useBroadcastMutation,
   useCreateSetFollowModuleTypedDataMutation,
   useEnabledModuleCurrrenciesQuery,
   useProfileFollowModuleQuery
-} from 'src/types/lens'
-import type { CustomErrorWithData } from 'src/types/local'
+} from 'lens'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import type { CustomErrorWithData } from 'utils'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  RELAYER_ENABLED,
+  WMATIC_TOKEN_ADDRESS
+} from 'utils'
+import omitKey from 'utils/functions/omitKey'
+import { shortenAddress } from 'utils/functions/shortenAddress'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
 

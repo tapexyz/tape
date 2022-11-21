@@ -5,30 +5,31 @@ import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { Analytics, TRACK } from '@utils/analytics'
-import {
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  RELAYER_ENABLED,
-  SIGN_IN_REQUIRED_MESSAGE
-} from '@utils/constants'
-import omitKey from '@utils/functions/omitKey'
 import { utils } from 'ethers'
-import type { FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-import type { CreateCollectBroadcastItemResult } from 'src/types/lens'
+import type { CreateCollectBroadcastItemResult } from 'lens'
 import {
   useBroadcastMutation,
   useCreateCollectTypedDataMutation,
   useProxyActionMutation,
   usePublicationCollectModuleQuery
-} from 'src/types/lens'
+} from 'lens'
+import type { FC } from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import type {
   CustomErrorWithData,
   LenstubeCollectModule,
   LenstubePublication
-} from 'src/types/local'
+} from 'utils'
+import {
+  Analytics,
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  RELAYER_ENABLED,
+  SIGN_IN_REQUIRED_MESSAGE,
+  TRACK
+} from 'utils'
+import omitKey from 'utils/functions/omitKey'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 import CollectModal from './CollectModal'

@@ -2,41 +2,42 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
-import logger from '@lib/logger'
+import usePendingTxn from '@hooks/usePendingTxn'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { Analytics, TRACK } from '@utils/analytics'
-import {
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_URL,
-  RELAYER_ENABLED
-} from '@utils/constants'
-import getProfilePicture from '@utils/functions/getProfilePicture'
-import getTextNftUrl from '@utils/functions/getTextNftUrl'
-import getUserLocale from '@utils/functions/getUserLocale'
-import omitKey from '@utils/functions/omitKey'
-import trimify from '@utils/functions/trimify'
-import uploadToAr from '@utils/functions/uploadToAr'
-import usePendingTxn from '@utils/hooks/usePendingTxn'
 import { utils } from 'ethers'
-import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 import type {
   CreateCommentBroadcastItemResult,
   CreatePublicCommentRequest
-} from 'src/types/lens'
+} from 'lens'
 import {
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
   useBroadcastMutation,
   useCreateCommentTypedDataMutation,
   useCreateCommentViaDispatcherMutation
-} from 'src/types/lens'
-import type { CustomErrorWithData, LenstubePublication } from 'src/types/local'
+} from 'lens'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import type { CustomErrorWithData, LenstubePublication } from 'utils'
+import {
+  Analytics,
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_WEBSITE_URL,
+  RELAYER_ENABLED,
+  TRACK
+} from 'utils'
+import getProfilePicture from 'utils/functions/getProfilePicture'
+import getTextNftUrl from 'utils/functions/getTextNftUrl'
+import getUserLocale from 'utils/functions/getUserLocale'
+import omitKey from 'utils/functions/omitKey'
+import trimify from 'utils/functions/trimify'
+import uploadToAr from 'utils/functions/uploadToAr'
+import logger from 'utils/logger'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -217,7 +218,7 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         content: trimify(data.comment),
         locale: getUserLocale(),
         mainContentFocus: PublicationMainFocus.TextOnly,
-        external_url: `${LENSTUBE_URL}/watch/${video?.id}`,
+        external_url: `${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`,
         image: textNftImageUrl,
         imageMimeType: 'image/svg+xml',
         name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,

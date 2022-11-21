@@ -1,19 +1,15 @@
 import { WebBundlr } from '@bundlr-network/client'
-import logger from '@lib/logger'
+import type { FetchSignerResult } from '@wagmi/core'
+import type { Profile } from 'lens'
+import type { BundlrDataState, LenstubePublication, UploadedVideo } from 'utils'
 import {
   BUNDLR_CURRENCY,
   BUNDLR_NODE_URL,
   POLYGON_RPC_URL,
   WMATIC_TOKEN_ADDRESS
-} from '@utils/constants'
-import { CREATOR_VIDEO_CATEGORIES } from '@utils/data/categories'
-import type { FetchSignerResult } from '@wagmi/core'
-import type { Profile } from 'src/types/lens'
-import type {
-  BundlrDataState,
-  LenstubePublication,
-  UploadedVideo
-} from 'src/types/local'
+} from 'utils'
+import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
+import logger from 'utils/logger'
 import create from 'zustand'
 
 export const UPLOADED_VIDEO_FORM_DEFAULTS = {

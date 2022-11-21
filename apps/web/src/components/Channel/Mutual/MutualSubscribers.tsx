@@ -1,12 +1,12 @@
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import { Analytics, TRACK } from '@utils/analytics'
-import getProfilePicture from '@utils/functions/getProfilePicture'
+import type { Profile } from 'lens'
+import { useMutualFollowersQuery } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import type { Profile } from 'src/types/lens'
-import { useMutualFollowersQuery } from 'src/types/lens'
+import { Analytics, TRACK } from 'utils'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 
 import MutualSubscribersList from './MutualSubscribersList'
 type Props = {

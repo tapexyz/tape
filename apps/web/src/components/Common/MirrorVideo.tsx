@@ -2,27 +2,24 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import { utils } from 'ethers'
+import type { CreateMirrorBroadcastItemResult, CreateMirrorRequest } from 'lens'
+import {
+  useBroadcastMutation,
+  useCreateMirrorTypedDataMutation,
+  useCreateMirrorViaDispatcherMutation
+} from 'lens'
+import type { FC } from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
+import type { CustomErrorWithData, LenstubePublication } from 'utils'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED,
   SIGN_IN_REQUIRED_MESSAGE
-} from '@utils/constants'
-import omitKey from '@utils/functions/omitKey'
-import { utils } from 'ethers'
-import type { FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-import type {
-  CreateMirrorBroadcastItemResult,
-  CreateMirrorRequest
-} from 'src/types/lens'
-import {
-  useBroadcastMutation,
-  useCreateMirrorTypedDataMutation,
-  useCreateMirrorViaDispatcherMutation
-} from 'src/types/lens'
-import type { CustomErrorWithData, LenstubePublication } from 'src/types/local'
+} from 'utils'
+import omitKey from 'utils/functions/omitKey'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {

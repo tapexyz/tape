@@ -1,27 +1,28 @@
 import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
 import useAppStore from '@lib/store'
-import { Analytics, TRACK } from '@utils/analytics'
-import {
-  SETTINGS,
-  SETTINGS_DANGER_ZONE,
-  SETTINGS_MEMBERSHIP,
-  SETTINGS_PERMISSIONS
-} from '@utils/url-path'
+import type { MediaSet, Profile } from 'lens'
+import { useProfileQuery } from 'lens'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import type { MediaSet, Profile } from 'src/types/lens'
-import { useProfileQuery } from 'src/types/lens'
+import { Analytics, TRACK } from 'utils'
 
 import BasicInfo from './BasicInfo'
+import ProfileInterests from './ProfileInterests'
 import SideNav from './SideNav'
 
 const Permissions = dynamic(() => import('./Permissions'))
 const Membership = dynamic(() => import('./Membership'))
 const DangerZone = dynamic(() => import('./DangerZone'))
+
+export const SETTINGS_MEMBERSHIP = '/settings/membership'
+export const SETTINGS_INTERESTS = '/settings/interests'
+export const SETTINGS_PERMISSIONS = '/settings/permissions'
+export const SETTINGS_DANGER_ZONE = '/settings/danger'
+export const SETTINGS = '/settings'
 
 const Settings = () => {
   const router = useRouter()
@@ -62,6 +63,7 @@ const Settings = () => {
               <Membership channel={channel} />
             )}
             {router.pathname === SETTINGS_PERMISSIONS && <Permissions />}
+            {router.pathname === SETTINGS_INTERESTS && <ProfileInterests />}
             {router.pathname === SETTINGS_DANGER_ZONE && <DangerZone />}
           </div>
         </div>

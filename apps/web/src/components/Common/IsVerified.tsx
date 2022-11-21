@@ -1,7 +1,7 @@
-import { VERIFIED_CHANNELS } from '@utils/data/verified'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
+import { VERIFIED_CHANNELS } from 'utils/data/verified'
 
 import Verified from './Icons/Verified'
 

@@ -1,9 +1,9 @@
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client'
-import logger from '@lib/logger'
-import { API_URL } from '@utils/constants'
-import clearLocalStorage from '@utils/functions/clearLocalStorage'
-import { parseJwt } from '@utils/functions/parseJwt'
 import axios from 'axios'
+import { API_URL } from 'utils'
+import clearLocalStorage from 'utils/functions/clearLocalStorage'
+import { parseJwt } from 'utils/functions/parseJwt'
+import logger from 'utils/logger'
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {

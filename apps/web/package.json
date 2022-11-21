@@ -6,14 +6,13 @@
   "scripts": {
     "dev": "next dev --port 4783",
     "build": "next build",
-    "start": "next start",
-    "codegen": "graphql-codegen"
+    "start": "next start"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
     "@aws-sdk/client-s3": "^3.212.0",
-    "@aws-sdk/client-sts": "^3.211.0",
-    "@aws-sdk/lib-storage": "^3.212.0",
+    "@aws-sdk/client-sts": "^3.213.0",
+    "@aws-sdk/lib-storage": "^3.213.0",
     "@bundlr-network/client": "^0.9.0",
     "@headlessui/react": "^1.7.3",
     "@hookform/resolvers": "^2.9.10",
@@ -33,9 +32,10 @@
     "interweave": "^13.0.0",
     "interweave-autolink": "^5.1.0",
     "mixpanel-browser": "^2.45.0",
-    "next": "13.0.3",
+    "next": "13.0.4",
     "next-axiom": "^0.15.1",
     "next-themes": "^0.2.1",
+    "next-transpile-modules": "^10.0.0",
     "nsfwjs": "^2.4.2",
     "react": "18.2.0",
     "react-cool-inview": "^3.0.1",
@@ -45,17 +45,11 @@
     "react-icons": "^4.6.0",
     "react-mentions": "^4.4.7",
     "uuid": "^9.0.0",
-    "wagmi": "^0.7.15",
+    "wagmi": "^0.8.5",
     "zod": "^3.19.1",
     "zustand": "^4.1.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.13.11",
-    "@graphql-codegen/fragment-matcher": "^3.3.1",
-    "@graphql-codegen/typed-document-node": "^2.3.7",
-    "@graphql-codegen/typescript": "^2.8.2",
-    "@graphql-codegen/typescript-operations": "^2.5.7",
-    "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "@types/mixpanel-browser": "^2.38.0",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
@@ -64,9 +58,11 @@
     "@types/uuid": "^8.3.4",
     "autoprefixer": "^10.4.13",
     "eslint-config-weblint": "*",
+    "lens": "*",
     "postcss": "^8.4.19",
     "tailwindcss": "^3.2.4",
     "tsconfig": "*",
+    "utils": "*",
     "typescript": "4.9.3"
   }
 }

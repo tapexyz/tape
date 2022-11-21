@@ -10,19 +10,20 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { Analytics, TRACK } from '@utils/analytics'
+import clsx from 'clsx'
+import type { Notification } from 'lens'
+import { NotificationTypes, useNotificationsQuery } from 'lens'
+import React, { useState } from 'react'
+import { useInView } from 'react-cool-inview'
 import {
+  Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@utils/constants'
-import { formatNumber } from '@utils/functions/formatNumber'
-import clsx from 'clsx'
-import React, { useState } from 'react'
-import { useInView } from 'react-cool-inview'
-import type { Notification } from 'src/types/lens'
-import { NotificationTypes, useNotificationsQuery } from 'src/types/lens'
+  SCROLL_ROOT_MARGIN,
+  TRACK
+} from 'utils'
+import { formatNumber } from 'utils/functions/formatNumber'
 
 import CollectedNotification from './Collected'
 import CommentedNotification from './Commented'

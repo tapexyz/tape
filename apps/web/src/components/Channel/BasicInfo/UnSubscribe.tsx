@@ -1,24 +1,25 @@
 import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
 import { Button } from '@components/UIElements/Button'
 import usePersistStore from '@lib/store/persist'
-import { Analytics, TRACK } from '@utils/analytics'
-import { RELAYER_ENABLED, SIGN_IN_REQUIRED_MESSAGE } from '@utils/constants'
-import omitKey from '@utils/functions/omitKey'
 import type { Signer } from 'ethers'
 import { ethers, utils } from 'ethers'
-import type { FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
 import type {
   CreateBurnEip712TypedData,
   CreateUnfollowBroadcastItemResult,
   Profile
-} from 'src/types/lens'
+} from 'lens'
+import { useBroadcastMutation, useCreateUnfollowTypedDataMutation } from 'lens'
+import type { FC } from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
+import type { CustomErrorWithData } from 'utils'
 import {
-  useBroadcastMutation,
-  useCreateUnfollowTypedDataMutation
-} from 'src/types/lens'
-import type { CustomErrorWithData } from 'src/types/local'
+  Analytics,
+  RELAYER_ENABLED,
+  SIGN_IN_REQUIRED_MESSAGE,
+  TRACK
+} from 'utils'
+import omitKey from 'utils/functions/omitKey'
 import { useSigner, useSignTypedData } from 'wagmi'
 
 type Props = {

@@ -2,7 +2,7 @@ import ReportPublication from '@components/ReportPublication'
 import Modal from '@components/UIElements/Modal'
 import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'src/types/local'
+import type { LenstubePublication } from 'utils'
 
 type Props = {
   video: LenstubePublication

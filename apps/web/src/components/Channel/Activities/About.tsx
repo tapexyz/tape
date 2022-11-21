@@ -1,16 +1,16 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
-import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@utils/constants'
-import { getValueFromKeyInAttributes } from '@utils/functions/getFromAttributes'
-import { shortenAddress } from '@utils/functions/shortenAddress'
+import type { Attribute, Profile } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import { AiOutlineNumber } from 'react-icons/ai'
 import { HiOutlineGlobe, HiOutlineLocationMarker } from 'react-icons/hi'
 import { RiShieldKeyholeLine, RiTwitterLine } from 'react-icons/ri'
-import type { Attribute, Profile } from 'src/types/lens'
+import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from 'utils'
+import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
+import { shortenAddress } from 'utils/functions/shortenAddress'
 
 type Props = {
   channel: Profile
