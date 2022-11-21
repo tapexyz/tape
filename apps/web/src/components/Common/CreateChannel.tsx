@@ -98,7 +98,7 @@ const CreateChannel = () => {
     if (indexed) {
       setLoading(false)
       setShowCreateChannel(false)
-      router.push(`/${getHandle(getValues().channelName)}`)
+      router.push(`/channel/${getHandle(getValues().channelName)}`)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
