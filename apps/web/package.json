@@ -45,7 +45,7 @@
     "react-icons": "^4.6.0",
     "react-mentions": "^4.4.7",
     "uuid": "^9.0.0",
-    "wagmi": "^0.7.15",
+    "wagmi": "^0.8.5",
     "zod": "^3.19.1",
     "zustand": "^4.1.4"
   },
