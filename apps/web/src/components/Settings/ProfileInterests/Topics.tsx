@@ -10,8 +10,9 @@ import {
   useRemoveProfileInterestMutation
 } from 'lens'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import { Analytics, TRACK } from 'utils'
 import sanitizeProfileInterests from 'utils/functions/sanitizeProfileInterests'
 
 const MAX_TOPICS_ALLOWED = 12
@@ -26,6 +27,10 @@ const Topics: FC<Props> = ({ showSave }) => {
   const [selectedTopics, setSelectedTopics] = useState<string[]>(
     selectedChannel?.interests ?? []
   )
+
+  useEffect(() => {
+    Analytics.track(TRACK.PROFILE_INTERESTS.VIEW)
+  }, [])
 
   const { data, loading } = useProfileInterestsQuery()
   const [addProfileInterests] = useAddProfileInterestMutation()
@@ -52,11 +57,13 @@ const Topics: FC<Props> = ({ showSave }) => {
       if (!selectedTopics.includes(topic)) {
         const interests = [...selectedTopics, topic]
         setSelectedTopics(interests)
+        Analytics.track(TRACK.PROFILE_INTERESTS.ADD)
         return addProfileInterests({ variables })
       }
       const topics = [...selectedTopics]
       topics.splice(topics.indexOf(topic), 1)
       setSelectedTopics(topics)
+      Analytics.track(TRACK.PROFILE_INTERESTS.REMOVE)
       removeProfileInterests({ variables })
     } catch {}
   }

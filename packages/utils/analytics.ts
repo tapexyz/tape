@@ -28,6 +28,11 @@ export const TRACK = {
     COPY: 'Copy Embed',
     LOADED: 'Embed Video Loaded'
   },
+  PROFILE_INTERESTS: {
+    ADD: 'Add Profile Interest',
+    REMOVE: 'Remove Profile Interest',
+    VIEW: 'View Profile Interests'
+  },
   NEW_COMMENT: 'New Comment',
   CLICK_VIDEO: 'Click Video',
   DELETE_VIDEO: 'Delete Video',
