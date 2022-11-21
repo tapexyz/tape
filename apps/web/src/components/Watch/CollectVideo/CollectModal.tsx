@@ -57,7 +57,7 @@ const CollectModal: FC<Props> = ({
   }, [])
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
-    addressOrName: selectedChannel?.ownedBy,
+    address: selectedChannel?.ownedBy,
     token: collectModule?.amount?.asset?.address,
     formatUnits: collectModule?.amount?.asset?.decimals,
     watch: Boolean(collectModule?.amount),
