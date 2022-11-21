@@ -24,7 +24,7 @@ export const STAGING_MAINNET_API_URL =
   'https://staging-api-social-polygon.lens.crtlkey.com'
 export const STAGING_TESTNET_API_URL =
   'https://staging-api-social-mumbai.lens.crtlkey.com'
-export const STAGING_URL = IS_MAINNET
+export const STAGING_API_URL = IS_MAINNET
   ? STAGING_MAINNET_API_URL
   : STAGING_TESTNET_API_URL
 
@@ -131,6 +131,5 @@ export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN
 export const API_ORIGINS = [
   'https://lenstube.xyz',
   'https://testnet.lenstube.xyz',
-  'https://stage.lenstube.xyz',
   'http://localhost:4783'
 ]

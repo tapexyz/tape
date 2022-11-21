@@ -13,7 +13,7 @@ const sanitizeProfileInterests = (profileInterests: string[]) => {
       )
       .map((item) => {
         return {
-          label: item.toLowerCase().split('__')[1].replaceAll('_', ' '),
+          label: item.toLowerCase().split('__')[1].replaceAll('_', ' & '),
           id: item
         }
       })
