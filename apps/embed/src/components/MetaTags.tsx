@@ -42,11 +42,19 @@ const MetaTags: FC<Props> = (props) => {
       />
       <link
         rel="canonical"
-        href={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
+        href={
+          videoUrl
+            ? `${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`
+            : `${LENSTUBE_WEBSITE_URL}${router.asPath}`
+        }
       />
       <meta
         property="og:url"
-        content={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
+        content={
+          videoUrl
+            ? `${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`
+            : `${LENSTUBE_WEBSITE_URL}${router.asPath}`
+        }
       />
       <meta property="og:type" content={meta.type} />
       <meta property="og:site_name" content="Lenstube" />

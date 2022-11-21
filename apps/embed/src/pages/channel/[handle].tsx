@@ -1,13 +1,13 @@
-import Video from '@components/Video'
+import Channel from '@components/Channel'
 import apolloNodeClient from '@lib/apollo'
 import type { Profile } from 'lens'
 import { ProfileDocument } from 'lens'
 import type { GetServerSideProps } from 'next'
 
-export default Video
+export default Channel
 
 interface Props {
-  profile: Profile
+  channel: Profile
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (
@@ -28,6 +28,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   }
   context.res.setHeader('Cache-Control', 'public, s-maxage=86400')
   return {
-    props: { profile: data.profile }
+    props: { channel: data.profile }
   }
 }
