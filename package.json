@@ -10,6 +10,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
+    "web": "turbo run dev --filter web",
     "lint": "turbo run lint",
     "prepare": "husky install",
     "codegen": "graphql-codegen",

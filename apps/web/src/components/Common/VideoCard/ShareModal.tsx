@@ -3,7 +3,6 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
-import { IoCopyOutline } from 'react-icons/io5'
 import type { LenstubePublication } from 'utils'
 import { Analytics, LENSTUBE_WEBSITE_URL, STATIC_ASSETS, TRACK } from 'utils'
 import { getSharableLink } from 'utils/functions/getSharableLink'
@@ -11,6 +10,7 @@ import imageCdn from 'utils/functions/imageCdn'
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 
 import EmbedVideo from '../EmbedVideo'
+import CopyOutline from '../Icons/CopyOutline'
 import MirrorOutline from '../Icons/MirrorOutline'
 import MirrorVideo from '../MirrorVideo'
 
@@ -128,7 +128,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             onClick={() => onCopyVideoUrl()}
             type="button"
           >
-            <IoCopyOutline />
+            <CopyOutline className="w-4 h-4" />
           </button>
         </div>
       </div>

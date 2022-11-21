@@ -166,7 +166,7 @@ const BundlrInfo = () => {
               onClick={() =>
                 setBundlrData({ showDeposit: !bundlrData.showDeposit })
               }
-              className="inline-flex py-0.5 items-center pl-1.5 pr-0.5 bg-gray-200 rounded-full focus:outline-none dark:bg-gray-800"
+              className="inline-flex py-0.5 items-center pl-1.5 pr-1 bg-gray-200 rounded-full focus:outline-none dark:bg-gray-800"
             >
               <span className="text-xs px-0.5">Deposit</span>
               {bundlrData.showDeposit ? (

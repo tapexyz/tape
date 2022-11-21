@@ -1,12 +1,13 @@
+import InterestsOutline from '@components/Common/Icons/InterestsOutline'
+import KeyOutline from '@components/Common/Icons/KeyOutline'
+import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
+import UserOutline from '@components/Common/Icons/UserOutline'
+import WarningOutline from '@components/Common/Icons/WarningOutline'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React from 'react'
-import { AiOutlineUser } from 'react-icons/ai'
-import { BsShieldLock } from 'react-icons/bs'
-import { IoWarningOutline } from 'react-icons/io5'
-import { RiVipDiamondLine } from 'react-icons/ri'
 
 import ChannelPicture from './ChannelPicture'
 
@@ -15,6 +16,7 @@ type Props = {
 }
 
 export const SETTINGS_MEMBERSHIP = '/settings/membership'
+export const SETTINGS_INTERESTS = '/settings/interests'
 export const SETTINGS_PERMISSIONS = '/settings/permissions'
 export const SETTINGS_DANGER_ZONE = '/settings/danger'
 export const SETTINGS = '/settings'
@@ -33,45 +35,56 @@ const SideNav: FC<Props> = ({ channel }) => {
         <Link
           href={SETTINGS}
           className={clsx(
-            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
+            'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
             { 'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS) }
           )}
         >
-          <AiOutlineUser /> <span>Basic Info</span>
+          <UserOutline className="w-4 h-4" /> <span>Basic Info</span>
         </Link>
         <Link
           href={SETTINGS_MEMBERSHIP}
           className={clsx(
-            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
+            'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
             {
               'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS_MEMBERSHIP)
             }
           )}
         >
-          <RiVipDiamondLine /> <span>Membership</span>
+          <SubscribeOutline className="w-4 h-4" /> <span>Membership</span>
         </Link>
         <Link
           href={SETTINGS_PERMISSIONS}
           className={clsx(
-            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
+            'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
             {
               'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS_PERMISSIONS)
             }
           )}
         >
-          <BsShieldLock /> <span>Permissions</span>
+          <KeyOutline className="w-4 h-4" /> <span>Permissions</span>
+        </Link>
+        <Link
+          href={SETTINGS_INTERESTS}
+          className={clsx(
+            'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
+            {
+              'bg-gray-100 dark:bg-gray-900': isActivePath(SETTINGS_INTERESTS)
+            }
+          )}
+        >
+          <InterestsOutline className="w-4 h-4" /> <span>Interests</span>
         </Link>
         <Link
           href={SETTINGS_DANGER_ZONE}
           className={clsx(
-            'flex items-center p-3 space-x-1.5 rounded-xl hover:bg-red-100 text-red-500 hover:dark:bg-red-900/60',
+            'flex items-center p-3 space-x-2 rounded-xl hover:bg-red-100 text-red-500 hover:dark:bg-red-900/60',
             {
               'bg-red-100 dark:bg-red-900/60':
                 isActivePath(SETTINGS_DANGER_ZONE)
             }
           )}
         >
-          <IoWarningOutline /> <span>Danger Zone</span>
+          <WarningOutline className="w-4 h-4" /> <span>Danger Zone</span>
         </Link>
       </div>
     </div>

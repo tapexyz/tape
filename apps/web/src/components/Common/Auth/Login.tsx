@@ -9,7 +9,6 @@ import {
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
 import { ERROR_MESSAGE } from 'utils'
 import logger from 'utils/logger'
 import { useAccount, useSignMessage } from 'wagmi'
@@ -29,8 +28,7 @@ const Login = () => {
     (state) => state.setSelectedChannelId
   )
 
-  const onError = (error: CustomErrorWithData) => {
-    toast.error(error?.data?.message ?? error?.message)
+  const onError = () => {
     setLoading(false)
   }
 
@@ -101,7 +99,7 @@ const Login = () => {
       setLoading(false)
     } catch (error) {
       setLoading(false)
-      toast.error('Failed to signin')
+      toast.error('Sign in failed')
       logger.error('[Error Sign In]', error)
     }
   }

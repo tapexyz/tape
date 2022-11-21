@@ -27,6 +27,7 @@ import Sidebar from './Sidebar'
 interface Props {
   children: ReactNode
 }
+
 const NO_HEADER_PATHS = ['/auth']
 
 if (MIXPANEL_TOKEN) {
@@ -82,6 +83,9 @@ const Layout: FC<Props> = ({ children }) => {
       if (!channels.length) return resetAuthState()
       setUserChannels(channels)
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
+    },
+    onError: () => {
+      setSelectedChannelId(null)
     }
   })
 

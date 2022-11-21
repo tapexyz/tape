@@ -60,9 +60,7 @@ const UploadMethod = () => {
             content={`Video size under ${IPFS_FREE_UPLOAD_LIMIT}mb can be uploaded to IPFS for free`}
             placement="top-end"
           >
-            <div className="py-2.5">
-              Upload to IPFS ({IPFS_FREE_UPLOAD_LIMIT}mb)
-            </div>
+            <div className="py-2.5">Upload to IPFS</div>
           </Tooltip>
         </Tab>
       </Tab.List>

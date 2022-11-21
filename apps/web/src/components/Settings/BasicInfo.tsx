@@ -1,4 +1,5 @@
 import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
+import CopyOutline from '@components/Common/Icons/CopyOutline'
 import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
@@ -23,7 +24,6 @@ import type { ChangeEvent } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { IoCopyOutline } from 'react-icons/io5'
 import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
 import {
   Analytics,
@@ -85,7 +85,7 @@ const BasicInfo = ({ channel }: Props) => {
   const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
-  const [coverImage, setCoverImage] = useState(getCoverPicture(channel) || '')
+  const [coverImage, setCoverImage] = useState(getCoverPicture(channel))
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const {
@@ -336,7 +336,7 @@ const BasicInfo = ({ channel }: Props) => {
             }
             type="button"
           >
-            <IoCopyOutline />
+            <CopyOutline className="w-4 h-4" />
           </button>
         </div>
       </div>
