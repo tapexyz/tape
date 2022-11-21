@@ -11,7 +11,7 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
 
   return (
     <div className="flex flex-col items-center justify-center py-3 border border-gray-200 w-44 rounded-xl dark:border-gray-900">
-      <Link href={`/${channel.handle}`}>
+      <Link href={`/channel/${channel.handle}`}>
         <img
           className="object-cover w-24 h-24 rounded-full"
           src={getProfilePicture(channel, 'avatar_lg')}
@@ -22,7 +22,7 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
       <div className="w-full px-1.5 py-2">
         <div className="flex-1 text-center">
           <Link
-            href={`/${channel.handle}`}
+            href={`/channel/${channel.handle}`}
             className="block font-medium truncate"
           >
             <div className="flex items-center justify-center space-x-1">

@@ -24,7 +24,7 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
           className="relative pl-3 pr-4 cursor-default select-none hover:bg-gray-100 dark:hover:bg-gray-900"
         >
           <Link
-            href={`/${channel?.handle}`}
+            href={`/channel/${channel?.handle}`}
             key={channel?.handle}
             className="flex flex-col justify-center py-2 space-y-1 rounded-xl"
           >

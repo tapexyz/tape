@@ -18,7 +18,7 @@ const ReactedNotification: FC<Props> = ({ notification }) => {
     <>
       <div className="flex items-center space-x-3">
         <Link
-          href={`/${notification?.profile?.handle}`}
+          href={`/channel/${notification?.profile?.handle}`}
           className="inline-flex items-center space-x-1.5 font-base"
         >
           <img

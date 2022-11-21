@@ -39,5 +39,4 @@ export default async function handler(
   } catch (error) {
     return res.send(getSvg(0))
   }
-  // res.status(200).json({ name: 'John Doe' })
 }

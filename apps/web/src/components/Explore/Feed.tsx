@@ -192,7 +192,7 @@ const ExploreFeed = () => {
         {videos?.length === 0 && (
           <NoDataFound isCenter withImage text="No videos found" />
         )}
-        {!error && !loading && (
+        {!error && !loading && videos?.length ? (
           <>
             <Timeline videos={videos} />
             {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
@@ -201,7 +201,7 @@ const ExploreFeed = () => {
               </span>
             )}
           </>
-        )}
+        ) : null}
       </Tab.Panels>
     </Tab.Group>
   )

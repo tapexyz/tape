@@ -92,7 +92,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                   />
                 </div>
                 <Link
-                  href={`/${video.profile?.handle}`}
+                  href={`/channel/${video.profile?.handle}`}
                   className="flex w-fit items-center space-x-0.5 text-[13px] hover:opacity-100 opacity-70"
                 >
                   <span>{video.profile?.handle}</span>

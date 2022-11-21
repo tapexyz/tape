@@ -18,7 +18,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
     <>
       <div className="flex items-center space-x-3">
         <Link
-          href={`/${notification?.mentionPublication?.profile?.handle}`}
+          href={`/channel/${notification?.mentionPublication?.profile?.handle}`}
           className="inline-flex items-center space-x-1.5 font-base"
         >
           <img
