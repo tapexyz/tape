@@ -85,7 +85,7 @@ const BasicInfo = ({ channel }: Props) => {
   const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
-  const [coverImage, setCoverImage] = useState(getCoverPicture(channel) || '')
+  const [coverImage, setCoverImage] = useState(getCoverPicture(channel))
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const {
