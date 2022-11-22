@@ -2,6 +2,7 @@ import axios from 'axios'
 import type { PublicationMetadataV2Input } from 'lens'
 import toast from 'react-hot-toast'
 
+import { LENSTUBE_API_URL } from '../constants'
 import type { ProfileMetadata } from '../custom-types'
 import logger from '../logger'
 
@@ -9,7 +10,10 @@ const uploadToAr = async (
   data: PublicationMetadataV2Input | ProfileMetadata
 ): Promise<{ url: string | null }> => {
   try {
-    const response = await axios.post('/api/metadata/upload', data)
+    const response = await axios.post(
+      `${LENSTUBE_API_URL}/metadata/upload`,
+      data
+    )
     const { url } = response.data
     return { url }
   } catch (error) {
