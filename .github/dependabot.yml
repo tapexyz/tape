@@ -19,7 +19,7 @@ updates:
       interval: "daily"
 
   - package-ecosystem: "npm"
-    directory: "apps/badge"
+    directory: "apps/api"
     target-branch: "main"
     reviewers:
       - sasicodes
