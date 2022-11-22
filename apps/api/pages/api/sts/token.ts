@@ -21,6 +21,9 @@ type Data = {
 }
 
 const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end()
+  }
   const origin = req.headers.origin
   if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
     return res.status(403).json({ success: false })
