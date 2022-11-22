@@ -7,15 +7,15 @@ import { useHidePublicationMutation } from 'lens'
 import { useRouter } from 'next/router'
 import React from 'react'
 import toast from 'react-hot-toast'
-import { AiOutlineDelete } from 'react-icons/ai'
-import { FiExternalLink } from 'react-icons/fi'
 import type { LenstubePublication } from 'utils'
 import { Analytics, SIGN_IN_REQUIRED_MESSAGE, TRACK } from 'utils'
 import { getPermanentVideoUrl } from 'utils/functions/getVideoUrl'
 
+import ExternalOutline from '../Icons/ExternalOutline'
 import FlagOutline from '../Icons/FlagOutline'
 import ShareOutline from '../Icons/ShareOutline'
 import ThreeDotsOutline from '../Icons/ThreeDotsOutline'
+import TrashOutline from '../Icons/TrashOutline'
 
 const VideoOptions = ({
   video,
@@ -90,7 +90,7 @@ const VideoOptions = ({
                 target="_blank"
               >
                 <div className="flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
-                  <FiExternalLink className="text-base" />
+                  <ExternalOutline className="w-3 h-3" />
                   <span className="whitespace-nowrap">Raw Video</span>
                 </div>
               </Menu.Item>
@@ -99,7 +99,7 @@ const VideoOptions = ({
                 onClick={() => onHideVideo()}
                 className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg text-red-500 opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
               >
-                <AiOutlineDelete className="text-base" />
+                <TrashOutline className="w-3.5 h-3.5" />
                 <span className="whitespace-nowrap">Delete</span>
               </button>
             </>
