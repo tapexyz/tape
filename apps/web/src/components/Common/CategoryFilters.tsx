@@ -1,13 +1,19 @@
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import React from 'react'
+import { Analytics, TRACK } from 'utils'
 import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
 import useHorizontalScroll from 'utils/hooks/useHorizantalScroll'
 
-const TagFilters = () => {
+const CategoryFilters = () => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
   const setActiveTagFilter = useAppStore((state) => state.setActiveTagFilter)
   const scrollRef = useHorizontalScroll()
+
+  const onFilter = (tag: string) => {
+    setActiveTagFilter(tag)
+    Analytics.track(TRACK.FILTER_CATEGORIES)
+  }
 
   return (
     <div
@@ -16,7 +22,7 @@ const TagFilters = () => {
     >
       <button
         type="button"
-        onClick={() => setActiveTagFilter('all')}
+        onClick={() => onFilter('all')}
         className={clsx(
           'px-3.5 capitalize py-1 text-xs border border-gray-200 dark:border-gray-700 rounded-full',
           activeTagFilter === 'all'
@@ -29,7 +35,7 @@ const TagFilters = () => {
       {CREATOR_VIDEO_CATEGORIES.map((category) => (
         <button
           type="button"
-          onClick={() => setActiveTagFilter(category.tag)}
+          onClick={() => onFilter(category.tag)}
           key={category.tag}
           className={clsx(
             'px-3.5 capitalize py-1 text-xs border border-gray-200 dark:border-gray-700 rounded-full whitespace-nowrap',
@@ -45,4 +51,4 @@ const TagFilters = () => {
   )
 }
 
-export default TagFilters
+export default CategoryFilters
