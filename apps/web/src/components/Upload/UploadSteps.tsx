@@ -29,6 +29,7 @@ import {
   ERROR_MESSAGE,
   IS_MAINNET,
   LENSHUB_PROXY_ADDRESS,
+  LENSTUBE_API_URL,
   LENSTUBE_APP_ID,
   LENSTUBE_APP_NAME,
   LENSTUBE_BYTES_APP_ID,
@@ -146,12 +147,15 @@ const UploadSteps = () => {
   })
 
   const getPlaybackId = async (url: string) => {
-    // Only on production and mp4 (only supported on livepeer)
+    // Only on production and mp4 (supported on livepeer)
     if (!IS_MAINNET || uploadedVideo.videoType !== 'video/mp4') return null
     try {
-      const playbackResponse = await axios.post('/api/video/playback', {
-        url
-      })
+      const playbackResponse = await axios.post(
+        `${LENSTUBE_API_URL}/video/playback`,
+        {
+          url
+        }
+      )
       const { playbackId } = playbackResponse.data
       return playbackId
     } catch (error) {
