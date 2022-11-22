@@ -15,7 +15,7 @@ const VideoOverlay: FC<Props> = ({ video }) => {
       <div className="flex items-center justify-between p-2 space-x-6 bg-gradient-to-b to-transparent from-black/90">
         <div className="flex items-center flex-1">
           <Link
-            href={`${LENSTUBE_WEBSITE_URL}/${video?.profile?.handle}`}
+            href={`${LENSTUBE_WEBSITE_URL}/channel/${video?.profile?.handle}`}
             className="flex-none mr-3 cursor-pointer"
             target="_blank"
           >
@@ -23,7 +23,7 @@ const VideoOverlay: FC<Props> = ({ video }) => {
               src={getProfilePicture(video?.profile)}
               className="w-8 h-8 rounded-full"
               draggable={false}
-              alt="channel picture"
+              alt={video?.profile?.handle}
             />
           </Link>
           <div className="flex flex-col">
