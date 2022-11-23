@@ -78,7 +78,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
   return (
     <>
       {loading && <SuggestedVideosShimmer />}
-      {!error && !loading && videos.length && (
+      {!error && !loading && videos.length ? (
         <div className="pb-3">
           <div className="space-y-3 md:gap-3 md:grid lg:flex lg:gap-0 lg:flex-col md:grid-cols-2">
             {videos?.map(
@@ -94,7 +94,7 @@ const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
             </span>
           )}
         </div>
-      )}
+      ) : null}
     </>
   )
 }
