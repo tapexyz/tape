@@ -43,7 +43,7 @@ export const everland = async (
       params
     })
     task.on('httpUploadProgress', (e) => {
-      const progress = ((e.loaded / e.total!) * 100) | 0
+      const progress = ((e.loaded / e.total) * 100) | 0
       onProgress?.(progress)
     })
     await task.done()
