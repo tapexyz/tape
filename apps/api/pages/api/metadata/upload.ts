@@ -13,6 +13,7 @@ import logger from 'utils/logger'
 type Data = {
   url: string | null
   id: string | null
+  node?: string
   success: boolean
 }
 
@@ -43,7 +44,8 @@ const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     return res.status(200).json({
       success: true,
       url: `https://arweave.net/${id}`,
-      id
+      id,
+      node: BUNDLR_METADATA_UPLOAD_URL
     })
   } catch (error) {
     logger.error('[API Error Upload to Arweave]', error)
