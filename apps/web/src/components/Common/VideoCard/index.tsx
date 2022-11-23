@@ -36,7 +36,11 @@ const VideoCard: FC<Props> = ({ video }) => {
   )
 
   return (
-    <div onClick={() => Analytics.track(TRACK.CLICK_VIDEO)} className="group">
+    <div
+      onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
+      className="group"
+      role="button"
+    >
       {video.hidden ? (
         <div className="grid h-full place-items-center">
           <span className="text-xs">Video Hidden by User</span>

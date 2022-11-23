@@ -35,6 +35,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
           <div
             onClick={() => Analytics.track(TRACK.CLICK_VIEW_METADATA)}
             className="flex items-center space-x-1"
+            role="button"
           >
             <div className="text-sm whitespace-nowrap">View Metadata</div>
             <ExternalOutline className="w-3.5 h-3.5" />
@@ -45,6 +46,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
           <div
             onClick={() => Analytics.track(TRACK.CLICK_VIEW_METADATA)}
             className="flex items-center space-x-1"
+            role="button"
           >
             <div className="text-sm whitespace-nowrap">View Metadata</div>
             <ExternalOutline className="w-3.5 h-3.5" />
@@ -55,6 +57,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
         <div
           onClick={() => Analytics.track(TRACK.CLICK_VIEW_TOKEN)}
           className="items-center hidden space-x-1 md:flex"
+          role="button"
         >
           <span className="middot" />
           <TokenExplorerLink address={video.collectNftAddress}>

@@ -6,8 +6,7 @@ export const LENSTUBE_APP_DESCRIPTION =
 
 export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT
 export const IS_MAINNET = LENS_ENV === 'mainnet'
-export const RELAYER_ENABLED =
-  process.env.NEXT_PUBLIC_RELAYER_ENABLED === 'true'
+export const RELAYER_ENABLED = true
 
 export const STATIC_ASSETS = 'https://assets.lenstube.xyz'
 export const LENSTUBE_WEBSITE_URL = IS_MAINNET
@@ -32,9 +31,7 @@ export const STAGING_API_URL = IS_MAINNET
 export const LENSTUBE_MAINNET_API_URL = 'https://api.lenstube.xyz'
 export const LENSTUBE_TESTNET_API_URL = 'https://api-testnet.lenstube.xyz'
 export const LENSTUBE_DEV_API_URL = 'http://localhost:5555'
-export const LENSTUBE_API_URL = process.env.NEXT_PUBLIC_IS_LOCAL
-  ? LENSTUBE_DEV_API_URL
-  : IS_MAINNET
+export const LENSTUBE_API_URL = IS_MAINNET
   ? 'https://api.lenstube.xyz'
   : 'https://api-testnet.lenstube.xyz'
 
@@ -51,7 +48,10 @@ export const WMATIC_TOKEN_ADDRESS = IS_MAINNET
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
 // polygon
-export const POLYGON_RPC_URL = process.env.NEXT_PUBLIC_POLYGON_RPC_URL as string
+export const POLYGON_RPC_URL = IS_MAINNET
+  ? 'https://rpc.ankr.com/polygon'
+  : 'https://rpc.ankr.com/polygon_mumbai'
+
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://mumbai.polygonscan.com'
@@ -59,8 +59,8 @@ export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 // cdn
 export const IMAGE_CDN_URL = IS_MAINNET
-  ? 'https://ik.imagekit.io/lt'
-  : 'https://ik.imagekit.io/lt/testnet'
+  ? 'https://ik.imagekit.io/lenstubemain'
+  : ''
 export const VIDEO_CDN_URL = 'https://cdn.livepeer.com'
 
 export const SCROLL_ROOT_MARGIN = '40% 0px'
@@ -72,8 +72,7 @@ export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
 export const EVER_ACCESS_KEY = process.env.EVER_ACCESS_KEY as string
 export const EVER_ACCESS_SECRET = process.env.EVER_ACCESS_SECRET as string
-export const NEXT_PUBLIC_EVER_BUCKET_NAME = process.env
-  .NEXT_PUBLIC_EVER_BUCKET_NAME as string
+export const NEXT_PUBLIC_EVER_BUCKET_NAME = IS_MAINNET ? 'lenstube' : 'testnet'
 
 // livepeer
 export const LIVEPEER_API_KEY = process.env.LIVEPEER_API_KEY as string
