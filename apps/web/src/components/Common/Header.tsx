@@ -12,10 +12,10 @@ import React, { useState } from 'react'
 import { Analytics, LENS_CUSTOM_FILTERS, TRACK } from 'utils'
 
 import Login from './Auth/Login'
+import CategoryFilters from './CategoryFilters'
 import BellOutline from './Icons/BellOutline'
 import SearchOutline from './Icons/SearchOutline'
 import GlobalSearchBar from './Search/GlobalSearchBar'
-import TagFilters from './TagFilters'
 
 type Props = {
   className?: string
@@ -111,7 +111,7 @@ const Header: FC<Props> = ({ className }) => {
           </div>
         </div>
 
-        {showFilter && <TagFilters />}
+        {showFilter && <CategoryFilters />}
       </div>
 
       <Modal

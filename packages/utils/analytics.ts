@@ -23,6 +23,7 @@ export const TRACK = {
   UPLOADED_TO_ARWEAVE: 'Uploaded to Arweave',
   UPDATED_CHANNEL_INFO: 'Updated Channel Info',
   DEPOSIT_MATIC: 'Deposit Matic',
+  FILTER_CATEGORIES: 'Filter Categories',
   EMBED_VIDEO: {
     OPEN: 'Open Embed',
     COPY: 'Copy Embed',
