@@ -50,7 +50,10 @@ export const WMATIC_TOKEN_ADDRESS = IS_MAINNET
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
 // polygon
-export const POLYGON_RPC_URL = process.env.NEXT_PUBLIC_POLYGON_RPC_URL as string
+export const POLYGON_RPC_URL = IS_MAINNET
+  ? 'https://rpc.ankr.com/polygon'
+  : 'https://rpc.ankr.com/polygon_mumbai'
+
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://mumbai.polygonscan.com'
