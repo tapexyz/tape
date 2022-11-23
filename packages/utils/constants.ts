@@ -72,8 +72,7 @@ export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
 export const EVER_ACCESS_KEY = process.env.EVER_ACCESS_KEY as string
 export const EVER_ACCESS_SECRET = process.env.EVER_ACCESS_SECRET as string
-export const NEXT_PUBLIC_EVER_BUCKET_NAME = process.env
-  .NEXT_PUBLIC_EVER_BUCKET_NAME as string
+export const NEXT_PUBLIC_EVER_BUCKET_NAME = IS_MAINNET ? 'lenstube' : 'testnet'
 
 // livepeer
 export const LIVEPEER_API_KEY = process.env.LIVEPEER_API_KEY as string
