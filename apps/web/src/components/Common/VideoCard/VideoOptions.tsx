@@ -67,6 +67,7 @@ const VideoOptions = ({
               'lg:invisible': showOnHover
             }
           )}
+          role="button"
         >
           <ThreeDotsOutline className="w-3.5 h-3.5" />
         </div>

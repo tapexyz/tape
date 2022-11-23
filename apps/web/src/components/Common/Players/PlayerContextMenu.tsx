@@ -56,6 +56,7 @@ const PlayerContextMenu = forwardRef<HTMLVmPlayerElement, Props>(
         <div
           className="px-3 py-2 cursor-pointer hover:bg-gray-700 rounded-xl"
           onClick={toggleLoop}
+          role="button"
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -68,6 +69,7 @@ const PlayerContextMenu = forwardRef<HTMLVmPlayerElement, Props>(
         <div
           className="px-3 py-2 cursor-pointer rounded-xl hover:bg-gray-700"
           onClick={onCopyVideoUrl}
+          role="button"
         >
           <div className="flex items-center space-x-2">
             <AiOutlineLink />
@@ -77,6 +79,7 @@ const PlayerContextMenu = forwardRef<HTMLVmPlayerElement, Props>(
         <div
           className="px-3 py-2 cursor-pointer hover:bg-gray-700 rounded-xl"
           onClick={onCopyAtCurrentTime}
+          role="button"
         >
           <div className="flex items-center space-x-2">
             <AiOutlineLink />

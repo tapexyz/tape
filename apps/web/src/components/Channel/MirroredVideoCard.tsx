@@ -33,6 +33,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
     <div
       onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
       className="overflow-hidden group rounded-xl"
+      role="button"
     >
       <Link href={`/watch/${mirrorOf.id}`}>
         <div className="relative rounded-xl aspect-w-16 aspect-h-8">

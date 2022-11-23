@@ -29,6 +29,7 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
     <div
       onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
       className="flex justify-between group"
+      role="button"
     >
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <ReportModal
