@@ -59,7 +59,7 @@ export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 // cdn
 export const IMAGE_CDN_URL = IS_MAINNET
-  ? 'https://ik.imagekit.io/lt'
+  ? 'https://ik.imagekit.io/lenstubemain'
   : 'https://ik.imagekit.io/lt/testnet'
 export const VIDEO_CDN_URL = 'https://cdn.livepeer.com'
 
