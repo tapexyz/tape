@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IS_MAINNET } from 'utils'
-import { getHandle } from 'utils/functions/getHandle'
+import getLensHandle from 'utils/functions/getLensHandle'
 import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
 import trimify from 'utils/functions/trimify'
 import useIsMounted from 'utils/hooks/useIsMounted'
@@ -98,7 +98,7 @@ const CreateChannel = () => {
     if (indexed) {
       setLoading(false)
       setShowCreateChannel(false)
-      router.push(`/channel/${getHandle(getValues().channelName)}`)
+      router.push(`/channel/${getLensHandle(getValues().channelName)}`)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
