@@ -4,6 +4,7 @@ import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import SignalWave from '@components/UIElements/SignalWave'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import type { Profile } from 'lens'
 import { useProfileLazyQuery } from 'lens'
 import React, { useState } from 'react'
@@ -11,6 +12,7 @@ import toast from 'react-hot-toast'
 
 const ProfileInterests = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const [showModal, setShowModal] = useState(
     !selectedChannel?.interests?.length
@@ -24,7 +26,11 @@ const ProfileInterests = () => {
     }
   })
 
-  if (!selectedChannel || selectedChannel?.interests?.length) {
+  if (
+    !selectedChannel ||
+    !selectedChannelId ||
+    selectedChannel?.interests?.length
+  ) {
     return null
   }
 
