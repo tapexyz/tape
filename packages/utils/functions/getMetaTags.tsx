@@ -61,9 +61,9 @@ const getMetaTags = ({
               <meta name="twitter:description" content="${meta.description}" />
               <meta property="twitter:image" content="${meta.image}" />
               <meta property="twitter:creator" content="${LENSTUBE_TWITTER_HANDLE}" />
-              <meta name="twitter:card" content=${
+              <meta name="twitter:card" content="${
                 isVideo ? 'summary_large_image' : 'summary'
-              } />`
+              }" />`
 
   if (isVideo) {
     const embedUrl = `${LENSTUBE_EMBED_URL}/${pubId}`
