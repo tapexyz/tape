@@ -31,7 +31,7 @@ const getPublicationMeta = async (
       .send(
         getMetaTags({
           title,
-          description,
+          description: description.replaceAll('\n', ' '),
           image: thumbnail,
           page: 'VIDEO',
           pubId: video.id

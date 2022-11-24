@@ -24,7 +24,15 @@ const getProfileMeta = async (res: NextApiResponse, handle: string) => {
     return res
       .setHeader('Content-Type', 'text/html')
       .setHeader('Cache-Control', 's-maxage=86400')
-      .send(getMetaTags({ title, description, image, page: 'PROFILE', handle }))
+      .send(
+        getMetaTags({
+          title,
+          description: description.replaceAll('\n', ' '),
+          image,
+          page: 'PROFILE',
+          handle
+        })
+      )
   } catch {
     return res.setHeader('Content-Type', 'text/html').send(
       getMetaTags({
