@@ -9,7 +9,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { Analytics, LENS_CUSTOM_FILTERS, TRACK } from 'utils'
+import { Analytics, LENS_CUSTOM_FILTERS, STATIC_ASSETS, TRACK } from 'utils'
 
 import Login from './Auth/Login'
 import CategoryFilters from './CategoryFilters'
@@ -70,7 +70,7 @@ const Header: FC<Props> = ({ className }) => {
           <div className="md:w-[330px]">
             <Link href="/" className="block md:invisible">
               <img
-                src="/lenstube.svg"
+                src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
                 draggable={false}
                 className="w-5 h-5"
                 alt="lenstube"

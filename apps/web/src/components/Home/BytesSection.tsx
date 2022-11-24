@@ -17,6 +17,8 @@ import {
   LENSTUBE_BYTES_APP_ID,
   TRACK
 } from 'utils'
+import getLensHandle from 'utils/functions/getLensHandle'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 
@@ -86,22 +88,38 @@ const BytesSection = () => {
         className="flex scroll-smooth relative no-scrollbar items-start overflow-x-auto touch-pan-x space-x-4 mb-3"
       >
         {bytes.map((byte) => (
-          <Link href={`/bytes?id=${byte.id}`} className="w-44" key={byte.id}>
-            <div className="aspect-[9/16] h-[300px]">
-              <img
-                className="rounded-xl"
-                src={imageCdn(getThumbnailUrl(byte), 'thumbnail_v')}
-                alt="thumbnail"
-                draggable={false}
-              />
+          <div key={byte.id} className="space-y-1">
+            <Link href={`/bytes?id=${byte.id}`} className="w-44">
+              <div className="aspect-[9/16] h-[300px]">
+                <img
+                  className="rounded-xl"
+                  src={imageCdn(getThumbnailUrl(byte), 'thumbnail_v')}
+                  alt="thumbnail"
+                  draggable={false}
+                />
+              </div>
+              <h1 className="text-[13px] pt-2 line-clamp-2 break-words">
+                {byte.metadata?.name}
+              </h1>
+            </Link>
+            <div className="flex items-end space-x-1.5">
+              <Link
+                href={`/channel/${getLensHandle(byte.profile?.handle)}`}
+                className="flex-none"
+                title={getLensHandle(byte.profile.handle)}
+              >
+                <img
+                  className="w-3.5 h-3.5 rounded-full bg-gray-200 dark:bg-gray-800"
+                  src={getProfilePicture(byte.profile, 'avatar')}
+                  alt={getLensHandle(byte.profile?.handle)}
+                  draggable={false}
+                />
+              </Link>
+              <span className="text-xs leading-3 opacity-70">
+                {byte.stats?.totalUpvotes} likes
+              </span>
             </div>
-            <h1 className="text-[13px] pt-2 line-clamp-2 break-words">
-              {byte.metadata?.name}
-            </h1>
-            <span className="text-xs opacity-70">
-              {byte.stats?.totalUpvotes} likes
-            </span>
-          </Link>
+          </div>
         ))}
       </div>
       <hr className="my-8 border-theme dark:border-gray-700 border-opacity-10" />
