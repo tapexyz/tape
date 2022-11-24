@@ -5,7 +5,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { useProfileCommentsQuery } from 'lens'
+import { PublicationMainFocus, useProfileCommentsQuery } from 'lens'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
@@ -35,7 +35,16 @@ const VideoComments: FC<Props> = ({ video }) => {
   const request = {
     limit: 30,
     customFilters: LENS_CUSTOM_FILTERS,
-    commentsOf: id
+    commentsOf: id,
+    metadata: {
+      mainContentFocus: [
+        PublicationMainFocus.Video,
+        PublicationMainFocus.Article,
+        PublicationMainFocus.Embed,
+        PublicationMainFocus.Link,
+        PublicationMainFocus.TextOnly
+      ]
+    }
   }
   const variables = {
     request,
