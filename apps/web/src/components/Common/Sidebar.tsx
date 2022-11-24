@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { STATIC_ASSETS } from 'utils'
 import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
 
 import Footer from './Footer'
@@ -49,7 +50,7 @@ const Sidebar = () => {
               className="flex items-center pt-1 focus:outline-none"
             >
               <img
-                src="/lenstube.svg"
+                src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
                 draggable={false}
                 className="w-6 h-6 ml-0.5"
                 alt="lenstube"

@@ -1,11 +1,11 @@
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
-import { getHandle } from 'utils/functions/getHandle'
+import getLensHandle from 'utils/functions/getLensHandle'
 
 const ChannelLink = ({ ...props }: any) => {
   return (
-    <Link href={`/channel/${getHandle(props.display?.slice(1))}`}>
+    <Link href={`/channel/${getLensHandle(props.display?.slice(1))}`}>
       {props.display}
     </Link>
   )
