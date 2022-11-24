@@ -8,22 +8,22 @@ import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET') return res.status(405).json({ success: false })
 
-  const uri = req.query.uri as string
-  console.log('🚀 ~ file: metatags.ts ~ line 12 ~ handler ~ uri', uri)
+  const path = req.query.path as string
+  console.log('🚀 ~ file: metatags.ts ~ line 12 ~ handler ~ path', path)
 
-  if (!uri) return res.status(400).json({ success: false })
+  if (!path) return res.status(400).json({ success: false })
 
-  const isChannel = uri.includes('/channel/')
-  const isVideo = uri.includes('/watch/')
+  const isChannel = path.includes('/channel/')
+  const isVideo = path.includes('/watch/')
 
   try {
     if (isChannel) {
-      const handle = uri.replace('/channel/', '')
+      const handle = path.replace('/channel/', '')
       return getProfileMeta(res, handle)
     }
 
     if (isVideo) {
-      const pubId = uri.replace('/watch/', '')
+      const pubId = path.replace('/watch/', '')
       return getPublicationMeta(res, pubId)
     }
 
