@@ -8,7 +8,7 @@ import type { LenstubePublication } from 'utils'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import { getPermanentVideoUrl, getVideoUrl } from 'utils/functions/getVideoUrl'
 import imageCdn from 'utils/functions/imageCdn'
-import { sanitizeIpfsUrl } from 'utils/functions/sanitizeIpfsUrl'
+import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import logger from 'utils/logger'
 
 import VideoActions from './VideoActions'

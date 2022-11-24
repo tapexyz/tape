@@ -12,7 +12,7 @@ import { IS_MAINNET } from 'utils'
 import { generateVideoThumbnails } from 'utils/functions/generateVideoThumbnails'
 import { getFileFromDataURL } from 'utils/functions/getFileFromDataURL'
 import { getIsNSFW } from 'utils/functions/getIsNSFW'
-import { sanitizeIpfsUrl } from 'utils/functions/sanitizeIpfsUrl'
+import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
 import logger from 'utils/logger'
 

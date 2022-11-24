@@ -21,7 +21,7 @@ import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
 import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS, RELAYER_ENABLED } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import omitKey from 'utils/functions/omitKey'
-import { sanitizeIpfsUrl } from 'utils/functions/sanitizeIpfsUrl'
+import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
