@@ -6,15 +6,12 @@ import getMetaTags from 'utils/functions/getMetaTags'
 import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== 'GET') {
-    return res.status(405).json({ success: false, message: 'Invalid method' })
-  }
+  if (req.method !== 'GET') return res.status(405).json({ success: false })
 
   const uri = req.query.uri as string
+  console.log('🚀 ~ file: metatags.ts ~ line 12 ~ handler ~ uri', uri)
 
-  if (!uri) {
-    return res.status(400).json({ success: false, message: 'Invalid URI' })
-  }
+  if (!uri) return res.status(400).json({ success: false })
 
   const isChannel = uri.includes('/channel/')
   const isVideo = uri.includes('/watch/')
