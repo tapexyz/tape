@@ -1,14 +1,16 @@
 import Channel from '@components/Channel'
-import apolloNodeClient from '@lib/apollo'
 import type { Profile } from 'lens'
 import { ProfileDocument } from 'lens'
 import type { GetServerSideProps } from 'next'
+import getApolloClient from 'utils/functions/getApolloClient'
 
 export default Channel
 
 interface Props {
   channel: Profile
 }
+
+const apolloClient = getApolloClient()
 
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
@@ -17,7 +19,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   if (!handle) {
     return { notFound: true }
   }
-  const { data, error } = await apolloNodeClient.query({
+  const { data, error } = await apolloClient.query({
     query: ProfileDocument,
     variables: {
       request: { handle }
