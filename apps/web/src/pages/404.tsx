@@ -2,7 +2,7 @@ import { Button } from '@components/UIElements/Button'
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
-import { LENSTUBE_APP_NAME } from 'utils'
+import { LENSTUBE_APP_NAME, STATIC_ASSETS } from 'utils'
 
 export default function Custom404() {
   return (
@@ -12,7 +12,7 @@ export default function Custom404() {
       </Head>
       <div className="flex flex-col items-center justify-start h-full mt-10 md:mt-20">
         <img
-          src="/lenstube.svg"
+          src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
           alt={LENSTUBE_APP_NAME}
           draggable={false}
           height={50}
