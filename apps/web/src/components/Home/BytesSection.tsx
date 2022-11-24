@@ -1,6 +1,7 @@
 import BytesOutline from '@components/Common/Icons/BytesOutline'
 import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
+import BytesShimmer from '@components/Shimmers/BytesShimmer'
 import useAppStore from '@lib/store'
 import {
   PublicationMainFocus,
@@ -44,7 +45,7 @@ const BytesSection = () => {
     }
   }
 
-  const { data, error } = useExploreQuery({
+  const { data, error, loading } = useExploreQuery({
     variables: { request }
   })
 
@@ -55,6 +56,10 @@ const BytesSection = () => {
 
   const scroll = (scrollOffset: number) => {
     if (sectionRef.current) sectionRef.current.scrollLeft += scrollOffset
+  }
+
+  if (loading) {
+    return <BytesShimmer />
   }
 
   if (!bytes?.length || error) {
