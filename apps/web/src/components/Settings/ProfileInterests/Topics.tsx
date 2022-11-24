@@ -85,41 +85,22 @@ const Topics: FC<Props> = ({ showSave }) => {
           <div className="w-full space-y-2" key={category.id}>
             <h2 className="capitalize font-medium text-sm">{category.label}</h2>
             <div className="flex flex-wrap items-center gap-2">
-              {subCategories.length ? (
-                <button
-                  type="button"
-                  className={clsx(
-                    'flex disabled:cursor-not-allowed items-center disabled:opacity-50 justify-between px-3 py-0.5 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
-                    {
-                      '!border-indigo-500': selectedTopics.includes(category.id)
-                    }
-                  )}
-                  disabled={
-                    !selectedTopics.includes(category.id) &&
-                    selectedTopics.length === MAX_TOPICS_ALLOWED
+              <button
+                type="button"
+                className={clsx(
+                  'flex disabled:cursor-not-allowed items-center disabled:opacity-50 justify-between px-3 py-0.5 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
+                  {
+                    '!border-indigo-500': selectedTopics.includes(category.id)
                   }
-                  onClick={() => onSelectTopic(category.id)}
-                >
-                  {category.label}
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  className={clsx(
-                    'flex disabled:cursor-not-allowed items-center disabled:opacity-50 justify-between px-3 py-0.5 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
-                    {
-                      '!border-indigo-500': selectedTopics.includes(category.id)
-                    }
-                  )}
-                  disabled={
-                    !selectedTopics.includes(category.id) &&
-                    selectedTopics.length === MAX_TOPICS_ALLOWED
-                  }
-                  onClick={() => onSelectTopic(category.id)}
-                >
-                  {category.label}
-                </button>
-              )}
+                )}
+                disabled={
+                  !selectedTopics.includes(category.id) &&
+                  selectedTopics.length === MAX_TOPICS_ALLOWED
+                }
+                onClick={() => onSelectTopic(category.id)}
+              >
+                {category.label}
+              </button>
               {subCategories?.map((subCategory) => (
                 <button
                   type="button"
