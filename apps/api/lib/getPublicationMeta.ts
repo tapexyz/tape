@@ -1,10 +1,9 @@
 import { PublicationDetailsDocument } from 'lens'
 import type { NextApiResponse } from 'next'
 import type { LenstubePublication } from 'utils'
-import { LENSTUBE_APP_DESCRIPTION } from 'utils'
+import { LENSTUBE_APP_DESCRIPTION, STATIC_ASSETS } from 'utils'
 import getApolloClient from 'utils/functions/getApolloClient'
 import getMetaTags from 'utils/functions/getMetaTags'
-import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import truncate from 'utils/functions/truncate'
 
@@ -23,7 +22,8 @@ const getPublicationMeta = async (
     const video: LenstubePublication = data?.publication
     const title = truncate(video?.metadata?.name as string, 100)
     const description = truncate(video?.metadata?.description as string, 100)
-    const thumbnail = getThumbnailUrl(video)
+    const thumbnail =
+      getThumbnailUrl(video) || `${STATIC_ASSETS}/images/seo/og.png`
 
     return res
       .setHeader('Content-Type', 'text/html')
@@ -42,7 +42,7 @@ const getPublicationMeta = async (
       getMetaTags({
         title: 'Lenstube',
         description: LENSTUBE_APP_DESCRIPTION,
-        image: getRandomProfilePicture('Lenstube')
+        image: `${STATIC_ASSETS}/images/seo/og.png`
       })
     )
   }

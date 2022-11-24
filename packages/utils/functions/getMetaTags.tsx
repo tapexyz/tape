@@ -29,7 +29,6 @@ const getMetaTags = ({
     title: `${title} ~ Lenstube` ?? LENSTUBE_APP_NAME,
     description: description || LENSTUBE_APP_DESCRIPTION,
     image: image ?? `${STATIC_ASSETS}/images/seo/og.png`,
-    type: 'video.other',
     url: isVideo
       ? `${LENSTUBE_WEBSITE_URL}/watch/${pubId}`
       : `${LENSTUBE_WEBSITE_URL}/channel/${handle}`
@@ -41,7 +40,6 @@ const getMetaTags = ({
               <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
               <link rel="canonical" href=${meta.url} />
               <meta property="og:url" content=${meta.url} />
-              <meta property="og:type" content=${meta.type} />
               <meta property="og:site_name" content=${LENSTUBE_APP_NAME} />
               <meta property="og:description" content=${meta.description} />
               <meta property="og:title" content=${meta.title} />
@@ -68,17 +66,18 @@ const getMetaTags = ({
               } />`
 
   if (isVideo) {
-    defaultMeta += ` <meta property="og:video" content=${LENSTUBE_EMBED_URL} />
+    const embedUrl = `${LENSTUBE_EMBED_URL}/${pubId}`
+    defaultMeta += `<meta property="og:video" content=${LENSTUBE_EMBED_URL} />
       <meta property="og:video:width" content="1280" />
       <meta property="og:video:height" content="720" />
       <meta property="og:video:url" content=${meta.url} />
       <meta property="og:video:type" content="text/html" />
       <meta property="og:video:secure_url" content=${meta.url}/>
       <meta name="twitter:card" content="player" />
-      <meta name="twitter:player" content=${LENSTUBE_EMBED_URL} />
+      <meta name="twitter:player" content=${embedUrl} />
       <meta property="twitter:player:width" content="1280" />
       <meta property="twitter:player:height" content="720" />
-      <link rel="iframely player" type="text/html" href="${LENSTUBE_EMBED_URL}" media="(aspect-ratio: 1280/720)" />`
+      <link rel="iframely player" type="text/html" href=${embedUrl} media="(aspect-ratio: 1280/720)" />`
   }
 
   return `<!DOCTYPE html>
