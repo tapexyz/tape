@@ -159,7 +159,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         }
         className="object-cover w-32 h-32 border-2 rounded-full"
         draggable={false}
-        alt="channel picture"
+        alt="channel"
       />
       <label
         htmlFor="choosePfp"
