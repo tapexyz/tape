@@ -62,20 +62,18 @@ const getMetaTags = ({
               <meta property="twitter:image" content="${meta.image}" />
               <meta property="twitter:creator" content="${LENSTUBE_TWITTER_HANDLE}" />
               <meta name="twitter:card" content="${
-                isVideo ? 'summary_large_image' : 'summary'
+                isVideo ? 'player' : 'summary'
               }" />`
 
   if (isVideo) {
     const embedUrl = `${LENSTUBE_EMBED_URL}/${pubId}`
-    defaultMeta += `<meta property="og:video" content="${LENSTUBE_EMBED_URL}" />
+    defaultMeta += `<meta property="og:video" content="${embedUrl}" />
       <meta property="og:video:width" content="1280" />
       <meta property="og:video:height" content="720" />
-      <meta property="og:video" content="${embedUrl}" />
       <meta property="og:video:url" content="${embedUrl}" />
       <meta property="og:video:secure_url" content="${embedUrl}"/>
       <meta property="og:video:type" content="text/html" />
 
-      <meta name="twitter:card" content="player" />
       <meta name="twitter:url" content="${meta.url}" />
       <meta name="twitter:player" content="${embedUrl}" />
       <meta property="twitter:player:width" content="1280" />
