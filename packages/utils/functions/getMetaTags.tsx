@@ -56,7 +56,7 @@ const getMetaTags = ({
               <meta property="twitter:image:height" content="${
                 isVideo ? 360 : 400
               }" />
-              <meta name="twitter:site" content="@lenstubexyz" />
+              <meta name="twitter:site" content="@${LENSTUBE_TWITTER_HANDLE}" />
               <meta name="twitter:title" content="${meta.title}" />
               <meta name="twitter:description" content="${meta.description}" />
               <meta property="twitter:image" content="${meta.image}" />
@@ -72,13 +72,21 @@ const getMetaTags = ({
       <meta property="og:video:height" content="720" />
       <meta property="og:video" content="${embedUrl}" />
       <meta property="og:video:url" content="${embedUrl}" />
+      <meta property="og:video:secure_url" content="${embedUrl}"/>
       <meta property="og:video:type" content="text/html" />
-      <meta property="og:video:secure_url" content="${meta.url}"/>
+
       <meta name="twitter:card" content="player" />
+      <meta name="twitter:url" content="${meta.url}" />
       <meta name="twitter:player" content="${embedUrl}" />
       <meta property="twitter:player:width" content="1280" />
       <meta property="twitter:player:height" content="720" />
-      <link rel="iframely player" type="text/html" href="${embedUrl}" media="(aspect-ratio: 1280/720)" />`
+      <link rel="iframely player" type="text/html" href="${embedUrl}" media="(aspect-ratio: 1280/720)" />
+
+      <meta property="og:video:url" content="${meta.url}" />
+      <meta property="og:video:secure_url" content="${meta.url}" />
+      <meta property="og:video:type" content="application/x-shockwave-flash" />
+      <meta property="og:video:width" content="1280" />
+      <meta property="og:video:height" content="720" />`
   }
 
   return `<!DOCTYPE html>
