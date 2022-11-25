@@ -1,0 +1,32 @@
+name: Continuous integration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        cache: 'yarn'
+
+      - name: GraphQL Codegen
+        run: yarn codegen
+
+      - name: Check Formatting
+        run: yarn check-format
+
+      - name: Check Lint
+        run: yarn check-lint
