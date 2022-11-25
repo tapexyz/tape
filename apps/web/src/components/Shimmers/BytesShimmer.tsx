@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
 const BytesShimmer = () => {
-  const cards = useMemo(() => Array(10).fill(1), [])
+  const cards = useMemo(() => Array(15).fill(1), [])
   return (
     <>
       <div className="animate-pulse mb-4">
@@ -20,7 +20,7 @@ const BytesShimmer = () => {
           <div className="flex scroll-smooth relative no-scrollbar items-start overflow-x-auto space-x-4 mb-3">
             {cards.map((i, idx) => (
               <div key={`${i}_${idx}`} className="space-y-1.5">
-                <div className="aspect-[9/16] h-[300px] bg-gray-300 dark:bg-gray-700 rounded-xl" />
+                <div className="aspect-[9/16] h-[280px] bg-gray-300 dark:bg-gray-700 rounded-xl" />
                 <div className="py-1 bg-gray-300 rounded-lg dark:bg-gray-700" />
                 <div className="py-1 w-20 bg-gray-300 rounded-lg dark:bg-gray-700" />
                 <div className="flex items-center space-x-1.5">
