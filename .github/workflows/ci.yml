@@ -17,10 +17,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16.x'
+          cache: 'yarn'
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-        cache: 'yarn'
 
       - name: GraphQL Codegen
         run: yarn codegen
