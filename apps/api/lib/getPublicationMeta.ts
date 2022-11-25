@@ -24,7 +24,8 @@ const getPublicationMeta = async (
     const title = truncate(video?.metadata?.name as string, 100)
     const description = truncate(video?.metadata?.description as string, 100)
     const thumbnail = imageCdn(
-      getThumbnailUrl(video) || `${STATIC_ASSETS}/images/seo/og.png`
+      getThumbnailUrl(video) || `${STATIC_ASSETS}/images/seo/og.png`,
+      'thumbnail'
     )
 
     return res
