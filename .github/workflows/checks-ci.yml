@@ -1,4 +1,4 @@
-name: Continuous integration
+name: Checks
 
 on:
   push:
