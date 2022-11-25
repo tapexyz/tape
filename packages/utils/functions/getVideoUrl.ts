@@ -1,6 +1,6 @@
 import { STATIC_ASSETS } from '../constants'
 import type { LenstubePublication } from '../custom-types'
-import { sanitizeIpfsUrl } from './sanitizeIpfsUrl'
+import sanitizeIpfsUrl from './sanitizeIpfsUrl'
 
 export const getVideoUrl = (video: LenstubePublication) => {
   const url =

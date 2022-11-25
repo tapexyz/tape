@@ -14,7 +14,7 @@ type Props = {
   title?: string
   description?: string
   image?: string
-  videoUrl?: string
+  videoUrl: string
 }
 
 const MetaTags: FC<Props> = (props) => {
@@ -42,66 +42,47 @@ const MetaTags: FC<Props> = (props) => {
       />
       <link
         rel="canonical"
-        href={
-          videoUrl
-            ? `${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`
-            : `${LENSTUBE_WEBSITE_URL}${router.asPath}`
-        }
+        href={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
       />
       <meta
         property="og:url"
-        content={
-          videoUrl
-            ? `${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`
-            : `${LENSTUBE_WEBSITE_URL}${router.asPath}`
-        }
+        content={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
       />
       <meta property="og:type" content={meta.type} />
       <meta property="og:site_name" content="Lenstube" />
       <meta property="og:description" content={meta.description} />
       <meta property="og:title" content={meta.title} />
       <meta property="og:image" content={meta.image} />
-      <meta property="og:image:width" content={videoUrl ? '480' : '400'} />
-      <meta property="og:image:height" content={videoUrl ? '360' : '400'} />
+      <meta property="og:image:width" content="480" />
+      <meta property="og:image:height" content="360" />
 
-      <meta property="twitter:image:width" content={videoUrl ? '480' : '400'} />
-      <meta
-        property="twitter:image:height"
-        content={videoUrl ? '360' : '400'}
-      />
+      <meta property="twitter:image:width" content="480" />
+      <meta property="twitter:image:height" content="360" />
       <meta name="twitter:site" content="@lenstubexyz" />
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta property="twitter:image" content={meta.image} />
       <meta property="twitter:creator" content={LENSTUBE_TWITTER_HANDLE} />
+      <meta name="twitter:card" content={'summary_large_image'} />
+      <meta property="og:video" content={meta.videoUrl} />
+      <meta property="og:video:width" content="1280" />
+      <meta property="og:video:height" content="720" />
       <meta
-        name="twitter:card"
-        content={videoUrl ? 'summary_large_image' : 'summary'}
+        property="og:video:url"
+        content={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
       />
-
-      {videoUrl && (
-        <>
-          <meta property="og:video" content={meta.videoUrl} />
-          <meta property="og:video:width" content="1280" />
-          <meta property="og:video:height" content="720" />
-          <meta
-            property="og:video:url"
-            content={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
-          />
-          <meta property="og:video:type" content="text/html" />
-          <meta
-            property="og:video:secure_url"
-            content={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
-          />
-          <meta name="twitter:card" content="player" />
-          <meta
-            name="twitter:player"
-            content={`${LENSTUBE_EMBED_URL}${router.asPath}`}
-          />
-          <meta property="twitter:player:width" content="1280" />
-          <meta property="twitter:player:height" content="720" />
-        </>
-      )}
+      <meta property="og:video:type" content="text/html" />
+      <meta
+        property="og:video:secure_url"
+        content={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
+      />
+      <meta name="twitter:card" content="player" />
+      <meta
+        name="twitter:player"
+        content={`${LENSTUBE_EMBED_URL}${router.asPath}`}
+      />
+      <meta property="twitter:player:width" content="1280" />
+      <meta property="twitter:player:height" content="720" />
 
       <link rel="preconnect" href={STATIC_ASSETS} />
       <link rel="dns-prefetch" href={STATIC_ASSETS} />

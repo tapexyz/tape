@@ -1,3 +1,4 @@
+import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import IsVerified from '@components/Common/IsVerified'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -5,12 +6,12 @@ import type { Attribute } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { MdPublishedWithChanges } from 'react-icons/md'
 import type { LenstubePublication } from 'utils'
 import { Analytics, STATIC_ASSETS, TRACK } from 'utils'
 import { getTimeFromSeconds } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
+import getLensHandle from 'utils/functions/getLensHandle'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
@@ -71,9 +72,9 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
             className="flex-none mt-0.5"
           >
             <img
-              className="w-8 h-8 rounded-xl"
+              className="w-8 h-8 rounded-full"
               src={getProfilePicture(mirrorOf.profile, 'avatar')}
-              alt="channel picture"
+              alt={getLensHandle(mirrorOf.profile.handle)}
               draggable={false}
             />
           </Link>
@@ -100,7 +101,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
             <div className="w-0.5 bg-gray-300 dark:bg-gray-700 pointer-events-none" />
           </div>
           <span className="absolute m-2 mb-0 bottom-1.5 opacity-70">
-            <MdPublishedWithChanges />
+            <MirrorOutline className="w-3.5 h-3.5" />
           </span>
           <div className="pl-8">
             <div className="flex items-center text-xs leading-3 opacity-70">

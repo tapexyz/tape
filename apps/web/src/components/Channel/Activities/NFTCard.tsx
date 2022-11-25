@@ -4,7 +4,7 @@ import type { FC } from 'react'
 import React from 'react'
 import { IS_MAINNET, OPENSEA_MARKETPLACE_URL, STATIC_ASSETS } from 'utils'
 import imageCdn from 'utils/functions/imageCdn'
-import { sanitizeIpfsUrl } from 'utils/functions/sanitizeIpfsUrl'
+import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 
 type Props = {
   nft: Nft
