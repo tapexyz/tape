@@ -10,11 +10,11 @@ const getProfilePicture = (
   type: 'avatar' | 'avatar_lg' | 'thumbnail' = 'avatar'
 ): string => {
   const url =
-    // @ts-ignore
-    channel?.picture?.original?.url ??
-    // @ts-ignore
-    channel?.picture?.uri ??
-    getRandomProfilePicture(channel?.handle)
+    channel.picture && channel.picture.__typename === 'MediaSet'
+      ? channel?.picture?.original?.url
+      : channel.picture?.__typename === 'NftImage'
+      ? channel?.picture?.uri
+      : getRandomProfilePicture(channel?.handle)
   const sanitized = sanitizeIpfsUrl(url)
   return getIsDicebearImage(sanitized)
     ? getRandomProfilePicture(channel?.handle)
