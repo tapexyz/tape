@@ -56,11 +56,9 @@ const ProfileInterests = () => {
           </div>
           <div className="flex flex-wrap items-center justify-between flex-1 w-full gap-y-3 dark:text-gray-100">
             <p className="text-xs">
-              Interests are off-chain and will be used to curate the way that
-              API serves content.
-              <span className="text-yellow-600 block">
-                (Maximum 12 interests)
-              </span>
+              There is so much good content on Lenstube, it may be hard to find
+              what’s most relevant to you from time to time. That’s where
+              profile interests can help curate content the way you like.
             </p>
             <div className="max-h-96 w-full no-scrollbar overflow-y-auto">
               <Topics />
