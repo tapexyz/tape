@@ -95,7 +95,7 @@ const BytesSection = () => {
         {bytes.map((byte) => (
           <div key={byte.id} className="space-y-1">
             <Link href={`/bytes?id=${byte.id}`} className="w-44">
-              <div className="aspect-[9/16] h-[300px]">
+              <div className="aspect-[9/16] h-[280px]">
                 <img
                   className="rounded-xl"
                   src={imageCdn(getThumbnailUrl(byte), 'thumbnail_v')}

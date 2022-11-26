@@ -4,7 +4,6 @@ exclude_patterns = [
   "node_modules",
   ".next",
   ".github",
-  ".husky",
   ".vscode",
   "packages/lens/generated.ts",
   "yarn.lock"
