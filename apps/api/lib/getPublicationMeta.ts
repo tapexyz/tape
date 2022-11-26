@@ -5,6 +5,7 @@ import { LENSTUBE_APP_DESCRIPTION, STATIC_ASSETS } from 'utils'
 import getApolloClient from 'utils/functions/getApolloClient'
 import getMetaTags from 'utils/functions/getMetaTags'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
+import imageCdn from 'utils/functions/imageCdn'
 import truncate from 'utils/functions/truncate'
 
 const apolloClient = getApolloClient()
@@ -22,8 +23,10 @@ const getPublicationMeta = async (
     const video: LenstubePublication = data?.publication
     const title = truncate(video?.metadata?.name as string, 100)
     const description = truncate(video?.metadata?.description as string, 100)
-    const thumbnail =
-      getThumbnailUrl(video) || `${STATIC_ASSETS}/images/seo/og.png`
+    const thumbnail = imageCdn(
+      getThumbnailUrl(video) || `${STATIC_ASSETS}/images/seo/og.png`,
+      'thumbnail'
+    )
 
     return res
       .setHeader('Content-Type', 'text/html')
