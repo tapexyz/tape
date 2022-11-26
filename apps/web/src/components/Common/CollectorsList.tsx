@@ -65,7 +65,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
                 <img
                   className="w-5 h-5 rounded"
                   src={getProfilePicture(wallet?.defaultProfile, 'avatar')}
-                  alt="channel"
+                  alt="channel.handle"
                   draggable={false}
                 />
                 <div className="flex items-center space-x-1">
@@ -89,7 +89,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
                     getRandomProfilePicture(wallet.address),
                     'avatar'
                   )}
-                  alt="channel"
+                  alt="channel.handle"
                   draggable={false}
                 />
                 <div>{shortenAddress(wallet?.address)}</div>
