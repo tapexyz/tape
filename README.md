@@ -56,7 +56,6 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 - `web`: NextJs Lenstube website
 - `embed`: NextJs application for video embeds
 - `api`: NextJs serverless functions for Lenstube
-- `assets`: Static assets
 
 ## Getting Started
 
