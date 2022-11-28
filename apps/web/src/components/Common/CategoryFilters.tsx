@@ -34,7 +34,6 @@ const CategoryFilters = () => {
     } else {
       setScrollEnd(false)
     }
-    return () => {}
   }, [scrollRef])
 
   const slide = (shift: number) => {
