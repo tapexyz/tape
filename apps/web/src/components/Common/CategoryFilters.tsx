@@ -1,6 +1,6 @@
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Analytics, TRACK } from 'utils'
 import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
 import useHorizontalScroll from 'utils/hooks/useHorizantalScroll'
@@ -12,8 +12,8 @@ const CategoryFilters = () => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
   const setActiveTagFilter = useAppStore((state) => state.setActiveTagFilter)
 
-  const [scrollX, setscrollX] = useState(0)
-  const [scrollEnd, setscrollEnd] = useState(false)
+  const [scrollX, setScrollX] = useState(0)
+  const [scrollEnd, setScrollEnd] = useState(false)
 
   const scrollRef = useHorizontalScroll()
 
@@ -25,18 +25,30 @@ const CategoryFilters = () => {
   const sectionOffsetWidth = scrollRef.current?.offsetWidth ?? 1000
   const scrollOffset = sectionOffsetWidth / 1.2
 
+  useEffect(() => {
+    if (
+      scrollRef.current &&
+      scrollRef?.current?.scrollWidth === scrollRef?.current?.offsetWidth
+    ) {
+      setScrollEnd(true)
+    } else {
+      setScrollEnd(false)
+    }
+    return () => {}
+  }, [scrollRef])
+
   const slide = (shift: number) => {
     if (scrollRef.current) {
       scrollRef.current.scrollLeft += shift
-      setscrollX(scrollX + shift)
+      setScrollX(scrollX + shift)
       if (
         Math.floor(
           scrollRef.current.scrollWidth - scrollRef.current.scrollLeft
         ) <= scrollRef.current.offsetWidth
       ) {
-        setscrollEnd(true)
+        setScrollEnd(true)
       } else {
-        setscrollEnd(false)
+        setScrollEnd(false)
       }
     }
   }
