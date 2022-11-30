@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React from 'react'
 import {
+  LENSTUBE_API_URL,
   LENSTUBE_APP_DESCRIPTION,
   LENSTUBE_APP_NAME,
   LENSTUBE_EMBED_URL,
@@ -57,12 +58,26 @@ const MetaTags: FC<Props> = (props) => {
       <meta property="twitter:image:src" content={meta.image} />
       <meta property="twitter:creator" content={LENSTUBE_TWITTER_HANDLE} />
       {router.pathname === '/watch/[id]' && (
-        <link
-          rel="iframely player"
-          type="text/html"
-          href={`${LENSTUBE_EMBED_URL}/${router.query?.id}`}
-          media="(aspect-ratio: 1280/720)"
-        />
+        <>
+          <link
+            rel="iframely player"
+            type="text/html"
+            href={`${LENSTUBE_EMBED_URL}/${router.query?.id}`}
+            media="(aspect-ratio: 1280/720)"
+          />
+          <link
+            rel="alternate"
+            type="text/xml+oembed"
+            href={`${LENSTUBE_API_URL}/oembed?format=xml&id=${router.query?.id}`}
+            title={title}
+          />
+          <link
+            rel="alternate"
+            type="application/json+oembed"
+            href={`${LENSTUBE_API_URL}/oembed?format=json&id=${router.query?.id}`}
+            title={title}
+          />
+        </>
       )}
       <link rel="preconnect" href="https://ik.imagekit.io" />
       <link rel="dns-prefetch" href="https://ik.imagekit.io" />
