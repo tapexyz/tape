@@ -60,7 +60,7 @@ const CategoryFilters = () => {
       {scrollX !== 0 && (
         <button
           type="button"
-          className="bg-gray-500 sticky left-0 focus:outline-none bg-opacity-10 hover:bg-opacity-25 backdrop-blur-xl rounded-full p-2"
+          className="bg-gray-500 hidden md:block sticky left-0 focus:outline-none bg-opacity-10 hover:bg-opacity-25 backdrop-blur-xl rounded-full p-2"
           onClick={() => slide(-scrollOffset)}
         >
           <ChevronLeftOutline className="w-4 h-4" />
@@ -96,7 +96,7 @@ const CategoryFilters = () => {
       {!scrollEnd && (
         <button
           type="button"
-          className="bg-gray-500 sticky right-0 focus:outline-none bg-opacity-10 hover:bg-opacity-25 backdrop-blur-xl rounded-full p-2"
+          className="bg-gray-500 hidden md:block sticky right-0 focus:outline-none bg-opacity-10 hover:bg-opacity-25 backdrop-blur-xl rounded-full p-2"
           onClick={() => slide(scrollOffset)}
         >
           <ChevronRightOutline className="w-4 h-4" />
