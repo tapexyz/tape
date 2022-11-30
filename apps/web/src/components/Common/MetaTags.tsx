@@ -57,7 +57,7 @@ const MetaTags: FC<Props> = (props) => {
       <meta name="twitter:description" content={meta.description} />
       <meta property="twitter:image:src" content={meta.image} />
       <meta property="twitter:creator" content={LENSTUBE_TWITTER_HANDLE} />
-      {router.pathname === '/watch/[id]' && (
+      {router.pathname === '/watch/[id]' && router.query?.id && (
         <>
           <link
             rel="iframely player"
