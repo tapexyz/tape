@@ -58,7 +58,9 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
               <thumbnail_height>360</thumbnail_height>
               <thumbnail_width>480</thumbnail_width>
               <thumbnail_url>${thumbnail}</thumbnail_url>
-              <html><iframe width="200" height="113" src="${LENSTUBE_EMBED_URL}/${video.id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="${title}"></iframe></html>
+              <html>
+                <iframe width="200" height="113" src="${LENSTUBE_EMBED_URL}/${video.id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" title="${title}"></iframe>
+              </html>
               </oembed>`
     }
   } catch {
