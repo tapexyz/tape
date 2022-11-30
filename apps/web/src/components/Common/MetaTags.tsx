@@ -19,6 +19,7 @@ type Props = {
 const MetaTags: FC<Props> = (props) => {
   const { description, title, image } = props
   const router = useRouter()
+  console.log('🚀 ~ file: MetaTags.tsx:22 ~ router', router)
 
   const meta = {
     title: title ?? LENSTUBE_APP_NAME,
@@ -60,7 +61,7 @@ const MetaTags: FC<Props> = (props) => {
         <link
           rel="iframely player"
           type="text/html"
-          href={`${LENSTUBE_EMBED_URL}${router.asPath}`}
+          href={`${LENSTUBE_EMBED_URL}${router.query?.id}`}
           media="(aspect-ratio: 1280/720)"
         />
       )}
