@@ -9,15 +9,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     if (format === 'json') {
-      return res
-        .setHeader('Content-Type', 'application/json')
-        .send(getPublicationOembed(videoId, format))
+      return res.json(await getPublicationOembed(videoId, format))
     }
 
     if (format === 'xml') {
       return res
         .setHeader('Content-Type', 'application/xml')
-        .send(getPublicationOembed(videoId, format))
+        .send(await getPublicationOembed(videoId, format))
     }
 
     return null
