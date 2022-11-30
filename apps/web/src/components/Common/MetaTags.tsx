@@ -5,6 +5,7 @@ import React from 'react'
 import {
   LENSTUBE_APP_DESCRIPTION,
   LENSTUBE_APP_NAME,
+  LENSTUBE_EMBED_URL,
   LENSTUBE_TWITTER_HANDLE,
   STATIC_ASSETS
 } from 'utils'
@@ -55,6 +56,14 @@ const MetaTags: FC<Props> = (props) => {
       <meta name="twitter:description" content={meta.description} />
       <meta property="twitter:image:src" content={meta.image} />
       <meta property="twitter:creator" content={LENSTUBE_TWITTER_HANDLE} />
+      {router.pathname === '/watch/[id]' && (
+        <link
+          rel="iframely player"
+          type="text/html"
+          href={`${LENSTUBE_EMBED_URL}${router.asPath}`}
+          media="(aspect-ratio: 1280/720)"
+        />
+      )}
       <link rel="preconnect" href="https://ik.imagekit.io" />
       <link rel="dns-prefetch" href="https://ik.imagekit.io" />
       <link rel="preconnect" href="https://assets.lenstube.xyz" />
