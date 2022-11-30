@@ -60,7 +60,7 @@ const MetaTags: FC<Props> = (props) => {
         <link
           rel="iframely player"
           type="text/html"
-          href={`${LENSTUBE_EMBED_URL}${router.query?.id}`}
+          href={`${LENSTUBE_EMBED_URL}/${router.query?.id}`}
           media="(aspect-ratio: 1280/720)"
         />
       )}
