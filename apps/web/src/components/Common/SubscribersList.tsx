@@ -68,7 +68,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
                     subscriber.wallet?.defaultProfile,
                     'avatar'
                   )}
-                  alt="channel.handle"
+                  alt={`${subscriber.wallet.defaultProfile.handle}`}
                   draggable={false}
                 />
                 <div className="flex items-center space-x-1">
@@ -97,7 +97,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
                     getRandomProfilePicture(subscriber.wallet.address),
                     'avatar'
                   )}
-                  alt="channel.handle"
+                  alt={`${subscriber.wallet.defaultProfile?.handle}`}
                   draggable={false}
                 />
                 <div>{shortenAddress(subscriber.wallet?.address)}</div>

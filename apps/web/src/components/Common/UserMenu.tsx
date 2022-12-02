@@ -89,7 +89,7 @@ const UserMenu = () => {
           <img
             className="object-cover bg-white rounded-full dark:bg-theme w-8 h-8 md:w-9 md:h-9"
             src={getProfilePicture(selectedChannel)}
-            alt="channel.handle"
+            alt={`${selectedChannel.handle}`}
             draggable={false}
           />
         </Button>
@@ -118,7 +118,7 @@ const UserMenu = () => {
                     <img
                       className="w-6 h-6 rounded-lg"
                       src={getProfilePicture(channel)}
-                      alt="channel.handle"
+                      alt={`${channel.handle}`}
                       draggable={false}
                     />
                     <span className="truncate whitespace-nowrap">
@@ -139,7 +139,7 @@ const UserMenu = () => {
                 <img
                   className="object-cover rounded-full w-9 h-9"
                   src={getProfilePicture(selectedChannel, 'avatar')}
-                  alt="channel.handle"
+                  alt={`${selectedChannel.handle}`}
                   draggable={false}
                 />
                 <div className="grid">
