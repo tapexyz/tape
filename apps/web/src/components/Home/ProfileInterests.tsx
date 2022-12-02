@@ -4,6 +4,7 @@ import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import SignalWave from '@components/UIElements/SignalWave'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import type { Profile } from 'lens'
 import { useProfileLazyQuery } from 'lens'
 import React, { useState } from 'react'
@@ -11,6 +12,7 @@ import toast from 'react-hot-toast'
 
 const ProfileInterests = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const [showModal, setShowModal] = useState(
     !selectedChannel?.interests?.length
@@ -24,7 +26,11 @@ const ProfileInterests = () => {
     }
   })
 
-  if (!selectedChannel || selectedChannel?.interests?.length) {
+  if (
+    !selectedChannel ||
+    !selectedChannelId ||
+    selectedChannel?.interests?.length
+  ) {
     return null
   }
 
@@ -50,11 +56,9 @@ const ProfileInterests = () => {
           </div>
           <div className="flex flex-wrap items-center justify-between flex-1 w-full gap-y-3 dark:text-gray-100">
             <p className="text-xs">
-              Interests are off-chain and will be used to curate the way that
-              API serves content.
-              <span className="text-yellow-600 block">
-                (Maximum 12 interests)
-              </span>
+              There is so much good content on Lenstube, it may be hard to find
+              what’s most relevant to you from time to time. That’s where
+              profile interests can help curate content the way you like.
             </p>
             <div className="max-h-96 w-full no-scrollbar overflow-y-auto">
               <Topics />

@@ -1,6 +1,6 @@
 import { IPFS_GATEWAY } from '../constants'
 
-export const sanitizeIpfsUrl = (url: string) => {
+const sanitizeIpfsUrl = (url: string) => {
   const gateway = IPFS_GATEWAY
   if (!url) return url
 
@@ -10,3 +10,5 @@ export const sanitizeIpfsUrl = (url: string) => {
     .replace('https://ipfs.infura.io/ipfs/', gateway)
     .replace('ipfs://', gateway)
 }
+
+export default sanitizeIpfsUrl

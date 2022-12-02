@@ -1,4 +1,5 @@
 import React from 'react'
+import { STATIC_ASSETS } from 'utils'
 
 import MetaTags from './MetaTags'
 
@@ -8,7 +9,7 @@ const FullPageLoader = () => {
       <MetaTags />
       <div className="animate-pulse">
         <img
-          src="/lenstube.svg"
+          src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
           draggable={false}
           className="w-12 h-12"
           alt="lenstube"

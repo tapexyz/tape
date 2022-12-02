@@ -1,15 +1,17 @@
 import Video from '@components/Video'
-import apolloNodeClient from '@lib/apollo'
 import { PublicationDetailsDocument } from 'lens'
 import type { GetServerSideProps } from 'next'
 import type { LenstubePublication } from 'utils'
 import { LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID } from 'utils'
+import getApolloClient from 'utils/functions/getApolloClient'
 
 export default Video
 
 interface Props {
   video: LenstubePublication
 }
+
+const apolloClient = getApolloClient()
 
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
@@ -19,7 +21,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   if (splitted.length !== 2) {
     return { notFound: true }
   }
-  const { data, error } = await apolloNodeClient.query({
+  const { data, error } = await apolloClient.query({
     query: PublicationDetailsDocument,
     variables: {
       request: { publicationId: pubId },

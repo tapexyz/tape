@@ -30,7 +30,7 @@ const Curated = () => {
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 32,
-    noRandomize: true,
+    noRandomize: false,
     sources: [LENSTUBE_APP_ID],
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,

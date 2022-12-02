@@ -21,6 +21,10 @@ export const CREATOR_VIDEO_CATEGORIES = [
     tag: 'health'
   },
   {
+    name: 'Lens Ecosystem',
+    tag: 'lens'
+  },
+  {
     name: 'Food & Cooking',
     tag: 'food'
   },
@@ -51,6 +55,10 @@ export const CREATOR_VIDEO_CATEGORIES = [
   {
     name: 'Business',
     tag: 'business'
+  },
+  {
+    name: 'Family & Parenting',
+    tag: 'family'
   },
   {
     name: 'Gaming',
@@ -91,6 +99,10 @@ export const CREATOR_VIDEO_CATEGORIES = [
   {
     name: 'Sports',
     tag: 'sports'
+  },
+  {
+    name: 'Career',
+    tag: 'career'
   },
   {
     name: 'Travel & Events',

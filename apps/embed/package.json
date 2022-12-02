@@ -17,17 +17,17 @@
     "clsx": "^1.2.1",
     "graphql": "^16.6.0",
     "mixpanel-browser": "^2.45.0",
-    "next": "13.0.4",
+    "next": "13.0.5",
     "next-axiom": "^0.15.1",
     "next-transpile-modules": "^10.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
-    "react-icons": "^4.6.0"
+    "react-icons": "^4.7.1"
   },
   "devDependencies": {
     "@types/mixpanel-browser": "^2.38.0",
-    "@types/node": "18.11.9",
+    "@types/node": "18.11.10",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "autoprefixer": "^10.4.13",
@@ -37,7 +37,7 @@
     "prettier": "^2.7.1",
     "tailwindcss": "^3.2.4",
     "tsconfig": "*",
-    "utils": "*",
-    "typescript": "4.9.3"
+    "typescript": "4.9.3",
+    "utils": "*"
   }
 }

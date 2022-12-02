@@ -7,7 +7,7 @@ import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import { getVideoUrl } from 'utils/functions/getVideoUrl'
 import imageCdn from 'utils/functions/imageCdn'
-import { sanitizeIpfsUrl } from 'utils/functions/sanitizeIpfsUrl'
+import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import truncate from 'utils/functions/truncate'
 
 import MetaTags from './MetaTags'

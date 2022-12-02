@@ -2,7 +2,7 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import type { LenstubePublication } from 'utils'
-import { LENSTUBE_WEBSITE_URL } from 'utils/constants'
+import { LENSTUBE_WEBSITE_URL, STATIC_ASSETS } from 'utils/constants'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
 type Props = {
@@ -53,9 +53,9 @@ const VideoOverlay: FC<Props> = ({ video }) => {
             target="_blank"
           >
             <img
-              src="/lenstube.png"
+              src={`${STATIC_ASSETS}/images/brand/bg-black.png`}
               draggable={false}
-              className="w-8 h-8 ml-0.5"
+              className="w-8 h-8 ml-0.5 rounded-full"
               alt="lenstube"
             />
           </Link>

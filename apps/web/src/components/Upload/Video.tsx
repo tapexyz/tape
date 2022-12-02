@@ -10,7 +10,7 @@ import { IS_MAINNET } from 'utils'
 import formatBytes from 'utils/functions/formatBytes'
 import { getIsNSFW } from 'utils/functions/getIsNSFW'
 import imageCdn from 'utils/functions/imageCdn'
-import { sanitizeIpfsUrl } from 'utils/functions/sanitizeIpfsUrl'
+import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 import logger from 'utils/logger'
 
