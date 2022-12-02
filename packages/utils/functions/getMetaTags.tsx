@@ -1,4 +1,5 @@
 import {
+  LENSTUBE_API_URL,
   LENSTUBE_APP_DESCRIPTION,
   LENSTUBE_APP_NAME,
   LENSTUBE_EMBED_URL,
@@ -79,6 +80,8 @@ const getMetaTags = ({
       <meta property="twitter:player:width" content="1280" />
       <meta property="twitter:player:height" content="720" />
       <link rel="iframely player" type="text/html" href="${embedUrl}" media="(aspect-ratio: 1280/720)" />
+      <link rel="alternate" type="text/xml+oembed" href="${LENSTUBE_API_URL}/oembed?format=xml&id=${pubId}" title="${title}" />
+      <link rel="alternate" type="application/json+oembed" href="${LENSTUBE_API_URL}/oembed?format=json&id=${pubId}" title="${title}" />
 
       <meta property="og:video:url" content="${meta.url}" />
       <meta property="og:video:secure_url" content="${meta.url}" />
