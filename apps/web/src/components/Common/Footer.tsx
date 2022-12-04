@@ -80,15 +80,6 @@ const Footer = () => {
             />
             <span>Livepeer</span>
           </Link>
-          <Link
-            className="rounded-lg opacity-80 space-x-2 text-sm p-1.5 hover:opacity-100"
-            href={`https://vercel.com/?utm_source=${LENSTUBE_APP_NAME}&utm_campaign=oss`}
-            rel="noreferrer noopener"
-            target="_blank"
-          >
-            <span>▲</span>
-            <span>Vercel</span>
-          </Link>
         </div>
       </div>
     </>
