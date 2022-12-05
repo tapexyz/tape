@@ -61,7 +61,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
               <img
                 className="w-5 h-5 rounded"
                 src={getProfilePicture(profile, 'avatar')}
-                alt={`${profile.handle}`}
+                alt={profile.handle}
                 draggable={false}
               />
               <div className="flex items-center space-x-1">

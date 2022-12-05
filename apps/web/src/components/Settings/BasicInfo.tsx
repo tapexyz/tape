@@ -278,7 +278,7 @@ const BasicInfo = ({ channel }: Props) => {
           }
           className="object-cover object-center w-full h-48 bg-white rounded-xl md:h-56 dark:bg-gray-900"
           draggable={false}
-          alt="Cover"
+          alt={channel.handle + ' Cover'}
         />
         <label
           htmlFor="chooseCover"
