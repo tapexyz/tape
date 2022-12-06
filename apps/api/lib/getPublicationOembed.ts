@@ -21,7 +21,10 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
     })
 
     const video: LenstubePublication = data?.publication
-    const title = truncate(video?.metadata?.name as string, 100)
+    const title = truncate(video?.metadata?.name as string, 100).replace(
+      '"',
+      "'"
+    )
     const thumbnail = imageCdn(
       getThumbnailUrl(video) || `${STATIC_ASSETS}/images/seo/og.png`,
       'thumbnail'
