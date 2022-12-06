@@ -172,7 +172,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
               }
               onClick={() => onSelectThumbnail(idx)}
               className={clsx(
-                'rounded-lg w-full relative cursor-grab flex-none focus:outline-none',
+                'rounded-lg w-full relative flex-none focus:outline-none',
                 {
                   'ring ring-indigo-500': selectedThumbnailIndex === idx,
                   'ring !ring-red-500': thumbnail.isNSFWThumbnail
