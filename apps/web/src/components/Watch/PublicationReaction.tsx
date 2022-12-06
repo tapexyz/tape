@@ -37,8 +37,7 @@ const PublicationReaction: FC<Props> = ({
   const [reaction, setReaction] = useState({
     isLiked: publication.reaction === 'UPVOTE',
     isDisliked: publication.reaction === 'DOWNVOTE',
-    likeCount: publication.stats?.totalUpvotes,
-    dislikeCount: publication.stats?.totalDownvotes
+    likeCount: publication.stats?.totalUpvotes
   })
 
   const [addReaction] = useAddReactionMutation({
@@ -59,9 +58,6 @@ const PublicationReaction: FC<Props> = ({
       likeCount: reaction.isLiked
         ? reaction.likeCount - 1
         : reaction.likeCount + 1,
-      dislikeCount: reaction.isDisliked
-        ? reaction.dislikeCount - 1
-        : reaction.dislikeCount,
       isLiked: !reaction.isLiked,
       isDisliked: false
     }))
@@ -93,9 +89,6 @@ const PublicationReaction: FC<Props> = ({
     Analytics.track(TRACK.DISLIKE_VIDEO)
     setReaction((reaction) => ({
       likeCount: reaction.isLiked ? reaction.likeCount - 1 : reaction.likeCount,
-      dislikeCount: reaction.isDisliked
-        ? reaction.dislikeCount - 1
-        : reaction.dislikeCount + 1,
       isLiked: false,
       isDisliked: !reaction.isDisliked
     }))
