@@ -32,14 +32,14 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   durationInSeconds: null,
   videoCategory: CREATOR_VIDEO_CATEGORIES[0],
   collectModule: {
-    type: 'freeCollectModule',
+    type: 'revertCollectModule',
     followerOnlyCollect: false,
     amount: { currency: WMATIC_TOKEN_ADDRESS, value: '' },
     referralFee: 0,
     isTimedFeeCollect: false,
-    isFreeCollect: true,
+    isFreeCollect: false,
     isFeeCollect: false,
-    isRevertCollect: false
+    isRevertCollect: true
   },
   referenceModule: {
     followerOnlyReferenceModule: false,
