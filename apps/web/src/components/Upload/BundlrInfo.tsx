@@ -186,7 +186,7 @@ const BundlrInfo = () => {
           <div className="flex items-end space-x-2">
             <Input
               type="number"
-              placeholder="100 MATIC"
+              placeholder={userBalance?.formatted}
               className="!py-1.5"
               autoComplete="off"
               min={0}
