@@ -242,19 +242,19 @@ export type ClaimableHandles = {
 
 /** Condition that signifies if address or profile has collected a publication */
 export type CollectConditionInput = {
-  /** The collected publication id */
-  publicationId: Scalars['PublicationId']
-  /** The collected publication id */
-  publisherId: Scalars['ProfileId']
+  /** The publication id that has to be collected to unlock content */
+  publicationId?: InputMaybe<Scalars['ProfileId']>
+  /** True if the content will be unlocked for this specific publication */
+  thisPublication?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Condition that signifies if address or profile has collected a publication */
 export type CollectConditionOutput = {
   __typename?: 'CollectConditionOutput'
-  /** The collected publication id */
-  publicationId: Scalars['PublicationId']
-  /** The collected publication id */
-  publisherId: Scalars['ProfileId']
+  /** The publication id that has to be collected to unlock content */
+  publicationId?: Maybe<Scalars['ProfileId']>
+  /** True if the content will be unlocked for this specific publication */
+  thisPublication?: Maybe<Scalars['Boolean']>
 }
 
 export type CollectModule =
@@ -322,6 +322,7 @@ export type Comment = {
   commentOn?: Maybe<Publication>
   /** The date the post was created on */
   createdAt: Scalars['DateTime']
+  dataAvailabilityProofs?: Maybe<Scalars['String']>
   /** This will bring back the first comment of a comment and only be defined if using `publication` query and `commentOf` */
   firstComment?: Maybe<Comment>
   hasCollectedByMe: Scalars['Boolean']
@@ -329,6 +330,8 @@ export type Comment = {
   hidden: Scalars['Boolean']
   /** The internal publication id */
   id: Scalars['InternalPublicationId']
+  /** Indicates if the publication is data availability post */
+  isDataAvailability: Scalars['Boolean']
   /** Indicates if the publication is gated behind some access criteria */
   isGated: Scalars['Boolean']
   /** The top level post/mirror this comment lives on */
@@ -938,6 +941,10 @@ export type CreateUnfollowBroadcastItemResult = {
   typedData: CreateBurnEip712TypedData
 }
 
+export type CurRequest = {
+  secret: Scalars['String']
+}
+
 /** The custom filters types */
 export enum CustomFiltersTypes {
   Gardeners = 'GARDENERS'
@@ -951,6 +958,7 @@ export enum DecryptFailReason {
   DoesNotOwnProfile = 'DOES_NOT_OWN_PROFILE',
   FollowNotFinalisedOnChain = 'FOLLOW_NOT_FINALISED_ON_CHAIN',
   HasNotCollectedPublication = 'HAS_NOT_COLLECTED_PUBLICATION',
+  MissingEncryptionParams = 'MISSING_ENCRYPTION_PARAMS',
   ProfileDoesNotExist = 'PROFILE_DOES_NOT_EXIST',
   UnauthorizedAddress = 'UNAUTHORIZED_ADDRESS',
   UnauthorizedBalance = 'UNAUTHORIZED_BALANCE'
@@ -1140,16 +1148,12 @@ export type EnsOnChainIdentity = {
 export type EoaOwnershipInput = {
   /** The address that will have access to the content */
   address: Scalars['EthereumAddress']
-  /** The chain ID of the address */
-  chainID: Scalars['ChainId']
 }
 
 export type EoaOwnershipOutput = {
   __typename?: 'EoaOwnershipOutput'
   /** The address that will have access to the content */
   address: Scalars['EthereumAddress']
-  /** The chain ID of the address */
-  chainID: Scalars['ChainId']
 }
 
 /** The erc20 type */
@@ -1547,6 +1551,12 @@ export type HasTxHashBeenIndexedRequest = {
   txId?: InputMaybe<Scalars['TxId']>
 }
 
+export type HelRequest = {
+  handle: Scalars['Handle']
+  remove: Scalars['Boolean']
+  secret: Scalars['String']
+}
+
 export type HidePublicationRequest = {
   /** Publication id */
   publicationId: Scalars['InternalPublicationId']
@@ -1764,11 +1774,14 @@ export type Mirror = {
   collectNftAddress?: Maybe<Scalars['ContractAddress']>
   /** The date the post was created on */
   createdAt: Scalars['DateTime']
+  dataAvailabilityProofs?: Maybe<Scalars['String']>
   hasCollectedByMe: Scalars['Boolean']
   /** If the publication has been hidden if it has then the content and media is not available */
   hidden: Scalars['Boolean']
   /** The internal publication id */
   id: Scalars['InternalPublicationId']
+  /** Indicates if the publication is data availability post */
+  isDataAvailability: Scalars['Boolean']
   /** Indicates if the publication is gated behind some access criteria */
   isGated: Scalars['Boolean']
   /** The metadata for the post */
@@ -1871,6 +1884,7 @@ export type Mutation = {
   createSetProfileMetadataViaDispatcher: RelayResult
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult
+  hel?: Maybe<Scalars['Void']>
   hidePublication?: Maybe<Scalars['Void']>
   proxyAction: Scalars['ProxyActionId']
   refresh: AuthenticationResult
@@ -2000,6 +2014,10 @@ export type MutationCreateToggleFollowTypedDataArgs = {
 export type MutationCreateUnfollowTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>
   request: UnfollowRequest
+}
+
+export type MutationHelArgs = {
+  request: HelRequest
 }
 
 export type MutationHidePublicationArgs = {
@@ -2399,11 +2417,14 @@ export type Post = {
   collectedBy?: Maybe<Wallet>
   /** The date the post was created on */
   createdAt: Scalars['DateTime']
+  dataAvailabilityProofs?: Maybe<Scalars['String']>
   hasCollectedByMe: Scalars['Boolean']
   /** If the publication has been hidden if it has then the content and media is not available */
   hidden: Scalars['Boolean']
   /** The internal publication id */
   id: Scalars['InternalPublicationId']
+  /** Indicates if the publication is data availability post */
+  isDataAvailability: Scalars['Boolean']
   /** Indicates if the publication is gated behind some access criteria */
   isGated: Scalars['Boolean']
   /** The metadata for the post */
@@ -3022,6 +3043,7 @@ export type Query = {
   challenge: AuthChallengeResult
   claimableHandles: ClaimableHandles
   claimableStatus: ClaimStatus
+  cur: Array<Scalars['String']>
   defaultProfile?: Maybe<Profile>
   doesFollow: Array<DoesFollowResponse>
   enabledModuleCurrencies: Array<Erc20>
@@ -3081,6 +3103,10 @@ export type QueryApprovedModuleAllowanceAmountArgs = {
 
 export type QueryChallengeArgs = {
   request: ChallengeRequest
+}
+
+export type QueryCurArgs = {
+  request: CurRequest
 }
 
 export type QueryDefaultProfileArgs = {
