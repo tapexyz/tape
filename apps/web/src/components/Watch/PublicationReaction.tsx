@@ -166,7 +166,7 @@ const PublicationReaction: FC<Props> = ({
       >
         <span
           className={clsx('flex items-center space-x-1 outline-none', {
-            'text-indigo-500 font-semibold': reaction.isDisliked,
+            'text-indigo-500': reaction.isDisliked,
             'flex-col space-y-1': isVertical
           })}
         >
@@ -184,9 +184,7 @@ const PublicationReaction: FC<Props> = ({
                 'text-indigo-500': reaction.isDisliked
               })}
             >
-              {reaction.dislikeCount > 0
-                ? formatNumber(reaction.dislikeCount)
-                : 'Dislike'}
+              Dislike
             </span>
           )}
         </span>
