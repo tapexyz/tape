@@ -107,7 +107,9 @@ const BundlrInfo = () => {
       userBalance?.formatted &&
       parseFloat(userBalance?.formatted) < depositAmount
     ) {
-      return toast.error('Insufficient funds in your wallet')
+      return toast.error(
+        `Insufficient funds in your wallet, you have ${userBalance?.formatted} MATIC.`
+      )
     }
     setBundlrData({ depositing: true })
     try {
@@ -121,7 +123,7 @@ const BundlrInfo = () => {
         Analytics.track(TRACK.DEPOSIT_MATIC)
       }
     } catch (error) {
-      toast.error('Failed to deposit')
+      toast.error('Failed to deposit storage balance.')
       logger.error('[Error Bundlr Deposit]', error)
     } finally {
       await fetchBalance()
