@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid'
 
 import { IS_MAINNET } from './constants'
 
-const enabled = process.env.NEXT_PUBLIC_DATADOG_TOKEN && IS_MAINNET
+const enabled = process.env.NEXT_PUBLIC_DATADOG_KEY && IS_MAINNET
 const isBrowser = typeof window !== 'undefined'
 
 const sendError = (error: string) => {
@@ -12,7 +12,7 @@ const sendError = (error: string) => {
     axios('https://http-intake.logs.datadoghq.com/api/v2/logs', {
       method: 'POST',
       params: {
-        'dd-api-key': process.env.NEXT_PUBLIC_DATADOG_TOKEN,
+        'dd-api-key': process.env.NEXT_PUBLIC_DATADOG_KEY,
         'dd-request-id': reqId
       },
       data: {
