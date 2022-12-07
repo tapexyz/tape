@@ -9,11 +9,18 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { Analytics, LENS_CUSTOM_FILTERS, STATIC_ASSETS, TRACK } from 'utils'
+import {
+  Analytics,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_ROADMAP_URL,
+  STATIC_ASSETS,
+  TRACK
+} from 'utils'
 
 import Login from './Auth/Login'
 import CategoryFilters from './CategoryFilters'
 import BellOutline from './Icons/BellOutline'
+import RoadmapOutline from './Icons/RoadmapOutline'
 import SearchOutline from './Icons/SearchOutline'
 import GlobalSearchBar from './Search/GlobalSearchBar'
 
@@ -88,6 +95,16 @@ const Header: FC<Props> = ({ className }) => {
             >
               <SearchOutline className="w-4 h-4" aria-hidden="true" />
             </Button>
+            <Link
+              className="rounded-lg hidden lg:block opacity-80 hover:opacity-100"
+              href={LENSTUBE_ROADMAP_URL}
+              onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)}
+              target="_blank"
+            >
+              <Button variant="material" className="!p-[9px]">
+                <RoadmapOutline className="w-4 h-4" />
+              </Button>
+            </Link>
             {selectedChannelId ? (
               <>
                 <Link
