@@ -5,7 +5,7 @@ import { Analytics, LENSTUBE_APP_NAME, STATIC_ASSETS, TRACK } from 'utils'
 
 const Thanks = () => {
   useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.STACK })
+    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.THANKS })
   }, [])
 
   return (

@@ -1,4 +1,4 @@
 import dynamic from 'next/dynamic'
-const Stack = dynamic(() => import('../components/Stack'))
+const Thanks = dynamic(() => import('../components/Thanks'))
 
-export default Stack
+export default Thanks

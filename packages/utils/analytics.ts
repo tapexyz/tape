@@ -109,7 +109,7 @@ export const TRACK = {
     EXPLORE_RECENT: 'Recents Page',
     EXPLORE_CURATED: 'Curated Page',
     PRIVACY: 'Privacy Page',
-    STACK: 'Stack Page',
+    THANKS: 'Thanks Page',
     UPLOAD: {
       DROPZONE: 'DropZone Page',
       STEPS: 'Upload Steps Page'
