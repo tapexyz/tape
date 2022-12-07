@@ -20,7 +20,6 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error) {
-    console.error('Uncaught error:', error)
     logger.error('[ERROR BOUNDARY]', error)
   }
 
