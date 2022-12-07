@@ -20,7 +20,7 @@ import {
 import Login from './Auth/Login'
 import CategoryFilters from './CategoryFilters'
 import BellOutline from './Icons/BellOutline'
-import RoadmapOutline from './Icons/FeedbackOutline'
+import RoadmapOutline from './Icons/RoadmapOutline'
 import SearchOutline from './Icons/SearchOutline'
 import GlobalSearchBar from './Search/GlobalSearchBar'
 
