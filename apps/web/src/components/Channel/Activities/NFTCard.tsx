@@ -19,6 +19,7 @@ const NFTCard: FC<Props> = ({ nft }) => {
             sandbox="allow-scripts"
             className="w-full h-full md:rounded-xl"
             src={nft?.originalContent?.animatedUrl}
+            title={nft.name}
           />
         ) : (
           <img
