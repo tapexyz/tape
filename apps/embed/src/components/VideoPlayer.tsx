@@ -118,6 +118,7 @@ const PlayerInstance = ({ source, ratio, hls, poster, video }: PlayerProps) => {
           aspectRatio={ratio}
           autopause
           autoplay
+          muted
           icons="material"
           onVmPlay={() => {
             setShowVideoOverlay(false)
