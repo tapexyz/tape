@@ -10,36 +10,32 @@ const Thanks = () => {
 
   return (
     <div className="space-y-5 md:py-10">
-      <MetaTags title="Powering Lenstube!" />
-      <div>
-        <div className="text-[11px] mt-2 px-2.5 cursor-default p-1 font-semibold uppercase opacity-50">
-          Powered by
-        </div>
-        <div className="px-1">
-          <Link
-            className="rounded-lg opacity-80 space-x-2 p-1.5 flex text-sm items-center hover:opacity-100"
-            href={`https://livepeer.studio/?utm_source=${LENSTUBE_APP_NAME}`}
-            rel="noreferrer noopener"
-            target="_blank"
-          >
-            <img
-              src={`${STATIC_ASSETS}/images/livepeer.png`}
-              alt="lvpr"
-              className="w-3 h-3 flex-none"
-              draggable={false}
-            />
-            <span>Livepeer</span>
-          </Link>
-          <Link
-            className="rounded-lg opacity-80 space-x-2 text-sm p-1.5 hover:opacity-100"
-            href={`https://vercel.com/?utm_source=${LENSTUBE_APP_NAME}&utm_campaign=oss`}
-            rel="noreferrer noopener"
-            target="_blank"
-          >
-            <span>▲</span>
-            <span>Vercel</span>
-          </Link>
-        </div>
+      <MetaTags title="Thanks" />
+      <div className="mx-auto space-x-10 justify-center flex">
+        <Link
+          href={`https://livepeer.studio/?utm_source=${LENSTUBE_APP_NAME}`}
+          className="flex items-center justify-center col-span-1 md:col-span-2 lg:col-span-1"
+        >
+          <img
+            src={`${STATIC_ASSETS}/images/livepeer.png`}
+            alt="lvpr"
+            className="w-10 h-10 flex-none rounded-full"
+            draggable={false}
+          />
+          <div className="px-5">Livepeer</div>
+        </Link>
+        <Link
+          href={`https://4everland.org/?utm_source=${LENSTUBE_APP_NAME}`}
+          className="flex items-center justify-center col-span-1 md:col-span-2 lg:col-span-1"
+        >
+          <img
+            src={`${STATIC_ASSETS}/images/4everland.png`}
+            alt="lvpr"
+            className="w-10 h-10 flex-none rounded-full"
+            draggable={false}
+          />
+          <div className="px-5">4everland</div>
+        </Link>
       </div>
     </div>
   )

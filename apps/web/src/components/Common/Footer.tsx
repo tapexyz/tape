@@ -2,11 +2,9 @@ import Link from 'next/link'
 import React from 'react'
 import {
   Analytics,
-  LENSTUBE_APP_NAME,
   LENSTUBE_GITHUB_HANDLE,
   LENSTUBE_STATUS_PAGE,
   LENSTUBE_TWITTER_HANDLE,
-  STATIC_ASSETS,
   TRACK
 } from 'utils'
 
@@ -61,27 +59,12 @@ const Footer = () => {
           Privacy
         </Link>
       </div>
-      <div>
-        <div className="text-[11px] mt-2 px-2.5 cursor-default p-1 font-semibold uppercase opacity-50">
-          Powered by
-        </div>
-        <div className="px-1">
-          <Link
-            className="rounded-lg opacity-80 space-x-2 p-1.5 flex text-sm items-center hover:opacity-100"
-            href={`https://livepeer.studio/?utm_source=${LENSTUBE_APP_NAME}`}
-            rel="noreferrer noopener"
-            target="_blank"
-          >
-            <img
-              src={`${STATIC_ASSETS}/images/livepeer.png`}
-              alt="lvpr"
-              className="w-3 h-3 flex-none"
-              draggable={false}
-            />
-            <span>Livepeer</span>
-          </Link>
-        </div>
-      </div>
+      <Link
+        href="/thanks"
+        className="rounded-lg text-sm px-2.5 py-1.5 opacity-80 hover:opacity-100"
+      >
+        Thanks
+      </Link>
     </>
   )
 }
