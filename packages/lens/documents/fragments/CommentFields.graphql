@@ -31,7 +31,6 @@ fragment CommentFields on Comment {
     totalAmountOfCollects
     totalAmountOfMirrors
     totalUpvotes
-    totalDownvotes
   }
   metadata {
     name

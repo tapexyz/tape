@@ -13,7 +13,7 @@
     "@aws-sdk/client-sts": "^3.218.0",
     "@bundlr-network/client": "^0.9.6",
     "axios": "^1.1.3",
-    "next": "13.0.5",
+    "next": "13.0.6",
     "next-transpile-modules": "^10.0.0"
   },
   "devDependencies": {
