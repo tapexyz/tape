@@ -10,62 +10,52 @@ import {
 
 const Footer = () => {
   return (
-    <>
-      <div className="grid grid-cols-2 text-sm">
-        <Link
-          className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-          href={`https://roadmap.lenstube.xyz`}
-          onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)}
-          target="_blank"
-        >
-          Feedback
-        </Link>
-        <Link
-          className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-          href={LENSTUBE_STATUS_PAGE}
-          onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
-          target="_blank"
-        >
-          Status
-        </Link>
-        <Link
-          className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-          href={`https://github.com/${LENSTUBE_GITHUB_HANDLE}`}
-          onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.GITHUB)}
-          target="_blank"
-        >
-          Github
-        </Link>
-        <Link
-          className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-          href={`https://twitter.com/${LENSTUBE_TWITTER_HANDLE}`}
-          onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.TWITTER)}
-          target="_blank"
-        >
-          Twitter
-        </Link>
-        <Link
-          className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-          href="/discord"
-          onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.DISCORD)}
-          target="_blank"
-        >
-          Discord
-        </Link>
-        <Link
-          className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-          href="/privacy"
-        >
-          Privacy
-        </Link>
-      </div>
+    <div className="grid grid-cols-2 text-sm">
       <Link
+        className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
+        href={LENSTUBE_STATUS_PAGE}
+        onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
+        target="_blank"
+      >
+        Status
+      </Link>
+      <Link
+        className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
+        href={`https://github.com/${LENSTUBE_GITHUB_HANDLE}`}
+        onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.GITHUB)}
+        target="_blank"
+      >
+        Github
+      </Link>
+      <Link
+        className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
+        href={`https://twitter.com/${LENSTUBE_TWITTER_HANDLE}`}
+        onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.TWITTER)}
+        target="_blank"
+      >
+        Twitter
+      </Link>
+      <Link
+        className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
+        href="/discord"
+        onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.DISCORD)}
+        target="_blank"
+      >
+        Discord
+      </Link>
+      <Link
+        className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
+        href="/privacy"
+      >
+        Privacy
+      </Link>
+      <Link
+        className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         href="/thanks"
-        className="rounded-lg text-sm px-2.5 py-1.5 opacity-80 hover:opacity-100"
       >
         Thanks
       </Link>
-    </>
+    </div>
   )
 }
 
