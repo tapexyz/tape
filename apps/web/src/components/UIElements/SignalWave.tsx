@@ -2,7 +2,7 @@ import React from 'react'
 
 const SignalWave = () => {
   return (
-    <div className="absolute top-0 right-0 -z-10 flex items-center justify-center translate-x-2 opacity-60">
+    <div className="absolute top-0 right-0 flex items-center justify-center translate-x-2 opacity-60">
       <div className="absolute border-2 border-black rounded-full dark:border-white w-96 h-96 opacity-10" />
       <div className="absolute border-2 border-black rounded-full dark:border-white w-80 h-80 opacity-10" />
       <div className="absolute w-64 h-64 border-2 border-black rounded-full dark:border-white opacity-20" />

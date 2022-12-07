@@ -1,4 +1,5 @@
 import {
+  LENSTUBE_API_URL,
   LENSTUBE_APP_DESCRIPTION,
   LENSTUBE_APP_NAME,
   LENSTUBE_EMBED_URL,
@@ -56,28 +57,37 @@ const getMetaTags = ({
               <meta property="twitter:image:height" content="${
                 isVideo ? 360 : 400
               }" />
-              <meta name="twitter:site" content="@lenstubexyz" />
+              <meta name="twitter:site" content="@${LENSTUBE_TWITTER_HANDLE}" />
               <meta name="twitter:title" content="${meta.title}" />
               <meta name="twitter:description" content="${meta.description}" />
               <meta property="twitter:image" content="${meta.image}" />
               <meta property="twitter:creator" content="${LENSTUBE_TWITTER_HANDLE}" />
               <meta name="twitter:card" content="${
-                isVideo ? 'summary_large_image' : 'summary'
+                isVideo ? 'player' : 'summary'
               }" />`
 
   if (isVideo) {
     const embedUrl = `${LENSTUBE_EMBED_URL}/${pubId}`
-    defaultMeta += `<meta property="og:video" content="${LENSTUBE_EMBED_URL}" />
+    defaultMeta += `<meta property="og:video" content="${embedUrl}" />
       <meta property="og:video:width" content="1280" />
       <meta property="og:video:height" content="720" />
-      <meta property="og:video:url" content="${meta.url}" />
+      <meta property="og:video:url" content="${embedUrl}" />
+      <meta property="og:video:secure_url" content="${embedUrl}"/>
       <meta property="og:video:type" content="text/html" />
-      <meta property="og:video:secure_url" content="${meta.url}"/>
-      <meta name="twitter:card" content="player" />
+
+      <meta name="twitter:url" content="${meta.url}" />
       <meta name="twitter:player" content="${embedUrl}" />
       <meta property="twitter:player:width" content="1280" />
       <meta property="twitter:player:height" content="720" />
-      <link rel="iframely player" type="text/html" href="${embedUrl}" media="(aspect-ratio: 1280/720)" />`
+      <link rel="iframely player" type="text/html" href="${embedUrl}" media="(aspect-ratio: 1280/720)" />
+      <link rel="alternate" type="text/xml+oembed" href="${LENSTUBE_API_URL}/oembed?format=xml&id=${pubId}" title="${title}" />
+      <link rel="alternate" type="application/json+oembed" href="${LENSTUBE_API_URL}/oembed?format=json&id=${pubId}" title="${title}" />
+
+      <meta property="og:video:url" content="${meta.url}" />
+      <meta property="og:video:secure_url" content="${meta.url}" />
+      <meta property="og:video:type" content="application/x-shockwave-flash" />
+      <meta property="og:video:width" content="1280" />
+      <meta property="og:video:height" content="720" />`
   }
 
   return `<!DOCTYPE html>

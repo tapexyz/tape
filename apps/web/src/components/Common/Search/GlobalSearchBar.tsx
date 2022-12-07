@@ -82,7 +82,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
             <input
               className="w-full py-2 pl-4 pr-10 text-sm bg-transparent focus:outline-none"
               onChange={(event) => setKeyword(event.target.value)}
-              placeholder="Search by hashtag / channel"
+              placeholder="Search by channel / hashtag"
               value={keyword}
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -94,7 +94,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
           </div>
           <div
             className={clsx(
-              'md:absolute w-full mt-1 text-base bg-white overflow-hidden dark:bg-theme rounded-xl ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
+              'md:absolute w-full z-10 mt-1 text-base bg-white overflow-hidden dark:bg-theme rounded-xl ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
               { hidden: debouncedValue.length === 0 }
             )}
           >

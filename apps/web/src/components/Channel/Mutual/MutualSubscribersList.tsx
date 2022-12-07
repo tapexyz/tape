@@ -65,7 +65,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
             <img
               className="w-5 h-5 rounded"
               src={getProfilePicture(channel)}
-              alt="channel picture"
+              alt={channel.handle}
               draggable={false}
             />
             <div className="flex items-center space-x-1">

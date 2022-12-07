@@ -56,7 +56,6 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 - `web`: NextJs Lenstube website
 - `embed`: NextJs application for video embeds
 - `api`: NextJs serverless functions for Lenstube
-- `assets`: Static assets
 
 ## Getting Started
 
@@ -91,4 +90,4 @@ We love contributors! Feel free to contribute to this project but please read th
 
 ## License
 
-Lenstube is open-sourced software licensed under the [MIT license](LICENSE).
+Lenstube is open-sourced software licensed under the [GNU GENERAL PUBLIC LICENSE](LICENSE).

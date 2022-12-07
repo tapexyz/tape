@@ -58,9 +58,7 @@ export const POLYGONSCAN_URL = IS_MAINNET
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 // cdn
-export const IMAGE_CDN_URL = IS_MAINNET
-  ? 'https://ik.imagekit.io/lenstubemain'
-  : ''
+export const IMAGE_CDN_URL = IS_MAINNET ? 'https://img.lenstube.xyz' : ''
 export const VIDEO_CDN_URL = 'https://cdn.livepeer.com'
 
 export const SCROLL_ROOT_MARGIN = '40% 0px'
@@ -136,6 +134,7 @@ export const GIT_DEPLOYED_BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
 export const VERCEL_DEPLOYED_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV
 export const MIXPANEL_API_HOST = '/collect'
 export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN
+export const DATADOG_KEY = process.env.NEXT_PUBLIC_DATADOG_KEY
 
 export const API_ORIGINS = [
   'https://lenstube.xyz',

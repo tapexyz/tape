@@ -10,8 +10,6 @@ import { useRouter } from 'next/router'
 import React, { lazy, Suspense, useEffect } from 'react'
 import { AUTH_ROUTES } from 'utils/data/auth-routes'
 
-export { reportWebVitals } from 'next-axiom'
-
 const Providers = lazy(() => import('../components/Common/Providers'))
 const Layout = lazy(() => import('../components/Common/Layout'))
 
