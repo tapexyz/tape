@@ -60,7 +60,7 @@ const ProfileInterests = () => {
               what’s most relevant to you from time to time. That’s where
               profile interests can help curate content the way you like.
             </p>
-            <div className="max-h-96 w-full no-scrollbar overflow-y-auto">
+            <div className="max-h-96 w-full no-scrollbar z-[1] overflow-y-auto">
               <Topics />
             </div>
             <div className="flex w-full justify-end">

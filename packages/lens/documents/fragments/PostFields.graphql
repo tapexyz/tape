@@ -31,7 +31,6 @@ fragment PostFields on Post {
     totalAmountOfCollects
     totalAmountOfMirrors
     totalUpvotes
-    totalDownvotes
   }
   metadata {
     name

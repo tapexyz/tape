@@ -2,8 +2,8 @@ import type { predictionType } from 'nsfwjs'
 
 import logger from '../logger'
 
-const SENSITIVE_CONTENT_LIMIT = 95
-const SEXY_CONTENT_LIMIT = 95
+const SENSITIVE_CONTENT_LIMIT = 98
+const SEXY_CONTENT_LIMIT = 98
 
 export const getIsNSFW = (predictions: predictionType[]): boolean => {
   const porn = predictions.find((i) => i.className === 'Porn')?.probability || 0
