@@ -43,6 +43,9 @@
 
 Lenstube is a decentralized video-sharing social media platform, built using Lens Protocol 🌿
 
+
+[Radicle Repo](https://app.radicle.xyz/seeds/pine.radicle.garden/rad:git:hnrkpibaij783apnhxd9bnuw77i15ncizudso)
+
 ## Community
 
 For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://lenstube.xyz/discord).
