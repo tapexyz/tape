@@ -56,7 +56,7 @@ const Layout: FC<Props> = ({ children }) => {
     }
   })
   const { mounted } = useIsMounted()
-  const { address, isDisconnected } = useAccount()
+  const { address } = useAccount()
   const { pathname, replace, asPath } = useRouter()
   const showFullScreen = getShowFullScreen(pathname)
 
@@ -108,10 +108,7 @@ const Layout: FC<Props> = ({ children }) => {
     const isSwitchedAccount =
       ownerAddress !== undefined && ownerAddress !== address
     const shouldLogout =
-      !getIsAuthTokensAvailable() ||
-      isWrongNetworkChain ||
-      isDisconnected ||
-      isSwitchedAccount
+      !getIsAuthTokensAvailable() || isWrongNetworkChain || isSwitchedAccount
 
     if (shouldLogout && selectedChannelId) {
       logout()
@@ -121,7 +118,7 @@ const Layout: FC<Props> = ({ children }) => {
   useEffect(() => {
     validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDisconnected, address, chain, disconnect, selectedChannelId])
+  }, [address, chain, disconnect, selectedChannelId])
 
   if (loading || !mounted) return <FullPageLoader />
 
