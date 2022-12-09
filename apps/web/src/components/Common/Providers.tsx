@@ -30,11 +30,11 @@ const { chains, provider } = configureChains(
     jsonRpcProvider({
       rpc: () => ({
         http: POLYGON_RPC_URL
-      }),
-      priority: 0
+      })
     }),
-    publicProvider({ priority: 1 })
-  ]
+    publicProvider()
+  ],
+  { targetQuorum: 1 }
 )
 
 const connectors = connectorsForWallets([
