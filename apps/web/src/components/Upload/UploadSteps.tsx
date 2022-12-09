@@ -166,6 +166,9 @@ const UploadSteps = () => {
         }
       )
       const { playbackId } = playbackResponse.data
+      Analytics.track(TRACK.GET_PLAYBACK, {
+        format: uploadedVideo.videoType
+      })
       return playbackId
     } catch (error) {
       logger.error('[Error Get Playback]', error)
