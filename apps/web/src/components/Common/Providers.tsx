@@ -30,7 +30,8 @@ const { chains, provider } = configureChains(
     jsonRpcProvider({
       rpc: () => ({
         http: POLYGON_RPC_URL
-      })
+      }),
+      priority: 1
     }),
     publicProvider()
   ]
