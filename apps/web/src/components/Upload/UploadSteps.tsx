@@ -23,6 +23,7 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import {
+  ALLOWED_PLAYBACK_VIDEO_TYPES,
   Analytics,
   ARWEAVE_WEBSITE_URL,
   BUNDLR_CONNECT_MESSAGE,
@@ -152,9 +153,7 @@ const UploadSteps = () => {
     // Only on production and mp4 (supported on livepeer)
     if (
       !IS_MAINNET ||
-      !['video/mp4', 'video/quicktime', 'video/mov'].includes(
-        uploadedVideo.videoType
-      )
+      !ALLOWED_PLAYBACK_VIDEO_TYPES.includes(uploadedVideo.videoType)
     ) {
       return null
     }

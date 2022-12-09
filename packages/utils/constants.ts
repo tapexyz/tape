@@ -116,6 +116,12 @@ export const ALLOWED_VIDEO_TYPES = [
   'video/quicktime',
   'video/mov'
 ]
+export const ALLOWED_PLAYBACK_VIDEO_TYPES = [
+  'video/mp4',
+  'video/quicktime',
+  'video/mov',
+  'video/webm'
+]
 
 // other apps
 export const LENSTER_WEBSITE_URL = IS_MAINNET
