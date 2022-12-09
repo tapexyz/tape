@@ -35,7 +35,7 @@ const PermissionAlert: FC<Props> = ({
   })
   const { isLoading: waiting } = useWaitForTransaction({
     hash: txData?.hash,
-    onSuccess() {
+    onSuccess: () => {
       toast.success(
         `Module ${isAllowed ? 'disabled' : 'enabled'} successfully!`
       )

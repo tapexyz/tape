@@ -24,7 +24,7 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import ErrorBoundary from './ErrorBoundary'
 
 const { chains, provider } = configureChains(
-  [IS_MAINNET ? chain.polygon : chain.polygonMumbai, chain.mainnet],
+  [IS_MAINNET ? chain.polygon : chain.polygonMumbai],
   [
     jsonRpcProvider({
       rpc: () => ({

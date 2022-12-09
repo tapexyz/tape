@@ -14,6 +14,7 @@ export const TRACK = {
   DISPATCHER_ENABLED: 'Dispatcher Enabled',
   GET_VERIFIED: 'Get Verified',
   UPLOADED_VIDEO: 'Uploaded Video',
+  GET_PLAYBACK: 'Get Playback',
   CLICKED_BYTES_TAG_AT_UPLOAD: 'Clicked Bytes During Upload',
   CLICK_CHANNEL_SETTINGS: 'Clicked Channel Settings',
   UPDATE_CHANNEL_INFO: 'Clicked Channel Info',
