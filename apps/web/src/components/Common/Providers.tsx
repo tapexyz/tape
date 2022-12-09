@@ -20,6 +20,7 @@ import React from 'react'
 import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
+import { publicProvider } from 'wagmi/providers/public'
 
 import ErrorBoundary from './ErrorBoundary'
 
@@ -30,8 +31,10 @@ const { chains, provider } = configureChains(
       rpc: () => ({
         http: POLYGON_RPC_URL
       })
-    })
-  ]
+    }),
+    publicProvider()
+  ],
+  { targetQuorum: 1 }
 )
 
 const connectors = connectorsForWallets([
