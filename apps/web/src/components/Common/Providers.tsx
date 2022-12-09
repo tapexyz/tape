@@ -18,14 +18,13 @@ import { ThemeProvider, useTheme } from 'next-themes'
 import type { ReactNode } from 'react'
 import React from 'react'
 import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
-import { configureChains, createClient, WagmiConfig } from 'wagmi'
-import { polygon, polygonMumbai } from 'wagmi/chains'
+import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
 import ErrorBoundary from './ErrorBoundary'
 
 const { chains, provider } = configureChains(
-  [IS_MAINNET ? polygon : polygonMumbai],
+  [IS_MAINNET ? chain.polygon : chain.polygonMumbai],
   [
     jsonRpcProvider({
       rpc: () => ({

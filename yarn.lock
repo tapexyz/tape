@@ -1545,7 +1545,7 @@
     near-api-js "^0.44.2"
     near-seed-phrase "^0.2.0"
 
-"@coinbase/wallet-sdk@^3.6.0":
+"@coinbase/wallet-sdk@^3.5.3":
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/@coinbase/wallet-sdk/-/wallet-sdk-3.6.2.tgz#e8633001136e0236a746f6462c0dff2f881db343"
   integrity sha512-HzxajB+qS+G9//c+th5uJ8KSt+jQ6/U+cgL9Sv89Wx6Mif+Lg5HxGtc6JQcIdHuYk9AFX+nXNSXtTGRdpHkdDg==
@@ -3741,17 +3741,11 @@
   dependencies:
     "@seznam/compose-react-refs" "^1.0.4"
 
-"@wagmi/chains@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@wagmi/chains/-/chains-0.1.0.tgz#a376d72f465c6d188d39617ec01cf5c1d2c13cd8"
-  integrity sha512-seQVLZRHG2id8xqG+VnieFQ2gdavwa5Do+90lxbm/5EqiBo0S9LPFns6BKsSjW8o8T6UnmqzqhZwd4Q6cz8fFg==
-
-"@wagmi/core@0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.8.1.tgz#6f2fb8ddd6603d092838b9b9e738a5ca2c1258c5"
-  integrity sha512-1nJogwgyAU7Ew0hqy9jO+Vy64dnTHPDOU7xj4jkNHw6wkNg1jVvhDdWKVV4YXY9JX4RmeNLxZfqNnV0h3mGrpQ==
+"@wagmi/core@0.7.9":
+  version "0.7.9"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-0.7.9.tgz#6ba054d8496e81b16b1c36a6faa6942233f4ecfb"
+  integrity sha512-97KCELUP5Q1AagRyE7SmpLh4/v3xdcy/XMbybLvvtQbgmi3y5oEzy4h/wJMY1hEZlmicqyWZAHHm6xIr1tP5HA==
   dependencies:
-    "@wagmi/chains" "^0.1.0"
     abitype "^0.1.8"
     eventemitter3 "^4.0.7"
     zustand "^4.1.4"
@@ -9833,16 +9827,16 @@ vlq@^2.0.4:
   resolved "https://registry.yarnpkg.com/vlq/-/vlq-2.0.4.tgz#6057b85729245b9829e3cc7755f95b228d4fe041"
   integrity sha512-aodjPa2wPQFkra1G8CzJBTHXhgk3EVSwxSWXNPr1fgdFLUb8kvLV1iEb6rFgasIsjP82HWI6dsb5Io26DDnasA==
 
-wagmi@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.9.1.tgz#7ecbd632d7c98728b30889ed877729909c6443b1"
-  integrity sha512-X3k9E76KTrAEcqb4MoTkieqJFmva+qBqhJOfmiS27JSK67r4+LGwUqwh/9+b/BoQ3WK0TclOgwZYWYP54dU6Ag==
+wagmi@^0.8.7:
+  version "0.8.10"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.8.10.tgz#941bebd3cf3f0366e54753040d2f2a141096ce6e"
+  integrity sha512-svS/Debs6maJX3TlPDXNo+UDfZn8VCHzN2xcMMjPjcu2Z9k2iwFwC0TMLxM1itluzrTcw9n8F8E+f6gb+Aw+EQ==
   dependencies:
-    "@coinbase/wallet-sdk" "^3.6.0"
+    "@coinbase/wallet-sdk" "^3.5.3"
     "@tanstack/query-sync-storage-persister" "^4.14.5"
     "@tanstack/react-query" "^4.14.5"
     "@tanstack/react-query-persist-client" "^4.14.5"
-    "@wagmi/core" "0.8.1"
+    "@wagmi/core" "0.7.9"
     "@walletconnect/ethereum-provider" "^1.8.0"
     abitype "^0.1.7"
     use-sync-external-store "^1.2.0"
