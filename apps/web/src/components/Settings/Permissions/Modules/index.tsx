@@ -62,7 +62,7 @@ const ModulePermissions = () => {
   })
   useWaitForTransaction({
     hash: txData?.hash,
-    onSuccess() {
+    onSuccess: () => {
       toast.success('Permission updated')
       setLoadingModule('')
       refetch()

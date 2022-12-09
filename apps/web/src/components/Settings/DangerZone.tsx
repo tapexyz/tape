@@ -47,7 +47,7 @@ const DangerZone = () => {
   useWaitForTransaction({
     enabled: txnHash && txnHash.length > 0,
     hash: txnHash,
-    onSuccess() {
+    onSuccess: () => {
       toast.success('Channel deleted')
       setLoading(false)
       clearLocalStorage()
