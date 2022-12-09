@@ -31,9 +31,9 @@ const { chains, provider } = configureChains(
       rpc: () => ({
         http: POLYGON_RPC_URL
       }),
-      priority: 1
+      priority: 0
     }),
-    publicProvider()
+    publicProvider({ priority: 1 })
   ]
 )
 
