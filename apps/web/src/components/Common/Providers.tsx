@@ -19,13 +19,13 @@ import type { ReactNode } from 'react'
 import React from 'react'
 import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
-import { mainnet, polygon, polygonMumbai } from 'wagmi/chains'
+import { polygon, polygonMumbai } from 'wagmi/chains'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
 import ErrorBoundary from './ErrorBoundary'
 
 const { chains, provider } = configureChains(
-  [IS_MAINNET ? polygon : polygonMumbai, mainnet],
+  [IS_MAINNET ? polygon : polygonMumbai],
   [
     jsonRpcProvider({
       rpc: () => ({
