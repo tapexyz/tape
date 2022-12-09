@@ -1,6 +1,5 @@
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
-import useAppStore from '@lib/store'
 import {
   PublicationSortCriteria,
   PublicationTypes,
@@ -20,10 +19,6 @@ import {
 
 import SuggestedVideoCard from './SuggestedVideoCard'
 
-type Props = {
-  currentVideoId: string
-}
-
 const request = {
   sortCriteria: PublicationSortCriteria.TopCommented,
   limit: 30,
@@ -33,24 +28,13 @@ const request = {
   customFilters: LENS_CUSTOM_FILTERS
 }
 
-const SuggestedVideos: FC<Props> = ({ currentVideoId }) => {
+const SuggestedVideos: FC = () => {
   const {
     query: { id }
   } = useRouter()
-  const setUpNextVideo = useAppStore((state) => state.setUpNextVideo)
-
   const { data, loading, error, fetchMore, refetch } = useExploreQuery({
     variables: {
       request
-    },
-    onCompleted: (data) => {
-      const publications = data?.explorePublications
-        ?.items as LenstubePublication[]
-      setUpNextVideo(
-        publications?.find(
-          (video: LenstubePublication) => video.id !== currentVideoId
-        ) as LenstubePublication
-      )
     }
   })
 

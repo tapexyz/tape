@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import type { LenstubePublication } from 'utils'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import { getPermanentVideoUrl, getVideoUrl } from 'utils/functions/getVideoUrl'
+import { getVideoUrl } from 'utils/functions/getVideoUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import logger from 'utils/logger'
 
@@ -29,7 +29,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
     try {
       await axios.get(videoUrl)
     } catch {
-      setVideoUrl(getPermanentVideoUrl(video))
+      setVideoUrl(getVideoUrl(video))
     }
   }
 

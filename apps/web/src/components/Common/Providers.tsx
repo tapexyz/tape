@@ -1,5 +1,11 @@
 import { ApolloProvider } from '@apollo/client'
 import apolloClient from '@lib/apollo'
+import type { ThemeConfig } from '@livepeer/react'
+import {
+  createReactClient,
+  LivepeerConfig,
+  studioProvider
+} from '@livepeer/react'
 import {
   connectorsForWallets,
   darkTheme,
@@ -56,6 +62,35 @@ const wagmiClient = createClient({
   provider
 })
 
+const livepeerClient = createReactClient({
+  provider: studioProvider({
+    apiKey: process.env.NEXT_PUBLIC_STUDIO_API_KEY as string
+  })
+})
+
+const playerTheme: ThemeConfig = {
+  colors: {
+    accent: '#fff'
+  },
+  fonts: {
+    display: 'Matter'
+  },
+  fontSizes: {
+    timeFontSize: '12px'
+  },
+  space: {
+    timeMarginX: '20px'
+  },
+  sizes: {
+    iconButtonSize: '35px',
+    loading: '30px',
+    thumb: '5px',
+    thumbActive: '9px',
+    trackActive: '3px',
+    trackInactive: '3px'
+  }
+}
+
 // Enables usage of theme in RainbowKitProvider
 const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
   const { theme } = useTheme()
@@ -80,13 +115,15 @@ const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ErrorBoundary>
-      <WagmiConfig client={wagmiClient}>
-        <ThemeProvider defaultTheme="light" attribute="class">
-          <RainbowKitProviderWrapper>
-            <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
-          </RainbowKitProviderWrapper>
-        </ThemeProvider>
-      </WagmiConfig>
+      <LivepeerConfig client={livepeerClient} theme={playerTheme}>
+        <WagmiConfig client={wagmiClient}>
+          <ThemeProvider defaultTheme="light" attribute="class">
+            <RainbowKitProviderWrapper>
+              <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
+            </RainbowKitProviderWrapper>
+          </ThemeProvider>
+        </WagmiConfig>
+      </LivepeerConfig>
     </ErrorBoundary>
   )
 }
