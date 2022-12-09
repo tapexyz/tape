@@ -23,7 +23,12 @@ import {
 import { ThemeProvider, useTheme } from 'next-themes'
 import type { ReactNode } from 'react'
 import React from 'react'
-import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
+import {
+  IS_MAINNET,
+  LENSTUBE_APP_NAME,
+  LIVEPEER_STUDIO_API_KEY,
+  POLYGON_RPC_URL
+} from 'utils'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { publicProvider } from 'wagmi/providers/public'
@@ -64,7 +69,7 @@ const wagmiClient = createClient({
 
 const livepeerClient = createReactClient({
   provider: studioProvider({
-    apiKey: process.env.NEXT_PUBLIC_STUDIO_API_KEY as string
+    apiKey: LIVEPEER_STUDIO_API_KEY
   })
 })
 

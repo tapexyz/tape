@@ -66,7 +66,6 @@ export type UploadedVideo = {
   description: string
   thumbnail: string
   thumbnailType: string
-  playbackId: string
   videoCategory: { tag: string; name: string }
   percent: number
   isSensitiveContent: boolean
@@ -98,17 +97,9 @@ export type IPFSUploadResult = {
 export type VideoUploadForm = {
   videoThumbnail: IPFSUploadResult | null
   videoSource: string | null
-  playbackId: string | null
   title: string
   description: string
   adultContent: boolean
-}
-
-export type StreamData = {
-  streamKey: string
-  hostUrl: string
-  playbackId: string
-  streamId: string
 }
 
 export type ProfileMetadata = {
