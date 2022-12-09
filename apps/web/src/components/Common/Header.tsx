@@ -112,7 +112,7 @@ const Header: FC<Props> = ({ className }) => {
                     Analytics.track(TRACK.NOTIFICATIONS.CLICK_NOTIFICATIONS)
                   }
                   href="/notifications"
-                  className="relative p-1"
+                  className="relative pr-1"
                 >
                   <Button variant="material" className="!p-[9px]">
                     <BellOutline className="w-4 h-4" />
