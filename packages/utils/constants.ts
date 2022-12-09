@@ -113,7 +113,14 @@ export const ALLOWED_VIDEO_TYPES = [
   'video/mpeg',
   'video/ogg',
   'video/webm',
-  'video/quicktime'
+  'video/quicktime',
+  'video/mov'
+]
+export const ALLOWED_PLAYBACK_VIDEO_TYPES = [
+  'video/mp4',
+  'video/quicktime',
+  'video/mov',
+  'video/webm'
 ]
 
 // other apps

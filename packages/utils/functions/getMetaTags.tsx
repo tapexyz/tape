@@ -36,6 +36,7 @@ const getMetaTags = ({
   }
 
   let defaultMeta = `<title>${meta.title}</title>
+              <meta charset="UTF-8" />
               <meta content="${meta.description}" name="description" />
               <meta name="robots" content="follow, index" />
               <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />

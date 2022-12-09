@@ -23,6 +23,7 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import {
+  ALLOWED_PLAYBACK_VIDEO_TYPES,
   Analytics,
   ARWEAVE_WEBSITE_URL,
   BUNDLR_CONNECT_MESSAGE,
@@ -95,7 +96,9 @@ const UploadSteps = () => {
       data?.broadcast?.reason !== 'NOT_ALLOWED' &&
       !data.createPostViaDispatcher?.reason
     ) {
-      Analytics.track(TRACK.UPLOADED_VIDEO)
+      Analytics.track(TRACK.UPLOADED_VIDEO, {
+        format: uploadedVideo.videoType
+      })
       setUploadedVideo({
         buttonText: 'Indexing...',
         loading: true
@@ -148,7 +151,12 @@ const UploadSteps = () => {
 
   const getPlaybackId = async (url: string) => {
     // Only on production and mp4 (supported on livepeer)
-    if (!IS_MAINNET || uploadedVideo.videoType !== 'video/mp4') return null
+    if (
+      !IS_MAINNET ||
+      !ALLOWED_PLAYBACK_VIDEO_TYPES.includes(uploadedVideo.videoType)
+    ) {
+      return null
+    }
     try {
       const playbackResponse = await axios.post(
         `${LENSTUBE_API_URL}/video/playback`,
@@ -157,6 +165,9 @@ const UploadSteps = () => {
         }
       )
       const { playbackId } = playbackResponse.data
+      Analytics.track(TRACK.GET_PLAYBACK, {
+        format: uploadedVideo.videoType
+      })
       return playbackId
     } catch (error) {
       logger.error('[Error Get Playback]', error)
@@ -330,7 +341,9 @@ const UploadSteps = () => {
         }
       }
       if (isBytesVideo) {
-        Analytics.track(TRACK.UPLOADED_BYTE_VIDEO)
+        Analytics.track(TRACK.UPLOADED_BYTE_VIDEO, {
+          format: uploadedVideo.videoType
+        })
       }
       const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
       if (!canUseDispatcher) {
@@ -360,7 +373,9 @@ const UploadSteps = () => {
       videoSource: result.url,
       playbackId
     })
-    Analytics.track(TRACK.UPLOADED_TO_IPFS)
+    Analytics.track(TRACK.UPLOADED_TO_IPFS, {
+      format: uploadedVideo.videoType
+    })
     return createPublication({
       videoSource: result.url,
       playbackId
@@ -415,7 +430,9 @@ const UploadSteps = () => {
         videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
         playbackId
       })
-      Analytics.track(TRACK.UPLOADED_TO_ARWEAVE)
+      Analytics.track(TRACK.UPLOADED_TO_ARWEAVE, {
+        format: uploadedVideo.videoType
+      })
       return createPublication({
         videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
         playbackId
