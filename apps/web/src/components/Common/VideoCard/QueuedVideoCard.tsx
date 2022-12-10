@@ -32,6 +32,7 @@ const QueuedVideoCard = () => {
   )
   const { cache } = useApolloClient()
   const [getTxnHash] = useTxIdToTxHashLazyQuery()
+
   const [getPublication] = usePublicationDetailsLazyQuery({
     onCompleted: (data) => {
       if (data.publication) {
@@ -45,11 +46,12 @@ const QueuedVideoCard = () => {
             }
           }
         })
+        setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
       }
     }
   })
 
-  const getNewPublication = async () => {
+  const getIndexedPublication = async () => {
     const { data } = await getTxnHash({
       variables: {
         txId: uploadedVideo.txnId
@@ -60,7 +62,6 @@ const QueuedVideoCard = () => {
         variables: { request: { txHash: data?.txIdToTxHash } }
       })
     }
-    setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
   }
 
   const { stopPolling } = useHasTxHashBeenIndexedQuery({
@@ -75,7 +76,7 @@ const QueuedVideoCard = () => {
         data?.hasTxHashBeenIndexed?.indexed
       ) {
         stopPolling()
-        await getNewPublication()
+        await getIndexedPublication()
       }
     }
   })
