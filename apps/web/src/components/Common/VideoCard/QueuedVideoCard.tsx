@@ -81,7 +81,7 @@ const QueuedVideoCard = () => {
     }
   })
 
-  // if (!uploadedVideo.txnId) return null
+  if (!uploadedVideo.txnId) return null
 
   return (
     <div className="cursor-wait">
