@@ -1,19 +1,19 @@
+import BytesOutline from '@components/Common/Icons/BytesOutline'
+import ChannelOutline from '@components/Common/Icons/ChannelOutline'
+import CollectOutline from '@components/Common/Icons/CollectOutline'
+import CommentOutline from '@components/Common/Icons/CommentOutline'
+import GraphOutline from '@components/Common/Icons/GraphOutline'
+import InfoOutline from '@components/Common/Icons/InfoOutline'
+import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React from 'react'
-import {
-  AiOutlineComment,
-  AiOutlineInfoCircle,
-  AiOutlineVideoCamera
-} from 'react-icons/ai'
-import { BiMoviePlay } from 'react-icons/bi'
-import { GiMirrorMirror, GiMonkey } from 'react-icons/gi'
-import { MdOutlineAnalytics, MdOutlineSlowMotionVideo } from 'react-icons/md'
 import { Analytics, TRACK } from 'utils'
 
+import VideoOutline from '../../Common/Icons/VideoOutline'
 import About from './About'
 import ChannelBytes from './ChannelBytes'
 import ChannelStats from './ChannelStats'
@@ -59,28 +59,28 @@ const Activities: FC<Props> = ({ channel }) => {
             onClick={() => Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_VIDEOS)}
             className={({ selected }) =>
               clsx(
-                'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                'px-3 py-2 mr-2 flex items-center space-x-2 font-medium border-b-2 text-sm focus:outline-none',
                 selected
-                  ? 'border-indigo-900 opacity-100'
+                  ? 'opacity-100 border-indigo-700'
                   : 'border-transparent opacity-50'
               )
             }
           >
-            <AiOutlineVideoCamera />
-            <span>Videos</span>
+            <VideoOutline className="w-4 h-4" />
+            <span>All Videos</span>
           </Tab>
           <Tab
             onClick={() => Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_BYTES)}
             className={({ selected }) =>
               clsx(
-                'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                'px-3 py-2 mr-2 flex items-center space-x-2 font-medium border-b-2 text-sm focus:outline-none',
                 selected
-                  ? 'border-indigo-900 opacity-100'
+                  ? 'opacity-100 border-indigo-700'
                   : 'border-transparent opacity-50'
               )
             }
           >
-            <MdOutlineSlowMotionVideo />
+            <BytesOutline className="w-4 h-4" />
             <span>Bytes</span>
           </Tab>
           <Tab
@@ -89,14 +89,14 @@ const Activities: FC<Props> = ({ channel }) => {
             }
             className={({ selected }) =>
               clsx(
-                'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                'px-3 py-2 mr-2 flex items-center space-x-2 font-medium border-b-2 text-sm focus:outline-none',
                 selected
-                  ? 'border-indigo-900 opacity-100'
+                  ? 'opacity-100 border-indigo-700'
                   : 'border-transparent opacity-50'
               )
             }
           >
-            <AiOutlineComment />
+            <CommentOutline className="w-4 h-4" />
             <span>Commented</span>
           </Tab>
           <Tab
@@ -105,70 +105,70 @@ const Activities: FC<Props> = ({ channel }) => {
             }
             className={({ selected }) =>
               clsx(
-                'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                'px-3 py-2 mr-2 flex items-center space-x-2 font-medium border-b-2 text-sm focus:outline-none',
                 selected
-                  ? 'border-indigo-900 opacity-100'
+                  ? 'opacity-100 border-indigo-700'
                   : 'border-transparent opacity-50'
               )
             }
           >
-            <GiMirrorMirror />
+            <MirrorOutline className="w-4 h-4" />
             <span>Mirrored</span>
           </Tab>
           <Tab
             onClick={() => Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_NFTS)}
             className={({ selected }) =>
               clsx(
-                'px-4 py-2 flex items-center space-x-2 border-b-2 whitespace-nowrap text-sm focus:outline-none',
+                'px-3 py-2 mr-2 flex items-center space-x-2 font-medium border-b-2 whitespace-nowrap text-sm focus:outline-none',
                 selected
-                  ? 'border-indigo-900 opacity-100'
+                  ? 'opacity-100 border-indigo-700'
                   : 'border-transparent opacity-50'
               )
             }
           >
-            <GiMonkey />
+            <CollectOutline className="w-4 h-4" />
             <span>NFTs</span>
           </Tab>
           <Tab
             onClick={() => Analytics.track(TRACK.CHANNEL.CLICK_OTHER_CHANNELS)}
             className={({ selected }) =>
               clsx(
-                'px-4 py-2 border-b-2 flex items-center space-x-2 text-sm focus:outline-none',
+                'px-3 py-2 mr-2 border-b-2 flex items-center font-medium space-x-2 text-sm focus:outline-none',
                 selected
-                  ? 'border-indigo-900 opacity-100'
+                  ? 'opacity-100 border-indigo-700'
                   : 'border-transparent opacity-50'
               )
             }
           >
-            <BiMoviePlay />
+            <ChannelOutline className="w-4 h-4" />
             <span>Channels</span>
           </Tab>
           <Tab
             onClick={() => Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_STATS)}
             className={({ selected }) =>
               clsx(
-                'px-4 py-2 border-b-2 flex items-center space-x-2 text-sm focus:outline-none',
+                'px-3 py-2 mr-2 border-b-2 flex items-center font-medium space-x-2 text-sm focus:outline-none',
                 selected
-                  ? 'border-indigo-900 opacity-100'
+                  ? 'opacity-100 border-indigo-700'
                   : 'border-transparent opacity-50'
               )
             }
           >
-            <MdOutlineAnalytics />
+            <GraphOutline className="w-4 h-4" />
             <span>Stats</span>
           </Tab>
           <Tab
             onClick={() => Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_ABOUT)}
             className={({ selected }) =>
               clsx(
-                'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                'px-3 py-2 mr-2 flex items-center space-x-2 font-medium border-b-2 text-sm focus:outline-none',
                 selected
-                  ? 'border-indigo-900 opacity-100'
+                  ? 'opacity-100 border-indigo-700'
                   : 'border-transparent opacity-50'
               )
             }
           >
-            <AiOutlineInfoCircle />
+            <InfoOutline className="w-4 h-4" />
             <span>About</span>
           </Tab>
         </Tab.List>

@@ -15,7 +15,7 @@ import clearLocalStorage from 'utils/functions/clearLocalStorage'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import { useAccount, useDisconnect } from 'wagmi'
 
-import ChannelHeartOutline from './Icons/ChannelHeartOutline'
+import ChannelOutline from './Icons/ChannelOutline'
 import CheckOutline from './Icons/CheckOutline'
 import ChevronLeftOutline from './Icons/ChevronLeftOutline'
 import CogOutline from './Icons/CogOutline'
@@ -171,7 +171,7 @@ const UserMenu = () => {
                     href={`/channel/${selectedChannel?.handle}`}
                     className="inline-flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
-                    <ChannelHeartOutline className="w-4 h-4" />
+                    <ChannelOutline className="w-4 h-4" />
                     <span className="truncate whitespace-nowrap">
                       Your Channel
                     </span>

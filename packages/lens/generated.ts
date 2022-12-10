@@ -4003,7 +4003,6 @@ export type CommentFieldsFragment = {
     totalAmountOfCollects: number
     totalAmountOfMirrors: number
     totalUpvotes: number
-    totalDownvotes: number
   }
   metadata: {
     __typename?: 'MetadataOutput'
@@ -4503,7 +4502,6 @@ export type PostFieldsFragment = {
     totalAmountOfCollects: number
     totalAmountOfMirrors: number
     totalUpvotes: number
-    totalDownvotes: number
   }
   metadata: {
     __typename?: 'MetadataOutput'
@@ -5492,7 +5490,6 @@ export type ExploreQuery = {
             totalAmountOfCollects: number
             totalAmountOfMirrors: number
             totalUpvotes: number
-            totalDownvotes: number
           }
           metadata: {
             __typename?: 'MetadataOutput'
@@ -5733,7 +5730,6 @@ export type ExploreQuery = {
             totalAmountOfCollects: number
             totalAmountOfMirrors: number
             totalUpvotes: number
-            totalDownvotes: number
           }
           metadata: {
             __typename?: 'MetadataOutput'
@@ -5935,7 +5931,6 @@ export type FeedQuery = {
               totalAmountOfCollects: number
               totalAmountOfMirrors: number
               totalUpvotes: number
-              totalDownvotes: number
             }
             metadata: {
               __typename?: 'MetadataOutput'
@@ -6175,7 +6170,6 @@ export type FeedQuery = {
               totalAmountOfCollects: number
               totalAmountOfMirrors: number
               totalUpvotes: number
-              totalDownvotes: number
             }
             metadata: {
               __typename?: 'MetadataOutput'
@@ -6942,7 +6936,6 @@ export type ProfileCommentsQuery = {
             totalAmountOfCollects: number
             totalAmountOfMirrors: number
             totalUpvotes: number
-            totalDownvotes: number
           }
           metadata: {
             __typename?: 'MetadataOutput'
@@ -7548,7 +7541,6 @@ export type ProfilePostsQuery = {
             totalAmountOfCollects: number
             totalAmountOfMirrors: number
             totalUpvotes: number
-            totalDownvotes: number
           }
           metadata: {
             __typename?: 'MetadataOutput'
@@ -7863,7 +7855,6 @@ export type PublicationDetailsQuery = {
           totalAmountOfCollects: number
           totalAmountOfMirrors: number
           totalUpvotes: number
-          totalDownvotes: number
         }
         metadata: {
           __typename?: 'MetadataOutput'
@@ -8100,7 +8091,6 @@ export type PublicationDetailsQuery = {
           totalAmountOfCollects: number
           totalAmountOfMirrors: number
           totalUpvotes: number
-          totalDownvotes: number
         }
         metadata: {
           __typename?: 'MetadataOutput'
@@ -8358,7 +8348,6 @@ export type SearchPublicationsQuery = {
                 totalAmountOfCollects: number
                 totalAmountOfMirrors: number
                 totalUpvotes: number
-                totalDownvotes: number
               }
               metadata: {
                 __typename?: 'MetadataOutput'
@@ -8598,7 +8587,6 @@ export type SearchPublicationsQuery = {
                 totalAmountOfCollects: number
                 totalAmountOfMirrors: number
                 totalUpvotes: number
-                totalDownvotes: number
               }
               metadata: {
                 __typename?: 'MetadataOutput'
@@ -8696,6 +8684,12 @@ export type SubscribersQuery = {
     }
   }
 }
+
+export type TxIdToTxHashQueryVariables = Exact<{
+  txId: Scalars['TxId']
+}>
+
+export type TxIdToTxHashQuery = { __typename?: 'Query'; txIdToTxHash: any }
 
 export type UserProfilesQueryVariables = Exact<{
   request: ProfileQueryRequest
@@ -8942,7 +8936,6 @@ export const CommentFieldsFragmentDoc = gql`
       totalAmountOfCollects
       totalAmountOfMirrors
       totalUpvotes
-      totalDownvotes
     }
     metadata {
       name
@@ -9110,7 +9103,6 @@ export const PostFieldsFragmentDoc = gql`
       totalAmountOfCollects
       totalAmountOfMirrors
       totalUpvotes
-      totalDownvotes
     }
     metadata {
       name
@@ -12744,6 +12736,62 @@ export type SubscribersLazyQueryHookResult = ReturnType<
 export type SubscribersQueryResult = Apollo.QueryResult<
   SubscribersQuery,
   SubscribersQueryVariables
+>
+export const TxIdToTxHashDocument = gql`
+  query TxIdToTxHash($txId: TxId!) {
+    txIdToTxHash(txId: $txId)
+  }
+`
+
+/**
+ * __useTxIdToTxHashQuery__
+ *
+ * To run a query within a React component, call `useTxIdToTxHashQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTxIdToTxHashQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTxIdToTxHashQuery({
+ *   variables: {
+ *      txId: // value for 'txId'
+ *   },
+ * });
+ */
+export function useTxIdToTxHashQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    TxIdToTxHashQuery,
+    TxIdToTxHashQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TxIdToTxHashQuery, TxIdToTxHashQueryVariables>(
+    TxIdToTxHashDocument,
+    options
+  )
+}
+export function useTxIdToTxHashLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TxIdToTxHashQuery,
+    TxIdToTxHashQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<TxIdToTxHashQuery, TxIdToTxHashQueryVariables>(
+    TxIdToTxHashDocument,
+    options
+  )
+}
+export type TxIdToTxHashQueryHookResult = ReturnType<
+  typeof useTxIdToTxHashQuery
+>
+export type TxIdToTxHashLazyQueryHookResult = ReturnType<
+  typeof useTxIdToTxHashLazyQuery
+>
+export type TxIdToTxHashQueryResult = Apollo.QueryResult<
+  TxIdToTxHashQuery,
+  TxIdToTxHashQueryVariables
 >
 export const UserProfilesDocument = gql`
   query UserProfiles($request: ProfileQueryRequest!) {
