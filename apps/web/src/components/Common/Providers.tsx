@@ -75,7 +75,8 @@ const livepeerClient = createReactClient({
 
 const playerTheme: ThemeConfig = {
   colors: {
-    accent: '#fff'
+    accent: '#fff',
+    progressLeft: '#6366f1'
   },
   fonts: {
     display: 'Matter'
@@ -89,8 +90,8 @@ const playerTheme: ThemeConfig = {
   sizes: {
     iconButtonSize: '35px',
     loading: '30px',
-    thumb: '5px',
-    thumbActive: '9px',
+    thumb: '7px',
+    thumbActive: '7px',
     trackActive: '3px',
     trackInactive: '3px'
   }
