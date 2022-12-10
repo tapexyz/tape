@@ -4,7 +4,6 @@ import useAppStore from '@lib/store'
 import usePersistStore, {
   UPLOADED_VIDEO_FORM_DEFAULTS
 } from '@lib/store/persist'
-import axios from 'axios'
 import { utils } from 'ethers'
 import type {
   CreatePostBroadcastItemResult,

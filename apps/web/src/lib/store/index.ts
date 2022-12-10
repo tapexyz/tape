@@ -1,8 +1,7 @@
 import { WebBundlr } from '@bundlr-network/client'
 import type { FetchSignerResult } from '@wagmi/core'
 import type { Profile } from 'lens'
-
-import type { BundlrDataState, LenstubePublication } from 'utils'
+import type { BundlrDataState } from 'utils'
 import { BUNDLR_CURRENCY, BUNDLR_NODE_URL, POLYGON_RPC_URL } from 'utils'
 import logger from 'utils/logger'
 import create from 'zustand'
