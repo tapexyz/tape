@@ -3,6 +3,7 @@ import React from 'react'
 import {
   Analytics,
   LENSTUBE_GITHUB_HANDLE,
+  LENSTUBE_ROADMAP_URL,
   LENSTUBE_STATUS_PAGE,
   LENSTUBE_TWITTER_HANDLE,
   TRACK
@@ -45,15 +46,28 @@ const Footer = () => {
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-        href="/privacy"
-      >
-        Privacy
-      </Link>
-      <Link
-        className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         href="/thanks"
       >
         Thanks
+      </Link>
+      <Link
+        className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
+        href={LENSTUBE_ROADMAP_URL}
+        target="_blank"
+      >
+        Feedback
+      </Link>
+      <Link
+        className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
+        href="/privacy"
+      >
+        Terms
+      </Link>
+      <Link
+        className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
+        href="/privacy"
+      >
+        Privacy
       </Link>
     </div>
   )

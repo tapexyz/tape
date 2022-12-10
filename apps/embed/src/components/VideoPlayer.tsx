@@ -2,7 +2,6 @@ import {
   DefaultControls,
   DefaultSettings,
   DefaultUi,
-  Hls,
   Player,
   Video
 } from '@vime/react'
@@ -21,7 +20,6 @@ interface Props {
   poster: string
   ratio?: string
   isSensitiveContent?: boolean
-  hls?: HLSData
   videoId?: string
   description?: string
   video: LenstubePublication
@@ -37,7 +35,7 @@ interface PlayerProps {
   video: LenstubePublication
 }
 
-const PlayerInstance = ({ source, ratio, hls, poster, video }: PlayerProps) => {
+const PlayerInstance = ({ source, ratio, poster, video }: PlayerProps) => {
   const playerRef = useRef<HTMLVmPlayerElement>()
   const [showContextMenu, setShowContextMenu] = useState(false)
   const [showVideoOverlay, setShowVideoOverlay] = useState(true)
@@ -125,21 +123,14 @@ const PlayerInstance = ({ source, ratio, hls, poster, video }: PlayerProps) => {
           }}
           onVmPlaybackEnded={() => setShowVideoOverlay(true)}
         >
-          {hls?.url ? (
-            <Hls version="latest" poster={poster}>
-              <source data-src={hls.url} type={hls.type} />
-            </Hls>
-          ) : (
-            <Video
-              preload="metadata"
-              crossOrigin="anonymous"
-              autoPiP
-              poster={poster}
-            >
-              <source data-src={source} type="video/mp4" />
-            </Video>
-          )}
-
+          <Video
+            preload="metadata"
+            crossOrigin="anonymous"
+            autoPiP
+            poster={poster}
+          >
+            <source data-src={source} type="video/mp4" />
+          </Video>
           <DefaultUi noControls>
             <DefaultControls hideOnMouseLeave activeDuration={2000} />
             <DefaultSettings />
@@ -171,7 +162,6 @@ const VideoPlayer: FC<Props> = ({
   ratio = '16:9',
   wrapperClassName,
   isSensitiveContent,
-  hls,
   video
 }) => {
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
@@ -185,7 +175,6 @@ const VideoPlayer: FC<Props> = ({
           source={source}
           ratio={ratio}
           poster={poster}
-          hls={hls}
           video={video}
         />
       )}
