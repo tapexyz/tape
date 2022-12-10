@@ -80,11 +80,6 @@ const UploadSteps = () => {
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.UPLOAD.STEPS })
-
-    if (uploadedVideo.txnId) {
-      resetToDefaults()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onError = (error: CustomErrorWithData) => {
@@ -104,8 +99,12 @@ const UploadSteps = () => {
         format: uploadedVideo.videoType
       })
       const txnId = data?.createPostViaDispatcher?.txId ?? data?.broadcast?.txId
+      setUploadedVideo({
+        buttonText: 'Post Video',
+        loading: false,
+        txnId
+      })
       router.push(`/channel/${selectedChannel?.handle}`)
-      setUploadedVideo({ txnId })
     }
   }
 

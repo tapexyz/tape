@@ -198,7 +198,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
       ) : (
         <div className="flex items-center justify-end mt-4">
           <Button variant="secondary" onClick={() => onCancel()} type="button">
-            Cancel
+            Reset
           </Button>
           <Button
             loading={uploadedVideo.loading || uploadedVideo.uploadingThumbnail}
