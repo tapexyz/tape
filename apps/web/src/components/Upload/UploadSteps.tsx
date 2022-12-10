@@ -300,13 +300,13 @@ const UploadSteps = () => {
       const { url } = await uploadToAr(metadata)
       setUploadedVideo({
         buttonText: 'Posting video...',
-        loading: true
+        loading: true,
+        isByteVideo
       })
       const isRestricted = Boolean(
         uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
           ?.degreesOfSeparation
       )
-      uploadedVideo.isByteVideo = isByteVideo
       const referenceModuleDegrees = {
         commentsRestricted: isRestricted,
         mirrorsRestricted: isRestricted,
