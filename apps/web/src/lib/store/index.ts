@@ -2,52 +2,9 @@ import { WebBundlr } from '@bundlr-network/client'
 import type { FetchSignerResult } from '@wagmi/core'
 import type { Profile } from 'lens'
 import type { BundlrDataState, LenstubePublication } from 'utils'
-import {
-  BUNDLR_CURRENCY,
-  BUNDLR_NODE_URL,
-  POLYGON_RPC_URL,
-  WMATIC_TOKEN_ADDRESS
-} from 'utils'
-import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
+import { BUNDLR_CURRENCY, BUNDLR_NODE_URL, POLYGON_RPC_URL } from 'utils'
 import logger from 'utils/logger'
 import create from 'zustand'
-
-export const UPLOADED_VIDEO_FORM_DEFAULTS = {
-  stream: null,
-  preview: '',
-  videoType: '',
-  file: null,
-  title: '',
-  description: '',
-  thumbnail: '',
-  thumbnailType: '',
-  videoSource: '',
-  percent: 0,
-  playbackId: '',
-  isSensitiveContent: false,
-  isUploadToIpfs: false,
-  loading: false,
-  uploadingThumbnail: false,
-  buttonText: 'Post Video',
-  durationInSeconds: null,
-  videoCategory: CREATOR_VIDEO_CATEGORIES[0],
-  collectModule: {
-    type: 'revertCollectModule',
-    followerOnlyCollect: false,
-    amount: { currency: WMATIC_TOKEN_ADDRESS, value: '' },
-    referralFee: 0,
-    isTimedFeeCollect: false,
-    isFreeCollect: false,
-    isFeeCollect: false,
-    isRevertCollect: true
-  },
-  referenceModule: {
-    followerOnlyReferenceModule: false,
-    degreesOfSeparationReferenceModule: null
-  },
-  isNSFW: false,
-  isNSFWThumbnail: false
-}
 
 export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {
   balance: '0',

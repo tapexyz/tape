@@ -98,7 +98,7 @@ const Video = () => {
           )}
         </div>
         {uploadedVideo.videoSource && (
-          <Tooltip placement="left" content="Copy source URL">
+          <Tooltip placement="left" content="Copy permanent video URL">
             <button
               type="button"
               onClick={() => onCopyVideoSource(uploadedVideo.videoSource)}

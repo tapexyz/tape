@@ -1,8 +1,47 @@
 import type { UploadedVideo } from 'utils'
+import { WMATIC_TOKEN_ADDRESS } from 'utils'
+import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { UPLOADED_VIDEO_FORM_DEFAULTS } from '.'
+export const UPLOADED_VIDEO_FORM_DEFAULTS = {
+  stream: null,
+  preview: '',
+  videoType: '',
+  file: null,
+  title: '',
+  description: '',
+  thumbnail: '',
+  thumbnailType: '',
+  videoSource: '',
+  percent: 0,
+  playbackId: '',
+  isSensitiveContent: false,
+  isUploadToIpfs: false,
+  loading: false,
+  uploadingThumbnail: false,
+  buttonText: 'Post Video',
+  durationInSeconds: null,
+  videoCategory: CREATOR_VIDEO_CATEGORIES[0],
+  collectModule: {
+    type: 'revertCollectModule',
+    followerOnlyCollect: false,
+    amount: { currency: WMATIC_TOKEN_ADDRESS, value: '' },
+    referralFee: 0,
+    isTimedFeeCollect: false,
+    isFreeCollect: false,
+    isFeeCollect: false,
+    isRevertCollect: true
+  },
+  referenceModule: {
+    followerOnlyReferenceModule: false,
+    degreesOfSeparationReferenceModule: null
+  },
+  isNSFW: false,
+  isNSFWThumbnail: false,
+  isByteVideo: false,
+  txnId: null
+}
 
 interface AppPerisistState {
   selectedChannelId: string | null
@@ -22,7 +61,6 @@ export const usePersistStore = create(
       sidebarCollapsed: true,
       notificationCount: 0,
       uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
-
       setSidebarCollapsed: (sidebarCollapsed) =>
         set(() => ({ sidebarCollapsed })),
       setNotificationCount: (notificationCount) =>

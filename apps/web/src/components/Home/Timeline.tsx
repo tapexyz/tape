@@ -1,6 +1,7 @@
 import CommentedVideoCard from '@components/Channel/CommentedVideoCard'
 import MirroredVideoCard from '@components/Channel/MirroredVideoCard'
 import VideoCard from '@components/Common/VideoCard'
+import QueuedVideoCard from '@components/Common/VideoCard/QueuedVideoCard'
 import type { FC } from 'react'
 import React from 'react'
 import type { LenstubePublication } from 'utils'
@@ -13,8 +14,10 @@ type Props = {
 const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
   const isComment = videoType === 'Comment'
   const isMirror = videoType === 'Mirror'
+
   return (
     <div className="grid gap-x-4 2xl:grid-cols-5 md:gap-y-8 gap-y-2 ultrawide:grid-cols-6 laptop:grid-cols-4 md:grid-cols-2 grid-col-1">
+      <QueuedVideoCard />
       {videos?.map((video: LenstubePublication) => {
         const isPub = video.__typename === videoType && !video.collectedBy
         return isPub && isComment ? (

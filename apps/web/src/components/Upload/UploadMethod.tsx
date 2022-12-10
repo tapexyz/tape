@@ -1,6 +1,6 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import { Tab } from '@headlessui/react'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import React, { useEffect } from 'react'
 import { IPFS_FREE_UPLOAD_LIMIT } from 'utils'
@@ -9,8 +9,8 @@ import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
 import BundlrInfo from './BundlrInfo'
 
 const UploadMethod = () => {
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const uploadedVideo = usePersistStore((state) => state.uploadedVideo)
+  const setUploadedVideo = usePersistStore((state) => state.setUploadedVideo)
 
   const isUnderFreeLimit = canUploadedToIpfs(uploadedVideo.file?.size)
 
