@@ -34,11 +34,6 @@ const moduleExports = withTM({
         source: '/donate',
         destination: 'https://gitcoin.co/grants/6972/lenstube',
         permanent: true
-      },
-      {
-        source: '/docs',
-        destination: 'https://lenstube.readme.io',
-        permanent: true
       }
     ]
   },
