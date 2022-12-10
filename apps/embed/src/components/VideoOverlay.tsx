@@ -35,7 +35,7 @@ const VideoOverlay: FC<Props> = ({ video }) => {
               <h1 className="font-semibold">{video?.metadata.name}</h1>
             </Link>
             <Link
-              href={`${LENSTUBE_WEBSITE_URL}/${video?.profile.handle}`}
+              href={`${LENSTUBE_WEBSITE_URL}/channel/${video?.profile.handle}`}
               className="leading-3 break-words line-clamp-1"
               target="_blank"
             >
