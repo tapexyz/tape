@@ -79,6 +79,8 @@ export type UploadedVideo = {
   referenceModule: ReferenceModuleType
   isNSFW: boolean
   isNSFWThumbnail: boolean
+  isByteVideo: boolean
+  txnId: string | null
 }
 
 export type HLSData = {

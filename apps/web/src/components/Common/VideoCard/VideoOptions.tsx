@@ -4,7 +4,6 @@ import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import { useHidePublicationMutation } from 'lens'
-import { useRouter } from 'next/router'
 import React from 'react'
 import toast from 'react-hot-toast'
 import type { LenstubePublication } from 'utils'
@@ -28,16 +27,19 @@ const VideoOptions = ({
   setShowReport: React.Dispatch<boolean>
   showOnHover?: boolean
 }) => {
-  const router = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
 
   const [hideVideo] = useHidePublicationMutation({
+    update(cache) {
+      const normalizedId = cache.identify({ id: video?.id, __typename: 'Post' })
+      cache.evict({ id: normalizedId })
+      cache.gc()
+    },
     onCompleted: () => {
       toast.success('Video deleted')
       Analytics.track(TRACK.DELETE_VIDEO)
-      router.reload()
     }
   })
 

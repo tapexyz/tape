@@ -3,7 +3,7 @@ import { Button } from '@components/UIElements/Button'
 import InputMentions from '@components/UIElements/InputMentions'
 import RadioInput from '@components/UIElements/RadioInput'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import type { FC, ReactNode } from 'react'
 import React from 'react'
@@ -50,7 +50,7 @@ type Props = {
 }
 
 const Details: FC<Props> = ({ onUpload, onCancel }) => {
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const uploadedVideo = usePersistStore((state) => state.uploadedVideo)
 
   const {
     handleSubmit,
@@ -198,7 +198,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
       ) : (
         <div className="flex items-center justify-end mt-4">
           <Button variant="secondary" onClick={() => onCancel()} type="button">
-            Cancel
+            Reset
           </Button>
           <Button
             loading={uploadedVideo.loading || uploadedVideo.uploadingThumbnail}
