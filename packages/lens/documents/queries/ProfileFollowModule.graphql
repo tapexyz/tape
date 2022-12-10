@@ -1,0 +1,20 @@
+query ProfileFollowModule($request: ProfileQueryRequest!) {
+  profiles(request: $request) {
+    items {
+      followModule {
+        ... on FeeFollowModuleSettings {
+          amount {
+            asset {
+              name
+              symbol
+              address
+              decimals
+            }
+            value
+          }
+          recipient
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+query Subscribers($request: FollowersRequest!) {
+  followers(request: $request) {
+    items {
+      wallet {
+        address
+        defaultProfile {
+          ...ProfileFields
+        }
+      }
+    }
+    pageInfo {
+      next
+      totalCount
+    }
+  }
+}

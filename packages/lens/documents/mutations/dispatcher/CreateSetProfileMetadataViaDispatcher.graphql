@@ -1,0 +1,7 @@
+mutation CreateSetProfileMetadataViaDispatcher(
+  $request: CreatePublicSetProfileMetadataURIRequest!
+) {
+  createSetProfileMetadataViaDispatcher(request: $request) {
+    ...RelayerResult
+  }
+}

@@ -1,0 +1,22 @@
+query Feed(
+  $request: FeedRequest!
+  $reactionRequest: ReactionFieldResolverRequest
+  $channelId: ProfileId
+) {
+  feed(request: $request) {
+    items {
+      root {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Comment {
+          ...CommentFields
+        }
+      }
+    }
+    pageInfo {
+      next
+      totalCount
+    }
+  }
+}

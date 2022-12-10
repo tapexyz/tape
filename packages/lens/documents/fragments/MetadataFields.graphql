@@ -1,0 +1,22 @@
+fragment MetadataFields on MetadataOutput {
+  name
+  description
+  content
+  contentWarning
+  tags
+  cover {
+    original {
+      url
+    }
+  }
+  media {
+    original {
+      url
+      mimeType
+    }
+  }
+  attributes {
+    value
+    traitType
+  }
+}

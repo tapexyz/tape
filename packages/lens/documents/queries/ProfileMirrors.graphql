@@ -1,0 +1,16 @@
+query ProfileMirrors(
+  $request: PublicationsQueryRequest!
+  $reactionRequest: ReactionFieldResolverRequest
+) {
+  publications(request: $request) {
+    items {
+      ... on Mirror {
+        ...MirrorFields
+      }
+    }
+    pageInfo {
+      totalCount
+      next
+    }
+  }
+}

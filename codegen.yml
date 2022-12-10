@@ -1,10 +1,14 @@
+overwrite: true
 schema: https://api-mumbai.lens.dev
+documents: "packages/lens/documents/**/*.graphql"
 hooks:
-  afterOneFileWrite:
+  afterAllFileWrite:
     - eslint --fix
     - prettier --write
 generates:
-  src/types/index.ts:
+  packages/lens/generated.ts:
     plugins:
-      - typescript
-      - fragment-matcher
+        - typescript
+        - typescript-operations
+        - fragment-matcher
+        - typescript-react-apollo

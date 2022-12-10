@@ -1,0 +1,14 @@
+query PublicationDetails(
+  $request: PublicationQueryRequest!
+  $reactionRequest: ReactionFieldResolverRequest
+  $channelId: ProfileId
+) {
+  publication(request: $request) {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentFields
+    }
+  }
+}

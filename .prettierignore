@@ -1,6 +1,5 @@
-src/types/index.ts
 node_modules
-.next
 out
-node_modules
+.next
+.turbo
 .github

@@ -1,0 +1,20 @@
+@import url('https://assets.lenstube.xyz/fonts/font.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Matter', sans-serif;
+  @apply min-h-screen bg-black antialiased;
+}
+
+vm-player {
+  --vm-player-font-family: 'Matter', sans-serif !important;
+}
+vm-player video {
+  @apply flex-1 h-auto w-auto aspect-[16/9];
+}
+vm-player video.sc-vm-file {
+  @apply border-inherit align-middle w-full outline-none;
+}

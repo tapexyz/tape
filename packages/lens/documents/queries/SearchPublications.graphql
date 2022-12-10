@@ -1,0 +1,22 @@
+query SearchPublications(
+  $request: SearchQueryRequest!
+  $reactionRequest: ReactionFieldResolverRequest
+  $channelId: ProfileId
+) {
+  search(request: $request) {
+    ... on PublicationSearchResult {
+      items {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Comment {
+          ...CommentFields
+        }
+      }
+      pageInfo {
+        next
+        totalCount
+      }
+    }
+  }
+}

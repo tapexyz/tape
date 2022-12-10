@@ -1,0 +1,89 @@
+@import url('https://assets.lenstube.xyz/fonts/font.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Matter', sans-serif;
+  @apply antialiased dark:text-white bg-gradient-to-bl from-indigo-100 via-gray-100 bg-fixed dark:from-gray-800 dark:to-gray-900 to-gray-50 text-black min-h-screen;
+}
+
+.text-secondary {
+  @apply text-gray-700 dark:text-gray-300;
+}
+
+.bg-secondary {
+  @apply dark:bg-[#050506] bg-white;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.middot:after {
+  content: '•';
+  @apply flex mx-1.5 text-[10px] opacity-60;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* walletconnect */
+.-walletlink-css-reset body {
+  @apply !bg-transparent;
+}
+.walletconnect-modal__mobile__toggle {
+  @apply text-gray-900;
+}
+
+/* interweave linkify */
+.interweave-content a {
+  @apply text-indigo-500;
+}
+
+.tippy-box[data-theme~='material'] > .tippy-arrow::before {
+  transform: scale(0.7);
+}
+.tippy-box[data-theme~='light'] > .tippy-arrow::before {
+  transform: scale(0.7);
+}
+
+vm-player {
+  --vm-player-font-family: 'Matter', sans-serif !important;
+}
+vm-player video {
+  @apply flex-1 h-auto w-auto aspect-[16/9];
+}
+vm-player video.sc-vm-file {
+  @apply border-inherit align-middle w-full outline-none;
+}
+
+.input-mentions-single {
+  @apply w-full min-h-[2.4rem] text-sm;
+}
+.input-mentions-textarea {
+  @apply min-h-[7rem] w-full text-sm;
+}
+.input-mentions-textarea textarea,
+.input-mentions-single textarea {
+  @apply bg-white text-sm resize-y px-2.5 py-2 rounded-xl focus:ring-1 focus:ring-indigo-500 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 outline-none disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 w-full;
+}
+.input-mentions-textarea__suggestions,
+.input-mentions-single__suggestions {
+  @apply !bg-white dark:!bg-gray-800 p-1 !mt-8 !border dark:border-gray-700 rounded-xl w-56;
+}

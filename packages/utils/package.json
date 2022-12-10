@@ -1,0 +1,8 @@
+{
+  "name": "utils",
+  "version": "0.0.0",
+  "main": "./index.ts",
+  "dependencies": {
+    "typescript": "4.9.4"
+  }
+}

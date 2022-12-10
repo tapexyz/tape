@@ -1,0 +1,17 @@
+query ProfilePosts(
+  $request: PublicationsQueryRequest!
+  $reactionRequest: ReactionFieldResolverRequest
+  $channelId: ProfileId
+) {
+  publications(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+    }
+    pageInfo {
+      totalCount
+      next
+    }
+  }
+}

@@ -11,7 +11,7 @@ Pull requests are the best way to propose changes to the codebase. We actively w
 
 1. Fork the repo and create your branch from `main`.
 2. If you've added code that should be tested.
-3. Make sure your code lints. (`yarn check-lint`)
+3. Make sure your code lints.
 4. Issue that pull request!
 5. The Pull Request should be raised against main branch.
 

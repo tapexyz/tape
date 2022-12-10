@@ -1,7 +1,61 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "apps/web"
+    target-branch: "main"
+    reviewers:
+      - sasicodes
+    rebase-strategy: auto
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "apps/embed"
+    target-branch: "main"
+    reviewers:
+      - sasicodes
+    rebase-strategy: auto
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "apps/api"
+    target-branch: "main"
+    reviewers:
+      - sasicodes
+    rebase-strategy: auto
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "packages/lens"
+    target-branch: "main"
+    reviewers:
+      - sasicodes
+    rebase-strategy: auto
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "packages/eslint-config-weblint"
+    target-branch: "main"
+    reviewers:
+      - sasicodes
+    rebase-strategy: auto
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "npm"
+    directory: "packages/tsconfig"
+    target-branch: "main"
+    reviewers:
+      - sasicodes
+    rebase-strategy: auto
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "packages/utils"
     target-branch: "main"
     reviewers:
       - sasicodes

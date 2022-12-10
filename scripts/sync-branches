@@ -1,8 +1,6 @@
 #!/bin/bash
 
-#/ Usage: scripts/sync-branches
-#/ Sync testnet with main branch.
-
+git checkout main
 echo "Syncing testnet branch with main branch 🔄"
 git pull origin main
 git checkout testnet

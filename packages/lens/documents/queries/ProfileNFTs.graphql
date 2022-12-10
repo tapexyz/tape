@@ -1,0 +1,19 @@
+query ProfileNFTs($request: NFTsRequest!) {
+  nfts(request: $request) {
+    items {
+      contractAddress
+      tokenId
+      name
+      originalContent {
+        animatedUrl
+        uri
+        metaType
+      }
+      collectionName
+    }
+    pageInfo {
+      next
+      totalCount
+    }
+  }
+}
