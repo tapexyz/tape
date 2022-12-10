@@ -1,7 +1,7 @@
 import { WebBundlr } from '@bundlr-network/client'
 import type { FetchSignerResult } from '@wagmi/core'
 import type { Profile } from 'lens'
-import type { BundlrDataState, LenstubePublication, UploadedVideo } from 'utils'
+import type { BundlrDataState, LenstubePublication } from 'utils'
 import {
   BUNDLR_CURRENCY,
   BUNDLR_NODE_URL,
@@ -64,7 +64,6 @@ interface AppState {
   showCreateChannel: boolean
   hasNewNotification: boolean
   userSigNonce: number
-  uploadedVideo: UploadedVideo
   bundlrData: BundlrDataState
   upNextVideo: LenstubePublication | null
   selectedChannel: Profile | null
@@ -73,7 +72,6 @@ interface AppState {
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
   setSelectedChannel: (channel: Profile | null) => void
-  setUploadedVideo: (video: { [k: string]: any }) => void
   setUserSigNonce: (userSigNonce: number) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
   setChannels: (channels: Profile[]) => void
@@ -90,7 +88,6 @@ export const useAppStore = create<AppState>((set) => ({
   showCreateChannel: false,
   hasNewNotification: false,
   userSigNonce: 0,
-  uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
   bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
   upNextVideo: null,
   selectedChannel: null,
@@ -102,10 +99,6 @@ export const useAppStore = create<AppState>((set) => ({
   setUpNextVideo: (upNextVideo) => set(() => ({ upNextVideo })),
   setBundlrData: (bundlrData) =>
     set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrData } })),
-  setUploadedVideo: (videoData) =>
-    set((state) => ({
-      uploadedVideo: { ...state.uploadedVideo, ...videoData }
-    })),
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
   setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),
   setChannels: (channels) => set(() => ({ channels })),
@@ -128,9 +121,6 @@ export const useAppStore = create<AppState>((set) => ({
       return bundlr
     } catch (error) {
       logger.error('[Error Init Bundlr]', error)
-      set((state) => ({
-        uploadedVideo: { ...state.uploadedVideo, loading: false }
-      }))
       return null
     }
   }

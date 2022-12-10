@@ -2,6 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import axios from 'axios'
 import { utils } from 'ethers'
 import type {
@@ -64,8 +65,8 @@ const UploadSteps = () => {
   const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)
   const setBundlrData = useAppStore((state) => state.setBundlrData)
   const bundlrData = useAppStore((state) => state.bundlrData)
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const uploadedVideo = usePersistStore((state) => state.uploadedVideo)
+  const setUploadedVideo = usePersistStore((state) => state.setUploadedVideo)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const { address } = useAccount()
   const { data: signer } = useSigner()
