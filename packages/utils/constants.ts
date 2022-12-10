@@ -112,7 +112,6 @@ export const LENS_CUSTOM_FILTERS = [CustomFiltersTypes.Gardeners]
 export const ALLOWED_VIDEO_TYPES = [
   'video/mp4',
   'video/mpeg',
-  'video/ogg',
   'video/webm',
   'video/quicktime',
   'video/mov'
