@@ -17,6 +17,7 @@ const IsVerified: FC<Props> = ({ id, size = 'sm', color }) => {
     <div>
       <Verified
         className={clsx(
+          'ml-0.5',
           {
             'w-2.5 h-2.5': size === 'xs',
             'w-3 h-3': size === 'sm',
