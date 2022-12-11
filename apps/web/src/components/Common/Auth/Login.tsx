@@ -7,13 +7,13 @@ import {
   useChallengeLazyQuery
 } from 'lens'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { ERROR_MESSAGE } from 'utils'
+import { POLYGON_CHAIN_ID } from 'utils/constants'
 import logger from 'utils/logger'
-import { useAccount, useSignMessage } from 'wagmi'
+import { useAccount, useNetwork, useSignMessage } from 'wagmi'
 
-import { POLYGON_CHAIN_ID } from '../../../utils/constants'
 import ConnectWalletButton from './ConnectWalletButton'
 
 const Login = () => {
@@ -30,6 +30,8 @@ const Login = () => {
   const setSelectedChannelId = usePersistStore(
     (state) => state.setSelectedChannelId
   )
+
+  const { chain } = useNetwork()
 
   const onError = () => {
     setLoading(false)
@@ -62,7 +64,7 @@ const Login = () => {
       )
   }, [errorAuthenticate, errorChallenge, errorProfiles])
 
-  const handleSign = async () => {
+  const handleSign = useCallback(async () => {
     try {
       setLoading(true)
       const challenge = await loadChallenge({
@@ -105,7 +107,18 @@ const Login = () => {
       toast.error('Sign in failed')
       logger.error('[Error Sign In]', error)
     }
-  }
+  }, [
+    address,
+    authenticate,
+    getChannels,
+    loadChallenge,
+    router,
+    setChannels,
+    setSelectedChannel,
+    setSelectedChannelId,
+    setShowCreateChannel,
+    signMessageAsync
+  ])
 
   useEffect(() => {
     if (
@@ -113,13 +126,18 @@ const Login = () => {
       isConnected &&
       chain?.id === POLYGON_CHAIN_ID &&
       !selectedChannel &&
-      !selectedChannelId &&
-      !signatureRequested
+      !selectedChannelId
     ) {
-      setSignatureRequested(true)
       handleSign()
     }
-  }, [connector, isConnected, chain])
+  }, [
+    isConnected,
+    connector,
+    chain,
+    handleSign,
+    selectedChannel,
+    selectedChannelId
+  ])
 
   return (
     <ConnectWalletButton handleSign={() => handleSign()} signing={loading} />
