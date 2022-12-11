@@ -92,20 +92,21 @@ const UploadSteps = () => {
 
   const onCompleted = (data: any) => {
     if (
-      data?.broadcast?.reason !== 'NOT_ALLOWED' &&
-      !data.createPostViaDispatcher?.reason
+      data?.broadcast?.reason === 'NOT_ALLOWED' ||
+      data.createPostViaDispatcher?.reason
     ) {
-      Analytics.track(TRACK.UPLOADED_VIDEO, {
-        format: uploadedVideo.videoType
-      })
-      const txnId = data?.createPostViaDispatcher?.txId ?? data?.broadcast?.txId
-      setUploadedVideo({
-        buttonText: 'Post Video',
-        loading: false,
-        txnId
-      })
-      router.push(`/channel/${selectedChannel?.handle}`)
+      return logger.error('[Error Post Dispatcher]', data)
     }
+    Analytics.track(TRACK.UPLOADED_VIDEO, {
+      format: uploadedVideo.videoType
+    })
+    const txnId = data?.createPostViaDispatcher?.txId ?? data?.broadcast?.txId
+    setUploadedVideo({
+      buttonText: 'Post Video',
+      loading: false,
+      txnId
+    })
+    router.push(`/channel/${selectedChannel?.handle}`)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
