@@ -122,11 +122,13 @@ const UploadSteps = () => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'postWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
+    onSuccess: (data) => {
       setUploadedVideo({
-        buttonText: 'Indexing...',
-        loading: true
+        buttonText: 'Post Video',
+        loading: false,
+        txnHash: data.hash
       })
+      router.push(`/channel/${selectedChannel?.handle}`)
     },
     onError
   })

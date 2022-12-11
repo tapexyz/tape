@@ -81,8 +81,8 @@ export type UploadedVideo = {
   isNSFW: boolean
   isNSFWThumbnail: boolean
   isByteVideo: boolean
-  txnId: string | null
-  txnHash: string | null
+  txnId?: string
+  txnHash?: string
 }
 
 export type HLSData = {

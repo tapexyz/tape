@@ -23,6 +23,10 @@ import IsVerified from '../IsVerified'
 const QueuedVideoCard = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const uploadedVideo = usePersistStore((state) => state.uploadedVideo)
+  console.log(
+    '🚀 ~ file: QueuedVideoCard.tsx:26 ~ QueuedVideoCard ~ uploadedVideo',
+    uploadedVideo
+  )
   const setUploadedVideo = usePersistStore((state) => state.setUploadedVideo)
   const thumbnailUrl = imageCdn(
     uploadedVideo.isSensitiveContent
@@ -66,9 +70,9 @@ const QueuedVideoCard = () => {
 
   const { stopPolling } = useHasTxHashBeenIndexedQuery({
     variables: {
-      request: { txId: uploadedVideo.txnId }
+      request: { txId: uploadedVideo.txnId, txHash: uploadedVideo?.txnHash }
     },
-    skip: !uploadedVideo.txnId?.length,
+    skip: !uploadedVideo?.txnId?.length && !uploadedVideo?.txnHash?.length,
     pollInterval: 1000,
     onCompleted: async (data) => {
       if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
@@ -79,12 +83,17 @@ const QueuedVideoCard = () => {
         data?.hasTxHashBeenIndexed?.indexed
       ) {
         stopPolling()
+        if (uploadedVideo.txnHash) {
+          return getPublication({
+            variables: { request: { txHash: uploadedVideo?.txnHash } }
+          })
+        }
         await getIndexedPublication()
       }
     }
   })
 
-  if (!uploadedVideo.txnId) return null
+  if (!uploadedVideo.txnId && !uploadedVideo.txnHash) return null
 
   return (
     <div className="cursor-wait">
