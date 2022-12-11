@@ -23,10 +23,6 @@ import IsVerified from '../IsVerified'
 const QueuedVideoCard = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const uploadedVideo = usePersistStore((state) => state.uploadedVideo)
-  console.log(
-    '🚀 ~ file: QueuedVideoCard.tsx:26 ~ QueuedVideoCard ~ uploadedVideo',
-    uploadedVideo
-  )
   const setUploadedVideo = usePersistStore((state) => state.setUploadedVideo)
   const thumbnailUrl = imageCdn(
     uploadedVideo.isSensitiveContent

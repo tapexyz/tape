@@ -77,26 +77,31 @@ const NewComment: FC<Props> = ({ video }) => {
     resolver: zodResolver(formSchema)
   })
 
-  const onCompleted = (data: any) => {
-    if (
-      data?.broadcast?.reason === 'NOT_ALLOWED' ||
-      data.createCommentViaDispatcher?.reason
-    ) {
-      return logger.error('[Error Post Dispatcher]', data)
-    }
-    Analytics.track(TRACK.NEW_COMMENT)
-    const txnId =
-      data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
+  const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
     setQueuedComments([
       {
         comment: getValues('comment'),
-        txnId,
+        txnId: txn.txnId,
+        txnHash: txn.txnHash,
         pubId: video.id
       },
       ...(queuedComments || [])
     ])
     reset()
     setLoading(false)
+  }
+
+  const onCompleted = (data: any) => {
+    if (
+      data?.broadcast?.reason === 'NOT_ALLOWED' ||
+      data.createCommentViaDispatcher?.reason
+    ) {
+      return logger.error('[Error Comment Dispatcher]', data)
+    }
+    Analytics.track(TRACK.NEW_COMMENT)
+    const txnId =
+      data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
+    setToQueue({ txnId })
   }
 
   const onError = (error: CustomErrorWithData) => {
@@ -113,17 +118,9 @@ const NewComment: FC<Props> = ({ video }) => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'commentWithSig',
     mode: 'recklesslyUnprepared',
+    onError,
     onSuccess: (data) => {
-      setQueuedComments([
-        {
-          comment: getValues('comment'),
-          txnHash: data.hash,
-          pubId: video.id
-        },
-        ...(queuedComments || [])
-      ])
-      reset()
-      setLoading(false)
+      setToQueue({ txnHash: data.hash })
     }
   })
 
