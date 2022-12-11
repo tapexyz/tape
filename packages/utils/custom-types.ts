@@ -139,3 +139,9 @@ export interface ProfileInterest {
   category: { label: string; id: string }
   subCategories: Array<{ label: string; id: string }>
 }
+
+export type QueuedCommentType = {
+  comment: string
+  txnId: string
+  pubId: string
+}
