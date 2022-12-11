@@ -1,50 +1,39 @@
-import { Button } from '@components/UIElements/Button'
+import { useApolloClient } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
-import type { Profile } from 'lens'
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,
-  useProfileLazyQuery,
   useRemoveProfileInterestMutation
 } from 'lens'
-import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
+import React, { useEffect } from 'react'
 import { Analytics, TRACK } from 'utils'
 import sanitizeProfileInterests from 'utils/functions/sanitizeProfileInterests'
 
 const MAX_TOPICS_ALLOWED = 12
 
-type Props = {
-  showSave?: boolean
-}
-
-const Topics: FC<Props> = ({ showSave }) => {
+const Topics = () => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
-  const [selectedTopics, setSelectedTopics] = useState<string[]>(
-    selectedChannel?.interests ?? []
-  )
 
   useEffect(() => {
     Analytics.track(TRACK.PROFILE_INTERESTS.VIEW)
   }, [])
 
+  const { cache } = useApolloClient()
   const { data, loading } = useProfileInterestsQuery()
   const [addProfileInterests] = useAddProfileInterestMutation()
   const [removeProfileInterests] = useRemoveProfileInterestMutation()
 
-  const [refetchChannel, { loading: saving }] = useProfileLazyQuery({
-    onCompleted: (data) => {
-      const channel = data?.profile as Profile
-      setSelectedChannel(channel)
-      toast.success('Interests updated')
-    }
-  })
+  const updateCache = (interests: string[]) => {
+    cache.modify({
+      id: `Profile:${selectedChannel?.id}`,
+      fields: { interests: () => interests }
+    })
+  }
 
   const interestsData = (data?.profileInterests as string[]) || []
+  const selectedTopics = selectedChannel?.interests ?? []
 
   const onSelectTopic = (topic: string) => {
     try {
@@ -56,25 +45,16 @@ const Topics: FC<Props> = ({ showSave }) => {
       }
       if (!selectedTopics.includes(topic)) {
         const interests = [...selectedTopics, topic]
-        setSelectedTopics(interests)
+        updateCache(interests)
         Analytics.track(TRACK.PROFILE_INTERESTS.ADD)
         return addProfileInterests({ variables })
       }
       const topics = [...selectedTopics]
       topics.splice(topics.indexOf(topic), 1)
-      setSelectedTopics(topics)
+      updateCache(topics)
       Analytics.track(TRACK.PROFILE_INTERESTS.REMOVE)
       removeProfileInterests({ variables })
     } catch {}
-  }
-
-  const onSave = () => {
-    refetchChannel({
-      variables: {
-        request: { handle: selectedChannel?.handle }
-      },
-      fetchPolicy: 'no-cache'
-    })
   }
 
   return (
@@ -125,13 +105,6 @@ const Topics: FC<Props> = ({ showSave }) => {
             </div>
           </div>
         )
-      )}
-      {showSave && (
-        <div className="flex w-full justify-end">
-          <Button disabled={saving} loading={saving} onClick={() => onSave()}>
-            Save
-          </Button>
-        </div>
       )}
     </div>
   )

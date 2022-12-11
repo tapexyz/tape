@@ -37,6 +37,7 @@ export const TRACK = {
   NEW_COMMENT: 'New Comment',
   CLICK_VIDEO: 'Click Video',
   DELETE_VIDEO: 'Delete Video',
+  DELETE_COMMENT: 'Delete Video Comment',
   CLICK_WATCH_LATER: 'Click Watch Later',
   CLICK_VIEW_METADATA: 'Click View Metadata',
   CLICK_VIEW_TOKEN: 'Click View Token',
@@ -73,7 +74,8 @@ export const TRACK = {
   },
   TIP: {
     OPEN: 'Open Tip Modal',
-    SENT: 'Sent Tip'
+    SENT: 'Sent Tip',
+    COMMENT: 'New Tip Comment'
   },
   COPY: { VIDEO_URL: 'Copy Video Url' },
   SHARE_VIDEO: {

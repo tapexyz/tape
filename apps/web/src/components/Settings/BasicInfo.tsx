@@ -306,17 +306,19 @@ const BasicInfo = ({ channel }: Props) => {
             <span>{channel?.handle}</span>
             <IsVerified id={channel?.id} size="xs" />
           </h6>
-          {IS_MAINNET && !VERIFIED_CHANNELS.includes(channel?.id) && (
-            <Link
-              href={TALLY_VERIFICATION_FORM_URL}
-              onClick={() => Analytics.track(TRACK.GET_VERIFIED)}
-              target="_blank"
-              rel="noreferer noreferrer"
-              className="text-sm text-transparent bg-clip-text bg-gradient-to-br from-purple-500 to-indigo-600"
-            >
-              ( Get Verified )
-            </Link>
-          )}
+          {IS_MAINNET &&
+            !VERIFIED_CHANNELS.includes(channel?.id) &&
+            channel.stats.totalFollowers > 500 && (
+              <Link
+                href={TALLY_VERIFICATION_FORM_URL}
+                onClick={() => Analytics.track(TRACK.GET_VERIFIED)}
+                target="_blank"
+                rel="noreferer noreferrer"
+                className="text-sm text-transparent bg-clip-text bg-gradient-to-br from-purple-500 to-indigo-600"
+              >
+                ( Get Verified )
+              </Link>
+            )}
         </div>
       </div>
       <div className="mt-4">

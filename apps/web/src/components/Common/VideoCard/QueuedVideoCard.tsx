@@ -66,22 +66,30 @@ const QueuedVideoCard = () => {
 
   const { stopPolling } = useHasTxHashBeenIndexedQuery({
     variables: {
-      request: { txId: uploadedVideo.txnId }
+      request: { txId: uploadedVideo.txnId, txHash: uploadedVideo?.txnHash }
     },
-    skip: !uploadedVideo.txnId?.length,
+    skip: !uploadedVideo?.txnId?.length && !uploadedVideo?.txnHash?.length,
     pollInterval: 1000,
     onCompleted: async (data) => {
+      if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
+        return setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
+      }
       if (
         data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' &&
         data?.hasTxHashBeenIndexed?.indexed
       ) {
         stopPolling()
+        if (uploadedVideo.txnHash) {
+          return getPublication({
+            variables: { request: { txHash: uploadedVideo?.txnHash } }
+          })
+        }
         await getIndexedPublication()
       }
     }
   })
 
-  if (!uploadedVideo.txnId) return null
+  if (!uploadedVideo.txnId && !uploadedVideo.txnHash) return null
 
   return (
     <div className="cursor-wait">
