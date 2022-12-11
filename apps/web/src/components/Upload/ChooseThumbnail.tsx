@@ -160,7 +160,9 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
           <BiImageAdd className="flex-none mb-1 text-lg" />
           <span className="text-[10px]">Upload thumbnail</span>
         </label>
-        {!thumbnails.length && <ThumbnailsShimmer />}
+        {!thumbnails.length && uploadedVideo.file?.size && (
+          <ThumbnailsShimmer />
+        )}
         {thumbnails.map((thumbnail, idx) => {
           return (
             <button
