@@ -52,9 +52,8 @@ const Bytes = () => {
         const items = data?.explorePublications?.items as LenstubePublication[]
         const publicationId = router.query.id
         if (!publicationId) {
-          router.push(`/bytes/?id=${items[0]?.id}`, undefined, {
-            shallow: true
-          })
+          const nextUrl = window.location.origin + `/bytes/${items[0]?.id}`
+          window.history.replaceState({ path: nextUrl }, '', nextUrl)
         }
       }
     })
@@ -79,10 +78,12 @@ const Bytes = () => {
   }
 
   useEffect(() => {
-    fetchSingleByte()
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.BYTES })
+    if (router.isReady) {
+      fetchSingleByte()
+      Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.BYTES })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [router.isReady])
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,

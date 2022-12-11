@@ -59,9 +59,8 @@ const ByteVideo: FC<Props> = ({ video }) => {
       setIsPlaying(false)
     },
     onEnter: () => {
-      router.push(`/bytes/?id=${video?.id}`, undefined, {
-        shallow: true
-      })
+      const nextUrl = window.location.origin + `/bytes/${video?.id}`
+      window.history.replaceState({ path: nextUrl }, '', nextUrl)
       videoRef.current?.load()
       videoRef.current
         ?.play()
