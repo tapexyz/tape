@@ -1,4 +1,4 @@
-import Animated from '@components/Animated'
+import Animated from '@components/Common/Animated'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'

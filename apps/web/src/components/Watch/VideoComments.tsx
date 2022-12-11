@@ -15,6 +15,7 @@ import type { LenstubePublication } from 'utils'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from 'utils'
 
 import NewComment from './NewComment'
+import QueuedComment from './QueuedComment'
 
 const Comment = dynamic(() => import('./Comment'))
 
@@ -27,6 +28,7 @@ const VideoComments: FC<Props> = ({ video }) => {
     query: { id }
   } = useRouter()
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const queuedComments = usePersistStore((state) => state.queuedComments)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const isFollowerOnlyReferenceModule =
@@ -54,19 +56,13 @@ const VideoComments: FC<Props> = ({ video }) => {
     channelId: selectedChannel?.id ?? null
   }
 
-  const { data, loading, error, fetchMore, refetch } = useProfileCommentsQuery({
+  const { data, loading, error, fetchMore } = useProfileCommentsQuery({
     variables,
     skip: !id
   })
 
   const comments = data?.publications?.items as LenstubePublication[]
   const pageInfo = data?.publications?.pageInfo
-
-  const refetchComments = () => {
-    refetch({
-      ...variables
-    })
-  }
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
@@ -105,7 +101,7 @@ const VideoComments: FC<Props> = ({ video }) => {
         <NoDataFound text="Be the first to comment." />
       )}
       {video?.canComment.result ? (
-        <NewComment video={video} refetchComments={() => refetchComments()} />
+        <NewComment video={video} />
       ) : (
         <Alert variant="warning">
           <span className="text-sm">
@@ -118,6 +114,15 @@ const VideoComments: FC<Props> = ({ video }) => {
       {!error && !loading && (
         <>
           <div className="pt-5 space-y-4">
+            {queuedComments?.map(
+              (queuedComment) =>
+                queuedComment?.pubId === video?.id && (
+                  <QueuedComment
+                    key={queuedComment?.pubId}
+                    queuedComment={queuedComment}
+                  />
+                )
+            )}
             {comments?.map((comment: LenstubePublication) => (
               <Comment
                 key={`${comment?.id}_${comment.createdAt}`}

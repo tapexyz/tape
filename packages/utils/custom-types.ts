@@ -81,7 +81,8 @@ export type UploadedVideo = {
   isNSFW: boolean
   isNSFWThumbnail: boolean
   isByteVideo: boolean
-  txnId: string | null
+  txnId?: string
+  txnHash?: string
 }
 
 export type HLSData = {
@@ -138,4 +139,11 @@ export interface CustomErrorWithData extends Error {
 export interface ProfileInterest {
   category: { label: string; id: string }
   subCategories: Array<{ label: string; id: string }>
+}
+
+export type QueuedCommentType = {
+  comment: string
+  pubId: string
+  txnId?: string
+  txnHash?: string
 }
