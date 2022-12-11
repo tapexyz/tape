@@ -34,6 +34,18 @@ const moduleExports = withTM({
         source: '/donate',
         destination: 'https://gitcoin.co/grants/6972/lenstube',
         permanent: true
+      },
+      {
+        source: '/terms',
+        destination:
+          'https://sasicodes.notion.site/Lenstube-Terms-Conditions-8408e6e485a0437d91c4d077695b8eed',
+        permanent: true
+      },
+      {
+        source: '/privacy',
+        destination:
+          'https://sasicodes.notion.site/Lenstube-Privacy-Policy-eb69ee55983a427da5bba44b19da0ded',
+        permanent: true
       }
     ]
   },
