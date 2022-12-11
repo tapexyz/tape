@@ -38,6 +38,7 @@ export const TRACK = {
   NEW_COMMENT: 'New Comment',
   CLICK_VIDEO: 'Click Video',
   DELETE_VIDEO: 'Delete Video',
+  DELETE_COMMENT: 'Delete Video Comment',
   CLICK_WATCH_LATER: 'Click Watch Later',
   CLICK_VIEW_METADATA: 'Click View Metadata',
   CLICK_VIEW_TOKEN: 'Click View Token',
