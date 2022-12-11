@@ -113,8 +113,17 @@ const NewComment: FC<Props> = ({ video }) => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'commentWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setQueuedComments([
+        {
+          comment: getValues('comment'),
+          txnHash: data.hash,
+          pubId: video.id
+        },
+        ...(queuedComments || [])
+      ])
       reset()
+      setLoading(false)
     }
   })
 

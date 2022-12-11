@@ -52,7 +52,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     }
   })
 
-  const getIndexedComment = async () => {
+  const getCommentByTxnId = async () => {
     const { data } = await getTxnHash({
       variables: {
         txId: queuedComment?.txnId
@@ -67,22 +67,31 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
 
   const { stopPolling } = useHasTxHashBeenIndexedQuery({
     variables: {
-      request: { txId: queuedComment?.txnId }
+      request: { txId: queuedComment?.txnId, txHash: queuedComment?.txnHash }
     },
-    skip: !queuedComment?.txnId?.length,
+    skip: !queuedComment?.txnId?.length && !queuedComment?.txnHash?.length,
     pollInterval: 1000,
     onCompleted: async (data) => {
+      if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
+        return removeFromQueue()
+      }
       if (
         data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' &&
         data?.hasTxHashBeenIndexed?.indexed
       ) {
         stopPolling()
-        await getIndexedComment()
+        if (queuedComment.txnHash) {
+          return getPublication({
+            variables: { request: { txHash: queuedComment?.txnHash } }
+          })
+        }
+        await getCommentByTxnId()
       }
     }
   })
 
-  if (!queuedComment?.txnId || !selectedChannel) return null
+  if ((!queuedComment?.txnId && !queuedComment?.txnHash) || !selectedChannel)
+    return null
 
   return (
     <div className="flex items-start justify-between">

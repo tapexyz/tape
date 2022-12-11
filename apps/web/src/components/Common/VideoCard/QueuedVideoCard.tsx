@@ -71,6 +71,9 @@ const QueuedVideoCard = () => {
     skip: !uploadedVideo.txnId?.length,
     pollInterval: 1000,
     onCompleted: async (data) => {
+      if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
+        return setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
+      }
       if (
         data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' &&
         data?.hasTxHashBeenIndexed?.indexed

@@ -82,6 +82,7 @@ export type UploadedVideo = {
   isNSFWThumbnail: boolean
   isByteVideo: boolean
   txnId: string | null
+  txnHash: string | null
 }
 
 export type HLSData = {
@@ -142,6 +143,7 @@ export interface ProfileInterest {
 
 export type QueuedCommentType = {
   comment: string
-  txnId: string
   pubId: string
+  txnId?: string
+  txnHash?: string
 }
