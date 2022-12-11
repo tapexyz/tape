@@ -1,6 +1,5 @@
 import CollectVideo from '@components/Watch/CollectVideo'
 import axios from 'axios'
-import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -19,8 +18,6 @@ type Props = {
 }
 
 const ByteVideo: FC<Props> = ({ video }) => {
-  const router = useRouter()
-
   const videoRef = useRef<HTMLVideoElement>(null)
   const [playing, setIsPlaying] = useState(true)
   const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
