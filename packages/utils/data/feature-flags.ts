@@ -1,8 +1,10 @@
-import { VERIFIED_CHANNELS } from './verified'
+export const FEATURE_FLAGS = {
+  LENSTUBE_MUSIC: 'lenstube-music'
+}
 
 export const featureFlags = [
   {
-    flag: '',
-    enabledFor: [...VERIFIED_CHANNELS]
+    flag: FEATURE_FLAGS.LENSTUBE_MUSIC,
+    enabledFor: ['0x2d']
   }
 ]
