@@ -101,6 +101,7 @@ export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'
 export const LENSTUBE_GITHUB_HANDLE = 'lenstube-xyz'
 export const LENSTUBE_STATUS_PAGE = 'https://status.lenstube.xyz'
 export const TALLY_VERIFICATION_FORM_URL = 'https://tally.so/r/mY5e80'
+export const LENSTUBE_ROADMAP_URL = 'https://roadmap.lenstube.xyz'
 
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']
@@ -112,7 +113,14 @@ export const ALLOWED_VIDEO_TYPES = [
   'video/mpeg',
   'video/ogg',
   'video/webm',
-  'video/quicktime'
+  'video/quicktime',
+  'video/mov'
+]
+export const ALLOWED_PLAYBACK_VIDEO_TYPES = [
+  'video/mp4',
+  'video/quicktime',
+  'video/mov',
+  'video/webm'
 ]
 
 // other apps
@@ -134,6 +142,7 @@ export const GIT_DEPLOYED_BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
 export const VERCEL_DEPLOYED_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV
 export const MIXPANEL_API_HOST = '/collect'
 export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN
+export const DATADOG_KEY = process.env.NEXT_PUBLIC_DATADOG_KEY
 
 export const API_ORIGINS = [
   'https://lenstube.xyz',

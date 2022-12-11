@@ -1,53 +1,10 @@
 import { WebBundlr } from '@bundlr-network/client'
 import type { FetchSignerResult } from '@wagmi/core'
 import type { Profile } from 'lens'
-import type { BundlrDataState, LenstubePublication, UploadedVideo } from 'utils'
-import {
-  BUNDLR_CURRENCY,
-  BUNDLR_NODE_URL,
-  POLYGON_RPC_URL,
-  WMATIC_TOKEN_ADDRESS
-} from 'utils'
-import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
+import type { BundlrDataState, LenstubePublication } from 'utils'
+import { BUNDLR_CURRENCY, BUNDLR_NODE_URL, POLYGON_RPC_URL } from 'utils'
 import logger from 'utils/logger'
 import create from 'zustand'
-
-export const UPLOADED_VIDEO_FORM_DEFAULTS = {
-  stream: null,
-  preview: '',
-  videoType: '',
-  file: null,
-  title: '',
-  description: '',
-  thumbnail: '',
-  thumbnailType: '',
-  videoSource: '',
-  percent: 0,
-  playbackId: '',
-  isSensitiveContent: false,
-  isUploadToIpfs: false,
-  loading: false,
-  uploadingThumbnail: false,
-  buttonText: 'Post Video',
-  durationInSeconds: null,
-  videoCategory: CREATOR_VIDEO_CATEGORIES[0],
-  collectModule: {
-    type: 'revertCollectModule',
-    followerOnlyCollect: false,
-    amount: { currency: WMATIC_TOKEN_ADDRESS, value: '' },
-    referralFee: 0,
-    isTimedFeeCollect: false,
-    isFreeCollect: false,
-    isFeeCollect: false,
-    isRevertCollect: true
-  },
-  referenceModule: {
-    followerOnlyReferenceModule: false,
-    degreesOfSeparationReferenceModule: null
-  },
-  isNSFW: false,
-  isNSFWThumbnail: false
-}
 
 export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {
   balance: '0',
@@ -64,7 +21,6 @@ interface AppState {
   showCreateChannel: boolean
   hasNewNotification: boolean
   userSigNonce: number
-  uploadedVideo: UploadedVideo
   bundlrData: BundlrDataState
   upNextVideo: LenstubePublication | null
   selectedChannel: Profile | null
@@ -73,7 +29,6 @@ interface AppState {
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
   setSelectedChannel: (channel: Profile | null) => void
-  setUploadedVideo: (video: { [k: string]: any }) => void
   setUserSigNonce: (userSigNonce: number) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
   setChannels: (channels: Profile[]) => void
@@ -90,7 +45,6 @@ export const useAppStore = create<AppState>((set) => ({
   showCreateChannel: false,
   hasNewNotification: false,
   userSigNonce: 0,
-  uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
   bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
   upNextVideo: null,
   selectedChannel: null,
@@ -102,10 +56,6 @@ export const useAppStore = create<AppState>((set) => ({
   setUpNextVideo: (upNextVideo) => set(() => ({ upNextVideo })),
   setBundlrData: (bundlrData) =>
     set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrData } })),
-  setUploadedVideo: (videoData) =>
-    set((state) => ({
-      uploadedVideo: { ...state.uploadedVideo, ...videoData }
-    })),
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
   setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),
   setChannels: (channels) => set(() => ({ channels })),
@@ -128,9 +78,6 @@ export const useAppStore = create<AppState>((set) => ({
       return bundlr
     } catch (error) {
       logger.error('[Error Init Bundlr]', error)
-      set((state) => ({
-        uploadedVideo: { ...state.uploadedVideo, loading: false }
-      }))
       return null
     }
   }

@@ -14,6 +14,7 @@ export const TRACK = {
   DISPATCHER_ENABLED: 'Dispatcher Enabled',
   GET_VERIFIED: 'Get Verified',
   UPLOADED_VIDEO: 'Uploaded Video',
+  GET_PLAYBACK: 'Get Playback',
   CLICKED_BYTES_TAG_AT_UPLOAD: 'Clicked Bytes During Upload',
   CLICK_CHANNEL_SETTINGS: 'Clicked Channel Settings',
   UPDATE_CHANNEL_INFO: 'Clicked Channel Info',
@@ -108,7 +109,7 @@ export const TRACK = {
     EXPLORE_POPULAR: 'Popular Page',
     EXPLORE_RECENT: 'Recents Page',
     EXPLORE_CURATED: 'Curated Page',
-    PRIVACY: 'Privacy Page',
+    THANKS: 'Thanks Page',
     UPLOAD: {
       DROPZONE: 'DropZone Page',
       STEPS: 'Upload Steps Page'

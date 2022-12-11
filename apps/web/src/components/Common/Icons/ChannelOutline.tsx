@@ -1,7 +1,7 @@
 import type { SVGProps } from 'react'
 import React from 'react'
 
-const ChannelHeartOutline = (props: SVGProps<SVGSVGElement>) => (
+const ChannelOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
     viewBox="0 0 22 22"
@@ -17,4 +17,4 @@ const ChannelHeartOutline = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-export default ChannelHeartOutline
+export default ChannelOutline

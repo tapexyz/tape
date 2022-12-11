@@ -20,16 +20,21 @@ import React from 'react'
 import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
+import { publicProvider } from 'wagmi/providers/public'
+
+import ErrorBoundary from './ErrorBoundary'
 
 const { chains, provider } = configureChains(
-  [IS_MAINNET ? chain.polygon : chain.polygonMumbai, chain.mainnet],
+  [IS_MAINNET ? chain.polygon : chain.polygonMumbai],
   [
     jsonRpcProvider({
       rpc: () => ({
         http: POLYGON_RPC_URL
       })
-    })
-  ]
+    }),
+    publicProvider()
+  ],
+  { targetQuorum: 1 }
 )
 
 const connectors = connectorsForWallets([
@@ -74,13 +79,15 @@ const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
 
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
-    <WagmiConfig client={wagmiClient}>
-      <ThemeProvider defaultTheme="light" attribute="class">
-        <RainbowKitProviderWrapper>
-          <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
-        </RainbowKitProviderWrapper>
-      </ThemeProvider>
-    </WagmiConfig>
+    <ErrorBoundary>
+      <WagmiConfig client={wagmiClient}>
+        <ThemeProvider defaultTheme="light" attribute="class">
+          <RainbowKitProviderWrapper>
+            <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
+          </RainbowKitProviderWrapper>
+        </ThemeProvider>
+      </WagmiConfig>
+    </ErrorBoundary>
   )
 }
 

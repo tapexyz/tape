@@ -1,19 +1,13 @@
-import useAppStore from '@lib/store'
 import { useHasTxHashBeenIndexedQuery } from 'lens'
-import { useRouter } from 'next/router'
 import { useCallback, useEffect } from 'react'
 import toast from 'react-hot-toast'
 
 type Props = {
   txHash?: string
   txId?: string
-  isPublication?: boolean
 }
 
-const usePendingTxn = ({ txHash, txId, isPublication }: Props) => {
-  const router = useRouter()
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-
+const usePendingTxn = ({ txHash, txId }: Props) => {
   const { data, loading, stopPolling } = useHasTxHashBeenIndexedQuery({
     variables: {
       request: { txHash, txId }
@@ -37,15 +31,8 @@ const usePendingTxn = ({ txHash, txId, isPublication }: Props) => {
           `Relay Error - ${data?.hasTxHashBeenIndexed?.reason}`
         )
       }
-      if (isPublication) router.push(`/channel/${selectedChannel?.handle}`)
     }
-  }, [
-    router,
-    stopPolling,
-    data?.hasTxHashBeenIndexed,
-    selectedChannel?.handle,
-    isPublication
-  ])
+  }, [stopPolling, data?.hasTxHashBeenIndexed])
 
   useEffect(() => {
     checkIsIndexed()

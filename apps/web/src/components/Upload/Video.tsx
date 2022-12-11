@@ -1,6 +1,6 @@
 import CopyOutline from '@components/Common/Icons/CopyOutline'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import * as tf from '@tensorflow/tfjs'
 import clsx from 'clsx'
 import * as nsfwjs from 'nsfwjs'
@@ -22,8 +22,8 @@ if (IS_MAINNET) {
 }
 
 const Video = () => {
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const uploadedVideo = usePersistStore((state) => state.uploadedVideo)
+  const setUploadedVideo = usePersistStore((state) => state.setUploadedVideo)
   const [copy] = useCopyToClipboard()
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -98,7 +98,7 @@ const Video = () => {
           )}
         </div>
         {uploadedVideo.videoSource && (
-          <Tooltip placement="left" content="Copy source URL">
+          <Tooltip placement="left" content="Copy permanent video URL">
             <button
               type="button"
               onClick={() => onCopyVideoSource(uploadedVideo.videoSource)}

@@ -5,7 +5,7 @@ import type { LenstubePublication } from 'utils'
 import { Analytics, TRACK } from 'utils'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import { getVideoUrl } from 'utils/functions/getVideoUrl'
+import { getPermanentVideoUrl } from 'utils/functions/getVideoUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import truncate from 'utils/functions/truncate'
@@ -33,11 +33,10 @@ const Video: FC<Props> = ({ video }) => {
         title={truncate(video?.metadata?.name as string, 60)}
         description={truncate(video?.metadata?.description as string, 100)}
         image={imageCdn(getThumbnailUrl(video), 'thumbnail')}
-        videoUrl={getVideoUrl(video)}
+        videoUrl={getPermanentVideoUrl(video)}
       />
       <VideoPlayer
-        source={getVideoUrl(video)}
-        hls={video.hls}
+        source={getPermanentVideoUrl(video)}
         poster={sanitizeIpfsUrl(video?.metadata?.cover?.original.url)}
         isSensitiveContent={isSensitiveContent}
         videoId={video.id}

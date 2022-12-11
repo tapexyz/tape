@@ -1,7 +1,9 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
-import usePendingTxn from '@hooks/usePendingTxn'
-import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import useAppStore from '@lib/store'
+import usePersistStore, {
+  UPLOADED_VIDEO_FORM_DEFAULTS
+} from '@lib/store/persist'
 import axios from 'axios'
 import { utils } from 'ethers'
 import type {
@@ -19,10 +21,12 @@ import {
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
 } from 'lens'
+import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import {
+  ALLOWED_PLAYBACK_VIDEO_TYPES,
   Analytics,
   ARWEAVE_WEBSITE_URL,
   BUNDLR_CONNECT_MESSAGE,
@@ -63,11 +67,12 @@ const UploadSteps = () => {
   const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)
   const setBundlrData = useAppStore((state) => state.setBundlrData)
   const bundlrData = useAppStore((state) => state.bundlrData)
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const uploadedVideo = usePersistStore((state) => state.uploadedVideo)
+  const setUploadedVideo = usePersistStore((state) => state.setUploadedVideo)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const { address } = useAccount()
   const { data: signer } = useSigner()
+  const router = useRouter()
 
   const resetToDefaults = () => {
     setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
@@ -75,11 +80,6 @@ const UploadSteps = () => {
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.UPLOAD.STEPS })
-
-    if (uploadedVideo.videoSource) {
-      resetToDefaults()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onError = (error: CustomErrorWithData) => {
@@ -95,23 +95,28 @@ const UploadSteps = () => {
       data?.broadcast?.reason !== 'NOT_ALLOWED' &&
       !data.createPostViaDispatcher?.reason
     ) {
-      Analytics.track(TRACK.UPLOADED_VIDEO)
-      setUploadedVideo({
-        buttonText: 'Indexing...',
-        loading: true
+      Analytics.track(TRACK.UPLOADED_VIDEO, {
+        format: uploadedVideo.videoType
       })
+      const txnId = data?.createPostViaDispatcher?.txId ?? data?.broadcast?.txId
+      setUploadedVideo({
+        buttonText: 'Post Video',
+        loading: false,
+        txnId
+      })
+      router.push(`/channel/${selectedChannel?.handle}`)
     }
   }
 
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
+  const [broadcast] = useBroadcastMutation({
     onCompleted,
     onError
   })
 
-  const { write: writePostContract, data: writePostData } = useContractWrite({
+  const { write: writePostContract } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'postWithSig',
@@ -125,30 +130,19 @@ const UploadSteps = () => {
     onError
   })
 
-  const [createPostViaDispatcher, { data: dispatcherData }] =
-    useCreatePostViaDispatcherMutation({
-      onError,
-      onCompleted
-    })
-
-  const broadcastTxId =
-    broadcastData?.broadcast.__typename === 'RelayerResult'
-      ? broadcastData?.broadcast?.txId
-      : null
-  const dispatcherTxId =
-    dispatcherData?.createPostViaDispatcher.__typename === 'RelayerResult'
-      ? dispatcherData?.createPostViaDispatcher?.txId
-      : null
-
-  usePendingTxn({
-    txId: dispatcherTxId ?? broadcastTxId,
-    txHash: writePostData?.hash,
-    isPublication: true
+  const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
+    onError,
+    onCompleted
   })
 
   const getPlaybackId = async (url: string) => {
     // Only on production and mp4 (supported on livepeer)
-    if (!IS_MAINNET || uploadedVideo.videoType !== 'video/mp4') return null
+    if (
+      !IS_MAINNET ||
+      !ALLOWED_PLAYBACK_VIDEO_TYPES.includes(uploadedVideo.videoType)
+    ) {
+      return null
+    }
     try {
       const playbackResponse = await axios.post(
         `${LENSTUBE_API_URL}/video/playback`,
@@ -157,6 +151,9 @@ const UploadSteps = () => {
         }
       )
       const { playbackId } = playbackResponse.data
+      Analytics.track(TRACK.GET_PLAYBACK, {
+        format: uploadedVideo.videoType
+      })
       return playbackId
     } catch (error) {
       logger.error('[Error Get Playback]', error)
@@ -277,7 +274,7 @@ const UploadSteps = () => {
           value: uploadedVideo.durationInSeconds.toString()
         })
       }
-      const isBytesVideo = checkIsBytesVideo(uploadedVideo.description)
+      const isByteVideo = checkIsBytesVideo(uploadedVideo.description)
       const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
         metadata_id: uuidv4(),
@@ -295,7 +292,7 @@ const UploadSteps = () => {
         name: trimify(uploadedVideo.title),
         attributes,
         media,
-        appId: isBytesVideo ? LENSTUBE_BYTES_APP_ID : LENSTUBE_APP_ID
+        appId: isByteVideo ? LENSTUBE_BYTES_APP_ID : LENSTUBE_APP_ID
       }
       if (uploadedVideo.isSensitiveContent) {
         metadata.contentWarning = PublicationContentWarning.Sensitive
@@ -303,7 +300,8 @@ const UploadSteps = () => {
       const { url } = await uploadToAr(metadata)
       setUploadedVideo({
         buttonText: 'Posting video...',
-        loading: true
+        loading: true,
+        isByteVideo
       })
       const isRestricted = Boolean(
         uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
@@ -329,8 +327,10 @@ const UploadSteps = () => {
             : null
         }
       }
-      if (isBytesVideo) {
-        Analytics.track(TRACK.UPLOADED_BYTE_VIDEO)
+      if (isByteVideo) {
+        Analytics.track(TRACK.UPLOADED_BYTE_VIDEO, {
+          format: uploadedVideo.videoType
+        })
       }
       const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
       if (!canUseDispatcher) {
@@ -360,7 +360,9 @@ const UploadSteps = () => {
       videoSource: result.url,
       playbackId
     })
-    Analytics.track(TRACK.UPLOADED_TO_IPFS)
+    Analytics.track(TRACK.UPLOADED_TO_IPFS, {
+      format: uploadedVideo.videoType
+    })
     return createPublication({
       videoSource: result.url,
       playbackId
@@ -415,7 +417,9 @@ const UploadSteps = () => {
         videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
         playbackId
       })
-      Analytics.track(TRACK.UPLOADED_TO_ARWEAVE)
+      Analytics.track(TRACK.UPLOADED_TO_ARWEAVE, {
+        format: uploadedVideo.videoType
+      })
       return createPublication({
         videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
         playbackId

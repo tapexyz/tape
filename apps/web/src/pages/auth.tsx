@@ -5,12 +5,13 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { LENSTUBE_APP_NAME, STATIC_ASSETS } from 'utils'
 
-export default function AuthRequiredPage() {
+const AuthRequiredPage = () => {
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const { replace, query } = useRouter()
+
   useEffect(() => {
-    if (selectedChannelId) {
-      replace(query?.next ? (query?.next as string) : '/')
+    if (selectedChannelId && query?.next) {
+      replace(query?.next as string)
     }
   }, [selectedChannelId, query, replace])
 
@@ -38,3 +39,5 @@ export default function AuthRequiredPage() {
     </>
   )
 }
+
+export default AuthRequiredPage

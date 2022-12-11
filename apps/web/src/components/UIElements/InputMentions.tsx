@@ -80,7 +80,8 @@ const InputMentions: FC<Props> = ({
           <Mention
             trigger="@"
             displayTransform={(handle) => `@${handle} `}
-            markup="@__id__ "
+            markup=" @__id__ "
+            appendSpaceOnAdd
             renderSuggestion={(
               suggestion: SuggestionDataItem & {
                 picture?: string

@@ -28,7 +28,7 @@ const About: FC<Props> = ({ channel }) => {
     <div className="space-y-4 md:pr-4 md:space-y-6">
       {channel?.bio && (
         <div className="flex flex-col space-y-3">
-          <h6 className="text-xs font-semibold uppercase opacity-70">
+          <h6 className="text-xs font-semibold uppercase opacity-50">
             Description
           </h6>
           <InterweaveContent content={channel?.bio} />
@@ -36,7 +36,7 @@ const About: FC<Props> = ({ channel }) => {
       )}
       {hasOnChainId && (
         <div className="flex flex-col space-y-3">
-          <h6 className="text-xs font-semibold uppercase opacity-70">
+          <h6 className="text-xs font-semibold uppercase opacity-50">
             On-chain Identity
           </h6>
           <div className="flex items-center space-x-2">
@@ -84,7 +84,7 @@ const About: FC<Props> = ({ channel }) => {
         </div>
       )}
       <div className="flex flex-col space-y-3">
-        <h6 className="text-xs font-semibold uppercase opacity-70">Links</h6>
+        <h6 className="text-xs font-semibold uppercase opacity-50">Links</h6>
         <div className="space-y-1.5">
           {getValueFromKeyInAttributes(attributes, 'website') && (
             <div className="flex items-center space-x-1">
@@ -141,7 +141,7 @@ const About: FC<Props> = ({ channel }) => {
         </div>
       </div>
       <div className="inline-flex flex-col space-y-3">
-        <h6 className="text-xs font-semibold uppercase opacity-70">Others</h6>
+        <h6 className="text-xs font-semibold uppercase opacity-50">Others</h6>
         <div className="space-y-1.5">
           {getValueFromKeyInAttributes(attributes, 'location') && (
             <div className="flex items-center space-x-1">

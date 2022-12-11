@@ -5,6 +5,7 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { utils } from 'ethers'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
@@ -30,7 +31,7 @@ const BundlrInfo = () => {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const uploadedVideo = usePersistStore((state) => state.uploadedVideo)
   const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)
   const bundlrData = useAppStore((state) => state.bundlrData)
   const setBundlrData = useAppStore((state) => state.setBundlrData)
