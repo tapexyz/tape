@@ -3,12 +3,12 @@ import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import DropMenu from '@components/UIElements/DropMenu'
 import useAppStore from '@lib/store'
 import { useHidePublicationMutation } from 'lens'
-import { useRouter } from 'next/router'
 import type { Dispatch, FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineDelete } from 'react-icons/ai'
 import type { LenstubePublication } from 'utils'
+import { Analytics, TRACK } from 'utils'
 
 type Props = {
   setShowReport: Dispatch<boolean>
@@ -17,12 +17,19 @@ type Props = {
 
 const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const router = useRouter()
 
   const [hideComment] = useHidePublicationMutation({
+    update(cache) {
+      const normalizedId = cache.identify({
+        id: comment?.id,
+        __typename: 'Comment'
+      })
+      cache.evict({ id: normalizedId })
+      cache.gc()
+    },
     onCompleted: () => {
+      Analytics.track(TRACK.DELETE_COMMENT)
       toast.success('Comment deleted')
-      router.reload()
     }
   })
 

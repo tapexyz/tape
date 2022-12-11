@@ -38,7 +38,7 @@ const logger = {
     console.warn(...args)
   },
   error: (message: string, error: any) => {
-    sendError(`${message} - ${error}`)
+    sendError(`${message} - ${JSON.stringify(error)}`)
     console.error(message, error)
   }
 }
