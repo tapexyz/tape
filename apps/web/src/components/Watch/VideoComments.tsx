@@ -102,7 +102,7 @@ const VideoComments: FC<Props> = ({ video }) => {
       )}
       {video?.canComment.result ? (
         <NewComment video={video} />
-      ) : (
+      ) : selectedChannelId ? (
         <Alert variant="warning">
           <span className="text-sm">
             {isFollowerOnlyReferenceModule
@@ -110,7 +110,7 @@ const VideoComments: FC<Props> = ({ video }) => {
               : `Only subscribers within ${video.profile.handle}'s preferred network can comment`}
           </span>
         </Alert>
-      )}
+      ) : null}
       {!error && !loading && (
         <>
           <div className="pt-5 space-y-4">
