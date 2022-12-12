@@ -75,7 +75,8 @@ export const TRACK = {
   },
   TIP: {
     OPEN: 'Open Tip Modal',
-    SENT: 'Sent Tip'
+    SENT: 'Sent Tip',
+    COMMENT: 'New Tip Comment'
   },
   COPY: { VIDEO_URL: 'Copy Video Url' },
   SHARE_VIDEO: {

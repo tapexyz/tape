@@ -5,7 +5,6 @@ import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import usePendingTxn from '@hooks/usePendingTxn'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { BigNumber, utils } from 'ethers'
@@ -18,7 +17,7 @@ import {
   useCreateCommentViaDispatcherMutation
 } from 'lens'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData, LenstubePublication } from 'utils'
@@ -50,7 +49,7 @@ type Props = {
 const formSchema = z.object({
   tipQuantity: z
     .number()
-    .min(1, { message: 'Tip amount requrired' })
+    .min(1, { message: 'Tip amount required' })
     .nonnegative({ message: 'Should to greater than zero' }),
   message: z.string().min(1, { message: 'Message is requried' })
 })
@@ -73,8 +72,9 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const watchTipQuantity = watch('tipQuantity', 1)
 
   const [loading, setLoading] = useState(false)
-  const [buttonText, setButtonText] = useState<string | null>(null)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const queuedComments = usePersistStore((state) => state.queuedComments)
+  const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
@@ -82,7 +82,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error.message)
     setLoading(false)
-    setButtonText(`Send ${Number(watchTipQuantity) * 1} MATIC`)
   }
 
   const { sendTransactionAsync } = useSendTransaction({
@@ -94,46 +93,54 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
-  const { write: writeComment, data: writeCommentData } = useContractWrite({
+  const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
+    setQueuedComments([
+      {
+        comment: getValues('message'),
+        txnId: txn.txnId,
+        txnHash: txn.txnHash,
+        pubId: video.id
+      },
+      ...(queuedComments || [])
+    ])
+    Analytics.track(TRACK.TIP.COMMENT)
+    setLoading(false)
+    toast.success('Tipped successfully.')
+    setShowTip(false)
+  }
+
+  const onCompleted = (data: any) => {
+    if (
+      data?.broadcast?.reason === 'NOT_ALLOWED' ||
+      data.createCommentViaDispatcher?.reason
+    ) {
+      return logger.error('[Error Comment Dispatcher]', data)
+    }
+    const txnId =
+      data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
+    setToQueue({ txnId })
+  }
+
+  const { write: writeComment } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'commentWithSig',
     mode: 'recklesslyUnprepared',
-    onError
-  })
-
-  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
-    onError
-  })
-
-  const [createCommentViaDispatcher, { data: dispatcherData }] =
-    useCreateCommentViaDispatcherMutation({
-      onError
-    })
-
-  const broadcastTxId =
-    broadcastData?.broadcast.__typename === 'RelayerResult'
-      ? broadcastData?.broadcast?.txId
-      : null
-  const dispatcherTxId =
-    dispatcherData?.createCommentViaDispatcher.__typename === 'RelayerResult'
-      ? dispatcherData?.createCommentViaDispatcher?.txId
-      : null
-
-  const { indexed } = usePendingTxn({
-    txHash: writeCommentData?.hash,
-    txId: broadcastTxId ?? dispatcherTxId
-  })
-
-  useEffect(() => {
-    if (indexed) {
-      setLoading(false)
-      setButtonText(`Send ${Number(watchTipQuantity) * 1} MATIC`)
-      toast.success('Tipped successfully.')
-      setShowTip(false)
+    onError,
+    onSuccess: (data) => {
+      setToQueue({ txnHash: data.hash })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [indexed])
+  })
+
+  const [broadcast] = useBroadcastMutation({
+    onError,
+    onCompleted
+  })
+
+  const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
+    onError,
+    onCompleted
+  })
 
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
     onCompleted: async (data) => {
@@ -155,7 +162,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           types: omitKey(typedData?.types, '__typename'),
           value: omitKey(typedData?.value, '__typename')
         })
-        setButtonText('Commenting...')
         const { v, r, s } = utils.splitSignature(signature)
         const args = {
           profileId,
@@ -203,7 +209,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const submitComment = async (txnHash: string) => {
     try {
       setLoading(true)
-      setButtonText('Uploading to Arweave...')
       const { url } = await uploadToAr({
         version: '2.0.0',
         metadata_id: uuidv4(),
@@ -235,7 +240,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         media: [],
         appId: LENSTUBE_APP_ID
       })
-      setButtonText('Commenting...')
       const request = {
         profileId: selectedChannel?.id,
         publicationId: video?.id,
@@ -260,7 +264,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const onSendTip = async () => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     setLoading(true)
-    setButtonText('Sending...')
     const amountToSend = Number(getValues('tipQuantity')) * 1
     try {
       const data = await sendTransactionAsync?.({
@@ -273,7 +276,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       if (data?.hash) await submitComment(data.hash)
     } catch (error) {
       setLoading(false)
-      setButtonText(`Send ${Number(watchTipQuantity) * 1} MATIC`)
       logger.error('[Error Send Tip]', error)
     }
   }
@@ -336,14 +338,12 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
               </div>
             )}
           </span>
-          <Button disabled={loading}>
-            {buttonText
-              ? buttonText
-              : `Send ${
-                  isNaN(Number(watchTipQuantity) * 1)
-                    ? 0
-                    : Number(watchTipQuantity) * 1
-                } MATIC`}
+          <Button disabled={loading} loading={loading}>
+            {`Tip ${
+              isNaN(Number(watchTipQuantity) * 1)
+                ? 0
+                : Number(watchTipQuantity) * 1
+            } MATIC`}
           </Button>
         </div>
       </form>
