@@ -12,7 +12,7 @@ const IPFSLink = ({
 }) => {
   return (
     <Link
-      href={`${IPFS_GATEWAY}${hash}`}
+      href={`${IPFS_GATEWAY}/${hash}`}
       rel="noreferer noreferrer"
       target="_blank"
     >

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { LENSTUBE_WEBSITE_URL } from 'utils'
+import { IPFS_GATEWAY, LENSTUBE_WEBSITE_URL } from 'utils'
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 
 import SensitiveWarning from './SensitiveWarning'
@@ -37,7 +37,8 @@ const PlayerInstance = ({
       src={permanentUrl}
       aspectRatio={ratio}
       autoUrlUpload={{
-        fallback: true
+        fallback: true,
+        ipfsGateway: IPFS_GATEWAY
       }}
       loop={true}
       showPipButton={true}
