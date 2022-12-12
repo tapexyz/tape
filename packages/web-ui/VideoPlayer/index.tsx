@@ -1,4 +1,3 @@
-import useAppStore from '@lib/store'
 import type { AspectRatio } from '@livepeer/react'
 import { Player } from '@livepeer/react'
 import { useRouter } from 'next/router'
@@ -15,6 +14,9 @@ interface Props {
   posterUrl: string
   isSensitiveContent?: boolean
   ratio?: AspectRatio
+  currentTime?: number
+  refCallback?: (ref: HTMLMediaElement) => void
+  publicationId?: string
 }
 
 interface PlayerProps {
@@ -53,26 +55,31 @@ const VideoPlayer: FC<Props> = ({
   permanentUrl,
   posterUrl,
   ratio = '16to9',
-  isSensitiveContent
+  isSensitiveContent,
+  currentTime = 0,
+  refCallback,
+  publicationId
 }) => {
   const [copy] = useCopyToClipboard()
   const router = useRouter()
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
   const [playerRef, setPlayerRef] = useState<HTMLMediaElement>()
-  const videoWatchTime = useAppStore((state) => state.videoWatchTime)
 
   const mediaElementRef = useCallback((ref: HTMLMediaElement) => {
     setPlayerRef(ref)
+    refCallback?.(ref)
   }, [])
 
   useEffect(() => {
     if (!playerRef) return
-    playerRef.currentTime = Number(videoWatchTime || 0)
-  }, [playerRef, videoWatchTime])
+    playerRef.currentTime = Number(currentTime || 0)
+  }, [playerRef, currentTime])
 
   const onContextClick = async (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
-    await copy(`${LENSTUBE_WEBSITE_URL}/watch/${router.query?.id}`)
+    await copy(
+      `${LENSTUBE_WEBSITE_URL}/watch/${publicationId ?? router.query?.id}`
+    )
     toast.success('Video link copied')
   }
 

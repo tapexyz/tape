@@ -12,7 +12,7 @@ type Props = {
 const VideoOverlay: FC<Props> = ({ video }) => {
   return (
     <div className="absolute top-0 z-10 w-full text-white">
-      <div className="flex items-center justify-between p-2 space-x-6 bg-gradient-to-b to-transparent from-black/90">
+      <div className="flex items-center justify-between p-2 space-x-6 bg-gradient-to-b via-black/60 to-transparent from-black/90">
         <div className="flex items-center flex-1">
           <Link
             href={`${LENSTUBE_WEBSITE_URL}/channel/${video?.profile?.handle}`}
@@ -21,7 +21,7 @@ const VideoOverlay: FC<Props> = ({ video }) => {
           >
             <img
               src={getProfilePicture(video?.profile)}
-              className="w-8 h-8 rounded-full"
+              className="w-9 h-9 rounded-full"
               draggable={false}
               alt={video?.profile?.handle}
             />
@@ -29,7 +29,7 @@ const VideoOverlay: FC<Props> = ({ video }) => {
           <div className="flex flex-col">
             <Link
               href={`${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`}
-              className="break-words line-clamp-1"
+              className="break-words line-clamp-1 leading-5"
               target="_blank"
             >
               <h1 className="font-semibold">{video?.metadata.name}</h1>

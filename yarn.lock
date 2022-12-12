@@ -2872,10 +2872,10 @@
     "@json-rpc-tools/types" "^1.7.6"
     "@pedrouid/environment" "^1.0.1"
 
-"@livepeer/core-react@^1.0.0-next.7":
-  version "1.0.0-next.7"
-  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.0.0-next.7.tgz#637c43f53b79c41462e0f8033060dcd3a0ef4ee3"
-  integrity sha512-GKQuvC5xfYhQm1rkscJaykNAXUY1MOY3jKi58frv1IoHjDRg20rh5SuPoHuvj8PTOQmMkasTLk5MPF3JSwR1iQ==
+"@livepeer/core-react@^1.0.0-next.8":
+  version "1.0.0-next.8"
+  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.0.0-next.8.tgz#a577317f5df1fc534d8eac7bd88888b271cc4efa"
+  integrity sha512-kNTfiQkp9/55vNBh8ZE2ppuzDfbvG79lBdfm6m67vcVSOeYdYKGztfJhZMMfOU/JTw94jXuEFwtZgWFcnzAFgg==
   dependencies:
     "@livepeer/core" "^1.0.0-next.1"
     "@tanstack/query-async-storage-persister" "4.19.1"
@@ -2896,12 +2896,12 @@
     tus-js-client "^3.0.1"
     zustand "^4.1.5"
 
-"@livepeer/react@^2.0.0-next.8":
-  version "2.0.0-next.8"
-  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.0.0-next.8.tgz#65306277f6060c5a5c0abb0fe6be6bb4e54d426a"
-  integrity sha512-SbgCw5gv7EPOOi+VmlXcXwpBNFhVzIArYkkeZAx6gfFMS9lLUJ3yXx+EocqoLsDDMS+Sfl5tNJJHYbvDV03Qmw==
+"@livepeer/react@^2.0.0-next.9":
+  version "2.0.0-next.9"
+  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.0.0-next.9.tgz#0d69ffc86c91045cc61885afd916a45ea90a6e5d"
+  integrity sha512-mxG/a34n01HAjja2WZoB3KuEe7Y9TISpHlSxY9JiijE+mKMQNYj85k3S9UW3jmixFNMevj529czamgMjIq45lQ==
   dependencies:
-    "@livepeer/core-react" "^1.0.0-next.7"
+    "@livepeer/core-react" "^1.0.0-next.8"
     "@stitches/react" "^1.2.8"
     core-js "^3.26.1"
     livepeer "2.0.0-next.4"
@@ -3199,11 +3199,6 @@
     "@noble/hashes" "~1.1.1"
     "@scure/base" "~1.1.0"
 
-"@seznam/compose-react-refs@^1.0.4":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@seznam/compose-react-refs/-/compose-react-refs-1.0.6.tgz#6ec4e70bdd6e32f8e70b4100f27267cf306bd8df"
-  integrity sha512-izzOXQfeQLonzrIQb8u6LQ8dk+ymz3WXTIXjvOlTXHq6sbzROg3NWU+9TTAOpEoK9Bth24/6F/XrfHJ5yR5n6Q==
-
 "@solana/buffer-layout@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@solana/buffer-layout/-/buffer-layout-4.0.0.tgz#75b1b11adc487234821c81dfae3119b73a5fd734"
@@ -3261,11 +3256,6 @@
     node-fetch "2"
     rpc-websockets "^7.5.0"
     superstruct "^0.14.2"
-
-"@stencil/core@2.5.2":
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.5.2.tgz#ad00d495ee37bbed4044524d59c7f22de15ab4a7"
-  integrity sha512-bgjPXkSzzg1WnTgVUm6m5ZzpKt602WmA/QljODAW1xVN40OHJdbGblzF/F6MFzqv2c5Cy30CB41arc8qADIdcQ==
 
 "@stitches/core@^1.2.8":
   version "1.2.8"
@@ -3452,11 +3442,6 @@
   integrity sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==
   dependencies:
     "@types/node" "*"
-
-"@types/fscreen@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@types/fscreen/-/fscreen-1.0.1.tgz#d924e07d0468eb056abeca41bd54e742ddce2b6d"
-  integrity sha512-hV2d0BreihMGtrg+EdAFOIl/O2EL5vhAheHJUztGE/lPFZIN8ZCpGFL8hCbtyi1CfhKjDRCf47sHjP+FwJ4q0Q==
 
 "@types/js-yaml@^4.0.0":
   version "4.0.5"
@@ -3774,24 +3759,6 @@
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@vanilla-extract/sprinkles/-/sprinkles-1.5.0.tgz#c921183ae518bb484299c2dc81f2acefd91c3dbe"
   integrity sha512-W58f2Rzz5lLmk0jbhgStVlZl5wEiPB1Ur3fRvUaBM+MrifZ3qskmFq/CiH//fEYeG5Dh9vF1qRviMMH46cX9Nw==
-
-"@vime/core@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@vime/core/-/core-5.4.0.tgz#5fef19a782e605e081cf4348fdb9ebb3a7ba0ae4"
-  integrity sha512-ZP19/+9RDeX8q0dPGW1Au77/c7hqb8Lsd/4zV0pAsld+op/cYVMoByu5wd6luQ0R6AKwe/mYdNTDatAHZlhHZw==
-  dependencies:
-    "@stencil/core" "2.5.2"
-    "@types/fscreen" "^1.0.1"
-    fscreen "^1.2.0"
-    mitt "^3.0.0"
-    stencil-wormhole "^3.4.1"
-
-"@vime/react@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@vime/react/-/react-5.4.0.tgz#98e57a6cd0802c07bf47391a0078cf2e21d8a134"
-  integrity sha512-4Szvfym+UDwXH5hrxzR6Olgr9ZfcI/obic0Z9klKOhMl2q6jrkpyuUQRYcDA2kt+Dy2gVH6RJDkKsF43g+NAZA==
-  dependencies:
-    "@seznam/compose-react-refs" "^1.0.4"
 
 "@wagmi/core@0.7.9":
   version "0.7.9"
@@ -6509,11 +6476,6 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
 
-fscreen@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/fscreen/-/fscreen-1.2.0.tgz#1a8c88e06bc16a07b473ad96196fb06d6657f59e"
-  integrity sha512-hlq4+BU0hlPmwsFjwGGzZ+OZ9N/wq9Ljg/sq3pX+2CD7hrJsX9tJgWWK/wiNTFM212CLHWhicOoqwXyZGGetJg==
-
 fsevents@~2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
@@ -7869,11 +7831,6 @@ minimist@^1.2.0, minimist@^1.2.6:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.7.tgz#daa1c4d91f507390437c6a8bc01078e7000c4d18"
   integrity sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==
-
-mitt@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/mitt/-/mitt-3.0.0.tgz#69ef9bd5c80ff6f57473e8d89326d01c414be0bd"
-  integrity sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==
 
 mixpanel-browser@^2.45.0:
   version "2.45.0"
@@ -9337,11 +9294,6 @@ sshpk@^1.7.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha512-OpZ3zP+jT1PI7I8nemJX4AKmAX070ZkYPVWV/AaKTJl+tXCTGyVdC1a4SL8RUQYEwk/f34ZX8UTykN68FwrqAA==
-
-stencil-wormhole@^3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/stencil-wormhole/-/stencil-wormhole-3.4.1.tgz#f6c74d38cca38470884fca7353486620072d3734"
-  integrity sha512-ppYTcWTJnIl4ZAKwF39LTA9f/ypHfbVefsHdN2hpMQGrR57wt1TieZo9tlCM/r1Y4SFiZ5yz/cjho564C921Xw==
 
 stream-browserify@3.0.0, stream-browserify@^3.0.0:
   version "3.0.0"

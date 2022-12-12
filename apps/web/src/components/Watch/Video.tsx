@@ -1,10 +1,12 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
+import useAppStore from '@lib/store'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React from 'react'
 import type { LenstubePublication } from 'utils'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
+import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import { getVideoUrl } from 'utils/functions/getVideoUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
@@ -12,7 +14,7 @@ import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import VideoActions from './VideoActions'
 import VideoMeta from './VideoMeta'
 
-const VideoPlayer = dynamic(() => import('../Common/Player/VideoPlayer'), {
+const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
   loading: () => <CardShimmer />,
   ssr: false
 })
@@ -23,13 +25,15 @@ type Props = {
 
 const Video: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
+  const videoWatchTime = useAppStore((state) => state.videoWatchTime)
 
   return (
     <div className="overflow-hidden">
       <VideoPlayer
+        currentTime={videoWatchTime}
         permanentUrl={getVideoUrl(video)}
         posterUrl={imageCdn(
-          sanitizeIpfsUrl(video?.metadata?.cover?.original.url),
+          sanitizeIpfsUrl(getThumbnailUrl(video)),
           'thumbnail'
         )}
         isSensitiveContent={isSensitiveContent}

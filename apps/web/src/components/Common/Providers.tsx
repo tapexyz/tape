@@ -1,11 +1,6 @@
 import { ApolloProvider } from '@apollo/client'
 import apolloClient from '@lib/apollo'
-import type { ThemeConfig } from '@livepeer/react'
-import {
-  createReactClient,
-  LivepeerConfig,
-  studioProvider
-} from '@livepeer/react'
+import { LivepeerConfig } from '@livepeer/react'
 import {
   connectorsForWallets,
   darkTheme,
@@ -23,12 +18,8 @@ import {
 import { ThemeProvider, useTheme } from 'next-themes'
 import type { ReactNode } from 'react'
 import React from 'react'
-import {
-  IS_MAINNET,
-  LENSTUBE_APP_NAME,
-  LIVEPEER_STUDIO_API_KEY,
-  POLYGON_RPC_URL
-} from 'utils'
+import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
+import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { publicProvider } from 'wagmi/providers/public'
@@ -67,36 +58,6 @@ const wagmiClient = createClient({
   provider
 })
 
-const livepeerClient = createReactClient({
-  provider: studioProvider({
-    apiKey: LIVEPEER_STUDIO_API_KEY
-  })
-})
-
-const playerTheme: ThemeConfig = {
-  colors: {
-    accent: '#fff',
-    progressLeft: '#6366f1'
-  },
-  fonts: {
-    display: 'Matter'
-  },
-  fontSizes: {
-    timeFontSize: '12px'
-  },
-  space: {
-    timeMarginX: '20px'
-  },
-  sizes: {
-    iconButtonSize: '35px',
-    loading: '30px',
-    thumb: '7px',
-    thumbActive: '7px',
-    trackActive: '3px',
-    trackInactive: '3px'
-  }
-}
-
 // Enables usage of theme in RainbowKitProvider
 const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
   const { theme } = useTheme()
@@ -121,7 +82,7 @@ const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ErrorBoundary>
-      <LivepeerConfig client={livepeerClient} theme={playerTheme}>
+      <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
         <WagmiConfig client={wagmiClient}>
           <ThemeProvider defaultTheme="light" attribute="class">
             <RainbowKitProviderWrapper>
