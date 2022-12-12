@@ -2872,10 +2872,10 @@
     "@json-rpc-tools/types" "^1.7.6"
     "@pedrouid/environment" "^1.0.1"
 
-"@livepeer/core-react@^1.0.0-next.6":
-  version "1.0.0-next.6"
-  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.0.0-next.6.tgz#6090617eaafba402ad05fab56b031c751a6ae700"
-  integrity sha512-pZ24/7hssmkJTmNYg0xVsf1kdwsKQTzxjEZym31Eam+bzOV8MrlP2basw+vXOf+8cGB7hWEVcwicynyAkCOE2A==
+"@livepeer/core-react@^1.0.0-next.7":
+  version "1.0.0-next.7"
+  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.0.0-next.7.tgz#637c43f53b79c41462e0f8033060dcd3a0ef4ee3"
+  integrity sha512-GKQuvC5xfYhQm1rkscJaykNAXUY1MOY3jKi58frv1IoHjDRg20rh5SuPoHuvj8PTOQmMkasTLk5MPF3JSwR1iQ==
   dependencies:
     "@livepeer/core" "^1.0.0-next.1"
     "@tanstack/query-async-storage-persister" "4.19.1"
@@ -2896,15 +2896,15 @@
     tus-js-client "^3.0.1"
     zustand "^4.1.5"
 
-"@livepeer/react@^2.0.0-next.7":
-  version "2.0.0-next.7"
-  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.0.0-next.7.tgz#32e2aab7281b6ee003a13e558eaa9987443cea70"
-  integrity sha512-JZISgOATzil7gbm/M2PmbVxzoDhZy05J3VX79bXgv5dmE/Cdp4udZljYel0XS4XvQ8YDh801S0Tx49xZu9PjkA==
+"@livepeer/react@^2.0.0-next.8":
+  version "2.0.0-next.8"
+  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.0.0-next.8.tgz#65306277f6060c5a5c0abb0fe6be6bb4e54d426a"
+  integrity sha512-SbgCw5gv7EPOOi+VmlXcXwpBNFhVzIArYkkeZAx6gfFMS9lLUJ3yXx+EocqoLsDDMS+Sfl5tNJJHYbvDV03Qmw==
   dependencies:
-    "@livepeer/core-react" "^1.0.0-next.6"
+    "@livepeer/core-react" "^1.0.0-next.7"
     "@stitches/react" "^1.2.8"
     core-js "^3.26.1"
-    livepeer "2.0.0-next.3"
+    livepeer "2.0.0-next.4"
     zustand "^4.1.5"
 
 "@metamask/safe-event-emitter@2.0.0", "@metamask/safe-event-emitter@^2.0.0":
@@ -3775,7 +3775,7 @@
   resolved "https://registry.yarnpkg.com/@vanilla-extract/sprinkles/-/sprinkles-1.5.0.tgz#c921183ae518bb484299c2dc81f2acefd91c3dbe"
   integrity sha512-W58f2Rzz5lLmk0jbhgStVlZl5wEiPB1Ur3fRvUaBM+MrifZ3qskmFq/CiH//fEYeG5Dh9vF1qRviMMH46cX9Nw==
 
-"@vime/core@^5.3.3", "@vime/core@^5.4.0":
+"@vime/core@^5.4.0":
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/@vime/core/-/core-5.4.0.tgz#5fef19a782e605e081cf4348fdb9ebb3a7ba0ae4"
   integrity sha512-ZP19/+9RDeX8q0dPGW1Au77/c7hqb8Lsd/4zV0pAsld+op/cYVMoByu5wd6luQ0R6AKwe/mYdNTDatAHZlhHZw==
@@ -3786,7 +3786,7 @@
     mitt "^3.0.0"
     stencil-wormhole "^3.4.1"
 
-"@vime/react@^5.3.3", "@vime/react@^5.4.0":
+"@vime/react@^5.4.0":
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/@vime/react/-/react-5.4.0.tgz#98e57a6cd0802c07bf47391a0078cf2e21d8a134"
   integrity sha512-4Szvfym+UDwXH5hrxzR6Olgr9ZfcI/obic0Z9klKOhMl2q6jrkpyuUQRYcDA2kt+Dy2gVH6RJDkKsF43g+NAZA==
@@ -7587,10 +7587,10 @@ listr2@^4.0.5:
     through "^2.3.8"
     wrap-ansi "^7.0.0"
 
-livepeer@2.0.0-next.3:
-  version "2.0.0-next.3"
-  resolved "https://registry.yarnpkg.com/livepeer/-/livepeer-2.0.0-next.3.tgz#334757cca76ae1aa7c284afe7a268ba5c69c2f4b"
-  integrity sha512-/+bTf7QlBanxQLxBLYy0K1oy3PWAj/zURfIQOXlacMz5FhV9UeYrSoC4SkhmLBzi2NLhZJ8KBnXkB0VjS6a7dw==
+livepeer@2.0.0-next.4:
+  version "2.0.0-next.4"
+  resolved "https://registry.yarnpkg.com/livepeer/-/livepeer-2.0.0-next.4.tgz#2650429a150b0f3c9728065683fd5dcfa9bd8f4a"
+  integrity sha512-sPqbZd+whwMB48NimbhQhyblWmjhK+lEnDNMEy+x/nNS9N2YvnfXSC0aTYDsvALBrFdK5+3ZG2Rtsm6+ClnuZw==
   dependencies:
     "@livepeer/core" "^1.0.0-next.1"
     "@stitches/core" "^1.2.8"
