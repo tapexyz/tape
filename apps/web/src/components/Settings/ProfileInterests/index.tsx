@@ -13,7 +13,7 @@ const ProfileInterests = () => {
           interests can help curate content the way you like.
         </p>
       </div>
-      <Topics showSave />
+      <Topics />
     </div>
   )
 }

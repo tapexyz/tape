@@ -1,4 +1,4 @@
-import type { UploadedVideo } from 'utils'
+import type { QueuedCommentType, UploadedVideo } from 'utils'
 import { WMATIC_TOKEN_ADDRESS } from 'utils'
 import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
 import create from 'zustand'
@@ -40,7 +40,8 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   isNSFW: false,
   isNSFWThumbnail: false,
   isByteVideo: false,
-  txnId: null
+  txnId: undefined,
+  txnHash: undefined
 }
 
 interface AppPerisistState {
@@ -48,19 +49,23 @@ interface AppPerisistState {
   sidebarCollapsed: boolean
   notificationCount: number
   uploadedVideo: UploadedVideo
+  queuedComments: QueuedCommentType[]
   setUploadedVideo: (video: { [k: string]: any }) => void
   setNotificationCount: (count: number) => void
   setSidebarCollapsed: (collapsed: boolean) => void
   setSelectedChannelId: (id: string | null) => void
+  setQueuedComments: (queuedComment: QueuedCommentType[]) => void
 }
 
 export const usePersistStore = create(
   persist<AppPerisistState>(
     (set) => ({
       selectedChannelId: null,
+      queuedComments: [],
       sidebarCollapsed: true,
       notificationCount: 0,
       uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
+      setQueuedComments: (queuedComments) => set(() => ({ queuedComments })),
       setSidebarCollapsed: (sidebarCollapsed) =>
         set(() => ({ sidebarCollapsed })),
       setNotificationCount: (notificationCount) =>

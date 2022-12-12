@@ -2,7 +2,6 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
-import usePendingTxn from '@hooks/usePendingTxn'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { utils } from 'ethers'
@@ -18,7 +17,7 @@ import {
   useCreateCommentViaDispatcherMutation
 } from 'lens'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData, LenstubePublication } from 'utils'
@@ -44,7 +43,6 @@ import { z } from 'zod'
 
 type Props = {
   video: LenstubePublication
-  refetchComments: () => void
 }
 const formSchema = z.object({
   comment: z
@@ -55,11 +53,12 @@ const formSchema = z.object({
 })
 type FormData = z.infer<typeof formSchema>
 
-const NewComment: FC<Props> = ({ video, refetchComments }) => {
+const NewComment: FC<Props> = ({ video }) => {
   const [loading, setLoading] = useState(false)
-  const [buttonText, setButtonText] = useState('Comment')
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const queuedComments = usePersistStore((state) => state.queuedComments)
+  const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
@@ -69,7 +68,8 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     formState: { errors },
     reset,
     watch,
-    setValue
+    setValue,
+    getValues
   } = useForm<FormData>({
     defaultValues: {
       comment: ''
@@ -77,9 +77,35 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     resolver: zodResolver(formSchema)
   })
 
+  const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
+    setQueuedComments([
+      {
+        comment: getValues('comment'),
+        txnId: txn.txnId,
+        txnHash: txn.txnHash,
+        pubId: video.id
+      },
+      ...(queuedComments || [])
+    ])
+    reset()
+    setLoading(false)
+  }
+
+  const onCompleted = (data: any) => {
+    if (
+      data?.broadcast?.reason === 'NOT_ALLOWED' ||
+      data.createCommentViaDispatcher?.reason
+    ) {
+      return logger.error('[Error Comment Dispatcher]', data)
+    }
+    Analytics.track(TRACK.NEW_COMMENT)
+    const txnId =
+      data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
+    setToQueue({ txnId })
+  }
+
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
-    setButtonText('Comment')
     setLoading(false)
   }
 
@@ -87,51 +113,26 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
     onError
   })
 
-  const { write: writeComment, data: writeCommentData } = useContractWrite({
+  const { write: writeComment } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'commentWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => {
-      setButtonText('Indexing...')
-      reset()
+    onError,
+    onSuccess: (data) => {
+      setToQueue({ txnHash: data.hash })
     }
   })
 
-  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
-    onError
+  const [broadcast] = useBroadcastMutation({
+    onError,
+    onCompleted
   })
 
-  const [createCommentViaDispatcher, { data: dispatcherData }] =
-    useCreateCommentViaDispatcherMutation({
-      onError
-    })
-
-  const broadcastTxId =
-    broadcastData?.broadcast.__typename === 'RelayerResult'
-      ? broadcastData?.broadcast?.txId
-      : null
-  const dispatcherTxId =
-    dispatcherData?.createCommentViaDispatcher.__typename === 'RelayerResult'
-      ? dispatcherData?.createCommentViaDispatcher?.txId
-      : null
-
-  const { indexed } = usePendingTxn({
-    txHash: writeCommentData?.hash,
-    txId: broadcastTxId ?? dispatcherTxId
+  const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
+    onError,
+    onCompleted
   })
-
-  useEffect(() => {
-    if (indexed) {
-      setLoading(false)
-      refetchComments()
-      setButtonText('Comment')
-      reset()
-      toast.success('Commented successfully.')
-      Analytics.track(TRACK.NEW_COMMENT)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [indexed])
 
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
     onCompleted: async (data) => {
@@ -148,7 +149,6 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         referenceModuleData,
         referenceModuleInitData
       } = typedData?.value
-      setButtonText('Signing...')
       try {
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
@@ -168,7 +168,6 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           referenceModuleInitData,
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
-        setButtonText('Commenting...')
         setUserSigNonce(userSigNonce + 1)
         if (!RELAYER_ENABLED) {
           return writeComment?.({ recklesslySetUnpreparedArgs: [args] })
@@ -202,7 +201,6 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
 
   const submitComment = async (data: FormData) => {
     try {
-      setButtonText('Uploading...')
       setLoading(true)
 
       const textNftImageUrl = await getTextNftUrl(
@@ -237,7 +235,6 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
         media: [],
         appId: LENSTUBE_APP_ID
       })
-      setButtonText('Commenting...')
       const request = {
         profileId: selectedChannel?.id,
         publicationId: video?.id,
@@ -288,7 +285,9 @@ const NewComment: FC<Props> = ({ video, refetchComments }) => {
           }}
           mentionsSelector="input-mentions-single"
         />
-        <Button disabled={loading}>{buttonText}</Button>
+        <Button disabled={loading} loading={loading}>
+          Comment
+        </Button>
       </form>
     </div>
   )

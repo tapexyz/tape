@@ -62,13 +62,13 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       setThumbnails(thumbnails)
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX)
       const imageFile = getFileFromDataURL(
-        thumbnails[DEFAULT_THUMBNAIL_INDEX].url,
+        thumbnails[DEFAULT_THUMBNAIL_INDEX]?.url,
         'thumbnail.jpeg'
       )
       const ipfsResult = await uploadThumbnailToIpfs(imageFile)
       setThumbnails(
         thumbnails.map((t, i) => {
-          if (i === DEFAULT_THUMBNAIL_INDEX) t.ipfsUrl = ipfsResult.url
+          if (i === DEFAULT_THUMBNAIL_INDEX) t.ipfsUrl = ipfsResult?.url
           return t
         })
       )
@@ -160,7 +160,9 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
           <BiImageAdd className="flex-none mb-1 text-lg" />
           <span className="text-[10px]">Upload thumbnail</span>
         </label>
-        {!thumbnails.length && <ThumbnailsShimmer />}
+        {!thumbnails.length && uploadedVideo.file?.size && (
+          <ThumbnailsShimmer />
+        )}
         {thumbnails.map((thumbnail, idx) => {
           return (
             <button

@@ -3,6 +3,7 @@ import TagOutline from '@components/Common/Icons/TagOutline'
 import ArweaveExplorerLink from '@components/Common/Links/ArweaveExplorerLink'
 import IPFSLink from '@components/Common/Links/IPFSLink'
 import TokenExplorerLink from '@components/Common/Links/TokenExplorerLink'
+import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import type { LenstubePublication } from 'utils'
@@ -21,12 +22,15 @@ const MetaInfo: FC<Props> = ({ video }) => {
   return (
     <div className="flex flex-wrap items-center space-x-1 opacity-80">
       {video?.metadata?.tags[0] && (
-        <div className="flex items-center space-x-1 text-sm">
+        <Link
+          href={`/explore/${video.metadata.tags[0]}`}
+          className="flex items-center space-x-1 text-sm"
+        >
           <TagOutline className="w-4 h-4" />
           <span className="whitespace-nowrap">
             {getCategoryName(video.metadata.tags[0])}
           </span>
-        </div>
+        </Link>
       )}
       {video?.metadata?.tags[0] && <span className="middot" />}
 
