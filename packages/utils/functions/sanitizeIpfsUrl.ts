@@ -1,7 +1,7 @@
 import { IPFS_GATEWAY } from '../constants'
 
 const sanitizeIpfsUrl = (url: string) => {
-  const gateway = IPFS_GATEWAY
+  const gateway = `${IPFS_GATEWAY}/`
   if (!url) return url
 
   return url
