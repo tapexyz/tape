@@ -17,6 +17,10 @@ interface Props {
   currentTime?: number
   refCallback?: (ref: HTMLMediaElement) => void
   publicationId?: string
+  options?: {
+    autoPlay: boolean
+    muted: boolean
+  }
 }
 
 interface PlayerProps {
@@ -24,13 +28,18 @@ interface PlayerProps {
   posterUrl: string
   ratio?: AspectRatio
   playerRef: (ref: HTMLMediaElement) => void
+  options?: {
+    autoPlay: boolean
+    muted: boolean
+  }
 }
 
 const PlayerInstance = ({
   permanentUrl,
   posterUrl,
   ratio,
-  playerRef
+  playerRef,
+  options
 }: PlayerProps) => {
   return (
     <Player
@@ -44,8 +53,8 @@ const PlayerInstance = ({
       }}
       loop={true}
       showPipButton={true}
-      autoPlay={false}
-      muted={false}
+      autoPlay={options?.autoPlay ?? false}
+      muted={options?.muted ?? false}
       showTitle={false}
     />
   )
@@ -58,7 +67,8 @@ const VideoPlayer: FC<Props> = ({
   isSensitiveContent,
   currentTime = 0,
   refCallback,
-  publicationId
+  publicationId,
+  options
 }) => {
   const [copy] = useCopyToClipboard()
   const router = useRouter()
@@ -95,6 +105,7 @@ const VideoPlayer: FC<Props> = ({
               permanentUrl={permanentUrl}
               ratio={ratio}
               playerRef={mediaElementRef}
+              options={options}
             />
           </div>
         </div>

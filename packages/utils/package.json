@@ -2,7 +2,7 @@
   "name": "utils",
   "version": "0.0.0",
   "main": "./index.ts",
-  "dependencies": {
+  "devDependencies": {
     "typescript": "4.9.4"
   }
 }

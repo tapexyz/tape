@@ -62,6 +62,7 @@ const Video: FC<Props> = ({ video }) => {
               'thumbnail'
             )}
             publicationId={video.id}
+            options={{ autoPlay: true, muted: true }}
           />
           <div
             className={`${
