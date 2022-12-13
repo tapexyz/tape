@@ -25,7 +25,7 @@ import ByteVideo from './ByteVideo'
 
 const request = {
   sortCriteria: PublicationSortCriteria.CuratedProfiles,
-  limit: 10,
+  limit: 5,
   noRandomize: false,
   sources: [LENSTUBE_BYTES_APP_ID],
   publicationTypes: [PublicationTypes.Post],

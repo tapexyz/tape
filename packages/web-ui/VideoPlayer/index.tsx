@@ -19,18 +19,22 @@ interface Props {
   publicationId?: string
   options?: {
     autoPlay: boolean
+    loop: boolean
     muted: boolean
   }
+  children: React.ReactNode
 }
 
 interface PlayerProps {
   permanentUrl: string
   posterUrl: string
+  children: React.ReactNode
   ratio?: AspectRatio
   playerRef: (ref: HTMLMediaElement) => void
   options?: {
     autoPlay: boolean
     muted: boolean
+    loop: boolean
   }
 }
 
@@ -39,7 +43,8 @@ const PlayerInstance = ({
   posterUrl,
   ratio,
   playerRef,
-  options
+  options,
+  children
 }: PlayerProps) => {
   return (
     <Player
@@ -51,12 +56,14 @@ const PlayerInstance = ({
         fallback: true,
         ipfsGateway: IPFS_GATEWAY
       }}
-      loop={true}
       showPipButton={true}
       autoPlay={options?.autoPlay ?? false}
       muted={options?.muted ?? false}
+      loop={options?.loop ?? true}
       showTitle={false}
-    />
+    >
+      {children}
+    </Player>
   )
 }
 
@@ -68,7 +75,8 @@ const VideoPlayer: FC<Props> = ({
   currentTime = 0,
   refCallback,
   publicationId,
-  options
+  options,
+  children
 }) => {
   const [copy] = useCopyToClipboard()
   const router = useRouter()
@@ -78,6 +86,7 @@ const VideoPlayer: FC<Props> = ({
   const mediaElementRef = useCallback((ref: HTMLMediaElement) => {
     setPlayerRef(ref)
     refCallback?.(ref)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -106,7 +115,9 @@ const VideoPlayer: FC<Props> = ({
               ratio={ratio}
               playerRef={mediaElementRef}
               options={options}
-            />
+            >
+              {children}
+            </PlayerInstance>
           </div>
         </div>
       )}

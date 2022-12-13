@@ -14,7 +14,7 @@ const TopOverlay: FC<Props> = ({ onClickPlayPause, playing }) => {
     <button
       type="button"
       onClick={() => onClickPlayPause()}
-      className="absolute top-0 left-0 right-0 w-full outline-none cursor-default pb-96 group"
+      className="absolute top-0 z-[1] left-0 right-0 w-full outline-none cursor-default pb-96 group"
     >
       <div className="flex items-center justify-between">
         <div className="p-3 md:hidden">
