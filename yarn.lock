@@ -2872,10 +2872,10 @@
     "@json-rpc-tools/types" "^1.7.6"
     "@pedrouid/environment" "^1.0.1"
 
-"@livepeer/core-react@^1.0.0-next.8":
-  version "1.0.0-next.8"
-  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.0.0-next.8.tgz#a577317f5df1fc534d8eac7bd88888b271cc4efa"
-  integrity sha512-kNTfiQkp9/55vNBh8ZE2ppuzDfbvG79lBdfm6m67vcVSOeYdYKGztfJhZMMfOU/JTw94jXuEFwtZgWFcnzAFgg==
+"@livepeer/core-react@^1.0.0-next.9":
+  version "1.0.0-next.9"
+  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.0.0-next.9.tgz#fef9ed4aeab24e8700160b9ab656248af22a6778"
+  integrity sha512-7MJThvxaeqvdtSDsenifTfAWvv3w6j3UuDfNEZXunSo6mE9ow4QoH/OloIvaRmYp1QbLUXyOhz/lH5V6nNJrhQ==
   dependencies:
     "@livepeer/core" "^1.0.0-next.1"
     "@tanstack/query-async-storage-persister" "4.19.1"
@@ -2896,12 +2896,12 @@
     tus-js-client "^3.0.1"
     zustand "^4.1.5"
 
-"@livepeer/react@^2.0.0-next.9":
-  version "2.0.0-next.9"
-  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.0.0-next.9.tgz#0d69ffc86c91045cc61885afd916a45ea90a6e5d"
-  integrity sha512-mxG/a34n01HAjja2WZoB3KuEe7Y9TISpHlSxY9JiijE+mKMQNYj85k3S9UW3jmixFNMevj529czamgMjIq45lQ==
+"@livepeer/react@^2.0.0-next.10":
+  version "2.0.0-next.10"
+  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.0.0-next.10.tgz#be51678b5ebba7ecbf923f986e2098414410a9ad"
+  integrity sha512-VVcEP5roEAZmf3phqEv/curpRS4Ti2xshepRkRUgluSM7b02HNlyAwpENLfwYfQ7SIQDglzHSaSuQ2qOyFyLVg==
   dependencies:
-    "@livepeer/core-react" "^1.0.0-next.8"
+    "@livepeer/core-react" "^1.0.0-next.9"
     "@stitches/react" "^1.2.8"
     core-js "^3.26.1"
     livepeer "2.0.0-next.4"
