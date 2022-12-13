@@ -22,7 +22,7 @@ interface Props {
     loop: boolean
     muted: boolean
   }
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 interface PlayerProps {
