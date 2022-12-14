@@ -27,19 +27,23 @@ type Props = {
 const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
   const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+
+  const { cache } = useApolloClient()
+  const [getTxnHash] = useTxIdToTxHashLazyQuery()
+
   const thumbnailUrl = imageCdn(
     uploadedVideo.isSensitiveContent
       ? `${STATIC_ASSETS}/images/sensor-blur.png`
       : sanitizeIpfsUrl(uploadedVideo.thumbnail),
     uploadedVideo.isByteVideo ? 'thumbnail_v' : 'thumbnail'
   )
-  const { cache } = useApolloClient()
-  const [getTxnHash] = useTxIdToTxHashLazyQuery()
 
   const removeFromQueue = () => {
+    setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
     if (!queuedVideo.txnId) {
       return setQueuedVideos(
         queuedVideos.filter((q) => q.txnHash !== queuedVideo.txnHash)
@@ -61,7 +65,6 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
             }
           }
         })
-        setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
         removeFromQueue()
       }
     }
@@ -88,8 +91,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
     pollInterval: 1000,
     onCompleted: async (data) => {
       if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
-        removeFromQueue()
-        return setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
+        return removeFromQueue()
       }
       if (
         data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' &&

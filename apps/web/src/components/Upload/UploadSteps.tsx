@@ -68,8 +68,10 @@ const UploadSteps = () => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
   const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)
+
   const { address } = useAccount()
   const { data: signer } = useSigner()
   const router = useRouter()
@@ -139,7 +141,9 @@ const UploadSteps = () => {
         buttonText: 'Post Video',
         loading: false
       })
-      setToQueue({ txnHash: data.hash })
+      if (data.hash) {
+        setToQueue({ txnHash: data.hash })
+      }
     },
     onError
   })
