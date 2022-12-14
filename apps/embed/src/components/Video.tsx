@@ -11,7 +11,6 @@ import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import truncate from 'utils/functions/truncate'
 
 import MetaTags from './MetaTags'
-import SensitiveWarning from './SensitiveWarning'
 import VideoOverlay from './VideoOverlay'
 
 type Props = {
@@ -25,7 +24,6 @@ const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
 const Video: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const [showVideoOverlay, setShowVideoOverlay] = useState(true)
-  const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
 
   useEffect(() => {
     Analytics.track(TRACK.EMBED_VIDEO.LOADED)
@@ -49,21 +47,19 @@ const Video: FC<Props> = ({ video }) => {
         image={imageCdn(getThumbnailUrl(video), 'thumbnail')}
         videoUrl={getVideoUrl(video)}
       />
-      {sensitiveWarning ? (
-        <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
-      ) : (
-        <div className="relative group">
-          <VideoPlayer
-            refCallback={refCallback}
-            permanentUrl={getVideoUrl(video)}
-            isSensitiveContent={isSensitiveContent}
-            posterUrl={imageCdn(
-              sanitizeIpfsUrl(getThumbnailUrl(video)),
-              'thumbnail'
-            )}
-            publicationId={video.id}
-            options={{ autoPlay: true, muted: true, loop: true }}
-          />
+      <div className="relative group">
+        <VideoPlayer
+          refCallback={refCallback}
+          permanentUrl={getVideoUrl(video)}
+          isSensitiveContent={isSensitiveContent}
+          posterUrl={imageCdn(
+            sanitizeIpfsUrl(getThumbnailUrl(video)),
+            'thumbnail'
+          )}
+          publicationId={video.id}
+          options={{ autoPlay: true, muted: true, loop: true }}
+        />
+        {!isSensitiveContent && (
           <div
             className={`${
               showVideoOverlay ? 'block' : 'hidden'
@@ -71,8 +67,8 @@ const Video: FC<Props> = ({ video }) => {
           >
             <VideoOverlay video={video} />
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }
