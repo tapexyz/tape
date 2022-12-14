@@ -65,7 +65,7 @@ export const SCROLL_ROOT_MARGIN = '40% 0px'
 
 // ipfs
 export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 1000 : 100
-export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs'
+export const IPFS_GATEWAY = 'https://ipfs.lenstube.xyz/ipfs'
 export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
 export const EVER_ACCESS_KEY = process.env.EVER_ACCESS_KEY as string
