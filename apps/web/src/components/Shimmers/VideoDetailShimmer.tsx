@@ -56,7 +56,6 @@ export const VideoDetailShimmer = () => {
           </div>
         </div>
       </div>
-      <SuggestedVideosShimmer />
     </div>
   )
 }
