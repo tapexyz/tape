@@ -61,6 +61,7 @@ const PlayerInstance = ({
       muted={options?.muted ?? false}
       loop={options?.loop ?? true}
       showTitle={false}
+      showUploadingIndicator={false}
     >
       {children}
     </Player>
