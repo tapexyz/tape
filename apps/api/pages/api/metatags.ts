@@ -14,6 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const isChannel = path.includes('/channel/')
   const isVideo = path.includes('/watch/')
+  const isByte = path.includes('/bytes/')
 
   try {
     if (isChannel) {
@@ -22,7 +23,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (isVideo) {
-      const pubId = path.replace('/watch/', '')
+      const pubId = isByte
+        ? path.replace('/bytes/', '')
+        : path.replace('/watch/', '')
       return getPublicationMeta(res, pubId)
     }
 
