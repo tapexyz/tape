@@ -130,14 +130,8 @@ const Login = () => {
     ) {
       handleSign()
     }
-  }, [
-    isConnected,
-    connector,
-    chain,
-    handleSign,
-    selectedChannel,
-    selectedChannelId
-  ])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected])
 
   return (
     <ConnectWalletButton handleSign={() => handleSign()} signing={loading} />
