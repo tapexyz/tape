@@ -2,7 +2,6 @@ import CheckOutline from '@components/Common/Icons/CheckOutline'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
 import { useEnabledModuleCurrrenciesQuery } from 'lens'
 import React, { useState } from 'react'
 import type { CollectModuleType } from 'utils'
@@ -15,8 +14,8 @@ import PermissionQuestion from './PermissionQuestion'
 
 const CollectModule = () => {
   const [showModal, setShowModal] = useState(false)
-  const uploadedVideo = usePersistStore((state) => state.uploadedVideo)
-  const setUploadedVideo = usePersistStore((state) => state.setUploadedVideo)
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const setCollectType = (data: CollectModuleType) => {

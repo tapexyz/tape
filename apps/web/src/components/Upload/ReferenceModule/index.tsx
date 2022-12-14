@@ -1,15 +1,15 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
-import usePersistStore from '@lib/store/persist'
+import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import React, { useState } from 'react'
 import type { ReferenceModuleType } from 'utils'
 
 const ReferenceModule = () => {
   const [showModal, setShowModal] = useState(false)
-  const uploadedVideo = usePersistStore((state) => state.uploadedVideo)
-  const setUploadedVideo = usePersistStore((state) => state.setUploadedVideo)
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
   const setReferenceType = (data: ReferenceModuleType) => {
     setUploadedVideo({
