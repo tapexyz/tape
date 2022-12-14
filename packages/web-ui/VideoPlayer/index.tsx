@@ -108,7 +108,7 @@ const VideoPlayer: FC<Props> = ({
         <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
       ) : (
         <div onContextMenu={onContextClick}>
-          <div className="relative z-[5]">
+          <div className="relative">
             <PlayerInstance
               posterUrl={posterUrl}
               permanentUrl={permanentUrl}
