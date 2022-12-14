@@ -1,7 +1,8 @@
 import CommentedVideoCard from '@components/Channel/CommentedVideoCard'
 import MirroredVideoCard from '@components/Channel/MirroredVideoCard'
 import VideoCard from '@components/Common/VideoCard'
-import QueuedVideoCard from '@components/Common/VideoCard/QueuedVideoCard'
+import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
+import usePersistStore from '@lib/store/persist'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React from 'react'
@@ -13,6 +14,8 @@ type Props = {
 }
 
 const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
+  const queuedVideos = usePersistStore((state) => state.queuedVideos)
+
   const isComment = videoType === 'Comment'
   const isMirror = videoType === 'Mirror'
   const router = useRouter()
@@ -20,7 +23,13 @@ const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
 
   return (
     <div className="grid gap-x-4 2xl:grid-cols-5 md:gap-y-8 gap-y-2 ultrawide:grid-cols-6 laptop:grid-cols-4 md:grid-cols-2 grid-col-1">
-      {isChannelPage && <QueuedVideoCard />}
+      {isChannelPage &&
+        queuedVideos?.map((queuedVideo) => (
+          <QueuedVideo
+            key={queuedVideo?.thumbnailUrl}
+            queuedVideo={queuedVideo}
+          />
+        ))}
       {videos?.map((video: LenstubePublication) => {
         const isPub = video.__typename === videoType && !video.collectedBy
         return isPub && isComment ? (

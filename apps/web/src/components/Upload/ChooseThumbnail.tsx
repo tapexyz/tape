@@ -1,6 +1,6 @@
 import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
 import { Loader } from '@components/UIElements/Loader'
-import usePersistStore from '@lib/store/persist'
+import useAppStore from '@lib/store'
 import * as tf from '@tensorflow/tfjs'
 import clsx from 'clsx'
 import * as nsfwjs from 'nsfwjs'
@@ -34,8 +34,8 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     Array<{ ipfsUrl: string; url: string; isNSFWThumbnail: boolean }>
   >([])
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1)
-  const setUploadedVideo = usePersistStore((state) => state.setUploadedVideo)
-  const uploadedVideo = usePersistStore((state) => state.uploadedVideo)
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
 
   const uploadThumbnailToIpfs = async (file: File) => {
     setUploadedVideo({ uploadingThumbnail: true })
