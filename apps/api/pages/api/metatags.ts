@@ -22,7 +22,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return getProfileMeta(res, handle)
     }
 
-    if (isVideo) {
+    if (isVideo || isByte) {
       const pubId = isByte
         ? path.replace('/bytes/', '')
         : path.replace('/watch/', '')
