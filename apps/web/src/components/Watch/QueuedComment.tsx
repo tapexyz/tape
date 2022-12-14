@@ -29,6 +29,11 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
   const [getTxnHash] = useTxIdToTxHashLazyQuery()
 
   const removeFromQueue = () => {
+    if (!queuedComment.txnId) {
+      return setQueuedComments(
+        queuedComments.filter((q) => q.txnHash !== queuedComment.txnHash)
+      )
+    }
     setQueuedComments(
       queuedComments.filter((q) => q.txnId !== queuedComment.txnId)
     )

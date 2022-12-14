@@ -26,8 +26,10 @@ type Props = {
 const VideoCard: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
   const [showReport, setShowReport] = useState(false)
+
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const isByte = video.appId === LENSTUBE_BYTES_APP_ID
+
   const thumbnailUrl = imageCdn(
     isSensitiveContent
       ? `${STATIC_ASSETS}/images/sensor-blur.png`
