@@ -38,7 +38,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
   const thumbnailUrl = imageCdn(
     uploadedVideo.isSensitiveContent
       ? `${STATIC_ASSETS}/images/sensor-blur.png`
-      : sanitizeIpfsUrl(uploadedVideo.thumbnail),
+      : sanitizeIpfsUrl(queuedVideo.thumbnailUrl),
     uploadedVideo.isByteVideo ? 'thumbnail_v' : 'thumbnail'
   )
 
@@ -134,7 +134,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
           <div className="grid flex-1">
             <div className="flex pb-1 w-full items-start justify-between space-x-1.5 min-w-0">
               <span className="text-sm font-semibold line-clamp-2 break-words">
-                {uploadedVideo.title}
+                {queuedVideo.title}
               </span>
               <div className="p-1">
                 <Tooltip content="Indexing" placement="top">
