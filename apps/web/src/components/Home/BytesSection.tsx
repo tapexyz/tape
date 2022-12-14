@@ -93,8 +93,8 @@ const BytesSection = () => {
         className="flex scroll-smooth relative no-scrollbar items-start overflow-x-auto touch-pan-x space-x-4 mb-3"
       >
         {bytes.map((byte) => (
-          <div key={byte.id} className="space-y-1">
-            <Link href={`/bytes/${byte.id}`} className="w-44">
+          <div key={byte.id} className="space-y-1 w-44">
+            <Link href={`/bytes/${byte.id}`}>
               <div className="aspect-[9/16] h-[280px]">
                 <img
                   className="rounded-xl"
