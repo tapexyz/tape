@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { IPFS_GATEWAY, LENSTUBE_WEBSITE_URL } from 'utils'
+import { IPFS_GATEWAY, IS_MAINNET, LENSTUBE_WEBSITE_URL } from 'utils'
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 
 import SensitiveWarning from './SensitiveWarning'
@@ -52,10 +52,14 @@ const PlayerInstance = ({
       poster={posterUrl}
       src={permanentUrl}
       aspectRatio={ratio}
-      autoUrlUpload={{
-        fallback: true,
-        ipfsGateway: IPFS_GATEWAY
-      }}
+      autoUrlUpload={
+        IS_MAINNET
+          ? {
+              fallback: true,
+              ipfsGateway: IPFS_GATEWAY
+            }
+          : false
+      }
       showPipButton={true}
       autoPlay={options?.autoPlay ?? false}
       muted={options?.muted ?? false}
