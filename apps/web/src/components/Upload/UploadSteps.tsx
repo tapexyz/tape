@@ -1,9 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
-import useAppStore from '@lib/store'
-import usePersistStore, {
-  UPLOADED_VIDEO_FORM_DEFAULTS
-} from '@lib/store/persist'
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import { utils } from 'ethers'
 import type {
   CreatePostBroadcastItemResult,
@@ -61,12 +59,29 @@ const UploadSteps = () => {
   const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)
   const setBundlrData = useAppStore((state) => state.setBundlrData)
   const bundlrData = useAppStore((state) => state.bundlrData)
-  const uploadedVideo = usePersistStore((state) => state.uploadedVideo)
-  const setUploadedVideo = usePersistStore((state) => state.setUploadedVideo)
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+
+  const queuedVideos = usePersistStore((state) => state.queuedVideos)
+  const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)
+
   const { address } = useAccount()
   const { data: signer } = useSigner()
   const router = useRouter()
+
+  const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
+    setQueuedVideos([
+      {
+        thumbnailUrl: uploadedVideo.thumbnail,
+        title: uploadedVideo.title,
+        txnId: txn.txnId,
+        txnHash: txn.txnHash
+      },
+      ...(queuedVideos || [])
+    ])
+    router.push(`/channel/${selectedChannel?.handle}`)
+  }
 
   const resetToDefaults = () => {
     setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
@@ -95,12 +110,11 @@ const UploadSteps = () => {
       format: uploadedVideo.videoType
     })
     const txnId = data?.createPostViaDispatcher?.txId ?? data?.broadcast?.txId
+    setToQueue({ txnId })
     setUploadedVideo({
       buttonText: 'Post Video',
-      loading: false,
-      txnId
+      loading: false
     })
-    router.push(`/channel/${selectedChannel?.handle}`)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -119,10 +133,11 @@ const UploadSteps = () => {
     onSuccess: (data) => {
       setUploadedVideo({
         buttonText: 'Post Video',
-        loading: false,
-        txnHash: data.hash
+        loading: false
       })
-      router.push(`/channel/${selectedChannel?.handle}`)
+      if (data.hash) {
+        setToQueue({ txnHash: data.hash })
+      }
     },
     onError
   })

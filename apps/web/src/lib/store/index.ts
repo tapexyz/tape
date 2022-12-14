@@ -1,8 +1,14 @@
 import { WebBundlr } from '@bundlr-network/client'
 import type { FetchSignerResult } from '@wagmi/core'
 import type { Profile } from 'lens'
-import type { BundlrDataState } from 'utils'
-import { BUNDLR_CURRENCY, BUNDLR_NODE_URL, POLYGON_RPC_URL } from 'utils'
+import type { BundlrDataState, UploadedVideo } from 'utils'
+import {
+  BUNDLR_CURRENCY,
+  BUNDLR_NODE_URL,
+  POLYGON_RPC_URL,
+  WMATIC_TOKEN_ADDRESS
+} from 'utils'
+import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
 import logger from 'utils/logger'
 import create from 'zustand'
 
@@ -15,6 +21,44 @@ export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {
   showDeposit: false
 }
 
+export const UPLOADED_VIDEO_FORM_DEFAULTS = {
+  stream: null,
+  preview: '',
+  videoType: '',
+  file: null,
+  title: '',
+  description: '',
+  thumbnail: '',
+  thumbnailType: '',
+  videoSource: '',
+  percent: 0,
+  playbackId: '',
+  isSensitiveContent: false,
+  isUploadToIpfs: false,
+  loading: false,
+  uploadingThumbnail: false,
+  buttonText: 'Post Video',
+  durationInSeconds: null,
+  videoCategory: CREATOR_VIDEO_CATEGORIES[0],
+  collectModule: {
+    type: 'revertCollectModule',
+    followerOnlyCollect: false,
+    amount: { currency: WMATIC_TOKEN_ADDRESS, value: '' },
+    referralFee: 0,
+    isTimedFeeCollect: false,
+    isFreeCollect: false,
+    isFeeCollect: false,
+    isRevertCollect: true
+  },
+  referenceModule: {
+    followerOnlyReferenceModule: false,
+    degreesOfSeparationReferenceModule: null
+  },
+  isNSFW: false,
+  isNSFWThumbnail: false,
+  isByteVideo: false
+}
+
 interface AppState {
   channels: Profile[] | []
   recommendedChannels: Profile[] | []
@@ -22,6 +66,8 @@ interface AppState {
   hasNewNotification: boolean
   userSigNonce: number
   bundlrData: BundlrDataState
+  uploadedVideo: UploadedVideo
+  setUploadedVideo: (video: { [k: string]: any }) => void
   selectedChannel: Profile | null
   videoWatchTime: number
   activeTagFilter: string
@@ -47,6 +93,7 @@ export const useAppStore = create<AppState>((set) => ({
   selectedChannel: null,
   videoWatchTime: 0,
   activeTagFilter: 'all',
+  uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
   setActiveTagFilter: (activeTagFilter) => set(() => ({ activeTagFilter })),
   setVideoWatchTime: (videoWatchTime) => set(() => ({ videoWatchTime })),
   setSelectedChannel: (channel) => set(() => ({ selectedChannel: channel })),
@@ -76,7 +123,11 @@ export const useAppStore = create<AppState>((set) => ({
       logger.error('[Error Init Bundlr]', error)
       return null
     }
-  }
+  },
+  setUploadedVideo: (videoData) =>
+    set((state) => ({
+      uploadedVideo: { ...state.uploadedVideo, ...videoData }
+    }))
 }))
 
 export default useAppStore

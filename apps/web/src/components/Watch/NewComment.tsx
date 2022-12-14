@@ -120,7 +120,9 @@ const NewComment: FC<Props> = ({ video }) => {
     mode: 'recklesslyUnprepared',
     onError,
     onSuccess: (data) => {
-      setToQueue({ txnHash: data.hash })
+      if (data.hash) {
+        setToQueue({ txnHash: data.hash })
+      }
     }
   })
 
