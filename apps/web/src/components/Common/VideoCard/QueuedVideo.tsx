@@ -24,7 +24,7 @@ type Props = {
   queuedVideo: QueuedVideoType
 }
 
-const QueuedVideoCard: FC<Props> = ({ queuedVideo }) => {
+const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
@@ -154,4 +154,4 @@ const QueuedVideoCard: FC<Props> = ({ queuedVideo }) => {
   )
 }
 
-export default QueuedVideoCard
+export default QueuedVideo
