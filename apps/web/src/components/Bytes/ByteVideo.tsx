@@ -21,22 +21,33 @@ type Props = {
 
 const ByteVideo: FC<Props> = ({ video }) => {
   const [videoRef, setVideoRef] = useState<HTMLMediaElement>()
-  const [playing, setIsPlaying] = useState(videoRef?.paused ? false : true)
+  const [playing, setIsPlaying] = useState(true)
+
+  const playVideo = () => {
+    if (!videoRef) return
+    videoRef.currentTime = 0
+    videoRef
+      ?.play()
+      .then(() => setIsPlaying(true))
+      .catch(() => {})
+  }
 
   const onClickVideo = () => {
-    try {
-      if (videoRef?.paused) {
-        videoRef?.play()
-        setIsPlaying(true)
-      } else {
-        videoRef?.pause()
-        setIsPlaying(false)
-      }
-    } catch {}
+    if (videoRef?.paused) {
+      playVideo()
+    } else {
+      videoRef?.pause()
+      setIsPlaying(false)
+    }
   }
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (!ref) return
+    if (ref?.paused) {
+      setIsPlaying(false)
+    } else {
+      setIsPlaying(true)
+    }
     setVideoRef(ref)
   }
 
@@ -49,7 +60,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
     onEnter: () => {
       const nextUrl = window.location.origin + `/bytes/${video?.id}`
       window.history.replaceState({ path: nextUrl }, '', nextUrl)
-      videoRef?.play()
+      playVideo()
     }
   })
 
