@@ -21,7 +21,7 @@ type Props = {
 
 const ByteVideo: FC<Props> = ({ video }) => {
   const [videoRef, setVideoRef] = useState<HTMLMediaElement>()
-  const [playing, setIsPlaying] = useState(true)
+  const [playing, setIsPlaying] = useState(videoRef?.paused ? false : true)
 
   const onClickVideo = () => {
     try {
