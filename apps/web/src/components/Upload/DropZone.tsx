@@ -1,6 +1,6 @@
 import UploadOutline from '@components/Common/Icons/UploadOutline'
 import MetaTags from '@components/Common/MetaTags'
-import usePersistStore from '@lib/store/persist'
+import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
 import React, { useEffect } from 'react'
@@ -10,7 +10,7 @@ import useDragAndDrop from 'utils/hooks/useDragAndDrop'
 import logger from 'utils/logger'
 
 const DropZone = () => {
-  const setUploadedVideo = usePersistStore((state) => state.setUploadedVideo)
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const {
     dragOver,
     setDragOver,

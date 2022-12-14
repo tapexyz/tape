@@ -1,9 +1,7 @@
 import { useApolloClient } from '@apollo/client'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
-import usePersistStore, {
-  UPLOADED_VIDEO_FORM_DEFAULTS
-} from '@lib/store/persist'
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import {
@@ -12,7 +10,9 @@ import {
   usePublicationDetailsLazyQuery,
   useTxIdToTxHashLazyQuery
 } from 'lens'
+import type { FC } from 'react'
 import React from 'react'
+import type { QueuedVideoType } from 'utils'
 import { STATIC_ASSETS } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import imageCdn from 'utils/functions/imageCdn'
@@ -20,10 +20,16 @@ import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 
 import IsVerified from '../IsVerified'
 
-const QueuedVideoCard = () => {
+type Props = {
+  queuedVideo: QueuedVideoType
+}
+
+const QueuedVideoCard: FC<Props> = ({ queuedVideo }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const uploadedVideo = usePersistStore((state) => state.uploadedVideo)
-  const setUploadedVideo = usePersistStore((state) => state.setUploadedVideo)
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const queuedVideos = usePersistStore((state) => state.queuedVideos)
+  const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const thumbnailUrl = imageCdn(
     uploadedVideo.isSensitiveContent
       ? `${STATIC_ASSETS}/images/sensor-blur.png`
@@ -32,6 +38,15 @@ const QueuedVideoCard = () => {
   )
   const { cache } = useApolloClient()
   const [getTxnHash] = useTxIdToTxHashLazyQuery()
+
+  const removeFromQueue = () => {
+    if (!queuedVideo.txnId) {
+      return setQueuedVideos(
+        queuedVideos.filter((q) => q.txnHash !== queuedVideo.txnHash)
+      )
+    }
+    setQueuedVideos(queuedVideos.filter((q) => q.txnId !== queuedVideo.txnId))
+  }
 
   const [getPublication] = usePublicationDetailsLazyQuery({
     onCompleted: (data) => {
@@ -47,14 +62,15 @@ const QueuedVideoCard = () => {
           }
         })
         setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
+        removeFromQueue()
       }
     }
   })
 
-  const getIndexedPublication = async () => {
+  const getVideoByTxnId = async () => {
     const { data } = await getTxnHash({
       variables: {
-        txId: uploadedVideo.txnId
+        txId: queuedVideo.txnId
       }
     })
     if (data?.txIdToTxHash) {
@@ -66,12 +82,13 @@ const QueuedVideoCard = () => {
 
   const { stopPolling } = useHasTxHashBeenIndexedQuery({
     variables: {
-      request: { txId: uploadedVideo.txnId, txHash: uploadedVideo?.txnHash }
+      request: { txId: queuedVideo?.txnId, txHash: queuedVideo?.txnHash }
     },
-    skip: !uploadedVideo?.txnId?.length && !uploadedVideo?.txnHash?.length,
+    skip: !queuedVideo?.txnId?.length && !queuedVideo?.txnHash?.length,
     pollInterval: 1000,
     onCompleted: async (data) => {
       if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
+        removeFromQueue()
         return setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
       }
       if (
@@ -79,17 +96,17 @@ const QueuedVideoCard = () => {
         data?.hasTxHashBeenIndexed?.indexed
       ) {
         stopPolling()
-        if (uploadedVideo.txnHash) {
+        if (queuedVideo.txnHash) {
           return getPublication({
-            variables: { request: { txHash: uploadedVideo?.txnHash } }
+            variables: { request: { txHash: queuedVideo?.txnHash } }
           })
         }
-        await getIndexedPublication()
+        await getVideoByTxnId()
       }
     }
   })
 
-  if (!uploadedVideo.txnId && !uploadedVideo.txnHash) return null
+  if (!queuedVideo?.txnId && !queuedVideo?.txnHash) return null
 
   return (
     <div className="cursor-wait">
