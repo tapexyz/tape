@@ -3,7 +3,7 @@ import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
 import { usePublicationDetailsQuery } from 'lens'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import type { LenstubePublication } from 'utils'
@@ -20,13 +20,12 @@ const VideoDetails = () => {
   } = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.WATCH })
   }, [])
 
-  const { data, error } = usePublicationDetailsQuery({
+  const { data, error, loading } = usePublicationDetailsQuery({
     variables: {
       request: { publicationId: id },
       reactionRequest: selectedChannel
@@ -34,17 +33,7 @@ const VideoDetails = () => {
         : null,
       channelId: selectedChannel?.id ?? null
     },
-    skip: !id,
-    onCompleted: async (result) => {
-      setLoading(true)
-      const stopLoading =
-        result?.publication?.__typename !== 'Post' &&
-        result?.publication?.__typename !== 'Comment'
-      if (!result.publication || stopLoading) {
-        return setLoading(false)
-      }
-      setLoading(false)
-    }
+    skip: !id
   })
 
   const video = data?.publication as LenstubePublication
