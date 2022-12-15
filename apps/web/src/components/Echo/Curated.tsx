@@ -1,4 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
+import EchosShimmer from '@components/Shimmers/EchosShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
@@ -59,7 +60,7 @@ const Curated = () => {
   return (
     <div>
       <MetaTags title="Echos" />
-      {loading && <Loader />}
+      {loading && <EchosShimmer />}
       {!error && !loading && videos && (
         <>
           <div className="grid max-w-[100rem] place-items-center mx-auto grid-cols-2 md:gap-3 gap-2 mt-4 desktop:grid-cols-6 ultrawide:grid-cols-7 md:grid-cols-3 laptop:grid-cols-4">
