@@ -1,10 +1,10 @@
 export const FEATURE_FLAGS = {
-  LENSTUBE_MUSIC: 'lenstube-music'
+  LENSTUBE_ECHOS: 'lenstube-echos'
 }
 
 export const featureFlags = [
   {
-    flag: FEATURE_FLAGS.LENSTUBE_MUSIC,
+    flag: FEATURE_FLAGS.LENSTUBE_ECHOS,
     enabledFor: ['0x2d']
   }
 ]

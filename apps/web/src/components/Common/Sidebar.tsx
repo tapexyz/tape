@@ -150,11 +150,11 @@ const Sidebar = () => {
               </Link>
             </Tooltip>
             {getIsFeatureEnabled(
-              FEATURE_FLAGS.LENSTUBE_MUSIC,
+              FEATURE_FLAGS.LENSTUBE_ECHOS,
               selectedChannelId
             ) && (
               <Tooltip
-                content="Echo"
+                content="Echos"
                 placement="right"
                 visible={sidebarCollapsed}
               >

@@ -18,20 +18,17 @@ const Item: FC<Props> = ({ publication }) => {
   // }
 
   return (
-    <div className="flex flex-col p-2 bg-white rounded-xl h-full w-[220px] dark:bg-gray-900">
+    <div className="flex flex-col p-2 bg-white rounded-xl h-full md:w-[220px] w-full dark:bg-gray-900">
       <div className="relative flex justify-center group">
         <img
           src={imageCdn(getThumbnailUrl(publication), 'square')}
-          className="h-48 w-full group-hover:scale-105 object-cover rounded-lg duration-300 ease-in-out transition"
+          className="w-full md:h-[220px] group-hover:scale-105 object-cover rounded-lg duration-300 ease-in-out transition"
           alt={publication?.metadata?.name ?? 'cover'}
         />
         <button
           // onClick={() => onPlayPause(publication)}
           className={clsx(
-            'absolute p-2 duration-100 ease-in-out rounded-full outline-none transition-all group-hover:visible bottom-2.5 left-2.5 bg-white/70 dark:bg-black/50 backdrop-blur-lg',
-            {
-              // invisible: publication?.id !== selectedTrack?.id
-            }
+            'invisible group-hover:visible absolute p-2 duration-100 ease-in-out rounded-full outline-none transition-all bottom-2.5 left-2.5 bg-white/70 dark:bg-black/50 backdrop-blur-lg'
           )}
         >
           {publication?.id === 'selectedTrack?.id' ? (
@@ -48,7 +45,7 @@ const Item: FC<Props> = ({ publication }) => {
           </span>
         </Link>
         <Link href={`/listen/${publication?.id}`}>
-          <h1 className="text-md font-semibold line-clamp-2 hover:opacity-70">
+          <h1 className="md:text-md text-sm font-semibold line-clamp-1 hover:opacity-70">
             {publication?.metadata?.name}
           </h1>
         </Link>
