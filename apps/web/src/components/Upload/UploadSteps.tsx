@@ -2,7 +2,6 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import axios from 'axios'
 import { utils } from 'ethers'
 import type {
   CreatePostBroadcastItemResult,
@@ -24,28 +23,23 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import {
-  ALLOWED_PLAYBACK_VIDEO_TYPES,
   Analytics,
   ARWEAVE_WEBSITE_URL,
   BUNDLR_CONNECT_MESSAGE,
   ERROR_MESSAGE,
-  IS_MAINNET,
   LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_API_URL,
   LENSTUBE_APP_ID,
   LENSTUBE_APP_NAME,
   LENSTUBE_BYTES_APP_ID,
   LENSTUBE_WEBSITE_URL,
   RELAYER_ENABLED,
-  TRACK,
-  VIDEO_CDN_URL
+  TRACK
 } from 'utils'
 import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
 import { checkIsBytesVideo } from 'utils/functions/checkIsBytesVideo'
 import { getCollectModule } from 'utils/functions/getCollectModule'
 import getUserLocale from 'utils/functions/getUserLocale'
 import omitKey from 'utils/functions/omitKey'
-import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import trimify from 'utils/functions/trimify'
 import uploadToAr from 'utils/functions/uploadToAr'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
@@ -153,32 +147,6 @@ const UploadSteps = () => {
     onCompleted
   })
 
-  const getPlaybackId = async (url: string) => {
-    // Only on production and mp4 (supported on livepeer)
-    if (
-      !IS_MAINNET ||
-      !ALLOWED_PLAYBACK_VIDEO_TYPES.includes(uploadedVideo.videoType)
-    ) {
-      return null
-    }
-    try {
-      const playbackResponse = await axios.post(
-        `${LENSTUBE_API_URL}/video/playback`,
-        {
-          url
-        }
-      )
-      const { playbackId } = playbackResponse.data
-      Analytics.track(TRACK.GET_PLAYBACK, {
-        format: uploadedVideo.videoType
-      })
-      return playbackId
-    } catch (error) {
-      logger.error('[Error Get Playback]', error)
-      return null
-    }
-  }
-
   const initBundlr = async () => {
     if (signer?.provider && address && !bundlrData.instance) {
       toast(BUNDLR_CONNECT_MESSAGE)
@@ -246,18 +214,15 @@ const UploadSteps = () => {
   }
 
   const createPublication = async ({
-    videoSource,
-    playbackId
+    videoSource
   }: {
     videoSource: string
-    playbackId: string
   }) => {
     try {
       setUploadedVideo({
         buttonText: 'Storing metadata...',
         loading: true
       })
-      uploadedVideo.playbackId = playbackId
       uploadedVideo.videoSource = videoSource
       const media: Array<PublicationMetadataMediaInput> = [
         {
@@ -278,13 +243,6 @@ const UploadSteps = () => {
           value: LENSTUBE_APP_ID
         }
       ]
-      if (uploadedVideo.playbackId) {
-        media.push({
-          item: `${VIDEO_CDN_URL}/asset/${uploadedVideo.playbackId}/video`,
-          type: uploadedVideo.videoType,
-          cover: uploadedVideo.thumbnail
-        })
-      }
       if (uploadedVideo.durationInSeconds) {
         attributes.push({
           displayType: PublicationMetadataDisplayTypes.String,
@@ -372,18 +330,15 @@ const UploadSteps = () => {
       }
     )
     if (!result.url) return toast.error('IPFS Upload failed!')
-    const playbackId = await getPlaybackId(sanitizeIpfsUrl(result.url))
     setUploadedVideo({
       percent: 100,
-      videoSource: result.url,
-      playbackId
+      videoSource: result.url
     })
     Analytics.track(TRACK.UPLOADED_TO_IPFS, {
       format: uploadedVideo.videoType
     })
     return createPublication({
-      videoSource: result.url,
-      playbackId
+      videoSource: result.url
     })
   }
 
@@ -428,19 +383,14 @@ const UploadSteps = () => {
       setUploadedVideo({
         loading: false
       })
-      const playbackId = await getPlaybackId(
-        `${ARWEAVE_WEBSITE_URL}/${response.data.id}`
-      )
       setUploadedVideo({
-        videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
-        playbackId
+        videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`
       })
       Analytics.track(TRACK.UPLOADED_TO_ARWEAVE, {
         format: uploadedVideo.videoType
       })
       return createPublication({
-        videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`,
-        playbackId
+        videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`
       })
     } catch (error) {
       toast.error('Failed to upload video!')

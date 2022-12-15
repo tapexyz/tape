@@ -3,14 +3,11 @@ import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
 import { usePublicationDetailsQuery } from 'lens'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import type { LenstubePublication } from 'utils'
 import { Analytics, TRACK } from 'utils'
-import getHlsData from 'utils/functions/getHlsData'
-import { getIsHlsSupported } from 'utils/functions/getIsHlsSupported'
-import { getPlaybackIdFromUrl } from 'utils/functions/getVideoUrl'
 
 import AboutChannel from './AboutChannel'
 import SuggestedVideos from './SuggestedVideos'
@@ -23,34 +20,12 @@ const VideoDetails = () => {
   } = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
-  const [video, setVideo] = useState<LenstubePublication>()
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.WATCH })
   }, [])
 
-  const fetchHls = async (currentVideo: LenstubePublication) => {
-    const playbackId = getPlaybackIdFromUrl(currentVideo)
-    if (!playbackId) {
-      setVideo(currentVideo)
-      return setLoading(false)
-    }
-    try {
-      const hls = await getHlsData(playbackId)
-      const videoObject = { ...currentVideo }
-      if (getIsHlsSupported() && hls) {
-        videoObject.hls = hls
-      }
-      setVideo(videoObject)
-    } catch (error) {
-      setVideo(currentVideo)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const { data, error } = usePublicationDetailsQuery({
+  const { data, error, loading } = usePublicationDetailsQuery({
     variables: {
       request: { publicationId: id },
       reactionRequest: selectedChannel
@@ -58,24 +33,17 @@ const VideoDetails = () => {
         : null,
       channelId: selectedChannel?.id ?? null
     },
-    skip: !id,
-    onCompleted: async (result) => {
-      setLoading(true)
-      const stopLoading =
-        result?.publication?.__typename !== 'Post' &&
-        result?.publication?.__typename !== 'Comment'
-      if (!result.publication || stopLoading) {
-        return setLoading(false)
-      }
-      await fetchHls(result?.publication as LenstubePublication)
-    }
+    skip: !id
   })
 
+  const video = data?.publication as LenstubePublication
+  const publicationType = video?.__typename
+
   const canWatch =
-    data?.publication &&
-    (data?.publication?.__typename === 'Post' ||
-      data?.publication?.__typename === 'Comment') &&
-    !data.publication.hidden
+    video &&
+    publicationType &&
+    ['Post', 'Comment'].includes(publicationType) &&
+    !video?.hidden
 
   useEffect(() => {
     setVideoWatchTime(Number(t))
@@ -98,7 +66,7 @@ const VideoDetails = () => {
             <VideoComments video={video} />
           </div>
           <div className="col-span-1">
-            <SuggestedVideos currentVideoId={video?.id} />
+            <SuggestedVideos />
           </div>
         </div>
       ) : null}

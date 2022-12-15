@@ -1,5 +1,6 @@
 import { ApolloProvider } from '@apollo/client'
 import apolloClient from '@lib/apollo'
+import { LivepeerConfig } from '@livepeer/react'
 import {
   connectorsForWallets,
   darkTheme,
@@ -18,6 +19,7 @@ import { ThemeProvider, useTheme } from 'next-themes'
 import type { ReactNode } from 'react'
 import React from 'react'
 import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
+import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { publicProvider } from 'wagmi/providers/public'
@@ -80,13 +82,15 @@ const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ErrorBoundary>
-      <WagmiConfig client={wagmiClient}>
-        <ThemeProvider defaultTheme="light" attribute="class">
-          <RainbowKitProviderWrapper>
-            <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
-          </RainbowKitProviderWrapper>
-        </ThemeProvider>
-      </WagmiConfig>
+      <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
+        <WagmiConfig client={wagmiClient}>
+          <ThemeProvider defaultTheme="light" attribute="class">
+            <RainbowKitProviderWrapper>
+              <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
+            </RainbowKitProviderWrapper>
+          </ThemeProvider>
+        </WagmiConfig>
+      </LivepeerConfig>
     </ErrorBoundary>
   )
 }

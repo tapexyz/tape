@@ -1,13 +1,15 @@
 import CollectVideo from '@components/Watch/CollectVideo'
-import axios from 'axios'
+import { ControlsContainer } from '@livepeer/react'
 import type { FC } from 'react'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import type { LenstubePublication } from 'utils'
+import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
+import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import { getPermanentVideoUrl, getVideoUrl } from 'utils/functions/getVideoUrl'
 import imageCdn from 'utils/functions/imageCdn'
-import logger from 'utils/logger'
+import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
+import VideoPlayer from 'web-ui/VideoPlayer'
 
 import BottomOverlay from './BottomOverlay'
 import ByteActions from './ByteActions'
@@ -18,76 +20,72 @@ type Props = {
 }
 
 const ByteVideo: FC<Props> = ({ video }) => {
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const [videoRef, setVideoRef] = useState<HTMLMediaElement>()
   const [playing, setIsPlaying] = useState(true)
-  const [videoUrl, setVideoUrl] = useState(getVideoUrl(video))
 
-  const checkVideoResource = async () => {
-    try {
-      await axios.get(videoUrl)
-    } catch {
-      setVideoUrl(getPermanentVideoUrl(video))
+  const playVideo = () => {
+    if (!videoRef) return
+    videoRef.currentTime = 0
+    videoRef
+      ?.play()
+      .then(() => setIsPlaying(true))
+      .catch(() => {})
+  }
+
+  const onClickVideo = () => {
+    if (videoRef?.paused) {
+      playVideo()
+    } else {
+      videoRef?.pause()
+      setIsPlaying(false)
     }
   }
 
-  useEffect(() => {
-    checkVideoResource().catch((error) =>
-      logger.error('[Error Invalid Byte Playback]', error)
-    )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const onClickVideo = () => {
-    try {
-      if (videoRef.current?.paused) {
-        videoRef.current?.play()
-        setIsPlaying(true)
-      } else {
-        videoRef.current?.pause()
-        setIsPlaying(false)
-      }
-    } catch {}
+  const refCallback = (ref: HTMLMediaElement) => {
+    if (!ref) return
+    if (ref?.paused) {
+      setIsPlaying(false)
+    } else {
+      setIsPlaying(true)
+    }
+    setVideoRef(ref)
   }
 
   const { observe } = useInView({
     threshold: 1,
     onLeave: () => {
-      videoRef.current?.pause()
+      videoRef?.pause()
       setIsPlaying(false)
     },
     onEnter: () => {
       const nextUrl = window.location.origin + `/bytes/${video?.id}`
       window.history.replaceState({ path: nextUrl }, '', nextUrl)
-      videoRef.current?.load()
-      videoRef.current
-        ?.play()
-        .then(() => setIsPlaying(true))
-        .catch(() => {
-          setIsPlaying(false)
-        })
+      playVideo()
     }
   })
 
   return (
     <div ref={observe} className="flex justify-center md:mt-6 snap-center">
       <div className="relative">
-        <video
-          onContextMenu={(event) => event.preventDefault()}
-          onClick={() => onClickVideo()}
-          ref={videoRef}
-          preload="metadata"
-          disableRemotePlayback
-          width="345"
-          poster={imageCdn(getThumbnailUrl(video), 'thumbnail')}
-          className="md:rounded-xl min-w-[250px] w-screen md:w-[350px] ultrawide:w-[407px] h-screen bg-black md:h-[calc(100vh-145px)]"
-          loop
-          src={videoUrl}
-        >
-          <source ref={observe} src={videoUrl} />
-        </video>
+        <div className="md:rounded-xl min-w-[250px] w-screen md:w-[350px] ultrawide:w-[407px] h-screen bg-black md:h-[calc(100vh-145px)]">
+          <VideoPlayer
+            refCallback={refCallback}
+            permanentUrl={getPublicationMediaUrl(video)}
+            isSensitiveContent={getIsSensitiveContent(video.metadata, video.id)}
+            posterUrl={imageCdn(
+              sanitizeIpfsUrl(getThumbnailUrl(video)),
+              'thumbnail_v'
+            )}
+            ratio="9to16"
+            publicationId={video.id}
+            options={{ autoPlay: false, muted: false, loop: true }}
+          >
+            <ControlsContainer />
+          </VideoPlayer>
+        </div>
         <TopOverlay playing={playing} onClickPlayPause={onClickVideo} />
         <BottomOverlay video={video} />
-        <div className="absolute md:hidden right-2 top-1/2">
+        <div className="absolute md:hidden z-[1] right-2 bottom-[15%]">
           <ByteActions video={video} />
           {video?.collectModule?.__typename !==
             'RevertCollectModuleSettings' && (

@@ -1,7 +1,7 @@
 import { WebBundlr } from '@bundlr-network/client'
 import type { FetchSignerResult } from '@wagmi/core'
 import type { Profile } from 'lens'
-import type { BundlrDataState, LenstubePublication, UploadedVideo } from 'utils'
+import type { BundlrDataState, UploadedVideo } from 'utils'
 import {
   BUNDLR_CURRENCY,
   BUNDLR_NODE_URL,
@@ -66,7 +66,6 @@ interface AppState {
   hasNewNotification: boolean
   userSigNonce: number
   bundlrData: BundlrDataState
-  upNextVideo: LenstubePublication | null
   uploadedVideo: UploadedVideo
   setUploadedVideo: (video: { [k: string]: any }) => void
   selectedChannel: Profile | null
@@ -80,7 +79,6 @@ interface AppState {
   setChannels: (channels: Profile[]) => void
   setRecommendedChannels: (channels: Profile[]) => void
   setHasNewNotification: (value: boolean) => void
-  setUpNextVideo: (upNextVideo: LenstubePublication) => void
   setBundlrData: (bundlrData: { [k: string]: any }) => void
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
 }
@@ -92,7 +90,6 @@ export const useAppStore = create<AppState>((set) => ({
   hasNewNotification: false,
   userSigNonce: 0,
   bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
-  upNextVideo: null,
   selectedChannel: null,
   videoWatchTime: 0,
   activeTagFilter: 'all',
@@ -100,7 +97,6 @@ export const useAppStore = create<AppState>((set) => ({
   setActiveTagFilter: (activeTagFilter) => set(() => ({ activeTagFilter })),
   setVideoWatchTime: (videoWatchTime) => set(() => ({ videoWatchTime })),
   setSelectedChannel: (channel) => set(() => ({ selectedChannel: channel })),
-  setUpNextVideo: (upNextVideo) => set(() => ({ upNextVideo })),
   setBundlrData: (bundlrData) =>
     set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrData } })),
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
