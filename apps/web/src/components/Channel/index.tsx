@@ -14,6 +14,7 @@ import BasicInfo from './BasicInfo'
 
 const Channel = () => {
   const { query } = useRouter()
+  const handle = query.channel ?? ''
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   useEffect(() => {
@@ -22,12 +23,13 @@ const Channel = () => {
 
   const { data, loading, error } = useProfileQuery({
     variables: {
-      request: { handle: query.channel },
+      request: { handle },
       who: selectedChannel?.id ?? null
     },
-    skip: !query.channel
+    skip: !handle || handle.length < 5
   })
 
+  if (handle.length < 5) return <Custom404 />
   if (error) return <Custom500 />
   if (loading || !data) return <ChannelShimmer />
   if (!data?.profile) return <Custom404 />
