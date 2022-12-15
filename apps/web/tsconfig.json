@@ -12,5 +12,11 @@
       "@gql*": ["src/gql*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/index.css", "../../packages/utils/functions/getBlurImagePlaceholder.tsx"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/styles/index.css",
+    "../../packages/utils/functions/getBlurImagePlaceholder.tsx"
+  ]
 }
