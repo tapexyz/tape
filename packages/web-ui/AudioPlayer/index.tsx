@@ -6,8 +6,8 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { GiSpeaker, GiSpeakerOff } from 'react-icons/gi'
 import type { LenstubePublication } from 'utils/custom-types'
 import { getTimeFromSeconds } from 'utils/functions/formatTime'
+import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import { getPublicationMediaUrl } from 'utils/functions/getVideoUrl'
 import type WaveSurfer from 'wavesurfer.js'
 
 type Props = {

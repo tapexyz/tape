@@ -8,7 +8,7 @@ import React from 'react'
 import toast from 'react-hot-toast'
 import type { LenstubePublication } from 'utils'
 import { Analytics, SIGN_IN_REQUIRED_MESSAGE, TRACK } from 'utils'
-import { getVideoUrl } from 'utils/functions/getVideoUrl'
+import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 
 import ExternalOutline from '../Icons/ExternalOutline'
 import FlagOutline from '../Icons/FlagOutline'
@@ -89,7 +89,7 @@ const VideoOptions = ({
             <>
               <Menu.Item
                 as={NextLink}
-                href={getVideoUrl(video)}
+                href={getPublicationMediaUrl(video)}
                 target="_blank"
               >
                 <div className="flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">

@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react'
 import type { LenstubePublication } from 'utils'
 import { Analytics, TRACK } from 'utils'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
+import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import { getVideoUrl } from 'utils/functions/getVideoUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import truncate from 'utils/functions/truncate'
@@ -45,12 +45,12 @@ const Video: FC<Props> = ({ video }) => {
         title={truncate(video?.metadata?.name as string, 60)}
         description={truncate(video?.metadata?.description as string, 100)}
         image={imageCdn(getThumbnailUrl(video), 'thumbnail')}
-        videoUrl={getVideoUrl(video)}
+        videoUrl={getPublicationMediaUrl(video)}
       />
       <div className="relative group">
         <VideoPlayer
           refCallback={refCallback}
-          permanentUrl={getVideoUrl(video)}
+          permanentUrl={getPublicationMediaUrl(video)}
           isSensitiveContent={isSensitiveContent}
           posterUrl={imageCdn(
             sanitizeIpfsUrl(getThumbnailUrl(video)),

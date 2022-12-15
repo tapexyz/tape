@@ -6,8 +6,8 @@ import type { FC } from 'react'
 import React from 'react'
 import type { LenstubePublication } from 'utils'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
+import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import { getVideoUrl } from 'utils/functions/getVideoUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 
@@ -31,7 +31,7 @@ const Video: FC<Props> = ({ video }) => {
     <div className="overflow-hidden">
       <VideoPlayer
         currentTime={videoWatchTime}
-        permanentUrl={getVideoUrl(video)}
+        permanentUrl={getPublicationMediaUrl(video)}
         posterUrl={imageCdn(
           sanitizeIpfsUrl(getThumbnailUrl(video)),
           'thumbnail'

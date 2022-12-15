@@ -10,7 +10,7 @@ import type { LenstubePublication } from 'utils'
 import { Analytics, TRACK } from 'utils'
 import getCategoryName from 'utils/functions/getCategoryName'
 import getMetadataHash from 'utils/functions/getMetadataHash'
-import { getIsIPFSUrl } from 'utils/functions/getVideoUrl'
+import { getIsIPFSUrl } from 'utils/functions/getPublicationMediaUrl'
 
 type Props = {
   video: LenstubePublication
