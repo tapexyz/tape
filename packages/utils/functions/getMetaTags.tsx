@@ -27,7 +27,7 @@ const getMetaTags = ({
 }: Args) => {
   const isVideo = page === 'VIDEO'
   const meta = {
-    title: `${title} ~ Lenstube` ?? LENSTUBE_APP_NAME,
+    title: `${title} • Lenstube` ?? LENSTUBE_APP_NAME,
     description: description || LENSTUBE_APP_DESCRIPTION,
     image: image ?? `${STATIC_ASSETS}/images/seo/og.png`,
     url: isVideo

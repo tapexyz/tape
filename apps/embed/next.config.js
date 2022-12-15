@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const withTM = require('next-transpile-modules')(['lens', 'utils'])
+const withTM = require('next-transpile-modules')(['lens', 'utils', 'web-ui'])
 
 const nextConfig = withTM({
   reactStrictMode: true,

@@ -66,6 +66,7 @@ To get started with `lenstube` development, run the following commands:
 ```
 cd apps/web && cp .env.example .env
 cd apps/api && cp .env.example .env
+cd apps/embed && cp .env.example .env
 ```
 
 Install all dependencies from repository root,

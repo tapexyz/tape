@@ -50,7 +50,6 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
                 className="aspect-[16/9] w-full"
                 src={`${LENSTUBE_EMBED_URL}/${videoId}`}
                 title="Lenstube video player"
-                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; gyroscope;"
                 allowFullScreen
               />

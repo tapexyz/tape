@@ -1,10 +1,11 @@
 import uploadToIPFS from './uploadToIPFS'
 
 const getTextNftUrl = async (
-  content: string,
+  text: string,
   username: string,
   timestamp: string
 ) => {
+  const content = text.replaceAll('‘', "'")
   const svg = `<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
     <style>
       .content {

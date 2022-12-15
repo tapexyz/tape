@@ -66,7 +66,6 @@ export type UploadedVideo = {
   description: string
   thumbnail: string
   thumbnailType: string
-  playbackId: string
   videoCategory: { tag: string; name: string }
   percent: number
   isSensitiveContent: boolean
@@ -81,8 +80,6 @@ export type UploadedVideo = {
   isNSFW: boolean
   isNSFWThumbnail: boolean
   isByteVideo: boolean
-  txnId?: string
-  txnHash?: string
 }
 
 export type HLSData = {
@@ -101,17 +98,9 @@ export type IPFSUploadResult = {
 export type VideoUploadForm = {
   videoThumbnail: IPFSUploadResult | null
   videoSource: string | null
-  playbackId: string | null
   title: string
   description: string
   adultContent: boolean
-}
-
-export type StreamData = {
-  streamKey: string
-  hostUrl: string
-  playbackId: string
-  streamId: string
 }
 
 export type ProfileMetadata = {
@@ -139,6 +128,13 @@ export interface CustomErrorWithData extends Error {
 export interface ProfileInterest {
   category: { label: string; id: string }
   subCategories: Array<{ label: string; id: string }>
+}
+
+export type QueuedVideoType = {
+  thumbnailUrl: string
+  title: string
+  txnId?: string
+  txnHash?: string
 }
 
 export type QueuedCommentType = {

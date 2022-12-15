@@ -1,12 +1,12 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
 import { Listbox, Transition } from '@headlessui/react'
-import usePersistStore from '@lib/store/persist'
+import useAppStore from '@lib/store'
 import React, { Fragment } from 'react'
 import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
 
 const Category = () => {
-  const uploadedVideo = usePersistStore((state) => state.uploadedVideo)
-  const setUploadedVideo = usePersistStore((state) => state.setUploadedVideo)
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
   return (
     <>
