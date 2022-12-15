@@ -8,7 +8,10 @@ import { STATIC_ASSETS } from 'utils'
 import { getTimeFromSeconds } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
-import { getIsIPFSUrl, getVideoUrl } from 'utils/functions/getVideoUrl'
+import {
+  getIsIPFSUrl,
+  getPublicationMediaUrl
+} from 'utils/functions/getPublicationMediaUrl'
 
 const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
@@ -17,7 +20,7 @@ const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
 
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
-  const isIPFS = getIsIPFSUrl(getVideoUrl(video))
+  const isIPFS = getIsIPFSUrl(getPublicationMediaUrl(video))
   const videoDuration = getValueFromTraitType(
     video.metadata?.attributes as Attribute[],
     'durationInSeconds'

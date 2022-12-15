@@ -5,8 +5,8 @@ import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import type { LenstubePublication } from 'utils'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
+import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import { getVideoUrl } from 'utils/functions/getVideoUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import VideoPlayer from 'web-ui/VideoPlayer'
@@ -70,7 +70,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
         <div className="md:rounded-xl min-w-[250px] w-screen md:w-[350px] ultrawide:w-[407px] h-screen bg-black md:h-[calc(100vh-145px)]">
           <VideoPlayer
             refCallback={refCallback}
-            permanentUrl={getVideoUrl(video)}
+            permanentUrl={getPublicationMediaUrl(video)}
             isSensitiveContent={getIsSensitiveContent(video.metadata, video.id)}
             posterUrl={imageCdn(
               sanitizeIpfsUrl(getThumbnailUrl(video)),
