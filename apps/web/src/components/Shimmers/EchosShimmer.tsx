@@ -4,10 +4,10 @@ export const CardShimmer = () => {
   return (
     <div className="flex flex-col p-2 bg-white rounded-xl h-full md:w-[220px] w-full dark:bg-gray-900">
       <div className="flex flex-col animate-pulse">
-        <div className="w-full md:h-[220px] rounded-lg bg-gray-200" />
+        <div className="w-full md:h-[220px] rounded-lg bg-gray-300 dark:bg-gray-700" />
         <div className="mt-2 space-y-2">
-          <div className="h-2 bg-gray-200 rounded-2xl" />
-          <div className="h-3 bg-gray-200 rounded-2xl" />
+          <div className="h-2 bg-gray-300 rounded-2xl dark:bg-gray-700" />
+          <div className="h-3 bg-gray-300 rounded-2xl dark:bg-gray-700" />
         </div>
       </div>
     </div>
