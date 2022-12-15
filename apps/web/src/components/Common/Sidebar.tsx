@@ -1,4 +1,5 @@
 import Tooltip from '@components/UIElements/Tooltip'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -25,7 +26,7 @@ const CreateChannel = dynamic(() => import('./CreateChannel'))
 const Sidebar = () => {
   const router = useRouter()
   const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const setSidebarCollapsed = usePersistStore(
     (state) => state.setSidebarCollapsed
@@ -151,7 +152,7 @@ const Sidebar = () => {
             </Tooltip>
             {getIsFeatureEnabled(
               FEATURE_FLAGS.LENSTUBE_ECHOS,
-              selectedChannelId
+              selectedChannel?.id
             ) && (
               <Tooltip
                 content="Echos"
