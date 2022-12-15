@@ -5,5 +5,9 @@
   "devDependencies": {
     "typescript": "4.9.4",
     "utils": "*"
+  },
+  "dependencies": {
+    "@types/wavesurfer.js": "^6.0.3",
+    "wavesurfer.js": "^6.4.0"
   }
 }

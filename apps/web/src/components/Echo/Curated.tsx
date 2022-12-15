@@ -63,7 +63,7 @@ const Curated = () => {
       {loading && <EchosShimmer />}
       {!error && !loading && videos && (
         <>
-          <div className="grid max-w-[100rem] place-items-center mx-auto grid-cols-2 md:gap-3 gap-2 mt-4 desktop:grid-cols-6 ultrawide:grid-cols-7 md:grid-cols-3 laptop:grid-cols-4">
+          <div className="grid place-items-center mx-auto grid-cols-2 md:gap-3 gap-2 mt-4 desktop:grid-cols-6 ultrawide:grid-cols-7 md:grid-cols-3 laptop:grid-cols-4">
             {videos?.map((publication: LenstubePublication) => (
               <Item publication={publication} key={publication.id} />
             ))}
