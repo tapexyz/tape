@@ -1,8 +1,10 @@
-import { VERIFIED_CHANNELS } from './verified'
+export const FEATURE_FLAGS = {
+  LENSTUBE_ECHOS: 'lenstube-echos'
+}
 
 export const featureFlags = [
   {
-    flag: '',
-    enabledFor: [...VERIFIED_CHANNELS]
+    flag: FEATURE_FLAGS.LENSTUBE_ECHOS,
+    enabledFor: ['0x2d']
   }
 ]
