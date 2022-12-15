@@ -1,3 +1,4 @@
+import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
@@ -57,6 +58,7 @@ const Curated = () => {
 
   return (
     <div>
+      <MetaTags title="Echos" />
       {loading && <Loader />}
       {!error && !loading && videos && (
         <>
