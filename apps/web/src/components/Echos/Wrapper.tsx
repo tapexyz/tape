@@ -1,4 +1,4 @@
-import useEchoStore from '@lib/store/echo'
+import useEchoStore from '@lib/store/echos'
 import type { FC } from 'react'
 import React from 'react'
 import AudioPlayer from 'web-ui/AudioPlayer'
