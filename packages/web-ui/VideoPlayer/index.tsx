@@ -60,6 +60,7 @@ const PlayerInstance = ({
             }
           : false
       }
+      objectFit="contain"
       showPipButton={true}
       autoPlay={options?.autoPlay ?? false}
       muted={options?.muted ?? false}
