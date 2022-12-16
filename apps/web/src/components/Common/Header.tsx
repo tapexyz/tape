@@ -59,7 +59,9 @@ const Header: FC<Props> = ({ className }) => {
           notificationsData?.notifications?.pageInfo?.totalCount
         const totalCount = notificationsData?.notifications?.pageInfo
           ?.totalCount as number
-        setHasNewNotification(notificationCount !== currentCount)
+        if (notificationCount && currentCount) {
+          setHasNewNotification(notificationCount !== currentCount)
+        }
         setNotificationCount(totalCount)
       }
     }
