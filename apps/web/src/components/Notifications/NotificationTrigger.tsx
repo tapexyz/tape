@@ -36,18 +36,22 @@ const NotificationTrigger = () => {
       const currentCount =
         notificationsData?.notifications?.pageInfo?.totalCount
       setHasNewNotification(notificationCount !== currentCount)
-      setNotificationCount(
-        notificationsData?.notifications?.pageInfo?.totalCount as number
-      )
+      if (notificationsData?.notifications?.pageInfo?.totalCount) {
+        setNotificationCount(
+          notificationsData?.notifications?.pageInfo?.totalCount as number
+        )
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedChannel, notificationsData])
 
   const onClickNotification = () => {
     Analytics.track(TRACK.NOTIFICATIONS.CLICK_NOTIFICATIONS)
-    setNotificationCount(
-      notificationsData?.notifications?.pageInfo?.totalCount as number
-    )
+    if (notificationsData?.notifications?.pageInfo?.totalCount) {
+      setNotificationCount(
+        notificationsData?.notifications?.pageInfo?.totalCount as number
+      )
+    }
     setHasNewNotification(false)
   }
 
