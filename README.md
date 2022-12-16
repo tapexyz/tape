@@ -59,6 +59,11 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 - `embed`: NextJs application for video embeds
 - `api`: NextJs serverless functions for Lenstube
 
+- `web-ui`: Web components
+- `tsconfig`: Shared tsconfig
+- `utils`: Collection of utils and helpers
+- `lens`: Everything about Lens Backend
+
 ## Getting Started
 
 To get started with `lenstube` development, run the following commands:
