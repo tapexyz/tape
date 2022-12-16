@@ -52,17 +52,14 @@ const Header: FC<Props> = ({ className }) => {
         customFilters: LENS_CUSTOM_FILTERS
       }
     },
+    fetchPolicy: 'no-cache',
     skip: !selectedChannel?.id,
     onCompleted: (notificationsData) => {
       if (selectedChannel && notificationsData) {
         const currentCount =
           notificationsData?.notifications?.pageInfo?.totalCount
-        const totalCount = notificationsData?.notifications?.pageInfo
-          ?.totalCount as number
-        if (notificationCount && currentCount) {
-          setHasNewNotification(notificationCount !== currentCount)
-        }
-        setNotificationCount(totalCount)
+        setHasNewNotification(notificationCount !== currentCount)
+        setNotificationCount(currentCount ?? 0)
       }
     }
   })
