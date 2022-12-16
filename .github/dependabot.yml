@@ -62,3 +62,12 @@ updates:
     rebase-strategy: auto
     schedule:
       interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "packages/web-ui"
+    target-branch: "main"
+    reviewers:
+      - sasicodes
+    rebase-strategy: auto
+    schedule:
+      interval: "daily"
