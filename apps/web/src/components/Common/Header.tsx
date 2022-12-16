@@ -12,6 +12,8 @@ import React, { useState } from 'react'
 import {
   Analytics,
   LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
   LENSTUBE_ROADMAP_URL,
   STATIC_ASSETS,
   TRACK
@@ -49,6 +51,7 @@ const Header: FC<Props> = ({ className }) => {
     variables: {
       request: {
         profileId: selectedChannel?.id,
+        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
         customFilters: LENS_CUSTOM_FILTERS
       }
     },
@@ -57,9 +60,9 @@ const Header: FC<Props> = ({ className }) => {
     onCompleted: (notificationsData) => {
       if (selectedChannel && notificationsData) {
         const currentCount =
-          notificationsData?.notifications?.pageInfo?.totalCount
+          notificationsData?.notifications?.pageInfo?.totalCount ?? 0
         setHasNewNotification(notificationCount !== currentCount)
-        setNotificationCount(currentCount ?? 0)
+        setNotificationCount(currentCount)
       }
     }
   })
