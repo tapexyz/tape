@@ -20,14 +20,15 @@ import type { ReactNode } from 'react'
 import React from 'react'
 import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
 import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
-import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
+import { configureChains, createClient, WagmiConfig } from 'wagmi'
+import { polygon, polygonMumbai } from 'wagmi/chains'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { publicProvider } from 'wagmi/providers/public'
 
 import ErrorBoundary from './ErrorBoundary'
 
 const { chains, provider } = configureChains(
-  [IS_MAINNET ? chain.polygon : chain.polygonMumbai],
+  [IS_MAINNET ? polygon : polygonMumbai],
   [
     jsonRpcProvider({
       rpc: () => ({
