@@ -26,6 +26,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
   const playVideo = () => {
     if (!videoRef) return
     videoRef.currentTime = 0
+    videoRef.volume = 1
     videoRef
       ?.play()
       .then(() => setIsPlaying(true))
