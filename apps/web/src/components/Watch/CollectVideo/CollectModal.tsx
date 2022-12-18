@@ -117,7 +117,7 @@ const CollectModal: FC<Props> = ({
     const pubId = video?.id ?? video.mirrorOf?.id
     const decimalProfileId = parseInt(pubId.split('-')[0], 16)
     const decimalPubId = parseInt(pubId.split('-')[1], 16)
-    const marketplacePublicationId = decimalProfileId + '_' + decimalPubId
+    const marketplacePublicationId = `${decimalProfileId}_${decimalPubId}`
     const marketplaceUrl = `${LENSPORT_MARKETPLACE_URL}/p/${marketplacePublicationId}`
     return marketplaceUrl
   }
