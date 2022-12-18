@@ -4,7 +4,6 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import type { LenstubePublication } from 'utils'
-import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
@@ -72,7 +71,6 @@ const ByteVideo: FC<Props> = ({ video }) => {
           <VideoPlayer
             refCallback={refCallback}
             permanentUrl={getPublicationMediaUrl(video)}
-            isSensitiveContent={getIsSensitiveContent(video.metadata, video.id)}
             posterUrl={imageCdn(
               sanitizeIpfsUrl(getThumbnailUrl(video)),
               'thumbnail_v'
