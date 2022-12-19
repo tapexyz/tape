@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -10,6 +9,7 @@ import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import truncate from 'utils/functions/truncate'
+import VideoPlayer from 'web-ui/VideoPlayer'
 
 import MetaTags from './MetaTags'
 import VideoOverlay from './VideoOverlay'
@@ -17,10 +17,6 @@ import VideoOverlay from './VideoOverlay'
 type Props = {
   video: LenstubePublication
 }
-
-const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
-  ssr: false
-})
 
 const Video: FC<Props> = ({ video }) => {
   const { query } = useRouter()
