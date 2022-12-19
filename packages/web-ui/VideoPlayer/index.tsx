@@ -4,10 +4,11 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { IPFS_GATEWAY, IS_MAINNET, LENSTUBE_WEBSITE_URL } from 'utils'
+import { IPFS_GATEWAY, IS_MAINNET, LENSTUBE_WEBSITE_URL, MUX_ENV } from 'utils'
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 
 import SensitiveWarning from './SensitiveWarning'
+import mux from 'mux-embed'
 
 interface Props {
   permanentUrl: string
@@ -95,9 +96,27 @@ const VideoPlayer: FC<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const trackVideo = (ref: HTMLMediaElement) => {
+    const initTime = mux.utils.now()
+    const VIDEO_TYPE = 'on-demand'
+    mux.monitor(ref, {
+      debug: IS_MAINNET ? false : true,
+      data: {
+        // Metadata
+        env_key: MUX_ENV,
+        player_name: 'Lenstube Player',
+        video_id: publicationId,
+        video_stream_type: VIDEO_TYPE,
+        player_init_time: initTime
+      }
+    })
+  }
+
   useEffect(() => {
     if (!playerRef) return
     playerRef.currentTime = Number(currentTime || 0)
+    // Track video with Mux
+    trackVideo(playerRef)
   }, [playerRef, currentTime])
 
   const onContextClick = async (event: React.MouseEvent<HTMLDivElement>) => {
