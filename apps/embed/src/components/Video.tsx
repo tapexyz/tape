@@ -1,4 +1,3 @@
-import { usePublicationDetailsQuery } from 'lens'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
@@ -17,52 +16,24 @@ import Shimmer from './Shimmer'
 import VideoOverlay from './VideoOverlay'
 
 const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
-  ssr: false
+  ssr: false,
+  loading: () => <Shimmer />
 })
 
-const Video: FC = () => {
-  const { query } = useRouter()
-  const publicationId = query.pubId
+type Props = {
+  video: LenstubePublication
+}
 
+const Video: FC<Props> = ({ video }) => {
+  const { query } = useRouter()
   const [showVideoOverlay, setShowVideoOverlay] = useState(true)
+
   const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
+  const isSensitiveContent = getIsSensitiveContent(video?.metadata, video?.id)
 
   useEffect(() => {
     Analytics.track(TRACK.EMBED_VIDEO.LOADED)
   }, [])
-
-  const { data, error, loading } = usePublicationDetailsQuery({
-    variables: {
-      request: { publicationId }
-    },
-    skip: !publicationId
-  })
-
-  const video = data?.publication as LenstubePublication
-  const isSensitiveContent = getIsSensitiveContent(video?.metadata, video?.id)
-  const publicationType = video?.__typename
-
-  const canWatch =
-    video &&
-    publicationType &&
-    ['Post', 'Comment'].includes(publicationType) &&
-    !video?.hidden
-
-  if (error) {
-    return (
-      <div className="grid h-screen place-items-center text-white">
-        <span>Failed to load video!</span>
-      </div>
-    )
-  }
-  if (loading || !data) return <Shimmer />
-  if (!canWatch) {
-    return (
-      <div className="grid h-screen place-items-center text-white">
-        <span>404 - Not found</span>
-      </div>
-    )
-  }
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (!ref) return
