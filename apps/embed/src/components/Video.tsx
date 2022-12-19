@@ -1,4 +1,6 @@
+import { usePublicationDetailsQuery } from 'lens'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import type { LenstubePublication } from 'utils'
@@ -11,23 +13,49 @@ import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import truncate from 'utils/functions/truncate'
 
 import MetaTags from './MetaTags'
+import Shimmer from './Shimmer'
 import VideoOverlay from './VideoOverlay'
-
-type Props = {
-  video: LenstubePublication
-}
 
 const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
   ssr: false
 })
 
-const Video: FC<Props> = ({ video }) => {
-  const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
+const Video: FC = () => {
+  const { query } = useRouter()
+  const publicationId = query.pubId
+
   const [showVideoOverlay, setShowVideoOverlay] = useState(true)
+  const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
 
   useEffect(() => {
     Analytics.track(TRACK.EMBED_VIDEO.LOADED)
   }, [])
+
+  const { data, error, loading } = usePublicationDetailsQuery({
+    variables: {
+      request: { publicationId }
+    },
+    skip: !publicationId
+  })
+
+  const video = data?.publication as LenstubePublication
+  const isSensitiveContent = getIsSensitiveContent(video?.metadata, video?.id)
+
+  if (loading) return <Shimmer />
+  if (error) {
+    return (
+      <div className="grid h-screen place-items-center text-white">
+        <span>Failed to load video!</span>
+      </div>
+    )
+  }
+  if (!video) {
+    return (
+      <div className="grid h-screen place-items-center text-white">
+        <span>404</span>
+      </div>
+    )
+  }
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (!ref) return
@@ -57,7 +85,7 @@ const Video: FC<Props> = ({ video }) => {
             'thumbnail'
           )}
           publicationId={video.id}
-          options={{ autoPlay: true, muted: true, loop: true }}
+          options={{ autoPlay: isAutoPlay, muted: isAutoPlay, loop: true }}
         />
         {!isSensitiveContent && (
           <div

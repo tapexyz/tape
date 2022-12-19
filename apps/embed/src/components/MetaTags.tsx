@@ -83,16 +83,6 @@ const MetaTags: FC<Props> = (props) => {
       />
       <meta property="twitter:player:width" content="1280" />
       <meta property="twitter:player:height" content="720" />
-
-      <link rel="preconnect" href={STATIC_ASSETS} />
-      <link rel="dns-prefetch" href={STATIC_ASSETS} />
-      <link rel="shortcut icon" href="/favicon.ico" />
-      <link
-        rel="iframely player"
-        type="text/html"
-        href={`${LENSTUBE_EMBED_URL}${router.asPath}`}
-        media="(aspect-ratio: 1280/720)"
-      />
     </Head>
   )
 }
