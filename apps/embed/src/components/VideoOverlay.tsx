@@ -12,7 +12,7 @@ type Props = {
 const VideoOverlay: FC<Props> = ({ video }) => {
   return (
     <div className="absolute top-0 z-10 w-full text-white">
-      <div className="flex items-center justify-between p-2 space-x-6 bg-gradient-to-b via-black/60 to-transparent from-black/90">
+      <div className="flex items-center justify-between p-3.5 space-x-6 bg-gradient-to-b via-black/60 to-transparent from-black/90">
         <div className="flex items-center flex-1">
           <Link
             href={`${LENSTUBE_WEBSITE_URL}/channel/${video?.profile?.handle}`}
