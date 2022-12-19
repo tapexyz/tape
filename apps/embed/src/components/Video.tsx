@@ -1,3 +1,4 @@
+import { usePublicationDetailsQuery } from 'lens'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
@@ -12,36 +13,49 @@ import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import truncate from 'utils/functions/truncate'
 
 import MetaTags from './MetaTags'
+import Shimmer from './Shimmer'
 import VideoOverlay from './VideoOverlay'
 
-const CardShimmer = () => {
-  return (
-    <div className="w-full rounded-xl">
-      <div className="flex flex-col space-x-2 animate-pulse">
-        <div className="bg-gray-300 rounded-xl aspect-w-16 aspect-h-9 dark:bg-gray-700" />
-      </div>
-    </div>
-  )
-}
-
 const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
-  ssr: false,
-  loading: () => <CardShimmer />
+  ssr: false
 })
 
-type Props = {
-  video: LenstubePublication
-}
-
-const Video: FC<Props> = ({ video }) => {
+const Video: FC = () => {
   const { query } = useRouter()
-  const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
-  const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
+  const publicationId = query.pubId
+
   const [showVideoOverlay, setShowVideoOverlay] = useState(true)
+  const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
 
   useEffect(() => {
     Analytics.track(TRACK.EMBED_VIDEO.LOADED)
   }, [])
+
+  const { data, error, loading } = usePublicationDetailsQuery({
+    variables: {
+      request: { publicationId }
+    },
+    skip: !publicationId
+  })
+
+  const video = data?.publication as LenstubePublication
+  const isSensitiveContent = getIsSensitiveContent(video?.metadata, video?.id)
+
+  if (loading) return <Shimmer />
+  if (error) {
+    return (
+      <div className="grid h-screen place-items-center text-white">
+        <span>Failed to load video!</span>
+      </div>
+    )
+  }
+  if (!video) {
+    return (
+      <div className="grid h-screen place-items-center text-white">
+        <span>404</span>
+      </div>
+    )
+  }
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (!ref) return
