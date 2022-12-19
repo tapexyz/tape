@@ -4,7 +4,12 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { IPFS_GATEWAY, IS_MAINNET, LENSTUBE_WEBSITE_URL, MUX_ENV } from 'utils'
+import {
+  IPFS_GATEWAY,
+  IS_MAINNET,
+  LENSTUBE_WEBSITE_URL,
+  MUX_DATA_KEY
+} from 'utils'
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 
 import SensitiveWarning from './SensitiveWarning'
@@ -103,7 +108,7 @@ const VideoPlayer: FC<Props> = ({
       debug: IS_MAINNET ? false : true,
       data: {
         // Metadata
-        env_key: MUX_ENV,
+        env_key: MUX_DATA_KEY,
         player_name: 'Lenstube Player',
         video_id: publicationId,
         video_stream_type: VIDEO_TYPE,
