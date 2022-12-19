@@ -101,7 +101,7 @@ const VideoPlayer: FC<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const trackVideo = (ref: HTMLMediaElement) => {
+  const analyseVideo = (ref: HTMLMediaElement) => {
     const initTime = mux.utils.now()
     const VIDEO_TYPE = 'on-demand'
     mux.monitor(ref, {
@@ -120,7 +120,7 @@ const VideoPlayer: FC<Props> = ({
   useEffect(() => {
     if (!playerRef) return
     playerRef.currentTime = Number(currentTime || 0)
-    trackVideo(playerRef)
+    analyseVideo(playerRef)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerRef, currentTime])
 
