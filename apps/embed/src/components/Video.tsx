@@ -14,7 +14,9 @@ import truncate from 'utils/functions/truncate'
 import MetaTags from './MetaTags'
 import VideoOverlay from './VideoOverlay'
 
-const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'))
+const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
+  ssr: false
+})
 
 type Props = {
   video: LenstubePublication
