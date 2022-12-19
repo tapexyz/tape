@@ -12,10 +12,12 @@ import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import truncate from 'utils/functions/truncate'
 
 import MetaTags from './MetaTags'
+import Shimmer from './Shimmer'
 import VideoOverlay from './VideoOverlay'
 
 const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
-  ssr: false
+  ssr: false,
+  loading: () => <Shimmer />
 })
 
 type Props = {
