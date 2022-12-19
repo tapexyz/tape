@@ -1,5 +1,6 @@
 import type { AspectRatio } from '@livepeer/react'
 import { Player } from '@livepeer/react'
+import mux from 'mux-embed'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -13,7 +14,6 @@ import {
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 
 import SensitiveWarning from './SensitiveWarning'
-import mux from 'mux-embed'
 
 interface Props {
   permanentUrl: string
@@ -120,8 +120,8 @@ const VideoPlayer: FC<Props> = ({
   useEffect(() => {
     if (!playerRef) return
     playerRef.currentTime = Number(currentTime || 0)
-    // Track video with Mux
     trackVideo(playerRef)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerRef, currentTime])
 
   const onContextClick = async (event: React.MouseEvent<HTMLDivElement>) => {
