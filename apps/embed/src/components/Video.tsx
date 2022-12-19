@@ -40,8 +40,14 @@ const Video: FC = () => {
 
   const video = data?.publication as LenstubePublication
   const isSensitiveContent = getIsSensitiveContent(video?.metadata, video?.id)
+  const publicationType = video?.__typename
 
-  if (loading) return <Shimmer />
+  const canWatch =
+    video &&
+    publicationType &&
+    ['Post', 'Comment'].includes(publicationType) &&
+    !video?.hidden
+
   if (error) {
     return (
       <div className="grid h-screen place-items-center text-white">
@@ -49,10 +55,11 @@ const Video: FC = () => {
       </div>
     )
   }
-  if (!video) {
+  if (loading || !data) return <Shimmer />
+  if (!canWatch) {
     return (
       <div className="grid h-screen place-items-center text-white">
-        <span>404</span>
+        <span>404 - Not found</span>
       </div>
     )
   }
