@@ -6,5 +6,5 @@
 
 body {
   font-family: 'Matter', sans-serif;
-  @apply min-h-screen bg-black antialiased;
+  @apply min-h-screen bg-white antialiased;
 }
