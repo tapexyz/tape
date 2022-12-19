@@ -40,7 +40,6 @@ const getMetaTags = ({
               <meta content="${meta.description}" name="description" />
               <meta name="robots" content="follow, index" />
               <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-              <link rel="canonical" href="${meta.url}" />
               <meta property="og:url" content="${meta.url}" />
               <meta property="og:site_name" content="${LENSTUBE_APP_NAME}" />
               <meta property="og:description" content="${meta.description}" />

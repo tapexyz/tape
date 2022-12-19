@@ -26,10 +26,9 @@ const Channel = () => {
       request: { handle },
       who: selectedChannel?.id ?? null
     },
-    skip: !handle || handle.length < 5
+    skip: !handle
   })
 
-  if (handle.length < 5) return <Custom404 />
   if (error) return <Custom500 />
   if (loading || !data) return <ChannelShimmer />
   if (!data?.profile) return <Custom404 />
