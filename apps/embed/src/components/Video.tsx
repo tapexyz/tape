@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import type { LenstubePublication } from 'utils'
@@ -22,6 +23,8 @@ const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
 })
 
 const Video: FC<Props> = ({ video }) => {
+  const { query } = useRouter()
+  const isAutoPlay = Boolean(query.autoplay)
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const [showVideoOverlay, setShowVideoOverlay] = useState(true)
 
@@ -57,7 +60,7 @@ const Video: FC<Props> = ({ video }) => {
             'thumbnail'
           )}
           publicationId={video.id}
-          options={{ autoPlay: true, muted: true, loop: true }}
+          options={{ autoPlay: isAutoPlay, muted: isAutoPlay, loop: true }}
         />
         {!isSensitiveContent && (
           <div
