@@ -5,6 +5,7 @@ import type { FC } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { IPFS_GATEWAY, IS_MAINNET, LENSTUBE_WEBSITE_URL } from 'utils'
+import { videoPlayerTheme } from 'utils/functions/livepeer'
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 
 import SensitiveWarning from './SensitiveWarning'
@@ -48,6 +49,7 @@ const PlayerInstance = ({
 }: PlayerProps) => {
   return (
     <Player
+      theme={videoPlayerTheme}
       mediaElementRef={playerRef}
       poster={posterUrl}
       src={permanentUrl}

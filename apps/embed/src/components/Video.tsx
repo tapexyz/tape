@@ -20,7 +20,7 @@ type Props = {
 
 const Video: FC<Props> = ({ video }) => {
   const { query } = useRouter()
-  const isAutoPlay = Boolean(query.autoplay)
+  const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const [showVideoOverlay, setShowVideoOverlay] = useState(true)
 
