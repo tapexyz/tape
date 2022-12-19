@@ -1,4 +1,4 @@
-import useEchoStore from '@lib/store/echo'
+import useEchoStore from '@lib/store/echos'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'

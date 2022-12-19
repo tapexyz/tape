@@ -160,7 +160,7 @@ const Sidebar = () => {
                 visible={sidebarCollapsed}
               >
                 <Link
-                  href="/echo"
+                  href="/echos"
                   className={clsx(
                     'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
                     isActivePath('/echo')
