@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import type { LenstubePublication } from 'utils'
@@ -11,19 +12,24 @@ import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import truncate from 'utils/functions/truncate'
 
 import MetaTags from './MetaTags'
+import Shimmer from './Shimmer'
 import VideoOverlay from './VideoOverlay'
+
+const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
+  ssr: false,
+  loading: () => <Shimmer />
+})
 
 type Props = {
   video: LenstubePublication
 }
 
-const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
-  ssr: false
-})
-
 const Video: FC<Props> = ({ video }) => {
-  const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
+  const { query } = useRouter()
   const [showVideoOverlay, setShowVideoOverlay] = useState(true)
+
+  const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
+  const isSensitiveContent = getIsSensitiveContent(video?.metadata, video?.id)
 
   useEffect(() => {
     Analytics.track(TRACK.EMBED_VIDEO.LOADED)
@@ -57,7 +63,7 @@ const Video: FC<Props> = ({ video }) => {
             'thumbnail'
           )}
           publicationId={video.id}
-          options={{ autoPlay: true, muted: true, loop: true }}
+          options={{ autoPlay: isAutoPlay, muted: isAutoPlay, loop: true }}
         />
         {!isSensitiveContent && (
           <div
