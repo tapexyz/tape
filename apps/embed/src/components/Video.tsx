@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -10,15 +9,10 @@ import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import truncate from 'utils/functions/truncate'
+import VideoPlayer from 'web-ui/VideoPlayer'
 
 import MetaTags from './MetaTags'
-import Shimmer from './Shimmer'
 import VideoOverlay from './VideoOverlay'
-
-const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
-  ssr: false,
-  loading: () => <Shimmer />
-})
 
 type Props = {
   video: LenstubePublication
