@@ -1,5 +1,6 @@
 import type { AspectRatio } from '@livepeer/react'
 import { Player } from '@livepeer/react'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import mux from 'mux-embed'
 import { useRouter } from 'next/router'
