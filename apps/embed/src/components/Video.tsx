@@ -23,6 +23,8 @@ const Video: FC<Props> = ({ video }) => {
   const [showVideoOverlay, setShowVideoOverlay] = useState(true)
 
   const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
+  const isLoop = Boolean(query.loop) && query.loop === '1'
+  const currentTime = Number(query.t) ?? 0
   const isSensitiveContent = getIsSensitiveContent(video?.metadata, video?.id)
 
   useEffect(() => {
@@ -57,7 +59,8 @@ const Video: FC<Props> = ({ video }) => {
             'thumbnail'
           )}
           publicationId={video.id}
-          options={{ autoPlay: isAutoPlay, muted: isAutoPlay, loop: true }}
+          currentTime={currentTime}
+          options={{ autoPlay: isAutoPlay, muted: isAutoPlay, loop: isLoop }}
         />
         {!isSensitiveContent && (
           <div

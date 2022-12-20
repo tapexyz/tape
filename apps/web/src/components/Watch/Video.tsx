@@ -29,15 +29,17 @@ const Video: FC<Props> = ({ video }) => {
 
   return (
     <div className="overflow-hidden">
-      <VideoPlayer
-        currentTime={videoWatchTime}
-        permanentUrl={getPublicationMediaUrl(video)}
-        posterUrl={imageCdn(
-          sanitizeIpfsUrl(getThumbnailUrl(video)),
-          'thumbnail'
-        )}
-        isSensitiveContent={isSensitiveContent}
-      />
+      <div className="md:rounded-xl overflow-hidden">
+        <VideoPlayer
+          currentTime={videoWatchTime}
+          permanentUrl={getPublicationMediaUrl(video)}
+          posterUrl={imageCdn(
+            sanitizeIpfsUrl(getThumbnailUrl(video)),
+            'thumbnail'
+          )}
+          isSensitiveContent={isSensitiveContent}
+        />
+      </div>
       <div className="flex items-center justify-between">
         <div>
           <h1 className="mt-4 text-lg font-medium line-clamp-2">

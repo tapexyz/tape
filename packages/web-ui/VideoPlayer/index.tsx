@@ -144,7 +144,7 @@ const VideoPlayer: FC<Props> = ({
   }
 
   return (
-    <div className="overflow-hidden md:rounded-xl">
+    <div>
       {sensitiveWarning ? (
         <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
       ) : (

@@ -16,7 +16,7 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
   const [showModal, setShowModal] = useState(false)
   const [copy] = useCopyToClipboard()
 
-  const iframeCode = `<iframe width="560" height="315" src="${LENSTUBE_EMBED_URL}/${videoId}?autoplay=1" title="Lenstube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen></iframe>`
+  const iframeCode = `<iframe width="560" height="315" src="${LENSTUBE_EMBED_URL}/${videoId}?autoplay=1&t=0&loop=0" title="Lenstube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen></iframe>`
 
   const onCopyCode = () => {
     Analytics.track(TRACK.EMBED_VIDEO.COPY)
