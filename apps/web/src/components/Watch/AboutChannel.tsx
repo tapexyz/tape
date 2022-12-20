@@ -92,7 +92,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
             <button
               type="button"
               onClick={() => setClamped(!clamped)}
-              className="flex items-center text-sm outline-none text-indigo-500 hover:opacity-100 opacity-60"
+              className="flex items-center text-sm outline-none text-indigo-500 hover:opacity-100 opacity-80"
             >
               {clamped ? (
                 <>
