@@ -107,9 +107,8 @@ const VideoPlayer: FC<Props> = ({
     const initTime = mux.utils.now()
     const VIDEO_TYPE = 'on-demand'
     mux.monitor(ref, {
-      debug: IS_MAINNET ? false : true,
+      debug: false,
       data: {
-        // Metadata
         env_key: MUX_DATA_KEY,
         player_name: 'Lenstube Player',
         video_id: publicationId,
@@ -122,7 +121,9 @@ const VideoPlayer: FC<Props> = ({
   useEffect(() => {
     if (!playerRef) return
     playerRef.currentTime = Number(currentTime || 0)
-    analyseVideo(playerRef)
+    if (IS_MAINNET) {
+      analyseVideo(playerRef)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerRef, currentTime])
 
