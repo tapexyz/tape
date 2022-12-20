@@ -47,7 +47,7 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
             <div className="w-full">
               <iframe
                 sandbox="allow-scripts allow-same-origin"
-                className="aspect-[16/9] w-full rounded-md"
+                className="aspect-[16/9] w-full"
                 src={`${LENSTUBE_EMBED_URL}/${videoId}`}
                 title="Lenstube video player"
                 allow="accelerometer; autoplay; clipboard-write; gyroscope;"
