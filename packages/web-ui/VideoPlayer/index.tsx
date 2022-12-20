@@ -106,6 +106,7 @@ const VideoPlayer: FC<Props> = ({
   const analyseVideo = (ref: HTMLMediaElement) => {
     const initTime = mux.utils.now()
     const VIDEO_TYPE = 'on-demand'
+    const IS_BYTE = ratio === '9to16'
     mux.monitor(ref, {
       debug: false,
       data: {
@@ -114,9 +115,13 @@ const VideoPlayer: FC<Props> = ({
         video_id: publicationId,
         video_stream_type: VIDEO_TYPE,
         player_init_time: initTime,
-        video_title: `${LENSTUBE_WEBSITE_URL}/watch/${
-          publicationId ?? router.query?.id
-        }`
+        video_title: IS_BYTE
+          ? `${LENSTUBE_WEBSITE_URL}/bytes/${publicationId ?? router.query?.id}`
+          : `${LENSTUBE_WEBSITE_URL}/watch/${
+              publicationId ?? router.query?.id
+            }`,
+        page_type: IS_BYTE ? 'bytespage' : 'watchpage',
+        video_duration: ref?.duration
       }
     })
   }
