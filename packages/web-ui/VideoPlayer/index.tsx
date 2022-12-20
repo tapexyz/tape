@@ -113,7 +113,10 @@ const VideoPlayer: FC<Props> = ({
         player_name: 'Lenstube Player',
         video_id: publicationId,
         video_stream_type: VIDEO_TYPE,
-        player_init_time: initTime
+        player_init_time: initTime,
+        video_title: `${LENSTUBE_WEBSITE_URL}/watch/${
+          publicationId ?? router.query?.id
+        }`
       }
     })
   }
