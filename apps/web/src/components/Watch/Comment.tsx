@@ -128,7 +128,7 @@ const Comment: FC<Props> = ({ comment }) => {
               <button
                 type="button"
                 onClick={() => setClamped(!clamped)}
-                className="flex items-center mt-2 text-xs outline-none hover:opacity-100 opacity-60"
+                className="flex items-center mt-2 text-xs outline-none hover:opacity-100 opacity-80"
               >
                 {clamped ? (
                   <>
