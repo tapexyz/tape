@@ -41,16 +41,18 @@ const VideoMeta: FC<Props> = ({ video }) => {
           </div>
         </Modal>
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
-          <button
-            type="button"
-            onClick={() => setShowCollectsModal(true)}
-            className="flex items-center space-x-1 outline-none"
-          >
-            <CollectOutline className="w-3 h-3" />
-            <span>{video.stats?.totalAmountOfCollects} collects</span>
-          </button>
+          <>
+            <button
+              type="button"
+              onClick={() => setShowCollectsModal(true)}
+              className="flex items-center space-x-1 outline-none"
+            >
+              <CollectOutline className="w-3 h-3" />
+              <span>{video.stats?.totalAmountOfCollects} collects</span>
+            </button>
+            <span className="px-1 middot" />
+          </>
         )}
-        <span className="px-1 middot" />
         <button
           type="button"
           onClick={() => setShowMirrorsModal(true)}
