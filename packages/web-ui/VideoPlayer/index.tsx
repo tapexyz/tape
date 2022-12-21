@@ -56,6 +56,7 @@ const PlayerInstance = ({
 }: PlayerProps) => {
   return (
     <Player
+      controls={{ defaultVolume: 1 }}
       mediaElementRef={playerRef}
       poster={posterUrl}
       src={permanentUrl}
