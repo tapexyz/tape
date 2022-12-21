@@ -54,6 +54,7 @@ const PlayerInstance = ({
 }: PlayerProps) => {
   return (
     <Player
+      controls={{ defaultVolume: 1 }}
       mediaElementRef={playerRef}
       poster={posterUrl}
       src={permanentUrl}
@@ -126,9 +127,9 @@ const VideoPlayer: FC<Props> = ({
   useEffect(() => {
     if (!playerRef) return
     playerRef.currentTime = Number(currentTime || 0)
-    if (IS_MAINNET) {
-      analyseVideo(playerRef)
-    }
+    // if (IS_MAINNET) {
+    //   analyseVideo(playerRef)
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerRef, currentTime])
 
