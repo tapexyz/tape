@@ -18,9 +18,32 @@ type Props = {
   video: LenstubePublication
 }
 
+const TopOverlay = ({ playerRef, video }: any) => {
+  const [showVideoOverlay, setShowVideoOverlay] = useState(true)
+  const isSensitiveContent = getIsSensitiveContent(video?.metadata, video?.id)
+
+  useEffect(() => {
+    if (!playerRef) return
+    playerRef.onpause = () => {
+      setShowVideoOverlay(true)
+    }
+    playerRef.onplay = () => {
+      setShowVideoOverlay(false)
+    }
+  }, [playerRef])
+
+  return !isSensitiveContent ? (
+    <div
+      className={`${showVideoOverlay ? 'block' : 'hidden'} group-hover:block`}
+    >
+      <VideoOverlay video={video} />
+    </div>
+  ) : null
+}
+
 const Video: FC<Props> = ({ video }) => {
   const { query } = useRouter()
-  const [showVideoOverlay, setShowVideoOverlay] = useState(true)
+  const [playerRef, setPlayerRef] = useState<HTMLMediaElement>()
 
   const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
   const isLoop = Boolean(query.loop) && query.loop === '1'
@@ -33,12 +56,7 @@ const Video: FC<Props> = ({ video }) => {
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (!ref) return
-    ref.onpause = () => {
-      setShowVideoOverlay(true)
-    }
-    ref.onplay = () => {
-      setShowVideoOverlay(false)
-    }
+    setPlayerRef(ref)
   }
 
   return (
@@ -62,15 +80,11 @@ const Video: FC<Props> = ({ video }) => {
           currentTime={currentTime}
           options={{ autoPlay: isAutoPlay, muted: isAutoPlay, loop: isLoop }}
         />
-        {!isSensitiveContent && (
-          <div
-            className={`${
-              showVideoOverlay ? 'block' : 'hidden'
-            } group-hover:block`}
-          >
-            <VideoOverlay video={video} />
-          </div>
-        )}
+        <TopOverlay
+          playerRef={playerRef}
+          isSensitiveContent={isSensitiveContent}
+          video={video}
+        />
       </div>
     </div>
   )
