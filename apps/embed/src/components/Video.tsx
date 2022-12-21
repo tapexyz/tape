@@ -3,7 +3,6 @@ import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import type { LenstubePublication } from 'utils'
 import { Analytics, TRACK } from 'utils'
-import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
@@ -18,9 +17,13 @@ type Props = {
   video: LenstubePublication
 }
 
-const TopOverlay = ({ playerRef, video }: any) => {
+type OverlayProps = {
+  playerRef: HTMLMediaElement | undefined
+  video: LenstubePublication
+}
+
+const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
   const [showVideoOverlay, setShowVideoOverlay] = useState(true)
-  const isSensitiveContent = getIsSensitiveContent(video?.metadata, video?.id)
 
   useEffect(() => {
     if (!playerRef) return
@@ -32,13 +35,15 @@ const TopOverlay = ({ playerRef, video }: any) => {
     }
   }, [playerRef])
 
-  return !isSensitiveContent ? (
+  return (
     <div
-      className={`${showVideoOverlay ? 'block' : 'hidden'} group-hover:block`}
+      className={`${
+        showVideoOverlay ? 'visible' : 'invisible'
+      } transition-all duration-200 ease-in-out group-hover:visible`}
     >
       <VideoOverlay video={video} />
     </div>
-  ) : null
+  )
 }
 
 const Video: FC<Props> = ({ video }) => {
@@ -48,7 +53,6 @@ const Video: FC<Props> = ({ video }) => {
   const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
   const isLoop = Boolean(query.loop) && query.loop === '1'
   const currentTime = Number(query.t) ?? 0
-  const isSensitiveContent = getIsSensitiveContent(video?.metadata, video?.id)
 
   useEffect(() => {
     Analytics.track(TRACK.EMBED_VIDEO.LOADED)
@@ -71,7 +75,6 @@ const Video: FC<Props> = ({ video }) => {
         <VideoPlayer
           refCallback={refCallback}
           permanentUrl={getPublicationMediaUrl(video)}
-          isSensitiveContent={isSensitiveContent}
           posterUrl={imageCdn(
             sanitizeIpfsUrl(getThumbnailUrl(video)),
             'thumbnail'
@@ -80,11 +83,7 @@ const Video: FC<Props> = ({ video }) => {
           currentTime={currentTime}
           options={{ autoPlay: isAutoPlay, muted: isAutoPlay, loop: isLoop }}
         />
-        <TopOverlay
-          playerRef={playerRef}
-          isSensitiveContent={isSensitiveContent}
-          video={video}
-        />
+        <TopOverlay playerRef={playerRef} video={video} />
       </div>
     </div>
   )
