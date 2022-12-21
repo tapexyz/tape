@@ -127,9 +127,9 @@ const VideoPlayer: FC<Props> = ({
   useEffect(() => {
     if (!playerRef) return
     playerRef.currentTime = Number(currentTime || 0)
-    // if (IS_MAINNET) {
-    //   analyseVideo(playerRef)
-    // }
+    if (IS_MAINNET) {
+      analyseVideo(playerRef)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerRef, currentTime])
 
