@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import type { LenstubePublication } from 'utils'
@@ -19,12 +18,12 @@ type Props = {
 }
 
 const Video: FC<Props> = ({ video }) => {
-  const { query } = useRouter()
+  // const { query } = useRouter()
   const [showVideoOverlay, setShowVideoOverlay] = useState(true)
 
-  const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
-  const isLoop = Boolean(query.loop) && query.loop === '1'
-  const currentTime = Number(query.t) ?? 0
+  // const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
+  // const isLoop = Boolean(query.loop) && query.loop === '1'
+  // const currentTime = Number(query.t) ?? 0
   const isSensitiveContent = getIsSensitiveContent(video?.metadata, video?.id)
 
   useEffect(() => {
@@ -59,8 +58,8 @@ const Video: FC<Props> = ({ video }) => {
             'thumbnail'
           )}
           publicationId={video.id}
-          currentTime={currentTime}
-          options={{ autoPlay: isAutoPlay, muted: isAutoPlay, loop: isLoop }}
+          // currentTime={currentTime}
+          options={{ autoPlay: false, muted: false, loop: false }}
         />
         {!isSensitiveContent && (
           <div
