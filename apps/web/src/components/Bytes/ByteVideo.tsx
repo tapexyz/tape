@@ -67,7 +67,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
   return (
     <div ref={observe} className="flex justify-center md:mt-6 snap-center">
       <div className="relative">
-        <div className="md:rounded-xl min-w-[250px] w-screen md:w-[350px] ultrawide:w-[407px] h-screen bg-black md:h-[calc(100vh-145px)]">
+        <div className="md:rounded-xl overflow-hidden min-w-[250px] w-screen md:w-[350px] ultrawide:w-[407px] h-screen bg-black md:h-[calc(100vh-145px)]">
           <VideoPlayer
             refCallback={refCallback}
             permanentUrl={getPublicationMediaUrl(video)}
