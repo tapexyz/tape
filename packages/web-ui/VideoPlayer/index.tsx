@@ -6,14 +6,12 @@ import mux from 'mux-embed'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
-import { toast } from 'react-hot-toast'
 import {
   IPFS_GATEWAY,
   IS_MAINNET,
   LENSTUBE_WEBSITE_URL,
   MUX_DATA_KEY
 } from 'utils'
-import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 
 import SensitiveWarning from './SensitiveWarning'
 
@@ -56,7 +54,6 @@ const PlayerInstance = ({
 }: PlayerProps) => {
   return (
     <Player
-      controls={{ defaultVolume: 1 }}
       mediaElementRef={playerRef}
       poster={posterUrl}
       src={permanentUrl}
@@ -93,7 +90,6 @@ const VideoPlayer: FC<Props> = ({
   options,
   children
 }) => {
-  const [copy] = useCopyToClipboard()
   const router = useRouter()
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
   const [playerRef, setPlayerRef] = useState<HTMLMediaElement>()
@@ -138,10 +134,6 @@ const VideoPlayer: FC<Props> = ({
 
   const onContextClick = async (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
-    await copy(
-      `${LENSTUBE_WEBSITE_URL}/watch/${publicationId ?? router.query?.id}`
-    )
-    toast.success('Video link copied')
   }
 
   return (
