@@ -159,4 +159,4 @@ const VideoPlayer: FC<Props> = ({
   )
 }
 
-export default VideoPlayer
+export default React.memo(VideoPlayer)
