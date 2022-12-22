@@ -56,9 +56,9 @@ const PlayerInstance = ({
     <Player
       src={permanentUrl}
       poster={posterUrl}
-      aspectRatio={ratio}
-      objectFit="contain"
       showTitle={false}
+      objectFit="contain"
+      aspectRatio={ratio}
       showPipButton={true}
       mediaElementRef={playerRef}
       loop={options?.loop ?? true}
@@ -142,18 +142,16 @@ const VideoPlayer: FC<Props> = ({
       {sensitiveWarning ? (
         <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
       ) : (
-        <div onContextMenu={onContextClick}>
-          <div className="relative">
-            <PlayerInstance
-              posterUrl={posterUrl}
-              permanentUrl={permanentUrl}
-              ratio={ratio}
-              playerRef={mediaElementRef}
-              options={options}
-            >
-              {children}
-            </PlayerInstance>
-          </div>
+        <div onContextMenu={onContextClick} className="relative">
+          <PlayerInstance
+            posterUrl={posterUrl}
+            permanentUrl={permanentUrl}
+            ratio={ratio}
+            playerRef={mediaElementRef}
+            options={options}
+          >
+            {children}
+          </PlayerInstance>
         </div>
       )}
     </div>
