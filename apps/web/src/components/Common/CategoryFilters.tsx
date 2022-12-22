@@ -56,7 +56,7 @@ const CategoryFilters = () => {
   return (
     <div className="relative flex pt-4">
       {scrollX !== 0 && (
-        <div className="bg-white sticky right-0 bottom-0 px-2">
+        <div className="bg-transparent sticky right-0 bottom-0 px-2">
           <button
             type="button"
             className="hover:bg-gray-500 hidden md:block focus:outline-none hover:bg-opacity-20 backdrop-blur-xl rounded-full p-2"
@@ -99,7 +99,7 @@ const CategoryFilters = () => {
         ))}
       </div>
       {!scrollEnd && (
-        <div className="bg-white sticky right-0 bottom-0 px-2">
+        <div className="bg-transparent sticky right-0 bottom-0 px-2">
           <button
             type="button"
             className="hover:bg-gray-500 hidden md:block focus:outline-none hover:bg-opacity-20 backdrop-blur-xl rounded-full p-2"
