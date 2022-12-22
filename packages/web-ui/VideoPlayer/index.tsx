@@ -54,11 +54,18 @@ const PlayerInstance = ({
 }: PlayerProps) => {
   return (
     <Player
-      controls={{ defaultVolume: 1 }}
-      mediaElementRef={playerRef}
-      poster={posterUrl}
       src={permanentUrl}
+      poster={posterUrl}
       aspectRatio={ratio}
+      objectFit="contain"
+      showTitle={false}
+      showPipButton={true}
+      mediaElementRef={playerRef}
+      loop={options?.loop ?? true}
+      showUploadingIndicator={false}
+      muted={options?.muted ?? false}
+      controls={{ defaultVolume: 1 }}
+      autoPlay={options?.autoPlay ?? false}
       autoUrlUpload={
         IS_MAINNET
           ? {
@@ -67,13 +74,6 @@ const PlayerInstance = ({
             }
           : false
       }
-      objectFit="contain"
-      showPipButton={true}
-      autoPlay={options?.autoPlay ?? false}
-      muted={options?.muted ?? false}
-      loop={options?.loop ?? true}
-      showTitle={false}
-      showUploadingIndicator={false}
     >
       {children}
     </Player>
