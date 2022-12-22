@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
-    "@livepeer/react": "^2.0.0-next.15",
+    "@livepeer/react": "^2.0.0-next.16",
     "@tailwindcss/line-clamp": "^0.4.0",
     "clsx": "^1.2.1",
     "graphql": "^16.6.0",

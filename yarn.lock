@@ -2890,12 +2890,12 @@
   resolved "https://registry.yarnpkg.com/@ledgerhq/connect-kit-loader/-/connect-kit-loader-1.0.1.tgz#fce00582e92b666c8b33d4e5ec4f52c2e05c7e46"
   integrity sha512-OAJh9rMaypS1ttrSMwPznXqglJGcP3WPTTgz9YAKfkaMyUtZcHx7hCj4d6f7DdSVZOgWcyEYfZ8M2QrA2gtvgQ==
 
-"@livepeer/core-react@^1.0.0-next.14":
-  version "1.0.0-next.14"
-  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.0.0-next.14.tgz#8947bede1a79dce8fed8d1936dd562a26458183e"
-  integrity sha512-Sqr89vUanDCAFnslSXg5kRlzUz+hnF8MvCHGXxRtEAQOqXO+5aWGzL6Ogf3Ef70zYCsuz7z0tRIa78AiOCWvpA==
+"@livepeer/core-react@^1.0.0-next.15":
+  version "1.0.0-next.15"
+  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.0.0-next.15.tgz#c9639732d2ce07f9eb1b22132cc16c96ae01cda6"
+  integrity sha512-yYBKWeASjPpXymz7i6nAP7ka1IPd34G8Om0fRrOcwuJ9HraKsqo0ZS4YlJ4fQubbHK7Y7rud3FhufbJRvVupaQ==
   dependencies:
-    "@livepeer/core" "^1.0.0-next.4"
+    "@livepeer/core" "^1.0.0-next.5"
     "@tanstack/query-async-storage-persister" "4.19.1"
     "@tanstack/query-core" "4.19.1"
     "@tanstack/react-query" "4.19.1"
@@ -2914,12 +2914,23 @@
     tus-js-client "^3.0.1"
     zustand "^4.1.5"
 
-"@livepeer/react@^2.0.0-next.15":
-  version "2.0.0-next.15"
-  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.0.0-next.15.tgz#99534d4b914793c83e8d1bccaed838095750f28e"
-  integrity sha512-pOCvVVvToj/xmepoBxQuIp69G8OlNJX83gEBnWvU+tAIrnnHEO4yhTl5tdlZVfMq8kI5TSGiut+JAjWoPiJZ+g==
+"@livepeer/core@^1.0.0-next.5":
+  version "1.0.0-next.5"
+  resolved "https://registry.yarnpkg.com/@livepeer/core/-/core-1.0.0-next.5.tgz#74ad2e5c5bff8f627f36c7d04570f2c2e154012e"
+  integrity sha512-UpVStc9jDl1gcEzkM/tcz8IaN1IAF2HSteIvxFhzMXqfVldISzM4wP79SQpjtj5Ez31rc6EZ2emXU7p/Dn9H3g==
   dependencies:
-    "@livepeer/core-react" "^1.0.0-next.14"
+    cross-fetch "^3.1.5"
+    ms "^3.0.0-canary.1"
+    multiformats "9.9.0"
+    tus-js-client "^3.0.1"
+    zustand "^4.1.5"
+
+"@livepeer/react@^2.0.0-next.16":
+  version "2.0.0-next.16"
+  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.0.0-next.16.tgz#99b56460e450cbea30b1dc212a8aeeaa7ad416f6"
+  integrity sha512-sleCZihm6OzQsQ2MNq8Ys+yHLI9Ygq/eXKh+9WImISS9ZiUBhgJQ8DtDPUHSKKf0d9eY0jFz0vP61+Ps1m2WrA==
+  dependencies:
+    "@livepeer/core-react" "^1.0.0-next.15"
     "@stitches/react" "^1.2.8"
     core-js "^3.26.1"
     livepeer "2.0.0-next.7"
