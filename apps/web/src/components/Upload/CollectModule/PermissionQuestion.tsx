@@ -12,7 +12,7 @@ type Props = {
 const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
   return (
     <div className="space-y-2">
-      <h6>Who can collect this publication?</h6>
+      <h6>Who can collect this video?</h6>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <button
           type="button"
@@ -44,7 +44,9 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           onClick={() =>
             setCollectType({
               followerOnlyCollect: true,
-              isRevertCollect: false
+              isRevertCollect: false,
+              isFreeCollect: true,
+              isFeeCollect: false
             })
           }
           className={clsx(

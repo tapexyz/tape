@@ -97,7 +97,7 @@ const FeeCollectForm: FC<Props> = ({
         <div>
           <Input
             type="number"
-            label="Collect Limit"
+            label="Total Collectables"
             placeholder="3"
             min="1"
             autoComplete="off"
@@ -111,7 +111,7 @@ const FeeCollectForm: FC<Props> = ({
       <div>
         <div className="flex items-center mb-1 space-x-1.5">
           <div className="text-[11px] font-semibold uppercase opacity-70">
-            Currency
+            Collect Currency
           </div>
         </div>
         <select
@@ -143,7 +143,7 @@ const FeeCollectForm: FC<Props> = ({
       <div>
         <Input
           type="number"
-          label="Amount"
+          label="Price of each collect"
           placeholder="1.5"
           min="0"
           autoComplete="off"
@@ -164,6 +164,10 @@ const FeeCollectForm: FC<Props> = ({
           {...register('referralPercent', { valueAsNumber: true })}
           validationError={errors.referralPercent?.message}
         />
+        <span className="text-xs opacity-60">
+          Percent of collect revenue can be shared with anyone who mirrors this
+          video.
+        </span>
       </div>
       <div className="flex justify-end">
         <Button type="button" onClick={() => handleSubmit(onSubmit)()}>
