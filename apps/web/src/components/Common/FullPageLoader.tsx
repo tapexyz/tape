@@ -1,5 +1,6 @@
 import React from 'react'
 import { STATIC_ASSETS } from 'utils'
+import imageCdn from 'utils/functions/imageCdn'
 
 import MetaTags from './MetaTags'
 
@@ -9,7 +10,7 @@ const FullPageLoader = () => {
       <MetaTags />
       <div className="animate-bounce">
         <img
-          src={`${STATIC_ASSETS}/images/brand/christmas.png`}
+          src={imageCdn(`${STATIC_ASSETS}/images/brand/christmas.png`)}
           draggable={false}
           className="w-20 h-20 ml-6 mb-6"
           alt="lenstube"
