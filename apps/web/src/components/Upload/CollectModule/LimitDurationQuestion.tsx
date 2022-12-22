@@ -36,7 +36,7 @@ const LimitDurationQuestion: FC<Props> = ({
             }
           )}
         >
-          <span>Unlimited</span>
+          <span>Unlimited duration</span>
           {!uploadedVideo.collectModule.isTimedFeeCollect && (
             <CheckOutline className="w-3 h-3" />
           )}

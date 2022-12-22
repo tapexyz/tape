@@ -12,7 +12,7 @@ type Props = {
 const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
   return (
     <div className="space-y-2">
-      <h6>Would you like to charge user?</h6>
+      <h6>Would you like to set collect price for this video?</h6>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <button
           type="button"
@@ -49,7 +49,7 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             }
           )}
         >
-          <span>Yes, Some Amount</span>
+          <span>Yes, Some Price</span>
           {uploadedVideo.collectModule.isFeeCollect && (
             <CheckOutline className="w-3 h-3" />
           )}
