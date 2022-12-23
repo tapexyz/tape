@@ -18,11 +18,11 @@ import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import type { LenstubePublication } from 'utils'
 import {
-  ADMIN_IDS,
   Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
+  MOD_IDS,
   SCROLL_ROOT_MARGIN,
   TRACK
 } from 'utils'
@@ -39,7 +39,7 @@ const ExploreFeed = () => {
 
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-  const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
+  const isMod = MOD_IDS.includes(selectedChannel?.id)
 
   const getCriteria = () => {
     if (activeCriteria.trending) {
@@ -162,7 +162,7 @@ const ExploreFeed = () => {
           <MirrorOutline className="w-3.5 h-3.5" />
           <span>Interesting</span>
         </Tab>
-        {isAdmin && (
+        {isMod && (
           <Tab
             onClick={() => {
               setActiveCriteria({
