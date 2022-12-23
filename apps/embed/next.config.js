@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
-const withTM = require('next-transpile-modules')(['lens', 'utils', 'web-ui'])
-
-const nextConfig = withTM({
+const nextConfig = {
+  transpilePackages: ['lens', 'utils', 'web-ui'],
   reactStrictMode: true,
   swcMinify: true,
   async rewrites() {
@@ -20,6 +19,6 @@ const nextConfig = withTM({
       }
     ]
   }
-})
+}
 
 module.exports = nextConfig

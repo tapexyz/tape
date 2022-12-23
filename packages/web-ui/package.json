@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "./index.ts",
   "dependencies": {
-    "mux-embed": "^4.16.0",
+    "mux-embed": "^4.17.0",
     "wavesurfer.js": "^6.4.0"
   },
   "devDependencies": {
