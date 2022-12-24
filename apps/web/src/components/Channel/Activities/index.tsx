@@ -59,7 +59,7 @@ const Activities: FC<Props> = ({ channel }) => {
             onClick={() => Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_VIDEOS)}
             className={({ selected }) =>
               clsx(
-                'px-3 py-2 mr-2 flex items-center space-x-2 font-medium border-b-2 text-sm focus:outline-none',
+                'px-3 py-2 mr-2 flex items-center whitespace-nowrap space-x-2 font-medium border-b-2 text-sm focus:outline-none',
                 selected
                   ? 'opacity-100 border-indigo-700'
                   : 'border-transparent opacity-50'
