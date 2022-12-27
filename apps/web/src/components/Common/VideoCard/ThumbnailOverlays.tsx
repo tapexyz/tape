@@ -50,7 +50,7 @@ const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
       ) : null}
       {!isSensitiveContent && videoDuration ? (
         <div>
-          <span className="py-0.5 absolute bottom-2 right-2 text-xs px-1 text-white bg-black rounded">
+          <span className="py-0.5 absolute font-semibold bottom-2 right-2 text-xs px-1 text-white bg-black rounded">
             {getTimeFromSeconds(videoDuration)}
           </span>
         </div>
