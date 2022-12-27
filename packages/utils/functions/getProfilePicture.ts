@@ -13,7 +13,7 @@ const getProfilePicture = (
       ? channel?.picture?.original?.url
       : channel.picture?.__typename === 'NftImage'
       ? channel?.picture?.uri
-      : getRandomProfilePicture(channel?.handle)
+      : getRandomProfilePicture(channel?.ownedBy)
   const sanitized = sanitizeIpfsUrl(url)
   return imageCdn(sanitized, type)
 }
