@@ -15,7 +15,7 @@ import VideoActions from './VideoActions'
 import VideoMeta from './VideoMeta'
 
 const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
-  loading: () => <CardShimmer />,
+  loading: () => <CardShimmer rounded={false} />,
   ssr: false
 })
 
