@@ -22,7 +22,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
           className="inline-flex items-center space-x-1.5 font-base"
         >
           <img
-            className="w-4 h-4 rounded"
+            className="w-5 h-5 rounded-full"
             src={getProfilePicture(
               notification?.mentionPublication.profile,
               'avatar'
