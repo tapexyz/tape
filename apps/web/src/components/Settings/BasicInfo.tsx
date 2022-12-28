@@ -197,7 +197,6 @@ const BasicInfo = ({ channel }: Props) => {
   }
 
   const onSaveBasicInfo = async (data: FormData) => {
-    console.log('🚀 ~ file: BasicInfo.tsx:200 ~ onSaveBasicInfo ~ data', data)
     Analytics.track(TRACK.UPDATE_CHANNEL_INFO)
     setLoading(true)
     try {
