@@ -10,8 +10,7 @@ import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import type { FC, ReactNode } from 'react'
 import React, { useEffect } from 'react'
-import toast, { Toaster } from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
+import { Toaster } from 'react-hot-toast'
 import { MIXPANEL_API_HOST, MIXPANEL_TOKEN, POLYGON_CHAIN_ID } from 'utils'
 import { AUTH_ROUTES } from 'utils/data/auth-routes'
 import clearLocalStorage from 'utils/functions/clearLocalStorage'
@@ -19,7 +18,7 @@ import { getIsAuthTokensAvailable } from 'utils/functions/getIsAuthTokensAvailab
 import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
 import { getToastOptions } from 'utils/functions/getToastOptions'
 import useIsMounted from 'utils/hooks/useIsMounted'
-import { useAccount, useDisconnect, useNetwork } from 'wagmi'
+import { useAccount, useNetwork } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
 import Header from './Header'
@@ -50,11 +49,6 @@ const Layout: FC<Props> = ({ children }) => {
 
   const { chain } = useNetwork()
   const { resolvedTheme } = useTheme()
-  const { disconnect } = useDisconnect({
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
-    }
-  })
   const { mounted } = useIsMounted()
   const { address } = useAccount()
   const { pathname, replace, asPath } = useRouter()
@@ -101,7 +95,6 @@ const Layout: FC<Props> = ({ children }) => {
     const logout = () => {
       resetAuthState()
       clearLocalStorage()
-      disconnect?.()
     }
     const ownerAddress = selectedChannel?.ownedBy
     const isWrongNetworkChain = chain?.id !== POLYGON_CHAIN_ID
@@ -118,7 +111,7 @@ const Layout: FC<Props> = ({ children }) => {
   useEffect(() => {
     validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, chain, disconnect, selectedChannelId])
+  }, [address, chain, selectedChannelId])
 
   if (loading || !mounted) return <FullPageLoader />
 
