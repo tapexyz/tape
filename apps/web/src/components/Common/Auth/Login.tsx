@@ -32,6 +32,8 @@ const Login = () => {
   const onError = () => {
     setLoading(false)
     clearLocalStorage()
+    setSelectedChannel(null)
+    setSelectedChannelId(null)
   }
 
   const { signMessageAsync } = useSignMessage({
