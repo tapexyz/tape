@@ -18,7 +18,6 @@ const authLink = new ApolloLink((operation, forward) => {
   const accessToken = localStorage.getItem('accessToken')
   if (!accessToken || accessToken === 'undefined') {
     clearLocalStorage()
-    localStorage.removeItem('wagmi.connected')
     return forward(operation)
   }
 
