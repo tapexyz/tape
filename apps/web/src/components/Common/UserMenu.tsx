@@ -8,10 +8,12 @@ import { useAllProfilesLazyQuery } from 'lens'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
+import { toast } from 'react-hot-toast'
+import type { CustomErrorWithData } from 'utils'
 import { ADMIN_IDS, Analytics, IS_MAINNET, TRACK } from 'utils'
 import clearLocalStorage from 'utils/functions/clearLocalStorage'
 import getProfilePicture from 'utils/functions/getProfilePicture'
-import { useAccount } from 'wagmi'
+import { useAccount, useDisconnect } from 'wagmi'
 
 import ChannelOutline from './Icons/ChannelOutline'
 import CheckOutline from './Icons/CheckOutline'
@@ -43,12 +45,19 @@ const UserMenu = () => {
 
   const [getChannels] = useAllProfilesLazyQuery()
   const { address } = useAccount()
+  const { disconnect } = useDisconnect({
+    onError(error: CustomErrorWithData) {
+      toast.error(error?.data?.message || error?.message)
+    }
+  })
+
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 
   const logout = () => {
     setSelectedChannel(null)
     setSelectedChannelId(null)
     clearLocalStorage()
+    disconnect?.()
   }
 
   const onSelectChannel = (channel: Profile) => {
