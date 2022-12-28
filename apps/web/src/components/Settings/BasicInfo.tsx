@@ -37,7 +37,7 @@ import {
   TRACK
 } from 'utils'
 import { VERIFIED_CHANNELS } from 'utils/data/verified'
-import getCoverPicture from 'utils/functions/getCoverPicture'
+import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 import imageCdn from 'utils/functions/imageCdn'
 import omitKey from 'utils/functions/omitKey'
@@ -85,7 +85,7 @@ const BasicInfo = ({ channel }: Props) => {
   const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
-  const [coverImage, setCoverImage] = useState(getCoverPicture(channel))
+  const [coverImage, setCoverImage] = useState(getChannelCoverPicture(channel))
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const {
@@ -197,6 +197,7 @@ const BasicInfo = ({ channel }: Props) => {
   }
 
   const onSaveBasicInfo = async (data: FormData) => {
+    console.log('🚀 ~ file: BasicInfo.tsx:200 ~ onSaveBasicInfo ~ data', data)
     Analytics.track(TRACK.UPDATE_CHANNEL_INFO)
     setLoading(true)
     try {
@@ -269,16 +270,13 @@ const BasicInfo = ({ channel }: Props) => {
           </div>
         )}
         <img
-          src={
-            sanitizeIpfsUrl(coverImage) ??
-            imageCdn(
-              sanitizeIpfsUrl(channel?.coverPicture?.original?.url),
-              'thumbnail'
-            )
-          }
+          src={imageCdn(
+            sanitizeIpfsUrl(getChannelCoverPicture(channel)),
+            'thumbnail'
+          )}
           className="object-cover object-center w-full h-48 bg-white rounded-xl md:h-56 dark:bg-gray-900"
           draggable={false}
-          alt={`${channel.handle} Cover`}
+          alt={`${channel.handle}'s cover`}
         />
         <label
           htmlFor="chooseCover"
