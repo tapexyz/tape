@@ -30,6 +30,8 @@ query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
     attributes {
       key
       value
+      traitType
+      displayType
     }
     bio
     stats {
