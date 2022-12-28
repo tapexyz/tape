@@ -196,6 +196,13 @@ const BasicInfo = ({ channel }: Props) => {
     }
   }
 
+  const otherAttributes =
+    channel?.attributes
+      ?.filter(
+        (attr) => !['website', 'location', 'twitter', 'app'].includes(attr.key)
+      )
+      .map(({ traitType, key, value }) => ({ traitType, key, value })) ?? []
+
   const onSaveBasicInfo = async (data: FormData) => {
     Analytics.track(TRACK.UPDATE_CHANNEL_INFO)
     setLoading(true)
@@ -206,6 +213,7 @@ const BasicInfo = ({ channel }: Props) => {
         bio: trimify(data.description),
         cover_picture: data.coverImage ?? coverImage,
         attributes: [
+          ...otherAttributes,
           {
             displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'website',
