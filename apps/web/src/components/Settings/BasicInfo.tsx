@@ -196,7 +196,7 @@ const BasicInfo = ({ channel }: Props) => {
     }
   }
 
-  const oldAttributes =
+  const otherAttributes =
     channel?.attributes
       ?.filter(
         (attr) => !['website', 'location', 'twitter', 'app'].includes(attr.key)
@@ -213,7 +213,7 @@ const BasicInfo = ({ channel }: Props) => {
         bio: trimify(data.description),
         cover_picture: data.coverImage ?? coverImage,
         attributes: [
-          ...oldAttributes,
+          ...otherAttributes,
           {
             displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'website',
