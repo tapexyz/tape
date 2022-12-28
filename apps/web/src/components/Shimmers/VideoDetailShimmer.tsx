@@ -19,7 +19,7 @@ export const VideoDetailShimmer = () => {
   return (
     <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
       <div className="col-span-3">
-        <CardShimmer />
+        <CardShimmer rounded={false} />
         <div className="flex flex-col flex-1 mt-4 animate-pulse">
           <div className="w-full h-4 my-2 bg-gray-300 rounded-md dark:bg-gray-700" />
           <div className="flex items-center space-x-3">

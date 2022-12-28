@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import type { FC, ReactNode } from 'react'
 import React, { useEffect } from 'react'
-import toast, { Toaster } from 'react-hot-toast'
+import { toast, Toaster } from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import { MIXPANEL_API_HOST, MIXPANEL_TOKEN, POLYGON_CHAIN_ID } from 'utils'
 import { AUTH_ROUTES } from 'utils/data/auth-routes'
@@ -50,14 +50,16 @@ const Layout: FC<Props> = ({ children }) => {
 
   const { chain } = useNetwork()
   const { resolvedTheme } = useTheme()
+  const { mounted } = useIsMounted()
+  const { address } = useAccount()
+  const { pathname, replace, asPath } = useRouter()
+
   const { disconnect } = useDisconnect({
     onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
-  const { mounted } = useIsMounted()
-  const { address } = useAccount()
-  const { pathname, replace, asPath } = useRouter()
+
   const showFullScreen = getShowFullScreen(pathname)
 
   const resetAuthState = () => {

@@ -8,7 +8,7 @@ import { useAllProfilesLazyQuery } from 'lens'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
-import toast from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import { ADMIN_IDS, Analytics, IS_MAINNET, TRACK } from 'utils'
 import clearLocalStorage from 'utils/functions/clearLocalStorage'
@@ -27,6 +27,9 @@ import SunOutline from './Icons/SunOutline'
 import SwitchChannelOutline from './Icons/SwitchChannelOutline'
 
 const UserMenu = () => {
+  const { theme, setTheme } = useTheme()
+  const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
+
   const setChannels = useAppStore((state) => state.setChannels)
   const setShowCreateChannel = useAppStore(
     (state) => state.setShowCreateChannel
@@ -40,16 +43,14 @@ const UserMenu = () => {
     (state) => state.setSelectedChannelId
   )
 
-  const { theme, setTheme } = useTheme()
-
-  const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
+  const [getChannels] = useAllProfilesLazyQuery()
+  const { address } = useAccount()
   const { disconnect } = useDisconnect({
     onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message || error?.message)
     }
   })
-  const [getChannels] = useAllProfilesLazyQuery()
-  const { address } = useAccount()
+
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 
   const logout = () => {
@@ -229,7 +230,7 @@ const UserMenu = () => {
                 onClick={() => logout()}
               >
                 <HandWaveOutline className="w-4 h-4" />
-                <span className="truncate whitespace-nowrap">Disconnect</span>
+                <span className="truncate whitespace-nowrap">Logout</span>
               </button>
             </div>
           </>

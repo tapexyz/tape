@@ -107,6 +107,7 @@ export const LENSTUBE_ROADMAP_URL = 'https://roadmap.lenstube.xyz'
 
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']
+export const MOD_IDS = IS_MAINNET ? [...ADMIN_IDS, '0x24'] : ['0x2f']
 
 // lens
 export const LENS_CUSTOM_FILTERS = [CustomFiltersTypes.Gardeners]
@@ -138,6 +139,7 @@ export const VERCEL_DEPLOYED_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV
 export const MIXPANEL_API_HOST = '/collect'
 export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN
 export const DATADOG_KEY = process.env.NEXT_PUBLIC_DATADOG_KEY
+export const MUX_DATA_KEY = process.env.NEXT_PUBLIC_MUX_DATA_KEY
 
 export const API_ORIGINS = [
   'https://lenstube.xyz',

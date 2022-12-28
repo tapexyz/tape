@@ -12,9 +12,10 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import { FiSettings } from 'react-icons/fi'
 import { Analytics, TRACK } from 'utils'
-import getCoverPicture from 'utils/functions/getCoverPicture'
+import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import imageCdn from 'utils/functions/imageCdn'
+import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 
 import MutualSubscribers from '../Mutual/MutualSubscribers'
 
@@ -43,7 +44,9 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         <span>
           <div
             style={{
-              backgroundImage: `url(${imageCdn(getCoverPicture(channel))})`
+              backgroundImage: `url(${imageCdn(
+                sanitizeIpfsUrl(getChannelCoverPicture(channel))
+              )})`
             }}
             className="absolute w-full bg-white bg-center bg-no-repeat bg-cover rounded-lg dark:bg-gray-900 h-44 md:h-72"
           >

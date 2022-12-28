@@ -1,35 +1,58 @@
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import type { LenstubePublication } from 'utils'
 import { Analytics, TRACK } from 'utils'
-import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import truncate from 'utils/functions/truncate'
+import VideoPlayer from 'web-ui/VideoPlayer'
 
 import MetaTags from './MetaTags'
-import Shimmer from './Shimmer'
 import VideoOverlay from './VideoOverlay'
-
-const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
-  ssr: false,
-  loading: () => <Shimmer />
-})
 
 type Props = {
   video: LenstubePublication
 }
 
-const Video: FC<Props> = ({ video }) => {
-  const { query } = useRouter()
+type OverlayProps = {
+  playerRef: HTMLMediaElement | undefined
+  video: LenstubePublication
+}
+
+const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
   const [showVideoOverlay, setShowVideoOverlay] = useState(true)
 
+  useEffect(() => {
+    if (!playerRef) return
+    playerRef.onpause = () => {
+      setShowVideoOverlay(true)
+    }
+    playerRef.onplay = () => {
+      setShowVideoOverlay(false)
+    }
+  }, [playerRef])
+
+  return (
+    <div
+      className={`${
+        showVideoOverlay ? 'visible' : 'invisible'
+      } transition-all duration-200 ease-in-out group-hover:visible`}
+    >
+      <VideoOverlay video={video} />
+    </div>
+  )
+}
+
+const Video: FC<Props> = ({ video }) => {
+  const { query } = useRouter()
+  const [playerRef, setPlayerRef] = useState<HTMLMediaElement>()
+
   const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
-  const isSensitiveContent = getIsSensitiveContent(video?.metadata, video?.id)
+  const isLoop = Boolean(query.loop) && query.loop === '1'
+  const currentTime = Number(query.t) ?? 0
 
   useEffect(() => {
     Analytics.track(TRACK.EMBED_VIDEO.LOADED)
@@ -37,12 +60,7 @@ const Video: FC<Props> = ({ video }) => {
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (!ref) return
-    ref.onpause = () => {
-      setShowVideoOverlay(true)
-    }
-    ref.onplay = () => {
-      setShowVideoOverlay(false)
-    }
+    setPlayerRef(ref)
   }
 
   return (
@@ -57,23 +75,15 @@ const Video: FC<Props> = ({ video }) => {
         <VideoPlayer
           refCallback={refCallback}
           permanentUrl={getPublicationMediaUrl(video)}
-          isSensitiveContent={isSensitiveContent}
           posterUrl={imageCdn(
             sanitizeIpfsUrl(getThumbnailUrl(video)),
             'thumbnail'
           )}
           publicationId={video.id}
-          options={{ autoPlay: isAutoPlay, muted: isAutoPlay, loop: true }}
+          currentTime={currentTime}
+          options={{ autoPlay: isAutoPlay, muted: isAutoPlay, loop: isLoop }}
         />
-        {!isSensitiveContent && (
-          <div
-            className={`${
-              showVideoOverlay ? 'block' : 'hidden'
-            } group-hover:block`}
-          >
-            <VideoOverlay video={video} />
-          </div>
-        )}
+        <TopOverlay playerRef={playerRef} video={video} />
       </div>
     </div>
   )

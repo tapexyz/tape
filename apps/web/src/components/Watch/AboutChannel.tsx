@@ -28,7 +28,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
   const [showMore, setShowMore] = useState(false)
 
   useEffect(() => {
-    if (video.metadata?.description?.trim().length > 400) {
+    if (video.metadata?.description?.trim().length > 500) {
       setClamped(true)
       setShowMore(true)
     }
@@ -92,7 +92,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
             <button
               type="button"
               onClick={() => setClamped(!clamped)}
-              className="flex items-center text-sm outline-none text-indigo-500 hover:opacity-100 opacity-60"
+              className="flex items-center text-sm outline-none text-indigo-500 hover:opacity-100 opacity-80"
             >
               {clamped ? (
                 <>

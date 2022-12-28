@@ -33,9 +33,6 @@
     <span>
         <img src="https://img.shields.io/github/stars/lenstube-xyz/lenstube" alt="Stargazers">
     </span>
-    <a href="https://github.com/lenstube-xyz/lenstube/blob/main/LICENSE">
-        <img src="https://badgen.net/github/license/lenstube-xyz/lenstube" alt="License">
-    </a>
 </div>
 <br>
 

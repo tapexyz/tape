@@ -1,7 +1,7 @@
 import CollectVideo from '@components/Watch/CollectVideo'
 import { ControlsContainer } from '@livepeer/react'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React, { useRef } from 'react'
 import { useInView } from 'react-cool-inview'
 import type { LenstubePublication } from 'utils'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
@@ -19,43 +19,40 @@ type Props = {
 }
 
 const ByteVideo: FC<Props> = ({ video }) => {
-  const [videoRef, setVideoRef] = useState<HTMLMediaElement>()
-  const [playing, setIsPlaying] = useState(true)
+  const videoRef = useRef<HTMLMediaElement>()
 
   const playVideo = () => {
-    if (!videoRef) return
-    videoRef.currentTime = 0
-    videoRef.volume = 1
-    videoRef
-      ?.play()
-      .then(() => setIsPlaying(true))
-      .catch(() => {})
+    if (!videoRef.current) return
+    videoRef.current.currentTime = 0
+    videoRef.current.volume = 1
+    videoRef.current.autoplay = true
+    videoRef.current?.play().catch(() => {})
+  }
+
+  const pauseVideo = () => {
+    if (!videoRef.current) return
+    videoRef.current?.pause()
+    videoRef.current.autoplay = false
   }
 
   const onClickVideo = () => {
-    if (videoRef?.paused) {
+    if (videoRef.current?.paused) {
       playVideo()
     } else {
-      videoRef?.pause()
-      setIsPlaying(false)
+      pauseVideo()
     }
   }
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (!ref) return
-    if (ref?.paused) {
-      setIsPlaying(false)
-    } else {
-      setIsPlaying(true)
-    }
-    setVideoRef(ref)
+    videoRef.current = ref
   }
 
   const { observe } = useInView({
     threshold: 1,
     onLeave: () => {
-      videoRef?.pause()
-      setIsPlaying(false)
+      if (!videoRef.current) return
+      pauseVideo()
     },
     onEnter: () => {
       const nextUrl = window.location.origin + `/bytes/${video?.id}`
@@ -67,7 +64,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
   return (
     <div ref={observe} className="flex justify-center md:mt-6 snap-center">
       <div className="relative">
-        <div className="md:rounded-xl min-w-[250px] w-screen md:w-[350px] ultrawide:w-[407px] h-screen bg-black md:h-[calc(100vh-145px)]">
+        <div className="md:rounded-xl overflow-hidden min-w-[250px] w-screen md:w-[350px] ultrawide:w-[407px] h-screen bg-black md:h-[calc(100vh-145px)]">
           <VideoPlayer
             refCallback={refCallback}
             permanentUrl={getPublicationMediaUrl(video)}
@@ -82,7 +79,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
             <ControlsContainer />
           </VideoPlayer>
         </div>
-        <TopOverlay playing={playing} onClickPlayPause={onClickVideo} />
+        <TopOverlay onClickVideo={onClickVideo} />
         <BottomOverlay video={video} />
         <div className="absolute md:hidden z-[1] right-2 bottom-[15%]">
           <ByteActions video={video} />
