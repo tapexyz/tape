@@ -270,10 +270,13 @@ const BasicInfo = ({ channel }: Props) => {
           </div>
         )}
         <img
-          src={imageCdn(
-            sanitizeIpfsUrl(getChannelCoverPicture(channel)),
-            'thumbnail'
-          )}
+          src={
+            sanitizeIpfsUrl(coverImage) ??
+            imageCdn(
+              sanitizeIpfsUrl(getChannelCoverPicture(channel)),
+              'thumbnail'
+            )
+          }
           className="object-cover object-center w-full h-48 bg-white rounded-xl md:h-56 dark:bg-gray-900"
           draggable={false}
           alt={`${channel.handle}'s cover`}
