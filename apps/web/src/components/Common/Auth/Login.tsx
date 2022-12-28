@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { ERROR_MESSAGE } from 'utils'
+import clearLocalStorage from 'utils/functions/clearLocalStorage'
 import logger from 'utils/logger'
 import { useAccount, useSignMessage } from 'wagmi'
 
@@ -30,6 +31,7 @@ const Login = () => {
 
   const onError = () => {
     setLoading(false)
+    clearLocalStorage()
   }
 
   const { signMessageAsync } = useSignMessage({
@@ -100,6 +102,7 @@ const Login = () => {
     } catch (error) {
       setLoading(false)
       toast.error('Sign in failed')
+      clearLocalStorage()
       logger.error('[Error Sign In]', error)
     }
   }
