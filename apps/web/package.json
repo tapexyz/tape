@@ -43,13 +43,13 @@
     "react-icons": "^4.7.1",
     "react-mentions": "^4.4.7",
     "uuid": "^9.0.0",
-    "wagmi": "^0.9.5",
+    "wagmi": "^0.10.0",
     "zod": "^3.19.1",
     "zustand": "^4.1.4"
   },
   "devDependencies": {
     "@types/mixpanel-browser": "^2.38.0",
-    "@types/node": "18.11.17",
+    "@types/node": "18.11.18",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.10",
     "@types/react-mentions": "^4.1.7",

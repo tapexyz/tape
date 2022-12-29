@@ -26,7 +26,7 @@ import { useAccount, useBalance, useSigner } from 'wagmi'
 const BundlrInfo = () => {
   const { address } = useAccount()
   const { data: signer } = useSigner({
-    onError(error: CustomErrorWithData) {
+    onError: (error: CustomErrorWithData) => {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
