@@ -16,6 +16,7 @@ export const LENSTUBE_EMBED_URL = IS_MAINNET
   ? 'https://embed.lenstube.xyz'
   : 'https://test-embed.lenstube.xyz'
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallbackThumbnail.png`
+export const OG_IMAGE = `${STATIC_ASSETS}/images/seo/og.png`
 
 // lens
 export const MAINNET_API_URL = 'https://api.lens.dev'
