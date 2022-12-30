@@ -21,6 +21,7 @@ const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
   const isMirror = videoType === 'Mirror'
   const isChannelPage =
     location.pathname === `/channel/${selectedChannel?.handle}`
+  console.log('🚀 ~ isChannelPage', isChannelPage)
 
   return (
     <div className="grid gap-x-4 2xl:grid-cols-5 md:gap-y-8 gap-y-2 ultrawide:grid-cols-6 laptop:grid-cols-4 md:grid-cols-2 grid-col-1">
