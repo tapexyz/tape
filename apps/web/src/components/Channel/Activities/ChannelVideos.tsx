@@ -2,6 +2,7 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import usePersistStore from '@lib/store/persist'
 import type { Profile } from 'lens'
 import {
   PublicationMainFocus,
@@ -19,6 +20,8 @@ type Props = {
 }
 
 const ChannelVideos: FC<Props> = ({ channel }) => {
+  const queuedVideos = usePersistStore((state) => state.queuedVideos)
+
   const request = {
     publicationTypes: [PublicationTypes.Post],
     limit: 32,
@@ -53,7 +56,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
 
   if (loading) return <TimelineShimmer />
 
-  if (data?.publications?.items?.length === 0) {
+  if (data?.publications?.items?.length === 0 && queuedVideos.length === 0) {
     return <NoDataFound isCenter withImage text="No videos found" />
   }
 
