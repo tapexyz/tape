@@ -37,6 +37,7 @@ const CategoryFilters = () => {
   }, [scrollRef])
 
   const slide = (shift: number) => {
+    Analytics.track(TRACK.CLICK_CATEGORIES_SCROLL_BUTTON)
     if (scrollRef.current) {
       scrollRef.current.scrollLeft += shift
       const scrollLeft = scrollRef.current.scrollLeft

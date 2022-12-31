@@ -24,6 +24,8 @@ export const TRACK = {
   UPDATED_CHANNEL_INFO: 'Updated Channel Info',
   DEPOSIT_MATIC: 'Deposit Matic',
   FILTER_CATEGORIES: 'Filter Categories',
+  CLICK_CATEGORIES_SCROLL_BUTTON: 'Clicked Categories Scroll Button',
+  CLICK_BYTES_SCROLL_BUTTON: 'Clicked Bytes Scroll Button',
   EMBED_VIDEO: {
     OPEN: 'Open Embed',
     COPY: 'Copy Embed',
