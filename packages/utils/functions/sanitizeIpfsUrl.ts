@@ -6,8 +6,8 @@ const sanitizeIpfsUrl = (url: string) => {
 
   return url
     .replace(/^Qm[1-9A-Za-z]{44}/gm, `${gateway}/${url}`)
-    .replace('https://ipfs.io/ipfs', gateway)
-    .replace('https://ipfs.infura.io/ipfs', gateway)
+    .replace('https://ipfs.io/ipfs/', gateway)
+    .replace('https://ipfs.infura.io/ipfs/', gateway)
     .replace('ipfs://', gateway)
 }
 

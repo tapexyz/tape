@@ -11,7 +11,8 @@ import type {
 import {
   useBroadcastMutation,
   useCreateSetProfileImageUriTypedDataMutation,
-  useCreateSetProfileImageUriViaDispatcherMutation
+  useCreateSetProfileImageUriViaDispatcherMutation,
+  useNftChallengeLazyQuery
 } from 'lens'
 import type { ChangeEvent, FC } from 'react'
 import React, { useState } from 'react'
@@ -23,7 +24,9 @@ import getProfilePicture from 'utils/functions/getProfilePicture'
 import omitKey from 'utils/functions/omitKey'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi'
+
+import NFTAvatars from './NFTAvatars'
 
 type Props = {
   channel: Profile
@@ -36,6 +39,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const [showProfileModal, setProfileModal] = useState(false)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -117,6 +121,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     })
   }
 
+  const [loadChallenge] = useNftChallengeLazyQuery()
+
+  const { signMessageAsync } = useSignMessage()
+
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageViaDispatcher({
       variables: { request }
@@ -132,6 +140,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     if (e.target.files?.length) {
       try {
         setLoading(true)
+        setProfileModal(false)
         const result: IPFSUploadResult = await uploadToIPFS(e.target.files[0])
         const request = {
           profileId: selectedChannel?.id,
@@ -149,6 +158,49 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     }
   }
 
+  const setNFTAvatar = async (
+    contractAddress: string,
+    tokenId: string,
+    chainId: Number
+  ) => {
+    try {
+      const challengeResponse = await loadChallenge({
+        variables: {
+          request: {
+            ethereumAddress: selectedChannel?.ownedBy,
+            nfts: [
+              {
+                contractAddress,
+                tokenId,
+                chainId
+              }
+            ]
+          }
+        }
+      })
+
+      const signature = await signMessageAsync({
+        message: challengeResponse?.data?.nftOwnershipChallenge?.text as string
+      })
+
+      const request = {
+        profileId: selectedChannel?.id,
+        nftData: {
+          id: challengeResponse?.data?.nftOwnershipChallenge?.id,
+          signature
+        }
+      }
+
+      if (selectedChannel?.dispatcher?.canUseRelay) {
+        return await createViaDispatcher(request)
+      }
+
+      return await createSetProfileImageURITypedData({
+        variables: { options: { overrideSigNonce: userSigNonce }, request }
+      })
+    } catch {}
+  }
+
   return (
     <div className="relative flex-none overflow-hidden rounded-full group">
       <img
@@ -162,25 +214,26 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         alt={selectedPfp ? selectedChannel?.handle : channel.handle}
       />
       <label
-        htmlFor="choosePfp"
         className={clsx(
           'absolute top-0 grid w-32 h-32 bg-white rounded-full cursor-pointer bg-opacity-70 place-items-center backdrop-blur-lg invisible group-hover:visible dark:bg-theme',
           { '!visible': loading && !pfpData?.hash }
         )}
+        onClick={() => setProfileModal(true)}
       >
         {loading && !pfpData?.hash ? (
           <Loader />
         ) : (
           <RiImageAddLine className="text-xl" />
         )}
-        <input
-          id="choosePfp"
-          type="file"
-          accept=".png, .jpg, .jpeg, .svg, .gif"
-          className="hidden w-full"
-          onChange={onPfpUpload}
-        />
       </label>
+
+      <NFTAvatars
+        isModalOpen={showProfileModal}
+        onClose={() => setProfileModal(false)}
+        onPfpUpload={onPfpUpload}
+        channel={channel}
+        setNFTAvatar={setNFTAvatar}
+      />
     </div>
   )
 }
