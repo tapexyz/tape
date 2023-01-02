@@ -27,7 +27,7 @@
     "dayjs": "^1.11.6",
     "ethers": "5.6.0",
     "filereader-stream": "^2.0.0",
-    "framer-motion": "^8.0.2",
+    "framer-motion": "^8.1.1",
     "graphql": "^16.6.0",
     "interweave": "^13.0.0",
     "interweave-autolink": "^5.1.0",
@@ -43,7 +43,7 @@
     "react-icons": "^4.7.1",
     "react-mentions": "^4.4.7",
     "uuid": "^9.0.0",
-    "wagmi": "^0.10.1",
+    "wagmi": "^0.10.2",
     "zod": "^3.19.1",
     "zustand": "^4.2.0"
   },
