@@ -5,6 +5,7 @@ import {
   LENSTUBE_WEBSITE_URL
 } from '../constants'
 import type { LenstubePublication } from '../custom-types'
+import getLensHandle from './getLensHandle'
 
 const getViewUrl = (video: LenstubePublication) => {
   return `${LENSTUBE_WEBSITE_URL}/watch/${video.id}`
@@ -21,16 +22,20 @@ export const getSharableLink = (link: Link, video: LenstubePublication) => {
     return encodeURI(
       `https://twitter.com/intent/tweet?url=${getViewUrl(video)}&text=${
         video.metadata?.name as string
-      }&via=${LENSTUBE_TWITTER_HANDLE}&related=Lenstube&hashtags=Lenstube`
+      } by ${getLensHandle(
+        video.profile?.handle
+      )}&via=${LENSTUBE_TWITTER_HANDLE}&related=Lenstube&hashtags=Lenstube`
     )
   } else if (link === 'reddit') {
     return `https://www.reddit.com/submit?url=${getViewUrl(video)}&title=${
       video.metadata?.name as string
-    }`
+    } by ${getLensHandle(video.profile?.handle)}`
   } else if (link === 'linkedin') {
     return `https://www.linkedin.com/shareArticle/?url=${getViewUrl(
       video
-    )}&title=${video.metadata?.name as string}&summary=${
+    )} by ${getLensHandle(video.profile?.handle)}&title=${
+      video.metadata?.name as string
+    }&summary=${
       video.metadata?.description as string
     }&source=${LENSTUBE_APP_NAME}`
   }
