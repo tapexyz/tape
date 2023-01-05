@@ -55,8 +55,8 @@ const ByteVideo: FC<Props> = ({ video }) => {
       pauseVideo()
     },
     onEnter: () => {
-      const nextUrl = window.location.origin + `/bytes/${video?.id}`
-      window.history.replaceState({ path: nextUrl }, '', nextUrl)
+      const nextUrl = `${location.origin}/bytes/${video?.id}`
+      history.replaceState({ path: nextUrl }, '', nextUrl)
       playVideo()
     }
   })
