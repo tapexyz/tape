@@ -16,7 +16,7 @@ import { mainnet } from 'wagmi/chains'
 type Props = {
   isModalOpen: boolean
   onClose?: () => void
-  onPfpUpload?: (e: ChangeEvent<HTMLInputElement>) => void
+  onChooseImage?: (e: ChangeEvent<HTMLInputElement>) => void
   channel: Profile
   setNFTAvatar: (
     contractAddress: string,
@@ -25,10 +25,10 @@ type Props = {
   ) => void
 }
 
-const NFTAvatars: FC<Props> = ({
+const ChoosePicture: FC<Props> = ({
   isModalOpen,
   onClose,
-  onPfpUpload,
+  onChooseImage,
   channel,
   setNFTAvatar
 }) => {
@@ -109,7 +109,7 @@ const NFTAvatars: FC<Props> = ({
                 type="file"
                 accept=".png, .jpg, .jpeg, .svg, .gif"
                 className="hidden w-full"
-                onChange={onPfpUpload}
+                onChange={onChooseImage}
               />
             </Tab.Panel>
             <Tab.Panel className="no-scrollbar max-h-96 overflow-y-auto focus:outline-none py-5">
@@ -156,4 +156,4 @@ const NFTAvatars: FC<Props> = ({
   )
 }
 
-export default NFTAvatars
+export default ChoosePicture

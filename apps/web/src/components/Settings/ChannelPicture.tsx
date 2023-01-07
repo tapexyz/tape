@@ -26,7 +26,8 @@ import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
 import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi'
 
-import NFTAvatars from './NFTAvatars'
+import ChoosePicture from './ChoosePicture'
+import CropImageModal from './CropImageModal'
 
 type Props = {
   channel: Profile
@@ -40,6 +41,8 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
   const [showProfileModal, setProfileModal] = useState(false)
+  const [showCropImageModal, setCropImageModal] = useState(false)
+  const [imagePreviewSrc, setImagePreviewSrc] = useState('')
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -136,25 +139,31 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     }
   }
 
-  const onPfpUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+  const onChooseImage = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      try {
-        setLoading(true)
-        setProfileModal(false)
-        const result: IPFSUploadResult = await uploadToIPFS(e.target.files[0])
-        const request = {
-          profileId: selectedChannel?.id,
-          url: result.url
-        }
-        setSelectedPfp(result.url)
-        const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
-        if (!canUseDispatcher) {
-          return signTypedData(request)
-        }
-        await createViaDispatcher(request)
-      } catch (error) {
-        onError(error as CustomErrorWithData)
+      setProfileModal(false)
+      setImagePreviewSrc(URL.createObjectURL(e.target.files[0]))
+      setCropImageModal(true)
+    }
+  }
+
+  const onPfpUpload = async (file: File) => {
+    try {
+      setLoading(true)
+      setCropImageModal(false)
+      const result: IPFSUploadResult = await uploadToIPFS(file)
+      const request = {
+        profileId: selectedChannel?.id,
+        url: result.url
       }
+      setSelectedPfp(result.url)
+      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+      if (!canUseDispatcher) {
+        return signTypedData(request)
+      }
+      await createViaDispatcher(request)
+    } catch (error) {
+      onError(error as CustomErrorWithData)
     }
   }
 
@@ -227,12 +236,19 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         )}
       </label>
 
-      <NFTAvatars
+      <ChoosePicture
         isModalOpen={showProfileModal}
         onClose={() => setProfileModal(false)}
-        onPfpUpload={onPfpUpload}
+        onChooseImage={onChooseImage}
         channel={channel}
         setNFTAvatar={setNFTAvatar}
+      />
+
+      <CropImageModal
+        isModalOpen={showCropImageModal}
+        onClose={() => setCropImageModal(false)}
+        imageSrc={imagePreviewSrc}
+        onPfpUpload={onPfpUpload}
       />
     </div>
   )
