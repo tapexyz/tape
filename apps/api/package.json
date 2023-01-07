@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
-    "@aws-sdk/client-sts": "^3.241.0",
+    "@aws-sdk/client-sts": "^3.245.0",
     "@bundlr-network/client": "^0.9.11",
     "axios": "^1.2.2",
     "next": "13.1.1"
