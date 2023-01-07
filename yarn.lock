@@ -2918,7 +2918,7 @@
     tus-js-client "^3.0.1"
     zustand "^4.1.5"
 
-"@livepeer/react@^2.0.0-next.17":
+"@livepeer/react@^2.0.0-next.18":
   version "2.0.0-next.18"
   resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.0.0-next.18.tgz#3630070145246060f710860a29de4ff4493798c4"
   integrity sha512-C2uOUj6CGuyrS2w+pGXMwoNVHCfKDXIs3iWvWpFzssuAin4KvnqmIFt601eHHrM6AyS5+OmL4HEs5opGZ3gxrQ==
