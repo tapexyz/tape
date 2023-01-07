@@ -63,16 +63,6 @@ input[type='number'] {
   transform: scale(0.7);
 }
 
-vm-player {
-  --vm-player-font-family: 'Matter', sans-serif !important;
-}
-vm-player video {
-  @apply flex-1 h-auto w-auto aspect-[16/9];
-}
-vm-player video.sc-vm-file {
-  @apply border-inherit align-middle w-full outline-none;
-}
-
 .input-mentions-single {
   @apply w-full min-h-[2.4rem] text-sm;
 }
@@ -86,4 +76,8 @@ vm-player video.sc-vm-file {
 .input-mentions-textarea__suggestions,
 .input-mentions-single__suggestions {
   @apply !bg-white dark:!bg-gray-800 p-1 !mt-8 !border dark:border-gray-700 rounded-xl w-56;
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
 }
