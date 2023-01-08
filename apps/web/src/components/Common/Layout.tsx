@@ -1,4 +1,3 @@
-import Animated from '@components/Common/Animated'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
@@ -162,7 +161,7 @@ const Layout: FC<Props> = ({ children }) => {
               }
             )}
           >
-            <Animated>{children}</Animated>
+            {children}
           </div>
         </div>
       </div>
