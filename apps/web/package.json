@@ -45,7 +45,7 @@
     "uuid": "^9.0.0",
     "wagmi": "^0.10.2",
     "zod": "^3.19.1",
-    "react-image-crop": "^10.0.9"
+    "react-image-crop": "^10.0.9",
     "zustand": "^4.2.0"
   },
   "devDependencies": {
