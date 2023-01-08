@@ -8,16 +8,17 @@ type Props = {
   isModalOpen: boolean
   onClose?: () => void
   onPfpUpload: (file: File) => void
-  imageSrc?: string
+  getPreviewImageSrc: () => string
 }
 import { Button } from '@components/UIElements/Button'
 import type { Crop } from 'react-image-crop'
 import ReactCrop from 'react-image-crop'
+import logger from 'utils/logger'
 
 const CropImageModal: FC<Props> = ({
   isModalOpen,
   onClose,
-  imageSrc,
+  getPreviewImageSrc,
   onPfpUpload
 }) => {
   const [crop, setCrop] = useState<Crop>()
@@ -52,7 +53,7 @@ const CropImageModal: FC<Props> = ({
         onPfpUpload(file)
       }, 'image/jpeg')
     } catch (e) {
-      console.log('crop the image')
+      logger.error('[Error while crop image]', e)
     }
   }
 
@@ -73,10 +74,10 @@ const CropImageModal: FC<Props> = ({
         >
           <img
             ref={imgRef}
-            src={imageSrc}
+            src={getPreviewImageSrc()}
             alt="profile image"
             className="h-80 object-fit"
-          ></img>
+          />
         </ReactCrop>
         <Button
           className="absolute bottom-0 right-0 flex mt-4 ml-auto"

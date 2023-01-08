@@ -42,7 +42,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
   const [showProfileModal, setProfileModal] = useState(false)
   const [showCropImageModal, setCropImageModal] = useState(false)
-  const [imagePreviewSrc, setImagePreviewSrc] = useState('')
+  const [imagePreviewSrc, setImagePreviewSrc] = useState<File>()
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -142,9 +142,16 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const onChooseImage = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       setProfileModal(false)
-      setImagePreviewSrc(URL.createObjectURL(e.target.files[0]))
+      setImagePreviewSrc(e.target.files[0])
       setCropImageModal(true)
     }
+  }
+
+  const getPreviewImageSrc = (): string => {
+    const url = imagePreviewSrc
+      ? URL.createObjectURL(imagePreviewSrc as File)
+      : ''
+    return url
   }
 
   const onPfpUpload = async (file: File) => {
@@ -247,7 +254,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       <CropImageModal
         isModalOpen={showCropImageModal}
         onClose={() => setCropImageModal(false)}
-        imageSrc={imagePreviewSrc}
+        getPreviewImageSrc={getPreviewImageSrc}
         onPfpUpload={onPfpUpload}
       />
     </div>
