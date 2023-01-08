@@ -77,7 +77,7 @@ const ChoosePicture: FC<Props> = ({
                   'py-2 border-b-2 text-sm focus:outline-none w-full',
                   selected
                     ? 'border-indigo-500 opacity-100'
-                    : 'border-transparent opacity-50 hover:bg-indigo-500/[0.12]'
+                    : 'border-transparent opacity-50 hover:bg-indigo-500/[0.12] rounded-tl-lg rounded-tr-lg'
                 )
               }
             >
@@ -89,7 +89,7 @@ const ChoosePicture: FC<Props> = ({
                   'py-2 border-b-2 text-sm focus:outline-none w-full',
                   selected
                     ? 'border-indigo-500 opacity-100'
-                    : 'border-transparent opacity-50 hover:bg-indigo-500/[0.12]'
+                    : 'border-transparent opacity-50 hover:bg-indigo-500/[0.12] rounded-tl-lg rounded-tr-lg'
                 )
               }
             >
@@ -97,22 +97,24 @@ const ChoosePicture: FC<Props> = ({
             </Tab>
           </Tab.List>
           <Tab.Panels>
-            <Tab.Panel className="no-scrollbar focus:outline-none flex justify-center py-10">
-              <label
-                htmlFor="choosePfp"
-                className="border border-indigo-500 bg-indigo-500 px-5 py-1 rounded-full text-white cursor-pointer"
-              >
-                Choose image
-              </label>
-              <input
-                id="choosePfp"
-                type="file"
-                accept=".png, .jpg, .jpeg, .svg, .gif"
-                className="hidden w-full"
-                onChange={onChooseImage}
-              />
+            <Tab.Panel className="no-scrollbar h-96 focus:outline-none flex flex-col justify-center py-10">
+              <div className="flex justify-center">
+                <label
+                  htmlFor="choosePfp"
+                  className="border border-indigo-500 bg-indigo-500 px-8 py-4 rounded-full text-white cursor-pointer"
+                >
+                  Choose image
+                </label>
+                <input
+                  id="choosePfp"
+                  type="file"
+                  accept=".png, .jpg, .jpeg, .svg, .gif"
+                  className="hidden w-full"
+                  onChange={onChooseImage}
+                />
+              </div>
             </Tab.Panel>
-            <Tab.Panel className="no-scrollbar max-h-96 overflow-y-auto focus:outline-none py-5">
+            <Tab.Panel className="no-scrollbar h-96 overflow-y-auto focus:outline-none py-5">
               {!error && !loading && (
                 <>
                   <div className="grid grid-cols-3 gap-5">
@@ -126,7 +128,7 @@ const ChoosePicture: FC<Props> = ({
                               : `${STATIC_ASSETS}/images/placeholder.webp`,
                             'thumbnail'
                           )}
-                          className="rounded-xl cursor-pointer"
+                          className="rounded-xl cursor-pointer h-20 w-36"
                           alt={nft.name}
                           onClick={() =>
                             setNFTAvatar(

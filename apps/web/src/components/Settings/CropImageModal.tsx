@@ -80,11 +80,11 @@ const CropImageModal: FC<Props> = ({
           />
         </ReactCrop>
         <Button
-          className="absolute bottom-0 right-0 flex mt-4 ml-auto"
+          className="absolute bottom-0 right-0 flex mt-4 mr-2 mb-2 ml-auto"
           color="primary"
           onClick={getCroppedImg}
         >
-          Crop
+          Crop & Save
         </Button>
       </div>
     </Modal>
