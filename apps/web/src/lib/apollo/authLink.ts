@@ -58,7 +58,7 @@ const authLink = new ApolloLink((operation, forward) => {
       })
       .catch((error) => {
         clearLocalStorage()
-        window.location.reload()
+        location.reload()
         logger.error('[Error Refreshing Token]', error)
         return toPromise(forward(operation))
       })
