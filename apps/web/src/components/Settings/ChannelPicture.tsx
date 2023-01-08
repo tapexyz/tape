@@ -125,7 +125,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   }
 
   const [loadChallenge] = useNftChallengeLazyQuery()
-
   const { signMessageAsync } = useSignMessage()
 
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
