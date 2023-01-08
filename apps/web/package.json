@@ -27,7 +27,6 @@
     "dayjs": "^1.11.6",
     "ethers": "5.6.0",
     "filereader-stream": "^2.0.0",
-    "framer-motion": "^8.1.1",
     "graphql": "^16.6.0",
     "interweave": "^13.0.0",
     "interweave-autolink": "^5.1.0",
