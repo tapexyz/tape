@@ -135,11 +135,7 @@ const Layout: FC<Props> = ({ children }) => {
         position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
-      <div
-        className={clsx('flex pb-10 md:pb-0', {
-          '!pb-0': showFullScreen
-        })}
-      >
+      <div className={clsx('flex pb-10 md:pb-0', showFullScreen && '!pb-0')}>
         <Sidebar />
         <div
           className={clsx(
@@ -156,9 +152,7 @@ const Layout: FC<Props> = ({ children }) => {
           <div
             className={clsx(
               '2xl:py-6 py-4 ultrawide:max-w-[110rem] mx-auto md:px-3 ultrawide:px-0',
-              {
-                '!p-0': showFullScreen
-              }
+              showFullScreen && '!p-0'
             )}
           >
             {children}
