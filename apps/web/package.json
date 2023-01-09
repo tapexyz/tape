@@ -25,7 +25,7 @@
     "axios": "^1.2.2",
     "clsx": "^1.2.1",
     "dayjs": "^1.11.6",
-    "ethers": "5.6.0",
+    "ethers": "5.7.2",
     "filereader-stream": "^2.0.0",
     "graphql": "^16.6.0",
     "interweave": "^13.0.0",
