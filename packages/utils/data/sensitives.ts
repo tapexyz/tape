@@ -1,6 +1,6 @@
 import { IS_MAINNET } from '../constants'
 
-// senstive content
+// sensitive content
 export const SENSITIVE_CONTENT = IS_MAINNET
   ? [
       '0x6e64-0x01',
