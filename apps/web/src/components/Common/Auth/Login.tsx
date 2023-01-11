@@ -9,7 +9,7 @@ import {
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { ERROR_MESSAGE } from 'utils'
+import { ERROR_MESSAGE, POLYGON_CHAIN_ID } from 'utils'
 import clearLocalStorage from 'utils/functions/clearLocalStorage'
 import logger from 'utils/logger'
 import { useAccount, useNetwork, useSignMessage } from 'wagmi'
@@ -125,13 +125,14 @@ const Login = () => {
   ])
 
   useEffect(() => {
-    if (
+    const isReadyToSign =
       connector?.id &&
       isConnected &&
       chain?.id === POLYGON_CHAIN_ID &&
       !selectedChannel &&
       !selectedChannelId
-    ) {
+
+    if (isReadyToSign) {
       handleSign()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
