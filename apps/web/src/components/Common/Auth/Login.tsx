@@ -18,8 +18,11 @@ import ConnectWalletButton from './ConnectWalletButton'
 
 const Login = () => {
   const router = useRouter()
+
+  const { chain } = useNetwork()
   const { address, connector, isConnected } = useAccount()
   const [loading, setLoading] = useState(false)
+
   const setShowCreateChannel = useAppStore(
     (state) => state.setShowCreateChannel
   )
@@ -30,8 +33,6 @@ const Login = () => {
   const setSelectedChannelId = usePersistStore(
     (state) => state.setSelectedChannelId
   )
-
-  const { chain } = useNetwork()
 
   const onError = () => {
     setLoading(false)
@@ -55,14 +56,14 @@ const Login = () => {
 
   useEffect(() => {
     if (
-      errorAuthenticate?.message ||
-      errorChallenge?.message ||
+      errorAuthenticate?.message ??
+      errorChallenge?.message ??
       errorProfiles?.message
     )
       toast.error(
-        errorAuthenticate?.message ||
-          errorChallenge?.message ||
-          errorProfiles?.message ||
+        errorAuthenticate?.message ??
+          errorChallenge?.message ??
+          errorProfiles?.message ??
           ERROR_MESSAGE
       )
   }, [errorAuthenticate, errorChallenge, errorProfiles])
