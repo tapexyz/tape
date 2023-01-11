@@ -1,4 +1,3 @@
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
 import { Tab } from '@headlessui/react'
@@ -21,7 +20,7 @@ type Props = {
   setNFTAvatar: (
     contractAddress: string,
     tokenId: string,
-    chainId: Number
+    chainId: number
   ) => void
 }
 
@@ -115,6 +114,7 @@ const ChoosePicture: FC<Props> = ({
               </div>
             </Tab.Panel>
             <Tab.Panel className="no-scrollbar h-96 overflow-y-auto focus:outline-none py-5">
+              {loading && <Loader />}
               {!error && !loading && (
                 <>
                   <div className="grid grid-cols-3 lg:grid-cols-4 md:grid-cols-4 gap-3">
@@ -126,7 +126,7 @@ const ChoosePicture: FC<Props> = ({
                             nft.originalContent?.uri
                               ? sanitizeIpfsUrl(nft.originalContent?.uri)
                               : `${STATIC_ASSETS}/images/placeholder.webp`,
-                            'thumbnail'
+                            'avatar_lg'
                           )}
                           className="rounded-xl cursor-pointer h-20 w-20 lg:h-28 lg:w-28 md:h-28 md:w-28"
                           alt={nft.name}
@@ -149,7 +149,6 @@ const ChoosePicture: FC<Props> = ({
                     )}
                 </>
               )}
-              {loading && <TimelineShimmer />}
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>

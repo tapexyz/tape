@@ -1,8 +1,12 @@
 import 'react-image-crop/dist/ReactCrop.css'
 
+import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import type { FC } from 'react'
 import React, { useRef, useState } from 'react'
+import type { Crop } from 'react-image-crop'
+import ReactCrop from 'react-image-crop'
+import logger from 'utils/logger'
 
 type Props = {
   isModalOpen: boolean
@@ -10,10 +14,6 @@ type Props = {
   onPfpUpload: (file: File) => void
   getPreviewImageSrc: () => string
 }
-import { Button } from '@components/UIElements/Button'
-import type { Crop } from 'react-image-crop'
-import ReactCrop from 'react-image-crop'
-import logger from 'utils/logger'
 
 const CropImageModal: FC<Props> = ({
   isModalOpen,
@@ -47,7 +47,7 @@ const CropImageModal: FC<Props> = ({
       )
 
       canvas.toBlob((blob) => {
-        const file = new File([blob as Blob], 'fileName.jpg', {
+        const file = new File([blob as Blob], 'nft.jpg', {
           type: 'image/jpeg'
         })
         onPfpUpload(file)
