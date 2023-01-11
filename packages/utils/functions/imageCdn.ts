@@ -7,10 +7,8 @@ const imageCdn = (
 ): string => {
   if (!url || !IMAGE_CDN_URL) return url
   return type
-    ? `${IMAGE_CDN_URL}/tr:n-${type},tr:di-placeholder.webp/${sanitizeIpfsUrl(
-        url
-      )}`
-    : `${IMAGE_CDN_URL}/tr:di-placeholder.webp/${sanitizeIpfsUrl(url)}`
+    ? `${IMAGE_CDN_URL}/tr:n-${type}/${sanitizeIpfsUrl(url)}`
+    : `${IMAGE_CDN_URL}/${sanitizeIpfsUrl(url)}`
 }
 
 export default imageCdn

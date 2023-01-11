@@ -30,12 +30,9 @@ const VideoCard: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const isByte = video.appId === LENSTUBE_BYTES_APP_ID
 
-  const thumbnailUrl = imageCdn(
-    isSensitiveContent
-      ? `${STATIC_ASSETS}/images/sensor-blur.png`
-      : getThumbnailUrl(video),
-    isByte ? 'thumbnail_v' : 'thumbnail'
-  )
+  const thumbnailUrl = isSensitiveContent
+    ? `${STATIC_ASSETS}/images/sensor-blur.png`
+    : getThumbnailUrl(video)
 
   return (
     <div
@@ -62,7 +59,13 @@ const VideoCard: FC<Props> = ({ video }) => {
           <Link href={`/watch/${video.id}`}>
             <div className="relative overflow-hidden aspect-w-16 aspect-h-9">
               <img
-                src={thumbnailUrl}
+                src={imageCdn(
+                  thumbnailUrl,
+                  isByte ? 'thumbnail_v' : 'thumbnail'
+                )}
+                onError={({ currentTarget }) => {
+                  currentTarget.src = thumbnailUrl
+                }}
                 draggable={false}
                 className={clsx(
                   'object-center bg-gray-100 dark:bg-gray-900 w-full h-full md:rounded-xl lg:w-full lg:h-full',
