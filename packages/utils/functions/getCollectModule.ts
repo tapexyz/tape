@@ -48,7 +48,7 @@ export const getCollectModule = (
       }
     }
   }
-  // Should collect with limited collects, withing 24hrs (anyone/ only subs)
+  // Should collect with limited collects, within 24hrs (anyone/ only subs)
   if (selectedCollectModule.isLimitedTimeFeeCollect) {
     return {
       limitedTimedFeeCollectModule: {
