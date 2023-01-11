@@ -13,7 +13,7 @@ import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import type { LenstubePublication } from 'utils'
-import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from 'utils'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_APP_ID, SCROLL_ROOT_MARGIN } from 'utils'
 
 type Props = {
   channel: Profile
@@ -27,7 +27,8 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
     limit: 32,
     metadata: { mainContentFocus: [PublicationMainFocus.Video] },
     customFilters: LENS_CUSTOM_FILTERS,
-    profileId: channel?.id
+    profileId: channel?.id,
+    sources: [LENSTUBE_APP_ID]
   }
 
   const { data, loading, error, fetchMore } = useProfilePostsQuery({
