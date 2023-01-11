@@ -7,7 +7,7 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import type { LenstubePublication } from 'utils'
-import { Analytics, STATIC_ASSETS, TRACK } from 'utils'
+import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
 import { getTimeFromSeconds } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
@@ -30,6 +30,12 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
     'durationInSeconds'
   )
 
+  const thumbnailUrl = isSensitiveContent
+    ? `${STATIC_ASSETS}/images/sensor-blur.png`
+    : getThumbnailUrl(video)
+
+  const isByte = video.appId === LENSTUBE_BYTES_APP_ID
+
   return (
     <div
       onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
@@ -39,12 +45,10 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
       <Link href={`/watch/${mirrorOf.id}`}>
         <div className="relative rounded-xl aspect-w-16 aspect-h-8">
           <img
-            src={imageCdn(
-              isSensitiveContent
-                ? `${STATIC_ASSETS}/images/sensor-blur.png`
-                : getThumbnailUrl(video),
-              'thumbnail'
-            )}
+            src={imageCdn(thumbnailUrl, isByte ? 'thumbnail_v' : 'thumbnail')}
+            onError={({ currentTarget }) => {
+              currentTarget.src = thumbnailUrl
+            }}
             alt="thumbnail"
             draggable={false}
             className="object-cover object-center w-full h-full rounded-xl lg:w-full lg:h-full"

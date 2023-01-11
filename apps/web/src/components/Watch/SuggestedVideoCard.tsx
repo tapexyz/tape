@@ -8,7 +8,7 @@ import type { Attribute } from 'lens'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import type { LenstubePublication } from 'utils'
-import { Analytics, STATIC_ASSETS, TRACK } from 'utils'
+import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
 import { getTimeFromSeconds } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
@@ -24,6 +24,11 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
     video.metadata?.attributes as Attribute[],
     'durationInSeconds'
   )
+
+  const thumbnailUrl = isSensitiveContent
+    ? `${STATIC_ASSETS}/images/sensor-blur.png`
+    : getThumbnailUrl(video)
+  const isByte = video.appId === LENSTUBE_BYTES_APP_ID
 
   return (
     <div
@@ -46,11 +51,12 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
             <div className="relative">
               <img
                 src={imageCdn(
-                  isSensitiveContent
-                    ? `${STATIC_ASSETS}/images/sensor-blur.png`
-                    : getThumbnailUrl(video),
-                  'thumbnail'
+                  thumbnailUrl,
+                  isByte ? 'thumbnail_v' : 'thumbnail'
                 )}
+                onError={({ currentTarget }) => {
+                  currentTarget.src = thumbnailUrl
+                }}
                 alt="thumbnail"
                 draggable={false}
                 className="object-cover object-center h-20 w-36"
