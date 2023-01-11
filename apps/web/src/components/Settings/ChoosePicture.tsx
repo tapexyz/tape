@@ -117,7 +117,7 @@ const ChoosePicture: FC<Props> = ({
             <Tab.Panel className="no-scrollbar h-96 overflow-y-auto focus:outline-none py-5">
               {!error && !loading && (
                 <>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-3 lg:grid-cols-4 md:grid-cols-4 gap-3">
                     {collectedNFTs.map((nft: Nft) => {
                       return (
                         <img
@@ -128,7 +128,7 @@ const ChoosePicture: FC<Props> = ({
                               : `${STATIC_ASSETS}/images/placeholder.webp`,
                             'thumbnail'
                           )}
-                          className="rounded-xl cursor-pointer h-20 w-20 lg:h-32 lg:w-32 md:h-32 md:w-32"
+                          className="rounded-xl cursor-pointer h-20 w-20 lg:h-28 lg:w-28 md:h-28 md:w-28"
                           alt={nft.name}
                           onClick={() =>
                             setNFTAvatar(
