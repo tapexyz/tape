@@ -37,9 +37,11 @@ const CategoryFilters = () => {
   }, [scrollRef])
 
   const slide = (shift: number) => {
+    Analytics.track(TRACK.CLICK_CATEGORIES_SCROLL_BUTTON)
     if (scrollRef.current) {
       scrollRef.current.scrollLeft += shift
-      setScrollX(scrollX + shift)
+      const scrollLeft = scrollRef.current.scrollLeft
+      setScrollX(scrollLeft === 0 ? 0 : scrollX + shift)
       if (
         Math.floor(
           scrollRef.current.scrollWidth - scrollRef.current.scrollLeft
@@ -53,54 +55,60 @@ const CategoryFilters = () => {
   }
 
   return (
-    <div
-      ref={scrollRef}
-      className="flex relative items-center px-2 scroll-smooth overflow-x-auto touch-pan-x no-scrollbar pt-4 space-x-2 ultrawide:max-w-[110rem] mx-auto"
-    >
+    <div className="relative flex pt-4">
       {scrollX !== 0 && (
-        <button
-          type="button"
-          className="bg-gray-500 hidden md:block sticky left-0 focus:outline-none bg-opacity-10 hover:bg-opacity-25 backdrop-blur-xl rounded-full p-2"
-          onClick={() => slide(-scrollOffset)}
-        >
-          <ChevronLeftOutline className="w-4 h-4" />
-        </button>
+        <div className="bg-transparent sticky right-0 bottom-0 px-2">
+          <button
+            type="button"
+            className="hover:bg-gray-500 hidden md:block focus:outline-none hover:bg-opacity-20 backdrop-blur-xl rounded-full p-2"
+            onClick={() => slide(-scrollOffset)}
+          >
+            <ChevronLeftOutline className="w-4 h-4" />
+          </button>
+        </div>
       )}
-      <button
-        type="button"
-        onClick={() => onFilter('all')}
-        className={clsx(
-          'px-3.5 capitalize py-1 text-xs border border-gray-200 dark:border-gray-700 rounded-full',
-          activeTagFilter === 'all'
-            ? 'bg-black text-white'
-            : 'dark:bg-gray-800 bg-gray-100'
-        )}
+      <div
+        ref={scrollRef}
+        className="flex items-center px-2 scroll-smooth overflow-x-auto touch-pan-x no-scrollbar gap-2 ultrawide:max-w-[110rem] md:mx-auto"
       >
-        All
-      </button>
-      {CREATOR_VIDEO_CATEGORIES.map((category) => (
         <button
           type="button"
-          onClick={() => onFilter(category.tag)}
-          key={category.tag}
+          onClick={() => onFilter('all')}
           className={clsx(
-            'px-3.5 capitalize py-1 text-xs border border-gray-200 dark:border-gray-700 rounded-full whitespace-nowrap',
-            activeTagFilter === category.tag
+            'px-3.5 capitalize py-1 text-xs border border-gray-200 dark:border-gray-700 rounded-full',
+            activeTagFilter === 'all'
               ? 'bg-black text-white'
               : 'dark:bg-gray-800 bg-gray-100'
           )}
         >
-          {category.name}
+          All
         </button>
-      ))}
+        {CREATOR_VIDEO_CATEGORIES.map((category) => (
+          <button
+            type="button"
+            onClick={() => onFilter(category.tag)}
+            key={category.tag}
+            className={clsx(
+              'px-3.5 capitalize py-1 text-xs border border-gray-200 dark:border-gray-700 rounded-full whitespace-nowrap',
+              activeTagFilter === category.tag
+                ? 'bg-black text-white'
+                : 'dark:bg-gray-800 bg-gray-100'
+            )}
+          >
+            {category.name}
+          </button>
+        ))}
+      </div>
       {!scrollEnd && (
-        <button
-          type="button"
-          className="bg-gray-500 hidden md:block sticky right-0 focus:outline-none bg-opacity-10 hover:bg-opacity-25 backdrop-blur-xl rounded-full p-2"
-          onClick={() => slide(scrollOffset)}
-        >
-          <ChevronRightOutline className="w-4 h-4" />
-        </button>
+        <div className="bg-transparent sticky right-0 bottom-0 px-2">
+          <button
+            type="button"
+            className="hover:bg-gray-500 hidden md:block focus:outline-none hover:bg-opacity-20 backdrop-blur-xl rounded-full p-2"
+            onClick={() => slide(scrollOffset)}
+          >
+            <ChevronRightOutline className="w-4 h-4" />
+          </button>
+        </div>
       )}
     </div>
   )

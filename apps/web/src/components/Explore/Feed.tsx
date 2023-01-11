@@ -18,11 +18,11 @@ import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import type { LenstubePublication } from 'utils'
 import {
-  ADMIN_IDS,
   Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
+  MOD_IDS,
   SCROLL_ROOT_MARGIN,
   TRACK
 } from 'utils'
@@ -39,7 +39,7 @@ const ExploreFeed = () => {
 
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-  const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
+  const isMod = MOD_IDS.includes(selectedChannel?.id)
 
   const getCriteria = () => {
     if (activeCriteria.trending) {
@@ -106,10 +106,8 @@ const ExploreFeed = () => {
           }}
           className={({ selected }) =>
             clsx(
-              'px-4 py-2 flex whitespace-nowrap items-center space-x-2 border-b-2 text-sm focus:outline-none',
-              selected
-                ? 'border-indigo-900 opacity-100'
-                : 'border-transparent opacity-50'
+              'px-4 py-2 flex whitespace-nowrap items-center space-x-2 border-b-2 focus:outline-none',
+              selected ? 'border-indigo-500' : 'border-transparent'
             )
           }
         >
@@ -129,10 +127,8 @@ const ExploreFeed = () => {
           }}
           className={({ selected }) =>
             clsx(
-              'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
-              selected
-                ? 'border-indigo-900 opacity-100'
-                : 'border-transparent opacity-50'
+              'px-4 py-2 flex items-center space-x-2 border-b-2 focus:outline-none',
+              selected ? 'border-indigo-500' : 'border-transparent'
             )
           }
         >
@@ -152,17 +148,15 @@ const ExploreFeed = () => {
           }}
           className={({ selected }) =>
             clsx(
-              'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
-              selected
-                ? 'border-indigo-900 opacity-100'
-                : 'border-transparent opacity-50'
+              'px-4 py-2 flex items-center space-x-2 border-b-2 focus:outline-none',
+              selected ? 'border-indigo-500' : 'border-transparent'
             )
           }
         >
           <MirrorOutline className="w-3.5 h-3.5" />
           <span>Interesting</span>
         </Tab>
-        {isAdmin && (
+        {isMod && (
           <Tab
             onClick={() => {
               setActiveCriteria({
@@ -176,10 +170,8 @@ const ExploreFeed = () => {
             }}
             className={({ selected }) =>
               clsx(
-                'px-4 py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
-                selected
-                  ? 'border-indigo-900 opacity-100'
-                  : 'border-transparent opacity-50'
+                'px-4 py-2 flex items-center space-x-2 border-b-2 focus:outline-none',
+                selected ? 'border-indigo-500' : 'border-transparent'
               )
             }
           >

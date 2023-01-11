@@ -1,11 +1,17 @@
 import type { AspectRatio } from '@livepeer/react'
 import { Player } from '@livepeer/react'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import mux from 'mux-embed'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useCallback, useEffect, useState } from 'react'
-import { toast } from 'react-hot-toast'
-import { IPFS_GATEWAY, IS_MAINNET, LENSTUBE_WEBSITE_URL } from 'utils'
-import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
+import {
+  IPFS_GATEWAY,
+  IS_MAINNET,
+  LENSTUBE_WEBSITE_URL,
+  MUX_DATA_KEY
+} from 'utils'
 
 import SensitiveWarning from './SensitiveWarning'
 
@@ -48,10 +54,18 @@ const PlayerInstance = ({
 }: PlayerProps) => {
   return (
     <Player
-      mediaElementRef={playerRef}
-      poster={posterUrl}
       src={permanentUrl}
+      poster={posterUrl}
+      showTitle={false}
+      objectFit="contain"
       aspectRatio={ratio}
+      showPipButton={true}
+      mediaElementRef={playerRef}
+      loop={options?.loop ?? true}
+      showUploadingIndicator={false}
+      muted={options?.muted ?? false}
+      controls={{ defaultVolume: 1 }}
+      autoPlay={options?.autoPlay ?? false}
       autoUrlUpload={
         IS_MAINNET
           ? {
@@ -60,13 +74,6 @@ const PlayerInstance = ({
             }
           : false
       }
-      objectFit="contain"
-      showPipButton={true}
-      autoPlay={options?.autoPlay ?? false}
-      muted={options?.muted ?? false}
-      loop={options?.loop ?? true}
-      showTitle={false}
-      showUploadingIndicator={false}
     >
       {children}
     </Player>
@@ -84,7 +91,6 @@ const VideoPlayer: FC<Props> = ({
   options,
   children
 }) => {
-  const [copy] = useCopyToClipboard()
   const router = useRouter()
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
   const [playerRef, setPlayerRef] = useState<HTMLMediaElement>()
@@ -95,40 +101,61 @@ const VideoPlayer: FC<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const analyseVideo = (ref: HTMLMediaElement) => {
+    const initTime = mux.utils.now()
+    const VIDEO_TYPE = 'on-demand'
+    const IS_BYTE = ratio === '9to16'
+    mux.monitor(ref, {
+      debug: false,
+      data: {
+        env_key: MUX_DATA_KEY,
+        player_name: 'Lenstube Player',
+        video_id: publicationId,
+        video_stream_type: VIDEO_TYPE,
+        player_init_time: initTime,
+        video_title: IS_BYTE
+          ? `${LENSTUBE_WEBSITE_URL}/bytes/${publicationId ?? router.query?.id}`
+          : `${LENSTUBE_WEBSITE_URL}/watch/${
+              publicationId ?? router.query?.id
+            }`,
+        page_type: IS_BYTE ? 'bytespage' : 'watchpage',
+        video_duration: ref?.duration
+      }
+    })
+  }
+
   useEffect(() => {
     if (!playerRef) return
     playerRef.currentTime = Number(currentTime || 0)
+    if (IS_MAINNET) {
+      analyseVideo(playerRef)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerRef, currentTime])
 
   const onContextClick = async (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
-    await copy(
-      `${LENSTUBE_WEBSITE_URL}/watch/${publicationId ?? router.query?.id}`
-    )
-    toast.success('Video link copied')
   }
 
   return (
-    <div className="overflow-hidden md:rounded-xl">
+    <div>
       {sensitiveWarning ? (
         <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
       ) : (
-        <div onContextMenu={onContextClick}>
-          <div className="relative">
-            <PlayerInstance
-              posterUrl={posterUrl}
-              permanentUrl={permanentUrl}
-              ratio={ratio}
-              playerRef={mediaElementRef}
-              options={options}
-            >
-              {children}
-            </PlayerInstance>
-          </div>
+        <div onContextMenu={onContextClick} className="relative">
+          <PlayerInstance
+            posterUrl={posterUrl}
+            permanentUrl={permanentUrl}
+            ratio={ratio}
+            playerRef={mediaElementRef}
+            options={options}
+          >
+            {children}
+          </PlayerInstance>
         </div>
       )}
     </div>
   )
 }
 
-export default VideoPlayer
+export default React.memo(VideoPlayer)

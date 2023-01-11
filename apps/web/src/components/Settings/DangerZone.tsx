@@ -89,7 +89,7 @@ const DangerZone = () => {
   if (!selectedChannel) return <Custom404 />
 
   return (
-    <div className="py-4 bg-white rounded-lg dark:divide-gray-900 dark:bg-theme">
+    <div className="p-4 bg-white rounded-lg dark:divide-gray-900 dark:bg-theme">
       <div className="flex flex-wrap items-center justify-between p-4 mb-5 border dark:border-gray-700 rounded-xl">
         <div className="flex items-center">
           <div className="flex-none mr-3 mt-0.5">

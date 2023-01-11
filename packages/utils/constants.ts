@@ -4,7 +4,7 @@ export const LENSTUBE_APP_NAME = 'Lenstube'
 export const LENSTUBE_APP_DESCRIPTION =
   'Lenstube is a decentralized video-sharing social media platform built with Lens protocol.'
 
-export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT
+export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT ?? 'mainnet'
 export const IS_MAINNET = LENS_ENV === 'mainnet'
 export const RELAYER_ENABLED = true
 
@@ -16,6 +16,7 @@ export const LENSTUBE_EMBED_URL = IS_MAINNET
   ? 'https://embed.lenstube.xyz'
   : 'https://test-embed.lenstube.xyz'
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallbackThumbnail.png`
+export const OG_IMAGE = `${STATIC_ASSETS}/images/seo/og.png`
 
 // lens
 export const MAINNET_API_URL = 'https://api.lens.dev'
@@ -107,6 +108,7 @@ export const LENSTUBE_ROADMAP_URL = 'https://roadmap.lenstube.xyz'
 
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']
+export const MOD_IDS = IS_MAINNET ? [...ADMIN_IDS, '0x24'] : ['0x2f']
 
 // lens
 export const LENS_CUSTOM_FILTERS = [CustomFiltersTypes.Gardeners]
@@ -138,6 +140,7 @@ export const VERCEL_DEPLOYED_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV
 export const MIXPANEL_API_HOST = '/collect'
 export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN
 export const DATADOG_KEY = process.env.NEXT_PUBLIC_DATADOG_KEY
+export const MUX_DATA_KEY = process.env.NEXT_PUBLIC_MUX_DATA_KEY
 
 export const API_ORIGINS = [
   'https://lenstube.xyz',

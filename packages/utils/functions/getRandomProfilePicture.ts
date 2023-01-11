@@ -1,3 +1,3 @@
-export const getRandomProfilePicture = (seed: string) => {
-  return `https://avatar.tobi.sh/${seed}.png`
+export const getRandomProfilePicture = (address: string) => {
+  return `https://cdn.stamp.fyi/avatar/eth:${address.toLowerCase()}?s=300`
 }

@@ -27,7 +27,7 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
             className="inline-flex items-center space-x-1.5 font-base"
           >
             <img
-              className="w-4 h-4 rounded"
+              className="w-5 h-5 rounded-full"
               src={getProfilePicture(
                 notification.wallet?.defaultProfile,
                 'avatar'
@@ -47,7 +47,7 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
           <AddressExplorerLink address={notification?.wallet?.address}>
             <span className="inline-flex items-center space-x-1.5 font-base">
               <img
-                className="w-4 h-4 rounded"
+                className="w-5 h-5 rounded-full"
                 src={imageCdn(
                   getRandomProfilePicture(notification.wallet.address),
                   'avatar'

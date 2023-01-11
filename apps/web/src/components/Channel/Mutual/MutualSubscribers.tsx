@@ -42,7 +42,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
 
   return (
     <div className="flex mt-1 space-x-2 text-sm">
-      <Tooltip content="Being watched by channels" placement="top">
+      <Tooltip content="Your friends already watching!" placement="top">
         <button
           type="button"
           className="flex -space-x-1.5 cursor-pointer"

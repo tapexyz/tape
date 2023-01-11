@@ -1,10 +1,16 @@
+import clsx from 'clsx'
 import React from 'react'
 
-export const CardShimmer = () => {
+export const CardShimmer = ({ rounded = true }) => {
   return (
-    <div className="w-full rounded-xl">
+    <div className={clsx('w-full', rounded && 'rounded-xl')}>
       <div className="flex flex-col space-x-2 animate-pulse">
-        <div className="bg-gray-300 rounded-xl aspect-w-16 aspect-h-9 dark:bg-gray-700" />
+        <div
+          className={clsx(
+            'bg-gray-300 aspect-w-16 aspect-h-9 dark:bg-gray-700',
+            rounded && 'rounded-xl'
+          )}
+        />
       </div>
     </div>
   )

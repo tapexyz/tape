@@ -2,8 +2,8 @@ import CommentedVideoCard from '@components/Channel/CommentedVideoCard'
 import MirroredVideoCard from '@components/Channel/MirroredVideoCard'
 import VideoCard from '@components/Common/VideoCard'
 import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React from 'react'
 import type { LenstubePublication } from 'utils'
@@ -15,11 +15,12 @@ type Props = {
 
 const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const isComment = videoType === 'Comment'
   const isMirror = videoType === 'Mirror'
-  const router = useRouter()
-  const isChannelPage = router.pathname === '/channel/[channel]'
+  const isChannelPage =
+    location.pathname === `/channel/${selectedChannel?.handle}`
 
   return (
     <div className="grid gap-x-4 2xl:grid-cols-5 md:gap-y-8 gap-y-2 ultrawide:grid-cols-6 laptop:grid-cols-4 md:grid-cols-2 grid-col-1">

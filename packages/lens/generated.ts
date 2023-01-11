@@ -205,7 +205,8 @@ export type CanCommentResponse = {
 
 export type CanDecryptResponse = {
   __typename?: 'CanDecryptResponse'
-  reasons?: Maybe<DecryptFailReason>
+  extraDetails?: Maybe<Scalars['String']>
+  reasons?: Maybe<Array<DecryptFailReason>>
   result: Scalars['Boolean']
 }
 
@@ -243,7 +244,7 @@ export type ClaimableHandles = {
 /** Condition that signifies if address or profile has collected a publication */
 export type CollectConditionInput = {
   /** The publication id that has to be collected to unlock content */
-  publicationId?: InputMaybe<Scalars['ProfileId']>
+  publicationId?: InputMaybe<Scalars['InternalPublicationId']>
   /** True if the content will be unlocked for this specific publication */
   thisPublication?: InputMaybe<Scalars['Boolean']>
 }
@@ -252,7 +253,7 @@ export type CollectConditionInput = {
 export type CollectConditionOutput = {
   __typename?: 'CollectConditionOutput'
   /** The publication id that has to be collected to unlock content */
-  publicationId?: Maybe<Scalars['ProfileId']>
+  publicationId?: Maybe<Scalars['InternalPublicationId']>
   /** True if the content will be unlocked for this specific publication */
   thisPublication?: Maybe<Scalars['Boolean']>
 }
@@ -285,10 +286,13 @@ export type CollectModuleParams = {
 
 /** The collect module types */
 export enum CollectModules {
+  AaveFeeCollectModule = 'AaveFeeCollectModule',
+  Erc4626FeeCollectModule = 'ERC4626FeeCollectModule',
   FeeCollectModule = 'FeeCollectModule',
   FreeCollectModule = 'FreeCollectModule',
   LimitedFeeCollectModule = 'LimitedFeeCollectModule',
   LimitedTimedFeeCollectModule = 'LimitedTimedFeeCollectModule',
+  MultirecipientFeeCollectModule = 'MultirecipientFeeCollectModule',
   RevertCollectModule = 'RevertCollectModule',
   TimedFeeCollectModule = 'TimedFeeCollectModule',
   UnknownCollectModule = 'UnknownCollectModule'
@@ -322,6 +326,7 @@ export type Comment = {
   commentOn?: Maybe<Publication>
   /** The date the post was created on */
   createdAt: Scalars['DateTime']
+  /** The data availability proofs you can fetch from */
   dataAvailabilityProofs?: Maybe<Scalars['String']>
   /** This will bring back the first comment of a comment and only be defined if using `publication` query and `commentOf` */
   firstComment?: Maybe<Comment>
@@ -952,6 +957,7 @@ export enum CustomFiltersTypes {
 
 /** The reason why a profile cannot decrypt a publication */
 export enum DecryptFailReason {
+  CanNotDecrypt = 'CAN_NOT_DECRYPT',
   CollectNotFinalisedOnChain = 'COLLECT_NOT_FINALISED_ON_CHAIN',
   DoesNotFollowProfile = 'DOES_NOT_FOLLOW_PROFILE',
   DoesNotOwnNft = 'DOES_NOT_OWN_NFT',
@@ -1562,6 +1568,17 @@ export type HidePublicationRequest = {
   publicationId: Scalars['InternalPublicationId']
 }
 
+export type IdKitPhoneVerifyWebhookRequest = {
+  sharedSecret: Scalars['String']
+  worldcoin?: InputMaybe<WorldcoinPhoneVerifyWebhookRequest>
+}
+
+/** The verify webhook result status type */
+export enum IdKitPhoneVerifyWebhookResultStatusType {
+  AlreadyVerified = 'ALREADY_VERIFIED',
+  Success = 'SUCCESS'
+}
+
 export type IllegalReasonInputParams = {
   reason: PublicationReportingReason
   subreason: PublicationReportingIllegalSubreason
@@ -1774,6 +1791,7 @@ export type Mirror = {
   collectNftAddress?: Maybe<Scalars['ContractAddress']>
   /** The date the post was created on */
   createdAt: Scalars['DateTime']
+  /** The data availability proofs you can fetch from */
   dataAvailabilityProofs?: Maybe<Scalars['String']>
   hasCollectedByMe: Scalars['Boolean']
   /** If the publication has been hidden if it has then the content and media is not available */
@@ -1886,6 +1904,7 @@ export type Mutation = {
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult
   hel?: Maybe<Scalars['Void']>
   hidePublication?: Maybe<Scalars['Void']>
+  idKitPhoneVerifyWebhook: IdKitPhoneVerifyWebhookResultStatusType
   proxyAction: Scalars['ProxyActionId']
   refresh: AuthenticationResult
   /** Removes profile interests from the given profile */
@@ -2022,6 +2041,10 @@ export type MutationHelArgs = {
 
 export type MutationHidePublicationArgs = {
   request: HidePublicationRequest
+}
+
+export type MutationIdKitPhoneVerifyWebhookArgs = {
+  request: IdKitPhoneVerifyWebhookRequest
 }
 
 export type MutationProxyActionArgs = {
@@ -2217,7 +2240,7 @@ export type NftOwnershipInput = {
   /** The unlocker contract type */
   contractType: ContractType
   /** The optional token ID(s) to check for ownership */
-  tokenIds?: InputMaybe<Scalars['TokenId']>
+  tokenIds?: InputMaybe<Array<Scalars['TokenId']>>
 }
 
 export type NftOwnershipOutput = {
@@ -2229,7 +2252,7 @@ export type NftOwnershipOutput = {
   /** The unlocker contract type */
   contractType: ContractType
   /** The optional token ID(s) to check for ownership */
-  tokenIds?: Maybe<Scalars['TokenId']>
+  tokenIds?: Maybe<Array<Scalars['TokenId']>>
 }
 
 export type Notification =
@@ -2362,7 +2385,7 @@ export type PaginatedResultInfo = {
   next?: Maybe<Scalars['Cursor']>
   /** Cursor to query the actual results */
   prev?: Maybe<Scalars['Cursor']>
-  /** The total number of entities the pagination iterates over. If null it means it can not work it out due to dynamic or aggregated query e.g. For a query that requests all nfts with more than 10 likes, this field gives the total amount of nfts with more than 10 likes, not the total amount of nfts */
+  /** The total number of entities the pagination iterates over. If its null then its not been worked out due to it being an expensive query and not really needed for the client. All main counters are in counter tables to allow them to be faster fetching. */
   totalCount?: Maybe<Scalars['Int']>
 }
 
@@ -2417,6 +2440,7 @@ export type Post = {
   collectedBy?: Maybe<Wallet>
   /** The date the post was created on */
   createdAt: Scalars['DateTime']
+  /** The data availability proofs you can fetch from */
   dataAvailabilityProofs?: Maybe<Scalars['String']>
   hasCollectedByMe: Scalars['Boolean']
   /** If the publication has been hidden if it has then the content and media is not available */
@@ -2757,7 +2781,7 @@ export enum PublicationMediaSource {
   Lens = 'LENS'
 }
 
-/** Publication metadata content waring filters */
+/** Publication metadata content warning filters */
 export type PublicationMetadataContentWarningFilter = {
   /** By default all content warnings will be hidden you can include them in your query by adding them to this array. */
   includeOneOf?: InputMaybe<Array<PublicationContentWarning>>
@@ -3059,6 +3083,7 @@ export type Query = {
   globalProtocolStats: GlobalProtocolStats
   hasTxHashBeenIndexed: TransactionResult
   internalPublicationFilter: PaginatedPublicationResult
+  isIDKitPhoneVerified: Scalars['Boolean']
   mutualFollowersProfiles: PaginatedProfileResult
   nftOwnershipChallenge: NftOwnershipChallengeResult
   nfts: NfTsResult
@@ -3305,7 +3330,7 @@ export type ReferenceModule =
   | UnknownReferenceModuleSettings
 
 export type ReferenceModuleParams = {
-  /** The degrees of seperation reference module */
+  /** The degrees of separation reference module */
   degreesOfSeparationReferenceModule?: InputMaybe<DegreesOfSeparationReferenceModuleParams>
   /** The follower only reference module */
   followerOnlyReferenceModule?: InputMaybe<Scalars['Boolean']>
@@ -3749,6 +3774,18 @@ export type WorldcoinIdentity = {
   __typename?: 'WorldcoinIdentity'
   /** If the profile has verified as a user */
   isHuman: Scalars['Boolean']
+}
+
+/** The worldcoin signal type */
+export enum WorldcoinPhoneVerifyType {
+  Orb = 'ORB',
+  Phone = 'PHONE'
+}
+
+export type WorldcoinPhoneVerifyWebhookRequest = {
+  nullifierHash: Scalars['String']
+  signal: Scalars['EthereumAddress']
+  signalType: WorldcoinPhoneVerifyType
 }
 
 type CollectFields_FeeCollectModuleSettings_Fragment = {
@@ -6742,6 +6779,8 @@ export type ProfileQuery = {
       __typename?: 'Attribute'
       key: string
       value: string
+      traitType?: string | null
+      displayType?: string | null
     }> | null
     stats: {
       __typename?: 'ProfileStats'
@@ -11777,6 +11816,8 @@ export const ProfileDocument = gql`
       attributes {
         key
         value
+        traitType
+        displayType
       }
       bio
       stats {

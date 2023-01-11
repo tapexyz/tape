@@ -9,11 +9,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { IS_MAINNET } from 'utils'
+import { IS_MAINNET, ZERO_ADDRESS } from 'utils'
 import getLensHandle from 'utils/functions/getLensHandle'
 import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
 import trimify from 'utils/functions/trimify'
 import useIsMounted from 'utils/hooks/useIsMounted'
+import { useAccount } from 'wagmi'
 import z from 'zod'
 
 const formSchema = z.object({
@@ -56,6 +57,7 @@ const CreateChannel = () => {
   const [buttonText, setButtonText] = useState('Create')
   const { mounted } = useIsMounted()
   const router = useRouter()
+  const { address } = useAccount()
   const {
     register,
     handleSubmit,
@@ -111,7 +113,7 @@ const CreateChannel = () => {
       variables: {
         request: {
           handle: username,
-          profilePictureUri: getRandomProfilePicture(username)
+          profilePictureUri: getRandomProfilePicture(address ?? ZERO_ADDRESS)
         }
       }
     })

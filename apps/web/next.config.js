@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
-const withTM = require('next-transpile-modules')(['lens', 'utils', 'web-ui'])
-
-const moduleExports = withTM({
+const moduleExports = {
+  transpilePackages: ['lens', 'utils', 'web-ui'],
   reactStrictMode: process.env.NODE_ENV === 'production',
   experimental: {
     scrollRestoration: true,
@@ -61,6 +60,6 @@ const moduleExports = withTM({
       }
     ]
   }
-})
+}
 
 module.exports = moduleExports

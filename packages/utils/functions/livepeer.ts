@@ -33,5 +33,8 @@ export const videoPlayerTheme: ThemeConfig = {
     thumbActive: '7px',
     trackActive: '3px',
     trackInactive: '3px'
+  },
+  radii: {
+    containerBorderRadius: '0px'
   }
 }

@@ -144,7 +144,7 @@ const CollectModal: FC<Props> = ({
               {video?.stats.totalAmountOfCollects > 0 ? (
                 <Link
                   href={getShopCollectsUrl()}
-                  className="text-indigo-500"
+                  className="text-indigo-500 text-xs"
                   target="_blank"
                 >
                   Shop Collects

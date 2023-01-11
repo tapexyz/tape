@@ -1,4 +1,3 @@
-import Animated from '@components/Common/Animated'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
@@ -10,7 +9,7 @@ import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import type { FC, ReactNode } from 'react'
 import React, { useEffect } from 'react'
-import toast, { Toaster } from 'react-hot-toast'
+import { toast, Toaster } from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import { MIXPANEL_API_HOST, MIXPANEL_TOKEN, POLYGON_CHAIN_ID } from 'utils'
 import { AUTH_ROUTES } from 'utils/data/auth-routes'
@@ -50,14 +49,16 @@ const Layout: FC<Props> = ({ children }) => {
 
   const { chain } = useNetwork()
   const { resolvedTheme } = useTheme()
+  const { mounted } = useIsMounted()
+  const { address } = useAccount()
+  const { pathname, replace, asPath } = useRouter()
+
   const { disconnect } = useDisconnect({
     onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
-  const { mounted } = useIsMounted()
-  const { address } = useAccount()
-  const { pathname, replace, asPath } = useRouter()
+
   const showFullScreen = getShowFullScreen(pathname)
 
   const resetAuthState = () => {
@@ -134,11 +135,7 @@ const Layout: FC<Props> = ({ children }) => {
         position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
-      <div
-        className={clsx('flex pb-10 md:pb-0', {
-          '!pb-0': showFullScreen
-        })}
-      >
+      <div className={clsx('flex pb-10 md:pb-0', showFullScreen && '!pb-0')}>
         <Sidebar />
         <div
           className={clsx(
@@ -155,12 +152,10 @@ const Layout: FC<Props> = ({ children }) => {
           <div
             className={clsx(
               '2xl:py-6 py-4 ultrawide:max-w-[110rem] mx-auto md:px-3 ultrawide:px-0',
-              {
-                '!p-0': showFullScreen
-              }
+              showFullScreen && '!p-0'
             )}
           >
-            <Animated>{children}</Animated>
+            {children}
           </div>
         </div>
       </div>

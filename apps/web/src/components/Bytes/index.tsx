@@ -52,8 +52,8 @@ const Bytes = () => {
         const items = data?.explorePublications?.items as LenstubePublication[]
         const publicationId = router.query.id
         if (!publicationId) {
-          const nextUrl = window.location.origin + `/bytes/${items[0]?.id}`
-          window.history.replaceState({ path: nextUrl }, '', nextUrl)
+          const nextUrl = `${location.origin}/bytes/${items[0]?.id}`
+          history.replaceState({ path: nextUrl }, '', nextUrl)
         }
       }
     })

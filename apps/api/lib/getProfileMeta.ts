@@ -1,11 +1,10 @@
 import type { Profile } from 'lens'
 import { ProfileDocument } from 'lens'
 import type { NextApiResponse } from 'next'
-import { LENSTUBE_APP_DESCRIPTION } from 'utils'
+import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from 'utils'
 import getApolloClient from 'utils/functions/getApolloClient'
 import getMetaTags from 'utils/functions/getMetaTags'
 import getProfilePicture from 'utils/functions/getProfilePicture'
-import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
 
 const apolloClient = getApolloClient()
 
@@ -38,7 +37,7 @@ const getProfileMeta = async (res: NextApiResponse, handle: string) => {
       getMetaTags({
         title: 'Lenstube',
         description: LENSTUBE_APP_DESCRIPTION,
-        image: getRandomProfilePicture('Lenstube')
+        image: OG_IMAGE
       })
     )
   }
