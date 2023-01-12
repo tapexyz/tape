@@ -61,7 +61,6 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
     }
   }
 
-  // @ts-ignore
   const channels = data?.search?.items
 
   useEffect(() => {
