@@ -70,7 +70,6 @@ const CropImageModal: FC<Props> = ({
           crop={crop}
           onChange={(c) => setCrop(c)}
           aspect={1}
-          className="rounded-lg"
         >
           <img
             ref={imgRef}
