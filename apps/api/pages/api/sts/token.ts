@@ -26,6 +26,7 @@ const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   }
   const origin = req.headers.origin
   if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
+    logger.error('[API INVALID ORIGIN]', origin)
     return res.status(403).json({ success: false })
   }
   if (req.method !== 'POST') return res.status(400).json({ success: false })
