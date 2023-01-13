@@ -1,7 +1,7 @@
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
-import type { Attribute, MetadataOutput, Publication } from 'lens'
+import type { Attribute, Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -27,7 +27,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
 
   const commentedOn = video.commentOn as Publication
   const isSensitiveContent = getIsSensitiveContent(
-    commentedOn?.metadata as MetadataOutput,
+    commentedOn?.metadata,
     video.id
   )
   const videoDuration = getValueFromTraitType(
