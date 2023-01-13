@@ -66,11 +66,7 @@ const CropImageModal: FC<Props> = ({
       title="Crop picture"
     >
       <div className="overflow-y-auto no-scrollbar text-center mt-2">
-        <ReactCrop
-          crop={crop}
-          onChange={(c) => setCrop(c)}
-          aspect={1}
-        >
+        <ReactCrop crop={crop} onChange={(c) => setCrop(c)} aspect={1}>
           <img
             ref={imgRef}
             src={getPreviewImageSrc()}
