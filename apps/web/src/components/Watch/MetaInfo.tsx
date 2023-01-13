@@ -3,17 +3,17 @@ import TagOutline from '@components/Common/Icons/TagOutline'
 import ArweaveExplorerLink from '@components/Common/Links/ArweaveExplorerLink'
 import IPFSLink from '@components/Common/Links/IPFSLink'
 import TokenExplorerLink from '@components/Common/Links/TokenExplorerLink'
+import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'utils'
 import { Analytics, TRACK } from 'utils'
 import getCategoryName from 'utils/functions/getCategoryName'
 import getMetadataHash from 'utils/functions/getMetadataHash'
 import { getIsIPFSUrl } from 'utils/functions/getPublicationMediaUrl'
 
 type Props = {
-  video: LenstubePublication
+  video: Publication
 }
 
 const MetaInfo: FC<Props> = ({ video }) => {

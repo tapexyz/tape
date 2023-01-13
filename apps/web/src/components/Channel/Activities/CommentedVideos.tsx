@@ -2,12 +2,11 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import type { Profile } from 'lens'
+import type { Profile, Publication } from 'lens'
 import { PublicationTypes, useProfileCommentsQuery } from 'lens'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import type { LenstubePublication } from 'utils'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -34,7 +33,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
     skip: !channel?.id
   })
 
-  const channelVideos = data?.publications?.items as LenstubePublication[]
+  const channelVideos = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
@@ -62,7 +61,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
       {!error && !loading && (
         <div>
           <Timeline videos={channelVideos} videoType="Comment" />
-          {pageInfo?.next && channelVideos.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && channelVideos?.length !== pageInfo?.totalCount && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>

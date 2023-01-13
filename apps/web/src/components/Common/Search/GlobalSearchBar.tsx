@@ -2,7 +2,7 @@ import { useLazyQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
-import type { Profile } from 'lens'
+import type { Profile, Publication } from 'lens'
 import {
   SearchProfilesDocument,
   SearchPublicationsDocument,
@@ -10,7 +10,6 @@ import {
 } from 'lens'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
-import type { LenstubePublication } from 'utils'
 import {
   Analytics,
   LENS_CUSTOM_FILTERS,
@@ -143,7 +142,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                 <Tab.Panel className="overflow-y-auto max-h-[80vh] no-scrollbar focus:outline-none">
                   {data?.search?.__typename === 'PublicationSearchResult' && (
                     <Videos
-                      results={channels as LenstubePublication[]}
+                      results={channels as Publication[]}
                       loading={loading}
                       clearSearch={clearSearch}
                     />

@@ -1,15 +1,12 @@
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import type { Attribute } from 'lens'
+import type { Attribute, MetadataOutput, Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'utils'
 import { Analytics, STATIC_ASSETS, TRACK } from 'utils'
-import { getTimeFromSeconds } from 'utils/functions/formatTime'
+import { getRelativeTime, getTimeFromSeconds } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import getLensHandle from 'utils/functions/getLensHandle'
@@ -17,20 +14,24 @@ import getProfilePicture from 'utils/functions/getProfilePicture'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 
-dayjs.extend(relativeTime)
-
 type Props = {
-  video: LenstubePublication
+  video: Publication
 }
 
 const CommentedVideoCard: FC<Props> = ({ video }) => {
-  const commentedOn = video.commentOn as LenstubePublication
+  const isComment = video.__typename === 'Comment'
+
+  if (!isComment) {
+    return null
+  }
+
+  const commentedOn = video.commentOn as Publication
   const isSensitiveContent = getIsSensitiveContent(
-    commentedOn.metadata,
+    commentedOn?.metadata as MetadataOutput,
     video.id
   )
   const videoDuration = getValueFromTraitType(
-    commentedOn.metadata?.attributes as Attribute[],
+    commentedOn?.metadata?.attributes as Attribute[],
     'durationInSeconds'
   )
 
@@ -40,7 +41,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
       className="overflow-hidden group rounded-xl"
       role="button"
     >
-      <Link href={`/watch/${commentedOn.id}`}>
+      <Link href={`/watch/${commentedOn?.id}`}>
         <div className="relative rounded-xl aspect-w-16 aspect-h-8">
           <img
             src={imageCdn(
@@ -115,7 +116,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
             </div>
             <div className="flex items-center text-xs leading-3 opacity-70">
               <span title={video.createdAt}>
-                {dayjs(new Date(video.createdAt)).fromNow()}
+                {getRelativeTime(video.createdAt)}
               </span>
             </div>
           </div>

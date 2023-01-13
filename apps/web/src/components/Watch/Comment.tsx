@@ -6,29 +6,25 @@ import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import Tooltip from '@components/UIElements/Tooltip'
 import clsx from 'clsx'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import type { Attribute } from 'lens'
+import type { Attribute, Publication } from 'lens'
 import { PublicationMainFocus } from 'lens'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { AiFillHeart, AiOutlinePlayCircle } from 'react-icons/ai'
-import type { LenstubePublication } from 'utils'
+import { getRelativeTime } from 'utils/functions/formatTime'
 import {
   checkValueInAttributes,
   getValueFromTraitType
 } from 'utils/functions/getFromAttributes'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
-dayjs.extend(relativeTime)
-
 const CommentOptions = dynamic(() => import('./CommentOptions'))
 const PublicationReaction = dynamic(() => import('./PublicationReaction'))
 
 interface Props {
-  comment: LenstubePublication
+  comment: Publication
 }
 
 const VideoComment: FC<Props> = ({ comment }) => {
@@ -104,7 +100,7 @@ const Comment: FC<Props> = ({ comment }) => {
               </Tooltip>
             )}
             <span className="inline-flex items-center opacity-70 space-x-1 text-[10px]">
-              {dayjs(new Date(comment?.createdAt)).fromNow()}
+              {getRelativeTime(comment.createdAt)}
             </span>
           </span>
           <div

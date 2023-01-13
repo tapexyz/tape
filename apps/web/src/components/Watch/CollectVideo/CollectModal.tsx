@@ -6,7 +6,7 @@ import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import dayjs from 'dayjs'
-import type { ApprovedAllowanceAmount } from 'lens'
+import type { ApprovedAllowanceAmount, Publication } from 'lens'
 import {
   useApprovedModuleAllowanceAmountQuery,
   usePublicationRevenueQuery
@@ -14,7 +14,7 @@ import {
 import Link from 'next/link'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import type { LenstubeCollectModule, LenstubePublication } from 'utils'
+import type { LenstubeCollectModule } from 'utils'
 import { Analytics, LENSPORT_MARKETPLACE_URL, TRACK } from 'utils'
 import { formatNumber } from 'utils/functions/formatNumber'
 import { shortenAddress } from 'utils/functions/shortenAddress'
@@ -26,7 +26,7 @@ import PermissionAlert from './PermissionAlert'
 type Props = {
   showModal: boolean
   setShowModal: Dispatch<boolean>
-  video: LenstubePublication
+  video: Publication
   collecting: boolean
   fetchingCollectModule: boolean
   collectModule: LenstubeCollectModule
@@ -114,7 +114,7 @@ const CollectModal: FC<Props> = ({
   ])
 
   const getShopCollectsUrl = () => {
-    const pubId = video?.id ?? video.mirrorOf?.id
+    const pubId = video?.id
     const decimalProfileId = parseInt(pubId.split('-')[0], 16)
     const decimalPubId = parseInt(pubId.split('-')[1], 16)
     const marketplacePublicationId = `${decimalProfileId}_${decimalPubId}`

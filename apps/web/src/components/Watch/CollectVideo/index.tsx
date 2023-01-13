@@ -6,7 +6,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { utils } from 'ethers'
-import type { CreateCollectBroadcastItemResult } from 'lens'
+import type { CreateCollectBroadcastItemResult, Publication } from 'lens'
 import {
   useBroadcastMutation,
   useCreateCollectTypedDataMutation,
@@ -16,11 +16,7 @@ import {
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type {
-  CustomErrorWithData,
-  LenstubeCollectModule,
-  LenstubePublication
-} from 'utils'
+import type { CustomErrorWithData, LenstubeCollectModule } from 'utils'
 import {
   Analytics,
   ERROR_MESSAGE,
@@ -35,7 +31,7 @@ import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 import CollectModal from './CollectModal'
 
 type Props = {
-  video: LenstubePublication
+  video: Publication
   variant?: 'primary' | 'secondary' | 'material'
 }
 

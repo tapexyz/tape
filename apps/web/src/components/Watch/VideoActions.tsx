@@ -4,16 +4,16 @@ import ShareOutline from '@components/Common/Icons/ShareOutline'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import { Button } from '@components/UIElements/Button'
+import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import type { LenstubePublication } from 'utils'
 import { Analytics, TRACK } from 'utils'
 
 import PublicationReaction from './PublicationReaction'
 import TipModal from './TipModal'
 
 type Props = {
-  video: LenstubePublication
+  video: Publication
 }
 
 const VideoActions: FC<Props> = ({ video }) => {

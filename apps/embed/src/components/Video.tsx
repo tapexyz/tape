@@ -1,7 +1,7 @@
+import type { Publication } from 'lens'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import type { LenstubePublication } from 'utils'
 import { Analytics, TRACK } from 'utils'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
@@ -14,12 +14,12 @@ import MetaTags from './MetaTags'
 import VideoOverlay from './VideoOverlay'
 
 type Props = {
-  video: LenstubePublication
+  video: Publication
 }
 
 type OverlayProps = {
   playerRef: HTMLMediaElement | undefined
-  video: LenstubePublication
+  video: Publication
 }
 
 const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {

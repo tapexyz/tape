@@ -2,17 +2,17 @@ import FlagOutline from '@components/Common/Icons/FlagOutline'
 import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import DropMenu from '@components/UIElements/DropMenu'
 import useAppStore from '@lib/store'
+import type { Publication } from 'lens'
 import { useHidePublicationMutation } from 'lens'
 import type { Dispatch, FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { AiOutlineDelete } from 'react-icons/ai'
-import type { LenstubePublication } from 'utils'
 import { Analytics, TRACK } from 'utils'
 
 type Props = {
   setShowReport: Dispatch<boolean>
-  comment: LenstubePublication
+  comment: Publication
 }
 
 const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {

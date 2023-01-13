@@ -1,9 +1,9 @@
 import CollectVideo from '@components/Watch/CollectVideo'
 import { ControlsContainer } from '@livepeer/react'
+import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useRef } from 'react'
 import { useInView } from 'react-cool-inview'
-import type { LenstubePublication } from 'utils'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
@@ -15,7 +15,7 @@ import ByteActions from './ByteActions'
 import TopOverlay from './TopOverlay'
 
 type Props = {
-  video: LenstubePublication
+  video: Publication
 }
 
 const ByteVideo: FC<Props> = ({ video }) => {

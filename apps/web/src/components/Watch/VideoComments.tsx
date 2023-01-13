@@ -5,13 +5,13 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import type { Publication } from 'lens'
 import { PublicationMainFocus, useProfileCommentsQuery } from 'lens'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import type { LenstubePublication } from 'utils'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from 'utils'
 
 import NewComment from './NewComment'
@@ -20,7 +20,7 @@ import QueuedComment from './QueuedComment'
 const Comment = dynamic(() => import('./Comment'))
 
 type Props = {
-  video: LenstubePublication
+  video: Publication
 }
 
 const VideoComments: FC<Props> = ({ video }) => {
@@ -61,7 +61,7 @@ const VideoComments: FC<Props> = ({ video }) => {
     skip: !id
   })
 
-  const comments = data?.publications?.items as LenstubePublication[]
+  const comments = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
@@ -123,7 +123,7 @@ const VideoComments: FC<Props> = ({ video }) => {
                   />
                 )
             )}
-            {comments?.map((comment: LenstubePublication) => (
+            {comments?.map((comment: Publication) => (
               <Comment
                 key={`${comment?.id}_${comment.createdAt}`}
                 comment={comment}
