@@ -1,6 +1,6 @@
+import type { Publication } from 'lens'
 import { PublicationDetailsDocument } from 'lens'
 import type { NextApiResponse } from 'next'
-import type { LenstubePublication } from 'utils'
 import { LENSTUBE_APP_DESCRIPTION, STATIC_ASSETS } from 'utils'
 import getApolloClient from 'utils/functions/getApolloClient'
 import getMetaTags from 'utils/functions/getMetaTags'
@@ -20,7 +20,7 @@ const getPublicationMeta = async (
       variables: { request: { publicationId } }
     })
 
-    const video: LenstubePublication = data?.publication
+    const video: Publication = data?.publication
     const title = truncate(video?.metadata?.name as string, 100)
     const description = truncate(video?.metadata?.description as string, 100)
     const thumbnail = imageCdn(

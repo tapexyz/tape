@@ -8,6 +8,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
+import type { Publication } from 'lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
@@ -16,7 +17,6 @@ import {
 } from 'lens'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import type { LenstubePublication } from 'utils'
 import {
   Analytics,
   LENS_CUSTOM_FILTERS,
@@ -77,7 +77,7 @@ const ExploreFeed = () => {
     }
   })
 
-  const videos = data?.explorePublications?.items as LenstubePublication[]
+  const videos = data?.explorePublications?.items as Publication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({

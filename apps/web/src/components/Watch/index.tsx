@@ -1,12 +1,12 @@
 import MetaTags from '@components/Common/MetaTags'
 import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
+import type { Publication } from 'lens'
 import { usePublicationDetailsQuery } from 'lens'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import type { LenstubePublication } from 'utils'
 import { Analytics, TRACK } from 'utils'
 
 import AboutChannel from './AboutChannel'
@@ -36,7 +36,7 @@ const VideoDetails = () => {
     skip: !id
   })
 
-  const video = data?.publication as LenstubePublication
+  const video = data?.publication as Publication
   const publicationType = video?.__typename
 
   const canWatch =

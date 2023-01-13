@@ -1,5 +1,6 @@
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
+import type { Publication } from 'lens'
 import {
   PublicationSortCriteria,
   PublicationTypes,
@@ -9,7 +10,6 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
-import type { LenstubePublication } from 'utils'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -38,7 +38,7 @@ const SuggestedVideos: FC = () => {
     }
   })
 
-  const videos = data?.explorePublications?.items as LenstubePublication[]
+  const videos = data?.explorePublications?.items as Publication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const SuggestedVideos: FC = () => {
         <div className="pb-3">
           <div className="space-y-3 md:gap-3 md:grid lg:flex lg:gap-0 lg:flex-col md:grid-cols-2">
             {videos?.map(
-              (video: LenstubePublication) =>
+              (video: Publication) =>
                 !video.hidden && (
                   <SuggestedVideoCard video={video} key={video?.id} />
                 )

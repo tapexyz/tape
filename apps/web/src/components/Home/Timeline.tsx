@@ -4,12 +4,12 @@ import VideoCard from '@components/Common/VideoCard'
 import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'utils'
 
 type Props = {
-  videos: LenstubePublication[]
+  videos: Publication[]
   videoType?: 'Post' | 'Mirror' | 'Comment'
 }
 
@@ -31,8 +31,8 @@ const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
             queuedVideo={queuedVideo}
           />
         ))}
-      {videos?.map((video: LenstubePublication) => {
-        const isPub = video.__typename === videoType && !video.collectedBy
+      {videos?.map((video: Publication) => {
+        const isPub = video.__typename === videoType
         return isPub && isComment ? (
           <CommentedVideoCard
             key={`${video?.id}_${video.createdAt}`}

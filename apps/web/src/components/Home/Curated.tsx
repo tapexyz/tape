@@ -3,6 +3,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
+import type { Publication } from 'lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
@@ -11,7 +12,6 @@ import {
 } from 'lens'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
-import type { LenstubePublication } from 'utils'
 import {
   Analytics,
   LENS_CUSTOM_FILTERS,
@@ -46,7 +46,7 @@ const Curated = () => {
   })
 
   const pageInfo = data?.explorePublications?.pageInfo
-  const videos = data?.explorePublications?.items as LenstubePublication[]
+  const videos = data?.explorePublications?.items as Publication[]
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,

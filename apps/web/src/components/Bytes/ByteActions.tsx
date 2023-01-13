@@ -6,12 +6,12 @@ import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import { Button } from '@components/UIElements/Button'
 import CollectVideo from '@components/Watch/CollectVideo'
 import PublicationReaction from '@components/Watch/PublicationReaction'
+import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import type { LenstubePublication } from 'utils'
 
 type Props = {
-  video: LenstubePublication
+  video: Publication
 }
 const ByteActions: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)

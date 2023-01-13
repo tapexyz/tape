@@ -1,13 +1,10 @@
 import type { WebBundlr } from '@bundlr-network/client'
 import type {
   Attribute,
-  Comment,
   FeeCollectModuleSettings,
   FreeCollectModuleSettings,
   LimitedFeeCollectModuleSettings,
   LimitedTimedFeeCollectModuleSettings,
-  Mirror,
-  Post,
   RevertCollectModuleSettings,
   TimedFeeCollectModuleSettings
 } from 'lens'
@@ -81,14 +78,6 @@ export type UploadedVideo = {
   isNSFWThumbnail: boolean
   isByteVideo: boolean
 }
-
-export type HLSData = {
-  hrn: string
-  url: string
-  type: string
-}
-
-export type LenstubePublication = Post & Comment & Mirror & { hls: HLSData }
 
 export type IPFSUploadResult = {
   url: string
