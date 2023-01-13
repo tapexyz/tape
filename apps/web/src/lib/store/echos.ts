@@ -1,5 +1,5 @@
 import type { LenstubePublication } from 'utils'
-import create from 'zustand'
+import { create } from 'zustand'
 
 interface EchoState {
   selectedTrack: LenstubePublication | null

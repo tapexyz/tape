@@ -10,7 +10,7 @@ import {
 } from 'utils'
 import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
 import logger from 'utils/logger'
-import create from 'zustand'
+import { create } from 'zustand'
 
 export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {
   balance: '0',
