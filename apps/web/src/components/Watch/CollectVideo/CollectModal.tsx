@@ -11,11 +11,10 @@ import {
   useApprovedModuleAllowanceAmountQuery,
   usePublicationRevenueQuery
 } from 'lens'
-import Link from 'next/link'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import type { LenstubeCollectModule } from 'utils'
-import { Analytics, LENSPORT_MARKETPLACE_URL, TRACK } from 'utils'
+import { Analytics, TRACK } from 'utils'
 import { formatNumber } from 'utils/functions/formatNumber'
 import { shortenAddress } from 'utils/functions/shortenAddress'
 import { useBalance } from 'wagmi'
@@ -113,15 +112,6 @@ const CollectModal: FC<Props> = ({
     selectedChannelId
   ])
 
-  const getShopCollectsUrl = () => {
-    const pubId = video?.id
-    const decimalProfileId = parseInt(pubId.split('-')[0], 16)
-    const decimalPubId = parseInt(pubId.split('-')[1], 16)
-    const marketplacePublicationId = `${decimalProfileId}_${decimalPubId}`
-    const marketplaceUrl = `${LENSPORT_MARKETPLACE_URL}/p/${marketplacePublicationId}`
-    return marketplaceUrl
-  }
-
   return (
     <Modal
       title="Collect Video"
@@ -132,24 +122,13 @@ const CollectModal: FC<Props> = ({
       <div className="mt-4">
         {!fetchingCollectModule && !allowanceLoading ? (
           <>
-            <div className="flex items-center justify-between">
-              <div className="flex flex-col mb-3">
-                <span className="text-sm">Total Collects</span>
-                <span className="space-x-1">
-                  <span className="text-lg">
-                    {formatNumber(video?.stats.totalAmountOfCollects)}
-                  </span>
+            <div className="flex flex-col mb-3">
+              <span className="text-sm">Total Collects</span>
+              <span className="space-x-1">
+                <span className="text-lg">
+                  {formatNumber(video?.stats.totalAmountOfCollects)}
                 </span>
-              </div>
-              {video?.stats.totalAmountOfCollects > 0 ? (
-                <Link
-                  href={getShopCollectsUrl()}
-                  className="text-indigo-500 text-xs"
-                  target="_blank"
-                >
-                  Shop Collects
-                </Link>
-              ) : null}
+              </span>
             </div>
             {collectModule?.amount ? (
               <div className="flex flex-col mb-3">
