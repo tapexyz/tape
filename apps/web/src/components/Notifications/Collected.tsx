@@ -70,7 +70,7 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
           </Link>
         </span>
         <div className="flex items-center space-x-1 text-xs text-gray-500">
-          <span>{getRelativeTime(notification.createdAt)}</span>
+          <span>{getRelativeTime(notification?.createdAt)}</span>
         </div>
       </div>
     </>
