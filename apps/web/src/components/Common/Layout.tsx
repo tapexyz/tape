@@ -59,11 +59,6 @@ const Layout: FC<Props> = ({ children }) => {
 
   const showFullScreen = getShowFullScreen(pathname)
 
-  const resetAuthState = () => {
-    setSelectedChannel(null)
-    setSelectedChannelId(null)
-  }
-
   const setUserChannels = (channels: Profile[]) => {
     setChannels(channels)
     const selectedChannel = channels.find(
@@ -71,6 +66,11 @@ const Layout: FC<Props> = ({ children }) => {
     )
     setSelectedChannel(selectedChannel ?? channels[0])
     setSelectedChannelId(selectedChannel?.id)
+  }
+
+  const resetAuthState = () => {
+    setSelectedChannel(null)
+    setSelectedChannelId(null)
   }
 
   const { loading } = useUserProfilesQuery({
@@ -95,7 +95,8 @@ const Layout: FC<Props> = ({ children }) => {
       !selectedChannelId &&
       AUTH_ROUTES.includes(pathname)
     ) {
-      replace(`/auth?next=${asPath}`) // redirect to signin page
+      // Redirect to signin page
+      replace(`/auth?next=${asPath}`)
     }
     const logout = () => {
       resetAuthState()
@@ -139,14 +140,14 @@ const Layout: FC<Props> = ({ children }) => {
         <div
           className={clsx(
             'w-full',
-            showFullScreen ? 'px-0' : '',
+            showFullScreen && 'px-0',
             sidebarCollapsed || pathname === '/watch/[id]'
               ? 'md:pl-[90px]'
               : 'md:pl-[180px]'
           )}
         >
           {!NO_HEADER_PATHS.includes(pathname) && (
-            <Header className={showFullScreen ? 'hidden md:flex' : ''} />
+            <Header className={clsx(showFullScreen && 'hidden md:flex')} />
           )}
           <div
             className={clsx(

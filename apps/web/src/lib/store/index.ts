@@ -60,8 +60,8 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
 }
 
 interface AppState {
-  channels: Profile[] | []
-  recommendedChannels: Profile[] | []
+  channels: Profile[]
+  recommendedChannels: Profile[]
   showCreateChannel: boolean
   hasNewNotification: boolean
   userSigNonce: number
