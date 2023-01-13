@@ -23,6 +23,7 @@ const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   }
   const origin = req.headers.origin
   if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
+    logger.error('[API INVALID ORIGIN]', origin)
     return res.status(403).json({ url: null, id: null, success: false })
   }
   if (req.method !== 'POST' || !req.body)
