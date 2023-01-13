@@ -83,6 +83,7 @@ interface AppState {
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
 }
 
+// TODO: Split into multiple stores
 export const useAppStore = create<AppState>((set) => ({
   channels: [],
   recommendedChannels: [],
@@ -94,18 +95,16 @@ export const useAppStore = create<AppState>((set) => ({
   videoWatchTime: 0,
   activeTagFilter: 'all',
   uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
-  setActiveTagFilter: (activeTagFilter) => set(() => ({ activeTagFilter })),
-  setVideoWatchTime: (videoWatchTime) => set(() => ({ videoWatchTime })),
-  setSelectedChannel: (channel) => set(() => ({ selectedChannel: channel })),
+  setActiveTagFilter: (activeTagFilter) => set({ activeTagFilter }),
+  setVideoWatchTime: (videoWatchTime) => set({ videoWatchTime }),
+  setSelectedChannel: (channel) => set({ selectedChannel: channel }),
   setBundlrData: (bundlrData) =>
     set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrData } })),
-  setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
-  setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),
-  setChannels: (channels) => set(() => ({ channels })),
-  setRecommendedChannels: (recommendedChannels) =>
-    set(() => ({ recommendedChannels })),
-  setShowCreateChannel: (showCreateChannel) =>
-    set(() => ({ showCreateChannel })),
+  setUserSigNonce: (userSigNonce) => set({ userSigNonce }),
+  setHasNewNotification: (b) => set({ hasNewNotification: b }),
+  setChannels: (channels) => set({ channels }),
+  setRecommendedChannels: (recommendedChannels) => set({ recommendedChannels }),
+  setShowCreateChannel: (showCreateChannel) => set({ showCreateChannel }),
   getBundlrInstance: async (signer) => {
     try {
       const bundlr = new WebBundlr(

@@ -1,7 +1,7 @@
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client'
+import { hydrateAuthTokens, signIn, signOut } from '@lib/store/persist'
 import axios from 'axios'
 import { API_URL } from 'utils'
-import clearLocalStorage from 'utils/functions/clearLocalStorage'
 import { parseJwt } from 'utils/functions/parseJwt'
 import logger from 'utils/logger'
 
@@ -15,9 +15,9 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 `
 
 const authLink = new ApolloLink((operation, forward) => {
-  const accessToken = localStorage.getItem('accessToken')
-  if (!accessToken || accessToken === 'undefined') {
-    clearLocalStorage()
+  const { accessToken, refreshToken } = hydrateAuthTokens()
+  if (!accessToken) {
+    signOut()
     return forward(operation)
   }
 
@@ -38,7 +38,7 @@ const authLink = new ApolloLink((operation, forward) => {
           operationName: 'Refresh',
           query: REFRESH_AUTHENTICATION_MUTATION,
           variables: {
-            request: { refreshToken: localStorage.getItem('refreshToken') }
+            request: { refreshToken }
           }
         }),
         { headers: { 'Content-Type': 'application/json' } }
@@ -51,15 +51,13 @@ const authLink = new ApolloLink((operation, forward) => {
         })
         const accessToken = result?.data?.refresh?.accessToken
         const refreshToken = result?.data?.refresh?.refreshToken
-
-        localStorage.setItem('accessToken', accessToken)
-        localStorage.setItem('refreshToken', refreshToken)
+        signIn({ accessToken, refreshToken })
         return toPromise(forward(operation))
       })
       .catch((error) => {
-        clearLocalStorage()
-        location.reload()
+        signOut()
         logger.error('[Error Refreshing Token]', error)
+        location.reload()
         return toPromise(forward(operation))
       })
   )

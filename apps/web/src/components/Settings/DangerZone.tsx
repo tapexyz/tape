@@ -2,6 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
+import { signOut } from '@lib/store/persist'
 import { utils } from 'ethers'
 import type { CreateBurnProfileBroadcastItemResult } from 'lens'
 import { useCreateBurnProfileTypedDataMutation } from 'lens'
@@ -10,7 +11,6 @@ import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
 import { LENSHUB_PROXY_ADDRESS } from 'utils/constants'
 import type { CustomErrorWithData } from 'utils/custom-types'
-import clearLocalStorage from 'utils/functions/clearLocalStorage'
 import { formatNumber } from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import omitKey from 'utils/functions/omitKey'
@@ -50,7 +50,7 @@ const DangerZone = () => {
     onSuccess: () => {
       toast.success('Channel deleted')
       setLoading(false)
-      clearLocalStorage()
+      signOut()
       location.href = '/'
     },
     onError

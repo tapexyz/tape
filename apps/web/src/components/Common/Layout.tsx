@@ -1,5 +1,5 @@
 import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
+import usePersistStore, { hydrateAuthTokens, signOut } from '@lib/store/persist'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { useUserProfilesQuery } from 'lens'
@@ -13,8 +13,6 @@ import { toast, Toaster } from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import { MIXPANEL_API_HOST, MIXPANEL_TOKEN, POLYGON_CHAIN_ID } from 'utils'
 import { AUTH_ROUTES } from 'utils/data/auth-routes'
-import clearLocalStorage from 'utils/functions/clearLocalStorage'
-import { getIsAuthTokensAvailable } from 'utils/functions/getIsAuthTokensAvailable'
 import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
 import { getToastOptions } from 'utils/functions/getToastOptions'
 import useIsMounted from 'utils/hooks/useIsMounted'
@@ -101,15 +99,16 @@ const Layout: FC<Props> = ({ children }) => {
     }
     const logout = () => {
       resetAuthState()
-      clearLocalStorage()
+      signOut()
       disconnect?.()
     }
     const ownerAddress = selectedChannel?.ownedBy
     const isWrongNetworkChain = chain?.id !== POLYGON_CHAIN_ID
     const isSwitchedAccount =
       ownerAddress !== undefined && ownerAddress !== address
+    const { accessToken } = hydrateAuthTokens()
     const shouldLogout =
-      !getIsAuthTokensAvailable() || isWrongNetworkChain || isSwitchedAccount
+      !accessToken || isWrongNetworkChain || isSwitchedAccount
 
     if (shouldLogout && selectedChannelId) {
       logout()
