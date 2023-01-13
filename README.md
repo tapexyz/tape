@@ -51,10 +51,10 @@ For a place to have open discussions on features, voice your ideas, or get help 
 
 ## 🚢 Deployments
 
-| Name            | Link                                |
-| --------------- | ----------------------------------- |
-| Mainnet         | https://lenstube.xyz                 |
-| Testnet         | https://testnet.lenstube.xyz         |
+| Name    | Link                         |
+| ------- | ---------------------------- |
+| Mainnet | https://lenstube.xyz         |
+| Testnet | https://testnet.lenstube.xyz |
 
 ## 🔭 What's inside?
 
@@ -62,22 +62,21 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 ### Apps
 
-| Name            | Description                          |
-| --------------- | ------------------------------------ |
-| `web`           | NextJs Lenstube website              |
-| `embed`         | NextJs application for video embeds  |
-| `api`           | NextJs serverless functions          |
-
+| Name    | Description                         |
+| ------- | ----------------------------------- |
+| `web`   | NextJs Lenstube website             |
+| `embed` | NextJs application for video embeds |
+| `api`   | NextJs serverless functions         |
 
 ### Packages
 
-| Name            | Description                       |
-| --------------- | --------------------------------- |
-| `web-ui`        | Web components                    |
-| `embed`         | Shared tsconfig                   |
-| `utils`         | Collection of utils and helpers   |
-| `lens`          | Everything about Lens Backend     |
- 
+| Name     | Description                     |
+| -------- | ------------------------------- |
+| `web-ui` | Web components                  |
+| `embed`  | Shared tsconfig                 |
+| `utils`  | Collection of utils and helpers |
+| `lens`   | Everything about Lens Backend   |
+
 ## Getting Started
 
 To get started with `lenstube` development, run the following commands:
