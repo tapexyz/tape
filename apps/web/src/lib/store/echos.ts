@@ -8,7 +8,7 @@ interface EchoState {
 
 export const useEchoStore = create<EchoState>((set) => ({
   selectedTrack: null,
-  setSelectedTrack: (selectedTrack) => set(() => ({ selectedTrack }))
+  setSelectedTrack: (selectedTrack) => set({ selectedTrack })
 }))
 
 export default useEchoStore

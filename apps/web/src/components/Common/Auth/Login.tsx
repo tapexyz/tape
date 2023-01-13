@@ -1,5 +1,5 @@
 import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
+import usePersistStore, { signIn, signOut } from '@lib/store/persist'
 import type { Profile } from 'lens'
 import {
   useAllProfilesLazyQuery,
@@ -10,7 +10,6 @@ import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { ERROR_MESSAGE, POLYGON_CHAIN_ID } from 'utils'
-import clearLocalStorage from 'utils/functions/clearLocalStorage'
 import logger from 'utils/logger'
 import { useAccount, useNetwork, useSignMessage } from 'wagmi'
 
@@ -36,7 +35,7 @@ const Login = () => {
 
   const onError = () => {
     setLoading(false)
-    clearLocalStorage()
+    signOut()
     setSelectedChannel(null)
     setSelectedChannelId(null)
   }
@@ -83,8 +82,7 @@ const Login = () => {
       })
       const accessToken = result.data?.authenticate.accessToken
       const refreshToken = result.data?.authenticate.refreshToken
-      localStorage.setItem('accessToken', accessToken)
-      localStorage.setItem('refreshToken', refreshToken)
+      signIn({ accessToken, refreshToken })
       const { data: channelsData } = await getChannels({
         variables: {
           request: { ownedBy: [address] }
@@ -107,9 +105,9 @@ const Login = () => {
       }
       setLoading(false)
     } catch (error) {
+      signOut()
       setLoading(false)
       toast.error('Sign in failed')
-      clearLocalStorage()
       logger.error('[Error Sign In]', error)
     }
   }, [
