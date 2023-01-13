@@ -1,6 +1,8 @@
+[ ] I read the [contributing docs](CONTRIBUTING.md) (if this is your first contribution)
+
 ## Description
 
-Closes #(issue)
+Closes #(issue-number)
 
 ## Type of change
 
