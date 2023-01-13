@@ -1,5 +1,5 @@
 import type { QueuedCommentType, QueuedVideoType } from 'utils'
-import create from 'zustand'
+import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 interface AppPerisistState {
