@@ -2,7 +2,7 @@ import { Button } from '@components/UIElements/Button'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
+import usePersistStore, { signOut } from '@lib/store/persist'
 import type { Profile } from 'lens'
 import { useAllProfilesLazyQuery } from 'lens'
 import Link from 'next/link'
@@ -11,7 +11,6 @@ import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import { ADMIN_IDS, Analytics, IS_MAINNET, TRACK } from 'utils'
-import clearLocalStorage from 'utils/functions/clearLocalStorage'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import { useAccount, useDisconnect } from 'wagmi'
 
@@ -56,8 +55,8 @@ const UserMenu = () => {
   const logout = () => {
     setSelectedChannel(null)
     setSelectedChannelId(null)
-    clearLocalStorage()
     disconnect?.()
+    signOut()
   }
 
   const onSelectChannel = (channel: Profile) => {

@@ -1,5 +1,5 @@
 import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
+import usePersistStore, { signIn, signOut } from '@lib/store/persist'
 import type { Profile } from 'lens'
 import {
   useAllProfilesLazyQuery,
@@ -7,23 +7,27 @@ import {
   useChallengeLazyQuery
 } from 'lens'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { ERROR_MESSAGE } from 'utils'
-import clearLocalStorage from 'utils/functions/clearLocalStorage'
+import { ERROR_MESSAGE, POLYGON_CHAIN_ID } from 'utils'
 import logger from 'utils/logger'
-import { useAccount, useSignMessage } from 'wagmi'
+import { useAccount, useNetwork, useSignMessage } from 'wagmi'
 
 import ConnectWalletButton from './ConnectWalletButton'
 
 const Login = () => {
   const router = useRouter()
-  const { address } = useAccount()
+
+  const { chain } = useNetwork()
+  const { address, connector, isConnected } = useAccount()
   const [loading, setLoading] = useState(false)
+
   const setShowCreateChannel = useAppStore(
     (state) => state.setShowCreateChannel
   )
   const setChannels = useAppStore((state) => state.setChannels)
+  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const setSelectedChannelId = usePersistStore(
     (state) => state.setSelectedChannelId
@@ -31,7 +35,7 @@ const Login = () => {
 
   const onError = () => {
     setLoading(false)
-    clearLocalStorage()
+    signOut()
     setSelectedChannel(null)
     setSelectedChannelId(null)
   }
@@ -51,19 +55,19 @@ const Login = () => {
 
   useEffect(() => {
     if (
-      errorAuthenticate?.message ||
-      errorChallenge?.message ||
+      errorAuthenticate?.message ??
+      errorChallenge?.message ??
       errorProfiles?.message
     )
       toast.error(
-        errorAuthenticate?.message ||
-          errorChallenge?.message ||
-          errorProfiles?.message ||
+        errorAuthenticate?.message ??
+          errorChallenge?.message ??
+          errorProfiles?.message ??
           ERROR_MESSAGE
       )
   }, [errorAuthenticate, errorChallenge, errorProfiles])
 
-  const handleSign = async () => {
+  const handleSign = useCallback(async () => {
     try {
       setLoading(true)
       const challenge = await loadChallenge({
@@ -78,8 +82,7 @@ const Login = () => {
       })
       const accessToken = result.data?.authenticate.accessToken
       const refreshToken = result.data?.authenticate.refreshToken
-      localStorage.setItem('accessToken', accessToken)
-      localStorage.setItem('refreshToken', refreshToken)
+      signIn({ accessToken, refreshToken })
       const { data: channelsData } = await getChannels({
         variables: {
           request: { ownedBy: [address] }
@@ -102,12 +105,37 @@ const Login = () => {
       }
       setLoading(false)
     } catch (error) {
+      signOut()
       setLoading(false)
       toast.error('Sign in failed')
-      clearLocalStorage()
       logger.error('[Error Sign In]', error)
     }
-  }
+  }, [
+    address,
+    authenticate,
+    getChannels,
+    loadChallenge,
+    router,
+    setChannels,
+    setSelectedChannel,
+    setSelectedChannelId,
+    setShowCreateChannel,
+    signMessageAsync
+  ])
+
+  useEffect(() => {
+    const isReadyToSign =
+      connector?.id &&
+      isConnected &&
+      chain?.id === POLYGON_CHAIN_ID &&
+      !selectedChannel &&
+      !selectedChannelId
+
+    if (isReadyToSign) {
+      handleSign()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected])
 
   return (
     <ConnectWalletButton handleSign={() => handleSign()} signing={loading} />

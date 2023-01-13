@@ -18,6 +18,9 @@
     <a href="https://twitter.com/lenstubexyz">
         <img src="https://img.shields.io/twitter/follow/lenstubexyz?label=lenstubexyz&style=flat&logo=twitter&color=1DA1F2" alt="Twitter">
     </a>
+    <a href="https://github.com/lenstube-xyz/lenstube/blob/main/LICENSE">
+        <img src="https://badgen.net/github/license/lenstube-xyz/lenstube" alt="License">
+    </a>
     <a href="https://deepsource.io/gh/lenstube-xyz/lenstube">
         <img src="https://deepsource.io/gh/lenstube-xyz/lenstube.svg/?label=active+issues&show_trend=true" alt="Deepsource">
     </a>
@@ -36,56 +39,69 @@
 </div>
 <br>
 
-## About
+## 📽️ About
 
-Lenstube is a decentralized video-sharing social media platform, built using Lens Protocol 🌿
+**Lenstube** is a decentralized video-sharing social media platform, built using Lens Protocol 🌿
 
 [Radicle Repo](https://app.radicle.xyz/seeds/pine.radicle.garden/rad:git:hnrkpibaij783apnhxd9bnuw77i15ncizudso)
 
-## Community
+## 💪 Community
 
 For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://lenstube.xyz/discord).
 
-## What's inside?
+## 🚢 Deployments
+
+| Name    | Link                         |
+| ------- | ---------------------------- |
+| Mainnet | https://lenstube.xyz         |
+| Testnet | https://testnet.lenstube.xyz |
+
+## 🔭 What's inside?
 
 This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
 
-### Apps and Packages
+### Apps
 
-- `web`: NextJs Lenstube website
-- `embed`: NextJs application for video embeds
-- `api`: NextJs serverless functions for Lenstube
+| Name    | Description                         |
+| ------- | ----------------------------------- |
+| `web`   | NextJs Lenstube website             |
+| `embed` | NextJs application for video embeds |
+| `api`   | NextJs serverless functions         |
 
-- `web-ui`: Web components
-- `tsconfig`: Shared tsconfig
-- `utils`: Collection of utils and helpers
-- `lens`: Everything about Lens Backend
+### Packages
+
+| Name     | Description                     |
+| -------- | ------------------------------- |
+| `web-ui` | Web components                  |
+| `embed`  | Shared tsconfig                 |
+| `utils`  | Collection of utils and helpers |
+| `lens`   | Everything about Lens Backend   |
 
 ## Getting Started
 
 To get started with `lenstube` development, run the following commands:
 
-```
-cd apps/web && cp .env.example .env
-cd apps/api && cp .env.example .env
-cd apps/embed && cp .env.example .env
+```bash
+cd apps/web && cp .env.example .env.local
+cd apps/api && cp .env.example .env.local
+cd apps/embed && cp .env.example .env.local
 ```
 
 Install all dependencies from repository root,
 
-```
+```bash
 yarn install
 ```
 
 Start the application,
 
-```
+```bash
 yarn dev
 ```
 
 and visit http://localhost:4783
 
-## Contributors
+## 🤝 Contributors
 
 We love contributors! Feel free to contribute to this project but please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or PR so you understand the branching strategy and local development environment.
 
@@ -93,6 +109,6 @@ We love contributors! Feel free to contribute to this project but please read th
   <img src="https://contrib.rocks/image?repo=lenstube-xyz/lenstube" />
 </a>
 
-## License
+## 📜 License
 
-Lenstube is open-sourced software licensed under the [GNU GENERAL PUBLIC LICENSE](LICENSE).
+Lenstube is open-sourced software licensed under the [GPLv3](LICENSE).

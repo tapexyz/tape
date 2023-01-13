@@ -10,7 +10,7 @@ import {
 } from 'utils'
 import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
 import logger from 'utils/logger'
-import create from 'zustand'
+import { create } from 'zustand'
 
 export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {
   balance: '0',
@@ -60,8 +60,8 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
 }
 
 interface AppState {
-  channels: Profile[] | []
-  recommendedChannels: Profile[] | []
+  channels: Profile[]
+  recommendedChannels: Profile[]
   showCreateChannel: boolean
   hasNewNotification: boolean
   userSigNonce: number
@@ -83,6 +83,7 @@ interface AppState {
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
 }
 
+// TODO: Split into multiple stores
 export const useAppStore = create<AppState>((set) => ({
   channels: [],
   recommendedChannels: [],
@@ -94,18 +95,16 @@ export const useAppStore = create<AppState>((set) => ({
   videoWatchTime: 0,
   activeTagFilter: 'all',
   uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
-  setActiveTagFilter: (activeTagFilter) => set(() => ({ activeTagFilter })),
-  setVideoWatchTime: (videoWatchTime) => set(() => ({ videoWatchTime })),
-  setSelectedChannel: (channel) => set(() => ({ selectedChannel: channel })),
+  setActiveTagFilter: (activeTagFilter) => set({ activeTagFilter }),
+  setVideoWatchTime: (videoWatchTime) => set({ videoWatchTime }),
+  setSelectedChannel: (channel) => set({ selectedChannel: channel }),
   setBundlrData: (bundlrData) =>
     set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrData } })),
-  setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
-  setHasNewNotification: (b) => set(() => ({ hasNewNotification: b })),
-  setChannels: (channels) => set(() => ({ channels })),
-  setRecommendedChannels: (recommendedChannels) =>
-    set(() => ({ recommendedChannels })),
-  setShowCreateChannel: (showCreateChannel) =>
-    set(() => ({ showCreateChannel })),
+  setUserSigNonce: (userSigNonce) => set({ userSigNonce }),
+  setHasNewNotification: (b) => set({ hasNewNotification: b }),
+  setChannels: (channels) => set({ channels }),
+  setRecommendedChannels: (recommendedChannels) => set({ recommendedChannels }),
+  setShowCreateChannel: (showCreateChannel) => set({ showCreateChannel }),
   getBundlrInstance: async (signer) => {
     try {
       const bundlr = new WebBundlr(
