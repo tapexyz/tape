@@ -1,17 +1,17 @@
+import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { BiPause, BiPlay } from 'react-icons/bi'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { GiSpeaker, GiSpeakerOff } from 'react-icons/gi'
-import type { LenstubePublication } from 'utils/custom-types'
 import { getTimeFromSeconds } from 'utils/functions/formatTime'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import type WaveSurfer from 'wavesurfer.js'
 
 type Props = {
-  selectedTrack: LenstubePublication
+  selectedTrack: Publication
 }
 
 const AudioPlayer: FC<Props> = ({ selectedTrack }) => {

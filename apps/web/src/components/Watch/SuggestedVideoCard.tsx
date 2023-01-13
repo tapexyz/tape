@@ -2,21 +2,22 @@ import IsVerified from '@components/Common/IsVerified'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import type { Attribute } from 'lens'
+import type { Attribute, Publication } from 'lens'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React, { useState } from 'react'
-import type { LenstubePublication } from 'utils'
 import { Analytics, STATIC_ASSETS, TRACK } from 'utils'
-import { getTimeFromSeconds } from 'utils/functions/formatTime'
+import { getRelativeTime, getTimeFromSeconds } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
-dayjs.extend(relativeTime)
 
-const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
+type Props = {
+  video: Publication
+}
+
+const SuggestedVideoCard: FC<Props> = ({ video }) => {
   const [showReport, setShowReport] = useState(false)
   const [showShare, setShowShare] = useState(false)
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
@@ -93,7 +94,7 @@ const SuggestedVideoCard = ({ video }: { video: LenstubePublication }) => {
                 {video.stats?.totalUpvotes} likes
               </span>
               <span className="middot" />
-              <span>{dayjs(new Date(video.createdAt)).fromNow()}</span>
+              <span>{getRelativeTime(video.createdAt)}</span>
             </div>
           </div>
         </div>

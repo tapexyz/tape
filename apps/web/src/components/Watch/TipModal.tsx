@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { BigNumber, utils } from 'ethers'
-import type { CreatePublicCommentRequest } from 'lens'
+import type { CreatePublicCommentRequest, Publication } from 'lens'
 import {
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
@@ -20,7 +20,7 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData, LenstubePublication } from 'utils'
+import type { CustomErrorWithData } from 'utils'
 import {
   Analytics,
   LENSHUB_PROXY_ADDRESS,
@@ -43,7 +43,7 @@ import { z } from 'zod'
 type Props = {
   show: boolean
   setShowTip: React.Dispatch<boolean>
-  video: LenstubePublication
+  video: Publication
 }
 
 const formSchema = z.object({

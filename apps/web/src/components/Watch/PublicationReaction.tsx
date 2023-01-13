@@ -4,6 +4,7 @@ import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
+import type { Publication } from 'lens'
 import {
   ReactionTypes,
   useAddReactionMutation,
@@ -12,12 +13,11 @@ import {
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { LenstubePublication } from 'utils'
 import { Analytics, SIGN_IN_REQUIRED_MESSAGE, TRACK } from 'utils'
 import { formatNumber } from 'utils/functions/formatNumber'
 
 type Props = {
-  publication: LenstubePublication
+  publication: Publication
   iconSize?: 'sm' | 'lg'
   textSize?: 'sm' | 'lg'
   isVertical?: boolean

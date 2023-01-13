@@ -1,5 +1,5 @@
+import type { Publication } from 'lens'
 import { PublicationDetailsDocument } from 'lens'
-import type { LenstubePublication } from 'utils'
 import {
   LENSTUBE_APP_NAME,
   LENSTUBE_EMBED_URL,
@@ -20,7 +20,7 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
       variables: { request: { publicationId } }
     })
 
-    const video: LenstubePublication = data?.publication
+    const video: Publication = data?.publication
     const title = truncate(video?.metadata?.name as string, 100).replaceAll(
       '"',
       "'"

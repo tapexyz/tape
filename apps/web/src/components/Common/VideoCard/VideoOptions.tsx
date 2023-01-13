@@ -3,10 +3,11 @@ import { Menu } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
+import type { Publication } from 'lens'
 import { useHidePublicationMutation } from 'lens'
+import type { FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
-import type { LenstubePublication } from 'utils'
 import { Analytics, SIGN_IN_REQUIRED_MESSAGE, TRACK } from 'utils'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 
@@ -16,16 +17,18 @@ import ShareOutline from '../Icons/ShareOutline'
 import ThreeDotsOutline from '../Icons/ThreeDotsOutline'
 import TrashOutline from '../Icons/TrashOutline'
 
-const VideoOptions = ({
+type Props = {
+  video: Publication
+  setShowShare: React.Dispatch<boolean>
+  setShowReport: React.Dispatch<boolean>
+  showOnHover?: boolean
+}
+
+const VideoOptions: FC<Props> = ({
   video,
   setShowShare,
   setShowReport,
   showOnHover = true
-}: {
-  video: LenstubePublication
-  setShowShare: React.Dispatch<boolean>
-  setShowReport: React.Dispatch<boolean>
-  showOnHover?: boolean
 }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)

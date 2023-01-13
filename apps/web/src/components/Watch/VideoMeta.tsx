@@ -3,15 +3,14 @@ import CollectOutline from '@components/Common/Icons/CollectOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import MirroredList from '@components/Common/MirroredList'
 import Modal from '@components/UIElements/Modal'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
+import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import type { LenstubePublication } from 'utils'
+import { getRelativeTime } from 'utils/functions/formatTime'
 
-dayjs.extend(relativeTime)
-
-type Props = { video: LenstubePublication }
+type Props = {
+  video: Publication
+}
 
 const VideoMeta: FC<Props> = ({ video }) => {
   const [showCollectsModal, setShowCollectsModal] = useState(false)
@@ -64,7 +63,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
       </div>
       <span className="px-1 middot" />
       <span title={video.createdAt}>
-        uploaded {dayjs(new Date(video.createdAt))?.fromNow()}
+        uploaded {getRelativeTime(video.createdAt)}
       </span>
     </div>
   )

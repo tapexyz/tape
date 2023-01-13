@@ -1,14 +1,11 @@
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import IsVerified from '@components/Common/IsVerified'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import type { Attribute } from 'lens'
+import type { Attribute, Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'utils'
 import { Analytics, STATIC_ASSETS, TRACK } from 'utils'
-import { getTimeFromSeconds } from 'utils/functions/formatTime'
+import { getRelativeTime, getTimeFromSeconds } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import getLensHandle from 'utils/functions/getLensHandle'
@@ -16,14 +13,18 @@ import getProfilePicture from 'utils/functions/getProfilePicture'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 
-dayjs.extend(relativeTime)
-
 type Props = {
-  video: LenstubePublication
+  video: Publication
 }
 
 const MirroredVideoCard: FC<Props> = ({ video }) => {
-  const mirrorOf = video.mirrorOf as LenstubePublication
+  const isMirror = video.__typename === 'Mirror'
+
+  if (!isMirror) {
+    return null
+  }
+
+  const mirrorOf = video.mirrorOf as Publication
   const isSensitiveContent = getIsSensitiveContent(mirrorOf.metadata, video.id)
   const videoDuration = getValueFromTraitType(
     mirrorOf.metadata?.attributes as Attribute[],
@@ -106,7 +107,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
           <div className="pl-8">
             <div className="flex items-center text-xs leading-3 opacity-70">
               <span title={video.createdAt}>
-                Mirrored {dayjs(new Date(video.createdAt)).fromNow()}
+                Mirrored {getRelativeTime(video.createdAt)}
               </span>
             </div>
           </div>

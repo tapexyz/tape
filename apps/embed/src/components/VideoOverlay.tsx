@@ -1,12 +1,12 @@
+import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'utils'
 import { LENSTUBE_WEBSITE_URL, STATIC_ASSETS } from 'utils/constants'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
 type Props = {
-  video: LenstubePublication
+  video: Publication
 }
 
 const VideoOverlay: FC<Props> = ({ video }) => {

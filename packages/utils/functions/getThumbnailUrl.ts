@@ -1,8 +1,9 @@
+import type { Publication } from 'lens'
+
 import { STATIC_ASSETS } from '../constants'
-import type { LenstubePublication } from '../custom-types'
 import sanitizeIpfsUrl from './sanitizeIpfsUrl'
 
-const getThumbnailUrl = (video: LenstubePublication): string => {
+const getThumbnailUrl = (video: Publication): string => {
   const url =
     video.metadata?.cover?.original.url ||
     video.metadata?.image ||

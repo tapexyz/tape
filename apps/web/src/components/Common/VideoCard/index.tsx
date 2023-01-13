@@ -1,11 +1,10 @@
 import clsx from 'clsx'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
+import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import type { LenstubePublication } from 'utils'
 import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
+import { getRelativeTime } from 'utils/functions/formatTime'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
@@ -17,10 +16,8 @@ import ShareModal from './ShareModal'
 import ThumbnailOverlays from './ThumbnailOverlays'
 import VideoOptions from './VideoOptions'
 
-dayjs.extend(relativeTime)
-
 type Props = {
-  video: LenstubePublication
+  video: Publication
 }
 
 const VideoCard: FC<Props> = ({ video }) => {
@@ -111,7 +108,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                   <span className="middot" />
                   {video.createdAt && (
                     <span className="whitespace-nowrap">
-                      {dayjs(new Date(video.createdAt)).fromNow()}
+                      {getRelativeTime(video.createdAt)}
                     </span>
                   )}
                 </div>

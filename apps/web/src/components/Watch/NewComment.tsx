@@ -7,7 +7,8 @@ import usePersistStore from '@lib/store/persist'
 import { utils } from 'ethers'
 import type {
   CreateCommentBroadcastItemResult,
-  CreatePublicCommentRequest
+  CreatePublicCommentRequest,
+  Publication
 } from 'lens'
 import {
   PublicationMainFocus,
@@ -20,7 +21,7 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData, LenstubePublication } from 'utils'
+import type { CustomErrorWithData } from 'utils'
 import {
   Analytics,
   ERROR_MESSAGE,
@@ -42,8 +43,9 @@ import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
 
 type Props = {
-  video: LenstubePublication
+  video: Publication
 }
+
 const formSchema = z.object({
   comment: z
     .string({ required_error: 'Enter valid comment' })

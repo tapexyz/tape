@@ -1,14 +1,14 @@
 import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
+import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'utils/custom-types'
 import { formatNumber } from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
 type Props = {
-  video: LenstubePublication
+  video: Publication
 }
 
 const BottomOverlay: FC<Props> = ({ video }) => {

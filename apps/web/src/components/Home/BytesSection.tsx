@@ -3,6 +3,7 @@ import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import BytesShimmer from '@components/Shimmers/BytesShimmer'
 import useAppStore from '@lib/store'
+import type { Publication } from 'lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
@@ -11,7 +12,6 @@ import {
 } from 'lens'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
-import type { LenstubePublication } from 'utils'
 import {
   Analytics,
   LENS_CUSTOM_FILTERS,
@@ -49,7 +49,7 @@ const BytesSection = () => {
     variables: { request }
   })
 
-  const bytes = data?.explorePublications?.items as LenstubePublication[]
+  const bytes = data?.explorePublications?.items as Publication[]
 
   const sectionOffsetWidth = sectionRef.current?.offsetWidth ?? 1000
   const scrollOffset = sectionOffsetWidth / 1.2

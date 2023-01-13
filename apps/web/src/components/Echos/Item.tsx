@@ -1,22 +1,22 @@
 import useEchoStore from '@lib/store/echos'
 import clsx from 'clsx'
+import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import { BsPlay } from 'react-icons/bs'
 import { FcDvdLogo } from 'react-icons/fc'
-import type { LenstubePublication } from 'utils'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 
 type Props = {
-  publication: LenstubePublication
+  publication: Publication
 }
 
 const Item: FC<Props> = ({ publication }) => {
   const setSelectedTrack = useEchoStore((state) => state.setSelectedTrack)
 
-  const onPlayPause = (publication: LenstubePublication) => {
+  const onPlayPause = (publication: Publication) => {
     setSelectedTrack(publication)
   }
 
