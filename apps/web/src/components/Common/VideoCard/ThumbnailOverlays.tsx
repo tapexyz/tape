@@ -1,9 +1,9 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import type { Attribute } from 'lens'
+import type { Attribute, Publication } from 'lens'
 import { useRouter } from 'next/router'
+import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'utils'
 import { STATIC_ASSETS } from 'utils'
 import { getTimeFromSeconds } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
@@ -13,7 +13,11 @@ import {
   getPublicationMediaUrl
 } from 'utils/functions/getPublicationMediaUrl'
 
-const ThumbnailOverlays = ({ video }: { video: LenstubePublication }) => {
+type Props = {
+  video: Publication
+}
+
+const ThumbnailOverlays: FC<Props> = ({ video }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const { pathname } = useRouter()

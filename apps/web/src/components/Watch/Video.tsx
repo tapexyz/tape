@@ -1,10 +1,10 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
 import useAppStore from '@lib/store'
+import type { Publication } from 'lens'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'utils'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
@@ -20,7 +20,7 @@ const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
 })
 
 type Props = {
-  video: LenstubePublication
+  video: Publication
 }
 
 const Video: FC<Props> = ({ video }) => {

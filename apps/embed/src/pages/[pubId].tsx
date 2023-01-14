@@ -1,7 +1,7 @@
 import Video from '@components/Video'
+import type { Publication } from 'lens'
 import { PublicationDetailsDocument } from 'lens'
 import type { GetServerSideProps } from 'next'
-import type { LenstubePublication } from 'utils'
 import getApolloClient from 'utils/functions/getApolloClient'
 
 export default Video
@@ -9,7 +9,7 @@ export default Video
 const apolloClient = getApolloClient()
 
 interface Props {
-  video: LenstubePublication
+  video: Publication
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (

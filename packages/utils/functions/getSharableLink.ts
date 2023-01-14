@@ -1,19 +1,20 @@
+import type { Publication } from 'lens'
+
 import {
   LENSTER_WEBSITE_URL,
   LENSTUBE_APP_NAME,
   LENSTUBE_TWITTER_HANDLE,
   LENSTUBE_WEBSITE_URL
 } from '../constants'
-import type { LenstubePublication } from '../custom-types'
 import getLensHandle from './getLensHandle'
 
-const getViewUrl = (video: LenstubePublication) => {
+const getViewUrl = (video: Publication) => {
   return `${LENSTUBE_WEBSITE_URL}/watch/${video.id}`
 }
 
 type Link = 'lenster' | 'twitter' | 'reddit' | 'linkedin'
 
-export const getSharableLink = (link: Link, video: LenstubePublication) => {
+export const getSharableLink = (link: Link, video: Publication) => {
   if (link === 'lenster') {
     return `${LENSTER_WEBSITE_URL}/?url=${getViewUrl(video)}&text=${
       video.metadata?.name as string

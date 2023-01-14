@@ -3,6 +3,7 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import type { Publication } from 'lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
@@ -13,7 +14,6 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
-import type { LenstubePublication } from 'utils'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -45,7 +45,7 @@ const ExploreCategory = () => {
     skip: !query.category
   })
 
-  const videos = data?.explorePublications?.items as LenstubePublication[]
+  const videos = data?.explorePublications?.items as Publication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({

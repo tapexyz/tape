@@ -1,4 +1,4 @@
-# Contributing to Lenstube
+# 🤝 Contributing to Lenstube
 
 We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
 
@@ -10,7 +10,7 @@ We love your input! We want to make contributing to this project as easy and tra
 Pull requests are the best way to propose changes to the codebase. We actively welcome your pull requests:
 
 1. Fork the repo and create your branch from `main`.
-2. If you've added code that should be tested.
+2. If you've added code that should be well tested.
 3. Make sure your code lints.
 4. Issue that pull request!
 5. The Pull Request should be raised against main branch.

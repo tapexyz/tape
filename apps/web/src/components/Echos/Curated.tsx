@@ -3,6 +3,7 @@ import EchosShimmer from '@components/Shimmers/EchosShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
+import type { Publication } from 'lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
@@ -11,7 +12,6 @@ import {
 } from 'lens'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import type { LenstubePublication } from 'utils'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from 'utils'
 
 import Item from './Item'
@@ -37,7 +37,7 @@ const Curated = () => {
   })
 
   const pageInfo = data?.explorePublications?.pageInfo
-  const videos = data?.explorePublications?.items as LenstubePublication[]
+  const videos = data?.explorePublications?.items as Publication[]
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
@@ -64,7 +64,7 @@ const Curated = () => {
       {!error && !loading && videos && (
         <>
           <div className="grid place-items-center mx-auto grid-cols-2 md:gap-3 gap-2 mt-4 desktop:grid-cols-6 ultrawide:grid-cols-7 md:grid-cols-3 laptop:grid-cols-4">
-            {videos?.map((publication: LenstubePublication) => (
+            {videos?.map((publication: Publication) => (
               <Item publication={publication} key={publication.id} />
             ))}
           </div>

@@ -130,7 +130,6 @@ export const OPENSEA_MARKETPLACE_URL = IS_MAINNET
 export const RARIBLE_MARKETPLACE_URL = IS_MAINNET
   ? 'https://rarible.com'
   : 'https://testnet.rarible.com'
-export const LENSPORT_MARKETPLACE_URL = 'https://lensport.io'
 
 // misc
 export const GIT_DEPLOYED_COMMIT_SHA =

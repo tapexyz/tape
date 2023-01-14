@@ -1,11 +1,11 @@
 import ReportPublication from '@components/ReportPublication'
 import Modal from '@components/UIElements/Modal'
+import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React from 'react'
-import type { LenstubePublication } from 'utils'
 
 type Props = {
-  video: LenstubePublication
+  video: Publication
   show: boolean
   setShowReport: React.Dispatch<boolean>
 }
