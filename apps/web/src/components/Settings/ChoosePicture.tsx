@@ -12,6 +12,8 @@ import imageCdn from 'utils/functions/imageCdn'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import { mainnet } from 'wagmi/chains'
 
+import CropImagePreview from './CropImagePreview'
+
 type Props = {
   isModalOpen: boolean
   onClose?: () => void
@@ -22,6 +24,9 @@ type Props = {
     tokenId: string,
     chainId: number
   ) => void
+  onPfpUpload: (file: File) => void
+  getPreviewImageSrc: () => string
+  showCropImagePreview: boolean
 }
 
 const ChoosePicture: FC<Props> = ({
@@ -29,7 +34,10 @@ const ChoosePicture: FC<Props> = ({
   onClose,
   onChooseImage,
   channel,
-  setNFTAvatar
+  setNFTAvatar,
+  onPfpUpload,
+  getPreviewImageSrc,
+  showCropImagePreview
 }) => {
   const request = {
     limit: 32,
@@ -64,10 +72,11 @@ const ChoosePicture: FC<Props> = ({
     <Modal
       onClose={() => onClose?.()}
       show={isModalOpen}
-      panelClassName="max-w-lg h-auto"
+      panelClassName="max-w-lg h-auto no-scrollbar"
       autoClose={false}
+      title={showCropImagePreview && 'Crop picture'}
     >
-      <div className="overflow-y-auto no-scrollbar">
+      {!showCropImagePreview ? (
         <Tab.Group>
           <Tab.List className="flex justify-center static top-0 w-full">
             <Tab
@@ -96,28 +105,26 @@ const ChoosePicture: FC<Props> = ({
             </Tab>
           </Tab.List>
           <Tab.Panels>
-            <Tab.Panel className="no-scrollbar h-96 focus:outline-none flex flex-col justify-center py-10">
-              <div className="flex justify-center">
-                <label
-                  htmlFor="choosePfp"
-                  className="border border-indigo-500 bg-indigo-500 px-8 py-4 rounded-full text-white cursor-pointer"
-                >
-                  Choose image
-                </label>
-                <input
-                  id="choosePfp"
-                  type="file"
-                  accept=".png, .jpg, .jpeg, .svg, .gif"
-                  className="hidden w-full"
-                  onChange={onChooseImage}
-                />
-              </div>
+            <Tab.Panel className="h-[60vh] no-scrollbar focus:outline-none flex flex-col justify-center items-center py-10 no-scrollbar">
+              <label
+                htmlFor="choosePfp"
+                className="border border-indigo-500 bg-indigo-500 px-8 py-4 rounded-full text-white cursor-pointer"
+              >
+                Choose image
+              </label>
+              <input
+                id="choosePfp"
+                type="file"
+                accept=".png, .jpg, .jpeg, .svg, .gif"
+                className="hidden w-full"
+                onChange={onChooseImage}
+              />
             </Tab.Panel>
-            <Tab.Panel className="no-scrollbar h-96 overflow-y-auto focus:outline-none py-5">
+            <Tab.Panel className="h-[60vh] no-scrollbar overflow-y-auto focus:outline-none py-5">
               {loading && <Loader />}
               {!error && !loading && (
                 <>
-                  <div className="grid grid-cols-3 lg:grid-cols-4 md:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-3 lg:grid-cols-4 md:grid-cols-4 gap-4">
                     {collectedNFTs.map((nft: Nft) => {
                       return (
                         <img
@@ -152,7 +159,12 @@ const ChoosePicture: FC<Props> = ({
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
-      </div>
+      ) : (
+        <CropImagePreview
+          getPreviewImageSrc={getPreviewImageSrc}
+          onPfpUpload={onPfpUpload}
+        />
+      )}
     </Modal>
   )
 }

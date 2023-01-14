@@ -27,7 +27,6 @@ import uploadToIPFS from 'utils/functions/uploadToIPFS'
 import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi'
 
 import ChoosePicture from './ChoosePicture'
-import CropImageModal from './CropImageModal'
 
 type Props = {
   channel: Profile
@@ -41,7 +40,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
   const [showProfileModal, setProfileModal] = useState(false)
-  const [showCropImageModal, setCropImageModal] = useState(false)
+  const [showCropImagePreview, setShowCropImagePreview] = useState(false)
   const [imagePreviewSrc, setImagePreviewSrc] = useState<File>()
 
   const onError = (error: CustomErrorWithData) => {
@@ -140,9 +139,8 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
 
   const onChooseImage = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      setProfileModal(false)
       setImagePreviewSrc(e.target.files[0])
-      setCropImageModal(true)
+      setShowCropImagePreview(true)
     }
   }
 
@@ -156,7 +154,8 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const onPfpUpload = async (file: File) => {
     try {
       setLoading(true)
-      setCropImageModal(false)
+      setProfileModal(false)
+      setShowCropImagePreview(false)
       const result: IPFSUploadResult = await uploadToIPFS(file)
       const request = {
         profileId: selectedChannel?.id,
@@ -216,6 +215,11 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     } catch {}
   }
 
+  const closeChoosePictureModal = () => {
+    setProfileModal(false)
+    setShowCropImagePreview(false)
+  }
+
   return (
     <div className="relative flex-none overflow-hidden rounded-full group">
       <img
@@ -244,17 +248,13 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
 
       <ChoosePicture
         isModalOpen={showProfileModal}
-        onClose={() => setProfileModal(false)}
+        onClose={() => closeChoosePictureModal()}
         onChooseImage={onChooseImage}
         channel={channel}
         setNFTAvatar={setNFTAvatar}
-      />
-
-      <CropImageModal
-        isModalOpen={showCropImageModal}
-        onClose={() => setCropImageModal(false)}
         getPreviewImageSrc={getPreviewImageSrc}
         onPfpUpload={onPfpUpload}
+        showCropImagePreview={showCropImagePreview}
       />
     </div>
   )

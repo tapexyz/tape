@@ -1,7 +1,6 @@
 import 'react-image-crop/dist/ReactCrop.css'
 
 import { Button } from '@components/UIElements/Button'
-import Modal from '@components/UIElements/Modal'
 import type { FC } from 'react'
 import React, { useRef, useState } from 'react'
 import type { Crop } from 'react-image-crop'
@@ -9,18 +8,11 @@ import ReactCrop from 'react-image-crop'
 import logger from 'utils/logger'
 
 type Props = {
-  isModalOpen: boolean
-  onClose?: () => void
   onPfpUpload: (file: File) => void
   getPreviewImageSrc: () => string
 }
 
-const CropImageModal: FC<Props> = ({
-  isModalOpen,
-  onClose,
-  getPreviewImageSrc,
-  onPfpUpload
-}) => {
+const CropImagePreview: FC<Props> = ({ getPreviewImageSrc, onPfpUpload }) => {
   const [crop, setCrop] = useState<Crop>()
   const imgRef = useRef<HTMLImageElement>(null)
 
@@ -58,36 +50,24 @@ const CropImageModal: FC<Props> = ({
   }
 
   return (
-    <Modal
-      onClose={() => onClose?.()}
-      show={isModalOpen}
-      panelClassName="max-w-[80vh] h-auto"
-      autoClose={false}
-      title="Crop picture"
-    >
-      <div className="overflow-y-auto no-scrollbar text-center mt-2">
-        <ReactCrop
-          crop={crop}
-          onChange={(c) => setCrop(c)}
-          aspect={1}
-        >
-          <img
-            ref={imgRef}
-            src={getPreviewImageSrc()}
-            alt="profile image"
-            className="h-80 object-fit"
-          />
-        </ReactCrop>
-        <Button
-          className="absolute bottom-0 right-0 flex mt-4 mr-2 mb-2 ml-auto"
-          color="primary"
-          onClick={getCroppedImg}
-        >
-          Crop & Save
-        </Button>
-      </div>
-    </Modal>
+    <div className="overflow-y-auto no-scrollbar text-center mt-2">
+      <ReactCrop crop={crop} onChange={(c) => setCrop(c)} aspect={1}>
+        <img
+          ref={imgRef}
+          src={getPreviewImageSrc()}
+          alt="profile image"
+          className="h-[50vh] object-fit"
+        />
+      </ReactCrop>
+      <Button
+        className="absolute bottom-0 right-0 flex mt-2 mr-2 mb-2 ml-auto"
+        color="primary"
+        onClick={getCroppedImg}
+      >
+        Crop & Save
+      </Button>
+    </div>
   )
 }
 
-export default CropImageModal
+export default CropImagePreview
