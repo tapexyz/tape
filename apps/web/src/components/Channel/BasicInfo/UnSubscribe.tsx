@@ -93,10 +93,10 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
         if (!RELAYER_ENABLED) {
           return await burnWithSig(signature, typedData)
         }
-        const { data: broadcastData } = await broadcast({
+        const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (broadcastData?.broadcast?.__typename === 'RelayError')
+        if (data?.broadcast?.__typename === 'RelayError')
           await burnWithSig(signature, typedData)
       } catch {
         setLoading(false)
