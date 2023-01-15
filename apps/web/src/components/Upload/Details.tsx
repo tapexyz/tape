@@ -88,7 +88,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   setValue('title', value)
                   clearErrors('title')
                 }}
-                autoFocus
+                
                 mentionsSelector="input-mentions-single"
               />
               <div className="absolute top-0 flex items-center justify-end mt-1 right-1">
