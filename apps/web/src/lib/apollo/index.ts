@@ -11,7 +11,7 @@ const retryLink = new RetryLink({
   },
   attempts: {
     max: 2,
-    retryIf: (error) => !!error
+    retryIf: (error) => Boolean(error)
   }
 })
 
