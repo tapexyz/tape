@@ -59,7 +59,7 @@ const PlayerInstance = ({
       showTitle={false}
       objectFit="contain"
       aspectRatio={ratio}
-      showPipButton={true}
+      showPipButton
       mediaElementRef={playerRef}
       loop={options?.loop ?? true}
       showUploadingIndicator={false}
