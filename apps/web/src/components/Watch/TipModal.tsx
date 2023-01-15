@@ -143,8 +143,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   })
 
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
-    onCompleted: async (data) => {
-      const { typedData, id } = data.createCommentTypedData
+    onCompleted: async ({ createCommentTypedData }) => {
+      const { typedData, id } = createCommentTypedData
       const {
         profileId,
         profileIdPointed,

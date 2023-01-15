@@ -126,9 +126,9 @@ const Membership = ({ channel }: Props) => {
 
   const [createSetFollowModuleTypedData] =
     useCreateSetFollowModuleTypedDataMutation({
-      onCompleted: async (data) => {
+      onCompleted: async ({ createSetFollowModuleTypedData }) => {
         const { typedData, id } =
-          data.createSetFollowModuleTypedData as CreateSetFollowModuleBroadcastItemResult
+          createSetFollowModuleTypedData as CreateSetFollowModuleBroadcastItemResult
         const { profileId, followModule, followModuleInitData } =
           typedData?.value
         try {

@@ -54,11 +54,9 @@ const PublicationReaction: FC<Props> = ({
   const likeVideo = () => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     Analytics.track(TRACK.LIKE_VIDEO)
-    setReaction((reaction) => ({
-      likeCount: reaction.isLiked
-        ? reaction.likeCount - 1
-        : reaction.likeCount + 1,
-      isLiked: !reaction.isLiked,
+    setReaction((prev) => ({
+      likeCount: prev.isLiked ? prev.likeCount - 1 : prev.likeCount + 1,
+      isLiked: !prev.isLiked,
       isDisliked: false
     }))
     if (reaction.isLiked) {
@@ -87,10 +85,10 @@ const PublicationReaction: FC<Props> = ({
   const dislikeVideo = () => {
     if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     Analytics.track(TRACK.DISLIKE_VIDEO)
-    setReaction((reaction) => ({
-      likeCount: reaction.isLiked ? reaction.likeCount - 1 : reaction.likeCount,
+    setReaction((prev) => ({
+      likeCount: prev.isLiked ? prev.likeCount - 1 : prev.likeCount,
       isLiked: false,
-      isDisliked: !reaction.isDisliked
+      isDisliked: !prev.isDisliked
     }))
     if (reaction.isDisliked) {
       removeReaction({

@@ -158,9 +158,9 @@ const UploadSteps = () => {
   }
 
   const [createPostTypedData] = useCreatePostTypedDataMutation({
-    onCompleted: async (data) => {
+    onCompleted: async ({ createPostTypedData }) => {
       const { typedData, id } =
-        data.createPostTypedData as CreatePostBroadcastItemResult
+        createPostTypedData as CreatePostBroadcastItemResult
       const {
         profileId,
         contentURI,

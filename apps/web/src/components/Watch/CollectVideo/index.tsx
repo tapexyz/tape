@@ -90,9 +90,9 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
   })
 
   const [createCollectTypedData] = useCreateCollectTypedDataMutation({
-    onCompleted: async (data) => {
+    onCompleted: async ({ createCollectTypedData }) => {
       const { typedData, id } =
-        data.createCollectTypedData as CreateCollectBroadcastItemResult
+        createCollectTypedData as CreateCollectBroadcastItemResult
       try {
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),

@@ -48,8 +48,8 @@ const Bytes = () => {
           : null,
         channelId: selectedChannel?.id ?? null
       },
-      onCompleted: (data) => {
-        const items = data?.explorePublications?.items as Publication[]
+      onCompleted: ({ explorePublications }) => {
+        const items = explorePublications?.items as Publication[]
         const publicationId = router.query.id
         if (!publicationId) {
           const nextUrl = `${location.origin}/bytes/${items[0]?.id}`

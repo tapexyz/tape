@@ -54,9 +54,9 @@ const BytesSection = () => {
   const sectionOffsetWidth = sectionRef.current?.offsetWidth ?? 1000
   const scrollOffset = sectionOffsetWidth / 1.2
 
-  const scroll = (scrollOffset: number) => {
+  const scroll = (offset: number) => {
     Analytics.track(TRACK.CLICK_BYTES_SCROLL_BUTTON)
-    if (sectionRef.current) sectionRef.current.scrollLeft += scrollOffset
+    if (sectionRef.current) sectionRef.current.scrollLeft += offset
   }
 
   if (loading) {

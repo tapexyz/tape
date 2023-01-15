@@ -49,9 +49,10 @@ const authLink = new ApolloLink((operation, forward) => {
             'x-access-token': `Bearer ${result?.data?.refresh?.accessToken}`
           }
         })
-        const accessToken = result?.data?.refresh?.accessToken
-        const refreshToken = result?.data?.refresh?.refreshToken
-        signIn({ accessToken, refreshToken })
+        signIn({
+          accessToken: result?.data?.refresh?.accessToken,
+          refreshToken: result?.data?.refresh?.refreshToken
+        })
         return toPromise(forward(operation))
       })
       .catch((error) => {

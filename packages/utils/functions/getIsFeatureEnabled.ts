@@ -3,7 +3,7 @@ import { featureFlags } from '../data/feature-flags'
 
 const getIsFeatureEnabled = (flag: string, channelId: string | null) => {
   if (!channelId) return false
-  const feature = featureFlags.find((feature) => feature.flag === flag)
+  const feature = featureFlags.find((f) => f.flag === flag)
 
   return IS_MAINNET ? feature?.enabledFor.includes(channelId) ?? false : false
 }
