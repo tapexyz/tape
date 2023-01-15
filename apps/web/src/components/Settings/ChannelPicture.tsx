@@ -79,9 +79,9 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
 
   const [createSetProfileImageURITypedData] =
     useCreateSetProfileImageUriTypedDataMutation({
-      onCompleted: async (data) => {
+      onCompleted: async ({ createSetProfileImageURITypedData }) => {
         const { typedData, id } =
-          data.createSetProfileImageURITypedData as CreateSetProfileImageUriBroadcastItemResult
+          createSetProfileImageURITypedData as CreateSetProfileImageUriBroadcastItemResult
         try {
           const signature = await signTypedDataAsync({
             domain: omitKey(typedData?.domain, '__typename'),

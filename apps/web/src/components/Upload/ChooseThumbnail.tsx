@@ -37,37 +37,37 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
 
-  const uploadThumbnailToIpfs = async (file: File) => {
+  const uploadThumbnailToIpfs = async (fileToUpload: File) => {
     setUploadedVideo({ uploadingThumbnail: true })
-    const result: IPFSUploadResult = await uploadToIPFS(file)
+    const result: IPFSUploadResult = await uploadToIPFS(fileToUpload)
     setUploadedVideo({ uploadingThumbnail: false })
-    afterUpload(result.url, file.type || 'image/jpeg')
+    afterUpload(result.url, fileToUpload.type || 'image/jpeg')
     return result
   }
 
-  const generateThumbnails = async (file: File) => {
+  const generateThumbnails = async (fileToGenerate: File) => {
     try {
       const thumbnailArray = await generateVideoThumbnails(
-        file,
+        fileToGenerate,
         THUMBNAIL_GENERATE_COUNT
       )
-      const thumbnails: Array<{
+      const thumbnailList: Array<{
         ipfsUrl: string
         url: string
         isNSFWThumbnail: boolean
       }> = []
       thumbnailArray.forEach((t) => {
-        thumbnails.push({ url: t, ipfsUrl: '', isNSFWThumbnail: false })
+        thumbnailList.push({ url: t, ipfsUrl: '', isNSFWThumbnail: false })
       })
-      setThumbnails(thumbnails)
+      setThumbnails(thumbnailList)
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX)
       const imageFile = getFileFromDataURL(
-        thumbnails[DEFAULT_THUMBNAIL_INDEX]?.url,
+        thumbnailList[DEFAULT_THUMBNAIL_INDEX]?.url,
         'thumbnail.jpeg'
       )
       const ipfsResult = await uploadThumbnailToIpfs(imageFile)
       setThumbnails(
-        thumbnails.map((t, i) => {
+        thumbnailList.map((t, i) => {
           if (i === DEFAULT_THUMBNAIL_INDEX) t.ipfsUrl = ipfsResult?.url
           return t
         })
@@ -122,8 +122,11 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const onSelectThumbnail = async (index: number) => {
     setSelectedThumbnailIndex(index)
     if (thumbnails[index].ipfsUrl === '') {
-      const file = getFileFromDataURL(thumbnails[index].url, 'thumbnail.jpeg')
-      const ipfsResult = await uploadThumbnailToIpfs(file)
+      const selectedImage = getFileFromDataURL(
+        thumbnails[index].url,
+        'thumbnail.jpeg'
+      )
+      const ipfsResult = await uploadThumbnailToIpfs(selectedImage)
       setThumbnails(
         thumbnails.map((t, i) => {
           if (i === index) t.ipfsUrl = ipfsResult.url

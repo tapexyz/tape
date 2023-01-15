@@ -74,9 +74,9 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   })
 
   const [createMirrorTypedData] = useCreateMirrorTypedDataMutation({
-    onCompleted: async (data) => {
+    onCompleted: async ({ createMirrorTypedData }) => {
       const { id, typedData } =
-        data.createMirrorTypedData as CreateMirrorBroadcastItemResult
+        createMirrorTypedData as CreateMirrorBroadcastItemResult
       const {
         profileId,
         profileIdPointed,

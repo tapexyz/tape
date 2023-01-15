@@ -139,9 +139,9 @@ const NewComment: FC<Props> = ({ video }) => {
   })
 
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
-    onCompleted: async (data) => {
+    onCompleted: async ({ createCommentTypedData }) => {
       const { typedData, id } =
-        data.createCommentTypedData as CreateCommentBroadcastItemResult
+        createCommentTypedData as CreateCommentBroadcastItemResult
       const {
         profileId,
         profileIdPointed,

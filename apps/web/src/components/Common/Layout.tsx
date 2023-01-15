@@ -61,11 +61,9 @@ const Layout: FC<Props> = ({ children }) => {
 
   const setUserChannels = (channels: Profile[]) => {
     setChannels(channels)
-    const selectedChannel = channels.find(
-      (channel) => channel.id === selectedChannelId
-    )
-    setSelectedChannel(selectedChannel ?? channels[0])
-    setSelectedChannelId(selectedChannel?.id)
+    const channel = channels.find((ch) => ch.id === selectedChannelId)
+    setSelectedChannel(channel ?? channels[0])
+    setSelectedChannelId(channel?.id)
   }
 
   const resetAuthState = () => {

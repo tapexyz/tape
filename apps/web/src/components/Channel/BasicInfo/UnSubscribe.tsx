@@ -81,9 +81,9 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   }
 
   const [createUnsubscribeTypedData] = useCreateUnfollowTypedDataMutation({
-    onCompleted: async (data) => {
+    onCompleted: async ({ createUnfollowTypedData }) => {
       const { typedData, id } =
-        data.createUnfollowTypedData as CreateUnfollowBroadcastItemResult
+        createUnfollowTypedData as CreateUnfollowBroadcastItemResult
       try {
         const signature: string = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
@@ -93,10 +93,10 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
         if (!RELAYER_ENABLED) {
           return await burnWithSig(signature, typedData)
         }
-        const { data } = await broadcast({
+        const { data: broadcastData } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError')
+        if (broadcastData?.broadcast?.__typename === 'RelayError')
           await burnWithSig(signature, typedData)
       } catch {
         setLoading(false)

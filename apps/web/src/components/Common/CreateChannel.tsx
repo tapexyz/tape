@@ -73,9 +73,9 @@ const CreateChannel = () => {
   }
 
   const [createProfile, { data, reset }] = useCreateProfileMutation({
-    onCompleted: (data) => {
+    onCompleted: ({ createProfile }) => {
       setButtonText('Indexing...')
-      if (data?.createProfile?.__typename === 'RelayError') {
+      if (createProfile?.__typename === 'RelayError') {
         setLoading(false)
         setButtonText('Create')
       }

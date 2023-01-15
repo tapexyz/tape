@@ -80,9 +80,9 @@ const Notifications = () => {
     variables: {
       request
     },
-    onCompleted: (data) => {
-      if (data.notifications.pageInfo.__typename === 'PaginatedResultInfo') {
-        const totalCount = data?.notifications?.pageInfo?.totalCount
+    onCompleted: ({ notifications }) => {
+      if (notifications.pageInfo.__typename === 'PaginatedResultInfo') {
+        const totalCount = notifications?.pageInfo?.totalCount
         setTimeout(() => {
           setNotificationCount(totalCount ?? 0)
           setHasNewNotification(false)

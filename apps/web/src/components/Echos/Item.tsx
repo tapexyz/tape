@@ -16,8 +16,8 @@ type Props = {
 const Item: FC<Props> = ({ publication }) => {
   const setSelectedTrack = useEchoStore((state) => state.setSelectedTrack)
 
-  const onPlayPause = (publication: Publication) => {
-    setSelectedTrack(publication)
+  const onPlayPause = (track: Publication) => {
+    setSelectedTrack(track)
   }
 
   return (
