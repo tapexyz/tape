@@ -49,20 +49,20 @@ const AudioPlayer: FC<Props> = ({ selectedTrack }) => {
   }
 
   const createPlayer = async () => {
-    const WaveSurfer = (await import('wavesurfer.js')).default
+    const WaveSurferInstance = (await import('wavesurfer.js')).default
     if (!waveformRef.current) return
     const options = getAudioPlayerOptions(waveformRef.current)
-    waveSurfer.current = WaveSurfer.create(options)
+    waveSurfer.current = WaveSurferInstance.create(options)
     if (selectedTrack)
       waveSurfer.current?.load(getPublicationMediaUrl(selectedTrack))
 
     waveSurfer.current.on('ready', () => {
       playTrack()
       setPlayerVolume(volume)
-      const duration = getTimeFromSeconds(
+      const trackDuration = getTimeFromSeconds(
         waveSurfer.current?.getDuration().toString() ?? '0'
       )
-      setDuration(duration ?? '0')
+      setDuration(trackDuration ?? '0')
     })
     waveSurfer.current.on('audioprocess', (time) => {
       setCurrentPlayingTime(getTimeFromSeconds(time.toString()) ?? '0')

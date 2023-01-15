@@ -75,9 +75,9 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   })
 
   const [createSubscribeTypedData] = useCreateFollowTypedDataMutation({
-    onCompleted: async (data) => {
+    onCompleted: async ({ createFollowTypedData }) => {
       const { typedData, id } =
-        data.createFollowTypedData as CreateFollowBroadcastItemResult
+        createFollowTypedData as CreateFollowBroadcastItemResult
       try {
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),

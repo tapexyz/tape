@@ -91,8 +91,8 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   })
 
   const [createJoinTypedData] = useCreateFollowTypedDataMutation({
-    async onCompleted(data) {
-      const { typedData, id } = data.createFollowTypedData
+    async onCompleted({ createFollowTypedData }) {
+      const { typedData, id } = createFollowTypedData
       try {
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),

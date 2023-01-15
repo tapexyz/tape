@@ -79,7 +79,7 @@ const ModulePermissions = () => {
   const handleClick = async (isAllow: boolean, selectedModule: string) => {
     try {
       setLoadingModule(selectedModule)
-      const { data } = await generateAllowanceQuery({
+      const { data: allowanceData } = await generateAllowanceQuery({
         variables: {
           request: {
             currency,
@@ -88,7 +88,7 @@ const ModulePermissions = () => {
           }
         }
       })
-      const generated = data?.generateModuleCurrencyApprovalData
+      const generated = allowanceData?.generateModuleCurrencyApprovalData
       sendTransaction?.({
         recklesslySetUnpreparedRequest: {
           from: generated?.from,
@@ -120,9 +120,9 @@ const ModulePermissions = () => {
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
             >
-              {data?.enabledModuleCurrencies?.map((currency: Erc20) => (
-                <option key={currency.address} value={currency.address}>
-                  {currency.symbol}
+              {data?.enabledModuleCurrencies?.map((token: Erc20) => (
+                <option key={token.address} value={token.address}>
+                  {token.symbol}
                 </option>
               ))}
             </select>

@@ -81,9 +81,9 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   }
 
   const [createUnsubscribeTypedData] = useCreateUnfollowTypedDataMutation({
-    onCompleted: async (data) => {
+    onCompleted: async ({ createUnfollowTypedData }) => {
       const { typedData, id } =
-        data.createUnfollowTypedData as CreateUnfollowBroadcastItemResult
+        createUnfollowTypedData as CreateUnfollowBroadcastItemResult
       try {
         const signature: string = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
