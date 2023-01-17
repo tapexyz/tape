@@ -10,9 +10,7 @@ export const getPublicationMediaUrl = (video: Publication) => {
 }
 
 export const getPublicationMediaRawUrl = (video: Publication) => {
-  const url = video?.metadata?.media[0]?.original.url
-  if (!url) return `${STATIC_ASSETS}/images/fallbackThumbnail.png`
-  return url
+  return video?.metadata?.media[0]?.original.url
 }
 
 export const getIsIPFSUrl = (url: string) => {
