@@ -9,6 +9,11 @@ export const getPublicationMediaUrl = (video: Publication) => {
   return sanitizeIpfsUrl(url)
 }
 
+export const getPublicationMediaRawUrl = (video: Publication) => {
+  const url = video?.metadata?.media[0]?.original.url
+  return url.replace('https://arweave.net/', 'ar://')
+}
+
 export const getIsIPFSUrl = (url: string) => {
   return url?.includes('ipfs')
 }

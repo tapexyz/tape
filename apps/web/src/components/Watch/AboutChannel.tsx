@@ -56,7 +56,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
               <span>{channel?.handle}</span>
               <IsVerified id={channel?.id} />
             </Link>
-            <span className="inline-flex items-center space-x-1 text-xs">
+            <span className="inline-flex items-center space-x-1 text-sm opacity-90">
               {formatNumber(channel?.stats.totalFollowers)} subscribers
             </span>
           </div>
@@ -78,12 +78,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
           </div>
         </div>
         {video?.metadata?.description && (
-          <p
-            className={clsx(
-              'mt-4 text-sm opacity-80',
-              clamped ? 'line-clamp-3' : ''
-            )}
-          >
+          <p className={clsx('mt-4 opacity-80', clamped ? 'line-clamp-3' : '')}>
             <InterweaveContent content={video.metadata.description} />
           </p>
         )}
@@ -92,7 +87,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
             <button
               type="button"
               onClick={() => setClamped(!clamped)}
-              className="flex items-center text-sm outline-none text-indigo-500 hover:opacity-100 opacity-80"
+              className="flex items-center text-sm outline-none text-indigo-800 dark:text-indigo-200 hover:opacity-100 opacity-80"
             >
               {clamped ? (
                 <>
