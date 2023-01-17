@@ -21,24 +21,20 @@ const views = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     return res.status(400).json({ success: false })
   try {
     const payload = req.body
+    const headers = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${LIVEPEER_API_TOKEN}`
+      }
+    }
     const { data } = await axios.get(
       `https://livepeer.studio/api/asset?sourceUrl=${payload.sourceUrl}&phase=ready`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${LIVEPEER_API_TOKEN}`
-        }
-      }
+      headers
     )
     if (data[0]) {
       const { data: views } = await axios.get(
         `https://livepeer.studio/api/data/views/${data[0].id}/total`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${LIVEPEER_API_TOKEN}`
-          }
-        }
+        headers
       )
       if (!views[0]) {
         return res.status(200).json({ success: false })
