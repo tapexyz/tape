@@ -10,7 +10,8 @@ export const getPublicationMediaUrl = (video: Publication) => {
 }
 
 export const getPublicationMediaRawUrl = (video: Publication) => {
-  return video?.metadata?.media[0]?.original.url
+  const url = video?.metadata?.media[0]?.original.url
+  return url.replace('https://arweave.net/', 'ar://')
 }
 
 export const getIsIPFSUrl = (url: string) => {
