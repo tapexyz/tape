@@ -39,8 +39,7 @@ const views = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       if (!views || !views[0]) {
         return res.status(200).json({ success: false })
       }
-      res.setHeader('Cache-Control', 'public, max-age=60')
-      return res.status(200).json({
+      return res.setHeader('Cache-Control', 's-maxage=60').status(200).json({
         success: true,
         views: views[0].startViews
       })
