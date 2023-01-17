@@ -33,10 +33,9 @@ export const STAGING_API_URL = IS_MAINNET
 export const LENSTUBE_MAINNET_API_URL = 'https://api.lenstube.xyz'
 export const LENSTUBE_TESTNET_API_URL = 'https://api-testnet.lenstube.xyz'
 export const LENSTUBE_DEV_API_URL = 'http://localhost:5555'
-export const LENSTUBE_API_URL = LENSTUBE_DEV_API_URL
-// IS_MAINNET
-// ? 'https://api.lenstube.xyz'
-// : 'https://api-testnet.lenstube.xyz'
+export const LENSTUBE_API_URL = IS_MAINNET
+  ? 'https://api.lenstube.xyz'
+  : 'https://api-testnet.lenstube.xyz'
 
 export const API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
