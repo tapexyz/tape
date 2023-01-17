@@ -119,7 +119,7 @@ const PublicationReaction: FC<Props> = ({
         'flex items-center justify-end',
         isVertical
           ? 'flex-col space-y-2.5 md:space-y-4 px-3'
-          : 'space-x-2.5 md:space-x-4'
+          : 'space-x-2.5 md:space-x-5'
       )}
     >
       <Button variant="secondary" className="!p-0" onClick={() => likeVideo()}>
