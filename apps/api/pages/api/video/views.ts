@@ -28,7 +28,7 @@ const views = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       }
     }
     const { data } = await axios.get(
-      `https://livepeer.studio/api/asset?sourceUrl=${payload.sourceUrl}&phase=ready`,
+      `https://livepeer.studio/api/asset?sourceUrl=${payload.sourceUrl}&phase=ready&limit=1`,
       headers
     )
     if (data && data[0]) {
