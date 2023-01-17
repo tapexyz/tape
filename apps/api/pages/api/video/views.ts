@@ -31,12 +31,12 @@ const views = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       `https://livepeer.studio/api/asset?sourceUrl=${payload.sourceUrl}&phase=ready`,
       headers
     )
-    if (data[0]) {
+    if (data && data[0]) {
       const { data: views } = await axios.get(
         `https://livepeer.studio/api/data/views/${data[0].id}/total`,
         headers
       )
-      if (!views[0]) {
+      if (!views || !views[0]) {
         return res.status(200).json({ success: false })
       }
       return res.status(200).json({
