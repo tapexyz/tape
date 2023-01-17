@@ -20,7 +20,7 @@ import {
 import SuggestedVideoCard from './SuggestedVideoCard'
 
 const request = {
-  sortCriteria: PublicationSortCriteria.TopCommented,
+  sortCriteria: PublicationSortCriteria.TopMirrored,
   limit: 30,
   sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
   publicationTypes: [PublicationTypes.Post],
@@ -67,7 +67,8 @@ const SuggestedVideos: FC = () => {
           <div className="space-y-3 md:gap-3 md:grid lg:flex lg:gap-0 lg:flex-col md:grid-cols-2">
             {videos?.map(
               (video: Publication) =>
-                !video.hidden && (
+                !video.hidden &&
+                video.id !== id && (
                   <SuggestedVideoCard video={video} key={video?.id} />
                 )
             )}
