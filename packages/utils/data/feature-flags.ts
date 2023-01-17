@@ -10,6 +10,6 @@ export const featureFlags = [
   },
   {
     flag: FEATURE_FLAGS.VIDEO_VIEWS,
-    enabledFor: ['0x2d']
+    enabledFor: ['0x2d', '0x24']
   }
 ]
