@@ -22,7 +22,7 @@ const VideoActions: FC<Props> = ({ video }) => {
   const [showTip, setShowTip] = useState(false)
 
   return (
-    <div className="flex items-center justify-end mt-4 space-x-2.5 md:space-x-4 md:mt-0">
+    <div className="flex items-center justify-end mt-4 space-x-2.5 md:space-x-5 md:mt-2">
       <TipModal show={showTip} setShowTip={setShowTip} video={video} />
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <ReportModal
@@ -30,8 +30,11 @@ const VideoActions: FC<Props> = ({ video }) => {
         setShowReport={setShowReport}
         video={video}
       />
-
-      <PublicationReaction publication={video} textSize="lg" />
+      <PublicationReaction
+        publication={video}
+        textSize="base"
+        iconSize="base"
+      />
       <Button
         variant="secondary"
         className="!p-0"
@@ -40,8 +43,8 @@ const VideoActions: FC<Props> = ({ video }) => {
           setShowTip(true)
         }}
       >
-        <span className="flex items-center space-x-1">
-          <HeartOutline className="w-3.5 h-3.5" />
+        <span className="flex items-center text-base space-x-1.5">
+          <HeartOutline className="w-4 h-4" />
           <span>Tip</span>
         </span>
       </Button>
@@ -50,8 +53,8 @@ const VideoActions: FC<Props> = ({ video }) => {
         className="!p-0"
         onClick={() => setShowShare(true)}
       >
-        <span className="flex items-center space-x-1">
-          <ShareOutline className="w-3.5 h-3.5" />
+        <span className="flex items-center text-base space-x-1.5">
+          <ShareOutline className="w-4 h-4" />
           <span>Share</span>
         </span>
       </Button>
@@ -63,8 +66,8 @@ const VideoActions: FC<Props> = ({ video }) => {
         variant="secondary"
         className="!p-0"
       >
-        <span className="flex items-center space-x-1">
-          <FlagOutline className="w-3.5 h-3.5" />
+        <span className="flex items-center text-base space-x-1.5">
+          <FlagOutline className="w-4 h-4" />
           <span>Report</span>
         </span>
       </Button>

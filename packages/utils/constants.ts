@@ -33,9 +33,10 @@ export const STAGING_API_URL = IS_MAINNET
 export const LENSTUBE_MAINNET_API_URL = 'https://api.lenstube.xyz'
 export const LENSTUBE_TESTNET_API_URL = 'https://api-testnet.lenstube.xyz'
 export const LENSTUBE_DEV_API_URL = 'http://localhost:5555'
-export const LENSTUBE_API_URL = IS_MAINNET
-  ? 'https://api.lenstube.xyz'
-  : 'https://api-testnet.lenstube.xyz'
+export const LENSTUBE_API_URL = LENSTUBE_DEV_API_URL
+// IS_MAINNET
+// ? 'https://api.lenstube.xyz'
+// : 'https://api-testnet.lenstube.xyz'
 
 export const API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
@@ -77,6 +78,7 @@ export const NEXT_PUBLIC_EVER_BUCKET_NAME = IS_MAINNET ? 'lenstube' : 'testnet'
 // livepeer
 export const LIVEPEER_STUDIO_API_KEY = process.env
   .NEXT_PUBLIC_LIVEPEER_STUDIO_API_KEY as string
+export const LIVEPEER_API_TOKEN = process.env.LIVEPEER_API_TOKEN as string
 
 // bundlr
 export const BUNDLR_NODE_URL = IS_MAINNET

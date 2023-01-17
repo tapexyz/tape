@@ -7,17 +7,20 @@ import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { getRelativeTime } from 'utils/functions/formatTime'
+import { getPublicationMediaRawUrl } from 'utils/functions/getPublicationMediaUrl'
+import useVideoViews from 'utils/hooks/useVideoViews'
 
 type Props = {
   video: Publication
 }
 
 const VideoMeta: FC<Props> = ({ video }) => {
+  const { views } = useVideoViews(getPublicationMediaRawUrl(video))
   const [showCollectsModal, setShowCollectsModal] = useState(false)
   const [showMirrorsModal, setShowMirrorsModal] = useState(false)
 
   return (
-    <div className="flex flex-wrap items-center text-sm opacity-70">
+    <div className="flex flex-wrap items-center opacity-70">
       <div className="flex items-center">
         <Modal
           title="Collected By"
@@ -39,6 +42,8 @@ const VideoMeta: FC<Props> = ({ video }) => {
             <MirroredList videoId={video.id} />
           </div>
         </Modal>
+        <span>{views} views</span>
+        <span className="px-1 middot" />
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
           <>
             <button

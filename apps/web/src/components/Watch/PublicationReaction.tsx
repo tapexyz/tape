@@ -18,8 +18,8 @@ import { formatNumber } from 'utils/functions/formatNumber'
 
 type Props = {
   publication: Publication
-  iconSize?: 'sm' | 'lg'
-  textSize?: 'sm' | 'lg'
+  iconSize?: 'sm' | 'base' | 'lg'
+  textSize?: 'sm' | 'base'
   isVertical?: boolean
   showLabel?: boolean
 }
@@ -124,7 +124,7 @@ const PublicationReaction: FC<Props> = ({
     >
       <Button variant="secondary" className="!p-0" onClick={() => likeVideo()}>
         <span
-          className={clsx('flex items-center space-x-1 outline-none', {
+          className={clsx('flex items-center space-x-1.5 outline-none', {
             'text-indigo-500 font-semibold': reaction.isLiked,
             'flex-col space-y-1': isVertical
           })}
@@ -133,6 +133,7 @@ const PublicationReaction: FC<Props> = ({
             className={clsx({
               'w-3.5 h-3.5': iconSize === 'sm',
               'w-6 h-6': iconSize === 'lg',
+              'w-4 h-4': iconSize === 'base',
               'text-indigo-500': reaction.isLiked
             })}
           />
@@ -140,6 +141,7 @@ const PublicationReaction: FC<Props> = ({
             <span
               className={clsx({
                 'text-xs': textSize === 'sm',
+                'text-base': textSize === 'base',
                 'text-indigo-500': reaction.isLiked
               })}
             >
@@ -156,7 +158,7 @@ const PublicationReaction: FC<Props> = ({
         onClick={() => dislikeVideo()}
       >
         <span
-          className={clsx('flex items-center space-x-1 outline-none', {
+          className={clsx('flex items-center space-x-1.5 outline-none', {
             'text-indigo-500': reaction.isDisliked,
             'flex-col space-y-1': isVertical
           })}
@@ -165,6 +167,7 @@ const PublicationReaction: FC<Props> = ({
             className={clsx({
               'w-3.5 h-3.5': iconSize === 'sm',
               'w-6 h-6': iconSize === 'lg',
+              'w-4 h-4': iconSize === 'base',
               'text-indigo-500': reaction.isDisliked
             })}
           />
@@ -172,6 +175,7 @@ const PublicationReaction: FC<Props> = ({
             <span
               className={clsx({
                 'text-xs': textSize === 'sm',
+                'text-base': textSize === 'base',
                 'text-indigo-500': reaction.isDisliked
               })}
             >
