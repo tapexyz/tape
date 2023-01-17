@@ -5,10 +5,6 @@ import { LENSTUBE_API_URL } from '../constants'
 import logger from '../logger'
 
 const useVideoViews = (sourceUrl: string) => {
-  console.log(
-    '🚀 ~ file: useVideoViews.ts:7 ~ useVideoViews ~ sourceUrl',
-    sourceUrl
-  )
   const [loading, setLoading] = useState(false)
   const [views, setViews] = useState(0)
 
@@ -19,10 +15,6 @@ const useVideoViews = (sourceUrl: string) => {
         sourceUrl
       })
       if (data && data.success) {
-        console.log(
-          '🚀 ~ file: useVideoViews.ts:15 ~ fetchVideoViews ~ data',
-          data
-        )
         setViews(data.views)
       }
     } catch (error) {
