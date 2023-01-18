@@ -6,10 +6,10 @@ const terms = () => {
     <div className="relative overflow-hidden py-[5rem]">
       <div className="px-2">
         <div className="relative mx-auto max-w-4xl text-center pb-24">
-          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 sm:text-5xl">
             Terms and Conditions
           </h1>
-          <p className="mt-4 text-base leading-7 text-slate-600">
+          <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-400">
             Last updated on December 11, 2022
           </p>
         </div>

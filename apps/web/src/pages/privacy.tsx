@@ -6,16 +6,16 @@ const terms = () => {
     <div className="relative overflow-hidden py-[5rem]">
       <div className="px-2">
         <div className="relative mx-auto max-w-4xl text-center pb-24">
-          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 sm:text-5xl">
             Privacy policy
           </h1>
-          <p className="mt-4 text-base leading-7 text-slate-600">
+          <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-400">
             Last updated on December 11, 2022
           </p>
         </div>
       </div>
       <div className="relative px-2">
-        <div className="mx-auto max-w-4xl prose-sm md:prose prose-slate prose-a:font-semibold prose-a:text-indigo-500 hover:prose-a:text-indigo-600">
+        <div className="mx-auto max-w-4xl prose-sm md:prose prose-slate dark:prose-invert prose-a:font-semibold prose-a:text-indigo-500 hover:prose-a:text-indigo-600">
           <h2>1. Overview</h2>
           <p>
             By accessing the Site, you agree to not only this Privacy Policy,
