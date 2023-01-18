@@ -97,7 +97,10 @@ export const TRACK = {
       OPEN: 'Open More Menu',
       GITHUB: 'Click Github',
       DISCORD: 'Click Discord',
+      THANKS: 'Click Thanks',
       ROADMAP: 'Click Roadmap',
+      TERMS: 'Click Terms',
+      PRIVACY: 'Click Privacy',
       STATUS: 'Click Status',
       TWITTER: 'Click Twitter'
     }
