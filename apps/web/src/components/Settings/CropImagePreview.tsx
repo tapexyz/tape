@@ -50,17 +50,22 @@ const CropImagePreview: FC<Props> = ({ getPreviewImageSrc, onPfpUpload }) => {
   }
 
   return (
-    <div className="overflow-y-auto no-scrollbar text-center mt-2">
-      <ReactCrop crop={crop} onChange={(c) => setCrop(c)} aspect={1}>
+    <div className="text-center mt-2">
+      <ReactCrop
+        className="max-h-[50vh]"
+        crop={crop}
+        onChange={(c) => setCrop(c)}
+        aspect={1}
+      >
         <img
           ref={imgRef}
           src={getPreviewImageSrc()}
           alt="profile image"
-          className="h-[50vh] object-fit"
+          className="h-auto object-fit"
         />
       </ReactCrop>
       <Button
-        className="absolute bottom-0 right-0 flex mt-2 mr-2 mb-2 ml-auto"
+        className="absolute bottom-0 right-0 flex mt-5 mr-2 ml-auto"
         color="primary"
         onClick={getCroppedImg}
       >

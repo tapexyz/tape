@@ -26,7 +26,7 @@ import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
 import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi'
 
-import ChoosePicture from './ChoosePicture'
+import ImageGalleryModal from './ImageGalleryModal'
 
 type Props = {
   channel: Profile
@@ -246,7 +246,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         )}
       </label>
 
-      <ChoosePicture
+      <ImageGalleryModal
         isModalOpen={showProfileModal}
         onClose={() => closeChoosePictureModal()}
         onChooseImage={onChooseImage}
