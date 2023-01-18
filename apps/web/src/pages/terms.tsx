@@ -15,7 +15,7 @@ const terms = () => {
         </div>
       </div>
       <div className="relative px-2">
-        <div className="mx-auto max-w-4xl prose-sm md:prose prose-slate prose-a:font-semibold prose-a:text-indigo-500 hover:prose-a:text-indigo-600">
+        <div className="mx-auto max-w-4xl prose-sm md:prose prose-slate dark:prose-invert prose-a:font-semibold prose-a:text-indigo-500 hover:prose-a:text-indigo-600">
           <p>
             The website “lenstube.xyz” (the “Site”) offers information, tools
             and services to you to allow you to interact with the Lens Protocol
