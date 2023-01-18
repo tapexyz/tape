@@ -53,7 +53,7 @@ const moduleExports = {
           { key: 'Referrer-Policy', value: 'strict-origin' }
         ]
       },
-      { source: '/about', headers },
+      { source: '/terms', headers },
       { source: '/privacy', headers },
       { source: '/thanks', headers }
     ]
