@@ -11,19 +11,19 @@ interface State {
 }
 
 class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
+  state = {
     hasError: false
   }
 
-  public static getDerivedStateFromError(): State {
+  static getDerivedStateFromError(): State {
     return { hasError: true }
   }
 
-  public componentDidCatch(error: Error) {
+  componentDidCatch(error: Error) {
     logger.error('[ERROR BOUNDARY]', error)
   }
 
-  public render() {
+  render() {
     if (this.state.hasError) {
       return <Custom500 />
     }

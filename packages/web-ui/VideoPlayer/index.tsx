@@ -133,7 +133,7 @@ const VideoPlayer: FC<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerRef, currentTime])
 
-  const onContextClick = async (event: React.MouseEvent<HTMLDivElement>) => {
+  const onContextClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
   }
 

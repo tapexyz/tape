@@ -18,14 +18,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (isChannel) {
       const handle = path.replace('/channel/', '')
-      return getProfileMeta(res, handle)
+      return await getProfileMeta(res, handle)
     }
 
     if (isVideo || isByte) {
       const pubId = isByte
         ? path.replace('/bytes/', '')
         : path.replace('/watch/', '')
-      return getPublicationMeta(res, pubId)
+      return await getPublicationMeta(res, pubId)
     }
 
     return res.setHeader('Content-Type', 'text/html').send(
