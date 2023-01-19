@@ -42,13 +42,17 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
           'px-6 py-3 text-base': size === 'lg',
           'px-8 py-4 text-lg': size === 'xl'
         },
+        {
+          'dark:hover:bg-indigo-900 !rounded-full hover:bg-indigo-100':
+            variant === 'material'
+        },
         className
       )}
       disabled={loading}
       {...rest}
     >
       <span
-        className={clsx('absolute inset-0 w-full h-full rounded-full', {
+        className={clsx('absolute inset-0 w-full h-full rounded-full group', {
           'bg-indigo-500 border border-indigo-500 md:rounded-full':
             variant === 'primary',
           'bg-transparent md:rounded-full': variant === 'secondary',

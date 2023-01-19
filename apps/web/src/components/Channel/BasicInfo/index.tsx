@@ -1,3 +1,4 @@
+import CogOutline from '@components/Common/Icons/CogOutline'
 import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import SubscribersList from '@components/Common/SubscribersList'
@@ -10,7 +11,6 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { FiSettings } from 'react-icons/fi'
 import { Analytics, TRACK } from 'utils'
 import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
 import getProfilePicture from 'utils/functions/getProfilePicture'
@@ -110,7 +110,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                     onClick={() => onClickCustomize()}
                     className="!p-2 md:!p-2.5"
                   >
-                    <FiSettings className="text-lg" />
+                    <CogOutline className="w-5 h-5" />
                   </Button>
                 </Tooltip>
               )}
