@@ -118,7 +118,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     }
     const txnId =
       data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
-    setToQueue({ txnId })
+    return setToQueue({ txnId })
   }
 
   const { write: writeComment } = useContractWrite({

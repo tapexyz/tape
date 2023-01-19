@@ -103,7 +103,7 @@ const NewComment: FC<Props> = ({ video }) => {
     Analytics.track(TRACK.NEW_COMMENT)
     const txnId =
       data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
-    setToQueue({ txnId })
+    return setToQueue({ txnId })
   }
 
   const onError = (error: CustomErrorWithData) => {
