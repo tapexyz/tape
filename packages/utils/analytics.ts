@@ -107,6 +107,7 @@ export const TRACK = {
     }
   },
   REPORT: 'Report Publication',
+  CLICK_UPLOAD_VIDEO: 'Click Upload Video',
   PAGE_VIEW: {
     HOME: 'Home Page',
     EXPLORE: 'Explore Page',
