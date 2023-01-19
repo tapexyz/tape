@@ -16,6 +16,13 @@ export const TRACK = {
   UPLOADED_VIDEO: 'Uploaded Video',
   CLICKED_BYTES_TAG_AT_UPLOAD: 'Clicked Bytes During Upload',
   CLICK_CHANNEL_SETTINGS: 'Clicked Channel Settings',
+  AUTH: {
+    CLICK_CONNECT_WALLET: 'Clicked Connect Wallet',
+    CLICK_SIGN_IN: 'Clicked Sign In',
+    CLICK_SIGN_OUT: 'Clicked Sign Out'
+  },
+  CLICK_CONNECT_WALLET: 'Clicked Connect Wallet',
+  CLICK_SWITCH_CHANNEL: 'Clicked Switch Channel',
   UPDATE_CHANNEL_INFO: 'Clicked Channel Info',
   CHANGE_CHANNEL_COVER: 'Clicked Channel Cover',
   UPLOADED_BYTE_VIDEO: 'Uploaded Byte Video',

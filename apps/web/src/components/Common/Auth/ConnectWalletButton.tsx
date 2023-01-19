@@ -5,7 +5,7 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 import React from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
-import { POLYGON_CHAIN_ID } from 'utils'
+import { Analytics, POLYGON_CHAIN_ID, TRACK } from 'utils'
 import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi'
 
 import UserMenu from '../UserMenu'
@@ -52,7 +52,12 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
       </Button>
     )
   ) : (
-    <Button onClick={openConnectModal}>
+    <Button
+      onClick={() => {
+        openConnectModal?.()
+        Analytics.track(TRACK.AUTH.CLICK_CONNECT_WALLET)
+      }}
+    >
       Connect
       <span className="hidden ml-1 md:inline-block">Wallet</span>
     </Button>

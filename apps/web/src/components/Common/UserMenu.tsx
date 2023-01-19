@@ -52,7 +52,7 @@ const UserMenu = () => {
 
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 
-  const logout = () => {
+  const signout = () => {
     setSelectedChannel(null)
     setSelectedChannelId(null)
     disconnect?.()
@@ -181,7 +181,10 @@ const UserMenu = () => {
                   <button
                     type="button"
                     className="inline-flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                    onClick={() => onSelectSwitchChannel()}
+                    onClick={() => {
+                      onSelectSwitchChannel()
+                      Analytics.track(TRACK.CLICK_SWITCH_CHANNEL)
+                    }}
                   >
                     <SwitchChannelOutline className="w-4 h-4" />
                     <span className="truncate whitespace-nowrap">
@@ -214,7 +217,14 @@ const UserMenu = () => {
               <button
                 type="button"
                 className="flex items-center w-full p-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                onClick={() => {
+                  setTheme(theme === 'dark' ? 'light' : 'dark')
+                  Analytics.track(
+                    theme === 'dark'
+                      ? TRACK.SYSTEM.THEME.DARK
+                      : TRACK.SYSTEM.THEME.LIGHT
+                  )
+                }}
               >
                 {theme === 'dark' ? (
                   <SunOutline className="w-4 h-4" />
@@ -228,10 +238,13 @@ const UserMenu = () => {
               <button
                 type="button"
                 className="flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                onClick={() => logout()}
+                onClick={() => {
+                  signout()
+                  Analytics.track(TRACK.AUTH.CLICK_SIGN_OUT)
+                }}
               >
                 <HandWaveOutline className="w-4 h-4" />
-                <span className="truncate whitespace-nowrap">Logout</span>
+                <span className="truncate whitespace-nowrap">Sign out</span>
               </button>
             </div>
           </>
