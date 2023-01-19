@@ -62,6 +62,7 @@ export const TRACK = {
   NOTIFICATIONS: {
     CLICK_NOTIFICATIONS: 'Click Notifications',
     CLICK_MENTIONS: 'Click Mention Notifications',
+    CLICK_COLLECTS: 'Click Collect Notifications',
     CLICK_ALL: 'Click All Notifications',
     CLICK_LIKES: 'Click Likes Notifications',
     CLICK_COMMENTS: 'Click Comment Notifications',
@@ -97,7 +98,10 @@ export const TRACK = {
       OPEN: 'Open More Menu',
       GITHUB: 'Click Github',
       DISCORD: 'Click Discord',
+      THANKS: 'Click Thanks',
       ROADMAP: 'Click Roadmap',
+      TERMS: 'Click Terms',
+      PRIVACY: 'Click Privacy',
       STATUS: 'Click Status',
       TWITTER: 'Click Twitter'
     }

@@ -1,3 +1,4 @@
+import usePersistStore from '@lib/store/persist'
 import Link from 'next/link'
 import React from 'react'
 import {
@@ -10,12 +11,19 @@ import {
 } from 'utils'
 
 const Footer = () => {
+  const setSidebarCollapsed = usePersistStore(
+    (state) => state.setSidebarCollapsed
+  )
+
   return (
     <div className="grid grid-cols-2 text-sm">
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         href={LENSTUBE_STATUS_PAGE}
-        onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
+        onClick={() => {
+          setSidebarCollapsed(true)
+          Analytics.track(TRACK.SYSTEM.MORE_MENU.STATUS)
+        }}
         target="_blank"
       >
         Status
@@ -23,7 +31,10 @@ const Footer = () => {
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         href={`https://github.com/${LENSTUBE_GITHUB_HANDLE}`}
-        onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.GITHUB)}
+        onClick={() => {
+          setSidebarCollapsed(true)
+          Analytics.track(TRACK.SYSTEM.MORE_MENU.GITHUB)
+        }}
         target="_blank"
       >
         Github
@@ -31,7 +42,10 @@ const Footer = () => {
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         href={`https://twitter.com/${LENSTUBE_TWITTER_HANDLE}`}
-        onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.TWITTER)}
+        onClick={() => {
+          setSidebarCollapsed(true)
+          Analytics.track(TRACK.SYSTEM.MORE_MENU.TWITTER)
+        }}
         target="_blank"
       >
         Twitter
@@ -39,7 +53,10 @@ const Footer = () => {
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         href="/discord"
-        onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.DISCORD)}
+        onClick={() => {
+          setSidebarCollapsed(true)
+          Analytics.track(TRACK.SYSTEM.MORE_MENU.DISCORD)
+        }}
         target="_blank"
       >
         Discord
@@ -47,12 +64,21 @@ const Footer = () => {
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         href="/thanks"
+        target="_blank"
+        onClick={() => {
+          setSidebarCollapsed(true)
+          Analytics.track(TRACK.SYSTEM.MORE_MENU.THANKS)
+        }}
       >
         Thanks
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         href={LENSTUBE_ROADMAP_URL}
+        onClick={() => {
+          setSidebarCollapsed(true)
+          Analytics.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)
+        }}
         target="_blank"
       >
         Feedback
@@ -60,6 +86,10 @@ const Footer = () => {
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         target="_blank"
+        onClick={() => {
+          setSidebarCollapsed(true)
+          Analytics.track(TRACK.SYSTEM.MORE_MENU.TERMS)
+        }}
         href="/terms"
       >
         Terms
@@ -67,6 +97,10 @@ const Footer = () => {
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         target="_blank"
+        onClick={() => {
+          setSidebarCollapsed(true)
+          Analytics.track(TRACK.SYSTEM.MORE_MENU.PRIVACY)
+        }}
         href="/privacy"
       >
         Privacy

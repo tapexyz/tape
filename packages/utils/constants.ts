@@ -77,6 +77,7 @@ export const NEXT_PUBLIC_EVER_BUCKET_NAME = IS_MAINNET ? 'lenstube' : 'testnet'
 // livepeer
 export const LIVEPEER_STUDIO_API_KEY = process.env
   .NEXT_PUBLIC_LIVEPEER_STUDIO_API_KEY as string
+export const LIVEPEER_API_TOKEN = process.env.LIVEPEER_API_TOKEN as string
 
 // bundlr
 export const BUNDLR_NODE_URL = IS_MAINNET

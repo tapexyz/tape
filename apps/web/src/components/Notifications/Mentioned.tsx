@@ -37,7 +37,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
         </Link>
       </div>
       <div className="flex items-center justify-between">
-        <span className="text-sm text-gray-600 truncate dark:text-gray-400">
+        <span className="text-gray-600 truncate dark:text-gray-400">
           <Link
             href={`/watch/${notification?.mentionPublication.id}`}
             className="mr-1 text-indigo-500"
@@ -46,7 +46,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
           </Link>
           your channel
         </span>
-        <div className="flex items-center flex-none space-x-1 text-xs text-gray-500">
+        <div className="flex items-center flex-none space-x-1 text-xs dark:text-gray-300 text-gray-700">
           <span>{getRelativeTime(notification?.createdAt)}</span>
         </div>
       </div>

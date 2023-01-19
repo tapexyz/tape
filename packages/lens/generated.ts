@@ -105,15 +105,6 @@ export type AccessConditionOutput = {
   token?: Maybe<Erc20OwnershipOutput>
 }
 
-export type AchRequest = {
-  ethereumAddress: Scalars['EthereumAddress']
-  freeTextHandle?: InputMaybe<Scalars['Boolean']>
-  handle?: InputMaybe<Scalars['CreateHandle']>
-  overrideAlreadyClaimed: Scalars['Boolean']
-  overrideTradeMark: Scalars['Boolean']
-  secret: Scalars['String']
-}
-
 /** The request object to add interests to a profile */
 export type AddProfileInterestsRequest = {
   /** The profile interest to add */
@@ -946,10 +937,6 @@ export type CreateUnfollowBroadcastItemResult = {
   typedData: CreateBurnEip712TypedData
 }
 
-export type CurRequest = {
-  secret: Scalars['String']
-}
-
 /** The custom filters types */
 export enum CustomFiltersTypes {
   Gardeners = 'GARDENERS'
@@ -1557,12 +1544,6 @@ export type HasTxHashBeenIndexedRequest = {
   txId?: InputMaybe<Scalars['TxId']>
 }
 
-export type HelRequest = {
-  handle: Scalars['Handle']
-  remove: Scalars['Boolean']
-  secret: Scalars['String']
-}
-
 export type HidePublicationRequest = {
   /** Publication id */
   publicationId: Scalars['InternalPublicationId']
@@ -1874,7 +1855,6 @@ export type ModuleInfo = {
 
 export type Mutation = {
   __typename?: 'Mutation'
-  ach?: Maybe<Scalars['Void']>
   /** Adds profile interests to the given profile */
   addProfileInterests?: Maybe<Scalars['Void']>
   addReaction?: Maybe<Scalars['Void']>
@@ -1902,7 +1882,6 @@ export type Mutation = {
   createSetProfileMetadataViaDispatcher: RelayResult
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult
-  hel?: Maybe<Scalars['Void']>
   hidePublication?: Maybe<Scalars['Void']>
   idKitPhoneVerifyWebhook: IdKitPhoneVerifyWebhookResultStatusType
   proxyAction: Scalars['ProxyActionId']
@@ -1911,10 +1890,6 @@ export type Mutation = {
   removeProfileInterests?: Maybe<Scalars['Void']>
   removeReaction?: Maybe<Scalars['Void']>
   reportPublication?: Maybe<Scalars['Void']>
-}
-
-export type MutationAchArgs = {
-  request: AchRequest
 }
 
 export type MutationAddProfileInterestsArgs = {
@@ -2033,10 +2008,6 @@ export type MutationCreateToggleFollowTypedDataArgs = {
 export type MutationCreateUnfollowTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>
   request: UnfollowRequest
-}
-
-export type MutationHelArgs = {
-  request: HelRequest
 }
 
 export type MutationHidePublicationArgs = {
@@ -3067,7 +3038,6 @@ export type Query = {
   challenge: AuthChallengeResult
   claimableHandles: ClaimableHandles
   claimableStatus: ClaimStatus
-  cur: Array<Scalars['String']>
   defaultProfile?: Maybe<Profile>
   doesFollow: Array<DoesFollowResponse>
   enabledModuleCurrencies: Array<Erc20>
@@ -3105,7 +3075,6 @@ export type Query = {
   publicationRevenue?: Maybe<PublicationRevenue>
   publications: PaginatedPublicationResult
   recommendedProfiles: Array<Profile>
-  rel?: Maybe<Scalars['Void']>
   search: SearchResult
   /** @deprecated You should be using feed, this will not be supported after 15th November 2021, please migrate. */
   timeline: PaginatedTimelineResult
@@ -3128,10 +3097,6 @@ export type QueryApprovedModuleAllowanceAmountArgs = {
 
 export type QueryChallengeArgs = {
   request: ChallengeRequest
-}
-
-export type QueryCurArgs = {
-  request: CurRequest
 }
 
 export type QueryDefaultProfileArgs = {
@@ -3258,10 +3223,6 @@ export type QueryRecommendedProfilesArgs = {
   options?: InputMaybe<RecommendedProfileOptions>
 }
 
-export type QueryRelArgs = {
-  request: RelRequest
-}
-
 export type QuerySearchArgs = {
   request: SearchQueryRequest
 }
@@ -3349,11 +3310,6 @@ export enum ReferenceModules {
 export type RefreshRequest = {
   /** The refresh token */
   refreshToken: Scalars['Jwt']
-}
-
-export type RelRequest = {
-  ethereumAddress: Scalars['EthereumAddress']
-  secret: Scalars['String']
 }
 
 export type RelayError = {
