@@ -214,8 +214,8 @@ const UserMenu = () => {
                   setTheme(theme === 'dark' ? 'light' : 'dark')
                   Analytics.track(
                     theme === 'dark'
-                      ? TRACK.SYSTEM.THEME.DARK
-                      : TRACK.SYSTEM.THEME.LIGHT
+                      ? TRACK.SYSTEM.THEME.LIGHT
+                      : TRACK.SYSTEM.THEME.DARK
                   )
                 }}
               >
