@@ -77,6 +77,7 @@ const Login = () => {
       const signature = await signMessageAsync({
         message: challenge?.data?.challenge?.text
       })
+      if (!signature) return toast.error('Invalid Signature!')
       const result = await authenticate({
         variables: { request: { address, signature } }
       })
@@ -108,8 +109,12 @@ const Login = () => {
       signOut()
       setLoading(false)
       toast.error('Sign in failed')
-      logger.error('[Error Sign In]', error)
+      logger.error('[Error Sign In]', {
+        error: error,
+        connector: connector?.name
+      })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     address,
     authenticate,
