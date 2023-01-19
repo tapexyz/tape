@@ -4,18 +4,16 @@ const NotificationsShimmer = () => {
   const notifications = useMemo(() => Array(20).fill(1), [])
 
   return (
-    <div className="space-y-2 animate-pulse">
+    <div className="space-y-3 animate-pulse">
       {notifications.map((i, idx) => (
-        <div key={`${i}_${idx}`} className="flex space-x-1">
-          <div className="w-5 h-5 bg-gray-300 rounded-full dark:bg-gray-700" />
-          <div className="flex-1 pb-1 space-y-2">
-            <span className="space-y-2">
-              <div className="w-1/2 h-2.5 bg-gray-300 rounded dark:bg-gray-700" />
-              <div className="grid grid-cols-3 gap-x-2">
-                <div className="h-2.5 col-span-2 bg-gray-300 rounded dark:bg-gray-700" />
-                <div className="h-2.5 bg-gray-300 rounded dark:bg-gray-700" />
-              </div>
-            </span>
+        <div key={`${i}_${idx}`} className="w-full space-y-1.5">
+          <div className="flex items-center space-x-3">
+            <div className="w-6 h-6 bg-gray-300 rounded-full dark:bg-gray-700" />
+            <div className="w-1/3 h-3 bg-gray-300 rounded dark:bg-gray-700" />
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="h-2.5 w-1/2 bg-gray-300 rounded dark:bg-gray-700" />
+            <div className="h-2.5 w-1/4 bg-gray-300 rounded dark:bg-gray-700" />
           </div>
         </div>
       ))}
