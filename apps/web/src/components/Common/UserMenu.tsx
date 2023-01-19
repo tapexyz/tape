@@ -144,12 +144,14 @@ const UserMenu = () => {
                 />
                 <div className="grid">
                   <span className="text-xs opacity-70">Connected as</span>
-                  <h6
-                    title={selectedChannel?.handle}
-                    className="text-base truncate leading-4"
-                  >
-                    {selectedChannel?.handle}
-                  </h6>
+                  <Link href={`/channel/${selectedChannel?.handle}`}>
+                    <h6
+                      title={selectedChannel?.handle}
+                      className="text-base truncate leading-4"
+                    >
+                      {selectedChannel?.handle}
+                    </h6>
+                  </Link>
                 </div>
               </div>
             </div>
