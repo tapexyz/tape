@@ -58,7 +58,7 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
         )}
       </div>
       <div className="flex items-center justify-between">
-        <span className="text-sm text-gray-600 dark:text-gray-400">
+        <span className="text-gray-600 dark:text-gray-400">
           collected your
           {notification.collectedPublication.__typename === 'Comment' &&
             ' comment on'}
@@ -69,7 +69,7 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
             video
           </Link>
         </span>
-        <div className="flex items-center space-x-1 text-xs text-gray-500">
+        <div className="flex items-center dark:text-gray-300 text-gray-700">
           <span>{getRelativeTime(notification?.createdAt)}</span>
         </div>
       </div>

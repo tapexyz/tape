@@ -1,4 +1,5 @@
 import BellOutline from '@components/Common/Icons/BellOutline'
+import CollectOutline from '@components/Common/Icons/CollectOutline'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import LikeOutline from '@components/Common/Icons/LikeOutline'
 import MentionOutline from '@components/Common/Icons/MentionOutline'
@@ -37,7 +38,8 @@ const initialFilters = {
   mentions: false,
   subscriptions: false,
   likes: false,
-  comments: false
+  comments: false,
+  collects: false
 }
 
 const Notifications = () => {
@@ -61,11 +63,23 @@ const Notifications = () => {
       return [NotificationTypes.ReactionPost, NotificationTypes.ReactionComment]
     }
     if (activeFilter.comments) {
+      return [NotificationTypes.CommentedPost]
+    }
+    if (activeFilter.collects) {
       return [
-        NotificationTypes.CommentedPost,
-        NotificationTypes.CommentedComment
+        NotificationTypes.CollectedPost,
+        NotificationTypes.CollectedComment
       ]
     }
+    return [
+      NotificationTypes.CollectedPost,
+      NotificationTypes.CommentedPost,
+      NotificationTypes.Followed,
+      NotificationTypes.MentionComment,
+      NotificationTypes.MentionPost,
+      NotificationTypes.ReactionComment,
+      NotificationTypes.ReactionPost
+    ]
   }
 
   const request = {
@@ -110,7 +124,7 @@ const Notifications = () => {
   })
 
   return (
-    <div className="mx-auto md:p-0 px-2 my-2 md:container md:max-w-2xl">
+    <div className="mx-auto md:p-0 px-2 my-2 md:container md:max-w-3xl">
       <MetaTags title="Notifications" />
       <Tab.Group as="div" className="w-full">
         <div className="flex items-center justify-between mb-4">
@@ -199,6 +213,23 @@ const Notifications = () => {
             >
               <MentionOutline className="w-3.5 h-3.5" />
               <span>Mentions</span>
+            </Tab>
+            <Tab
+              onClick={() => {
+                setActiveFilter({ ...initialFilters, collects: true })
+                Analytics.track(TRACK.NOTIFICATIONS.CLICK_COLLECTS)
+              }}
+              className={({ selected }) =>
+                clsx(
+                  'py-2 flex px-1 items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                  selected
+                    ? 'border-indigo-900 opacity-100'
+                    : 'border-transparent opacity-50'
+                )
+              }
+            >
+              <CollectOutline className="w-3.5 h-3.5" />
+              <span>Collected</span>
             </Tab>
           </Tab.List>
           {totalCount && Boolean(totalCount) ? (
