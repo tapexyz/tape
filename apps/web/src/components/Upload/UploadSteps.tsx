@@ -377,7 +377,7 @@ const UploadSteps = () => {
         })
       })
       const upload = uploader.uploadData(uploadedVideo.stream as any, {
-        tags: tags
+        tags
       })
       const response = await upload
       setUploadedVideo({

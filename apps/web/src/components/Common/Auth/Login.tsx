@@ -110,7 +110,7 @@ const Login = () => {
       setLoading(false)
       toast.error('Sign in failed')
       logger.error('[Error Sign In]', {
-        error: error,
+        error,
         connector: connector?.name
       })
     }

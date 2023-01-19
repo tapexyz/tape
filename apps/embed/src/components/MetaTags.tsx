@@ -28,7 +28,7 @@ const MetaTags: FC<Props> = (props) => {
       'Lenstube is a decentralized video-sharing social media platform built with Lens protocol.',
     image: image ?? `${STATIC_ASSETS}/images/seo/og.png`,
     type: 'video.other',
-    videoUrl: videoUrl
+    videoUrl
   }
 
   return (
