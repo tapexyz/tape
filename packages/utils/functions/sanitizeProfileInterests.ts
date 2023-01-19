@@ -7,7 +7,7 @@ const sanitizeProfileInterests = (profileInterests: string[]) => {
     (interest) => !interest.includes('__')
   )
   categories.forEach((category) => {
-    let subCategories = profileInterests
+    const subCategories = profileInterests
       .filter(
         (interest) => interest.includes(category) && interest.includes('__')
       )
