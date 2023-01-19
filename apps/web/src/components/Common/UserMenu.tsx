@@ -52,13 +52,6 @@ const UserMenu = () => {
 
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 
-  const signout = () => {
-    setSelectedChannel(null)
-    setSelectedChannelId(null)
-    disconnect?.()
-    signOut()
-  }
-
   const onSelectChannel = (channel: Profile) => {
     setSelectedChannel(channel)
     setSelectedChannelId(channel.id)
@@ -239,7 +232,8 @@ const UserMenu = () => {
                 type="button"
                 className="flex items-center w-full px-2.5 py-2 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                 onClick={() => {
-                  signout()
+                  disconnect?.()
+                  signOut()
                   Analytics.track(TRACK.AUTH.CLICK_SIGN_OUT)
                 }}
               >
