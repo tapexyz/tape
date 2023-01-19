@@ -31,7 +31,7 @@ const ReactedNotification: FC<Props> = ({ notification }) => {
         </Link>
       </div>
       <div className="flex items-center justify-between">
-        <span className="text-sm text-gray-600 truncate dark:text-gray-400">
+        <span className="text-gray-600 truncate dark:text-gray-400">
           {notification.reaction === 'UPVOTE' ? 'liked' : 'dislisked'} your
           {notification.publication.__typename === 'Comment' && ' comment on'}
           <Link
@@ -45,7 +45,7 @@ const ReactedNotification: FC<Props> = ({ notification }) => {
             video
           </Link>
         </span>
-        <div className="flex items-center flex-none space-x-1 text-xs text-gray-500">
+        <div className="flex items-center flex-none dark:text-gray-300 text-gray-700">
           <span>{getRelativeTime(notification?.createdAt)}</span>
         </div>
       </div>
