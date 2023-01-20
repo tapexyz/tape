@@ -1,3 +1,4 @@
+import IsVerified from '@components/Common/IsVerified'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens'
@@ -6,6 +7,7 @@ import React, { useId } from 'react'
 import type { SuggestionDataItem } from 'react-mentions'
 import { Mention, MentionsInput } from 'react-mentions'
 import { LENS_CUSTOM_FILTERS } from 'utils'
+import { formatNumber } from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
 interface Props extends ComponentProps<'textarea'> {
@@ -50,6 +52,7 @@ const InputMentions: FC<Props> = ({
         const channels = profiles?.map((channel: Profile) => ({
           id: channel.handle,
           display: channel.handle,
+          profileId: channel.id,
           picture: getProfilePicture(channel),
           followers: channel.stats.totalFollowers
         }))
@@ -85,7 +88,8 @@ const InputMentions: FC<Props> = ({
             renderSuggestion={(
               suggestion: SuggestionDataItem & {
                 picture?: string
-                followers?: string
+                followers?: number
+                profileId?: string
               },
               _search,
               _highlightedDisplay,
@@ -93,23 +97,28 @@ const InputMentions: FC<Props> = ({
               focused
             ) => (
               <div
-                className={clsx('flex truncate px-1.5 py-1.5 space-x-1', {
+                className={clsx('flex truncate px-1.5 py-1.5 space-x-1.5', {
                   'bg-indigo-50 rounded dark:bg-theme': focused
                 })}
               >
                 <img
                   src={suggestion?.picture}
-                  className="w-5 h-5 rounded"
+                  className="w-6 h-6 mt-1 rounded-full"
                   alt="pfp"
                   draggable={false}
                 />
                 <div className="overflow-hidden">
-                  <p className="font-medium leading-4 truncate">
-                    {suggestion?.id}
-                  </p>
-                  <span className="text-xs opacity-80">
-                    {suggestion?.followers} subscribers
-                  </span>
+                  <div className="flex items-center space-x-0.5">
+                    <p className="font-medium leading-4 truncate">
+                      {suggestion?.id}
+                    </p>
+                    <IsVerified id={suggestion.profileId as string} size="xs" />
+                  </div>
+                  {suggestion?.followers && (
+                    <span className="text-xs opacity-80">
+                      {formatNumber(suggestion?.followers)} subscribers
+                    </span>
+                  )}
                 </div>
               </div>
             )}
