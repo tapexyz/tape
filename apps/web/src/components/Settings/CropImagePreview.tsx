@@ -38,7 +38,6 @@ const CropImagePreview: FC<Props> = ({ getPreviewImageSrc, onPfpUpload }) => {
         cropped.width,
         cropped.height
       )
-
       canvas.toBlob((blob) => {
         const file = new File([blob as Blob], 'nft.jpg', {
           type: 'image/jpeg'

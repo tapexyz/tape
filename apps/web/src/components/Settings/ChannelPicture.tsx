@@ -39,13 +39,16 @@ type Props = {
 }
 
 const ChannelPicture: FC<Props> = ({ channel }) => {
-  const [selectedPfp, setSelectedPfp] = useState('')
   const [loading, setLoading] = useState(false)
+  const [selectedPfp, setSelectedPfp] = useState('')
+  const [showProfileModal, setShowProfileModal] = useState(false)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
-  const [showProfileModal, setShowProfileModal] = useState(false)
+
+  const [loadChallenge] = useNftChallengeLazyQuery()
+  const { signMessageAsync } = useSignMessage()
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -127,9 +130,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     })
   }
 
-  const [loadChallenge] = useNftChallengeLazyQuery()
-  const { signMessageAsync } = useSignMessage()
-
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageViaDispatcher({
       variables: { request }
@@ -182,11 +182,9 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           }
         }
       })
-
       const signature = await signMessageAsync({
         message: challengeResponse?.data?.nftOwnershipChallenge?.text as string
       })
-
       const request = {
         profileId: selectedChannel?.id,
         nftData: {
@@ -194,11 +192,9 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           signature
         }
       }
-
       if (selectedChannel?.dispatcher?.canUseRelay) {
         return await createViaDispatcher(request)
       }
-
       return await createSetProfileImageURITypedData({
         variables: { options: { overrideSigNonce: userSigNonce }, request }
       })
