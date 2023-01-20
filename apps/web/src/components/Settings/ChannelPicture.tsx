@@ -39,7 +39,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
-  const [showProfileModal, setProfileModal] = useState(false)
+  const [showProfileModal, setShowProfileModal] = useState(false)
   const [showCropImagePreview, setShowCropImagePreview] = useState(false)
   const [imagePreviewSrc, setImagePreviewSrc] = useState<File>()
 
