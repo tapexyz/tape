@@ -138,6 +138,7 @@ export const GIT_DEPLOYED_COMMIT_SHA =
 export const GIT_DEPLOYED_BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
 export const VERCEL_DEPLOYED_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV
 export const MIXPANEL_API_HOST = '/collect'
+export const DATADOG_ERROR_LOGS_HOST = '/error/logs'
 export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN
 export const DATADOG_KEY = process.env.NEXT_PUBLIC_DATADOG_KEY
 export const MUX_DATA_KEY = process.env.NEXT_PUBLIC_MUX_DATA_KEY
