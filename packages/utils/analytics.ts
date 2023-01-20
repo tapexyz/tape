@@ -33,6 +33,7 @@ export const TRACK = {
   FILTER_CATEGORIES: 'Filter Categories',
   CLICK_CATEGORIES_SCROLL_BUTTON: 'Clicked Categories Scroll Button',
   CLICK_BYTES_SCROLL_BUTTON: 'Clicked Bytes Scroll Button',
+  MIRROR_VIDEO: 'Mirrored Video',
   EMBED_VIDEO: {
     OPEN: 'Open Embed',
     COPY: 'Copy Embed',

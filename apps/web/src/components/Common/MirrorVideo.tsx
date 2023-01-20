@@ -18,10 +18,12 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import {
+  Analytics,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED,
-  SIGN_IN_REQUIRED_MESSAGE
+  SIGN_IN_REQUIRED_MESSAGE,
+  TRACK
 } from 'utils'
 import omitKey from 'utils/functions/omitKey'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -48,6 +50,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onMirrorSuccess?.()
     toast.success('Mirrored video across lens.')
     setLoading(false)
+    Analytics.track(TRACK.MIRROR_VIDEO)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
