@@ -5,6 +5,7 @@ import type { FC } from 'react'
 import React, { useRef, useState } from 'react'
 import type { Crop } from 'react-image-crop'
 import ReactCrop from 'react-image-crop'
+import { Analytics, TRACK } from 'utils'
 import logger from 'utils/logger'
 
 type Props = {
@@ -42,6 +43,7 @@ const CropImagePreview: FC<Props> = ({ getPreviewImageSrc, onPfpUpload }) => {
         const file = new File([blob as Blob], 'nft.jpg', {
           type: 'image/jpeg'
         })
+        Analytics.track(TRACK.PFP.UPLOAD_FROM_LOCAL)
         onPfpUpload(file)
       }, 'image/jpeg')
     } catch (e) {

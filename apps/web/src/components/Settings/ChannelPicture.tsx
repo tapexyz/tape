@@ -19,7 +19,13 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
 import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
-import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS, RELAYER_ENABLED } from 'utils'
+import {
+  Analytics,
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  RELAYER_ENABLED,
+  TRACK
+} from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import omitKey from 'utils/functions/omitKey'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
@@ -161,6 +167,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     chainId: Number
   ) => {
     try {
+      Analytics.track(TRACK.PFP.UPLOAD_FROM_COLLECTION)
       const challengeResponse = await loadChallenge({
         variables: {
           request: {
@@ -215,7 +222,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           'absolute top-0 grid w-32 h-32 bg-white rounded-full cursor-pointer bg-opacity-70 place-items-center backdrop-blur-lg invisible group-hover:visible dark:bg-theme',
           { '!visible': loading && !pfpData?.hash }
         )}
-        onClick={() => setShowProfileModal(true)}
+        onClick={() => {
+          Analytics.track(TRACK.PFP.OPEN_MODAL)
+          setShowProfileModal(true)
+        }}
       >
         {loading && !pfpData?.hash ? (
           <Loader />

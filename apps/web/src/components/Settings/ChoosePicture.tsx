@@ -6,7 +6,7 @@ import { useProfileNfTsQuery } from 'lens'
 import type { ChangeEvent, FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import { POLYGON_CHAIN_ID, STATIC_ASSETS } from 'utils'
+import { Analytics, POLYGON_CHAIN_ID, STATIC_ASSETS, TRACK } from 'utils'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import { mainnet } from 'wagmi/chains'
@@ -55,6 +55,7 @@ const ChoosePicture: FC<Props> = ({ onChooseImage, channel, setNFTAvatar }) => {
     <Tab.Group>
       <Tab.List className="flex justify-center static top-0 w-full">
         <Tab
+          onClick={() => Analytics.track(TRACK.PFP.CLICK_UPLOAD_TAB)}
           className={({ selected }) =>
             clsx(
               'py-2 border-b-2 text-sm focus:outline-none w-full',
@@ -67,6 +68,7 @@ const ChoosePicture: FC<Props> = ({ onChooseImage, channel, setNFTAvatar }) => {
           Upload
         </Tab>
         <Tab
+          onClick={() => Analytics.track(TRACK.PFP.CLICK_NFTS_TAB)}
           className={({ selected }) =>
             clsx(
               'py-2 border-b-2 text-sm focus:outline-none w-full',
@@ -112,13 +114,14 @@ const ChoosePicture: FC<Props> = ({ onChooseImage, channel, setNFTAvatar }) => {
                       )}
                       className="rounded-xl cursor-pointer h-20 w-20 md:h-28 md:w-28"
                       alt={nft.name}
-                      onClick={() =>
+                      onClick={() => {
+                        Analytics.track(TRACK.PFP.SELECT_NFT)
                         setNFTAvatar(
                           nft.contractAddress,
                           nft.tokenId,
                           nft.chainId
                         )
-                      }
+                      }}
                     />
                   )
                 })}

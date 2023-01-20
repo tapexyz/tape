@@ -115,6 +115,14 @@ export const TRACK = {
   },
   REPORT: 'Report Publication',
   CLICK_UPLOAD_VIDEO: 'Click Upload Video',
+  PFP: {
+    OPEN_MODAL: 'Open PFP Modal',
+    CLICK_UPLOAD_TAB: 'Click Upload PFP tab',
+    CLICK_NFTS_TAB: 'Click NFT tab',
+    SELECT_NFT: 'Select PFP from NFT',
+    UPLOAD_FROM_LOCAL: 'Upload PFP from Local',
+    UPLOAD_FROM_COLLECTION: 'Upload PFP from Collection'
+  },
   PAGE_VIEW: {
     HOME: 'Home Page',
     EXPLORE: 'Explore Page',
