@@ -9,7 +9,7 @@ import {
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { ERROR_MESSAGE, POLYGON_CHAIN_ID } from 'utils'
+import { Analytics, ERROR_MESSAGE, POLYGON_CHAIN_ID, TRACK } from 'utils'
 import logger from 'utils/logger'
 import { useAccount, useNetwork, useSignMessage } from 'wagmi'
 
@@ -67,7 +67,16 @@ const Login = () => {
       )
   }, [errorAuthenticate, errorChallenge, errorProfiles])
 
+  const isReadyToSign =
+    connector?.id &&
+    isConnected &&
+    chain?.id === POLYGON_CHAIN_ID &&
+    !selectedChannel &&
+    !selectedChannelId
+
   const handleSign = useCallback(async () => {
+    if (!isReadyToSign) return toast.error('Unable to connect to your wallet')
+    Analytics.track(TRACK.AUTH.CLICK_SIGN_IN)
     try {
       setLoading(true)
       const challenge = await loadChallenge({
@@ -77,6 +86,7 @@ const Login = () => {
       const signature = await signMessageAsync({
         message: challenge?.data?.challenge?.text
       })
+      if (!signature) return toast.error('Invalid Signature!')
       const result = await authenticate({
         variables: { request: { address, signature } }
       })
@@ -108,8 +118,12 @@ const Login = () => {
       signOut()
       setLoading(false)
       toast.error('Sign in failed')
-      logger.error('[Error Sign In]', error)
+      logger.error('[Error Sign In]', {
+        error,
+        connector: connector?.name
+      })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     address,
     authenticate,
@@ -124,13 +138,6 @@ const Login = () => {
   ])
 
   useEffect(() => {
-    const isReadyToSign =
-      connector?.id &&
-      isConnected &&
-      chain?.id === POLYGON_CHAIN_ID &&
-      !selectedChannel &&
-      !selectedChannelId
-
     if (isReadyToSign) {
       handleSign()
     }

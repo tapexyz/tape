@@ -1,4 +1,3 @@
-import NewVideoTrigger from '@components/Channel/NewVideoTrigger'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
@@ -22,6 +21,7 @@ import {
 import Login from './Auth/Login'
 import CategoryFilters from './CategoryFilters'
 import BellOutline from './Icons/BellOutline'
+import NewVideoOutline from './Icons/NewVideoOutline'
 import RoadmapOutline from './Icons/RoadmapOutline'
 import SearchOutline from './Icons/SearchOutline'
 import GlobalSearchBar from './Search/GlobalSearchBar'
@@ -123,7 +123,17 @@ const Header: FC<Props> = ({ className }) => {
                     )}
                   </Button>
                 </Link>
-                <NewVideoTrigger />
+                <Link
+                  href="/upload"
+                  onClick={() => Analytics.track(TRACK.CLICK_UPLOAD_VIDEO)}
+                >
+                  <Button
+                    className="md:!block !hidden"
+                    icon={<NewVideoOutline className="w-4 h-4" />}
+                  >
+                    <span>New video</span>
+                  </Button>
+                </Link>
               </>
             ) : null}
             <Login />

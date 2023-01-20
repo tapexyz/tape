@@ -37,7 +37,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
       panelClassName="max-w-md"
     >
       <div className="mt-2">
-        <div className="flex items-center mb-4 space-x-2 overflow-x-auto flex-nowrap no-scrollbar">
+        <div className="flex items-center mb-4 space-x-3 overflow-x-auto flex-nowrap no-scrollbar">
           <EmbedVideo videoId={video.id} onClose={() => setShowShare(false)} />
           <MirrorVideo
             video={video}

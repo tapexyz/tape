@@ -111,7 +111,7 @@ const UploadSteps = () => {
     })
     const txnId = data?.createPostViaDispatcher?.txId ?? data?.broadcast?.txId
     setToQueue({ txnId })
-    setUploadedVideo({
+    return setUploadedVideo({
       buttonText: 'Post Video',
       loading: false
     })
@@ -192,14 +192,14 @@ const UploadSteps = () => {
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError')
-          writePostContract?.({ recklesslySetUnpreparedArgs: [args] })
+          return writePostContract?.({ recklesslySetUnpreparedArgs: [args] })
       } catch {}
     },
     onError
   })
 
-  const signTypedData = (request: CreatePublicPostRequest) => {
-    createPostTypedData({
+  const signTypedData = async (request: CreatePublicPostRequest) => {
+    await createPostTypedData({
       variables: { request }
     })
   }
@@ -209,7 +209,7 @@ const UploadSteps = () => {
       variables: { request }
     })
     if (data?.createPostViaDispatcher.__typename === 'RelayError') {
-      signTypedData(request)
+      await signTypedData(request)
     }
   }
 
@@ -337,7 +337,7 @@ const UploadSteps = () => {
     Analytics.track(TRACK.UPLOADED_TO_IPFS, {
       format: uploadedVideo.videoType
     })
-    return createPublication({
+    return await createPublication({
       videoSource: result.url
     })
   }
@@ -377,7 +377,7 @@ const UploadSteps = () => {
         })
       })
       const upload = uploader.uploadData(uploadedVideo.stream as any, {
-        tags: tags
+        tags
       })
       const response = await upload
       setUploadedVideo({
@@ -389,13 +389,13 @@ const UploadSteps = () => {
       Analytics.track(TRACK.UPLOADED_TO_ARWEAVE, {
         format: uploadedVideo.videoType
       })
-      return createPublication({
+      return await createPublication({
         videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`
       })
     } catch (error) {
       toast.error('Failed to upload video!')
       logger.error('[Error Bundlr Upload Video]', error)
-      setUploadedVideo({
+      return setUploadedVideo({
         loading: false,
         buttonText: 'Post Video'
       })

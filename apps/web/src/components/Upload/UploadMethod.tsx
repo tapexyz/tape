@@ -14,7 +14,7 @@ const UploadMethod = () => {
 
   const isUnderFreeLimit = canUploadedToIpfs(uploadedVideo.file?.size)
 
-  const onClickArweave = async () => {
+  const onClickArweave = () => {
     setUploadedVideo({ isUploadToIpfs: false })
   }
 

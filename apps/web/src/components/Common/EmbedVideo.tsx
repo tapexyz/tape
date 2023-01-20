@@ -72,7 +72,7 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
         <button
           type="button"
           onClick={() => openModal()}
-          className="p-3.5 bg-purple-200 dark:bg-purple-800 rounded-full"
+          className="p-3 bg-purple-200 dark:bg-purple-800 rounded-full"
         >
           <FiCode className="text-lg" />
         </button>

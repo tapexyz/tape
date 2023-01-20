@@ -32,7 +32,7 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
 
     if (format === 'json') {
       return {
-        title: title,
+        title,
         author_name: video.profile?.handle,
         author_url: `${LENSTUBE_WEBSITE_URL}/channel/${video.profile?.handle}`,
         type: 'video',

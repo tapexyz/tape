@@ -35,12 +35,16 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
     <button
       ref={ref}
       className={clsx(
-        'relative inline-block disabled:opacity-50 rounded-lg md:rounded-xl group',
+        'relative inline-block disabled:opacity-50 rounded-lg md:rounded-xl',
         {
           'px-4 py-1.5 text-xs': size === 'sm',
           'px-5 md:py-2 py-1.5 text-sm': size === 'md',
           'px-6 py-3 text-base': size === 'lg',
           'px-8 py-4 text-lg': size === 'xl'
+        },
+        {
+          'dark:hover:bg-indigo-900 !rounded-full hover:bg-indigo-100':
+            variant === 'material'
         },
         className
       )}
@@ -48,21 +52,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
       {...rest}
     >
       <span
-        className={clsx(
-          'absolute focus:outline-none inset-0 w-full h-full transition duration-200 ease-in-out transform rounded-full md:rounded-full',
-          {
-            'border border-indigo-500': variant === 'primary',
-            'bg-transparent': variant === 'secondary',
-            'bg-opacity-25 dark:group-hover:bg-indigo-900 group-hover:bg-indigo-100 !transition-none':
-              variant === 'material',
-            'border-red-500 border': variant === 'danger',
-            'group-hover:translate-x-0.5 group-hover:translate-y-0.5':
-              !rest.disabled && variant !== 'material'
-          }
-        )}
-      />
-      <span
-        className={clsx('absolute inset-0 w-full h-full rounded-full', {
+        className={clsx('absolute inset-0 w-full h-full rounded-full group', {
           'bg-indigo-500 border border-indigo-500 md:rounded-full':
             variant === 'primary',
           'bg-transparent md:rounded-full': variant === 'secondary',
