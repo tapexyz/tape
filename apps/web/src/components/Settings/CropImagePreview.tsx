@@ -52,7 +52,7 @@ const CropImagePreview: FC<Props> = ({ getPreviewImageSrc, onPfpUpload }) => {
   return (
     <div className="text-center max-h-[90vh] justify-between flex flex-col">
       <ReactCrop
-        className="max-h-[50vh] my-4"
+        className="max-h-[50vh] my-4 mx-auto"
         crop={crop}
         onChange={(c) => setCrop(c)}
         aspect={1}
@@ -64,13 +64,11 @@ const CropImagePreview: FC<Props> = ({ getPreviewImageSrc, onPfpUpload }) => {
           className="h-auto object-fit"
         />
       </ReactCrop>
-      <Button
-        className="absolute bottom-0 right-0 flex ml-auto"
-        color="primary"
-        onClick={getCroppedImg}
-      >
-        Crop & Save
-      </Button>
+      <div className="flex justify-end">
+        <Button color="primary" onClick={getCroppedImg}>
+          Crop & Save
+        </Button>
+      </div>
     </div>
   )
 }

@@ -60,7 +60,7 @@ const ChoosePicture: FC<Props> = ({ onChooseImage, channel, setNFTAvatar }) => {
               'py-2 border-b-2 text-sm focus:outline-none w-full',
               selected
                 ? 'border-indigo-500 opacity-100'
-                : 'border-transparent opacity-50 hover:bg-indigo-200 dark:hover:bg-indigo-800'
+                : 'border-transparent opacity-50'
             )
           }
         >
@@ -72,7 +72,7 @@ const ChoosePicture: FC<Props> = ({ onChooseImage, channel, setNFTAvatar }) => {
               'py-2 border-b-2 text-sm focus:outline-none w-full',
               selected
                 ? 'border-indigo-500 opacity-100'
-                : 'border-transparent opacity-50 hover:bg-indigo-200 dark:hover:bg-indigo-800'
+                : 'border-transparent opacity-50'
             )
           }
         >

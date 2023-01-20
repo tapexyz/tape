@@ -18,7 +18,7 @@ type Props = {
   onPfpUpload: (file: File) => void
 }
 
-const ImageGalleryModal: FC<Props> = ({
+const ImagePicker: FC<Props> = ({
   show,
   onClose,
   channel,
@@ -46,7 +46,7 @@ const ImageGalleryModal: FC<Props> = ({
       show={show}
       panelClassName="max-w-lg no-scrollbar"
       autoClose={false}
-      title="Crop picture"
+      title="Select picture"
     >
       {selectedImage ? (
         <CropImagePreview
@@ -55,13 +55,13 @@ const ImageGalleryModal: FC<Props> = ({
         />
       ) : (
         <ChoosePicture
+          channel={channel}
           onChooseImage={onChooseImage}
           setNFTAvatar={setNFTAvatar}
-          channel={channel}
         />
       )}
     </Modal>
   )
 }
 
-export default ImageGalleryModal
+export default ImagePicker

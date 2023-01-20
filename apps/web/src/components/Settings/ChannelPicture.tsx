@@ -26,7 +26,7 @@ import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
 import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi'
 
-import ImageGalleryModal from './ImageGalleryModal'
+import ImagePicker from './ImagePicker'
 
 type Props = {
   channel: Profile
@@ -223,9 +223,9 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           <RiImageAddLine className="text-xl" />
         )}
       </label>
-      <ImageGalleryModal
-        show={showProfileModal}
+      <ImagePicker
         channel={channel}
+        show={showProfileModal}
         onClose={() => setShowProfileModal(false)}
         setNFTAvatar={setNFTAvatar}
         onPfpUpload={onPfpUpload}
