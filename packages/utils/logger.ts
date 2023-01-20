@@ -9,7 +9,7 @@ const isBrowser = typeof window !== 'undefined'
 const sendError = (error: string) => {
   if (isBrowser && enabled) {
     const reqId = uuid()
-    axios('https://http-intake.logs.datadoghq.com/api/v2/logs', {
+    axios('/error/logs', {
       method: 'POST',
       params: {
         'dd-api-key': DATADOG_KEY,
