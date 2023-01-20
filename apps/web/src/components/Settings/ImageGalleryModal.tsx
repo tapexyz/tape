@@ -1,15 +1,14 @@
 import Modal from '@components/UIElements/Modal'
 import type { Profile } from 'lens'
 import type { ChangeEvent, FC } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 
 import ChoosePicture from './ChoosePicture'
 import CropImagePreview from './CropImagePreview'
 
 type Props = {
-  isModalOpen: boolean
+  show: boolean
   onClose?: () => void
-  onChooseImage?: (e: ChangeEvent<HTMLInputElement>) => void
   channel: Profile
   setNFTAvatar: (
     contractAddress: string,
@@ -17,38 +16,48 @@ type Props = {
     chainId: number
   ) => void
   onPfpUpload: (file: File) => void
-  getPreviewImageSrc: () => string
-  showCropImagePreview: boolean
 }
 
 const ImageGalleryModal: FC<Props> = ({
-  isModalOpen,
+  show,
   onClose,
-  onChooseImage,
   channel,
   setNFTAvatar,
-  onPfpUpload,
-  getPreviewImageSrc,
-  showCropImagePreview
+  onPfpUpload
 }) => {
+  const [selectedImage, setSelectedImage] = useState<File | null>(null)
+
+  const onChooseImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      setSelectedImage(e.target.files[0])
+    }
+  }
+
+  const getPreviewImageSrc = (): string => {
+    return selectedImage ? URL.createObjectURL(selectedImage as File) : ''
+  }
+
   return (
     <Modal
-      onClose={() => onClose?.()}
-      show={isModalOpen}
-      panelClassName="max-w-lg h-[75vh] no-scrollbar"
+      onClose={() => {
+        setSelectedImage(null)
+        onClose?.()
+      }}
+      show={show}
+      panelClassName="max-w-lg no-scrollbar"
       autoClose={false}
-      title={showCropImagePreview && 'Crop picture'}
+      title="Crop picture"
     >
-      {!showCropImagePreview ? (
+      {selectedImage ? (
+        <CropImagePreview
+          getPreviewImageSrc={getPreviewImageSrc}
+          onPfpUpload={onPfpUpload}
+        />
+      ) : (
         <ChoosePicture
           onChooseImage={onChooseImage}
           setNFTAvatar={setNFTAvatar}
           channel={channel}
-        />
-      ) : (
-        <CropImagePreview
-          getPreviewImageSrc={getPreviewImageSrc}
-          onPfpUpload={onPfpUpload}
         />
       )}
     </Modal>

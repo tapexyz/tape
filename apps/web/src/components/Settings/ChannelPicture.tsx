@@ -14,7 +14,7 @@ import {
   useCreateSetProfileImageUriViaDispatcherMutation,
   useNftChallengeLazyQuery
 } from 'lens'
-import type { ChangeEvent, FC } from 'react'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
@@ -40,8 +40,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce)
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
   const [showProfileModal, setShowProfileModal] = useState(false)
-  const [showCropImagePreview, setShowCropImagePreview] = useState(false)
-  const [imagePreviewSrc, setImagePreviewSrc] = useState<File>()
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -137,25 +135,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     }
   }
 
-  const onChooseImage = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
-      setImagePreviewSrc(e.target.files[0])
-      setShowCropImagePreview(true)
-    }
-  }
-
-  const getPreviewImageSrc = (): string => {
-    const url = imagePreviewSrc
-      ? URL.createObjectURL(imagePreviewSrc as File)
-      : ''
-    return url
-  }
-
   const onPfpUpload = async (file: File) => {
     try {
       setLoading(true)
-      setProfileModal(false)
-      setShowCropImagePreview(false)
+      setShowProfileModal(false)
       const result: IPFSUploadResult = await uploadToIPFS(file)
       const request = {
         profileId: selectedChannel?.id,
@@ -215,11 +198,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     } catch {}
   }
 
-  const closeChoosePictureModal = () => {
-    setProfileModal(false)
-    setShowCropImagePreview(false)
-  }
-
   return (
     <div className="relative flex-none overflow-hidden rounded-full group">
       <img
@@ -237,7 +215,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           'absolute top-0 grid w-32 h-32 bg-white rounded-full cursor-pointer bg-opacity-70 place-items-center backdrop-blur-lg invisible group-hover:visible dark:bg-theme',
           { '!visible': loading && !pfpData?.hash }
         )}
-        onClick={() => setProfileModal(true)}
+        onClick={() => setShowProfileModal(true)}
       >
         {loading && !pfpData?.hash ? (
           <Loader />
@@ -245,16 +223,12 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           <RiImageAddLine className="text-xl" />
         )}
       </label>
-
       <ImageGalleryModal
-        isModalOpen={showProfileModal}
-        onClose={() => closeChoosePictureModal()}
-        onChooseImage={onChooseImage}
+        show={showProfileModal}
         channel={channel}
+        onClose={() => setShowProfileModal(false)}
         setNFTAvatar={setNFTAvatar}
-        getPreviewImageSrc={getPreviewImageSrc}
         onPfpUpload={onPfpUpload}
-        showCropImagePreview={showCropImagePreview}
       />
     </div>
   )
