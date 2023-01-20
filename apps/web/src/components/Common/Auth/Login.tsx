@@ -75,7 +75,10 @@ const Login = () => {
     !selectedChannelId
 
   const handleSign = useCallback(async () => {
-    if (!isReadyToSign) return toast.error('Unable to connect to your wallet')
+    if (!isReadyToSign) {
+      signOut()
+      return toast.error('Unable to connect to your wallet')
+    }
     Analytics.track(TRACK.AUTH.CLICK_SIGN_IN)
     try {
       setLoading(true)
