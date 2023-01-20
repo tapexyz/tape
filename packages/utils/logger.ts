@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { v4 as uuid } from 'uuid'
 
-import { DATADOG_ERROR_LOGS_HOST, DATADOG_KEY, IS_MAINNET } from './constants'
+import { DATADOG_KEY, IS_MAINNET } from './constants'
 
 const enabled = DATADOG_KEY && IS_MAINNET
 const isBrowser = typeof window !== 'undefined'
@@ -9,7 +9,7 @@ const isBrowser = typeof window !== 'undefined'
 const sendError = (error: string) => {
   if (isBrowser && enabled) {
     const reqId = uuid()
-    axios(DATADOG_ERROR_LOGS_HOST, {
+    axios('https://http-intake.logs.datadoghq.com/api/v2/logs', {
       method: 'POST',
       params: {
         'dd-api-key': DATADOG_KEY,

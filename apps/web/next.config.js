@@ -20,10 +20,6 @@ const moduleExports = {
       {
         source: '/collect/:match*',
         destination: 'https://api.mixpanel.com/:match*'
-      },
-      {
-        source: '/error/logs',
-        destination: 'https://http-intake.logs.datadoghq.com/api/v2/logs'
       }
     ]
   },
