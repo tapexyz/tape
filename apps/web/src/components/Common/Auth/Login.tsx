@@ -9,9 +9,10 @@ import {
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import type { CustomErrorWithData } from 'utils'
 import { Analytics, ERROR_MESSAGE, POLYGON_CHAIN_ID, TRACK } from 'utils'
 import logger from 'utils/logger'
-import { useAccount, useNetwork, useSignMessage } from 'wagmi'
+import { useAccount, useDisconnect, useNetwork, useSignMessage } from 'wagmi'
 
 import ConnectWalletButton from './ConnectWalletButton'
 
@@ -21,6 +22,11 @@ const Login = () => {
   const { chain } = useNetwork()
   const { address, connector, isConnected } = useAccount()
   const [loading, setLoading] = useState(false)
+  const { disconnect } = useDisconnect({
+    onError(error: CustomErrorWithData) {
+      toast.error(error?.data?.message ?? error?.message)
+    }
+  })
 
   const setShowCreateChannel = useAppStore(
     (state) => state.setShowCreateChannel
@@ -76,6 +82,7 @@ const Login = () => {
 
   const handleSign = useCallback(async () => {
     if (!isReadyToSign) {
+      disconnect?.()
       signOut()
       return toast.error('Unable to connect to your wallet')
     }
