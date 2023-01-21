@@ -124,11 +124,12 @@ const Login = () => {
         if (router.query?.next) router.push(router.query?.next as string)
       }
       setLoading(false)
-      Analytics.track(TRACK.AUTH.SIGN_IN_FAILED)
+      Analytics.track(TRACK.AUTH.SIGN_IN_SUCCESS)
     } catch (error) {
       signOut()
       setLoading(false)
       toast.error('Sign in failed')
+      Analytics.track(TRACK.AUTH.SIGN_IN_FAILED)
       logger.error('[Error Sign In]', {
         error,
         connector: connector?.name
