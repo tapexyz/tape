@@ -4,8 +4,6 @@ labels: [needs review]
 body:
   - type: textarea
     attributes:
-      value: |
-        Thanks for adding a feature request!
       label: Description
       description: A concise description of the feature request.
       placeholder: Clearly describe what you want to see in Lenstube.
