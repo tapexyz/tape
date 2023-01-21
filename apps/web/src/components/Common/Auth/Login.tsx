@@ -124,6 +124,7 @@ const Login = () => {
         if (router.query?.next) router.push(router.query?.next as string)
       }
       setLoading(false)
+      Analytics.track(TRACK.AUTH.SIGN_IN_FAILED)
     } catch (error) {
       signOut()
       setLoading(false)

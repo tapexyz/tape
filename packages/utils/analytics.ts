@@ -19,6 +19,8 @@ export const TRACK = {
   AUTH: {
     CLICK_CONNECT_WALLET: 'Clicked Connect Wallet',
     CLICK_SIGN_IN: 'Clicked Sign In',
+    SIGN_IN_SUCCESS: 'Successful Sign In',
+    SIGN_IN_FAILED: 'Failed Sign In',
     CLICK_SIGN_OUT: 'Clicked Sign Out'
   },
   CLICK_CONNECT_WALLET: 'Clicked Connect Wallet',
