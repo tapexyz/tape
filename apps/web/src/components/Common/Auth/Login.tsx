@@ -82,8 +82,6 @@ const Login = () => {
 
   const handleSign = useCallback(async () => {
     if (!isReadyToSign) {
-      disconnect?.()
-      signOut()
       return toast.error('Unable to connect to your wallet')
     }
     Analytics.track(TRACK.AUTH.CLICK_SIGN_IN)
@@ -150,6 +148,9 @@ const Login = () => {
   useEffect(() => {
     if (isReadyToSign) {
       handleSign()
+    } else {
+      disconnect?.()
+      signOut()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected])
