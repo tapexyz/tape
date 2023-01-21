@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.4",
-    "@aws-sdk/client-s3": "^3.252.0",
+    "@aws-sdk/client-s3": "^3.254.0",
     "@aws-sdk/client-sts": "^3.254.0",
-    "@aws-sdk/lib-storage": "^3.252.0",
+    "@aws-sdk/lib-storage": "^3.254.0",
     "@bundlr-network/client": "^0.9.11",
     "@headlessui/react": "^1.7.5",
     "@hookform/resolvers": "^2.9.10",
