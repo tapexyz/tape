@@ -16,7 +16,7 @@ import {
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
+import type { CustomErrorWithData, LenstubeCollectModule } from 'utils'
 import {
   Analytics,
   ERROR_MESSAGE,
@@ -40,6 +40,11 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+
+  const collectModule =
+    video?.__typename === 'Post'
+      ? (video?.collectModule as LenstubeCollectModule)
+      : null
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -158,11 +163,12 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
   if (!video?.canMirror.result) return null
 
+  const tooltipContent = collectModule?.referralFee
+    ? `Mirror video for ${collectModule?.referralFee}% referral fee`
+    : 'Mirror video across Lens'
+
   return (
-    <Tooltip
-      placement="top"
-      content={loading ? 'Mirroring' : 'Mirror video across Lens'}
-    >
+    <Tooltip placement="top" content={loading ? 'Mirroring' : tooltipContent}>
       <div className="inline-flex">
         <button
           type="button"
