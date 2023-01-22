@@ -1,5 +1,6 @@
 import Alert from '@components/Common/Alert'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React from 'react'
 import type { LenstubeCollectModule } from 'utils'
 import { IS_MAINNET } from 'utils'
@@ -10,11 +11,11 @@ const getUniswapURL = (amount: number, outputCurrency: string): string => {
   }`
 }
 
-const BalanceAlert = ({
-  collectModule
-}: {
+type Props = {
   collectModule: LenstubeCollectModule
-}) => {
+}
+
+const BalanceAlert: FC<Props> = ({ collectModule }) => {
   return (
     <div className="flex-1">
       <Alert variant="warning">
