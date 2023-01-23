@@ -7,9 +7,7 @@ import useAppStore from '@lib/store'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { FEATURE_FLAGS } from 'utils/data/feature-flags'
 import { getRelativeTime } from 'utils/functions/formatTime'
-import getIsFeatureEnabled from 'utils/functions/getIsFeatureEnabled'
 import { getPublicationMediaRawUrl } from 'utils/functions/getPublicationMediaUrl'
 
 import ViewCount from './ViewCount'
@@ -46,10 +44,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
             <MirroredList videoId={video.id} />
           </div>
         </Modal>
-        {getIsFeatureEnabled(
-          FEATURE_FLAGS.VIDEO_VIEWS,
-          selectedChannel?.id
-        ) && <ViewCount url={getPublicationMediaRawUrl(video)} />}
+        <ViewCount url={getPublicationMediaRawUrl(video)} />
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
           <>
             <button
