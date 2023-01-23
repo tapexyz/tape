@@ -3,13 +3,10 @@ import CollectOutline from '@components/Common/Icons/CollectOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import MirroredList from '@components/Common/MirroredList'
 import Modal from '@components/UIElements/Modal'
-import useAppStore from '@lib/store'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { FEATURE_FLAGS } from 'utils/data/feature-flags'
 import { getRelativeTime } from 'utils/functions/formatTime'
-import getIsFeatureEnabled from 'utils/functions/getIsFeatureEnabled'
 import { getPublicationMediaRawUrl } from 'utils/functions/getPublicationMediaUrl'
 
 import ViewCount from './ViewCount'
@@ -21,7 +18,6 @@ type Props = {
 const VideoMeta: FC<Props> = ({ video }) => {
   const [showCollectsModal, setShowCollectsModal] = useState(false)
   const [showMirrorsModal, setShowMirrorsModal] = useState(false)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   return (
     <div className="flex flex-wrap items-center opacity-70">
@@ -46,10 +42,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
             <MirroredList videoId={video.id} />
           </div>
         </Modal>
-        {getIsFeatureEnabled(
-          FEATURE_FLAGS.VIDEO_VIEWS,
-          selectedChannel?.id
-        ) && <ViewCount url={getPublicationMediaRawUrl(video)} />}
+        <ViewCount url={getPublicationMediaRawUrl(video)} />
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
           <>
             <button

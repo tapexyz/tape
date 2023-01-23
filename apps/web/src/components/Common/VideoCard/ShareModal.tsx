@@ -43,7 +43,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             video={video}
             onMirrorSuccess={() => setShowShare(false)}
           >
-            <div className="p-3.5 bg-gray-200 dark:bg-gray-800 rounded-full">
+            <div className="p-3 bg-gray-200 dark:bg-gray-800 rounded-full">
               <MirrorOutline className="w-5 h-5" />
             </div>
           </MirrorVideo>

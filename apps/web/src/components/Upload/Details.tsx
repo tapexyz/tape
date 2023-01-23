@@ -127,7 +127,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               <div className="flex mt-2 text-opacity-80 text-black text-sm items-center px-3 py-1 space-x-1.5 font-medium rounded-full bg-gradient-to-br from-orange-200 to-orange-100">
                 <MdOutlineSlowMotionVideo className="flex-none text-base" />
                 <span>
-                  Try adding
+                  Using
                   <button
                     type="button"
                     onClick={() => {
@@ -141,7 +141,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   >
                     #bytes
                   </button>
-                  in your description to upload this video as Bytes
+                  in description will upload this as a short form video.
                 </span>
               </div>
             </div>

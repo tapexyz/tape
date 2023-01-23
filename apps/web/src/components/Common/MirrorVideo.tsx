@@ -16,12 +16,14 @@ import {
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
+import type { CustomErrorWithData, LenstubeCollectModule } from 'utils'
 import {
+  Analytics,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   RELAYER_ENABLED,
-  SIGN_IN_REQUIRED_MESSAGE
+  SIGN_IN_REQUIRED_MESSAGE,
+  TRACK
 } from 'utils'
 import omitKey from 'utils/functions/omitKey'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -39,6 +41,11 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
+  const collectModule =
+    video?.__typename === 'Post'
+      ? (video?.collectModule as LenstubeCollectModule)
+      : null
+
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
@@ -48,6 +55,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onMirrorSuccess?.()
     toast.success('Mirrored video across lens.')
     setLoading(false)
+    Analytics.track(TRACK.MIRROR_VIDEO)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -155,11 +163,12 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
   if (!video?.canMirror.result) return null
 
+  const tooltipContent = collectModule?.referralFee
+    ? `Mirror video for ${collectModule?.referralFee}% referral fee`
+    : 'Mirror video across Lens'
+
   return (
-    <Tooltip
-      placement="top"
-      content={loading ? 'Mirroring' : 'Mirror video across Lens'}
-    >
+    <Tooltip placement="top" content={loading ? 'Mirroring' : tooltipContent}>
       <div className="inline-flex">
         <button
           type="button"

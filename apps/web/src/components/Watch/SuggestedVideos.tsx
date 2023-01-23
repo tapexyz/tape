@@ -20,7 +20,7 @@ import {
 import SuggestedVideoCard from './SuggestedVideoCard'
 
 const request = {
-  sortCriteria: PublicationSortCriteria.TopMirrored,
+  sortCriteria: PublicationSortCriteria.CuratedProfiles,
   limit: 30,
   sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
   publicationTypes: [PublicationTypes.Post],

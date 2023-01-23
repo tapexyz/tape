@@ -1,7 +1,7 @@
 import { IS_MAINNET } from '../constants'
 import { featureFlags } from '../data/feature-flags'
 
-const getIsFeatureEnabled = (flag: string, channelId: string | null) => {
+const getIsFeatureEnabled = (flag: string, channelId: string) => {
   if (!channelId) return false
   const feature = featureFlags.find((f) => f.flag === flag)
 

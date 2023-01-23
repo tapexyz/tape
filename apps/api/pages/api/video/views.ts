@@ -28,15 +28,17 @@ const views = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       }
     }
     const { data } = await axios.get(
-      `https://livepeer.studio/api/asset?sourceUrl=${payload.sourceUrl}&phase=ready&limit=1`,
+      `https://livepeer.studio/api/asset?sourceUrl=${payload.sourceUrl}&phase=ready`,
       headers
     )
-    if (data && data[0]) {
+    if (data && data?.length) {
       const { data: views } = await axios.get(
-        `https://livepeer.studio/api/data/views/${data[0].id}/total`,
+        `https://livepeer.studio/api/data/views/${
+          data[data.length - 1].id
+        }/total`,
         headers
       )
-      if (!views || !views[0]) {
+      if (!views || !views?.length) {
         return res.status(200).json({ success: false })
       }
       return res.setHeader('Cache-Control', 's-maxage=100').status(200).json({

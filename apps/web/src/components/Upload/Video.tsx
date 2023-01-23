@@ -136,6 +136,12 @@ const Video = () => {
           }}
         />
       </div>
+      <ul className="text-xs mt-4 list-disc list-inside">
+        <li>
+          Stay active in current tab while uploading for faster experience.
+        </li>
+        <li>Video will be stored permanently on-chain and can't be updated.</li>
+      </ul>
       <div className="rounded-lg">
         <UploadMethod />
       </div>
