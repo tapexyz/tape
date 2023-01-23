@@ -5,6 +5,6 @@ export const FEATURE_FLAGS = {
 export const featureFlags = [
   {
     flag: FEATURE_FLAGS.LENSTUBE_ECHOS,
-    enabledFor: []
+    enabledFor: ['0x2d']
   }
 ]
