@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.4",
-    "@aws-sdk/client-sts": "^3.254.0",
-    "@bundlr-network/client": "^0.9.11",
+    "@aws-sdk/client-sts": "^3.256.0",
+    "@bundlr-network/client": "^0.10.0",
     "axios": "^1.2.3",
-    "next": "13.1.4"
+    "next": "13.1.5"
   },
   "devDependencies": {
     "@types/node": "18.11.18",
