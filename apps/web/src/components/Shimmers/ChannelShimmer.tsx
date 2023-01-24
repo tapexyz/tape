@@ -15,7 +15,9 @@ const ChannelShimmer = () => {
               <div className="h-4 md:w-1/3 col-span-2 bg-gray-300 rounded dark:bg-gray-700" />
               <div className="h-3 col-span-1 md:w-1/3 bg-gray-300 rounded dark:bg-gray-700" />
             </div>
-            <ButtonShimmer />
+            <div className="hidden md:block">
+              <ButtonShimmer />
+            </div>
           </div>
         </div>
       </div>
