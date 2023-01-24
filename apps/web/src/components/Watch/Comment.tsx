@@ -99,7 +99,7 @@ const Comment: FC<Props> = ({ comment }) => {
                 </span>
               </Tooltip>
             )}
-            <span className="inline-flex items-center opacity-70 space-x-1 text-[10px]">
+            <span className="text-xs opacity-70">
               {getRelativeTime(comment.createdAt)}
             </span>
           </span>
