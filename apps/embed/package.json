@@ -11,19 +11,19 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.4",
-    "@livepeer/react": "^2.1.0",
+    "@livepeer/react": "^2.1.2",
     "@tailwindcss/line-clamp": "^0.4.0",
     "clsx": "^1.2.1",
     "graphql": "^16.6.0",
     "mixpanel-browser": "^2.45.0",
-    "next": "13.1.4",
+    "next": "13.1.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.7.1"
   },
   "devDependencies": {
-    "@types/mixpanel-browser": "^2.38.0",
+    "@types/mixpanel-browser": "^2.38.1",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
