@@ -338,7 +338,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
               </div>
             )}
           </span>
-          <Button disabled={loading} loading={loading}>
+          <Button loading={loading}>
             {`Tip ${
               isNaN(Number(watchTipQuantity) * 1)
                 ? 0

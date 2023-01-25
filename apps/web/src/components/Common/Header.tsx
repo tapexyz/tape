@@ -90,22 +90,21 @@ const Header: FC<Props> = ({ className }) => {
             <GlobalSearchBar />
           </div>
           <div className="flex flex-row items-center justify-end space-x-2 md:space-x-3 md:w-96">
-            <Button
-              variant="material"
+            <button
               onClick={() => setSearchModal(true)}
-              className="!p-[10px] md:hidden"
+              className="p-2.5 btn-hover md:hidden"
             >
               <SearchOutline className="w-4 h-4" aria-hidden="true" />
-            </Button>
+            </button>
             <Link
               className="rounded-lg hidden lg:block opacity-80 hover:opacity-100"
               href={LENSTUBE_ROADMAP_URL}
               onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)}
               target="_blank"
             >
-              <Button variant="material" className="!p-[9px]">
+              <button className="btn-hover p-2.5">
                 <RoadmapOutline className="w-4 h-4" />
-              </Button>
+              </button>
             </Link>
             {selectedChannelId ? (
               <>
@@ -114,21 +113,21 @@ const Header: FC<Props> = ({ className }) => {
                     Analytics.track(TRACK.NOTIFICATIONS.CLICK_NOTIFICATIONS)
                   }
                   href="/notifications"
-                  className="relative pr-1"
+                  className="relative"
                 >
-                  <Button variant="material" className="!p-[9px]">
+                  <button className="btn-hover p-2.5">
                     <BellOutline className="w-4 h-4" />
                     {hasNewNotification && (
-                      <span className="absolute flex w-2 h-2 bg-red-500 rounded-full -top-1 -right-0.5" />
+                      <span className="absolute flex w-2 h-2 bg-red-500 rounded-full top-0.5 right-0.5" />
                     )}
-                  </Button>
+                  </button>
                 </Link>
                 <Link
                   href="/upload"
                   onClick={() => Analytics.track(TRACK.CLICK_UPLOAD_VIDEO)}
                 >
                   <Button
-                    className="md:!block !hidden"
+                    className="md:block hidden"
                     icon={<NewVideoOutline className="w-4 h-4" />}
                   >
                     <span>New video</span>

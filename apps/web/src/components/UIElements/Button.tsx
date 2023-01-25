@@ -4,7 +4,7 @@ import React, { forwardRef } from 'react'
 
 import { Loader } from './Loader'
 
-export type ButtonVariants = 'primary' | 'secondary' | 'danger' | 'material'
+export type ButtonVariants = 'primary' | 'hover' | 'danger'
 
 interface Props
   extends DetailedHTMLProps<
@@ -35,16 +35,16 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
     <button
       ref={ref}
       className={clsx(
-        'relative inline-block disabled:opacity-50 rounded-lg md:rounded-xl',
+        {
+          'btn-primary': variant === 'primary',
+          'btn-danger': variant === 'danger',
+          'btn-hover': variant === 'hover'
+        },
         {
           'px-4 py-1.5 text-xs': size === 'sm',
           'px-5 md:py-2 py-1.5 text-sm': size === 'md',
           'px-6 py-3 text-base': size === 'lg',
           'px-8 py-4 text-lg': size === 'xl'
-        },
-        {
-          'dark:hover:bg-indigo-900 !rounded-full hover:bg-indigo-100':
-            variant === 'material'
         },
         className
       )}
@@ -52,29 +52,13 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
       {...rest}
     >
       <span
-        className={clsx('absolute inset-0 w-full h-full rounded-full group', {
-          'bg-indigo-500 border border-indigo-500 md:rounded-full':
-            variant === 'primary',
-          'bg-transparent md:rounded-full': variant === 'secondary',
-          'bg-red-500 border border-red-500 md:rounded-full':
-            variant === 'danger',
-          'md:rounded-full': size === 'sm'
-        })}
-      />
-      <span
-        className={clsx('relative flex items-center justify-center space-x-2', {
-          'text-white': variant !== 'secondary' && variant !== 'material'
+        className={clsx('flex items-center justify-center space-x-2', {
+          'text-white': variant !== 'hover'
         })}
       >
         {icon}
         {loading && <Loader size="sm" />}
-        <span
-          className={clsx('whitespace-nowrap', {
-            'font-medium': variant !== 'secondary'
-          })}
-        >
-          {children}
-        </span>
+        <span className="whitespace-nowrap">{children}</span>
       </span>
     </button>
   )

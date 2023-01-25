@@ -195,13 +195,12 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           }
         />
       ) : (
-        <div className="flex items-center justify-end mt-4">
-          <Button variant="secondary" onClick={() => onCancel()} type="button">
+        <div className="flex items-center justify-end mt-4 space-x-2">
+          <Button type="button" variant="hover" onClick={() => onCancel()}>
             Reset
           </Button>
           <Button
             loading={uploadedVideo.loading || uploadedVideo.uploadingThumbnail}
-            disabled={uploadedVideo.loading || uploadedVideo.uploadingThumbnail}
             type="submit"
           >
             {uploadedVideo.uploadingThumbnail

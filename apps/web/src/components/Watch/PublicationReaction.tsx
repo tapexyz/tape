@@ -1,6 +1,5 @@
 import DislikeOutline from '@components/Common/Icons/DislikeOutline'
 import LikeOutline from '@components/Common/Icons/LikeOutline'
-import { Button } from '@components/UIElements/Button'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
@@ -122,12 +121,18 @@ const PublicationReaction: FC<Props> = ({
           : 'space-x-2.5 md:space-x-5'
       )}
     >
-      <Button variant="secondary" className="!p-0" onClick={() => likeVideo()}>
+      <button
+        className="focus:outline-none disabled:opacity-50"
+        onClick={() => likeVideo()}
+      >
         <span
-          className={clsx('flex items-center space-x-1.5 outline-none', {
-            'text-indigo-500 font-semibold': reaction.isLiked,
-            'flex-col space-y-1': isVertical
-          })}
+          className={clsx(
+            'flex items-center focus:outline-none',
+            isVertical ? 'flex-col space-y-2' : 'space-x-1.5',
+            {
+              'text-indigo-500 font-semibold': reaction.isLiked
+            }
+          )}
         >
           <LikeOutline
             className={clsx({
@@ -151,17 +156,19 @@ const PublicationReaction: FC<Props> = ({
             </span>
           )}
         </span>
-      </Button>
-      <Button
-        variant="secondary"
-        className="!p-0"
+      </button>
+      <button
+        className="focus:outline-none disabled:opacity-50"
         onClick={() => dislikeVideo()}
       >
         <span
-          className={clsx('flex items-center space-x-1.5 outline-none', {
-            'text-indigo-500': reaction.isDisliked,
-            'flex-col space-y-1': isVertical
-          })}
+          className={clsx(
+            'flex items-center focus:outline-none',
+            isVertical ? 'flex-col space-y-2' : 'space-x-1.5',
+            {
+              'text-indigo-500': reaction.isDisliked
+            }
+          )}
         >
           <DislikeOutline
             className={clsx({
@@ -183,7 +190,7 @@ const PublicationReaction: FC<Props> = ({
             </span>
           )}
         </span>
-      </Button>
+      </button>
     </div>
   )
 }

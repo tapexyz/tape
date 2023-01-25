@@ -1,7 +1,6 @@
 import type { WebBundlr } from '@bundlr-network/client'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
-import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
@@ -168,7 +167,7 @@ const BundlrInfo = () => {
               onClick={() =>
                 setBundlrData({ showDeposit: !bundlrData.showDeposit })
               }
-              className="inline-flex py-0.5 items-center pl-1.5 pr-1 bg-gray-200 rounded-full focus:outline-none dark:bg-gray-800"
+              className="inline-flex py-0.5 items-center px-2 bg-gray-200 rounded-full focus:outline-none dark:bg-gray-900"
             >
               <span className="text-xs px-0.5">Deposit</span>
               {bundlrData.showDeposit ? (
@@ -185,11 +184,11 @@ const BundlrInfo = () => {
           <div className="inline-flex flex-col text-xs font-medium opacity-70">
             Amount to deposit
           </div>
-          <div className="flex items-end space-x-2">
+          <div className="flex items-center space-x-2">
             <Input
               type="number"
               placeholder={userBalance?.formatted}
-              className="!py-1.5"
+              className="py-1.5"
               autoComplete="off"
               min={0}
               value={bundlrData.deposit || ''}
@@ -197,17 +196,14 @@ const BundlrInfo = () => {
                 setBundlrData({ deposit: e.target.value })
               }}
             />
-            <div>
-              <Button
-                type="button"
-                disabled={bundlrData.depositing}
-                loading={bundlrData.depositing}
-                onClick={() => depositToBundlr()}
-                className="mb-0.5 !py-1.5"
-              >
-                Deposit
-              </Button>
-            </div>
+            <button
+              type="button"
+              className="btn-primary px-4 text-sm py-1.5"
+              disabled={bundlrData.depositing}
+              onClick={() => depositToBundlr()}
+            >
+              Deposit
+            </button>
           </div>
         </div>
       )}

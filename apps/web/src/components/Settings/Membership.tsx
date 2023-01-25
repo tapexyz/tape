@@ -287,15 +287,13 @@ const Membership = ({ channel }: Props) => {
               />
             </div>
           </div>
-          <div className="flex justify-end mt-4">
+          <div className="flex justify-end mt-4 space-x-2">
             {activeFollowModule && (
-              <Button variant="secondary" onClick={() => setShowForm(false)}>
+              <Button variant="hover" onClick={() => setShowForm(false)}>
                 Cancel
               </Button>
             )}
-            <Button loading={loading} disabled={loading}>
-              Set Membership
-            </Button>
+            <Button loading={loading}>Set Membership</Button>
           </div>
         </form>
       ) : null}
@@ -305,7 +303,6 @@ const Membership = ({ channel }: Props) => {
           <Button
             variant="danger"
             loading={loading}
-            disabled={loading}
             onClick={() => setMembership(true)}
           >
             <span className="text-white">Disable</span>

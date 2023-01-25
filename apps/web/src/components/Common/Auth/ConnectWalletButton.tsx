@@ -1,12 +1,14 @@
 import { Button } from '@components/UIElements/Button'
+import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import React from 'react'
 import toast from 'react-hot-toast'
+import { AiOutlineDisconnect } from 'react-icons/ai'
 import type { CustomErrorWithData } from 'utils'
 import { Analytics, POLYGON_CHAIN_ID, TRACK } from 'utils'
-import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi'
+import { useAccount, useDisconnect, useNetwork, useSwitchNetwork } from 'wagmi'
 
 import UserMenu from '../UserMenu'
 
@@ -25,6 +27,11 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
+  const { disconnect } = useDisconnect({
+    onError(error: CustomErrorWithData) {
+      toast.error(error?.data?.message ?? error?.message)
+    }
+  })
   const { chain } = useNetwork()
 
   const { openConnectModal } = useConnectModal()
@@ -34,14 +41,24 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
       selectedChannelId && selectedChannel ? (
         <UserMenu />
       ) : (
-        <Button
-          loading={signing}
-          onClick={() => handleSign()}
-          disabled={signing}
-        >
-          Sign In
-          <span className="hidden ml-1 md:inline-block">with Lens</span>
-        </Button>
+        <div className="flex items-center space-x-2">
+          <Button
+            loading={signing}
+            onClick={() => handleSign()}
+            disabled={signing}
+          >
+            Sign In
+            <span className="hidden ml-1 md:inline-block">with Lens</span>
+          </Button>
+          <Tooltip content="Disconnect Wallet">
+            <button
+              className="btn-danger md:p-2.5 p-2"
+              onClick={() => disconnect?.()}
+            >
+              <AiOutlineDisconnect className="text-lg" />
+            </button>
+          </Tooltip>
+        </div>
       )
     ) : (
       <Button

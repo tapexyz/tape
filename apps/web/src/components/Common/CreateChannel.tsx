@@ -154,16 +154,16 @@ const CreateChannel = () => {
                 </div>
               )}
             </span>
-            <span className="flex items-center">
+            <span className="flex items-center space-x-2">
               <Button
                 type="button"
-                disabled={loading}
                 onClick={() => onCancel()}
-                variant="secondary"
+                variant="hover"
+                disabled={loading}
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={loading} loading={loading}>
+              <Button type="submit" loading={loading}>
                 {buttonText}
               </Button>
             </span>

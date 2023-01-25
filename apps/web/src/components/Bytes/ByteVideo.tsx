@@ -86,7 +86,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
           {video?.collectModule?.__typename !==
             'RevertCollectModuleSettings' && (
             <div className="text-center text-white md:text-gray-500">
-              <CollectVideo video={video} variant="secondary" />
+              <CollectVideo video={video} />
               <div className="text-xs">
                 {video.stats?.totalAmountOfCollects || 'Collect'}
               </div>

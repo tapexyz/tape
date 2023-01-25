@@ -131,7 +131,6 @@ const Toggle = () => {
     <Button
       variant={canUseRelay ? 'danger' : 'primary'}
       onClick={onClick}
-      disabled={loading}
       loading={loading}
     >
       {canUseRelay ? 'Disable' : 'Enable'} dispatcher

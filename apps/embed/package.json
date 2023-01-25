@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.4",
+    "@apollo/client": "^3.7.5",
     "@livepeer/react": "^2.1.2",
     "@tailwindcss/line-clamp": "^0.4.0",
     "clsx": "^1.2.1",

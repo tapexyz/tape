@@ -150,7 +150,6 @@ const ModulePermissions = () => {
                   <div className="flex items-center flex-none ml-2 space-x-2">
                     {moduleItem?.allowance === '0x00' ? (
                       <Button
-                        disabled={loadingModule === moduleItem.module}
                         loading={loadingModule === moduleItem.module}
                         onClick={() => handleClick(true, moduleItem.module)}
                       >
@@ -158,7 +157,6 @@ const ModulePermissions = () => {
                       </Button>
                     ) : (
                       <Button
-                        disabled={loadingModule === moduleItem.module}
                         onClick={() => handleClick(false, moduleItem.module)}
                         variant="danger"
                         loading={loadingModule === moduleItem.module}
