@@ -5,7 +5,6 @@ import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import MirrorVideo from '@components/Common/MirrorVideo'
 import SubscribeActions from '@components/Common/SubscribeActions'
-import { Button } from '@components/UIElements/Button'
 import clsx from 'clsx'
 import type { Publication } from 'lens'
 import Link from 'next/link'
@@ -64,15 +63,15 @@ const AboutChannel: FC<Props> = ({ video }) => {
             <div className="md:block hidden">
               <MirrorVideo video={video}>
                 <div>
-                  <Button size="md" variant="material" className="!px-2">
+                  <button className="p-2.5 btn-hover">
                     <MirrorOutline className="w-5 h-5" />
-                  </Button>
+                  </button>
                 </div>
               </MirrorVideo>
             </div>
             {video?.collectModule?.__typename !==
               'RevertCollectModuleSettings' && (
-              <CollectVideo variant="material" video={video} />
+              <CollectVideo variant="hover" video={video} />
             )}
             <SubscribeActions channel={channel} subscribeType={subscribeType} />
           </div>

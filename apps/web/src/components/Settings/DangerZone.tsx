@@ -132,7 +132,6 @@ const DangerZone = () => {
           </p>
         </div>
         <Button
-          disabled={loading}
           loading={loading}
           onClick={() => onClickDelete()}
           variant="danger"

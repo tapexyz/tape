@@ -394,9 +394,7 @@ const BasicInfo = ({ channel }: Props) => {
         />
       </div>
       <div className="flex justify-end mt-4">
-        <Button disabled={loading} loading={loading}>
-          Save
-        </Button>
+        <Button loading={loading}>Save</Button>
       </div>
     </form>
   )

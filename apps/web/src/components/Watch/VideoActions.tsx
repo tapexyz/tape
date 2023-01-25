@@ -3,7 +3,6 @@ import HeartOutline from '@components/Common/Icons/HeartOutline'
 import ShareOutline from '@components/Common/Icons/ShareOutline'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
-import { Button } from '@components/UIElements/Button'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -35,9 +34,8 @@ const VideoActions: FC<Props> = ({ video }) => {
         textSize="base"
         iconSize="base"
       />
-      <Button
-        variant="secondary"
-        className="!p-0"
+      <button
+        className="focus:outline-none"
         onClick={() => {
           Analytics.track(TRACK.TIP.OPEN)
           setShowTip(true)
@@ -47,30 +45,25 @@ const VideoActions: FC<Props> = ({ video }) => {
           <HeartOutline className="w-4 h-4" />
           <span>Tip</span>
         </span>
-      </Button>
-      <Button
-        variant="secondary"
-        className="!p-0"
-        onClick={() => setShowShare(true)}
-      >
+      </button>
+      <button className="focus:outline-none" onClick={() => setShowShare(true)}>
         <span className="flex items-center text-base space-x-1.5">
           <ShareOutline className="w-4 h-4" />
           <span>Share</span>
         </span>
-      </Button>
-      <Button
+      </button>
+      <button
+        className="focus:outline-none"
         onClick={() => {
           Analytics.track(TRACK.DISLIKE_VIDEO)
           setShowReport(true)
         }}
-        variant="secondary"
-        className="!p-0"
       >
         <span className="flex items-center text-base space-x-1.5">
           <FlagOutline className="w-4 h-4" />
           <span>Report</span>
         </span>
-      </Button>
+      </button>
     </div>
   )
 }

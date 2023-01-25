@@ -3,7 +3,6 @@ import MirrorVideo from '@components/Common/MirrorVideo'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
-import { Button } from '@components/UIElements/Button'
 import CollectVideo from '@components/Watch/CollectVideo'
 import PublicationReaction from '@components/Watch/PublicationReaction'
 import type { Publication } from 'lens'
@@ -38,9 +37,9 @@ const ByteActions: FC<Props> = ({ video }) => {
         </div>
         <div className="text-white text-center md:text-inherit">
           <MirrorVideo video={video}>
-            <Button variant="secondary" className="!px-0">
+            <div className="p-2">
               <MirrorOutline className="w-6 h-6" />
-            </Button>
+            </div>
             <div className="text-xs leading-3">
               {video.stats?.totalAmountOfMirrors || 'Mirror'}
             </div>
@@ -48,7 +47,7 @@ const ByteActions: FC<Props> = ({ video }) => {
         </div>
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
           <div className="hidden md:block">
-            <CollectVideo video={video} variant="secondary" />
+            <CollectVideo video={video} />
             <div className="text-xs leading-3 text-center">
               {video.stats?.totalAmountOfCollects || 'Collect'}
             </div>

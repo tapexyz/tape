@@ -72,7 +72,6 @@ const PermissionAlert: FC<Props> = ({
       <Button
         loading={transactionLoading || waiting || loading}
         onClick={() => handleAllowance()}
-        disabled={transactionLoading || waiting || loading}
       >
         Allow Collect
       </Button>

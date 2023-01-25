@@ -115,11 +115,7 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
               </select>
             </div>
             <div className="flex justify-end mt-4 mb-1">
-              <Button
-                disabled={reporting}
-                loading={reporting}
-                onClick={() => onReport()}
-              >
+              <Button loading={reporting} onClick={() => onReport()}>
                 Report
               </Button>
             </div>

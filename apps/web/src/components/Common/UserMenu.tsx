@@ -1,4 +1,3 @@
-import { Button } from '@components/UIElements/Button'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import useAppStore from '@lib/store'
@@ -75,9 +74,9 @@ const UserMenu = () => {
   return (
     <DropMenu
       trigger={
-        <Button
+        <button
           onClick={() => Analytics.track(TRACK.CLICK_USER_MENU)}
-          className="!p-0 flex-none"
+          className="btn-primary flex-none"
         >
           <img
             className="object-cover bg-white rounded-full dark:bg-theme w-8 h-8 md:w-9 md:h-9"
@@ -85,7 +84,7 @@ const UserMenu = () => {
             alt={selectedChannel.handle}
             draggable={false}
           />
-        </Button>
+        </button>
       }
     >
       <div className="px-1 mt-1.5 w-48 divide-y shadow max-h-96 divide-gray-200 dark:divide-gray-800 overflow-hidden border border-gray-100 rounded-xl dark:border-gray-800 bg-secondary dark:bg-theme">

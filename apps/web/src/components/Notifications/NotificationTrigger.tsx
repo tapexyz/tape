@@ -1,5 +1,4 @@
 import BellOutline from '@components/Common/Icons/BellOutline'
-import { Button } from '@components/UIElements/Button'
 import DropMenu from '@components/UIElements/DropMenu'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
@@ -25,16 +24,15 @@ const NotificationTrigger = () => {
   return (
     <DropMenu
       trigger={
-        <Button
-          variant="material"
-          className="!p-[9px]"
+        <button
+          className="btn-hover p-2.5"
           onClick={() => onClickNotification()}
         >
           <BellOutline className="w-4 h-4" />
           {hasNewNotification && (
             <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full -top-1 -right-1" />
           )}
-        </Button>
+        </button>
       }
     >
       <div className="p-1 max-h-96 md:block hidden mt-1.5 w-80 overflow-x-hidden overflow-y-auto border shadow-xl border-gray-100 rounded-lg dark:border-gray-800 bg-secondary">
