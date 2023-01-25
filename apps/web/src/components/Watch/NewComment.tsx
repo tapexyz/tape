@@ -289,9 +289,7 @@ const NewComment: FC<Props> = ({ video }) => {
           }}
           mentionsSelector="input-mentions-single"
         />
-        <Button disabled={loading} loading={loading}>
-          Comment
-        </Button>
+        <Button loading={loading}>Comment</Button>
       </form>
     </div>
   )

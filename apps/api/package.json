@@ -9,10 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.4",
-    "@aws-sdk/client-sts": "^3.256.0",
-    "@bundlr-network/client": "^0.10.0",
-    "axios": "^1.2.3",
+    "@apollo/client": "^3.7.5",
+    "@aws-sdk/client-sts": "^3.257.0",
+    "@bundlr-network/client": "^0.10.1",
+    "axios": "^1.2.4",
     "next": "13.1.5"
   },
   "devDependencies": {

@@ -2,7 +2,6 @@ import CogOutline from '@components/Common/Icons/CogOutline'
 import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import SubscribersList from '@components/Common/SubscribersList'
-import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
@@ -105,13 +104,12 @@ const BasicInfo: FC<Props> = ({ channel }) => {
               ) : null}
               {isOwnChannel && (
                 <Tooltip content="Channel settings" placement="top">
-                  <Button
-                    variant="material"
+                  <button
                     onClick={() => onClickCustomize()}
-                    className="!p-2 md:!p-2.5"
+                    className="btn-hover p-2 md:p-2.5"
                   >
                     <CogOutline className="w-5 h-5" />
-                  </Button>
+                  </button>
                 </Tooltip>
               )}
               <SubscribeActions

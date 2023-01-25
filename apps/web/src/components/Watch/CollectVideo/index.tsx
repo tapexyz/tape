@@ -1,10 +1,10 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
-import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import clsx from 'clsx'
 import { utils } from 'ethers'
 import type { CreateCollectBroadcastItemResult, Publication } from 'lens'
 import {
@@ -32,10 +32,10 @@ import CollectModal from './CollectModal'
 
 type Props = {
   video: Publication
-  variant?: 'primary' | 'secondary' | 'material'
+  variant?: 'hover'
 }
 
-const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
+const CollectVideo: FC<Props> = ({ video, variant }) => {
   const { address } = useAccount()
   const [loading, setLoading] = useState(false)
   const [showCollectModal, setShowCollectModal] = useState(false)
@@ -191,19 +191,17 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary' }) => {
         placement="top"
       >
         <div>
-          <Button
-            className="!px-2"
+          <button
+            className={clsx('p-2.5', variant === 'hover' && 'btn-hover')}
             disabled={loading || alreadyCollected}
             onClick={() => onClickCollect()}
-            size="md"
-            variant={variant}
           >
             {loading ? (
               <Loader size="md" />
             ) : (
               <CollectOutline className="w-5 h-5" />
             )}
-          </Button>
+          </button>
         </div>
       </Tooltip>
     </div>
