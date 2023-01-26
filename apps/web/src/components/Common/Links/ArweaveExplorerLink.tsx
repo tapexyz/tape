@@ -11,7 +11,7 @@ const ArweaveExplorerLink = ({
 }) => {
   return (
     <Link
-      href={`https://arweave.app/tx/${txId}`}
+      href={`https://viewblock.io/arweave/tx/${txId}`}
       rel="noreferer noreferrer"
       target="_blank"
     >
