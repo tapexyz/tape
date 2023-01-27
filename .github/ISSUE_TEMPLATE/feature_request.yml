@@ -1,11 +1,14 @@
 name: Feature Request
 description: Request a feature for Lenstube
-labels: [needs review]
+title: "[Feature Request] "
+labels: [needs review, triage]
 body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to file a feature request! Please fill out this form as completely as possible.
   - type: textarea
     attributes:
-      label: Description
-      description: A concise description of the feature request.
+      label: Describe the feature you'd like to request
       placeholder: Clearly describe what you want to see in Lenstube.
     validations:
       required: true
