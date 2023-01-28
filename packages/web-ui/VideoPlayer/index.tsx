@@ -23,12 +23,12 @@ interface Props {
   currentTime?: number
   refCallback?: (ref: HTMLMediaElement) => void
   publicationId?: string
+  children?: React.ReactNode
   options?: {
     autoPlay: boolean
     loop: boolean
     muted: boolean
   }
-  children?: React.ReactNode
 }
 
 interface PlayerProps {

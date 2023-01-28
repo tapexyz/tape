@@ -2,11 +2,12 @@ import IsVerified from '@components/Common/IsVerified'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
+import clsx from 'clsx'
 import type { Attribute, Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { Analytics, STATIC_ASSETS, TRACK } from 'utils'
+import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
 import { getRelativeTime, getTimeFromSeconds } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
@@ -20,6 +21,8 @@ type Props = {
 const SuggestedVideoCard: FC<Props> = ({ video }) => {
   const [showReport, setShowReport] = useState(false)
   const [showShare, setShowShare] = useState(false)
+
+  const isByteVideo = video.appId === LENSTUBE_BYTES_APP_ID
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const videoDuration = getValueFromTraitType(
     video.metadata?.attributes as Attribute[],
@@ -50,11 +53,14 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
                   isSensitiveContent
                     ? `${STATIC_ASSETS}/images/sensor-blur.png`
                     : getThumbnailUrl(video),
-                  'thumbnail'
+                  isByteVideo ? 'thumbnail_v' : 'thumbnail'
                 )}
                 alt="thumbnail"
                 draggable={false}
-                className="object-cover object-center h-20 w-36"
+                className={clsx(
+                  'object-center h-20 w-36 dark:bg-gray-700 bg-gray-300',
+                  isByteVideo ? 'object-contain' : 'object-cover'
+                )}
               />
               {!isSensitiveContent && videoDuration ? (
                 <div>

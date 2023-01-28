@@ -5,6 +5,7 @@ import type { Publication } from 'lens'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React from 'react'
+import { LENSTUBE_BYTES_APP_ID } from 'utils'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
@@ -26,6 +27,7 @@ type Props = {
 const Video: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const videoWatchTime = useAppStore((state) => state.videoWatchTime)
+  const isByteVideo = video.appId === LENSTUBE_BYTES_APP_ID
 
   return (
     <div className="overflow-hidden">
@@ -34,7 +36,7 @@ const Video: FC<Props> = ({ video }) => {
         permanentUrl={getPublicationMediaUrl(video)}
         posterUrl={imageCdn(
           sanitizeIpfsUrl(getThumbnailUrl(video)),
-          'thumbnail'
+          isByteVideo ? 'thumbnail_v' : 'thumbnail'
         )}
         isSensitiveContent={isSensitiveContent}
       />
