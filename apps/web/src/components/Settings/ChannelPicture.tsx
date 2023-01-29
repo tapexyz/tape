@@ -19,12 +19,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
 import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
-import {
-  Analytics,
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  TRACK
-} from 'utils'
+import { Analytics, ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS, TRACK } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import omitKey from 'utils/functions/omitKey'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
