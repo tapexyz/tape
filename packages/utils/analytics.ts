@@ -39,7 +39,10 @@ export const TRACK = {
   EMBED_VIDEO: {
     OPEN: 'Open Embed',
     COPY: 'Copy Embed',
-    LOADED: 'Embed Video Loaded'
+    LOADED: 'Embed Video Loaded',
+    WATCH_ON_LENSTUBE: 'Watch on LensTube',
+    CLICK_EMBED_TITLE: 'Click Embed Title',
+    CLICK_EMBED_CHANNEL: 'Click Embed Channel'
   },
   PROFILE_INTERESTS: {
     ADD: 'Add Profile Interest',
