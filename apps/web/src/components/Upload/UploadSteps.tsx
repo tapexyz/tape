@@ -32,7 +32,6 @@ import {
   LENSTUBE_APP_NAME,
   LENSTUBE_BYTES_APP_ID,
   LENSTUBE_WEBSITE_URL,
-  RELAYER_ENABLED,
   TRACK
 } from 'utils'
 import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
@@ -184,9 +183,6 @@ const UploadSteps = () => {
           referenceModule,
           referenceModuleInitData,
           sig: { v, r, s, deadline: typedData.value.deadline }
-        }
-        if (!RELAYER_ENABLED) {
-          return writePostContract?.({ recklesslySetUnpreparedArgs: [args] })
         }
         const { data } = await broadcast({
           variables: { request: { id, signature } }

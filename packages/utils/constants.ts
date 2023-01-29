@@ -6,7 +6,6 @@ export const LENSTUBE_APP_DESCRIPTION =
 
 export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT ?? 'mainnet'
 export const IS_MAINNET = LENS_ENV === 'mainnet'
-export const RELAYER_ENABLED = true
 
 export const STATIC_ASSETS = 'https://assets.lenstube.xyz'
 export const LENSTUBE_WEBSITE_URL = IS_MAINNET

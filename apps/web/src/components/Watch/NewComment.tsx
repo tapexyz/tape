@@ -28,7 +28,6 @@ import {
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
-  RELAYER_ENABLED,
   TRACK
 } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
@@ -173,9 +172,6 @@ const NewComment: FC<Props> = ({ video }) => {
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
         setUserSigNonce(userSigNonce + 1)
-        if (!RELAYER_ENABLED) {
-          return writeComment?.({ recklesslySetUnpreparedArgs: [args] })
-        }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })

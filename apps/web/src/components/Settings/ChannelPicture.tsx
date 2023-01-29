@@ -18,7 +18,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { RiImageAddLine } from 'react-icons/ri'
 import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
-import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS, RELAYER_ENABLED } from 'utils'
+import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import omitKey from 'utils/functions/omitKey'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
@@ -96,9 +96,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             sig: { v, r, s, deadline: typedData.value.deadline }
           }
           setUserSigNonce(userSigNonce + 1)
-          if (!RELAYER_ENABLED) {
-            return writePfpUri?.({ recklesslySetUnpreparedArgs: [args] })
-          }
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })

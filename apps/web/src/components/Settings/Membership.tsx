@@ -26,7 +26,6 @@ import type { CustomErrorWithData } from 'utils'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  RELAYER_ENABLED,
   WMATIC_TOKEN_ADDRESS
 } from 'utils'
 import omitKey from 'utils/functions/omitKey'
@@ -145,9 +144,6 @@ const Membership = ({ channel }: Props) => {
             sig: { v, r, s, deadline: typedData.value.deadline }
           }
           setUserSigNonce(userSigNonce + 1)
-          if (!RELAYER_ENABLED) {
-            return writeFollow?.({ recklesslySetUnpreparedArgs: [args] })
-          }
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })

@@ -32,7 +32,6 @@ import {
   LENS_PERIPHERY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
-  RELAYER_ENABLED,
   TALLY_VERIFICATION_FORM_URL,
   TRACK
 } from 'utils'
@@ -156,9 +155,6 @@ const BasicInfo = ({ channel }: Props) => {
             profileId,
             metadata,
             sig: { v, r, s, deadline: typedData.value.deadline }
-          }
-          if (!RELAYER_ENABLED) {
-            return writeMetaData?.({ recklesslySetUnpreparedArgs: [args] })
           }
           const { data } = await broadcast({
             variables: { request: { id, signature } }
