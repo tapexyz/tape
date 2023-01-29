@@ -30,14 +30,14 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
     commentedOn?.metadata?.attributes as Attribute[],
     'durationInSeconds'
   )
-  const isByteVideo = commentedOn.appId === LENSTUBE_BYTES_APP_ID
+  const isBytesVideo = commentedOn.appId === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
     isSensitiveContent
       ? `${STATIC_ASSETS}/images/sensor-blur.png`
       : getThumbnailUrl(commentedOn),
-    isByteVideo ? 'thumbnail_v' : 'thumbnail'
+    isBytesVideo ? 'thumbnail_v' : 'thumbnail'
   )
-  const { color: backgroundColor } = useAverageColor(thumbnailUrl)
+  const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
   return (
     <div
@@ -47,12 +47,14 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
       <Link href={`/watch/${commentedOn?.id}`}>
         <div className="relative rounded-xl aspect-w-16 aspect-h-8">
           <img
+            src={thumbnailUrl}
             className={clsx(
               'object-center bg-gray-100 dark:bg-gray-900 w-full h-full md:rounded-xl lg:w-full lg:h-full',
-              isByteVideo ? 'object-contain' : 'object-cover'
+              isBytesVideo ? 'object-contain' : 'object-cover'
             )}
-            src={thumbnailUrl}
-            style={{ backgroundColor: `${backgroundColor}95` }}
+            style={{
+              backgroundColor: backgroundColor && `${backgroundColor}95`
+            }}
             alt="thumbnail"
             draggable={false}
           />
@@ -128,4 +130,4 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
   )
 }
 
-export default CommentedVideoCard
+export default React.memo(CommentedVideoCard)

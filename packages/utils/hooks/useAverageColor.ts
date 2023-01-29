@@ -5,10 +5,13 @@ import logger from '../logger'
 
 const fac = new FastAverageColor()
 
-const useAverageColor = (src: string) => {
+const useAverageColor = (src: string, check: boolean) => {
   const [color, setColor] = useState('')
 
   const getColors = useCallback(async () => {
+    if (!check) {
+      return
+    }
     return fac
       .getColorAsync(src)
       .then((color) => {
@@ -17,7 +20,7 @@ const useAverageColor = (src: string) => {
       .catch((e) => {
         logger.error('[Error useAverageColor.ts]', e)
       })
-  }, [src])
+  }, [src, check])
 
   useEffect(() => {
     getColors()

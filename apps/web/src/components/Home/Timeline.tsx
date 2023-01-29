@@ -31,14 +31,20 @@ const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
             queuedVideo={queuedVideo}
           />
         ))}
-      {videos?.map((video: Publication) => {
+      {videos?.map((video: Publication, i) => {
         const isPub = video.__typename === videoType
         return isPub && isComment ? (
-          <CommentedVideoCard key={video?.id} video={video as Comment} />
+          <CommentedVideoCard
+            key={`${video?.id}_${i}`}
+            video={video as Comment}
+          />
         ) : isPub && isMirror ? (
-          <MirroredVideoCard key={video?.id} video={video as Mirror} />
+          <MirroredVideoCard
+            key={`${video?.id}_${i}`}
+            video={video as Mirror}
+          />
         ) : (
-          isPub && <VideoCard key={video?.id} video={video} />
+          isPub && <VideoCard key={`${video?.id}_${i}`} video={video} />
         )
       })}
     </div>

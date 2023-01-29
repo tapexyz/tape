@@ -26,15 +26,15 @@ const VideoCard: FC<Props> = ({ video }) => {
   const [showReport, setShowReport] = useState(false)
 
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
-  const isByteVideo = video.appId === LENSTUBE_BYTES_APP_ID
+  const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
 
   const thumbnailUrl = imageCdn(
     isSensitiveContent
       ? `${STATIC_ASSETS}/images/sensor-blur.png`
       : getThumbnailUrl(video),
-    isByteVideo ? 'thumbnail_v' : 'thumbnail'
+    isBytesVideo ? 'thumbnail_v' : 'thumbnail'
   )
-  const { color: backgroundColor } = useAverageColor(thumbnailUrl)
+  const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
   return (
     <div onClick={() => Analytics.track(TRACK.CLICK_VIDEO)} className="group">
@@ -59,10 +59,12 @@ const VideoCard: FC<Props> = ({ video }) => {
               <img
                 className={clsx(
                   'object-center bg-gray-100 dark:bg-gray-900 w-full h-full md:rounded-xl lg:w-full lg:h-full',
-                  isByteVideo ? 'object-contain' : 'object-cover'
+                  isBytesVideo ? 'object-contain' : 'object-cover'
                 )}
                 src={thumbnailUrl}
-                style={{ backgroundColor: `${backgroundColor}90` }}
+                style={{
+                  backgroundColor: backgroundColor && `${backgroundColor}95`
+                }}
                 alt="thumbnail"
                 draggable={false}
               />
