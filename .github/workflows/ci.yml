@@ -30,15 +30,14 @@ jobs:
         - name: Install dependencies 🧳
           run: yarn
 
-        - name: Format files 🤹🏻
-          run: yarn format
+        - name: Install Playwright Browsers 🕹️
+          run: npx playwright install --with-deps
 
-        - name: Lint files 💅🏻
+        - name: Check Lint 💅🏻
           run: yarn lint
  
         - name: Build 🔨
           run: yarn build
  
         - name: Test 🧪
-          run: yarn test
-  
+          run: yarn e2e:test

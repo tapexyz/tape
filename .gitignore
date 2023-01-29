@@ -39,3 +39,7 @@ yarn-error.log*
 
 dist
 .gitsigners
+
+test-results/
+playwright-report/
+playwright/.cache/
