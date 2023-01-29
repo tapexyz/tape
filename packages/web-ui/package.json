@@ -1,7 +1,11 @@
 {
   "name": "web-ui",
   "version": "0.0.0",
+  "license": "GPL-3.0",
   "main": "./index.ts",
+  "scripts": {
+    "lint": "eslint . --ext .js,.ts,.tsx"
+  },
   "dependencies": {
     "mux-embed": "^4.17.0",
     "wavesurfer.js": "^6.4.0"

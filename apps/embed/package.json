@@ -7,7 +7,7 @@
     "dev": "next dev --port 3001",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
     "@apollo/client": "^3.7.5",
