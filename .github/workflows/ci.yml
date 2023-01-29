@@ -30,10 +30,7 @@ jobs:
         - name: Install dependencies 🧳
           run: yarn
 
-        - name: Format files 🤹🏻
-          run: yarn format
-
-        - name: Lint files 💅🏻
+        - name: Check Lint 💅🏻
           run: yarn lint
  
         - name: Build 🔨
