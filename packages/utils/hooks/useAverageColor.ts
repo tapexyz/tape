@@ -5,16 +5,6 @@ import logger from '../logger'
 
 const fac = new FastAverageColor()
 
-export const getAverageColor = async (src: string) => {
-  try {
-    const color = await fac.getColorAsync(src)
-    return color.hex
-  } catch (e) {
-    logger.error('[Error getAverageColor]', e)
-    return ''
-  }
-}
-
 const useAverageColor = (src: string, check: boolean) => {
   const [color, setColor] = useState('')
 
