@@ -11,7 +11,7 @@ const Deployment = () => {
   return (
     <div className="flex items-center mb-4 space-x-2">
       <span className="p-1 px-3 text-xs bg-secondary backdrop-blur-xl bg-opacity-70 rounded-lg dark:bg-theme">
-        {IS_MAINNET ? 'polygon' : 'mumbai'}
+        {IS_MAINNET ? 'mainnet' : 'testnet'}
       </span>
       {GIT_DEPLOYED_BRANCH && (
         <span className="p-1 px-3 text-xs bg-secondary backdrop-blur-xl bg-opacity-70 rounded-lg dark:bg-theme">
