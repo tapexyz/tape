@@ -21,7 +21,6 @@ import {
   Analytics,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  RELAYER_ENABLED,
   SIGN_IN_REQUIRED_MESSAGE,
   TRACK
 } from 'utils'
@@ -108,9 +107,6 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
         setUserSigNonce(userSigNonce + 1)
-        if (!RELAYER_ENABLED) {
-          return writeCollectWithSig?.({ recklesslySetUnpreparedArgs: [args] })
-        }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })

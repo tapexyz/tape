@@ -12,13 +12,7 @@ import {
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
-import {
-  Analytics,
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  RELAYER_ENABLED,
-  TRACK
-} from 'utils'
+import { Analytics, ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS, TRACK } from 'utils'
 import omitKey from 'utils/functions/omitKey'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -100,9 +94,6 @@ const Toggle = () => {
           sig: { v, r, s, deadline }
         }
         setUserSigNonce(userSigNonce + 1)
-        if (!RELAYER_ENABLED) {
-          return writeDispatch?.({ recklesslySetUnpreparedArgs: [args] })
-        }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })

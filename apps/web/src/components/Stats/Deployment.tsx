@@ -4,7 +4,6 @@ import {
   GIT_DEPLOYED_BRANCH,
   GIT_DEPLOYED_COMMIT_SHA,
   IS_MAINNET,
-  RELAYER_ENABLED,
   VERCEL_DEPLOYED_ENV
 } from 'utils'
 
@@ -22,11 +21,6 @@ const Deployment = () => {
       {VERCEL_DEPLOYED_ENV && (
         <span className="p-1 px-3 text-xs bg-secondary backdrop-blur-xl bg-opacity-70 rounded-lg dark:bg-theme">
           {VERCEL_DEPLOYED_ENV}
-        </span>
-      )}
-      {RELAYER_ENABLED && (
-        <span className="p-1 px-3 text-xs bg-secondary backdrop-blur-xl bg-opacity-70 rounded-lg dark:bg-theme">
-          Relayer
         </span>
       )}
       {GIT_DEPLOYED_COMMIT_SHA && (
