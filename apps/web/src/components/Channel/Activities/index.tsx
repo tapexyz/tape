@@ -52,9 +52,8 @@ const Activities: FC<Props> = ({ channel }) => {
   }
 
   const handleTabChange = (tab: string) => {
-    router.replace({ query: { ...router.query, tab } }, undefined, {
-      shallow: true
-    })
+    const nextUrl = `${location.origin}/channel/${channel.handle}?tab=${tab}`
+    history.replaceState({ path: nextUrl }, '', nextUrl)
   }
 
   return (

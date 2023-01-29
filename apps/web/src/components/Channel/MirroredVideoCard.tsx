@@ -1,10 +1,11 @@
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import IsVerified from '@components/Common/IsVerified'
-import type { Attribute, Publication } from 'lens'
+import clsx from 'clsx'
+import type { Attribute, Mirror, Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { Analytics, STATIC_ASSETS, TRACK } from 'utils'
+import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
 import { getRelativeTime, getTimeFromSeconds } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
@@ -12,18 +13,13 @@ import getLensHandle from 'utils/functions/getLensHandle'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
+import useAverageColor from 'utils/hooks/useAverageColor'
 
 type Props = {
-  video: Publication
+  video: Mirror
 }
 
 const MirroredVideoCard: FC<Props> = ({ video }) => {
-  const isMirror = video.__typename === 'Mirror'
-
-  if (!isMirror) {
-    return null
-  }
-
   const mirrorOf = video.mirrorOf as Publication
   const isSensitiveContent = getIsSensitiveContent(mirrorOf.metadata, video.id)
   const videoDuration = getValueFromTraitType(
@@ -31,24 +27,33 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
     'durationInSeconds'
   )
 
+  const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
+  const thumbnailUrl = imageCdn(
+    isSensitiveContent
+      ? `${STATIC_ASSETS}/images/sensor-blur.png`
+      : getThumbnailUrl(video),
+    isBytesVideo ? 'thumbnail_v' : 'thumbnail'
+  )
+  const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
+
   return (
     <div
       onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
       className="overflow-hidden group rounded-xl"
-      role="button"
     >
       <Link href={`/watch/${mirrorOf.id}`}>
         <div className="relative rounded-xl aspect-w-16 aspect-h-8">
           <img
-            src={imageCdn(
-              isSensitiveContent
-                ? `${STATIC_ASSETS}/images/sensor-blur.png`
-                : getThumbnailUrl(video),
-              'thumbnail'
+            src={thumbnailUrl}
+            className={clsx(
+              'object-center bg-gray-100 dark:bg-gray-900 w-full h-full md:rounded-xl lg:w-full lg:h-full',
+              isBytesVideo ? 'object-contain' : 'object-cover'
             )}
+            style={{
+              backgroundColor: backgroundColor && `${backgroundColor}95`
+            }}
             alt="thumbnail"
             draggable={false}
-            className="object-cover object-center w-full h-full rounded-xl lg:w-full lg:h-full"
           />
           {isSensitiveContent && (
             <div className="absolute top-2 left-3">
@@ -117,4 +122,4 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
   )
 }
 
-export default MirroredVideoCard
+export default React.memo(MirroredVideoCard)

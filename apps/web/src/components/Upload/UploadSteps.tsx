@@ -79,7 +79,11 @@ const UploadSteps = () => {
       },
       ...(queuedVideos || [])
     ])
-    router.push(`/channel/${selectedChannel?.handle}`)
+    router.push(
+      uploadedVideo.isByteVideo
+        ? `/channel/${selectedChannel?.handle}?tab=bytes`
+        : `/channel/${selectedChannel?.handle}`
+    )
   }
 
   const resetToDefaults = () => {
