@@ -12,6 +12,7 @@
     "dev": "turbo run dev --parallel",
     "codegen": "turbo run codegen",
     "lint": "turbo run lint",
+    "test": "turbo run test",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {

@@ -5,6 +5,7 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"]
     },
+    "test": { "dependsOn": ["^build"] },
     "lint": { "outputs": [] },
     "codegen": { "outputs": [] },
     "dev": { "cache": false }
