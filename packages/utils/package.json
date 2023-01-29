@@ -1,7 +1,11 @@
 {
   "name": "utils",
   "version": "0.0.0",
+  "license": "GPL-3.0",
   "main": "./index.ts",
+  "scripts": {
+    "lint": "eslint . --ext .js,.ts,.tsx"
+  },
   "devDependencies": {
     "typescript": "4.9.4"
   }

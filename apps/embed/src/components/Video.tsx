@@ -2,7 +2,7 @@ import type { Publication } from 'lens'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { Analytics, TRACK } from 'utils'
+import { Analytics, LENSTUBE_BYTES_APP_ID, TRACK } from 'utils'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
@@ -53,6 +53,7 @@ const Video: FC<Props> = ({ video }) => {
   const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
   const isLoop = Boolean(query.loop) && query.loop === '1'
   const currentTime = Number(query.t) ?? 0
+  const isByteVideo = video.appId === LENSTUBE_BYTES_APP_ID
 
   useEffect(() => {
     Analytics.track(TRACK.EMBED_VIDEO.LOADED)
@@ -77,7 +78,7 @@ const Video: FC<Props> = ({ video }) => {
           permanentUrl={getPublicationMediaUrl(video)}
           posterUrl={imageCdn(
             sanitizeIpfsUrl(getThumbnailUrl(video)),
-            'thumbnail'
+            isByteVideo ? 'thumbnail_v' : 'thumbnail'
           )}
           publicationId={video.id}
           currentTime={currentTime}

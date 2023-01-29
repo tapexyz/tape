@@ -7,16 +7,16 @@
     "dev": "next dev --port 3001",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
     "@apollo/client": "^3.7.5",
-    "@livepeer/react": "^2.1.2",
+    "@livepeer/react": "^2.1.3",
     "@tailwindcss/line-clamp": "^0.4.0",
     "clsx": "^1.2.1",
     "graphql": "^16.6.0",
     "mixpanel-browser": "^2.45.0",
-    "next": "13.1.5",
+    "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",

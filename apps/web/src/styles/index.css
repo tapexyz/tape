@@ -10,11 +10,11 @@ body {
 }
 
 .btn-primary {
-  @apply disabled:opacity-50 focus:outline-none rounded-full bg-indigo-500;
+  @apply disabled:opacity-50 focus:outline-none rounded-full bg-indigo-500 text-white;
 }
 
 .btn-danger {
-  @apply disabled:opacity-50 focus:outline-none rounded-full bg-red-500;
+  @apply disabled:opacity-50 focus:outline-none rounded-full bg-red-500 text-white;
 }
 
 .btn-hover {

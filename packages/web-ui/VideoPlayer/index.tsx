@@ -15,43 +15,34 @@ import {
 
 import SensitiveWarning from './SensitiveWarning'
 
-interface Props {
-  permanentUrl: string
-  posterUrl: string
-  isSensitiveContent?: boolean
-  ratio?: AspectRatio
-  currentTime?: number
-  refCallback?: (ref: HTMLMediaElement) => void
-  publicationId?: string
-  options?: {
-    autoPlay: boolean
-    loop: boolean
-    muted: boolean
-  }
-  children?: React.ReactNode
-}
-
 interface PlayerProps {
+  playerRef?: (ref: HTMLMediaElement) => void
   permanentUrl: string
-  posterUrl: string
-  children: React.ReactNode
+  posterUrl?: string
+  children?: React.ReactNode
   ratio?: AspectRatio
-  playerRef: (ref: HTMLMediaElement) => void
   options?: {
-    autoPlay: boolean
-    muted: boolean
-    loop: boolean
+    autoPlay?: boolean
+    muted?: boolean
+    loop?: boolean
   }
 }
 
-const PlayerInstance = ({
+interface Props extends PlayerProps {
+  refCallback?: (ref: HTMLMediaElement) => void
+  currentTime?: number
+  publicationId?: string
+  isSensitiveContent?: boolean
+}
+
+const PlayerInstance: FC<PlayerProps> = ({
+  ratio,
   permanentUrl,
   posterUrl,
-  ratio,
   playerRef,
   options,
   children
-}: PlayerProps) => {
+}) => {
   return (
     <Player
       src={permanentUrl}

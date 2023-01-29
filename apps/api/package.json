@@ -3,17 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 5555",
+    "dev": "next dev --port 3002",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
     "@apollo/client": "^3.7.5",
-    "@aws-sdk/client-sts": "^3.257.0",
+    "@aws-sdk/client-sts": "^3.259.0",
     "@bundlr-network/client": "^0.10.1",
-    "axios": "^1.2.4",
-    "next": "13.1.5"
+    "axios": "^1.2.5",
+    "next": "13.1.6"
   },
   "devDependencies": {
     "@types/node": "18.11.18",
