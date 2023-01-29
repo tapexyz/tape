@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { useUserProfilesQuery } from 'lens'
 import mixpanel from 'mixpanel-browser'
+import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
@@ -19,8 +20,8 @@ import useIsMounted from 'utils/hooks/useIsMounted'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
-import Header from './Header'
-import Sidebar from './Sidebar'
+const Header = dynamic(() => import('./Header'))
+const Sidebar = dynamic(() => import('./Sidebar'))
 
 interface Props {
   children: ReactNode

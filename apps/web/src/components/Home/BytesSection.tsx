@@ -68,7 +68,7 @@ const BytesSection = () => {
   }
 
   return (
-    <>
+    <div className="hidden lg:block">
       <div className="flex justify-between mb-4 items-center">
         <div className="flex space-x-2 items-center">
           <BytesOutline className="w-4 h-4" />
@@ -129,7 +129,7 @@ const BytesSection = () => {
         ))}
       </div>
       <hr className="my-8 border-theme dark:border-gray-700 border-opacity-10" />
-    </>
+    </div>
   )
 }
 

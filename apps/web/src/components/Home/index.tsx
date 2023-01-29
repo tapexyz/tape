@@ -1,11 +1,15 @@
 import MetaTags from '@components/Common/MetaTags'
 import Curated from '@components/Home/Curated'
+import BytesShimmer from '@components/Shimmers/BytesShimmer'
 import type { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
 import { Analytics, TRACK } from 'utils'
 
-import BytesSection from './BytesSection'
 import DispatcherAlert from './DispatcherAlert'
+const BytesSection = dynamic(() => import('./BytesSection'), {
+  loading: () => <BytesShimmer />
+})
 
 const Home: NextPage = () => {
   useEffect(() => {
@@ -15,9 +19,7 @@ const Home: NextPage = () => {
     <>
       <MetaTags />
       <DispatcherAlert />
-      <div className="hidden lg:block">
-        <BytesSection />
-      </div>
+      <BytesSection />
       <Curated />
     </>
   )
