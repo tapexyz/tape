@@ -2,7 +2,7 @@ import type { Publication } from 'lens'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { Analytics, LENSTUBE_BYTES_APP_ID, TRACK } from 'utils'
+import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
@@ -11,39 +11,10 @@ import truncate from 'utils/functions/truncate'
 import VideoPlayer from 'web-ui/VideoPlayer'
 
 import MetaTags from './MetaTags'
-import VideoOverlay from './VideoOverlay'
+import TopOverlay from './TopOverlay'
 
 type Props = {
   video: Publication
-}
-
-type OverlayProps = {
-  playerRef: HTMLMediaElement | undefined
-  video: Publication
-}
-
-const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
-  const [showVideoOverlay, setShowVideoOverlay] = useState(true)
-
-  useEffect(() => {
-    if (!playerRef) return
-    playerRef.onpause = () => {
-      setShowVideoOverlay(true)
-    }
-    playerRef.onplay = () => {
-      setShowVideoOverlay(false)
-    }
-  }, [playerRef])
-
-  return (
-    <div
-      className={`${
-        showVideoOverlay ? 'visible' : 'invisible'
-      } transition-all duration-200 ease-in-out group-hover:visible`}
-    >
-      <VideoOverlay video={video} />
-    </div>
-  )
 }
 
 const Video: FC<Props> = ({ video }) => {
@@ -52,8 +23,15 @@ const Video: FC<Props> = ({ video }) => {
 
   const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
   const isLoop = Boolean(query.loop) && query.loop === '1'
-  const currentTime = Number(query.t) ?? 0
+  const currentTime = Number(query.t ?? 0) ?? 0
+
+  const [clicked, setClicked] = useState(isAutoPlay || currentTime !== 0)
+
   const isByteVideo = video.appId === LENSTUBE_BYTES_APP_ID
+  const thumbnailUrl = imageCdn(
+    sanitizeIpfsUrl(getThumbnailUrl(video)),
+    isByteVideo ? 'thumbnail_v' : 'thumbnail'
+  )
 
   useEffect(() => {
     Analytics.track(TRACK.EMBED_VIDEO.LOADED)
@@ -64,28 +42,59 @@ const Video: FC<Props> = ({ video }) => {
     setPlayerRef(ref)
   }
 
+  useEffect(() => {
+    if (playerRef && clicked) {
+      playerRef?.play()
+    }
+  }, [playerRef, clicked])
+
+  const onClickOverlay = () => {
+    setClicked(true)
+  }
+
   return (
-    <div className="relative w-screen h-screen">
+    <div className="relative group w-screen h-screen">
       <MetaTags
         title={truncate(video?.metadata?.name as string, 60)}
         description={truncate(video?.metadata?.description as string, 100)}
-        image={imageCdn(getThumbnailUrl(video), 'thumbnail')}
+        image={thumbnailUrl}
         videoUrl={getPublicationMediaUrl(video)}
       />
-      <div className="relative group">
+      {clicked ? (
         <VideoPlayer
           refCallback={refCallback}
           permanentUrl={getPublicationMediaUrl(video)}
-          posterUrl={imageCdn(
-            sanitizeIpfsUrl(getThumbnailUrl(video)),
-            isByteVideo ? 'thumbnail_v' : 'thumbnail'
-          )}
+          posterUrl={thumbnailUrl}
           publicationId={video.id}
           currentTime={currentTime}
           options={{ autoPlay: isAutoPlay, muted: isAutoPlay, loop: isLoop }}
         />
-        <TopOverlay playerRef={playerRef} video={video} />
-      </div>
+      ) : (
+        <div
+          className="grid place-items-center"
+          onClick={onClickOverlay}
+          role="button"
+        >
+          <img
+            src={thumbnailUrl}
+            className="h-full w-full"
+            alt={video.metadata.name ?? video.profile.handle}
+            draggable={false}
+          />
+          <button className="xl:p-5 p-3 rounded-full bg-indigo-500 absolute">
+            <img
+              className="w-5 h-5"
+              src={imageCdn(
+                `${STATIC_ASSETS}/images/brand/white.svg`,
+                'avatar'
+              )}
+              alt="play"
+              draggable={false}
+            />
+          </button>
+        </div>
+      )}
+      <TopOverlay playerRef={playerRef} video={video} clicked={clicked} />
     </div>
   )
 }

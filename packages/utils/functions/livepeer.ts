@@ -24,7 +24,9 @@ export const videoPlayerTheme: ThemeConfig = {
     timeFontSize: '12px'
   },
   space: {
-    timeMarginX: '20px'
+    timeMarginX: '22px',
+    controlsBottomMarginX: '10px',
+    controlsBottomMarginY: '10px'
   },
   sizes: {
     iconButtonSize: '35px',
