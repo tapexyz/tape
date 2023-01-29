@@ -9,6 +9,7 @@ import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
+import useAverageColor from 'utils/hooks/useAverageColor'
 
 import IsVerified from '../IsVerified'
 import ReportModal from './ReportModal'
@@ -25,21 +26,18 @@ const VideoCard: FC<Props> = ({ video }) => {
   const [showReport, setShowReport] = useState(false)
 
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
-  const isByte = video.appId === LENSTUBE_BYTES_APP_ID
+  const isByteVideo = video.appId === LENSTUBE_BYTES_APP_ID
 
   const thumbnailUrl = imageCdn(
     isSensitiveContent
       ? `${STATIC_ASSETS}/images/sensor-blur.png`
       : getThumbnailUrl(video),
-    isByte ? 'thumbnail_v' : 'thumbnail'
+    isByteVideo ? 'thumbnail_v' : 'thumbnail'
   )
+  const { color: backgroundColor } = useAverageColor(thumbnailUrl)
 
   return (
-    <div
-      onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
-      className="group"
-      role="button"
-    >
+    <div onClick={() => Analytics.track(TRACK.CLICK_VIDEO)} className="group">
       {video.hidden ? (
         <div className="grid h-full place-items-center">
           <span className="text-xs">Video Hidden by User</span>
@@ -59,13 +57,14 @@ const VideoCard: FC<Props> = ({ video }) => {
           <Link href={`/watch/${video.id}`}>
             <div className="relative overflow-hidden aspect-w-16 aspect-h-9">
               <img
-                src={thumbnailUrl}
-                draggable={false}
                 className={clsx(
                   'object-center bg-gray-100 dark:bg-gray-900 w-full h-full md:rounded-xl lg:w-full lg:h-full',
-                  isByte ? 'object-contain' : 'object-cover'
+                  isByteVideo ? 'object-contain' : 'object-cover'
                 )}
+                src={thumbnailUrl}
+                style={{ backgroundColor: `${backgroundColor}90` }}
                 alt="thumbnail"
+                draggable={false}
               />
               <ThumbnailOverlays video={video} />
             </div>

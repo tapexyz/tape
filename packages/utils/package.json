@@ -8,5 +8,8 @@
   },
   "devDependencies": {
     "typescript": "4.9.4"
+  },
+  "dependencies": {
+    "fast-average-color": "^9.3.0"
   }
 }
