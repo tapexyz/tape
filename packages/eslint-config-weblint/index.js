@@ -12,7 +12,8 @@ module.exports = {
     'unused-imports',
     'simple-import-sort',
     'prettier',
-    'unicorn'
+    'unicorn',
+    'jsx-a11y'
   ],
   extends: ['next', 'next/core-web-vitals'],
   rules: {
@@ -35,6 +36,7 @@ module.exports = {
     'simple-import-sort/exports': 'error',
     'jsx-a11y/role-supports-aria-props': 'off',
     'unicorn/no-lonely-if': 'error',
-    'unicorn/no-useless-undefined': 'error'
+    'unicorn/no-useless-undefined': 'error',
+    'jsx-a11y/rule-name': 2
   }
 }
