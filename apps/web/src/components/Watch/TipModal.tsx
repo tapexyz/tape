@@ -26,7 +26,6 @@ import {
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
-  RELAYER_ENABLED,
   SIGN_IN_REQUIRED_MESSAGE,
   STATIC_ASSETS,
   TRACK
@@ -176,9 +175,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           sig: { v, r, s, deadline: typedData.value.deadline }
         }
         setUserSigNonce(userSigNonce + 1)
-        if (!RELAYER_ENABLED) {
-          return writeComment?.({ recklesslySetUnpreparedArgs: [args] })
-        }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })

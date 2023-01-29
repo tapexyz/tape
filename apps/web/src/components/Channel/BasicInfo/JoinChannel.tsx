@@ -19,7 +19,6 @@ import type { CustomErrorWithData } from 'utils'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  RELAYER_ENABLED,
   SIGN_IN_REQUIRED_MESSAGE
 } from 'utils'
 import omitKey from 'utils/functions/omitKey'
@@ -112,9 +111,6 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
           }
         }
         setUserSigNonce(userSigNonce + 1)
-        if (!RELAYER_ENABLED) {
-          return writeJoinChannel?.({ recklesslySetUnpreparedArgs: [args] })
-        }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })

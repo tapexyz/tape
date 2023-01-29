@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "next dev --port 4783",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint . --ext .js,.ts,.tsx"
+    "start": "next build && next start --port 4783",
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "dev:test": "playwright test",
+    "e2e:test": "start-server-and-test start http://localhost:4783 dev:test"
   },
   "dependencies": {
     "@apollo/client": "^3.7.5",
@@ -49,6 +51,7 @@
     "zustand": "^4.3.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.30.0",
     "@tailwindcss/typography": "^0.5.9",
     "@types/mixpanel-browser": "^2.38.1",
     "@types/node": "18.11.18",
@@ -61,6 +64,7 @@
     "eslint-config-weblint": "*",
     "lens": "*",
     "postcss": "^8.4.19",
+    "start-server-and-test": "^1.15.3",
     "tailwindcss": "^3.2.4",
     "tsconfig": "*",
     "typescript": "4.9.4",

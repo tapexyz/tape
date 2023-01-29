@@ -21,7 +21,6 @@ import {
   Analytics,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  RELAYER_ENABLED,
   SIGN_IN_REQUIRED_MESSAGE,
   TRACK
 } from 'utils'
@@ -111,9 +110,6 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
           sig
         }
         setUserSigNonce(userSigNonce + 1)
-        if (!RELAYER_ENABLED) {
-          return mirrorWithSig?.({ recklesslySetUnpreparedArgs: [args] })
-        }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })

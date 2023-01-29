@@ -17,7 +17,6 @@ import {
   Analytics,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  RELAYER_ENABLED,
   SIGN_IN_REQUIRED_MESSAGE,
   TRACK
 } from 'utils'
@@ -96,11 +95,6 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
             s,
             deadline: typedData.value.deadline
           }
-        }
-        if (!RELAYER_ENABLED) {
-          return writeSubscribe?.({
-            recklesslySetUnpreparedArgs: [args]
-          })
         }
         const { data } = await broadcast({
           variables: { request: { id, signature } }

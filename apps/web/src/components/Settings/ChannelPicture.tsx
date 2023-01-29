@@ -23,7 +23,6 @@ import {
   Analytics,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  RELAYER_ENABLED,
   TRACK
 } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
@@ -109,9 +108,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             sig: { v, r, s, deadline: typedData.value.deadline }
           }
           setUserSigNonce(userSigNonce + 1)
-          if (!RELAYER_ENABLED) {
-            return writePfpUri?.({ recklesslySetUnpreparedArgs: [args] })
-          }
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })

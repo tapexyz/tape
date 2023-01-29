@@ -13,12 +13,7 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
-import {
-  Analytics,
-  RELAYER_ENABLED,
-  SIGN_IN_REQUIRED_MESSAGE,
-  TRACK
-} from 'utils'
+import { Analytics, SIGN_IN_REQUIRED_MESSAGE, TRACK } from 'utils'
 import omitKey from 'utils/functions/omitKey'
 import { useSigner, useSignTypedData } from 'wagmi'
 
@@ -90,9 +85,6 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
           types: omitKey(typedData?.types, '__typename'),
           value: omitKey(typedData?.value, '__typename')
         })
-        if (!RELAYER_ENABLED) {
-          return await burnWithSig(signature, typedData)
-        }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
