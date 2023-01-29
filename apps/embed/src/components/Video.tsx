@@ -87,7 +87,7 @@ const Video: FC<Props> = ({ video }) => {
       <MetaTags
         title={truncate(video?.metadata?.name as string, 60)}
         description={truncate(video?.metadata?.description as string, 100)}
-        image={imageCdn(getThumbnailUrl(video), 'thumbnail')}
+        image={thumbnailUrl}
         videoUrl={getPublicationMediaUrl(video)}
       />
       <div className="relative group">
