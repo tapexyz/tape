@@ -12,7 +12,8 @@
     "dev": "turbo run dev --parallel",
     "codegen": "turbo run codegen",
     "lint": "turbo run lint",
-    "test": "turbo run test",
+    "dev:test": "turbo run dev:test",
+    "e2e:test": "turbo run e2e:test",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
