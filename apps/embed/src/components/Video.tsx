@@ -23,9 +23,9 @@ const Video: FC<Props> = ({ video }) => {
 
   const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
   const isLoop = Boolean(query.loop) && query.loop === '1'
-  const currentTime = Number(query.t) ?? 0
+  const currentTime = Number(query.t ?? 0) ?? 0
 
-  const [clicked, setClicked] = useState(isAutoPlay)
+  const [clicked, setClicked] = useState(isAutoPlay || currentTime !== 0)
 
   const isByteVideo = video.appId === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
