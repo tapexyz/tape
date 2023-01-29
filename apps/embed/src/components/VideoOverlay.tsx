@@ -14,7 +14,7 @@ type Props = {
 const VideoOverlay: FC<Props> = ({ video, clicked }) => {
   return (
     <div className="absolute top-0 z-10 w-full text-white">
-      <div className="flex items-center justify-between p-3.5 space-x-6 bg-gradient-to-b via-black/40 to-transparent from-black/80">
+      <div className="flex items-center justify-between p-3.5 pb-6 space-x-6 bg-gradient-to-b via-black/30 to-transparent from-black/80">
         <div className="flex items-center flex-1">
           <Link
             className="flex-none mr-3 cursor-pointer"
@@ -34,13 +34,15 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
           <div className="flex flex-col">
             <Link
               className="break-words line-clamp-1 leading-5"
+              href={`${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`}
               onClick={() =>
                 Analytics.track(TRACK.EMBED_VIDEO.CLICK_EMBED_TITLE)
               }
-              href={`${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`}
               target="_blank"
             >
-              <h1 className="font-semibold">{video?.metadata.name}</h1>
+              <h1 className="font-semibold md:text-lg">
+                {video?.metadata.name}
+              </h1>
             </Link>
             <Link
               className="leading-3 break-words line-clamp-1"
@@ -50,9 +52,7 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
                 Analytics.track(TRACK.EMBED_VIDEO.CLICK_EMBED_CHANNEL)
               }
             >
-              <span className="text-xs font-medium opacity-90">
-                {video?.profile.handle}
-              </span>
+              <span className="text-sm">{video?.profile.handle}</span>
             </Link>
           </div>
         </div>
