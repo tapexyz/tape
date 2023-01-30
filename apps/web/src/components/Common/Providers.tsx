@@ -19,7 +19,6 @@ import {
 import { ThemeProvider, useTheme } from 'next-themes'
 import type { ReactNode } from 'react'
 import React from 'react'
-import { QueryClient, QueryClientProvider } from 'react-query'
 import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
 import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
@@ -28,7 +27,6 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { publicProvider } from 'wagmi/providers/public'
 
 import ErrorBoundary from './ErrorBoundary'
-const queryClient = new QueryClient()
 
 const { chains, provider } = configureChains(
   [IS_MAINNET ? polygon : polygonMumbai],
@@ -89,15 +87,11 @@ const Providers = ({ children }: { children: ReactNode }) => {
     <ErrorBoundary>
       <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
         <WagmiConfig client={wagmiClient}>
-          <QueryClientProvider client={queryClient}>
-            <ThemeProvider defaultTheme="dark" attribute="class">
-              <RainbowKitProviderWrapper>
-                <ApolloProvider client={apolloClient}>
-                  {children}
-                </ApolloProvider>
-              </RainbowKitProviderWrapper>
-            </ThemeProvider>
-          </QueryClientProvider>
+          <ThemeProvider defaultTheme="dark" attribute="class">
+            <RainbowKitProviderWrapper>
+              <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
+            </RainbowKitProviderWrapper>
+          </ThemeProvider>
         </WagmiConfig>
       </LivepeerConfig>
     </ErrorBoundary>

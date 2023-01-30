@@ -44,7 +44,7 @@
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.7.1",
     "react-mentions": "^4.4.7",
-    "react-query": "^3.39.3",
+    "swr": "^2.0.3",
     "uuid": "^9.0.0",
     "wagmi": "^0.11.0",
     "zod": "^3.19.1",
