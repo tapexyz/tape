@@ -12,7 +12,7 @@ type Monitor = {
 const health = async (_req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { data: response } = await axios.get(
-      'https://betteruptime.com//api/v2/monitors',
+      'https://betteruptime.com/api/v2/monitors',
       {
         headers: {
           Authorization: `Bearer ${BETTER_UPTIME_KEY}`
