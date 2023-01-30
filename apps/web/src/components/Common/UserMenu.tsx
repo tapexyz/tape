@@ -54,7 +54,7 @@ const UserMenu = () => {
   const { data: statusData } = useQuery(
     'statusData',
     () => axios.get(`${LENSTUBE_API_URL}/api/health`).then(({ data }) => data),
-    { refetchInterval: 60000 }
+    { refetchInterval: 60000, enabled: IS_MAINNET }
   )
 
   const [getChannels] = useAllProfilesLazyQuery()
@@ -262,23 +262,25 @@ const UserMenu = () => {
             </>
           )}
         </div>
-        <Link
-          className="px-5 m-0.5 pb-3 pt-2 flex items-center space-x-2"
-          href={LENSTUBE_STATUS_PAGE}
-          target="_blank"
-        >
-          <span
-            className={clsx(
-              'rounded-full h-2 w-2',
-              statusData.ok ? 'bg-green-500' : 'bg-red-500'
-            )}
-          />
-          <span className="text-xs">
-            {statusData.ok
-              ? 'All services are online'
-              : 'Some services are offline'}
-          </span>
-        </Link>
+        {IS_MAINNET && (
+          <Link
+            className="px-5 m-0.5 pb-3 pt-2 flex items-center space-x-2"
+            href={LENSTUBE_STATUS_PAGE}
+            target="_blank"
+          >
+            <span
+              className={clsx(
+                'rounded-full h-2 w-2',
+                statusData?.ok ? 'bg-green-500' : 'bg-red-500'
+              )}
+            />
+            <span className="text-xs">
+              {statusData?.ok
+                ? 'All services are online'
+                : 'Some services are offline'}
+            </span>
+          </Link>
+        )}
       </div>
     </DropMenu>
   )
