@@ -267,6 +267,7 @@ const UserMenu = () => {
             className="px-5 m-0.5 pb-3 pt-2 flex items-center space-x-2"
             href={LENSTUBE_STATUS_PAGE}
             target="_blank"
+            onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
           >
             <span
               className={clsx(
