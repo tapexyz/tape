@@ -92,7 +92,7 @@ const UserMenu = () => {
       trigger={
         <button
           onClick={() => Analytics.track(TRACK.CLICK_USER_MENU)}
-          className="btn-primary flex-none"
+          className="btn-primary flex-none hover:ring-4 dark:ring-gray-800 ring-gray-200"
         >
           <img
             className="object-cover bg-white rounded-full dark:bg-theme w-8 h-8 md:w-9 md:h-9"
@@ -103,7 +103,7 @@ const UserMenu = () => {
         </button>
       }
     >
-      <div className="mt-2 w-56 overflow-hidden rounded-xl dark:bg-black bg-gray-100">
+      <div className="mt-2 border dark:border-gray-800 shadow w-56 overflow-hidden rounded-xl dark:bg-black bg-gray-100">
         <div className="m-1.5 dark:bg-theme bg-white rounded-xl overflow-hidden">
           {showAccountSwitcher ? (
             <>
