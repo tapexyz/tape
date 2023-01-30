@@ -2,22 +2,27 @@ import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
+import { Analytics, TRACK } from 'utils'
 import { LENSTUBE_WEBSITE_URL, STATIC_ASSETS } from 'utils/constants'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
 type Props = {
   video: Publication
+  clicked: boolean
 }
 
-const VideoOverlay: FC<Props> = ({ video }) => {
+const VideoOverlay: FC<Props> = ({ video, clicked }) => {
   return (
     <div className="absolute top-0 z-10 w-full text-white">
-      <div className="flex items-center justify-between p-3.5 space-x-6 bg-gradient-to-b via-black/60 to-transparent from-black/90">
+      <div className="flex items-center justify-between p-3.5 pb-6 space-x-6 bg-gradient-to-b via-black/30 to-transparent from-black/80">
         <div className="flex items-center flex-1">
           <Link
-            href={`${LENSTUBE_WEBSITE_URL}/channel/${video?.profile?.handle}`}
             className="flex-none mr-3 cursor-pointer"
+            href={`${LENSTUBE_WEBSITE_URL}/channel/${video?.profile?.handle}`}
             target="_blank"
+            onClick={() =>
+              Analytics.track(TRACK.EMBED_VIDEO.CLICK_EMBED_CHANNEL)
+            }
           >
             <img
               src={getProfilePicture(video?.profile)}
@@ -28,38 +33,49 @@ const VideoOverlay: FC<Props> = ({ video }) => {
           </Link>
           <div className="flex flex-col">
             <Link
-              href={`${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`}
               className="break-words line-clamp-1 leading-5"
+              href={`${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`}
+              onClick={() =>
+                Analytics.track(TRACK.EMBED_VIDEO.CLICK_EMBED_TITLE)
+              }
               target="_blank"
             >
-              <h1 className="font-semibold">{video?.metadata.name}</h1>
+              <h1 className="font-semibold md:text-lg">
+                {video?.metadata.name}
+              </h1>
             </Link>
             <Link
-              href={`${LENSTUBE_WEBSITE_URL}/channel/${video?.profile.handle}`}
               className="leading-3 break-words line-clamp-1"
+              href={`${LENSTUBE_WEBSITE_URL}/channel/${video?.profile.handle}`}
               target="_blank"
+              onClick={() =>
+                Analytics.track(TRACK.EMBED_VIDEO.CLICK_EMBED_CHANNEL)
+              }
             >
-              <span className="text-xs font-medium opacity-90">
-                {video?.profile.handle}
-              </span>
+              <span className="text-sm">{video?.profile.handle}</span>
             </Link>
           </div>
         </div>
-        <div className="flex items-center justify-self-end">
-          <Link
-            title="Watch on LensTube"
-            className="flex items-center space-x-1.5"
-            href={`${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`}
-            target="_blank"
-          >
-            <img
-              src={`${STATIC_ASSETS}/images/brand/bg-indigo.png`}
-              draggable={false}
-              className="w-8 h-8 ml-0.5 rounded-full"
-              alt="lenstube"
-            />
-          </Link>
-        </div>
+        {clicked && (
+          <div className="flex items-center justify-self-end">
+            <Link
+              className="flex items-center space-x-1.5"
+              onClick={() =>
+                Analytics.track(TRACK.EMBED_VIDEO.WATCH_ON_LENSTUBE)
+              }
+              title="Watch on LensTube"
+              href={`${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`}
+              target="_blank"
+            >
+              <img
+                src={`${STATIC_ASSETS}/images/brand/bg-indigo.png`}
+                draggable={false}
+                className="w-8 h-8 ml-0.5 rounded-full"
+                alt="lenstube"
+              />
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   )

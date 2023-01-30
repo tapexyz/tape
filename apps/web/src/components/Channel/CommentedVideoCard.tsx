@@ -1,11 +1,12 @@
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
-import type { Attribute, Publication } from 'lens'
+import clsx from 'clsx'
+import type { Attribute, Comment, Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { Analytics, STATIC_ASSETS, TRACK } from 'utils'
+import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
 import { getRelativeTime, getTimeFromSeconds } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
@@ -13,18 +14,13 @@ import getLensHandle from 'utils/functions/getLensHandle'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
+import useAverageColor from 'utils/hooks/useAverageColor'
 
 type Props = {
-  video: Publication
+  video: Comment
 }
 
 const CommentedVideoCard: FC<Props> = ({ video }) => {
-  const isComment = video.__typename === 'Comment'
-
-  if (!isComment) {
-    return null
-  }
-
   const commentedOn = video.commentOn as Publication
   const isSensitiveContent = getIsSensitiveContent(
     commentedOn?.metadata,
@@ -34,25 +30,33 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
     commentedOn?.metadata?.attributes as Attribute[],
     'durationInSeconds'
   )
+  const isBytesVideo = commentedOn.appId === LENSTUBE_BYTES_APP_ID
+  const thumbnailUrl = imageCdn(
+    isSensitiveContent
+      ? `${STATIC_ASSETS}/images/sensor-blur.png`
+      : getThumbnailUrl(commentedOn),
+    isBytesVideo ? 'thumbnail_v' : 'thumbnail'
+  )
+  const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
   return (
     <div
       onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
       className="overflow-hidden group rounded-xl"
-      role="button"
     >
       <Link href={`/watch/${commentedOn?.id}`}>
         <div className="relative rounded-xl aspect-w-16 aspect-h-8">
           <img
-            src={imageCdn(
-              isSensitiveContent
-                ? `${STATIC_ASSETS}/images/sensor-blur.png`
-                : getThumbnailUrl(commentedOn),
-              'thumbnail'
+            src={thumbnailUrl}
+            className={clsx(
+              'object-center bg-gray-100 dark:bg-gray-900 w-full h-full md:rounded-xl lg:w-full lg:h-full',
+              isBytesVideo ? 'object-contain' : 'object-cover'
             )}
-            alt="cover"
+            style={{
+              backgroundColor: backgroundColor && `${backgroundColor}95`
+            }}
+            alt="thumbnail"
             draggable={false}
-            className="object-cover object-center w-full h-full rounded-xl lg:w-full lg:h-full"
           />
           {isSensitiveContent && (
             <div className="absolute top-2 left-3">
@@ -126,4 +130,4 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
   )
 }
 
-export default CommentedVideoCard
+export default React.memo(CommentedVideoCard)

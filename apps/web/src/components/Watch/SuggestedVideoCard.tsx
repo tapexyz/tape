@@ -13,6 +13,7 @@ import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
+import useAverageColor from 'utils/hooks/useAverageColor'
 
 type Props = {
   video: Publication
@@ -22,8 +23,15 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
   const [showReport, setShowReport] = useState(false)
   const [showShare, setShowShare] = useState(false)
 
-  const isByteVideo = video.appId === LENSTUBE_BYTES_APP_ID
+  const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
+  const thumbnailUrl = imageCdn(
+    isSensitiveContent
+      ? `${STATIC_ASSETS}/images/sensor-blur.png`
+      : getThumbnailUrl(video),
+    isBytesVideo ? 'thumbnail_v' : 'thumbnail'
+  )
+  const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
   const videoDuration = getValueFromTraitType(
     video.metadata?.attributes as Attribute[],
     'durationInSeconds'
@@ -33,7 +41,6 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
     <div
       onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
       className="flex justify-between group"
-      role="button"
     >
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <ReportModal
@@ -49,18 +56,14 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
           >
             <div className="relative">
               <img
-                src={imageCdn(
-                  isSensitiveContent
-                    ? `${STATIC_ASSETS}/images/sensor-blur.png`
-                    : getThumbnailUrl(video),
-                  isByteVideo ? 'thumbnail_v' : 'thumbnail'
-                )}
-                alt="thumbnail"
-                draggable={false}
                 className={clsx(
                   'object-center h-20 w-36 dark:bg-gray-700 bg-gray-300',
-                  isByteVideo ? 'object-contain' : 'object-cover'
+                  isBytesVideo ? 'object-contain' : 'object-cover'
                 )}
+                src={thumbnailUrl}
+                style={{ backgroundColor: `${backgroundColor}95` }}
+                alt="thumbnail"
+                draggable={false}
               />
               {!isSensitiveContent && videoDuration ? (
                 <div>
@@ -114,4 +117,4 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
   )
 }
 
-export default SuggestedVideoCard
+export default React.memo(SuggestedVideoCard)

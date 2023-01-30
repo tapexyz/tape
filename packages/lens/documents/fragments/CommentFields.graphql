@@ -74,6 +74,7 @@ fragment CommentFields on Comment {
           traitType
         }
       }
+      appId
     }
   }
   createdAt

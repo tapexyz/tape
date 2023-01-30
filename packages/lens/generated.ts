@@ -4070,6 +4070,7 @@ export type CommentFieldsFragment = {
         __typename?: 'Post'
         id: any
         createdAt: any
+        appId?: any | null
         profile: {
           __typename?: 'Profile'
           id: any
@@ -5561,6 +5562,7 @@ export type ExploreQuery = {
                 __typename?: 'Post'
                 id: any
                 createdAt: any
+                appId?: any | null
                 profile: {
                   __typename?: 'Profile'
                   id: any
@@ -6002,6 +6004,7 @@ export type FeedQuery = {
                   __typename?: 'Post'
                   id: any
                   createdAt: any
+                  appId?: any | null
                   profile: {
                     __typename?: 'Profile'
                     id: any
@@ -7009,6 +7012,7 @@ export type ProfileCommentsQuery = {
                 __typename?: 'Post'
                 id: any
                 createdAt: any
+                appId?: any | null
                 profile: {
                   __typename?: 'Profile'
                   id: any
@@ -7925,6 +7929,7 @@ export type PublicationDetailsQuery = {
               __typename?: 'Post'
               id: any
               createdAt: any
+              appId?: any | null
               profile: {
                 __typename?: 'Profile'
                 id: any
@@ -8422,6 +8427,7 @@ export type SearchPublicationsQuery = {
                     __typename?: 'Post'
                     id: any
                     createdAt: any
+                    appId?: any | null
                     profile: {
                       __typename?: 'Profile'
                       id: any
@@ -9019,6 +9025,7 @@ export const CommentFieldsFragmentDoc = gql`
             traitType
           }
         }
+        appId
       }
     }
     createdAt
