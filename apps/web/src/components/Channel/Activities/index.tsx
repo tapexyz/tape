@@ -58,174 +58,176 @@ const Activities: FC<Props> = ({ channel }) => {
   }
 
   return (
-    <div className="my-4 md:ml-6 md:my-6">
-      <Tab.Group as="div" className="w-full" defaultIndex={getDefaultTab()}>
-        <Tab.List className="flex overflow-x-auto no-scrollbar">
-          <Tab
-            onClick={() => {
-              handleTabChange('all')
-              Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_VIDEOS)
-            }}
-            className={({ selected }) =>
-              clsx(
-                'px-3 py-2 mr-2 flex items-center whitespace-nowrap space-x-2 font-medium border-b-2 text-sm focus:outline-none',
-                selected
-                  ? 'opacity-100 border-indigo-700'
-                  : 'border-transparent opacity-50'
-              )
-            }
-          >
-            <VideoOutline className="w-4 h-4" />
-            <span>All Videos</span>
-          </Tab>
-          <Tab
-            onClick={() => {
-              handleTabChange('bytes')
-              Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_BYTES)
-            }}
-            className={({ selected }) =>
-              clsx(
-                'px-3 py-2 mr-2 flex items-center space-x-2 font-medium border-b-2 text-sm focus:outline-none',
-                selected
-                  ? 'opacity-100 border-indigo-700'
-                  : 'border-transparent opacity-50'
-              )
-            }
-          >
-            <BytesOutline className="w-4 h-4" />
-            <span>Bytes</span>
-          </Tab>
-          <Tab
-            onClick={() => {
-              handleTabChange('commented')
-              Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COMMENTED)
-            }}
-            className={({ selected }) =>
-              clsx(
-                'px-3 py-2 mr-2 flex items-center space-x-2 font-medium border-b-2 text-sm focus:outline-none',
-                selected
-                  ? 'opacity-100 border-indigo-700'
-                  : 'border-transparent opacity-50'
-              )
-            }
-          >
-            <CommentOutline className="w-4 h-4" />
-            <span>Commented</span>
-          </Tab>
-          <Tab
-            onClick={() => {
-              handleTabChange('mirrored')
-              Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_MIRRORED)
-            }}
-            className={({ selected }) =>
-              clsx(
-                'px-3 py-2 mr-2 flex items-center space-x-2 font-medium border-b-2 text-sm focus:outline-none',
-                selected
-                  ? 'opacity-100 border-indigo-700'
-                  : 'border-transparent opacity-50'
-              )
-            }
-          >
-            <MirrorOutline className="w-4 h-4" />
-            <span>Mirrored</span>
-          </Tab>
-          <Tab
-            onClick={() => {
-              handleTabChange('nfts')
-              Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_NFTS)
-            }}
-            className={({ selected }) =>
-              clsx(
-                'px-3 py-2 mr-2 flex items-center space-x-2 font-medium border-b-2 whitespace-nowrap text-sm focus:outline-none',
-                selected
-                  ? 'opacity-100 border-indigo-700'
-                  : 'border-transparent opacity-50'
-              )
-            }
-          >
-            <CollectOutline className="w-4 h-4" />
-            <span>NFTs</span>
-          </Tab>
-          <Tab
-            onClick={() => {
-              handleTabChange('channels')
-              Analytics.track(TRACK.CHANNEL.CLICK_OTHER_CHANNELS)
-            }}
-            className={({ selected }) =>
-              clsx(
-                'px-3 py-2 mr-2 border-b-2 flex items-center font-medium space-x-2 text-sm focus:outline-none',
-                selected
-                  ? 'opacity-100 border-indigo-700'
-                  : 'border-transparent opacity-50'
-              )
-            }
-          >
-            <ChannelOutline className="w-4 h-4" />
-            <span>Channels</span>
-          </Tab>
-          <Tab
-            onClick={() => {
-              handleTabChange('stats')
-              Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_STATS)
-            }}
-            className={({ selected }) =>
-              clsx(
-                'px-3 py-2 mr-2 border-b-2 flex items-center font-medium space-x-2 text-sm focus:outline-none',
-                selected
-                  ? 'opacity-100 border-indigo-700'
-                  : 'border-transparent opacity-50'
-              )
-            }
-          >
-            <GraphOutline className="w-4 h-4" />
-            <span>Stats</span>
-          </Tab>
-          <Tab
-            onClick={() => {
-              handleTabChange('about')
-              Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_ABOUT)
-            }}
-            className={({ selected }) =>
-              clsx(
-                'px-3 py-2 mr-2 flex items-center space-x-2 font-medium border-b-2 text-sm focus:outline-none',
-                selected
-                  ? 'opacity-100 border-indigo-700'
-                  : 'border-transparent opacity-50'
-              )
-            }
-          >
-            <InfoOutline className="w-4 h-4" />
-            <span>About</span>
-          </Tab>
-        </Tab.List>
-        <Tab.Panels>
-          <Tab.Panel className="py-3 focus:outline-none">
-            <ChannelVideos channel={channel} />
-          </Tab.Panel>
-          <Tab.Panel className="py-3 focus:outline-none">
-            <ChannelBytes channel={channel} />
-          </Tab.Panel>
-          <Tab.Panel className="py-3 focus:outline-none">
-            <CommentedVideos channel={channel} />
-          </Tab.Panel>
-          <Tab.Panel className="py-3 focus:outline-none">
-            <MirroredVideos channel={channel} />
-          </Tab.Panel>
-          <Tab.Panel className="py-3 focus:outline-none">
-            <CollectedNFTs channel={channel} />
-          </Tab.Panel>
-          <Tab.Panel className="py-3 focus:outline-none">
-            <OtherChannels channel={channel} />
-          </Tab.Panel>
-          <Tab.Panel className="py-3 focus:outline-none">
-            <ChannelStats channel={channel} />
-          </Tab.Panel>
-          <Tab.Panel className="py-3 focus:outline-none">
-            <About channel={channel} />
-          </Tab.Panel>
-        </Tab.Panels>
-      </Tab.Group>
-    </div>
+    <Tab.Group
+      as="div"
+      className="container mx-auto w-full max-w-[100rem]"
+      defaultIndex={getDefaultTab()}
+    >
+      <Tab.List className="no-scrollbar flex overflow-x-auto">
+        <Tab
+          onClick={() => {
+            handleTabChange('all')
+            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_VIDEOS)
+          }}
+          className={({ selected }) =>
+            clsx(
+              'mr-2 flex items-center space-x-2 whitespace-nowrap border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              selected
+                ? 'border-indigo-700 opacity-100'
+                : 'border-transparent opacity-50'
+            )
+          }
+        >
+          <VideoOutline className="h-4 w-4" />
+          <span>All Videos</span>
+        </Tab>
+        <Tab
+          onClick={() => {
+            handleTabChange('bytes')
+            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_BYTES)
+          }}
+          className={({ selected }) =>
+            clsx(
+              'mr-2 flex items-center space-x-2 border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              selected
+                ? 'border-indigo-700 opacity-100'
+                : 'border-transparent opacity-50'
+            )
+          }
+        >
+          <BytesOutline className="h-4 w-4" />
+          <span>Bytes</span>
+        </Tab>
+        <Tab
+          onClick={() => {
+            handleTabChange('commented')
+            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COMMENTED)
+          }}
+          className={({ selected }) =>
+            clsx(
+              'mr-2 flex items-center space-x-2 border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              selected
+                ? 'border-indigo-700 opacity-100'
+                : 'border-transparent opacity-50'
+            )
+          }
+        >
+          <CommentOutline className="h-4 w-4" />
+          <span>Commented</span>
+        </Tab>
+        <Tab
+          onClick={() => {
+            handleTabChange('mirrored')
+            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_MIRRORED)
+          }}
+          className={({ selected }) =>
+            clsx(
+              'mr-2 flex items-center space-x-2 border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              selected
+                ? 'border-indigo-700 opacity-100'
+                : 'border-transparent opacity-50'
+            )
+          }
+        >
+          <MirrorOutline className="h-4 w-4" />
+          <span>Mirrored</span>
+        </Tab>
+        <Tab
+          onClick={() => {
+            handleTabChange('nfts')
+            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_NFTS)
+          }}
+          className={({ selected }) =>
+            clsx(
+              'mr-2 flex items-center space-x-2 whitespace-nowrap border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              selected
+                ? 'border-indigo-700 opacity-100'
+                : 'border-transparent opacity-50'
+            )
+          }
+        >
+          <CollectOutline className="h-4 w-4" />
+          <span>NFTs</span>
+        </Tab>
+        <Tab
+          onClick={() => {
+            handleTabChange('channels')
+            Analytics.track(TRACK.CHANNEL.CLICK_OTHER_CHANNELS)
+          }}
+          className={({ selected }) =>
+            clsx(
+              'mr-2 flex items-center space-x-2 border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              selected
+                ? 'border-indigo-700 opacity-100'
+                : 'border-transparent opacity-50'
+            )
+          }
+        >
+          <ChannelOutline className="h-4 w-4" />
+          <span>Channels</span>
+        </Tab>
+        <Tab
+          onClick={() => {
+            handleTabChange('stats')
+            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_STATS)
+          }}
+          className={({ selected }) =>
+            clsx(
+              'mr-2 flex items-center space-x-2 border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              selected
+                ? 'border-indigo-700 opacity-100'
+                : 'border-transparent opacity-50'
+            )
+          }
+        >
+          <GraphOutline className="h-4 w-4" />
+          <span>Stats</span>
+        </Tab>
+        <Tab
+          onClick={() => {
+            handleTabChange('about')
+            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_ABOUT)
+          }}
+          className={({ selected }) =>
+            clsx(
+              'mr-2 flex items-center space-x-2 border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              selected
+                ? 'border-indigo-700 opacity-100'
+                : 'border-transparent opacity-50'
+            )
+          }
+        >
+          <InfoOutline className="h-4 w-4" />
+          <span>About</span>
+        </Tab>
+      </Tab.List>
+      <Tab.Panels>
+        <Tab.Panel className="py-3 focus:outline-none">
+          <ChannelVideos channel={channel} />
+        </Tab.Panel>
+        <Tab.Panel className="py-3 focus:outline-none">
+          <ChannelBytes channel={channel} />
+        </Tab.Panel>
+        <Tab.Panel className="py-3 focus:outline-none">
+          <CommentedVideos channel={channel} />
+        </Tab.Panel>
+        <Tab.Panel className="py-3 focus:outline-none">
+          <MirroredVideos channel={channel} />
+        </Tab.Panel>
+        <Tab.Panel className="py-3 focus:outline-none">
+          <CollectedNFTs channel={channel} />
+        </Tab.Panel>
+        <Tab.Panel className="py-3 focus:outline-none">
+          <OtherChannels channel={channel} />
+        </Tab.Panel>
+        <Tab.Panel className="py-3 focus:outline-none">
+          <ChannelStats channel={channel} />
+        </Tab.Panel>
+        <Tab.Panel className="py-3 focus:outline-none">
+          <About channel={channel} />
+        </Tab.Panel>
+      </Tab.Panels>
+    </Tab.Group>
   )
 }
 
