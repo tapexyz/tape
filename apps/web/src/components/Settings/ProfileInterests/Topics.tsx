@@ -63,12 +63,12 @@ const Topics = () => {
       {sanitizeProfileInterests(interestsData)?.map(
         ({ category, subCategories }) => (
           <div className="w-full space-y-2" key={category.id}>
-            <h2 className="capitalize font-medium text-sm">{category.label}</h2>
+            <h2 className="text-sm font-medium capitalize">{category.label}</h2>
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 className={clsx(
-                  'flex disabled:cursor-not-allowed items-center disabled:opacity-50 justify-between px-3 py-0.5 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
+                  'flex items-center justify-between rounded-full border border-gray-300 px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700',
                   {
                     '!border-indigo-500 text-indigo-500':
                       selectedTopics.includes(category.id)
@@ -90,7 +90,7 @@ const Topics = () => {
                     selectedTopics.length === MAX_TOPICS_ALLOWED
                   }
                   className={clsx(
-                    'flex items-center disabled:cursor-not-allowed disabled:opacity-50 justify-between px-3 py-0.5 capitalize text-sm border border-gray-300 focus:outline-none dark:border-gray-700 rounded-full',
+                    'flex items-center justify-between rounded-full border border-gray-300 px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700',
                     {
                       '!border-indigo-500 text-indigo-500':
                         selectedTopics.includes(subCategory.id)

@@ -41,25 +41,25 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
   const moreCount = totalCount - FETCH_COUNT > 0 ? totalCount - FETCH_COUNT : 0
 
   return (
-    <div className="flex mt-1 space-x-2 text-sm">
+    <div className="mt-1 flex space-x-2 text-sm">
       <Tooltip content="Your friends already watching!" placement="top">
         <button
           type="button"
-          className="flex -space-x-1.5 cursor-pointer"
+          className="flex cursor-pointer -space-x-1.5"
           onClick={() => onClickMutuals()}
         >
           {mutualSubscribers?.map((channel: Profile) => (
             <img
               key={channel?.id}
               title={channel?.handle}
-              className="border rounded-full w-7 h-7 dark:border-gray-700/80"
+              className="h-7 w-7 rounded-full border dark:border-gray-700/80"
               src={getProfilePicture(channel)}
               draggable={false}
               alt={channel?.handle}
             />
           ))}
           {moreCount ? (
-            <div className="flex items-center justify-center bg-white border rounded-full dark:bg-gray-900 w-7 h-7 dark:border-gray-700/80">
+            <div className="flex h-7 w-7 items-center justify-center rounded-full border bg-white dark:border-gray-700/80 dark:bg-gray-900">
               <span className="text-[10px]">+ {moreCount}</span>
             </div>
           ) : null}
@@ -71,7 +71,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
         show={showMutualSubscribersModal}
         panelClassName="max-w-md"
       >
-        <div className="max-h-[40vh] overflow-y-auto no-scrollbar">
+        <div className="no-scrollbar max-h-[40vh] overflow-y-auto">
           <MutualSubscribersList viewingChannelId={viewingChannelId} />
         </div>
       </Modal>

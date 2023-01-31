@@ -2,14 +2,14 @@ import React from 'react'
 
 const SignalWave = () => {
   return (
-    <div className="absolute top-0 right-0 flex items-center justify-center translate-x-2 opacity-60">
-      <div className="absolute border-2 border-black rounded-full dark:border-white w-96 h-96 opacity-10" />
-      <div className="absolute border-2 border-black rounded-full dark:border-white w-80 h-80 opacity-10" />
-      <div className="absolute w-64 h-64 border-2 border-black rounded-full dark:border-white opacity-20" />
-      <div className="absolute w-48 h-48 border-2 border-black rounded-full dark:border-white opacity-20" />
-      <div className="absolute w-32 h-32 border-2 border-black rounded-full dark:border-white opacity-30" />
-      <div className="absolute w-20 h-20 border-2 border-black rounded-full dark:border-white opacity-30" />
-      <div className="absolute w-10 h-10 border-2 border-black rounded-full dark:border-white opacity-40" />
+    <div className="absolute top-0 right-0 flex translate-x-2 items-center justify-center opacity-60">
+      <div className="absolute h-96 w-96 rounded-full border-2 border-black opacity-10 dark:border-white" />
+      <div className="absolute h-80 w-80 rounded-full border-2 border-black opacity-10 dark:border-white" />
+      <div className="absolute h-64 w-64 rounded-full border-2 border-black opacity-20 dark:border-white" />
+      <div className="absolute h-48 w-48 rounded-full border-2 border-black opacity-20 dark:border-white" />
+      <div className="absolute h-32 w-32 rounded-full border-2 border-black opacity-30 dark:border-white" />
+      <div className="absolute h-20 w-20 rounded-full border-2 border-black opacity-30 dark:border-white" />
+      <div className="absolute h-10 w-10 rounded-full border-2 border-black opacity-40 dark:border-white" />
     </div>
   )
 }

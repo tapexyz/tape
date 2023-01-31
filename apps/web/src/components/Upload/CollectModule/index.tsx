@@ -53,7 +53,7 @@ const CollectModule = () => {
 
   return (
     <>
-      <div className="flex items-center mb-1 space-x-1.5">
+      <div className="mb-1 flex items-center space-x-1.5">
         <div className="text-[11px] font-semibold uppercase opacity-70">
           Collect Type
         </div>
@@ -61,10 +61,10 @@ const CollectModule = () => {
       <button
         type="button"
         onClick={() => setShowModal(true)}
-        className="flex items-center justify-between w-full px-4 py-2.5 text-sm text-left border border-gray-300 focus:outline-none dark:border-gray-700 rounded-xl"
+        className="flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-2.5 text-left text-sm focus:outline-none dark:border-gray-700"
       >
         <span>{getSelectedCollectType()}</span>
-        <CheckOutline className="w-3 h-3" />
+        <CheckOutline className="h-3 w-3" />
       </button>
       <Modal
         title="Select collect type"

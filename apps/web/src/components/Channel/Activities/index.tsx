@@ -60,7 +60,7 @@ const Activities: FC<Props> = ({ channel }) => {
   return (
     <Tab.Group
       as="div"
-      className="container mx-auto w-full max-w-[100rem]"
+      className="container mx-auto w-full max-w-[85rem] md:px-2"
       defaultIndex={getDefaultTab()}
     >
       <Tab.List className="no-scrollbar flex overflow-x-auto">

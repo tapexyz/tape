@@ -27,64 +27,64 @@ const SideNav: FC<Props> = ({ channel }) => {
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div className="p-2 bg-white rounded-xl dark:bg-theme">
-      <div className="flex flex-col items-center py-4 space-y-2">
+    <div className="dark:bg-theme rounded-xl bg-white p-2">
+      <div className="flex flex-col items-center space-y-2 py-4">
         <ChannelPicture channel={channel} />
       </div>
-      <div className="flex flex-col m-1 space-y-1 text-sm">
+      <div className="m-1 flex flex-col space-y-1 text-sm">
         <Link
           href={SETTINGS}
           className={clsx(
-            'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
+            'flex items-center space-x-2 rounded-xl p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
             { 'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS) }
           )}
         >
-          <UserOutline className="w-4 h-4" /> <span>Basic Info</span>
+          <UserOutline className="h-4 w-4" /> <span>Basic Info</span>
         </Link>
         <Link
           href={SETTINGS_MEMBERSHIP}
           className={clsx(
-            'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
+            'flex items-center space-x-2 rounded-xl p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
             {
               'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS_MEMBERSHIP)
             }
           )}
         >
-          <SubscribeOutline className="w-4 h-4" /> <span>Membership</span>
+          <SubscribeOutline className="h-4 w-4" /> <span>Membership</span>
         </Link>
         <Link
           href={SETTINGS_PERMISSIONS}
           className={clsx(
-            'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
+            'flex items-center space-x-2 rounded-xl p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
             {
               'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS_PERMISSIONS)
             }
           )}
         >
-          <KeyOutline className="w-4 h-4" /> <span>Permissions</span>
+          <KeyOutline className="h-4 w-4" /> <span>Permissions</span>
         </Link>
         <Link
           href={SETTINGS_INTERESTS}
           className={clsx(
-            'flex items-center p-3 space-x-2 rounded-xl hover:bg-gray-100 hover:dark:bg-gray-800',
+            'flex items-center space-x-2 rounded-xl p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
             {
               'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS_INTERESTS)
             }
           )}
         >
-          <InterestsOutline className="w-4 h-4" /> <span>Interests</span>
+          <InterestsOutline className="h-4 w-4" /> <span>Interests</span>
         </Link>
         <Link
           href={SETTINGS_DANGER_ZONE}
           className={clsx(
-            'flex items-center p-3 space-x-2 rounded-xl hover:bg-red-100 text-red-500 hover:dark:bg-red-900/60',
+            'flex items-center space-x-2 rounded-xl p-3 text-red-500 hover:bg-red-100 hover:dark:bg-red-900/60',
             {
               'bg-red-100 dark:bg-red-900/60':
                 isActivePath(SETTINGS_DANGER_ZONE)
             }
           )}
         >
-          <WarningOutline className="w-4 h-4" /> <span>Danger Zone</span>
+          <WarningOutline className="h-4 w-4" /> <span>Danger Zone</span>
         </Link>
       </div>
     </div>

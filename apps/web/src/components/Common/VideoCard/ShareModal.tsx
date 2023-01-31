@@ -37,14 +37,14 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
       panelClassName="max-w-md"
     >
       <div className="mt-2">
-        <div className="flex items-center mb-4 space-x-3 overflow-x-auto flex-nowrap no-scrollbar">
+        <div className="no-scrollbar mb-4 flex flex-nowrap items-center space-x-3 overflow-x-auto">
           <EmbedVideo videoId={video.id} onClose={() => setShowShare(false)} />
           <MirrorVideo
             video={video}
             onMirrorSuccess={() => setShowShare(false)}
           >
-            <div className="p-3 bg-gray-200 dark:bg-gray-800 rounded-full">
-              <MirrorOutline className="w-5 h-5" />
+            <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-800">
+              <MirrorOutline className="h-5 w-5" />
             </div>
           </MirrorVideo>
           <Link
@@ -59,7 +59,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 `${STATIC_ASSETS}/images/lenster-logo.svg`,
                 'avatar_lg'
               )}
-              className="w-10 h-10 rounded-full"
+              className="h-10 w-10 rounded-full"
               loading="eager"
               alt="lenster"
               draggable={false}
@@ -79,7 +79,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 'avatar_lg'
               )}
               loading="eager"
-              className="w-10 h-10 rounded-full"
+              className="h-10 w-10 rounded-full"
               alt="twitter"
               draggable={false}
             />
@@ -95,7 +95,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 `${STATIC_ASSETS}/images/social/reddit-logo.webp`,
                 'avatar_lg'
               )}
-              className="w-10 h-10 rounded-full"
+              className="h-10 w-10 rounded-full"
               loading="eager"
               alt="reddit"
               draggable={false}
@@ -114,13 +114,13 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
               )}
               loading="eager"
               alt="linkedin"
-              className="w-10 h-10 rounded-full"
+              className="h-10 w-10 rounded-full"
               draggable={false}
             />
           </Link>
         </div>
-        <div className="flex items-center justify-between p-2 border border-gray-200 rounded-lg dark:border-gray-800">
-          <div className="text-sm truncate select-all">
+        <div className="flex items-center justify-between rounded-lg border border-gray-200 p-2 dark:border-gray-800">
+          <div className="select-all truncate text-sm">
             {LENSTUBE_WEBSITE_URL}/watch/{video.id}
           </div>
           <button
@@ -128,7 +128,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             onClick={() => onCopyVideoUrl()}
             type="button"
           >
-            <CopyOutline className="w-4 h-4" />
+            <CopyOutline className="h-4 w-4" />
           </button>
         </div>
       </div>

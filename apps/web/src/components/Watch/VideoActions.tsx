@@ -21,7 +21,7 @@ const VideoActions: FC<Props> = ({ video }) => {
   const [showTip, setShowTip] = useState(false)
 
   return (
-    <div className="flex items-center justify-end mt-4 space-x-2.5 md:space-x-5 md:mt-2">
+    <div className="mt-4 flex items-center justify-end space-x-2.5 md:mt-2 md:space-x-5">
       <TipModal show={showTip} setShowTip={setShowTip} video={video} />
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <ReportModal
@@ -41,14 +41,14 @@ const VideoActions: FC<Props> = ({ video }) => {
           setShowTip(true)
         }}
       >
-        <span className="flex items-center text-base space-x-1.5">
-          <HeartOutline className="w-4 h-4" />
+        <span className="flex items-center space-x-1.5 text-base">
+          <HeartOutline className="h-4 w-4" />
           <span>Tip</span>
         </span>
       </button>
       <button className="focus:outline-none" onClick={() => setShowShare(true)}>
-        <span className="flex items-center text-base space-x-1.5">
-          <ShareOutline className="w-4 h-4" />
+        <span className="flex items-center space-x-1.5 text-base">
+          <ShareOutline className="h-4 w-4" />
           <span>Share</span>
         </span>
       </button>
@@ -59,8 +59,8 @@ const VideoActions: FC<Props> = ({ video }) => {
           setShowReport(true)
         }}
       >
-        <span className="flex items-center text-base space-x-1.5">
-          <FlagOutline className="w-4 h-4" />
+        <span className="flex items-center space-x-1.5 text-base">
+          <FlagOutline className="h-4 w-4" />
           <span>Report</span>
         </span>
       </button>

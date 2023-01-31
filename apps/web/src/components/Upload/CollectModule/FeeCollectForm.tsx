@@ -109,14 +109,14 @@ const FeeCollectForm: FC<Props> = ({
         </div>
       ) : null}
       <div>
-        <div className="flex items-center mb-1 space-x-1.5">
+        <div className="mb-1 flex items-center space-x-1.5">
           <div className="text-[11px] font-semibold uppercase opacity-70">
             Collect Currency
           </div>
         </div>
         <select
           autoComplete="off"
-          className="bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full"
+          className="w-full rounded-xl border border-gray-200 bg-white p-2.5 text-sm outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-800 dark:bg-gray-900"
           {...register('currency')}
           value={uploadedVideo.collectModule.amount?.currency}
           onChange={(e) => {

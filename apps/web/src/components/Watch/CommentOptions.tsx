@@ -47,17 +47,17 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
     <DropMenu
       trigger={
         <div className="p-1">
-          <ThreeDotsOutline className="w-3.5 h-3.5" />
+          <ThreeDotsOutline className="h-3.5 w-3.5" />
         </div>
       }
     >
-      <div className="p-1 mt-0.5 overflow-hidden border border-gray-200 rounded-lg shadow dark:border-gray-800 bg-secondary">
-        <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
+      <div className="bg-secondary mt-0.5 overflow-hidden rounded-lg border border-gray-200 p-1 shadow dark:border-gray-800">
+        <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
           {selectedChannel?.id === comment?.profile?.id && (
             <button
               type="button"
               onClick={() => onHideComment()}
-              className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg text-red-500 hover:bg-red-100 dark:hover:bg-red-900"
+              className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 text-red-500 hover:bg-red-100 dark:hover:bg-red-900"
             >
               <AiOutlineDelete className="text-base" />
               <span className="whitespace-nowrap">Delete</span>
@@ -66,9 +66,9 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
           <button
             type="button"
             onClick={() => setShowReport(true)}
-            className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 opacity-70 hover:bg-gray-100 hover:text-red-500 hover:opacity-100 dark:hover:bg-gray-800"
           >
-            <FlagOutline className="w-3.5 h-3.5" />
+            <FlagOutline className="h-3.5 w-3.5" />
             <span className="whitespace-nowrap">Report</span>
           </button>
         </div>

@@ -31,12 +31,12 @@ const UploadMethod = () => {
       className="mt-4"
       defaultIndex={isUnderFreeLimit ? 1 : 0}
     >
-      <Tab.List className="flex space-x-1 rounded-xl bg-gray-200 dark:bg-gray-800 p-1">
+      <Tab.List className="flex space-x-1 rounded-xl bg-gray-200 p-1 dark:bg-gray-800">
         <Tab
           className={({ selected }) =>
             clsx(
               'w-full rounded-xl py-2.5 text-sm font-medium leading-5 focus:outline-none',
-              selected ? 'bg-white dark:bg-theme' : 'hover:bg-white/[0.12]'
+              selected ? 'dark:bg-theme bg-white' : 'hover:bg-white/[0.12]'
             )
           }
           onClick={onClickArweave}
@@ -46,9 +46,9 @@ const UploadMethod = () => {
         <Tab
           className={({ selected }) =>
             clsx(
-              'w-full rounded-xl disabled:opacity-30 text-sm font-medium leading-5 focus:outline-none',
+              'w-full rounded-xl text-sm font-medium leading-5 focus:outline-none disabled:opacity-30',
               selected
-                ? 'bg-white dark:bg-theme'
+                ? 'dark:bg-theme bg-white'
                 : 'enabled:hover:bg-white/[0.12]'
             )
           }

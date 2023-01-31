@@ -26,7 +26,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
           href={`/explore/${video.metadata.tags[0]}`}
           className="flex items-center space-x-1 text-sm"
         >
-          <TagOutline className="w-4 h-4" />
+          <TagOutline className="h-4 w-4" />
           <span className="whitespace-nowrap">
             {getCategoryName(video.metadata.tags[0])}
           </span>
@@ -41,8 +41,8 @@ const MetaInfo: FC<Props> = ({ video }) => {
             className="flex items-center space-x-1"
             role="button"
           >
-            <div className="text-sm whitespace-nowrap">View Metadata</div>
-            <ExternalOutline className="w-3.5 h-3.5" />
+            <div className="whitespace-nowrap text-sm">View Metadata</div>
+            <ExternalOutline className="h-3.5 w-3.5" />
           </div>
         </IPFSLink>
       ) : (
@@ -52,22 +52,22 @@ const MetaInfo: FC<Props> = ({ video }) => {
             className="flex items-center space-x-1"
             role="button"
           >
-            <div className="text-sm whitespace-nowrap">View Metadata</div>
-            <ExternalOutline className="w-3.5 h-3.5" />
+            <div className="whitespace-nowrap text-sm">View Metadata</div>
+            <ExternalOutline className="h-3.5 w-3.5" />
           </div>
         </ArweaveExplorerLink>
       )}
       {video.collectNftAddress && (
         <div
           onClick={() => Analytics.track(TRACK.CLICK_VIEW_TOKEN)}
-          className="items-center hidden space-x-1 md:flex"
+          className="hidden items-center space-x-1 md:flex"
           role="button"
         >
           <span className="middot" />
           <TokenExplorerLink address={video.collectNftAddress}>
             <div className="flex items-center space-x-1">
-              <div className="text-sm whitespace-nowrap">View Token</div>
-              <ExternalOutline className="w-3.5 h-3.5" />
+              <div className="whitespace-nowrap text-sm">View Token</div>
+              <ExternalOutline className="h-3.5 w-3.5" />
             </div>
           </TokenExplorerLink>
         </div>

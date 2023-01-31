@@ -40,14 +40,14 @@ const Sidebar = () => {
       <CreateChannel />
       <div
         className={clsx(
-          'fixed top-0 bottom-0 transition-width left-0 z-10 items-start justify-between hidden bg-white dark:bg-theme md:flex md:flex-col',
+          'transition-width dark:bg-theme fixed top-0 bottom-0 left-0 z-10 hidden items-start justify-between bg-white md:flex md:flex-col',
           sidebarCollapsed ? 'w-[90px]' : 'w-[180px]'
         )}
       >
         <div
           className={clsx(
             'flex flex-col space-y-2',
-            sidebarCollapsed ? 'self-center' : 'px-[18px] w-full'
+            sidebarCollapsed ? 'self-center' : 'w-full px-[18px]'
           )}
         >
           <div className={clsx('py-3', sidebarCollapsed ? 'px-3' : 'px-3.5')}>
@@ -58,7 +58,7 @@ const Sidebar = () => {
               <img
                 src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
                 draggable={false}
-                className="w-6 h-6 ml-0.5"
+                className="ml-0.5 h-6 w-6"
                 alt="lenstube"
               />
             </Link>
@@ -72,16 +72,16 @@ const Sidebar = () => {
               <Link
                 href="/"
                 className={clsx(
-                  'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
+                  'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/')
                     ? 'bg-indigo-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
-                    : 'w-full px-4 space-x-3'
+                    : 'w-full space-x-3 px-4'
                 )}
               >
-                <HomeOutline className="w-5 h-5" />
+                <HomeOutline className="h-5 w-5" />
                 {!sidebarCollapsed && <span className="text-sm">Home</span>}
               </Link>
             </Tooltip>
@@ -93,16 +93,16 @@ const Sidebar = () => {
               <Link
                 href="/feed"
                 className={clsx(
-                  'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
+                  'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/feed')
                     ? 'bg-indigo-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
-                    : 'w-full px-4 space-x-3'
+                    : 'w-full space-x-3 px-4'
                 )}
               >
-                <FeedOutline className="w-5 h-5 flex-none" />
+                <FeedOutline className="h-5 w-5 flex-none" />
                 {!sidebarCollapsed && (
                   <span className="text-sm">Subscriptions</span>
                 )}
@@ -116,16 +116,16 @@ const Sidebar = () => {
               <Link
                 href="/bytes"
                 className={clsx(
-                  'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
+                  'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/bytes') || router.pathname === '/bytes/[id]'
                     ? 'bg-indigo-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
-                    : 'w-full px-4 space-x-3'
+                    : 'w-full space-x-3 px-4'
                 )}
               >
-                <BytesOutline className="w-5 h-5" />
+                <BytesOutline className="h-5 w-5" />
                 {!sidebarCollapsed && <span className="text-sm">Bytes</span>}
               </Link>
             </Tooltip>
@@ -137,16 +137,16 @@ const Sidebar = () => {
               <Link
                 href="/explore"
                 className={clsx(
-                  'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
+                  'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/explore')
                     ? 'bg-indigo-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
-                    : 'w-full px-4 space-x-3'
+                    : 'w-full space-x-3 px-4'
                 )}
               >
-                <ExploreOutline className="w-5 h-5" />
+                <ExploreOutline className="h-5 w-5" />
                 {!sidebarCollapsed && <span className="text-sm">Explore</span>}
               </Link>
             </Tooltip>
@@ -162,16 +162,16 @@ const Sidebar = () => {
                 <Link
                   href="/echos"
                   className={clsx(
-                    'py-2 2xl:py-2.5 flex h-12 items-center group rounded-full',
+                    'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                     isActivePath('/echo')
                       ? 'bg-indigo-50 dark:bg-gray-800'
                       : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                     sidebarCollapsed
                       ? 'w-12 justify-center'
-                      : 'w-full px-4 space-x-3'
+                      : 'w-full space-x-3 px-4'
                   )}
                 >
-                  <MusicOutline className="w-5 h-5" />
+                  <MusicOutline className="h-5 w-5" />
                   {!sidebarCollapsed && <span className="text-sm">Echo</span>}
                 </Link>
               </Tooltip>
@@ -180,7 +180,7 @@ const Sidebar = () => {
         </div>
         <div
           className={clsx(
-            'flex flex-col mb-1',
+            'mb-1 flex flex-col',
             sidebarCollapsed ? 'mx-auto' : 'px-3'
           )}
         >
@@ -189,14 +189,14 @@ const Sidebar = () => {
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
             type="button"
             className={clsx(
-              'flex p-3.5 mt-2 items-center h-12 justify-center rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none opacity-90 hover:opacity-100',
+              'mt-2 flex h-12 items-center justify-center rounded-full p-3.5 opacity-90 hover:bg-gray-50 hover:opacity-100 focus:outline-none dark:hover:bg-gray-800',
               sidebarCollapsed ? 'w-12' : 'w-full'
             )}
           >
             {sidebarCollapsed ? (
-              <ChevronRightOutline className="w-3 h-3" />
+              <ChevronRightOutline className="h-3 w-3" />
             ) : (
-              <ChevronLeftOutline className="w-3 h-3" />
+              <ChevronLeftOutline className="h-3 w-3" />
             )}
           </button>
         </div>

@@ -55,10 +55,10 @@ const VideoCard: FC<Props> = ({ video }) => {
             setShowReport={setShowReport}
           />
           <Link href={`/watch/${video.id}`}>
-            <div className="relative overflow-hidden aspect-w-16 aspect-h-9">
+            <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
               <img
                 className={clsx(
-                  'object-center bg-gray-100 dark:bg-gray-900 w-full h-full md:rounded-xl lg:w-full lg:h-full',
+                  'h-full w-full bg-gray-100 object-center dark:bg-gray-900 md:rounded-xl lg:h-full lg:w-full',
                   isBytesVideo ? 'object-contain' : 'object-cover'
                 )}
                 src={thumbnailUrl}
@@ -73,19 +73,19 @@ const VideoCard: FC<Props> = ({ video }) => {
           </Link>
           <div className="py-2">
             <div className="flex items-start space-x-2.5">
-              <Link href={`/watch/${video.id}`} className="flex-none mt-0.5">
+              <Link href={`/watch/${video.id}`} className="mt-0.5 flex-none">
                 <img
-                  className="w-8 h-8 rounded-full"
+                  className="h-8 w-8 rounded-full"
                   src={getProfilePicture(video.profile)}
                   alt={video.profile?.handle}
                   draggable={false}
                 />
               </Link>
               <div className="grid flex-1">
-                <div className="flex pb-1 w-full items-start justify-between space-x-1.5 min-w-0">
+                <div className="flex w-full min-w-0 items-start justify-between space-x-1.5 pb-1">
                   <Link
                     href={`/watch/${video.id}`}
-                    className="text-sm font-semibold line-clamp-2 break-words"
+                    className="line-clamp-2 break-words text-sm font-semibold"
                   >
                     {video.metadata?.name}
                   </Link>
@@ -97,12 +97,12 @@ const VideoCard: FC<Props> = ({ video }) => {
                 </div>
                 <Link
                   href={`/channel/${video.profile?.handle}`}
-                  className="flex w-fit items-center space-x-0.5 text-[13px] hover:opacity-100 opacity-70"
+                  className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
                 >
                   <span>{video.profile?.handle}</span>
                   <IsVerified id={video.profile?.id} size="xs" />
                 </Link>
-                <div className="flex overflow-hidden items-center text-xs opacity-70">
+                <div className="flex items-center overflow-hidden text-xs opacity-70">
                   <span className="whitespace-nowrap">
                     {video.stats?.totalUpvotes} likes
                   </span>

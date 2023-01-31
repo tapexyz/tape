@@ -29,7 +29,7 @@ const ChannelStats: FC<Props> = ({ channel }) => {
   const allChannels = data?.profiles?.items as Profile[]
 
   return (
-    <div className="grid grid-cols-2 gap-4 lg:grid-cols-6 md:grid-cols-3">
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
       <StatCard
         icon={<FcVideoCall />}
         count={stats?.totalPosts}

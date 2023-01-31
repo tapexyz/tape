@@ -26,7 +26,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
   return (
     <label className="w-full" htmlFor={id}>
       {label && (
-        <div className="flex items-center mb-1 space-x-1.5">
+        <div className="mb-1 flex items-center space-x-1.5">
           <div className="text-[11px] font-semibold uppercase opacity-70">
             {label}
           </div>
@@ -34,7 +34,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
       )}
       <div className="flex">
         {prefix && (
-          <span className="inline-flex items-center px-4 text-sm bg-gray-100 border border-r-0 border-gray-300 opacity-80 rounded-l-xl dark:bg-gray-900 dark:border-gray-700">
+          <span className="inline-flex items-center rounded-l-xl border border-r-0 border-gray-300 bg-gray-100 px-4 text-sm opacity-80 dark:border-gray-700 dark:bg-gray-900">
             {prefix}
           </span>
         )}
@@ -48,7 +48,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
               'rounded-xl': !prefix && !suffix,
               'rounded-l-xl': suffix
             },
-            'bg-white text-sm px-2.5 py-2 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 outline-none disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 w-full',
+            'w-full border border-gray-300 bg-white px-2.5 py-2 text-sm outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900',
             className
           )}
           ref={ref}
@@ -56,7 +56,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
           {...props}
         />
         {suffix && (
-          <span className="inline-flex items-center px-4 text-sm bg-gray-100 border border-l-0 border-gray-300 whitespace-nowrap opacity-80 rounded-r-xl dark:bg-gray-900 dark:border-gray-700">
+          <span className="inline-flex items-center whitespace-nowrap rounded-r-xl border border-l-0 border-gray-300 bg-gray-100 px-4 text-sm opacity-80 dark:border-gray-700 dark:bg-gray-900">
             {suffix}
           </span>
         )}

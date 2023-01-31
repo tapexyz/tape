@@ -4,7 +4,7 @@ const SquareButtonShimmer = () => {
   return (
     <div className="flex self-center">
       <div className="flex animate-pulse">
-        <div className="p-3.5 bg-gray-300 md:p-[18px] rounded-lg md:rounded-xl dark:bg-gray-700" />
+        <div className="rounded-lg bg-gray-300 p-3.5 dark:bg-gray-700 md:rounded-xl md:p-[18px]" />
       </div>
     </div>
   )

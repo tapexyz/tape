@@ -17,8 +17,8 @@ const ByteActions: FC<Props> = ({ video }) => {
   const [showReport, setShowReport] = useState(false)
 
   return (
-    <div className="flex-col items-center justify-between w-12 md:w-14 md:flex">
-      <div className="flex justify-center p-2 space-y-4 md:flex-col">
+    <div className="w-12 flex-col items-center justify-between md:flex md:w-14">
+      <div className="flex justify-center space-y-4 p-2 md:flex-col">
         <VideoOptions
           video={video}
           setShowShare={setShowShare}
@@ -26,7 +26,7 @@ const ByteActions: FC<Props> = ({ video }) => {
           showOnHover={false}
         />
       </div>
-      <div className="items-center pt-2.5 space-y-1.5 md:flex md:flex-col">
+      <div className="items-center space-y-1.5 pt-2.5 md:flex md:flex-col">
         <div className="text-white md:text-inherit">
           <PublicationReaction
             publication={video}
@@ -35,10 +35,10 @@ const ByteActions: FC<Props> = ({ video }) => {
             showLabel
           />
         </div>
-        <div className="text-white text-center md:text-inherit">
+        <div className="text-center text-white md:text-inherit">
           <MirrorVideo video={video}>
             <div className="p-2">
-              <MirrorOutline className="w-6 h-6" />
+              <MirrorOutline className="h-6 w-6" />
             </div>
             <div className="text-xs leading-3">
               {video.stats?.totalAmountOfMirrors || 'Mirror'}
@@ -48,7 +48,7 @@ const ByteActions: FC<Props> = ({ video }) => {
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
           <div className="hidden md:block">
             <CollectVideo video={video} />
-            <div className="text-xs leading-3 text-center">
+            <div className="text-center text-xs leading-3">
               {video.stats?.totalAmountOfCollects || 'Collect'}
             </div>
           </div>

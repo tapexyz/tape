@@ -120,7 +120,7 @@ const Bytes = () => {
         <meta name="theme-color" content="#000000" />
       </Head>
       <MetaTags title="Bytes" />
-      <div className="md:h-[calc(100vh-70px)] h-screen overflow-y-scroll no-scrollbar snap-y snap-mandatory scroll-smooth">
+      <div className="no-scrollbar h-screen snap-y snap-mandatory overflow-y-scroll scroll-smooth md:h-[calc(100vh-70px)]">
         {singleByte && <ByteVideo video={singleBytePublication} />}
         {bytes?.map((video: Publication) => (
           <ByteVideo video={video} key={`${video?.id}_${video.createdAt}`} />

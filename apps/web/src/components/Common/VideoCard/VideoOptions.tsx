@@ -67,25 +67,25 @@ const VideoOptions: FC<Props> = ({
         <div
           onClick={() => Analytics.track(TRACK.CLICK_VIDEO_OPTIONS)}
           className={clsx(
-            'py-1 text-white md:text-inherit group-hover:visible',
+            'py-1 text-white group-hover:visible md:text-inherit',
             {
               'lg:invisible': showOnHover
             }
           )}
           role="button"
         >
-          <ThreeDotsOutline className="w-3.5 h-3.5" />
+          <ThreeDotsOutline className="h-3.5 w-3.5" />
         </div>
       }
     >
-      <div className="p-1 mt-0.5 overflow-hidden border border-gray-200 rounded-xl shadow dark:border-gray-800 bg-secondary">
-        <div className="flex flex-col text-sm transition duration-150 ease-in-out rounded-lg">
+      <div className="bg-secondary mt-0.5 overflow-hidden rounded-xl border border-gray-200 p-1 shadow dark:border-gray-800">
+        <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
           <button
             type="button"
             onClick={() => setShowShare(true)}
-            className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 opacity-70 hover:bg-gray-100 hover:opacity-100 dark:hover:bg-gray-800"
           >
-            <ShareOutline className="w-3.5 h-3.5" />
+            <ShareOutline className="h-3.5 w-3.5" />
             <span className="whitespace-nowrap">Share</span>
           </button>
           {isVideoOwner && (
@@ -95,17 +95,17 @@ const VideoOptions: FC<Props> = ({
                 href={getPublicationMediaUrl(video)}
                 target="_blank"
               >
-                <div className="flex items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800">
-                  <ExternalOutline className="w-3 h-3" />
+                <div className="flex items-center space-x-2 rounded-lg px-3 py-1.5 opacity-70 hover:bg-gray-100 hover:opacity-100 dark:hover:bg-gray-800">
+                  <ExternalOutline className="h-3 w-3" />
                   <span className="whitespace-nowrap">Raw Video</span>
                 </div>
               </Menu.Item>
               <button
                 type="button"
                 onClick={() => onHideVideo()}
-                className="inline-flex items-center px-3 py-1.5 space-x-2 rounded-lg text-red-500 opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
+                className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 text-red-500 opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
               >
-                <TrashOutline className="w-3.5 h-3.5" />
+                <TrashOutline className="h-3.5 w-3.5" />
                 <span className="whitespace-nowrap">Delete</span>
               </button>
             </>
@@ -113,9 +113,9 @@ const VideoOptions: FC<Props> = ({
           <button
             type="button"
             onClick={() => onClickReport()}
-            className="inline-flex hover:text-red-500 items-center px-3 py-1.5 space-x-2 rounded-lg opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 opacity-70 hover:bg-gray-100 hover:text-red-500 hover:opacity-100 dark:hover:bg-gray-800"
           >
-            <FlagOutline className="w-3.5 h-3.5" />
+            <FlagOutline className="h-3.5 w-3.5" />
             <span className="whitespace-nowrap">Report</span>
           </button>
         </div>

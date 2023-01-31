@@ -62,9 +62,9 @@ const ByteVideo: FC<Props> = ({ video }) => {
   })
 
   return (
-    <div ref={observe} className="flex justify-center md:mt-6 snap-center">
+    <div ref={observe} className="flex snap-center justify-center md:mt-6">
       <div className="relative">
-        <div className="md:rounded-xl overflow-hidden min-w-[250px] w-screen md:w-[350px] ultrawide:w-[407px] h-screen bg-black md:h-[calc(100vh-145px)]">
+        <div className="ultrawide:w-[407px] h-screen w-screen min-w-[250px] overflow-hidden bg-black md:h-[calc(100vh-145px)] md:w-[350px] md:rounded-xl">
           <VideoPlayer
             refCallback={refCallback}
             permanentUrl={getPublicationMediaUrl(video)}
@@ -81,7 +81,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
         </div>
         <TopOverlay onClickVideo={onClickVideo} />
         <BottomOverlay video={video} />
-        <div className="absolute md:hidden z-[1] right-2 bottom-[15%]">
+        <div className="absolute right-2 bottom-[15%] z-[1] md:hidden">
           <ByteActions video={video} />
           {video?.collectModule?.__typename !==
             'RevertCollectModuleSettings' && (

@@ -280,7 +280,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     <Modal
       title={
         <span className="flex items-center space-x-2 outline-none">
-          <HeartOutline className="w-4 h-4" />
+          <HeartOutline className="h-4 w-4" />
           <span>Tip {video.profile?.handle}</span>
         </span>
       }
@@ -289,7 +289,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       panelClassName="max-w-md"
     >
       <form className="mt-2" onSubmit={handleSubmit(onSendTip)}>
-        <div className="flex items-center justify-center p-10 space-x-2 flex-nowrap">
+        <div className="flex flex-nowrap items-center justify-center space-x-2 p-10">
           <span className="flex items-center space-x-4">
             <img
               src={imageCdn(
@@ -316,15 +316,15 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
             {...register('message')}
             placeholder="Say something nice"
             autoComplete="off"
-            className="w-full p-2 text-sm bg-white border border-gray-200 outline-none focus:ring-1 focus:ring-indigo-500 rounded-xl dark:bg-gray-900 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20"
+            className="w-full rounded-xl border border-gray-200 bg-white p-2 text-sm outline-none focus:ring-1 focus:ring-indigo-500 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-800 dark:bg-gray-900"
             rows={3}
           />
-          <div className="text-[11px] mx-1 mt-1 opacity-50">
+          <div className="mx-1 mt-1 text-[11px] opacity-50">
             This will be published as public comment.
           </div>
         </div>
 
-        <div className="flex items-center justify-between mt-4">
+        <div className="mt-4 flex items-center justify-between">
           <span className="w-1/2 truncate">
             {(errors.tipQuantity || errors.message) && (
               <div>

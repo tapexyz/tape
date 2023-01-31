@@ -21,42 +21,42 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
         <div
           onClick={() => clearSearch()}
           key={channel.id}
-          className="relative pl-3 pr-4 cursor-default select-none hover:bg-gray-100 dark:hover:bg-gray-900"
+          className="relative cursor-default select-none pl-3 pr-4 hover:bg-gray-100 dark:hover:bg-gray-900"
           role="button"
         >
           <Link
             href={`/channel/${channel?.handle}`}
             key={channel?.handle}
-            className="flex flex-col justify-center py-2 space-y-1 rounded-xl"
+            className="flex flex-col justify-center space-y-1 rounded-xl py-2"
           >
             <span className="flex items-center justify-between">
-              <div className="inline-flex items-center w-3/4 space-x-2">
+              <div className="inline-flex w-3/4 items-center space-x-2">
                 <img
-                  className="w-5 h-5 rounded-md"
+                  className="h-5 w-5 rounded-md"
                   src={getProfilePicture(channel, 'avatar')}
                   draggable={false}
                   alt="pfp"
                 />
                 <div className="flex items-center space-x-1">
-                  <p className="text-base truncate line-clamp-1">
+                  <p className="line-clamp-1 truncate text-base">
                     <span>{channel?.handle}</span>
                   </p>
                   <IsVerified id={channel?.id} size="xs" />
                 </div>
               </div>
-              <span className="inline-flex items-center space-x-1 text-xs whitespace-nowrap opacity-60">
+              <span className="inline-flex items-center space-x-1 whitespace-nowrap text-xs opacity-60">
                 <BiUser />
                 <span>{formatNumber(channel.stats.totalFollowers)}</span>
               </span>
             </span>
             {channel.bio && (
-              <p className="text-sm truncate opacity-60">{channel.bio}</p>
+              <p className="truncate text-sm opacity-60">{channel.bio}</p>
             )}
           </Link>
         </div>
       ))}
       {!results?.length && !loading && (
-        <div className="relative p-5 text-center cursor-default select-none">
+        <div className="relative cursor-default select-none p-5 text-center">
           No results found.
         </div>
       )}

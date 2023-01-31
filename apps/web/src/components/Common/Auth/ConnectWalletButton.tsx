@@ -48,11 +48,11 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
             disabled={signing}
           >
             Sign In
-            <span className="hidden ml-1 md:inline-block">with Lens</span>
+            <span className="ml-1 hidden md:inline-block">with Lens</span>
           </Button>
           <Tooltip content="Disconnect Wallet">
             <button
-              className="btn-danger md:p-2.5 p-2"
+              className="btn-danger p-2 md:p-2.5"
               onClick={() => disconnect?.()}
             >
               <AiOutlineDisconnect className="text-lg" />
@@ -76,7 +76,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
       }}
     >
       Connect
-      <span className="hidden ml-1 md:inline-block">Wallet</span>
+      <span className="ml-1 hidden md:inline-block">Wallet</span>
     </Button>
   )
 }

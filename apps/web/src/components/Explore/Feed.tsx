@@ -95,8 +95,8 @@ const ExploreFeed = () => {
   })
 
   return (
-    <Tab.Group as="div" className="w-full col-span-9">
-      <Tab.List className="flex overflow-x-auto no-scrollbar">
+    <Tab.Group as="div" className="col-span-9 w-full">
+      <Tab.List className="no-scrollbar flex overflow-x-auto">
         <Tab
           onClick={() => {
             setActiveCriteria({ ...initialCriteria })
@@ -106,12 +106,12 @@ const ExploreFeed = () => {
           }}
           className={({ selected }) =>
             clsx(
-              'px-4 py-2 flex whitespace-nowrap items-center space-x-2 border-b-2 focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap border-b-2 px-4 py-2 focus:outline-none',
               selected ? 'border-indigo-500' : 'border-transparent'
             )
           }
         >
-          <FireOutline className="w-3.5 h-3.5" />
+          <FireOutline className="h-3.5 w-3.5" />
           <span>Trending</span>
         </Tab>
         <Tab
@@ -127,12 +127,12 @@ const ExploreFeed = () => {
           }}
           className={({ selected }) =>
             clsx(
-              'px-4 py-2 flex items-center space-x-2 border-b-2 focus:outline-none',
+              'flex items-center space-x-2 border-b-2 px-4 py-2 focus:outline-none',
               selected ? 'border-indigo-500' : 'border-transparent'
             )
           }
         >
-          <CommentOutline className="w-3.5 h-3.5" />
+          <CommentOutline className="h-3.5 w-3.5" />
           <span>Popular</span>
         </Tab>
         <Tab
@@ -148,12 +148,12 @@ const ExploreFeed = () => {
           }}
           className={({ selected }) =>
             clsx(
-              'px-4 py-2 flex items-center space-x-2 border-b-2 focus:outline-none',
+              'flex items-center space-x-2 border-b-2 px-4 py-2 focus:outline-none',
               selected ? 'border-indigo-500' : 'border-transparent'
             )
           }
         >
-          <MirrorOutline className="w-3.5 h-3.5" />
+          <MirrorOutline className="h-3.5 w-3.5" />
           <span>Interesting</span>
         </Tab>
         {isMod && (
@@ -170,7 +170,7 @@ const ExploreFeed = () => {
             }}
             className={({ selected }) =>
               clsx(
-                'px-4 py-2 flex items-center space-x-2 border-b-2 focus:outline-none',
+                'flex items-center space-x-2 border-b-2 px-4 py-2 focus:outline-none',
                 selected ? 'border-indigo-500' : 'border-transparent'
               )
             }

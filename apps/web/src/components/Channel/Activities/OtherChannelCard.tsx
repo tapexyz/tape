@@ -10,10 +10,10 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
   const subscribeType = channel?.followModule?.__typename
 
   return (
-    <div className="flex flex-col items-center justify-center py-3 border border-gray-200 w-44 rounded-xl dark:border-gray-800">
+    <div className="flex w-44 flex-col items-center justify-center rounded-xl border border-gray-200 py-3 dark:border-gray-800">
       <Link href={`/channel/${channel.handle}`}>
         <img
-          className="object-cover w-24 h-24 rounded-full"
+          className="h-24 w-24 rounded-full object-cover"
           src={getProfilePicture(channel, 'avatar_lg')}
           alt={channel?.handle}
           draggable={false}
@@ -23,7 +23,7 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
         <div className="flex-1 text-center">
           <Link
             href={`/channel/${channel.handle}`}
-            className="block font-medium truncate"
+            className="block truncate font-medium"
           >
             <div className="flex items-center justify-center space-x-1">
               <span>{channel.handle}</span>
@@ -31,7 +31,7 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
             </div>
           </Link>
         </div>
-        <div className="text-xs text-center opacity-70">
+        <div className="text-center text-xs opacity-70">
           {formatNumber(channel.stats.totalFollowers)} subscribers
         </div>
       </div>

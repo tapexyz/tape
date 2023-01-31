@@ -50,25 +50,30 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         >
           <CoverLinks channel={channel} />
         </div>
-        <div className="container mx-auto my-4 flex max-w-[100rem] items-center space-x-3 md:space-x-5 xl:my-6">
+        <div className="container mx-auto flex max-w-[85rem] space-x-3 p-2 md:items-center md:space-x-5 md:py-4">
           <div className="flex-none">
             <img
+              className="ultrawide:h-32 ultrawide:w-32 h-24 w-24 rounded-full border-4 border-gray-300 bg-white object-cover dark:border-gray-700 dark:bg-gray-900"
               src={getProfilePicture(channel, 'avatar_lg')}
-              className="h-24 w-24 rounded-full border-4 border-gray-300 bg-white object-cover dark:border-black dark:bg-gray-900 md:h-32 md:w-32"
               draggable={false}
               alt={channel?.handle}
             />
           </div>
           <div className="flex flex-1 flex-wrap justify-between space-y-3 py-2">
             <div className="mr-3 flex flex-col items-start">
-              <h1 className="flex items-center space-x-1.5 font-semibold md:text-2xl">
-                <span>{channel?.handle}</span>
-                <Tooltip content="Verified Creator" placement="right">
+              {channel.name && (
+                <h1 className="flex items-center space-x-1.5 font-medium md:text-2xl">
+                  {channel.name}
+                </h1>
+              )}
+              <h2 className="flex items-center space-x-1.5 md:text-lg">
+                <span>@{channel?.handle}</span>
+                <Tooltip content="Verified" placement="right">
                   <span>
-                    <IsVerified id={channel?.id} size="lg" />
+                    <IsVerified id={channel?.id} size="md" />
                   </span>
                 </Tooltip>
-              </h1>
+              </h2>
               <Modal
                 title="Subscribers"
                 onClose={() => setShowSubscribersModal(false)}
@@ -85,12 +90,12 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                   onClick={() => setShowSubscribersModal(true)}
                   className="outline-none"
                 >
-                  <span className="inline-flex items-center space-x-1 whitespace-nowrap text-sm md:text-base">
+                  <span className="inline-flex items-center space-x-1 whitespace-nowrap">
                     {channel?.stats.totalFollowers} subscribers
                   </span>
                 </button>
                 {channel.isFollowing && (
-                  <span className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
+                  <span className="rounded-full border border-gray-400 px-2 text-xs dark:border-gray-600">
                     Subscriber
                   </span>
                 )}

@@ -15,24 +15,24 @@ const BottomOverlay: FC<Props> = ({ video }) => {
   const subscribeType = video.profile?.followModule?.__typename
   const channel = video.profile
   return (
-    <div className="absolute z-[1] bottom-0 left-0 md:rounded-b-xl right-0 px-3 pt-5 pb-3 bg-gradient-to-t from-gray-900 to-transparent">
+    <div className="absolute bottom-0 left-0 right-0 z-[1] bg-gradient-to-t from-gray-900 to-transparent px-3 pt-5 pb-3 md:rounded-b-xl">
       <div className="pb-2">
-        <h1 className="text-white line-clamp-2">{video.metadata.name}</h1>
+        <h1 className="line-clamp-2 text-white">{video.metadata.name}</h1>
       </div>
       <div className="flex items-center justify-between">
         <div className="min-w-0">
           <Link
             href={`/channel/${channel?.handle}`}
-            className="flex items-center flex-none space-x-2 cursor-pointer"
+            className="flex flex-none cursor-pointer items-center space-x-2"
           >
             <img
               src={getProfilePicture(channel, 'avatar')}
-              className="w-9 h-9 rounded-full"
+              className="h-9 w-9 rounded-full"
               draggable={false}
               alt={channel?.handle}
             />
-            <div className="flex flex-col items-start text-white min-w-0">
-              <h6 className="flex items-center space-x-1 max-w-full">
+            <div className="flex min-w-0 flex-col items-start text-white">
+              <h6 className="flex max-w-full items-center space-x-1">
                 <span className="truncate">{channel?.handle}</span>
                 <IsVerified
                   id={channel?.id}

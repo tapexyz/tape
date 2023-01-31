@@ -63,10 +63,10 @@ const DropZone = () => {
   return (
     <div>
       <MetaTags title="Select Video" />
-      <div className="relative flex flex-col items-center justify-center flex-1 my-20">
+      <div className="relative my-20 flex flex-1 flex-col items-center justify-center">
         <label
           className={clsx(
-            'w-full p-10 md:p-20 md:w-2/3 focus:outline-none border-gray-500 grid place-items-center text-center border border-dashed rounded-3xl',
+            'grid w-full place-items-center rounded-3xl border border-dashed border-gray-500 p-10 text-center focus:outline-none md:w-2/3 md:p-20',
             { '!border-green-500': dragOver }
           )}
           htmlFor="dropVideo"
@@ -81,8 +81,8 @@ const DropZone = () => {
             id="dropVideo"
             accept={ALLOWED_VIDEO_TYPES.join(',')}
           />
-          <span className="flex justify-center mb-6 opacity-80">
-            <UploadOutline className="w-14 h-14" />
+          <span className="mb-6 flex justify-center opacity-80">
+            <UploadOutline className="h-14 w-14" />
           </span>
           <span className="space-y-10 md:space-y-14">
             <div className="text-2xl font-semibold md:text-4xl">
@@ -93,7 +93,7 @@ const DropZone = () => {
             <div>
               <label
                 htmlFor="chooseVideo"
-                className="px-8 py-4 text-lg btn-primary cursor-pointer"
+                className="btn-primary cursor-pointer px-8 py-4 text-lg"
               >
                 or choose video
                 <input

@@ -21,36 +21,36 @@ const Item: FC<Props> = ({ publication }) => {
   }
 
   return (
-    <div className="flex flex-col p-2 bg-white rounded-xl h-full md:w-[220px] w-full dark:bg-gray-900">
-      <div className="relative flex justify-center group">
+    <div className="flex h-full w-full flex-col rounded-xl bg-white p-2 dark:bg-gray-900 md:w-[220px]">
+      <div className="group relative flex justify-center">
         <img
           src={imageCdn(getThumbnailUrl(publication), 'square')}
-          className="w-full md:h-[220px] group-hover:scale-105 object-cover rounded-lg duration-300 ease-in-out transition"
+          className="w-full rounded-lg object-cover transition duration-300 ease-in-out group-hover:scale-105 md:h-[220px]"
           alt={publication?.metadata?.name ?? 'cover'}
         />
         <button
           onClick={() => onPlayPause(publication)}
           className={clsx(
-            'invisible group-hover:visible absolute p-2 duration-100 ease-in-out rounded-full outline-none transition-all bottom-2.5 left-2.5 bg-white/70 dark:bg-black/50 backdrop-blur-lg'
+            'invisible absolute bottom-2.5 left-2.5 rounded-full bg-white/70 p-2 outline-none backdrop-blur-lg transition-all duration-100 ease-in-out group-hover:visible dark:bg-black/50'
           )}
         >
           {publication?.id === 'selectedTrack?.id' ? (
-            <FcDvdLogo className="w-7 h-7 animate-spin-slow" />
+            <FcDvdLogo className="animate-spin-slow h-7 w-7" />
           ) : (
-            <BsPlay className="w-7 h-7 pl-0.5" />
+            <BsPlay className="h-7 w-7 pl-0.5" />
           )}
         </button>
       </div>
       <div className="mt-1">
         <Link
           href={`/channel/${publication?.profile?.handle}`}
-          className="text-xs font-medium hover:underline opacity-80 hover:opacity-70 uppercase"
+          className="text-xs font-medium uppercase opacity-80 hover:underline hover:opacity-70"
         >
           {publication?.profile?.handle}
         </Link>
         <Link
           href={`/listen/${publication?.id}`}
-          className="md:text-md text-sm font-semibold line-clamp-1 hover:opacity-70"
+          className="md:text-md line-clamp-1 text-sm font-semibold hover:opacity-70"
         >
           {publication?.metadata?.name}
         </Link>
