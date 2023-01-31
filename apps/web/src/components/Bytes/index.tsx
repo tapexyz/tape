@@ -53,7 +53,7 @@ const Bytes = () => {
         const publicationId = router.query.id
         if (!publicationId) {
           const nextUrl = `${location.origin}/bytes/${items[0]?.id}`
-          history.replaceState({ path: nextUrl }, '', nextUrl)
+          history.pushState({ path: nextUrl }, '', nextUrl)
         }
       }
     })

@@ -2,7 +2,6 @@ import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import usePersistStore, { signOut } from '@lib/store/persist'
-import axios from 'axios'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { useAllProfilesLazyQuery } from 'lens'
@@ -10,7 +9,7 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { useQuery } from 'react-query'
+import useSWR from 'swr'
 import type { CustomErrorWithData } from 'utils'
 import {
   ADMIN_IDS,
@@ -51,10 +50,10 @@ const UserMenu = () => {
     (state) => state.setSelectedChannelId
   )
 
-  const { data: statusData } = useQuery(
-    'statusData',
-    () => axios.get(`${LENSTUBE_API_URL}/api/health`).then(({ data }) => data),
-    { refetchInterval: 60000, enabled: IS_MAINNET }
+  const { data: statusData } = useSWR(
+    IS_MAINNET ? `${LENSTUBE_API_URL}/api/health` : null,
+    (url: string) => fetch(url).then((res) => res.json()),
+    { revalidateOnFocus: true }
   )
 
   const [getChannels] = useAllProfilesLazyQuery()
@@ -267,6 +266,7 @@ const UserMenu = () => {
             className="px-5 m-0.5 pb-3 pt-2 flex items-center space-x-2"
             href={LENSTUBE_STATUS_PAGE}
             target="_blank"
+            onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
           >
             <span
               className={clsx(
