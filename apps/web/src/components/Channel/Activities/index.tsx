@@ -60,10 +60,10 @@ const Activities: FC<Props> = ({ channel }) => {
   return (
     <Tab.Group
       as="div"
-      className="container mx-auto w-full max-w-[85rem] md:px-2"
+      className="container mx-auto w-full max-w-[85rem] md:p-2"
       defaultIndex={getDefaultTab()}
     >
-      <Tab.List className="no-scrollbar flex overflow-x-auto">
+      <Tab.List className="no-scrollbar flex space-x-2 overflow-x-auto">
         <Tab
           onClick={() => {
             handleTabChange('all')
@@ -71,15 +71,15 @@ const Activities: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'mr-2 flex items-center space-x-2 whitespace-nowrap border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
               selected
-                ? 'border-indigo-700 opacity-100'
-                : 'border-transparent opacity-50'
+                ? 'bg-gray-200 dark:bg-gray-700'
+                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
             )
           }
         >
           <VideoOutline className="h-4 w-4" />
-          <span>All Videos</span>
+          <span>Videos</span>
         </Tab>
         <Tab
           onClick={() => {
@@ -88,10 +88,10 @@ const Activities: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'mr-2 flex items-center space-x-2 border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
               selected
-                ? 'border-indigo-700 opacity-100'
-                : 'border-transparent opacity-50'
+                ? 'bg-gray-200 dark:bg-gray-700'
+                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
             )
           }
         >
@@ -105,10 +105,10 @@ const Activities: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'mr-2 flex items-center space-x-2 border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
               selected
-                ? 'border-indigo-700 opacity-100'
-                : 'border-transparent opacity-50'
+                ? 'bg-gray-200 dark:bg-gray-700'
+                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
             )
           }
         >
@@ -122,10 +122,10 @@ const Activities: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'mr-2 flex items-center space-x-2 border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
               selected
-                ? 'border-indigo-700 opacity-100'
-                : 'border-transparent opacity-50'
+                ? 'bg-gray-200 dark:bg-gray-700'
+                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
             )
           }
         >
@@ -139,10 +139,10 @@ const Activities: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'mr-2 flex items-center space-x-2 whitespace-nowrap border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
               selected
-                ? 'border-indigo-700 opacity-100'
-                : 'border-transparent opacity-50'
+                ? 'bg-gray-200 dark:bg-gray-700'
+                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
             )
           }
         >
@@ -156,10 +156,10 @@ const Activities: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'mr-2 flex items-center space-x-2 border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
               selected
-                ? 'border-indigo-700 opacity-100'
-                : 'border-transparent opacity-50'
+                ? 'bg-gray-200 dark:bg-gray-700'
+                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
             )
           }
         >
@@ -173,10 +173,10 @@ const Activities: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'mr-2 flex items-center space-x-2 border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
               selected
-                ? 'border-indigo-700 opacity-100'
-                : 'border-transparent opacity-50'
+                ? 'bg-gray-200 dark:bg-gray-700'
+                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
             )
           }
         >
@@ -190,10 +190,10 @@ const Activities: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'mr-2 flex items-center space-x-2 border-b-2 px-3 py-2 text-sm font-medium focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
               selected
-                ? 'border-indigo-700 opacity-100'
-                : 'border-transparent opacity-50'
+                ? 'bg-gray-200 dark:bg-gray-700'
+                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
             )
           }
         >
@@ -201,29 +201,29 @@ const Activities: FC<Props> = ({ channel }) => {
           <span>About</span>
         </Tab>
       </Tab.List>
-      <Tab.Panels>
-        <Tab.Panel className="py-3 focus:outline-none">
+      <Tab.Panels className="py-4 md:py-5">
+        <Tab.Panel className="focus:outline-none">
           <ChannelVideos channel={channel} />
         </Tab.Panel>
-        <Tab.Panel className="py-3 focus:outline-none">
+        <Tab.Panel className="focus:outline-none">
           <ChannelBytes channel={channel} />
         </Tab.Panel>
-        <Tab.Panel className="py-3 focus:outline-none">
+        <Tab.Panel className="focus:outline-none">
           <CommentedVideos channel={channel} />
         </Tab.Panel>
-        <Tab.Panel className="py-3 focus:outline-none">
+        <Tab.Panel className="focus:outline-none">
           <MirroredVideos channel={channel} />
         </Tab.Panel>
-        <Tab.Panel className="py-3 focus:outline-none">
+        <Tab.Panel className="focus:outline-none">
           <CollectedNFTs channel={channel} />
         </Tab.Panel>
-        <Tab.Panel className="py-3 focus:outline-none">
+        <Tab.Panel className="focus:outline-none">
           <OtherChannels channel={channel} />
         </Tab.Panel>
-        <Tab.Panel className="py-3 focus:outline-none">
+        <Tab.Panel className="focus:outline-none">
           <ChannelStats channel={channel} />
         </Tab.Panel>
-        <Tab.Panel className="py-3 focus:outline-none">
+        <Tab.Panel className="focus:outline-none">
           <About channel={channel} />
         </Tab.Panel>
       </Tab.Panels>
