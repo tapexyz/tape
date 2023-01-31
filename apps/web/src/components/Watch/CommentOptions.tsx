@@ -51,7 +51,7 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
         </div>
       }
     >
-      <div className="bg-secondary mt-0.5 overflow-hidden rounded-lg border border-gray-200 p-1 shadow dark:border-gray-800">
+      <div className="bg-secondary mt-0.5 w-36 overflow-hidden rounded-lg border border-gray-200 p-1 shadow dark:border-gray-800">
         <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
           {selectedChannel?.id === comment?.profile?.id && (
             <button
@@ -66,7 +66,7 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
           <button
             type="button"
             onClick={() => setShowReport(true)}
-            className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 opacity-70 hover:bg-gray-100 hover:text-red-500 hover:opacity-100 dark:hover:bg-gray-800"
+            className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <FlagOutline className="h-3.5 w-3.5" />
             <span className="whitespace-nowrap">Report</span>

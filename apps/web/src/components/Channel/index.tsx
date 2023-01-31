@@ -9,8 +9,8 @@ import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { Analytics, TRACK } from 'utils'
 
-import Activities from './Activities'
 import BasicInfo from './BasicInfo'
+import Activities from './Tabs'
 
 const Channel = () => {
   const { query } = useRouter()

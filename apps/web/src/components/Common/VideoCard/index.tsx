@@ -85,7 +85,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                 <div className="flex w-full min-w-0 items-start justify-between space-x-1.5 pb-1">
                   <Link
                     href={`/watch/${video.id}`}
-                    className="line-clamp-2 break-words text-sm font-semibold"
+                    className="line-clamp-2 ultrawide:line-clamp-1 ultrawide:break-all break-words text-sm font-semibold"
                   >
                     {video.metadata?.name}
                   </Link>

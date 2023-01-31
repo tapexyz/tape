@@ -14,6 +14,8 @@ import React from 'react'
 import { useInView } from 'react-cool-inview'
 import { LENS_CUSTOM_FILTERS, LENSTUBE_APP_ID, SCROLL_ROOT_MARGIN } from 'utils'
 
+import PinnedVideo from './PinnedVideo'
+
 type Props = {
   channel: Profile
 }
@@ -61,7 +63,8 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
   }
 
   return (
-    <div className="w-full">
+    <>
+      <PinnedVideo channel={channel} />
       {!error && !loading && (
         <>
           <Timeline videos={channelVideos} />
@@ -72,7 +75,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
           )}
         </>
       )}
-    </div>
+    </>
   )
 }
 
