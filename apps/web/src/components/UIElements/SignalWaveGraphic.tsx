@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SignalWave = () => {
+const SignalWaveGraphic = () => {
   return (
     <div className="absolute top-0 right-0 flex translate-x-2 items-center justify-center opacity-60">
       <div className="absolute h-96 w-96 rounded-full border-2 border-black opacity-10 dark:border-white" />
@@ -14,4 +14,4 @@ const SignalWave = () => {
   )
 }
 
-export default SignalWave
+export default SignalWaveGraphic

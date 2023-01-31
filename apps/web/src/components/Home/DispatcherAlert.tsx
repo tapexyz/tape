@@ -1,6 +1,6 @@
 import HandWaveOutline from '@components/Common/Icons/HandWaveOutline'
 import Toggle from '@components/Settings/Permissions/Dispatcher/Toggle'
-import SignalWave from '@components/UIElements/SignalWave'
+import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import useAppStore from '@lib/store'
 import React from 'react'
 import { LENSTUBE_APP_NAME } from 'utils'
@@ -29,7 +29,7 @@ const DispatcherAlert = () => {
             <Toggle />
           </div>
         </div>
-        <SignalWave />
+        <SignalWaveGraphic />
       </div>
     </div>
   )
