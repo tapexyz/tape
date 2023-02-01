@@ -45,7 +45,10 @@ const NFTCard: FC<Props> = ({ nft }) => {
           <div className="truncate text-xs uppercase text-gray-500">
             {nft.collectionName}
           </div>
-          <div className="line-clamp-2 ultrawide:line-clamp-1 ultrawide:break-all">
+          <div
+            title={nft.name}
+            className="line-clamp-2 ultrawide:line-clamp-1 ultrawide:break-all"
+          >
             {nft.name}
           </div>
         </div>

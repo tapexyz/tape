@@ -81,6 +81,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
               <Link
                 href={`/watch/${video.id}`}
                 className="line-clamp-1 text-sm font-medium"
+                title={video.metadata?.name ?? ''}
               >
                 <span className="line-clamp-2 flex">
                   {video.metadata?.name}

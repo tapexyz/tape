@@ -87,8 +87,9 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
           <div className="grid-col grid flex-1">
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5">
               <Link
-                href={`/watch/${mirrorOf.id}`}
                 className="line-clamp-1 break-words text-[15px] font-medium opacity-80"
+                href={`/watch/${mirrorOf.id}`}
+                title={video.metadata?.name ?? ''}
               >
                 {video.metadata?.name}
               </Link>
