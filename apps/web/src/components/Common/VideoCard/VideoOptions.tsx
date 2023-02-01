@@ -29,6 +29,7 @@ import {
   TRACK
 } from 'utils'
 import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
+import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import omitKey from 'utils/functions/omitKey'
 import uploadToAr from 'utils/functions/uploadToAr'
@@ -58,6 +59,10 @@ const VideoOptions: FC<Props> = ({
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
+  const pinnedVideoId = getValueFromKeyInAttributes(
+    selectedChannel?.attributes,
+    'pinnedPublicationId'
+  )
 
   const [hideVideo] = useHidePublicationMutation({
     update(cache) {
@@ -233,14 +238,16 @@ const VideoOptions: FC<Props> = ({
         <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
           {isVideoOwner && (
             <>
-              <Menu.Item
-                as="button"
-                className="flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-                onClick={() => onPinVideo()}
-              >
-                <PinOutline className="h-3.5 w-3.5" />
-                <span className="whitespace-nowrap">Pin Video</span>
-              </Menu.Item>
+              {pinnedVideoId !== video.id && (
+                <Menu.Item
+                  as="button"
+                  className="flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  onClick={() => onPinVideo()}
+                >
+                  <PinOutline className="h-3.5 w-3.5" />
+                  <span className="whitespace-nowrap">Pin Video</span>
+                </Menu.Item>
+              )}
               <Menu.Item
                 as={NextLink}
                 href={getPublicationMediaUrl(video)}
