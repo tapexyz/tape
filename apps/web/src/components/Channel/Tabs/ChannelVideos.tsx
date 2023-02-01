@@ -69,7 +69,11 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
 
   return (
     <>
-      {pinnedVideoId && <PinnedVideo id={pinnedVideoId} />}
+      {pinnedVideoId && (
+        <span className="hidden lg:block">
+          <PinnedVideo id={pinnedVideoId} />
+        </span>
+      )}
       {!error && !loading && (
         <>
           <Timeline videos={channelVideos} />

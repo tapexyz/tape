@@ -27,7 +27,7 @@ type Props = {
 const Video: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const videoWatchTime = useAppStore((state) => state.videoWatchTime)
-  const isByteVideo = video.appId === LENSTUBE_BYTES_APP_ID
+  const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
 
   return (
     <div className="overflow-hidden">
@@ -36,7 +36,7 @@ const Video: FC<Props> = ({ video }) => {
         permanentUrl={getPublicationMediaUrl(video)}
         posterUrl={imageCdn(
           sanitizeIpfsUrl(getThumbnailUrl(video)),
-          isByteVideo ? 'thumbnail_v' : 'thumbnail'
+          isBytesVideo ? 'thumbnail_v' : 'thumbnail'
         )}
         isSensitiveContent={isSensitiveContent}
       />

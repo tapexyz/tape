@@ -56,7 +56,6 @@ const VideoOptions: FC<Props> = ({
   showOnHover = true
 }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const setPinnedVideoId = usePersistStore((state) => state.setPinnedVideoId)
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
