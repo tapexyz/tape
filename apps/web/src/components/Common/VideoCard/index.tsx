@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
+import getLensHandle from 'utils/functions/getLensHandle'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
@@ -73,7 +74,10 @@ const VideoCard: FC<Props> = ({ video }) => {
           </Link>
           <div className="py-2">
             <div className="flex items-start space-x-2.5">
-              <Link href={`/watch/${video.id}`} className="mt-0.5 flex-none">
+              <Link
+                href={`/channel/${getLensHandle(video.profile?.handle)}`}
+                className="mt-0.5 flex-none"
+              >
                 <img
                   className="h-8 w-8 rounded-full"
                   src={getProfilePicture(video.profile)}

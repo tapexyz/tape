@@ -74,7 +74,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
       <div className="py-2">
         <div className="flex items-start space-x-2.5">
           <Link
-            href={`/channel/${video.profile?.handle}`}
+            href={`/channel/${getLensHandle(video.profile?.handle)}`}
             className="mt-0.5 flex-none"
           >
             <img
