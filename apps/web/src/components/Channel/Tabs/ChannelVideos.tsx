@@ -13,6 +13,7 @@ import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import { LENS_CUSTOM_FILTERS, LENSTUBE_APP_ID, SCROLL_ROOT_MARGIN } from 'utils'
+import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 
 import PinnedVideo from './PinnedVideo'
 
@@ -22,6 +23,10 @@ type Props = {
 
 const ChannelVideos: FC<Props> = ({ channel }) => {
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
+  const pinnedVideoId = getValueFromKeyInAttributes(
+    channel?.attributes,
+    'pinnedPublicationId'
+  )
 
   const request = {
     publicationTypes: [PublicationTypes.Post],
@@ -64,7 +69,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
 
   return (
     <>
-      <PinnedVideo channel={channel} />
+      {pinnedVideoId && <PinnedVideo id={pinnedVideoId} />}
       {!error && !loading && (
         <>
           <Timeline videos={channelVideos} />

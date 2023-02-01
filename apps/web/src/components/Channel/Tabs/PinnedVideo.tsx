@@ -1,41 +1,45 @@
 import VideoCard from '@components/Common/VideoCard'
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
-import type { Profile, Publication } from 'lens'
+import useAppStore from '@lib/store'
+import type { Publication } from 'lens'
 import { usePublicationDetailsQuery } from 'lens'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
+import isWatchable from 'utils/functions/isWatchable'
 
 type Props = {
-  channel: Profile
+  id: string
 }
 
-const PinnedVideo: FC<Props> = ({ channel }) => {
+const PinnedVideo: FC<Props> = ({ id }) => {
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const pinnedPublicationId = getValueFromKeyInAttributes(
-    channel?.attributes,
+    selectedChannel?.attributes,
     'pinnedPublicationId'
   )
 
-  const { data, error, loading } = usePublicationDetailsQuery({
+  const { data, error, loading, refetch } = usePublicationDetailsQuery({
     variables: {
-      request: { publicationId: pinnedPublicationId }
+      request: { publicationId: id }
     },
-    skip: !pinnedPublicationId
+    skip: !id
   })
   const pinnedPublication = data?.publication as Publication
 
-  const publicationType = pinnedPublication?.__typename
-  const canWatch =
-    pinnedPublication &&
-    publicationType &&
-    ['Post', 'Comment'].includes(publicationType) &&
-    !pinnedPublication?.hidden
+  // refetch on update own channel's pinned video
+  useEffect(() => {
+    refetch({
+      request: { publicationId: pinnedPublicationId }
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pinnedPublicationId])
 
   if (loading) {
     return <PinnedVideoShimmer />
   }
 
-  if (!pinnedPublicationId || error || !canWatch) {
+  if (error || !isWatchable(pinnedPublication)) {
     return null
   }
 

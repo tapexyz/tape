@@ -10,7 +10,7 @@ import Custom500 from 'src/pages/500'
 import { Analytics, TRACK } from 'utils'
 
 import BasicInfo from './BasicInfo'
-import Activities from './Tabs'
+import Tabs from './Tabs'
 
 const Channel = () => {
   const { query } = useRouter()
@@ -41,7 +41,7 @@ const Channel = () => {
       {!loading && !error && channel ? (
         <>
           <BasicInfo channel={channel} />
-          <Activities channel={channel} />
+          <Tabs channel={channel} />
         </>
       ) : null}
     </>

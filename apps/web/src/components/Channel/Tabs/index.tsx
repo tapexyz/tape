@@ -27,7 +27,7 @@ type Props = {
   channel: Profile
 }
 
-const Activities: FC<Props> = ({ channel }) => {
+const Tabs: FC<Props> = ({ channel }) => {
   const router = useRouter()
 
   const getDefaultTab = () => {
@@ -231,4 +231,4 @@ const Activities: FC<Props> = ({ channel }) => {
   )
 }
 
-export default Activities
+export default Tabs

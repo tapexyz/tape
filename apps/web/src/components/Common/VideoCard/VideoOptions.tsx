@@ -1,5 +1,4 @@
 import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
-import { useApolloClient } from '@apollo/client'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import useAppStore from '@lib/store'
@@ -8,11 +7,9 @@ import clsx from 'clsx'
 import { utils } from 'ethers'
 import type {
   CreatePublicSetProfileMetadataUriRequest,
-  Profile,
   Publication
 } from 'lens'
 import {
-  ProfileDocument,
   PublicationMetadataDisplayTypes,
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
@@ -59,9 +56,9 @@ const VideoOptions: FC<Props> = ({
   showOnHover = true
 }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
-  const { cache } = useApolloClient()
 
   const [hideVideo] = useHidePublicationMutation({
     update(cache) {
@@ -93,41 +90,39 @@ const VideoOptions: FC<Props> = ({
   const otherAttributes =
     selectedChannel?.attributes
       ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
-      .map(({ traitType, key, value }) => ({ traitType, key, value })) ?? []
+      .map(({ traitType, key, value, displayType }) => ({
+        traitType,
+        key,
+        value,
+        displayType
+      })) ?? []
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
   }
 
   const onCompleted = () => {
-    cache.modify({
-      fields: {
-        profile() {
-          const attrs = [
-            ...otherAttributes,
-            {
-              displayType: PublicationMetadataDisplayTypes.String,
-              traitType: 'pinnedPublicationId',
-              key: 'pinnedPublicationId',
-              value: video.id
-            },
-            {
-              displayType: PublicationMetadataDisplayTypes.String,
-              traitType: 'app',
-              key: 'app',
-              value: LENSTUBE_APP_ID
-            }
-          ]
-          cache.writeQuery({
-            data: {
-              ...selectedChannel,
-              attributes: attrs
-            } as Profile,
-            query: ProfileDocument
-          })
-        }
+    const attrs = [
+      ...otherAttributes,
+      {
+        displayType: PublicationMetadataDisplayTypes.String,
+        traitType: 'pinnedPublicationId',
+        key: 'pinnedPublicationId',
+        value: video.id
+      },
+      {
+        displayType: PublicationMetadataDisplayTypes.String,
+        traitType: 'app',
+        key: 'app',
+        value: LENSTUBE_APP_ID
       }
-    })
+    ]
+    if (selectedChannel) {
+      setSelectedChannel({
+        ...selectedChannel,
+        attributes: attrs
+      })
+    }
     toast.success('Video pinned successfully')
     Analytics.track(TRACK.PIN_VIDEO)
   }

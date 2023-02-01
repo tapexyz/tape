@@ -1,4 +1,3 @@
-import CogOutline from '@components/Common/Icons/CogOutline'
 import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import SubscribersList from '@components/Common/SubscribersList'
@@ -7,10 +6,8 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import type { Profile } from 'lens'
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { Analytics, TRACK } from 'utils'
 import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import imageCdn from 'utils/functions/imageCdn'
@@ -25,17 +22,11 @@ type Props = {
 }
 
 const BasicInfo: FC<Props> = ({ channel }) => {
-  const router = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [showSubscribersModal, setShowSubscribersModal] = useState(false)
 
   const isOwnChannel = channel?.id === selectedChannel?.id
   const subscribeType = channel?.followModule?.__typename
-
-  const onClickCustomize = () => {
-    Analytics.track(TRACK.CLICK_CHANNEL_SETTINGS)
-    router.push('/settings')
-  }
 
   return (
     <>
@@ -104,16 +95,6 @@ const BasicInfo: FC<Props> = ({ channel }) => {
             {channel?.id && !isOwnChannel ? (
               <MutualSubscribers viewingChannelId={channel.id} />
             ) : null}
-            {isOwnChannel && (
-              <Tooltip content="Channel settings" placement="top">
-                <button
-                  onClick={() => onClickCustomize()}
-                  className="btn-hover p-2 md:p-2.5"
-                >
-                  <CogOutline className="h-5 w-5" />
-                </button>
-              </Tooltip>
-            )}
             <SubscribeActions channel={channel} subscribeType={subscribeType} />
           </div>
         </div>
