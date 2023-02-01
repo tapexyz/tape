@@ -41,7 +41,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
   const moreCount = totalCount - FETCH_COUNT > 0 ? totalCount - FETCH_COUNT : 0
 
   return (
-    <div className="mt-1 flex space-x-2 text-sm">
+    <div className="flex">
       <Tooltip content="Your friends already watching!" placement="top">
         <button
           type="button"
@@ -59,7 +59,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
             />
           ))}
           {moreCount ? (
-            <div className="flex h-7 w-7 items-center justify-center rounded-full border bg-white dark:border-gray-700/80 dark:bg-gray-900">
+            <div className="flex h-[30px] w-[30px] flex-none items-center justify-center rounded-full border bg-white dark:border-gray-700/80 dark:bg-gray-900">
               <span className="text-[10px]">+ {moreCount}</span>
             </div>
           ) : null}

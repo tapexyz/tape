@@ -27,6 +27,7 @@ import {
   Analytics,
   ERROR_MESSAGE,
   LENS_PERIPHERY_ADDRESS,
+  LENSTUBE_APP_ID,
   SIGN_IN_REQUIRED_MESSAGE,
   TRACK
 } from 'utils'
@@ -91,7 +92,7 @@ const VideoOptions: FC<Props> = ({
 
   const otherAttributes =
     selectedChannel?.attributes
-      ?.filter((attr) => !['pinnedPublicationId'].includes(attr.key))
+      ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
       .map(({ traitType, key, value }) => ({ traitType, key, value })) ?? []
 
   const onError = (error: CustomErrorWithData) => {
@@ -109,6 +110,12 @@ const VideoOptions: FC<Props> = ({
               traitType: 'pinnedPublicationId',
               key: 'pinnedPublicationId',
               value: video.id
+            },
+            {
+              displayType: PublicationMetadataDisplayTypes.String,
+              traitType: 'app',
+              key: 'app',
+              value: LENSTUBE_APP_ID
             }
           ]
           cache.writeQuery({
@@ -213,6 +220,12 @@ const VideoOptions: FC<Props> = ({
             traitType: 'pinnedPublicationId',
             key: 'pinnedPublicationId',
             value: video.id
+          },
+          {
+            displayType: PublicationMetadataDisplayTypes.String,
+            traitType: 'app',
+            key: 'app',
+            value: LENSTUBE_APP_ID
           }
         ]
       })

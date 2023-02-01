@@ -100,7 +100,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
               )}
             </div>
           </div>
-          <div className="ml-auto flex items-start space-x-3">
+          <div className="flex items-center gap-3 md:flex-col md:items-end">
             {channel?.id && !isOwnChannel ? (
               <MutualSubscribers viewingChannelId={channel.id} />
             ) : null}
