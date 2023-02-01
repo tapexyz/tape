@@ -71,7 +71,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
     <div ref={observe} className="flex snap-center justify-center md:mt-6">
       <div className="relative">
         <div
-          className="ultrawide:w-[407px] flex h-screen w-screen min-w-[250px] items-center overflow-hidden bg-black md:h-[calc(100vh-145px)] md:w-[350px] md:rounded-xl"
+          className="ultrawide:w-[407px] ultrawide:items-center flex h-screen w-screen min-w-[250px] overflow-hidden bg-black md:h-[calc(100vh-145px)] md:w-[350px] md:rounded-xl"
           style={{
             backgroundColor: backgroundColor && `${backgroundColor}95`
           }}
