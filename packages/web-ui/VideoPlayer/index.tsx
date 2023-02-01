@@ -129,7 +129,7 @@ const VideoPlayer: FC<Props> = ({
   }
 
   return (
-    <div>
+    <div className="w-full">
       {sensitiveWarning ? (
         <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
       ) : (

@@ -8,6 +8,7 @@ import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
+import useAverageColor from 'utils/hooks/useAverageColor'
 import VideoPlayer from 'web-ui/VideoPlayer'
 
 import BottomOverlay from './BottomOverlay'
@@ -20,6 +21,11 @@ type Props = {
 
 const ByteVideo: FC<Props> = ({ video }) => {
   const videoRef = useRef<HTMLMediaElement>()
+  const thumbnailUrl = imageCdn(
+    sanitizeIpfsUrl(getThumbnailUrl(video)),
+    'thumbnail_v'
+  )
+  const { color: backgroundColor } = useAverageColor(thumbnailUrl, true)
 
   const playVideo = () => {
     if (!videoRef.current) return
@@ -64,14 +70,16 @@ const ByteVideo: FC<Props> = ({ video }) => {
   return (
     <div ref={observe} className="flex snap-center justify-center md:mt-6">
       <div className="relative">
-        <div className="ultrawide:w-[407px] h-screen w-screen min-w-[250px] overflow-hidden bg-black md:h-[calc(100vh-145px)] md:w-[350px] md:rounded-xl">
+        <div
+          className="ultrawide:w-[407px] flex h-screen w-screen min-w-[250px] items-center overflow-hidden bg-black md:h-[calc(100vh-145px)] md:w-[350px] md:rounded-xl"
+          style={{
+            backgroundColor: backgroundColor && `${backgroundColor}95`
+          }}
+        >
           <VideoPlayer
             refCallback={refCallback}
             permanentUrl={getPublicationMediaUrl(video)}
-            posterUrl={imageCdn(
-              sanitizeIpfsUrl(getThumbnailUrl(video)),
-              'thumbnail_v'
-            )}
+            posterUrl={thumbnailUrl}
             ratio="9to16"
             publicationId={video.id}
             options={{ autoPlay: false, muted: false, loop: true }}

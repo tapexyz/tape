@@ -1,4 +1,5 @@
 import Timeline from '@components/Home/Timeline'
+import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -61,7 +62,14 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
     }
   })
 
-  if (loading) return <TimelineShimmer />
+  if (loading) {
+    return (
+      <>
+        <PinnedVideoShimmer />
+        <TimelineShimmer />
+      </>
+    )
+  }
 
   if (data?.publications?.items?.length === 0 && queuedVideos.length === 0) {
     return <NoDataFound isCenter withImage text="No videos found" />
@@ -69,7 +77,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
 
   return (
     <>
-      {pinnedVideoId && (
+      {pinnedVideoId?.length && (
         <span className="hidden lg:block">
           <PinnedVideo id={pinnedVideoId} />
         </span>
