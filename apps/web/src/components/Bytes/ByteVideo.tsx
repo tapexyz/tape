@@ -82,7 +82,12 @@ const ByteVideo: FC<Props> = ({ video }) => {
             posterUrl={thumbnailUrl}
             ratio="9to16"
             publicationId={video.id}
-            options={{ autoPlay: false, muted: false, loop: true }}
+            options={{
+              autoPlay: false,
+              muted: false,
+              loop: true,
+              loadingSpinner: false
+            }}
           >
             <ControlsContainer />
           </VideoPlayer>
