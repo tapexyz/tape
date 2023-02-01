@@ -26,15 +26,15 @@ const ChannelShimmer = () => {
         </div>
       </div>
       <div className="mx-auto max-w-[85rem] p-2">
-        <div className="flex items-center space-x-2 pb-5 pt-2">
-          <div className="h-8 w-20 rounded-full bg-gray-300 dark:bg-gray-700" />
-          <div className="h-8 w-20 rounded-full bg-gray-300 dark:bg-gray-700" />
-          <div className="h-8 w-20 rounded-full bg-gray-300 dark:bg-gray-700" />
-          <div className="h-8 w-20 rounded-full bg-gray-300 dark:bg-gray-700" />
-          <div className="h-8 w-20 rounded-full bg-gray-300 dark:bg-gray-700" />
-          <div className="h-8 w-20 rounded-full bg-gray-300 dark:bg-gray-700" />
-          <div className="h-8 w-20 rounded-full bg-gray-300 dark:bg-gray-700" />
-          <div className="h-8 w-20 rounded-full bg-gray-300 dark:bg-gray-700" />
+        <div className="no-scrollbar flex items-center space-x-4 overflow-x-auto pb-5 pt-2">
+          <div className="h-8 w-24 flex-none rounded-full bg-gray-300 dark:bg-gray-700" />
+          <div className="h-8 w-24 flex-none rounded-full bg-gray-300 dark:bg-gray-700" />
+          <div className="h-8 w-24 flex-none rounded-full bg-gray-300 dark:bg-gray-700" />
+          <div className="h-8 w-24 flex-none rounded-full bg-gray-300 dark:bg-gray-700" />
+          <div className="h-8 w-24 flex-none rounded-full bg-gray-300 dark:bg-gray-700" />
+          <div className="h-8 w-24 flex-none rounded-full bg-gray-300 dark:bg-gray-700" />
+          <div className="h-8 w-24 flex-none rounded-full bg-gray-300 dark:bg-gray-700" />
+          <div className="h-8 w-24 flex-none rounded-full bg-gray-300 dark:bg-gray-700" />
         </div>
         <PinnedVideoShimmer />
         <TimelineShimmer />
