@@ -18,6 +18,13 @@ fragment ProfileFields on Profile {
     totalFollowers
     totalPosts
   }
+  coverPicture {
+    ... on MediaSet {
+      original {
+        url
+      }
+    }
+  }
   picture {
     ... on MediaSet {
       original {
