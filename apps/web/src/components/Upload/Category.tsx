@@ -10,7 +10,7 @@ const Category = () => {
 
   return (
     <>
-      <div className="flex items-center mb-1 space-x-1.5">
+      <div className="mb-1 flex items-center space-x-1.5">
         <div className="text-[11px] font-semibold uppercase opacity-70">
           Category
         </div>
@@ -20,12 +20,12 @@ const Category = () => {
         onChange={(category) => setUploadedVideo({ videoCategory: category })}
       >
         <div className="relative mt-1">
-          <Listbox.Button className="relative w-full py-2.5 pl-4 pr-10 text-left border dark:border-gray-700 border-gray-300 rounded-xl focus:outline-none sm:text-sm">
+          <Listbox.Button className="relative w-full rounded-xl border border-gray-300 py-2.5 pl-4 pr-10 text-left focus:outline-none dark:border-gray-700 sm:text-sm">
             <span className="block truncate">
               {uploadedVideo.videoCategory.name}
             </span>
-            <span className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-              <CheckOutline className="w-3 h-3" />
+            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4">
+              <CheckOutline className="h-3 w-3" />
             </span>
           </Listbox.Button>
           <Transition
@@ -34,7 +34,7 @@ const Category = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute shadow w-full py-1 mt-1 z-[1] overflow-auto text-base bg-white dark:bg-gray-900 rounded-xl max-h-52 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute z-[1] mt-1 max-h-52 w-full overflow-auto rounded-xl bg-white py-1 text-base shadow ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-900 sm:text-sm">
               {CREATOR_VIDEO_CATEGORIES.map((category, categoryIdx) => (
                 <Listbox.Option
                   key={categoryIdx}
@@ -56,7 +56,7 @@ const Category = () => {
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                          <CheckOutline className="w-3 h-3" />
+                          <CheckOutline className="h-3 w-3" />
                         </span>
                       ) : null}
                     </>

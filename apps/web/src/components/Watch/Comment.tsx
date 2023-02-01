@@ -29,12 +29,12 @@ interface Props {
 
 const VideoComment: FC<Props> = ({ comment }) => {
   return (
-    <div className="my-2 py-3 px-4 border dark:border-gray-700 rounded-xl">
+    <div className="my-2 rounded-xl border py-3 px-4 dark:border-gray-700">
       <Link
         href={`/watch/${comment.id}`}
         className="flex items-center space-x-2.5"
       >
-        <AiOutlinePlayCircle className="w-5 h-5" />
+        <AiOutlinePlayCircle className="h-5 w-5" />
         <span>Watch Video</span>
       </Link>
     </div>
@@ -62,17 +62,17 @@ const Comment: FC<Props> = ({ comment }) => {
       <div className="flex items-start justify-between">
         <Link
           href={`/channel/${comment.profile?.handle}`}
-          className="flex-none mr-3 mt-0.5"
+          className="mr-3 mt-0.5 flex-none"
         >
           <img
             src={getProfilePicture(comment.profile, 'avatar')}
-            className="rounded-full w-7 h-7"
+            className="h-7 w-7 rounded-full"
             draggable={false}
             alt={comment.profile?.handle}
           />
         </Link>
-        <div className="flex flex-col items-start mr-2">
-          <span className="flex items-center mb-1 space-x-1">
+        <div className="mr-2 flex flex-col items-start">
+          <span className="mb-1 flex items-center space-x-1">
             <Link
               href={`/channel/${comment.profile?.handle}`}
               className="flex items-center space-x-1 text-sm font-medium"
@@ -120,19 +120,19 @@ const Comment: FC<Props> = ({ comment }) => {
             )}
           </div>
           {showMore && (
-            <div className="inline-flex mt-3">
+            <div className="mt-3 inline-flex">
               <button
                 type="button"
                 onClick={() => setClamped(!clamped)}
-                className="flex items-center mt-2 text-xs outline-none hover:opacity-100 opacity-80"
+                className="mt-2 flex items-center text-xs opacity-80 outline-none hover:opacity-100"
               >
                 {clamped ? (
                   <>
-                    Show more <ChevronDownOutline className="h-3 ml-1 w-3" />
+                    Show more <ChevronDownOutline className="ml-1 h-3 w-3" />
                   </>
                 ) : (
                   <>
-                    Show less <ChevronUpOutline className="h-3 w-3 ml-1" />
+                    Show less <ChevronUpOutline className="ml-1 h-3 w-3" />
                   </>
                 )}
               </button>

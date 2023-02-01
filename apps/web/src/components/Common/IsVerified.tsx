@@ -7,7 +7,7 @@ import Verified from './Icons/Verified'
 
 type Props = {
   id: string
-  size?: 'xs' | 'sm' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg'
   color?: string
 }
 
@@ -19,9 +19,10 @@ const IsVerified: FC<Props> = ({ id, size = 'sm', color }) => {
         className={clsx(
           'ml-0.5',
           {
-            'w-2.5 h-2.5': size === 'xs',
-            'w-3 h-3': size === 'sm',
-            'w-4 h-4': size === 'lg'
+            'h-2.5 w-2.5': size === 'xs',
+            'h-3 w-3': size === 'sm',
+            'h-3.5 w-3.5': size === 'md',
+            'h-4 w-4': size === 'lg'
           },
           color
         )}

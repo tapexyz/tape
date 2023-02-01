@@ -9,13 +9,13 @@ type Props = {
 
 const StatCard: FC<Props> = ({ icon, count, text }) => {
   return (
-    <div className="p-6 space-y-3 bg-white backdrop-blur-lg bg-opacity-80 rounded-xl dark:bg-theme">
-      <span className="inline-flex p-2 bg-gray-100 rounded-lg dark:bg-black">
+    <div className="dark:bg-theme space-y-3 rounded-xl bg-white bg-opacity-80 p-6 backdrop-blur-lg">
+      <span className="inline-flex rounded-lg bg-gray-100 p-2 dark:bg-black">
         {icon}
       </span>
       <div>
         <h6 className="mb-1 text-3xl font-semibold opacity-90">{count}</h6>
-        <div className="text-xs font-medium truncate opacity-70 whitespace-nowrap">
+        <div className="truncate whitespace-nowrap text-xs font-medium opacity-70">
           {text}
         </div>
       </div>

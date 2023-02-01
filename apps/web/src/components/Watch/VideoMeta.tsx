@@ -28,7 +28,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           show={showCollectsModal}
           panelClassName="max-w-md"
         >
-          <div className="max-h-[40vh] overflow-y-auto no-scrollbar">
+          <div className="no-scrollbar max-h-[40vh] overflow-y-auto">
             <CollectorsList videoId={video.id} />
           </div>
         </Modal>
@@ -38,7 +38,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           show={showMirrorsModal}
           panelClassName="max-w-md"
         >
-          <div className="max-h-[40vh] overflow-y-auto no-scrollbar">
+          <div className="no-scrollbar max-h-[40vh] overflow-y-auto">
             <MirroredList videoId={video.id} />
           </div>
         </Modal>
@@ -50,10 +50,10 @@ const VideoMeta: FC<Props> = ({ video }) => {
               onClick={() => setShowCollectsModal(true)}
               className="flex items-center space-x-1 outline-none"
             >
-              <CollectOutline className="w-3 h-3" />
+              <CollectOutline className="h-3 w-3" />
               <span>{video.stats?.totalAmountOfCollects} collects</span>
             </button>
-            <span className="px-1 middot" />
+            <span className="middot px-1" />
           </>
         )}
         <button
@@ -61,11 +61,11 @@ const VideoMeta: FC<Props> = ({ video }) => {
           onClick={() => setShowMirrorsModal(true)}
           className="flex items-center space-x-1 outline-none"
         >
-          <MirrorOutline className="w-3 h-3" />
+          <MirrorOutline className="h-3 w-3" />
           <span>{video.stats?.totalAmountOfMirrors} mirrors</span>
         </button>
       </div>
-      <span className="px-1 middot" />
+      <span className="middot px-1" />
       <span title={video.createdAt}>
         uploaded {getRelativeTime(video.createdAt)}
       </span>

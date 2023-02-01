@@ -5,7 +5,7 @@ const terms = () => {
   return (
     <div className="relative overflow-hidden py-[5rem]">
       <div className="px-2">
-        <div className="relative mx-auto max-w-4xl text-center pb-24">
+        <div className="relative mx-auto max-w-4xl pb-24 text-center">
           <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 sm:text-5xl">
             Privacy policy
           </h1>
@@ -15,7 +15,7 @@ const terms = () => {
         </div>
       </div>
       <div className="relative px-2">
-        <div className="mx-auto max-w-4xl prose-sm md:prose prose-slate dark:prose-invert prose-a:font-semibold prose-a:text-indigo-500 hover:prose-a:text-indigo-600">
+        <div className="prose-sm md:prose prose-slate dark:prose-invert prose-a:font-semibold prose-a:text-indigo-500 hover:prose-a:text-indigo-600 mx-auto max-w-4xl">
           <h2>1. Overview</h2>
           <p>
             By accessing the Site, you agree to not only this Privacy Policy,

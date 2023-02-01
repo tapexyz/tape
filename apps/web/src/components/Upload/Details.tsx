@@ -90,7 +90,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 }}
                 mentionsSelector="input-mentions-single"
               />
-              <div className="absolute top-0 flex items-center justify-end mt-1 right-1">
+              <div className="absolute top-0 right-1 mt-1 flex items-center justify-end">
                 <span
                   className={clsx('text-[10px] opacity-50', {
                     'text-red-500 !opacity-100': watch('title')?.length > 100
@@ -114,7 +114,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 rows={5}
                 mentionsSelector="input-mentions-textarea"
               />
-              <div className="absolute top-0 flex items-center justify-end mt-1 right-1">
+              <div className="absolute top-0 right-1 mt-1 flex items-center justify-end">
                 <span
                   className={clsx('text-[10px] opacity-50', {
                     'text-red-500 !opacity-100':
@@ -124,7 +124,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   {watch('description')?.length}/5000
                 </span>
               </div>
-              <div className="flex mt-2 text-opacity-80 text-black text-sm items-center px-3 py-1 space-x-1.5 font-medium rounded-full bg-gradient-to-br from-orange-200 to-orange-100">
+              <div className="mt-2 flex items-center space-x-1.5 rounded-full bg-gradient-to-br from-orange-200 to-orange-100 px-3 py-1 text-sm font-medium text-black text-opacity-80">
                 <MdOutlineSlowMotionVideo className="flex-none text-base" />
                 <span>
                   Using
@@ -195,7 +195,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           }
         />
       ) : (
-        <div className="flex items-center justify-end mt-4 space-x-2">
+        <div className="mt-4 flex items-center justify-end space-x-2">
           <Button type="button" variant="hover" onClick={() => onCancel()}>
             Reset
           </Button>

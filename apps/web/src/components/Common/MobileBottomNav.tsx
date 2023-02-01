@@ -15,14 +15,14 @@ const MobileBottomNav = () => {
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div className="fixed pb-safe inset-x-0 bottom-0 z-[4] md:hidden bg-white border-t border-gray-300 dark:border-gray-700 dark:bg-theme">
+    <div className="pb-safe dark:bg-theme fixed inset-x-0 bottom-0 z-[4] border-t border-gray-300 bg-white dark:border-gray-700 md:hidden">
       <div className="grid grid-cols-5">
         <Link
           href="/"
-          className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid"
+          className="flex w-full flex-col items-center justify-center rounded-lg bg-transparent pt-2 text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid"
         >
           <HomeOutline
-            className={clsx('w-4 h-4 opacity-80', {
+            className={clsx('h-4 w-4 opacity-80', {
               'text-indigo-500 opacity-100': isActivePath('/')
             })}
           />
@@ -30,10 +30,10 @@ const MobileBottomNav = () => {
         </Link>
         <Link
           href="/bytes"
-          className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid"
+          className="flex w-full flex-col items-center justify-center rounded-lg bg-transparent pt-2 text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid"
         >
           <BytesOutline
-            className={clsx('w-4 h-4 opacity-80', {
+            className={clsx('h-4 w-4 opacity-80', {
               'text-indigo-500 opacity-100': isActivePath('/bytes')
             })}
           />
@@ -41,16 +41,16 @@ const MobileBottomNav = () => {
         </Link>
         <Link
           href="/upload"
-          className="flex flex-col items-center justify-center w-full text-sm font-medium text-gray-700 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid"
+          className="flex w-full flex-col items-center justify-center rounded-lg bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid"
         >
-          <PlusOutline className="w-8 h-8 opacity-80" />
+          <PlusOutline className="h-8 w-8 opacity-80" />
         </Link>
         <Link
           href="/explore"
-          className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid"
+          className="flex w-full flex-col items-center justify-center rounded-lg bg-transparent pt-2 text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid"
         >
           <ExploreOutline
-            className={clsx('w-4 h-4 opacity-80', {
+            className={clsx('h-4 w-4 opacity-80', {
               'text-indigo-500 opacity-100': isActivePath('/explore')
             })}
           />
@@ -58,10 +58,10 @@ const MobileBottomNav = () => {
         </Link>
         <Link
           href="/feed"
-          className="flex flex-col items-center justify-center w-full pt-2 text-sm font-medium text-gray-700 bg-transparent rounded-lg dark:hover:text-gray-100 dark:text-gray-100 md:grid"
+          className="flex w-full flex-col items-center justify-center rounded-lg bg-transparent pt-2 text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid"
         >
           <FeedOutline
-            className={clsx('w-4 h-4 opacity-80', {
+            className={clsx('h-4 w-4 opacity-80', {
               'text-indigo-500 opacity-100': isActivePath('/feed')
             })}
           />

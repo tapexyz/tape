@@ -1,4 +1,3 @@
-import CogOutline from '@components/Common/Icons/CogOutline'
 import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import SubscribersList from '@components/Common/SubscribersList'
@@ -7,10 +6,8 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import type { Profile } from 'lens'
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { Analytics, TRACK } from 'utils'
 import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import imageCdn from 'utils/functions/imageCdn'
@@ -25,102 +22,84 @@ type Props = {
 }
 
 const BasicInfo: FC<Props> = ({ channel }) => {
-  const router = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [showSubscribersModal, setShowSubscribersModal] = useState(false)
 
   const isOwnChannel = channel?.id === selectedChannel?.id
   const subscribeType = channel?.followModule?.__typename
 
-  const onClickCustomize = () => {
-    Analytics.track(TRACK.CLICK_CHANNEL_SETTINGS)
-    router.push('/settings')
-  }
-
   return (
-    <div className="flex">
-      <div className="relative w-full">
-        <span>
-          <div
-            style={{
-              backgroundImage: `url(${imageCdn(
-                sanitizeIpfsUrl(getChannelCoverPicture(channel))
-              )})`
-            }}
-            className="absolute w-full bg-white bg-center bg-no-repeat bg-cover rounded-lg dark:bg-gray-900 h-44 md:h-72"
-          >
-            <CoverLinks channel={channel} />
-          </div>
-        </span>
-        <div className="flex items-center pt-2 md:pt-0 md:pl-4 mt-44 md:mt-72">
-          <div className="flex-none z-[1] mr-4 md:mr-6">
-            <img
-              src={getProfilePicture(channel, 'avatar_lg')}
-              className="object-cover w-24 h-24 bg-white border-4 border-white dark:border-black rounded-xl dark:bg-gray-900 md:-mt-10 md:w-32 md:h-32"
-              draggable={false}
-              alt={channel?.handle}
-            />
-          </div>
-          <div className="flex flex-wrap justify-between flex-1 py-2 space-y-3">
-            <div className="flex flex-col items-start mr-3">
-              <h1 className="flex items-center space-x-1.5 font-semibold md:text-2xl">
-                <span>{channel?.handle}</span>
-                <Tooltip content="Verified Creator" placement="right">
-                  <span>
-                    <IsVerified id={channel?.id} size="lg" />
-                  </span>
-                </Tooltip>
+    <>
+      <div
+        style={{
+          backgroundImage: `url(${imageCdn(
+            sanitizeIpfsUrl(getChannelCoverPicture(channel))
+          )})`
+        }}
+        className="ultrawide:h-[35vh] relative h-44 w-full bg-white bg-cover bg-center bg-no-repeat dark:bg-gray-900 md:h-[20vw]"
+      >
+        <CoverLinks channel={channel} />
+      </div>
+      <div className="container mx-auto flex max-w-[85rem] space-x-3 p-2 md:items-center md:space-x-5 md:py-5">
+        <div className="flex-none">
+          <img
+            className="ultrawide:h-32 ultrawide:w-32 h-24 w-24 rounded-full bg-white object-cover dark:bg-gray-900"
+            src={getProfilePicture(channel, 'avatar_lg')}
+            draggable={false}
+            alt={channel?.handle}
+          />
+        </div>
+        <div className="flex flex-1 flex-wrap justify-between space-y-3 py-2">
+          <div className="mr-3 flex flex-col items-start">
+            {channel.name && (
+              <h1 className="flex items-center space-x-1.5 font-medium md:text-2xl">
+                {channel.name}
               </h1>
-              <Modal
-                title="Subscribers"
-                onClose={() => setShowSubscribersModal(false)}
-                show={showSubscribersModal}
-                panelClassName="max-w-md"
-              >
-                <div className="max-h-[40vh] overflow-y-auto no-scrollbar">
-                  <SubscribersList channel={channel} />
-                </div>
-              </Modal>
-              <div className="flex items-center space-x-2">
-                <button
-                  type="button"
-                  onClick={() => setShowSubscribersModal(true)}
-                  className="outline-none"
-                >
-                  <span className="inline-flex items-center space-x-1 text-sm whitespace-nowrap md:text-base">
-                    {channel?.stats.totalFollowers} subscribers
-                  </span>
-                </button>
-                {channel.isFollowing && (
-                  <span className="px-2 py-0.5 text-xs dark:bg-gray-700 bg-gray-200 rounded-full">
-                    Subscribed you
-                  </span>
-                )}
+            )}
+            <h2 className="flex items-center space-x-1.5 md:text-lg">
+              <span>@{channel?.handle}</span>
+              <Tooltip content="Verified" placement="right">
+                <span>
+                  <IsVerified id={channel?.id} size="md" />
+                </span>
+              </Tooltip>
+            </h2>
+            <Modal
+              title="Subscribers"
+              onClose={() => setShowSubscribersModal(false)}
+              show={showSubscribersModal}
+              panelClassName="max-w-md"
+            >
+              <div className="no-scrollbar max-h-[40vh] overflow-y-auto">
+                <SubscribersList channel={channel} />
               </div>
-            </div>
-            <div className="flex items-center ml-auto space-x-3">
-              {channel?.id && !isOwnChannel ? (
-                <MutualSubscribers viewingChannelId={channel.id} />
-              ) : null}
-              {isOwnChannel && (
-                <Tooltip content="Channel settings" placement="top">
-                  <button
-                    onClick={() => onClickCustomize()}
-                    className="btn-hover p-2 md:p-2.5"
-                  >
-                    <CogOutline className="w-5 h-5" />
-                  </button>
-                </Tooltip>
+            </Modal>
+            <div className="flex items-center space-x-2">
+              <button
+                type="button"
+                onClick={() => setShowSubscribersModal(true)}
+                className="outline-none"
+              >
+                <span className="inline-flex items-center space-x-1 whitespace-nowrap">
+                  {channel?.stats.totalFollowers} subscribers
+                </span>
+              </button>
+              {channel.isFollowing && (
+                <span className="rounded-full border border-gray-400 px-2 text-xs dark:border-gray-600">
+                  Subscriber
+                </span>
               )}
-              <SubscribeActions
-                channel={channel}
-                subscribeType={subscribeType}
-              />
             </div>
+          </div>
+          <div className="flex items-center gap-3 md:flex-col md:items-end">
+            {channel?.id && !isOwnChannel ? (
+              <MutualSubscribers viewingChannelId={channel.id} />
+            ) : null}
+            <SubscribeActions channel={channel} subscribeType={subscribeType} />
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

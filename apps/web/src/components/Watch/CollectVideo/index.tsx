@@ -195,7 +195,7 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
             {loading ? (
               <Loader size="md" />
             ) : (
-              <CollectOutline className="w-5 h-5" />
+              <CollectOutline className="h-5 w-5" />
             )}
           </button>
         </div>

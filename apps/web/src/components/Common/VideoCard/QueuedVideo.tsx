@@ -112,12 +112,12 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
 
   return (
     <div className="cursor-wait">
-      <div className="relative overflow-hidden aspect-w-16 aspect-h-9">
+      <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
         <img
           src={thumbnailUrl}
           draggable={false}
           className={clsx(
-            'object-center bg-gray-100 dark:bg-gray-900 w-full h-full md:rounded-xl lg:w-full lg:h-full',
+            'h-full w-full bg-gray-100 object-center dark:bg-gray-900 md:rounded-xl lg:h-full lg:w-full',
             uploadedVideo.isByteVideo ? 'object-contain' : 'object-cover'
           )}
           alt="thumbnail"
@@ -126,21 +126,24 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
       <div className="py-2">
         <div className="flex items-start space-x-2.5">
           <img
-            className="w-8 h-8 rounded-full"
+            className="h-8 w-8 rounded-full"
             src={getProfilePicture(selectedChannel as Profile)}
             alt={selectedChannel?.handle}
             draggable={false}
           />
           <div className="grid flex-1">
-            <div className="flex pb-1 w-full items-start justify-between space-x-1.5 min-w-0">
-              <span className="text-sm font-semibold line-clamp-2 break-words">
+            <div className="flex w-full min-w-0 items-start justify-between space-x-1.5 pb-1">
+              <span
+                className="line-clamp-2 ultrawide:line-clamp-1 ultrawide:break-all break-words text-sm font-semibold"
+                title={queuedVideo.title}
+              >
                 {queuedVideo.title}
               </span>
               <div className="p-1">
                 <Tooltip content="Indexing" placement="top">
                   <span className="flex h-2 w-2 items-center justify-center">
-                    <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-indigo-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-indigo-500" />
+                    <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-indigo-400 opacity-75" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-indigo-500" />
                   </span>
                 </Tooltip>
               </div>

@@ -25,6 +25,7 @@ interface PlayerProps {
     autoPlay?: boolean
     muted?: boolean
     loop?: boolean
+    loadingSpinner?: boolean
   }
 }
 
@@ -57,6 +58,7 @@ const PlayerInstance: FC<PlayerProps> = ({
       muted={options?.muted ?? false}
       controls={{ defaultVolume: 1 }}
       autoPlay={options?.autoPlay ?? false}
+      showLoadingSpinner={options?.loadingSpinner ?? true}
       autoUrlUpload={
         IS_MAINNET
           ? {
@@ -129,7 +131,7 @@ const VideoPlayer: FC<Props> = ({
   }
 
   return (
-    <div>
+    <div className="w-full">
       {sensitiveWarning ? (
         <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
       ) : (

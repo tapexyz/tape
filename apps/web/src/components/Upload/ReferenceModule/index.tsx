@@ -49,7 +49,7 @@ const ReferenceModule = () => {
 
   return (
     <>
-      <div className="flex items-center mb-1 space-x-1.5">
+      <div className="mb-1 flex items-center space-x-1.5">
         <div className="text-[11px] font-semibold uppercase opacity-70">
           Comments and Mirrors
         </div>
@@ -57,10 +57,10 @@ const ReferenceModule = () => {
       <button
         type="button"
         onClick={() => setShowModal(true)}
-        className="flex items-center justify-between w-full px-4 py-2.5 text-sm text-left border border-gray-300 focus:outline-none dark:border-gray-700 rounded-xl"
+        className="flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-2.5 text-left text-sm focus:outline-none dark:border-gray-700"
       >
         <span>{getSelectedReferenceType()}</span>
-        <CheckOutline className="w-3 h-3" />
+        <CheckOutline className="h-3 w-3" />
       </button>
       <Modal
         title="Who can comment and mirror this publication?"
@@ -79,7 +79,7 @@ const ReferenceModule = () => {
                 })
               }
               className={clsx(
-                'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+                'flex w-full items-center justify-between rounded-xl border border-gray-200 px-4 py-2 text-sm hover:!border-indigo-500 focus:outline-none dark:border-gray-800',
                 {
                   '!border-indigo-500':
                     !uploadedVideo.referenceModule
@@ -93,7 +93,7 @@ const ReferenceModule = () => {
               {!uploadedVideo?.referenceModule?.followerOnlyReferenceModule &&
                 !uploadedVideo?.referenceModule
                   ?.degreesOfSeparationReferenceModule?.degreesOfSeparation && (
-                  <CheckOutline className="w-3 h-3" />
+                  <CheckOutline className="h-3 w-3" />
                 )}
             </button>
             <button
@@ -105,7 +105,7 @@ const ReferenceModule = () => {
                 })
               }
               className={clsx(
-                'flex items-center text-left justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+                'flex w-full items-center justify-between rounded-xl border border-gray-200 px-4 py-2 text-left text-sm hover:!border-indigo-500 focus:outline-none dark:border-gray-800',
                 {
                   '!border-indigo-500':
                     uploadedVideo.referenceModule
@@ -119,7 +119,7 @@ const ReferenceModule = () => {
               {uploadedVideo.referenceModule?.followerOnlyReferenceModule &&
                 !uploadedVideo.referenceModule
                   ?.degreesOfSeparationReferenceModule && (
-                  <CheckOutline className="w-3 h-3 flex-none" />
+                  <CheckOutline className="h-3 w-3 flex-none" />
                 )}
             </button>
           </div>
@@ -139,7 +139,7 @@ const ReferenceModule = () => {
               })
             }
             className={clsx(
-              'flex items-center text-left justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+              'flex w-full items-center justify-between rounded-xl border border-gray-200 px-4 py-2 text-left text-sm hover:!border-indigo-500 focus:outline-none dark:border-gray-800',
               {
                 '!border-indigo-500':
                   uploadedVideo.referenceModule
@@ -158,7 +158,7 @@ const ReferenceModule = () => {
                     ?.degreesOfSeparationReferenceModule?.degreesOfSeparation ??
                   '3'
                 }
-                className="px-0.5 text-sm mx-1 border rounded dark:border-gray-800 focus:outline-none"
+                className="mx-1 rounded border px-0.5 text-sm focus:outline-none dark:border-gray-800"
               >
                 <option>1</option>
                 <option>2</option>
@@ -169,7 +169,7 @@ const ReferenceModule = () => {
             </span>
             {uploadedVideo.referenceModule
               ?.degreesOfSeparationReferenceModule !== null && (
-              <CheckOutline className="w-3 h-3 flex-none" />
+              <CheckOutline className="h-3 w-3 flex-none" />
             )}
           </button>
           <div className="flex justify-end">

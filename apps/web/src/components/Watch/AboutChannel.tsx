@@ -34,20 +34,20 @@ const AboutChannel: FC<Props> = ({ video }) => {
   }, [video.metadata?.description])
 
   return (
-    <div className="flex items-start justify-between w-full">
+    <div className="flex w-full items-start justify-between">
       <Link href={`/channel/${channel?.handle}`}>
-        <div className="flex-none mr-3 cursor-pointer">
+        <div className="mr-3 flex-none cursor-pointer">
           <img
             src={getProfilePicture(channel, 'avatar')}
-            className="w-10 h-10 rounded-full"
+            className="h-10 w-10 rounded-full"
             draggable={false}
             alt={channel?.handle}
           />
         </div>
       </Link>
-      <div className="flex flex-col flex-1 overflow-hidden break-words">
+      <div className="flex flex-1 flex-col overflow-hidden break-words">
         <div className="flex flex-wrap justify-between gap-y-2">
-          <div className="flex flex-col items-start mr-2">
+          <div className="mr-2 flex flex-col items-start">
             <Link
               href={`/channel/${channel?.handle}`}
               className="flex items-center space-x-1 font-semibold"
@@ -59,12 +59,12 @@ const AboutChannel: FC<Props> = ({ video }) => {
               {formatNumber(channel?.stats.totalFollowers)} subscribers
             </span>
           </div>
-          <div className="flex items-center lg:space-x-4 space-x-2">
-            <div className="md:block hidden">
+          <div className="flex items-center space-x-2 lg:space-x-4">
+            <div className="hidden md:block">
               <MirrorVideo video={video}>
                 <div>
-                  <button className="p-2.5 btn-hover">
-                    <MirrorOutline className="w-5 h-5" />
+                  <button className="btn-hover p-2.5">
+                    <MirrorOutline className="h-5 w-5" />
                   </button>
                 </div>
               </MirrorVideo>
@@ -82,25 +82,25 @@ const AboutChannel: FC<Props> = ({ video }) => {
           </p>
         )}
         {showMore && (
-          <div className="inline-flex mt-3">
+          <div className="mt-3 inline-flex">
             <button
               type="button"
               onClick={() => setClamped(!clamped)}
-              className="flex items-center text-sm outline-none text-indigo-800 dark:text-indigo-200 hover:opacity-100 opacity-80"
+              className="flex items-center text-sm text-indigo-800 opacity-80 outline-none hover:opacity-100 dark:text-indigo-200"
             >
               {clamped ? (
                 <>
-                  Show more <ChevronDownOutline className="h-3 ml-1 w-3" />
+                  Show more <ChevronDownOutline className="ml-1 h-3 w-3" />
                 </>
               ) : (
                 <>
-                  Show less <ChevronUpOutline className="h-3 w-3 ml-1" />
+                  Show less <ChevronUpOutline className="ml-1 h-3 w-3" />
                 </>
               )}
             </button>
           </div>
         )}
-        <div className="flex justify-end mt-5">
+        <div className="mt-5 flex justify-end">
           <MetaInfo video={video} />
         </div>
       </div>

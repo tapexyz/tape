@@ -8,6 +8,7 @@ import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { Analytics, TRACK } from 'utils'
+import isWatchable from 'utils/functions/isWatchable'
 
 import AboutChannel from './AboutChannel'
 import SuggestedVideos from './SuggestedVideos'
@@ -37,13 +38,6 @@ const VideoDetails = () => {
   })
 
   const video = data?.publication as Publication
-  const publicationType = video?.__typename
-
-  const canWatch =
-    video &&
-    publicationType &&
-    ['Post', 'Comment'].includes(publicationType) &&
-    !video?.hidden
 
   useEffect(() => {
     setVideoWatchTime(Number(t))
@@ -51,7 +45,7 @@ const VideoDetails = () => {
 
   if (error) return <Custom500 />
   if (loading || !data) return <VideoDetailShimmer />
-  if (!canWatch) return <Custom404 />
+  if (!isWatchable(video)) return <Custom404 />
 
   return (
     <>

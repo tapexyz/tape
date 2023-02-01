@@ -264,12 +264,12 @@ const NewComment: FC<Props> = ({ video }) => {
     <div className="my-1">
       <form
         onSubmit={handleSubmit(submitComment)}
-        className="flex items-start mb-2 space-x-1 md:space-x-3"
+        className="mb-2 flex items-start space-x-1 md:space-x-3"
       >
         <div className="flex-none">
           <img
             src={getProfilePicture(selectedChannel, 'avatar')}
-            className="w-8 h-8 md:w-9 md:h-9 rounded-full"
+            className="h-8 w-8 rounded-full md:h-9 md:w-9"
             draggable={false}
             alt={selectedChannel?.handle}
           />

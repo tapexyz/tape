@@ -69,21 +69,21 @@ const BytesSection = () => {
 
   return (
     <div className="hidden lg:block">
-      <div className="flex justify-between mb-4 items-center">
-        <div className="flex space-x-2 items-center">
-          <BytesOutline className="w-4 h-4" />
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center space-x-2">
+          <BytesOutline className="h-4 w-4" />
           <h1 className="text-xl font-semibold">Bytes</h1>
         </div>
         <div className="flex justify-end space-x-3">
           <button
             onClick={() => scroll(-scrollOffset)}
-            className="bg-gray-500 focus:outline-none bg-opacity-10 hover:bg-opacity-25 backdrop-blur-xl rounded-full p-2"
+            className="rounded-full bg-gray-500 bg-opacity-10 p-2 backdrop-blur-xl hover:bg-opacity-25 focus:outline-none"
           >
             <ChevronLeftOutline className="h-4 w-4" />
           </button>
           <button
             onClick={() => scroll(scrollOffset)}
-            className="bg-gray-500 focus:outline-none bg-opacity-10 hover:bg-opacity-25 backdrop-blur-xl rounded-full p-2"
+            className="rounded-full bg-gray-500 bg-opacity-10 p-2 backdrop-blur-xl hover:bg-opacity-25 focus:outline-none"
           >
             <ChevronRightOutline className="h-4 w-4" />
           </button>
@@ -91,10 +91,10 @@ const BytesSection = () => {
       </div>
       <div
         ref={sectionRef}
-        className="flex scroll-smooth relative no-scrollbar items-start overflow-x-auto touch-pan-x space-x-4 mb-3"
+        className="no-scrollbar relative mb-3 flex touch-pan-x items-start space-x-4 overflow-x-auto scroll-smooth"
       >
         {bytes.map((byte) => (
-          <div key={byte.id} className="space-y-1 w-44">
+          <div key={byte.id} className="w-44 space-y-1">
             <Link href={`/bytes/${byte.id}`}>
               <div className="aspect-[9/16] h-[280px]">
                 <img
@@ -104,7 +104,7 @@ const BytesSection = () => {
                   draggable={false}
                 />
               </div>
-              <h1 className="text-[13px] pt-2 line-clamp-2 break-words">
+              <h1 className="line-clamp-2 break-words pt-2 text-[13px]">
                 {byte.metadata?.name}
               </h1>
             </Link>
@@ -115,7 +115,7 @@ const BytesSection = () => {
                 title={getLensHandle(byte.profile.handle)}
               >
                 <img
-                  className="w-3.5 h-3.5 rounded-full bg-gray-200 dark:bg-gray-800"
+                  className="h-3.5 w-3.5 rounded-full bg-gray-200 dark:bg-gray-800"
                   src={getProfilePicture(byte.profile, 'avatar')}
                   alt={getLensHandle(byte.profile?.handle)}
                   draggable={false}
@@ -128,7 +128,7 @@ const BytesSection = () => {
           </div>
         ))}
       </div>
-      <hr className="my-8 border-theme dark:border-gray-700 border-opacity-10" />
+      <hr className="border-theme my-8 border-opacity-10 dark:border-gray-700" />
     </div>
   )
 }

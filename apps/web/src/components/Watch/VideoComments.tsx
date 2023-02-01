@@ -84,8 +84,8 @@ const VideoComments: FC<Props> = ({ video }) => {
   return (
     <div className="pb-4">
       <div className="flex items-center justify-between">
-        <h1 className="flex items-center my-4 space-x-2 text-lg">
-          <CommentOutline className="w-4 h-4" />
+        <h1 className="my-4 flex items-center space-x-2 text-lg">
+          <CommentOutline className="h-4 w-4" />
           <span className="font-semibold">Comments</span>
           {data?.publications?.pageInfo.totalCount ? (
             <span className="text-sm">
@@ -113,7 +113,7 @@ const VideoComments: FC<Props> = ({ video }) => {
       ) : null}
       {!error && !loading && (
         <>
-          <div className="pt-5 space-y-4">
+          <div className="space-y-4 pt-5">
             {queuedComments?.map(
               (queuedComment) =>
                 queuedComment?.pubId === video?.id && (

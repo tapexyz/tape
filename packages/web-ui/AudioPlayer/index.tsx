@@ -113,23 +113,23 @@ const AudioPlayer: FC<Props> = ({ selectedTrack }) => {
   if (!selectedTrack) return null
 
   return (
-    <div className="flex flex-row flex-wrap items-center w-full gap-y-2 md:flex-nowrap">
-      <div className="flex items-center w-1/2">
+    <div className="flex w-full flex-row flex-wrap items-center gap-y-2 md:flex-nowrap">
+      <div className="flex w-1/2 items-center">
         <div className="flex">
-          <div className="flex-none w-16 h-16">
+          <div className="h-16 w-16 flex-none">
             <img
               src={getThumbnailUrl(selectedTrack)}
               width={500}
               height={500}
-              className="w-full h-full"
+              className="h-full w-full"
               alt={selectedTrack.metadata.name ?? 'cover'}
             />
           </div>
-          <div className="flex flex-col justify-between mx-4">
+          <div className="mx-4 flex flex-col justify-between">
             <h5 className="line-clamp-1">{selectedTrack.metadata.name}</h5>
             <Link
               href={`/channel/${selectedTrack?.profile?.handle}`}
-              className="text-[11px] hover:underline font-medium uppercase truncate opacity-90"
+              className="truncate text-[11px] font-medium uppercase opacity-90 hover:underline"
             >
               {selectedTrack.profile.handle}
             </Link>
@@ -141,9 +141,9 @@ const AudioPlayer: FC<Props> = ({ selectedTrack }) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center w-full">
-        <div id="waveform" className="w-full m-2" ref={waveformRef} />
-        <div className="flex items-center justify-between w-full">
+      <div className="flex w-full flex-col items-center">
+        <div id="waveform" className="m-2 w-full" ref={waveformRef} />
+        <div className="flex w-full items-center justify-between">
           {/* <Reactions selectedTrack={selectedTrack} /> */}
           <div className="flex items-center space-x-4">
             <button onClick={rewind} className="flex items-center space-x-1">
@@ -151,12 +151,12 @@ const AudioPlayer: FC<Props> = ({ selectedTrack }) => {
             </button>
             <button
               onClick={handlePlayPause}
-              className="p-2 mx-4 text-white bg-black rounded-full outline-none dark:text-black dark:bg-white"
+              className="mx-4 rounded-full bg-black p-2 text-white outline-none dark:bg-white dark:text-black"
             >
               {playing ? (
                 <BiPause className="text-xl" />
               ) : (
-                <BiPlay className="text-xl pl-0.5" />
+                <BiPlay className="pl-0.5 text-xl" />
               )}
             </button>
             <button onClick={forward} className="flex items-center space-x-1">
@@ -167,9 +167,9 @@ const AudioPlayer: FC<Props> = ({ selectedTrack }) => {
           <div className="flex items-center">
             <button onClick={() => onClickVolume()}>
               {waveSurfer.current?.getMute() ? (
-                <GiSpeakerOff className="w-5 h-5" />
+                <GiSpeakerOff className="h-5 w-5" />
               ) : (
-                <GiSpeaker className="w-5 h-5" />
+                <GiSpeaker className="h-5 w-5" />
               )}
             </button>
             <input
@@ -177,7 +177,7 @@ const AudioPlayer: FC<Props> = ({ selectedTrack }) => {
               step={10}
               value={volume * 100}
               onChange={onChangeVolume}
-              className="rounded-lg dark:bg-indigo-900 bg-indigo-100 w-[100px] appearance-none cursor-pointer h-1 overflow-hidden"
+              className="h-1 w-[100px] cursor-pointer appearance-none overflow-hidden rounded-lg bg-indigo-100 dark:bg-indigo-900"
             />
           </div>
         </div>

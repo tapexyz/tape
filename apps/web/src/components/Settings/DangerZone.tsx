@@ -89,13 +89,13 @@ const DangerZone = () => {
   if (!selectedChannel) return <Custom404 />
 
   return (
-    <div className="p-4 bg-white rounded-lg dark:divide-gray-900 dark:bg-theme">
-      <div className="flex flex-wrap items-center justify-between p-4 mb-5 border dark:border-gray-700 rounded-xl">
+    <div className="dark:bg-theme rounded-lg bg-white p-4 dark:divide-gray-900">
+      <div className="mb-5 flex flex-wrap items-center justify-between rounded-xl border p-4 dark:border-gray-700">
         <div className="flex items-center">
-          <div className="flex-none mr-3 mt-0.5">
+          <div className="mr-3 mt-0.5 flex-none">
             <img
               src={getProfilePicture(selectedChannel, 'avatar')}
-              className="rounded-full w-9 h-9"
+              className="h-9 w-9 rounded-full"
               draggable={false}
               alt={selectedChannel?.handle}
             />

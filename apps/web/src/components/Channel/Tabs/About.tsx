@@ -25,7 +25,7 @@ const About: FC<Props> = ({ channel }) => {
     channel.onChainIdentity?.sybilDotOrg.verified
 
   return (
-    <div className="space-y-4 md:pr-4 md:space-y-6">
+    <div className="space-y-4 md:space-y-6 md:pr-4">
       {channel?.bio && (
         <div className="flex flex-col space-y-3">
           <h6 className="text-xs font-semibold uppercase opacity-50">
@@ -45,7 +45,7 @@ const About: FC<Props> = ({ channel }) => {
                 <img
                   src={`${STATIC_ASSETS}/images/social/ens.svg`}
                   alt="ens"
-                  className="w-8 h-8"
+                  className="h-8 w-8"
                   draggable={false}
                 />
               </Tooltip>
@@ -55,7 +55,7 @@ const About: FC<Props> = ({ channel }) => {
                 <img
                   src={`${STATIC_ASSETS}/images/social/sybil.png`}
                   alt="sybil"
-                  className="w-9 h-9"
+                  className="h-9 w-9"
                   draggable={false}
                 />
               </Tooltip>
@@ -65,7 +65,7 @@ const About: FC<Props> = ({ channel }) => {
                 <img
                   src={`${STATIC_ASSETS}/images/social/poh.png`}
                   alt="poh"
-                  className="w-9 h-9"
+                  className="h-9 w-9"
                   draggable={false}
                 />
               </Tooltip>
@@ -75,7 +75,7 @@ const About: FC<Props> = ({ channel }) => {
                 <img
                   src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
                   alt="worldcoin"
-                  className="w-9 h-9"
+                  className="h-9 w-9"
                   draggable={false}
                 />
               </Tooltip>
@@ -109,7 +109,7 @@ const About: FC<Props> = ({ channel }) => {
               <img
                 src={`${STATIC_ASSETS}/images/lenster-logo.svg`}
                 alt="lenster"
-                className="w-3.5 h-3.5"
+                className="h-3.5 w-3.5"
                 draggable={false}
               />
             </span>

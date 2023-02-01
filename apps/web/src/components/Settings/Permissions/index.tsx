@@ -5,7 +5,7 @@ import ModulePermissions from './Modules'
 
 const Permissions = () => {
   return (
-    <div className="p-4 space-y-6 bg-white rounded-xl divide-y divide-gray-200 dark:divide-gray-700 dark:bg-theme">
+    <div className="dark:bg-theme space-y-6 divide-y divide-gray-200 rounded-xl bg-white p-4 dark:divide-gray-700">
       <DispatcherPermissions />
       <ModulePermissions />
     </div>

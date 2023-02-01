@@ -28,15 +28,15 @@ const NotificationTrigger = () => {
           className="btn-hover p-2.5"
           onClick={() => onClickNotification()}
         >
-          <BellOutline className="w-4 h-4" />
+          <BellOutline className="h-4 w-4" />
           {hasNewNotification && (
-            <span className="absolute flex w-1.5 h-1.5 bg-red-500 rounded-full -top-1 -right-1" />
+            <span className="absolute -top-1 -right-1 flex h-1.5 w-1.5 rounded-full bg-red-500" />
           )}
         </button>
       }
     >
-      <div className="p-1 max-h-96 md:block hidden mt-1.5 w-80 overflow-x-hidden overflow-y-auto border shadow-xl border-gray-100 rounded-lg dark:border-gray-800 bg-secondary">
-        <div className="flex flex-col p-2 text-sm transition duration-150 ease-in-out rounded-lg">
+      <div className="bg-secondary mt-1.5 hidden max-h-96 w-80 overflow-y-auto overflow-x-hidden rounded-lg border border-gray-100 p-1 shadow-xl dark:border-gray-800 md:block">
+        <div className="flex flex-col rounded-lg p-2 text-sm transition duration-150 ease-in-out">
           <Notifications />
         </div>
       </div>

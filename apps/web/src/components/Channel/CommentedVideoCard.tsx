@@ -42,14 +42,14 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
   return (
     <div
       onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
-      className="overflow-hidden group rounded-xl"
+      className="group overflow-hidden rounded-xl"
     >
       <Link href={`/watch/${commentedOn?.id}`}>
-        <div className="relative rounded-xl aspect-w-16 aspect-h-8">
+        <div className="aspect-w-16 aspect-h-8 relative rounded-xl">
           <img
             src={thumbnailUrl}
             className={clsx(
-              'object-center bg-gray-100 dark:bg-gray-900 w-full h-full md:rounded-xl lg:w-full lg:h-full',
+              'h-full w-full bg-gray-100 object-center dark:bg-gray-900 md:rounded-xl lg:h-full lg:w-full',
               isBytesVideo ? 'object-contain' : 'object-cover'
             )}
             style={{
@@ -60,14 +60,14 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
           />
           {isSensitiveContent && (
             <div className="absolute top-2 left-3">
-              <span className="py-0.5 text-[10px] px-2 text-black bg-white rounded-full">
+              <span className="rounded-full bg-white py-0.5 px-2 text-[10px] text-black">
                 Sensitive Content
               </span>
             </div>
           )}
           {!isSensitiveContent && videoDuration ? (
             <div>
-              <span className="py-0.5 absolute bottom-2 right-2 text-xs px-1 text-white bg-black rounded">
+              <span className="absolute bottom-2 right-2 rounded bg-black py-0.5 px-1 text-xs text-white">
                 {getTimeFromSeconds(videoDuration)}
               </span>
             </div>
@@ -78,44 +78,45 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
         <div className="flex items-start space-x-2.5">
           <Link
             href={`/channel/${getLensHandle(commentedOn.profile?.handle)}`}
-            className="flex-none mt-0.5"
+            className="mt-0.5 flex-none"
           >
             <img
-              className="w-8 h-8 rounded-full"
+              className="h-8 w-8"
               src={getProfilePicture(commentedOn?.profile, 'avatar')}
               alt={getLensHandle(commentedOn?.profile?.handle)}
               draggable={false}
             />
           </Link>
-          <div className="grid flex-1 grid-col">
-            <div className="flex w-full items-start justify-between space-x-1.5 min-w-0">
+          <div className="grid-col grid flex-1">
+            <div className="flex w-full min-w-0 items-start justify-between space-x-1.5">
               <Link
+                className="line-clamp-1 break-words text-[15px] font-medium opacity-80"
                 href={`/watch/${commentedOn.id}`}
-                className="font-medium text-[15px] line-clamp-1 opacity-80 break-words"
+                title={commentedOn.metadata?.name ?? ''}
               >
                 {commentedOn.metadata?.name}
               </Link>
             </div>
             <Link
               href={`/channel/${getLensHandle(commentedOn.profile?.handle)}`}
-              className="flex w-fit items-center text-[13px] space-x-0.5 hover:opacity-100 opacity-70"
+              className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
             >
               <span>{commentedOn.profile?.handle}</span>
               <IsVerified id={commentedOn.profile?.id} size="xs" />
             </Link>
           </div>
         </div>
-        <div className="relative pb-1.5 pt-2 overflow-hidden text-sm opacity-90">
-          <div className="absolute left-3 bottom-5 pb-2 inset-0 flex justify-center w-1.5">
-            <div className="w-0.5 bg-gray-300 dark:bg-gray-700 pointer-events-none" />
+        <div className="relative overflow-hidden pb-1.5 pt-2 text-sm opacity-90">
+          <div className="absolute inset-0 left-3 bottom-5 flex w-1.5 justify-center pb-2">
+            <div className="pointer-events-none w-0.5 bg-gray-300 dark:bg-gray-700" />
           </div>
           <Tooltip content="Commented">
-            <span className="absolute m-2 bottom-1 opacity-70">
-              <CommentOutline className="w-3.5 h-3.5" />
+            <span className="absolute bottom-1 m-2 opacity-70">
+              <CommentOutline className="h-3.5 w-3.5" />
             </span>
           </Tooltip>
           <div className="pl-8">
-            <div className="text-xs line-clamp-1">
+            <div className="line-clamp-1 text-xs">
               {video.metadata?.content}
             </div>
             <div className="flex items-center text-xs leading-3 opacity-70">

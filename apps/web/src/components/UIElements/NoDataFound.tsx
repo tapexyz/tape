@@ -10,7 +10,7 @@ export const NoDataFound = ({
 }) => {
   return (
     <div
-      className={clsx('flex flex-col p-1 space-y-1 rounded-lg', {
+      className={clsx('flex flex-col space-y-1 rounded-lg p-1', {
         'items-center justify-center': isCenter
       })}
     >
@@ -20,13 +20,13 @@ export const NoDataFound = ({
             `${STATIC_ASSETS}/images/illustrations/no-results.png`,
             'square'
           )}
-          className="w-32 my-4 md:w-36"
+          className="my-4 w-32 md:w-36"
           alt="no results"
           draggable={false}
         />
       )}
       <div
-        className={clsx('text-sm mb-2 font-medium', {
+        className={clsx('mb-2 text-sm font-medium', {
           'text-center': isCenter
         })}
       >

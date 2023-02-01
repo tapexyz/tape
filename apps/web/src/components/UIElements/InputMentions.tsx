@@ -66,7 +66,7 @@ const InputMentions: FC<Props> = ({
   return (
     <label className="w-full" htmlFor={id}>
       {label && (
-        <div className="flex items-center mb-1 space-x-1.5">
+        <div className="mb-1 flex items-center space-x-1.5">
           <div className="text-[11px] font-semibold uppercase opacity-70">
             {label}
           </div>
@@ -97,19 +97,19 @@ const InputMentions: FC<Props> = ({
               focused
             ) => (
               <div
-                className={clsx('flex truncate px-1.5 py-1.5 space-x-1.5', {
-                  'bg-indigo-50 rounded dark:bg-theme': focused
+                className={clsx('flex space-x-1.5 truncate px-1.5 py-1.5', {
+                  'dark:bg-theme rounded bg-indigo-50': focused
                 })}
               >
                 <img
                   src={suggestion?.picture}
-                  className="w-6 h-6 mt-1 rounded-full"
+                  className="mt-1 h-6 w-6 rounded-full"
                   alt="pfp"
                   draggable={false}
                 />
                 <div className="overflow-hidden">
                   <div className="flex items-center space-x-0.5">
-                    <p className="font-medium leading-4 truncate">
+                    <p className="truncate font-medium leading-4">
                       {suggestion?.id}
                     </p>
                     <IsVerified id={suggestion.profileId as string} size="xs" />
