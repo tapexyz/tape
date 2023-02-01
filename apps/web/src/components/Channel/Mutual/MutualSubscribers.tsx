@@ -1,3 +1,4 @@
+import ChannelCirclesShimmer from '@components/Shimmers/ChannelCirclesShimmer'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
@@ -20,7 +21,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
   const [showMutualSubscribersModal, setShowMutualSubscribersModal] =
     useState(false)
 
-  const { data } = useMutualFollowersQuery({
+  const { data, loading } = useMutualFollowersQuery({
     variables: {
       request: {
         viewingProfileId: viewingChannelId,
@@ -39,6 +40,10 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
   const mutualSubscribers = data?.mutualFollowersProfiles?.items as Profile[]
   const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount ?? 0
   const moreCount = totalCount - FETCH_COUNT > 0 ? totalCount - FETCH_COUNT : 0
+
+  if (loading) {
+    return <ChannelCirclesShimmer />
+  }
 
   return (
     <div className="flex">
