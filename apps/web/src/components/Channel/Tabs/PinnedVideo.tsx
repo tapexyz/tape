@@ -1,4 +1,5 @@
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
+import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import type { Publication } from 'lens'
 import { usePublicationDetailsQuery } from 'lens'
@@ -20,7 +21,8 @@ type Props = {
 }
 
 const PinnedVideo: FC<Props> = ({ id }) => {
-  const pinnedVideoId = usePersistStore((state) => state.pinnedVideoId)
+  const pinnedVideo = usePersistStore((state) => state.pinnedVideo)
+  const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const { data, error, loading, refetch } = usePublicationDetailsQuery({
     variables: {
@@ -37,11 +39,12 @@ const PinnedVideo: FC<Props> = ({ id }) => {
 
   // refetch on update own channel's pinned video
   useEffect(() => {
-    refetch({
-      request: { publicationId: pinnedVideoId }
-    })
+    if (pinnedVideo?.profileId === selectedChannel?.id)
+      refetch({
+        request: { publicationId: pinnedVideo.videoId }
+      })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pinnedVideoId])
+  }, [pinnedVideo.videoId])
 
   if (loading) {
     return <PinnedVideoShimmer />
@@ -52,7 +55,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   }
 
   return (
-    <div className="mb-5 grid grid-cols-3 overflow-hidden border-b border-gray-300 pb-3 dark:border-gray-700">
+    <div className="mb-5 grid grid-cols-3 overflow-hidden border-b border-gray-300 pb-4 dark:border-gray-700">
       <div className="overflow-hidden md:rounded-xl">
         <VideoPlayer
           permanentUrl={getPublicationMediaUrl(pinnedPublication)}
@@ -61,30 +64,33 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             isBytesVideo ? 'thumbnail_v' : 'thumbnail'
           )}
           isSensitiveContent={isSensitiveContent}
+          options={{ autoPlay: true }}
         />
       </div>
       <div className="flex flex-col justify-between space-y-3 px-2 md:px-5 lg:col-span-2">
-        <Link
-          className="inline break-words text-lg font-medium"
-          href={`/watch/${pinnedPublication.id}`}
-          title={pinnedPublication.metadata?.name ?? ''}
-        >
-          {pinnedPublication.metadata?.name}
-        </Link>
-        <div className="flex items-center overflow-hidden opacity-70">
-          <span className="whitespace-nowrap">
-            {pinnedPublication.stats?.totalUpvotes} likes
-          </span>
-          <span className="middot" />
-          {pinnedPublication.createdAt && (
+        <div className="space-y-4">
+          <Link
+            className="inline break-words text-lg font-medium"
+            href={`/watch/${pinnedPublication.id}`}
+            title={pinnedPublication.metadata?.name ?? ''}
+          >
+            {pinnedPublication.metadata?.name}
+          </Link>
+          <div className="flex items-center overflow-hidden opacity-70">
             <span className="whitespace-nowrap">
-              {getRelativeTime(pinnedPublication.createdAt)}
+              {pinnedPublication.stats?.totalUpvotes} likes
             </span>
-          )}
+            <span className="middot" />
+            {pinnedPublication.createdAt && (
+              <span className="whitespace-nowrap">
+                {getRelativeTime(pinnedPublication.createdAt)}
+              </span>
+            )}
+          </div>
+          <p className="line-clamp-6 text-sm">
+            {pinnedPublication.metadata?.description}
+          </p>
         </div>
-        <p className="line-clamp-5 text-sm">
-          {pinnedPublication.metadata?.description}
-        </p>
         <Link
           className="text-xs font-semibold text-indigo-500"
           href={`/watch/${pinnedPublication.id}`}
