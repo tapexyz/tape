@@ -58,6 +58,7 @@ const VideoOptions: FC<Props> = ({
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const setPinnedVideoId = usePersistStore((state) => state.setPinnedVideoId)
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
 
   const [hideVideo] = useHidePublicationMutation({
@@ -102,27 +103,7 @@ const VideoOptions: FC<Props> = ({
   }
 
   const onCompleted = () => {
-    const attrs = [
-      ...otherAttributes,
-      {
-        displayType: PublicationMetadataDisplayTypes.String,
-        traitType: 'pinnedPublicationId',
-        key: 'pinnedPublicationId',
-        value: video.id
-      },
-      {
-        displayType: PublicationMetadataDisplayTypes.String,
-        traitType: 'app',
-        key: 'app',
-        value: LENSTUBE_APP_ID
-      }
-    ]
-    if (selectedChannel) {
-      setSelectedChannel({
-        ...selectedChannel,
-        attributes: attrs
-      })
-    }
+    setPinnedVideoId(video.id)
     toast.success('Video pinned successfully')
     Analytics.track(TRACK.PIN_VIDEO)
   }

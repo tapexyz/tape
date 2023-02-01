@@ -1,11 +1,10 @@
 import VideoCard from '@components/Common/VideoCard'
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
-import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import type { Publication } from 'lens'
 import { usePublicationDetailsQuery } from 'lens'
 import type { FC } from 'react'
 import React, { useEffect } from 'react'
-import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 import isWatchable from 'utils/functions/isWatchable'
 
 type Props = {
@@ -13,11 +12,7 @@ type Props = {
 }
 
 const PinnedVideo: FC<Props> = ({ id }) => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const pinnedPublicationId = getValueFromKeyInAttributes(
-    selectedChannel?.attributes,
-    'pinnedPublicationId'
-  )
+  const pinnedVideoId = usePersistStore((state) => state.pinnedVideoId)
 
   const { data, error, loading, refetch } = usePublicationDetailsQuery({
     variables: {
@@ -30,10 +25,10 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   // refetch on update own channel's pinned video
   useEffect(() => {
     refetch({
-      request: { publicationId: pinnedPublicationId }
+      request: { publicationId: pinnedVideoId }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pinnedPublicationId])
+  }, [pinnedVideoId])
 
   if (loading) {
     return <PinnedVideoShimmer />

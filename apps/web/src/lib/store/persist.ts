@@ -11,6 +11,7 @@ interface AppPerisistState {
   accessToken: Tokens['accessToken']
   refreshToken: Tokens['refreshToken']
   selectedChannelId: string | null
+  pinnedVideoId: string | null
   sidebarCollapsed: boolean
   notificationCount: number
   queuedVideos: QueuedVideoType[]
@@ -18,6 +19,7 @@ interface AppPerisistState {
   setNotificationCount: (count: number) => void
   setSidebarCollapsed: (collapsed: boolean) => void
   setSelectedChannelId: (id: string | null) => void
+  setPinnedVideoId: (id: string | null) => void
   setQueuedComments: (queuedComments: QueuedCommentType[]) => void
   setQueuedVideos: (queuedVideos: QueuedVideoType[]) => void
   signIn: (tokens: { accessToken: string; refreshToken: string }) => void
@@ -31,6 +33,7 @@ export const usePersistStore = create(
       accessToken: null,
       refreshToken: null,
       selectedChannelId: null,
+      pinnedVideoId: null,
       sidebarCollapsed: true,
       notificationCount: 0,
       queuedComments: [],
@@ -39,6 +42,7 @@ export const usePersistStore = create(
       setQueuedComments: (queuedComments) => set({ queuedComments }),
       setSidebarCollapsed: (sidebarCollapsed) => set({ sidebarCollapsed }),
       setNotificationCount: (notificationCount) => set({ notificationCount }),
+      setPinnedVideoId: (pinnedVideoId) => set({ pinnedVideoId }),
       setSelectedChannelId: (id) => set({ selectedChannelId: id }),
       signIn: ({ accessToken, refreshToken }) =>
         set({ accessToken, refreshToken }),
