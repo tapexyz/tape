@@ -1,4 +1,3 @@
-import InterweaveContent from '@components/Common/InterweaveContent'
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import type { Publication } from 'lens'
 import { usePublicationDetailsQuery } from 'lens'
@@ -76,9 +75,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             )}
           </div>
           <p className="line-clamp-6 text-sm">
-            <InterweaveContent
-              content={pinnedPublication.metadata?.description}
-            />
+            {pinnedPublication.metadata?.description}
           </p>
         </div>
         <Link
