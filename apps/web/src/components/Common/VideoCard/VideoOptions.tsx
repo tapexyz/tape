@@ -57,7 +57,6 @@ const VideoOptions: FC<Props> = ({
 }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
-  const setPinnedVideo = usePersistStore((state) => state.setPinnedVideo)
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
 
   const [hideVideo] = useHidePublicationMutation({
@@ -102,8 +101,7 @@ const VideoOptions: FC<Props> = ({
   }
 
   const onCompleted = () => {
-    setPinnedVideo({ videoId: video.id, profileId: selectedChannel?.id })
-    toast.success('Video pinned successfully')
+    toast.success('Transaction submitted')
     Analytics.track(TRACK.PIN_VIDEO)
   }
 

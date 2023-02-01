@@ -1,11 +1,9 @@
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
-import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
 import type { Publication } from 'lens'
 import { usePublicationDetailsQuery } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { LENSTUBE_BYTES_APP_ID } from 'utils'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
@@ -21,30 +19,19 @@ type Props = {
 }
 
 const PinnedVideo: FC<Props> = ({ id }) => {
-  const pinnedVideo = usePersistStore((state) => state.pinnedVideo)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-
-  const { data, error, loading, refetch } = usePublicationDetailsQuery({
+  const { data, error, loading } = usePublicationDetailsQuery({
     variables: {
       request: { publicationId: id }
     },
     skip: !id
   })
+
   const pinnedPublication = data?.publication as Publication
   const isBytesVideo = pinnedPublication?.appId === LENSTUBE_BYTES_APP_ID
   const isSensitiveContent = getIsSensitiveContent(
     pinnedPublication?.metadata,
     pinnedPublication?.id
   )
-
-  // refetch on update own channel's pinned video
-  useEffect(() => {
-    if (pinnedVideo?.profileId === selectedChannel?.id)
-      refetch({
-        request: { publicationId: pinnedVideo.videoId }
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pinnedVideo.videoId])
 
   if (loading) {
     return <PinnedVideoShimmer />
@@ -64,7 +51,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             isBytesVideo ? 'thumbnail_v' : 'thumbnail'
           )}
           isSensitiveContent={isSensitiveContent}
-          options={{ autoPlay: true }}
+          options={{ autoPlay: true, loop: false }}
         />
       </div>
       <div className="flex flex-col justify-between space-y-3 px-2 md:px-5 lg:col-span-2">

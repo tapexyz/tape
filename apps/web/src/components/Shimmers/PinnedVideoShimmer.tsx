@@ -9,7 +9,7 @@ const PinnedVideoShimmer = () => {
         <CardShimmer />
       </div>
       <div className="col-span-2 flex flex-col justify-between p-3">
-        <div className="h-6 w-1/2 rounded-md bg-gray-300 dark:bg-gray-700" />
+        <div className="h-5 w-1/2 rounded-md bg-gray-300 dark:bg-gray-700" />
         <div className="flex items-center space-x-3">
           <div className="h-3 w-1/6 rounded-md bg-gray-300 dark:bg-gray-700" />
           <div className="h-3 w-1/6 rounded-md bg-gray-300 dark:bg-gray-700" />

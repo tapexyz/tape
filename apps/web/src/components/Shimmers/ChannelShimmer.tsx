@@ -1,6 +1,7 @@
 import React from 'react'
 
 import ButtonShimmer from './ButtonShimmer'
+import PinnedVideoShimmer from './PinnedVideoShimmer'
 import TimelineShimmer from './TimelineShimmer'
 
 const ChannelShimmer = () => {
@@ -33,6 +34,7 @@ const ChannelShimmer = () => {
           <div className="h-8 w-20 rounded-full bg-gray-300 dark:bg-gray-700" />
           <div className="h-8 w-20 rounded-full bg-gray-300 dark:bg-gray-700" />
         </div>
+        <PinnedVideoShimmer />
         <TimelineShimmer />
       </div>
     </>
