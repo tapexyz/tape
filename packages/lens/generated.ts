@@ -3923,6 +3923,13 @@ export type CommentFieldsFragment = {
       totalFollowers: number
       totalPosts: number
     }
+    coverPicture?:
+      | {
+          __typename?: 'MediaSet'
+          original: { __typename?: 'Media'; url: any }
+        }
+      | { __typename?: 'NftImage' }
+      | null
     picture?:
       | {
           __typename?: 'MediaSet'
@@ -4095,6 +4102,13 @@ export type CommentFieldsFragment = {
             totalFollowers: number
             totalPosts: number
           }
+          coverPicture?:
+            | {
+                __typename?: 'MediaSet'
+                original: { __typename?: 'Media'; url: any }
+              }
+            | { __typename?: 'NftImage' }
+            | null
           picture?:
             | {
                 __typename?: 'MediaSet'
@@ -4297,6 +4311,13 @@ export type MirrorFieldsFragment = {
             totalFollowers: number
             totalPosts: number
           }
+          coverPicture?:
+            | {
+                __typename?: 'MediaSet'
+                original: { __typename?: 'Media'; url: any }
+              }
+            | { __typename?: 'NftImage' }
+            | null
           picture?:
             | {
                 __typename?: 'MediaSet'
@@ -4347,6 +4368,13 @@ export type MirrorFieldsFragment = {
             totalFollowers: number
             totalPosts: number
           }
+          coverPicture?:
+            | {
+                __typename?: 'MediaSet'
+                original: { __typename?: 'Media'; url: any }
+              }
+            | { __typename?: 'NftImage' }
+            | null
           picture?:
             | {
                 __typename?: 'MediaSet'
@@ -4423,6 +4451,13 @@ export type PostFieldsFragment = {
       totalFollowers: number
       totalPosts: number
     }
+    coverPicture?:
+      | {
+          __typename?: 'MediaSet'
+          original: { __typename?: 'Media'; url: any }
+        }
+      | { __typename?: 'NftImage' }
+      | null
     picture?:
       | {
           __typename?: 'MediaSet'
@@ -4586,6 +4621,10 @@ export type ProfileFieldsFragment = {
     totalFollowers: number
     totalPosts: number
   }
+  coverPicture?:
+    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+    | { __typename?: 'NftImage' }
+    | null
   picture?:
     | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
     | { __typename?: 'NftImage'; uri: any }
@@ -5194,6 +5233,13 @@ export type AllProfilesQuery = {
         totalFollowers: number
         totalPosts: number
       }
+      coverPicture?:
+        | {
+            __typename?: 'MediaSet'
+            original: { __typename?: 'Media'; url: any }
+          }
+        | { __typename?: 'NftImage' }
+        | null
       picture?:
         | {
             __typename?: 'MediaSet'
@@ -5279,6 +5325,13 @@ export type CollectorsQuery = {
           totalFollowers: number
           totalPosts: number
         }
+        coverPicture?:
+          | {
+              __typename?: 'MediaSet'
+              original: { __typename?: 'Media'; url: any }
+            }
+          | { __typename?: 'NftImage' }
+          | null
         picture?:
           | {
               __typename?: 'MediaSet'
@@ -5411,6 +5464,13 @@ export type ExploreQuery = {
               totalFollowers: number
               totalPosts: number
             }
+            coverPicture?:
+              | {
+                  __typename?: 'MediaSet'
+                  original: { __typename?: 'Media'; url: any }
+                }
+              | { __typename?: 'NftImage' }
+              | null
             picture?:
               | {
                   __typename?: 'MediaSet'
@@ -5587,6 +5647,13 @@ export type ExploreQuery = {
                     totalFollowers: number
                     totalPosts: number
                   }
+                  coverPicture?:
+                    | {
+                        __typename?: 'MediaSet'
+                        original: { __typename?: 'Media'; url: any }
+                      }
+                    | { __typename?: 'NftImage' }
+                    | null
                   picture?:
                     | {
                         __typename?: 'MediaSet'
@@ -5652,6 +5719,13 @@ export type ExploreQuery = {
               totalFollowers: number
               totalPosts: number
             }
+            coverPicture?:
+              | {
+                  __typename?: 'MediaSet'
+                  original: { __typename?: 'Media'; url: any }
+                }
+              | { __typename?: 'NftImage' }
+              | null
             picture?:
               | {
                   __typename?: 'MediaSet'
@@ -5853,6 +5927,13 @@ export type FeedQuery = {
                 totalFollowers: number
                 totalPosts: number
               }
+              coverPicture?:
+                | {
+                    __typename?: 'MediaSet'
+                    original: { __typename?: 'Media'; url: any }
+                  }
+                | { __typename?: 'NftImage' }
+                | null
               picture?:
                 | {
                     __typename?: 'MediaSet'
@@ -6029,6 +6110,13 @@ export type FeedQuery = {
                       totalFollowers: number
                       totalPosts: number
                     }
+                    coverPicture?:
+                      | {
+                          __typename?: 'MediaSet'
+                          original: { __typename?: 'Media'; url: any }
+                        }
+                      | { __typename?: 'NftImage' }
+                      | null
                     picture?:
                       | {
                           __typename?: 'MediaSet'
@@ -6093,6 +6181,13 @@ export type FeedQuery = {
                 totalFollowers: number
                 totalPosts: number
               }
+              coverPicture?:
+                | {
+                    __typename?: 'MediaSet'
+                    original: { __typename?: 'Media'; url: any }
+                  }
+                | { __typename?: 'NftImage' }
+                | null
               picture?:
                 | {
                     __typename?: 'MediaSet'
@@ -6351,6 +6446,13 @@ export type MutualFollowersQuery = {
         totalFollowers: number
         totalPosts: number
       }
+      coverPicture?:
+        | {
+            __typename?: 'MediaSet'
+            original: { __typename?: 'Media'; url: any }
+          }
+        | { __typename?: 'NftImage' }
+        | null
       picture?:
         | {
             __typename?: 'MediaSet'
@@ -6425,6 +6527,13 @@ export type NotificationsQuery = {
                 totalFollowers: number
                 totalPosts: number
               }
+              coverPicture?:
+                | {
+                    __typename?: 'MediaSet'
+                    original: { __typename?: 'Media'; url: any }
+                  }
+                | { __typename?: 'NftImage' }
+                | null
               picture?:
                 | {
                     __typename?: 'MediaSet'
@@ -6473,6 +6582,13 @@ export type NotificationsQuery = {
               totalFollowers: number
               totalPosts: number
             }
+            coverPicture?:
+              | {
+                  __typename?: 'MediaSet'
+                  original: { __typename?: 'Media'; url: any }
+                }
+              | { __typename?: 'NftImage' }
+              | null
             picture?:
               | {
                   __typename?: 'MediaSet'
@@ -6528,6 +6644,13 @@ export type NotificationsQuery = {
                 totalFollowers: number
                 totalPosts: number
               }
+              coverPicture?:
+                | {
+                    __typename?: 'MediaSet'
+                    original: { __typename?: 'Media'; url: any }
+                  }
+                | { __typename?: 'NftImage' }
+                | null
               picture?:
                 | {
                     __typename?: 'MediaSet'
@@ -6576,6 +6699,13 @@ export type NotificationsQuery = {
                     totalFollowers: number
                     totalPosts: number
                   }
+                  coverPicture?:
+                    | {
+                        __typename?: 'MediaSet'
+                        original: { __typename?: 'Media'; url: any }
+                      }
+                    | { __typename?: 'NftImage' }
+                    | null
                   picture?:
                     | {
                         __typename?: 'MediaSet'
@@ -6618,6 +6748,13 @@ export type NotificationsQuery = {
                     totalFollowers: number
                     totalPosts: number
                   }
+                  coverPicture?:
+                    | {
+                        __typename?: 'MediaSet'
+                        original: { __typename?: 'Media'; url: any }
+                      }
+                    | { __typename?: 'NftImage' }
+                    | null
                   picture?:
                     | {
                         __typename?: 'MediaSet'
@@ -6662,6 +6799,13 @@ export type NotificationsQuery = {
               totalFollowers: number
               totalPosts: number
             }
+            coverPicture?:
+              | {
+                  __typename?: 'MediaSet'
+                  original: { __typename?: 'Media'; url: any }
+                }
+              | { __typename?: 'NftImage' }
+              | null
             picture?:
               | {
                   __typename?: 'MediaSet'
@@ -6709,6 +6853,13 @@ export type NotificationsQuery = {
               totalFollowers: number
               totalPosts: number
             }
+            coverPicture?:
+              | {
+                  __typename?: 'MediaSet'
+                  original: { __typename?: 'Media'; url: any }
+                }
+              | { __typename?: 'NftImage' }
+              | null
             picture?:
               | {
                   __typename?: 'MediaSet'
@@ -6861,6 +7012,13 @@ export type ProfileCommentsQuery = {
               totalFollowers: number
               totalPosts: number
             }
+            coverPicture?:
+              | {
+                  __typename?: 'MediaSet'
+                  original: { __typename?: 'Media'; url: any }
+                }
+              | { __typename?: 'NftImage' }
+              | null
             picture?:
               | {
                   __typename?: 'MediaSet'
@@ -7037,6 +7195,13 @@ export type ProfileCommentsQuery = {
                     totalFollowers: number
                     totalPosts: number
                   }
+                  coverPicture?:
+                    | {
+                        __typename?: 'MediaSet'
+                        original: { __typename?: 'Media'; url: any }
+                      }
+                    | { __typename?: 'NftImage' }
+                    | null
                   picture?:
                     | {
                         __typename?: 'MediaSet'
@@ -7283,6 +7448,13 @@ export type ProfileMirrorsQuery = {
                     totalFollowers: number
                     totalPosts: number
                   }
+                  coverPicture?:
+                    | {
+                        __typename?: 'MediaSet'
+                        original: { __typename?: 'Media'; url: any }
+                      }
+                    | { __typename?: 'NftImage' }
+                    | null
                   picture?:
                     | {
                         __typename?: 'MediaSet'
@@ -7333,6 +7505,13 @@ export type ProfileMirrorsQuery = {
                     totalFollowers: number
                     totalPosts: number
                   }
+                  coverPicture?:
+                    | {
+                        __typename?: 'MediaSet'
+                        original: { __typename?: 'Media'; url: any }
+                      }
+                    | { __typename?: 'NftImage' }
+                    | null
                   picture?:
                     | {
                         __typename?: 'MediaSet'
@@ -7467,6 +7646,13 @@ export type ProfilePostsQuery = {
               totalFollowers: number
               totalPosts: number
             }
+            coverPicture?:
+              | {
+                  __typename?: 'MediaSet'
+                  original: { __typename?: 'Media'; url: any }
+                }
+              | { __typename?: 'NftImage' }
+              | null
             picture?:
               | {
                   __typename?: 'MediaSet'
@@ -7781,6 +7967,13 @@ export type PublicationDetailsQuery = {
             totalFollowers: number
             totalPosts: number
           }
+          coverPicture?:
+            | {
+                __typename?: 'MediaSet'
+                original: { __typename?: 'Media'; url: any }
+              }
+            | { __typename?: 'NftImage' }
+            | null
           picture?:
             | {
                 __typename?: 'MediaSet'
@@ -7953,6 +8146,13 @@ export type PublicationDetailsQuery = {
                   totalFollowers: number
                   totalPosts: number
                 }
+                coverPicture?:
+                  | {
+                      __typename?: 'MediaSet'
+                      original: { __typename?: 'Media'; url: any }
+                    }
+                  | { __typename?: 'NftImage' }
+                  | null
                 picture?:
                   | {
                       __typename?: 'MediaSet'
@@ -8018,6 +8218,13 @@ export type PublicationDetailsQuery = {
             totalFollowers: number
             totalPosts: number
           }
+          coverPicture?:
+            | {
+                __typename?: 'MediaSet'
+                original: { __typename?: 'Media'; url: any }
+              }
+            | { __typename?: 'NftImage' }
+            | null
           picture?:
             | {
                 __typename?: 'MediaSet'
@@ -8210,6 +8417,13 @@ export type SearchProfilesQuery = {
             totalFollowers: number
             totalPosts: number
           }
+          coverPicture?:
+            | {
+                __typename?: 'MediaSet'
+                original: { __typename?: 'Media'; url: any }
+              }
+            | { __typename?: 'NftImage' }
+            | null
           picture?:
             | {
                 __typename?: 'MediaSet'
@@ -8275,6 +8489,13 @@ export type SearchPublicationsQuery = {
                   totalFollowers: number
                   totalPosts: number
                 }
+                coverPicture?:
+                  | {
+                      __typename?: 'MediaSet'
+                      original: { __typename?: 'Media'; url: any }
+                    }
+                  | { __typename?: 'NftImage' }
+                  | null
                 picture?:
                   | {
                       __typename?: 'MediaSet'
@@ -8451,6 +8672,13 @@ export type SearchPublicationsQuery = {
                         totalFollowers: number
                         totalPosts: number
                       }
+                      coverPicture?:
+                        | {
+                            __typename?: 'MediaSet'
+                            original: { __typename?: 'Media'; url: any }
+                          }
+                        | { __typename?: 'NftImage' }
+                        | null
                       picture?:
                         | {
                             __typename?: 'MediaSet'
@@ -8515,6 +8743,13 @@ export type SearchPublicationsQuery = {
                   totalFollowers: number
                   totalPosts: number
                 }
+                coverPicture?:
+                  | {
+                      __typename?: 'MediaSet'
+                      original: { __typename?: 'Media'; url: any }
+                    }
+                  | { __typename?: 'NftImage' }
+                  | null
                 picture?:
                   | {
                       __typename?: 'MediaSet'
@@ -8706,6 +8941,13 @@ export type SubscribersQuery = {
             totalFollowers: number
             totalPosts: number
           }
+          coverPicture?:
+            | {
+                __typename?: 'MediaSet'
+                original: { __typename?: 'Media'; url: any }
+              }
+            | { __typename?: 'NftImage' }
+            | null
           picture?:
             | {
                 __typename?: 'MediaSet'
@@ -8765,6 +9007,13 @@ export type UserProfilesQuery = {
         totalFollowers: number
         totalPosts: number
       }
+      coverPicture?:
+        | {
+            __typename?: 'MediaSet'
+            original: { __typename?: 'Media'; url: any }
+          }
+        | { __typename?: 'NftImage' }
+        | null
       picture?:
         | {
             __typename?: 'MediaSet'
@@ -8858,6 +9107,13 @@ export const ProfileFieldsFragmentDoc = gql`
     stats {
       totalFollowers
       totalPosts
+    }
+    coverPicture {
+      ... on MediaSet {
+        original {
+          url
+        }
+      }
     }
     picture {
       ... on MediaSet {

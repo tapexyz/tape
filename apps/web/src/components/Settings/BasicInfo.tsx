@@ -268,7 +268,7 @@ const BasicInfo = ({ channel }: Props) => {
     >
       <div className="relative w-full flex-none">
         {uploading && (
-          <div className="absolute z-10 flex h-full w-full items-center justify-center rounded-xl bg-black opacity-40">
+          <div className="absolute z-10 flex h-full w-full items-center justify-center rounded bg-black opacity-40">
             <Loader />
           </div>
         )}
