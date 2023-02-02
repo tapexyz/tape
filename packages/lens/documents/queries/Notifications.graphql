@@ -110,7 +110,6 @@ query Notifications($request: NotificationRequest!) {
     }
     pageInfo {
       next
-      totalCount
     }
   }
 }

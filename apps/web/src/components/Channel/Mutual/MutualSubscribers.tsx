@@ -38,8 +38,6 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
   }
 
   const mutualSubscribers = data?.mutualFollowersProfiles?.items as Profile[]
-  const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount ?? 0
-  const moreCount = totalCount - FETCH_COUNT > 0 ? totalCount - FETCH_COUNT : 0
 
   if (loading) {
     return <ChannelCirclesShimmer />
@@ -63,15 +61,15 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
               alt={channel?.handle}
             />
           ))}
-          {moreCount ? (
-            <div className="flex h-[30px] w-[30px] flex-none items-center justify-center rounded-full border bg-white dark:border-gray-700/80 dark:bg-gray-900">
-              <span className="text-[10px]">+ {moreCount}</span>
-            </div>
-          ) : null}
+          <div className="flex h-7 w-7 flex-none items-center justify-center rounded-full border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
+            <span role="img" className="text-sm">
+              👀
+            </span>
+          </div>
         </button>
       </Tooltip>
       <Modal
-        title="Channels you may know"
+        title="People you may know"
         onClose={() => setShowMutualSubscribersModal(false)}
         show={showMutualSubscribersModal}
         panelClassName="max-w-md"

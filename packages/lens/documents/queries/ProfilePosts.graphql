@@ -10,7 +10,6 @@ query ProfilePosts(
       }
     }
     pageInfo {
-      totalCount
       next
     }
   }

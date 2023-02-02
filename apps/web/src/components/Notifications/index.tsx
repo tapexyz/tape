@@ -24,7 +24,6 @@ import {
   SCROLL_ROOT_MARGIN,
   TRACK
 } from 'utils'
-import { formatNumber } from 'utils/functions/formatNumber'
 
 import CollectedNotification from './Collected'
 import CommentedNotification from './Commented'
@@ -44,8 +43,8 @@ const initialFilters = {
 
 const Notifications = () => {
   const [activeFilter, setActiveFilter] = useState(initialFilters)
-  const setNotificationCount = usePersistStore(
-    (state) => state.setNotificationCount
+  const setLatestNotificationId = usePersistStore(
+    (state) => state.setLatestNotificationId
   )
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setHasNewNotification = useAppStore(
@@ -95,10 +94,12 @@ const Notifications = () => {
       request
     },
     onCompleted: ({ notifications }) => {
-      if (notifications.pageInfo.__typename === 'PaginatedResultInfo') {
-        const totalCount = notifications?.pageInfo?.totalCount
+      if (
+        notifications.pageInfo.__typename === 'PaginatedResultInfo' &&
+        activeFilter.all
+      ) {
         setTimeout(() => {
-          setNotificationCount(totalCount ?? 0)
+          setLatestNotificationId(notifications.items[0].notificationId)
           setHasNewNotification(false)
         }, 1000)
       }
@@ -107,7 +108,6 @@ const Notifications = () => {
 
   const notifications = data?.notifications?.items as Notification[]
   const pageInfo = data?.notifications?.pageInfo
-  const totalCount = data?.notifications?.pageInfo.totalCount
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
@@ -232,13 +232,6 @@ const Notifications = () => {
               <span>Collected</span>
             </Tab>
           </Tab.List>
-          {totalCount && Boolean(totalCount) ? (
-            <div className="hidden text-right md:block">
-              <span className="text-xs opacity-50">
-                ({formatNumber(totalCount)})
-              </span>
-            </div>
-          ) : null}
         </div>
         <Tab.Panels>
           {loading && <NotificationsShimmer />}

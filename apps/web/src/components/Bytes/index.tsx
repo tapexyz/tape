@@ -125,7 +125,7 @@ const Bytes = () => {
         {bytes?.map((video: Publication) => (
           <ByteVideo video={video} key={`${video?.id}_${video.createdAt}`} />
         ))}
-        {pageInfo?.next && bytes.length !== pageInfo?.totalCount && (
+        {pageInfo?.next && (
           <span ref={observe} className="flex justify-center p-10">
             <Loader />
           </span>

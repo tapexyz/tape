@@ -79,7 +79,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
           </div>
         </Link>
       ))}
-      {pageInfo?.next && mutualSubscribers.length !== pageInfo?.totalCount && (
+      {pageInfo?.next && (
         <span ref={observe} className="p-5">
           <Loader />
         </span>

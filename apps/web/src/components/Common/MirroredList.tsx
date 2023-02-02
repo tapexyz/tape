@@ -76,7 +76,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
           </Link>
         </div>
       ))}
-      {pageInfo?.next && mirroredByProfiles.length !== pageInfo?.totalCount && (
+      {pageInfo?.next && (
         <span ref={observe} className="p-5">
           <Loader />
         </span>

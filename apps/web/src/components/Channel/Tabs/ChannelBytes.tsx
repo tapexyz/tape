@@ -59,7 +59,7 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
       {!error && !loading && (
         <>
           <Timeline videos={bytes} />
-          {pageInfo?.next && bytes.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>
