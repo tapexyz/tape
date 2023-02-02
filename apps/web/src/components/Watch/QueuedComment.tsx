@@ -4,6 +4,7 @@ import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import type { Publication } from 'lens'
 import {
   PublicationDetailsDocument,
   useHasTxHashBeenIndexedQuery,
@@ -46,7 +47,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
           fields: {
             publications() {
               cache.writeQuery({
-                data: data?.publication as any,
+                data: data?.publication as Publication,
                 query: PublicationDetailsDocument
               })
             }

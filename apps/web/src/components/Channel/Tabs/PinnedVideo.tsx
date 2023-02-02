@@ -26,7 +26,10 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     skip: !id
   })
 
-  const pinnedPublication = data?.publication as Publication
+  const publication = data?.publication as Publication
+  const pinnedPublication =
+    publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
+
   const isBytesVideo = pinnedPublication?.appId === LENSTUBE_BYTES_APP_ID
   const isSensitiveContent = getIsSensitiveContent(
     pinnedPublication?.metadata,

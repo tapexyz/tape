@@ -38,7 +38,6 @@ const VideoDetails = () => {
   })
 
   const publication = data?.publication as Publication
-
   const video =
     publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
 
