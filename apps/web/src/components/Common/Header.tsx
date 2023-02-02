@@ -3,7 +3,7 @@ import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
-import { useNotificationCountQuery } from 'lens'
+import { useLatestNotificationIdQuery } from 'lens'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
@@ -39,30 +39,32 @@ const Header: FC<Props> = ({ className }) => {
   const hasNewNotification = useAppStore((state) => state.hasNewNotification)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const notificationCount = usePersistStore((state) => state.notificationCount)
-  const setNotificationCount = usePersistStore(
-    (state) => state.setNotificationCount
+  const latestNotificationId = usePersistStore(
+    (state) => state.latestNotificationId
+  )
+  const setLatestNotificationId = usePersistStore(
+    (state) => state.setLatestNotificationId
   )
   const setHasNewNotification = useAppStore(
     (state) => state.setHasNewNotification
   )
 
-  useNotificationCountQuery({
+  useLatestNotificationIdQuery({
     variables: {
       request: {
         profileId: selectedChannel?.id,
         sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-        customFilters: LENS_CUSTOM_FILTERS
+        customFilters: LENS_CUSTOM_FILTERS,
+        limit: 1
       }
     },
     fetchPolicy: 'no-cache',
     skip: !selectedChannel?.id,
     onCompleted: (notificationsData) => {
       if (selectedChannel && notificationsData) {
-        const currentCount =
-          notificationsData?.notifications?.pageInfo?.totalCount ?? 0
-        setHasNewNotification(notificationCount !== currentCount)
-        setNotificationCount(currentCount)
+        const id = notificationsData?.notifications?.items[0].notificationId
+        setHasNewNotification(latestNotificationId !== id)
+        setLatestNotificationId(id)
       }
     }
   })

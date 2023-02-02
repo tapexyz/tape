@@ -1,0 +1,24 @@
+query LatestNotificationId($request: NotificationRequest!) {
+  notifications(request: $request) {
+    items {
+      ... on NewFollowerNotification {
+        notificationId
+      }
+      ... on NewMentionNotification {
+        notificationId
+      }
+      ... on NewCommentNotification {
+        notificationId
+      }
+      ... on NewMirrorNotification {
+        notificationId
+      }
+      ... on NewCollectNotification {
+        notificationId
+      }
+      ... on NewReactionNotification {
+        notificationId
+      }
+    }
+  }
+}

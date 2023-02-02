@@ -44,8 +44,8 @@ const initialFilters = {
 
 const Notifications = () => {
   const [activeFilter, setActiveFilter] = useState(initialFilters)
-  const setNotificationCount = usePersistStore(
-    (state) => state.setNotificationCount
+  const setLatestNotificationId = usePersistStore(
+    (state) => state.setLatestNotificationId
   )
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setHasNewNotification = useAppStore(
@@ -96,9 +96,8 @@ const Notifications = () => {
     },
     onCompleted: ({ notifications }) => {
       if (notifications.pageInfo.__typename === 'PaginatedResultInfo') {
-        const totalCount = notifications?.pageInfo?.totalCount
         setTimeout(() => {
-          setNotificationCount(totalCount ?? 0)
+          setLatestNotificationId('')
           setHasNewNotification(false)
         }, 1000)
       }

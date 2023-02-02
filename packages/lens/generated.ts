@@ -6417,6 +6417,25 @@ export type HasTxHashBeenIndexedQuery = {
       }
 }
 
+export type LatestNotificationIdQueryVariables = Exact<{
+  request: NotificationRequest
+}>
+
+export type LatestNotificationIdQuery = {
+  __typename?: 'Query'
+  notifications: {
+    __typename?: 'PaginatedNotificationResult'
+    items: Array<
+      | { __typename?: 'NewCollectNotification'; notificationId: any }
+      | { __typename?: 'NewCommentNotification'; notificationId: any }
+      | { __typename?: 'NewFollowerNotification'; notificationId: any }
+      | { __typename?: 'NewMentionNotification'; notificationId: any }
+      | { __typename?: 'NewMirrorNotification'; notificationId: any }
+      | { __typename?: 'NewReactionNotification'; notificationId: any }
+    >
+  }
+}
+
 export type MutualFollowersQueryVariables = Exact<{
   request: MutualFollowersProfilesQueryRequest
 }>
@@ -6472,18 +6491,6 @@ export type MutualFollowersQuery = {
       next?: any | null
       totalCount?: number | null
     }
-  }
-}
-
-export type NotificationCountQueryVariables = Exact<{
-  request: NotificationRequest
-}>
-
-export type NotificationCountQuery = {
-  __typename?: 'Query'
-  notifications: {
-    __typename?: 'PaginatedNotificationResult'
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null }
   }
 }
 
@@ -11751,6 +11758,83 @@ export type HasTxHashBeenIndexedQueryResult = Apollo.QueryResult<
   HasTxHashBeenIndexedQuery,
   HasTxHashBeenIndexedQueryVariables
 >
+export const LatestNotificationIdDocument = gql`
+  query LatestNotificationId($request: NotificationRequest!) {
+    notifications(request: $request) {
+      items {
+        ... on NewFollowerNotification {
+          notificationId
+        }
+        ... on NewMentionNotification {
+          notificationId
+        }
+        ... on NewCommentNotification {
+          notificationId
+        }
+        ... on NewMirrorNotification {
+          notificationId
+        }
+        ... on NewCollectNotification {
+          notificationId
+        }
+        ... on NewReactionNotification {
+          notificationId
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useLatestNotificationIdQuery__
+ *
+ * To run a query within a React component, call `useLatestNotificationIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLatestNotificationIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLatestNotificationIdQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useLatestNotificationIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    LatestNotificationIdQuery,
+    LatestNotificationIdQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    LatestNotificationIdQuery,
+    LatestNotificationIdQueryVariables
+  >(LatestNotificationIdDocument, options)
+}
+export function useLatestNotificationIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    LatestNotificationIdQuery,
+    LatestNotificationIdQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    LatestNotificationIdQuery,
+    LatestNotificationIdQueryVariables
+  >(LatestNotificationIdDocument, options)
+}
+export type LatestNotificationIdQueryHookResult = ReturnType<
+  typeof useLatestNotificationIdQuery
+>
+export type LatestNotificationIdLazyQueryHookResult = ReturnType<
+  typeof useLatestNotificationIdLazyQuery
+>
+export type LatestNotificationIdQueryResult = Apollo.QueryResult<
+  LatestNotificationIdQuery,
+  LatestNotificationIdQueryVariables
+>
 export const MutualFollowersDocument = gql`
   query MutualFollowers($request: MutualFollowersProfilesQueryRequest!) {
     mutualFollowersProfiles(request: $request) {
@@ -11815,66 +11899,6 @@ export type MutualFollowersLazyQueryHookResult = ReturnType<
 export type MutualFollowersQueryResult = Apollo.QueryResult<
   MutualFollowersQuery,
   MutualFollowersQueryVariables
->
-export const NotificationCountDocument = gql`
-  query NotificationCount($request: NotificationRequest!) {
-    notifications(request: $request) {
-      pageInfo {
-        totalCount
-      }
-    }
-  }
-`
-
-/**
- * __useNotificationCountQuery__
- *
- * To run a query within a React component, call `useNotificationCountQuery` and pass it any options that fit your needs.
- * When your component renders, `useNotificationCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useNotificationCountQuery({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useNotificationCountQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    NotificationCountQuery,
-    NotificationCountQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<
-    NotificationCountQuery,
-    NotificationCountQueryVariables
-  >(NotificationCountDocument, options)
-}
-export function useNotificationCountLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    NotificationCountQuery,
-    NotificationCountQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<
-    NotificationCountQuery,
-    NotificationCountQueryVariables
-  >(NotificationCountDocument, options)
-}
-export type NotificationCountQueryHookResult = ReturnType<
-  typeof useNotificationCountQuery
->
-export type NotificationCountLazyQueryHookResult = ReturnType<
-  typeof useNotificationCountLazyQuery
->
-export type NotificationCountQueryResult = Apollo.QueryResult<
-  NotificationCountQuery,
-  NotificationCountQueryVariables
 >
 export const NotificationsDocument = gql`
   query Notifications($request: NotificationRequest!) {
