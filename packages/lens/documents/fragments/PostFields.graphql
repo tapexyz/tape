@@ -33,27 +33,7 @@ fragment PostFields on Post {
     totalUpvotes
   }
   metadata {
-    name
-    description
-    content
-    contentWarning
-    mainContentFocus
-    tags
-    media {
-      original {
-        url
-        mimeType
-      }
-    }
-    cover {
-      original {
-        url
-      }
-    }
-    attributes {
-      value
-      traitType
-    }
+    ...MetadataFields
   }
   createdAt
   appId

@@ -2,6 +2,7 @@ fragment MetadataFields on MetadataOutput {
   name
   description
   content
+  mainContentFocus
   contentWarning
   tags
   cover {

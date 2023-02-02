@@ -1,13 +1,25 @@
 fragment MirrorFields on Mirror {
   id
-  profile {
-    name
-    handle
-  }
   reaction(request: $reactionRequest)
+  profile {
+    ...ProfileFields
+  }
+  referenceModule {
+    __typename
+  }
+  canComment(profileId: $channelId) {
+    result
+  }
+  canMirror(profileId: $channelId) {
+    result
+  }
   collectModule {
     ...CollectFields
   }
+  collectNftAddress
+  onChainContentURI
+  hidden
+  hasCollectedByMe
   stats {
     totalUpvotes
     totalAmountOfMirrors
@@ -19,33 +31,10 @@ fragment MirrorFields on Mirror {
   }
   mirrorOf {
     ... on Post {
-      id
-      profile {
-        ...ProfileFields
-      }
-      metadata {
-        ...MetadataFields
-      }
-      reaction(request: $reactionRequest)
-      stats {
-        totalUpvotes
-        totalAmountOfMirrors
-        totalAmountOfCollects
-        totalAmountOfComments
-      }
+      ...PostFields
     }
     ... on Comment {
-      id
-      profile {
-        ...ProfileFields
-      }
-      reaction(request: $reactionRequest)
-      stats {
-        totalUpvotes
-        totalAmountOfMirrors
-        totalAmountOfCollects
-        totalAmountOfComments
-      }
+      ...CommentFields
     }
   }
   createdAt

@@ -37,7 +37,10 @@ const VideoDetails = () => {
     skip: !id
   })
 
-  const video = data?.publication as Publication
+  const publication = data?.publication as Publication
+
+  const video =
+    publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
 
   useEffect(() => {
     setVideoWatchTime(Number(t))
