@@ -66,7 +66,9 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
             href={`/watch/${notification?.collectedPublication.id}`}
             className="ml-1 text-indigo-500"
           >
-            video
+            {notification.collectedPublication.__typename === 'Mirror'
+              ? 'mirror'
+              : 'video'}
           </Link>
         </span>
         <div className="flex items-center text-gray-700 dark:text-gray-300">

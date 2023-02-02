@@ -46,7 +46,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
           </Link>
           your channel
         </span>
-        <div className="flex flex-none items-center space-x-1 text-xs text-gray-700 dark:text-gray-300">
+        <div className="flex flex-none items-center space-x-1 text-gray-700 dark:text-gray-300">
           <span>{getRelativeTime(notification?.createdAt)}</span>
         </div>
       </div>

@@ -20,7 +20,10 @@ const getPublicationMeta = async (
       variables: { request: { publicationId } }
     })
 
-    const video: Publication = data?.publication
+    const publication = data?.publication as Publication
+    const video =
+      publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
+
     const title = truncate(video?.metadata?.name as string, 100)
     const description = truncate(video?.metadata?.description as string, 100)
     const thumbnail = imageCdn(

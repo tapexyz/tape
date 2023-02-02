@@ -19,8 +19,10 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
       query: PublicationDetailsDocument,
       variables: { request: { publicationId } }
     })
+    const publication = data?.publication as Publication
+    const video =
+      publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
 
-    const video: Publication = data?.publication
     const title = truncate(video?.metadata?.name as string, 100).replaceAll(
       '"',
       "'"
