@@ -100,7 +100,28 @@ const About: FC<Props> = ({ channel }) => {
                 rel="noreferer noreferrer"
                 className="hover:text-indigo-500"
               >
-                Website
+                {getValueFromKeyInAttributes(channel?.attributes, 'website')
+                  ?.replace('https://', '')
+                  .replace('http://', '')}
+              </Link>
+            </div>
+          )}
+          {getValueFromKeyInAttributes(attributes, 'twitter') && (
+            <div className="flex items-center space-x-1">
+              <RiTwitterLine />
+              <Link
+                href={`https://twitter.com/${getValueFromKeyInAttributes(
+                  attributes,
+                  'twitter'
+                )}`}
+                target="_blank"
+                rel="noreferer noreferrer"
+                className="hover:text-indigo-500"
+              >
+                {getValueFromKeyInAttributes(
+                  channel?.attributes,
+                  'twitter'
+                )?.replace('https://twitter.com/', '')}
               </Link>
             </div>
           )}
@@ -122,22 +143,6 @@ const About: FC<Props> = ({ channel }) => {
               Lenster
             </Link>
           </div>
-          {getValueFromKeyInAttributes(attributes, 'twitter') && (
-            <div className="flex items-center space-x-1">
-              <RiTwitterLine />
-              <Link
-                href={`https://twitter.com/${getValueFromKeyInAttributes(
-                  attributes,
-                  'twitter'
-                )}`}
-                target="_blank"
-                rel="noreferer noreferrer"
-                className="hover:text-indigo-500"
-              >
-                Twitter
-              </Link>
-            </div>
-          )}
         </div>
       </div>
       <div className="inline-flex flex-col space-y-3">

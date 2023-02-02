@@ -42,7 +42,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   }
 
   return (
-    <div className="mb-6 grid grid-cols-3 overflow-hidden border-b border-gray-300 pb-6 dark:border-gray-700 md:space-x-5">
+    <div className="mb-6 mt-2 grid grid-cols-3 overflow-hidden border-b border-gray-300 pb-6 dark:border-gray-700 md:space-x-5">
       <div className="overflow-hidden md:rounded-xl">
         <VideoPlayer
           permanentUrl={getPublicationMediaUrl(pinnedPublication)}
@@ -54,8 +54,8 @@ const PinnedVideo: FC<Props> = ({ id }) => {
           options={{ autoPlay: true, loop: false, loadingSpinner: true }}
         />
       </div>
-      <div className="flex flex-col justify-between space-y-3 px-2 lg:col-span-2">
-        <div className="space-y-4">
+      <div className="flex flex-col justify-between px-2 lg:col-span-2">
+        <div className="space-y-3">
           <Link
             className="inline break-words text-lg font-medium"
             href={`/watch/${pinnedPublication.id}`}
