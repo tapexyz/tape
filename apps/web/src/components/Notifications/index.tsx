@@ -95,7 +95,10 @@ const Notifications = () => {
       request
     },
     onCompleted: ({ notifications }) => {
-      if (notifications.pageInfo.__typename === 'PaginatedResultInfo') {
+      if (
+        notifications.pageInfo.__typename === 'PaginatedResultInfo' &&
+        activeFilter.all
+      ) {
         setTimeout(() => {
           setLatestNotificationId(notifications.items[0].notificationId)
           setHasNewNotification(false)
