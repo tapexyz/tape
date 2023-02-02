@@ -5256,11 +5256,7 @@ export type AllProfilesQuery = {
         | { __typename: 'UnknownFollowModuleSettings' }
         | null
     }>
-    pageInfo: {
-      __typename?: 'PaginatedResultInfo'
-      totalCount?: number | null
-      next?: any | null
-    }
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null }
   }
 }
 
@@ -5349,11 +5345,7 @@ export type CollectorsQuery = {
           | null
       } | null
     }>
-    pageInfo: {
-      __typename?: 'PaginatedResultInfo'
-      next?: any | null
-      totalCount?: number | null
-    }
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null }
   }
 }
 
@@ -5874,11 +5866,7 @@ export type ExploreQuery = {
           }
         }
     >
-    pageInfo: {
-      __typename?: 'PaginatedResultInfo'
-      totalCount?: number | null
-      next?: any | null
-    }
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null }
   }
 }
 
@@ -6336,11 +6324,7 @@ export type FeedQuery = {
             }
           }
     }>
-    pageInfo: {
-      __typename?: 'PaginatedResultInfo'
-      next?: any | null
-      totalCount?: number | null
-    }
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null }
   }
 }
 
@@ -6488,11 +6472,7 @@ export type MutualFollowersQuery = {
         | { __typename: 'UnknownFollowModuleSettings' }
         | null
     }>
-    pageInfo: {
-      __typename?: 'PaginatedResultInfo'
-      next?: any | null
-      totalCount?: number | null
-    }
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null }
   }
 }
 
@@ -6895,11 +6875,7 @@ export type NotificationsQuery = {
             | { __typename?: 'Post'; id: any }
         }
     >
-    pageInfo: {
-      __typename?: 'PaginatedResultInfo'
-      next?: any | null
-      totalCount?: number | null
-    }
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null }
   }
 }
 
@@ -7244,11 +7220,7 @@ export type ProfileCommentsQuery = {
       | { __typename?: 'Mirror' }
       | { __typename?: 'Post' }
     >
-    pageInfo: {
-      __typename?: 'PaginatedResultInfo'
-      totalCount?: number | null
-      next?: any | null
-    }
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null }
   }
 }
 
@@ -7571,11 +7543,7 @@ export type ProfileMirrorsQuery = {
         }
       | { __typename?: 'Post' }
     >
-    pageInfo: {
-      __typename?: 'PaginatedResultInfo'
-      totalCount?: number | null
-      next?: any | null
-    }
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null }
   }
 }
 
@@ -7600,11 +7568,7 @@ export type ProfileNfTsQuery = {
         metaType: string
       }
     }>
-    pageInfo: {
-      __typename?: 'PaginatedResultInfo'
-      next?: any | null
-      totalCount?: number | null
-    }
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null }
   }
 }
 
@@ -7808,11 +7772,7 @@ export type ProfilePostsQuery = {
           }
         }
     >
-    pageInfo: {
-      __typename?: 'PaginatedResultInfo'
-      totalCount?: number | null
-      next?: any | null
-    }
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null }
   }
 }
 
@@ -8905,11 +8865,7 @@ export type SearchPublicationsQuery = {
               }
             }
         >
-        pageInfo: {
-          __typename?: 'PaginatedResultInfo'
-          next?: any | null
-          totalCount?: number | null
-        }
+        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null }
       }
 }
 
@@ -8973,11 +8929,7 @@ export type SubscribersQuery = {
         } | null
       }
     }>
-    pageInfo: {
-      __typename?: 'PaginatedResultInfo'
-      next?: any | null
-      totalCount?: number | null
-    }
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null }
   }
 }
 
@@ -10984,7 +10936,6 @@ export const AllProfilesDocument = gql`
         ...ProfileFields
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -11173,7 +11124,6 @@ export const CollectorsDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -11382,7 +11332,6 @@ export const ExploreDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -11452,7 +11401,6 @@ export const FeedDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -11845,7 +11793,6 @@ export const MutualFollowersDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -12015,7 +11962,6 @@ export const NotificationsDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -12194,7 +12140,6 @@ export const ProfileCommentsDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -12394,7 +12339,6 @@ export const ProfileMirrorsDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -12469,7 +12413,6 @@ export const ProfileNfTsDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -12536,7 +12479,6 @@ export const ProfilePostsDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -12938,7 +12880,6 @@ export const SearchPublicationsDocument = gql`
         }
         pageInfo {
           next
-          totalCount
         }
       }
     }
@@ -13012,7 +12953,6 @@ export const SubscribersDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
