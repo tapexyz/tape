@@ -63,7 +63,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
               />
             ))}
           </div>
-          {pageInfo?.next && collectedNFTs.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>

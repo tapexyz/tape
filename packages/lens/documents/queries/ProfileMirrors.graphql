@@ -9,7 +9,6 @@ query ProfileMirrors(
       }
     }
     pageInfo {
-      totalCount
       next
     }
   }

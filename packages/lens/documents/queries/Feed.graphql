@@ -16,7 +16,6 @@ query Feed(
     }
     pageInfo {
       next
-      totalCount
     }
   }
 }

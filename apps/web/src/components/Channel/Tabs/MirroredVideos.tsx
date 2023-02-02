@@ -64,7 +64,7 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
       {!error && !loading && (
         <div>
           <Timeline videos={channelVideos} videoType="Mirror" />
-          {pageInfo?.next && channelVideos.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>

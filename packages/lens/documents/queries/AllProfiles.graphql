@@ -4,7 +4,6 @@ query AllProfiles($request: ProfileQueryRequest!) {
       ...ProfileFields
     }
     pageInfo {
-      totalCount
       next
     }
   }

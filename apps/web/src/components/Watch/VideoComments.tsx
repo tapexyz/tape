@@ -87,11 +87,6 @@ const VideoComments: FC<Props> = ({ video }) => {
         <h1 className="my-4 flex items-center space-x-2 text-lg">
           <CommentOutline className="h-4 w-4" />
           <span className="font-semibold">Comments</span>
-          {data?.publications?.pageInfo.totalCount ? (
-            <span className="text-sm">
-              ( {data?.publications?.pageInfo.totalCount} )
-            </span>
-          ) : null}
         </h1>
         {!selectedChannelId && (
           <span className="text-xs">(Sign in required to comment)</span>
@@ -130,7 +125,7 @@ const VideoComments: FC<Props> = ({ video }) => {
               />
             ))}
           </div>
-          {pageInfo?.next && comments.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>

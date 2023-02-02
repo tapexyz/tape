@@ -2267,7 +2267,6 @@ export type NotificationRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>
   limit?: InputMaybe<Scalars['LimitScalar']>
-  metadata?: InputMaybe<PublicationMetadataFilters>
   /** The profile id */
   notificationTypes?: InputMaybe<Array<NotificationTypes>>
   /** The profile id */
@@ -2385,7 +2384,10 @@ export type PaginatedResultInfo = {
   next?: Maybe<Scalars['Cursor']>
   /** Cursor to query the actual results */
   prev?: Maybe<Scalars['Cursor']>
-  /** The total number of entities the pagination iterates over. If its null then its not been worked out due to it being an expensive query and not really needed for the client. All main counters are in counter tables to allow them to be faster fetching. */
+  /**
+   * The total number of entities the pagination iterates over. If its null then its not been worked out due to it being an expensive query and not really needed for the client. All main counters are in counter tables to allow them to be faster fetching.
+   * @deprecated Total counts is expensive and in dynamic nature of queries it slows stuff down. Most the time you do not need this you can just use the `next` property to see if there is more data. This will be removed soon. The only use case anyone is using this right now is on notification query, this should be changed to query the notifications and cache the last notification id. You can then keep checking if the id changes you know more notifications.
+   */
   totalCount?: Maybe<Scalars['Int']>
 }
 

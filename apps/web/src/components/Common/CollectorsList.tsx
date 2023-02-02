@@ -98,7 +98,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
           )}
         </div>
       ))}
-      {pageInfo?.next && collectors.length !== pageInfo?.totalCount && (
+      {pageInfo?.next && (
         <span ref={observe} className="p-5">
           <Loader />
         </span>

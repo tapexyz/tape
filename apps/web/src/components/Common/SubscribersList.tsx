@@ -106,7 +106,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
           )}
         </div>
       ))}
-      {pageInfo?.next && subscribers.length !== pageInfo?.totalCount && (
+      {pageInfo?.next && (
         <span ref={observe} className="p-5">
           <Loader />
         </span>
