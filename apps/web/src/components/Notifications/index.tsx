@@ -97,7 +97,7 @@ const Notifications = () => {
     onCompleted: ({ notifications }) => {
       if (notifications.pageInfo.__typename === 'PaginatedResultInfo') {
         setTimeout(() => {
-          setLatestNotificationId('')
+          setLatestNotificationId(notifications.items[0].notificationId)
           setHasNewNotification(false)
         }, 1000)
       }
