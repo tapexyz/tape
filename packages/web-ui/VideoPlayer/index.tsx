@@ -19,8 +19,8 @@ interface PlayerProps {
   playerRef?: (ref: HTMLMediaElement) => void
   permanentUrl: string
   posterUrl?: string
-  children?: React.ReactNode
   ratio?: AspectRatio
+  showControls?: boolean
   options?: {
     autoPlay?: boolean
     muted?: boolean
@@ -42,7 +42,7 @@ const PlayerInstance: FC<PlayerProps> = ({
   posterUrl,
   playerRef,
   options,
-  children
+  showControls
 }) => {
   return (
     <Player
@@ -59,16 +59,13 @@ const PlayerInstance: FC<PlayerProps> = ({
       controls={{ defaultVolume: 1 }}
       autoPlay={options?.autoPlay ?? false}
       showLoadingSpinner={options?.loadingSpinner}
-      autoUrlUpload={
-        IS_MAINNET
-          ? {
-              fallback: true,
-              ipfsGateway: IPFS_GATEWAY
-            }
-          : false
-      }
+      autoUrlUpload={{
+        fallback: true,
+        ipfsGateway: IPFS_GATEWAY
+      }}
     >
-      {children}
+      {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
+      {!showControls ? <></> : null}
     </Player>
   )
 }
@@ -82,7 +79,7 @@ const VideoPlayer: FC<Props> = ({
   refCallback,
   publicationId,
   options,
-  children
+  showControls = true
 }) => {
   const router = useRouter()
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
@@ -142,9 +139,8 @@ const VideoPlayer: FC<Props> = ({
             ratio={ratio}
             playerRef={mediaElementRef}
             options={options}
-          >
-            {children}
-          </PlayerInstance>
+            showControls={showControls}
+          />
         </div>
       )}
     </div>

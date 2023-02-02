@@ -1,5 +1,4 @@
 import CollectVideo from '@components/Watch/CollectVideo'
-import { ControlsContainer } from '@livepeer/react'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useRef } from 'react'
@@ -82,15 +81,14 @@ const ByteVideo: FC<Props> = ({ video }) => {
             posterUrl={thumbnailUrl}
             ratio="9to16"
             publicationId={video.id}
+            showControls={false}
             options={{
               autoPlay: false,
               muted: false,
               loop: true,
               loadingSpinner: false
             }}
-          >
-            <ControlsContainer />
-          </VideoPlayer>
+          />
         </div>
         <TopOverlay onClickVideo={onClickVideo} />
         <BottomOverlay video={video} />
