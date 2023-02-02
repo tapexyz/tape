@@ -25,7 +25,7 @@ interface PlayerProps {
     autoPlay?: boolean
     muted?: boolean
     loop?: boolean
-    loadingSpinner?: boolean
+    loadingSpinner: boolean
   }
 }
 
@@ -58,7 +58,7 @@ const PlayerInstance: FC<PlayerProps> = ({
       muted={options?.muted ?? false}
       controls={{ defaultVolume: 1 }}
       autoPlay={options?.autoPlay ?? false}
-      showLoadingSpinner={options?.loadingSpinner ?? true}
+      showLoadingSpinner={options?.loadingSpinner}
       autoUrlUpload={
         IS_MAINNET
           ? {

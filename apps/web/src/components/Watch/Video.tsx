@@ -38,6 +38,7 @@ const Video: FC<Props> = ({ video }) => {
           sanitizeIpfsUrl(getThumbnailUrl(video)),
           isBytesVideo ? 'thumbnail_v' : 'thumbnail'
         )}
+        options={{ loadingSpinner: true }}
         isSensitiveContent={isSensitiveContent}
       />
       <div className="flex items-center justify-between">

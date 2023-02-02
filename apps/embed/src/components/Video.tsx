@@ -70,7 +70,12 @@ const Video: FC<Props> = ({ video }) => {
           posterUrl={thumbnailUrl}
           publicationId={video.id}
           currentTime={currentTime}
-          options={{ autoPlay: isAutoPlay, muted: isAutoPlay, loop: isLoop }}
+          options={{
+            autoPlay: isAutoPlay,
+            muted: isAutoPlay,
+            loop: isLoop,
+            loadingSpinner: true
+          }}
         />
       ) : (
         <div className="aspect-h-9 aspect-w-16 flex justify-center">

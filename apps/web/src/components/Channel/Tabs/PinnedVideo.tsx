@@ -51,7 +51,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             isBytesVideo ? 'thumbnail_v' : 'thumbnail'
           )}
           isSensitiveContent={isSensitiveContent}
-          options={{ autoPlay: true, loop: false }}
+          options={{ autoPlay: true, loop: false, loadingSpinner: true }}
         />
       </div>
       <div className="flex flex-col justify-between space-y-3 px-2 lg:col-span-2">
