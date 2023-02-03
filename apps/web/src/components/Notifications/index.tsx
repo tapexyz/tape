@@ -33,7 +33,7 @@ import ReactedNotification from './Reacted'
 import SubscribedNotification from './Subscribed'
 
 const initialFilters = {
-  all: true,
+  all: false,
   mentions: false,
   subscriptions: false,
   likes: false,
@@ -83,7 +83,9 @@ const Notifications = () => {
 
   const request = {
     limit: 30,
-    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+    sources: activeFilter.subscriptions
+      ? undefined
+      : [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: selectedChannel?.id,
     notificationTypes: getNotificationFilters()
