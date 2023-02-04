@@ -8,18 +8,17 @@ on:
       - completed
 
 jobs:
+  checkout:
+    uses: lenstube-xyz/lenstube/.github/workflows/ci.yml@main
   deploy:
-    name: Deploy
     timeout-minutes: 15
     runs-on: ubuntu-latest
     permissions:
       contents: read
       deployments: write
 
+
     steps:
-        - name: Uses CI ⏩
-          uses: lenstube-xyz/lenstube/.github/workflows/ci.yml@main
- 
         - name: Build an Export 📦
           run: npx turbo run export
 
