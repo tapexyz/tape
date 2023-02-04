@@ -1,0 +1,32 @@
+name: Export and Deploy
+
+on:
+  workflow_run:
+    branches: [main]
+    workflows: [CI]
+    types:
+      - completed
+
+jobs:
+  checkout:
+    uses: lenstube-xyz/lenstube/.github/workflows/ci.yml@main
+  deploy:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+
+
+    steps:
+        - name: Build and Export 📦
+          run: npx turbo run export
+
+        - name: Publish to Cloudflare Pages 🚀
+          uses: cloudflare/pages-action@1
+          with:
+            apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+            accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+            projectName: lenstube-web
+            directory: apps/web/out
+            gitHubToken: ${{ secrets.GITHUB_TOKEN }}
