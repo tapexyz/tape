@@ -19,7 +19,7 @@ jobs:
 
 
     steps:
-        - name: Build an Export 📦
+        - name: Build and Export 📦
           run: npx turbo run export
 
         - name: Publish to Cloudflare Pages 🚀
