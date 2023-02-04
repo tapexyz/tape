@@ -10,7 +10,7 @@
     "start": "next build && next start --port 4783",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "dev:test": "playwright test",
-    "e2e:test": "start-server-and-test start http://localhost:4783 dev:test"
+    "e2e:test": "START_SERVER_AND_TEST_INSECURE=1 start-server-and-test start http://localhost:4783 dev:test"
   },
   "dependencies": {
     "@apollo/client": "^3.7.6",

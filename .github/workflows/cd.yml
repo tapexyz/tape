@@ -12,6 +12,7 @@ jobs:
   checkout:
     uses: lenstube-xyz/lenstube/.github/workflows/ci.yml@main
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     timeout-minutes: 15
     runs-on: ubuntu-latest
     permissions:
