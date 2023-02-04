@@ -1,4 +1,4 @@
-name: Export and Deploy
+name: Export and Deploy to CF
 
 on:
   workflow_run:
