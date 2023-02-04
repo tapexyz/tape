@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev --port 4783",
     "build": "next build",
+    "export": "next export",
     "start": "next build && next start --port 4783",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "dev:test": "playwright test",
