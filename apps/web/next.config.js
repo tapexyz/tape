@@ -11,11 +11,11 @@ const moduleExports = {
     return [
       {
         source: '/sitemap.xml',
-        destination: 'https://assets.lenstube.xyz/sitemaps/sitemap.xml'
+        destination: 'https://static.lenstube.xyz/sitemaps/sitemap.xml'
       },
       {
         source: '/sitemaps/:match*',
-        destination: 'https://assets.lenstube.xyz/sitemaps/:match*'
+        destination: 'https://static.lenstube.xyz/sitemaps/:match*'
       },
       {
         source: '/collect/:match*',

@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://assets.lenstube.xyz/images/brand/banner.png" alt="banner">
+    <img src="https://static.lenstube.xyz/images/brand/banner.png" alt="banner">
     <h1>Lenstube</h1>
     <p>Decentralized video-sharing social media platform.</p>
     <a href="https://lenstube.xyz">lenstube.xyz</a>
