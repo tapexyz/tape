@@ -9,8 +9,6 @@ on:
   workflow_dispatch:
   
 jobs:
-  checkout:
-    uses: lenstube-xyz/lenstube/.github/workflows/ci.yml@main
   deploy:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     timeout-minutes: 15
@@ -19,8 +17,21 @@ jobs:
       contents: read
       deployments: write
 
-
     steps:
+        - name: Check out repo ✅
+          uses: actions/checkout@v3
+          with:
+            fetch-depth: 2
+
+        - name: Setup Node.js environment 📐
+          uses: actions/setup-node@v3
+          with:
+            node-version-file: '.nvmrc'
+            cache: 'yarn'
+ 
+        - name: Install dependencies 🧳
+          run: yarn install --frozen-lockfile
+              
         - name: Build and Export 📦
           run: npx turbo run export
 
