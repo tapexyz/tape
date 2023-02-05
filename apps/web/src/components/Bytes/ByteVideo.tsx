@@ -26,6 +26,8 @@ const ByteVideo: FC<Props> = ({ video }) => {
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, true)
 
+  const currentPathId = location.pathname.split('/bytes/')[1]
+
   const playVideo = () => {
     if (!videoRef.current) {
       return
@@ -57,6 +59,7 @@ const ByteVideo: FC<Props> = ({ video }) => {
       return
     }
     videoRef.current = ref
+    playVideo()
   }
 
   const { observe } = useInView({
@@ -75,28 +78,38 @@ const ByteVideo: FC<Props> = ({ video }) => {
   })
 
   return (
-    <div ref={observe} className="flex snap-center justify-center md:mt-6">
+    <div className="flex snap-center justify-center md:mt-6">
       <div className="relative">
         <div
           className="ultrawide:w-[407px] ultrawide:items-center flex h-screen w-screen min-w-[250px] overflow-hidden bg-black md:h-[calc(100vh-145px)] md:w-[350px] md:rounded-xl"
           style={{
-            backgroundColor: backgroundColor && `${backgroundColor}95`
+            backgroundColor: backgroundColor ? backgroundColor : undefined
           }}
+          ref={observe}
         >
-          <VideoPlayer
-            refCallback={refCallback}
-            permanentUrl={getPublicationMediaUrl(video)}
-            posterUrl={thumbnailUrl}
-            ratio="9to16"
-            publicationId={video.id}
-            showControls={false}
-            options={{
-              autoPlay: false,
-              muted: false,
-              loop: true,
-              loadingSpinner: false
-            }}
-          />
+          {currentPathId === video.id ? (
+            <VideoPlayer
+              refCallback={refCallback}
+              permanentUrl={getPublicationMediaUrl(video)}
+              posterUrl={thumbnailUrl}
+              ratio="9to16"
+              publicationId={video.id}
+              showControls={false}
+              options={{
+                autoPlay: false,
+                muted: false,
+                loop: true,
+                loadingSpinner: false
+              }}
+            />
+          ) : (
+            <img
+              className="w-full object-contain"
+              src={thumbnailUrl}
+              alt="thumbnail"
+              draggable={false}
+            />
+          )}
         </div>
         <TopOverlay onClickVideo={onClickVideo} />
         <BottomOverlay video={video} />
@@ -120,4 +133,4 @@ const ByteVideo: FC<Props> = ({ video }) => {
   )
 }
 
-export default ByteVideo
+export default React.memo(ByteVideo)

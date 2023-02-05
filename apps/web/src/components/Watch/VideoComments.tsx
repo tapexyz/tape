@@ -81,7 +81,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
   }
 
   return (
-    <div className="pb-4">
+    <>
       <div className="flex items-center justify-between">
         {!hideTitle && (
           <h1 className="my-4 flex items-center space-x-2 text-lg">
@@ -93,9 +93,6 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
           <span className="text-xs">(Sign in required to comment)</span>
         )}
       </div>
-      {data?.publications?.items.length === 0 && (
-        <NoDataFound text="Be the first to comment." withImage isCenter />
-      )}
       {video?.canComment.result ? (
         <NewComment video={video} />
       ) : selectedChannelId ? (
@@ -107,7 +104,10 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
           </span>
         </Alert>
       ) : null}
-      {!error && !loading && (
+      {data?.publications?.items.length === 0 && (
+        <NoDataFound text="Be the first to comment." withImage isCenter />
+      )}
+      {!error && (queuedComments.length || comments.length) ? (
         <>
           <div className="space-y-4 pt-5">
             {queuedComments?.map(
@@ -132,8 +132,8 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
             </span>
           )}
         </>
-      )}
-    </div>
+      ) : null}
+    </>
   )
 }
 

@@ -10,7 +10,7 @@ export const NoDataFound = ({
 }) => {
   return (
     <div
-      className={clsx('flex flex-col space-y-1 rounded-lg pb-6', {
+      className={clsx('flex flex-col space-y-1 rounded-lg p-6', {
         'items-center justify-center': isCenter
       })}
     >
