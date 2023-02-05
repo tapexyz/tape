@@ -39,18 +39,23 @@ const Settings = () => {
     skip: !selectedChannel?.handle
   })
 
-  if (error) return <Custom500 />
-  if (loading || !data) return <SettingsShimmer />
+  if (error) {
+    return <Custom500 />
+  }
+  if (loading || !data) {
+    return <SettingsShimmer />
+  }
 
-  if (!data?.profile || (!selectedChannel && router.isReady))
+  if (!data?.profile || (!selectedChannel && router.isReady)) {
     return <Custom404 />
+  }
 
   const channel = data?.profile as Profile & {
     coverPicture: MediaSet
   }
 
   return (
-    <div className="container max-w-7xl mx-auto">
+    <div className="container mx-auto max-w-7xl">
       <MetaTags title="Channel Settings" />
       {!loading && !error && channel ? (
         <div className="grid gap-4 md:grid-cols-4">

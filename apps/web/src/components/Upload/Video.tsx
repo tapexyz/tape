@@ -70,11 +70,11 @@ const Video = () => {
   }
 
   return (
-    <div className="flex flex-col w-full">
-      <div className="overflow-hidden relative rounded-xl rounded-b-none w-full">
+    <div className="flex w-full flex-col">
+      <div className="relative w-full overflow-hidden rounded-xl rounded-b-none">
         <video
           ref={videoRef}
-          className="w-full aspect-[16/9]"
+          className="aspect-[16/9] w-full"
           disablePictureInPicture
           disableRemotePlayback
           controlsList="nodownload noplaybackrate"
@@ -90,7 +90,7 @@ const Video = () => {
             type={uploadedVideo.videoType || 'video/mp4'}
           />
         </video>
-        <div className="py-0.5 absolute top-2 px-2 left-2 text-xs uppercase bg-orange-200 text-black rounded-full">
+        <div className="absolute top-2 left-2 rounded-full bg-orange-200 py-0.5 px-2 text-xs uppercase text-black">
           {uploadedVideo.file?.size && (
             <span className="whitespace-nowrap font-semibold">
               {formatBytes(uploadedVideo.file?.size)}
@@ -102,15 +102,15 @@ const Video = () => {
             <button
               type="button"
               onClick={() => onCopyVideoSource(uploadedVideo.videoSource)}
-              className="absolute outline-none top-2 p-1 px-1.5 right-2 text-xs bg-orange-200 text-black rounded-lg"
+              className="absolute top-2 right-2 rounded-lg bg-orange-200 p-1 px-1.5 text-xs text-black outline-none"
             >
-              <CopyOutline className="w-3.5 h-3.5" />
+              <CopyOutline className="h-3.5 w-3.5" />
             </button>
           </Tooltip>
         )}
       </div>
       <Tooltip content={`Uploaded (${uploadedVideo.percent}%)`}>
-        <div className="w-full overflow-hidden bg-gray-200 rounded-b-full">
+        <div className="w-full overflow-hidden rounded-b-full bg-gray-200">
           <div
             className={clsx(
               'h-[6px]',
@@ -136,7 +136,7 @@ const Video = () => {
           }}
         />
       </div>
-      <ul className="text-xs mt-4 list-disc list-inside">
+      <ul className="mt-4 list-inside list-disc text-xs">
         <li>
           Stay active in current tab while uploading for faster experience.
         </li>

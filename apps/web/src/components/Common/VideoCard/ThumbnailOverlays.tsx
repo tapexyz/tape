@@ -34,7 +34,7 @@ const ThumbnailOverlays: FC<Props> = ({ video }) => {
     <>
       {isSensitiveContent && (
         <div>
-          <span className="py-0.5 text-xs absolute top-2 left-2 px-2 text-black bg-white rounded-full">
+          <span className="absolute top-2 left-2 rounded-full bg-white py-0.5 px-2 text-xs text-black">
             Sensitive Content
           </span>
         </div>
@@ -42,11 +42,11 @@ const ThumbnailOverlays: FC<Props> = ({ video }) => {
       {isIPFS && isVideoOwner && pathname === '/[channel]' ? (
         <div>
           <Tooltip content="Video stored on IPFS" placement="left">
-            <span className="absolute z-[1] rounded-full top-2 right-2">
+            <span className="absolute top-2 right-2 z-[1] rounded-full">
               <img
                 src={`${STATIC_ASSETS}/images/social/ipfs-logo.webp`}
                 alt="ipfs"
-                className="w-5 h-5 rounded-full"
+                className="h-5 w-5 rounded-full"
               />
             </span>
           </Tooltip>
@@ -54,7 +54,7 @@ const ThumbnailOverlays: FC<Props> = ({ video }) => {
       ) : null}
       {!isSensitiveContent && videoDuration ? (
         <div>
-          <span className="py-0.5 absolute font-semibold bottom-2 right-2 text-xs px-1 text-white bg-black rounded">
+          <span className="absolute bottom-2 right-2 rounded bg-black py-0.5 px-1 text-xs font-semibold text-white">
             {getTimeFromSeconds(videoDuration)}
           </span>
         </div>

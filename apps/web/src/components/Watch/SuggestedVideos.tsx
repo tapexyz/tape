@@ -64,7 +64,7 @@ const SuggestedVideos: FC = () => {
       {loading && <SuggestedVideosShimmer />}
       {!error && !loading && videos.length ? (
         <div className="pb-3">
-          <div className="space-y-3 md:gap-3 md:grid lg:flex lg:gap-0 lg:flex-col md:grid-cols-2">
+          <div className="space-y-3 md:grid md:grid-cols-2 md:gap-3 lg:flex lg:flex-col lg:gap-0">
             {videos?.map(
               (video: Publication) =>
                 !video.hidden &&
@@ -73,7 +73,7 @@ const SuggestedVideos: FC = () => {
                 )
             )}
           </div>
-          {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>

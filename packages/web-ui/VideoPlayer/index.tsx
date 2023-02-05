@@ -19,12 +19,13 @@ interface PlayerProps {
   playerRef?: (ref: HTMLMediaElement) => void
   permanentUrl: string
   posterUrl?: string
-  children?: React.ReactNode
   ratio?: AspectRatio
+  showControls?: boolean
   options?: {
     autoPlay?: boolean
     muted?: boolean
     loop?: boolean
+    loadingSpinner: boolean
   }
 }
 
@@ -41,7 +42,7 @@ const PlayerInstance: FC<PlayerProps> = ({
   posterUrl,
   playerRef,
   options,
-  children
+  showControls
 }) => {
   return (
     <Player
@@ -57,16 +58,14 @@ const PlayerInstance: FC<PlayerProps> = ({
       muted={options?.muted ?? false}
       controls={{ defaultVolume: 1 }}
       autoPlay={options?.autoPlay ?? false}
-      autoUrlUpload={
-        IS_MAINNET
-          ? {
-              fallback: true,
-              ipfsGateway: IPFS_GATEWAY
-            }
-          : false
-      }
+      showLoadingSpinner={options?.loadingSpinner}
+      autoUrlUpload={{
+        fallback: true,
+        ipfsGateway: IPFS_GATEWAY
+      }}
     >
-      {children}
+      {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
+      {!showControls ? <></> : null}
     </Player>
   )
 }
@@ -80,7 +79,7 @@ const VideoPlayer: FC<Props> = ({
   refCallback,
   publicationId,
   options,
-  children
+  showControls = true
 }) => {
   const router = useRouter()
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
@@ -116,7 +115,9 @@ const VideoPlayer: FC<Props> = ({
   }
 
   useEffect(() => {
-    if (!playerRef) return
+    if (!playerRef) {
+      return
+    }
     playerRef.currentTime = Number(currentTime || 0)
     if (IS_MAINNET) {
       analyseVideo(playerRef)
@@ -129,7 +130,7 @@ const VideoPlayer: FC<Props> = ({
   }
 
   return (
-    <div>
+    <div className="w-full">
       {sensitiveWarning ? (
         <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
       ) : (
@@ -140,9 +141,8 @@ const VideoPlayer: FC<Props> = ({
             ratio={ratio}
             playerRef={mediaElementRef}
             options={options}
-          >
-            {children}
-          </PlayerInstance>
+            showControls={showControls}
+          />
         </div>
       )}
     </div>

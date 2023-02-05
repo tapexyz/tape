@@ -114,9 +114,8 @@ const ModulePermissions = () => {
         {!gettingSettings && data && (
           <div className="flex justify-end pt-3 pb-4 md:pt-0">
             <select
-              placeholder="More about your stream"
               autoComplete="off"
-              className="bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-300 dark:border-gray-700 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none"
+              className="rounded-xl border border-gray-300 bg-white p-2.5 text-sm outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900"
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
             >
@@ -139,7 +138,7 @@ const ModulePermissions = () => {
               collectModules.includes(moduleItem.module) && (
                 <div
                   key={moduleItem.contractAddress}
-                  className="flex items-center pb-4 rounded-md"
+                  className="flex items-center rounded-md pb-4"
                 >
                   <div className="flex-1">
                     <h6 className="text-base">Allow {moduleItem.module}</h6>
@@ -147,7 +146,7 @@ const ModulePermissions = () => {
                       {getCollectModuleConfig(moduleItem.module).description}
                     </p>
                   </div>
-                  <div className="flex items-center flex-none ml-2 space-x-2">
+                  <div className="ml-2 flex flex-none items-center space-x-2">
                     {moduleItem?.allowance === '0x00' ? (
                       <Button
                         loading={loadingModule === moduleItem.module}

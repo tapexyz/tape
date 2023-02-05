@@ -13,7 +13,6 @@ query Explore(
       }
     }
     pageInfo {
-      totalCount
       next
     }
   }

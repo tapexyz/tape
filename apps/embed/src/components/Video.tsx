@@ -41,7 +41,9 @@ const Video: FC<Props> = ({ video }) => {
   }, [])
 
   const refCallback = (ref: HTMLMediaElement) => {
-    if (!ref) return
+    if (!ref) {
+      return null
+    }
     setPlayerRef(ref)
   }
 
@@ -56,7 +58,7 @@ const Video: FC<Props> = ({ video }) => {
   }
 
   return (
-    <div className="relative group w-screen h-screen">
+    <div className="group relative h-screen w-screen">
       <MetaTags
         title={truncate(video?.metadata?.name as string, 60)}
         description={truncate(video?.metadata?.description as string, 100)}
@@ -70,14 +72,19 @@ const Video: FC<Props> = ({ video }) => {
           posterUrl={thumbnailUrl}
           publicationId={video.id}
           currentTime={currentTime}
-          options={{ autoPlay: isAutoPlay, muted: isAutoPlay, loop: isLoop }}
+          options={{
+            autoPlay: isAutoPlay,
+            muted: isAutoPlay,
+            loop: isLoop,
+            loadingSpinner: true
+          }}
         />
       ) : (
-        <div className="flex justify-center aspect-h-9 aspect-w-16">
+        <div className="aspect-h-9 aspect-w-16 flex justify-center">
           <img
             src={thumbnailUrl}
             className={clsx(
-              'object-center bg-gray-100 dark:bg-gray-900',
+              'bg-gray-100 object-center dark:bg-gray-900',
               isBytesVideo ? 'object-contain' : 'object-cover'
             )}
             style={{
@@ -87,13 +94,13 @@ const Video: FC<Props> = ({ video }) => {
             draggable={false}
           />
           <div
-            className="absolute h-full w-full grid place-items-center"
+            className="absolute grid h-full w-full place-items-center"
             onClick={onClickOverlay}
             role="button"
           >
-            <button className="xl:p-5 p-3 rounded-full bg-indigo-500">
+            <button className="rounded-full bg-indigo-500 p-3 xl:p-5">
               <img
-                className="w-5 h-5"
+                className="h-5 w-5"
                 src={imageCdn(
                   `${STATIC_ASSETS}/images/brand/white.svg`,
                   'avatar'

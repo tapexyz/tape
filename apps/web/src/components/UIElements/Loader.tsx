@@ -10,15 +10,15 @@ type Props = {
 export const Loader: FC<Props> = ({ size = 'md', className }) => {
   return (
     <div className="border-0">
-      <div className="grid space-y-2 justify-items-center">
+      <div className="grid justify-items-center space-y-2">
         <svg
           role="status"
           className={clsx(
-            'text-gray-400 animate-spin dark:fill-white fill-black',
+            'animate-spin fill-black text-gray-400 dark:fill-white',
             className,
             {
-              'w-5 h-5': size === 'md',
-              'w-3.5 h-3.5': size === 'sm'
+              'h-5 w-5': size === 'md',
+              'h-3.5 w-3.5': size === 'sm'
             }
           )}
           viewBox="0 0 100 101"

@@ -4,6 +4,7 @@ import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
+import type { Publication } from 'lens'
 import {
   PublicationDetailsDocument,
   useHasTxHashBeenIndexedQuery,
@@ -46,7 +47,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
           fields: {
             publications() {
               cache.writeQuery({
-                data: data?.publication as any,
+                data: data?.publication as Publication,
                 query: PublicationDetailsDocument
               })
             }
@@ -95,25 +96,26 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     }
   })
 
-  if ((!queuedComment?.txnId && !queuedComment?.txnHash) || !selectedChannel)
+  if ((!queuedComment?.txnId && !queuedComment?.txnHash) || !selectedChannel) {
     return null
+  }
 
   return (
     <div className="flex items-start justify-between">
       <div className="flex items-start justify-between">
         <Link
           href={`/channel/${selectedChannel?.handle}`}
-          className="flex-none mr-3 mt-0.5"
+          className="mr-3 mt-0.5 flex-none"
         >
           <img
             src={getProfilePicture(selectedChannel, 'avatar')}
-            className="rounded-full w-7 h-7"
+            className="h-7 w-7 rounded-full"
             draggable={false}
             alt={selectedChannel?.handle}
           />
         </Link>
-        <div className="flex flex-col items-start mr-2">
-          <span className="flex items-center mb-1 space-x-1">
+        <div className="mr-2 flex flex-col items-start">
+          <span className="mb-1 flex items-center space-x-1">
             <Link
               href={`/channel/${selectedChannel.handle}`}
               className="flex items-center space-x-1 text-sm font-medium"
@@ -131,8 +133,8 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
         <div className="p-2">
           <Tooltip content="Indexing" placement="top">
             <span className="flex h-2 w-2 items-center justify-center">
-              <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-indigo-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-indigo-500" />
+              <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-indigo-400 opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-indigo-500" />
             </span>
           </Tooltip>
         </div>

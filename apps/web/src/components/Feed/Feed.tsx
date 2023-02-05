@@ -68,7 +68,7 @@ const HomeFeed = () => {
       {loading && <TimelineShimmer />}
       {!error && !loading && (
         <>
-          <div className="grid gap-x-4 2xl:grid-cols-5 md:gap-y-8 gap-y-2 ultrawide:grid-cols-6 laptop:grid-cols-4 md:grid-cols-2 grid-col-1">
+          <div className="ultrawide:grid-cols-6 laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-2 md:gap-y-8 2xl:grid-cols-5">
             {videos?.map((feedItem: FeedItem) => {
               const video = feedItem.root
               return (
@@ -79,7 +79,7 @@ const HomeFeed = () => {
               )
             })}
           </div>
-          {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>

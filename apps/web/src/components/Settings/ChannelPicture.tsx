@@ -52,11 +52,12 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
 
   const onCompleted = () => {
     setLoading(false)
-    if (selectedChannel && selectedPfp)
+    if (selectedChannel && selectedPfp) {
       setSelectedChannel({
         ...selectedChannel,
         picture: { original: { url: selectedPfp } }
       })
+    }
     toast.success('Channel image updated')
   }
 
@@ -106,8 +107,9 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.__typename === 'RelayError')
+          if (data?.broadcast?.__typename === 'RelayError') {
             writePfpUri?.({ recklesslySetUnpreparedArgs: [args] })
+          }
         } catch {
           setLoading(false)
         }
@@ -193,20 +195,20 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   }
 
   return (
-    <div className="relative flex-none overflow-hidden rounded-full group">
+    <div className="group relative flex-none overflow-hidden rounded-full">
       <img
         src={
           selectedPfp
             ? sanitizeIpfsUrl(selectedPfp)
             : getProfilePicture(channel, 'avatar_lg')
         }
-        className="object-cover w-32 h-32 border-2 rounded-full"
+        className="h-32 w-32 rounded-full border-2 object-cover"
         draggable={false}
         alt={selectedPfp ? selectedChannel?.handle : channel.handle}
       />
       <label
         className={clsx(
-          'absolute top-0 grid w-32 h-32 bg-white rounded-full cursor-pointer bg-opacity-70 place-items-center backdrop-blur-lg invisible group-hover:visible dark:bg-theme',
+          'dark:bg-theme invisible absolute top-0 grid h-32 w-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible',
           { '!visible': loading && !pfpData?.hash }
         )}
         onClick={() => {

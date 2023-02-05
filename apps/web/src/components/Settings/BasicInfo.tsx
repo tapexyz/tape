@@ -159,8 +159,9 @@ const BasicInfo = ({ channel }: Props) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.__typename === 'RelayError')
+          if (data?.broadcast?.__typename === 'RelayError') {
             writeMetaData?.({ recklesslySetUnpreparedArgs: [args] })
+          }
         } catch {
           setLoading(false)
         }
@@ -264,11 +265,11 @@ const BasicInfo = ({ channel }: Props) => {
   return (
     <form
       onSubmit={handleSubmit(onSaveBasicInfo)}
-      className="p-4 bg-white rounded-xl dark:bg-theme"
+      className="dark:bg-theme rounded-xl bg-white p-4"
     >
-      <div className="relative flex-none w-full">
+      <div className="relative w-full flex-none">
         {uploading && (
-          <div className="absolute rounded-xl bg-black w-full h-full flex items-center justify-center z-10 opacity-40">
+          <div className="absolute z-10 flex h-full w-full items-center justify-center rounded bg-black opacity-40">
             <Loader />
           </div>
         )}
@@ -280,13 +281,13 @@ const BasicInfo = ({ channel }: Props) => {
               'thumbnail'
             )
           }
-          className="object-cover object-center w-full h-48 bg-white rounded-xl md:h-56 dark:bg-gray-900"
+          className="h-48 w-full rounded bg-white object-cover object-center dark:bg-gray-900 md:h-56"
           draggable={false}
           alt={`${channel.handle}'s cover`}
         />
         <label
           htmlFor="chooseCover"
-          className="absolute p-1 px-3 text-sm bg-white rounded-lg cursor-pointer dark:bg-theme bottom-2 left-2"
+          className="dark:bg-theme absolute bottom-2 left-2 cursor-pointer rounded-lg bg-white p-1 px-3 text-sm"
         >
           Change
           <input
@@ -299,34 +300,33 @@ const BasicInfo = ({ channel }: Props) => {
           />
         </label>
       </div>
-      <div className="mt-4">
-        <div className="flex items-center mb-1">
-          <div className="text-[11px] font-semibold uppercase opacity-60">
-            Channel
-          </div>
-        </div>
-        <div className="flex items-center space-x-3">
-          <h6 className="flex items-center space-x-1">
-            <span>{channel?.handle}</span>
-            <IsVerified id={channel?.id} size="xs" />
-          </h6>
-          {IS_MAINNET &&
-            !VERIFIED_CHANNELS.includes(channel?.id) &&
-            channel.stats.totalFollowers > 500 && (
-              <Link
-                href={TALLY_VERIFICATION_FORM_URL}
-                onClick={() => Analytics.track(TRACK.GET_VERIFIED)}
-                target="_blank"
-                rel="noreferer noreferrer"
-                className="text-sm text-transparent bg-clip-text bg-gradient-to-br from-purple-500 to-indigo-600"
-              >
-                ( Get Verified )
-              </Link>
-            )}
+      <div className="pt-1 text-right text-xs opacity-80">2560 x 1440</div>
+      <div className="mb-1 flex items-center">
+        <div className="text-[11px] font-semibold uppercase opacity-60">
+          Channel
         </div>
       </div>
+      <div className="flex items-center space-x-3">
+        <h6 className="flex items-center space-x-1">
+          <span>{channel?.handle}</span>
+          <IsVerified id={channel?.id} size="xs" />
+        </h6>
+        {IS_MAINNET &&
+          !VERIFIED_CHANNELS.includes(channel?.id) &&
+          channel.stats.totalFollowers > 500 && (
+            <Link
+              href={TALLY_VERIFICATION_FORM_URL}
+              onClick={() => Analytics.track(TRACK.GET_VERIFIED)}
+              target="_blank"
+              rel="noreferer noreferrer"
+              className="bg-gradient-to-br from-purple-500 to-indigo-600 bg-clip-text text-sm text-transparent"
+            >
+              ( Get Verified )
+            </Link>
+          )}
+      </div>
       <div className="mt-4">
-        <div className="flex items-center mb-1">
+        <div className="mb-1 flex items-center">
           <div className="text-[11px] font-semibold uppercase opacity-60">
             Channel URL
           </div>
@@ -342,7 +342,7 @@ const BasicInfo = ({ channel }: Props) => {
             }
             type="button"
           >
-            <CopyOutline className="w-4 h-4" />
+            <CopyOutline className="h-4 w-4" />
           </button>
         </div>
       </div>
@@ -389,7 +389,7 @@ const BasicInfo = ({ channel }: Props) => {
           validationError={errors.location?.message}
         />
       </div>
-      <div className="flex justify-end mt-4">
+      <div className="mt-4 flex justify-end">
         <Button loading={loading}>Save</Button>
       </div>
     </form>

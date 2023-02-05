@@ -72,7 +72,9 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
       typedData?.value.tokenId,
       sig
     )
-    if (txn.hash) onCompleted()
+    if (txn.hash) {
+      onCompleted()
+    }
   }
 
   const [createUnsubscribeTypedData] = useCreateUnfollowTypedDataMutation({
@@ -88,8 +90,9 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError')
+        if (data?.broadcast?.__typename === 'RelayError') {
           await burnWithSig(signature, typedData)
+        }
       } catch {
         setLoading(false)
       }
@@ -98,7 +101,9 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   })
 
   const unsubscribe = () => {
-    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!selectedChannelId) {
+      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    }
     setLoading(true)
     createUnsubscribeTypedData({
       variables: {

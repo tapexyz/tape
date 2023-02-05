@@ -52,8 +52,9 @@ const BundlrInfo = () => {
   }
 
   const estimatePrice = async (bundlr: WebBundlr) => {
-    if (!uploadedVideo.stream)
+    if (!uploadedVideo.stream) {
       return toast.error('Upload cost estimation failed!')
+    }
     const price = await bundlr.utils.getPrice(
       BUNDLR_CURRENCY,
       uploadedVideo.stream?.size
@@ -95,8 +96,12 @@ const BundlrInfo = () => {
   }, [bundlrData.instance])
 
   const depositToBundlr = async () => {
-    if (!bundlrData.instance) return await initBundlr()
-    if (!bundlrData.deposit) return toast.error('Enter deposit amount')
+    if (!bundlrData.instance) {
+      return await initBundlr()
+    }
+    if (!bundlrData.deposit) {
+      return toast.error('Enter deposit amount')
+    }
     const depositAmount = parseFloat(bundlrData.deposit)
     const value = utils.parseUnits(depositAmount.toString())._hex
     if (!value || Number(value) < 1) {
@@ -135,9 +140,9 @@ const BundlrInfo = () => {
   }
 
   return (
-    <div className="w-full mt-4 space-y-2">
+    <div className="mt-4 w-full space-y-2">
       <div className="flex flex-col">
-        <div className="inline-flex items-center justify-between text-xs font-semibold rounded opacity-70">
+        <div className="inline-flex items-center justify-between rounded text-xs font-semibold opacity-70">
           <span className="flex items-center space-x-1.5">
             <span>Your Storage Balance</span>
             <Tooltip content="Refresh balance" placement="top">
@@ -167,13 +172,13 @@ const BundlrInfo = () => {
               onClick={() =>
                 setBundlrData({ showDeposit: !bundlrData.showDeposit })
               }
-              className="inline-flex py-0.5 items-center px-2 bg-gray-200 rounded-full focus:outline-none dark:bg-gray-900"
+              className="inline-flex items-center rounded-full bg-gray-200 py-0.5 px-2 focus:outline-none dark:bg-gray-900"
             >
-              <span className="text-xs px-0.5">Deposit</span>
+              <span className="px-0.5 text-xs">Deposit</span>
               {bundlrData.showDeposit ? (
-                <ChevronUpOutline className="h-3 w-3 ml-1" />
+                <ChevronUpOutline className="ml-1 h-3 w-3" />
               ) : (
-                <ChevronDownOutline className="h-3 w-3 ml-1" />
+                <ChevronDownOutline className="ml-1 h-3 w-3" />
               )}
             </button>
           </span>
@@ -198,7 +203,7 @@ const BundlrInfo = () => {
             />
             <button
               type="button"
-              className="btn-primary px-4 text-sm py-1.5"
+              className="btn-primary px-4 py-1.5 text-sm"
               disabled={bundlrData.depositing}
               onClick={() => depositToBundlr()}
             >

@@ -16,10 +16,10 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
       <div className="flex items-center space-x-3">
         <Link
           href={`/channel/${notification?.mentionPublication?.profile?.handle}`}
-          className="inline-flex items-center space-x-1.5 font-base"
+          className="font-base inline-flex items-center space-x-1.5"
         >
           <img
-            className="w-5 h-5 rounded-full"
+            className="h-5 w-5 rounded-full"
             src={getProfilePicture(
               notification?.mentionPublication.profile,
               'avatar'
@@ -37,7 +37,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
         </Link>
       </div>
       <div className="flex items-center justify-between">
-        <span className="text-gray-600 truncate dark:text-gray-400">
+        <span className="truncate text-gray-600 dark:text-gray-400">
           <Link
             href={`/watch/${notification?.mentionPublication.id}`}
             className="mr-1 text-indigo-500"
@@ -46,7 +46,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
           </Link>
           your channel
         </span>
-        <div className="flex items-center flex-none space-x-1 text-xs dark:text-gray-300 text-gray-700">
+        <div className="flex flex-none items-center space-x-1 text-gray-700 dark:text-gray-300">
           <span>{getRelativeTime(notification?.createdAt)}</span>
         </div>
       </div>

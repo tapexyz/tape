@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://assets.lenstube.xyz/images/brand/banner.png" alt="banner">
+    <img src="https://static.lenstube.xyz/images/brand/banner.png" alt="banner">
     <h1>Lenstube</h1>
     <p>Decentralized video-sharing social media platform.</p>
     <a href="https://lenstube.xyz">lenstube.xyz</a>
@@ -16,7 +16,7 @@
        <img src="https://img.shields.io/discord/980882088783913010.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
     </a>
     <a href="https://twitter.com/lenstubexyz">
-        <img src="https://img.shields.io/twitter/follow/lenstubexyz?label=lenstubexyz&style=flat&logo=twitter&color=1DA1F2" alt="Twitter">
+        <img src="https://img.shields.io/twitter/follow/lenstubexyz?style=social" alt="Twitter">
     </a>
     <a href="https://github.com/lenstube-xyz/lenstube/blob/main/LICENSE">
         <img src="https://badgen.net/github/license/lenstube-xyz/lenstube" alt="License">

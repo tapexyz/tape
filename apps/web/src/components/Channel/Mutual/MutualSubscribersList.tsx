@@ -45,25 +45,28 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
     }
   })
 
-  if (loading) return <Loader />
-  if (mutualSubscribers?.length === 0)
+  if (loading) {
+    return <Loader />
+  }
+  if (mutualSubscribers?.length === 0) {
     return (
       <div className="pt-5">
         <NoDataFound text="No subscribers" isCenter />
       </div>
     )
+  }
 
   return (
     <div className="mt-4 space-y-3">
       {mutualSubscribers?.map((channel: Profile) => (
         <Link
           href={`/channel/${channel?.handle}`}
-          className="flex items-center justify-between font-base"
+          className="font-base flex items-center justify-between"
           key={channel?.id}
         >
           <div className="flex items-center space-x-1.5">
             <img
-              className="w-5 h-5 rounded"
+              className="h-5 w-5 rounded"
               src={getProfilePicture(channel)}
               alt={channel.handle}
               draggable={false}
@@ -73,13 +76,13 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
               <IsVerified id={channel?.id} size="xs" />
             </div>
           </div>
-          <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">
+          <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
             <BiUser />
             <span>{channel.stats.totalFollowers}</span>
           </div>
         </Link>
       ))}
-      {pageInfo?.next && mutualSubscribers.length !== pageInfo?.totalCount && (
+      {pageInfo?.next && (
         <span ref={observe} className="p-5">
           <Loader />
         </span>

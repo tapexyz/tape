@@ -68,7 +68,9 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       const ipfsResult = await uploadThumbnailToIpfs(imageFile)
       setThumbnails(
         thumbnailList.map((t, i) => {
-          if (i === DEFAULT_THUMBNAIL_INDEX) t.ipfsUrl = ipfsResult?.url
+          if (i === DEFAULT_THUMBNAIL_INDEX) {
+            t.ipfsUrl = ipfsResult?.url
+          }
           return t
         })
       )
@@ -78,10 +80,11 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   }
 
   useEffect(() => {
-    if (file)
+    if (file) {
       generateThumbnails(file).catch((error) =>
         logger.error('[Error Generate Thumbnails from File]', error)
       )
+    }
     return () => {
       setSelectedThumbnailIndex(-1)
       setThumbnails([])
@@ -129,7 +132,9 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       const ipfsResult = await uploadThumbnailToIpfs(selectedImage)
       setThumbnails(
         thumbnails.map((t, i) => {
-          if (i === index) t.ipfsUrl = ipfsResult.url
+          if (i === index) {
+            t.ipfsUrl = ipfsResult.url
+          }
           return t
         })
       )
@@ -142,16 +147,16 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   return (
     <div className="w-full">
       {label && (
-        <div className="flex items-center mb-1 space-x-1.5">
+        <div className="mb-1 flex items-center space-x-1.5">
           <div className="text-[11px] font-semibold uppercase opacity-70">
             {label}
           </div>
         </div>
       )}
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 place-items-start py-0.5 gap-3">
+      <div className="grid grid-cols-2 place-items-start gap-3 py-0.5 md:grid-cols-3 lg:grid-cols-4">
         <label
           htmlFor="chooseThumbnail"
-          className="flex flex-col items-center justify-center flex-none w-full h-16 border border-gray-300 cursor-pointer max-w-32 rounded-xl opacity-80 focus:outline-none dark:border-gray-700"
+          className="max-w-32 flex h-16 w-full flex-none cursor-pointer flex-col items-center justify-center rounded-xl border border-gray-300 opacity-80 focus:outline-none dark:border-gray-700"
         >
           <input
             id="chooseThumbnail"
@@ -160,7 +165,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
             className="hidden w-full"
             onChange={handleUpload}
           />
-          <BiImageAdd className="flex-none mb-1 text-lg" />
+          <BiImageAdd className="mb-1 flex-none text-lg" />
           <span className="text-[10px]">Upload thumbnail</span>
         </label>
         {!thumbnails.length && uploadedVideo.file?.size && (
@@ -177,7 +182,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
               }
               onClick={() => onSelectThumbnail(idx)}
               className={clsx(
-                'rounded-lg w-full relative flex-none focus:outline-none',
+                'relative w-full flex-none rounded-lg focus:outline-none',
                 {
                   'ring ring-indigo-500': selectedThumbnailIndex === idx,
                   'ring !ring-red-500': thumbnail.isNSFWThumbnail
@@ -185,7 +190,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
               )}
             >
               <img
-                className="object-cover w-full h-16 rounded-lg md:w-32"
+                className="h-16 w-full rounded-lg object-cover md:w-32"
                 src={sanitizeIpfsUrl(thumbnail.url)}
                 alt="thumbnail"
                 draggable={false}

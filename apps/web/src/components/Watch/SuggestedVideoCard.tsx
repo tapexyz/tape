@@ -40,7 +40,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
   return (
     <div
       onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
-      className="flex justify-between group"
+      className="group flex justify-between"
     >
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <ReportModal
@@ -52,12 +52,12 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
         <div className="flex-none overflow-hidden rounded-lg">
           <Link
             href={`/watch/${video.id}`}
-            className="rounded-lg cursor-pointer"
+            className="cursor-pointer rounded-lg"
           >
             <div className="relative">
               <img
                 className={clsx(
-                  'object-center h-20 w-36 dark:bg-gray-700 bg-gray-300',
+                  'h-20 w-36 bg-gray-300 object-center dark:bg-gray-700',
                   isBytesVideo ? 'object-contain' : 'object-cover'
                 )}
                 src={thumbnailUrl}
@@ -67,7 +67,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
               />
               {!isSensitiveContent && videoDuration ? (
                 <div>
-                  <span className="absolute bottom-1 right-1 text-[10px] px-1 text-white bg-black rounded">
+                  <span className="absolute bottom-1 right-1 rounded bg-black px-1 text-[10px] text-white">
                     {getTimeFromSeconds(videoDuration)}
                   </span>
                 </div>
@@ -75,14 +75,15 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
             </div>
           </Link>
         </div>
-        <div className="px-2.5 overflow-hidden">
+        <div className="overflow-hidden px-2.5">
           <div className="flex flex-col items-start pb-1">
-            <div className="grid break-words w-full overflow-hidden">
+            <div className="grid w-full overflow-hidden break-words">
               <Link
                 href={`/watch/${video.id}`}
-                className="text-sm font-medium line-clamp-1"
+                className="line-clamp-1 text-sm font-medium"
+                title={video.metadata?.name ?? ''}
               >
-                <span className="flex line-clamp-2">
+                <span className="line-clamp-2 flex">
                   {video.metadata?.name}
                 </span>
               </Link>
@@ -90,7 +91,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
             <div className="truncate">
               <Link
                 href={`/channel/${video.profile?.handle}`}
-                className="text-[13px] truncate hover:opacity-100 opacity-70"
+                className="truncate text-[13px] opacity-70 hover:opacity-100"
               >
                 <div className="flex items-center space-x-0.5">
                   <span>{video?.profile?.handle}</span>
@@ -98,7 +99,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
                 </div>
               </Link>
             </div>
-            <div className="flex truncate items-center text-xs opacity-70 mt-0.5">
+            <div className="mt-0.5 flex items-center truncate text-xs opacity-70">
               <span className="whitespace-nowrap">
                 {video.stats?.totalUpvotes} likes
               </span>

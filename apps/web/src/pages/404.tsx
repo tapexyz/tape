@@ -10,7 +10,7 @@ export default function Custom404() {
       <Head>
         <title>404</title>
       </Head>
-      <div className="flex flex-col items-center justify-start h-full mt-10 md:mt-20">
+      <div className="mt-10 flex h-full flex-col items-center justify-start md:mt-20">
         <img
           src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
           alt={LENSTUBE_APP_NAME}

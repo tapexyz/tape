@@ -44,13 +44,16 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
     }
   })
 
-  if (loading) return <Loader />
-  if (collectors?.length === 0)
+  if (loading) {
+    return <Loader />
+  }
+  if (collectors?.length === 0) {
     return (
       <div className="pt-5">
         <NoDataFound text="No collectors yet" isCenter />
       </div>
     )
+  }
 
   return (
     <div className="mt-4 space-y-3">
@@ -59,11 +62,11 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
           {wallet?.defaultProfile ? (
             <Link
               href={`/channel/${wallet?.defaultProfile?.handle}`}
-              className="flex items-center justify-between font-base"
+              className="font-base flex items-center justify-between"
             >
               <div className="flex items-center space-x-1.5">
                 <img
-                  className="w-5 h-5 rounded"
+                  className="h-5 w-5 rounded"
                   src={getProfilePicture(wallet?.defaultProfile, 'avatar')}
                   alt={wallet.defaultProfile.handle}
                   draggable={false}
@@ -73,7 +76,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
                   <IsVerified id={wallet?.defaultProfile?.id} size="xs" />
                 </div>
               </div>
-              <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">
+              <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
                 <BiUser />
                 <span>
                   {formatNumber(wallet.defaultProfile.stats.totalFollowers)}
@@ -82,9 +85,9 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
             </Link>
           ) : (
             <AddressExplorerLink address={wallet?.address}>
-              <div className="flex items-center space-x-1.5 font-base">
+              <div className="font-base flex items-center space-x-1.5">
                 <img
-                  className="w-5 h-5 rounded"
+                  className="h-5 w-5 rounded"
                   src={imageCdn(
                     getRandomProfilePicture(wallet.address),
                     'avatar'
@@ -98,7 +101,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
           )}
         </div>
       ))}
-      {pageInfo?.next && collectors.length !== pageInfo?.totalCount && (
+      {pageInfo?.next && (
         <span ref={observe} className="p-5">
           <Loader />
         </span>

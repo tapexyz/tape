@@ -22,7 +22,7 @@ const Tooltip = ({
       {...props}
       placement={placement}
       content={content}
-      className={clsx('hidden !text-xs tracking-wide !rounded-lg', {
+      className={clsx('hidden !rounded-lg !text-xs tracking-wide', {
         'sm:block': visible
       })}
     >

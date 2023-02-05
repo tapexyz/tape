@@ -8,6 +8,7 @@ import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { Analytics, TRACK } from 'utils'
+import isWatchable from 'utils/functions/isWatchable'
 
 import AboutChannel from './AboutChannel'
 import SuggestedVideos from './SuggestedVideos'
@@ -36,22 +37,23 @@ const VideoDetails = () => {
     skip: !id
   })
 
-  const video = data?.publication as Publication
-  const publicationType = video?.__typename
-
-  const canWatch =
-    video &&
-    publicationType &&
-    ['Post', 'Comment'].includes(publicationType) &&
-    !video?.hidden
+  const publication = data?.publication as Publication
+  const video =
+    publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
 
   useEffect(() => {
     setVideoWatchTime(Number(t))
   }, [t, setVideoWatchTime])
 
-  if (error) return <Custom500 />
-  if (loading || !data) return <VideoDetailShimmer />
-  if (!canWatch) return <Custom404 />
+  if (error) {
+    return <Custom500 />
+  }
+  if (loading || !data) {
+    return <VideoDetailShimmer />
+  }
+  if (!isWatchable(video)) {
+    return <Custom404 />
+  }
 
   return (
     <>

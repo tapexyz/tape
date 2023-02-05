@@ -58,9 +58,9 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
               <button
                 type="button"
                 onClick={() => onCopyCode()}
-                className="p-4 text-left border select-all dark:border-gray-800 rounded-xl"
+                className="select-all rounded-xl border p-4 text-left dark:border-gray-800"
               >
-                <code className="text-sm select-all opacity-60">
+                <code className="select-all text-sm opacity-60">
                   {iframeCode}
                 </code>
               </button>
@@ -72,7 +72,7 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
         <button
           type="button"
           onClick={() => openModal()}
-          className="p-3 bg-purple-200 dark:bg-purple-800 rounded-full"
+          className="rounded-full bg-purple-200 p-3 dark:bg-purple-800"
         >
           <FiCode className="text-lg" />
         </button>

@@ -23,7 +23,7 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             })
           }
           className={clsx(
-            'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+            'flex w-full items-center justify-between rounded-xl border border-gray-200 px-4 py-2 text-sm hover:!border-indigo-500 focus:outline-none dark:border-gray-800',
             {
               '!border-indigo-500': uploadedVideo.collectModule.isFreeCollect
             }
@@ -31,7 +31,7 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
         >
           <span>Collect for Free</span>
           {uploadedVideo.collectModule.isFreeCollect && (
-            <CheckOutline className="w-3 h-3" />
+            <CheckOutline className="h-3 w-3" />
           )}
         </button>
         <button
@@ -43,7 +43,7 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             })
           }
           className={clsx(
-            'flex items-center justify-between w-full px-4 py-2 text-sm border border-gray-200 hover:!border-indigo-500 focus:outline-none dark:border-gray-800 rounded-xl',
+            'flex w-full items-center justify-between rounded-xl border border-gray-200 px-4 py-2 text-sm hover:!border-indigo-500 focus:outline-none dark:border-gray-800',
             {
               '!border-indigo-500': uploadedVideo.collectModule.isFeeCollect
             }
@@ -51,7 +51,7 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
         >
           <span>Yes, Some Price</span>
           {uploadedVideo.collectModule.isFeeCollect && (
-            <CheckOutline className="w-3 h-3" />
+            <CheckOutline className="h-3 w-3" />
           )}
         </button>
       </div>

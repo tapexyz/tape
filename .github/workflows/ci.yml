@@ -5,6 +5,8 @@ on:
     branches: [main]
   pull_request:
     types: [opened, synchronize]
+  workflow_call:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -21,7 +23,7 @@ jobs:
         - name: Setup Node.js environment 📐
           uses: actions/setup-node@v3
           with:
-            node-version: 16
+            node-version-file: '.nvmrc'
             cache: 'yarn'
  
         - name: Install dependencies 🧳

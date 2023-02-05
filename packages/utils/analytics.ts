@@ -26,6 +26,7 @@ export const TRACK = {
   CLICK_CONNECT_WALLET: 'Clicked Connect Wallet',
   CLICK_SWITCH_CHANNEL: 'Clicked Switch Channel',
   UPDATE_CHANNEL_INFO: 'Clicked Channel Info',
+  PIN_VIDEO: 'Pin Video',
   CHANGE_CHANNEL_COVER: 'Clicked Channel Cover',
   UPLOADED_BYTE_VIDEO: 'Uploaded Byte Video',
   UPLOADED_TO_IPFS: 'Uploaded to IPFS',

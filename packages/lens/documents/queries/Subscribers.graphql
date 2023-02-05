@@ -10,7 +10,6 @@ query Subscribers($request: FollowersRequest!) {
     }
     pageInfo {
       next
-      totalCount
     }
   }
 }

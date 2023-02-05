@@ -24,10 +24,10 @@ const SubscribedNotification: FC<Props> = ({ notification }) => {
         {notification?.wallet?.defaultProfile ? (
           <Link
             href={`/channel/${notification?.wallet?.defaultProfile?.handle}`}
-            className="inline-flex items-center space-x-1.5 font-base"
+            className="font-base inline-flex items-center space-x-1.5"
           >
             <img
-              className="w-5 h-5 rounded-full"
+              className="h-5 w-5 rounded-full"
               src={getProfilePicture(
                 notification.wallet.defaultProfile,
                 'avatar'
@@ -45,9 +45,9 @@ const SubscribedNotification: FC<Props> = ({ notification }) => {
           </Link>
         ) : (
           <AddressExplorerLink address={notification?.wallet?.address}>
-            <span className="inline-flex items-center space-x-1.5 font-base">
+            <span className="font-base inline-flex items-center space-x-1.5">
               <img
-                className="w-5 h-5 rounded-full"
+                className="h-5 w-5 rounded-full"
                 src={imageCdn(
                   getRandomProfilePicture(notification.wallet.address),
                   'avatar'
@@ -64,7 +64,7 @@ const SubscribedNotification: FC<Props> = ({ notification }) => {
         <span className="text-gray-600 dark:text-gray-400">
           {selectedChannel?.followModule ? 'joined' : 'subscribed'} the channel
         </span>
-        <div className="flex items-center flex-none dark:text-gray-300 text-gray-700">
+        <div className="flex flex-none items-center text-gray-700 dark:text-gray-300">
           <span>{getRelativeTime(notification?.createdAt)}</span>
         </div>
       </div>

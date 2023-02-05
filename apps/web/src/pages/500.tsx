@@ -10,7 +10,7 @@ export default function Custom500() {
       <Head>
         <title>500 - Server Error</title>
       </Head>
-      <div className="flex flex-col items-center justify-start h-full mt-10 md:mt-20">
+      <div className="mt-10 flex h-full flex-col items-center justify-start md:mt-20">
         <img
           src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
           alt="LensTube"
@@ -22,7 +22,7 @@ export default function Custom500() {
           <h1 className="mb-4 text-3xl font-bold">
             Looks like something went wrong!
           </h1>
-          <div className="max-w-lg mb-6">
+          <div className="mb-6 max-w-lg">
             We track these errors automatically, but if the problem persists
             feel free to contact us. In the meantime, try refreshing.
           </div>

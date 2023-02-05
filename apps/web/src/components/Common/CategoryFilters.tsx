@@ -57,28 +57,28 @@ const CategoryFilters = () => {
   return (
     <div className="relative flex pt-4">
       {scrollX !== 0 && (
-        <div className="bg-transparent sticky right-0 bottom-0 px-2">
+        <div className="sticky right-0 bottom-0 bg-transparent px-2">
           <button
             type="button"
-            className="hover:bg-gray-500 hidden md:block focus:outline-none hover:bg-opacity-20 backdrop-blur-xl rounded-full p-2"
+            className="hidden rounded-full p-2 backdrop-blur-xl hover:bg-gray-500 hover:bg-opacity-20 focus:outline-none md:block"
             onClick={() => slide(-scrollOffset)}
           >
-            <ChevronLeftOutline className="w-4 h-4" />
+            <ChevronLeftOutline className="h-4 w-4" />
           </button>
         </div>
       )}
       <div
         ref={scrollRef}
-        className="flex items-center px-2 scroll-smooth overflow-x-auto touch-pan-x no-scrollbar gap-2 ultrawide:max-w-[110rem] md:mx-auto"
+        className="no-scrollbar ultrawide:max-w-[110rem] flex touch-pan-x items-center gap-2 overflow-x-auto scroll-smooth px-2 md:mx-auto"
       >
         <button
           type="button"
           onClick={() => onFilter('all')}
           className={clsx(
-            'px-3.5 capitalize py-1 text-xs border border-gray-200 dark:border-gray-700 rounded-full',
+            'rounded-full border border-gray-200 px-3.5 py-1 text-xs capitalize dark:border-gray-700',
             activeTagFilter === 'all'
               ? 'bg-black text-white'
-              : 'dark:bg-gray-800 bg-gray-100'
+              : 'bg-gray-100 dark:bg-gray-800'
           )}
         >
           All
@@ -89,10 +89,10 @@ const CategoryFilters = () => {
             onClick={() => onFilter(category.tag)}
             key={category.tag}
             className={clsx(
-              'px-3.5 capitalize py-1 text-xs border border-gray-200 dark:border-gray-700 rounded-full whitespace-nowrap',
+              'whitespace-nowrap rounded-full border border-gray-200 px-3.5 py-1 text-xs capitalize dark:border-gray-700',
               activeTagFilter === category.tag
                 ? 'bg-black text-white'
-                : 'dark:bg-gray-800 bg-gray-100'
+                : 'bg-gray-100 dark:bg-gray-800'
             )}
           >
             {category.name}
@@ -100,13 +100,13 @@ const CategoryFilters = () => {
         ))}
       </div>
       {!scrollEnd && (
-        <div className="bg-transparent sticky right-0 bottom-0 px-2">
+        <div className="sticky right-0 bottom-0 bg-transparent px-2">
           <button
             type="button"
-            className="hover:bg-gray-500 hidden md:block focus:outline-none hover:bg-opacity-20 backdrop-blur-xl rounded-full p-2"
+            className="hidden rounded-full p-2 backdrop-blur-xl hover:bg-gray-500 hover:bg-opacity-20 focus:outline-none md:block"
             onClick={() => slide(scrollOffset)}
           >
-            <ChevronRightOutline className="w-4 h-4" />
+            <ChevronRightOutline className="h-4 w-4" />
           </button>
         </div>
       )}

@@ -29,7 +29,9 @@ const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     logger.error('[API INVALID ORIGIN]', origin)
     return res.status(403).json({ success: false })
   }
-  if (req.method !== 'POST') return res.status(400).json({ success: false })
+  if (req.method !== 'POST') {
+    return res.status(400).json({ success: false })
+  }
   try {
     const stsClient = new STSClient({
       endpoint: EVER_ENDPOINT,

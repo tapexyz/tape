@@ -7,7 +7,7 @@ const ViewCount = ({ url }: { url: string }) => {
   return (
     <>
       <span>{views} views</span>
-      <span className="px-1 middot" />
+      <span className="middot px-1" />
     </>
   )
 }

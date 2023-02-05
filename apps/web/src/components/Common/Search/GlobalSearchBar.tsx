@@ -76,23 +76,23 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
     <div className="md:w-96">
       <div ref={resultsRef}>
         <div className="relative">
-          <div className="relative w-full overflow-hidden border border-gray-200 cursor-default dark:border-gray-700 rounded-full sm:text-sm">
+          <div className="relative w-full cursor-default overflow-hidden rounded-full border border-gray-200 dark:border-gray-700 sm:text-sm">
             <input
-              className="w-full py-2 pl-4 pr-10 text-sm bg-transparent focus:outline-none"
+              className="w-full bg-transparent py-2 pl-4 pr-10 text-sm focus:outline-none"
               onChange={(event) => setKeyword(event.target.value)}
               placeholder="Search by channel / hashtag"
               value={keyword}
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
               <SearchOutline
-                className="w-4 h-4 text-gray-400"
+                className="h-4 w-4 text-gray-400"
                 aria-hidden="true"
               />
             </div>
           </div>
           <div
             className={clsx(
-              'md:absolute w-full z-10 mt-1 text-base bg-white overflow-hidden dark:bg-theme rounded-xl ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
+              'dark:bg-theme z-10 mt-1 w-full overflow-hidden rounded-xl bg-white text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm md:absolute',
               { hidden: debouncedValue.length === 0 }
             )}
           >
@@ -101,7 +101,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                 <Tab
                   className={({ selected }) =>
                     clsx(
-                      'px-4 py-2 border-b-2 text-sm focus:outline-none w-full',
+                      'w-full border-b-2 px-4 py-2 text-sm focus:outline-none',
                       selected
                         ? 'border-indigo-500 opacity-100'
                         : 'border-transparent opacity-50 hover:bg-indigo-500/[0.12]'
@@ -116,7 +116,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                 <Tab
                   className={({ selected }) =>
                     clsx(
-                      'px-4 py-2 border-b-2 text-sm focus:outline-none w-full',
+                      'w-full border-b-2 px-4 py-2 text-sm focus:outline-none',
                       selected
                         ? 'border-indigo-500 opacity-100'
                         : 'border-transparent opacity-50 hover:bg-indigo-500/[0.12]'
@@ -130,7 +130,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                 </Tab>
               </Tab.List>
               <Tab.Panels>
-                <Tab.Panel className="overflow-y-auto max-h-[80vh] no-scrollbar focus:outline-none">
+                <Tab.Panel className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none">
                   {data?.search?.__typename === 'ProfileSearchResult' && (
                     <Channels
                       results={channels as Profile[]}
@@ -139,7 +139,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     />
                   )}
                 </Tab.Panel>
-                <Tab.Panel className="overflow-y-auto max-h-[80vh] no-scrollbar focus:outline-none">
+                <Tab.Panel className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none">
                   {data?.search?.__typename === 'PublicationSearchResult' && (
                     <Videos
                       results={channels as Publication[]}

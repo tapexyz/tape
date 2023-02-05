@@ -13,7 +13,7 @@ const DispatcherPermissions = () => {
           of your transactions.
         </p>
       </div>
-      <div className="flex justify-end mt-3">
+      <div className="mt-3 flex justify-end">
         <Toggle />
       </div>
     </div>

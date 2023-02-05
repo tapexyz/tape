@@ -1,3 +1,4 @@
+import ChannelCirclesShimmer from '@components/Shimmers/ChannelCirclesShimmer'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
@@ -20,7 +21,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
   const [showMutualSubscribersModal, setShowMutualSubscribersModal] =
     useState(false)
 
-  const { data } = useMutualFollowersQuery({
+  const { data, loading } = useMutualFollowersQuery({
     variables: {
       request: {
         viewingProfileId: viewingChannelId,
@@ -37,41 +38,43 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
   }
 
   const mutualSubscribers = data?.mutualFollowersProfiles?.items as Profile[]
-  const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount ?? 0
-  const moreCount = totalCount - FETCH_COUNT > 0 ? totalCount - FETCH_COUNT : 0
+
+  if (loading) {
+    return <ChannelCirclesShimmer />
+  }
 
   return (
-    <div className="flex mt-1 space-x-2 text-sm">
+    <div className="flex">
       <Tooltip content="Your friends already watching!" placement="top">
         <button
           type="button"
-          className="flex -space-x-1.5 cursor-pointer"
+          className="flex cursor-pointer -space-x-1.5"
           onClick={() => onClickMutuals()}
         >
           {mutualSubscribers?.map((channel: Profile) => (
             <img
               key={channel?.id}
               title={channel?.handle}
-              className="border rounded-full w-7 h-7 dark:border-gray-700/80"
+              className="h-7 w-7 rounded-full border dark:border-gray-700/80"
               src={getProfilePicture(channel)}
               draggable={false}
               alt={channel?.handle}
             />
           ))}
-          {moreCount ? (
-            <div className="flex items-center justify-center bg-white border rounded-full dark:bg-gray-900 w-7 h-7 dark:border-gray-700/80">
-              <span className="text-[10px]">+ {moreCount}</span>
-            </div>
-          ) : null}
+          <div className="flex h-7 w-7 flex-none items-center justify-center rounded-full border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
+            <span role="img" className="text-sm">
+              👀
+            </span>
+          </div>
         </button>
       </Tooltip>
       <Modal
-        title="Channels you may know"
+        title="People you may know"
         onClose={() => setShowMutualSubscribersModal(false)}
         show={showMutualSubscribersModal}
         panelClassName="max-w-md"
       >
-        <div className="max-h-[40vh] overflow-y-auto no-scrollbar">
+        <div className="no-scrollbar max-h-[40vh] overflow-y-auto">
           <MutualSubscribersList viewingChannelId={viewingChannelId} />
         </div>
       </Modal>

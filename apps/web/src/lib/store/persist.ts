@@ -12,10 +12,10 @@ interface AppPerisistState {
   refreshToken: Tokens['refreshToken']
   selectedChannelId: string | null
   sidebarCollapsed: boolean
-  notificationCount: number
+  latestNotificationId: string
   queuedVideos: QueuedVideoType[]
   queuedComments: QueuedCommentType[]
-  setNotificationCount: (count: number) => void
+  setLatestNotificationId: (id: string) => void
   setSidebarCollapsed: (collapsed: boolean) => void
   setSelectedChannelId: (id: string | null) => void
   setQueuedComments: (queuedComments: QueuedCommentType[]) => void
@@ -32,13 +32,14 @@ export const usePersistStore = create(
       refreshToken: null,
       selectedChannelId: null,
       sidebarCollapsed: true,
-      notificationCount: 0,
+      latestNotificationId: '',
       queuedComments: [],
       queuedVideos: [],
       setQueuedVideos: (queuedVideos) => set({ queuedVideos }),
       setQueuedComments: (queuedComments) => set({ queuedComments }),
       setSidebarCollapsed: (sidebarCollapsed) => set({ sidebarCollapsed }),
-      setNotificationCount: (notificationCount) => set({ notificationCount }),
+      setLatestNotificationId: (latestNotificationId) =>
+        set({ latestNotificationId }),
       setSelectedChannelId: (id) => set({ selectedChannelId: id }),
       signIn: ({ accessToken, refreshToken }) =>
         set({ accessToken, refreshToken }),

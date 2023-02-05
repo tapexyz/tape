@@ -19,22 +19,22 @@ const Videos: FC<Props> = ({ results, loading, clearSearch }) => {
         <div
           onClick={() => clearSearch()}
           key={result.id}
-          className="relative pl-3 pr-4 cursor-default select-none hover:bg-gray-100 dark:hover:bg-gray-900"
+          className="relative cursor-default select-none pl-3 pr-4 hover:bg-gray-100 dark:hover:bg-gray-900"
           role="button"
         >
           <Link
             href={`/watch/${result?.id}`}
             key={result?.id}
-            className="flex flex-col justify-center py-2 space-y-1 rounded-xl"
+            className="flex flex-col justify-center space-y-1 rounded-xl py-2"
           >
             <span className="flex items-center justify-between">
-              <div className="inline-flex items-center w-3/4 space-x-2">
-                <p className="text-base truncate line-clamp-1">
+              <div className="inline-flex w-3/4 items-center space-x-2">
+                <p className="line-clamp-1 truncate text-base">
                   {result?.metadata?.name}
                 </p>
               </div>
-              <span className="inline-flex items-center space-x-1 text-xs whitespace-nowrap opacity-60">
-                <LikeOutline className="w-3 h-3" />
+              <span className="inline-flex items-center space-x-1 whitespace-nowrap text-xs opacity-60">
+                <LikeOutline className="h-3 w-3" />
                 <span>{formatNumber(result.stats.totalUpvotes)}</span>
               </span>
             </span>
@@ -42,7 +42,7 @@ const Videos: FC<Props> = ({ results, loading, clearSearch }) => {
         </div>
       ))}
       {!results?.length && !loading && (
-        <div className="relative p-5 text-center cursor-default select-none">
+        <div className="relative cursor-default select-none p-5 text-center">
           No results found.
         </div>
       )}

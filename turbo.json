@@ -5,6 +5,10 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"]
     },
+    "export": {
+      "dependsOn": ["build"],
+      "outputs": ["out/**"]
+    },
     "e2e:test": { "dependsOn": ["^build"] },
     "lint": { "outputs": [] },
     "codegen": { "outputs": [] },

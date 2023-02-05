@@ -53,7 +53,9 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
     }
   })
 
-  if (loading) return <TimelineShimmer />
+  if (loading) {
+    return <TimelineShimmer />
+  }
 
   if (channelVideos?.length === 0) {
     return <NoDataFound isCenter withImage text="No mirrors found" />
@@ -64,7 +66,7 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
       {!error && !loading && (
         <div>
           <Timeline videos={channelVideos} videoType="Mirror" />
-          {pageInfo?.next && channelVideos.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>

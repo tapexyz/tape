@@ -51,7 +51,9 @@ const PublicationReaction: FC<Props> = ({
   })
 
   const likeVideo = () => {
-    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!selectedChannelId) {
+      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    }
     Analytics.track(TRACK.LIKE_VIDEO)
     setReaction((prev) => ({
       likeCount: prev.isLiked ? prev.likeCount - 1 : prev.likeCount + 1,
@@ -82,7 +84,9 @@ const PublicationReaction: FC<Props> = ({
   }
 
   const dislikeVideo = () => {
-    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!selectedChannelId) {
+      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    }
     Analytics.track(TRACK.DISLIKE_VIDEO)
     setReaction((prev) => ({
       likeCount: prev.isLiked ? prev.likeCount - 1 : prev.likeCount,
@@ -117,7 +121,7 @@ const PublicationReaction: FC<Props> = ({
       className={clsx(
         'flex items-center justify-end',
         isVertical
-          ? 'flex-col space-y-2.5 md:space-y-4 px-3'
+          ? 'flex-col space-y-2.5 px-3 md:space-y-4'
           : 'space-x-2.5 md:space-x-5'
       )}
     >
@@ -130,15 +134,15 @@ const PublicationReaction: FC<Props> = ({
             'flex items-center focus:outline-none',
             isVertical ? 'flex-col space-y-2' : 'space-x-1.5',
             {
-              'text-indigo-500 font-semibold': reaction.isLiked
+              'font-semibold text-indigo-500': reaction.isLiked
             }
           )}
         >
           <LikeOutline
             className={clsx({
-              'w-3.5 h-3.5': iconSize === 'sm',
-              'w-6 h-6': iconSize === 'lg',
-              'w-4 h-4': iconSize === 'base',
+              'h-3.5 w-3.5': iconSize === 'sm',
+              'h-6 w-6': iconSize === 'lg',
+              'h-4 w-4': iconSize === 'base',
               'text-indigo-500': reaction.isLiked
             })}
           />
@@ -172,9 +176,9 @@ const PublicationReaction: FC<Props> = ({
         >
           <DislikeOutline
             className={clsx({
-              'w-3.5 h-3.5': iconSize === 'sm',
-              'w-6 h-6': iconSize === 'lg',
-              'w-4 h-4': iconSize === 'base',
+              'h-3.5 w-3.5': iconSize === 'sm',
+              'h-6 w-6': iconSize === 'lg',
+              'h-4 w-4': iconSize === 'base',
               'text-indigo-500': reaction.isDisliked
             })}
           />

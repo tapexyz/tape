@@ -24,7 +24,6 @@ import {
   SCROLL_ROOT_MARGIN,
   TRACK
 } from 'utils'
-import { formatNumber } from 'utils/functions/formatNumber'
 
 import CollectedNotification from './Collected'
 import CommentedNotification from './Commented'
@@ -34,7 +33,7 @@ import ReactedNotification from './Reacted'
 import SubscribedNotification from './Subscribed'
 
 const initialFilters = {
-  all: true,
+  all: false,
   mentions: false,
   subscriptions: false,
   likes: false,
@@ -44,8 +43,8 @@ const initialFilters = {
 
 const Notifications = () => {
   const [activeFilter, setActiveFilter] = useState(initialFilters)
-  const setNotificationCount = usePersistStore(
-    (state) => state.setNotificationCount
+  const setLatestNotificationId = usePersistStore(
+    (state) => state.setLatestNotificationId
   )
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setHasNewNotification = useAppStore(
@@ -84,7 +83,9 @@ const Notifications = () => {
 
   const request = {
     limit: 30,
-    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+    sources: activeFilter.subscriptions
+      ? undefined
+      : [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: selectedChannel?.id,
     notificationTypes: getNotificationFilters()
@@ -95,10 +96,12 @@ const Notifications = () => {
       request
     },
     onCompleted: ({ notifications }) => {
-      if (notifications.pageInfo.__typename === 'PaginatedResultInfo') {
-        const totalCount = notifications?.pageInfo?.totalCount
+      if (
+        notifications.pageInfo.__typename === 'PaginatedResultInfo' &&
+        activeFilter.all
+      ) {
         setTimeout(() => {
-          setNotificationCount(totalCount ?? 0)
+          setLatestNotificationId(notifications.items[0].notificationId)
           setHasNewNotification(false)
         }, 1000)
       }
@@ -107,7 +110,6 @@ const Notifications = () => {
 
   const notifications = data?.notifications?.items as Notification[]
   const pageInfo = data?.notifications?.pageInfo
-  const totalCount = data?.notifications?.pageInfo.totalCount
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
@@ -124,11 +126,11 @@ const Notifications = () => {
   })
 
   return (
-    <div className="mx-auto md:p-0 px-2 my-2 md:container md:max-w-3xl">
+    <div className="mx-auto my-2 px-2 md:container md:max-w-3xl md:p-0">
       <MetaTags title="Notifications" />
       <Tab.Group as="div" className="w-full">
-        <div className="flex items-center justify-between mb-4">
-          <Tab.List className="flex w-full overflow-x-auto space-x-4 no-scrollbar">
+        <div className="mb-4 flex items-center justify-between">
+          <Tab.List className="no-scrollbar flex w-full space-x-4 overflow-x-auto">
             <Tab
               onClick={() => {
                 setActiveFilter({ ...initialFilters })
@@ -136,14 +138,14 @@ const Notifications = () => {
               }}
               className={({ selected }) =>
                 clsx(
-                  'py-2 flex px-1 items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                  'flex items-center space-x-2 border-b-2 py-2 px-1 text-sm focus:outline-none',
                   selected
                     ? 'border-indigo-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
             >
-              <BellOutline className="w-3.5 h-3.5" />
+              <BellOutline className="h-3.5 w-3.5" />
               <span className="whitespace-nowrap">All Notifications</span>
             </Tab>
             <Tab
@@ -153,14 +155,14 @@ const Notifications = () => {
               }}
               className={({ selected }) =>
                 clsx(
-                  'py-2 px-1 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                  'flex items-center space-x-2 border-b-2 py-2 px-1 text-sm focus:outline-none',
                   selected
                     ? 'border-indigo-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
             >
-              <SubscribeOutline className="w-3.5 h-3.5" />
+              <SubscribeOutline className="h-3.5 w-3.5" />
               <span>Subscriptions</span>
             </Tab>
             <Tab
@@ -170,14 +172,14 @@ const Notifications = () => {
               }}
               className={({ selected }) =>
                 clsx(
-                  'py-2 flex items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                  'flex items-center space-x-2 border-b-2 py-2 text-sm focus:outline-none',
                   selected
                     ? 'border-indigo-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
             >
-              <LikeOutline className="w-3.5 h-3.5" />
+              <LikeOutline className="h-3.5 w-3.5" />
               <span>Likes</span>
             </Tab>
             <Tab
@@ -187,14 +189,14 @@ const Notifications = () => {
               }}
               className={({ selected }) =>
                 clsx(
-                  'py-2 flex px-1 items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                  'flex items-center space-x-2 border-b-2 py-2 px-1 text-sm focus:outline-none',
                   selected
                     ? 'border-indigo-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
             >
-              <CommentOutline className="w-3.5 h-3.5" />
+              <CommentOutline className="h-3.5 w-3.5" />
               <span>Comments</span>
             </Tab>
             <Tab
@@ -204,14 +206,14 @@ const Notifications = () => {
               }}
               className={({ selected }) =>
                 clsx(
-                  'py-2 flex px-1 items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                  'flex items-center space-x-2 border-b-2 py-2 px-1 text-sm focus:outline-none',
                   selected
                     ? 'border-indigo-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
             >
-              <MentionOutline className="w-3.5 h-3.5" />
+              <MentionOutline className="h-3.5 w-3.5" />
               <span>Mentions</span>
             </Tab>
             <Tab
@@ -221,24 +223,17 @@ const Notifications = () => {
               }}
               className={({ selected }) =>
                 clsx(
-                  'py-2 flex px-1 items-center space-x-2 border-b-2 text-sm focus:outline-none',
+                  'flex items-center space-x-2 border-b-2 py-2 px-1 text-sm focus:outline-none',
                   selected
                     ? 'border-indigo-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
             >
-              <CollectOutline className="w-3.5 h-3.5" />
+              <CollectOutline className="h-3.5 w-3.5" />
               <span>Collected</span>
             </Tab>
           </Tab.List>
-          {totalCount && Boolean(totalCount) ? (
-            <div className="text-right hidden md:block">
-              <span className="text-xs opacity-50">
-                ({formatNumber(totalCount)})
-              </span>
-            </div>
-          ) : null}
         </div>
         <Tab.Panels>
           {loading && <NotificationsShimmer />}

@@ -13,7 +13,6 @@ query ProfileNFTs($request: NFTsRequest!) {
     }
     pageInfo {
       next
-      totalCount
     }
   }
 }

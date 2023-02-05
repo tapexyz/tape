@@ -23,7 +23,7 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
               .replace('http://', '')}`}
             target="_blank"
             rel="noreferer noreferrer"
-            className="p-2 bg-white rounded-lg dark:bg-gray-900 bg-opacity-80"
+            className="rounded-lg bg-white bg-opacity-80 p-2 dark:bg-gray-900"
           >
             <HiOutlineGlobe />
           </Link>
@@ -39,7 +39,7 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
             )}`}
             target="_blank"
             rel="noreferer noreferrer"
-            className="p-2 bg-white rounded-lg dark:bg-gray-900 bg-opacity-80"
+            className="rounded-lg bg-white bg-opacity-80 p-2 dark:bg-gray-900"
           >
             <RiTwitterLine />
           </Link>

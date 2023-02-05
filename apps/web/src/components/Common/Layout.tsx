@@ -78,7 +78,9 @@ const Layout: FC<Props> = ({ children }) => {
     skip: !selectedChannelId,
     onCompleted: (data) => {
       const channels = data?.profiles?.items as Profile[]
-      if (!channels.length) return resetAuthState()
+      if (!channels.length) {
+        return resetAuthState()
+      }
       setUserChannels(channels)
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
     },
@@ -119,7 +121,9 @@ const Layout: FC<Props> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, chain, disconnect, selectedChannelId])
 
-  if (loading || !mounted) return <FullPageLoader />
+  if (loading || !mounted) {
+    return <FullPageLoader />
+  }
 
   return (
     <>
@@ -149,8 +153,10 @@ const Layout: FC<Props> = ({ children }) => {
           )}
           <div
             className={clsx(
-              '2xl:py-6 py-4 ultrawide:max-w-[110rem] mx-auto md:px-3 ultrawide:px-0',
-              showFullScreen && '!p-0'
+              'ultrawide:px-0',
+              showFullScreen && '!p-0',
+              pathname !== '/channel/[channel]' &&
+                'ultrawide:max-w-[110rem] mx-auto py-4 md:px-3 2xl:py-6'
             )}
           >
             {children}

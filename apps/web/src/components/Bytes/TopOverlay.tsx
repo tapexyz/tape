@@ -12,7 +12,7 @@ const TopOverlay: FC<Props> = ({ onClickVideo }) => {
     <div
       role="button"
       onClick={() => onClickVideo()}
-      className="absolute top-0 z-[1] bottom-0 left-0 right-0 w-full outline-none cursor-default"
+      className="absolute top-0 bottom-0 left-0 right-0 z-[1] w-full cursor-default outline-none"
     >
       <div className="flex items-center justify-between">
         <div className="p-3 md:hidden">

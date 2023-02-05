@@ -28,10 +28,18 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
   })
 
   const getReasonType = (type: string) => {
-    if (type === 'ILLEGAL') return 'illegalReason'
-    if (type === 'FRAUD') return 'fraudReason'
-    if (type === 'SENSITIVE') return 'sensitiveReason'
-    if (type === 'SPAM') return 'spamReason'
+    if (type === 'ILLEGAL') {
+      return 'illegalReason'
+    }
+    if (type === 'FRAUD') {
+      return 'fraudReason'
+    }
+    if (type === 'SENSITIVE') {
+      return 'sensitiveReason'
+    }
+    if (type === 'SPAM') {
+      return 'spamReason'
+    }
     return 'illegalReason'
   }
 
@@ -81,7 +89,7 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
                 onChange={(e) => handleChange(e)}
                 value={reason}
                 name="report"
-                className="bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-200 dark:border-gray-800 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full"
+                className="w-full rounded-xl border border-gray-200 bg-white p-2.5 text-sm outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-800 dark:bg-gray-900"
                 id="report"
               >
                 <optgroup label="SPAM">
@@ -114,7 +122,7 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
                 </optgroup>
               </select>
             </div>
-            <div className="flex justify-end mt-4 mb-1">
+            <div className="mt-4 mb-1 flex justify-end">
               <Button loading={reporting} onClick={() => onReport()}>
                 Report
               </Button>

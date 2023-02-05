@@ -1,18 +1,19 @@
 {
   "name": "lens",
   "version": "0.0.0",
+  "license": "GPL-3.0",
   "main": "./generated.ts",
   "dependencies": {
-    "typescript": "4.9.4"
+    "typescript": "4.9.5"
   },
   "scripts": {
     "codegen": "graphql-codegen"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.16.4",
-    "@graphql-codegen/fragment-matcher": "^3.3.1",
-    "@graphql-codegen/typescript": "^2.8.6",
-    "@graphql-codegen/typescript-operations": "^2.5.11",
+    "@graphql-codegen/cli": "^3.0.0",
+    "@graphql-codegen/fragment-matcher": "^4.0.0",
+    "@graphql-codegen/typescript": "^3.0.0",
+    "@graphql-codegen/typescript-operations": "^3.0.0",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6"
   }
 }

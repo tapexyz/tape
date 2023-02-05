@@ -26,7 +26,7 @@ const Modal: FC<Props> = ({
       <Dialog
         as="div"
         className="relative z-20"
-        onClose={() => (autoClose ? null : onClose?.())}
+        onClose={() => (onClose && !autoClose ? onClose?.() : null)}
       >
         <Transition.Child
           as={Fragment}
@@ -41,7 +41,7 @@ const Modal: FC<Props> = ({
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex items-center justify-center h-full min-h-full p-4 text-center">
+          <div className="flex h-full min-h-full items-center justify-center p-4 text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -53,7 +53,7 @@ const Modal: FC<Props> = ({
             >
               <Dialog.Panel
                 className={clsx(
-                  'w-full p-5 py-5 overflow-x-hidden text-left align-middle transition-all transform shadow-xl bg-secondary rounded-2xl',
+                  'bg-secondary w-full transform overflow-x-hidden rounded-2xl p-5 py-5 text-left align-middle shadow-xl transition-all',
                   panelClassName
                 )}
               >
@@ -68,7 +68,7 @@ const Modal: FC<Props> = ({
                     {onClose && (
                       <button
                         type="button"
-                        className="p-1 bg-gray-100 rounded-md focus:outline-none dark:bg-gray-900"
+                        className="rounded-md bg-gray-100 p-1 focus:outline-none dark:bg-gray-900"
                         onClick={() => onClose?.()}
                       >
                         <MdOutlineClose />

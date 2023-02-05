@@ -191,8 +191,9 @@ const UploadSteps = () => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError')
+        if (data?.broadcast?.__typename === 'RelayError') {
           return writePostContract?.({ recklesslySetUnpreparedArgs: [args] })
+        }
       } catch {}
     },
     onError
@@ -329,7 +330,9 @@ const UploadSteps = () => {
         })
       }
     )
-    if (!result.url) return toast.error('IPFS Upload failed!')
+    if (!result.url) {
+      return toast.error('IPFS Upload failed!')
+    }
     setUploadedVideo({
       percent: 100,
       videoSource: result.url
@@ -423,7 +426,7 @@ const UploadSteps = () => {
   }
 
   return (
-    <div className="max-w-5xl gap-5 mx-auto my-10">
+    <div className="mx-auto my-10 max-w-5xl gap-5">
       <MetaTags title="Video Details" />
       <div className="mt-10">
         <Details onCancel={resetToDefaults} onUpload={onUpload} />

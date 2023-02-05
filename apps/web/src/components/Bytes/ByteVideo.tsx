@@ -1,5 +1,4 @@
 import CollectVideo from '@components/Watch/CollectVideo'
-import { ControlsContainer } from '@livepeer/react'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useRef } from 'react'
@@ -8,6 +7,7 @@ import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
+import useAverageColor from 'utils/hooks/useAverageColor'
 import VideoPlayer from 'web-ui/VideoPlayer'
 
 import BottomOverlay from './BottomOverlay'
@@ -20,9 +20,18 @@ type Props = {
 
 const ByteVideo: FC<Props> = ({ video }) => {
   const videoRef = useRef<HTMLMediaElement>()
+  const thumbnailUrl = imageCdn(
+    sanitizeIpfsUrl(getThumbnailUrl(video)),
+    'thumbnail_v'
+  )
+  const { color: backgroundColor } = useAverageColor(thumbnailUrl, true)
+
+  const currentPathId = location.pathname.split('/bytes/')[1]
 
   const playVideo = () => {
-    if (!videoRef.current) return
+    if (!videoRef.current) {
+      return
+    }
     videoRef.current.currentTime = 0
     videoRef.current.volume = 1
     videoRef.current.autoplay = true
@@ -30,7 +39,9 @@ const ByteVideo: FC<Props> = ({ video }) => {
   }
 
   const pauseVideo = () => {
-    if (!videoRef.current) return
+    if (!videoRef.current) {
+      return
+    }
     videoRef.current?.pause()
     videoRef.current.autoplay = false
   }
@@ -44,14 +55,19 @@ const ByteVideo: FC<Props> = ({ video }) => {
   }
 
   const refCallback = (ref: HTMLMediaElement) => {
-    if (!ref) return
+    if (!ref) {
+      return
+    }
     videoRef.current = ref
+    playVideo()
   }
 
   const { observe } = useInView({
     threshold: 1,
     onLeave: () => {
-      if (!videoRef.current) return
+      if (!videoRef.current) {
+        return
+      }
       pauseVideo()
     },
     onEnter: () => {
@@ -62,26 +78,42 @@ const ByteVideo: FC<Props> = ({ video }) => {
   })
 
   return (
-    <div ref={observe} className="flex justify-center md:mt-6 snap-center">
+    <div className="flex snap-center justify-center md:mt-6">
       <div className="relative">
-        <div className="md:rounded-xl overflow-hidden min-w-[250px] w-screen md:w-[350px] ultrawide:w-[407px] h-screen bg-black md:h-[calc(100vh-145px)]">
-          <VideoPlayer
-            refCallback={refCallback}
-            permanentUrl={getPublicationMediaUrl(video)}
-            posterUrl={imageCdn(
-              sanitizeIpfsUrl(getThumbnailUrl(video)),
-              'thumbnail_v'
-            )}
-            ratio="9to16"
-            publicationId={video.id}
-            options={{ autoPlay: false, muted: false, loop: true }}
-          >
-            <ControlsContainer />
-          </VideoPlayer>
+        <div
+          className="ultrawide:w-[407px] ultrawide:items-center flex h-screen w-screen min-w-[250px] overflow-hidden bg-black md:h-[calc(100vh-145px)] md:w-[350px] md:rounded-xl"
+          style={{
+            backgroundColor: backgroundColor ? backgroundColor : undefined
+          }}
+          ref={observe}
+        >
+          {currentPathId === video.id ? (
+            <VideoPlayer
+              refCallback={refCallback}
+              permanentUrl={getPublicationMediaUrl(video)}
+              posterUrl={thumbnailUrl}
+              ratio="9to16"
+              publicationId={video.id}
+              showControls={false}
+              options={{
+                autoPlay: false,
+                muted: false,
+                loop: true,
+                loadingSpinner: false
+              }}
+            />
+          ) : (
+            <img
+              className="w-full object-contain"
+              src={thumbnailUrl}
+              alt="thumbnail"
+              draggable={false}
+            />
+          )}
         </div>
         <TopOverlay onClickVideo={onClickVideo} />
         <BottomOverlay video={video} />
-        <div className="absolute md:hidden z-[1] right-2 bottom-[15%]">
+        <div className="absolute right-2 bottom-[15%] z-[1] md:hidden">
           <ByteActions video={video} />
           {video?.collectModule?.__typename !==
             'RevertCollectModuleSettings' && (
@@ -101,4 +133,4 @@ const ByteVideo: FC<Props> = ({ video }) => {
   )
 }
 
-export default ByteVideo
+export default React.memo(ByteVideo)

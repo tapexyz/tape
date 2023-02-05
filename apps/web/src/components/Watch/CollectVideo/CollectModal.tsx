@@ -97,9 +97,11 @@ const CollectModal: FC<Props> = ({
       collectModule?.amount &&
       parseFloat(balanceData?.formatted) <
         parseFloat(collectModule?.amount?.value)
-    )
+    ) {
       setHaveEnoughBalance(false)
-    else setHaveEnoughBalance(true)
+    } else {
+      setHaveEnoughBalance(true)
+    }
     if (collectModule?.amount?.asset?.address && selectedChannelId) {
       refetchAllowance()
     }
@@ -122,7 +124,7 @@ const CollectModal: FC<Props> = ({
       <div className="mt-4">
         {!fetchingCollectModule && !allowanceLoading ? (
           <>
-            <div className="flex flex-col mb-3">
+            <div className="mb-3 flex flex-col">
               <span className="text-sm">Total Collects</span>
               <span className="space-x-1">
                 <span className="text-lg">
@@ -131,7 +133,7 @@ const CollectModal: FC<Props> = ({
               </span>
             </div>
             {collectModule?.amount ? (
-              <div className="flex flex-col mb-3">
+              <div className="mb-3 flex flex-col">
                 <span className="text-sm">Price</span>
                 <span className="space-x-1">
                   <span className="text-2xl font-semibold">
@@ -142,7 +144,7 @@ const CollectModal: FC<Props> = ({
               </div>
             ) : null}
             {collectModule?.recipient ? (
-              <div className="flex flex-col mb-3">
+              <div className="mb-3 flex flex-col">
                 <span className="mb-0.5 text-sm">Recipient</span>
                 <AddressExplorerLink address={collectModule?.recipient}>
                   <span className="text-lg">
@@ -152,7 +154,7 @@ const CollectModal: FC<Props> = ({
               </div>
             ) : null}
             {revenueData?.publicationRevenue ? (
-              <div className="flex flex-col mb-3">
+              <div className="mb-3 flex flex-col">
                 <span className="text-xs">Revenue</span>
                 <span className="space-x-1">
                   <span className="text-2xl font-semibold">
@@ -164,7 +166,7 @@ const CollectModal: FC<Props> = ({
               </div>
             ) : null}
             {collectModule?.endTimestamp ? (
-              <div className="flex flex-col mb-3">
+              <div className="mb-3 flex flex-col">
                 <span className="mb-0.5 text-sm">Ends At</span>
                 <span className="text-lg">
                   {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
@@ -173,7 +175,7 @@ const CollectModal: FC<Props> = ({
               </div>
             ) : null}
             {collectModule?.referralFee ? (
-              <div className="flex flex-col mb-3">
+              <div className="mb-3 flex flex-col">
                 <span className="mb-0.5 text-sm">Referral Fee</span>
                 <span className="text-lg">{collectModule.referralFee} %</span>
               </div>
@@ -190,7 +192,7 @@ const CollectModal: FC<Props> = ({
                     </Alert>
                   </div>
                 ) : balanceLoading && !haveEnoughBalance ? (
-                  <div className="flex justify-center w-full py-2">
+                  <div className="flex w-full justify-center py-2">
                     <Loader />
                   </div>
                 ) : haveEnoughBalance ? (

@@ -147,8 +147,9 @@ const Membership = ({ channel }: Props) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.__typename === 'RelayError')
+          if (data?.broadcast?.__typename === 'RelayError') {
             writeFollow?.({ recklesslySetUnpreparedArgs: [args] })
+          }
         } catch {
           setLoading(false)
         }
@@ -184,7 +185,7 @@ const Membership = ({ channel }: Props) => {
   }
 
   return (
-    <div className="p-4 bg-white rounded-xl dark:bg-theme">
+    <div className="dark:bg-theme rounded-xl bg-white p-4">
       <div className="mb-5">
         <h1 className="mb-1 text-xl font-semibold">Grow with Lens</h1>
         <p className="text opacity-80">
@@ -200,13 +201,13 @@ const Membership = ({ channel }: Props) => {
       )}
 
       {activeFollowModule?.amount && (
-        <div className="p-6 mb-6 border transition-all w-full bg-gradient-to-r from-[#41AAD4]/20 to-[#41EAD4]/20 rounded-xl dark:border-gray-800">
+        <div className="mb-6 w-full rounded-xl border bg-gradient-to-r from-[#41AAD4]/20 to-[#41EAD4]/20 p-6 transition-all dark:border-gray-800">
           <div className="grid gap-y-4 md:grid-cols-3">
             <div>
               <span className="text-xs font-medium uppercase opacity-50">
                 Amount
               </span>
-              <h6 className="text-xl text-semibold">
+              <h6 className="text-semibold text-xl">
                 {activeFollowModule.amount?.value}{' '}
                 {activeFollowModule.amount?.asset?.symbol}
               </h6>
@@ -215,7 +216,7 @@ const Membership = ({ channel }: Props) => {
               <span className="text-xs font-medium uppercase opacity-50">
                 Token
               </span>
-              <h6 className="text-xl text-semibold">
+              <h6 className="text-semibold text-xl">
                 {activeFollowModule.amount?.asset?.name}
               </h6>
             </div>
@@ -224,7 +225,7 @@ const Membership = ({ channel }: Props) => {
                 Recipient
               </span>
               <AddressExplorerLink address={activeFollowModule.recipient}>
-                <span className="block text-xl outline-none text-semibold">
+                <span className="text-semibold block text-xl outline-none">
                   {shortenAddress(activeFollowModule.recipient)}
                 </span>
               </AddressExplorerLink>
@@ -237,14 +238,14 @@ const Membership = ({ channel }: Props) => {
         <form onSubmit={handleSubmit(onSubmitForm)}>
           <div className="grid gap-3 md:grid-cols-2">
             <div>
-              <div className="flex items-center mb-1 space-x-1.5">
+              <div className="mb-1 flex items-center space-x-1.5">
                 <div className="text-[11px] font-semibold uppercase opacity-70">
                   Currency
                 </div>
               </div>
               <select
                 autoComplete="off"
-                className="bg-white text-sm p-2.5 rounded-xl dark:bg-gray-900 border border-gray-300 dark:border-gray-700 disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 outline-none w-full"
+                className="w-full rounded-xl border border-gray-300 bg-white p-2.5 text-sm outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900"
                 value={watch('token')}
                 onChange={(e) => setValue('token', e.target.value)}
               >
@@ -283,7 +284,7 @@ const Membership = ({ channel }: Props) => {
               />
             </div>
           </div>
-          <div className="flex justify-end mt-4 space-x-2">
+          <div className="mt-4 flex justify-end space-x-2">
             {activeFollowModule && (
               <Button variant="hover" onClick={() => setShowForm(false)}>
                 Cancel

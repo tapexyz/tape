@@ -19,7 +19,7 @@ const BalanceAlert: FC<Props> = ({ collectModule }) => {
   return (
     <div className="flex-1">
       <Alert variant="warning">
-        <div className="flex items-center justify-between flex-1 text-sm">
+        <div className="flex flex-1 items-center justify-between text-sm">
           <span>
             Not enough {collectModule?.amount?.asset?.symbol} token balance
           </span>

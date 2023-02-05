@@ -41,13 +41,16 @@ const MirroredList: FC<Props> = ({ videoId }) => {
     }
   })
 
-  if (loading) return <Loader />
-  if (mirroredByProfiles?.length === 0)
+  if (loading) {
+    return <Loader />
+  }
+  if (mirroredByProfiles?.length === 0) {
     return (
       <div className="pt-5">
         <NoDataFound text="No mirrors yet" isCenter />
       </div>
     )
+  }
 
   return (
     <div className="mt-4 space-y-3">
@@ -55,11 +58,11 @@ const MirroredList: FC<Props> = ({ videoId }) => {
         <div className="flex flex-col" key={profile.ownedBy}>
           <Link
             href={`/channel/${profile?.handle}`}
-            className="flex items-center justify-between font-base"
+            className="font-base flex items-center justify-between"
           >
             <div className="flex items-center space-x-1.5">
               <img
-                className="w-5 h-5 rounded"
+                className="h-5 w-5 rounded"
                 src={getProfilePicture(profile, 'avatar')}
                 alt={profile.handle}
                 draggable={false}
@@ -69,14 +72,14 @@ const MirroredList: FC<Props> = ({ videoId }) => {
                 <IsVerified id={profile?.id} size="xs" />
               </div>
             </div>
-            <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">
+            <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
               <BiUser />
               <span>{profile.stats.totalFollowers}</span>
             </div>
           </Link>
         </div>
       ))}
-      {pageInfo?.next && mirroredByProfiles.length !== pageInfo?.totalCount && (
+      {pageInfo?.next && (
         <span ref={observe} className="p-5">
           <Loader />
         </span>

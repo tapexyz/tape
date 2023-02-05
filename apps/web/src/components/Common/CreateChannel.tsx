@@ -136,14 +136,13 @@ const CreateChannel = () => {
               {...register('channelName')}
               label="Channel Name"
               type="text"
-              placeholder="T Series"
+              placeholder="lenstubechannel"
               autoComplete="off"
               validationError={errors.channelName?.message}
             />
           </div>
-
           <div className="flex items-center justify-between">
-            <span className="flex-wrap w-2/3">
+            <span className="w-2/3 flex-wrap">
               {data?.createProfile?.__typename === 'RelayError' && (
                 <div>
                   <p className="text-xs font-medium text-red-500">

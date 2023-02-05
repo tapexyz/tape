@@ -14,10 +14,10 @@ type Props = {
 const VideoOverlay: FC<Props> = ({ video, clicked }) => {
   return (
     <div className="absolute top-0 z-10 w-full text-white">
-      <div className="flex items-center justify-between p-3.5 pb-6 space-x-6 bg-gradient-to-b via-black/30 to-transparent from-black/80">
-        <div className="flex items-center flex-1">
+      <div className="flex items-center justify-between space-x-6 bg-gradient-to-b from-black/80 via-black/30 to-transparent p-3.5 pb-6">
+        <div className="flex flex-1 items-center">
           <Link
-            className="flex-none mr-3 cursor-pointer"
+            className="mr-3 flex-none cursor-pointer"
             href={`${LENSTUBE_WEBSITE_URL}/channel/${video?.profile?.handle}`}
             target="_blank"
             onClick={() =>
@@ -26,14 +26,14 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
           >
             <img
               src={getProfilePicture(video?.profile)}
-              className="w-9 h-9 rounded-full"
+              className="h-9 w-9 rounded-full"
               draggable={false}
               alt={video?.profile?.handle}
             />
           </Link>
           <div className="flex flex-col">
             <Link
-              className="break-words line-clamp-1 leading-5"
+              className="line-clamp-1 break-words leading-5"
               href={`${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`}
               onClick={() =>
                 Analytics.track(TRACK.EMBED_VIDEO.CLICK_EMBED_TITLE)
@@ -45,7 +45,7 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
               </h1>
             </Link>
             <Link
-              className="leading-3 break-words line-clamp-1"
+              className="line-clamp-1 break-words leading-3"
               href={`${LENSTUBE_WEBSITE_URL}/channel/${video?.profile.handle}`}
               target="_blank"
               onClick={() =>
@@ -70,7 +70,7 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
               <img
                 src={`${STATIC_ASSETS}/images/brand/bg-indigo.png`}
                 draggable={false}
-                className="w-8 h-8 ml-0.5 rounded-full"
+                className="ml-0.5 h-8 w-8 rounded-full"
                 alt="lenstube"
               />
             </Link>

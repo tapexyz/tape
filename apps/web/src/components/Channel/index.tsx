@@ -9,8 +9,8 @@ import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 import { Analytics, TRACK } from 'utils'
 
-import Activities from './Activities'
 import BasicInfo from './BasicInfo'
+import Tabs from './Tabs'
 
 const Channel = () => {
   const { query } = useRouter()
@@ -29,9 +29,15 @@ const Channel = () => {
     skip: !handle
   })
 
-  if (error) return <Custom500 />
-  if (loading || !data) return <ChannelShimmer />
-  if (!data?.profile) return <Custom404 />
+  if (error) {
+    return <Custom500 />
+  }
+  if (loading || !data) {
+    return <ChannelShimmer />
+  }
+  if (!data?.profile) {
+    return <Custom404 />
+  }
 
   const channel = data?.profile as Profile
 
@@ -41,7 +47,7 @@ const Channel = () => {
       {!loading && !error && channel ? (
         <>
           <BasicInfo channel={channel} />
-          <Activities channel={channel} />
+          <Tabs channel={channel} />
         </>
       ) : null}
     </>

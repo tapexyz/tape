@@ -1,6 +1,7 @@
 query ProfileMirrors(
   $request: PublicationsQueryRequest!
   $reactionRequest: ReactionFieldResolverRequest
+  $channelId: ProfileId
 ) {
   publications(request: $request) {
     items {
@@ -9,7 +10,6 @@ query ProfileMirrors(
       }
     }
     pageInfo {
-      totalCount
       next
     }
   }

@@ -44,13 +44,16 @@ const SubscribersList: FC<Props> = ({ channel }) => {
     }
   })
 
-  if (loading) return <Loader />
-  if (subscribers?.length === 0)
+  if (loading) {
+    return <Loader />
+  }
+  if (subscribers?.length === 0) {
     return (
       <div className="pt-5">
         <NoDataFound text="No subscribers" isCenter />
       </div>
     )
+  }
 
   return (
     <div className="mt-4 space-y-3">
@@ -59,11 +62,11 @@ const SubscribersList: FC<Props> = ({ channel }) => {
           {subscriber.wallet?.defaultProfile ? (
             <Link
               href={`/channel/${subscriber.wallet?.defaultProfile?.handle}`}
-              className="flex items-center justify-between font-base"
+              className="font-base flex items-center justify-between"
             >
               <div className="flex items-center space-x-1.5">
                 <img
-                  className="w-5 h-5 rounded"
+                  className="h-5 w-5 rounded"
                   src={getProfilePicture(
                     subscriber.wallet?.defaultProfile,
                     'avatar'
@@ -79,7 +82,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
                   />
                 </div>
               </div>
-              <div className="flex items-center space-x-1 text-xs whitespace-nowrap opacity-80">
+              <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
                 <BiUser />
                 <span>
                   {formatNumber(
@@ -90,9 +93,9 @@ const SubscribersList: FC<Props> = ({ channel }) => {
             </Link>
           ) : (
             <AddressExplorerLink address={subscriber.wallet?.address}>
-              <div className="flex items-center space-x-1.5 font-base">
+              <div className="font-base flex items-center space-x-1.5">
                 <img
-                  className="w-5 h-5 rounded"
+                  className="h-5 w-5 rounded"
                   src={imageCdn(
                     getRandomProfilePicture(subscriber.wallet.address),
                     'avatar'
@@ -106,7 +109,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
           )}
         </div>
       ))}
-      {pageInfo?.next && subscribers.length !== pageInfo?.totalCount && (
+      {pageInfo?.next && (
         <span ref={observe} className="p-5">
           <Loader />
         </span>

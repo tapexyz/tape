@@ -63,12 +63,12 @@ const Curated = () => {
       {loading && <EchosShimmer />}
       {!error && !loading && videos && (
         <>
-          <div className="grid place-items-center mx-auto grid-cols-2 md:gap-3 gap-2 mt-4 desktop:grid-cols-6 ultrawide:grid-cols-7 md:grid-cols-3 laptop:grid-cols-4">
+          <div className="desktop:grid-cols-6 ultrawide:grid-cols-7 laptop:grid-cols-4 mx-auto mt-4 grid grid-cols-2 place-items-center gap-2 md:grid-cols-3 md:gap-3">
             {videos?.map((publication: Publication) => (
               <Item publication={publication} key={publication.id} />
             ))}
           </div>
-          {pageInfo?.next && videos.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>

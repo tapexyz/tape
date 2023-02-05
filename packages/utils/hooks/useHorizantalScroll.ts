@@ -4,9 +4,13 @@ const useHorizontalScroll = () => {
   const elRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const el = elRef.current
-    if (!el) return
+    if (!el) {
+      return
+    }
     const handleWheelEvent = (e: any) => {
-      if (e.deltaY === 0) return
+      if (e.deltaY === 0) {
+        return
+      }
       e.preventDefault()
       el.scrollTo({
         left: el.scrollLeft + e.deltaY,

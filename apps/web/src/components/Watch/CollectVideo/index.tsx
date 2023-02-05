@@ -147,7 +147,9 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
   }
 
   const onClickCollect = () => {
-    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!selectedChannelId) {
+      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    }
     return setShowCollectModal(true)
   }
 
@@ -195,7 +197,7 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
             {loading ? (
               <Loader size="md" />
             ) : (
-              <CollectOutline className="w-5 h-5" />
+              <CollectOutline className="h-5 w-5" />
             )}
           </button>
         </div>

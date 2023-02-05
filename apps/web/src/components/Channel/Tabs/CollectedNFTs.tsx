@@ -45,7 +45,9 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
     }
   })
 
-  if (loading) return <TimelineShimmer />
+  if (loading) {
+    return <TimelineShimmer />
+  }
 
   if (data?.nfts?.items?.length === 0) {
     return <NoDataFound isCenter withImage text="No NFTs found" />
@@ -55,7 +57,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
     <div className="w-full">
       {!error && !loading && (
         <>
-          <div className="grid gap-x-4 2xl:grid-cols-5 md:gap-y-8 gap-y-2 ultrawide:grid-cols-6 laptop:grid-cols-4 md:grid-cols-2 grid-col-1">
+          <div className="ultrawide:grid-cols-6 laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-2 md:gap-y-8 2xl:grid-cols-5">
             {collectedNFTs?.map((nft: Nft) => (
               <NFTCard
                 key={`${nft.contractAddress}_${nft.tokenId}`}
@@ -63,7 +65,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
               />
             ))}
           </div>
-          {pageInfo?.next && collectedNFTs.length !== pageInfo?.totalCount && (
+          {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>

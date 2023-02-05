@@ -26,8 +26,9 @@ const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     logger.error('[API INVALID ORIGIN]', origin)
     return res.status(403).json({ url: null, id: null, success: false })
   }
-  if (req.method !== 'POST' || !req.body)
+  if (req.method !== 'POST' || !req.body) {
     return res.status(400).json({ url: null, id: null, success: false })
+  }
   try {
     const payload = JSON.stringify(req.body)
     const bundlr = new Bundlr(

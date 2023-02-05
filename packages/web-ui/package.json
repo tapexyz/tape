@@ -7,12 +7,13 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "mux-embed": "^4.17.0",
+    "mux-embed": "^4.19.0",
     "wavesurfer.js": "^6.4.0"
   },
   "devDependencies": {
     "@types/wavesurfer.js": "^6.0.3",
-    "typescript": "4.9.4",
+    "prettier-plugin-tailwindcss": "^0.2.2",
+    "typescript": "4.9.5",
     "utils": "*"
   }
 }

@@ -21,10 +21,10 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
         {notification?.wallet?.defaultProfile ? (
           <Link
             href={`/channel/${notification?.wallet?.defaultProfile?.handle}`}
-            className="inline-flex items-center space-x-1.5 font-base"
+            className="font-base inline-flex items-center space-x-1.5"
           >
             <img
-              className="w-5 h-5 rounded-full"
+              className="h-5 w-5 rounded-full"
               src={getProfilePicture(
                 notification.wallet?.defaultProfile,
                 'avatar'
@@ -42,9 +42,9 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
           </Link>
         ) : (
           <AddressExplorerLink address={notification?.wallet?.address}>
-            <span className="inline-flex items-center space-x-1.5 font-base">
+            <span className="font-base inline-flex items-center space-x-1.5">
               <img
-                className="w-5 h-5 rounded-full"
+                className="h-5 w-5 rounded-full"
                 src={imageCdn(
                   getRandomProfilePicture(notification.wallet.address),
                   'avatar'
@@ -66,10 +66,12 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
             href={`/watch/${notification?.collectedPublication.id}`}
             className="ml-1 text-indigo-500"
           >
-            video
+            {notification.collectedPublication.__typename === 'Mirror'
+              ? 'mirror'
+              : 'video'}
           </Link>
         </span>
-        <div className="flex items-center dark:text-gray-300 text-gray-700">
+        <div className="flex items-center text-gray-700 dark:text-gray-300">
           <span>{getRelativeTime(notification?.createdAt)}</span>
         </div>
       </div>

@@ -91,10 +91,10 @@ const UserMenu = () => {
       trigger={
         <button
           onClick={() => Analytics.track(TRACK.CLICK_USER_MENU)}
-          className="btn-primary flex-none hover:ring-4 dark:ring-gray-800 ring-gray-200"
+          className="btn-primary flex-none ring-gray-200 hover:ring-4 dark:ring-gray-800"
         >
           <img
-            className="object-cover bg-white rounded-full dark:bg-theme w-8 h-8 md:w-9 md:h-9"
+            className="dark:bg-theme h-8 w-8 rounded-full bg-white object-cover md:h-9 md:w-9"
             src={getProfilePicture(selectedChannel)}
             alt={selectedChannel.handle}
             draggable={false}
@@ -102,29 +102,29 @@ const UserMenu = () => {
         </button>
       }
     >
-      <div className="mt-2 border dark:border-gray-800 shadow w-56 overflow-hidden rounded-xl dark:bg-black bg-gray-100">
-        <div className="m-1.5 dark:bg-theme bg-white rounded-xl overflow-hidden">
+      <div className="mt-2 w-56 overflow-hidden rounded-xl border bg-gray-100 shadow dark:border-gray-800 dark:bg-black">
+        <div className="dark:bg-theme m-1.5 overflow-hidden rounded-xl bg-white">
           {showAccountSwitcher ? (
             <>
               <button
                 type="button"
-                className="flex opacity-70 pl-2 outline-none items-center space-x-2"
+                className="flex items-center space-x-2 pl-2 opacity-70 outline-none"
                 onClick={() => setShowAccountSwitcher(false)}
               >
-                <ChevronLeftOutline className="w-3 h-3" />
+                <ChevronLeftOutline className="h-3 w-3" />
                 <span className="py-2 text-sm">Channels</span>
               </button>
               <div className="py-1 text-sm">
                 {channels?.map((channel) => (
                   <button
                     type="button"
-                    className="flex w-full justify-between items-center px-2 py-1.5 space-x-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="flex w-full items-center justify-between space-x-2 rounded-lg px-2 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
                     key={channel.id}
                     onClick={() => onSelectChannel(channel)}
                   >
                     <span className="inline-flex items-center space-x-1.5">
                       <img
-                        className="w-6 h-6 rounded-lg"
+                        className="h-6 w-6 rounded-lg"
                         src={getProfilePicture(channel)}
                         alt={channel.handle}
                         draggable={false}
@@ -134,7 +134,7 @@ const UserMenu = () => {
                       </span>
                     </span>
                     {selectedChannel?.id === channel.id && (
-                      <CheckOutline className="w-3 h-3" />
+                      <CheckOutline className="h-3 w-3" />
                     )}
                   </button>
                 ))}
@@ -142,11 +142,11 @@ const UserMenu = () => {
             </>
           ) : (
             <>
-              <div className="flex flex-col space-y-1 text-sm transition duration-150 ease-in-out rounded-lg">
-                <div className="inline-flex items-center p-3 space-x-2 rounded-lg">
+              <div className="flex flex-col space-y-1 rounded-lg text-sm transition duration-150 ease-in-out">
+                <div className="inline-flex items-center space-x-2 rounded-lg p-3">
                   <Link href={`/channel/${selectedChannel?.handle}`}>
                     <img
-                      className="object-cover rounded-full w-9 h-9"
+                      className="h-9 w-9 rounded-full object-cover"
                       src={getProfilePicture(selectedChannel, 'avatar')}
                       alt={selectedChannel.handle}
                       draggable={false}
@@ -157,7 +157,7 @@ const UserMenu = () => {
                     <Link href={`/channel/${selectedChannel?.handle}`}>
                       <h6
                         title={selectedChannel?.handle}
-                        className="text-base truncate leading-4"
+                        className="truncate text-base leading-4"
                       >
                         {selectedChannel?.handle}
                       </h6>
@@ -170,9 +170,9 @@ const UserMenu = () => {
                   <Menu.Item
                     as={NextLink}
                     href="/stats"
-                    className="inline-flex items-center w-full px-3 py-2 space-x-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="inline-flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
-                    <GraphOutline className="w-4 h-4" />
+                    <GraphOutline className="h-4 w-4" />
                     <span className="truncate whitespace-nowrap">App Info</span>
                   </Menu.Item>
                 )}
@@ -181,22 +181,22 @@ const UserMenu = () => {
                     <Menu.Item
                       as={NextLink}
                       href={`/channel/${selectedChannel?.handle}`}
-                      className="inline-flex items-center w-full px-3 py-2 space-x-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      className="inline-flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     >
-                      <ChannelOutline className="w-4 h-4" />
+                      <ChannelOutline className="h-4 w-4" />
                       <span className="truncate whitespace-nowrap">
                         Your Channel
                       </span>
                     </Menu.Item>
                     <button
                       type="button"
-                      className="inline-flex items-center w-full px-3 py-2 space-x-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      className="inline-flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                       onClick={() => {
                         onSelectSwitchChannel()
                         Analytics.track(TRACK.CLICK_SWITCH_CHANNEL)
                       }}
                     >
-                      <SwitchChannelOutline className="w-4 h-4" />
+                      <SwitchChannelOutline className="h-4 w-4" />
                       <span className="truncate whitespace-nowrap">
                         Switch channel
                       </span>
@@ -206,10 +206,10 @@ const UserMenu = () => {
                 {!IS_MAINNET && (
                   <button
                     type="button"
-                    className="flex items-center w-full px-3 py-2 space-x-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     onClick={() => setShowCreateChannel(true)}
                   >
-                    <PlusOutline className="w-4 h-4" />
+                    <PlusOutline className="h-4 w-4" />
                     <span className="truncate whitespace-nowrap">
                       Create Channel
                     </span>
@@ -217,16 +217,16 @@ const UserMenu = () => {
                 )}
                 <Link
                   href="/settings"
-                  className="flex items-center w-full px-3 py-2 space-x-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
-                  <CogOutline className="w-4 h-4" />
+                  <CogOutline className="h-4 w-4" />
                   <span className="truncate whitespace-nowrap">
                     Channel Settings
                   </span>
                 </Link>
                 <button
                   type="button"
-                  className="flex items-center w-full px-3 py-2 space-x-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => {
                     setTheme(theme === 'dark' ? 'light' : 'dark')
                     Analytics.track(
@@ -237,9 +237,9 @@ const UserMenu = () => {
                   }}
                 >
                   {theme === 'dark' ? (
-                    <SunOutline className="w-4 h-4" />
+                    <SunOutline className="h-4 w-4" />
                   ) : (
-                    <MoonOutline className="w-4 h-4" />
+                    <MoonOutline className="h-4 w-4" />
                   )}
                   <span className="truncate whitespace-nowrap">
                     {theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}
@@ -247,14 +247,14 @@ const UserMenu = () => {
                 </button>
                 <button
                   type="button"
-                  className="flex items-center w-full px-3 py-2 space-x-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => {
                     disconnect?.()
                     signOut()
                     Analytics.track(TRACK.AUTH.CLICK_SIGN_OUT)
                   }}
                 >
-                  <HandWaveOutline className="w-4 h-4" />
+                  <HandWaveOutline className="h-4 w-4" />
                   <span className="truncate whitespace-nowrap">Sign out</span>
                 </button>
               </div>
@@ -263,14 +263,14 @@ const UserMenu = () => {
         </div>
         {IS_MAINNET && (
           <Link
-            className="px-5 m-0.5 pb-3 pt-2 flex items-center space-x-2"
+            className="m-0.5 flex items-center space-x-2 px-5 pb-3 pt-2"
             href={LENSTUBE_STATUS_PAGE}
             target="_blank"
             onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
           >
             <span
               className={clsx(
-                'rounded-full h-2 w-2',
+                'h-2 w-2 rounded-full',
                 statusData?.ok ? 'bg-green-500' : 'bg-red-500'
               )}
             />

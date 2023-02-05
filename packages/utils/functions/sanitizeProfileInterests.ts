@@ -1,7 +1,9 @@
 import type { ProfileInterest } from '../custom-types'
 
 const sanitizeProfileInterests = (profileInterests: string[]) => {
-  if (!profileInterests) return []
+  if (!profileInterests) {
+    return []
+  }
   const interests: Array<ProfileInterest> = []
   const categories = profileInterests.filter(
     (interest) => !interest.includes('__')

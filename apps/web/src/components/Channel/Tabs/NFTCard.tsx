@@ -12,18 +12,18 @@ type Props = {
 
 const NFTCard: FC<Props> = ({ nft }) => {
   return (
-    <div className="rounded-xl group">
+    <div className="group rounded-xl">
       <div className="aspect-h-9 aspect-w-16">
         {nft?.originalContent?.animatedUrl ? (
           <iframe
             sandbox="allow-scripts"
-            className="w-full h-full md:rounded-xl"
+            className="h-full w-full md:rounded-xl"
             src={nft?.originalContent?.animatedUrl}
             title={nft.name}
           />
         ) : (
           <img
-            className="object-cover w-full h-full rounded-t-xl"
+            className="h-full w-full rounded-t-xl object-cover"
             src={imageCdn(
               nft.originalContent?.uri
                 ? sanitizeIpfsUrl(nft.originalContent?.uri)
@@ -42,10 +42,15 @@ const NFTCard: FC<Props> = ({ nft }) => {
         rel="noreferer noreferrer"
       >
         <div className="p-3">
-          <div className="text-xs text-gray-500 uppercase truncate">
+          <div className="truncate text-xs uppercase text-gray-500">
             {nft.collectionName}
           </div>
-          <div className="line-clamp-2">{nft.name}</div>
+          <div
+            title={nft.name}
+            className="line-clamp-2 ultrawide:line-clamp-1 ultrawide:break-all"
+          >
+            {nft.name}
+          </div>
         </div>
       </Link>
     </div>
