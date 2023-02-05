@@ -86,7 +86,9 @@ const DangerZone = () => {
     })
   }
 
-  if (!selectedChannel) return <Custom404 />
+  if (!selectedChannel) {
+    return <Custom404 />
+  }
 
   return (
     <div className="dark:bg-theme rounded-lg bg-white p-4 dark:divide-gray-900">

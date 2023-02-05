@@ -45,11 +45,12 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
 
   const onCompleted = () => {
     setLoading(false)
-    if (selectedChannel && selectedPfp)
+    if (selectedChannel && selectedPfp) {
       setSelectedChannel({
         ...selectedChannel,
         picture: { original: { url: selectedPfp } }
       })
+    }
     toast.success('Channel image updated')
   }
 
@@ -99,8 +100,9 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.__typename === 'RelayError')
+          if (data?.broadcast?.__typename === 'RelayError') {
             writePfpUri?.({ recklesslySetUnpreparedArgs: [args] })
+          }
         } catch {
           setLoading(false)
         }

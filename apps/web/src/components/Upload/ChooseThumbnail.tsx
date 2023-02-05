@@ -68,7 +68,9 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       const ipfsResult = await uploadThumbnailToIpfs(imageFile)
       setThumbnails(
         thumbnailList.map((t, i) => {
-          if (i === DEFAULT_THUMBNAIL_INDEX) t.ipfsUrl = ipfsResult?.url
+          if (i === DEFAULT_THUMBNAIL_INDEX) {
+            t.ipfsUrl = ipfsResult?.url
+          }
           return t
         })
       )
@@ -78,10 +80,11 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   }
 
   useEffect(() => {
-    if (file)
+    if (file) {
       generateThumbnails(file).catch((error) =>
         logger.error('[Error Generate Thumbnails from File]', error)
       )
+    }
     return () => {
       setSelectedThumbnailIndex(-1)
       setThumbnails([])
@@ -129,7 +132,9 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       const ipfsResult = await uploadThumbnailToIpfs(selectedImage)
       setThumbnails(
         thumbnails.map((t, i) => {
-          if (i === index) t.ipfsUrl = ipfsResult.url
+          if (i === index) {
+            t.ipfsUrl = ipfsResult.url
+          }
           return t
         })
       )

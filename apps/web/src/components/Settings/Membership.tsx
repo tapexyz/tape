@@ -147,8 +147,9 @@ const Membership = ({ channel }: Props) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.__typename === 'RelayError')
+          if (data?.broadcast?.__typename === 'RelayError') {
             writeFollow?.({ recklesslySetUnpreparedArgs: [args] })
+          }
         } catch {
           setLoading(false)
         }

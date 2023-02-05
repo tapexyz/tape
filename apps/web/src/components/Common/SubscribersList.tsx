@@ -44,13 +44,16 @@ const SubscribersList: FC<Props> = ({ channel }) => {
     }
   })
 
-  if (loading) return <Loader />
-  if (subscribers?.length === 0)
+  if (loading) {
+    return <Loader />
+  }
+  if (subscribers?.length === 0) {
     return (
       <div className="pt-5">
         <NoDataFound text="No subscribers" isCenter />
       </div>
     )
+  }
 
   return (
     <div className="mt-4 space-y-3">

@@ -28,10 +28,18 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
   })
 
   const getReasonType = (type: string) => {
-    if (type === 'ILLEGAL') return 'illegalReason'
-    if (type === 'FRAUD') return 'fraudReason'
-    if (type === 'SENSITIVE') return 'sensitiveReason'
-    if (type === 'SPAM') return 'spamReason'
+    if (type === 'ILLEGAL') {
+      return 'illegalReason'
+    }
+    if (type === 'FRAUD') {
+      return 'fraudReason'
+    }
+    if (type === 'SENSITIVE') {
+      return 'sensitiveReason'
+    }
+    if (type === 'SPAM') {
+      return 'spamReason'
+    }
     return 'illegalReason'
   }
 

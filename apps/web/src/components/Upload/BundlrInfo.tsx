@@ -52,8 +52,9 @@ const BundlrInfo = () => {
   }
 
   const estimatePrice = async (bundlr: WebBundlr) => {
-    if (!uploadedVideo.stream)
+    if (!uploadedVideo.stream) {
       return toast.error('Upload cost estimation failed!')
+    }
     const price = await bundlr.utils.getPrice(
       BUNDLR_CURRENCY,
       uploadedVideo.stream?.size
@@ -95,8 +96,12 @@ const BundlrInfo = () => {
   }, [bundlrData.instance])
 
   const depositToBundlr = async () => {
-    if (!bundlrData.instance) return await initBundlr()
-    if (!bundlrData.deposit) return toast.error('Enter deposit amount')
+    if (!bundlrData.instance) {
+      return await initBundlr()
+    }
+    if (!bundlrData.deposit) {
+      return toast.error('Enter deposit amount')
+    }
     const depositAmount = parseFloat(bundlrData.deposit)
     const value = utils.parseUnits(depositAmount.toString())._hex
     if (!value || Number(value) < 1) {

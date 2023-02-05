@@ -19,7 +19,9 @@ const NotificationTrigger = () => {
     setHasNewNotification(false)
   }
 
-  if (!selectedChannelId) return null
+  if (!selectedChannelId) {
+    return null
+  }
 
   return (
     <DropMenu
