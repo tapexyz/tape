@@ -57,7 +57,9 @@ const DropZone = () => {
   }
 
   const onChooseFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) validateFile(e?.target?.files[0])
+    if (e.target.files?.length) {
+      validateFile(e?.target?.files[0])
+    }
   }
 
   return (
