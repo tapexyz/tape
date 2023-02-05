@@ -29,9 +29,15 @@ const Channel = () => {
     skip: !handle
   })
 
-  if (error) return <Custom500 />
-  if (loading || !data) return <ChannelShimmer />
-  if (!data?.profile) return <Custom404 />
+  if (error) {
+    return <Custom500 />
+  }
+  if (loading || !data) {
+    return <ChannelShimmer />
+  }
+  if (!data?.profile) {
+    return <Custom404 />
+  }
 
   const channel = data?.profile as Profile
 

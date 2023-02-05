@@ -64,7 +64,9 @@ const Bytes = () => {
 
   const fetchSingleByte = async () => {
     const publicationId = router.query.id
-    if (!publicationId) return fetchAllBytes()
+    if (!publicationId) {
+      return fetchAllBytes()
+    }
     await fetchPublication({
       variables: {
         request: { publicationId },
@@ -99,12 +101,13 @@ const Bytes = () => {
     }
   })
 
-  if (loading || singleByteLoading)
+  if (loading || singleByteLoading) {
     return (
       <div className="grid h-[80vh] place-items-center">
         <Loader />
       </div>
     )
+  }
 
   if (error) {
     return (

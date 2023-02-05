@@ -53,7 +53,9 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
     }
   })
 
-  if (loading) return <TimelineShimmer />
+  if (loading) {
+    return <TimelineShimmer />
+  }
 
   if (channelVideos?.length === 0) {
     return <NoDataFound isCenter withImage text="No mirrors found" />

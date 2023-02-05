@@ -99,8 +99,9 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError')
+        if (data?.broadcast?.__typename === 'RelayError') {
           writeSubscribe?.({ recklesslySetUnpreparedArgs: [args] })
+        }
       } catch {
         setLoading(false)
       }
@@ -109,7 +110,9 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   })
 
   const subscribe = () => {
-    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!selectedChannelId) {
+      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    }
     setLoading(true)
     if (channel.followModule) {
       if (channel?.followModule?.__typename === 'ProfileFollowModuleSettings') {

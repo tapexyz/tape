@@ -48,7 +48,9 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
     }
   })
 
-  if (loading) return <TimelineShimmer />
+  if (loading) {
+    return <TimelineShimmer />
+  }
 
   if (data?.publications?.items?.length === 0) {
     return <NoDataFound isCenter withImage text="No bytes found" />

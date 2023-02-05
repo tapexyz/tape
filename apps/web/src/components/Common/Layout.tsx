@@ -78,7 +78,9 @@ const Layout: FC<Props> = ({ children }) => {
     skip: !selectedChannelId,
     onCompleted: (data) => {
       const channels = data?.profiles?.items as Profile[]
-      if (!channels.length) return resetAuthState()
+      if (!channels.length) {
+        return resetAuthState()
+      }
       setUserChannels(channels)
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
     },
@@ -119,7 +121,9 @@ const Layout: FC<Props> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, chain, disconnect, selectedChannelId])
 
-  if (loading || !mounted) return <FullPageLoader />
+  if (loading || !mounted) {
+    return <FullPageLoader />
+  }
 
   return (
     <>

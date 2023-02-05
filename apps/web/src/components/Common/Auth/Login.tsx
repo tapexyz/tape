@@ -64,13 +64,14 @@ const Login = () => {
       errorAuthenticate?.message ??
       errorChallenge?.message ??
       errorProfiles?.message
-    )
+    ) {
       toast.error(
         errorAuthenticate?.message ??
           errorChallenge?.message ??
           errorProfiles?.message ??
           ERROR_MESSAGE
       )
+    }
   }, [errorAuthenticate, errorChallenge, errorProfiles])
 
   const isReadyToSign =
@@ -92,11 +93,15 @@ const Login = () => {
       const challenge = await loadChallenge({
         variables: { request: { address } }
       })
-      if (!challenge?.data?.challenge?.text) return toast.error(ERROR_MESSAGE)
+      if (!challenge?.data?.challenge?.text) {
+        return toast.error(ERROR_MESSAGE)
+      }
       const signature = await signMessageAsync({
         message: challenge?.data?.challenge?.text
       })
-      if (!signature) return toast.error('Invalid Signature!')
+      if (!signature) {
+        return toast.error('Invalid Signature!')
+      }
       const result = await authenticate({
         variables: { request: { address, signature } }
       })
@@ -121,7 +126,9 @@ const Login = () => {
         setChannels(channels)
         setSelectedChannel(defaultChannel ?? channels[0])
         setSelectedChannelId(defaultChannel?.id ?? channels[0].id)
-        if (router.query?.next) router.push(router.query?.next as string)
+        if (router.query?.next) {
+          router.push(router.query?.next as string)
+        }
       }
       setLoading(false)
       Analytics.track(TRACK.AUTH.SIGN_IN_SUCCESS)

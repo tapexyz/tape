@@ -114,8 +114,9 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast.__typename === 'RelayError')
+        if (data?.broadcast.__typename === 'RelayError') {
           writeJoinChannel?.({ recklesslySetUnpreparedArgs: [args] })
+        }
       } catch {
         setLoading(false)
       }
@@ -124,11 +125,14 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   })
 
   const joinChannel = () => {
-    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
-    if (!isAllowed)
+    if (!selectedChannelId) {
+      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    }
+    if (!isAllowed) {
       return toast.error(
         `Goto Settings -> Permissions and allow fee follow module for ${followModule?.amount?.asset?.symbol}.`
       )
+    }
     setLoading(true)
     createJoinTypedData({
       variables: {
