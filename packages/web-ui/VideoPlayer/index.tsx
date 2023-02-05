@@ -115,7 +115,9 @@ const VideoPlayer: FC<Props> = ({
   }
 
   useEffect(() => {
-    if (!playerRef) return
+    if (!playerRef) {
+      return
+    }
     playerRef.currentTime = Number(currentTime || 0)
     if (IS_MAINNET) {
       analyseVideo(playerRef)

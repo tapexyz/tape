@@ -26,7 +26,7 @@ const Modal: FC<Props> = ({
       <Dialog
         as="div"
         className="relative z-20"
-        onClose={() => (autoClose ? null : onClose?.())}
+        onClose={() => (onClose && !autoClose ? onClose?.() : null)}
       >
         <Transition.Child
           as={Fragment}

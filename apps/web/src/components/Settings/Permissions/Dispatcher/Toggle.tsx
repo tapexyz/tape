@@ -97,8 +97,9 @@ const Toggle = () => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError')
+        if (data?.broadcast?.__typename === 'RelayError') {
           writeDispatch?.({ recklesslySetUnpreparedArgs: [args] })
+        }
       } catch {
         setLoading(false)
       }

@@ -61,7 +61,9 @@ const ExploreCategory = () => {
       })
     }
   })
-  if (!query.category) return <Custom404 />
+  if (!query.category) {
+    return <Custom404 />
+  }
 
   return (
     <>

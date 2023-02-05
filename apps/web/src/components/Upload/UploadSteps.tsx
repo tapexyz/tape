@@ -191,8 +191,9 @@ const UploadSteps = () => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError')
+        if (data?.broadcast?.__typename === 'RelayError') {
           return writePostContract?.({ recklesslySetUnpreparedArgs: [args] })
+        }
       } catch {}
     },
     onError
@@ -329,7 +330,9 @@ const UploadSteps = () => {
         })
       }
     )
-    if (!result.url) return toast.error('IPFS Upload failed!')
+    if (!result.url) {
+      return toast.error('IPFS Upload failed!')
+    }
     setUploadedVideo({
       percent: 100,
       videoSource: result.url

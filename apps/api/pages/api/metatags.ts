@@ -5,11 +5,15 @@ import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from 'utils'
 import getMetaTags from 'utils/functions/getMetaTags'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== 'GET') return res.status(405).json({ success: false })
+  if (req.method !== 'GET') {
+    return res.status(405).json({ success: false })
+  }
 
   const path = req.query.path as string
 
-  if (!path) return res.status(400).json({ success: false })
+  if (!path) {
+    return res.status(400).json({ success: false })
+  }
 
   const isChannel = path.includes('/channel/')
   const isVideo = path.includes('/watch/')

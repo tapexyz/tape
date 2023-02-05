@@ -178,8 +178,9 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError')
+        if (data?.broadcast?.__typename === 'RelayError') {
           writeComment?.({ recklesslySetUnpreparedArgs: [args] })
+        }
       } catch {
         setLoading(false)
       }
@@ -258,7 +259,9 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   }
 
   const onSendTip = async () => {
-    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!selectedChannelId) {
+      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    }
     setLoading(true)
     const amountToSend = Number(getValues('tipQuantity')) * 1
     try {
@@ -269,7 +272,9 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         }
       })
       Analytics.track(TRACK.TIP.SENT)
-      if (data?.hash) await submitComment(data.hash)
+      if (data?.hash) {
+        await submitComment(data.hash)
+      }
     } catch (error) {
       setLoading(false)
       logger.error('[Error Send Tip]', error)

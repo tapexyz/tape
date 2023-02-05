@@ -87,7 +87,9 @@ const VideoOptions: FC<Props> = ({
   }
 
   const onClickReport = () => {
-    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!selectedChannelId) {
+      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    }
     setShowReport(true)
   }
 
@@ -155,8 +157,9 @@ const VideoOptions: FC<Props> = ({
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.__typename === 'RelayError')
+          if (data?.broadcast?.__typename === 'RelayError') {
             writeMetaData?.({ recklesslySetUnpreparedArgs: [args] })
+          }
         } catch {}
       },
       onError
@@ -182,7 +185,9 @@ const VideoOptions: FC<Props> = ({
   }
 
   const onPinVideo = async () => {
-    if (!selectedChannel) return
+    if (!selectedChannel) {
+      return
+    }
     try {
       toast.loading('Pinning video...')
       const { url } = await uploadToAr({

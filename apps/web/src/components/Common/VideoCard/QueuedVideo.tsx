@@ -108,7 +108,9 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
     }
   })
 
-  if (!queuedVideo?.txnId && !queuedVideo?.txnHash) return null
+  if (!queuedVideo?.txnId && !queuedVideo?.txnHash) {
+    return null
+  }
 
   return (
     <div className="cursor-wait">

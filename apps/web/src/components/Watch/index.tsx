@@ -45,9 +45,15 @@ const VideoDetails = () => {
     setVideoWatchTime(Number(t))
   }, [t, setVideoWatchTime])
 
-  if (error) return <Custom500 />
-  if (loading || !data) return <VideoDetailShimmer />
-  if (!isWatchable(video)) return <Custom404 />
+  if (error) {
+    return <Custom500 />
+  }
+  if (loading || !data) {
+    return <VideoDetailShimmer />
+  }
+  if (!isWatchable(video)) {
+    return <Custom404 />
+  }
 
   return (
     <>

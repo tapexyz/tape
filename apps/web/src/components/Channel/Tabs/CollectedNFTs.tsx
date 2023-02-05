@@ -45,7 +45,9 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
     }
   })
 
-  if (loading) return <TimelineShimmer />
+  if (loading) {
+    return <TimelineShimmer />
+  }
 
   if (data?.nfts?.items?.length === 0) {
     return <NoDataFound isCenter withImage text="No NFTs found" />

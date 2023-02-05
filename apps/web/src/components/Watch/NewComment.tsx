@@ -175,8 +175,9 @@ const NewComment: FC<Props> = ({ video }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError')
+        if (data?.broadcast?.__typename === 'RelayError') {
           writeComment?.({ recklesslySetUnpreparedArgs: [args] })
+        }
       } catch {
         setLoading(false)
       }
@@ -258,7 +259,9 @@ const NewComment: FC<Props> = ({ video }) => {
     }
   }
 
-  if (!selectedChannel || !selectedChannelId) return null
+  if (!selectedChannel || !selectedChannelId) {
+    return null
+  }
 
   return (
     <div className="my-1">

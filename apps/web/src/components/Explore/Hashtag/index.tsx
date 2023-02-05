@@ -58,7 +58,9 @@ const ExploreHashtag = () => {
     }
   })
 
-  if (!hashtag) return <Custom404 />
+  if (!hashtag) {
+    return <Custom404 />
+  }
 
   return (
     <>

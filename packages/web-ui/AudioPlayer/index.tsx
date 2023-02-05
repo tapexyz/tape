@@ -50,11 +50,14 @@ const AudioPlayer: FC<Props> = ({ selectedTrack }) => {
 
   const createPlayer = async () => {
     const WaveSurferInstance = (await import('wavesurfer.js')).default
-    if (!waveformRef.current) return
+    if (!waveformRef.current) {
+      return
+    }
     const options = getAudioPlayerOptions(waveformRef.current)
     waveSurfer.current = WaveSurferInstance.create(options)
-    if (selectedTrack)
+    if (selectedTrack) {
       waveSurfer.current?.load(getPublicationMediaUrl(selectedTrack))
+    }
 
     waveSurfer.current.on('ready', () => {
       playTrack()
@@ -110,7 +113,9 @@ const AudioPlayer: FC<Props> = ({ selectedTrack }) => {
     waveSurfer.current?.toggleMute()
   }
 
-  if (!selectedTrack) return null
+  if (!selectedTrack) {
+    return null
+  }
 
   return (
     <div className="flex w-full flex-row flex-wrap items-center gap-y-2 md:flex-nowrap">

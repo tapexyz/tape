@@ -12,7 +12,9 @@ type Props = {
 }
 
 const IsVerified: FC<Props> = ({ id, size = 'sm', color }) => {
-  if (!VERIFIED_CHANNELS.includes(id)) return null
+  if (!VERIFIED_CHANNELS.includes(id)) {
+    return null
+  }
   return (
     <div>
       <Verified

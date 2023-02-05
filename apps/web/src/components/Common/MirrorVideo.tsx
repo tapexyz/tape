@@ -113,8 +113,9 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError')
+        if (data?.broadcast?.__typename === 'RelayError') {
           mirrorWithSig?.({ recklesslySetUnpreparedArgs: [args] })
+        }
       } catch {
         setLoading(false)
       }
@@ -141,7 +142,9 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   }
 
   const mirrorVideo = async () => {
-    if (!selectedChannelId) return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    if (!selectedChannelId) {
+      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+    }
     setLoading(true)
     const request = {
       profileId: selectedChannel?.id,
@@ -157,7 +160,9 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     await createViaDispatcher(request)
   }
 
-  if (!video?.canMirror.result) return null
+  if (!video?.canMirror.result) {
+    return null
+  }
 
   const tooltipContent = collectModule?.referralFee
     ? `Mirror video for ${collectModule?.referralFee}% referral fee`

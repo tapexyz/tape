@@ -41,13 +41,16 @@ const MirroredList: FC<Props> = ({ videoId }) => {
     }
   })
 
-  if (loading) return <Loader />
-  if (mirroredByProfiles?.length === 0)
+  if (loading) {
+    return <Loader />
+  }
+  if (mirroredByProfiles?.length === 0) {
     return (
       <div className="pt-5">
         <NoDataFound text="No mirrors yet" isCenter />
       </div>
     )
+  }
 
   return (
     <div className="mt-4 space-y-3">

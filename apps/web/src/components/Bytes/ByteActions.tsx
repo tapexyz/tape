@@ -1,17 +1,22 @@
+import CommentOutline from '@components/Common/Icons/CommentOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import MirrorVideo from '@components/Common/MirrorVideo'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
+import Tooltip from '@components/UIElements/Tooltip'
 import CollectVideo from '@components/Watch/CollectVideo'
 import PublicationReaction from '@components/Watch/PublicationReaction'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
+import CommentModal from './CommentModal'
+
 type Props = {
   video: Publication
 }
+
 const ByteActions: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
   const [showReport, setShowReport] = useState(false)
@@ -35,18 +40,31 @@ const ByteActions: FC<Props> = ({ video }) => {
             showLabel
           />
         </div>
-        <div className="text-center text-white md:text-inherit">
+        <div className="w-full text-center text-white md:text-inherit">
+          <CommentModal
+            trigger={
+              <Tooltip content="What do you think?" placement="top">
+                <div className="flex flex-col items-center pt-2">
+                  <CommentOutline className="h-5 w-5" />
+                  <div className="pt-1 text-xs">Wdyt</div>
+                </div>
+              </Tooltip>
+            }
+            video={video}
+          />
+        </div>
+        <div className="w-full text-center text-white md:text-inherit">
           <MirrorVideo video={video}>
-            <div className="p-2">
-              <MirrorOutline className="h-6 w-6" />
-            </div>
-            <div className="text-xs leading-3">
-              {video.stats?.totalAmountOfMirrors || 'Mirror'}
+            <div className="flex flex-col items-center pt-2">
+              <MirrorOutline className="h-5 w-5" />
+              <div className="pt-1 text-xs">
+                {video.stats?.totalAmountOfMirrors || 'Mirror'}
+              </div>
             </div>
           </MirrorVideo>
         </div>
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
-          <div className="hidden md:block">
+          <div className="hidden w-full pb-3 text-center md:block">
             <CollectVideo video={video} />
             <div className="text-center text-xs leading-3">
               {video.stats?.totalAmountOfCollects || 'Collect'}

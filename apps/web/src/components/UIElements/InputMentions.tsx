@@ -35,7 +35,9 @@ const InputMentions: FC<Props> = ({
     query: string,
     callback: (data: SuggestionDataItem[]) => void
   ) => {
-    if (!query) return
+    if (!query) {
+      return
+    }
     try {
       const { data } = await searchChannels({
         variables: {

@@ -96,8 +96,9 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     }
   })
 
-  if ((!queuedComment?.txnId && !queuedComment?.txnHash) || !selectedChannel)
+  if ((!queuedComment?.txnId && !queuedComment?.txnHash) || !selectedChannel) {
     return null
+  }
 
   return (
     <div className="flex items-start justify-between">

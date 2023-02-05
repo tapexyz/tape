@@ -97,9 +97,11 @@ const CollectModal: FC<Props> = ({
       collectModule?.amount &&
       parseFloat(balanceData?.formatted) <
         parseFloat(collectModule?.amount?.value)
-    )
+    ) {
       setHaveEnoughBalance(false)
-    else setHaveEnoughBalance(true)
+    } else {
+      setHaveEnoughBalance(true)
+    }
     if (collectModule?.amount?.asset?.address && selectedChannelId) {
       refetchAllowance()
     }

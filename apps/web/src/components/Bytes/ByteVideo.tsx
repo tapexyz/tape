@@ -27,7 +27,9 @@ const ByteVideo: FC<Props> = ({ video }) => {
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, true)
 
   const playVideo = () => {
-    if (!videoRef.current) return
+    if (!videoRef.current) {
+      return
+    }
     videoRef.current.currentTime = 0
     videoRef.current.volume = 1
     videoRef.current.autoplay = true
@@ -35,7 +37,9 @@ const ByteVideo: FC<Props> = ({ video }) => {
   }
 
   const pauseVideo = () => {
-    if (!videoRef.current) return
+    if (!videoRef.current) {
+      return
+    }
     videoRef.current?.pause()
     videoRef.current.autoplay = false
   }
@@ -49,14 +53,18 @@ const ByteVideo: FC<Props> = ({ video }) => {
   }
 
   const refCallback = (ref: HTMLMediaElement) => {
-    if (!ref) return
+    if (!ref) {
+      return
+    }
     videoRef.current = ref
   }
 
   const { observe } = useInView({
     threshold: 1,
     onLeave: () => {
-      if (!videoRef.current) return
+      if (!videoRef.current) {
+        return
+      }
       pauseVideo()
     },
     onEnter: () => {

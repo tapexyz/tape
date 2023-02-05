@@ -8,7 +8,6 @@ import usePersistStore from '@lib/store/persist'
 import type { Publication } from 'lens'
 import { PublicationMainFocus, useProfileCommentsQuery } from 'lens'
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -21,12 +20,10 @@ const Comment = dynamic(() => import('./Comment'))
 
 type Props = {
   video: Publication
+  hideTitle?: boolean
 }
 
-const VideoComments: FC<Props> = ({ video }) => {
-  const {
-    query: { id }
-  } = useRouter()
+const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
@@ -37,7 +34,7 @@ const VideoComments: FC<Props> = ({ video }) => {
   const request = {
     limit: 30,
     customFilters: LENS_CUSTOM_FILTERS,
-    commentsOf: id,
+    commentsOf: video.id,
     metadata: {
       mainContentFocus: [
         PublicationMainFocus.Video,
@@ -58,7 +55,7 @@ const VideoComments: FC<Props> = ({ video }) => {
 
   const { data, loading, error, fetchMore } = useProfileCommentsQuery({
     variables,
-    skip: !id
+    skip: !video.id
   })
 
   const comments = data?.publications?.items as Publication[]
@@ -79,21 +76,25 @@ const VideoComments: FC<Props> = ({ video }) => {
     }
   })
 
-  if (loading) return <CommentsShimmer />
+  if (loading) {
+    return <CommentsShimmer />
+  }
 
   return (
     <div className="pb-4">
       <div className="flex items-center justify-between">
-        <h1 className="my-4 flex items-center space-x-2 text-lg">
-          <CommentOutline className="h-4 w-4" />
-          <span className="font-semibold">Comments</span>
-        </h1>
+        {!hideTitle && (
+          <h1 className="my-4 flex items-center space-x-2 text-lg">
+            <CommentOutline className="h-4 w-4" />
+            <span className="font-semibold">Comments</span>
+          </h1>
+        )}
         {!selectedChannelId && (
           <span className="text-xs">(Sign in required to comment)</span>
         )}
       </div>
       {data?.publications?.items.length === 0 && (
-        <NoDataFound text="Be the first to comment." />
+        <NoDataFound text="Be the first to comment." withImage isCenter />
       )}
       {video?.canComment.result ? (
         <NewComment video={video} />
