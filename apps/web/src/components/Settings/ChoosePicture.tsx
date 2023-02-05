@@ -53,12 +53,12 @@ const ChoosePicture: FC<Props> = ({ onChooseImage, channel, setNFTAvatar }) => {
 
   return (
     <Tab.Group>
-      <Tab.List className="flex justify-center static top-0 w-full">
+      <Tab.List className="static top-0 flex w-full justify-center">
         <Tab
           onClick={() => Analytics.track(TRACK.PFP.CLICK_UPLOAD_TAB)}
           className={({ selected }) =>
             clsx(
-              'py-2 border-b-2 text-sm focus:outline-none w-full',
+              'w-full border-b-2 py-2 text-sm focus:outline-none',
               selected
                 ? 'border-indigo-500 opacity-100'
                 : 'border-transparent opacity-50'
@@ -71,7 +71,7 @@ const ChoosePicture: FC<Props> = ({ onChooseImage, channel, setNFTAvatar }) => {
           onClick={() => Analytics.track(TRACK.PFP.CLICK_NFTS_TAB)}
           className={({ selected }) =>
             clsx(
-              'py-2 border-b-2 text-sm focus:outline-none w-full',
+              'w-full border-b-2 py-2 text-sm focus:outline-none',
               selected
                 ? 'border-indigo-500 opacity-100'
                 : 'border-transparent opacity-50'
@@ -82,10 +82,10 @@ const ChoosePicture: FC<Props> = ({ onChooseImage, channel, setNFTAvatar }) => {
         </Tab>
       </Tab.List>
       <Tab.Panels>
-        <Tab.Panel className="h-[40vh] no-scrollbar focus:outline-none flex flex-col justify-center items-center py-10 no-scrollbar">
+        <Tab.Panel className="no-scrollbar no-scrollbar flex h-[40vh] flex-col items-center justify-center py-10 focus:outline-none">
           <label
             htmlFor="choosePfp"
-            className="border border-indigo-500 bg-indigo-500 px-8 py-3 rounded-full text-white cursor-pointer"
+            className="cursor-pointer rounded-full border border-indigo-500 bg-indigo-500 px-8 py-3 text-white"
           >
             Choose image
           </label>
@@ -97,11 +97,11 @@ const ChoosePicture: FC<Props> = ({ onChooseImage, channel, setNFTAvatar }) => {
             onChange={onChooseImage}
           />
         </Tab.Panel>
-        <Tab.Panel className="h-[40vh] no-scrollbar overflow-y-auto focus:outline-none py-5">
+        <Tab.Panel className="no-scrollbar h-[40vh] overflow-y-auto py-5 focus:outline-none">
           {loading && <Loader />}
           {!error && !loading && (
             <>
-              <div className="grid grid-cols-3 lg:grid-cols-4 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-3 gap-4 md:grid-cols-4 lg:grid-cols-4">
                 {collectedNFTs.map((nft: Nft) => {
                   return (
                     <img
@@ -112,7 +112,7 @@ const ChoosePicture: FC<Props> = ({ onChooseImage, channel, setNFTAvatar }) => {
                           : `${STATIC_ASSETS}/images/placeholder.webp`,
                         'avatar_lg'
                       )}
-                      className="rounded-xl cursor-pointer h-20 w-20 md:h-28 md:w-28"
+                      className="h-20 w-20 cursor-pointer rounded-xl md:h-28 md:w-28"
                       alt={nft.name}
                       onClick={() => {
                         Analytics.track(TRACK.PFP.SELECT_NFT)
@@ -126,12 +126,11 @@ const ChoosePicture: FC<Props> = ({ onChooseImage, channel, setNFTAvatar }) => {
                   )
                 })}
               </div>
-              {pageInfo?.next &&
-                collectedNFTs.length !== pageInfo?.totalCount && (
-                  <span ref={observe} className="flex justify-center mt-5">
-                    <Loader />
-                  </span>
-                )}
+              {pageInfo?.next && (
+                <span ref={observe} className="mt-5 flex justify-center">
+                  <Loader />
+                </span>
+              )}
             </>
           )}
         </Tab.Panel>
