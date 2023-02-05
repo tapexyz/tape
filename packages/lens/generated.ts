@@ -14448,13 +14448,17 @@ export type UserProfilesQueryResult = Apollo.QueryResult<
 >
 
 export type NftChallengeQueryVariables = Exact<{
-  request: NftOwnershipChallengeRequest;
-}>;
+  request: NftOwnershipChallengeRequest
+}>
 
 export type NftChallengeQuery = {
-  __typename?: 'Query';
-  nftOwnershipChallenge: { __typename?: 'NftOwnershipChallengeResult'; id: any; text: string };
-};
+  __typename?: 'Query'
+  nftOwnershipChallenge: {
+    __typename?: 'NftOwnershipChallengeResult'
+    id: any
+    text: string
+  }
+}
 
 export const NftChallengeDocument = gql`
   query NFTChallenge($request: NftOwnershipChallengeRequest!) {
@@ -14463,11 +14467,17 @@ export const NftChallengeDocument = gql`
       text
     }
   }
-`;
+`
 
 export function useNftChallengeLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<NftChallengeQuery, NftChallengeQueryVariables>
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    NftChallengeQuery,
+    NftChallengeQueryVariables
+  >
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<NftChallengeQuery, NftChallengeQueryVariables>(NftChallengeDocument, options);
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<NftChallengeQuery, NftChallengeQueryVariables>(
+    NftChallengeDocument,
+    options
+  )
 }
