@@ -1,3 +1,5 @@
+import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
+import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -11,7 +13,7 @@ import {
 } from 'lens'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
   Analytics,
@@ -34,6 +36,7 @@ const request = {
 
 const Bytes = () => {
   const router = useRouter()
+  const bytesContainer = useRef<HTMLDivElement>(null)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const [fetchPublication, { data: singleByte, loading: singleByteLoading }] =
@@ -123,7 +126,10 @@ const Bytes = () => {
         <meta name="theme-color" content="#000000" />
       </Head>
       <MetaTags title="Bytes" />
-      <div className="no-scrollbar h-screen snap-y snap-mandatory overflow-y-scroll scroll-smooth md:h-[calc(100vh-70px)]">
+      <div
+        ref={bytesContainer}
+        className="no-scrollbar h-screen snap-y snap-mandatory overflow-y-scroll scroll-smooth md:h-[calc(100vh-70px)]"
+      >
         {singleByte && <ByteVideo video={singleBytePublication} />}
         {bytes?.map((video: Publication) => (
           <ByteVideo video={video} key={`${video?.id}_${video.createdAt}`} />
@@ -133,6 +139,20 @@ const Bytes = () => {
             <Loader />
           </span>
         )}
+        <div className="absolute bottom-7 right-4 flex flex-col space-y-3">
+          <button
+            className="rounded-full bg-gray-700 p-3 focus:outline-none"
+            onClick={() => bytesContainer.current?.scrollBy({ top: -30 })}
+          >
+            <ChevronUpOutline className="h-5 w-5" />
+          </button>
+          <button
+            className="rounded-full bg-gray-700 p-3 focus:outline-none"
+            onClick={() => bytesContainer.current?.scrollBy({ top: 30 })}
+          >
+            <ChevronDownOutline className="h-5 w-5" />
+          </button>
+        </div>
       </div>
     </div>
   )
