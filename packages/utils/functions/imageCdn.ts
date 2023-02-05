@@ -5,7 +5,9 @@ const imageCdn = (
   url: string,
   type?: 'thumbnail' | 'avatar' | 'avatar_lg' | 'square' | 'thumbnail_v'
 ): string => {
-  if (!url || !IMAGE_CDN_URL) return url
+  if (!url || !IMAGE_CDN_URL) {
+    return url
+  }
   return type
     ? `${IMAGE_CDN_URL}/tr:n-${type},tr:di-placeholder.webp/${sanitizeIpfsUrl(
         url

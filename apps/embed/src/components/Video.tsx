@@ -41,7 +41,9 @@ const Video: FC<Props> = ({ video }) => {
   }, [])
 
   const refCallback = (ref: HTMLMediaElement) => {
-    if (!ref) return
+    if (!ref) {
+      return null
+    }
     setPlayerRef(ref)
   }
 

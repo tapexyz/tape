@@ -76,7 +76,9 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     }
   })
 
-  if (loading) return <CommentsShimmer />
+  if (loading) {
+    return <CommentsShimmer />
+  }
 
   return (
     <div className="pb-4">
@@ -92,7 +94,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
         )}
       </div>
       {data?.publications?.items.length === 0 && (
-        <NoDataFound text="Be the first to comment." />
+        <NoDataFound text="Be the first to comment." withImage isCenter />
       )}
       {video?.canComment.result ? (
         <NewComment video={video} />

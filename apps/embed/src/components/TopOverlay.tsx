@@ -14,12 +14,13 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video, clicked }) => {
   const [showVideoOverlay, setShowVideoOverlay] = useState(true)
 
   useEffect(() => {
-    if (!playerRef) return
-    playerRef.onpause = () => {
-      setShowVideoOverlay(true)
-    }
-    playerRef.onplay = () => {
-      setShowVideoOverlay(false)
+    if (playerRef) {
+      playerRef.onpause = () => {
+        setShowVideoOverlay(true)
+      }
+      playerRef.onplay = () => {
+        setShowVideoOverlay(false)
+      }
     }
   }, [playerRef])
 

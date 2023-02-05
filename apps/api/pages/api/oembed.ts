@@ -2,7 +2,9 @@ import getPublicationOembed from 'lib/getPublicationOembed'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== 'GET') return res.status(405).json({ success: false })
+  if (req.method !== 'GET') {
+    return res.status(405).json({ success: false })
+  }
 
   const format = req.query.format as string
   const videoId = req.query.id as string
