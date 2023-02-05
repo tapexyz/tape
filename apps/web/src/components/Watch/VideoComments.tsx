@@ -94,9 +94,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
         )}
       </div>
       {data?.publications?.items.length === 0 && (
-        <span className="pb-3">
-          <NoDataFound text="Be the first to comment." withImage isCenter />
-        </span>
+        <NoDataFound text="Be the first to comment." withImage isCenter />
       )}
       {video?.canComment.result ? (
         <NewComment video={video} />
