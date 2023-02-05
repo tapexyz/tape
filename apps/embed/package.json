@@ -10,8 +10,8 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.6",
-    "@livepeer/react": "^2.1.4",
+    "@apollo/client": "^3.7.7",
+    "@livepeer/react": "^2.1.5",
     "@tailwindcss/line-clamp": "^0.4.0",
     "clsx": "^1.2.1",
     "graphql": "^16.6.0",
@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@types/mixpanel-browser": "^2.38.1",
-    "@types/node": "18.11.18",
+    "@types/node": "18.11.19",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
     "autoprefixer": "^10.4.13",
