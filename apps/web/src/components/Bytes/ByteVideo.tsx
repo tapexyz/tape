@@ -1,8 +1,7 @@
 import CollectVideo from '@components/Watch/CollectVideo'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
-import React, { useRef } from 'react'
-import { useInView } from 'react-cool-inview'
+import React, { useEffect, useRef } from 'react'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
@@ -16,17 +15,22 @@ import TopOverlay from './TopOverlay'
 
 type Props = {
   video: Publication
+  currentViewingId: string
+  intersectionCallback: (id: string) => void
 }
 
-const ByteVideo: FC<Props> = ({ video }) => {
+const ByteVideo: FC<Props> = ({
+  video,
+  currentViewingId,
+  intersectionCallback
+}) => {
   const videoRef = useRef<HTMLMediaElement>()
+  const intersectionRef = useRef<HTMLDivElement>(null)
   const thumbnailUrl = imageCdn(
     sanitizeIpfsUrl(getThumbnailUrl(video)),
     'thumbnail_v'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, true)
-
-  const currentPathId = location.pathname.split('/bytes/')[1]
 
   const playVideo = () => {
     if (!videoRef.current) {
@@ -37,6 +41,22 @@ const ByteVideo: FC<Props> = ({ video }) => {
     videoRef.current.autoplay = true
     videoRef.current?.play().catch(() => {})
   }
+
+  const observer = new IntersectionObserver((data) => {
+    if (data[0].target.id && data[0].isIntersecting) {
+      intersectionCallback(data[0].target.id)
+      const nextUrl = `${location.origin}/bytes/${video?.id}`
+      history.replaceState({ path: nextUrl }, '', nextUrl)
+      playVideo()
+    }
+  })
+
+  useEffect(() => {
+    if (intersectionRef.current) {
+      observer.observe(intersectionRef.current)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const pauseVideo = () => {
     if (!videoRef.current) {
@@ -62,21 +82,6 @@ const ByteVideo: FC<Props> = ({ video }) => {
     playVideo()
   }
 
-  const { observe } = useInView({
-    threshold: 1,
-    onLeave: () => {
-      if (!videoRef.current) {
-        return
-      }
-      pauseVideo()
-    },
-    onEnter: () => {
-      const nextUrl = `${location.origin}/bytes/${video?.id}`
-      history.replaceState({ path: nextUrl }, '', nextUrl)
-      playVideo()
-    }
-  })
-
   return (
     <div className="flex snap-center justify-center md:mt-6">
       <div className="relative">
@@ -85,9 +90,13 @@ const ByteVideo: FC<Props> = ({ video }) => {
           style={{
             backgroundColor: backgroundColor ? backgroundColor : undefined
           }}
-          ref={observe}
         >
-          {currentPathId === video.id ? (
+          <div
+            className="absolute top-[50%]"
+            ref={intersectionRef}
+            id={video.id}
+          />
+          {currentViewingId === video.id ? (
             <VideoPlayer
               refCallback={refCallback}
               permanentUrl={getPublicationMediaUrl(video)}
