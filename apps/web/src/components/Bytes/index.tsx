@@ -151,7 +151,7 @@ const Bytes = () => {
             <Loader />
           </span>
         )}
-        <div className="bottom-7 right-4 flex flex-col space-y-3 lg:absolute">
+        <div className="bottom-7 right-4 hidden flex-col space-y-3 lg:absolute lg:flex">
           <button
             className="rounded-full bg-gray-300 p-3 focus:outline-none dark:bg-gray-700"
             onClick={() => bytesContainer.current?.scrollBy({ top: -30 })}
