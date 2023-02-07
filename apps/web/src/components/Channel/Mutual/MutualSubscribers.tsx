@@ -43,7 +43,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
     return <ChannelCirclesShimmer />
   }
 
-  if (!mutualSubscribers.length) {
+  if (!mutualSubscribers?.length) {
     return null
   }
 
