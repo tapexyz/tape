@@ -51,7 +51,7 @@ const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     })
   } catch (error) {
     logger.error('[API Error Upload to Arweave]', error)
-    return res.status(200).json({ success: false, url: null, id: null })
+    return res.status(500).json({ success: false, url: null, id: null })
   }
 }
 
