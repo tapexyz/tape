@@ -38,7 +38,11 @@ const VideoCard: FC<Props> = ({ video }) => {
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
   return (
-    <div onClick={() => Analytics.track(TRACK.CLICK_VIDEO)} className="group">
+    <div
+      onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
+      className="group"
+      data-testid="video-card"
+    >
       {video.hidden ? (
         <div className="grid h-full place-items-center">
           <span className="text-xs">Video Hidden by User</span>
@@ -91,6 +95,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                     className="line-clamp-2 ultrawide:line-clamp-1 ultrawide:break-all break-words text-sm font-semibold"
                     href={`/watch/${video.id}`}
                     title={video.metadata?.name ?? ''}
+                    data-testid="video-card-title"
                   >
                     {video.metadata?.name}
                   </Link>
@@ -103,6 +108,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                 <Link
                   href={`/channel/${video.profile?.handle}`}
                   className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
+                  data-testid="video-card-channel"
                 >
                   <span>{video.profile?.handle}</span>
                   <IsVerified id={video.profile?.id} size="xs" />

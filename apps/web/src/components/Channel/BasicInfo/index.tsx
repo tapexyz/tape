@@ -56,7 +56,10 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 {channel.name}
               </h1>
             )}
-            <h2 className="flex items-center space-x-1.5 md:text-lg">
+            <h2
+              className="flex items-center space-x-1.5 md:text-lg"
+              data-testid="channel-name"
+            >
               <span>@{channel?.handle}</span>
               <Tooltip content="Verified" placement="right">
                 <span>

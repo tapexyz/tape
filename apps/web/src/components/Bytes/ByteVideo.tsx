@@ -83,7 +83,10 @@ const ByteVideo: FC<Props> = ({
   }
 
   return (
-    <div className="flex snap-center justify-center md:mt-6">
+    <div
+      data-testid="byte-video"
+      className="flex snap-center justify-center md:mt-6"
+    >
       <div className="relative">
         <div
           className="ultrawide:w-[407px] ultrawide:items-center flex h-screen w-screen min-w-[250px] overflow-hidden bg-black md:h-[calc(100vh-145px)] md:w-[350px] md:rounded-xl"
