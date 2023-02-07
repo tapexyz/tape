@@ -74,7 +74,8 @@ export const EVER_ACCESS_SECRET = process.env.EVER_ACCESS_SECRET as string
 export const NEXT_PUBLIC_EVER_BUCKET_NAME = IS_MAINNET ? 'lenstube' : 'testnet'
 
 // livepeer
-export const LIVEPEER_STUDIO_API_KEY = '8b62cbc6-9677-4316-a94c-f4ae6e14abb4'
+export const LIVEPEER_STUDIO_API_KEY = process.env
+  .NEXT_PUBLIC_LIVEPEER_STUDIO_API_KEY as string
 export const LIVEPEER_API_TOKEN = process.env.LIVEPEER_API_TOKEN as string
 
 // uptime
