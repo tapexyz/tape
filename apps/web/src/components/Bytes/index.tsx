@@ -151,15 +151,15 @@ const Bytes = () => {
             <Loader />
           </span>
         )}
-        <div className="absolute bottom-7 right-4 flex flex-col space-y-3">
+        <div className="bottom-7 right-4 flex flex-col space-y-3 lg:absolute">
           <button
-            className="rounded-full bg-gray-700 p-3 focus:outline-none"
+            className="rounded-full bg-gray-300 p-3 focus:outline-none dark:bg-gray-700"
             onClick={() => bytesContainer.current?.scrollBy({ top: -30 })}
           >
             <ChevronUpOutline className="h-5 w-5" />
           </button>
           <button
-            className="rounded-full bg-gray-700 p-3 focus:outline-none"
+            className="rounded-full bg-gray-300 p-3 focus:outline-none dark:bg-gray-700"
             onClick={() => bytesContainer.current?.scrollBy({ top: 30 })}
           >
             <ChevronDownOutline className="h-5 w-5" />
