@@ -84,8 +84,8 @@ const ByteVideo: FC<Props> = ({
 
   return (
     <div
-      data-testid="byte-video"
       className="flex snap-center justify-center md:mt-6"
+      data-testid="byte-video"
     >
       <div className="relative">
         <div
