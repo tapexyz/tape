@@ -23,7 +23,10 @@ const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
     location.pathname === `/channel/${selectedChannel?.handle}`
 
   return (
-    <div className="ultrawide:grid-cols-6 laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-2 md:gap-y-8 2xl:grid-cols-5">
+    <div
+      className="ultrawide:grid-cols-6 laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-2 md:gap-y-8 2xl:grid-cols-5"
+      data-testid="curated-videos"
+    >
       {isChannelPage &&
         queuedVideos?.map((queuedVideo) => (
           <QueuedVideo

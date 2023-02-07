@@ -1,7 +1,9 @@
 import { expect, test } from '@playwright/test'
 
-test('has title', async ({ page }) => {
+test('has sections', async ({ page }) => {
   await page.goto('http://localhost:4783')
 
-  await expect(page).toHaveTitle(/Lenstube/)
+  expect(page.getByTestId('category-filters'))
+  expect(page.getByTestId('bytes-section'))
+  expect(page.getByTestId('curated-videos'))
 })

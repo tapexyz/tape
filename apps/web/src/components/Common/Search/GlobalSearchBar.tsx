@@ -73,7 +73,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
   }
 
   return (
-    <div className="md:w-96">
+    <div className="md:w-96" data-testid="global-search">
       <div ref={resultsRef}>
         <div className="relative">
           <div className="relative w-full cursor-default overflow-hidden rounded-full border border-gray-200 dark:border-gray-700 sm:text-sm">
@@ -130,7 +130,10 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                 </Tab>
               </Tab.List>
               <Tab.Panels>
-                <Tab.Panel className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none">
+                <Tab.Panel
+                  className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none"
+                  data-testid="search-channels-panel"
+                >
                   {data?.search?.__typename === 'ProfileSearchResult' && (
                     <Channels
                       results={channels as Profile[]}

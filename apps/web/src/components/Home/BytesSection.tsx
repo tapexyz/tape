@@ -70,7 +70,7 @@ const BytesSection = () => {
   }
 
   return (
-    <div className="hidden lg:block">
+    <div className="hidden lg:block" data-testid="bytes-section">
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <BytesOutline className="h-4 w-4" />

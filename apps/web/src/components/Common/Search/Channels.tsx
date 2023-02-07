@@ -23,6 +23,7 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
           key={channel.id}
           className="relative cursor-default select-none pl-3 pr-4 hover:bg-gray-100 dark:hover:bg-gray-900"
           role="button"
+          data-testid={`search-channel-${channel.handle}`}
         >
           <Link
             href={`/channel/${channel?.handle}`}
