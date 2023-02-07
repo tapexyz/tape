@@ -29,12 +29,12 @@ const CommentModal: FC<Props> = ({ trigger, video }) => {
             <span className="font-semibold">Comments</span>
           </span>
         }
-        panelClassName="max-w-lg ml-9"
+        panelClassName="max-w-lg lg:ml-9"
         show={show}
         autoClose
         onClose={() => setShow(false)}
       >
-        <div className="no-scrollbar max-h-[40vh] overflow-y-auto pt-5">
+        <div className="no-scrollbar max-h-[40vh] overflow-y-auto pt-3">
           <VideoComments video={video} hideTitle />
         </div>
       </Modal>
