@@ -10,7 +10,6 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import type { Notification } from 'lens'
 import { NotificationTypes, useNotificationsQuery } from 'lens'
@@ -43,9 +42,6 @@ const initialFilters = {
 
 const Notifications = () => {
   const [activeFilter, setActiveFilter] = useState(initialFilters)
-  const setLatestNotificationId = usePersistStore(
-    (state) => state.setLatestNotificationId
-  )
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setHasNewNotification = useAppStore(
     (state) => state.setHasNewNotification
