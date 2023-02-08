@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3001",
+    "dev": "next dev --port 4001",
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .js,.ts,.tsx"
