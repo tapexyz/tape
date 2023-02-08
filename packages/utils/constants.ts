@@ -129,8 +129,8 @@ export const RARIBLE_MARKETPLACE_URL = IS_MAINNET
 // analytics
 export const MIXPANEL_API_HOST = '/collect'
 export const MIXPANEL_TOKEN = '928986a6551f5a12132e63c8bdd4451e'
-export const DATADOG_KEY = '440c0914809e1527800626e867d2a03a'
 export const MUX_DATA_KEY = '2h11sq1qeahiaejrjegjti847'
+export const DATADOG_KEY = process.env.NEXT_PUBLIC_DATADOG_KEY
 export const BETTER_UPTIME_KEY = process.env.BETTER_UPTIME_KEY
 
 // vercel
