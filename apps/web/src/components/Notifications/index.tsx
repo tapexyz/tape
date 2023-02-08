@@ -95,17 +95,7 @@ const Notifications = () => {
     variables: {
       request
     },
-    onCompleted: ({ notifications }) => {
-      if (
-        notifications.pageInfo.__typename === 'PaginatedResultInfo' &&
-        activeFilter.all
-      ) {
-        setTimeout(() => {
-          setLatestNotificationId(notifications.items[0].notificationId)
-          setHasNewNotification(false)
-        }, 1000)
-      }
-    }
+    onCompleted: () => setHasNewNotification(false)
   })
 
   const notifications = data?.notifications?.items as Notification[]
