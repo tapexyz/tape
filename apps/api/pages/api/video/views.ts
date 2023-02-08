@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { API_ORIGINS, IS_MAINNET, LIVEPEER_API_TOKEN } from 'utils'
+import { LIVEPEER_API_TOKEN } from 'utils'
 import logger from 'utils/logger'
 
 type Data = {
@@ -11,11 +11,6 @@ type Data = {
 const views = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method === 'OPTIONS') {
     return res.status(200).end()
-  }
-  const origin = req.headers.origin
-  if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
-    logger.error('[API INVALID ORIGIN]', origin)
-    return res.status(403).json({ success: false })
   }
   if (req.method !== 'POST' || !req.body) {
     return res.status(400).json({ success: false })
