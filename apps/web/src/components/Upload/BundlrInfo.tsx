@@ -5,7 +5,6 @@ import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import { utils } from 'ethers'
-import Link from 'next/link'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { MdRefresh } from 'react-icons/md'
@@ -14,7 +13,6 @@ import {
   Analytics,
   BUNDLR_CONNECT_MESSAGE,
   BUNDLR_CURRENCY,
-  BUNDLR_WEBSITE_URL,
   POLYGON_CHAIN_ID,
   TRACK
 } from 'utils'
@@ -155,17 +153,6 @@ const BundlrInfo = () => {
               </button>
             </Tooltip>
           </span>
-          <Link
-            href={BUNDLR_WEBSITE_URL}
-            target="_blank"
-            rel="noreferer"
-            className="text-[11px]"
-          >
-            {BUNDLR_CURRENCY}
-          </Link>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-lg font-medium">{bundlrData.balance}</span>
           <span>
             <button
               type="button"
@@ -183,11 +170,14 @@ const BundlrInfo = () => {
             </button>
           </span>
         </div>
+        <div className="flex justify-between">
+          <span className="text-lg font-medium">{bundlrData.balance}</span>
+        </div>
       </div>
       {bundlrData.showDeposit && (
         <div>
           <div className="inline-flex flex-col text-xs font-medium opacity-70">
-            Amount to deposit
+            Amount to deposit (MATIC)
           </div>
           <div className="flex items-center space-x-2">
             <Input
