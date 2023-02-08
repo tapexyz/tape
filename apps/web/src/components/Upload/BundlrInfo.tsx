@@ -1,6 +1,7 @@
 import type { WebBundlr } from '@bundlr-network/client'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
+import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
@@ -183,7 +184,7 @@ const BundlrInfo = () => {
             <Input
               type="number"
               placeholder={userBalance?.formatted}
-              className="py-1.5"
+              className="py-2"
               autoComplete="off"
               min={0}
               value={bundlrData.deposit || ''}
@@ -191,14 +192,14 @@ const BundlrInfo = () => {
                 setBundlrData({ deposit: e.target.value })
               }}
             />
-            <button
+            <Button
               type="button"
-              className="btn-primary px-4 py-1.5 text-sm"
-              disabled={bundlrData.depositing}
+              size="md"
+              loading={bundlrData.depositing}
               onClick={() => depositToBundlr()}
             >
               Deposit
-            </button>
+            </Button>
           </div>
         </div>
       )}
