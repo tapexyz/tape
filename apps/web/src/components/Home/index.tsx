@@ -17,7 +17,7 @@ const Home: NextPage = () => {
   }, [])
   return (
     <>
-      <MetaTags />
+      <MetaTags title="Home" />
       <DispatcherAlert />
       <BytesSection />
       <Curated />
