@@ -4,10 +4,10 @@ import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 
 import {
+  EVER_BUCKET_NAME,
   EVER_ENDPOINT,
   EVER_REGION,
-  LENSTUBE_API_URL,
-  NEXT_PUBLIC_EVER_BUCKET_NAME
+  LENSTUBE_API_URL
 } from '../constants'
 import type { IPFSUploadResult } from '../custom-types'
 import logger from '../logger'
@@ -32,7 +32,7 @@ export const everland = async (
     })
     const fileKey = uuidv4()
     const params = {
-      Bucket: NEXT_PUBLIC_EVER_BUCKET_NAME,
+      Bucket: EVER_BUCKET_NAME,
       Key: fileKey,
       Body: file,
       ContentType: file.type

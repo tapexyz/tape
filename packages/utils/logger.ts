@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { v4 as uuid } from 'uuid'
 
-import { DATADOG_KEY, IS_MAINNET } from './constants'
+import { DATADOG_CLIENT_KEY, IS_MAINNET } from './constants'
 
-const enabled = DATADOG_KEY && IS_MAINNET
+const enabled = DATADOG_CLIENT_KEY && IS_MAINNET
 const isBrowser = typeof window !== 'undefined'
 
 const sendError = (error: string) => {
@@ -12,7 +12,7 @@ const sendError = (error: string) => {
     axios('https://http-intake.logs.datadoghq.com/api/v2/logs', {
       method: 'POST',
       params: {
-        'dd-api-key': DATADOG_KEY,
+        'dd-api-key': DATADOG_CLIENT_KEY,
         'dd-request-id': reqId
       },
       data: {

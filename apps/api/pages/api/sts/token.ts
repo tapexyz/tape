@@ -3,9 +3,9 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import {
   EVER_ACCESS_KEY,
   EVER_ACCESS_SECRET,
+  EVER_BUCKET_NAME,
   EVER_ENDPOINT,
-  EVER_REGION,
-  NEXT_PUBLIC_EVER_BUCKET_NAME
+  EVER_REGION
 } from 'utils'
 import logger from 'utils/logger'
 
@@ -47,7 +47,7 @@ const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
                         "s3:AbortMultipartUpload"
                     ],
                     "Resource": [
-                        "arn:aws:s3:::${NEXT_PUBLIC_EVER_BUCKET_NAME}/*"
+                        "arn:aws:s3:::${EVER_BUCKET_NAME}/*"
                     ]
                 }
             ]
