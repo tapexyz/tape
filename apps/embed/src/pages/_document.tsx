@@ -17,6 +17,7 @@ class Document extends NextDocument {
             id="stitches"
             dangerouslySetInnerHTML={{ __html: getCssText() }}
           />
+          <meta name="robots" content="noindex" />
         </Head>
         <body>
           <Main />
