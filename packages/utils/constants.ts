@@ -67,11 +67,10 @@ export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
 export const EVER_ACCESS_KEY = process.env.EVER_ACCESS_KEY as string
 export const EVER_ACCESS_SECRET = process.env.EVER_ACCESS_SECRET as string
-export const NEXT_PUBLIC_EVER_BUCKET_NAME = IS_MAINNET ? 'lenstube' : 'testnet'
+export const EVER_BUCKET_NAME = IS_MAINNET ? 'lenstube' : 'testnet'
 
 // livepeer
-export const LIVEPEER_STUDIO_API_KEY = process.env
-  .NEXT_PUBLIC_LIVEPEER_STUDIO_API_KEY as string
+export const LIVEPEER_STUDIO_API_KEY = 'b13fd43e-d0d6-4abc-a5df-93592a0c5124'
 export const LIVEPEER_API_TOKEN = process.env.LIVEPEER_API_TOKEN as string
 
 // bundlr
@@ -129,9 +128,9 @@ export const RARIBLE_MARKETPLACE_URL = IS_MAINNET
 
 // analytics
 export const MIXPANEL_API_HOST = '/collect'
-export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN
-export const DATADOG_KEY = process.env.NEXT_PUBLIC_DATADOG_KEY
-export const MUX_DATA_KEY = process.env.NEXT_PUBLIC_MUX_DATA_KEY
+export const MIXPANEL_TOKEN = '928986a6551f5a12132e63c8bdd4451e'
+export const DATADOG_KEY = '440c0914809e1527800626e867d2a03a'
+export const MUX_DATA_KEY = '2h11sq1qeahiaejrjegjti847'
 export const BETTER_UPTIME_KEY = process.env.BETTER_UPTIME_KEY
 
 // vercel
