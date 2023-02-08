@@ -193,7 +193,6 @@ const BundlrInfo = () => {
               }}
             />
             <Button
-              type="button"
               size="md"
               loading={bundlrData.depositing}
               onClick={() => depositToBundlr()}
