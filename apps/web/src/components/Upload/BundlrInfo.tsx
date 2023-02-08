@@ -184,7 +184,7 @@ const BundlrInfo = () => {
             <Input
               type="number"
               placeholder={userBalance?.formatted}
-              className="py-2"
+              className="py-1.5 md:py-2"
               autoComplete="off"
               min={0}
               value={bundlrData.deposit || ''}
@@ -193,6 +193,7 @@ const BundlrInfo = () => {
               }}
             />
             <Button
+              type="button"
               size="md"
               loading={bundlrData.depositing}
               onClick={() => depositToBundlr()}
