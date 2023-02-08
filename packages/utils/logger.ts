@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid'
 
 import { DATADOG_CLIENT_KEY, IS_MAINNET } from './constants'
 
-const enabled = DATADOG_KEY && IS_MAINNET
+const enabled = DATADOG_CLIENT_KEY && IS_MAINNET
 const isBrowser = typeof window !== 'undefined'
 
 const sendError = (error: string) => {
