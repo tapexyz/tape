@@ -11,17 +11,14 @@ on:
 jobs:
   build:
       name: Build and Test
-      timeout-minutes: 15
+      timeout-minutes: 60
       runs-on: ubuntu-latest
 
       steps:
-        - name: Check out repo ✅
-          uses: actions/checkout@v3
-          with:
+        - uses: actions/checkout@v3
+          with: 
             fetch-depth: 2
- 
-        - name: Setup Node.js environment 📐
-          uses: actions/setup-node@v3
+        - uses: actions/setup-node@v3
           with:
             node-version-file: '.nvmrc'
             cache: 'yarn'
@@ -35,8 +32,9 @@ jobs:
         - name: Check Lint 💅🏻
           run: yarn lint
  
-        - name: Build 🔨
+        - name: Run Build 🔨
           run: yarn build
  
-        - name: Test 🧪
+        - name: Run Tests 🧪
           run: yarn e2e:test
+          

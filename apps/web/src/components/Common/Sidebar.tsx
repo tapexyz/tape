@@ -49,6 +49,7 @@ const Sidebar = () => {
             'flex flex-col space-y-2',
             sidebarCollapsed ? 'self-center' : 'w-full px-[18px]'
           )}
+          data-testid="sidebar-items"
         >
           <div className={clsx('py-3', sidebarCollapsed ? 'px-3' : 'px-3.5')}>
             <Link

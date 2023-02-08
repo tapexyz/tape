@@ -1,33 +1,26 @@
 import Bundlr from '@bundlr-network/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {
-  API_ORIGINS,
   BUNDLR_CURRENCY,
   BUNDLR_METADATA_UPLOAD_URL,
   BUNDLR_PRIVATE_KEY,
-  IS_MAINNET,
   LENSTUBE_APP_NAME
 } from 'utils'
 import logger from 'utils/logger'
 
 type Data = {
-  url: string | null
-  id: string | null
-  node?: string
   success: boolean
+  url?: string
+  id?: string
+  node?: string
 }
 
 const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method === 'OPTIONS') {
     return res.status(200).end()
   }
-  const origin = req.headers.origin
-  if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
-    logger.error('[API INVALID ORIGIN]', origin)
-    return res.status(403).json({ url: null, id: null, success: false })
-  }
   if (req.method !== 'POST' || !req.body) {
-    return res.status(400).json({ url: null, id: null, success: false })
+    return res.status(400).json({ success: false })
   }
   try {
     const payload = JSON.stringify(req.body)
@@ -51,7 +44,7 @@ const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     })
   } catch (error) {
     logger.error('[API Error Upload to Arweave]', error)
-    return res.status(200).json({ success: false, url: null, id: null })
+    return res.status(500).json({ success: false })
   }
 }
 

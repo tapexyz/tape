@@ -55,9 +55,12 @@ const CategoryFilters = () => {
   }
 
   return (
-    <div className="relative flex pt-4">
+    <div
+      className="ultrawide:max-w-[110rem] relative mx-auto flex pt-4"
+      data-testid="category-filters"
+    >
       {scrollX !== 0 && (
-        <div className="sticky right-0 bottom-0 bg-transparent px-2">
+        <div className="ultrawide:pl-0 sticky right-0 bottom-0 bg-transparent px-2 ">
           <button
             type="button"
             className="hidden rounded-full p-2 backdrop-blur-xl hover:bg-gray-500 hover:bg-opacity-20 focus:outline-none md:block"
@@ -69,7 +72,7 @@ const CategoryFilters = () => {
       )}
       <div
         ref={scrollRef}
-        className="no-scrollbar ultrawide:max-w-[110rem] flex touch-pan-x items-center gap-2 overflow-x-auto scroll-smooth px-2 md:mx-auto"
+        className="no-scrollbar ultrawide:px-0 flex touch-pan-x items-center gap-2 overflow-x-auto scroll-smooth px-2 md:mx-auto"
       >
         <button
           type="button"
@@ -100,7 +103,7 @@ const CategoryFilters = () => {
         ))}
       </div>
       {!scrollEnd && (
-        <div className="sticky right-0 bottom-0 bg-transparent px-2">
+        <div className="ultrawide:pr-0 sticky right-0 bottom-0 bg-transparent px-2">
           <button
             type="button"
             className="hidden rounded-full p-2 backdrop-blur-xl hover:bg-gray-500 hover:bg-opacity-20 focus:outline-none md:block"

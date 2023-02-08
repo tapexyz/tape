@@ -43,6 +43,10 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
     return <ChannelCirclesShimmer />
   }
 
+  if (!mutualSubscribers?.length) {
+    return null
+  }
+
   return (
     <div className="flex">
       <Tooltip content="Your friends already watching!" placement="top">

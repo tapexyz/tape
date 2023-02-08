@@ -15,7 +15,7 @@ const uploadToAr = async (
       data
     )
     const { url } = response.data
-    return { url }
+    return { url: url ?? null }
   } catch (error) {
     logger.error('[Error AR Data Upload]', error)
     toast.error('Failed to upload metadata!')

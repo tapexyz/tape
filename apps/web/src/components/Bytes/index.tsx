@@ -13,7 +13,7 @@ import {
 } from 'lens'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
   Analytics,
@@ -27,7 +27,7 @@ import ByteVideo from './ByteVideo'
 
 const request = {
   sortCriteria: PublicationSortCriteria.CuratedProfiles,
-  limit: 5,
+  limit: 50,
   noRandomize: false,
   sources: [LENSTUBE_BYTES_APP_ID],
   publicationTypes: [PublicationTypes.Post],
@@ -38,6 +38,7 @@ const Bytes = () => {
   const router = useRouter()
   const bytesContainer = useRef<HTMLDivElement>(null)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const [currentViewingId, setCurrentViewingId] = useState('')
 
   const [fetchPublication, { data: singleByte, loading: singleByteLoading }] =
     usePublicationDetailsLazyQuery()
@@ -130,24 +131,35 @@ const Bytes = () => {
         ref={bytesContainer}
         className="no-scrollbar h-screen snap-y snap-mandatory overflow-y-scroll scroll-smooth md:h-[calc(100vh-70px)]"
       >
-        {singleByte && <ByteVideo video={singleBytePublication} />}
+        {singleByte && (
+          <ByteVideo
+            video={singleBytePublication}
+            currentViewingId={currentViewingId}
+            intersectionCallback={(id) => setCurrentViewingId(id)}
+          />
+        )}
         {bytes?.map((video: Publication) => (
-          <ByteVideo video={video} key={`${video?.id}_${video.createdAt}`} />
+          <ByteVideo
+            video={video}
+            currentViewingId={currentViewingId}
+            intersectionCallback={(id) => setCurrentViewingId(id)}
+            key={`${video?.id}_${video.createdAt}`}
+          />
         ))}
         {pageInfo?.next && (
           <span ref={observe} className="flex justify-center p-10">
             <Loader />
           </span>
         )}
-        <div className="absolute bottom-7 right-4 flex flex-col space-y-3">
+        <div className="bottom-7 right-4 hidden flex-col space-y-3 lg:absolute lg:flex">
           <button
-            className="rounded-full bg-gray-700 p-3 focus:outline-none"
+            className="rounded-full bg-gray-300 p-3 focus:outline-none dark:bg-gray-700"
             onClick={() => bytesContainer.current?.scrollBy({ top: -30 })}
           >
             <ChevronUpOutline className="h-5 w-5" />
           </button>
           <button
-            className="rounded-full bg-gray-700 p-3 focus:outline-none"
+            className="rounded-full bg-gray-300 p-3 focus:outline-none dark:bg-gray-700"
             onClick={() => bytesContainer.current?.scrollBy({ top: 30 })}
           >
             <ChevronDownOutline className="h-5 w-5" />

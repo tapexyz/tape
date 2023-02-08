@@ -1,13 +1,11 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {
-  API_ORIGINS,
   EVER_ACCESS_KEY,
   EVER_ACCESS_SECRET,
+  EVER_BUCKET_NAME,
   EVER_ENDPOINT,
-  EVER_REGION,
-  IS_MAINNET,
-  NEXT_PUBLIC_EVER_BUCKET_NAME
+  EVER_REGION
 } from 'utils'
 import logger from 'utils/logger'
 
@@ -23,11 +21,6 @@ type Data = {
 const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method === 'OPTIONS') {
     return res.status(200).end()
-  }
-  const origin = req.headers.origin
-  if (IS_MAINNET && (!origin || !API_ORIGINS.includes(origin))) {
-    logger.error('[API INVALID ORIGIN]', origin)
-    return res.status(403).json({ success: false })
   }
   if (req.method !== 'POST') {
     return res.status(400).json({ success: false })
@@ -54,7 +47,7 @@ const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
                         "s3:AbortMultipartUpload"
                     ],
                     "Resource": [
-                        "arn:aws:s3:::${NEXT_PUBLIC_EVER_BUCKET_NAME}/*"
+                        "arn:aws:s3:::${EVER_BUCKET_NAME}/*"
                     ]
                 }
             ]

@@ -16,6 +16,8 @@ export const LENSTUBE_EMBED_URL = IS_MAINNET
   : 'https://test-embed.lenstube.xyz'
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallbackThumbnail.png`
 export const OG_IMAGE = `${STATIC_ASSETS}/images/seo/og.png`
+export const IMAGE_CDN_URL = IS_MAINNET ? 'https://img.lenstube.xyz' : ''
+export const SCROLL_ROOT_MARGIN = '40% 0px'
 
 // lens
 export const MAINNET_API_URL = 'https://api.lens.dev'
@@ -28,15 +30,16 @@ export const STAGING_API_URL = IS_MAINNET
   ? STAGING_MAINNET_API_URL
   : STAGING_TESTNET_API_URL
 
-// lenstube api
+// API urls
 export const LENSTUBE_MAINNET_API_URL = 'https://api.lenstube.xyz'
 export const LENSTUBE_TESTNET_API_URL = 'https://api-testnet.lenstube.xyz'
-export const LENSTUBE_DEV_API_URL = 'http://localhost:3002'
+export const LENSTUBE_DEV_API_URL = 'http://localhost:4002'
 export const LENSTUBE_API_URL = IS_MAINNET
   ? LENSTUBE_MAINNET_API_URL
   : LENSTUBE_TESTNET_API_URL
-
 export const API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
+
+// contracts
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
   ? '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d'
   : '0x60Ae865ee4C725cd04353b5AAb364553f56ceF82'
@@ -52,17 +55,10 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 export const POLYGON_RPC_URL = IS_MAINNET
   ? 'https://rpc.ankr.com/polygon'
   : 'https://rpc.ankr.com/polygon_mumbai'
-
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://mumbai.polygonscan.com'
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
-
-// cdn
-export const IMAGE_CDN_URL = IS_MAINNET ? 'https://img.lenstube.xyz' : ''
-export const VIDEO_CDN_URL = 'https://cdn.livepeer.com'
-
-export const SCROLL_ROOT_MARGIN = '40% 0px'
 
 // ipfs
 export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 1000 : 100
@@ -71,14 +67,11 @@ export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
 export const EVER_ACCESS_KEY = process.env.EVER_ACCESS_KEY as string
 export const EVER_ACCESS_SECRET = process.env.EVER_ACCESS_SECRET as string
-export const NEXT_PUBLIC_EVER_BUCKET_NAME = IS_MAINNET ? 'lenstube' : 'testnet'
+export const EVER_BUCKET_NAME = IS_MAINNET ? 'lenstube' : 'testnet'
 
 // livepeer
-export const LIVEPEER_STUDIO_API_KEY = '8b62cbc6-9677-4316-a94c-f4ae6e14abb4'
+export const LIVEPEER_STUDIO_API_KEY = 'b13fd43e-d0d6-4abc-a5df-93592a0c5124'
 export const LIVEPEER_API_TOKEN = process.env.LIVEPEER_API_TOKEN as string
-
-// uptime
-export const BETTER_UPTIME_KEY = process.env.BETTER_UPTIME_KEY
 
 // bundlr
 export const BUNDLR_NODE_URL = IS_MAINNET
@@ -133,18 +126,15 @@ export const RARIBLE_MARKETPLACE_URL = IS_MAINNET
   ? 'https://rarible.com'
   : 'https://testnet.rarible.com'
 
-// misc
+// analytics
+export const MIXPANEL_API_HOST = '/collect'
+export const MIXPANEL_TOKEN = '928986a6551f5a12132e63c8bdd4451e'
+export const MUX_DATA_KEY = '2h11sq1qeahiaejrjegjti847'
+export const DATADOG_API_KEY = process.env.NEXT_PUBLIC_DATADOG_API_KEY
+export const BETTER_UPTIME_KEY = process.env.BETTER_UPTIME_KEY
+
+// vercel
 export const GIT_DEPLOYED_COMMIT_SHA =
   process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
 export const GIT_DEPLOYED_BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
 export const VERCEL_DEPLOYED_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV
-export const MIXPANEL_API_HOST = '/collect'
-export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN
-export const DATADOG_KEY = process.env.NEXT_PUBLIC_DATADOG_KEY
-export const MUX_DATA_KEY = process.env.NEXT_PUBLIC_MUX_DATA_KEY
-
-export const API_ORIGINS = [
-  'https://lenstube.xyz',
-  'https://testnet.lenstube.xyz',
-  'http://localhost:4783'
-]
