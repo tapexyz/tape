@@ -9,6 +9,7 @@
       "dependsOn": ["build"],
       "outputs": ["out/**"]
     },
+    "start": { "cache": false },
     "e2e:test": { "dependsOn": ["^build"] },
     "lint": { "outputs": [] },
     "codegen": { "outputs": [] },
