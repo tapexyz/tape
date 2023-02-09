@@ -2,6 +2,7 @@ import CollectVideo from '@components/Watch/CollectVideo'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
+import { Analytics, TRACK } from 'utils'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
@@ -40,6 +41,7 @@ const ByteVideo: FC<Props> = ({
     videoRef.current.volume = 1
     videoRef.current.autoplay = true
     videoRef.current?.play().catch(() => {})
+    Analytics.track(TRACK.PLAY_BYTE_VIDEO)
   }
 
   const observer = new IntersectionObserver((data) => {
