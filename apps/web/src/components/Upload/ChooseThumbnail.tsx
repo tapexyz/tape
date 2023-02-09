@@ -199,7 +199,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
                 selectedThumbnailIndex === idx && (
                   <div className="absolute top-1 right-1">
                     <span>
-                      <Loader size="sm" className="!text-white" />
+                      <Loader size="sm" />
                     </span>
                   </div>
                 )}

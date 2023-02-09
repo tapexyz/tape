@@ -17,6 +17,7 @@ import { STATIC_ASSETS } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
+import useAverageColor from 'utils/hooks/useAverageColor'
 
 import IsVerified from '../IsVerified'
 
@@ -40,6 +41,10 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
       ? `${STATIC_ASSETS}/images/sensor-blur.png`
       : sanitizeIpfsUrl(queuedVideo.thumbnailUrl),
     uploadedVideo.isByteVideo ? 'thumbnail_v' : 'thumbnail'
+  )
+  const { color: backgroundColor } = useAverageColor(
+    thumbnailUrl,
+    uploadedVideo.isByteVideo
   )
 
   const removeFromQueue = () => {
@@ -114,17 +119,22 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
 
   return (
     <div className="cursor-wait">
-      <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
-        <img
-          src={thumbnailUrl}
-          draggable={false}
-          className={clsx(
-            'h-full w-full bg-gray-100 object-center dark:bg-gray-900 md:rounded-xl lg:h-full lg:w-full',
-            uploadedVideo.isByteVideo ? 'object-contain' : 'object-cover'
-          )}
-          alt="thumbnail"
-        />
-      </div>
+      <Tooltip content="Indexing, please wait..." placement="top">
+        <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
+          <img
+            src={thumbnailUrl}
+            className={clsx(
+              'h-full w-full bg-gray-100 object-center dark:bg-gray-900 md:rounded-xl lg:h-full lg:w-full',
+              uploadedVideo.isByteVideo ? 'object-contain' : 'object-cover'
+            )}
+            style={{
+              backgroundColor: backgroundColor && `${backgroundColor}95`
+            }}
+            alt="thumbnail"
+            draggable={false}
+          />
+        </div>
+      </Tooltip>
       <div className="py-2">
         <div className="flex items-start space-x-2.5">
           <img
