@@ -97,7 +97,7 @@ const FeeCollectForm: FC<Props> = ({
         <div>
           <Input
             type="number"
-            label="Total Collectables"
+            label="Total Collectibles"
             placeholder="3"
             min="1"
             autoComplete="off"
