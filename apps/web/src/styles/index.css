@@ -20,11 +20,7 @@ body {
 .btn-hover {
   @apply disabled:opacity-50 focus:outline-none rounded-full dark:hover:bg-indigo-900 hover:bg-indigo-100;
 }
-
-.text-secondary {
-  @apply text-gray-700 dark:text-gray-300;
-}
-
+ 
 .bg-secondary {
   @apply dark:bg-[#050506] bg-white;
 }
