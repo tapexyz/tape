@@ -71,6 +71,8 @@ interface AppState {
   selectedChannel: Profile | null
   videoWatchTime: number
   activeTagFilter: string
+  showSidebarToggle: boolean
+  setShowSidebarToggle: (collapsed: boolean) => void
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
   setSelectedChannel: (channel: Profile | null) => void
@@ -88,6 +90,7 @@ export const useAppStore = create<AppState>((set) => ({
   channels: [],
   recommendedChannels: [],
   showCreateChannel: false,
+  showSidebarToggle: true,
   hasNewNotification: false,
   userSigNonce: 0,
   bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
@@ -96,6 +99,7 @@ export const useAppStore = create<AppState>((set) => ({
   activeTagFilter: 'all',
   uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
   setActiveTagFilter: (activeTagFilter) => set({ activeTagFilter }),
+  setShowSidebarToggle: (showSidebarToggle) => set({ showSidebarToggle }),
   setVideoWatchTime: (videoWatchTime) => set({ videoWatchTime }),
   setSelectedChannel: (channel) => set({ selectedChannel: channel }),
   setBundlrData: (bundlrData) =>

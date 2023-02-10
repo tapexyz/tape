@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
 import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
+import usePersistStore from '@lib/store/persist'
 import type { Publication } from 'lens'
 import { usePublicationDetailsQuery } from 'lens'
 import { useRouter } from 'next/router'
@@ -20,10 +21,19 @@ const VideoDetails = () => {
     query: { id, t }
   } = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const setShowSidebarToggle = useAppStore(
+    (state) => state.setShowSidebarToggle
+  )
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
+  const setSidebarCollapsed = usePersistStore(
+    (state) => state.setSidebarCollapsed
+  )
 
   useEffect(() => {
+    setSidebarCollapsed(true)
+    setShowSidebarToggle(false)
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.WATCH })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const { data, error, loading } = usePublicationDetailsQuery({
