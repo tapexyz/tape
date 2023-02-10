@@ -45,7 +45,7 @@ const ReactedNotification: FC<Props> = ({ notification }) => {
             video
           </Link>
         </span>
-        <div className="flex flex-none items-center text-gray-700 dark:text-gray-300">
+        <div className="flex flex-none items-center text-gray-600 dark:text-gray-400">
           <span>{getRelativeTime(notification?.createdAt)}</span>
         </div>
       </div>
