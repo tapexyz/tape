@@ -3,17 +3,16 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import type { Publication } from 'lens'
 import { SearchRequestTypes, useSearchPublicationsQuery } from 'lens'
 import { useRouter } from 'next/router'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
+import React, { useRef } from 'react'
 import Custom404 from 'src/pages/404'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
+  LENSTUBE_BYTES_APP_ID
 } from 'utils'
 
 const ExploreHashtag = () => {
@@ -44,18 +43,19 @@ const ExploreHashtag = () => {
       ? data?.search?.pageInfo
       : null
 
-  const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
-    onEnter: async () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  usePaginationLoading({
+    ref: sectionRef,
+    fetch: async () =>
       await fetchMore({
         variables: {
           request: {
-            ...request,
-            cursor: pageInfo?.next
+            cursor: pageInfo?.next,
+            ...request
           }
         }
       })
-    }
   })
 
   if (!hashtag) {
@@ -67,7 +67,7 @@ const ExploreHashtag = () => {
       <MetaTags title={hashtag?.toString()} />
       <div>
         <h1 className="font-semibold md:text-2xl">#{hashtag}</h1>
-        <div className="my-4">
+        <div ref={sectionRef} className="my-4">
           {loading && <TimelineShimmer />}
           {videos?.length === 0 && (
             <NoDataFound isCenter withImage text="No videos found" />
@@ -76,7 +76,7 @@ const ExploreHashtag = () => {
             <>
               <Timeline videos={videos} />
               {pageInfo?.next && (
-                <span ref={observe} className="flex justify-center p-10">
+                <span className="flex justify-center p-10">
                   <Loader />
                 </span>
               )}

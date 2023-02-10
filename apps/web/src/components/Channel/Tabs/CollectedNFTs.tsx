@@ -1,12 +1,12 @@
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import type { Nft, Profile } from 'lens'
 import { useProfileNfTsQuery } from 'lens'
 import type { FC } from 'react'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
-import { POLYGON_CHAIN_ID, SCROLL_ROOT_MARGIN } from 'utils'
+import React, { useRef } from 'react'
+import { POLYGON_CHAIN_ID } from 'utils'
 import { mainnet } from 'wagmi/chains'
 
 import NFTCard from './NFTCard'
@@ -31,18 +31,19 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
   const collectedNFTs = data?.nfts?.items as Nft[]
   const pageInfo = data?.nfts?.pageInfo
 
-  const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
-    onEnter: async () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  usePaginationLoading({
+    ref: sectionRef,
+    fetch: async () =>
       await fetchMore({
         variables: {
           request: {
-            ...request,
-            cursor: pageInfo?.next
+            cursor: pageInfo?.next,
+            ...request
           }
         }
       })
-    }
   })
 
   if (loading) {
@@ -54,7 +55,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
   }
 
   return (
-    <div className="w-full">
+    <div ref={sectionRef} className="w-full">
       {!error && !loading && (
         <>
           <div className="ultrawide:grid-cols-6 laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-2 md:gap-y-8 2xl:grid-cols-5">
@@ -66,7 +67,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
             ))}
           </div>
           {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-10">
+            <span className="flex justify-center p-10">
               <Loader />
             </span>
           )}

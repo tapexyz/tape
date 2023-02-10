@@ -9,18 +9,17 @@ import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import useChannelStore from '@lib/store/channel'
 import clsx from 'clsx'
 import type { Notification } from 'lens'
 import { NotificationTypes, useNotificationsQuery } from 'lens'
-import React, { useState } from 'react'
-import { useInView } from 'react-cool-inview'
+import React, { useRef, useState } from 'react'
 import {
   Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN,
   TRACK
 } from 'utils'
 
@@ -97,9 +96,11 @@ const Notifications = () => {
   const notifications = data?.notifications?.items as Notification[]
   const pageInfo = data?.notifications?.pageInfo
 
-  const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
-    onEnter: async () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  usePaginationLoading({
+    ref: sectionRef,
+    fetch: async () =>
       await fetchMore({
         variables: {
           request: {
@@ -108,7 +109,6 @@ const Notifications = () => {
           }
         }
       })
-    }
   })
 
   return (
@@ -233,7 +233,7 @@ const Notifications = () => {
             </Tab>
           </Tab.List>
         </div>
-        <Tab.Panels>
+        <Tab.Panels ref={sectionRef}>
           {loading && <NotificationsShimmer />}
           {notifications?.length === 0 && (
             <NoDataFound isCenter withImage text="No Notifications" />
@@ -264,7 +264,7 @@ const Notifications = () => {
             </div>
           ))}
           {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-10">
+            <span className="flex justify-center p-10">
               <Loader />
             </span>
           )}

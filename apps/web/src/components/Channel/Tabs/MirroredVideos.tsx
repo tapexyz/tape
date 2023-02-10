@@ -2,6 +2,7 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import type { Profile, Publication } from 'lens'
 import {
   PublicationMainFocus,
@@ -9,9 +10,8 @@ import {
   useProfileMirrorsQuery
 } from 'lens'
 import type { FC } from 'react'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
-import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from 'utils'
+import React, { useRef } from 'react'
+import { LENS_CUSTOM_FILTERS } from 'utils'
 
 type Props = {
   channel: Profile
@@ -38,19 +38,20 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
   const channelVideos = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
-  const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
-    onEnter: async () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  usePaginationLoading({
+    ref: sectionRef,
+    fetch: async () =>
       await fetchMore({
         variables: {
           request: {
-            ...request,
+            cursor: pageInfo?.next,
             profileId: channel?.id,
-            cursor: pageInfo?.next
+            ...request
           }
         }
       })
-    }
   })
 
   if (loading) {
@@ -62,12 +63,12 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
   }
 
   return (
-    <div className="w-full">
+    <div ref={sectionRef} className="w-full">
       {!error && !loading && (
         <div>
           <Timeline videos={channelVideos} videoType="Mirror" />
           {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-10">
+            <span className="flex justify-center p-10">
               <Loader />
             </span>
           )}

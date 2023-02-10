@@ -1,11 +1,11 @@
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import type { Follower, Profile } from 'lens'
 import { useSubscribersQuery } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
+import React, { useRef } from 'react'
 import { formatNumber } from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
@@ -31,17 +31,19 @@ const SubscribersList: FC<Props> = ({ channel }) => {
   const subscribers = data?.followers?.items as Follower[]
   const pageInfo = data?.followers?.pageInfo
 
-  const { observe } = useInView({
-    onEnter: async () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  usePaginationLoading({
+    ref: sectionRef,
+    fetch: async () =>
       await fetchMore({
         variables: {
           request: {
-            ...request,
-            cursor: pageInfo?.next
+            cursor: pageInfo?.next,
+            ...request
           }
         }
       })
-    }
   })
 
   if (loading) {
@@ -56,7 +58,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
   }
 
   return (
-    <div className="mt-4 space-y-3">
+    <div ref={sectionRef} className="mt-4 space-y-3">
       {subscribers?.map((subscriber: Follower) => (
         <div className="flex flex-col" key={subscriber.wallet.address}>
           {subscriber.wallet?.defaultProfile ? (
@@ -110,7 +112,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
         </div>
       ))}
       {pageInfo?.next && (
-        <span ref={observe} className="p-5">
+        <span className="p-5">
           <Loader />
         </span>
       )}

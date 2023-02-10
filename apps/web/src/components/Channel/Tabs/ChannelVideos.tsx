@@ -3,6 +3,7 @@ import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import usePersistStore from '@lib/store/persist'
 import type { Profile, Publication } from 'lens'
 import {
@@ -11,14 +12,8 @@ import {
   useProfilePostsQuery
 } from 'lens'
 import type { FC } from 'react'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
-import {
-  ALLOWED_APP_IDS,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from 'utils'
+import React, { useRef } from 'react'
+import { ALLOWED_APP_IDS, LENS_CUSTOM_FILTERS, LENSTUBE_APP_ID } from 'utils'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 
 import PinnedVideo from './PinnedVideo'
@@ -53,18 +48,19 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
   const channelVideos = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
-  const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
-    onEnter: async () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  usePaginationLoading({
+    ref: sectionRef,
+    fetch: async () =>
       await fetchMore({
         variables: {
           request: {
-            ...request,
-            cursor: pageInfo?.next
+            cursor: pageInfo?.next,
+            ...request
           }
         }
       })
-    }
   })
 
   if (loading) {
@@ -81,7 +77,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
   }
 
   return (
-    <>
+    <div ref={sectionRef} className="w-full">
       {pinnedVideoId?.length && (
         <span className="hidden lg:block">
           <PinnedVideo id={pinnedVideoId} />
@@ -91,13 +87,13 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
         <>
           <Timeline videos={channelVideos} />
           {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-10">
+            <span className="flex justify-center p-10">
               <Loader />
             </span>
           )}
         </>
       )}
-    </>
+    </div>
   )
 }
 

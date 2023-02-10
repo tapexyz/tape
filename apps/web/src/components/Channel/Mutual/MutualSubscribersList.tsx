@@ -2,13 +2,13 @@ import UserOutline from '@components/Common/Icons/UserOutline'
 import IsVerified from '@components/Common/IsVerified'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import useChannelStore from '@lib/store/channel'
 import type { Profile } from 'lens'
 import { useMutualFollowersQuery } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
+import React, { useRef } from 'react'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 type Props = {
   viewingChannelId: string
@@ -32,17 +32,19 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
   const mutualSubscribers = data?.mutualFollowersProfiles?.items as Profile[]
   const pageInfo = data?.mutualFollowersProfiles?.pageInfo
 
-  const { observe } = useInView({
-    onEnter: async () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  usePaginationLoading({
+    ref: sectionRef,
+    fetch: async () =>
       await fetchMore({
         variables: {
           request: {
-            ...request,
-            cursor: pageInfo?.next
+            cursor: pageInfo?.next,
+            ...request
           }
         }
       })
-    }
   })
 
   if (loading) {
@@ -57,7 +59,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
   }
 
   return (
-    <div className="mt-4 space-y-3">
+    <div ref={sectionRef} className="mt-4 space-y-3">
       {mutualSubscribers?.map((channel: Profile) => (
         <Link
           href={`/channel/${channel?.handle}`}
@@ -83,7 +85,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
         </Link>
       ))}
       {pageInfo?.next && (
-        <span ref={observe} className="p-5">
+        <span className="p-5">
           <Loader />
         </span>
       )}

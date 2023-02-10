@@ -1,5 +1,6 @@
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import type { Publication } from 'lens'
 import {
   PublicationMainFocus,
@@ -9,14 +10,12 @@ import {
 } from 'lens'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
-import React, { useEffect } from 'react'
-import { useInView } from 'react-cool-inview'
+import React, { useEffect, useRef } from 'react'
 import {
   ALLOWED_APP_IDS,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
+  LENSTUBE_BYTES_APP_ID
 } from 'utils'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
@@ -48,18 +47,19 @@ const SuggestedVideos: FC = () => {
     refetch()
   }, [id, refetch])
 
-  const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
-    onEnter: async () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  usePaginationLoading({
+    ref: sectionRef,
+    fetch: async () =>
       await fetchMore({
         variables: {
           request: {
-            ...request,
-            cursor: pageInfo?.next
+            cursor: pageInfo?.next,
+            ...request
           }
         }
       })
-    }
   })
 
   return (
@@ -68,6 +68,7 @@ const SuggestedVideos: FC = () => {
       {!error && !loading && videos.length ? (
         <div className="pb-3">
           <div
+            ref={sectionRef}
             className="space-y-3 md:grid md:grid-cols-2 md:gap-3 lg:flex lg:flex-col lg:gap-0"
             data-testid="watch-video-suggestions"
           >
@@ -80,7 +81,7 @@ const SuggestedVideos: FC = () => {
             )}
           </div>
           {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-10">
+            <span className="flex justify-center p-10">
               <Loader />
             </span>
           )}

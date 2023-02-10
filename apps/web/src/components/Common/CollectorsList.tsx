@@ -1,11 +1,11 @@
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import type { Wallet } from 'lens'
 import { useCollectorsQuery } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
+import React, { useRef } from 'react'
 import { formatNumber } from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
@@ -31,17 +31,19 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
   const collectors = data?.whoCollectedPublication?.items as Wallet[]
   const pageInfo = data?.whoCollectedPublication?.pageInfo
 
-  const { observe } = useInView({
-    onEnter: async () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  usePaginationLoading({
+    ref: sectionRef,
+    fetch: async () =>
       await fetchMore({
         variables: {
           request: {
-            ...request,
-            cursor: pageInfo?.next
+            cursor: pageInfo?.next,
+            ...request
           }
         }
       })
-    }
   })
 
   if (loading) {
@@ -56,7 +58,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
   }
 
   return (
-    <div className="mt-4 space-y-3">
+    <div ref={sectionRef} className="mt-4 space-y-3">
       {collectors?.map((wallet: Wallet) => (
         <div className="flex flex-col" key={wallet.address}>
           {wallet?.defaultProfile ? (
@@ -102,7 +104,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
         </div>
       ))}
       {pageInfo?.next && (
-        <span ref={observe} className="p-5">
+        <span className="p-5">
           <Loader />
         </span>
       )}

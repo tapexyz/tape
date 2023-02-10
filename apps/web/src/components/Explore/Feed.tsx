@@ -6,6 +6,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import type { Publication } from 'lens'
@@ -15,15 +16,13 @@ import {
   PublicationTypes,
   useExploreQuery
 } from 'lens'
-import React, { useState } from 'react'
-import { useInView } from 'react-cool-inview'
+import React, { useRef, useState } from 'react'
 import {
   ALLOWED_APP_IDS,
   Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN,
   TRACK
 } from 'utils'
 
@@ -73,18 +72,19 @@ const ExploreFeed = () => {
   const videos = data?.explorePublications?.items as Publication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
-  const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
-    onEnter: async () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  usePaginationLoading({
+    ref: sectionRef,
+    fetch: async () =>
       await fetchMore({
         variables: {
           request: {
-            ...request,
-            cursor: pageInfo?.next
+            cursor: pageInfo?.next,
+            ...request
           }
         }
       })
-    }
   })
 
   return (
@@ -150,7 +150,7 @@ const ExploreFeed = () => {
           <span>Interesting</span>
         </Tab>
       </Tab.List>
-      <Tab.Panels className="my-3">
+      <Tab.Panels ref={sectionRef} className="my-3">
         {loading && <TimelineShimmer />}
         {videos?.length === 0 && (
           <NoDataFound isCenter withImage text="No videos found" />
@@ -159,7 +159,7 @@ const ExploreFeed = () => {
           <>
             <Timeline videos={videos} />
             {pageInfo?.next && (
-              <span ref={observe} className="flex justify-center p-10">
+              <span className="flex justify-center p-10">
                 <Loader />
               </span>
             )}

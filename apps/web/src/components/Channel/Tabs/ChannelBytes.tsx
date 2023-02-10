@@ -2,16 +2,12 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import type { Profile, Publication } from 'lens'
 import { PublicationTypes, useProfilePostsQuery } from 'lens'
 import type { FC } from 'react'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
-import {
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from 'utils'
+import React, { useRef } from 'react'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from 'utils'
 
 type Props = {
   channel: Profile
@@ -34,18 +30,19 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
   const bytes = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
-  const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
-    onEnter: async () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  usePaginationLoading({
+    ref: sectionRef,
+    fetch: async () =>
       await fetchMore({
         variables: {
           request: {
-            ...request,
-            cursor: pageInfo?.next
+            cursor: pageInfo?.next,
+            ...request
           }
         }
       })
-    }
   })
 
   if (loading) {
@@ -57,12 +54,12 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
   }
 
   return (
-    <div className="w-full">
+    <div ref={sectionRef} className="w-full">
       {!error && !loading && (
         <>
           <Timeline videos={bytes} />
           {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-10">
+            <span className="flex justify-center p-10">
               <Loader />
             </span>
           )}

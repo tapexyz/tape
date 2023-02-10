@@ -2,14 +2,13 @@ import VideoCard from '@components/Common/VideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import useAppStore from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import type { FeedItem, Publication } from 'lens'
 import { FeedEventItemType, PublicationMainFocus, useFeedQuery } from 'lens'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
+import React, { useRef } from 'react'
 import Custom500 from 'src/pages/500'
-import { SCROLL_ROOT_MARGIN } from 'utils'
 
 const Subscriptions = () => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
@@ -36,9 +35,11 @@ const Subscriptions = () => {
   const videos = data?.feed?.items as FeedItem[]
   const pageInfo = data?.feed?.pageInfo
 
-  const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
-    onEnter: async () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  usePaginationLoading({
+    ref: sectionRef,
+    fetch: async () =>
       await fetchMore({
         variables: {
           request: {
@@ -47,7 +48,6 @@ const Subscriptions = () => {
           }
         }
       })
-    }
   })
 
   if (videos?.length === 0) {
@@ -69,7 +69,10 @@ const Subscriptions = () => {
       {loading && <TimelineShimmer />}
       {!error && !loading && (
         <>
-          <div className="ultrawide:grid-cols-6 laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-2 md:gap-y-8 2xl:grid-cols-5">
+          <div
+            ref={sectionRef}
+            className="ultrawide:grid-cols-6 laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-2 md:gap-y-8 2xl:grid-cols-5"
+          >
             {videos?.map((feedItem: FeedItem) => {
               const video = feedItem.root
               return (
@@ -81,7 +84,7 @@ const Subscriptions = () => {
             })}
           </div>
           {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-10">
+            <span className="flex justify-center p-10">
               <Loader />
             </span>
           )}
