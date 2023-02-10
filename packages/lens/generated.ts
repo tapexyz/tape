@@ -6946,6 +6946,7 @@ export type NotificationsQuery = {
           comment: {
             __typename?: 'Comment'
             id: any
+            metadata: { __typename?: 'MetadataOutput'; content?: any | null }
             commentOn?:
               | { __typename?: 'Comment'; id: any }
               | { __typename?: 'Mirror'; id: any }
@@ -13199,6 +13200,9 @@ export const NotificationsDocument = gql`
           }
           comment {
             id
+            metadata {
+              content
+            }
             commentOn {
               ... on Post {
                 id
