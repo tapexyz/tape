@@ -25,10 +25,8 @@ const CreateChannel = dynamic(() => import('./CreateChannel'))
 
 const Sidebar = () => {
   const router = useRouter()
-  const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
-  const showSidebarToggle = useAppStore((state) => state.showSidebarToggle)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-
+  const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
   const setSidebarCollapsed = usePersistStore(
     (state) => state.setSidebarCollapsed
   )
@@ -187,22 +185,20 @@ const Sidebar = () => {
           )}
         >
           {!sidebarCollapsed && <Footer />}
-          {showSidebarToggle && (
-            <button
-              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              type="button"
-              className={clsx(
-                'mt-2 flex h-12 items-center justify-center rounded-full p-3.5 opacity-90 hover:bg-gray-50 hover:opacity-100 focus:outline-none dark:hover:bg-gray-800',
-                sidebarCollapsed ? 'w-12' : 'w-full'
-              )}
-            >
-              {sidebarCollapsed ? (
-                <ChevronRightOutline className="h-3 w-3" />
-              ) : (
-                <ChevronLeftOutline className="h-3 w-3" />
-              )}
-            </button>
-          )}
+          <button
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            type="button"
+            className={clsx(
+              'mt-2 flex h-12 items-center justify-center rounded-full p-3.5 opacity-90 hover:bg-gray-50 hover:opacity-100 focus:outline-none dark:hover:bg-gray-800',
+              sidebarCollapsed ? 'w-12' : 'w-full'
+            )}
+          >
+            {sidebarCollapsed ? (
+              <ChevronRightOutline className="h-3 w-3" />
+            ) : (
+              <ChevronLeftOutline className="h-3 w-3" />
+            )}
+          </button>
         </div>
       </div>
     </>
