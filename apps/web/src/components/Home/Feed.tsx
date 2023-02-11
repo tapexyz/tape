@@ -15,6 +15,7 @@ import React, { useRef } from 'react'
 import { ALLOWED_APP_IDS, LENS_CUSTOM_FILTERS, LENSTUBE_APP_ID } from 'utils'
 
 const HomeFeed = () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
   const request = {
@@ -37,8 +38,6 @@ const HomeFeed = () => {
 
   const pageInfo = data?.explorePublications?.pageInfo
   const videos = data?.explorePublications?.items as Publication[]
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

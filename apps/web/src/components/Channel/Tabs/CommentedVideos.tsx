@@ -18,6 +18,7 @@ type Props = {
 }
 
 const CommentedVideos: FC<Props> = ({ channel }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const request = {
     publicationTypes: [PublicationTypes.Comment],
     limit: 32,
@@ -35,8 +36,6 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
 
   const channelVideos = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

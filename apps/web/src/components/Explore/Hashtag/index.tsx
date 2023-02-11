@@ -16,6 +16,7 @@ import {
 } from 'utils'
 
 const ExploreHashtag = () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const { query } = useRouter()
   const hashtag = query.hashtag as string
 
@@ -42,8 +43,6 @@ const ExploreHashtag = () => {
     data?.search.__typename === 'PublicationSearchResult'
       ? data?.search?.pageInfo
       : null
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

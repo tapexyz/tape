@@ -19,6 +19,7 @@ import {
 } from 'utils'
 
 const Recents = () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const request = {
     sortCriteria: PublicationSortCriteria.Latest,
     limit: 32,
@@ -39,8 +40,6 @@ const Recents = () => {
 
   const videos = data?.explorePublications?.items as Publication[]
   const pageInfo = data?.explorePublications?.pageInfo
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,
@@ -66,7 +65,7 @@ const Recents = () => {
   }
 
   return (
-    <div className="pt-9">
+    <div ref={sectionRef} className="pt-9">
       {!error && !loading && videos?.length ? (
         <>
           <Timeline videos={videos} />

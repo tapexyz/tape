@@ -40,6 +40,7 @@ const initialFilters = {
 }
 
 const Notifications = () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const [activeFilter, setActiveFilter] = useState(initialFilters)
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const setHasNewNotification = useChannelStore(
@@ -95,8 +96,6 @@ const Notifications = () => {
 
   const notifications = data?.notifications?.items as Notification[]
   const pageInfo = data?.notifications?.pageInfo
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

@@ -24,6 +24,7 @@ type Props = {
 }
 
 const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
@@ -60,8 +61,6 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
 
   const comments = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

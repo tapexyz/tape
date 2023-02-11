@@ -21,6 +21,7 @@ type Props = {
 }
 
 const SubscribersList: FC<Props> = ({ channel }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const request = { profileId: channel?.id, limit: 30 }
 
   const { data, loading, fetchMore } = useSubscribersQuery({
@@ -30,8 +31,6 @@ const SubscribersList: FC<Props> = ({ channel }) => {
 
   const subscribers = data?.followers?.items as Follower[]
   const pageInfo = data?.followers?.pageInfo
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

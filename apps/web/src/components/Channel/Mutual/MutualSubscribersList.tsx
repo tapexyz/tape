@@ -15,6 +15,7 @@ type Props = {
 }
 
 const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const request = {
     viewingProfileId: viewingChannelId,
@@ -31,8 +32,6 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
 
   const mutualSubscribers = data?.mutualFollowersProfiles?.items as Profile[]
   const pageInfo = data?.mutualFollowersProfiles?.pageInfo
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

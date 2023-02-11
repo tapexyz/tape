@@ -16,6 +16,7 @@ type Props = {
 }
 
 const MirroredList: FC<Props> = ({ videoId }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const request = { whoMirroredPublicationId: videoId, limit: 30 }
 
   const { data, loading, fetchMore } = useAllProfilesQuery({
@@ -27,8 +28,6 @@ const MirroredList: FC<Props> = ({ videoId }) => {
 
   const mirroredByProfiles = data?.profiles?.items as Profile[]
   const pageInfo = data?.profiles?.pageInfo
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

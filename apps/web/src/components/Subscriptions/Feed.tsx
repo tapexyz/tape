@@ -11,6 +11,7 @@ import React, { useRef } from 'react'
 import Custom500 from 'src/pages/500'
 
 const Subscriptions = () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
@@ -34,8 +35,6 @@ const Subscriptions = () => {
 
   const videos = data?.feed?.items as FeedItem[]
   const pageInfo = data?.feed?.pageInfo
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

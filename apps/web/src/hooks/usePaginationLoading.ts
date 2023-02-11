@@ -1,19 +1,20 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-type Props = {
+type Props<T> = {
   ref: React.RefObject<HTMLDivElement>
-  fetch: () => Promise<any>
+  fetch: () => Promise<T>
 }
 
-export const usePaginationLoading = ({ ref, fetch }: Props) => {
-  let latestHeight: number
+export const usePaginationLoading = <T>({ ref, fetch }: Props<T>) => {
+  const [latestHeight, setLatestHeight] = useState<number>(0)
 
   const handleScroll = async () => {
     if (
-      ref.current!.offsetHeight * 0.5 <= window.scrollY &&
-      latestHeight !== ref.current!.offsetHeight
+      ref.current &&
+      latestHeight <= window.scrollY &&
+      latestHeight !== ref.current.offsetHeight
     ) {
-      latestHeight = ref.current!.offsetHeight
+      setLatestHeight(ref.current.offsetHeight)
       await fetch()
     }
   }

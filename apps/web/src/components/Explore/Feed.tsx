@@ -33,6 +33,7 @@ const initialCriteria = {
 }
 
 const ExploreFeed = () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const [activeCriteria, setActiveCriteria] = useState(initialCriteria)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
@@ -71,8 +72,6 @@ const ExploreFeed = () => {
 
   const videos = data?.explorePublications?.items as Publication[]
   const pageInfo = data?.explorePublications?.pageInfo
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

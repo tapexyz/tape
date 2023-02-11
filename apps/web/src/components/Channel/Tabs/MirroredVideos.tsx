@@ -25,6 +25,7 @@ const request = {
 }
 
 const MirroredVideos: FC<Props> = ({ channel }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const { data, loading, error, fetchMore } = useProfileMirrorsQuery({
     variables: {
       request: {
@@ -37,8 +38,6 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
 
   const channelVideos = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

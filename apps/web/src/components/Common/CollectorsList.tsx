@@ -21,6 +21,7 @@ type Props = {
 }
 
 const CollectorsList: FC<Props> = ({ videoId }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const request = { publicationId: videoId, limit: 30 }
 
   const { data, loading, fetchMore } = useCollectorsQuery({
@@ -30,8 +31,6 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
 
   const collectors = data?.whoCollectedPublication?.items as Wallet[]
   const pageInfo = data?.whoCollectedPublication?.pageInfo
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

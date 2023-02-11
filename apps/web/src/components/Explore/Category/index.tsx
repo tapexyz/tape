@@ -23,6 +23,7 @@ import {
 import getCategoryName from 'utils/functions/getCategoryName'
 
 const ExploreCategory = () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const { query } = useRouter()
   const categoryName = query.category as string
 
@@ -47,8 +48,6 @@ const ExploreCategory = () => {
 
   const videos = data?.explorePublications?.items as Publication[]
   const pageInfo = data?.explorePublications?.pageInfo
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

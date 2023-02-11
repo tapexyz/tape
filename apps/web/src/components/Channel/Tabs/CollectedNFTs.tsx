@@ -16,6 +16,7 @@ type Props = {
 }
 
 const CollectedNFTs: FC<Props> = ({ channel }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const request = {
     limit: 32,
     chainIds: [POLYGON_CHAIN_ID, mainnet.id],
@@ -30,8 +31,6 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
 
   const collectedNFTs = data?.nfts?.items as Nft[]
   const pageInfo = data?.nfts?.pageInfo
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

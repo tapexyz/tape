@@ -31,6 +31,7 @@ const request = {
 }
 
 const SuggestedVideos: FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const {
     query: { id }
   } = useRouter()
@@ -46,8 +47,6 @@ const SuggestedVideos: FC = () => {
   useEffect(() => {
     refetch()
   }, [id, refetch])
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,

@@ -23,6 +23,7 @@ type Props = {
 }
 
 const ChannelVideos: FC<Props> = ({ channel }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
   const pinnedVideoId = getValueFromKeyInAttributes(
     channel?.attributes,
@@ -47,8 +48,6 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
 
   const channelVideos = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
-
-  const sectionRef = useRef<HTMLDivElement>(null)
 
   usePaginationLoading({
     ref: sectionRef,
