@@ -116,7 +116,9 @@ const getMetaTags = ({
       <meta property="og:video:type" content="application/x-shockwave-flash" />
       <meta property="og:video:width" content="1280" />
       <meta property="og:video:height" content="720" />
-      <script type="application/ld+json">${schemaObject}</script>`
+      <script type="application/ld+json">${JSON.stringify(
+        schemaObject
+      )}</script>`
   }
 
   return `<!DOCTYPE html>
