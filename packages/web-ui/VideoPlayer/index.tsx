@@ -61,8 +61,6 @@ const VideoPlayer: FC<Props> = ({
       return
     }
     playerRef.current = ref
-    // set current time from query param
-    playerRef.current.currentTime = Number(currentTime || 0)
     if (IS_MAINNET) {
       analyseVideo(playerRef.current)
     }
