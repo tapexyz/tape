@@ -28,7 +28,7 @@ export const everland = async (
         secretAccessKey: token.data?.secretAccessKey,
         sessionToken: token.data?.sessionToken
       },
-      maxAttempts: 5
+      maxAttempts: 3
     })
     const fileKey = uuidv4()
     const params = {
