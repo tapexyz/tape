@@ -100,6 +100,7 @@ export const LENSTUBE_GITHUB_HANDLE = 'lenstube-xyz'
 export const LENSTUBE_STATUS_PAGE = 'https://status.lenstube.xyz'
 export const TALLY_VERIFICATION_FORM_URL = 'https://tally.so/r/mY5e80'
 export const LENSTUBE_ROADMAP_URL = 'https://roadmap.lenstube.xyz'
+export const LENSTUBE_TAIL_URL = 'https://tail.lenstube.xyz'
 
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']
@@ -130,7 +131,6 @@ export const RARIBLE_MARKETPLACE_URL = IS_MAINNET
 export const MIXPANEL_API_HOST = '/collect'
 export const MIXPANEL_TOKEN = '928986a6551f5a12132e63c8bdd4451e'
 export const MUX_DATA_KEY = '2h11sq1qeahiaejrjegjti847'
-export const DATADOG_API_KEY = process.env.NEXT_PUBLIC_DATADOG_API_KEY
 export const BETTER_UPTIME_KEY = process.env.BETTER_UPTIME_KEY
 
 // vercel
