@@ -40,7 +40,8 @@ const getPublicationMeta = async (
           description: description.replaceAll('\n', ' '),
           image: thumbnail,
           page: 'VIDEO',
-          pubId: video.id
+          pubId: video.id,
+          publication: video
         })
       )
   } catch {
