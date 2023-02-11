@@ -11,7 +11,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     if (format === 'json') {
-      return res.json(await getPublicationOembed(videoId, format))
+      return res
+        .setHeader('Content-Type', 'application/json')
+        .json(await getPublicationOembed(videoId, format))
     }
 
     if (format === 'xml') {
