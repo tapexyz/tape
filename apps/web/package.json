@@ -20,7 +20,7 @@
     "@bundlr-network/client": "^0.9.11",
     "@headlessui/react": "^1.7.10",
     "@hookform/resolvers": "^2.9.11",
-    "@livepeer/react": "^2.1.5",
+    "@livepeer/react": "^2.2.0",
     "@rainbow-me/rainbowkit": "^0.8.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/line-clamp": "^0.4.2",
@@ -49,7 +49,7 @@
     "uuid": "^9.0.0",
     "wagmi": "^0.11.5",
     "zod": "^3.20.6",
-    "zustand": "^4.3.2"
+    "zustand": "^4.3.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.30.0",
