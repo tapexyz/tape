@@ -18,7 +18,7 @@ const Thanks = () => {
           </div>
         </div>
       </div>
-      <div className="mx-auto flex justify-center space-x-10">
+      <div className="mx-auto grid max-w-xl grid-cols-2 place-items-start gap-12">
         <Link
           href={`https://livepeer.studio/?utm_source=${LENSTUBE_APP_NAME}`}
           className="col-span-1 flex items-center justify-center md:col-span-2 lg:col-span-1"
@@ -42,6 +42,18 @@ const Thanks = () => {
             draggable={false}
           />
           <div className="px-5">4everland</div>
+        </Link>
+        <Link
+          href={`https://betteruptime.com/?utm_source=${LENSTUBE_APP_NAME}`}
+          className="col-span-1 flex items-center justify-center md:col-span-2 lg:col-span-1"
+        >
+          <img
+            src={`${STATIC_ASSETS}/images/betteruptime.png`}
+            alt="betteruptime"
+            className="h-20 w-20 flex-none rounded-full"
+            draggable={false}
+          />
+          <div className="px-5">Better Uptime</div>
         </Link>
       </div>
     </div>
