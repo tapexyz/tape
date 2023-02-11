@@ -118,7 +118,7 @@ const getMetaTags = ({
       <meta property="og:video:height" content="720" />
       <script type="application/ld+json">${JSON.stringify(
         schemaObject
-      )}</script>`
+      )}</script>` 
   }
 
   return `<!DOCTYPE html>
