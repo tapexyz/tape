@@ -3,7 +3,7 @@
 import mux from 'mux-embed'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { IS_MAINNET, LENSTUBE_WEBSITE_URL, MUX_DATA_KEY } from 'utils'
 
 import type { PlayerProps } from './Player'
@@ -68,6 +68,13 @@ const VideoPlayer: FC<Props> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (!playerRef.current) {
+      return
+    }
+    playerRef.current.currentTime = Number(currentTime || 0)
+  }, [currentTime])
 
   const onContextClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
