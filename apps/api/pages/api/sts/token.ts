@@ -13,8 +13,6 @@ type Data = {
   accessKeyId?: string
   secretAccessKey?: string
   sessionToken?: string
-  bucketName?: string
-  dir?: string
   success: boolean
 }
 

@@ -36,6 +36,9 @@ query Notifications($request: NotificationRequest!) {
         }
         comment {
           id
+          metadata {
+            content
+          }
           commentOn {
             ... on Post {
               id

@@ -262,7 +262,7 @@ const UploadSteps = () => {
         locale: getUserLocale(),
         tags: [uploadedVideo.videoCategory.tag],
         mainContentFocus: PublicationMainFocus.Video,
-        external_url: `${LENSTUBE_WEBSITE_URL}/${selectedChannel?.handle}`,
+        external_url: `${LENSTUBE_WEBSITE_URL}/channel/${selectedChannel?.handle}`,
         animation_url: uploadedVideo.videoSource,
         image: uploadedVideo.thumbnail,
         imageMimeType: uploadedVideo.thumbnailType,

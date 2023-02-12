@@ -1,73 +1,20 @@
-import type { AspectRatio } from '@livepeer/react'
-import { Player } from '@livepeer/react'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import mux from 'mux-embed'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
-import React, { useCallback, useEffect, useState } from 'react'
-import {
-  IPFS_GATEWAY,
-  IS_MAINNET,
-  LENSTUBE_WEBSITE_URL,
-  MUX_DATA_KEY
-} from 'utils'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { IS_MAINNET, LENSTUBE_WEBSITE_URL, MUX_DATA_KEY } from 'utils'
 
+import type { PlayerProps } from './Player'
+import PlayerInstance from './Player'
 import SensitiveWarning from './SensitiveWarning'
-
-interface PlayerProps {
-  playerRef?: (ref: HTMLMediaElement) => void
-  permanentUrl: string
-  posterUrl?: string
-  ratio?: AspectRatio
-  showControls?: boolean
-  options?: {
-    autoPlay?: boolean
-    muted?: boolean
-    loop?: boolean
-    loadingSpinner: boolean
-  }
-}
 
 interface Props extends PlayerProps {
   refCallback?: (ref: HTMLMediaElement) => void
   currentTime?: number
   publicationId?: string
   isSensitiveContent?: boolean
-}
-
-const PlayerInstance: FC<PlayerProps> = ({
-  ratio,
-  permanentUrl,
-  posterUrl,
-  playerRef,
-  options,
-  showControls
-}) => {
-  return (
-    <Player
-      src={permanentUrl}
-      poster={posterUrl}
-      showTitle={false}
-      objectFit="contain"
-      aspectRatio={ratio}
-      showPipButton
-      mediaElementRef={playerRef}
-      loop={options?.loop ?? true}
-      showUploadingIndicator={false}
-      muted={options?.muted ?? false}
-      controls={{ defaultVolume: 1 }}
-      autoPlay={options?.autoPlay ?? false}
-      showLoadingSpinner={options?.loadingSpinner}
-      autoUrlUpload={{
-        fallback: true,
-        ipfsGateway: IPFS_GATEWAY
-      }}
-    >
-      {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
-      {!showControls ? <></> : null}
-    </Player>
-  )
 }
 
 const VideoPlayer: FC<Props> = ({
@@ -82,14 +29,8 @@ const VideoPlayer: FC<Props> = ({
   showControls = true
 }) => {
   const router = useRouter()
+  const playerRef = useRef<HTMLMediaElement>()
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
-  const [playerRef, setPlayerRef] = useState<HTMLMediaElement>()
-
-  const mediaElementRef = useCallback((ref: HTMLMediaElement) => {
-    setPlayerRef(ref)
-    refCallback?.(ref)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const analyseVideo = (ref: HTMLMediaElement) => {
     const initTime = mux.utils.now()
@@ -114,16 +55,21 @@ const VideoPlayer: FC<Props> = ({
     })
   }
 
-  useEffect(() => {
-    if (!playerRef) {
-      return
-    }
-    playerRef.currentTime = Number(currentTime || 0)
+  const mediaElementRef = useCallback((ref: HTMLMediaElement) => {
+    refCallback?.(ref)
+    playerRef.current = ref
     if (IS_MAINNET) {
-      analyseVideo(playerRef)
+      analyseVideo(playerRef.current)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playerRef, currentTime])
+  }, [])
+
+  useEffect(() => {
+    if (!playerRef.current) {
+      return
+    }
+    playerRef.current.currentTime = Number(currentTime || 0)
+  }, [currentTime])
 
   const onContextClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()

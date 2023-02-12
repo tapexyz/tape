@@ -16,7 +16,7 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 
 const authLink = new ApolloLink((operation, forward) => {
   const { accessToken, refreshToken } = hydrateAuthTokens()
-  if (!accessToken) {
+  if (!accessToken || !refreshToken) {
     signOut()
     return forward(operation)
   }

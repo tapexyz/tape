@@ -13,7 +13,7 @@ interface Props {
 const CommentedNotification: FC<Props> = ({ notification }) => {
   return (
     <>
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center space-x-2">
         <Link
           href={`/channel/${notification?.profile?.handle}`}
           className="font-base inline-flex items-center space-x-1.5"
@@ -29,8 +29,6 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
             <IsVerified id={notification?.profile?.id} size="xs" />
           </div>
         </Link>
-      </div>
-      <div className="flex items-center justify-between">
         <span className="truncate text-gray-600 dark:text-gray-400">
           commented on your
           <Link
@@ -43,7 +41,18 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
             video
           </Link>
         </span>
-        <div className="flex flex-none items-center text-gray-700 dark:text-gray-300">
+      </div>
+      <div className="flex items-center justify-between">
+        <Link
+          href={`/watch/${
+            notification?.comment?.commentOn &&
+            notification?.comment?.commentOn?.id
+          }`}
+          className="truncate py-1 text-gray-600 dark:text-gray-400"
+        >
+          {notification.comment?.metadata?.content}
+        </Link>
+        <div className="flex flex-none items-center text-gray-600 dark:text-gray-400">
           <span>{getRelativeTime(notification?.createdAt)}</span>
         </div>
       </div>

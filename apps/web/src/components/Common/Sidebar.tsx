@@ -25,9 +25,8 @@ const CreateChannel = dynamic(() => import('./CreateChannel'))
 
 const Sidebar = () => {
   const router = useRouter()
-  const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-
+  const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
   const setSidebarCollapsed = usePersistStore(
     (state) => state.setSidebarCollapsed
   )

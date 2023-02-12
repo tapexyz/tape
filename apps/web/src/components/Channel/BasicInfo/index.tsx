@@ -27,14 +27,13 @@ const BasicInfo: FC<Props> = ({ channel }) => {
 
   const isOwnChannel = channel?.id === selectedChannel?.id
   const subscribeType = channel?.followModule?.__typename
+  const coverImage = imageCdn(sanitizeIpfsUrl(getChannelCoverPicture(channel)))
 
   return (
     <>
       <div
         style={{
-          backgroundImage: `url(${imageCdn(
-            sanitizeIpfsUrl(getChannelCoverPicture(channel))
-          )})`
+          backgroundImage: `url(${coverImage})`
         }}
         className="ultrawide:h-[35vh] relative h-44 w-full bg-white bg-cover bg-center bg-no-repeat dark:bg-gray-900 md:h-[20vw]"
       >

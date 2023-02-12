@@ -1,6 +1,6 @@
 name: Bug Report
 description: Report a reproducible bug in the Lenstube
-labels: [needs review]
+labels: [bug, needs review]
 body:
   - type: markdown
     attributes:

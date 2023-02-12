@@ -1,3 +1,4 @@
+import type { Attribute, Publication } from 'lens'
 import {
   LENSTUBE_API_URL,
   LENSTUBE_APP_DESCRIPTION,
@@ -7,6 +8,9 @@ import {
   LENSTUBE_WEBSITE_URL,
   STATIC_ASSETS
 } from 'utils'
+import { secondsToISO } from 'utils/functions/formatTime'
+import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
+import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 
 type Args = {
   title: string
@@ -15,6 +19,7 @@ type Args = {
   page?: 'PROFILE' | 'VIDEO'
   handle?: string
   pubId?: string
+  publication?: Publication
 }
 
 const getMetaTags = ({
@@ -23,7 +28,8 @@ const getMetaTags = ({
   image,
   page,
   handle,
-  pubId
+  pubId,
+  publication
 }: Args) => {
   const isVideo = page === 'VIDEO'
   const meta = {
@@ -66,8 +72,30 @@ const getMetaTags = ({
                 isVideo ? 'player' : 'summary'
               }" />`
 
-  if (isVideo) {
+  if (isVideo && publication) {
     const embedUrl = `${LENSTUBE_EMBED_URL}/${pubId}`
+    // TODO: add `hasPart`
+    const schemaObject = {
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      name: meta.title,
+      description,
+      thumbnailUrl: meta.image,
+      uploadDate: publication.createdAt,
+      duration: secondsToISO(
+        getValueFromTraitType(
+          publication.metadata.attributes as Attribute[],
+          'durationInSeconds'
+        )
+      ),
+      contentUrl: getPublicationMediaUrl(publication),
+      embedUrl,
+      interactionStatistic: {
+        '@type': 'InteractionCounter',
+        interactionType: { '@type': 'LikeAction' },
+        userInteractionCount: publication?.stats.totalUpvotes
+      }
+    }
     defaultMeta += `<meta property="og:video" content="${embedUrl}" />
       <meta property="og:video:width" content="1280" />
       <meta property="og:video:height" content="720" />
@@ -87,7 +115,10 @@ const getMetaTags = ({
       <meta property="og:video:secure_url" content="${meta.url}" />
       <meta property="og:video:type" content="application/x-shockwave-flash" />
       <meta property="og:video:width" content="1280" />
-      <meta property="og:video:height" content="720" />`
+      <meta property="og:video:height" content="720" />
+      <script type="application/ld+json">${JSON.stringify(
+        schemaObject
+      )}</script>`
   }
 
   return `<!DOCTYPE html>
