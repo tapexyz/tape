@@ -11,6 +11,7 @@ import {
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import {
+  ALLOWED_APP_IDS,
   Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -49,7 +50,11 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
             type: activeSearch,
             query: keyword,
             limit: 30,
-            sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+            sources: [
+              LENSTUBE_APP_ID,
+              LENSTUBE_BYTES_APP_ID,
+              ...ALLOWED_APP_IDS
+            ],
             customFilters: LENS_CUSTOM_FILTERS
           }
         }

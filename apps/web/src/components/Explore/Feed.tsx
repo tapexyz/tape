@@ -18,6 +18,7 @@ import {
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
+  ALLOWED_APP_IDS,
   Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -61,7 +62,7 @@ const ExploreFeed = () => {
     sortCriteria: getCriteria(),
     limit: 32,
     noRandomize: true,
-    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {

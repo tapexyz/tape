@@ -13,6 +13,7 @@ import {
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
+  ALLOWED_APP_IDS,
   Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -31,7 +32,7 @@ const Curated = () => {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 32,
     noRandomize: false,
-    sources: [LENSTUBE_APP_ID],
+    sources: [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS],
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {

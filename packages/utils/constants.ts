@@ -93,6 +93,7 @@ export const SIGN_IN_REQUIRED_MESSAGE = 'Sign in required'
 // App Ids
 export const LENSTUBE_APP_ID = 'lenstube'
 export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
+export const ALLOWED_APP_IDS = []
 
 // official
 export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'
