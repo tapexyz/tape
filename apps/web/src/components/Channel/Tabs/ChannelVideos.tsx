@@ -13,7 +13,12 @@ import {
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import { LENS_CUSTOM_FILTERS, LENSTUBE_APP_ID, SCROLL_ROOT_MARGIN } from 'utils'
+import {
+  ALLOWED_APP_IDS,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  SCROLL_ROOT_MARGIN
+} from 'utils'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 
 import PinnedVideo from './PinnedVideo'
@@ -35,7 +40,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
     metadata: { mainContentFocus: [PublicationMainFocus.Video] },
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: channel?.id,
-    sources: [LENSTUBE_APP_ID]
+    sources: [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS]
   }
 
   const { data, loading, error, fetchMore } = useProfilePostsQuery({

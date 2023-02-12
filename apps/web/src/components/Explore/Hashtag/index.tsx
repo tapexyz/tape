@@ -10,6 +10,7 @@ import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
 import {
+  ALLOWED_APP_IDS,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
@@ -23,7 +24,7 @@ const ExploreHashtag = () => {
   const request = {
     type: SearchRequestTypes.Publication,
     limit: 32,
-    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
     customFilters: LENS_CUSTOM_FILTERS,
     query: hashtag
   }

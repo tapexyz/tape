@@ -16,6 +16,7 @@ import { NotificationTypes, useNotificationsQuery } from 'lens'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
+  ALLOWED_APP_IDS,
   Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -81,7 +82,7 @@ const Notifications = () => {
     limit: 30,
     sources: activeFilter.subscriptions
       ? undefined
-      : [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+      : [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: selectedChannel?.id,
     notificationTypes: getNotificationFilters()
