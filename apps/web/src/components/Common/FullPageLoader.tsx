@@ -7,7 +7,7 @@ import MetaTags from './MetaTags'
 const FullPageLoader = () => {
   return (
     <div className="grid h-screen place-items-center">
-      <MetaTags title="Loading..." />
+      <MetaTags />
       <div className="animate-bounce">
         <img
           src={imageCdn(`${STATIC_ASSETS}/images/brand/circle-blue-72x72.png`)}
