@@ -146,7 +146,6 @@ const Header: FC<Props> = ({ className }) => {
         </div>
         {showFilter && <CategoryFilters />}
       </div>
-
       <Modal
         title="Search"
         onClose={() => setSearchModal(false)}
