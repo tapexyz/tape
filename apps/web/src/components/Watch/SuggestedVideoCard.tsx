@@ -110,8 +110,8 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
         </div>
       </div>
       <VideoOptions
-        setShowReport={setShowReport}
         video={video}
+        setShowReport={setShowReport}
         setShowShare={setShowShare}
       />
     </div>

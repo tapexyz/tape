@@ -10,7 +10,6 @@ type Props = {
   onClose?: () => void
   children: React.ReactNode
   panelClassName?: string
-  autoClose?: boolean
 }
 
 const Modal: FC<Props> = ({
@@ -18,16 +17,11 @@ const Modal: FC<Props> = ({
   onClose,
   children,
   title,
-  panelClassName,
-  autoClose = true
+  panelClassName
 }) => {
   return (
     <Transition appear show={show} as={Fragment}>
-      <Dialog
-        as="div"
-        className="relative z-20"
-        onClose={() => (onClose && !autoClose ? onClose?.() : null)}
-      >
+      <Dialog as="div" className="relative z-20" onClose={() => onClose?.()}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
