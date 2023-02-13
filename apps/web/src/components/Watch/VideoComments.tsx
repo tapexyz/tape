@@ -119,12 +119,15 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
                   />
                 )
             )}
-            {comments?.map((comment: Publication) => (
-              <Comment
-                key={`${comment?.id}_${comment.createdAt}`}
-                comment={comment}
-              />
-            ))}
+            {comments?.map(
+              (comment: Publication) =>
+                !comment.hidden && (
+                  <Comment
+                    key={`${comment?.id}_${comment.createdAt}`}
+                    comment={comment}
+                  />
+                )
+            )}
           </div>
           {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
