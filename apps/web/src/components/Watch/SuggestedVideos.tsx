@@ -2,6 +2,7 @@ import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import type { Publication } from 'lens'
 import {
+  PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
@@ -25,6 +26,7 @@ const request = {
   limit: 30,
   sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
   publicationTypes: [PublicationTypes.Post],
+  metadata: { mainContentFocus: [PublicationMainFocus.Video] },
   noRandomize: false,
   customFilters: LENS_CUSTOM_FILTERS
 }

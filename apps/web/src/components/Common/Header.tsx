@@ -10,7 +10,6 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import {
-  ALLOWED_APP_IDS,
   Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -55,7 +54,7 @@ const Header: FC<Props> = ({ className }) => {
     variables: {
       request: {
         profileId: selectedChannel?.id,
-        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
+        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
         customFilters: LENS_CUSTOM_FILTERS,
         limit: 1
       }
