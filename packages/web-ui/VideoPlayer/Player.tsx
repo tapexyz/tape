@@ -1,9 +1,8 @@
 import type { AspectRatio } from '@livepeer/react'
-import { Player } from '@livepeer/react'
+import { ControlsContainer, Player } from '@livepeer/react'
 import type { FC } from 'react'
 import React from 'react'
 import { IPFS_GATEWAY } from 'utils'
-
 export interface PlayerProps {
   playerRef?: (ref: HTMLMediaElement) => void
   permanentUrl: string
@@ -46,8 +45,7 @@ const PlayerInstance: FC<PlayerProps> = ({
         ipfsGateway: IPFS_GATEWAY
       }}
     >
-      {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
-      {!showControls ? <></> : null}
+      {!showControls ? <ControlsContainer /> : null}
     </Player>
   )
 }
