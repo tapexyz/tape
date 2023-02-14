@@ -3946,11 +3946,6 @@ export type CommentFieldsFragment = {
       | { __typename: 'UnknownFollowModuleSettings' }
       | null
   }
-  collectedBy?: {
-    __typename?: 'Wallet'
-    address: any
-    defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-  } | null
   collectModule:
     | {
         __typename?: 'FeeCollectModuleSettings'
@@ -4394,11 +4389,6 @@ export type MirrorFieldsFragment = {
             | { __typename: 'UnknownFollowModuleSettings' }
             | null
         }
-        collectedBy?: {
-          __typename?: 'Wallet'
-          address: any
-          defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-        } | null
         collectModule:
           | {
               __typename?: 'FeeCollectModuleSettings'
@@ -4644,11 +4634,6 @@ export type MirrorFieldsFragment = {
             | { __typename: 'UnknownFollowModuleSettings' }
             | null
         }
-        collectedBy?: {
-          __typename?: 'Wallet'
-          address: any
-          defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-        } | null
         referenceModule?:
           | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
           | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -4825,11 +4810,6 @@ export type PostFieldsFragment = {
       | { __typename: 'UnknownFollowModuleSettings' }
       | null
   }
-  collectedBy?: {
-    __typename?: 'Wallet'
-    address: any
-    defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-  } | null
   referenceModule?:
     | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
     | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -5830,11 +5810,6 @@ export type ExploreQuery = {
               | { __typename: 'UnknownFollowModuleSettings' }
               | null
           }
-          collectedBy?: {
-            __typename?: 'Wallet'
-            address: any
-            defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-          } | null
           collectModule:
             | {
                 __typename?: 'FeeCollectModuleSettings'
@@ -6085,11 +6060,6 @@ export type ExploreQuery = {
               | { __typename: 'UnknownFollowModuleSettings' }
               | null
           }
-          collectedBy?: {
-            __typename?: 'Wallet'
-            address: any
-            defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-          } | null
           referenceModule?:
             | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
             | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -6289,11 +6259,6 @@ export type FeedQuery = {
                 | { __typename: 'UnknownFollowModuleSettings' }
                 | null
             }
-            collectedBy?: {
-              __typename?: 'Wallet'
-              address: any
-              defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-            } | null
             collectModule:
               | {
                   __typename?: 'FeeCollectModuleSettings'
@@ -6543,11 +6508,6 @@ export type FeedQuery = {
                 | { __typename: 'UnknownFollowModuleSettings' }
                 | null
             }
-            collectedBy?: {
-              __typename?: 'Wallet'
-              address: any
-              defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-            } | null
             referenceModule?:
               | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
               | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -7370,11 +7330,6 @@ export type ProfileCommentsQuery = {
               | { __typename: 'UnknownFollowModuleSettings' }
               | null
           }
-          collectedBy?: {
-            __typename?: 'Wallet'
-            address: any
-            defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-          } | null
           collectModule:
             | {
                 __typename?: 'FeeCollectModuleSettings'
@@ -7865,14 +7820,6 @@ export type ProfileMirrorsQuery = {
                     | { __typename: 'UnknownFollowModuleSettings' }
                     | null
                 }
-                collectedBy?: {
-                  __typename?: 'Wallet'
-                  address: any
-                  defaultProfile?: {
-                    __typename?: 'Profile'
-                    handle: any
-                  } | null
-                } | null
                 collectModule:
                   | {
                       __typename?: 'FeeCollectModuleSettings'
@@ -8125,14 +8072,6 @@ export type ProfileMirrorsQuery = {
                     | { __typename: 'UnknownFollowModuleSettings' }
                     | null
                 }
-                collectedBy?: {
-                  __typename?: 'Wallet'
-                  address: any
-                  defaultProfile?: {
-                    __typename?: 'Profile'
-                    handle: any
-                  } | null
-                } | null
                 referenceModule?:
                   | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
                   | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -8362,11 +8301,6 @@ export type ProfilePostsQuery = {
               | { __typename: 'UnknownFollowModuleSettings' }
               | null
           }
-          collectedBy?: {
-            __typename?: 'Wallet'
-            address: any
-            defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-          } | null
           referenceModule?:
             | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
             | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -8679,11 +8613,6 @@ export type PublicationDetailsQuery = {
             | { __typename: 'UnknownFollowModuleSettings' }
             | null
         }
-        collectedBy?: {
-          __typename?: 'Wallet'
-          address: any
-          defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-        } | null
         collectModule:
           | {
               __typename?: 'FeeCollectModuleSettings'
@@ -9106,11 +9035,6 @@ export type PublicationDetailsQuery = {
                   | { __typename: 'UnknownFollowModuleSettings' }
                   | null
               }
-              collectedBy?: {
-                __typename?: 'Wallet'
-                address: any
-                defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-              } | null
               collectModule:
                 | {
                     __typename?: 'FeeCollectModuleSettings'
@@ -9360,11 +9284,6 @@ export type PublicationDetailsQuery = {
                   | { __typename: 'UnknownFollowModuleSettings' }
                   | null
               }
-              collectedBy?: {
-                __typename?: 'Wallet'
-                address: any
-                defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-              } | null
               referenceModule?:
                 | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
                 | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -9547,11 +9466,6 @@ export type PublicationDetailsQuery = {
             | { __typename: 'UnknownFollowModuleSettings' }
             | null
         }
-        collectedBy?: {
-          __typename?: 'Wallet'
-          address: any
-          defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-        } | null
         referenceModule?:
           | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
           | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -9818,11 +9732,6 @@ export type SearchPublicationsQuery = {
                   | { __typename: 'UnknownFollowModuleSettings' }
                   | null
               }
-              collectedBy?: {
-                __typename?: 'Wallet'
-                address: any
-                defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-              } | null
               collectModule:
                 | {
                     __typename?: 'FeeCollectModuleSettings'
@@ -10072,11 +9981,6 @@ export type SearchPublicationsQuery = {
                   | { __typename: 'UnknownFollowModuleSettings' }
                   | null
               }
-              collectedBy?: {
-                __typename?: 'Wallet'
-                address: any
-                defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-              } | null
               referenceModule?:
                 | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
                 | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -10535,12 +10439,6 @@ export const PostFieldsFragmentDoc = gql`
     profile {
       ...ProfileFields
     }
-    collectedBy {
-      address
-      defaultProfile {
-        handle
-      }
-    }
     referenceModule {
       __typename
     }
@@ -10579,12 +10477,6 @@ export const CommentFieldsFragmentDoc = gql`
     reaction(request: $reactionRequest)
     profile {
       ...ProfileFields
-    }
-    collectedBy {
-      address
-      defaultProfile {
-        handle
-      }
     }
     collectModule {
       ...CollectFields
