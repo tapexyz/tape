@@ -4,12 +4,6 @@ fragment CommentFields on Comment {
   profile {
     ...ProfileFields
   }
-  collectedBy {
-    address
-    defaultProfile {
-      handle
-    }
-  }
   collectModule {
     ...CollectFields
   }

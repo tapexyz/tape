@@ -4,12 +4,6 @@ fragment PostFields on Post {
   profile {
     ...ProfileFields
   }
-  collectedBy {
-    address
-    defaultProfile {
-      handle
-    }
-  }
   referenceModule {
     __typename
   }
