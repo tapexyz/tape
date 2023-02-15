@@ -20,7 +20,7 @@ const token = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method === 'OPTIONS') {
     return res.status(200).end()
   }
-  if (req.method !== 'POST') {
+  if (req.method !== 'GET') {
     return res.status(400).json({ success: false })
   }
   try {
