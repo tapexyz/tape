@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import { IS_MAINNET, LENSTUBE_TAIL_URL } from './constants'
+const isBrowser = typeof window !== 'undefined'
 
 const tailLog = (level: 'error' | 'log', message: string) => {
   if (IS_MAINNET) {
@@ -9,7 +10,7 @@ const tailLog = (level: 'error' | 'log', message: string) => {
         source: 'web',
         level,
         message,
-        url: location.href
+        url: isBrowser ? location.href : ''
       })
       .catch((error) => {
         console.error(error)
