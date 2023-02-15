@@ -58,6 +58,7 @@ const VideoPlayer: FC<Props> = ({
   const mediaElementRef = useCallback((ref: HTMLMediaElement) => {
     refCallback?.(ref)
     playerRef.current = ref
+    playerRef.current.currentTime = Number(currentTime || 0)
     if (IS_MAINNET) {
       analyseVideo(playerRef.current)
     }
@@ -69,7 +70,7 @@ const VideoPlayer: FC<Props> = ({
       return
     }
     playerRef.current.currentTime = Number(currentTime || 0)
-  }, [currentTime])
+  }, [currentTime, playerRef])
 
   const onContextClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
