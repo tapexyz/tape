@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.7",
-    "@livepeer/react": "^2.2.0",
+    "@livepeer/react": "^2.2.2",
     "@tailwindcss/line-clamp": "^0.4.0",
     "clsx": "^1.2.1",
     "graphql": "^16.6.0",
@@ -26,7 +26,7 @@
     "@types/mixpanel-browser": "^2.38.1",
     "@types/node": "18.13.0",
     "@types/react": "18.0.28",
-    "@types/react-dom": "18.0.10",
+    "@types/react-dom": "18.0.11",
     "autoprefixer": "^10.4.13",
     "eslint-config-weblint": "*",
     "lens": "*",
