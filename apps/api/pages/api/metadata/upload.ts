@@ -20,7 +20,7 @@ const upload = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     return res.status(200).end()
   }
   if (req.method !== 'POST' || !req.body) {
-    return res.status(400).json({ success: false })
+    return res.status(405).json({ success: false })
   }
   try {
     const payload = JSON.stringify(req.body)
