@@ -70,7 +70,7 @@ const VideoPlayer: FC<Props> = ({
       return
     }
     playerRef.current.currentTime = Number(currentTime || 0)
-  }, [currentTime, playerRef])
+  }, [currentTime])
 
   const onContextClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
