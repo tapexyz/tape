@@ -24,7 +24,7 @@ const views = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       }
     }
     const { data } = await axios.get(
-      `https://livepeer.studio/api/asset?filters=[{sourceUrl:${payload.sourceUrl}&phase=ready&limit=1}]`,
+      `https://livepeer.studio/api/asset?sourceUrl=${payload.sourceUrl}&phase=ready`,
       headers
     )
     if (data && data?.length) {
@@ -35,14 +35,14 @@ const views = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         headers
       )
       if (!views || !views?.length) {
-        return res.status(200).json({ success: false })
+        return res.status(200).json({ success: false, views: 0 })
       }
       return res.setHeader('Cache-Control', 's-maxage=100').status(200).json({
         success: true,
         views: views[0].startViews
       })
     }
-    return res.status(200).json({ success: false })
+    return res.status(200).json({ success: false, views: 0 })
   } catch (error) {
     logger.error('[API Error Video Views]', error)
     return res.status(200).json({ success: false })
