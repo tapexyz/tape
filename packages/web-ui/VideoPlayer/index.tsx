@@ -58,6 +58,7 @@ const VideoPlayer: FC<Props> = ({
   const mediaElementRef = useCallback((ref: HTMLMediaElement) => {
     refCallback?.(ref)
     playerRef.current = ref
+    playerRef.current.currentTime = Number(currentTime || 0)
     if (IS_MAINNET) {
       analyseVideo(playerRef.current)
     }
