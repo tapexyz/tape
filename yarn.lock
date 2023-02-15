@@ -2737,10 +2737,10 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
-"@headlessui/react@^1.7.10":
-  version "1.7.10"
-  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-1.7.10.tgz#0971a33843a76f2bf4b801a43f76e3730fe15884"
-  integrity sha512-1m66h/5eayTEZVT2PI13/2PG3EVC7a9XalmUtVSC8X76pcyKYMuyX1XAL2RUtCr8WhoMa/KrDEyoeU5v+kSQOw==
+"@headlessui/react@^1.7.11":
+  version "1.7.11"
+  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-1.7.11.tgz#1cc5750226abe5af2c94f72e975c0c8d2f5cc5a6"
+  integrity sha512-EaDbVgcyiylhtskZZf4Qb/JiiByY7cYbd0qgZ9xm2pm2X7hKojG0P4TaQYKgPOV3vojPhd/pZyQh3nmRkkcSyw==
   dependencies:
     client-only "^0.0.1"
 
@@ -2858,10 +2858,10 @@
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.0.0"
 
-"@livepeer/core-react@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.2.2.tgz#4f1af966a71dbcabc58f7bb8fe1517232d6b0ca3"
-  integrity sha512-9YwSIDNRKFM24JkM3ZZYPDg/cMRDeiQnvAQRGzS55dUFUm+rvLuNTP5i0PTIxhRQQzeXYN6WlCrynYz1iFfR2Q==
+"@livepeer/core-react@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.2.3.tgz#fc1fdc8dae723d95e7e2b5cef43e5439d248e111"
+  integrity sha512-AqrMx7hcOCijlQhyYi/CVnM5AHQnCTY9eJktcAQw3XKZncT8DkZgN6cocI+WasrR807f5DSmP3HeiO1f0Qlb6A==
   dependencies:
     "@livepeer/core" "^1.2.1"
     "@tanstack/query-async-storage-persister" "4.22.4"
@@ -2882,12 +2882,12 @@
     tus-js-client "^3.0.1"
     zustand "^4.3.2"
 
-"@livepeer/react@^2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.2.2.tgz#5a2887516b36a1950b2537638101ff4402717618"
-  integrity sha512-ZhYRoUOMh14G0I2aFkyjAf+6muQWBTHrzzBMi2n7x4Qh0CrKn0zYa1smymfnd+IDwmwKmsnMDAZZuznIIDqHIw==
+"@livepeer/react@^2.2.3":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.2.3.tgz#536fd5db0189a0ad0487f02859a061fe94efed3d"
+  integrity sha512-8boBZG2XKjlKtKgLSVltHjJDEF9QySw//Kd30OQgqyo77PE18CHjbU/eE7SdftJ5X5XYdpiVs7i/VxcjckfW+w==
   dependencies:
-    "@livepeer/core-react" "^1.2.2"
+    "@livepeer/core-react" "^1.2.3"
     "@stitches/react" "^1.2.8"
     core-js "^3.27.2"
     livepeer "2.2.1"
@@ -9403,10 +9403,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier-plugin-tailwindcss@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/prettier-plugin-tailwindcss/-/prettier-plugin-tailwindcss-0.2.2.tgz#61f4437936c79c8cc2915f31b4bd512605177239"
-  integrity sha512-5RjUbWRe305pUpc48MosoIp6uxZvZxrM6GyOgsbGLTce+ehePKNm7ziW2dLG2air9aXbGuXlHVSQQw4Lbosq3w==
+prettier-plugin-tailwindcss@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-tailwindcss/-/prettier-plugin-tailwindcss-0.2.3.tgz#b68a1de10056fc84055426af132c2697bea0955c"
+  integrity sha512-s2N5Dh7Ao5KTV1mao5ZBnn8EKtUcDPJEkGViZIjI0Ij9TTI5zgTz4IHOxW33jOdjHKa8CSjM88scelUiC5TNRQ==
 
 prettier@^2.8.4:
   version "2.8.4"
