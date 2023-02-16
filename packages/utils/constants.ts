@@ -77,9 +77,7 @@ export const LIVEPEER_API_TOKEN = process.env.LIVEPEER_API_TOKEN as string
 export const BUNDLR_NODE_URL = IS_MAINNET
   ? 'https://node1.bundlr.network'
   : 'https://devnet.bundlr.network'
-export const BUNDLR_METADATA_UPLOAD_URL = IS_MAINNET
-  ? 'https://node2.bundlr.network'
-  : 'https://devnet.bundlr.network'
+export const BUNDLR_METADATA_UPLOAD_URL = 'https://metadata.lenstube.xyz'
 export const BUNDLR_CURRENCY = 'matic'
 export const BUNDLR_WEBSITE_URL = 'https://bundlr.network'
 export const ARWEAVE_WEBSITE_URL = 'https://arweave.net'
