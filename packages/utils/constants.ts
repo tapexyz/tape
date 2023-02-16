@@ -65,9 +65,7 @@ export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 2000 : 100
 export const IPFS_GATEWAY = 'https://gateway.ipfscdn.io/ipfs'
 export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
-export const EVER_ACCESS_KEY = process.env.EVER_ACCESS_KEY as string
-export const EVER_ACCESS_SECRET = process.env.EVER_ACCESS_SECRET as string
-export const EVER_BUCKET_NAME = IS_MAINNET ? 'lenstube' : 'testnet'
+export const STS_TOKEN_URL = 'https://sts.lenstube.xyz'
 
 // livepeer
 export const LIVEPEER_STUDIO_API_KEY = 'b13fd43e-d0d6-4abc-a5df-93592a0c5124'
