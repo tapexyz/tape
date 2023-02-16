@@ -11,6 +11,7 @@
     },
     "start": { "cache": false },
     "e2e:test": { "dependsOn": ["^build"] },
+    "worker:deploy": { "outputs": [] },
     "lint": { "outputs": [] },
     "codegen": { "outputs": [] },
     "dev": { "cache": false },

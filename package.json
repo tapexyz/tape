@@ -8,12 +8,13 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build --parallel",
     "dev": "turbo run dev --parallel",
     "codegen": "turbo run codegen",
-    "lint": "turbo run lint",
+    "lint": "turbo run lint --parallel",
     "dev:test": "turbo run dev:test",
     "e2e:test": "turbo run e2e:test",
+    "workers:deploy": "turbo run worker:deploy --parallel",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
