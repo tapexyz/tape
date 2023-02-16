@@ -38,6 +38,7 @@ export const LENSTUBE_API_URL = IS_MAINNET
   ? LENSTUBE_MAINNET_API_URL
   : LENSTUBE_TESTNET_API_URL
 export const API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
+export const HEALTH_URL = 'https://health.lenstube.xyz'
 
 // contracts
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
