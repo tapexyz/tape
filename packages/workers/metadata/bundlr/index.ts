@@ -1,7 +1,7 @@
-import type { DataItemCreateOptions } from 'arbundles';
-import base64url from 'base64url';
-import { ethers } from 'ethers';
-import secp256k1 from 'secp256k1';
+import type { DataItemCreateOptions } from 'arbundles'
+import base64url from 'base64url'
+import { ethers } from 'ethers'
+import secp256k1 from 'secp256k1'
 
 import {
   byteArrayToLong,
@@ -11,159 +11,176 @@ import {
   serializeTags,
   shortTo2ByteArray,
   sign
-} from './utils';
+} from './utils'
 
 export class Secp256k1 {
-  readonly ownerLength: number = 65;
-  readonly signatureLength: number = 65;
+  readonly ownerLength: number = 65
+  readonly signatureLength: number = 65
 
-  readonly signatureType = 3;
-  public readonly pk: string;
+  readonly signatureType = 3
+  public readonly pk: string
 
   constructor(protected _key: string, pk: Buffer) {
-    this.pk = pk.toString('hex');
+    this.pk = pk.toString('hex')
   }
 
   public get publicKey(): Buffer {
-    return Buffer.alloc(0);
+    return Buffer.alloc(0)
   }
 
   public get key(): Uint8Array {
-    return Buffer.from(this._key, 'hex');
+    return Buffer.from(this._key, 'hex')
   }
 }
 
 export class EthereumSigner extends Secp256k1 {
   get publicKey(): Buffer {
-    return Buffer.from(this.pk, 'hex');
+    return Buffer.from(this.pk, 'hex')
   }
 
   constructor(key: string) {
-    const b = Buffer.from(key, 'hex');
-    const pub = secp256k1.publicKeyCreate(b, false);
-    super(key, Buffer.from(pub));
+    const b = Buffer.from(key, 'hex')
+    const pub = secp256k1.publicKeyCreate(b, false)
+    super(key, Buffer.from(pub))
   }
 
   sign(message: Uint8Array): Uint8Array {
-    const wallet = new ethers.Wallet(this._key);
-    return wallet.signMessage(message).then((r) => Buffer.from(r.slice(2), 'hex')) as any;
+    const wallet = new ethers.Wallet(this._key)
+    return wallet
+      .signMessage(message)
+      .then((r) => Buffer.from(r.slice(2), 'hex')) as any
   }
 }
 
 export class DataItem {
-  private readonly binary: Buffer;
-  private _id!: Buffer;
+  private readonly binary: Buffer
+  private _id!: Buffer
 
   constructor(binary: Buffer) {
-    this.binary = binary;
+    this.binary = binary
   }
 
   static isDataItem(obj: any): obj is DataItem {
-    return obj.binary !== undefined;
+    return obj.binary !== undefined
   }
 
   get signatureType(): number {
-    const signatureTypeVal: number = byteArrayToLong(this.binary.subarray(0, 2));
-    return signatureTypeVal;
+    const signatureTypeVal: number = byteArrayToLong(this.binary.subarray(0, 2))
+    return signatureTypeVal
   }
 
   get id(): string {
-    return base64url.encode(this._id);
+    return base64url.encode(this._id)
   }
 
   set id(id: string) {
-    this._id = base64url.toBuffer(id);
+    this._id = base64url.toBuffer(id)
   }
 
   // @ts-ignore
   get rawId(): Promise<Buffer> {
-    return getShim('sha256').update(this.rawSignature).digest();
+    return getShim('sha256').update(this.rawSignature).digest()
   }
 
   set rawId(id: Buffer) {
-    this._id = id;
+    this._id = id
   }
 
   get rawSignature(): Buffer {
-    return this.binary.subarray(2, 2 + this.signatureLength);
+    return this.binary.subarray(2, 2 + this.signatureLength)
   }
 
   get signature(): string {
-    return base64url.encode(this.rawSignature);
+    return base64url.encode(this.rawSignature)
   }
 
   set rawOwner(pubkey: Buffer) {
     if (pubkey.byteLength != this.ownerLength) {
       throw new Error(
         `Expected raw owner (pubkey) to be ${this.ownerLength} bytes, got ${pubkey.byteLength} bytes.`
-      );
+      )
     }
-    this.binary.set(pubkey, 2 + this.signatureLength);
+    this.binary.set(pubkey, 2 + this.signatureLength)
   }
 
   get rawOwner(): Buffer {
-    return this.binary.subarray(2 + this.signatureLength, 2 + this.signatureLength + this.ownerLength);
+    return this.binary.subarray(
+      2 + this.signatureLength,
+      2 + this.signatureLength + this.ownerLength
+    )
   }
 
   get signatureLength(): number {
-    return 65;
+    return 65
   }
 
   get owner(): string {
-    return base64url.encode(this.rawOwner);
+    return base64url.encode(this.rawOwner)
   }
 
   get ownerLength(): number {
-    return 65;
+    return 65
   }
 
   get rawTarget(): Buffer {
-    const targetStart = this.getTargetStart();
-    const isPresent = this.binary[targetStart] == 1;
-    return isPresent ? this.binary.subarray(targetStart + 1, targetStart + 33) : Buffer.alloc(0);
+    const targetStart = this.getTargetStart()
+    const isPresent = this.binary[targetStart] == 1
+    return isPresent
+      ? this.binary.subarray(targetStart + 1, targetStart + 33)
+      : Buffer.alloc(0)
   }
 
   get target(): string {
-    return base64url.encode(this.rawTarget);
+    return base64url.encode(this.rawTarget)
   }
 
   get rawAnchor(): Buffer {
-    const anchorStart = this.getAnchorStart();
-    const isPresent = this.binary[anchorStart] == 1;
+    const anchorStart = this.getAnchorStart()
+    const isPresent = this.binary[anchorStart] == 1
 
-    return isPresent ? this.binary.subarray(anchorStart + 1, anchorStart + 33) : Buffer.alloc(0);
+    return isPresent
+      ? this.binary.subarray(anchorStart + 1, anchorStart + 33)
+      : Buffer.alloc(0)
   }
 
   get anchor(): string {
-    return this.rawAnchor.toString();
+    return this.rawAnchor.toString()
   }
 
   get rawTags(): Buffer {
-    const tagsStart = this.getTagsStart();
-    const tagsSize = byteArrayToLong(this.binary.subarray(tagsStart + 8, tagsStart + 16));
-    return this.binary.subarray(tagsStart + 16, tagsStart + 16 + tagsSize);
+    const tagsStart = this.getTagsStart()
+    const tagsSize = byteArrayToLong(
+      this.binary.subarray(tagsStart + 8, tagsStart + 16)
+    )
+    return this.binary.subarray(tagsStart + 16, tagsStart + 16 + tagsSize)
   }
 
   getStartOfData(): number {
-    const tagsStart = this.getTagsStart();
+    const tagsStart = this.getTagsStart()
 
-    const numberOfTagBytesArray = this.binary.subarray(tagsStart + 8, tagsStart + 16);
-    const numberOfTagBytes = byteArrayToLong(numberOfTagBytesArray);
-    return tagsStart + 16 + numberOfTagBytes;
+    const numberOfTagBytesArray = this.binary.subarray(
+      tagsStart + 8,
+      tagsStart + 16
+    )
+    const numberOfTagBytes = byteArrayToLong(numberOfTagBytesArray)
+    return tagsStart + 16 + numberOfTagBytes
   }
 
   get rawData(): Buffer {
-    const tagsStart = this.getTagsStart();
+    const tagsStart = this.getTagsStart()
 
-    const numberOfTagBytesArray = this.binary.subarray(tagsStart + 8, tagsStart + 16);
-    const numberOfTagBytes = byteArrayToLong(numberOfTagBytesArray);
-    const dataStart = tagsStart + 16 + numberOfTagBytes;
+    const numberOfTagBytesArray = this.binary.subarray(
+      tagsStart + 8,
+      tagsStart + 16
+    )
+    const numberOfTagBytes = byteArrayToLong(numberOfTagBytesArray)
+    const dataStart = tagsStart + 16 + numberOfTagBytes
 
-    return this.binary.subarray(dataStart, this.binary.length);
+    return this.binary.subarray(dataStart, this.binary.length)
   }
 
   get data(): string {
-    return base64url.encode(this.rawData);
+    return base64url.encode(this.rawData)
   }
 
   /**
@@ -171,47 +188,47 @@ export class DataItem {
    * DO NOT MUTATE THE BINARY ARRAY. THIS WILL CAUSE UNDEFINED BEHAVIOUR.
    */
   getRaw(): Buffer {
-    return this.binary;
+    return this.binary
   }
 
   public async sign(signer: EthereumSigner): Promise<Buffer> {
-    this._id = await sign(this, signer);
-    return this.rawId;
+    this._id = await sign(this, signer)
+    return this.rawId
   }
 
   public async setSignature(signature: Buffer): Promise<void> {
-    this.binary.set(signature, 2);
-    this._id = Buffer.from(await crypto.subtle.digest('SHA-256', signature));
+    this.binary.set(signature, 2)
+    this._id = Buffer.from(await crypto.subtle.digest('SHA-256', signature))
   }
 
   public isSigned(): boolean {
-    return (this._id?.length ?? 0) > 0;
+    return (this._id?.length ?? 0) > 0
   }
 
   public async getSignatureData(): Promise<Uint8Array> {
-    return getSignatureData(this);
+    return getSignatureData(this)
   }
 
   private getTagsStart(): number {
-    const targetStart = this.getTargetStart();
-    const targetPresent = this.binary[targetStart] == 1;
-    let tagsStart = targetStart + (targetPresent ? 33 : 1);
-    const anchorPresent = this.binary[tagsStart] == 1;
-    tagsStart += anchorPresent ? 33 : 1;
+    const targetStart = this.getTargetStart()
+    const targetPresent = this.binary[targetStart] == 1
+    let tagsStart = targetStart + (targetPresent ? 33 : 1)
+    const anchorPresent = this.binary[tagsStart] == 1
+    tagsStart += anchorPresent ? 33 : 1
 
-    return tagsStart;
+    return tagsStart
   }
 
   private getTargetStart(): number {
-    return 2 + this.signatureLength + this.ownerLength;
+    return 2 + this.signatureLength + this.ownerLength
   }
 
   private getAnchorStart(): number {
-    let anchorStart = this.getTargetStart() + 1;
-    const targetPresent = this.binary[this.getTargetStart()] == 1;
-    anchorStart += targetPresent ? 32 : 0;
+    let anchorStart = this.getTargetStart() + 1
+    const targetPresent = this.binary[this.getTargetStart()] == 1
+    anchorStart += targetPresent ? 32 : 0
 
-    return anchorStart;
+    return anchorStart
   }
 }
 
@@ -220,15 +237,15 @@ export const createData = (
   signer: EthereumSigner,
   opts?: DataItemCreateOptions
 ): DataItem => {
-  const _owner = signer.publicKey;
-  const _target = opts?.target ? base64url.toBuffer(opts.target) : null;
-  const target_length = 1 + (_target?.byteLength ?? 0);
-  const _anchor = opts?.anchor ? Buffer.from(opts.anchor) : null;
-  const anchor_length = 1 + (_anchor?.byteLength ?? 0);
-  const _tags = (opts?.tags?.length ?? 0) > 0 ? serializeTags(opts?.tags) : null;
-  const tags_length = 16 + (_tags ? _tags.byteLength : 0);
-  const _data = typeof data === 'string' ? Buffer.from(data) : Buffer.from(data);
-  const data_length = _data.byteLength;
+  const _owner = signer.publicKey
+  const _target = opts?.target ? base64url.toBuffer(opts.target) : null
+  const target_length = 1 + (_target?.byteLength ?? 0)
+  const _anchor = opts?.anchor ? Buffer.from(opts.anchor) : null
+  const anchor_length = 1 + (_anchor?.byteLength ?? 0)
+  const _tags = (opts?.tags?.length ?? 0) > 0 ? serializeTags(opts?.tags) : null
+  const tags_length = 16 + (_tags ? _tags.byteLength : 0)
+  const _data = typeof data === 'string' ? Buffer.from(data) : Buffer.from(data)
+  const data_length = _data.byteLength
 
   const length =
     2 +
@@ -237,50 +254,54 @@ export const createData = (
     target_length +
     anchor_length +
     tags_length +
-    data_length;
-  const bytes = Buffer.alloc(length);
+    data_length
+  const bytes = Buffer.alloc(length)
 
-  bytes.set(shortTo2ByteArray(signer.signatureType), 0);
-  bytes.set(new Uint8Array(signer.signatureLength).fill(0), 2);
+  bytes.set(shortTo2ByteArray(signer.signatureType), 0)
+  bytes.set(new Uint8Array(signer.signatureLength).fill(0), 2)
 
   if (_owner.byteLength !== signer.ownerLength) {
-    throw new Error(`Owner must be ${signer.ownerLength} bytes, but was incorrectly ${_owner.byteLength}`);
+    throw new Error(
+      `Owner must be ${signer.ownerLength} bytes, but was incorrectly ${_owner.byteLength}`
+    )
   }
-  bytes.set(_owner, 2 + signer.signatureLength);
+  bytes.set(_owner, 2 + signer.signatureLength)
 
-  const position = 2 + signer.signatureLength + signer.ownerLength;
-  bytes[position] = _target ? 1 : 0;
+  const position = 2 + signer.signatureLength + signer.ownerLength
+  bytes[position] = _target ? 1 : 0
   if (_target) {
     if (_target.byteLength !== 32) {
-      throw new Error(`Target must be 32 bytes but was incorrectly ${_target.byteLength}`);
+      throw new Error(
+        `Target must be 32 bytes but was incorrectly ${_target.byteLength}`
+      )
     }
-    bytes.set(_target, position + 1);
+    bytes.set(_target, position + 1)
   }
 
-  const anchor_start = position + target_length;
-  let tags_start = anchor_start + 1;
-  bytes[anchor_start] = _anchor ? 1 : 0;
+  const anchor_start = position + target_length
+  let tags_start = anchor_start + 1
+  bytes[anchor_start] = _anchor ? 1 : 0
   if (_anchor) {
-    tags_start += _anchor.byteLength;
+    tags_start += _anchor.byteLength
     if (_anchor.byteLength !== 32) {
-      throw new Error('Anchor must be 32 bytes');
+      throw new Error('Anchor must be 32 bytes')
     }
-    bytes.set(_anchor, anchor_start + 1);
+    bytes.set(_anchor, anchor_start + 1)
   }
 
-  bytes.set(longTo8ByteArray(opts?.tags?.length ?? 0), tags_start);
-  const bytesCount = longTo8ByteArray(_tags?.byteLength ?? 0);
-  bytes.set(bytesCount, tags_start + 8);
+  bytes.set(longTo8ByteArray(opts?.tags?.length ?? 0), tags_start)
+  const bytesCount = longTo8ByteArray(_tags?.byteLength ?? 0)
+  bytes.set(bytesCount, tags_start + 8)
   if (_tags) {
-    bytes.set(_tags, tags_start + 16);
+    bytes.set(_tags, tags_start + 16)
   }
 
-  const data_start = tags_start + tags_length;
+  const data_start = tags_start + tags_length
 
-  bytes.set(_data, data_start);
+  bytes.set(_data, data_start)
 
-  return new DataItem(bytes);
-};
+  return new DataItem(bytes)
+}
 
-export * from './deephash';
-export * from './utils';
+export * from './deephash'
+export * from './utils'
