@@ -14,8 +14,8 @@ import type { CustomErrorWithData } from 'utils'
 import {
   ADMIN_IDS,
   Analytics,
+  HEALTH_URL,
   IS_MAINNET,
-  LENSTUBE_API_URL,
   LENSTUBE_STATUS_PAGE,
   TRACK
 } from 'utils'
@@ -51,7 +51,7 @@ const UserMenu = () => {
   )
 
   const { data: statusData } = useSWR(
-    IS_MAINNET ? `${LENSTUBE_API_URL}/api/health` : null,
+    IS_MAINNET ? HEALTH_URL : null,
     (url: string) => fetch(url).then((res) => res.json()),
     { revalidateOnFocus: true }
   )

@@ -1,0 +1,10 @@
+name = "health"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+routes = [
+	{ pattern = "health.lenstube.xyz", custom_domain = true }
+]
+keep_vars = true
+
+[env.production.vars]
+BETTER_UPTIME_KEY = ""
