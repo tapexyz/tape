@@ -5,7 +5,8 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "packages/workers/*"
   ],
   "scripts": {
     "build": "turbo run build --parallel",
