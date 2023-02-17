@@ -2991,10 +2991,10 @@
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.0.0"
 
-"@livepeer/core-react@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.2.3.tgz#fc1fdc8dae723d95e7e2b5cef43e5439d248e111"
-  integrity sha512-AqrMx7hcOCijlQhyYi/CVnM5AHQnCTY9eJktcAQw3XKZncT8DkZgN6cocI+WasrR807f5DSmP3HeiO1f0Qlb6A==
+"@livepeer/core-react@^1.2.4-next.0":
+  version "1.2.4-next.0"
+  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.2.4-next.0.tgz#2bd528fa200e69640b5e718cc0d35a6e210cba8d"
+  integrity sha512-OQIvhVCTWdmtoQzN0fwiDDrm5H3FligKTjjG1lkc/gUw6Wp22b3M0lUW1PcjZ3ZhSm1PVzxlcQAnRL/Xs1tGqg==
   dependencies:
     "@livepeer/core" "^1.2.1"
     "@tanstack/query-async-storage-persister" "4.22.4"
@@ -3015,12 +3015,12 @@
     tus-js-client "^3.0.1"
     zustand "^4.3.2"
 
-"@livepeer/react@^2.2.3":
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.2.3.tgz#536fd5db0189a0ad0487f02859a061fe94efed3d"
-  integrity sha512-8boBZG2XKjlKtKgLSVltHjJDEF9QySw//Kd30OQgqyo77PE18CHjbU/eE7SdftJ5X5XYdpiVs7i/VxcjckfW+w==
+"@livepeer/react@^2.2.4-next.0":
+  version "2.2.4-next.0"
+  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.2.4-next.0.tgz#e6ddf41230a64061a73f332fcb0dad14c7395865"
+  integrity sha512-ZSlsBzoBoqk5vUgK0vpv/JC/U0F9XePiNnN+YoY0Jhxd5GqoowTCJsWrbiw55MtjP6EXGxEe1v3TpSM6YjKhOw==
   dependencies:
-    "@livepeer/core-react" "^1.2.3"
+    "@livepeer/core-react" "^1.2.4-next.0"
     "@stitches/react" "^1.2.8"
     core-js "^3.27.2"
     livepeer "2.2.1"
