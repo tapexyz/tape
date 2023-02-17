@@ -5,7 +5,6 @@
   "private": true,
   "scripts": {
     "start": "wrangler dev",
-    "lint": "eslint . --ext .ts",
     "deploy": "wrangler publish"
   },
   "dependencies": {
