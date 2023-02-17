@@ -38,14 +38,31 @@ const CategoryFilters = () => {
 
   const slide = (shift: number) => {
     Analytics.track(TRACK.CLICK_CATEGORIES_SCROLL_BUTTON)
+
     if (scrollRef.current) {
+      /**
+       * 
+       * For reference : https://stackoverflow.com/questions/65016565/react-why-is-that-changing-the-current-value-of-ref-from-useref-doesnt-trigger
+       * 
+      I observed that since updating the Ref doesn't re-render the UI,
+      the scrollX/ChevronLeftOutline was still invisible after the FIRST CLICK on scrollEnd/ChevronRightOutline
+      Also, this calculation:
+              scrollRef.current.scrollLeft += shift
+      did not update the value of scrollRef.current.scrollLeft on the go
+       */
+
+      // That's why I used a new variable to handle the calculation of "shift" effectively
+      let scrolled = scrollRef.current.scrollLeft + shift
       scrollRef.current.scrollLeft += shift
-      const scrollLeft = scrollRef.current.scrollLeft
-      setScrollX(scrollLeft === 0 ? 0 : scrollX + shift)
+      // console.log('Scrolled:', scrolled)
+
+      //I also tweaked the setScroll so that the scrollX/ChevronLeftOutline display works as required on FIRST " > " CLICK
+      setScrollX(scrolled <= 0 ? 0 : scrollX + shift)
+
+      // I also used to value "scrolled" here to display immediate effects on the UI (this solves scrollEnd/ChevronRightOutline display bug)
       if (
-        Math.floor(
-          scrollRef.current.scrollWidth - scrollRef.current.scrollLeft
-        ) <= scrollRef.current.offsetWidth
+        Math.floor(scrollRef.current.scrollWidth - scrolled) <=
+        scrollRef.current.offsetWidth
       ) {
         setScrollEnd(true)
       } else {
