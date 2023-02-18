@@ -1,4 +1,4 @@
-import type { CollectModuleParams } from 'lens'
+import type { CollectModuleParams, RecipientDataInput } from 'lens'
 
 import type { CollectModuleType } from '../custom-types'
 
@@ -80,6 +80,21 @@ export const getCollectModule = (
       }
     }
   }
+  // Multi collect / revenue split
+  if (selectedCollectModule.isMultiRecipientFeeCollect) {
+    return {
+      multirecipientFeeCollectModule: {
+        amount: {
+          currency: selectedCollectModule.amount?.currency,
+          value: selectedCollectModule.amount?.value as string
+        },
+        recipients:
+          selectedCollectModule.multiRecipients as RecipientDataInput[],
+        referralFee: selectedCollectModule.referralFee as number,
+        followerOnly: selectedCollectModule.followerOnlyCollect as boolean
+      }
+    }
+  }
   // Post is free to collect
   return {
     freeCollectModule: {
@@ -113,6 +128,12 @@ export const getCollectModuleConfig = (collectModule: string) => {
         type: 'collectModule',
         description:
           'Allow you to collect any publication with the time and collect limit specified.'
+      }
+    case 'MultirecipientFeeCollectModule':
+      return {
+        type: 'collectModule',
+        description:
+          'Allow you to collect any publication which revenue split with multiple recipients.'
       }
     case 'FeeFollowModule':
       return {

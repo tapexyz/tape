@@ -5,6 +5,7 @@ import type {
   FreeCollectModuleSettings,
   LimitedFeeCollectModuleSettings,
   LimitedTimedFeeCollectModuleSettings,
+  RecipientDataInput,
   RevertCollectModuleSettings,
   TimedFeeCollectModuleSettings
 } from 'lens'
@@ -38,14 +39,13 @@ export type CollectModuleType = {
   isRevertCollect?: boolean
   isLimitedFeeCollect?: boolean
   isLimitedTimeFeeCollect?: boolean
+  isMultiRecipientFeeCollect?: boolean
   amount?: { currency?: string; value: string }
   referralFee?: number
   collectLimit?: string
   followerOnlyCollect?: boolean
   recipient?: string
-  // MultiRecipientFeeCollect
-  isMultiRecipientFeeCollect?: boolean
-  multiRecipients?: { recipient: string; split: number }[]
+  multiRecipients?: RecipientDataInput[]
 }
 
 export type ReferenceModuleType = {

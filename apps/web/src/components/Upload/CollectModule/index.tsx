@@ -55,10 +55,10 @@ const CollectModule = () => {
           </span>
           {uploadedVideo.collectModule.isMultiRecipientFeeCollect && (
             <Tooltip
-              content={`Split revenue enabled with ${multiRecipients?.length} addresses`}
+              content={`Split revenue enabled with ${multiRecipients?.length} recipients`}
             >
               <span>
-                <SplitOutline className="h-5 w-5" outline={false} />
+                <SplitOutline className="h-5 w-5 rotate-90" outline={false} />
               </span>
             </Tooltip>
           )}

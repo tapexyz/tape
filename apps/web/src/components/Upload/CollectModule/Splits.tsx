@@ -5,6 +5,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
 import { ethers } from 'ethers'
+import type { RecipientDataInput } from 'lens'
 import { useResolveProfileAddressLazyQuery } from 'lens'
 import React from 'react'
 import { Analytics, IS_MAINNET, TRACK } from 'utils'
@@ -18,14 +19,15 @@ const Splits = () => {
   const [resolveChannelAddress, { loading: resolving }] =
     useResolveProfileAddressLazyQuery()
 
-  const setSplitRecipients = (
-    multiRecipients: { recipient: string; split: number }[]
-  ) => {
+  const setSplitRecipients = (multiRecipients: RecipientDataInput[]) => {
+    const enabled = Boolean(splitRecipients.length)
     setUploadedVideo({
       collectModule: {
         ...uploadedVideo.collectModule,
         multiRecipients,
-        isMultiRecipientFeeCollect: Boolean(splitRecipients.length)
+        isMultiRecipientFeeCollect: enabled,
+        isRevertCollect: !enabled,
+        isFreeCollect: !enabled
       }
     })
   }
