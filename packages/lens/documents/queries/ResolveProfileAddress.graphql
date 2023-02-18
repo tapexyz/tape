@@ -1,0 +1,5 @@
+query ResolveProfileAddress($request: SingleProfileQueryRequest!) {
+  profile(request: $request) {
+    ownedBy
+  }
+}

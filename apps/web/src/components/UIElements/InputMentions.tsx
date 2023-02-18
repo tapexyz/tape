@@ -1,4 +1,3 @@
-import IsVerified from '@components/Common/IsVerified'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens'
@@ -7,8 +6,9 @@ import React, { useId } from 'react'
 import type { SuggestionDataItem } from 'react-mentions'
 import { Mention, MentionsInput } from 'react-mentions'
 import { LENS_CUSTOM_FILTERS } from 'utils'
-import { formatNumber } from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
+
+import ChannelSuggestions from './ChannelSuggestions'
 
 interface Props extends ComponentProps<'textarea'> {
   label?: string
@@ -98,31 +98,15 @@ const InputMentions: FC<Props> = ({
               _index,
               focused
             ) => (
-              <div
-                className={clsx('flex space-x-1.5 truncate px-1.5 py-1.5', {
+              <ChannelSuggestions
+                id={suggestion.profileId as string}
+                picture={suggestion.picture as string}
+                handle={suggestion.id as string}
+                className={clsx({
                   'dark:bg-theme rounded bg-indigo-50': focused
                 })}
-              >
-                <img
-                  src={suggestion?.picture}
-                  className="mt-1 h-6 w-6 rounded-full"
-                  alt="pfp"
-                  draggable={false}
-                />
-                <div className="overflow-hidden">
-                  <div className="flex items-center space-x-0.5">
-                    <p className="truncate font-medium leading-4">
-                      {suggestion?.id}
-                    </p>
-                    <IsVerified id={suggestion.profileId as string} size="xs" />
-                  </div>
-                  {suggestion?.followers && (
-                    <span className="text-xs opacity-80">
-                      {formatNumber(suggestion?.followers)} subscribers
-                    </span>
-                  )}
-                </div>
-              </div>
+                subscribersCount={suggestion.followers as number}
+              />
             )}
             data={fetchSuggestions}
           />

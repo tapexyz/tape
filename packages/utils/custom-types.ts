@@ -43,6 +43,9 @@ export type CollectModuleType = {
   collectLimit?: string
   followerOnlyCollect?: boolean
   recipient?: string
+  // MultiRecipientFeeCollect
+  isMultiRecipientFeeCollect?: boolean
+  multiRecipients?: { recipient: string; split: number }[]
 }
 
 export type ReferenceModuleType = {

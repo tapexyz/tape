@@ -67,11 +67,15 @@ const CollectModule = () => {
         <CheckOutline className="h-3 w-3" />
       </button>
       <Modal
-        title="Select collect type"
+        title={
+          <span className="text-sm uppercase tracking-wider opacity-70">
+            Select collect type
+          </span>
+        }
         panelClassName="max-w-lg"
         show={showModal}
       >
-        <div className="mt-2 space-y-4">
+        <div className="no-scrollbar mt-2 max-h-[80vh] space-y-4 overflow-y-auto p-0.5">
           <PermissionQuestion
             setCollectType={setCollectType}
             uploadedVideo={uploadedVideo}

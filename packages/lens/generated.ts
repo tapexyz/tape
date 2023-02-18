@@ -9927,6 +9927,15 @@ export type PublicationRevenueQuery = {
   } | null
 }
 
+export type ResolveProfileAddressQueryVariables = Exact<{
+  request: SingleProfileQueryRequest
+}>
+
+export type ResolveProfileAddressQuery = {
+  __typename?: 'Query'
+  profile?: { __typename?: 'Profile'; ownedBy: any } | null
+}
+
 export type SearchProfilesQueryVariables = Exact<{
   request: SearchQueryRequest
 }>
@@ -14341,6 +14350,64 @@ export type PublicationRevenueLazyQueryHookResult = ReturnType<
 export type PublicationRevenueQueryResult = Apollo.QueryResult<
   PublicationRevenueQuery,
   PublicationRevenueQueryVariables
+>
+export const ResolveProfileAddressDocument = gql`
+  query ResolveProfileAddress($request: SingleProfileQueryRequest!) {
+    profile(request: $request) {
+      ownedBy
+    }
+  }
+`
+
+/**
+ * __useResolveProfileAddressQuery__
+ *
+ * To run a query within a React component, call `useResolveProfileAddressQuery` and pass it any options that fit your needs.
+ * When your component renders, `useResolveProfileAddressQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useResolveProfileAddressQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useResolveProfileAddressQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ResolveProfileAddressQuery,
+    ResolveProfileAddressQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    ResolveProfileAddressQuery,
+    ResolveProfileAddressQueryVariables
+  >(ResolveProfileAddressDocument, options)
+}
+export function useResolveProfileAddressLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ResolveProfileAddressQuery,
+    ResolveProfileAddressQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    ResolveProfileAddressQuery,
+    ResolveProfileAddressQueryVariables
+  >(ResolveProfileAddressDocument, options)
+}
+export type ResolveProfileAddressQueryHookResult = ReturnType<
+  typeof useResolveProfileAddressQuery
+>
+export type ResolveProfileAddressLazyQueryHookResult = ReturnType<
+  typeof useResolveProfileAddressLazyQuery
+>
+export type ResolveProfileAddressQueryResult = Apollo.QueryResult<
+  ResolveProfileAddressQuery,
+  ResolveProfileAddressQueryVariables
 >
 export const SearchProfilesDocument = gql`
   query SearchProfiles($request: SearchQueryRequest!) {

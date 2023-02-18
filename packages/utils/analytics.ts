@@ -103,6 +103,7 @@ export const TRACK = {
     LINKEDIN: 'Share to LinkedIn'
   },
   SEARCH_CHANNELS: 'Search Channels',
+  RESOLVE_CHANNEL_ADDRESS: 'Resolve Channel Address',
   SEARCH_VIDEOS: 'Search Videos',
   SYSTEM: {
     THEME: {

@@ -2,13 +2,17 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
+import { ethers } from 'ethers'
 import type { Erc20 } from 'lens'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
 import type { CollectModuleType, UploadedVideo } from 'utils'
 import { WMATIC_TOKEN_ADDRESS } from 'utils'
 import { z } from 'zod'
+
+import Splits from './Splits'
 
 type Props = {
   uploadedVideo: UploadedVideo
@@ -52,6 +56,7 @@ const FeeCollectForm: FC<Props> = ({
   })
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [selectedCurrencySymbol, setSelectedCurrencySymbol] = useState('WMATIC')
+  const splitRecipients = uploadedVideo.collectModule.multiRecipients ?? []
 
   useEffect(() => {
     if (
@@ -69,6 +74,19 @@ const FeeCollectForm: FC<Props> = ({
   }
 
   const onSubmit = (data: FormData) => {
+    setCollectType({
+      amount: {
+        currency: data.currency,
+        value: data.amount
+      },
+      referralFee: data.referralPercent,
+      recipient: selectedChannel?.ownedBy,
+      collectLimit: data.collectLimit
+    })
+    setShowModal(false)
+  }
+
+  const validateInputs = (data: FormData) => {
     const amount = Number(data.amount)
     if (amount === 0) {
       return setError('amount', { message: 'Amount should be greater than 0' })
@@ -78,16 +96,24 @@ const FeeCollectForm: FC<Props> = ({
         message: 'Collect limit should be greater than 0'
       })
     }
-    setCollectType({
-      amount: {
-        currency: data.currency,
-        value: amount.toString()
-      },
-      referralFee: data.referralPercent,
-      recipient: selectedChannel?.ownedBy,
-      collectLimit: data.collectLimit
-    })
-    setShowModal(false)
+    const splitsSum = splitRecipients.reduce(
+      (total, obj) => obj.split + total,
+      0
+    )
+    const invalidSplitAddresses = splitRecipients.filter(
+      (splitRecipient) => !ethers.utils.isAddress(splitRecipient.recipient)
+    )
+    if (invalidSplitAddresses.length) {
+      return toast.error('Invalid split recipients')
+    }
+    if (
+      uploadedVideo.collectModule.isMultiRecipientFeeCollect &&
+      splitsSum !== 100
+    ) {
+      return toast.error('Sum of all splits must be 100%')
+    }
+
+    onSubmit(data)
   }
 
   return (
@@ -161,16 +187,14 @@ const FeeCollectForm: FC<Props> = ({
           type="number"
           placeholder="2"
           suffix="%"
+          info="Percent of collect revenue can be shared with anyone who mirrors this video."
           {...register('referralPercent', { valueAsNumber: true })}
           validationError={errors.referralPercent?.message}
         />
-        <span className="text-xs opacity-60">
-          Percent of collect revenue can be shared with anyone who mirrors this
-          video.
-        </span>
       </div>
-      <div className="flex justify-end">
-        <Button type="button" onClick={() => handleSubmit(onSubmit)()}>
+      <Splits />
+      <div className="flex justify-end pt-2">
+        <Button type="button" onClick={() => handleSubmit(validateInputs)()}>
           Set Collect Type
         </Button>
       </div>

@@ -1,21 +1,28 @@
+import InfoOutline from '@components/Common/Icons/InfoOutline'
 import clsx from 'clsx'
 import type { InputHTMLAttributes } from 'react'
 import React, { forwardRef, useId } from 'react'
 
+import Tooltip from './Tooltip'
+
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
+  info?: string
   type?: string
   className?: string
   validationError?: string
   prefix?: string
   suffix?: string
+  showErrorLabel?: boolean
 }
 export const Input = forwardRef<HTMLInputElement, Props>(function Input(
   {
     label,
+    info,
     type = 'text',
     validationError,
     className = '',
+    showErrorLabel = true,
     prefix,
     suffix,
     ...props
@@ -26,10 +33,19 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
   return (
     <label className="w-full" htmlFor={id}>
       {label && (
-        <div className="mb-1 flex items-center space-x-1.5">
-          <div className="text-[11px] font-semibold uppercase opacity-70">
-            {label}
+        <div className="flex">
+          <div className="mb-1 flex items-center space-x-1.5">
+            <div className="text-[11px] font-semibold uppercase tracking-wider opacity-70">
+              {label}
+            </div>
           </div>
+          {info && (
+            <Tooltip content={info} placement="top">
+              <span>
+                <InfoOutline className="my-0.5 mx-1 h-3 w-3 opacity-70" />
+              </span>
+            </Tooltip>
+          )}
         </div>
       )}
       <div className="flex">
@@ -61,11 +77,11 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
           </span>
         )}
       </div>
-      {validationError && (
+      {validationError && showErrorLabel ? (
         <div className="mx-1 mt-1 text-xs font-medium text-red-500">
           {validationError}
         </div>
-      )}
+      ) : null}
     </label>
   )
 })
