@@ -6,7 +6,7 @@ import { Analytics, TRACK } from 'utils'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
+import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import useAverageColor from 'utils/hooks/useAverageColor'
 import VideoPlayer from 'web-ui/VideoPlayer'
 
@@ -28,7 +28,7 @@ const ByteVideo: FC<Props> = ({
   const videoRef = useRef<HTMLMediaElement>()
   const intersectionRef = useRef<HTMLDivElement>(null)
   const thumbnailUrl = imageCdn(
-    sanitizeDStorageUrl(getThumbnailUrl(video)),
+    sanitizeIpfsUrl(getThumbnailUrl(video)),
     'thumbnail_v'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, true)
