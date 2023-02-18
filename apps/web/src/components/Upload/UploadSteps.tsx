@@ -24,7 +24,6 @@ import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import {
   Analytics,
-  ARWEAVE_WEBSITE_URL,
   BUNDLR_CONNECT_MESSAGE,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -388,13 +387,13 @@ const UploadSteps = () => {
         loading: false
       })
       setUploadedVideo({
-        videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`
+        videoSource: `ar://${response.data.id}`
       })
       Analytics.track(TRACK.UPLOADED_TO_ARWEAVE, {
         format: uploadedVideo.videoType
       })
       return await createPublication({
-        videoSource: `${ARWEAVE_WEBSITE_URL}/${response.data.id}`
+        videoSource: `ar://${response.data.id}`
       })
     } catch (error) {
       toast.error('Failed to upload video!')

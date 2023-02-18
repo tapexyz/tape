@@ -4,7 +4,7 @@ import type { FC } from 'react'
 import React from 'react'
 import { IS_MAINNET, OPENSEA_MARKETPLACE_URL, STATIC_ASSETS } from 'utils'
 import imageCdn from 'utils/functions/imageCdn'
-import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
+import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 
 type Props = {
   nft: Nft
@@ -26,7 +26,7 @@ const NFTCard: FC<Props> = ({ nft }) => {
             className="h-full w-full rounded-t-xl object-cover"
             src={imageCdn(
               nft.originalContent?.uri
-                ? sanitizeIpfsUrl(nft.originalContent?.uri)
+                ? sanitizeDStorageUrl(nft.originalContent?.uri)
                 : `${STATIC_ASSETS}/images/placeholder.webp`,
               'thumbnail'
             )}

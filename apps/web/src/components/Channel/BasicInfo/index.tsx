@@ -11,7 +11,7 @@ import React, { useState } from 'react'
 import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import imageCdn from 'utils/functions/imageCdn'
-import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
+import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 
 import MutualSubscribers from '../Mutual/MutualSubscribers'
 
@@ -27,7 +27,9 @@ const BasicInfo: FC<Props> = ({ channel }) => {
 
   const isOwnChannel = channel?.id === selectedChannel?.id
   const subscribeType = channel?.followModule?.__typename
-  const coverImage = imageCdn(sanitizeIpfsUrl(getChannelCoverPicture(channel)))
+  const coverImage = imageCdn(
+    sanitizeDStorageUrl(getChannelCoverPicture(channel))
+  )
 
   return (
     <>
