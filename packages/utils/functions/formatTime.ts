@@ -1,6 +1,8 @@
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import utc from 'dayjs/plugin/utc'
 dayjs.extend(relativeTime)
+dayjs.extend(utc)
 
 export const getSecondsFromTime = (time: string) => {
   const timeSplitted: string[] = time.split(':')
@@ -26,6 +28,10 @@ export const getTimeFromSeconds = (seconds: string) => {
 
 export const getRelativeTime = (timeString: string) => {
   return dayjs(new Date(timeString)).fromNow()
+}
+
+export const getTimeAddedOneDay = () => {
+  return dayjs().add(1, 'day').format('YYYY-MM-DDTHH:mm:ss')
 }
 
 export const secondsToISO = (seconds: string | undefined) => {

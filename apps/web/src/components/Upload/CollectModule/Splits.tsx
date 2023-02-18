@@ -25,9 +25,9 @@ const Splits = () => {
       collectModule: {
         ...uploadedVideo.collectModule,
         multiRecipients,
-        isMultiRecipientFeeCollect: enabled,
-        isRevertCollect: !enabled,
-        isFreeCollect: !enabled
+        isMultiRecipientFeeCollect: enabled
+        // isRevertCollect: !enabled,
+        // isFreeCollect: !enabled
       }
     })
   }
@@ -117,6 +117,7 @@ const Splits = () => {
                 getIsHandle(splitRecipient.recipient) &&
                 'animate-pulse'
             )}
+            autoFocus
             autoComplete="off"
             showErrorLabel={false}
             onChange={(e) => onChangeSplit('recipient', e.target.value, i)}

@@ -49,6 +49,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
     isFreeCollect: false,
     isFeeCollect: false,
     isRevertCollect: true,
+    collectLimit: '1',
     multiRecipients: []
   },
   referenceModule: {

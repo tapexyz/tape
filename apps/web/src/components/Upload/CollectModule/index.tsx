@@ -42,14 +42,14 @@ const CollectModule = () => {
     }
     if (uploadedVideo.collectModule.isFreeCollect) {
       return `${
-        followerOnlyCollect ? 'Only Subscribers' : 'Anyone'
+        followerOnlyCollect ? 'Subscribers' : 'Anyone'
       } can collect for free ${isTimedFeeCollect ? 'within 24hrs' : ''}`
     }
     if (!uploadedVideo.collectModule.isFreeCollect) {
       return (
         <div className="flex items-center space-x-1">
           <span>
-            {followerOnlyCollect ? 'Only Subscribers' : 'Anyone'} can collect{' '}
+            {followerOnlyCollect ? 'Subscribers' : 'Anyone'} can collect{' '}
             {isLimitedFeeCollect ? `maximum of ${collectLimit}` : ''} for given
             fees {isTimedFeeCollect ? 'within 24hrs' : ''}
           </span>
