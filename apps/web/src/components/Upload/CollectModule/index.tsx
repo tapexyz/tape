@@ -1,6 +1,8 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
+import SplitOutline from '@components/Common/Icons/SplitOutline'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
+import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import { useEnabledModuleCurrrenciesQuery } from 'lens'
 import React, { useState } from 'react'
@@ -34,6 +36,7 @@ const CollectModule = () => {
     const isTimedFeeCollect = uploadedVideo.collectModule.isTimedFeeCollect
     const isLimitedFeeCollect = uploadedVideo.collectModule.isLimitedFeeCollect
     const collectLimit = uploadedVideo.collectModule.collectLimit
+    const multiRecipients = uploadedVideo.collectModule.multiRecipients
     if (uploadedVideo.collectModule.isRevertCollect) {
       return 'No one can collect this publication'
     }
@@ -43,11 +46,24 @@ const CollectModule = () => {
       } can collect for free ${isTimedFeeCollect ? 'within 24hrs' : ''}`
     }
     if (!uploadedVideo.collectModule.isFreeCollect) {
-      return `${
-        followerOnlyCollect ? 'Only Subscribers' : 'Anyone'
-      } can collect ${
-        isLimitedFeeCollect ? `maximum of ${collectLimit}` : ''
-      } for given fees ${isTimedFeeCollect ? 'within 24hrs' : ''}`
+      return (
+        <div className="flex items-center space-x-1">
+          <span>
+            {followerOnlyCollect ? 'Only Subscribers' : 'Anyone'} can collect{' '}
+            {isLimitedFeeCollect ? `maximum of ${collectLimit}` : ''} for given
+            fees {isTimedFeeCollect ? 'within 24hrs' : ''}
+          </span>
+          {uploadedVideo.collectModule.isMultiRecipientFeeCollect && (
+            <Tooltip
+              content={`Split revenue enabled with ${multiRecipients?.length} addresses`}
+            >
+              <span>
+                <SplitOutline className="h-5 w-5" outline={false} />
+              </span>
+            </Tooltip>
+          )}
+        </div>
+      )
     }
   }
 

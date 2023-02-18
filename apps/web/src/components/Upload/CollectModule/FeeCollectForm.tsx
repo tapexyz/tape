@@ -110,7 +110,7 @@ const FeeCollectForm: FC<Props> = ({
       uploadedVideo.collectModule.isMultiRecipientFeeCollect &&
       splitsSum !== 100
     ) {
-      return toast.error('Sum of all splits must be 100%')
+      return toast.error('Sum of all splits should be 100%')
     }
 
     onSubmit(data)

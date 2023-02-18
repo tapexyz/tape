@@ -64,7 +64,7 @@ const Splits = () => {
 
   const addRecipient = () => {
     const splits = splitRecipients
-    splits.push({ recipient: '', split: 0 })
+    splits.push({ recipient: '', split: 1 })
     setSplitRecipients([...splits])
   }
 
@@ -133,7 +133,10 @@ const Splits = () => {
             className="rounded-xl border px-1 text-[10px] font-semibold uppercase tracking-wider dark:border-gray-600"
             onClick={() => removeRecipient(i)}
           >
-            <TimesOutline className="h-5 w-5 opacity-70 hover:text-red-500" />
+            <TimesOutline
+              className="h-5 w-5 opacity-70 hover:text-red-500"
+              outline={false}
+            />
           </button>
         </div>
       ))}
