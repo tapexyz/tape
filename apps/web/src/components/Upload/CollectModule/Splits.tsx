@@ -26,8 +26,6 @@ const Splits = () => {
         ...uploadedVideo.collectModule,
         multiRecipients,
         isMultiRecipientFeeCollect: enabled
-        // isRevertCollect: !enabled,
-        // isFreeCollect: !enabled
       }
     })
   }
