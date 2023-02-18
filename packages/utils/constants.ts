@@ -11,9 +11,6 @@ export const STATIC_ASSETS = 'https://static.lenstube.xyz'
 export const LENSTUBE_WEBSITE_URL = IS_MAINNET
   ? 'https://lenstube.xyz'
   : 'https://testnet.lenstube.xyz'
-export const LENSTUBE_EMBED_URL = IS_MAINNET
-  ? 'https://embed.lenstube.xyz'
-  : 'https://test-embed.lenstube.xyz'
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallbackThumbnail.png`
 export const OG_IMAGE = `${STATIC_ASSETS}/images/seo/og.png`
 export const IMAGE_CDN_URL = IS_MAINNET ? 'https://img.lenstube.xyz' : ''
@@ -33,12 +30,16 @@ export const STAGING_API_URL = IS_MAINNET
 // API urls
 export const LENSTUBE_MAINNET_API_URL = 'https://api.lenstube.xyz'
 export const LENSTUBE_TESTNET_API_URL = 'https://api-testnet.lenstube.xyz'
+export const LENSTUBE_EMBED_URL = IS_MAINNET
+  ? 'https://embed.lenstube.xyz'
+  : 'https://embed-testnet.lenstube.xyz'
 export const LENSTUBE_DEV_API_URL = 'http://localhost:4002'
 export const LENSTUBE_API_URL = IS_MAINNET
   ? LENSTUBE_MAINNET_API_URL
   : LENSTUBE_TESTNET_API_URL
-export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 export const HEALTH_URL = 'https://health.lenstube.xyz'
+
+export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 
 // contracts
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
