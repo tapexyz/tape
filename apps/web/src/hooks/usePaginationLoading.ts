@@ -11,18 +11,19 @@ export const usePaginationLoading = <T>({ ref, fetch }: Props<T>) => {
   const handleScroll = async () => {
     if (
       ref.current &&
-      latestHeight <= window.scrollY &&
-      latestHeight !== ref.current.offsetHeight
+      latestHeight <= ref.current.clientHeight &&
+      latestHeight !== ref.current.scrollHeight
     ) {
-      setLatestHeight(ref.current.offsetHeight)
+      setLatestHeight(ref.current.scrollHeight)
       await fetch()
     }
   }
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
+    const current = ref.current
+    current?.addEventListener('mousewheel', handleScroll)
     return () => {
-      window.removeEventListener('scroll', handleScroll)
+      current?.removeEventListener('mousewheel', handleScroll)
     }
   })
 }
