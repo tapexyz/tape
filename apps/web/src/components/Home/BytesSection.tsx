@@ -93,7 +93,7 @@ const BytesSection = () => {
       </div>
       <div
         ref={sectionRef}
-        className="no-scrollbar relative mb-3 flex touch-pan-x items-start space-x-4 overflow-x-auto scroll-smooth"
+        className="no-scrollbar relative mb-3 flex touch-pan-x items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth"
       >
         {bytes.map((byte) => (
           <div key={byte.id} className="w-44 space-y-1">
