@@ -68,4 +68,18 @@ fragment CollectFields on CollectModule {
       value
     }
   }
+  ... on MultirecipientFeeCollectModuleSettings {
+    type
+    referralFee
+    contractAddress
+    followerOnly
+    amount {
+      asset {
+        symbol
+        decimals
+        address
+      }
+      value
+    }
+  }
 }
