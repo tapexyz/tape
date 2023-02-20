@@ -2,6 +2,7 @@ import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import type { Publication } from 'lens'
 import {
+  PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
@@ -11,6 +12,7 @@ import type { FC } from 'react'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
+  ALLOWED_APP_IDS,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
@@ -22,8 +24,9 @@ import SuggestedVideoCard from './SuggestedVideoCard'
 const request = {
   sortCriteria: PublicationSortCriteria.CuratedProfiles,
   limit: 30,
-  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
   publicationTypes: [PublicationTypes.Post],
+  metadata: { mainContentFocus: [PublicationMainFocus.Video] },
   noRandomize: false,
   customFilters: LENS_CUSTOM_FILTERS
 }

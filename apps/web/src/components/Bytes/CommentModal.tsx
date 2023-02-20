@@ -31,7 +31,6 @@ const CommentModal: FC<Props> = ({ trigger, video }) => {
         }
         panelClassName="max-w-lg lg:ml-9"
         show={show}
-        autoClose
         onClose={() => setShow(false)}
       >
         <div className="no-scrollbar max-h-[40vh] overflow-y-auto pt-3">

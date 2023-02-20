@@ -43,3 +43,6 @@ dist
 test-results/
 playwright-report/
 playwright/.cache/
+
+# cloudflare workers
+.dev.vars

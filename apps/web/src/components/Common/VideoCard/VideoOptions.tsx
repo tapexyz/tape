@@ -1,4 +1,5 @@
 import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
+import Confirm from '@components/UIElements/Confirm'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import useAppStore from '@lib/store'
@@ -17,7 +18,7 @@ import {
   useHidePublicationMutation
 } from 'lens'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import {
@@ -56,6 +57,7 @@ const VideoOptions: FC<Props> = ({
   setShowReport,
   showOnHover = true
 }) => {
+  const [showConfirm, setShowConfirm] = useState(false)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
@@ -77,13 +79,7 @@ const VideoOptions: FC<Props> = ({
   })
 
   const onHideVideo = () => {
-    if (
-      confirm(
-        'This will hide your video from lens, are you sure want to continue?\n\nNote: This cannot be reverted.'
-      )
-    ) {
-      hideVideo({ variables: { request: { publicationId: video?.id } } })
-    }
+    hideVideo({ variables: { request: { publicationId: video?.id } } })
   }
 
   const onClickReport = () => {
@@ -225,73 +221,80 @@ const VideoOptions: FC<Props> = ({
   }
 
   return (
-    <DropMenu
-      trigger={
-        <div
-          onClick={() => Analytics.track(TRACK.CLICK_VIDEO_OPTIONS)}
-          className={clsx(
-            'py-1 text-white group-hover:visible md:text-inherit',
-            showOnHover && 'lg:invisible'
-          )}
-          role="button"
-        >
-          <ThreeDotsOutline className="h-3.5 w-3.5" />
-        </div>
-      }
-    >
-      <div className="bg-secondary mt-0.5 w-36 overflow-hidden rounded-xl border border-gray-200 p-1 shadow dark:border-gray-800">
-        <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
-          {isVideoOwner && (
-            <>
-              {pinnedVideoId !== video.id && (
+    <>
+      <Confirm
+        showConfirm={showConfirm}
+        setShowConfirm={setShowConfirm}
+        action={onHideVideo}
+      />
+      <DropMenu
+        trigger={
+          <div
+            onClick={() => Analytics.track(TRACK.CLICK_VIDEO_OPTIONS)}
+            className={clsx(
+              'py-1 text-white group-hover:visible md:text-inherit',
+              showOnHover && 'lg:invisible'
+            )}
+            role="button"
+          >
+            <ThreeDotsOutline className="h-3.5 w-3.5" />
+          </div>
+        }
+      >
+        <div className="bg-secondary mt-0.5 w-36 overflow-hidden rounded-xl border border-gray-200 p-1 shadow dark:border-gray-800">
+          <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
+            {isVideoOwner && (
+              <>
+                {pinnedVideoId !== video.id && (
+                  <Menu.Item
+                    as="button"
+                    className="flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    onClick={() => onPinVideo()}
+                  >
+                    <PinOutline className="h-3.5 w-3.5" />
+                    <span className="whitespace-nowrap">Pin Video</span>
+                  </Menu.Item>
+                )}
+                <Menu.Item
+                  as={NextLink}
+                  href={getPublicationMediaUrl(video)}
+                  target="_blank"
+                >
+                  <div className="flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <ExternalOutline className="h-3 w-3" />
+                    <span className="whitespace-nowrap">Raw Video</span>
+                  </div>
+                </Menu.Item>
                 <Menu.Item
                   as="button"
-                  className="flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  onClick={() => onPinVideo()}
+                  className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 text-red-500 opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
+                  onClick={() => setShowConfirm(true)}
                 >
-                  <PinOutline className="h-3.5 w-3.5" />
-                  <span className="whitespace-nowrap">Pin Video</span>
+                  <TrashOutline className="h-3.5 w-3.5" />
+                  <span className="whitespace-nowrap">Delete</span>
                 </Menu.Item>
-              )}
-              <Menu.Item
-                as={NextLink}
-                href={getPublicationMediaUrl(video)}
-                target="_blank"
-              >
-                <div className="flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800">
-                  <ExternalOutline className="h-3 w-3" />
-                  <span className="whitespace-nowrap">Raw Video</span>
-                </div>
-              </Menu.Item>
-              <Menu.Item
-                as="button"
-                className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 text-red-500 opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
-                onClick={() => onHideVideo()}
-              >
-                <TrashOutline className="h-3.5 w-3.5" />
-                <span className="whitespace-nowrap">Delete</span>
-              </Menu.Item>
-            </>
-          )}
-          <button
-            type="button"
-            onClick={() => setShowShare(true)}
-            className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            <ShareOutline className="h-3.5 w-3.5" />
-            <span className="whitespace-nowrap">Share</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => onClickReport()}
-            className="hhover:opacity-100 inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            <FlagOutline className="h-3.5 w-3.5" />
-            <span className="whitespace-nowrap">Report</span>
-          </button>
+              </>
+            )}
+            <button
+              type="button"
+              onClick={() => setShowShare(true)}
+              className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              <ShareOutline className="h-3.5 w-3.5" />
+              <span className="whitespace-nowrap">Share</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => onClickReport()}
+              className="hhover:opacity-100 inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              <FlagOutline className="h-3.5 w-3.5" />
+              <span className="whitespace-nowrap">Report</span>
+            </button>
+          </div>
         </div>
-      </div>
-    </DropMenu>
+      </DropMenu>
+    </>
   )
 }
 

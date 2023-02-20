@@ -1,0 +1,19 @@
+{
+  "name": "@workers/sts",
+  "version": "0.0.0",
+  "license": "GPL-3.0",
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev",
+    "worker:deploy": "wrangler publish"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sts": "^3.267.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230215.0",
+    "eslint-config-weblint": "*",
+    "typescript": "^4.9.5",
+    "wrangler": "2.10.0"
+  }
+}

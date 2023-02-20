@@ -5,18 +5,22 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "packages/workers/*"
   ],
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build --parallel",
     "dev": "turbo run dev --parallel",
     "codegen": "turbo run codegen",
-    "lint": "turbo run lint",
+    "lint": "turbo run lint --parallel",
     "dev:test": "turbo run dev:test",
     "e2e:test": "turbo run e2e:test",
+    "prepare": "husky install",
+    "workers:deploy": "turbo run worker:deploy --parallel",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "husky": "^8.0.3",
     "ts-node": "latest",
     "turbo": "1.7.4"
   },

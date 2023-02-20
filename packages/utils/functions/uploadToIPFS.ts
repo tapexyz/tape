@@ -3,12 +3,7 @@ import { Upload } from '@aws-sdk/lib-storage'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 
-import {
-  EVER_BUCKET_NAME,
-  EVER_ENDPOINT,
-  EVER_REGION,
-  LENSTUBE_API_URL
-} from '../constants'
+import { EVER_ENDPOINT, EVER_REGION, STS_TOKEN_URL } from '../constants'
 import type { IPFSUploadResult } from '../custom-types'
 import logger from '../logger'
 
@@ -17,9 +12,7 @@ export const everland = async (
   onProgress?: (percentage: number) => void
 ) => {
   try {
-    const token = await axios.post(`${LENSTUBE_API_URL}/sts/token`, {
-      fileSize: file.size
-    })
+    const token = await axios.get(STS_TOKEN_URL)
     const client = new S3({
       endpoint: EVER_ENDPOINT,
       region: EVER_REGION,
@@ -32,7 +25,7 @@ export const everland = async (
     })
     const fileKey = uuidv4()
     const params = {
-      Bucket: EVER_BUCKET_NAME,
+      Bucket: 'lenstube',
       Key: fileKey,
       Body: file,
       ContentType: file.type

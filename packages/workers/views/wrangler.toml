@@ -1,0 +1,10 @@
+name = "views"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+routes = [
+	{ pattern = "views.lenstube.xyz", custom_domain = true }
+]
+keep_vars = true
+
+[env.production.vars]
+LIVEPEER_API_TOKEN = "" 

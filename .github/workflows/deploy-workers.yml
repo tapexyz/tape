@@ -1,0 +1,33 @@
+name: Deploy Cloudflare Workers
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with: 
+          fetch-depth: 2
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+
+      - name: Install dependencies 🧳
+        run: yarn install --frozen-lockfile
+
+      - name: Check Lint 💅🏻
+        run: yarn lint
+ 
+      - name: Deploy 🚀
+        run: |
+          yarn global add wrangler
+          yarn workers:deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

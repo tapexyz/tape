@@ -333,7 +333,7 @@ const BasicInfo = ({ channel }: Props) => {
         </div>
         <div className="flex items-center space-x-2">
           <span>
-            {LENSTUBE_WEBSITE_URL}/{channel.handle}
+            {LENSTUBE_WEBSITE_URL}/channel/{channel.handle}
           </span>
           <button
             className="hover:opacity-60 focus:outline-none"

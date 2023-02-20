@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { Analytics, TRACK } from 'utils'
 import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
-import useHorizontalScroll from 'utils/hooks/useHorizantalScroll'
+import useHorizontalScroll from 'utils/hooks/useHorizontalScroll'
 
 import ChevronLeftOutline from './Icons/ChevronLeftOutline'
 import ChevronRightOutline from './Icons/ChevronRightOutline'
@@ -38,14 +38,16 @@ const CategoryFilters = () => {
 
   const slide = (shift: number) => {
     Analytics.track(TRACK.CLICK_CATEGORIES_SCROLL_BUTTON)
+
     if (scrollRef.current) {
+      const scrolled = scrollRef.current.scrollLeft + shift
       scrollRef.current.scrollLeft += shift
-      const scrollLeft = scrollRef.current.scrollLeft
-      setScrollX(scrollLeft === 0 ? 0 : scrollX + shift)
+
+      setScrollX(scrolled <= 0 ? 0 : scrollX + shift)
+
       if (
-        Math.floor(
-          scrollRef.current.scrollWidth - scrollRef.current.scrollLeft
-        ) <= scrollRef.current.offsetWidth
+        Math.floor(scrollRef.current.scrollWidth - scrolled) <=
+        scrollRef.current.offsetWidth
       ) {
         setScrollEnd(true)
       } else {

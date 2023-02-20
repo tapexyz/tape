@@ -15,6 +15,7 @@ import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
 import {
+  ALLOWED_APP_IDS,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
@@ -30,7 +31,7 @@ const ExploreCategory = () => {
     publicationTypes: [PublicationTypes.Post],
     limit: 32,
     sortCriteria: PublicationSortCriteria.Latest,
-    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
       tags: { oneOf: [categoryName] },

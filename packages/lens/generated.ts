@@ -41,6 +41,8 @@ export type Scalars = {
   Locale: any
   Markdown: any
   MimeType: any
+  NftGalleryId: any
+  NftGalleryName: any
   NftOwnershipId: any
   Nonce: any
   NotificationId: any
@@ -62,6 +64,40 @@ export type Scalars = {
   UnixTimestamp: any
   Url: any
   Void: any
+}
+
+export type AaveFeeCollectModuleParams = {
+  /** The collect module amount info */
+  amount: ModuleFeeAmountParams
+  /** The collect module limit */
+  collectLimit: Scalars['String']
+  /** The timestamp that this collect module will expire */
+  endTimestamp?: InputMaybe<Scalars['DateTime']>
+  /** Follower only */
+  followerOnly: Scalars['Boolean']
+  /** The collect module recipient address */
+  recipient: Scalars['EthereumAddress']
+  /** The collect module referral fee */
+  referralFee: Scalars['Float']
+}
+
+export type AaveFeeCollectModuleSettings = {
+  __typename?: 'AaveFeeCollectModuleSettings'
+  /** The collect module amount info */
+  amount: ModuleFeeAmount
+  /** The maximum number of collects for this publication. Omit for no limit. */
+  collectLimit?: Maybe<Scalars['String']>
+  contractAddress: Scalars['ContractAddress']
+  /** The end timestamp after which collecting is impossible. No expiry if missing. */
+  endTimestamp?: Maybe<Scalars['DateTime']>
+  /** True if only followers of publisher may collect the post. */
+  followerOnly: Scalars['Boolean']
+  /** Recipient of collect fees. */
+  recipient: Scalars['EthereumAddress']
+  /** The referral fee associated with this publication. */
+  referralFee: Scalars['Float']
+  /** The collect modules enum */
+  type: CollectModules
 }
 
 /** The access conditions for the publication */
@@ -259,15 +295,22 @@ export type CollectConditionOutput = {
 }
 
 export type CollectModule =
+  | AaveFeeCollectModuleSettings
+  | Erc4626FeeCollectModuleSettings
   | FeeCollectModuleSettings
   | FreeCollectModuleSettings
   | LimitedFeeCollectModuleSettings
   | LimitedTimedFeeCollectModuleSettings
+  | MultirecipientFeeCollectModuleSettings
   | RevertCollectModuleSettings
   | TimedFeeCollectModuleSettings
   | UnknownCollectModuleSettings
 
 export type CollectModuleParams = {
+  /** The collect aave fee collect module */
+  aaveFeeCollectModule?: InputMaybe<AaveFeeCollectModuleParams>
+  /** The collect ERC4626 fee collect module */
+  erc4626FeeCollectModule?: InputMaybe<Erc4626FeeCollectModuleParams>
   /** The collect fee collect module */
   feeCollectModule?: InputMaybe<FeeCollectModuleParams>
   /** The collect empty collect module */
@@ -276,6 +319,8 @@ export type CollectModuleParams = {
   limitedFeeCollectModule?: InputMaybe<LimitedFeeCollectModuleParams>
   /** The collect limited timed fee collect module */
   limitedTimedFeeCollectModule?: InputMaybe<LimitedTimedFeeCollectModuleParams>
+  /** The multirecipient fee collect module */
+  multirecipientFeeCollectModule?: InputMaybe<MultirecipientFeeCollectModuleParams>
   /** The collect revert collect module */
   revertCollectModule?: InputMaybe<Scalars['Boolean']>
   /** The collect timed fee collect module */
@@ -996,6 +1041,10 @@ export type DegreesOfSeparationReferenceModuleSettings = {
   type: ReferenceModules
 }
 
+export type DismissRecommendedProfilesRequest = {
+  profileIds: Array<Scalars['ProfileId']>
+}
+
 /** The dispatcher */
 export type Dispatcher = {
   __typename?: 'Dispatcher'
@@ -1050,6 +1099,40 @@ export type Eip712TypedDataField = {
   name: Scalars['String']
   /** The type of the typed data field */
   type: Scalars['String']
+}
+
+export type Erc4626FeeCollectModuleParams = {
+  /** The collecting cost associated with this publication. 0 for free collect. */
+  amount: ModuleFeeAmountParams
+  /** The maximum number of collects for this publication. Omit for no limit. */
+  collectLimit?: InputMaybe<Scalars['String']>
+  /** The end timestamp after which collecting is impossible. Omit for no expiry. */
+  endTimestamp?: InputMaybe<Scalars['DateTime']>
+  /** True if only followers of publisher may collect the post. */
+  followerOnly: Scalars['Boolean']
+  /** The address of the recipient who will recieve vault shares after depositing is completed. */
+  recipient: Scalars['EthereumAddress']
+  /** The referral fee associated with this publication. */
+  referralFee?: InputMaybe<Scalars['Float']>
+  /** The address of the ERC4626 vault to deposit funds to. */
+  vault: Scalars['ContractAddress']
+}
+
+export type Erc4626FeeCollectModuleSettings = {
+  __typename?: 'ERC4626FeeCollectModuleSettings'
+  /** The collect module amount info */
+  amount: ModuleFeeAmount
+  /** The maximum number of collects for this publication. 0 for no limit. */
+  collectLimit?: Maybe<Scalars['String']>
+  contractAddress: Scalars['ContractAddress']
+  /** The end timestamp after which collecting is impossible. 0 for no expiry. */
+  endTimestamp?: Maybe<Scalars['DateTime']>
+  /** True if only followers of publisher may collect the post. */
+  followerOnly: Scalars['Boolean']
+  /** The referral fee associated with this publication. */
+  referralFee: Scalars['Float']
+  /** The collect modules enum */
+  type: CollectModules
 }
 
 export type ElectedMirror = {
@@ -1872,6 +1955,40 @@ export type ModuleInfo = {
   type: Scalars['String']
 }
 
+export type MultirecipientFeeCollectModuleParams = {
+  /** The collecting cost associated with this publication. 0 for free collect. */
+  amount: ModuleFeeAmountParams
+  /** The maximum number of collects for this publication. Omit for no limit. */
+  collectLimit?: InputMaybe<Scalars['String']>
+  /** The end timestamp after which collecting is impossible. Omit for no expiry. */
+  endTimestamp?: InputMaybe<Scalars['DateTime']>
+  /** True if only followers of publisher may collect the post. */
+  followerOnly: Scalars['Boolean']
+  /** Recipient of collect fees. */
+  recipients: Array<RecipientDataInput>
+  /** The referral fee associated with this publication. */
+  referralFee?: InputMaybe<Scalars['Float']>
+}
+
+export type MultirecipientFeeCollectModuleSettings = {
+  __typename?: 'MultirecipientFeeCollectModuleSettings'
+  /** The collect module amount info */
+  amount: ModuleFeeAmount
+  /** The maximum number of collects for this publication. 0 for no limit. */
+  collectLimit?: Maybe<Scalars['String']>
+  contractAddress: Scalars['ContractAddress']
+  /** The end timestamp after which collecting is impossible. 0 for no expiry. */
+  endTimestamp?: Maybe<Scalars['DateTime']>
+  /** True if only followers of publisher may collect the post. */
+  followerOnly: Scalars['Boolean']
+  /** Recipient of collect fees. */
+  recipients: Array<RecipientDataOutput>
+  /** The referral fee associated with this publication. */
+  referralFee: Scalars['Float']
+  /** The collect modules enum */
+  type: CollectModules
+}
+
 export type Mutation = {
   __typename?: 'Mutation'
   ach?: Maybe<Scalars['Void']>
@@ -1889,6 +2006,8 @@ export type Mutation = {
   createFollowTypedData: CreateFollowBroadcastItemResult
   createMirrorTypedData: CreateMirrorBroadcastItemResult
   createMirrorViaDispatcher: RelayResult
+  /** Create a new NFT gallery */
+  createNftGallery: Scalars['NftGalleryId']
   createPostTypedData: CreatePostBroadcastItemResult
   createPostViaDispatcher: RelayResult
   createProfile: RelayResult
@@ -1896,12 +2015,16 @@ export type Mutation = {
   createSetDispatcherTypedData: CreateSetDispatcherBroadcastItemResult
   createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult
   createSetFollowNFTUriTypedData: CreateSetFollowNftUriBroadcastItemResult
+  createSetFollowNFTUriViaDispatcher: RelayResult
   createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult
   createSetProfileImageURIViaDispatcher: RelayResult
   createSetProfileMetadataTypedData: CreateSetProfileMetadataUriBroadcastItemResult
   createSetProfileMetadataViaDispatcher: RelayResult
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult
+  /** Delete an NFT Gallery */
+  deleteNftGallery?: Maybe<Scalars['Void']>
+  dismissRecommendedProfiles: Scalars['Void']
   hel?: Maybe<Scalars['Void']>
   hidePublication?: Maybe<Scalars['Void']>
   idKitPhoneVerifyWebhook: IdKitPhoneVerifyWebhookResultStatusType
@@ -1911,6 +2034,12 @@ export type Mutation = {
   removeProfileInterests?: Maybe<Scalars['Void']>
   removeReaction?: Maybe<Scalars['Void']>
   reportPublication?: Maybe<Scalars['Void']>
+  /** Update the name of an NFT gallery */
+  updateNftGalleryInfo?: Maybe<Scalars['Void']>
+  /** Add and/or remove NFTs to a gallery */
+  updateNftGalleryItems?: Maybe<Scalars['Void']>
+  /** Update the order of NFTs in a gallery */
+  updateNftGalleryOrder?: Maybe<Scalars['Void']>
 }
 
 export type MutationAchArgs = {
@@ -1974,6 +2103,10 @@ export type MutationCreateMirrorViaDispatcherArgs = {
   request: CreateMirrorRequest
 }
 
+export type MutationCreateNftGalleryArgs = {
+  request: NftGalleryCreateRequest
+}
+
 export type MutationCreatePostTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>
   request: CreatePublicPostRequest
@@ -2007,6 +2140,10 @@ export type MutationCreateSetFollowNftUriTypedDataArgs = {
   request: CreateSetFollowNftUriRequest
 }
 
+export type MutationCreateSetFollowNftUriViaDispatcherArgs = {
+  request: CreateSetFollowNftUriRequest
+}
+
 export type MutationCreateSetProfileImageUriTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>
   request: UpdateProfileImageRequest
@@ -2033,6 +2170,14 @@ export type MutationCreateToggleFollowTypedDataArgs = {
 export type MutationCreateUnfollowTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>
   request: UnfollowRequest
+}
+
+export type MutationDeleteNftGalleryArgs = {
+  request: NftGalleryDeleteRequest
+}
+
+export type MutationDismissRecommendedProfilesArgs = {
+  request: DismissRecommendedProfilesRequest
 }
 
 export type MutationHelArgs = {
@@ -2065,6 +2210,18 @@ export type MutationRemoveReactionArgs = {
 
 export type MutationReportPublicationArgs = {
   request: ReportPublicationRequest
+}
+
+export type MutationUpdateNftGalleryInfoArgs = {
+  request: NftGalleryUpdateInfoRequest
+}
+
+export type MutationUpdateNftGalleryItemsArgs = {
+  request: NftGalleryUpdateItemsRequest
+}
+
+export type MutationUpdateNftGalleryOrderArgs = {
+  request: NftGalleryUpdateItemOrderRequest
 }
 
 export type MutualFollowersProfilesQueryRequest = {
@@ -2192,6 +2349,79 @@ export type NewReactionNotification = {
   reaction: ReactionTypes
 }
 
+/** The NFT gallery input */
+export type NftGalleriesRequest = {
+  /** The profile id */
+  profileId: Scalars['ProfileId']
+}
+
+/** The NFT gallery */
+export type NftGallery = {
+  __typename?: 'NftGallery'
+  /** The creation date */
+  createdAt: Scalars['DateTime']
+  /** The NFT gallery id */
+  id: Scalars['NftGalleryId']
+  /** The NFTs in the gallery */
+  items: Array<Nft>
+  /** The NFT gallery name */
+  name: Scalars['String']
+  /** The owning profile id */
+  profileId: Scalars['ProfileId']
+  /** The last update date */
+  updatedAt: Scalars['DateTime']
+}
+
+/** The input for creating a new NFT gallery */
+export type NftGalleryCreateRequest = {
+  /** The NFTs in the gallery */
+  items: Array<NftInput>
+  /** The name of the NFT gallery */
+  name: Scalars['NftGalleryName']
+  /** The owner profile id */
+  profileId: Scalars['ProfileId']
+}
+
+/** The input for deleting gallery */
+export type NftGalleryDeleteRequest = {
+  /** The NFT gallery id */
+  galleryId: Scalars['NftGalleryId']
+  /** The profile id of the gallery owner */
+  profileId: Scalars['ProfileId']
+}
+
+/** The input for updating NFT gallery name */
+export type NftGalleryUpdateInfoRequest = {
+  /** The NFT gallery id */
+  galleryId: Scalars['NftGalleryId']
+  /** The name of the NFT gallery */
+  name: Scalars['NftGalleryName']
+  /** The profile id of the gallery owner */
+  profileId: Scalars['ProfileId']
+}
+
+/** The input for reordering gallery items */
+export type NftGalleryUpdateItemOrderRequest = {
+  /** The NFT gallery id */
+  galleryId: Scalars['NftGalleryId']
+  /** The profile id of the gallery owner */
+  profileId: Scalars['ProfileId']
+  /** The order of the NFTs in the gallery */
+  updates: Array<NftUpdateItemOrder>
+}
+
+/** The input for adding/removing gallery items */
+export type NftGalleryUpdateItemsRequest = {
+  /** The NFT gallery id */
+  galleryId: Scalars['NftGalleryId']
+  /** The profile id of the gallery owner */
+  profileId: Scalars['ProfileId']
+  /** The contents of the NFT gallery */
+  toAdd?: InputMaybe<Array<NftInput>>
+  /** The contents of the NFT gallery */
+  toRemove?: InputMaybe<Array<NftInput>>
+}
+
 /** The NFT image */
 export type NftImage = {
   __typename?: 'NftImage'
@@ -2205,6 +2435,16 @@ export type NftImage = {
   uri: Scalars['Url']
   /** If the NFT is verified */
   verified: Scalars['Boolean']
+}
+
+/** The NFT input for gallery */
+export type NftInput = {
+  /** The chain ID of the NFT */
+  chainId: Scalars['ChainId']
+  /** The contract address of the NFT */
+  contractAddress: Scalars['ContractAddress']
+  /** The token ID of the NFT */
+  tokenId: Scalars['String']
 }
 
 export type NftOwnershipChallenge = {
@@ -2253,6 +2493,18 @@ export type NftOwnershipOutput = {
   contractType: ContractType
   /** The optional token ID(s) to check for ownership */
   tokenIds?: Maybe<Array<Scalars['TokenId']>>
+}
+
+/** The input for updating the order of a NFT gallery item */
+export type NftUpdateItemOrder = {
+  /** The chain ID of the NFT */
+  chainId: Scalars['ChainId']
+  /** The contract address of the NFT */
+  contractAddress: Scalars['ContractAddress']
+  /** The new order of the NFT in the gallery */
+  newOrder: Scalars['Int']
+  /** The token ID of the NFT */
+  tokenId: Scalars['String']
 }
 
 export type Notification =
@@ -2391,7 +2643,7 @@ export type PaginatedResultInfo = {
   totalCount?: Maybe<Scalars['Int']>
 }
 
-/** The paginated timeline result */
+/** The paginated result */
 export type PaginatedTimelineResult = {
   __typename?: 'PaginatedTimelineResult'
   items: Array<Publication>
@@ -2783,7 +3035,7 @@ export enum PublicationMediaSource {
   Lens = 'LENS'
 }
 
-/** Publication metadata content waring filters */
+/** Publication metadata content warning filters */
 export type PublicationMetadataContentWarningFilter = {
   /** By default all content warnings will be hidden you can include them in your query by adding them to this array. */
   includeOneOf?: InputMaybe<Array<PublicationContentWarning>>
@@ -3087,6 +3339,8 @@ export type Query = {
   internalPublicationFilter: PaginatedPublicationResult
   isIDKitPhoneVerified: Scalars['Boolean']
   mutualFollowersProfiles: PaginatedProfileResult
+  /** Get all NFT galleries for a profile */
+  nftGalleries: Array<NftGallery>
   nftOwnershipChallenge: NftOwnershipChallengeResult
   nfts: NfTsResult
   notifications: PaginatedNotificationResult
@@ -3109,8 +3363,6 @@ export type Query = {
   recommendedProfiles: Array<Profile>
   rel?: Maybe<Scalars['Void']>
   search: SearchResult
-  /** @deprecated You should be using feed, this will not be supported after 15th November 2021, please migrate. */
-  timeline: PaginatedTimelineResult
   txIdToTxHash: Scalars['TxHash']
   unknownEnabledModules: EnabledModules
   userSigNonces: UserSigNonces
@@ -3192,6 +3444,10 @@ export type QueryMutualFollowersProfilesArgs = {
   request: MutualFollowersProfilesQueryRequest
 }
 
+export type QueryNftGalleriesArgs = {
+  request: NftGalleriesRequest
+}
+
 export type QueryNftOwnershipChallengeArgs = {
   request: NftOwnershipChallengeRequest
 }
@@ -3268,10 +3524,6 @@ export type QuerySearchArgs = {
   request: SearchQueryRequest
 }
 
-export type QueryTimelineArgs = {
-  request: TimelineRequest
-}
-
 export type QueryTxIdToTxHashArgs = {
   txId: Scalars['TxId']
 }
@@ -3319,6 +3571,21 @@ export enum ReactionTypes {
   Upvote = 'UPVOTE'
 }
 
+export type RecipientDataInput = {
+  /** Recipient of collect fees. */
+  recipient: Scalars['EthereumAddress']
+  /** Split %, should be between 1 and 100. All % should add up to 100 */
+  split: Scalars['Float']
+}
+
+export type RecipientDataOutput = {
+  __typename?: 'RecipientDataOutput'
+  /** Recipient of collect fees. */
+  recipient: Scalars['EthereumAddress']
+  /** Split %, should be between 1 and 100. All % should add up to 100 */
+  split: Scalars['Float']
+}
+
 export type RecommendedProfileOptions = {
   /** If you wish to turn ML off */
   disableML?: InputMaybe<Scalars['Boolean']>
@@ -3332,7 +3599,7 @@ export type ReferenceModule =
   | UnknownReferenceModuleSettings
 
 export type ReferenceModuleParams = {
-  /** The degrees of seperation reference module */
+  /** The degrees of separation reference module */
   degreesOfSeparationReferenceModule?: InputMaybe<DegreesOfSeparationReferenceModuleParams>
   /** The follower only reference module */
   followerOnlyReferenceModule?: InputMaybe<Scalars['Boolean']>
@@ -3591,27 +3858,6 @@ export type TimedFeeCollectModuleSettings = {
   type: CollectModules
 }
 
-export type TimelineRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
-  metadata?: InputMaybe<PublicationMetadataFilters>
-  /** The profile id */
-  profileId: Scalars['ProfileId']
-  /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']>>
-  /** The timeline types you wish to include, if nothing passed in will bring back all */
-  timelineTypes?: InputMaybe<Array<TimelineType>>
-}
-
-/** Timeline types */
-export enum TimelineType {
-  CollectComment = 'COLLECT_COMMENT',
-  CollectPost = 'COLLECT_POST',
-  Comment = 'COMMENT',
-  Mirror = 'MIRROR',
-  Post = 'POST'
-}
-
 export type TransactionError = {
   __typename?: 'TransactionError'
   reason: TransactionErrorReasons
@@ -3790,6 +4036,14 @@ export type WorldcoinPhoneVerifyWebhookRequest = {
   signalType: WorldcoinPhoneVerifyType
 }
 
+type CollectFields_AaveFeeCollectModuleSettings_Fragment = {
+  __typename?: 'AaveFeeCollectModuleSettings'
+}
+
+type CollectFields_Erc4626FeeCollectModuleSettings_Fragment = {
+  __typename?: 'ERC4626FeeCollectModuleSettings'
+}
+
 type CollectFields_FeeCollectModuleSettings_Fragment = {
   __typename?: 'FeeCollectModuleSettings'
   type: CollectModules
@@ -3857,6 +4111,10 @@ type CollectFields_LimitedTimedFeeCollectModuleSettings_Fragment = {
   }
 }
 
+type CollectFields_MultirecipientFeeCollectModuleSettings_Fragment = {
+  __typename?: 'MultirecipientFeeCollectModuleSettings'
+}
+
 type CollectFields_RevertCollectModuleSettings_Fragment = {
   __typename?: 'RevertCollectModuleSettings'
 }
@@ -3886,10 +4144,13 @@ type CollectFields_UnknownCollectModuleSettings_Fragment = {
 }
 
 export type CollectFieldsFragment =
+  | CollectFields_AaveFeeCollectModuleSettings_Fragment
+  | CollectFields_Erc4626FeeCollectModuleSettings_Fragment
   | CollectFields_FeeCollectModuleSettings_Fragment
   | CollectFields_FreeCollectModuleSettings_Fragment
   | CollectFields_LimitedFeeCollectModuleSettings_Fragment
   | CollectFields_LimitedTimedFeeCollectModuleSettings_Fragment
+  | CollectFields_MultirecipientFeeCollectModuleSettings_Fragment
   | CollectFields_RevertCollectModuleSettings_Fragment
   | CollectFields_TimedFeeCollectModuleSettings_Fragment
   | CollectFields_UnknownCollectModuleSettings_Fragment
@@ -3946,12 +4207,9 @@ export type CommentFieldsFragment = {
       | { __typename: 'UnknownFollowModuleSettings' }
       | null
   }
-  collectedBy?: {
-    __typename?: 'Wallet'
-    address: any
-    defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-  } | null
   collectModule:
+    | { __typename?: 'AaveFeeCollectModuleSettings' }
+    | { __typename?: 'ERC4626FeeCollectModuleSettings' }
     | {
         __typename?: 'FeeCollectModuleSettings'
         type: CollectModules
@@ -4015,6 +4273,7 @@ export type CommentFieldsFragment = {
           }
         }
       }
+    | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
     | { __typename?: 'RevertCollectModuleSettings' }
     | {
         __typename?: 'TimedFeeCollectModuleSettings'
@@ -4225,6 +4484,8 @@ export type MirrorFieldsFragment = {
   canComment: { __typename?: 'CanCommentResponse'; result: boolean }
   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
   collectModule:
+    | { __typename?: 'AaveFeeCollectModuleSettings' }
+    | { __typename?: 'ERC4626FeeCollectModuleSettings' }
     | {
         __typename?: 'FeeCollectModuleSettings'
         type: CollectModules
@@ -4288,6 +4549,7 @@ export type MirrorFieldsFragment = {
           }
         }
       }
+    | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
     | { __typename?: 'RevertCollectModuleSettings' }
     | {
         __typename?: 'TimedFeeCollectModuleSettings'
@@ -4394,12 +4656,9 @@ export type MirrorFieldsFragment = {
             | { __typename: 'UnknownFollowModuleSettings' }
             | null
         }
-        collectedBy?: {
-          __typename?: 'Wallet'
-          address: any
-          defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-        } | null
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
+          | { __typename?: 'ERC4626FeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings'
               type: CollectModules
@@ -4463,6 +4722,7 @@ export type MirrorFieldsFragment = {
                 }
               }
             }
+          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings'
@@ -4644,11 +4904,6 @@ export type MirrorFieldsFragment = {
             | { __typename: 'UnknownFollowModuleSettings' }
             | null
         }
-        collectedBy?: {
-          __typename?: 'Wallet'
-          address: any
-          defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-        } | null
         referenceModule?:
           | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
           | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -4657,6 +4912,8 @@ export type MirrorFieldsFragment = {
         canComment: { __typename?: 'CanCommentResponse'; result: boolean }
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
+          | { __typename?: 'ERC4626FeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings'
               type: CollectModules
@@ -4720,6 +4977,7 @@ export type MirrorFieldsFragment = {
                 }
               }
             }
+          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings'
@@ -4825,11 +5083,6 @@ export type PostFieldsFragment = {
       | { __typename: 'UnknownFollowModuleSettings' }
       | null
   }
-  collectedBy?: {
-    __typename?: 'Wallet'
-    address: any
-    defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-  } | null
   referenceModule?:
     | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
     | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -4838,6 +5091,8 @@ export type PostFieldsFragment = {
   canComment: { __typename?: 'CanCommentResponse'; result: boolean }
   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
   collectModule:
+    | { __typename?: 'AaveFeeCollectModuleSettings' }
+    | { __typename?: 'ERC4626FeeCollectModuleSettings' }
     | {
         __typename?: 'FeeCollectModuleSettings'
         type: CollectModules
@@ -4901,6 +5156,7 @@ export type PostFieldsFragment = {
           }
         }
       }
+    | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
     | { __typename?: 'RevertCollectModuleSettings' }
     | {
         __typename?: 'TimedFeeCollectModuleSettings'
@@ -5830,12 +6086,9 @@ export type ExploreQuery = {
               | { __typename: 'UnknownFollowModuleSettings' }
               | null
           }
-          collectedBy?: {
-            __typename?: 'Wallet'
-            address: any
-            defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-          } | null
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
+            | { __typename?: 'ERC4626FeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings'
                 type: CollectModules
@@ -5899,6 +6152,7 @@ export type ExploreQuery = {
                   }
                 }
               }
+            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings'
@@ -6085,11 +6339,6 @@ export type ExploreQuery = {
               | { __typename: 'UnknownFollowModuleSettings' }
               | null
           }
-          collectedBy?: {
-            __typename?: 'Wallet'
-            address: any
-            defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-          } | null
           referenceModule?:
             | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
             | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -6098,6 +6347,8 @@ export type ExploreQuery = {
           canComment: { __typename?: 'CanCommentResponse'; result: boolean }
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
+            | { __typename?: 'ERC4626FeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings'
                 type: CollectModules
@@ -6161,6 +6412,7 @@ export type ExploreQuery = {
                   }
                 }
               }
+            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings'
@@ -6289,12 +6541,9 @@ export type FeedQuery = {
                 | { __typename: 'UnknownFollowModuleSettings' }
                 | null
             }
-            collectedBy?: {
-              __typename?: 'Wallet'
-              address: any
-              defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-            } | null
             collectModule:
+              | { __typename?: 'AaveFeeCollectModuleSettings' }
+              | { __typename?: 'ERC4626FeeCollectModuleSettings' }
               | {
                   __typename?: 'FeeCollectModuleSettings'
                   type: CollectModules
@@ -6358,6 +6607,7 @@ export type FeedQuery = {
                     }
                   }
                 }
+              | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
               | { __typename?: 'RevertCollectModuleSettings' }
               | {
                   __typename?: 'TimedFeeCollectModuleSettings'
@@ -6543,11 +6793,6 @@ export type FeedQuery = {
                 | { __typename: 'UnknownFollowModuleSettings' }
                 | null
             }
-            collectedBy?: {
-              __typename?: 'Wallet'
-              address: any
-              defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-            } | null
             referenceModule?:
               | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
               | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -6556,6 +6801,8 @@ export type FeedQuery = {
             canComment: { __typename?: 'CanCommentResponse'; result: boolean }
             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
             collectModule:
+              | { __typename?: 'AaveFeeCollectModuleSettings' }
+              | { __typename?: 'ERC4626FeeCollectModuleSettings' }
               | {
                   __typename?: 'FeeCollectModuleSettings'
                   type: CollectModules
@@ -6619,6 +6866,7 @@ export type FeedQuery = {
                     }
                   }
                 }
+              | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
               | { __typename?: 'RevertCollectModuleSettings' }
               | {
                   __typename?: 'TimedFeeCollectModuleSettings'
@@ -7370,12 +7618,9 @@ export type ProfileCommentsQuery = {
               | { __typename: 'UnknownFollowModuleSettings' }
               | null
           }
-          collectedBy?: {
-            __typename?: 'Wallet'
-            address: any
-            defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-          } | null
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
+            | { __typename?: 'ERC4626FeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings'
                 type: CollectModules
@@ -7439,6 +7684,7 @@ export type ProfileCommentsQuery = {
                   }
                 }
               }
+            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings'
@@ -7692,6 +7938,8 @@ export type ProfileMirrorsQuery = {
           canComment: { __typename?: 'CanCommentResponse'; result: boolean }
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
+            | { __typename?: 'ERC4626FeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings'
                 type: CollectModules
@@ -7755,6 +8003,7 @@ export type ProfileMirrorsQuery = {
                   }
                 }
               }
+            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings'
@@ -7865,15 +8114,9 @@ export type ProfileMirrorsQuery = {
                     | { __typename: 'UnknownFollowModuleSettings' }
                     | null
                 }
-                collectedBy?: {
-                  __typename?: 'Wallet'
-                  address: any
-                  defaultProfile?: {
-                    __typename?: 'Profile'
-                    handle: any
-                  } | null
-                } | null
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
+                  | { __typename?: 'ERC4626FeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings'
                       type: CollectModules
@@ -7937,6 +8180,7 @@ export type ProfileMirrorsQuery = {
                         }
                       }
                     }
+                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings'
@@ -8125,14 +8369,6 @@ export type ProfileMirrorsQuery = {
                     | { __typename: 'UnknownFollowModuleSettings' }
                     | null
                 }
-                collectedBy?: {
-                  __typename?: 'Wallet'
-                  address: any
-                  defaultProfile?: {
-                    __typename?: 'Profile'
-                    handle: any
-                  } | null
-                } | null
                 referenceModule?:
                   | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
                   | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -8144,6 +8380,8 @@ export type ProfileMirrorsQuery = {
                 }
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
+                  | { __typename?: 'ERC4626FeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings'
                       type: CollectModules
@@ -8207,6 +8445,7 @@ export type ProfileMirrorsQuery = {
                         }
                       }
                     }
+                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings'
@@ -8363,11 +8602,6 @@ export type ProfilePostsQuery = {
               | { __typename: 'UnknownFollowModuleSettings' }
               | null
           }
-          collectedBy?: {
-            __typename?: 'Wallet'
-            address: any
-            defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-          } | null
           referenceModule?:
             | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
             | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -8376,6 +8610,8 @@ export type ProfilePostsQuery = {
           canComment: { __typename?: 'CanCommentResponse'; result: boolean }
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
+            | { __typename?: 'ERC4626FeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings'
                 type: CollectModules
@@ -8439,6 +8675,7 @@ export type ProfilePostsQuery = {
                   }
                 }
               }
+            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings'
@@ -8528,6 +8765,8 @@ export type PublicationCollectModuleQuery = {
         __typename?: 'Post'
         collectNftAddress?: any | null
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
+          | { __typename?: 'ERC4626FeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings'
               type: CollectModules
@@ -8591,6 +8830,7 @@ export type PublicationCollectModuleQuery = {
                 }
               }
             }
+          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings'
@@ -8680,12 +8920,9 @@ export type PublicationDetailsQuery = {
             | { __typename: 'UnknownFollowModuleSettings' }
             | null
         }
-        collectedBy?: {
-          __typename?: 'Wallet'
-          address: any
-          defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-        } | null
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
+          | { __typename?: 'ERC4626FeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings'
               type: CollectModules
@@ -8749,6 +8986,7 @@ export type PublicationDetailsQuery = {
                 }
               }
             }
+          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings'
@@ -8938,6 +9176,8 @@ export type PublicationDetailsQuery = {
         canComment: { __typename?: 'CanCommentResponse'; result: boolean }
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
+          | { __typename?: 'ERC4626FeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings'
               type: CollectModules
@@ -9001,6 +9241,7 @@ export type PublicationDetailsQuery = {
                 }
               }
             }
+          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings'
@@ -9107,12 +9348,9 @@ export type PublicationDetailsQuery = {
                   | { __typename: 'UnknownFollowModuleSettings' }
                   | null
               }
-              collectedBy?: {
-                __typename?: 'Wallet'
-                address: any
-                defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-              } | null
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
+                | { __typename?: 'ERC4626FeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings'
                     type: CollectModules
@@ -9176,6 +9414,7 @@ export type PublicationDetailsQuery = {
                       }
                     }
                   }
+                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings'
@@ -9361,11 +9600,6 @@ export type PublicationDetailsQuery = {
                   | { __typename: 'UnknownFollowModuleSettings' }
                   | null
               }
-              collectedBy?: {
-                __typename?: 'Wallet'
-                address: any
-                defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-              } | null
               referenceModule?:
                 | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
                 | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -9374,6 +9608,8 @@ export type PublicationDetailsQuery = {
               canComment: { __typename?: 'CanCommentResponse'; result: boolean }
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
+                | { __typename?: 'ERC4626FeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings'
                     type: CollectModules
@@ -9437,6 +9673,7 @@ export type PublicationDetailsQuery = {
                       }
                     }
                   }
+                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings'
@@ -9548,11 +9785,6 @@ export type PublicationDetailsQuery = {
             | { __typename: 'UnknownFollowModuleSettings' }
             | null
         }
-        collectedBy?: {
-          __typename?: 'Wallet'
-          address: any
-          defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-        } | null
         referenceModule?:
           | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
           | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -9561,6 +9793,8 @@ export type PublicationDetailsQuery = {
         canComment: { __typename?: 'CanCommentResponse'; result: boolean }
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
+          | { __typename?: 'ERC4626FeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings'
               type: CollectModules
@@ -9624,6 +9858,7 @@ export type PublicationDetailsQuery = {
                 }
               }
             }
+          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings'
@@ -9819,12 +10054,9 @@ export type SearchPublicationsQuery = {
                   | { __typename: 'UnknownFollowModuleSettings' }
                   | null
               }
-              collectedBy?: {
-                __typename?: 'Wallet'
-                address: any
-                defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-              } | null
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
+                | { __typename?: 'ERC4626FeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings'
                     type: CollectModules
@@ -9888,6 +10120,7 @@ export type SearchPublicationsQuery = {
                       }
                     }
                   }
+                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings'
@@ -10073,11 +10306,6 @@ export type SearchPublicationsQuery = {
                   | { __typename: 'UnknownFollowModuleSettings' }
                   | null
               }
-              collectedBy?: {
-                __typename?: 'Wallet'
-                address: any
-                defaultProfile?: { __typename?: 'Profile'; handle: any } | null
-              } | null
               referenceModule?:
                 | { __typename: 'DegreesOfSeparationReferenceModuleSettings' }
                 | { __typename: 'FollowOnlyReferenceModuleSettings' }
@@ -10086,6 +10314,8 @@ export type SearchPublicationsQuery = {
               canComment: { __typename?: 'CanCommentResponse'; result: boolean }
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
+                | { __typename?: 'ERC4626FeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings'
                     type: CollectModules
@@ -10149,6 +10379,7 @@ export type SearchPublicationsQuery = {
                       }
                     }
                   }
+                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings'
@@ -10341,10 +10572,13 @@ export interface PossibleTypesResultData {
 const result: PossibleTypesResultData = {
   possibleTypes: {
     CollectModule: [
+      'AaveFeeCollectModuleSettings',
+      'ERC4626FeeCollectModuleSettings',
       'FeeCollectModuleSettings',
       'FreeCollectModuleSettings',
       'LimitedFeeCollectModuleSettings',
       'LimitedTimedFeeCollectModuleSettings',
+      'MultirecipientFeeCollectModuleSettings',
       'RevertCollectModuleSettings',
       'TimedFeeCollectModuleSettings',
       'UnknownCollectModuleSettings'
@@ -10536,12 +10770,6 @@ export const PostFieldsFragmentDoc = gql`
     profile {
       ...ProfileFields
     }
-    collectedBy {
-      address
-      defaultProfile {
-        handle
-      }
-    }
     referenceModule {
       __typename
     }
@@ -10580,12 +10808,6 @@ export const CommentFieldsFragmentDoc = gql`
     reaction(request: $reactionRequest)
     profile {
       ...ProfileFields
-    }
-    collectedBy {
-      address
-      defaultProfile {
-        handle
-      }
     }
     collectModule {
       ...CollectFields
