@@ -1,7 +1,7 @@
 import type { Publication } from 'lens'
 
 import { STATIC_ASSETS } from '../constants'
-import sanitizeDStorageUrl from './sanitizeDStorageUrl'
+import sanitizeIpfsUrl from './sanitizeIpfsUrl'
 
 const getThumbnailUrl = (video: Publication): string => {
   const url =
@@ -9,7 +9,7 @@ const getThumbnailUrl = (video: Publication): string => {
     video.metadata?.image ||
     `${STATIC_ASSETS}/images/fallbackThumbnail.png`
 
-  return sanitizeDStorageUrl(url)
+  return sanitizeIpfsUrl(url)
 }
 
 export default getThumbnailUrl

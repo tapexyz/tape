@@ -1,5 +1,5 @@
 import { IMAGE_CDN_URL } from '../constants'
-import sanitizeDStorageUrl from './sanitizeDStorageUrl'
+import sanitizeIpfsUrl from './sanitizeIpfsUrl'
 
 const imageCdn = (
   url: string,
@@ -9,8 +9,8 @@ const imageCdn = (
     return url
   }
   return type
-    ? `${IMAGE_CDN_URL}/tr:n-${type}/${sanitizeDStorageUrl(url)}`
-    : `${IMAGE_CDN_URL}/${sanitizeDStorageUrl(url)}`
+    ? `${IMAGE_CDN_URL}/tr:n-${type}/${sanitizeIpfsUrl(url)}`
+    : `${IMAGE_CDN_URL}/${sanitizeIpfsUrl(url)}`
 }
 
 export default imageCdn
