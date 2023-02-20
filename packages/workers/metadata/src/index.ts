@@ -51,8 +51,7 @@ const handleRequest = async (request: Request, env: Env) => {
       return new Response(
         JSON.stringify({
           success: true,
-          id: tx.id,
-          url: `https://arweave.net/${tx.id}`
+          id: tx.id
         }),
         {
           headers
