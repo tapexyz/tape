@@ -106,6 +106,10 @@ const FeeCollectForm: FC<Props> = ({
     if (invalidSplitAddresses.length) {
       return toast.error('Invalid split recipients')
     }
+    const uniqueValues = new Set(splitRecipients.map((v) => v.recipient))
+    if (uniqueValues.size < splitRecipients.length) {
+      return toast.error('All recipient addresses should be unique')
+    }
     if (
       uploadedVideo.collectModule.isMultiRecipientFeeCollect &&
       splitsSum !== 100

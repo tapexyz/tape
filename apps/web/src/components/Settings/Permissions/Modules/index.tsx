@@ -21,7 +21,8 @@ const collectModules = [
   'TimedFeeCollectModule',
   'FeeFollowModule',
   'LimitedFeeCollectModule',
-  'LimitedTimedFeeCollectModule'
+  'LimitedTimedFeeCollectModule',
+  'MultirecipientFeeCollectModule'
 ]
 
 const ModulePermissions = () => {
@@ -53,7 +54,8 @@ const ModulePermissions = () => {
           CollectModules.LimitedFeeCollectModule,
           CollectModules.LimitedTimedFeeCollectModule,
           CollectModules.TimedFeeCollectModule,
-          CollectModules.RevertCollectModule
+          CollectModules.RevertCollectModule,
+          CollectModules.MultirecipientFeeCollectModule
         ],
         referenceModules: [ReferenceModules.FollowerOnlyReferenceModule]
       }

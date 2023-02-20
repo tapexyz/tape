@@ -5,6 +5,7 @@ import type {
   FreeCollectModuleSettings,
   LimitedFeeCollectModuleSettings,
   LimitedTimedFeeCollectModuleSettings,
+  MultirecipientFeeCollectModuleSettings,
   RecipientDataInput,
   RevertCollectModuleSettings,
   TimedFeeCollectModuleSettings
@@ -109,7 +110,8 @@ export type LenstubeCollectModule = FreeCollectModuleSettings &
   RevertCollectModuleSettings &
   TimedFeeCollectModuleSettings &
   LimitedFeeCollectModuleSettings &
-  LimitedTimedFeeCollectModuleSettings
+  LimitedTimedFeeCollectModuleSettings &
+  MultirecipientFeeCollectModuleSettings
 
 export interface CustomErrorWithData extends Error {
   data?: {
