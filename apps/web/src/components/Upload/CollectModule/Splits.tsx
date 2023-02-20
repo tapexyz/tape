@@ -144,7 +144,10 @@ const Splits = () => {
       <div className="flex items-center justify-between space-x-1.5 pt-1">
         <button
           type="button"
-          className="rounded border border-gray-700 px-1 text-[10px] font-semibold uppercase tracking-wider opacity-70 dark:border-gray-300"
+          className={clsx(
+            'rounded border border-gray-700 px-1 text-[10px] font-semibold uppercase tracking-wider opacity-70 dark:border-gray-300',
+            splitRecipients.length >= 5 && 'invisible'
+          )}
           onClick={() => addRecipient()}
         >
           Add recipient

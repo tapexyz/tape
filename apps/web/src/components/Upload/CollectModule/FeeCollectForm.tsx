@@ -96,6 +96,9 @@ const FeeCollectForm: FC<Props> = ({
         message: 'Collect limit should be greater than 0'
       })
     }
+    if (splitRecipients.length > 5) {
+      return toast.error('Only 5 splits supported')
+    }
     const splitsSum = splitRecipients.reduce(
       (total, obj) => obj.split + total,
       0
@@ -104,11 +107,11 @@ const FeeCollectForm: FC<Props> = ({
       (splitRecipient) => !ethers.utils.isAddress(splitRecipient.recipient)
     )
     if (invalidSplitAddresses.length) {
-      return toast.error('Invalid split recipients')
+      return toast.error('Invalid split recipient address')
     }
     const uniqueValues = new Set(splitRecipients.map((v) => v.recipient))
     if (uniqueValues.size < splitRecipients.length) {
-      return toast.error('All recipient addresses should be unique')
+      return toast.error('Split addresses should be unique')
     }
     if (
       uploadedVideo.collectModule.isMultiRecipientFeeCollect &&
