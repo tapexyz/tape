@@ -40,7 +40,7 @@ import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 import imageCdn from 'utils/functions/imageCdn'
 import omitKey from 'utils/functions/omitKey'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
+import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import trimify from 'utils/functions/trimify'
 import uploadToAr from 'utils/functions/uploadToAr'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
@@ -275,9 +275,9 @@ const BasicInfo = ({ channel }: Props) => {
         )}
         <img
           src={
-            sanitizeDStorageUrl(coverImage) ??
+            sanitizeIpfsUrl(coverImage) ??
             imageCdn(
-              sanitizeDStorageUrl(getChannelCoverPicture(channel)),
+              sanitizeIpfsUrl(getChannelCoverPicture(channel)),
               'thumbnail'
             )
           }

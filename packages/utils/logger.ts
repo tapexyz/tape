@@ -1,12 +1,12 @@
 import axios from 'axios'
 
-import { IS_MAINNET, LENSTUBE_TAIL_INGEST_URL } from './constants'
+import { IS_MAINNET, LENSTUBE_TAIL_URL } from './constants'
 const isBrowser = typeof window !== 'undefined'
 
 const tailLog = (level: 'error' | 'log', message: string) => {
   if (IS_MAINNET) {
     axios
-      .post(LENSTUBE_TAIL_INGEST_URL, {
+      .post(LENSTUBE_TAIL_URL, {
         source: 'web',
         level,
         message,
