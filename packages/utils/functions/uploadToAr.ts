@@ -11,8 +11,8 @@ const uploadToAr = async (
 ): Promise<{ url: string | null }> => {
   try {
     const response = await axios.post(BUNDLR_METADATA_UPLOAD_URL, data)
-    const { url } = response.data
-    return { url: url ?? null }
+    const { id } = response.data
+    return { url: `ar://${id}` }
   } catch (error) {
     logger.error('[Error AR Data Upload]', error)
     toast.error('Failed to upload metadata!')

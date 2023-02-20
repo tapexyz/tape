@@ -9,7 +9,7 @@ import toast from 'react-hot-toast'
 import { IS_MAINNET } from 'utils'
 import formatBytes from 'utils/functions/formatBytes'
 import { getIsNSFW } from 'utils/functions/getIsNSFW'
-import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
+import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 import logger from 'utils/logger'
 
@@ -77,7 +77,7 @@ const Video = () => {
           disablePictureInPicture
           disableRemotePlayback
           controlsList="nodownload noplaybackrate"
-          poster={sanitizeIpfsUrl(uploadedVideo.thumbnail)}
+          poster={sanitizeDStorageUrl(uploadedVideo.thumbnail)}
           controls
           src={uploadedVideo.preview}
         >

@@ -21,7 +21,7 @@ import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
 import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import omitKey from 'utils/functions/omitKey'
-import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
+import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -153,7 +153,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       <img
         src={
           selectedPfp
-            ? sanitizeIpfsUrl(selectedPfp)
+            ? sanitizeDStorageUrl(selectedPfp)
             : getProfilePicture(channel, 'avatar_lg')
         }
         className="h-32 w-32 rounded-full border-2 object-cover"

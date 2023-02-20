@@ -10,7 +10,7 @@ import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
-import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
+import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 
 import VideoActions from './VideoActions'
 import VideoMeta from './VideoMeta'
@@ -35,7 +35,7 @@ const Video: FC<Props> = ({ video }) => {
         currentTime={videoWatchTime}
         permanentUrl={getPublicationMediaUrl(video)}
         posterUrl={imageCdn(
-          sanitizeIpfsUrl(getThumbnailUrl(video)),
+          sanitizeDStorageUrl(getThumbnailUrl(video)),
           isBytesVideo ? 'thumbnail_v' : 'thumbnail'
         )}
         options={{ loadingSpinner: true }}

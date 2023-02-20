@@ -11,9 +11,6 @@ export const STATIC_ASSETS = 'https://static.lenstube.xyz'
 export const LENSTUBE_WEBSITE_URL = IS_MAINNET
   ? 'https://lenstube.xyz'
   : 'https://testnet.lenstube.xyz'
-export const LENSTUBE_EMBED_URL = IS_MAINNET
-  ? 'https://embed.lenstube.xyz'
-  : 'https://test-embed.lenstube.xyz'
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallbackThumbnail.png`
 export const OG_IMAGE = `${STATIC_ASSETS}/images/seo/og.png`
 export const IMAGE_CDN_URL = IS_MAINNET ? 'https://img.lenstube.xyz' : ''
@@ -29,16 +26,18 @@ export const STAGING_TESTNET_API_URL =
 export const STAGING_API_URL = IS_MAINNET
   ? STAGING_MAINNET_API_URL
   : STAGING_TESTNET_API_URL
+export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 
 // API urls
 export const LENSTUBE_MAINNET_API_URL = 'https://api.lenstube.xyz'
 export const LENSTUBE_TESTNET_API_URL = 'https://api-testnet.lenstube.xyz'
+export const LENSTUBE_EMBED_URL = IS_MAINNET
+  ? 'https://embed.lenstube.xyz'
+  : 'https://embed-testnet.lenstube.xyz'
 export const LENSTUBE_DEV_API_URL = 'http://localhost:4002'
 export const LENSTUBE_API_URL = IS_MAINNET
   ? LENSTUBE_MAINNET_API_URL
   : LENSTUBE_TESTNET_API_URL
-export const API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
-export const HEALTH_URL = 'https://health.lenstube.xyz'
 
 // contracts
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
@@ -63,24 +62,27 @@ export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 // ipfs
 export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 2000 : 100
-export const IPFS_GATEWAY = 'https://gateway.ipfscdn.io/ipfs'
+export const IPFS_GATEWAY_URL = 'https://gateway.ipfscdn.io/ipfs'
 export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
-export const STS_TOKEN_URL = 'https://sts.lenstube.xyz'
 
 // livepeer
 export const LIVEPEER_STUDIO_API_KEY = 'b13fd43e-d0d6-4abc-a5df-93592a0c5124'
+
+// workers
 export const LIVEPEER_VIEWS_URL = 'https://views.lenstube.xyz'
+export const BUNDLR_METADATA_UPLOAD_URL = 'https://metadata.lenstube.xyz'
+export const LENSTUBE_TAIL_INGEST_URL = 'https://tail.lenstube.xyz'
+export const STS_TOKEN_URL = 'https://sts.lenstube.xyz'
+export const HEALTH_URL = 'https://health.lenstube.xyz'
 
 // bundlr
 export const BUNDLR_NODE_URL = IS_MAINNET
   ? 'https://node1.bundlr.network'
   : 'https://devnet.bundlr.network'
-export const BUNDLR_METADATA_UPLOAD_URL = 'https://metadata.lenstube.xyz'
 export const BUNDLR_CURRENCY = 'matic'
 export const BUNDLR_WEBSITE_URL = 'https://bundlr.network'
-export const ARWEAVE_WEBSITE_URL = 'https://arweave.net'
-export const BUNDLR_PRIVATE_KEY = process.env.BUNDLR_PRIVATE_KEY as string
+export const ARWEAVE_GATEWAY_URL = 'https://arweave.net'
 export const BUNDLR_CONNECT_MESSAGE = 'Sign to initialize & estimate upload...'
 
 // error messages
@@ -98,7 +100,6 @@ export const LENSTUBE_GITHUB_HANDLE = 'lenstube-xyz'
 export const LENSTUBE_STATUS_PAGE = 'https://status.lenstube.xyz'
 export const TALLY_VERIFICATION_FORM_URL = 'https://tally.so/r/mY5e80'
 export const LENSTUBE_ROADMAP_URL = 'https://roadmap.lenstube.xyz'
-export const LENSTUBE_TAIL_URL = 'https://tail.lenstube.xyz'
 
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']
@@ -129,7 +130,6 @@ export const RARIBLE_MARKETPLACE_URL = IS_MAINNET
 export const MIXPANEL_API_HOST = '/collect'
 export const MIXPANEL_TOKEN = '928986a6551f5a12132e63c8bdd4451e'
 export const MUX_DATA_KEY = '2h11sq1qeahiaejrjegjti847'
-export const BETTER_UPTIME_KEY = process.env.BETTER_UPTIME_KEY
 
 // vercel
 export const GIT_DEPLOYED_COMMIT_SHA =
