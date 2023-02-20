@@ -1,7 +1,7 @@
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client'
 import { hydrateAuthTokens, signIn, signOut } from '@lib/store/persist'
 import axios from 'axios'
-import { LENS_API_URL } from 'utils'
+import { API_URL } from 'utils'
 import { parseJwt } from 'utils/functions/parseJwt'
 import logger from 'utils/logger'
 
@@ -33,7 +33,7 @@ const authLink = new ApolloLink((operation, forward) => {
   return fromPromise(
     axios
       .post(
-        LENS_API_URL,
+        API_URL,
         JSON.stringify({
           operationName: 'Refresh',
           query: REFRESH_AUTHENTICATION_MUTATION,

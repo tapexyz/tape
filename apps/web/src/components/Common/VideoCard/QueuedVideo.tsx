@@ -16,7 +16,7 @@ import type { QueuedVideoType } from 'utils'
 import { STATIC_ASSETS } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import imageCdn from 'utils/functions/imageCdn'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
+import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
 import useAverageColor from 'utils/hooks/useAverageColor'
 
 import IsVerified from '../IsVerified'
@@ -39,7 +39,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
   const thumbnailUrl = imageCdn(
     uploadedVideo.isSensitiveContent
       ? `${STATIC_ASSETS}/images/sensor-blur.png`
-      : sanitizeDStorageUrl(queuedVideo.thumbnailUrl),
+      : sanitizeIpfsUrl(queuedVideo.thumbnailUrl),
     uploadedVideo.isByteVideo ? 'thumbnail_v' : 'thumbnail'
   )
   const { color: backgroundColor } = useAverageColor(

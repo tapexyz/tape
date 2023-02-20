@@ -2,7 +2,7 @@ import type { Profile } from 'lens'
 
 import { getRandomProfilePicture } from './getRandomProfilePicture'
 import imageCdn from './imageCdn'
-import sanitizeDStorageUrl from './sanitizeDStorageUrl'
+import sanitizeIpfsUrl from './sanitizeIpfsUrl'
 
 const getProfilePicture = (
   channel: Profile,
@@ -14,7 +14,7 @@ const getProfilePicture = (
       : channel.picture?.__typename === 'NftImage'
       ? channel?.picture?.uri
       : getRandomProfilePicture(channel?.ownedBy)
-  const sanitized = sanitizeDStorageUrl(url)
+  const sanitized = sanitizeIpfsUrl(url)
   return imageCdn(sanitized, type)
 }
 
