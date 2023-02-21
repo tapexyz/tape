@@ -13,7 +13,7 @@
     "e2e:test": "start-server-and-test start http://localhost:4783 dev:test"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.7",
+    "@apollo/client": "^3.7.9",
     "@aws-sdk/client-s3": "^3.271.0",
     "@aws-sdk/lib-storage": "^3.271.0",
     "@bundlr-network/client": "^0.9.11",
@@ -46,7 +46,7 @@
     "react-mentions": "^4.4.7",
     "swr": "^2.0.3",
     "uuid": "^9.0.0",
-    "wagmi": "^0.11.5",
+    "wagmi": "^0.11.6",
     "zod": "^3.20.6",
     "zustand": "^4.3.3"
   },
@@ -54,7 +54,7 @@
     "@playwright/test": "^1.30.0",
     "@tailwindcss/typography": "^0.5.9",
     "@types/mixpanel-browser": "^2.38.1",
-    "@types/node": "18.13.0",
+    "@types/node": "18.14.0",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "@types/react-mentions": "^4.1.7",
