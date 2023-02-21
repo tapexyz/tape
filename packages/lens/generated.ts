@@ -4119,6 +4119,11 @@ type CollectFields_MultirecipientFeeCollectModuleSettings_Fragment = {
   followerOnly: boolean
   optionalCollectLimit?: string | null
   optionalEndTimestamp?: any | null
+  recipients: Array<{
+    __typename?: 'RecipientDataOutput'
+    recipient: any
+    split: number
+  }>
   amount: {
     __typename?: 'ModuleFeeAmount'
     value: string
@@ -4297,6 +4302,11 @@ export type CommentFieldsFragment = {
         followerOnly: boolean
         optionalCollectLimit?: string | null
         optionalEndTimestamp?: any | null
+        recipients: Array<{
+          __typename?: 'RecipientDataOutput'
+          recipient: any
+          split: number
+        }>
         amount: {
           __typename?: 'ModuleFeeAmount'
           value: string
@@ -4591,6 +4601,11 @@ export type MirrorFieldsFragment = {
         followerOnly: boolean
         optionalCollectLimit?: string | null
         optionalEndTimestamp?: any | null
+        recipients: Array<{
+          __typename?: 'RecipientDataOutput'
+          recipient: any
+          split: number
+        }>
         amount: {
           __typename?: 'ModuleFeeAmount'
           value: string
@@ -4782,6 +4797,11 @@ export type MirrorFieldsFragment = {
               followerOnly: boolean
               optionalCollectLimit?: string | null
               optionalEndTimestamp?: any | null
+              recipients: Array<{
+                __typename?: 'RecipientDataOutput'
+                recipient: any
+                split: number
+              }>
               amount: {
                 __typename?: 'ModuleFeeAmount'
                 value: string
@@ -5055,6 +5075,11 @@ export type MirrorFieldsFragment = {
               followerOnly: boolean
               optionalCollectLimit?: string | null
               optionalEndTimestamp?: any | null
+              recipients: Array<{
+                __typename?: 'RecipientDataOutput'
+                recipient: any
+                split: number
+              }>
               amount: {
                 __typename?: 'ModuleFeeAmount'
                 value: string
@@ -5252,6 +5277,11 @@ export type PostFieldsFragment = {
         followerOnly: boolean
         optionalCollectLimit?: string | null
         optionalEndTimestamp?: any | null
+        recipients: Array<{
+          __typename?: 'RecipientDataOutput'
+          recipient: any
+          split: number
+        }>
         amount: {
           __typename?: 'ModuleFeeAmount'
           value: string
@@ -6266,6 +6296,11 @@ export type ExploreQuery = {
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
                 optionalEndTimestamp?: any | null
+                recipients: Array<{
+                  __typename?: 'RecipientDataOutput'
+                  recipient: any
+                  split: number
+                }>
                 amount: {
                   __typename?: 'ModuleFeeAmount'
                   value: string
@@ -6544,6 +6579,11 @@ export type ExploreQuery = {
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
                 optionalEndTimestamp?: any | null
+                recipients: Array<{
+                  __typename?: 'RecipientDataOutput'
+                  recipient: any
+                  split: number
+                }>
                 amount: {
                   __typename?: 'ModuleFeeAmount'
                   value: string
@@ -6757,6 +6797,11 @@ export type FeedQuery = {
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
                   optionalEndTimestamp?: any | null
+                  recipients: Array<{
+                    __typename?: 'RecipientDataOutput'
+                    recipient: any
+                    split: number
+                  }>
                   amount: {
                     __typename?: 'ModuleFeeAmount'
                     value: string
@@ -7034,6 +7079,11 @@ export type FeedQuery = {
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
                   optionalEndTimestamp?: any | null
+                  recipients: Array<{
+                    __typename?: 'RecipientDataOutput'
+                    recipient: any
+                    split: number
+                  }>
                   amount: {
                     __typename?: 'ModuleFeeAmount'
                     value: string
@@ -7870,6 +7920,11 @@ export type ProfileCommentsQuery = {
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
                 optionalEndTimestamp?: any | null
+                recipients: Array<{
+                  __typename?: 'RecipientDataOutput'
+                  recipient: any
+                  split: number
+                }>
                 amount: {
                   __typename?: 'ModuleFeeAmount'
                   value: string
@@ -8207,6 +8262,11 @@ export type ProfileMirrorsQuery = {
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
                 optionalEndTimestamp?: any | null
+                recipients: Array<{
+                  __typename?: 'RecipientDataOutput'
+                  recipient: any
+                  split: number
+                }>
                 amount: {
                   __typename?: 'ModuleFeeAmount'
                   value: string
@@ -8402,6 +8462,11 @@ export type ProfileMirrorsQuery = {
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
                       optionalEndTimestamp?: any | null
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput'
+                        recipient: any
+                        split: number
+                      }>
                       amount: {
                         __typename?: 'ModuleFeeAmount'
                         value: string
@@ -8685,6 +8750,11 @@ export type ProfileMirrorsQuery = {
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
                       optionalEndTimestamp?: any | null
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput'
+                        recipient: any
+                        split: number
+                      }>
                       amount: {
                         __typename?: 'ModuleFeeAmount'
                         value: string
@@ -8932,6 +9002,11 @@ export type ProfilePostsQuery = {
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
                 optionalEndTimestamp?: any | null
+                recipients: Array<{
+                  __typename?: 'RecipientDataOutput'
+                  recipient: any
+                  split: number
+                }>
                 amount: {
                   __typename?: 'ModuleFeeAmount'
                   value: string
@@ -9105,6 +9180,11 @@ export type PublicationCollectModuleQuery = {
               followerOnly: boolean
               optionalCollectLimit?: string | null
               optionalEndTimestamp?: any | null
+              recipients: Array<{
+                __typename?: 'RecipientDataOutput'
+                recipient: any
+                split: number
+              }>
               amount: {
                 __typename?: 'ModuleFeeAmount'
                 value: string
@@ -9279,6 +9359,11 @@ export type PublicationDetailsQuery = {
               followerOnly: boolean
               optionalCollectLimit?: string | null
               optionalEndTimestamp?: any | null
+              recipients: Array<{
+                __typename?: 'RecipientDataOutput'
+                recipient: any
+                split: number
+              }>
               amount: {
                 __typename?: 'ModuleFeeAmount'
                 value: string
@@ -9552,6 +9637,11 @@ export type PublicationDetailsQuery = {
               followerOnly: boolean
               optionalCollectLimit?: string | null
               optionalEndTimestamp?: any | null
+              recipients: Array<{
+                __typename?: 'RecipientDataOutput'
+                recipient: any
+                split: number
+              }>
               amount: {
                 __typename?: 'ModuleFeeAmount'
                 value: string
@@ -9743,6 +9833,11 @@ export type PublicationDetailsQuery = {
                     followerOnly: boolean
                     optionalCollectLimit?: string | null
                     optionalEndTimestamp?: any | null
+                    recipients: Array<{
+                      __typename?: 'RecipientDataOutput'
+                      recipient: any
+                      split: number
+                    }>
                     amount: {
                       __typename?: 'ModuleFeeAmount'
                       value: string
@@ -10020,6 +10115,11 @@ export type PublicationDetailsQuery = {
                     followerOnly: boolean
                     optionalCollectLimit?: string | null
                     optionalEndTimestamp?: any | null
+                    recipients: Array<{
+                      __typename?: 'RecipientDataOutput'
+                      recipient: any
+                      split: number
+                    }>
                     amount: {
                       __typename?: 'ModuleFeeAmount'
                       value: string
@@ -10223,6 +10323,11 @@ export type PublicationDetailsQuery = {
               followerOnly: boolean
               optionalCollectLimit?: string | null
               optionalEndTimestamp?: any | null
+              recipients: Array<{
+                __typename?: 'RecipientDataOutput'
+                recipient: any
+                split: number
+              }>
               amount: {
                 __typename?: 'ModuleFeeAmount'
                 value: string
@@ -10512,6 +10617,11 @@ export type SearchPublicationsQuery = {
                     followerOnly: boolean
                     optionalCollectLimit?: string | null
                     optionalEndTimestamp?: any | null
+                    recipients: Array<{
+                      __typename?: 'RecipientDataOutput'
+                      recipient: any
+                      split: number
+                    }>
                     amount: {
                       __typename?: 'ModuleFeeAmount'
                       value: string
@@ -10789,6 +10899,11 @@ export type SearchPublicationsQuery = {
                     followerOnly: boolean
                     optionalCollectLimit?: string | null
                     optionalEndTimestamp?: any | null
+                    recipients: Array<{
+                      __typename?: 'RecipientDataOutput'
+                      recipient: any
+                      split: number
+                    }>
                     amount: {
                       __typename?: 'ModuleFeeAmount'
                       value: string
@@ -11161,6 +11276,10 @@ export const CollectFieldsFragmentDoc = gql`
       referralFee
       contractAddress
       followerOnly
+      recipients {
+        recipient
+        split
+      }
       optionalCollectLimit: collectLimit
       optionalEndTimestamp: endTimestamp
       amount {

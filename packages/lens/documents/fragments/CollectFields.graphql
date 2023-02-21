@@ -73,6 +73,10 @@ fragment CollectFields on CollectModule {
     referralFee
     contractAddress
     followerOnly
+    recipients {
+      recipient
+      split
+    }
     optionalCollectLimit: collectLimit
     optionalEndTimestamp: endTimestamp
     amount {

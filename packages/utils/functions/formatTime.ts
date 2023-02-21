@@ -31,7 +31,7 @@ export const getRelativeTime = (timeString: string) => {
 }
 
 export const getTimeAddedOneDay = () => {
-  return dayjs().add(1, 'day').format('YYYY-MM-DDTHH:mm:ss')
+  return dayjs().add(1, 'day').utc().format()
 }
 
 export const secondsToISO = (seconds: string | undefined) => {

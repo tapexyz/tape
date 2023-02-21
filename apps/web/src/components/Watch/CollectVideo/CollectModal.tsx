@@ -151,7 +151,8 @@ const CollectModal: FC<Props> = ({
             {collectModule?.recipient || collectModule.recipients ? (
               <div className="mb-3 flex flex-col">
                 <span className="mb-0.5 text-sm">
-                  {collectModule.recipients ? 'Recipients' : 'Recipient'}
+                  Revenue
+                  {collectModule.recipients ? ' Recipients' : ' Recipient'}
                 </span>
                 {collectModule.recipient && (
                   <AddressExplorerLink address={collectModule?.recipient}>
@@ -163,16 +164,18 @@ const CollectModal: FC<Props> = ({
                 {collectModule.type ===
                   CollectModules.MultirecipientFeeCollectModule &&
                   collectModule.recipients.length && (
-                    <Tooltip
-                      placement="bottom-start"
-                      content={`${collectModule.recipients.forEach(
-                        (el) => `${el}\n`
-                      )}`}
-                    >
-                      <span className="text-lg">
-                        {collectModule.recipients.length}
-                      </span>
-                    </Tooltip>
+                    <div>
+                      <Tooltip
+                        placement="bottom-start"
+                        content={`${collectModule.recipients.map(
+                          (el) => `\n${el.recipient}`
+                        )}`}
+                      >
+                        <span className="cursor-help text-lg">
+                          {collectModule.recipients.length}
+                        </span>
+                      </Tooltip>
+                    </div>
                   )}
               </div>
             ) : null}
@@ -192,10 +195,23 @@ const CollectModal: FC<Props> = ({
             collectModule?.optionalEndTimestamp ? (
               <div className="mb-3 flex flex-col">
                 <span className="mb-0.5 text-sm">Ends At</span>
-                <span className="text-lg">
-                  {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
-                  {dayjs(collectModule.endTimestamp).format('hh:mm a')}
-                </span>
+                {collectModule.endTimestamp && (
+                  <span className="text-lg">
+                    {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')}{' '}
+                    at {dayjs(collectModule.endTimestamp).format('hh:mm a')}
+                  </span>
+                )}
+                {collectModule.optionalEndTimestamp && (
+                  <span className="text-lg">
+                    {dayjs(collectModule.optionalEndTimestamp).format(
+                      'MMMM DD, YYYY'
+                    )}{' '}
+                    at{' '}
+                    {dayjs(collectModule.optionalEndTimestamp).format(
+                      'hh:mm a'
+                    )}
+                  </span>
+                )}
               </div>
             ) : null}
             {collectModule?.referralFee ? (
