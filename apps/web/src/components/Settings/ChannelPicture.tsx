@@ -48,7 +48,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     if (selectedChannel && selectedPfp) {
       setSelectedChannel({
         ...selectedChannel,
-        picture: { original: { url: selectedPfp } }
+        picture: { original: { url: selectedPfp }, __typename: 'MediaSet' }
       })
     }
     toast.success('Channel image updated')
