@@ -105,13 +105,19 @@ export type ProfileMetadata = {
   attributes: Attribute[]
 }
 
+type MultiRecipientFeeCollectModuleSettings =
+  MultirecipientFeeCollectModuleSettings & {
+    optionalEndTimestamp?: string
+    optionalCollectLimit?: string
+  }
+
 export type LenstubeCollectModule = FreeCollectModuleSettings &
   FeeCollectModuleSettings &
   RevertCollectModuleSettings &
   TimedFeeCollectModuleSettings &
   LimitedFeeCollectModuleSettings &
   LimitedTimedFeeCollectModuleSettings &
-  MultirecipientFeeCollectModuleSettings
+  MultiRecipientFeeCollectModuleSettings
 
 export interface CustomErrorWithData extends Error {
   data?: {

@@ -3,11 +3,13 @@ import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
+import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import dayjs from 'dayjs'
 import type { ApprovedAllowanceAmount, Publication } from 'lens'
 import {
+  CollectModules,
   useApprovedModuleAllowanceAmountQuery,
   usePublicationRevenueQuery
 } from 'lens'
@@ -129,6 +131,9 @@ const CollectModal: FC<Props> = ({
               <span className="space-x-1">
                 <span className="text-lg">
                   {formatNumber(video?.stats.totalAmountOfCollects)}
+                  {collectModule?.collectLimit && (
+                    <span> / {collectModule?.collectLimit}</span>
+                  )}
                 </span>
               </span>
             </div>
@@ -143,14 +148,32 @@ const CollectModal: FC<Props> = ({
                 </span>
               </div>
             ) : null}
-            {collectModule?.recipient ? (
+            {collectModule?.recipient || collectModule.recipients ? (
               <div className="mb-3 flex flex-col">
-                <span className="mb-0.5 text-sm">Recipient</span>
-                <AddressExplorerLink address={collectModule?.recipient}>
-                  <span className="text-lg">
-                    {shortenAddress(collectModule?.recipient)}
-                  </span>
-                </AddressExplorerLink>
+                <span className="mb-0.5 text-sm">
+                  {collectModule.recipients ? 'Recipients' : 'Recipient'}
+                </span>
+                {collectModule.recipient && (
+                  <AddressExplorerLink address={collectModule?.recipient}>
+                    <span className="text-lg">
+                      {shortenAddress(collectModule?.recipient)}
+                    </span>
+                  </AddressExplorerLink>
+                )}
+                {collectModule.type ===
+                  CollectModules.MultirecipientFeeCollectModule &&
+                  collectModule.recipients.length && (
+                    <Tooltip
+                      placement="bottom-start"
+                      content={`${collectModule.recipients.forEach(
+                        (el) => `${el}\n`
+                      )}`}
+                    >
+                      <span className="text-lg">
+                        {collectModule.recipients.length}
+                      </span>
+                    </Tooltip>
+                  )}
               </div>
             ) : null}
             {revenueData?.publicationRevenue ? (
@@ -165,7 +188,8 @@ const CollectModal: FC<Props> = ({
                 </span>
               </div>
             ) : null}
-            {collectModule?.endTimestamp ? (
+            {collectModule?.endTimestamp ||
+            collectModule?.optionalEndTimestamp ? (
               <div className="mb-3 flex flex-col">
                 <span className="mb-0.5 text-sm">Ends At</span>
                 <span className="text-lg">

@@ -55,7 +55,7 @@ const Modal: FC<Props> = ({
                   <div className="flex items-center justify-between pb-2">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-medium leading-6"
+                      className="text-sm font-medium uppercase leading-6 tracking-wider opacity-70"
                     >
                       {title}
                     </Dialog.Title>

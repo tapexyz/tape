@@ -73,6 +73,8 @@ fragment CollectFields on CollectModule {
     referralFee
     contractAddress
     followerOnly
+    optionalCollectLimit: collectLimit
+    optionalEndTimestamp: endTimestamp
     amount {
       asset {
         symbol

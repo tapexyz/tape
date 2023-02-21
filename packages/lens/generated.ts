@@ -4117,6 +4117,8 @@ type CollectFields_MultirecipientFeeCollectModuleSettings_Fragment = {
   referralFee: number
   contractAddress: any
   followerOnly: boolean
+  optionalCollectLimit?: string | null
+  optionalEndTimestamp?: any | null
   amount: {
     __typename?: 'ModuleFeeAmount'
     value: string
@@ -4293,6 +4295,8 @@ export type CommentFieldsFragment = {
         referralFee: number
         contractAddress: any
         followerOnly: boolean
+        optionalCollectLimit?: string | null
+        optionalEndTimestamp?: any | null
         amount: {
           __typename?: 'ModuleFeeAmount'
           value: string
@@ -4585,6 +4589,8 @@ export type MirrorFieldsFragment = {
         referralFee: number
         contractAddress: any
         followerOnly: boolean
+        optionalCollectLimit?: string | null
+        optionalEndTimestamp?: any | null
         amount: {
           __typename?: 'ModuleFeeAmount'
           value: string
@@ -4774,6 +4780,8 @@ export type MirrorFieldsFragment = {
               referralFee: number
               contractAddress: any
               followerOnly: boolean
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
               amount: {
                 __typename?: 'ModuleFeeAmount'
                 value: string
@@ -5045,6 +5053,8 @@ export type MirrorFieldsFragment = {
               referralFee: number
               contractAddress: any
               followerOnly: boolean
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
               amount: {
                 __typename?: 'ModuleFeeAmount'
                 value: string
@@ -5240,6 +5250,8 @@ export type PostFieldsFragment = {
         referralFee: number
         contractAddress: any
         followerOnly: boolean
+        optionalCollectLimit?: string | null
+        optionalEndTimestamp?: any | null
         amount: {
           __typename?: 'ModuleFeeAmount'
           value: string
@@ -6252,6 +6264,8 @@ export type ExploreQuery = {
                 referralFee: number
                 contractAddress: any
                 followerOnly: boolean
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
                 amount: {
                   __typename?: 'ModuleFeeAmount'
                   value: string
@@ -6528,6 +6542,8 @@ export type ExploreQuery = {
                 referralFee: number
                 contractAddress: any
                 followerOnly: boolean
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
                 amount: {
                   __typename?: 'ModuleFeeAmount'
                   value: string
@@ -6739,6 +6755,8 @@ export type FeedQuery = {
                   referralFee: number
                   contractAddress: any
                   followerOnly: boolean
+                  optionalCollectLimit?: string | null
+                  optionalEndTimestamp?: any | null
                   amount: {
                     __typename?: 'ModuleFeeAmount'
                     value: string
@@ -7014,6 +7032,8 @@ export type FeedQuery = {
                   referralFee: number
                   contractAddress: any
                   followerOnly: boolean
+                  optionalCollectLimit?: string | null
+                  optionalEndTimestamp?: any | null
                   amount: {
                     __typename?: 'ModuleFeeAmount'
                     value: string
@@ -7848,6 +7868,8 @@ export type ProfileCommentsQuery = {
                 referralFee: number
                 contractAddress: any
                 followerOnly: boolean
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
                 amount: {
                   __typename?: 'ModuleFeeAmount'
                   value: string
@@ -8183,6 +8205,8 @@ export type ProfileMirrorsQuery = {
                 referralFee: number
                 contractAddress: any
                 followerOnly: boolean
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
                 amount: {
                   __typename?: 'ModuleFeeAmount'
                   value: string
@@ -8376,6 +8400,8 @@ export type ProfileMirrorsQuery = {
                       referralFee: number
                       contractAddress: any
                       followerOnly: boolean
+                      optionalCollectLimit?: string | null
+                      optionalEndTimestamp?: any | null
                       amount: {
                         __typename?: 'ModuleFeeAmount'
                         value: string
@@ -8657,6 +8683,8 @@ export type ProfileMirrorsQuery = {
                       referralFee: number
                       contractAddress: any
                       followerOnly: boolean
+                      optionalCollectLimit?: string | null
+                      optionalEndTimestamp?: any | null
                       amount: {
                         __typename?: 'ModuleFeeAmount'
                         value: string
@@ -8902,6 +8930,8 @@ export type ProfilePostsQuery = {
                 referralFee: number
                 contractAddress: any
                 followerOnly: boolean
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
                 amount: {
                   __typename?: 'ModuleFeeAmount'
                   value: string
@@ -9073,6 +9103,8 @@ export type PublicationCollectModuleQuery = {
               referralFee: number
               contractAddress: any
               followerOnly: boolean
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
               amount: {
                 __typename?: 'ModuleFeeAmount'
                 value: string
@@ -9245,6 +9277,8 @@ export type PublicationDetailsQuery = {
               referralFee: number
               contractAddress: any
               followerOnly: boolean
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
               amount: {
                 __typename?: 'ModuleFeeAmount'
                 value: string
@@ -9516,6 +9550,8 @@ export type PublicationDetailsQuery = {
               referralFee: number
               contractAddress: any
               followerOnly: boolean
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
               amount: {
                 __typename?: 'ModuleFeeAmount'
                 value: string
@@ -9705,6 +9741,8 @@ export type PublicationDetailsQuery = {
                     referralFee: number
                     contractAddress: any
                     followerOnly: boolean
+                    optionalCollectLimit?: string | null
+                    optionalEndTimestamp?: any | null
                     amount: {
                       __typename?: 'ModuleFeeAmount'
                       value: string
@@ -9980,6 +10018,8 @@ export type PublicationDetailsQuery = {
                     referralFee: number
                     contractAddress: any
                     followerOnly: boolean
+                    optionalCollectLimit?: string | null
+                    optionalEndTimestamp?: any | null
                     amount: {
                       __typename?: 'ModuleFeeAmount'
                       value: string
@@ -10181,6 +10221,8 @@ export type PublicationDetailsQuery = {
               referralFee: number
               contractAddress: any
               followerOnly: boolean
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
               amount: {
                 __typename?: 'ModuleFeeAmount'
                 value: string
@@ -10468,6 +10510,8 @@ export type SearchPublicationsQuery = {
                     referralFee: number
                     contractAddress: any
                     followerOnly: boolean
+                    optionalCollectLimit?: string | null
+                    optionalEndTimestamp?: any | null
                     amount: {
                       __typename?: 'ModuleFeeAmount'
                       value: string
@@ -10743,6 +10787,8 @@ export type SearchPublicationsQuery = {
                     referralFee: number
                     contractAddress: any
                     followerOnly: boolean
+                    optionalCollectLimit?: string | null
+                    optionalEndTimestamp?: any | null
                     amount: {
                       __typename?: 'ModuleFeeAmount'
                       value: string
@@ -11115,6 +11161,8 @@ export const CollectFieldsFragmentDoc = gql`
       referralFee
       contractAddress
       followerOnly
+      optionalCollectLimit: collectLimit
+      optionalEndTimestamp: endTimestamp
       amount {
         asset {
           symbol

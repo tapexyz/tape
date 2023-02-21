@@ -83,11 +83,7 @@ const CollectModule = () => {
         <CheckOutline className="h-3 w-3" />
       </button>
       <Modal
-        title={
-          <span className="text-sm uppercase tracking-wider opacity-70">
-            Select collect type
-          </span>
-        }
+        title="Select collect type"
         panelClassName="max-w-lg"
         show={showModal}
       >
