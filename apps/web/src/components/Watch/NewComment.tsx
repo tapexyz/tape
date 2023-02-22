@@ -211,7 +211,7 @@ const NewComment: FC<Props> = ({ video }) => {
         mainContentFocus: PublicationMainFocus.TextOnly,
         external_url: `${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`,
         image: null,
-        imageMimeType: 'image/svg+xml',
+        imageMimeType: null,
         name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
         attributes: [
           {

@@ -7,7 +7,7 @@ import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
-import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
+import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 import truncate from 'utils/functions/truncate'
 import useAverageColor from 'utils/hooks/useAverageColor'
 import VideoPlayer from 'web-ui/VideoPlayer'
@@ -31,7 +31,7 @@ const Video: FC<Props> = ({ video }) => {
 
   const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
-    sanitizeIpfsUrl(getThumbnailUrl(video)),
+    sanitizeDStorageUrl(getThumbnailUrl(video)),
     isBytesVideo ? 'thumbnail_v' : 'thumbnail'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
