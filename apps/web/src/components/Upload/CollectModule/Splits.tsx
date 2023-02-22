@@ -120,9 +120,6 @@ const Splits = () => {
           </span>
         </Tooltip>
       </div>
-      {!splitRecipients.length && (
-        <p>Help {LENSTUBE_APP_NAME} continue to grow by adding a donation.</p>
-      )}
       {splitRecipients.map((splitRecipient, i) => (
         <div className="flex gap-1.5" key={i}>
           <Input
@@ -182,16 +179,21 @@ const Splits = () => {
             Add recipient
           </button>
           {!isIncludesDonationAddress && (
-            <button
-              type="button"
-              className={clsx(
-                'rounded border border-gray-700 px-1 text-[10px] font-semibold uppercase tracking-wider opacity-70 dark:border-gray-300',
-                splitRecipients.length >= 5 && 'invisible'
-              )}
-              onClick={() => addDonation()}
+            <Tooltip
+              content={`Help ${LENSTUBE_APP_NAME} continue to grow by adding a donation.`}
+              placement="top"
             >
-              Add Donation
-            </button>
+              <button
+                type="button"
+                className={clsx(
+                  'rounded border border-gray-700 px-1 text-[10px] font-semibold uppercase tracking-wider opacity-70 dark:border-gray-300',
+                  splitRecipients.length >= 5 && 'invisible'
+                )}
+                onClick={() => addDonation()}
+              >
+                Add Donation
+              </button>
+            </Tooltip>
           )}
         </div>
         {splitRecipients?.length >= 1 && (
