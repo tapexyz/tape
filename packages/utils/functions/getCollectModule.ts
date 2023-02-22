@@ -151,7 +151,7 @@ export const getCollectModuleConfig = (collectModule: string) => {
       return {
         type: 'collectModule',
         description:
-          'Allow you to collect any publication which revenue split with multiple recipients.'
+          'Allow you to collect any publication which splits collect revenue with multiple recipients.'
       }
     case 'FeeFollowModule':
       return {

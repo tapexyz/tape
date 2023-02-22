@@ -8,7 +8,13 @@ import { utils } from 'ethers'
 import type { RecipientDataInput } from 'lens'
 import { useResolveProfileAddressLazyQuery } from 'lens'
 import React from 'react'
-import { Analytics, IS_MAINNET, TRACK } from 'utils'
+import {
+  Analytics,
+  IS_MAINNET,
+  LENSTUBE_APP_NAME,
+  LENSTUBE_DONATION_ADDRESS,
+  TRACK
+} from 'utils'
 import splitNumber from 'utils/functions/splitNumber'
 
 const Splits = () => {
@@ -31,6 +37,9 @@ const Splits = () => {
   }
 
   const getIsValidAddress = (address: string) => utils.isAddress(address)
+  const isIncludesDonationAddress =
+    splitRecipients.filter((el) => el.recipient === LENSTUBE_DONATION_ADDRESS)
+      .length > 0
   const getIsHandle = (value: string) => {
     return IS_MAINNET && value === 'lensprotocol'
       ? true
@@ -71,6 +80,12 @@ const Splits = () => {
     setSplitRecipients([...splits])
   }
 
+  const addDonation = () => {
+    const splits = splitRecipients
+    splits.push({ recipient: LENSTUBE_DONATION_ADDRESS, split: 2 })
+    setSplitRecipients([...splits])
+  }
+
   const removeRecipient = (index: number) => {
     const splits = splitRecipients
     if (index >= 0) {
@@ -97,7 +112,7 @@ const Splits = () => {
           Split revenue
         </div>
         <Tooltip
-          content="Split all future video revenue with given addresses."
+          content="Split video revenue with multiple addresses."
           placement="top"
         >
           <span>
@@ -105,23 +120,33 @@ const Splits = () => {
           </span>
         </Tooltip>
       </div>
+      {!splitRecipients.length && (
+        <p>Help {LENSTUBE_APP_NAME} continue to grow by adding a donation.</p>
+      )}
       {splitRecipients.map((splitRecipient, i) => (
         <div className="flex gap-1.5" key={i}>
           <Input
-            placeholder="0x1234...89 or handle.lens"
-            value={splitRecipient.recipient}
-            validationError={
-              getIsValidAddress(splitRecipient.recipient) ? '' : ' '
-            }
             className={clsx(
               resolving &&
                 getIsHandle(splitRecipient.recipient) &&
                 'animate-pulse'
             )}
+            placeholder="0x1234...89 or handle.lens"
+            value={splitRecipient.recipient}
+            onChange={(e) => onChangeSplit('recipient', e.target.value, i)}
             autoFocus
             autoComplete="off"
+            spellCheck="false"
+            suffix={
+              splitRecipient.recipient === LENSTUBE_DONATION_ADDRESS
+                ? LENSTUBE_APP_NAME
+                : ''
+            }
+            disabled={splitRecipient.recipient === LENSTUBE_DONATION_ADDRESS}
+            validationError={
+              getIsValidAddress(splitRecipient.recipient) ? '' : ' '
+            }
             showErrorLabel={false}
-            onChange={(e) => onChangeSplit('recipient', e.target.value, i)}
           />
           <div className="w-1/3">
             <Input
@@ -145,16 +170,30 @@ const Splits = () => {
         </div>
       ))}
       <div className="flex items-center justify-between space-x-1.5 pt-1">
-        <button
-          type="button"
-          className={clsx(
-            'rounded border border-gray-700 px-1 text-[10px] font-semibold uppercase tracking-wider opacity-70 dark:border-gray-300',
-            splitRecipients.length >= 5 && 'invisible'
+        <div className="flex items-center space-x-1">
+          <button
+            type="button"
+            className={clsx(
+              'rounded border border-gray-700 px-1 text-[10px] font-semibold uppercase tracking-wider opacity-70 dark:border-gray-300',
+              splitRecipients.length >= 5 && 'invisible'
+            )}
+            onClick={() => addRecipient()}
+          >
+            Add recipient
+          </button>
+          {!isIncludesDonationAddress && (
+            <button
+              type="button"
+              className={clsx(
+                'rounded border border-gray-700 px-1 text-[10px] font-semibold uppercase tracking-wider opacity-70 dark:border-gray-300',
+                splitRecipients.length >= 5 && 'invisible'
+              )}
+              onClick={() => addDonation()}
+            >
+              Add Donation
+            </button>
           )}
-          onClick={() => addRecipient()}
-        >
-          Add recipient
-        </button>
+        </div>
         {splitRecipients?.length >= 1 && (
           <button
             type="button"
