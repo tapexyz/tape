@@ -4,7 +4,7 @@ import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
-import { ethers } from 'ethers'
+import { utils } from 'ethers'
 import type { RecipientDataInput } from 'lens'
 import { useResolveProfileAddressLazyQuery } from 'lens'
 import React from 'react'
@@ -30,7 +30,7 @@ const Splits = () => {
     })
   }
 
-  const getIsValidAddress = (address: string) => ethers.utils.isAddress(address)
+  const getIsValidAddress = (address: string) => utils.isAddress(address)
   const getIsHandle = (value: string) =>
     value.includes(IS_MAINNET ? '.lens' : '.test')
 

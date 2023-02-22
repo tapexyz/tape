@@ -2,7 +2,7 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
-import { ethers } from 'ethers'
+import { utils } from 'ethers'
 import type { Erc20 } from 'lens'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -106,7 +106,7 @@ const FeeCollectForm: FC<Props> = ({
       0
     )
     const invalidSplitAddresses = splitRecipients.filter(
-      (splitRecipient) => !ethers.utils.isAddress(splitRecipient.recipient)
+      (splitRecipient) => !utils.isAddress(splitRecipient.recipient)
     )
     if (invalidSplitAddresses.length) {
       return toast.error('Invalid split recipient address')

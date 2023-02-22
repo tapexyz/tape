@@ -17,6 +17,7 @@
     "@cloudflare/workers-types": "^4.20230221.0",
     "eslint-config-weblint": "*",
     "typescript": "^4.9.5",
+    "@types/secp256k1": "latest",
     "wrangler": "2.10.0"
   }
 }
