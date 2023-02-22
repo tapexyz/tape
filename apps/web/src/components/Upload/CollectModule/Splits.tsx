@@ -31,8 +31,11 @@ const Splits = () => {
   }
 
   const getIsValidAddress = (address: string) => utils.isAddress(address)
-  const getIsHandle = (value: string) =>
-    value.includes(IS_MAINNET ? '.lens' : '.test')
+  const getIsHandle = (value: string) => {
+    return IS_MAINNET && value === 'lensprotocol'
+      ? true
+      : value.includes(IS_MAINNET ? '.lens' : '.test')
+  }
 
   const onChangeSplit = async (
     key: 'recipient' | 'split',
