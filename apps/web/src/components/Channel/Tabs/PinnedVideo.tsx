@@ -11,7 +11,7 @@ import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import isWatchable from 'utils/functions/isWatchable'
-import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
+import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 import VideoPlayer from 'web-ui/VideoPlayer'
 
 type Props = {
@@ -50,7 +50,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
         <VideoPlayer
           permanentUrl={getPublicationMediaUrl(pinnedPublication)}
           posterUrl={imageCdn(
-            sanitizeIpfsUrl(getThumbnailUrl(pinnedPublication)),
+            sanitizeDStorageUrl(getThumbnailUrl(pinnedPublication)),
             isBytesVideo ? 'thumbnail_v' : 'thumbnail'
           )}
           isSensitiveContent={isSensitiveContent}

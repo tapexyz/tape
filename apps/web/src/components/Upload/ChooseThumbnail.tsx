@@ -12,7 +12,7 @@ import { IS_MAINNET } from 'utils'
 import { generateVideoThumbnails } from 'utils/functions/generateVideoThumbnails'
 import { getFileFromDataURL } from 'utils/functions/getFileFromDataURL'
 import { getIsNSFW } from 'utils/functions/getIsNSFW'
-import sanitizeIpfsUrl from 'utils/functions/sanitizeIpfsUrl'
+import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
 import logger from 'utils/logger'
 
@@ -191,7 +191,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
             >
               <img
                 className="h-16 w-full rounded-lg object-cover md:w-32"
-                src={sanitizeIpfsUrl(thumbnail.url)}
+                src={sanitizeDStorageUrl(thumbnail.url)}
                 alt="thumbnail"
                 draggable={false}
               />

@@ -30,18 +30,22 @@ export const everland = async (
       Body: file,
       ContentType: file.type
     }
-    const task = new Upload({
-      client,
-      queueSize: 3,
-      params
-    })
-    task.on('httpUploadProgress', (e) => {
-      const loaded = e.loaded ?? 0
-      const total = e.total ?? 0
-      const progress = (loaded / total) * 100
-      onProgress?.(Math.round(progress))
-    })
-    await task.done()
+    if (onProgress) {
+      const task = new Upload({
+        client,
+        queueSize: 3,
+        params
+      })
+      task.on('httpUploadProgress', (e) => {
+        const loaded = e.loaded ?? 0
+        const total = e.total ?? 0
+        const progress = (loaded / total) * 100
+        onProgress?.(Math.round(progress))
+      })
+      await task.done()
+    } else {
+      await client.putObject(params)
+    }
     const result = await client.headObject(params)
     const metadata = result.Metadata
     return {
