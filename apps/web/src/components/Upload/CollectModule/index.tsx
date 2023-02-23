@@ -1,6 +1,8 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
+import SplitOutline from '@components/Common/Icons/SplitOutline'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
+import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import { useEnabledModuleCurrrenciesQuery } from 'lens'
 import React, { useState } from 'react'
@@ -34,20 +36,34 @@ const CollectModule = () => {
     const isTimedFeeCollect = uploadedVideo.collectModule.isTimedFeeCollect
     const isLimitedFeeCollect = uploadedVideo.collectModule.isLimitedFeeCollect
     const collectLimit = uploadedVideo.collectModule.collectLimit
+    const multiRecipients = uploadedVideo.collectModule.multiRecipients
     if (uploadedVideo.collectModule.isRevertCollect) {
       return 'No one can collect this publication'
     }
     if (uploadedVideo.collectModule.isFreeCollect) {
       return `${
-        followerOnlyCollect ? 'Only Subscribers' : 'Anyone'
+        followerOnlyCollect ? 'Subscribers' : 'Anyone'
       } can collect for free ${isTimedFeeCollect ? 'within 24hrs' : ''}`
     }
     if (!uploadedVideo.collectModule.isFreeCollect) {
-      return `${
-        followerOnlyCollect ? 'Only Subscribers' : 'Anyone'
-      } can collect ${
-        isLimitedFeeCollect ? `maximum of ${collectLimit}` : ''
-      } for given fees ${isTimedFeeCollect ? 'within 24hrs' : ''}`
+      return (
+        <div className="flex items-center space-x-1">
+          <span>
+            {followerOnlyCollect ? 'Subscribers' : 'Anyone'} can collect{' '}
+            {isLimitedFeeCollect ? `maximum of ${collectLimit}` : ''} for given
+            fees {isTimedFeeCollect ? 'within 24hrs' : ''}
+          </span>
+          {uploadedVideo.collectModule.isMultiRecipientFeeCollect && (
+            <Tooltip
+              content={`Split revenue enabled with ${multiRecipients?.length} recipients`}
+            >
+              <span>
+                <SplitOutline className="h-5 w-5 rotate-90" outline={false} />
+              </span>
+            </Tooltip>
+          )}
+        </div>
+      )
     }
   }
 
@@ -71,7 +87,7 @@ const CollectModule = () => {
         panelClassName="max-w-lg"
         show={showModal}
       >
-        <div className="mt-2 space-y-4">
+        <div className="no-scrollbar mt-2 max-h-[80vh] space-y-4 overflow-y-auto p-0.5">
           <PermissionQuestion
             setCollectType={setCollectType}
             uploadedVideo={uploadedVideo}

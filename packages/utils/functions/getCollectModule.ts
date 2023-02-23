@@ -1,6 +1,11 @@
-import type { CollectModuleParams } from 'lens'
+import type {
+  CollectModuleParams,
+  MultirecipientFeeCollectModuleParams,
+  RecipientDataInput
+} from 'lens'
 
 import type { CollectModuleType } from '../custom-types'
+import { getTimeAddedOneDay } from './formatTime'
 
 export const getCollectModule = (
   selectedCollectModule: CollectModuleType
@@ -9,6 +14,34 @@ export const getCollectModule = (
   if (selectedCollectModule.isRevertCollect) {
     return {
       revertCollectModule: true
+    }
+  }
+  // Multi collect / revenue split
+  if (selectedCollectModule.isMultiRecipientFeeCollect) {
+    let multirecipientFeeCollectModule: MultirecipientFeeCollectModuleParams = {
+      amount: {
+        currency: selectedCollectModule.amount?.currency,
+        value: selectedCollectModule.amount?.value as string
+      },
+      recipients: selectedCollectModule.multiRecipients as RecipientDataInput[],
+      referralFee: selectedCollectModule.referralFee as number,
+      followerOnly: selectedCollectModule.followerOnlyCollect as boolean
+    }
+    if (
+      selectedCollectModule.isLimitedTimeFeeCollect ||
+      selectedCollectModule.isLimitedFeeCollect
+    ) {
+      multirecipientFeeCollectModule.collectLimit =
+        selectedCollectModule.collectLimit as string
+    }
+    if (
+      selectedCollectModule.isLimitedTimeFeeCollect ||
+      selectedCollectModule.isTimedFeeCollect
+    ) {
+      multirecipientFeeCollectModule.endTimestamp = getTimeAddedOneDay()
+    }
+    return {
+      multirecipientFeeCollectModule
     }
   }
   // Should collect by paying fee (anyone/ only subs)
@@ -113,6 +146,12 @@ export const getCollectModuleConfig = (collectModule: string) => {
         type: 'collectModule',
         description:
           'Allow you to collect any publication with the time and collect limit specified.'
+      }
+    case 'MultirecipientFeeCollectModule':
+      return {
+        type: 'collectModule',
+        description:
+          'Allow you to collect any publication which splits collect revenue with multiple recipients.'
       }
     case 'FeeFollowModule':
       return {

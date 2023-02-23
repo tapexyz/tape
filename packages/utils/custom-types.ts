@@ -5,6 +5,8 @@ import type {
   FreeCollectModuleSettings,
   LimitedFeeCollectModuleSettings,
   LimitedTimedFeeCollectModuleSettings,
+  MultirecipientFeeCollectModuleSettings,
+  RecipientDataInput,
   RevertCollectModuleSettings,
   TimedFeeCollectModuleSettings
 } from 'lens'
@@ -38,11 +40,13 @@ export type CollectModuleType = {
   isRevertCollect?: boolean
   isLimitedFeeCollect?: boolean
   isLimitedTimeFeeCollect?: boolean
+  isMultiRecipientFeeCollect?: boolean
   amount?: { currency?: string; value: string }
   referralFee?: number
   collectLimit?: string
   followerOnlyCollect?: boolean
   recipient?: string
+  multiRecipients?: RecipientDataInput[]
 }
 
 export type ReferenceModuleType = {
@@ -101,12 +105,19 @@ export type ProfileMetadata = {
   attributes: Attribute[]
 }
 
+type MultiRecipientFeeCollectModuleSettings =
+  MultirecipientFeeCollectModuleSettings & {
+    optionalEndTimestamp?: string
+    optionalCollectLimit?: string
+  }
+
 export type LenstubeCollectModule = FreeCollectModuleSettings &
   FeeCollectModuleSettings &
   RevertCollectModuleSettings &
   TimedFeeCollectModuleSettings &
   LimitedFeeCollectModuleSettings &
-  LimitedTimedFeeCollectModuleSettings
+  LimitedTimedFeeCollectModuleSettings &
+  MultiRecipientFeeCollectModuleSettings
 
 export interface CustomErrorWithData extends Error {
   data?: {

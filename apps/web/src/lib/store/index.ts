@@ -48,7 +48,12 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
     isTimedFeeCollect: false,
     isFreeCollect: false,
     isFeeCollect: false,
-    isRevertCollect: true
+    isRevertCollect: true,
+    isLimitedFeeCollect: false,
+    isLimitedTimeFeeCollect: false,
+    isMultiRecipientFeeCollect: false,
+    collectLimit: '1',
+    multiRecipients: []
   },
   referenceModule: {
     followerOnlyReferenceModule: false,

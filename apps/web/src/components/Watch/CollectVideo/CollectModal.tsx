@@ -8,6 +8,7 @@ import usePersistStore from '@lib/store/persist'
 import dayjs from 'dayjs'
 import type { ApprovedAllowanceAmount, Publication } from 'lens'
 import {
+  CollectModules,
   useApprovedModuleAllowanceAmountQuery,
   usePublicationRevenueQuery
 } from 'lens'
@@ -16,6 +17,8 @@ import React, { useEffect, useState } from 'react'
 import type { LenstubeCollectModule } from 'utils'
 import { Analytics, TRACK } from 'utils'
 import { formatNumber } from 'utils/functions/formatNumber'
+import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
+import imageCdn from 'utils/functions/imageCdn'
 import { shortenAddress } from 'utils/functions/shortenAddress'
 import { useBalance } from 'wagmi'
 
@@ -125,16 +128,19 @@ const CollectModal: FC<Props> = ({
         {!fetchingCollectModule && !allowanceLoading ? (
           <>
             <div className="mb-3 flex flex-col">
-              <span className="text-sm">Total Collects</span>
+              <span className="text-sm font-semibold">Total Collects</span>
               <span className="space-x-1">
                 <span className="text-lg">
                   {formatNumber(video?.stats.totalAmountOfCollects)}
+                  {collectModule?.collectLimit && (
+                    <span> / {collectModule?.collectLimit}</span>
+                  )}
                 </span>
               </span>
             </div>
             {collectModule?.amount ? (
               <div className="mb-3 flex flex-col">
-                <span className="text-sm">Price</span>
+                <span className="text-sm font-semibold">Price</span>
                 <span className="space-x-1">
                   <span className="text-2xl font-semibold">
                     {collectModule?.amount?.value}
@@ -143,19 +149,32 @@ const CollectModal: FC<Props> = ({
                 </span>
               </div>
             ) : null}
-            {collectModule?.recipient ? (
+            {collectModule?.endTimestamp ||
+            collectModule?.optionalEndTimestamp ? (
               <div className="mb-3 flex flex-col">
-                <span className="mb-0.5 text-sm">Recipient</span>
-                <AddressExplorerLink address={collectModule?.recipient}>
+                <span className="mb-0.5 text-sm font-semibold">Ends At</span>
+                {collectModule.endTimestamp && (
                   <span className="text-lg">
-                    {shortenAddress(collectModule?.recipient)}
+                    {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')}{' '}
+                    at {dayjs(collectModule.endTimestamp).format('hh:mm a')}
                   </span>
-                </AddressExplorerLink>
+                )}
+                {collectModule.optionalEndTimestamp && (
+                  <span className="text-lg">
+                    {dayjs(collectModule.optionalEndTimestamp).format(
+                      'MMMM DD, YYYY'
+                    )}{' '}
+                    at{' '}
+                    {dayjs(collectModule.optionalEndTimestamp).format(
+                      'hh:mm a'
+                    )}
+                  </span>
+                )}
               </div>
             ) : null}
             {revenueData?.publicationRevenue ? (
               <div className="mb-3 flex flex-col">
-                <span className="text-xs">Revenue</span>
+                <span className="text-sm font-semibold">Revenue</span>
                 <span className="space-x-1">
                   <span className="text-2xl font-semibold">
                     {revenueData?.publicationRevenue?.revenue?.total?.value ??
@@ -165,19 +184,53 @@ const CollectModal: FC<Props> = ({
                 </span>
               </div>
             ) : null}
-            {collectModule?.endTimestamp ? (
-              <div className="mb-3 flex flex-col">
-                <span className="mb-0.5 text-sm">Ends At</span>
-                <span className="text-lg">
-                  {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
-                  {dayjs(collectModule.endTimestamp).format('hh:mm a')}
-                </span>
-              </div>
-            ) : null}
             {collectModule?.referralFee ? (
               <div className="mb-3 flex flex-col">
-                <span className="mb-0.5 text-sm">Referral Fee</span>
+                <span className="mb-0.5 text-sm font-semibold">
+                  Referral Fee
+                </span>
                 <span className="text-lg">{collectModule.referralFee} %</span>
+              </div>
+            ) : null}
+            {collectModule?.recipient || collectModule.recipients ? (
+              <div className="mb-3 flex flex-col">
+                <span className="mb-0.5 text-sm font-semibold">
+                  Revenue
+                  {collectModule.recipients ? ' Recipients' : ' Recipient'}
+                </span>
+                {collectModule.recipient && (
+                  <AddressExplorerLink address={collectModule?.recipient}>
+                    <span className="text-lg">
+                      {shortenAddress(collectModule?.recipient)}
+                    </span>
+                  </AddressExplorerLink>
+                )}
+                {collectModule.type ===
+                  CollectModules.MultirecipientFeeCollectModule &&
+                  collectModule.recipients.length && (
+                    <div>
+                      {collectModule.recipients.map((splitRecipient) => (
+                        <AddressExplorerLink
+                          key={splitRecipient.recipient}
+                          address={splitRecipient?.recipient}
+                        >
+                          <div className="flex items-center space-x-2 py-1 text-sm">
+                            <img
+                              className="h-4 w-4 rounded-full"
+                              src={imageCdn(
+                                getRandomProfilePicture(
+                                  splitRecipient.recipient
+                                ),
+                                'avatar'
+                              )}
+                              alt=""
+                            />
+                            <span>{splitRecipient?.recipient}</span>
+                          </div>
+                        </AddressExplorerLink>
+                      ))}
+                    </div>
+                  )}
               </div>
             ) : null}
             <div className="flex justify-end space-x-2">

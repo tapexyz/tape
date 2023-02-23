@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form'
 import { IS_MAINNET, ZERO_ADDRESS } from 'utils'
 import getLensHandle from 'utils/functions/getLensHandle'
 import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
+import imageCdn from 'utils/functions/imageCdn'
 import trimify from 'utils/functions/trimify'
 import useIsMounted from 'utils/hooks/useIsMounted'
 import { useAccount } from 'wagmi'
@@ -113,7 +114,10 @@ const CreateChannel = () => {
       variables: {
         request: {
           handle: username,
-          profilePictureUri: getRandomProfilePicture(address ?? ZERO_ADDRESS)
+          profilePictureUri: imageCdn(
+            getRandomProfilePicture(address ?? ZERO_ADDRESS),
+            'avatar'
+          )
         }
       }
     })
