@@ -18,6 +18,7 @@ import type { LenstubeCollectModule } from 'utils'
 import { Analytics, TRACK } from 'utils'
 import { formatNumber } from 'utils/functions/formatNumber'
 import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
+import imageCdn from 'utils/functions/imageCdn'
 import { shortenAddress } from 'utils/functions/shortenAddress'
 import { useBalance } from 'wagmi'
 
@@ -216,8 +217,11 @@ const CollectModal: FC<Props> = ({
                           <div className="flex items-center space-x-2 py-1 text-sm">
                             <img
                               className="h-4 w-4 rounded-full"
-                              src={getRandomProfilePicture(
-                                splitRecipient.recipient
+                              src={imageCdn(
+                                getRandomProfilePicture(
+                                  splitRecipient.recipient
+                                ),
+                                'avatar'
                               )}
                               alt=""
                             />
