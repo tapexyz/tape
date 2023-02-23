@@ -153,6 +153,12 @@ export const getCollectModuleConfig = (collectModule: string) => {
         description:
           'Allow you to collect any publication which splits collect revenue with multiple recipients.'
       }
+    case 'AaveFeeCollectModule':
+      return {
+        type: 'collectModule',
+        description:
+          'Allow you to collect any publication which deposit its revenue to AAVE v3 pool.'
+      }
     case 'FeeFollowModule':
       return {
         type: 'followModule',
