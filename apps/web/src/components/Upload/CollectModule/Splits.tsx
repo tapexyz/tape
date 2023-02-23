@@ -78,12 +78,14 @@ const Splits = () => {
     const splits = splitRecipients
     splits.push({ recipient: '', split: 1 })
     setSplitRecipients([...splits])
+    Analytics.track(TRACK.COLLECT_MODULE.MULTI_COLLECT.ADD_RECIPIENT)
   }
 
   const addDonation = () => {
     const splits = splitRecipients
     splits.push({ recipient: LENSTUBE_DONATION_ADDRESS, split: 2 })
     setSplitRecipients([...splits])
+    Analytics.track(TRACK.COLLECT_MODULE.MULTI_COLLECT.ADD_DONATION)
   }
 
   const removeRecipient = (index: number) => {
