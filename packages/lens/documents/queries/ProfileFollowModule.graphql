@@ -5,10 +5,7 @@ query ProfileFollowModule($request: ProfileQueryRequest!) {
         ... on FeeFollowModuleSettings {
           amount {
             asset {
-              name
-              symbol
-              address
-              decimals
+              ...Erc20Fields
             }
             value
           }

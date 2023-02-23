@@ -12,9 +12,7 @@ fragment CollectFields on CollectModule {
     followerOnly
     amount {
       asset {
-        symbol
-        decimals
-        address
+        ...Erc20Fields
       }
       value
     }
@@ -28,9 +26,7 @@ fragment CollectFields on CollectModule {
     followerOnly
     amount {
       asset {
-        symbol
-        decimals
-        address
+        ...Erc20Fields
       }
       value
     }
@@ -45,9 +41,7 @@ fragment CollectFields on CollectModule {
     followerOnly
     amount {
       asset {
-        symbol
-        decimals
-        address
+        ...Erc20Fields
       }
       value
     }
@@ -61,9 +55,7 @@ fragment CollectFields on CollectModule {
     followerOnly
     amount {
       asset {
-        symbol
-        decimals
-        address
+        ...Erc20Fields
       }
       value
     }
@@ -81,9 +73,22 @@ fragment CollectFields on CollectModule {
     optionalEndTimestamp: endTimestamp
     amount {
       asset {
-        symbol
-        decimals
-        address
+        ...Erc20Fields
+      }
+      value
+    }
+  }
+  ... on AaveFeeCollectModuleSettings {
+    type
+    referralFee
+    contractAddress
+    followerOnly
+    recipient
+    optionalCollectLimit: collectLimit
+    optionalEndTimestamp: endTimestamp
+    amount {
+      asset {
+        ...Erc20Fields
       }
       value
     }
