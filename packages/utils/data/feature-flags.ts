@@ -2,8 +2,8 @@ import { CORE_MEMBERS } from './verified'
 import { AAVE_MEMBERS } from './verified/aave-members'
 
 export enum FEATURE_FLAGS {
-  LENSTUBE_ECHOS = 'lenstube-echos',
-  MULTI_COLLECT_MODULE = 'multi-collect-module'
+  LENSTUBE_ECHOS = 'LenstubeEchos',
+  MULTI_COLLECT_MODULE = 'MultiCollectModule'
 }
 
 export const featureFlags = [
