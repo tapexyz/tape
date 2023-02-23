@@ -73,7 +73,7 @@ const ExploreFeed = () => {
   const videos = data?.explorePublications?.items as Publication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
-  usePaginationLoading({
+  const { pageLoading } = usePaginationLoading({
     ref: sectionRef,
     fetch: async () =>
       await fetchMore({
@@ -157,7 +157,7 @@ const ExploreFeed = () => {
         {!error && !loading && videos?.length ? (
           <>
             <Timeline videos={videos} />
-            {pageInfo?.next && (
+            {pageInfo?.next && pageLoading && (
               <span className="flex justify-center p-10">
                 <Loader />
               </span>

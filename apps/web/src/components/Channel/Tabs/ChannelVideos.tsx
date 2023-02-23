@@ -49,7 +49,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
   const channelVideos = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
-  usePaginationLoading({
+  const { pageLoading } = usePaginationLoading({
     ref: sectionRef,
     fetch: async () =>
       await fetchMore({
@@ -76,23 +76,23 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
   }
 
   return (
-    <div ref={sectionRef} className="w-full">
+    <>
       {pinnedVideoId?.length && (
         <span className="hidden lg:block">
           <PinnedVideo id={pinnedVideoId} />
         </span>
       )}
       {!error && !loading && (
-        <>
+        <div ref={sectionRef} className="w-full">
           <Timeline videos={channelVideos} />
-          {pageInfo?.next && (
+          {pageInfo?.next && pageLoading && (
             <span className="flex justify-center p-10">
               <Loader />
             </span>
           )}
-        </>
+        </div>
       )}
-    </div>
+    </>
   )
 }
 

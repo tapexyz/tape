@@ -32,7 +32,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
   const collectedNFTs = data?.nfts?.items as Nft[]
   const pageInfo = data?.nfts?.pageInfo
 
-  usePaginationLoading({
+  const { pageLoading } = usePaginationLoading({
     ref: sectionRef,
     fetch: async () =>
       await fetchMore({
@@ -65,7 +65,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
               />
             ))}
           </div>
-          {pageInfo?.next && (
+          {pageInfo?.next && pageLoading && (
             <span className="flex justify-center p-10">
               <Loader />
             </span>

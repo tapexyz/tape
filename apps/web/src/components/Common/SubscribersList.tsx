@@ -32,7 +32,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
   const subscribers = data?.followers?.items as Follower[]
   const pageInfo = data?.followers?.pageInfo
 
-  usePaginationLoading({
+  const { pageLoading } = usePaginationLoading({
     ref: sectionRef,
     fetch: async () =>
       await fetchMore({
@@ -110,7 +110,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
           )}
         </div>
       ))}
-      {pageInfo?.next && (
+      {pageInfo?.next && pageLoading && (
         <span className="p-5">
           <Loader />
         </span>

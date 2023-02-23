@@ -7,6 +7,7 @@ type Props<T> = {
 
 export const usePaginationLoading = <T>({ ref, fetch }: Props<T>) => {
   const [latestHeight, setLatestHeight] = useState<number>(0)
+  const [pageLoading, setPageLoading] = useState<boolean>(false)
 
   const handleScroll = async () => {
     if (
@@ -14,6 +15,7 @@ export const usePaginationLoading = <T>({ ref, fetch }: Props<T>) => {
       latestHeight <= ref.current.clientHeight &&
       latestHeight !== ref.current.scrollHeight
     ) {
+      setPageLoading(true)
       setLatestHeight(ref.current.scrollHeight)
       await fetch()
     }
@@ -26,4 +28,6 @@ export const usePaginationLoading = <T>({ ref, fetch }: Props<T>) => {
       current?.removeEventListener('mousewheel', handleScroll)
     }
   })
+
+  return { pageLoading }
 }

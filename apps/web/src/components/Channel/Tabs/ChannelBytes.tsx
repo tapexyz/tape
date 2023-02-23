@@ -31,7 +31,7 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
   const bytes = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
-  usePaginationLoading({
+  const { pageLoading } = usePaginationLoading({
     ref: sectionRef,
     fetch: async () =>
       await fetchMore({
@@ -57,7 +57,7 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
       {!error && !loading && (
         <>
           <Timeline videos={bytes} />
-          {pageInfo?.next && (
+          {pageInfo?.next && pageLoading && (
             <span className="flex justify-center p-10">
               <Loader />
             </span>

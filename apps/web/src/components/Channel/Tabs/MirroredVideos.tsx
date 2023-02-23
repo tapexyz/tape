@@ -39,7 +39,7 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
   const channelVideos = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
-  usePaginationLoading({
+  const { pageLoading } = usePaginationLoading({
     ref: sectionRef,
     fetch: async () =>
       await fetchMore({
@@ -66,7 +66,7 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
       {!error && !loading && (
         <div>
           <Timeline videos={channelVideos} videoType="Mirror" />
-          {pageInfo?.next && (
+          {pageInfo?.next && pageLoading && (
             <span className="flex justify-center p-10">
               <Loader />
             </span>

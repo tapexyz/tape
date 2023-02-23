@@ -36,7 +36,7 @@ const Subscriptions = () => {
   const videos = data?.feed?.items as FeedItem[]
   const pageInfo = data?.feed?.pageInfo
 
-  usePaginationLoading({
+  const { pageLoading } = usePaginationLoading({
     ref: sectionRef,
     fetch: async () =>
       await fetchMore({
@@ -82,7 +82,7 @@ const Subscriptions = () => {
               )
             })}
           </div>
-          {pageInfo?.next && (
+          {pageInfo?.next && pageLoading && (
             <span className="flex justify-center p-10">
               <Loader />
             </span>

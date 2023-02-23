@@ -29,7 +29,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
   const mirroredByProfiles = data?.profiles?.items as Profile[]
   const pageInfo = data?.profiles?.pageInfo
 
-  usePaginationLoading({
+  const { pageLoading } = usePaginationLoading({
     ref: sectionRef,
     fetch: async () =>
       await fetchMore({
@@ -80,7 +80,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
           </Link>
         </div>
       ))}
-      {pageInfo?.next && (
+      {pageInfo?.next && pageLoading && (
         <span className="p-5">
           <Loader />
         </span>

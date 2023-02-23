@@ -97,7 +97,7 @@ const Notifications = () => {
   const notifications = data?.notifications?.items as Notification[]
   const pageInfo = data?.notifications?.pageInfo
 
-  usePaginationLoading({
+  const { pageLoading } = usePaginationLoading({
     ref: sectionRef,
     fetch: async () =>
       await fetchMore({
@@ -262,7 +262,7 @@ const Notifications = () => {
               )}
             </div>
           ))}
-          {pageInfo?.next && (
+          {pageInfo?.next && pageLoading && (
             <span className="flex justify-center p-10">
               <Loader />
             </span>

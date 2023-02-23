@@ -48,7 +48,7 @@ const SuggestedVideos: FC = () => {
     refetch()
   }, [id, refetch])
 
-  usePaginationLoading({
+  const { pageLoading } = usePaginationLoading({
     ref: sectionRef,
     fetch: async () =>
       await fetchMore({
@@ -79,7 +79,7 @@ const SuggestedVideos: FC = () => {
                 )
             )}
           </div>
-          {pageInfo?.next && (
+          {pageInfo?.next && pageLoading && (
             <span className="flex justify-center p-10">
               <Loader />
             </span>
