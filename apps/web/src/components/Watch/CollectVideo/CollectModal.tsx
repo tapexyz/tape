@@ -210,24 +210,31 @@ const CollectModal: FC<Props> = ({
                   collectModule.recipients.length && (
                     <div>
                       {collectModule.recipients.map((splitRecipient) => (
-                        <AddressExplorerLink
+                        <div
                           key={splitRecipient.recipient}
-                          address={splitRecipient?.recipient}
+                          className="flex items-center justify-between py-1 text-sm"
                         >
-                          <div className="flex items-center space-x-2 py-1 text-sm">
-                            <img
-                              className="h-4 w-4 rounded-full"
-                              src={imageCdn(
-                                getRandomProfilePicture(
-                                  splitRecipient.recipient
-                                ),
-                                'avatar'
-                              )}
-                              alt=""
-                            />
-                            <span>{splitRecipient?.recipient}</span>
-                          </div>
-                        </AddressExplorerLink>
+                          <AddressExplorerLink
+                            address={splitRecipient?.recipient}
+                          >
+                            <div className="flex items-center space-x-2">
+                              <img
+                                className="h-4 w-4 rounded-full"
+                                src={imageCdn(
+                                  getRandomProfilePicture(
+                                    splitRecipient.recipient
+                                  ),
+                                  'avatar'
+                                )}
+                                alt=""
+                              />
+                              <span>
+                                {shortenAddress(splitRecipient?.recipient)}
+                              </span>
+                            </div>
+                          </AddressExplorerLink>
+                          <span>{splitRecipient?.split}%</span>
+                        </div>
                       ))}
                     </div>
                   )}

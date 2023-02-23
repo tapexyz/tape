@@ -1,5 +1,6 @@
 import type { WebBundlr } from '@bundlr-network/client'
 import type {
+  AaveFeeCollectModuleSettings,
   Attribute,
   FeeCollectModuleSettings,
   FreeCollectModuleSettings,
@@ -117,7 +118,8 @@ export type LenstubeCollectModule = FreeCollectModuleSettings &
   TimedFeeCollectModuleSettings &
   LimitedFeeCollectModuleSettings &
   LimitedTimedFeeCollectModuleSettings &
-  MultiRecipientFeeCollectModuleSettings
+  MultiRecipientFeeCollectModuleSettings &
+  AaveFeeCollectModuleSettings
 
 export interface CustomErrorWithData extends Error {
   data?: {

@@ -9,10 +9,7 @@ query GlobalProtocolStats($request: GlobalProtocolStatsRequest) {
     totalFollows
     totalRevenue {
       asset {
-        name
-        symbol
-        decimals
-        address
+        ...Erc20Fields
       }
       value
     }

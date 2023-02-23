@@ -1129,10 +1129,14 @@ export type Erc4626FeeCollectModuleSettings = {
   endTimestamp?: Maybe<Scalars['DateTime']>
   /** True if only followers of publisher may collect the post. */
   followerOnly: Scalars['Boolean']
+  /** The recipient of the ERC4626 vault shares */
+  recipient: Scalars['EthereumAddress']
   /** The referral fee associated with this publication. */
   referralFee: Scalars['Float']
   /** The collect modules enum */
   type: CollectModules
+  /** The ERC4626 vault address */
+  vault: Scalars['ContractAddress']
 }
 
 export type ElectedMirror = {
@@ -4038,6 +4042,24 @@ export type WorldcoinPhoneVerifyWebhookRequest = {
 
 type CollectFields_AaveFeeCollectModuleSettings_Fragment = {
   __typename?: 'AaveFeeCollectModuleSettings'
+  type: CollectModules
+  referralFee: number
+  contractAddress: any
+  followerOnly: boolean
+  recipient: any
+  optionalCollectLimit?: string | null
+  optionalEndTimestamp?: any | null
+  amount: {
+    __typename?: 'ModuleFeeAmount'
+    value: string
+    asset: {
+      __typename?: 'Erc20'
+      name: string
+      symbol: string
+      decimals: number
+      address: any
+    }
+  }
 }
 
 type CollectFields_Erc4626FeeCollectModuleSettings_Fragment = {
@@ -4056,6 +4078,7 @@ type CollectFields_FeeCollectModuleSettings_Fragment = {
     value: string
     asset: {
       __typename?: 'Erc20'
+      name: string
       symbol: string
       decimals: number
       address: any
@@ -4083,6 +4106,7 @@ type CollectFields_LimitedFeeCollectModuleSettings_Fragment = {
     value: string
     asset: {
       __typename?: 'Erc20'
+      name: string
       symbol: string
       decimals: number
       address: any
@@ -4104,6 +4128,7 @@ type CollectFields_LimitedTimedFeeCollectModuleSettings_Fragment = {
     value: string
     asset: {
       __typename?: 'Erc20'
+      name: string
       symbol: string
       decimals: number
       address: any
@@ -4129,6 +4154,7 @@ type CollectFields_MultirecipientFeeCollectModuleSettings_Fragment = {
     value: string
     asset: {
       __typename?: 'Erc20'
+      name: string
       symbol: string
       decimals: number
       address: any
@@ -4153,6 +4179,7 @@ type CollectFields_TimedFeeCollectModuleSettings_Fragment = {
     value: string
     asset: {
       __typename?: 'Erc20'
+      name: string
       symbol: string
       decimals: number
       address: any
@@ -4229,7 +4256,27 @@ export type CommentFieldsFragment = {
       | null
   }
   collectModule:
-    | { __typename?: 'AaveFeeCollectModuleSettings' }
+    | {
+        __typename?: 'AaveFeeCollectModuleSettings'
+        type: CollectModules
+        referralFee: number
+        contractAddress: any
+        followerOnly: boolean
+        recipient: any
+        optionalCollectLimit?: string | null
+        optionalEndTimestamp?: any | null
+        amount: {
+          __typename?: 'ModuleFeeAmount'
+          value: string
+          asset: {
+            __typename?: 'Erc20'
+            name: string
+            symbol: string
+            decimals: number
+            address: any
+          }
+        }
+      }
     | { __typename?: 'ERC4626FeeCollectModuleSettings' }
     | {
         __typename?: 'FeeCollectModuleSettings'
@@ -4243,6 +4290,7 @@ export type CommentFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -4268,6 +4316,7 @@ export type CommentFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -4288,6 +4337,7 @@ export type CommentFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -4312,6 +4362,7 @@ export type CommentFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -4332,6 +4383,7 @@ export type CommentFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -4445,6 +4497,14 @@ export type CommentFieldsFragment = {
     | null
 }
 
+export type Erc20FieldsFragment = {
+  __typename?: 'Erc20'
+  name: string
+  symbol: string
+  decimals: number
+  address: any
+}
+
 export type MetadataFieldsFragment = {
   __typename?: 'MetadataOutput'
   name?: string | null
@@ -4528,7 +4588,27 @@ export type MirrorFieldsFragment = {
   canComment: { __typename?: 'CanCommentResponse'; result: boolean }
   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
   collectModule:
-    | { __typename?: 'AaveFeeCollectModuleSettings' }
+    | {
+        __typename?: 'AaveFeeCollectModuleSettings'
+        type: CollectModules
+        referralFee: number
+        contractAddress: any
+        followerOnly: boolean
+        recipient: any
+        optionalCollectLimit?: string | null
+        optionalEndTimestamp?: any | null
+        amount: {
+          __typename?: 'ModuleFeeAmount'
+          value: string
+          asset: {
+            __typename?: 'Erc20'
+            name: string
+            symbol: string
+            decimals: number
+            address: any
+          }
+        }
+      }
     | { __typename?: 'ERC4626FeeCollectModuleSettings' }
     | {
         __typename?: 'FeeCollectModuleSettings'
@@ -4542,6 +4622,7 @@ export type MirrorFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -4567,6 +4648,7 @@ export type MirrorFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -4587,6 +4669,7 @@ export type MirrorFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -4611,6 +4694,7 @@ export type MirrorFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -4631,6 +4715,7 @@ export type MirrorFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -4724,7 +4809,27 @@ export type MirrorFieldsFragment = {
             | null
         }
         collectModule:
-          | { __typename?: 'AaveFeeCollectModuleSettings' }
+          | {
+              __typename?: 'AaveFeeCollectModuleSettings'
+              type: CollectModules
+              referralFee: number
+              contractAddress: any
+              followerOnly: boolean
+              recipient: any
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
+              amount: {
+                __typename?: 'ModuleFeeAmount'
+                value: string
+                asset: {
+                  __typename?: 'Erc20'
+                  name: string
+                  symbol: string
+                  decimals: number
+                  address: any
+                }
+              }
+            }
           | { __typename?: 'ERC4626FeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings'
@@ -4738,6 +4843,7 @@ export type MirrorFieldsFragment = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -4763,6 +4869,7 @@ export type MirrorFieldsFragment = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -4783,6 +4890,7 @@ export type MirrorFieldsFragment = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -4807,6 +4915,7 @@ export type MirrorFieldsFragment = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -4827,6 +4936,7 @@ export type MirrorFieldsFragment = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -5002,7 +5112,27 @@ export type MirrorFieldsFragment = {
         canComment: { __typename?: 'CanCommentResponse'; result: boolean }
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
         collectModule:
-          | { __typename?: 'AaveFeeCollectModuleSettings' }
+          | {
+              __typename?: 'AaveFeeCollectModuleSettings'
+              type: CollectModules
+              referralFee: number
+              contractAddress: any
+              followerOnly: boolean
+              recipient: any
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
+              amount: {
+                __typename?: 'ModuleFeeAmount'
+                value: string
+                asset: {
+                  __typename?: 'Erc20'
+                  name: string
+                  symbol: string
+                  decimals: number
+                  address: any
+                }
+              }
+            }
           | { __typename?: 'ERC4626FeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings'
@@ -5016,6 +5146,7 @@ export type MirrorFieldsFragment = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -5041,6 +5172,7 @@ export type MirrorFieldsFragment = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -5061,6 +5193,7 @@ export type MirrorFieldsFragment = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -5085,6 +5218,7 @@ export type MirrorFieldsFragment = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -5105,6 +5239,7 @@ export type MirrorFieldsFragment = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -5204,7 +5339,27 @@ export type PostFieldsFragment = {
   canComment: { __typename?: 'CanCommentResponse'; result: boolean }
   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
   collectModule:
-    | { __typename?: 'AaveFeeCollectModuleSettings' }
+    | {
+        __typename?: 'AaveFeeCollectModuleSettings'
+        type: CollectModules
+        referralFee: number
+        contractAddress: any
+        followerOnly: boolean
+        recipient: any
+        optionalCollectLimit?: string | null
+        optionalEndTimestamp?: any | null
+        amount: {
+          __typename?: 'ModuleFeeAmount'
+          value: string
+          asset: {
+            __typename?: 'Erc20'
+            name: string
+            symbol: string
+            decimals: number
+            address: any
+          }
+        }
+      }
     | { __typename?: 'ERC4626FeeCollectModuleSettings' }
     | {
         __typename?: 'FeeCollectModuleSettings'
@@ -5218,6 +5373,7 @@ export type PostFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -5243,6 +5399,7 @@ export type PostFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -5263,6 +5420,7 @@ export type PostFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -5287,6 +5445,7 @@ export type PostFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -5307,6 +5466,7 @@ export type PostFieldsFragment = {
           value: string
           asset: {
             __typename?: 'Erc20'
+            name: string
             symbol: string
             decimals: number
             address: any
@@ -6223,7 +6383,27 @@ export type ExploreQuery = {
               | null
           }
           collectModule:
-            | { __typename?: 'AaveFeeCollectModuleSettings' }
+            | {
+                __typename?: 'AaveFeeCollectModuleSettings'
+                type: CollectModules
+                referralFee: number
+                contractAddress: any
+                followerOnly: boolean
+                recipient: any
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
+                amount: {
+                  __typename?: 'ModuleFeeAmount'
+                  value: string
+                  asset: {
+                    __typename?: 'Erc20'
+                    name: string
+                    symbol: string
+                    decimals: number
+                    address: any
+                  }
+                }
+              }
             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings'
@@ -6237,6 +6417,7 @@ export type ExploreQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -6262,6 +6443,7 @@ export type ExploreQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -6282,6 +6464,7 @@ export type ExploreQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -6306,6 +6489,7 @@ export type ExploreQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -6326,6 +6510,7 @@ export type ExploreQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -6506,7 +6691,27 @@ export type ExploreQuery = {
           canComment: { __typename?: 'CanCommentResponse'; result: boolean }
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
           collectModule:
-            | { __typename?: 'AaveFeeCollectModuleSettings' }
+            | {
+                __typename?: 'AaveFeeCollectModuleSettings'
+                type: CollectModules
+                referralFee: number
+                contractAddress: any
+                followerOnly: boolean
+                recipient: any
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
+                amount: {
+                  __typename?: 'ModuleFeeAmount'
+                  value: string
+                  asset: {
+                    __typename?: 'Erc20'
+                    name: string
+                    symbol: string
+                    decimals: number
+                    address: any
+                  }
+                }
+              }
             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings'
@@ -6520,6 +6725,7 @@ export type ExploreQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -6545,6 +6751,7 @@ export type ExploreQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -6565,6 +6772,7 @@ export type ExploreQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -6589,6 +6797,7 @@ export type ExploreQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -6609,6 +6818,7 @@ export type ExploreQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -6724,7 +6934,27 @@ export type FeedQuery = {
                 | null
             }
             collectModule:
-              | { __typename?: 'AaveFeeCollectModuleSettings' }
+              | {
+                  __typename?: 'AaveFeeCollectModuleSettings'
+                  type: CollectModules
+                  referralFee: number
+                  contractAddress: any
+                  followerOnly: boolean
+                  recipient: any
+                  optionalCollectLimit?: string | null
+                  optionalEndTimestamp?: any | null
+                  amount: {
+                    __typename?: 'ModuleFeeAmount'
+                    value: string
+                    asset: {
+                      __typename?: 'Erc20'
+                      name: string
+                      symbol: string
+                      decimals: number
+                      address: any
+                    }
+                  }
+                }
               | { __typename?: 'ERC4626FeeCollectModuleSettings' }
               | {
                   __typename?: 'FeeCollectModuleSettings'
@@ -6738,6 +6968,7 @@ export type FeedQuery = {
                     value: string
                     asset: {
                       __typename?: 'Erc20'
+                      name: string
                       symbol: string
                       decimals: number
                       address: any
@@ -6763,6 +6994,7 @@ export type FeedQuery = {
                     value: string
                     asset: {
                       __typename?: 'Erc20'
+                      name: string
                       symbol: string
                       decimals: number
                       address: any
@@ -6783,6 +7015,7 @@ export type FeedQuery = {
                     value: string
                     asset: {
                       __typename?: 'Erc20'
+                      name: string
                       symbol: string
                       decimals: number
                       address: any
@@ -6807,6 +7040,7 @@ export type FeedQuery = {
                     value: string
                     asset: {
                       __typename?: 'Erc20'
+                      name: string
                       symbol: string
                       decimals: number
                       address: any
@@ -6827,6 +7061,7 @@ export type FeedQuery = {
                     value: string
                     asset: {
                       __typename?: 'Erc20'
+                      name: string
                       symbol: string
                       decimals: number
                       address: any
@@ -7006,7 +7241,27 @@ export type FeedQuery = {
             canComment: { __typename?: 'CanCommentResponse'; result: boolean }
             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
             collectModule:
-              | { __typename?: 'AaveFeeCollectModuleSettings' }
+              | {
+                  __typename?: 'AaveFeeCollectModuleSettings'
+                  type: CollectModules
+                  referralFee: number
+                  contractAddress: any
+                  followerOnly: boolean
+                  recipient: any
+                  optionalCollectLimit?: string | null
+                  optionalEndTimestamp?: any | null
+                  amount: {
+                    __typename?: 'ModuleFeeAmount'
+                    value: string
+                    asset: {
+                      __typename?: 'Erc20'
+                      name: string
+                      symbol: string
+                      decimals: number
+                      address: any
+                    }
+                  }
+                }
               | { __typename?: 'ERC4626FeeCollectModuleSettings' }
               | {
                   __typename?: 'FeeCollectModuleSettings'
@@ -7020,6 +7275,7 @@ export type FeedQuery = {
                     value: string
                     asset: {
                       __typename?: 'Erc20'
+                      name: string
                       symbol: string
                       decimals: number
                       address: any
@@ -7045,6 +7301,7 @@ export type FeedQuery = {
                     value: string
                     asset: {
                       __typename?: 'Erc20'
+                      name: string
                       symbol: string
                       decimals: number
                       address: any
@@ -7065,6 +7322,7 @@ export type FeedQuery = {
                     value: string
                     asset: {
                       __typename?: 'Erc20'
+                      name: string
                       symbol: string
                       decimals: number
                       address: any
@@ -7089,6 +7347,7 @@ export type FeedQuery = {
                     value: string
                     asset: {
                       __typename?: 'Erc20'
+                      name: string
                       symbol: string
                       decimals: number
                       address: any
@@ -7109,6 +7368,7 @@ export type FeedQuery = {
                     value: string
                     asset: {
                       __typename?: 'Erc20'
+                      name: string
                       symbol: string
                       decimals: number
                       address: any
@@ -7847,7 +8107,27 @@ export type ProfileCommentsQuery = {
               | null
           }
           collectModule:
-            | { __typename?: 'AaveFeeCollectModuleSettings' }
+            | {
+                __typename?: 'AaveFeeCollectModuleSettings'
+                type: CollectModules
+                referralFee: number
+                contractAddress: any
+                followerOnly: boolean
+                recipient: any
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
+                amount: {
+                  __typename?: 'ModuleFeeAmount'
+                  value: string
+                  asset: {
+                    __typename?: 'Erc20'
+                    name: string
+                    symbol: string
+                    decimals: number
+                    address: any
+                  }
+                }
+              }
             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings'
@@ -7861,6 +8141,7 @@ export type ProfileCommentsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -7886,6 +8167,7 @@ export type ProfileCommentsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -7906,6 +8188,7 @@ export type ProfileCommentsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -7930,6 +8213,7 @@ export type ProfileCommentsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -7950,6 +8234,7 @@ export type ProfileCommentsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -8094,8 +8379,8 @@ export type ProfileFollowModuleQuery = {
                 __typename?: 'Erc20'
                 name: string
                 symbol: string
-                address: any
                 decimals: number
+                address: any
               }
             }
           }
@@ -8189,7 +8474,27 @@ export type ProfileMirrorsQuery = {
           canComment: { __typename?: 'CanCommentResponse'; result: boolean }
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
           collectModule:
-            | { __typename?: 'AaveFeeCollectModuleSettings' }
+            | {
+                __typename?: 'AaveFeeCollectModuleSettings'
+                type: CollectModules
+                referralFee: number
+                contractAddress: any
+                followerOnly: boolean
+                recipient: any
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
+                amount: {
+                  __typename?: 'ModuleFeeAmount'
+                  value: string
+                  asset: {
+                    __typename?: 'Erc20'
+                    name: string
+                    symbol: string
+                    decimals: number
+                    address: any
+                  }
+                }
+              }
             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings'
@@ -8203,6 +8508,7 @@ export type ProfileMirrorsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -8228,6 +8534,7 @@ export type ProfileMirrorsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -8248,6 +8555,7 @@ export type ProfileMirrorsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -8272,6 +8580,7 @@ export type ProfileMirrorsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -8292,6 +8601,7 @@ export type ProfileMirrorsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -8389,7 +8699,27 @@ export type ProfileMirrorsQuery = {
                     | null
                 }
                 collectModule:
-                  | { __typename?: 'AaveFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'AaveFeeCollectModuleSettings'
+                      type: CollectModules
+                      referralFee: number
+                      contractAddress: any
+                      followerOnly: boolean
+                      recipient: any
+                      optionalCollectLimit?: string | null
+                      optionalEndTimestamp?: any | null
+                      amount: {
+                        __typename?: 'ModuleFeeAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Erc20'
+                          name: string
+                          symbol: string
+                          decimals: number
+                          address: any
+                        }
+                      }
+                    }
                   | { __typename?: 'ERC4626FeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings'
@@ -8403,6 +8733,7 @@ export type ProfileMirrorsQuery = {
                         value: string
                         asset: {
                           __typename?: 'Erc20'
+                          name: string
                           symbol: string
                           decimals: number
                           address: any
@@ -8428,6 +8759,7 @@ export type ProfileMirrorsQuery = {
                         value: string
                         asset: {
                           __typename?: 'Erc20'
+                          name: string
                           symbol: string
                           decimals: number
                           address: any
@@ -8448,6 +8780,7 @@ export type ProfileMirrorsQuery = {
                         value: string
                         asset: {
                           __typename?: 'Erc20'
+                          name: string
                           symbol: string
                           decimals: number
                           address: any
@@ -8472,6 +8805,7 @@ export type ProfileMirrorsQuery = {
                         value: string
                         asset: {
                           __typename?: 'Erc20'
+                          name: string
                           symbol: string
                           decimals: number
                           address: any
@@ -8492,6 +8826,7 @@ export type ProfileMirrorsQuery = {
                         value: string
                         asset: {
                           __typename?: 'Erc20'
+                          name: string
                           symbol: string
                           decimals: number
                           address: any
@@ -8677,7 +9012,27 @@ export type ProfileMirrorsQuery = {
                 }
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
                 collectModule:
-                  | { __typename?: 'AaveFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'AaveFeeCollectModuleSettings'
+                      type: CollectModules
+                      referralFee: number
+                      contractAddress: any
+                      followerOnly: boolean
+                      recipient: any
+                      optionalCollectLimit?: string | null
+                      optionalEndTimestamp?: any | null
+                      amount: {
+                        __typename?: 'ModuleFeeAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Erc20'
+                          name: string
+                          symbol: string
+                          decimals: number
+                          address: any
+                        }
+                      }
+                    }
                   | { __typename?: 'ERC4626FeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings'
@@ -8691,6 +9046,7 @@ export type ProfileMirrorsQuery = {
                         value: string
                         asset: {
                           __typename?: 'Erc20'
+                          name: string
                           symbol: string
                           decimals: number
                           address: any
@@ -8716,6 +9072,7 @@ export type ProfileMirrorsQuery = {
                         value: string
                         asset: {
                           __typename?: 'Erc20'
+                          name: string
                           symbol: string
                           decimals: number
                           address: any
@@ -8736,6 +9093,7 @@ export type ProfileMirrorsQuery = {
                         value: string
                         asset: {
                           __typename?: 'Erc20'
+                          name: string
                           symbol: string
                           decimals: number
                           address: any
@@ -8760,6 +9118,7 @@ export type ProfileMirrorsQuery = {
                         value: string
                         asset: {
                           __typename?: 'Erc20'
+                          name: string
                           symbol: string
                           decimals: number
                           address: any
@@ -8780,6 +9139,7 @@ export type ProfileMirrorsQuery = {
                         value: string
                         asset: {
                           __typename?: 'Erc20'
+                          name: string
                           symbol: string
                           decimals: number
                           address: any
@@ -8929,7 +9289,27 @@ export type ProfilePostsQuery = {
           canComment: { __typename?: 'CanCommentResponse'; result: boolean }
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
           collectModule:
-            | { __typename?: 'AaveFeeCollectModuleSettings' }
+            | {
+                __typename?: 'AaveFeeCollectModuleSettings'
+                type: CollectModules
+                referralFee: number
+                contractAddress: any
+                followerOnly: boolean
+                recipient: any
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
+                amount: {
+                  __typename?: 'ModuleFeeAmount'
+                  value: string
+                  asset: {
+                    __typename?: 'Erc20'
+                    name: string
+                    symbol: string
+                    decimals: number
+                    address: any
+                  }
+                }
+              }
             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings'
@@ -8943,6 +9323,7 @@ export type ProfilePostsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -8968,6 +9349,7 @@ export type ProfilePostsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -8988,6 +9370,7 @@ export type ProfilePostsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -9012,6 +9395,7 @@ export type ProfilePostsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -9032,6 +9416,7 @@ export type ProfilePostsQuery = {
                   value: string
                   asset: {
                     __typename?: 'Erc20'
+                    name: string
                     symbol: string
                     decimals: number
                     address: any
@@ -9107,7 +9492,27 @@ export type PublicationCollectModuleQuery = {
         __typename?: 'Post'
         collectNftAddress?: any | null
         collectModule:
-          | { __typename?: 'AaveFeeCollectModuleSettings' }
+          | {
+              __typename?: 'AaveFeeCollectModuleSettings'
+              type: CollectModules
+              referralFee: number
+              contractAddress: any
+              followerOnly: boolean
+              recipient: any
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
+              amount: {
+                __typename?: 'ModuleFeeAmount'
+                value: string
+                asset: {
+                  __typename?: 'Erc20'
+                  name: string
+                  symbol: string
+                  decimals: number
+                  address: any
+                }
+              }
+            }
           | { __typename?: 'ERC4626FeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings'
@@ -9121,6 +9526,7 @@ export type PublicationCollectModuleQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9146,6 +9552,7 @@ export type PublicationCollectModuleQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9166,6 +9573,7 @@ export type PublicationCollectModuleQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9190,6 +9598,7 @@ export type PublicationCollectModuleQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9210,6 +9619,7 @@ export type PublicationCollectModuleQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9286,7 +9696,27 @@ export type PublicationDetailsQuery = {
             | null
         }
         collectModule:
-          | { __typename?: 'AaveFeeCollectModuleSettings' }
+          | {
+              __typename?: 'AaveFeeCollectModuleSettings'
+              type: CollectModules
+              referralFee: number
+              contractAddress: any
+              followerOnly: boolean
+              recipient: any
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
+              amount: {
+                __typename?: 'ModuleFeeAmount'
+                value: string
+                asset: {
+                  __typename?: 'Erc20'
+                  name: string
+                  symbol: string
+                  decimals: number
+                  address: any
+                }
+              }
+            }
           | { __typename?: 'ERC4626FeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings'
@@ -9300,6 +9730,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9325,6 +9756,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9345,6 +9777,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9369,6 +9802,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9389,6 +9823,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9564,7 +9999,27 @@ export type PublicationDetailsQuery = {
         canComment: { __typename?: 'CanCommentResponse'; result: boolean }
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
         collectModule:
-          | { __typename?: 'AaveFeeCollectModuleSettings' }
+          | {
+              __typename?: 'AaveFeeCollectModuleSettings'
+              type: CollectModules
+              referralFee: number
+              contractAddress: any
+              followerOnly: boolean
+              recipient: any
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
+              amount: {
+                __typename?: 'ModuleFeeAmount'
+                value: string
+                asset: {
+                  __typename?: 'Erc20'
+                  name: string
+                  symbol: string
+                  decimals: number
+                  address: any
+                }
+              }
+            }
           | { __typename?: 'ERC4626FeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings'
@@ -9578,6 +10033,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9603,6 +10059,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9623,6 +10080,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9647,6 +10105,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9667,6 +10126,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -9760,7 +10220,27 @@ export type PublicationDetailsQuery = {
                   | null
               }
               collectModule:
-                | { __typename?: 'AaveFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'AaveFeeCollectModuleSettings'
+                    type: CollectModules
+                    referralFee: number
+                    contractAddress: any
+                    followerOnly: boolean
+                    recipient: any
+                    optionalCollectLimit?: string | null
+                    optionalEndTimestamp?: any | null
+                    amount: {
+                      __typename?: 'ModuleFeeAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Erc20'
+                        name: string
+                        symbol: string
+                        decimals: number
+                        address: any
+                      }
+                    }
+                  }
                 | { __typename?: 'ERC4626FeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings'
@@ -9774,6 +10254,7 @@ export type PublicationDetailsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -9799,6 +10280,7 @@ export type PublicationDetailsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -9819,6 +10301,7 @@ export type PublicationDetailsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -9843,6 +10326,7 @@ export type PublicationDetailsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -9863,6 +10347,7 @@ export type PublicationDetailsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10042,7 +10527,27 @@ export type PublicationDetailsQuery = {
               canComment: { __typename?: 'CanCommentResponse'; result: boolean }
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
               collectModule:
-                | { __typename?: 'AaveFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'AaveFeeCollectModuleSettings'
+                    type: CollectModules
+                    referralFee: number
+                    contractAddress: any
+                    followerOnly: boolean
+                    recipient: any
+                    optionalCollectLimit?: string | null
+                    optionalEndTimestamp?: any | null
+                    amount: {
+                      __typename?: 'ModuleFeeAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Erc20'
+                        name: string
+                        symbol: string
+                        decimals: number
+                        address: any
+                      }
+                    }
+                  }
                 | { __typename?: 'ERC4626FeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings'
@@ -10056,6 +10561,7 @@ export type PublicationDetailsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10081,6 +10587,7 @@ export type PublicationDetailsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10101,6 +10608,7 @@ export type PublicationDetailsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10125,6 +10633,7 @@ export type PublicationDetailsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10145,6 +10654,7 @@ export type PublicationDetailsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10250,7 +10760,27 @@ export type PublicationDetailsQuery = {
         canComment: { __typename?: 'CanCommentResponse'; result: boolean }
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
         collectModule:
-          | { __typename?: 'AaveFeeCollectModuleSettings' }
+          | {
+              __typename?: 'AaveFeeCollectModuleSettings'
+              type: CollectModules
+              referralFee: number
+              contractAddress: any
+              followerOnly: boolean
+              recipient: any
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
+              amount: {
+                __typename?: 'ModuleFeeAmount'
+                value: string
+                asset: {
+                  __typename?: 'Erc20'
+                  name: string
+                  symbol: string
+                  decimals: number
+                  address: any
+                }
+              }
+            }
           | { __typename?: 'ERC4626FeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings'
@@ -10264,6 +10794,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -10289,6 +10820,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -10309,6 +10841,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -10333,6 +10866,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -10353,6 +10887,7 @@ export type PublicationDetailsQuery = {
                 value: string
                 asset: {
                   __typename?: 'Erc20'
+                  name: string
                   symbol: string
                   decimals: number
                   address: any
@@ -10544,7 +11079,27 @@ export type SearchPublicationsQuery = {
                   | null
               }
               collectModule:
-                | { __typename?: 'AaveFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'AaveFeeCollectModuleSettings'
+                    type: CollectModules
+                    referralFee: number
+                    contractAddress: any
+                    followerOnly: boolean
+                    recipient: any
+                    optionalCollectLimit?: string | null
+                    optionalEndTimestamp?: any | null
+                    amount: {
+                      __typename?: 'ModuleFeeAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Erc20'
+                        name: string
+                        symbol: string
+                        decimals: number
+                        address: any
+                      }
+                    }
+                  }
                 | { __typename?: 'ERC4626FeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings'
@@ -10558,6 +11113,7 @@ export type SearchPublicationsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10583,6 +11139,7 @@ export type SearchPublicationsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10603,6 +11160,7 @@ export type SearchPublicationsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10627,6 +11185,7 @@ export type SearchPublicationsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10647,6 +11206,7 @@ export type SearchPublicationsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10826,7 +11386,27 @@ export type SearchPublicationsQuery = {
               canComment: { __typename?: 'CanCommentResponse'; result: boolean }
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
               collectModule:
-                | { __typename?: 'AaveFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'AaveFeeCollectModuleSettings'
+                    type: CollectModules
+                    referralFee: number
+                    contractAddress: any
+                    followerOnly: boolean
+                    recipient: any
+                    optionalCollectLimit?: string | null
+                    optionalEndTimestamp?: any | null
+                    amount: {
+                      __typename?: 'ModuleFeeAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Erc20'
+                        name: string
+                        symbol: string
+                        decimals: number
+                        address: any
+                      }
+                    }
+                  }
                 | { __typename?: 'ERC4626FeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings'
@@ -10840,6 +11420,7 @@ export type SearchPublicationsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10865,6 +11446,7 @@ export type SearchPublicationsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10885,6 +11467,7 @@ export type SearchPublicationsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10909,6 +11492,7 @@ export type SearchPublicationsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -10929,6 +11513,7 @@ export type SearchPublicationsQuery = {
                       value: string
                       asset: {
                         __typename?: 'Erc20'
+                        name: string
                         symbol: string
                         decimals: number
                         address: any
@@ -11200,6 +11785,14 @@ export const ProfileFieldsFragmentDoc = gql`
     }
   }
 `
+export const Erc20FieldsFragmentDoc = gql`
+  fragment Erc20Fields on Erc20 {
+    name
+    symbol
+    decimals
+    address
+  }
+`
 export const CollectFieldsFragmentDoc = gql`
   fragment CollectFields on CollectModule {
     ... on FreeCollectModuleSettings {
@@ -11215,9 +11808,7 @@ export const CollectFieldsFragmentDoc = gql`
       followerOnly
       amount {
         asset {
-          symbol
-          decimals
-          address
+          ...Erc20Fields
         }
         value
       }
@@ -11231,9 +11822,7 @@ export const CollectFieldsFragmentDoc = gql`
       followerOnly
       amount {
         asset {
-          symbol
-          decimals
-          address
+          ...Erc20Fields
         }
         value
       }
@@ -11248,9 +11837,7 @@ export const CollectFieldsFragmentDoc = gql`
       followerOnly
       amount {
         asset {
-          symbol
-          decimals
-          address
+          ...Erc20Fields
         }
         value
       }
@@ -11264,9 +11851,7 @@ export const CollectFieldsFragmentDoc = gql`
       followerOnly
       amount {
         asset {
-          symbol
-          decimals
-          address
+          ...Erc20Fields
         }
         value
       }
@@ -11284,14 +11869,28 @@ export const CollectFieldsFragmentDoc = gql`
       optionalEndTimestamp: endTimestamp
       amount {
         asset {
-          symbol
-          decimals
-          address
+          ...Erc20Fields
+        }
+        value
+      }
+    }
+    ... on AaveFeeCollectModuleSettings {
+      type
+      referralFee
+      contractAddress
+      followerOnly
+      recipient
+      optionalCollectLimit: collectLimit
+      optionalEndTimestamp: endTimestamp
+      amount {
+        asset {
+          ...Erc20Fields
         }
         value
       }
     }
   }
+  ${Erc20FieldsFragmentDoc}
 `
 export const MetadataFieldsFragmentDoc = gql`
   fragment MetadataFields on MetadataOutput {
@@ -13608,10 +14207,7 @@ export const GlobalProtocolStatsDocument = gql`
       totalFollows
       totalRevenue {
         asset {
-          name
-          symbol
-          decimals
-          address
+          ...Erc20Fields
         }
         value
       }
@@ -13620,6 +14216,7 @@ export const GlobalProtocolStatsDocument = gql`
       totalPosts
     }
   }
+  ${Erc20FieldsFragmentDoc}
 `
 
 /**
@@ -14300,10 +14897,7 @@ export const ProfileFollowModuleDocument = gql`
           ... on FeeFollowModuleSettings {
             amount {
               asset {
-                name
-                symbol
-                address
-                decimals
+                ...Erc20Fields
               }
               value
             }
@@ -14313,6 +14907,7 @@ export const ProfileFollowModuleDocument = gql`
       }
     }
   }
+  ${Erc20FieldsFragmentDoc}
 `
 
 /**
