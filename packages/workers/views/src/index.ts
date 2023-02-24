@@ -31,7 +31,7 @@ const handleRequest = async (request: Request, env: Env) => {
     }
 
     const data = await fetch(
-      `https://livepeer.studio/api/asset?sourceUrl=${payload.sourceUrl}&phase=ready&limit=1`,
+      `https://livepeer.studio/api/asset?sourceUrl=${payload.sourceUrl}&phase=ready&limit=1&order=createdAt-false`,
       {
         headers: {
           Authorization: `Bearer ${env.LIVEPEER_API_TOKEN}`
