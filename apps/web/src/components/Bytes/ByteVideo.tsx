@@ -49,7 +49,6 @@ const ByteVideo: FC<Props> = ({
       intersectionCallback(data[0].target.id)
       const nextUrl = `${location.origin}/bytes/${video?.id}`
       history.replaceState({ path: nextUrl }, '', nextUrl)
-      playVideo()
     }
   })
 
@@ -64,6 +63,7 @@ const ByteVideo: FC<Props> = ({
     if (!videoRef.current) {
       return
     }
+    videoRef.current.volume = 0
     videoRef.current?.pause()
     videoRef.current.autoplay = false
   }
