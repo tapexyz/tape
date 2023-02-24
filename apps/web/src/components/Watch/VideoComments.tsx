@@ -104,9 +104,9 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
           </span>
         </Alert>
       ) : null}
-      {data?.publications?.items.length === 0 && (
+      {comments.length === 0 && queuedComments.length === 0 ? (
         <NoDataFound text="Be the first to comment." withImage isCenter />
-      )}
+      ) : null}
       {!error && (queuedComments.length || comments.length) ? (
         <>
           <div className="space-y-4 pt-5">
