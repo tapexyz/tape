@@ -104,7 +104,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
           </span>
         </Alert>
       ) : null}
-      {comments.length === 0 && queuedComments.length === 0 ? (
+      {!comments.length && !queuedComments.length ? (
         <NoDataFound text="Be the first to comment." withImage isCenter />
       ) : null}
       {!error && (queuedComments.length || comments.length) ? (
