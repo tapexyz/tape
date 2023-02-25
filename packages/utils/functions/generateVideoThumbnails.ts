@@ -66,7 +66,8 @@ export const generateVideoThumbnail = (url: string): Promise<string> => {
       video.muted = true
       video.autoplay = true
       video.crossOrigin = 'anonymous'
-      video.onloadeddata = () => {
+      video.preload = 'auto'
+      video.onloadedmetadata = () => {
         const canvas = document.createElement('canvas')
         video.oncanplay = () => {
           setTimeout(() => {
