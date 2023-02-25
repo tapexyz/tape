@@ -64,6 +64,7 @@ export const generateVideoThumbnail = (url: string): Promise<string> => {
       video.src = url
       video.currentTime = 0.01
       video.muted = true
+      video.autoplay = true
       video.crossOrigin = 'anonymous'
       video.onloadeddata = () => {
         const canvas = document.createElement('canvas')
@@ -76,9 +77,6 @@ export const generateVideoThumbnail = (url: string): Promise<string> => {
             return resolve(canvas.toDataURL())
           }, 100)
         }
-      }
-      video.onerror = () => {
-        resolve(FALLBACK_COVER_URL)
       }
     } catch (error) {
       logger.error('[Error Generate Thumbnail From Video Url]', error)
