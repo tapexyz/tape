@@ -1,3 +1,4 @@
+import { FALLBACK_COVER_URL } from '../constants'
 import logger from '../logger'
 
 const canvasImageFromVideo = (
@@ -52,6 +53,34 @@ export const generateVideoThumbnails = (
     } catch (error) {
       logger.error('[Error Generate Video Thumbnails]', error)
       resolve([])
+    }
+  })
+}
+
+export const generateVideoThumbnail = (url: string): Promise<string> => {
+  return new Promise((resolve) => {
+    try {
+      const video = document.createElement('video')
+      video.src = url
+      video.currentTime = 5
+      video.muted = true
+      video.crossOrigin = 'anonymous'
+      video.onloadeddata = () => {
+        const canvas = document.createElement('canvas')
+        video.oncanplay = () => {
+          const ctx = canvas.getContext('2d')
+          canvas.width = video.videoWidth
+          canvas.height = video.videoHeight
+          ctx?.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
+          return resolve(canvas.toDataURL())
+        }
+      }
+      video.onerror = () => {
+        resolve(FALLBACK_COVER_URL)
+      }
+    } catch (error) {
+      logger.error('[Error Generate Thumbnail From Video Url]', error)
+      resolve(FALLBACK_COVER_URL)
     }
   })
 }

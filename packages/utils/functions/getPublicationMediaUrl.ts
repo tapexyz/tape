@@ -1,12 +1,12 @@
 import type { Publication } from 'lens'
 
-import { STATIC_ASSETS } from '../constants'
+import { FALLBACK_COVER_URL } from '../constants'
 import sanitizeDStorageUrl from './sanitizeDStorageUrl'
 
 export const getPublicationMediaUrl = (video: Publication) => {
   const url = video?.metadata?.media[0]?.original.url
   if (!url) {
-    return `${STATIC_ASSETS}/images/fallbackThumbnail.png`
+    return FALLBACK_COVER_URL
   }
   return sanitizeDStorageUrl(url)
 }

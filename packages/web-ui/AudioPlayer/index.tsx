@@ -123,7 +123,7 @@ const AudioPlayer: FC<Props> = ({ selectedTrack }) => {
         <div className="flex">
           <div className="h-16 w-16 flex-none">
             <img
-              src={getThumbnailUrl(selectedTrack)}
+              src={getThumbnailUrl(selectedTrack, true)}
               width={500}
               height={500}
               className="h-full w-full"

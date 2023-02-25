@@ -9,7 +9,7 @@ const useAverageColor = (src: string, check: boolean) => {
   const [color, setColor] = useState('')
 
   const getColors = useCallback(async () => {
-    if (!check) {
+    if (!check || !src) {
       return
     }
     return fac

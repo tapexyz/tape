@@ -7,10 +7,18 @@ import type { Attribute, Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
+import {
+  Analytics,
+  FALLBACK_COVER_URL,
+  LENSTUBE_BYTES_APP_ID,
+  STATIC_ASSETS,
+  TRACK
+} from 'utils'
 import { getRelativeTime, getTimeFromSeconds } from 'utils/functions/formatTime'
+import { generateVideoThumbnail } from 'utils/functions/generateVideoThumbnails'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
+import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import useAverageColor from 'utils/hooks/useAverageColor'
@@ -25,12 +33,10 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
 
   const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
-  const thumbnailUrl = imageCdn(
-    isSensitiveContent
-      ? `${STATIC_ASSETS}/images/sensor-blur.png`
-      : getThumbnailUrl(video),
-    isBytesVideo ? 'thumbnail_v' : 'thumbnail'
-  )
+  const thumbnailUrl = isSensitiveContent
+    ? `${STATIC_ASSETS}/images/sensor-blur.png`
+    : getThumbnailUrl(video)
+
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
   const videoDuration = getValueFromTraitType(
     video.metadata?.attributes as Attribute[],
@@ -60,10 +66,25 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
                   'h-20 w-36 bg-gray-300 object-center dark:bg-gray-700',
                   isBytesVideo ? 'object-contain' : 'object-cover'
                 )}
-                src={thumbnailUrl}
+                src={
+                  thumbnailUrl
+                    ? imageCdn(
+                        thumbnailUrl,
+                        isBytesVideo ? 'thumbnail_v' : 'thumbnail'
+                      )
+                    : ''
+                }
                 style={{ backgroundColor: `${backgroundColor}95` }}
                 alt="thumbnail"
                 draggable={false}
+                onError={async ({ currentTarget }) => {
+                  currentTarget.src = FALLBACK_COVER_URL
+                  const thumbnail = await generateVideoThumbnail(
+                    getPublicationMediaUrl(video)
+                  )
+                  currentTarget.onerror = null
+                  currentTarget.src = thumbnail
+                }}
               />
               {!isSensitiveContent && videoDuration ? (
                 <div>

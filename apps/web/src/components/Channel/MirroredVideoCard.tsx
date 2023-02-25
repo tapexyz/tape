@@ -1,19 +1,16 @@
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import IsVerified from '@components/Common/IsVerified'
-import clsx from 'clsx'
+import ThumbnailImage from '@components/Common/VideoCard/ThumbnailImage'
 import type { Attribute, Mirror, Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
+import { Analytics, TRACK } from 'utils'
 import { getRelativeTime, getTimeFromSeconds } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import getLensHandle from 'utils/functions/getLensHandle'
 import getProfilePicture from 'utils/functions/getProfilePicture'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
-import useAverageColor from 'utils/hooks/useAverageColor'
 
 type Props = {
   video: Mirror
@@ -27,15 +24,6 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
     'durationInSeconds'
   )
 
-  const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
-  const thumbnailUrl = imageCdn(
-    isSensitiveContent
-      ? `${STATIC_ASSETS}/images/sensor-blur.png`
-      : getThumbnailUrl(video),
-    isBytesVideo ? 'thumbnail_v' : 'thumbnail'
-  )
-  const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
-
   return (
     <div
       onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
@@ -43,18 +31,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
     >
       <Link href={`/watch/${mirrorOf.id}`}>
         <div className="aspect-w-16 aspect-h-8 relative rounded-xl">
-          <img
-            src={thumbnailUrl}
-            className={clsx(
-              'h-full w-full bg-gray-100 object-center dark:bg-gray-900 md:rounded-xl lg:h-full lg:w-full',
-              isBytesVideo ? 'object-contain' : 'object-cover'
-            )}
-            style={{
-              backgroundColor: backgroundColor && `${backgroundColor}95`
-            }}
-            alt="thumbnail"
-            draggable={false}
-          />
+          <ThumbnailImage video={mirrorOf} />
           {isSensitiveContent && (
             <div className="absolute top-2 left-3">
               <span className="rounded-full bg-white py-0.5 px-2 text-[10px] text-black">
