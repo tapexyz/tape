@@ -62,17 +62,19 @@ export const generateVideoThumbnail = (url: string): Promise<string> => {
     try {
       const video = document.createElement('video')
       video.src = url
-      video.currentTime = 5
+      video.currentTime = 0.01
       video.muted = true
       video.crossOrigin = 'anonymous'
       video.onloadeddata = () => {
         const canvas = document.createElement('canvas')
         video.oncanplay = () => {
-          const ctx = canvas.getContext('2d')
-          canvas.width = video.videoWidth
-          canvas.height = video.videoHeight
-          ctx?.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
-          return resolve(canvas.toDataURL())
+          setTimeout(() => {
+            const ctx = canvas.getContext('2d')
+            canvas.width = video.videoWidth
+            canvas.height = video.videoHeight
+            ctx?.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
+            return resolve(canvas.toDataURL())
+          }, 100)
         }
       }
       video.onerror = () => {
