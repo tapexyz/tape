@@ -90,10 +90,11 @@ const FeeCollectForm: FC<Props> = ({
 
   const validateInputs = (data: FormData) => {
     const amount = Number(data.amount)
+    const collectLimit = Number(data.collectLimit)
     if (amount === 0) {
       return setError('amount', { message: 'Amount should be greater than 0' })
     }
-    if (Number(data.collectLimit) === 0) {
+    if (collectLimit === 0) {
       return setError('collectLimit', {
         message: 'Collect limit should be greater than 0'
       })
@@ -121,7 +122,8 @@ const FeeCollectForm: FC<Props> = ({
     ) {
       return toast.error('Sum of all splits should be 100%')
     }
-
+    data.collectLimit = String(collectLimit)
+    data.amount = String(amount)
     onSubmit(data)
   }
 
