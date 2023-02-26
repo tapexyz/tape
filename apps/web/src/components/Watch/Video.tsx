@@ -29,9 +29,16 @@ const Video: FC<Props> = ({ video }) => {
   const videoWatchTime = useAppStore((state) => state.videoWatchTime)
   const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
 
+  const refCallback = (ref: HTMLMediaElement) => {
+    if (ref) {
+      ref.autoplay = true
+    }
+  }
+
   return (
     <div className="overflow-hidden">
       <VideoPlayer
+        refCallback={refCallback}
         currentTime={videoWatchTime}
         permanentUrl={getPublicationMediaUrl(video)}
         posterUrl={imageCdn(
@@ -57,4 +64,4 @@ const Video: FC<Props> = ({ video }) => {
   )
 }
 
-export default Video
+export default React.memo(Video)
