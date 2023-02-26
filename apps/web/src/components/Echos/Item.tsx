@@ -24,7 +24,7 @@ const Item: FC<Props> = ({ publication }) => {
     <div className="flex h-full w-full flex-col rounded-xl bg-white p-2 dark:bg-gray-900 md:w-[220px]">
       <div className="group relative flex justify-center">
         <img
-          src={imageCdn(getThumbnailUrl(publication), 'square')}
+          src={imageCdn(getThumbnailUrl(publication, true), 'square')}
           className="w-full rounded-lg object-cover transition duration-300 ease-in-out group-hover:scale-105 md:h-[220px]"
           alt={publication?.metadata?.name ?? 'cover'}
         />
