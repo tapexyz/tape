@@ -30,11 +30,10 @@ const Video: FC<Props> = ({ video }) => {
   const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
 
   const refCallback = (ref: HTMLMediaElement) => {
-    if (!ref) {
-      return
-    }
-    ref.onloadedmetadata = () => {
-      ref.play().catch(() => {})
+    if (ref && ref?.paused) {
+      ref.onloadedmetadata = () => {
+        ref.play().catch(() => {})
+      }
     }
   }
 
