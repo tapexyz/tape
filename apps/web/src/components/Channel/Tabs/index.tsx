@@ -40,10 +40,8 @@ const Tabs: FC<Props> = ({ channel }) => {
         return 4
       case 'channels':
         return 5
-      case 'stats':
-        return 6
       case 'about':
-        return 7
+        return 6
       default:
         return 0
     }

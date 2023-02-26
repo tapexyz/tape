@@ -34,7 +34,6 @@ const ChannelShimmer = () => {
           <div className="h-8 w-24 flex-none rounded-full bg-gray-300 dark:bg-gray-700" />
           <div className="h-8 w-24 flex-none rounded-full bg-gray-300 dark:bg-gray-700" />
           <div className="h-8 w-24 flex-none rounded-full bg-gray-300 dark:bg-gray-700" />
-          <div className="h-8 w-24 flex-none rounded-full bg-gray-300 dark:bg-gray-700" />
         </div>
         <PinnedVideoShimmer />
         <TimelineShimmer />
