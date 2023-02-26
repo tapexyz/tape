@@ -30,10 +30,8 @@ const Video: FC<Props> = ({ video }) => {
   const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
 
   const refCallback = (ref: HTMLMediaElement) => {
-    if (ref && ref?.paused) {
-      ref.onloadedmetadata = () => {
-        ref.play().catch(() => {})
-      }
+    if (ref) {
+      ref.autoplay = true
     }
   }
 
@@ -66,4 +64,4 @@ const Video: FC<Props> = ({ video }) => {
   )
 }
 
-export default Video
+export default React.memo(Video)
