@@ -185,6 +185,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
                 {
                   'ring !ring-indigo-500':
                     thumbnail.ipfsUrl &&
+                    selectedThumbnailIndex === idx &&
                     thumbnail.ipfsUrl === uploadedVideo.thumbnail,
                   'ring !ring-red-500': thumbnail.isNSFWThumbnail
                 }
