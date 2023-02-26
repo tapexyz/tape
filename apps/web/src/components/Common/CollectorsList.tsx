@@ -6,13 +6,13 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import { BiUser } from 'react-icons/bi'
 import { formatNumber } from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
 import imageCdn from 'utils/functions/imageCdn'
 import { shortenAddress } from 'utils/functions/shortenAddress'
 
+import UserOutline from './Icons/UserOutline'
 import IsVerified from './IsVerified'
 import AddressExplorerLink from './Links/AddressExplorerLink'
 
@@ -77,7 +77,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
                 </div>
               </div>
               <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
-                <BiUser />
+                <UserOutline className="h-2.5 w-2.5 opacity-60" />
                 <span>
                   {formatNumber(wallet.defaultProfile.stats.totalFollowers)}
                 </span>

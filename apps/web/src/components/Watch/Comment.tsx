@@ -1,5 +1,7 @@
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
+import HeartOutline from '@components/Common/Icons/HeartOutline'
+import PlayOutline from '@components/Common/Icons/PlayOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
@@ -12,7 +14,6 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { AiFillHeart, AiOutlinePlayCircle } from 'react-icons/ai'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import {
   checkValueInAttributes,
@@ -34,7 +35,7 @@ const VideoComment: FC<Props> = ({ comment }) => {
         href={`/watch/${comment.id}`}
         className="flex items-center space-x-2.5"
       >
-        <AiOutlinePlayCircle className="h-5 w-5" />
+        <PlayOutline className="h-4 w-4" />
         <span>Watch Video</span>
       </Link>
     </div>
@@ -72,7 +73,7 @@ const Comment: FC<Props> = ({ comment }) => {
           />
         </Link>
         <div className="mr-2 flex flex-col items-start">
-          <span className="mb-1 flex items-center space-x-1">
+          <span className="mb-1 flex items-center space-x-2">
             <Link
               href={`/channel/${comment.profile?.handle}`}
               className="flex items-center space-x-1 text-sm font-medium"
@@ -94,7 +95,7 @@ const Comment: FC<Props> = ({ comment }) => {
                       ) || ''
                     }
                   >
-                    <AiFillHeart className="text-sm text-pink-500" />
+                    <HeartOutline className="h-3 w-3 text-red-500" />
                   </HashExplorerLink>
                 </span>
               </Tooltip>

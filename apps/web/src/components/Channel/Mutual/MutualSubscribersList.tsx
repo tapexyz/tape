@@ -1,3 +1,4 @@
+import UserOutline from '@components/Common/Icons/UserOutline'
 import IsVerified from '@components/Common/IsVerified'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -8,7 +9,6 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import { BiUser } from 'react-icons/bi'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 type Props = {
   viewingChannelId: string
@@ -77,7 +77,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
             </div>
           </div>
           <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
-            <BiUser />
+            <UserOutline className="h-2.5 w-2.5 opacity-60" />
             <span>{channel.stats.totalFollowers}</span>
           </div>
         </Link>

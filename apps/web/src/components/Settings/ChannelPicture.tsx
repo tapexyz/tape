@@ -1,4 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
+import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
@@ -16,7 +17,6 @@ import {
 import type { ChangeEvent, FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { RiImageAddLine } from 'react-icons/ri'
 import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
 import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
@@ -170,7 +170,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         {loading && !pfpData?.hash ? (
           <Loader />
         ) : (
-          <RiImageAddLine className="text-xl" />
+          <AddImageOutline className="h-5 w-5" />
         )}
         <input
           id="choosePfp"

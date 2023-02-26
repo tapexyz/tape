@@ -2,7 +2,6 @@ import BytesOutline from '@components/Common/Icons/BytesOutline'
 import ChannelOutline from '@components/Common/Icons/ChannelOutline'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
-import GraphOutline from '@components/Common/Icons/GraphOutline'
 import InfoOutline from '@components/Common/Icons/InfoOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import { Tab } from '@headlessui/react'
@@ -16,7 +15,6 @@ import { Analytics, TRACK } from 'utils'
 import VideoOutline from '../../Common/Icons/VideoOutline'
 import About from './About'
 import ChannelBytes from './ChannelBytes'
-import ChannelStats from './ChannelStats'
 import ChannelVideos from './ChannelVideos'
 import CollectedNFTs from './CollectedNFTs'
 import CommentedVideos from './CommentedVideos'
@@ -42,10 +40,8 @@ const Tabs: FC<Props> = ({ channel }) => {
         return 4
       case 'channels':
         return 5
-      case 'stats':
-        return 6
       case 'about':
-        return 7
+        return 6
       default:
         return 0
     }
@@ -168,23 +164,6 @@ const Tabs: FC<Props> = ({ channel }) => {
         </Tab>
         <Tab
           onClick={() => {
-            handleTabChange('stats')
-            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_STATS)
-          }}
-          className={({ selected }) =>
-            clsx(
-              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
-              selected
-                ? 'bg-gray-200 dark:bg-gray-700'
-                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
-            )
-          }
-        >
-          <GraphOutline className="h-4 w-4" />
-          <span>Stats</span>
-        </Tab>
-        <Tab
-          onClick={() => {
             handleTabChange('about')
             Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_ABOUT)
           }}
@@ -219,9 +198,6 @@ const Tabs: FC<Props> = ({ channel }) => {
         </Tab.Panel>
         <Tab.Panel className="focus:outline-none">
           <OtherChannels channel={channel} />
-        </Tab.Panel>
-        <Tab.Panel className="focus:outline-none">
-          <ChannelStats channel={channel} />
         </Tab.Panel>
         <Tab.Panel className="focus:outline-none">
           <About channel={channel} />

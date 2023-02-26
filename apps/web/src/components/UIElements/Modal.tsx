@@ -1,8 +1,8 @@
+import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { Dialog, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { Fragment } from 'react'
-import { MdOutlineClose } from 'react-icons/md'
 
 type Props = {
   show: boolean
@@ -62,10 +62,10 @@ const Modal: FC<Props> = ({
                     {onClose && (
                       <button
                         type="button"
-                        className="rounded-md bg-gray-100 p-1 focus:outline-none dark:bg-gray-900"
+                        className="opacity-70 focus:outline-none"
                         onClick={() => onClose?.()}
                       >
-                        <MdOutlineClose />
+                        <TimesOutline className="h-4 w-4" />
                       </button>
                     )}
                   </div>

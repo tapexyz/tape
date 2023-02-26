@@ -1,4 +1,6 @@
 import Alert from '@components/Common/Alert'
+import BytesOutline from '@components/Common/Icons/BytesOutline'
+import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { Button } from '@components/UIElements/Button'
 import InputMentions from '@components/UIElements/InputMentions'
 import RadioInput from '@components/UIElements/RadioInput'
@@ -8,8 +10,6 @@ import clsx from 'clsx'
 import type { FC, ReactNode } from 'react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { AiFillCloseCircle } from 'react-icons/ai'
-import { MdOutlineSlowMotionVideo } from 'react-icons/md'
 import { Analytics, TRACK } from 'utils'
 import { z } from 'zod'
 
@@ -22,7 +22,7 @@ const ContentAlert = ({ message }: { message: ReactNode }) => (
   <div className="mt-6">
     <Alert variant="danger">
       <span className="inline-flex items-center text-sm">
-        <AiFillCloseCircle className="mr-3 text-xl text-red-500" />
+        <TimesOutline className="mr-3 h-5 w-5 text-red-500" />
         {message}
       </span>
     </Alert>
@@ -125,7 +125,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 </span>
               </div>
               <div className="mt-2 flex items-center space-x-1.5 rounded-full bg-gradient-to-br from-orange-200 to-orange-100 px-3 py-1 text-sm font-medium text-black text-opacity-80">
-                <MdOutlineSlowMotionVideo className="flex-none text-base" />
+                <BytesOutline className="h-4 w-4 flex-none" />
                 <span>
                   Using
                   <button

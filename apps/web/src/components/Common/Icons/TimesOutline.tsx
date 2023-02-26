@@ -5,7 +5,7 @@ const TimesOutline = ({
   outline = true,
   ...props
 }: SVGProps<SVGSVGElement> & {
-  outline: boolean
+  outline?: boolean
 }) => (
   <svg
     {...props}

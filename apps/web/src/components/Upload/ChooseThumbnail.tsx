@@ -1,3 +1,4 @@
+import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
@@ -6,7 +7,7 @@ import clsx from 'clsx'
 import * as nsfwjs from 'nsfwjs'
 import type { ChangeEvent, FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { BiImageAdd } from 'react-icons/bi'
+import { toast } from 'react-hot-toast'
 import type { IPFSUploadResult } from 'utils'
 import { IS_MAINNET } from 'utils'
 import { generateVideoThumbnails } from 'utils/functions/generateVideoThumbnails'
@@ -110,6 +111,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       setSelectedThumbnailIndex(-1)
+      toast.loading('Uploading thumbnail')
       const result = await uploadThumbnailToIpfs(e.target.files[0])
       const preview = window.URL?.createObjectURL(e.target.files[0])
       const isNSFWThumbnail = await checkNsfw(preview)
@@ -165,8 +167,8 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
             className="hidden w-full"
             onChange={handleUpload}
           />
-          <BiImageAdd className="mb-1 flex-none text-lg" />
-          <span className="text-[10px]">Upload thumbnail</span>
+          <AddImageOutline className="mb-1 h-4 w-4 flex-none" />
+          <span className="text-xs">Upload</span>
         </label>
         {!thumbnails.length && uploadedVideo.file?.size && (
           <ThumbnailsShimmer />
@@ -176,15 +178,15 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
             <button
               key={idx}
               type="button"
-              disabled={
-                uploadedVideo.uploadingThumbnail &&
-                selectedThumbnailIndex === idx
-              }
+              disabled={uploadedVideo.uploadingThumbnail}
               onClick={() => onSelectThumbnail(idx)}
               className={clsx(
-                'relative w-full flex-none rounded-lg focus:outline-none',
+                'relative w-full flex-none overflow-hidden rounded-lg ring ring-transparent focus:outline-none',
                 {
-                  'ring ring-indigo-500': selectedThumbnailIndex === idx,
+                  'ring !ring-indigo-500':
+                    thumbnail.ipfsUrl &&
+                    selectedThumbnailIndex === idx &&
+                    thumbnail.ipfsUrl === uploadedVideo.thumbnail,
                   'ring !ring-red-500': thumbnail.isNSFWThumbnail
                 }
               )}
@@ -197,10 +199,8 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
               />
               {uploadedVideo.uploadingThumbnail &&
                 selectedThumbnailIndex === idx && (
-                  <div className="absolute top-1 right-1">
-                    <span>
-                      <Loader size="sm" />
-                    </span>
+                  <div className="absolute inset-0 grid place-items-center bg-gray-100 bg-opacity-10 backdrop-blur-md">
+                    <Loader size="sm" />
                   </div>
                 )}
             </button>
