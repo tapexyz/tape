@@ -3,9 +3,10 @@ import Tooltip from '@components/UIElements/Tooltip'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { FiCode } from 'react-icons/fi'
 import { Analytics, LENSTUBE_EMBED_URL, TRACK } from 'utils'
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
+
+import CodeOutline from './Icons/CodeOutline'
 
 type Props = {
   videoId: string
@@ -72,9 +73,9 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
         <button
           type="button"
           onClick={() => openModal()}
-          className="rounded-full bg-purple-200 p-3 dark:bg-purple-800"
+          className="rounded-full bg-purple-200 p-2.5 dark:bg-purple-800"
         >
-          <FiCode className="text-lg" />
+          <CodeOutline className="h-5 w-5" />
         </button>
       </Tooltip>
     </div>

@@ -2,10 +2,10 @@ import type { Profile } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { BiUser } from 'react-icons/bi'
 import { formatNumber } from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
+import UserOutline from '../Icons/UserOutline'
 import IsVerified from '../IsVerified'
 
 interface Props {
@@ -46,7 +46,7 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
                 </div>
               </div>
               <span className="inline-flex items-center space-x-1 whitespace-nowrap text-xs opacity-60">
-                <BiUser />
+                <UserOutline className="h-2.5 w-2.5" />
                 <span>{formatNumber(channel.stats.totalFollowers)}</span>
               </span>
             </span>

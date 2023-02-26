@@ -1,3 +1,7 @@
+import GlobeOutline from '@components/Common/Icons/GlobeOutline'
+import HashtagOutline from '@components/Common/Icons/HashtagOutline'
+import LocationOutline from '@components/Common/Icons/LocationOutline'
+import WalletOutline from '@components/Common/Icons/WalletOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -5,9 +9,6 @@ import type { Attribute, Profile } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { AiOutlineNumber } from 'react-icons/ai'
-import { HiOutlineGlobe, HiOutlineLocationMarker } from 'react-icons/hi'
-import { RiShieldKeyholeLine, RiTwitterLine } from 'react-icons/ri'
 import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from 'utils'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 import { shortenAddress } from 'utils/functions/shortenAddress'
@@ -87,8 +88,8 @@ const About: FC<Props> = ({ channel }) => {
         <h6 className="text-xs font-semibold uppercase opacity-50">Links</h6>
         <div className="space-y-1.5">
           {getValueFromKeyInAttributes(attributes, 'website') && (
-            <div className="flex items-center space-x-1">
-              <HiOutlineGlobe />
+            <div className="flex items-center space-x-1.5">
+              <GlobeOutline className="h-4 w-4" />
               <Link
                 href={`https://${getValueFromKeyInAttributes(
                   attributes,
@@ -107,8 +108,13 @@ const About: FC<Props> = ({ channel }) => {
             </div>
           )}
           {getValueFromKeyInAttributes(attributes, 'twitter') && (
-            <div className="flex items-center space-x-1">
-              <RiTwitterLine />
+            <div className="flex items-center space-x-1.5">
+              <img
+                src={`${STATIC_ASSETS}/images/social/twitter.svg`}
+                alt="twitter"
+                className="h-4 w-4"
+                draggable={false}
+              />
               <Link
                 href={`https://twitter.com/${getValueFromKeyInAttributes(
                   attributes,
@@ -125,12 +131,12 @@ const About: FC<Props> = ({ channel }) => {
               </Link>
             </div>
           )}
-          <div className="flex items-center space-x-1">
-            <span className="pr-0.5 grayscale" role="img">
+          <div className="flex items-center space-x-1.5">
+            <span className="grayscale" role="img">
               <img
                 src={`${STATIC_ASSETS}/images/lenster-logo.svg`}
                 alt="lenster"
-                className="h-3.5 w-3.5"
+                className="h-4 w-4"
                 draggable={false}
               />
             </span>
@@ -149,23 +155,24 @@ const About: FC<Props> = ({ channel }) => {
         <h6 className="text-xs font-semibold uppercase opacity-50">Others</h6>
         <div className="space-y-1.5">
           {getValueFromKeyInAttributes(attributes, 'location') && (
-            <div className="flex items-center space-x-1">
-              <HiOutlineLocationMarker />
+            <div className="flex items-center space-x-1.5">
+              <LocationOutline className="h-4 w-4" />
               <span>{getValueFromKeyInAttributes(attributes, 'location')}</span>
             </div>
           )}
-          <div className="flex items-center space-x-1">
-            <AiOutlineNumber />
-            <Tooltip content={`ID - ${parseInt(channel.id)}`} placement="right">
+          <div className="flex items-center space-x-1.5">
+            <HashtagOutline className="h-4 w-4" />
+            <Tooltip
+              content={`Profile Id - ${parseInt(channel.id)}`}
+              placement="right"
+            >
               <span>{channel.id}</span>
             </Tooltip>
           </div>
-          <div className="flex items-center space-x-1">
-            <RiShieldKeyholeLine />
+          <div className="flex items-center space-x-1.5">
+            <WalletOutline className="h-4 w-4" />
             <AddressExplorerLink address={channel.ownedBy}>
-              <Tooltip content="Owner address" placement="right">
-                <span>{shortenAddress(channel.ownedBy)}</span>
-              </Tooltip>
+              <span>{shortenAddress(channel.ownedBy)}</span>
             </AddressExplorerLink>
           </div>
         </div>

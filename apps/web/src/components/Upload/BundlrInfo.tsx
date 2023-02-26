@@ -1,6 +1,7 @@
 import type { WebBundlr } from '@bundlr-network/client'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
+import RefreshOutline from '@components/Common/Icons/RefreshOutline'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -8,7 +9,6 @@ import useAppStore from '@lib/store'
 import { utils } from 'ethers'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { MdRefresh } from 'react-icons/md'
 import type { CustomErrorWithData } from 'utils'
 import {
   Analytics,
@@ -141,7 +141,7 @@ const BundlrInfo = () => {
   return (
     <div className="mt-4 w-full space-y-2">
       <div className="flex flex-col">
-        <div className="inline-flex items-center justify-between rounded text-xs font-semibold opacity-70">
+        <div className="inline-flex items-center justify-between rounded text-sm font-medium opacity-80">
           <span className="flex items-center space-x-1.5">
             <span>Your Storage Balance</span>
             <Tooltip content="Refresh balance" placement="top">
@@ -150,7 +150,7 @@ const BundlrInfo = () => {
                 className="focus:outline-none"
                 onClick={() => fetchBalance()}
               >
-                <MdRefresh className="text-sm" />
+                <RefreshOutline className="h-3 w-3" />
               </button>
             </Tooltip>
           </span>
@@ -177,7 +177,7 @@ const BundlrInfo = () => {
       </div>
       {bundlrData.showDeposit && (
         <div>
-          <div className="inline-flex flex-col text-xs font-medium opacity-70">
+          <div className="mb-2 inline-flex flex-col text-sm font-medium opacity-80">
             Amount to deposit (MATIC)
           </div>
           <div className="flex items-center space-x-2">
@@ -204,7 +204,7 @@ const BundlrInfo = () => {
         </div>
       )}
       <div>
-        <span className="inline-flex flex-col text-xs font-semibold opacity-70">
+        <span className="inline-flex flex-col text-sm font-medium opacity-80">
           Estimated Cost to Upload
         </span>
         <div className="text-lg font-medium">{bundlrData.estimatedPrice}</div>

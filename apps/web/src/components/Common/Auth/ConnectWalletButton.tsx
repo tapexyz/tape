@@ -5,11 +5,11 @@ import usePersistStore from '@lib/store/persist'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import React from 'react'
 import toast from 'react-hot-toast'
-import { AiOutlineDisconnect } from 'react-icons/ai'
 import type { CustomErrorWithData } from 'utils'
 import { Analytics, POLYGON_CHAIN_ID, TRACK } from 'utils'
 import { useAccount, useDisconnect, useNetwork, useSwitchNetwork } from 'wagmi'
 
+import DisconnectOutline from '../Icons/DisconnectOutline'
 import UserMenu from '../UserMenu'
 
 type Props = {
@@ -55,7 +55,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
               className="btn-danger p-2 md:p-2.5"
               onClick={() => disconnect?.()}
             >
-              <AiOutlineDisconnect className="text-lg" />
+              <DisconnectOutline className="h-4 w-4" />
             </button>
           </Tooltip>
         </div>

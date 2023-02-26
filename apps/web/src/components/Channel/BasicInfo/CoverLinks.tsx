@@ -1,9 +1,8 @@
+import GlobeOutline from '@components/Common/Icons/GlobeOutline'
 import type { Profile } from 'lens'
 import Link from 'next/link'
 import React from 'react'
-import { HiOutlineGlobe } from 'react-icons/hi'
-import { RiTwitterLine } from 'react-icons/ri'
-import { Analytics, TRACK } from 'utils'
+import { Analytics, STATIC_ASSETS, TRACK } from 'utils'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 
 const CoverLinks = ({ channel }: { channel: Profile }) => {
@@ -25,7 +24,7 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
             rel="noreferer noreferrer"
             className="rounded-lg bg-white bg-opacity-80 p-2 dark:bg-gray-900"
           >
-            <HiOutlineGlobe />
+            <GlobeOutline className="h-4 w-4" />
           </Link>
         )}
         {getValueFromKeyInAttributes(channel.attributes, 'twitter') && (
@@ -41,7 +40,12 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
             rel="noreferer noreferrer"
             className="rounded-lg bg-white bg-opacity-80 p-2 dark:bg-gray-900"
           >
-            <RiTwitterLine />
+            <img
+              src={`${STATIC_ASSETS}/images/social/twitter.svg`}
+              alt="twitter"
+              className="h-4 w-4"
+              draggable={false}
+            />
           </Link>
         )}
       </div>

@@ -5,14 +5,6 @@ import type { GlobalProtocolStats } from 'lens'
 import { useGlobalProtocolStatsQuery } from 'lens'
 import dynamic from 'next/dynamic'
 import React from 'react'
-import {
-  FcCollect,
-  FcComments,
-  FcLikePlaceholder,
-  FcSynchronize,
-  FcTabletAndroid,
-  FcVideoCall
-} from 'react-icons/fc'
 import { ADMIN_IDS, LENSTUBE_APP_ID } from 'utils'
 import useIsMounted from 'utils/hooks/useIsMounted'
 
@@ -48,36 +40,12 @@ const Stats = () => {
         <>
           <Deployment />
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-            <StatCard
-              icon={<FcVideoCall />}
-              count={stats?.totalPosts}
-              text="total videos"
-            />
-            <StatCard
-              icon={<FcComments />}
-              count={stats?.totalComments}
-              text="total comments"
-            />
-            <StatCard
-              icon={<FcSynchronize />}
-              count={stats?.totalMirrors}
-              text="total mirrors"
-            />
-            <StatCard
-              icon={<FcTabletAndroid />}
-              count={bytesStats?.totalPosts}
-              text="total bytes"
-            />
-            <StatCard
-              icon={<FcLikePlaceholder />}
-              count={stats?.totalFollows}
-              text="total subscriptions"
-            />
-            <StatCard
-              icon={<FcCollect />}
-              count={stats?.totalCollects}
-              text="total collects"
-            />
+            <StatCard count={stats?.totalPosts} text="total videos" />
+            <StatCard count={stats?.totalComments} text="total comments" />
+            <StatCard count={stats?.totalMirrors} text="total mirrors" />
+            <StatCard count={bytesStats?.totalPosts} text="total bytes" />
+            <StatCard count={stats?.totalFollows} text="total subscriptions" />
+            <StatCard count={stats?.totalCollects} text="total collects" />
           </div>
         </>
       )}
