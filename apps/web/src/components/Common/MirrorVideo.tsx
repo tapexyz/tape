@@ -93,6 +93,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
         referenceModuleInitData
       } = typedData?.value
       try {
+        toast.loading('Requesting signature...')
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),

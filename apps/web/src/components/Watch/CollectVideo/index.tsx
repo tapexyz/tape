@@ -93,6 +93,7 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
       const { typedData, id } =
         createCollectTypedData as CreateCollectBroadcastItemResult
       try {
+        toast.loading('Requesting signature...')
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),

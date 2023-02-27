@@ -93,6 +93,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     async onCompleted({ createFollowTypedData }) {
       const { typedData, id } = createFollowTypedData
       try {
+        toast.loading('Requesting signature...')
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),

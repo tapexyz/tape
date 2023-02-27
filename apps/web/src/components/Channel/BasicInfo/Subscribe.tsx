@@ -78,6 +78,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
       const { typedData, id } =
         createFollowTypedData as CreateFollowBroadcastItemResult
       try {
+        toast.loading('Requesting signature...')
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),

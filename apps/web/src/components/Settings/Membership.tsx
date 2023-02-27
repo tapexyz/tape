@@ -131,6 +131,7 @@ const Membership = ({ channel }: Props) => {
         const { profileId, followModule, followModuleInitData } =
           typedData?.value
         try {
+          toast.loading('Requesting signature...')
           const signature = await signTypedDataAsync({
             domain: omitKey(typedData?.domain, '__typename'),
             types: omitKey(typedData?.types, '__typename'),

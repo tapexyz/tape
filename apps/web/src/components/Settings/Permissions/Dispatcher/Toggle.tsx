@@ -81,6 +81,7 @@ const Toggle = () => {
         createSetDispatcherTypedData as CreateSetDispatcherBroadcastItemResult
       const { deadline } = typedData?.value
       try {
+        toast.loading('Requesting signature...')
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),
