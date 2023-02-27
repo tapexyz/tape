@@ -153,7 +153,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
               </span>
               <div className="p-1">
                 <Tooltip content="Indexing" placement="top">
-                  <span className="flex h-2 w-2 items-center justify-center">
+                  <span className="relative flex h-2 w-2 items-center justify-center">
                     <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-indigo-400 opacity-75" />
                     <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-indigo-500" />
                   </span>
