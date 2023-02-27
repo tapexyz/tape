@@ -126,7 +126,17 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
   const collectNow = () => {
     setShowCollectModal(false)
     setLoading(true)
-    if (!isFreeCollect) {
+    if (isFreeCollect && !collectModule?.followerOnly) {
+      Analytics.track(TRACK.COLLECT.FREE)
+      // Using proxyAction to free collect without signing
+      createProxyActionFreeCollect({
+        variables: {
+          request: {
+            collect: { freeCollect: { publicationId: video?.id } }
+          }
+        }
+      })
+    } else {
       Analytics.track(TRACK.COLLECT.FEE)
       return createCollectTypedData({
         variables: {
@@ -135,15 +145,6 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
         }
       })
     }
-    Analytics.track(TRACK.COLLECT.FREE)
-    // Using proxyAction to free collect without signing
-    createProxyActionFreeCollect({
-      variables: {
-        request: {
-          collect: { freeCollect: { publicationId: video?.id } }
-        }
-      }
-    })
   }
 
   const onClickCollect = () => {
