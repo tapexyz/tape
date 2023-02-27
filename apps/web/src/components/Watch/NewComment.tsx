@@ -152,6 +152,7 @@ const NewComment: FC<Props> = ({ video }) => {
         referenceModuleInitData
       } = typedData?.value
       try {
+        toast.loading('Requesting signature...')
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),

@@ -61,6 +61,7 @@ const DangerZone = () => {
       const { typedData } =
         data.createBurnProfileTypedData as CreateBurnProfileBroadcastItemResult
       try {
+        toast.loading('Requesting signature...')
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),

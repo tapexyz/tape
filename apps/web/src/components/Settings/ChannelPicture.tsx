@@ -84,6 +84,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         const { typedData, id } =
           createSetProfileImageURITypedData as CreateSetProfileImageUriBroadcastItemResult
         try {
+          toast.loading('Requesting signature...')
           const signature = await signTypedDataAsync({
             domain: omitKey(typedData?.domain, '__typename'),
             types: omitKey(typedData?.types, '__typename'),
