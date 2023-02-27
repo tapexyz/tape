@@ -49,9 +49,10 @@ const Video: FC<Props> = ({ video }) => {
 
   useEffect(() => {
     if (playerRef && clicked) {
+      playerRef.autoplay = true
       playerRef?.play().catch(() => {})
     }
-  }, [playerRef, clicked])
+  }, [playerRef, clicked, isAutoPlay])
 
   const onClickOverlay = () => {
     setClicked(true)
