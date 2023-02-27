@@ -123,13 +123,13 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
   const isFreeCollect =
     video.collectModule.__typename === 'FreeCollectModuleSettings'
 
-  const collectNow = () => {
+  const collectNow = async () => {
     setShowCollectModal(false)
     setLoading(true)
     if (isFreeCollect && !collectModule?.followerOnly) {
       Analytics.track(TRACK.COLLECT.FREE)
       // Using proxyAction to free collect without signing
-      createProxyActionFreeCollect({
+      await createProxyActionFreeCollect({
         variables: {
           request: {
             collect: { freeCollect: { publicationId: video?.id } }
@@ -138,7 +138,7 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
       })
     } else {
       Analytics.track(TRACK.COLLECT.FEE)
-      return createCollectTypedData({
+      await createCollectTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: { publicationId: video?.id }
