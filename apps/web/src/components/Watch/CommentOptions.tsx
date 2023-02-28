@@ -30,10 +30,10 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
       cache.gc()
     },
     onCompleted: () => {
+      toast.success('Comment deleted')
       Analytics.track(TRACK.PUBLICATION.DELETE, {
         publication_type: comment.__typename?.toLowerCase()
       })
-      toast.success('Comment deleted')
     }
   })
 
