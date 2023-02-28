@@ -10,8 +10,6 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import type { CollectModuleType, UploadedVideo } from 'utils'
 import { WMATIC_TOKEN_ADDRESS } from 'utils'
-import { FEATURE_FLAGS } from 'utils/data/feature-flags'
-import getIsFeatureEnabled from 'utils/functions/getIsFeatureEnabled'
 import { z } from 'zod'
 
 import Splits from './Splits'
@@ -203,10 +201,7 @@ const FeeCollectForm: FC<Props> = ({
           validationError={errors.referralPercent?.message}
         />
       </div>
-      {getIsFeatureEnabled(
-        FEATURE_FLAGS.MULTI_COLLECT_MODULE,
-        selectedChannel?.id
-      ) && <Splits />}
+      <Splits />
       <div className="flex justify-end pt-2">
         <Button type="button" onClick={() => handleSubmit(validateInputs)()}>
           Set Collect Type
