@@ -42,7 +42,10 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onSubscribe()
     toast.success(`Subscribed to ${channel.handle}`)
     setLoading(false)
-    Analytics.track(TRACK.SUBSCRIBE_CHANNEL)
+    Analytics.track(TRACK.CHANNEL.SUBSCRIBE, {
+      channel_id: channel.id,
+      channel_name: channel.handle
+    })
   }
 
   const { signTypedDataAsync } = useSignTypedData({

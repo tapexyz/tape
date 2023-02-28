@@ -14,6 +14,7 @@ import {
   PublicationContentWarning,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
+  ReferenceModules,
   useBroadcastMutation,
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
@@ -63,10 +64,18 @@ const UploadSteps = () => {
 
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
   const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)
-
   const { address } = useAccount()
   const { data: signer } = useSigner()
   const router = useRouter()
+
+  const degreesOfSeparation = uploadedVideo.referenceModule
+    ?.degreesOfSeparationReferenceModule?.degreesOfSeparation as number
+  const enabledReferenceModule = uploadedVideo.referenceModule
+    ?.degreesOfSeparationReferenceModule
+    ? ReferenceModules.DegreesOfSeparationReferenceModule
+    : uploadedVideo.referenceModule.degreesOfSeparationReferenceModule
+    ? ReferenceModules.FollowerOnlyReferenceModule
+    : null
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
     setQueuedVideos([
@@ -108,11 +117,21 @@ const UploadSteps = () => {
     ) {
       return logger.error('[Error Post Dispatcher]', data)
     }
-    Analytics.track(TRACK.UPLOADED_VIDEO, {
-      format: uploadedVideo.videoType
-    })
     const txnId = data?.createPostViaDispatcher?.txId ?? data?.broadcast?.txId
     setToQueue({ txnId })
+    Analytics.track(TRACK.PUBLICATION.NEW_POST, {
+      video_format: uploadedVideo.videoType,
+      video_type: uploadedVideo.isByteVideo ? 'SHORT_FORM' : 'LONG_FORM',
+      video_storage: uploadedVideo.isUploadToIpfs ? 'IPFS' : 'ARWEAVE',
+      publication_collect_module: Object.keys(
+        getCollectModule(uploadedVideo.collectModule)
+      )[0],
+      publication_reference_module: enabledReferenceModule,
+      publication_reference_module_degrees_of_separation: uploadedVideo
+        .referenceModule.degreesOfSeparationReferenceModule
+        ? degreesOfSeparation
+        : null
+    })
     return setUploadedVideo({
       buttonText: 'Post Video',
       loading: false
@@ -280,15 +299,11 @@ const UploadSteps = () => {
         loading: true,
         isByteVideo
       })
-      const isRestricted = Boolean(
-        uploadedVideo.referenceModule?.degreesOfSeparationReferenceModule
-          ?.degreesOfSeparation
-      )
+      const isRestricted = Boolean()
       const referenceModuleDegrees = {
         commentsRestricted: isRestricted,
         mirrorsRestricted: isRestricted,
-        degreesOfSeparation: uploadedVideo.referenceModule
-          ?.degreesOfSeparationReferenceModule?.degreesOfSeparation as number
+        degreesOfSeparation: degreesOfSeparation
       }
 
       const request = {
@@ -303,11 +318,6 @@ const UploadSteps = () => {
             ? referenceModuleDegrees
             : null
         }
-      }
-      if (isByteVideo) {
-        Analytics.track(TRACK.UPLOADED_BYTE_VIDEO, {
-          format: uploadedVideo.videoType
-        })
       }
       const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
       if (!canUseDispatcher) {
@@ -336,9 +346,6 @@ const UploadSteps = () => {
     setUploadedVideo({
       percent: 100,
       videoSource: result.url
-    })
-    Analytics.track(TRACK.UPLOADED_TO_IPFS, {
-      format: uploadedVideo.videoType
     })
     return await createPublication({
       videoSource: result.url
@@ -389,9 +396,6 @@ const UploadSteps = () => {
       })
       setUploadedVideo({
         videoSource: `ar://${response.data.id}`
-      })
-      Analytics.track(TRACK.UPLOADED_TO_ARWEAVE, {
-        format: uploadedVideo.videoType
       })
       return await createPublication({
         videoSource: `ar://${response.data.id}`

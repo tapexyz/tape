@@ -17,9 +17,11 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import {
+  Analytics,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  SIGN_IN_REQUIRED_MESSAGE
+  SIGN_IN_REQUIRED_MESSAGE,
+  TRACK
 } from 'utils'
 import omitKey from 'utils/functions/omitKey'
 import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
@@ -45,6 +47,10 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     onJoin()
     toast.success(`Joined ${channel.handle}`)
     setLoading(false)
+    Analytics.track(TRACK.CHANNEL.JOIN, {
+      channel_id: channel.id,
+      channel_name: channel.handle
+    })
   }
 
   const { signTypedDataAsync } = useSignTypedData({

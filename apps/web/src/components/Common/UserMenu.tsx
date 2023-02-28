@@ -70,6 +70,7 @@ const UserMenu = () => {
     setSelectedChannel(channel)
     setSelectedChannelId(channel.id)
     setShowAccountSwitcher(false)
+    Analytics.track(TRACK.CHANNEL.SWITCH)
   }
 
   const onSelectSwitchChannel = async () => {
@@ -191,10 +192,7 @@ const UserMenu = () => {
                     <button
                       type="button"
                       className="inline-flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                      onClick={() => {
-                        onSelectSwitchChannel()
-                        Analytics.track(TRACK.CLICK_SWITCH_CHANNEL)
-                      }}
+                      onClick={() => onSelectSwitchChannel()}
                     >
                       <SwitchChannelOutline className="h-4 w-4" />
                       <span className="truncate whitespace-nowrap">
@@ -228,12 +226,11 @@ const UserMenu = () => {
                   type="button"
                   className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => {
-                    setTheme(theme === 'dark' ? 'light' : 'dark')
-                    Analytics.track(
-                      theme === 'dark'
-                        ? TRACK.SYSTEM.THEME.LIGHT
-                        : TRACK.SYSTEM.THEME.DARK
-                    )
+                    const selected = theme === 'dark' ? 'light' : 'dark'
+                    setTheme(selected)
+                    Analytics.track(TRACK.SYSTEM.TOGGLE_THEME, {
+                      selected_theme: selected
+                    })
                   }}
                 >
                   {theme === 'dark' ? (
@@ -251,7 +248,7 @@ const UserMenu = () => {
                   onClick={() => {
                     disconnect?.()
                     signOut()
-                    Analytics.track(TRACK.AUTH.CLICK_SIGN_OUT)
+                    Analytics.track(TRACK.AUTH.SIGN_OUT)
                   }}
                 >
                   <HandWaveOutline className="h-4 w-4" />

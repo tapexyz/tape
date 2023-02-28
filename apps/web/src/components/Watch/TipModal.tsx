@@ -102,7 +102,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       },
       ...(queuedComments || [])
     ])
-    Analytics.track(TRACK.TIP.COMMENT)
+    Analytics.track(TRACK.PUBLICATION.NEW_COMMENT, {
+      publication_id: video.id,
+      comment_type: 'tip'
+    })
     setLoading(false)
     toast.success('Tipped successfully.')
     setShowTip(false)
@@ -272,7 +275,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           value: BigNumber.from(utils.parseEther(amountToSend.toString()))
         }
       })
-      Analytics.track(TRACK.TIP.SENT)
+      Analytics.track(TRACK.PUBLICATION.TIP.SENT)
       if (data?.hash) {
         await submitComment(data.hash)
       }

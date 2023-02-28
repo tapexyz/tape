@@ -127,10 +127,7 @@ const Header: FC<Props> = ({ className }) => {
                     )}
                   </button>
                 </Link>
-                <Link
-                  href="/upload"
-                  onClick={() => Analytics.track(TRACK.CLICK_UPLOAD_VIDEO)}
-                >
+                <Link href="/upload">
                   <Button
                     className="hidden md:block"
                     icon={<NewVideoOutline className="h-4 w-4" />}

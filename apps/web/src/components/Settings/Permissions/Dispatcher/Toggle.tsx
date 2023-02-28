@@ -62,8 +62,8 @@ const Toggle = () => {
 
   useEffect(() => {
     if (indexed) {
+      Analytics.track(TRACK.DISPATCHER.TOGGLE)
       toast.success(`Dispatcher ${canUseRelay ? 'disabled' : 'enabled'}`)
-      Analytics.track(TRACK.DISPATCHER_ENABLED)
       refetchChannel({
         variables: {
           request: { handle: selectedChannel?.handle }

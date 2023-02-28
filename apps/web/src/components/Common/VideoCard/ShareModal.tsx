@@ -25,8 +25,8 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
 
   const onCopyVideoUrl = async () => {
     await copy(`${LENSTUBE_WEBSITE_URL}/watch/${video.id}`)
-    toast.success('Link copied to clipboard')
-    Analytics.track(TRACK.COPY.VIDEO_URL)
+    toast.success('Perma link copied to clipboard')
+    Analytics.track(TRACK.PUBLICATION.PERMALINK)
   }
 
   return (
@@ -51,7 +51,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             className="rounded-full"
             target="_blank"
             rel="noreferrer"
-            onClick={() => Analytics.track(TRACK.SHARE_VIDEO.LENSTER)}
+            onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.LENSTER)}
             href={getSharableLink('lenster', video)}
           >
             <img
@@ -71,7 +71,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             target="_blank"
             rel="noreferrer"
             href={getSharableLink('twitter', video)}
-            onClick={() => Analytics.track(TRACK.SHARE_VIDEO.TWITTER)}
+            onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.TWITTER)}
           >
             <img
               src={imageCdn(
@@ -86,7 +86,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
           </Link>
           <Link
             href={getSharableLink('reddit', video)}
-            onClick={() => Analytics.track(TRACK.SHARE_VIDEO.REDDIT)}
+            onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.REDDIT)}
             target="_blank"
             rel="noreferrer"
           >
@@ -104,7 +104,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
           <Link
             href={getSharableLink('linkedin', video)}
             target="_blank"
-            onClick={() => Analytics.track(TRACK.SHARE_VIDEO.LINKEDIN)}
+            onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.LINKEDIN)}
             rel="noreferrer"
           >
             <img

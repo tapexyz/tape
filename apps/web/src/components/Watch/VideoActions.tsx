@@ -55,7 +55,6 @@ const VideoActions: FC<Props> = ({ video }) => {
       <button
         className="focus:outline-none"
         onClick={() => {
-          Analytics.track(TRACK.DISLIKE_VIDEO)
           setShowReport(true)
         }}
       >

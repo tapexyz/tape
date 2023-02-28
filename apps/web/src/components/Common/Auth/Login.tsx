@@ -87,7 +87,6 @@ const Login = () => {
       signOut()
       return toast.error('Unable to connect to your wallet')
     }
-    Analytics.track(TRACK.AUTH.CLICK_SIGN_IN)
     try {
       setLoading(true)
       const challenge = await loadChallenge({
@@ -131,12 +130,11 @@ const Login = () => {
         }
       }
       setLoading(false)
-      Analytics.track(TRACK.AUTH.SIGN_IN_SUCCESS)
+      Analytics.track(TRACK.AUTH.SIGN_IN_WITH_LENS)
     } catch (error) {
       signOut()
       setLoading(false)
       toast.error('Sign in failed')
-      Analytics.track(TRACK.AUTH.SIGN_IN_FAILED)
       logger.error('[Error Sign In]', {
         error,
         connector: connector?.name

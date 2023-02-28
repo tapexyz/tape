@@ -6,7 +6,6 @@ import type { Attribute, Comment, Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { Analytics, TRACK } from 'utils'
 import { getRelativeTime, getTimeFromSeconds } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
@@ -29,10 +28,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
   )
 
   return (
-    <div
-      onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
-      className="group overflow-hidden rounded-xl"
-    >
+    <div className="group overflow-hidden rounded-xl">
       <Link href={`/watch/${commentedOn?.id}`}>
         <div className="aspect-w-16 aspect-h-8 relative rounded-xl">
           <ThumbnailImage video={commentedOn} />

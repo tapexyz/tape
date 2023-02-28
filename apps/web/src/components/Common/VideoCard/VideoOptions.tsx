@@ -74,7 +74,9 @@ const VideoOptions: FC<Props> = ({
     },
     onCompleted: () => {
       toast.success('Video deleted')
-      Analytics.track(TRACK.DELETE_VIDEO)
+      Analytics.track(TRACK.PUBLICATION.DELETE, {
+        publication_type: video.__typename?.toLowerCase()
+      })
     }
   })
 
@@ -105,7 +107,7 @@ const VideoOptions: FC<Props> = ({
 
   const onCompleted = () => {
     toast.success('Transaction submitted')
-    Analytics.track(TRACK.PIN_VIDEO)
+    Analytics.track(TRACK.PUBLICATION.PIN)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -231,7 +233,6 @@ const VideoOptions: FC<Props> = ({
       <DropMenu
         trigger={
           <div
-            onClick={() => Analytics.track(TRACK.CLICK_VIDEO_OPTIONS)}
             className={clsx(
               'py-1 text-white group-hover:visible md:text-inherit',
               showOnHover && 'lg:invisible'
