@@ -63,7 +63,6 @@ const Toggle = () => {
   useEffect(() => {
     if (indexed) {
       toast.success(`Dispatcher ${canUseRelay ? 'disabled' : 'enabled'}`)
-      Analytics.track(TRACK.DISPATCHER_ENABLED)
       refetchChannel({
         variables: {
           request: { handle: selectedChannel?.handle }
@@ -71,6 +70,7 @@ const Toggle = () => {
         fetchPolicy: 'no-cache'
       })
       setLoading(false)
+      Analytics.track(TRACK.DISPATCHER.TOGGLE)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])

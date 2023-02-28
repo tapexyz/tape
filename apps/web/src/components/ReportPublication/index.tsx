@@ -21,9 +21,12 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
       toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     },
     onCompleted: () => {
-      Analytics.track(TRACK.REPORT)
       toast.success('Publication reported successfully.')
       onSuccess()
+      Analytics.track(TRACK.PUBLICATION.REPORT, {
+        publication_id: publication.id,
+        publication_type: publication.__typename?.toLowerCase()
+      })
     }
   })
 

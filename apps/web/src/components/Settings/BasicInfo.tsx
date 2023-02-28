@@ -109,9 +109,9 @@ const BasicInfo = ({ channel }: Props) => {
   }
 
   const onCompleted = () => {
-    toast.success('Channel details submitted')
-    Analytics.track(TRACK.UPDATED_CHANNEL_INFO)
     setLoading(false)
+    toast.success('Channel details submitted')
+    Analytics.track(TRACK.CHANNEL.UPDATE)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -202,7 +202,6 @@ const BasicInfo = ({ channel }: Props) => {
       .map(({ traitType, key, value }) => ({ traitType, key, value })) ?? []
 
   const onSaveBasicInfo = async (data: FormData) => {
-    Analytics.track(TRACK.UPDATE_CHANNEL_INFO)
     setLoading(true)
     try {
       const { url } = await uploadToAr({
@@ -293,7 +292,6 @@ const BasicInfo = ({ channel }: Props) => {
           Change
           <input
             id="chooseCover"
-            onClick={() => Analytics.track(TRACK.CHANGE_CHANNEL_COVER)}
             type="file"
             accept=".png, .jpg, .jpeg, .svg"
             className="hidden w-full"
@@ -317,7 +315,6 @@ const BasicInfo = ({ channel }: Props) => {
           channel.stats.totalFollowers > 500 && (
             <Link
               href={TALLY_VERIFICATION_FORM_URL}
-              onClick={() => Analytics.track(TRACK.GET_VERIFIED)}
               target="_blank"
               rel="noreferer noreferrer"
               className="bg-gradient-to-br from-purple-500 to-indigo-600 bg-clip-text text-sm text-transparent"

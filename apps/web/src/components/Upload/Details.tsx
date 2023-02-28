@@ -10,7 +10,6 @@ import clsx from 'clsx'
 import type { FC, ReactNode } from 'react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { Analytics, TRACK } from 'utils'
 import { z } from 'zod'
 
 import Category from './Category'
@@ -135,7 +134,6 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                         'description',
                         `${getValues('description')} #bytes`
                       )
-                      Analytics.track(TRACK.CLICKED_BYTES_TAG_AT_UPLOAD)
                     }}
                     className="mx-1 text-indigo-600 outline-none dark:text-indigo-400"
                   >

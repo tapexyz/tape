@@ -11,33 +11,56 @@ export const Analytics = {
 }
 
 export const TRACK = {
-  DISPATCHER_ENABLED: 'Dispatcher Enabled',
-  GET_VERIFIED: 'Get Verified',
-  UPLOADED_VIDEO: 'Uploaded Video',
-  CLICKED_BYTES_TAG_AT_UPLOAD: 'Clicked Bytes During Upload',
-  CLICK_CHANNEL_SETTINGS: 'Clicked Channel Settings',
-  AUTH: {
-    CLICK_CONNECT_WALLET: 'Clicked Connect Wallet',
-    CLICK_SIGN_IN: 'Clicked Sign In',
-    SIGN_IN_SUCCESS: 'Successful Sign In',
-    SIGN_IN_FAILED: 'Failed Sign In',
-    CLICK_SIGN_OUT: 'Clicked Sign Out'
+  DISPATCHER: {
+    TOGGLE: 'Toggle dispatcher'
   },
-  CLICK_CONNECT_WALLET: 'Clicked Connect Wallet',
-  CLICK_SWITCH_CHANNEL: 'Clicked Switch Channel',
-  UPDATE_CHANNEL_INFO: 'Clicked Channel Info',
-  PIN_VIDEO: 'Pin Video',
-  CHANGE_CHANNEL_COVER: 'Clicked Channel Cover',
-  UPLOADED_BYTE_VIDEO: 'Uploaded Byte Video',
-  UPLOADED_TO_IPFS: 'Uploaded to IPFS',
-  UPLOADED_TO_ARWEAVE: 'Uploaded to Arweave',
-  UPDATED_CHANNEL_INFO: 'Updated Channel Info',
+  PUBLICATION: {
+    NEW_POST: 'New post',
+    NEW_COMMENT: 'New comment',
+    LIKE: 'Like publication',
+    DISLIKE: 'Dislike publication',
+    MIRROR: 'Mirror publication',
+    PIN: 'Pin publication',
+    DELETE: 'Delete publication',
+    REPORT: 'Report Publication',
+    TIP: {
+      OPEN: 'Open Tip Modal',
+      SENT: 'Tip Sent'
+    },
+    PERMALINK: 'Permalink publication',
+    SHARE: {
+      LENSTER: 'Share to Lenster',
+      TWITTER: 'Share to Twitter',
+      REDDIT: 'Share to Reddit',
+      LINKEDIN: 'Share to LinkedIn'
+    }
+  },
+  AUTH: {
+    CONNECT_WALLET: 'Connect Wallet',
+    SIGN_IN_WITH_LENS: 'Sign in with Lens',
+    SIGN_OUT: 'Sign Out'
+  },
+  CHANNEL: {
+    CLICK_CHANNEL_VIDEOS: 'Click Channel Videos',
+    CLICK_CHANNEL_BYTES: 'Click Channel Bytes',
+    CLICK_CHANNEL_COMMENTED: 'Click Channel Commented',
+    CLICK_CHANNEL_MIRRORED: 'Click Channel Mirrored',
+    CLICK_CHANNEL_NFTS: 'Click Channel NFTs',
+    CLICK_OTHER_CHANNELS: 'Click Other Channels',
+    CLICK_CHANNEL_STATS: 'Click Channel Stats',
+    CLICK_CHANNEL_ABOUT: 'Click Channel About',
+    CLICK_CHANNEL_COVER_LINKS: 'Click Channel Cover Links',
+    SWITCH: 'Switch Channel',
+    UPDATE: 'Update Channel',
+    SUBSCRIBE: 'Subscribe Channel',
+    JOIN: 'Join Channel',
+    UNSUBSCRIBE: 'Unsubscribe Channel'
+  },
   DEPOSIT_MATIC: 'Deposit Matic',
   FILTER_CATEGORIES: 'Filter Categories',
   CLICK_CATEGORIES_SCROLL_BUTTON: 'Clicked Categories Scroll Button',
   CLICK_BYTES_SCROLL_BUTTON: 'Clicked Bytes Scroll Button',
   PLAY_BYTE_VIDEO: 'Play Byte Video',
-  MIRROR_VIDEO: 'Mirrored Video',
   EMBED_VIDEO: {
     OPEN: 'Open Embed',
     COPY: 'Copy Embed',
@@ -51,37 +74,11 @@ export const TRACK = {
     REMOVE: 'Remove Profile Interest',
     VIEW: 'View Profile Interests'
   },
-  NEW_COMMENT: 'New Comment',
-  CLICK_VIDEO: 'Click Video',
-  DELETE_VIDEO: 'Delete Video',
-  DELETE_COMMENT: 'Delete Video Comment',
-  CLICK_WATCH_LATER: 'Click Watch Later',
   CLICK_VIEW_METADATA: 'Click View Metadata',
   CLICK_VIEW_TOKEN: 'Click View Token',
-  CHANNEL: {
-    CLICK_CHANNEL_VIDEOS: 'Click Channel Videos',
-    CLICK_CHANNEL_BYTES: 'Click Channel Bytes',
-    CLICK_CHANNEL_COMMENTED: 'Click Channel Commented',
-    CLICK_CHANNEL_MIRRORED: 'Click Channel Mirrored',
-    CLICK_CHANNEL_NFTS: 'Click Channel NFTs',
-    CLICK_OTHER_CHANNELS: 'Click Other Channels',
-    CLICK_CHANNEL_STATS: 'Click Channel Stats',
-    CLICK_CHANNEL_ABOUT: 'Click Channel About',
-    CLICK_CHANNEL_COVER_LINKS: 'Click Channel Cover Links'
-  },
-  SUBSCRIBE_CHANNEL: 'Subscribe Channel',
-  UNSUBSCRIBE_CHANNEL: 'Unsubscribe Channel',
-  LIKE_VIDEO: 'Like Video',
-  DISLIKE_VIDEO: 'Dislike Video',
-  CLICK_VIDEO_OPTIONS: 'Click Video Options',
   NOTIFICATIONS: {
-    CLICK_NOTIFICATIONS: 'Click Notifications',
-    CLICK_MENTIONS: 'Click Mention Notifications',
-    CLICK_COLLECTS: 'Click Collect Notifications',
-    CLICK_ALL: 'Click All Notifications',
-    CLICK_LIKES: 'Click Likes Notifications',
-    CLICK_COMMENTS: 'Click Comment Notifications',
-    CLICK_SUBSCRIPTIONS: 'Click Subscribe Notifications'
+    SWITCH_NOTIFICATION_TAB: 'Switch notifications tab',
+    CLICK_NOTIFICATIONS: 'Click Notifications'
   },
   CLICK_USER_MENU: 'Click User Menu',
   OPENED_MUTUAL_CHANNELS: 'Opened Mutual Channels',
@@ -90,32 +87,11 @@ export const TRACK = {
     FREE: 'Collected for Free',
     FEE: 'Collected for Fee'
   },
-  COLLECT_MODULE: {
-    MULTI_COLLECT: {
-      ADD_RECIPIENT: 'Add MultiCollect Recipient',
-      ADD_DONATION: 'Add MultiCollect Donation'
-    }
-  },
-  TIP: {
-    OPEN: 'Open Tip Modal',
-    SENT: 'Sent Tip',
-    COMMENT: 'New Tip Comment'
-  },
-  COPY: { VIDEO_URL: 'Copy Video Url' },
-  SHARE_VIDEO: {
-    LENSTER: 'Share to Lenster',
-    TWITTER: 'Share to Twitter',
-    REDDIT: 'Share to Reddit',
-    LINKEDIN: 'Share to LinkedIn'
-  },
   SEARCH_CHANNELS: 'Search Channels',
   RESOLVE_CHANNEL_ADDRESS: 'Resolve Channel Address',
   SEARCH_VIDEOS: 'Search Videos',
   SYSTEM: {
-    THEME: {
-      DARK: 'Seleted Dark Theme',
-      LIGHT: 'Seleted Light Theme'
-    },
+    TOGGLE_THEME: 'Toggle Theme',
     MORE_MENU: {
       OPEN: 'Open More Menu',
       GITHUB: 'Click Github',
@@ -128,8 +104,6 @@ export const TRACK = {
       TWITTER: 'Click Twitter'
     }
   },
-  REPORT: 'Report Publication',
-  CLICK_UPLOAD_VIDEO: 'Click Upload Video',
   PAGE_VIEW: {
     HOME: 'Home Page',
     EXPLORE: 'Explore Page',

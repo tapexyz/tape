@@ -120,7 +120,9 @@ const Notifications = () => {
             <Tab
               onClick={() => {
                 setActiveFilter({ ...initialFilters })
-                Analytics.track(TRACK.NOTIFICATIONS.CLICK_ALL)
+                Analytics.track(TRACK.NOTIFICATIONS.SWITCH_NOTIFICATION_TAB, {
+                  notification_type: 'all'
+                })
               }}
               className={({ selected }) =>
                 clsx(
@@ -137,7 +139,9 @@ const Notifications = () => {
             <Tab
               onClick={() => {
                 setActiveFilter({ ...initialFilters, subscriptions: true })
-                Analytics.track(TRACK.NOTIFICATIONS.CLICK_SUBSCRIPTIONS)
+                Analytics.track(TRACK.NOTIFICATIONS.SWITCH_NOTIFICATION_TAB, {
+                  notification_type: 'subscriptions'
+                })
               }}
               className={({ selected }) =>
                 clsx(
@@ -154,7 +158,9 @@ const Notifications = () => {
             <Tab
               onClick={() => {
                 setActiveFilter({ ...initialFilters, likes: true })
-                Analytics.track(TRACK.NOTIFICATIONS.CLICK_LIKES)
+                Analytics.track(TRACK.NOTIFICATIONS.SWITCH_NOTIFICATION_TAB, {
+                  notification_type: 'likes'
+                })
               }}
               className={({ selected }) =>
                 clsx(
@@ -171,7 +177,9 @@ const Notifications = () => {
             <Tab
               onClick={() => {
                 setActiveFilter({ ...initialFilters, comments: true })
-                Analytics.track(TRACK.NOTIFICATIONS.CLICK_COMMENTS)
+                Analytics.track(TRACK.NOTIFICATIONS.SWITCH_NOTIFICATION_TAB, {
+                  notification_type: 'comments'
+                })
               }}
               className={({ selected }) =>
                 clsx(
@@ -188,7 +196,9 @@ const Notifications = () => {
             <Tab
               onClick={() => {
                 setActiveFilter({ ...initialFilters, mentions: true })
-                Analytics.track(TRACK.NOTIFICATIONS.CLICK_MENTIONS)
+                Analytics.track(TRACK.NOTIFICATIONS.SWITCH_NOTIFICATION_TAB, {
+                  notification_type: 'mentions'
+                })
               }}
               className={({ selected }) =>
                 clsx(
@@ -205,7 +215,9 @@ const Notifications = () => {
             <Tab
               onClick={() => {
                 setActiveFilter({ ...initialFilters, collects: true })
-                Analytics.track(TRACK.NOTIFICATIONS.CLICK_COLLECTS)
+                Analytics.track(TRACK.NOTIFICATIONS.SWITCH_NOTIFICATION_TAB, {
+                  notification_type: 'collects'
+                })
               }}
               className={({ selected }) =>
                 clsx(

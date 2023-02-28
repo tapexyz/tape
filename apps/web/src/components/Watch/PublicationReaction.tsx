@@ -54,7 +54,7 @@ const PublicationReaction: FC<Props> = ({
     if (!selectedChannelId) {
       return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     }
-    Analytics.track(TRACK.LIKE_VIDEO)
+    Analytics.track(TRACK.PUBLICATION.LIKE)
     setReaction((prev) => ({
       likeCount: prev.isLiked ? prev.likeCount - 1 : prev.likeCount + 1,
       isLiked: !prev.isLiked,
@@ -87,7 +87,7 @@ const PublicationReaction: FC<Props> = ({
     if (!selectedChannelId) {
       return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     }
-    Analytics.track(TRACK.DISLIKE_VIDEO)
+    Analytics.track(TRACK.PUBLICATION.DISLIKE)
     setReaction((prev) => ({
       likeCount: prev.isLiked ? prev.likeCount - 1 : prev.likeCount,
       isLiked: false,

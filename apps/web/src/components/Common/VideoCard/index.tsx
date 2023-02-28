@@ -2,7 +2,6 @@ import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { Analytics, TRACK } from 'utils'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import getLensHandle from 'utils/functions/getLensHandle'
 import getProfilePicture from 'utils/functions/getProfilePicture'
@@ -23,11 +22,7 @@ const VideoCard: FC<Props> = ({ video }) => {
   const [showReport, setShowReport] = useState(false)
 
   return (
-    <div
-      onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
-      className="group"
-      data-testid="video-card"
-    >
+    <div className="group" data-testid="video-card">
       {video.hidden ? (
         <div className="grid h-full place-items-center">
           <span className="text-xs">Video Hidden by User</span>

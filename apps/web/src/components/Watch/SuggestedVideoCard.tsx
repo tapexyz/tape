@@ -7,13 +7,7 @@ import type { Attribute, Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import {
-  Analytics,
-  FALLBACK_COVER_URL,
-  LENSTUBE_BYTES_APP_ID,
-  STATIC_ASSETS,
-  TRACK
-} from 'utils'
+import { FALLBACK_COVER_URL, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from 'utils'
 import { getRelativeTime, getTimeFromSeconds } from 'utils/functions/formatTime'
 import { generateVideoThumbnail } from 'utils/functions/generateVideoThumbnails'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
@@ -44,10 +38,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
   )
 
   return (
-    <div
-      onClick={() => Analytics.track(TRACK.CLICK_VIDEO)}
-      className="group flex justify-between"
-    >
+    <div className="group flex justify-between">
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <ReportModal
         video={video}

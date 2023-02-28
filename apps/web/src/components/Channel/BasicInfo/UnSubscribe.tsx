@@ -34,7 +34,10 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
     toast.success(`Unsubscribed ${channel.handle}`)
     onUnSubscribe()
     setLoading(false)
-    Analytics.track(TRACK.UNSUBSCRIBE_CHANNEL)
+    Analytics.track(TRACK.CHANNEL.UNSUBSCRIBE, {
+      channel_id: channel.id,
+      channel_name: channel.handle
+    })
   }
 
   const { data: signer } = useSigner({ onError })

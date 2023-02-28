@@ -98,7 +98,7 @@ const NewComment: FC<Props> = ({ video }) => {
     ) {
       return logger.error('[Error Comment Dispatcher]', data)
     }
-    Analytics.track(TRACK.NEW_COMMENT)
+    Analytics.track(TRACK.PUBLICATION.NEW_COMMENT)
     const txnId =
       data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
     return setToQueue({ txnId })

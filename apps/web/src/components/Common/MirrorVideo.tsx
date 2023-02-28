@@ -54,7 +54,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onMirrorSuccess?.()
     toast.success('Mirrored video across lens.')
     setLoading(false)
-    Analytics.track(TRACK.MIRROR_VIDEO)
+    Analytics.track(TRACK.PUBLICATION.MIRROR)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
