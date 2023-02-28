@@ -109,9 +109,9 @@ const BasicInfo = ({ channel }: Props) => {
   }
 
   const onCompleted = () => {
+    setLoading(false)
     toast.success('Channel details submitted')
     Analytics.track(TRACK.CHANNEL.UPDATE)
-    setLoading(false)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
