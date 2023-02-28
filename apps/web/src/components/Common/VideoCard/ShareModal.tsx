@@ -25,7 +25,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
 
   const onCopyVideoUrl = async () => {
     await copy(`${LENSTUBE_WEBSITE_URL}/watch/${video.id}`)
-    toast.success('Perma link copied to clipboard')
+    toast.success('Permalink copied to clipboard')
     Analytics.track(TRACK.PUBLICATION.PERMALINK)
   }
 
