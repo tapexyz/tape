@@ -37,7 +37,7 @@ const VideoActions: FC<Props> = ({ video }) => {
       <button
         className="focus:outline-none"
         onClick={() => {
-          Analytics.track(TRACK.TIP.OPEN)
+          Analytics.track(TRACK.PUBLICATION.TIP.OPEN)
           setShowTip(true)
         }}
       >
