@@ -299,7 +299,8 @@ const UploadSteps = () => {
         loading: true,
         isByteVideo
       })
-      const isRestricted = Boolean()
+
+      const isRestricted = Boolean(degreesOfSeparation)
       const referenceModuleDegrees = {
         commentsRestricted: isRestricted,
         mirrorsRestricted: isRestricted,
