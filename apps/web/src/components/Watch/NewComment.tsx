@@ -1,15 +1,20 @@
+import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useApolloClient } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
-import type { Publication } from 'lens'
+import { utils } from 'ethers'
+import type { CreatePublicCommentRequest, Publication } from 'lens'
 import {
   PublicationDetailsDocument,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
   useBroadcastDataAvailabilityMutation,
+  useBroadcastMutation,
+  useCreateCommentTypedDataMutation,
+  useCreateCommentViaDispatcherMutation,
   useCreateDataAvailabilityCommentTypedDataMutation,
   useCreateDataAvailabilityCommentViaDispatcherMutation,
   usePublicationDetailsLazyQuery
@@ -22,6 +27,7 @@ import type { CustomErrorWithData } from 'utils'
 import {
   Analytics,
   ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
   TRACK
@@ -33,9 +39,8 @@ import trimify from 'utils/functions/trimify'
 import uploadToAr from 'utils/functions/uploadToAr'
 import logger from 'utils/logger'
 import { v4 as uuidv4 } from 'uuid'
-import { useSignTypedData } from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
-
 type Props = {
   video: Publication
 }
@@ -55,6 +60,10 @@ const NewComment: FC<Props> = ({ video }) => {
   const [loading, setLoading] = useState(false)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const queuedComments = usePersistStore((state) => state.queuedComments)
+  const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
+  const userSigNonce = useAppStore((state) => state.userSigNonce)
+  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
   const {
     clearErrors,
@@ -62,7 +71,8 @@ const NewComment: FC<Props> = ({ video }) => {
     formState: { errors },
     reset,
     watch,
-    setValue
+    setValue,
+    getValues
   } = useForm<FormData>({
     defaultValues: {
       comment: ''
@@ -70,10 +80,31 @@ const NewComment: FC<Props> = ({ video }) => {
     resolver: zodResolver(formSchema)
   })
 
-  const onCompleted = () => {
+  const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
+    setQueuedComments([
+      {
+        comment: getValues('comment'),
+        txnId: txn.txnId,
+        txnHash: txn.txnHash,
+        pubId: video.id
+      },
+      ...(queuedComments || [])
+    ])
     reset()
     setLoading(false)
+  }
+
+  const onCompleted = (data: any) => {
+    if (
+      data?.broadcast?.reason === 'NOT_ALLOWED' ||
+      data.createCommentViaDispatcher?.reason
+    ) {
+      return logger.error('[Error Comment Dispatcher]', data)
+    }
     Analytics.track(TRACK.PUBLICATION.NEW_COMMENT)
+    const txnId =
+      data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
+    return setToQueue({ txnId })
   }
 
   const onError = (error: CustomErrorWithData) => {
@@ -83,6 +114,29 @@ const NewComment: FC<Props> = ({ video }) => {
 
   const { signTypedDataAsync } = useSignTypedData({
     onError
+  })
+
+  const { write: writeComment } = useContractWrite({
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
+    functionName: 'commentWithSig',
+    mode: 'recklesslyUnprepared',
+    onError,
+    onSuccess: (data) => {
+      if (data.hash) {
+        setToQueue({ txnHash: data.hash })
+      }
+    }
+  })
+
+  const [broadcast] = useBroadcastMutation({
+    onError,
+    onCompleted
+  })
+
+  const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
+    onError,
+    onCompleted
   })
 
   const [getComment] = usePublicationDetailsLazyQuery({
@@ -102,6 +156,69 @@ const NewComment: FC<Props> = ({ video }) => {
     }
   })
 
+  const [createCommentTypedData] = useCreateCommentTypedDataMutation({
+    onCompleted: async ({ createCommentTypedData }) => {
+      const { typedData, id } = createCommentTypedData
+      const {
+        profileId,
+        profileIdPointed,
+        pubIdPointed,
+        contentURI,
+        collectModule,
+        collectModuleInitData,
+        referenceModule,
+        referenceModuleData,
+        referenceModuleInitData
+      } = typedData?.value
+      try {
+        toast.loading('Requesting signature...')
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
+        })
+        const { v, r, s } = utils.splitSignature(signature)
+        const args = {
+          profileId,
+          profileIdPointed,
+          pubIdPointed,
+          contentURI,
+          collectModule,
+          collectModuleInitData,
+          referenceModule,
+          referenceModuleData,
+          referenceModuleInitData,
+          sig: { v, r, s, deadline: typedData.value.deadline }
+        }
+        setUserSigNonce(userSigNonce + 1)
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcast?.__typename === 'RelayError') {
+          writeComment?.({ recklesslySetUnpreparedArgs: [args] })
+        }
+      } catch {
+        setLoading(false)
+      }
+    },
+    onError
+  })
+
+  const signTypedData = (request: CreatePublicCommentRequest) => {
+    createCommentTypedData({
+      variables: { options: { overrideSigNonce: userSigNonce }, request }
+    })
+  }
+
+  const createViaDispatcher = async (request: CreatePublicCommentRequest) => {
+    const { data } = await createCommentViaDispatcher({
+      variables: { request }
+    })
+    if (data?.createCommentViaDispatcher.__typename === 'RelayError') {
+      signTypedData(request)
+    }
+  }
+
   /**
    * DATA AVAILABILITY STARTS
    */
@@ -120,7 +237,7 @@ const NewComment: FC<Props> = ({ video }) => {
             }
           })
         }
-        onCompleted()
+        onCompleted(data)
       },
       onError
     })
@@ -142,7 +259,7 @@ const NewComment: FC<Props> = ({ video }) => {
             }
           })
         }
-        onCompleted()
+        onCompleted(data)
       },
       onError
     })
@@ -197,23 +314,45 @@ const NewComment: FC<Props> = ({ video }) => {
       })
 
       // Create Data Availability comment
-      const dataAvailablityRequest = {
-        from: selectedChannel?.id,
-        commentOn: video.id,
-        contentURI: metadataUri
-      }
-      const { data } = await createDataAvailabilityCommentViaDispatcher({
-        variables: { request: dataAvailablityRequest }
-      })
-      // Fallback to DA dispatcher error
-      if (
-        data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
-        'RelayError'
-      ) {
-        return await createDataAvailabilityCommentTypedData({
+      if (video.isDataAvailability) {
+        const dataAvailablityRequest = {
+          from: selectedChannel?.id,
+          commentOn: video.id,
+          contentURI: metadataUri
+        }
+        const { data } = await createDataAvailabilityCommentViaDispatcher({
           variables: { request: dataAvailablityRequest }
         })
+        // Fallback to DA dispatcher error
+        if (
+          data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
+          'RelayError'
+        ) {
+          return await createDataAvailabilityCommentTypedData({
+            variables: { request: dataAvailablityRequest }
+          })
+        }
+        return
       }
+
+      const request = {
+        profileId: selectedChannel?.id,
+        publicationId: video?.id,
+        contentURI: metadataUri,
+        collectModule: {
+          freeCollectModule: {
+            followerOnly: false
+          }
+        },
+        referenceModule: {
+          followerOnlyReferenceModule: false
+        }
+      }
+      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+      if (!canUseDispatcher) {
+        return signTypedData(request)
+      }
+      await createViaDispatcher(request)
     } catch (error) {
       logger.error('[Error Store & Post Comment]', error)
     }

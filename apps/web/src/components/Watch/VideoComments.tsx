@@ -14,6 +14,7 @@ import { useInView } from 'react-cool-inview'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from 'utils'
 
 import NewComment from './NewComment'
+import QueuedComment from './QueuedComment'
 
 const Comment = dynamic(() => import('./Comment'))
 
@@ -24,6 +25,7 @@ type Props = {
 
 const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const queuedComments = usePersistStore((state) => state.queuedComments)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const isFollowerOnlyReferenceModule =
@@ -102,12 +104,21 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
           </span>
         </Alert>
       ) : null}
-      {!comments.length ? (
+      {!comments.length && !queuedComments.length ? (
         <NoDataFound text="Be the first to comment." withImage isCenter />
       ) : null}
-      {!error && comments.length ? (
+      {!error && (queuedComments.length || comments.length) ? (
         <>
           <div className="space-y-4 pt-5">
+            {queuedComments?.map(
+              (queuedComment) =>
+                queuedComment?.pubId === video?.id && (
+                  <QueuedComment
+                    key={queuedComment?.pubId}
+                    queuedComment={queuedComment}
+                  />
+                )
+            )}
             {comments?.map(
               (comment: Publication) =>
                 !comment.hidden && (

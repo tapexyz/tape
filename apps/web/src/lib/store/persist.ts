@@ -1,4 +1,4 @@
-import type { QueuedVideoType } from 'utils'
+import type { QueuedCommentType, QueuedVideoType } from 'utils'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -14,9 +14,11 @@ interface AppPerisistState {
   sidebarCollapsed: boolean
   latestNotificationId: string
   queuedVideos: QueuedVideoType[]
+  queuedComments: QueuedCommentType[]
   setLatestNotificationId: (id: string) => void
   setSidebarCollapsed: (collapsed: boolean) => void
   setSelectedChannelId: (id: string | null) => void
+  setQueuedComments: (queuedComments: QueuedCommentType[]) => void
   setQueuedVideos: (queuedVideos: QueuedVideoType[]) => void
   signIn: (tokens: { accessToken: string; refreshToken: string }) => void
   signOut: () => void
@@ -31,8 +33,10 @@ export const usePersistStore = create(
       selectedChannelId: null,
       sidebarCollapsed: true,
       latestNotificationId: '',
+      queuedComments: [],
       queuedVideos: [],
       setQueuedVideos: (queuedVideos) => set({ queuedVideos }),
+      setQueuedComments: (queuedComments) => set({ queuedComments }),
       setSidebarCollapsed: (sidebarCollapsed) => set({ sidebarCollapsed }),
       setLatestNotificationId: (latestNotificationId) =>
         set({ latestNotificationId }),
