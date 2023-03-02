@@ -80,7 +80,7 @@ const UploadSteps = () => {
     ? ReferenceModules.FollowerOnlyReferenceModule
     : null
 
-  const pushToProfile = () => {
+  const redirectToChannelPage = () => {
     router.push(
       uploadedVideo.isByteVideo
         ? `/channel/${selectedChannel?.handle}?tab=bytes`
@@ -98,7 +98,7 @@ const UploadSteps = () => {
       },
       ...(queuedVideos || [])
     ])
-    pushToProfile()
+    redirectToChannelPage()
   }
 
   const resetToDefaults = () => {
@@ -184,7 +184,7 @@ const UploadSteps = () => {
         data?.broadcastDataAvailability.__typename ===
         'CreateDataAvailabilityPublicationResult'
       ) {
-        pushToProfile()
+        redirectToChannelPage()
       }
     },
     onError
@@ -360,7 +360,7 @@ const UploadSteps = () => {
       }
 
       // Create Data Availability post
-      const isRevertCollect = uploadedVideo.collectModule.isRevertCollect
+      const { isRevertCollect } = uploadedVideo.collectModule
       const dataAvailablityRequest = {
         from: selectedChannel?.id,
         contentURI: metadataUri
@@ -378,7 +378,7 @@ const UploadSteps = () => {
             variables: { request: dataAvailablityRequest }
           })
         }
-        return pushToProfile()
+        return redirectToChannelPage()
       }
 
       const request = {

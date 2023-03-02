@@ -144,7 +144,7 @@ const NewComment: FC<Props> = ({ video }) => {
 
   const [getComment] = usePublicationDetailsLazyQuery()
 
-  const fetchAndPush = async (commentId: string) => {
+  const fetchAndCacheComment = async (commentId: string) => {
     const { data } = await getComment({
       variables: {
         request: {
@@ -240,7 +240,7 @@ const NewComment: FC<Props> = ({ video }) => {
           'CreateDataAvailabilityPublicationResult'
         ) {
           const commentId = data?.broadcastDataAvailability.id
-          await fetchAndPush(commentId)
+          await fetchAndCacheComment(commentId)
         }
         onCompleted(data)
       },
@@ -256,7 +256,7 @@ const NewComment: FC<Props> = ({ video }) => {
         ) {
           const { id: commentId } =
             data.createDataAvailabilityCommentViaDispatcher
-          await fetchAndPush(commentId)
+          await fetchAndCacheComment(commentId)
         }
         onCompleted(data)
       },

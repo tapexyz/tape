@@ -101,7 +101,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
 
   const [getComment] = usePublicationDetailsLazyQuery()
 
-  const fetchAndPush = async (commentId: string) => {
+  const fetchAndCacheComment = async (commentId: string) => {
     const { data } = await getComment({
       variables: {
         request: {
@@ -250,7 +250,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           'CreateDataAvailabilityPublicationResult'
         ) {
           const commentId = data?.broadcastDataAvailability.id
-          await fetchAndPush(commentId)
+          await fetchAndCacheComment(commentId)
         }
         onCompleted(data)
       },
@@ -266,7 +266,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         ) {
           const { id: commentId } =
             data.createDataAvailabilityCommentViaDispatcher
-          await fetchAndPush(commentId)
+          await fetchAndCacheComment(commentId)
         }
         onCompleted(data)
       },
