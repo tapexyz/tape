@@ -99,22 +99,29 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
-  const [getComment] = usePublicationDetailsLazyQuery({
-    onCompleted: (data) => {
-      if (data?.publication) {
-        cache.modify({
-          fields: {
-            publications() {
-              cache.writeQuery({
-                data: { publication: data?.publication },
-                query: PublicationDetailsDocument
-              })
-            }
-          }
-        })
+  const [getComment] = usePublicationDetailsLazyQuery()
+
+  const fetchAndPush = async (commentId: string) => {
+    const { data } = await getComment({
+      variables: {
+        request: {
+          publicationId: commentId
+        }
       }
+    })
+    if (data?.publication) {
+      cache.modify({
+        fields: {
+          publications() {
+            cache.writeQuery({
+              data: { publication: data?.publication },
+              query: PublicationDetailsDocument
+            })
+          }
+        }
+      })
     }
-  })
+  }
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
     setQueuedComments([
@@ -242,13 +249,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           data?.broadcastDataAvailability.__typename ===
           'CreateDataAvailabilityPublicationResult'
         ) {
-          await getComment({
-            variables: {
-              request: {
-                publicationId: data?.broadcastDataAvailability.id
-              }
-            }
-          })
+          const commentId = data?.broadcastDataAvailability.id
+          await fetchAndPush(commentId)
         }
         onCompleted(data)
       },
@@ -262,15 +264,9 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           data?.createDataAvailabilityCommentViaDispatcher.__typename ===
           'CreateDataAvailabilityPublicationResult'
         ) {
-          const { id: publicationId } =
+          const { id: commentId } =
             data.createDataAvailabilityCommentViaDispatcher
-          await getComment({
-            variables: {
-              request: {
-                publicationId
-              }
-            }
-          })
+          await fetchAndPush(commentId)
         }
         onCompleted(data)
       },
