@@ -129,6 +129,9 @@ const UploadSteps = () => {
     Analytics.track(TRACK.PUBLICATION.NEW_POST, {
       video_format: uploadedVideo.videoType,
       video_type: uploadedVideo.isByteVideo ? 'SHORT_FORM' : 'LONG_FORM',
+      publication_state: uploadedVideo.collectModule.isRevertCollect
+        ? 'DATA_ONLY'
+        : 'ON_CHAIN',
       video_storage: uploadedVideo.isUploadToIpfs ? 'IPFS' : 'ARWEAVE',
       publication_collect_module: Object.keys(
         getCollectModule(uploadedVideo.collectModule)
