@@ -10,6 +10,7 @@ import type {
 } from 'lens'
 import {
   useBroadcastMutation,
+  useCreateDataAvailabilityMirrorViaDispatcherMutation,
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
 } from 'lens'
@@ -60,6 +61,18 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
+
+  /**
+   * DATA AVAILABILITY STARTS
+   */
+  const [createDataAvailabilityMirrorViaDispatcher] =
+    useCreateDataAvailabilityMirrorViaDispatcherMutation({
+      onCompleted,
+      onError
+    })
+  /**
+   * DATA AVAILABILITY ENDS
+   */
 
   const [createMirrorViaDispatcher] = useCreateMirrorViaDispatcherMutation({
     onError,
@@ -147,6 +160,17 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     }
     setLoading(true)
+
+    if (video.isDataAvailability) {
+      const dataAvailablityRequest = {
+        from: selectedChannel?.id,
+        mirror: video?.id
+      }
+      return await createDataAvailabilityMirrorViaDispatcher({
+        variables: { request: dataAvailablityRequest }
+      })
+    }
+
     const request = {
       profileId: selectedChannel?.id,
       publicationId: video?.id,
