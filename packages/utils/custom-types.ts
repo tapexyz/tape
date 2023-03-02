@@ -138,10 +138,3 @@ export type QueuedVideoType = {
   txnId?: string
   txnHash?: string
 }
-
-export type QueuedCommentType = {
-  comment: string
-  pubId: string
-  txnId?: string
-  txnHash?: string
-}

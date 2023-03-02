@@ -72,6 +72,23 @@ const MetaInfo: FC<Props> = ({ video }) => {
           </TokenExplorerLink>
         </div>
       )}
+      {video.dataAvailabilityProofs && (
+        <div
+          onClick={() => Analytics.track(TRACK.CLICK_VIEW_PROOF)}
+          className="hidden items-center space-x-1 md:flex"
+          role="button"
+        >
+          <span className="middot" />
+          <ArweaveExplorerLink
+            txId={video.dataAvailabilityProofs?.replace('ar://', '')}
+          >
+            <div className="flex items-center space-x-1">
+              <div className="whitespace-nowrap text-sm">View Proof</div>
+              <ExternalOutline className="h-3.5 w-3.5" />
+            </div>
+          </ArweaveExplorerLink>
+        </div>
+      )}
     </div>
   )
 }

@@ -15,7 +15,10 @@ import {
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
   ReferenceModules,
+  useBroadcastDataAvailabilityMutation,
   useBroadcastMutation,
+  useCreateDataAvailabilityPostTypedDataMutation,
+  useCreateDataAvailabilityPostViaDispatcherMutation,
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
 } from 'lens'
@@ -77,6 +80,14 @@ const UploadSteps = () => {
     ? ReferenceModules.FollowerOnlyReferenceModule
     : null
 
+  const pushToProfile = () => {
+    router.push(
+      uploadedVideo.isByteVideo
+        ? `/channel/${selectedChannel?.handle}?tab=bytes`
+        : `/channel/${selectedChannel?.handle}`
+    )
+  }
+
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
     setQueuedVideos([
       {
@@ -87,11 +98,7 @@ const UploadSteps = () => {
       },
       ...(queuedVideos || [])
     ])
-    router.push(
-      uploadedVideo.isByteVideo
-        ? `/channel/${selectedChannel?.handle}?tab=bytes`
-        : `/channel/${selectedChannel?.handle}`
-    )
+    pushToProfile()
   }
 
   const resetToDefaults = () => {
@@ -130,7 +137,8 @@ const UploadSteps = () => {
       publication_reference_module_degrees_of_separation: uploadedVideo
         .referenceModule.degreesOfSeparationReferenceModule
         ? degreesOfSeparation
-        : null
+        : null,
+      user_id: selectedChannel?.id
     })
     return setUploadedVideo({
       buttonText: 'Post Video',
@@ -162,6 +170,47 @@ const UploadSteps = () => {
     },
     onError
   })
+
+  /**
+   * DATA AVAILABILITY STARTS
+   */
+  const [broadcastDataAvailabilityPost] = useBroadcastDataAvailabilityMutation({
+    onCompleted: (data) => {
+      onCompleted(data)
+      if (
+        data?.broadcastDataAvailability.__typename ===
+        'CreateDataAvailabilityPublicationResult'
+      ) {
+        pushToProfile()
+      }
+    },
+    onError
+  })
+
+  const [createDataAvailabilityPostTypedData] =
+    useCreateDataAvailabilityPostTypedDataMutation({
+      onCompleted: async ({ createDataAvailabilityPostTypedData }) => {
+        const { id, typedData } = createDataAvailabilityPostTypedData
+        toast.loading('Requesting signature...')
+        const signature = await signTypedDataAsync({
+          domain: omitKey(typedData?.domain, '__typename'),
+          types: omitKey(typedData?.types, '__typename'),
+          value: omitKey(typedData?.value, '__typename')
+        })
+        return await broadcastDataAvailabilityPost({
+          variables: { request: { id, signature } }
+        })
+      }
+    })
+
+  const [createDataAvailabilityPostViaDispatcher] =
+    useCreateDataAvailabilityPostViaDispatcherMutation({
+      onCompleted,
+      onError
+    })
+  /**
+   * DATA AVAILABILITY ENDS
+   */
 
   const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
     onError,
@@ -293,7 +342,7 @@ const UploadSteps = () => {
       if (uploadedVideo.isSensitiveContent) {
         metadata.contentWarning = PublicationContentWarning.Sensitive
       }
-      const { url } = await uploadToAr(metadata)
+      const metadataUri = await uploadToAr(metadata)
       setUploadedVideo({
         buttonText: 'Posting video...',
         loading: true,
@@ -307,9 +356,31 @@ const UploadSteps = () => {
         degreesOfSeparation: degreesOfSeparation
       }
 
+      // Create Data Availability post
+      const isRevertCollect = uploadedVideo.collectModule.isRevertCollect
+      const dataAvailablityRequest = {
+        from: selectedChannel?.id,
+        contentURI: metadataUri
+      }
+      if (isRevertCollect) {
+        const { data } = await createDataAvailabilityPostViaDispatcher({
+          variables: { request: dataAvailablityRequest }
+        })
+        // Fallback to DA dispatcher error
+        if (
+          data?.createDataAvailabilityPostViaDispatcher?.__typename ===
+          'RelayError'
+        ) {
+          return await createDataAvailabilityPostTypedData({
+            variables: { request: dataAvailablityRequest }
+          })
+        }
+        return pushToProfile()
+      }
+
       const request = {
         profileId: selectedChannel?.id,
-        contentURI: url,
+        contentURI: metadataUri,
         collectModule: getCollectModule(uploadedVideo.collectModule),
         referenceModule: {
           followerOnlyReferenceModule:

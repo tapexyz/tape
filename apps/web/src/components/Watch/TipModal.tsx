@@ -1,4 +1,4 @@
-import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
+import { useApolloClient } from '@apollo/client'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
@@ -8,13 +8,15 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { BigNumber, utils } from 'ethers'
-import type { CreatePublicCommentRequest, Publication } from 'lens'
+import type { Publication } from 'lens'
 import {
+  PublicationDetailsDocument,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
-  useBroadcastMutation,
-  useCreateCommentTypedDataMutation,
-  useCreateCommentViaDispatcherMutation
+  useBroadcastDataAvailabilityMutation,
+  useCreateDataAvailabilityCommentTypedDataMutation,
+  useCreateDataAvailabilityCommentViaDispatcherMutation,
+  usePublicationDetailsLazyQuery
 } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -23,7 +25,6 @@ import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import {
   Analytics,
-  LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
   SIGN_IN_REQUIRED_MESSAGE,
@@ -36,7 +37,7 @@ import omitKey from 'utils/functions/omitKey'
 import uploadToAr from 'utils/functions/uploadToAr'
 import logger from 'utils/logger'
 import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
+import { useSendTransaction, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
 
 type Props = {
@@ -55,6 +56,8 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>
 
 const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
+  const { cache } = useApolloClient()
+
   const {
     register,
     handleSubmit,
@@ -72,11 +75,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
 
   const [loading, setLoading] = useState(false)
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
-  const queuedComments = usePersistStore((state) => state.queuedComments)
-  const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const userSigNonce = useAppStore((state) => state.userSigNonce)
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error.message)
@@ -92,16 +91,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
-  const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
-    setQueuedComments([
-      {
-        comment: getValues('message'),
-        txnId: txn.txnId,
-        txnHash: txn.txnHash,
-        pubId: video.id
-      },
-      ...(queuedComments || [])
-    ])
+  const onCompleted = () => {
     setLoading(false)
     setShowTip(false)
     toast.success('Tipped successfully.')
@@ -111,106 +101,91 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     })
   }
 
-  const onCompleted = (data: any) => {
-    if (
-      data?.broadcast?.reason === 'NOT_ALLOWED' ||
-      data.createCommentViaDispatcher?.reason
-    ) {
-      return logger.error('[Error Comment Dispatcher]', data)
-    }
-    const txnId =
-      data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
-    return setToQueue({ txnId })
-  }
-
-  const { write: writeComment } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'commentWithSig',
-    mode: 'recklesslyUnprepared',
-    onError,
-    onSuccess: (data) => {
-      setToQueue({ txnHash: data.hash })
+  const [getComment] = usePublicationDetailsLazyQuery({
+    onCompleted: (data) => {
+      if (data?.publication) {
+        cache.modify({
+          fields: {
+            publications() {
+              cache.writeQuery({
+                data: { publication: data?.publication },
+                query: PublicationDetailsDocument
+              })
+            }
+          }
+        })
+      }
     }
   })
 
-  const [broadcast] = useBroadcastMutation({
-    onError,
-    onCompleted
-  })
+  /**
+   * DATA AVAILABILITY STARTS
+   */
+  const [broadcastDataAvailabilityComment] =
+    useBroadcastDataAvailabilityMutation({
+      onCompleted: (data) => {
+        onCompleted()
+        if (
+          data?.broadcastDataAvailability.__typename ===
+          'CreateDataAvailabilityPublicationResult'
+        ) {
+          getComment({
+            variables: {
+              request: {
+                publicationId: data?.broadcastDataAvailability.id
+              }
+            }
+          })
+        }
+      },
+      onError
+    })
 
-  const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
-    onError,
-    onCompleted
-  })
+  const [createDataAvailabilityCommentViaDispatcher] =
+    useCreateDataAvailabilityCommentViaDispatcherMutation({
+      onCompleted: (data) => {
+        onCompleted()
+        if (
+          data?.createDataAvailabilityCommentViaDispatcher.__typename ===
+          'CreateDataAvailabilityPublicationResult'
+        ) {
+          const { id: publicationId } =
+            data.createDataAvailabilityCommentViaDispatcher
+          getComment({
+            variables: {
+              request: {
+                publicationId
+              }
+            }
+          })
+        }
+      },
+      onError
+    })
 
-  const [createCommentTypedData] = useCreateCommentTypedDataMutation({
-    onCompleted: async ({ createCommentTypedData }) => {
-      const { typedData, id } = createCommentTypedData
-      const {
-        profileId,
-        profileIdPointed,
-        pubIdPointed,
-        contentURI,
-        collectModule,
-        collectModuleInitData,
-        referenceModule,
-        referenceModuleData,
-        referenceModuleInitData
-      } = typedData?.value
-      try {
+  const [createDataAvailabilityCommentTypedData] =
+    useCreateDataAvailabilityCommentTypedDataMutation({
+      onCompleted: async ({ createDataAvailabilityCommentTypedData }) => {
+        const { id, typedData } = createDataAvailabilityCommentTypedData
         toast.loading('Requesting signature...')
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),
           value: omitKey(typedData?.value, '__typename')
         })
-        const { v, r, s } = utils.splitSignature(signature)
-        const args = {
-          profileId,
-          profileIdPointed,
-          pubIdPointed,
-          contentURI,
-          collectModule,
-          collectModuleInitData,
-          referenceModule,
-          referenceModuleData,
-          referenceModuleInitData,
-          sig: { v, r, s, deadline: typedData.value.deadline }
-        }
-        setUserSigNonce(userSigNonce + 1)
-        const { data } = await broadcast({
+        return await broadcastDataAvailabilityComment({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError') {
-          writeComment?.({ recklesslySetUnpreparedArgs: [args] })
-        }
-      } catch {
-        setLoading(false)
       }
-    },
-    onError
-  })
-
-  const signTypedData = (request: CreatePublicCommentRequest) => {
-    createCommentTypedData({
-      variables: { options: { overrideSigNonce: userSigNonce }, request }
     })
-  }
-
-  const createViaDispatcher = async (request: CreatePublicCommentRequest) => {
-    const { data } = await createCommentViaDispatcher({
-      variables: { request }
-    })
-    if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
-      signTypedData(request)
-    }
-  }
+  /**
+   * DATA AVAILABILITY ENDS
+   */
 
   const submitComment = async (txnHash: string) => {
     try {
       setLoading(true)
-      const { url } = await uploadToAr({
+      const metadataUri = await uploadToAr({
         version: '2.0.0',
         metadata_id: uuidv4(),
         description: getValues('message'),
@@ -241,24 +216,25 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         media: [],
         appId: LENSTUBE_APP_ID
       })
-      const request = {
-        profileId: selectedChannel?.id,
-        publicationId: video?.id,
-        contentURI: url,
-        collectModule: {
-          freeCollectModule: {
-            followerOnly: false
-          }
-        },
-        referenceModule: {
-          followerOnlyReferenceModule: false
-        }
+
+      // Create Data Availability comment
+      const dataAvailablityRequest = {
+        from: selectedChannel?.id,
+        commentOn: video.id,
+        contentURI: metadataUri
       }
-      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
-      if (!canUseDispatcher) {
-        return signTypedData(request)
+      const { data } = await createDataAvailabilityCommentViaDispatcher({
+        variables: { request: dataAvailablityRequest }
+      })
+      // Fallback to DA dispatcher error
+      if (
+        data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
+        'RelayError'
+      ) {
+        return await createDataAvailabilityCommentTypedData({
+          variables: { request: dataAvailablityRequest }
+        })
       }
-      await createViaDispatcher(request)
     } catch {}
   }
 

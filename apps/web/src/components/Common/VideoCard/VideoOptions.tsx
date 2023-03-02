@@ -189,7 +189,7 @@ const VideoOptions: FC<Props> = ({
     }
     try {
       toast.loading('Pinning video...')
-      const { url } = await uploadToAr({
+      const metadataUri = await uploadToAr({
         version: '1.0.0',
         metadata_id: uuidv4(),
         name: selectedChannel?.name ?? '',
@@ -213,7 +213,7 @@ const VideoOptions: FC<Props> = ({
       })
       const request = {
         profileId: selectedChannel?.id,
-        metadata: url
+        metadata: metadataUri
       }
       const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
       if (!canUseDispatcher) {

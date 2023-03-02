@@ -204,7 +204,7 @@ const BasicInfo = ({ channel }: Props) => {
   const onSaveBasicInfo = async (data: FormData) => {
     setLoading(true)
     try {
-      const { url } = await uploadToAr({
+      const metadataUri = await uploadToAr({
         version: '1.0.0',
         name: data.displayName || null,
         bio: trimify(data.description),
@@ -240,7 +240,7 @@ const BasicInfo = ({ channel }: Props) => {
       })
       const request = {
         profileId: channel?.id,
-        metadata: url
+        metadata: metadataUri
       }
       const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
       if (!canUseDispatcher) {

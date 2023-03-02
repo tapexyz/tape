@@ -6,6 +6,8 @@ export const LENSTUBE_APP_DESCRIPTION =
 
 export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT ?? 'mainnet'
 export const IS_MAINNET = LENS_ENV === 'mainnet'
+export const IS_STAGING = LENS_ENV === 'staging'
+export const IS_SANDBOX = LENS_ENV === 'sandbox'
 
 export const STATIC_ASSETS = 'https://static.lenstube.xyz'
 export const LENSTUBE_WEBSITE_URL = IS_MAINNET
@@ -18,15 +20,18 @@ export const SCROLL_ROOT_MARGIN = '40% 0px'
 
 // lens
 export const MAINNET_API_URL = 'https://api.lens.dev'
-export const TESTNET_API_URL = 'https://api-mumbai.lens.dev'
-export const STAGING_MAINNET_API_URL =
-  'https://staging-api-social-polygon.lens.crtlkey.com'
 export const STAGING_TESTNET_API_URL =
   'https://staging-api-social-mumbai.lens.crtlkey.com'
-export const STAGING_API_URL = IS_MAINNET
-  ? STAGING_MAINNET_API_URL
-  : STAGING_TESTNET_API_URL
-export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
+export const SANDBOX_TESTNET_API_URL =
+  'https://staging-api-social-mumbai.sandbox.crtlkey.com'
+export const TESTNET_API_URL = 'https://api-mumbai.lens.dev'
+export const LENS_API_URL = IS_MAINNET
+  ? MAINNET_API_URL
+  : IS_STAGING
+  ? STAGING_TESTNET_API_URL
+  : IS_SANDBOX
+  ? SANDBOX_TESTNET_API_URL
+  : TESTNET_API_URL
 
 // API urls
 export const LENSTUBE_MAINNET_API_URL = 'https://api.lenstube.xyz'
