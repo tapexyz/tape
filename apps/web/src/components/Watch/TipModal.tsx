@@ -131,7 +131,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     toast.success('Tipped successfully.')
     Analytics.track(TRACK.PUBLICATION.NEW_COMMENT, {
       publication_id: video.id,
-      comment_type: 'tip'
+      comment_type: 'tip',
+      publication_state: video.isDataAvailability ? 'DATA_ONLY' : 'ON_CHAIN'
     })
   }
 
