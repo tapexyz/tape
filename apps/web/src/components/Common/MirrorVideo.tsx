@@ -65,17 +65,11 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onError
   })
 
-  /**
-   * DATA AVAILABILITY STARTS
-   */
   const [createDataAvailabilityMirrorViaDispatcher] =
     useCreateDataAvailabilityMirrorViaDispatcherMutation({
       onCompleted,
       onError
     })
-  /**
-   * DATA AVAILABILITY ENDS
-   */
 
   const [createMirrorViaDispatcher] = useCreateMirrorViaDispatcherMutation({
     onError,
