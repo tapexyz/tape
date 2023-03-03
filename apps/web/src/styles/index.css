@@ -71,7 +71,7 @@ input[type='number'] {
 }
 .input-mentions-textarea textarea,
 .input-mentions-single textarea {
-  @apply bg-white text-sm resize-y px-2.5 py-2 rounded-xl focus:ring-1 focus:ring-indigo-500 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 outline-none disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 w-full;
+  @apply bg-white text-sm resize-y px-2.5 pt-2 rounded-xl focus:ring-1 focus:ring-indigo-500 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 outline-none disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 w-full;
 }
 .input-mentions-textarea__suggestions,
 .input-mentions-single__suggestions {
