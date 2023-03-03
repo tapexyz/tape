@@ -347,7 +347,7 @@ const UploadSteps = () => {
       }
       const metadataUri = await uploadToAr(metadata)
       setUploadedVideo({
-        buttonText: 'Posting video...',
+        buttonText: 'Posting video',
         loading: true,
         isByteVideo
       })
