@@ -35,7 +35,7 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
   return (
     <DropMenu
       trigger={
-        <div className="py-1 text-white opacity-50 hover:opacity-100 group-hover:visible md:text-inherit">
+        <div className="hidden text-inherit opacity-50 hover:opacity-100 group-hover:visible md:block">
           <EmojiOutline className="h-5 w-5" />
         </div>
       }

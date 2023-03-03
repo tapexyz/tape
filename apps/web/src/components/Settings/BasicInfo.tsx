@@ -363,7 +363,7 @@ const BasicInfo = ({ channel }: Props) => {
           validationError={errors.description?.message}
           {...register('description')}
         />
-        <div className="absolute bottom-1 right-2">
+        <div className="absolute bottom-2 right-2">
           <EmojiPicker
             onEmojiSelect={(emoji) =>
               setValue('description', `${getValues('description')}${emoji}`)
