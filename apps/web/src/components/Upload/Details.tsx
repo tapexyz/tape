@@ -2,6 +2,7 @@ import Alert from '@components/Common/Alert'
 import BytesOutline from '@components/Common/Icons/BytesOutline'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { Button } from '@components/UIElements/Button'
+import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import RadioInput from '@components/UIElements/RadioInput'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -113,6 +114,16 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 rows={5}
                 mentionsSelector="input-mentions-textarea"
               />
+              <div className="absolute bottom-1 right-1.5">
+                <EmojiPicker
+                  onEmojiSelect={(emoji) =>
+                    setValue(
+                      'description',
+                      `${getValues('description')}${emoji}`
+                    )
+                  }
+                />
+              </div>
               <div className="absolute top-0 right-1 mt-1 flex items-center justify-end">
                 <span
                   className={clsx('text-[10px] opacity-50', {
@@ -123,25 +134,25 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   {watch('description')?.length}/5000
                 </span>
               </div>
-              <div className="mt-2 flex items-center space-x-1.5 rounded-full bg-gradient-to-br from-orange-200 to-orange-100 px-3 py-1 text-sm font-medium text-black text-opacity-80">
-                <BytesOutline className="h-4 w-4 flex-none" />
-                <span>
-                  Using
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setValue(
-                        'description',
-                        `${getValues('description')} #bytes`
-                      )
-                    }}
-                    className="mx-1 text-indigo-600 outline-none dark:text-indigo-400"
-                  >
-                    #bytes
-                  </button>
-                  in description will upload this as a short form video.
-                </span>
-              </div>
+            </div>
+            <div className="mt-2 flex items-center space-x-1.5 rounded-full bg-gradient-to-br from-orange-200 to-orange-100 px-3 py-1 text-sm font-medium text-black text-opacity-80">
+              <BytesOutline className="h-4 w-4 flex-none" />
+              <span>
+                Using
+                <button
+                  type="button"
+                  onClick={() => {
+                    setValue(
+                      'description',
+                      `${getValues('description')} #bytes`
+                    )
+                  }}
+                  className="mx-1 text-indigo-600 outline-none dark:text-indigo-400"
+                >
+                  #bytes
+                </button>
+                in description will upload this as a short form video.
+              </span>
             </div>
             <div className="mt-4">
               <CollectModule />

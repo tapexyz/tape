@@ -2,6 +2,7 @@ import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
 import CopyOutline from '@components/Common/Icons/CopyOutline'
 import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
+import EmojiPicker from '@components/UIElements/EmojiPicker'
 import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { TextArea } from '@components/UIElements/TextArea'
@@ -91,7 +92,8 @@ const BasicInfo = ({ channel }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-    getValues
+    getValues,
+    setValue
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -353,7 +355,7 @@ const BasicInfo = ({ channel }: Props) => {
           validationError={errors.displayName?.message}
         />
       </div>
-      <div className="mt-4">
+      <div className="relative mt-4">
         <TextArea
           label="Channel Description"
           placeholder="More about your channel"
@@ -361,6 +363,13 @@ const BasicInfo = ({ channel }: Props) => {
           validationError={errors.description?.message}
           {...register('description')}
         />
+        <div className="absolute bottom-1 right-2">
+          <EmojiPicker
+            onEmojiSelect={(emoji) =>
+              setValue('description', `${getValues('description')}${emoji}`)
+            }
+          />
+        </div>
       </div>
       <div className="mt-4">
         <Input
