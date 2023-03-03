@@ -40,14 +40,26 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
         </div>
       }
     >
-      <Picker
-        autoFocus
-        data={data}
-        navPosition="bottom"
-        theme={resolvedTheme}
-        previewPosition="none"
-        onEmojiSelect={(data: { native: string }) => onEmojiSelect(data.native)}
-      />
+      <div className="pt-2">
+        <Picker
+          autoFocus
+          data={data}
+          navPosition="bottom"
+          theme={resolvedTheme}
+          previewPosition="none"
+          onEmojiSelect={(data: { native: string }) =>
+            onEmojiSelect(data.native)
+          }
+          emojiButtonColors={[
+            'rgba(155,223,88,.7)',
+            'rgba(149,211,254,.7)',
+            'rgba(247,233,34,.7)',
+            'rgba(238,166,252,.7)',
+            'rgba(255,213,143,.7)',
+            'rgba(211,209,255,.7)'
+          ]}
+        />
+      </div>
     </DropMenu>
   )
 }
