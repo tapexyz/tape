@@ -284,7 +284,7 @@ const NewComment: FC<Props> = ({ video }) => {
               }}
               mentionsSelector="input-mentions-single"
             />
-            <div className="absolute bottom-1 right-2">
+            <div className="absolute bottom-2 right-2">
               <EmojiPicker
                 onEmojiSelect={(emoji) =>
                   setValue('comment', `${getValues('comment')}${emoji}`)
