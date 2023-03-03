@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { useApolloClient } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
+import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
@@ -376,17 +377,26 @@ const NewComment: FC<Props> = ({ video }) => {
               alt={selectedChannel?.handle}
             />
           </div>
-          <InputMentions
-            placeholder="How's this video?"
-            autoComplete="off"
-            validationError={errors.comment?.message}
-            value={watch('comment')}
-            onContentChange={(value) => {
-              setValue('comment', value)
-              clearErrors('comment')
-            }}
-            mentionsSelector="input-mentions-single"
-          />
+          <div className="relative w-full">
+            <InputMentions
+              placeholder="How's this video?"
+              autoComplete="off"
+              validationError={errors.comment?.message}
+              value={watch('comment')}
+              onContentChange={(value) => {
+                setValue('comment', value)
+                clearErrors('comment')
+              }}
+              mentionsSelector="input-mentions-single"
+            />
+            <div className="absolute bottom-2 right-2">
+              <EmojiPicker
+                onEmojiSelect={(emoji) =>
+                  setValue('comment', `${getValues('comment')}${emoji}`)
+                }
+              />
+            </div>
+          </div>
         </div>
         <Button loading={loading}>Comment</Button>
       </form>
