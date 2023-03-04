@@ -106,10 +106,6 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     }
   })
 
-  if (loading) {
-    return <CommentsShimmer />
-  }
-
   return (
     <>
       <div className="flex items-center justify-between">
@@ -123,49 +119,54 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
           </>
         )}
       </div>
-      {video?.canComment.result ? (
-        <NewComment video={video} />
-      ) : selectedChannelId ? (
-        <Alert variant="warning">
-          <span className="text-sm">
-            {isFollowerOnlyReferenceModule
-              ? 'Only subscribers can comment on this publication'
-              : `Only subscribers within ${video.profile.handle}'s preferred network can comment`}
-          </span>
-        </Alert>
-      ) : null}
-      {!comments.length && !queuedComments.length ? (
-        <span className="pb-5">
-          <NoDataFound text="Be the first to comment." withImage isCenter />
-        </span>
-      ) : null}
-      {!error && (queuedComments.length || comments.length) ? (
+      {loading && <CommentsShimmer />}
+      {!loading && video ? (
         <>
-          <div className="space-y-4">
-            {queuedComments?.map(
-              (queuedComment) =>
-                queuedComment?.pubId === video?.id && (
-                  <QueuedComment
-                    key={queuedComment?.pubId}
-                    queuedComment={queuedComment}
-                  />
-                )
-            )}
-            {comments?.map(
-              (comment: Publication) =>
-                !comment.hidden && (
-                  <Comment
-                    key={`${comment?.id}_${comment.createdAt}`}
-                    comment={comment}
-                  />
-                )
-            )}
-          </div>
-          {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-10">
-              <Loader />
+          {video?.canComment.result ? (
+            <NewComment video={video} />
+          ) : selectedChannelId ? (
+            <Alert variant="warning">
+              <span className="text-sm">
+                {isFollowerOnlyReferenceModule
+                  ? 'Only subscribers can comment on this publication'
+                  : `Only subscribers within ${video.profile.handle}'s preferred network can comment`}
+              </span>
+            </Alert>
+          ) : null}
+          {!comments.length && !queuedComments.length ? (
+            <span className="pb-5">
+              <NoDataFound text="Be the first to comment." withImage isCenter />
             </span>
-          )}
+          ) : null}
+          {!error && (queuedComments.length || comments.length) ? (
+            <>
+              <div className="space-y-4">
+                {queuedComments?.map(
+                  (queuedComment) =>
+                    queuedComment?.pubId === video?.id && (
+                      <QueuedComment
+                        key={queuedComment?.pubId}
+                        queuedComment={queuedComment}
+                      />
+                    )
+                )}
+                {comments?.map(
+                  (comment: Publication) =>
+                    !comment.hidden && (
+                      <Comment
+                        key={`${comment?.id}_${comment.createdAt}`}
+                        comment={comment}
+                      />
+                    )
+                )}
+              </div>
+              {pageInfo?.next && (
+                <span ref={observe} className="flex justify-center p-10">
+                  <Loader />
+                </span>
+              )}
+            </>
+          ) : null}
         </>
       ) : null}
     </>

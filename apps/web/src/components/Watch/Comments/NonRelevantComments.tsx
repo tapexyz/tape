@@ -2,13 +2,12 @@ import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
 import type { Publication } from 'lens'
 import {
   CommentOrderingTypes,
   CommentRankingFilter,
   PublicationMainFocus,
-  useCommentsQuery
+  useCommentsLazyQuery
 } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -19,12 +18,11 @@ import Comment from './Comment'
 
 type Props = {
   video: Publication
+  className?: string
 }
 
-const NonRelevantComments: FC<Props> = ({ video }) => {
+const NonRelevantComments: FC<Props> = ({ video, className }) => {
   const [showSection, setShowSection] = useState(false)
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
-  const queuedComments = usePersistStore((state) => state.queuedComments)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const request = {
@@ -51,9 +49,9 @@ const NonRelevantComments: FC<Props> = ({ video }) => {
     channelId: selectedChannel?.id ?? null
   }
 
-  const { data, loading, fetchMore } = useCommentsQuery({
+  const [fetchComments, { data, loading, fetchMore }] = useCommentsLazyQuery({
     variables,
-    skip: !video.id
+    fetchPolicy: 'no-cache'
   })
 
   const comments = data?.publications?.items as Publication[]
@@ -74,15 +72,18 @@ const NonRelevantComments: FC<Props> = ({ video }) => {
     }
   })
 
-  if (loading) {
-    return <CommentsShimmer />
+  const onToggle = () => {
+    setShowSection(!showSection)
+    if (!showSection) {
+      fetchComments()
+    }
   }
 
   return (
-    <div>
+    <div className={className}>
       <Button
-        className="mb-5 mt-2 w-full text-center"
-        onClick={() => setShowSection(!showSection)}
+        className="w-full text-center"
+        onClick={() => onToggle()}
         variant="outline"
         size="lg"
       >
@@ -90,7 +91,8 @@ const NonRelevantComments: FC<Props> = ({ video }) => {
       </Button>
       {showSection ? (
         <>
-          <div className="space-y-4">
+          <div className="space-y-4 pt-6">
+            {loading && <CommentsShimmer />}
             {comments?.map(
               (comment: Publication) =>
                 !comment.hidden && (

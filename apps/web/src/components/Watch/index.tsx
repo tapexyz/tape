@@ -3,6 +3,8 @@ import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
 import type { Publication } from 'lens'
 import {
+  CommentRankingFilter,
+  PublicationMainFocus,
   useHasNonRelevantCommentsQuery,
   usePublicationDetailsQuery
 } from 'lens'
@@ -10,7 +12,12 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import { Analytics, CustomCommentsFilterEnum, TRACK } from 'utils'
+import {
+  Analytics,
+  CustomCommentsFilterEnum,
+  LENS_CUSTOM_FILTERS,
+  TRACK
+} from 'utils'
 import isWatchable from 'utils/functions/isWatchable'
 
 import AboutChannel from './AboutChannel'
@@ -44,8 +51,24 @@ const VideoDetails = () => {
     skip: !id
   })
 
+  const request = {
+    limit: 1,
+    customFilters: LENS_CUSTOM_FILTERS,
+    commentsOf: id,
+    metadata: {
+      mainContentFocus: [
+        PublicationMainFocus.Video,
+        PublicationMainFocus.Article,
+        PublicationMainFocus.Embed,
+        PublicationMainFocus.Link,
+        PublicationMainFocus.TextOnly
+      ]
+    },
+    commentsRankingFilter: CommentRankingFilter.NoneRelevant
+  }
+
   const { data: noneRelevantComments } = useHasNonRelevantCommentsQuery({
-    variables: { request: { commentsOf: id, limit: 1 } },
+    variables: { request },
     fetchPolicy: 'no-cache',
     skip: !id
   })
@@ -85,7 +108,7 @@ const VideoDetails = () => {
             {hasNonRelevantComments &&
             selectedCommentFilter ===
               CustomCommentsFilterEnum.RELEVANT_COMMENTS ? (
-              <NonRelevantComments video={video} />
+              <NonRelevantComments video={video} className="pt-4" />
             ) : null}
           </div>
           <div className="col-span-1">
