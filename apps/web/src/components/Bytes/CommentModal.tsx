@@ -4,11 +4,7 @@ import NonRelevantComments from '@components/Watch/Comments/NonRelevantComments'
 import VideoComments from '@components/Watch/Comments/VideoComments'
 import useAppStore from '@lib/store'
 import type { Publication } from 'lens'
-import {
-  CommentRankingFilter,
-  PublicationMainFocus,
-  useHasNonRelevantCommentsQuery
-} from 'lens'
+import { CommentRankingFilter, PublicationMainFocus } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { CustomCommentsFilterEnum, LENS_CUSTOM_FILTERS } from 'utils'
@@ -40,15 +36,6 @@ const CommentModal: FC<Props> = ({ trigger, video }) => {
     commentsRankingFilter: CommentRankingFilter.NoneRelevant
   }
 
-  const { data: noneRelevantComments } = useHasNonRelevantCommentsQuery({
-    variables: { request },
-    fetchPolicy: 'no-cache',
-    skip: !video.id
-  })
-  const hasNonRelevantComments = Boolean(
-    noneRelevantComments?.publications?.items.length
-  )
-
   return (
     <>
       <button
@@ -71,9 +58,8 @@ const CommentModal: FC<Props> = ({ trigger, video }) => {
       >
         <div className="no-scrollbar max-h-[40vh] overflow-y-auto pt-3">
           <VideoComments video={video} hideTitle />
-          {hasNonRelevantComments &&
-          selectedCommentFilter ===
-            CustomCommentsFilterEnum.RELEVANT_COMMENTS ? (
+          {selectedCommentFilter ===
+          CustomCommentsFilterEnum.RELEVANT_COMMENTS ? (
             <NonRelevantComments video={video} className="pt-4" />
           ) : null}
         </div>

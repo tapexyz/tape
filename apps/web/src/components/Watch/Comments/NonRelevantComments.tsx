@@ -7,7 +7,7 @@ import {
   CommentOrderingTypes,
   CommentRankingFilter,
   PublicationMainFocus,
-  useCommentsLazyQuery
+  useCommentsQuery
 } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -26,7 +26,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
   const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const request = {
-    limit: 30,
+    limit: 10,
     customFilters: LENS_CUSTOM_FILTERS,
     commentsOf: video.id,
     metadata: {
@@ -49,9 +49,8 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
     channelId: selectedChannel?.id ?? null
   }
 
-  const [fetchComments, { data, loading, fetchMore }] = useCommentsLazyQuery({
-    variables,
-    fetchPolicy: 'cache-and-network'
+  const { data, loading, fetchMore } = useCommentsQuery({
+    variables
   })
 
   const comments = data?.publications?.items as Publication[]
@@ -74,9 +73,10 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
 
   const onToggle = () => {
     setShowSection(!showSection)
-    if (!showSection) {
-      fetchComments()
-    }
+  }
+
+  if (!comments?.length) {
+    return null
   }
 
   return (

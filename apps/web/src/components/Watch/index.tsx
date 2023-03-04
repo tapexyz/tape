@@ -5,7 +5,6 @@ import type { Publication } from 'lens'
 import {
   CommentRankingFilter,
   PublicationMainFocus,
-  useHasNonRelevantCommentsQuery,
   usePublicationDetailsQuery
 } from 'lens'
 import { useRouter } from 'next/router'
@@ -67,15 +66,6 @@ const VideoDetails = () => {
     commentsRankingFilter: CommentRankingFilter.NoneRelevant
   }
 
-  const { data: noneRelevantComments } = useHasNonRelevantCommentsQuery({
-    variables: { request },
-    fetchPolicy: 'no-cache',
-    skip: !id
-  })
-  const hasNonRelevantComments = Boolean(
-    noneRelevantComments?.publications?.items.length
-  )
-
   const publication = data?.publication as Publication
   const video =
     publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
@@ -105,9 +95,8 @@ const VideoDetails = () => {
             <AboutChannel video={video} />
             <hr className="border border-gray-200 dark:border-gray-800" />
             <VideoComments video={video} />
-            {hasNonRelevantComments &&
-            selectedCommentFilter ===
-              CustomCommentsFilterEnum.RELEVANT_COMMENTS ? (
+            {selectedCommentFilter ===
+            CustomCommentsFilterEnum.RELEVANT_COMMENTS ? (
               <NonRelevantComments video={video} className="pt-4" />
             ) : null}
           </div>
