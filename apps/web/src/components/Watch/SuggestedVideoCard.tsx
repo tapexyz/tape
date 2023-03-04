@@ -74,7 +74,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
                     getPublicationMediaUrl(video)
                   )
                   currentTarget.onerror = null
-                  if (thumbnail.includes('base64')) {
+                  if (thumbnail?.includes('base64')) {
                     currentTarget.src = thumbnail
                   }
                 }}
