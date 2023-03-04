@@ -134,7 +134,8 @@ export const MIXPANEL_TOKEN = '928986a6551f5a12132e63c8bdd4451e'
 export const MUX_DATA_KEY = '2h11sq1qeahiaejrjegjti847'
 
 // vercel
-export const IS_PRODUCTION = process.env.NODE_ENV === 'production'
+export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
+export const IS_PRODUCTION = !IS_DEVELOPMENT
 export const GIT_DEPLOYED_COMMIT_SHA =
   process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
 export const GIT_DEPLOYED_BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
