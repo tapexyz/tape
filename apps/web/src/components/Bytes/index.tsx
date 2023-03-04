@@ -45,6 +45,8 @@ const Bytes = () => {
 
   const [fetchAllBytes, { data, loading, error, fetchMore }] =
     useExploreLazyQuery({
+      // prevent the query from firing again after the first fetch
+      nextFetchPolicy: 'standby',
       variables: {
         request,
         reactionRequest: selectedChannel

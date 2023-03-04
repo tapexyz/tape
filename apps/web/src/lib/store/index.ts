@@ -5,6 +5,7 @@ import type { BundlrDataState, UploadedVideo } from 'utils'
 import {
   BUNDLR_CURRENCY,
   BUNDLR_NODE_URL,
+  CustomCommentsFilterEnum,
   POLYGON_RPC_URL,
   WMATIC_TOKEN_ADDRESS
 } from 'utils'
@@ -86,6 +87,8 @@ interface AppState {
   setHasNewNotification: (value: boolean) => void
   setBundlrData: (bundlrData: { [k: string]: any }) => void
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
+  selectedCommentFilter: CustomCommentsFilterEnum
+  setSelectedCommentFilter: (filter: CustomCommentsFilterEnum) => void
 }
 
 // TODO: Split into multiple stores
@@ -102,6 +105,9 @@ export const useAppStore = create<AppState>((set) => ({
   uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
   setActiveTagFilter: (activeTagFilter) => set({ activeTagFilter }),
   setVideoWatchTime: (videoWatchTime) => set({ videoWatchTime }),
+  selectedCommentFilter: CustomCommentsFilterEnum.RELEVANT_COMMENTS,
+  setSelectedCommentFilter: (selectedCommentFilter) =>
+    set({ selectedCommentFilter }),
   setSelectedChannel: (channel) => set({ selectedChannel: channel }),
   setBundlrData: (bundlrData) =>
     set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrData } })),

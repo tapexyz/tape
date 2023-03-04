@@ -3,7 +3,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import type { Profile, Publication } from 'lens'
-import { PublicationTypes, useProfileCommentsQuery } from 'lens'
+import { PublicationTypes, useCommentsQuery } from 'lens'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -26,7 +26,8 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: channel?.id
   }
-  const { data, loading, error, fetchMore } = useProfileCommentsQuery({
+
+  const { data, loading, error, fetchMore } = useCommentsQuery({
     variables: {
       request
     },
