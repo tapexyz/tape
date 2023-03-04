@@ -2,8 +2,6 @@ import type { WebBundlr } from '@bundlr-network/client'
 import type {
   AaveFeeCollectModuleSettings,
   Attribute,
-  CommentOrderingTypes,
-  CommentRankingFilter,
   FeeCollectModuleSettings,
   FreeCollectModuleSettings,
   LimitedFeeCollectModuleSettings,
@@ -148,7 +146,7 @@ export type QueuedCommentType = {
   txnHash?: string
 }
 
-export type CommentsFilterType = {
-  commentsOfOrdering?: CommentOrderingTypes
-  commentsRankingFilter?: CommentRankingFilter
+export enum CustomCommentsFilterEnum {
+  RELEVANT_COMMENTS = 'RelevantComments',
+  NEWEST_COMMENTS = 'NewestComments'
 }

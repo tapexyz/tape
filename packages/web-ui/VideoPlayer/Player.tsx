@@ -2,7 +2,7 @@ import type { AspectRatio } from '@livepeer/react'
 import { Player } from '@livepeer/react'
 import type { FC } from 'react'
 import React from 'react'
-import { IPFS_GATEWAY_URL } from 'utils'
+import { IPFS_GATEWAY_URL, IS_PRODUCTION } from 'utils'
 
 export interface PlayerProps {
   playerRef?: (ref: HTMLMediaElement) => void
@@ -41,10 +41,12 @@ const PlayerInstance: FC<PlayerProps> = ({
       controls={{ defaultVolume: 1 }}
       autoPlay={options?.autoPlay ?? false}
       showLoadingSpinner={options?.loadingSpinner}
-      autoUrlUpload={{
-        fallback: true,
-        ipfsGateway: IPFS_GATEWAY_URL
-      }}
+      autoUrlUpload={
+        IS_PRODUCTION && {
+          fallback: true,
+          ipfsGateway: IPFS_GATEWAY_URL
+        }
+      }
     >
       {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
       {!showControls ? <></> : null}

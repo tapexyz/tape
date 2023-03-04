@@ -2,15 +2,19 @@ import MetaTags from '@components/Common/MetaTags'
 import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
 import type { Publication } from 'lens'
-import { usePublicationDetailsQuery } from 'lens'
+import {
+  useHasNonRelevantCommentsQuery,
+  usePublicationDetailsQuery
+} from 'lens'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
-import { Analytics, TRACK } from 'utils'
+import { Analytics, CustomCommentsFilterEnum, TRACK } from 'utils'
 import isWatchable from 'utils/functions/isWatchable'
 
 import AboutChannel from './AboutChannel'
+import NonRelevantComments from './Comments/NonRelevantComments'
 import VideoComments from './Comments/VideoComments'
 import SuggestedVideos from './SuggestedVideos'
 import Video from './Video'
@@ -21,6 +25,9 @@ const VideoDetails = () => {
   } = useRouter()
   const selectedChannel = useAppStore((state) => state.selectedChannel)
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
+  const selectedCommentFilter = useAppStore(
+    (state) => state.selectedCommentFilter
+  )
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.WATCH })
@@ -36,6 +43,15 @@ const VideoDetails = () => {
     },
     skip: !id
   })
+
+  const { data: noneRelevantComments } = useHasNonRelevantCommentsQuery({
+    variables: { request: { commentsOf: id, limit: 1 } },
+    fetchPolicy: 'no-cache',
+    skip: !id
+  })
+  const hasNonRelevantComments = Boolean(
+    noneRelevantComments?.publications?.items.length
+  )
 
   const publication = data?.publication as Publication
   const video =
@@ -66,6 +82,11 @@ const VideoDetails = () => {
             <AboutChannel video={video} />
             <hr className="border border-gray-200 dark:border-gray-800" />
             <VideoComments video={video} />
+            {hasNonRelevantComments &&
+            selectedCommentFilter ===
+              CustomCommentsFilterEnum.RELEVANT_COMMENTS ? (
+              <NonRelevantComments video={video} />
+            ) : null}
           </div>
           <div className="col-span-1">
             <SuggestedVideos />

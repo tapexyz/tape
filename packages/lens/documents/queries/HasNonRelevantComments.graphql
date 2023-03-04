@@ -1,0 +1,9 @@
+query HasNonRelevantComments($request: PublicationsQueryRequest!) {
+  publications(request: $request) {
+    items {
+      ... on Comment {
+        id
+      }
+    }
+  }
+}

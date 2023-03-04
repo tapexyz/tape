@@ -2,18 +2,19 @@ import SortOutline from '@components/Common/Icons/SortOutline'
 import DropMenu from '@components/UIElements/DropMenu'
 import Tooltip from '@components/UIElements/Tooltip'
 import { Menu } from '@headlessui/react'
+import useAppStore from '@lib/store'
 import clsx from 'clsx'
-import { CommentOrderingTypes, CommentRankingFilter } from 'lens'
-import type { FC } from 'react'
 import React from 'react'
-import type { CommentsFilterType } from 'utils'
+import { CustomCommentsFilterEnum } from 'utils'
 
-type Props = {
-  rankingFilter: CommentsFilterType
-  onSort: (filter: CommentsFilterType) => void
-}
+const CommentsFilter = () => {
+  const selectedCommentFilter = useAppStore(
+    (state) => state.selectedCommentFilter
+  )
+  const setSelectedCommentFilter = useAppStore(
+    (state) => state.setSelectedCommentFilter
+  )
 
-const CommentsFilter: FC<Props> = ({ rankingFilter, onSort }) => {
   return (
     <DropMenu
       trigger={
@@ -28,11 +29,12 @@ const CommentsFilter: FC<Props> = ({ rankingFilter, onSort }) => {
         <Menu.Item
           className={clsx(
             'w-full rounded-lg px-3 py-1.5 text-left',
-            rankingFilter.commentsRankingFilter ===
-              CommentRankingFilter.Relevant && 'bg-gray-100 dark:bg-gray-800'
+            selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS
+              ? 'bg-gray-100 dark:bg-gray-800'
+              : 'opacity-60 hover:opacity-100'
           )}
           onClick={() =>
-            onSort({ commentsRankingFilter: CommentRankingFilter.Relevant })
+            setSelectedCommentFilter(CustomCommentsFilterEnum.RELEVANT_COMMENTS)
           }
           as="button"
         >
@@ -41,11 +43,12 @@ const CommentsFilter: FC<Props> = ({ rankingFilter, onSort }) => {
         <Menu.Item
           className={clsx(
             'w-full rounded-lg px-3 py-1.5 text-left',
-            rankingFilter.commentsOfOrdering === CommentOrderingTypes.Desc &&
-              'bg-gray-100 dark:bg-gray-800'
+            selectedCommentFilter === CustomCommentsFilterEnum.NEWEST_COMMENTS
+              ? 'bg-gray-100 dark:bg-gray-800'
+              : 'opacity-60 hover:opacity-100'
           )}
           onClick={() =>
-            onSort({ commentsOfOrdering: CommentOrderingTypes.Desc })
+            setSelectedCommentFilter(CustomCommentsFilterEnum.NEWEST_COMMENTS)
           }
           as="button"
         >

@@ -4,7 +4,7 @@ import React, { forwardRef } from 'react'
 
 import { Loader } from './Loader'
 
-export type ButtonVariants = 'primary' | 'hover' | 'danger'
+export type ButtonVariants = 'primary' | 'hover' | 'danger' | 'outline'
 
 interface Props
   extends DetailedHTMLProps<
@@ -38,12 +38,13 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
         {
           'btn-primary': variant === 'primary',
           'btn-danger': variant === 'danger',
-          'btn-hover': variant === 'hover'
+          'btn-hover': variant === 'hover',
+          'btn-outline': variant === 'outline'
         },
         {
           'px-4 py-1.5 text-xs': size === 'sm',
           'px-5 py-1.5 text-sm md:py-2': size === 'md',
-          'px-6 py-3 text-base': size === 'lg',
+          'px-6 py-3 text-sm': size === 'lg',
           'px-8 py-4 text-lg': size === 'xl'
         },
         className
@@ -53,7 +54,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
     >
       <span
         className={clsx('flex items-center justify-center space-x-2', {
-          'text-white': variant !== 'hover'
+          'text-white': variant === 'primary' || variant === 'danger'
         })}
       >
         {icon}

@@ -7,16 +7,20 @@ import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import type { Publication } from 'lens'
 import {
+  CommentOrderingTypes,
   CommentRankingFilter,
   PublicationMainFocus,
   useCommentsQuery
 } from 'lens'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
-import type { CommentsFilterType } from 'utils'
-import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from 'utils'
+import {
+  CustomCommentsFilterEnum,
+  LENS_CUSTOM_FILTERS,
+  SCROLL_ROOT_MARGIN
+} from 'utils'
 
 import CommentsFilter from './CommentsFilter'
 import NewComment from './NewComment'
@@ -30,16 +34,31 @@ type Props = {
 }
 
 const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
-  const [rankingFilter, setRankingFilter] = useState<CommentsFilterType>({
-    commentsRankingFilter: CommentRankingFilter.Relevant
-  })
-
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
-
+  const selectedCommentFilter = useAppStore(
+    (state) => state.selectedCommentFilter
+  )
   const isFollowerOnlyReferenceModule =
     video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
+
+  const getCommentFilters = () => {
+    if (selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS) {
+      return {
+        commentsOfOrdering: CommentOrderingTypes.Ranking,
+        commentsRankingFilter: CommentRankingFilter.Relevant
+      }
+    } else if (
+      selectedCommentFilter === CustomCommentsFilterEnum.NEWEST_COMMENTS
+    ) {
+      return {
+        commentsOfOrdering: CommentOrderingTypes.Desc
+      }
+    } else {
+      return {}
+    }
+  }
 
   const request = {
     limit: 30,
@@ -54,7 +73,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
         PublicationMainFocus.TextOnly
       ]
     },
-    ...rankingFilter
+    ...getCommentFilters()
   }
   const variables = {
     request,
@@ -95,15 +114,14 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     <>
       <div className="flex items-center justify-between">
         {!hideTitle && (
-          <h1 className="m-2 flex items-center space-x-2 text-lg">
-            <CommentOutline className="h-5 w-5" />
-            <span className="font-medium">Comments</span>
-          </h1>
+          <>
+            <h1 className="m-2 flex items-center space-x-2 text-lg">
+              <CommentOutline className="h-5 w-5" />
+              <span className="font-medium">Comments</span>
+            </h1>
+            <CommentsFilter />
+          </>
         )}
-        <CommentsFilter
-          rankingFilter={rankingFilter}
-          onSort={(filter) => setRankingFilter(filter)}
-        />
       </div>
       {video?.canComment.result ? (
         <NewComment video={video} />
