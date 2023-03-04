@@ -74,7 +74,9 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
                     getPublicationMediaUrl(video)
                   )
                   currentTarget.onerror = null
-                  currentTarget.src = thumbnail
+                  if (thumbnail?.includes('base64')) {
+                    currentTarget.src = thumbnail
+                  }
                 }}
               />
               {!isSensitiveContent && videoDuration ? (
