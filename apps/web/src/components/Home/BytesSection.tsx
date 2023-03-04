@@ -117,7 +117,9 @@ const BytesSection = () => {
                         getPublicationMediaUrl(byte)
                       )
                       currentTarget.onerror = null
-                      currentTarget.src = thumbnail
+                      if (thumbnail.includes('base64')) {
+                        currentTarget.src = thumbnail
+                      }
                     }}
                   />
                 </div>
