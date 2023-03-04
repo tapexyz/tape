@@ -22,7 +22,7 @@ body {
 }
 
 .btn-outline {
-  @apply disabled:opacity-50 focus:outline-none rounded-xl dark:hover:border-indigo-700 border border-indigo-100 dark:border-indigo-900 hover:border-indigo-300;
+  @apply disabled:opacity-50 focus:outline-none rounded-xl dark:hover:border-indigo-700 border border-gray-200 dark:border-gray-800 hover:border-indigo-300;
 }
 
 .bg-secondary {

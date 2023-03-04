@@ -82,12 +82,14 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
   return (
     <div className={className}>
       <Button
-        className="w-full text-center"
+        className="group w-full text-center"
         onClick={() => onToggle()}
         variant="outline"
         size="lg"
       >
-        {showSection ? 'Hide more comments' : 'Show more comments'}
+        <span className="opacity-70 group-hover:opacity-100">
+          {showSection ? 'Hide more comments' : 'Show more comments'}
+        </span>
       </Button>
       {showSection ? (
         <>
