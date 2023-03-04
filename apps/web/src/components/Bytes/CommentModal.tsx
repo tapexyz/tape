@@ -4,10 +4,9 @@ import NonRelevantComments from '@components/Watch/Comments/NonRelevantComments'
 import VideoComments from '@components/Watch/Comments/VideoComments'
 import useAppStore from '@lib/store'
 import type { Publication } from 'lens'
-import { CommentRankingFilter, PublicationMainFocus } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { CustomCommentsFilterEnum, LENS_CUSTOM_FILTERS } from 'utils'
+import { CustomCommentsFilterEnum } from 'utils'
 
 type Props = {
   trigger: React.ReactNode
@@ -19,22 +18,6 @@ const CommentModal: FC<Props> = ({ trigger, video }) => {
   const selectedCommentFilter = useAppStore(
     (state) => state.selectedCommentFilter
   )
-
-  const request = {
-    limit: 1,
-    customFilters: LENS_CUSTOM_FILTERS,
-    commentsOf: video.id,
-    metadata: {
-      mainContentFocus: [
-        PublicationMainFocus.Video,
-        PublicationMainFocus.Article,
-        PublicationMainFocus.Embed,
-        PublicationMainFocus.Link,
-        PublicationMainFocus.TextOnly
-      ]
-    },
-    commentsRankingFilter: CommentRankingFilter.NoneRelevant
-  }
 
   return (
     <>
