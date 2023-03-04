@@ -22,7 +22,7 @@ import {
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
 const CommentOptions = dynamic(() => import('./CommentOptions'))
-const PublicationReaction = dynamic(() => import('./PublicationReaction'))
+const PublicationReaction = dynamic(() => import('../PublicationReaction'))
 
 interface Props {
   comment: Publication

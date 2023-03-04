@@ -1,6 +1,6 @@
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import Modal from '@components/UIElements/Modal'
-import VideoComments from '@components/Watch/VideoComments'
+import VideoComments from '@components/Watch/Comments/VideoComments'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'

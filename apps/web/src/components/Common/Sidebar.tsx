@@ -1,5 +1,4 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
@@ -22,7 +21,6 @@ const CreateChannel = dynamic(() => import('./CreateChannel'))
 
 const Sidebar = () => {
   const router = useRouter()
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
   const setSidebarCollapsed = usePersistStore(
     (state) => state.setSidebarCollapsed

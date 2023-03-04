@@ -2,6 +2,8 @@ import type { WebBundlr } from '@bundlr-network/client'
 import type {
   AaveFeeCollectModuleSettings,
   Attribute,
+  CommentOrderingTypes,
+  CommentRankingFilter,
   FeeCollectModuleSettings,
   FreeCollectModuleSettings,
   LimitedFeeCollectModuleSettings,
@@ -144,4 +146,9 @@ export type QueuedCommentType = {
   pubId: string
   txnId?: string
   txnHash?: string
+}
+
+export type CommentsFilterType = {
+  commentsOfOrdering?: CommentOrderingTypes
+  commentsRankingFilter?: CommentRankingFilter
 }

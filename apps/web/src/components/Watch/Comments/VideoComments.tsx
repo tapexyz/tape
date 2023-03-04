@@ -6,13 +6,19 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import type { Publication } from 'lens'
-import { PublicationMainFocus, useProfileCommentsQuery } from 'lens'
+import {
+  CommentRankingFilter,
+  PublicationMainFocus,
+  useCommentsQuery
+} from 'lens'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
+import type { CommentsFilterType } from 'utils'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from 'utils'
 
+import CommentsFilter from './CommentsFilter'
 import NewComment from './NewComment'
 import QueuedComment from './QueuedComment'
 
@@ -24,6 +30,10 @@ type Props = {
 }
 
 const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
+  const [rankingFilter, setRankingFilter] = useState<CommentsFilterType>({
+    commentsRankingFilter: CommentRankingFilter.Relevant
+  })
+
   const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const selectedChannel = useAppStore((state) => state.selectedChannel)
@@ -43,7 +53,8 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
         PublicationMainFocus.Link,
         PublicationMainFocus.TextOnly
       ]
-    }
+    },
+    ...rankingFilter
   }
   const variables = {
     request,
@@ -53,7 +64,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     channelId: selectedChannel?.id ?? null
   }
 
-  const { data, loading, error, fetchMore } = useProfileCommentsQuery({
+  const { data, loading, error, fetchMore } = useCommentsQuery({
     variables,
     skip: !video.id
   })
@@ -84,14 +95,15 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     <>
       <div className="flex items-center justify-between">
         {!hideTitle && (
-          <h1 className="my-4 flex items-center space-x-2 text-lg">
-            <CommentOutline className="h-4 w-4" />
-            <span className="font-semibold">Comments</span>
+          <h1 className="m-2 flex items-center space-x-2 text-lg">
+            <CommentOutline className="h-5 w-5" />
+            <span className="font-medium">Comments</span>
           </h1>
         )}
-        {!selectedChannelId && (
-          <span className="text-xs">(Sign in required to comment)</span>
-        )}
+        <CommentsFilter
+          rankingFilter={rankingFilter}
+          onSort={(filter) => setRankingFilter(filter)}
+        />
       </div>
       {video?.canComment.result ? (
         <NewComment video={video} />
@@ -105,11 +117,13 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
         </Alert>
       ) : null}
       {!comments.length && !queuedComments.length ? (
-        <NoDataFound text="Be the first to comment." withImage isCenter />
+        <span className="pb-5">
+          <NoDataFound text="Be the first to comment." withImage isCenter />
+        </span>
       ) : null}
       {!error && (queuedComments.length || comments.length) ? (
         <>
-          <div className="space-y-4 pt-5">
+          <div className="space-y-4">
             {queuedComments?.map(
               (queuedComment) =>
                 queuedComment?.pubId === video?.id && (

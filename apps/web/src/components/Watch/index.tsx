@@ -11,9 +11,9 @@ import { Analytics, TRACK } from 'utils'
 import isWatchable from 'utils/functions/isWatchable'
 
 import AboutChannel from './AboutChannel'
+import VideoComments from './Comments/VideoComments'
 import SuggestedVideos from './SuggestedVideos'
 import Video from './Video'
-import VideoComments from './VideoComments'
 
 const VideoDetails = () => {
   const {
