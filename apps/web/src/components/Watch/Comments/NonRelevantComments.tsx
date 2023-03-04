@@ -51,7 +51,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
 
   const [fetchComments, { data, loading, fetchMore }] = useCommentsLazyQuery({
     variables,
-    fetchPolicy: 'no-cache'
+    fetchPolicy: 'cache-and-network'
   })
 
   const comments = data?.publications?.items as Publication[]
