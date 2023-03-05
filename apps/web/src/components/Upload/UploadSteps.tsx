@@ -244,7 +244,7 @@ const UploadSteps = () => {
     try {
       setUploadedVideo({
         ...uploadedVideo,
-        buttonText: 'Storing metadata...',
+        buttonText: 'Storing metadata',
         loading: true
       })
       uploadedVideo.videoSource = videoSource
@@ -300,7 +300,7 @@ const UploadSteps = () => {
       const { url } = await uploadToAr(metadata)
       setUploadedVideo({
         ...uploadedVideo,
-        buttonText: 'Posting video...',
+        buttonText: 'Posting video',
         loading: true,
         isByteVideo
       })
@@ -339,7 +339,7 @@ const UploadSteps = () => {
       (percentCompleted) => {
         setUploadedVideo({
           ...uploadedVideo,
-          buttonText: 'Uploading to IPFS...',
+          buttonText: 'Uploading to IPFS',
           loading: true,
           percent: percentCompleted
         })
@@ -374,7 +374,7 @@ const UploadSteps = () => {
       setUploadedVideo({
         ...uploadedVideo,
         loading: true,
-        buttonText: 'Uploading to Arweave...'
+        buttonText: 'Uploading to Arweave'
       })
       const bundlr = bundlrData.instance
       const tags = [
