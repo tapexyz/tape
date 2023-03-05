@@ -2,7 +2,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { IPFS_FREE_UPLOAD_LIMIT } from 'utils'
 import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
 
@@ -17,13 +17,6 @@ const UploadMethod = () => {
   const onClickArweave = () => {
     setUploadedVideo({ ...uploadedVideo, isUploadToIpfs: false })
   }
-
-  useEffect(() => {
-    if (isUnderFreeLimit && !uploadedVideo.isUploadToIpfs) {
-      setUploadedVideo({ ...uploadedVideo, isUploadToIpfs: true })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <Tab.Group

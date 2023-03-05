@@ -73,7 +73,7 @@ const UploadSteps = () => {
   const enabledReferenceModule = uploadedVideo.referenceModule
     ?.degreesOfSeparationReferenceModule
     ? ReferenceModules.DegreesOfSeparationReferenceModule
-    : uploadedVideo.referenceModule?.followerOnlyReferenceModule
+    : uploadedVideo.referenceModule.followerOnlyReferenceModule
     ? ReferenceModules.FollowerOnlyReferenceModule
     : null
 
@@ -351,11 +351,12 @@ const UploadSteps = () => {
     setUploadedVideo({
       ...uploadedVideo,
       percent: 100,
-      videoSource: result.url
+      videoSource: result.url,
+      loading: false
     })
-    return await createPublication({
-      videoSource: result.url
-    })
+    // return await createPublication({
+    //   videoSource: result.url
+    // })
   }
 
   const uploadToBundlr = async () => {

@@ -137,6 +137,13 @@ const BundlrInfo = () => {
     }
   }
 
+  const onRefreshBalance = async () => {
+    if (!bundlrData.instance) {
+      return await initBundlr()
+    }
+    await fetchBalance()
+  }
+
   return (
     <div className="mt-4 w-full space-y-2">
       <div className="flex flex-col">
@@ -147,7 +154,7 @@ const BundlrInfo = () => {
               <button
                 type="button"
                 className="focus:outline-none"
-                onClick={() => fetchBalance()}
+                onClick={() => onRefreshBalance()}
               >
                 <RefreshOutline className="h-3 w-3" />
               </button>

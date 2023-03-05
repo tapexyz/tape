@@ -6,6 +6,7 @@ import fileReaderStream from 'filereader-stream'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { ALLOWED_VIDEO_TYPES, Analytics, TRACK } from 'utils'
+import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
 import useDragAndDrop from 'utils/hooks/useDragAndDrop'
 import logger from 'utils/logger'
 
@@ -30,12 +31,14 @@ const DropZone = () => {
     try {
       if (file) {
         const preview = URL.createObjectURL(file)
+        const isUnderFreeLimit = canUploadedToIpfs(file?.size)
         setUploadedVideo({
           ...uploadedVideo,
           stream: fileReaderStream(file),
           preview,
           videoType: file?.type || 'video/mp4',
-          file
+          file,
+          isUploadToIpfs: isUnderFreeLimit
         })
       }
     } catch (error) {
