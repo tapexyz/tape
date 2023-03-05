@@ -36,7 +36,6 @@ import getUserLocale from 'utils/functions/getUserLocale'
 import omitKey from 'utils/functions/omitKey'
 import trimify from 'utils/functions/trimify'
 import uploadToAr from 'utils/functions/uploadToAr'
-import logger from 'utils/logger'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -97,7 +96,7 @@ const NewComment: FC<Props> = ({ video }) => {
       data?.broadcast?.reason === 'NOT_ALLOWED' ||
       data.createCommentViaDispatcher?.reason
     ) {
-      return logger.error('[Error Comment Dispatcher]', data)
+      return
     }
     Analytics.track(TRACK.PUBLICATION.NEW_COMMENT)
     const txnId =
@@ -248,9 +247,7 @@ const NewComment: FC<Props> = ({ video }) => {
         return signTypedData(request)
       }
       await createViaDispatcher(request)
-    } catch (error) {
-      logger.error('[Error Store & Post Comment]', error)
-    }
+    } catch {}
   }
 
   if (!selectedChannel || !selectedChannelId) {

@@ -45,6 +45,7 @@ const BundlrInfo = () => {
     if (address && instance) {
       const balance = await instance.getBalance(address)
       setBundlrData({
+        ...bundlrData,
         balance: utils.formatEther(balance.toString())
       })
     }
@@ -59,6 +60,7 @@ const BundlrInfo = () => {
       uploadedVideo.stream?.size
     )
     setBundlrData({
+      ...bundlrData,
       estimatedPrice: utils.formatEther(price.toString())
     })
   }
@@ -68,7 +70,7 @@ const BundlrInfo = () => {
       toast(BUNDLR_CONNECT_MESSAGE)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
-        setBundlrData({ instance: bundlr })
+        setBundlrData({ ...bundlrData, instance: bundlr })
         await fetchBalance(bundlr)
         await estimatePrice(bundlr)
       }
@@ -114,7 +116,7 @@ const BundlrInfo = () => {
         `Insufficient funds in your wallet, you have ${userBalance?.formatted} MATIC.`
       )
     }
-    setBundlrData({ depositing: true })
+    setBundlrData({ ...bundlrData, depositing: true })
     try {
       const fundResult = await bundlrData.instance.fund(value)
       if (fundResult) {
@@ -131,6 +133,7 @@ const BundlrInfo = () => {
     } finally {
       await fetchBalance()
       setBundlrData({
+        ...bundlrData,
         deposit: null,
         showDeposit: false,
         depositing: false
@@ -158,7 +161,10 @@ const BundlrInfo = () => {
             <button
               type="button"
               onClick={() =>
-                setBundlrData({ showDeposit: !bundlrData.showDeposit })
+                setBundlrData({
+                  ...bundlrData,
+                  showDeposit: !bundlrData.showDeposit
+                })
               }
               className="inline-flex items-center rounded-full bg-gray-200 py-0.5 px-2 focus:outline-none dark:bg-gray-900"
             >
@@ -189,7 +195,7 @@ const BundlrInfo = () => {
               min={0}
               value={bundlrData.deposit || ''}
               onChange={(e) => {
-                setBundlrData({ deposit: e.target.value })
+                setBundlrData({ ...bundlrData, deposit: e.target.value })
               }}
             />
             <Button

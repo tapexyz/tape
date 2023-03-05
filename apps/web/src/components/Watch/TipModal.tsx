@@ -116,7 +116,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       data?.broadcast?.reason === 'NOT_ALLOWED' ||
       data.createCommentViaDispatcher?.reason
     ) {
-      return logger.error('[Error Comment Dispatcher]', data)
+      return
     }
     const txnId =
       data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
