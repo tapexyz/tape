@@ -10,7 +10,9 @@ import useDragAndDrop from 'utils/hooks/useDragAndDrop'
 import logger from 'utils/logger'
 
 const DropZone = () => {
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+
   const {
     dragOver,
     setDragOver,
@@ -29,6 +31,7 @@ const DropZone = () => {
       if (file) {
         const preview = URL.createObjectURL(file)
         setUploadedVideo({
+          ...uploadedVideo,
           stream: fileReaderStream(file),
           preview,
           videoType: file?.type || 'video/mp4',

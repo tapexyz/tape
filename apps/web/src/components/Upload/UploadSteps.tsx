@@ -73,7 +73,7 @@ const UploadSteps = () => {
   const enabledReferenceModule = uploadedVideo.referenceModule
     ?.degreesOfSeparationReferenceModule
     ? ReferenceModules.DegreesOfSeparationReferenceModule
-    : uploadedVideo.referenceModule.followerOnlyReferenceModule
+    : uploadedVideo.referenceModule?.followerOnlyReferenceModule
     ? ReferenceModules.FollowerOnlyReferenceModule
     : null
 

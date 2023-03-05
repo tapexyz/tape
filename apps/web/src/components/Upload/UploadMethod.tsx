@@ -15,12 +15,12 @@ const UploadMethod = () => {
   const isUnderFreeLimit = canUploadedToIpfs(uploadedVideo.file?.size)
 
   const onClickArweave = () => {
-    setUploadedVideo({ isUploadToIpfs: false })
+    setUploadedVideo({ ...uploadedVideo, isUploadToIpfs: false })
   }
 
   useEffect(() => {
     if (isUnderFreeLimit && !uploadedVideo.isUploadToIpfs) {
-      setUploadedVideo({ isUploadToIpfs: true })
+      setUploadedVideo({ ...uploadedVideo, isUploadToIpfs: true })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -52,7 +52,9 @@ const UploadMethod = () => {
                 : 'enabled:hover:bg-white/[0.12]'
             )
           }
-          onClick={() => setUploadedVideo({ isUploadToIpfs: true })}
+          onClick={() =>
+            setUploadedVideo({ ...uploadedVideo, isUploadToIpfs: true })
+          }
           disabled={!isUnderFreeLimit}
         >
           <Tooltip
