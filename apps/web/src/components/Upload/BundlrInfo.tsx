@@ -40,39 +40,40 @@ const BundlrInfo = () => {
     watch: true
   })
 
-  const fetchBalance = async (bundlr?: WebBundlr) => {
-    const instance = bundlr || bundlrData.instance
-    if (address && instance) {
-      const balance = await instance.getBalance(address)
-      setBundlrData({
-        ...bundlrData,
-        balance: utils.formatEther(balance.toString())
-      })
-    }
-  }
-
   const estimatePrice = async (bundlr: WebBundlr) => {
     if (!uploadedVideo.stream) {
       return toast.error('Upload cost estimation failed!')
     }
-    const price = await bundlr.utils.getPrice(
+    return await bundlr.utils.getPrice(
       BUNDLR_CURRENCY,
       uploadedVideo.stream?.size
     )
-    setBundlrData({
-      ...bundlrData,
-      estimatedPrice: utils.formatEther(price.toString())
-    })
+  }
+
+  const fetchBalance = async (bundlr?: WebBundlr) => {
+    try {
+      const instance = bundlr || bundlrData.instance
+      if (address && instance) {
+        const balance = await instance.getBalance(address)
+        const price = await estimatePrice(instance)
+        setBundlrData({
+          ...bundlrData,
+          balance: utils.formatEther(balance.toString()),
+          estimatedPrice: utils.formatEther(price.toString())
+        })
+      }
+    } catch (error) {
+      logger.error('[Error Fetch Bundlr Balance]', error)
+    }
   }
 
   const initBundlr = async () => {
     if (signer?.provider && address && !bundlrData.instance) {
-      toast(BUNDLR_CONNECT_MESSAGE)
+      toast.loading(BUNDLR_CONNECT_MESSAGE)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
         setBundlrData({ ...bundlrData, instance: bundlr })
         await fetchBalance(bundlr)
-        await estimatePrice(bundlr)
       }
     }
   }
@@ -86,12 +87,7 @@ const BundlrInfo = () => {
 
   useEffect(() => {
     if (bundlrData.instance && mounted) {
-      fetchBalance(bundlrData.instance).catch((error) =>
-        logger.error('[Error Fetch Bundlr Balance]', error)
-      )
-      estimatePrice(bundlrData.instance).catch((error) =>
-        logger.error('[Error Estimate Video Price ]', error)
-      )
+      fetchBalance(bundlrData.instance).catch(() => {})
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bundlrData.instance])

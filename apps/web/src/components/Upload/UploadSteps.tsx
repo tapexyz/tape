@@ -173,7 +173,7 @@ const UploadSteps = () => {
 
   const initBundlr = async () => {
     if (signer?.provider && address && !bundlrData.instance) {
-      toast(BUNDLR_CONNECT_MESSAGE)
+      toast.loading(BUNDLR_CONNECT_MESSAGE)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
         setBundlrData({ ...bundlrData, instance: bundlr })
