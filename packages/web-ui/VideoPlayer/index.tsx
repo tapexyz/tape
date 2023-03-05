@@ -4,7 +4,12 @@ import mux from 'mux-embed'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { IS_MAINNET, LENSTUBE_WEBSITE_URL, MUX_DATA_KEY } from 'utils'
+import {
+  IS_MAINNET,
+  IS_PRODUCTION,
+  LENSTUBE_WEBSITE_URL,
+  MUX_DATA_KEY
+} from 'utils'
 
 import type { PlayerProps } from './Player'
 import PlayerInstance from './Player'
@@ -59,7 +64,7 @@ const VideoPlayer: FC<Props> = ({
     refCallback?.(ref)
     playerRef.current = ref
     playerRef.current.currentTime = Number(currentTime || 0)
-    if (IS_MAINNET) {
+    if (IS_MAINNET && IS_PRODUCTION) {
       analyseVideo(playerRef.current)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

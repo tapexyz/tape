@@ -22,7 +22,7 @@ import {
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
 const CommentOptions = dynamic(() => import('./CommentOptions'))
-const PublicationReaction = dynamic(() => import('./PublicationReaction'))
+const PublicationReaction = dynamic(() => import('../PublicationReaction'))
 
 interface Props {
   comment: Publication
@@ -110,11 +110,7 @@ const Comment: FC<Props> = ({ comment }) => {
               clamped ? 'line-clamp-2' : ''
             )}
           >
-            {comment?.hidden ? (
-              <span className="text-xs italic opacity-80">
-                Comment deleted by user!
-              </span>
-            ) : getIsVideoComment() ? (
+            {getIsVideoComment() ? (
               <VideoComment comment={comment} />
             ) : (
               <InterweaveContent content={comment?.metadata?.content} />

@@ -11,7 +11,12 @@ import type { FC, ReactNode } from 'react'
 import React, { useEffect } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
-import { MIXPANEL_API_HOST, MIXPANEL_TOKEN, POLYGON_CHAIN_ID } from 'utils'
+import {
+  IS_PRODUCTION,
+  MIXPANEL_API_HOST,
+  MIXPANEL_TOKEN,
+  POLYGON_CHAIN_ID
+} from 'utils'
 import { AUTH_ROUTES } from 'utils/data/auth-routes'
 import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
 import { getToastOptions } from 'utils/functions/getToastOptions'
@@ -28,7 +33,7 @@ interface Props {
 
 const NO_HEADER_PATHS = ['/auth']
 
-if (MIXPANEL_TOKEN) {
+if (IS_PRODUCTION) {
   mixpanel.init(MIXPANEL_TOKEN, {
     ignore_dnt: true,
     api_host: MIXPANEL_API_HOST
@@ -118,7 +123,7 @@ const Layout: FC<Props> = ({ children }) => {
   }
 
   useEffect(() => {
-    if (MIXPANEL_TOKEN && selectedChannel?.id) {
+    if (IS_PRODUCTION && selectedChannel?.id) {
       mixpanel.identify(selectedChannel?.id)
       mixpanel.people.set({
         $name: selectedChannel?.handle

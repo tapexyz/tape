@@ -21,6 +21,10 @@ body {
   @apply disabled:opacity-50 focus:outline-none rounded-full dark:hover:bg-indigo-900 hover:bg-indigo-100;
 }
 
+.btn-outline {
+  @apply disabled:opacity-50 focus:outline-none rounded-xl dark:hover:border-indigo-700 border border-gray-200 dark:border-gray-800 hover:border-indigo-300;
+}
+
 .bg-secondary {
   @apply dark:bg-[#050506] bg-white;
 }
@@ -54,13 +58,6 @@ input[type='number'] {
 /* interweave linkify */
 .interweave-content a {
   @apply text-indigo-500;
-}
-
-.tippy-box[data-theme~='material'] > .tippy-arrow::before {
-  transform: scale(0.7);
-}
-.tippy-box[data-theme~='light'] > .tippy-arrow::before {
-  transform: scale(0.7);
 }
 
 .input-mentions-single {

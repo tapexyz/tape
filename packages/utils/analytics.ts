@@ -1,10 +1,10 @@
 import type { Dict } from 'mixpanel-browser'
 import mixpanel from 'mixpanel-browser'
-import { IS_MAINNET, MIXPANEL_TOKEN } from 'utils/constants'
+import { IS_MAINNET, IS_PRODUCTION } from 'utils/constants'
 
 export const Analytics = {
   track: (eventName: string, payload?: Dict) => {
-    if (MIXPANEL_TOKEN && IS_MAINNET) {
+    if (IS_PRODUCTION && IS_MAINNET) {
       mixpanel.track(eventName, payload)
     }
   }
