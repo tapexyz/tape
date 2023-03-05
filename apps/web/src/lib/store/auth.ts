@@ -25,7 +25,10 @@ export const useAuthPersistStore = create(
       setSelectedChannelId: (id) => set({ selectedChannelId: id }),
       signIn: ({ accessToken, refreshToken }) =>
         set({ accessToken, refreshToken }),
-      signOut: () => localStorage.removeItem('lenstube.store'),
+      signOut: () => {
+        localStorage.removeItem('lenstube.store')
+        localStorage.removeItem('lenstube.auth.store')
+      },
       hydrateAuthTokens: () => {
         return {
           accessToken: get().accessToken,

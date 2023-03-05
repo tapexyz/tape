@@ -1,4 +1,4 @@
-import { danger, warn, markdown, message } from 'danger'
+import { danger, warn, markdown, message, fail } from 'danger'
 
 // No PR is too small to include a description of why you made a change
 if (danger.github.pr.body.length < 10) {
@@ -29,5 +29,12 @@ if (danger.github.pr.additions < danger.github.pr.deletions) {
     `✂️ Thanks for removing  ${
       danger.github.pr.deletions - danger.github.pr.additions
     } lines!`
+  )
+}
+
+// Always ensure we assign someone
+if (danger.github.pr.assignee === null) {
+  fail(
+    'Please assign someone to merge this PR, and optionally include people who should review.'
   )
 }
