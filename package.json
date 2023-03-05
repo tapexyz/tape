@@ -22,7 +22,8 @@
   "devDependencies": {
     "husky": "^8.0.3",
     "ts-node": "latest",
-    "turbo": "1.8.3"
+    "turbo": "1.8.3",
+    "danger": "10.8.0"
   },
   "engines": {
     "node": ">=16.0.0"

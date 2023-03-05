@@ -11702,64 +11702,6 @@ export type UserProfilesQuery = {
   userSigNonces: { __typename?: 'UserSigNonces'; lensHubOnChainSigNonce: any }
 }
 
-export interface PossibleTypesResultData {
-  possibleTypes: {
-    [key: string]: string[]
-  }
-}
-const result: PossibleTypesResultData = {
-  possibleTypes: {
-    CollectModule: [
-      'AaveFeeCollectModuleSettings',
-      'ERC4626FeeCollectModuleSettings',
-      'FeeCollectModuleSettings',
-      'FreeCollectModuleSettings',
-      'LimitedFeeCollectModuleSettings',
-      'LimitedTimedFeeCollectModuleSettings',
-      'MultirecipientFeeCollectModuleSettings',
-      'RevertCollectModuleSettings',
-      'TimedFeeCollectModuleSettings',
-      'UnknownCollectModuleSettings'
-    ],
-    FeedItemRoot: ['Comment', 'Post'],
-    FollowModule: [
-      'FeeFollowModuleSettings',
-      'ProfileFollowModuleSettings',
-      'RevertFollowModuleSettings',
-      'UnknownFollowModuleSettings'
-    ],
-    MainPostReference: ['Mirror', 'Post'],
-    MentionPublication: ['Comment', 'Post'],
-    MirrorablePublication: ['Comment', 'Post'],
-    Notification: [
-      'NewCollectNotification',
-      'NewCommentNotification',
-      'NewFollowerNotification',
-      'NewMentionNotification',
-      'NewMirrorNotification',
-      'NewReactionNotification'
-    ],
-    ProfileMedia: ['MediaSet', 'NftImage'],
-    ProxyActionStatusResultUnion: [
-      'ProxyActionError',
-      'ProxyActionQueued',
-      'ProxyActionStatusResult'
-    ],
-    Publication: ['Comment', 'Mirror', 'Post'],
-    PublicationForSale: ['Comment', 'Post'],
-    PublicationSearchResultItem: ['Comment', 'Post'],
-    ReferenceModule: [
-      'DegreesOfSeparationReferenceModuleSettings',
-      'FollowOnlyReferenceModuleSettings',
-      'UnknownReferenceModuleSettings'
-    ],
-    RelayResult: ['RelayError', 'RelayerResult'],
-    SearchResult: ['ProfileSearchResult', 'PublicationSearchResult'],
-    TransactionResult: ['TransactionError', 'TransactionIndexedResult']
-  }
-}
-export default result
-
 export const ProfileFieldsFragmentDoc = gql`
   fragment ProfileFields on Profile {
     id
@@ -15892,3 +15834,61 @@ export type UserProfilesQueryResult = Apollo.QueryResult<
   UserProfilesQuery,
   UserProfilesQueryVariables
 >
+
+export interface PossibleTypesResultData {
+  possibleTypes: {
+    [key: string]: string[]
+  }
+}
+const result: PossibleTypesResultData = {
+  possibleTypes: {
+    CollectModule: [
+      'AaveFeeCollectModuleSettings',
+      'ERC4626FeeCollectModuleSettings',
+      'FeeCollectModuleSettings',
+      'FreeCollectModuleSettings',
+      'LimitedFeeCollectModuleSettings',
+      'LimitedTimedFeeCollectModuleSettings',
+      'MultirecipientFeeCollectModuleSettings',
+      'RevertCollectModuleSettings',
+      'TimedFeeCollectModuleSettings',
+      'UnknownCollectModuleSettings'
+    ],
+    FeedItemRoot: ['Comment', 'Post'],
+    FollowModule: [
+      'FeeFollowModuleSettings',
+      'ProfileFollowModuleSettings',
+      'RevertFollowModuleSettings',
+      'UnknownFollowModuleSettings'
+    ],
+    MainPostReference: ['Mirror', 'Post'],
+    MentionPublication: ['Comment', 'Post'],
+    MirrorablePublication: ['Comment', 'Post'],
+    Notification: [
+      'NewCollectNotification',
+      'NewCommentNotification',
+      'NewFollowerNotification',
+      'NewMentionNotification',
+      'NewMirrorNotification',
+      'NewReactionNotification'
+    ],
+    ProfileMedia: ['MediaSet', 'NftImage'],
+    ProxyActionStatusResultUnion: [
+      'ProxyActionError',
+      'ProxyActionQueued',
+      'ProxyActionStatusResult'
+    ],
+    Publication: ['Comment', 'Mirror', 'Post'],
+    PublicationForSale: ['Comment', 'Post'],
+    PublicationSearchResultItem: ['Comment', 'Post'],
+    ReferenceModule: [
+      'DegreesOfSeparationReferenceModuleSettings',
+      'FollowOnlyReferenceModuleSettings',
+      'UnknownReferenceModuleSettings'
+    ],
+    RelayResult: ['RelayError', 'RelayerResult'],
+    SearchResult: ['ProfileSearchResult', 'PublicationSearchResult'],
+    TransactionResult: ['TransactionError', 'TransactionIndexedResult']
+  }
+}
+export default result

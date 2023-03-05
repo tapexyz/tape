@@ -37,4 +37,9 @@ jobs:
  
         - name: Run Tests 🧪
           run: yarn e2e:test
+        
+        - name: Danger Checks ☢️
+          run: yarn danger ci
+          env: 
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
