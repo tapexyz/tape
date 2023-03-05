@@ -351,12 +351,11 @@ const UploadSteps = () => {
     setUploadedVideo({
       ...uploadedVideo,
       percent: 100,
-      videoSource: result.url,
-      loading: false
+      videoSource: result.url
     })
-    // return await createPublication({
-    //   videoSource: result.url
-    // })
+    return await createPublication({
+      videoSource: result.url
+    })
   }
 
   const uploadToBundlr = async () => {
