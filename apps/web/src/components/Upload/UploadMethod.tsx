@@ -14,10 +14,6 @@ const UploadMethod = () => {
 
   const isUnderFreeLimit = canUploadedToIpfs(uploadedVideo.file?.size)
 
-  const onClickArweave = () => {
-    setUploadedVideo({ ...uploadedVideo, isUploadToIpfs: false })
-  }
-
   return (
     <Tab.Group
       as="div"
@@ -32,7 +28,9 @@ const UploadMethod = () => {
               selected ? 'dark:bg-theme bg-white' : 'hover:bg-white/[0.12]'
             )
           }
-          onClick={onClickArweave}
+          onClick={() =>
+            setUploadedVideo({ ...uploadedVideo, isUploadToIpfs: false })
+          }
         >
           Upload to Arweave
         </Tab>
