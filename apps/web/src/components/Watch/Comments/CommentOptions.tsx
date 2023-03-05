@@ -3,7 +3,7 @@ import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import TrashOutline from '@components/Common/Icons/TrashOutline'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu from '@components/UIElements/DropMenu'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { Publication } from 'lens'
 import { useHidePublicationMutation } from 'lens'
 import type { Dispatch, FC } from 'react'
@@ -18,7 +18,7 @@ type Props = {
 
 const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
   const [showConfirm, setShowConfirm] = useState(false)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const [hideComment] = useHidePublicationMutation({
     update(cache) {

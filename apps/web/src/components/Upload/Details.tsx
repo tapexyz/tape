@@ -1,6 +1,4 @@
-import Alert from '@components/Common/Alert'
 import BytesOutline from '@components/Common/Icons/BytesOutline'
-import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
@@ -8,7 +6,7 @@ import RadioInput from '@components/UIElements/RadioInput'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
-import type { FC, ReactNode } from 'react'
+import type { FC } from 'react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -17,17 +15,6 @@ import Category from './Category'
 import CollectModule from './CollectModule'
 import ReferenceModule from './ReferenceModule'
 import Video from './Video'
-
-const ContentAlert = ({ message }: { message: ReactNode }) => (
-  <div className="mt-6">
-    <Alert variant="danger">
-      <span className="inline-flex items-center text-sm">
-        <TimesOutline className="mr-3 h-5 w-5 text-red-500" />
-        {message}
-      </span>
-    </Alert>
-  </div>
-)
 
 const formSchema = z.object({
   title: z
@@ -183,41 +170,19 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           <Video />
         </div>
       </div>
-      {uploadedVideo.isNSFWThumbnail ? (
-        <ContentAlert
-          message={
-            <span>
-              Sorry! <b className="px-0.5">Selected thumbnail</b> image has
-              tripped some content warnings. It contains NSFW content, choose
-              different image to post.
-            </span>
-          }
-        />
-      ) : uploadedVideo.isNSFW ? (
-        <ContentAlert
-          message={
-            <span>
-              Sorry! Something about this video has tripped some content
-              warnings. It contains NSFW content in some frames, and so the
-              video is not allowed to post on Lenstube!
-            </span>
-          }
-        />
-      ) : (
-        <div className="mt-4 flex items-center justify-end space-x-2">
-          <Button type="button" variant="hover" onClick={() => onCancel()}>
-            Reset
-          </Button>
-          <Button
-            loading={uploadedVideo.loading || uploadedVideo.uploadingThumbnail}
-            type="submit"
-          >
-            {uploadedVideo.uploadingThumbnail
-              ? 'Uploading thumbnail'
-              : uploadedVideo.buttonText}
-          </Button>
-        </div>
-      )}
+      <div className="mt-4 flex items-center justify-end space-x-2">
+        <Button type="button" variant="hover" onClick={() => onCancel()}>
+          Reset
+        </Button>
+        <Button
+          loading={uploadedVideo.loading || uploadedVideo.uploadingThumbnail}
+          type="submit"
+        >
+          {uploadedVideo.uploadingThumbnail
+            ? 'Uploading thumbnail'
+            : uploadedVideo.buttonText}
+        </Button>
+      </div>
     </form>
   )
 }

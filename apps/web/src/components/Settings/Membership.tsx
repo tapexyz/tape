@@ -5,7 +5,7 @@ import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import { utils } from 'ethers'
 import type {
   CreateSetFollowModuleBroadcastItemResult,
@@ -47,8 +47,9 @@ type FormData = z.infer<typeof formSchema>
 const Membership = ({ channel }: Props) => {
   const [loading, setLoading] = useState(false)
   const [showForm, setShowForm] = useState(false)
-  const userSigNonce = useAppStore((state) => state.userSigNonce)
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const userSigNonce = useChannelStore((state) => state.userSigNonce)
+  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
+
   const {
     register,
     handleSubmit,

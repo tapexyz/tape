@@ -3,6 +3,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { FeedItem, Publication } from 'lens'
 import { FeedEventItemType, PublicationMainFocus, useFeedQuery } from 'lens'
 import React from 'react'
@@ -11,7 +12,7 @@ import Custom500 from 'src/pages/500'
 import { SCROLL_ROOT_MARGIN } from 'utils'
 
 const HomeFeed = () => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
   const request = {

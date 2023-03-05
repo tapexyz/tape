@@ -4,6 +4,7 @@ import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import { useEnabledModuleCurrrenciesQuery } from 'lens'
 import React, { useState } from 'react'
 import type { CollectModuleType } from 'utils'
@@ -18,10 +19,11 @@ const CollectModule = () => {
   const [showModal, setShowModal] = useState(false)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const setCollectType = (data: CollectModuleType) => {
     setUploadedVideo({
+      ...uploadedVideo,
       collectModule: { ...uploadedVideo.collectModule, ...data }
     })
   }

@@ -3,8 +3,8 @@ import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
-import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import dayjs from 'dayjs'
 import type { ApprovedAllowanceAmount, Publication } from 'lens'
 import {
@@ -44,8 +44,10 @@ const CollectModal: FC<Props> = ({
   collectModule,
   fetchingCollectModule
 }) => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
 
   const [isAllowed, setIsAllowed] = useState(true)
   const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)

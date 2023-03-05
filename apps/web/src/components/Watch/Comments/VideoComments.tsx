@@ -3,7 +3,8 @@ import CommentOutline from '@components/Common/Icons/CommentOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import type { Publication } from 'lens'
 import {
@@ -34,12 +35,15 @@ type Props = {
 }
 
 const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
   const queuedComments = usePersistStore((state) => state.queuedComments)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const selectedCommentFilter = useAppStore(
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedCommentFilter = useChannelStore(
     (state) => state.selectedCommentFilter
   )
+
   const isFollowerOnlyReferenceModule =
     video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
 

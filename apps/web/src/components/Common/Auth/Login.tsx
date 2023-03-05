@@ -1,5 +1,5 @@
-import useAppStore from '@lib/store'
-import usePersistStore, { signIn, signOut } from '@lib/store/persist'
+import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import type { Profile } from 'lens'
 import {
   useAllProfilesLazyQuery,
@@ -28,14 +28,18 @@ const Login = () => {
     }
   })
 
-  const setShowCreateChannel = useAppStore(
+  const setShowCreateChannel = useChannelStore(
     (state) => state.setShowCreateChannel
   )
-  const setChannels = useAppStore((state) => state.setChannels)
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
-  const setSelectedChannelId = usePersistStore(
+  const setChannels = useChannelStore((state) => state.setChannels)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const setSelectedChannel = useChannelStore(
+    (state) => state.setSelectedChannel
+  )
+  const setSelectedChannelId = useAuthPersistStore(
     (state) => state.setSelectedChannelId
   )
 

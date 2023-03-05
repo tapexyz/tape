@@ -1,7 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import { Loader } from '@components/UIElements/Loader'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import clsx from 'clsx'
 import { utils } from 'ethers'
 import type {
@@ -32,10 +32,12 @@ type Props = {
 const ChannelPicture: FC<Props> = ({ channel }) => {
   const [selectedPfp, setSelectedPfp] = useState('')
   const [loading, setLoading] = useState(false)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
-  const userSigNonce = useAppStore((state) => state.userSigNonce)
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const setSelectedChannel = useChannelStore(
+    (state) => state.setSelectedChannel
+  )
+  const userSigNonce = useChannelStore((state) => state.userSigNonce)
+  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)

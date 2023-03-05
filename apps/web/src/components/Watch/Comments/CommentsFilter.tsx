@@ -2,16 +2,16 @@ import SortOutline from '@components/Common/Icons/SortOutline'
 import DropMenu from '@components/UIElements/DropMenu'
 import Tooltip from '@components/UIElements/Tooltip'
 import { Menu } from '@headlessui/react'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import clsx from 'clsx'
 import React from 'react'
 import { CustomCommentsFilterEnum } from 'utils'
 
 const CommentsFilter = () => {
-  const selectedCommentFilter = useAppStore(
+  const selectedCommentFilter = useChannelStore(
     (state) => state.selectedCommentFilter
   )
-  const setSelectedCommentFilter = useAppStore(
+  const setSelectedCommentFilter = useChannelStore(
     (state) => state.setSelectedCommentFilter
   )
 

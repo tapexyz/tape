@@ -1,6 +1,7 @@
 import { useApolloClient } from '@apollo/client'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
@@ -26,7 +27,7 @@ type Props = {
 }
 
 const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 

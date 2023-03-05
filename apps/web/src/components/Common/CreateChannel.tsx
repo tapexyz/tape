@@ -3,7 +3,7 @@ import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import { useCreateProfileMutation } from 'lens'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -50,10 +50,11 @@ export const ClaimHandle = () => (
 )
 
 const CreateChannel = () => {
-  const showCreateChannel = useAppStore((state) => state.showCreateChannel)
-  const setShowCreateChannel = useAppStore(
+  const showCreateChannel = useChannelStore((state) => state.showCreateChannel)
+  const setShowCreateChannel = useChannelStore(
     (state) => state.setShowCreateChannel
   )
+
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState('Create')
   const { mounted } = useIsMounted()

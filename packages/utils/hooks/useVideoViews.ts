@@ -2,7 +2,6 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 import { LIVEPEER_VIEWS_URL } from '../constants'
-import logger from '../logger'
 
 const useVideoViews = (sourceUrl: string) => {
   const [loading, setLoading] = useState(false)
@@ -17,9 +16,8 @@ const useVideoViews = (sourceUrl: string) => {
       if (data && data.success) {
         setViews(data.views)
       }
-    } catch (error) {
-      logger.error('[Error useVideoViews.ts]', error)
-    } finally {
+      setLoading(false)
+    } catch {
       setLoading(false)
     }
   }

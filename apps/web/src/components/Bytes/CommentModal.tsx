@@ -2,7 +2,7 @@ import CommentOutline from '@components/Common/Icons/CommentOutline'
 import Modal from '@components/UIElements/Modal'
 import NonRelevantComments from '@components/Watch/Comments/NonRelevantComments'
 import VideoComments from '@components/Watch/Comments/VideoComments'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -15,7 +15,7 @@ type Props = {
 
 const CommentModal: FC<Props> = ({ trigger, video }) => {
   const [show, setShow] = useState(false)
-  const selectedCommentFilter = useAppStore(
+  const selectedCommentFilter = useChannelStore(
     (state) => state.selectedCommentFilter
   )
 

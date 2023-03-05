@@ -4,7 +4,8 @@ import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { utils } from 'ethers'
 import type { CreatePublicCommentRequest, Publication } from 'lens'
@@ -38,7 +39,6 @@ import getUserLocale from 'utils/functions/getUserLocale'
 import omitKey from 'utils/functions/omitKey'
 import trimify from 'utils/functions/trimify'
 import uploadToAr from 'utils/functions/uploadToAr'
-import logger from 'utils/logger'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -59,12 +59,14 @@ const NewComment: FC<Props> = ({ video }) => {
   const { cache } = useApolloClient()
 
   const [loading, setLoading] = useState(false)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
-  const userSigNonce = useAppStore((state) => state.userSigNonce)
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const userSigNonce = useChannelStore((state) => state.userSigNonce)
+  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
 
   const {
     clearErrors,
@@ -100,7 +102,7 @@ const NewComment: FC<Props> = ({ video }) => {
       data?.broadcast?.reason === 'NOT_ALLOWED' ||
       data.createCommentViaDispatcher?.reason
     ) {
-      return logger.error('[Error Comment Dispatcher]', data)
+      return
     }
     Analytics.track(TRACK.PUBLICATION.NEW_COMMENT, {
       publication_id: video.id,
@@ -353,9 +355,7 @@ const NewComment: FC<Props> = ({ video }) => {
         return signTypedData(request)
       }
       await createViaDispatcher(request)
-    } catch (error) {
-      logger.error('[Error Store & Post Comment]', error)
-    }
+    } catch {}
   }
 
   if (!selectedChannel || !selectedChannelId) {

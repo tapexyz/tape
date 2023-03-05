@@ -1,7 +1,8 @@
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import { useLatestNotificationIdQuery } from 'lens'
@@ -37,16 +38,20 @@ const Header: FC<Props> = ({ className }) => {
   const showFilter =
     pathname === '/' || pathname === '/explore' || pathname === '/feed'
 
-  const hasNewNotification = useAppStore((state) => state.hasNewNotification)
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const hasNewNotification = useChannelStore(
+    (state) => state.hasNewNotification
+  )
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const latestNotificationId = usePersistStore(
     (state) => state.latestNotificationId
   )
   const setLatestNotificationId = usePersistStore(
     (state) => state.setLatestNotificationId
   )
-  const setHasNewNotification = useAppStore(
+  const setHasNewNotification = useChannelStore(
     (state) => state.setHasNewNotification
   )
 

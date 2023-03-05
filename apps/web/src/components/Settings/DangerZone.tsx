@@ -1,8 +1,8 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
-import useAppStore from '@lib/store'
-import { signOut } from '@lib/store/persist'
+import { signOut } from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import { utils } from 'ethers'
 import type { CreateBurnProfileBroadcastItemResult } from 'lens'
 import { useCreateBurnProfileTypedDataMutation } from 'lens'
@@ -21,9 +21,10 @@ import {
 } from 'wagmi'
 
 const DangerZone = () => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [loading, setLoading] = useState(false)
   const [txnHash, setTxnHash] = useState<`0x${string}`>()
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+
   const { signTypedDataAsync } = useSignTypedData({
     onError(error) {
       toast.error(error?.message)
