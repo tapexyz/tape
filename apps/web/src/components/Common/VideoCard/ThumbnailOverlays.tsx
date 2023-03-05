@@ -1,5 +1,5 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { Attribute, Publication } from 'lens'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
@@ -18,7 +18,7 @@ type Props = {
 }
 
 const ThumbnailOverlays: FC<Props> = ({ video }) => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const { pathname } = useRouter()
 

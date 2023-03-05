@@ -1,7 +1,7 @@
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
-import useAppStore from '@lib/store'
-import usePersistStore, { signOut } from '@lib/store/persist'
+import useAuthPersistStore, { signOut } from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { useAllProfilesLazyQuery } from 'lens'
@@ -37,16 +37,18 @@ const UserMenu = () => {
   const { theme, setTheme } = useTheme()
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
 
-  const setChannels = useAppStore((state) => state.setChannels)
-  const setShowCreateChannel = useAppStore(
+  const setChannels = useChannelStore((state) => state.setChannels)
+  const setShowCreateChannel = useChannelStore(
     (state) => state.setShowCreateChannel
   )
-  const channels = useAppStore((state) => state.channels)
-  const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
-  const selectedChannel = useAppStore(
+  const channels = useChannelStore((state) => state.channels)
+  const setSelectedChannel = useChannelStore(
+    (state) => state.setSelectedChannel
+  )
+  const selectedChannel = useChannelStore(
     (state) => state.selectedChannel as Profile
   )
-  const setSelectedChannelId = usePersistStore(
+  const setSelectedChannelId = useAuthPersistStore(
     (state) => state.setSelectedChannelId
   )
 

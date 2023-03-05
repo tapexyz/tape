@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
 import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { Publication } from 'lens'
 import { usePublicationDetailsQuery } from 'lens'
 import { useRouter } from 'next/router'
@@ -20,9 +21,9 @@ const VideoDetails = () => {
   const {
     query: { id, t }
   } = useRouter()
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
-  const selectedCommentFilter = useAppStore(
+  const selectedCommentFilter = useChannelStore(
     (state) => state.selectedCommentFilter
   )
 

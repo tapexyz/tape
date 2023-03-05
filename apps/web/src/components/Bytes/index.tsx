@@ -3,7 +3,7 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { Publication } from 'lens'
 import {
   PublicationSortCriteria,
@@ -37,8 +37,8 @@ const request = {
 const Bytes = () => {
   const router = useRouter()
   const bytesContainer = useRef<HTMLDivElement>(null)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [currentViewingId, setCurrentViewingId] = useState('')
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const [fetchPublication, { data: singleByte, loading: singleByteLoading }] =
     usePublicationDetailsLazyQuery()

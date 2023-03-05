@@ -1,11 +1,9 @@
 import { WebBundlr } from '@bundlr-network/client'
 import type { FetchSignerResult } from '@wagmi/core'
-import type { Profile } from 'lens'
 import type { BundlrDataState, UploadedVideo } from 'utils'
 import {
   BUNDLR_CURRENCY,
   BUNDLR_NODE_URL,
-  CustomCommentsFilterEnum,
   POLYGON_RPC_URL,
   WMATIC_TOKEN_ADDRESS
 } from 'utils'
@@ -63,56 +61,27 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
 }
 
 interface AppState {
-  channels: Profile[]
-  recommendedChannels: Profile[]
-  showCreateChannel: boolean
-  hasNewNotification: boolean
-  userSigNonce: number
-  bundlrData: BundlrDataState
   uploadedVideo: UploadedVideo
-  selectedChannel: Profile | null
+  bundlrData: BundlrDataState
   videoWatchTime: number
   activeTagFilter: string
-  selectedCommentFilter: CustomCommentsFilterEnum
   setUploadedVideo: <T extends UploadedVideo>(video: T) => void
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
-  setSelectedChannel: (channel: Profile | null) => void
-  setUserSigNonce: (userSigNonce: number) => void
-  setShowCreateChannel: (showCreateChannel: boolean) => void
-  setChannels: (channels: Profile[]) => void
-  setRecommendedChannels: (channels: Profile[]) => void
-  setHasNewNotification: (value: boolean) => void
   setBundlrData: <T extends BundlrDataState>(bundlrData: T) => void
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
-  setSelectedCommentFilter: (filter: CustomCommentsFilterEnum) => void
 }
 
-// TODO: Split into multiple stores
 export const useAppStore = create<AppState>((set) => ({
-  channels: [],
-  recommendedChannels: [],
-  showCreateChannel: false,
-  hasNewNotification: false,
-  userSigNonce: 0,
-  selectedChannel: null,
   videoWatchTime: 0,
   activeTagFilter: 'all',
   bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
   uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
   setActiveTagFilter: (activeTagFilter) => set({ activeTagFilter }),
   setVideoWatchTime: (videoWatchTime) => set({ videoWatchTime }),
-  selectedCommentFilter: CustomCommentsFilterEnum.RELEVANT_COMMENTS,
-  setSelectedCommentFilter: (selectedCommentFilter) =>
-    set({ selectedCommentFilter }),
-  setSelectedChannel: (channel) => set({ selectedChannel: channel }),
   setBundlrData: (bundlrData) =>
     set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrData } })),
-  setUserSigNonce: (userSigNonce) => set({ userSigNonce }),
-  setHasNewNotification: (b) => set({ hasNewNotification: b }),
-  setChannels: (channels) => set({ channels }),
-  setRecommendedChannels: (recommendedChannels) => set({ recommendedChannels }),
-  setShowCreateChannel: (showCreateChannel) => set({ showCreateChannel }),
+  setUploadedVideo: (uploadedVideo) => set({ uploadedVideo }),
   getBundlrInstance: async (signer) => {
     try {
       const bundlr = new WebBundlr(
@@ -130,8 +99,7 @@ export const useAppStore = create<AppState>((set) => ({
       logger.error('[Error Init Bundlr]', error)
       return null
     }
-  },
-  setUploadedVideo: (uploadedVideo) => set({ uploadedVideo })
+  }
 }))
 
 export default useAppStore

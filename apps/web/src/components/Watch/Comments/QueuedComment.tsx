@@ -2,7 +2,7 @@ import { useApolloClient } from '@apollo/client'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import type { Publication } from 'lens'
 import {
@@ -22,7 +22,7 @@ type Props = {
 }
 
 const QueuedComment: FC<Props> = ({ queuedComment }) => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
 

@@ -1,7 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import { utils } from 'ethers'
 import type {
   CreateMirrorBroadcastItemResult,
@@ -35,10 +35,12 @@ type Props = {
 
 const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
-  const userSigNonce = useAppStore((state) => state.userSigNonce)
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const userSigNonce = useChannelStore((state) => state.userSigNonce)
+  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const collectModule =
     video?.__typename === 'Post'

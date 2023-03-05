@@ -7,7 +7,7 @@ import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import { utils } from 'ethers'
 import type {
   CreatePublicSetProfileMetadataUriRequest,
@@ -86,7 +86,7 @@ const BasicInfo = ({ channel }: Props) => {
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [coverImage, setCoverImage] = useState(getChannelCoverPicture(channel))
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const {
     register,

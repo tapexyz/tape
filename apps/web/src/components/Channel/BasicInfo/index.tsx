@@ -3,7 +3,7 @@ import SubscribeActions from '@components/Common/SubscribeActions'
 import SubscribersList from '@components/Common/SubscribersList'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { Profile } from 'lens'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
@@ -22,7 +22,7 @@ type Props = {
 }
 
 const BasicInfo: FC<Props> = ({ channel }) => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const [showSubscribersModal, setShowSubscribersModal] = useState(false)
 
   const isOwnChannel = channel?.id === selectedChannel?.id

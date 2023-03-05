@@ -7,6 +7,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import clsx from 'clsx'
 import type { Publication } from 'lens'
 import {
@@ -38,7 +39,7 @@ const initialCriteria = {
 const ExploreFeed = () => {
   const [activeCriteria, setActiveCriteria] = useState(initialCriteria)
 
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
   const isMod = MOD_IDS.includes(selectedChannel?.id)
 

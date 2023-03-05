@@ -1,8 +1,8 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import { utils } from 'ethers'
 import type { FeeFollowModuleSettings, Profile } from 'lens'
 import {
@@ -34,9 +34,12 @@ type Props = {
 const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
-  const userSigNonce = useAppStore((state) => state.userSigNonce)
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
+  const userSigNonce = useChannelStore((state) => state.userSigNonce)
+  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)

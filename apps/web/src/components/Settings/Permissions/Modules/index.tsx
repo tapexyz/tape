@@ -1,6 +1,6 @@
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { ApprovedAllowanceAmount, Erc20 } from 'lens'
 import {
   CollectModules,
@@ -27,7 +27,7 @@ const collectModules = [
 ]
 
 const ModulePermissions = () => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
   const [loadingModule, setLoadingModule] = useState('')
 

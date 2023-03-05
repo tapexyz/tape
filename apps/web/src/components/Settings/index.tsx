@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { MediaSet, Profile } from 'lens'
 import { useProfileQuery } from 'lens'
 import dynamic from 'next/dynamic'
@@ -26,7 +26,7 @@ export const SETTINGS = '/settings'
 
 const Settings = () => {
   const router = useRouter()
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.SETTINGS })

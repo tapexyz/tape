@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { utils } from 'ethers'
 import type {
@@ -60,7 +61,7 @@ const UploadSteps = () => {
   const bundlrData = useAppStore((state) => state.bundlrData)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
   const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)

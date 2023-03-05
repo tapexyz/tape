@@ -5,7 +5,8 @@ import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { BigNumber, utils } from 'ethers'
 import type { CreatePublicCommentRequest, Publication } from 'lens'
@@ -71,12 +72,14 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const watchTipQuantity = watch('tipQuantity', 1)
 
   const [loading, setLoading] = useState(false)
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const userSigNonce = useAppStore((state) => state.userSigNonce)
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const userSigNonce = useChannelStore((state) => state.userSigNonce)
+  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error.message)
