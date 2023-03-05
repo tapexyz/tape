@@ -3,7 +3,7 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { Publication } from 'lens'
 import {
   CommentOrderingTypes,
@@ -25,7 +25,7 @@ type Props = {
 
 const NonRelevantComments: FC<Props> = ({ video, className }) => {
   const [showSection, setShowSection] = useState(false)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const request = {
     limit: 10,

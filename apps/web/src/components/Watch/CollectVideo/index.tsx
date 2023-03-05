@@ -2,8 +2,8 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import clsx from 'clsx'
 import { utils } from 'ethers'
 import type { CreateCollectBroadcastItemResult, Publication } from 'lens'
@@ -41,9 +41,11 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
   const [alreadyCollected, setAlreadyCollected] = useState(
     video.hasCollectedByMe
   )
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
-  const userSigNonce = useAppStore((state) => state.userSigNonce)
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
+  const userSigNonce = useChannelStore((state) => state.userSigNonce)
+  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)

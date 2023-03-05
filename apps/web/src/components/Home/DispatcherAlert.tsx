@@ -1,12 +1,12 @@
 import HandWaveOutline from '@components/Common/Icons/HandWaveOutline'
 import Toggle from '@components/Settings/Permissions/Dispatcher/Toggle'
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import React from 'react'
 import { LENSTUBE_APP_NAME } from 'utils'
 
 const DispatcherAlert = () => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   if (!selectedChannel || selectedChannel?.dispatcher?.canUseRelay) {
     return null

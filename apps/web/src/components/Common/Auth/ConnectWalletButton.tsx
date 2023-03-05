@@ -1,7 +1,7 @@
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import React from 'react'
 import toast from 'react-hot-toast'
@@ -18,8 +18,10 @@ type Props = {
 }
 
 const ConnectWalletButton = ({ handleSign, signing }: Props) => {
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const { connector, isConnected } = useAccount()
   const { switchNetwork } = useSwitchNetwork({

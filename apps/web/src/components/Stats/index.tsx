@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { GlobalProtocolStats } from 'lens'
 import { useGlobalProtocolStatsQuery } from 'lens'
 import dynamic from 'next/dynamic'
@@ -14,7 +14,7 @@ const Custom404 = dynamic(() => import('../../pages/404'))
 
 const Stats = () => {
   const { mounted } = useIsMounted()
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const { data, loading } = useGlobalProtocolStatsQuery({
     variables: {

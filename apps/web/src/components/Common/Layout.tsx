@@ -1,5 +1,9 @@
-import useAppStore from '@lib/store'
-import usePersistStore, { hydrateAuthTokens, signOut } from '@lib/store/persist'
+import useAuthPersistStore, {
+  hydrateAuthTokens,
+  signOut
+} from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { useUserProfilesQuery } from 'lens'
@@ -41,13 +45,17 @@ if (IS_PRODUCTION) {
 }
 
 const Layout: FC<Props> = ({ children }) => {
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
-  const setChannels = useAppStore((state) => state.setChannels)
-  const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
+  const setChannels = useChannelStore((state) => state.setChannels)
+  const setSelectedChannel = useChannelStore(
+    (state) => state.setSelectedChannel
+  )
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
-  const setSelectedChannelId = usePersistStore(
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
+  const setSelectedChannelId = useAuthPersistStore(
     (state) => state.setSelectedChannelId
   )
 

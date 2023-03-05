@@ -3,7 +3,8 @@ import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { utils } from 'ethers'
 import type {
@@ -55,12 +56,14 @@ type FormData = z.infer<typeof formSchema>
 
 const NewComment: FC<Props> = ({ video }) => {
   const [loading, setLoading] = useState(false)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
-  const userSigNonce = useAppStore((state) => state.userSigNonce)
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const userSigNonce = useChannelStore((state) => state.userSigNonce)
+  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
 
   const {
     clearErrors,

@@ -2,7 +2,7 @@ import UserOutline from '@components/Common/Icons/UserOutline'
 import IsVerified from '@components/Common/IsVerified'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { Profile } from 'lens'
 import { useMutualFollowersQuery } from 'lens'
 import Link from 'next/link'
@@ -15,7 +15,7 @@ type Props = {
 }
 
 const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const request = {
     viewingProfileId: viewingChannelId,
     yourProfileId: selectedChannel?.id,

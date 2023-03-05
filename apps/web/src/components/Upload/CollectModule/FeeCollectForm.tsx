@@ -1,7 +1,7 @@
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import { utils } from 'ethers'
 import type { Erc20 } from 'lens'
 import type { Dispatch, FC } from 'react'
@@ -38,6 +38,10 @@ const FeeCollectForm: FC<Props> = ({
   setShowModal,
   enabledCurrencies
 }) => {
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const [selectedCurrencySymbol, setSelectedCurrencySymbol] = useState('WMATIC')
+  const splitRecipients = uploadedVideo.collectModule.multiRecipients ?? []
+
   const {
     register,
     formState: { errors },
@@ -54,9 +58,6 @@ const FeeCollectForm: FC<Props> = ({
       collectLimit: uploadedVideo.collectModule.collectLimit || '1'
     }
   })
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const [selectedCurrencySymbol, setSelectedCurrencySymbol] = useState('WMATIC')
-  const splitRecipients = uploadedVideo.collectModule.multiRecipients ?? []
 
   useEffect(() => {
     if (

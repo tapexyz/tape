@@ -1,6 +1,6 @@
 import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
 import { Button } from '@components/UIElements/Button'
-import usePersistStore from '@lib/store/persist'
+import useAuthPersistStore from '@lib/store/auth'
 import type { Signer } from 'ethers'
 import { ethers, utils } from 'ethers'
 import type {
@@ -24,7 +24,9 @@ type Props = {
 
 const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   const [loading, setLoading] = useState(false)
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message)

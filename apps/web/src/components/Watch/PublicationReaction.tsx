@@ -1,7 +1,7 @@
 import DislikeOutline from '@components/Common/Icons/DislikeOutline'
 import LikeOutline from '@components/Common/Icons/LikeOutline'
-import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import clsx from 'clsx'
 import type { Publication } from 'lens'
 import {
@@ -30,8 +30,10 @@ const PublicationReaction: FC<Props> = ({
   isVertical = false,
   showLabel = true
 }) => {
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const [reaction, setReaction] = useState({
     isLiked: publication.reaction === 'UPVOTE',

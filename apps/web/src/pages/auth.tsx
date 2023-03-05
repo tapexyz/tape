@@ -1,12 +1,14 @@
 import Login from '@components/Common/Auth/Login'
 import MetaTags from '@components/Common/MetaTags'
-import usePersistStore from '@lib/store/persist'
+import useAuthPersistStore from '@lib/store/auth'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { LENSTUBE_APP_NAME, STATIC_ASSETS } from 'utils'
 
 const AuthRequiredPage = () => {
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
   const { replace, query } = useRouter()
 
   useEffect(() => {

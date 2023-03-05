@@ -2,8 +2,8 @@ import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
-import useAppStore from '@lib/store'
-import usePersistStore from '@lib/store/persist'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import clsx from 'clsx'
 import { utils } from 'ethers'
 import type {
@@ -58,8 +58,11 @@ const VideoOptions: FC<Props> = ({
   showOnHover = true
 }) => {
   const [showConfirm, setShowConfirm] = useState(false)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const selectedChannelId = usePersistStore((state) => state.selectedChannelId)
+
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
   const pinnedVideoId = getValueFromKeyInAttributes(
     selectedChannel?.attributes,

@@ -1,7 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
 import usePendingTxn from '@hooks/usePendingTxn'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import { utils } from 'ethers'
 import type { CreateSetDispatcherBroadcastItemResult, Profile } from 'lens'
 import {
@@ -18,10 +18,12 @@ import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Toggle = () => {
   const [loading, setLoading] = useState(false)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const setSelectedChannel = useAppStore((state) => state.setSelectedChannel)
-  const userSigNonce = useAppStore((state) => state.userSigNonce)
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const setSelectedChannel = useChannelStore(
+    (state) => state.setSelectedChannel
+  )
+  const userSigNonce = useChannelStore((state) => state.userSigNonce)
+  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
   const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
 
   const onError = (error: CustomErrorWithData) => {

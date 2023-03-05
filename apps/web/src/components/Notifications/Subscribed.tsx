@@ -1,6 +1,6 @@
 import IsVerified from '@components/Common/IsVerified'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { NewFollowerNotification } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const SubscribedNotification: FC<Props> = ({ notification }) => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   return (
     <>

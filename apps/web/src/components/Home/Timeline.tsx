@@ -2,7 +2,7 @@ import CommentedVideoCard from '@components/Channel/CommentedVideoCard'
 import MirroredVideoCard from '@components/Channel/MirroredVideoCard'
 import VideoCard from '@components/Common/VideoCard'
 import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import type { Comment, Mirror, Publication } from 'lens'
 import type { FC } from 'react'
@@ -15,7 +15,7 @@ type Props = {
 
 const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const isComment = videoType === 'Comment'
   const isMirror = videoType === 'Mirror'

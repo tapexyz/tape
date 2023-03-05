@@ -1,6 +1,6 @@
 import { useApolloClient } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import clsx from 'clsx'
 import {
   useAddProfileInterestMutation,
@@ -14,7 +14,7 @@ import sanitizeProfileInterests from 'utils/functions/sanitizeProfileInterests'
 const MAX_TOPICS_ALLOWED = 12
 
 const Topics = () => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   useEffect(() => {
     Analytics.track(TRACK.PROFILE_INTERESTS.VIEW)

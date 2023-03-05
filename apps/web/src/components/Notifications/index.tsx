@@ -9,7 +9,7 @@ import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import clsx from 'clsx'
 import type { Notification } from 'lens'
 import { NotificationTypes, useNotificationsQuery } from 'lens'
@@ -42,8 +42,8 @@ const initialFilters = {
 
 const Notifications = () => {
   const [activeFilter, setActiveFilter] = useState(initialFilters)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
-  const setHasNewNotification = useAppStore(
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const setHasNewNotification = useChannelStore(
     (state) => state.setHasNewNotification
   )
 

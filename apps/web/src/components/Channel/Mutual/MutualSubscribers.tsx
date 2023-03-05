@@ -1,7 +1,7 @@
 import ChannelCirclesShimmer from '@components/Shimmers/ChannelCirclesShimmer'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { Profile } from 'lens'
 import { useMutualFollowersQuery } from 'lens'
 import type { FC } from 'react'
@@ -17,7 +17,7 @@ type Props = {
 const FETCH_COUNT = 4
 
 const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const [showMutualSubscribersModal, setShowMutualSubscribersModal] =
     useState(false)
 

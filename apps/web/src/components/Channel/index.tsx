@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
-import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { Profile } from 'lens'
 import { useProfileQuery } from 'lens'
 import { useRouter } from 'next/router'
@@ -15,7 +15,7 @@ import Tabs from './Tabs'
 const Channel = () => {
   const { query } = useRouter()
   const handle = query.channel ?? ''
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.CHANNEL })
