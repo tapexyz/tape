@@ -34,7 +34,7 @@ export const useAuthPersistStore = create(
       }
     }),
     {
-      name: 'lenstube.store'
+      name: 'lenstube.auth.store'
     }
   )
 )

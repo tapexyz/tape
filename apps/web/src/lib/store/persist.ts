@@ -2,11 +2,6 @@ import type { QueuedCommentType, QueuedVideoType } from 'utils'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-type Tokens = {
-  accessToken: string | null
-  refreshToken: string | null
-}
-
 interface AppPerisistState {
   sidebarCollapsed: boolean
   latestNotificationId: string
@@ -20,7 +15,7 @@ interface AppPerisistState {
 
 export const usePersistStore = create(
   persist<AppPerisistState>(
-    (set, get) => ({
+    (set) => ({
       sidebarCollapsed: true,
       latestNotificationId: '',
       queuedComments: [],

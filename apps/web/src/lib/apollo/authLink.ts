@@ -1,5 +1,5 @@
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client'
-import { hydrateAuthTokens, signIn, signOut } from '@lib/store/persist'
+import { hydrateAuthTokens, signIn, signOut } from '@lib/store/auth'
 import axios from 'axios'
 import { LENS_API_URL } from 'utils'
 import { parseJwt } from 'utils/functions/parseJwt'
