@@ -4,6 +4,7 @@ import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
 import clsx from 'clsx'
+import type { Profile } from 'lens'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
@@ -12,7 +13,7 @@ import React from 'react'
 import ChannelPicture from './ChannelPicture'
 
 type Props = {
-  channel: any
+  channel: Profile
 }
 
 export const SETTINGS_MEMBERSHIP = '/settings/membership'

@@ -13,6 +13,7 @@ const ReferenceModule = () => {
 
   const setReferenceType = (data: ReferenceModuleType) => {
     setUploadedVideo({
+      ...uploadedVideo,
       referenceModule: { ...uploadedVideo.collectModule, ...data }
     })
   }

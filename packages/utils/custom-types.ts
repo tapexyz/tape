@@ -79,8 +79,6 @@ export type UploadedVideo = {
   durationInSeconds: string | null
   collectModule: CollectModuleType
   referenceModule: ReferenceModuleType
-  isNSFW: boolean
-  isNSFWThumbnail: boolean
   isByteVideo: boolean
 }
 

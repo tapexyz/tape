@@ -1,8 +1,6 @@
 import { FastAverageColor } from 'fast-average-color'
 import { useCallback, useEffect, useState } from 'react'
 
-import logger from '../logger'
-
 const fac = new FastAverageColor()
 
 const useAverageColor = (src: string, check: boolean) => {
@@ -17,9 +15,7 @@ const useAverageColor = (src: string, check: boolean) => {
       .then((color) => {
         setColor(color.hex)
       })
-      .catch((e) => {
-        logger.error('[Error useAverageColor]', e)
-      })
+      .catch(() => {})
   }, [src, check])
 
   useEffect(() => {

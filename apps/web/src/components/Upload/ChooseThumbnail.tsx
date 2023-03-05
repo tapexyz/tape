@@ -2,24 +2,16 @@ import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
-import * as tf from '@tensorflow/tfjs'
 import clsx from 'clsx'
-import * as nsfwjs from 'nsfwjs'
 import type { ChangeEvent, FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import type { IPFSUploadResult } from 'utils'
-import { IS_MAINNET } from 'utils'
 import { generateVideoThumbnails } from 'utils/functions/generateVideoThumbnails'
 import { getFileFromDataURL } from 'utils/functions/getFileFromDataURL'
-import { getIsNSFW } from 'utils/functions/getIsNSFW'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
 import logger from 'utils/logger'
-
-if (IS_MAINNET) {
-  tf.enableProdMode()
-}
 
 interface Props {
   label: string
@@ -32,16 +24,16 @@ export const THUMBNAIL_GENERATE_COUNT = 7
 
 const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const [thumbnails, setThumbnails] = useState<
-    Array<{ ipfsUrl: string; url: string; isNSFWThumbnail: boolean }>
+    Array<{ ipfsUrl: string; url: string }>
   >([])
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
 
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
-    setUploadedVideo({ uploadingThumbnail: true })
+    setUploadedVideo({ ...uploadedVideo, uploadingThumbnail: true })
     const result: IPFSUploadResult = await uploadToIPFS(fileToUpload)
-    setUploadedVideo({ uploadingThumbnail: false })
+    setUploadedVideo({ ...uploadedVideo, uploadingThumbnail: false })
     afterUpload(result.url, fileToUpload.type || 'image/jpeg')
     return result
   }
@@ -55,10 +47,9 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       const thumbnailList: Array<{
         ipfsUrl: string
         url: string
-        isNSFWThumbnail: boolean
       }> = []
       thumbnailArray.forEach((t) => {
-        thumbnailList.push({ url: t, ipfsUrl: '', isNSFWThumbnail: false })
+        thumbnailList.push({ url: t, ipfsUrl: '' })
       })
       setThumbnails(thumbnailList)
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX)
@@ -75,9 +66,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
           return t
         })
       )
-    } catch (error) {
-      logger.error('[Error Generate Thumbnails]', error)
-    }
+    } catch {}
   }
 
   useEffect(() => {
@@ -93,33 +82,13 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file])
 
-  const checkNsfw = async (source: string) => {
-    const img = document.createElement('img')
-    img.src = source
-    img.height = 200
-    img.width = 400
-    let predictions: nsfwjs.predictionType[] = []
-    try {
-      const model = await nsfwjs.load()
-      predictions = await model?.classify(img, 3)
-    } catch (error) {
-      logger.error('[Error Check NSFW]', error)
-    }
-    return getIsNSFW(predictions)
-  }
-
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       setSelectedThumbnailIndex(-1)
       toast.loading('Uploading thumbnail')
       const result = await uploadThumbnailToIpfs(e.target.files[0])
       const preview = window.URL?.createObjectURL(e.target.files[0])
-      const isNSFWThumbnail = await checkNsfw(preview)
-      setUploadedVideo({ isNSFWThumbnail })
-      setThumbnails([
-        { url: preview, ipfsUrl: result.url, isNSFWThumbnail },
-        ...thumbnails
-      ])
+      setThumbnails([{ url: preview, ipfsUrl: result.url }, ...thumbnails])
       setSelectedThumbnailIndex(0)
     }
   }
@@ -142,7 +111,6 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
       )
     } else {
       afterUpload(thumbnails[index].ipfsUrl, 'image/jpeg')
-      setUploadedVideo({ isNSFWThumbnail: thumbnails[index]?.isNSFWThumbnail })
     }
   }
 
@@ -186,8 +154,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
                   'ring !ring-indigo-500':
                     thumbnail.ipfsUrl &&
                     selectedThumbnailIndex === idx &&
-                    thumbnail.ipfsUrl === uploadedVideo.thumbnail,
-                  'ring !ring-red-500': thumbnail.isNSFWThumbnail
+                    thumbnail.ipfsUrl === uploadedVideo.thumbnail
                 }
               )}
             >

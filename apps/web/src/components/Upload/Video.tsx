@@ -1,24 +1,15 @@
 import CopyOutline from '@components/Common/Icons/CopyOutline'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import * as tf from '@tensorflow/tfjs'
 import clsx from 'clsx'
-import * as nsfwjs from 'nsfwjs'
 import React, { useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
-import { IS_MAINNET } from 'utils'
 import formatBytes from 'utils/functions/formatBytes'
-import { getIsNSFW } from 'utils/functions/getIsNSFW'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
-import logger from 'utils/logger'
 
 import ChooseThumbnail from './ChooseThumbnail'
 import UploadMethod from './UploadMethod'
-
-if (IS_MAINNET) {
-  tf.enableProdMode()
-}
 
 const Video = () => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
@@ -26,29 +17,12 @@ const Video = () => {
   const [copy] = useCopyToClipboard()
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  const analyseVideo = async (currentVideo: HTMLVideoElement) => {
-    if (currentVideo && !uploadedVideo.isNSFW) {
-      try {
-        const model = await nsfwjs.load()
-        const predictions = await model?.classify(currentVideo, 3)
-        setUploadedVideo({
-          isNSFW: getIsNSFW(predictions)
-        })
-      } catch (error) {
-        logger.error('[Error Analyse Video]', error)
-      }
-    }
-  }
-
-  const onDataLoaded = async (event: Event) => {
+  const onDataLoaded = async () => {
     if (videoRef.current?.duration && videoRef.current?.duration !== Infinity) {
       setUploadedVideo({
+        ...uploadedVideo,
         durationInSeconds: videoRef.current.duration.toFixed(2)
       })
-    }
-    if (event.target) {
-      const currentVideo = document.getElementsByTagName('video')[0]
-      await analyseVideo(currentVideo)
     }
   }
 
@@ -65,7 +39,7 @@ const Video = () => {
   }
 
   const onThumbnailUpload = (ipfsUrl: string, thumbnailType: string) => {
-    setUploadedVideo({ thumbnail: ipfsUrl, thumbnailType })
+    setUploadedVideo({ ...uploadedVideo, thumbnail: ipfsUrl, thumbnailType })
   }
 
   return (

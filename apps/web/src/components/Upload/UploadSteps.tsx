@@ -105,6 +105,7 @@ const UploadSteps = () => {
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setUploadedVideo({
+      ...uploadedVideo,
       buttonText: 'Post Video',
       loading: false
     })
@@ -115,7 +116,7 @@ const UploadSteps = () => {
       data?.broadcast?.reason === 'NOT_ALLOWED' ||
       data.createPostViaDispatcher?.reason
     ) {
-      return logger.error('[Error Post Dispatcher]', data)
+      return
     }
     const txnId = data?.createPostViaDispatcher?.txId ?? data?.broadcast?.txId
     setToQueue({ txnId })
@@ -133,6 +134,7 @@ const UploadSteps = () => {
         : null
     })
     return setUploadedVideo({
+      ...uploadedVideo,
       buttonText: 'Post Video',
       loading: false
     })
@@ -153,6 +155,7 @@ const UploadSteps = () => {
     mode: 'recklesslyUnprepared',
     onSuccess: (data) => {
       setUploadedVideo({
+        ...uploadedVideo,
         buttonText: 'Post Video',
         loading: false
       })
@@ -170,10 +173,10 @@ const UploadSteps = () => {
 
   const initBundlr = async () => {
     if (signer?.provider && address && !bundlrData.instance) {
-      toast(BUNDLR_CONNECT_MESSAGE)
+      toast.loading(BUNDLR_CONNECT_MESSAGE)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
-        setBundlrData({ instance: bundlr })
+        setBundlrData({ ...bundlrData, instance: bundlr })
       }
     }
   }
@@ -240,7 +243,8 @@ const UploadSteps = () => {
   }) => {
     try {
       setUploadedVideo({
-        buttonText: 'Storing metadata...',
+        ...uploadedVideo,
+        buttonText: 'Storing metadata',
         loading: true
       })
       uploadedVideo.videoSource = videoSource
@@ -295,7 +299,8 @@ const UploadSteps = () => {
       }
       const { url } = await uploadToAr(metadata)
       setUploadedVideo({
-        buttonText: 'Posting video...',
+        ...uploadedVideo,
+        buttonText: 'Posting video',
         loading: true,
         isByteVideo
       })
@@ -325,9 +330,7 @@ const UploadSteps = () => {
         return signTypedData(request)
       }
       await createViaDispatcher(request)
-    } catch (error) {
-      logger.error('[Error Store & Post Video]', error)
-    }
+    } catch {}
   }
 
   const uploadVideoToIpfs = async () => {
@@ -335,7 +338,8 @@ const UploadSteps = () => {
       uploadedVideo.file as File,
       (percentCompleted) => {
         setUploadedVideo({
-          buttonText: 'Uploading to IPFS...',
+          ...uploadedVideo,
+          buttonText: 'Uploading to IPFS',
           loading: true,
           percent: percentCompleted
         })
@@ -345,6 +349,7 @@ const UploadSteps = () => {
       return toast.error('IPFS Upload failed!')
     }
     setUploadedVideo({
+      ...uploadedVideo,
       percent: 100,
       videoSource: result.url
     })
@@ -367,8 +372,9 @@ const UploadSteps = () => {
     }
     try {
       setUploadedVideo({
+        ...uploadedVideo,
         loading: true,
-        buttonText: 'Uploading to Arweave...'
+        buttonText: 'Uploading to Arweave'
       })
       const bundlr = bundlrData.instance
       const tags = [
@@ -384,6 +390,7 @@ const UploadSteps = () => {
           (chunkInfo.totalUploaded * 100) / fileSize
         )
         setUploadedVideo({
+          ...uploadedVideo,
           loading: true,
           percent: percentCompleted
         })
@@ -393,9 +400,8 @@ const UploadSteps = () => {
       })
       const response = await upload
       setUploadedVideo({
-        loading: false
-      })
-      setUploadedVideo({
+        ...uploadedVideo,
+        loading: false,
         videoSource: `ar://${response.data.id}`
       })
       return await createPublication({
@@ -405,6 +411,7 @@ const UploadSteps = () => {
       toast.error('Failed to upload video!')
       logger.error('[Error Bundlr Upload Video]', error)
       return setUploadedVideo({
+        ...uploadedVideo,
         loading: false,
         buttonText: 'Post Video'
       })
@@ -415,9 +422,6 @@ const UploadSteps = () => {
     uploadedVideo.title = data.title
     uploadedVideo.description = data.description
     uploadedVideo.isSensitiveContent = data.isSensitiveContent
-    if (uploadedVideo.isNSFW || uploadedVideo.isNSFWThumbnail) {
-      return toast.error('NSFW content not allowed')
-    }
     uploadedVideo.loading = true
     setUploadedVideo({ ...uploadedVideo })
     if (

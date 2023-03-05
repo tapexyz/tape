@@ -33,7 +33,6 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   thumbnailType: '',
   videoSource: '',
   percent: 0,
-  playbackId: '',
   isSensitiveContent: false,
   isUploadToIpfs: false,
   loading: false,
@@ -41,6 +40,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   buttonText: 'Post Video',
   durationInSeconds: null,
   videoCategory: CREATOR_VIDEO_CATEGORIES[0],
+  isByteVideo: false,
   collectModule: {
     type: 'revertCollectModule',
     followerOnlyCollect: false,
@@ -59,10 +59,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   referenceModule: {
     followerOnlyReferenceModule: false,
     degreesOfSeparationReferenceModule: null
-  },
-  isNSFW: false,
-  isNSFWThumbnail: false,
-  isByteVideo: false
+  }
 }
 
 interface AppState {
@@ -73,10 +70,11 @@ interface AppState {
   userSigNonce: number
   bundlrData: BundlrDataState
   uploadedVideo: UploadedVideo
-  setUploadedVideo: (video: { [k: string]: any }) => void
   selectedChannel: Profile | null
   videoWatchTime: number
   activeTagFilter: string
+  selectedCommentFilter: CustomCommentsFilterEnum
+  setUploadedVideo: <T extends UploadedVideo>(video: T) => void
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
   setSelectedChannel: (channel: Profile | null) => void
@@ -85,9 +83,8 @@ interface AppState {
   setChannels: (channels: Profile[]) => void
   setRecommendedChannels: (channels: Profile[]) => void
   setHasNewNotification: (value: boolean) => void
-  setBundlrData: (bundlrData: { [k: string]: any }) => void
+  setBundlrData: <T extends BundlrDataState>(bundlrData: T) => void
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
-  selectedCommentFilter: CustomCommentsFilterEnum
   setSelectedCommentFilter: (filter: CustomCommentsFilterEnum) => void
 }
 
@@ -98,10 +95,10 @@ export const useAppStore = create<AppState>((set) => ({
   showCreateChannel: false,
   hasNewNotification: false,
   userSigNonce: 0,
-  bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
   selectedChannel: null,
   videoWatchTime: 0,
   activeTagFilter: 'all',
+  bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
   uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
   setActiveTagFilter: (activeTagFilter) => set({ activeTagFilter }),
   setVideoWatchTime: (videoWatchTime) => set({ videoWatchTime }),
@@ -134,10 +131,7 @@ export const useAppStore = create<AppState>((set) => ({
       return null
     }
   },
-  setUploadedVideo: (videoData) =>
-    set((state) => ({
-      uploadedVideo: { ...state.uploadedVideo, ...videoData }
-    }))
+  setUploadedVideo: (uploadedVideo) => set({ uploadedVideo })
 }))
 
 export default useAppStore
