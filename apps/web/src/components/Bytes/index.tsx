@@ -3,6 +3,7 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import useChannelStore from '@lib/store/channel'
 import type { Publication } from 'lens'
 import {
@@ -14,12 +15,10 @@ import {
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
-import { useInView } from 'react-cool-inview'
 import {
   Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN,
   TRACK
 } from 'utils'
 
@@ -91,18 +90,17 @@ const Bytes = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady])
 
-  const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
-    onEnter: async () => {
+  const { pageLoading } = usePaginationLoading({
+    ref: bytesContainer,
+    fetch: async () =>
       await fetchMore({
         variables: {
           request: {
-            ...request,
-            cursor: pageInfo?.next
+            cursor: pageInfo?.next,
+            ...request
           }
         }
       })
-    }
   })
 
   if (loading || singleByteLoading) {
@@ -149,8 +147,8 @@ const Bytes = () => {
               />
             )
         )}
-        {pageInfo?.next && (
-          <span ref={observe} className="flex justify-center p-10">
+        {pageInfo?.next && pageLoading && (
+          <span className="flex justify-center p-10">
             <Loader />
           </span>
         )}
