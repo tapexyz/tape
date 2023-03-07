@@ -4,7 +4,6 @@ import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
-import type { Publication } from 'lens'
 import {
   PublicationDetailsDocument,
   useHasTxHashBeenIndexedQuery,
@@ -47,7 +46,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
           fields: {
             publications() {
               cache.writeQuery({
-                data: data?.publication as Publication,
+                data: { publication: data?.publication },
                 query: PublicationDetailsDocument
               })
             }
@@ -124,9 +123,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
               <IsVerified id={selectedChannel.id} />
             </Link>
           </span>
-          <div className="text-sm opacity-80">
-            <InterweaveContent content={queuedComment.comment} />
-          </div>
+          <InterweaveContent content={queuedComment.comment} />
         </div>
       </div>
       <div>

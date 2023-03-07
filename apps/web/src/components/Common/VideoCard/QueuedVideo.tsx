@@ -4,7 +4,7 @@ import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
-import type { Profile, Publication } from 'lens'
+import type { Profile } from 'lens'
 import {
   PublicationDetailsDocument,
   useHasTxHashBeenIndexedQuery,
@@ -65,7 +65,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
           fields: {
             publications() {
               cache.writeQuery({
-                data: data?.publication as Publication,
+                data: { publication: data?.publication },
                 query: PublicationDetailsDocument
               })
             }

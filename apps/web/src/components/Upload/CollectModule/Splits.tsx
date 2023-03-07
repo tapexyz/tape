@@ -113,7 +113,7 @@ const Splits = () => {
           Split revenue
         </div>
         <Tooltip
-          content="Split video revenue with multiple addresses."
+          content="Split video revenue with multiple accounts."
           placement="top"
         >
           <span>
@@ -197,7 +197,7 @@ const Splits = () => {
             </Tooltip>
           )}
         </div>
-        {splitRecipients?.length >= 1 && (
+        {splitRecipients?.length > 1 && (
           <button
             type="button"
             className="rounded border border-gray-700 px-1 text-[10px] font-semibold uppercase tracking-wider opacity-70 dark:border-gray-300"

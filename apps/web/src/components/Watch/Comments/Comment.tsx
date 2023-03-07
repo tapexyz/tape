@@ -104,12 +104,7 @@ const Comment: FC<Props> = ({ comment }) => {
               {getRelativeTime(comment.createdAt)}
             </span>
           </span>
-          <div
-            className={clsx(
-              'text-sm opacity-80',
-              clamped ? 'line-clamp-2' : ''
-            )}
-          >
+          <div className={clsx({ 'line-clamp-2': clamped })}>
             {getIsVideoComment() ? (
               <VideoComment comment={comment} />
             ) : (
