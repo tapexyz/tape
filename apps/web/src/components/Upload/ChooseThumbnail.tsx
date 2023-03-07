@@ -15,17 +15,20 @@ import logger from 'utils/logger'
 
 interface Props {
   label: string
-  afterUpload: (ipfsUrl: string, thumbnailType: string) => void
   file: File | null
 }
 
 const DEFAULT_THUMBNAIL_INDEX = 0
 export const THUMBNAIL_GENERATE_COUNT = 7
 
-const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
-  const [thumbnails, setThumbnails] = useState<
-    Array<{ ipfsUrl: string; url: string }>
-  >([])
+type Thumbnail = {
+  blobUrl: string
+  ipfsUrl: string
+  mimeType: string
+}
+
+const ChooseThumbnail: FC<Props> = ({ label, file }) => {
+  const [thumbnails, setThumbnails] = useState<Thumbnail[]>([])
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
@@ -33,8 +36,15 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
     setUploadedVideo({ ...uploadedVideo, uploadingThumbnail: true })
     const result: IPFSUploadResult = await uploadToIPFS(fileToUpload)
-    setUploadedVideo({ ...uploadedVideo, uploadingThumbnail: false })
-    afterUpload(result.url, fileToUpload.type || 'image/jpeg')
+    if (!result.url) {
+      toast.error('Failed to upload thumbnail')
+    }
+    setUploadedVideo({
+      ...uploadedVideo,
+      thumbnail: result.url,
+      thumbnailType: fileToUpload.type || 'image/jpeg',
+      uploadingThumbnail: false
+    })
     return result
   }
 
@@ -44,17 +54,14 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
         fileToGenerate,
         THUMBNAIL_GENERATE_COUNT
       )
-      const thumbnailList: Array<{
-        ipfsUrl: string
-        url: string
-      }> = []
+      const thumbnailList: Thumbnail[] = []
       thumbnailArray.forEach((t) => {
-        thumbnailList.push({ url: t, ipfsUrl: '' })
+        thumbnailList.push({ blobUrl: t, ipfsUrl: '', mimeType: 'image/jpeg' })
       })
       setThumbnails(thumbnailList)
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX)
       const imageFile = getFileFromDataURL(
-        thumbnailList[DEFAULT_THUMBNAIL_INDEX]?.url,
+        thumbnailList[DEFAULT_THUMBNAIL_INDEX]?.blobUrl,
         'thumbnail.jpeg'
       )
       const ipfsResult = await uploadThumbnailToIpfs(imageFile)
@@ -86,9 +93,17 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     if (e.target.files?.length) {
       setSelectedThumbnailIndex(-1)
       toast.loading('Uploading thumbnail')
-      const result = await uploadThumbnailToIpfs(e.target.files[0])
-      const preview = window.URL?.createObjectURL(e.target.files[0])
-      setThumbnails([{ url: preview, ipfsUrl: result.url }, ...thumbnails])
+      const file = e.target.files[0]
+      const result = await uploadThumbnailToIpfs(file)
+      const preview = window.URL?.createObjectURL(file)
+      setThumbnails([
+        {
+          blobUrl: preview,
+          ipfsUrl: result.url,
+          mimeType: file.type || 'image/jpeg'
+        },
+        ...thumbnails
+      ])
       setSelectedThumbnailIndex(0)
     }
   }
@@ -97,7 +112,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
     setSelectedThumbnailIndex(index)
     if (thumbnails[index].ipfsUrl === '') {
       const selectedImage = getFileFromDataURL(
-        thumbnails[index].url,
+        thumbnails[index].blobUrl,
         'thumbnail.jpeg'
       )
       const ipfsResult = await uploadThumbnailToIpfs(selectedImage)
@@ -110,7 +125,12 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
         })
       )
     } else {
-      afterUpload(thumbnails[index].ipfsUrl, 'image/jpeg')
+      setUploadedVideo({
+        ...uploadedVideo,
+        thumbnail: thumbnails[index].ipfsUrl,
+        thumbnailType: thumbnails[index].mimeType || 'image/jpeg',
+        uploadingThumbnail: false
+      })
     }
   }
 
@@ -160,7 +180,7 @@ const ChooseThumbnail: FC<Props> = ({ label, afterUpload, file }) => {
             >
               <img
                 className="h-16 w-full rounded-lg object-cover md:w-32"
-                src={sanitizeDStorageUrl(thumbnail.url)}
+                src={sanitizeDStorageUrl(thumbnail.blobUrl)}
                 alt="thumbnail"
                 draggable={false}
               />

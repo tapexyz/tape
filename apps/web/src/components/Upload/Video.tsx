@@ -38,10 +38,6 @@ const Video = () => {
     toast.success('Video source copied')
   }
 
-  const onThumbnailUpload = (ipfsUrl: string, thumbnailType: string) => {
-    setUploadedVideo({ ...uploadedVideo, thumbnail: ipfsUrl, thumbnailType })
-  }
-
   return (
     <div className="flex w-full flex-col">
       <div className="relative w-full overflow-hidden rounded-xl rounded-b-none">
@@ -95,16 +91,7 @@ const Video = () => {
         </div>
       </Tooltip>
       <div className="mt-4">
-        <ChooseThumbnail
-          label="Thumbnail"
-          file={uploadedVideo.file}
-          afterUpload={(ipfsUrl: string, thumbnailType: string) => {
-            if (!ipfsUrl?.length) {
-              return toast.error('Failed to upload thumbnail')
-            }
-            onThumbnailUpload(ipfsUrl, thumbnailType)
-          }}
-        />
+        <ChooseThumbnail label="Thumbnail" file={uploadedVideo.file} />
       </div>
       <ul className="mt-4 list-inside list-disc text-xs">
         <li>
