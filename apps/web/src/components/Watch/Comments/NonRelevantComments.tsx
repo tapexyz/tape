@@ -3,6 +3,7 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import useChannelStore from '@lib/store/channel'
 import type { Publication } from 'lens'
 import {
@@ -12,9 +13,8 @@ import {
   useCommentsQuery
 } from 'lens'
 import type { FC } from 'react'
-import React, { useState } from 'react'
-import { useInView } from 'react-cool-inview'
-import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from 'utils'
+import React, { useRef, useState } from 'react'
+import { LENS_CUSTOM_FILTERS } from 'utils'
 
 import Comment from './Comment'
 
@@ -24,6 +24,7 @@ type Props = {
 }
 
 const NonRelevantComments: FC<Props> = ({ video, className }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const [showSection, setShowSection] = useState(false)
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
@@ -58,19 +59,18 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
   const comments = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
-  const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
-    onEnter: async () => {
+  const { pageLoading } = usePaginationLoading({
+    ref: sectionRef,
+    fetch: async () =>
       await fetchMore({
         variables: {
           ...variables,
           request: {
-            ...request,
-            cursor: pageInfo?.next
+            cursor: pageInfo?.next,
+            ...request
           }
         }
       })
-    }
   })
 
   const onToggle = () => {
@@ -102,7 +102,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
       </Button>
       {showSection ? (
         <>
-          <div className="space-y-4 pt-6">
+          <div className="space-y-4 pt-6" ref={sectionRef}>
             {loading && <CommentsShimmer />}
             {comments?.map(
               (comment: Publication) =>
@@ -114,11 +114,11 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
                 )
             )}
           </div>
-          {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-10">
+          {pageInfo?.next && pageLoading ? (
+            <span className="flex justify-center p-10">
               <Loader />
             </span>
-          )}
+          ) : null}
         </>
       ) : null}
     </div>

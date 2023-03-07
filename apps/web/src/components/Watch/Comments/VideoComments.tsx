@@ -3,6 +3,7 @@ import CommentOutline from '@components/Common/Icons/CommentOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
@@ -15,13 +16,8 @@ import {
 } from 'lens'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
-import {
-  CustomCommentsFilterEnum,
-  LENS_CUSTOM_FILTERS,
-  SCROLL_ROOT_MARGIN
-} from 'utils'
+import React, { useRef } from 'react'
+import { CustomCommentsFilterEnum, LENS_CUSTOM_FILTERS } from 'utils'
 
 import CommentsFilter from './CommentsFilter'
 import NewComment from './NewComment'
@@ -35,6 +31,8 @@ type Props = {
 }
 
 const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
   const selectedChannelId = useAuthPersistStore(
     (state) => state.selectedChannelId
   )
@@ -95,19 +93,18 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
   const comments = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
-  const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
-    onEnter: async () => {
+  const { pageLoading } = usePaginationLoading({
+    ref: sectionRef,
+    fetch: async () =>
       await fetchMore({
         variables: {
           ...variables,
           request: {
-            ...request,
-            cursor: pageInfo?.next
+            cursor: pageInfo?.next,
+            ...request
           }
         }
       })
-    }
   })
 
   return (
@@ -144,7 +141,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
           ) : null}
           {!error && (queuedComments.length || comments.length) ? (
             <>
-              <div className="space-y-4 py-4">
+              <div className="space-y-4" ref={sectionRef}>
                 {queuedComments?.map(
                   (queuedComment) =>
                     queuedComment?.pubId === video?.id && (
@@ -164,11 +161,11 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
                     )
                 )}
               </div>
-              {pageInfo?.next && (
-                <span ref={observe} className="flex justify-center p-10">
+              {pageInfo?.next && pageLoading ? (
+                <span className="flex justify-center p-10">
                   <Loader />
                 </span>
-              )}
+              ) : null}
             </>
           ) : null}
         </>
