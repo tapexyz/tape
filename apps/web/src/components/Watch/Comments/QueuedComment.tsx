@@ -124,9 +124,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
               <IsVerified id={selectedChannel.id} />
             </Link>
           </span>
-          <div className="text-sm opacity-80">
-            <InterweaveContent content={queuedComment.comment} />
-          </div>
+          <InterweaveContent content={queuedComment.comment} />
         </div>
       </div>
       <div>
