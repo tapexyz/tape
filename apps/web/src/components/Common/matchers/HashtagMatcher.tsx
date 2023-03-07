@@ -4,13 +4,9 @@ import React from 'react'
 
 const Hashtag = ({ ...props }: any) => {
   return (
-    <span className="inline-flex items-center space-x-1">
-      <span>
-        <Link href={`/explore/hashtag/${props.display?.slice(1)}`}>
-          {props.display}
-        </Link>
-      </span>
-    </span>
+    <Link href={`/explore/hashtag/${props.display?.slice(1)}`}>
+      {props.display}
+    </Link>
   )
 }
 
