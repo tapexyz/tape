@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.9",
+    "@apollo/client": "^3.7.10",
     "@livepeer/react": "^2.2.5",
     "@tailwindcss/line-clamp": "^0.4.0",
     "clsx": "^1.2.1",
