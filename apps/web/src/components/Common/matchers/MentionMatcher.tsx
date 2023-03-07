@@ -10,7 +10,7 @@ const ChannelLink = ({ ...props }: any) => {
   return (
     <Link
       href={`/channel/${getLensHandle(props.display?.slice(1))}`}
-      className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 text-sm font-semibold dark:bg-gray-800"
+      className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 text-sm font-medium dark:bg-gray-800"
     >
       <img
         src={`${STATIC_ASSETS}/images/brand/circle-blue-72x72.png`}
