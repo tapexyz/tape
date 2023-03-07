@@ -77,7 +77,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
           </div>
         </div>
         {video?.metadata?.description && (
-          <p className={clsx('mt-4 opacity-80', clamped ? 'line-clamp-3' : '')}>
+          <p className={clsx('mt-4', { 'line-clamp-3': clamped })}>
             <InterweaveContent content={video.metadata.description} />
           </p>
         )}
