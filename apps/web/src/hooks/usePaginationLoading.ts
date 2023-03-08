@@ -23,9 +23,9 @@ export const usePaginationLoading = <T>({ ref, fetch }: Props<T>) => {
 
   useEffect(() => {
     const current = ref.current
-    current?.addEventListener('mousewheel', handleScroll)
+    current?.addEventListener('scroll', handleScroll)
     return () => {
-      current?.removeEventListener('mousewheel', handleScroll)
+      current?.removeEventListener('scroll', handleScroll)
     }
   })
 
