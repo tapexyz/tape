@@ -65,10 +65,10 @@ interface AppState {
   bundlrData: BundlrDataState
   videoWatchTime: number
   activeTagFilter: string
-  setUploadedVideo: (video: { [k: string]: any }) => void
+  setUploadedVideo: (videoProps: { [k: string]: any }) => void
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
-  setBundlrData: (bundlrData: { [k: string]: any }) => void
+  setBundlrData: (bundlrProps: { [k: string]: any }) => void
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
 }
 
