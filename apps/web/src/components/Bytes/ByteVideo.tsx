@@ -91,7 +91,7 @@ const ByteVideo: FC<Props> = ({
     >
       <div className="relative">
         <div
-          className="ultrawide:w-[650px] flex h-screen w-screen min-w-[250px] items-center overflow-hidden bg-black md:h-[calc(100vh-145px)] md:w-[350px] md:rounded-xl"
+          className="ultrawide:w-[650px] flex h-screen w-screen min-w-[250px] items-center overflow-hidden bg-black md:h-[calc(100vh-145px)] md:w-[390px] md:rounded-xl"
           style={{
             backgroundColor: backgroundColor ? backgroundColor : undefined
           }}
