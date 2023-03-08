@@ -18,21 +18,12 @@
     <a href="https://twitter.com/lenstubexyz">
         <img src="https://img.shields.io/twitter/follow/lenstubexyz?style=social" alt="Twitter">
     </a>
-    <a href="https://github.com/lenstube-xyz/lenstube/blob/main/LICENSE">
-        <img src="https://badgen.net/github/license/lenstube-xyz/lenstube" alt="License">
-    </a>
     <a href="https://deepsource.io/gh/lenstube-xyz/lenstube">
         <img src="https://deepsource.io/gh/lenstube-xyz/lenstube.svg/?label=active+issues&show_trend=true" alt="Deepsource">
     </a>
      <a href="https://status.lenstube.xyz">
         <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
     </a>
-    <a href="https://lenstube.checklyhq.com">
-        <img src="https://api.checklyhq.com/v1/badges/checks/2278c22c-37af-4c6a-bebc-b48169fdcc78?style=flat&responseTime=true" alt="Checkly">
-    </a>
-    <span>
-        <img src="https://img.shields.io/badge/dependabot-enabled-025e8c?logo=Dependabot" alt="Dependabot">
-    </span>
     <span>
         <img src="https://img.shields.io/github/stars/lenstube-xyz/lenstube" alt="Stargazers">
     </span>

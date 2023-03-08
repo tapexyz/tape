@@ -65,10 +65,10 @@ interface AppState {
   bundlrData: BundlrDataState
   videoWatchTime: number
   activeTagFilter: string
-  setUploadedVideo: <T extends UploadedVideo>(video: T) => void
+  setUploadedVideo: (videoProps: Partial<UploadedVideo>) => void
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
-  setBundlrData: <T extends BundlrDataState>(bundlrData: T) => void
+  setBundlrData: (bundlrProps: Partial<BundlrDataState>) => void
   getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
 }
 
@@ -79,9 +79,12 @@ export const useAppStore = create<AppState>((set) => ({
   uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
   setActiveTagFilter: (activeTagFilter) => set({ activeTagFilter }),
   setVideoWatchTime: (videoWatchTime) => set({ videoWatchTime }),
-  setBundlrData: (bundlrData) =>
-    set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrData } })),
-  setUploadedVideo: (uploadedVideo) => set({ uploadedVideo }),
+  setBundlrData: (bundlrProps) =>
+    set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrProps } })),
+  setUploadedVideo: (videoProps) =>
+    set((state) => ({
+      uploadedVideo: { ...state.uploadedVideo, ...videoProps }
+    })),
   getBundlrInstance: async (signer) => {
     try {
       const bundlr = new WebBundlr(

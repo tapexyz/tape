@@ -57,7 +57,6 @@ const BundlrInfo = () => {
         const balance = await instance.getBalance(address)
         const price = await estimatePrice(instance)
         setBundlrData({
-          ...bundlrData,
           balance: utils.formatEther(balance.toString()),
           estimatedPrice: utils.formatEther(price.toString())
         })
@@ -72,7 +71,7 @@ const BundlrInfo = () => {
       toast.loading(BUNDLR_CONNECT_MESSAGE)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
-        setBundlrData({ ...bundlrData, instance: bundlr })
+        setBundlrData({ instance: bundlr })
         await fetchBalance(bundlr)
       }
     }
@@ -112,7 +111,7 @@ const BundlrInfo = () => {
         `Insufficient funds in your wallet, you have ${userBalance?.formatted} MATIC.`
       )
     }
-    setBundlrData({ ...bundlrData, depositing: true })
+    setBundlrData({ depositing: true })
     try {
       const fundResult = await bundlrData.instance.fund(value)
       if (fundResult) {
@@ -129,7 +128,6 @@ const BundlrInfo = () => {
     } finally {
       await fetchBalance()
       setBundlrData({
-        ...bundlrData,
         deposit: null,
         showDeposit: false,
         depositing: false
@@ -165,7 +163,6 @@ const BundlrInfo = () => {
               type="button"
               onClick={() =>
                 setBundlrData({
-                  ...bundlrData,
                   showDeposit: !bundlrData.showDeposit
                 })
               }
@@ -198,7 +195,7 @@ const BundlrInfo = () => {
               min={0}
               value={bundlrData.deposit || ''}
               onChange={(e) => {
-                setBundlrData({ ...bundlrData, deposit: e.target.value })
+                setBundlrData({ deposit: e.target.value })
               }}
             />
             <Button

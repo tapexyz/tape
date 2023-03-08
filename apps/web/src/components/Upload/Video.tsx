@@ -1,10 +1,14 @@
 import CopyOutline from '@components/Common/Icons/CopyOutline'
+import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import clsx from 'clsx'
 import React, { useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
+import { FEATURE_FLAGS } from 'utils/data/feature-flags'
 import formatBytes from 'utils/functions/formatBytes'
+import getIsFeatureEnabled from 'utils/functions/getIsFeatureEnabled'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 
@@ -12,6 +16,7 @@ import ChooseThumbnail from './ChooseThumbnail'
 import UploadMethod from './UploadMethod'
 
 const Video = () => {
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const [copy] = useCopyToClipboard()
@@ -20,7 +25,6 @@ const Video = () => {
   const onDataLoaded = async () => {
     if (videoRef.current?.duration && videoRef.current?.duration !== Infinity) {
       setUploadedVideo({
-        ...uploadedVideo,
         durationInSeconds: videoRef.current.duration.toFixed(2)
       })
     }
@@ -90,6 +94,24 @@ const Video = () => {
           />
         </div>
       </Tooltip>
+      {getIsFeatureEnabled(
+        FEATURE_FLAGS.POST_WITH_SOURCE_URL,
+        selectedChannel?.id
+      ) && (
+        <div className="mt-4">
+          <Input
+            placeholder="ar:// or ipfs://"
+            info="Skip the video upload (Only use this if you know what your doing!)"
+            label="Upload from Source Url"
+            value={uploadedVideo.videoSource}
+            onChange={(e) =>
+              setUploadedVideo({
+                videoSource: e.target.value
+              })
+            }
+          />
+        </div>
+      )}
       <div className="mt-4">
         <ChooseThumbnail label="Thumbnail" file={uploadedVideo.file} />
       </div>
@@ -97,6 +119,7 @@ const Video = () => {
         <li>
           Stay active in current tab while uploading for faster experience.
         </li>
+        <li>Don't switch network or wallet accounts.</li>
         <li>Video will be stored permanently on-chain and can't be updated.</li>
       </ul>
       <div className="rounded-lg">

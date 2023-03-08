@@ -28,7 +28,6 @@ const Splits = () => {
   const setSplitRecipients = (multiRecipients: RecipientDataInput[]) => {
     const enabled = Boolean(splitRecipients.length)
     setUploadedVideo({
-      ...uploadedVideo,
       collectModule: {
         ...uploadedVideo.collectModule,
         multiRecipients,

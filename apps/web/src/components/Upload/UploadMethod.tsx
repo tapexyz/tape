@@ -28,9 +28,7 @@ const UploadMethod = () => {
               selected ? 'dark:bg-theme bg-white' : 'hover:bg-white/[0.12]'
             )
           }
-          onClick={() =>
-            setUploadedVideo({ ...uploadedVideo, isUploadToIpfs: false })
-          }
+          onClick={() => setUploadedVideo({ isUploadToIpfs: false })}
         >
           Upload to Arweave
         </Tab>
@@ -43,9 +41,7 @@ const UploadMethod = () => {
                 : 'enabled:hover:bg-white/[0.12]'
             )
           }
-          onClick={() =>
-            setUploadedVideo({ ...uploadedVideo, isUploadToIpfs: true })
-          }
+          onClick={() => setUploadedVideo({ isUploadToIpfs: true })}
           disabled={!isUnderFreeLimit}
         >
           <Tooltip
