@@ -34,13 +34,12 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
 
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
-    setUploadedVideo({ ...uploadedVideo, uploadingThumbnail: true })
+    setUploadedVideo({ uploadingThumbnail: true })
     const result: IPFSUploadResult = await uploadToIPFS(fileToUpload)
     if (!result.url) {
       toast.error('Failed to upload thumbnail')
     }
     setUploadedVideo({
-      ...uploadedVideo,
       thumbnail: result.url,
       thumbnailType: fileToUpload.type || 'image/jpeg',
       uploadingThumbnail: false
@@ -126,7 +125,6 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
       )
     } else {
       setUploadedVideo({
-        ...uploadedVideo,
         thumbnail: thumbnails[index].ipfsUrl,
         thumbnailType: thumbnails[index].mimeType || 'image/jpeg',
         uploadingThumbnail: false

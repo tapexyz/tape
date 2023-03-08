@@ -17,9 +17,7 @@ const Category = () => {
       </div>
       <Listbox
         value={uploadedVideo.videoCategory}
-        onChange={(category) =>
-          setUploadedVideo({ ...uploadedVideo, videoCategory: category })
-        }
+        onChange={(category) => setUploadedVideo({ videoCategory: category })}
       >
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full rounded-xl border border-gray-300 py-2.5 pl-4 pr-10 text-left focus:outline-none dark:border-gray-700 sm:text-sm">
