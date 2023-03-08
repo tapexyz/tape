@@ -347,9 +347,9 @@ const UploadSteps = () => {
       percent: 100,
       videoSource: result.url
     })
-    // return await createPublication({
-    //   videoSource: result.url
-    // })
+    return await createPublication({
+      videoSource: result.url
+    })
   }
 
   const uploadToBundlr = async () => {
