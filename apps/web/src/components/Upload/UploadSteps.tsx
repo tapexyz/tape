@@ -106,7 +106,6 @@ const UploadSteps = () => {
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setUploadedVideo({
-      ...uploadedVideo,
       buttonText: 'Post Video',
       loading: false
     })
@@ -135,7 +134,6 @@ const UploadSteps = () => {
         : null
     })
     return setUploadedVideo({
-      ...uploadedVideo,
       buttonText: 'Post Video',
       loading: false
     })
@@ -156,7 +154,6 @@ const UploadSteps = () => {
     mode: 'recklesslyUnprepared',
     onSuccess: (data) => {
       setUploadedVideo({
-        ...uploadedVideo,
         buttonText: 'Post Video',
         loading: false
       })
@@ -177,7 +174,7 @@ const UploadSteps = () => {
       toast.loading(BUNDLR_CONNECT_MESSAGE)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
-        setBundlrData({ ...bundlrData, instance: bundlr })
+        setBundlrData({ instance: bundlr })
       }
     }
   }
@@ -244,7 +241,6 @@ const UploadSteps = () => {
   }) => {
     try {
       setUploadedVideo({
-        ...uploadedVideo,
         buttonText: 'Storing metadata',
         loading: true
       })
@@ -300,7 +296,6 @@ const UploadSteps = () => {
       }
       const { url } = await uploadToAr(metadata)
       setUploadedVideo({
-        ...uploadedVideo,
         buttonText: 'Posting video',
         loading: true,
         isByteVideo
@@ -339,7 +334,6 @@ const UploadSteps = () => {
       uploadedVideo.file as File,
       (percentCompleted) => {
         setUploadedVideo({
-          ...uploadedVideo,
           buttonText: 'Uploading to IPFS',
           loading: true,
           percent: percentCompleted
@@ -350,13 +344,12 @@ const UploadSteps = () => {
       return toast.error('IPFS Upload failed!')
     }
     setUploadedVideo({
-      ...uploadedVideo,
       percent: 100,
       videoSource: result.url
     })
-    return await createPublication({
-      videoSource: result.url
-    })
+    // return await createPublication({
+    //   videoSource: result.url
+    // })
   }
 
   const uploadToBundlr = async () => {
@@ -373,7 +366,6 @@ const UploadSteps = () => {
     }
     try {
       setUploadedVideo({
-        ...uploadedVideo,
         loading: true,
         buttonText: 'Uploading to Arweave'
       })
@@ -391,7 +383,6 @@ const UploadSteps = () => {
           (chunkInfo.totalUploaded * 100) / fileSize
         )
         setUploadedVideo({
-          ...uploadedVideo,
           loading: true,
           percent: percentCompleted
         })
@@ -401,7 +392,6 @@ const UploadSteps = () => {
       })
       const response = await upload
       setUploadedVideo({
-        ...uploadedVideo,
         loading: false,
         videoSource: `ar://${response.data.id}`
       })
@@ -412,7 +402,6 @@ const UploadSteps = () => {
       toast.error('Failed to upload video!')
       logger.error('[Error Bundlr Upload Video]', error)
       return setUploadedVideo({
-        ...uploadedVideo,
         loading: false,
         buttonText: 'Post Video'
       })
@@ -425,6 +414,16 @@ const UploadSteps = () => {
     uploadedVideo.isSensitiveContent = data.isSensitiveContent
     uploadedVideo.loading = true
     setUploadedVideo({ ...uploadedVideo })
+    // Upload video directly from source without uploading again
+    if (
+      uploadedVideo.videoSource.length &&
+      (uploadedVideo.videoSource.includes('ar://') ||
+        uploadedVideo.videoSource.includes('ipfs://'))
+    ) {
+      return await createPublication({
+        videoSource: uploadedVideo.videoSource
+      })
+    }
     if (
       canUploadedToIpfs(uploadedVideo.file?.size) &&
       uploadedVideo.isUploadToIpfs

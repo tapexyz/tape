@@ -23,7 +23,6 @@ const CollectModule = () => {
 
   const setCollectType = (data: CollectModuleType) => {
     setUploadedVideo({
-      ...uploadedVideo,
       collectModule: { ...uploadedVideo.collectModule, ...data }
     })
   }

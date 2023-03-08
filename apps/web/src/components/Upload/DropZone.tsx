@@ -33,7 +33,6 @@ const DropZone = () => {
         const preview = URL.createObjectURL(file)
         const isUnderFreeLimit = canUploadedToIpfs(file?.size)
         setUploadedVideo({
-          ...uploadedVideo,
           stream: fileReaderStream(file),
           preview,
           videoType: file?.type || 'video/mp4',
