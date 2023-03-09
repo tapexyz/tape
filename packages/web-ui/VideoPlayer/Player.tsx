@@ -37,7 +37,7 @@ const PlayerInstance: FC<PlayerProps> = ({
             ratio === '9to16' ? 'object-contain' : 'object-cover'
           )}
           src={posterUrl}
-          alt=""
+          alt="Lenstube"
         />
       }
       showTitle={false}
