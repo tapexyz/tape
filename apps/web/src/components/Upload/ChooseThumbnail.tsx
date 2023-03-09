@@ -202,7 +202,7 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
       !uploadedVideo.uploadingThumbnail &&
       thumbnails.length ? (
         <p className="mt-2 text-xs font-medium text-red-500">
-          Please choose a thumbnail
+          Please select or upload a thumbnail
         </p>
       ) : null}
     </div>
