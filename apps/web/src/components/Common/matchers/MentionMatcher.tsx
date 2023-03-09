@@ -33,7 +33,7 @@ export class MentionMatcher extends Matcher<MentionProps> {
   }
 
   match(value: string) {
-    return this.doMatch(value, /@[a-zA-Z0-9_.]+(\.lens|\.test)/, (matches) => {
+    return this.doMatch(value, /@[a-zA-Z0-9-_.]+(\.lens|\.test)/, (matches) => {
       return {
         display: matches[0]
       }
