@@ -9,6 +9,7 @@ import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
 import { z } from 'zod'
 
 import Category from './Category'
@@ -56,6 +57,9 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
   })
 
   const onSubmitForm = (data: VideoFormData) => {
+    if (!uploadedVideo.thumbnail.length) {
+      return toast.error('Please upload or select a thumbnail')
+    }
     onUpload(data)
   }
 
