@@ -63,6 +63,9 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
         thumbnailList[DEFAULT_THUMBNAIL_INDEX]?.blobUrl,
         'thumbnail.jpeg'
       )
+      if (!imageFile) {
+        return toast.error('Please upload a custom thumbnail')
+      }
       const ipfsResult = await uploadThumbnailToIpfs(imageFile)
       setThumbnails(
         thumbnailList.map((t, i) => {
@@ -114,6 +117,9 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
         thumbnails[index].blobUrl,
         'thumbnail.jpeg'
       )
+      if (!selectedImage) {
+        return toast.error('Please upload a custom thumbnail')
+      }
       const ipfsResult = await uploadThumbnailToIpfs(selectedImage)
       setThumbnails(
         thumbnails.map((t, i) => {
