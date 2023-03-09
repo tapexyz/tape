@@ -28,7 +28,7 @@ const ByteVideo: FC<Props> = ({
   const videoRef = useRef<HTMLMediaElement>()
   const intersectionRef = useRef<HTMLDivElement>(null)
   const thumbnailUrl = imageCdn(
-    sanitizeDStorageUrl(getThumbnailUrl(video)),
+    sanitizeDStorageUrl(getThumbnailUrl(video, true)),
     'thumbnail_v'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, true)
