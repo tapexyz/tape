@@ -30,6 +30,14 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   const pinnedPublication =
     publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
 
+  if (loading) {
+    return <PinnedVideoShimmer />
+  }
+
+  if (error || !pinnedPublication || !isWatchable(pinnedPublication)) {
+    return null
+  }
+
   const isBytesVideo = pinnedPublication?.appId === LENSTUBE_BYTES_APP_ID
   const isSensitiveContent = getIsSensitiveContent(
     pinnedPublication?.metadata,
@@ -39,14 +47,6 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     sanitizeDStorageUrl(getThumbnailUrl(pinnedPublication, true)),
     isBytesVideo ? 'thumbnail_v' : 'thumbnail'
   )
-
-  if (loading) {
-    return <PinnedVideoShimmer />
-  }
-
-  if (error || !isWatchable(pinnedPublication)) {
-    return null
-  }
 
   return (
     <div className="mb-6 mt-2 grid grid-cols-3 overflow-hidden border-b border-gray-300 pb-6 dark:border-gray-700 md:space-x-5">
