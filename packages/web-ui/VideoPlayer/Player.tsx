@@ -1,5 +1,6 @@
 import type { AspectRatio } from '@livepeer/react'
 import { Player } from '@livepeer/react'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 import { IPFS_GATEWAY_URL, IS_PRODUCTION } from 'utils'
@@ -29,7 +30,16 @@ const PlayerInstance: FC<PlayerProps> = ({
   return (
     <Player
       src={permanentUrl}
-      poster={posterUrl}
+      poster={
+        <img
+          className={clsx(
+            'h-full w-full',
+            ratio === '9to16' ? 'object-contain' : 'object-cover'
+          )}
+          src={posterUrl}
+          alt=""
+        />
+      }
       showTitle={false}
       objectFit="contain"
       aspectRatio={ratio}
