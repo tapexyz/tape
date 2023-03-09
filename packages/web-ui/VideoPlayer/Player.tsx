@@ -30,15 +30,11 @@ const PlayerInstance: FC<PlayerProps> = ({
     <Player
       src={permanentUrl}
       poster={
-        ratio === '9to16' ? (
-          posterUrl
-        ) : (
-          <img
-            className="h-full w-full object-cover"
-            src={posterUrl}
-            alt="Lenstube"
-          />
-        )
+        <img
+          className="h-full w-full object-cover"
+          src={posterUrl}
+          alt="Lenstube"
+        />
       }
       showTitle={false}
       objectFit="contain"
