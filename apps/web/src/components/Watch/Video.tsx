@@ -28,6 +28,10 @@ const Video: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const videoWatchTime = useAppStore((state) => state.videoWatchTime)
   const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
+  const thumbnailUrl = imageCdn(
+    sanitizeDStorageUrl(getThumbnailUrl(video, true)),
+    isBytesVideo ? 'thumbnail_v' : 'thumbnail'
+  )
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (ref) {
@@ -41,10 +45,7 @@ const Video: FC<Props> = ({ video }) => {
         refCallback={refCallback}
         currentTime={videoWatchTime}
         permanentUrl={getPublicationMediaUrl(video)}
-        posterUrl={imageCdn(
-          sanitizeDStorageUrl(getThumbnailUrl(video)),
-          isBytesVideo ? 'thumbnail_v' : 'thumbnail'
-        )}
+        posterUrl={thumbnailUrl}
         options={{ loadingSpinner: true }}
         isSensitiveContent={isSensitiveContent}
       />

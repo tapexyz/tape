@@ -35,6 +35,10 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     pinnedPublication?.metadata,
     pinnedPublication?.id
   )
+  const thumbnailUrl = imageCdn(
+    sanitizeDStorageUrl(getThumbnailUrl(pinnedPublication, true)),
+    isBytesVideo ? 'thumbnail_v' : 'thumbnail'
+  )
 
   if (loading) {
     return <PinnedVideoShimmer />
@@ -49,10 +53,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       <div className="overflow-hidden md:rounded-xl">
         <VideoPlayer
           permanentUrl={getPublicationMediaUrl(pinnedPublication)}
-          posterUrl={imageCdn(
-            sanitizeDStorageUrl(getThumbnailUrl(pinnedPublication)),
-            isBytesVideo ? 'thumbnail_v' : 'thumbnail'
-          )}
+          posterUrl={thumbnailUrl}
           isSensitiveContent={isSensitiveContent}
           options={{ autoPlay: true, loop: false, loadingSpinner: true }}
         />
