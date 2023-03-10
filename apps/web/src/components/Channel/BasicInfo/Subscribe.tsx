@@ -3,7 +3,11 @@ import { Button } from '@components/UIElements/Button'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { utils } from 'ethers'
-import type { CreateFollowBroadcastItemResult, Profile } from 'lens'
+import type {
+  CreateFollowBroadcastItemResult,
+  Profile,
+  ProxyActionRequest
+} from 'lens'
 import {
   useBroadcastMutation,
   useCreateFollowTypedDataMutation,
@@ -73,7 +77,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onError
   })
 
-  const [createProxyActionFreeFollow] = useProxyActionMutation({
+  const [createSubscribeProxyAction] = useProxyActionMutation({
     onError,
     onCompleted
   })
@@ -115,42 +119,51 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     onError
   })
 
+  const createTypedData = async () => {
+    if (channel?.followModule?.__typename === 'ProfileFollowModuleSettings') {
+      toast('Requesting signature...')
+    }
+    await createSubscribeTypedData({
+      variables: {
+        request: {
+          follow: [
+            {
+              profile: channel.id,
+              followModule:
+                channel?.followModule?.__typename ===
+                'ProfileFollowModuleSettings'
+                  ? {
+                      profileFollowModule: { profileId: selectedChannel?.id }
+                    }
+                  : null
+            }
+          ]
+        }
+      }
+    })
+  }
+
+  const viaProxyAction = async (variables: ProxyActionRequest) => {
+    const { data } = await createSubscribeProxyAction({
+      variables: { request: variables }
+    })
+    if (!data?.proxyAction) {
+      await createTypedData()
+    }
+  }
+
   const subscribe = () => {
     if (!selectedChannelId) {
       return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     }
     setLoading(true)
     if (channel.followModule) {
-      if (channel?.followModule?.__typename === 'ProfileFollowModuleSettings') {
-        toast('Requesting signature...')
-      }
-      return createSubscribeTypedData({
-        variables: {
-          request: {
-            follow: [
-              {
-                profile: channel.id,
-                followModule:
-                  channel?.followModule?.__typename ===
-                  'ProfileFollowModuleSettings'
-                    ? {
-                        profileFollowModule: { profileId: selectedChannel?.id }
-                      }
-                    : null
-              }
-            ]
-          }
-        }
-      })
+      return createTypedData()
     }
-    createProxyActionFreeFollow({
-      variables: {
-        request: {
-          follow: {
-            freeFollow: {
-              profileId: channel?.id
-            }
-          }
+    viaProxyAction({
+      follow: {
+        freeFollow: {
+          profileId: channel?.id
         }
       }
     })
