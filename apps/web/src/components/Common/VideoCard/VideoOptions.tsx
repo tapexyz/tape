@@ -167,7 +167,9 @@ const VideoOptions: FC<Props> = ({
       onError
     })
 
-  const signTypedData = (request: CreatePublicSetProfileMetadataUriRequest) => {
+  const createTypedData = (
+    request: CreatePublicSetProfileMetadataUriRequest
+  ) => {
     createSetProfileMetadataTypedData({
       variables: { request }
     })
@@ -182,7 +184,7 @@ const VideoOptions: FC<Props> = ({
     if (
       data?.createSetProfileMetadataViaDispatcher.__typename === 'RelayError'
     ) {
-      signTypedData(request)
+      createTypedData(request)
     }
   }
 
@@ -220,7 +222,7 @@ const VideoOptions: FC<Props> = ({
       }
       const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
       if (!canUseDispatcher) {
-        return signTypedData(request)
+        return createTypedData(request)
       }
       createViaDispatcher(request)
     } catch {}

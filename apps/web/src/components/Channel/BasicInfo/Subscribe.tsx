@@ -46,8 +46,8 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
 
   const onCompleted = () => {
     onSubscribe()
-    toast.success(`Subscribed to ${channel.handle}`)
     setLoading(false)
+    toast.success(`Subscribed to ${channel.handle}`)
     Analytics.track(TRACK.CHANNEL.SUBSCRIBE, {
       channel_id: channel.id,
       channel_name: channel.handle
@@ -69,7 +69,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   })
 
   const [broadcast] = useBroadcastMutation({
-    onCompleted(data) {
+    onCompleted: (data) => {
       if (data?.broadcast?.__typename === 'RelayerResult') {
         onCompleted()
       }

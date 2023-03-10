@@ -113,7 +113,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       onError
     })
 
-  const signTypedData = (request: UpdateProfileImageRequest) => {
+  const createTypedData = (request: UpdateProfileImageRequest) => {
     createSetProfileImageURITypedData({
       variables: { options: { overrideSigNonce: userSigNonce }, request }
     })
@@ -126,7 +126,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     if (
       data?.createSetProfileImageURIViaDispatcher.__typename === 'RelayError'
     ) {
-      signTypedData(request)
+      createTypedData(request)
     }
   }
 
@@ -142,7 +142,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         setSelectedPfp(result.url)
         const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
         if (!canUseDispatcher) {
-          return signTypedData(request)
+          return createTypedData(request)
         }
         await createViaDispatcher(request)
       } catch (error) {

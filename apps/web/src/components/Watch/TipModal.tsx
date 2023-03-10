@@ -195,7 +195,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
-  const signTypedData = (request: CreatePublicCommentRequest) => {
+  const createTypedData = (request: CreatePublicCommentRequest) => {
     createCommentTypedData({
       variables: { options: { overrideSigNonce: userSigNonce }, request }
     })
@@ -206,7 +206,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       variables: { request }
     })
     if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
-      signTypedData(request)
+      createTypedData(request)
     }
   }
 
@@ -259,7 +259,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       }
       const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
       if (!canUseDispatcher) {
-        return signTypedData(request)
+        return createTypedData(request)
       }
       await createViaDispatcher(request)
     } catch {}
