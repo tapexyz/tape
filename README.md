@@ -33,7 +33,7 @@
 ## 📽️ About
 
 **Lenstube** is a decentralized video-sharing social media platform, built using Lens Protocol 🌿
- 
+
 ## 💪 Community
 
 For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://lenstube.xyz/discord).
