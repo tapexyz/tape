@@ -1329,7 +1329,7 @@ export type Erc20OwnershipInput = {
   chainID: Scalars['ChainId']
   /** The operator to use when comparing the amount of tokens */
   condition: ScalarOperator
-  /** The ERC20 token's ethereum address */
+  /** The ERC20 token ethereum address */
   contractAddress: Scalars['ContractAddress']
   /** The amount of decimals of the ERC20 contract */
   decimals: Scalars['Float']
@@ -1343,10 +1343,14 @@ export type Erc20OwnershipOutput = {
   chainID: Scalars['ChainId']
   /** The operator to use when comparing the amount of tokens */
   condition: ScalarOperator
-  /** The ERC20 token's ethereum address */
+  /** The ERC20 token ethereum address */
   contractAddress: Scalars['ContractAddress']
   /** The amount of decimals of the ERC20 contract */
   decimals: Scalars['Float']
+  /** The name of the ERC20 token */
+  name: Scalars['String']
+  /** The symbol of the ERC20 token */
+  symbol: Scalars['String']
 }
 
 /** The paginated publication result */
@@ -3669,7 +3673,7 @@ export enum ReactionTypes {
 export type RecipientDataInput = {
   /** Recipient of collect fees. */
   recipient: Scalars['EthereumAddress']
-  /** Split %, should be between 1 and 100. All % should add up to 100 */
+  /** Split %, should be between 0.01 and 100. Up to 2 decimal points supported. All % should add up to 100 */
   split: Scalars['Float']
 }
 
@@ -3677,7 +3681,7 @@ export type RecipientDataOutput = {
   __typename?: 'RecipientDataOutput'
   /** Recipient of collect fees. */
   recipient: Scalars['EthereumAddress']
-  /** Split %, should be between 1 and 100. All % should add up to 100 */
+  /** Split %, should be between 0.01 and 100. Up to 2 decimal points supported. All % should add up to 100 */
   split: Scalars['Float']
 }
 

@@ -72,7 +72,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       tipQuantity: 1,
-      message: 'Thanks for the making this video!'
+      message: 'Thanks for making this video!'
     }
   })
   const watchTipQuantity = watch('tipQuantity', 1)
@@ -440,7 +440,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
             rows={3}
           />
           <div className="mx-1 mt-1 text-[11px] opacity-50">
-            This will be published as public comment.
+            This will be published as a public comment.
           </div>
         </div>
 
