@@ -54,7 +54,7 @@ const Splits = () => {
     const splits = splitRecipients
     const changedSplit = splits[index]
     if (key === 'split') {
-      changedSplit[key] = Number(value)
+      changedSplit[key] = Number(Number(value).toFixed(2))
     } else {
       changedSplit[key] = value
       if (!getIsValidAddress(value) && getIsHandle(value)) {
