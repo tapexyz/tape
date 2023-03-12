@@ -136,7 +136,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onError
   })
 
-  const signTypedData = (request: CreateMirrorRequest) => {
+  const createTypedData = (request: CreateMirrorRequest) => {
     createMirrorTypedData({
       variables: {
         options: { overrideSigNonce: userSigNonce },
@@ -150,7 +150,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       variables: { request }
     })
     if (data?.createMirrorViaDispatcher.__typename === 'RelayError') {
-      signTypedData(request)
+      createTypedData(request)
     }
   }
 
@@ -179,7 +179,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     }
     const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
     if (!canUseDispatcher) {
-      return signTypedData(request)
+      return createTypedData(request)
     }
     await createViaDispatcher(request)
   }

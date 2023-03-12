@@ -217,7 +217,7 @@ const NewComment: FC<Props> = ({ video }) => {
     onError
   })
 
-  const signTypedData = (request: CreatePublicCommentRequest) => {
+  const createTypedData = (request: CreatePublicCommentRequest) => {
     createCommentTypedData({
       variables: { options: { overrideSigNonce: userSigNonce }, request }
     })
@@ -228,7 +228,7 @@ const NewComment: FC<Props> = ({ video }) => {
       variables: { request }
     })
     if (data?.createCommentViaDispatcher.__typename === 'RelayError') {
-      signTypedData(request)
+      createTypedData(request)
     }
   }
 
@@ -352,7 +352,7 @@ const NewComment: FC<Props> = ({ video }) => {
       }
       const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
       if (!canUseDispatcher) {
-        return signTypedData(request)
+        return createTypedData(request)
       }
       await createViaDispatcher(request)
     } catch {}

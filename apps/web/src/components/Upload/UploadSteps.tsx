@@ -271,7 +271,7 @@ const UploadSteps = () => {
     onError
   })
 
-  const signTypedData = async (request: CreatePublicPostRequest) => {
+  const createTypedData = async (request: CreatePublicPostRequest) => {
     await createPostTypedData({
       variables: { request }
     })
@@ -282,7 +282,7 @@ const UploadSteps = () => {
       variables: { request }
     })
     if (data?.createPostViaDispatcher.__typename === 'RelayError') {
-      await signTypedData(request)
+      await createTypedData(request)
     }
   }
 
@@ -397,7 +397,7 @@ const UploadSteps = () => {
       }
       const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
       if (!canUseDispatcher) {
-        return signTypedData(request)
+        return createTypedData(request)
       }
       await createViaDispatcher(request)
     } catch {}
