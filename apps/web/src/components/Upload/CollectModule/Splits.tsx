@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import { utils } from 'ethers'
 import type { RecipientDataInput } from 'lens'
 import { useResolveProfileAddressLazyQuery } from 'lens'
+import type { FC, RefObject } from 'react'
 import React from 'react'
 import {
   Analytics,
@@ -17,7 +18,11 @@ import {
 } from 'utils'
 import splitNumber from 'utils/functions/splitNumber'
 
-const Splits = () => {
+type Props = {
+  submitContainerRef: RefObject<HTMLDivElement>
+}
+
+const Splits: FC<Props> = ({ submitContainerRef }) => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const splitRecipients = uploadedVideo.collectModule.multiRecipients ?? []
@@ -78,6 +83,10 @@ const Splits = () => {
     const splits = splitRecipients
     splits.push({ recipient: '', split: 1 })
     setSplitRecipients([...splits])
+    // requires some time because the input fields shifts the layout back down
+    setTimeout(() => {
+      submitContainerRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }, 50)
   }
 
   const addDonation = () => {
