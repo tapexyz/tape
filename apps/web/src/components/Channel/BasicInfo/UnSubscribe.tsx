@@ -88,7 +88,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
         createUnfollowTypedData as CreateUnfollowBroadcastItemResult
       try {
         toast.loading('Requesting signature...')
-        const signature: string = await signTypedDataAsync({
+        const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),
           value: omitKey(typedData?.value, '__typename')
