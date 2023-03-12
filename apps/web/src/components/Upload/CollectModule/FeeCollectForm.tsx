@@ -5,7 +5,7 @@ import useChannelStore from '@lib/store/channel'
 import { utils } from 'ethers'
 import type { Erc20 } from 'lens'
 import type { Dispatch, FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import type { CollectModuleType, UploadedVideo } from 'utils'
@@ -38,6 +38,8 @@ const FeeCollectForm: FC<Props> = ({
   setShowModal,
   enabledCurrencies
 }) => {
+  const submitContainerRef = useRef<HTMLDivElement>(null)
+
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const [selectedCurrencySymbol, setSelectedCurrencySymbol] = useState('WMATIC')
   const splitRecipients = uploadedVideo.collectModule.multiRecipients ?? []
@@ -202,8 +204,8 @@ const FeeCollectForm: FC<Props> = ({
           validationError={errors.referralPercent?.message}
         />
       </div>
-      <Splits />
-      <div className="flex justify-end pt-2">
+      <Splits submitContainerRef={submitContainerRef} />
+      <div className="flex justify-end pt-2" ref={submitContainerRef}>
         <Button type="button" onClick={() => handleSubmit(validateInputs)()}>
           Set Collect Type
         </Button>
