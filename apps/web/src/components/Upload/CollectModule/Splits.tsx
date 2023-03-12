@@ -79,20 +79,25 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
     setSplitRecipients([...splits])
   }
 
-  const addRecipient = () => {
-    const splits = splitRecipients
-    splits.push({ recipient: '', split: 1 })
-    setSplitRecipients([...splits])
+  const scrollToSubmit = () => {
     // requires some time because the input fields shifts the layout back down
     setTimeout(() => {
       submitContainerRef.current?.scrollIntoView({ behavior: 'smooth' })
     }, 50)
   }
 
+  const addRecipient = () => {
+    const splits = splitRecipients
+    splits.push({ recipient: '', split: 1 })
+    setSplitRecipients([...splits])
+    scrollToSubmit()
+  }
+
   const addDonation = () => {
     const splits = splitRecipients
     splits.push({ recipient: LENSTUBE_DONATION_ADDRESS, split: 2 })
     setSplitRecipients([...splits])
+    scrollToSubmit()
   }
 
   const removeRecipient = (index: number) => {
