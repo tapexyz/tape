@@ -12,7 +12,7 @@
     "next": "13.2.4"
   },
   "devDependencies": {
-    "@types/node": "18.15.0",
+    "@types/node": "18.15.1",
     "eslint-config-weblint": "*",
     "lens": "*",
     "tsconfig": "*",
