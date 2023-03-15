@@ -63,7 +63,9 @@ const ExploreFeed = () => {
     sortCriteria: getCriteria(),
     limit: 32,
     noRandomize: true,
-    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
+    sources: activeCriteria.recents
+      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+      : [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
