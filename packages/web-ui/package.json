@@ -7,7 +7,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "mux-embed": "^4.22.0"
+    "mux-embed": "^4.23.0"
   },
   "devDependencies": {
     "prettier-plugin-tailwindcss": "^0.2.4",
