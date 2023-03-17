@@ -4,7 +4,7 @@
   "license": "GPL-3.0",
   "main": "./generated.ts",
   "dependencies": {
-    "typescript": "4.9.5"
+    "typescript": "5.0.2"
   },
   "scripts": {
     "codegen": "graphql-codegen"
