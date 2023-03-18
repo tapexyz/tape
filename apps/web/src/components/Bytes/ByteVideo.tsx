@@ -113,16 +113,31 @@ const ByteVideo: FC<Props> = ({
                 autoPlay: false,
                 muted: false,
                 loop: true,
-                loadingSpinner: false
+                loadingSpinner: false,
+                isCurrentlyShown: currentViewingId === video.id
               }}
             />
           ) : (
-            <img
-              className="w-full object-contain"
-              src={thumbnailUrl}
-              alt="thumbnail"
-              draggable={false}
-            />
+            <div className="h-full w-full">
+              <img
+                className="w-full object-cover"
+                src={thumbnailUrl}
+                alt="thumbnail"
+                draggable={false}
+              />
+              <span className="invisible absolute">
+                <VideoPlayer
+                  permanentUrl={getPublicationMediaUrl(video)}
+                  showControls={false}
+                  options={{
+                    autoPlay: false,
+                    muted: true,
+                    loadingSpinner: false,
+                    isCurrentlyShown: currentViewingId === video.id
+                  }}
+                />
+              </span>
+            </div>
           )}
         </div>
         <TopOverlay onClickVideo={onClickVideo} />
