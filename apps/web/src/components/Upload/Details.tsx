@@ -70,11 +70,11 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
     onUpload(data)
   }
 
-  const toggleUploadAsByte = (isByteVideo: boolean) => {
-    if (isByteSizeVideo) {
-      return setUploadedVideo({ isByteVideo })
+  const toggleUploadAsByte = (enable: boolean) => {
+    if (isByteSizeVideo && enable) {
+      return setUploadedVideo({ isByteVideo: true })
     } else {
-      setUploadedVideo({ isByteVideo })
+      setUploadedVideo({ isByteVideo: false })
     }
   }
 
