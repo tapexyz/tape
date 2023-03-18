@@ -116,10 +116,10 @@ const Video = () => {
         <ChooseThumbnail label="Thumbnail" file={uploadedVideo.file} />
       </div>
       <ul className="mt-4 list-inside list-disc text-xs">
+        <li>Don't switch network or wallet accounts.</li>
         <li>
           Stay active in current tab while uploading for faster experience.
         </li>
-        <li>Don't switch network or wallet accounts.</li>
         <li>Video will be stored permanently on-chain and can't be updated.</li>
       </ul>
       <div className="rounded-lg">

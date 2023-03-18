@@ -1,8 +1,9 @@
-import BytesOutline from '@components/Common/Icons/BytesOutline'
 import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import RadioInput from '@components/UIElements/RadioInput'
+import { Toggle } from '@components/UIElements/Toggle'
+import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import clsx from 'clsx'
@@ -10,6 +11,7 @@ import type { FC } from 'react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
+import checkIsBytesVideo from 'utils/functions/checkIsBytesVideo'
 import { z } from 'zod'
 
 import Category from './Category'
@@ -39,6 +41,11 @@ type Props = {
 
 const Details: FC<Props> = ({ onUpload, onCancel }) => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+
+  const isByteSizeVideo = checkIsBytesVideo(
+    Number(uploadedVideo.durationInSeconds)
+  )
 
   const {
     handleSubmit,
@@ -61,6 +68,14 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
       return toast.error('Please select or upload a thumbnail')
     }
     onUpload(data)
+  }
+
+  const toggleUploadAsByte = (enable: boolean) => {
+    if (isByteSizeVideo && enable) {
+      return setUploadedVideo({ isByteVideo: true })
+    } else {
+      setUploadedVideo({ isByteVideo: false })
+    }
   }
 
   return (
@@ -126,25 +141,25 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 </span>
               </div>
             </div>
-            <div className="mt-2 flex items-center space-x-1.5 rounded-full bg-gradient-to-br from-orange-200 to-orange-100 px-3 py-1 text-sm font-medium text-black text-opacity-80">
-              <BytesOutline className="h-4 w-4 flex-none" />
-              <span>
-                Using
-                <button
-                  type="button"
-                  onClick={() => {
-                    setValue(
-                      'description',
-                      `${getValues('description')} #bytes`
-                    )
-                  }}
-                  className="mx-1 text-indigo-600 outline-none dark:text-indigo-400"
-                >
-                  #bytes
-                </button>
-                in description will upload this as a short form video.
-              </span>
-            </div>
+            <Tooltip
+              visible={!isByteSizeVideo}
+              content="Please note that only videos under 2 minutes in length can be uploaded as bytes."
+            >
+              <div
+                className={clsx(
+                  'mt-2',
+                  !isByteSizeVideo && 'cursor-not-allowed opacity-50'
+                )}
+              >
+                <Toggle
+                  label="Upload this video as short-form bytes."
+                  enabled={Boolean(uploadedVideo.isByteVideo)}
+                  setEnabled={(b) => toggleUploadAsByte(b)}
+                  size="sm"
+                  disabled={!isByteSizeVideo}
+                />
+              </div>
+            </Tooltip>
             <div className="mt-4">
               <CollectModule />
             </div>

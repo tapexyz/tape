@@ -36,7 +36,6 @@ import {
   TRACK
 } from 'utils'
 import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
-import { checkIsBytesVideo } from 'utils/functions/checkIsBytesVideo'
 import { getCollectModule } from 'utils/functions/getCollectModule'
 import getUserLocale from 'utils/functions/getUserLocale'
 import omitKey from 'utils/functions/omitKey'
@@ -268,10 +267,9 @@ const UploadSteps = () => {
         attributes.push({
           displayType: PublicationMetadataDisplayTypes.String,
           traitType: 'durationInSeconds',
-          value: uploadedVideo.durationInSeconds.toString()
+          value: uploadedVideo.durationInSeconds
         })
       }
-      const isByteVideo = checkIsBytesVideo(uploadedVideo.description)
       const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
         metadata_id: uuidv4(),
@@ -289,7 +287,9 @@ const UploadSteps = () => {
         name: trimify(uploadedVideo.title),
         attributes,
         media,
-        appId: isByteVideo ? LENSTUBE_BYTES_APP_ID : LENSTUBE_APP_ID
+        appId: uploadedVideo.isByteVideo
+          ? LENSTUBE_BYTES_APP_ID
+          : LENSTUBE_APP_ID
       }
       if (uploadedVideo.isSensitiveContent) {
         metadata.contentWarning = PublicationContentWarning.Sensitive
@@ -297,8 +297,7 @@ const UploadSteps = () => {
       const { url } = await uploadToAr(metadata)
       setUploadedVideo({
         buttonText: 'Posting video',
-        loading: true,
-        isByteVideo
+        loading: true
       })
 
       const isRestricted = Boolean(degreesOfSeparation)
