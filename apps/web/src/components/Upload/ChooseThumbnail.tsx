@@ -47,6 +47,37 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
     return result
   }
 
+  const onSelectThumbnail = async (index: number) => {
+    setSelectedThumbnailIndex(index)
+    if (thumbnails[index].ipfsUrl === '') {
+      setUploadedVideo({ uploadingThumbnail: true })
+      getFileFromDataURL(
+        thumbnails[index].blobUrl,
+        'thumbnail.jpeg',
+        async (file) => {
+          if (!file) {
+            return toast.error('Please upload a custom thumbnail')
+          }
+          const ipfsResult = await uploadThumbnailToIpfs(file)
+          setThumbnails(
+            thumbnails.map((thumbnail, i) => {
+              if (i === index) {
+                thumbnail.ipfsUrl = ipfsResult?.url
+              }
+              return thumbnail
+            })
+          )
+        }
+      )
+    } else {
+      setUploadedVideo({
+        thumbnail: thumbnails[index].ipfsUrl,
+        thumbnailType: thumbnails[index].mimeType || 'image/jpeg',
+        uploadingThumbnail: false
+      })
+    }
+  }
+
   const generateThumbnails = async (fileToGenerate: File) => {
     try {
       const thumbnailArray = await generateVideoThumbnails(
@@ -54,27 +85,16 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
         THUMBNAIL_GENERATE_COUNT
       )
       const thumbnailList: Thumbnail[] = []
-      thumbnailArray.forEach((t) => {
-        thumbnailList.push({ blobUrl: t, ipfsUrl: '', mimeType: 'image/jpeg' })
+      thumbnailArray.forEach((thumbnailBlob) => {
+        thumbnailList.push({
+          blobUrl: thumbnailBlob,
+          ipfsUrl: '',
+          mimeType: 'image/jpeg'
+        })
       })
       setThumbnails(thumbnailList)
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX)
-      const imageFile = getFileFromDataURL(
-        thumbnailList[DEFAULT_THUMBNAIL_INDEX]?.blobUrl,
-        'thumbnail.jpeg'
-      )
-      if (!imageFile) {
-        return toast.error('Please upload a custom thumbnail')
-      }
-      const ipfsResult = await uploadThumbnailToIpfs(imageFile)
-      setThumbnails(
-        thumbnailList.map((t, i) => {
-          if (i === DEFAULT_THUMBNAIL_INDEX) {
-            t.ipfsUrl = ipfsResult?.url
-          }
-          return t
-        })
-      )
+      onSelectThumbnail(DEFAULT_THUMBNAIL_INDEX)
     } catch {}
   }
 
@@ -107,34 +127,6 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
         ...thumbnails
       ])
       setSelectedThumbnailIndex(0)
-    }
-  }
-
-  const onSelectThumbnail = async (index: number) => {
-    setSelectedThumbnailIndex(index)
-    if (thumbnails[index].ipfsUrl === '') {
-      const selectedImage = getFileFromDataURL(
-        thumbnails[index].blobUrl,
-        'thumbnail.jpeg'
-      )
-      if (!selectedImage) {
-        return toast.error('Please upload a custom thumbnail')
-      }
-      const ipfsResult = await uploadThumbnailToIpfs(selectedImage)
-      setThumbnails(
-        thumbnails.map((t, i) => {
-          if (i === index) {
-            t.ipfsUrl = ipfsResult.url
-          }
-          return t
-        })
-      )
-    } else {
-      setUploadedVideo({
-        thumbnail: thumbnails[index].ipfsUrl,
-        thumbnailType: thumbnails[index].mimeType || 'image/jpeg',
-        uploadingThumbnail: false
-      })
     }
   }
 
