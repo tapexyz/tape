@@ -1,13 +1,27 @@
-export const getFileFromDataURL = (dataUrl: string, fileName: string) => {
-  const byteString = Buffer.from(dataUrl.split(',')[1], 'base64')
-  if (dataUrl.length > 0) {
-    const mimeString = dataUrl.split(',')[0].split(':')[1].split(';')[0]
-    const ab = new ArrayBuffer(byteString.length)
-    const ia = new Uint8Array(ab)
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString[i]
-    }
-    const blob = new Blob([ab], { type: mimeString })
-    return new File([blob], fileName)
+export const getFileFromDataURL = (
+  dataUrl: string,
+  fileName: string,
+  callback: (file: File | null) => void
+) => {
+  const img = new Image()
+  img.crossOrigin = 'Anonymous'
+  img.src = dataUrl
+
+  img.onload = () => {
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    canvas.width = img.width
+    canvas.height = img.height
+    ctx?.drawImage(img, 0, 0, img.width, img.height)
+
+    canvas.toBlob((blob) => {
+      if (blob) {
+        const file = new File([blob], fileName, { type: blob.type })
+        callback(file)
+      }
+    })
+  }
+  img.onerror = () => {
+    callback(null)
   }
 }
