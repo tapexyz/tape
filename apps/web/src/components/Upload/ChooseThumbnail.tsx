@@ -49,7 +49,7 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
 
   const onSelectThumbnail = async (index: number) => {
     setSelectedThumbnailIndex(index)
-    if (thumbnails[index].ipfsUrl === '') {
+    if (thumbnails[index]?.ipfsUrl === '') {
       setUploadedVideo({ uploadingThumbnail: true })
       getFileFromDataURL(
         thumbnails[index].blobUrl,
@@ -71,8 +71,8 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
       )
     } else {
       setUploadedVideo({
-        thumbnail: thumbnails[index].ipfsUrl,
-        thumbnailType: thumbnails[index].mimeType || 'image/jpeg',
+        thumbnail: thumbnails[index]?.ipfsUrl,
+        thumbnailType: thumbnails[index]?.mimeType || 'image/jpeg',
         uploadingThumbnail: false
       })
     }
@@ -94,9 +94,13 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
       })
       setThumbnails(thumbnailList)
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX)
-      onSelectThumbnail(DEFAULT_THUMBNAIL_INDEX)
     } catch {}
   }
+
+  useEffect(() => {
+    onSelectThumbnail(selectedThumbnailIndex)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedThumbnailIndex])
 
   useEffect(() => {
     if (file) {
@@ -193,13 +197,6 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
           )
         })}
       </div>
-      {!uploadedVideo.thumbnail.length &&
-      !uploadedVideo.uploadingThumbnail &&
-      thumbnails.length ? (
-        <p className="mt-2 text-xs font-medium text-red-500">
-          Please select or upload a thumbnail
-        </p>
-      ) : null}
     </div>
   )
 }
