@@ -10,11 +10,12 @@ export interface PlayerProps {
   posterUrl?: string
   ratio?: AspectRatio
   showControls?: boolean
-  options?: {
+  options: {
     autoPlay?: boolean
     muted?: boolean
     loop?: boolean
     loadingSpinner: boolean
+    isCurrentlyShown: boolean
   }
 }
 
@@ -35,12 +36,13 @@ const PlayerInstance: FC<PlayerProps> = ({
       aspectRatio={ratio}
       showPipButton
       mediaElementRef={playerRef}
-      loop={options?.loop ?? true}
+      loop={options.loop ?? true}
       showUploadingIndicator={false}
       muted={options?.muted ?? false}
       controls={{ defaultVolume: 1 }}
-      autoPlay={options?.autoPlay ?? false}
-      showLoadingSpinner={options?.loadingSpinner}
+      autoPlay={options.autoPlay ?? false}
+      showLoadingSpinner={options.loadingSpinner}
+      _isCurrentlyShown={options.isCurrentlyShown}
       autoUrlUpload={
         IS_PRODUCTION && {
           fallback: true,

@@ -46,7 +46,10 @@ const Video: FC<Props> = ({ video }) => {
         currentTime={videoWatchTime}
         permanentUrl={getPublicationMediaUrl(video)}
         posterUrl={thumbnailUrl}
-        options={{ loadingSpinner: true }}
+        options={{
+          loadingSpinner: true,
+          isCurrentlyShown: true
+        }}
         isSensitiveContent={isSensitiveContent}
       />
       <div className="flex items-center justify-between">

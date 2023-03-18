@@ -55,7 +55,12 @@ const PinnedVideo: FC<Props> = ({ id }) => {
           permanentUrl={getPublicationMediaUrl(pinnedPublication)}
           posterUrl={thumbnailUrl}
           isSensitiveContent={isSensitiveContent}
-          options={{ autoPlay: true, loop: false, loadingSpinner: true }}
+          options={{
+            autoPlay: true,
+            loop: false,
+            loadingSpinner: true,
+            isCurrentlyShown: true
+          }}
         />
       </div>
       <div className="flex flex-col justify-between px-2 lg:col-span-2">
