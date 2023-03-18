@@ -173,9 +173,9 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
               disabled={uploadedVideo.uploadingThumbnail}
               onClick={() => onSelectThumbnail(idx)}
               className={clsx(
-                'relative w-full flex-none overflow-hidden rounded-lg ring ring-transparent focus:outline-none',
+                'relative w-full flex-none overflow-hidden rounded-lg ring-1 ring-white focus:outline-none dark:ring-black',
                 {
-                  'ring !ring-indigo-500':
+                  '!ring !ring-indigo-500':
                     thumbnail.ipfsUrl &&
                     selectedThumbnailIndex === idx &&
                     thumbnail.ipfsUrl === uploadedVideo.thumbnail
@@ -183,7 +183,10 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
               )}
             >
               <img
-                className="h-16 w-full rounded-lg object-cover md:w-32"
+                className={clsx(
+                  'h-16 w-full rounded-lg md:w-32',
+                  uploadedVideo.isByteVideo ? 'object-contain' : 'object-cover'
+                )}
                 src={sanitizeDStorageUrl(thumbnail.blobUrl)}
                 alt="thumbnail"
                 draggable={false}
