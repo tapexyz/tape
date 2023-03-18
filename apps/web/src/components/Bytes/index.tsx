@@ -140,14 +140,17 @@ const Bytes = () => {
             intersectionCallback={(id) => setCurrentViewingId(id)}
           />
         )}
-        {bytes?.map((video: Publication) => (
-          <ByteVideo
-            video={video}
-            currentViewingId={currentViewingId}
-            intersectionCallback={(id) => setCurrentViewingId(id)}
-            key={`${video?.id}_${video.createdAt}`}
-          />
-        ))}
+        {bytes?.map(
+          (video: Publication) =>
+            singleByte?.publication?.id !== video.id && (
+              <ByteVideo
+                video={video}
+                currentViewingId={currentViewingId}
+                intersectionCallback={(id) => setCurrentViewingId(id)}
+                key={`${video?.id}_${video.createdAt}`}
+              />
+            )
+        )}
         {pageInfo?.next && (
           <span ref={observe} className="flex justify-center p-10">
             <Loader />

@@ -77,7 +77,8 @@ const Video: FC<Props> = ({ video }) => {
             autoPlay: isAutoPlay,
             muted: isAutoPlay,
             loop: isLoop,
-            loadingSpinner: true
+            loadingSpinner: true,
+            isCurrentlyShown: true
           }}
         />
       ) : (
