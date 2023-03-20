@@ -2931,10 +2931,10 @@
   dependencies:
     client-only "^0.0.1"
 
-"@hookform/resolvers@^2.9.11":
-  version "2.9.11"
-  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-2.9.11.tgz#9ce96e7746625a89239f68ca57c4f654264c17ef"
-  integrity sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ==
+"@hookform/resolvers@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-3.0.0.tgz#bb9346f1550a472a980af5b08e549366c788ff76"
+  integrity sha512-SQPefakODpyq25b/phHXDKCdRrEfPcCXV7B4nAa139wE1DxufYbbNAjeo0T04ZXBokRxZ+wD8iA1kkVMa3QwjQ==
 
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
@@ -9815,10 +9815,10 @@ prettier-plugin-tailwindcss@^0.2.5:
   resolved "https://registry.yarnpkg.com/prettier-plugin-tailwindcss/-/prettier-plugin-tailwindcss-0.2.5.tgz#fb9f07f22d0658fdedbf4d83254bf907656f7500"
   integrity sha512-vZ/iKieyCx0WTxHbkf5E1rBlv/ybFk8WTT4hL5W2jlVxum2Zbe0jMUpuQdDrpa4z2vnPiJ5KIWCqL/kd16fKYg==
 
-prettier@^2.8.4:
-  version "2.8.4"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.4.tgz#34dd2595629bfbb79d344ac4a91ff948694463c3"
-  integrity sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==
+prettier@^2.8.5:
+  version "2.8.5"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.5.tgz#3dd8ae1ebddc4f6aa419c9b64d8c8319a7e0d982"
+  integrity sha512-3gzuxrHbKUePRBB4ZeU08VNkUcqEHaUaouNt0m7LGP4Hti/NuB07C7PPTM/LkWqXoJYJn2McEo5+kxPNrtQkLQ==
 
 prettyjson@^1.2.1:
   version "1.2.5"

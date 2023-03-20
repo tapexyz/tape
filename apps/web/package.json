@@ -19,7 +19,7 @@
     "@bundlr-network/client": "^0.10.5",
     "@emoji-mart/react": "^1.1.1",
     "@headlessui/react": "^1.7.13",
-    "@hookform/resolvers": "^2.9.11",
+    "@hookform/resolvers": "^3.0.0",
     "@livepeer/react": "^2.3.1",
     "@rainbow-me/rainbowkit": "^0.12.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
