@@ -3,22 +3,22 @@ import localFont from 'next/font/local'
 const bloomer = localFont({
   src: [
     {
-      path: './Bloomer-Regular.woff',
+      path: './Matter-Regular.woff',
       weight: '400',
       style: 'normal'
     },
     {
-      path: './Bloomer-Medium.woff',
+      path: './Matter-Medium.woff',
       weight: '500',
       style: 'normal'
     },
     {
-      path: './Bloomer-SemiBold.woff',
+      path: './Matter-SemiBold.woff',
       weight: '600',
       style: 'normal'
     },
     {
-      path: './Bloomer-Bold.woff',
+      path: './Matter-Bold.woff',
       weight: '700',
       style: 'normal'
     }
