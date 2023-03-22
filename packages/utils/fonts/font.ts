@@ -10,7 +10,7 @@ const matterFont = localFont({
     {
       path: './Matter-Medium.woff',
       weight: '500',
-      style: 'medium'
+      style: 'normal'
     },
     {
       path: './Matter-SemiBold.woff',
