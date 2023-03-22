@@ -1,32 +1,32 @@
 import localFont from 'next/font/local'
 
-const matterFont = localFont({
+const bloomer = localFont({
   src: [
     {
-      path: './Matter-Regular.woff',
+      path: './Bloomer-Regular.woff',
       weight: '400',
       style: 'normal'
     },
     {
-      path: './Matter-Medium.woff',
+      path: './Bloomer-Medium.woff',
       weight: '500',
       style: 'normal'
     },
     {
-      path: './Matter-SemiBold.woff',
+      path: './Bloomer-SemiBold.woff',
       weight: '600',
       style: 'normal'
     },
     {
-      path: './Matter-Bold.woff',
+      path: './Bloomer-Bold.woff',
       weight: '700',
       style: 'normal'
     }
   ],
-  variable: '--font-matter',
+  variable: '--font-bloomer',
   fallback: ['sans-serif'],
   preload: true,
   display: 'swap'
 })
 
-export default matterFont
+export default bloomer
