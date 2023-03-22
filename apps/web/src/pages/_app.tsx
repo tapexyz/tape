@@ -28,11 +28,14 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Suspense fallback={<FullPageLoader />}>
       <Providers>
-        <main className={`${bloomer.variable} font-sans`}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </main>
+        <style jsx global>{`
+          body {
+            font-family: ${bloomer.style.fontFamily};
+          }
+        `}</style>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </Providers>
     </Suspense>
   )

@@ -18,7 +18,7 @@ export const videoPlayerTheme: ThemeConfig = {
     loading: '#6366f1'
   },
   fonts: {
-    display: 'Bloomer'
+    display: 'Matter'
   },
   fontSizes: {
     timeFontSize: '12px'

@@ -16,9 +16,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
   return (
     <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
-      <main className={`${bloomer.variable} font-sans`}>
-        <Component {...pageProps} />
-      </main>
+      <style jsx global>{`
+        body {
+          font-family: ${bloomer.style.fontFamily};
+        }
+      `}</style>
+      <Component {...pageProps} />
     </LivepeerConfig>
   )
 }

@@ -23,9 +23,7 @@ const bloomer = localFont({
       style: 'bold'
     }
   ],
-  variable: '--font-bloomer',
-  fallback: ['sans-serif'],
-  preload: true,
+  fallback: ['system-ui', 'sans-serif'],
   display: 'swap'
 })
 
