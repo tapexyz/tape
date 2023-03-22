@@ -24,7 +24,10 @@ type Props = {
 const formSchema = z.object({
   currency: z.string(),
   amount: z.string().min(1, { message: 'Invalid amount' }),
-  collectLimit: z.string().min(1, { message: 'Invalid collect limit' }),
+  collectLimit: z
+    .string()
+    .min(1, { message: 'Invalid collect limit' })
+    .optional(),
   referralPercent: z
     .number()
     .max(100, { message: 'Percentage should be 0 to 100' })
@@ -57,7 +60,7 @@ const FeeCollectForm: FC<Props> = ({
       currency:
         uploadedVideo.collectModule.amount?.currency ?? WMATIC_TOKEN_ADDRESS,
       amount: uploadedVideo.collectModule.amount?.value,
-      collectLimit: uploadedVideo.collectModule.collectLimit || '1'
+      collectLimit: uploadedVideo.collectModule.collectLimit || '0'
     }
   })
 
