@@ -10,7 +10,7 @@ const bloomer = localFont({
     {
       path: './Matter-Medium.woff',
       weight: '500',
-      style: 'normal'
+      style: 'medium'
     },
     {
       path: './Matter-SemiBold.woff',
@@ -20,7 +20,7 @@ const bloomer = localFont({
     {
       path: './Matter-Bold.woff',
       weight: '700',
-      style: 'normal'
+      style: 'bold'
     }
   ],
   variable: '--font-bloomer',
