@@ -5,6 +5,7 @@ import mixpanel from 'mixpanel-browser'
 import type { AppProps } from 'next/app'
 import React from 'react'
 import { IS_PRODUCTION, MIXPANEL_API_HOST, MIXPANEL_TOKEN } from 'utils'
+import bloomer from 'utils/fonts/font'
 import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -15,6 +16,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
   return (
     <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
+      <style jsx global>{`
+        body {
+          font-family: ${bloomer.style.fontFamily};
+        }
+      `}</style>
       <Component {...pageProps} />
     </LivepeerConfig>
   )

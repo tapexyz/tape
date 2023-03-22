@@ -1,10 +1,7 @@
-@import url('https://static.lenstube.xyz/fonts/font.css');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  font-family: 'Matter', sans-serif;
   @apply min-h-screen bg-white antialiased;
 }
