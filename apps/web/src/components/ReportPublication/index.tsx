@@ -76,9 +76,7 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
         <div className="w-full">
           <div className="opacity-60">
             <h1>{publication.metadata.name}</h1>
-            <span className="text-sm italic">
-              by {publication.profile.handle}
-            </span>
+            <span className="text-sm">by {publication.profile.handle}</span>
           </div>
           <div className="mt-4">
             <label
