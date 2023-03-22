@@ -8,6 +8,7 @@ import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import React, { lazy, Suspense, useEffect } from 'react'
 import { AUTH_ROUTES } from 'utils/data/auth-routes'
+import matterFont from 'utils/fonts/font'
 
 const Providers = lazy(() => import('../components/Common/Providers'))
 const Layout = lazy(() => import('../components/Common/Layout'))
@@ -27,9 +28,11 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Suspense fallback={<FullPageLoader />}>
       <Providers>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <main className={`${matterFont.variable} font-sans`}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </main>
       </Providers>
     </Suspense>
   )

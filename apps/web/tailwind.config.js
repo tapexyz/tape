@@ -3,6 +3,7 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}', '../../packages/**/*.{ts,tsx}'],
   darkMode: 'class',
   theme: {
+    fontFamily: { sans: ['var(--font-matter)'] },
     extend: {
       screens: {
         tablet: '640px',

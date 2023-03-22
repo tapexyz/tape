@@ -6,6 +6,7 @@ module.exports = {
     '../../packages/**/*.{ts,tsx}'
   ],
   theme: {
+    fontFamily: { sans: ['var(--font-matter)'] },
     extend: {}
   },
   plugins: [

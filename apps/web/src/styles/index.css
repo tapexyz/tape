@@ -1,11 +1,8 @@
-@import url('https://static.lenstube.xyz/fonts/font.css');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  font-family: 'Matter', sans-serif;
   @apply antialiased dark:text-white bg-gradient-to-bl from-indigo-100 via-gray-100 bg-fixed dark:from-gray-800 dark:to-gray-900 to-gray-50 text-black min-h-screen;
 }
 
