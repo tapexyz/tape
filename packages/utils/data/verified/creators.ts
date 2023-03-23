@@ -2,6 +2,7 @@ import { IS_MAINNET } from '../../constants'
 
 export const CREATORS = IS_MAINNET
   ? [
+      '0x01615e', // livepeer.lens
       '0x0102b5', // ufoclub.lens
       '0x0115ca', // erikamoji.lens
       '0x326c', // grams.lens
