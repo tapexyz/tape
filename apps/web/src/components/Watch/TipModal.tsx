@@ -249,9 +249,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         publicationId: video?.id,
         contentURI: url,
         collectModule: {
-          freeCollectModule: {
-            followerOnly: false
-          }
+          revertCollectModule: true
         },
         referenceModule: {
           followerOnlyReferenceModule: false
