@@ -237,9 +237,7 @@ const NewComment: FC<Props> = ({ video }) => {
         publicationId: video?.id,
         contentURI: url,
         collectModule: {
-          freeCollectModule: {
-            followerOnly: false
-          }
+          revertCollectModule: true
         },
         referenceModule: {
           followerOnlyReferenceModule: false
