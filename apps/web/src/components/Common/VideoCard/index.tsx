@@ -2,6 +2,7 @@ import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
+import { LENSTUBE_BYTES_APP_ID } from 'utils'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import getLensHandle from 'utils/functions/getLensHandle'
 import getProfilePicture from 'utils/functions/getProfilePicture'
@@ -20,6 +21,9 @@ type Props = {
 const VideoCard: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
   const [showReport, setShowReport] = useState(false)
+  const isBytes = video.appId === LENSTUBE_BYTES_APP_ID
+
+  const href = isBytes ? `/bytes/${video.id}` : `/watch/${video.id}`
 
   return (
     <div className="group" data-testid="video-card">
@@ -39,7 +43,7 @@ const VideoCard: FC<Props> = ({ video }) => {
             show={showReport}
             setShowReport={setShowReport}
           />
-          <Link href={`/watch/${video.id}`}>
+          <Link href={href}>
             <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
               <ThumbnailImage video={video} />
               <ThumbnailOverlays video={video} />
@@ -62,7 +66,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                 <div className="flex w-full min-w-0 items-start justify-between space-x-1.5 pb-1">
                   <Link
                     className="line-clamp-2 ultrawide:line-clamp-1 ultrawide:break-all break-words text-sm font-semibold"
-                    href={`/watch/${video.id}`}
+                    href={href}
                     title={video.metadata?.name ?? ''}
                     data-testid="video-card-title"
                   >
