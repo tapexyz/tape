@@ -1,7 +1,6 @@
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
-import PlayOutline from '@components/Common/Icons/PlayOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
@@ -14,6 +13,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
+import { STATIC_ASSETS } from 'utils'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import {
   checkValueInAttributes,
@@ -30,12 +30,17 @@ interface Props {
 
 const VideoComment: FC<Props> = ({ comment }) => {
   return (
-    <div className="my-2 rounded-xl border py-3 px-4 dark:border-gray-700">
+    <div className="my-2 rounded-xl border border-gray-200 py-3 px-4 dark:border-gray-800">
       <Link
         href={`/watch/${comment.id}`}
         className="flex items-center space-x-2.5"
       >
-        <PlayOutline className="h-4 w-4" />
+        <img
+          src={`${STATIC_ASSETS}/images/brand/circle-blue-72x72.png`}
+          className="h-5 w-5"
+          draggable={false}
+          alt="lenstube"
+        />
         <span>Watch Video</span>
       </Link>
     </div>

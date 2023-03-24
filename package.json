@@ -23,7 +23,7 @@
     "danger": "11.2.4",
     "husky": "^8.0.3",
     "ts-node": "latest",
-    "turbo": "1.8.3"
+    "turbo": "1.8.5"
   },
   "engines": {
     "node": ">=16.0.0"
