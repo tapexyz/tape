@@ -2,6 +2,7 @@ import type { ChildrenNode, MatchResponse, Node } from 'interweave'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
+import { STATIC_ASSETS } from 'utils'
 
 import type { UrlMatcherOptions, UrlProps } from './utils'
 import { EMAIL_DISTINCT_PATTERN, URL_PATTERN } from './utils'
@@ -15,7 +16,20 @@ const Url = ({ children, url, ...props }: UrlProps) => {
     href = `http://${href}`
   }
 
-  return (
+  return href?.includes('lenstube.xyz/watch') ? (
+    <Link
+      href={href}
+      className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 text-sm font-medium dark:bg-gray-800"
+    >
+      <img
+        src={`${STATIC_ASSETS}/images/brand/circle-blue-72x72.png`}
+        className="h-3 w-3"
+        draggable={false}
+        alt="lenstube"
+      />
+      <span>Watch Now</span>
+    </Link>
+  ) : (
     <Link {...props} href={href} target="_blank">
       {children}
     </Link>
