@@ -29,27 +29,7 @@ fragment CommentFields on Comment {
     totalUpvotes
   }
   metadata {
-    name
-    description
-    content
-    contentWarning
-    mainContentFocus
-    tags
-    media {
-      original {
-        url
-        mimeType
-      }
-    }
-    cover {
-      original {
-        url
-      }
-    }
-    attributes {
-      value
-      traitType
-    }
+    ...MetadataFields
   }
   commentOn {
     ... on Post {
@@ -59,16 +39,7 @@ fragment CommentFields on Comment {
         ...ProfileFields
       }
       metadata {
-        name
-        cover {
-          original {
-            url
-          }
-        }
-        attributes {
-          value
-          traitType
-        }
+        ...MetadataFields
       }
       appId
     }

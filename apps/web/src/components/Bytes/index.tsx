@@ -45,8 +45,6 @@ const Bytes = () => {
 
   const [fetchAllBytes, { data, loading, error, fetchMore }] =
     useExploreLazyQuery({
-      // prevent the query from firing again after the first fetch
-      nextFetchPolicy: 'standby',
       variables: {
         request,
         reactionRequest: selectedChannel
@@ -141,13 +139,13 @@ const Bytes = () => {
           />
         )}
         {bytes?.map(
-          (video: Publication) =>
+          (video: Publication, index) =>
             singleByte?.publication?.id !== video.id && (
               <ByteVideo
                 video={video}
                 currentViewingId={currentViewingId}
                 intersectionCallback={(id) => setCurrentViewingId(id)}
-                key={`${video?.id}_${video.createdAt}`}
+                key={`${video?.id}_${index}`}
               />
             )
         )}

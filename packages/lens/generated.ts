@@ -71,7 +71,7 @@ export type AaveFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
   /** The collect module limit */
-  collectLimit: Scalars['String']
+  collectLimit?: InputMaybe<Scalars['String']>
   /** The timestamp that this collect module will expire */
   endTimestamp?: InputMaybe<Scalars['DateTime']>
   /** Follower only */
@@ -1647,6 +1647,32 @@ export type GatedPublicationParamsInput = {
   token?: InputMaybe<Erc20OwnershipInput>
 }
 
+export type GciRequest = {
+  hhh: Scalars['String']
+  secret: Scalars['String']
+  ttt: Scalars['String']
+}
+
+export type GcrRequest = {
+  hhh: Scalars['String']
+  secret: Scalars['String']
+  ttt: Scalars['String']
+}
+
+export type GctRequest = {
+  hhh: Scalars['String']
+  secret: Scalars['String']
+}
+
+export type GddRequest = {
+  domain: Scalars['Url']
+  secret: Scalars['String']
+}
+
+export type GdmRequest = {
+  secret: Scalars['String']
+}
+
 export type GenerateModuleCurrencyApproval = {
   __typename?: 'GenerateModuleCurrencyApproval'
   data: Scalars['BlockchainData']
@@ -2091,7 +2117,10 @@ export type Mutation = {
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult
   /** Delete an NFT Gallery */
   deleteNftGallery?: Maybe<Scalars['Void']>
-  dismissRecommendedProfiles: Scalars['Void']
+  dismissRecommendedProfiles?: Maybe<Scalars['Void']>
+  gci?: Maybe<Scalars['Void']>
+  gcr?: Maybe<Scalars['Void']>
+  gdi?: Maybe<Scalars['Void']>
   hel?: Maybe<Scalars['Void']>
   hidePublication?: Maybe<Scalars['Void']>
   idKitPhoneVerifyWebhook: IdKitPhoneVerifyWebhookResultStatusType
@@ -2273,6 +2302,18 @@ export type MutationDeleteNftGalleryArgs = {
 
 export type MutationDismissRecommendedProfilesArgs = {
   request: DismissRecommendedProfilesRequest
+}
+
+export type MutationGciArgs = {
+  request: GciRequest
+}
+
+export type MutationGcrArgs = {
+  request: GcrRequest
+}
+
+export type MutationGdiArgs = {
+  request: GddRequest
 }
 
 export type MutationHelArgs = {
@@ -3432,6 +3473,8 @@ export type Query = {
   followerNftOwnedTokenIds?: Maybe<FollowerNftOwnedTokenIds>
   followers: PaginatedFollowersResult
   following: PaginatedFollowingResult
+  gct: Array<Scalars['String']>
+  gdm: Array<Scalars['Url']>
   generateModuleCurrencyApprovalData: GenerateModuleCurrencyApproval
   globalProtocolStats: GlobalProtocolStats
   hasTxHashBeenIndexed: TransactionResult
@@ -3521,6 +3564,14 @@ export type QueryFollowersArgs = {
 
 export type QueryFollowingArgs = {
   request: FollowingRequest
+}
+
+export type QueryGctArgs = {
+  request: GctRequest
+}
+
+export type QueryGdmArgs = {
+  request: GdmRequest
 }
 
 export type QueryGenerateModuleCurrencyApprovalDataArgs = {
@@ -3747,7 +3798,6 @@ export type RelayResult = RelayError | RelayerResult
 /** The relayer result */
 export type RelayerResult = {
   __typename?: 'RelayerResult'
-  dataAvailabilityId: Scalars['DataAvailabilityId']
   /** The tx hash - you should use the `txId` as your identifier as gas prices can be upgraded meaning txHash will change */
   txHash: Scalars['TxHash']
   /** The tx id */
@@ -4512,17 +4562,17 @@ export type CommentFieldsFragment = {
     name?: string | null
     description?: any | null
     content?: any | null
-    contentWarning?: PublicationContentWarning | null
     mainContentFocus: PublicationMainFocus
+    contentWarning?: PublicationContentWarning | null
     tags: Array<string>
-    media: Array<{
-      __typename?: 'MediaSet'
-      original: { __typename?: 'Media'; url: any; mimeType?: any | null }
-    }>
     cover?: {
       __typename?: 'MediaSet'
       original: { __typename?: 'Media'; url: any }
     } | null
+    media: Array<{
+      __typename?: 'MediaSet'
+      original: { __typename?: 'Media'; url: any; mimeType?: any | null }
+    }>
     attributes: Array<{
       __typename?: 'MetadataAttributeOutput'
       value?: string | null
@@ -4585,10 +4635,19 @@ export type CommentFieldsFragment = {
         metadata: {
           __typename?: 'MetadataOutput'
           name?: string | null
+          description?: any | null
+          content?: any | null
+          mainContentFocus: PublicationMainFocus
+          contentWarning?: PublicationContentWarning | null
+          tags: Array<string>
           cover?: {
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any }
           } | null
+          media: Array<{
+            __typename?: 'MediaSet'
+            original: { __typename?: 'Media'; url: any; mimeType?: any | null }
+          }>
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput'
             value?: string | null
@@ -5070,17 +5129,17 @@ export type MirrorFieldsFragment = {
           name?: string | null
           description?: any | null
           content?: any | null
-          contentWarning?: PublicationContentWarning | null
           mainContentFocus: PublicationMainFocus
+          contentWarning?: PublicationContentWarning | null
           tags: Array<string>
-          media: Array<{
-            __typename?: 'MediaSet'
-            original: { __typename?: 'Media'; url: any; mimeType?: any | null }
-          }>
           cover?: {
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any }
           } | null
+          media: Array<{
+            __typename?: 'MediaSet'
+            original: { __typename?: 'Media'; url: any; mimeType?: any | null }
+          }>
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput'
             value?: string | null
@@ -5143,10 +5202,23 @@ export type MirrorFieldsFragment = {
               metadata: {
                 __typename?: 'MetadataOutput'
                 name?: string | null
+                description?: any | null
+                content?: any | null
+                mainContentFocus: PublicationMainFocus
+                contentWarning?: PublicationContentWarning | null
+                tags: Array<string>
                 cover?: {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
                 } | null
+                media: Array<{
+                  __typename?: 'MediaSet'
+                  original: {
+                    __typename?: 'Media'
+                    url: any
+                    mimeType?: any | null
+                  }
+                }>
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput'
                   value?: string | null
@@ -6736,9 +6808,13 @@ export type CommentsQuery = {
             name?: string | null
             description?: any | null
             content?: any | null
-            contentWarning?: PublicationContentWarning | null
             mainContentFocus: PublicationMainFocus
+            contentWarning?: PublicationContentWarning | null
             tags: Array<string>
+            cover?: {
+              __typename?: 'MediaSet'
+              original: { __typename?: 'Media'; url: any }
+            } | null
             media: Array<{
               __typename?: 'MediaSet'
               original: {
@@ -6747,10 +6823,6 @@ export type CommentsQuery = {
                 mimeType?: any | null
               }
             }>
-            cover?: {
-              __typename?: 'MediaSet'
-              original: { __typename?: 'Media'; url: any }
-            } | null
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput'
               value?: string | null
@@ -6813,10 +6885,23 @@ export type CommentsQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput'
                   name?: string | null
+                  description?: any | null
+                  content?: any | null
+                  mainContentFocus: PublicationMainFocus
+                  contentWarning?: PublicationContentWarning | null
+                  tags: Array<string>
                   cover?: {
                     __typename?: 'MediaSet'
                     original: { __typename?: 'Media'; url: any }
                   } | null
+                  media: Array<{
+                    __typename?: 'MediaSet'
+                    original: {
+                      __typename?: 'Media'
+                      url: any
+                      mimeType?: any | null
+                    }
+                  }>
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput'
                     value?: string | null
@@ -7120,9 +7205,13 @@ export type ExploreQuery = {
             name?: string | null
             description?: any | null
             content?: any | null
-            contentWarning?: PublicationContentWarning | null
             mainContentFocus: PublicationMainFocus
+            contentWarning?: PublicationContentWarning | null
             tags: Array<string>
+            cover?: {
+              __typename?: 'MediaSet'
+              original: { __typename?: 'Media'; url: any }
+            } | null
             media: Array<{
               __typename?: 'MediaSet'
               original: {
@@ -7131,10 +7220,6 @@ export type ExploreQuery = {
                 mimeType?: any | null
               }
             }>
-            cover?: {
-              __typename?: 'MediaSet'
-              original: { __typename?: 'Media'; url: any }
-            } | null
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput'
               value?: string | null
@@ -7197,10 +7282,23 @@ export type ExploreQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput'
                   name?: string | null
+                  description?: any | null
+                  content?: any | null
+                  mainContentFocus: PublicationMainFocus
+                  contentWarning?: PublicationContentWarning | null
+                  tags: Array<string>
                   cover?: {
                     __typename?: 'MediaSet'
                     original: { __typename?: 'Media'; url: any }
                   } | null
+                  media: Array<{
+                    __typename?: 'MediaSet'
+                    original: {
+                      __typename?: 'Media'
+                      url: any
+                      mimeType?: any | null
+                    }
+                  }>
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput'
                     value?: string | null
@@ -7676,9 +7774,13 @@ export type FeedQuery = {
               name?: string | null
               description?: any | null
               content?: any | null
-              contentWarning?: PublicationContentWarning | null
               mainContentFocus: PublicationMainFocus
+              contentWarning?: PublicationContentWarning | null
               tags: Array<string>
+              cover?: {
+                __typename?: 'MediaSet'
+                original: { __typename?: 'Media'; url: any }
+              } | null
               media: Array<{
                 __typename?: 'MediaSet'
                 original: {
@@ -7687,10 +7789,6 @@ export type FeedQuery = {
                   mimeType?: any | null
                 }
               }>
-              cover?: {
-                __typename?: 'MediaSet'
-                original: { __typename?: 'Media'; url: any }
-              } | null
               attributes: Array<{
                 __typename?: 'MetadataAttributeOutput'
                 value?: string | null
@@ -7753,10 +7851,23 @@ export type FeedQuery = {
                   metadata: {
                     __typename?: 'MetadataOutput'
                     name?: string | null
+                    description?: any | null
+                    content?: any | null
+                    mainContentFocus: PublicationMainFocus
+                    contentWarning?: PublicationContentWarning | null
+                    tags: Array<string>
                     cover?: {
                       __typename?: 'MediaSet'
                       original: { __typename?: 'Media'; url: any }
                     } | null
+                    media: Array<{
+                      __typename?: 'MediaSet'
+                      original: {
+                        __typename?: 'Media'
+                        url: any
+                        mimeType?: any | null
+                      }
+                    }>
                     attributes: Array<{
                       __typename?: 'MetadataAttributeOutput'
                       value?: string | null
@@ -9134,9 +9245,13 @@ export type ProfileMirrorsQuery = {
                   name?: string | null
                   description?: any | null
                   content?: any | null
-                  contentWarning?: PublicationContentWarning | null
                   mainContentFocus: PublicationMainFocus
+                  contentWarning?: PublicationContentWarning | null
                   tags: Array<string>
+                  cover?: {
+                    __typename?: 'MediaSet'
+                    original: { __typename?: 'Media'; url: any }
+                  } | null
                   media: Array<{
                     __typename?: 'MediaSet'
                     original: {
@@ -9145,10 +9260,6 @@ export type ProfileMirrorsQuery = {
                       mimeType?: any | null
                     }
                   }>
-                  cover?: {
-                    __typename?: 'MediaSet'
-                    original: { __typename?: 'Media'; url: any }
-                  } | null
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput'
                     value?: string | null
@@ -9211,10 +9322,23 @@ export type ProfileMirrorsQuery = {
                       metadata: {
                         __typename?: 'MetadataOutput'
                         name?: string | null
+                        description?: any | null
+                        content?: any | null
+                        mainContentFocus: PublicationMainFocus
+                        contentWarning?: PublicationContentWarning | null
+                        tags: Array<string>
                         cover?: {
                           __typename?: 'MediaSet'
                           original: { __typename?: 'Media'; url: any }
                         } | null
+                        media: Array<{
+                          __typename?: 'MediaSet'
+                          original: {
+                            __typename?: 'Media'
+                            url: any
+                            mimeType?: any | null
+                          }
+                        }>
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput'
                           value?: string | null
@@ -10136,17 +10260,17 @@ export type PublicationDetailsQuery = {
           name?: string | null
           description?: any | null
           content?: any | null
-          contentWarning?: PublicationContentWarning | null
           mainContentFocus: PublicationMainFocus
+          contentWarning?: PublicationContentWarning | null
           tags: Array<string>
-          media: Array<{
-            __typename?: 'MediaSet'
-            original: { __typename?: 'Media'; url: any; mimeType?: any | null }
-          }>
           cover?: {
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any }
           } | null
+          media: Array<{
+            __typename?: 'MediaSet'
+            original: { __typename?: 'Media'; url: any; mimeType?: any | null }
+          }>
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput'
             value?: string | null
@@ -10209,10 +10333,23 @@ export type PublicationDetailsQuery = {
               metadata: {
                 __typename?: 'MetadataOutput'
                 name?: string | null
+                description?: any | null
+                content?: any | null
+                mainContentFocus: PublicationMainFocus
+                contentWarning?: PublicationContentWarning | null
+                tags: Array<string>
                 cover?: {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
                 } | null
+                media: Array<{
+                  __typename?: 'MediaSet'
+                  original: {
+                    __typename?: 'Media'
+                    url: any
+                    mimeType?: any | null
+                  }
+                }>
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput'
                   value?: string | null
@@ -10665,9 +10802,13 @@ export type PublicationDetailsQuery = {
                 name?: string | null
                 description?: any | null
                 content?: any | null
-                contentWarning?: PublicationContentWarning | null
                 mainContentFocus: PublicationMainFocus
+                contentWarning?: PublicationContentWarning | null
                 tags: Array<string>
+                cover?: {
+                  __typename?: 'MediaSet'
+                  original: { __typename?: 'Media'; url: any }
+                } | null
                 media: Array<{
                   __typename?: 'MediaSet'
                   original: {
@@ -10676,10 +10817,6 @@ export type PublicationDetailsQuery = {
                     mimeType?: any | null
                   }
                 }>
-                cover?: {
-                  __typename?: 'MediaSet'
-                  original: { __typename?: 'Media'; url: any }
-                } | null
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput'
                   value?: string | null
@@ -10742,10 +10879,23 @@ export type PublicationDetailsQuery = {
                     metadata: {
                       __typename?: 'MetadataOutput'
                       name?: string | null
+                      description?: any | null
+                      content?: any | null
+                      mainContentFocus: PublicationMainFocus
+                      contentWarning?: PublicationContentWarning | null
+                      tags: Array<string>
                       cover?: {
                         __typename?: 'MediaSet'
                         original: { __typename?: 'Media'; url: any }
                       } | null
+                      media: Array<{
+                        __typename?: 'MediaSet'
+                        original: {
+                          __typename?: 'Media'
+                          url: any
+                          mimeType?: any | null
+                        }
+                      }>
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput'
                         value?: string | null
@@ -11532,9 +11682,13 @@ export type SearchPublicationsQuery = {
                 name?: string | null
                 description?: any | null
                 content?: any | null
-                contentWarning?: PublicationContentWarning | null
                 mainContentFocus: PublicationMainFocus
+                contentWarning?: PublicationContentWarning | null
                 tags: Array<string>
+                cover?: {
+                  __typename?: 'MediaSet'
+                  original: { __typename?: 'Media'; url: any }
+                } | null
                 media: Array<{
                   __typename?: 'MediaSet'
                   original: {
@@ -11543,10 +11697,6 @@ export type SearchPublicationsQuery = {
                     mimeType?: any | null
                   }
                 }>
-                cover?: {
-                  __typename?: 'MediaSet'
-                  original: { __typename?: 'Media'; url: any }
-                } | null
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput'
                   value?: string | null
@@ -11609,10 +11759,23 @@ export type SearchPublicationsQuery = {
                     metadata: {
                       __typename?: 'MetadataOutput'
                       name?: string | null
+                      description?: any | null
+                      content?: any | null
+                      mainContentFocus: PublicationMainFocus
+                      contentWarning?: PublicationContentWarning | null
+                      tags: Array<string>
                       cover?: {
                         __typename?: 'MediaSet'
                         original: { __typename?: 'Media'; url: any }
                       } | null
+                      media: Array<{
+                        __typename?: 'MediaSet'
+                        original: {
+                          __typename?: 'Media'
+                          url: any
+                          mimeType?: any | null
+                        }
+                      }>
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput'
                         value?: string | null
@@ -12235,27 +12398,7 @@ export const CommentFieldsFragmentDoc = gql`
       totalUpvotes
     }
     metadata {
-      name
-      description
-      content
-      contentWarning
-      mainContentFocus
-      tags
-      media {
-        original {
-          url
-          mimeType
-        }
-      }
-      cover {
-        original {
-          url
-        }
-      }
-      attributes {
-        value
-        traitType
-      }
+      ...MetadataFields
     }
     commentOn {
       ... on Post {
@@ -12265,16 +12408,7 @@ export const CommentFieldsFragmentDoc = gql`
           ...ProfileFields
         }
         metadata {
-          name
-          cover {
-            original {
-              url
-            }
-          }
-          attributes {
-            value
-            traitType
-          }
+          ...MetadataFields
         }
         appId
       }
@@ -12284,6 +12418,7 @@ export const CommentFieldsFragmentDoc = gql`
   }
   ${ProfileFieldsFragmentDoc}
   ${CollectFieldsFragmentDoc}
+  ${MetadataFieldsFragmentDoc}
 `
 export const MirrorFieldsFragmentDoc = gql`
   fragment MirrorFields on Mirror {
@@ -16528,6 +16663,10 @@ export interface PossibleTypesResultData {
 }
 const result: PossibleTypesResultData = {
   possibleTypes: {
+    BroadcastDataAvailabilityUnion: [
+      'CreateDataAvailabilityPublicationResult',
+      'RelayError'
+    ],
     CollectModule: [
       'AaveFeeCollectModuleSettings',
       'ERC4626FeeCollectModuleSettings',
@@ -16571,6 +16710,10 @@ const result: PossibleTypesResultData = {
       'DegreesOfSeparationReferenceModuleSettings',
       'FollowOnlyReferenceModuleSettings',
       'UnknownReferenceModuleSettings'
+    ],
+    RelayDataAvailabilityResult: [
+      'CreateDataAvailabilityPublicationResult',
+      'RelayError'
     ],
     RelayResult: ['RelayError', 'RelayerResult'],
     SearchResult: ['ProfileSearchResult', 'PublicationSearchResult'],
