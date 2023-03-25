@@ -18,6 +18,7 @@ import {
   useApprovedModuleAllowanceAmountQuery,
   usePublicationRevenueQuery
 } from 'lens'
+import Link from 'next/link'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import type { LenstubeCollectModule } from 'utils'
@@ -156,20 +157,23 @@ const CollectModal: FC<Props> = ({
           : getRandomProfilePicture(splitRecipient.recipient),
         'avatar'
       )
-      const handle =
-        profile?.handle ?? shortenAddress(splitRecipient?.recipient)
+      const label = profile?.handle ?? shortenAddress(splitRecipient?.recipient)
 
       return (
         <div
           key={splitRecipient.recipient}
           className="flex items-center justify-between py-1 text-sm"
         >
-          <AddressExplorerLink address={splitRecipient?.recipient}>
-            <div className="flex items-center space-x-2">
-              <img className="h-4 w-4 rounded-full" src={pfp} alt="pfp" />
-              <span>{handle}</span>
-            </div>
-          </AddressExplorerLink>
+          <div className="flex items-center space-x-2">
+            <img className="h-4 w-4 rounded-full" src={pfp} alt="pfp" />
+            {profile?.handle ? (
+              <Link href={`/channel/${profile.handle}`}>{label}</Link>
+            ) : (
+              <AddressExplorerLink address={splitRecipient?.recipient}>
+                <span>{label}</span>
+              </AddressExplorerLink>
+            )}
+          </div>
           <span>{splitRecipient?.split}%</span>
         </div>
       )
