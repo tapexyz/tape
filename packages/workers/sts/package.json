@@ -8,7 +8,7 @@
     "worker:deploy": "wrangler publish"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.298.0"
+    "@aws-sdk/client-sts": "^3.299.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230321.0",
