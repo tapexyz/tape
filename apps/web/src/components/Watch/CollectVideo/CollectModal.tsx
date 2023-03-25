@@ -265,9 +265,9 @@ const CollectModal: FC<Props> = ({
                   ])}
                 {collectModule.type ===
                   CollectModules.MultirecipientFeeCollectModule &&
-                collectModule.recipients?.length ? (
-                  <>{renderRecipients(collectModule.recipients)}</>
-                ) : null}
+                collectModule.recipients?.length
+                  ? renderRecipients(collectModule.recipients)
+                  : null}
               </div>
             ) : null}
             <div className="flex justify-end space-x-2">
