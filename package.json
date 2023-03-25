@@ -19,7 +19,7 @@
     "workers:deploy": "turbo run worker:deploy --parallel",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "dev:test": "turbo run dev:test",
-    "e2e:test": "start-server-and-test start http://localhost:4783 dev:test"
+    "e2e:test": "start-server-and-test start 4783 dev:test"
   },
   "devDependencies": {
     "danger": "11.2.4",
