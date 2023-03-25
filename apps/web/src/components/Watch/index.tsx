@@ -39,8 +39,7 @@ const VideoDetails = () => {
         : null,
       channelId: selectedChannel?.id ?? null
     },
-    skip: !id,
-    nextFetchPolicy: 'standby'
+    skip: !id
   })
 
   const publication = data?.publication as Publication
