@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 4002",
+    "export": "next export",
     "build": "next build",
-    "start": "next start --port 4002",
+    "start": "yarn build && next start --port 4002",
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {

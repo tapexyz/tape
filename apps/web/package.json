@@ -7,10 +7,8 @@
     "dev": "next dev --port 4783",
     "build": "next build",
     "export": "next export",
-    "start": "next build && next start --port 4783",
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "dev:test": "playwright test",
-    "e2e:test": "start-server-and-test start http://localhost:4783 dev:test"
+    "start": "yarn build && next start --port 4783",
+    "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
     "@apollo/client": "^3.7.10",
@@ -49,7 +47,6 @@
     "zustand": "^4.3.6"
   },
   "devDependencies": {
-    "@playwright/test": "^1.32.0",
     "@tailwindcss/typography": "^0.5.9",
     "@types/mixpanel-browser": "^2.38.1",
     "@types/node": "18.15.6",
