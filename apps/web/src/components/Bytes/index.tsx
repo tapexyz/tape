@@ -139,13 +139,13 @@ const Bytes = () => {
           />
         )}
         {bytes?.map(
-          (video: Publication) =>
+          (video: Publication, index) =>
             singleByte?.publication?.id !== video.id && (
               <ByteVideo
                 video={video}
                 currentViewingId={currentViewingId}
                 intersectionCallback={(id) => setCurrentViewingId(id)}
-                key={`${video?.id}_${video.createdAt}`}
+                key={`${video?.id}_${index}`}
               />
             )
         )}
