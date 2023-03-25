@@ -15,11 +15,11 @@
     "start": "turbo run start --parallel",
     "codegen": "turbo run codegen",
     "lint": "turbo run lint --parallel",
-    "dev:test": "turbo run dev:test",
-    "e2e:test": "turbo run e2e:test",
     "prepare": "husky install",
     "workers:deploy": "turbo run worker:deploy --parallel",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "dev:test": "turbo run dev:test",
+    "e2e:test": "start-server-and-test start http://localhost:4783 dev:test"
   },
   "devDependencies": {
     "danger": "11.2.4",

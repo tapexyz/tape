@@ -4,8 +4,7 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev:test": "playwright test",
-    "e2e:test": "start-server-and-test start http://localhost:4783 dev:test"
+    "dev:test": "playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.31.2",
