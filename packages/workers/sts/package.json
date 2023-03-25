@@ -4,7 +4,7 @@
   "license": "GPL-3.0",
   "private": true,
   "scripts": {
-    "dev": "wrangler dev",
+    "worker:dev": "wrangler dev",
     "worker:deploy": "wrangler publish"
   },
   "dependencies": {
