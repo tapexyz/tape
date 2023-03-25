@@ -6,9 +6,15 @@ import Modal from '@components/UIElements/Modal'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import dayjs from 'dayjs'
-import type { ApprovedAllowanceAmount, Publication } from 'lens'
+import type {
+  ApprovedAllowanceAmount,
+  Profile,
+  Publication,
+  RecipientDataOutput
+} from 'lens'
 import {
   CollectModules,
+  useAllProfilesQuery,
   useApprovedModuleAllowanceAmountQuery,
   usePublicationRevenueQuery
 } from 'lens'
@@ -17,6 +23,7 @@ import React, { useEffect, useState } from 'react'
 import type { LenstubeCollectModule } from 'utils'
 import { Analytics, TRACK } from 'utils'
 import { formatNumber } from 'utils/functions/formatNumber'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
 import imageCdn from 'utils/functions/imageCdn'
 import { shortenAddress } from 'utils/functions/shortenAddress'
@@ -59,6 +66,20 @@ const CollectModal: FC<Props> = ({
   useEffect(() => {
     Analytics.track(TRACK.COLLECT.OPEN)
   }, [])
+
+  const isRecipientAvailable =
+    collectModule?.recipients?.length || collectModule?.recipient
+
+  const { data: recipientProfilesData } = useAllProfilesQuery({
+    variables: {
+      request: {
+        ownedBy: collectModule?.recipients?.length
+          ? collectModule?.recipients?.map((r) => r.recipient)
+          : collectModule?.recipient
+      }
+    },
+    skip: !isRecipientAvailable
+  })
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address: selectedChannel?.ownedBy,
@@ -118,6 +139,42 @@ const CollectModal: FC<Props> = ({
     refetchAllowance,
     selectedChannelId
   ])
+
+  const getProfileByAddress = (address: string) => {
+    const profiles = recipientProfilesData?.profiles?.items
+    if (profiles) {
+      return profiles.find((p) => p.ownedBy === address)
+    }
+  }
+
+  const renderRecipients = (recipients: RecipientDataOutput[]) => {
+    return recipients.map((splitRecipient) => {
+      const profile = getProfileByAddress(splitRecipient.recipient) as Profile
+      const pfp = imageCdn(
+        profile
+          ? getProfilePicture(profile)
+          : getRandomProfilePicture(splitRecipient.recipient),
+        'avatar'
+      )
+      const handle =
+        profile?.handle ?? shortenAddress(splitRecipient?.recipient)
+
+      return (
+        <div
+          key={splitRecipient.recipient}
+          className="flex items-center justify-between py-1 text-sm"
+        >
+          <AddressExplorerLink address={splitRecipient?.recipient}>
+            <div className="flex items-center space-x-2">
+              <img className="h-4 w-4 rounded-full" src={pfp} alt="pfp" />
+              <span>{handle}</span>
+            </div>
+          </AddressExplorerLink>
+          <span>{splitRecipient?.split}%</span>
+        </div>
+      )
+    })
+  }
 
   return (
     <Modal
@@ -194,51 +251,22 @@ const CollectModal: FC<Props> = ({
                 <span className="text-lg">{collectModule.referralFee} %</span>
               </div>
             ) : null}
-            {collectModule?.recipient || collectModule.recipients ? (
+            {isRecipientAvailable ? (
               <div className="mb-3 flex flex-col">
                 <span className="mb-0.5 text-sm font-semibold">
                   Revenue
-                  {collectModule.recipients ? ' Recipients' : ' Recipient'}
+                  {collectModule.recipients?.length
+                    ? ' Recipients'
+                    : ' Recipient'}
                 </span>
-                {collectModule.recipient && (
-                  <AddressExplorerLink address={collectModule?.recipient}>
-                    <span className="text-lg">
-                      {shortenAddress(collectModule?.recipient)}
-                    </span>
-                  </AddressExplorerLink>
-                )}
+                {collectModule.recipient &&
+                  renderRecipients([
+                    { recipient: collectModule.recipient, split: 100 }
+                  ])}
                 {collectModule.type ===
                   CollectModules.MultirecipientFeeCollectModule &&
                   collectModule.recipients.length && (
-                    <div>
-                      {collectModule.recipients.map((splitRecipient) => (
-                        <div
-                          key={splitRecipient.recipient}
-                          className="flex items-center justify-between py-1 text-sm"
-                        >
-                          <AddressExplorerLink
-                            address={splitRecipient?.recipient}
-                          >
-                            <div className="flex items-center space-x-2">
-                              <img
-                                className="h-4 w-4 rounded-full"
-                                src={imageCdn(
-                                  getRandomProfilePicture(
-                                    splitRecipient.recipient
-                                  ),
-                                  'avatar'
-                                )}
-                                alt=""
-                              />
-                              <span>
-                                {shortenAddress(splitRecipient?.recipient)}
-                              </span>
-                            </div>
-                          </AddressExplorerLink>
-                          <span>{splitRecipient?.split}%</span>
-                        </div>
-                      ))}
-                    </div>
+                    <div>{renderRecipients(collectModule.recipients)}</div>
                   )}
               </div>
             ) : null}
