@@ -6,24 +6,27 @@
   "workspaces": [
     "apps/*",
     "packages/*",
-    "packages/workers/*"
+    "packages/workers/*",
+    "tests"
   ],
   "scripts": {
     "build": "turbo run build --parallel",
     "dev": "turbo run dev --parallel",
+    "start": "turbo run start --parallel",
     "codegen": "turbo run codegen",
     "lint": "turbo run lint --parallel",
-    "dev:test": "turbo run dev:test",
-    "e2e:test": "turbo run e2e:test",
     "prepare": "husky install",
     "workers:deploy": "turbo run worker:deploy --parallel",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "dev:test": "turbo run dev:test",
+    "e2e:test": "start-server-and-test start 4783 dev:test"
   },
   "devDependencies": {
     "danger": "11.2.4",
     "husky": "^8.0.3",
     "ts-node": "latest",
-    "turbo": "1.8.5"
+    "turbo": "1.8.5",
+    "start-server-and-test": "^2.0.0"
   },
   "engines": {
     "node": ">=16.0.0"

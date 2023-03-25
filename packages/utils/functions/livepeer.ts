@@ -32,9 +32,9 @@ export const videoPlayerTheme: ThemeConfig = {
     iconButtonSize: '35px',
     loading: '30px',
     thumb: '7px',
-    thumbActive: '7px',
-    trackActive: '3px',
-    trackInactive: '3px'
+    trackInactive: '3px',
+    thumbActive: '10px',
+    trackActive: '5px'
   },
   radii: {
     containerBorderRadius: '0px'

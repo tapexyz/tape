@@ -4,15 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 4002",
+    "export": "next export",
     "build": "next build",
-    "start": "next start --port 4002",
+    "start": "yarn build && next start --port 4002",
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
     "next": "13.2.4"
   },
   "devDependencies": {
-    "@types/node": "18.15.6",
+    "@types/node": "18.15.9",
     "eslint-config-weblint": "*",
     "lens": "*",
     "tsconfig": "*",
