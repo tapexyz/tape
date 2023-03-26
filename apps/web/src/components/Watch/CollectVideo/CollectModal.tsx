@@ -145,7 +145,7 @@ const CollectModal: FC<Props> = ({
   const getDefaultProfileByAddress = (address: string) => {
     const profiles = recipientProfilesData?.profiles?.items
     if (profiles) {
-      // not required isDefault check
+      // profile.isDefault check not required
       return profiles.filter((p) => p.ownedBy === address)[0]
     }
   }
@@ -158,6 +158,7 @@ const CollectModal: FC<Props> = ({
         .map((p) => p.handle)
       return handles as string[]
     }
+    return []
   }
 
   const renderRecipients = (recipients: RecipientDataOutput[]) => {
@@ -174,7 +175,7 @@ const CollectModal: FC<Props> = ({
       const label =
         defaultProfile?.handle ?? shortenAddress(splitRecipient?.recipient)
       const hasManyProfiles =
-        (getProfilesByAddress(splitRecipient.recipient)?.length ?? 0) > 1
+        getProfilesByAddress(splitRecipient.recipient)?.length > 1
       const allProfilesOfAddress = getProfilesByAddress(
         splitRecipient.recipient
       )
