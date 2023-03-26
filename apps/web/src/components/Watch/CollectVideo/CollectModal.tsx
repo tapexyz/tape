@@ -3,6 +3,7 @@ import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
+import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import dayjs from 'dayjs'
@@ -141,23 +142,42 @@ const CollectModal: FC<Props> = ({
     selectedChannelId
   ])
 
-  const getProfileByAddress = (address: string) => {
+  const getDefaultProfileByAddress = (address: string) => {
     const profiles = recipientProfilesData?.profiles?.items
     if (profiles) {
-      return profiles.find((p) => p.ownedBy === address)
+      // not required isDefault check
+      return profiles.filter((p) => p.ownedBy === address)[0]
+    }
+  }
+
+  const getProfilesByAddress = (address: string) => {
+    const profiles = recipientProfilesData?.profiles?.items
+    if (profiles) {
+      const handles = profiles
+        .filter((p) => p.ownedBy === address)
+        .map((p) => p.handle)
+      return handles as string[]
     }
   }
 
   const renderRecipients = (recipients: RecipientDataOutput[]) => {
     return recipients.map((splitRecipient) => {
-      const profile = getProfileByAddress(splitRecipient.recipient) as Profile
+      const defaultProfile = getDefaultProfileByAddress(
+        splitRecipient.recipient
+      ) as Profile
       const pfp = imageCdn(
-        profile
-          ? getProfilePicture(profile)
+        defaultProfile
+          ? getProfilePicture(defaultProfile)
           : getRandomProfilePicture(splitRecipient.recipient),
         'avatar'
       )
-      const label = profile?.handle ?? shortenAddress(splitRecipient?.recipient)
+      const label =
+        defaultProfile?.handle ?? shortenAddress(splitRecipient?.recipient)
+      const hasManyProfiles =
+        (getProfilesByAddress(splitRecipient.recipient)?.length ?? 0) > 1
+      const allProfilesOfAddress = getProfilesByAddress(
+        splitRecipient.recipient
+      )?.join(', ')
 
       return (
         <div
@@ -166,13 +186,19 @@ const CollectModal: FC<Props> = ({
         >
           <div className="flex items-center space-x-2">
             <img className="h-4 w-4 rounded-full" src={pfp} alt="pfp" />
-            {profile?.handle ? (
-              <Link href={`/channel/${profile.handle}`}>{label}</Link>
-            ) : (
-              <AddressExplorerLink address={splitRecipient?.recipient}>
-                <span>{label}</span>
-              </AddressExplorerLink>
-            )}
+            <Tooltip
+              placement="bottom-start"
+              visible={hasManyProfiles}
+              content={allProfilesOfAddress}
+            >
+              {defaultProfile?.handle ? (
+                <Link href={`/channel/${defaultProfile.handle}`}>{label}</Link>
+              ) : (
+                <AddressExplorerLink address={splitRecipient?.recipient}>
+                  <span>{label}</span>
+                </AddressExplorerLink>
+              )}
+            </Tooltip>
           </div>
           <span>{splitRecipient?.split}%</span>
         </div>
