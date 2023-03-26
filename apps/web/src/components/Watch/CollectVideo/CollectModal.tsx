@@ -176,9 +176,7 @@ const CollectModal: FC<Props> = ({
         defaultProfile?.handle ?? shortenAddress(splitRecipient?.recipient)
       const hasManyProfiles =
         getProfilesByAddress(splitRecipient.recipient)?.length > 1
-      const allProfilesOfAddress = getProfilesByAddress(
-        splitRecipient.recipient
-      )
+      const handles = getProfilesByAddress(splitRecipient.recipient)
 
       return (
         <div
@@ -190,7 +188,7 @@ const CollectModal: FC<Props> = ({
             <Tooltip
               placement="bottom-start"
               visible={hasManyProfiles}
-              content={allProfilesOfAddress?.map((handle) => (
+              content={handles?.map((handle) => (
                 <p key={handle}>{handle}</p>
               ))}
             >
