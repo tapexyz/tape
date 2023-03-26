@@ -177,7 +177,7 @@ const CollectModal: FC<Props> = ({
         (getProfilesByAddress(splitRecipient.recipient)?.length ?? 0) > 1
       const allProfilesOfAddress = getProfilesByAddress(
         splitRecipient.recipient
-      )?.join(', ')
+      )
 
       return (
         <div
@@ -189,7 +189,9 @@ const CollectModal: FC<Props> = ({
             <Tooltip
               placement="bottom-start"
               visible={hasManyProfiles}
-              content={allProfilesOfAddress}
+              content={allProfilesOfAddress?.map((handle) => (
+                <p key={handle}>{handle}</p>
+              ))}
             >
               {defaultProfile?.handle ? (
                 <Link href={`/channel/${defaultProfile.handle}`}>{label}</Link>
