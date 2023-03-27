@@ -117,7 +117,7 @@ const DangerZone = () => {
         <div className="flex space-x-2">
           <span>
             {formatNumber(selectedChannel.stats.totalPosts)}{' '}
-            <small>videos</small>
+            <small>publications</small>
           </span>
           <span>
             {formatNumber(selectedChannel.stats.totalFollowers)}{' '}
