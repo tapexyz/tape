@@ -17,9 +17,6 @@ export const videoPlayerTheme: ThemeConfig = {
     progressLeft: '#6366f1',
     loading: '#6366f1'
   },
-  fonts: {
-    display: 'system-ui'
-  },
   fontSizes: {
     timeFontSize: '12px'
   },

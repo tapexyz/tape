@@ -8,7 +8,7 @@ import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import React, { lazy, Suspense, useEffect } from 'react'
 import { AUTH_ROUTES } from 'utils/data/auth-routes'
-import bloomer from 'utils/fonts/font'
+import bloomer from 'utils/font'
 
 const Providers = lazy(() => import('../components/Common/Providers'))
 const Layout = lazy(() => import('../components/Common/Layout'))

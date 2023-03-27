@@ -5,7 +5,7 @@ import mixpanel from 'mixpanel-browser'
 import type { AppProps } from 'next/app'
 import React from 'react'
 import { IS_PRODUCTION, MIXPANEL_API_HOST, MIXPANEL_TOKEN } from 'utils'
-import bloomer from 'utils/fonts/font'
+import bloomer from 'utils/font'
 import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
 
 function MyApp({ Component, pageProps }: AppProps) {
