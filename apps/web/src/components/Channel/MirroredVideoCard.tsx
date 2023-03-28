@@ -29,15 +29,15 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
         <div className="aspect-w-16 aspect-h-8 relative rounded-xl">
           <ThumbnailImage video={mirrorOf} />
           {isSensitiveContent && (
-            <div className="absolute top-2 left-3">
-              <span className="rounded-full bg-white py-0.5 px-2 text-[10px] text-black">
+            <div className="absolute left-3 top-2">
+              <span className="rounded-full bg-white px-2 py-0.5 text-[10px] text-black">
                 Sensitive Content
               </span>
             </div>
           )}
           {!isSensitiveContent && videoDuration ? (
             <div>
-              <span className="absolute bottom-2 right-2 rounded bg-black py-0.5 px-1 text-xs text-white">
+              <span className="absolute bottom-2 right-2 rounded bg-black px-1 py-0.5 text-xs text-white">
                 {getTimeFromSeconds(videoDuration)}
               </span>
             </div>
@@ -77,7 +77,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
           </div>
         </div>
         <div className="relative overflow-hidden pb-1.5 pt-4 text-sm opacity-90">
-          <div className="absolute inset-0 left-3 bottom-2.5 flex w-1.5 justify-center pb-2">
+          <div className="absolute inset-0 bottom-2.5 left-3 flex w-1.5 justify-center pb-2">
             <div className="pointer-events-none w-0.5 bg-gray-300 dark:bg-gray-700" />
           </div>
           <span className="absolute bottom-1.5 m-2 mb-0 opacity-70">
