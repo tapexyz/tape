@@ -42,7 +42,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
           {info && (
             <Tooltip content={info} placement="top">
               <span>
-                <InfoOutline className="my-0.5 mx-1 h-3 w-3 opacity-70" />
+                <InfoOutline className="mx-1 my-0.5 h-3 w-3 opacity-70" />
               </span>
             </Tooltip>
           )}

@@ -166,7 +166,7 @@ const BundlrInfo = () => {
                   showDeposit: !bundlrData.showDeposit
                 })
               }
-              className="inline-flex items-center rounded-full bg-gray-200 py-0.5 px-2 focus:outline-none dark:bg-gray-900"
+              className="inline-flex items-center rounded-full bg-gray-200 px-2 py-0.5 focus:outline-none dark:bg-gray-900"
             >
               <span className="px-0.5 text-xs">Deposit</span>
               {bundlrData.showDeposit ? (

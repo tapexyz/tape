@@ -116,7 +116,7 @@ const ModulePermissions = () => {
       </div>
       <div>
         {!gettingSettings && data && (
-          <div className="flex justify-end pt-3 pb-4 md:pt-0">
+          <div className="flex justify-end pb-4 pt-3 md:pt-0">
             <select
               autoComplete="off"
               className="rounded-xl border border-gray-300 bg-white p-2.5 text-sm outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900"

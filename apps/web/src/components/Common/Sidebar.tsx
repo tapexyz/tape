@@ -34,7 +34,7 @@ const Sidebar = () => {
       <CreateChannel />
       <div
         className={clsx(
-          'transition-width dark:bg-theme fixed top-0 bottom-0 left-0 z-10 hidden items-start justify-between bg-white md:flex md:flex-col',
+          'transition-width dark:bg-theme fixed bottom-0 left-0 top-0 z-10 hidden items-start justify-between bg-white md:flex md:flex-col',
           sidebarCollapsed ? 'w-[90px]' : 'w-[180px]'
         )}
       >
