@@ -6,14 +6,14 @@ import { useGlobalProtocolStatsQuery } from 'lens'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import { ADMIN_IDS, LENSTUBE_APP_ID } from 'utils'
-import useIsMounted from 'utils/hooks/useIsMounted'
+
+import Recents from './Recents'
 
 const StatCard = dynamic(() => import('./StatCard'))
 const Deployment = dynamic(() => import('./Deployment'))
 const Custom404 = dynamic(() => import('../../pages/404'))
 
-const Stats = () => {
-  const { mounted } = useIsMounted()
+const Mod = () => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const { data, loading } = useGlobalProtocolStatsQuery({
@@ -34,7 +34,7 @@ const Stats = () => {
   return (
     <>
       <MetaTags title="Lenstube Stats" />
-      {loading && !mounted ? (
+      {loading ? (
         <Loader />
       ) : (
         <>
@@ -47,10 +47,11 @@ const Stats = () => {
             <StatCard count={stats?.totalFollows} text="total subscriptions" />
             <StatCard count={stats?.totalCollects} text="total collects" />
           </div>
+          <Recents />
         </>
       )}
     </>
   )
 }
 
-export default Stats
+export default Mod

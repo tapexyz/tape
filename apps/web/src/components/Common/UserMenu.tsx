@@ -172,11 +172,11 @@ const UserMenu = () => {
                 {isAdmin && (
                   <Menu.Item
                     as={NextLink}
-                    href="/stats"
+                    href="/mod"
                     className="inline-flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
                     <GraphOutline className="h-4 w-4" />
-                    <span className="truncate whitespace-nowrap">App Info</span>
+                    <span className="truncate whitespace-nowrap">Firehose</span>
                   </Menu.Item>
                 )}
                 {selectedChannel && (

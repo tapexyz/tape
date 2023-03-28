@@ -11,7 +11,7 @@ import {
   useExploreQuery
 } from 'lens'
 import Link from 'next/link'
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import {
   Analytics,
   FALLBACK_COVER_URL,
@@ -29,10 +29,6 @@ import imageCdn from 'utils/functions/imageCdn'
 const BytesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-
-  useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE_CURATED })
-  }, [])
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
