@@ -62,7 +62,7 @@ const CategoryFilters = () => {
       data-testid="category-filters"
     >
       {scrollX !== 0 && (
-        <div className="ultrawide:pl-0 sticky right-0 bottom-0 bg-transparent px-2 ">
+        <div className="ultrawide:pl-0 sticky bottom-0 right-0 bg-transparent px-2 ">
           <button
             type="button"
             className="hidden rounded-full p-2 backdrop-blur-xl hover:bg-gray-500 hover:bg-opacity-20 focus:outline-none md:block"
@@ -105,7 +105,7 @@ const CategoryFilters = () => {
         ))}
       </div>
       {!scrollEnd && (
-        <div className="ultrawide:pr-0 sticky right-0 bottom-0 bg-transparent px-2">
+        <div className="ultrawide:pr-0 sticky bottom-0 right-0 bg-transparent px-2">
           <button
             type="button"
             className="hidden rounded-full p-2 backdrop-blur-xl hover:bg-gray-500 hover:bg-opacity-20 focus:outline-none md:block"

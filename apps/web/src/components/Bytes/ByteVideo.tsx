@@ -142,7 +142,7 @@ const ByteVideo: FC<Props> = ({
         </div>
         <TopOverlay onClickVideo={onClickVideo} />
         <BottomOverlay video={video} />
-        <div className="absolute right-2 bottom-[15%] z-[1] md:hidden">
+        <div className="absolute bottom-[15%] right-2 z-[1] md:hidden">
           <ByteActions video={video} />
           {video?.collectModule?.__typename !==
             'RevertCollectModuleSettings' && (

@@ -30,7 +30,7 @@ interface Props {
 
 const VideoComment: FC<Props> = ({ comment }) => {
   return (
-    <div className="my-2 rounded-xl border border-gray-200 py-3 px-4 dark:border-gray-800">
+    <div className="my-2 rounded-xl border border-gray-200 px-4 py-3 dark:border-gray-800">
       <Link
         href={`/watch/${comment.id}`}
         className="flex items-center space-x-2.5"
