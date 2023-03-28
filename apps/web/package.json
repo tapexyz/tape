@@ -21,7 +21,6 @@
     "@livepeer/react": "^2.3.2",
     "@rainbow-me/rainbowkit": "^0.12.4",
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tailwindcss/line-clamp": "^0.4.2",
     "@tippyjs/react": "^4.2.6",
     "axios": "^1.3.4",
     "clsx": "^1.2.1",
