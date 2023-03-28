@@ -59,7 +59,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 `${STATIC_ASSETS}/images/lenster-logo.svg`,
                 'avatar_lg'
               )}
-              className="h-10 w-10 rounded-full"
+              className="h-10 w-10 max-w-none rounded-full"
               loading="eager"
               alt="lenster"
               draggable={false}
@@ -79,7 +79,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 'avatar_lg'
               )}
               loading="eager"
-              className="h-10 w-10 rounded-full"
+              className="h-10 w-10 max-w-none rounded-full"
               alt="twitter"
               draggable={false}
             />
@@ -95,7 +95,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
                 `${STATIC_ASSETS}/images/social/reddit-logo.webp`,
                 'avatar_lg'
               )}
-              className="h-10 w-10 rounded-full"
+              className="h-10 w-10 max-w-none rounded-full"
               loading="eager"
               alt="reddit"
               draggable={false}
@@ -114,7 +114,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
               )}
               loading="eager"
               alt="linkedin"
-              className="h-10 w-10 rounded-full"
+              className="h-10 w-10 max-w-none rounded-full"
               draggable={false}
             />
           </Link>
