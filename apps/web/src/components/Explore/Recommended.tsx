@@ -1,6 +1,3 @@
-import CommentOutline from '@components/Common/Icons/CommentOutline'
-import FireOutline from '@components/Common/Icons/FireOutline'
-import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
@@ -79,7 +76,6 @@ const Recommended = () => {
             )
           }
         >
-          <FireOutline className="h-3.5 w-3.5" />
           <span>For you</span>
         </Tab>
         <Tab
@@ -97,8 +93,7 @@ const Recommended = () => {
             )
           }
         >
-          <CommentOutline className="h-3.5 w-3.5" />
-          <span>Popular</span>
+          <span>Podcasts</span>
         </Tab>
         <Tab
           onClick={() =>
@@ -115,8 +110,58 @@ const Recommended = () => {
             )
           }
         >
-          <MirrorOutline className="h-3.5 w-3.5" />
-          <span>Interesting</span>
+          <span>Music</span>
+        </Tab>
+        <Tab
+          onClick={() =>
+            setActiveCriteria({
+              ...initialCriteria
+            })
+          }
+          className={({ selected }) =>
+            clsx(
+              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
+              selected
+                ? 'bg-gray-200 dark:bg-gray-700'
+                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
+            )
+          }
+        >
+          <span>Education</span>
+        </Tab>
+        <Tab
+          onClick={() =>
+            setActiveCriteria({
+              ...initialCriteria
+            })
+          }
+          className={({ selected }) =>
+            clsx(
+              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
+              selected
+                ? 'bg-gray-200 dark:bg-gray-700'
+                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
+            )
+          }
+        >
+          <span>Community</span>
+        </Tab>
+        <Tab
+          onClick={() =>
+            setActiveCriteria({
+              ...initialCriteria
+            })
+          }
+          className={({ selected }) =>
+            clsx(
+              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
+              selected
+                ? 'bg-gray-200 dark:bg-gray-700'
+                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
+            )
+          }
+        >
+          <span>Gaming</span>
         </Tab>
       </Tab.List>
       <Tab.Panels className="my-3">
