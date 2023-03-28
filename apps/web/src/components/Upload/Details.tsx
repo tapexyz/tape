@@ -96,7 +96,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 }}
                 mentionsSelector="input-mentions-single"
               />
-              <div className="absolute top-0 right-1 mt-1 flex items-center justify-end">
+              <div className="absolute right-1 top-0 mt-1 flex items-center justify-end">
                 <span
                   className={clsx('text-[10px] opacity-50', {
                     'text-red-500 !opacity-100': watch('title')?.length > 100
@@ -130,7 +130,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   }
                 />
               </div>
-              <div className="absolute top-0 right-1 mt-1 flex items-center justify-end">
+              <div className="absolute right-1 top-0 mt-1 flex items-center justify-end">
                 <span
                   className={clsx('text-[10px] opacity-50', {
                     'text-red-500 !opacity-100':

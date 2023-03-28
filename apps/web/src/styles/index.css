@@ -3,27 +3,27 @@
 @tailwind utilities;
 
 body {
-  @apply antialiased dark:text-white bg-gradient-to-bl from-indigo-100 via-gray-100 bg-fixed dark:from-gray-800 dark:to-gray-900 to-gray-50 text-black min-h-screen;
+  @apply min-h-screen bg-gradient-to-bl from-indigo-100 via-gray-100 to-gray-50 bg-fixed text-black antialiased dark:from-gray-800 dark:to-gray-900 dark:text-white;
 }
 
 .btn-primary {
-  @apply disabled:opacity-50 focus:outline-none rounded-full bg-indigo-500 text-white;
+  @apply rounded-full bg-indigo-500 text-white focus:outline-none disabled:opacity-50;
 }
 
 .btn-danger {
-  @apply disabled:opacity-50 focus:outline-none rounded-full bg-red-500 text-white;
+  @apply rounded-full bg-red-500 text-white focus:outline-none disabled:opacity-50;
 }
 
 .btn-hover {
-  @apply disabled:opacity-50 focus:outline-none rounded-full dark:hover:bg-indigo-900 hover:bg-indigo-100;
+  @apply rounded-full hover:bg-indigo-100 focus:outline-none disabled:opacity-50 dark:hover:bg-indigo-900;
 }
 
 .btn-outline {
-  @apply disabled:opacity-50 focus:outline-none rounded-xl dark:hover:border-indigo-700 border border-gray-200 dark:border-gray-800 hover:border-indigo-300;
+  @apply rounded-xl border border-gray-200 hover:border-indigo-300 focus:outline-none disabled:opacity-50 dark:border-gray-800 dark:hover:border-indigo-700;
 }
 
 .bg-secondary {
-  @apply dark:bg-[#050506] bg-white;
+  @apply bg-white dark:bg-[#050506];
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -37,7 +37,7 @@ body {
 
 .middot:after {
   content: '•';
-  @apply flex mx-1.5 text-[10px] opacity-60;
+  @apply mx-1.5 flex text-[10px] opacity-60;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -58,18 +58,18 @@ input[type='number'] {
 }
 
 .input-mentions-single {
-  @apply w-full min-h-[2.4rem] text-sm;
+  @apply min-h-[2.4rem] w-full text-sm;
 }
 .input-mentions-textarea {
   @apply min-h-[7rem] w-full text-sm;
 }
 .input-mentions-textarea textarea,
 .input-mentions-single textarea {
-  @apply bg-white text-sm resize-y px-2.5 pt-2 rounded-xl focus:ring-1 focus:ring-indigo-500 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 outline-none disabled:opacity-60 disabled:bg-gray-500 disabled:bg-opacity-20 w-full;
+  @apply w-full resize-y rounded-xl border border-gray-300 bg-white px-2.5 pt-2 text-sm outline-none focus:ring-1 focus:ring-indigo-500 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900;
 }
 .input-mentions-textarea__suggestions,
 .input-mentions-single__suggestions {
-  @apply !bg-white dark:!bg-gray-800 p-1 !mt-8 !border dark:border-gray-700 rounded-xl w-56;
+  @apply !mt-8 w-56 rounded-xl !border !bg-white p-1 dark:border-gray-700 dark:!bg-gray-800;
 }
 
 .pb-safe {

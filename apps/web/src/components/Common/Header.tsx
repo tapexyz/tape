@@ -77,7 +77,7 @@ const Header: FC<Props> = ({ className }) => {
   return (
     <div
       className={clsx(
-        'dark:bg-theme sticky top-0 left-0 right-0 z-10 flex w-full items-center bg-white py-2.5',
+        'dark:bg-theme sticky left-0 right-0 top-0 z-10 flex w-full items-center bg-white py-2.5',
         className
       )}
     >
@@ -127,7 +127,7 @@ const Header: FC<Props> = ({ className }) => {
                   <button className="btn-hover p-2.5">
                     <BellOutline className="h-4 w-4" />
                     {hasNewNotification && (
-                      <span className="absolute top-0.5 right-0.5 flex h-2 w-2 rounded-full bg-red-500" />
+                      <span className="absolute right-0.5 top-0.5 flex h-2 w-2 rounded-full bg-red-500" />
                     )}
                   </button>
                 </Link>

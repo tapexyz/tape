@@ -32,7 +32,7 @@ const moduleExports = {
       },
       {
         source: '/donate',
-        destination: 'https://gitcoin.co/grants/6972/lenstube',
+        destination: 'https://bounties.gitcoin.co/grants/6972/lenstube',
         permanent: true
       },
       {
