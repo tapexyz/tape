@@ -15,7 +15,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
   const subscribeType = video.profile?.followModule?.__typename
   const channel = video.profile
   return (
-    <div className="absolute bottom-0 left-0 right-0 z-[1] bg-gradient-to-t from-gray-900 to-transparent px-3 pt-5 pb-3 md:rounded-b-xl">
+    <div className="absolute bottom-0 left-0 right-0 z-[1] bg-gradient-to-t from-gray-900 to-transparent px-3 pb-3 pt-5 md:rounded-b-xl">
       <div className="pb-2">
         <h1 className="line-clamp-2 text-white">{video.metadata.name}</h1>
       </div>
