@@ -35,8 +35,7 @@ type Props = {
 const Header: FC<Props> = ({ className }) => {
   const { pathname } = useRouter()
   const [showShowModal, setSearchModal] = useState(false)
-  const showFilter =
-    pathname === '/' || pathname === '/explore' || pathname === '/feed'
+  const showFilter = pathname === '/' || pathname === '/feed'
 
   const hasNewNotification = useChannelStore(
     (state) => state.hasNewNotification

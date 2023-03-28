@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags'
 import React, { useEffect } from 'react'
 import { Analytics, TRACK } from 'utils'
 
-import ExploreFeed from './Feed'
+import Trending from './Trending'
 
 const Explore = () => {
   useEffect(() => {
@@ -12,7 +12,7 @@ const Explore = () => {
   return (
     <>
       <MetaTags title="Explore" />
-      <ExploreFeed />
+      <Trending />
     </>
   )
 }
