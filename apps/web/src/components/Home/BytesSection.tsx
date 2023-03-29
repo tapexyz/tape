@@ -13,11 +13,9 @@ import {
 import Link from 'next/link'
 import React, { useRef } from 'react'
 import {
-  Analytics,
   FALLBACK_COVER_URL,
   LENS_CUSTOM_FILTERS,
-  LENSTUBE_BYTES_APP_ID,
-  TRACK
+  LENSTUBE_BYTES_APP_ID
 } from 'utils'
 import { generateVideoThumbnail } from 'utils/functions/generateVideoThumbnails'
 import getLensHandle from 'utils/functions/getLensHandle'
