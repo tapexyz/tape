@@ -32,8 +32,6 @@ export const everland = async (
     }
     const task = new Upload({
       client,
-      queueSize: 5,
-      partSize: 10 * 1024 * 1024, // 10 MB
       params
     })
     task.on('httpUploadProgress', (e) => {
