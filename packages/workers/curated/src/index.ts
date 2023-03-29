@@ -1,56 +1,38 @@
-type EnvType = {
+import fetchData from './fetchData'
+
+export type EnvType = {
   AIRTABLE_PAT: string
-  curated_channels: KVNamespace
+  CURATED: KVNamespace
 }
 
-type Record = {
-  fields: {
-    profileId: string
-    handle: string
-    category: string
-  }
-}
+export const CATEGORIES_KEY = 'categories'
 
-const headers = {
-  'Access-Control-Allow-Origin': '*',
-  'Content-Type': 'application/json'
-}
+const handleRequest = async (request: Request, env: EnvType) => {
+  const url = new URL(request.url)
+  const path = url.pathname.split('/').pop()
 
-async function handleRequest(_request: Request, env: EnvType) {
-  try {
-    const AIRTABLE_AUTHORIZATION = `Bearer ${env.AIRTABLE_PAT}`
-    const response = await fetch(
-      'https://api.airtable.com/v0/appUaQQeQ2MqKQsnP/tblKmClxKJMiHvG56?fields[]=profileId',
-      {
-        headers: {
-          Authorization: AIRTABLE_AUTHORIZATION
-        }
-      }
-    )
-    const result = (await response.json()) as any
-    const records: Record[] = result.data
-
-    const grouped = records.reduce((data: any, item) => {
-      const key = item.fields.category
-      if (!data[key]) {
-        data[key] = []
-      }
-      data[key].push(item.fields.profileId)
-      return data
-    }, {})
-
-    for (const category in grouped) {
-      if (Object.hasOwnProperty.call(grouped, category)) {
-        const key = category
-        const value = grouped[category]
-        await env.curated_channels.put(key, value)
-      }
-    }
+  if (!path) {
     return new Response(
-      JSON.stringify({
-        success: true
-      })
+      JSON.stringify({ success: false, message: 'No path specified' })
     )
+  }
+
+  try {
+    const headers = new Headers()
+    headers.set('Cache-Control', 'max-age=18000')
+
+    if (path === 'categories') {
+      const categories = await env.CURATED.get(CATEGORIES_KEY)
+      return new Response(JSON.stringify({ success: true, categories }), {
+        headers
+      })
+    }
+
+    const channelIds = await env.CURATED.get(path)
+
+    return new Response(JSON.stringify({ success: true, channelIds }), {
+      headers
+    })
   } catch {
     return new Response(
       JSON.stringify({
@@ -63,5 +45,8 @@ async function handleRequest(_request: Request, env: EnvType) {
 export default {
   async fetch(request: Request, env: EnvType) {
     return await handleRequest(request, env)
+  },
+  async scheduled(request: Request, env: EnvType) {
+    return await fetchData(request, env)
   }
 }
