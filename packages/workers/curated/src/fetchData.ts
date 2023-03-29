@@ -35,7 +35,7 @@ const fetchData = async (_request: Request, env: EnvType) => {
     for (const category in grouped) {
       const key = category.toLowerCase()
       const value = grouped[category]
-      await env.CURATED.put(key, value)
+      await env.CURATED.put(key, JSON.stringify(value))
       categories.push(key)
     }
     await env.CURATED.put(CATEGORIES_KEY, JSON.stringify(categories))
@@ -45,7 +45,8 @@ const fetchData = async (_request: Request, env: EnvType) => {
         success: true
       })
     )
-  } catch {
+  } catch (error) {
+    console.log('🚀 ~ file: fetchData.ts ~ fetchData ~ error:', error)
     return new Response(
       JSON.stringify({
         success: false

@@ -22,14 +22,15 @@ const handleRequest = async (request: Request, env: EnvType) => {
     headers.set('Cache-Control', 'max-age=18000')
 
     if (path === 'categories') {
-      const categories = await env.CURATED.get(CATEGORIES_KEY)
+      const curateCategories = await env.CURATED.get(CATEGORIES_KEY)
+      const categories = curateCategories ? JSON.parse(curateCategories) : []
       return new Response(JSON.stringify({ success: true, categories }), {
         headers
       })
     }
 
-    const channelIds = await env.CURATED.get(path)
-
+    const curatedChannelIds = await env.CURATED.get(path)
+    const channelIds = curatedChannelIds ? JSON.parse(curatedChannelIds) : []
     return new Response(JSON.stringify({ success: true, channelIds }), {
       headers
     })
