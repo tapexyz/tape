@@ -6,7 +6,7 @@ routes = [
 ]
 keep_vars = true
 kv_namespaces = [
-  { binding = "CURATED", id = "516974865e4645e9b463aa8967253565" }
+  { binding = "CURATED", id = "516974865e4645e9b463aa8967253565", preview_id = "7420b1fb28c44ccfa62e7442cff1b69f"  }
 ]
 
 [triggers]
