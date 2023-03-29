@@ -94,12 +94,10 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
             <div className="grid w-full overflow-hidden break-words">
               <Link
                 href={`/watch/${video.id}`}
-                className="line-clamp-1 text-sm font-medium"
+                className="line-clamp-2 text-sm font-medium"
                 title={video.metadata?.name ?? ''}
               >
-                <span className="line-clamp-2 flex">
-                  {video.metadata?.name}
-                </span>
+                {video.metadata?.name}
               </Link>
             </div>
             <div className="truncate">
