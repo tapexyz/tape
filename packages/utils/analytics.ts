@@ -56,10 +56,11 @@ export const TRACK = {
     JOIN: 'Join Channel',
     UNSUBSCRIBE: 'Unsubscribe Channel'
   },
+  EXPLORE_CURATED: {
+    CLICK_CATEGORY: 'Click Curated Category'
+  },
   DEPOSIT_MATIC: 'Deposit Matic',
   FILTER_CATEGORIES: 'Filter Categories',
-  CLICK_CATEGORIES_SCROLL_BUTTON: 'Clicked Categories Scroll Button',
-  CLICK_BYTES_SCROLL_BUTTON: 'Clicked Bytes Scroll Button',
   PLAY_BYTE_VIDEO: 'Play Byte Video',
   EMBED_VIDEO: {
     OPEN: 'Open Embed',

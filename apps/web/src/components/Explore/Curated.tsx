@@ -17,11 +17,13 @@ import { useInView } from 'react-cool-inview'
 import useSWR from 'swr'
 import {
   ALLOWED_APP_IDS,
+  Analytics,
   CURATED_CATEGORIES_URL,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
+  SCROLL_ROOT_MARGIN,
+  TRACK
 } from 'utils'
 
 const Curated = () => {
@@ -60,6 +62,7 @@ const Curated = () => {
   })
 
   const onSelectCategory = async (category: string) => {
+    Analytics.track(TRACK.EXPLORE_CURATED.CLICK_CATEGORY, { category })
     setSelectedCategory(category)
     try {
       const result = await axios.get(`${CURATED_CATEGORIES_URL}/${category}`)
