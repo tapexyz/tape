@@ -19,7 +19,7 @@ import {
   SCROLL_ROOT_MARGIN
 } from 'utils'
 
-const Curated = () => {
+const HomeFeed = () => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
   const request = {
@@ -78,4 +78,4 @@ const Curated = () => {
   )
 }
 
-export default Curated
+export default HomeFeed

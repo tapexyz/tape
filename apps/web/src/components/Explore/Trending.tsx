@@ -104,14 +104,14 @@ const ExploreFeed = () => {
               <ThumbnailImage video={video} />
               <Link
                 href={isByte ? `/bytes/${video.id}` : `/watch/${video.id}`}
-                className="invisible absolute top-2 right-0 overflow-hidden rounded-l-xl bg-gray-900 py-2 px-3 text-white transition-all duration-200 ease-in-out group-hover:visible"
+                className="invisible absolute right-0 top-2 overflow-hidden rounded-l-xl bg-gray-900 px-3 py-2 text-white transition-all duration-200 ease-in-out group-hover:visible"
               >
                 <span className="inline-flex items-center space-x-2 text-sm">
                   <CollectOutline className="h-3 w-3" />
                   <span>{formatNumber(video.stats.totalAmountOfCollects)}</span>
                 </span>
               </Link>
-              <div className="absolute bottom-0 right-0 left-0 overflow-hidden rounded-b-xl bg-gradient-to-t from-gray-900 to-transparent p-2 text-white">
+              <div className="absolute bottom-0 left-0 right-0 overflow-hidden rounded-b-xl bg-gradient-to-t from-gray-900 to-transparent p-2 text-white">
                 <div className="flex items-center space-x-2.5">
                   {!isByte && (
                     <Link

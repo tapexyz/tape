@@ -66,19 +66,6 @@ const Recommended = () => {
     <Tab.Group as="div" className="col-span-9 w-full">
       <Tab.List className="no-scrollbar flex space-x-2 overflow-x-auto pb-2">
         <Tab
-          onClick={() => setActiveCriteria({ ...initialCriteria })}
-          className={({ selected }) =>
-            clsx(
-              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
-              selected
-                ? 'bg-gray-200 dark:bg-gray-700'
-                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
-            )
-          }
-        >
-          <span>For you</span>
-        </Tab>
-        <Tab
           onClick={() =>
             setActiveCriteria({
               ...initialCriteria
