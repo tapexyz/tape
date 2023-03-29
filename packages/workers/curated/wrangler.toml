@@ -10,7 +10,7 @@ kv_namespaces = [
 ]
 
 [triggers]
-crons = ["* * * * *"]
+crons = ["0 0 * * *"]
 
 [env.production.vars]
 AIRTABLE_PAT = ""
