@@ -111,7 +111,7 @@ const ExploreFeed = () => {
                   <span>{formatNumber(video.stats.totalAmountOfCollects)}</span>
                 </span>
               </Link>
-              <div className="absolute bottom-0 left-0 right-0 overflow-hidden rounded-b-xl bg-gradient-to-t from-gray-900 to-transparent p-2 text-white">
+              <div className="absolute bottom-0 left-0 right-0 overflow-hidden rounded-b-xl bg-gradient-to-t from-gray-900 to-transparent p-2.5 text-white">
                 <div className="flex items-center space-x-2.5">
                   {!isByte && (
                     <Link
@@ -138,7 +138,7 @@ const ExploreFeed = () => {
                     </Link>
                     <Link
                       href={`/channel/${video.profile?.handle}`}
-                      className="flex w-fit items-center space-x-0.5 text-[13px] opacity-90 hover:opacity-100"
+                      className="flex w-fit items-center space-x-0.5 text-[13px] leading-3 opacity-90 hover:opacity-100"
                     >
                       <span>{video.profile?.handle}</span>
                       <IsVerified id={video.profile?.id} size="xs" />

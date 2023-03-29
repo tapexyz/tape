@@ -17,6 +17,7 @@ const cache = new InMemoryCache({
           'request',
           [
             'profileId',
+            'profileIds',
             'commentsOf',
             'publicationTypes',
             'sources',

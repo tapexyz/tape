@@ -7,38 +7,52 @@ export type EnvType = {
 
 export const CATEGORIES_KEY = 'categories'
 
+const headers = {
+  'Access-Control-Allow-Origin': '*',
+  'Content-Type': 'application/json'
+}
+
 const handleRequest = async (request: Request, env: EnvType) => {
   const url = new URL(request.url)
   const path = url.pathname.split('/').pop()
 
   if (!path) {
     return new Response(
-      JSON.stringify({ success: false, message: 'No path specified' })
+      JSON.stringify({ success: false, message: 'No path specified' }),
+      { headers }
     )
   }
 
   try {
-    const headers = new Headers()
-    headers.set('Cache-Control', 'max-age=29000, s-maxage=29000')
-
     if (path === 'categories') {
       const curateCategories = await env.CURATED.get(CATEGORIES_KEY)
       const categories = curateCategories ? JSON.parse(curateCategories) : []
-      return new Response(JSON.stringify({ success: true, categories }), {
-        headers
-      })
+      const response = new Response(
+        JSON.stringify({ success: true, categories }),
+        {
+          headers
+        }
+      )
+      response.headers.set('Cache-Control', 'max-age=29000, s-maxage=29000')
+      return response
     }
 
     const curatedChannelIds = await env.CURATED.get(path)
     const channelIds = curatedChannelIds ? JSON.parse(curatedChannelIds) : []
-    return new Response(JSON.stringify({ success: true, channelIds }), {
-      headers
-    })
+    const response = new Response(
+      JSON.stringify({ success: true, channelIds }),
+      {
+        headers
+      }
+    )
+    response.headers.set('Cache-Control', 'max-age=29000, s-maxage=29000')
+    return response
   } catch {
     return new Response(
       JSON.stringify({
         success: false
-      })
+      }),
+      { headers }
     )
   }
 }

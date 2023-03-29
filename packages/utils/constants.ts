@@ -17,7 +17,7 @@ export const LENSTUBE_WEBSITE_URL = IS_MAINNET
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallbackThumbnail.png`
 export const OG_IMAGE = `${STATIC_ASSETS}/images/seo/og.png`
 export const IMAGE_CDN_URL = IS_PRODUCTION ? 'https://img.lenstube.xyz' : ''
-export const SCROLL_ROOT_MARGIN = '40% 0px'
+export const SCROLL_ROOT_MARGIN = '60% 0px'
 
 // lens
 export const MAINNET_API_URL = 'https://api.lens.dev'
@@ -78,6 +78,7 @@ export const BUNDLR_METADATA_UPLOAD_URL = 'https://metadata.lenstube.xyz'
 export const LENSTUBE_TAIL_INGEST_URL = 'https://tail.lenstube.xyz'
 export const STS_TOKEN_URL = 'https://sts.lenstube.xyz'
 export const HEALTH_URL = 'https://health.lenstube.xyz'
+export const CURATED_CATEGORIES_URL = 'https://curated.lenstube.xyz/categories'
 
 // bundlr
 export const BUNDLR_NODE_URL = IS_MAINNET
