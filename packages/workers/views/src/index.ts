@@ -21,7 +21,7 @@ const handleRequest = async (request: Request, env: Env) => {
     )
   }
   try {
-    const payload = await request.json()
+    const payload = (await request.json()) as any
 
     if (!payload.sourceUrl) {
       return new Response(
@@ -38,7 +38,7 @@ const handleRequest = async (request: Request, env: Env) => {
         }
       }
     )
-    const assetRes = await data.json()
+    const assetRes = (await data.json()) as any
 
     if (assetRes && assetRes?.length) {
       const response = await fetch(
@@ -51,7 +51,7 @@ const handleRequest = async (request: Request, env: Env) => {
           }
         }
       )
-      const viewsRes = await response.json()
+      const viewsRes = (await response.json()) as any
 
       if (!viewsRes || !viewsRes?.length) {
         return new Response(

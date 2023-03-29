@@ -19,7 +19,7 @@ const handleRequest = async (request: Request, env: EnvType) => {
 
   try {
     const headers = new Headers()
-    headers.set('Cache-Control', 'max-age=18000')
+    headers.set('Cache-Control', 'max-age=29000, s-maxage=29000')
 
     if (path === 'categories') {
       const curateCategories = await env.CURATED.get(CATEGORIES_KEY)
