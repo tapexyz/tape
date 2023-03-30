@@ -8,14 +8,25 @@ type Record = {
   }
 }
 
-const AIRTABLE_API =
-  'https://api.airtable.com/v0/appUaQQeQ2MqKQsnP/tblKmClxKJMiHvG56?pageSize=100'
+const AIRTABLE_BASE = 'appUaQQeQ2MqKQsnP'
+// tblKmClxKJMiHvG56 -> prod
+// tblT94C2q3uYoQjM8 -> test
+const AIRTABLE_TABLE = 'tblT94C2q3uYoQjM8'
+const AIRTABLE_API = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?pageSize=100`
 
-const fetchPages = async (
+const NEXT_FETCH_OFFSET_KEY = 'NEXT_OFFSET'
+const MAX_REQUESTS_ALLOWED = 50
+
+const fetchRecordsBatch = async (
   url: string,
   token: string,
-  allRecords: Record[] = []
+  allRecords: Record[] = [],
+  currentOffset: string | null,
+  requestsMade = 1
 ) => {
+  if (currentOffset) {
+    url = `${AIRTABLE_API}&offset=${currentOffset}`
+  }
   const response = await fetch(url, {
     headers: {
       Authorization: token
@@ -26,20 +37,34 @@ const fetchPages = async (
   const records: Record[] = result.records
   allRecords.push(...records)
 
-  if (offset) {
-    await fetchPages(`${AIRTABLE_API}&offset=${offset}`, token, allRecords)
+  if (offset && requestsMade < MAX_REQUESTS_ALLOWED) {
+    await fetchRecordsBatch(
+      `${AIRTABLE_API}&offset=${offset}`,
+      token,
+      allRecords,
+      offset,
+      requestsMade + 1
+    )
   } else {
-    return allRecords
+    return { records: allRecords, nextOffset: offset }
   }
-  return allRecords
+  return { records: allRecords, nextOffset: offset }
 }
 
 const fetchData = async (_request: Request, env: EnvType) => {
   try {
+    const currentOffset = await env.CURATED.get(NEXT_FETCH_OFFSET_KEY)
     const AIRTABLE_AUTHORIZATION = `Bearer ${env.AIRTABLE_PAT}`
 
-    const records: Record[] =
-      (await fetchPages(AIRTABLE_API, AIRTABLE_AUTHORIZATION)) ?? []
+    const { records, nextOffset } = await fetchRecordsBatch(
+      AIRTABLE_API,
+      AIRTABLE_AUTHORIZATION,
+      [],
+      currentOffset
+    )
+    if (nextOffset) {
+      await env.CURATED.put(NEXT_FETCH_OFFSET_KEY, nextOffset)
+    }
 
     const grouped = records?.reduce((data: any, item) => {
       const key = item.fields.category
@@ -53,8 +78,11 @@ const fetchData = async (_request: Request, env: EnvType) => {
     const categories: string[] = []
     for (const category in grouped) {
       const key = category.toLowerCase()
-      const value = grouped[category]
-      await env.CURATED.put(key, JSON.stringify(value))
+      const newRecords: string[] = grouped[category]
+      const prev = await env.CURATED.get(key)
+      const prevRecords: string[] = prev ? JSON.parse(prev) : []
+      prevRecords.push(...newRecords)
+      await env.CURATED.put(key, JSON.stringify(new Set(prevRecords)))
       categories.push(key)
     }
     await env.CURATED.put(CATEGORIES_KEY, JSON.stringify(categories))

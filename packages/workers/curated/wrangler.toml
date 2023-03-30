@@ -6,11 +6,11 @@ routes = [
 ]
 keep_vars = true
 kv_namespaces = [
-  { binding = "CURATED", id = "516974865e4645e9b463aa8967253565", preview_id = "7420b1fb28c44ccfa62e7442cff1b69f"  }
+  { binding = "CURATED", id = "516974865e4645e9b463aa8967253565", preview_id = "45045b1be62f4ad499b823ff91992ae1"  }
 ]
 
 [triggers]
-crons = ["0 0 * * *"]
+crons = ["* * * * *"]
 
 [env.production.vars]
 AIRTABLE_PAT = ""
