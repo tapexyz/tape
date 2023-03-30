@@ -8,6 +8,26 @@ type CursorBasedPagination<T = StoreValue> = {
 
 type SafeReadonly<T> = T extends object ? Readonly<T> : T
 
+/**
+ * @param obj Object to search for a __ref property.
+ * @returns the __ref property if found, otherwise null.
+ */
+const getRef = (obj: any): string | null => {
+  if (typeof obj === 'object' && obj !== null) {
+    if ('__ref' in obj) {
+      return obj['__ref']
+    } else {
+      for (const key in obj) {
+        const ref = getRef(obj[key])
+        if (ref) {
+          return ref
+        }
+      }
+    }
+  }
+  return null
+}
+
 function cursorBasedPagination<T extends CursorBasedPagination>(
   keyArgs: FieldPolicy['keyArgs']
 ): FieldPolicy<T> {
@@ -32,12 +52,26 @@ function cursorBasedPagination<T extends CursorBasedPagination>(
       if (!existing) {
         return incoming
       }
-      const existingItems = existing.items ?? []
-      const incomingItems = incoming.items ?? []
+      const { items: existingItems, pageInfo: existingPageInfo } = existing
+      const { items: incomingItems, pageInfo: incomingPageInfo } = incoming
+
+      const items = [...existingItems, ...incomingItems]
+      const pageInfo = { ...existingPageInfo, ...incomingPageInfo }
+
+      // remove duplicates from items
+      const seen = new Set()
+      const dedupedItems = items.filter((item) => {
+        const ref = getRef(item)
+        if (ref && seen.has(ref)) {
+          return false
+        }
+        seen.add(ref)
+        return true
+      })
       return {
         ...incoming,
-        items: existingItems?.concat(incomingItems),
-        pageInfo: incoming.pageInfo
+        items: dedupedItems,
+        pageInfo
       } as SafeReadonly<T>
     }
   }
