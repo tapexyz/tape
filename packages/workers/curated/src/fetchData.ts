@@ -75,7 +75,7 @@ const fetchData = async (_request: Request, env: EnvType) => {
       return data
     }, {})
 
-    const categories: string[] = []
+    let categories: string[] = []
     for (const category in grouped) {
       const key = category.toLowerCase()
       const newRecords: string[] = grouped[category]
@@ -91,7 +91,15 @@ const fetchData = async (_request: Request, env: EnvType) => {
       await env.CURATED.put(key, value)
       categories.push(key)
     }
-    await env.CURATED.put(CATEGORIES_KEY, JSON.stringify(categories))
+    const prevCategories = await env.CURATED.get(CATEGORIES_KEY)
+    if (prevCategories) {
+      categories = JSON.parse(prevCategories)
+      categories.push(...categories)
+    }
+    await env.CURATED.put(
+      CATEGORIES_KEY,
+      JSON.stringify(Array.from(new Set(categories)))
+    )
 
     return new Response(
       JSON.stringify({
