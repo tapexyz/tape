@@ -114,8 +114,12 @@ const Curated = () => {
           </Tab>
         ))}
       </Tab.List>
+      {loading && (
+        <div className="my-3">
+          <TimelineShimmer />
+        </div>
+      )}
       <Tab.Panels className="my-3">
-        {loading && <TimelineShimmer />}
         {videos?.length === 0 && (
           <NoDataFound isCenter withImage text="No videos found" />
         )}
