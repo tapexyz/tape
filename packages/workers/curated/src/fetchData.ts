@@ -53,14 +53,14 @@ const fetchRecordsBatch = async (
 
 const fetchData = async (_request: Request, env: EnvType) => {
   try {
-    const currentOffset = await env.CURATED.get(NEXT_FETCH_OFFSET_KEY)
+    const NEXT_OFFSET_KEY = await env.CURATED.get(NEXT_FETCH_OFFSET_KEY)
     const AIRTABLE_AUTHORIZATION = `Bearer ${env.AIRTABLE_PAT}`
 
     const { records, nextOffset } = await fetchRecordsBatch(
       AIRTABLE_API,
       AIRTABLE_AUTHORIZATION,
       [],
-      currentOffset
+      NEXT_OFFSET_KEY
     )
     if (nextOffset) {
       await env.CURATED.put(NEXT_FETCH_OFFSET_KEY, nextOffset)
@@ -80,9 +80,15 @@ const fetchData = async (_request: Request, env: EnvType) => {
       const key = category.toLowerCase()
       const newRecords: string[] = grouped[category]
       const prev = await env.CURATED.get(key)
-      const prevRecords: string[] = prev ? JSON.parse(prev) : []
-      prevRecords.push(...newRecords)
-      await env.CURATED.put(key, JSON.stringify(new Set(prevRecords)))
+      let prevRecords = []
+      if (prev) {
+        prevRecords = JSON.parse(prev)
+        prevRecords.push(...newRecords)
+      } else {
+        prevRecords.push(...newRecords)
+      }
+      const value = JSON.stringify(Array.from(new Set(prevRecords)))
+      await env.CURATED.put(key, value)
       categories.push(key)
     }
     await env.CURATED.put(CATEGORIES_KEY, JSON.stringify(categories))
