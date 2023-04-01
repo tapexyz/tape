@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
-const Mod = dynamic(() => import('../components/Mod'))
+import Mod from '@components/Mod'
 
 export default Mod

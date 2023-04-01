@@ -55,7 +55,11 @@ const Recents = () => {
     }
   })
   if (loading) {
-    return <TimelineShimmer />
+    return (
+      <div className="pt-9">
+        <TimelineShimmer />
+      </div>
+    )
   }
   if (!videos.length || error) {
     return <NoDataFound isCenter withImage text="No videos found" />
