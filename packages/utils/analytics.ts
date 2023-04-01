@@ -56,9 +56,6 @@ export const TRACK = {
     JOIN: 'Join Channel',
     UNSUBSCRIBE: 'Unsubscribe Channel'
   },
-  EXPLORE_CURATED: {
-    CLICK_CATEGORY: 'Click Curated Category'
-  },
   DEPOSIT_MATIC: 'Deposit Matic',
   FILTER_CATEGORIES: 'Filter Categories',
   PLAY_BYTE_VIDEO: 'Play Byte Video',
@@ -111,6 +108,7 @@ export const TRACK = {
     CHANNEL: 'Channel Page',
     EXPLORE_TRENDING: 'Trending Page',
     EXPLORE_INTERESTING: 'Interesting Page',
+    MOD: 'Mod Page',
     EXPLORE_POPULAR: 'Popular Page',
     THANKS: 'Thanks Page',
     UPLOAD: {

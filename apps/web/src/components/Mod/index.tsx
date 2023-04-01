@@ -4,8 +4,8 @@ import useChannelStore from '@lib/store/channel'
 import type { GlobalProtocolStats } from 'lens'
 import { useGlobalProtocolStatsQuery } from 'lens'
 import dynamic from 'next/dynamic'
-import React from 'react'
-import { ADMIN_IDS, LENSTUBE_APP_ID } from 'utils'
+import React, { useEffect } from 'react'
+import { ADMIN_IDS, Analytics, LENSTUBE_APP_ID, TRACK } from 'utils'
 
 import Recents from './Recents'
 
@@ -15,6 +15,10 @@ const Custom404 = dynamic(() => import('../../pages/404'))
 
 const Mod = () => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
+
+  useEffect(() => {
+    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.MOD })
+  }, [])
 
   const { data, loading } = useGlobalProtocolStatsQuery({
     variables: {
