@@ -11,13 +11,11 @@ import {
   useExploreQuery
 } from 'lens'
 import Link from 'next/link'
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import {
-  Analytics,
   FALLBACK_COVER_URL,
   LENS_CUSTOM_FILTERS,
-  LENSTUBE_BYTES_APP_ID,
-  TRACK
+  LENSTUBE_BYTES_APP_ID
 } from 'utils'
 import { generateVideoThumbnail } from 'utils/functions/generateVideoThumbnails'
 import getLensHandle from 'utils/functions/getLensHandle'
@@ -29,10 +27,6 @@ import imageCdn from 'utils/functions/imageCdn'
 const BytesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-
-  useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE_CURATED })
-  }, [])
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
@@ -58,7 +52,6 @@ const BytesSection = () => {
   const scrollOffset = sectionOffsetWidth / 1.2
 
   const scroll = (offset: number) => {
-    Analytics.track(TRACK.CLICK_BYTES_SCROLL_BUTTON)
     if (sectionRef.current) {
       sectionRef.current.scrollLeft += offset
     }

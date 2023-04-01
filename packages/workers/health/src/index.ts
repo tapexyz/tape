@@ -22,8 +22,7 @@ async function handleRequest(_request: Request, env: EnvType) {
         Authorization: `Bearer ${BETTER_UPTIME_KEY}`
       }
     })
-    const uptimeRes = await response.json()
-
+    const uptimeRes = (await response.json()) as any
     const monitors: Monitor[] = uptimeRes.data
     const incidents = monitors.filter(
       (m: Monitor) => m.attributes.status !== 'up'

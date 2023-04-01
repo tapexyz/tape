@@ -7,14 +7,17 @@ export const LENSTUBE_APP_DESCRIPTION =
 export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT ?? 'mainnet'
 export const IS_MAINNET = LENS_ENV === 'mainnet'
 
+export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
+export const IS_PRODUCTION = !IS_DEVELOPMENT
+
 export const STATIC_ASSETS = 'https://static.lenstube.xyz'
 export const LENSTUBE_WEBSITE_URL = IS_MAINNET
   ? 'https://lenstube.xyz'
   : 'https://testnet.lenstube.xyz'
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallbackThumbnail.png`
 export const OG_IMAGE = `${STATIC_ASSETS}/images/seo/og.png`
-export const IMAGE_CDN_URL = IS_MAINNET ? 'https://img.lenstube.xyz' : ''
-export const SCROLL_ROOT_MARGIN = '40% 0px'
+export const IMAGE_CDN_URL = IS_PRODUCTION ? 'https://img.lenstube.xyz' : ''
+export const SCROLL_ROOT_MARGIN = '60% 0px'
 
 // lens
 export const MAINNET_API_URL = 'https://api.lens.dev'
@@ -134,8 +137,6 @@ export const MIXPANEL_TOKEN = '928986a6551f5a12132e63c8bdd4451e'
 export const MUX_DATA_KEY = '2h11sq1qeahiaejrjegjti847'
 
 // vercel
-export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
-export const IS_PRODUCTION = !IS_DEVELOPMENT
 export const GIT_DEPLOYED_COMMIT_SHA =
   process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
 export const GIT_DEPLOYED_BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF

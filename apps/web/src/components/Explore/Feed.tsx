@@ -7,7 +7,6 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
-import useChannelStore from '@lib/store/channel'
 import clsx from 'clsx'
 import type { Publication } from 'lens'
 import {
@@ -24,7 +23,6 @@ import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  MOD_IDS,
   SCROLL_ROOT_MARGIN,
   TRACK
 } from 'utils'
@@ -32,16 +30,12 @@ import {
 const initialCriteria = {
   trending: true,
   popular: false,
-  interesting: false,
-  recents: false
+  interesting: false
 }
 
 const ExploreFeed = () => {
   const [activeCriteria, setActiveCriteria] = useState(initialCriteria)
-
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-  const isMod = MOD_IDS.includes(selectedChannel?.id)
 
   const getCriteria = () => {
     if (activeCriteria.trending) {
@@ -53,9 +47,6 @@ const ExploreFeed = () => {
     if (activeCriteria.interesting) {
       return PublicationSortCriteria.TopMirrored
     }
-    if (activeCriteria.recents) {
-      return PublicationSortCriteria.Latest
-    }
     return PublicationSortCriteria.TopCollected
   }
 
@@ -63,9 +54,7 @@ const ExploreFeed = () => {
     sortCriteria: getCriteria(),
     limit: 32,
     noRandomize: true,
-    sources: activeCriteria.recents
-      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
-      : [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
+    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
@@ -160,28 +149,6 @@ const ExploreFeed = () => {
           <MirrorOutline className="h-3.5 w-3.5" />
           <span>Interesting</span>
         </Tab>
-        {isMod && (
-          <Tab
-            onClick={() => {
-              setActiveCriteria({
-                ...initialCriteria,
-                recents: true,
-                trending: false
-              })
-              Analytics.track('Pageview', {
-                path: TRACK.PAGE_VIEW.EXPLORE_RECENT
-              })
-            }}
-            className={({ selected }) =>
-              clsx(
-                'flex items-center space-x-2 border-b-2 px-4 py-2 focus:outline-none',
-                selected ? 'border-indigo-500' : 'border-transparent'
-              )
-            }
-          >
-            <span>Recents</span>
-          </Tab>
-        )}
       </Tab.List>
       <Tab.Panels className="my-3">
         {loading && <TimelineShimmer />}
