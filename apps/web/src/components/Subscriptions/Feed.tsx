@@ -11,7 +11,7 @@ import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
 import { SCROLL_ROOT_MARGIN } from 'utils'
 
-const HomeFeed = () => {
+const Subscriptions = () => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
@@ -91,4 +91,4 @@ const HomeFeed = () => {
   )
 }
 
-export default HomeFeed
+export default Subscriptions

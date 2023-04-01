@@ -58,8 +58,6 @@ export const TRACK = {
   },
   DEPOSIT_MATIC: 'Deposit Matic',
   FILTER_CATEGORIES: 'Filter Categories',
-  CLICK_CATEGORIES_SCROLL_BUTTON: 'Clicked Categories Scroll Button',
-  CLICK_BYTES_SCROLL_BUTTON: 'Clicked Bytes Scroll Button',
   PLAY_BYTE_VIDEO: 'Play Byte Video',
   EMBED_VIDEO: {
     OPEN: 'Open Embed',
@@ -111,9 +109,8 @@ export const TRACK = {
     CHANNEL: 'Channel Page',
     EXPLORE_TRENDING: 'Trending Page',
     EXPLORE_INTERESTING: 'Interesting Page',
+    MOD: 'Mod Page',
     EXPLORE_POPULAR: 'Popular Page',
-    EXPLORE_RECENT: 'Recents Page',
-    EXPLORE_CURATED: 'Curated Page',
     THANKS: 'Thanks Page',
     UPLOAD: {
       DROPZONE: 'DropZone Page',

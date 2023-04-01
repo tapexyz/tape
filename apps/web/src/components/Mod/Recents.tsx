@@ -2,7 +2,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
 import type { Publication } from 'lens'
 import {
   PublicationMainFocus,
@@ -10,44 +9,37 @@ import {
   PublicationTypes,
   useExploreQuery
 } from 'lens'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
 import {
   ALLOWED_APP_IDS,
-  Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
-  SCROLL_ROOT_MARGIN,
-  TRACK
+  LENSTUBE_BYTES_APP_ID,
+  SCROLL_ROOT_MARGIN
 } from 'utils'
 
-const Curated = () => {
-  const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-
-  useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE_CURATED })
-  }, [])
-
+const Recents = () => {
   const request = {
-    sortCriteria: PublicationSortCriteria.CuratedProfiles,
+    sortCriteria: PublicationSortCriteria.Latest,
     limit: 32,
-    noRandomize: false,
-    sources: [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS],
+    noRandomize: true,
+    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      tags:
-        activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
       mainContentFocus: [PublicationMainFocus.Video]
     }
   }
 
   const { data, loading, error, fetchMore } = useExploreQuery({
-    variables: { request }
+    variables: {
+      request
+    }
   })
 
-  const pageInfo = data?.explorePublications?.pageInfo
   const videos = data?.explorePublications?.items as Publication[]
+  const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
@@ -62,15 +54,20 @@ const Curated = () => {
       })
     }
   })
-
-  if (videos?.length === 0) {
+  if (loading) {
+    return (
+      <div className="pt-9">
+        <TimelineShimmer />
+      </div>
+    )
+  }
+  if (!videos.length || error) {
     return <NoDataFound isCenter withImage text="No videos found" />
   }
 
   return (
-    <div>
-      {loading && <TimelineShimmer />}
-      {!error && !loading && videos && (
+    <div className="pt-9">
+      {!error && !loading && videos?.length ? (
         <>
           <Timeline videos={videos} />
           {pageInfo?.next && (
@@ -79,9 +76,9 @@ const Curated = () => {
             </span>
           )}
         </>
-      )}
+      ) : null}
     </div>
   )
 }
 
-export default Curated
+export default Recents

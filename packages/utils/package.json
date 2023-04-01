@@ -7,7 +7,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "devDependencies": {
-    "typescript": "5.0.2"
+    "typescript": "5.0.3"
   },
   "dependencies": {
     "fast-average-color": "^9.3.0"
