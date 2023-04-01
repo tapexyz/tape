@@ -78,7 +78,6 @@ export const BUNDLR_METADATA_UPLOAD_URL = 'https://metadata.lenstube.xyz'
 export const LENSTUBE_TAIL_INGEST_URL = 'https://tail.lenstube.xyz'
 export const STS_TOKEN_URL = 'https://sts.lenstube.xyz'
 export const HEALTH_URL = 'https://health.lenstube.xyz'
-export const CURATED_CATEGORIES_URL = 'https://curated.lenstube.xyz/categories'
 
 // bundlr
 export const BUNDLR_NODE_URL = IS_MAINNET
