@@ -2,8 +2,7 @@ import MetaTags from '@components/Common/MetaTags'
 import React, { useEffect } from 'react'
 import { Analytics, TRACK } from 'utils'
 
-import Curated from './Curated'
-import Trending from './Trending'
+import ExploreFeed from './Feed'
 
 const Explore = () => {
   useEffect(() => {
@@ -13,9 +12,7 @@ const Explore = () => {
   return (
     <>
       <MetaTags title="Explore" />
-      <Trending />
-      <hr className="border-theme my-6 border-opacity-10 dark:border-gray-700" />
-      <Curated />
+      <ExploreFeed />
     </>
   )
 }
