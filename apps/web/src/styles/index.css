@@ -75,3 +75,7 @@ input[type='number'] {
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+.livepeer-aspect-ratio-container {
+  @apply outline-none;
+}
