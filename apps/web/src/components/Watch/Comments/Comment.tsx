@@ -1,6 +1,7 @@
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
+import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
@@ -20,6 +21,8 @@ import {
   getValueFromTraitType
 } from 'utils/functions/getFromAttributes'
 import getProfilePicture from 'utils/functions/getProfilePicture'
+
+import NewComment from './NewComment'
 
 const CommentOptions = dynamic(() => import('./CommentOptions'))
 const PublicationReaction = dynamic(() => import('../PublicationReaction'))
@@ -51,6 +54,7 @@ const Comment: FC<Props> = ({ comment }) => {
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
   const [showReport, setShowReport] = useState(false)
+  const [showNewComment, setShowNewComment] = useState(false)
 
   useEffect(() => {
     if (comment?.metadata?.content.trim().length > 500) {
@@ -65,7 +69,7 @@ const Comment: FC<Props> = ({ comment }) => {
 
   return (
     <div className="flex items-start justify-between">
-      <div className="flex items-start justify-between">
+      <div className="flex w-full items-start">
         <Link
           href={`/channel/${comment.profile?.handle}`}
           className="mr-3 mt-0.5 flex-none"
@@ -77,7 +81,7 @@ const Comment: FC<Props> = ({ comment }) => {
             alt={comment.profile?.handle}
           />
         </Link>
-        <div className="mr-2 flex flex-col items-start">
+        <div className="mr-2 flex w-full flex-col items-start">
           <span className="mb-1 flex items-center space-x-2">
             <Link
               href={`/channel/${comment.profile?.handle}`}
@@ -136,8 +140,24 @@ const Comment: FC<Props> = ({ comment }) => {
             </div>
           )}
           {!comment.hidden && (
-            <div className="mt-2">
+            <div className="mt-2 flex items-center space-x-4">
               <PublicationReaction publication={comment} />
+              <button
+                onClick={() => setShowNewComment(!showNewComment)}
+                className="inline-flex items-center space-x-1.5 text-xs focus:outline-none"
+              >
+                <ReplyOutline className="h-3.5 w-3.5" /> <span>Reply</span>
+              </button>
+              {comment.stats.totalAmountOfComments ? (
+                <button className="rounded-full bg-indigo-100 px-2 py-1 text-xs focus:outline-none dark:bg-indigo-900">
+                  {comment.stats.totalAmountOfComments} replies
+                </button>
+              ) : null}
+            </div>
+          )}
+          {showNewComment && (
+            <div className="w-full pt-6">
+              <NewComment video={comment} />
             </div>
           )}
         </div>

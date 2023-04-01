@@ -150,7 +150,7 @@ const PublicationReaction: FC<Props> = ({
           />
           {showLabel && (
             <span
-              className={clsx({
+              className={clsx('hidden md:block', {
                 'text-xs': textSize === 'sm',
                 'text-base': textSize === 'base',
                 'text-indigo-500': reaction.isLiked
@@ -186,7 +186,7 @@ const PublicationReaction: FC<Props> = ({
           />
           {showLabel && (
             <span
-              className={clsx({
+              className={clsx('hidden md:block', {
                 'text-xs': textSize === 'sm',
                 'text-base': textSize === 'base',
                 'text-indigo-500': reaction.isDisliked
