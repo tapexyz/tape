@@ -7,6 +7,7 @@ import IsVerified from '@components/Common/IsVerified'
 import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import Tooltip from '@components/UIElements/Tooltip'
+import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import type { Attribute, Publication } from 'lens'
@@ -15,6 +16,8 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
+import { SIGN_IN_REQUIRED_MESSAGE } from 'utils'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import {
   checkValueInAttributes,
@@ -44,6 +47,9 @@ const Comment: FC<Props> = ({ comment }) => {
   const [defaultComment, setDefaultComment] = useState('')
 
   const queuedComments = usePersistStore((state) => state.queuedComments)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
 
   useEffect(() => {
     if (comment?.metadata?.content.trim().length > 500) {
@@ -133,6 +139,9 @@ const Comment: FC<Props> = ({ comment }) => {
               <PublicationReaction publication={comment} />
               <button
                 onClick={() => {
+                  if (!selectedChannelId) {
+                    return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+                  }
                   setShowNewComment(!showNewComment)
                   setDefaultComment('')
                 }}
@@ -169,6 +178,9 @@ const Comment: FC<Props> = ({ comment }) => {
               <CommentReplies
                 comment={comment}
                 replyTo={(profile) => {
+                  if (!selectedChannelId) {
+                    return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+                  }
                   setShowNewComment(true)
                   setDefaultComment(`@${getLensHandle(profile.handle)} `)
                 }}
