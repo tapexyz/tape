@@ -19,7 +19,7 @@ import {
   useCreateCommentTypedDataMutation,
   useCreateCommentViaDispatcherMutation
 } from 'lens'
-import type { FC, Ref } from 'react'
+import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -45,7 +45,6 @@ type Props = {
   video: Publication
   defaultValue?: string
   placeholder?: string
-  newCommentRef?: Ref<HTMLDivElement>
 }
 
 const formSchema = z.object({
@@ -60,8 +59,7 @@ type FormData = z.infer<typeof formSchema>
 const NewComment: FC<Props> = ({
   video,
   defaultValue = '',
-  placeholder = "How's this video?",
-  newCommentRef = null
+  placeholder = "How's this video?"
 }) => {
   const [loading, setLoading] = useState(false)
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
@@ -282,7 +280,7 @@ const NewComment: FC<Props> = ({
             alt={selectedChannel?.handle}
           />
         </div>
-        <div className="relative w-full" ref={newCommentRef}>
+        <div className="relative w-full">
           <InputMentions
             placeholder={placeholder}
             autoComplete="off"

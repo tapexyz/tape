@@ -14,7 +14,7 @@ import { PublicationMainFocus } from 'lens'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import {
   checkValueInAttributes,
@@ -43,8 +43,6 @@ const Comment: FC<Props> = ({ comment }) => {
   const [showReplies, setShowReplies] = useState(false)
   const [defaultComment, setDefaultComment] = useState('')
 
-  const newCommentRef = useRef<HTMLDivElement>(null)
-
   const queuedComments = usePersistStore((state) => state.queuedComments)
 
   useEffect(() => {
@@ -57,12 +55,6 @@ const Comment: FC<Props> = ({ comment }) => {
   const getIsVideoComment = () => {
     return comment.metadata.mainContentFocus === PublicationMainFocus.Video
   }
-
-  useEffect(() => {
-    if (newCommentRef.current && showNewComment) {
-      newCommentRef.current.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [showNewComment, newCommentRef, defaultComment])
 
   return (
     <div className="flex items-start justify-between">
@@ -186,7 +178,6 @@ const Comment: FC<Props> = ({ comment }) => {
                 video={comment}
                 defaultValue={defaultComment}
                 placeholder="Write a reply"
-                newCommentRef={newCommentRef}
               />
             )}
           </div>
