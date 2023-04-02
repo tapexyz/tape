@@ -59,10 +59,6 @@ const Comment: FC<Props> = ({ comment }) => {
   }
 
   useEffect(() => {
-    console.log(
-      '🚀 ~ file: Comment.tsx:63 ~ useEffect ~ newCommentRef:',
-      newCommentRef
-    )
     if (newCommentRef.current && showNewComment) {
       newCommentRef.current.scrollIntoView({ behavior: 'smooth' })
     }
