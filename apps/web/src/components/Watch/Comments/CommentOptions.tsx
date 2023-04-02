@@ -14,7 +14,6 @@ import { Analytics, TRACK } from 'utils'
 type Props = {
   setShowReport: Dispatch<boolean>
   comment: Publication
-  showOnHover?: boolean
 }
 
 const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
