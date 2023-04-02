@@ -50,7 +50,7 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
       />
       <DropMenu
         trigger={
-          <div className="p-1" role="button">
+          <div className="p-1">
             <ThreeDotsOutline className="h-3.5 w-3.5" />
           </div>
         }
