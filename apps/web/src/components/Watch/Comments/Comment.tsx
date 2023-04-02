@@ -62,7 +62,7 @@ const Comment: FC<Props> = ({ comment }) => {
     if (newCommentRef.current && showNewComment) {
       newCommentRef.current.scrollIntoView({ behavior: 'smooth' })
     }
-  }, [showNewComment, newCommentRef])
+  }, [showNewComment, newCommentRef, defaultComment])
 
   return (
     <div className="flex items-start justify-between">
