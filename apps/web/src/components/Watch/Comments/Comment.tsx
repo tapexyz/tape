@@ -62,6 +62,10 @@ const Comment: FC<Props> = ({ comment }) => {
     return comment.metadata.mainContentFocus === PublicationMainFocus.Video
   }
 
+  const getIsReplyQueuedComment = () => {
+    return Boolean(queuedComments.filter((c) => c.pubId === comment.id)?.length)
+  }
+
   return (
     <div className="flex items-start justify-between">
       <div className="flex w-full items-start">
@@ -162,7 +166,8 @@ const Comment: FC<Props> = ({ comment }) => {
           <div
             className={clsx(
               'w-full space-y-6',
-              (showReplies || showNewComment || queuedComments.length) && 'pt-6'
+              (showReplies || showNewComment || getIsReplyQueuedComment()) &&
+                'pt-6'
             )}
           >
             {queuedComments?.map(
