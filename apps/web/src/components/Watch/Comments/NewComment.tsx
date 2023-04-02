@@ -20,7 +20,7 @@ import {
   useCreateCommentViaDispatcherMutation
 } from 'lens'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
@@ -43,6 +43,8 @@ import { z } from 'zod'
 
 type Props = {
   video: Publication
+  defaultValue?: string
+  placeholder?: string
 }
 
 const formSchema = z.object({
@@ -54,7 +56,11 @@ const formSchema = z.object({
 })
 type FormData = z.infer<typeof formSchema>
 
-const NewComment: FC<Props> = ({ video }) => {
+const NewComment: FC<Props> = ({
+  video,
+  defaultValue = '',
+  placeholder = "How's this video?"
+}) => {
   const [loading, setLoading] = useState(false)
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const selectedChannelId = useAuthPersistStore(
@@ -75,10 +81,15 @@ const NewComment: FC<Props> = ({ video }) => {
     getValues
   } = useForm<FormData>({
     defaultValues: {
-      comment: ''
+      comment: defaultValue
     },
     resolver: zodResolver(formSchema)
   })
+
+  useEffect(() => {
+    setValue('comment', defaultValue)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValue])
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
     setQueuedComments([
@@ -271,7 +282,7 @@ const NewComment: FC<Props> = ({ video }) => {
         </div>
         <div className="relative w-full">
           <InputMentions
-            placeholder="How's this video?"
+            placeholder={placeholder}
             autoComplete="off"
             validationError={errors.comment?.message}
             value={watch('comment')}
