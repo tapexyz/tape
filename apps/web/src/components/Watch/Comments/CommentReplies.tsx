@@ -135,7 +135,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className={clsx(comments.length && 'space-y-6')}>
       {comments?.map(
         (comment: Publication) =>
           !comment.hidden && (
