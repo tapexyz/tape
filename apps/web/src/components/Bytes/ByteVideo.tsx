@@ -84,6 +84,10 @@ const ByteVideo: FC<Props> = ({
     playVideo()
   }
 
+  if (!video) {
+    return null
+  }
+
   return (
     <div
       className="flex snap-center justify-center md:mt-6"
@@ -99,7 +103,7 @@ const ByteVideo: FC<Props> = ({
           <div
             className="absolute top-[50%]"
             ref={intersectionRef}
-            id={video.id}
+            id={video?.id}
           />
           {currentViewingId === video.id ? (
             <VideoPlayer

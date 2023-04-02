@@ -153,15 +153,16 @@ const Comment: FC<Props> = ({ comment }) => {
           <div
             className={clsx(
               'w-full space-y-6',
-              (showReplies || showNewComment) && 'pt-6'
+              (showReplies || showNewComment || queuedComments.length) && 'pt-6'
             )}
           >
             {queuedComments?.map(
               (queuedComment) =>
                 queuedComment?.pubId === comment?.id && (
-                  <span key={queuedComment?.pubId} className="pt-6">
-                    <QueuedComment queuedComment={queuedComment} />
-                  </span>
+                  <QueuedComment
+                    key={queuedComment?.pubId}
+                    queuedComment={queuedComment}
+                  />
                 )
             )}
             {showReplies && (
