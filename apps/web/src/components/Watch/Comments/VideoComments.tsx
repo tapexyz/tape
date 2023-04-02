@@ -138,13 +138,13 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
             </Alert>
           ) : null}
           {!comments.length && !queuedComments.length ? (
-            <span className="pb-5">
+            <span className="py-5">
               <NoDataFound text="Be the first to comment." withImage isCenter />
             </span>
           ) : null}
           {!error && (queuedComments.length || comments.length) ? (
             <>
-              <div className="space-y-4">
+              <div className="space-y-4 py-4">
                 {queuedComments?.map(
                   (queuedComment) =>
                     queuedComment?.pubId === video?.id && (

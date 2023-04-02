@@ -89,7 +89,7 @@ const Login = () => {
     if (!isReadyToSign) {
       disconnect?.()
       signOut()
-      return toast.error('Unable to connect to your wallet')
+      return toast.error('Please connect to your wallet')
     }
     try {
       setLoading(true)

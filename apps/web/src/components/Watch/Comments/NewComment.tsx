@@ -20,7 +20,7 @@ import {
   useCreateCommentViaDispatcherMutation
 } from 'lens'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
@@ -43,6 +43,8 @@ import { z } from 'zod'
 
 type Props = {
   video: Publication
+  defaultValue?: string
+  placeholder?: string
 }
 
 const formSchema = z.object({
@@ -54,7 +56,11 @@ const formSchema = z.object({
 })
 type FormData = z.infer<typeof formSchema>
 
-const NewComment: FC<Props> = ({ video }) => {
+const NewComment: FC<Props> = ({
+  video,
+  defaultValue = '',
+  placeholder = "How's this video?"
+}) => {
   const [loading, setLoading] = useState(false)
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const selectedChannelId = useAuthPersistStore(
@@ -75,10 +81,15 @@ const NewComment: FC<Props> = ({ video }) => {
     getValues
   } = useForm<FormData>({
     defaultValues: {
-      comment: ''
+      comment: defaultValue
     },
     resolver: zodResolver(formSchema)
   })
+
+  useEffect(() => {
+    setValue('comment', defaultValue)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValue])
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
     setQueuedComments([
@@ -256,44 +267,42 @@ const NewComment: FC<Props> = ({ video }) => {
   }
 
   return (
-    <div className="pb-4">
-      <form
-        onSubmit={handleSubmit(submitComment)}
-        className="mb-2 flex w-full flex-wrap items-start justify-end gap-2"
-      >
-        <div className="flex flex-1 items-center space-x-2 md:space-x-3">
-          <div className="flex-none">
-            <img
-              src={getProfilePicture(selectedChannel, 'avatar')}
-              className="h-9 w-9 rounded-full"
-              draggable={false}
-              alt={selectedChannel?.handle}
+    <form
+      onSubmit={handleSubmit(submitComment)}
+      className="mb-2 flex w-full flex-wrap items-start justify-end gap-2"
+    >
+      <div className="flex flex-1 items-center space-x-2 md:space-x-3">
+        <div className="flex-none">
+          <img
+            src={getProfilePicture(selectedChannel, 'avatar')}
+            className="h-9 w-9 rounded-full"
+            draggable={false}
+            alt={selectedChannel?.handle}
+          />
+        </div>
+        <div className="relative w-full">
+          <InputMentions
+            placeholder={placeholder}
+            autoComplete="off"
+            validationError={errors.comment?.message}
+            value={watch('comment')}
+            onContentChange={(value) => {
+              setValue('comment', value)
+              clearErrors('comment')
+            }}
+            mentionsSelector="input-mentions-single"
+          />
+          <div className="absolute bottom-2 right-2">
+            <EmojiPicker
+              onEmojiSelect={(emoji) =>
+                setValue('comment', `${getValues('comment')}${emoji}`)
+              }
             />
-          </div>
-          <div className="relative w-full">
-            <InputMentions
-              placeholder="How's this video?"
-              autoComplete="off"
-              validationError={errors.comment?.message}
-              value={watch('comment')}
-              onContentChange={(value) => {
-                setValue('comment', value)
-                clearErrors('comment')
-              }}
-              mentionsSelector="input-mentions-single"
-            />
-            <div className="absolute bottom-2 right-2">
-              <EmojiPicker
-                onEmojiSelect={(emoji) =>
-                  setValue('comment', `${getValues('comment')}${emoji}`)
-                }
-              />
-            </div>
           </div>
         </div>
-        <Button loading={loading}>Comment</Button>
-      </form>
-    </div>
+      </div>
+      <Button loading={loading}>Comment</Button>
+    </form>
   )
 }
 

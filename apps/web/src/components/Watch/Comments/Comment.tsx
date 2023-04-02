@@ -1,11 +1,14 @@
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
+import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import Tooltip from '@components/UIElements/Tooltip'
+import useAuthPersistStore from '@lib/store/auth'
+import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import type { Attribute, Publication } from 'lens'
 import { PublicationMainFocus } from 'lens'
@@ -13,13 +16,20 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { STATIC_ASSETS } from 'utils'
+import { toast } from 'react-hot-toast'
+import { SIGN_IN_REQUIRED_MESSAGE } from 'utils'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import {
   checkValueInAttributes,
   getValueFromTraitType
 } from 'utils/functions/getFromAttributes'
+import getLensHandle from 'utils/functions/getLensHandle'
 import getProfilePicture from 'utils/functions/getProfilePicture'
+
+import CommentReplies from './CommentReplies'
+import NewComment from './NewComment'
+import QueuedComment from './QueuedComment'
+import VideoComment from './VideoComment'
 
 const CommentOptions = dynamic(() => import('./CommentOptions'))
 const PublicationReaction = dynamic(() => import('../PublicationReaction'))
@@ -28,29 +38,18 @@ interface Props {
   comment: Publication
 }
 
-const VideoComment: FC<Props> = ({ comment }) => {
-  return (
-    <div className="my-2 rounded-xl border border-gray-200 px-4 py-3 dark:border-gray-800">
-      <Link
-        href={`/watch/${comment.id}`}
-        className="flex items-center space-x-2.5"
-      >
-        <img
-          src={`${STATIC_ASSETS}/images/brand/circle-blue-72x72.png`}
-          className="h-5 w-5"
-          draggable={false}
-          alt="lenstube"
-        />
-        <span>Watch Video</span>
-      </Link>
-    </div>
-  )
-}
-
 const Comment: FC<Props> = ({ comment }) => {
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
   const [showReport, setShowReport] = useState(false)
+  const [showNewComment, setShowNewComment] = useState(false)
+  const [showReplies, setShowReplies] = useState(false)
+  const [defaultComment, setDefaultComment] = useState('')
+
+  const queuedComments = usePersistStore((state) => state.queuedComments)
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
 
   useEffect(() => {
     if (comment?.metadata?.content.trim().length > 500) {
@@ -65,7 +64,7 @@ const Comment: FC<Props> = ({ comment }) => {
 
   return (
     <div className="flex items-start justify-between">
-      <div className="flex items-start justify-between">
+      <div className="flex w-full items-start">
         <Link
           href={`/channel/${comment.profile?.handle}`}
           className="mr-3 mt-0.5 flex-none"
@@ -77,7 +76,7 @@ const Comment: FC<Props> = ({ comment }) => {
             alt={comment.profile?.handle}
           />
         </Link>
-        <div className="mr-2 flex flex-col items-start">
+        <div className="mr-2 flex w-full flex-col items-start">
           <span className="mb-1 flex items-center space-x-2">
             <Link
               href={`/channel/${comment.profile?.handle}`}
@@ -136,10 +135,65 @@ const Comment: FC<Props> = ({ comment }) => {
             </div>
           )}
           {!comment.hidden && (
-            <div className="mt-2">
+            <div className="mt-2 flex items-center space-x-4">
               <PublicationReaction publication={comment} />
+              <button
+                onClick={() => {
+                  if (!selectedChannelId) {
+                    return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+                  }
+                  setShowNewComment(!showNewComment)
+                  setDefaultComment('')
+                }}
+                className="inline-flex items-center space-x-1.5 text-xs focus:outline-none"
+              >
+                <ReplyOutline className="h-3.5 w-3.5" /> <span>Reply</span>
+              </button>
+              {comment.stats.totalAmountOfComments ? (
+                <button
+                  onClick={() => setShowReplies(!showReplies)}
+                  className="rounded-full bg-indigo-100 px-2 py-1 text-xs focus:outline-none dark:bg-indigo-900"
+                >
+                  {comment.stats.totalAmountOfComments} replies
+                </button>
+              ) : null}
             </div>
           )}
+          <div
+            className={clsx(
+              'w-full space-y-6',
+              (showReplies || showNewComment || queuedComments.length) && 'pt-6'
+            )}
+          >
+            {queuedComments?.map(
+              (queuedComment) =>
+                queuedComment?.pubId === comment?.id && (
+                  <QueuedComment
+                    key={queuedComment?.pubId}
+                    queuedComment={queuedComment}
+                  />
+                )
+            )}
+            {showReplies && (
+              <CommentReplies
+                comment={comment}
+                replyTo={(profile) => {
+                  if (!selectedChannelId) {
+                    return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+                  }
+                  setShowNewComment(true)
+                  setDefaultComment(`@${getLensHandle(profile.handle)} `)
+                }}
+              />
+            )}
+            {showNewComment && (
+              <NewComment
+                video={comment}
+                defaultValue={defaultComment}
+                placeholder="Write a reply"
+              />
+            )}
+          </div>
         </div>
       </div>
       <div>
