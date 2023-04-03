@@ -45,6 +45,7 @@ type Props = {
   video: Publication
   defaultValue?: string
   placeholder?: string
+  hideEmojiPicker?: boolean
 }
 
 const formSchema = z.object({
@@ -59,7 +60,8 @@ type FormData = z.infer<typeof formSchema>
 const NewComment: FC<Props> = ({
   video,
   defaultValue = '',
-  placeholder = "How's this video?"
+  placeholder = "How's this video?",
+  hideEmojiPicker = false
 }) => {
   const [loading, setLoading] = useState(false)
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
@@ -292,13 +294,15 @@ const NewComment: FC<Props> = ({
             }}
             mentionsSelector="input-mentions-single"
           />
-          <div className="absolute bottom-2 right-2">
-            <EmojiPicker
-              onEmojiSelect={(emoji) =>
-                setValue('comment', `${getValues('comment')}${emoji}`)
-              }
-            />
-          </div>
+          {!hideEmojiPicker && (
+            <div className="absolute bottom-2 right-2">
+              <EmojiPicker
+                onEmojiSelect={(emoji) =>
+                  setValue('comment', `${getValues('comment')}${emoji}`)
+                }
+              />
+            </div>
+          )}
         </div>
       </div>
       <Button loading={loading}>Comment</Button>

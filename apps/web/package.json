@@ -11,7 +11,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.10",
+    "@apollo/client": "^3.7.11",
     "@aws-sdk/client-s3": "^3.304.0",
     "@aws-sdk/lib-storage": "^3.304.0",
     "@bundlr-network/client": "^0.10.5",
@@ -39,17 +39,17 @@
     "react-hook-form": "^7.43.9",
     "react-hot-toast": "^2.4.0",
     "react-mentions": "^4.4.7",
-    "swr": "^2.1.1",
+    "swr": "^2.1.2",
     "uuid": "^9.0.0",
     "wagmi": "^0.12.8",
     "zod": "^3.21.4",
-    "zustand": "^4.3.6"
+    "zustand": "^4.3.7"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
     "@types/mixpanel-browser": "^2.38.1",
     "@types/node": "18.15.11",
-    "@types/react": "18.0.31",
+    "@types/react": "18.0.32",
     "@types/react-dom": "18.0.11",
     "@types/react-mentions": "^4.1.7",
     "@types/uuid": "^9.0.1",
