@@ -196,6 +196,7 @@ const Comment: FC<Props> = ({ comment }) => {
                 video={comment}
                 defaultValue={defaultComment}
                 placeholder="Write a reply"
+                hideEmojiPicker
               />
             )}
           </div>
