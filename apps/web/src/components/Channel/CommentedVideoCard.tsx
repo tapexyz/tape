@@ -7,7 +7,7 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import {
-  getDataString,
+  getDateString,
   getRelativeTime,
   getTimeFromSeconds
 } from 'utils/functions/formatTime'
@@ -98,7 +98,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
               {video.metadata?.content}
             </div>
             <div className="flex items-center text-xs leading-3 opacity-70">
-              <span title={getDataString(video.createdAt)}>
+              <span title={getDateString(video.createdAt)}>
                 {getRelativeTime(video.createdAt)}
               </span>
             </div>
