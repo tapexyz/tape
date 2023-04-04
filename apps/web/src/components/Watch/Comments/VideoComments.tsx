@@ -95,13 +95,14 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
 
   const { pageLoading } = usePaginationLoading({
     ref: sectionRef,
+    hasMore: !!pageInfo?.next,
     fetch: async () =>
       await fetchMore({
         variables: {
           ...variables,
           request: {
-            cursor: pageInfo?.next,
-            ...request
+            ...request,
+            cursor: pageInfo?.next
           }
         }
       })
@@ -161,11 +162,11 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
                     )
                 )}
               </div>
-              {pageInfo?.next && pageLoading ? (
+              {pageInfo?.next && pageLoading && (
                 <span className="flex justify-center p-10">
                   <Loader />
                 </span>
-              ) : null}
+              )}
             </>
           ) : null}
         </>

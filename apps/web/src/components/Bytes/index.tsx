@@ -92,6 +92,7 @@ const Bytes = () => {
 
   const { pageLoading } = usePaginationLoading({
     ref: bytesContainer,
+    hasMore: !!pageInfo?.next,
     fetch: async () =>
       await fetchMore({
         variables: {

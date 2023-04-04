@@ -41,12 +41,13 @@ const HomeFeed = () => {
 
   const { pageLoading } = usePaginationLoading({
     ref: sectionRef,
+    hasMore: !!pageInfo?.next,
     fetch: async () =>
       await fetchMore({
         variables: {
           request: {
-            cursor: pageInfo?.next,
-            ...request
+            ...request,
+            cursor: pageInfo?.next
           }
         }
       })

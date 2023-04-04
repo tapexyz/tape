@@ -2,30 +2,33 @@ import { useEffect, useState } from 'react'
 
 type Props<T> = {
   ref: React.RefObject<HTMLDivElement>
+  hasMore: boolean
   fetch: () => Promise<T>
 }
 
-export const usePaginationLoading = <T>({ ref, fetch }: Props<T>) => {
-  const [latestHeight, setLatestHeight] = useState<number>(0)
+export const usePaginationLoading = <T>({ ref, hasMore, fetch }: Props<T>) => {
   const [pageLoading, setPageLoading] = useState<boolean>(false)
 
   const handleScroll = async () => {
+    const scrollThreshold = 0.5 // Determines when to start fetching, based on the percentage of the scroll position
+
     if (
+      !pageLoading &&
+      hasMore &&
       ref.current &&
-      latestHeight <= ref.current.clientHeight &&
-      latestHeight !== ref.current.scrollHeight
+      window.innerHeight + window.scrollY >=
+        ref.current.offsetTop + ref.current.clientHeight * scrollThreshold
     ) {
       setPageLoading(true)
-      setLatestHeight(ref.current.scrollHeight)
       await fetch()
+      setPageLoading(false)
     }
   }
 
   useEffect(() => {
-    const current = ref.current
-    current?.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll)
     return () => {
-      current?.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('scroll', handleScroll)
     }
   })
 

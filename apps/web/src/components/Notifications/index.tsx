@@ -99,6 +99,7 @@ const Notifications = () => {
 
   const { pageLoading } = usePaginationLoading({
     ref: sectionRef,
+    hasMore: !!pageInfo?.next,
     fetch: async () =>
       await fetchMore({
         variables: {

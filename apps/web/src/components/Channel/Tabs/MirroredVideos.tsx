@@ -41,6 +41,7 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
 
   const { pageLoading } = usePaginationLoading({
     ref: sectionRef,
+    hasMore: !!pageInfo?.next,
     fetch: async () =>
       await fetchMore({
         variables: {
