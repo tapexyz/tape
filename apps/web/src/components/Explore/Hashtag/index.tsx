@@ -44,7 +44,7 @@ const ExploreHashtag = () => {
       ? data?.search?.pageInfo
       : null
 
-  const { pageLoading } = usePaginationLoading({
+  usePaginationLoading({
     ref: sectionRef,
     hasMore: !!pageInfo?.next,
     fetch: async () =>
@@ -75,7 +75,7 @@ const ExploreHashtag = () => {
           {!error && !loading && (
             <>
               <Timeline videos={videos} />
-              {pageInfo?.next && pageLoading && (
+              {pageInfo?.next && (
                 <span className="flex justify-center p-10">
                   <Loader />
                 </span>

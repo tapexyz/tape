@@ -31,6 +31,4 @@ export const usePaginationLoading = <T>({ ref, hasMore, fetch }: Props<T>) => {
       window.removeEventListener('scroll', handleScroll)
     }
   })
-
-  return { pageLoading }
 }

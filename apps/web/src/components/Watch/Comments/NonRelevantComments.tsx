@@ -59,7 +59,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
   const comments = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
-  const { pageLoading } = usePaginationLoading({
+  usePaginationLoading({
     ref: sectionRef,
     hasMore: !!pageInfo?.next,
     fetch: async () =>
@@ -115,11 +115,11 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
                 )
             )}
           </div>
-          {pageInfo?.next && pageLoading ? (
+          {pageInfo?.next && (
             <span className="flex justify-center p-10">
               <Loader />
             </span>
-          ) : null}
+          )}
         </>
       ) : null}
     </div>

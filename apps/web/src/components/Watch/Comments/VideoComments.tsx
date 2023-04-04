@@ -93,7 +93,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
   const comments = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
-  const { pageLoading } = usePaginationLoading({
+  usePaginationLoading({
     ref: sectionRef,
     hasMore: !!pageInfo?.next,
     fetch: async () =>
@@ -162,7 +162,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
                     )
                 )}
               </div>
-              {pageInfo?.next && pageLoading && (
+              {pageInfo?.next && (
                 <span className="flex justify-center p-10">
                   <Loader />
                 </span>

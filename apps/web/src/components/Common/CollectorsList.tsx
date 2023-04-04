@@ -32,7 +32,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
   const collectors = data?.whoCollectedPublication?.items as Wallet[]
   const pageInfo = data?.whoCollectedPublication?.pageInfo
 
-  const { pageLoading } = usePaginationLoading({
+  usePaginationLoading({
     ref: sectionRef,
     hasMore: !!pageInfo?.next,
     fetch: async () =>
@@ -103,7 +103,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
           )}
         </div>
       ))}
-      {pageInfo?.next && pageLoading && (
+      {pageInfo?.next && (
         <span className="p-5">
           <Loader />
         </span>

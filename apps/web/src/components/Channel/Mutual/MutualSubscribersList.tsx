@@ -33,7 +33,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
   const mutualSubscribers = data?.mutualFollowersProfiles?.items as Profile[]
   const pageInfo = data?.mutualFollowersProfiles?.pageInfo
 
-  const { pageLoading } = usePaginationLoading({
+  usePaginationLoading({
     ref: sectionRef,
     hasMore: !!pageInfo?.next,
     fetch: async () =>
@@ -84,7 +84,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
           </div>
         </Link>
       ))}
-      {pageInfo?.next && pageLoading && (
+      {pageInfo?.next && (
         <span className="p-5">
           <Loader />
         </span>

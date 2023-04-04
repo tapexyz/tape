@@ -37,7 +37,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
   const channelVideos = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
-  const { pageLoading } = usePaginationLoading({
+  usePaginationLoading({
     ref: sectionRef,
     hasMore: !!pageInfo?.next,
     fetch: async () =>
@@ -64,7 +64,7 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
       {!error && !loading && (
         <div>
           <Timeline videos={channelVideos} videoType="Comment" />
-          {pageInfo?.next && pageLoading && (
+          {pageInfo?.next && (
             <span className="flex justify-center p-10">
               <Loader />
             </span>

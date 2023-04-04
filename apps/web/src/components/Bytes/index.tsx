@@ -90,7 +90,7 @@ const Bytes = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady])
 
-  const { pageLoading } = usePaginationLoading({
+  usePaginationLoading({
     ref: bytesContainer,
     hasMore: !!pageInfo?.next,
     fetch: async () =>
@@ -148,7 +148,7 @@ const Bytes = () => {
               />
             )
         )}
-        {pageInfo?.next && pageLoading && (
+        {pageInfo?.next && (
           <span className="flex justify-center p-10">
             <Loader />
           </span>

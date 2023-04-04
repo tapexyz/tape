@@ -41,7 +41,7 @@ const Recents = () => {
   const videos = data?.explorePublications?.items as Publication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
-  const { pageLoading } = usePaginationLoading({
+  usePaginationLoading({
     ref: sectionRef,
     hasMore: !!pageInfo?.next,
     fetch: async () =>
@@ -70,7 +70,7 @@ const Recents = () => {
       {!error && !loading && videos?.length ? (
         <>
           <Timeline videos={videos} />
-          {pageInfo?.next && pageLoading && (
+          {pageInfo?.next && (
             <span className="flex justify-center p-10">
               <Loader />
             </span>
