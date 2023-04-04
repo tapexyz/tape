@@ -5,7 +5,11 @@ import type { Attribute, Mirror, Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { getRelativeTime, getTimeFromSeconds } from 'utils/functions/formatTime'
+import {
+  getDataString,
+  getRelativeTime,
+  getTimeFromSeconds
+} from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import getLensHandle from 'utils/functions/getLensHandle'
@@ -85,7 +89,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
           </span>
           <div className="pl-8">
             <div className="flex items-center text-xs leading-3 opacity-70">
-              <span title={video.createdAt}>
+              <span title={getDataString(video.createdAt)}>
                 Mirrored {getRelativeTime(video.createdAt)}
               </span>
             </div>
