@@ -11,7 +11,7 @@ import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
 import { LENSHUB_PROXY_ADDRESS } from 'utils/constants'
 import type { CustomErrorWithData } from 'utils/custom-types'
-import { formatNumber } from 'utils/functions/formatNumber'
+import formatNumber from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import omitKey from 'utils/functions/omitKey'
 import {

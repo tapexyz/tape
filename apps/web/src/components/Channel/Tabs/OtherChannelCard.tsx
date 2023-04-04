@@ -3,7 +3,7 @@ import SubscribeActions from '@components/Common/SubscribeActions'
 import type { Profile } from 'lens'
 import Link from 'next/link'
 import React from 'react'
-import { formatNumber } from 'utils/functions/formatNumber'
+import formatNumber from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
 const OtherChannelCard = ({ channel }: { channel: Profile }) => {
