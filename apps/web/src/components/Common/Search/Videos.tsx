@@ -2,7 +2,7 @@ import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { formatNumber } from 'utils/functions/formatNumber'
+import formatNumber from 'utils/functions/formatNumber'
 
 import LikeOutline from '../Icons/LikeOutline'
 
