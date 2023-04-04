@@ -65,6 +65,7 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 | `embed`  | Shared tsconfig                 |
 | `utils`  | Collection of utils and helpers |
 | `lens`   | Everything about Lens Backend   |
+| `workers`   | Cloudflare Workers   |
 
 ## Getting Started
 
