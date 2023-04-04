@@ -13,7 +13,7 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Analytics, SIGN_IN_REQUIRED_MESSAGE, TRACK } from 'utils'
-import { formatNumber } from 'utils/functions/formatNumber'
+import formatNumber from 'utils/functions/formatNumber'
 
 type Props = {
   publication: Publication
