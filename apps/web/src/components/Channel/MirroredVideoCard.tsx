@@ -6,7 +6,7 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import {
-  getDataString,
+  getDateString,
   getRelativeTime,
   getTimeFromSeconds
 } from 'utils/functions/formatTime'
@@ -89,7 +89,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
           </span>
           <div className="pl-8">
             <div className="flex items-center text-xs leading-3 opacity-70">
-              <span title={getDataString(video.createdAt)}>
+              <span title={getDateString(video.createdAt)}>
                 Mirrored {getRelativeTime(video.createdAt)}
               </span>
             </div>
