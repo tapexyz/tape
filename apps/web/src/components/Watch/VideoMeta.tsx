@@ -6,7 +6,7 @@ import Modal from '@components/UIElements/Modal'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { getDataString, getRelativeTime } from 'utils/functions/formatTime'
+import { getDateString, getRelativeTime } from 'utils/functions/formatTime'
 import { getPublicationMediaRawUrl } from 'utils/functions/getPublicationMediaUrl'
 
 import ViewCount from './ViewCount'
@@ -66,7 +66,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
         </button>
       </div>
       <span className="middot px-1" />
-      <span title={getDataString(video.createdAt)}>
+      <span title={getDateString(video.createdAt)}>
         uploaded {getRelativeTime(video.createdAt)}
       </span>
     </div>

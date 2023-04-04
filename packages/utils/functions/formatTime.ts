@@ -62,6 +62,6 @@ export const secondsToISO = (seconds: string | undefined) => {
   return duration // ex: P2M47S
 }
 
-export const getDataString = (timestamp: string) => {
+export const getDateString = (timestamp: string) => {
   return dayjs(timestamp).format('dddd, MMMM D, YYYY h:mm A')
 }
