@@ -10,7 +10,7 @@
     "mux-embed": "^4.24.0"
   },
   "devDependencies": {
-    "prettier-plugin-tailwindcss": "^0.2.6",
+    "prettier-plugin-tailwindcss": "^0.2.7",
     "typescript": "5.0.3",
     "utils": "*"
   }
