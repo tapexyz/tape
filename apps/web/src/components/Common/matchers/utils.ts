@@ -115,7 +115,8 @@ export const URL_PATH = combinePatterns(
         match: '*',
         nonCapture: true
       }
-    )
+    ),
+    /[_]?/ // Optional underscore at the end
   ],
   {
     capture: true,
@@ -137,7 +138,8 @@ export const URL_QUERY = combinePatterns(
         match: '?',
         nonCapture: true
       }
-    )
+    ),
+    /[_]?/ // Optional underscore at the end
   ],
   {
     capture: true,
@@ -157,7 +159,8 @@ export const URL_FRAGMENT = combinePatterns(
         match: '?',
         nonCapture: true
       }
-    )
+    ),
+    /[_]?/ // Optional underscore at the end
   ],
   {
     capture: true,
