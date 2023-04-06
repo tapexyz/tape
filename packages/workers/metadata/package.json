@@ -14,11 +14,11 @@
     "secp256k1": "^5.0.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230321.0",
+    "@cloudflare/workers-types": "^4.20230404.0",
     "@types/secp256k1": "latest",
-    "tsconfig": "*",
     "eslint-config-weblint": "*",
+    "tsconfig": "*",
     "typescript": "^5.0.3",
-    "wrangler": "2.13.0"
+    "wrangler": "2.14.0"
   }
 }
