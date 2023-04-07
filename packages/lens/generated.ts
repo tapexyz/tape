@@ -35,8 +35,8 @@ export type Scalars = {
   FollowModuleData: any
   Handle: any
   HandleClaimIdScalar: any
-  IfpsCid: any
   InternalPublicationId: any
+  IpfsCid: any
   Jwt: any
   LimitScalar: any
   Locale: any
@@ -3130,7 +3130,7 @@ export type PublicMediaRequest = {
   /** The cover for any video or audio you attached */
   cover?: InputMaybe<Scalars['Url']>
   /** Pre calculated cid of the file to push */
-  itemCid: Scalars['IfpsCid']
+  itemCid: Scalars['IpfsCid']
   /** This is the mime type of media */
   type?: InputMaybe<Scalars['MimeType']>
 }
@@ -4373,7 +4373,11 @@ export type CommentFieldsFragment = {
     isDefault: boolean
     interests?: Array<any> | null
     isFollowedByMe: boolean
-    dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
+    dispatcher?: {
+      __typename?: 'Dispatcher'
+      address: any
+      canUseRelay: boolean
+    } | null
     attributes?: Array<{
       __typename?: 'Attribute'
       key: string
@@ -4597,6 +4601,7 @@ export type CommentFieldsFragment = {
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
+            address: any
             canUseRelay: boolean
           } | null
           attributes?: Array<{
@@ -4707,7 +4712,11 @@ export type MirrorFieldsFragment = {
     isDefault: boolean
     interests?: Array<any> | null
     isFollowedByMe: boolean
-    dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
+    dispatcher?: {
+      __typename?: 'Dispatcher'
+      address: any
+      canUseRelay: boolean
+    } | null
     attributes?: Array<{
       __typename?: 'Attribute'
       key: string
@@ -4934,6 +4943,7 @@ export type MirrorFieldsFragment = {
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
+            address: any
             canUseRelay: boolean
           } | null
           attributes?: Array<{
@@ -5159,6 +5169,7 @@ export type MirrorFieldsFragment = {
                 isFollowedByMe: boolean
                 dispatcher?: {
                   __typename?: 'Dispatcher'
+                  address: any
                   canUseRelay: boolean
                 } | null
                 attributes?: Array<{
@@ -5243,6 +5254,7 @@ export type MirrorFieldsFragment = {
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
+            address: any
             canUseRelay: boolean
           } | null
           attributes?: Array<{
@@ -5471,7 +5483,11 @@ export type PostFieldsFragment = {
     isDefault: boolean
     interests?: Array<any> | null
     isFollowedByMe: boolean
-    dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
+    dispatcher?: {
+      __typename?: 'Dispatcher'
+      address: any
+      canUseRelay: boolean
+    } | null
     attributes?: Array<{
       __typename?: 'Attribute'
       key: string
@@ -5687,7 +5703,11 @@ export type ProfileFieldsFragment = {
   isDefault: boolean
   interests?: Array<any> | null
   isFollowedByMe: boolean
-  dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
+  dispatcher?: {
+    __typename?: 'Dispatcher'
+    address: any
+    canUseRelay: boolean
+  } | null
   attributes?: Array<{
     __typename?: 'Attribute'
     key: string
@@ -6299,7 +6319,11 @@ export type AllProfilesQuery = {
       isDefault: boolean
       interests?: Array<any> | null
       isFollowedByMe: boolean
-      dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
+      dispatcher?: {
+        __typename?: 'Dispatcher'
+        address: any
+        canUseRelay: boolean
+      } | null
       attributes?: Array<{
         __typename?: 'Attribute'
         key: string
@@ -6387,7 +6411,11 @@ export type CollectorsQuery = {
         isDefault: boolean
         interests?: Array<any> | null
         isFollowedByMe: boolean
-        dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
+        dispatcher?: {
+          __typename?: 'Dispatcher'
+          address: any
+          canUseRelay: boolean
+        } | null
         attributes?: Array<{
           __typename?: 'Attribute'
           key: string
@@ -6457,6 +6485,7 @@ export type CommentsQuery = {
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
+              address: any
               canUseRelay: boolean
             } | null
             attributes?: Array<{
@@ -6686,6 +6715,7 @@ export type CommentsQuery = {
                   isFollowedByMe: boolean
                   dispatcher?: {
                     __typename?: 'Dispatcher'
+                    address: any
                     canUseRelay: boolean
                   } | null
                   attributes?: Array<{
@@ -6852,6 +6882,7 @@ export type ExploreQuery = {
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
+              address: any
               canUseRelay: boolean
             } | null
             attributes?: Array<{
@@ -7081,6 +7112,7 @@ export type ExploreQuery = {
                   isFollowedByMe: boolean
                   dispatcher?: {
                     __typename?: 'Dispatcher'
+                    address: any
                     canUseRelay: boolean
                   } | null
                   attributes?: Array<{
@@ -7166,6 +7198,7 @@ export type ExploreQuery = {
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
+              address: any
               canUseRelay: boolean
             } | null
             attributes?: Array<{
@@ -7416,6 +7449,7 @@ export type FeedQuery = {
               isFollowedByMe: boolean
               dispatcher?: {
                 __typename?: 'Dispatcher'
+                address: any
                 canUseRelay: boolean
               } | null
               attributes?: Array<{
@@ -7645,6 +7679,7 @@ export type FeedQuery = {
                     isFollowedByMe: boolean
                     dispatcher?: {
                       __typename?: 'Dispatcher'
+                      address: any
                       canUseRelay: boolean
                     } | null
                     attributes?: Array<{
@@ -7729,6 +7764,7 @@ export type FeedQuery = {
               isFollowedByMe: boolean
               dispatcher?: {
                 __typename?: 'Dispatcher'
+                address: any
                 canUseRelay: boolean
               } | null
               attributes?: Array<{
@@ -8056,7 +8092,11 @@ export type MutualFollowersQuery = {
       isDefault: boolean
       interests?: Array<any> | null
       isFollowedByMe: boolean
-      dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
+      dispatcher?: {
+        __typename?: 'Dispatcher'
+        address: any
+        canUseRelay: boolean
+      } | null
       attributes?: Array<{
         __typename?: 'Attribute'
         key: string
@@ -8120,6 +8160,7 @@ export type NotificationsQuery = {
               isFollowedByMe: boolean
               dispatcher?: {
                 __typename?: 'Dispatcher'
+                address: any
                 canUseRelay: boolean
               } | null
               attributes?: Array<{
@@ -8175,6 +8216,7 @@ export type NotificationsQuery = {
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
+              address: any
               canUseRelay: boolean
             } | null
             attributes?: Array<{
@@ -8238,6 +8280,7 @@ export type NotificationsQuery = {
               isFollowedByMe: boolean
               dispatcher?: {
                 __typename?: 'Dispatcher'
+                address: any
                 canUseRelay: boolean
               } | null
               attributes?: Array<{
@@ -8293,6 +8336,7 @@ export type NotificationsQuery = {
                   isFollowedByMe: boolean
                   dispatcher?: {
                     __typename?: 'Dispatcher'
+                    address: any
                     canUseRelay: boolean
                   } | null
                   attributes?: Array<{
@@ -8342,6 +8386,7 @@ export type NotificationsQuery = {
                   isFollowedByMe: boolean
                   dispatcher?: {
                     __typename?: 'Dispatcher'
+                    address: any
                     canUseRelay: boolean
                   } | null
                   attributes?: Array<{
@@ -8393,6 +8438,7 @@ export type NotificationsQuery = {
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
+              address: any
               canUseRelay: boolean
             } | null
             attributes?: Array<{
@@ -8447,6 +8493,7 @@ export type NotificationsQuery = {
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
+              address: any
               canUseRelay: boolean
             } | null
             attributes?: Array<{
@@ -8513,7 +8560,11 @@ export type ProfileQuery = {
     isFollowedByMe: boolean
     isFollowing: boolean
     bio?: string | null
-    dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
+    dispatcher?: {
+      __typename?: 'Dispatcher'
+      address: any
+      canUseRelay: boolean
+    } | null
     onChainIdentity: {
       __typename?: 'OnChainIdentity'
       proofOfHumanity: boolean
@@ -8644,6 +8695,7 @@ export type ProfileMirrorsQuery = {
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
+              address: any
               canUseRelay: boolean
             } | null
             attributes?: Array<{
@@ -8876,6 +8928,7 @@ export type ProfileMirrorsQuery = {
                   isFollowedByMe: boolean
                   dispatcher?: {
                     __typename?: 'Dispatcher'
+                    address: any
                     canUseRelay: boolean
                   } | null
                   attributes?: Array<{
@@ -9108,6 +9161,7 @@ export type ProfileMirrorsQuery = {
                         isFollowedByMe: boolean
                         dispatcher?: {
                           __typename?: 'Dispatcher'
+                          address: any
                           canUseRelay: boolean
                         } | null
                         attributes?: Array<{
@@ -9192,6 +9246,7 @@ export type ProfileMirrorsQuery = {
                   isFollowedByMe: boolean
                   dispatcher?: {
                     __typename?: 'Dispatcher'
+                    address: any
                     canUseRelay: boolean
                   } | null
                   attributes?: Array<{
@@ -9472,6 +9527,7 @@ export type ProfilePostsQuery = {
             isFollowedByMe: boolean
             dispatcher?: {
               __typename?: 'Dispatcher'
+              address: any
               canUseRelay: boolean
             } | null
             attributes?: Array<{
@@ -9886,6 +9942,7 @@ export type PublicationDetailsQuery = {
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
+            address: any
             canUseRelay: boolean
           } | null
           attributes?: Array<{
@@ -10111,6 +10168,7 @@ export type PublicationDetailsQuery = {
                 isFollowedByMe: boolean
                 dispatcher?: {
                   __typename?: 'Dispatcher'
+                  address: any
                   canUseRelay: boolean
                 } | null
                 attributes?: Array<{
@@ -10195,6 +10253,7 @@ export type PublicationDetailsQuery = {
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
+            address: any
             canUseRelay: boolean
           } | null
           attributes?: Array<{
@@ -10423,6 +10482,7 @@ export type PublicationDetailsQuery = {
                 isFollowedByMe: boolean
                 dispatcher?: {
                   __typename?: 'Dispatcher'
+                  address: any
                   canUseRelay: boolean
                 } | null
                 attributes?: Array<{
@@ -10652,6 +10712,7 @@ export type PublicationDetailsQuery = {
                       isFollowedByMe: boolean
                       dispatcher?: {
                         __typename?: 'Dispatcher'
+                        address: any
                         canUseRelay: boolean
                       } | null
                       attributes?: Array<{
@@ -10736,6 +10797,7 @@ export type PublicationDetailsQuery = {
                 isFollowedByMe: boolean
                 dispatcher?: {
                   __typename?: 'Dispatcher'
+                  address: any
                   canUseRelay: boolean
                 } | null
                 attributes?: Array<{
@@ -10969,6 +11031,7 @@ export type PublicationDetailsQuery = {
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
+            address: any
             canUseRelay: boolean
           } | null
           attributes?: Array<{
@@ -11223,6 +11286,7 @@ export type SearchProfilesQuery = {
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
+            address: any
             canUseRelay: boolean
           } | null
           attributes?: Array<{
@@ -11295,6 +11359,7 @@ export type SearchPublicationsQuery = {
                 isFollowedByMe: boolean
                 dispatcher?: {
                   __typename?: 'Dispatcher'
+                  address: any
                   canUseRelay: boolean
                 } | null
                 attributes?: Array<{
@@ -11524,6 +11589,7 @@ export type SearchPublicationsQuery = {
                       isFollowedByMe: boolean
                       dispatcher?: {
                         __typename?: 'Dispatcher'
+                        address: any
                         canUseRelay: boolean
                       } | null
                       attributes?: Array<{
@@ -11608,6 +11674,7 @@ export type SearchPublicationsQuery = {
                 isFollowedByMe: boolean
                 dispatcher?: {
                   __typename?: 'Dispatcher'
+                  address: any
                   canUseRelay: boolean
                 } | null
                 attributes?: Array<{
@@ -11848,6 +11915,7 @@ export type SubscribersQuery = {
           isFollowedByMe: boolean
           dispatcher?: {
             __typename?: 'Dispatcher'
+            address: any
             canUseRelay: boolean
           } | null
           attributes?: Array<{
@@ -11911,7 +11979,11 @@ export type UserProfilesQuery = {
       isDefault: boolean
       interests?: Array<any> | null
       isFollowedByMe: boolean
-      dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
+      dispatcher?: {
+        __typename?: 'Dispatcher'
+        address: any
+        canUseRelay: boolean
+      } | null
       attributes?: Array<{
         __typename?: 'Attribute'
         key: string
@@ -11958,6 +12030,7 @@ export const ProfileFieldsFragmentDoc = gql`
     interests
     isFollowedByMe
     dispatcher {
+      address
       canUseRelay
     }
     attributes {
@@ -14960,6 +15033,7 @@ export const ProfileDocument = gql`
       ownedBy
       name
       dispatcher {
+        address
         canUseRelay
       }
       interests

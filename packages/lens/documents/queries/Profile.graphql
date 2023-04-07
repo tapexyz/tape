@@ -5,6 +5,7 @@ query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
     ownedBy
     name
     dispatcher {
+      address
       canUseRelay
     }
     interests
