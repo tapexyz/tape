@@ -3,12 +3,21 @@ import Toggle from '@components/Settings/Permissions/Dispatcher/Toggle'
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import useChannelStore from '@lib/store/channel'
 import React from 'react'
-import { LENSTUBE_APP_NAME } from 'utils'
+import { LENSTUBE_APP_NAME, RELAYER_ADDRESS } from 'utils'
 
 const DispatcherAlert = () => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  console.log(
+    '🚀 ~ file: DispatcherAlert.tsx:10 ~ DispatcherAlert ~ selectedChannel:',
+    selectedChannel
+  )
 
-  if (!selectedChannel || selectedChannel?.dispatcher?.canUseRelay) {
+  if (
+    !selectedChannel ||
+    (selectedChannel?.dispatcher?.canUseRelay &&
+      selectedChannel.dispatcher?.address?.toLocaleLowerCase() !==
+        RELAYER_ADDRESS.toLocaleLowerCase())
+  ) {
     return null
   }
 

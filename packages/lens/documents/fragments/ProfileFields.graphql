@@ -8,6 +8,7 @@ fragment ProfileFields on Profile {
   interests
   isFollowedByMe
   dispatcher {
+    address
     canUseRelay
   }
   attributes {
