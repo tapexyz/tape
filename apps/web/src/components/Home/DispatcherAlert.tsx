@@ -7,13 +7,12 @@ import { LENSTUBE_APP_NAME, RELAYER_ADDRESS } from 'utils'
 
 const DispatcherAlert = () => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const isDispatcherEnabled =
+    selectedChannel?.dispatcher?.canUseRelay &&
+    selectedChannel.dispatcher?.address?.toLocaleLowerCase() !==
+      RELAYER_ADDRESS.toLocaleLowerCase()
 
-  if (
-    !selectedChannel ||
-    (selectedChannel?.dispatcher?.canUseRelay &&
-      selectedChannel.dispatcher?.address?.toLocaleLowerCase() !==
-        RELAYER_ADDRESS.toLocaleLowerCase())
-  ) {
+  if (!selectedChannel || isDispatcherEnabled) {
     return null
   }
 
