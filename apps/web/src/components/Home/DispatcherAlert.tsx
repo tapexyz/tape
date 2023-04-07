@@ -3,12 +3,24 @@ import Toggle from '@components/Settings/Permissions/Dispatcher/Toggle'
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import useChannelStore from '@lib/store/channel'
 import React from 'react'
-import { LENSTUBE_APP_NAME } from 'utils'
+import { LENSTUBE_APP_NAME, OLD_LENS_RELAYER_ADDRESS } from 'utils'
+import getIsDispatcherEnabled from 'utils/functions/getIsDispatcherEnabled'
 
 const DispatcherAlert = () => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const isDispatcherEnabled = getIsDispatcherEnabled(selectedChannel)
+  const usingOldDispatcher =
+    selectedChannel?.dispatcher?.address?.toLocaleLowerCase() ===
+    OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase()
 
-  if (!selectedChannel || selectedChannel?.dispatcher?.canUseRelay) {
+  const getDescription = () => {
+    if (usingOldDispatcher) {
+      return 'We highly recommend that you update to our new dispatcher for a faster experience.'
+    }
+    return `You can enable dispatcher to interact with ${LENSTUBE_APP_NAME} without signing any of your transactions.`
+  }
+
+  if (!selectedChannel || isDispatcherEnabled) {
     return null
   }
 
@@ -22,10 +34,7 @@ const DispatcherAlert = () => {
             <span className="ml-1">Action Required</span>
           </div>
           <div className="flex w-full flex-1 flex-wrap items-center justify-between gap-y-3 dark:text-gray-100">
-            <p className="md:text-md text-sm lg:text-lg">
-              You can enable dispatcher to interact with {LENSTUBE_APP_NAME}{' '}
-              without signing any of your transactions.
-            </p>
+            <p className="md:text-md text-sm lg:text-lg">{getDescription()}</p>
             <Toggle />
           </div>
         </div>
