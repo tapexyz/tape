@@ -52,7 +52,10 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     setLoading(false)
   }
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return
+    }
     onMirrorSuccess?.()
     toast.success('Mirrored video across lens.')
     setLoading(false)
@@ -65,7 +68,8 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
   const [createMirrorViaDispatcher] = useCreateMirrorViaDispatcherMutation({
     onError,
-    onCompleted
+    onCompleted: ({ createMirrorViaDispatcher }) =>
+      onCompleted(createMirrorViaDispatcher.__typename)
   })
 
   const { write: mirrorWithSig } = useContractWrite({
@@ -74,12 +78,12 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     functionName: 'mirrorWithSig',
     mode: 'recklesslyUnprepared',
     onError,
-    onSuccess: onCompleted
+    onSuccess: () => onCompleted()
   })
 
   const [broadcast] = useBroadcastMutation({
     onError,
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   })
 
   const [createMirrorTypedData] = useCreateMirrorTypedDataMutation({
