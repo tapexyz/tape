@@ -12,13 +12,8 @@ import {
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
-import {
-  Analytics,
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  RELAYER_ADDRESS,
-  TRACK
-} from 'utils'
+import { Analytics, ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS, TRACK } from 'utils'
+import getIsDispatcherEnabled from 'utils/functions/getIsDispatcherEnabled'
 import omitKey from 'utils/functions/omitKey'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -30,10 +25,7 @@ const Toggle = () => {
   )
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
-  const canUseRelay =
-    selectedChannel?.dispatcher?.canUseRelay &&
-    selectedChannel.dispatcher?.address?.toLocaleLowerCase() !==
-      RELAYER_ADDRESS.toLocaleLowerCase()
+  const canUseRelay = getIsDispatcherEnabled(selectedChannel)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.message ?? ERROR_MESSAGE)
