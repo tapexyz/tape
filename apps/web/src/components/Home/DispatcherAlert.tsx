@@ -7,10 +7,6 @@ import { LENSTUBE_APP_NAME, RELAYER_ADDRESS } from 'utils'
 
 const DispatcherAlert = () => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
-  console.log(
-    '🚀 ~ file: DispatcherAlert.tsx:10 ~ DispatcherAlert ~ selectedChannel:',
-    selectedChannel
-  )
 
   if (
     !selectedChannel ||
