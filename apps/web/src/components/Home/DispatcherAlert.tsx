@@ -15,7 +15,7 @@ const DispatcherAlert = () => {
 
   const getDescription = () => {
     if (usingOldDispatcher) {
-      return 'We highly recommend that you update to our new dispatcher for a faster experience.'
+      return 'Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions.'
     }
     return `You can enable dispatcher to interact with ${LENSTUBE_APP_NAME} without signing any of your transactions.`
   }
