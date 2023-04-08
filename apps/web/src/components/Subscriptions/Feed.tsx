@@ -17,7 +17,7 @@ const Subscriptions = () => {
 
   const request = {
     limit: 50,
-    feedEventItemTypes: [FeedEventItemType.Post, FeedEventItemType.Comment],
+    feedEventItemTypes: [FeedEventItemType.Post],
     profileId: selectedChannel?.id,
     metadata: {
       tags:
