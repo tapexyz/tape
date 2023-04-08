@@ -134,7 +134,7 @@ const Toggle = () => {
 
   const getButtonText = () => {
     if (usingOldDispatcher) {
-      return 'Update'
+      return 'Upgrade'
     } else if (canUseRelay) {
       return 'Disable'
     } else {
