@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.11",
-    "@livepeer/react": "^2.4.1",
+    "@livepeer/react": "^2.4.2",
     "clsx": "^1.2.1",
     "graphql": "^16.6.0",
     "mixpanel-browser": "^2.46.0",
