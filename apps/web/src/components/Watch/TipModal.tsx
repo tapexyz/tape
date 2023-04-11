@@ -55,9 +55,10 @@ type Props = {
 const formSchema = z.object({
   tipQuantity: z
     .number()
-    .min(1, { message: 'Tip amount required' })
-    .nonnegative({ message: 'Should to greater than zero' }),
-  message: z.string().min(1, { message: 'Message is requried' })
+    .nonnegative({ message: 'Tip should to greater than zero' })
+    .max(100, { message: 'Tip should be less than or equal to 100 MATIC' })
+    .refine((n) => n > 0, { message: 'Tip should be greater than 0 MATIC' }),
+  message: z.string().min(1, { message: 'Tip message is requried' })
 })
 type FormData = z.infer<typeof formSchema>
 
@@ -67,7 +68,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     handleSubmit,
     getValues,
     watch,
-    formState: { errors }
+    formState: { errors, isValid }
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -421,10 +422,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
             />
             <span>x</span>
             <Input
-              {...register('tipQuantity', { valueAsNumber: true })}
-              className="w-14"
-              min={1}
               type="number"
+              className="w-14"
+              step="any"
+              {...register('tipQuantity', { valueAsNumber: true })}
             />
           </span>
         </div>
@@ -452,9 +453,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
               </div>
             )}
           </span>
-          <Button loading={loading}>
+          <Button loading={loading} disabled={!isValid || loading}>
             {`Tip ${
-              isNaN(Number(watchTipQuantity) * 1)
+              isNaN(Number(watchTipQuantity) * 1) ||
+              Number(watchTipQuantity) < 0
                 ? 0
                 : Number(watchTipQuantity) * 1
             } MATIC`}
