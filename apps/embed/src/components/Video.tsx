@@ -100,9 +100,9 @@ const Video: FC<Props> = ({ video }) => {
             onClick={onClickOverlay}
             role="button"
           >
-            <button className="rounded-full bg-indigo-500 p-3 xl:p-5">
+            <button className="rounded-full bg-gradient-to-tr from-indigo-300/30 to-indigo-400/60 p-2 shadow-2xl xl:p-5">
               <img
-                className="h-5 w-5"
+                className="ml-0.5 h-8 w-8"
                 src={imageCdn(
                   `${STATIC_ASSETS}/images/brand/lenstube.svg`,
                   'avatar'
