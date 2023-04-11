@@ -49,7 +49,6 @@ type Props = {
 const formSchema = z.object({
   tipQuantity: z
     .number()
-    .min(1, { message: 'Tip amount required' })
     .nonnegative({ message: 'Should to greater than zero' }),
   message: z.string().min(1, { message: 'Message is requried' })
 })
@@ -313,10 +312,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
             />
             <span>x</span>
             <Input
-              {...register('tipQuantity', { valueAsNumber: true })}
-              className="w-14"
-              min={1}
               type="number"
+              className="w-14"
+              step="any"
+              {...register('tipQuantity', { valueAsNumber: true })}
             />
           </span>
         </div>
