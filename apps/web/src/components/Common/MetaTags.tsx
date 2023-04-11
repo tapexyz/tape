@@ -8,7 +8,7 @@ import {
   LENSTUBE_APP_NAME,
   LENSTUBE_EMBED_URL,
   LENSTUBE_TWITTER_HANDLE,
-  STATIC_ASSETS
+  OG_IMAGE
 } from 'utils'
 
 type Props = {
@@ -24,7 +24,7 @@ const MetaTags: FC<Props> = (props) => {
   const meta = {
     title: title ?? LENSTUBE_APP_NAME,
     description: description ?? LENSTUBE_APP_DESCRIPTION,
-    image: image ?? `${STATIC_ASSETS}/images/seo/og.png`,
+    image: image ?? OG_IMAGE,
     type: 'website'
   }
 
@@ -49,13 +49,13 @@ const MetaTags: FC<Props> = (props) => {
       <meta property="og:image" content={meta.image} />
       <meta property="og:image:width" content="400" />
       <meta property="og:image:height" content="400" />
-      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:image:width" content="400" />
       <meta property="twitter:image:height" content="400" />
-      <meta name="twitter:site" content="Lenstube" />
+      <meta name="twitter:site" content="@lenstubexyz" />
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
-      <meta property="twitter:image:src" content={meta.image} />
+      <meta property="twitter:image" content={meta.image} />
       <meta property="twitter:creator" content={LENSTUBE_TWITTER_HANDLE} />
       {router.pathname === '/watch/[id]' && router.query?.id && (
         <>
