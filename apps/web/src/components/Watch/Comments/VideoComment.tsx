@@ -16,7 +16,7 @@ const VideoComment: FC<Props> = ({ comment }) => {
         className="flex items-center space-x-2.5"
       >
         <img
-          src={`${STATIC_ASSETS}/images/brand/circle-blue-72x72.png`}
+          src={`${STATIC_ASSETS}/images/brand/circle-72x72.png`}
           className="h-5 w-5"
           draggable={false}
           alt="lenstube"
