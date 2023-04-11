@@ -4,7 +4,7 @@ import {
   LENSTUBE_APP_NAME,
   LENSTUBE_EMBED_URL,
   LENSTUBE_WEBSITE_URL,
-  STATIC_ASSETS
+  OG_IMAGE
 } from 'utils'
 import getApolloClient from 'utils/functions/getApolloClient'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
@@ -27,10 +27,7 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
       '"',
       "'"
     )
-    const thumbnail = imageCdn(
-      getThumbnailUrl(video) || `${STATIC_ASSETS}/images/seo/og.png`,
-      'thumbnail'
-    )
+    const thumbnail = imageCdn(getThumbnailUrl(video) || OG_IMAGE, 'thumbnail')
 
     if (format === 'json') {
       return {

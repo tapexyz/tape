@@ -6,7 +6,7 @@ import {
   LENSTUBE_EMBED_URL,
   LENSTUBE_TWITTER_HANDLE,
   LENSTUBE_WEBSITE_URL,
-  STATIC_ASSETS
+  OG_IMAGE
 } from 'utils'
 import { secondsToISO } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
@@ -35,7 +35,7 @@ const getMetaTags = ({
   const meta = {
     title: `${title} • Lenstube` ?? LENSTUBE_APP_NAME,
     description: description || LENSTUBE_APP_DESCRIPTION,
-    image: image ?? `${STATIC_ASSETS}/images/seo/og.png`,
+    image: image ?? OG_IMAGE,
     url: isVideo
       ? `${LENSTUBE_WEBSITE_URL}/watch/${pubId}`
       : `${LENSTUBE_WEBSITE_URL}/channel/${handle}`
