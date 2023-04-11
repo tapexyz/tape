@@ -104,7 +104,7 @@ const Video: FC<Props> = ({ video }) => {
               <img
                 className="h-5 w-5"
                 src={imageCdn(
-                  `${STATIC_ASSETS}/images/brand/circle.png`,
+                  `${STATIC_ASSETS}/images/brand/lenstube.svg`,
                   'avatar'
                 )}
                 alt="play"
