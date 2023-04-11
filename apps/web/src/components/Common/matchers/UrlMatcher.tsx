@@ -22,7 +22,7 @@ const Url = ({ children, url, ...props }: UrlProps) => {
       className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 text-sm font-medium dark:bg-gray-800"
     >
       <img
-        src={`${STATIC_ASSETS}/images/brand/circle-blue-72x72.png`}
+        src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
         className="h-3 w-3"
         draggable={false}
         alt="lenstube"
