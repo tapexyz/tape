@@ -12,7 +12,7 @@ const FullPageLoader = () => {
         <img
           src={imageCdn(`${STATIC_ASSETS}/images/brand/lenstube.svg`)}
           draggable={false}
-          className="h-12 w-12"
+          className="h-12 w-12 md:h-16 md:w-16"
           alt="lenstube"
         />
       </div>

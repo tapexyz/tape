@@ -53,7 +53,7 @@ const Sidebar = () => {
               <img
                 src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
                 draggable={false}
-                className="ml-0.5 h-6 w-6"
+                className="h-8 w-8"
                 alt="lenstube"
               />
             </Link>
