@@ -148,3 +148,8 @@ export enum CustomCommentsFilterEnum {
   RELEVANT_COMMENTS = 'RelevantComments',
   NEWEST_COMMENTS = 'NewestComments'
 }
+
+export enum CustomNotificationsFilterEnum {
+  HIGH_SIGNAL = 'HighSignal',
+  ALL_NOTIFICATIONS = 'AllNotifications'
+}

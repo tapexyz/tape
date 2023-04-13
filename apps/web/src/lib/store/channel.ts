@@ -1,5 +1,5 @@
 import type { Profile } from 'lens'
-import { CustomCommentsFilterEnum } from 'utils'
+import { CustomCommentsFilterEnum, CustomNotificationsFilterEnum } from 'utils'
 import { create } from 'zustand'
 
 interface ChannelState {
@@ -9,12 +9,16 @@ interface ChannelState {
   userSigNonce: number
   selectedChannel: Profile | null
   selectedCommentFilter: CustomCommentsFilterEnum
+  selectedNotificationsFilter: CustomNotificationsFilterEnum
   setSelectedChannel: (channel: Profile | null) => void
   setUserSigNonce: (userSigNonce: number) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
   setChannels: (channels: Profile[]) => void
   setHasNewNotification: (value: boolean) => void
   setSelectedCommentFilter: (filter: CustomCommentsFilterEnum) => void
+  setSelectedNotificationsFilter: (
+    filter: CustomNotificationsFilterEnum
+  ) => void
 }
 
 export const useChannelStore = create<ChannelState>((set) => ({
@@ -26,6 +30,9 @@ export const useChannelStore = create<ChannelState>((set) => ({
   selectedCommentFilter: CustomCommentsFilterEnum.RELEVANT_COMMENTS,
   setSelectedCommentFilter: (selectedCommentFilter) =>
     set({ selectedCommentFilter }),
+  selectedNotificationsFilter: CustomNotificationsFilterEnum.HIGH_SIGNAL,
+  setSelectedNotificationsFilter: (selectedNotificationsFilter) =>
+    set({ selectedNotificationsFilter }),
   setSelectedChannel: (channel) => set({ selectedChannel: channel }),
   setUserSigNonce: (userSigNonce) => set({ userSigNonce }),
   setHasNewNotification: (b) => set({ hasNewNotification: b }),

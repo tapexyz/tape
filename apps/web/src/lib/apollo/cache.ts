@@ -27,7 +27,7 @@ const cache = new InMemoryCache({
         nfts: cursorBasedPagination(['request', ['ownerAddress']]),
         notifications: cursorBasedPagination([
           'request',
-          ['profileId', 'notificationTypes']
+          ['profileId', 'notificationTypes', 'highSignalFilter']
         ]),
         followers: cursorBasedPagination(['request', ['profileId']]),
         following: cursorBasedPagination(['request', ['address']]),
