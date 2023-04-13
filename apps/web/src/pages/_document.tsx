@@ -10,6 +10,16 @@ class LenstubeDocument extends Document {
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <link
+            rel="icon"
+            href={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
+            type="image/svg+xml"
+          />
+          <link
+            rel="icon"
+            href={`${STATIC_ASSETS}/images/favicons/favicon.ico`}
+            type="image/x-icon"
+          />
+          <link
             rel="shortcut icon"
             href={`${STATIC_ASSETS}/images/favicons/favicon.ico`}
           />

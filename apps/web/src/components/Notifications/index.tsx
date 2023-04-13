@@ -17,6 +17,7 @@ import { NotificationTypes, useNotificationsQuery } from 'lens'
 import React, { useRef, useState } from 'react'
 import {
   Analytics,
+  CustomNotificationsFilterEnum,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
@@ -25,6 +26,7 @@ import {
 
 import CollectedNotification from './Collected'
 import CommentedNotification from './Commented'
+import NotificationsFilter from './Filter'
 import MentionedNotification from './Mentioned'
 import MirroredNotification from './Mirrored'
 import ReactedNotification from './Reacted'
@@ -45,6 +47,9 @@ const Notifications = () => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const setHasNewNotification = useChannelStore(
     (state) => state.setHasNewNotification
+  )
+  const selectedNotificationsFilter = useChannelStore(
+    (state) => state.selectedNotificationsFilter
   )
 
   const getNotificationFilters = () => {
@@ -84,6 +89,8 @@ const Notifications = () => {
       : [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: selectedChannel?.id,
+    highSignalFilter:
+      selectedNotificationsFilter === CustomNotificationsFilterEnum.HIGH_SIGNAL,
     notificationTypes: getNotificationFilters()
   }
 
@@ -229,9 +236,10 @@ const Notifications = () => {
               }
             >
               <CollectOutline className="h-3.5 w-3.5" />
-              <span>Collected</span>
+              <span>Collects</span>
             </Tab>
           </Tab.List>
+          <NotificationsFilter />
         </div>
         <Tab.Panels ref={sectionRef}>
           {loading && <NotificationsShimmer />}
