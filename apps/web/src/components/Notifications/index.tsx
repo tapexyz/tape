@@ -11,6 +11,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import type { Notification } from 'lens'
 import { NotificationTypes, useNotificationsQuery } from 'lens'
@@ -48,7 +49,7 @@ const Notifications = () => {
   const setHasNewNotification = useChannelStore(
     (state) => state.setHasNewNotification
   )
-  const selectedNotificationsFilter = useChannelStore(
+  const selectedNotificationsFilter = usePersistStore(
     (state) => state.selectedNotificationsFilter
   )
 
