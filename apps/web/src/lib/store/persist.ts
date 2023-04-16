@@ -1,4 +1,5 @@
 import type { QueuedCommentType, QueuedVideoType } from 'utils'
+import { CustomNotificationsFilterEnum } from 'utils'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -7,10 +8,14 @@ interface AppPerisistState {
   latestNotificationId: string
   queuedVideos: QueuedVideoType[]
   queuedComments: QueuedCommentType[]
+  selectedNotificationsFilter: CustomNotificationsFilterEnum
   setLatestNotificationId: (id: string) => void
   setSidebarCollapsed: (collapsed: boolean) => void
   setQueuedComments: (queuedComments: QueuedCommentType[]) => void
   setQueuedVideos: (queuedVideos: QueuedVideoType[]) => void
+  setSelectedNotificationsFilter: (
+    filter: CustomNotificationsFilterEnum
+  ) => void
 }
 
 export const usePersistStore = create(
@@ -24,7 +29,10 @@ export const usePersistStore = create(
       setQueuedComments: (queuedComments) => set({ queuedComments }),
       setSidebarCollapsed: (sidebarCollapsed) => set({ sidebarCollapsed }),
       setLatestNotificationId: (latestNotificationId) =>
-        set({ latestNotificationId })
+        set({ latestNotificationId }),
+      selectedNotificationsFilter: CustomNotificationsFilterEnum.HIGH_SIGNAL,
+      setSelectedNotificationsFilter: (selectedNotificationsFilter) =>
+        set({ selectedNotificationsFilter })
     }),
     {
       name: 'lenstube.store'
