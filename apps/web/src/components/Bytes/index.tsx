@@ -78,7 +78,8 @@ const Bytes = () => {
           : null,
         channelId: selectedChannel?.id ?? null
       },
-      onCompleted: () => fetchAllBytes()
+      onCompleted: () => fetchAllBytes(),
+      fetchPolicy: 'network-only'
     })
   }
 

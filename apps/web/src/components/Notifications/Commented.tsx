@@ -20,8 +20,8 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
         >
           <img
             className="h-5 w-5 rounded-full"
-            src={getProfilePicture(notification.profile, 'avatar')}
-            alt={notification.profile?.handle}
+            src={getProfilePicture(notification?.profile, 'avatar')}
+            alt={notification?.profile?.handle}
             draggable={false}
           />
           <div className="flex items-center space-x-0.5">
@@ -50,7 +50,7 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
           }`}
           className="truncate py-1 text-gray-600 dark:text-gray-400"
         >
-          {notification.comment?.metadata?.content}
+          {notification?.comment?.metadata?.content}
         </Link>
         <div className="flex flex-none items-center text-gray-600 dark:text-gray-400">
           <span>{getRelativeTime(notification?.createdAt)}</span>

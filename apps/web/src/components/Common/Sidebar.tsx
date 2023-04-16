@@ -45,10 +45,10 @@ const Sidebar = () => {
           )}
           data-testid="sidebar-items"
         >
-          <div className={clsx('py-3', sidebarCollapsed ? 'px-3' : 'px-3.5')}>
+          <div className={clsx('py-3', sidebarCollapsed ? 'px-2' : 'px-3.5')}>
             <Link
               href="/"
-              className="flex items-center pt-1 focus:outline-none"
+              className="flex items-center pt-0.5 focus:outline-none"
             >
               <img
                 src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
@@ -58,7 +58,7 @@ const Sidebar = () => {
               />
             </Link>
           </div>
-          <div className="flex flex-col justify-center space-y-2">
+          <div className="flex flex-col items-center justify-center space-y-2">
             <Tooltip
               content="Home"
               visible={sidebarCollapsed}
