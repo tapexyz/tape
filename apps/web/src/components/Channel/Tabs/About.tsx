@@ -37,9 +37,7 @@ const About: FC<Props> = ({ channel }) => {
       )}
       {hasOnChainId && (
         <div className="flex flex-col space-y-3">
-          <h6 className="text-xs font-semibold uppercase opacity-50">
-            On-chain Identity
-          </h6>
+          <h6 className="text-xs font-semibold uppercase opacity-50">DID</h6>
           <div className="flex items-center space-x-2">
             {channel.onChainIdentity?.ens?.name && (
               <Tooltip content={channel.onChainIdentity?.ens?.name}>
