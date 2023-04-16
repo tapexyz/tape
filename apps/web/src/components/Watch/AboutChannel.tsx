@@ -76,11 +76,13 @@ const AboutChannel: FC<Props> = ({ video }) => {
             <SubscribeActions channel={channel} subscribeType={subscribeType} />
           </div>
         </div>
-        {video?.metadata?.description && (
+        {video.metadata.description || video.metadata.content ? (
           <p className={clsx('mt-4', { 'line-clamp-3': clamped })}>
-            <InterweaveContent content={video.metadata.description} />
+            <InterweaveContent
+              content={video.metadata.description || video.metadata.content}
+            />
           </p>
-        )}
+        ) : null}
         {showMore && (
           <div className="mt-3 inline-flex">
             <button
