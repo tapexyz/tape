@@ -1,16 +1,16 @@
 import CogOutline from '@components/Common/Icons/CogOutline'
 import DropMenu from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
-import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import React from 'react'
 import { CustomNotificationsFilterEnum } from 'utils'
 
 const NotificationsFilter = () => {
-  const selectedNotificationsFilter = useChannelStore(
+  const selectedNotificationsFilter = usePersistStore(
     (state) => state.selectedNotificationsFilter
   )
-  const setSelectedNotificationsFilter = useChannelStore(
+  const setSelectedNotificationsFilter = usePersistStore(
     (state) => state.setSelectedNotificationsFilter
   )
 
