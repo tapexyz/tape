@@ -24,6 +24,7 @@ import {
 import { AUTH_ROUTES } from 'utils/data/auth-routes'
 import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
 import { getToastOptions } from 'utils/functions/getToastOptions'
+import getVisitorId from 'utils/functions/getVisitorId'
 import useIsMounted from 'utils/hooks/useIsMounted'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
@@ -52,6 +53,8 @@ const Layout: FC<Props> = ({ children }) => {
   )
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
+  const visitorId = usePersistStore((state) => state.visitorId)
+  const setVisitorId = usePersistStore((state) => state.setVisitorId)
   const selectedChannelId = useAuthPersistStore(
     (state) => state.selectedChannelId
   )
@@ -131,14 +134,29 @@ const Layout: FC<Props> = ({ children }) => {
   }
 
   useEffect(() => {
-    if (IS_PRODUCTION && selectedChannel?.id) {
+    if (IS_PRODUCTION && selectedChannel?.id && visitorId) {
       mixpanel.identify(selectedChannel?.id)
       mixpanel.people.set({
-        $name: selectedChannel?.handle
+        $name: selectedChannel?.handle,
+        $visitorId: visitorId,
+        $last_active: new Date()
+      })
+      mixpanel.people.set_once({
+        $created_at: new Date()
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedChannel?.id])
+
+  const storeVisitorId = async () => {
+    const visitorId = await getVisitorId()
+    setVisitorId(visitorId)
+  }
+
+  useEffect(() => {
+    storeVisitorId()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     validateAuthentication()
