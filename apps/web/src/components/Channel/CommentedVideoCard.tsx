@@ -31,6 +31,12 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
     'durationInSeconds'
   )
 
+  const isCommentOfComment = commentedOn.__typename === 'Comment'
+
+  if (isCommentOfComment) {
+    return null
+  }
+
   return (
     <div className="group overflow-hidden rounded-xl">
       <Link href={`/watch/${commentedOn?.id}`}>

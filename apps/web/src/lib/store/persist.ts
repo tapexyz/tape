@@ -16,6 +16,8 @@ interface AppPerisistState {
   setSelectedNotificationsFilter: (
     filter: CustomNotificationsFilterEnum
   ) => void
+  visitorId: string | null
+  setVisitorId: (visitorId: string | null) => void
 }
 
 export const usePersistStore = create(
@@ -32,7 +34,9 @@ export const usePersistStore = create(
         set({ latestNotificationId }),
       selectedNotificationsFilter: CustomNotificationsFilterEnum.HIGH_SIGNAL,
       setSelectedNotificationsFilter: (selectedNotificationsFilter) =>
-        set({ selectedNotificationsFilter })
+        set({ selectedNotificationsFilter }),
+      visitorId: null,
+      setVisitorId: (visitorId) => set({ visitorId })
     }),
     {
       name: 'lenstube.store'
