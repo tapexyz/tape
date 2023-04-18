@@ -403,7 +403,7 @@ const UploadSteps = () => {
         videoSource: `ar://${response.data.id}`
       })
     } catch (error) {
-      toast.error('Failed to upload video!')
+      toast.error('Failed to upload video to Arweave!')
       logger.error('[Error Bundlr Upload Video]', error)
       return setUploadedVideo({
         loading: false,
