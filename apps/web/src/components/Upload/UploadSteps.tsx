@@ -375,9 +375,14 @@ const UploadSteps = () => {
         { name: 'Profile-Id', value: selectedChannel?.id }
       ]
       const uploader = bundlr.uploader.chunkedUploader
-      uploader.setChunkSize(10000000) // 10 MB
+      const chunkSize = 10000000
+      uploader.setChunkSize(chunkSize) // 10 MB
       uploader.on('chunkUpload', (chunkInfo) => {
         const fileSize = uploadedVideo?.file?.size as number
+        const lastChunk = fileSize - chunkInfo.totalUploaded
+        if (lastChunk <= chunkSize) {
+          toast.loading('Requesting signature...')
+        }
         const percentCompleted = Math.round(
           (chunkInfo.totalUploaded * 100) / fileSize
         )
