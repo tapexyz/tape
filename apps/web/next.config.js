@@ -5,8 +5,7 @@ const moduleExports = {
   reactStrictMode: process.env.NODE_ENV === 'production',
   experimental: {
     scrollRestoration: true,
-    newNextLinkBehavior: true,
-    esmExternals: false
+    newNextLinkBehavior: true
   },
   async rewrites() {
     return [
