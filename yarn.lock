@@ -1510,16 +1510,16 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@bundlr-network/client@0.11.0-rc5":
-  version "0.11.0-rc5"
-  resolved "https://registry.yarnpkg.com/@bundlr-network/client/-/client-0.11.0-rc5.tgz#ae3fdbbdf012d63816f4684d08c844c933a729a7"
-  integrity sha512-0SfOjZy5gz2pF7AiiUqvrNE49ufO3RD0B5Zi1FArdL9TshOv5ACGx6Bq/X1sssp6ZeJ3eRvYKsGs2yk7uCIe3g==
+"@bundlr-network/client@0.11.0-rc6":
+  version "0.11.0-rc6"
+  resolved "https://registry.yarnpkg.com/@bundlr-network/client/-/client-0.11.0-rc6.tgz#5f45761821143f8c364d9b66a47e9a981be56466"
+  integrity sha512-lWh0r97xd9GT7D5H+V44iO08j0BglsqzkDtvKcEiil+oz5CauqwoJ5UCOHUpNkFaae5S/yMa5TRT8vvPXsGOjA==
   dependencies:
     "@solana/web3.js" "^1.36.0"
     "@supercharge/promise-pool" "^2.1.0"
     algosdk "^1.13.1"
     aptos "=1.3.14"
-    arbundles "^0.9.0-rc5"
+    arbundles "^0.9.0-rc6"
     arweave "=1.11.8"
     async-retry "^1.3.3"
     axios "^0.25.0"
@@ -4999,10 +4999,10 @@ arbundles@^0.8.0:
     multistream "^4.1.0"
     tmp-promise "^3.0.2"
 
-arbundles@^0.9.0-rc5:
-  version "0.9.0-rc5"
-  resolved "https://registry.yarnpkg.com/arbundles/-/arbundles-0.9.0-rc5.tgz#213c1d778170937c5203d7e9f8febda24f9bda8a"
-  integrity sha512-0+QuMIAQ40Yu/7BAAq6o/wAIFzPol2nNmZ7SZMxC89rdLEoWwnGGu93B28/yKcuMnyPiXnL3EqpBSEQI77KixQ==
+arbundles@^0.9.0-rc6:
+  version "0.9.0-rc6"
+  resolved "https://registry.yarnpkg.com/arbundles/-/arbundles-0.9.0-rc6.tgz#4291bdf007516cf8d78ba79b9e84fe71b9fb272b"
+  integrity sha512-o0BYdGP7lFP86j9gOpsQgYBlvIYhJkHLPMhzBe4WN2jBFl7xywzRcTxuNy49euvDV3XEtjRvL6PmBzSGi1P7Hw==
   dependencies:
     "@noble/ed25519" "^1.6.1"
     arweave "=1.11.8"
