@@ -83,7 +83,8 @@ export const BUNDLR_NODE_URL = IS_MAINNET
 export const BUNDLR_CURRENCY = 'matic'
 export const BUNDLR_WEBSITE_URL = 'https://bundlr.network'
 export const ARWEAVE_GATEWAY_URL = 'https://arweave.net'
-export const BUNDLR_CONNECT_MESSAGE = 'Sign to initialize & estimate upload...'
+export const BUNDLR_CONNECT_MESSAGE = 'Estimating video upload cost...'
+export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
 
 // error messages
 export const ERROR_MESSAGE = 'Oops, something went wrong!'
