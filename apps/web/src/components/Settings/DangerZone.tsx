@@ -9,7 +9,10 @@ import { useCreateBurnProfileTypedDataMutation } from 'lens'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
-import { LENSHUB_PROXY_ADDRESS } from 'utils/constants'
+import {
+  LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE
+} from 'utils/constants'
 import type { CustomErrorWithData } from 'utils/custom-types'
 import formatNumber from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
@@ -62,7 +65,7 @@ const DangerZone = () => {
       const { typedData } =
         data.createBurnProfileTypedData as CreateBurnProfileBroadcastItemResult
       try {
-        toast.loading('Requesting signature...')
+        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),

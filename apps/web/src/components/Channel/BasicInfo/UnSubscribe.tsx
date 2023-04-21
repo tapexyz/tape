@@ -13,7 +13,12 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
-import { Analytics, SIGN_IN_REQUIRED_MESSAGE, TRACK } from 'utils'
+import {
+  Analytics,
+  REQUESTING_SIGNATURE_MESSAGE,
+  SIGN_IN_REQUIRED_MESSAGE,
+  TRACK
+} from 'utils'
 import omitKey from 'utils/functions/omitKey'
 import { useSigner, useSignTypedData } from 'wagmi'
 
@@ -87,7 +92,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
       const { typedData, id } =
         createUnfollowTypedData as CreateUnfollowBroadcastItemResult
       try {
-        toast.loading('Requesting signature...')
+        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),

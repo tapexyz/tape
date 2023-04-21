@@ -26,6 +26,7 @@ import type { CustomErrorWithData } from 'utils'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE,
   WMATIC_TOKEN_ADDRESS
 } from 'utils'
 import omitKey from 'utils/functions/omitKey'
@@ -132,7 +133,7 @@ const Membership = ({ channel }: Props) => {
         const { profileId, followModule, followModuleInitData } =
           typedData?.value
         try {
-          toast.loading('Requesting signature...')
+          toast.loading(REQUESTING_SIGNATURE_MESSAGE)
           const signature = await signTypedDataAsync({
             domain: omitKey(typedData?.domain, '__typename'),
             types: omitKey(typedData?.types, '__typename'),

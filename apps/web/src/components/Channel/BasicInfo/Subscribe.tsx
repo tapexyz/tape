@@ -21,6 +21,7 @@ import {
   Analytics,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED_MESSAGE,
   TRACK
 } from 'utils'
@@ -87,7 +88,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
       const { typedData, id } =
         createFollowTypedData as CreateFollowBroadcastItemResult
       try {
-        toast.loading('Requesting signature...')
+        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),
@@ -121,7 +122,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
 
   const createTypedData = async () => {
     if (channel?.followModule?.__typename === 'ProfileFollowModuleSettings') {
-      toast('Requesting signature...')
+      toast.loading(REQUESTING_SIGNATURE_MESSAGE)
     }
     await createSubscribeTypedData({
       variables: {
