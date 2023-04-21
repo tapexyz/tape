@@ -22,13 +22,8 @@ export const SCROLL_ROOT_MARGIN = '60% 0px'
 // lens
 export const MAINNET_API_URL = 'https://api.lens.dev'
 export const TESTNET_API_URL = 'https://api-mumbai.lens.dev'
-export const STAGING_MAINNET_API_URL =
-  'https://staging-api-social-polygon.lens.crtlkey.com'
-export const STAGING_TESTNET_API_URL =
+export const STAGING_API_URL =
   'https://staging-api-social-mumbai.lens.crtlkey.com'
-export const STAGING_API_URL = IS_MAINNET
-  ? STAGING_MAINNET_API_URL
-  : STAGING_TESTNET_API_URL
 export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 
 // API urls
