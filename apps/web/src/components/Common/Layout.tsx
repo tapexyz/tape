@@ -7,7 +7,6 @@ import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { useUserProfilesQuery } from 'lens'
-import mixpanel from 'mixpanel-browser'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
@@ -15,35 +14,23 @@ import type { FC, ReactNode } from 'react'
 import React, { useEffect } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
-import {
-  IS_PRODUCTION,
-  MIXPANEL_API_HOST,
-  MIXPANEL_TOKEN,
-  POLYGON_CHAIN_ID
-} from 'utils'
+import { POLYGON_CHAIN_ID } from 'utils'
 import { AUTH_ROUTES } from 'utils/data/auth-routes'
 import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
 import { getToastOptions } from 'utils/functions/getToastOptions'
-import getVisitorId from 'utils/functions/getVisitorId'
 import useIsMounted from 'utils/hooks/useIsMounted'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
 import Header from './Header'
 import Sidebar from './Sidebar'
+import TelemetryProvider from './TelemetryProvider'
 
 interface Props {
   children: ReactNode
 }
 
 const NO_HEADER_PATHS = ['/auth']
-
-if (IS_PRODUCTION) {
-  mixpanel.init(MIXPANEL_TOKEN, {
-    ignore_dnt: true,
-    api_host: MIXPANEL_API_HOST
-  })
-}
 
 const Layout: FC<Props> = ({ children }) => {
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
@@ -53,8 +40,6 @@ const Layout: FC<Props> = ({ children }) => {
   )
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
-  const visitorId = usePersistStore((state) => state.visitorId)
-  const setVisitorId = usePersistStore((state) => state.setVisitorId)
   const selectedChannelId = useAuthPersistStore(
     (state) => state.selectedChannelId
   )
@@ -134,31 +119,6 @@ const Layout: FC<Props> = ({ children }) => {
   }
 
   useEffect(() => {
-    if (IS_PRODUCTION && selectedChannel?.id && visitorId) {
-      mixpanel.identify(selectedChannel?.id)
-      mixpanel.people.set({
-        $name: selectedChannel?.handle,
-        $visitorId: visitorId,
-        $last_active: new Date()
-      })
-      mixpanel.people.set_once({
-        $created_at: new Date()
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedChannel?.id])
-
-  const storeVisitorId = async () => {
-    const visitorId = await getVisitorId()
-    setVisitorId(visitorId)
-  }
-
-  useEffect(() => {
-    storeVisitorId()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
     validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, chain, disconnect, selectedChannelId])
@@ -179,6 +139,7 @@ const Layout: FC<Props> = ({ children }) => {
         position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
+      <TelemetryProvider />
       <div className={clsx('flex pb-10 md:pb-0', showFullScreen && '!pb-0')}>
         <Sidebar />
         <div
