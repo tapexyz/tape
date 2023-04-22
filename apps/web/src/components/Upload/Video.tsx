@@ -22,7 +22,7 @@ const Video = () => {
   const [copy] = useCopyToClipboard()
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  const onDataLoaded = async () => {
+  const onDataLoaded = () => {
     if (videoRef.current?.duration && videoRef.current?.duration !== Infinity) {
       setUploadedVideo({
         durationInSeconds: videoRef.current.duration.toFixed(2)
