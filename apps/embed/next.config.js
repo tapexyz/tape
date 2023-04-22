@@ -3,14 +3,14 @@ const nextConfig = {
   transpilePackages: ['lens', 'utils', 'web-ui'],
   reactStrictMode: true,
   swcMinify: true,
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: '/collect/:match*',
-  //       destination: 'https://api.mixpanel.com/:match*'
-  //     }
-  //   ]
-  // },
+  async rewrites() {
+    return [
+      {
+        source: '/collect/:match*',
+        destination: 'https://api.mixpanel.com/:match*'
+      }
+    ]
+  },
   async headers() {
     return [
       {
