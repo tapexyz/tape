@@ -17,6 +17,7 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   OLD_LENS_RELAYER_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE,
   TRACK
 } from 'utils'
 import getIsDispatcherEnabled from 'utils/functions/getIsDispatcherEnabled'
@@ -93,7 +94,7 @@ const Toggle = () => {
         createSetDispatcherTypedData as CreateSetDispatcherBroadcastItemResult
       const { deadline } = typedData?.value
       try {
-        toast.loading('Requesting signature...')
+        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),

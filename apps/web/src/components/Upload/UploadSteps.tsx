@@ -36,6 +36,7 @@ import {
   LENSTUBE_APP_NAME,
   LENSTUBE_BYTES_APP_ID,
   LENSTUBE_WEBSITE_URL,
+  REQUESTING_SIGNATURE_MESSAGE,
   TRACK
 } from 'utils'
 import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
@@ -243,7 +244,7 @@ const UploadSteps = () => {
         referenceModuleInitData
       } = typedData?.value
       try {
-        toast.loading('Requesting signature...')
+        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),
@@ -449,9 +450,14 @@ const UploadSteps = () => {
         { name: 'Profile-Id', value: selectedChannel?.id }
       ]
       const uploader = bundlr.uploader.chunkedUploader
-      uploader.setChunkSize(10000000) // 10 MB
+      const chunkSize = 10000000 // 10 MB
+      uploader.setChunkSize(chunkSize)
       uploader.on('chunkUpload', (chunkInfo) => {
         const fileSize = uploadedVideo?.file?.size as number
+        const lastChunk = fileSize - chunkInfo.totalUploaded
+        if (lastChunk <= chunkSize) {
+          toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+        }
         const percentCompleted = Math.round(
           (chunkInfo.totalUploaded * 100) / fileSize
         )
@@ -472,7 +478,7 @@ const UploadSteps = () => {
         videoSource: `ar://${response.data.id}`
       })
     } catch (error) {
-      toast.error('Failed to upload video!')
+      toast.error('Failed to upload video to Arweave!')
       logger.error('[Error Bundlr Upload Video]', error)
       return setUploadedVideo({
         loading: false,

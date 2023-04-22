@@ -32,6 +32,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
+  REQUESTING_SIGNATURE_MESSAGE,
   TRACK
 } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
@@ -197,7 +198,7 @@ const NewComment: FC<Props> = ({
         referenceModuleInitData
       } = typedData?.value
       try {
-        toast.loading('Requesting signature...')
+        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         const signature = await signTypedDataAsync({
           domain: omitKey(typedData?.domain, '__typename'),
           types: omitKey(typedData?.types, '__typename'),

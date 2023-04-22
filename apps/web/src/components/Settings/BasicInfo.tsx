@@ -33,6 +33,7 @@ import {
   LENS_PERIPHERY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
+  REQUESTING_SIGNATURE_MESSAGE,
   TALLY_VERIFICATION_FORM_URL,
   TRACK
 } from 'utils'
@@ -145,7 +146,7 @@ const BasicInfo = ({ channel }: Props) => {
       onCompleted: async (data) => {
         const { typedData, id } = data.createSetProfileMetadataTypedData
         try {
-          toast.loading('Requesting signature...')
+          toast.loading(REQUESTING_SIGNATURE_MESSAGE)
           const signature = await signTypedDataAsync({
             domain: omitKey(typedData?.domain, '__typename'),
             types: omitKey(typedData?.types, '__typename'),

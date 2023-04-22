@@ -26,6 +26,7 @@ import {
   ERROR_MESSAGE,
   LENS_PERIPHERY_ADDRESS,
   LENSTUBE_APP_ID,
+  REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED_MESSAGE,
   TRACK
 } from 'utils'
@@ -142,7 +143,7 @@ const VideoOptions: FC<Props> = ({
       onCompleted: async (data) => {
         const { typedData, id } = data.createSetProfileMetadataTypedData
         try {
-          toast.loading('Requesting signature...')
+          toast.loading(REQUESTING_SIGNATURE_MESSAGE)
           const signature = await signTypedDataAsync({
             domain: omitKey(typedData?.domain, '__typename'),
             types: omitKey(typedData?.types, '__typename'),

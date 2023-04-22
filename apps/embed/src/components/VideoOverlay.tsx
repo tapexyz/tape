@@ -2,7 +2,6 @@ import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { Analytics, TRACK } from 'utils'
 import { LENSTUBE_WEBSITE_URL, STATIC_ASSETS } from 'utils/constants'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
@@ -20,9 +19,9 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
             className="mr-3 flex-none cursor-pointer"
             href={`${LENSTUBE_WEBSITE_URL}/channel/${video?.profile?.handle}`}
             target="_blank"
-            onClick={() =>
-              Analytics.track(TRACK.EMBED_VIDEO.CLICK_EMBED_CHANNEL)
-            }
+            // onClick={() =>
+            //   Analytics.track(TRACK.EMBED_VIDEO.CLICK_EMBED_CHANNEL)
+            // }
           >
             <img
               src={getProfilePicture(video?.profile)}
@@ -35,9 +34,9 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
             <Link
               className="line-clamp-1 break-words leading-5"
               href={`${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`}
-              onClick={() =>
-                Analytics.track(TRACK.EMBED_VIDEO.CLICK_EMBED_TITLE)
-              }
+              // onClick={() =>
+              //   Analytics.track(TRACK.EMBED_VIDEO.CLICK_EMBED_TITLE)
+              // }
               target="_blank"
             >
               <h1 className="font-semibold md:text-lg">
@@ -48,9 +47,9 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
               className="line-clamp-1 break-words leading-3"
               href={`${LENSTUBE_WEBSITE_URL}/channel/${video?.profile.handle}`}
               target="_blank"
-              onClick={() =>
-                Analytics.track(TRACK.EMBED_VIDEO.CLICK_EMBED_CHANNEL)
-              }
+              // onClick={() =>
+              //   Analytics.track(TRACK.EMBED_VIDEO.CLICK_EMBED_CHANNEL)
+              // }
             >
               <span className="text-sm">{video?.profile.handle}</span>
             </Link>
@@ -60,9 +59,9 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
           <div className="flex items-center justify-self-end">
             <Link
               className="flex items-center space-x-1.5"
-              onClick={() =>
-                Analytics.track(TRACK.EMBED_VIDEO.WATCH_ON_LENSTUBE)
-              }
+              // onClick={() =>
+              //   Analytics.track(TRACK.EMBED_VIDEO.WATCH_ON_LENSTUBE)
+              // }
               title="Watch on LensTube"
               href={`${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`}
               target="_blank"
