@@ -18,7 +18,11 @@ import type { ChangeEvent, FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
-import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from 'utils'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE
+} from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import omitKey from 'utils/functions/omitKey'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
@@ -86,7 +90,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         const { typedData, id } =
           createSetProfileImageURITypedData as CreateSetProfileImageUriBroadcastItemResult
         try {
-          toast.loading('Requesting signature...')
+          toast.loading(REQUESTING_SIGNATURE_MESSAGE)
           const signature = await signTypedDataAsync({
             domain: omitKey(typedData?.domain, '__typename'),
             types: omitKey(typedData?.types, '__typename'),

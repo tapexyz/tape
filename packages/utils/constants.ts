@@ -22,13 +22,8 @@ export const SCROLL_ROOT_MARGIN = '60% 0px'
 // lens
 export const MAINNET_API_URL = 'https://api.lens.dev'
 export const TESTNET_API_URL = 'https://api-mumbai.lens.dev'
-export const STAGING_MAINNET_API_URL =
-  'https://staging-api-social-polygon.lens.crtlkey.com'
-export const STAGING_TESTNET_API_URL =
+export const STAGING_API_URL =
   'https://staging-api-social-mumbai.lens.crtlkey.com'
-export const STAGING_API_URL = IS_MAINNET
-  ? STAGING_MAINNET_API_URL
-  : STAGING_TESTNET_API_URL
 export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 
 // API urls
@@ -88,7 +83,8 @@ export const BUNDLR_NODE_URL = IS_MAINNET
 export const BUNDLR_CURRENCY = 'matic'
 export const BUNDLR_WEBSITE_URL = 'https://bundlr.network'
 export const ARWEAVE_GATEWAY_URL = 'https://arweave.net'
-export const BUNDLR_CONNECT_MESSAGE = 'Sign to initialize & estimate upload...'
+export const BUNDLR_CONNECT_MESSAGE = 'Estimating video upload cost...'
+export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
 
 // error messages
 export const ERROR_MESSAGE = 'Oops, something went wrong!'
