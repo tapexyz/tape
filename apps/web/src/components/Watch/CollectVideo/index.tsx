@@ -153,10 +153,10 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
     setShowCollectModal(false)
     setLoading(true)
     if (isFreeCollect && !collectModule?.followerOnly) {
-      Analytics.track(TRACK.COLLECT.FREE)
+      Analytics.track(TRACK.PUBLICATION.COLLECT, { fee: false })
       await viaProxyAction()
     } else {
-      Analytics.track(TRACK.COLLECT.FEE)
+      Analytics.track(TRACK.PUBLICATION.COLLECT, { fee: true })
       await createTypedData()
     }
   }
