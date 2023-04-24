@@ -33,7 +33,8 @@ export const TRACK = {
       TWITTER: 'Share to Twitter',
       REDDIT: 'Share to Reddit',
       LINKEDIN: 'Share to LinkedIn'
-    }
+    },
+    COLLECT: 'Collect publication'
   },
   AUTH: {
     CONNECT_WALLET: 'Connect Wallet',
@@ -81,14 +82,8 @@ export const TRACK = {
   },
   CLICK_USER_MENU: 'Click User Menu',
   OPENED_MUTUAL_CHANNELS: 'Opened Mutual Channels',
-  COLLECT: {
-    OPEN: 'Open Collect',
-    FREE: 'Collected for Free',
-    FEE: 'Collected for Fee'
-  },
-  SEARCH_CHANNELS: 'Search Channels',
-  RESOLVE_CHANNEL_ADDRESS: 'Resolve Channel Address',
-  SEARCH_VIDEOS: 'Search Videos',
+  OPEN_COLLECT: 'Open Collect',
+  SEARCH: 'Search',
   SYSTEM: {
     TOGGLE_THEME: 'Toggle Theme',
     MORE_MENU: {

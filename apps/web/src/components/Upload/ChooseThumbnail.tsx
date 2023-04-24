@@ -9,7 +9,6 @@ import { toast } from 'react-hot-toast'
 import type { IPFSUploadResult } from 'utils'
 import { generateVideoThumbnails } from 'utils/functions/generateVideoThumbnails'
 import { getFileFromDataURL } from 'utils/functions/getFileFromDataURL'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
 import logger from 'utils/logger'
 
@@ -183,7 +182,7 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
                   'h-16 w-full rounded-lg md:w-32',
                   uploadedVideo.isByteVideo ? 'object-contain' : 'object-cover'
                 )}
-                src={sanitizeDStorageUrl(thumbnail.blobUrl)}
+                src={thumbnail.blobUrl}
                 alt="thumbnail"
                 draggable={false}
               />

@@ -3,7 +3,7 @@ import type { Publication } from 'lens'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from 'utils'
+import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
@@ -36,9 +36,9 @@ const Video: FC<Props> = ({ video }) => {
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
-  // useEffect(() => {
-  //   Analytics.track(TRACK.EMBED_VIDEO.LOADED)
-  // }, [])
+  useEffect(() => {
+    Analytics.track(TRACK.EMBED_VIDEO.LOADED)
+  }, [])
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (!ref) {
