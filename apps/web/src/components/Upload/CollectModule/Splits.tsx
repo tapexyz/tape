@@ -9,13 +9,7 @@ import type { RecipientDataInput } from 'lens'
 import { useResolveProfileAddressLazyQuery } from 'lens'
 import type { FC, RefObject } from 'react'
 import React from 'react'
-import {
-  Analytics,
-  IS_MAINNET,
-  LENSTUBE_APP_NAME,
-  LENSTUBE_DONATION_ADDRESS,
-  TRACK
-} from 'utils'
+import { IS_MAINNET, LENSTUBE_APP_NAME, LENSTUBE_DONATION_ADDRESS } from 'utils'
 import splitNumber from 'utils/functions/splitNumber'
 
 type Props = {
@@ -72,7 +66,6 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         })
         const resolvedAddress = data?.profile?.ownedBy ?? ''
         changedSplit[key] = resolvedAddress
-        Analytics.track(TRACK.RESOLVE_CHANNEL_ADDRESS)
       }
     }
     splits[index] = changedSplit

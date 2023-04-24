@@ -66,7 +66,7 @@ const CollectModal: FC<Props> = ({
     video.collectModule.__typename === 'FreeCollectModuleSettings'
 
   useEffect(() => {
-    Analytics.track(TRACK.COLLECT.OPEN)
+    Analytics.track(TRACK.OPEN_COLLECT)
   }, [])
 
   const isRecipientAvailable =

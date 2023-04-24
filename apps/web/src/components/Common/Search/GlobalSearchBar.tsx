@@ -55,7 +55,8 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
         }
       })
       Analytics.track(
-        activeSearch === 'PROFILE' ? TRACK.SEARCH_CHANNELS : TRACK.SEARCH_VIDEOS
+        TRACK.SEARCH,
+        activeSearch === 'PROFILE' ? { channel: true } : { video: true }
       )
     }
   }
