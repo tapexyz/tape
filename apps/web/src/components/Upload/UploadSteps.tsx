@@ -90,15 +90,17 @@ const UploadSteps = () => {
   }
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
-    setQueuedVideos([
-      {
-        thumbnailUrl: uploadedVideo.thumbnail,
-        title: uploadedVideo.title,
-        txnId: txn.txnId,
-        txnHash: txn.txnHash
-      },
-      ...(queuedVideos || [])
-    ])
+    if (txn?.txnId) {
+      setQueuedVideos([
+        {
+          thumbnailUrl: uploadedVideo.thumbnail,
+          title: uploadedVideo.title,
+          txnId: txn.txnId,
+          txnHash: txn.txnHash
+        },
+        ...(queuedVideos || [])
+      ])
+    }
     redirectToChannelPage()
   }
 
@@ -126,9 +128,7 @@ const UploadSteps = () => {
       return
     }
     const txnId = data?.createPostViaDispatcher?.txId ?? data?.broadcast?.txId
-    if (txnId) {
-      setToQueue({ txnId })
-    }
+    setToQueue({ txnId })
     Analytics.track(TRACK.PUBLICATION.NEW_POST, {
       video_format: uploadedVideo.videoType,
       video_type: uploadedVideo.isByteVideo ? 'SHORT_FORM' : 'LONG_FORM',

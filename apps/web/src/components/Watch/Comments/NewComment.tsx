@@ -102,15 +102,17 @@ const NewComment: FC<Props> = ({
   }, [defaultValue])
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
-    setQueuedComments([
-      {
-        comment: getValues('comment'),
-        txnId: txn.txnId,
-        txnHash: txn.txnHash,
-        pubId: video.id
-      },
-      ...(queuedComments || [])
-    ])
+    if (txn?.txnId) {
+      setQueuedComments([
+        {
+          comment: getValues('comment'),
+          txnId: txn.txnId,
+          txnHash: txn.txnHash,
+          pubId: video.id
+        },
+        ...(queuedComments || [])
+      ])
+    }
     reset()
     setLoading(false)
   }
@@ -128,9 +130,7 @@ const NewComment: FC<Props> = ({
     })
     const txnId =
       data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
-    if (txnId) {
-      setToQueue({ txnId })
-    }
+    return setToQueue({ txnId })
   }
 
   const onError = (error: CustomErrorWithData) => {

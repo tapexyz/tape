@@ -133,15 +133,17 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   }
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
-    setQueuedComments([
-      {
-        comment: getValues('message'),
-        txnId: txn.txnId,
-        txnHash: txn.txnHash,
-        pubId: video.id
-      },
-      ...(queuedComments || [])
-    ])
+    if (txn?.txnId) {
+      setQueuedComments([
+        {
+          comment: getValues('message'),
+          txnId: txn.txnId,
+          txnHash: txn.txnHash,
+          pubId: video.id
+        },
+        ...(queuedComments || [])
+      ])
+    }
     setLoading(false)
     setShowTip(false)
     toast.success('Tipped successfully.')
@@ -161,9 +163,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     }
     const txnId =
       data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
-    if (txnId) {
-      setToQueue({ txnId })
-    }
+    return setToQueue({ txnId })
   }
 
   const { write: writeComment } = useContractWrite({
