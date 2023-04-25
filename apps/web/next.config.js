@@ -38,7 +38,7 @@ const moduleExports = {
       {
         source: '/gitcoin',
         destination:
-          'https://grant-explorer.gitcoin.co/#/round/1/0xd95a1969c41112cee9a2c931e849bcef36a16f4c/0x0f1d31d427400106f3d2958225dd235ae60b6a7572fb5155201b723e1ae79632-0xd95a1969c41112cee9a2c931e849bcef36a16f4c',
+          'https://explorer.gitcoin.co/#/round/1/0x12bb5bbbfe596dbc489d209299b8302c3300fa40/0x12bb5bbbfe596dbc489d209299b8302c3300fa40-10',
         permanent: true
       }
     ]
