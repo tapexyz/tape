@@ -3,7 +3,6 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import useChannelStore from '@lib/store/channel'
 import type { Publication } from 'lens'
 import {
@@ -91,19 +90,23 @@ const Bytes = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady])
 
-  usePaginationLoading({
-    ref: bytesContainer,
-    hasMore: !!pageInfo?.next,
-    fetch: async () =>
-      await fetchMore({
+  useEffect(() => {
+    const currentViewingIndex = bytes?.findIndex(
+      (byte) => byte.id == currentViewingId
+    )
+
+    if (currentViewingIndex > bytes?.length - 20) {
+      fetchMore({
         variables: {
           request: {
-            cursor: pageInfo?.next,
-            ...request
+            ...request,
+            cursor: pageInfo?.next
           }
         }
       })
-  })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentViewingId])
 
   if (loading || singleByteLoading) {
     return (
