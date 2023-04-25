@@ -10,7 +10,11 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { BigNumber, utils } from 'ethers'
-import type { CreatePublicCommentRequest, Publication } from 'lens'
+import type {
+  CreateCommentBroadcastItemResult,
+  CreatePublicCommentRequest,
+  Publication
+} from 'lens'
 import {
   PublicationDetailsDocument,
   PublicationMainFocus,
@@ -157,7 +161,9 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     }
     const txnId =
       data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
-    return setToQueue({ txnId })
+    if (txnId) {
+      setToQueue({ txnId })
+    }
   }
 
   const { write: writeComment } = useContractWrite({
@@ -181,6 +187,19 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onCompleted
   })
 
+  const getSignatureFromTypedData = async (
+    data: CreateCommentBroadcastItemResult
+  ) => {
+    const { typedData } = data
+    toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+    const signature = await signTypedDataAsync({
+      domain: omitKey(typedData?.domain, '__typename'),
+      types: omitKey(typedData?.types, '__typename'),
+      value: omitKey(typedData?.value, '__typename')
+    })
+    return signature
+  }
+
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
     onCompleted: async ({ createCommentTypedData }) => {
       const { typedData, id } = createCommentTypedData
@@ -196,12 +215,9 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         referenceModuleInitData
       } = typedData?.value
       try {
-        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
+        const signature = await getSignatureFromTypedData(
+          createCommentTypedData
+        )
         const { v, r, s } = utils.splitSignature(signature)
         const args = {
           profileId,
@@ -281,13 +297,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const [createDataAvailabilityCommentTypedData] =
     useCreateDataAvailabilityCommentTypedDataMutation({
       onCompleted: async ({ createDataAvailabilityCommentTypedData }) => {
-        const { id, typedData } = createDataAvailabilityCommentTypedData
-        toast.loading('Requesting signature...')
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
+        const { id } = createDataAvailabilityCommentTypedData
+        const signature = await getSignatureFromTypedData(
+          createDataAvailabilityCommentTypedData
+        )
         return await broadcastDataAvailabilityComment({
           variables: { request: { id, signature } }
         })

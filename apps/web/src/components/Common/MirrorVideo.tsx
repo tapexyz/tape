@@ -167,8 +167,8 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
     if (video.isDataAvailability) {
       const dataAvailablityRequest = {
-        from: selectedChannel?.id,
-        mirror: video?.id
+        from: selectedChannelId,
+        mirror: video.id
       }
       return await createDataAvailabilityMirrorViaDispatcher({
         variables: { request: dataAvailablityRequest }
@@ -176,7 +176,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     }
 
     const request = {
-      profileId: selectedChannel?.id,
+      profileId: selectedChannelId,
       publicationId: video?.id,
       referenceModule: {
         followerOnlyReferenceModule: false

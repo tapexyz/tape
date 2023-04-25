@@ -126,7 +126,9 @@ const UploadSteps = () => {
       return
     }
     const txnId = data?.createPostViaDispatcher?.txId ?? data?.broadcast?.txId
-    setToQueue({ txnId })
+    if (txnId) {
+      setToQueue({ txnId })
+    }
     Analytics.track(TRACK.PUBLICATION.NEW_POST, {
       video_format: uploadedVideo.videoType,
       video_type: uploadedVideo.isByteVideo ? 'SHORT_FORM' : 'LONG_FORM',
@@ -175,6 +177,19 @@ const UploadSteps = () => {
     onError
   })
 
+  const getSignatureFromTypedData = async (
+    data: CreatePostBroadcastItemResult
+  ) => {
+    const { typedData } = data
+    toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+    const signature = await signTypedDataAsync({
+      domain: omitKey(typedData?.domain, '__typename'),
+      types: omitKey(typedData?.types, '__typename'),
+      value: omitKey(typedData?.value, '__typename')
+    })
+    return signature
+  }
+
   /**
    * DATA AVAILABILITY STARTS
    */
@@ -194,13 +209,10 @@ const UploadSteps = () => {
   const [createDataAvailabilityPostTypedData] =
     useCreateDataAvailabilityPostTypedDataMutation({
       onCompleted: async ({ createDataAvailabilityPostTypedData }) => {
-        const { id, typedData } = createDataAvailabilityPostTypedData
-        toast.loading('Requesting signature...')
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
+        const { id } = createDataAvailabilityPostTypedData
+        const signature = await getSignatureFromTypedData(
+          createDataAvailabilityPostTypedData
+        )
         return await broadcastDataAvailabilityPost({
           variables: { request: { id, signature } }
         })
@@ -244,12 +256,7 @@ const UploadSteps = () => {
         referenceModuleInitData
       } = typedData?.value
       try {
-        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
+        const signature = await getSignatureFromTypedData(createPostTypedData)
         const { v, r, s } = utils.splitSignature(signature)
         const args = {
           profileId,
