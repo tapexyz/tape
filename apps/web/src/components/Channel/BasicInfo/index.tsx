@@ -50,7 +50,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
             alt={channel?.handle}
           />
         </div>
-        <div className="flex flex-1 flex-wrap justify-between space-y-3 py-2">
+        <div className="flex flex-1 flex-wrap items-center justify-between space-y-3 py-2">
           <div className="mr-3 flex flex-col items-start">
             {channel.name && (
               <h1 className="flex items-center space-x-1.5 font-medium md:text-2xl">
