@@ -10,6 +10,7 @@ import type {
 } from 'lens'
 import {
   useBroadcastMutation,
+  useCreateDataAvailabilityMirrorViaDispatcherMutation,
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
 } from 'lens'
@@ -60,12 +61,21 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onMirrorSuccess?.()
     toast.success('Mirrored video across lens.')
     setLoading(false)
-    Analytics.track(TRACK.PUBLICATION.MIRROR)
+    Analytics.track(TRACK.PUBLICATION.MIRROR, {
+      publication_id: video.id,
+      publication_state: video.isDataAvailability ? 'DATA_ONLY' : 'ON_CHAIN'
+    })
   }
 
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
+
+  const [createDataAvailabilityMirrorViaDispatcher] =
+    useCreateDataAvailabilityMirrorViaDispatcherMutation({
+      onCompleted: () => onCompleted(),
+      onError
+    })
 
   const [createMirrorViaDispatcher] = useCreateMirrorViaDispatcherMutation({
     onError,
@@ -154,8 +164,19 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     }
     setLoading(true)
+
+    if (video.isDataAvailability) {
+      const dataAvailablityRequest = {
+        from: selectedChannelId,
+        mirror: video.id
+      }
+      return await createDataAvailabilityMirrorViaDispatcher({
+        variables: { request: dataAvailablityRequest }
+      })
+    }
+
     const request = {
-      profileId: selectedChannel?.id,
+      profileId: selectedChannelId,
       publicationId: video?.id,
       referenceModule: {
         followerOnlyReferenceModule: false

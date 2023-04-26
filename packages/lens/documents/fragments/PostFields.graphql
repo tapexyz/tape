@@ -18,6 +18,9 @@ fragment PostFields on Post {
   }
   collectNftAddress
   onChainContentURI
+  isGated
+  isDataAvailability
+  dataAvailabilityProofs
   hidden
   hasCollectedByMe
   stats {

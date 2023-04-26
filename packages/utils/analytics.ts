@@ -75,6 +75,7 @@ export const TRACK = {
   },
   CLICK_VIEW_METADATA: 'Click View Metadata',
   CLICK_VIEW_TOKEN: 'Click View Token',
+  CLICK_VIEW_PROOF: 'Click View Proof',
   NOTIFICATIONS: {
     SWITCH_NOTIFICATION_TAB: 'Switch notifications tab',
     CLICK_NOTIFICATIONS: 'Click Notifications'

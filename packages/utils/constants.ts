@@ -6,6 +6,8 @@ export const LENSTUBE_APP_DESCRIPTION =
 
 export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT ?? 'mainnet'
 export const IS_MAINNET = LENS_ENV === 'mainnet'
+export const IS_STAGING = LENS_ENV === 'staging'
+export const IS_SANDBOX = LENS_ENV === 'sandbox'
 
 export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 export const IS_PRODUCTION = !IS_DEVELOPMENT
