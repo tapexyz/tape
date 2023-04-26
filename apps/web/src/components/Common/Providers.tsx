@@ -1,5 +1,7 @@
 import { ApolloProvider } from '@apollo/client'
 import apolloClient from '@lib/apollo'
+import { i18n } from '@lingui/core'
+import { I18nProvider } from '@lingui/react'
 import { LivepeerConfig } from '@livepeer/react'
 import {
   connectorsForWallets,
@@ -86,17 +88,21 @@ const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
 
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
-    <ErrorBoundary>
-      <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
-        <WagmiConfig client={wagmiClient}>
-          <ThemeProvider defaultTheme="dark" attribute="class">
-            <RainbowKitProviderWrapper>
-              <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
-            </RainbowKitProviderWrapper>
-          </ThemeProvider>
-        </WagmiConfig>
-      </LivepeerConfig>
-    </ErrorBoundary>
+    <I18nProvider i18n={i18n}>
+      <ErrorBoundary>
+        <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
+          <WagmiConfig client={wagmiClient}>
+            <ThemeProvider defaultTheme="dark" attribute="class">
+              <RainbowKitProviderWrapper>
+                <ApolloProvider client={apolloClient}>
+                  {children}
+                </ApolloProvider>
+              </RainbowKitProviderWrapper>
+            </ThemeProvider>
+          </WagmiConfig>
+        </LivepeerConfig>
+      </ErrorBoundary>
+    </I18nProvider>
   )
 }
 
