@@ -9252,6 +9252,11 @@ make-error@^1.1.1:
   resolved "https://registry.yarnpkg.com/make-error/-/make-error-1.3.6.tgz#2eb2e37ea9b67c4891f684a1394799af484cf7a2"
   integrity sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==
 
+make-plural@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/make-plural/-/make-plural-7.2.0.tgz#93174b1419672a48a2340db6c1d3fb217530c684"
+  integrity sha512-WkdI+iaWaBCFM2wUXwos8Z7spg5Dt64Xe/VI6NpRaly21cDtD76N6S97K//UtzV0dHOiXX+E90TnszdXHG0aMg==
+
 map-cache@^0.2.0:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"

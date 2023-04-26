@@ -21,8 +21,9 @@ import {
 } from '@rainbow-me/rainbowkit/wallets'
 import { ThemeProvider, useTheme } from 'next-themes'
 import type { ReactNode } from 'react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
+import { initLocale } from 'utils/functions/i18n'
 import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
 import { polygon, polygonMumbai } from 'wagmi/chains'
@@ -87,6 +88,10 @@ const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
 }
 
 const Providers = ({ children }: { children: ReactNode }) => {
+  useEffect(() => {
+    initLocale()
+  }, [])
+
   return (
     <I18nProvider i18n={i18n}>
       <ErrorBoundary>
