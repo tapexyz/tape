@@ -5,7 +5,8 @@ const moduleExports = {
   reactStrictMode: process.env.NODE_ENV === 'production',
   experimental: {
     scrollRestoration: true,
-    newNextLinkBehavior: true
+    newNextLinkBehavior: true,
+    swcPlugins: [['@lingui/swc-plugin', {}]]
   },
   async rewrites() {
     return [

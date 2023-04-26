@@ -8,7 +8,8 @@
     "build": "next build",
     "export": "next export",
     "start": "yarn build && next start --port 4783",
-    "lint": "eslint . --ext .js,.ts,.tsx"
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "extract": "lingui compile; lingui extract"
   },
   "dependencies": {
     "@apollo/client": "^3.7.12",
@@ -18,6 +19,7 @@
     "@emoji-mart/react": "^1.1.1",
     "@headlessui/react": "^1.7.14",
     "@hookform/resolvers": "^3.1.0",
+    "@lingui/react": "^4.0.0",
     "@livepeer/react": "^2.4.3",
     "@rainbow-me/rainbowkit": "^0.12.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -46,6 +48,9 @@
     "zustand": "^4.3.7"
   },
   "devDependencies": {
+    "@lingui/cli": "^4.0.0",
+    "@lingui/macro": "^4.0.0",
+    "@lingui/swc-plugin": "^4.0.0",
     "@tailwindcss/typography": "^0.5.9",
     "@types/mixpanel-browser": "^2.38.1",
     "@types/node": "18.16.0",
