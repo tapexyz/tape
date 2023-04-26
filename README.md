@@ -24,6 +24,9 @@
      <a href="https://status.lenstube.xyz">
         <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
     </a>
+    <a title="Crowdin" target="_blank" href="https://crowdin.com/project/lenstube">
+        <img src="https://badges.crowdin.net/lenstube/localized.svg">
+    </a>
     <span>
         <img src="https://img.shields.io/github/stars/lenstube-xyz/lenstube" alt="Stargazers">
     </span>
