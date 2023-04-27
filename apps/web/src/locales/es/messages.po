@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-27 10:34\n"
+"PO-Revision-Date: 2023-04-27 11:32\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/components/Upload/BundlrInfo.tsx:190
 msgid "Amount to deposit (MATIC)"
-msgstr ""
+msgstr "Cantidad a depositar (MATIC)"
 
 #: src/components/Upload/Category.tsx:16
 msgid "Category"
@@ -28,52 +28,53 @@ msgstr "Categoría"
 
 #: src/components/Upload/Details.tsx:113
 msgid "Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)"
-msgstr ""
+msgstr "Describe más acerca de tu video, puede ser @channels, #hashtags o capítulos (00:20 - Introducción)"
 
 #: src/components/Upload/Details.tsx:112
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #: src/components/Upload/Details.tsx:181
 msgid "Does this video contain sensitive information that targets an adult audience?"
-msgstr ""
+msgstr "¿Contiene este video información sensible dirigida a un público adulto?"
 
 #: src/components/Upload/DropZone.tsx:97
 msgid "Drag and drop"
-msgstr ""
+msgstr "Arrastre y suelte"
 
 #: src/components/Upload/BundlrInfo.tsx:217
 msgid "Estimated Cost to Upload"
-msgstr ""
+msgstr "Costo estimado para subir"
 
 #: src/components/Upload/Details.tsx:197
 msgid "Reset"
-msgstr ""
+msgstr "Reset"
 
 #: src/components/Upload/DropZone.tsx:72
 msgid "Select Video"
-msgstr ""
+msgstr "Seleccionar vídeo"
 
 #: src/components/Upload/Details.tsx:89
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: src/components/Upload/Details.tsx:90
 msgid "Title that describes your video"
-msgstr ""
+msgstr "Título que describe tu video"
 
 #: src/components/Upload/Details.tsx:156
 msgid "Upload this video as short-form bytes"
-msgstr ""
+msgstr "Subir este video como bytes de forma corta"
 
 #: src/components/Upload/Details.tsx:204
 msgid "Uploading thumbnail"
-msgstr ""
+msgstr "Subiendo miniatura"
 
 #: src/components/Upload/DropZone.tsx:98
 msgid "video to upload"
-msgstr ""
+msgstr "vídeo a subir"
 
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
-msgstr ""
+msgstr "Tu saldo de almacenamiento"
+
