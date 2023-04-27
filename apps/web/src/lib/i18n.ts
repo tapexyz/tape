@@ -15,7 +15,7 @@ export const initLocale = async () => {
     locale = DEFAULT_LOCALE
   }
   localStorage.setItem('locale', JSON.stringify(locale))
-  const { messages } = await import(`src/locales/${locale}/messages`)
+  const { messages } = await import(`../locales/${locale}/messages.po`)
   i18n.load(selectedLocale, messages)
   i18n.activate(selectedLocale)
   dayjs.locale(selectedLocale)
