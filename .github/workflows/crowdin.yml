@@ -15,8 +15,9 @@ jobs:
       - name: crowdin action
         uses: crowdin/github-action@v1
         with:
-          # upload_sources: true
           source: '/**/locales/en/*.po'
+          translation: '/**/locales/%two_letters_code%/%original_file_name%'
+          upload_sources: true
           upload_translations: true
           download_translations: true
           localization_branch_name: i18n_crowdin_translations
