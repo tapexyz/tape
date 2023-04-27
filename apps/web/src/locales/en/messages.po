@@ -77,4 +77,3 @@ msgstr ""
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
 msgstr ""
-

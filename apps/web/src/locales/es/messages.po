@@ -77,4 +77,3 @@ msgstr "vídeo a subir"
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
 msgstr "Tu saldo de almacenamiento"
-
