@@ -2,10 +2,7 @@ import { i18n } from '@lingui/core'
 import dayjs from 'dayjs'
 import { en, es, kn, ru, ta, zh } from 'make-plural/plurals'
 
-export const SUPPORTED_LOCALES: Record<string, string> = {
-  en: 'English',
-  es: 'Español'
-}
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '../constants'
 
 i18n.load({
   en: { plurals: en },
@@ -15,8 +12,6 @@ i18n.load({
   kn: { plurals: kn },
   ru: { plurals: ru }
 })
-
-const DEFAULT_LOCALE = 'en'
 
 export const setLocale = async (locale: string) => {
   if (!SUPPORTED_LOCALES.hasOwnProperty(locale)) {

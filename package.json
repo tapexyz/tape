@@ -20,7 +20,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "dev:test": "turbo run dev:test",
     "e2e:test": "start-server-and-test start 4783 dev:test",
-    "l10n:extract": "turbo run extract"
+    "i18n:extract": "turbo run extract"
   },
   "devDependencies": {
     "danger": "11.2.6",
