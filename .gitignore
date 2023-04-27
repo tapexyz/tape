@@ -46,3 +46,4 @@ playwright/.cache/
 
 # cloudflare workers
 .dev.vars
+

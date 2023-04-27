@@ -120,6 +120,13 @@ export const ALLOWED_VIDEO_TYPES = [
   'video/mov'
 ]
 
+// i18n
+export const SUPPORTED_LOCALES = {
+  en: 'English',
+  es: 'Español'
+}
+export const DEFAULT_LOCALE = 'en'
+
 // other apps
 export const LENSTER_WEBSITE_URL = IS_MAINNET
   ? 'https://lenster.xyz'

@@ -9,6 +9,7 @@
       "dependsOn": ["build"],
       "outputs": ["out/**"]
     },
+    "extract": { "outputs": [] },
     "start": { "cache": false },
     "e2e:test": { "dependsOn": ["^build"] },
     "worker:deploy": { "outputs": [] },
