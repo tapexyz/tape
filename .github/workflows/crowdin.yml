@@ -25,8 +25,9 @@ jobs:
           create_pull_request: true
           pull_request_title: 'chore(i18n): sync translations'
           pull_request_body: 'New Crowdin translations by Crowdin GH Action'
+          pull_request_assignees: 'sasicodes'
+          pull_request_reviewers: 'sasicodes'
           project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
           token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
