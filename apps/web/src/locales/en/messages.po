@@ -8,7 +8,7 @@ msgstr ""
 "Language: en\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-27 11:32\n"
+"PO-Revision-Date: 2023-04-27 19:25\n"
 "Last-Translator: \n"
 "Language-Team: English\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: src/components/Upload/BundlrInfo.tsx:190
 msgid "Amount to deposit (MATIC)"
-msgstr ""
+msgstr "Amount to deposit (MATIC)"
 
 #: src/components/Common/UserMenu.tsx:183
 msgid "App Info"
@@ -110,24 +110,24 @@ msgstr ""
 
 #: src/components/Upload/Details.tsx:113
 msgid "Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)"
-msgstr ""
+msgstr "Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)"
 
 #: src/components/Channel/Tabs/About.tsx:34
 #: src/components/Upload/Details.tsx:112
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: src/components/Upload/Details.tsx:181
 msgid "Does this video contain sensitive information that targets an adult audience?"
-msgstr ""
+msgstr "Does this video contain sensitive information that targets an adult audience?"
 
 #: src/components/Upload/DropZone.tsx:97
 msgid "Drag and drop"
-msgstr ""
+msgstr "Drag and drop"
 
 #: src/components/Upload/BundlrInfo.tsx:217
 msgid "Estimated Cost to Upload"
-msgstr ""
+msgstr "Estimated Cost to Upload"
 
 #: src/components/Common/MobileBottomNav.tsx:63
 #: src/components/Common/Sidebar.tsx:135
@@ -283,7 +283,7 @@ msgstr ""
 
 #: src/components/Upload/Details.tsx:197
 msgid "Reset"
-msgstr ""
+msgstr "Reset"
 
 #: src/components/Common/Header.tsx:154
 msgid "Search"
@@ -295,7 +295,7 @@ msgstr ""
 
 #: src/components/Upload/DropZone.tsx:72
 msgid "Select Video"
-msgstr ""
+msgstr "Select Video"
 
 #: src/components/Channel/CommentedVideoCard.tsx:49
 #: src/components/Channel/MirroredVideoCard.tsx:39
@@ -379,11 +379,11 @@ msgstr ""
 
 #: src/components/Upload/Details.tsx:89
 msgid "Title"
-msgstr ""
+msgstr "Title"
 
 #: src/components/Upload/Details.tsx:90
 msgid "Title that describes your video"
-msgstr ""
+msgstr "Title that describes your video"
 
 #: src/components/Common/CreateChannel.tsx:48
 msgid "to claim your handle and then check back here."
@@ -399,11 +399,11 @@ msgstr ""
 
 #: src/components/Upload/Details.tsx:156
 msgid "Upload this video as short-form bytes"
-msgstr ""
+msgstr "Upload this video as short-form bytes"
 
 #: src/components/Upload/Details.tsx:204
 msgid "Uploading thumbnail"
-msgstr ""
+msgstr "Uploading thumbnail"
 
 #: src/components/Channel/BasicInfo/index.tsx:66
 msgid "Verified"
@@ -415,7 +415,7 @@ msgstr ""
 
 #: src/components/Upload/DropZone.tsx:98
 msgid "video to upload"
-msgstr ""
+msgstr "video to upload"
 
 #: src/components/Channel/Tabs/index.tsx:80
 #: src/components/Common/Search/GlobalSearchBar.tsx:131
@@ -448,4 +448,5 @@ msgstr ""
 
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
-msgstr ""
+msgstr "Your Storage Balance"
+
