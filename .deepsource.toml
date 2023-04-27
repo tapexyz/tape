@@ -7,8 +7,7 @@ exclude_patterns = [
   ".vscode",
   ".husky",
   "packages/lens/generated.ts",
-  "yarn.lock",
-  "locales/**/*.js"
+  "yarn.lock"
 ]
 
 [[analyzers]]

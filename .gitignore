@@ -47,6 +47,3 @@ playwright/.cache/
 # cloudflare workers
 .dev.vars
 
-# lingui
-locales/_build/
-locales/**/*.js
