@@ -16,6 +16,7 @@ import ChevronRightOutline from './Icons/ChevronRightOutline'
 import ExploreOutline from './Icons/ExploreOutline'
 import FeedOutline from './Icons/FeedOutline'
 import HomeOutline from './Icons/HomeOutline'
+import Locale from './Locale'
 import MobileBottomNav from './MobileBottomNav'
 
 const CreateChannel = dynamic(() => import('./CreateChannel'))
@@ -128,7 +129,11 @@ const Sidebar = () => {
                 )}
               >
                 <BytesOutline className="h-5 w-5" />
-                {!sidebarCollapsed && <span className="text-sm">Bytes</span>}
+                {!sidebarCollapsed && (
+                  <span className="text-sm">
+                    <Trans>Bytes</Trans>
+                  </span>
+                )}
               </Link>
             </Tooltip>
             <Tooltip
@@ -165,13 +170,14 @@ const Sidebar = () => {
           )}
         >
           {!sidebarCollapsed && <Footer />}
+          <Locale />
           <button
-            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
             type="button"
             className={clsx(
               'mt-2 flex h-12 items-center justify-center rounded-full p-3.5 opacity-90 hover:bg-gray-50 hover:opacity-100 focus:outline-none dark:hover:bg-gray-800',
               sidebarCollapsed ? 'w-12' : 'w-full'
             )}
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
           >
             {sidebarCollapsed ? (
               <ChevronRightOutline className="h-3 w-3" />

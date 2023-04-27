@@ -121,7 +121,7 @@ export const ALLOWED_VIDEO_TYPES = [
 ]
 
 // i18n
-export const SUPPORTED_LOCALES = {
+export const SUPPORTED_LOCALES: Record<string, string> = {
   en: 'English',
   es: 'Español'
 }
