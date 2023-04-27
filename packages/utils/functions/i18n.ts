@@ -14,7 +14,7 @@ i18n.load({
 })
 
 export const setLocale = async (locale: string) => {
-  if (!SUPPORTED_LOCALES.hasOwnProperty(locale)) {
+  if (!Object.values(SUPPORTED_LOCALES).includes(locale)) {
     locale = DEFAULT_LOCALE
   }
   localStorage.setItem('locale', JSON.stringify(locale))
@@ -25,6 +25,6 @@ export const setLocale = async (locale: string) => {
 }
 
 export const initLocale = () => {
-  let locale = localStorage.getItem('locale')
+  const locale = localStorage.getItem('locale')
   setLocale(locale ? JSON.parse(locale) : DEFAULT_LOCALE)
 }
