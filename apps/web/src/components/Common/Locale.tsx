@@ -4,7 +4,7 @@ import usePersistStore from '@lib/store/persist'
 import { useLingui } from '@lingui/react'
 import clsx from 'clsx'
 import React from 'react'
-import { SUPPORTED_LOCALES } from 'utils'
+import { Analytics, SUPPORTED_LOCALES, TRACK } from 'utils'
 
 import GlobeOutline from './Icons/GlobeOutline'
 
@@ -40,7 +40,12 @@ const Locale = () => {
               'dark:hover:bg-theme w-28 cursor-pointer overflow-hidden rounded-lg px-3 py-1 text-left hover:bg-white focus:outline-none',
               selectedLocale === SUPPORTED_LOCALES[key] && 'bg-white'
             )}
-            onClick={() => storeLocale(key)}
+            onClick={() => {
+              storeLocale(key)
+              Analytics.track(TRACK.SYSTEM.SELECT_LOCALE, {
+                locale: key
+              })
+            }}
           >
             {SUPPORTED_LOCALES[key]}
           </button>
