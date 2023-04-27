@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import { en, es } from 'make-plural/plurals'
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from 'utils/constants'
 
-export const initLocale = async () => {
+export const loadLocale = async () => {
   i18n.load({
     en: { plurals: en },
     es: { plurals: es }

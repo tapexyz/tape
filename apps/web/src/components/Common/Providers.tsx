@@ -1,6 +1,6 @@
 import { ApolloProvider } from '@apollo/client'
 import apolloClient from '@lib/apollo'
-import { initLocale } from '@lib/i18n'
+import { loadLocale } from '@lib/i18n'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
 import { LivepeerConfig } from '@livepeer/react'
@@ -89,7 +89,7 @@ const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
 
 const Providers = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
-    initLocale()
+    loadLocale()
   }, [])
 
   return (
