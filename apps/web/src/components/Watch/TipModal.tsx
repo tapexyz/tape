@@ -378,7 +378,9 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           followerOnlyReferenceModule: false
         }
       }
-      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+      const canUseDispatcher =
+        selectedChannel?.dispatcher?.canUseRelay &&
+        selectedChannel.dispatcher.sponsor
       if (!canUseDispatcher) {
         return createTypedData(request)
       }

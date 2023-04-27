@@ -144,7 +144,9 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           url: result.url
         }
         setSelectedPfp(result.url)
-        const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+        const canUseDispatcher =
+          selectedChannel?.dispatcher?.canUseRelay &&
+          selectedChannel.dispatcher.sponsor
         if (!canUseDispatcher) {
           return createTypedData(request)
         }

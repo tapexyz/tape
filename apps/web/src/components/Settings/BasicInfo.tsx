@@ -247,7 +247,9 @@ const BasicInfo = ({ channel }: Props) => {
         profileId: channel?.id,
         metadata: metadataUri
       }
-      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+      const canUseDispatcher =
+        selectedChannel?.dispatcher?.canUseRelay &&
+        selectedChannel.dispatcher.sponsor
       if (!canUseDispatcher) {
         return createTypedData(request)
       }

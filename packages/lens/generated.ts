@@ -4521,6 +4521,7 @@ export type CommentFieldsFragment = {
       __typename?: 'Dispatcher'
       address: any
       canUseRelay: boolean
+      sponsor: boolean
     } | null
     attributes?: Array<{
       __typename?: 'Attribute'
@@ -4747,6 +4748,7 @@ export type CommentFieldsFragment = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -4863,6 +4865,7 @@ export type MirrorFieldsFragment = {
       __typename?: 'Dispatcher'
       address: any
       canUseRelay: boolean
+      sponsor: boolean
     } | null
     attributes?: Array<{
       __typename?: 'Attribute'
@@ -5094,6 +5097,7 @@ export type MirrorFieldsFragment = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -5320,6 +5324,7 @@ export type MirrorFieldsFragment = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -5408,6 +5413,7 @@ export type MirrorFieldsFragment = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -5642,6 +5648,7 @@ export type PostFieldsFragment = {
       __typename?: 'Dispatcher'
       address: any
       canUseRelay: boolean
+      sponsor: boolean
     } | null
     attributes?: Array<{
       __typename?: 'Attribute'
@@ -5862,6 +5869,7 @@ export type ProfileFieldsFragment = {
     __typename?: 'Dispatcher'
     address: any
     canUseRelay: boolean
+    sponsor: boolean
   } | null
   attributes?: Array<{
     __typename?: 'Attribute'
@@ -6626,6 +6634,7 @@ export type AllProfilesQuery = {
         __typename?: 'Dispatcher'
         address: any
         canUseRelay: boolean
+        sponsor: boolean
       } | null
       attributes?: Array<{
         __typename?: 'Attribute'
@@ -6718,6 +6727,7 @@ export type CollectorsQuery = {
           __typename?: 'Dispatcher'
           address: any
           canUseRelay: boolean
+          sponsor: boolean
         } | null
         attributes?: Array<{
           __typename?: 'Attribute'
@@ -6792,6 +6802,7 @@ export type CommentsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -7022,6 +7033,7 @@ export type CommentsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -7191,6 +7203,7 @@ export type ExploreQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -7421,6 +7434,7 @@ export type ExploreQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -7510,6 +7524,7 @@ export type ExploreQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -7763,6 +7778,7 @@ export type FeedQuery = {
                 __typename?: 'Dispatcher'
                 address: any
                 canUseRelay: boolean
+                sponsor: boolean
               } | null
               attributes?: Array<{
                 __typename?: 'Attribute'
@@ -7993,6 +8009,7 @@ export type FeedQuery = {
                       __typename?: 'Dispatcher'
                       address: any
                       canUseRelay: boolean
+                      sponsor: boolean
                     } | null
                     attributes?: Array<{
                       __typename?: 'Attribute'
@@ -8081,6 +8098,7 @@ export type FeedQuery = {
                 __typename?: 'Dispatcher'
                 address: any
                 canUseRelay: boolean
+                sponsor: boolean
               } | null
               attributes?: Array<{
                 __typename?: 'Attribute'
@@ -8411,6 +8429,7 @@ export type MutualFollowersQuery = {
         __typename?: 'Dispatcher'
         address: any
         canUseRelay: boolean
+        sponsor: boolean
       } | null
       attributes?: Array<{
         __typename?: 'Attribute'
@@ -8477,6 +8496,7 @@ export type NotificationsQuery = {
                 __typename?: 'Dispatcher'
                 address: any
                 canUseRelay: boolean
+                sponsor: boolean
               } | null
               attributes?: Array<{
                 __typename?: 'Attribute'
@@ -8533,6 +8553,7 @@ export type NotificationsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -8597,6 +8618,7 @@ export type NotificationsQuery = {
                 __typename?: 'Dispatcher'
                 address: any
                 canUseRelay: boolean
+                sponsor: boolean
               } | null
               attributes?: Array<{
                 __typename?: 'Attribute'
@@ -8653,6 +8675,7 @@ export type NotificationsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -8703,6 +8726,7 @@ export type NotificationsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -8755,6 +8779,7 @@ export type NotificationsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -8810,6 +8835,7 @@ export type NotificationsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -8879,6 +8905,7 @@ export type ProfileQuery = {
       __typename?: 'Dispatcher'
       address: any
       canUseRelay: boolean
+      sponsor: boolean
     } | null
     onChainIdentity: {
       __typename?: 'OnChainIdentity'
@@ -9015,6 +9042,7 @@ export type ProfileMirrorsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -9250,6 +9278,7 @@ export type ProfileMirrorsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -9483,6 +9512,7 @@ export type ProfileMirrorsQuery = {
                           __typename?: 'Dispatcher'
                           address: any
                           canUseRelay: boolean
+                          sponsor: boolean
                         } | null
                         attributes?: Array<{
                           __typename?: 'Attribute'
@@ -9571,6 +9601,7 @@ export type ProfileMirrorsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -9855,6 +9886,7 @@ export type ProfilePostsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -10272,6 +10304,7 @@ export type PublicationDetailsQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -10498,6 +10531,7 @@ export type PublicationDetailsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -10586,6 +10620,7 @@ export type PublicationDetailsQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -10817,6 +10852,7 @@ export type PublicationDetailsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -11047,6 +11083,7 @@ export type PublicationDetailsQuery = {
                         __typename?: 'Dispatcher'
                         address: any
                         canUseRelay: boolean
+                        sponsor: boolean
                       } | null
                       attributes?: Array<{
                         __typename?: 'Attribute'
@@ -11135,6 +11172,7 @@ export type PublicationDetailsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -11372,6 +11410,7 @@ export type PublicationDetailsQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -11627,6 +11666,7 @@ export type SearchProfilesQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -11702,6 +11742,7 @@ export type SearchPublicationsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -11932,6 +11973,7 @@ export type SearchPublicationsQuery = {
                         __typename?: 'Dispatcher'
                         address: any
                         canUseRelay: boolean
+                        sponsor: boolean
                       } | null
                       attributes?: Array<{
                         __typename?: 'Attribute'
@@ -12020,6 +12062,7 @@ export type SearchPublicationsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -12261,6 +12304,7 @@ export type SubscribersQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -12327,6 +12371,7 @@ export type UserProfilesQuery = {
         __typename?: 'Dispatcher'
         address: any
         canUseRelay: boolean
+        sponsor: boolean
       } | null
       attributes?: Array<{
         __typename?: 'Attribute'
@@ -12376,6 +12421,7 @@ export const ProfileFieldsFragmentDoc = gql`
     dispatcher {
       address
       canUseRelay
+      sponsor
     }
     attributes {
       key
@@ -15781,6 +15827,7 @@ export const ProfileDocument = gql`
       dispatcher {
         address
         canUseRelay
+        sponsor
       }
       interests
       isFollowedByMe
