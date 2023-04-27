@@ -1,8 +1,7 @@
 import { i18n } from '@lingui/core'
 import dayjs from 'dayjs'
 import { en, es, kn, ru, ta, zh } from 'make-plural/plurals'
-
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '../constants'
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from 'utils/constants'
 
 i18n.load({
   en: { plurals: en },
