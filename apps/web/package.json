@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@lingui/cli": "^4.0.0",
+    "@lingui/loader": "^4.0.0",
     "@lingui/macro": "^4.0.0",
     "@lingui/swc-plugin": "^4.0.0",
     "@tailwindcss/typography": "^0.5.9",

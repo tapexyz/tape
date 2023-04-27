@@ -1,6 +1,7 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
 import { Listbox, Transition } from '@headlessui/react'
 import useAppStore from '@lib/store'
+import { Trans } from '@lingui/macro'
 import React, { Fragment } from 'react'
 import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
 
@@ -12,7 +13,7 @@ const Category = () => {
     <>
       <div className="mb-1 flex items-center space-x-1.5">
         <div className="text-[11px] font-semibold uppercase opacity-70">
-          Category
+          <Trans>Category</Trans>
         </div>
       </div>
       <Listbox
