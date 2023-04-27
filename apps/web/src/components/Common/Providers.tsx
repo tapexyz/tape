@@ -1,6 +1,5 @@
 import { ApolloProvider } from '@apollo/client'
 import apolloClient from '@lib/apollo'
-import { initLocale } from '@lib/i18n'
 import { LivepeerConfig } from '@livepeer/react'
 import {
   connectorsForWallets,
@@ -20,7 +19,7 @@ import {
 } from '@rainbow-me/rainbowkit/wallets'
 import { ThemeProvider, useTheme } from 'next-themes'
 import type { ReactNode } from 'react'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
 import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
@@ -86,9 +85,9 @@ const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
 }
 
 const Providers = ({ children }: { children: ReactNode }) => {
-  useEffect(() => {
-    initLocale()
-  }, [])
+  // useEffect(() => {
+  //   initLocale()
+  // }, [])
 
   return (
     // <I18nProvider i18n={i18n}>
