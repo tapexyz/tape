@@ -7,8 +7,5 @@ module.exports = {
       include: ['src']
     }
   ],
-  extractBabelOptions: {
-    presets: ['@babel/preset-typescript', '@babel/preset-react']
-  },
   format: 'po'
 }
