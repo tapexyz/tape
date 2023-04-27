@@ -6,7 +6,6 @@ import { Toggle } from '@components/UIElements/Toggle'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
-import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -86,8 +85,8 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           <div>
             <div className="relative">
               <InputMentions
-                label={t`Title`}
-                placeholder={t`Title that describes your video`}
+                label="Title"
+                placeholder="Title that describes your video"
                 autoComplete="off"
                 validationError={errors.title?.message}
                 value={watch('title')}
@@ -109,8 +108,8 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             </div>
             <div className="relative mt-4">
               <InputMentions
-                label={t`Description`}
-                placeholder={t`Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)`}
+                label="Description"
+                placeholder="Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)"
                 autoComplete="off"
                 validationError={errors.description?.message}
                 value={watch('description')}
@@ -153,7 +152,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 )}
               >
                 <Toggle
-                  label={t`Upload this video as short-form bytes`}
+                  label="Upload this video as short-form bytes"
                   enabled={Boolean(uploadedVideo.isByteVideo)}
                   setEnabled={(b) => toggleUploadAsByte(b)}
                   size="sm"
@@ -178,10 +177,8 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 }}
                 question={
                   <span>
-                    <Trans>
-                      Does this video contain sensitive information that targets
-                      an adult audience?
-                    </Trans>
+                    Does this video contain sensitive information that targets
+                    an adult audience?
                   </span>
                 }
               />
@@ -194,14 +191,14 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
       </div>
       <div className="mt-4 flex items-center justify-end space-x-2">
         <Button type="button" variant="hover" onClick={() => onCancel()}>
-          <Trans>Reset</Trans>
+          Reset
         </Button>
         <Button
           loading={uploadedVideo.loading || uploadedVideo.uploadingThumbnail}
           type="submit"
         >
           {uploadedVideo.uploadingThumbnail
-            ? t`Uploading thumbnail`
+            ? 'Uploading thumbnail'
             : uploadedVideo.buttonText}
         </Button>
       </div>
