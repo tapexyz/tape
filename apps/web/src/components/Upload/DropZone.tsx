@@ -1,6 +1,7 @@
 import UploadOutline from '@components/Common/Icons/UploadOutline'
 import MetaTags from '@components/Common/MetaTags'
 import useAppStore from '@lib/store'
+import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
 import React, { useEffect } from 'react'
@@ -68,7 +69,7 @@ const DropZone = () => {
 
   return (
     <div>
-      <MetaTags title="Select Video" />
+      <MetaTags title={t`Select Video`} />
       <div className="relative my-20 flex flex-1 flex-col items-center justify-center">
         <label
           className={clsx(
@@ -93,7 +94,8 @@ const DropZone = () => {
           <span className="space-y-10 md:space-y-14">
             <div className="text-2xl font-semibold md:text-4xl">
               <span>
-                Drag and drop <br /> video to upload
+                <Trans>Drag and drop</Trans> <br />
+                <Trans>video to upload</Trans>
               </span>
             </div>
             <div>

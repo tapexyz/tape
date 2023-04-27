@@ -6,6 +6,7 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
+import { Trans } from '@lingui/macro'
 import { utils } from 'ethers'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
@@ -147,7 +148,9 @@ const BundlrInfo = () => {
       <div className="flex flex-col">
         <div className="inline-flex items-center justify-between rounded text-sm font-medium opacity-80">
           <span className="flex items-center space-x-1.5">
-            <span>Your Storage Balance</span>
+            <span>
+              <Trans>Your Storage Balance</Trans>
+            </span>
             <Tooltip content="Refresh balance" placement="top">
               <button
                 type="button"
@@ -184,7 +187,7 @@ const BundlrInfo = () => {
       {bundlrData.showDeposit && (
         <div>
           <div className="mb-2 inline-flex flex-col text-sm font-medium opacity-80">
-            Amount to deposit (MATIC)
+            <Trans>Amount to deposit (MATIC)</Trans>
           </div>
           <div className="flex items-center space-x-2">
             <Input
@@ -211,7 +214,7 @@ const BundlrInfo = () => {
       )}
       <div>
         <span className="inline-flex flex-col text-sm font-medium opacity-80">
-          Estimated Cost to Upload
+          <Trans>Estimated Cost to Upload</Trans>
         </span>
         <div className="text-lg font-medium">{bundlrData.estimatedPrice}</div>
       </div>

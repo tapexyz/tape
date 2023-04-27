@@ -18,7 +18,62 @@ msgstr ""
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 5\n"
 
+#: src/components/Upload/BundlrInfo.tsx:190
+msgid "Amount to deposit (MATIC)"
+msgstr ""
+
 #: src/components/Upload/Category.tsx:16
 msgid "Category"
 msgstr "Categoría"
 
+#: src/components/Upload/Details.tsx:113
+msgid "Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)"
+msgstr ""
+
+#: src/components/Upload/Details.tsx:112
+msgid "Description"
+msgstr ""
+
+#: src/components/Upload/Details.tsx:181
+msgid "Does this video contain sensitive information that targets an adult audience?"
+msgstr ""
+
+#: src/components/Upload/DropZone.tsx:97
+msgid "Drag and drop"
+msgstr ""
+
+#: src/components/Upload/BundlrInfo.tsx:217
+msgid "Estimated Cost to Upload"
+msgstr ""
+
+#: src/components/Upload/Details.tsx:197
+msgid "Reset"
+msgstr ""
+
+#: src/components/Upload/DropZone.tsx:72
+msgid "Select Video"
+msgstr ""
+
+#: src/components/Upload/Details.tsx:89
+msgid "Title"
+msgstr ""
+
+#: src/components/Upload/Details.tsx:90
+msgid "Title that describes your video"
+msgstr ""
+
+#: src/components/Upload/Details.tsx:156
+msgid "Upload this video as short-form bytes"
+msgstr ""
+
+#: src/components/Upload/Details.tsx:204
+msgid "Uploading thumbnail"
+msgstr ""
+
+#: src/components/Upload/DropZone.tsx:98
+msgid "video to upload"
+msgstr ""
+
+#: src/components/Upload/BundlrInfo.tsx:152
+msgid "Your Storage Balance"
+msgstr ""

@@ -13,6 +13,7 @@ Closes #(issue-number)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] Minor changes in old functionality
 - [ ] Test cases
+- [ ] Translations
 
 ## Checklist
 
