@@ -1,5 +1,6 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -15,6 +16,7 @@ import ChevronRightOutline from './Icons/ChevronRightOutline'
 import ExploreOutline from './Icons/ExploreOutline'
 import FeedOutline from './Icons/FeedOutline'
 import HomeOutline from './Icons/HomeOutline'
+import Locale from './Locale'
 import MobileBottomNav from './MobileBottomNav'
 
 const CreateChannel = dynamic(() => import('./CreateChannel'))
@@ -60,7 +62,7 @@ const Sidebar = () => {
           </div>
           <div className="flex flex-col items-center justify-center space-y-2">
             <Tooltip
-              content="Home"
+              content={t`Home`}
               visible={sidebarCollapsed}
               placement="right"
             >
@@ -77,11 +79,15 @@ const Sidebar = () => {
                 )}
               >
                 <HomeOutline className="h-5 w-5" />
-                {!sidebarCollapsed && <span className="text-sm">Home</span>}
+                {!sidebarCollapsed && (
+                  <span className="text-sm">
+                    <Trans>Home</Trans>
+                  </span>
+                )}
               </Link>
             </Tooltip>
             <Tooltip
-              content="Subscriptions"
+              content={t`Subscriptions`}
               visible={sidebarCollapsed}
               placement="right"
             >
@@ -99,12 +105,14 @@ const Sidebar = () => {
               >
                 <FeedOutline className="h-5 w-5 flex-none" />
                 {!sidebarCollapsed && (
-                  <span className="text-sm">Subscriptions</span>
+                  <span className="text-sm">
+                    <Trans>Subscriptions</Trans>
+                  </span>
                 )}
               </Link>
             </Tooltip>
             <Tooltip
-              content="Bytes"
+              content={t`Bytes`}
               visible={sidebarCollapsed}
               placement="right"
             >
@@ -121,11 +129,15 @@ const Sidebar = () => {
                 )}
               >
                 <BytesOutline className="h-5 w-5" />
-                {!sidebarCollapsed && <span className="text-sm">Bytes</span>}
+                {!sidebarCollapsed && (
+                  <span className="text-sm">
+                    <Trans>Bytes</Trans>
+                  </span>
+                )}
               </Link>
             </Tooltip>
             <Tooltip
-              content="Explore"
+              content={t`Explore`}
               visible={sidebarCollapsed}
               placement="right"
             >
@@ -142,7 +154,11 @@ const Sidebar = () => {
                 )}
               >
                 <ExploreOutline className="h-5 w-5" />
-                {!sidebarCollapsed && <span className="text-sm">Explore</span>}
+                {!sidebarCollapsed && (
+                  <span className="text-sm">
+                    <Trans>Explore</Trans>
+                  </span>
+                )}
               </Link>
             </Tooltip>
           </div>
@@ -154,13 +170,14 @@ const Sidebar = () => {
           )}
         >
           {!sidebarCollapsed && <Footer />}
+          <Locale />
           <button
-            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
             type="button"
             className={clsx(
               'mt-2 flex h-12 items-center justify-center rounded-full p-3.5 opacity-90 hover:bg-gray-50 hover:opacity-100 focus:outline-none dark:hover:bg-gray-800',
               sidebarCollapsed ? 'w-12' : 'w-full'
             )}
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
           >
             {sidebarCollapsed ? (
               <ChevronRightOutline className="h-3 w-3" />

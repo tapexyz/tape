@@ -1,5 +1,6 @@
 import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
+import { Trans } from '@lingui/macro'
 import type { Profile } from 'lens'
 import Link from 'next/link'
 import React from 'react'
@@ -32,7 +33,8 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
           </Link>
         </div>
         <div className="text-center text-xs opacity-70">
-          {formatNumber(channel.stats.totalFollowers)} subscribers
+          {formatNumber(channel.stats.totalFollowers)}{' '}
+          <Trans>subscribers</Trans>
         </div>
       </div>
       <SubscribeActions channel={channel} subscribeType={subscribeType} />

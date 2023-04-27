@@ -2,6 +2,7 @@ import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import React from 'react'
 import toast from 'react-hot-toast'
@@ -49,8 +50,10 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
             onClick={() => handleSign()}
             disabled={signing}
           >
-            Sign In
-            <span className="ml-1 hidden md:inline-block">with Lens</span>
+            <Trans>Sign In</Trans>
+            <span className="ml-1 hidden md:inline-block">
+              <Trans>with Lens</Trans>
+            </span>
           </Button>
           <Tooltip content="Disconnect Wallet">
             <button
@@ -67,7 +70,9 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
         onClick={() => switchNetwork && switchNetwork(POLYGON_CHAIN_ID)}
         variant="danger"
       >
-        <span className="text-white">Switch network</span>
+        <span className="text-white">
+          <Trans>Switch network</Trans>
+        </span>
       </Button>
     )
   ) : (
@@ -77,8 +82,10 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
         Analytics.track(TRACK.AUTH.CONNECT_WALLET)
       }}
     >
-      Connect
-      <span className="ml-1 hidden md:inline-block">Wallet</span>
+      <Trans>Connect</Trans>
+      <span className="ml-1 hidden md:inline-block">
+        <Trans>Wallet</Trans>
+      </span>
     </Button>
   )
 }

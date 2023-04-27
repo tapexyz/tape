@@ -2,6 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
 import { utils } from 'ethers'
 import type {
   CreateMirrorBroadcastItemResult,
@@ -182,7 +183,9 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
         followerOnlyReferenceModule: false
       }
     }
-    const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+    const canUseDispatcher =
+      selectedChannel?.dispatcher?.canUseRelay &&
+      selectedChannel.dispatcher.sponsor
     if (!canUseDispatcher) {
       return createTypedData(request)
     }
@@ -195,10 +198,10 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
   const tooltipContent = collectModule?.referralFee
     ? `Mirror video for ${collectModule?.referralFee}% referral fee`
-    : 'Mirror video across Lens'
+    : t`Mirror video across Lens`
 
   return (
-    <Tooltip placement="top" content={loading ? 'Mirroring' : tooltipContent}>
+    <Tooltip placement="top" content={loading ? t`Mirroring` : tooltipContent}>
       <div className="inline-flex">
         <button
           type="button"

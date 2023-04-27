@@ -30,7 +30,7 @@ import { polygon, polygonMumbai } from 'wagmi/chains'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { publicProvider } from 'wagmi/providers/public'
 
-import ErrorBoundary from './ErrorBoundary'
+import ErrorBoundary from '../ErrorBoundary'
 
 const { chains, provider } = configureChains(
   [IS_MAINNET ? polygon : polygonMumbai],

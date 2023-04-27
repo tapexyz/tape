@@ -1,4 +1,5 @@
 import Modal from '@components/UIElements/Modal'
+import { t } from '@lingui/macro'
 import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -25,7 +26,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
 
   const onCopyVideoUrl = async () => {
     await copy(`${LENSTUBE_WEBSITE_URL}/watch/${video.id}`)
-    toast.success('Permalink copied to clipboard')
+    toast.success(t`Permalink copied to clipboard`)
     Analytics.track(TRACK.PUBLICATION.PERMALINK)
   }
 

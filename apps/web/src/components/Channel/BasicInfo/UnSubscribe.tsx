@@ -1,6 +1,7 @@
 import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
 import { Button } from '@components/UIElements/Button'
 import useAuthPersistStore from '@lib/store/auth'
+import { Trans } from '@lingui/macro'
 import type { Signer } from 'ethers'
 import { ethers, utils } from 'ethers'
 import type {
@@ -125,7 +126,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
 
   return (
     <Button onClick={() => unsubscribe()} loading={loading}>
-      Unsubscribe
+      <Trans>Unsubscribe</Trans>
     </Button>
   )
 }

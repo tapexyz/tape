@@ -1,6 +1,7 @@
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { t } from '@lingui/macro'
 import type { Nft, Profile } from 'lens'
 import { useProfileNfTsQuery } from 'lens'
 import type { FC } from 'react'
@@ -50,7 +51,7 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
   }
 
   if (data?.nfts?.items?.length === 0) {
-    return <NoDataFound isCenter withImage text="No NFTs found" />
+    return <NoDataFound isCenter withImage text={t`No NFTs found`} />
   }
 
   return (

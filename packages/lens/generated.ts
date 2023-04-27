@@ -1052,6 +1052,81 @@ export enum CustomFiltersTypes {
   Gardeners = 'GARDENERS'
 }
 
+export type DataAvailabilityComment = {
+  __typename?: 'DataAvailabilityComment'
+  appId?: Maybe<Scalars['Sources']>
+  commentedOnProfile: Profile
+  commentedOnPublicationId: Scalars['InternalPublicationId']
+  createdAt: Scalars['DateTime']
+  profile: Profile
+  publicationId: Scalars['InternalPublicationId']
+  submitter: Scalars['EthereumAddress']
+  transactionId: Scalars['String']
+}
+
+export type DataAvailabilityMirror = {
+  __typename?: 'DataAvailabilityMirror'
+  appId?: Maybe<Scalars['Sources']>
+  createdAt: Scalars['DateTime']
+  mirrorOfProfile: Profile
+  mirrorOfPublicationId: Scalars['InternalPublicationId']
+  profile: Profile
+  publicationId: Scalars['InternalPublicationId']
+  submitter: Scalars['EthereumAddress']
+  transactionId: Scalars['String']
+}
+
+export type DataAvailabilityPost = {
+  __typename?: 'DataAvailabilityPost'
+  appId?: Maybe<Scalars['Sources']>
+  createdAt: Scalars['DateTime']
+  profile: Profile
+  publicationId: Scalars['InternalPublicationId']
+  submitter: Scalars['EthereumAddress']
+  transactionId: Scalars['String']
+}
+
+export type DataAvailabilitySubmitterResult = {
+  __typename?: 'DataAvailabilitySubmitterResult'
+  address: Scalars['EthereumAddress']
+  name: Scalars['String']
+  totalTransactions: Scalars['Int']
+}
+
+/** The paginated submitter results */
+export type DataAvailabilitySubmittersResult = {
+  __typename?: 'DataAvailabilitySubmittersResult'
+  items: Array<DataAvailabilitySubmitterResult>
+  pageInfo: PaginatedResultInfo
+}
+
+export type DataAvailabilitySummaryResult = {
+  __typename?: 'DataAvailabilitySummaryResult'
+  totalTransactions: Scalars['Int']
+}
+
+export type DataAvailabilityTransactionRequest = {
+  /** The DA transaction id or internal publiation id */
+  id: Scalars['String']
+}
+
+export type DataAvailabilityTransactionUnion =
+  | DataAvailabilityComment
+  | DataAvailabilityMirror
+  | DataAvailabilityPost
+
+export type DataAvailabilityTransactionsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
+}
+
+export type DataAvailabilityTransactionsResult = {
+  __typename?: 'DataAvailabilityTransactionsResult'
+  items: Array<DataAvailabilityTransactionUnion>
+  pageInfo: PaginatedResultInfo
+}
+
 /** The reason why a profile cannot decrypt a publication */
 export enum DecryptFailReason {
   CanNotDecrypt = 'CAN_NOT_DECRYPT',
@@ -1104,6 +1179,8 @@ export type Dispatcher = {
   address: Scalars['EthereumAddress']
   /** If the dispatcher can use the relay */
   canUseRelay: Scalars['Boolean']
+  /** If the dispatcher transactions will be sponsored by lens aka cover the gas costs */
+  sponsor: Scalars['Boolean']
 }
 
 export type DoesFollow = {
@@ -2656,7 +2733,7 @@ export type NotificationRequest = {
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>
   highSignalFilter?: InputMaybe<Scalars['Boolean']>
   limit?: InputMaybe<Scalars['LimitScalar']>
-  /** The profile id */
+  /** The notification types */
   notificationTypes?: InputMaybe<Array<NotificationTypes>>
   /** The profile id */
   profileId: Scalars['ProfileId']
@@ -3223,7 +3300,7 @@ export enum PublicationMetadataStatusType {
 
 /** Publication metadata tag filter */
 export type PublicationMetadataTagsFilter = {
-  /** Needs to only match all */
+  /** Needs to match all */
   all?: InputMaybe<Array<Scalars['String']>>
   /** Needs to only match one of */
   oneOf?: InputMaybe<Array<Scalars['String']>>
@@ -3350,6 +3427,7 @@ export enum PublicationReportingSensitiveSubreason {
 /** Publication reporting spam subreason */
 export enum PublicationReportingSpamSubreason {
   FakeEngagement = 'FAKE_ENGAGEMENT',
+  LowSignal = 'LOW_SIGNAL',
   ManipulationAlgo = 'MANIPULATION_ALGO',
   Misleading = 'MISLEADING',
   MisuseHashtags = 'MISUSE_HASHTAGS',
@@ -3463,6 +3541,10 @@ export type Query = {
   claimableHandles: ClaimableHandles
   claimableStatus: ClaimStatus
   cur: Array<Scalars['String']>
+  dataAvailabilitySubmitters: DataAvailabilitySubmittersResult
+  dataAvailabilitySummary: DataAvailabilitySummaryResult
+  dataAvailabilityTransaction?: Maybe<DataAvailabilityTransactionUnion>
+  dataAvailabilityTransactions: DataAvailabilityTransactionsResult
   defaultProfile?: Maybe<Profile>
   doesFollow: Array<DoesFollowResponse>
   enabledModuleCurrencies: Array<Erc20>
@@ -3530,6 +3612,14 @@ export type QueryChallengeArgs = {
 
 export type QueryCurArgs = {
   request: CurRequest
+}
+
+export type QueryDataAvailabilityTransactionArgs = {
+  request: DataAvailabilityTransactionRequest
+}
+
+export type QueryDataAvailabilityTransactionsArgs = {
+  request?: InputMaybe<DataAvailabilityTransactionsRequest>
 }
 
 export type QueryDefaultProfileArgs = {
@@ -3999,6 +4089,11 @@ export type SpamReasonInputParams = {
   subreason: PublicationReportingSpamSubreason
 }
 
+export type Subscription = {
+  __typename?: 'Subscription'
+  newDataAvailabilityTransaction: DataAvailabilityTransactionUnion
+}
+
 export type SybilDotOrgIdentity = {
   __typename?: 'SybilDotOrgIdentity'
   source: SybilDotOrgIdentitySource
@@ -4426,6 +4521,7 @@ export type CommentFieldsFragment = {
       __typename?: 'Dispatcher'
       address: any
       canUseRelay: boolean
+      sponsor: boolean
     } | null
     attributes?: Array<{
       __typename?: 'Attribute'
@@ -4652,6 +4748,7 @@ export type CommentFieldsFragment = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -4768,6 +4865,7 @@ export type MirrorFieldsFragment = {
       __typename?: 'Dispatcher'
       address: any
       canUseRelay: boolean
+      sponsor: boolean
     } | null
     attributes?: Array<{
       __typename?: 'Attribute'
@@ -4999,6 +5097,7 @@ export type MirrorFieldsFragment = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -5225,6 +5324,7 @@ export type MirrorFieldsFragment = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -5313,6 +5413,7 @@ export type MirrorFieldsFragment = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -5547,6 +5648,7 @@ export type PostFieldsFragment = {
       __typename?: 'Dispatcher'
       address: any
       canUseRelay: boolean
+      sponsor: boolean
     } | null
     attributes?: Array<{
       __typename?: 'Attribute'
@@ -5767,6 +5869,7 @@ export type ProfileFieldsFragment = {
     __typename?: 'Dispatcher'
     address: any
     canUseRelay: boolean
+    sponsor: boolean
   } | null
   attributes?: Array<{
     __typename?: 'Attribute'
@@ -6531,6 +6634,7 @@ export type AllProfilesQuery = {
         __typename?: 'Dispatcher'
         address: any
         canUseRelay: boolean
+        sponsor: boolean
       } | null
       attributes?: Array<{
         __typename?: 'Attribute'
@@ -6623,6 +6727,7 @@ export type CollectorsQuery = {
           __typename?: 'Dispatcher'
           address: any
           canUseRelay: boolean
+          sponsor: boolean
         } | null
         attributes?: Array<{
           __typename?: 'Attribute'
@@ -6697,6 +6802,7 @@ export type CommentsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -6927,6 +7033,7 @@ export type CommentsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -7096,6 +7203,7 @@ export type ExploreQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -7326,6 +7434,7 @@ export type ExploreQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -7415,6 +7524,7 @@ export type ExploreQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -7668,6 +7778,7 @@ export type FeedQuery = {
                 __typename?: 'Dispatcher'
                 address: any
                 canUseRelay: boolean
+                sponsor: boolean
               } | null
               attributes?: Array<{
                 __typename?: 'Attribute'
@@ -7898,6 +8009,7 @@ export type FeedQuery = {
                       __typename?: 'Dispatcher'
                       address: any
                       canUseRelay: boolean
+                      sponsor: boolean
                     } | null
                     attributes?: Array<{
                       __typename?: 'Attribute'
@@ -7986,6 +8098,7 @@ export type FeedQuery = {
                 __typename?: 'Dispatcher'
                 address: any
                 canUseRelay: boolean
+                sponsor: boolean
               } | null
               attributes?: Array<{
                 __typename?: 'Attribute'
@@ -8316,6 +8429,7 @@ export type MutualFollowersQuery = {
         __typename?: 'Dispatcher'
         address: any
         canUseRelay: boolean
+        sponsor: boolean
       } | null
       attributes?: Array<{
         __typename?: 'Attribute'
@@ -8382,6 +8496,7 @@ export type NotificationsQuery = {
                 __typename?: 'Dispatcher'
                 address: any
                 canUseRelay: boolean
+                sponsor: boolean
               } | null
               attributes?: Array<{
                 __typename?: 'Attribute'
@@ -8438,6 +8553,7 @@ export type NotificationsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -8502,6 +8618,7 @@ export type NotificationsQuery = {
                 __typename?: 'Dispatcher'
                 address: any
                 canUseRelay: boolean
+                sponsor: boolean
               } | null
               attributes?: Array<{
                 __typename?: 'Attribute'
@@ -8558,6 +8675,7 @@ export type NotificationsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -8608,6 +8726,7 @@ export type NotificationsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -8660,6 +8779,7 @@ export type NotificationsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -8715,6 +8835,7 @@ export type NotificationsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -8784,6 +8905,7 @@ export type ProfileQuery = {
       __typename?: 'Dispatcher'
       address: any
       canUseRelay: boolean
+      sponsor: boolean
     } | null
     onChainIdentity: {
       __typename?: 'OnChainIdentity'
@@ -8920,6 +9042,7 @@ export type ProfileMirrorsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -9155,6 +9278,7 @@ export type ProfileMirrorsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -9388,6 +9512,7 @@ export type ProfileMirrorsQuery = {
                           __typename?: 'Dispatcher'
                           address: any
                           canUseRelay: boolean
+                          sponsor: boolean
                         } | null
                         attributes?: Array<{
                           __typename?: 'Attribute'
@@ -9476,6 +9601,7 @@ export type ProfileMirrorsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -9760,6 +9886,7 @@ export type ProfilePostsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -10177,6 +10304,7 @@ export type PublicationDetailsQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -10403,6 +10531,7 @@ export type PublicationDetailsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -10491,6 +10620,7 @@ export type PublicationDetailsQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -10722,6 +10852,7 @@ export type PublicationDetailsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -10952,6 +11083,7 @@ export type PublicationDetailsQuery = {
                         __typename?: 'Dispatcher'
                         address: any
                         canUseRelay: boolean
+                        sponsor: boolean
                       } | null
                       attributes?: Array<{
                         __typename?: 'Attribute'
@@ -11040,6 +11172,7 @@ export type PublicationDetailsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -11277,6 +11410,7 @@ export type PublicationDetailsQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -11532,6 +11666,7 @@ export type SearchProfilesQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -11607,6 +11742,7 @@ export type SearchPublicationsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -11837,6 +11973,7 @@ export type SearchPublicationsQuery = {
                         __typename?: 'Dispatcher'
                         address: any
                         canUseRelay: boolean
+                        sponsor: boolean
                       } | null
                       attributes?: Array<{
                         __typename?: 'Attribute'
@@ -11925,6 +12062,7 @@ export type SearchPublicationsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -12166,6 +12304,7 @@ export type SubscribersQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -12232,6 +12371,7 @@ export type UserProfilesQuery = {
         __typename?: 'Dispatcher'
         address: any
         canUseRelay: boolean
+        sponsor: boolean
       } | null
       attributes?: Array<{
         __typename?: 'Attribute'
@@ -12267,7 +12407,7 @@ export type UserProfilesQuery = {
   }
   userSigNonces: { __typename?: 'UserSigNonces'; lensHubOnChainSigNonce: any }
 }
- 
+
 export const ProfileFieldsFragmentDoc = gql`
   fragment ProfileFields on Profile {
     id
@@ -12281,6 +12421,7 @@ export const ProfileFieldsFragmentDoc = gql`
     dispatcher {
       address
       canUseRelay
+      sponsor
     }
     attributes {
       key
@@ -15686,6 +15827,7 @@ export const ProfileDocument = gql`
       dispatcher {
         address
         canUseRelay
+        sponsor
       }
       interests
       isFollowedByMe
@@ -16799,6 +16941,11 @@ const result: PossibleTypesResultData = {
       'RevertCollectModuleSettings',
       'TimedFeeCollectModuleSettings',
       'UnknownCollectModuleSettings'
+    ],
+    DataAvailabilityTransactionUnion: [
+      'DataAvailabilityComment',
+      'DataAvailabilityMirror',
+      'DataAvailabilityPost'
     ],
     FeedItemRoot: ['Comment', 'Post'],
     FollowModule: [

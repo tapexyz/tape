@@ -4,6 +4,7 @@ import Modal from '@components/UIElements/Modal'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import { useCreateProfileMutation } from 'lens'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -32,19 +33,19 @@ type FormData = z.infer<typeof formSchema>
 export const ClaimHandle = () => (
   <div className="mt-2">
     <span className="text-sm opacity-70">
-      Your address does not seem to have Lens handle.
+      <Trans>Your address does not seem to have Lens handle.</Trans>
     </span>
     <div className="text-base">
-      Visit{' '}
+      <Trans>Visit</Trans>{' '}
       <Link
         href="https://claim.lens.xyz/"
         target="_blank"
         className="text-indigo-500"
         rel="noreferrer"
       >
-        lens claiming site
+        <Trans>lens claiming site</Trans>
       </Link>{' '}
-      to claim your handle and then check back here.
+      <Trans>to claim your handle and then check back here.</Trans>
     </div>
   </div>
 )
@@ -56,7 +57,7 @@ const CreateChannel = () => {
   )
 
   const [loading, setLoading] = useState(false)
-  const [buttonText, setButtonText] = useState('Create')
+  const [buttonText, setButtonText] = useState(t`Create`)
   const { mounted } = useIsMounted()
   const router = useRouter()
   const { address } = useAccount()
@@ -76,10 +77,10 @@ const CreateChannel = () => {
 
   const [createProfile, { data, reset }] = useCreateProfileMutation({
     onCompleted: ({ createProfile }) => {
-      setButtonText('Indexing...')
+      setButtonText(t`Indexing...`)
       if (createProfile?.__typename === 'RelayError') {
         setLoading(false)
-        setButtonText('Create')
+        setButtonText(t`Create`)
       }
     },
     onError
@@ -110,7 +111,7 @@ const CreateChannel = () => {
   const onCreate = ({ channelName }: FormData) => {
     const username = trimify(channelName.toLowerCase())
     setLoading(true)
-    setButtonText('Creating...')
+    setButtonText(t`Creating...`)
     createProfile({
       variables: {
         request: {
@@ -126,7 +127,7 @@ const CreateChannel = () => {
 
   return (
     <Modal
-      title={IS_MAINNET ? 'Claim Handle' : 'Create Channel'}
+      title={IS_MAINNET ? t`Claim Handle` : t`Create Channel`}
       onClose={() => setShowCreateChannel(false)}
       show={mounted && showCreateChannel}
       panelClassName="max-w-md"
@@ -165,7 +166,7 @@ const CreateChannel = () => {
                 variant="hover"
                 disabled={loading}
               >
-                Cancel
+                <Trans>Cancel</Trans>
               </Button>
               <Button type="submit" loading={loading}>
                 {buttonText}

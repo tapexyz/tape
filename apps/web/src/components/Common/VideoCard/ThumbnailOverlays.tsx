@@ -1,5 +1,6 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import useChannelStore from '@lib/store/channel'
+import { Trans } from '@lingui/macro'
 import type { Attribute, Publication } from 'lens'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
@@ -35,7 +36,7 @@ const ThumbnailOverlays: FC<Props> = ({ video }) => {
       {isSensitiveContent && (
         <div>
           <span className="absolute left-2 top-2 rounded-full bg-white px-2 py-0.5 text-xs text-black">
-            Sensitive Content
+            <Trans>Sensitive Content</Trans>
           </span>
         </div>
       )}

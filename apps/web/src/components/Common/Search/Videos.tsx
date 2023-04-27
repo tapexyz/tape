@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro'
 import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -43,7 +44,7 @@ const Videos: FC<Props> = ({ results, loading, clearSearch }) => {
       ))}
       {!results?.length && !loading && (
         <div className="relative cursor-default select-none p-5 text-center">
-          No results found.
+          <Trans>No results found</Trans>
         </div>
       )}
     </>
