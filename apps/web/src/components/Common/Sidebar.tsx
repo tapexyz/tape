@@ -1,5 +1,6 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -60,7 +61,7 @@ const Sidebar = () => {
           </div>
           <div className="flex flex-col items-center justify-center space-y-2">
             <Tooltip
-              content="Home"
+              content={t`Home`}
               visible={sidebarCollapsed}
               placement="right"
             >
@@ -77,11 +78,15 @@ const Sidebar = () => {
                 )}
               >
                 <HomeOutline className="h-5 w-5" />
-                {!sidebarCollapsed && <span className="text-sm">Home</span>}
+                {!sidebarCollapsed && (
+                  <span className="text-sm">
+                    <Trans>Home</Trans>
+                  </span>
+                )}
               </Link>
             </Tooltip>
             <Tooltip
-              content="Subscriptions"
+              content={t`Subscriptions`}
               visible={sidebarCollapsed}
               placement="right"
             >
@@ -99,12 +104,14 @@ const Sidebar = () => {
               >
                 <FeedOutline className="h-5 w-5 flex-none" />
                 {!sidebarCollapsed && (
-                  <span className="text-sm">Subscriptions</span>
+                  <span className="text-sm">
+                    <Trans>Subscriptions</Trans>
+                  </span>
                 )}
               </Link>
             </Tooltip>
             <Tooltip
-              content="Bytes"
+              content={t`Bytes`}
               visible={sidebarCollapsed}
               placement="right"
             >
@@ -125,7 +132,7 @@ const Sidebar = () => {
               </Link>
             </Tooltip>
             <Tooltip
-              content="Explore"
+              content={t`Explore`}
               visible={sidebarCollapsed}
               placement="right"
             >
@@ -142,7 +149,11 @@ const Sidebar = () => {
                 )}
               >
                 <ExploreOutline className="h-5 w-5" />
-                {!sidebarCollapsed && <span className="text-sm">Explore</span>}
+                {!sidebarCollapsed && (
+                  <span className="text-sm">
+                    <Trans>Explore</Trans>
+                  </span>
+                )}
               </Link>
             </Tooltip>
           </div>

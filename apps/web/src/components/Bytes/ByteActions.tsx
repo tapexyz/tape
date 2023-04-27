@@ -7,6 +7,7 @@ import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import Tooltip from '@components/UIElements/Tooltip'
 import CollectVideo from '@components/Watch/CollectVideo'
 import PublicationReaction from '@components/Watch/PublicationReaction'
+import { t } from '@lingui/macro'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -58,7 +59,7 @@ const ByteActions: FC<Props> = ({ video }) => {
             <div className="flex flex-col items-center pt-2">
               <MirrorOutline className="h-5 w-5" />
               <div className="pt-1 text-xs">
-                {video.stats?.totalAmountOfMirrors || 'Mirror'}
+                {video.stats?.totalAmountOfMirrors || t`Mirror`}
               </div>
             </div>
           </MirrorVideo>
@@ -67,7 +68,7 @@ const ByteActions: FC<Props> = ({ video }) => {
           <div className="hidden w-full pb-3 text-center md:block">
             <CollectVideo video={video} />
             <div className="text-center text-xs leading-3">
-              {video.stats?.totalAmountOfCollects || 'Collect'}
+              {video.stats?.totalAmountOfCollects || t`Collect`}
             </div>
           </div>
         )}

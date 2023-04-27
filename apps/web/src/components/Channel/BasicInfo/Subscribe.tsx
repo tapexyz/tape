@@ -2,6 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { Trans } from '@lingui/macro'
 import { utils } from 'ethers'
 import type {
   CreateFollowBroadcastItemResult,
@@ -172,7 +173,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
 
   return (
     <Button onClick={() => subscribe()} loading={loading}>
-      Subscribe
+      <Trans>Subscribe</Trans>
     </Button>
   )
 }

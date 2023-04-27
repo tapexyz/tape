@@ -1,4 +1,5 @@
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
+import { Trans } from '@lingui/macro'
 import type { Publication } from 'lens'
 import { usePublicationDetailsQuery } from 'lens'
 import Link from 'next/link'
@@ -74,7 +75,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
           </Link>
           <div className="flex items-center overflow-hidden opacity-70">
             <span className="whitespace-nowrap">
-              {pinnedPublication.stats?.totalUpvotes} likes
+              {pinnedPublication.stats?.totalUpvotes} <Trans>likes</Trans>
             </span>
             <span className="middot" />
             {pinnedPublication.createdAt && (
@@ -91,7 +92,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
           className="text-xs font-semibold text-indigo-500"
           href={`/watch/${pinnedPublication.id}`}
         >
-          View more
+          <Trans>View more</Trans>
         </Link>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
+import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -22,7 +23,7 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
   const onCopyCode = () => {
     Analytics.track(TRACK.EMBED_VIDEO.COPY)
     copy(iframeCode)
-    toast.success('Copied to clipboard')
+    toast.success(t`Copied to clipboard`)
   }
 
   const closeModal = () => {

@@ -1,6 +1,7 @@
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import IsVerified from '@components/Common/IsVerified'
 import ThumbnailImage from '@components/Common/VideoCard/ThumbnailImage'
+import { Trans } from '@lingui/macro'
 import type { Attribute, Mirror, Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -35,7 +36,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
           {isSensitiveContent && (
             <div className="absolute left-3 top-2">
               <span className="rounded-full bg-white px-2 py-0.5 text-[10px] text-black">
-                Sensitive Content
+                <Trans>Sensitive Content</Trans>
               </span>
             </div>
           )}
@@ -90,7 +91,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
           <div className="pl-8">
             <div className="flex items-center text-xs leading-3 opacity-70">
               <span title={getDateString(video.createdAt)}>
-                Mirrored {getRelativeTime(video.createdAt)}
+                <Trans>Mirrored</Trans> {getRelativeTime(video.createdAt)}
               </span>
             </div>
           </div>

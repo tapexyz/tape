@@ -2,6 +2,7 @@ import CommentOutline from '@components/Common/Icons/CommentOutline'
 import IsVerified from '@components/Common/IsVerified'
 import ThumbnailImage from '@components/Common/VideoCard/ThumbnailImage'
 import Tooltip from '@components/UIElements/Tooltip'
+import { Trans } from '@lingui/macro'
 import type { Attribute, Comment, Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -45,7 +46,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
           {isSensitiveContent && (
             <div className="absolute left-3 top-2">
               <span className="rounded-full bg-white px-2 py-0.5 text-[10px] text-black">
-                Sensitive Content
+                <Trans>Sensitive Content</Trans>
               </span>
             </div>
           )}

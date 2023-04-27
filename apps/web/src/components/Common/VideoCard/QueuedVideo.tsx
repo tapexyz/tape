@@ -3,6 +3,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
+import { t } from '@lingui/macro'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import {
@@ -120,7 +121,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
 
   return (
     <div className="cursor-wait">
-      <Tooltip content="Indexing, please wait..." placement="top">
+      <Tooltip content={t`Indexing, please wait...`} placement="top">
         <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
           <img
             src={thumbnailUrl}

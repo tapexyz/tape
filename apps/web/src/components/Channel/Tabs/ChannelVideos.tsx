@@ -4,6 +4,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import usePersistStore from '@lib/store/persist'
+import { t } from '@lingui/macro'
 import type { Profile, Publication } from 'lens'
 import {
   PublicationMainFocus,
@@ -77,7 +78,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
   }
 
   if (data?.publications?.items?.length === 0 && queuedVideos.length === 0) {
-    return <NoDataFound isCenter withImage text="No videos found" />
+    return <NoDataFound isCenter withImage text={t`No videos found`} />
   }
 
   return (

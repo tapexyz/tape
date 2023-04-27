@@ -23,8 +23,8 @@ import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
 import Header from './Header'
+import TelemetryProvider from './Providers/TelemetryProvider'
 import Sidebar from './Sidebar'
-import TelemetryProvider from './TelemetryProvider'
 
 interface Props {
   children: ReactNode

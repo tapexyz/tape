@@ -1,4 +1,5 @@
 import CollectVideo from '@components/Watch/CollectVideo'
+import { t } from '@lingui/macro'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
@@ -153,7 +154,7 @@ const ByteVideo: FC<Props> = ({
             <div className="text-center text-white md:text-gray-500">
               <CollectVideo video={video} />
               <div className="text-xs">
-                {video.stats?.totalAmountOfCollects || 'Collect'}
+                {video.stats?.totalAmountOfCollects || t`Collect`}
               </div>
             </div>
           )}

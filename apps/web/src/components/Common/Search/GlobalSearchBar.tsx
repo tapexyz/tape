@@ -1,6 +1,7 @@
 import { useLazyQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { Tab } from '@headlessui/react'
+import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { Profile, Publication } from 'lens'
 import {
@@ -81,7 +82,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
             <input
               className="w-full bg-transparent py-2 pl-4 pr-10 text-sm focus:outline-none"
               onChange={(event) => setKeyword(event.target.value)}
-              placeholder="Search by channel / hashtag"
+              placeholder={t`Search by channel / hashtag`}
               value={keyword}
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -112,7 +113,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     setActiveSearch(SearchRequestTypes.Profile)
                   }}
                 >
-                  Channels
+                  <Trans>Channels</Trans>
                 </Tab>
                 <Tab
                   className={({ selected }) =>
@@ -127,7 +128,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     setActiveSearch(SearchRequestTypes.Publication)
                   }}
                 >
-                  Videos
+                  <Trans>Videos</Trans>
                 </Tab>
               </Tab.List>
               <Tab.Panels>

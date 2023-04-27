@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro'
 import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -88,7 +89,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                 </Link>
                 <div className="flex items-center overflow-hidden text-xs opacity-70">
                   <span className="whitespace-nowrap">
-                    {video.stats?.totalUpvotes} likes
+                    {video.stats?.totalUpvotes} <Trans>likes</Trans>
                   </span>
                   <span className="middot" />
                   {video.createdAt && (

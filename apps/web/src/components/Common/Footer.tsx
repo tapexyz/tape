@@ -1,4 +1,5 @@
 import usePersistStore from '@lib/store/persist'
+import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import React from 'react'
 import {
@@ -26,7 +27,7 @@ const Footer = () => {
         }}
         target="_blank"
       >
-        Status
+        <Trans>Status</Trans>
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
@@ -70,7 +71,7 @@ const Footer = () => {
           Analytics.track(TRACK.SYSTEM.MORE_MENU.THANKS)
         }}
       >
-        Thanks
+        <Trans>Thanks</Trans>
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
@@ -81,7 +82,7 @@ const Footer = () => {
         }}
         target="_blank"
       >
-        Feedback
+        <Trans>Feedback</Trans>
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
@@ -92,7 +93,7 @@ const Footer = () => {
         }}
         href="/terms"
       >
-        Terms
+        <Trans>Terms</Trans>
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
@@ -103,7 +104,7 @@ const Footer = () => {
         }}
         href="/privacy"
       >
-        Privacy
+        <Trans>Privacy</Trans>
       </Link>
     </div>
   )
