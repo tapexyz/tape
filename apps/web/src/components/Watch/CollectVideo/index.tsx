@@ -4,6 +4,7 @@ import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
 import { utils } from 'ethers'
 import type { CreateCollectBroadcastItemResult, Publication } from 'lens'
@@ -22,7 +23,6 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  SIGN_IN_REQUIRED_MESSAGE,
   TRACK
 } from 'utils'
 import omitKey from 'utils/functions/omitKey'
@@ -37,6 +37,8 @@ type Props = {
 
 const CollectVideo: FC<Props> = ({ video, variant }) => {
   const { address } = useAccount()
+  const { openConnectModal } = useConnectModal()
+
   const [loading, setLoading] = useState(false)
   const [showCollectModal, setShowCollectModal] = useState(false)
   const [alreadyCollected, setAlreadyCollected] = useState(
@@ -163,7 +165,7 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
 
   const onClickCollect = () => {
     if (!selectedChannelId) {
-      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+      return openConnectModal?.()
     }
     return setShowCollectModal(true)
   }

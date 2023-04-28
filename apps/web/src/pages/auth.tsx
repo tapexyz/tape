@@ -1,6 +1,7 @@
 import Login from '@components/Common/Auth/Login'
 import MetaTags from '@components/Common/MetaTags'
 import useAuthPersistStore from '@lib/store/auth'
+import { t, Trans } from '@lingui/macro'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { LENSTUBE_APP_NAME, STATIC_ASSETS } from 'utils'
@@ -19,7 +20,7 @@ const AuthRequiredPage = () => {
 
   return (
     <>
-      <MetaTags title="Login" />
+      <MetaTags title={t`Login`} />
       <div className="mt-10 flex h-full flex-col items-center justify-start md:mt-20">
         <img
           src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
@@ -29,9 +30,11 @@ const AuthRequiredPage = () => {
           width={50}
         />
         <div className="flex flex-col items-center justify-center py-10">
-          <h1 className="mb-4 text-3xl font-bold">Sign In Required</h1>
+          <h1 className="mb-4 text-3xl font-bold">
+            <Trans>Sign In Required</Trans>
+          </h1>
           <div className="mb-6 text-center">
-            Connect Wallet & Sign with Lens to continue,
+            <Trans>Connect Wallet & Sign with Lens to continue,</Trans>
           </div>
           <div>
             <Login />
