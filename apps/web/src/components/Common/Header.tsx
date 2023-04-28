@@ -4,6 +4,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import { useLatestNotificationIdQuery } from 'lens'
 import Link from 'next/link'
@@ -137,7 +138,9 @@ const Header: FC<Props> = ({ className }) => {
                     className="hidden md:block"
                     icon={<NewVideoOutline className="h-4 w-4" />}
                   >
-                    <span>New video</span>
+                    <span>
+                      <Trans>New video</Trans>
+                    </span>
                   </Button>
                 </Link>
               </>
@@ -148,7 +151,7 @@ const Header: FC<Props> = ({ className }) => {
         {showFilter && <CategoryFilters />}
       </div>
       <Modal
-        title="Search"
+        title={t`Search`}
         onClose={() => setSearchModal(false)}
         show={showShowModal}
         panelClassName="max-w-md h-full"

@@ -1,5 +1,6 @@
 import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { t } from '@lingui/macro'
 import type { Profile } from 'lens'
 import { useAllProfilesQuery } from 'lens'
 import dynamic from 'next/dynamic'
@@ -26,7 +27,7 @@ const OtherChannels: FC<Props> = ({ channel }) => {
   }
 
   if (allChannels?.length === 1) {
-    return <NoDataFound isCenter withImage text="No other channels found" />
+    return <NoDataFound isCenter withImage text={t`No other channels found`} />
   }
 
   return (

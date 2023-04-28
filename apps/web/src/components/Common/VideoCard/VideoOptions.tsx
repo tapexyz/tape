@@ -4,6 +4,7 @@ import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import { utils } from 'ethers'
 import type {
@@ -77,7 +78,7 @@ const VideoOptions: FC<Props> = ({
       cache.gc()
     },
     onCompleted: () => {
-      toast.success('Video deleted')
+      toast.success(t`Video deleted`)
       Analytics.track(TRACK.PUBLICATION.DELETE, {
         publication_type: video.__typename?.toLowerCase()
       })
@@ -110,7 +111,7 @@ const VideoOptions: FC<Props> = ({
   }
 
   const onCompleted = () => {
-    toast.success('Transaction submitted')
+    toast.success(t`Transaction submitted`)
     Analytics.track(TRACK.PUBLICATION.PIN)
   }
 
@@ -194,8 +195,8 @@ const VideoOptions: FC<Props> = ({
       return
     }
     try {
-      toast.loading('Pinning video...')
-      const { url } = await uploadToAr({
+      toast.loading(t`Pinning video...`)
+      const metadataUri = await uploadToAr({
         version: '1.0.0',
         metadata_id: uuidv4(),
         name: selectedChannel?.name ?? '',
@@ -219,9 +220,11 @@ const VideoOptions: FC<Props> = ({
       })
       const request = {
         profileId: selectedChannel?.id,
-        metadata: url
+        metadata: metadataUri
       }
-      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+      const canUseDispatcher =
+        selectedChannel?.dispatcher?.canUseRelay &&
+        selectedChannel.dispatcher.sponsor
       if (!canUseDispatcher) {
         return createTypedData(request)
       }
@@ -260,7 +263,9 @@ const VideoOptions: FC<Props> = ({
                     onClick={() => onPinVideo()}
                   >
                     <PinOutline className="h-3.5 w-3.5" />
-                    <span className="whitespace-nowrap">Pin Video</span>
+                    <span className="whitespace-nowrap">
+                      <Trans>Pin Video</Trans>
+                    </span>
                   </Menu.Item>
                 )}
                 <Menu.Item
@@ -270,7 +275,9 @@ const VideoOptions: FC<Props> = ({
                 >
                   <div className="flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800">
                     <ExternalOutline className="h-3 w-3" />
-                    <span className="whitespace-nowrap">Raw Video</span>
+                    <span className="whitespace-nowrap">
+                      <Trans>Raw Video</Trans>
+                    </span>
                   </div>
                 </Menu.Item>
                 <Menu.Item
@@ -279,7 +286,9 @@ const VideoOptions: FC<Props> = ({
                   onClick={() => setShowConfirm(true)}
                 >
                   <TrashOutline className="h-3.5 w-3.5" />
-                  <span className="whitespace-nowrap">Delete</span>
+                  <span className="whitespace-nowrap">
+                    <Trans>Delete</Trans>
+                  </span>
                 </Menu.Item>
               </>
             )}
@@ -289,7 +298,9 @@ const VideoOptions: FC<Props> = ({
               className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               <ShareOutline className="h-3.5 w-3.5" />
-              <span className="whitespace-nowrap">Share</span>
+              <span className="whitespace-nowrap">
+                <Trans>Share</Trans>
+              </span>
             </button>
             <button
               type="button"
@@ -297,7 +308,9 @@ const VideoOptions: FC<Props> = ({
               className="hhover:opacity-100 inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               <FlagOutline className="h-3.5 w-3.5" />
-              <span className="whitespace-nowrap">Report</span>
+              <span className="whitespace-nowrap">
+                <Trans>Report</Trans>
+              </span>
             </button>
           </div>
         </div>

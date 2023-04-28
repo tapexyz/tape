@@ -5,6 +5,7 @@ import CommentOutline from '@components/Common/Icons/CommentOutline'
 import InfoOutline from '@components/Common/Icons/InfoOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import { Tab } from '@headlessui/react'
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { useRouter } from 'next/router'
@@ -75,7 +76,9 @@ const Tabs: FC<Props> = ({ channel }) => {
           }
         >
           <VideoOutline className="h-4 w-4" />
-          <span>Videos</span>
+          <span>
+            <Trans>Videos</Trans>
+          </span>
         </Tab>
         <Tab
           onClick={() => {
@@ -92,7 +95,9 @@ const Tabs: FC<Props> = ({ channel }) => {
           }
         >
           <BytesOutline className="h-4 w-4" />
-          <span>Bytes</span>
+          <span>
+            <Trans>Bytes</Trans>
+          </span>
         </Tab>
         <Tab
           onClick={() => {
@@ -109,7 +114,9 @@ const Tabs: FC<Props> = ({ channel }) => {
           }
         >
           <CommentOutline className="h-4 w-4" />
-          <span>Commented</span>
+          <span>
+            <Trans>Commented</Trans>
+          </span>
         </Tab>
         <Tab
           onClick={() => {
@@ -126,7 +133,9 @@ const Tabs: FC<Props> = ({ channel }) => {
           }
         >
           <MirrorOutline className="h-4 w-4" />
-          <span>Mirrored</span>
+          <span>
+            <Trans>Mirrored</Trans>
+          </span>
         </Tab>
         <Tab
           onClick={() => {
@@ -160,7 +169,9 @@ const Tabs: FC<Props> = ({ channel }) => {
           }
         >
           <ChannelOutline className="h-4 w-4" />
-          <span>Channels</span>
+          <span>
+            <Trans>Channels</Trans>
+          </span>
         </Tab>
         <Tab
           onClick={() => {
@@ -177,7 +188,9 @@ const Tabs: FC<Props> = ({ channel }) => {
           }
         >
           <InfoOutline className="h-4 w-4" />
-          <span>About</span>
+          <span>
+            <Trans>About</Trans>
+          </span>
         </Tab>
       </Tab.List>
       <Tab.Panels className="py-4 md:py-5">

@@ -1052,6 +1052,81 @@ export enum CustomFiltersTypes {
   Gardeners = 'GARDENERS'
 }
 
+export type DataAvailabilityComment = {
+  __typename?: 'DataAvailabilityComment'
+  appId?: Maybe<Scalars['Sources']>
+  commentedOnProfile: Profile
+  commentedOnPublicationId: Scalars['InternalPublicationId']
+  createdAt: Scalars['DateTime']
+  profile: Profile
+  publicationId: Scalars['InternalPublicationId']
+  submitter: Scalars['EthereumAddress']
+  transactionId: Scalars['String']
+}
+
+export type DataAvailabilityMirror = {
+  __typename?: 'DataAvailabilityMirror'
+  appId?: Maybe<Scalars['Sources']>
+  createdAt: Scalars['DateTime']
+  mirrorOfProfile: Profile
+  mirrorOfPublicationId: Scalars['InternalPublicationId']
+  profile: Profile
+  publicationId: Scalars['InternalPublicationId']
+  submitter: Scalars['EthereumAddress']
+  transactionId: Scalars['String']
+}
+
+export type DataAvailabilityPost = {
+  __typename?: 'DataAvailabilityPost'
+  appId?: Maybe<Scalars['Sources']>
+  createdAt: Scalars['DateTime']
+  profile: Profile
+  publicationId: Scalars['InternalPublicationId']
+  submitter: Scalars['EthereumAddress']
+  transactionId: Scalars['String']
+}
+
+export type DataAvailabilitySubmitterResult = {
+  __typename?: 'DataAvailabilitySubmitterResult'
+  address: Scalars['EthereumAddress']
+  name: Scalars['String']
+  totalTransactions: Scalars['Int']
+}
+
+/** The paginated submitter results */
+export type DataAvailabilitySubmittersResult = {
+  __typename?: 'DataAvailabilitySubmittersResult'
+  items: Array<DataAvailabilitySubmitterResult>
+  pageInfo: PaginatedResultInfo
+}
+
+export type DataAvailabilitySummaryResult = {
+  __typename?: 'DataAvailabilitySummaryResult'
+  totalTransactions: Scalars['Int']
+}
+
+export type DataAvailabilityTransactionRequest = {
+  /** The DA transaction id or internal publiation id */
+  id: Scalars['String']
+}
+
+export type DataAvailabilityTransactionUnion =
+  | DataAvailabilityComment
+  | DataAvailabilityMirror
+  | DataAvailabilityPost
+
+export type DataAvailabilityTransactionsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
+}
+
+export type DataAvailabilityTransactionsResult = {
+  __typename?: 'DataAvailabilityTransactionsResult'
+  items: Array<DataAvailabilityTransactionUnion>
+  pageInfo: PaginatedResultInfo
+}
+
 /** The reason why a profile cannot decrypt a publication */
 export enum DecryptFailReason {
   CanNotDecrypt = 'CAN_NOT_DECRYPT',
@@ -1104,6 +1179,8 @@ export type Dispatcher = {
   address: Scalars['EthereumAddress']
   /** If the dispatcher can use the relay */
   canUseRelay: Scalars['Boolean']
+  /** If the dispatcher transactions will be sponsored by lens aka cover the gas costs */
+  sponsor: Scalars['Boolean']
 }
 
 export type DoesFollow = {
@@ -2656,7 +2733,7 @@ export type NotificationRequest = {
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>
   highSignalFilter?: InputMaybe<Scalars['Boolean']>
   limit?: InputMaybe<Scalars['LimitScalar']>
-  /** The profile id */
+  /** The notification types */
   notificationTypes?: InputMaybe<Array<NotificationTypes>>
   /** The profile id */
   profileId: Scalars['ProfileId']
@@ -3223,7 +3300,7 @@ export enum PublicationMetadataStatusType {
 
 /** Publication metadata tag filter */
 export type PublicationMetadataTagsFilter = {
-  /** Needs to only match all */
+  /** Needs to match all */
   all?: InputMaybe<Array<Scalars['String']>>
   /** Needs to only match one of */
   oneOf?: InputMaybe<Array<Scalars['String']>>
@@ -3350,6 +3427,7 @@ export enum PublicationReportingSensitiveSubreason {
 /** Publication reporting spam subreason */
 export enum PublicationReportingSpamSubreason {
   FakeEngagement = 'FAKE_ENGAGEMENT',
+  LowSignal = 'LOW_SIGNAL',
   ManipulationAlgo = 'MANIPULATION_ALGO',
   Misleading = 'MISLEADING',
   MisuseHashtags = 'MISUSE_HASHTAGS',
@@ -3463,6 +3541,10 @@ export type Query = {
   claimableHandles: ClaimableHandles
   claimableStatus: ClaimStatus
   cur: Array<Scalars['String']>
+  dataAvailabilitySubmitters: DataAvailabilitySubmittersResult
+  dataAvailabilitySummary: DataAvailabilitySummaryResult
+  dataAvailabilityTransaction?: Maybe<DataAvailabilityTransactionUnion>
+  dataAvailabilityTransactions: DataAvailabilityTransactionsResult
   defaultProfile?: Maybe<Profile>
   doesFollow: Array<DoesFollowResponse>
   enabledModuleCurrencies: Array<Erc20>
@@ -3530,6 +3612,14 @@ export type QueryChallengeArgs = {
 
 export type QueryCurArgs = {
   request: CurRequest
+}
+
+export type QueryDataAvailabilityTransactionArgs = {
+  request: DataAvailabilityTransactionRequest
+}
+
+export type QueryDataAvailabilityTransactionsArgs = {
+  request?: InputMaybe<DataAvailabilityTransactionsRequest>
 }
 
 export type QueryDefaultProfileArgs = {
@@ -3999,6 +4089,11 @@ export type SpamReasonInputParams = {
   subreason: PublicationReportingSpamSubreason
 }
 
+export type Subscription = {
+  __typename?: 'Subscription'
+  newDataAvailabilityTransaction: DataAvailabilityTransactionUnion
+}
+
 export type SybilDotOrgIdentity = {
   __typename?: 'SybilDotOrgIdentity'
   source: SybilDotOrgIdentitySource
@@ -4407,6 +4502,8 @@ export type CommentFieldsFragment = {
   collectNftAddress?: any | null
   onChainContentURI: string
   hidden: boolean
+  isGated: boolean
+  isDataAvailability: boolean
   hasCollectedByMe: boolean
   createdAt: any
   appId?: any | null
@@ -4424,6 +4521,7 @@ export type CommentFieldsFragment = {
       __typename?: 'Dispatcher'
       address: any
       canUseRelay: boolean
+      sponsor: boolean
     } | null
     attributes?: Array<{
       __typename?: 'Attribute'
@@ -4650,6 +4748,7 @@ export type CommentFieldsFragment = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -4746,6 +4845,9 @@ export type MirrorFieldsFragment = {
   collectNftAddress?: any | null
   onChainContentURI: string
   hidden: boolean
+  isGated: boolean
+  isDataAvailability: boolean
+  dataAvailabilityProofs?: string | null
   hasCollectedByMe: boolean
   createdAt: any
   appId?: any | null
@@ -4763,6 +4865,7 @@ export type MirrorFieldsFragment = {
       __typename?: 'Dispatcher'
       address: any
       canUseRelay: boolean
+      sponsor: boolean
     } | null
     attributes?: Array<{
       __typename?: 'Attribute'
@@ -4975,6 +5078,8 @@ export type MirrorFieldsFragment = {
         collectNftAddress?: any | null
         onChainContentURI: string
         hidden: boolean
+        isGated: boolean
+        isDataAvailability: boolean
         hasCollectedByMe: boolean
         createdAt: any
         appId?: any | null
@@ -4992,6 +5097,7 @@ export type MirrorFieldsFragment = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -5218,6 +5324,7 @@ export type MirrorFieldsFragment = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -5285,6 +5392,9 @@ export type MirrorFieldsFragment = {
         reaction?: ReactionTypes | null
         collectNftAddress?: any | null
         onChainContentURI: string
+        isGated: boolean
+        isDataAvailability: boolean
+        dataAvailabilityProofs?: string | null
         hidden: boolean
         hasCollectedByMe: boolean
         createdAt: any
@@ -5303,6 +5413,7 @@ export type MirrorFieldsFragment = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -5516,6 +5627,9 @@ export type PostFieldsFragment = {
   reaction?: ReactionTypes | null
   collectNftAddress?: any | null
   onChainContentURI: string
+  isGated: boolean
+  isDataAvailability: boolean
+  dataAvailabilityProofs?: string | null
   hidden: boolean
   hasCollectedByMe: boolean
   createdAt: any
@@ -5534,6 +5648,7 @@ export type PostFieldsFragment = {
       __typename?: 'Dispatcher'
       address: any
       canUseRelay: boolean
+      sponsor: boolean
     } | null
     attributes?: Array<{
       __typename?: 'Attribute'
@@ -5754,6 +5869,7 @@ export type ProfileFieldsFragment = {
     __typename?: 'Dispatcher'
     address: any
     canUseRelay: boolean
+    sponsor: boolean
   } | null
   attributes?: Array<{
     __typename?: 'Attribute'
@@ -5889,6 +6005,67 @@ export type ReportPublicationMutationVariables = Exact<{
 export type ReportPublicationMutation = {
   __typename?: 'Mutation'
   reportPublication?: any | null
+}
+
+export type BroadcastDataAvailabilityMutationVariables = Exact<{
+  request: BroadcastRequest
+}>
+
+export type BroadcastDataAvailabilityMutation = {
+  __typename?: 'Mutation'
+  broadcastDataAvailability:
+    | {
+        __typename?: 'CreateDataAvailabilityPublicationResult'
+        id: any
+        proofs: string
+      }
+    | { __typename?: 'RelayError'; reason: RelayErrorReasons }
+}
+
+export type CreateDataAvailabilityCommentViaDispatcherMutationVariables =
+  Exact<{
+    request: CreateDataAvailabilityCommentRequest
+  }>
+
+export type CreateDataAvailabilityCommentViaDispatcherMutation = {
+  __typename?: 'Mutation'
+  createDataAvailabilityCommentViaDispatcher:
+    | {
+        __typename?: 'CreateDataAvailabilityPublicationResult'
+        id: any
+        proofs: string
+      }
+    | { __typename?: 'RelayError'; reason: RelayErrorReasons }
+}
+
+export type CreateDataAvailabilityMirrorViaDispatcherMutationVariables = Exact<{
+  request: CreateDataAvailabilityMirrorRequest
+}>
+
+export type CreateDataAvailabilityMirrorViaDispatcherMutation = {
+  __typename?: 'Mutation'
+  createDataAvailabilityMirrorViaDispatcher:
+    | {
+        __typename?: 'CreateDataAvailabilityPublicationResult'
+        id: any
+        proofs: string
+      }
+    | { __typename?: 'RelayError'; reason: RelayErrorReasons }
+}
+
+export type CreateDataAvailabilityPostViaDispatcherMutationVariables = Exact<{
+  request: CreateDataAvailabilityPostRequest
+}>
+
+export type CreateDataAvailabilityPostViaDispatcherMutation = {
+  __typename?: 'Mutation'
+  createDataAvailabilityPostViaDispatcher:
+    | {
+        __typename?: 'CreateDataAvailabilityPublicationResult'
+        id: any
+        proofs: string
+      }
+    | { __typename?: 'RelayError'; reason: RelayErrorReasons }
 }
 
 export type CreateCommentViaDispatcherMutationVariables = Exact<{
@@ -6348,6 +6525,93 @@ export type CreateSetProfileMetadataTypedDataMutation = {
   }
 }
 
+export type CreateDataAvailabilityCommentTypedDataMutationVariables = Exact<{
+  request: CreateDataAvailabilityCommentRequest
+}>
+
+export type CreateDataAvailabilityCommentTypedDataMutation = {
+  __typename?: 'Mutation'
+  createDataAvailabilityCommentTypedData: {
+    __typename?: 'CreateCommentBroadcastItemResult'
+    id: any
+    expiresAt: any
+    typedData: {
+      __typename?: 'CreateCommentEIP712TypedData'
+      types: {
+        __typename?: 'CreateCommentEIP712TypedDataTypes'
+        CommentWithSig: Array<{
+          __typename?: 'EIP712TypedDataField'
+          name: string
+          type: string
+        }>
+      }
+      domain: {
+        __typename?: 'EIP712TypedDataDomain'
+        name: string
+        chainId: any
+        version: string
+        verifyingContract: any
+      }
+      value: {
+        __typename?: 'CreateCommentEIP712TypedDataValue'
+        nonce: any
+        deadline: any
+        profileId: any
+        contentURI: any
+        profileIdPointed: any
+        pubIdPointed: any
+        collectModule: any
+        collectModuleInitData: any
+        referenceModule: any
+        referenceModuleInitData: any
+        referenceModuleData: any
+      }
+    }
+  }
+}
+
+export type CreateDataAvailabilityPostTypedDataMutationVariables = Exact<{
+  request: CreateDataAvailabilityPostRequest
+}>
+
+export type CreateDataAvailabilityPostTypedDataMutation = {
+  __typename?: 'Mutation'
+  createDataAvailabilityPostTypedData: {
+    __typename?: 'CreatePostBroadcastItemResult'
+    id: any
+    expiresAt: any
+    typedData: {
+      __typename?: 'CreatePostEIP712TypedData'
+      types: {
+        __typename?: 'CreatePostEIP712TypedDataTypes'
+        PostWithSig: Array<{
+          __typename?: 'EIP712TypedDataField'
+          name: string
+          type: string
+        }>
+      }
+      domain: {
+        __typename?: 'EIP712TypedDataDomain'
+        name: string
+        chainId: any
+        version: string
+        verifyingContract: any
+      }
+      value: {
+        __typename?: 'CreatePostEIP712TypedDataValue'
+        nonce: any
+        deadline: any
+        profileId: any
+        contentURI: any
+        collectModule: any
+        collectModuleInitData: any
+        referenceModule: any
+        referenceModuleInitData: any
+      }
+    }
+  }
+}
+
 export type AllProfilesQueryVariables = Exact<{
   request: ProfileQueryRequest
 }>
@@ -6370,6 +6634,7 @@ export type AllProfilesQuery = {
         __typename?: 'Dispatcher'
         address: any
         canUseRelay: boolean
+        sponsor: boolean
       } | null
       attributes?: Array<{
         __typename?: 'Attribute'
@@ -6462,6 +6727,7 @@ export type CollectorsQuery = {
           __typename?: 'Dispatcher'
           address: any
           canUseRelay: boolean
+          sponsor: boolean
         } | null
         attributes?: Array<{
           __typename?: 'Attribute'
@@ -6517,6 +6783,8 @@ export type CommentsQuery = {
           collectNftAddress?: any | null
           onChainContentURI: string
           hidden: boolean
+          isGated: boolean
+          isDataAvailability: boolean
           hasCollectedByMe: boolean
           createdAt: any
           appId?: any | null
@@ -6534,6 +6802,7 @@ export type CommentsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -6764,6 +7033,7 @@ export type CommentsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -6914,6 +7184,8 @@ export type ExploreQuery = {
           collectNftAddress?: any | null
           onChainContentURI: string
           hidden: boolean
+          isGated: boolean
+          isDataAvailability: boolean
           hasCollectedByMe: boolean
           createdAt: any
           appId?: any | null
@@ -6931,6 +7203,7 @@ export type ExploreQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -7161,6 +7434,7 @@ export type ExploreQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -7229,6 +7503,9 @@ export type ExploreQuery = {
           reaction?: ReactionTypes | null
           collectNftAddress?: any | null
           onChainContentURI: string
+          isGated: boolean
+          isDataAvailability: boolean
+          dataAvailabilityProofs?: string | null
           hidden: boolean
           hasCollectedByMe: boolean
           createdAt: any
@@ -7247,6 +7524,7 @@ export type ExploreQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -7481,6 +7759,8 @@ export type FeedQuery = {
             collectNftAddress?: any | null
             onChainContentURI: string
             hidden: boolean
+            isGated: boolean
+            isDataAvailability: boolean
             hasCollectedByMe: boolean
             createdAt: any
             appId?: any | null
@@ -7498,6 +7778,7 @@ export type FeedQuery = {
                 __typename?: 'Dispatcher'
                 address: any
                 canUseRelay: boolean
+                sponsor: boolean
               } | null
               attributes?: Array<{
                 __typename?: 'Attribute'
@@ -7728,6 +8009,7 @@ export type FeedQuery = {
                       __typename?: 'Dispatcher'
                       address: any
                       canUseRelay: boolean
+                      sponsor: boolean
                     } | null
                     attributes?: Array<{
                       __typename?: 'Attribute'
@@ -7795,6 +8077,9 @@ export type FeedQuery = {
             reaction?: ReactionTypes | null
             collectNftAddress?: any | null
             onChainContentURI: string
+            isGated: boolean
+            isDataAvailability: boolean
+            dataAvailabilityProofs?: string | null
             hidden: boolean
             hasCollectedByMe: boolean
             createdAt: any
@@ -7813,6 +8098,7 @@ export type FeedQuery = {
                 __typename?: 'Dispatcher'
                 address: any
                 canUseRelay: boolean
+                sponsor: boolean
               } | null
               attributes?: Array<{
                 __typename?: 'Attribute'
@@ -8143,6 +8429,7 @@ export type MutualFollowersQuery = {
         __typename?: 'Dispatcher'
         address: any
         canUseRelay: boolean
+        sponsor: boolean
       } | null
       attributes?: Array<{
         __typename?: 'Attribute'
@@ -8209,6 +8496,7 @@ export type NotificationsQuery = {
                 __typename?: 'Dispatcher'
                 address: any
                 canUseRelay: boolean
+                sponsor: boolean
               } | null
               attributes?: Array<{
                 __typename?: 'Attribute'
@@ -8265,6 +8553,7 @@ export type NotificationsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -8329,6 +8618,7 @@ export type NotificationsQuery = {
                 __typename?: 'Dispatcher'
                 address: any
                 canUseRelay: boolean
+                sponsor: boolean
               } | null
               attributes?: Array<{
                 __typename?: 'Attribute'
@@ -8385,6 +8675,7 @@ export type NotificationsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -8435,6 +8726,7 @@ export type NotificationsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -8487,6 +8779,7 @@ export type NotificationsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -8542,6 +8835,7 @@ export type NotificationsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -8611,6 +8905,7 @@ export type ProfileQuery = {
       __typename?: 'Dispatcher'
       address: any
       canUseRelay: boolean
+      sponsor: boolean
     } | null
     onChainIdentity: {
       __typename?: 'OnChainIdentity'
@@ -8727,6 +9022,9 @@ export type ProfileMirrorsQuery = {
           collectNftAddress?: any | null
           onChainContentURI: string
           hidden: boolean
+          isGated: boolean
+          isDataAvailability: boolean
+          dataAvailabilityProofs?: string | null
           hasCollectedByMe: boolean
           createdAt: any
           appId?: any | null
@@ -8744,6 +9042,7 @@ export type ProfileMirrorsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -8960,6 +9259,8 @@ export type ProfileMirrorsQuery = {
                 collectNftAddress?: any | null
                 onChainContentURI: string
                 hidden: boolean
+                isGated: boolean
+                isDataAvailability: boolean
                 hasCollectedByMe: boolean
                 createdAt: any
                 appId?: any | null
@@ -8977,6 +9278,7 @@ export type ProfileMirrorsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -9210,6 +9512,7 @@ export type ProfileMirrorsQuery = {
                           __typename?: 'Dispatcher'
                           address: any
                           canUseRelay: boolean
+                          sponsor: boolean
                         } | null
                         attributes?: Array<{
                           __typename?: 'Attribute'
@@ -9277,6 +9580,9 @@ export type ProfileMirrorsQuery = {
                 reaction?: ReactionTypes | null
                 collectNftAddress?: any | null
                 onChainContentURI: string
+                isGated: boolean
+                isDataAvailability: boolean
+                dataAvailabilityProofs?: string | null
                 hidden: boolean
                 hasCollectedByMe: boolean
                 createdAt: any
@@ -9295,6 +9601,7 @@ export type ProfileMirrorsQuery = {
                     __typename?: 'Dispatcher'
                     address: any
                     canUseRelay: boolean
+                    sponsor: boolean
                   } | null
                   attributes?: Array<{
                     __typename?: 'Attribute'
@@ -9558,6 +9865,9 @@ export type ProfilePostsQuery = {
           reaction?: ReactionTypes | null
           collectNftAddress?: any | null
           onChainContentURI: string
+          isGated: boolean
+          isDataAvailability: boolean
+          dataAvailabilityProofs?: string | null
           hidden: boolean
           hasCollectedByMe: boolean
           createdAt: any
@@ -9576,6 +9886,7 @@ export type ProfilePostsQuery = {
               __typename?: 'Dispatcher'
               address: any
               canUseRelay: boolean
+              sponsor: boolean
             } | null
             attributes?: Array<{
               __typename?: 'Attribute'
@@ -9974,6 +10285,8 @@ export type PublicationDetailsQuery = {
         collectNftAddress?: any | null
         onChainContentURI: string
         hidden: boolean
+        isGated: boolean
+        isDataAvailability: boolean
         hasCollectedByMe: boolean
         createdAt: any
         appId?: any | null
@@ -9991,6 +10304,7 @@ export type PublicationDetailsQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -10217,6 +10531,7 @@ export type PublicationDetailsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -10285,6 +10600,9 @@ export type PublicationDetailsQuery = {
         collectNftAddress?: any | null
         onChainContentURI: string
         hidden: boolean
+        isGated: boolean
+        isDataAvailability: boolean
+        dataAvailabilityProofs?: string | null
         hasCollectedByMe: boolean
         createdAt: any
         appId?: any | null
@@ -10302,6 +10620,7 @@ export type PublicationDetailsQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -10514,6 +10833,8 @@ export type PublicationDetailsQuery = {
               collectNftAddress?: any | null
               onChainContentURI: string
               hidden: boolean
+              isGated: boolean
+              isDataAvailability: boolean
               hasCollectedByMe: boolean
               createdAt: any
               appId?: any | null
@@ -10531,6 +10852,7 @@ export type PublicationDetailsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -10761,6 +11083,7 @@ export type PublicationDetailsQuery = {
                         __typename?: 'Dispatcher'
                         address: any
                         canUseRelay: boolean
+                        sponsor: boolean
                       } | null
                       attributes?: Array<{
                         __typename?: 'Attribute'
@@ -10828,6 +11151,9 @@ export type PublicationDetailsQuery = {
               reaction?: ReactionTypes | null
               collectNftAddress?: any | null
               onChainContentURI: string
+              isGated: boolean
+              isDataAvailability: boolean
+              dataAvailabilityProofs?: string | null
               hidden: boolean
               hasCollectedByMe: boolean
               createdAt: any
@@ -10846,6 +11172,7 @@ export type PublicationDetailsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -11062,6 +11389,9 @@ export type PublicationDetailsQuery = {
         reaction?: ReactionTypes | null
         collectNftAddress?: any | null
         onChainContentURI: string
+        isGated: boolean
+        isDataAvailability: boolean
+        dataAvailabilityProofs?: string | null
         hidden: boolean
         hasCollectedByMe: boolean
         createdAt: any
@@ -11080,6 +11410,7 @@ export type PublicationDetailsQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -11335,6 +11666,7 @@ export type SearchProfilesQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -11391,6 +11723,8 @@ export type SearchPublicationsQuery = {
               collectNftAddress?: any | null
               onChainContentURI: string
               hidden: boolean
+              isGated: boolean
+              isDataAvailability: boolean
               hasCollectedByMe: boolean
               createdAt: any
               appId?: any | null
@@ -11408,6 +11742,7 @@ export type SearchPublicationsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -11638,6 +11973,7 @@ export type SearchPublicationsQuery = {
                         __typename?: 'Dispatcher'
                         address: any
                         canUseRelay: boolean
+                        sponsor: boolean
                       } | null
                       attributes?: Array<{
                         __typename?: 'Attribute'
@@ -11705,6 +12041,9 @@ export type SearchPublicationsQuery = {
               reaction?: ReactionTypes | null
               collectNftAddress?: any | null
               onChainContentURI: string
+              isGated: boolean
+              isDataAvailability: boolean
+              dataAvailabilityProofs?: string | null
               hidden: boolean
               hasCollectedByMe: boolean
               createdAt: any
@@ -11723,6 +12062,7 @@ export type SearchPublicationsQuery = {
                   __typename?: 'Dispatcher'
                   address: any
                   canUseRelay: boolean
+                  sponsor: boolean
                 } | null
                 attributes?: Array<{
                   __typename?: 'Attribute'
@@ -11964,6 +12304,7 @@ export type SubscribersQuery = {
             __typename?: 'Dispatcher'
             address: any
             canUseRelay: boolean
+            sponsor: boolean
           } | null
           attributes?: Array<{
             __typename?: 'Attribute'
@@ -12030,6 +12371,7 @@ export type UserProfilesQuery = {
         __typename?: 'Dispatcher'
         address: any
         canUseRelay: boolean
+        sponsor: boolean
       } | null
       attributes?: Array<{
         __typename?: 'Attribute'
@@ -12079,6 +12421,7 @@ export const ProfileFieldsFragmentDoc = gql`
     dispatcher {
       address
       canUseRelay
+      sponsor
     }
     attributes {
       key
@@ -12263,6 +12606,9 @@ export const PostFieldsFragmentDoc = gql`
     }
     collectNftAddress
     onChainContentURI
+    isGated
+    isDataAvailability
+    dataAvailabilityProofs
     hidden
     hasCollectedByMe
     stats {
@@ -12303,6 +12649,8 @@ export const CommentFieldsFragmentDoc = gql`
     collectNftAddress
     onChainContentURI
     hidden
+    isGated
+    isDataAvailability
     hasCollectedByMe
     stats {
       totalAmountOfComments
@@ -12355,6 +12703,9 @@ export const MirrorFieldsFragmentDoc = gql`
     collectNftAddress
     onChainContentURI
     hidden
+    isGated
+    isDataAvailability
+    dataAvailabilityProofs
     hasCollectedByMe
     stats {
       totalUpvotes
@@ -12890,6 +13241,240 @@ export type ReportPublicationMutationOptions = Apollo.BaseMutationOptions<
   ReportPublicationMutation,
   ReportPublicationMutationVariables
 >
+export const BroadcastDataAvailabilityDocument = gql`
+  mutation BroadcastDataAvailability($request: BroadcastRequest!) {
+    broadcastDataAvailability(request: $request) {
+      ... on CreateDataAvailabilityPublicationResult {
+        id
+        proofs
+      }
+      ... on RelayError {
+        reason
+      }
+    }
+  }
+`
+export type BroadcastDataAvailabilityMutationFn = Apollo.MutationFunction<
+  BroadcastDataAvailabilityMutation,
+  BroadcastDataAvailabilityMutationVariables
+>
+
+/**
+ * __useBroadcastDataAvailabilityMutation__
+ *
+ * To run a mutation, you first call `useBroadcastDataAvailabilityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useBroadcastDataAvailabilityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [broadcastDataAvailabilityMutation, { data, loading, error }] = useBroadcastDataAvailabilityMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useBroadcastDataAvailabilityMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    BroadcastDataAvailabilityMutation,
+    BroadcastDataAvailabilityMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    BroadcastDataAvailabilityMutation,
+    BroadcastDataAvailabilityMutationVariables
+  >(BroadcastDataAvailabilityDocument, options)
+}
+export type BroadcastDataAvailabilityMutationHookResult = ReturnType<
+  typeof useBroadcastDataAvailabilityMutation
+>
+export type BroadcastDataAvailabilityMutationResult =
+  Apollo.MutationResult<BroadcastDataAvailabilityMutation>
+export type BroadcastDataAvailabilityMutationOptions =
+  Apollo.BaseMutationOptions<
+    BroadcastDataAvailabilityMutation,
+    BroadcastDataAvailabilityMutationVariables
+  >
+export const CreateDataAvailabilityCommentViaDispatcherDocument = gql`
+  mutation CreateDataAvailabilityCommentViaDispatcher(
+    $request: CreateDataAvailabilityCommentRequest!
+  ) {
+    createDataAvailabilityCommentViaDispatcher(request: $request) {
+      ... on CreateDataAvailabilityPublicationResult {
+        id
+        proofs
+      }
+      ... on RelayError {
+        reason
+      }
+    }
+  }
+`
+export type CreateDataAvailabilityCommentViaDispatcherMutationFn =
+  Apollo.MutationFunction<
+    CreateDataAvailabilityCommentViaDispatcherMutation,
+    CreateDataAvailabilityCommentViaDispatcherMutationVariables
+  >
+
+/**
+ * __useCreateDataAvailabilityCommentViaDispatcherMutation__
+ *
+ * To run a mutation, you first call `useCreateDataAvailabilityCommentViaDispatcherMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDataAvailabilityCommentViaDispatcherMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDataAvailabilityCommentViaDispatcherMutation, { data, loading, error }] = useCreateDataAvailabilityCommentViaDispatcherMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateDataAvailabilityCommentViaDispatcherMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateDataAvailabilityCommentViaDispatcherMutation,
+    CreateDataAvailabilityCommentViaDispatcherMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateDataAvailabilityCommentViaDispatcherMutation,
+    CreateDataAvailabilityCommentViaDispatcherMutationVariables
+  >(CreateDataAvailabilityCommentViaDispatcherDocument, options)
+}
+export type CreateDataAvailabilityCommentViaDispatcherMutationHookResult =
+  ReturnType<typeof useCreateDataAvailabilityCommentViaDispatcherMutation>
+export type CreateDataAvailabilityCommentViaDispatcherMutationResult =
+  Apollo.MutationResult<CreateDataAvailabilityCommentViaDispatcherMutation>
+export type CreateDataAvailabilityCommentViaDispatcherMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateDataAvailabilityCommentViaDispatcherMutation,
+    CreateDataAvailabilityCommentViaDispatcherMutationVariables
+  >
+export const CreateDataAvailabilityMirrorViaDispatcherDocument = gql`
+  mutation CreateDataAvailabilityMirrorViaDispatcher(
+    $request: CreateDataAvailabilityMirrorRequest!
+  ) {
+    createDataAvailabilityMirrorViaDispatcher(request: $request) {
+      ... on CreateDataAvailabilityPublicationResult {
+        id
+        proofs
+      }
+      ... on RelayError {
+        reason
+      }
+    }
+  }
+`
+export type CreateDataAvailabilityMirrorViaDispatcherMutationFn =
+  Apollo.MutationFunction<
+    CreateDataAvailabilityMirrorViaDispatcherMutation,
+    CreateDataAvailabilityMirrorViaDispatcherMutationVariables
+  >
+
+/**
+ * __useCreateDataAvailabilityMirrorViaDispatcherMutation__
+ *
+ * To run a mutation, you first call `useCreateDataAvailabilityMirrorViaDispatcherMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDataAvailabilityMirrorViaDispatcherMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDataAvailabilityMirrorViaDispatcherMutation, { data, loading, error }] = useCreateDataAvailabilityMirrorViaDispatcherMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateDataAvailabilityMirrorViaDispatcherMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateDataAvailabilityMirrorViaDispatcherMutation,
+    CreateDataAvailabilityMirrorViaDispatcherMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateDataAvailabilityMirrorViaDispatcherMutation,
+    CreateDataAvailabilityMirrorViaDispatcherMutationVariables
+  >(CreateDataAvailabilityMirrorViaDispatcherDocument, options)
+}
+export type CreateDataAvailabilityMirrorViaDispatcherMutationHookResult =
+  ReturnType<typeof useCreateDataAvailabilityMirrorViaDispatcherMutation>
+export type CreateDataAvailabilityMirrorViaDispatcherMutationResult =
+  Apollo.MutationResult<CreateDataAvailabilityMirrorViaDispatcherMutation>
+export type CreateDataAvailabilityMirrorViaDispatcherMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateDataAvailabilityMirrorViaDispatcherMutation,
+    CreateDataAvailabilityMirrorViaDispatcherMutationVariables
+  >
+export const CreateDataAvailabilityPostViaDispatcherDocument = gql`
+  mutation CreateDataAvailabilityPostViaDispatcher(
+    $request: CreateDataAvailabilityPostRequest!
+  ) {
+    createDataAvailabilityPostViaDispatcher(request: $request) {
+      ... on CreateDataAvailabilityPublicationResult {
+        id
+        proofs
+      }
+      ... on RelayError {
+        reason
+      }
+    }
+  }
+`
+export type CreateDataAvailabilityPostViaDispatcherMutationFn =
+  Apollo.MutationFunction<
+    CreateDataAvailabilityPostViaDispatcherMutation,
+    CreateDataAvailabilityPostViaDispatcherMutationVariables
+  >
+
+/**
+ * __useCreateDataAvailabilityPostViaDispatcherMutation__
+ *
+ * To run a mutation, you first call `useCreateDataAvailabilityPostViaDispatcherMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDataAvailabilityPostViaDispatcherMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDataAvailabilityPostViaDispatcherMutation, { data, loading, error }] = useCreateDataAvailabilityPostViaDispatcherMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateDataAvailabilityPostViaDispatcherMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateDataAvailabilityPostViaDispatcherMutation,
+    CreateDataAvailabilityPostViaDispatcherMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateDataAvailabilityPostViaDispatcherMutation,
+    CreateDataAvailabilityPostViaDispatcherMutationVariables
+  >(CreateDataAvailabilityPostViaDispatcherDocument, options)
+}
+export type CreateDataAvailabilityPostViaDispatcherMutationHookResult =
+  ReturnType<typeof useCreateDataAvailabilityPostViaDispatcherMutation>
+export type CreateDataAvailabilityPostViaDispatcherMutationResult =
+  Apollo.MutationResult<CreateDataAvailabilityPostViaDispatcherMutation>
+export type CreateDataAvailabilityPostViaDispatcherMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateDataAvailabilityPostViaDispatcherMutation,
+    CreateDataAvailabilityPostViaDispatcherMutationVariables
+  >
 export const CreateCommentViaDispatcherDocument = gql`
   mutation CreateCommentViaDispatcher($request: CreatePublicCommentRequest!) {
     createCommentViaDispatcher(request: $request) {
@@ -13914,6 +14499,166 @@ export type CreateSetProfileMetadataTypedDataMutationOptions =
   Apollo.BaseMutationOptions<
     CreateSetProfileMetadataTypedDataMutation,
     CreateSetProfileMetadataTypedDataMutationVariables
+  >
+export const CreateDataAvailabilityCommentTypedDataDocument = gql`
+  mutation CreateDataAvailabilityCommentTypedData(
+    $request: CreateDataAvailabilityCommentRequest!
+  ) {
+    createDataAvailabilityCommentTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          CommentWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          contentURI
+          profileIdPointed
+          pubIdPointed
+          collectModule
+          collectModuleInitData
+          referenceModule
+          referenceModuleInitData
+          referenceModuleData
+        }
+      }
+    }
+  }
+`
+export type CreateDataAvailabilityCommentTypedDataMutationFn =
+  Apollo.MutationFunction<
+    CreateDataAvailabilityCommentTypedDataMutation,
+    CreateDataAvailabilityCommentTypedDataMutationVariables
+  >
+
+/**
+ * __useCreateDataAvailabilityCommentTypedDataMutation__
+ *
+ * To run a mutation, you first call `useCreateDataAvailabilityCommentTypedDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDataAvailabilityCommentTypedDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDataAvailabilityCommentTypedDataMutation, { data, loading, error }] = useCreateDataAvailabilityCommentTypedDataMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateDataAvailabilityCommentTypedDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateDataAvailabilityCommentTypedDataMutation,
+    CreateDataAvailabilityCommentTypedDataMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateDataAvailabilityCommentTypedDataMutation,
+    CreateDataAvailabilityCommentTypedDataMutationVariables
+  >(CreateDataAvailabilityCommentTypedDataDocument, options)
+}
+export type CreateDataAvailabilityCommentTypedDataMutationHookResult =
+  ReturnType<typeof useCreateDataAvailabilityCommentTypedDataMutation>
+export type CreateDataAvailabilityCommentTypedDataMutationResult =
+  Apollo.MutationResult<CreateDataAvailabilityCommentTypedDataMutation>
+export type CreateDataAvailabilityCommentTypedDataMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateDataAvailabilityCommentTypedDataMutation,
+    CreateDataAvailabilityCommentTypedDataMutationVariables
+  >
+export const CreateDataAvailabilityPostTypedDataDocument = gql`
+  mutation CreateDataAvailabilityPostTypedData(
+    $request: CreateDataAvailabilityPostRequest!
+  ) {
+    createDataAvailabilityPostTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          PostWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          contentURI
+          collectModule
+          collectModuleInitData
+          referenceModule
+          referenceModuleInitData
+        }
+      }
+    }
+  }
+`
+export type CreateDataAvailabilityPostTypedDataMutationFn =
+  Apollo.MutationFunction<
+    CreateDataAvailabilityPostTypedDataMutation,
+    CreateDataAvailabilityPostTypedDataMutationVariables
+  >
+
+/**
+ * __useCreateDataAvailabilityPostTypedDataMutation__
+ *
+ * To run a mutation, you first call `useCreateDataAvailabilityPostTypedDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDataAvailabilityPostTypedDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDataAvailabilityPostTypedDataMutation, { data, loading, error }] = useCreateDataAvailabilityPostTypedDataMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateDataAvailabilityPostTypedDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateDataAvailabilityPostTypedDataMutation,
+    CreateDataAvailabilityPostTypedDataMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateDataAvailabilityPostTypedDataMutation,
+    CreateDataAvailabilityPostTypedDataMutationVariables
+  >(CreateDataAvailabilityPostTypedDataDocument, options)
+}
+export type CreateDataAvailabilityPostTypedDataMutationHookResult = ReturnType<
+  typeof useCreateDataAvailabilityPostTypedDataMutation
+>
+export type CreateDataAvailabilityPostTypedDataMutationResult =
+  Apollo.MutationResult<CreateDataAvailabilityPostTypedDataMutation>
+export type CreateDataAvailabilityPostTypedDataMutationOptions =
+  Apollo.BaseMutationOptions<
+    CreateDataAvailabilityPostTypedDataMutation,
+    CreateDataAvailabilityPostTypedDataMutationVariables
   >
 export const AllProfilesDocument = gql`
   query AllProfiles($request: ProfileQueryRequest!) {
@@ -15082,6 +15827,7 @@ export const ProfileDocument = gql`
       dispatcher {
         address
         canUseRelay
+        sponsor
       }
       interests
       isFollowedByMe
@@ -16195,6 +16941,11 @@ const result: PossibleTypesResultData = {
       'RevertCollectModuleSettings',
       'TimedFeeCollectModuleSettings',
       'UnknownCollectModuleSettings'
+    ],
+    DataAvailabilityTransactionUnion: [
+      'DataAvailabilityComment',
+      'DataAvailabilityMirror',
+      'DataAvailabilityPost'
     ],
     FeedItemRoot: ['Comment', 'Post'],
     FollowModule: [

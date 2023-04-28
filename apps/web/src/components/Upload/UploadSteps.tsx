@@ -16,7 +16,10 @@ import {
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
   ReferenceModules,
+  useBroadcastDataAvailabilityMutation,
   useBroadcastMutation,
+  useCreateDataAvailabilityPostTypedDataMutation,
+  useCreateDataAvailabilityPostViaDispatcherMutation,
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
 } from 'lens'
@@ -78,21 +81,27 @@ const UploadSteps = () => {
     ? ReferenceModules.FollowerOnlyReferenceModule
     : null
 
-  const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
-    setQueuedVideos([
-      {
-        thumbnailUrl: uploadedVideo.thumbnail,
-        title: uploadedVideo.title,
-        txnId: txn.txnId,
-        txnHash: txn.txnHash
-      },
-      ...(queuedVideos || [])
-    ])
+  const redirectToChannelPage = () => {
     router.push(
       uploadedVideo.isByteVideo
         ? `/channel/${selectedChannel?.handle}?tab=bytes`
         : `/channel/${selectedChannel?.handle}`
     )
+  }
+
+  const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
+    if (txn?.txnId) {
+      setQueuedVideos([
+        {
+          thumbnailUrl: uploadedVideo.thumbnail,
+          title: uploadedVideo.title,
+          txnId: txn.txnId,
+          txnHash: txn.txnHash
+        },
+        ...(queuedVideos || [])
+      ])
+    }
+    redirectToChannelPage()
   }
 
   const resetToDefaults = () => {
@@ -123,6 +132,9 @@ const UploadSteps = () => {
     Analytics.track(TRACK.PUBLICATION.NEW_POST, {
       video_format: uploadedVideo.videoType,
       video_type: uploadedVideo.isByteVideo ? 'SHORT_FORM' : 'LONG_FORM',
+      publication_state: uploadedVideo.collectModule.isRevertCollect
+        ? 'DATA_ONLY'
+        : 'ON_CHAIN',
       video_storage: uploadedVideo.isUploadToIpfs ? 'IPFS' : 'ARWEAVE',
       publication_collect_module: Object.keys(
         getCollectModule(uploadedVideo.collectModule)
@@ -131,7 +143,8 @@ const UploadSteps = () => {
       publication_reference_module_degrees_of_separation: uploadedVideo
         .referenceModule.degreesOfSeparationReferenceModule
         ? degreesOfSeparation
-        : null
+        : null,
+      user_id: selectedChannel?.id
     })
     return setUploadedVideo({
       buttonText: 'Post Video',
@@ -164,6 +177,57 @@ const UploadSteps = () => {
     onError
   })
 
+  const getSignatureFromTypedData = async (
+    data: CreatePostBroadcastItemResult
+  ) => {
+    const { typedData } = data
+    toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+    const signature = await signTypedDataAsync({
+      domain: omitKey(typedData?.domain, '__typename'),
+      types: omitKey(typedData?.types, '__typename'),
+      value: omitKey(typedData?.value, '__typename')
+    })
+    return signature
+  }
+
+  /**
+   * DATA AVAILABILITY STARTS
+   */
+  const [broadcastDataAvailabilityPost] = useBroadcastDataAvailabilityMutation({
+    onCompleted: (data) => {
+      onCompleted(data)
+      if (
+        data?.broadcastDataAvailability.__typename ===
+        'CreateDataAvailabilityPublicationResult'
+      ) {
+        redirectToChannelPage()
+      }
+    },
+    onError
+  })
+
+  const [createDataAvailabilityPostTypedData] =
+    useCreateDataAvailabilityPostTypedDataMutation({
+      onCompleted: async ({ createDataAvailabilityPostTypedData }) => {
+        const { id } = createDataAvailabilityPostTypedData
+        const signature = await getSignatureFromTypedData(
+          createDataAvailabilityPostTypedData
+        )
+        return await broadcastDataAvailabilityPost({
+          variables: { request: { id, signature } }
+        })
+      }
+    })
+
+  const [createDataAvailabilityPostViaDispatcher] =
+    useCreateDataAvailabilityPostViaDispatcherMutation({
+      onCompleted,
+      onError
+    })
+  /**
+   * DATA AVAILABILITY ENDS
+   */
+
   const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
     onError,
     onCompleted
@@ -192,12 +256,7 @@ const UploadSteps = () => {
         referenceModuleInitData
       } = typedData?.value
       try {
-        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
+        const signature = await getSignatureFromTypedData(createPostTypedData)
         const { v, r, s } = utils.splitSignature(signature)
         const args = {
           profileId,
@@ -295,7 +354,7 @@ const UploadSteps = () => {
       if (uploadedVideo.isSensitiveContent) {
         metadata.contentWarning = PublicationContentWarning.Sensitive
       }
-      const { url } = await uploadToAr(metadata)
+      const metadataUri = await uploadToAr(metadata)
       setUploadedVideo({
         buttonText: 'Posting video',
         loading: true
@@ -308,9 +367,31 @@ const UploadSteps = () => {
         degreesOfSeparation: degreesOfSeparation
       }
 
+      // Create Data Availability post
+      const { isRevertCollect } = uploadedVideo.collectModule
+      const dataAvailablityRequest = {
+        from: selectedChannel?.id,
+        contentURI: metadataUri
+      }
+      if (isRevertCollect) {
+        const { data } = await createDataAvailabilityPostViaDispatcher({
+          variables: { request: dataAvailablityRequest }
+        })
+        // Fallback to DA dispatcher error
+        if (
+          data?.createDataAvailabilityPostViaDispatcher?.__typename ===
+          'RelayError'
+        ) {
+          return await createDataAvailabilityPostTypedData({
+            variables: { request: dataAvailablityRequest }
+          })
+        }
+        return redirectToChannelPage()
+      }
+
       const request = {
         profileId: selectedChannel?.id,
-        contentURI: url,
+        contentURI: metadataUri,
         collectModule: getCollectModule(uploadedVideo.collectModule),
         referenceModule: {
           followerOnlyReferenceModule:
@@ -321,7 +402,9 @@ const UploadSteps = () => {
             : null
         }
       }
-      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+      const canUseDispatcher =
+        selectedChannel?.dispatcher?.canUseRelay &&
+        selectedChannel.dispatcher.sponsor
       if (!canUseDispatcher) {
         return createTypedData(request)
       }

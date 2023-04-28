@@ -4,6 +4,7 @@ import SubscribersList from '@components/Common/SubscribersList'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import type { Profile } from 'lens'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
@@ -50,7 +51,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
             alt={channel?.handle}
           />
         </div>
-        <div className="flex flex-1 flex-wrap justify-between space-y-3 py-2">
+        <div className="flex flex-1 flex-wrap items-center justify-between space-y-3 py-2">
           <div className="mr-3 flex flex-col items-start">
             {channel.name && (
               <h1 className="flex items-center space-x-1.5 font-medium md:text-2xl">
@@ -62,14 +63,14 @@ const BasicInfo: FC<Props> = ({ channel }) => {
               data-testid="channel-name"
             >
               <span>@{channel?.handle}</span>
-              <Tooltip content="Verified" placement="right">
+              <Tooltip content={t`Verified`} placement="right">
                 <span>
                   <IsVerified id={channel?.id} size="md" />
                 </span>
               </Tooltip>
             </h2>
             <Modal
-              title="Subscribers"
+              title={t`Subscribers`}
               onClose={() => setShowSubscribersModal(false)}
               show={showSubscribersModal}
               panelClassName="max-w-md"
@@ -85,12 +86,12 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 className="outline-none"
               >
                 <span className="inline-flex items-center space-x-1 whitespace-nowrap">
-                  {channel?.stats.totalFollowers} subscribers
+                  {channel?.stats.totalFollowers} <Trans>subscribers</Trans>
                 </span>
               </button>
               {channel.isFollowing && (
                 <span className="rounded-full border border-gray-400 px-2 text-xs dark:border-gray-600">
-                  Subscriber
+                  <Trans>Subscriber</Trans>
                 </span>
               )}
             </div>

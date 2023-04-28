@@ -10,6 +10,7 @@ fragment ProfileFields on Profile {
   dispatcher {
     address
     canUseRelay
+    sponsor
   }
   attributes {
     key

@@ -1,5 +1,6 @@
 import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
 import type { Profile } from 'lens'
 import {
   useAllProfilesLazyQuery,
@@ -89,7 +90,7 @@ const Login = () => {
     if (!isReadyToSign) {
       disconnect?.()
       signOut()
-      return toast.error('Please connect to your wallet')
+      return toast.error(t`Please connect to your wallet`)
     }
     try {
       setLoading(true)
@@ -103,7 +104,7 @@ const Login = () => {
         message: challenge?.data?.challenge?.text
       })
       if (!signature) {
-        return toast.error('Invalid Signature!')
+        return toast.error(t`Invalid Signature!`)
       }
       const result = await authenticate({
         variables: { request: { address, signature } }
@@ -138,7 +139,7 @@ const Login = () => {
     } catch (error) {
       signOut()
       setLoading(false)
-      toast.error('Sign in failed')
+      toast.error(t`Sign in failed`)
       logger.error('[Error Sign In]', {
         error,
         connector: connector?.name

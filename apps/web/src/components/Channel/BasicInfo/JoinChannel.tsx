@@ -3,6 +3,7 @@ import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import { utils } from 'ethers'
 import type { FeeFollowModuleSettings, Profile } from 'lens'
 import {
@@ -169,21 +170,21 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
 
   const joinTooltipText = followModule ? (
     <span>
-      Pay Membership of
+      <Trans>Pay Membership of</Trans>
       <b className="ml-1 space-x-1">
         <span>{followModule?.amount?.value}</span>
         <span>{followModule?.amount?.asset.symbol}</span>
       </b>
     </span>
   ) : (
-    'Join Channel'
+    t`Join Channel`
   )
 
   return (
     <Tooltip content={joinTooltipText} placement="top">
       <span>
         <Button onClick={() => joinChannel()} loading={loading}>
-          Join Channel
+          <Trans>Join Channel</Trans>
         </Button>
       </span>
     </Tooltip>

@@ -1,6 +1,7 @@
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { usePaginationLoading } from '@hooks/usePaginationLoading'
+import { t } from '@lingui/macro'
 import type { Follower, Profile } from 'lens'
 import { useSubscribersQuery } from 'lens'
 import Link from 'next/link'
@@ -52,7 +53,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
   if (subscribers?.length === 0) {
     return (
       <div className="pt-5">
-        <NoDataFound text="No subscribers" isCenter />
+        <NoDataFound text={t`No subscribers`} isCenter />
       </div>
     )
   }

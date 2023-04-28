@@ -1,5 +1,6 @@
 import ReportPublication from '@components/ReportPublication'
 import Modal from '@components/UIElements/Modal'
+import { t } from '@lingui/macro'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React from 'react'
@@ -13,7 +14,7 @@ type Props = {
 const ReportModal: FC<Props> = ({ show, setShowReport, video }) => {
   return (
     <Modal
-      title="Report Publication"
+      title={t`Report Publication`}
       onClose={() => setShowReport(false)}
       show={show}
       panelClassName="max-w-md"

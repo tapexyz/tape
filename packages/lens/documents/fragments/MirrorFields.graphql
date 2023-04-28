@@ -19,6 +19,9 @@ fragment MirrorFields on Mirror {
   collectNftAddress
   onChainContentURI
   hidden
+  isGated
+  isDataAvailability
+  dataAvailabilityProofs
   hasCollectedByMe
   stats {
     totalUpvotes

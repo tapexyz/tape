@@ -75,6 +75,7 @@ export const TRACK = {
   },
   CLICK_VIEW_METADATA: 'Click View Metadata',
   CLICK_VIEW_TOKEN: 'Click View Token',
+  CLICK_VIEW_PROOF: 'Click View Proof',
   NOTIFICATIONS: {
     SWITCH_NOTIFICATION_TAB: 'Switch notifications tab',
     CLICK_NOTIFICATIONS: 'Click Notifications'
@@ -84,6 +85,7 @@ export const TRACK = {
   OPEN_COLLECT: 'Open Collect',
   SEARCH: 'Search',
   SYSTEM: {
+    SELECT_LOCALE: 'Select locale',
     TOGGLE_THEME: 'Toggle Theme',
     MORE_MENU: {
       OPEN: 'Open More Menu',

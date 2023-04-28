@@ -19,6 +19,8 @@ fragment CommentFields on Comment {
   collectNftAddress
   onChainContentURI
   hidden
+  isGated
+  isDataAvailability
   hasCollectedByMe
   stats {
     totalAmountOfComments

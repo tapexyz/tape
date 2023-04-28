@@ -1,4 +1,5 @@
 import useAppStore from '@lib/store'
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { Analytics, TRACK } from 'utils'
@@ -84,7 +85,7 @@ const CategoryFilters = () => {
               : 'bg-gray-100 dark:bg-gray-800'
           )}
         >
-          All
+          <Trans>All</Trans>
         </button>
         {CREATOR_VIDEO_CATEGORIES.map((category) => (
           <button

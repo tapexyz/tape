@@ -2,6 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
 import { utils } from 'ethers'
 import type {
   CreateMirrorBroadcastItemResult,
@@ -10,6 +11,7 @@ import type {
 } from 'lens'
 import {
   useBroadcastMutation,
+  useCreateDataAvailabilityMirrorViaDispatcherMutation,
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
 } from 'lens'
@@ -60,12 +62,21 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onMirrorSuccess?.()
     toast.success('Mirrored video across lens.')
     setLoading(false)
-    Analytics.track(TRACK.PUBLICATION.MIRROR)
+    Analytics.track(TRACK.PUBLICATION.MIRROR, {
+      publication_id: video.id,
+      publication_state: video.isDataAvailability ? 'DATA_ONLY' : 'ON_CHAIN'
+    })
   }
 
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
+
+  const [createDataAvailabilityMirrorViaDispatcher] =
+    useCreateDataAvailabilityMirrorViaDispatcherMutation({
+      onCompleted: () => onCompleted(),
+      onError
+    })
 
   const [createMirrorViaDispatcher] = useCreateMirrorViaDispatcherMutation({
     onError,
@@ -154,14 +165,27 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       return toast.error(SIGN_IN_REQUIRED_MESSAGE)
     }
     setLoading(true)
+
+    if (video.isDataAvailability) {
+      const dataAvailablityRequest = {
+        from: selectedChannelId,
+        mirror: video.id
+      }
+      return await createDataAvailabilityMirrorViaDispatcher({
+        variables: { request: dataAvailablityRequest }
+      })
+    }
+
     const request = {
-      profileId: selectedChannel?.id,
+      profileId: selectedChannelId,
       publicationId: video?.id,
       referenceModule: {
         followerOnlyReferenceModule: false
       }
     }
-    const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+    const canUseDispatcher =
+      selectedChannel?.dispatcher?.canUseRelay &&
+      selectedChannel.dispatcher.sponsor
     if (!canUseDispatcher) {
       return createTypedData(request)
     }
@@ -174,10 +198,10 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
   const tooltipContent = collectModule?.referralFee
     ? `Mirror video for ${collectModule?.referralFee}% referral fee`
-    : 'Mirror video across Lens'
+    : t`Mirror video across Lens`
 
   return (
-    <Tooltip placement="top" content={loading ? 'Mirroring' : tooltipContent}>
+    <Tooltip placement="top" content={loading ? t`Mirroring` : tooltipContent}>
       <div className="inline-flex">
         <button
           type="button"

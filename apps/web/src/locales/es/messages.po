@@ -1,0 +1,452 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-04-26 19:28+0530\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: es\n"
+"Project-Id-Version: lenstube\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2023-04-28 01:25\n"
+"Last-Translator: \n"
+"Language-Team: Spanish\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: lenstube\n"
+"X-Crowdin-Project-ID: 553981\n"
+"X-Crowdin-Language: es-ES\n"
+"X-Crowdin-File: messages.po\n"
+"X-Crowdin-File-ID: 5\n"
+
+#: src/components/Channel/Tabs/index.tsx:192
+msgid "About"
+msgstr "Acerca de"
+
+#: src/components/Common/CategoryFilters.tsx:88
+msgid "All"
+msgstr "Todos"
+
+#: src/components/Common/UserMenu.tsx:285
+msgid "All services are online"
+msgstr "Todos los servicios están en línea"
+
+#: src/components/Upload/BundlrInfo.tsx:190
+msgid "Amount to deposit (MATIC)"
+msgstr "Cantidad a depositar (MATIC)"
+
+#: src/components/Common/UserMenu.tsx:183
+msgid "App Info"
+msgstr "App Info"
+
+#: src/components/Channel/Tabs/index.tsx:99
+#: src/components/Common/MobileBottomNav.tsx:44
+#: src/components/Common/Sidebar.tsx:114
+msgid "Bytes"
+msgstr "Bytes"
+
+#: src/components/Common/CreateChannel.tsx:169
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/components/Upload/Category.tsx:16
+msgid "Category"
+msgstr "Categoría"
+
+#: src/components/Common/UserMenu.tsx:229
+msgid "Channel Settings"
+msgstr "Ajustes del canal"
+
+#: src/components/Channel/Tabs/index.tsx:173
+#: src/components/Common/Search/GlobalSearchBar.tsx:116
+msgid "Channels"
+msgstr "Canales"
+
+#: src/components/Common/CreateChannel.tsx:130
+msgid "Claim Handle"
+msgstr "Reclamar Manejo"
+
+#: src/components/Bytes/ByteActions.tsx:71
+#: src/components/Bytes/ByteVideo.tsx:157
+msgid "Collect"
+msgstr "Recoger"
+
+#: src/components/Channel/Tabs/index.tsx:118
+msgid "Commented"
+msgstr "Comentado"
+
+#: src/components/Bytes/CommentModal.tsx:37
+msgid "Comments"
+msgstr "Comentarios"
+
+#: src/components/Common/Auth/ConnectWalletButton.tsx:85
+msgid "Connect"
+msgstr "Conectar"
+
+#: src/components/Common/UserMenu.tsx:161
+msgid "Connected as"
+msgstr "Conectado como"
+
+#: src/components/Common/EmbedVideo.tsx:26
+msgid "Copied to clipboard"
+msgstr "Copiado al portapapeles"
+
+#: src/components/Common/CreateChannel.tsx:60
+#: src/components/Common/CreateChannel.tsx:83
+msgid "Create"
+msgstr "Crear"
+
+#: src/components/Common/CreateChannel.tsx:130
+#: src/components/Common/UserMenu.tsx:219
+msgid "Create Channel"
+msgstr "Crear canal"
+
+#: src/components/Common/CreateChannel.tsx:114
+msgid "Creating..."
+msgstr "Creando..."
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:288
+msgid "Delete"
+msgstr "Eliminar"
+
+#: src/components/Upload/Details.tsx:113
+msgid "Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)"
+msgstr "Describe más acerca de tu video, puede ser @channels, #hashtags o capítulos (00:20 - Introducción)"
+
+#: src/components/Channel/Tabs/About.tsx:34
+#: src/components/Upload/Details.tsx:112
+msgid "Description"
+msgstr "Descripción"
+
+#: src/components/Upload/Details.tsx:181
+msgid "Does this video contain sensitive information that targets an adult audience?"
+msgstr "¿Contiene este video información sensible dirigida a un público adulto?"
+
+#: src/components/Upload/DropZone.tsx:97
+msgid "Drag and drop"
+msgstr "Arrastre y suelte"
+
+#: src/components/Upload/BundlrInfo.tsx:217
+msgid "Estimated Cost to Upload"
+msgstr "Costo estimado para subir"
+
+#: src/components/Common/MobileBottomNav.tsx:63
+#: src/components/Common/Sidebar.tsx:135
+#: src/components/Common/Sidebar.tsx:154
+msgid "Explore"
+msgstr "Explorar"
+
+#: src/components/Common/MobileBottomNav.tsx:76
+msgid "Feed"
+msgstr "Alimentación"
+
+#: src/components/Common/Footer.tsx:85
+msgid "Feedback"
+msgstr "Comentarios"
+
+#: src/components/Common/MobileBottomNav.tsx:31
+#: src/components/Common/Sidebar.tsx:64
+#: src/components/Common/Sidebar.tsx:83
+msgid "Home"
+msgstr "Inicio"
+
+#: src/components/Common/VideoCard/QueuedVideo.tsx:124
+msgid "Indexing, please wait..."
+msgstr "Indexando, por favor espere..."
+
+#: src/components/Common/CreateChannel.tsx:80
+msgid "Indexing..."
+msgstr "Indexando..."
+
+#: src/components/Common/Auth/Login.tsx:107
+msgid "Invalid Signature!"
+msgstr "¡Firma no válida!"
+
+#: src/components/Channel/BasicInfo/JoinChannel.tsx:180
+#: src/components/Channel/BasicInfo/JoinChannel.tsx:187
+msgid "Join Channel"
+msgstr "Unirse al canal"
+
+#: src/components/Common/CreateChannel.tsx:46
+msgid "lens claiming site"
+msgstr "lente reclamando sitio"
+
+#: src/components/Channel/Tabs/PinnedVideo.tsx:78
+#: src/components/Common/VideoCard/index.tsx:92
+msgid "likes"
+msgstr "me gusta"
+
+#: src/components/Channel/Tabs/About.tsx:88
+msgid "Links"
+msgstr "Enlaces"
+
+#: src/components/Bytes/ByteActions.tsx:62
+msgid "Mirror"
+msgstr "Mirror"
+
+#: src/components/Common/MirrorVideo.tsx:199
+msgid "Mirror video across Lens"
+msgstr "Vídeo de espejo a través de la lente"
+
+#: src/components/Channel/MirroredVideoCard.tsx:94
+#: src/components/Channel/Tabs/index.tsx:137
+msgid "Mirrored"
+msgstr "Mirado"
+
+#: src/components/Common/MirrorVideo.tsx:202
+msgid "Mirroring"
+msgstr "Mirrorización"
+
+#: src/components/Common/Header.tsx:142
+msgid "New video"
+msgstr "Nuevo vídeo"
+
+#: src/components/Channel/Tabs/ChannelBytes.tsx:57
+msgid "No bytes found"
+msgstr "No se encontraron bytes"
+
+#: src/components/Channel/Tabs/CommentedVideos.tsx:60
+msgid "No comments on videos"
+msgstr "No hay comentarios en videos"
+
+#: src/components/Channel/Tabs/MirroredVideos.tsx:62
+msgid "No mirrors found"
+msgstr "No se encontraron réplicas"
+
+#: src/components/Channel/Tabs/CollectedNFTs.tsx:54
+msgid "No NFTs found"
+msgstr "NFTs no encontrados"
+
+#: src/components/Channel/Tabs/OtherChannels.tsx:30
+msgid "No other channels found"
+msgstr "No se encontraron otros canales"
+
+#: src/components/Common/Search/Channels.tsx:62
+#: src/components/Common/Search/Videos.tsx:47
+msgid "No results found"
+msgstr "No hay resultados"
+
+#: src/components/Common/SubscribersList.tsx:54
+msgid "No subscribers"
+msgstr "No hay suscriptores"
+
+#: src/components/Channel/Tabs/ChannelVideos.tsx:81
+msgid "No videos found"
+msgstr "No hay vídeos"
+
+#: src/components/Channel/BasicInfo/JoinChannel.tsx:173
+msgid "Pay Membership of"
+msgstr "Pagar Membresía de"
+
+#: src/components/Channel/Mutual/MutualSubscribers.tsx:79
+msgid "People you may know"
+msgstr "Personas que tal vez conozcas"
+
+#: src/components/Common/VideoCard/ShareModal.tsx:29
+msgid "Permalink copied to clipboard"
+msgstr "Permalink copiado al portapapeles"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:265
+msgid "Pin Video"
+msgstr "Fijar vídeo"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:198
+msgid "Pinning video..."
+msgstr "Fijando vídeo..."
+
+#: src/components/Common/Auth/Login.tsx:93
+msgid "Please connect to your wallet"
+msgstr "Por favor, conéctese a su cartera"
+
+#: src/components/Common/Footer.tsx:107
+msgid "Privacy"
+msgstr "Privacidad"
+
+#: src/components/Channel/Tabs/About.tsx:64
+msgid "Proof of Humanity"
+msgstr "Prueba de la humanidad"
+
+#: src/components/Channel/Tabs/About.tsx:74
+msgid "Proof of Personhood"
+msgstr "Prueba de Personalidad"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:277
+msgid "Raw Video"
+msgstr "Vídeo Raw"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:310
+msgid "Report"
+msgstr "Reporte"
+
+#: src/components/Common/VideoCard/ReportModal.tsx:17
+msgid "Report Publication"
+msgstr "Publicación del informe"
+
+#: src/components/Upload/Details.tsx:197
+msgid "Reset"
+msgstr "Reiniciar"
+
+#: src/components/Common/Header.tsx:154
+msgid "Search"
+msgstr "Buscar"
+
+#: src/components/Common/Search/GlobalSearchBar.tsx:85
+msgid "Search by channel / hashtag"
+msgstr "Buscar por canal / hashtag"
+
+#: src/components/Upload/DropZone.tsx:72
+msgid "Select Video"
+msgstr "Seleccionar vídeo"
+
+#: src/components/Channel/CommentedVideoCard.tsx:49
+#: src/components/Channel/MirroredVideoCard.tsx:39
+#: src/components/Common/VideoCard/ThumbnailOverlays.tsx:39
+msgid "Sensitive Content"
+msgstr "Contenido sensible"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:300
+msgid "Share"
+msgstr "Compartir"
+
+#: src/components/Common/Auth/ConnectWalletButton.tsx:53
+msgid "Sign In"
+msgstr "Iniciar sesión"
+
+#: src/components/Common/Auth/Login.tsx:142
+msgid "Sign in failed"
+msgstr "Error al iniciar sesión"
+
+#: src/components/Common/UserMenu.tsx:263
+msgid "Sign out"
+msgstr "Cerrar sesión"
+
+#: src/components/Common/UserMenu.tsx:286
+msgid "Some services are offline"
+msgstr "Algunos servicios están desconectados"
+
+#: src/components/Common/Footer.tsx:30
+msgid "Status"
+msgstr "Estado"
+
+#: src/components/Channel/BasicInfo/Subscribe.tsx:176
+msgid "Subscribe"
+msgstr "Suscribirse"
+
+#: src/components/Channel/BasicInfo/index.tsx:94
+msgid "Subscriber"
+msgstr "Suscriptor"
+
+#: src/components/Channel/BasicInfo/index.tsx:89
+#: src/components/Channel/Tabs/OtherChannelCard.tsx:37
+msgid "subscribers"
+msgstr "suscriptores"
+
+#: src/components/Channel/BasicInfo/index.tsx:73
+msgid "Subscribers"
+msgstr "Suscriptores"
+
+#: src/components/Common/Sidebar.tsx:89
+#: src/components/Common/Sidebar.tsx:108
+msgid "Subscriptions"
+msgstr "Suscripciones"
+
+#: src/components/Common/UserMenu.tsx:206
+msgid "Switch channel"
+msgstr "Cambiar canal"
+
+#: src/components/Common/Auth/ConnectWalletButton.tsx:74
+msgid "Switch network"
+msgstr "Cambiar red"
+
+#: src/components/Common/UserMenu.tsx:249
+msgid "Switch to Dark"
+msgstr "Cambiar a Oscuro"
+
+#: src/components/Common/UserMenu.tsx:249
+msgid "Switch to Light"
+msgstr "Cambiar a Luz"
+
+#: src/components/Channel/Tabs/About.tsx:54
+msgid "Sybil Verified"
+msgstr "Síbil verificado"
+
+#: src/components/Common/Footer.tsx:96
+msgid "Terms"
+msgstr "Términos"
+
+#: src/components/Common/Footer.tsx:74
+msgid "Thanks"
+msgstr "Gracias"
+
+#: src/components/Upload/Details.tsx:89
+msgid "Title"
+msgstr "Título"
+
+#: src/components/Upload/Details.tsx:90
+msgid "Title that describes your video"
+msgstr "Título que describe tu video"
+
+#: src/components/Common/CreateChannel.tsx:48
+msgid "to claim your handle and then check back here."
+msgstr "para reclamar tu nombre de usuario y luego revisa de nuevo aquí."
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:114
+msgid "Transaction submitted"
+msgstr "Transacción enviada"
+
+#: src/components/Channel/BasicInfo/UnSubscribe.tsx:129
+msgid "Unsubscribe"
+msgstr "Darse de baja"
+
+#: src/components/Upload/Details.tsx:156
+msgid "Upload this video as short-form bytes"
+msgstr "Subir este video como bytes de forma corta"
+
+#: src/components/Upload/Details.tsx:204
+msgid "Uploading thumbnail"
+msgstr "Subiendo miniatura"
+
+#: src/components/Channel/BasicInfo/index.tsx:66
+msgid "Verified"
+msgstr "Verificado"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:81
+msgid "Video deleted"
+msgstr "Vídeo eliminado"
+
+#: src/components/Upload/DropZone.tsx:98
+msgid "video to upload"
+msgstr "vídeo a subir"
+
+#: src/components/Channel/Tabs/index.tsx:80
+#: src/components/Common/Search/GlobalSearchBar.tsx:131
+msgid "Videos"
+msgstr "Vídeo"
+
+#: src/components/Channel/Tabs/PinnedVideo.tsx:95
+msgid "View more"
+msgstr "Ver más"
+
+#: src/components/Common/CreateChannel.tsx:39
+msgid "Visit"
+msgstr "Visita"
+
+#: src/components/Common/Auth/ConnectWalletButton.tsx:87
+msgid "Wallet"
+msgstr "Cartera"
+
+#: src/components/Common/Auth/ConnectWalletButton.tsx:55
+msgid "with Lens"
+msgstr "con lente"
+
+#: src/components/Common/CreateChannel.tsx:36
+msgid "Your address does not seem to have Lens handle."
+msgstr "Tu dirección no parece tener lente handle."
+
+#: src/components/Common/UserMenu.tsx:196
+msgid "Your Channel"
+msgstr "Tu Canal"
+
+#: src/components/Upload/BundlrInfo.tsx:152
+msgid "Your Storage Balance"
+msgstr "Tu saldo de almacenamiento"
+

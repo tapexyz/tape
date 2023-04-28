@@ -2,6 +2,7 @@ import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import useAuthPersistStore, { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { useAllProfilesLazyQuery } from 'lens'
@@ -156,7 +157,9 @@ const UserMenu = () => {
                     />
                   </Link>
                   <div className="grid">
-                    <span className="text-xs opacity-70">Connected as</span>
+                    <span className="text-xs opacity-70">
+                      <Trans>Connected as</Trans>
+                    </span>
                     <Link href={`/channel/${selectedChannel?.handle}`}>
                       <h6
                         title={selectedChannel?.handle}
@@ -176,7 +179,9 @@ const UserMenu = () => {
                     className="inline-flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
                     <GraphOutline className="h-4 w-4" />
-                    <span className="truncate whitespace-nowrap">App Info</span>
+                    <span className="truncate whitespace-nowrap">
+                      <Trans>App Info</Trans>
+                    </span>
                   </Menu.Item>
                 )}
                 {selectedChannel && (
@@ -188,7 +193,7 @@ const UserMenu = () => {
                     >
                       <ChannelOutline className="h-4 w-4" />
                       <span className="truncate whitespace-nowrap">
-                        Your Channel
+                        <Trans>Your Channel</Trans>
                       </span>
                     </Menu.Item>
                     <button
@@ -198,7 +203,7 @@ const UserMenu = () => {
                     >
                       <SwitchChannelOutline className="h-4 w-4" />
                       <span className="truncate whitespace-nowrap">
-                        Switch channel
+                        <Trans>Switch channel</Trans>
                       </span>
                     </button>
                   </>
@@ -211,7 +216,7 @@ const UserMenu = () => {
                   >
                     <PlusOutline className="h-4 w-4" />
                     <span className="truncate whitespace-nowrap">
-                      Create Channel
+                      <Trans>Create Channel</Trans>
                     </span>
                   </button>
                 )}
@@ -221,7 +226,7 @@ const UserMenu = () => {
                 >
                   <CogOutline className="h-4 w-4" />
                   <span className="truncate whitespace-nowrap">
-                    Channel Settings
+                    <Trans>Channel Settings</Trans>
                   </span>
                 </Link>
                 <button
@@ -241,7 +246,7 @@ const UserMenu = () => {
                     <MoonOutline className="h-4 w-4" />
                   )}
                   <span className="truncate whitespace-nowrap">
-                    {theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}
+                    {theme === 'light' ? t`Switch to Dark` : t`Switch to Light`}
                   </span>
                 </button>
                 <button
@@ -254,7 +259,9 @@ const UserMenu = () => {
                   }}
                 >
                   <HandWaveOutline className="h-4 w-4" />
-                  <span className="truncate whitespace-nowrap">Sign out</span>
+                  <span className="truncate whitespace-nowrap">
+                    <Trans>Sign out</Trans>
+                  </span>
                 </button>
               </div>
             </>
@@ -275,8 +282,8 @@ const UserMenu = () => {
             />
             <span className="text-xs">
               {statusData?.ok
-                ? 'All services are online'
-                : 'Some services are offline'}
+                ? t`All services are online`
+                : t`Some services are offline`}
             </span>
           </Link>
         )}

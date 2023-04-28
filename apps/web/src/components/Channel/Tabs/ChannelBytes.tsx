@@ -3,6 +3,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { usePaginationLoading } from '@hooks/usePaginationLoading'
+import { t } from '@lingui/macro'
 import type { Profile, Publication } from 'lens'
 import { PublicationTypes, useProfilePostsQuery } from 'lens'
 import type { FC } from 'react'
@@ -50,7 +51,7 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
   }
 
   if (data?.publications?.items?.length === 0) {
-    return <NoDataFound isCenter withImage text="No bytes found" />
+    return <NoDataFound isCenter withImage text={t`No bytes found`} />
   }
 
   return (

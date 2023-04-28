@@ -11,7 +11,7 @@ interface Props {
   positionClassName?: string
   triggerClassName?: string
   className?: string
-  position?: 'right' | 'left' | 'bottom'
+  position?: 'right' | 'left' | 'bottom' | 'top'
 }
 
 export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
@@ -42,7 +42,8 @@ const DropMenu: FC<Props> = ({
         {
           'right-0': position === 'right',
           'left-0': position === 'left',
-          'bottom-0': position === 'bottom'
+          'bottom-0': position === 'bottom',
+          'top-0': position === 'top'
         },
         positionClassName
       )}

@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -26,7 +27,9 @@ const MobileBottomNav = () => {
               'text-indigo-500 opacity-100': isActivePath('/')
             })}
           />
-          <span className="text-[9px]">Home</span>
+          <span className="text-[9px]">
+            <Trans>Home</Trans>
+          </span>
         </Link>
         <Link
           href="/bytes"
@@ -37,7 +40,9 @@ const MobileBottomNav = () => {
               'text-indigo-500 opacity-100': isActivePath('/bytes')
             })}
           />
-          <span className="text-[9px]">Bytes</span>
+          <span className="text-[9px]">
+            <Trans>Bytes</Trans>
+          </span>
         </Link>
         <Link
           href="/upload"
@@ -54,7 +59,9 @@ const MobileBottomNav = () => {
               'text-indigo-500 opacity-100': isActivePath('/explore')
             })}
           />
-          <span className="text-[9px]">Explore</span>
+          <span className="text-[9px]">
+            <Trans>Explore</Trans>
+          </span>
         </Link>
         <Link
           href="/feed"
@@ -65,7 +72,9 @@ const MobileBottomNav = () => {
               'text-indigo-500 opacity-100': isActivePath('/feed')
             })}
           />
-          <span className="text-[9px]">Feed</span>
+          <span className="text-[9px]">
+            <Trans>Feed</Trans>
+          </span>
         </Link>
       </div>
     </div>
