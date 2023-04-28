@@ -48,7 +48,7 @@ const CommentImages: FC<Props> = ({ images }) => {
             }}
           >
             <img
-              className="h-20 w-20 rounded-xl object-cover"
+              className="h-20 w-20 rounded-xl bg-white object-cover dark:bg-black"
               src={imageCdn(
                 sanitizeDStorageUrl(image.original.url),
                 'avatar_lg'
