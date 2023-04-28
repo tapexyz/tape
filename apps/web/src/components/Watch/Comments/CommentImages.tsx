@@ -21,7 +21,7 @@ const CommentImages: FC<Props> = ({ images }) => {
     <div className="my-2">
       <Modal
         show={showLighBox}
-        panelClassName="!p-0 !rounded-none !shadow-none !bg-transparent"
+        panelClassName="!p-0 !rounded-none max-w-7xl !shadow-none !bg-transparent"
         onClose={() => setShowLighBox(false)}
       >
         <div
@@ -29,10 +29,15 @@ const CommentImages: FC<Props> = ({ images }) => {
           onClick={() => setShowLighBox(false)}
           className="flex cursor-default justify-center"
         >
-          <img src={imageSrc} alt="attachment" draggable={false} />
+          <img
+            src={imageSrc}
+            className="object-contain"
+            alt="attachment"
+            draggable={false}
+          />
         </div>
       </Modal>
-      <div className="flex flex-wrap items-center">
+      <div className="flex flex-wrap items-center gap-2">
         {images.map((image) => (
           <button
             key={image.original.url}
