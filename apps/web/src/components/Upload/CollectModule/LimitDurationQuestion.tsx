@@ -1,4 +1,5 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -15,7 +16,9 @@ const LimitDurationQuestion: FC<Props> = ({
 }) => {
   return (
     <div className="space-y-2">
-      <h6>Would you like to limit the collect duration?</h6>
+      <h6>
+        <Trans>Would you like to limit the collect duration?</Trans>
+      </h6>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <button
           type="button"
@@ -36,7 +39,9 @@ const LimitDurationQuestion: FC<Props> = ({
             }
           )}
         >
-          <span>Unlimited duration</span>
+          <span>
+            <Trans>Unlimited duration</Trans>
+          </span>
           {!uploadedVideo.collectModule.isTimedFeeCollect && (
             <CheckOutline className="h-3 w-3" />
           )}
@@ -62,7 +67,9 @@ const LimitDurationQuestion: FC<Props> = ({
             }
           )}
         >
-          <span>Limit to 24 hours sale</span>
+          <span>
+            <Trans>Limit to 24 hours sale</Trans>
+          </span>
           {uploadedVideo.collectModule.isTimedFeeCollect && (
             <CheckOutline className="h-3 w-3" />
           )}

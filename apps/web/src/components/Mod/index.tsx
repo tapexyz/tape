@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
 import type { GlobalProtocolStats } from 'lens'
 import { useGlobalProtocolStatsQuery } from 'lens'
 import dynamic from 'next/dynamic'
@@ -41,15 +42,15 @@ const Mod = () => {
 
   return (
     <>
-      <MetaTags title="Lenstube Stats" />
+      <MetaTags title={t`Lenstube Stats`} />
       <Deployment />
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-        <StatCard count={stats?.totalPosts} text="total videos" />
-        <StatCard count={stats?.totalComments} text="total comments" />
-        <StatCard count={stats?.totalMirrors} text="total mirrors" />
-        <StatCard count={bytesStats?.totalPosts} text="total bytes" />
-        <StatCard count={stats?.totalFollows} text="total subscriptions" />
-        <StatCard count={stats?.totalCollects} text="total collects" />
+        <StatCard count={stats?.totalPosts} text={t`total videos`} />
+        <StatCard count={stats?.totalComments} text={t`total comments`} />
+        <StatCard count={stats?.totalMirrors} text={t`total mirrors`} />
+        <StatCard count={bytesStats?.totalPosts} text={t`total bytes`} />
+        <StatCard count={stats?.totalFollows} text={t`total subscriptions`} />
+        <StatCard count={stats?.totalCollects} text={t`total collects`} />
       </div>
       <Recents />
     </>

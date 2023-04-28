@@ -1,5 +1,6 @@
 import IsVerified from '@components/Common/IsVerified'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
+import { t, Trans } from '@lingui/macro'
 import type { NewCollectNotification } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -59,16 +60,17 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
       </div>
       <div className="flex items-center justify-between">
         <span className="text-gray-600 dark:text-gray-400">
-          collected your
-          {notification.collectedPublication.__typename === 'Comment' &&
-            ' comment on'}
+          <Trans>collected your</Trans>
+          {notification.collectedPublication.__typename === 'Comment' && (
+            <Trans> comment on</Trans>
+          )}
           <Link
             href={`/watch/${notification?.collectedPublication.id}`}
             className="ml-1 text-indigo-500"
           >
             {notification.collectedPublication.__typename === 'Mirror'
-              ? 'mirror'
-              : 'video'}
+              ? t`mirror`
+              : t`video`}
           </Link>
         </span>
         <div className="flex items-center text-gray-600 dark:text-gray-400">

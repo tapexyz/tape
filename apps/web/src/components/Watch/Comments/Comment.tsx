@@ -9,6 +9,7 @@ import ReportModal from '@components/Common/VideoCard/ReportModal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
 import type { Attribute, Publication } from 'lens'
@@ -129,11 +130,13 @@ const Comment: FC<Props> = ({ comment }) => {
               >
                 {clamped ? (
                   <>
-                    Show more <ChevronDownOutline className="ml-1 h-3 w-3" />
+                    <Trans>Show more</Trans>{' '}
+                    <ChevronDownOutline className="ml-1 h-3 w-3" />
                   </>
                 ) : (
                   <>
-                    Show less <ChevronUpOutline className="ml-1 h-3 w-3" />
+                    <Trans>Show less</Trans>{' '}
+                    <ChevronUpOutline className="ml-1 h-3 w-3" />
                   </>
                 )}
               </button>
@@ -153,14 +156,17 @@ const Comment: FC<Props> = ({ comment }) => {
                 }}
                 className="inline-flex items-center space-x-1.5 text-xs focus:outline-none"
               >
-                <ReplyOutline className="h-3.5 w-3.5" /> <span>Reply</span>
+                <ReplyOutline className="h-3.5 w-3.5" />{' '}
+                <span>
+                  <Trans>Reply</Trans>
+                </span>
               </button>
               {comment.stats.totalAmountOfComments ? (
                 <button
                   onClick={() => setShowReplies(!showReplies)}
                   className="rounded-full bg-indigo-100 px-2 py-1 text-xs focus:outline-none dark:bg-indigo-900/30"
                 >
-                  {comment.stats.totalAmountOfComments} replies
+                  {comment.stats.totalAmountOfComments} <Trans>replies</Trans>
                 </button>
               ) : null}
             </div>
@@ -197,7 +203,7 @@ const Comment: FC<Props> = ({ comment }) => {
               <NewComment
                 video={comment}
                 defaultValue={defaultComment}
-                placeholder="Write a reply"
+                placeholder={t`Write a reply`}
                 hideEmojiPicker
               />
             )}

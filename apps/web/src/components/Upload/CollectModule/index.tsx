@@ -5,6 +5,7 @@ import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import { useEnabledModuleCurrrenciesQuery } from 'lens'
 import React, { useState } from 'react'
 import type { CollectModuleType } from 'utils'
@@ -39,20 +40,22 @@ const CollectModule = () => {
     const collectLimit = uploadedVideo.collectModule.collectLimit
     const multiRecipients = uploadedVideo.collectModule.multiRecipients
     if (uploadedVideo.collectModule.isRevertCollect) {
-      return 'No one can collect this publication'
+      return t`No one can collect this publication`
     }
     if (uploadedVideo.collectModule.isFreeCollect) {
       return `${
-        followerOnlyCollect ? 'Subscribers' : 'Anyone'
-      } can collect for free ${isTimedFeeCollect ? 'within 24hrs' : ''}`
+        followerOnlyCollect ? t`Subscribers` : t`Anyone`
+      } can collect for free ${isTimedFeeCollect ? t`within 24hrs` : ''}`
     }
     if (!uploadedVideo.collectModule.isFreeCollect) {
       return (
         <div className="flex items-center space-x-1">
           <span>
-            {followerOnlyCollect ? 'Subscribers' : 'Anyone'} can collect{' '}
-            {isLimitedFeeCollect ? `maximum of ${collectLimit}` : ''} for given
-            fees {isTimedFeeCollect ? 'within 24hrs' : ''}
+            {followerOnlyCollect ? t`Subscribers` : t`Anyone`}{' '}
+            <Trans>can collect</Trans>{' '}
+            {isLimitedFeeCollect ? `maximum of ${collectLimit}` : ''}{' '}
+            <Trans>for given fees</Trans>{' '}
+            {isTimedFeeCollect ? t`within 24hrs` : ''}
           </span>
           {uploadedVideo.collectModule.isMultiRecipientFeeCollect && (
             <Tooltip
@@ -72,7 +75,7 @@ const CollectModule = () => {
     <>
       <div className="mb-1 flex items-center space-x-1.5">
         <div className="text-[11px] font-semibold uppercase opacity-70">
-          Collect Type
+          <Trans>Collect Type</Trans>
         </div>
       </div>
       <button
@@ -84,7 +87,7 @@ const CollectModule = () => {
         <CheckOutline className="h-3 w-3" />
       </button>
       <Modal
-        title="Select collect type"
+        title={t`Select collect type`}
         panelClassName="max-w-lg"
         show={showModal}
       >
@@ -125,7 +128,7 @@ const CollectModule = () => {
           ) : (
             <div className="flex justify-end">
               <Button type="button" onClick={() => setShowModal(false)}>
-                Set Collect Type
+                <Trans>Set Collect Type</Trans>
               </Button>
             </div>
           )}

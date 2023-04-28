@@ -4,6 +4,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
 import type { FeedItem, Publication } from 'lens'
 import { FeedEventItemType, PublicationMainFocus, useFeedQuery } from 'lens'
 import React from 'react'
@@ -55,7 +56,7 @@ const Subscriptions = () => {
       <NoDataFound
         isCenter
         withImage
-        text="You got no videos in your feed, explore!"
+        text={t`You got no videos in your feed, explore!`}
       />
     )
   }

@@ -2,6 +2,7 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import { utils } from 'ethers'
 import type { Erc20 } from 'lens'
 import type { Dispatch, FC } from 'react'
@@ -23,15 +24,15 @@ type Props = {
 
 const formSchema = z.object({
   currency: z.string(),
-  amount: z.string().min(1, { message: 'Invalid amount' }),
+  amount: z.string().min(1, { message: t`Invalid amount` }),
   collectLimit: z
     .string()
-    .min(1, { message: 'Invalid collect limit' })
+    .min(1, { message: t`Invalid collect limit` })
     .optional(),
   referralPercent: z
     .number()
-    .max(100, { message: 'Percentage should be 0 to 100' })
-    .nonnegative({ message: 'Should to greater than or equal to zero' })
+    .max(100, { message: t`Percentage should be 0 to 100` })
+    .nonnegative({ message: t`Should to greater than or equal to zero` })
 })
 export type FormData = z.infer<typeof formSchema>
 
@@ -96,15 +97,15 @@ const FeeCollectForm: FC<Props> = ({
     const amount = Number(data.amount)
     const collectLimit = Number(data.collectLimit)
     if (amount === 0) {
-      return setError('amount', { message: 'Amount should be greater than 0' })
+      return setError('amount', { message: t`Amount should be greater than 0` })
     }
     if (collectLimit === 0) {
       return setError('collectLimit', {
-        message: 'Collect limit should be greater than 0'
+        message: t`Collect limit should be greater than 0`
       })
     }
     if (splitRecipients.length > 5) {
-      return toast.error('Only 5 splits supported')
+      return toast.error(t`Only 5 splits supported`)
     }
     const splitsSum = splitRecipients.reduce(
       (total, obj) => obj.split + total,
@@ -114,17 +115,17 @@ const FeeCollectForm: FC<Props> = ({
       (splitRecipient) => !utils.isAddress(splitRecipient.recipient)
     )
     if (invalidSplitAddresses.length) {
-      return toast.error('Invalid split recipient address')
+      return toast.error(t`Invalid split recipient address`)
     }
     const uniqueValues = new Set(splitRecipients.map((v) => v.recipient))
     if (uniqueValues.size < splitRecipients.length) {
-      return toast.error('Split addresses should be unique')
+      return toast.error(t`Split addresses should be unique`)
     }
     if (
       uploadedVideo.collectModule.isMultiRecipientFeeCollect &&
       splitsSum !== 100
     ) {
-      return toast.error('Sum of all splits should be 100%')
+      return toast.error(t`Sum of all splits should be 100%`)
     }
     data.collectLimit = String(collectLimit)
     data.amount = String(amount)
@@ -137,8 +138,8 @@ const FeeCollectForm: FC<Props> = ({
       uploadedVideo.collectModule.isLimitedTimeFeeCollect ? (
         <div>
           <Input
+            label={t`Total Collectibles`}
             type="number"
-            label="Total Collectibles"
             placeholder="3"
             min="1"
             autoComplete="off"
@@ -152,7 +153,7 @@ const FeeCollectForm: FC<Props> = ({
       <div>
         <div className="mb-1 flex items-center space-x-1.5">
           <div className="text-[11px] font-semibold uppercase opacity-70">
-            Collect Currency
+            <Trans>Collect Currency</Trans>
           </div>
         </div>
         <select
@@ -183,8 +184,8 @@ const FeeCollectForm: FC<Props> = ({
       </div>
       <div>
         <Input
+          label={t`Price of each collect`}
           type="number"
-          label="Price of each collect"
           placeholder="1.5"
           min="0"
           autoComplete="off"
@@ -198,11 +199,11 @@ const FeeCollectForm: FC<Props> = ({
       </div>
       <div>
         <Input
-          label="Referral Percentage"
+          label={t`Referral Percentage`}
           type="number"
           placeholder="2"
           suffix="%"
-          info="Percent of collect revenue can be shared with anyone who mirrors this video."
+          info={t`Percent of collect revenue can be shared with anyone who mirrors this video.`}
           {...register('referralPercent', { valueAsNumber: true })}
           validationError={errors.referralPercent?.message}
         />
@@ -210,7 +211,7 @@ const FeeCollectForm: FC<Props> = ({
       <Splits submitContainerRef={submitContainerRef} />
       <div className="flex justify-end pt-2" ref={submitContainerRef}>
         <Button type="button" onClick={() => handleSubmit(validateInputs)()}>
-          Set Collect Type
+          <Trans>Set Collect Type</Trans>
         </Button>
       </div>
     </form>

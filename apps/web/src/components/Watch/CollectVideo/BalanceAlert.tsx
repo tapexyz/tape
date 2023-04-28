@@ -1,4 +1,5 @@
 import Alert from '@components/Common/Alert'
+import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -21,7 +22,8 @@ const BalanceAlert: FC<Props> = ({ collectModule }) => {
       <Alert variant="warning">
         <div className="flex flex-1 items-center justify-between text-sm">
           <span>
-            Not enough {collectModule?.amount?.asset?.symbol} token balance
+            <Trans>Not enough</Trans> {collectModule?.amount?.asset?.symbol}{' '}
+            <Trans>token balance</Trans>
           </span>
           <Link
             href={getUniswapURL(
@@ -32,7 +34,7 @@ const BalanceAlert: FC<Props> = ({ collectModule }) => {
             target="_blank"
             className="text-indigo-500"
           >
-            Swap
+            <Trans>Swap</Trans>
           </Link>
         </div>
       </Alert>

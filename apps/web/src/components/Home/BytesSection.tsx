@@ -3,6 +3,7 @@ import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import BytesShimmer from '@components/Shimmers/BytesShimmer'
 import useAppStore from '@lib/store'
+import { Trans } from '@lingui/macro'
 import type { Publication } from 'lens'
 import {
   PublicationMainFocus,
@@ -70,7 +71,9 @@ const BytesSection = () => {
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <BytesOutline className="h-4 w-4" />
-          <h1 className="text-xl font-semibold">Bytes</h1>
+          <h1 className="text-xl font-semibold">
+            <Trans>Bytes</Trans>
+          </h1>
         </div>
         <div className="flex justify-end space-x-3">
           <button
@@ -134,7 +137,7 @@ const BytesSection = () => {
                   />
                 </Link>
                 <span className="text-xs leading-3 opacity-70">
-                  {byte.stats?.totalUpvotes} likes
+                  {byte.stats?.totalUpvotes} <Trans>likes</Trans>
                 </span>
               </div>
             </div>

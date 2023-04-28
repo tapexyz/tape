@@ -8,6 +8,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import { utils } from 'ethers'
 import type {
   CreatePublicSetProfileMetadataUriRequest,
@@ -296,7 +297,7 @@ const BasicInfo = ({ channel }: Props) => {
           htmlFor="chooseCover"
           className="dark:bg-theme absolute bottom-2 left-2 cursor-pointer rounded-lg bg-white p-1 px-3 text-sm"
         >
-          Change
+          <Trans>Change</Trans>
           <input
             id="chooseCover"
             type="file"
@@ -309,7 +310,7 @@ const BasicInfo = ({ channel }: Props) => {
       <div className="pt-1 text-right text-xs opacity-80">2560 x 1440</div>
       <div className="mb-1 flex items-center">
         <div className="text-[11px] font-semibold uppercase opacity-60">
-          Channel
+          <Trans>Channel</Trans>
         </div>
       </div>
       <div className="flex items-center space-x-3">
@@ -326,14 +327,14 @@ const BasicInfo = ({ channel }: Props) => {
               rel="noreferer noreferrer"
               className="bg-gradient-to-br from-purple-500 to-indigo-600 bg-clip-text text-sm text-transparent"
             >
-              ( Get Verified )
+              ( <Trans>Get Verified</Trans> )
             </Link>
           )}
       </div>
       <div className="mt-4">
         <div className="mb-1 flex items-center">
           <div className="text-[11px] font-semibold uppercase opacity-60">
-            Channel URL
+            <Trans>Channel URL</Trans>
           </div>
         </div>
         <div className="flex items-center space-x-2">
@@ -353,7 +354,7 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="mt-6">
         <Input
-          label="Display Name"
+          label={t`Display Name`}
           type="text"
           placeholder="T Series"
           {...register('displayName')}
@@ -362,8 +363,8 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="relative mt-4">
         <TextArea
-          label="Channel Description"
-          placeholder="More about your channel"
+          label={t`Channel Description`}
+          placeholder={t`More about your channel`}
           rows={4}
           validationError={errors.description?.message}
           {...register('description')}
@@ -387,7 +388,7 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="mt-4">
         <Input
-          label="Website"
+          label={t`Website`}
           placeholder="https://johndoe.xyz"
           {...register('website')}
           validationError={errors.website?.message}
@@ -395,14 +396,16 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="mt-4">
         <Input
-          label="Location"
+          label={t`Location`}
           placeholder="Metaverse"
           {...register('location')}
           validationError={errors.location?.message}
         />
       </div>
       <div className="mt-4 flex justify-end">
-        <Button loading={loading}>Save</Button>
+        <Button loading={loading}>
+          <Trans>Save</Trans>
+        </Button>
       </div>
     </form>
   )

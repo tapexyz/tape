@@ -3,6 +3,7 @@ import CollectOutline from '@components/Common/Icons/CollectOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import MirroredList from '@components/Common/MirroredList'
 import Modal from '@components/UIElements/Modal'
+import { t, Trans } from '@lingui/macro'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -23,7 +24,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
     <div className="flex flex-wrap items-center opacity-70">
       <div className="flex items-center">
         <Modal
-          title="Collected By"
+          title={t`Collected By`}
           onClose={() => setShowCollectsModal(false)}
           show={showCollectsModal}
           panelClassName="max-w-md"
@@ -33,7 +34,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           </div>
         </Modal>
         <Modal
-          title="Mirrored By"
+          title={t`Mirrored By`}
           onClose={() => setShowMirrorsModal(false)}
           show={showMirrorsModal}
           panelClassName="max-w-md"
@@ -51,7 +52,9 @@ const VideoMeta: FC<Props> = ({ video }) => {
               className="flex items-center space-x-1 outline-none"
             >
               <CollectOutline className="h-3 w-3" />
-              <span>{video.stats?.totalAmountOfCollects} collects</span>
+              <span>
+                {video.stats?.totalAmountOfCollects} <Trans>collects</Trans>
+              </span>
             </button>
             <span className="middot px-1" />
           </>
@@ -62,7 +65,9 @@ const VideoMeta: FC<Props> = ({ video }) => {
           className="flex items-center space-x-1 outline-none"
         >
           <MirrorOutline className="h-3 w-3" />
-          <span>{video.stats?.totalAmountOfMirrors} mirrors</span>
+          <span>
+            {video.stats?.totalAmountOfMirrors} <Trans>mirrors</Trans>
+          </span>
         </button>
       </div>
       <span className="middot px-1" />

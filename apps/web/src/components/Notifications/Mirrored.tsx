@@ -1,4 +1,5 @@
 import IsVerified from '@components/Common/IsVerified'
+import { Trans } from '@lingui/macro'
 import type { NewMirrorNotification } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -32,12 +33,12 @@ const MirroredNotification: FC<Props> = ({ notification }) => {
       </div>
       <div className="flex items-center justify-between">
         <span className="truncate text-gray-600 dark:text-gray-400">
-          mirrored your{' '}
+          <Trans>mirrored your</Trans>{' '}
           <Link
             href={`/watch/${notification?.publication.id}`}
             className="ml-1 text-indigo-500"
           >
-            video
+            <Trans>video</Trans>
           </Link>
         </span>
         <div className="flex flex-none items-center text-gray-600 dark:text-gray-400">

@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
 import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
 import type { MediaSet, Profile } from 'lens'
 import { useProfileQuery } from 'lens'
 import dynamic from 'next/dynamic'
@@ -56,7 +57,7 @@ const Settings = () => {
 
   return (
     <div className="container mx-auto max-w-7xl">
-      <MetaTags title="Channel Settings" />
+      <MetaTags title={t`Channel Settings`} />
       {!loading && !error && channel ? (
         <div className="grid gap-4 md:grid-cols-4">
           <div className="md:col-span-1">

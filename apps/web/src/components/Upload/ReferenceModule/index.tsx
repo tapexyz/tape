@@ -2,6 +2,7 @@ import CheckOutline from '@components/Common/Icons/CheckOutline'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import useAppStore from '@lib/store'
+import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import React, { useState } from 'react'
 import type { ReferenceModuleType } from 'utils'
@@ -23,9 +24,9 @@ const ReferenceModule = () => {
     const degreesOfSeparationReferenceModule =
       uploadedVideo?.referenceModule?.degreesOfSeparationReferenceModule
     if (!followerOnlyReferenceModule && !degreesOfSeparationReferenceModule) {
-      return 'Anyone can comment and mirror'
+      return t`Anyone can comment and mirror`
     } else if (followerOnlyReferenceModule) {
-      return 'Only my subscribers can comment and mirror'
+      return t`Only my subscribers can comment and mirror`
     } else if (
       degreesOfSeparationReferenceModule &&
       degreesOfSeparationReferenceModule.degreesOfSeparation < 5
@@ -51,7 +52,7 @@ const ReferenceModule = () => {
     <>
       <div className="mb-1 flex items-center space-x-1.5">
         <div className="text-[11px] font-semibold uppercase opacity-70">
-          Comments and Mirrors
+          <Trans>Comments and Mirrors</Trans>
         </div>
       </div>
       <button
@@ -89,7 +90,9 @@ const ReferenceModule = () => {
                 }
               )}
             >
-              <span>Anyone</span>
+              <span>
+                <Trans>Anyone</Trans>
+              </span>
               {!uploadedVideo?.referenceModule?.followerOnlyReferenceModule &&
                 !uploadedVideo?.referenceModule
                   ?.degreesOfSeparationReferenceModule?.degreesOfSeparation && (
@@ -148,8 +151,10 @@ const ReferenceModule = () => {
             )}
           >
             <span className="max-w-[95%]">
-              Only channels that I subscribed and their subscriptions, so on
-              upto
+              <Trans>
+                Only channels that I subscribed and their subscriptions, so on
+                upto
+              </Trans>
               <select
                 onChange={onSelectReferenceDegree}
                 onClick={(e) => e.preventDefault()}
@@ -165,7 +170,7 @@ const ReferenceModule = () => {
                 <option>3</option>
                 <option>4</option>
               </select>
-              degrees away from my network
+              <Trans>degrees away from my network</Trans>
             </span>
             {uploadedVideo.referenceModule
               ?.degreesOfSeparationReferenceModule !== null && (
@@ -174,7 +179,7 @@ const ReferenceModule = () => {
           </button>
           <div className="flex justify-end">
             <Button type="button" onClick={() => setShowModal(false)}>
-              Set Preference
+              <Trans>Set Preference</Trans>
             </Button>
           </div>
         </div>

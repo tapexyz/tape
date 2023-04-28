@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
+import { t, Trans } from '@lingui/macro'
 import type { Publication } from 'lens'
 import { useReportPublicationMutation } from 'lens'
 import type { FC } from 'react'
@@ -21,7 +22,7 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
       toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     },
     onCompleted: () => {
-      toast.success('Publication reported successfully.')
+      toast.success(t`Publication reported successfully.`)
       onSuccess()
       Analytics.track(TRACK.PUBLICATION.REPORT, {
         publication_id: publication.id,
@@ -71,7 +72,7 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
 
   return (
     <>
-      <MetaTags title="Report Publication" />
+      <MetaTags title={t`Report Publication`} />
       <div className="flex justify-center">
         <div className="w-full">
           <div className="opacity-60">
@@ -83,7 +84,7 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
               className="block text-xs font-semibold uppercase opacity-70"
               htmlFor="report"
             >
-              Reason
+              <Trans>Reason</Trans>
             </label>
             <div className="mt-1">
               <select
@@ -94,38 +95,66 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
                 id="report"
               >
                 <optgroup label="SPAM">
-                  <option value="SPAM-FAKE_ENGAGEMENT">Fake Engagement</option>
-                  <option value="SPAM-MANIPULATION_ALGO">
-                    Algorithm Manipulation
+                  <option value="SPAM-FAKE_ENGAGEMENT">
+                    <Trans>Fake Engagement</Trans>
                   </option>
-                  <option value="SPAM-MISLEADING">Misleading</option>
-                  <option value="SPAM-MISUSE_HASHTAGS">Misuse Hashtags</option>
-                  <option value="SPAM-REPETITIVE">Repetitive</option>
-                  <option value="SPAM-UNRELATED">Unrelated</option>
-                  <option value="SPAM-SOMETHING_ELSE">Something Else</option>
+                  <option value="SPAM-MANIPULATION_ALGO">
+                    <Trans>Algorithm Manipulation</Trans>
+                  </option>
+                  <option value="SPAM-MISLEADING">
+                    <Trans>Misleading</Trans>
+                  </option>
+                  <option value="SPAM-MISUSE_HASHTAGS">
+                    <Trans>Misuse Hashtags</Trans>
+                  </option>
+                  <option value="SPAM-REPETITIVE">
+                    <Trans>Repetitive</Trans>
+                  </option>
+                  <option value="SPAM-UNRELATED">
+                    <Trans>Unrelated</Trans>
+                  </option>
+                  <option value="SPAM-SOMETHING_ELSE">
+                    <Trans>Something Else</Trans>
+                  </option>
                 </optgroup>
                 <optgroup label="ILLEGAL">
-                  <option value="ILLEGAL-ANIMAL_ABUSE">Animal Abuse</option>
-                  <option value="ILLEGAL-HUMAN_ABUSE">Human Abuse</option>
-                  <option value="ILLEGAL-DIRECT_THREAT">Direct threat</option>
-                  <option value="ILLEGAL-THREAT_INDIVIDUAL">
-                    Threat Individual
+                  <option value="ILLEGAL-ANIMAL_ABUSE">
+                    <Trans>Animal Abuse</Trans>
                   </option>
-                  <option value="ILLEGAL-VIOLENCE">Violence</option>
+                  <option value="ILLEGAL-HUMAN_ABUSE">
+                    <Trans>Human Abuse</Trans>
+                  </option>
+                  <option value="ILLEGAL-DIRECT_THREAT">
+                    <Trans>Direct threat</Trans>
+                  </option>
+                  <option value="ILLEGAL-THREAT_INDIVIDUAL">
+                    <Trans>Threat Individual</Trans>
+                  </option>
+                  <option value="ILLEGAL-VIOLENCE">
+                    <Trans>Violence</Trans>
+                  </option>
                 </optgroup>
                 <optgroup label="FRAUD">
-                  <option value="FRAUD-SCAM">Scam</option>
-                  <option value="FRAUD-IMPERSONATION">Impersonation</option>
+                  <option value="FRAUD-SCAM">
+                    <Trans>Scam</Trans>
+                  </option>
+                  <option value="FRAUD-IMPERSONATION">
+                    <Trans>Impersonation</Trans>
+                  </option>
                 </optgroup>
                 <optgroup label="SENSITIVE">
-                  <option value="SENSITIVE-NSFW">NSFW</option>
-                  <option value="SENSITIVE-OFFENSIVE">Offensive</option>
+                  <option value="SENSITIVE-NSFW">
+                    <Trans>NSFW</Trans>
+                  </option>
+                  <option value="SENSITIVE-OFFENSIVE">
+                    <Trans>Offensive</Trans>
+                  </option>
                 </optgroup>
               </select>
             </div>
             <div className="mb-1 mt-4 flex justify-end">
               <Button loading={reporting} onClick={() => onReport()}>
-                Report
+                <Trans>Report</Trans>
               </Button>
             </div>
           </div>

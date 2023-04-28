@@ -3,6 +3,7 @@ import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import { utils } from 'ethers'
 import type { RecipientDataInput } from 'lens'
@@ -116,7 +117,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
     <div className="space-y-1">
       <div className="flex items-center">
         <div className="text-[11px] font-semibold uppercase tracking-wider opacity-70">
-          Split revenue
+          <Trans>Split revenue</Trans>
         </div>
         <Tooltip
           content="Split video revenue with multiple accounts."
@@ -183,7 +184,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             )}
             onClick={() => addRecipient()}
           >
-            Add recipient
+            <Trans>Add recipient</Trans>
           </button>
           {!isIncludesDonationAddress && (
             <Tooltip
@@ -198,7 +199,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                 )}
                 onClick={() => addDonation()}
               >
-                Add Donation
+                <Trans>Add Donation</Trans>
               </button>
             </Tooltip>
           )}
@@ -209,7 +210,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             className="rounded border border-gray-700 px-1 text-[10px] font-semibold uppercase tracking-wider opacity-70 dark:border-gray-300"
             onClick={() => splitEvenly()}
           >
-            Split evenly
+            <Trans>Split evenly</Trans>
           </button>
         )}
       </div>

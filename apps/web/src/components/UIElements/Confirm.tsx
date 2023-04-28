@@ -1,3 +1,4 @@
+import { t, Trans } from '@lingui/macro'
 import type { Dispatch, FC } from 'react'
 import React from 'react'
 
@@ -13,21 +14,25 @@ type Props = {
 const Confirm: FC<Props> = ({ showConfirm, setShowConfirm, action }) => {
   return (
     <Modal
-      title="Confirmation"
+      title={t`Confirmation`}
       panelClassName="max-w-lg"
       show={showConfirm}
       onClose={() => setShowConfirm(false)}
     >
       <div className="pt-4">
-        <h5 className="pb-3">Are you sure want to continue?</h5>
+        <h5 className="pb-3">
+          <Trans>Are you sure want to continue?</Trans>
+        </h5>
         <span className="text-red-500 opacity-75">
-          This cannot be reverted.
+          <Trans>This cannot be reverted.</Trans>
         </span>
         <div className="flex justify-end space-x-2 pt-2">
           <Button variant="hover" onClick={() => setShowConfirm(false)}>
-            Cancel
+            <Trans>Cancel</Trans>
           </Button>
-          <Button onClick={action}>Confirm</Button>
+          <Button onClick={action}>
+            <Trans>Confirm</Trans>
+          </Button>
         </div>
       </div>
     </Modal>

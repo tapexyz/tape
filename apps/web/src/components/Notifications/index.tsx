@@ -11,6 +11,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { Notification } from 'lens'
 import { NotificationTypes, useNotificationsQuery } from 'lens'
@@ -121,7 +122,7 @@ const Notifications = () => {
 
   return (
     <div className="mx-auto my-2 px-2 md:container md:max-w-3xl md:p-0">
-      <MetaTags title="Notifications" />
+      <MetaTags title={t`Notifications`} />
       <Tab.Group as="div" className="w-full">
         <div className="mb-4 flex items-center justify-between">
           <Tab.List className="no-scrollbar flex w-full space-x-4 overflow-x-auto">
@@ -142,7 +143,9 @@ const Notifications = () => {
               }
             >
               <BellOutline className="h-3.5 w-3.5" />
-              <span className="whitespace-nowrap">All Notifications</span>
+              <span className="whitespace-nowrap">
+                <Trans>All Notifications</Trans>
+              </span>
             </Tab>
             <Tab
               onClick={() => {
@@ -161,7 +164,9 @@ const Notifications = () => {
               }
             >
               <SubscribeOutline className="h-3.5 w-3.5" />
-              <span>Subscriptions</span>
+              <span>
+                <Trans>Subscriptions</Trans>
+              </span>
             </Tab>
             <Tab
               onClick={() => {
@@ -180,7 +185,9 @@ const Notifications = () => {
               }
             >
               <LikeOutline className="h-3.5 w-3.5" />
-              <span>Likes</span>
+              <span>
+                <Trans>Likes</Trans>
+              </span>
             </Tab>
             <Tab
               onClick={() => {
@@ -199,7 +206,9 @@ const Notifications = () => {
               }
             >
               <CommentOutline className="h-3.5 w-3.5" />
-              <span>Comments</span>
+              <span>
+                <Trans>Comments</Trans>
+              </span>
             </Tab>
             <Tab
               onClick={() => {
@@ -218,7 +227,9 @@ const Notifications = () => {
               }
             >
               <MentionOutline className="h-3.5 w-3.5" />
-              <span>Mentions</span>
+              <span>
+                <Trans>Mentions</Trans>
+              </span>
             </Tab>
             <Tab
               onClick={() => {
@@ -237,7 +248,9 @@ const Notifications = () => {
               }
             >
               <CollectOutline className="h-3.5 w-3.5" />
-              <span>Collects</span>
+              <span>
+                <Trans>Collects</Trans>
+              </span>
             </Tab>
           </Tab.List>
           <NotificationsFilter />
@@ -245,7 +258,7 @@ const Notifications = () => {
         <Tab.Panels>
           {loading && <NotificationsShimmer />}
           {notifications?.length === 0 && (
-            <NoDataFound isCenter withImage text="No Notifications" />
+            <NoDataFound isCenter withImage text={t`No Notifications`} />
           )}
           {notifications?.map((notification: Notification, index: number) => (
             <div

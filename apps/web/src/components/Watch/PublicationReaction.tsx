@@ -2,6 +2,7 @@ import DislikeOutline from '@components/Common/Icons/DislikeOutline'
 import LikeOutline from '@components/Common/Icons/LikeOutline'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
 import type { Publication } from 'lens'
@@ -161,7 +162,7 @@ const PublicationReaction: FC<Props> = ({
             >
               {reaction.likeCount > 0
                 ? formatNumber(reaction.likeCount)
-                : 'Like'}
+                : t`Like`}
             </span>
           )}
         </span>
@@ -195,7 +196,7 @@ const PublicationReaction: FC<Props> = ({
                 'text-indigo-500': reaction.isDisliked
               })}
             >
-              Dislike
+              <Trans>Dislike</Trans>
             </span>
           )}
         </span>

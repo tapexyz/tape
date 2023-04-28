@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
 import { utils } from 'ethers'
 import type {
   CreateCommentBroadcastItemResult,
@@ -56,17 +57,17 @@ type Props = {
 
 const formSchema = z.object({
   comment: z
-    .string({ required_error: 'Enter valid comment' })
+    .string({ required_error: t`Enter valid comment` })
     .trim()
-    .min(1, { message: 'Enter valid comment' })
-    .max(5000, { message: 'Comment should not exceed 5000 characters' })
+    .min(1, { message: t`Enter valid comment` })
+    .max(5000, { message: t`Comment should not exceed 5000 characters` })
 })
 type FormData = z.infer<typeof formSchema>
 
 const NewComment: FC<Props> = ({
   video,
   defaultValue = '',
-  placeholder = "How's this video?",
+  placeholder = t`How's this video?`,
   hideEmojiPicker = false
 }) => {
   const { cache } = useApolloClient()
@@ -426,7 +427,9 @@ const NewComment: FC<Props> = ({
           )}
         </div>
       </div>
-      <Button loading={loading}>Comment</Button>
+      <Button loading={loading}>
+        <Trans>Comment</Trans>
+      </Button>
     </form>
   )
 }

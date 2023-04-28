@@ -4,6 +4,7 @@ import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
 import type { Publication } from 'lens'
 import {
   CommentOrderingTypes,
@@ -91,7 +92,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
       >
         <span className="flex items-center space-x-2">
           <span className="opacity-70 group-hover:opacity-100">
-            {showSection ? 'Hide more comments' : 'Show more comments'}
+            {showSection ? t`Hide more comments` : t`Show more comments`}
           </span>
           {showSection ? (
             <ChevronUpOutline className="h-3 w-3" />

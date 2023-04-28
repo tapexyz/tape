@@ -6,6 +6,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import { utils } from 'ethers'
 import type {
   CreateSetFollowModuleBroadcastItemResult,
@@ -121,7 +122,7 @@ const Membership = ({ channel }: Props) => {
   useEffect(() => {
     if (indexed) {
       setLoading(false)
-      toast.success('Membership updated')
+      toast.success(t`Membership updated`)
       setShowForm(false)
       refetch({ request: { profileIds: channel?.id } })
     }
@@ -193,11 +194,15 @@ const Membership = ({ channel }: Props) => {
   return (
     <div className="dark:bg-theme rounded-xl bg-white p-4">
       <div className="mb-5">
-        <h1 className="mb-1 text-xl font-semibold">Grow with Lens</h1>
+        <h1 className="mb-1 text-xl font-semibold">
+          <Trans>Grow with Lens</Trans>
+        </h1>
         <p className="text opacity-80">
-          You can set up a subscription fee for your channel and provide
-          exclusive offers and perks to the subscribers, also people can pay and
-          support your work.
+          <Trans>
+            You can set up a subscription fee for your channel and provide
+            exclusive offers and perks to the subscribers, also people can pay
+            and support your work.
+          </Trans>
         </p>
       </div>
       {moduleLoading && (
@@ -211,7 +216,7 @@ const Membership = ({ channel }: Props) => {
           <div className="grid gap-y-4 md:grid-cols-3">
             <div>
               <span className="text-xs font-medium uppercase opacity-50">
-                Amount
+                <Trans>Amount</Trans>
               </span>
               <h6 className="text-semibold text-xl">
                 {activeFollowModule.amount?.value}{' '}
@@ -220,7 +225,7 @@ const Membership = ({ channel }: Props) => {
             </div>
             <div>
               <span className="text-xs font-medium uppercase opacity-50">
-                Token
+                <Trans>Token</Trans>
               </span>
               <h6 className="text-semibold text-xl">
                 {activeFollowModule.amount?.asset?.name}
@@ -228,7 +233,7 @@ const Membership = ({ channel }: Props) => {
             </div>
             <div>
               <span className="text-xs font-medium uppercase opacity-50">
-                Recipient
+                <Trans>Recipient</Trans>
               </span>
               <AddressExplorerLink address={activeFollowModule.recipient}>
                 <span className="text-semibold block text-xl outline-none">
@@ -246,7 +251,7 @@ const Membership = ({ channel }: Props) => {
             <div>
               <div className="mb-1 flex items-center space-x-1.5">
                 <div className="text-[11px] font-semibold uppercase opacity-70">
-                  Currency
+                  <Trans>Currency</Trans>
                 </div>
               </div>
               <select
@@ -271,7 +276,7 @@ const Membership = ({ channel }: Props) => {
             </div>
             <div>
               <Input
-                label="Amount"
+                label={t`Amount`}
                 type="number"
                 step="any"
                 placeholder="10"
@@ -282,7 +287,7 @@ const Membership = ({ channel }: Props) => {
             </div>
             <div>
               <Input
-                label="Recipient"
+                label={t`Recipient`}
                 placeholder="0x00..."
                 autoComplete="off"
                 validationError={errors.recipient?.message}
@@ -293,7 +298,7 @@ const Membership = ({ channel }: Props) => {
           <div className="mt-4 flex justify-end space-x-2">
             {activeFollowModule && (
               <Button variant="hover" onClick={() => setShowForm(false)}>
-                Cancel
+                <Trans>Cancel</Trans>
               </Button>
             )}
             <Button loading={loading}>Set Membership</Button>
@@ -302,13 +307,17 @@ const Membership = ({ channel }: Props) => {
       ) : null}
       {!moduleLoading && !showForm && (
         <div className="flex items-center justify-end space-x-2">
-          <Button onClick={() => setShowForm(true)}>Update</Button>
+          <Button onClick={() => setShowForm(true)}>
+            <Trans>Update</Trans>
+          </Button>
           <Button
             variant="danger"
             loading={loading}
             onClick={() => setMembership(true)}
           >
-            <span className="text-white">Disable</span>
+            <span className="text-white">
+              <Trans>Disable</Trans>
+            </span>
           </Button>
         </div>
       )}

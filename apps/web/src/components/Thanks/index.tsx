@@ -1,4 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
+import { t, Trans } from '@lingui/macro'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 import { Analytics, LENSTUBE_APP_NAME, STATIC_ASSETS, TRACK } from 'utils'
@@ -10,11 +11,11 @@ const Thanks = () => {
 
   return (
     <div className="space-y-5 md:py-10">
-      <MetaTags title="Thanks" />
+      <MetaTags title={t`Thanks`} />
       <div className="bg-brand-400 flex h-48 w-full items-center justify-center">
         <div className="relative text-center">
           <div className="flex items-center space-x-2 text-3xl font-bold md:text-4xl">
-            Thanks for supporting our community!
+            <Trans>Thanks for supporting our community!</Trans>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import React from 'react'
 import { IPFS_FREE_UPLOAD_LIMIT } from 'utils'
@@ -30,7 +31,7 @@ const UploadMethod = () => {
           }
           onClick={() => setUploadedVideo({ isUploadToIpfs: false })}
         >
-          Upload to Arweave
+          <Trans>Upload to Arweave</Trans>
         </Tab>
         <Tab
           className={({ selected }) =>
@@ -49,7 +50,9 @@ const UploadMethod = () => {
             content={`Video size under ${IPFS_FREE_UPLOAD_LIMIT}mb can be uploaded to IPFS for free`}
             placement="top-end"
           >
-            <div className="py-2.5">Upload to IPFS</div>
+            <div className="py-2.5">
+              <Trans>Upload to IPFS</Trans>
+            </div>
           </Tooltip>
         </Tab>
       </Tab.List>

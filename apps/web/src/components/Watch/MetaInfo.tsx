@@ -3,6 +3,7 @@ import TagOutline from '@components/Common/Icons/TagOutline'
 import ArweaveExplorerLink from '@components/Common/Links/ArweaveExplorerLink'
 import IPFSLink from '@components/Common/Links/IPFSLink'
 import TokenExplorerLink from '@components/Common/Links/TokenExplorerLink'
+import { Trans } from '@lingui/macro'
 import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -41,7 +42,9 @@ const MetaInfo: FC<Props> = ({ video }) => {
             className="flex items-center space-x-1"
             role="button"
           >
-            <div className="whitespace-nowrap text-sm">View Metadata</div>
+            <div className="whitespace-nowrap text-sm">
+              <Trans>View Metadata</Trans>
+            </div>
             <ExternalOutline className="h-3.5 w-3.5" />
           </div>
         </IPFSLink>
@@ -52,7 +55,9 @@ const MetaInfo: FC<Props> = ({ video }) => {
             className="flex items-center space-x-1"
             role="button"
           >
-            <div className="whitespace-nowrap text-sm">View Metadata</div>
+            <div className="whitespace-nowrap text-sm">
+              <Trans>View Metadata</Trans>
+            </div>
             <ExternalOutline className="h-3.5 w-3.5" />
           </div>
         </ArweaveExplorerLink>
@@ -66,7 +71,9 @@ const MetaInfo: FC<Props> = ({ video }) => {
           <span className="middot" />
           <TokenExplorerLink address={video.collectNftAddress}>
             <div className="flex items-center space-x-1">
-              <div className="whitespace-nowrap text-sm">View Token</div>
+              <div className="whitespace-nowrap text-sm">
+                <Trans>View Token</Trans>
+              </div>
               <ExternalOutline className="h-3.5 w-3.5" />
             </div>
           </TokenExplorerLink>
@@ -83,7 +90,9 @@ const MetaInfo: FC<Props> = ({ video }) => {
             txId={video.dataAvailabilityProofs?.replace('ar://', '')}
           >
             <div className="flex items-center space-x-1">
-              <div className="whitespace-nowrap text-sm">View Proof</div>
+              <div className="whitespace-nowrap text-sm">
+                <Trans>View Proof</Trans>
+              </div>
               <ExternalOutline className="h-3.5 w-3.5" />
             </div>
           </ArweaveExplorerLink>

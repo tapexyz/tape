@@ -5,6 +5,7 @@ import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import MirrorVideo from '@components/Common/MirrorVideo'
 import SubscribeActions from '@components/Common/SubscribeActions'
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { Publication } from 'lens'
 import Link from 'next/link'
@@ -56,7 +57,8 @@ const AboutChannel: FC<Props> = ({ video }) => {
               <IsVerified id={channel?.id} />
             </Link>
             <span className="inline-flex items-center space-x-1 text-sm opacity-90">
-              {formatNumber(channel?.stats.totalFollowers)} subscribers
+              {formatNumber(channel?.stats.totalFollowers)}{' '}
+              <Trans>subscribers</Trans>
             </span>
           </div>
           <div className="flex items-center space-x-2 lg:space-x-4">

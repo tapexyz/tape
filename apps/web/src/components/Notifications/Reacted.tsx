@@ -1,4 +1,5 @@
 import IsVerified from '@components/Common/IsVerified'
+import { t, Trans } from '@lingui/macro'
 import type { NewReactionNotification } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -32,8 +33,11 @@ const ReactedNotification: FC<Props> = ({ notification }) => {
       </div>
       <div className="flex items-center justify-between">
         <span className="truncate text-gray-600 dark:text-gray-400">
-          {notification.reaction === 'UPVOTE' ? 'liked' : 'dislisked'} your
-          {notification.publication.__typename === 'Comment' && ' comment on'}
+          {notification.reaction === 'UPVOTE' ? t`liked` : t`dislisked`}{' '}
+          <Trans>your</Trans>
+          {notification.publication.__typename === 'Comment' && (
+            <Trans> comment on</Trans>
+          )}
           <Link
             href={`/watch/${
               notification.publication.__typename === 'Comment'
@@ -42,7 +46,7 @@ const ReactedNotification: FC<Props> = ({ notification }) => {
             }`}
             className="ml-1 text-indigo-500"
           >
-            video
+            <Trans>video</Trans>
           </Link>
         </span>
         <div className="flex flex-none items-center text-gray-600 dark:text-gray-400">

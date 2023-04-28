@@ -2,6 +2,7 @@ import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import useAppStore from '@lib/store'
+import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { ChangeEvent, FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -36,7 +37,7 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
     setUploadedVideo({ uploadingThumbnail: true })
     const result: IPFSUploadResult = await uploadToIPFS(fileToUpload)
     if (!result.url) {
-      toast.error('Failed to upload thumbnail')
+      toast.error(t`Failed to upload thumbnail`)
     }
     setUploadedVideo({
       thumbnail: result.url,
@@ -55,7 +56,7 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
         'thumbnail.jpeg',
         async (file) => {
           if (!file) {
-            return toast.error('Please upload a custom thumbnail')
+            return toast.error(t`Please upload a custom thumbnail`)
           }
           const ipfsResult = await uploadThumbnailToIpfs(file)
           setThumbnails(
@@ -117,7 +118,7 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       setSelectedThumbnailIndex(-1)
-      toast.loading('Uploading thumbnail')
+      toast.loading(t`Uploading thumbnail`)
       const file = e.target.files[0]
       const result = await uploadThumbnailToIpfs(file)
       const preview = window.URL?.createObjectURL(file)
@@ -155,7 +156,9 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
             onChange={handleUpload}
           />
           <AddImageOutline className="mb-1 h-4 w-4 flex-none" />
-          <span className="text-xs">Upload</span>
+          <span className="text-xs">
+            <Trans>Upload</Trans>
+          </span>
         </label>
         {!thumbnails.length && uploadedVideo.file?.size && (
           <ThumbnailsShimmer />
