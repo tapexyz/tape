@@ -41,14 +41,14 @@ const DropZone = () => {
         })
       }
     } catch (error) {
-      toast.error('Error uploading file')
+      toast.error(t`Error uploading file`)
       logger.error('[Error Upload Video]', error)
     }
   }
 
   const validateFile = (file: File) => {
     if (!ALLOWED_VIDEO_TYPES.includes(file?.type)) {
-      const errorMessage = 'Video format not supported!'
+      const errorMessage = t`Video format not supported`
       toast.error(errorMessage)
       return setFileDropError(errorMessage)
     }
@@ -103,7 +103,7 @@ const DropZone = () => {
                 htmlFor="chooseVideo"
                 className="btn-primary cursor-pointer px-8 py-4 text-lg"
               >
-                or choose video
+                <Trans>or choose video</Trans>
                 <input
                   id="chooseVideo"
                   onChange={onChooseFile}

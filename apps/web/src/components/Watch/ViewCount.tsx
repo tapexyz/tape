@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro'
 import React from 'react'
 import useVideoViews from 'utils/hooks/useVideoViews'
 
@@ -6,7 +7,9 @@ const ViewCount = ({ url }: { url: string }) => {
 
   return (
     <>
-      <span>{views} views</span>
+      <span>
+        {views} <Trans>views</Trans>
+      </span>
       <span className="middot px-1" />
     </>
   )

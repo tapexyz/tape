@@ -6,7 +6,7 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import { Trans } from '@lingui/macro'
+import { t, Trans } from '@lingui/macro'
 import { utils } from 'ethers'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
@@ -43,7 +43,7 @@ const BundlrInfo = () => {
 
   const estimatePrice = async (bundlr: WebBundlr) => {
     if (!uploadedVideo.stream) {
-      return toast.error('Upload cost estimation failed!')
+      return toast.error(t`Upload cost estimation failed`)
     }
     return await bundlr.utils.getPrice(
       BUNDLR_CURRENCY,
@@ -97,12 +97,12 @@ const BundlrInfo = () => {
       return await initBundlr()
     }
     if (!bundlrData.deposit) {
-      return toast.error('Enter deposit amount')
+      return toast.error(t`Enter deposit amount`)
     }
     const depositAmount = parseFloat(bundlrData.deposit)
     const value = utils.parseUnits(depositAmount.toString())._hex
     if (!value || Number(value) < 1) {
-      return toast.error('Invalid deposit amount')
+      return toast.error(t`Invalid deposit amount`)
     }
     if (
       userBalance?.formatted &&
@@ -124,7 +124,7 @@ const BundlrInfo = () => {
         Analytics.track(TRACK.DEPOSIT_MATIC)
       }
     } catch (error) {
-      toast.error('Failed to deposit storage balance.')
+      toast.error(t`Failed to deposit storage balance`)
       logger.error('[Error Bundlr Deposit]', error)
     } finally {
       await fetchBalance()
@@ -171,7 +171,9 @@ const BundlrInfo = () => {
               }
               className="inline-flex items-center rounded-full bg-gray-200 px-2 py-0.5 focus:outline-none dark:bg-gray-900"
             >
-              <span className="px-0.5 text-xs">Deposit</span>
+              <span className="px-0.5 text-xs">
+                <Trans>Deposit</Trans>
+              </span>
               {bundlrData.showDeposit ? (
                 <ChevronUpOutline className="ml-1 h-3 w-3" />
               ) : (
@@ -207,7 +209,7 @@ const BundlrInfo = () => {
               loading={bundlrData.depositing}
               onClick={() => depositToBundlr()}
             >
-              Deposit
+              <Trans>Deposit</Trans>
             </Button>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import IsVerified from '@components/Common/IsVerified'
+import { Trans } from '@lingui/macro'
 import type { NewMentionNotification } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -42,9 +43,9 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
             href={`/watch/${notification?.mentionPublication.id}`}
             className="mr-1 text-indigo-500"
           >
-            mentioned
+            <Trans>mentioned</Trans>
           </Link>
-          your channel
+          <Trans>your channel</Trans>
         </span>
         <div className="flex flex-none items-center space-x-1 text-gray-600 dark:text-gray-400">
           <span>{getRelativeTime(notification?.createdAt)}</span>

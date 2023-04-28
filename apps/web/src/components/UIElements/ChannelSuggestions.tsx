@@ -1,4 +1,5 @@
 import IsVerified from '@components/Common/IsVerified'
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -33,7 +34,7 @@ const ChannelSuggestions: FC<Props> = ({
           <IsVerified id={id} size="xs" />
         </div>
         <span className="text-xs opacity-80">
-          {formatNumber(subscribersCount)} subscribers
+          {formatNumber(subscribersCount)} <Trans>subscribers</Trans>
         </span>
       </div>
     </div>

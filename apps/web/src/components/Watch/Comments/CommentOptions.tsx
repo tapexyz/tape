@@ -4,6 +4,7 @@ import TrashOutline from '@components/Common/Icons/TrashOutline'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu from '@components/UIElements/DropMenu'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import type { Publication } from 'lens'
 import { useHidePublicationMutation } from 'lens'
 import type { Dispatch, FC } from 'react'
@@ -30,7 +31,7 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
       cache.gc()
     },
     onCompleted: () => {
-      toast.success('Comment deleted')
+      toast.success(t`Comment deleted`)
       Analytics.track(TRACK.PUBLICATION.DELETE, {
         publication_type: comment.__typename?.toLowerCase()
       })
@@ -64,7 +65,9 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
                 className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-red-100 dark:hover:bg-red-900"
               >
                 <TrashOutline className="h-3.5 w-3.5" />
-                <span className="whitespace-nowrap">Delete</span>
+                <span className="whitespace-nowrap">
+                  <Trans>Delete</Trans>
+                </span>
               </button>
             )}
             <button
@@ -73,7 +76,9 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
               className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               <FlagOutline className="h-3.5 w-3.5" />
-              <span className="whitespace-nowrap">Report</span>
+              <span className="whitespace-nowrap">
+                <Trans>Report</Trans>
+              </span>
             </button>
           </div>
         </div>

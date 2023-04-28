@@ -1,4 +1,5 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -12,7 +13,9 @@ type Props = {
 const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
   return (
     <div className="space-y-2">
-      <h6>Would you like to set collect price for this video?</h6>
+      <h6>
+        <Trans>Would you like to set collect price for this video?</Trans>
+      </h6>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <button
           type="button"
@@ -29,7 +32,9 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             }
           )}
         >
-          <span>Collect for Free</span>
+          <span>
+            <Trans>Collect for Free</Trans>
+          </span>
           {uploadedVideo.collectModule.isFreeCollect && (
             <CheckOutline className="h-3 w-3" />
           )}
@@ -49,7 +54,9 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             }
           )}
         >
-          <span>Yes, Some Price</span>
+          <span>
+            <Trans>Yes, Some Price</Trans>
+          </span>
           {uploadedVideo.collectModule.isFeeCollect && (
             <CheckOutline className="h-3 w-3" />
           )}

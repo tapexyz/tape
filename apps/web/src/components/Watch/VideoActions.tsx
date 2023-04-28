@@ -3,6 +3,7 @@ import HeartOutline from '@components/Common/Icons/HeartOutline'
 import ShareOutline from '@components/Common/Icons/ShareOutline'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
+import { Trans } from '@lingui/macro'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -43,13 +44,17 @@ const VideoActions: FC<Props> = ({ video }) => {
       >
         <span className="flex items-center space-x-1.5 text-base">
           <HeartOutline className="h-4 w-4" />
-          <span>Tip</span>
+          <span>
+            <Trans>Tip</Trans>
+          </span>
         </span>
       </button>
       <button className="focus:outline-none" onClick={() => setShowShare(true)}>
         <span className="flex items-center space-x-1.5 text-base">
           <ShareOutline className="h-4 w-4" />
-          <span>Share</span>
+          <span>
+            <Trans>Share</Trans>
+          </span>
         </span>
       </button>
       <button
@@ -60,7 +65,9 @@ const VideoActions: FC<Props> = ({ video }) => {
       >
         <span className="flex items-center space-x-1.5 text-base">
           <FlagOutline className="h-4 w-4" />
-          <span>Report</span>
+          <span>
+            <Trans>Report</Trans>
+          </span>
         </span>
       </button>
     </div>

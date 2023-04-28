@@ -1,4 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
+import { t } from '@lingui/macro'
 import React, { useEffect } from 'react'
 import { Analytics, TRACK } from 'utils'
 
@@ -11,7 +12,7 @@ const Explore = () => {
 
   return (
     <>
-      <MetaTags title="Explore" />
+      <MetaTags title={t`Explore`} />
       <ExploreFeed />
     </>
   )

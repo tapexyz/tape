@@ -3,6 +3,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
+import { t } from '@lingui/macro'
 import type { Publication } from 'lens'
 import {
   PublicationMainFocus,
@@ -58,7 +59,7 @@ const HomeFeed = () => {
   })
 
   if (videos?.length === 0) {
-    return <NoDataFound isCenter withImage text="No videos found" />
+    return <NoDataFound isCenter withImage text={t`No videos found`} />
   }
 
   return (

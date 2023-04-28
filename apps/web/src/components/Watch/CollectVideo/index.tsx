@@ -4,6 +4,7 @@ import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
 import { utils } from 'ethers'
@@ -58,7 +59,7 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
   const onCompleted = () => {
     setLoading(false)
     setAlreadyCollected(true)
-    toast.success('Collected as NFT')
+    toast.success(t`Collected as NFT`)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -171,10 +172,10 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
   }
 
   const collectTooltipText = isFreeCollect ? (
-    'Collect as NFT'
+    t`Collect as NFT`
   ) : (
     <span>
-      Collect as NFT for
+      <Trans>Collect as NFT for</Trans>
       <b className="ml-1 space-x-1">
         <span>{collectModule?.amount?.value}</span>
         <span>{collectModule?.amount?.asset.symbol}</span>
@@ -198,9 +199,9 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
       <Tooltip
         content={
           loading
-            ? 'Collecting'
+            ? t`Collecting`
             : alreadyCollected
-            ? 'Already Collected'
+            ? t`Already Collected`
             : collectTooltipText
         }
         placement="top"

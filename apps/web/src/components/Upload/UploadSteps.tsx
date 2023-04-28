@@ -3,6 +3,7 @@ import MetaTags from '@components/Common/MetaTags'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
+import { t } from '@lingui/macro'
 import { utils } from 'ethers'
 import type {
   CreatePostBroadcastItemResult,
@@ -115,7 +116,7 @@ const UploadSteps = () => {
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setUploadedVideo({
-      buttonText: 'Post Video',
+      buttonText: t`Post Video`,
       loading: false
     })
   }
@@ -147,7 +148,7 @@ const UploadSteps = () => {
       user_id: selectedChannel?.id
     })
     return setUploadedVideo({
-      buttonText: 'Post Video',
+      buttonText: t`Post Video`,
       loading: false
     })
   }
@@ -300,7 +301,7 @@ const UploadSteps = () => {
   }) => {
     try {
       setUploadedVideo({
-        buttonText: 'Storing metadata',
+        buttonText: t`Storing metadata`,
         loading: true
       })
       uploadedVideo.videoSource = videoSource
@@ -356,7 +357,7 @@ const UploadSteps = () => {
       }
       const metadataUri = await uploadToAr(metadata)
       setUploadedVideo({
-        buttonText: 'Posting video',
+        buttonText: t`Posting video`,
         loading: true
       })
 
@@ -417,14 +418,14 @@ const UploadSteps = () => {
       uploadedVideo.file as File,
       (percentCompleted) => {
         setUploadedVideo({
-          buttonText: 'Uploading to IPFS',
+          buttonText: t`Uploading to IPFS`,
           loading: true,
           percent: percentCompleted
         })
       }
     )
     if (!result.url) {
-      return toast.error('IPFS Upload failed!')
+      return toast.error(t`IPFS Upload failed`)
     }
     setUploadedVideo({
       percent: 100,
@@ -440,17 +441,17 @@ const UploadSteps = () => {
       return await initBundlr()
     }
     if (!uploadedVideo.stream) {
-      return toast.error('Video not uploaded correctly.')
+      return toast.error(t`Video not uploaded correctly`)
     }
     if (
       parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice)
     ) {
-      return toast.error('Insufficient balance')
+      return toast.error(t`Insufficient balance`)
     }
     try {
       setUploadedVideo({
         loading: true,
-        buttonText: 'Uploading to Arweave'
+        buttonText: t`Uploading to Arweave`
       })
       const bundlr = bundlrData.instance
       const tags = [
@@ -487,11 +488,11 @@ const UploadSteps = () => {
         videoSource: `ar://${response.data.id}`
       })
     } catch (error) {
-      toast.error('Failed to upload video to Arweave!')
+      toast.error(t`Failed to upload video to Arweave`)
       logger.error('[Error Bundlr Upload Video]', error)
       return setUploadedVideo({
         loading: false,
-        buttonText: 'Post Video'
+        buttonText: t`Post Video`
       })
     }
   }

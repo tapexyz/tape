@@ -2,6 +2,7 @@ import IsVerified from '@components/Common/IsVerified'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { Attribute, Publication } from 'lens'
 import Link from 'next/link'
@@ -113,7 +114,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
             </div>
             <div className="mt-0.5 flex items-center truncate text-xs opacity-70">
               <span className="whitespace-nowrap">
-                {video.stats?.totalUpvotes} likes
+                {video.stats?.totalUpvotes} <Trans>likes</Trans>
               </span>
               <span className="middot" />
               <span>{getRelativeTime(video.createdAt)}</span>

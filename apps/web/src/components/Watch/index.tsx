@@ -2,6 +2,7 @@ import MetaTags from '@components/Common/MetaTags'
 import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
 import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
 import type { Publication } from 'lens'
 import { usePublicationDetailsQuery } from 'lens'
 import { useRouter } from 'next/router'
@@ -19,7 +20,7 @@ import Video from './Video'
 
 const VideoDetails = () => {
   const {
-    query: { id, t }
+    query: { id, t: time }
   } = useRouter()
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
@@ -47,8 +48,8 @@ const VideoDetails = () => {
     publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
 
   useEffect(() => {
-    setVideoWatchTime(Number(t))
-  }, [t, setVideoWatchTime])
+    setVideoWatchTime(Number(time))
+  }, [time, setVideoWatchTime])
 
   if (error) {
     return <Custom500 />
@@ -62,7 +63,7 @@ const VideoDetails = () => {
 
   return (
     <>
-      <MetaTags title={video?.metadata?.name ?? 'Watch'} />
+      <MetaTags title={video?.metadata?.name ?? t`Watch`} />
       {!loading && !error && video ? (
         <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
           <div className="col-span-3 space-y-3.5">

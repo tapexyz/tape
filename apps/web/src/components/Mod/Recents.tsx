@@ -2,6 +2,7 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { t } from '@lingui/macro'
 import type { Publication } from 'lens'
 import {
   PublicationMainFocus,
@@ -62,7 +63,7 @@ const Recents = () => {
     )
   }
   if (!videos.length || error) {
-    return <NoDataFound isCenter withImage text="No videos found" />
+    return <NoDataFound isCenter withImage text={t`No videos found`} />
   }
 
   return (

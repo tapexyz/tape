@@ -1,6 +1,7 @@
 import IsVerified from '@components/Common/IsVerified'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import type { NewFollowerNotification } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -62,7 +63,8 @@ const SubscribedNotification: FC<Props> = ({ notification }) => {
       </div>
       <div className="flex items-center justify-between">
         <span className="text-gray-600 dark:text-gray-400">
-          {selectedChannel?.followModule ? 'joined' : 'subscribed'} the channel
+          {selectedChannel?.followModule ? t`joined` : t`subscribed`}{' '}
+          <Trans>the channel</Trans>
         </span>
         <div className="flex flex-none items-center text-gray-600 dark:text-gray-400">
           <span>{getRelativeTime(notification?.createdAt)}</span>

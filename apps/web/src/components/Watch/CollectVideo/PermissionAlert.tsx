@@ -1,4 +1,5 @@
 import { Button } from '@components/UIElements/Button'
+import { t, Trans } from '@lingui/macro'
 import type { ApprovedAllowanceAmount } from 'lens'
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens'
 import type { Dispatch, FC } from 'react'
@@ -37,7 +38,7 @@ const PermissionAlert: FC<Props> = ({
     hash: txData?.hash,
     onSuccess: () => {
       toast.success(
-        `Module ${isAllowed ? 'disabled' : 'enabled'} successfully!`
+        `Module ${isAllowed ? t`disabled` : t`enabled`} successfully!`
       )
       setIsAllowed(!isAllowed)
     },
@@ -73,7 +74,7 @@ const PermissionAlert: FC<Props> = ({
         loading={transactionLoading || waiting || loading}
         onClick={() => handleAllowance()}
       >
-        Allow Collect
+        <Trans>Allow Collect</Trans>
       </Button>
     </div>
   )
