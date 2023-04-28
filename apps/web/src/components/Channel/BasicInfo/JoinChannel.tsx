@@ -4,6 +4,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { utils } from 'ethers'
 import type { FeeFollowModuleSettings, Profile } from 'lens'
 import {
@@ -22,7 +23,6 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  SIGN_IN_REQUIRED_MESSAGE,
   TRACK
 } from 'utils'
 import omitKey from 'utils/functions/omitKey'
@@ -36,6 +36,7 @@ type Props = {
 const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
+  const { openConnectModal } = useConnectModal()
 
   const selectedChannelId = useAuthPersistStore(
     (state) => state.selectedChannelId
@@ -138,7 +139,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
 
   const joinChannel = () => {
     if (!selectedChannelId) {
-      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+      return openConnectModal?.()
     }
     if (!isAllowed) {
       return toast.error(

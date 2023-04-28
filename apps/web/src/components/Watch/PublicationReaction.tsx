@@ -2,6 +2,7 @@ import DislikeOutline from '@components/Common/Icons/DislikeOutline'
 import LikeOutline from '@components/Common/Icons/LikeOutline'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
 import type { Publication } from 'lens'
 import {
@@ -12,7 +13,7 @@ import {
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { Analytics, SIGN_IN_REQUIRED_MESSAGE, TRACK } from 'utils'
+import { Analytics, TRACK } from 'utils'
 import formatNumber from 'utils/functions/formatNumber'
 
 type Props = {
@@ -30,6 +31,8 @@ const PublicationReaction: FC<Props> = ({
   isVertical = false,
   showLabel = true
 }) => {
+  const { openConnectModal } = useConnectModal()
+
   const selectedChannelId = useAuthPersistStore(
     (state) => state.selectedChannelId
   )
@@ -54,7 +57,7 @@ const PublicationReaction: FC<Props> = ({
 
   const likeVideo = () => {
     if (!selectedChannelId) {
-      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+      return openConnectModal?.()
     }
     Analytics.track(TRACK.PUBLICATION.LIKE)
     setReaction((prev) => ({
@@ -87,7 +90,7 @@ const PublicationReaction: FC<Props> = ({
 
   const dislikeVideo = () => {
     if (!selectedChannelId) {
-      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+      return openConnectModal?.()
     }
     Analytics.track(TRACK.PUBLICATION.DISLIKE)
     setReaction((prev) => ({

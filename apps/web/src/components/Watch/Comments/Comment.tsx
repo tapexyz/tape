@@ -9,6 +9,7 @@ import ReportModal from '@components/Common/VideoCard/ReportModal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
 import type { Attribute, Publication } from 'lens'
 import { PublicationMainFocus } from 'lens'
@@ -16,8 +17,6 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { toast } from 'react-hot-toast'
-import { SIGN_IN_REQUIRED_MESSAGE } from 'utils'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import {
   checkValueInAttributes,
@@ -26,6 +25,7 @@ import {
 import getLensHandle from 'utils/functions/getLensHandle'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
+import CommentImages from './CommentImages'
 import CommentReplies from './CommentReplies'
 import NewComment from './NewComment'
 import QueuedComment from './QueuedComment'
@@ -45,6 +45,7 @@ const Comment: FC<Props> = ({ comment }) => {
   const [showNewComment, setShowNewComment] = useState(false)
   const [showReplies, setShowReplies] = useState(false)
   const [defaultComment, setDefaultComment] = useState('')
+  const { openConnectModal } = useConnectModal()
 
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const selectedChannelId = useAuthPersistStore(
@@ -138,13 +139,14 @@ const Comment: FC<Props> = ({ comment }) => {
               </button>
             </div>
           )}
+          <CommentImages images={comment.metadata.media} />
           {!comment.hidden && (
             <div className="mt-2 flex items-center space-x-4">
               <PublicationReaction publication={comment} />
               <button
                 onClick={() => {
                   if (!selectedChannelId) {
-                    return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+                    return openConnectModal?.()
                   }
                   setShowNewComment(!showNewComment)
                   setDefaultComment('')
@@ -184,7 +186,7 @@ const Comment: FC<Props> = ({ comment }) => {
                 comment={comment}
                 replyTo={(profile) => {
                   if (!selectedChannelId) {
-                    return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+                    return openConnectModal?.()
                   }
                   setShowNewComment(true)
                   setDefaultComment(`@${getLensHandle(profile.handle)} `)

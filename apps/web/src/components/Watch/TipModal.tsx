@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { BigNumber, utils } from 'ethers'
 import type {
   CreateCommentBroadcastItemResult,
@@ -38,7 +39,6 @@ import {
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
   REQUESTING_SIGNATURE_MESSAGE,
-  SIGN_IN_REQUIRED_MESSAGE,
   STATIC_ASSETS,
   TRACK
 } from 'utils'
@@ -83,6 +83,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   })
   const watchTipQuantity = watch('tipQuantity', 1)
 
+  const { openConnectModal } = useConnectModal()
   const { cache } = useApolloClient()
   const [loading, setLoading] = useState(false)
   const selectedChannelId = useAuthPersistStore(
@@ -390,7 +391,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
 
   const onSendTip = async () => {
     if (!selectedChannelId) {
-      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+      return openConnectModal?.()
     }
     setLoading(true)
     const amountToSend = Number(getValues('tipQuantity')) * 1

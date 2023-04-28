@@ -90,7 +90,6 @@ export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
 
 // error messages
 export const ERROR_MESSAGE = 'Oops, something went wrong!'
-export const SIGN_IN_REQUIRED_MESSAGE = 'Sign in required'
 
 // App Ids
 export const LENSTUBE_APP_ID = 'lenstube'

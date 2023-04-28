@@ -71,6 +71,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     metadata: {
       mainContentFocus: [
         PublicationMainFocus.Video,
+        PublicationMainFocus.Image,
         PublicationMainFocus.Article,
         PublicationMainFocus.Embed,
         PublicationMainFocus.Link,
