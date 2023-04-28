@@ -40,7 +40,10 @@ type Props = {
 
 const formSchema = z.object({
   recipient: z.string().length(42, { message: 'Enter valid ethereum address' }),
-  amount: z.string().min(1, { message: 'Enter valid amount' }),
+  amount: z
+    .number()
+    .nonnegative({ message: 'Amount should to greater than zero' })
+    .refine((n) => n > 0, { message: 'Amount should be greater than 0' }),
   token: z.string().length(42, { message: 'Select valid token' })
 })
 type FormData = z.infer<typeof formSchema>
@@ -173,7 +176,7 @@ const Membership = ({ channel }: Props) => {
                 feeFollowModule: {
                   amount: {
                     currency: getValues('token'),
-                    value: getValues('amount')
+                    value: getValues('amount').toString()
                   },
                   recipient: getValues('recipient')
                 }
@@ -270,11 +273,11 @@ const Membership = ({ channel }: Props) => {
               <Input
                 label="Amount"
                 type="number"
-                min={0}
+                step="any"
                 placeholder="10"
                 autoComplete="off"
-                {...register('amount')}
                 validationError={errors.amount?.message}
+                {...register('amount', { valueAsNumber: true })}
               />
             </div>
             <div>
