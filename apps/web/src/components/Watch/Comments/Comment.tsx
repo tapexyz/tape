@@ -26,6 +26,7 @@ import {
 import getLensHandle from 'utils/functions/getLensHandle'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
+import CommentImages from './CommentImages'
 import CommentReplies from './CommentReplies'
 import NewComment from './NewComment'
 import QueuedComment from './QueuedComment'
@@ -138,6 +139,7 @@ const Comment: FC<Props> = ({ comment }) => {
               </button>
             </div>
           )}
+          <CommentImages images={comment.metadata.media} />
           {!comment.hidden && (
             <div className="mt-2 flex items-center space-x-4">
               <PublicationReaction publication={comment} />
