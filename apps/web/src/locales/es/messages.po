@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-28 01:25\n"
+"PO-Revision-Date: 2023-04-28 06:41\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -36,7 +36,7 @@ msgstr "Cantidad a depositar (MATIC)"
 
 #: src/components/Common/UserMenu.tsx:183
 msgid "App Info"
-msgstr "App Info"
+msgstr "Información de aplicación"
 
 #: src/components/Channel/Tabs/index.tsx:99
 #: src/components/Common/MobileBottomNav.tsx:44
@@ -173,7 +173,7 @@ msgstr "lente reclamando sitio"
 #: src/components/Channel/Tabs/PinnedVideo.tsx:78
 #: src/components/Common/VideoCard/index.tsx:92
 msgid "likes"
-msgstr "me gusta"
+msgstr "gustos"
 
 #: src/components/Channel/Tabs/About.tsx:88
 msgid "Links"
@@ -194,7 +194,7 @@ msgstr "Mirado"
 
 #: src/components/Common/MirrorVideo.tsx:202
 msgid "Mirroring"
-msgstr "Mirrorización"
+msgstr "Mirroring"
 
 #: src/components/Common/Header.tsx:142
 msgid "New video"
@@ -271,7 +271,7 @@ msgstr "Prueba de Personalidad"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:277
 msgid "Raw Video"
-msgstr "Vídeo Raw"
+msgstr "Raw Video"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:310
 msgid "Report"
@@ -420,7 +420,7 @@ msgstr "vídeo a subir"
 #: src/components/Channel/Tabs/index.tsx:80
 #: src/components/Common/Search/GlobalSearchBar.tsx:131
 msgid "Videos"
-msgstr "Vídeo"
+msgstr "Vídeos"
 
 #: src/components/Channel/Tabs/PinnedVideo.tsx:95
 msgid "View more"
