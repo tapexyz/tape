@@ -122,7 +122,8 @@ export const ALLOWED_VIDEO_TYPES = [
 // i18n
 export const SUPPORTED_LOCALES: Record<string, string> = {
   en: 'English',
-  es: 'Español'
+  es: 'Spanish',
+  fr: 'French'
 }
 export const DEFAULT_LOCALE = 'en'
 
