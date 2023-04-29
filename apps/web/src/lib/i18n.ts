@@ -1,6 +1,6 @@
 import { i18n } from '@lingui/core'
 import dayjs from 'dayjs'
-import { en, es } from 'make-plural/plurals'
+import { en, es, fr } from 'make-plural/plurals'
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from 'utils/constants'
 
 export const storeLocale = async (locale: string) => {
@@ -19,7 +19,8 @@ export const storeLocale = async (locale: string) => {
 export const loadLocale = async () => {
   i18n.load({
     en: { plurals: en },
-    es: { plurals: es }
+    es: { plurals: es },
+    fr: { plurals: fr }
   })
   let locale = localStorage.getItem('locale')
   const selectedLocale = locale ? JSON.parse(locale) : DEFAULT_LOCALE
