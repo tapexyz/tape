@@ -34,9 +34,9 @@ const ReactedNotification: FC<Props> = ({ notification }) => {
       <div className="flex items-center justify-between">
         <span className="truncate text-gray-600 dark:text-gray-400">
           {notification.reaction === 'UPVOTE' ? t`liked` : t`dislisked`}{' '}
-          <Trans>your</Trans>
+          <Trans>your</Trans>{' '}
           {notification.publication.__typename === 'Comment' && (
-            <Trans> comment on</Trans>
+            <Trans>comment on</Trans>
           )}
           <Link
             href={`/watch/${

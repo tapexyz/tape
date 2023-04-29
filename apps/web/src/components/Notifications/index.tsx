@@ -125,7 +125,7 @@ const Notifications = () => {
       <MetaTags title={t`Notifications`} />
       <Tab.Group as="div" className="w-full">
         <div className="mb-4 flex items-center justify-between">
-          <Tab.List className="no-scrollbar flex w-full space-x-4 overflow-x-auto">
+          <Tab.List className="no-scrollbar flex w-full space-x-4 overflow-x-auto pr-4">
             <Tab
               onClick={() => {
                 setActiveFilter({ ...initialFilters })
