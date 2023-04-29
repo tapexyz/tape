@@ -15,15 +15,15 @@
     "@livepeer/react": "^2.4.3",
     "clsx": "^1.2.1",
     "graphql": "^16.6.0",
-    "mixpanel-browser": "^2.46.0",
+    "mixpanel-browser": "^2.47.0",
     "next": "13.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hot-toast": "^2.4.0"
+    "react-hot-toast": "^2.4.1"
   },
   "devDependencies": {
     "@types/mixpanel-browser": "^2.38.1",
-    "@types/node": "18.16.2",
+    "@types/node": "18.16.3",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
     "autoprefixer": "^10.4.14",
