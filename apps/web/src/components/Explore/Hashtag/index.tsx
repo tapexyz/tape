@@ -4,6 +4,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { usePaginationLoading } from '@hooks/usePaginationLoading'
+import { t } from '@lingui/macro'
 import type { Publication } from 'lens'
 import { SearchRequestTypes, useSearchPublicationsQuery } from 'lens'
 import { useRouter } from 'next/router'
@@ -70,7 +71,7 @@ const ExploreHashtag = () => {
         <div ref={sectionRef} className="my-4">
           {loading && <TimelineShimmer />}
           {videos?.length === 0 && (
-            <NoDataFound isCenter withImage text="No videos found" />
+            <NoDataFound isCenter withImage text={t`No videos found`} />
           )}
           {!error && !loading && (
             <>

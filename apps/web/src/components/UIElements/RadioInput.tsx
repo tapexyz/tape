@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useId } from 'react'
 
@@ -25,7 +26,7 @@ const RadioInput: FC<Props> = ({ question, checked, onChange }) => {
             className="ml-2 text-xs font-medium text-gray-900 dark:text-gray-300"
             htmlFor={`option1_${id}`}
           >
-            Yes
+            <Trans>Yes</Trans>
           </label>
         </div>
         <div className="flex items-center">
@@ -40,7 +41,7 @@ const RadioInput: FC<Props> = ({ question, checked, onChange }) => {
             className="ml-2 text-xs font-medium text-gray-900 dark:text-gray-300"
             htmlFor={`option2_${id}`}
           >
-            No
+            <Trans>No</Trans>
           </label>
         </div>
       </div>

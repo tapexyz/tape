@@ -9,6 +9,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { BigNumber, utils } from 'ethers'
 import type {
   CreateCommentBroadcastItemResult,
@@ -38,7 +40,6 @@ import {
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
   REQUESTING_SIGNATURE_MESSAGE,
-  SIGN_IN_REQUIRED_MESSAGE,
   STATIC_ASSETS,
   TRACK
 } from 'utils'
@@ -60,10 +61,10 @@ type Props = {
 const formSchema = z.object({
   tipQuantity: z
     .number()
-    .nonnegative({ message: 'Tip should to greater than zero' })
-    .max(100, { message: 'Tip should be less than or equal to 100 MATIC' })
-    .refine((n) => n > 0, { message: 'Tip should be greater than 0 MATIC' }),
-  message: z.string().min(1, { message: 'Tip message is requried' })
+    .nonnegative({ message: t`Tip should to greater than zero` })
+    .max(100, { message: t`Tip should be less than or equal to 100 MATIC` })
+    .refine((n) => n > 0, { message: t`Tip should be greater than 0 MATIC` }),
+  message: z.string().min(1, { message: t`Tip message is requried` })
 })
 type FormData = z.infer<typeof formSchema>
 
@@ -78,11 +79,12 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       tipQuantity: 1,
-      message: 'Thanks for making this video!'
+      message: t`Thanks for making this video!`
     }
   })
   const watchTipQuantity = watch('tipQuantity', 1)
 
+  const { openConnectModal } = useConnectModal()
   const { cache } = useApolloClient()
   const [loading, setLoading] = useState(false)
   const selectedChannelId = useAuthPersistStore(
@@ -146,7 +148,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     }
     setLoading(false)
     setShowTip(false)
-    toast.success('Tipped successfully.')
+    toast.success(t`Tipped successfully`)
     Analytics.track(TRACK.PUBLICATION.NEW_COMMENT, {
       publication_id: video.id,
       comment_type: 'tip',
@@ -390,7 +392,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
 
   const onSendTip = async () => {
     if (!selectedChannelId) {
-      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+      return openConnectModal?.()
     }
     setLoading(true)
     const amountToSend = Number(getValues('tipQuantity')) * 1
@@ -416,7 +418,9 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       title={
         <span className="flex items-center space-x-2 outline-none">
           <HeartOutline className="h-4 w-4" />
-          <span>Tip {video.profile?.handle}</span>
+          <span>
+            <Trans>Tip</Trans> {video.profile?.handle}
+          </span>
         </span>
       }
       onClose={() => setShowTip(false)}
@@ -455,7 +459,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
             rows={3}
           />
           <div className="mx-1 mt-1 text-[11px] opacity-50">
-            This will be published as a public comment.
+            <Trans>This will be published as a public comment.</Trans>
           </div>
         </div>
 

@@ -3,6 +3,7 @@ import { Button } from '@components/UIElements/Button'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { utils } from 'ethers'
 import type {
   CreateFollowBroadcastItemResult,
@@ -23,7 +24,6 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  SIGN_IN_REQUIRED_MESSAGE,
   TRACK
 } from 'utils'
 import omitKey from 'utils/functions/omitKey'
@@ -40,6 +40,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     (state) => state.selectedChannelId
   )
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const { openConnectModal } = useConnectModal()
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -156,7 +157,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
 
   const subscribe = () => {
     if (!selectedChannelId) {
-      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+      return openConnectModal?.()
     }
     setLoading(true)
     if (channel.followModule) {

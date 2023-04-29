@@ -2,6 +2,7 @@ import CogOutline from '@components/Common/Icons/CogOutline'
 import DropMenu from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import usePersistStore from '@lib/store/persist'
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import React from 'react'
 import { CustomNotificationsFilterEnum } from 'utils'
@@ -34,7 +35,9 @@ const NotificationsFilter = () => {
           }
           as="button"
         >
-          <span className="whitespace-nowrap">High signal</span>
+          <span className="whitespace-nowrap">
+            <Trans>High signal</Trans>
+          </span>
         </Menu.Item>
         <Menu.Item
           className={clsx(
@@ -51,7 +54,9 @@ const NotificationsFilter = () => {
           }
           as="button"
         >
-          <span className="whitespace-nowrap">Show all</span>
+          <span className="whitespace-nowrap">
+            <Trans>Show all</Trans>
+          </span>
         </Menu.Item>
       </div>
     </DropMenu>

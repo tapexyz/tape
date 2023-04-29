@@ -5,6 +5,7 @@ import { Menu } from '@headlessui/react'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
 import { utils } from 'ethers'
 import type {
@@ -28,7 +29,6 @@ import {
   LENS_PERIPHERY_ADDRESS,
   LENSTUBE_APP_ID,
   REQUESTING_SIGNATURE_MESSAGE,
-  SIGN_IN_REQUIRED_MESSAGE,
   TRACK
 } from 'utils'
 import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
@@ -59,6 +59,7 @@ const VideoOptions: FC<Props> = ({
   setShowReport,
   showOnHover = true
 }) => {
+  const { openConnectModal } = useConnectModal()
   const [showConfirm, setShowConfirm] = useState(false)
 
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
@@ -91,7 +92,7 @@ const VideoOptions: FC<Props> = ({
 
   const onClickReport = () => {
     if (!selectedChannelId) {
-      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+      return openConnectModal?.()
     }
     setShowReport(true)
   }

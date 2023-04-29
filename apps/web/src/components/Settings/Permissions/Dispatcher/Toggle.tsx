@@ -2,6 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import { utils } from 'ethers'
 import type { CreateSetDispatcherBroadcastItemResult, Profile } from 'lens'
 import {
@@ -75,7 +76,7 @@ const Toggle = () => {
 
   useEffect(() => {
     if (indexed) {
-      toast.success(`Dispatcher ${canUseRelay ? 'disabled' : 'enabled'}`)
+      toast.success(`Dispatcher ${canUseRelay ? t`disabled` : t`enabled`}`)
       refetchChannel({
         variables: {
           request: { handle: selectedChannel?.handle }
@@ -135,11 +136,11 @@ const Toggle = () => {
 
   const getButtonText = () => {
     if (usingOldDispatcher) {
-      return 'Upgrade'
+      return t`Upgrade`
     } else if (canUseRelay) {
-      return 'Disable'
+      return t`Disable`
     } else {
-      return 'Enable'
+      return t`Enable`
     }
   }
 
@@ -149,7 +150,7 @@ const Toggle = () => {
       onClick={onClick}
       loading={loading}
     >
-      {getButtonText()} dispatcher
+      {getButtonText()} <Trans>dispatcher</Trans>
     </Button>
   )
 }

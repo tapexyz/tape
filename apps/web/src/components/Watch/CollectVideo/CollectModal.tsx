@@ -6,6 +6,7 @@ import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import dayjs from 'dayjs'
 import type {
   ApprovedAllowanceAmount,
@@ -209,7 +210,7 @@ const CollectModal: FC<Props> = ({
 
   return (
     <Modal
-      title="Collect Video"
+      title={t`Collect Video`}
       panelClassName="max-w-md"
       onClose={() => setShowModal(false)}
       show={showModal}
@@ -218,7 +219,9 @@ const CollectModal: FC<Props> = ({
         {!fetchingCollectModule && !allowanceLoading ? (
           <>
             <div className="mb-3 flex flex-col">
-              <span className="text-sm font-semibold">Total Collects</span>
+              <span className="text-sm font-semibold">
+                <Trans>Total Collects</Trans>
+              </span>
               <span className="space-x-1">
                 <span className="text-lg">
                   {formatNumber(video?.stats.totalAmountOfCollects)}
@@ -230,7 +233,9 @@ const CollectModal: FC<Props> = ({
             </div>
             {collectModule?.amount ? (
               <div className="mb-3 flex flex-col">
-                <span className="text-sm font-semibold">Price</span>
+                <span className="text-sm font-semibold">
+                  <Trans>Price</Trans>
+                </span>
                 <span className="space-x-1">
                   <span className="text-2xl font-semibold">
                     {collectModule?.amount?.value}
@@ -242,7 +247,9 @@ const CollectModal: FC<Props> = ({
             {collectModule?.endTimestamp ||
             collectModule?.optionalEndTimestamp ? (
               <div className="mb-3 flex flex-col">
-                <span className="mb-0.5 text-sm font-semibold">Ends At</span>
+                <span className="mb-0.5 text-sm font-semibold">
+                  <Trans>Ends At</Trans>
+                </span>
                 {collectModule.endTimestamp && (
                   <span className="text-lg">
                     {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')}{' '}
@@ -264,7 +271,9 @@ const CollectModal: FC<Props> = ({
             ) : null}
             {revenueData?.publicationRevenue ? (
               <div className="mb-3 flex flex-col">
-                <span className="text-sm font-semibold">Revenue</span>
+                <span className="text-sm font-semibold">
+                  <Trans>Revenue</Trans>
+                </span>
                 <span className="space-x-1">
                   <span className="text-2xl font-semibold">
                     {revenueData?.publicationRevenue?.revenue?.total?.value ??
@@ -277,7 +286,7 @@ const CollectModal: FC<Props> = ({
             {collectModule?.referralFee ? (
               <div className="mb-3 flex flex-col">
                 <span className="mb-0.5 text-sm font-semibold">
-                  Referral Fee
+                  <Trans>Referral Fee</Trans>
                 </span>
                 <span className="text-lg">{collectModule.referralFee} %</span>
               </div>
@@ -285,10 +294,10 @@ const CollectModal: FC<Props> = ({
             {isRecipientAvailable ? (
               <div className="mb-3 flex flex-col">
                 <span className="mb-0.5 text-sm font-semibold">
-                  Revenue
+                  <Trans>Revenue</Trans>
                   {collectModule.recipients?.length
-                    ? ' Recipients'
-                    : ' Recipient'}
+                    ? t` Recipients`
+                    : t` Recipient`}
                 </span>
                 {collectModule.recipient &&
                   renderRecipients([
@@ -307,8 +316,9 @@ const CollectModal: FC<Props> = ({
                   <div className="flex-1">
                     <Alert variant="warning">
                       <div className="flex px-2">
-                        Only {isMembershipActive ? 'Members' : 'Subscribers'}{' '}
-                        can collect this publication
+                        <Trans>Only</Trans>{' '}
+                        {isMembershipActive ? t`Members` : t`Subscribers`}{' '}
+                        <Trans>can collect this publication</Trans>
                       </div>
                     </Alert>
                   </div>
@@ -318,7 +328,7 @@ const CollectModal: FC<Props> = ({
                   </div>
                 ) : haveEnoughBalance ? (
                   <Button disabled={collecting} onClick={() => collectNow()}>
-                    {isFreeCollect ? 'Collect for free' : 'Collect Now'}
+                    {isFreeCollect ? t`Collect for free` : t`Collect Now`}
                   </Button>
                 ) : (
                   <BalanceAlert collectModule={collectModule} />

@@ -7,6 +7,7 @@ import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
 import type { Publication } from 'lens'
 import {
   CommentOrderingTypes,
@@ -69,6 +70,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     metadata: {
       mainContentFocus: [
         PublicationMainFocus.Video,
+        PublicationMainFocus.Image,
         PublicationMainFocus.Article,
         PublicationMainFocus.Embed,
         PublicationMainFocus.Link,
@@ -115,7 +117,9 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
           <>
             <h1 className="m-2 flex items-center space-x-2 text-lg">
               <CommentOutline className="h-5 w-5" />
-              <span className="font-medium">Comments</span>
+              <span className="font-medium">
+                <Trans>Comments</Trans>
+              </span>
             </h1>
             <CommentsFilter />
           </>
@@ -130,14 +134,18 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
             <Alert variant="warning">
               <span className="text-sm">
                 {isFollowerOnlyReferenceModule
-                  ? 'Only subscribers can comment on this publication'
+                  ? t`Only subscribers can comment on this publication`
                   : `Only subscribers within ${video.profile.handle}'s preferred network can comment`}
               </span>
             </Alert>
           ) : null}
           {!comments.length && !queuedComments.length ? (
             <span className="py-5">
-              <NoDataFound text="Be the first to comment." withImage isCenter />
+              <NoDataFound
+                text={t`Be the first to comment`}
+                withImage
+                isCenter
+              />
             </span>
           ) : null}
           {!error && (queuedComments.length || comments.length) ? (

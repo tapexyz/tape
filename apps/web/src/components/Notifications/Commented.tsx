@@ -1,4 +1,5 @@
 import IsVerified from '@components/Common/IsVerified'
+import { Trans } from '@lingui/macro'
 import type { NewCommentNotification } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -30,7 +31,7 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
           </div>
         </Link>
         <span className="truncate text-gray-600 dark:text-gray-400">
-          commented on your
+          <Trans>commented on your</Trans>
           <Link
             href={`/watch/${
               notification?.comment?.commentOn &&
@@ -38,7 +39,7 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
             }`}
             className="ml-1 text-indigo-500"
           >
-            video
+            <Trans>video</Trans>
           </Link>
         </span>
       </div>

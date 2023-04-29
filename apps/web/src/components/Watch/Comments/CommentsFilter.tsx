@@ -3,6 +3,7 @@ import DropMenu from '@components/UIElements/DropMenu'
 import Tooltip from '@components/UIElements/Tooltip'
 import { Menu } from '@headlessui/react'
 import useChannelStore from '@lib/store/channel'
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import React from 'react'
 import { CustomCommentsFilterEnum } from 'utils'
@@ -38,7 +39,9 @@ const CommentsFilter = () => {
           }
           as="button"
         >
-          <span className="whitespace-nowrap">Relevant</span>
+          <span className="whitespace-nowrap">
+            <Trans>Relevant</Trans>
+          </span>
         </Menu.Item>
         <Menu.Item
           className={clsx(
@@ -52,7 +55,9 @@ const CommentsFilter = () => {
           }
           as="button"
         >
-          <span className="whitespace-nowrap">Newest first</span>
+          <span className="whitespace-nowrap">
+            <Trans>Newest first</Trans>
+          </span>
         </Menu.Item>
       </div>
     </DropMenu>

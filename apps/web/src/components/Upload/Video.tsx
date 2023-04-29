@@ -3,6 +3,7 @@ import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import React, { useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
@@ -39,7 +40,7 @@ const Video = () => {
 
   const onCopyVideoSource = async (value: string) => {
     await copy(value)
-    toast.success('Video source copied')
+    toast.success(t`Video source copied`)
   }
 
   return (
@@ -100,9 +101,9 @@ const Video = () => {
       ) && (
         <div className="mt-4">
           <Input
+            info={t`Skip the video upload (Only use this if you know what your doing!)`}
+            label={t`Upload from Source Url`}
             placeholder="ar:// or ipfs://"
-            info="Skip the video upload (Only use this if you know what your doing!)"
-            label="Upload from Source Url"
             value={uploadedVideo.videoSource}
             onChange={(e) =>
               setUploadedVideo({
@@ -116,11 +117,19 @@ const Video = () => {
         <ChooseThumbnail label="Thumbnail" file={uploadedVideo.file} />
       </div>
       <ul className="mt-4 list-inside list-disc text-xs">
-        <li>Don't switch network or wallet accounts.</li>
         <li>
-          Stay active in current tab while uploading for faster experience.
+          <Trans>Don't switch network or wallet accounts</Trans>
         </li>
-        <li>Video will be stored permanently on-chain and can't be updated.</li>
+        <li>
+          <Trans>
+            Stay active in current tab while uploading for faster experience
+          </Trans>
+        </li>
+        <li>
+          <Trans>
+            Video will be stored permanently on-chain and can't be updated
+          </Trans>
+        </li>
       </ul>
       <div className="rounded-lg">
         <UploadMethod />

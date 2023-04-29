@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: crowdin action
+      - name: Sync translations
         uses: crowdin/github-action@v1
         with:
           source: '/**/locales/en/*.po'

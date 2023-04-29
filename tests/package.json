@@ -7,7 +7,7 @@
     "dev:test": "playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.32.3",
+    "@playwright/test": "^1.33.0",
     "eslint-config-weblint": "*",
     "tsconfig": "*",
     "utils": "*"

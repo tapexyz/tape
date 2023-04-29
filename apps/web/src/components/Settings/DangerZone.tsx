@@ -3,6 +3,7 @@ import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
 import { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
 import { utils } from 'ethers'
 import type { CreateBurnProfileBroadcastItemResult } from 'lens'
 import { useCreateBurnProfileTypedDataMutation } from 'lens'
@@ -52,7 +53,7 @@ const DangerZone = () => {
     enabled: txnHash && txnHash.length > 0,
     hash: txnHash,
     onSuccess: () => {
-      toast.success('Channel deleted')
+      toast.success(t`Channel deleted`)
       setLoading(false)
       signOut()
       location.href = '/'

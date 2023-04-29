@@ -3,6 +3,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { utils } from 'ethers'
 import type {
   CreateMirrorBroadcastItemResult,
@@ -24,7 +25,6 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  SIGN_IN_REQUIRED_MESSAGE,
   TRACK
 } from 'utils'
 import omitKey from 'utils/functions/omitKey'
@@ -38,6 +38,8 @@ type Props = {
 
 const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
+  const { openConnectModal } = useConnectModal()
+
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
   const selectedChannelId = useAuthPersistStore(
@@ -162,7 +164,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
   const mirrorVideo = async () => {
     if (!selectedChannelId) {
-      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+      return openConnectModal?.()
     }
     setLoading(true)
 

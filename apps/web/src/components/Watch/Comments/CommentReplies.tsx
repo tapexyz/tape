@@ -7,6 +7,7 @@ import ReportModal from '@components/Common/VideoCard/ReportModal'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
 import useChannelStore from '@lib/store/channel'
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { Profile, Publication } from 'lens'
 import { PublicationMainFocus, useCommentsQuery } from 'lens'
@@ -59,11 +60,13 @@ const ReplyContent: FC<ReplyContentProps> = ({ comment }) => {
           >
             {clamped ? (
               <>
-                Show more <ChevronDownOutline className="ml-1 h-3 w-3" />
+                <Trans>Show more</Trans>{' '}
+                <ChevronDownOutline className="ml-1 h-3 w-3" />
               </>
             ) : (
               <>
-                Show less <ChevronUpOutline className="ml-1 h-3 w-3" />
+                <Trans>Show less</Trans>{' '}
+                <ChevronUpOutline className="ml-1 h-3 w-3" />
               </>
             )}
           </button>
@@ -174,7 +177,9 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                         className="inline-flex items-center space-x-1.5 text-xs focus:outline-none"
                       >
                         <ReplyOutline className="h-3.5 w-3.5" />{' '}
-                        <span>Reply</span>
+                        <span>
+                          <Trans>Reply</Trans>
+                        </span>
                       </button>
                     </div>
                   )}
@@ -202,7 +207,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
           size="lg"
         >
           <span className="flex items-center space-x-2 opacity-70 group-hover:opacity-100">
-            Show more replies
+            <Trans>Show more replies</Trans>
           </span>
         </Button>
       ) : null}

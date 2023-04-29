@@ -1,6 +1,7 @@
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import type { ApprovedAllowanceAmount, Erc20 } from 'lens'
 import {
   CollectModules,
@@ -67,7 +68,7 @@ const ModulePermissions = () => {
   useWaitForTransaction({
     hash: txData?.hash,
     onSuccess: () => {
-      toast.success('Permission updated')
+      toast.success(t`Permission updated`)
       setLoadingModule('')
       refetch()
     },
@@ -108,10 +109,14 @@ const ModulePermissions = () => {
   return (
     <div className="pt-6">
       <div>
-        <h1 className="mb-1 text-xl font-semibold">Access permissions</h1>
+        <h1 className="mb-1 text-xl font-semibold">
+          <Trans>Access permissions</Trans>
+        </h1>
         <p className="opacity-80">
-          These are the collect modules which you allowed / need to allow to use
-          collect feature. You can allow and revoke access anytime.
+          <Trans>
+            These are the collect modules which you allowed / need to allow to
+            use collect feature. You can allow and revoke access anytime.
+          </Trans>
         </p>
       </div>
       <div>
@@ -145,7 +150,9 @@ const ModulePermissions = () => {
                   className="flex items-center rounded-md pb-4"
                 >
                   <div className="flex-1">
-                    <h6 className="text-base">Allow {moduleItem.module}</h6>
+                    <h6 className="text-base">
+                      <Trans>Allow</Trans> {moduleItem.module}
+                    </h6>
                     <p className="text-sm opacity-70">
                       {getCollectModuleConfig(moduleItem.module).description}
                     </p>
@@ -156,7 +163,7 @@ const ModulePermissions = () => {
                         loading={loadingModule === moduleItem.module}
                         onClick={() => handleClick(true, moduleItem.module)}
                       >
-                        Allow
+                        <Trans>Allow</Trans>
                       </Button>
                     ) : (
                       <Button
@@ -164,7 +171,7 @@ const ModulePermissions = () => {
                         variant="danger"
                         loading={loadingModule === moduleItem.module}
                       >
-                        Revoke
+                        <Trans>Revoke</Trans>
                       </Button>
                     )}
                   </div>

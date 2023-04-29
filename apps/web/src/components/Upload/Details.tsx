@@ -24,12 +24,12 @@ const formSchema = z.object({
   title: z
     .string()
     .trim()
-    .min(5, { message: 'Title should be atleast 5 characters' })
-    .max(100, { message: 'Title should not exceed 100 characters' }),
+    .min(5, { message: t`Title should be atleast 5 characters` })
+    .max(100, { message: t`Title should not exceed 100 characters` }),
   description: z
     .string()
     .trim()
-    .max(5000, { message: 'Description should not exceed 5000 characters' }),
+    .max(5000, { message: t`Description should not exceed 5000 characters` }),
   isSensitiveContent: z.boolean()
 })
 
@@ -66,7 +66,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
 
   const onSubmitForm = (data: VideoFormData) => {
     if (!uploadedVideo.thumbnail.length) {
-      return toast.error('Please select or upload a thumbnail')
+      return toast.error(t`Please select or upload a thumbnail`)
     }
     onUpload(data)
   }
@@ -133,10 +133,12 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               </div>
               <div className="absolute right-1 top-0 mt-1 flex items-center justify-end">
                 <span
-                  className={clsx('text-[10px] opacity-50', {
-                    'text-red-500 !opacity-100':
-                      watch('description')?.length > 5000
-                  })}
+                  className={clsx(
+                    'text-[10px]',
+                    watch('description')?.length > 5000
+                      ? 'text-red-500'
+                      : 'opacity-50'
+                  )}
                 >
                   {watch('description')?.length}/5000
                 </span>
@@ -144,7 +146,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             </div>
             <Tooltip
               visible={!isByteSizeVideo}
-              content="Please note that only videos under 2 minutes in length can be uploaded as bytes."
+              content={t`Please note that only videos under 2 minutes in length can be uploaded as bytes.`}
             >
               <div
                 className={clsx(

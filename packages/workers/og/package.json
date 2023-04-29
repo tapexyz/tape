@@ -1,5 +1,5 @@
 {
-  "name": "@workers/metadata",
+  "name": "@workers/og",
   "version": "0.0.0",
   "license": "GPL-3.0",
   "private": true,
@@ -7,15 +7,8 @@
     "worker:dev": "wrangler dev",
     "worker:deploy": "wrangler publish"
   },
-  "dependencies": {
-    "arbundles": "^0.9.5",
-    "base64url": "^3.0.1",
-    "ethers": "5.7.2",
-    "secp256k1": "^5.0.0"
-  },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230404.0",
-    "@types/secp256k1": "latest",
     "eslint-config-weblint": "*",
     "tsconfig": "*",
     "typescript": "^5.0.4",

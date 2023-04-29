@@ -1,4 +1,5 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -12,7 +13,9 @@ type Props = {
 const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
   return (
     <div className="space-y-2">
-      <h6>Who can collect this video?</h6>
+      <h6>
+        <Trans>Who can collect this video?</Trans>
+      </h6>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <button
           type="button"
@@ -33,7 +36,9 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             }
           )}
         >
-          <span>Anyone</span>
+          <span>
+            <Trans>Anyone</Trans>
+          </span>
           {!uploadedVideo.collectModule.followerOnlyCollect &&
             !uploadedVideo.collectModule.isRevertCollect && (
               <CheckOutline className="h-3 w-3" />
@@ -58,7 +63,9 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             }
           )}
         >
-          <span>Subscribers</span>
+          <span>
+            <Trans>Subscribers</Trans>
+          </span>
           {uploadedVideo.collectModule.followerOnlyCollect &&
             !uploadedVideo.collectModule.isRevertCollect && (
               <CheckOutline className="h-3 w-3" />
@@ -78,7 +85,9 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             }
           )}
         >
-          <span>None</span>
+          <span>
+            <Trans>None</Trans>
+          </span>
           {uploadedVideo.collectModule.isRevertCollect && (
             <CheckOutline className="h-3 w-3" />
           )}

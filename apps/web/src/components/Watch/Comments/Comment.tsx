@@ -9,6 +9,8 @@ import ReportModal from '@components/Common/VideoCard/ReportModal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
 import type { Attribute, Publication } from 'lens'
 import { PublicationMainFocus } from 'lens'
@@ -16,8 +18,6 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { toast } from 'react-hot-toast'
-import { SIGN_IN_REQUIRED_MESSAGE } from 'utils'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import {
   checkValueInAttributes,
@@ -26,6 +26,7 @@ import {
 import getLensHandle from 'utils/functions/getLensHandle'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
+import CommentImages from './CommentImages'
 import CommentReplies from './CommentReplies'
 import NewComment from './NewComment'
 import QueuedComment from './QueuedComment'
@@ -45,6 +46,7 @@ const Comment: FC<Props> = ({ comment }) => {
   const [showNewComment, setShowNewComment] = useState(false)
   const [showReplies, setShowReplies] = useState(false)
   const [defaultComment, setDefaultComment] = useState('')
+  const { openConnectModal } = useConnectModal()
 
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const selectedChannelId = useAuthPersistStore(
@@ -128,37 +130,43 @@ const Comment: FC<Props> = ({ comment }) => {
               >
                 {clamped ? (
                   <>
-                    Show more <ChevronDownOutline className="ml-1 h-3 w-3" />
+                    <Trans>Show more</Trans>{' '}
+                    <ChevronDownOutline className="ml-1 h-3 w-3" />
                   </>
                 ) : (
                   <>
-                    Show less <ChevronUpOutline className="ml-1 h-3 w-3" />
+                    <Trans>Show less</Trans>{' '}
+                    <ChevronUpOutline className="ml-1 h-3 w-3" />
                   </>
                 )}
               </button>
             </div>
           )}
+          <CommentImages images={comment.metadata.media} />
           {!comment.hidden && (
             <div className="mt-2 flex items-center space-x-4">
               <PublicationReaction publication={comment} />
               <button
                 onClick={() => {
                   if (!selectedChannelId) {
-                    return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+                    return openConnectModal?.()
                   }
                   setShowNewComment(!showNewComment)
                   setDefaultComment('')
                 }}
                 className="inline-flex items-center space-x-1.5 text-xs focus:outline-none"
               >
-                <ReplyOutline className="h-3.5 w-3.5" /> <span>Reply</span>
+                <ReplyOutline className="h-3.5 w-3.5" />{' '}
+                <span>
+                  <Trans>Reply</Trans>
+                </span>
               </button>
               {comment.stats.totalAmountOfComments ? (
                 <button
                   onClick={() => setShowReplies(!showReplies)}
                   className="rounded-full bg-indigo-100 px-2 py-1 text-xs focus:outline-none dark:bg-indigo-900/30"
                 >
-                  {comment.stats.totalAmountOfComments} replies
+                  {comment.stats.totalAmountOfComments} <Trans>replies</Trans>
                 </button>
               ) : null}
             </div>
@@ -184,7 +192,7 @@ const Comment: FC<Props> = ({ comment }) => {
                 comment={comment}
                 replyTo={(profile) => {
                   if (!selectedChannelId) {
-                    return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+                    return openConnectModal?.()
                   }
                   setShowNewComment(true)
                   setDefaultComment(`@${getLensHandle(profile.handle)} `)
@@ -195,7 +203,7 @@ const Comment: FC<Props> = ({ comment }) => {
               <NewComment
                 video={comment}
                 defaultValue={defaultComment}
-                placeholder="Write a reply"
+                placeholder={t`Write a reply`}
                 hideEmojiPicker
               />
             )}

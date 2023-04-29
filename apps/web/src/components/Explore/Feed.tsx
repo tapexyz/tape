@@ -8,6 +8,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import { usePaginationLoading } from '@hooks/usePaginationLoading'
 import useAppStore from '@lib/store'
+import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { Publication } from 'lens'
 import {
@@ -105,7 +106,9 @@ const ExploreFeed = () => {
           }
         >
           <FireOutline className="h-3.5 w-3.5" />
-          <span>Trending</span>
+          <span>
+            <Trans>Trending</Trans>
+          </span>
         </Tab>
         <Tab
           onClick={() => {
@@ -126,7 +129,9 @@ const ExploreFeed = () => {
           }
         >
           <CommentOutline className="h-3.5 w-3.5" />
-          <span>Popular</span>
+          <span>
+            <Trans>Popular</Trans>
+          </span>
         </Tab>
         <Tab
           onClick={() => {
@@ -147,13 +152,15 @@ const ExploreFeed = () => {
           }
         >
           <MirrorOutline className="h-3.5 w-3.5" />
-          <span>Interesting</span>
+          <span>
+            <Trans>Interesting</Trans>
+          </span>
         </Tab>
       </Tab.List>
       <Tab.Panels ref={sectionRef} className="my-3">
         {loading && <TimelineShimmer />}
         {videos?.length === 0 && (
-          <NoDataFound isCenter withImage text="No videos found" />
+          <NoDataFound isCenter withImage text={t`No videos found`} />
         )}
         {!error && !loading && videos?.length ? (
           <>

@@ -90,7 +90,6 @@ export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
 
 // error messages
 export const ERROR_MESSAGE = 'Oops, something went wrong!'
-export const SIGN_IN_REQUIRED_MESSAGE = 'Sign in required'
 
 // App Ids
 export const LENSTUBE_APP_ID = 'lenstube'
@@ -123,7 +122,8 @@ export const ALLOWED_VIDEO_TYPES = [
 // i18n
 export const SUPPORTED_LOCALES: Record<string, string> = {
   en: 'English',
-  es: 'Español'
+  es: 'Spanish',
+  fr: 'French'
 }
 export const DEFAULT_LOCALE = 'en'
 

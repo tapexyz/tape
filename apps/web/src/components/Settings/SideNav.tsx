@@ -3,6 +3,7 @@ import KeyOutline from '@components/Common/Icons/KeyOutline'
 import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
+import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { Profile } from 'lens'
 import Link from 'next/link'
@@ -40,7 +41,10 @@ const SideNav: FC<Props> = ({ channel }) => {
             { 'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS) }
           )}
         >
-          <UserOutline className="h-4 w-4" /> <span>Basic Info</span>
+          <UserOutline className="h-4 w-4" />{' '}
+          <span>
+            <Trans>Basic Info</Trans>
+          </span>
         </Link>
         <Link
           href={SETTINGS_MEMBERSHIP}
@@ -51,7 +55,10 @@ const SideNav: FC<Props> = ({ channel }) => {
             }
           )}
         >
-          <SubscribeOutline className="h-4 w-4" /> <span>Membership</span>
+          <SubscribeOutline className="h-4 w-4" />{' '}
+          <span>
+            <Trans>Membership</Trans>
+          </span>
         </Link>
         <Link
           href={SETTINGS_PERMISSIONS}
@@ -62,7 +69,10 @@ const SideNav: FC<Props> = ({ channel }) => {
             }
           )}
         >
-          <KeyOutline className="h-4 w-4" /> <span>Permissions</span>
+          <KeyOutline className="h-4 w-4" />{' '}
+          <span>
+            <Trans>Permissions</Trans>
+          </span>
         </Link>
         <Link
           href={SETTINGS_INTERESTS}
@@ -73,7 +83,10 @@ const SideNav: FC<Props> = ({ channel }) => {
             }
           )}
         >
-          <InterestsOutline className="h-4 w-4" /> <span>Interests</span>
+          <InterestsOutline className="h-4 w-4" />{' '}
+          <span>
+            <Trans>Interests</Trans>
+          </span>
         </Link>
         <Link
           href={SETTINGS_DANGER_ZONE}
@@ -85,7 +98,10 @@ const SideNav: FC<Props> = ({ channel }) => {
             }
           )}
         >
-          <WarningOutline className="h-4 w-4" /> <span>Danger Zone</span>
+          <WarningOutline className="h-4 w-4" />{' '}
+          <span>
+            <Trans>Danger Zone</Trans>
+          </span>
         </Link>
       </div>
     </div>

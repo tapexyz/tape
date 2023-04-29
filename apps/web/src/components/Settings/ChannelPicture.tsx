@@ -2,6 +2,7 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import { Loader } from '@components/UIElements/Loader'
 import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
 import clsx from 'clsx'
 import { utils } from 'ethers'
 import type {
@@ -57,7 +58,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         picture: { original: { url: selectedPfp }, __typename: 'MediaSet' }
       })
     }
-    toast.success('Channel image updated')
+    toast.success(t`Channel image updated`)
   }
 
   const { signTypedDataAsync } = useSignTypedData({

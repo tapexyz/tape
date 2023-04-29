@@ -2,6 +2,7 @@ import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
 import { Button } from '@components/UIElements/Button'
 import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { Signer } from 'ethers'
 import { ethers, utils } from 'ethers'
 import type {
@@ -14,12 +15,7 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
-import {
-  Analytics,
-  REQUESTING_SIGNATURE_MESSAGE,
-  SIGN_IN_REQUIRED_MESSAGE,
-  TRACK
-} from 'utils'
+import { Analytics, REQUESTING_SIGNATURE_MESSAGE, TRACK } from 'utils'
 import omitKey from 'utils/functions/omitKey'
 import { useSigner, useSignTypedData } from 'wagmi'
 
@@ -33,6 +29,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   const selectedChannelId = useAuthPersistStore(
     (state) => state.selectedChannelId
   )
+  const { openConnectModal } = useConnectModal()
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message)
@@ -114,7 +111,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
 
   const unsubscribe = () => {
     if (!selectedChannelId) {
-      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+      return openConnectModal?.()
     }
     setLoading(true)
     createUnsubscribeTypedData({

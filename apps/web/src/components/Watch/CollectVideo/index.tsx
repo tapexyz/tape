@@ -4,6 +4,8 @@ import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
 import { utils } from 'ethers'
 import type { CreateCollectBroadcastItemResult, Publication } from 'lens'
@@ -22,7 +24,6 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  SIGN_IN_REQUIRED_MESSAGE,
   TRACK
 } from 'utils'
 import omitKey from 'utils/functions/omitKey'
@@ -37,6 +38,8 @@ type Props = {
 
 const CollectVideo: FC<Props> = ({ video, variant }) => {
   const { address } = useAccount()
+  const { openConnectModal } = useConnectModal()
+
   const [loading, setLoading] = useState(false)
   const [showCollectModal, setShowCollectModal] = useState(false)
   const [alreadyCollected, setAlreadyCollected] = useState(
@@ -56,7 +59,7 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
   const onCompleted = () => {
     setLoading(false)
     setAlreadyCollected(true)
-    toast.success('Collected as NFT')
+    toast.success(t`Collected as NFT`)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -163,16 +166,16 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
 
   const onClickCollect = () => {
     if (!selectedChannelId) {
-      return toast.error(SIGN_IN_REQUIRED_MESSAGE)
+      return openConnectModal?.()
     }
     return setShowCollectModal(true)
   }
 
   const collectTooltipText = isFreeCollect ? (
-    'Collect as NFT'
+    t`Collect as NFT`
   ) : (
     <span>
-      Collect as NFT for
+      <Trans>Collect as NFT for</Trans>
       <b className="ml-1 space-x-1">
         <span>{collectModule?.amount?.value}</span>
         <span>{collectModule?.amount?.asset.symbol}</span>
@@ -196,9 +199,9 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
       <Tooltip
         content={
           loading
-            ? 'Collecting'
+            ? t`Collecting`
             : alreadyCollected
-            ? 'Already Collected'
+            ? t`Already Collected`
             : collectTooltipText
         }
         placement="top"

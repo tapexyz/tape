@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import BytesShimmer from '@components/Shimmers/BytesShimmer'
+import { t } from '@lingui/macro'
 import type { NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
@@ -17,7 +18,7 @@ const Home: NextPage = () => {
   }, [])
   return (
     <>
-      <MetaTags title="Home" />
+      <MetaTags title={t`Home`} />
       <DispatcherAlert />
       <BytesSection />
       <HomeFeed />
