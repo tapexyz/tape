@@ -8,7 +8,7 @@ msgstr ""
 "Language: en\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-29 01:22\n"
+"PO-Revision-Date: 2023-04-29 07:30\n"
 "Last-Translator: \n"
 "Language-Team: English\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -346,21 +346,21 @@ msgstr "Description"
 
 #: src/components/Upload/Details.tsx:32
 msgid "Description should not exceed 5000 characters"
-msgstr ""
+msgstr "Description should not exceed 5000 characters"
 
 #: src/components/ReportPublication/index.tsx:128
 msgid "Direct threat"
-msgstr ""
+msgstr "Direct threat"
 
 #: src/components/Settings/Membership.tsx:319
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:141
 msgid "Disable"
-msgstr ""
+msgstr "Disable"
 
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:79
 #: src/components/Watch/CollectVideo/PermissionAlert.tsx:41
 msgid "disabled"
-msgstr ""
+msgstr "disabled"
 
 #: src/components/Watch/PublicationReaction.tsx:199
 msgid "Dislike"
@@ -368,19 +368,19 @@ msgstr ""
 
 #: src/components/Notifications/Reacted.tsx:36
 msgid "dislisked"
-msgstr ""
+msgstr "dislisked"
 
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:153
 msgid "dispatcher"
-msgstr ""
+msgstr "dispatcher"
 
 #: src/components/Settings/Permissions/Dispatcher/index.tsx:25
 msgid "Dispatcher"
-msgstr ""
+msgstr "Dispatcher"
 
 #: src/components/Settings/BasicInfo.tsx:357
 msgid "Display Name"
-msgstr ""
+msgstr "Display Name"
 
 #: src/components/Upload/Details.tsx:183
 msgid "Does this video contain sensitive information that targets an adult audience?"
@@ -388,7 +388,7 @@ msgstr "Does this video contain sensitive information that targets an adult audi
 
 #: src/components/Upload/Video.tsx:121
 msgid "Don't switch network or wallet accounts"
-msgstr ""
+msgstr "Don't switch network or wallet accounts"
 
 #: src/components/Upload/DropZone.tsx:97
 msgid "Drag and drop"
@@ -396,29 +396,29 @@ msgstr "Drag and drop"
 
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:143
 msgid "Enable"
-msgstr ""
+msgstr "Enable"
 
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:79
 #: src/components/Watch/CollectVideo/PermissionAlert.tsx:41
 msgid "enabled"
-msgstr ""
+msgstr "enabled"
 
 #: src/components/Watch/CollectVideo/CollectModal.tsx:251
 msgid "Ends At"
-msgstr ""
+msgstr "Ends At"
 
 #: src/components/Upload/BundlrInfo.tsx:100
 msgid "Enter deposit amount"
-msgstr ""
+msgstr "Enter deposit amount"
 
 #: src/components/Watch/Comments/NewComment.tsx:60
 #: src/components/Watch/Comments/NewComment.tsx:62
 msgid "Enter valid comment"
-msgstr ""
+msgstr "Enter valid comment"
 
 #: src/components/Upload/DropZone.tsx:44
 msgid "Error uploading file"
-msgstr ""
+msgstr "Error uploading file"
 
 #: src/components/Upload/BundlrInfo.tsx:219
 msgid "Estimated Cost to Upload"
@@ -513,11 +513,11 @@ msgstr ""
 #: src/components/Settings/ProfileInterests/index.tsx:11
 #: src/components/Settings/SideNav.tsx:88
 msgid "Interests"
-msgstr ""
+msgstr "Interests"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx:27
 msgid "Invalid amount"
-msgstr ""
+msgstr "Invalid amount"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx:30
 msgid "Invalid collect limit"
@@ -533,11 +533,11 @@ msgstr "Invalid Signature!"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx:118
 msgid "Invalid split recipient address"
-msgstr ""
+msgstr "Invalid split recipient address"
 
 #: src/components/Upload/UploadSteps.tsx:428
 msgid "IPFS Upload failed"
-msgstr ""
+msgstr "IPFS Upload failed"
 
 #: src/components/Channel/BasicInfo/JoinChannel.tsx:181
 #: src/components/Channel/BasicInfo/JoinChannel.tsx:188
@@ -546,7 +546,7 @@ msgstr "Join Channel"
 
 #: src/components/Notifications/Subscribed.tsx:66
 msgid "joined"
-msgstr ""
+msgstr "joined"
 
 #: src/components/Common/CreateChannel.tsx:46
 msgid "lens claiming site"
@@ -558,7 +558,7 @@ msgstr ""
 
 #: src/components/Watch/PublicationReaction.tsx:165
 msgid "Like"
-msgstr ""
+msgstr "Like"
 
 #: src/components/Notifications/Reacted.tsx:36
 msgid "liked"
