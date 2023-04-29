@@ -269,6 +269,9 @@ const NewComment: FC<Props> = ({
   const [broadcastDataAvailabilityComment] =
     useBroadcastDataAvailabilityMutation({
       onCompleted: async (data) => {
+        if (data.broadcastDataAvailability.__typename === 'RelayError') {
+          return toast.error(ERROR_MESSAGE)
+        }
         if (
           data?.broadcastDataAvailability.__typename ===
           'CreateDataAvailabilityPublicationResult'
