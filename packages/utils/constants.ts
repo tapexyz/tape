@@ -123,7 +123,8 @@ export const ALLOWED_VIDEO_TYPES = [
 export const SUPPORTED_LOCALES: Record<string, string> = {
   en: 'English',
   es: 'Spanish',
-  fr: 'French'
+  fr: 'French',
+  zh: 'Chinese'
 }
 export const DEFAULT_LOCALE = 'en'
 
