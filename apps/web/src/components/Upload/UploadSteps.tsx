@@ -197,6 +197,9 @@ const UploadSteps = () => {
   const [broadcastDataAvailabilityPost] = useBroadcastDataAvailabilityMutation({
     onCompleted: (data) => {
       onCompleted(data)
+      if (data.broadcastDataAvailability.__typename === 'RelayError') {
+        return toast.error(ERROR_MESSAGE)
+      }
       if (
         data?.broadcastDataAvailability.__typename ===
         'CreateDataAvailabilityPublicationResult'
