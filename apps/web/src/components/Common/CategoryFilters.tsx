@@ -79,7 +79,7 @@ const CategoryFilters = () => {
           type="button"
           onClick={() => onFilter('all')}
           className={clsx(
-            'rounded-full border border-gray-200 px-3.5 py-1 text-xs capitalize dark:border-gray-700',
+            'whitespace-nowrap rounded-full border border-gray-200 px-3.5 py-1 text-xs capitalize dark:border-gray-700',
             activeTagFilter === 'all'
               ? 'bg-black text-white'
               : 'bg-gray-100 dark:bg-gray-800'

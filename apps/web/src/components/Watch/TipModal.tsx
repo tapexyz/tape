@@ -36,6 +36,7 @@ import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import {
   Analytics,
+  ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
@@ -268,6 +269,9 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const [broadcastDataAvailabilityComment] =
     useBroadcastDataAvailabilityMutation({
       onCompleted: async (data) => {
+        if (data.broadcastDataAvailability.__typename === 'RelayError') {
+          return toast.error(ERROR_MESSAGE)
+        }
         if (
           data?.broadcastDataAvailability.__typename ===
           'CreateDataAvailabilityPublicationResult'
