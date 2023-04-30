@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "next": "13.3.1"
+    "next": "13.3.2"
   },
   "devDependencies": {
     "@types/node": "18.16.3",
