@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.13",
-    "@aws-sdk/client-s3": "^3.321.1",
-    "@aws-sdk/lib-storage": "^3.321.1",
+    "@aws-sdk/client-s3": "^3.325.0",
+    "@aws-sdk/lib-storage": "^3.325.0",
     "@bundlr-network/client": "0.11.1",
     "@emoji-mart/react": "^1.1.1",
     "@headlessui/react": "^1.7.14",
