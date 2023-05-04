@@ -12,11 +12,9 @@ import {
 } from '@rainbow-me/rainbowkit'
 import type { ThemeOptions } from '@rainbow-me/rainbowkit/dist/themes/baseTheme'
 import {
-  braveWallet,
   coinbaseWallet,
   injectedWallet,
   ledgerWallet,
-  metaMaskWallet,
   rainbowWallet,
   walletConnectWallet
 } from '@rainbow-me/rainbowkit/wallets'
@@ -50,8 +48,6 @@ const connectors = connectorsForWallets([
     groupName: 'Recommended',
     wallets: [
       injectedWallet({ chains, shimDisconnect: true }),
-      metaMaskWallet({ chains, shimDisconnect: true }),
-      braveWallet({ chains, shimDisconnect: true }),
       rainbowWallet({ chains }),
       ledgerWallet({ chains }),
       coinbaseWallet({ appName: LENSTUBE_APP_NAME, chains }),
