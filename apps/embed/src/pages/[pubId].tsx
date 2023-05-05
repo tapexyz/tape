@@ -16,11 +16,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
   const publicationId = context.query.pubId as string
-  const splitted = publicationId.split('-')
-  if (splitted.length !== 2) {
-    return { notFound: true }
-  }
-  context.res.setHeader('Cache-Control', 'public, s-maxage=86400')
   const { data, error } = await apolloClient.query({
     query: PublicationDetailsDocument,
     variables: {
@@ -30,6 +25,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   if (!data.publication || error) {
     return { notFound: true }
   }
+  context.res.setHeader('Cache-Control', 'public, s-maxage=86400')
   return {
     props: { video: data.publication }
   }
