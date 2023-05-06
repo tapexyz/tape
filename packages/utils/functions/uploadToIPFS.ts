@@ -24,7 +24,7 @@ export const everland = async (
       maxAttempts: 10
     })
     client.middlewareStack.addRelativeTo(
-      (next) => async (args) => {
+      (next: Function) => async (args: any) => {
         const { response } = await next(args)
         if (response.body == null) {
           response.body = new Uint8Array()
