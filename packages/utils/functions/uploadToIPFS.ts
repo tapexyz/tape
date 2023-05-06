@@ -23,6 +23,23 @@ export const everland = async (
       },
       maxAttempts: 10
     })
+    client.middlewareStack.addRelativeTo(
+      (next) => async (args) => {
+        const { response } = await next(args)
+        if (response.body == null) {
+          response.body = new Uint8Array()
+        }
+        return {
+          response
+        }
+      },
+      {
+        name: 'nullFetchResponseBodyMiddleware',
+        toMiddleware: 'deserializerMiddleware',
+        relation: 'after',
+        override: true
+      }
+    )
     const fileKey = uuidv4()
     const params = {
       Bucket: 'lenstube',
