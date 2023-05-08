@@ -11,21 +11,21 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.13",
+    "@apollo/client": "^3.7.14",
     "@livepeer/react": "^2.4.3",
     "clsx": "^1.2.1",
     "graphql": "^16.6.0",
     "mixpanel-browser": "^2.47.0",
-    "next": "13.3.4",
+    "next": "13.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.1"
   },
   "devDependencies": {
     "@types/mixpanel-browser": "^2.38.1",
-    "@types/node": "18.16.3",
-    "@types/react": "18.2.0",
-    "@types/react-dom": "18.2.1",
+    "@types/node": "20.1.0",
+    "@types/react": "18.2.6",
+    "@types/react-dom": "18.2.4",
     "autoprefixer": "^10.4.14",
     "eslint-config-weblint": "*",
     "lens": "*",
