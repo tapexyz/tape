@@ -11,6 +11,7 @@
     },
     "extract": { "outputs": [] },
     "start": { "cache": false },
+    "typecheck": { "outputs": [] },
     "e2e:test": { "dependsOn": ["^build"] },
     "worker:deploy": { "outputs": [] },
     "lint": { "outputs": [] },
