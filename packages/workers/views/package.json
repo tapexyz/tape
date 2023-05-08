@@ -5,7 +5,8 @@
   "license": "GPL-3.0",
   "scripts": {
     "worker:dev": "wrangler dev",
-    "worker:deploy": "wrangler publish"
+    "worker:deploy": "wrangler publish",
+    "typecheck": "tsc --pretty --noEmit"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230419.0",

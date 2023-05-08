@@ -8,6 +8,7 @@
     "build": "next build",
     "export": "next export",
     "start": "yarn build && next start --port 4001",
+    "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {

@@ -4,7 +4,8 @@
   "license": "GPL-3.0",
   "main": "./index.ts",
   "scripts": {
-    "lint": "eslint . --ext .js,.ts,.tsx"
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "typecheck": "tsc --pretty --noEmit"
   },
   "devDependencies": {
     "typescript": "5.0.4"
