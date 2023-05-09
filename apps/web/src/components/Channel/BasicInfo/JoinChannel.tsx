@@ -26,7 +26,7 @@ import {
   TRACK
 } from 'utils'
 import omitKey from 'utils/functions/omitKey'
-import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
+import { useContractWrite, useSignTypedData, useWalletClient } from 'wagmi'
 
 type Props = {
   channel: Profile
@@ -37,6 +37,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
   const { openConnectModal } = useConnectModal()
+  const { data, isLoading } = useWalletClient()
 
   const selectedChannelId = useAuthPersistStore(
     (state) => state.selectedChannelId

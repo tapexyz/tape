@@ -10,7 +10,7 @@
   "dependencies": {
     "arbundles": "^0.9.5",
     "base64url": "^3.0.1",
-    "ethers": "5.7.2",
+    "viem": "^0.3.19",
     "secp256k1": "^5.0.0"
   },
   "devDependencies": {
