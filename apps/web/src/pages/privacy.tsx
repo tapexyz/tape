@@ -12,7 +12,7 @@ const terms = () => {
             Privacy policy
           </h1>
           <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-400">
-            Last updated on December 11, 2022
+            Last updated on May 10, 2023
           </p>
         </div>
       </div>
@@ -155,7 +155,7 @@ const terms = () => {
             If you have any questions or comments about this Privacy Policy, our
             data practices, or our compliance with applicable law, please
             contact us at{' '}
-            <Link href="mailto:support@lenstube.xyz">support@lenstube.xyz</Link>
+            <Link href="mailto:privacy@lenstube.xyz">privacy@lenstube.xyz</Link>
             .
           </p>
         </div>
