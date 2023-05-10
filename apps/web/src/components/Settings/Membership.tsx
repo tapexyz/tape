@@ -132,8 +132,6 @@ const Membership = ({ channel }: Props) => {
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
         const { typedData, id } =
           createSetFollowModuleTypedData as CreateSetFollowModuleBroadcastItemResult
-        const { profileId, followModule, followModuleInitData } =
-          typedData?.value
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
           const signature = await signTypedDataAsync(getSignature(typedData))

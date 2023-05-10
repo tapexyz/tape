@@ -26,7 +26,7 @@ import {
   TRACK
 } from 'utils'
 import getSignature from 'utils/functions/getSignature'
-import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 import CollectModal from './CollectModal'
 
@@ -36,7 +36,6 @@ type Props = {
 }
 
 const CollectVideo: FC<Props> = ({ video, variant }) => {
-  const { address } = useAccount()
   const { openConnectModal } = useConnectModal()
 
   const [loading, setLoading] = useState(false)
