@@ -2926,12 +2926,12 @@
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.0.0"
 
-"@livepeer/core-react@^1.4.3":
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.4.3.tgz#6a3acfae99e4781754a6144e514262bc79c23739"
-  integrity sha512-DLH0HNq+DpMCn0yjYv8hfhCPcchVaQtpjHb2f/CUpXTYOR3BH9yBvvtrDTxtHDU8OsWMX9VpQ3Phq8kSU2RfIw==
+"@livepeer/core-react@^1.4.4":
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.4.4.tgz#70f279553d9834a5e659c31156017a6e6003a8f7"
+  integrity sha512-srTe7R6Ee8CpvNkrWFVHhGrv0mIMzaMWM9aJEvdZKMxvXelINeWeFQcH7ojW1J4sjH99T5drPr3keycWg9agvQ==
   dependencies:
-    "@livepeer/core" "^1.4.3"
+    "@livepeer/core" "^1.4.4"
     "@tanstack/query-async-storage-persister" "4.22.4"
     "@tanstack/query-core" "4.22.4"
     "@tanstack/react-query" "4.22.4"
@@ -2939,10 +2939,10 @@
     use-sync-external-store "^1.2.0"
     zustand "^4.3.2"
 
-"@livepeer/core@^1.4.3":
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/@livepeer/core/-/core-1.4.3.tgz#e050ce44eae105a2fefbcff24d2961e0dfc68cbe"
-  integrity sha512-vn97Gy6dLbJ1edAirrN0yhxcC/gAzQQ1Go1nQRO/wT4yZz4+ELefNlKNKUbEqRF5iD7YjSSKZwZtYenTRUOSWQ==
+"@livepeer/core@^1.4.4":
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/@livepeer/core/-/core-1.4.4.tgz#c850cb9e3cfeef47b5990c1627627db494369518"
+  integrity sha512-dSJqIyn+x+RTHnDtJ2dIyg7RxkLin32uggQwyRUGsigTtD4u9kw279AEUK3WEfhVnlq0egH5CM6j6Yr3+YDbow==
   dependencies:
     cross-fetch "^3.1.5"
     ms "^3.0.0-canary.1"
@@ -2950,15 +2950,15 @@
     tus-js-client "^3.0.1"
     zustand "^4.3.2"
 
-"@livepeer/react@^2.4.3":
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.4.3.tgz#437fcd3f40b2ff91126c48f012a4bc730e33bd2e"
-  integrity sha512-CaxDE6uhu7F9nFNL0nEoDiow5Yy+T0iPH8SDN9vpTdKrDpWD44imp19jSH2hs8OGgfzwUW3UfVSQixXPgKPIFw==
+"@livepeer/react@^2.4.4":
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.4.4.tgz#80599b057206d470813976a1709e5d8e5e9f8359"
+  integrity sha512-j5Al+WOzJRf/cAOP+G5egYFRE25vjBxFH+S2sb1GE7ctf9FEzoSBEtqAYZOy9SlS5xS17Hu9pYJyxLsHIosqgw==
   dependencies:
-    "@livepeer/core-react" "^1.4.3"
+    "@livepeer/core-react" "^1.4.4"
     "@stitches/react" "^1.2.8"
     core-js "^3.27.2"
-    livepeer "2.4.3"
+    livepeer "2.4.4"
     zustand "^4.3.2"
 
 "@messageformat/parser@^5.0.0":
@@ -3633,10 +3633,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.7.tgz#ccab5c8f7dc557a52ca3288c10075c9ccd37fff7"
   integrity sha512-Cr4OjIkipTtcXKjAsm8agyleBuDHvxzeBoa1v543lbv1YaIwQjESsVcmjiWiPEbC1FIeHOG/Op9kdCmAmiS3Kw==
 
-"@rainbow-me/rainbowkit@^0.12.13":
-  version "0.12.13"
-  resolved "https://registry.yarnpkg.com/@rainbow-me/rainbowkit/-/rainbowkit-0.12.13.tgz#d299752d4977cac912769048a8b39cc941c63e2e"
-  integrity sha512-1rZ1j/bawW2HbV3Kh1gRX0Owel8E3RbFTi9ydLv59aHqMiHwGUmuxDOLKdhOPMHm9PgdoR7p0k+jH9fYvEAPYw==
+"@rainbow-me/rainbowkit@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@rainbow-me/rainbowkit/-/rainbowkit-1.0.0.tgz#008856bb70f75026a1008a1104aa3ea8e8971749"
+  integrity sha512-XZBa7P1mlmNTuMa0iEw2D9wKKQjjh8iDhWGtvsyQZFBDqorOxc1/5Wy352p6kSC9J7s4P9sG3FwHnTGxJPaHmQ==
   dependencies:
     "@vanilla-extract/css" "1.9.1"
     "@vanilla-extract/dynamic" "2.0.2"
@@ -8612,12 +8612,12 @@ lit@2.7.3:
     lit-element "^3.3.0"
     lit-html "^2.7.0"
 
-livepeer@2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/livepeer/-/livepeer-2.4.3.tgz#99a64e1a0a9a3ff6532a7ffbeaa24c7f2737f2cc"
-  integrity sha512-MufpHS1k/MICk6xLJldaJs6Lx9+RsCj1ZOWh7X/9IrnRCbTDD3Dv2G6P0w96w6+Hkml7M0CkeuU0HCfoZwWQWw==
+livepeer@2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/livepeer/-/livepeer-2.4.4.tgz#c601942b9e990cc1e98d1b8499cb8b70108b85a7"
+  integrity sha512-zfp/yVLfpa6E+uUtn9zVB0vJHizaAj+PlKe3CpfDedSXwWLfRYsvqYgqWEAfti5/taPjYOQBQeWocAZlt/wP4g==
   dependencies:
-    "@livepeer/core" "^1.4.3"
+    "@livepeer/core" "^1.4.4"
     "@stitches/core" "^1.2.8"
     core-js "^3.27.2"
     cross-fetch "^3.1.5"
