@@ -8,7 +8,6 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
-import { utils } from 'ethers'
 import type {
   CreateCommentBroadcastItemResult,
   CreatePublicCommentRequest,
@@ -41,8 +40,8 @@ import {
   TRACK
 } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
+import getSignature from 'utils/functions/getSignature'
 import getUserLocale from 'utils/functions/getUserLocale'
-import omitKey from 'utils/functions/omitKey'
 import trimify from 'utils/functions/trimify'
 import uploadToAr from 'utils/functions/uploadToAr'
 import { v4 as uuidv4 } from 'uuid'
@@ -146,8 +145,7 @@ const NewComment: FC<Props> = ({
   const { write: writeComment } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'commentWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'comment',
     onError,
     onSuccess: (data) => {
       if (data.hash) {
@@ -195,51 +193,23 @@ const NewComment: FC<Props> = ({
   ) => {
     const { typedData } = data
     toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-    const signature = await signTypedDataAsync({
-      domain: omitKey(typedData?.domain, '__typename'),
-      types: omitKey(typedData?.types, '__typename'),
-      value: omitKey(typedData?.value, '__typename')
-    })
+    const signature = await signTypedDataAsync(getSignature(typedData))
     return signature
   }
 
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
     onCompleted: async ({ createCommentTypedData }) => {
       const { typedData, id } = createCommentTypedData
-      const {
-        profileId,
-        profileIdPointed,
-        pubIdPointed,
-        contentURI,
-        collectModule,
-        collectModuleInitData,
-        referenceModule,
-        referenceModuleData,
-        referenceModuleInitData
-      } = typedData?.value
       try {
         const signature = await getSignatureFromTypedData(
           createCommentTypedData
         )
-        const { v, r, s } = utils.splitSignature(signature)
-        const args = {
-          profileId,
-          profileIdPointed,
-          pubIdPointed,
-          contentURI,
-          collectModule,
-          collectModuleInitData,
-          referenceModule,
-          referenceModuleData,
-          referenceModuleInitData,
-          sig: { v, r, s, deadline: typedData.value.deadline }
-        }
         setUserSigNonce(userSigNonce + 1)
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          writeComment?.({ recklesslySetUnpreparedArgs: [args] })
+          writeComment?.({ args: [typedData.value] })
         }
       } catch {
         setLoading(false)

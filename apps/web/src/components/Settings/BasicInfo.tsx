@@ -9,7 +9,6 @@ import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import { utils } from 'ethers'
 import type {
   CreatePublicSetProfileMetadataUriRequest,
   MediaSet,
@@ -41,8 +40,8 @@ import {
 import { VERIFIED_CHANNELS } from 'utils/data/verified'
 import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
+import getSignature from 'utils/functions/getSignature'
 import imageCdn from 'utils/functions/imageCdn'
-import omitKey from 'utils/functions/omitKey'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 import trimify from 'utils/functions/trimify'
 import uploadToAr from 'utils/functions/uploadToAr'
@@ -126,7 +125,6 @@ const BasicInfo = ({ channel }: Props) => {
     address: LENS_PERIPHERY_ADDRESS,
     abi: LENS_PERIPHERY_ABI,
     functionName: 'setProfileMetadataURIWithSig',
-    mode: 'recklesslyUnprepared',
     onError,
     onSuccess: onCompleted
   })
@@ -148,24 +146,12 @@ const BasicInfo = ({ channel }: Props) => {
         const { typedData, id } = data.createSetProfileMetadataTypedData
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-          const signature = await signTypedDataAsync({
-            domain: omitKey(typedData?.domain, '__typename'),
-            types: omitKey(typedData?.types, '__typename'),
-            value: omitKey(typedData?.value, '__typename')
-          })
-          const { profileId, metadata } = typedData?.value
-          const { v, r, s } = utils.splitSignature(signature)
-          const args = {
-            user: channel?.ownedBy,
-            profileId,
-            metadata,
-            sig: { v, r, s, deadline: typedData.value.deadline }
-          }
+          const signature = await signTypedDataAsync(getSignature(typedData))
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
           if (data?.broadcast?.__typename === 'RelayError') {
-            writeMetaData?.({ recklesslySetUnpreparedArgs: [args] })
+            writeMetaData?.({ args: [typedData.value] })
           }
         } catch {
           setLoading(false)

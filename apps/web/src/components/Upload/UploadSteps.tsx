@@ -1,10 +1,10 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
+import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t } from '@lingui/macro'
-import { utils } from 'ethers'
 import type {
   CreatePostBroadcastItemResult,
   CreatePublicPostRequest,
@@ -42,19 +42,14 @@ import {
 } from 'utils'
 import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
 import { getCollectModule } from 'utils/functions/getCollectModule'
+import getSignature from 'utils/functions/getSignature'
 import getUserLocale from 'utils/functions/getUserLocale'
-import omitKey from 'utils/functions/omitKey'
 import trimify from 'utils/functions/trimify'
 import uploadToAr from 'utils/functions/uploadToAr'
 import uploadToIPFS from 'utils/functions/uploadToIPFS'
 import logger from 'utils/logger'
 import { v4 as uuidv4 } from 'uuid'
-import {
-  useAccount,
-  useContractWrite,
-  useSigner,
-  useSignTypedData
-} from 'wagmi'
+import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 import type { VideoFormData } from './Details'
 import Details from './Details'
@@ -70,7 +65,7 @@ const UploadSteps = () => {
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
   const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)
   const { address } = useAccount()
-  const { data: signer } = useSigner()
+  const { data: signer } = useEthersWalletClient()
   const router = useRouter()
 
   const degreesOfSeparation = uploadedVideo.referenceModule
@@ -164,8 +159,7 @@ const UploadSteps = () => {
   const { write: writePostContract } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'postWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'post',
     onSuccess: (data) => {
       setUploadedVideo({
         buttonText: 'Post Video',
@@ -183,11 +177,7 @@ const UploadSteps = () => {
   ) => {
     const { typedData } = data
     toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-    const signature = await signTypedDataAsync({
-      domain: omitKey(typedData?.domain, '__typename'),
-      types: omitKey(typedData?.types, '__typename'),
-      value: omitKey(typedData?.value, '__typename')
-    })
+    const signature = await signTypedDataAsync(getSignature(typedData))
     return signature
   }
 
@@ -238,7 +228,7 @@ const UploadSteps = () => {
   })
 
   const initBundlr = async () => {
-    if (signer?.provider && address && !bundlrData.instance) {
+    if (signer && address && !bundlrData.instance) {
       toast.loading(BUNDLR_CONNECT_MESSAGE)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
@@ -251,31 +241,13 @@ const UploadSteps = () => {
     onCompleted: async ({ createPostTypedData }) => {
       const { typedData, id } =
         createPostTypedData as CreatePostBroadcastItemResult
-      const {
-        profileId,
-        contentURI,
-        collectModule,
-        collectModuleInitData,
-        referenceModule,
-        referenceModuleInitData
-      } = typedData?.value
       try {
         const signature = await getSignatureFromTypedData(createPostTypedData)
-        const { v, r, s } = utils.splitSignature(signature)
-        const args = {
-          profileId,
-          contentURI,
-          collectModule,
-          collectModuleInitData,
-          referenceModule,
-          referenceModuleInitData,
-          sig: { v, r, s, deadline: typedData.value.deadline }
-        }
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          return writePostContract?.({ recklesslySetUnpreparedArgs: [args] })
+          return writePostContract?.({ args: [typedData.value] })
         }
       } catch {}
     },

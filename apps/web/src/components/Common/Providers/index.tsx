@@ -23,14 +23,14 @@ import type { ReactNode } from 'react'
 import React, { useEffect } from 'react'
 import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
 import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
-import { configureChains, createClient, WagmiConfig } from 'wagmi'
+import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { polygon, polygonMumbai } from 'wagmi/chains'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { publicProvider } from 'wagmi/providers/public'
 
 import ErrorBoundary from '../ErrorBoundary'
 
-const { chains, provider } = configureChains(
+const { chains, publicClient } = configureChains(
   [IS_MAINNET ? polygon : polygonMumbai],
   [
     jsonRpcProvider({
@@ -39,8 +39,7 @@ const { chains, provider } = configureChains(
       })
     }),
     publicProvider()
-  ],
-  { targetQuorum: 1 }
+  ]
 )
 
 const connectors = connectorsForWallets([
@@ -56,10 +55,10 @@ const connectors = connectorsForWallets([
   }
 ])
 
-const wagmiClient = createClient({
+const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
-  provider
+  publicClient
 })
 
 // Enables usage of theme in RainbowKitProvider
@@ -92,7 +91,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
     <I18nProvider i18n={i18n}>
       <ErrorBoundary>
         <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
-          <WagmiConfig client={wagmiClient}>
+          <WagmiConfig config={wagmiConfig}>
             <ThemeProvider defaultTheme="dark" attribute="class">
               <RainbowKitProviderWrapper>
                 <ApolloProvider client={apolloClient}>

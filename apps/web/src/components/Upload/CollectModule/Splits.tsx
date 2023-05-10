@@ -5,13 +5,13 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
-import { utils } from 'ethers'
 import type { RecipientDataInput } from 'lens'
 import { useResolveProfileAddressLazyQuery } from 'lens'
 import type { FC, RefObject } from 'react'
 import React from 'react'
 import { IS_MAINNET, LENSTUBE_APP_NAME, LENSTUBE_DONATION_ADDRESS } from 'utils'
 import splitNumber from 'utils/functions/splitNumber'
+import { isAddress } from 'viem'
 
 type Props = {
   submitContainerRef: RefObject<HTMLDivElement>
@@ -36,7 +36,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
     })
   }
 
-  const getIsValidAddress = (address: string) => utils.isAddress(address)
+  const getIsValidAddress = (address: string) => isAddress(address)
   const isIncludesDonationAddress =
     splitRecipients.filter((el) => el.recipient === LENSTUBE_DONATION_ADDRESS)
       .length > 0
