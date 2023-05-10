@@ -5,16 +5,17 @@
   "private": true,
   "scripts": {
     "worker:dev": "wrangler dev",
-    "worker:deploy": "wrangler publish"
+    "worker:deploy": "wrangler publish",
+    "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.325.0"
+    "@aws-sdk/client-sts": "^3.328.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230404.0",
+    "@cloudflare/workers-types": "^4.20230419.0",
     "eslint-config-weblint": "*",
     "tsconfig": "*",
     "typescript": "^5.0.4",
-    "wrangler": "2.18.0"
+    "wrangler": "2.19.0"
   }
 }
