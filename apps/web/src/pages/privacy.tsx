@@ -12,7 +12,7 @@ const terms = () => {
             Privacy policy
           </h1>
           <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-400">
-            Last updated on May 10, 2023
+            Last updated on May 09, 2023
           </p>
         </div>
       </div>
