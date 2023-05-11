@@ -28,8 +28,6 @@ const PermissionAlert: FC<Props> = ({
     isLoading: transactionLoading,
     sendTransaction
   } = useSendTransaction({
-    request: {},
-    mode: 'recklesslyUnprepared',
     onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message ?? error?.message)
     }
@@ -60,11 +58,8 @@ const PermissionAlert: FC<Props> = ({
     })
     const data = result?.data?.generateModuleCurrencyApprovalData
     sendTransaction?.({
-      recklesslySetUnpreparedRequest: {
-        from: data?.from,
-        to: data?.to,
-        data: data?.data
-      }
+      to: data?.to,
+      data: data?.data
     })
   }
 

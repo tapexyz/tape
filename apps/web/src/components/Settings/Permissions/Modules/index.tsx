@@ -33,8 +33,6 @@ const ModulePermissions = () => {
   const [loadingModule, setLoadingModule] = useState('')
 
   const { data: txData, sendTransaction } = useSendTransaction({
-    request: {},
-    mode: 'recklesslyUnprepared',
     onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message ?? error?.message)
       setLoadingModule('')
@@ -95,11 +93,8 @@ const ModulePermissions = () => {
       })
       const generated = allowanceData?.generateModuleCurrencyApprovalData
       sendTransaction?.({
-        recklesslySetUnpreparedRequest: {
-          from: generated?.from,
-          to: generated?.to,
-          data: generated?.data
-        }
+        to: generated?.to,
+        data: generated?.data
       })
     } catch {
       setLoadingModule('')
