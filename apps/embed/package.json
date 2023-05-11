@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.14",
-    "@livepeer/react": "^2.4.3",
+    "@livepeer/react": "^2.4.4",
     "clsx": "^1.2.1",
     "graphql": "^16.6.0",
     "mixpanel-browser": "^2.47.0",
@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@types/mixpanel-browser": "^2.38.1",
-    "@types/node": "20.1.0",
+    "@types/node": "20.1.2",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "^10.4.14",
