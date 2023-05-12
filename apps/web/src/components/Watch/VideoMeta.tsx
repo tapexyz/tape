@@ -8,7 +8,7 @@ import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { getDateString, getRelativeTime } from 'utils/functions/formatTime'
-import { getPublicationMediaRawUrl } from 'utils/functions/getPublicationMediaUrl'
+import { getPublicationMediaCid } from 'utils/functions/getPublicationMediaUrl'
 
 import ViewCount from './ViewCount'
 
@@ -43,7 +43,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
             <MirroredList videoId={video.id} />
           </div>
         </Modal>
-        <ViewCount url={getPublicationMediaRawUrl(video)} />
+        <ViewCount cid={getPublicationMediaCid(video)} />
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
           <>
             <button
