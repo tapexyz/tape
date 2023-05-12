@@ -26,7 +26,6 @@ import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { polygon, polygonMumbai } from 'wagmi/chains'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
-import { publicProvider } from 'wagmi/providers/public'
 
 import ErrorBoundary from '../ErrorBoundary'
 
@@ -37,8 +36,7 @@ const { chains, publicClient } = configureChains(
       rpc: () => ({
         http: POLYGON_RPC_URL
       })
-    }),
-    publicProvider()
+    })
   ]
 )
 
