@@ -119,10 +119,10 @@ const VideoOptions: FC<Props> = ({
     onError
   })
 
-  const { write: writeMetaData } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENS_PERIPHERY_ADDRESS,
     abi: LENS_PERIPHERY_ABI,
-    functionName: 'setProfileMetadataURIWithSig',
+    functionName: 'setProfileMetadataURI',
     onError,
     onSuccess: onCompleted
   })
@@ -149,7 +149,8 @@ const VideoOptions: FC<Props> = ({
             variables: { request: { id, signature } }
           })
           if (data?.broadcast?.__typename === 'RelayError') {
-            writeMetaData?.({ args: [typedData.value] })
+            const { profileId, metadata } = typedData.value
+            return write?.({ args: [profileId, metadata] })
           }
         } catch {}
       },

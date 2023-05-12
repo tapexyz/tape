@@ -102,7 +102,7 @@ const Membership = ({ channel }: Props) => {
     onError
   })
 
-  const { data: writtenData, write: writeFollow } = useContractWrite({
+  const { data: writtenData, write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'setFollowModule',
@@ -140,7 +140,11 @@ const Membership = ({ channel }: Props) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcast?.__typename === 'RelayError') {
-            writeFollow?.({ args: [typedData.value] })
+            const { profileId, followModule, followModuleInitData } =
+              typedData.value
+            return write?.({
+              args: [profileId, followModule, followModuleInitData]
+            })
           }
         } catch {
           setLoading(false)

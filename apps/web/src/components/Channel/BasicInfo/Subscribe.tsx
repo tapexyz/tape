@@ -93,7 +93,8 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          write?.({ args: [typedData.value] })
+          const { profileIds, datas } = typedData.value
+          write?.({ args: [profileIds, datas] })
         }
       } catch {
         setLoading(false)
@@ -140,16 +141,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
       return openConnectModal?.()
     }
     setLoading(true)
-    if (channel.followModule) {
-      return createTypedData()
-    }
-    viaProxyAction({
-      follow: {
-        freeFollow: {
-          profileId: channel?.id
-        }
-      }
-    })
+    return createTypedData()
   }
 
   return (

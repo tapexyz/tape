@@ -64,10 +64,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     onError
   })
 
-  const { data: pfpData, write: writePfpUri } = useContractWrite({
+  const { data: pfpData, write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'setProfileImageURIWithSig',
+    functionName: 'setProfileImageURI',
     onError,
     onSuccess: onCompleted
   })
@@ -96,7 +96,8 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcast?.__typename === 'RelayError') {
-            writePfpUri?.({ args: [typedData.value] })
+            const { profileId, imageURI } = typedData.value
+            return write?.({ args: [profileId, imageURI] })
           }
         } catch {
           setLoading(false)

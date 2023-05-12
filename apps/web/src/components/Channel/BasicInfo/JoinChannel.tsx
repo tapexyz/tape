@@ -109,7 +109,8 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
           variables: { request: { id, signature } }
         })
         if (data?.broadcast.__typename === 'RelayError') {
-          write?.({ args: [typedData.value] })
+          const { profileIds, datas } = typedData.value
+          return write?.({ args: [profileIds, datas] })
         }
       } catch {
         setLoading(false)

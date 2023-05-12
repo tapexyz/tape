@@ -46,7 +46,7 @@ const Toggle = () => {
     onError
   })
 
-  const { write: writeDispatch, data: writeData } = useContractWrite({
+  const { write, data: writeData } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'setDispatcher',
@@ -99,7 +99,10 @@ const Toggle = () => {
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          writeDispatch?.({ args: [typedData.value] })
+          const { profileId, dispatcher } = typedData.value
+          return write?.({
+            args: [profileId, dispatcher]
+          })
         }
       } catch {
         setLoading(false)

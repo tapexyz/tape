@@ -73,7 +73,7 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
       ? (data?.publication?.collectModule as LenstubeCollectModule)
       : null
 
-  const { write: writeCollectWithSig } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'collect',
@@ -103,7 +103,8 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          writeCollectWithSig?.({ args: [typedData.value] })
+          const { profileId, pubId, data: collectData } = typedData.value
+          return write?.({ args: [profileId, pubId, collectData] })
         }
       } catch {
         setLoading(false)

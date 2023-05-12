@@ -85,7 +85,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       onCompleted(createMirrorViaDispatcher.__typename)
   })
 
-  const { write: mirrorWithSig } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'mirror',
@@ -110,7 +110,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          mirrorWithSig?.({ args: [typedData.value] })
+          write?.({ args: [typedData.value] })
         }
       } catch {
         setLoading(false)

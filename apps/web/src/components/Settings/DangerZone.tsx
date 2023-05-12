@@ -28,7 +28,7 @@ const DangerZone = () => {
     toast.error(error?.data?.message ?? error?.message)
   }
 
-  const { write: writeDeleteProfile } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'burn',
@@ -54,7 +54,8 @@ const DangerZone = () => {
         data.createBurnProfileTypedData as CreateBurnProfileBroadcastItemResult
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        writeDeleteProfile?.({ args: [typedData.value] })
+        const { tokenId } = typedData.value
+        write?.({ args: [tokenId] })
       } catch {
         setLoading(false)
       }

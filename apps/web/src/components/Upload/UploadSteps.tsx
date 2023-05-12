@@ -156,7 +156,7 @@ const UploadSteps = () => {
     onError
   })
 
-  const { write: writePostContract } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'post',
@@ -247,7 +247,7 @@ const UploadSteps = () => {
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          return writePostContract?.({ args: [typedData.value] })
+          return write?.({ args: [typedData.value] })
         }
       } catch {}
     },

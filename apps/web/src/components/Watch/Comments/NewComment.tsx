@@ -142,7 +142,7 @@ const NewComment: FC<Props> = ({
     onError
   })
 
-  const { write: writeComment } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'comment',
@@ -209,7 +209,7 @@ const NewComment: FC<Props> = ({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          writeComment?.({ args: [typedData.value] })
+          write?.({ args: [typedData.value] })
         }
       } catch {
         setLoading(false)
