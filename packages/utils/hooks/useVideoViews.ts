@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 import { LIVEPEER_VIEWS_URL } from '../constants'
 
-const useVideoViews = (sourceUrl: string) => {
+const useVideoViews = (cid: string) => {
   const [loading, setLoading] = useState(false)
   const [views, setViews] = useState(0)
 
@@ -11,7 +11,7 @@ const useVideoViews = (sourceUrl: string) => {
     setLoading(true)
     try {
       const { data } = await axios.post(LIVEPEER_VIEWS_URL, {
-        sourceUrl
+        cid
       })
       if (data && data.success) {
         setViews(data.views)
@@ -25,7 +25,7 @@ const useVideoViews = (sourceUrl: string) => {
   useEffect(() => {
     fetchVideoViews()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sourceUrl])
+  }, [cid])
 
   return { views, loading }
 }

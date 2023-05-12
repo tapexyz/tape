@@ -11,9 +11,14 @@ export const getPublicationMediaUrl = (video: Publication) => {
   return sanitizeDStorageUrl(url)
 }
 
-export const getPublicationMediaRawUrl = (video: Publication) => {
+export const getPublicationMediaRawUrl = (video: Publication): string => {
   const url = video?.metadata?.media[0]?.original.url
   return url.replace('https://arweave.net/', 'ar://')
+}
+
+export const getPublicationMediaCid = (video: Publication): string => {
+  const uri = getPublicationMediaRawUrl(video)
+  return uri.replace('ipfs://', '').replace('ar://', '')
 }
 
 export const getIsIPFSUrl = (url: string) => {
