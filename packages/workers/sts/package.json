@@ -9,10 +9,10 @@
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.329.0"
+    "@aws-sdk/client-sts": "^3.332.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230419.0",
+    "@cloudflare/workers-types": "^4.20230511.0",
     "eslint-config-weblint": "*",
     "tsconfig": "*",
     "typescript": "^5.0.4",
