@@ -8,7 +8,7 @@
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
-    "mux-embed": "^4.25.0"
+    "mux-embed": "^4.25.1"
   },
   "devDependencies": {
     "prettier-plugin-tailwindcss": "^0.2.8",
