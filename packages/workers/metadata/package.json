@@ -8,13 +8,13 @@
     "worker:deploy": "wrangler publish"
   },
   "dependencies": {
-    "arbundles": "^0.9.5",
+    "arbundles": "^0.9.6",
     "base64url": "^3.0.1",
     "viem": "^0.3.19",
     "secp256k1": "^5.0.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230419.0",
+    "@cloudflare/workers-types": "^4.20230511.0",
     "@types/secp256k1": "latest",
     "eslint-config-weblint": "*",
     "tsconfig": "*",
