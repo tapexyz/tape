@@ -183,7 +183,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onCompleted: ({ broadcast }) => {
       onCompleted(broadcast.__typename)
       if (broadcast.__typename === 'RelayerResult') {
-        setToQueue(broadcast.txId)
+        setToQueue({ txnId: broadcast.txId })
       }
     }
   })
@@ -193,7 +193,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onCompleted: ({ createCommentViaDispatcher }) => {
       onCompleted(createCommentViaDispatcher.__typename)
       if (createCommentViaDispatcher.__typename === 'RelayerResult') {
-        setToQueue(createCommentViaDispatcher.txId)
+        setToQueue({ txnId: createCommentViaDispatcher.txId })
       }
     }
   })

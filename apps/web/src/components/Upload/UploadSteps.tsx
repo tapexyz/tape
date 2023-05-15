@@ -255,7 +255,7 @@ const UploadSteps = () => {
     onCompleted: ({ createPostViaDispatcher }) => {
       onCompleted(createPostViaDispatcher.__typename)
       if (createPostViaDispatcher.__typename === 'RelayerResult') {
-        setToQueue(createPostViaDispatcher.txId)
+        setToQueue({ txnId: createPostViaDispatcher.txId })
       }
     }
   })

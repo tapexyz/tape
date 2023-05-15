@@ -157,20 +157,20 @@ const NewComment: FC<Props> = ({
   const [broadcast] = useBroadcastMutation({
     onError,
     onCompleted: ({ broadcast }) => {
-      onCompleted(broadcast.__typename)
       if (broadcast.__typename === 'RelayerResult') {
-        setToQueue(broadcast.txId)
+        setToQueue({ txnId: broadcast.txId })
       }
+      onCompleted(broadcast.__typename)
     }
   })
 
   const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
     onError,
     onCompleted: ({ createCommentViaDispatcher }) => {
-      onCompleted(createCommentViaDispatcher.__typename)
       if (createCommentViaDispatcher.__typename === 'RelayerResult') {
-        setToQueue(createCommentViaDispatcher.txId)
+        setToQueue({ txnId: createCommentViaDispatcher.txId })
       }
+      onCompleted(createCommentViaDispatcher.__typename)
     }
   })
 
@@ -256,8 +256,8 @@ const NewComment: FC<Props> = ({
     onError
   })
 
-  const createTypedData = (request: CreatePublicCommentRequest) => {
-    createCommentTypedData({
+  const createTypedData = async (request: CreatePublicCommentRequest) => {
+    await createCommentTypedData({
       variables: { options: { overrideSigNonce: userSigNonce }, request }
     })
   }
@@ -267,7 +267,7 @@ const NewComment: FC<Props> = ({
       variables: { request }
     })
     if (data?.createCommentViaDispatcher.__typename === 'RelayError') {
-      createTypedData(request)
+      await createTypedData(request)
     }
   }
 
@@ -409,7 +409,7 @@ const NewComment: FC<Props> = ({
         return await createViaDispatcher(request)
       }
 
-      return createTypedData(request)
+      return await createTypedData(request)
     } catch {}
   }
 
