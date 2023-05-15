@@ -118,8 +118,6 @@ const NewComment: FC<Props> = ({
         ...(queuedComments || [])
       ])
     }
-    reset()
-    setLoading(false)
   }
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
@@ -130,6 +128,8 @@ const NewComment: FC<Props> = ({
       publication_id: video.id,
       publication_state: video.isDataAvailability ? 'DATA_ONLY' : 'ON_CHAIN'
     })
+    reset()
+    setLoading(false)
   }
 
   const onError = (error: CustomErrorWithData) => {
