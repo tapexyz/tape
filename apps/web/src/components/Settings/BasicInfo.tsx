@@ -87,7 +87,11 @@ const BasicInfo = ({ channel }: Props) => {
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [coverImage, setCoverImage] = useState(getChannelCoverPicture(channel))
+
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  // Dispatcher
+  const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
+  const isSponsored = selectedChannel?.dispatcher?.sponsor
 
   const {
     register,
@@ -166,10 +170,10 @@ const BasicInfo = ({ channel }: Props) => {
     toast.success('Copied to clipboard')
   }
 
-  const createTypedData = (
+  const createTypedData = async (
     request: CreatePublicSetProfileMetadataUriRequest
   ) => {
-    createSetProfileMetadataTypedData({
+    await createSetProfileMetadataTypedData({
       variables: { request }
     })
   }
@@ -235,13 +239,10 @@ const BasicInfo = ({ channel }: Props) => {
         profileId: channel?.id,
         metadata: metadataUri
       }
-      const canUseDispatcher =
-        selectedChannel?.dispatcher?.canUseRelay &&
-        selectedChannel.dispatcher.sponsor
-      if (!canUseDispatcher) {
-        return createTypedData(request)
+      if (canUseRelay && isSponsored) {
+        return await createViaDispatcher(request)
       }
-      createViaDispatcher(request)
+      return await createTypedData(request)
     } catch {
       setLoading(false)
     }

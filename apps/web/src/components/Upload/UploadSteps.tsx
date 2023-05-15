@@ -6,6 +6,7 @@ import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t } from '@lingui/macro'
 import type {
+  CreateDataAvailabilityPostRequest,
   CreatePostBroadcastItemResult,
   CreatePublicPostRequest,
   MetadataAttributeInput,
@@ -77,6 +78,10 @@ const UploadSteps = () => {
     ? ReferenceModules.FollowerOnlyReferenceModule
     : null
 
+  // Dispatcher
+  const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
+  const isSponsored = selectedChannel?.dispatcher?.sponsor
+
   const redirectToChannelPage = () => {
     router.push(
       uploadedVideo.isByteVideo
@@ -116,15 +121,10 @@ const UploadSteps = () => {
     })
   }
 
-  const onCompleted = (data: any) => {
-    if (
-      data?.broadcast?.reason === 'NOT_ALLOWED' ||
-      data.createPostViaDispatcher?.reason
-    ) {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
       return
     }
-    const txnId = data?.createPostViaDispatcher?.txId ?? data?.broadcast?.txId
-    setToQueue({ txnId })
     Analytics.track(TRACK.PUBLICATION.NEW_POST, {
       video_format: uploadedVideo.videoType,
       video_type: uploadedVideo.isByteVideo ? 'SHORT_FORM' : 'LONG_FORM',
@@ -152,8 +152,13 @@ const UploadSteps = () => {
     onError
   })
   const [broadcast] = useBroadcastMutation({
-    onCompleted,
-    onError
+    onCompleted: ({ broadcast }) => {
+      onCompleted(broadcast.__typename)
+      if (broadcast.__typename === 'RelayerResult') {
+        const txnId = broadcast?.txId
+        setToQueue({ txnId })
+      }
+    }
   })
 
   const { write } = useContractWrite({
@@ -186,7 +191,7 @@ const UploadSteps = () => {
    */
   const [broadcastDataAvailabilityPost] = useBroadcastDataAvailabilityMutation({
     onCompleted: (data) => {
-      onCompleted(data)
+      onCompleted()
       if (data.broadcastDataAvailability.__typename === 'RelayError') {
         return toast.error(ERROR_MESSAGE)
       }
@@ -215,7 +220,20 @@ const UploadSteps = () => {
 
   const [createDataAvailabilityPostViaDispatcher] =
     useCreateDataAvailabilityPostViaDispatcherMutation({
-      onCompleted,
+      onCompleted: ({ createDataAvailabilityPostViaDispatcher }) => {
+        if (
+          createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
+        ) {
+          return
+        }
+        if (
+          createDataAvailabilityPostViaDispatcher.__typename ===
+          'CreateDataAvailabilityPublicationResult'
+        ) {
+          onCompleted()
+          redirectToChannelPage()
+        }
+      },
       onError
     })
   /**
@@ -224,7 +242,12 @@ const UploadSteps = () => {
 
   const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
     onError,
-    onCompleted
+    onCompleted: ({ createPostViaDispatcher }) => {
+      onCompleted(createPostViaDispatcher.__typename)
+      if (createPostViaDispatcher.__typename === 'RelayerResult') {
+        setToQueue({ txnId: createPostViaDispatcher.txId })
+      }
+    }
   })
 
   const initBundlr = async () => {
@@ -266,6 +289,29 @@ const UploadSteps = () => {
     })
     if (data?.createPostViaDispatcher.__typename === 'RelayError') {
       await createTypedData(request)
+    }
+  }
+
+  const createViaDataAvailablityDispatcher = async (
+    request: CreateDataAvailabilityPostRequest
+  ) => {
+    const variables = { request }
+
+    const { data } = await createDataAvailabilityPostViaDispatcher({
+      variables
+    })
+
+    if (
+      data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
+    ) {
+      return await createDataAvailabilityPostTypedData({ variables })
+    }
+
+    if (
+      data?.createDataAvailabilityPostViaDispatcher.__typename ===
+      'CreateDataAvailabilityPublicationResult'
+    ) {
+      return redirectToChannelPage()
     }
   }
 
@@ -349,21 +395,6 @@ const UploadSteps = () => {
         from: selectedChannel?.id,
         contentURI: metadataUri
       }
-      if (isRevertCollect) {
-        const { data } = await createDataAvailabilityPostViaDispatcher({
-          variables: { request: dataAvailablityRequest }
-        })
-        // Fallback to DA dispatcher error
-        if (
-          data?.createDataAvailabilityPostViaDispatcher?.__typename ===
-          'RelayError'
-        ) {
-          return await createDataAvailabilityPostTypedData({
-            variables: { request: dataAvailablityRequest }
-          })
-        }
-        return redirectToChannelPage()
-      }
 
       const request = {
         profileId: selectedChannel?.id,
@@ -378,13 +409,18 @@ const UploadSteps = () => {
             : null
         }
       }
-      const canUseDispatcher =
-        selectedChannel?.dispatcher?.canUseRelay &&
-        selectedChannel.dispatcher.sponsor
-      if (!canUseDispatcher) {
-        return createTypedData(request)
+
+      if (canUseRelay) {
+        if (isRevertCollect && isSponsored) {
+          return await createViaDataAvailablityDispatcher(
+            dataAvailablityRequest
+          )
+        }
+
+        return await createViaDispatcher(request)
       }
-      await createViaDispatcher(request)
+
+      return await createTypedData(request)
     } catch {}
   }
 

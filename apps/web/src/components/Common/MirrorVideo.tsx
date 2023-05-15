@@ -46,6 +46,10 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   )
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
+  // Dispatcher
+  const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
+  const isSponsored = selectedChannel?.dispatcher?.sponsor
+
   const collectModule =
     video?.__typename === 'Post'
       ? (video?.collectModule as LenstubeCollectModule)
@@ -119,8 +123,8 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onError
   })
 
-  const createTypedData = (request: CreateMirrorRequest) => {
-    createMirrorTypedData({
+  const createTypedData = async (request: CreateMirrorRequest) => {
+    await createMirrorTypedData({
       variables: {
         options: { overrideSigNonce: userSigNonce },
         request
@@ -133,7 +137,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       variables: { request }
     })
     if (data?.createMirrorViaDispatcher.__typename === 'RelayError') {
-      createTypedData(request)
+      await createTypedData(request)
     }
   }
 
@@ -141,32 +145,39 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     if (!selectedChannelId) {
       return openConnectModal?.()
     }
-    setLoading(true)
 
-    if (video.isDataAvailability) {
-      const dataAvailablityRequest = {
-        from: selectedChannelId,
-        mirror: video.id
-      }
-      return await createDataAvailabilityMirrorViaDispatcher({
-        variables: { request: dataAvailablityRequest }
-      })
+    if (video.isDataAvailability && !isSponsored) {
+      return toast.error(
+        t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
+      )
     }
 
-    const request = {
-      profileId: selectedChannelId,
+    setLoading(true)
+    const request: CreateMirrorRequest = {
+      profileId: selectedChannel?.id,
       publicationId: video?.id,
       referenceModule: {
         followerOnlyReferenceModule: false
       }
     }
-    const canUseDispatcher =
-      selectedChannel?.dispatcher?.canUseRelay &&
-      selectedChannel.dispatcher.sponsor
-    if (!canUseDispatcher) {
-      return createTypedData(request)
+
+    // Payload for the data availability mirror
+    const dataAvailablityRequest = {
+      from: selectedChannel?.id,
+      mirror: video?.id
     }
-    await createViaDispatcher(request)
+
+    if (canUseRelay) {
+      if (video.isDataAvailability && isSponsored) {
+        return await createDataAvailabilityMirrorViaDispatcher({
+          variables: { request: dataAvailablityRequest }
+        })
+      }
+
+      return await createViaDispatcher(request)
+    }
+
+    return await createTypedData(request)
   }
 
   if (!video?.canMirror.result) {

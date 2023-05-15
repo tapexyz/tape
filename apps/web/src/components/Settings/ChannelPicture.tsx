@@ -43,6 +43,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
 
+  // Dispatcher
+  const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
+  const isSponsored = selectedChannel?.dispatcher?.sponsor
+
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
@@ -106,8 +110,8 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       onError
     })
 
-  const createTypedData = (request: UpdateProfileImageRequest) => {
-    createSetProfileImageURITypedData({
+  const createTypedData = async (request: UpdateProfileImageRequest) => {
+    await createSetProfileImageURITypedData({
       variables: { options: { overrideSigNonce: userSigNonce }, request }
     })
   }
@@ -133,13 +137,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           url: result.url
         }
         setSelectedPfp(result.url)
-        const canUseDispatcher =
-          selectedChannel?.dispatcher?.canUseRelay &&
-          selectedChannel.dispatcher.sponsor
-        if (!canUseDispatcher) {
-          return createTypedData(request)
+        if (canUseRelay && isSponsored) {
+          return await createViaDispatcher(request)
         }
-        await createViaDispatcher(request)
+        return await createTypedData(request)
       } catch (error) {
         onError(error as CustomErrorWithData)
       }

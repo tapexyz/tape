@@ -137,11 +137,11 @@ msgstr "取消"
 msgid "Category"
 msgstr "类别"
 
-#: src/components/Settings/BasicInfo.tsx:300
+#: src/components/Settings/BasicInfo.tsx:301
 msgid "Change"
 msgstr "更改"
 
-#: src/components/Settings/BasicInfo.tsx:313
+#: src/components/Settings/BasicInfo.tsx:314
 msgid "Channel"
 msgstr "频道"
 
@@ -149,11 +149,11 @@ msgstr "频道"
 msgid "Channel deleted"
 msgstr "频道已删除"
 
-#: src/components/Settings/BasicInfo.tsx:366
+#: src/components/Settings/BasicInfo.tsx:367
 msgid "Channel Description"
 msgstr "频道描述"
 
-#: src/components/Settings/ChannelPicture.tsx:61
+#: src/components/Settings/ChannelPicture.tsx:65
 msgid "Channel image updated"
 msgstr "频道图像已更新"
 
@@ -162,7 +162,7 @@ msgstr "频道图像已更新"
 msgid "Channel Settings"
 msgstr "频道设置"
 
-#: src/components/Settings/BasicInfo.tsx:337
+#: src/components/Settings/BasicInfo.tsx:338
 msgid "Channel URL"
 msgstr "频道 URL"
 
@@ -240,7 +240,7 @@ msgstr "收藏"
 msgid "Collects"
 msgstr "收藏"
 
-#: src/components/Watch/Comments/NewComment.tsx:431
+#: src/components/Watch/Comments/NewComment.tsx:458
 msgid "Comment"
 msgstr "评论"
 
@@ -253,7 +253,7 @@ msgstr "评论已删除"
 msgid "comment on"
 msgstr "评论于"
 
-#: src/components/Watch/Comments/NewComment.tsx:63
+#: src/components/Watch/Comments/NewComment.tsx:64
 msgid "Comment should not exceed 5000 characters"
 msgstr "评论不能超过 5000 个字符"
 
@@ -378,7 +378,7 @@ msgstr "调度器"
 msgid "Dispatcher"
 msgstr "调度器"
 
-#: src/components/Settings/BasicInfo.tsx:357
+#: src/components/Settings/BasicInfo.tsx:358
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -411,8 +411,8 @@ msgstr "结束于"
 msgid "Enter deposit amount"
 msgstr "输入存款金额"
 
-#: src/components/Watch/Comments/NewComment.tsx:60
-#: src/components/Watch/Comments/NewComment.tsx:62
+#: src/components/Watch/Comments/NewComment.tsx:61
+#: src/components/Watch/Comments/NewComment.tsx:63
 msgid "Enter valid comment"
 msgstr "输入有效的评论"
 
@@ -439,7 +439,7 @@ msgstr "保存存储余额失败"
 msgid "Failed to upload thumbnail"
 msgstr "上传缩略图失败"
 
-#: src/components/Upload/UploadSteps.tsx:491
+#: src/components/Upload/UploadSteps.tsx:530
 msgid "Failed to upload video to Arweave"
 msgstr "上传视频到 Arweeve 失败"
 
@@ -459,7 +459,7 @@ msgstr "反馈"
 msgid "for given fees"
 msgstr "给定费用"
 
-#: src/components/Settings/BasicInfo.tsx:330
+#: src/components/Settings/BasicInfo.tsx:331
 msgid "Get Verified"
 msgstr "获得验证"
 
@@ -482,7 +482,7 @@ msgstr "高信号"
 msgid "Home"
 msgstr "首页"
 
-#: src/components/Watch/Comments/NewComment.tsx:70
+#: src/components/Watch/Comments/NewComment.tsx:71
 msgid "How's this video?"
 msgstr "这个视频是如何的？"
 
@@ -502,7 +502,7 @@ msgstr "正在索引，请稍候..."
 msgid "Indexing..."
 msgstr "正在索引..."
 
-#: src/components/Upload/UploadSteps.tsx:449
+#: src/components/Upload/UploadSteps.tsx:488
 msgid "Insufficient balance"
 msgstr "余额不足"
 
@@ -535,7 +535,7 @@ msgstr "签名无效！"
 msgid "Invalid split recipient address"
 msgstr "无效的分割收件人地址"
 
-#: src/components/Upload/UploadSteps.tsx:428
+#: src/components/Upload/UploadSteps.tsx:467
 msgid "IPFS Upload failed"
 msgstr "IPFS 上传失败"
 
@@ -587,7 +587,7 @@ msgstr "有限采集量"
 msgid "Links"
 msgstr "链接"
 
-#: src/components/Settings/BasicInfo.tsx:399
+#: src/components/Settings/BasicInfo.tsx:400
 msgid "Location"
 msgstr "地点"
 
@@ -623,7 +623,7 @@ msgstr "镜像"
 msgid "Mirror"
 msgstr "镜像"
 
-#: src/components/Common/MirrorVideo.tsx:203
+#: src/components/Common/MirrorVideo.tsx:214
 msgid "Mirror video across Lens"
 msgstr "全镜像视频"
 
@@ -640,7 +640,7 @@ msgstr "镜像者"
 msgid "mirrored your"
 msgstr "镜像您的"
 
-#: src/components/Common/MirrorVideo.tsx:206
+#: src/components/Common/MirrorVideo.tsx:217
 msgid "Mirroring"
 msgstr "镜像"
 
@@ -656,7 +656,13 @@ msgstr "误导中"
 msgid "Misuse Hashtags"
 msgstr "错误使用哈希标签"
 
-#: src/components/Settings/BasicInfo.tsx:367
+#: src/components/Common/MirrorVideo.tsx:176
+#: src/components/Watch/Comments/NewComment.tsx:353
+#: src/components/Watch/TipModal.tsx:353
+msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
+msgstr ""
+
+#: src/components/Settings/BasicInfo.tsx:368
 msgid "More about your channel"
 msgstr "更多关于您的频道"
 
@@ -818,13 +824,13 @@ msgstr "请上传一个自定义缩略图"
 msgid "Popular"
 msgstr "热门的"
 
-#: src/components/Upload/UploadSteps.tsx:119
+#: src/components/Upload/UploadSteps.tsx:124
 #: src/components/Upload/UploadSteps.tsx:151
-#: src/components/Upload/UploadSteps.tsx:495
+#: src/components/Upload/UploadSteps.tsx:534
 msgid "Post Video"
 msgstr "发布视频"
 
-#: src/components/Upload/UploadSteps.tsx:360
+#: src/components/Upload/UploadSteps.tsx:409
 msgid "Posting video"
 msgstr "发布视频"
 
@@ -920,7 +926,7 @@ msgstr "收入"
 msgid "Revoke"
 msgstr "Revoke"
 
-#: src/components/Settings/BasicInfo.tsx:407
+#: src/components/Settings/BasicInfo.tsx:408
 msgid "Save"
 msgstr "保存"
 
@@ -1038,7 +1044,7 @@ msgstr "状态"
 msgid "Stay active in current tab while uploading for faster experience"
 msgstr "在上传时保持活跃于当前标签页以获得更快的体验。"
 
-#: src/components/Upload/UploadSteps.tsx:304
+#: src/components/Upload/UploadSteps.tsx:353
 msgid "Storing metadata"
 msgstr "存储元数据"
 
@@ -1113,7 +1119,7 @@ msgstr "条款"
 msgid "Thanks"
 msgstr "谢谢！"
 
-#: src/components/Watch/TipModal.tsx:82
+#: src/components/Watch/TipModal.tsx:84
 msgid "Thanks for making this video!"
 msgstr "感谢制作这个视频！"
 
@@ -1137,7 +1143,7 @@ msgstr "这些是您允许/允许使用收集功能的收集模块。您可以�
 msgid "This cannot be reverted."
 msgstr "这不能恢复。"
 
-#: src/components/Watch/TipModal.tsx:462
+#: src/components/Watch/TipModal.tsx:490
 msgid "This will be published as a public comment."
 msgstr "这将作为公开评论发表。"
 
@@ -1145,28 +1151,28 @@ msgstr "这将作为公开评论发表。"
 msgid "Threat Individual"
 msgstr "个别威胁"
 
-#: src/components/Watch/TipModal.tsx:422
+#: src/components/Watch/TipModal.tsx:450
 #: src/components/Watch/VideoActions.tsx:48
 msgid "Tip"
 msgstr "Tip"
 
-#: src/components/Watch/TipModal.tsx:67
+#: src/components/Watch/TipModal.tsx:69
 msgid "Tip message is requried"
 msgstr "提示信息已经被重新qured"
 
-#: src/components/Watch/TipModal.tsx:66
+#: src/components/Watch/TipModal.tsx:68
 msgid "Tip should be greater than 0 MATIC"
 msgstr "提示应该大于 0 MATIC"
 
-#: src/components/Watch/TipModal.tsx:65
+#: src/components/Watch/TipModal.tsx:67
 msgid "Tip should be less than or equal to 100 MATIC"
 msgstr "提示应小于或等于 100 MATIC"
 
-#: src/components/Watch/TipModal.tsx:64
+#: src/components/Watch/TipModal.tsx:66
 msgid "Tip should to greater than zero"
 msgstr "提示应大于0"
 
-#: src/components/Watch/TipModal.tsx:151
+#: src/components/Watch/TipModal.tsx:160
 msgid "Tipped successfully"
 msgstr "已成功推送"
 
@@ -1296,11 +1302,11 @@ msgstr "上传到 IPFS"
 msgid "Uploading thumbnail"
 msgstr "正在上传缩略图"
 
-#: src/components/Upload/UploadSteps.tsx:454
+#: src/components/Upload/UploadSteps.tsx:493
 msgid "Uploading to Arweave"
 msgstr "正在上传到Arweeve"
 
-#: src/components/Upload/UploadSteps.tsx:421
+#: src/components/Upload/UploadSteps.tsx:460
 msgid "Uploading to IPFS"
 msgstr "上传到 IPFS"
 
@@ -1323,7 +1329,7 @@ msgstr "视频已删除"
 msgid "Video format not supported"
 msgstr "视频格式不被支持"
 
-#: src/components/Upload/UploadSteps.tsx:444
+#: src/components/Upload/UploadSteps.tsx:483
 msgid "Video not uploaded correctly"
 msgstr "视频上传不正确"
 
@@ -1385,7 +1391,7 @@ msgstr "观察"
 msgid "Watch Video"
 msgstr "观看视频"
 
-#: src/components/Settings/BasicInfo.tsx:391
+#: src/components/Settings/BasicInfo.tsx:392
 msgid "Website"
 msgstr "网址"
 
@@ -1453,4 +1459,3 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
-

@@ -10,6 +10,7 @@ import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import type {
   CreateCommentBroadcastItemResult,
+  CreateDataAvailabilityCommentRequest,
   CreatePublicCommentRequest,
   Publication
 } from 'lens'
@@ -80,6 +81,9 @@ const NewComment: FC<Props> = ({
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
+  // Dispatcher
+  const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
+  const isSponsored = selectedChannel?.dispatcher?.sponsor
 
   const {
     clearErrors,
@@ -113,24 +117,18 @@ const NewComment: FC<Props> = ({
         ...(queuedComments || [])
       ])
     }
-    reset()
-    setLoading(false)
   }
 
-  const onCompleted = (data: any) => {
-    if (
-      data?.broadcast?.reason === 'NOT_ALLOWED' ||
-      data.createCommentViaDispatcher?.reason
-    ) {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
       return
     }
     Analytics.track(TRACK.PUBLICATION.NEW_COMMENT, {
       publication_id: video.id,
       publication_state: video.isDataAvailability ? 'DATA_ONLY' : 'ON_CHAIN'
     })
-    const txnId =
-      data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
-    return setToQueue({ txnId })
+    reset()
+    setLoading(false)
   }
 
   const onError = (error: CustomErrorWithData) => {
@@ -156,12 +154,22 @@ const NewComment: FC<Props> = ({
 
   const [broadcast] = useBroadcastMutation({
     onError,
-    onCompleted
+    onCompleted: ({ broadcast }) => {
+      if (broadcast.__typename === 'RelayerResult') {
+        setToQueue({ txnId: broadcast.txId })
+      }
+      onCompleted(broadcast.__typename)
+    }
   })
 
   const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
     onError,
-    onCompleted
+    onCompleted: ({ createCommentViaDispatcher }) => {
+      if (createCommentViaDispatcher.__typename === 'RelayerResult') {
+        setToQueue({ txnId: createCommentViaDispatcher.txId })
+      }
+      onCompleted(createCommentViaDispatcher.__typename)
+    }
   })
 
   const [getComment] = usePublicationDetailsLazyQuery()
@@ -218,8 +226,8 @@ const NewComment: FC<Props> = ({
     onError
   })
 
-  const createTypedData = (request: CreatePublicCommentRequest) => {
-    createCommentTypedData({
+  const createTypedData = async (request: CreatePublicCommentRequest) => {
+    await createCommentTypedData({
       variables: { options: { overrideSigNonce: userSigNonce }, request }
     })
   }
@@ -229,7 +237,7 @@ const NewComment: FC<Props> = ({
       variables: { request }
     })
     if (data?.createCommentViaDispatcher.__typename === 'RelayError') {
-      createTypedData(request)
+      await createTypedData(request)
     }
   }
 
@@ -239,6 +247,7 @@ const NewComment: FC<Props> = ({
   const [broadcastDataAvailabilityComment] =
     useBroadcastDataAvailabilityMutation({
       onCompleted: async (data) => {
+        onCompleted()
         if (data.broadcastDataAvailability.__typename === 'RelayError') {
           return toast.error(ERROR_MESSAGE)
         }
@@ -249,7 +258,6 @@ const NewComment: FC<Props> = ({
           const commentId = data?.broadcastDataAvailability.id
           await fetchAndCacheComment(commentId)
         }
-        onCompleted(data)
       },
       onError
     })
@@ -258,14 +266,20 @@ const NewComment: FC<Props> = ({
     useCreateDataAvailabilityCommentViaDispatcherMutation({
       onCompleted: async (data) => {
         if (
+          data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
+          'RelayError'
+        ) {
+          return
+        }
+        if (
           data?.createDataAvailabilityCommentViaDispatcher.__typename ===
           'CreateDataAvailabilityPublicationResult'
         ) {
+          onCompleted()
           const { id: commentId } =
             data.createDataAvailabilityCommentViaDispatcher
           await fetchAndCacheComment(commentId)
         }
-        onCompleted(data)
       },
       onError
     })
@@ -282,11 +296,33 @@ const NewComment: FC<Props> = ({
         })
       }
     })
+
+  const createViaDataAvailablityDispatcher = async (
+    request: CreateDataAvailabilityCommentRequest
+  ) => {
+    const variables = { request }
+
+    const { data } = await createDataAvailabilityCommentViaDispatcher({
+      variables
+    })
+
+    if (
+      data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
+      'RelayError'
+    ) {
+      return await createDataAvailabilityCommentTypedData({ variables })
+    }
+  }
   /**
    * DATA AVAILABILITY ENDS
    */
 
   const submitComment = async (formData: FormData) => {
+    if (video.isDataAvailability && !isSponsored) {
+      return toast.error(
+        t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
+      )
+    }
     try {
       setLoading(true)
       const metadataUri = await uploadToAr({
@@ -316,28 +352,11 @@ const NewComment: FC<Props> = ({
         appId: LENSTUBE_APP_ID
       })
 
-      // Create Data Availability comment
-      if (video.isDataAvailability) {
-        const dataAvailablityRequest = {
-          from: selectedChannel?.id,
-          commentOn: video.id,
-          contentURI: metadataUri
-        }
-        const { data } = await createDataAvailabilityCommentViaDispatcher({
-          variables: { request: dataAvailablityRequest }
-        })
-        // Fallback to DA dispatcher error
-        if (
-          data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
-          'RelayError'
-        ) {
-          return await createDataAvailabilityCommentTypedData({
-            variables: { request: dataAvailablityRequest }
-          })
-        }
-        return
+      const dataAvailablityRequest = {
+        from: selectedChannel?.id,
+        commentOn: video.id,
+        contentURI: metadataUri
       }
-
       const request = {
         profileId: selectedChannel?.id,
         publicationId: video?.id,
@@ -349,13 +368,18 @@ const NewComment: FC<Props> = ({
           followerOnlyReferenceModule: false
         }
       }
-      const canUseDispatcher =
-        selectedChannel?.dispatcher?.canUseRelay &&
-        selectedChannel.dispatcher.sponsor
-      if (!canUseDispatcher) {
-        return createTypedData(request)
+
+      if (canUseRelay) {
+        if (video.isDataAvailability && isSponsored) {
+          return await createViaDataAvailablityDispatcher(
+            dataAvailablityRequest
+          )
+        }
+
+        return await createViaDispatcher(request)
       }
-      await createViaDispatcher(request)
+
+      return await createTypedData(request)
     } catch {}
   }
 
