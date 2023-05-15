@@ -94,7 +94,7 @@ export const ERROR_MESSAGE = 'Oops, something went wrong!'
 // App Ids
 export const LENSTUBE_APP_ID = 'lenstube'
 export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
-export const ALLOWED_APP_IDS = ['orb', 'lenster']
+export const ALLOWED_APP_IDS = ['orb', 'lenster', 'buttrfly']
 
 // official
 export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'
