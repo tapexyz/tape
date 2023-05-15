@@ -137,11 +137,11 @@ msgstr "Cancel"
 msgid "Category"
 msgstr "Category"
 
-#: src/components/Settings/BasicInfo.tsx:300
+#: src/components/Settings/BasicInfo.tsx:301
 msgid "Change"
 msgstr "Change"
 
-#: src/components/Settings/BasicInfo.tsx:313
+#: src/components/Settings/BasicInfo.tsx:314
 msgid "Channel"
 msgstr "Channel"
 
@@ -149,11 +149,11 @@ msgstr "Channel"
 msgid "Channel deleted"
 msgstr "Channel deleted"
 
-#: src/components/Settings/BasicInfo.tsx:366
+#: src/components/Settings/BasicInfo.tsx:367
 msgid "Channel Description"
 msgstr "Channel Description"
 
-#: src/components/Settings/ChannelPicture.tsx:61
+#: src/components/Settings/ChannelPicture.tsx:65
 msgid "Channel image updated"
 msgstr "Channel image updated"
 
@@ -162,7 +162,7 @@ msgstr "Channel image updated"
 msgid "Channel Settings"
 msgstr "Channel Settings"
 
-#: src/components/Settings/BasicInfo.tsx:337
+#: src/components/Settings/BasicInfo.tsx:338
 msgid "Channel URL"
 msgstr "Channel URL"
 
@@ -240,7 +240,7 @@ msgstr "collects"
 msgid "Collects"
 msgstr "Collects"
 
-#: src/components/Watch/Comments/NewComment.tsx:431
+#: src/components/Watch/Comments/NewComment.tsx:458
 msgid "Comment"
 msgstr "Comment"
 
@@ -253,7 +253,7 @@ msgstr "Comment deleted"
 msgid "comment on"
 msgstr "comment on"
 
-#: src/components/Watch/Comments/NewComment.tsx:63
+#: src/components/Watch/Comments/NewComment.tsx:64
 msgid "Comment should not exceed 5000 characters"
 msgstr "Comment should not exceed 5000 characters"
 
@@ -378,7 +378,7 @@ msgstr "dispatcher"
 msgid "Dispatcher"
 msgstr "Dispatcher"
 
-#: src/components/Settings/BasicInfo.tsx:357
+#: src/components/Settings/BasicInfo.tsx:358
 msgid "Display Name"
 msgstr "Display Name"
 
@@ -411,8 +411,8 @@ msgstr "Ends At"
 msgid "Enter deposit amount"
 msgstr "Enter deposit amount"
 
-#: src/components/Watch/Comments/NewComment.tsx:60
-#: src/components/Watch/Comments/NewComment.tsx:62
+#: src/components/Watch/Comments/NewComment.tsx:61
+#: src/components/Watch/Comments/NewComment.tsx:63
 msgid "Enter valid comment"
 msgstr "Enter valid comment"
 
@@ -439,7 +439,7 @@ msgstr "Failed to deposit storage balance"
 msgid "Failed to upload thumbnail"
 msgstr "Failed to upload thumbnail"
 
-#: src/components/Upload/UploadSteps.tsx:491
+#: src/components/Upload/UploadSteps.tsx:530
 msgid "Failed to upload video to Arweave"
 msgstr "Failed to upload video to Arweave"
 
@@ -459,7 +459,7 @@ msgstr "Feedback"
 msgid "for given fees"
 msgstr ""
 
-#: src/components/Settings/BasicInfo.tsx:330
+#: src/components/Settings/BasicInfo.tsx:331
 msgid "Get Verified"
 msgstr ""
 
@@ -482,7 +482,7 @@ msgstr ""
 msgid "Home"
 msgstr "Home"
 
-#: src/components/Watch/Comments/NewComment.tsx:70
+#: src/components/Watch/Comments/NewComment.tsx:71
 msgid "How's this video?"
 msgstr ""
 
@@ -502,7 +502,7 @@ msgstr "Indexing, please wait..."
 msgid "Indexing..."
 msgstr "Indexing..."
 
-#: src/components/Upload/UploadSteps.tsx:449
+#: src/components/Upload/UploadSteps.tsx:488
 msgid "Insufficient balance"
 msgstr ""
 
@@ -535,7 +535,7 @@ msgstr "Invalid Signature!"
 msgid "Invalid split recipient address"
 msgstr "Invalid split recipient address"
 
-#: src/components/Upload/UploadSteps.tsx:428
+#: src/components/Upload/UploadSteps.tsx:467
 msgid "IPFS Upload failed"
 msgstr "IPFS Upload failed"
 
@@ -587,7 +587,7 @@ msgstr ""
 msgid "Links"
 msgstr "Links"
 
-#: src/components/Settings/BasicInfo.tsx:399
+#: src/components/Settings/BasicInfo.tsx:400
 msgid "Location"
 msgstr ""
 
@@ -623,7 +623,7 @@ msgstr ""
 msgid "Mirror"
 msgstr "Mirror"
 
-#: src/components/Common/MirrorVideo.tsx:203
+#: src/components/Common/MirrorVideo.tsx:214
 msgid "Mirror video across Lens"
 msgstr "Mirror video across Lens"
 
@@ -640,7 +640,7 @@ msgstr ""
 msgid "mirrored your"
 msgstr ""
 
-#: src/components/Common/MirrorVideo.tsx:206
+#: src/components/Common/MirrorVideo.tsx:217
 msgid "Mirroring"
 msgstr "Mirroring"
 
@@ -656,7 +656,13 @@ msgstr ""
 msgid "Misuse Hashtags"
 msgstr ""
 
-#: src/components/Settings/BasicInfo.tsx:367
+#: src/components/Common/MirrorVideo.tsx:176
+#: src/components/Watch/Comments/NewComment.tsx:353
+#: src/components/Watch/TipModal.tsx:353
+msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
+msgstr ""
+
+#: src/components/Settings/BasicInfo.tsx:368
 msgid "More about your channel"
 msgstr ""
 
@@ -818,13 +824,13 @@ msgstr "Please upload a custom thumbnail"
 msgid "Popular"
 msgstr "Popular"
 
-#: src/components/Upload/UploadSteps.tsx:119
+#: src/components/Upload/UploadSteps.tsx:124
 #: src/components/Upload/UploadSteps.tsx:151
-#: src/components/Upload/UploadSteps.tsx:495
+#: src/components/Upload/UploadSteps.tsx:534
 msgid "Post Video"
 msgstr "Post Video"
 
-#: src/components/Upload/UploadSteps.tsx:360
+#: src/components/Upload/UploadSteps.tsx:409
 msgid "Posting video"
 msgstr "Posting video"
 
@@ -920,7 +926,7 @@ msgstr ""
 msgid "Revoke"
 msgstr ""
 
-#: src/components/Settings/BasicInfo.tsx:407
+#: src/components/Settings/BasicInfo.tsx:408
 msgid "Save"
 msgstr ""
 
@@ -1038,7 +1044,7 @@ msgstr "Status"
 msgid "Stay active in current tab while uploading for faster experience"
 msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:304
+#: src/components/Upload/UploadSteps.tsx:353
 msgid "Storing metadata"
 msgstr ""
 
@@ -1113,7 +1119,7 @@ msgstr "Terms"
 msgid "Thanks"
 msgstr "Thanks"
 
-#: src/components/Watch/TipModal.tsx:82
+#: src/components/Watch/TipModal.tsx:84
 msgid "Thanks for making this video!"
 msgstr ""
 
@@ -1137,7 +1143,7 @@ msgstr ""
 msgid "This cannot be reverted."
 msgstr ""
 
-#: src/components/Watch/TipModal.tsx:462
+#: src/components/Watch/TipModal.tsx:490
 msgid "This will be published as a public comment."
 msgstr ""
 
@@ -1145,28 +1151,28 @@ msgstr ""
 msgid "Threat Individual"
 msgstr ""
 
-#: src/components/Watch/TipModal.tsx:422
+#: src/components/Watch/TipModal.tsx:450
 #: src/components/Watch/VideoActions.tsx:48
 msgid "Tip"
 msgstr ""
 
-#: src/components/Watch/TipModal.tsx:67
+#: src/components/Watch/TipModal.tsx:69
 msgid "Tip message is requried"
 msgstr ""
 
-#: src/components/Watch/TipModal.tsx:66
+#: src/components/Watch/TipModal.tsx:68
 msgid "Tip should be greater than 0 MATIC"
 msgstr ""
 
-#: src/components/Watch/TipModal.tsx:65
+#: src/components/Watch/TipModal.tsx:67
 msgid "Tip should be less than or equal to 100 MATIC"
 msgstr ""
 
-#: src/components/Watch/TipModal.tsx:64
+#: src/components/Watch/TipModal.tsx:66
 msgid "Tip should to greater than zero"
 msgstr ""
 
-#: src/components/Watch/TipModal.tsx:151
+#: src/components/Watch/TipModal.tsx:160
 msgid "Tipped successfully"
 msgstr ""
 
@@ -1296,11 +1302,11 @@ msgstr ""
 msgid "Uploading thumbnail"
 msgstr "Uploading thumbnail"
 
-#: src/components/Upload/UploadSteps.tsx:454
+#: src/components/Upload/UploadSteps.tsx:493
 msgid "Uploading to Arweave"
 msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:421
+#: src/components/Upload/UploadSteps.tsx:460
 msgid "Uploading to IPFS"
 msgstr ""
 
@@ -1323,7 +1329,7 @@ msgstr "Video deleted"
 msgid "Video format not supported"
 msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:444
+#: src/components/Upload/UploadSteps.tsx:483
 msgid "Video not uploaded correctly"
 msgstr ""
 
@@ -1385,7 +1391,7 @@ msgstr ""
 msgid "Watch Video"
 msgstr ""
 
-#: src/components/Settings/BasicInfo.tsx:391
+#: src/components/Settings/BasicInfo.tsx:392
 msgid "Website"
 msgstr ""
 
@@ -1453,4 +1459,3 @@ msgstr "Your Channel"
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
 msgstr "Your Storage Balance"
-
