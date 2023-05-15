@@ -348,11 +348,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
    */
 
   const submitComment = async (txnHash: string) => {
-    if (video.isDataAvailability && !isSponsored) {
-      return toast.error(
-        t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
-      )
-    }
     try {
       setLoading(true)
       const metadataUri = await uploadToAr({
@@ -421,6 +416,11 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const onSendTip = async () => {
     if (!selectedChannelId) {
       return openConnectModal?.()
+    }
+    if (video.isDataAvailability && !isSponsored) {
+      return toast.error(
+        t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
+      )
     }
     setLoading(true)
     const amountToSend = Number(getValues('tipQuantity')) * 1
