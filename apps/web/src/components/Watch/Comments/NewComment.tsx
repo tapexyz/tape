@@ -122,20 +122,14 @@ const NewComment: FC<Props> = ({
     setLoading(false)
   }
 
-  const onCompleted = (data: any) => {
-    if (
-      data?.broadcast?.reason === 'NOT_ALLOWED' ||
-      data.createCommentViaDispatcher?.reason
-    ) {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
       return
     }
     Analytics.track(TRACK.PUBLICATION.NEW_COMMENT, {
       publication_id: video.id,
       publication_state: video.isDataAvailability ? 'DATA_ONLY' : 'ON_CHAIN'
     })
-    const txnId =
-      data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
-    return setToQueue({ txnId })
   }
 
   const onError = (error: CustomErrorWithData) => {
@@ -162,12 +156,22 @@ const NewComment: FC<Props> = ({
 
   const [broadcast] = useBroadcastMutation({
     onError,
-    onCompleted
+    onCompleted: ({ broadcast }) => {
+      onCompleted(broadcast.__typename)
+      if (broadcast.__typename === 'RelayerResult') {
+        setToQueue(broadcast.txId)
+      }
+    }
   })
 
   const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
     onError,
-    onCompleted
+    onCompleted: ({ createCommentViaDispatcher }) => {
+      onCompleted(createCommentViaDispatcher.__typename)
+      if (createCommentViaDispatcher.__typename === 'RelayerResult') {
+        setToQueue(createCommentViaDispatcher.txId)
+      }
+    }
   })
 
   const [getComment] = usePublicationDetailsLazyQuery()
@@ -273,6 +277,7 @@ const NewComment: FC<Props> = ({
   const [broadcastDataAvailabilityComment] =
     useBroadcastDataAvailabilityMutation({
       onCompleted: async (data) => {
+        onCompleted()
         if (data.broadcastDataAvailability.__typename === 'RelayError') {
           return toast.error(ERROR_MESSAGE)
         }
@@ -283,7 +288,6 @@ const NewComment: FC<Props> = ({
           const commentId = data?.broadcastDataAvailability.id
           await fetchAndCacheComment(commentId)
         }
-        onCompleted(data)
       },
       onError
     })
@@ -292,14 +296,20 @@ const NewComment: FC<Props> = ({
     useCreateDataAvailabilityCommentViaDispatcherMutation({
       onCompleted: async (data) => {
         if (
+          data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
+          'RelayError'
+        ) {
+          return
+        }
+        if (
           data?.createDataAvailabilityCommentViaDispatcher.__typename ===
           'CreateDataAvailabilityPublicationResult'
         ) {
+          onCompleted()
           const { id: commentId } =
             data.createDataAvailabilityCommentViaDispatcher
           await fetchAndCacheComment(commentId)
         }
-        onCompleted(data)
       },
       onError
     })
