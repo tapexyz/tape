@@ -14,6 +14,7 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { BigNumber, utils } from 'ethers'
 import type {
   CreateCommentBroadcastItemResult,
+  CreateDataAvailabilityCommentRequest,
   CreatePublicCommentRequest,
   Publication
 } from 'lens'
@@ -96,6 +97,9 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
+  // Dispatcher
+  const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
+  const isSponsored = selectedChannel?.dispatcher?.sponsor
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error.message)
@@ -312,6 +316,23 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         })
       }
     })
+
+  const createViaDataAvailablityDispatcher = async (
+    request: CreateDataAvailabilityCommentRequest
+  ) => {
+    const variables = { request }
+
+    const { data } = await createDataAvailabilityCommentViaDispatcher({
+      variables
+    })
+
+    if (
+      data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
+      'RelayError'
+    ) {
+      return await createDataAvailabilityCommentTypedData({ variables })
+    }
+  }
   /**
    * DATA AVAILABILITY ENDS
    */
@@ -351,28 +372,11 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         appId: LENSTUBE_APP_ID
       })
 
-      // Create Data Availability comment
-      if (video.isDataAvailability) {
-        const dataAvailablityRequest = {
-          from: selectedChannel?.id,
-          commentOn: video.id,
-          contentURI: metadataUri
-        }
-        const { data } = await createDataAvailabilityCommentViaDispatcher({
-          variables: { request: dataAvailablityRequest }
-        })
-        // Fallback to DA dispatcher error
-        if (
-          data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
-          'RelayError'
-        ) {
-          return await createDataAvailabilityCommentTypedData({
-            variables: { request: dataAvailablityRequest }
-          })
-        }
-        return
+      const dataAvailablityRequest = {
+        from: selectedChannel?.id,
+        commentOn: video.id,
+        contentURI: metadataUri
       }
-
       const request = {
         profileId: selectedChannel?.id,
         publicationId: video?.id,
@@ -384,13 +388,18 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           followerOnlyReferenceModule: false
         }
       }
-      const canUseDispatcher =
-        selectedChannel?.dispatcher?.canUseRelay &&
-        selectedChannel.dispatcher.sponsor
-      if (!canUseDispatcher) {
-        return createTypedData(request)
+
+      if (canUseRelay) {
+        if (video.isDataAvailability && isSponsored) {
+          return await createViaDataAvailablityDispatcher(
+            dataAvailablityRequest
+          )
+        }
+
+        return await createViaDispatcher(request)
       }
-      await createViaDispatcher(request)
+
+      return createTypedData(request)
     } catch {}
   }
 
