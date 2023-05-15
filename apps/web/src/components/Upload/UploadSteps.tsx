@@ -85,7 +85,7 @@ const UploadSteps = () => {
 
   // Dispatcher
   const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
-  const isSponsored = !selectedChannel?.dispatcher?.sponsor
+  const isSponsored = selectedChannel?.dispatcher?.sponsor
 
   const redirectToChannelPage = () => {
     router.push(
