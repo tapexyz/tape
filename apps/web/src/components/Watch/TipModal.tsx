@@ -348,6 +348,11 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
    */
 
   const submitComment = async (txnHash: string) => {
+    if (video.isDataAvailability && !isSponsored) {
+      return toast.error(
+        t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
+      )
+    }
     try {
       setLoading(true)
       const metadataUri = await uploadToAr({
