@@ -151,26 +151,20 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         ...(queuedComments || [])
       ])
     }
-    setLoading(false)
-    setShowTip(false)
+  }
+
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return
+    }
     toast.success(t`Tipped successfully`)
     Analytics.track(TRACK.PUBLICATION.NEW_COMMENT, {
       publication_id: video.id,
       comment_type: 'tip',
       publication_state: video.isDataAvailability ? 'DATA_ONLY' : 'ON_CHAIN'
     })
-  }
-
-  const onCompleted = (data: any) => {
-    if (
-      data?.broadcast?.reason === 'NOT_ALLOWED' ||
-      data.createCommentViaDispatcher?.reason
-    ) {
-      return
-    }
-    const txnId =
-      data?.createCommentViaDispatcher?.txId ?? data?.broadcast?.txId
-    return setToQueue({ txnId })
+    setLoading(false)
+    setShowTip(false)
   }
 
   const { write: writeComment } = useContractWrite({
@@ -186,12 +180,22 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
 
   const [broadcast] = useBroadcastMutation({
     onError,
-    onCompleted
+    onCompleted: ({ broadcast }) => {
+      onCompleted(broadcast.__typename)
+      if (broadcast.__typename === 'RelayerResult') {
+        setToQueue(broadcast.txId)
+      }
+    }
   })
 
   const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
     onError,
-    onCompleted
+    onCompleted: ({ createCommentViaDispatcher }) => {
+      onCompleted(createCommentViaDispatcher.__typename)
+      if (createCommentViaDispatcher.__typename === 'RelayerResult') {
+        setToQueue(createCommentViaDispatcher.txId)
+      }
+    }
   })
 
   const getSignatureFromTypedData = async (
@@ -252,8 +256,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
-  const createTypedData = (request: CreatePublicCommentRequest) => {
-    createCommentTypedData({
+  const createTypedData = async (request: CreatePublicCommentRequest) => {
+    await createCommentTypedData({
       variables: { options: { overrideSigNonce: userSigNonce }, request }
     })
   }
@@ -263,7 +267,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       variables: { request }
     })
     if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
-      createTypedData(request)
+      await createTypedData(request)
     }
   }
 
@@ -273,6 +277,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const [broadcastDataAvailabilityComment] =
     useBroadcastDataAvailabilityMutation({
       onCompleted: async (data) => {
+        onCompleted()
         if (data.broadcastDataAvailability.__typename === 'RelayError') {
           return toast.error(ERROR_MESSAGE)
         }
@@ -283,7 +288,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           const commentId = data?.broadcastDataAvailability.id
           await fetchAndCacheComment(commentId)
         }
-        onCompleted(data)
       },
       onError
     })
@@ -292,14 +296,20 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     useCreateDataAvailabilityCommentViaDispatcherMutation({
       onCompleted: async (data) => {
         if (
+          data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
+          'RelayError'
+        ) {
+          return
+        }
+        if (
           data?.createDataAvailabilityCommentViaDispatcher.__typename ===
           'CreateDataAvailabilityPublicationResult'
         ) {
+          onCompleted()
           const { id: commentId } =
             data.createDataAvailabilityCommentViaDispatcher
           await fetchAndCacheComment(commentId)
         }
-        onCompleted(data)
       },
       onError
     })
