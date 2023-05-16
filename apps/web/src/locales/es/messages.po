@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-30 01:33\n"
+"PO-Revision-Date: 2023-05-16 01:25\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -137,11 +137,11 @@ msgstr "Cancelar"
 msgid "Category"
 msgstr "Categoría"
 
-#: src/components/Settings/BasicInfo.tsx:300
+#: src/components/Settings/BasicInfo.tsx:301
 msgid "Change"
 msgstr "Cambiar"
 
-#: src/components/Settings/BasicInfo.tsx:313
+#: src/components/Settings/BasicInfo.tsx:314
 msgid "Channel"
 msgstr "Canal"
 
@@ -149,11 +149,11 @@ msgstr "Canal"
 msgid "Channel deleted"
 msgstr "Canal eliminado"
 
-#: src/components/Settings/BasicInfo.tsx:366
+#: src/components/Settings/BasicInfo.tsx:367
 msgid "Channel Description"
 msgstr "Descripción del canal"
 
-#: src/components/Settings/ChannelPicture.tsx:61
+#: src/components/Settings/ChannelPicture.tsx:65
 msgid "Channel image updated"
 msgstr "Imagen del canal actualizada"
 
@@ -162,7 +162,7 @@ msgstr "Imagen del canal actualizada"
 msgid "Channel Settings"
 msgstr "Ajustes del canal"
 
-#: src/components/Settings/BasicInfo.tsx:337
+#: src/components/Settings/BasicInfo.tsx:338
 msgid "Channel URL"
 msgstr "URL del canal"
 
@@ -240,7 +240,7 @@ msgstr "recolecta"
 msgid "Collects"
 msgstr "Colecciones"
 
-#: src/components/Watch/Comments/NewComment.tsx:431
+#: src/components/Watch/Comments/NewComment.tsx:458
 msgid "Comment"
 msgstr "Comentario"
 
@@ -253,7 +253,7 @@ msgstr "Comentario eliminado"
 msgid "comment on"
 msgstr "comentar en"
 
-#: src/components/Watch/Comments/NewComment.tsx:63
+#: src/components/Watch/Comments/NewComment.tsx:64
 msgid "Comment should not exceed 5000 characters"
 msgstr "El comentario no debe exceder de 5000 caracteres"
 
@@ -378,7 +378,7 @@ msgstr "despachador"
 msgid "Dispatcher"
 msgstr "Despachador"
 
-#: src/components/Settings/BasicInfo.tsx:357
+#: src/components/Settings/BasicInfo.tsx:358
 msgid "Display Name"
 msgstr "Mostrar nombre"
 
@@ -411,8 +411,8 @@ msgstr "Termina en"
 msgid "Enter deposit amount"
 msgstr "Ingrese la cantidad del depósito"
 
-#: src/components/Watch/Comments/NewComment.tsx:60
-#: src/components/Watch/Comments/NewComment.tsx:62
+#: src/components/Watch/Comments/NewComment.tsx:61
+#: src/components/Watch/Comments/NewComment.tsx:63
 msgid "Enter valid comment"
 msgstr "Ingrese un comentario válido"
 
@@ -439,7 +439,7 @@ msgstr "Error al depositar el saldo"
 msgid "Failed to upload thumbnail"
 msgstr "Error al subir la miniatura"
 
-#: src/components/Upload/UploadSteps.tsx:491
+#: src/components/Upload/UploadSteps.tsx:530
 msgid "Failed to upload video to Arweave"
 msgstr "No se pudo subir el vídeo a Arweave"
 
@@ -459,7 +459,7 @@ msgstr "Comentarios"
 msgid "for given fees"
 msgstr "por los honorarios dados"
 
-#: src/components/Settings/BasicInfo.tsx:330
+#: src/components/Settings/BasicInfo.tsx:331
 msgid "Get Verified"
 msgstr "Verificar"
 
@@ -482,7 +482,7 @@ msgstr "Señal alta"
 msgid "Home"
 msgstr "Inicio"
 
-#: src/components/Watch/Comments/NewComment.tsx:70
+#: src/components/Watch/Comments/NewComment.tsx:71
 msgid "How's this video?"
 msgstr "¿Cómo es este vídeo?"
 
@@ -502,7 +502,7 @@ msgstr "Indexando, por favor espere..."
 msgid "Indexing..."
 msgstr "Indexando..."
 
-#: src/components/Upload/UploadSteps.tsx:449
+#: src/components/Upload/UploadSteps.tsx:488
 msgid "Insufficient balance"
 msgstr "Saldo insuficiente"
 
@@ -535,7 +535,7 @@ msgstr "¡Firma no válida!"
 msgid "Invalid split recipient address"
 msgstr "Dirección de destinatario dividida inválida"
 
-#: src/components/Upload/UploadSteps.tsx:428
+#: src/components/Upload/UploadSteps.tsx:467
 msgid "IPFS Upload failed"
 msgstr "Error al subir IPFS"
 
@@ -587,7 +587,7 @@ msgstr "Colección limitada"
 msgid "Links"
 msgstr "Enlaces"
 
-#: src/components/Settings/BasicInfo.tsx:399
+#: src/components/Settings/BasicInfo.tsx:400
 msgid "Location"
 msgstr "Ubicación"
 
@@ -623,7 +623,7 @@ msgstr "mirror"
 msgid "Mirror"
 msgstr "Mirror"
 
-#: src/components/Common/MirrorVideo.tsx:203
+#: src/components/Common/MirrorVideo.tsx:214
 msgid "Mirror video across Lens"
 msgstr "Vídeo de espejo a través de la lente"
 
@@ -640,7 +640,7 @@ msgstr "Mirado por"
 msgid "mirrored your"
 msgstr "espejo de tu"
 
-#: src/components/Common/MirrorVideo.tsx:206
+#: src/components/Common/MirrorVideo.tsx:217
 msgid "Mirroring"
 msgstr "Mirroring"
 
@@ -656,7 +656,13 @@ msgstr "Misular"
 msgid "Misuse Hashtags"
 msgstr "Etiquetas erróneas"
 
-#: src/components/Settings/BasicInfo.tsx:367
+#: src/components/Common/MirrorVideo.tsx:176
+#: src/components/Watch/Comments/NewComment.tsx:353
+#: src/components/Watch/TipModal.tsx:353
+msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
+msgstr "Momoka está actualmente en fase beta - durante este tiempo determinadas acciones no están disponibles para todos los canales."
+
+#: src/components/Settings/BasicInfo.tsx:368
 msgid "More about your channel"
 msgstr "Más acerca de tu canal"
 
@@ -818,13 +824,13 @@ msgstr "Por favor, sube una miniatura personalizada"
 msgid "Popular"
 msgstr "Popular"
 
-#: src/components/Upload/UploadSteps.tsx:119
+#: src/components/Upload/UploadSteps.tsx:124
 #: src/components/Upload/UploadSteps.tsx:151
-#: src/components/Upload/UploadSteps.tsx:495
+#: src/components/Upload/UploadSteps.tsx:534
 msgid "Post Video"
 msgstr "Publicar vídeo"
 
-#: src/components/Upload/UploadSteps.tsx:360
+#: src/components/Upload/UploadSteps.tsx:409
 msgid "Posting video"
 msgstr "Publicando vídeo"
 
@@ -920,7 +926,7 @@ msgstr "Ingresos"
 msgid "Revoke"
 msgstr "Revoke"
 
-#: src/components/Settings/BasicInfo.tsx:407
+#: src/components/Settings/BasicInfo.tsx:408
 msgid "Save"
 msgstr "Guardar"
 
@@ -1038,7 +1044,7 @@ msgstr "Estado"
 msgid "Stay active in current tab while uploading for faster experience"
 msgstr "Manténgase activo en la pestaña actual mientras sube para una experiencia más rápida"
 
-#: src/components/Upload/UploadSteps.tsx:304
+#: src/components/Upload/UploadSteps.tsx:353
 msgid "Storing metadata"
 msgstr "Almacenando metadatos"
 
@@ -1113,7 +1119,7 @@ msgstr "Términos"
 msgid "Thanks"
 msgstr "Gracias"
 
-#: src/components/Watch/TipModal.tsx:82
+#: src/components/Watch/TipModal.tsx:84
 msgid "Thanks for making this video!"
 msgstr "¡Gracias por hacer este video!"
 
@@ -1137,7 +1143,7 @@ msgstr "Estos son los módulos de recogida que has permitido / necesitas permiti
 msgid "This cannot be reverted."
 msgstr "Esto no se puede revertir."
 
-#: src/components/Watch/TipModal.tsx:462
+#: src/components/Watch/TipModal.tsx:490
 msgid "This will be published as a public comment."
 msgstr "Esto se publicará como un comentario público."
 
@@ -1145,28 +1151,28 @@ msgstr "Esto se publicará como un comentario público."
 msgid "Threat Individual"
 msgstr "Amenaza Individual"
 
-#: src/components/Watch/TipModal.tsx:422
+#: src/components/Watch/TipModal.tsx:450
 #: src/components/Watch/VideoActions.tsx:48
 msgid "Tip"
 msgstr "Tip"
 
-#: src/components/Watch/TipModal.tsx:67
+#: src/components/Watch/TipModal.tsx:69
 msgid "Tip message is requried"
 msgstr "Mensaje de consejo solicitado"
 
-#: src/components/Watch/TipModal.tsx:66
+#: src/components/Watch/TipModal.tsx:68
 msgid "Tip should be greater than 0 MATIC"
 msgstr "El consejo debe ser mayor que 0 MATIC"
 
-#: src/components/Watch/TipModal.tsx:65
+#: src/components/Watch/TipModal.tsx:67
 msgid "Tip should be less than or equal to 100 MATIC"
 msgstr "El consejo debe ser menor o igual a 100 MATIC"
 
-#: src/components/Watch/TipModal.tsx:64
+#: src/components/Watch/TipModal.tsx:66
 msgid "Tip should to greater than zero"
 msgstr "Consejo debe ser mayor que cero"
 
-#: src/components/Watch/TipModal.tsx:151
+#: src/components/Watch/TipModal.tsx:160
 msgid "Tipped successfully"
 msgstr "Tipped con éxito"
 
@@ -1296,11 +1302,11 @@ msgstr "Subir a IPFS"
 msgid "Uploading thumbnail"
 msgstr "Subiendo miniatura"
 
-#: src/components/Upload/UploadSteps.tsx:454
+#: src/components/Upload/UploadSteps.tsx:493
 msgid "Uploading to Arweave"
 msgstr "Subiendo a Artisar"
 
-#: src/components/Upload/UploadSteps.tsx:421
+#: src/components/Upload/UploadSteps.tsx:460
 msgid "Uploading to IPFS"
 msgstr "Subiendo a IPFS"
 
@@ -1323,7 +1329,7 @@ msgstr "Vídeo eliminado"
 msgid "Video format not supported"
 msgstr "Formato de vídeo no soportado"
 
-#: src/components/Upload/UploadSteps.tsx:444
+#: src/components/Upload/UploadSteps.tsx:483
 msgid "Video not uploaded correctly"
 msgstr "El vídeo no se ha subido correctamente"
 
@@ -1385,7 +1391,7 @@ msgstr "Vigilar"
 msgid "Watch Video"
 msgstr "Ver vídeo"
 
-#: src/components/Settings/BasicInfo.tsx:391
+#: src/components/Settings/BasicInfo.tsx:392
 msgid "Website"
 msgstr "Sitio web"
 

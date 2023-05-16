@@ -23,62 +23,38 @@ const handleRequest = async (request: Request, env: Env) => {
   try {
     const payload = (await request.json()) as any
 
-    if (!payload.sourceUrl) {
+    if (!payload.cid) {
       return new Response(
-        JSON.stringify({ success: false, message: 'No source provided' }),
+        JSON.stringify({ success: false, message: 'No asset cid provided' }),
         { headers }
       )
     }
 
-    const data = await fetch(
-      `https://livepeer.studio/api/asset?sourceUrl=${payload.sourceUrl}&phase=ready&limit=1&order=createdAt-false`,
+    const response = await fetch(
+      `https://livepeer.studio/api/data/views/query/total/${payload.cid}`,
       {
         headers: {
           Authorization: `Bearer ${env.LIVEPEER_API_TOKEN}`
         }
       }
     )
-    const assetRes = (await data.json()) as any
+    const viewsRes = (await response.json()) as any
 
-    if (assetRes && assetRes?.length) {
-      const response = await fetch(
-        `https://livepeer.studio/api/data/views/${
-          assetRes[assetRes.length - 1].id
-        }/total`,
-        {
-          headers: {
-            Authorization: `Bearer ${env.LIVEPEER_API_TOKEN}`
-          }
-        }
-      )
-      const viewsRes = (await response.json()) as any
-
-      if (!viewsRes || !viewsRes?.length) {
-        return new Response(
-          JSON.stringify({
-            success: true,
-            views: 0
-          }),
-          {
-            headers
-          }
-        )
-      }
+    if (!viewsRes.viewCount) {
       return new Response(
         JSON.stringify({
           success: true,
-          views: viewsRes[0].startViews
+          views: 0
         }),
         {
           headers
         }
       )
     }
-
     return new Response(
       JSON.stringify({
         success: true,
-        views: 0
+        views: viewsRes.viewCount
       }),
       {
         headers

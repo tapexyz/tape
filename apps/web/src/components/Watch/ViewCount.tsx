@@ -2,8 +2,8 @@ import { Trans } from '@lingui/macro'
 import React from 'react'
 import useVideoViews from 'utils/hooks/useVideoViews'
 
-const ViewCount = ({ url }: { url: string }) => {
-  const { views } = useVideoViews(url)
+const ViewCount = ({ cid }: { cid: string }) => {
+  const { views } = useVideoViews(cid)
 
   return (
     <>
