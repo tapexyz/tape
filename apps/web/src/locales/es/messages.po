@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-30 01:33\n"
+"PO-Revision-Date: 2023-05-16 01:25\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -660,7 +660,7 @@ msgstr "Etiquetas erróneas"
 #: src/components/Watch/Comments/NewComment.tsx:353
 #: src/components/Watch/TipModal.tsx:353
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
-msgstr ""
+msgstr "Momoka está actualmente en fase beta - durante este tiempo determinadas acciones no están disponibles para todos los canales."
 
 #: src/components/Settings/BasicInfo.tsx:368
 msgid "More about your channel"
@@ -1459,3 +1459,4 @@ msgstr "Tu Canal"
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
 msgstr "Tu saldo de almacenamiento"
+
