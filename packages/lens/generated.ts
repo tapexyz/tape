@@ -308,6 +308,7 @@ export type CollectModule =
   | LimitedTimedFeeCollectModuleSettings
   | MultirecipientFeeCollectModuleSettings
   | RevertCollectModuleSettings
+  | SimpleCollectModuleSettings
   | TimedFeeCollectModuleSettings
   | UnknownCollectModuleSettings
 
@@ -328,6 +329,8 @@ export type CollectModuleParams = {
   multirecipientFeeCollectModule?: InputMaybe<MultirecipientFeeCollectModuleParams>
   /** The collect revert collect module */
   revertCollectModule?: InputMaybe<Scalars['Boolean']>
+  /** The collect simple fee collect module */
+  simpleCollectModule?: InputMaybe<SimpleCollectModuleParams>
   /** The collect timed fee collect module */
   timedFeeCollectModule?: InputMaybe<TimedFeeCollectModuleParams>
   /** A unknown collect module */
@@ -344,6 +347,7 @@ export enum CollectModules {
   LimitedTimedFeeCollectModule = 'LimitedTimedFeeCollectModule',
   MultirecipientFeeCollectModule = 'MultirecipientFeeCollectModule',
   RevertCollectModule = 'RevertCollectModule',
+  SimpleCollectModule = 'SimpleCollectModule',
   TimedFeeCollectModule = 'TimedFeeCollectModule',
   UnknownCollectModule = 'UnknownCollectModule'
 }
@@ -1062,6 +1066,7 @@ export type DataAvailabilityComment = {
   publicationId: Scalars['InternalPublicationId']
   submitter: Scalars['EthereumAddress']
   transactionId: Scalars['String']
+  verificationStatus: DataAvailabilityVerificationStatusUnion
 }
 
 export type DataAvailabilityMirror = {
@@ -1074,6 +1079,7 @@ export type DataAvailabilityMirror = {
   publicationId: Scalars['InternalPublicationId']
   submitter: Scalars['EthereumAddress']
   transactionId: Scalars['String']
+  verificationStatus: DataAvailabilityVerificationStatusUnion
 }
 
 export type DataAvailabilityPost = {
@@ -1084,6 +1090,7 @@ export type DataAvailabilityPost = {
   publicationId: Scalars['InternalPublicationId']
   submitter: Scalars['EthereumAddress']
   transactionId: Scalars['String']
+  verificationStatus: DataAvailabilityVerificationStatusUnion
 }
 
 export type DataAvailabilitySubmitterResult = {
@@ -1126,6 +1133,20 @@ export type DataAvailabilityTransactionsResult = {
   items: Array<DataAvailabilityTransactionUnion>
   pageInfo: PaginatedResultInfo
 }
+
+export type DataAvailabilityVerificationStatusFailure = {
+  __typename?: 'DataAvailabilityVerificationStatusFailure'
+  status?: Maybe<MomokaValidatorError>
+}
+
+export type DataAvailabilityVerificationStatusSuccess = {
+  __typename?: 'DataAvailabilityVerificationStatusSuccess'
+  verified: Scalars['Boolean']
+}
+
+export type DataAvailabilityVerificationStatusUnion =
+  | DataAvailabilityVerificationStatusFailure
+  | DataAvailabilityVerificationStatusSuccess
 
 /** The reason why a profile cannot decrypt a publication */
 export enum DecryptFailReason {
@@ -2097,6 +2118,16 @@ export type MirrorEvent = {
 
 export type MirrorablePublication = Comment | Post
 
+export type ModuleFee = {
+  __typename?: 'ModuleFee'
+  /** The fee amount */
+  amount: ModuleFeeAmount
+  /** The fee recipient */
+  recipient: Scalars['EthereumAddress']
+  /** The referral fee */
+  referralFee: Scalars['Float']
+}
+
 export type ModuleFeeAmount = {
   __typename?: 'ModuleFeeAmount'
   /** The erc20 token info */
@@ -2112,10 +2143,51 @@ export type ModuleFeeAmountParams = {
   value: Scalars['String']
 }
 
+export type ModuleFeeParams = {
+  /** The fee amount */
+  amount: ModuleFeeAmountParams
+  /** The fee recipient */
+  recipient: Scalars['EthereumAddress']
+  /** The referral fee */
+  referralFee: Scalars['Float']
+}
+
 export type ModuleInfo = {
   __typename?: 'ModuleInfo'
   name: Scalars['String']
   type: Scalars['String']
+}
+
+/** The momka validator error */
+export enum MomokaValidatorError {
+  BlockCantBeReadFromNode = 'BLOCK_CANT_BE_READ_FROM_NODE',
+  BlockTooFar = 'BLOCK_TOO_FAR',
+  CanNotConnectToBundlr = 'CAN_NOT_CONNECT_TO_BUNDLR',
+  ChainSignatureAlreadyUsed = 'CHAIN_SIGNATURE_ALREADY_USED',
+  DataCantBeReadFromNode = 'DATA_CANT_BE_READ_FROM_NODE',
+  EventMismatch = 'EVENT_MISMATCH',
+  GeneratedPublicationIdMismatch = 'GENERATED_PUBLICATION_ID_MISMATCH',
+  InvalidEventTimestamp = 'INVALID_EVENT_TIMESTAMP',
+  InvalidFormattedTypedData = 'INVALID_FORMATTED_TYPED_DATA',
+  InvalidPointerSetNotNeeded = 'INVALID_POINTER_SET_NOT_NEEDED',
+  InvalidSignatureSubmitter = 'INVALID_SIGNATURE_SUBMITTER',
+  InvalidTxId = 'INVALID_TX_ID',
+  InvalidTypedDataDeadlineTimestamp = 'INVALID_TYPED_DATA_DEADLINE_TIMESTAMP',
+  NotClosestBlock = 'NOT_CLOSEST_BLOCK',
+  NoSignatureSubmitter = 'NO_SIGNATURE_SUBMITTER',
+  PointerFailedVerification = 'POINTER_FAILED_VERIFICATION',
+  PotentialReorg = 'POTENTIAL_REORG',
+  PublicationNonceInvalid = 'PUBLICATION_NONCE_INVALID',
+  PublicationNoneDa = 'PUBLICATION_NONE_DA',
+  PublicationNoPointer = 'PUBLICATION_NO_POINTER',
+  PublicationSignerNotAllowed = 'PUBLICATION_SIGNER_NOT_ALLOWED',
+  SimulationFailed = 'SIMULATION_FAILED',
+  SimulationNodeCouldNotRun = 'SIMULATION_NODE_COULD_NOT_RUN',
+  TimestampProofInvalidDaId = 'TIMESTAMP_PROOF_INVALID_DA_ID',
+  TimestampProofInvalidSignature = 'TIMESTAMP_PROOF_INVALID_SIGNATURE',
+  TimestampProofInvalidType = 'TIMESTAMP_PROOF_INVALID_TYPE',
+  TimestampProofNotSubmitter = 'TIMESTAMP_PROOF_NOT_SUBMITTER',
+  Unknown = 'UNKNOWN'
 }
 
 export type MultirecipientFeeCollectModuleParams = {
@@ -4077,6 +4149,32 @@ export type SignedAuthChallenge = {
   signature: Scalars['Signature']
 }
 
+export type SimpleCollectModuleParams = {
+  /** The collect module limit */
+  collectLimit?: InputMaybe<Scalars['String']>
+  /** The timestamp that this collect module will expire */
+  endTimestamp?: InputMaybe<Scalars['DateTime']>
+  /** The collect module fee params */
+  fee?: InputMaybe<ModuleFeeParams>
+  /** Collectible by followers only */
+  followerOnly: Scalars['Boolean']
+}
+
+export type SimpleCollectModuleSettings = {
+  __typename?: 'SimpleCollectModuleSettings'
+  /** The maximum number of collects for this publication. 0 for no limit. */
+  collectLimit?: Maybe<Scalars['String']>
+  contractAddress: Scalars['ContractAddress']
+  /** The end timestamp after which collecting is impossible. 0 for no expiry. */
+  endTimestamp?: Maybe<Scalars['DateTime']>
+  /** The collect module fee params */
+  fee?: Maybe<ModuleFee>
+  /** True if only followers of publisher may collect the post. */
+  followerOnly: Scalars['Boolean']
+  /** The collect modules enum */
+  type: CollectModules
+}
+
 export type SingleProfileQueryRequest = {
   /** The handle for the profile */
   handle?: InputMaybe<Scalars['Handle']>
@@ -4458,6 +4556,31 @@ type CollectFields_RevertCollectModuleSettings_Fragment = {
   __typename?: 'RevertCollectModuleSettings'
 }
 
+type CollectFields_SimpleCollectModuleSettings_Fragment = {
+  __typename?: 'SimpleCollectModuleSettings'
+  type: CollectModules
+  contractAddress: any
+  followerOnly: boolean
+  optionalCollectLimit?: string | null
+  optionalEndTimestamp?: any | null
+  fee?: {
+    __typename?: 'ModuleFee'
+    recipient: any
+    referralFee: number
+    amount: {
+      __typename?: 'ModuleFeeAmount'
+      value: string
+      asset: {
+        __typename?: 'Erc20'
+        name: string
+        symbol: string
+        decimals: number
+        address: any
+      }
+    }
+  } | null
+}
+
 type CollectFields_TimedFeeCollectModuleSettings_Fragment = {
   __typename?: 'TimedFeeCollectModuleSettings'
   type: CollectModules
@@ -4492,6 +4615,7 @@ export type CollectFieldsFragment =
   | CollectFields_LimitedTimedFeeCollectModuleSettings_Fragment
   | CollectFields_MultirecipientFeeCollectModuleSettings_Fragment
   | CollectFields_RevertCollectModuleSettings_Fragment
+  | CollectFields_SimpleCollectModuleSettings_Fragment
   | CollectFields_TimedFeeCollectModuleSettings_Fragment
   | CollectFields_UnknownCollectModuleSettings_Fragment
 
@@ -4669,6 +4793,30 @@ export type CommentFieldsFragment = {
         }
       }
     | { __typename?: 'RevertCollectModuleSettings' }
+    | {
+        __typename?: 'SimpleCollectModuleSettings'
+        type: CollectModules
+        contractAddress: any
+        followerOnly: boolean
+        optionalCollectLimit?: string | null
+        optionalEndTimestamp?: any | null
+        fee?: {
+          __typename?: 'ModuleFee'
+          recipient: any
+          referralFee: number
+          amount: {
+            __typename?: 'ModuleFeeAmount'
+            value: string
+            asset: {
+              __typename?: 'Erc20'
+              name: string
+              symbol: string
+              decimals: number
+              address: any
+            }
+          }
+        } | null
+      }
     | {
         __typename?: 'TimedFeeCollectModuleSettings'
         type: CollectModules
@@ -5021,6 +5169,30 @@ export type MirrorFieldsFragment = {
       }
     | { __typename?: 'RevertCollectModuleSettings' }
     | {
+        __typename?: 'SimpleCollectModuleSettings'
+        type: CollectModules
+        contractAddress: any
+        followerOnly: boolean
+        optionalCollectLimit?: string | null
+        optionalEndTimestamp?: any | null
+        fee?: {
+          __typename?: 'ModuleFee'
+          recipient: any
+          referralFee: number
+          amount: {
+            __typename?: 'ModuleFeeAmount'
+            value: string
+            asset: {
+              __typename?: 'Erc20'
+              name: string
+              symbol: string
+              decimals: number
+              address: any
+            }
+          }
+        } | null
+      }
+    | {
         __typename?: 'TimedFeeCollectModuleSettings'
         type: CollectModules
         recipient: any
@@ -5245,6 +5417,30 @@ export type MirrorFieldsFragment = {
               }
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | {
+              __typename?: 'SimpleCollectModuleSettings'
+              type: CollectModules
+              contractAddress: any
+              followerOnly: boolean
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
+              fee?: {
+                __typename?: 'ModuleFee'
+                recipient: any
+                referralFee: number
+                amount: {
+                  __typename?: 'ModuleFeeAmount'
+                  value: string
+                  asset: {
+                    __typename?: 'Erc20'
+                    name: string
+                    symbol: string
+                    decimals: number
+                    address: any
+                  }
+                }
+              } | null
+            }
           | {
               __typename?: 'TimedFeeCollectModuleSettings'
               type: CollectModules
@@ -5569,6 +5765,30 @@ export type MirrorFieldsFragment = {
             }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
+              __typename?: 'SimpleCollectModuleSettings'
+              type: CollectModules
+              contractAddress: any
+              followerOnly: boolean
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
+              fee?: {
+                __typename?: 'ModuleFee'
+                recipient: any
+                referralFee: number
+                amount: {
+                  __typename?: 'ModuleFeeAmount'
+                  value: string
+                  asset: {
+                    __typename?: 'Erc20'
+                    name: string
+                    symbol: string
+                    decimals: number
+                    address: any
+                  }
+                }
+              } | null
+            }
+          | {
               __typename?: 'TimedFeeCollectModuleSettings'
               type: CollectModules
               recipient: any
@@ -5803,6 +6023,30 @@ export type PostFieldsFragment = {
         }
       }
     | { __typename?: 'RevertCollectModuleSettings' }
+    | {
+        __typename?: 'SimpleCollectModuleSettings'
+        type: CollectModules
+        contractAddress: any
+        followerOnly: boolean
+        optionalCollectLimit?: string | null
+        optionalEndTimestamp?: any | null
+        fee?: {
+          __typename?: 'ModuleFee'
+          recipient: any
+          referralFee: number
+          amount: {
+            __typename?: 'ModuleFeeAmount'
+            value: string
+            asset: {
+              __typename?: 'Erc20'
+              name: string
+              symbol: string
+              decimals: number
+              address: any
+            }
+          }
+        } | null
+      }
     | {
         __typename?: 'TimedFeeCollectModuleSettings'
         type: CollectModules
@@ -6951,6 +7195,30 @@ export type CommentsQuery = {
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
+                __typename?: 'SimpleCollectModuleSettings'
+                type: CollectModules
+                contractAddress: any
+                followerOnly: boolean
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
+                fee?: {
+                  __typename?: 'ModuleFee'
+                  recipient: any
+                  referralFee: number
+                  amount: {
+                    __typename?: 'ModuleFeeAmount'
+                    value: string
+                    asset: {
+                      __typename?: 'Erc20'
+                      name: string
+                      symbol: string
+                      decimals: number
+                      address: any
+                    }
+                  }
+                } | null
+              }
+            | {
                 __typename?: 'TimedFeeCollectModuleSettings'
                 type: CollectModules
                 recipient: any
@@ -7352,6 +7620,30 @@ export type ExploreQuery = {
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
+                __typename?: 'SimpleCollectModuleSettings'
+                type: CollectModules
+                contractAddress: any
+                followerOnly: boolean
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
+                fee?: {
+                  __typename?: 'ModuleFee'
+                  recipient: any
+                  referralFee: number
+                  amount: {
+                    __typename?: 'ModuleFeeAmount'
+                    value: string
+                    asset: {
+                      __typename?: 'Erc20'
+                      name: string
+                      symbol: string
+                      decimals: number
+                      address: any
+                    }
+                  }
+                } | null
+              }
+            | {
                 __typename?: 'TimedFeeCollectModuleSettings'
                 type: CollectModules
                 recipient: any
@@ -7680,6 +7972,30 @@ export type ExploreQuery = {
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
+                __typename?: 'SimpleCollectModuleSettings'
+                type: CollectModules
+                contractAddress: any
+                followerOnly: boolean
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
+                fee?: {
+                  __typename?: 'ModuleFee'
+                  recipient: any
+                  referralFee: number
+                  amount: {
+                    __typename?: 'ModuleFeeAmount'
+                    value: string
+                    asset: {
+                      __typename?: 'Erc20'
+                      name: string
+                      symbol: string
+                      decimals: number
+                      address: any
+                    }
+                  }
+                } | null
+              }
+            | {
                 __typename?: 'TimedFeeCollectModuleSettings'
                 type: CollectModules
                 recipient: any
@@ -7926,6 +8242,30 @@ export type FeedQuery = {
                   }
                 }
               | { __typename?: 'RevertCollectModuleSettings' }
+              | {
+                  __typename?: 'SimpleCollectModuleSettings'
+                  type: CollectModules
+                  contractAddress: any
+                  followerOnly: boolean
+                  optionalCollectLimit?: string | null
+                  optionalEndTimestamp?: any | null
+                  fee?: {
+                    __typename?: 'ModuleFee'
+                    recipient: any
+                    referralFee: number
+                    amount: {
+                      __typename?: 'ModuleFeeAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Erc20'
+                        name: string
+                        symbol: string
+                        decimals: number
+                        address: any
+                      }
+                    }
+                  } | null
+                }
               | {
                   __typename?: 'TimedFeeCollectModuleSettings'
                   type: CollectModules
@@ -8253,6 +8593,30 @@ export type FeedQuery = {
                   }
                 }
               | { __typename?: 'RevertCollectModuleSettings' }
+              | {
+                  __typename?: 'SimpleCollectModuleSettings'
+                  type: CollectModules
+                  contractAddress: any
+                  followerOnly: boolean
+                  optionalCollectLimit?: string | null
+                  optionalEndTimestamp?: any | null
+                  fee?: {
+                    __typename?: 'ModuleFee'
+                    recipient: any
+                    referralFee: number
+                    amount: {
+                      __typename?: 'ModuleFeeAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Erc20'
+                        name: string
+                        symbol: string
+                        decimals: number
+                        address: any
+                      }
+                    }
+                  } | null
+                }
               | {
                   __typename?: 'TimedFeeCollectModuleSettings'
                   type: CollectModules
@@ -9198,6 +9562,30 @@ export type ProfileMirrorsQuery = {
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
+                __typename?: 'SimpleCollectModuleSettings'
+                type: CollectModules
+                contractAddress: any
+                followerOnly: boolean
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
+                fee?: {
+                  __typename?: 'ModuleFee'
+                  recipient: any
+                  referralFee: number
+                  amount: {
+                    __typename?: 'ModuleFeeAmount'
+                    value: string
+                    asset: {
+                      __typename?: 'Erc20'
+                      name: string
+                      symbol: string
+                      decimals: number
+                      address: any
+                    }
+                  }
+                } | null
+              }
+            | {
                 __typename?: 'TimedFeeCollectModuleSettings'
                 type: CollectModules
                 recipient: any
@@ -9426,6 +9814,30 @@ export type ProfileMirrorsQuery = {
                       }
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | {
+                      __typename?: 'SimpleCollectModuleSettings'
+                      type: CollectModules
+                      contractAddress: any
+                      followerOnly: boolean
+                      optionalCollectLimit?: string | null
+                      optionalEndTimestamp?: any | null
+                      fee?: {
+                        __typename?: 'ModuleFee'
+                        recipient: any
+                        referralFee: number
+                        amount: {
+                          __typename?: 'ModuleFeeAmount'
+                          value: string
+                          asset: {
+                            __typename?: 'Erc20'
+                            name: string
+                            symbol: string
+                            decimals: number
+                            address: any
+                          }
+                        }
+                      } | null
+                    }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings'
                       type: CollectModules
@@ -9760,6 +10172,30 @@ export type ProfileMirrorsQuery = {
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
+                      __typename?: 'SimpleCollectModuleSettings'
+                      type: CollectModules
+                      contractAddress: any
+                      followerOnly: boolean
+                      optionalCollectLimit?: string | null
+                      optionalEndTimestamp?: any | null
+                      fee?: {
+                        __typename?: 'ModuleFee'
+                        recipient: any
+                        referralFee: number
+                        amount: {
+                          __typename?: 'ModuleFeeAmount'
+                          value: string
+                          asset: {
+                            __typename?: 'Erc20'
+                            name: string
+                            symbol: string
+                            decimals: number
+                            address: any
+                          }
+                        }
+                      } | null
+                    }
+                  | {
                       __typename?: 'TimedFeeCollectModuleSettings'
                       type: CollectModules
                       recipient: any
@@ -10042,6 +10478,30 @@ export type ProfilePostsQuery = {
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
+                __typename?: 'SimpleCollectModuleSettings'
+                type: CollectModules
+                contractAddress: any
+                followerOnly: boolean
+                optionalCollectLimit?: string | null
+                optionalEndTimestamp?: any | null
+                fee?: {
+                  __typename?: 'ModuleFee'
+                  recipient: any
+                  referralFee: number
+                  amount: {
+                    __typename?: 'ModuleFeeAmount'
+                    value: string
+                    asset: {
+                      __typename?: 'Erc20'
+                      name: string
+                      symbol: string
+                      decimals: number
+                      address: any
+                    }
+                  }
+                } | null
+              }
+            | {
                 __typename?: 'TimedFeeCollectModuleSettings'
                 type: CollectModules
                 recipient: any
@@ -10244,6 +10704,30 @@ export type PublicationCollectModuleQuery = {
               }
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | {
+              __typename?: 'SimpleCollectModuleSettings'
+              type: CollectModules
+              contractAddress: any
+              followerOnly: boolean
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
+              fee?: {
+                __typename?: 'ModuleFee'
+                recipient: any
+                referralFee: number
+                amount: {
+                  __typename?: 'ModuleFeeAmount'
+                  value: string
+                  asset: {
+                    __typename?: 'Erc20'
+                    name: string
+                    symbol: string
+                    decimals: number
+                    address: any
+                  }
+                }
+              } | null
+            }
           | {
               __typename?: 'TimedFeeCollectModuleSettings'
               type: CollectModules
@@ -10452,6 +10936,30 @@ export type PublicationDetailsQuery = {
               }
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | {
+              __typename?: 'SimpleCollectModuleSettings'
+              type: CollectModules
+              contractAddress: any
+              followerOnly: boolean
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
+              fee?: {
+                __typename?: 'ModuleFee'
+                recipient: any
+                referralFee: number
+                amount: {
+                  __typename?: 'ModuleFeeAmount'
+                  value: string
+                  asset: {
+                    __typename?: 'Erc20'
+                    name: string
+                    symbol: string
+                    decimals: number
+                    address: any
+                  }
+                }
+              } | null
+            }
           | {
               __typename?: 'TimedFeeCollectModuleSettings'
               type: CollectModules
@@ -10776,6 +11284,30 @@ export type PublicationDetailsQuery = {
             }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
+              __typename?: 'SimpleCollectModuleSettings'
+              type: CollectModules
+              contractAddress: any
+              followerOnly: boolean
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
+              fee?: {
+                __typename?: 'ModuleFee'
+                recipient: any
+                referralFee: number
+                amount: {
+                  __typename?: 'ModuleFeeAmount'
+                  value: string
+                  asset: {
+                    __typename?: 'Erc20'
+                    name: string
+                    symbol: string
+                    decimals: number
+                    address: any
+                  }
+                }
+              } | null
+            }
+          | {
               __typename?: 'TimedFeeCollectModuleSettings'
               type: CollectModules
               recipient: any
@@ -11000,6 +11532,30 @@ export type PublicationDetailsQuery = {
                     }
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | {
+                    __typename?: 'SimpleCollectModuleSettings'
+                    type: CollectModules
+                    contractAddress: any
+                    followerOnly: boolean
+                    optionalCollectLimit?: string | null
+                    optionalEndTimestamp?: any | null
+                    fee?: {
+                      __typename?: 'ModuleFee'
+                      recipient: any
+                      referralFee: number
+                      amount: {
+                        __typename?: 'ModuleFeeAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Erc20'
+                          name: string
+                          symbol: string
+                          decimals: number
+                          address: any
+                        }
+                      }
+                    } | null
+                  }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings'
                     type: CollectModules
@@ -11328,6 +11884,30 @@ export type PublicationDetailsQuery = {
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
+                    __typename?: 'SimpleCollectModuleSettings'
+                    type: CollectModules
+                    contractAddress: any
+                    followerOnly: boolean
+                    optionalCollectLimit?: string | null
+                    optionalEndTimestamp?: any | null
+                    fee?: {
+                      __typename?: 'ModuleFee'
+                      recipient: any
+                      referralFee: number
+                      amount: {
+                        __typename?: 'ModuleFeeAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Erc20'
+                          name: string
+                          symbol: string
+                          decimals: number
+                          address: any
+                        }
+                      }
+                    } | null
+                  }
+                | {
                     __typename?: 'TimedFeeCollectModuleSettings'
                     type: CollectModules
                     recipient: any
@@ -11565,6 +12145,30 @@ export type PublicationDetailsQuery = {
               }
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | {
+              __typename?: 'SimpleCollectModuleSettings'
+              type: CollectModules
+              contractAddress: any
+              followerOnly: boolean
+              optionalCollectLimit?: string | null
+              optionalEndTimestamp?: any | null
+              fee?: {
+                __typename?: 'ModuleFee'
+                recipient: any
+                referralFee: number
+                amount: {
+                  __typename?: 'ModuleFeeAmount'
+                  value: string
+                  asset: {
+                    __typename?: 'Erc20'
+                    name: string
+                    symbol: string
+                    decimals: number
+                    address: any
+                  }
+                }
+              } | null
+            }
           | {
               __typename?: 'TimedFeeCollectModuleSettings'
               type: CollectModules
@@ -11891,6 +12495,30 @@ export type SearchPublicationsQuery = {
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
+                    __typename?: 'SimpleCollectModuleSettings'
+                    type: CollectModules
+                    contractAddress: any
+                    followerOnly: boolean
+                    optionalCollectLimit?: string | null
+                    optionalEndTimestamp?: any | null
+                    fee?: {
+                      __typename?: 'ModuleFee'
+                      recipient: any
+                      referralFee: number
+                      amount: {
+                        __typename?: 'ModuleFeeAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Erc20'
+                          name: string
+                          symbol: string
+                          decimals: number
+                          address: any
+                        }
+                      }
+                    } | null
+                  }
+                | {
                     __typename?: 'TimedFeeCollectModuleSettings'
                     type: CollectModules
                     recipient: any
@@ -12217,6 +12845,30 @@ export type SearchPublicationsQuery = {
                     }
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | {
+                    __typename?: 'SimpleCollectModuleSettings'
+                    type: CollectModules
+                    contractAddress: any
+                    followerOnly: boolean
+                    optionalCollectLimit?: string | null
+                    optionalEndTimestamp?: any | null
+                    fee?: {
+                      __typename?: 'ModuleFee'
+                      recipient: any
+                      referralFee: number
+                      amount: {
+                        __typename?: 'ModuleFeeAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Erc20'
+                          name: string
+                          symbol: string
+                          decimals: number
+                          address: any
+                        }
+                      }
+                    } | null
+                  }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings'
                     type: CollectModules
@@ -12555,6 +13207,23 @@ export const CollectFieldsFragmentDoc = gql`
           ...Erc20Fields
         }
         value
+      }
+    }
+    ... on SimpleCollectModuleSettings {
+      type
+      optionalCollectLimit: collectLimit
+      optionalEndTimestamp: endTimestamp
+      contractAddress
+      followerOnly
+      fee {
+        amount {
+          asset {
+            ...Erc20Fields
+          }
+          value
+        }
+        recipient
+        referralFee
       }
     }
   }
@@ -16939,6 +17608,7 @@ const result: PossibleTypesResultData = {
       'LimitedTimedFeeCollectModuleSettings',
       'MultirecipientFeeCollectModuleSettings',
       'RevertCollectModuleSettings',
+      'SimpleCollectModuleSettings',
       'TimedFeeCollectModuleSettings',
       'UnknownCollectModuleSettings'
     ],
@@ -16946,6 +17616,10 @@ const result: PossibleTypesResultData = {
       'DataAvailabilityComment',
       'DataAvailabilityMirror',
       'DataAvailabilityPost'
+    ],
+    DataAvailabilityVerificationStatusUnion: [
+      'DataAvailabilityVerificationStatusFailure',
+      'DataAvailabilityVerificationStatusSuccess'
     ],
     FeedItemRoot: ['Comment', 'Post'],
     FollowModule: [

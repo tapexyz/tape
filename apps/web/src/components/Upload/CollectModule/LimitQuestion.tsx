@@ -21,26 +21,21 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
-              isLimitedFeeCollect: false,
-              isLimitedTimeFeeCollect: false,
-              isFeeCollect: false,
-              isFreeCollect: uploadedVideo.collectModule.isTimedFeeCollect
-                ? false
-                : true
+              collectLimitEnabled: false
             })
           }
           className={clsx(
             'flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-2 text-sm focus:outline-none dark:border-gray-700',
             {
               '!border-indigo-500':
-                !uploadedVideo.collectModule.isLimitedFeeCollect
+                !uploadedVideo.collectModule.collectLimitEnabled
             }
           )}
         >
           <span>
             <Trans>Unlimited collects</Trans>
           </span>
-          {!uploadedVideo.collectModule.isLimitedFeeCollect && (
+          {!uploadedVideo.collectModule.collectLimitEnabled && (
             <CheckOutline className="h-3 w-3" />
           )}
         </button>
@@ -48,27 +43,23 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
-              isFeeCollect: true,
-              isFreeCollect: false,
-              isLimitedFeeCollect: true,
-              isLimitedTimeFeeCollect: uploadedVideo.collectModule
-                .isTimedFeeCollect
-                ? true
-                : false
+              // isFeeCollect: true,
+              // isFreeCollect: false,
+              collectLimitEnabled: true
             })
           }
           className={clsx(
             'flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-2 text-sm focus:outline-none dark:border-gray-700',
             {
               '!border-indigo-500':
-                uploadedVideo.collectModule.isLimitedFeeCollect
+                uploadedVideo.collectModule.collectLimitEnabled
             }
           )}
         >
           <span>
             <Trans>Limited collect</Trans>
           </span>
-          {uploadedVideo.collectModule.isLimitedFeeCollect && (
+          {uploadedVideo.collectModule.collectLimitEnabled && (
             <CheckOutline className="h-3 w-3" />
           )}
         </button>

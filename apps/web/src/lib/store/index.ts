@@ -44,14 +44,12 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
     followerOnlyCollect: false,
     amount: { currency: WMATIC_TOKEN_ADDRESS, value: '' },
     referralFee: 0,
-    isTimedFeeCollect: false,
-    isFreeCollect: false,
+    timeLimit: false,
     isFeeCollect: false,
     isRevertCollect: true,
-    isLimitedFeeCollect: false,
-    isLimitedTimeFeeCollect: false,
     isMultiRecipientFeeCollect: false,
     collectLimit: '0',
+    collectLimitEnabled: false,
     multiRecipients: []
   },
   referenceModule: {

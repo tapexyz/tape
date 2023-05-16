@@ -21,9 +21,7 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
-              isFreeCollect: true,
               isRevertCollect: false,
-              isFeeCollect: false,
               followerOnlyCollect: false
             })
           }
@@ -49,9 +47,7 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           onClick={() =>
             setCollectType({
               followerOnlyCollect: true,
-              isRevertCollect: false,
-              isFreeCollect: true,
-              isFeeCollect: false
+              isRevertCollect: false
             })
           }
           className={clsx(

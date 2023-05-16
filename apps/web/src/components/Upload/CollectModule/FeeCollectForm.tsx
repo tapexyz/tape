@@ -66,10 +66,7 @@ const FeeCollectForm: FC<Props> = ({
   })
 
   useEffect(() => {
-    if (
-      uploadedVideo.collectModule.isLimitedFeeCollect ||
-      uploadedVideo.collectModule.isLimitedTimeFeeCollect
-    ) {
+    if (uploadedVideo.collectModule.collectLimitEnabled) {
       register('collectLimit')
     } else {
       unregister('collectLimit')
@@ -134,8 +131,7 @@ const FeeCollectForm: FC<Props> = ({
 
   return (
     <form className="space-y-3">
-      {uploadedVideo.collectModule.isLimitedFeeCollect ||
-      uploadedVideo.collectModule.isLimitedTimeFeeCollect ? (
+      {uploadedVideo.collectModule.collectLimitEnabled ? (
         <div>
           <Input
             label={t`Total Collectibles`}

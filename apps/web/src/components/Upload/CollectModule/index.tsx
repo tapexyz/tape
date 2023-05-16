@@ -35,27 +35,27 @@ const CollectModule = () => {
 
   const getSelectedCollectType = () => {
     const followerOnlyCollect = uploadedVideo.collectModule.followerOnlyCollect
-    const isTimedFeeCollect = uploadedVideo.collectModule.isTimedFeeCollect
-    const isLimitedFeeCollect = uploadedVideo.collectModule.isLimitedFeeCollect
+    const timeLimitEnabled = uploadedVideo.collectModule.timeLimitEnabled
+    const collectLimitEnabled = uploadedVideo.collectModule.collectLimitEnabled
     const collectLimit = uploadedVideo.collectModule.collectLimit
     const multiRecipients = uploadedVideo.collectModule.multiRecipients
     if (uploadedVideo.collectModule.isRevertCollect) {
       return t`No one can collect this publication`
     }
-    if (uploadedVideo.collectModule.isFreeCollect) {
+    if (Boolean(uploadedVideo.collectModule.amount?.value)) {
       return `${
         followerOnlyCollect ? t`Subscribers` : t`Anyone`
-      } can collect for free ${isTimedFeeCollect ? t`within 24hrs` : ''}`
+      } can collect for free ${timeLimitEnabled ? t`within 24hrs` : ''}`
     }
-    if (!uploadedVideo.collectModule.isFreeCollect) {
+    if (!Boolean(uploadedVideo.collectModule.amount?.value)) {
       return (
         <div className="flex items-center space-x-1">
           <span>
             {followerOnlyCollect ? t`Subscribers` : t`Anyone`}{' '}
             <Trans>can collect</Trans>{' '}
-            {isLimitedFeeCollect ? `maximum of ${collectLimit}` : ''}{' '}
+            {collectLimitEnabled ? `maximum of ${collectLimit}` : ''}{' '}
             <Trans>for given fees</Trans>{' '}
-            {isTimedFeeCollect ? t`within 24hrs` : ''}
+            {timeLimitEnabled ? t`within 24hrs` : ''}
           </span>
           {uploadedVideo.collectModule.isMultiRecipientFeeCollect && (
             <Tooltip
@@ -108,15 +108,13 @@ const CollectModule = () => {
               uploadedVideo={uploadedVideo}
             />
           )}
-          {!uploadedVideo.collectModule.isRevertCollect &&
-            !uploadedVideo.collectModule.isTimedFeeCollect &&
-            !uploadedVideo.collectModule.isLimitedFeeCollect && (
-              <ChargeQuestion
-                setCollectType={setCollectType}
-                uploadedVideo={uploadedVideo}
-              />
-            )}
-          {!uploadedVideo.collectModule.isFreeCollect &&
+          {!uploadedVideo.collectModule.isRevertCollect && (
+            <ChargeQuestion
+              setCollectType={setCollectType}
+              uploadedVideo={uploadedVideo}
+            />
+          )}
+          {uploadedVideo.collectModule.isFeeCollect &&
           !uploadedVideo.collectModule.isRevertCollect &&
           enabledCurrencies ? (
             <FeeCollectForm
