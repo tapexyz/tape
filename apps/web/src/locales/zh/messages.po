@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-30 01:33\n"
+"PO-Revision-Date: 2023-05-17 01:25\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -660,7 +660,7 @@ msgstr "错误使用哈希标签"
 #: src/components/Watch/Comments/NewComment.tsx:353
 #: src/components/Watch/TipModal.tsx:353
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
-msgstr ""
+msgstr "Momoka目前处于测试版中 - 在此期间某些操作不能用于所有频道。"
 
 #: src/components/Settings/BasicInfo.tsx:368
 msgid "More about your channel"
@@ -1459,3 +1459,4 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
+
