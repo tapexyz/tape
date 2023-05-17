@@ -14,7 +14,7 @@
     "next": "13.4.2"
   },
   "devDependencies": {
-    "@types/node": "20.1.4",
+    "@types/node": "20.1.7",
     "eslint-config-weblint": "*",
     "lens": "*",
     "tsconfig": "*",
