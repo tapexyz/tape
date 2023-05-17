@@ -1,12 +1,12 @@
-import type { Publication } from 'lens'
-import { PublicationDetailsDocument } from 'lens'
-import type { NextApiResponse } from 'next'
-import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from 'utils'
-import getApolloClient from 'utils/functions/getApolloClient'
-import getMetaTags from 'utils/functions/getMetaTags'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
-import truncate from 'utils/functions/truncate'
+import type { Publication } from 'lens';
+import { PublicationDetailsDocument } from 'lens';
+import type { NextApiResponse } from 'next';
+import { FALLBACK_COVER_URL, LENSTUBE_APP_DESCRIPTION } from 'utils';
+import getApolloClient from 'utils/functions/getApolloClient';
+import getMetaTags from 'utils/functions/getMetaTags';
+import getThumbnailUrl from 'utils/functions/getThumbnailUrl';
+import imageCdn from 'utils/functions/imageCdn';
+import truncate from 'utils/functions/truncate';
 
 const apolloClient = getApolloClient()
 
@@ -26,7 +26,10 @@ const getPublicationMeta = async (
 
     const title = truncate(video?.metadata?.name as string, 100)
     const description = truncate(video?.metadata?.description as string, 100)
-    const thumbnail = imageCdn(getThumbnailUrl(video) || OG_IMAGE, 'thumbnail')
+    const thumbnail = imageCdn(
+      getThumbnailUrl(video) || `${FALLBACK_COVER_URL}`,
+      'thumbnail'
+    )
 
     return res
       .setHeader('Content-Type', 'text/html')
@@ -44,9 +47,9 @@ const getPublicationMeta = async (
   } catch {
     return res.setHeader('Content-Type', 'text/html').send(
       getMetaTags({
-        title: 'Lenstube',
+        title: 'Dragverse',
         description: LENSTUBE_APP_DESCRIPTION,
-        image: OG_IMAGE
+        image: `${FALLBACK_COVER_URL}`
       })
     )
   }

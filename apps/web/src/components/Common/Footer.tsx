@@ -1,15 +1,12 @@
-import usePersistStore from '@lib/store/persist'
-import { Trans } from '@lingui/macro'
-import Link from 'next/link'
-import React from 'react'
+import usePersistStore from '@lib/store/persist';
+import Link from 'next/link';
 import {
   Analytics,
   LENSTUBE_GITHUB_HANDLE,
   LENSTUBE_ROADMAP_URL,
-  LENSTUBE_STATUS_PAGE,
   LENSTUBE_TWITTER_HANDLE,
   TRACK
-} from 'utils'
+} from 'utils';
 
 const Footer = () => {
   const setSidebarCollapsed = usePersistStore(
@@ -18,7 +15,7 @@ const Footer = () => {
 
   return (
     <div className="grid grid-cols-2 text-sm">
-      <Link
+      {/* <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         href={LENSTUBE_STATUS_PAGE}
         onClick={() => {
@@ -28,7 +25,7 @@ const Footer = () => {
         target="_blank"
       >
         <Trans>Status</Trans>
-      </Link>
+      </Link> */}
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         href={`https://github.com/${LENSTUBE_GITHUB_HANDLE}`}
@@ -53,7 +50,7 @@ const Footer = () => {
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-        href="/discord"
+        href={`${LENSTUBE_DISCORD_INVITE_URL}`}
         onClick={() => {
           setSidebarCollapsed(true)
           Analytics.track(TRACK.SYSTEM.MORE_MENU.DISCORD)
@@ -62,7 +59,7 @@ const Footer = () => {
       >
         Discord
       </Link>
-      <Link
+      {/* <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         href="/thanks"
         target="_blank"
@@ -72,7 +69,7 @@ const Footer = () => {
         }}
       >
         <Trans>Thanks</Trans>
-      </Link>
+      </Link> */}
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         href={LENSTUBE_ROADMAP_URL}

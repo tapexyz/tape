@@ -1,15 +1,15 @@
-import type { Publication } from 'lens'
-import { PublicationDetailsDocument } from 'lens'
+import type { Publication } from 'lens';
+import { PublicationDetailsDocument } from 'lens';
 import {
+  FALLBACK_COVER_URL,
   LENSTUBE_APP_NAME,
   LENSTUBE_EMBED_URL,
-  LENSTUBE_WEBSITE_URL,
-  OG_IMAGE
-} from 'utils'
-import getApolloClient from 'utils/functions/getApolloClient'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
-import truncate from 'utils/functions/truncate'
+  LENSTUBE_WEBSITE_URL
+} from 'utils';
+import getApolloClient from 'utils/functions/getApolloClient';
+import getThumbnailUrl from 'utils/functions/getThumbnailUrl';
+import imageCdn from 'utils/functions/imageCdn';
+import truncate from 'utils/functions/truncate';
 
 const apolloClient = getApolloClient()
 
@@ -27,7 +27,10 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
       '"',
       "'"
     )
-    const thumbnail = imageCdn(getThumbnailUrl(video) || OG_IMAGE, 'thumbnail')
+    const thumbnail = imageCdn(
+      getThumbnailUrl(video) || `${FALLBACK_COVER_URL}`,
+      'thumbnail'
+    )
 
     if (format === 'json') {
       return {
@@ -61,7 +64,7 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
               <thumbnail_width>480</thumbnail_width>
               <thumbnail_url>${thumbnail}</thumbnail_url>
               <html>
-                <iframe width="200" height="113" src="${LENSTUBE_EMBED_URL}/${video.id}" title="Lenstube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen="true"></iframe>
+                <iframe width="200" height="113" src="${LENSTUBE_EMBED_URL}/${video.id}" title="Dragverse video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen="true"></iframe>
               </html>
               </oembed>`
     }

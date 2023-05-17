@@ -1,8 +1,11 @@
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import type { FC } from 'react'
-import React from 'react'
-import { LENSTUBE_APP_NAME, LENSTUBE_WEBSITE_URL, OG_IMAGE } from 'utils'
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import type { FC } from 'react';
+import {
+  FALLBACK_COVER_URL,
+  LENSTUBE_APP_NAME,
+  LENSTUBE_WEBSITE_URL
+} from 'utils';
 
 type Props = {
   title?: string
@@ -16,11 +19,11 @@ const MetaTags: FC<Props> = (props) => {
   const router = useRouter()
 
   const meta = {
-    title: `${title} • Lenstube` ?? LENSTUBE_APP_NAME,
+    title: `${title} • Dragverse` ?? LENSTUBE_APP_NAME,
     description:
       description ??
-      'Lenstube is a decentralized video-sharing social media platform built with Lens protocol.',
-    image: image ?? OG_IMAGE,
+      'Dragverse is a livestreaming and decentralized video-sharing social media platform built with Lens protocol and inspired by the Lenstube project.',
+    image: image ?? `${FALLBACK_COVER_URL}`,
     type: 'video.other',
     videoUrl
   }

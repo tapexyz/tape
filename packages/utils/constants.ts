@@ -1,10 +1,11 @@
-import { CustomFiltersTypes } from 'lens'
+import { CustomFiltersTypes } from 'lens';
 
-export const LENSTUBE_APP_NAME = 'Lenstube'
+export const LENSTUBE_APP_NAME = 'Dragverse'
 export const LENSTUBE_APP_DESCRIPTION =
-  'Lenstube is a decentralized video-sharing social media platform built with Lens protocol.'
+  'Dragverse is a livestreaming and decentralized video-sharing social media platform built with Lens protocol and inspired by the Lenstube project.'
 
 export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT ?? 'mainnet'
+// export const IS_MAINNET = LENS_ENV === 'mainnet'
 export const IS_MAINNET = LENS_ENV === 'mainnet'
 export const IS_STAGING = LENS_ENV === 'staging'
 export const IS_SANDBOX = LENS_ENV === 'sandbox'
@@ -12,14 +13,22 @@ export const IS_SANDBOX = LENS_ENV === 'sandbox'
 export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 export const IS_PRODUCTION = !IS_DEVELOPMENT
 
-export const STATIC_ASSETS = 'https://static.lenstube.xyz'
+export const STATIC_ASSETS = 'https://dragverse.4everland.store'
 export const LENSTUBE_WEBSITE_URL = IS_MAINNET
-  ? 'https://lenstube.xyz'
-  : 'https://testnet.lenstube.xyz'
-export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallbackThumbnail.png`
-export const OG_IMAGE = `${STATIC_ASSETS}/images/seo/og.png`
-export const IMAGE_CDN_URL = IS_PRODUCTION ? 'https://img.lenstube.xyz' : ''
-export const SCROLL_ROOT_MARGIN = '60% 0px'
+  ? 'https://dragverse.app' // TODO: change testnet to mainnet when ready
+  : 'https://dragverse.app'
+export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/dragverse.svg`
+export const BANNER_URL = `${STATIC_ASSETS}/dragverse-banner.png`
+export const BASE_LIVESTREAM_VIDEO_URL = `${STATIC_ASSETS}/dragverse-base-live-video.mp4`
+export const LENSTER_ICON_URL = `${STATIC_ASSETS}/lenster-logo.svg`
+export const TWITTER_ICON_URL = `${STATIC_ASSETS}/twitter-logo.jpeg`
+export const LINKEDIN_ICON_URL = `${STATIC_ASSETS}/linkedin-logo.png`
+export const REDDIT_ICON_URL = `${STATIC_ASSETS}/reddit-logo.png`
+export const DRAGVERSE_SPATIAL_URL =
+  'https://www.spatial.io/s/Dragverse-6330ebb42e62cd0001922a97?share=6796815018867406198'
+export const OG_IMAGE = `${FALLBACK_COVER_URL}`
+export const IMAGE_CDN_URL = IS_MAINNET ? 'https://img.lenstube.xyz' : ''
+export const SCROLL_ROOT_MARGIN = '40% 0px'
 
 // lens
 export const MAINNET_API_URL = 'https://api.lens.dev'
@@ -63,13 +72,13 @@ export const POLYGONSCAN_URL = IS_MAINNET
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 // ipfs
-export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 5000 : 100 // in MB
+export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 2000 : 100
 export const IPFS_GATEWAY_URL = 'https://gateway.ipfscdn.io/ipfs'
 export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
 
 // livepeer
-export const LIVEPEER_STUDIO_API_KEY = 'b13fd43e-d0d6-4abc-a5df-93592a0c5124'
+export const LIVEPEER_STUDIO_API_KEY = '60935d4a-46ae-40fe-b580-f306a8ad2e48'
 
 // workers
 export const LIVEPEER_VIEWS_URL = 'https://views.lenstube.xyz'
@@ -90,18 +99,22 @@ export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
 
 // error messages
 export const ERROR_MESSAGE = 'Oops, something went wrong!'
+export const SIGN_IN_REQUIRED_MESSAGE = 'Sign in required'
 
 // App Ids
-export const LENSTUBE_APP_ID = 'lenstube'
-export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
+export const LENSTUBE_APP_ID = 'dragverse'
+export const LENSTUBE_BYTES_APP_ID = 'dragverse-bytes'
 export const ALLOWED_APP_IDS = ['orb', 'lenster', 'buttrfly']
 
 // official
-export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'
-export const LENSTUBE_GITHUB_HANDLE = 'lenstube-xyz'
-export const LENSTUBE_STATUS_PAGE = 'https://status.lenstube.xyz'
+export const LENSTUBE_TWITTER_HANDLE = 'metadragverse'
+export const LENSTUBE_GITHUB_HANDLE = 'dragverse'
+export const LENSTUBE_DISCORD_INVITE_URL = 'https://discord.gg/TbjTTgTh'
+export const LENSTUBE_STATUS_PAGE = 'https://status.dragverse.app'
 export const TALLY_VERIFICATION_FORM_URL = 'https://tally.so/r/mY5e80'
-export const LENSTUBE_ROADMAP_URL = 'https://roadmap.lenstube.xyz'
+export const LENSTUBE_ROADMAP_URL = 'https://dragverse.canny.io'
+export const DRAGVERSE_TERMS_URL = 'https://dragverse.io/terms'
+export const DRAGVERSE_PRIVACY_URL = 'https://www.dragverse.io/privacy-policy'
 
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']

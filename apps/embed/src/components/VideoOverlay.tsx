@@ -1,10 +1,9 @@
-import type { Publication } from 'lens'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React from 'react'
-import { Analytics, TRACK } from 'utils'
-import { LENSTUBE_WEBSITE_URL, STATIC_ASSETS } from 'utils/constants'
-import getProfilePicture from 'utils/functions/getProfilePicture'
+import type { Publication } from 'lens';
+import Link from 'next/link';
+import type { FC } from 'react';
+import { Analytics, TRACK } from 'utils';
+import { FALLBACK_COVER_URL, LENSTUBE_WEBSITE_URL } from 'utils/constants';
+import getProfilePicture from 'utils/functions/getProfilePicture';
 
 type Props = {
   video: Publication
@@ -63,15 +62,15 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
               onClick={() =>
                 Analytics.track(TRACK.EMBED_VIDEO.WATCH_ON_LENSTUBE)
               }
-              title="Watch on LensTube"
+              title="Watch on Dragverse"
               href={`${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`}
               target="_blank"
             >
               <img
-                src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
+                src={`${FALLBACK_COVER_URL}`}
                 draggable={false}
                 className="ml-0.5 h-8 w-8 rounded-full"
-                alt="lenstube"
+                alt="dragverse"
               />
             </Link>
           </div>

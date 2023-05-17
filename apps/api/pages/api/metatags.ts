@@ -1,8 +1,8 @@
-import getProfileMeta from 'lib/getProfileMeta'
-import getPublicationMeta from 'lib/getPublicationMeta'
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from 'utils'
-import getMetaTags from 'utils/functions/getMetaTags'
+import getProfileMeta from 'lib/getProfileMeta';
+import getPublicationMeta from 'lib/getPublicationMeta';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from 'utils';
+import getMetaTags from 'utils/functions/getMetaTags';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET') {
@@ -34,7 +34,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.setHeader('Content-Type', 'text/html').send(
       getMetaTags({
-        title: 'Lenstube',
+        title: 'Dragverse',
         description: LENSTUBE_APP_DESCRIPTION,
         image: OG_IMAGE
       })
@@ -42,7 +42,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   } catch (error) {
     return res.setHeader('Content-Type', 'text/html').send(
       getMetaTags({
-        title: 'Lenstube',
+        title: 'Dragverse',
         description: LENSTUBE_APP_DESCRIPTION,
         image: OG_IMAGE
       })

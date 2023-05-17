@@ -1,23 +1,23 @@
-import { Button } from '@components/UIElements/Button'
-import { Input } from '@components/UIElements/Input'
-import Modal from '@components/UIElements/Modal'
-import { zodResolver } from '@hookform/resolvers/zod'
-import usePendingTxn from '@hooks/usePendingTxn'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { useCreateProfileMutation } from 'lens'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { IS_MAINNET, ZERO_ADDRESS } from 'utils'
-import getLensHandle from 'utils/functions/getLensHandle'
-import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
-import imageCdn from 'utils/functions/imageCdn'
-import trimify from 'utils/functions/trimify'
-import useIsMounted from 'utils/hooks/useIsMounted'
-import { useAccount } from 'wagmi'
-import z from 'zod'
+import { Button } from '@components/UIElements/Button';
+import { Input } from '@components/UIElements/Input';
+import Modal from '@components/UIElements/Modal';
+import { zodResolver } from '@hookform/resolvers/zod';
+import usePendingTxn from '@hooks/usePendingTxn';
+import useChannelStore from '@lib/store/channel';
+import { t, Trans } from '@lingui/macro';
+import { useCreateProfileMutation } from 'lens';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { IS_MAINNET, ZERO_ADDRESS } from 'utils';
+import getLensHandle from 'utils/functions/getLensHandle';
+import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture';
+import imageCdn from 'utils/functions/imageCdn';
+import trimify from 'utils/functions/trimify';
+import useIsMounted from 'utils/hooks/useIsMounted';
+import { useAccount } from 'wagmi';
+import z from 'zod';
 
 const formSchema = z.object({
   channelName: z
@@ -136,13 +136,13 @@ const CreateChannel = () => {
         <ClaimHandle />
       ) : (
         <form onSubmit={handleSubmit(onCreate)} className="space-y-4">
-          <h6 className="text-sm opacity-70">Your new Lenstube channel</h6>
+          <h6 className="text-sm opacity-70">Your new Dragverse channel</h6>
           <div className="mt-2">
             <Input
               {...register('channelName')}
               label="Channel Name"
               type="text"
-              placeholder="lenstubechannel"
+              placeholder="dragverse channel"
               autoComplete="off"
               validationError={errors.channelName?.message}
             />
