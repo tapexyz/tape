@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "worker:dev": "wrangler dev",
-    "worker:deploy": "wrangler publish"
+    "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
     "arbundles": "^0.9.6",
@@ -19,6 +19,6 @@
     "eslint-config-weblint": "*",
     "tsconfig": "*",
     "typescript": "^5.0.4",
-    "wrangler": "2.20.0"
+    "wrangler": "3.0.0"
   }
 }
