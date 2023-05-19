@@ -40,7 +40,7 @@ const CommentImages: FC<Props> = ({ images }) => {
       <div className="flex flex-wrap items-center gap-2">
         {images.map((image) => (
           <button
-            key={image.original.url}
+            key={image.onChain.url}
             className="focus:outline-none"
             onClick={() => {
               setImageSrc(imageCdn(sanitizeDStorageUrl(image.original.url)))
