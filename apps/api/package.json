@@ -11,10 +11,10 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "next": "13.4.2"
+    "next": "13.4.3"
   },
   "devDependencies": {
-    "@types/node": "20.2.0",
+    "@types/node": "20.2.1",
     "eslint-config-weblint": "*",
     "lens": "*",
     "tsconfig": "*",
