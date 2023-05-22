@@ -40,7 +40,7 @@ const CommentImages: FC<Props> = ({ images }) => {
       <div className="flex flex-wrap items-center gap-2">
         {images.map((image) => (
           <button
-            key={image.onChain.url}
+            key={image.original.url}
             className="focus:outline-none"
             onClick={() => {
               setImageSrc(imageCdn(sanitizeDStorageUrl(image.original.url)))
@@ -51,7 +51,7 @@ const CommentImages: FC<Props> = ({ images }) => {
               className="h-20 w-20 rounded-xl bg-white object-cover dark:bg-black"
               src={imageCdn(
                 sanitizeDStorageUrl(image.original.url),
-                'avatar_lg'
+                'AVATAR_LG'
               )}
               alt={image.original.altTag ?? 'attachment'}
               draggable={false}

@@ -32,7 +32,7 @@ const Video: FC<Props> = ({ video }) => {
   const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(video, true)),
-    isBytesVideo ? 'thumbnail_v' : 'thumbnail'
+    isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
@@ -105,7 +105,7 @@ const Video: FC<Props> = ({ video }) => {
                 className="h-8 w-8 pl-1"
                 src={imageCdn(
                   `${STATIC_ASSETS}/images/brand/lenstube.svg`,
-                  'avatar'
+                  'AVATAR'
                 )}
                 alt="play"
                 draggable={false}

@@ -27,7 +27,7 @@ const ThumbnailImage: FC<Props> = ({ video }) => {
     <img
       src={
         thumbnailUrl
-          ? imageCdn(thumbnailUrl, isBytesVideo ? 'thumbnail_v' : 'thumbnail')
+          ? imageCdn(thumbnailUrl, isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL')
           : ''
       }
       className={clsx(

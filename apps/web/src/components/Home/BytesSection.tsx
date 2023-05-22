@@ -103,7 +103,7 @@ const BytesSection = () => {
                   <img
                     className="h-full rounded-xl object-cover"
                     src={
-                      thumbnailUrl ? imageCdn(thumbnailUrl, 'thumbnail_v') : ''
+                      thumbnailUrl ? imageCdn(thumbnailUrl, 'THUMBNAIL_V') : ''
                     }
                     alt="thumbnail"
                     draggable={false}

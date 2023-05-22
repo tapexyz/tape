@@ -4,7 +4,7 @@ import { FALLBACK_COVER_URL } from '../constants'
 import sanitizeDStorageUrl from './sanitizeDStorageUrl'
 
 export const getPublicationMediaUrl = (video: Publication) => {
-  const url = video?.metadata?.media[0]?.onChain.url
+  const url = video?.metadata?.media[0]?.original.url
   if (!url) {
     return FALLBACK_COVER_URL
   }
@@ -12,7 +12,7 @@ export const getPublicationMediaUrl = (video: Publication) => {
 }
 
 export const getPublicationMediaRawUrl = (video: Publication): string => {
-  const url = video?.metadata?.media[0]?.onChain.url
+  const url = video?.metadata?.media[0]?.original.url
   return url.replace('https://arweave.net/', 'ar://')
 }
 
