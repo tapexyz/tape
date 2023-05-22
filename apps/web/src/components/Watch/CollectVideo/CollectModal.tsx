@@ -66,6 +66,20 @@ const CollectModal: FC<Props> = ({
   const isFreeCollect =
     video.collectModule.__typename === 'FreeCollectModuleSettings'
 
+  const amount =
+    collectModule?.amount?.value ?? collectModule?.fee?.amount?.value
+  const currency =
+    collectModule?.amount?.asset?.symbol ??
+    collectModule?.fee?.amount?.asset?.symbol
+  const assetAddress =
+    collectModule?.amount?.asset?.address ??
+    collectModule?.fee?.amount?.asset?.address
+  const assetDecimals =
+    collectModule?.amount?.asset?.decimals ??
+    collectModule?.fee?.amount?.asset?.decimals
+  const referralFee =
+    collectModule?.referralFee ?? collectModule?.fee?.referralFee
+
   useEffect(() => {
     Analytics.track(TRACK.OPEN_COLLECT)
   }, [])
@@ -86,10 +100,10 @@ const CollectModal: FC<Props> = ({
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address: selectedChannel?.ownedBy,
-    token: collectModule?.amount?.asset?.address,
-    formatUnits: collectModule?.amount?.asset?.decimals,
-    watch: Boolean(collectModule?.amount),
-    enabled: Boolean(collectModule?.amount)
+    token: assetAddress,
+    formatUnits: assetDecimals,
+    watch: Boolean(amount),
+    enabled: Boolean(amount)
   })
 
   const { data: revenueData } = usePublicationRevenueQuery({
@@ -108,13 +122,13 @@ const CollectModal: FC<Props> = ({
   } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
-        currencies: collectModule?.amount?.asset?.address,
+        currencies: assetAddress,
         followModules: [],
         collectModules: [collectModule?.type],
         referenceModules: []
       }
     },
-    skip: !collectModule?.amount?.asset?.address || !selectedChannelId,
+    skip: !assetAddress || !selectedChannelId,
     onCompleted: (data) => {
       setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
     }
@@ -123,25 +137,17 @@ const CollectModal: FC<Props> = ({
   useEffect(() => {
     if (
       balanceData &&
-      collectModule?.amount &&
-      parseFloat(balanceData?.formatted) <
-        parseFloat(collectModule?.amount?.value)
+      amount &&
+      parseFloat(balanceData?.formatted) < parseFloat(amount)
     ) {
       setHaveEnoughBalance(false)
     } else {
       setHaveEnoughBalance(true)
     }
-    if (collectModule?.amount?.asset?.address && selectedChannelId) {
+    if (assetAddress && selectedChannelId) {
       refetchAllowance()
     }
-  }, [
-    balanceData,
-    collectModule,
-    collectModule?.amount?.value,
-    collectModule?.amount,
-    refetchAllowance,
-    selectedChannelId
-  ])
+  }, [balanceData, assetAddress, amount, refetchAllowance, selectedChannelId])
 
   const getDefaultProfileByAddress = (address: string) => {
     const profiles = recipientProfilesData?.profiles?.items
@@ -231,16 +237,14 @@ const CollectModal: FC<Props> = ({
                 </span>
               </span>
             </div>
-            {collectModule?.amount ? (
+            {amount ? (
               <div className="mb-3 flex flex-col">
                 <span className="text-sm font-semibold">
                   <Trans>Price</Trans>
                 </span>
                 <span className="space-x-1">
-                  <span className="text-2xl font-semibold">
-                    {collectModule?.amount?.value}
-                  </span>
-                  <span>{collectModule?.amount?.asset.symbol}</span>
+                  <span className="text-2xl font-semibold">{amount}</span>
+                  <span>{currency}</span>
                 </span>
               </div>
             ) : null}
@@ -283,12 +287,12 @@ const CollectModal: FC<Props> = ({
                 </span>
               </div>
             ) : null}
-            {collectModule?.referralFee ? (
+            {referralFee ? (
               <div className="mb-3 flex flex-col">
                 <span className="mb-0.5 text-sm font-semibold">
                   <Trans>Referral Fee</Trans>
                 </span>
-                <span className="text-lg">{collectModule.referralFee} %</span>
+                <span className="text-lg">{referralFee} %</span>
               </div>
             ) : null}
             {isRecipientAvailable ? (
