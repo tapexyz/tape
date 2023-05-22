@@ -24,7 +24,7 @@ export const getCollectModule = (
     }
   }
 
-  const collectLimitEnabled = Boolean(collectLimit)
+  const collectLimitEnabled = Boolean(collectLimit) && collectLimit !== '0'
   const baseCollectModuleParams = {
     collectLimit: collectLimitEnabled ? collectLimit : null,
     followerOnly: followerOnlyCollect as boolean,

@@ -127,9 +127,6 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
     onError
   })
 
-  const isFreeCollect =
-    video.collectModule.__typename === 'FreeCollectModuleSettings'
-
   const createTypedData = async () => {
     await createCollectTypedData({
       variables: {
@@ -155,7 +152,10 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
   const collectNow = async () => {
     setShowCollectModal(false)
     setLoading(true)
-    if (isFreeCollect && !collectModule?.followerOnly) {
+    if (
+      !Boolean(collectModule?.amount?.value) &&
+      !collectModule?.followerOnly
+    ) {
       Analytics.track(TRACK.PUBLICATION.COLLECT, { fee: false })
       await viaProxyAction()
     } else {
@@ -171,9 +171,7 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
     return setShowCollectModal(true)
   }
 
-  const collectTooltipText = isFreeCollect ? (
-    t`Collect as NFT`
-  ) : (
+  const collectTooltipText = collectModule?.amount?.value ? (
     <span>
       <Trans>Collect as NFT for</Trans>
       <b className="ml-1 space-x-1">
@@ -181,6 +179,8 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
         <span>{collectModule?.amount?.asset.symbol}</span>
       </b>
     </span>
+  ) : (
+    t`Collect as NFT`
   )
 
   return (
