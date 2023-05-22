@@ -22,7 +22,7 @@ msgstr ""
 msgid "About"
 msgstr "About"
 
-#: src/components/Settings/Permissions/Modules/index.tsx:113
+#: src/components/Settings/Permissions/Modules/index.tsx:115
 msgid "Access permissions"
 msgstr "Access permissions"
 
@@ -54,8 +54,8 @@ msgstr "All Notifications"
 msgid "All services are online"
 msgstr "All services are online"
 
-#: src/components/Settings/Permissions/Modules/index.tsx:154
-#: src/components/Settings/Permissions/Modules/index.tsx:166
+#: src/components/Settings/Permissions/Modules/index.tsx:156
+#: src/components/Settings/Permissions/Modules/index.tsx:168
 msgid "Allow"
 msgstr "Allow"
 
@@ -72,7 +72,7 @@ msgstr "Already Collected"
 msgid "Amount"
 msgstr "Amount"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:100
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:108
 msgid "Amount should be greater than 0"
 msgstr "Amount should be greater than 0"
 
@@ -84,9 +84,8 @@ msgstr "Amount to deposit (MATIC)"
 msgid "Animal Abuse"
 msgstr "Animal Abuse"
 
-#: src/components/Upload/CollectModule/index.tsx:47
-#: src/components/Upload/CollectModule/index.tsx:54
-#: src/components/Upload/CollectModule/PermissionQuestion.tsx:40
+#: src/components/Upload/CollectModule/index.tsx:49
+#: src/components/Upload/CollectModule/PermissionQuestion.tsx:39
 #: src/components/Upload/ReferenceModule/index.tsx:94
 msgid "Anyone"
 msgstr "Anyone"
@@ -119,7 +118,7 @@ msgstr "Be the first to comment"
 msgid "Bytes"
 msgstr "Bytes"
 
-#: src/components/Upload/CollectModule/index.tsx:55
+#: src/components/Upload/CollectModule/index.tsx:50
 msgid "can collect"
 msgstr "can collect"
 
@@ -180,15 +179,15 @@ msgstr "Claim Handle"
 msgid "Collect"
 msgstr "Collect"
 
-#: src/components/Watch/CollectVideo/index.tsx:175
+#: src/components/Watch/CollectVideo/index.tsx:183
 msgid "Collect as NFT"
 msgstr "Collect as NFT"
 
-#: src/components/Watch/CollectVideo/index.tsx:178
+#: src/components/Watch/CollectVideo/index.tsx:176
 msgid "Collect as NFT for"
 msgstr "Collect as NFT for"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:156
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:167
 msgid "Collect Currency"
 msgstr "Collect Currency"
 
@@ -196,11 +195,11 @@ msgstr "Collect Currency"
 msgid "Collect for free"
 msgstr "Collect for free"
 
-#: src/components/Upload/CollectModule/ChargeQuestion.tsx:36
+#: src/components/Upload/CollectModule/ChargeQuestion.tsx:37
 msgid "Collect for Free"
 msgstr "Collect for Free"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:104
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:138
 msgid "Collect limit should be greater than 0"
 msgstr "Collect limit should be greater than 0"
 
@@ -208,7 +207,7 @@ msgstr "Collect limit should be greater than 0"
 msgid "Collect Now"
 msgstr "Collect Now"
 
-#: src/components/Upload/CollectModule/index.tsx:78
+#: src/components/Upload/CollectModule/index.tsx:75
 msgid "Collect Type"
 msgstr "Collect Type"
 
@@ -455,7 +454,11 @@ msgstr "Feed"
 msgid "Feedback"
 msgstr "Feedback"
 
-#: src/components/Upload/CollectModule/index.tsx:57
+#: src/components/Upload/CollectModule/index.tsx:52
+msgid "for free"
+msgstr ""
+
+#: src/components/Upload/CollectModule/index.tsx:52
 msgid "for given fees"
 msgstr ""
 
@@ -515,11 +518,11 @@ msgstr ""
 msgid "Interests"
 msgstr "Interests"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:27
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:29
 msgid "Invalid amount"
 msgstr "Invalid amount"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:30
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:33
 msgid "Invalid collect limit"
 msgstr ""
 
@@ -531,7 +534,7 @@ msgstr ""
 msgid "Invalid Signature!"
 msgstr "Invalid Signature!"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:118
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:122
 msgid "Invalid split recipient address"
 msgstr "Invalid split recipient address"
 
@@ -575,11 +578,11 @@ msgstr "likes"
 msgid "Likes"
 msgstr ""
 
-#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:71
+#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:62
 msgid "Limit to 24 hours sale"
 msgstr ""
 
-#: src/components/Upload/CollectModule/LimitQuestion.tsx:69
+#: src/components/Upload/CollectModule/LimitQuestion.tsx:60
 msgid "Limited collect"
 msgstr ""
 
@@ -659,6 +662,7 @@ msgstr ""
 #: src/components/Common/MirrorVideo.tsx:176
 #: src/components/Watch/Comments/NewComment.tsx:353
 #: src/components/Watch/TipModal.tsx:353
+#: src/components/Watch/TipModal.tsx:427
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
 msgstr ""
 
@@ -698,7 +702,7 @@ msgstr "No NFTs found"
 msgid "No Notifications"
 msgstr ""
 
-#: src/components/Upload/CollectModule/index.tsx:43
+#: src/components/Upload/CollectModule/index.tsx:44
 msgid "No one can collect this publication"
 msgstr ""
 
@@ -724,7 +728,7 @@ msgstr "No subscribers"
 msgid "No videos found"
 msgstr "No videos found"
 
-#: src/components/Upload/CollectModule/PermissionQuestion.tsx:89
+#: src/components/Upload/CollectModule/PermissionQuestion.tsx:88
 msgid "None"
 msgstr ""
 
@@ -748,7 +752,7 @@ msgstr ""
 msgid "Only"
 msgstr ""
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:108
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:112
 msgid "Only 5 splits supported"
 msgstr ""
 
@@ -776,11 +780,11 @@ msgstr "Pay Membership of"
 msgid "People you may know"
 msgstr "People you may know"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:206
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:217
 msgid "Percent of collect revenue can be shared with anyone who mirrors this video."
 msgstr ""
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:34
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:37
 msgid "Percentage should be 0 to 100"
 msgstr ""
 
@@ -788,7 +792,7 @@ msgstr ""
 msgid "Permalink copied to clipboard"
 msgstr "Permalink copied to clipboard"
 
-#: src/components/Settings/Permissions/Modules/index.tsx:71
+#: src/components/Settings/Permissions/Modules/index.tsx:73
 msgid "Permission updated"
 msgstr ""
 
@@ -838,7 +842,7 @@ msgstr "Posting video"
 msgid "Price"
 msgstr "Price"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:187
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:198
 msgid "Price of each collect"
 msgstr "Price of each collect"
 
@@ -880,7 +884,7 @@ msgstr "Recipients"
 msgid "Referral Fee"
 msgstr "Referral Fee"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:202
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:213
 msgid "Referral Percentage"
 msgstr "Referral Percentage"
 
@@ -922,7 +926,7 @@ msgstr "Reset"
 msgid "Revenue"
 msgstr ""
 
-#: src/components/Settings/Permissions/Modules/index.tsx:174
+#: src/components/Settings/Permissions/Modules/index.tsx:176
 msgid "Revoke"
 msgstr ""
 
@@ -942,7 +946,7 @@ msgstr "Search"
 msgid "Search by channel / hashtag"
 msgstr "Search by channel / hashtag"
 
-#: src/components/Upload/CollectModule/index.tsx:90
+#: src/components/Upload/CollectModule/index.tsx:87
 msgid "Select collect type"
 msgstr ""
 
@@ -956,8 +960,8 @@ msgstr "Select Video"
 msgid "Sensitive Content"
 msgstr "Sensitive Content"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:214
-#: src/components/Upload/CollectModule/index.tsx:131
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:227
+#: src/components/Upload/CollectModule/index.tsx:127
 msgid "Set Collect Type"
 msgstr ""
 
@@ -970,7 +974,7 @@ msgstr ""
 msgid "Share"
 msgstr "Share"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:35
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:38
 msgid "Should to greater than or equal to zero"
 msgstr ""
 
@@ -1024,7 +1028,7 @@ msgstr "Some services are offline"
 msgid "Something Else"
 msgstr ""
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:122
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:126
 msgid "Split addresses should be unique"
 msgstr ""
 
@@ -1068,9 +1072,8 @@ msgid "subscribers"
 msgstr "subscribers"
 
 #: src/components/Channel/BasicInfo/index.tsx:73
-#: src/components/Upload/CollectModule/index.tsx:47
-#: src/components/Upload/CollectModule/index.tsx:54
-#: src/components/Upload/CollectModule/PermissionQuestion.tsx:67
+#: src/components/Upload/CollectModule/index.tsx:49
+#: src/components/Upload/CollectModule/PermissionQuestion.tsx:65
 #: src/components/Watch/CollectVideo/CollectModal.tsx:320
 msgid "Subscribers"
 msgstr "Subscribers"
@@ -1082,7 +1085,7 @@ msgstr "Subscribers"
 msgid "Subscriptions"
 msgstr "Subscriptions"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:128
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:132
 msgid "Sum of all splits should be 100%"
 msgstr ""
 
@@ -1135,7 +1138,7 @@ msgstr ""
 msgid "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
 msgstr ""
 
-#: src/components/Settings/Permissions/Modules/index.tsx:116
+#: src/components/Settings/Permissions/Modules/index.tsx:118
 msgid "These are the collect modules which you allowed / need to allow to use collect feature. You can allow and revoke access anytime."
 msgstr ""
 
@@ -1143,7 +1146,7 @@ msgstr ""
 msgid "This cannot be reverted."
 msgstr ""
 
-#: src/components/Watch/TipModal.tsx:490
+#: src/components/Watch/TipModal.tsx:495
 msgid "This will be published as a public comment."
 msgstr ""
 
@@ -1151,7 +1154,7 @@ msgstr ""
 msgid "Threat Individual"
 msgstr ""
 
-#: src/components/Watch/TipModal.tsx:450
+#: src/components/Watch/TipModal.tsx:455
 #: src/components/Watch/VideoActions.tsx:48
 msgid "Tip"
 msgstr ""
@@ -1208,7 +1211,7 @@ msgstr ""
 msgid "total bytes"
 msgstr ""
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:141
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:150
 msgid "Total Collectibles"
 msgstr ""
 
@@ -1244,11 +1247,11 @@ msgstr "Transaction submitted"
 msgid "Trending"
 msgstr ""
 
-#: src/components/Upload/CollectModule/LimitQuestion.tsx:41
+#: src/components/Upload/CollectModule/LimitQuestion.tsx:37
 msgid "Unlimited collects"
 msgstr ""
 
-#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:43
+#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:40
 msgid "Unlimited duration"
 msgstr ""
 
@@ -1403,8 +1406,7 @@ msgstr ""
 msgid "with Lens"
 msgstr "with Lens"
 
-#: src/components/Upload/CollectModule/index.tsx:48
-#: src/components/Upload/CollectModule/index.tsx:58
+#: src/components/Upload/CollectModule/index.tsx:53
 msgid "within 24hrs"
 msgstr ""
 
@@ -1428,7 +1430,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: src/components/Upload/CollectModule/ChargeQuestion.tsx:58
+#: src/components/Upload/CollectModule/ChargeQuestion.tsx:60
 msgid "Yes, Some Price"
 msgstr ""
 
@@ -1459,4 +1461,3 @@ msgstr "Your Channel"
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
 msgstr "Your Storage Balance"
-

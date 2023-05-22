@@ -72,6 +72,11 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
     data?.publication?.__typename === 'Post'
       ? (data?.publication?.collectModule as LenstubeCollectModule)
       : null
+  const collectAmount =
+    collectModule?.amount?.value ?? collectModule?.fee?.amount?.value
+  const currency =
+    collectModule?.amount?.asset?.symbol ??
+    collectModule?.fee?.amount?.asset?.symbol
 
   const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
@@ -113,9 +118,6 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
     onError
   })
 
-  const isFreeCollect =
-    video.collectModule.__typename === 'FreeCollectModuleSettings'
-
   const createTypedData = async () => {
     await createCollectTypedData({
       variables: {
@@ -141,7 +143,7 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
   const collectNow = async () => {
     setShowCollectModal(false)
     setLoading(true)
-    if (isFreeCollect && !collectModule?.followerOnly) {
+    if (!Boolean(collectAmount) && !collectModule?.followerOnly) {
       Analytics.track(TRACK.PUBLICATION.COLLECT, { fee: false })
       await viaProxyAction()
     } else {
@@ -157,16 +159,16 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
     return setShowCollectModal(true)
   }
 
-  const collectTooltipText = isFreeCollect ? (
-    t`Collect as NFT`
-  ) : (
+  const collectTooltipText = collectAmount ? (
     <span>
       <Trans>Collect as NFT for</Trans>
       <b className="ml-1 space-x-1">
-        <span>{collectModule?.amount?.value}</span>
-        <span>{collectModule?.amount?.asset.symbol}</span>
+        <span>{collectAmount}</span>
+        <span>{currency}</span>
       </b>
     </span>
+  ) : (
+    t`Collect as NFT`
   )
 
   return (
