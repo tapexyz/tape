@@ -11,6 +11,14 @@ export const getPublicationMediaUrl = (video: Publication) => {
   return sanitizeDStorageUrl(url)
 }
 
+export const getPublicationHlsUrl = (video: Publication) => {
+  const url = video?.metadata?.media[0]?.optimized?.url
+  if (!url) {
+    return getPublicationMediaUrl(video)
+  }
+  return url
+}
+
 export const getPublicationMediaRawUrl = (video: Publication): string => {
   const url = video?.metadata?.media[0]?.original.url
   return url.replace('https://arweave.net/', 'ar://')

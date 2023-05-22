@@ -8,6 +8,7 @@ export interface PlayerProps {
   playerRef?: (ref: HTMLMediaElement) => void
   permanentUrl: string
   posterUrl?: string
+  hlsUrl?: string
   ratio?: AspectRatio
   showControls?: boolean
   options: {
@@ -22,6 +23,7 @@ export interface PlayerProps {
 const PlayerInstance: FC<PlayerProps> = ({
   ratio,
   permanentUrl,
+  hlsUrl,
   posterUrl,
   playerRef,
   options,
@@ -29,7 +31,7 @@ const PlayerInstance: FC<PlayerProps> = ({
 }) => {
   return (
     <Player
-      src={permanentUrl}
+      src={hlsUrl ?? permanentUrl}
       poster={posterUrl}
       showTitle={false}
       objectFit="contain"

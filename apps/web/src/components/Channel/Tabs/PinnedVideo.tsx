@@ -8,7 +8,10 @@ import React from 'react'
 import { LENSTUBE_BYTES_APP_ID } from 'utils'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
-import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
+import {
+  getPublicationHlsUrl,
+  getPublicationMediaUrl
+} from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import isWatchable from 'utils/functions/isWatchable'
@@ -54,6 +57,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       <div className="overflow-hidden md:rounded-xl">
         <VideoPlayer
           permanentUrl={getPublicationMediaUrl(pinnedPublication)}
+          hlsUrl={getPublicationHlsUrl(pinnedPublication)}
           posterUrl={thumbnailUrl}
           isSensitiveContent={isSensitiveContent}
           options={{

@@ -71,7 +71,6 @@ const Video: FC<Props> = ({ video }) => {
           refCallback={refCallback}
           permanentUrl={getPublicationMediaUrl(video)}
           posterUrl={thumbnailUrl}
-          publicationId={video.id}
           currentTime={currentTime}
           options={{
             autoPlay: isAutoPlay,
