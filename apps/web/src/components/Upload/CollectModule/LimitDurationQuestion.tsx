@@ -24,11 +24,8 @@ const LimitDurationQuestion: FC<Props> = ({
           type="button"
           onClick={() =>
             setCollectType({
-              timeLimitEnabled: false
-              // isFeeCollect: false,
-              // isFreeCollect: uploadedVideo.collectModule.isLimitedFeeCollect
-              //   ? false
-              //   : true
+              timeLimitEnabled: false,
+              isSimpleCollect: true
             })
           }
           className={clsx(
@@ -50,13 +47,8 @@ const LimitDurationQuestion: FC<Props> = ({
           type="button"
           onClick={() =>
             setCollectType({
-              timeLimitEnabled: true
-              // isLimitedFeeCollect: uploadedVideo.collectModule
-              //   .isLimitedFeeCollect
-              //   ? true
-              //   : false
-              // isFeeCollect: true,
-              // isFreeCollect: false
+              timeLimitEnabled: true,
+              isSimpleCollect: true
             })
           }
           className={clsx(

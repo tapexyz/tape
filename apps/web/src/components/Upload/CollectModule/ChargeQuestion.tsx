@@ -21,6 +21,8 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
+              isSimpleCollect: true,
+              isMultiRecipientFeeCollect: false,
               isFeeCollect: false
             })
           }
@@ -42,7 +44,9 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
-              isFeeCollect: true
+              isSimpleCollect: true,
+              isFeeCollect: true,
+              isMultiRecipientFeeCollect: true
             })
           }
           className={clsx(

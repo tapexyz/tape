@@ -21,6 +21,7 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
+              isSimpleCollect: true,
               collectLimitEnabled: false
             })
           }
@@ -43,8 +44,7 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
-              // isFeeCollect: true,
-              // isFreeCollect: false,
+              isSimpleCollect: true,
               collectLimitEnabled: true
             })
           }

@@ -12,8 +12,17 @@ export const getCollectModule = (
     collectLimit,
     followerOnlyCollect,
     recipient,
-    timeLimitEnabled
+    timeLimitEnabled,
+    isFeeCollect,
+    isMultiRecipientFeeCollect
   } = selectedCollectModule
+
+  // No one can collect the post
+  if (selectedCollectModule.isRevertCollect) {
+    return {
+      revertCollectModule: true
+    }
+  }
 
   const collectLimitEnabled = Boolean(collectLimit)
   const baseCollectModuleParams = {
@@ -29,24 +38,17 @@ export const getCollectModule = (
     referralFee: referralFee as number
   }
 
-  if (selectedCollectModule.isSimpleCollect) {
+  if (selectedCollectModule.isSimpleCollect && !isMultiRecipientFeeCollect) {
     return {
       simpleCollectModule: {
         ...baseCollectModuleParams,
-        ...(amount && {
+        ...(isFeeCollect && {
           fee: {
             ...baseAmountParams,
             recipient
           }
         })
       }
-    }
-  }
-
-  // No one can collect the post
-  if (selectedCollectModule.isRevertCollect) {
-    return {
-      revertCollectModule: true
     }
   }
 
@@ -61,75 +63,6 @@ export const getCollectModule = (
       }
     }
   }
-  // // Should collect by paying fee (anyone/ only subs)
-  // if (
-  //   selectedCollectModule.isFeeCollect &&
-  //   !selectedCollectModule.isTimedFeeCollect &&
-  //   !selectedCollectModule.isLimitedFeeCollect &&
-  //   !selectedCollectModule.isLimitedTimeFeeCollect
-  // ) {
-  //   return {
-  //     feeCollectModule: {
-  //       amount: {
-  //         currency: selectedCollectModule.amount?.currency,
-  //         value: selectedCollectModule.amount?.value as string
-  //       },
-  //       recipient: selectedCollectModule.recipient,
-  //       referralFee: selectedCollectModule.referralFee as number,
-  //       followerOnly: selectedCollectModule.followerOnlyCollect as boolean
-  //     }
-  //   }
-  // }
-  // // Should collect with limited collects, unlimited time (anyone/ only subs)
-  // if (
-  //   selectedCollectModule.isLimitedFeeCollect &&
-  //   !selectedCollectModule.isLimitedTimeFeeCollect
-  // ) {
-  //   return {
-  //     limitedFeeCollectModule: {
-  //       collectLimit: selectedCollectModule.collectLimit as string,
-  //       amount: {
-  //         currency: selectedCollectModule.amount?.currency,
-  //         value: selectedCollectModule.amount?.value as string
-  //       },
-  //       recipient: selectedCollectModule.recipient,
-  //       referralFee: selectedCollectModule.referralFee as number,
-  //       followerOnly: selectedCollectModule.followerOnlyCollect as boolean
-  //     }
-  //   }
-  // }
-  // // Should collect with limited collects, within 24hrs (anyone/ only subs)
-  // if (selectedCollectModule.isLimitedTimeFeeCollect) {
-  //   return {
-  //     limitedTimedFeeCollectModule: {
-  //       collectLimit: selectedCollectModule.collectLimit as string,
-  //       amount: {
-  //         currency: selectedCollectModule.amount?.currency,
-  //         value: selectedCollectModule.amount?.value as string
-  //       },
-  //       recipient: selectedCollectModule.recipient,
-  //       referralFee: selectedCollectModule.referralFee as number,
-  //       followerOnly: selectedCollectModule.followerOnlyCollect as boolean
-  //     }
-  //   }
-  // }
-  // // Should collect within 24 hrs (anyone/ only subs)
-  // if (
-  //   selectedCollectModule.isFeeCollect &&
-  //   selectedCollectModule.isTimedFeeCollect
-  // ) {
-  //   return {
-  //     timedFeeCollectModule: {
-  //       amount: {
-  //         currency: selectedCollectModule.amount?.currency,
-  //         value: selectedCollectModule.amount?.value as string
-  //       },
-  //       recipient: selectedCollectModule.recipient,
-  //       referralFee: selectedCollectModule.referralFee as number,
-  //       followerOnly: selectedCollectModule.followerOnlyCollect as boolean
-  //     }
-  //   }
-  // }
   // Post is free to collect
   return {
     freeCollectModule: {

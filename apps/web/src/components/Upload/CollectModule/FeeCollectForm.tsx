@@ -24,7 +24,10 @@ type Props = {
 
 const formSchema = z.object({
   currency: z.string(),
-  amount: z.string().min(1, { message: t`Invalid amount` }),
+  amount: z
+    .string()
+    .min(1, { message: t`Invalid amount` })
+    .optional(),
   collectLimit: z
     .string()
     .min(1, { message: t`Invalid collect limit` })
@@ -60,7 +63,7 @@ const FeeCollectForm: FC<Props> = ({
       referralPercent: Number(uploadedVideo.collectModule.referralFee || 0),
       currency:
         uploadedVideo.collectModule.amount?.currency ?? WMATIC_TOKEN_ADDRESS,
-      amount: uploadedVideo.collectModule.amount?.value,
+      amount: uploadedVideo.collectModule.amount?.value || '0',
       collectLimit: uploadedVideo.collectModule.collectLimit || '0'
     }
   })
@@ -70,6 +73,11 @@ const FeeCollectForm: FC<Props> = ({
       register('collectLimit')
     } else {
       unregister('collectLimit')
+    }
+    if (uploadedVideo.collectModule.isFeeCollect) {
+      register('amount')
+    } else {
+      unregister('amount')
     }
   }, [uploadedVideo.collectModule, register, unregister])
 
@@ -81,7 +89,7 @@ const FeeCollectForm: FC<Props> = ({
     setCollectType({
       amount: {
         currency: data.currency,
-        value: data.amount
+        value: data.amount || '0'
       },
       referralFee: data.referralPercent,
       recipient: selectedChannel?.ownedBy,
@@ -92,40 +100,45 @@ const FeeCollectForm: FC<Props> = ({
 
   const validateInputs = (data: FormData) => {
     const amount = Number(data.amount)
+    const { isFeeCollect } = uploadedVideo.collectModule
     const collectLimit = Number(data.collectLimit)
-    if (amount === 0) {
-      return setError('amount', { message: t`Amount should be greater than 0` })
+    if (isFeeCollect) {
+      if (amount === 0) {
+        return setError('amount', {
+          message: t`Amount should be greater than 0`
+        })
+      }
+      if (splitRecipients.length > 5) {
+        return toast.error(t`Only 5 splits supported`)
+      }
+      const splitsSum = splitRecipients.reduce(
+        (total, obj) => obj.split + total,
+        0
+      )
+      const invalidSplitAddresses = splitRecipients.filter(
+        (splitRecipient) => !utils.isAddress(splitRecipient.recipient)
+      )
+      if (invalidSplitAddresses.length) {
+        return toast.error(t`Invalid split recipient address`)
+      }
+      const uniqueValues = new Set(splitRecipients.map((v) => v.recipient))
+      if (uniqueValues.size < splitRecipients.length) {
+        return toast.error(t`Split addresses should be unique`)
+      }
+      if (
+        uploadedVideo.collectModule.isMultiRecipientFeeCollect &&
+        splitsSum !== 100
+      ) {
+        return toast.error(t`Sum of all splits should be 100%`)
+      }
+      data.amount = String(amount)
     }
     if (collectLimit === 0) {
       return setError('collectLimit', {
         message: t`Collect limit should be greater than 0`
       })
     }
-    if (splitRecipients.length > 5) {
-      return toast.error(t`Only 5 splits supported`)
-    }
-    const splitsSum = splitRecipients.reduce(
-      (total, obj) => obj.split + total,
-      0
-    )
-    const invalidSplitAddresses = splitRecipients.filter(
-      (splitRecipient) => !utils.isAddress(splitRecipient.recipient)
-    )
-    if (invalidSplitAddresses.length) {
-      return toast.error(t`Invalid split recipient address`)
-    }
-    const uniqueValues = new Set(splitRecipients.map((v) => v.recipient))
-    if (uniqueValues.size < splitRecipients.length) {
-      return toast.error(t`Split addresses should be unique`)
-    }
-    if (
-      uploadedVideo.collectModule.isMultiRecipientFeeCollect &&
-      splitsSum !== 100
-    ) {
-      return toast.error(t`Sum of all splits should be 100%`)
-    }
     data.collectLimit = String(collectLimit)
-    data.amount = String(amount)
     onSubmit(data)
   }
 
@@ -146,65 +159,69 @@ const FeeCollectForm: FC<Props> = ({
           />
         </div>
       ) : null}
-      <div>
-        <div className="mb-1 flex items-center space-x-1.5">
-          <div className="text-[11px] font-semibold uppercase opacity-70">
-            <Trans>Collect Currency</Trans>
+      {uploadedVideo.collectModule.isFeeCollect ? (
+        <>
+          <div>
+            <div className="mb-1 flex items-center space-x-1.5">
+              <div className="text-[11px] font-semibold uppercase opacity-70">
+                <Trans>Collect Currency</Trans>
+              </div>
+            </div>
+            <select
+              autoComplete="off"
+              className="w-full rounded-xl border border-gray-200 bg-white p-2.5 text-sm outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-800 dark:bg-gray-900"
+              {...register('currency')}
+              value={uploadedVideo.collectModule.amount?.currency}
+              onChange={(e) => {
+                setCollectType({
+                  amount: { currency: e.target.value, value: '' }
+                })
+                setSelectedCurrencySymbol(
+                  getCurrencySymbol(
+                    enabledCurrencies.enabledModuleCurrencies,
+                    e.target.value
+                  )
+                )
+              }}
+            >
+              {enabledCurrencies?.enabledModuleCurrencies?.map(
+                (currency: Erc20) => (
+                  <option key={currency.address} value={currency.address}>
+                    {currency.symbol}
+                  </option>
+                )
+              )}
+            </select>
           </div>
-        </div>
-        <select
-          autoComplete="off"
-          className="w-full rounded-xl border border-gray-200 bg-white p-2.5 text-sm outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-800 dark:bg-gray-900"
-          {...register('currency')}
-          value={uploadedVideo.collectModule.amount?.currency}
-          onChange={(e) => {
-            setCollectType({
-              amount: { currency: e.target.value, value: '' }
-            })
-            setSelectedCurrencySymbol(
-              getCurrencySymbol(
-                enabledCurrencies.enabledModuleCurrencies,
-                e.target.value
-              )
-            )
-          }}
-        >
-          {enabledCurrencies?.enabledModuleCurrencies?.map(
-            (currency: Erc20) => (
-              <option key={currency.address} value={currency.address}>
-                {currency.symbol}
-              </option>
-            )
-          )}
-        </select>
-      </div>
-      <div>
-        <Input
-          label={t`Price of each collect`}
-          type="number"
-          placeholder="1.5"
-          min="0"
-          autoComplete="off"
-          max="100000"
-          suffix={selectedCurrencySymbol}
-          validationError={errors.amount?.message}
-          {...register('amount', {
-            setValueAs: (v) => String(v)
-          })}
-        />
-      </div>
-      <div>
-        <Input
-          label={t`Referral Percentage`}
-          type="number"
-          placeholder="2"
-          suffix="%"
-          info={t`Percent of collect revenue can be shared with anyone who mirrors this video.`}
-          {...register('referralPercent', { valueAsNumber: true })}
-          validationError={errors.referralPercent?.message}
-        />
-      </div>
-      <Splits submitContainerRef={submitContainerRef} />
+          <div>
+            <Input
+              label={t`Price of each collect`}
+              type="number"
+              placeholder="1.5"
+              min="0"
+              autoComplete="off"
+              max="100000"
+              suffix={selectedCurrencySymbol}
+              validationError={errors.amount?.message}
+              {...register('amount', {
+                setValueAs: (v) => String(v)
+              })}
+            />
+          </div>
+          <div>
+            <Input
+              label={t`Referral Percentage`}
+              type="number"
+              placeholder="2"
+              suffix="%"
+              info={t`Percent of collect revenue can be shared with anyone who mirrors this video.`}
+              {...register('referralPercent', { valueAsNumber: true })}
+              validationError={errors.referralPercent?.message}
+            />
+          </div>
+          <Splits submitContainerRef={submitContainerRef} />
+        </>
+      ) : null}
       <div className="flex justify-end pt-2" ref={submitContainerRef}>
         <Button type="button" onClick={() => handleSubmit(validateInputs)()}>
           <Trans>Set Collect Type</Trans>

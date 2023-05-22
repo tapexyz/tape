@@ -21,6 +21,7 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
+              isSimpleCollect: true,
               isRevertCollect: false,
               followerOnlyCollect: false
             })
@@ -46,6 +47,7 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
+              isSimpleCollect: true,
               followerOnlyCollect: true,
               isRevertCollect: false
             })
@@ -71,6 +73,7 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
+              isSimpleCollect: false,
               isRevertCollect: true
             })
           }
