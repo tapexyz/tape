@@ -22,7 +22,7 @@ msgstr ""
 msgid "About"
 msgstr "关于"
 
-#: src/components/Settings/Permissions/Modules/index.tsx:113
+#: src/components/Settings/Permissions/Modules/index.tsx:115
 msgid "Access permissions"
 msgstr "访问权限"
 
@@ -54,8 +54,8 @@ msgstr "所有通知"
 msgid "All services are online"
 msgstr "所有服务都在线了"
 
-#: src/components/Settings/Permissions/Modules/index.tsx:154
-#: src/components/Settings/Permissions/Modules/index.tsx:166
+#: src/components/Settings/Permissions/Modules/index.tsx:156
+#: src/components/Settings/Permissions/Modules/index.tsx:168
 msgid "Allow"
 msgstr "允许"
 
@@ -72,7 +72,7 @@ msgstr "已经收集"
 msgid "Amount"
 msgstr "金额"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:100
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:108
 msgid "Amount should be greater than 0"
 msgstr "金额必须大于 0"
 
@@ -84,9 +84,8 @@ msgstr "存入金额 (MATIC)"
 msgid "Animal Abuse"
 msgstr "动物虐待"
 
-#: src/components/Upload/CollectModule/index.tsx:47
-#: src/components/Upload/CollectModule/index.tsx:54
-#: src/components/Upload/CollectModule/PermissionQuestion.tsx:40
+#: src/components/Upload/CollectModule/index.tsx:49
+#: src/components/Upload/CollectModule/PermissionQuestion.tsx:39
 #: src/components/Upload/ReferenceModule/index.tsx:94
 msgid "Anyone"
 msgstr "任何人"
@@ -119,7 +118,7 @@ msgstr "成为第一个评论者"
 msgid "Bytes"
 msgstr "字节"
 
-#: src/components/Upload/CollectModule/index.tsx:55
+#: src/components/Upload/CollectModule/index.tsx:50
 msgid "can collect"
 msgstr "可以收集"
 
@@ -180,15 +179,15 @@ msgstr "索赔处理"
 msgid "Collect"
 msgstr "收集"
 
-#: src/components/Watch/CollectVideo/index.tsx:175
+#: src/components/Watch/CollectVideo/index.tsx:183
 msgid "Collect as NFT"
 msgstr "以 NFT 方式收集"
 
-#: src/components/Watch/CollectVideo/index.tsx:178
+#: src/components/Watch/CollectVideo/index.tsx:176
 msgid "Collect as NFT for"
 msgstr "以 NFT 方式收集"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:156
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:167
 msgid "Collect Currency"
 msgstr "收集货币"
 
@@ -196,11 +195,11 @@ msgstr "收集货币"
 msgid "Collect for free"
 msgstr "免费收集"
 
-#: src/components/Upload/CollectModule/ChargeQuestion.tsx:36
+#: src/components/Upload/CollectModule/ChargeQuestion.tsx:37
 msgid "Collect for Free"
 msgstr "免费收藏"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:104
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:138
 msgid "Collect limit should be greater than 0"
 msgstr "收集限制应该大于 0"
 
@@ -208,7 +207,7 @@ msgstr "收集限制应该大于 0"
 msgid "Collect Now"
 msgstr "立即收集"
 
-#: src/components/Upload/CollectModule/index.tsx:78
+#: src/components/Upload/CollectModule/index.tsx:75
 msgid "Collect Type"
 msgstr "收藏类型"
 
@@ -455,7 +454,11 @@ msgstr "订阅源"
 msgid "Feedback"
 msgstr "反馈"
 
-#: src/components/Upload/CollectModule/index.tsx:57
+#: src/components/Upload/CollectModule/index.tsx:52
+msgid "for free"
+msgstr ""
+
+#: src/components/Upload/CollectModule/index.tsx:52
 msgid "for given fees"
 msgstr "给定费用"
 
@@ -515,11 +518,11 @@ msgstr "有趣的"
 msgid "Interests"
 msgstr "兴趣"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:27
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:29
 msgid "Invalid amount"
 msgstr "无效金额"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:30
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:33
 msgid "Invalid collect limit"
 msgstr "无效的收集限制"
 
@@ -531,7 +534,7 @@ msgstr "无效的存款金额"
 msgid "Invalid Signature!"
 msgstr "签名无效！"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:118
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:122
 msgid "Invalid split recipient address"
 msgstr "无效的分割收件人地址"
 
@@ -575,11 +578,11 @@ msgstr "赞"
 msgid "Likes"
 msgstr "喜欢的"
 
-#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:71
+#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:62
 msgid "Limit to 24 hours sale"
 msgstr "限制24小时销售"
 
-#: src/components/Upload/CollectModule/LimitQuestion.tsx:69
+#: src/components/Upload/CollectModule/LimitQuestion.tsx:60
 msgid "Limited collect"
 msgstr "有限采集量"
 
@@ -659,6 +662,7 @@ msgstr "错误使用哈希标签"
 #: src/components/Common/MirrorVideo.tsx:176
 #: src/components/Watch/Comments/NewComment.tsx:353
 #: src/components/Watch/TipModal.tsx:353
+#: src/components/Watch/TipModal.tsx:427
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
 msgstr "Momoka目前处于测试版中 - 在此期间某些操作不能用于所有频道。"
 
@@ -698,7 +702,7 @@ msgstr "未找到NFTs"
 msgid "No Notifications"
 msgstr "无通知"
 
-#: src/components/Upload/CollectModule/index.tsx:43
+#: src/components/Upload/CollectModule/index.tsx:44
 msgid "No one can collect this publication"
 msgstr "没有人能够收集这个出版物"
 
@@ -724,7 +728,7 @@ msgstr "没有订阅者"
 msgid "No videos found"
 msgstr "未找到视频"
 
-#: src/components/Upload/CollectModule/PermissionQuestion.tsx:89
+#: src/components/Upload/CollectModule/PermissionQuestion.tsx:88
 msgid "None"
 msgstr "无"
 
@@ -748,7 +752,7 @@ msgstr "攻击性的"
 msgid "Only"
 msgstr "仅限"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:108
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:112
 msgid "Only 5 splits supported"
 msgstr "仅支持 5 拆分"
 
@@ -776,11 +780,11 @@ msgstr "会员支付"
 msgid "People you may know"
 msgstr "您可能知道的人"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:206
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:217
 msgid "Percent of collect revenue can be shared with anyone who mirrors this video."
 msgstr "税收的百分比可以分享给镜像此视频的任何人。"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:34
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:37
 msgid "Percentage should be 0 to 100"
 msgstr "百分比应为0到100"
 
@@ -788,7 +792,7 @@ msgstr "百分比应为0到100"
 msgid "Permalink copied to clipboard"
 msgstr "永久链接已复制到剪贴板"
 
-#: src/components/Settings/Permissions/Modules/index.tsx:71
+#: src/components/Settings/Permissions/Modules/index.tsx:73
 msgid "Permission updated"
 msgstr "权限已更新"
 
@@ -838,7 +842,7 @@ msgstr "发布视频"
 msgid "Price"
 msgstr "价格"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:187
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:198
 msgid "Price of each collect"
 msgstr "每个收集的价格"
 
@@ -880,7 +884,7 @@ msgstr "收件人"
 msgid "Referral Fee"
 msgstr "转诊费"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:202
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:213
 msgid "Referral Percentage"
 msgstr "推荐百分比"
 
@@ -922,7 +926,7 @@ msgstr "Reset"
 msgid "Revenue"
 msgstr "收入"
 
-#: src/components/Settings/Permissions/Modules/index.tsx:174
+#: src/components/Settings/Permissions/Modules/index.tsx:176
 msgid "Revoke"
 msgstr "Revoke"
 
@@ -942,7 +946,7 @@ msgstr "搜索"
 msgid "Search by channel / hashtag"
 msgstr "通过频道 / 标签搜索"
 
-#: src/components/Upload/CollectModule/index.tsx:90
+#: src/components/Upload/CollectModule/index.tsx:87
 msgid "Select collect type"
 msgstr "选择收藏类型"
 
@@ -956,8 +960,8 @@ msgstr "选择视频"
 msgid "Sensitive Content"
 msgstr "敏感内容"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:214
-#: src/components/Upload/CollectModule/index.tsx:131
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:227
+#: src/components/Upload/CollectModule/index.tsx:127
 msgid "Set Collect Type"
 msgstr "设置收藏类型"
 
@@ -970,7 +974,7 @@ msgstr "设置首选项"
 msgid "Share"
 msgstr "分享"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:35
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:38
 msgid "Should to greater than or equal to zero"
 msgstr "应大于或等于0"
 
@@ -1024,7 +1028,7 @@ msgstr "有些服务处于离线状态"
 msgid "Something Else"
 msgstr "其它内容"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:122
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:126
 msgid "Split addresses should be unique"
 msgstr "拆分地址应该是唯一的"
 
@@ -1068,9 +1072,8 @@ msgid "subscribers"
 msgstr "订阅者"
 
 #: src/components/Channel/BasicInfo/index.tsx:73
-#: src/components/Upload/CollectModule/index.tsx:47
-#: src/components/Upload/CollectModule/index.tsx:54
-#: src/components/Upload/CollectModule/PermissionQuestion.tsx:67
+#: src/components/Upload/CollectModule/index.tsx:49
+#: src/components/Upload/CollectModule/PermissionQuestion.tsx:65
 #: src/components/Watch/CollectVideo/CollectModal.tsx:320
 msgid "Subscribers"
 msgstr "订阅者"
@@ -1082,7 +1085,7 @@ msgstr "订阅者"
 msgid "Subscriptions"
 msgstr "订阅"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:128
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:132
 msgid "Sum of all splits should be 100%"
 msgstr "所有分割的总和应该是 100%"
 
@@ -1135,7 +1138,7 @@ msgstr "频道"
 msgid "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
 msgstr "Lenstube上有这么多很好的内容，可能很难不时找到与你最相关的东西。 这就是个人资料兴趣可以帮助管理您喜欢的内容。"
 
-#: src/components/Settings/Permissions/Modules/index.tsx:116
+#: src/components/Settings/Permissions/Modules/index.tsx:118
 msgid "These are the collect modules which you allowed / need to allow to use collect feature. You can allow and revoke access anytime."
 msgstr "这些是您允许/允许使用收集功能的收集模块。您可以随时允许并撤销访问。"
 
@@ -1143,7 +1146,7 @@ msgstr "这些是您允许/允许使用收集功能的收集模块。您可以�
 msgid "This cannot be reverted."
 msgstr "这不能恢复。"
 
-#: src/components/Watch/TipModal.tsx:490
+#: src/components/Watch/TipModal.tsx:495
 msgid "This will be published as a public comment."
 msgstr "这将作为公开评论发表。"
 
@@ -1151,7 +1154,7 @@ msgstr "这将作为公开评论发表。"
 msgid "Threat Individual"
 msgstr "个别威胁"
 
-#: src/components/Watch/TipModal.tsx:450
+#: src/components/Watch/TipModal.tsx:455
 #: src/components/Watch/VideoActions.tsx:48
 msgid "Tip"
 msgstr "Tip"
@@ -1208,7 +1211,7 @@ msgstr "代币余额"
 msgid "total bytes"
 msgstr "总计字节"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:141
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:150
 msgid "Total Collectibles"
 msgstr "收藏品总数"
 
@@ -1244,11 +1247,11 @@ msgstr "交易已提交"
 msgid "Trending"
 msgstr "热门主题"
 
-#: src/components/Upload/CollectModule/LimitQuestion.tsx:41
+#: src/components/Upload/CollectModule/LimitQuestion.tsx:37
 msgid "Unlimited collects"
 msgstr "无限收藏"
 
-#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:43
+#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:40
 msgid "Unlimited duration"
 msgstr "无限制持续时间"
 
@@ -1403,8 +1406,7 @@ msgstr "谁可以收集此视频？"
 msgid "with Lens"
 msgstr "与镜头"
 
-#: src/components/Upload/CollectModule/index.tsx:48
-#: src/components/Upload/CollectModule/index.tsx:58
+#: src/components/Upload/CollectModule/index.tsx:53
 msgid "within 24hrs"
 msgstr "24小时内"
 
@@ -1428,7 +1430,7 @@ msgstr "撰写回复"
 msgid "Yes"
 msgstr "否"
 
-#: src/components/Upload/CollectModule/ChargeQuestion.tsx:58
+#: src/components/Upload/CollectModule/ChargeQuestion.tsx:60
 msgid "Yes, Some Price"
 msgstr "是的，一些价格"
 
@@ -1459,4 +1461,3 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
-
