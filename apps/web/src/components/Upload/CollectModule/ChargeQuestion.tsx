@@ -45,8 +45,7 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           onClick={() =>
             setCollectType({
               isSimpleCollect: true,
-              isFeeCollect: true,
-              isMultiRecipientFeeCollect: true
+              isFeeCollect: true
             })
           }
           className={clsx(

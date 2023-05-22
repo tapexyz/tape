@@ -14,7 +14,8 @@ export const getCollectModule = (
     recipient,
     timeLimitEnabled,
     isFeeCollect,
-    isMultiRecipientFeeCollect
+    isMultiRecipientFeeCollect,
+    collectLimitEnabled
   } = selectedCollectModule
 
   // No one can collect the post
@@ -24,7 +25,6 @@ export const getCollectModule = (
     }
   }
 
-  const collectLimitEnabled = Boolean(collectLimit) && collectLimit !== '0'
   const baseCollectModuleParams = {
     collectLimit: collectLimitEnabled ? collectLimit : null,
     followerOnly: followerOnlyCollect as boolean,

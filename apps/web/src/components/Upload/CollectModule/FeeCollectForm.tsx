@@ -74,11 +74,6 @@ const FeeCollectForm: FC<Props> = ({
     } else {
       unregister('collectLimit')
     }
-    if (uploadedVideo.collectModule.isFeeCollect) {
-      register('amount')
-    } else {
-      unregister('amount')
-    }
   }, [uploadedVideo.collectModule, register, unregister])
 
   const getCurrencySymbol = (currencies: Erc20[], address: string) => {

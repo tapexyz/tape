@@ -74,6 +74,11 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
     data?.publication?.__typename === 'Post'
       ? (data?.publication?.collectModule as LenstubeCollectModule)
       : null
+  const collectAmount =
+    collectModule?.amount?.value ?? collectModule?.fee?.amount?.value
+  const currency =
+    collectModule?.amount?.asset?.symbol ??
+    collectModule?.fee?.amount?.asset?.symbol
 
   const { write: writeCollectWithSig } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
@@ -152,10 +157,7 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
   const collectNow = async () => {
     setShowCollectModal(false)
     setLoading(true)
-    if (
-      !Boolean(collectModule?.amount?.value) &&
-      !collectModule?.followerOnly
-    ) {
+    if (!Boolean(collectAmount) && !collectModule?.followerOnly) {
       Analytics.track(TRACK.PUBLICATION.COLLECT, { fee: false })
       await viaProxyAction()
     } else {
@@ -171,12 +173,12 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
     return setShowCollectModal(true)
   }
 
-  const collectTooltipText = collectModule?.amount?.value ? (
+  const collectTooltipText = collectAmount ? (
     <span>
       <Trans>Collect as NFT for</Trans>
       <b className="ml-1 space-x-1">
-        <span>{collectModule?.amount?.value}</span>
-        <span>{collectModule?.amount?.asset.symbol}</span>
+        <span>{collectAmount}</span>
+        <span>{currency}</span>
       </b>
     </span>
   ) : (
