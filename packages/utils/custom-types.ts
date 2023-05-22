@@ -9,6 +9,7 @@ import type {
   MultirecipientFeeCollectModuleSettings,
   RecipientDataInput,
   RevertCollectModuleSettings,
+  SimpleCollectModuleSettings,
   TimedFeeCollectModuleSettings
 } from 'lens'
 
@@ -116,6 +117,7 @@ export type LenstubeCollectModule = FreeCollectModuleSettings &
   LimitedFeeCollectModuleSettings &
   LimitedTimedFeeCollectModuleSettings &
   MultiRecipientFeeCollectModuleSettings &
+  SimpleCollectModuleSettings &
   AaveFeeCollectModuleSettings
 
 export interface CustomErrorWithData extends Error {
