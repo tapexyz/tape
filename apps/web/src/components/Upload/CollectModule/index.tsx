@@ -35,40 +35,37 @@ const CollectModule = () => {
 
   const getSelectedCollectType = () => {
     const followerOnlyCollect = uploadedVideo.collectModule.followerOnlyCollect
-    const isTimedFeeCollect = uploadedVideo.collectModule.isTimedFeeCollect
-    const isLimitedFeeCollect = uploadedVideo.collectModule.isLimitedFeeCollect
+    const timeLimitEnabled = uploadedVideo.collectModule.timeLimitEnabled
+    const collectLimitEnabled = uploadedVideo.collectModule.collectLimitEnabled
+    const isFeeCollect = uploadedVideo.collectModule.isFeeCollect
     const collectLimit = uploadedVideo.collectModule.collectLimit
     const multiRecipients = uploadedVideo.collectModule.multiRecipients
     if (uploadedVideo.collectModule.isRevertCollect) {
       return t`No one can collect this publication`
     }
-    if (uploadedVideo.collectModule.isFreeCollect) {
-      return `${
-        followerOnlyCollect ? t`Subscribers` : t`Anyone`
-      } can collect for free ${isTimedFeeCollect ? t`within 24hrs` : ''}`
-    }
-    if (!uploadedVideo.collectModule.isFreeCollect) {
-      return (
-        <div className="flex items-center space-x-1">
-          <span>
-            {followerOnlyCollect ? t`Subscribers` : t`Anyone`}{' '}
-            <Trans>can collect</Trans>{' '}
-            {isLimitedFeeCollect ? `maximum of ${collectLimit}` : ''}{' '}
-            <Trans>for given fees</Trans>{' '}
-            {isTimedFeeCollect ? t`within 24hrs` : ''}
-          </span>
-          {uploadedVideo.collectModule.isMultiRecipientFeeCollect && (
-            <Tooltip
-              content={`Split revenue enabled with ${multiRecipients?.length} recipients`}
-            >
-              <span>
-                <SplitOutline className="h-5 w-5 rotate-90" outline={false} />
-              </span>
-            </Tooltip>
-          )}
-        </div>
-      )
-    }
+    return (
+      <div className="flex items-center space-x-1">
+        <span>
+          {followerOnlyCollect ? t`Subscribers` : t`Anyone`}{' '}
+          <Trans>can collect</Trans>{' '}
+          {collectLimitEnabled ? `maximum of ${collectLimit}` : ''}{' '}
+          {isFeeCollect ? t`for given fees` : t`for free`}{' '}
+          {timeLimitEnabled ? t`within 24hrs` : ''}
+        </span>
+        {uploadedVideo.collectModule.isMultiRecipientFeeCollect && (
+          <Tooltip
+            content={`Split revenue enabled with ${multiRecipients?.length} recipients`}
+          >
+            <span>
+              <SplitOutline
+                className="mr-2 h-5 w-5 rotate-90"
+                outline={false}
+              />
+            </span>
+          </Tooltip>
+        )}
+      </div>
+    )
   }
 
   return (
@@ -108,15 +105,14 @@ const CollectModule = () => {
               uploadedVideo={uploadedVideo}
             />
           )}
-          {!uploadedVideo.collectModule.isRevertCollect &&
-            !uploadedVideo.collectModule.isTimedFeeCollect &&
-            !uploadedVideo.collectModule.isLimitedFeeCollect && (
-              <ChargeQuestion
-                setCollectType={setCollectType}
-                uploadedVideo={uploadedVideo}
-              />
-            )}
-          {!uploadedVideo.collectModule.isFreeCollect &&
+          {!uploadedVideo.collectModule.isRevertCollect && (
+            <ChargeQuestion
+              setCollectType={setCollectType}
+              uploadedVideo={uploadedVideo}
+            />
+          )}
+          {(uploadedVideo.collectModule.isFeeCollect ||
+            uploadedVideo.collectModule.collectLimitEnabled) &&
           !uploadedVideo.collectModule.isRevertCollect &&
           enabledCurrencies ? (
             <FeeCollectForm
