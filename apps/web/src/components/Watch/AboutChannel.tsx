@@ -39,7 +39,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
       <Link href={`/channel/${channel?.handle}`}>
         <div className="mr-3 flex-none cursor-pointer">
           <img
-            src={getProfilePicture(channel, 'avatar')}
+            src={getProfilePicture(channel, 'AVATAR')}
             className="h-10 w-10 rounded-full"
             draggable={false}
             alt={channel?.handle}

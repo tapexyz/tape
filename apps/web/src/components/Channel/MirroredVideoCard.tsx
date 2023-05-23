@@ -57,7 +57,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
           >
             <img
               className="h-8 w-8 rounded-full"
-              src={getProfilePicture(mirrorOf.profile, 'avatar')}
+              src={getProfilePicture(mirrorOf.profile, 'AVATAR')}
               alt={getLensHandle(mirrorOf.profile.handle)}
               draggable={false}
             />

@@ -28,7 +28,7 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
               className="h-5 w-5 rounded-full"
               src={getProfilePicture(
                 notification.wallet?.defaultProfile,
-                'avatar'
+                'AVATAR'
               )}
               alt={notification.wallet?.defaultProfile?.handle}
               draggable={false}

@@ -131,7 +131,7 @@ const BytesSection = () => {
                 >
                   <img
                     className="h-3.5 w-3.5 rounded-full bg-gray-200 dark:bg-gray-800"
-                    src={getProfilePicture(byte.profile, 'avatar')}
+                    src={getProfilePicture(byte.profile, 'AVATAR')}
                     alt={getLensHandle(byte.profile?.handle)}
                     draggable={false}
                   />

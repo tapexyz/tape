@@ -149,7 +149,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                   className="mr-3 mt-0.5 flex-none"
                 >
                   <img
-                    src={getProfilePicture(comment.profile, 'avatar')}
+                    src={getProfilePicture(comment.profile, 'AVATAR')}
                     className="h-7 w-7 rounded-full"
                     draggable={false}
                     alt={comment.profile?.handle}
