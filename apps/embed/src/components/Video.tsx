@@ -4,7 +4,10 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
-import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
+import {
+  getPublicationHlsUrl,
+  getPublicationMediaUrl
+} from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
@@ -70,6 +73,7 @@ const Video: FC<Props> = ({ video }) => {
         <VideoPlayer
           refCallback={refCallback}
           permanentUrl={getPublicationMediaUrl(video)}
+          hlsUrl={getPublicationHlsUrl(video)}
           posterUrl={thumbnailUrl}
           currentTime={currentTime}
           options={{
