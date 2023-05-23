@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-17 01:25\n"
+"PO-Revision-Date: 2023-05-23 01:25\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -456,7 +456,7 @@ msgstr "反馈"
 
 #: src/components/Upload/CollectModule/index.tsx:52
 msgid "for free"
-msgstr ""
+msgstr "免费的"
 
 #: src/components/Upload/CollectModule/index.tsx:52
 msgid "for given fees"
@@ -1461,3 +1461,4 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
+
