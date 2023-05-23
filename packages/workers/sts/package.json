@@ -6,7 +6,7 @@
   "scripts": {
     "worker:dev": "wrangler dev",
     "worker:deploy": "wrangler deploy",
-    "typecheck": "tsc --pretty --noEmit"
+    "typecheck": "tsc --pretty"
   },
   "dependencies": {
     "@aws-sdk/client-sts": "^3.335.0"
