@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-17 01:25\n"
+"PO-Revision-Date: 2023-05-23 01:25\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -456,7 +456,7 @@ msgstr "Comentarios"
 
 #: src/components/Upload/CollectModule/index.tsx:52
 msgid "for free"
-msgstr ""
+msgstr "gratis"
 
 #: src/components/Upload/CollectModule/index.tsx:52
 msgid "for given fees"
@@ -1461,3 +1461,4 @@ msgstr "Tu Canal"
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
 msgstr "Tu saldo de almacenamiento"
+
