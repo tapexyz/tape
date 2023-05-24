@@ -1,19 +1,18 @@
-import Modal from '@components/UIElements/Modal';
-import Tooltip from '@components/UIElements/Tooltip';
-import { t } from '@lingui/macro';
-import type { FC } from 'react';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { Analytics, LENSTUBE_EMBED_URL, TRACK } from 'utils';
-import useCopyToClipboard from 'utils/hooks/useCopyToClipboard';
-import CodeOutline from './Icons/CodeOutline';
+import Modal from '@components/UIElements/Modal'
+import Tooltip from '@components/UIElements/Tooltip'
+import { t } from '@lingui/macro'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
+import { Analytics, LENSTUBE_EMBED_URL, TRACK } from 'utils'
+import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
+import CodeOutline from './Icons/CodeOutline'
 
 type Props = {
   videoId: string
   onClose: () => void
 }
 
-const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
+const EmbedVideo: React.FC<Props> = ({ videoId, onClose }) => {
   const [showModal, setShowModal] = useState(false)
   const [copy] = useCopyToClipboard()
 

@@ -2,9 +2,9 @@ import { Button } from '@components/UIElements/Button'
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
-import { STATIC_ASSETS } from 'utils'
+import { FALLBACK_COVER_URL } from 'utils'
 
-export default function Custom500() {
+const Custom500: React.FC =  ()  =>{
   return (
     <>
       <Head>
@@ -12,8 +12,8 @@ export default function Custom500() {
       </Head>
       <div className="mt-10 flex h-full flex-col items-center justify-start md:mt-20">
         <img
-          src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
-          alt="LensTube"
+          src={`${FALLBACK_COVER_URL}`}
+          alt="Dragverse"
           draggable={false}
           height={50}
           width={50}
@@ -34,3 +34,5 @@ export default function Custom500() {
     </>
   )
 }
+
+export default Custom500

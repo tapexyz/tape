@@ -4,7 +4,7 @@ import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
+import { Trans, t } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
 import { utils } from 'ethers'
@@ -15,12 +15,12 @@ import {
   useProxyActionMutation,
   usePublicationCollectModuleQuery
 } from 'lens'
-import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData, LenstubeCollectModule } from 'utils'
 import {
   Analytics,
+  CustomErrorWithData,
+  DragverseCollectModule,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
@@ -36,7 +36,7 @@ type Props = {
   variant?: 'hover'
 }
 
-const CollectVideo: FC<Props> = ({ video, variant }) => {
+const CollectVideo: React.FC<Props> = ({ video, variant }) => {
   const { address } = useAccount()
   const { openConnectModal } = useConnectModal()
 
@@ -72,7 +72,7 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
     })
   const collectModule =
     data?.publication?.__typename === 'Post'
-      ? (data?.publication?.collectModule as LenstubeCollectModule)
+      ? (data?.publication?.collectModule as DragverseCollectModule)
       : null
 
   const { write: writeCollectWithSig } = useContractWrite({

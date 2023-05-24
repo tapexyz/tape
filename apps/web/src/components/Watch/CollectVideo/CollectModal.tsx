@@ -21,9 +21,9 @@ import {
   usePublicationRevenueQuery
 } from 'lens'
 import Link from 'next/link'
-import type { Dispatch, FC } from 'react'
+import type { Dispatch } from 'react'
 import React, { useEffect, useState } from 'react'
-import type { LenstubeCollectModule } from 'utils'
+import type { DragverseCollectModule } from 'utils'
 import { Analytics, TRACK } from 'utils'
 import formatNumber from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
@@ -31,7 +31,6 @@ import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture
 import imageCdn from 'utils/functions/imageCdn'
 import { shortenAddress } from 'utils/functions/shortenAddress'
 import { useBalance } from 'wagmi'
-
 import BalanceAlert from './BalanceAlert'
 import PermissionAlert from './PermissionAlert'
 
@@ -41,11 +40,11 @@ type Props = {
   video: Publication
   collecting: boolean
   fetchingCollectModule: boolean
-  collectModule: LenstubeCollectModule
+  collectModule: DragverseCollectModule
   collectNow: () => void
 }
 
-const CollectModal: FC<Props> = ({
+const CollectModal: React.FC<Props> = ({
   showModal,
   setShowModal,
   video,

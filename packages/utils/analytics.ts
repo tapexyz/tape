@@ -64,7 +64,7 @@ export const TRACK = {
     OPEN: 'Open Embed',
     COPY: 'Copy Embed',
     LOADED: 'Embed Video Loaded',
-    WATCH_ON_LENSTUBE: 'Watch on LensTube',
+    WATCH_ON_LENSTUBE: 'Watch on Dragverse',
     CLICK_EMBED_TITLE: 'Click Embed Title',
     CLICK_EMBED_CHANNEL: 'Click Embed Channel'
   },

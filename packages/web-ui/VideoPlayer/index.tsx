@@ -20,6 +20,8 @@ interface Props extends PlayerProps {
   currentTime?: number
   publicationId?: string
   isSensitiveContent?: boolean
+  isLivestream: 'true' | 'false'
+  livestreamPlaybackId?: string
 }
 
 const VideoPlayer: FC<Props> = ({
@@ -31,7 +33,9 @@ const VideoPlayer: FC<Props> = ({
   refCallback,
   publicationId,
   options,
-  showControls = true
+  showControls = true,
+  isLivestream = 'false',
+  livestreamPlaybackId
 }) => {
   const router = useRouter()
   const playerRef = useRef<HTMLMediaElement>()
@@ -45,7 +49,7 @@ const VideoPlayer: FC<Props> = ({
       debug: false,
       data: {
         env_key: MUX_DATA_KEY,
-        player_name: 'Lenstube Player',
+        player_name: 'Dragverse Player',
         video_id: publicationId,
         video_stream_type: VIDEO_TYPE,
         player_init_time: initTime,
@@ -94,6 +98,8 @@ const VideoPlayer: FC<Props> = ({
             playerRef={mediaElementRef}
             options={options}
             showControls={showControls}
+            isLivestream={isLivestream}
+            livestreamPlaybackId={livestreamPlaybackId}
           />
         </div>
       )}

@@ -1,14 +1,14 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import usePersistStore from '@lib/store/persist'
-import { t, Trans } from '@lingui/macro'
+import { t } from '@lingui/macro'
+import { Trans } from '@lingui/react'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { STATIC_ASSETS } from 'utils'
+import { DRAGVERSE_SPATIAL_URL, FALLBACK_COVER_URL } from 'utils'
 import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
-
 import Footer from './Footer'
 import BytesOutline from './Icons/BytesOutline'
 import ChevronLeftOutline from './Icons/ChevronLeftOutline'
@@ -21,7 +21,7 @@ import MobileBottomNav from './MobileBottomNav'
 
 const CreateChannel = dynamic(() => import('./CreateChannel'))
 
-const Sidebar = () => {
+const Sidebar: React.FC = () => {
   const router = useRouter()
   const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
   const setSidebarCollapsed = usePersistStore(
@@ -36,7 +36,7 @@ const Sidebar = () => {
       <CreateChannel />
       <div
         className={clsx(
-          'transition-width dark:bg-theme fixed bottom-0 left-0 top-0 z-10 hidden items-start justify-between bg-white md:flex md:flex-col',
+          'transition-width bg-theme fixed top-0 bottom-0 left-0 z-10 hidden items-start justify-between md:flex md:flex-col',
           sidebarCollapsed ? 'w-[90px]' : 'w-[180px]'
         )}
       >
@@ -53,10 +53,10 @@ const Sidebar = () => {
               className="flex items-center pt-0.5 focus:outline-none"
             >
               <img
-                src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
+                src={`${FALLBACK_COVER_URL}`}
                 draggable={false}
                 className="h-8 w-8"
-                alt="lenstube"
+                alt="dragverse"
               />
             </Link>
           </div>
@@ -161,6 +161,78 @@ const Sidebar = () => {
                 )}
               </Link>
             </Tooltip>
+            {/* <Tooltip
+              content="Livestream"
+              visible={sidebarCollapsed}
+              placement="right"
+            >
+              <Link
+                href="/livestream"
+                className={clsx(
+                  'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
+                  isActivePath('/livestream')
+                    ? 'bg-indigo-50 dark:bg-gray-800'
+                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                  sidebarCollapsed
+                    ? 'w-12 justify-center'
+                    : 'w-full space-x-3 px-4'
+                )}
+              >
+                <NewVideoOutline className="h-4 w-4" />
+                {!sidebarCollapsed && (
+                  <span className="text-sm">Livestream</span>
+                )}
+              </Link>
+            </Tooltip> */}
+            <Tooltip
+              content="Metaverse"
+              visible={sidebarCollapsed}
+              placement="right"
+            >
+              <Link
+                href={`${DRAGVERSE_SPATIAL_URL}`}
+                className={clsx(
+                  'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
+                  isActivePath('/explore')
+                    ? 'bg-indigo-50 dark:bg-gray-800'
+                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                  sidebarCollapsed
+                    ? 'w-12 justify-center'
+                    : 'w-full space-x-3 px-4'
+                )}
+              >
+                <RiGamepadLine className="h-5 w-5" />
+                {!sidebarCollapsed && (
+                  <span className="text-sm">Metaverse</span>
+                )}
+              </Link>
+            </Tooltip>
+            {/* {getIsFeatureEnabled(
+              FEATURE_FLAGS.LENSTUBE_ECHOS,
+              selectedChannel?.id
+            ) && (
+              <Tooltip
+                content="Echos"
+                placement="right"
+                visible={sidebarCollapsed}
+              >
+                <Link
+                  href="/echos"
+                  className={clsx(
+                    'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
+                    isActivePath('/echo')
+                      ? 'bg-indigo-50 dark:bg-gray-800'
+                      : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                    sidebarCollapsed
+                      ? 'w-12 justify-center'
+                      : 'w-full space-x-3 px-4'
+                  )}
+                >
+                  <MusicOutline className="h-5 w-5" />
+                  {!sidebarCollapsed && <span className="text-sm">Echo</span>}
+                </Link>
+              </Tooltip>
+            )} */}
           </div>
         </div>
         <div

@@ -1,11 +1,11 @@
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import type { FC } from 'react';
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import React from 'react'
 import {
   FALLBACK_COVER_URL,
   LENSTUBE_APP_NAME,
   LENSTUBE_WEBSITE_URL
-} from 'utils';
+} from 'utils'
 
 type Props = {
   title?: string
@@ -14,7 +14,7 @@ type Props = {
   videoUrl: string
 }
 
-const MetaTags: FC<Props> = (props) => {
+const MetaTags: React.FC<Props> = (props) => {
   const { description, title, image, videoUrl } = props
   const router = useRouter()
 

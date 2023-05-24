@@ -77,13 +77,13 @@ const formSchema = z.object({
   website: z.union([
     z
       .string()
-      .url({ message: 'Enter valid website URL (eg. https://lenstube.xyz)' }),
+      .url({ message: 'Enter valid website URL (eg. https://dragverse.app)' }),
     z.string().max(0)
   ])
 })
 type FormData = z.infer<typeof formSchema> & { coverImage?: string }
 
-const BasicInfo = ({ channel }: Props) => {
+const BasicInfo: React.FC = ({ channel }: Props) => {
   const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
@@ -274,7 +274,7 @@ const BasicInfo = ({ channel }: Props) => {
   return (
     <form
       onSubmit={handleSubmit(onSaveBasicInfo)}
-      className="dark:bg-theme rounded-xl bg-white p-4"
+      className="bg-theme rounded-xl p-4"
     >
       <div className="relative w-full flex-none">
         {uploading && (
@@ -296,7 +296,7 @@ const BasicInfo = ({ channel }: Props) => {
         />
         <label
           htmlFor="chooseCover"
-          className="dark:bg-theme absolute bottom-2 left-2 cursor-pointer rounded-lg bg-white p-1 px-3 text-sm"
+          className="bg-theme absolute bottom-2 left-2 cursor-pointer rounded-lg p-1 px-3 text-sm"
         >
           <Trans>Change</Trans>
           <input

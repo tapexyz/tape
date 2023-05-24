@@ -14,7 +14,7 @@ query GlobalProtocolStats($request: GlobalProtocolStatsRequest) {
       value
     }
   }
-  bytesStats: globalProtocolStats(request: { sources: "lenstube-bytes" }) {
+  bytesStats: globalProtocolStats(request: { sources: "dragverse-bytes" }) {
     totalPosts
   }
 }

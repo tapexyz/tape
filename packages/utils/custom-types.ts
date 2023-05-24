@@ -79,7 +79,21 @@ export type UploadedVideo = {
   durationInSeconds: string | null
   collectModule: CollectModuleType
   referenceModule: ReferenceModuleType
+  isNSFW: boolean
+  isNSFWThumbnail: boolean
   isByteVideo: boolean
+}
+
+export enum LivestreamType {
+  Perpetual = 'perpetual'
+}
+
+export type UploadedLivestream = UploadedVideo & {
+  isLivestream: boolean
+  livestreamType: LivestreamType
+  livestreamName: string
+  livestreamPlaybackId: string
+  livestreamKey: string
 }
 
 export type IPFSUploadResult = {
@@ -110,7 +124,7 @@ type MultiRecipientFeeCollectModuleSettings =
     optionalCollectLimit?: string
   }
 
-export type LenstubeCollectModule = FreeCollectModuleSettings &
+export type DragverseCollectModule = FreeCollectModuleSettings &
   FeeCollectModuleSettings &
   RevertCollectModuleSettings &
   TimedFeeCollectModuleSettings &
@@ -136,6 +150,8 @@ export type QueuedVideoType = {
   txnId?: string
   txnHash?: string
 }
+
+export type QueuedLivestreamVideoType = QueuedVideoType
 
 export type QueuedCommentType = {
   comment: string

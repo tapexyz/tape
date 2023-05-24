@@ -19,7 +19,7 @@ import {
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData, LenstubeCollectModule } from 'utils'
+import type { CustomErrorWithData, DragverseCollectModule } from 'utils'
 import {
   Analytics,
   ERROR_MESSAGE,
@@ -53,7 +53,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
   const collectModule =
     video?.__typename === 'Post'
-      ? (video?.collectModule as LenstubeCollectModule)
+      ? (video?.collectModule as DragverseCollectModule)
       : null
 
   const onError = (error: CustomErrorWithData) => {

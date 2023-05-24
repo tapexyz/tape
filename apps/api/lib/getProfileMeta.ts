@@ -1,10 +1,10 @@
-import type { Profile } from 'lens';
-import { ProfileDocument } from 'lens';
-import type { NextApiResponse } from 'next';
-import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from 'utils';
-import getApolloClient from 'utils/functions/getApolloClient';
-import getMetaTags from 'utils/functions/getMetaTags';
-import getProfilePicture from 'utils/functions/getProfilePicture';
+import type { Profile } from 'lens'
+import { ProfileDocument } from 'lens'
+import type { NextApiResponse } from 'next'
+import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from 'utils'
+import getApolloClient from 'utils/functions/getApolloClient'
+import getMetaTags from 'utils/functions/getMetaTags'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 
 const apolloClient = getApolloClient()
 

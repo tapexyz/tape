@@ -1,47 +1,74 @@
-import type { QueuedCommentType, QueuedVideoType } from 'utils'
-import { CustomNotificationsFilterEnum } from 'utils'
+import type {
+  QueuedCommentType,
+  QueuedLivestreamVideoType,
+  QueuedVideoType
+} from 'utils'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+type Tokens = {
+  accessToken: string | null
+  refreshToken: string | null
+}
+
 interface AppPerisistState {
+  accessToken: Tokens['accessToken']
+  refreshToken: Tokens['refreshToken']
+  selectedChannelId: string | null
   sidebarCollapsed: boolean
   latestNotificationId: string
   queuedVideos: QueuedVideoType[]
   queuedComments: QueuedCommentType[]
-  selectedNotificationsFilter: CustomNotificationsFilterEnum
+  queuedLivestreams: QueuedVideoType[]
   setLatestNotificationId: (id: string) => void
   setSidebarCollapsed: (collapsed: boolean) => void
+  setSelectedChannelId: (id: string | null) => void
   setQueuedComments: (queuedComments: QueuedCommentType[]) => void
   setQueuedVideos: (queuedVideos: QueuedVideoType[]) => void
-  setSelectedNotificationsFilter: (
-    filter: CustomNotificationsFilterEnum
-  ) => void
-  visitorId: string | null
-  setVisitorId: (visitorId: string | null) => void
+  setQueuedLivestreams: (queuedVideos: QueuedLivestreamVideoType[]) => void
+  signIn: (tokens: { accessToken: string; refreshToken: string }) => void
+  signOut: () => void
+  hydrateAuthTokens: () => Tokens
 }
 
 export const usePersistStore = create(
   persist<AppPerisistState>(
-    (set) => ({
+    (set, get) => ({
+      accessToken: null,
+      refreshToken: null,
+      selectedChannelId: null,
       sidebarCollapsed: true,
       latestNotificationId: '',
       queuedComments: [],
       queuedVideos: [],
+      queuedLivestreams: [],
       setQueuedVideos: (queuedVideos) => set({ queuedVideos }),
       setQueuedComments: (queuedComments) => set({ queuedComments }),
+      setQueuedLivestreams: (queuedLivestreams) => set({ queuedLivestreams }),
       setSidebarCollapsed: (sidebarCollapsed) => set({ sidebarCollapsed }),
       setLatestNotificationId: (latestNotificationId) =>
         set({ latestNotificationId }),
-      selectedNotificationsFilter: CustomNotificationsFilterEnum.HIGH_SIGNAL,
-      setSelectedNotificationsFilter: (selectedNotificationsFilter) =>
-        set({ selectedNotificationsFilter }),
-      visitorId: null,
-      setVisitorId: (visitorId) => set({ visitorId })
+      setSelectedChannelId: (id) => set({ selectedChannelId: id }),
+      signIn: ({ accessToken, refreshToken }) =>
+        set({ accessToken, refreshToken }),
+      signOut: () => localStorage.removeItem('dragverse.store'),
+      hydrateAuthTokens: () => {
+        return {
+          accessToken: get().accessToken,
+          refreshToken: get().refreshToken
+        }
+      }
     }),
     {
-      name: 'lenstube.store'
+      name: 'dragverse.store'
     }
   )
 )
 
 export default usePersistStore
+
+export const signIn = (tokens: { accessToken: string; refreshToken: string }) =>
+  usePersistStore.getState().signIn(tokens)
+export const signOut = () => usePersistStore.getState().signOut()
+export const hydrateAuthTokens = () =>
+  usePersistStore.getState().hydrateAuthTokens()

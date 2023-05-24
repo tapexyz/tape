@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags'
 import Link from 'next/link'
 import React from 'react'
 
-const terms = () => {
+const terms: React.FC = () => {
   return (
     <div className="relative overflow-hidden py-[5rem]">
       <MetaTags title="Privacy Policy" />
@@ -28,7 +28,7 @@ const terms = () => {
           </p>
           <p>
             This Privacy Policy (the “Privacy Policy”) provides a comprehensive
-            description of how Lenstube (“we,” “our,” or “us”) collects, uses,
+            description of how Dragverse (“we,” “our,” or “us”) collects, uses,
             and shares information about you in connection with the website at
             “lenstube.xyz”, as well as your rights and choices regarding such
             information.
@@ -155,7 +155,7 @@ const terms = () => {
             If you have any questions or comments about this Privacy Policy, our
             data practices, or our compliance with applicable law, please
             contact us at{' '}
-            <Link href="mailto:privacy@lenstube.xyz">privacy@lenstube.xyz</Link>
+            <Link href="mailto:support@dragverse.io">support@dragverse.io</Link>
             .
           </p>
         </div>

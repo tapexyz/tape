@@ -1,12 +1,12 @@
-import type { Publication } from 'lens';
-import { PublicationDetailsDocument } from 'lens';
-import type { NextApiResponse } from 'next';
-import { FALLBACK_COVER_URL, LENSTUBE_APP_DESCRIPTION } from 'utils';
-import getApolloClient from 'utils/functions/getApolloClient';
-import getMetaTags from 'utils/functions/getMetaTags';
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl';
-import imageCdn from 'utils/functions/imageCdn';
-import truncate from 'utils/functions/truncate';
+import type { Publication } from 'lens'
+import { PublicationDetailsDocument } from 'lens'
+import type { NextApiResponse } from 'next'
+import { FALLBACK_COVER_URL, LENSTUBE_APP_DESCRIPTION } from 'utils'
+import getApolloClient from 'utils/functions/getApolloClient'
+import getMetaTags from 'utils/functions/getMetaTags'
+import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
+import imageCdn from 'utils/functions/imageCdn'
+import truncate from 'utils/functions/truncate'
 
 const apolloClient = getApolloClient()
 

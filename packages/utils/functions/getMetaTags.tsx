@@ -1,12 +1,12 @@
 import type { Attribute, Publication } from 'lens'
 import {
+  FALLBACK_COVER_URL,
   LENSTUBE_API_URL,
   LENSTUBE_APP_DESCRIPTION,
   LENSTUBE_APP_NAME,
   LENSTUBE_EMBED_URL,
   LENSTUBE_TWITTER_HANDLE,
-  LENSTUBE_WEBSITE_URL,
-  OG_IMAGE
+  LENSTUBE_WEBSITE_URL
 } from 'utils'
 import { secondsToISO } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
@@ -33,9 +33,9 @@ const getMetaTags = ({
 }: Args) => {
   const isVideo = page === 'VIDEO'
   const meta = {
-    title: `${title} • Lenstube` ?? LENSTUBE_APP_NAME,
+    title: `${title} • Dragverse` ?? LENSTUBE_APP_NAME,
     description: description || LENSTUBE_APP_DESCRIPTION,
-    image: image ?? OG_IMAGE,
+    image: image ?? `${FALLBACK_COVER_URL}`,
     url: isVideo
       ? `${LENSTUBE_WEBSITE_URL}/watch/${pubId}`
       : `${LENSTUBE_WEBSITE_URL}/channel/${handle}`

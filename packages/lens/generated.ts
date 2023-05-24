@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
+import { gql } from '@apollo/client'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -15321,7 +15321,7 @@ export const GlobalProtocolStatsDocument = gql`
         value
       }
     }
-    bytesStats: globalProtocolStats(request: { sources: "lenstube-bytes" }) {
+    bytesStats: globalProtocolStats(request: { sources: "dragverse-bytes" }) {
       totalPosts
     }
   }

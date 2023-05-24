@@ -9,5 +9,8 @@
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "typescript.format.semicolons": "remove",
+  // "prettier.semi": false,
+  // "javascript.format.semicolons": "remove"
 }

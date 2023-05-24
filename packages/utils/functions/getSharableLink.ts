@@ -20,14 +20,14 @@ export const getSharableLink = (link: Link, video: Publication) => {
       video.metadata?.name as string
     } by @${getLensHandle(
       video.profile?.handle
-    )}&hashtags=Lenstube&preview=true`
+    )}&hashtags=Dragverse&preview=true`
   } else if (link === 'twitter') {
     return encodeURI(
       `https://twitter.com/intent/tweet?url=${getViewUrl(video)}&text=${
         video.metadata?.name as string
       } by @${getLensHandle(
         video.profile?.handle
-      )}&via=${LENSTUBE_TWITTER_HANDLE}&related=Lenstube&hashtags=Lenstube`
+      )}&via=${LENSTUBE_TWITTER_HANDLE}&related=Dragverse&hashtags=Dragverse`
     )
   } else if (link === 'reddit') {
     return `https://www.reddit.com/submit?url=${getViewUrl(video)}&title=${

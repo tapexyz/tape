@@ -1,4 +1,4 @@
-import { CustomFiltersTypes } from 'lens';
+import { CustomFiltersTypes } from 'lens'
 
 export const LENSTUBE_APP_NAME = 'Dragverse'
 export const LENSTUBE_APP_DESCRIPTION =

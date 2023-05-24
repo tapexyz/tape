@@ -1,9 +1,8 @@
 import Alert from '@components/Common/Alert'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React from 'react'
-import type { LenstubeCollectModule } from 'utils'
+import type { DragverseCollectModule } from 'utils'
 import { IS_MAINNET } from 'utils'
 
 const getUniswapURL = (amount: number, outputCurrency: string): string => {
@@ -13,10 +12,10 @@ const getUniswapURL = (amount: number, outputCurrency: string): string => {
 }
 
 type Props = {
-  collectModule: LenstubeCollectModule
+  collectModule: DragverseCollectModule
 }
 
-const BalanceAlert: FC<Props> = ({ collectModule }) => {
+const BalanceAlert: React.FC<Props> = ({ collectModule }) => {
   return (
     <div className="flex-1">
       <Alert variant="warning">

@@ -1,14 +1,17 @@
-import usePersistStore from '@lib/store/persist';
-import Link from 'next/link';
+import usePersistStore from '@lib/store/persist'
+import { Trans } from '@lingui/react'
+import Link from 'next/link'
+import React from 'react'
 import {
   Analytics,
+  LENSTUBE_DISCORD_INVITE_URL,
   LENSTUBE_GITHUB_HANDLE,
   LENSTUBE_ROADMAP_URL,
   LENSTUBE_TWITTER_HANDLE,
   TRACK
-} from 'utils';
+} from 'utils'
 
-const Footer = () => {
+const Footer: React.FC = () => {
   const setSidebarCollapsed = usePersistStore(
     (state) => state.setSidebarCollapsed
   )

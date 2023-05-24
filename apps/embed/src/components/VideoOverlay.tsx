@@ -1,16 +1,16 @@
-import type { Publication } from 'lens';
-import Link from 'next/link';
-import type { FC } from 'react';
-import { Analytics, TRACK } from 'utils';
-import { FALLBACK_COVER_URL, LENSTUBE_WEBSITE_URL } from 'utils/constants';
-import getProfilePicture from 'utils/functions/getProfilePicture';
+import type { Publication } from 'lens'
+import Link from 'next/link'
+import React from 'react'
+import { Analytics, TRACK } from 'utils'
+import { FALLBACK_COVER_URL, LENSTUBE_WEBSITE_URL } from 'utils/constants'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 
 type Props = {
   video: Publication
   clicked: boolean
 }
 
-const VideoOverlay: FC<Props> = ({ video, clicked }) => {
+const VideoOverlay: React.FC<Props> = ({ video, clicked }) => {
   return (
     <div className="absolute top-0 z-10 w-full text-white">
       <div className="flex items-center justify-between space-x-6 bg-gradient-to-b from-black/80 via-black/30 to-transparent p-3.5 pb-6">

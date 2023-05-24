@@ -1,15 +1,15 @@
-import type { Publication } from 'lens';
-import { PublicationDetailsDocument } from 'lens';
+import type { Publication } from 'lens'
+import { PublicationDetailsDocument } from 'lens'
 import {
   FALLBACK_COVER_URL,
   LENSTUBE_APP_NAME,
   LENSTUBE_EMBED_URL,
   LENSTUBE_WEBSITE_URL
-} from 'utils';
-import getApolloClient from 'utils/functions/getApolloClient';
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl';
-import imageCdn from 'utils/functions/imageCdn';
-import truncate from 'utils/functions/truncate';
+} from 'utils'
+import getApolloClient from 'utils/functions/getApolloClient'
+import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
+import imageCdn from 'utils/functions/imageCdn'
+import truncate from 'utils/functions/truncate'
 
 const apolloClient = getApolloClient()
 
