@@ -16,7 +16,7 @@ import {
   useCreateSetProfileImageUriViaDispatcherMutation
 } from 'lens'
 import type { ChangeEvent, FC } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
 import {
@@ -174,7 +174,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       <label
         htmlFor="choosePfp"
         className={clsx(
-          'dark:bg-theme invisible absolute top-0 grid h-32 w-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible',
+          'bg-theme invisible absolute top-0 grid h-32 w-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible',
           { '!visible': loading && !pfpData?.hash }
         )}
       >

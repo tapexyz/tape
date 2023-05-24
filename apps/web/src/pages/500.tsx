@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import { FALLBACK_COVER_URL } from 'utils'
 
-const Custom500: React.FC =  ()  =>{
+const Custom500: React.FC = () => {
   return (
     <>
       <Head>

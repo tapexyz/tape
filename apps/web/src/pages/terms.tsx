@@ -250,7 +250,9 @@ const terms: React.FC = () => {
             <span>Dragverse</span>
             <span>
               Email:{' '}
-              <Link href="mailto:support@dragverse.io">support@dragverse.io</Link>
+              <Link href="mailto:support@dragverse.io">
+                support@dragverse.io
+              </Link>
             </span>
           </div>
           <p>To be effective, your notification must include the following:</p>
@@ -402,7 +404,8 @@ const terms: React.FC = () => {
           <h2>14. Contact Information</h2>
           <p>
             Questions about the Terms should be sent to us at{' '}
-            <Link href="mailto:support@dragverse.io">support@dragverse.io</Link>.
+            <Link href="mailto:support@dragverse.io">support@dragverse.io</Link>
+            .
           </p>
         </div>
       </div>

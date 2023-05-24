@@ -3,7 +3,6 @@ import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
-import React from 'react'
 import { IPFS_FREE_UPLOAD_LIMIT } from 'utils'
 import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
 
@@ -26,7 +25,7 @@ const UploadMethod = () => {
           className={({ selected }) =>
             clsx(
               'w-full rounded-xl py-2.5 text-sm font-medium leading-5 focus:outline-none',
-              selected ? 'dark:bg-theme bg-white' : 'hover:bg-white/[0.12]'
+              selected ? 'bg-theme bg-white' : 'hover:bg-white/[0.12]'
             )
           }
           onClick={() => setUploadedVideo({ isUploadToIpfs: false })}
@@ -37,9 +36,7 @@ const UploadMethod = () => {
           className={({ selected }) =>
             clsx(
               'w-full rounded-xl text-sm font-medium leading-5 focus:outline-none disabled:opacity-30',
-              selected
-                ? 'dark:bg-theme bg-white'
-                : 'enabled:hover:bg-white/[0.12]'
+              selected ? 'bg-theme bg-white' : 'enabled:hover:bg-white/[0.12]'
             )
           }
           onClick={() => setUploadedVideo({ isUploadToIpfs: true })}

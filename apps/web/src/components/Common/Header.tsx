@@ -33,13 +33,13 @@ const Header: React.FC<Props> = ({ className }) => {
   const showFilter =
     pathname === '/' || pathname === '/explore' || pathname === '/feed'
 
-    const hasNewNotification = useChannelStore(
-      (state) => state.hasNewNotification
-    )
-    const selectedChannelId = useAuthPersistStore(
-      (state) => state.selectedChannelId
-    )
-    const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const hasNewNotification = useChannelStore(
+    (state) => state.hasNewNotification
+  )
+  const selectedChannelId = useAuthPersistStore(
+    (state) => state.selectedChannelId
+  )
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const latestNotificationId = usePersistStore(
     (state) => state.latestNotificationId
   )
@@ -73,7 +73,7 @@ const Header: React.FC<Props> = ({ className }) => {
   return (
     <div
       className={clsx(
-        'bg-theme sticky top-0 left-0 right-0 z-10 flex w-full items-center py-2.5',
+        'bg-theme sticky left-0 right-0 top-0 z-10 flex w-full items-center py-2.5',
         className
       )}
     >

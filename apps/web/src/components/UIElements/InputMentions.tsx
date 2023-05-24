@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import type { Profile } from 'lens'
 import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens'
 import type { ComponentProps, FC } from 'react'
-import React, { useId } from 'react'
+import { useId } from 'react'
 import type { SuggestionDataItem } from 'react-mentions'
 import { Mention, MentionsInput } from 'react-mentions'
 import { LENS_CUSTOM_FILTERS } from 'utils'
@@ -103,7 +103,7 @@ const InputMentions: FC<Props> = ({
                 picture={suggestion.picture as string}
                 handle={suggestion.id as string}
                 className={clsx({
-                  'dark:bg-theme rounded bg-indigo-50': focused
+                  'bg-theme rounded bg-indigo-50': focused
                 })}
                 subscribersCount={suggestion.followers as number}
               />

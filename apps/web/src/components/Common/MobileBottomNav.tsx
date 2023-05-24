@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
 
 import BytesOutline from './Icons/BytesOutline'
 import ExploreOutline from './Icons/ExploreOutline'
@@ -16,7 +15,7 @@ const MobileBottomNav = () => {
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div className="pb-safe dark:bg-theme fixed inset-x-0 bottom-0 z-[4] border-t border-gray-300 bg-white dark:border-gray-700 md:hidden">
+    <div className="pb-safe bg-theme fixed inset-x-0 bottom-0 z-[4] border-t border-gray-300 bg-white dark:border-gray-700 md:hidden">
       <div className="grid grid-cols-5">
         <Link
           href="/"

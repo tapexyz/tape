@@ -20,7 +20,7 @@ import {
   useEnabledModuleCurrrenciesQuery,
   useProfileFollowModuleQuery
 } from 'lens'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
@@ -192,7 +192,7 @@ const Membership = ({ channel }: Props) => {
   }
 
   return (
-    <div className="dark:bg-theme rounded-xl bg-white p-4">
+    <div className="bg-theme rounded-xl bg-white p-4">
       <div className="mb-5">
         <h1 className="mb-1 text-xl font-semibold">
           <Trans>Grow with Lens</Trans>

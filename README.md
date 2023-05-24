@@ -6,10 +6,10 @@
 <br>
 
 ## Demo
-https://user-images.githubusercontent.com/8083958/222954569-b88fde67-8b95-466d-aadf-e5c9542d9601.mp4    
 
+https://user-images.githubusercontent.com/8083958/222954569-b88fde67-8b95-466d-aadf-e5c9542d9601.mp4
 
-[Dragverse Video](https://dragverse.app/watch/0x70a8-0x01)                    
+[Dragverse Video](https://dragverse.app/watch/0x70a8-0x01)  
 [Youtube Video](https://youtu.be/65LG2dkBcBI)
 
 ## 📽️ About
@@ -22,10 +22,10 @@ For a place to have open discussions on features, voice your ideas, or get help 
 
 ## 🚢 Deployments
 
-| Name    | Link                         |
-| ------- | ---------------------------- |
-| Mainnet | Coming Soon!                 |
-| Testnet | [dragverse.app](https://dragverse.app)                |
+| Name    | Link                                   |
+| ------- | -------------------------------------- |
+| Mainnet | Coming Soon!                           |
+| Testnet | [dragverse.app](https://dragverse.app) |
 
 ## 🔭 What's inside?
 
@@ -35,7 +35,7 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 | Name    | Description                         |
 | ------- | ----------------------------------- |
-| `web`   | NextJs Dragverse website             |
+| `web`   | NextJs Dragverse website            |
 | `embed` | NextJs application for video embeds |
 | `api`   | NextJs serverless functions         |
 
@@ -76,7 +76,6 @@ To deploy on Vercel, use the following configuration:
 <img width="917" alt="Screenshot 2023-03-01 at 11 18 04 AM" src="https://user-images.githubusercontent.com/8083958/222251470-bf9be5f8-a172-4eac-930c-d7d557880787.png">
 
 <img width="899" alt="Screenshot 2023-03-01 at 12 55 51 PM" src="https://user-images.githubusercontent.com/8083958/222251898-e8486738-a85e-4e35-99f4-781da701468c.png">
-
 
 ## 🤝 Contributors
 

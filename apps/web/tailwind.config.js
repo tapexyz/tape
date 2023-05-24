@@ -11,7 +11,8 @@ module.exports = {
         ultrawide: '1800px'
       },
       colors: {
-        theme: '#151a2c'
+        theme: '#18122d',
+        pink: '#e748e6'
       },
       transitionProperty: {
         width: 'width'

@@ -36,7 +36,7 @@ const Sidebar: React.FC = () => {
       <CreateChannel />
       <div
         className={clsx(
-          'transition-width bg-theme fixed top-0 bottom-0 left-0 z-10 hidden items-start justify-between md:flex md:flex-col',
+          'transition-width bg-theme fixed bottom-0 left-0 top-0 z-10 hidden items-start justify-between md:flex md:flex-col',
           sidebarCollapsed ? 'w-[90px]' : 'w-[180px]'
         )}
       >

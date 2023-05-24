@@ -3,7 +3,6 @@ import { storeLocale } from '@lib/i18n'
 import usePersistStore from '@lib/store/persist'
 import { useLingui } from '@lingui/react'
 import clsx from 'clsx'
-import React from 'react'
 import { Analytics, SUPPORTED_LOCALES, TRACK } from 'utils'
 
 import GlobeOutline from './Icons/GlobeOutline'
@@ -38,8 +37,7 @@ const Locale = () => {
             key={key}
             className={clsx(
               'dark:hover:bg-theme w-28 cursor-pointer overflow-hidden rounded-lg px-3 py-1 text-left hover:bg-white focus:outline-none',
-              selectedLocale === SUPPORTED_LOCALES[key] &&
-                'dark:bg-theme bg-white'
+              selectedLocale === SUPPORTED_LOCALES[key] && 'bg-theme bg-white'
             )}
             onClick={() => {
               storeLocale(key)

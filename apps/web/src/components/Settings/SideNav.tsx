@@ -9,7 +9,6 @@ import type { Profile } from 'lens'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
-import React from 'react'
 
 import ChannelPicture from './ChannelPicture'
 
@@ -29,7 +28,7 @@ const SideNav: FC<Props> = ({ channel }) => {
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div className="dark:bg-theme rounded-xl bg-white p-2">
+    <div className="bg-theme rounded-xl bg-white p-2">
       <div className="flex flex-col items-center space-y-2 py-4">
         <ChannelPicture channel={channel} />
       </div>

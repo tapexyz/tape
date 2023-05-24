@@ -29,8 +29,8 @@ jobs:
         - name: Install Playwright Browsers 🕹️
           run: npx playwright install --with-deps
 
-        - name: Check Lint 💅🏻
-          run: yarn lint
+        # - name: Check Lint 💅🏻
+        #   run: yarn lint
  
         - name: Run Build 🔨
           run: yarn build

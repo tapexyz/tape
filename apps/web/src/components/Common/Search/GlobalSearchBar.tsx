@@ -10,7 +10,7 @@ import {
   SearchRequestTypes
 } from 'lens'
 import type { FC } from 'react'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   Analytics,
   LENS_CUSTOM_FILTERS,
@@ -94,7 +94,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
           </div>
           <div
             className={clsx(
-              'dark:bg-theme z-10 mt-1 w-full overflow-hidden rounded-xl bg-white text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm md:absolute',
+              'bg-theme z-10 mt-1 w-full overflow-hidden rounded-xl bg-white text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm md:absolute',
               { hidden: debouncedValue.length === 0 }
             )}
           >
