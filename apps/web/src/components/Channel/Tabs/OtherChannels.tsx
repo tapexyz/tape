@@ -3,11 +3,10 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { t } from '@lingui/macro'
 import type { Profile } from 'lens'
 import { useAllProfilesQuery } from 'lens'
-import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React from 'react'
 
-const OtherChannelCard = dynamic(() => import('./OtherChannelCard'))
+import OtherChannelCard from './OtherChannelCard'
 
 type Props = {
   channel: Profile
