@@ -40,6 +40,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         }}
         className="ultrawide:h-[35vh] relative h-44 w-full bg-white bg-cover bg-center bg-no-repeat dark:bg-gray-900 md:h-[20vw]"
       >
+        {/* @ts-expect-error Server Component */}
         <CoverLinks channel={channel} />
       </div>
       <div className="container mx-auto flex max-w-[85rem] space-x-3 p-2 md:items-center md:space-x-5 md:py-5">
