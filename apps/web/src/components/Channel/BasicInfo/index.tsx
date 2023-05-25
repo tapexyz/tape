@@ -6,7 +6,6 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import type { Profile } from 'lens'
-import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
@@ -15,8 +14,7 @@ import imageCdn from 'utils/functions/imageCdn'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 
 import MutualSubscribers from '../Mutual/MutualSubscribers'
-
-const CoverLinks = dynamic(() => import('./CoverLinks'))
+import CoverLinks from './CoverLinks'
 
 type Props = {
   channel: Profile

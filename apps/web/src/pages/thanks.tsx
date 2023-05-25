@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
-const Thanks = dynamic(() => import('../components/Thanks'))
+import Thanks from '@components/Thanks'
 
 export default Thanks

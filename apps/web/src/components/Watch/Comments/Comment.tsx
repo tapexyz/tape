@@ -14,7 +14,6 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
 import type { Attribute, Publication } from 'lens'
 import { PublicationMainFocus } from 'lens'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -26,14 +25,13 @@ import {
 import getLensHandle from 'utils/functions/getLensHandle'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
+import PublicationReaction from '../PublicationReaction'
 import CommentImages from './CommentImages'
+import CommentOptions from './CommentOptions'
 import CommentReplies from './CommentReplies'
 import NewComment from './NewComment'
 import QueuedComment from './QueuedComment'
 import VideoComment from './VideoComment'
-
-const CommentOptions = dynamic(() => import('./CommentOptions'))
-const PublicationReaction = dynamic(() => import('../PublicationReaction'))
 
 interface Props {
   comment: Publication
