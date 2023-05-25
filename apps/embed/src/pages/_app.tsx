@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           font-family: ${bloomer.style.fontFamily};
         }
       `}</style>
+      {/* @ts-expect-error Server Component */}
       <Component {...pageProps} />
     </LivepeerConfig>
   )
