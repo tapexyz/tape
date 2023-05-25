@@ -4,15 +4,13 @@ import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import type { GlobalProtocolStats } from 'lens'
 import { useGlobalProtocolStatsQuery } from 'lens'
-import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
+import Custom404 from 'src/pages/404'
 import { ADMIN_IDS, Analytics, LENSTUBE_APP_ID, TRACK } from 'utils'
 
+import Deployment from './Deployment'
 import Recents from './Recents'
-
-const StatCard = dynamic(() => import('./StatCard'))
-const Deployment = dynamic(() => import('./Deployment'))
-const Custom404 = dynamic(() => import('../../pages/404'))
+import StatCard from './StatCard'
 
 const Mod = () => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)

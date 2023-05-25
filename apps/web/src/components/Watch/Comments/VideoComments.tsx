@@ -14,7 +14,6 @@ import {
   PublicationMainFocus,
   useCommentsQuery
 } from 'lens'
-import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -24,11 +23,10 @@ import {
   SCROLL_ROOT_MARGIN
 } from 'utils'
 
+import Comment from './Comment'
 import CommentsFilter from './CommentsFilter'
 import NewComment from './NewComment'
 import QueuedComment from './QueuedComment'
-
-const Comment = dynamic(() => import('./Comment'))
 
 type Props = {
   video: Publication
