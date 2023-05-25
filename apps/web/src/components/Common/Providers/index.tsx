@@ -90,6 +90,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
 
   return (
     <I18nProvider i18n={i18n}>
+      {/* @ts-expect-error Server Component */}
       <ErrorBoundary>
         <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
           <WagmiConfig client={wagmiClient}>

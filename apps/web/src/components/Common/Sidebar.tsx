@@ -2,13 +2,13 @@ import Tooltip from '@components/UIElements/Tooltip'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { STATIC_ASSETS } from 'utils'
 import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
 
+import CreateChannel from './CreateChannel'
 import Footer from './Footer'
 import BytesOutline from './Icons/BytesOutline'
 import ChevronLeftOutline from './Icons/ChevronLeftOutline'
@@ -18,8 +18,6 @@ import FeedOutline from './Icons/FeedOutline'
 import HomeOutline from './Icons/HomeOutline'
 import Locale from './Locale'
 import MobileBottomNav from './MobileBottomNav'
-
-const CreateChannel = dynamic(() => import('./CreateChannel'))
 
 const Sidebar = () => {
   const router = useRouter()

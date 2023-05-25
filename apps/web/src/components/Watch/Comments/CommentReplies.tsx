@@ -11,7 +11,6 @@ import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { Profile, Publication } from 'lens'
 import { PublicationMainFocus, useCommentsQuery } from 'lens'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -19,10 +18,9 @@ import { LENS_CUSTOM_FILTERS } from 'utils'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
+import PublicationReaction from '../PublicationReaction'
+import CommentOptions from './CommentOptions'
 import VideoComment from './VideoComment'
-
-const CommentOptions = dynamic(() => import('./CommentOptions'))
-const PublicationReaction = dynamic(() => import('../PublicationReaction'))
 
 type ReplyContentProps = {
   comment: Publication

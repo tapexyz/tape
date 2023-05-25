@@ -44,6 +44,7 @@ const Video: FC<Props> = ({ video }) => {
 
   return (
     <div className="overflow-hidden">
+      {/* @ts-expect-error Server Component */}
       <VideoPlayer
         refCallback={refCallback}
         currentTime={videoWatchTime}
