@@ -6,7 +6,13 @@ fragment MetadataFields on MetadataOutput {
   contentWarning
   tags
   cover {
+    onChain {
+      url
+    }
     original {
+      url
+    }
+    optimized {
       url
     }
   }
@@ -14,6 +20,12 @@ fragment MetadataFields on MetadataOutput {
     original {
       url
       mimeType
+    }
+    onChain {
+      url
+    }
+    optimized {
+      url
     }
   }
   attributes {

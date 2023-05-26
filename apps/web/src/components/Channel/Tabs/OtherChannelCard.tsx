@@ -15,7 +15,7 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
       <Link href={`/channel/${channel.handle}`}>
         <img
           className="h-24 w-24 rounded-full object-cover"
-          src={getProfilePicture(channel, 'avatar_lg')}
+          src={getProfilePicture(channel, 'AVATAR_LG')}
           alt={channel?.handle}
           draggable={false}
         />

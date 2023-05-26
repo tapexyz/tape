@@ -58,7 +58,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             <img
               src={imageCdn(
                 `${STATIC_ASSETS}/images/lenster-logo.svg`,
-                'avatar_lg'
+                'AVATAR_LG'
               )}
               className="h-10 w-10 max-w-none rounded-full"
               loading="eager"
@@ -77,7 +77,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             <img
               src={imageCdn(
                 `${STATIC_ASSETS}/images/social/twitter-logo.png`,
-                'avatar_lg'
+                'AVATAR_LG'
               )}
               loading="eager"
               className="h-10 w-10 max-w-none rounded-full"
@@ -94,7 +94,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             <img
               src={imageCdn(
                 `${STATIC_ASSETS}/images/social/reddit-logo.webp`,
-                'avatar_lg'
+                'AVATAR_LG'
               )}
               className="h-10 w-10 max-w-none rounded-full"
               loading="eager"
@@ -111,7 +111,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             <img
               src={imageCdn(
                 `${STATIC_ASSETS}/images/social/linkedin-logo.png`,
-                'avatar_lg'
+                'AVATAR_LG'
               )}
               loading="eager"
               alt="linkedin"

@@ -44,7 +44,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         <div className="flex-none">
           <img
             className="ultrawide:h-32 ultrawide:w-32 h-24 w-24 rounded-full bg-white object-cover dark:bg-gray-900"
-            src={getProfilePicture(channel, 'avatar_lg')}
+            src={getProfilePicture(channel, 'AVATAR_LG')}
             draggable={false}
             alt={channel?.handle}
           />

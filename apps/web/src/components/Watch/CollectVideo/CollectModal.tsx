@@ -177,7 +177,7 @@ const CollectModal: FC<Props> = ({
         defaultProfile
           ? getProfilePicture(defaultProfile)
           : getRandomProfilePicture(splitRecipient.recipient),
-        'avatar'
+        'AVATAR'
       )
       const label =
         defaultProfile?.handle ?? shortenAddress(splitRecipient?.recipient)

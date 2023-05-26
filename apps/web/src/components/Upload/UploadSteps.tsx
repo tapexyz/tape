@@ -457,7 +457,7 @@ const UploadSteps = () => {
     if (
       parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice)
     ) {
-      return toast.error(t`Insufficient balance`)
+      return toast.error(t`Insufficient storage balance`)
     }
     try {
       setUploadedVideo({
@@ -512,7 +512,6 @@ const UploadSteps = () => {
     uploadedVideo.title = data.title
     uploadedVideo.description = data.description
     uploadedVideo.isSensitiveContent = data.isSensitiveContent
-    uploadedVideo.loading = true
     setUploadedVideo({ ...uploadedVideo })
     // Upload video directly from source without uploading again
     if (

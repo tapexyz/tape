@@ -107,7 +107,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
           className="mr-3 mt-0.5 flex-none"
         >
           <img
-            src={getProfilePicture(selectedChannel, 'avatar')}
+            src={getProfilePicture(selectedChannel, 'AVATAR')}
             className="h-7 w-7 rounded-full"
             draggable={false}
             alt={selectedChannel?.handle}

@@ -42,7 +42,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
     uploadedVideo.isSensitiveContent
       ? `${STATIC_ASSETS}/images/sensor-blur.png`
       : sanitizeDStorageUrl(queuedVideo.thumbnailUrl),
-    uploadedVideo.isByteVideo ? 'thumbnail_v' : 'thumbnail'
+    uploadedVideo.isByteVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
   const { color: backgroundColor } = useAverageColor(
     thumbnailUrl,

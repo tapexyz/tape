@@ -4,7 +4,10 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
-import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
+import {
+  getPublicationHlsUrl,
+  getPublicationMediaUrl
+} from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
@@ -32,7 +35,7 @@ const Video: FC<Props> = ({ video }) => {
   const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(video, true)),
-    isBytesVideo ? 'thumbnail_v' : 'thumbnail'
+    isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
@@ -70,8 +73,8 @@ const Video: FC<Props> = ({ video }) => {
         <VideoPlayer
           refCallback={refCallback}
           permanentUrl={getPublicationMediaUrl(video)}
+          hlsUrl={getPublicationHlsUrl(video)}
           posterUrl={thumbnailUrl}
-          publicationId={video.id}
           currentTime={currentTime}
           options={{
             autoPlay: isAutoPlay,
@@ -105,7 +108,7 @@ const Video: FC<Props> = ({ video }) => {
                 className="h-8 w-8 pl-1"
                 src={imageCdn(
                   `${STATIC_ASSETS}/images/brand/lenstube.svg`,
-                  'avatar'
+                  'AVATAR'
                 )}
                 alt="play"
                 draggable={false}

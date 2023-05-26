@@ -50,7 +50,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
-    setSelectedPfp(getProfilePicture(channel, 'avatar_lg'))
+    setSelectedPfp(getProfilePicture(channel, 'AVATAR_LG'))
   }
 
   const onCompleted = () => {
@@ -58,7 +58,11 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     if (selectedChannel && selectedPfp) {
       setSelectedChannel({
         ...selectedChannel,
-        picture: { original: { url: selectedPfp }, __typename: 'MediaSet' }
+        picture: {
+          original: { url: selectedPfp },
+          onChain: { url: selectedPfp },
+          __typename: 'MediaSet'
+        }
       })
     }
     toast.success(t`Channel image updated`)
@@ -153,7 +157,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         src={
           selectedPfp
             ? sanitizeDStorageUrl(selectedPfp)
-            : getProfilePicture(channel, 'avatar_lg')
+            : getProfilePicture(channel, 'AVATAR_LG')
         }
         className="h-32 w-32 rounded-full border-2 object-cover"
         draggable={false}

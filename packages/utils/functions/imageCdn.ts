@@ -1,16 +1,23 @@
-import { IMAGE_CDN_URL } from '../constants'
-import sanitizeDStorageUrl from './sanitizeDStorageUrl'
+import { IMAGE_TRANSFORMATIONS, LENS_IMAGEKIT_SNAPSHOT_URL } from '../constants'
 
 const imageCdn = (
   url: string,
-  type?: 'thumbnail' | 'avatar' | 'avatar_lg' | 'square' | 'thumbnail_v'
+  type?: keyof typeof IMAGE_TRANSFORMATIONS
 ): string => {
-  if (!url || !IMAGE_CDN_URL) {
+  if (!url) {
     return url
   }
-  return type
-    ? `${IMAGE_CDN_URL}/tr:n-${type}/${sanitizeDStorageUrl(url)}`
-    : `${IMAGE_CDN_URL}/${sanitizeDStorageUrl(url)}`
+
+  if (url.includes(LENS_IMAGEKIT_SNAPSHOT_URL)) {
+    const splitedUrl = url.split('/')
+    const path = splitedUrl[splitedUrl.length - 1]
+
+    return type
+      ? `${LENS_IMAGEKIT_SNAPSHOT_URL}/${IMAGE_TRANSFORMATIONS[type]}/${path}`
+      : url
+  }
+
+  return url
 }
 
 export default imageCdn

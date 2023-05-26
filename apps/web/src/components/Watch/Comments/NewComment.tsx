@@ -395,7 +395,7 @@ const NewComment: FC<Props> = ({
       <div className="flex flex-1 items-center space-x-2 md:space-x-3">
         <div className="flex-none">
           <img
-            src={getProfilePicture(selectedChannel, 'avatar')}
+            src={getProfilePicture(selectedChannel, 'AVATAR')}
             className="h-9 w-9 rounded-full"
             draggable={false}
             alt={selectedChannel?.handle}

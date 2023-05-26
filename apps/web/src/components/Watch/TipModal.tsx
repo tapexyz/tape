@@ -433,7 +433,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
             <img
               src={imageCdn(
                 `${STATIC_ASSETS}/images/raise-hand.png`,
-                'avatar_lg'
+                'AVATAR_LG'
               )}
               alt="Raising Hand"
               className="h-10"
