@@ -12,6 +12,6 @@ type FeatureFlag = {
 export const featureFlags: FeatureFlag[] = [
   {
     flag: FEATURE_FLAGS.POST_WITH_SOURCE_URL,
-    enabledFor: IS_MAINNET ? ['0x27d4'] : []
+    enabledFor: IS_MAINNET ? [] : ['0x2f']
   }
 ]

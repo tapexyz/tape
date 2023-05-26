@@ -11,13 +11,17 @@ export const getPublicationMediaUrl = (video: Publication) => {
   return sanitizeDStorageUrl(url)
 }
 
-export const getPublicationMediaRawUrl = (video: Publication): string => {
-  const url = video?.metadata?.media[0]?.original.url
-  return url.replace('https://arweave.net/', 'ar://')
+export const getPublicationHlsUrl = (video: Publication) => {
+  const url = video?.metadata?.media[0]?.optimized?.url
+  if (!url) {
+    return getPublicationMediaUrl(video)
+  }
+  return url
 }
 
 export const getPublicationMediaCid = (video: Publication): string => {
-  const uri = getPublicationMediaRawUrl(video)
+  const url = video?.metadata?.media[0]?.original.url
+  const uri = url.replace('https://arweave.net/', 'ar://')
   return uri.replace('ipfs://', '').replace('ar://', '')
 }
 

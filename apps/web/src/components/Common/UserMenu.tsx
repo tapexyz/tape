@@ -151,7 +151,7 @@ const UserMenu = () => {
                   <Link href={`/channel/${selectedChannel?.handle}`}>
                     <img
                       className="h-9 w-9 rounded-full object-cover"
-                      src={getProfilePicture(selectedChannel, 'avatar')}
+                      src={getProfilePicture(selectedChannel, 'AVATAR')}
                       alt={selectedChannel.handle}
                       draggable={false}
                     />

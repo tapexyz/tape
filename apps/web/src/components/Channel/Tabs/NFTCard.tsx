@@ -28,7 +28,7 @@ const NFTCard: FC<Props> = ({ nft }) => {
               nft.originalContent?.uri
                 ? sanitizeDStorageUrl(nft.originalContent?.uri)
                 : `${STATIC_ASSETS}/images/placeholder.webp`,
-              'thumbnail'
+              'THUMBNAIL'
             )}
             alt={nft.name}
           />

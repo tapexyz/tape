@@ -6,7 +6,7 @@
   "scripts": {
     "worker:dev": "wrangler dev",
     "worker:deploy": "wrangler deploy",
-    "typecheck": "tsc --pretty --noEmit"
+    "typecheck": "tsc --pretty"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",

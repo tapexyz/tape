@@ -287,7 +287,7 @@ const BasicInfo = ({ channel }: Props) => {
             sanitizeDStorageUrl(coverImage) ??
             imageCdn(
               sanitizeDStorageUrl(getChannelCoverPicture(channel)),
-              'thumbnail'
+              'THUMBNAIL'
             )
           }
           className="h-48 w-full rounded bg-white object-cover object-center dark:bg-gray-900 md:h-56"

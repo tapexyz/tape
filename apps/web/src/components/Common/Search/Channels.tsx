@@ -35,7 +35,7 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
               <div className="inline-flex w-3/4 items-center space-x-2">
                 <img
                   className="h-5 w-5 rounded-md"
-                  src={getProfilePicture(channel, 'avatar')}
+                  src={getProfilePicture(channel, 'AVATAR')}
                   draggable={false}
                   alt="pfp"
                 />

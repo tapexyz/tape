@@ -5,10 +5,7 @@
   "main": "./index.ts",
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.tsx",
-    "typecheck": "tsc --pretty --noEmit"
-  },
-  "dependencies": {
-    "mux-embed": "^4.25.1"
+    "typecheck": "tsc --pretty"
   },
   "devDependencies": {
     "prettier-plugin-tailwindcss": "^0.3.0",

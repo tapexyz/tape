@@ -102,7 +102,7 @@ const DangerZone = () => {
         <div className="flex items-center">
           <div className="mr-3 mt-0.5 flex-none">
             <img
-              src={getProfilePicture(selectedChannel, 'avatar')}
+              src={getProfilePicture(selectedChannel, 'AVATAR')}
               className="h-9 w-9 rounded-full"
               draggable={false}
               alt={selectedChannel?.handle}

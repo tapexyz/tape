@@ -62,7 +62,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
                   thumbnailUrl
                     ? imageCdn(
                         thumbnailUrl,
-                        isBytesVideo ? 'thumbnail_v' : 'thumbnail'
+                        isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
                       )
                     : ''
                 }

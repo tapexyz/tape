@@ -26,7 +26,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
             className="flex flex-none cursor-pointer items-center space-x-2"
           >
             <img
-              src={getProfilePicture(channel, 'avatar')}
+              src={getProfilePicture(channel, 'AVATAR')}
               className="h-9 w-9 rounded-full"
               draggable={false}
               alt={channel?.handle}
