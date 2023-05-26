@@ -9,6 +9,7 @@ import type {
   MultirecipientFeeCollectModuleSettings,
   RecipientDataInput,
   RevertCollectModuleSettings,
+  SimpleCollectModuleSettings,
   TimedFeeCollectModuleSettings
 } from 'lens'
 
@@ -35,16 +36,15 @@ export type FileReaderStreamType = NodeJS.ReadableStream & {
 }
 
 export type CollectModuleType = {
-  isTimedFeeCollect?: boolean
-  isFreeCollect?: boolean
-  isFeeCollect?: boolean
   isRevertCollect?: boolean
-  isLimitedFeeCollect?: boolean
-  isLimitedTimeFeeCollect?: boolean
+  isSimpleCollect?: boolean
+  isFeeCollect?: boolean
   isMultiRecipientFeeCollect?: boolean
   amount?: { currency?: string; value: string }
   referralFee?: number
+  collectLimitEnabled?: boolean
   collectLimit?: string
+  timeLimitEnabled?: boolean
   followerOnlyCollect?: boolean
   recipient?: string
   multiRecipients?: RecipientDataInput[]
@@ -117,6 +117,7 @@ export type LenstubeCollectModule = FreeCollectModuleSettings &
   LimitedFeeCollectModuleSettings &
   LimitedTimedFeeCollectModuleSettings &
   MultiRecipientFeeCollectModuleSettings &
+  SimpleCollectModuleSettings &
   AaveFeeCollectModuleSettings
 
 export interface CustomErrorWithData extends Error {

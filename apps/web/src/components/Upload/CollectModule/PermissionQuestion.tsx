@@ -21,9 +21,8 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
-              isFreeCollect: true,
+              isSimpleCollect: true,
               isRevertCollect: false,
-              isFeeCollect: false,
               followerOnlyCollect: false
             })
           }
@@ -48,10 +47,9 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
+              isSimpleCollect: true,
               followerOnlyCollect: true,
-              isRevertCollect: false,
-              isFreeCollect: true,
-              isFeeCollect: false
+              isRevertCollect: false
             })
           }
           className={clsx(
@@ -75,6 +73,7 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           type="button"
           onClick={() =>
             setCollectType({
+              isSimpleCollect: false,
               isRevertCollect: true
             })
           }

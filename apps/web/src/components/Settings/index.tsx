@@ -4,7 +4,6 @@ import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import type { MediaSet, Profile } from 'lens'
 import { useProfileQuery } from 'lens'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
@@ -12,12 +11,11 @@ import Custom500 from 'src/pages/500'
 import { Analytics, TRACK } from 'utils'
 
 import BasicInfo from './BasicInfo'
+import DangerZone from './DangerZone'
+import Membership from './Membership'
+import Permissions from './Permissions'
 import ProfileInterests from './ProfileInterests'
 import SideNav from './SideNav'
-
-const Permissions = dynamic(() => import('./Permissions'))
-const Membership = dynamic(() => import('./Membership'))
-const DangerZone = dynamic(() => import('./DangerZone'))
 
 export const SETTINGS_MEMBERSHIP = '/settings/membership'
 export const SETTINGS_INTERESTS = '/settings/interests'

@@ -93,4 +93,21 @@ fragment CollectFields on CollectModule {
       value
     }
   }
+  ... on SimpleCollectModuleSettings {
+    type
+    optionalCollectLimit: collectLimit
+    optionalEndTimestamp: endTimestamp
+    contractAddress
+    followerOnly
+    fee {
+      amount {
+        asset {
+          ...Erc20Fields
+        }
+        value
+      }
+      recipient
+      referralFee
+    }
+  }
 }
