@@ -11,75 +11,85 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>
 }
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T
+> = { [_ in K]?: never }
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never
+    }
 const defaultOptions = {} as const
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string
-  String: string
-  Boolean: boolean
-  Int: number
-  Float: number
-  BlockchainData: any
-  BroadcastId: any
-  ChainId: any
-  CollectModuleData: any
-  ContentEncryptionKey: any
-  ContractAddress: any
-  CreateHandle: any
-  Cursor: any
-  DataAvailabilityId: any
-  DateTime: any
-  EncryptedValueScalar: any
-  Ens: any
-  EthereumAddress: any
-  FollowModuleData: any
-  Handle: any
-  HandleClaimIdScalar: any
-  InternalPublicationId: any
-  IpfsCid: any
-  Jwt: any
-  LimitScalar: any
-  Locale: any
-  Markdown: any
-  MimeType: any
-  NftGalleryId: any
-  NftGalleryName: any
-  NftOwnershipId: any
-  Nonce: any
-  NotificationId: any
-  ProfileId: any
-  ProfileInterest: any
-  ProxyActionId: any
-  PublicationId: any
-  PublicationTag: any
-  PublicationUrl: any
-  ReactionId: any
-  ReferenceModuleData: any
-  Search: any
-  Signature: any
-  Sources: any
-  TimestampScalar: any
-  TokenId: any
-  TxHash: any
-  TxId: any
-  UnixTimestamp: any
-  Url: any
-  Void: any
+  ID: { input: string | number; output: string }
+  String: { input: string; output: string }
+  Boolean: { input: boolean; output: boolean }
+  Int: { input: number; output: number }
+  Float: { input: number; output: number }
+  BlockchainData: { input: any; output: any }
+  BroadcastId: { input: any; output: any }
+  ChainId: { input: any; output: any }
+  CollectModuleData: { input: any; output: any }
+  ContentEncryptionKey: { input: any; output: any }
+  ContractAddress: { input: any; output: any }
+  CreateHandle: { input: any; output: any }
+  Cursor: { input: any; output: any }
+  DataAvailabilityId: { input: any; output: any }
+  DateTime: { input: any; output: any }
+  EncryptedValueScalar: { input: any; output: any }
+  Ens: { input: any; output: any }
+  EthereumAddress: { input: any; output: any }
+  FollowModuleData: { input: any; output: any }
+  Handle: { input: any; output: any }
+  HandleClaimIdScalar: { input: any; output: any }
+  ImageSizeTransform: { input: any; output: any }
+  InternalPublicationId: { input: any; output: any }
+  IpfsCid: { input: any; output: any }
+  Jwt: { input: any; output: any }
+  LimitScalar: { input: any; output: any }
+  Locale: { input: any; output: any }
+  Markdown: { input: any; output: any }
+  MimeType: { input: any; output: any }
+  NftGalleryId: { input: any; output: any }
+  NftGalleryName: { input: any; output: any }
+  NftOwnershipId: { input: any; output: any }
+  Nonce: { input: any; output: any }
+  NotificationId: { input: any; output: any }
+  ProfileId: { input: any; output: any }
+  ProfileInterest: { input: any; output: any }
+  ProxyActionId: { input: any; output: any }
+  PublicationId: { input: any; output: any }
+  PublicationTag: { input: any; output: any }
+  PublicationUrl: { input: any; output: any }
+  ReactionId: { input: any; output: any }
+  ReferenceModuleData: { input: any; output: any }
+  Search: { input: any; output: any }
+  Signature: { input: any; output: any }
+  Sources: { input: any; output: any }
+  TimestampScalar: { input: any; output: any }
+  TokenId: { input: any; output: any }
+  TxHash: { input: any; output: any }
+  TxId: { input: any; output: any }
+  UnixTimestamp: { input: any; output: any }
+  Url: { input: any; output: any }
+  Void: { input: any; output: any }
 }
 
 export type AaveFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
   /** The collect module limit */
-  collectLimit?: InputMaybe<Scalars['String']>
+  collectLimit?: InputMaybe<Scalars['String']['input']>
   /** The timestamp that this collect module will expire */
-  endTimestamp?: InputMaybe<Scalars['DateTime']>
+  endTimestamp?: InputMaybe<Scalars['DateTime']['input']>
   /** Follower only */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['input']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['input']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']
+  referralFee: Scalars['Float']['input']
 }
 
 export type AaveFeeCollectModuleSettings = {
@@ -87,16 +97,16 @@ export type AaveFeeCollectModuleSettings = {
   /** The collect module amount info */
   amount: ModuleFeeAmount
   /** The maximum number of collects for this publication. Omit for no limit. */
-  collectLimit?: Maybe<Scalars['String']>
-  contractAddress: Scalars['ContractAddress']
+  collectLimit?: Maybe<Scalars['String']['output']>
+  contractAddress: Scalars['ContractAddress']['output']
   /** The end timestamp after which collecting is impossible. No expiry if missing. */
-  endTimestamp?: Maybe<Scalars['DateTime']>
+  endTimestamp?: Maybe<Scalars['DateTime']['output']>
   /** True if only followers of publisher may collect the post. */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['output']
   /** Recipient of collect fees. */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['output']
   /** The referral fee associated with this publication. */
-  referralFee: Scalars['Float']
+  referralFee: Scalars['Float']['output']
   /** The collect modules enum */
   type: CollectModules
 }
@@ -143,28 +153,28 @@ export type AccessConditionOutput = {
 }
 
 export type AchRequest = {
-  ethereumAddress: Scalars['EthereumAddress']
-  freeTextHandle?: InputMaybe<Scalars['Boolean']>
-  handle?: InputMaybe<Scalars['CreateHandle']>
-  overrideAlreadyClaimed: Scalars['Boolean']
-  overrideTradeMark: Scalars['Boolean']
-  secret: Scalars['String']
+  ethereumAddress: Scalars['EthereumAddress']['input']
+  freeTextHandle?: InputMaybe<Scalars['Boolean']['input']>
+  handle?: InputMaybe<Scalars['CreateHandle']['input']>
+  overrideAlreadyClaimed: Scalars['Boolean']['input']
+  overrideTradeMark: Scalars['Boolean']['input']
+  secret: Scalars['String']['input']
 }
 
 /** The request object to add interests to a profile */
 export type AddProfileInterestsRequest = {
   /** The profile interest to add */
-  interests: Array<Scalars['ProfileInterest']>
+  interests: Array<Scalars['ProfileInterest']['input']>
   /** The profileId to add interests to */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 export type AllPublicationsTagsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   sort: TagSortCriteria
   /** The App Id */
-  source?: InputMaybe<Scalars['Sources']>
+  source?: InputMaybe<Scalars['Sources']['input']>
 }
 
 export type AndConditionInput = {
@@ -180,50 +190,52 @@ export type AndConditionOutput = {
 
 export type ApprovedAllowanceAmount = {
   __typename?: 'ApprovedAllowanceAmount'
-  allowance: Scalars['String']
-  contractAddress: Scalars['ContractAddress']
-  currency: Scalars['ContractAddress']
-  module: Scalars['String']
+  allowance: Scalars['String']['output']
+  contractAddress: Scalars['ContractAddress']['output']
+  currency: Scalars['ContractAddress']['output']
+  module: Scalars['String']['output']
 }
 
 export type ApprovedModuleAllowanceAmountRequest = {
   collectModules?: InputMaybe<Array<CollectModules>>
   /** The contract addresses for the module approved currencies you want to find information on about the user */
-  currencies: Array<Scalars['ContractAddress']>
+  currencies: Array<Scalars['ContractAddress']['input']>
   followModules?: InputMaybe<Array<FollowModules>>
   referenceModules?: InputMaybe<Array<ReferenceModules>>
-  unknownCollectModules?: InputMaybe<Array<Scalars['ContractAddress']>>
-  unknownFollowModules?: InputMaybe<Array<Scalars['ContractAddress']>>
-  unknownReferenceModules?: InputMaybe<Array<Scalars['ContractAddress']>>
+  unknownCollectModules?: InputMaybe<Array<Scalars['ContractAddress']['input']>>
+  unknownFollowModules?: InputMaybe<Array<Scalars['ContractAddress']['input']>>
+  unknownReferenceModules?: InputMaybe<
+    Array<Scalars['ContractAddress']['input']>
+  >
 }
 
 /** The Profile */
 export type Attribute = {
   __typename?: 'Attribute'
   /** The display type */
-  displayType?: Maybe<Scalars['String']>
+  displayType?: Maybe<Scalars['String']['output']>
   /** identifier of this attribute, we will update by this id  */
-  key: Scalars['String']
+  key: Scalars['String']['output']
   /** The trait type - can be anything its the name it will render so include spaces */
-  traitType?: Maybe<Scalars['String']>
+  traitType?: Maybe<Scalars['String']['output']>
   /** Value attribute */
-  value: Scalars['String']
+  value: Scalars['String']['output']
 }
 
 /** The auth challenge result */
 export type AuthChallengeResult = {
   __typename?: 'AuthChallengeResult'
   /** The text to sign */
-  text: Scalars['String']
+  text: Scalars['String']['output']
 }
 
 /** The authentication result */
 export type AuthenticationResult = {
   __typename?: 'AuthenticationResult'
   /** The access token */
-  accessToken: Scalars['Jwt']
+  accessToken: Scalars['Jwt']['output']
   /** The refresh token */
-  refreshToken: Scalars['Jwt']
+  refreshToken: Scalars['Jwt']['output']
 }
 
 export type BroadcastDataAvailabilityUnion =
@@ -231,42 +243,42 @@ export type BroadcastDataAvailabilityUnion =
   | RelayError
 
 export type BroadcastRequest = {
-  id: Scalars['BroadcastId']
-  signature: Scalars['Signature']
+  id: Scalars['BroadcastId']['input']
+  signature: Scalars['Signature']['input']
 }
 
 export type BurnProfileRequest = {
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 export type CanCommentResponse = {
   __typename?: 'CanCommentResponse'
-  result: Scalars['Boolean']
+  result: Scalars['Boolean']['output']
 }
 
 export type CanDecryptResponse = {
   __typename?: 'CanDecryptResponse'
-  extraDetails?: Maybe<Scalars['String']>
+  extraDetails?: Maybe<Scalars['String']['output']>
   reasons?: Maybe<Array<DecryptFailReason>>
-  result: Scalars['Boolean']
+  result: Scalars['Boolean']['output']
 }
 
 export type CanMirrorResponse = {
   __typename?: 'CanMirrorResponse'
-  result: Scalars['Boolean']
+  result: Scalars['Boolean']['output']
 }
 
 /** The challenge request */
 export type ChallengeRequest = {
   /** The ethereum address you want to login with */
-  address: Scalars['EthereumAddress']
+  address: Scalars['EthereumAddress']['input']
 }
 
 export type ClaimHandleRequest = {
   /** The follow module */
   followModule?: InputMaybe<FollowModuleParams>
-  freeTextHandle?: InputMaybe<Scalars['CreateHandle']>
-  id?: InputMaybe<Scalars['HandleClaimIdScalar']>
+  freeTextHandle?: InputMaybe<Scalars['CreateHandle']['input']>
+  id?: InputMaybe<Scalars['HandleClaimIdScalar']['input']>
 }
 
 /** The claim status */
@@ -278,25 +290,25 @@ export enum ClaimStatus {
 
 export type ClaimableHandles = {
   __typename?: 'ClaimableHandles'
-  canClaimFreeTextHandle: Scalars['Boolean']
+  canClaimFreeTextHandle: Scalars['Boolean']['output']
   reservedHandles: Array<ReservedClaimableHandle>
 }
 
 /** Condition that signifies if address or profile has collected a publication */
 export type CollectConditionInput = {
   /** The publication id that has to be collected to unlock content */
-  publicationId?: InputMaybe<Scalars['InternalPublicationId']>
+  publicationId?: InputMaybe<Scalars['InternalPublicationId']['input']>
   /** True if the content will be unlocked for this specific publication */
-  thisPublication?: InputMaybe<Scalars['Boolean']>
+  thisPublication?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 /** Condition that signifies if address or profile has collected a publication */
 export type CollectConditionOutput = {
   __typename?: 'CollectConditionOutput'
   /** The publication id that has to be collected to unlock content */
-  publicationId?: Maybe<Scalars['InternalPublicationId']>
+  publicationId?: Maybe<Scalars['InternalPublicationId']['output']>
   /** True if the content will be unlocked for this specific publication */
-  thisPublication?: Maybe<Scalars['Boolean']>
+  thisPublication?: Maybe<Scalars['Boolean']['output']>
 }
 
 export type CollectModule =
@@ -328,7 +340,7 @@ export type CollectModuleParams = {
   /** The multirecipient fee collect module */
   multirecipientFeeCollectModule?: InputMaybe<MultirecipientFeeCollectModuleParams>
   /** The collect revert collect module */
-  revertCollectModule?: InputMaybe<Scalars['Boolean']>
+  revertCollectModule?: InputMaybe<Scalars['Boolean']['input']>
   /** The collect simple fee collect module */
   simpleCollectModule?: InputMaybe<SimpleCollectModuleParams>
   /** The collect timed fee collect module */
@@ -359,51 +371,51 @@ export type CollectProxyAction = {
 export type CollectedEvent = {
   __typename?: 'CollectedEvent'
   profile: Profile
-  timestamp: Scalars['DateTime']
+  timestamp: Scalars['DateTime']['output']
 }
 
 /** The social comment */
 export type Comment = {
   __typename?: 'Comment'
   /** ID of the source */
-  appId?: Maybe<Scalars['Sources']>
+  appId?: Maybe<Scalars['Sources']['output']>
   canComment: CanCommentResponse
   canDecrypt: CanDecryptResponse
   canMirror: CanMirrorResponse
   /** The collect module */
   collectModule: CollectModule
   /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
-  collectNftAddress?: Maybe<Scalars['ContractAddress']>
+  collectNftAddress?: Maybe<Scalars['ContractAddress']['output']>
   /** Who collected it, this is used for timeline results and like this for better caching for the client */
   collectedBy?: Maybe<Wallet>
   /** Which comment this points to if its null the pointer too deep so do another query to find it out */
   commentOn?: Maybe<Publication>
   /** The date the post was created on */
-  createdAt: Scalars['DateTime']
+  createdAt: Scalars['DateTime']['output']
   /** The data availability proofs you can fetch from */
-  dataAvailabilityProofs?: Maybe<Scalars['String']>
+  dataAvailabilityProofs?: Maybe<Scalars['String']['output']>
   /** This will bring back the first comment of a comment and only be defined if using `publication` query and `commentOf` */
   firstComment?: Maybe<Comment>
-  hasCollectedByMe: Scalars['Boolean']
+  hasCollectedByMe: Scalars['Boolean']['output']
   /** If the publication has been hidden if it has then the content and media is not available */
-  hidden: Scalars['Boolean']
+  hidden: Scalars['Boolean']['output']
   /** The internal publication id */
-  id: Scalars['InternalPublicationId']
+  id: Scalars['InternalPublicationId']['output']
   /** Indicates if the publication is data availability post */
-  isDataAvailability: Scalars['Boolean']
+  isDataAvailability: Scalars['Boolean']['output']
   /** Indicates if the publication is gated behind some access criteria */
-  isGated: Scalars['Boolean']
+  isGated: Scalars['Boolean']['output']
   /** The top level post/mirror this comment lives on */
   mainPost: MainPostReference
   /** The metadata for the post */
   metadata: MetadataOutput
-  mirrors: Array<Scalars['InternalPublicationId']>
+  mirrors: Array<Scalars['InternalPublicationId']['output']>
   /** The on chain content uri could be `ipfs://` or `https` */
-  onChainContentURI: Scalars['String']
+  onChainContentURI: Scalars['String']['output']
   /** The profile ref */
   profile: Profile
   /** Comment ranking score */
-  rankingScore?: Maybe<Scalars['Float']>
+  rankingScore?: Maybe<Scalars['Float']['output']>
   reaction?: Maybe<ReactionTypes>
   /** The reference module */
   referenceModule?: Maybe<ReferenceModule>
@@ -413,28 +425,28 @@ export type Comment = {
 
 /** The social comment */
 export type CommentCanCommentArgs = {
-  profileId?: InputMaybe<Scalars['ProfileId']>
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 /** The social comment */
 export type CommentCanDecryptArgs = {
-  address?: InputMaybe<Scalars['EthereumAddress']>
-  profileId?: InputMaybe<Scalars['ProfileId']>
+  address?: InputMaybe<Scalars['EthereumAddress']['input']>
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 /** The social comment */
 export type CommentCanMirrorArgs = {
-  profileId?: InputMaybe<Scalars['ProfileId']>
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 /** The social comment */
 export type CommentHasCollectedByMeArgs = {
-  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 /** The social comment */
 export type CommentMirrorsArgs = {
-  by?: InputMaybe<Scalars['ProfileId']>
+  by?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 /** The social comment */
@@ -481,18 +493,18 @@ export type CreateBurnEip712TypedDataTypes = {
 /** The create burn eip 712 typed data value */
 export type CreateBurnEip712TypedDataValue = {
   __typename?: 'CreateBurnEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']
-  nonce: Scalars['Nonce']
-  tokenId: Scalars['String']
+  deadline: Scalars['UnixTimestamp']['output']
+  nonce: Scalars['Nonce']['output']
+  tokenId: Scalars['String']['output']
 }
 
 /** The broadcast item */
 export type CreateBurnProfileBroadcastItemResult = {
   __typename?: 'CreateBurnProfileBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']
+  expiresAt: Scalars['DateTime']['output']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']
+  id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: CreateBurnEip712TypedData
 }
@@ -501,9 +513,9 @@ export type CreateBurnProfileBroadcastItemResult = {
 export type CreateCollectBroadcastItemResult = {
   __typename?: 'CreateCollectBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']
+  expiresAt: Scalars['DateTime']['output']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']
+  id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: CreateCollectEip712TypedData
 }
@@ -528,26 +540,26 @@ export type CreateCollectEip712TypedDataTypes = {
 /** The collect eip 712 typed data value */
 export type CreateCollectEip712TypedDataValue = {
   __typename?: 'CreateCollectEIP712TypedDataValue'
-  data: Scalars['BlockchainData']
-  deadline: Scalars['UnixTimestamp']
-  nonce: Scalars['Nonce']
-  profileId: Scalars['ProfileId']
-  pubId: Scalars['PublicationId']
+  data: Scalars['BlockchainData']['output']
+  deadline: Scalars['UnixTimestamp']['output']
+  nonce: Scalars['Nonce']['output']
+  profileId: Scalars['ProfileId']['output']
+  pubId: Scalars['PublicationId']['output']
 }
 
 export type CreateCollectRequest = {
-  publicationId: Scalars['InternalPublicationId']
+  publicationId: Scalars['InternalPublicationId']['input']
   /** The encoded data to collect with if using an unknown module */
-  unknownModuleData?: InputMaybe<Scalars['BlockchainData']>
+  unknownModuleData?: InputMaybe<Scalars['BlockchainData']['input']>
 }
 
 /** The broadcast item */
 export type CreateCommentBroadcastItemResult = {
   __typename?: 'CreateCommentBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']
+  expiresAt: Scalars['DateTime']['output']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']
+  id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: CreateCommentEip712TypedData
 }
@@ -572,59 +584,59 @@ export type CreateCommentEip712TypedDataTypes = {
 /** The create comment eip 712 typed data value */
 export type CreateCommentEip712TypedDataValue = {
   __typename?: 'CreateCommentEIP712TypedDataValue'
-  collectModule: Scalars['ContractAddress']
-  collectModuleInitData: Scalars['CollectModuleData']
-  contentURI: Scalars['PublicationUrl']
-  deadline: Scalars['UnixTimestamp']
-  nonce: Scalars['Nonce']
-  profileId: Scalars['ProfileId']
-  profileIdPointed: Scalars['ProfileId']
-  pubIdPointed: Scalars['PublicationId']
-  referenceModule: Scalars['ContractAddress']
-  referenceModuleData: Scalars['ReferenceModuleData']
-  referenceModuleInitData: Scalars['ReferenceModuleData']
+  collectModule: Scalars['ContractAddress']['output']
+  collectModuleInitData: Scalars['CollectModuleData']['output']
+  contentURI: Scalars['PublicationUrl']['output']
+  deadline: Scalars['UnixTimestamp']['output']
+  nonce: Scalars['Nonce']['output']
+  profileId: Scalars['ProfileId']['output']
+  profileIdPointed: Scalars['ProfileId']['output']
+  pubIdPointed: Scalars['PublicationId']['output']
+  referenceModule: Scalars['ContractAddress']['output']
+  referenceModuleData: Scalars['ReferenceModuleData']['output']
+  referenceModuleInitData: Scalars['ReferenceModuleData']['output']
 }
 
 export type CreateDataAvailabilityCommentRequest = {
   /** Publication your commenting on */
-  commentOn: Scalars['InternalPublicationId']
+  commentOn: Scalars['InternalPublicationId']['input']
   /** The metadata contentURI resolver */
-  contentURI: Scalars['Url']
+  contentURI: Scalars['Url']['input']
   /** Profile id */
-  from: Scalars['ProfileId']
+  from: Scalars['ProfileId']['input']
 }
 
 export type CreateDataAvailabilityMirrorRequest = {
   /** Profile id which will broadcast the mirror */
-  from: Scalars['ProfileId']
+  from: Scalars['ProfileId']['input']
   /** The publication to mirror */
-  mirror: Scalars['InternalPublicationId']
+  mirror: Scalars['InternalPublicationId']['input']
 }
 
 export type CreateDataAvailabilityPostRequest = {
   /** The metadata contentURI resolver */
-  contentURI: Scalars['Url']
+  contentURI: Scalars['Url']['input']
   /** Profile id */
-  from: Scalars['ProfileId']
+  from: Scalars['ProfileId']['input']
 }
 
 export type CreateDataAvailabilityPublicationResult = {
   __typename?: 'CreateDataAvailabilityPublicationResult'
   /** The data availability id */
-  dataAvailabilityId: Scalars['DataAvailabilityId']
+  dataAvailabilityId: Scalars['DataAvailabilityId']['output']
   /** The id of the post */
-  id: Scalars['InternalPublicationId']
+  id: Scalars['InternalPublicationId']['output']
   /** The proofs for the DA */
-  proofs: Scalars['String']
+  proofs: Scalars['String']['output']
 }
 
 /** The broadcast item */
 export type CreateFollowBroadcastItemResult = {
   __typename?: 'CreateFollowBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']
+  expiresAt: Scalars['DateTime']['output']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']
+  id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: CreateFollowEip712TypedData
 }
@@ -649,19 +661,19 @@ export type CreateFollowEip712TypedDataTypes = {
 /** The create follow eip 712 typed data value */
 export type CreateFollowEip712TypedDataValue = {
   __typename?: 'CreateFollowEIP712TypedDataValue'
-  datas: Array<Scalars['BlockchainData']>
-  deadline: Scalars['UnixTimestamp']
-  nonce: Scalars['Nonce']
-  profileIds: Array<Scalars['ProfileId']>
+  datas: Array<Scalars['BlockchainData']['output']>
+  deadline: Scalars['UnixTimestamp']['output']
+  nonce: Scalars['Nonce']['output']
+  profileIds: Array<Scalars['ProfileId']['output']>
 }
 
 /** The broadcast item */
 export type CreateMirrorBroadcastItemResult = {
   __typename?: 'CreateMirrorBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']
+  expiresAt: Scalars['DateTime']['output']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']
+  id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: CreateMirrorEip712TypedData
 }
@@ -686,21 +698,21 @@ export type CreateMirrorEip712TypedDataTypes = {
 /** The mirror eip 712 typed data value */
 export type CreateMirrorEip712TypedDataValue = {
   __typename?: 'CreateMirrorEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']
-  nonce: Scalars['Nonce']
-  profileId: Scalars['ProfileId']
-  profileIdPointed: Scalars['ProfileId']
-  pubIdPointed: Scalars['PublicationId']
-  referenceModule: Scalars['ContractAddress']
-  referenceModuleData: Scalars['ReferenceModuleData']
-  referenceModuleInitData: Scalars['ReferenceModuleData']
+  deadline: Scalars['UnixTimestamp']['output']
+  nonce: Scalars['Nonce']['output']
+  profileId: Scalars['ProfileId']['output']
+  profileIdPointed: Scalars['ProfileId']['output']
+  pubIdPointed: Scalars['PublicationId']['output']
+  referenceModule: Scalars['ContractAddress']['output']
+  referenceModuleData: Scalars['ReferenceModuleData']['output']
+  referenceModuleInitData: Scalars['ReferenceModuleData']['output']
 }
 
 export type CreateMirrorRequest = {
   /** Profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
   /** Publication id of what you want to mirror on remember if this is a comment it will be that as the id */
-  publicationId: Scalars['InternalPublicationId']
+  publicationId: Scalars['InternalPublicationId']['input']
   /** The reference module info */
   referenceModule?: InputMaybe<ReferenceModuleParams>
 }
@@ -709,9 +721,9 @@ export type CreateMirrorRequest = {
 export type CreatePostBroadcastItemResult = {
   __typename?: 'CreatePostBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']
+  expiresAt: Scalars['DateTime']['output']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']
+  id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: CreatePostEip712TypedData
 }
@@ -736,37 +748,37 @@ export type CreatePostEip712TypedDataTypes = {
 /** The create post eip 712 typed data value */
 export type CreatePostEip712TypedDataValue = {
   __typename?: 'CreatePostEIP712TypedDataValue'
-  collectModule: Scalars['ContractAddress']
-  collectModuleInitData: Scalars['CollectModuleData']
-  contentURI: Scalars['PublicationUrl']
-  deadline: Scalars['UnixTimestamp']
-  nonce: Scalars['Nonce']
-  profileId: Scalars['ProfileId']
-  referenceModule: Scalars['ContractAddress']
-  referenceModuleInitData: Scalars['ReferenceModuleData']
+  collectModule: Scalars['ContractAddress']['output']
+  collectModuleInitData: Scalars['CollectModuleData']['output']
+  contentURI: Scalars['PublicationUrl']['output']
+  deadline: Scalars['UnixTimestamp']['output']
+  nonce: Scalars['Nonce']['output']
+  profileId: Scalars['ProfileId']['output']
+  referenceModule: Scalars['ContractAddress']['output']
+  referenceModuleInitData: Scalars['ReferenceModuleData']['output']
 }
 
 export type CreateProfileRequest = {
   /** The follow module */
   followModule?: InputMaybe<FollowModuleParams>
   /** The follow NFT URI is the NFT metadata your followers will mint when they follow you. This can be updated at all times. If you do not pass in anything it will create a super cool changing NFT which will show the last publication of your profile as the NFT which looks awesome! This means people do not have to worry about writing this logic but still have the ability to customise it for their followers */
-  followNFTURI?: InputMaybe<Scalars['Url']>
-  handle: Scalars['CreateHandle']
+  followNFTURI?: InputMaybe<Scalars['Url']['input']>
+  handle: Scalars['CreateHandle']['input']
   /** The profile picture uri */
-  profilePictureUri?: InputMaybe<Scalars['Url']>
+  profilePictureUri?: InputMaybe<Scalars['Url']['input']>
 }
 
 export type CreatePublicCommentRequest = {
   /** The collect module */
   collectModule: CollectModuleParams
   /** The metadata contentURI resolver */
-  contentURI: Scalars['Url']
+  contentURI: Scalars['Url']['input']
   /** The criteria to access the publication data */
   gated?: InputMaybe<GatedPublicationParamsInput>
   /** Profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
   /** Publication id of what your comments on remember if this is a comment you commented on it will be that as the id */
-  publicationId: Scalars['InternalPublicationId']
+  publicationId: Scalars['InternalPublicationId']['input']
   /** The reference module */
   referenceModule?: InputMaybe<ReferenceModuleParams>
 }
@@ -775,34 +787,34 @@ export type CreatePublicPostRequest = {
   /** The collect module */
   collectModule: CollectModuleParams
   /** The metadata uploaded somewhere passing in the url to reach it */
-  contentURI: Scalars['Url']
+  contentURI: Scalars['Url']['input']
   /** The criteria to access the publication data */
   gated?: InputMaybe<GatedPublicationParamsInput>
   /** Profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
   /** The reference module */
   referenceModule?: InputMaybe<ReferenceModuleParams>
 }
 
 export type CreatePublicSetProfileMetadataUriRequest = {
   /** The metadata uploaded somewhere passing in the url to reach it */
-  metadata: Scalars['Url']
+  metadata: Scalars['Url']['input']
   /** Profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 export type CreateSetDefaultProfileRequest = {
   /** Profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 /** The broadcast item */
 export type CreateSetDispatcherBroadcastItemResult = {
   __typename?: 'CreateSetDispatcherBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']
+  expiresAt: Scalars['DateTime']['output']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']
+  id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: CreateSetDispatcherEip712TypedData
 }
@@ -827,19 +839,19 @@ export type CreateSetDispatcherEip712TypedDataTypes = {
 /** The set dispatcher eip 712 typed data value */
 export type CreateSetDispatcherEip712TypedDataValue = {
   __typename?: 'CreateSetDispatcherEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']
-  dispatcher: Scalars['EthereumAddress']
-  nonce: Scalars['Nonce']
-  profileId: Scalars['ProfileId']
+  deadline: Scalars['UnixTimestamp']['output']
+  dispatcher: Scalars['EthereumAddress']['output']
+  nonce: Scalars['Nonce']['output']
+  profileId: Scalars['ProfileId']['output']
 }
 
 /** The broadcast item */
 export type CreateSetFollowModuleBroadcastItemResult = {
   __typename?: 'CreateSetFollowModuleBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']
+  expiresAt: Scalars['DateTime']['output']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']
+  id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: CreateSetFollowModuleEip712TypedData
 }
@@ -864,26 +876,26 @@ export type CreateSetFollowModuleEip712TypedDataTypes = {
 /** The set follow module eip 712 typed data value */
 export type CreateSetFollowModuleEip712TypedDataValue = {
   __typename?: 'CreateSetFollowModuleEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']
-  followModule: Scalars['ContractAddress']
-  followModuleInitData: Scalars['FollowModuleData']
-  nonce: Scalars['Nonce']
-  profileId: Scalars['ProfileId']
+  deadline: Scalars['UnixTimestamp']['output']
+  followModule: Scalars['ContractAddress']['output']
+  followModuleInitData: Scalars['FollowModuleData']['output']
+  nonce: Scalars['Nonce']['output']
+  profileId: Scalars['ProfileId']['output']
 }
 
 export type CreateSetFollowModuleRequest = {
   /** The follow module info */
   followModule: FollowModuleParams
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 /** The broadcast item */
 export type CreateSetFollowNftUriBroadcastItemResult = {
   __typename?: 'CreateSetFollowNFTUriBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']
+  expiresAt: Scalars['DateTime']['output']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']
+  id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: CreateSetFollowNftUriEip712TypedData
 }
@@ -908,25 +920,25 @@ export type CreateSetFollowNftUriEip712TypedDataTypes = {
 /** The set follow nft uri eip 712 typed data value */
 export type CreateSetFollowNftUriEip712TypedDataValue = {
   __typename?: 'CreateSetFollowNFTUriEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']
-  followNFTURI: Scalars['Url']
-  nonce: Scalars['Nonce']
-  profileId: Scalars['ProfileId']
+  deadline: Scalars['UnixTimestamp']['output']
+  followNFTURI: Scalars['Url']['output']
+  nonce: Scalars['Nonce']['output']
+  profileId: Scalars['ProfileId']['output']
 }
 
 export type CreateSetFollowNftUriRequest = {
   /** The follow NFT URI is the NFT metadata your followers will mint when they follow you. This can be updated at all times. If you do not pass in anything it will create a super cool changing NFT which will show the last publication of your profile as the NFT which looks awesome! This means people do not have to worry about writing this logic but still have the ability to customise it for their followers */
-  followNFTURI?: InputMaybe<Scalars['Url']>
-  profileId: Scalars['ProfileId']
+  followNFTURI?: InputMaybe<Scalars['Url']['input']>
+  profileId: Scalars['ProfileId']['input']
 }
 
 /** The broadcast item */
 export type CreateSetProfileImageUriBroadcastItemResult = {
   __typename?: 'CreateSetProfileImageUriBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']
+  expiresAt: Scalars['DateTime']['output']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']
+  id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: CreateSetProfileImageUriEip712TypedData
 }
@@ -951,19 +963,19 @@ export type CreateSetProfileImageUriEip712TypedDataTypes = {
 /** The set profile uri eip 712 typed data value */
 export type CreateSetProfileImageUriEip712TypedDataValue = {
   __typename?: 'CreateSetProfileImageUriEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']
-  imageURI: Scalars['Url']
-  nonce: Scalars['Nonce']
-  profileId: Scalars['ProfileId']
+  deadline: Scalars['UnixTimestamp']['output']
+  imageURI: Scalars['Url']['output']
+  nonce: Scalars['Nonce']['output']
+  profileId: Scalars['ProfileId']['output']
 }
 
 /** The broadcast item */
 export type CreateSetProfileMetadataUriBroadcastItemResult = {
   __typename?: 'CreateSetProfileMetadataURIBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']
+  expiresAt: Scalars['DateTime']['output']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']
+  id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: CreateSetProfileMetadataUrieip712TypedData
 }
@@ -988,19 +1000,19 @@ export type CreateSetProfileMetadataUrieip712TypedDataTypes = {
 /** The set follow nft uri eip 712 typed data value */
 export type CreateSetProfileMetadataUrieip712TypedDataValue = {
   __typename?: 'CreateSetProfileMetadataURIEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']
-  metadata: Scalars['Url']
-  nonce: Scalars['Nonce']
-  profileId: Scalars['ProfileId']
+  deadline: Scalars['UnixTimestamp']['output']
+  metadata: Scalars['Url']['output']
+  nonce: Scalars['Nonce']['output']
+  profileId: Scalars['ProfileId']['output']
 }
 
 /** The broadcast item */
 export type CreateToggleFollowBroadcastItemResult = {
   __typename?: 'CreateToggleFollowBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']
+  expiresAt: Scalars['DateTime']['output']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']
+  id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: CreateToggleFollowEip712TypedData
 }
@@ -1025,30 +1037,30 @@ export type CreateToggleFollowEip712TypedDataTypes = {
 /** The create toggle follow eip 712 typed data value */
 export type CreateToggleFollowEip712TypedDataValue = {
   __typename?: 'CreateToggleFollowEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']
-  enables: Array<Scalars['Boolean']>
-  nonce: Scalars['Nonce']
-  profileIds: Array<Scalars['ProfileId']>
+  deadline: Scalars['UnixTimestamp']['output']
+  enables: Array<Scalars['Boolean']['output']>
+  nonce: Scalars['Nonce']['output']
+  profileIds: Array<Scalars['ProfileId']['output']>
 }
 
 export type CreateToggleFollowRequest = {
-  enables: Array<Scalars['Boolean']>
-  profileIds: Array<Scalars['ProfileId']>
+  enables: Array<Scalars['Boolean']['input']>
+  profileIds: Array<Scalars['ProfileId']['input']>
 }
 
 /** The broadcast item */
 export type CreateUnfollowBroadcastItemResult = {
   __typename?: 'CreateUnfollowBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']
+  expiresAt: Scalars['DateTime']['output']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']
+  id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: CreateBurnEip712TypedData
 }
 
 export type CurRequest = {
-  secret: Scalars['String']
+  secret: Scalars['String']['input']
 }
 
 /** The custom filters types */
@@ -1058,46 +1070,46 @@ export enum CustomFiltersTypes {
 
 export type DataAvailabilityComment = {
   __typename?: 'DataAvailabilityComment'
-  appId?: Maybe<Scalars['Sources']>
+  appId?: Maybe<Scalars['Sources']['output']>
   commentedOnProfile: Profile
-  commentedOnPublicationId: Scalars['InternalPublicationId']
-  createdAt: Scalars['DateTime']
+  commentedOnPublicationId: Scalars['InternalPublicationId']['output']
+  createdAt: Scalars['DateTime']['output']
   profile: Profile
-  publicationId: Scalars['InternalPublicationId']
-  submitter: Scalars['EthereumAddress']
-  transactionId: Scalars['String']
+  publicationId: Scalars['InternalPublicationId']['output']
+  submitter: Scalars['EthereumAddress']['output']
+  transactionId: Scalars['String']['output']
   verificationStatus: DataAvailabilityVerificationStatusUnion
 }
 
 export type DataAvailabilityMirror = {
   __typename?: 'DataAvailabilityMirror'
-  appId?: Maybe<Scalars['Sources']>
-  createdAt: Scalars['DateTime']
+  appId?: Maybe<Scalars['Sources']['output']>
+  createdAt: Scalars['DateTime']['output']
   mirrorOfProfile: Profile
-  mirrorOfPublicationId: Scalars['InternalPublicationId']
+  mirrorOfPublicationId: Scalars['InternalPublicationId']['output']
   profile: Profile
-  publicationId: Scalars['InternalPublicationId']
-  submitter: Scalars['EthereumAddress']
-  transactionId: Scalars['String']
+  publicationId: Scalars['InternalPublicationId']['output']
+  submitter: Scalars['EthereumAddress']['output']
+  transactionId: Scalars['String']['output']
   verificationStatus: DataAvailabilityVerificationStatusUnion
 }
 
 export type DataAvailabilityPost = {
   __typename?: 'DataAvailabilityPost'
-  appId?: Maybe<Scalars['Sources']>
-  createdAt: Scalars['DateTime']
+  appId?: Maybe<Scalars['Sources']['output']>
+  createdAt: Scalars['DateTime']['output']
   profile: Profile
-  publicationId: Scalars['InternalPublicationId']
-  submitter: Scalars['EthereumAddress']
-  transactionId: Scalars['String']
+  publicationId: Scalars['InternalPublicationId']['output']
+  submitter: Scalars['EthereumAddress']['output']
+  transactionId: Scalars['String']['output']
   verificationStatus: DataAvailabilityVerificationStatusUnion
 }
 
 export type DataAvailabilitySubmitterResult = {
   __typename?: 'DataAvailabilitySubmitterResult'
-  address: Scalars['EthereumAddress']
-  name: Scalars['String']
-  totalTransactions: Scalars['Int']
+  address: Scalars['EthereumAddress']['output']
+  name: Scalars['String']['output']
+  totalTransactions: Scalars['Int']['output']
 }
 
 /** The paginated submitter results */
@@ -1109,12 +1121,12 @@ export type DataAvailabilitySubmittersResult = {
 
 export type DataAvailabilitySummaryResult = {
   __typename?: 'DataAvailabilitySummaryResult'
-  totalTransactions: Scalars['Int']
+  totalTransactions: Scalars['Int']['output']
 }
 
 export type DataAvailabilityTransactionRequest = {
   /** The DA transaction id or internal publiation id */
-  id: Scalars['String']
+  id: Scalars['String']['input']
 }
 
 export type DataAvailabilityTransactionUnion =
@@ -1123,9 +1135,9 @@ export type DataAvailabilityTransactionUnion =
   | DataAvailabilityPost
 
 export type DataAvailabilityTransactionsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
-  profileId?: InputMaybe<Scalars['ProfileId']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 export type DataAvailabilityTransactionsResult = {
@@ -1141,7 +1153,7 @@ export type DataAvailabilityVerificationStatusFailure = {
 
 export type DataAvailabilityVerificationStatusSuccess = {
   __typename?: 'DataAvailabilityVerificationStatusSuccess'
-  verified: Scalars['Boolean']
+  verified: Scalars['Boolean']['output']
 }
 
 export type DataAvailabilityVerificationStatusUnion =
@@ -1164,51 +1176,51 @@ export enum DecryptFailReason {
 }
 
 export type DefaultProfileRequest = {
-  ethereumAddress: Scalars['EthereumAddress']
+  ethereumAddress: Scalars['EthereumAddress']['input']
 }
 
 export type DegreesOfSeparationReferenceModuleParams = {
   /** Applied to comments */
-  commentsRestricted: Scalars['Boolean']
+  commentsRestricted: Scalars['Boolean']['input']
   /** Degrees of separation */
-  degreesOfSeparation: Scalars['Int']
+  degreesOfSeparation: Scalars['Int']['input']
   /** Applied to mirrors */
-  mirrorsRestricted: Scalars['Boolean']
+  mirrorsRestricted: Scalars['Boolean']['input']
 }
 
 export type DegreesOfSeparationReferenceModuleSettings = {
   __typename?: 'DegreesOfSeparationReferenceModuleSettings'
   /** Applied to comments */
-  commentsRestricted: Scalars['Boolean']
-  contractAddress: Scalars['ContractAddress']
+  commentsRestricted: Scalars['Boolean']['output']
+  contractAddress: Scalars['ContractAddress']['output']
   /** Degrees of separation */
-  degreesOfSeparation: Scalars['Int']
+  degreesOfSeparation: Scalars['Int']['output']
   /** Applied to mirrors */
-  mirrorsRestricted: Scalars['Boolean']
+  mirrorsRestricted: Scalars['Boolean']['output']
   /** The reference modules enum */
   type: ReferenceModules
 }
 
 export type DismissRecommendedProfilesRequest = {
-  profileIds: Array<Scalars['ProfileId']>
+  profileIds: Array<Scalars['ProfileId']['input']>
 }
 
 /** The dispatcher */
 export type Dispatcher = {
   __typename?: 'Dispatcher'
   /** The dispatcher address */
-  address: Scalars['EthereumAddress']
+  address: Scalars['EthereumAddress']['output']
   /** If the dispatcher can use the relay */
-  canUseRelay: Scalars['Boolean']
+  canUseRelay: Scalars['Boolean']['output']
   /** If the dispatcher transactions will be sponsored by lens aka cover the gas costs */
-  sponsor: Scalars['Boolean']
+  sponsor: Scalars['Boolean']['output']
 }
 
 export type DoesFollow = {
   /** The follower address remember wallets follow profiles */
-  followerAddress: Scalars['EthereumAddress']
+  followerAddress: Scalars['EthereumAddress']['input']
   /** The profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 export type DoesFollowRequest = {
@@ -1220,52 +1232,52 @@ export type DoesFollowRequest = {
 export type DoesFollowResponse = {
   __typename?: 'DoesFollowResponse'
   /** The follower address remember wallets follow profiles */
-  followerAddress: Scalars['EthereumAddress']
+  followerAddress: Scalars['EthereumAddress']['output']
   /** If the user does follow */
-  follows: Scalars['Boolean']
+  follows: Scalars['Boolean']['output']
   /** Is finalised on-chain */
-  isFinalisedOnChain: Scalars['Boolean']
+  isFinalisedOnChain: Scalars['Boolean']['output']
   /** The profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['output']
 }
 
 /** The eip 712 typed data domain */
 export type Eip712TypedDataDomain = {
   __typename?: 'EIP712TypedDataDomain'
   /** The chainId */
-  chainId: Scalars['ChainId']
+  chainId: Scalars['ChainId']['output']
   /** The name of the typed data domain */
-  name: Scalars['String']
+  name: Scalars['String']['output']
   /** The verifying contract */
-  verifyingContract: Scalars['ContractAddress']
+  verifyingContract: Scalars['ContractAddress']['output']
   /** The version */
-  version: Scalars['String']
+  version: Scalars['String']['output']
 }
 
 /** The eip 712 typed data field */
 export type Eip712TypedDataField = {
   __typename?: 'EIP712TypedDataField'
   /** The name of the typed data field */
-  name: Scalars['String']
+  name: Scalars['String']['output']
   /** The type of the typed data field */
-  type: Scalars['String']
+  type: Scalars['String']['output']
 }
 
 export type Erc4626FeeCollectModuleParams = {
   /** The collecting cost associated with this publication. 0 for free collect. */
   amount: ModuleFeeAmountParams
   /** The maximum number of collects for this publication. Omit for no limit. */
-  collectLimit?: InputMaybe<Scalars['String']>
+  collectLimit?: InputMaybe<Scalars['String']['input']>
   /** The end timestamp after which collecting is impossible. Omit for no expiry. */
-  endTimestamp?: InputMaybe<Scalars['DateTime']>
+  endTimestamp?: InputMaybe<Scalars['DateTime']['input']>
   /** True if only followers of publisher may collect the post. */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['input']
   /** The address of the recipient who will recieve vault shares after depositing is completed. */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['input']
   /** The referral fee associated with this publication. */
-  referralFee?: InputMaybe<Scalars['Float']>
+  referralFee?: InputMaybe<Scalars['Float']['input']>
   /** The address of the ERC4626 vault to deposit funds to. */
-  vault: Scalars['ContractAddress']
+  vault: Scalars['ContractAddress']['input']
 }
 
 export type Erc4626FeeCollectModuleSettings = {
@@ -1273,34 +1285,34 @@ export type Erc4626FeeCollectModuleSettings = {
   /** The collect module amount info */
   amount: ModuleFeeAmount
   /** The maximum number of collects for this publication. 0 for no limit. */
-  collectLimit?: Maybe<Scalars['String']>
-  contractAddress: Scalars['ContractAddress']
+  collectLimit?: Maybe<Scalars['String']['output']>
+  contractAddress: Scalars['ContractAddress']['output']
   /** The end timestamp after which collecting is impossible. 0 for no expiry. */
-  endTimestamp?: Maybe<Scalars['DateTime']>
+  endTimestamp?: Maybe<Scalars['DateTime']['output']>
   /** True if only followers of publisher may collect the post. */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['output']
   /** The recipient of the ERC4626 vault shares */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['output']
   /** The referral fee associated with this publication. */
-  referralFee: Scalars['Float']
+  referralFee: Scalars['Float']['output']
   /** The collect modules enum */
   type: CollectModules
   /** The ERC4626 vault address */
-  vault: Scalars['ContractAddress']
+  vault: Scalars['ContractAddress']['output']
 }
 
 export type ElectedMirror = {
   __typename?: 'ElectedMirror'
-  mirrorId: Scalars['InternalPublicationId']
+  mirrorId: Scalars['InternalPublicationId']['output']
   profile: Profile
-  timestamp: Scalars['DateTime']
+  timestamp: Scalars['DateTime']['output']
 }
 
 export type EnabledModule = {
   __typename?: 'EnabledModule'
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   inputParams: Array<ModuleInfo>
-  moduleName: Scalars['String']
+  moduleName: Scalars['String']['output']
   redeemParams: Array<ModuleInfo>
   returnDataParms: Array<ModuleInfo>
 }
@@ -1317,13 +1329,13 @@ export type EnabledModules = {
 export type EncryptedFieldsOutput = {
   __typename?: 'EncryptedFieldsOutput'
   /** The encrypted animation_url field */
-  animation_url?: Maybe<Scalars['EncryptedValueScalar']>
+  animation_url?: Maybe<Scalars['EncryptedValueScalar']['output']>
   /** The encrypted content field */
-  content?: Maybe<Scalars['EncryptedValueScalar']>
+  content?: Maybe<Scalars['EncryptedValueScalar']['output']>
   /** The encrypted external_url field */
-  external_url?: Maybe<Scalars['EncryptedValueScalar']>
+  external_url?: Maybe<Scalars['EncryptedValueScalar']['output']>
   /** The encrypted image field */
-  image?: Maybe<Scalars['EncryptedValueScalar']>
+  image?: Maybe<Scalars['EncryptedValueScalar']['output']>
   /** The encrypted media field */
   media?: Maybe<Array<EncryptedMediaSet>>
 }
@@ -1332,19 +1344,19 @@ export type EncryptedFieldsOutput = {
 export type EncryptedMedia = {
   __typename?: 'EncryptedMedia'
   /** The encrypted alt tags for accessibility */
-  altTag?: Maybe<Scalars['EncryptedValueScalar']>
+  altTag?: Maybe<Scalars['EncryptedValueScalar']['output']>
   /** The encrypted cover for any video or audio you attached */
-  cover?: Maybe<Scalars['EncryptedValueScalar']>
+  cover?: Maybe<Scalars['EncryptedValueScalar']['output']>
   /** Height - will always be null on the public API */
-  height?: Maybe<Scalars['Int']>
+  height?: Maybe<Scalars['Int']['output']>
   /** The image/audio/video mime type for the publication */
-  mimeType?: Maybe<Scalars['MimeType']>
+  mimeType?: Maybe<Scalars['MimeType']['output']>
   /** Size - will always be null on the public API */
-  size?: Maybe<Scalars['Int']>
+  size?: Maybe<Scalars['Int']['output']>
   /** The encrypted value for the URL */
-  url: Scalars['Url']
+  url: Scalars['Url']['output']
   /** Width - will always be null on the public API */
-  width?: Maybe<Scalars['Int']>
+  width?: Maybe<Scalars['Int']['output']>
 }
 
 /** The encrypted media set */
@@ -1385,31 +1397,31 @@ export enum EncryptionProvider {
 export type EnsOnChainIdentity = {
   __typename?: 'EnsOnChainIdentity'
   /** The default ens mapped to this address */
-  name?: Maybe<Scalars['Ens']>
+  name?: Maybe<Scalars['Ens']['output']>
 }
 
 export type EoaOwnershipInput = {
   /** The address that will have access to the content */
-  address: Scalars['EthereumAddress']
+  address: Scalars['EthereumAddress']['input']
 }
 
 export type EoaOwnershipOutput = {
   __typename?: 'EoaOwnershipOutput'
   /** The address that will have access to the content */
-  address: Scalars['EthereumAddress']
+  address: Scalars['EthereumAddress']['output']
 }
 
 /** The erc20 type */
 export type Erc20 = {
   __typename?: 'Erc20'
   /** The erc20 address */
-  address: Scalars['ContractAddress']
+  address: Scalars['ContractAddress']['output']
   /** Decimal places for the token */
-  decimals: Scalars['Int']
+  decimals: Scalars['Int']['output']
   /** Name of the symbol */
-  name: Scalars['String']
+  name: Scalars['String']['output']
   /** Symbol for the token */
-  symbol: Scalars['String']
+  symbol: Scalars['String']['output']
 }
 
 export type Erc20Amount = {
@@ -1417,38 +1429,38 @@ export type Erc20Amount = {
   /** The erc20 token info */
   asset: Erc20
   /** Floating point number as string (e.g. 42.009837). It could have the entire precision of the Asset or be truncated to the last significant decimal. */
-  value: Scalars['String']
+  value: Scalars['String']['output']
 }
 
 export type Erc20OwnershipInput = {
   /** The amount of tokens required to access the content */
-  amount: Scalars['String']
+  amount: Scalars['String']['input']
   /** The amount of tokens required to access the content */
-  chainID: Scalars['ChainId']
+  chainID: Scalars['ChainId']['input']
   /** The operator to use when comparing the amount of tokens */
   condition: ScalarOperator
   /** The ERC20 token ethereum address */
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['input']
   /** The amount of decimals of the ERC20 contract */
-  decimals: Scalars['Float']
+  decimals: Scalars['Float']['input']
 }
 
 export type Erc20OwnershipOutput = {
   __typename?: 'Erc20OwnershipOutput'
   /** The amount of tokens required to access the content */
-  amount: Scalars['String']
+  amount: Scalars['String']['output']
   /** The amount of tokens required to access the content */
-  chainID: Scalars['ChainId']
+  chainID: Scalars['ChainId']['output']
   /** The operator to use when comparing the amount of tokens */
   condition: ScalarOperator
   /** The ERC20 token ethereum address */
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   /** The amount of decimals of the ERC20 contract */
-  decimals: Scalars['Float']
+  decimals: Scalars['Float']['output']
   /** The name of the ERC20 token */
-  name: Scalars['String']
+  name: Scalars['String']['output']
   /** The symbol of the ERC20 token */
-  symbol: Scalars['String']
+  symbol: Scalars['String']['output']
 }
 
 /** The paginated publication result */
@@ -1459,28 +1471,28 @@ export type ExploreProfileResult = {
 }
 
 export type ExploreProfilesRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   sortCriteria: ProfileSortCriteria
-  timestamp?: InputMaybe<Scalars['TimestampScalar']>
+  timestamp?: InputMaybe<Scalars['TimestampScalar']['input']>
 }
 
 export type ExplorePublicationRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>
   /** If you wish to exclude any results for profile ids */
-  excludeProfileIds?: InputMaybe<Array<Scalars['ProfileId']>>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  excludeProfileIds?: InputMaybe<Array<Scalars['ProfileId']['input']>>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   metadata?: InputMaybe<PublicationMetadataFilters>
   /** If you want the randomizer off (default on) */
-  noRandomize?: InputMaybe<Scalars['Boolean']>
+  noRandomize?: InputMaybe<Scalars['Boolean']['input']>
   /** The publication types you want to query */
   publicationTypes?: InputMaybe<Array<PublicationTypes>>
   sortCriteria: PublicationSortCriteria
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']>>
-  timestamp?: InputMaybe<Scalars['TimestampScalar']>
+  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
+  timestamp?: InputMaybe<Scalars['TimestampScalar']['input']>
 }
 
 /** The paginated publication result */
@@ -1494,24 +1506,24 @@ export type FeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
   /** Follower only */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['input']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['input']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']
+  referralFee: Scalars['Float']['input']
 }
 
 export type FeeCollectModuleSettings = {
   __typename?: 'FeeCollectModuleSettings'
   /** The collect module amount info */
   amount: ModuleFeeAmount
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   /** Follower only */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['output']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['output']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']
+  referralFee: Scalars['Float']['output']
   /** The collect modules enum */
   type: CollectModules
 }
@@ -1520,7 +1532,7 @@ export type FeeFollowModuleParams = {
   /** The follow module amount info */
   amount: ModuleFeeAmountParams
   /** The follow module recipient address */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['input']
 }
 
 export type FeeFollowModuleRedeemParams = {
@@ -1532,9 +1544,9 @@ export type FeeFollowModuleSettings = {
   __typename?: 'FeeFollowModuleSettings'
   /** The collect module amount info */
   amount: ModuleFeeAmount
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['output']
   /** The follow modules enum */
   type: FollowModules
 }
@@ -1551,13 +1563,13 @@ export enum FeedEventItemType {
 }
 
 export type FeedHighlightsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   metadata?: InputMaybe<PublicationMetadataFilters>
   /** The profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']>>
+  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
 }
 
 export type FeedItem = {
@@ -1578,31 +1590,31 @@ export type FeedItem = {
 export type FeedItemRoot = Comment | Post
 
 export type FeedRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
   /** Filter your feed to whatever you wish */
   feedEventItemTypes?: InputMaybe<Array<FeedEventItemType>>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   metadata?: InputMaybe<PublicationMetadataFilters>
   /** The profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']>>
+  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
 }
 
 export type Follow = {
   followModule?: InputMaybe<FollowModuleRedeemParams>
-  profile: Scalars['ProfileId']
+  profile: Scalars['ProfileId']['input']
 }
 
 export type FollowConditionInput = {
   /** The profile id of the gated profile */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 export type FollowConditionOutput = {
   __typename?: 'FollowConditionOutput'
   /** The profile id of the gated profile */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['output']
 }
 
 export type FollowModule =
@@ -1615,11 +1627,11 @@ export type FollowModuleParams = {
   /** The follower fee follower module */
   feeFollowModule?: InputMaybe<FeeFollowModuleParams>
   /** The empty follow module */
-  freeFollowModule?: InputMaybe<Scalars['Boolean']>
+  freeFollowModule?: InputMaybe<Scalars['Boolean']['input']>
   /** The profile follow module */
-  profileFollowModule?: InputMaybe<Scalars['Boolean']>
+  profileFollowModule?: InputMaybe<Scalars['Boolean']['input']>
   /** The revert follow module */
-  revertFollowModule?: InputMaybe<Scalars['Boolean']>
+  revertFollowModule?: InputMaybe<Scalars['Boolean']['input']>
   /** A unknown follow module */
   unknownFollowModule?: InputMaybe<UnknownFollowModuleParams>
 }
@@ -1643,7 +1655,7 @@ export enum FollowModules {
 
 export type FollowOnlyReferenceModuleSettings = {
   __typename?: 'FollowOnlyReferenceModuleSettings'
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   /** The reference modules enum */
   type: ReferenceModules
 }
@@ -1663,37 +1675,37 @@ export type FollowRevenueResult = {
 
 export type Follower = {
   __typename?: 'Follower'
-  totalAmountOfTimesFollowed: Scalars['Int']
+  totalAmountOfTimesFollowed: Scalars['Int']['output']
   wallet: Wallet
 }
 
 export type FollowerNftOwnedTokenIds = {
   __typename?: 'FollowerNftOwnedTokenIds'
-  followerNftAddress: Scalars['ContractAddress']
-  tokensIds: Array<Scalars['String']>
+  followerNftAddress: Scalars['ContractAddress']['output']
+  tokensIds: Array<Scalars['String']['output']>
 }
 
 export type FollowerNftOwnedTokenIdsRequest = {
-  address: Scalars['EthereumAddress']
-  profileId: Scalars['ProfileId']
+  address: Scalars['EthereumAddress']['input']
+  profileId: Scalars['ProfileId']['input']
 }
 
 export type FollowersRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
-  profileId: Scalars['ProfileId']
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  profileId: Scalars['ProfileId']['input']
 }
 
 export type Following = {
   __typename?: 'Following'
   profile: Profile
-  totalAmountOfTimesFollowing: Scalars['Int']
+  totalAmountOfTimesFollowing: Scalars['Int']['output']
 }
 
 export type FollowingRequest = {
-  address: Scalars['EthereumAddress']
-  cursor?: InputMaybe<Scalars['Cursor']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  address: Scalars['EthereumAddress']['input']
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
 }
 
 export type FraudReasonInputParams = {
@@ -1703,24 +1715,24 @@ export type FraudReasonInputParams = {
 
 export type FreeCollectModuleParams = {
   /** Follower only */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['input']
 }
 
 export type FreeCollectModuleSettings = {
   __typename?: 'FreeCollectModuleSettings'
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   /** Follower only */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['output']
   /** The collect modules enum */
   type: CollectModules
 }
 
 export type FreeCollectProxyAction = {
-  publicationId: Scalars['InternalPublicationId']
+  publicationId: Scalars['InternalPublicationId']['input']
 }
 
 export type FreeFollowProxyAction = {
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 /** The access conditions for the publication */
@@ -1730,7 +1742,7 @@ export type GatedPublicationParamsInput = {
   /** Profile follow condition */
   collect?: InputMaybe<CollectConditionInput>
   /** The LIT Protocol encrypted symmetric key */
-  encryptedSymmetricKey: Scalars['ContentEncryptionKey']
+  encryptedSymmetricKey: Scalars['ContentEncryptionKey']['input']
   /** EOA ownership condition */
   eoa?: InputMaybe<EoaOwnershipInput>
   /** Profile follow condition */
@@ -1746,97 +1758,97 @@ export type GatedPublicationParamsInput = {
 }
 
 export type GciRequest = {
-  hhh: Scalars['String']
-  secret: Scalars['String']
-  ttt: Scalars['String']
+  hhh: Scalars['String']['input']
+  secret: Scalars['String']['input']
+  ttt: Scalars['String']['input']
 }
 
 export type GcrRequest = {
-  hhh: Scalars['String']
-  secret: Scalars['String']
-  ttt: Scalars['String']
+  hhh: Scalars['String']['input']
+  secret: Scalars['String']['input']
+  ttt: Scalars['String']['input']
 }
 
 export type GctRequest = {
-  hhh: Scalars['String']
-  secret: Scalars['String']
+  hhh: Scalars['String']['input']
+  secret: Scalars['String']['input']
 }
 
 export type GddRequest = {
-  domain: Scalars['Url']
-  secret: Scalars['String']
+  domain: Scalars['Url']['input']
+  secret: Scalars['String']['input']
 }
 
 export type GdmRequest = {
-  secret: Scalars['String']
+  secret: Scalars['String']['input']
 }
 
 export type GenerateModuleCurrencyApproval = {
   __typename?: 'GenerateModuleCurrencyApproval'
-  data: Scalars['BlockchainData']
-  from: Scalars['EthereumAddress']
-  to: Scalars['ContractAddress']
+  data: Scalars['BlockchainData']['output']
+  from: Scalars['EthereumAddress']['output']
+  to: Scalars['ContractAddress']['output']
 }
 
 export type GenerateModuleCurrencyApprovalDataRequest = {
   collectModule?: InputMaybe<CollectModules>
-  currency: Scalars['ContractAddress']
+  currency: Scalars['ContractAddress']['input']
   followModule?: InputMaybe<FollowModules>
   referenceModule?: InputMaybe<ReferenceModules>
-  unknownCollectModule?: InputMaybe<Scalars['ContractAddress']>
-  unknownFollowModule?: InputMaybe<Scalars['ContractAddress']>
-  unknownReferenceModule?: InputMaybe<Scalars['ContractAddress']>
+  unknownCollectModule?: InputMaybe<Scalars['ContractAddress']['input']>
+  unknownFollowModule?: InputMaybe<Scalars['ContractAddress']['input']>
+  unknownReferenceModule?: InputMaybe<Scalars['ContractAddress']['input']>
   /** Floating point number as string (e.g. 42.009837). The server will move its decimal places for you */
-  value: Scalars['String']
+  value: Scalars['String']['input']
 }
 
 export type GetPublicationMetadataStatusRequest = {
-  publicationId?: InputMaybe<Scalars['InternalPublicationId']>
-  txHash?: InputMaybe<Scalars['TxHash']>
-  txId?: InputMaybe<Scalars['TxId']>
+  publicationId?: InputMaybe<Scalars['InternalPublicationId']['input']>
+  txHash?: InputMaybe<Scalars['TxHash']['input']>
+  txId?: InputMaybe<Scalars['TxId']['input']>
 }
 
 export type GlobalProtocolStats = {
   __typename?: 'GlobalProtocolStats'
-  totalBurntProfiles: Scalars['Int']
-  totalCollects: Scalars['Int']
-  totalComments: Scalars['Int']
-  totalFollows: Scalars['Int']
-  totalMirrors: Scalars['Int']
-  totalPosts: Scalars['Int']
-  totalProfiles: Scalars['Int']
+  totalBurntProfiles: Scalars['Int']['output']
+  totalCollects: Scalars['Int']['output']
+  totalComments: Scalars['Int']['output']
+  totalFollows: Scalars['Int']['output']
+  totalMirrors: Scalars['Int']['output']
+  totalPosts: Scalars['Int']['output']
+  totalProfiles: Scalars['Int']['output']
   totalRevenue: Array<Erc20Amount>
 }
 
 export type GlobalProtocolStatsRequest = {
   /** Unix time from timestamp - if not supplied it will go from 0 timestamp */
-  fromTimestamp?: InputMaybe<Scalars['UnixTimestamp']>
+  fromTimestamp?: InputMaybe<Scalars['UnixTimestamp']['input']>
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']>>
+  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
   /** Unix time to timestamp - if not supplied it go to the present timestamp */
-  toTimestamp?: InputMaybe<Scalars['UnixTimestamp']>
+  toTimestamp?: InputMaybe<Scalars['UnixTimestamp']['input']>
 }
 
 export type HasTxHashBeenIndexedRequest = {
   /** Tx hash.. if your using the broadcaster you should use txId due to gas price upgrades */
-  txHash?: InputMaybe<Scalars['TxHash']>
+  txHash?: InputMaybe<Scalars['TxHash']['input']>
   /** Tx id.. if your using the broadcaster you should always use this field */
-  txId?: InputMaybe<Scalars['TxId']>
+  txId?: InputMaybe<Scalars['TxId']['input']>
 }
 
 export type HelRequest = {
-  handle: Scalars['Handle']
-  remove: Scalars['Boolean']
-  secret: Scalars['String']
+  handle: Scalars['Handle']['input']
+  remove: Scalars['Boolean']['input']
+  secret: Scalars['String']['input']
 }
 
 export type HidePublicationRequest = {
   /** Publication id */
-  publicationId: Scalars['InternalPublicationId']
+  publicationId: Scalars['InternalPublicationId']['input']
 }
 
 export type IdKitPhoneVerifyWebhookRequest = {
-  sharedSecret: Scalars['String']
+  sharedSecret: Scalars['String']['input']
   worldcoin?: InputMaybe<WorldcoinPhoneVerifyWebhookRequest>
 }
 
@@ -1852,29 +1864,29 @@ export type IllegalReasonInputParams = {
 }
 
 export type InternalPublicationsFilterRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
   /** must be DD/MM/YYYY */
-  fromDate: Scalars['String']
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  fromDate: Scalars['String']['input']
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   /** The shared secret */
-  secret: Scalars['String']
+  secret: Scalars['String']['input']
   /** The App Id */
-  source: Scalars['Sources']
+  source: Scalars['Sources']['input']
   /** must be DD/MM/YYYY */
-  toDate: Scalars['String']
+  toDate: Scalars['String']['input']
 }
 
 export type LimitedFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
   /** The collect module limit */
-  collectLimit: Scalars['String']
+  collectLimit: Scalars['String']['input']
   /** Follower only */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['input']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['input']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']
+  referralFee: Scalars['Float']['input']
 }
 
 export type LimitedFeeCollectModuleSettings = {
@@ -1882,14 +1894,14 @@ export type LimitedFeeCollectModuleSettings = {
   /** The collect module amount info */
   amount: ModuleFeeAmount
   /** The collect module limit */
-  collectLimit: Scalars['String']
-  contractAddress: Scalars['ContractAddress']
+  collectLimit: Scalars['String']['output']
+  contractAddress: Scalars['ContractAddress']['output']
   /** Follower only */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['output']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['output']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']
+  referralFee: Scalars['Float']['output']
   /** The collect modules enum */
   type: CollectModules
 }
@@ -1898,13 +1910,13 @@ export type LimitedTimedFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
   /** The collect module limit */
-  collectLimit: Scalars['String']
+  collectLimit: Scalars['String']['input']
   /** Follower only */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['input']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['input']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']
+  referralFee: Scalars['Float']['input']
 }
 
 export type LimitedTimedFeeCollectModuleSettings = {
@@ -1912,31 +1924,31 @@ export type LimitedTimedFeeCollectModuleSettings = {
   /** The collect module amount info */
   amount: ModuleFeeAmount
   /** The collect module limit */
-  collectLimit: Scalars['String']
-  contractAddress: Scalars['ContractAddress']
+  collectLimit: Scalars['String']['output']
+  contractAddress: Scalars['ContractAddress']['output']
   /** The collect module end timestamp */
-  endTimestamp: Scalars['DateTime']
+  endTimestamp: Scalars['DateTime']['output']
   /** Follower only */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['output']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['output']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']
+  referralFee: Scalars['Float']['output']
   /** The collect modules enum */
   type: CollectModules
 }
 
 export type Log = {
   __typename?: 'Log'
-  address: Scalars['ContractAddress']
-  blockHash: Scalars['String']
-  blockNumber: Scalars['Int']
-  data: Scalars['String']
-  logIndex: Scalars['Int']
-  removed: Scalars['Boolean']
-  topics: Array<Scalars['String']>
-  transactionHash: Scalars['TxHash']
-  transactionIndex: Scalars['Int']
+  address: Scalars['ContractAddress']['output']
+  blockHash: Scalars['String']['output']
+  blockNumber: Scalars['Int']['output']
+  data: Scalars['String']['output']
+  logIndex: Scalars['Int']['output']
+  removed: Scalars['Boolean']['output']
+  topics: Array<Scalars['String']['output']>
+  transactionHash: Scalars['TxHash']['output']
+  transactionIndex: Scalars['Int']['output']
 }
 
 export type MainPostReference = Mirror | Post
@@ -1945,32 +1957,32 @@ export type MainPostReference = Mirror | Post
 export type Media = {
   __typename?: 'Media'
   /** The alt tags for accessibility */
-  altTag?: Maybe<Scalars['String']>
+  altTag?: Maybe<Scalars['String']['output']>
   /** The cover for any video or audio you attached */
-  cover?: Maybe<Scalars['Url']>
+  cover?: Maybe<Scalars['Url']['output']>
   /** Height - will always be null on the public API */
-  height?: Maybe<Scalars['Int']>
+  height?: Maybe<Scalars['Int']['output']>
   /** The image/audio/video mime type for the publication */
-  mimeType?: Maybe<Scalars['MimeType']>
+  mimeType?: Maybe<Scalars['MimeType']['output']>
   /** Size - will always be null on the public API */
-  size?: Maybe<Scalars['Int']>
+  size?: Maybe<Scalars['Int']['output']>
   /** The token image nft */
-  url: Scalars['Url']
+  url: Scalars['Url']['output']
   /** Width - will always be null on the public API */
-  width?: Maybe<Scalars['Int']>
+  width?: Maybe<Scalars['Int']['output']>
 }
 
 /** Media object output */
 export type MediaOutput = {
   __typename?: 'MediaOutput'
   /** The alt tags for accessibility */
-  altTag?: Maybe<Scalars['String']>
+  altTag?: Maybe<Scalars['String']['output']>
   /** The cover for any video or audio you attached */
-  cover?: Maybe<Scalars['Url']>
-  item: Scalars['Url']
+  cover?: Maybe<Scalars['Url']['output']>
+  item: Scalars['Url']['output']
   source?: Maybe<PublicationMediaSource>
   /** This is the mime type of media */
-  type?: Maybe<Scalars['MimeType']>
+  type?: Maybe<Scalars['MimeType']['output']>
 }
 
 /** The Media Set */
@@ -1978,16 +1990,35 @@ export type MediaSet = {
   __typename?: 'MediaSet'
   /**
    * Medium media - will always be null on the public API
-   * @deprecated should not be used will always be null
+   * @deprecated should not be used will always be null - use transform function to get small media
    */
   medium?: Maybe<Media>
-  /** Original media */
+  /** Original media as found on the publication metadata */
+  onChain: Media
+  /** Optimized media, snapshotted and served from a CDN */
+  optimized?: Maybe<Media>
+  /** On-chain or snapshotted media on a CDN */
   original: Media
   /**
    * Small media - will always be null on the public API
-   * @deprecated should not be used will always be null
+   * @deprecated should not be used will always be null - use transform function to get small media
    */
   small?: Maybe<Media>
+  transformed?: Maybe<Media>
+}
+
+/** The Media Set */
+export type MediaSetTransformedArgs = {
+  params: MediaTransformParams
+}
+
+export type MediaTransformParams = {
+  /** Set the transformed image's height. You can use specific size in pixels eg. 100px, a percentage eg. 50% or set as 'auto' to be set automatically. Default value is 'auto'. */
+  height?: InputMaybe<Scalars['ImageSizeTransform']['input']>
+  /** Set if you want to keep the image's original aspect ratio. True by default. If explicitly set to false, the image will stretch based on the width and height values. */
+  keepAspectRatio?: InputMaybe<Scalars['Boolean']['input']>
+  /** Set the transformed image's width. You can use specific size in pixels eg. 100px, a percentage eg. 50% or set as 'auto' to be set automatically. Default value is 'auto'. */
+  width?: InputMaybe<Scalars['ImageSizeTransform']['input']>
 }
 
 export type MentionPublication = Comment | Post
@@ -1997,9 +2028,9 @@ export type MetadataAttributeInput = {
   /** The display type */
   displayType?: InputMaybe<PublicationMetadataDisplayTypes>
   /** The trait type - can be anything its the name it will render so include spaces */
-  traitType: Scalars['String']
+  traitType: Scalars['String']['input']
   /** The value */
-  value: Scalars['String']
+  value: Scalars['String']['input']
 }
 
 /** The metadata attribute output */
@@ -2008,73 +2039,73 @@ export type MetadataAttributeOutput = {
   /** The display type */
   displayType?: Maybe<PublicationMetadataDisplayTypes>
   /** The trait type - can be anything its the name it will render so include spaces */
-  traitType?: Maybe<Scalars['String']>
+  traitType?: Maybe<Scalars['String']['output']>
   /** The value */
-  value?: Maybe<Scalars['String']>
+  value?: Maybe<Scalars['String']['output']>
 }
 
 /** The metadata output */
 export type MetadataOutput = {
   __typename?: 'MetadataOutput'
   /** The main focus of the publication */
-  animatedUrl?: Maybe<Scalars['Url']>
+  animatedUrl?: Maybe<Scalars['Url']['output']>
   /** The attributes */
   attributes: Array<MetadataAttributeOutput>
   /** This is the metadata content for the publication, should be markdown */
-  content?: Maybe<Scalars['Markdown']>
+  content?: Maybe<Scalars['Markdown']['output']>
   /** The content warning for the publication */
   contentWarning?: Maybe<PublicationContentWarning>
   /** The image cover for video/music publications */
   cover?: Maybe<MediaSet>
   /** This is the metadata description */
-  description?: Maybe<Scalars['Markdown']>
+  description?: Maybe<Scalars['Markdown']['output']>
   /** The publication's encryption params in case it's encrypted */
   encryptionParams?: Maybe<EncryptionParamsOutput>
   /** This is the image attached to the metadata and the property used to show the NFT! */
-  image?: Maybe<Scalars['Url']>
+  image?: Maybe<Scalars['Url']['output']>
   /** The locale of the publication,  */
-  locale?: Maybe<Scalars['Locale']>
+  locale?: Maybe<Scalars['Locale']['output']>
   /** The main focus of the publication */
   mainContentFocus: PublicationMainFocus
   /** The images/audios/videos for the publication */
   media: Array<MediaSet>
   /** The metadata name */
-  name?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']['output']>
   /** The tags for the publication */
-  tags: Array<Scalars['String']>
+  tags: Array<Scalars['String']['output']>
 }
 
 /** The social mirror */
 export type Mirror = {
   __typename?: 'Mirror'
   /** ID of the source */
-  appId?: Maybe<Scalars['Sources']>
+  appId?: Maybe<Scalars['Sources']['output']>
   canComment: CanCommentResponse
   canDecrypt: CanDecryptResponse
   canMirror: CanMirrorResponse
   /** The collect module */
   collectModule: CollectModule
   /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
-  collectNftAddress?: Maybe<Scalars['ContractAddress']>
+  collectNftAddress?: Maybe<Scalars['ContractAddress']['output']>
   /** The date the post was created on */
-  createdAt: Scalars['DateTime']
+  createdAt: Scalars['DateTime']['output']
   /** The data availability proofs you can fetch from */
-  dataAvailabilityProofs?: Maybe<Scalars['String']>
-  hasCollectedByMe: Scalars['Boolean']
+  dataAvailabilityProofs?: Maybe<Scalars['String']['output']>
+  hasCollectedByMe: Scalars['Boolean']['output']
   /** If the publication has been hidden if it has then the content and media is not available */
-  hidden: Scalars['Boolean']
+  hidden: Scalars['Boolean']['output']
   /** The internal publication id */
-  id: Scalars['InternalPublicationId']
+  id: Scalars['InternalPublicationId']['output']
   /** Indicates if the publication is data availability post */
-  isDataAvailability: Scalars['Boolean']
+  isDataAvailability: Scalars['Boolean']['output']
   /** Indicates if the publication is gated behind some access criteria */
-  isGated: Scalars['Boolean']
+  isGated: Scalars['Boolean']['output']
   /** The metadata for the post */
   metadata: MetadataOutput
   /** The mirror publication */
   mirrorOf: MirrorablePublication
   /** The on chain content uri could be `ipfs://` or `https` */
-  onChainContentURI: Scalars['String']
+  onChainContentURI: Scalars['String']['output']
   /** The profile ref */
   profile: Profile
   reaction?: Maybe<ReactionTypes>
@@ -2086,23 +2117,23 @@ export type Mirror = {
 
 /** The social mirror */
 export type MirrorCanCommentArgs = {
-  profileId?: InputMaybe<Scalars['ProfileId']>
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 /** The social mirror */
 export type MirrorCanDecryptArgs = {
-  address?: InputMaybe<Scalars['EthereumAddress']>
-  profileId?: InputMaybe<Scalars['ProfileId']>
+  address?: InputMaybe<Scalars['EthereumAddress']['input']>
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 /** The social mirror */
 export type MirrorCanMirrorArgs = {
-  profileId?: InputMaybe<Scalars['ProfileId']>
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 /** The social mirror */
 export type MirrorHasCollectedByMeArgs = {
-  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 /** The social mirror */
@@ -2113,7 +2144,7 @@ export type MirrorReactionArgs = {
 export type MirrorEvent = {
   __typename?: 'MirrorEvent'
   profile: Profile
-  timestamp: Scalars['DateTime']
+  timestamp: Scalars['DateTime']['output']
 }
 
 export type MirrorablePublication = Comment | Post
@@ -2123,9 +2154,9 @@ export type ModuleFee = {
   /** The fee amount */
   amount: ModuleFeeAmount
   /** The fee recipient */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['output']
   /** The referral fee */
-  referralFee: Scalars['Float']
+  referralFee: Scalars['Float']['output']
 }
 
 export type ModuleFeeAmount = {
@@ -2133,29 +2164,29 @@ export type ModuleFeeAmount = {
   /** The erc20 token info */
   asset: Erc20
   /** Floating point number as string (e.g. 42.009837). It could have the entire precision of the Asset or be truncated to the last significant decimal. */
-  value: Scalars['String']
+  value: Scalars['String']['output']
 }
 
 export type ModuleFeeAmountParams = {
   /** The currency address */
-  currency: Scalars['ContractAddress']
+  currency: Scalars['ContractAddress']['input']
   /** Floating point number as string (e.g. 42.009837). It could have the entire precision of the Asset or be truncated to the last significant decimal. */
-  value: Scalars['String']
+  value: Scalars['String']['input']
 }
 
 export type ModuleFeeParams = {
   /** The fee amount */
   amount: ModuleFeeAmountParams
   /** The fee recipient */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['input']
   /** The referral fee */
-  referralFee: Scalars['Float']
+  referralFee: Scalars['Float']['input']
 }
 
 export type ModuleInfo = {
   __typename?: 'ModuleInfo'
-  name: Scalars['String']
-  type: Scalars['String']
+  name: Scalars['String']['output']
+  type: Scalars['String']['output']
 }
 
 /** The momka validator error */
@@ -2194,15 +2225,15 @@ export type MultirecipientFeeCollectModuleParams = {
   /** The collecting cost associated with this publication. 0 for free collect. */
   amount: ModuleFeeAmountParams
   /** The maximum number of collects for this publication. Omit for no limit. */
-  collectLimit?: InputMaybe<Scalars['String']>
+  collectLimit?: InputMaybe<Scalars['String']['input']>
   /** The end timestamp after which collecting is impossible. Omit for no expiry. */
-  endTimestamp?: InputMaybe<Scalars['DateTime']>
+  endTimestamp?: InputMaybe<Scalars['DateTime']['input']>
   /** True if only followers of publisher may collect the post. */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['input']
   /** Recipient of collect fees. */
   recipients: Array<RecipientDataInput>
   /** The referral fee associated with this publication. */
-  referralFee?: InputMaybe<Scalars['Float']>
+  referralFee?: InputMaybe<Scalars['Float']['input']>
 }
 
 export type MultirecipientFeeCollectModuleSettings = {
@@ -2210,26 +2241,26 @@ export type MultirecipientFeeCollectModuleSettings = {
   /** The collect module amount info */
   amount: ModuleFeeAmount
   /** The maximum number of collects for this publication. 0 for no limit. */
-  collectLimit?: Maybe<Scalars['String']>
-  contractAddress: Scalars['ContractAddress']
+  collectLimit?: Maybe<Scalars['String']['output']>
+  contractAddress: Scalars['ContractAddress']['output']
   /** The end timestamp after which collecting is impossible. 0 for no expiry. */
-  endTimestamp?: Maybe<Scalars['DateTime']>
+  endTimestamp?: Maybe<Scalars['DateTime']['output']>
   /** True if only followers of publisher may collect the post. */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['output']
   /** Recipient of collect fees. */
   recipients: Array<RecipientDataOutput>
   /** The referral fee associated with this publication. */
-  referralFee: Scalars['Float']
+  referralFee: Scalars['Float']['output']
   /** The collect modules enum */
   type: CollectModules
 }
 
 export type Mutation = {
   __typename?: 'Mutation'
-  ach?: Maybe<Scalars['Void']>
+  ach?: Maybe<Scalars['Void']['output']>
   /** Adds profile interests to the given profile */
-  addProfileInterests?: Maybe<Scalars['Void']>
-  addReaction?: Maybe<Scalars['Void']>
+  addProfileInterests?: Maybe<Scalars['Void']['output']>
+  addReaction?: Maybe<Scalars['Void']['output']>
   authenticate: AuthenticationResult
   broadcast: RelayResult
   broadcastDataAvailability: BroadcastDataAvailabilityUnion
@@ -2249,7 +2280,7 @@ export type Mutation = {
   createMirrorTypedData: CreateMirrorBroadcastItemResult
   createMirrorViaDispatcher: RelayResult
   /** Create a new NFT gallery */
-  createNftGallery: Scalars['NftGalleryId']
+  createNftGallery: Scalars['NftGalleryId']['output']
   createPostTypedData: CreatePostBroadcastItemResult
   createPostViaDispatcher: RelayResult
   createProfile: RelayResult
@@ -2265,27 +2296,27 @@ export type Mutation = {
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult
   /** Delete an NFT Gallery */
-  deleteNftGallery?: Maybe<Scalars['Void']>
-  dismissRecommendedProfiles?: Maybe<Scalars['Void']>
-  dss?: Maybe<Scalars['Void']>
-  gci?: Maybe<Scalars['Void']>
-  gcr?: Maybe<Scalars['Void']>
-  gdi?: Maybe<Scalars['Void']>
-  hel?: Maybe<Scalars['Void']>
-  hidePublication?: Maybe<Scalars['Void']>
+  deleteNftGallery?: Maybe<Scalars['Void']['output']>
+  dismissRecommendedProfiles?: Maybe<Scalars['Void']['output']>
+  dss?: Maybe<Scalars['Void']['output']>
+  gci?: Maybe<Scalars['Void']['output']>
+  gcr?: Maybe<Scalars['Void']['output']>
+  gdi?: Maybe<Scalars['Void']['output']>
+  hel?: Maybe<Scalars['Void']['output']>
+  hidePublication?: Maybe<Scalars['Void']['output']>
   idKitPhoneVerifyWebhook: IdKitPhoneVerifyWebhookResultStatusType
-  proxyAction: Scalars['ProxyActionId']
+  proxyAction: Scalars['ProxyActionId']['output']
   refresh: AuthenticationResult
   /** Removes profile interests from the given profile */
-  removeProfileInterests?: Maybe<Scalars['Void']>
-  removeReaction?: Maybe<Scalars['Void']>
-  reportPublication?: Maybe<Scalars['Void']>
+  removeProfileInterests?: Maybe<Scalars['Void']['output']>
+  removeReaction?: Maybe<Scalars['Void']['output']>
+  reportPublication?: Maybe<Scalars['Void']['output']>
   /** Update the name of an NFT gallery */
-  updateNftGalleryInfo?: Maybe<Scalars['Void']>
+  updateNftGalleryInfo?: Maybe<Scalars['Void']['output']>
   /** Add and/or remove NFTs to a gallery */
-  updateNftGalleryItems?: Maybe<Scalars['Void']>
+  updateNftGalleryItems?: Maybe<Scalars['Void']['output']>
   /** Update the order of NFTs in a gallery */
-  updateNftGalleryOrder?: Maybe<Scalars['Void']>
+  updateNftGalleryOrder?: Maybe<Scalars['Void']['output']>
 }
 
 export type MutationAchArgs = {
@@ -2515,70 +2546,70 @@ export type MutationUpdateNftGalleryOrderArgs = {
 }
 
 export type MutualFollowersProfilesQueryRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   /** The profile id your viewing */
-  viewingProfileId: Scalars['ProfileId']
+  viewingProfileId: Scalars['ProfileId']['input']
   /** The profile id you want the result to come back as your viewing from */
-  yourProfileId: Scalars['ProfileId']
+  yourProfileId: Scalars['ProfileId']['input']
 }
 
 /** The nft type */
 export type Nft = {
   __typename?: 'NFT'
   /** aka "1"  */
-  chainId: Scalars['ChainId']
+  chainId: Scalars['ChainId']['output']
   /** aka "CryptoKitties"  */
-  collectionName: Scalars['String']
+  collectionName: Scalars['String']['output']
   /** aka "https://api.criptokitt..."  */
-  contentURI: Scalars['String']
+  contentURI: Scalars['String']['output']
   /** aka 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e  */
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   /** aka us CryptoKitties */
-  contractName: Scalars['String']
+  contractName: Scalars['String']['output']
   /** aka "Hey cutie! I m Beard Coffee. ....  */
-  description: Scalars['String']
+  description: Scalars['String']['output']
   /** aka "ERC721"  */
-  ercType: Scalars['String']
+  ercType: Scalars['String']['output']
   /** aka "Beard Coffee"  */
-  name: Scalars['String']
+  name: Scalars['String']['output']
   /** aka "{ uri:"https://ipfs....", metaType:"image/png" }"  */
   originalContent: NftContent
   /** aka { address: 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e, amount:"2" }  */
   owners: Array<Owner>
   /** aka RARI */
-  symbol: Scalars['String']
+  symbol: Scalars['String']['output']
   /** aka "13"  */
-  tokenId: Scalars['String']
+  tokenId: Scalars['String']['output']
 }
 
 /** The NFT content uri */
 export type NftContent = {
   __typename?: 'NFTContent'
   /** The animated url */
-  animatedUrl?: Maybe<Scalars['String']>
+  animatedUrl?: Maybe<Scalars['String']['output']>
   /** The meta type content */
-  metaType: Scalars['String']
+  metaType: Scalars['String']['output']
   /** The token uri  nft */
-  uri: Scalars['String']
+  uri: Scalars['String']['output']
 }
 
 export type NftData = {
   /** Id of the nft ownership challenge */
-  id: Scalars['NftOwnershipId']
+  id: Scalars['NftOwnershipId']['input']
   /** The signature */
-  signature: Scalars['Signature']
+  signature: Scalars['Signature']['input']
 }
 
 export type NfTsRequest = {
   /** Chain Ids */
-  chainIds: Array<Scalars['ChainId']>
+  chainIds: Array<Scalars['ChainId']['input']>
   /** Filter by contract address */
-  contractAddress?: InputMaybe<Scalars['ContractAddress']>
-  cursor?: InputMaybe<Scalars['Cursor']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  contractAddress?: InputMaybe<Scalars['ContractAddress']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   /** Filter by owner address */
-  ownerAddress: Scalars['EthereumAddress']
+  ownerAddress: Scalars['EthereumAddress']['input']
 }
 
 /** Paginated nft results */
@@ -2591,39 +2622,39 @@ export type NfTsResult = {
 export type NewCollectNotification = {
   __typename?: 'NewCollectNotification'
   collectedPublication: Publication
-  createdAt: Scalars['DateTime']
-  notificationId: Scalars['NotificationId']
+  createdAt: Scalars['DateTime']['output']
+  notificationId: Scalars['NotificationId']['output']
   wallet: Wallet
 }
 
 export type NewCommentNotification = {
   __typename?: 'NewCommentNotification'
   comment: Comment
-  createdAt: Scalars['DateTime']
-  notificationId: Scalars['NotificationId']
+  createdAt: Scalars['DateTime']['output']
+  notificationId: Scalars['NotificationId']['output']
   /** The profile */
   profile: Profile
 }
 
 export type NewFollowerNotification = {
   __typename?: 'NewFollowerNotification'
-  createdAt: Scalars['DateTime']
-  isFollowedByMe: Scalars['Boolean']
-  notificationId: Scalars['NotificationId']
+  createdAt: Scalars['DateTime']['output']
+  isFollowedByMe: Scalars['Boolean']['output']
+  notificationId: Scalars['NotificationId']['output']
   wallet: Wallet
 }
 
 export type NewMentionNotification = {
   __typename?: 'NewMentionNotification'
-  createdAt: Scalars['DateTime']
+  createdAt: Scalars['DateTime']['output']
   mentionPublication: MentionPublication
-  notificationId: Scalars['NotificationId']
+  notificationId: Scalars['NotificationId']['output']
 }
 
 export type NewMirrorNotification = {
   __typename?: 'NewMirrorNotification'
-  createdAt: Scalars['DateTime']
-  notificationId: Scalars['NotificationId']
+  createdAt: Scalars['DateTime']['output']
+  notificationId: Scalars['NotificationId']['output']
   /** The profile */
   profile: Profile
   publication: MirrorablePublication
@@ -2631,8 +2662,8 @@ export type NewMirrorNotification = {
 
 export type NewReactionNotification = {
   __typename?: 'NewReactionNotification'
-  createdAt: Scalars['DateTime']
-  notificationId: Scalars['NotificationId']
+  createdAt: Scalars['DateTime']['output']
+  notificationId: Scalars['NotificationId']['output']
   /** The profile */
   profile: Profile
   publication: Publication
@@ -2642,24 +2673,24 @@ export type NewReactionNotification = {
 /** The NFT gallery input */
 export type NftGalleriesRequest = {
   /** The profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 /** The NFT gallery */
 export type NftGallery = {
   __typename?: 'NftGallery'
   /** The creation date */
-  createdAt: Scalars['DateTime']
+  createdAt: Scalars['DateTime']['output']
   /** The NFT gallery id */
-  id: Scalars['NftGalleryId']
+  id: Scalars['NftGalleryId']['output']
   /** The NFTs in the gallery */
   items: Array<Nft>
   /** The NFT gallery name */
-  name: Scalars['String']
+  name: Scalars['String']['output']
   /** The owning profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['output']
   /** The last update date */
-  updatedAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']['output']
 }
 
 /** The input for creating a new NFT gallery */
@@ -2667,35 +2698,35 @@ export type NftGalleryCreateRequest = {
   /** The NFTs in the gallery */
   items: Array<NftInput>
   /** The name of the NFT gallery */
-  name: Scalars['NftGalleryName']
+  name: Scalars['NftGalleryName']['input']
   /** The owner profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 /** The input for deleting gallery */
 export type NftGalleryDeleteRequest = {
   /** The NFT gallery id */
-  galleryId: Scalars['NftGalleryId']
+  galleryId: Scalars['NftGalleryId']['input']
   /** The profile id of the gallery owner */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 /** The input for updating NFT gallery name */
 export type NftGalleryUpdateInfoRequest = {
   /** The NFT gallery id */
-  galleryId: Scalars['NftGalleryId']
+  galleryId: Scalars['NftGalleryId']['input']
   /** The name of the NFT gallery */
-  name: Scalars['NftGalleryName']
+  name: Scalars['NftGalleryName']['input']
   /** The profile id of the gallery owner */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 /** The input for reordering gallery items */
 export type NftGalleryUpdateItemOrderRequest = {
   /** The NFT gallery id */
-  galleryId: Scalars['NftGalleryId']
+  galleryId: Scalars['NftGalleryId']['input']
   /** The profile id of the gallery owner */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
   /** The order of the NFTs in the gallery */
   updates: Array<NftUpdateItemOrder>
 }
@@ -2703,9 +2734,9 @@ export type NftGalleryUpdateItemOrderRequest = {
 /** The input for adding/removing gallery items */
 export type NftGalleryUpdateItemsRequest = {
   /** The NFT gallery id */
-  galleryId: Scalars['NftGalleryId']
+  galleryId: Scalars['NftGalleryId']['input']
   /** The profile id of the gallery owner */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
   /** The contents of the NFT gallery */
   toAdd?: InputMaybe<Array<NftInput>>
   /** The contents of the NFT gallery */
@@ -2716,39 +2747,39 @@ export type NftGalleryUpdateItemsRequest = {
 export type NftImage = {
   __typename?: 'NftImage'
   /** The token image nft */
-  chainId: Scalars['Int']
+  chainId: Scalars['Int']['output']
   /** The contract address */
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   /** The token id of the nft */
-  tokenId: Scalars['String']
+  tokenId: Scalars['String']['output']
   /** The token image nft */
-  uri: Scalars['Url']
+  uri: Scalars['Url']['output']
   /** If the NFT is verified */
-  verified: Scalars['Boolean']
+  verified: Scalars['Boolean']['output']
 }
 
 /** The NFT input for gallery */
 export type NftInput = {
   /** The chain ID of the NFT */
-  chainId: Scalars['ChainId']
+  chainId: Scalars['ChainId']['input']
   /** The contract address of the NFT */
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['input']
   /** The token ID of the NFT */
-  tokenId: Scalars['String']
+  tokenId: Scalars['String']['input']
 }
 
 export type NftOwnershipChallenge = {
   /** Chain Id */
-  chainId: Scalars['ChainId']
+  chainId: Scalars['ChainId']['input']
   /** ContractAddress for nft */
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['input']
   /** Token id for NFT */
-  tokenId: Scalars['String']
+  tokenId: Scalars['String']['input']
 }
 
 export type NftOwnershipChallengeRequest = {
   /** The wallet address which owns the NFT */
-  ethereumAddress: Scalars['EthereumAddress']
+  ethereumAddress: Scalars['EthereumAddress']['input']
   nfts: Array<NftOwnershipChallenge>
 }
 
@@ -2756,45 +2787,45 @@ export type NftOwnershipChallengeRequest = {
 export type NftOwnershipChallengeResult = {
   __typename?: 'NftOwnershipChallengeResult'
   /** Id of the nft ownership challenge */
-  id: Scalars['NftOwnershipId']
-  text: Scalars['String']
+  id: Scalars['NftOwnershipId']['output']
+  text: Scalars['String']['output']
   /** Timeout of the validation */
-  timeout: Scalars['TimestampScalar']
+  timeout: Scalars['TimestampScalar']['output']
 }
 
 export type NftOwnershipInput = {
   /** The NFT chain id */
-  chainID: Scalars['ChainId']
+  chainID: Scalars['ChainId']['input']
   /** The NFT collection's ethereum address */
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['input']
   /** The unlocker contract type */
   contractType: ContractType
   /** The optional token ID(s) to check for ownership */
-  tokenIds?: InputMaybe<Array<Scalars['TokenId']>>
+  tokenIds?: InputMaybe<Array<Scalars['TokenId']['input']>>
 }
 
 export type NftOwnershipOutput = {
   __typename?: 'NftOwnershipOutput'
   /** The NFT chain id */
-  chainID: Scalars['ChainId']
+  chainID: Scalars['ChainId']['output']
   /** The NFT collection's ethereum address */
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   /** The unlocker contract type */
   contractType: ContractType
   /** The optional token ID(s) to check for ownership */
-  tokenIds?: Maybe<Array<Scalars['TokenId']>>
+  tokenIds?: Maybe<Array<Scalars['TokenId']['output']>>
 }
 
 /** The input for updating the order of a NFT gallery item */
 export type NftUpdateItemOrder = {
   /** The chain ID of the NFT */
-  chainId: Scalars['ChainId']
+  chainId: Scalars['ChainId']['input']
   /** The contract address of the NFT */
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['input']
   /** The new order of the NFT in the gallery */
-  newOrder: Scalars['Int']
+  newOrder: Scalars['Int']['input']
   /** The token ID of the NFT */
-  tokenId: Scalars['String']
+  tokenId: Scalars['String']['input']
 }
 
 export type Notification =
@@ -2806,16 +2837,16 @@ export type Notification =
   | NewReactionNotification
 
 export type NotificationRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>
-  highSignalFilter?: InputMaybe<Scalars['Boolean']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  highSignalFilter?: InputMaybe<Scalars['Boolean']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   /** The notification types */
   notificationTypes?: InputMaybe<Array<NotificationTypes>>
   /** The profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']>>
+  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
 }
 
 /** The notification filter types */
@@ -2838,7 +2869,7 @@ export type OnChainIdentity = {
   /** The ens information */
   ens?: Maybe<EnsOnChainIdentity>
   /** The POH status */
-  proofOfHumanity: Scalars['Boolean']
+  proofOfHumanity: Scalars['Boolean']['output']
   /** The sybil dot org information */
   sybilDotOrg: SybilDotOrgIdentity
   /** The worldcoin identity */
@@ -2860,9 +2891,9 @@ export type OrConditionOutput = {
 export type Owner = {
   __typename?: 'Owner'
   /** aka 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e  */
-  address: Scalars['EthereumAddress']
+  address: Scalars['EthereumAddress']['output']
   /** number of tokens owner */
-  amount: Scalars['Float']
+  amount: Scalars['Float']['output']
 }
 
 /** The paginated wallet result */
@@ -2924,14 +2955,14 @@ export type PaginatedPublicationResult = {
 export type PaginatedResultInfo = {
   __typename?: 'PaginatedResultInfo'
   /** Cursor to query next results */
-  next?: Maybe<Scalars['Cursor']>
+  next?: Maybe<Scalars['Cursor']['output']>
   /** Cursor to query the actual results */
-  prev?: Maybe<Scalars['Cursor']>
+  prev?: Maybe<Scalars['Cursor']['output']>
   /**
    * The total number of entities the pagination iterates over. If its null then its not been worked out due to it being an expensive query and not really needed for the client. All main counters are in counter tables to allow them to be faster fetching.
    * @deprecated Total counts is expensive and in dynamic nature of queries it slows stuff down. Most the time you do not need this you can just use the `next` property to see if there is more data. This will be removed soon. The only use case anyone is using this right now is on notification query, this should be changed to query the notifications and cache the last notification id. You can then keep checking if the id changes you know more notifications.
    */
-  totalCount?: Maybe<Scalars['Int']>
+  totalCount?: Maybe<Scalars['Int']['output']>
 }
 
 /** The paginated result */
@@ -2955,8 +2986,8 @@ export type PaginatedWhoReactedResult = {
 }
 
 export type PendingApprovalFollowsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
 }
 
 /** The paginated follow result */
@@ -2970,37 +3001,37 @@ export type PendingApproveFollowsResult = {
 export type Post = {
   __typename?: 'Post'
   /** ID of the source */
-  appId?: Maybe<Scalars['Sources']>
+  appId?: Maybe<Scalars['Sources']['output']>
   canComment: CanCommentResponse
   canDecrypt: CanDecryptResponse
   canMirror: CanMirrorResponse
   /** The collect module */
   collectModule: CollectModule
   /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
-  collectNftAddress?: Maybe<Scalars['ContractAddress']>
+  collectNftAddress?: Maybe<Scalars['ContractAddress']['output']>
   /**
    * Who collected it, this is used for timeline results and like this for better caching for the client
    * @deprecated use `feed` query, timeline query will be killed on the 15th November. This includes this field.
    */
   collectedBy?: Maybe<Wallet>
   /** The date the post was created on */
-  createdAt: Scalars['DateTime']
+  createdAt: Scalars['DateTime']['output']
   /** The data availability proofs you can fetch from */
-  dataAvailabilityProofs?: Maybe<Scalars['String']>
-  hasCollectedByMe: Scalars['Boolean']
+  dataAvailabilityProofs?: Maybe<Scalars['String']['output']>
+  hasCollectedByMe: Scalars['Boolean']['output']
   /** If the publication has been hidden if it has then the content and media is not available */
-  hidden: Scalars['Boolean']
+  hidden: Scalars['Boolean']['output']
   /** The internal publication id */
-  id: Scalars['InternalPublicationId']
+  id: Scalars['InternalPublicationId']['output']
   /** Indicates if the publication is data availability post */
-  isDataAvailability: Scalars['Boolean']
+  isDataAvailability: Scalars['Boolean']['output']
   /** Indicates if the publication is gated behind some access criteria */
-  isGated: Scalars['Boolean']
+  isGated: Scalars['Boolean']['output']
   /** The metadata for the post */
   metadata: MetadataOutput
-  mirrors: Array<Scalars['InternalPublicationId']>
+  mirrors: Array<Scalars['InternalPublicationId']['output']>
   /** The on chain content uri could be `ipfs://` or `https` */
-  onChainContentURI: Scalars['String']
+  onChainContentURI: Scalars['String']['output']
   /** The profile ref */
   profile: Profile
   reaction?: Maybe<ReactionTypes>
@@ -3012,28 +3043,28 @@ export type Post = {
 
 /** The social post */
 export type PostCanCommentArgs = {
-  profileId?: InputMaybe<Scalars['ProfileId']>
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 /** The social post */
 export type PostCanDecryptArgs = {
-  address?: InputMaybe<Scalars['EthereumAddress']>
-  profileId?: InputMaybe<Scalars['ProfileId']>
+  address?: InputMaybe<Scalars['EthereumAddress']['input']>
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 /** The social post */
 export type PostCanMirrorArgs = {
-  profileId?: InputMaybe<Scalars['ProfileId']>
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 /** The social post */
 export type PostHasCollectedByMeArgs = {
-  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 /** The social post */
 export type PostMirrorsArgs = {
-  by?: InputMaybe<Scalars['ProfileId']>
+  by?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 /** The social post */
@@ -3042,8 +3073,21 @@ export type PostReactionArgs = {
 }
 
 export type PrfRequest = {
-  hhh: Scalars['String']
-  secret: Scalars['String']
+  dd: Scalars['Boolean']['input']
+  hhh: Scalars['String']['input']
+  secret: Scalars['String']['input']
+  ss: Scalars['Boolean']['input']
+}
+
+export type PrfResponse = {
+  __typename?: 'PrfResponse'
+  dd: Scalars['Boolean']['output']
+  ss: Scalars['Boolean']['output']
+}
+
+export type PriRequest = {
+  hhh: Scalars['String']['input']
+  secret: Scalars['String']['input']
 }
 
 /** The Profile */
@@ -3052,7 +3096,7 @@ export type Profile = {
   /** Optionals param to add extra attributes on the metadata */
   attributes?: Maybe<Array<Attribute>>
   /** Bio of the profile */
-  bio?: Maybe<Scalars['String']>
+  bio?: Maybe<Scalars['String']['output']>
   /** The cover picture for the profile */
   coverPicture?: Maybe<ProfileMedia>
   /** The dispatcher */
@@ -3060,25 +3104,25 @@ export type Profile = {
   /** The follow module */
   followModule?: Maybe<FollowModule>
   /** Follow nft address */
-  followNftAddress?: Maybe<Scalars['ContractAddress']>
+  followNftAddress?: Maybe<Scalars['ContractAddress']['output']>
   /** The profile handle */
-  handle: Scalars['Handle']
+  handle: Scalars['Handle']['output']
   /** The profile id */
-  id: Scalars['ProfileId']
+  id: Scalars['ProfileId']['output']
   /** The profile interests */
-  interests?: Maybe<Array<Scalars['ProfileInterest']>>
+  interests?: Maybe<Array<Scalars['ProfileInterest']['output']>>
   /** Is the profile default */
-  isDefault: Scalars['Boolean']
-  isFollowedByMe: Scalars['Boolean']
-  isFollowing: Scalars['Boolean']
+  isDefault: Scalars['Boolean']['output']
+  isFollowedByMe: Scalars['Boolean']['output']
+  isFollowing: Scalars['Boolean']['output']
   /** Metadata url */
-  metadata?: Maybe<Scalars['Url']>
+  metadata?: Maybe<Scalars['Url']['output']>
   /** Name of the profile */
-  name?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']['output']>
   /** The on chain identity */
   onChainIdentity: OnChainIdentity
   /** Who owns the profile */
-  ownedBy: Scalars['EthereumAddress']
+  ownedBy: Scalars['EthereumAddress']['output']
   /** The picture for the profile */
   picture?: Maybe<ProfileMedia>
   /** Profile stats */
@@ -3087,63 +3131,63 @@ export type Profile = {
 
 /** The Profile */
 export type ProfileIsFollowedByMeArgs = {
-  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 /** The Profile */
 export type ProfileIsFollowingArgs = {
-  who?: InputMaybe<Scalars['ProfileId']>
+  who?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 export type ProfileFollowModuleBeenRedeemedRequest = {
-  followProfileId: Scalars['ProfileId']
-  redeemingProfileId: Scalars['ProfileId']
+  followProfileId: Scalars['ProfileId']['input']
+  redeemingProfileId: Scalars['ProfileId']['input']
 }
 
 export type ProfileFollowModuleRedeemParams = {
   /** The profile id to use to follow this profile */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 export type ProfileFollowModuleSettings = {
   __typename?: 'ProfileFollowModuleSettings'
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   /** The follow module enum */
   type: FollowModules
 }
 
 export type ProfileFollowRevenueQueryRequest = {
   /** The profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 export type ProfileMedia = MediaSet | NftImage
 
 export type ProfileOnChainIdentityRequest = {
-  profileIds: Array<Scalars['ProfileId']>
+  profileIds: Array<Scalars['ProfileId']['input']>
 }
 
 /** Condition that signifies if address has access to profile */
 export type ProfileOwnershipInput = {
   /** The profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 /** Condition that signifies if address has access to profile */
 export type ProfileOwnershipOutput = {
   __typename?: 'ProfileOwnershipOutput'
   /** The profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['output']
 }
 
 export type ProfilePublicationRevenueQueryRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   metadata?: InputMaybe<PublicationMetadataFilters>
   /** The profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']>>
+  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
   /** The revenue types */
   types?: InputMaybe<Array<PublicationTypes>>
 }
@@ -3156,26 +3200,28 @@ export type ProfilePublicationRevenueResult = {
 }
 
 export type ProfilePublicationsForSaleRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   metadata?: InputMaybe<PublicationMetadataFilters>
   /** Profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']>>
+  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
 }
 
 export type ProfileQueryRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
   /** The handles for the profile */
-  handles?: InputMaybe<Array<Scalars['Handle']>>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  handles?: InputMaybe<Array<Scalars['Handle']['input']>>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   /** The ethereum addresses */
-  ownedBy?: InputMaybe<Array<Scalars['EthereumAddress']>>
+  ownedBy?: InputMaybe<Array<Scalars['EthereumAddress']['input']>>
   /** The profile ids */
-  profileIds?: InputMaybe<Array<Scalars['ProfileId']>>
+  profileIds?: InputMaybe<Array<Scalars['ProfileId']['input']>>
   /** The mirrored publication id */
-  whoMirroredPublicationId?: InputMaybe<Scalars['InternalPublicationId']>
+  whoMirroredPublicationId?: InputMaybe<
+    Scalars['InternalPublicationId']['input']
+  >
 }
 
 /** Profile search results */
@@ -3201,63 +3247,63 @@ export enum ProfileSortCriteria {
 /** The Profile Stats */
 export type ProfileStats = {
   __typename?: 'ProfileStats'
-  commentsTotal: Scalars['Int']
-  id: Scalars['ProfileId']
-  mirrorsTotal: Scalars['Int']
-  postsTotal: Scalars['Int']
-  publicationsTotal: Scalars['Int']
+  commentsTotal: Scalars['Int']['output']
+  id: Scalars['ProfileId']['output']
+  mirrorsTotal: Scalars['Int']['output']
+  postsTotal: Scalars['Int']['output']
+  publicationsTotal: Scalars['Int']['output']
   /** Total collects count */
-  totalCollects: Scalars['Int']
+  totalCollects: Scalars['Int']['output']
   /** Total comment count */
-  totalComments: Scalars['Int']
+  totalComments: Scalars['Int']['output']
   /** Total follower count */
-  totalFollowers: Scalars['Int']
+  totalFollowers: Scalars['Int']['output']
   /** Total following count (remember the wallet follows not profile so will be same for every profile they own) */
-  totalFollowing: Scalars['Int']
+  totalFollowing: Scalars['Int']['output']
   /** Total mirror count */
-  totalMirrors: Scalars['Int']
+  totalMirrors: Scalars['Int']['output']
   /** Total post count */
-  totalPosts: Scalars['Int']
+  totalPosts: Scalars['Int']['output']
   /** Total publication count */
-  totalPublications: Scalars['Int']
+  totalPublications: Scalars['Int']['output']
 }
 
 /** The Profile Stats */
 export type ProfileStatsCommentsTotalArgs = {
-  forSources: Array<Scalars['Sources']>
+  forSources: Array<Scalars['Sources']['input']>
 }
 
 /** The Profile Stats */
 export type ProfileStatsMirrorsTotalArgs = {
-  forSources: Array<Scalars['Sources']>
+  forSources: Array<Scalars['Sources']['input']>
 }
 
 /** The Profile Stats */
 export type ProfileStatsPostsTotalArgs = {
-  forSources: Array<Scalars['Sources']>
+  forSources: Array<Scalars['Sources']['input']>
 }
 
 /** The Profile Stats */
 export type ProfileStatsPublicationsTotalArgs = {
-  forSources: Array<Scalars['Sources']>
+  forSources: Array<Scalars['Sources']['input']>
 }
 
 /** The provider-specific encryption params */
 export type ProviderSpecificParamsOutput = {
   __typename?: 'ProviderSpecificParamsOutput'
   /** The encryption key */
-  encryptionKey: Scalars['ContentEncryptionKey']
+  encryptionKey: Scalars['ContentEncryptionKey']['output']
 }
 
 export type ProxyActionError = {
   __typename?: 'ProxyActionError'
-  lastKnownTxId?: Maybe<Scalars['TxId']>
-  reason: Scalars['String']
+  lastKnownTxId?: Maybe<Scalars['TxId']['output']>
+  reason: Scalars['String']['output']
 }
 
 export type ProxyActionQueued = {
   __typename?: 'ProxyActionQueued'
-  queuedAt: Scalars['DateTime']
+  queuedAt: Scalars['DateTime']['output']
 }
 
 export type ProxyActionRequest = {
@@ -3268,8 +3314,8 @@ export type ProxyActionRequest = {
 export type ProxyActionStatusResult = {
   __typename?: 'ProxyActionStatusResult'
   status: ProxyActionStatusTypes
-  txHash: Scalars['TxHash']
-  txId: Scalars['TxId']
+  txHash: Scalars['TxHash']['output']
+  txId: Scalars['TxId']['output']
 }
 
 export type ProxyActionStatusResultUnion =
@@ -3286,13 +3332,13 @@ export enum ProxyActionStatusTypes {
 
 export type PublicMediaRequest = {
   /** The alt tags for accessibility */
-  altTag?: InputMaybe<Scalars['String']>
+  altTag?: InputMaybe<Scalars['String']['input']>
   /** The cover for any video or audio you attached */
-  cover?: InputMaybe<Scalars['Url']>
+  cover?: InputMaybe<Scalars['Url']['input']>
   /** Pre calculated cid of the file to push */
-  itemCid: Scalars['IpfsCid']
+  itemCid: Scalars['IpfsCid']['input']
   /** This is the mime type of media */
-  type?: InputMaybe<Scalars['MimeType']>
+  type?: InputMaybe<Scalars['MimeType']['input']>
 }
 
 /** The response to upload the attached file */
@@ -3301,7 +3347,7 @@ export type PublicMediaResults = {
   /** ipfs uri to add on the metadata */
   media: MediaOutput
   /** Signed url to push the file */
-  signedUrl: Scalars['String']
+  signedUrl: Scalars['String']['output']
 }
 
 export type Publication = Comment | Mirror | Post
@@ -3348,7 +3394,7 @@ export enum PublicationMetadataDisplayTypes {
 export type PublicationMetadataFilters = {
   contentWarning?: InputMaybe<PublicationMetadataContentWarningFilter>
   /** IOS 639-1 language code aka en or it and ISO 3166-1 alpha-2 region code aka US or IT aka en-US or it-IT. You can just filter on language if you wish. */
-  locale?: InputMaybe<Scalars['Locale']>
+  locale?: InputMaybe<Scalars['Locale']['input']>
   mainContentFocus?: InputMaybe<Array<PublicationMainFocus>>
   tags?: InputMaybe<PublicationMetadataTagsFilter>
 }
@@ -3356,19 +3402,19 @@ export type PublicationMetadataFilters = {
 /** The metadata attribute input */
 export type PublicationMetadataMediaInput = {
   /** The alt tags for accessibility */
-  altTag?: InputMaybe<Scalars['String']>
+  altTag?: InputMaybe<Scalars['String']['input']>
   /** The cover for any video or audio you attached */
-  cover?: InputMaybe<Scalars['Url']>
-  item: Scalars['Url']
+  cover?: InputMaybe<Scalars['Url']['input']>
+  item: Scalars['Url']['input']
   source?: InputMaybe<PublicationMediaSource>
   /** This is the mime type of media */
-  type?: InputMaybe<Scalars['MimeType']>
+  type?: InputMaybe<Scalars['MimeType']['input']>
 }
 
 export type PublicationMetadataStatus = {
   __typename?: 'PublicationMetadataStatus'
   /** If metadata validation failed it will put a reason why here */
-  reason?: Maybe<Scalars['String']>
+  reason?: Maybe<Scalars['String']['output']>
   status: PublicationMetadataStatusType
 }
 
@@ -3383,9 +3429,9 @@ export enum PublicationMetadataStatusType {
 /** Publication metadata tag filter */
 export type PublicationMetadataTagsFilter = {
   /** Needs to match all */
-  all?: InputMaybe<Array<Scalars['String']>>
+  all?: InputMaybe<Array<Scalars['String']['input']>>
   /** Needs to only match one of */
-  oneOf?: InputMaybe<Array<Scalars['String']>>
+  oneOf?: InputMaybe<Array<Scalars['String']['input']>>
 }
 
 export type PublicationMetadataV1Input = {
@@ -3395,34 +3441,34 @@ export type PublicationMetadataV1Input = {
    *       Animation_url also supports HTML pages, allowing you to build rich experiences and interactive NFTs using JavaScript canvas,
    *       WebGL, and more. Scripts and relative paths within the HTML page are now supported. However, access to browser extensions is not supported.
    */
-  animation_url?: InputMaybe<Scalars['Url']>
+  animation_url?: InputMaybe<Scalars['Url']['input']>
   /**  This is the appId the content belongs to */
-  appId?: InputMaybe<Scalars['Sources']>
+  appId?: InputMaybe<Scalars['Sources']['input']>
   /**  These are the attributes for the item, which will show up on the OpenSea and others NFT trading websites on the item. */
   attributes: Array<MetadataAttributeInput>
   /** The content of a publication. If this is blank `media` must be defined or its out of spec */
-  content?: InputMaybe<Scalars['Markdown']>
+  content?: InputMaybe<Scalars['Markdown']['input']>
   /** A human-readable description of the item. */
-  description?: InputMaybe<Scalars['Markdown']>
+  description?: InputMaybe<Scalars['Markdown']['input']>
   /**
    * This is the URL that will appear below the asset's image on OpenSea and others etc
    *       and will allow users to leave OpenSea and view the item on the site.
    */
-  external_url?: InputMaybe<Scalars['Url']>
+  external_url?: InputMaybe<Scalars['Url']['input']>
   /** legacy to support OpenSea will store any NFT image here. */
-  image?: InputMaybe<Scalars['Url']>
+  image?: InputMaybe<Scalars['Url']['input']>
   /** This is the mime type of the image. This is used if your uploading more advanced cover images as sometimes ipfs does not emit the content header so this solves that */
-  imageMimeType?: InputMaybe<Scalars['MimeType']>
+  imageMimeType?: InputMaybe<Scalars['MimeType']['input']>
   /**  This is lens supported attached media items to the publication */
   media?: InputMaybe<Array<PublicationMetadataMediaInput>>
   /** The metadata id can be anything but if your uploading to ipfs you will want it to be random.. using uuid could be an option! */
-  metadata_id: Scalars['String']
+  metadata_id: Scalars['String']['input']
   /** Name of the item. */
-  name: Scalars['String']
+  name: Scalars['String']['input']
   /** Signed metadata to validate the owner */
   signatureContext?: InputMaybe<PublicationSignatureContextInput>
   /** The metadata version. (1.0.0 | 2.0.0) */
-  version: Scalars['String']
+  version: Scalars['String']['input']
 }
 
 export type PublicationMetadataV2Input = {
@@ -3432,49 +3478,49 @@ export type PublicationMetadataV2Input = {
    *       Animation_url also supports HTML pages, allowing you to build rich experiences and interactive NFTs using JavaScript canvas,
    *       WebGL, and more. Scripts and relative paths within the HTML page are now supported. However, access to browser extensions is not supported.
    */
-  animation_url?: InputMaybe<Scalars['Url']>
+  animation_url?: InputMaybe<Scalars['Url']['input']>
   /**  This is the appId the content belongs to */
-  appId?: InputMaybe<Scalars['Sources']>
+  appId?: InputMaybe<Scalars['Sources']['input']>
   /**  These are the attributes for the item, which will show up on the OpenSea and others NFT trading websites on the item. */
   attributes: Array<MetadataAttributeInput>
   /** The content of a publication. If this is blank `media` must be defined or its out of spec */
-  content?: InputMaybe<Scalars['Markdown']>
+  content?: InputMaybe<Scalars['Markdown']['input']>
   /** Ability to add a content warning */
   contentWarning?: InputMaybe<PublicationContentWarning>
   /** A human-readable description of the item. */
-  description?: InputMaybe<Scalars['Markdown']>
+  description?: InputMaybe<Scalars['Markdown']['input']>
   /**
    * This is the URL that will appear below the asset's image on OpenSea and others etc
    *       and will allow users to leave OpenSea and view the item on the site.
    */
-  external_url?: InputMaybe<Scalars['Url']>
+  external_url?: InputMaybe<Scalars['Url']['input']>
   /** legacy to support OpenSea will store any NFT image here. */
-  image?: InputMaybe<Scalars['Url']>
+  image?: InputMaybe<Scalars['Url']['input']>
   /** This is the mime type of the image. This is used if your uploading more advanced cover images as sometimes ipfs does not emit the content header so this solves that */
-  imageMimeType?: InputMaybe<Scalars['MimeType']>
+  imageMimeType?: InputMaybe<Scalars['MimeType']['input']>
   /** IOS 639-1 language code aka en or it and ISO 3166-1 alpha-2 region code aka US or IT aka en-US or it-IT */
-  locale: Scalars['Locale']
+  locale: Scalars['Locale']['input']
   /** Main content focus that for this publication */
   mainContentFocus: PublicationMainFocus
   /**  This is lens supported attached media items to the publication */
   media?: InputMaybe<Array<PublicationMetadataMediaInput>>
   /** The metadata id can be anything but if your uploading to ipfs you will want it to be random.. using uuid could be an option! */
-  metadata_id: Scalars['String']
+  metadata_id: Scalars['String']['input']
   /** Name of the item. */
-  name: Scalars['String']
+  name: Scalars['String']['input']
   /** Signed metadata to validate the owner */
   signatureContext?: InputMaybe<PublicationSignatureContextInput>
   /** Ability to tag your publication */
-  tags?: InputMaybe<Array<Scalars['String']>>
+  tags?: InputMaybe<Array<Scalars['String']['input']>>
   /** The metadata version. (1.0.0 | 2.0.0) */
-  version: Scalars['String']
+  version: Scalars['String']['input']
 }
 
 export type PublicationQueryRequest = {
   /** The publication id */
-  publicationId?: InputMaybe<Scalars['InternalPublicationId']>
+  publicationId?: InputMaybe<Scalars['InternalPublicationId']['input']>
   /** The tx hash */
-  txHash?: InputMaybe<Scalars['TxHash']>
+  txHash?: InputMaybe<Scalars['TxHash']['input']>
 }
 
 /** Publication reporting fraud subreason */
@@ -3527,7 +3573,7 @@ export type PublicationRevenue = {
 
 export type PublicationRevenueQueryRequest = {
   /** The publication id */
-  publicationId: Scalars['InternalPublicationId']
+  publicationId: Scalars['InternalPublicationId']['input']
 }
 
 /** Publication search results */
@@ -3541,7 +3587,7 @@ export type PublicationSearchResult = {
 export type PublicationSearchResultItem = Comment | Post
 
 export type PublicationSignatureContextInput = {
-  signature: Scalars['String']
+  signature: Scalars['String']['input']
 }
 
 /** Publication sort criteria */
@@ -3556,24 +3602,24 @@ export enum PublicationSortCriteria {
 /** The publication stats */
 export type PublicationStats = {
   __typename?: 'PublicationStats'
-  commentsTotal: Scalars['Int']
+  commentsTotal: Scalars['Int']['output']
   /** The publication id */
-  id: Scalars['InternalPublicationId']
+  id: Scalars['InternalPublicationId']['output']
   /** The total amount of collects */
-  totalAmountOfCollects: Scalars['Int']
+  totalAmountOfCollects: Scalars['Int']['output']
   /** The total amount of comments */
-  totalAmountOfComments: Scalars['Int']
+  totalAmountOfComments: Scalars['Int']['output']
   /** The total amount of mirrors */
-  totalAmountOfMirrors: Scalars['Int']
+  totalAmountOfMirrors: Scalars['Int']['output']
   /** The total amount of upvotes */
-  totalDownvotes: Scalars['Int']
+  totalDownvotes: Scalars['Int']['output']
   /** The total amount of downvotes */
-  totalUpvotes: Scalars['Int']
+  totalUpvotes: Scalars['Int']['output']
 }
 
 /** The publication stats */
 export type PublicationStatsCommentsTotalArgs = {
-  forSources: Array<Scalars['Sources']>
+  forSources: Array<Scalars['Sources']['input']>
 }
 
 /** The publication types */
@@ -3586,33 +3632,33 @@ export enum PublicationTypes {
 export type PublicationValidateMetadataResult = {
   __typename?: 'PublicationValidateMetadataResult'
   /** If `valid` is false it will put a reason why here */
-  reason?: Maybe<Scalars['String']>
-  valid: Scalars['Boolean']
+  reason?: Maybe<Scalars['String']['output']>
+  valid: Scalars['Boolean']['output']
 }
 
 export type PublicationsQueryRequest = {
   /** The ethereum address */
-  collectedBy?: InputMaybe<Scalars['EthereumAddress']>
+  collectedBy?: InputMaybe<Scalars['EthereumAddress']['input']>
   /** The publication id you wish to get comments for */
-  commentsOf?: InputMaybe<Scalars['InternalPublicationId']>
+  commentsOf?: InputMaybe<Scalars['InternalPublicationId']['input']>
   /** The comment ordering type - only used when you use commentsOf */
   commentsOfOrdering?: InputMaybe<CommentOrderingTypes>
   /** The comment ranking filter, you can use  - only used when you use commentsOf + commentsOfOrdering=ranking */
   commentsRankingFilter?: InputMaybe<CommentRankingFilter>
-  cursor?: InputMaybe<Scalars['Cursor']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   metadata?: InputMaybe<PublicationMetadataFilters>
   /** Profile id */
-  profileId?: InputMaybe<Scalars['ProfileId']>
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>
   /** Profile ids */
-  profileIds?: InputMaybe<Array<Scalars['ProfileId']>>
+  profileIds?: InputMaybe<Array<Scalars['ProfileId']['input']>>
   /** The publication id */
-  publicationIds?: InputMaybe<Array<Scalars['InternalPublicationId']>>
+  publicationIds?: InputMaybe<Array<Scalars['InternalPublicationId']['input']>>
   /** The publication types you want to query */
   publicationTypes?: InputMaybe<Array<PublicationTypes>>
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']>>
+  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
 }
 
 export type Query = {
@@ -3622,7 +3668,7 @@ export type Query = {
   challenge: AuthChallengeResult
   claimableHandles: ClaimableHandles
   claimableStatus: ClaimStatus
-  cur: Array<Scalars['String']>
+  cur: Array<Scalars['String']['output']>
   dataAvailabilitySubmitters: DataAvailabilitySubmittersResult
   dataAvailabilitySummary: DataAvailabilitySummaryResult
   dataAvailabilityTransaction?: Maybe<DataAvailabilityTransactionUnion>
@@ -3638,14 +3684,14 @@ export type Query = {
   followerNftOwnedTokenIds?: Maybe<FollowerNftOwnedTokenIds>
   followers: PaginatedFollowersResult
   following: PaginatedFollowingResult
-  gct: Array<Scalars['String']>
-  gdm: Array<Scalars['Url']>
+  gct: Array<Scalars['String']['output']>
+  gdm: Array<Scalars['Url']['output']>
   generateModuleCurrencyApprovalData: GenerateModuleCurrencyApproval
   globalProtocolStats: GlobalProtocolStats
   hasTxHashBeenIndexed: TransactionResult
   internalPublicationFilter: PaginatedPublicationResult
-  isIDKitPhoneVerified: Scalars['Boolean']
-  iss: Scalars['Boolean']
+  isIDKitPhoneVerified: Scalars['Boolean']['output']
+  iss: PrfResponse
   mutualFollowersProfiles: PaginatedProfileResult
   /** Get all NFT galleries for a profile */
   nftGalleries: Array<NftGallery>
@@ -3653,12 +3699,12 @@ export type Query = {
   nfts: NfTsResult
   notifications: PaginatedNotificationResult
   pendingApprovalFollows: PendingApproveFollowsResult
-  ping: Scalars['String']
+  ping: Scalars['String']['output']
   profile?: Maybe<Profile>
-  profileFollowModuleBeenRedeemed: Scalars['Boolean']
+  profileFollowModuleBeenRedeemed: Scalars['Boolean']['output']
   profileFollowRevenue: FollowRevenueResult
   /** Get the list of profile interests */
-  profileInterests: Array<Scalars['ProfileInterest']>
+  profileInterests: Array<Scalars['ProfileInterest']['output']>
   profileOnChainIdentity: Array<OnChainIdentity>
   profilePublicationRevenue: ProfilePublicationRevenueResult
   profilePublicationsForSale: PaginatedProfilePublicationsForSaleResult
@@ -3669,14 +3715,14 @@ export type Query = {
   publicationRevenue?: Maybe<PublicationRevenue>
   publications: PaginatedPublicationResult
   recommendedProfiles: Array<Profile>
-  rel?: Maybe<Scalars['Void']>
+  rel?: Maybe<Scalars['Void']['output']>
   relayQueues: Array<RelayQueueResult>
   search: SearchResult
-  txIdToTxHash: Scalars['TxHash']
+  txIdToTxHash: Scalars['TxHash']['output']
   unknownEnabledModules: EnabledModules
   userSigNonces: UserSigNonces
   validatePublicationMetadata: PublicationValidateMetadataResult
-  verify: Scalars['Boolean']
+  verify: Scalars['Boolean']['output']
   whoCollectedPublication: PaginatedWhoCollectedResult
   whoReactedPublication: PaginatedWhoReactedResult
 }
@@ -3766,7 +3812,7 @@ export type QueryInternalPublicationFilterArgs = {
 }
 
 export type QueryIssArgs = {
-  request: PrfRequest
+  request: PriRequest
 }
 
 export type QueryMutualFollowersProfilesArgs = {
@@ -3822,7 +3868,7 @@ export type QueryProfilesArgs = {
 }
 
 export type QueryProxyActionStatusArgs = {
-  proxyActionId: Scalars['ProxyActionId']
+  proxyActionId: Scalars['ProxyActionId']['input']
 }
 
 export type QueryPublicationArgs = {
@@ -3854,7 +3900,7 @@ export type QuerySearchArgs = {
 }
 
 export type QueryTxIdToTxHashArgs = {
-  txId: Scalars['TxId']
+  txId: Scalars['TxId']['input']
 }
 
 export type QueryValidatePublicationMetadataArgs = {
@@ -3877,19 +3923,19 @@ export type ReactionEvent = {
   __typename?: 'ReactionEvent'
   profile: Profile
   reaction: ReactionTypes
-  timestamp: Scalars['DateTime']
+  timestamp: Scalars['DateTime']['output']
 }
 
 export type ReactionFieldResolverRequest = {
   /** Profile id */
-  profileId?: InputMaybe<Scalars['ProfileId']>
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 export type ReactionRequest = {
   /** Profile id to perform the action */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
   /** The internal publication id */
-  publicationId: Scalars['InternalPublicationId']
+  publicationId: Scalars['InternalPublicationId']['input']
   /** The reaction */
   reaction: ReactionTypes
 }
@@ -3902,24 +3948,24 @@ export enum ReactionTypes {
 
 export type RecipientDataInput = {
   /** Recipient of collect fees. */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['input']
   /** Split %, should be between 0.01 and 100. Up to 2 decimal points supported. All % should add up to 100 */
-  split: Scalars['Float']
+  split: Scalars['Float']['input']
 }
 
 export type RecipientDataOutput = {
   __typename?: 'RecipientDataOutput'
   /** Recipient of collect fees. */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['output']
   /** Split %, should be between 0.01 and 100. Up to 2 decimal points supported. All % should add up to 100 */
-  split: Scalars['Float']
+  split: Scalars['Float']['output']
 }
 
 export type RecommendedProfileOptions = {
   /** If you wish to turn ML off */
-  disableML?: InputMaybe<Scalars['Boolean']>
+  disableML?: InputMaybe<Scalars['Boolean']['input']>
   /** If you wish to shuffle the results */
-  shuffle?: InputMaybe<Scalars['Boolean']>
+  shuffle?: InputMaybe<Scalars['Boolean']['input']>
 }
 
 export type ReferenceModule =
@@ -3931,7 +3977,7 @@ export type ReferenceModuleParams = {
   /** The degrees of separation reference module */
   degreesOfSeparationReferenceModule?: InputMaybe<DegreesOfSeparationReferenceModuleParams>
   /** The follower only reference module */
-  followerOnlyReferenceModule?: InputMaybe<Scalars['Boolean']>
+  followerOnlyReferenceModule?: InputMaybe<Scalars['Boolean']['input']>
   /** A unknown reference module */
   unknownReferenceModule?: InputMaybe<UnknownReferenceModuleParams>
 }
@@ -3946,12 +3992,12 @@ export enum ReferenceModules {
 /** The refresh request */
 export type RefreshRequest = {
   /** The refresh token */
-  refreshToken: Scalars['Jwt']
+  refreshToken: Scalars['Jwt']['input']
 }
 
 export type RelRequest = {
-  ethereumAddress: Scalars['EthereumAddress']
-  secret: Scalars['String']
+  ethereumAddress: Scalars['EthereumAddress']['input']
+  secret: Scalars['String']['input']
 }
 
 export type RelayDataAvailabilityResult =
@@ -3976,9 +4022,9 @@ export enum RelayErrorReasons {
 export type RelayQueueResult = {
   __typename?: 'RelayQueueResult'
   /** The address of the relay */
-  address: Scalars['EthereumAddress']
+  address: Scalars['EthereumAddress']['output']
   /** The queue on the relay */
-  queue: Scalars['Float']
+  queue: Scalars['Float']['output']
   /** The relayer name */
   relayer: RelayRoleKey
 }
@@ -4023,22 +4069,22 @@ export enum RelayRoleKey {
 export type RelayerResult = {
   __typename?: 'RelayerResult'
   /** The tx hash - you should use the `txId` as your identifier as gas prices can be upgraded meaning txHash will change */
-  txHash: Scalars['TxHash']
+  txHash: Scalars['TxHash']['output']
   /** The tx id */
-  txId: Scalars['TxId']
+  txId: Scalars['TxId']['output']
 }
 
 /** The request object to remove interests from a profile */
 export type RemoveProfileInterestsRequest = {
   /** The profile interest to add */
-  interests: Array<Scalars['ProfileInterest']>
+  interests: Array<Scalars['ProfileInterest']['input']>
   /** The profileId to add interests to */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 export type ReportPublicationRequest = {
-  additionalComments?: InputMaybe<Scalars['String']>
-  publicationId: Scalars['InternalPublicationId']
+  additionalComments?: InputMaybe<Scalars['String']['input']>
+  publicationId: Scalars['InternalPublicationId']['input']
   reason: ReportingReasonInputParams
 }
 
@@ -4051,10 +4097,10 @@ export type ReportingReasonInputParams = {
 
 export type ReservedClaimableHandle = {
   __typename?: 'ReservedClaimableHandle'
-  expiry: Scalars['DateTime']
-  handle: Scalars['Handle']
-  id: Scalars['HandleClaimIdScalar']
-  source: Scalars['String']
+  expiry: Scalars['DateTime']['output']
+  handle: Scalars['Handle']['output']
+  id: Scalars['HandleClaimIdScalar']['output']
+  source: Scalars['String']['output']
 }
 
 export type RevenueAggregate = {
@@ -4064,14 +4110,14 @@ export type RevenueAggregate = {
 
 export type RevertCollectModuleSettings = {
   __typename?: 'RevertCollectModuleSettings'
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   /** The collect modules enum */
   type: CollectModules
 }
 
 export type RevertFollowModuleSettings = {
   __typename?: 'RevertFollowModuleSettings'
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   /** The follow module enum */
   type: FollowModules
 }
@@ -4087,13 +4133,13 @@ export enum ScalarOperator {
 }
 
 export type SearchQueryRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   /** The search term */
-  query: Scalars['Search']
+  query: Scalars['Search']['input']
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']>>
+  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
   type: SearchRequestTypes
 }
 
@@ -4114,9 +4160,9 @@ export type SensitiveReasonInputParams = {
 export type SetDefaultProfileBroadcastItemResult = {
   __typename?: 'SetDefaultProfileBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']
+  expiresAt: Scalars['DateTime']['output']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']
+  id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: SetDefaultProfileEip712TypedData
 }
@@ -4141,60 +4187,60 @@ export type SetDefaultProfileEip712TypedDataTypes = {
 /** The default profile eip 712 typed data value */
 export type SetDefaultProfileEip712TypedDataValue = {
   __typename?: 'SetDefaultProfileEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']
-  nonce: Scalars['Nonce']
-  profileId: Scalars['ProfileId']
-  wallet: Scalars['EthereumAddress']
+  deadline: Scalars['UnixTimestamp']['output']
+  nonce: Scalars['Nonce']['output']
+  profileId: Scalars['ProfileId']['output']
+  wallet: Scalars['EthereumAddress']['output']
 }
 
 export type SetDispatcherRequest = {
   /** The dispatcher address - they can post, comment, mirror, set follow module, change your profile picture on your behalf, if left as none it will use the built in dispatcher address. */
-  dispatcher?: InputMaybe<Scalars['EthereumAddress']>
+  dispatcher?: InputMaybe<Scalars['EthereumAddress']['input']>
   /** If you want to enable or disable it */
-  enable?: InputMaybe<Scalars['Boolean']>
+  enable?: InputMaybe<Scalars['Boolean']['input']>
   /** The profile id */
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
 }
 
 /** The signed auth challenge */
 export type SignedAuthChallenge = {
   /** The ethereum address you signed the signature with */
-  address: Scalars['EthereumAddress']
+  address: Scalars['EthereumAddress']['input']
   /** The signature */
-  signature: Scalars['Signature']
+  signature: Scalars['Signature']['input']
 }
 
 export type SimpleCollectModuleParams = {
   /** The collect module limit */
-  collectLimit?: InputMaybe<Scalars['String']>
+  collectLimit?: InputMaybe<Scalars['String']['input']>
   /** The timestamp that this collect module will expire */
-  endTimestamp?: InputMaybe<Scalars['DateTime']>
+  endTimestamp?: InputMaybe<Scalars['DateTime']['input']>
   /** The collect module fee params */
   fee?: InputMaybe<ModuleFeeParams>
   /** Collectible by followers only */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['input']
 }
 
 export type SimpleCollectModuleSettings = {
   __typename?: 'SimpleCollectModuleSettings'
   /** The maximum number of collects for this publication. 0 for no limit. */
-  collectLimit?: Maybe<Scalars['String']>
-  contractAddress: Scalars['ContractAddress']
+  collectLimit?: Maybe<Scalars['String']['output']>
+  contractAddress: Scalars['ContractAddress']['output']
   /** The end timestamp after which collecting is impossible. 0 for no expiry. */
-  endTimestamp?: Maybe<Scalars['DateTime']>
+  endTimestamp?: Maybe<Scalars['DateTime']['output']>
   /** The collect module fee params */
   fee?: Maybe<ModuleFee>
   /** True if only followers of publisher may collect the post. */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['output']
   /** The collect modules enum */
   type: CollectModules
 }
 
 export type SingleProfileQueryRequest = {
   /** The handle for the profile */
-  handle?: InputMaybe<Scalars['Handle']>
+  handle?: InputMaybe<Scalars['Handle']['input']>
   /** The profile id */
-  profileId?: InputMaybe<Scalars['ProfileId']>
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 export type SpamReasonInputParams = {
@@ -4211,7 +4257,7 @@ export type SybilDotOrgIdentity = {
   __typename?: 'SybilDotOrgIdentity'
   source: SybilDotOrgIdentitySource
   /** The sybil dot org status */
-  verified: Scalars['Boolean']
+  verified: Scalars['Boolean']['output']
 }
 
 export type SybilDotOrgIdentitySource = {
@@ -4221,16 +4267,16 @@ export type SybilDotOrgIdentitySource = {
 
 export type SybilDotOrgTwitterIdentity = {
   __typename?: 'SybilDotOrgTwitterIdentity'
-  handle?: Maybe<Scalars['String']>
+  handle?: Maybe<Scalars['String']['output']>
 }
 
 /** The social comment */
 export type TagResult = {
   __typename?: 'TagResult'
   /** The tag */
-  tag: Scalars['PublicationTag']
+  tag: Scalars['PublicationTag']['output']
   /** The total amount of publication tagged */
-  total: Scalars['Int']
+  total: Scalars['Int']['output']
 }
 
 /** The publications tags sort criteria */
@@ -4243,26 +4289,26 @@ export type TimedFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
   /** Follower only */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['input']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['input']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']
+  referralFee: Scalars['Float']['input']
 }
 
 export type TimedFeeCollectModuleSettings = {
   __typename?: 'TimedFeeCollectModuleSettings'
   /** The collect module amount info */
   amount: ModuleFeeAmount
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   /** The collect module end timestamp */
-  endTimestamp: Scalars['DateTime']
+  endTimestamp: Scalars['DateTime']['output']
   /** Follower only */
-  followerOnly: Scalars['Boolean']
+  followerOnly: Scalars['Boolean']['output']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']
+  recipient: Scalars['EthereumAddress']['output']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']
+  referralFee: Scalars['Float']['output']
   /** The collect modules enum */
   type: CollectModules
 }
@@ -4280,91 +4326,91 @@ export enum TransactionErrorReasons {
 
 export type TransactionIndexedResult = {
   __typename?: 'TransactionIndexedResult'
-  indexed: Scalars['Boolean']
+  indexed: Scalars['Boolean']['output']
   /** Publications can be indexed but the ipfs link for example not findable for x time. This allows you to work that out for publications. If its not a publication tx then it always be null. */
   metadataStatus?: Maybe<PublicationMetadataStatus>
-  txHash: Scalars['TxHash']
+  txHash: Scalars['TxHash']['output']
   txReceipt?: Maybe<TransactionReceipt>
 }
 
 export type TransactionReceipt = {
   __typename?: 'TransactionReceipt'
-  blockHash: Scalars['String']
-  blockNumber: Scalars['Int']
-  byzantium: Scalars['Boolean']
-  confirmations: Scalars['Int']
-  contractAddress?: Maybe<Scalars['ContractAddress']>
-  cumulativeGasUsed: Scalars['String']
-  effectiveGasPrice: Scalars['String']
-  from: Scalars['EthereumAddress']
-  gasUsed: Scalars['String']
+  blockHash: Scalars['String']['output']
+  blockNumber: Scalars['Int']['output']
+  byzantium: Scalars['Boolean']['output']
+  confirmations: Scalars['Int']['output']
+  contractAddress?: Maybe<Scalars['ContractAddress']['output']>
+  cumulativeGasUsed: Scalars['String']['output']
+  effectiveGasPrice: Scalars['String']['output']
+  from: Scalars['EthereumAddress']['output']
+  gasUsed: Scalars['String']['output']
   logs: Array<Log>
-  logsBloom: Scalars['String']
-  root?: Maybe<Scalars['String']>
-  status?: Maybe<Scalars['Int']>
-  to?: Maybe<Scalars['EthereumAddress']>
-  transactionHash: Scalars['TxHash']
-  transactionIndex: Scalars['Int']
-  type: Scalars['Int']
+  logsBloom: Scalars['String']['output']
+  root?: Maybe<Scalars['String']['output']>
+  status?: Maybe<Scalars['Int']['output']>
+  to?: Maybe<Scalars['EthereumAddress']['output']>
+  transactionHash: Scalars['TxHash']['output']
+  transactionIndex: Scalars['Int']['output']
+  type: Scalars['Int']['output']
 }
 
 export type TransactionResult = TransactionError | TransactionIndexedResult
 
 export type TypedDataOptions = {
   /** If you wish to override the nonce for the sig if you want to do some clever stuff in the client */
-  overrideSigNonce: Scalars['Nonce']
+  overrideSigNonce: Scalars['Nonce']['input']
 }
 
 export type UnfollowRequest = {
-  profile: Scalars['ProfileId']
+  profile: Scalars['ProfileId']['input']
 }
 
 export type UnknownCollectModuleParams = {
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['input']
   /** The encoded data to submit with the module */
-  data: Scalars['BlockchainData']
+  data: Scalars['BlockchainData']['input']
 }
 
 export type UnknownCollectModuleSettings = {
   __typename?: 'UnknownCollectModuleSettings'
   /** The data used to setup the module which you can decode with your known ABI  */
-  collectModuleReturnData: Scalars['CollectModuleData']
-  contractAddress: Scalars['ContractAddress']
+  collectModuleReturnData: Scalars['CollectModuleData']['output']
+  contractAddress: Scalars['ContractAddress']['output']
   /** The collect modules enum */
   type: CollectModules
 }
 
 export type UnknownFollowModuleParams = {
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['input']
   /** The encoded data to submit with the module */
-  data: Scalars['BlockchainData']
+  data: Scalars['BlockchainData']['input']
 }
 
 export type UnknownFollowModuleRedeemParams = {
   /** The encoded data to submit with the module */
-  data: Scalars['BlockchainData']
+  data: Scalars['BlockchainData']['input']
 }
 
 export type UnknownFollowModuleSettings = {
   __typename?: 'UnknownFollowModuleSettings'
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   /** The data used to setup the module which you can decode with your known ABI  */
-  followModuleReturnData: Scalars['FollowModuleData']
+  followModuleReturnData: Scalars['FollowModuleData']['output']
   /** The follow modules enum */
   type: FollowModules
 }
 
 export type UnknownReferenceModuleParams = {
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['input']
   /** The encoded data to submit with the module */
-  data: Scalars['BlockchainData']
+  data: Scalars['BlockchainData']['input']
 }
 
 export type UnknownReferenceModuleSettings = {
   __typename?: 'UnknownReferenceModuleSettings'
-  contractAddress: Scalars['ContractAddress']
+  contractAddress: Scalars['ContractAddress']['output']
   /** The data used to setup the module which you can decode with your known ABI  */
-  referenceModuleReturnData: Scalars['ReferenceModuleData']
+  referenceModuleReturnData: Scalars['ReferenceModuleData']['output']
   /** The reference modules enum */
   type: ReferenceModules
 }
@@ -4372,15 +4418,15 @@ export type UnknownReferenceModuleSettings = {
 export type UpdateProfileImageRequest = {
   /** The nft data */
   nftData?: InputMaybe<NftData>
-  profileId: Scalars['ProfileId']
+  profileId: Scalars['ProfileId']['input']
   /** The url to the image if offline */
-  url?: InputMaybe<Scalars['Url']>
+  url?: InputMaybe<Scalars['Url']['input']>
 }
 
 export type UserSigNonces = {
   __typename?: 'UserSigNonces'
-  lensHubOnChainSigNonce: Scalars['Nonce']
-  peripheryOnChainSigNonce: Scalars['Nonce']
+  lensHubOnChainSigNonce: Scalars['Nonce']['output']
+  peripheryOnChainSigNonce: Scalars['Nonce']['output']
 }
 
 export type ValidatePublicationMetadataRequest = {
@@ -4391,28 +4437,28 @@ export type ValidatePublicationMetadataRequest = {
 /** The access request */
 export type VerifyRequest = {
   /** The access token */
-  accessToken: Scalars['Jwt']
+  accessToken: Scalars['Jwt']['input']
 }
 
 export type Wallet = {
   __typename?: 'Wallet'
-  address: Scalars['EthereumAddress']
+  address: Scalars['EthereumAddress']['output']
   /** The default profile for the wallet for now it is just their first profile, this will be the default profile they picked soon enough */
   defaultProfile?: Maybe<Profile>
 }
 
 export type WhoCollectedPublicationRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   /** Internal publication id */
-  publicationId: Scalars['InternalPublicationId']
+  publicationId: Scalars['InternalPublicationId']['input']
 }
 
 export type WhoReactedPublicationRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>
-  limit?: InputMaybe<Scalars['LimitScalar']>
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
   /** Internal publication id */
-  publicationId: Scalars['InternalPublicationId']
+  publicationId: Scalars['InternalPublicationId']['input']
 }
 
 /** The Profile */
@@ -4422,15 +4468,15 @@ export type WhoReactedResult = {
   /** The reaction */
   reaction: ReactionTypes
   /** The reaction */
-  reactionAt: Scalars['DateTime']
+  reactionAt: Scalars['DateTime']['output']
   /** The reaction id */
-  reactionId: Scalars['ReactionId']
+  reactionId: Scalars['ReactionId']['output']
 }
 
 export type WorldcoinIdentity = {
   __typename?: 'WorldcoinIdentity'
   /** If the profile has verified as a user */
-  isHuman: Scalars['Boolean']
+  isHuman: Scalars['Boolean']['output']
 }
 
 /** The worldcoin signal type */
@@ -4440,8 +4486,8 @@ export enum WorldcoinPhoneVerifyType {
 }
 
 export type WorldcoinPhoneVerifyWebhookRequest = {
-  nullifierHash: Scalars['String']
-  signal: Scalars['EthereumAddress']
+  nullifierHash: Scalars['String']['input']
+  signal: Scalars['EthereumAddress']['input']
   signalType: WorldcoinPhoneVerifyType
 }
 
@@ -4676,6 +4722,8 @@ export type CommentFieldsFragment = {
       | {
           __typename?: 'MediaSet'
           original: { __typename?: 'Media'; url: any }
+          onChain: { __typename?: 'Media'; url: any }
+          optimized?: { __typename?: 'Media'; url: any } | null
         }
       | { __typename?: 'NftImage' }
       | null
@@ -4683,6 +4731,8 @@ export type CommentFieldsFragment = {
       | {
           __typename?: 'MediaSet'
           original: { __typename?: 'Media'; url: any }
+          onChain: { __typename?: 'Media'; url: any }
+          optimized?: { __typename?: 'Media'; url: any } | null
         }
       | { __typename?: 'NftImage'; uri: any }
       | null
@@ -4877,11 +4927,15 @@ export type CommentFieldsFragment = {
     tags: Array<string>
     cover?: {
       __typename?: 'MediaSet'
+      onChain: { __typename?: 'Media'; url: any }
       original: { __typename?: 'Media'; url: any }
+      optimized?: { __typename?: 'Media'; url: any } | null
     } | null
     media: Array<{
       __typename?: 'MediaSet'
       original: { __typename?: 'Media'; url: any; mimeType?: any | null }
+      onChain: { __typename?: 'Media'; url: any }
+      optimized?: { __typename?: 'Media'; url: any } | null
     }>
     attributes: Array<{
       __typename?: 'MetadataAttributeOutput'
@@ -4927,6 +4981,8 @@ export type CommentFieldsFragment = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage' }
             | null
@@ -4934,6 +4990,8 @@ export type CommentFieldsFragment = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage'; uri: any }
             | null
@@ -4954,11 +5012,15 @@ export type CommentFieldsFragment = {
           tags: Array<string>
           cover?: {
             __typename?: 'MediaSet'
+            onChain: { __typename?: 'Media'; url: any }
             original: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           } | null
           media: Array<{
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any; mimeType?: any | null }
+            onChain: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           }>
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput'
@@ -4988,11 +5050,15 @@ export type MetadataFieldsFragment = {
   tags: Array<string>
   cover?: {
     __typename?: 'MediaSet'
+    onChain: { __typename?: 'Media'; url: any }
     original: { __typename?: 'Media'; url: any }
+    optimized?: { __typename?: 'Media'; url: any } | null
   } | null
   media: Array<{
     __typename?: 'MediaSet'
     original: { __typename?: 'Media'; url: any; mimeType?: any | null }
+    onChain: { __typename?: 'Media'; url: any }
+    optimized?: { __typename?: 'Media'; url: any } | null
   }>
   attributes: Array<{
     __typename?: 'MetadataAttributeOutput'
@@ -5044,6 +5110,8 @@ export type MirrorFieldsFragment = {
       | {
           __typename?: 'MediaSet'
           original: { __typename?: 'Media'; url: any }
+          onChain: { __typename?: 'Media'; url: any }
+          optimized?: { __typename?: 'Media'; url: any } | null
         }
       | { __typename?: 'NftImage' }
       | null
@@ -5051,6 +5119,8 @@ export type MirrorFieldsFragment = {
       | {
           __typename?: 'MediaSet'
           original: { __typename?: 'Media'; url: any }
+          onChain: { __typename?: 'Media'; url: any }
+          optimized?: { __typename?: 'Media'; url: any } | null
         }
       | { __typename?: 'NftImage'; uri: any }
       | null
@@ -5245,11 +5315,15 @@ export type MirrorFieldsFragment = {
     tags: Array<string>
     cover?: {
       __typename?: 'MediaSet'
+      onChain: { __typename?: 'Media'; url: any }
       original: { __typename?: 'Media'; url: any }
+      optimized?: { __typename?: 'Media'; url: any } | null
     } | null
     media: Array<{
       __typename?: 'MediaSet'
       original: { __typename?: 'Media'; url: any; mimeType?: any | null }
+      onChain: { __typename?: 'Media'; url: any }
+      optimized?: { __typename?: 'Media'; url: any } | null
     }>
     attributes: Array<{
       __typename?: 'MetadataAttributeOutput'
@@ -5300,6 +5374,8 @@ export type MirrorFieldsFragment = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage' }
             | null
@@ -5307,6 +5383,8 @@ export type MirrorFieldsFragment = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage'; uri: any }
             | null
@@ -5501,11 +5579,15 @@ export type MirrorFieldsFragment = {
           tags: Array<string>
           cover?: {
             __typename?: 'MediaSet'
+            onChain: { __typename?: 'Media'; url: any }
             original: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           } | null
           media: Array<{
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any; mimeType?: any | null }
+            onChain: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           }>
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput'
@@ -5551,6 +5633,8 @@ export type MirrorFieldsFragment = {
                   | {
                       __typename?: 'MediaSet'
                       original: { __typename?: 'Media'; url: any }
+                      onChain: { __typename?: 'Media'; url: any }
+                      optimized?: { __typename?: 'Media'; url: any } | null
                     }
                   | { __typename?: 'NftImage' }
                   | null
@@ -5558,6 +5642,8 @@ export type MirrorFieldsFragment = {
                   | {
                       __typename?: 'MediaSet'
                       original: { __typename?: 'Media'; url: any }
+                      onChain: { __typename?: 'Media'; url: any }
+                      optimized?: { __typename?: 'Media'; url: any } | null
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null
@@ -5578,7 +5664,9 @@ export type MirrorFieldsFragment = {
                 tags: Array<string>
                 cover?: {
                   __typename?: 'MediaSet'
+                  onChain: { __typename?: 'Media'; url: any }
                   original: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 } | null
                 media: Array<{
                   __typename?: 'MediaSet'
@@ -5587,6 +5675,8 @@ export type MirrorFieldsFragment = {
                     url: any
                     mimeType?: any | null
                   }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }>
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput'
@@ -5640,6 +5730,8 @@ export type MirrorFieldsFragment = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage' }
             | null
@@ -5647,6 +5739,8 @@ export type MirrorFieldsFragment = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage'; uri: any }
             | null
@@ -5841,11 +5935,15 @@ export type MirrorFieldsFragment = {
           tags: Array<string>
           cover?: {
             __typename?: 'MediaSet'
+            onChain: { __typename?: 'Media'; url: any }
             original: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           } | null
           media: Array<{
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any; mimeType?: any | null }
+            onChain: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           }>
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput'
@@ -5899,6 +5997,8 @@ export type PostFieldsFragment = {
       | {
           __typename?: 'MediaSet'
           original: { __typename?: 'Media'; url: any }
+          onChain: { __typename?: 'Media'; url: any }
+          optimized?: { __typename?: 'Media'; url: any } | null
         }
       | { __typename?: 'NftImage' }
       | null
@@ -5906,6 +6006,8 @@ export type PostFieldsFragment = {
       | {
           __typename?: 'MediaSet'
           original: { __typename?: 'Media'; url: any }
+          onChain: { __typename?: 'Media'; url: any }
+          optimized?: { __typename?: 'Media'; url: any } | null
         }
       | { __typename?: 'NftImage'; uri: any }
       | null
@@ -6100,11 +6202,15 @@ export type PostFieldsFragment = {
     tags: Array<string>
     cover?: {
       __typename?: 'MediaSet'
+      onChain: { __typename?: 'Media'; url: any }
       original: { __typename?: 'Media'; url: any }
+      optimized?: { __typename?: 'Media'; url: any } | null
     } | null
     media: Array<{
       __typename?: 'MediaSet'
       original: { __typename?: 'Media'; url: any; mimeType?: any | null }
+      onChain: { __typename?: 'Media'; url: any }
+      optimized?: { __typename?: 'Media'; url: any } | null
     }>
     attributes: Array<{
       __typename?: 'MetadataAttributeOutput'
@@ -6141,11 +6247,21 @@ export type ProfileFieldsFragment = {
     totalPosts: number
   }
   coverPicture?:
-    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+    | {
+        __typename?: 'MediaSet'
+        original: { __typename?: 'Media'; url: any }
+        onChain: { __typename?: 'Media'; url: any }
+        optimized?: { __typename?: 'Media'; url: any } | null
+      }
     | { __typename?: 'NftImage' }
     | null
   picture?:
-    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+    | {
+        __typename?: 'MediaSet'
+        original: { __typename?: 'Media'; url: any }
+        onChain: { __typename?: 'Media'; url: any }
+        optimized?: { __typename?: 'Media'; url: any } | null
+      }
     | { __typename?: 'NftImage'; uri: any }
     | null
   followModule?:
@@ -6909,6 +7025,8 @@ export type AllProfilesQuery = {
         | {
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any }
+            onChain: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           }
         | { __typename?: 'NftImage' }
         | null
@@ -6916,6 +7034,8 @@ export type AllProfilesQuery = {
         | {
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any }
+            onChain: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           }
         | { __typename?: 'NftImage'; uri: any }
         | null
@@ -7002,6 +7122,8 @@ export type CollectorsQuery = {
           | {
               __typename?: 'MediaSet'
               original: { __typename?: 'Media'; url: any }
+              onChain: { __typename?: 'Media'; url: any }
+              optimized?: { __typename?: 'Media'; url: any } | null
             }
           | { __typename?: 'NftImage' }
           | null
@@ -7009,6 +7131,8 @@ export type CollectorsQuery = {
           | {
               __typename?: 'MediaSet'
               original: { __typename?: 'Media'; url: any }
+              onChain: { __typename?: 'Media'; url: any }
+              optimized?: { __typename?: 'Media'; url: any } | null
             }
           | { __typename?: 'NftImage'; uri: any }
           | null
@@ -7027,7 +7151,7 @@ export type CollectorsQuery = {
 export type CommentsQueryVariables = Exact<{
   request: PublicationsQueryRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']>
+  channelId?: InputMaybe<Scalars['ProfileId']['input']>
 }>
 
 export type CommentsQuery = {
@@ -7077,6 +7201,8 @@ export type CommentsQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage' }
               | null
@@ -7084,6 +7210,8 @@ export type CommentsQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null
@@ -7278,7 +7406,9 @@ export type CommentsQuery = {
             tags: Array<string>
             cover?: {
               __typename?: 'MediaSet'
+              onChain: { __typename?: 'Media'; url: any }
               original: { __typename?: 'Media'; url: any }
+              optimized?: { __typename?: 'Media'; url: any } | null
             } | null
             media: Array<{
               __typename?: 'MediaSet'
@@ -7287,6 +7417,8 @@ export type CommentsQuery = {
                 url: any
                 mimeType?: any | null
               }
+              onChain: { __typename?: 'Media'; url: any }
+              optimized?: { __typename?: 'Media'; url: any } | null
             }>
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput'
@@ -7332,6 +7464,8 @@ export type CommentsQuery = {
                     | {
                         __typename?: 'MediaSet'
                         original: { __typename?: 'Media'; url: any }
+                        onChain: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       }
                     | { __typename?: 'NftImage' }
                     | null
@@ -7339,6 +7473,8 @@ export type CommentsQuery = {
                     | {
                         __typename?: 'MediaSet'
                         original: { __typename?: 'Media'; url: any }
+                        onChain: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null
@@ -7359,7 +7495,9 @@ export type CommentsQuery = {
                   tags: Array<string>
                   cover?: {
                     __typename?: 'MediaSet'
+                    onChain: { __typename?: 'Media'; url: any }
                     original: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   } | null
                   media: Array<{
                     __typename?: 'MediaSet'
@@ -7368,6 +7506,8 @@ export type CommentsQuery = {
                       url: any
                       mimeType?: any | null
                     }
+                    onChain: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   }>
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput'
@@ -7452,7 +7592,7 @@ export type EnabledModuleCurrrenciesQuery = {
 export type ExploreQueryVariables = Exact<{
   request: ExplorePublicationRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']>
+  channelId?: InputMaybe<Scalars['ProfileId']['input']>
 }>
 
 export type ExploreQuery = {
@@ -7502,6 +7642,8 @@ export type ExploreQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage' }
               | null
@@ -7509,6 +7651,8 @@ export type ExploreQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null
@@ -7703,7 +7847,9 @@ export type ExploreQuery = {
             tags: Array<string>
             cover?: {
               __typename?: 'MediaSet'
+              onChain: { __typename?: 'Media'; url: any }
               original: { __typename?: 'Media'; url: any }
+              optimized?: { __typename?: 'Media'; url: any } | null
             } | null
             media: Array<{
               __typename?: 'MediaSet'
@@ -7712,6 +7858,8 @@ export type ExploreQuery = {
                 url: any
                 mimeType?: any | null
               }
+              onChain: { __typename?: 'Media'; url: any }
+              optimized?: { __typename?: 'Media'; url: any } | null
             }>
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput'
@@ -7757,6 +7905,8 @@ export type ExploreQuery = {
                     | {
                         __typename?: 'MediaSet'
                         original: { __typename?: 'Media'; url: any }
+                        onChain: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       }
                     | { __typename?: 'NftImage' }
                     | null
@@ -7764,6 +7914,8 @@ export type ExploreQuery = {
                     | {
                         __typename?: 'MediaSet'
                         original: { __typename?: 'Media'; url: any }
+                        onChain: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null
@@ -7784,7 +7936,9 @@ export type ExploreQuery = {
                   tags: Array<string>
                   cover?: {
                     __typename?: 'MediaSet'
+                    onChain: { __typename?: 'Media'; url: any }
                     original: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   } | null
                   media: Array<{
                     __typename?: 'MediaSet'
@@ -7793,6 +7947,8 @@ export type ExploreQuery = {
                       url: any
                       mimeType?: any | null
                     }
+                    onChain: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   }>
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput'
@@ -7847,6 +8003,8 @@ export type ExploreQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage' }
               | null
@@ -7854,6 +8012,8 @@ export type ExploreQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null
@@ -8048,7 +8208,9 @@ export type ExploreQuery = {
             tags: Array<string>
             cover?: {
               __typename?: 'MediaSet'
+              onChain: { __typename?: 'Media'; url: any }
               original: { __typename?: 'Media'; url: any }
+              optimized?: { __typename?: 'Media'; url: any } | null
             } | null
             media: Array<{
               __typename?: 'MediaSet'
@@ -8057,6 +8219,8 @@ export type ExploreQuery = {
                 url: any
                 mimeType?: any | null
               }
+              onChain: { __typename?: 'Media'; url: any }
+              optimized?: { __typename?: 'Media'; url: any } | null
             }>
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput'
@@ -8073,7 +8237,7 @@ export type ExploreQuery = {
 export type FeedQueryVariables = Exact<{
   request: FeedRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']>
+  channelId?: InputMaybe<Scalars['ProfileId']['input']>
 }>
 
 export type FeedQuery = {
@@ -8125,6 +8289,8 @@ export type FeedQuery = {
                 | {
                     __typename?: 'MediaSet'
                     original: { __typename?: 'Media'; url: any }
+                    onChain: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   }
                 | { __typename?: 'NftImage' }
                 | null
@@ -8132,6 +8298,8 @@ export type FeedQuery = {
                 | {
                     __typename?: 'MediaSet'
                     original: { __typename?: 'Media'; url: any }
+                    onChain: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null
@@ -8326,7 +8494,9 @@ export type FeedQuery = {
               tags: Array<string>
               cover?: {
                 __typename?: 'MediaSet'
+                onChain: { __typename?: 'Media'; url: any }
                 original: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               } | null
               media: Array<{
                 __typename?: 'MediaSet'
@@ -8335,6 +8505,8 @@ export type FeedQuery = {
                   url: any
                   mimeType?: any | null
                 }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }>
               attributes: Array<{
                 __typename?: 'MetadataAttributeOutput'
@@ -8380,6 +8552,8 @@ export type FeedQuery = {
                       | {
                           __typename?: 'MediaSet'
                           original: { __typename?: 'Media'; url: any }
+                          onChain: { __typename?: 'Media'; url: any }
+                          optimized?: { __typename?: 'Media'; url: any } | null
                         }
                       | { __typename?: 'NftImage' }
                       | null
@@ -8387,6 +8561,8 @@ export type FeedQuery = {
                       | {
                           __typename?: 'MediaSet'
                           original: { __typename?: 'Media'; url: any }
+                          onChain: { __typename?: 'Media'; url: any }
+                          optimized?: { __typename?: 'Media'; url: any } | null
                         }
                       | { __typename?: 'NftImage'; uri: any }
                       | null
@@ -8407,7 +8583,9 @@ export type FeedQuery = {
                     tags: Array<string>
                     cover?: {
                       __typename?: 'MediaSet'
+                      onChain: { __typename?: 'Media'; url: any }
                       original: { __typename?: 'Media'; url: any }
+                      optimized?: { __typename?: 'Media'; url: any } | null
                     } | null
                     media: Array<{
                       __typename?: 'MediaSet'
@@ -8416,6 +8594,8 @@ export type FeedQuery = {
                         url: any
                         mimeType?: any | null
                       }
+                      onChain: { __typename?: 'Media'; url: any }
+                      optimized?: { __typename?: 'Media'; url: any } | null
                     }>
                     attributes: Array<{
                       __typename?: 'MetadataAttributeOutput'
@@ -8469,6 +8649,8 @@ export type FeedQuery = {
                 | {
                     __typename?: 'MediaSet'
                     original: { __typename?: 'Media'; url: any }
+                    onChain: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   }
                 | { __typename?: 'NftImage' }
                 | null
@@ -8476,6 +8658,8 @@ export type FeedQuery = {
                 | {
                     __typename?: 'MediaSet'
                     original: { __typename?: 'Media'; url: any }
+                    onChain: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null
@@ -8670,7 +8854,9 @@ export type FeedQuery = {
               tags: Array<string>
               cover?: {
                 __typename?: 'MediaSet'
+                onChain: { __typename?: 'Media'; url: any }
                 original: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               } | null
               media: Array<{
                 __typename?: 'MediaSet'
@@ -8679,6 +8865,8 @@ export type FeedQuery = {
                   url: any
                   mimeType?: any | null
                 }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }>
               attributes: Array<{
                 __typename?: 'MetadataAttributeOutput'
@@ -8824,6 +9012,8 @@ export type MutualFollowersQuery = {
         | {
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any }
+            onChain: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           }
         | { __typename?: 'NftImage' }
         | null
@@ -8831,6 +9021,8 @@ export type MutualFollowersQuery = {
         | {
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any }
+            onChain: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           }
         | { __typename?: 'NftImage'; uri: any }
         | null
@@ -8891,6 +9083,8 @@ export type NotificationsQuery = {
                 | {
                     __typename?: 'MediaSet'
                     original: { __typename?: 'Media'; url: any }
+                    onChain: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   }
                 | { __typename?: 'NftImage' }
                 | null
@@ -8898,6 +9092,8 @@ export type NotificationsQuery = {
                 | {
                     __typename?: 'MediaSet'
                     original: { __typename?: 'Media'; url: any }
+                    onChain: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null
@@ -8948,6 +9144,8 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage' }
               | null
@@ -8955,6 +9153,8 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null
@@ -9013,6 +9213,8 @@ export type NotificationsQuery = {
                 | {
                     __typename?: 'MediaSet'
                     original: { __typename?: 'Media'; url: any }
+                    onChain: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   }
                 | { __typename?: 'NftImage' }
                 | null
@@ -9020,6 +9222,8 @@ export type NotificationsQuery = {
                 | {
                     __typename?: 'MediaSet'
                     original: { __typename?: 'Media'; url: any }
+                    onChain: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null
@@ -9070,6 +9274,8 @@ export type NotificationsQuery = {
                     | {
                         __typename?: 'MediaSet'
                         original: { __typename?: 'Media'; url: any }
+                        onChain: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       }
                     | { __typename?: 'NftImage' }
                     | null
@@ -9077,6 +9283,8 @@ export type NotificationsQuery = {
                     | {
                         __typename?: 'MediaSet'
                         original: { __typename?: 'Media'; url: any }
+                        onChain: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null
@@ -9121,6 +9329,8 @@ export type NotificationsQuery = {
                     | {
                         __typename?: 'MediaSet'
                         original: { __typename?: 'Media'; url: any }
+                        onChain: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       }
                     | { __typename?: 'NftImage' }
                     | null
@@ -9128,6 +9338,8 @@ export type NotificationsQuery = {
                     | {
                         __typename?: 'MediaSet'
                         original: { __typename?: 'Media'; url: any }
+                        onChain: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null
@@ -9174,6 +9386,8 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage' }
               | null
@@ -9181,6 +9395,8 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null
@@ -9230,6 +9446,8 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage' }
               | null
@@ -9237,6 +9455,8 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null
@@ -9265,7 +9485,7 @@ export type NotificationsQuery = {
 
 export type ProfileQueryVariables = Exact<{
   request: SingleProfileQueryRequest
-  who?: InputMaybe<Scalars['ProfileId']>
+  who?: InputMaybe<Scalars['ProfileId']['input']>
 }>
 
 export type ProfileQuery = {
@@ -9322,6 +9542,8 @@ export type ProfileQuery = {
       | {
           __typename?: 'MediaSet'
           original: { __typename?: 'Media'; url: any }
+          onChain: { __typename?: 'Media'; url: any }
+          optimized?: { __typename?: 'Media'; url: any } | null
         }
       | { __typename?: 'NftImage'; uri: any }
       | null
@@ -9329,6 +9551,8 @@ export type ProfileQuery = {
       | {
           __typename?: 'MediaSet'
           original: { __typename?: 'Media'; url: any }
+          onChain: { __typename?: 'Media'; url: any }
+          optimized?: { __typename?: 'Media'; url: any } | null
         }
       | { __typename?: 'NftImage' }
       | null
@@ -9385,7 +9609,7 @@ export type ProfileInterestsQuery = {
 export type ProfileMirrorsQueryVariables = Exact<{
   request: PublicationsQueryRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']>
+  channelId?: InputMaybe<Scalars['ProfileId']['input']>
 }>
 
 export type ProfileMirrorsQuery = {
@@ -9437,6 +9661,8 @@ export type ProfileMirrorsQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage' }
               | null
@@ -9444,6 +9670,8 @@ export type ProfileMirrorsQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null
@@ -9638,7 +9866,9 @@ export type ProfileMirrorsQuery = {
             tags: Array<string>
             cover?: {
               __typename?: 'MediaSet'
+              onChain: { __typename?: 'Media'; url: any }
               original: { __typename?: 'Media'; url: any }
+              optimized?: { __typename?: 'Media'; url: any } | null
             } | null
             media: Array<{
               __typename?: 'MediaSet'
@@ -9647,6 +9877,8 @@ export type ProfileMirrorsQuery = {
                 url: any
                 mimeType?: any | null
               }
+              onChain: { __typename?: 'Media'; url: any }
+              optimized?: { __typename?: 'Media'; url: any } | null
             }>
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput'
@@ -9697,6 +9929,8 @@ export type ProfileMirrorsQuery = {
                     | {
                         __typename?: 'MediaSet'
                         original: { __typename?: 'Media'; url: any }
+                        onChain: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       }
                     | { __typename?: 'NftImage' }
                     | null
@@ -9704,6 +9938,8 @@ export type ProfileMirrorsQuery = {
                     | {
                         __typename?: 'MediaSet'
                         original: { __typename?: 'Media'; url: any }
+                        onChain: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null
@@ -9901,7 +10137,9 @@ export type ProfileMirrorsQuery = {
                   tags: Array<string>
                   cover?: {
                     __typename?: 'MediaSet'
+                    onChain: { __typename?: 'Media'; url: any }
                     original: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   } | null
                   media: Array<{
                     __typename?: 'MediaSet'
@@ -9910,6 +10148,8 @@ export type ProfileMirrorsQuery = {
                       url: any
                       mimeType?: any | null
                     }
+                    onChain: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   }>
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput'
@@ -9955,6 +10195,11 @@ export type ProfileMirrorsQuery = {
                           | {
                               __typename?: 'MediaSet'
                               original: { __typename?: 'Media'; url: any }
+                              onChain: { __typename?: 'Media'; url: any }
+                              optimized?: {
+                                __typename?: 'Media'
+                                url: any
+                              } | null
                             }
                           | { __typename?: 'NftImage' }
                           | null
@@ -9962,6 +10207,11 @@ export type ProfileMirrorsQuery = {
                           | {
                               __typename?: 'MediaSet'
                               original: { __typename?: 'Media'; url: any }
+                              onChain: { __typename?: 'Media'; url: any }
+                              optimized?: {
+                                __typename?: 'Media'
+                                url: any
+                              } | null
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null
@@ -9982,7 +10232,9 @@ export type ProfileMirrorsQuery = {
                         tags: Array<string>
                         cover?: {
                           __typename?: 'MediaSet'
+                          onChain: { __typename?: 'Media'; url: any }
                           original: { __typename?: 'Media'; url: any }
+                          optimized?: { __typename?: 'Media'; url: any } | null
                         } | null
                         media: Array<{
                           __typename?: 'MediaSet'
@@ -9991,6 +10243,8 @@ export type ProfileMirrorsQuery = {
                             url: any
                             mimeType?: any | null
                           }
+                          onChain: { __typename?: 'Media'; url: any }
+                          optimized?: { __typename?: 'Media'; url: any } | null
                         }>
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput'
@@ -10044,6 +10298,8 @@ export type ProfileMirrorsQuery = {
                     | {
                         __typename?: 'MediaSet'
                         original: { __typename?: 'Media'; url: any }
+                        onChain: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       }
                     | { __typename?: 'NftImage' }
                     | null
@@ -10051,6 +10307,8 @@ export type ProfileMirrorsQuery = {
                     | {
                         __typename?: 'MediaSet'
                         original: { __typename?: 'Media'; url: any }
+                        onChain: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null
@@ -10248,7 +10506,9 @@ export type ProfileMirrorsQuery = {
                   tags: Array<string>
                   cover?: {
                     __typename?: 'MediaSet'
+                    onChain: { __typename?: 'Media'; url: any }
                     original: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   } | null
                   media: Array<{
                     __typename?: 'MediaSet'
@@ -10257,6 +10517,8 @@ export type ProfileMirrorsQuery = {
                       url: any
                       mimeType?: any | null
                     }
+                    onChain: { __typename?: 'Media'; url: any }
+                    optimized?: { __typename?: 'Media'; url: any } | null
                   }>
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput'
@@ -10300,7 +10562,7 @@ export type ProfileNfTsQuery = {
 export type ProfilePostsQueryVariables = Exact<{
   request: PublicationsQueryRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']>
+  channelId?: InputMaybe<Scalars['ProfileId']['input']>
 }>
 
 export type ProfilePostsQuery = {
@@ -10353,6 +10615,8 @@ export type ProfilePostsQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage' }
               | null
@@ -10360,6 +10624,8 @@ export type ProfilePostsQuery = {
               | {
                   __typename?: 'MediaSet'
                   original: { __typename?: 'Media'; url: any }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null
@@ -10554,7 +10820,9 @@ export type ProfilePostsQuery = {
             tags: Array<string>
             cover?: {
               __typename?: 'MediaSet'
+              onChain: { __typename?: 'Media'; url: any }
               original: { __typename?: 'Media'; url: any }
+              optimized?: { __typename?: 'Media'; url: any } | null
             } | null
             media: Array<{
               __typename?: 'MediaSet'
@@ -10563,6 +10831,8 @@ export type ProfilePostsQuery = {
                 url: any
                 mimeType?: any | null
               }
+              onChain: { __typename?: 'Media'; url: any }
+              optimized?: { __typename?: 'Media'; url: any } | null
             }>
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput'
@@ -10577,7 +10847,7 @@ export type ProfilePostsQuery = {
 }
 
 export type ProxyActionStatusQueryVariables = Exact<{
-  proxyActionId: Scalars['ProxyActionId']
+  proxyActionId: Scalars['ProxyActionId']['input']
 }>
 
 export type ProxyActionStatusQuery = {
@@ -10771,7 +11041,7 @@ export type PublicationCollectModuleQuery = {
 export type PublicationDetailsQueryVariables = Exact<{
   request: PublicationQueryRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']>
+  channelId?: InputMaybe<Scalars['ProfileId']['input']>
 }>
 
 export type PublicationDetailsQuery = {
@@ -10819,6 +11089,8 @@ export type PublicationDetailsQuery = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage' }
             | null
@@ -10826,6 +11098,8 @@ export type PublicationDetailsQuery = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage'; uri: any }
             | null
@@ -11020,11 +11294,15 @@ export type PublicationDetailsQuery = {
           tags: Array<string>
           cover?: {
             __typename?: 'MediaSet'
+            onChain: { __typename?: 'Media'; url: any }
             original: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           } | null
           media: Array<{
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any; mimeType?: any | null }
+            onChain: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           }>
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput'
@@ -11070,6 +11348,8 @@ export type PublicationDetailsQuery = {
                   | {
                       __typename?: 'MediaSet'
                       original: { __typename?: 'Media'; url: any }
+                      onChain: { __typename?: 'Media'; url: any }
+                      optimized?: { __typename?: 'Media'; url: any } | null
                     }
                   | { __typename?: 'NftImage' }
                   | null
@@ -11077,6 +11357,8 @@ export type PublicationDetailsQuery = {
                   | {
                       __typename?: 'MediaSet'
                       original: { __typename?: 'Media'; url: any }
+                      onChain: { __typename?: 'Media'; url: any }
+                      optimized?: { __typename?: 'Media'; url: any } | null
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null
@@ -11097,7 +11379,9 @@ export type PublicationDetailsQuery = {
                 tags: Array<string>
                 cover?: {
                   __typename?: 'MediaSet'
+                  onChain: { __typename?: 'Media'; url: any }
                   original: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 } | null
                 media: Array<{
                   __typename?: 'MediaSet'
@@ -11106,6 +11390,8 @@ export type PublicationDetailsQuery = {
                     url: any
                     mimeType?: any | null
                   }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }>
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput'
@@ -11159,6 +11445,8 @@ export type PublicationDetailsQuery = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage' }
             | null
@@ -11166,6 +11454,8 @@ export type PublicationDetailsQuery = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage'; uri: any }
             | null
@@ -11360,11 +11650,15 @@ export type PublicationDetailsQuery = {
           tags: Array<string>
           cover?: {
             __typename?: 'MediaSet'
+            onChain: { __typename?: 'Media'; url: any }
             original: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           } | null
           media: Array<{
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any; mimeType?: any | null }
+            onChain: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           }>
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput'
@@ -11415,6 +11709,8 @@ export type PublicationDetailsQuery = {
                   | {
                       __typename?: 'MediaSet'
                       original: { __typename?: 'Media'; url: any }
+                      onChain: { __typename?: 'Media'; url: any }
+                      optimized?: { __typename?: 'Media'; url: any } | null
                     }
                   | { __typename?: 'NftImage' }
                   | null
@@ -11422,6 +11718,8 @@ export type PublicationDetailsQuery = {
                   | {
                       __typename?: 'MediaSet'
                       original: { __typename?: 'Media'; url: any }
+                      onChain: { __typename?: 'Media'; url: any }
+                      optimized?: { __typename?: 'Media'; url: any } | null
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null
@@ -11616,7 +11914,9 @@ export type PublicationDetailsQuery = {
                 tags: Array<string>
                 cover?: {
                   __typename?: 'MediaSet'
+                  onChain: { __typename?: 'Media'; url: any }
                   original: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 } | null
                 media: Array<{
                   __typename?: 'MediaSet'
@@ -11625,6 +11925,8 @@ export type PublicationDetailsQuery = {
                     url: any
                     mimeType?: any | null
                   }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }>
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput'
@@ -11670,6 +11972,11 @@ export type PublicationDetailsQuery = {
                         | {
                             __typename?: 'MediaSet'
                             original: { __typename?: 'Media'; url: any }
+                            onChain: { __typename?: 'Media'; url: any }
+                            optimized?: {
+                              __typename?: 'Media'
+                              url: any
+                            } | null
                           }
                         | { __typename?: 'NftImage' }
                         | null
@@ -11677,6 +11984,11 @@ export type PublicationDetailsQuery = {
                         | {
                             __typename?: 'MediaSet'
                             original: { __typename?: 'Media'; url: any }
+                            onChain: { __typename?: 'Media'; url: any }
+                            optimized?: {
+                              __typename?: 'Media'
+                              url: any
+                            } | null
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null
@@ -11697,7 +12009,9 @@ export type PublicationDetailsQuery = {
                       tags: Array<string>
                       cover?: {
                         __typename?: 'MediaSet'
+                        onChain: { __typename?: 'Media'; url: any }
                         original: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       } | null
                       media: Array<{
                         __typename?: 'MediaSet'
@@ -11706,6 +12020,8 @@ export type PublicationDetailsQuery = {
                           url: any
                           mimeType?: any | null
                         }
+                        onChain: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       }>
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput'
@@ -11759,6 +12075,8 @@ export type PublicationDetailsQuery = {
                   | {
                       __typename?: 'MediaSet'
                       original: { __typename?: 'Media'; url: any }
+                      onChain: { __typename?: 'Media'; url: any }
+                      optimized?: { __typename?: 'Media'; url: any } | null
                     }
                   | { __typename?: 'NftImage' }
                   | null
@@ -11766,6 +12084,8 @@ export type PublicationDetailsQuery = {
                   | {
                       __typename?: 'MediaSet'
                       original: { __typename?: 'Media'; url: any }
+                      onChain: { __typename?: 'Media'; url: any }
+                      optimized?: { __typename?: 'Media'; url: any } | null
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null
@@ -11960,7 +12280,9 @@ export type PublicationDetailsQuery = {
                 tags: Array<string>
                 cover?: {
                   __typename?: 'MediaSet'
+                  onChain: { __typename?: 'Media'; url: any }
                   original: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 } | null
                 media: Array<{
                   __typename?: 'MediaSet'
@@ -11969,6 +12291,8 @@ export type PublicationDetailsQuery = {
                     url: any
                     mimeType?: any | null
                   }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }>
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput'
@@ -12021,6 +12345,8 @@ export type PublicationDetailsQuery = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage' }
             | null
@@ -12028,6 +12354,8 @@ export type PublicationDetailsQuery = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage'; uri: any }
             | null
@@ -12222,11 +12550,15 @@ export type PublicationDetailsQuery = {
           tags: Array<string>
           cover?: {
             __typename?: 'MediaSet'
+            onChain: { __typename?: 'Media'; url: any }
             original: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           } | null
           media: Array<{
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any; mimeType?: any | null }
+            onChain: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           }>
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput'
@@ -12301,6 +12633,8 @@ export type SearchProfilesQuery = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage' }
             | null
@@ -12308,6 +12642,8 @@ export type SearchProfilesQuery = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage'; uri: any }
             | null
@@ -12325,7 +12661,7 @@ export type SearchProfilesQuery = {
 export type SearchPublicationsQueryVariables = Exact<{
   request: SearchQueryRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']>
+  channelId?: InputMaybe<Scalars['ProfileId']['input']>
 }>
 
 export type SearchPublicationsQuery = {
@@ -12377,6 +12713,8 @@ export type SearchPublicationsQuery = {
                   | {
                       __typename?: 'MediaSet'
                       original: { __typename?: 'Media'; url: any }
+                      onChain: { __typename?: 'Media'; url: any }
+                      optimized?: { __typename?: 'Media'; url: any } | null
                     }
                   | { __typename?: 'NftImage' }
                   | null
@@ -12384,6 +12722,8 @@ export type SearchPublicationsQuery = {
                   | {
                       __typename?: 'MediaSet'
                       original: { __typename?: 'Media'; url: any }
+                      onChain: { __typename?: 'Media'; url: any }
+                      optimized?: { __typename?: 'Media'; url: any } | null
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null
@@ -12578,7 +12918,9 @@ export type SearchPublicationsQuery = {
                 tags: Array<string>
                 cover?: {
                   __typename?: 'MediaSet'
+                  onChain: { __typename?: 'Media'; url: any }
                   original: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 } | null
                 media: Array<{
                   __typename?: 'MediaSet'
@@ -12587,6 +12929,8 @@ export type SearchPublicationsQuery = {
                     url: any
                     mimeType?: any | null
                   }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }>
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput'
@@ -12632,6 +12976,11 @@ export type SearchPublicationsQuery = {
                         | {
                             __typename?: 'MediaSet'
                             original: { __typename?: 'Media'; url: any }
+                            onChain: { __typename?: 'Media'; url: any }
+                            optimized?: {
+                              __typename?: 'Media'
+                              url: any
+                            } | null
                           }
                         | { __typename?: 'NftImage' }
                         | null
@@ -12639,6 +12988,11 @@ export type SearchPublicationsQuery = {
                         | {
                             __typename?: 'MediaSet'
                             original: { __typename?: 'Media'; url: any }
+                            onChain: { __typename?: 'Media'; url: any }
+                            optimized?: {
+                              __typename?: 'Media'
+                              url: any
+                            } | null
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null
@@ -12659,7 +13013,9 @@ export type SearchPublicationsQuery = {
                       tags: Array<string>
                       cover?: {
                         __typename?: 'MediaSet'
+                        onChain: { __typename?: 'Media'; url: any }
                         original: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       } | null
                       media: Array<{
                         __typename?: 'MediaSet'
@@ -12668,6 +13024,8 @@ export type SearchPublicationsQuery = {
                           url: any
                           mimeType?: any | null
                         }
+                        onChain: { __typename?: 'Media'; url: any }
+                        optimized?: { __typename?: 'Media'; url: any } | null
                       }>
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput'
@@ -12721,6 +13079,8 @@ export type SearchPublicationsQuery = {
                   | {
                       __typename?: 'MediaSet'
                       original: { __typename?: 'Media'; url: any }
+                      onChain: { __typename?: 'Media'; url: any }
+                      optimized?: { __typename?: 'Media'; url: any } | null
                     }
                   | { __typename?: 'NftImage' }
                   | null
@@ -12728,6 +13088,8 @@ export type SearchPublicationsQuery = {
                   | {
                       __typename?: 'MediaSet'
                       original: { __typename?: 'Media'; url: any }
+                      onChain: { __typename?: 'Media'; url: any }
+                      optimized?: { __typename?: 'Media'; url: any } | null
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null
@@ -12922,7 +13284,9 @@ export type SearchPublicationsQuery = {
                 tags: Array<string>
                 cover?: {
                   __typename?: 'MediaSet'
+                  onChain: { __typename?: 'Media'; url: any }
                   original: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 } | null
                 media: Array<{
                   __typename?: 'MediaSet'
@@ -12931,6 +13295,8 @@ export type SearchPublicationsQuery = {
                     url: any
                     mimeType?: any | null
                   }
+                  onChain: { __typename?: 'Media'; url: any }
+                  optimized?: { __typename?: 'Media'; url: any } | null
                 }>
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput'
@@ -12987,6 +13353,8 @@ export type SubscribersQuery = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage' }
             | null
@@ -12994,6 +13362,8 @@ export type SubscribersQuery = {
             | {
                 __typename?: 'MediaSet'
                 original: { __typename?: 'Media'; url: any }
+                onChain: { __typename?: 'Media'; url: any }
+                optimized?: { __typename?: 'Media'; url: any } | null
               }
             | { __typename?: 'NftImage'; uri: any }
             | null
@@ -13011,7 +13381,7 @@ export type SubscribersQuery = {
 }
 
 export type TxIdToTxHashQueryVariables = Exact<{
-  txId: Scalars['TxId']
+  txId: Scalars['TxId']['input']
 }>
 
 export type TxIdToTxHashQuery = { __typename?: 'Query'; txIdToTxHash: any }
@@ -13054,6 +13424,8 @@ export type UserProfilesQuery = {
         | {
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any }
+            onChain: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           }
         | { __typename?: 'NftImage' }
         | null
@@ -13061,6 +13433,8 @@ export type UserProfilesQuery = {
         | {
             __typename?: 'MediaSet'
             original: { __typename?: 'Media'; url: any }
+            onChain: { __typename?: 'Media'; url: any }
+            optimized?: { __typename?: 'Media'; url: any } | null
           }
         | { __typename?: 'NftImage'; uri: any }
         | null
@@ -13103,11 +13477,23 @@ export const ProfileFieldsFragmentDoc = gql`
         original {
           url
         }
+        onChain {
+          url
+        }
+        optimized {
+          url
+        }
       }
     }
     picture {
       ... on MediaSet {
         original {
+          url
+        }
+        onChain {
+          url
+        }
+        optimized {
           url
         }
       }
@@ -13253,7 +13639,13 @@ export const MetadataFieldsFragmentDoc = gql`
     contentWarning
     tags
     cover {
+      onChain {
+        url
+      }
       original {
+        url
+      }
+      optimized {
         url
       }
     }
@@ -13261,6 +13653,12 @@ export const MetadataFieldsFragmentDoc = gql`
       original {
         url
         mimeType
+      }
+      onChain {
+        url
+      }
+      optimized {
+        url
       }
     }
     attributes {
@@ -16552,6 +16950,12 @@ export const ProfileDocument = gql`
           original {
             url
           }
+          onChain {
+            url
+          }
+          optimized {
+            url
+          }
         }
         ... on NftImage {
           uri
@@ -16560,6 +16964,12 @@ export const ProfileDocument = gql`
       coverPicture {
         ... on MediaSet {
           original {
+            url
+          }
+          onChain {
+            url
+          }
+          optimized {
             url
           }
         }

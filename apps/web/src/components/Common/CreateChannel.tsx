@@ -118,7 +118,7 @@ const CreateChannel = () => {
           handle: username,
           profilePictureUri: imageCdn(
             getRandomProfilePicture(address ?? ZERO_ADDRESS),
-            'avatar'
+            'AVATAR'
           )
         }
       }

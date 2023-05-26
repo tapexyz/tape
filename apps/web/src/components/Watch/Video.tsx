@@ -7,7 +7,10 @@ import type { FC } from 'react'
 import React from 'react'
 import { LENSTUBE_BYTES_APP_ID } from 'utils'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
-import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
+import {
+  getPublicationHlsUrl,
+  getPublicationMediaUrl
+} from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
@@ -30,7 +33,7 @@ const Video: FC<Props> = ({ video }) => {
   const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(video, true)),
-    isBytesVideo ? 'thumbnail_v' : 'thumbnail'
+    isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
 
   const refCallback = (ref: HTMLMediaElement) => {
@@ -46,6 +49,7 @@ const Video: FC<Props> = ({ video }) => {
         refCallback={refCallback}
         currentTime={videoWatchTime}
         permanentUrl={getPublicationMediaUrl(video)}
+        hlsUrl={getPublicationHlsUrl(video)}
         posterUrl={thumbnailUrl}
         options={{
           loadingSpinner: true,

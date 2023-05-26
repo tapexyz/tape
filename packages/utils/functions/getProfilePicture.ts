@@ -1,12 +1,13 @@
 import type { Profile } from 'lens'
 
+import type { IMAGE_TRANSFORMATIONS } from '../constants'
 import { getRandomProfilePicture } from './getRandomProfilePicture'
 import imageCdn from './imageCdn'
 import sanitizeDStorageUrl from './sanitizeDStorageUrl'
 
 const getProfilePicture = (
   channel: Profile,
-  type: 'avatar' | 'avatar_lg' | 'thumbnail' = 'avatar'
+  type?: keyof typeof IMAGE_TRANSFORMATIONS
 ): string => {
   const url =
     channel.picture && channel.picture.__typename === 'MediaSet'

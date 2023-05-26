@@ -27,7 +27,7 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
       '"',
       "'"
     )
-    const thumbnail = imageCdn(getThumbnailUrl(video) || OG_IMAGE, 'thumbnail')
+    const thumbnail = imageCdn(getThumbnailUrl(video) || OG_IMAGE, 'THUMBNAIL')
 
     if (format === 'json') {
       return {

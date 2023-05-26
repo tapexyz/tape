@@ -25,11 +25,23 @@ fragment ProfileFields on Profile {
       original {
         url
       }
+      onChain {
+        url
+      }
+      optimized {
+        url
+      }
     }
   }
   picture {
     ... on MediaSet {
       original {
+        url
+      }
+      onChain {
+        url
+      }
+      optimized {
         url
       }
     }

@@ -48,6 +48,12 @@ query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
         original {
           url
         }
+        onChain {
+          url
+        }
+        optimized {
+          url
+        }
       }
       ... on NftImage {
         uri
@@ -56,6 +62,12 @@ query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
     coverPicture {
       ... on MediaSet {
         original {
+          url
+        }
+        onChain {
+          url
+        }
+        optimized {
           url
         }
       }

@@ -18,15 +18,28 @@ export const LENSTUBE_WEBSITE_URL = IS_MAINNET
   : 'https://testnet.lenstube.xyz'
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallbackThumbnail.png`
 export const OG_IMAGE = `${STATIC_ASSETS}/images/seo/og.png`
-export const IMAGE_CDN_URL = IS_PRODUCTION ? 'https://img.lenstube.xyz' : ''
 export const SCROLL_ROOT_MARGIN = '60% 0px'
+export const LENS_IMAGEKIT_SNAPSHOT_URL =
+  'https://ik.imagekit.io/lens/media-snapshot'
+
+export const IMAGE_TRANSFORMATIONS = {
+  AVATAR: 'tr:w-60,h-60',
+  AVATAR_LG: 'tr:w-300,h-300',
+  THUMBNAIL: 'tr:w-720,h-404',
+  THUMBNAIL_V: 'tr:w-404,h-720',
+  SQUARE: 'tr:w-200,h-200'
+}
 
 // lens
 export const MAINNET_API_URL = 'https://api.lens.dev'
 export const TESTNET_API_URL = 'https://api-mumbai.lens.dev'
 export const STAGING_API_URL =
   'https://staging-api-social-mumbai.lens.crtlkey.com'
-export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
+export const LENS_API_URL = IS_MAINNET
+  ? MAINNET_API_URL
+  : IS_STAGING
+  ? STAGING_API_URL
+  : TESTNET_API_URL
 
 // API urls
 export const LENSTUBE_MAINNET_API_URL = 'https://api.lenstube.xyz'

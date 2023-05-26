@@ -72,7 +72,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
                   className="h-5 w-5 rounded"
                   src={getProfilePicture(
                     subscriber.wallet?.defaultProfile,
-                    'avatar'
+                    'AVATAR'
                   )}
                   alt={subscriber.wallet.defaultProfile.handle}
                   draggable={false}
@@ -101,7 +101,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
                   className="h-5 w-5 rounded"
                   src={imageCdn(
                     getRandomProfilePicture(subscriber.wallet.address),
-                    'avatar'
+                    'AVATAR'
                   )}
                   alt={subscriber.wallet.address.handle}
                   draggable={false}

@@ -67,7 +67,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
           >
             <img
               className="h-8 w-8 rounded-full"
-              src={getProfilePicture(commentedOn?.profile, 'avatar')}
+              src={getProfilePicture(commentedOn?.profile, 'AVATAR')}
               alt={getLensHandle(commentedOn?.profile?.handle)}
               draggable={false}
             />

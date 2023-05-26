@@ -21,7 +21,7 @@ const MirroredNotification: FC<Props> = ({ notification }) => {
         >
           <img
             className="h-5 w-5 rounded-full"
-            src={getProfilePicture(notification.profile, 'avatar')}
+            src={getProfilePicture(notification.profile, 'AVATAR')}
             alt={notification.profile?.handle}
             draggable={false}
           />
