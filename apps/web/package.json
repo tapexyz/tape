@@ -50,10 +50,10 @@
     "zustand": "^4.3.8"
   },
   "devDependencies": {
-    "@lingui/cli": "^4.2.0",
-    "@lingui/loader": "^4.2.0",
-    "@lingui/macro": "^4.2.0",
-    "@lingui/swc-plugin": "^4.0.1",
+    "@lingui/cli": "^4.1.2",
+    "@lingui/loader": "^4.1.2",
+    "@lingui/macro": "^4.1.2",
+    "@lingui/swc-plugin": "^4.0.0",
     "@tailwindcss/typography": "^0.5.9",
     "@types/mixpanel-browser": "^2.38.1",
     "@types/node": "20.2.5",
