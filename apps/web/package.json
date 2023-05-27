@@ -20,7 +20,7 @@
     "@emoji-mart/react": "^1.1.1",
     "@headlessui/react": "^1.7.14",
     "@hookform/resolvers": "^3.1.0",
-    "@lingui/react": "^4.2.0",
+    "@lingui/react": "^4.1.2",
     "@livepeer/react": "^2.5.1",
     "@rainbow-me/rainbowkit": "^0.12.12",
     "@tailwindcss/aspect-ratio": "^0.4.2",
