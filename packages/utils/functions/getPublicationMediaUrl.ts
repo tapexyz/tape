@@ -20,7 +20,7 @@ export const getPublicationHlsUrl = (video: Publication) => {
 }
 
 export const getPublicationMediaCid = (video: Publication): string => {
-  const url = video?.metadata?.media[0]?.original.url
+  const url = video?.metadata?.media[0]?.onChain.url
   const uri = url.replace('https://arweave.net/', 'ar://')
   return uri.replace('ipfs://', '').replace('ar://', '')
 }

@@ -128,7 +128,7 @@ const UserMenu = () => {
                   >
                     <span className="inline-flex items-center space-x-1.5">
                       <img
-                        className="h-6 w-6 rounded-lg"
+                        className="h-6 w-6 rounded-full"
                         src={getProfilePicture(channel)}
                         alt={channel.handle}
                         draggable={false}
