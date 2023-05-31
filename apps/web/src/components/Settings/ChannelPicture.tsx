@@ -15,8 +15,8 @@ import {
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation
 } from 'lens'
-import type { ChangeEvent, FC } from 'react'
-import { useState } from 'react'
+import type { ChangeEvent } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
 import {
@@ -34,7 +34,7 @@ type Props = {
   channel: Profile
 }
 
-const ChannelPicture: FC<Props> = ({ channel }) => {
+const ChannelPicture: React.FC<Props> = ({ channel }) => {
   const [selectedPfp, setSelectedPfp] = useState('')
   const [loading, setLoading] = useState(false)
   const selectedChannel = useChannelStore((state) => state.selectedChannel)

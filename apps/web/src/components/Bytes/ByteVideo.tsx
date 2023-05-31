@@ -121,6 +121,7 @@ const ByteVideo: FC<Props> = ({
                 loadingSpinner: false,
                 isCurrentlyShown: currentViewingId === video.id
               }}
+              isLivestream={'false'}
             />
           ) : (
             <div className="h-full w-full">
@@ -140,6 +141,7 @@ const ByteVideo: FC<Props> = ({
                     loadingSpinner: false,
                     isCurrentlyShown: currentViewingId === video.id
                   }}
+                  isLivestream={'false'}
                 />
               </span>
             </div>

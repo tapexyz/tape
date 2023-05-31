@@ -20,7 +20,7 @@ import {
   useEnabledModuleCurrrenciesQuery,
   useProfileFollowModuleQuery
 } from 'lens'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
@@ -49,7 +49,7 @@ const formSchema = z.object({
 })
 type FormData = z.infer<typeof formSchema>
 
-const Membership = ({ channel }: Props) => {
+const Membership: React.FC<Props> = ({ channel }: Props) => {
   const [loading, setLoading] = useState(false)
   const [showForm, setShowForm] = useState(false)
   const userSigNonce = useChannelStore((state) => state.userSigNonce)

@@ -2,14 +2,14 @@ import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-
+import React from 'react'
 import BytesOutline from './Icons/BytesOutline'
 import ExploreOutline from './Icons/ExploreOutline'
 import FeedOutline from './Icons/FeedOutline'
 import HomeOutline from './Icons/HomeOutline'
 import PlusOutline from './Icons/PlusOutline'
 
-const MobileBottomNav = () => {
+const MobileBottomNav: React.FC = () => {
   const router = useRouter()
 
   const isActivePath = (path: string) => router.pathname === path

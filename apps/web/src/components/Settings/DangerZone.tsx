@@ -7,7 +7,7 @@ import { t } from '@lingui/macro'
 import { utils } from 'ethers'
 import type { CreateBurnProfileBroadcastItemResult } from 'lens'
 import { useCreateBurnProfileTypedDataMutation } from 'lens'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
 import {
@@ -24,7 +24,7 @@ import {
   useWaitForTransaction
 } from 'wagmi'
 
-const DangerZone = () => {
+const DangerZone: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [txnHash, setTxnHash] = useState<`0x${string}`>()
   const selectedChannel = useChannelStore((state) => state.selectedChannel)

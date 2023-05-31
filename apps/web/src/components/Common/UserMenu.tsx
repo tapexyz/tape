@@ -8,7 +8,7 @@ import type { Profile } from 'lens'
 import { useAllProfilesLazyQuery } from 'lens'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import useSWR from 'swr'
 import type { CustomErrorWithData } from 'utils'
@@ -22,7 +22,6 @@ import {
 } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import { useAccount, useDisconnect } from 'wagmi'
-
 import ChannelOutline from './Icons/ChannelOutline'
 import CheckOutline from './Icons/CheckOutline'
 import ChevronLeftOutline from './Icons/ChevronLeftOutline'
@@ -34,7 +33,7 @@ import PlusOutline from './Icons/PlusOutline'
 import SunOutline from './Icons/SunOutline'
 import SwitchChannelOutline from './Icons/SwitchChannelOutline'
 
-const UserMenu = () => {
+const UserMenu: React.FC = () => {
   const { theme, setTheme } = useTheme()
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
 

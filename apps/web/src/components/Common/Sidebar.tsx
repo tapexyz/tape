@@ -201,7 +201,7 @@ const Sidebar: React.FC = () => {
                     : 'w-full space-x-3 px-4'
                 )}
               >
-                <RiGamepadLine className="h-5 w-5" />
+                <ExploreOutline className="h-5 w-5" />
                 {!sidebarCollapsed && (
                   <span className="text-sm">Metaverse</span>
                 )}

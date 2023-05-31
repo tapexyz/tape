@@ -3,11 +3,11 @@ import { storeLocale } from '@lib/i18n'
 import usePersistStore from '@lib/store/persist'
 import { useLingui } from '@lingui/react'
 import clsx from 'clsx'
+import React from 'react'
 import { Analytics, SUPPORTED_LOCALES, TRACK } from 'utils'
-
 import GlobeOutline from './Icons/GlobeOutline'
 
-const Locale = () => {
+const Locale: React.FC = () => {
   const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
   const { i18n } = useLingui()
   const selectedLocale = SUPPORTED_LOCALES[i18n.locale]

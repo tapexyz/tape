@@ -1,11 +1,11 @@
-import type { FC } from 'react'
+import React from 'react'
 
 type Props = {
   count: number
   text: string
 }
 
-const StatCard: FC<Props> = ({ count, text }) => {
+const StatCard: React.FC<Props> = ({ count, text }) => {
   return (
     <div className="bg-theme space-y-3 rounded-xl bg-white bg-opacity-80 p-6 backdrop-blur-lg">
       <div>

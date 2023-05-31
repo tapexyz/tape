@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import React from 'react'
 import {
   GIT_DEPLOYED_BRANCH,
   GIT_DEPLOYED_COMMIT_SHA,
@@ -6,7 +7,7 @@ import {
   VERCEL_DEPLOYED_ENV
 } from 'utils'
 
-const Deployment = () => {
+const Deployment: React.FC = () => {
   return (
     <div className="mb-4 flex items-center space-x-2">
       <span className="bg-secondary bg-theme rounded-lg bg-opacity-70 p-1 px-3 text-xs backdrop-blur-xl">

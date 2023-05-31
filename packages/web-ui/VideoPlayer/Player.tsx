@@ -10,6 +10,8 @@ export interface PlayerProps {
   posterUrl?: string
   ratio?: AspectRatio
   showControls?: boolean
+  isLivestream?: 'true' | 'false'
+  livestreamPlaybackId?: string
   options: {
     autoPlay?: boolean
     muted?: boolean
@@ -25,9 +27,34 @@ const PlayerInstance: FC<PlayerProps> = ({
   posterUrl,
   playerRef,
   options,
-  showControls
+  showControls,
+  isLivestream,
+  livestreamPlaybackId
 }) => {
-  return (
+  return isLivestream === 'true' ? (
+    <Player
+      playbackId={livestreamPlaybackId}
+      poster={posterUrl}
+      showTitle={false}
+      objectFit="contain"
+      aspectRatio={ratio}
+      showPipButton
+      // mediaElementRef={playerRef}
+      loop={options?.loop ?? true}
+      showUploadingIndicator={false}
+      muted={options?.muted ?? false}
+      controls={{ defaultVolume: 1 }}
+      autoPlay={options?.autoPlay ?? false}
+      showLoadingSpinner={options?.loadingSpinner}
+      autoUrlUpload={{
+        fallback: true,
+        ipfsGateway: IPFS_GATEWAY_URL
+      }}
+    >
+      {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
+      {!showControls ? <></> : null}
+    </Player>
+  ) : (
     <Player
       src={permanentUrl}
       poster={posterUrl}

@@ -1,9 +1,14 @@
 import clsx from 'clsx'
-import type { Publication } from 'lens'
+import type { Attribute, Publication } from 'lens'
 import { useRouter } from 'next/router'
-import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
+import {
+  Analytics,
+  FALLBACK_COVER_URL,
+  LENSTUBE_BYTES_APP_ID,
+  TRACK
+} from 'utils'
+import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
@@ -11,7 +16,6 @@ import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 import truncate from 'utils/functions/truncate'
 import useAverageColor from 'utils/hooks/useAverageColor'
 import VideoPlayer from 'web-ui/VideoPlayer'
-
 import MetaTags from './MetaTags'
 import TopOverlay from './TopOverlay'
 
@@ -19,7 +23,7 @@ type Props = {
   video: Publication
 }
 
-const Video: FC<Props> = ({ video }) => {
+const Video: React.FC<Props> = ({ video }) => {
   const { query } = useRouter()
   const [playerRef, setPlayerRef] = useState<HTMLMediaElement>()
 
@@ -35,6 +39,15 @@ const Video: FC<Props> = ({ video }) => {
     isBytesVideo ? 'thumbnail_v' : 'thumbnail'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
+
+  const isLivestream = getValueFromTraitType(
+    video.metadata?.attributes as Attribute[],
+    'isLivestream'
+  ) as 'true' | 'false'
+  const livestreamPlaybackId = getValueFromTraitType(
+    video.metadata?.attributes as Attribute[],
+    'livestreamPlaybackId'
+  )
 
   useEffect(() => {
     Analytics.track(TRACK.EMBED_VIDEO.LOADED)
@@ -80,6 +93,8 @@ const Video: FC<Props> = ({ video }) => {
             loadingSpinner: true,
             isCurrentlyShown: true
           }}
+          isLivestream={isLivestream}
+          livestreamPlaybackId={livestreamPlaybackId}
         />
       ) : (
         <div className="aspect-h-9 aspect-w-16 flex justify-center">
@@ -103,10 +118,7 @@ const Video: FC<Props> = ({ video }) => {
             <button className="rounded-full bg-gradient-to-r from-indigo-200 to-indigo-400 p-2 shadow-2xl xl:p-5">
               <img
                 className="h-8 w-8 pl-1"
-                src={imageCdn(
-                  `${STATIC_ASSETS}/images/brand/lenstube.svg`,
-                  'avatar'
-                )}
+                src={imageCdn(`${FALLBACK_COVER_URL}`, 'avatar')}
                 alt="play"
                 draggable={false}
               />

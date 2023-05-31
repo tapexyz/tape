@@ -9,8 +9,7 @@ import {
   SearchPublicationsDocument,
   SearchRequestTypes
 } from 'lens'
-import type { FC } from 'react'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   Analytics,
   LENS_CUSTOM_FILTERS,
@@ -20,7 +19,6 @@ import {
 } from 'utils'
 import useDebounce from 'utils/hooks/useDebounce'
 import useOutsideClick from 'utils/hooks/useOutsideClick'
-
 import SearchOutline from '../Icons/SearchOutline'
 import Channels from './Channels'
 import Videos from './Videos'
@@ -29,7 +27,7 @@ interface Props {
   onSearchResults?: () => void
 }
 
-const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
+const GlobalSearchBar: React.FC<Props> = ({ onSearchResults }) => {
   const [activeSearch, setActiveSearch] = useState(SearchRequestTypes.Profile)
   const [keyword, setKeyword] = useState('')
   const debouncedValue = useDebounce<string>(keyword, 500)

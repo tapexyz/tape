@@ -1,9 +1,10 @@
 import { WebBundlr } from '@bundlr-network/client'
 import type { FetchSignerResult } from '@wagmi/core'
-import type { BundlrDataState, UploadedVideo } from 'utils'
+import type { BundlrDataState, UploadedLivestream, UploadedVideo } from 'utils'
 import {
   BUNDLR_CURRENCY,
   BUNDLR_NODE_URL,
+  LivestreamType,
   POLYGON_RPC_URL,
   WMATIC_TOKEN_ADDRESS
 } from 'utils'
@@ -31,6 +32,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   thumbnailType: '',
   videoSource: '',
   percent: 0,
+  playbackId: '',
   isSensitiveContent: false,
   isUploadToIpfs: false,
   loading: false,
@@ -39,6 +41,8 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   durationInSeconds: null,
   videoCategory: CREATOR_VIDEO_CATEGORIES[0],
   isByteVideo: false,
+  isNSFW: false,
+  isNSFWThumbnail: false,
   collectModule: {
     type: 'revertCollectModule',
     followerOnlyCollect: false,
@@ -60,11 +64,61 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   }
 }
 
+export const UPLOADED_LIVESTREAM_FORM_DEFAULTS = {
+  stream: null,
+  preview: '',
+  videoType: '',
+  file: null,
+  title: '',
+  description: '',
+  thumbnail: '',
+  thumbnailType: '',
+  videoSource: '',
+  percent: 0,
+  playbackId: '',
+  isSensitiveContent: false,
+  isUploadToIpfs: false,
+  loading: false,
+  uploadingThumbnail: false,
+  buttonText: 'Post Livestream',
+  durationInSeconds: null,
+  videoCategory: CREATOR_VIDEO_CATEGORIES[0],
+  collectModule: {
+    type: 'revertCollectModule',
+    followerOnlyCollect: false,
+    amount: { currency: WMATIC_TOKEN_ADDRESS, value: '' },
+    referralFee: 0,
+    isTimedFeeCollect: false,
+    isFreeCollect: false,
+    isFeeCollect: false,
+    isRevertCollect: true,
+    isLimitedFeeCollect: false,
+    isLimitedTimeFeeCollect: false,
+    isMultiRecipientFeeCollect: false,
+    collectLimit: '0',
+    multiRecipients: []
+  },
+  referenceModule: {
+    followerOnlyReferenceModule: false,
+    degreesOfSeparationReferenceModule: null
+  },
+  isNSFW: false,
+  isNSFWThumbnail: false,
+  isByteVideo: false,
+  isLivestream: true,
+  livestreamKey: '',
+  livestreamName: '',
+  livestreamPlaybackId: '',
+  livestreamType: LivestreamType.Perpetual
+}
+
 interface AppState {
   uploadedVideo: UploadedVideo
   bundlrData: BundlrDataState
   videoWatchTime: number
   activeTagFilter: string
+  uploadedLivestream: UploadedLivestream
+  setUploadedLivestream: (livestream: { [k: string]: any }) => void
   setUploadedVideo: (videoProps: Partial<UploadedVideo>) => void
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
@@ -102,7 +156,12 @@ export const useAppStore = create<AppState>((set) => ({
       logger.error('[Error Init Bundlr]', error)
       return null
     }
-  }
+  },
+  uploadedLivestream: UPLOADED_LIVESTREAM_FORM_DEFAULTS,
+  setUploadedLivestream: (livestreamData) =>
+    set((state) => ({
+      uploadedLivestream: { ...state.uploadedLivestream, ...livestreamData }
+    }))
 }))
 
 export default useAppStore
