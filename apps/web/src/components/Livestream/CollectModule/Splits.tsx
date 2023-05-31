@@ -8,16 +8,10 @@ import { utils } from 'ethers'
 import type { RecipientDataInput } from 'lens'
 import { useResolveProfileAddressLazyQuery } from 'lens'
 import React from 'react'
-import {
-  Analytics,
-  IS_MAINNET,
-  LENSTUBE_APP_NAME,
-  LENSTUBE_DONATION_ADDRESS,
-  TRACK
-} from 'utils'
+import { IS_MAINNET, LENSTUBE_APP_NAME, LENSTUBE_DONATION_ADDRESS } from 'utils'
 import splitNumber from 'utils/functions/splitNumber'
 
-const Splits = () => {
+const Splits: React.FC = () => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const splitRecipients = uploadedVideo.collectModule.multiRecipients ?? []
@@ -67,7 +61,7 @@ const Splits = () => {
         })
         const resolvedAddress = data?.profile?.ownedBy ?? ''
         changedSplit[key] = resolvedAddress
-        Analytics.track(TRACK.RESOLVE_CHANNEL_ADDRESS)
+        // Analytics.track(TRACK.RESOLVE_CHANNEL_ADDRESS)
       }
     }
     splits[index] = changedSplit
@@ -78,14 +72,14 @@ const Splits = () => {
     const splits = splitRecipients
     splits.push({ recipient: '', split: 1 })
     setSplitRecipients([...splits])
-    Analytics.track(TRACK.COLLECT_MODULE.MULTI_COLLECT.ADD_RECIPIENT)
+    // Analytics.track(TRACK.COLLECT_MODULE.MULTI_COLLECT.ADD_RECIPIENT)
   }
 
   const addDonation = () => {
     const splits = splitRecipients
     splits.push({ recipient: LENSTUBE_DONATION_ADDRESS, split: 2 })
     setSplitRecipients([...splits])
-    Analytics.track(TRACK.COLLECT_MODULE.MULTI_COLLECT.ADD_DONATION)
+    // Analytics.track(TRACK.COLLECT_MODULE.MULTI_COLLECT.ADD_DONATION)
   }
 
   const removeRecipient = (index: number) => {

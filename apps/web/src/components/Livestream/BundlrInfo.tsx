@@ -8,7 +8,7 @@ import useAppStore from '@lib/store'
 import { utils } from 'ethers'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { MdRefresh } from 'react-icons/md'
+// import { MdRefresh } from 'react-icons/md'
 import type { CustomErrorWithData } from 'utils'
 import {
   Analytics,
@@ -150,7 +150,7 @@ const BundlrInfo: React.FC = () => {
                 className="focus:outline-none"
                 onClick={() => fetchBalance()}
               >
-                <MdRefresh className="text-sm" />
+                {/* <MdRefresh className="text-sm" /> */}
               </button>
             </Tooltip>
           </span>

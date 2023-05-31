@@ -51,6 +51,7 @@ const Video: FC<Props> = ({ video }) => {
           isCurrentlyShown: true
         }}
         isSensitiveContent={isSensitiveContent}
+        isLivestream={'true'}
       />
       <div className="flex items-center justify-between">
         <div>

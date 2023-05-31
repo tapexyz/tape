@@ -83,7 +83,7 @@ const formSchema = z.object({
 })
 type FormData = z.infer<typeof formSchema> & { coverImage?: string }
 
-const BasicInfo: React.FC = ({ channel }: Props) => {
+const BasicInfo: React.FC<Props> = ({ channel }: Props) => {
   const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)

@@ -17,10 +17,9 @@ import {
 } from 'lens'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+import type { CustomErrorWithData, DragverseCollectModule } from 'utils'
 import {
   Analytics,
-  CustomErrorWithData,
-  DragverseCollectModule,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
@@ -28,7 +27,6 @@ import {
 } from 'utils'
 import omitKey from 'utils/functions/omitKey'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
-
 import CollectModal from './CollectModal'
 
 type Props = {

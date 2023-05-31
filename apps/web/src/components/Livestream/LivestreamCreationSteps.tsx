@@ -20,7 +20,7 @@ import {
   useCreatePostViaDispatcherMutation
 } from 'lens'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'
 import {
@@ -32,12 +32,11 @@ import {
   LENSTUBE_WEBSITE_URL,
   TRACK
 } from 'utils'
-import { checkIsBytesVideo } from 'utils/functions/checkIsBytesVideo'
+// import { checkIsBytesVideo } from 'utils/functions/checkIsBytesVideo'
 import { getCollectModule } from 'utils/functions/getCollectModule'
 import getUserLocale from 'utils/functions/getUserLocale'
 import omitKey from 'utils/functions/omitKey'
 import trimify from 'utils/functions/trimify'
-import uploadToAr from 'utils/functions/uploadToAr'
 import { usePrevious } from 'utils/hooks/usePrevious'
 import logger from 'utils/logger'
 import { v4 as uuidv4 } from 'uuid'
@@ -46,12 +45,12 @@ import { useContractWrite, useSignTypedData } from 'wagmi'
 import type { LivestreamVideoFormData } from './Details'
 import Details from './Details'
 
-const LivestreamCreationSteps = () => {
+const LivestreamCreationSteps: React.FC = () => {
   const uploadedLivestream = useAppStore((state) => state.uploadedLivestream)
   const setUploadedLivestream = useAppStore(
     (state) => state.setUploadedLivestream
   )
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  // const selectedChannel = useAppStore((state) => state.selectedChannel)
   const queuedLivestreams = usePersistStore((state) => state.queuedLivestreams)
   const setQueuedLivestreams = usePersistStore(
     (state) => state.setQueuedLivestreams
@@ -78,11 +77,11 @@ const LivestreamCreationSteps = () => {
       },
       ...(queuedLivestreams || [])
     ])
-    router.push(
-      uploadedLivestream.isByteVideo
-        ? `/channel/${selectedChannel?.handle}?tab=bytes`
-        : `/channel/${selectedChannel?.handle}`
-    )
+    // router.push(
+    //   uploadedLivestream.isByteVideo
+    //     ? `/channel/${selectedChannel?.handle}?tab=bytes`
+    //     : `/channel/${selectedChannel?.handle}`
+    // )
   }
 
   const resetToDefaults = () => {
@@ -224,11 +223,11 @@ const LivestreamCreationSteps = () => {
         }
       ]
       const attributes: MetadataAttributeInput[] = [
-        {
-          displayType: PublicationMetadataDisplayTypes.String,
-          traitType: 'handle',
-          value: `${selectedChannel?.handle}`
-        },
+        // {
+        //   displayType: PublicationMetadataDisplayTypes.String,
+        //   traitType: 'handle',
+        //   value: `${selectedChannel?.handle}`
+        // },
         {
           displayType: PublicationMetadataDisplayTypes.String,
           traitType: 'app',
@@ -262,7 +261,7 @@ const LivestreamCreationSteps = () => {
           value: uploadedLivestream.durationInSeconds.toString()
         })
       }
-      const isByteVideo = checkIsBytesVideo(uploadedLivestream.description)
+      // const isByteVideo = checkIsBytesVideo(uploadedLivestream.description)
       const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
         metadata_id: uuidv4(),
@@ -273,7 +272,8 @@ const LivestreamCreationSteps = () => {
         locale: getUserLocale(),
         tags: [uploadedLivestream.videoCategory.tag],
         mainContentFocus: PublicationMainFocus.Video,
-        external_url: `${LENSTUBE_WEBSITE_URL}/channel/${selectedChannel?.handle}`,
+        external_url: `${LENSTUBE_WEBSITE_URL}/channel`,
+        // external_url: `${LENSTUBE_WEBSITE_URL}/channel/${selectedChannel?.handle}`,
         animation_url: uploadedLivestream.videoSource,
         image: uploadedLivestream.thumbnail,
         imageMimeType: uploadedLivestream.thumbnailType,
@@ -285,11 +285,11 @@ const LivestreamCreationSteps = () => {
       if (uploadedLivestream.isSensitiveContent) {
         metadata.contentWarning = PublicationContentWarning.Sensitive
       }
-      const { url } = await uploadToAr(metadata)
+      // const { url } = await uploadToAr(metadata)
       setUploadedLivestream({
         buttonText: 'Posting livestream...',
-        loading: true,
-        isByteVideo
+        loading: true
+        // isByteVideo
       })
       const isRestricted = Boolean(
         uploadedLivestream.referenceModule?.degreesOfSeparationReferenceModule
@@ -303,8 +303,8 @@ const LivestreamCreationSteps = () => {
       }
 
       const request = {
-        profileId: selectedChannel?.id,
-        contentURI: url,
+        // profileId: selectedChannel?.id,
+        // contentURI: url,
         collectModule: getCollectModule(uploadedLivestream.collectModule),
         referenceModule: {
           followerOnlyReferenceModule:
@@ -315,11 +315,11 @@ const LivestreamCreationSteps = () => {
             : null
         }
       }
-      const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
-      if (!canUseDispatcher) {
-        return signTypedData(request)
-      }
-      await createViaDispatcher(request)
+      // const canUseDispatcher = selectedChannel?.dispatcher?.canUseRelay
+      // if (!canUseDispatcher) {
+      //   return signTypedData(request)
+      // }
+      // await createViaDispatcher(request)
     } catch (error) {
       logger.error('[Error Store & Post Livestream]', error)
     }

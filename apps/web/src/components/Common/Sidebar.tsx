@@ -81,7 +81,7 @@ const Sidebar: React.FC = () => {
                 <HomeOutline className="h-5 w-5" />
                 {!sidebarCollapsed && (
                   <span className="text-sm">
-                    <Trans>Home</Trans>
+                    <Trans id="home">Home</Trans>
                   </span>
                 )}
               </Link>
@@ -106,7 +106,7 @@ const Sidebar: React.FC = () => {
                 <FeedOutline className="h-5 w-5 flex-none" />
                 {!sidebarCollapsed && (
                   <span className="text-sm">
-                    <Trans>Subscriptions</Trans>
+                    <Trans id="subscriptions">Subscriptions</Trans>
                   </span>
                 )}
               </Link>
@@ -131,7 +131,7 @@ const Sidebar: React.FC = () => {
                 <BytesOutline className="h-5 w-5" />
                 {!sidebarCollapsed && (
                   <span className="text-sm">
-                    <Trans>Bytes</Trans>
+                    <Trans id="bytes">Bytes</Trans>
                   </span>
                 )}
               </Link>
@@ -156,7 +156,7 @@ const Sidebar: React.FC = () => {
                 <ExploreOutline className="h-5 w-5" />
                 {!sidebarCollapsed && (
                   <span className="text-sm">
-                    <Trans>Explore</Trans>
+                    <Trans id="explore">Explore</Trans>
                   </span>
                 )}
               </Link>

@@ -3,7 +3,6 @@ import { Trans } from '@lingui/macro'
 import type { Publication } from 'lens'
 import { usePublicationDetailsQuery } from 'lens'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React from 'react'
 import { LENSTUBE_BYTES_APP_ID } from 'utils'
 import { getRelativeTime } from 'utils/functions/formatTime'
@@ -19,7 +18,7 @@ type Props = {
   id: string
 }
 
-const PinnedVideo: FC<Props> = ({ id }) => {
+const PinnedVideo: React.FC<Props> = ({ id }) => {
   const { data, error, loading } = usePublicationDetailsQuery({
     variables: {
       request: { publicationId: id }
@@ -62,6 +61,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             loadingSpinner: true,
             isCurrentlyShown: true
           }}
+          isLivestream={'true'}
         />
       </div>
       <div className="flex flex-col justify-between px-2 lg:col-span-2">

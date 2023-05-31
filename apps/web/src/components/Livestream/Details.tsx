@@ -8,7 +8,7 @@ import clsx from 'clsx'
 import type { ReactNode } from 'react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { AiFillCloseCircle } from 'react-icons/ai'
+// import { AiFillCloseCircle } from 'react-icons/ai'
 import { z } from 'zod'
 import Category from './Category'
 import CollectModule from './CollectModule'
@@ -19,7 +19,7 @@ const ContentAlert = ({ message }: { message: ReactNode }) => (
   <div className="mt-6">
     <Alert variant="danger">
       <span className="inline-flex items-center text-sm">
-        <AiFillCloseCircle className="mr-3 text-xl text-red-500" />
+        {/* <AiFillCloseCircle className="mr-3 text-xl text-red-500" /> */}
         {message}
       </span>
     </Alert>

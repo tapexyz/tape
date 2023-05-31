@@ -10,7 +10,6 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { Notification } from 'lens'
@@ -19,14 +18,12 @@ import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import {
   Analytics,
-  CustomNotificationsFilterEnum,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN,
   TRACK
 } from 'utils'
-
 import CollectedNotification from './Collected'
 import CommentedNotification from './Commented'
 import NotificationsFilter from './Filter'
@@ -44,15 +41,15 @@ const initialFilters = {
   collects: false
 }
 
-const Notifications = () => {
+const Notifications: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState(initialFilters)
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const setHasNewNotification = useChannelStore(
     (state) => state.setHasNewNotification
   )
-  const selectedNotificationsFilter = usePersistStore(
-    (state) => state.selectedNotificationsFilter
-  )
+  // const selectedNotificationsFilter = usePersistStore(
+  //   (state) => state.selectedNotificationsFilter
+  // )
 
   const getNotificationFilters = () => {
     if (activeFilter.mentions) {
@@ -91,8 +88,7 @@ const Notifications = () => {
       : [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: selectedChannel?.id,
-    highSignalFilter:
-      selectedNotificationsFilter === CustomNotificationsFilterEnum.HIGH_SIGNAL,
+    highSignalFilter: true,
     notificationTypes: getNotificationFilters()
   }
 

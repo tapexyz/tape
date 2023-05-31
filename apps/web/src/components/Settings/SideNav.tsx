@@ -8,7 +8,7 @@ import clsx from 'clsx'
 import type { Profile } from 'lens'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import type { FC } from 'react'
+import React from 'react'
 
 import ChannelPicture from './ChannelPicture'
 
@@ -22,7 +22,7 @@ export const SETTINGS_PERMISSIONS = '/settings/permissions'
 export const SETTINGS_DANGER_ZONE = '/settings/danger'
 export const SETTINGS = '/settings'
 
-const SideNav: FC<Props> = ({ channel }) => {
+const SideNav: React.FC<Props> = ({ channel }) => {
   const router = useRouter()
 
   const isActivePath = (path: string) => router.pathname === path

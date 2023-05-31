@@ -5,17 +5,16 @@ import useAppStore from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
 import { FEATURE_FLAGS } from 'utils/data/feature-flags'
 import formatBytes from 'utils/functions/formatBytes'
 import getIsFeatureEnabled from 'utils/functions/getIsFeatureEnabled'
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
-
 import ChooseThumbnail from './ChooseThumbnail'
 import UploadMethod from './UploadMethod'
 
-const Video = () => {
+const Video: React.FC = () => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const uploadedVideo = useAppStore((state) => state.uploadedLivestream)
   const setUploadedVideo = useAppStore((state) => state.setUploadedLivestream)

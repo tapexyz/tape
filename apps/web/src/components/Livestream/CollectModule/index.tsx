@@ -4,21 +4,20 @@ import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import { useEnabledModuleCurrrenciesQuery } from 'lens'
+import type { Erc20 } from 'lens'
 import React, { useState } from 'react'
 import type { CollectModuleType } from 'utils'
-
 import ChargeQuestion from './ChargeQuestion'
 import FeeCollectForm from './FeeCollectForm'
 import LimitDurationQuestion from './LimitDurationQuestion'
 import LimitQuestion from './LimitQuestion'
 import PermissionQuestion from './PermissionQuestion'
 
-const CollectModule = () => {
+const CollectModule: React.FC = () => {
   const [showModal, setShowModal] = useState(false)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  // const selectedChannel = useAppStore((state) => state.selectedChannel)
 
   const setCollectType = (data: CollectModuleType) => {
     setUploadedVideo({
@@ -26,10 +25,10 @@ const CollectModule = () => {
     })
   }
 
-  const { data: enabledCurrencies } = useEnabledModuleCurrrenciesQuery({
-    variables: { request: { profileIds: selectedChannel?.id } },
-    skip: !selectedChannel?.id
-  })
+  // const { data: enabledCurrencies } = useEnabledModuleCurrrenciesQuery({
+  //   variables: { request: { profileIds: selectedChannel?.id } },
+  //   // skip: !selectedChannel?.id
+  // })
 
   const getSelectedCollectType = () => {
     const followerOnlyCollect = uploadedVideo.collectModule.followerOnlyCollect
@@ -114,12 +113,14 @@ const CollectModule = () => {
             )}
           {!uploadedVideo.collectModule.isFreeCollect &&
           !uploadedVideo.collectModule.isRevertCollect &&
-          enabledCurrencies ? (
+          false ? (
             <FeeCollectForm
               setCollectType={setCollectType}
               uploadedVideo={uploadedVideo}
               setShowModal={setShowModal}
-              enabledCurrencies={enabledCurrencies}
+              enabledCurrencies={
+                {} as { enabledModuleCurrencies: Array<Erc20> }
+              }
             />
           ) : (
             <div className="flex justify-end">

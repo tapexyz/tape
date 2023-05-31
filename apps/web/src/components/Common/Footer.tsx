@@ -82,7 +82,7 @@ const Footer: React.FC = () => {
         }}
         target="_blank"
       >
-        <Trans>Feedback</Trans>
+        <Trans id="feedback">Feedback</Trans>
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
@@ -93,7 +93,7 @@ const Footer: React.FC = () => {
         }}
         href="/terms"
       >
-        <Trans>Terms</Trans>
+        <Trans id="terms">Terms</Trans>
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
@@ -104,7 +104,7 @@ const Footer: React.FC = () => {
         }}
         href="/privacy"
       >
-        <Trans>Privacy</Trans>
+        <Trans id="privacy">Privacy</Trans>
       </Link>
     </div>
   )

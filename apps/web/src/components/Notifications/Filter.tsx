@@ -1,19 +1,17 @@
 import CogOutline from '@components/Common/Icons/CogOutline'
 import DropMenu from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
-import usePersistStore from '@lib/store/persist'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import React from 'react'
-import { CustomNotificationsFilterEnum } from 'utils'
 
-const NotificationsFilter = () => {
-  const selectedNotificationsFilter = usePersistStore(
-    (state) => state.selectedNotificationsFilter
-  )
-  const setSelectedNotificationsFilter = usePersistStore(
-    (state) => state.setSelectedNotificationsFilter
-  )
+const NotificationsFilter: React.FC = () => {
+  // const selectedNotificationsFilter = usePersistStore(
+  //   (state) => state.selectedNotificationsFilter
+  // )
+  // const setSelectedNotificationsFilter = usePersistStore(
+  //   (state) => state.setSelectedNotificationsFilter
+  // )
 
   return (
     <DropMenu
@@ -23,15 +21,13 @@ const NotificationsFilter = () => {
         <Menu.Item
           className={clsx(
             'w-full rounded-lg px-3 py-1.5 text-left',
-            selectedNotificationsFilter ===
-              CustomNotificationsFilterEnum.HIGH_SIGNAL
-              ? 'bg-gray-100 dark:bg-gray-800'
-              : 'opacity-60 hover:opacity-100'
+            'bg-gray-100 dark:bg-gray-800'
           )}
-          onClick={() =>
-            setSelectedNotificationsFilter(
-              CustomNotificationsFilterEnum.HIGH_SIGNAL
-            )
+          onClick={
+            () => {}
+            // setSelectedNotificationsFilter(
+            //   CustomNotificationsFilterEnum.HIGH_SIGNAL
+            // )
           }
           as="button"
         >
@@ -42,15 +38,13 @@ const NotificationsFilter = () => {
         <Menu.Item
           className={clsx(
             'w-full rounded-lg px-3 py-1.5 text-left',
-            selectedNotificationsFilter ===
-              CustomNotificationsFilterEnum.ALL_NOTIFICATIONS
-              ? 'bg-gray-100 dark:bg-gray-800'
-              : 'opacity-60 hover:opacity-100'
+            'bg-gray-100 dark:bg-gray-800'
           )}
-          onClick={() =>
-            setSelectedNotificationsFilter(
-              CustomNotificationsFilterEnum.ALL_NOTIFICATIONS
-            )
+          onClick={
+            () => {}
+            // setSelectedNotificationsFilter(
+            //   CustomNotificationsFilterEnum.ALL_NOTIFICATIONS
+            // )
           }
           as="button"
         >

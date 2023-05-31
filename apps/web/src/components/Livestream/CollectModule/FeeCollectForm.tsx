@@ -1,20 +1,15 @@
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
 import { utils } from 'ethers'
 import type { Erc20 } from 'lens'
-import type { Dispatch, FC } from 'react'
+import type { Dispatch } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import type { CollectModuleType, UploadedVideo } from 'utils'
 import { WMATIC_TOKEN_ADDRESS } from 'utils'
-import { FEATURE_FLAGS } from 'utils/data/feature-flags'
-import getIsFeatureEnabled from 'utils/functions/getIsFeatureEnabled'
 import { z } from 'zod'
-
-import Splits from './Splits'
 
 type Props = {
   uploadedVideo: UploadedVideo
@@ -34,7 +29,7 @@ const formSchema = z.object({
 })
 export type FormData = z.infer<typeof formSchema>
 
-const FeeCollectForm: FC<Props> = ({
+const FeeCollectForm: React.FC<Props> = ({
   uploadedVideo,
   setCollectType,
   setShowModal,
@@ -56,7 +51,7 @@ const FeeCollectForm: FC<Props> = ({
       collectLimit: uploadedVideo.collectModule.collectLimit || '1'
     }
   })
-  const selectedChannel = useAppStore((state) => state.selectedChannel)
+  // const selectedChannel = useAppStore((state) => state.selectedChannel)
   const [selectedCurrencySymbol, setSelectedCurrencySymbol] = useState('WMATIC')
   const splitRecipients = uploadedVideo.collectModule.multiRecipients ?? []
 
@@ -82,7 +77,7 @@ const FeeCollectForm: FC<Props> = ({
         value: data.amount
       },
       referralFee: data.referralPercent,
-      recipient: selectedChannel?.ownedBy,
+      // recipient: selectedChannel?.ownedBy,
       collectLimit: data.collectLimit
     })
     setShowModal(false)
@@ -203,10 +198,10 @@ const FeeCollectForm: FC<Props> = ({
           validationError={errors.referralPercent?.message}
         />
       </div>
-      {getIsFeatureEnabled(
+      {/* {getIsFeatureEnabled(
         FEATURE_FLAGS.MULTI_COLLECT_MODULE,
         selectedChannel?.id
-      ) && <Splits />}
+      ) && <Splits />} */}
       <div className="flex justify-end pt-2">
         <Button type="button" onClick={() => handleSubmit(validateInputs)()}>
           Set Collect Type
