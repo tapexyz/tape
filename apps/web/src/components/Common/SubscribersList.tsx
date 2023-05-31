@@ -69,7 +69,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
             >
               <div className="flex items-center space-x-1.5">
                 <img
-                  className="h-5 w-5 rounded"
+                  className="h-5 w-5 rounded-full"
                   src={getProfilePicture(
                     subscriber.wallet?.defaultProfile,
                     'AVATAR'
@@ -98,7 +98,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
             <AddressExplorerLink address={subscriber.wallet?.address}>
               <div className="font-base flex items-center space-x-1.5">
                 <img
-                  className="h-5 w-5 rounded"
+                  className="h-5 w-5 rounded-full"
                   src={imageCdn(
                     getRandomProfilePicture(subscriber.wallet.address),
                     'AVATAR'
