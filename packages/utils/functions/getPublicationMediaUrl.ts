@@ -11,6 +11,10 @@ export const getPublicationMediaUrl = (video: Publication) => {
   return sanitizeDStorageUrl(url)
 }
 
+export const getPublicationRawMediaUrl = (video: Publication) => {
+  return video?.metadata?.media[0]?.onChain.url
+}
+
 export const getPublicationHlsUrl = (video: Publication) => {
   const url = video?.metadata?.media[0]?.optimized?.url
   if (!url) {

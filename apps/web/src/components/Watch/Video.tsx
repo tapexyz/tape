@@ -9,7 +9,7 @@ import { LENSTUBE_BYTES_APP_ID } from 'utils'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import {
   getPublicationHlsUrl,
-  getPublicationMediaUrl
+  getPublicationRawMediaUrl
 } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
@@ -47,7 +47,7 @@ const Video: FC<Props> = ({ video }) => {
       <VideoPlayer
         refCallback={refCallback}
         currentTime={videoWatchTime}
-        permanentUrl={getPublicationMediaUrl(video)}
+        permanentUrl={getPublicationRawMediaUrl(video)}
         hlsUrl={getPublicationHlsUrl(video)}
         posterUrl={thumbnailUrl}
         options={{

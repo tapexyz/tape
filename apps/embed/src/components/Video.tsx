@@ -6,7 +6,8 @@ import React, { useEffect, useState } from 'react'
 import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
 import {
   getPublicationHlsUrl,
-  getPublicationMediaUrl
+  getPublicationMediaUrl,
+  getPublicationRawMediaUrl
 } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
@@ -72,7 +73,7 @@ const Video: FC<Props> = ({ video }) => {
       {clicked ? (
         <VideoPlayer
           refCallback={refCallback}
-          permanentUrl={getPublicationMediaUrl(video)}
+          permanentUrl={getPublicationRawMediaUrl(video)}
           hlsUrl={getPublicationHlsUrl(video)}
           posterUrl={thumbnailUrl}
           currentTime={currentTime}
