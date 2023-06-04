@@ -6,7 +6,7 @@ import React, { useEffect, useRef } from 'react'
 import { Analytics, TRACK } from 'utils'
 import {
   getPublicationHlsUrl,
-  getPublicationMediaUrl
+  getPublicationRawMediaUrl
 } from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
@@ -112,7 +112,7 @@ const ByteVideo: FC<Props> = ({
           {currentViewingId === video.id ? (
             <VideoPlayer
               refCallback={refCallback}
-              permanentUrl={getPublicationMediaUrl(video)}
+              permanentUrl={getPublicationRawMediaUrl(video)}
               hlsUrl={getPublicationHlsUrl(video)}
               posterUrl={thumbnailUrl}
               ratio="9to16"
@@ -135,7 +135,7 @@ const ByteVideo: FC<Props> = ({
               />
               <span className="invisible absolute">
                 <VideoPlayer
-                  permanentUrl={getPublicationMediaUrl(video)}
+                  permanentUrl={getPublicationRawMediaUrl(video)}
                   hlsUrl={getPublicationHlsUrl(video)}
                   showControls={false}
                   options={{
