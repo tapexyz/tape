@@ -34,7 +34,6 @@ const App = ({ Component, pageProps }: AppProps) => {
           }
         `}</style>
         <Layout>
-          {/* @ts-expect-error Server Component */}
           <Component {...pageProps} />
         </Layout>
       </Providers>
