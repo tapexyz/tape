@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#/ Usage: script/clean
+#/ Clean all node_modules and yarn.lock files recursively.
+
+echo "Deleting all node_modules and yarn.lock files recursively 🗑"
+find . -name "node_modules" -type d -prune -exec rm -rf '{}' + -print
+find . -name "yarn.lock" -type f -prune -exec rm -rf '{}' + -print
+echo "node_modules and yarn.lock files deleted 🎉"
