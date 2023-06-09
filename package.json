@@ -28,7 +28,7 @@
     "husky": "^8.0.3",
     "start-server-and-test": "^2.0.0",
     "ts-node": "latest",
-    "turbo": "1.10.1"
+    "turbo": "1.10.2"
   },
   "engines": {
     "node": ">=16.0.0"
