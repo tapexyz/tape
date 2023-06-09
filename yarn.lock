@@ -3288,10 +3288,10 @@
     "@babel/runtime" "^7.20.13"
     "@lingui/core" "4.2.1"
 
-"@lingui/swc-plugin@^4.0.0":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@lingui/swc-plugin/-/swc-plugin-4.0.2.tgz#1c704a8ffb4f626d161eef2ba6e60be6f110ee59"
-  integrity sha512-uhnN8DFIpfUkMmawHg9F2njejIepw2As88lUB4TeAqRWL+J8fDLo3o1Xo5lOXve9QnjIYMUr04XIiFoSHVmUcg==
+"@lingui/swc-plugin@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@lingui/swc-plugin/-/swc-plugin-4.0.0.tgz#187d58b816d794bfd57ad354e4aea8a6b3d24a92"
+  integrity sha512-GR+hUu8z/5D/a5k3uMj0q5wR8JojTOtp6r34ubApfEzgiShMEzL1Yd4cewWS/UhQtTs6vvsREArRu/Jid06g1Q==
 
 "@lit-labs/ssr-dom-shim@^1.0.0", "@lit-labs/ssr-dom-shim@^1.1.0":
   version "1.1.1"
