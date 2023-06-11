@@ -113,7 +113,6 @@ export const ALLOWED_APP_IDS = ['orb', 'lenster', 'buttrfly', 'lensplay']
 export const LENSTUBE_TWITTER_HANDLE = 'lenstubexyz'
 export const LENSTUBE_GITHUB_HANDLE = 'lenstube-xyz'
 export const LENSTUBE_STATUS_PAGE = 'https://status.lenstube.xyz'
-export const TALLY_VERIFICATION_FORM_URL = 'https://tally.so/r/mY5e80'
 export const LENSTUBE_ROADMAP_URL = 'https://roadmap.lenstube.xyz'
 
 // admin
