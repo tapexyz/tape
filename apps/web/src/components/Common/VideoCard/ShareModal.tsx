@@ -48,7 +48,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
               <MirrorOutline className="h-5 w-5" />
             </div>
           </MirrorVideo>
-          {/* <Link
+          <Link
             className="rounded-full"
             target="_blank"
             rel="noreferrer"
@@ -65,7 +65,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
               alt="lenster"
               draggable={false}
             />
-          </Link> */}
+          </Link>
           <span className="middot" />
           <Link
             className="rounded-full"
