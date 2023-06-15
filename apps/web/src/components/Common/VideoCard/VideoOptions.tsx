@@ -352,30 +352,34 @@ const VideoOptions: FC<Props> = ({
               </span>
             </button>
 
-            <button
-              type="button"
-              onClick={() => onClickReport()}
-              className="hhover:opacity-100 inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-            >
-              <FlagOutline className="h-3.5 w-3.5" />
-              <span className="whitespace-nowrap">
-                <Trans>Report</Trans>
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => notInterested()}
-              className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-            >
-              <ForbiddenOutline className="h-3.5 w-3.5" />
-              <span className="whitespace-nowrap">
-                {video.notInterested ? (
-                  <Trans>Undo Interest</Trans>
-                ) : (
-                  <Trans>Not Interested</Trans>
-                )}
-              </span>
-            </button>
+            {!isVideoOwner && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => onClickReport()}
+                  className="hhover:opacity-100 inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <FlagOutline className="h-3.5 w-3.5" />
+                  <span className="whitespace-nowrap">
+                    <Trans>Report</Trans>
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => notInterested()}
+                  className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <ForbiddenOutline className="h-3.5 w-3.5" />
+                  <span className="whitespace-nowrap">
+                    {video.notInterested ? (
+                      <Trans>Undo Interest</Trans>
+                    ) : (
+                      <Trans>Not Interested</Trans>
+                    )}
+                  </span>
+                </button>
+              </>
+            )}
           </div>
         </div>
       </DropMenu>
