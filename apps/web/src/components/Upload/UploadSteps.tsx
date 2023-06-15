@@ -477,7 +477,7 @@ const UploadSteps = () => {
         const fileSize = uploadedVideo?.file?.size as number
         const lastChunk = fileSize - chunkInfo.totalUploaded
         if (lastChunk <= chunkSize) {
-          toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+          toast.loading(REQUESTING_SIGNATURE_MESSAGE, { duration: 8000 })
         }
         const percentCompleted = Math.round(
           (chunkInfo.totalUploaded * 100) / fileSize
