@@ -3,6 +3,7 @@ import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import BytesShimmer from '@components/Shimmers/BytesShimmer'
 import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import type { Publication } from 'lens'
 import {
@@ -28,6 +29,7 @@ import imageCdn from 'utils/functions/imageCdn'
 const BytesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
@@ -44,7 +46,7 @@ const BytesSection = () => {
   }
 
   const { data, error, loading } = useExploreQuery({
-    variables: { request }
+    variables: { request, channelId: selectedChannel?.id ?? null }
   })
 
   const bytes = data?.explorePublications?.items as Publication[]

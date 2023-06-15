@@ -19,7 +19,7 @@ fragment CommentFields on Comment {
   collectNftAddress
   onChainContentURI
   hidden
-  notInterested
+  notInterested(by: $channelId)
   isGated
   isDataAvailability
   hasCollectedByMe

@@ -3,6 +3,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import type { Publication } from 'lens'
 import {
@@ -22,6 +23,7 @@ import {
 
 const HomeFeed = () => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
@@ -38,7 +40,7 @@ const HomeFeed = () => {
   }
 
   const { data, loading, error, fetchMore } = useExploreQuery({
-    variables: { request }
+    variables: { request, channelId: selectedChannel?.id ?? null }
   })
 
   const pageInfo = data?.explorePublications?.pageInfo
@@ -52,7 +54,8 @@ const HomeFeed = () => {
           request: {
             ...request,
             cursor: pageInfo?.next
-          }
+          },
+          channelId: selectedChannel?.id ?? null
         }
       })
     }

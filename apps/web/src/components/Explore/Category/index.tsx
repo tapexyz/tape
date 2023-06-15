@@ -3,6 +3,7 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import type { Publication } from 'lens'
 import {
@@ -27,6 +28,7 @@ import getCategoryName from 'utils/functions/getCategoryName'
 const ExploreCategory = () => {
   const { query } = useRouter()
   const categoryName = query.category as string
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const request = {
     publicationTypes: [PublicationTypes.Post],
@@ -42,7 +44,8 @@ const ExploreCategory = () => {
 
   const { data, loading, error, fetchMore } = useExploreQuery({
     variables: {
-      request
+      request,
+      channelId: selectedChannel?.id ?? null
     },
     skip: !query.category
   })
@@ -58,7 +61,8 @@ const ExploreCategory = () => {
           request: {
             cursor: pageInfo?.next,
             ...request
-          }
+          },
+          channelId: selectedChannel?.id ?? null
         }
       })
     }

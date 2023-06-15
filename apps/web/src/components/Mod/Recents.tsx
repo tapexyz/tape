@@ -2,6 +2,7 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import type { Publication } from 'lens'
 import {
@@ -21,6 +22,8 @@ import {
 } from 'utils'
 
 const Recents = () => {
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+
   const request = {
     sortCriteria: PublicationSortCriteria.Latest,
     limit: 32,
@@ -35,7 +38,8 @@ const Recents = () => {
 
   const { data, loading, error, fetchMore } = useExploreQuery({
     variables: {
-      request
+      request,
+      channelId: selectedChannel?.id ?? null
     }
   })
 
@@ -50,7 +54,8 @@ const Recents = () => {
           request: {
             ...request,
             cursor: pageInfo?.next
-          }
+          },
+          channelId: selectedChannel?.id ?? null
         }
       })
     }

@@ -1,5 +1,6 @@
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
+import useChannelStore from '@lib/store/channel'
 import type { Publication } from 'lens'
 import {
   PublicationMainFocus,
@@ -35,9 +36,13 @@ const SuggestedVideos: FC = () => {
   const {
     query: { id }
   } = useRouter()
+
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+
   const { data, loading, error, fetchMore, refetch } = useExploreQuery({
     variables: {
-      request
+      request,
+      channelId: selectedChannel?.id ?? null
     }
   })
 
@@ -56,7 +61,8 @@ const SuggestedVideos: FC = () => {
           request: {
             ...request,
             cursor: pageInfo?.next
-          }
+          },
+          channelId: selectedChannel?.id ?? null
         }
       })
     }

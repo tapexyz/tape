@@ -7,6 +7,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { Publication } from 'lens'
@@ -37,6 +38,7 @@ const initialCriteria = {
 const ExploreFeed = () => {
   const [activeCriteria, setActiveCriteria] = useState(initialCriteria)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const getCriteria = () => {
     if (activeCriteria.trending) {
@@ -67,7 +69,8 @@ const ExploreFeed = () => {
 
   const { data, loading, error, fetchMore } = useExploreQuery({
     variables: {
-      request
+      request,
+      channelId: selectedChannel?.id ?? null
     }
   })
 
@@ -82,7 +85,8 @@ const ExploreFeed = () => {
           request: {
             ...request,
             cursor: pageInfo?.next
-          }
+          },
+          channelId: selectedChannel?.id ?? null
         }
       })
     }

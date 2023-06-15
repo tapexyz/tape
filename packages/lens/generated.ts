@@ -14017,7 +14017,7 @@ export const PostFieldsFragmentDoc = gql`
     collectNftAddress
     onChainContentURI
     isGated
-    notInterested
+    notInterested(by: $channelId)
     isDataAvailability
     dataAvailabilityProofs
     hidden
@@ -14060,7 +14060,7 @@ export const CommentFieldsFragmentDoc = gql`
     collectNftAddress
     onChainContentURI
     hidden
-    notInterested
+    notInterested(by: $channelId)
     isGated
     isDataAvailability
     hasCollectedByMe
@@ -14115,7 +14115,7 @@ export const MirrorFieldsFragmentDoc = gql`
     collectNftAddress
     onChainContentURI
     hidden
-    notInterested
+    notInterested(by: $channelId)
     isGated
     isDataAvailability
     dataAvailabilityProofs

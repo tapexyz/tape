@@ -19,7 +19,7 @@ fragment PostFields on Post {
   collectNftAddress
   onChainContentURI
   isGated
-  notInterested
+  notInterested(by: $channelId)
   isDataAvailability
   dataAvailabilityProofs
   hidden
