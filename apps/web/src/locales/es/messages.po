@@ -122,7 +122,7 @@ msgstr "Bytes"
 msgid "can collect"
 msgstr "puede recoger"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:325
+#: src/components/Watch/CollectVideo/CollectModal.tsx:313
 msgid "can collect this publication"
 msgstr "puede recoger esta publicación"
 
@@ -136,11 +136,11 @@ msgstr "Cancelar"
 msgid "Category"
 msgstr "Categoría"
 
-#: src/components/Settings/BasicInfo.tsx:301
+#: src/components/Settings/BasicInfo.tsx:297
 msgid "Change"
 msgstr "Cambiar"
 
-#: src/components/Settings/BasicInfo.tsx:314
+#: src/components/Settings/BasicInfo.tsx:310
 msgid "Channel"
 msgstr "Canal"
 
@@ -148,7 +148,7 @@ msgstr "Canal"
 msgid "Channel deleted"
 msgstr "Canal eliminado"
 
-#: src/components/Settings/BasicInfo.tsx:367
+#: src/components/Settings/BasicInfo.tsx:351
 msgid "Channel Description"
 msgstr "Descripción del canal"
 
@@ -161,7 +161,7 @@ msgstr "Imagen del canal actualizada"
 msgid "Channel Settings"
 msgstr "Ajustes del canal"
 
-#: src/components/Settings/BasicInfo.tsx:338
+#: src/components/Settings/BasicInfo.tsx:322
 msgid "Channel URL"
 msgstr "URL del canal"
 
@@ -191,7 +191,7 @@ msgstr "Recoger como NFT para"
 msgid "Collect Currency"
 msgstr "Recoger moneda"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:335
+#: src/components/Watch/CollectVideo/CollectModal.tsx:323
 msgid "Collect for free"
 msgstr "Recoger gratis"
 
@@ -203,7 +203,7 @@ msgstr "Recoger gratis"
 msgid "Collect limit should be greater than 0"
 msgstr "El límite de recogida debe ser mayor que 0"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:335
+#: src/components/Watch/CollectVideo/CollectModal.tsx:323
 msgid "Collect Now"
 msgstr "Recoge ahora"
 
@@ -211,7 +211,7 @@ msgstr "Recoge ahora"
 msgid "Collect Type"
 msgstr "Tipo de recogida"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:219
+#: src/components/Watch/CollectVideo/CollectModal.tsx:223
 msgid "Collect Video"
 msgstr "Recoger vídeo"
 
@@ -324,7 +324,7 @@ msgstr "Zona de peligro"
 msgid "degrees away from my network"
 msgstr "grados lejos de mi red"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:291
+#: src/components/Common/VideoCard/VideoOptions.tsx:339
 #: src/components/Watch/Comments/CommentOptions.tsx:69
 msgid "Delete"
 msgstr "Eliminar"
@@ -377,7 +377,7 @@ msgstr "despachador"
 msgid "Dispatcher"
 msgstr "Despachador"
 
-#: src/components/Settings/BasicInfo.tsx:358
+#: src/components/Settings/BasicInfo.tsx:342
 msgid "Display Name"
 msgstr "Mostrar nombre"
 
@@ -402,7 +402,7 @@ msgstr "Activar"
 msgid "enabled"
 msgstr "activado"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:255
+#: src/components/Watch/CollectVideo/CollectModal.tsx:256
 msgid "Ends At"
 msgstr "Termina en"
 
@@ -463,8 +463,8 @@ msgid "for given fees"
 msgstr "por los honorarios dados"
 
 #: src/components/Settings/BasicInfo.tsx:331
-msgid "Get Verified"
-msgstr "Verificar"
+#~ msgid "Get Verified"
+#~ msgstr "Verificar"
 
 #: src/components/Settings/Membership.tsx:198
 msgid "Grow with Lens"
@@ -594,7 +594,7 @@ msgstr "Colección limitada"
 msgid "Links"
 msgstr "Enlaces"
 
-#: src/components/Settings/BasicInfo.tsx:400
+#: src/components/Settings/BasicInfo.tsx:384
 msgid "Location"
 msgstr "Ubicación"
 
@@ -602,7 +602,7 @@ msgstr "Ubicación"
 msgid "Login"
 msgstr "Ingresar"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:324
+#: src/components/Watch/CollectVideo/CollectModal.tsx:312
 msgid "Members"
 msgstr "Miembros"
 
@@ -670,7 +670,7 @@ msgstr "Etiquetas erróneas"
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
 msgstr "Momoka está actualmente en fase beta - durante este tiempo determinadas acciones no están disponibles para todos los canales."
 
-#: src/components/Settings/BasicInfo.tsx:368
+#: src/components/Settings/BasicInfo.tsx:352
 msgid "More about your channel"
 msgstr "Más acerca de tu canal"
 
@@ -740,6 +740,10 @@ msgstr "Ninguna"
 msgid "Not enough"
 msgstr "No suficiente"
 
+#: src/components/Common/VideoCard/VideoOptions.tsx:377
+msgid "Not Interested"
+msgstr ""
+
 #: src/components/Notifications/index.tsx:125
 msgid "Notifications"
 msgstr "Notificaciones"
@@ -752,7 +756,7 @@ msgstr "NSFW"
 msgid "Offensive"
 msgstr "Ofensivo"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:323
+#: src/components/Watch/CollectVideo/CollectModal.tsx:311
 msgid "Only"
 msgstr "Sólo"
 
@@ -804,11 +808,11 @@ msgstr "Permiso actualizado"
 msgid "Permissions"
 msgstr "Permisos"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:268
+#: src/components/Common/VideoCard/VideoOptions.tsx:316
 msgid "Pin Video"
 msgstr "Fijar vídeo"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:199
+#: src/components/Common/VideoCard/VideoOptions.tsx:205
 msgid "Pinning video..."
 msgstr "Fijando vídeo..."
 
@@ -842,7 +846,7 @@ msgstr "Publicar vídeo"
 msgid "Posting video"
 msgstr "Publicando vídeo"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:243
+#: src/components/Watch/CollectVideo/CollectModal.tsx:245
 msgid "Price"
 msgstr "Precio"
 
@@ -866,7 +870,7 @@ msgstr "Prueba de Personalidad"
 msgid "Publication reported successfully."
 msgstr "Publicación reportada con éxito."
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:280
+#: src/components/Common/VideoCard/VideoOptions.tsx:328
 msgid "Raw Video"
 msgstr "Raw Video"
 
@@ -876,15 +880,15 @@ msgstr "Razón"
 
 #: src/components/Settings/Membership.tsx:236
 #: src/components/Settings/Membership.tsx:290
-#: src/components/Watch/CollectVideo/CollectModal.tsx:304
+#: src/components/Watch/CollectVideo/CollectModal.tsx:292
 msgid "Recipient"
 msgstr "Destinatario"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:303
+#: src/components/Watch/CollectVideo/CollectModal.tsx:291
 msgid "Recipients"
 msgstr "Destinatarios"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:293
+#: src/components/Watch/CollectVideo/CollectModal.tsx:281
 msgid "Referral Fee"
 msgstr "Tarifa de referencia"
 
@@ -909,7 +913,7 @@ msgstr "respuestas"
 msgid "Reply"
 msgstr "Responder"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:313
+#: src/components/Common/VideoCard/VideoOptions.tsx:364
 #: src/components/ReportPublication/index.tsx:157
 #: src/components/Watch/Comments/CommentOptions.tsx:80
 #: src/components/Watch/VideoActions.tsx:69
@@ -925,8 +929,8 @@ msgstr "Publicación del informe"
 msgid "Reset"
 msgstr "Reiniciar"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:279
-#: src/components/Watch/CollectVideo/CollectModal.tsx:301
+#: src/components/Watch/CollectVideo/CollectModal.tsx:267
+#: src/components/Watch/CollectVideo/CollectModal.tsx:289
 msgid "Revenue"
 msgstr "Ingresos"
 
@@ -934,7 +938,7 @@ msgstr "Ingresos"
 msgid "Revoke"
 msgstr "Revoke"
 
-#: src/components/Settings/BasicInfo.tsx:408
+#: src/components/Settings/BasicInfo.tsx:392
 msgid "Save"
 msgstr "Guardar"
 
@@ -973,7 +977,7 @@ msgstr "Establecer tipo de colección"
 msgid "Set Preference"
 msgstr "Establecer preferencia"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:303
+#: src/components/Common/VideoCard/VideoOptions.tsx:351
 #: src/components/Watch/VideoActions.tsx:56
 msgid "Share"
 msgstr "Compartir"
@@ -1078,7 +1082,7 @@ msgstr "suscriptores"
 #: src/components/Channel/BasicInfo/index.tsx:71
 #: src/components/Upload/CollectModule/index.tsx:49
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx:65
-#: src/components/Watch/CollectVideo/CollectModal.tsx:324
+#: src/components/Watch/CollectVideo/CollectModal.tsx:312
 msgid "Subscribers"
 msgstr "Suscriptores"
 
@@ -1223,7 +1227,7 @@ msgstr "Total Coleccionables"
 msgid "total collects"
 msgstr "total de colecciones"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:229
+#: src/components/Watch/CollectVideo/CollectModal.tsx:233
 msgid "Total Collects"
 msgstr "Colecciones totales"
 
@@ -1243,13 +1247,17 @@ msgstr "suscripciones totales"
 msgid "total videos"
 msgstr "total de vídeos"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:115
+#: src/components/Common/VideoCard/VideoOptions.tsx:121
 msgid "Transaction submitted"
 msgstr "Transacción enviada"
 
 #: src/components/Explore/Feed.tsx:110
 msgid "Trending"
 msgstr "Tendencias"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:375
+msgid "Undo Interest"
+msgstr ""
 
 #: src/components/Upload/CollectModule/LimitQuestion.tsx:37
 msgid "Unlimited collects"
@@ -1328,13 +1336,21 @@ msgstr "Verificado"
 msgid "video"
 msgstr "vídeo"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:82
+#: src/components/Common/VideoCard/VideoOptions.tsx:88
 msgid "Video deleted"
 msgstr "Vídeo eliminado"
 
 #: src/components/Upload/DropZone.tsx:51
 msgid "Video format not supported"
 msgstr "Formato de vídeo no soportado"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:250
+msgid "Video marked as interested"
+msgstr ""
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:249
+msgid "Video marked as not interested"
+msgstr ""
 
 #: src/components/Upload/UploadSteps.tsx:483
 msgid "Video not uploaded correctly"
@@ -1398,7 +1414,7 @@ msgstr "Vigilar"
 msgid "Watch Video"
 msgstr "Ver vídeo"
 
-#: src/components/Settings/BasicInfo.tsx:392
+#: src/components/Settings/BasicInfo.tsx:376
 msgid "Website"
 msgstr "Sitio web"
 
@@ -1465,4 +1481,3 @@ msgstr "Tu Canal"
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
 msgstr "Tu saldo de almacenamiento"
-
