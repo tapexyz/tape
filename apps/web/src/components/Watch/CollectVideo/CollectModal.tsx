@@ -79,6 +79,10 @@ const CollectModal: FC<Props> = ({
     collectModule?.fee?.amount?.asset?.decimals
   const referralFee =
     collectModule?.referralFee ?? collectModule?.fee?.referralFee
+  const collectLimit =
+    collectModule?.collectLimit ?? collectModule?.optionalCollectLimit
+  const endTimestamp =
+    collectModule?.endTimestamp ?? collectModule?.optionalEndTimestamp
 
   useEffect(() => {
     Analytics.track(TRACK.OPEN_COLLECT)
@@ -231,9 +235,7 @@ const CollectModal: FC<Props> = ({
               <span className="space-x-1">
                 <span className="text-lg">
                   {formatNumber(video?.stats.totalAmountOfCollects)}
-                  {collectModule?.collectLimit && (
-                    <span> / {collectModule?.collectLimit}</span>
-                  )}
+                  {collectLimit && <span> / {collectLimit}</span>}
                 </span>
               </span>
             </div>
@@ -248,29 +250,15 @@ const CollectModal: FC<Props> = ({
                 </span>
               </div>
             ) : null}
-            {collectModule?.endTimestamp ||
-            collectModule?.optionalEndTimestamp ? (
+            {endTimestamp ? (
               <div className="mb-3 flex flex-col">
                 <span className="mb-0.5 text-sm font-semibold">
                   <Trans>Ends At</Trans>
                 </span>
-                {collectModule.endTimestamp && (
-                  <span className="text-lg">
-                    {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')}{' '}
-                    at {dayjs(collectModule.endTimestamp).format('hh:mm a')}
-                  </span>
-                )}
-                {collectModule.optionalEndTimestamp && (
-                  <span className="text-lg">
-                    {dayjs(collectModule.optionalEndTimestamp).format(
-                      'MMMM DD, YYYY'
-                    )}{' '}
-                    at{' '}
-                    {dayjs(collectModule.optionalEndTimestamp).format(
-                      'hh:mm a'
-                    )}
-                  </span>
-                )}
+                <span className="text-lg">
+                  {dayjs(endTimestamp).format('MMMM DD, YYYY')} at{' '}
+                  {dayjs(endTimestamp).format('hh:mm a')}
+                </span>
               </div>
             ) : null}
             {revenueData?.publicationRevenue ? (
