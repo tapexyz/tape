@@ -19,6 +19,7 @@ fragment PostFields on Post {
   collectNftAddress
   onChainContentURI
   isGated
+  notInterested
   isDataAvailability
   dataAvailabilityProofs
   hidden

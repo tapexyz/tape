@@ -1,4 +1,5 @@
 import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
+import { useApolloClient } from '@apollo/client'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
@@ -14,10 +15,12 @@ import type {
 } from 'lens'
 import {
   PublicationMetadataDisplayTypes,
+  useAddPublicationNotInterestedMutation,
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation,
-  useHidePublicationMutation
+  useHidePublicationMutation,
+  useRemovePublicationNotInterestedMutation
 } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -41,6 +44,7 @@ import { useContractWrite, useSignTypedData } from 'wagmi'
 
 import ExternalOutline from '../Icons/ExternalOutline'
 import FlagOutline from '../Icons/FlagOutline'
+import ForbiddenOutline from '../Icons/ForbiddenOutline'
 import PinOutline from '../Icons/PinOutline'
 import ShareOutline from '../Icons/ShareOutline'
 import ThreeDotsOutline from '../Icons/ThreeDotsOutline'
@@ -61,6 +65,8 @@ const VideoOptions: FC<Props> = ({
 }) => {
   const { openConnectModal } = useConnectModal()
   const [showConfirm, setShowConfirm] = useState(false)
+
+  const { cache } = useApolloClient()
 
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const selectedChannelId = useAuthPersistStore(
@@ -233,6 +239,48 @@ const VideoOptions: FC<Props> = ({
     } catch {}
   }
 
+  const modifyInterestCache = (notInterested: boolean) => {
+    cache.modify({
+      id: `Post:${video?.id}`,
+      fields: { notInterested: () => notInterested }
+    })
+    toast.success(
+      notInterested
+        ? t`Video marked as not interested`
+        : t`Video marked as interested`
+    )
+    Analytics.track(TRACK.PUBLICATION.TOGGLE_INTEREST)
+  }
+
+  const [addNotInterested] = useAddPublicationNotInterestedMutation({
+    onError,
+    onCompleted: () => modifyInterestCache(true)
+  })
+
+  const [removeNotInterested] = useRemovePublicationNotInterestedMutation({
+    onError,
+    onCompleted: () => modifyInterestCache(false)
+  })
+
+  const notInterested = () => {
+    if (!selectedChannelId) {
+      return openConnectModal?.()
+    }
+    if (video.notInterested) {
+      removeNotInterested({
+        variables: {
+          request: { profileId: selectedChannelId, publicationId: video.id }
+        }
+      })
+    } else {
+      addNotInterested({
+        variables: {
+          request: { profileId: selectedChannelId, publicationId: video.id }
+        }
+      })
+    }
+  }
+
   return (
     <>
       <Confirm
@@ -253,7 +301,7 @@ const VideoOptions: FC<Props> = ({
           </div>
         }
       >
-        <div className="bg-secondary mt-0.5 w-36 overflow-hidden rounded-xl border border-gray-200 p-1 shadow dark:border-gray-800">
+        <div className="bg-secondary mt-0.5 w-40 overflow-hidden rounded-xl border border-gray-200 p-1 shadow dark:border-gray-800">
           <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
             {isVideoOwner && (
               <>
@@ -303,6 +351,7 @@ const VideoOptions: FC<Props> = ({
                 <Trans>Share</Trans>
               </span>
             </button>
+
             <button
               type="button"
               onClick={() => onClickReport()}
@@ -311,6 +360,20 @@ const VideoOptions: FC<Props> = ({
               <FlagOutline className="h-3.5 w-3.5" />
               <span className="whitespace-nowrap">
                 <Trans>Report</Trans>
+              </span>
+            </button>
+            <button
+              type="button"
+              onClick={() => notInterested()}
+              className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              <ForbiddenOutline className="h-3.5 w-3.5" />
+              <span className="whitespace-nowrap">
+                {video.notInterested ? (
+                  <Trans>Undo Interest</Trans>
+                ) : (
+                  <Trans>Not Interested</Trans>
+                )}
               </span>
             </button>
           </div>

@@ -23,6 +23,7 @@ export const TRACK = {
     PIN: 'Pin publication',
     DELETE: 'Delete publication',
     REPORT: 'Report Publication',
+    TOGGLE_INTEREST: 'Toggle Publication Interest',
     TIP: {
       OPEN: 'Open Tip Modal',
       SENT: 'Tip Sent'

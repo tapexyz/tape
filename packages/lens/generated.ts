@@ -11,85 +11,80 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>
 }
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T
-> = { [_ in K]?: never }
-export type Incremental<T> =
-  | T
-  | {
-      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never
-    }
 const defaultOptions = {} as const
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string | number; output: string }
-  String: { input: string; output: string }
-  Boolean: { input: boolean; output: boolean }
-  Int: { input: number; output: number }
-  Float: { input: number; output: number }
-  BlockchainData: { input: any; output: any }
-  BroadcastId: { input: any; output: any }
-  ChainId: { input: any; output: any }
-  CollectModuleData: { input: any; output: any }
-  ContentEncryptionKey: { input: any; output: any }
-  ContractAddress: { input: any; output: any }
-  CreateHandle: { input: any; output: any }
-  Cursor: { input: any; output: any }
-  DataAvailabilityId: { input: any; output: any }
-  DateTime: { input: any; output: any }
-  EncryptedValueScalar: { input: any; output: any }
-  Ens: { input: any; output: any }
-  EthereumAddress: { input: any; output: any }
-  FollowModuleData: { input: any; output: any }
-  Handle: { input: any; output: any }
-  HandleClaimIdScalar: { input: any; output: any }
-  ImageSizeTransform: { input: any; output: any }
-  InternalPublicationId: { input: any; output: any }
-  IpfsCid: { input: any; output: any }
-  Jwt: { input: any; output: any }
-  LimitScalar: { input: any; output: any }
-  Locale: { input: any; output: any }
-  Markdown: { input: any; output: any }
-  MimeType: { input: any; output: any }
-  NftGalleryId: { input: any; output: any }
-  NftGalleryName: { input: any; output: any }
-  NftOwnershipId: { input: any; output: any }
-  Nonce: { input: any; output: any }
-  NotificationId: { input: any; output: any }
-  ProfileId: { input: any; output: any }
-  ProfileInterest: { input: any; output: any }
-  ProxyActionId: { input: any; output: any }
-  PublicationId: { input: any; output: any }
-  PublicationTag: { input: any; output: any }
-  PublicationUrl: { input: any; output: any }
-  ReactionId: { input: any; output: any }
-  ReferenceModuleData: { input: any; output: any }
-  Search: { input: any; output: any }
-  Signature: { input: any; output: any }
-  Sources: { input: any; output: any }
-  TimestampScalar: { input: any; output: any }
-  TokenId: { input: any; output: any }
-  TxHash: { input: any; output: any }
-  TxId: { input: any; output: any }
-  UnixTimestamp: { input: any; output: any }
-  Url: { input: any; output: any }
-  Void: { input: any; output: any }
+  ID: string
+  String: string
+  Boolean: boolean
+  Int: number
+  Float: number
+  BlockchainData: any
+  BroadcastId: any
+  ChainId: any
+  CollectModuleData: any
+  ContentEncryptionKey: any
+  ContractAddress: any
+  CreateHandle: any
+  Cursor: any
+  DataAvailabilityId: any
+  DateTime: any
+  EncryptedValueScalar: any
+  Ens: any
+  EthereumAddress: any
+  FollowModuleData: any
+  Handle: any
+  HandleClaimIdScalar: any
+  ImageSizeTransform: any
+  InternalPublicationId: any
+  IpfsCid: any
+  Jwt: any
+  LimitScalar: any
+  Locale: any
+  Markdown: any
+  MimeType: any
+  NftGalleryId: any
+  NftGalleryName: any
+  NftOwnershipId: any
+  Nonce: any
+  NotificationId: any
+  ProfileId: any
+  ProfileInterest: any
+  ProxyActionId: any
+  PublicationId: any
+  PublicationTag: any
+  PublicationUrl: any
+  ReactionId: any
+  ReferenceModuleData: any
+  Search: any
+  Signature: any
+  Sources: any
+  TimestampScalar: any
+  TokenId: any
+  TxHash: any
+  TxId: any
+  UnixTimestamp: any
+  Url: any
+  Void: any
+  ZkCommunityId: any
+  ZkIdentityCommitment: any
+  ZkPollId: any
+  ZkProof: any
 }
 
 export type AaveFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
   /** The collect module limit */
-  collectLimit?: InputMaybe<Scalars['String']['input']>
+  collectLimit?: InputMaybe<Scalars['String']>
   /** The timestamp that this collect module will expire */
-  endTimestamp?: InputMaybe<Scalars['DateTime']['input']>
+  endTimestamp?: InputMaybe<Scalars['DateTime']>
   /** Follower only */
-  followerOnly: Scalars['Boolean']['input']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']['input']
+  recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']['input']
+  referralFee: Scalars['Float']
 }
 
 export type AaveFeeCollectModuleSettings = {
@@ -97,16 +92,16 @@ export type AaveFeeCollectModuleSettings = {
   /** The collect module amount info */
   amount: ModuleFeeAmount
   /** The maximum number of collects for this publication. Omit for no limit. */
-  collectLimit?: Maybe<Scalars['String']['output']>
-  contractAddress: Scalars['ContractAddress']['output']
+  collectLimit?: Maybe<Scalars['String']>
+  contractAddress: Scalars['ContractAddress']
   /** The end timestamp after which collecting is impossible. No expiry if missing. */
-  endTimestamp?: Maybe<Scalars['DateTime']['output']>
+  endTimestamp?: Maybe<Scalars['DateTime']>
   /** True if only followers of publisher may collect the post. */
-  followerOnly: Scalars['Boolean']['output']
+  followerOnly: Scalars['Boolean']
   /** Recipient of collect fees. */
-  recipient: Scalars['EthereumAddress']['output']
+  recipient: Scalars['EthereumAddress']
   /** The referral fee associated with this publication. */
-  referralFee: Scalars['Float']['output']
+  referralFee: Scalars['Float']
   /** The collect modules enum */
   type: CollectModules
 }
@@ -153,28 +148,37 @@ export type AccessConditionOutput = {
 }
 
 export type AchRequest = {
-  ethereumAddress: Scalars['EthereumAddress']['input']
-  freeTextHandle?: InputMaybe<Scalars['Boolean']['input']>
-  handle?: InputMaybe<Scalars['CreateHandle']['input']>
-  overrideAlreadyClaimed: Scalars['Boolean']['input']
-  overrideTradeMark: Scalars['Boolean']['input']
-  secret: Scalars['String']['input']
+  ethereumAddress: Scalars['EthereumAddress']
+  freeTextHandle?: InputMaybe<Scalars['Boolean']>
+  handle?: InputMaybe<Scalars['CreateHandle']>
+  overrideAlreadyClaimed: Scalars['Boolean']
+  overrideTradeMark: Scalars['Boolean']
+  secret: Scalars['String']
 }
 
 /** The request object to add interests to a profile */
 export type AddProfileInterestsRequest = {
   /** The profile interest to add */
-  interests: Array<Scalars['ProfileInterest']['input']>
+  interests: Array<Scalars['ProfileInterest']>
   /** The profileId to add interests to */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
+}
+
+export type AddVoterRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']
+  /** The profile id */
+  profileId: Scalars['ProfileId']
+  /** The voter identity commitment */
+  voter: Scalars['ZkIdentityCommitment']
 }
 
 export type AllPublicationsTagsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   sort: TagSortCriteria
   /** The App Id */
-  source?: InputMaybe<Scalars['Sources']['input']>
+  source?: InputMaybe<Scalars['Sources']>
 }
 
 export type AndConditionInput = {
@@ -190,52 +194,50 @@ export type AndConditionOutput = {
 
 export type ApprovedAllowanceAmount = {
   __typename?: 'ApprovedAllowanceAmount'
-  allowance: Scalars['String']['output']
-  contractAddress: Scalars['ContractAddress']['output']
-  currency: Scalars['ContractAddress']['output']
-  module: Scalars['String']['output']
+  allowance: Scalars['String']
+  contractAddress: Scalars['ContractAddress']
+  currency: Scalars['ContractAddress']
+  module: Scalars['String']
 }
 
 export type ApprovedModuleAllowanceAmountRequest = {
   collectModules?: InputMaybe<Array<CollectModules>>
   /** The contract addresses for the module approved currencies you want to find information on about the user */
-  currencies: Array<Scalars['ContractAddress']['input']>
+  currencies: Array<Scalars['ContractAddress']>
   followModules?: InputMaybe<Array<FollowModules>>
   referenceModules?: InputMaybe<Array<ReferenceModules>>
-  unknownCollectModules?: InputMaybe<Array<Scalars['ContractAddress']['input']>>
-  unknownFollowModules?: InputMaybe<Array<Scalars['ContractAddress']['input']>>
-  unknownReferenceModules?: InputMaybe<
-    Array<Scalars['ContractAddress']['input']>
-  >
+  unknownCollectModules?: InputMaybe<Array<Scalars['ContractAddress']>>
+  unknownFollowModules?: InputMaybe<Array<Scalars['ContractAddress']>>
+  unknownReferenceModules?: InputMaybe<Array<Scalars['ContractAddress']>>
 }
 
 /** The Profile */
 export type Attribute = {
   __typename?: 'Attribute'
   /** The display type */
-  displayType?: Maybe<Scalars['String']['output']>
+  displayType?: Maybe<Scalars['String']>
   /** identifier of this attribute, we will update by this id  */
-  key: Scalars['String']['output']
+  key: Scalars['String']
   /** The trait type - can be anything its the name it will render so include spaces */
-  traitType?: Maybe<Scalars['String']['output']>
+  traitType?: Maybe<Scalars['String']>
   /** Value attribute */
-  value: Scalars['String']['output']
+  value: Scalars['String']
 }
 
 /** The auth challenge result */
 export type AuthChallengeResult = {
   __typename?: 'AuthChallengeResult'
   /** The text to sign */
-  text: Scalars['String']['output']
+  text: Scalars['String']
 }
 
 /** The authentication result */
 export type AuthenticationResult = {
   __typename?: 'AuthenticationResult'
   /** The access token */
-  accessToken: Scalars['Jwt']['output']
+  accessToken: Scalars['Jwt']
   /** The refresh token */
-  refreshToken: Scalars['Jwt']['output']
+  refreshToken: Scalars['Jwt']
 }
 
 export type BroadcastDataAvailabilityUnion =
@@ -243,42 +245,57 @@ export type BroadcastDataAvailabilityUnion =
   | RelayError
 
 export type BroadcastRequest = {
-  id: Scalars['BroadcastId']['input']
-  signature: Scalars['Signature']['input']
+  id: Scalars['BroadcastId']
+  signature: Scalars['Signature']
 }
 
 export type BurnProfileRequest = {
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 export type CanCommentResponse = {
   __typename?: 'CanCommentResponse'
-  result: Scalars['Boolean']['output']
+  result: Scalars['Boolean']
 }
 
 export type CanDecryptResponse = {
   __typename?: 'CanDecryptResponse'
-  extraDetails?: Maybe<Scalars['String']['output']>
+  extraDetails?: Maybe<Scalars['String']>
   reasons?: Maybe<Array<DecryptFailReason>>
-  result: Scalars['Boolean']['output']
+  result: Scalars['Boolean']
 }
 
 export type CanMirrorResponse = {
   __typename?: 'CanMirrorResponse'
-  result: Scalars['Boolean']['output']
+  result: Scalars['Boolean']
+}
+
+export type CastZkVoteRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']
+  /** The voter identity commitment */
+  identityCommitment: Scalars['ZkIdentityCommitment']
+  /** The nullifier hash of the vote */
+  nullifierHash: Scalars['String']
+  /** The ZkPoll id */
+  pollId: Scalars['ZkPollId']
+  /** The zkProof of the vote */
+  proof: Scalars['ZkProof']
+  /** The Vote , 1 = yes, 0 = no */
+  vote: Scalars['String']
 }
 
 /** The challenge request */
 export type ChallengeRequest = {
   /** The ethereum address you want to login with */
-  address: Scalars['EthereumAddress']['input']
+  address: Scalars['EthereumAddress']
 }
 
 export type ClaimHandleRequest = {
   /** The follow module */
   followModule?: InputMaybe<FollowModuleParams>
-  freeTextHandle?: InputMaybe<Scalars['CreateHandle']['input']>
-  id?: InputMaybe<Scalars['HandleClaimIdScalar']['input']>
+  freeTextHandle?: InputMaybe<Scalars['CreateHandle']>
+  id?: InputMaybe<Scalars['HandleClaimIdScalar']>
 }
 
 /** The claim status */
@@ -288,27 +305,36 @@ export enum ClaimStatus {
   NotClaimed = 'NOT_CLAIMED'
 }
 
+export type ClaimZkBadgeRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']
+  /** The ZkPoll id */
+  pollId: Scalars['ZkPollId']
+  /** The profile id */
+  profileId: Scalars['ProfileId']
+}
+
 export type ClaimableHandles = {
   __typename?: 'ClaimableHandles'
-  canClaimFreeTextHandle: Scalars['Boolean']['output']
+  canClaimFreeTextHandle: Scalars['Boolean']
   reservedHandles: Array<ReservedClaimableHandle>
 }
 
 /** Condition that signifies if address or profile has collected a publication */
 export type CollectConditionInput = {
   /** The publication id that has to be collected to unlock content */
-  publicationId?: InputMaybe<Scalars['InternalPublicationId']['input']>
+  publicationId?: InputMaybe<Scalars['InternalPublicationId']>
   /** True if the content will be unlocked for this specific publication */
-  thisPublication?: InputMaybe<Scalars['Boolean']['input']>
+  thisPublication?: InputMaybe<Scalars['Boolean']>
 }
 
 /** Condition that signifies if address or profile has collected a publication */
 export type CollectConditionOutput = {
   __typename?: 'CollectConditionOutput'
   /** The publication id that has to be collected to unlock content */
-  publicationId?: Maybe<Scalars['InternalPublicationId']['output']>
+  publicationId?: Maybe<Scalars['InternalPublicationId']>
   /** True if the content will be unlocked for this specific publication */
-  thisPublication?: Maybe<Scalars['Boolean']['output']>
+  thisPublication?: Maybe<Scalars['Boolean']>
 }
 
 export type CollectModule =
@@ -340,7 +366,7 @@ export type CollectModuleParams = {
   /** The multirecipient fee collect module */
   multirecipientFeeCollectModule?: InputMaybe<MultirecipientFeeCollectModuleParams>
   /** The collect revert collect module */
-  revertCollectModule?: InputMaybe<Scalars['Boolean']['input']>
+  revertCollectModule?: InputMaybe<Scalars['Boolean']>
   /** The collect simple fee collect module */
   simpleCollectModule?: InputMaybe<SimpleCollectModuleParams>
   /** The collect timed fee collect module */
@@ -371,51 +397,52 @@ export type CollectProxyAction = {
 export type CollectedEvent = {
   __typename?: 'CollectedEvent'
   profile: Profile
-  timestamp: Scalars['DateTime']['output']
+  timestamp: Scalars['DateTime']
 }
 
 /** The social comment */
 export type Comment = {
   __typename?: 'Comment'
   /** ID of the source */
-  appId?: Maybe<Scalars['Sources']['output']>
+  appId?: Maybe<Scalars['Sources']>
   canComment: CanCommentResponse
   canDecrypt: CanDecryptResponse
   canMirror: CanMirrorResponse
   /** The collect module */
   collectModule: CollectModule
   /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
-  collectNftAddress?: Maybe<Scalars['ContractAddress']['output']>
+  collectNftAddress?: Maybe<Scalars['ContractAddress']>
   /** Who collected it, this is used for timeline results and like this for better caching for the client */
   collectedBy?: Maybe<Wallet>
   /** Which comment this points to if its null the pointer too deep so do another query to find it out */
   commentOn?: Maybe<Publication>
   /** The date the post was created on */
-  createdAt: Scalars['DateTime']['output']
+  createdAt: Scalars['DateTime']
   /** The data availability proofs you can fetch from */
-  dataAvailabilityProofs?: Maybe<Scalars['String']['output']>
+  dataAvailabilityProofs?: Maybe<Scalars['String']>
   /** This will bring back the first comment of a comment and only be defined if using `publication` query and `commentOf` */
   firstComment?: Maybe<Comment>
-  hasCollectedByMe: Scalars['Boolean']['output']
+  hasCollectedByMe: Scalars['Boolean']
   /** If the publication has been hidden if it has then the content and media is not available */
-  hidden: Scalars['Boolean']['output']
+  hidden: Scalars['Boolean']
   /** The internal publication id */
-  id: Scalars['InternalPublicationId']['output']
+  id: Scalars['InternalPublicationId']
   /** Indicates if the publication is data availability post */
-  isDataAvailability: Scalars['Boolean']['output']
+  isDataAvailability: Scalars['Boolean']
   /** Indicates if the publication is gated behind some access criteria */
-  isGated: Scalars['Boolean']['output']
+  isGated: Scalars['Boolean']
   /** The top level post/mirror this comment lives on */
   mainPost: MainPostReference
   /** The metadata for the post */
   metadata: MetadataOutput
-  mirrors: Array<Scalars['InternalPublicationId']['output']>
+  mirrors: Array<Scalars['InternalPublicationId']>
+  notInterested: Scalars['Boolean']
   /** The on chain content uri could be `ipfs://` or `https` */
-  onChainContentURI: Scalars['String']['output']
+  onChainContentURI: Scalars['String']
   /** The profile ref */
   profile: Profile
   /** Comment ranking score */
-  rankingScore?: Maybe<Scalars['Float']['output']>
+  rankingScore?: Maybe<Scalars['Float']>
   reaction?: Maybe<ReactionTypes>
   /** The reference module */
   referenceModule?: Maybe<ReferenceModule>
@@ -425,28 +452,33 @@ export type Comment = {
 
 /** The social comment */
 export type CommentCanCommentArgs = {
-  profileId?: InputMaybe<Scalars['ProfileId']['input']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
 }
 
 /** The social comment */
 export type CommentCanDecryptArgs = {
-  address?: InputMaybe<Scalars['EthereumAddress']['input']>
-  profileId?: InputMaybe<Scalars['ProfileId']['input']>
+  address?: InputMaybe<Scalars['EthereumAddress']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
 }
 
 /** The social comment */
 export type CommentCanMirrorArgs = {
-  profileId?: InputMaybe<Scalars['ProfileId']['input']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
 }
 
 /** The social comment */
 export type CommentHasCollectedByMeArgs = {
-  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']['input']>
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>
 }
 
 /** The social comment */
 export type CommentMirrorsArgs = {
-  by?: InputMaybe<Scalars['ProfileId']['input']>
+  by?: InputMaybe<Scalars['ProfileId']>
+}
+
+/** The social comment */
+export type CommentNotInterestedArgs = {
+  by?: InputMaybe<Scalars['ProfileId']>
 }
 
 /** The social comment */
@@ -493,18 +525,18 @@ export type CreateBurnEip712TypedDataTypes = {
 /** The create burn eip 712 typed data value */
 export type CreateBurnEip712TypedDataValue = {
   __typename?: 'CreateBurnEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']['output']
-  nonce: Scalars['Nonce']['output']
-  tokenId: Scalars['String']['output']
+  deadline: Scalars['UnixTimestamp']
+  nonce: Scalars['Nonce']
+  tokenId: Scalars['String']
 }
 
 /** The broadcast item */
 export type CreateBurnProfileBroadcastItemResult = {
   __typename?: 'CreateBurnProfileBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']['output']
+  expiresAt: Scalars['DateTime']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']['output']
+  id: Scalars['BroadcastId']
   /** The typed data */
   typedData: CreateBurnEip712TypedData
 }
@@ -513,9 +545,9 @@ export type CreateBurnProfileBroadcastItemResult = {
 export type CreateCollectBroadcastItemResult = {
   __typename?: 'CreateCollectBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']['output']
+  expiresAt: Scalars['DateTime']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']['output']
+  id: Scalars['BroadcastId']
   /** The typed data */
   typedData: CreateCollectEip712TypedData
 }
@@ -540,26 +572,26 @@ export type CreateCollectEip712TypedDataTypes = {
 /** The collect eip 712 typed data value */
 export type CreateCollectEip712TypedDataValue = {
   __typename?: 'CreateCollectEIP712TypedDataValue'
-  data: Scalars['BlockchainData']['output']
-  deadline: Scalars['UnixTimestamp']['output']
-  nonce: Scalars['Nonce']['output']
-  profileId: Scalars['ProfileId']['output']
-  pubId: Scalars['PublicationId']['output']
+  data: Scalars['BlockchainData']
+  deadline: Scalars['UnixTimestamp']
+  nonce: Scalars['Nonce']
+  profileId: Scalars['ProfileId']
+  pubId: Scalars['PublicationId']
 }
 
 export type CreateCollectRequest = {
-  publicationId: Scalars['InternalPublicationId']['input']
+  publicationId: Scalars['InternalPublicationId']
   /** The encoded data to collect with if using an unknown module */
-  unknownModuleData?: InputMaybe<Scalars['BlockchainData']['input']>
+  unknownModuleData?: InputMaybe<Scalars['BlockchainData']>
 }
 
 /** The broadcast item */
 export type CreateCommentBroadcastItemResult = {
   __typename?: 'CreateCommentBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']['output']
+  expiresAt: Scalars['DateTime']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']['output']
+  id: Scalars['BroadcastId']
   /** The typed data */
   typedData: CreateCommentEip712TypedData
 }
@@ -584,59 +616,59 @@ export type CreateCommentEip712TypedDataTypes = {
 /** The create comment eip 712 typed data value */
 export type CreateCommentEip712TypedDataValue = {
   __typename?: 'CreateCommentEIP712TypedDataValue'
-  collectModule: Scalars['ContractAddress']['output']
-  collectModuleInitData: Scalars['CollectModuleData']['output']
-  contentURI: Scalars['PublicationUrl']['output']
-  deadline: Scalars['UnixTimestamp']['output']
-  nonce: Scalars['Nonce']['output']
-  profileId: Scalars['ProfileId']['output']
-  profileIdPointed: Scalars['ProfileId']['output']
-  pubIdPointed: Scalars['PublicationId']['output']
-  referenceModule: Scalars['ContractAddress']['output']
-  referenceModuleData: Scalars['ReferenceModuleData']['output']
-  referenceModuleInitData: Scalars['ReferenceModuleData']['output']
+  collectModule: Scalars['ContractAddress']
+  collectModuleInitData: Scalars['CollectModuleData']
+  contentURI: Scalars['PublicationUrl']
+  deadline: Scalars['UnixTimestamp']
+  nonce: Scalars['Nonce']
+  profileId: Scalars['ProfileId']
+  profileIdPointed: Scalars['ProfileId']
+  pubIdPointed: Scalars['PublicationId']
+  referenceModule: Scalars['ContractAddress']
+  referenceModuleData: Scalars['ReferenceModuleData']
+  referenceModuleInitData: Scalars['ReferenceModuleData']
 }
 
 export type CreateDataAvailabilityCommentRequest = {
   /** Publication your commenting on */
-  commentOn: Scalars['InternalPublicationId']['input']
+  commentOn: Scalars['InternalPublicationId']
   /** The metadata contentURI resolver */
-  contentURI: Scalars['Url']['input']
+  contentURI: Scalars['Url']
   /** Profile id */
-  from: Scalars['ProfileId']['input']
+  from: Scalars['ProfileId']
 }
 
 export type CreateDataAvailabilityMirrorRequest = {
   /** Profile id which will broadcast the mirror */
-  from: Scalars['ProfileId']['input']
+  from: Scalars['ProfileId']
   /** The publication to mirror */
-  mirror: Scalars['InternalPublicationId']['input']
+  mirror: Scalars['InternalPublicationId']
 }
 
 export type CreateDataAvailabilityPostRequest = {
   /** The metadata contentURI resolver */
-  contentURI: Scalars['Url']['input']
+  contentURI: Scalars['Url']
   /** Profile id */
-  from: Scalars['ProfileId']['input']
+  from: Scalars['ProfileId']
 }
 
 export type CreateDataAvailabilityPublicationResult = {
   __typename?: 'CreateDataAvailabilityPublicationResult'
   /** The data availability id */
-  dataAvailabilityId: Scalars['DataAvailabilityId']['output']
+  dataAvailabilityId: Scalars['DataAvailabilityId']
   /** The id of the post */
-  id: Scalars['InternalPublicationId']['output']
+  id: Scalars['InternalPublicationId']
   /** The proofs for the DA */
-  proofs: Scalars['String']['output']
+  proofs: Scalars['String']
 }
 
 /** The broadcast item */
 export type CreateFollowBroadcastItemResult = {
   __typename?: 'CreateFollowBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']['output']
+  expiresAt: Scalars['DateTime']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']['output']
+  id: Scalars['BroadcastId']
   /** The typed data */
   typedData: CreateFollowEip712TypedData
 }
@@ -661,19 +693,19 @@ export type CreateFollowEip712TypedDataTypes = {
 /** The create follow eip 712 typed data value */
 export type CreateFollowEip712TypedDataValue = {
   __typename?: 'CreateFollowEIP712TypedDataValue'
-  datas: Array<Scalars['BlockchainData']['output']>
-  deadline: Scalars['UnixTimestamp']['output']
-  nonce: Scalars['Nonce']['output']
-  profileIds: Array<Scalars['ProfileId']['output']>
+  datas: Array<Scalars['BlockchainData']>
+  deadline: Scalars['UnixTimestamp']
+  nonce: Scalars['Nonce']
+  profileIds: Array<Scalars['ProfileId']>
 }
 
 /** The broadcast item */
 export type CreateMirrorBroadcastItemResult = {
   __typename?: 'CreateMirrorBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']['output']
+  expiresAt: Scalars['DateTime']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']['output']
+  id: Scalars['BroadcastId']
   /** The typed data */
   typedData: CreateMirrorEip712TypedData
 }
@@ -698,21 +730,21 @@ export type CreateMirrorEip712TypedDataTypes = {
 /** The mirror eip 712 typed data value */
 export type CreateMirrorEip712TypedDataValue = {
   __typename?: 'CreateMirrorEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']['output']
-  nonce: Scalars['Nonce']['output']
-  profileId: Scalars['ProfileId']['output']
-  profileIdPointed: Scalars['ProfileId']['output']
-  pubIdPointed: Scalars['PublicationId']['output']
-  referenceModule: Scalars['ContractAddress']['output']
-  referenceModuleData: Scalars['ReferenceModuleData']['output']
-  referenceModuleInitData: Scalars['ReferenceModuleData']['output']
+  deadline: Scalars['UnixTimestamp']
+  nonce: Scalars['Nonce']
+  profileId: Scalars['ProfileId']
+  profileIdPointed: Scalars['ProfileId']
+  pubIdPointed: Scalars['PublicationId']
+  referenceModule: Scalars['ContractAddress']
+  referenceModuleData: Scalars['ReferenceModuleData']
+  referenceModuleInitData: Scalars['ReferenceModuleData']
 }
 
 export type CreateMirrorRequest = {
   /** Profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
   /** Publication id of what you want to mirror on remember if this is a comment it will be that as the id */
-  publicationId: Scalars['InternalPublicationId']['input']
+  publicationId: Scalars['InternalPublicationId']
   /** The reference module info */
   referenceModule?: InputMaybe<ReferenceModuleParams>
 }
@@ -721,9 +753,9 @@ export type CreateMirrorRequest = {
 export type CreatePostBroadcastItemResult = {
   __typename?: 'CreatePostBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']['output']
+  expiresAt: Scalars['DateTime']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']['output']
+  id: Scalars['BroadcastId']
   /** The typed data */
   typedData: CreatePostEip712TypedData
 }
@@ -748,37 +780,37 @@ export type CreatePostEip712TypedDataTypes = {
 /** The create post eip 712 typed data value */
 export type CreatePostEip712TypedDataValue = {
   __typename?: 'CreatePostEIP712TypedDataValue'
-  collectModule: Scalars['ContractAddress']['output']
-  collectModuleInitData: Scalars['CollectModuleData']['output']
-  contentURI: Scalars['PublicationUrl']['output']
-  deadline: Scalars['UnixTimestamp']['output']
-  nonce: Scalars['Nonce']['output']
-  profileId: Scalars['ProfileId']['output']
-  referenceModule: Scalars['ContractAddress']['output']
-  referenceModuleInitData: Scalars['ReferenceModuleData']['output']
+  collectModule: Scalars['ContractAddress']
+  collectModuleInitData: Scalars['CollectModuleData']
+  contentURI: Scalars['PublicationUrl']
+  deadline: Scalars['UnixTimestamp']
+  nonce: Scalars['Nonce']
+  profileId: Scalars['ProfileId']
+  referenceModule: Scalars['ContractAddress']
+  referenceModuleInitData: Scalars['ReferenceModuleData']
 }
 
 export type CreateProfileRequest = {
   /** The follow module */
   followModule?: InputMaybe<FollowModuleParams>
   /** The follow NFT URI is the NFT metadata your followers will mint when they follow you. This can be updated at all times. If you do not pass in anything it will create a super cool changing NFT which will show the last publication of your profile as the NFT which looks awesome! This means people do not have to worry about writing this logic but still have the ability to customise it for their followers */
-  followNFTURI?: InputMaybe<Scalars['Url']['input']>
-  handle: Scalars['CreateHandle']['input']
+  followNFTURI?: InputMaybe<Scalars['Url']>
+  handle: Scalars['CreateHandle']
   /** The profile picture uri */
-  profilePictureUri?: InputMaybe<Scalars['Url']['input']>
+  profilePictureUri?: InputMaybe<Scalars['Url']>
 }
 
 export type CreatePublicCommentRequest = {
   /** The collect module */
   collectModule: CollectModuleParams
   /** The metadata contentURI resolver */
-  contentURI: Scalars['Url']['input']
+  contentURI: Scalars['Url']
   /** The criteria to access the publication data */
   gated?: InputMaybe<GatedPublicationParamsInput>
   /** Profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
   /** Publication id of what your comments on remember if this is a comment you commented on it will be that as the id */
-  publicationId: Scalars['InternalPublicationId']['input']
+  publicationId: Scalars['InternalPublicationId']
   /** The reference module */
   referenceModule?: InputMaybe<ReferenceModuleParams>
 }
@@ -787,34 +819,34 @@ export type CreatePublicPostRequest = {
   /** The collect module */
   collectModule: CollectModuleParams
   /** The metadata uploaded somewhere passing in the url to reach it */
-  contentURI: Scalars['Url']['input']
+  contentURI: Scalars['Url']
   /** The criteria to access the publication data */
   gated?: InputMaybe<GatedPublicationParamsInput>
   /** Profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
   /** The reference module */
   referenceModule?: InputMaybe<ReferenceModuleParams>
 }
 
 export type CreatePublicSetProfileMetadataUriRequest = {
   /** The metadata uploaded somewhere passing in the url to reach it */
-  metadata: Scalars['Url']['input']
+  metadata: Scalars['Url']
   /** Profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 export type CreateSetDefaultProfileRequest = {
   /** Profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 /** The broadcast item */
 export type CreateSetDispatcherBroadcastItemResult = {
   __typename?: 'CreateSetDispatcherBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']['output']
+  expiresAt: Scalars['DateTime']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']['output']
+  id: Scalars['BroadcastId']
   /** The typed data */
   typedData: CreateSetDispatcherEip712TypedData
 }
@@ -839,19 +871,19 @@ export type CreateSetDispatcherEip712TypedDataTypes = {
 /** The set dispatcher eip 712 typed data value */
 export type CreateSetDispatcherEip712TypedDataValue = {
   __typename?: 'CreateSetDispatcherEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']['output']
-  dispatcher: Scalars['EthereumAddress']['output']
-  nonce: Scalars['Nonce']['output']
-  profileId: Scalars['ProfileId']['output']
+  deadline: Scalars['UnixTimestamp']
+  dispatcher: Scalars['EthereumAddress']
+  nonce: Scalars['Nonce']
+  profileId: Scalars['ProfileId']
 }
 
 /** The broadcast item */
 export type CreateSetFollowModuleBroadcastItemResult = {
   __typename?: 'CreateSetFollowModuleBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']['output']
+  expiresAt: Scalars['DateTime']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']['output']
+  id: Scalars['BroadcastId']
   /** The typed data */
   typedData: CreateSetFollowModuleEip712TypedData
 }
@@ -876,26 +908,26 @@ export type CreateSetFollowModuleEip712TypedDataTypes = {
 /** The set follow module eip 712 typed data value */
 export type CreateSetFollowModuleEip712TypedDataValue = {
   __typename?: 'CreateSetFollowModuleEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']['output']
-  followModule: Scalars['ContractAddress']['output']
-  followModuleInitData: Scalars['FollowModuleData']['output']
-  nonce: Scalars['Nonce']['output']
-  profileId: Scalars['ProfileId']['output']
+  deadline: Scalars['UnixTimestamp']
+  followModule: Scalars['ContractAddress']
+  followModuleInitData: Scalars['FollowModuleData']
+  nonce: Scalars['Nonce']
+  profileId: Scalars['ProfileId']
 }
 
 export type CreateSetFollowModuleRequest = {
   /** The follow module info */
   followModule: FollowModuleParams
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 /** The broadcast item */
 export type CreateSetFollowNftUriBroadcastItemResult = {
   __typename?: 'CreateSetFollowNFTUriBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']['output']
+  expiresAt: Scalars['DateTime']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']['output']
+  id: Scalars['BroadcastId']
   /** The typed data */
   typedData: CreateSetFollowNftUriEip712TypedData
 }
@@ -920,25 +952,25 @@ export type CreateSetFollowNftUriEip712TypedDataTypes = {
 /** The set follow nft uri eip 712 typed data value */
 export type CreateSetFollowNftUriEip712TypedDataValue = {
   __typename?: 'CreateSetFollowNFTUriEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']['output']
-  followNFTURI: Scalars['Url']['output']
-  nonce: Scalars['Nonce']['output']
-  profileId: Scalars['ProfileId']['output']
+  deadline: Scalars['UnixTimestamp']
+  followNFTURI: Scalars['Url']
+  nonce: Scalars['Nonce']
+  profileId: Scalars['ProfileId']
 }
 
 export type CreateSetFollowNftUriRequest = {
   /** The follow NFT URI is the NFT metadata your followers will mint when they follow you. This can be updated at all times. If you do not pass in anything it will create a super cool changing NFT which will show the last publication of your profile as the NFT which looks awesome! This means people do not have to worry about writing this logic but still have the ability to customise it for their followers */
-  followNFTURI?: InputMaybe<Scalars['Url']['input']>
-  profileId: Scalars['ProfileId']['input']
+  followNFTURI?: InputMaybe<Scalars['Url']>
+  profileId: Scalars['ProfileId']
 }
 
 /** The broadcast item */
 export type CreateSetProfileImageUriBroadcastItemResult = {
   __typename?: 'CreateSetProfileImageUriBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']['output']
+  expiresAt: Scalars['DateTime']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']['output']
+  id: Scalars['BroadcastId']
   /** The typed data */
   typedData: CreateSetProfileImageUriEip712TypedData
 }
@@ -963,19 +995,19 @@ export type CreateSetProfileImageUriEip712TypedDataTypes = {
 /** The set profile uri eip 712 typed data value */
 export type CreateSetProfileImageUriEip712TypedDataValue = {
   __typename?: 'CreateSetProfileImageUriEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']['output']
-  imageURI: Scalars['Url']['output']
-  nonce: Scalars['Nonce']['output']
-  profileId: Scalars['ProfileId']['output']
+  deadline: Scalars['UnixTimestamp']
+  imageURI: Scalars['Url']
+  nonce: Scalars['Nonce']
+  profileId: Scalars['ProfileId']
 }
 
 /** The broadcast item */
 export type CreateSetProfileMetadataUriBroadcastItemResult = {
   __typename?: 'CreateSetProfileMetadataURIBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']['output']
+  expiresAt: Scalars['DateTime']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']['output']
+  id: Scalars['BroadcastId']
   /** The typed data */
   typedData: CreateSetProfileMetadataUrieip712TypedData
 }
@@ -1000,19 +1032,19 @@ export type CreateSetProfileMetadataUrieip712TypedDataTypes = {
 /** The set follow nft uri eip 712 typed data value */
 export type CreateSetProfileMetadataUrieip712TypedDataValue = {
   __typename?: 'CreateSetProfileMetadataURIEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']['output']
-  metadata: Scalars['Url']['output']
-  nonce: Scalars['Nonce']['output']
-  profileId: Scalars['ProfileId']['output']
+  deadline: Scalars['UnixTimestamp']
+  metadata: Scalars['Url']
+  nonce: Scalars['Nonce']
+  profileId: Scalars['ProfileId']
 }
 
 /** The broadcast item */
 export type CreateToggleFollowBroadcastItemResult = {
   __typename?: 'CreateToggleFollowBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']['output']
+  expiresAt: Scalars['DateTime']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']['output']
+  id: Scalars['BroadcastId']
   /** The typed data */
   typedData: CreateToggleFollowEip712TypedData
 }
@@ -1037,30 +1069,50 @@ export type CreateToggleFollowEip712TypedDataTypes = {
 /** The create toggle follow eip 712 typed data value */
 export type CreateToggleFollowEip712TypedDataValue = {
   __typename?: 'CreateToggleFollowEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']['output']
-  enables: Array<Scalars['Boolean']['output']>
-  nonce: Scalars['Nonce']['output']
-  profileIds: Array<Scalars['ProfileId']['output']>
+  deadline: Scalars['UnixTimestamp']
+  enables: Array<Scalars['Boolean']>
+  nonce: Scalars['Nonce']
+  profileIds: Array<Scalars['ProfileId']>
 }
 
 export type CreateToggleFollowRequest = {
-  enables: Array<Scalars['Boolean']['input']>
-  profileIds: Array<Scalars['ProfileId']['input']>
+  enables: Array<Scalars['Boolean']>
+  profileIds: Array<Scalars['ProfileId']>
 }
 
 /** The broadcast item */
 export type CreateUnfollowBroadcastItemResult = {
   __typename?: 'CreateUnfollowBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']['output']
+  expiresAt: Scalars['DateTime']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']['output']
+  id: Scalars['BroadcastId']
   /** The typed data */
   typedData: CreateBurnEip712TypedData
 }
 
+export type CreateZkCommunityRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']
+  /** The description of the community */
+  description: Scalars['String']
+  /** The name of the community */
+  name: Scalars['String']
+  /** Community creator profile Id */
+  profileId: Scalars['ProfileId']
+}
+
+export type CreateZkPollRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']
+  /** The profile id */
+  profileId: Scalars['ProfileId']
+  /** The signature */
+  signature: Scalars['Signature']
+}
+
 export type CurRequest = {
-  secret: Scalars['String']['input']
+  secret: Scalars['String']
 }
 
 /** The custom filters types */
@@ -1070,46 +1122,46 @@ export enum CustomFiltersTypes {
 
 export type DataAvailabilityComment = {
   __typename?: 'DataAvailabilityComment'
-  appId?: Maybe<Scalars['Sources']['output']>
+  appId?: Maybe<Scalars['Sources']>
   commentedOnProfile: Profile
-  commentedOnPublicationId: Scalars['InternalPublicationId']['output']
-  createdAt: Scalars['DateTime']['output']
+  commentedOnPublicationId: Scalars['InternalPublicationId']
+  createdAt: Scalars['DateTime']
   profile: Profile
-  publicationId: Scalars['InternalPublicationId']['output']
-  submitter: Scalars['EthereumAddress']['output']
-  transactionId: Scalars['String']['output']
+  publicationId: Scalars['InternalPublicationId']
+  submitter: Scalars['EthereumAddress']
+  transactionId: Scalars['String']
   verificationStatus: DataAvailabilityVerificationStatusUnion
 }
 
 export type DataAvailabilityMirror = {
   __typename?: 'DataAvailabilityMirror'
-  appId?: Maybe<Scalars['Sources']['output']>
-  createdAt: Scalars['DateTime']['output']
+  appId?: Maybe<Scalars['Sources']>
+  createdAt: Scalars['DateTime']
   mirrorOfProfile: Profile
-  mirrorOfPublicationId: Scalars['InternalPublicationId']['output']
+  mirrorOfPublicationId: Scalars['InternalPublicationId']
   profile: Profile
-  publicationId: Scalars['InternalPublicationId']['output']
-  submitter: Scalars['EthereumAddress']['output']
-  transactionId: Scalars['String']['output']
+  publicationId: Scalars['InternalPublicationId']
+  submitter: Scalars['EthereumAddress']
+  transactionId: Scalars['String']
   verificationStatus: DataAvailabilityVerificationStatusUnion
 }
 
 export type DataAvailabilityPost = {
   __typename?: 'DataAvailabilityPost'
-  appId?: Maybe<Scalars['Sources']['output']>
-  createdAt: Scalars['DateTime']['output']
+  appId?: Maybe<Scalars['Sources']>
+  createdAt: Scalars['DateTime']
   profile: Profile
-  publicationId: Scalars['InternalPublicationId']['output']
-  submitter: Scalars['EthereumAddress']['output']
-  transactionId: Scalars['String']['output']
+  publicationId: Scalars['InternalPublicationId']
+  submitter: Scalars['EthereumAddress']
+  transactionId: Scalars['String']
   verificationStatus: DataAvailabilityVerificationStatusUnion
 }
 
 export type DataAvailabilitySubmitterResult = {
   __typename?: 'DataAvailabilitySubmitterResult'
-  address: Scalars['EthereumAddress']['output']
-  name: Scalars['String']['output']
-  totalTransactions: Scalars['Int']['output']
+  address: Scalars['EthereumAddress']
+  name: Scalars['String']
+  totalTransactions: Scalars['Int']
 }
 
 /** The paginated submitter results */
@@ -1121,12 +1173,12 @@ export type DataAvailabilitySubmittersResult = {
 
 export type DataAvailabilitySummaryResult = {
   __typename?: 'DataAvailabilitySummaryResult'
-  totalTransactions: Scalars['Int']['output']
+  totalTransactions: Scalars['Int']
 }
 
 export type DataAvailabilityTransactionRequest = {
   /** The DA transaction id or internal publiation id */
-  id: Scalars['String']['input']
+  id: Scalars['String']
 }
 
 export type DataAvailabilityTransactionUnion =
@@ -1135,9 +1187,9 @@ export type DataAvailabilityTransactionUnion =
   | DataAvailabilityPost
 
 export type DataAvailabilityTransactionsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
-  profileId?: InputMaybe<Scalars['ProfileId']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
 }
 
 export type DataAvailabilityTransactionsResult = {
@@ -1153,7 +1205,7 @@ export type DataAvailabilityVerificationStatusFailure = {
 
 export type DataAvailabilityVerificationStatusSuccess = {
   __typename?: 'DataAvailabilityVerificationStatusSuccess'
-  verified: Scalars['Boolean']['output']
+  verified: Scalars['Boolean']
 }
 
 export type DataAvailabilityVerificationStatusUnion =
@@ -1176,51 +1228,51 @@ export enum DecryptFailReason {
 }
 
 export type DefaultProfileRequest = {
-  ethereumAddress: Scalars['EthereumAddress']['input']
+  ethereumAddress: Scalars['EthereumAddress']
 }
 
 export type DegreesOfSeparationReferenceModuleParams = {
   /** Applied to comments */
-  commentsRestricted: Scalars['Boolean']['input']
+  commentsRestricted: Scalars['Boolean']
   /** Degrees of separation */
-  degreesOfSeparation: Scalars['Int']['input']
+  degreesOfSeparation: Scalars['Int']
   /** Applied to mirrors */
-  mirrorsRestricted: Scalars['Boolean']['input']
+  mirrorsRestricted: Scalars['Boolean']
 }
 
 export type DegreesOfSeparationReferenceModuleSettings = {
   __typename?: 'DegreesOfSeparationReferenceModuleSettings'
   /** Applied to comments */
-  commentsRestricted: Scalars['Boolean']['output']
-  contractAddress: Scalars['ContractAddress']['output']
+  commentsRestricted: Scalars['Boolean']
+  contractAddress: Scalars['ContractAddress']
   /** Degrees of separation */
-  degreesOfSeparation: Scalars['Int']['output']
+  degreesOfSeparation: Scalars['Int']
   /** Applied to mirrors */
-  mirrorsRestricted: Scalars['Boolean']['output']
+  mirrorsRestricted: Scalars['Boolean']
   /** The reference modules enum */
   type: ReferenceModules
 }
 
 export type DismissRecommendedProfilesRequest = {
-  profileIds: Array<Scalars['ProfileId']['input']>
+  profileIds: Array<Scalars['ProfileId']>
 }
 
 /** The dispatcher */
 export type Dispatcher = {
   __typename?: 'Dispatcher'
   /** The dispatcher address */
-  address: Scalars['EthereumAddress']['output']
+  address: Scalars['EthereumAddress']
   /** If the dispatcher can use the relay */
-  canUseRelay: Scalars['Boolean']['output']
+  canUseRelay: Scalars['Boolean']
   /** If the dispatcher transactions will be sponsored by lens aka cover the gas costs */
-  sponsor: Scalars['Boolean']['output']
+  sponsor: Scalars['Boolean']
 }
 
 export type DoesFollow = {
   /** The follower address remember wallets follow profiles */
-  followerAddress: Scalars['EthereumAddress']['input']
+  followerAddress: Scalars['EthereumAddress']
   /** The profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 export type DoesFollowRequest = {
@@ -1232,52 +1284,52 @@ export type DoesFollowRequest = {
 export type DoesFollowResponse = {
   __typename?: 'DoesFollowResponse'
   /** The follower address remember wallets follow profiles */
-  followerAddress: Scalars['EthereumAddress']['output']
+  followerAddress: Scalars['EthereumAddress']
   /** If the user does follow */
-  follows: Scalars['Boolean']['output']
+  follows: Scalars['Boolean']
   /** Is finalised on-chain */
-  isFinalisedOnChain: Scalars['Boolean']['output']
+  isFinalisedOnChain: Scalars['Boolean']
   /** The profile id */
-  profileId: Scalars['ProfileId']['output']
+  profileId: Scalars['ProfileId']
 }
 
 /** The eip 712 typed data domain */
 export type Eip712TypedDataDomain = {
   __typename?: 'EIP712TypedDataDomain'
   /** The chainId */
-  chainId: Scalars['ChainId']['output']
+  chainId: Scalars['ChainId']
   /** The name of the typed data domain */
-  name: Scalars['String']['output']
+  name: Scalars['String']
   /** The verifying contract */
-  verifyingContract: Scalars['ContractAddress']['output']
+  verifyingContract: Scalars['ContractAddress']
   /** The version */
-  version: Scalars['String']['output']
+  version: Scalars['String']
 }
 
 /** The eip 712 typed data field */
 export type Eip712TypedDataField = {
   __typename?: 'EIP712TypedDataField'
   /** The name of the typed data field */
-  name: Scalars['String']['output']
+  name: Scalars['String']
   /** The type of the typed data field */
-  type: Scalars['String']['output']
+  type: Scalars['String']
 }
 
 export type Erc4626FeeCollectModuleParams = {
   /** The collecting cost associated with this publication. 0 for free collect. */
   amount: ModuleFeeAmountParams
   /** The maximum number of collects for this publication. Omit for no limit. */
-  collectLimit?: InputMaybe<Scalars['String']['input']>
+  collectLimit?: InputMaybe<Scalars['String']>
   /** The end timestamp after which collecting is impossible. Omit for no expiry. */
-  endTimestamp?: InputMaybe<Scalars['DateTime']['input']>
+  endTimestamp?: InputMaybe<Scalars['DateTime']>
   /** True if only followers of publisher may collect the post. */
-  followerOnly: Scalars['Boolean']['input']
+  followerOnly: Scalars['Boolean']
   /** The address of the recipient who will recieve vault shares after depositing is completed. */
-  recipient: Scalars['EthereumAddress']['input']
+  recipient: Scalars['EthereumAddress']
   /** The referral fee associated with this publication. */
-  referralFee?: InputMaybe<Scalars['Float']['input']>
+  referralFee?: InputMaybe<Scalars['Float']>
   /** The address of the ERC4626 vault to deposit funds to. */
-  vault: Scalars['ContractAddress']['input']
+  vault: Scalars['ContractAddress']
 }
 
 export type Erc4626FeeCollectModuleSettings = {
@@ -1285,34 +1337,34 @@ export type Erc4626FeeCollectModuleSettings = {
   /** The collect module amount info */
   amount: ModuleFeeAmount
   /** The maximum number of collects for this publication. 0 for no limit. */
-  collectLimit?: Maybe<Scalars['String']['output']>
-  contractAddress: Scalars['ContractAddress']['output']
+  collectLimit?: Maybe<Scalars['String']>
+  contractAddress: Scalars['ContractAddress']
   /** The end timestamp after which collecting is impossible. 0 for no expiry. */
-  endTimestamp?: Maybe<Scalars['DateTime']['output']>
+  endTimestamp?: Maybe<Scalars['DateTime']>
   /** True if only followers of publisher may collect the post. */
-  followerOnly: Scalars['Boolean']['output']
+  followerOnly: Scalars['Boolean']
   /** The recipient of the ERC4626 vault shares */
-  recipient: Scalars['EthereumAddress']['output']
+  recipient: Scalars['EthereumAddress']
   /** The referral fee associated with this publication. */
-  referralFee: Scalars['Float']['output']
+  referralFee: Scalars['Float']
   /** The collect modules enum */
   type: CollectModules
   /** The ERC4626 vault address */
-  vault: Scalars['ContractAddress']['output']
+  vault: Scalars['ContractAddress']
 }
 
 export type ElectedMirror = {
   __typename?: 'ElectedMirror'
-  mirrorId: Scalars['InternalPublicationId']['output']
+  mirrorId: Scalars['InternalPublicationId']
   profile: Profile
-  timestamp: Scalars['DateTime']['output']
+  timestamp: Scalars['DateTime']
 }
 
 export type EnabledModule = {
   __typename?: 'EnabledModule'
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   inputParams: Array<ModuleInfo>
-  moduleName: Scalars['String']['output']
+  moduleName: Scalars['String']
   redeemParams: Array<ModuleInfo>
   returnDataParms: Array<ModuleInfo>
 }
@@ -1329,13 +1381,13 @@ export type EnabledModules = {
 export type EncryptedFieldsOutput = {
   __typename?: 'EncryptedFieldsOutput'
   /** The encrypted animation_url field */
-  animation_url?: Maybe<Scalars['EncryptedValueScalar']['output']>
+  animation_url?: Maybe<Scalars['EncryptedValueScalar']>
   /** The encrypted content field */
-  content?: Maybe<Scalars['EncryptedValueScalar']['output']>
+  content?: Maybe<Scalars['EncryptedValueScalar']>
   /** The encrypted external_url field */
-  external_url?: Maybe<Scalars['EncryptedValueScalar']['output']>
+  external_url?: Maybe<Scalars['EncryptedValueScalar']>
   /** The encrypted image field */
-  image?: Maybe<Scalars['EncryptedValueScalar']['output']>
+  image?: Maybe<Scalars['EncryptedValueScalar']>
   /** The encrypted media field */
   media?: Maybe<Array<EncryptedMediaSet>>
 }
@@ -1344,19 +1396,19 @@ export type EncryptedFieldsOutput = {
 export type EncryptedMedia = {
   __typename?: 'EncryptedMedia'
   /** The encrypted alt tags for accessibility */
-  altTag?: Maybe<Scalars['EncryptedValueScalar']['output']>
+  altTag?: Maybe<Scalars['EncryptedValueScalar']>
   /** The encrypted cover for any video or audio you attached */
-  cover?: Maybe<Scalars['EncryptedValueScalar']['output']>
+  cover?: Maybe<Scalars['EncryptedValueScalar']>
   /** Height - will always be null on the public API */
-  height?: Maybe<Scalars['Int']['output']>
+  height?: Maybe<Scalars['Int']>
   /** The image/audio/video mime type for the publication */
-  mimeType?: Maybe<Scalars['MimeType']['output']>
+  mimeType?: Maybe<Scalars['MimeType']>
   /** Size - will always be null on the public API */
-  size?: Maybe<Scalars['Int']['output']>
+  size?: Maybe<Scalars['Int']>
   /** The encrypted value for the URL */
-  url: Scalars['Url']['output']
+  url: Scalars['Url']
   /** Width - will always be null on the public API */
-  width?: Maybe<Scalars['Int']['output']>
+  width?: Maybe<Scalars['Int']>
 }
 
 /** The encrypted media set */
@@ -1397,31 +1449,31 @@ export enum EncryptionProvider {
 export type EnsOnChainIdentity = {
   __typename?: 'EnsOnChainIdentity'
   /** The default ens mapped to this address */
-  name?: Maybe<Scalars['Ens']['output']>
+  name?: Maybe<Scalars['Ens']>
 }
 
 export type EoaOwnershipInput = {
   /** The address that will have access to the content */
-  address: Scalars['EthereumAddress']['input']
+  address: Scalars['EthereumAddress']
 }
 
 export type EoaOwnershipOutput = {
   __typename?: 'EoaOwnershipOutput'
   /** The address that will have access to the content */
-  address: Scalars['EthereumAddress']['output']
+  address: Scalars['EthereumAddress']
 }
 
 /** The erc20 type */
 export type Erc20 = {
   __typename?: 'Erc20'
   /** The erc20 address */
-  address: Scalars['ContractAddress']['output']
+  address: Scalars['ContractAddress']
   /** Decimal places for the token */
-  decimals: Scalars['Int']['output']
+  decimals: Scalars['Int']
   /** Name of the symbol */
-  name: Scalars['String']['output']
+  name: Scalars['String']
   /** Symbol for the token */
-  symbol: Scalars['String']['output']
+  symbol: Scalars['String']
 }
 
 export type Erc20Amount = {
@@ -1429,38 +1481,38 @@ export type Erc20Amount = {
   /** The erc20 token info */
   asset: Erc20
   /** Floating point number as string (e.g. 42.009837). It could have the entire precision of the Asset or be truncated to the last significant decimal. */
-  value: Scalars['String']['output']
+  value: Scalars['String']
 }
 
 export type Erc20OwnershipInput = {
   /** The amount of tokens required to access the content */
-  amount: Scalars['String']['input']
+  amount: Scalars['String']
   /** The amount of tokens required to access the content */
-  chainID: Scalars['ChainId']['input']
+  chainID: Scalars['ChainId']
   /** The operator to use when comparing the amount of tokens */
   condition: ScalarOperator
   /** The ERC20 token ethereum address */
-  contractAddress: Scalars['ContractAddress']['input']
+  contractAddress: Scalars['ContractAddress']
   /** The amount of decimals of the ERC20 contract */
-  decimals: Scalars['Float']['input']
+  decimals: Scalars['Float']
 }
 
 export type Erc20OwnershipOutput = {
   __typename?: 'Erc20OwnershipOutput'
   /** The amount of tokens required to access the content */
-  amount: Scalars['String']['output']
+  amount: Scalars['String']
   /** The amount of tokens required to access the content */
-  chainID: Scalars['ChainId']['output']
+  chainID: Scalars['ChainId']
   /** The operator to use when comparing the amount of tokens */
   condition: ScalarOperator
   /** The ERC20 token ethereum address */
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   /** The amount of decimals of the ERC20 contract */
-  decimals: Scalars['Float']['output']
+  decimals: Scalars['Float']
   /** The name of the ERC20 token */
-  name: Scalars['String']['output']
+  name: Scalars['String']
   /** The symbol of the ERC20 token */
-  symbol: Scalars['String']['output']
+  symbol: Scalars['String']
 }
 
 /** The paginated publication result */
@@ -1471,28 +1523,28 @@ export type ExploreProfileResult = {
 }
 
 export type ExploreProfilesRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   sortCriteria: ProfileSortCriteria
-  timestamp?: InputMaybe<Scalars['TimestampScalar']['input']>
+  timestamp?: InputMaybe<Scalars['TimestampScalar']>
 }
 
 export type ExplorePublicationRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>
   /** If you wish to exclude any results for profile ids */
-  excludeProfileIds?: InputMaybe<Array<Scalars['ProfileId']['input']>>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  excludeProfileIds?: InputMaybe<Array<Scalars['ProfileId']>>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   metadata?: InputMaybe<PublicationMetadataFilters>
   /** If you want the randomizer off (default on) */
-  noRandomize?: InputMaybe<Scalars['Boolean']['input']>
+  noRandomize?: InputMaybe<Scalars['Boolean']>
   /** The publication types you want to query */
   publicationTypes?: InputMaybe<Array<PublicationTypes>>
   sortCriteria: PublicationSortCriteria
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
-  timestamp?: InputMaybe<Scalars['TimestampScalar']['input']>
+  sources?: InputMaybe<Array<Scalars['Sources']>>
+  timestamp?: InputMaybe<Scalars['TimestampScalar']>
 }
 
 /** The paginated publication result */
@@ -1506,24 +1558,24 @@ export type FeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
   /** Follower only */
-  followerOnly: Scalars['Boolean']['input']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']['input']
+  recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']['input']
+  referralFee: Scalars['Float']
 }
 
 export type FeeCollectModuleSettings = {
   __typename?: 'FeeCollectModuleSettings'
   /** The collect module amount info */
   amount: ModuleFeeAmount
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   /** Follower only */
-  followerOnly: Scalars['Boolean']['output']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']['output']
+  recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']['output']
+  referralFee: Scalars['Float']
   /** The collect modules enum */
   type: CollectModules
 }
@@ -1532,7 +1584,7 @@ export type FeeFollowModuleParams = {
   /** The follow module amount info */
   amount: ModuleFeeAmountParams
   /** The follow module recipient address */
-  recipient: Scalars['EthereumAddress']['input']
+  recipient: Scalars['EthereumAddress']
 }
 
 export type FeeFollowModuleRedeemParams = {
@@ -1544,9 +1596,9 @@ export type FeeFollowModuleSettings = {
   __typename?: 'FeeFollowModuleSettings'
   /** The collect module amount info */
   amount: ModuleFeeAmount
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']['output']
+  recipient: Scalars['EthereumAddress']
   /** The follow modules enum */
   type: FollowModules
 }
@@ -1563,13 +1615,13 @@ export enum FeedEventItemType {
 }
 
 export type FeedHighlightsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   metadata?: InputMaybe<PublicationMetadataFilters>
   /** The profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
+  sources?: InputMaybe<Array<Scalars['Sources']>>
 }
 
 export type FeedItem = {
@@ -1590,31 +1642,31 @@ export type FeedItem = {
 export type FeedItemRoot = Comment | Post
 
 export type FeedRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
   /** Filter your feed to whatever you wish */
   feedEventItemTypes?: InputMaybe<Array<FeedEventItemType>>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   metadata?: InputMaybe<PublicationMetadataFilters>
   /** The profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
+  sources?: InputMaybe<Array<Scalars['Sources']>>
 }
 
 export type Follow = {
   followModule?: InputMaybe<FollowModuleRedeemParams>
-  profile: Scalars['ProfileId']['input']
+  profile: Scalars['ProfileId']
 }
 
 export type FollowConditionInput = {
   /** The profile id of the gated profile */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 export type FollowConditionOutput = {
   __typename?: 'FollowConditionOutput'
   /** The profile id of the gated profile */
-  profileId: Scalars['ProfileId']['output']
+  profileId: Scalars['ProfileId']
 }
 
 export type FollowModule =
@@ -1627,11 +1679,11 @@ export type FollowModuleParams = {
   /** The follower fee follower module */
   feeFollowModule?: InputMaybe<FeeFollowModuleParams>
   /** The empty follow module */
-  freeFollowModule?: InputMaybe<Scalars['Boolean']['input']>
+  freeFollowModule?: InputMaybe<Scalars['Boolean']>
   /** The profile follow module */
-  profileFollowModule?: InputMaybe<Scalars['Boolean']['input']>
+  profileFollowModule?: InputMaybe<Scalars['Boolean']>
   /** The revert follow module */
-  revertFollowModule?: InputMaybe<Scalars['Boolean']['input']>
+  revertFollowModule?: InputMaybe<Scalars['Boolean']>
   /** A unknown follow module */
   unknownFollowModule?: InputMaybe<UnknownFollowModuleParams>
 }
@@ -1655,7 +1707,7 @@ export enum FollowModules {
 
 export type FollowOnlyReferenceModuleSettings = {
   __typename?: 'FollowOnlyReferenceModuleSettings'
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   /** The reference modules enum */
   type: ReferenceModules
 }
@@ -1675,37 +1727,37 @@ export type FollowRevenueResult = {
 
 export type Follower = {
   __typename?: 'Follower'
-  totalAmountOfTimesFollowed: Scalars['Int']['output']
+  totalAmountOfTimesFollowed: Scalars['Int']
   wallet: Wallet
 }
 
 export type FollowerNftOwnedTokenIds = {
   __typename?: 'FollowerNftOwnedTokenIds'
-  followerNftAddress: Scalars['ContractAddress']['output']
-  tokensIds: Array<Scalars['String']['output']>
+  followerNftAddress: Scalars['ContractAddress']
+  tokensIds: Array<Scalars['String']>
 }
 
 export type FollowerNftOwnedTokenIdsRequest = {
-  address: Scalars['EthereumAddress']['input']
-  profileId: Scalars['ProfileId']['input']
+  address: Scalars['EthereumAddress']
+  profileId: Scalars['ProfileId']
 }
 
 export type FollowersRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
-  profileId: Scalars['ProfileId']['input']
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
+  profileId: Scalars['ProfileId']
 }
 
 export type Following = {
   __typename?: 'Following'
   profile: Profile
-  totalAmountOfTimesFollowing: Scalars['Int']['output']
+  totalAmountOfTimesFollowing: Scalars['Int']
 }
 
 export type FollowingRequest = {
-  address: Scalars['EthereumAddress']['input']
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  address: Scalars['EthereumAddress']
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
 }
 
 export type FraudReasonInputParams = {
@@ -1715,24 +1767,24 @@ export type FraudReasonInputParams = {
 
 export type FreeCollectModuleParams = {
   /** Follower only */
-  followerOnly: Scalars['Boolean']['input']
+  followerOnly: Scalars['Boolean']
 }
 
 export type FreeCollectModuleSettings = {
   __typename?: 'FreeCollectModuleSettings'
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   /** Follower only */
-  followerOnly: Scalars['Boolean']['output']
+  followerOnly: Scalars['Boolean']
   /** The collect modules enum */
   type: CollectModules
 }
 
 export type FreeCollectProxyAction = {
-  publicationId: Scalars['InternalPublicationId']['input']
+  publicationId: Scalars['InternalPublicationId']
 }
 
 export type FreeFollowProxyAction = {
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 /** The access conditions for the publication */
@@ -1742,7 +1794,7 @@ export type GatedPublicationParamsInput = {
   /** Profile follow condition */
   collect?: InputMaybe<CollectConditionInput>
   /** The LIT Protocol encrypted symmetric key */
-  encryptedSymmetricKey: Scalars['ContentEncryptionKey']['input']
+  encryptedSymmetricKey: Scalars['ContentEncryptionKey']
   /** EOA ownership condition */
   eoa?: InputMaybe<EoaOwnershipInput>
   /** Profile follow condition */
@@ -1758,97 +1810,97 @@ export type GatedPublicationParamsInput = {
 }
 
 export type GciRequest = {
-  hhh: Scalars['String']['input']
-  secret: Scalars['String']['input']
-  ttt: Scalars['String']['input']
+  hhh: Scalars['String']
+  secret: Scalars['String']
+  ttt: Scalars['String']
 }
 
 export type GcrRequest = {
-  hhh: Scalars['String']['input']
-  secret: Scalars['String']['input']
-  ttt: Scalars['String']['input']
+  hhh: Scalars['String']
+  secret: Scalars['String']
+  ttt: Scalars['String']
 }
 
 export type GctRequest = {
-  hhh: Scalars['String']['input']
-  secret: Scalars['String']['input']
+  hhh: Scalars['String']
+  secret: Scalars['String']
 }
 
 export type GddRequest = {
-  domain: Scalars['Url']['input']
-  secret: Scalars['String']['input']
+  domain: Scalars['Url']
+  secret: Scalars['String']
 }
 
 export type GdmRequest = {
-  secret: Scalars['String']['input']
+  secret: Scalars['String']
 }
 
 export type GenerateModuleCurrencyApproval = {
   __typename?: 'GenerateModuleCurrencyApproval'
-  data: Scalars['BlockchainData']['output']
-  from: Scalars['EthereumAddress']['output']
-  to: Scalars['ContractAddress']['output']
+  data: Scalars['BlockchainData']
+  from: Scalars['EthereumAddress']
+  to: Scalars['ContractAddress']
 }
 
 export type GenerateModuleCurrencyApprovalDataRequest = {
   collectModule?: InputMaybe<CollectModules>
-  currency: Scalars['ContractAddress']['input']
+  currency: Scalars['ContractAddress']
   followModule?: InputMaybe<FollowModules>
   referenceModule?: InputMaybe<ReferenceModules>
-  unknownCollectModule?: InputMaybe<Scalars['ContractAddress']['input']>
-  unknownFollowModule?: InputMaybe<Scalars['ContractAddress']['input']>
-  unknownReferenceModule?: InputMaybe<Scalars['ContractAddress']['input']>
+  unknownCollectModule?: InputMaybe<Scalars['ContractAddress']>
+  unknownFollowModule?: InputMaybe<Scalars['ContractAddress']>
+  unknownReferenceModule?: InputMaybe<Scalars['ContractAddress']>
   /** Floating point number as string (e.g. 42.009837). The server will move its decimal places for you */
-  value: Scalars['String']['input']
+  value: Scalars['String']
 }
 
 export type GetPublicationMetadataStatusRequest = {
-  publicationId?: InputMaybe<Scalars['InternalPublicationId']['input']>
-  txHash?: InputMaybe<Scalars['TxHash']['input']>
-  txId?: InputMaybe<Scalars['TxId']['input']>
+  publicationId?: InputMaybe<Scalars['InternalPublicationId']>
+  txHash?: InputMaybe<Scalars['TxHash']>
+  txId?: InputMaybe<Scalars['TxId']>
 }
 
 export type GlobalProtocolStats = {
   __typename?: 'GlobalProtocolStats'
-  totalBurntProfiles: Scalars['Int']['output']
-  totalCollects: Scalars['Int']['output']
-  totalComments: Scalars['Int']['output']
-  totalFollows: Scalars['Int']['output']
-  totalMirrors: Scalars['Int']['output']
-  totalPosts: Scalars['Int']['output']
-  totalProfiles: Scalars['Int']['output']
+  totalBurntProfiles: Scalars['Int']
+  totalCollects: Scalars['Int']
+  totalComments: Scalars['Int']
+  totalFollows: Scalars['Int']
+  totalMirrors: Scalars['Int']
+  totalPosts: Scalars['Int']
+  totalProfiles: Scalars['Int']
   totalRevenue: Array<Erc20Amount>
 }
 
 export type GlobalProtocolStatsRequest = {
   /** Unix time from timestamp - if not supplied it will go from 0 timestamp */
-  fromTimestamp?: InputMaybe<Scalars['UnixTimestamp']['input']>
+  fromTimestamp?: InputMaybe<Scalars['UnixTimestamp']>
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
+  sources?: InputMaybe<Array<Scalars['Sources']>>
   /** Unix time to timestamp - if not supplied it go to the present timestamp */
-  toTimestamp?: InputMaybe<Scalars['UnixTimestamp']['input']>
+  toTimestamp?: InputMaybe<Scalars['UnixTimestamp']>
 }
 
 export type HasTxHashBeenIndexedRequest = {
   /** Tx hash.. if your using the broadcaster you should use txId due to gas price upgrades */
-  txHash?: InputMaybe<Scalars['TxHash']['input']>
+  txHash?: InputMaybe<Scalars['TxHash']>
   /** Tx id.. if your using the broadcaster you should always use this field */
-  txId?: InputMaybe<Scalars['TxId']['input']>
+  txId?: InputMaybe<Scalars['TxId']>
 }
 
 export type HelRequest = {
-  handle: Scalars['Handle']['input']
-  remove: Scalars['Boolean']['input']
-  secret: Scalars['String']['input']
+  handle: Scalars['Handle']
+  remove: Scalars['Boolean']
+  secret: Scalars['String']
 }
 
 export type HidePublicationRequest = {
   /** Publication id */
-  publicationId: Scalars['InternalPublicationId']['input']
+  publicationId: Scalars['InternalPublicationId']
 }
 
 export type IdKitPhoneVerifyWebhookRequest = {
-  sharedSecret: Scalars['String']['input']
+  sharedSecret: Scalars['String']
   worldcoin?: InputMaybe<WorldcoinPhoneVerifyWebhookRequest>
 }
 
@@ -1864,29 +1916,29 @@ export type IllegalReasonInputParams = {
 }
 
 export type InternalPublicationsFilterRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
   /** must be DD/MM/YYYY */
-  fromDate: Scalars['String']['input']
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  fromDate: Scalars['String']
+  limit?: InputMaybe<Scalars['LimitScalar']>
   /** The shared secret */
-  secret: Scalars['String']['input']
+  secret: Scalars['String']
   /** The App Id */
-  source: Scalars['Sources']['input']
+  source: Scalars['Sources']
   /** must be DD/MM/YYYY */
-  toDate: Scalars['String']['input']
+  toDate: Scalars['String']
 }
 
 export type LimitedFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
   /** The collect module limit */
-  collectLimit: Scalars['String']['input']
+  collectLimit: Scalars['String']
   /** Follower only */
-  followerOnly: Scalars['Boolean']['input']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']['input']
+  recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']['input']
+  referralFee: Scalars['Float']
 }
 
 export type LimitedFeeCollectModuleSettings = {
@@ -1894,14 +1946,14 @@ export type LimitedFeeCollectModuleSettings = {
   /** The collect module amount info */
   amount: ModuleFeeAmount
   /** The collect module limit */
-  collectLimit: Scalars['String']['output']
-  contractAddress: Scalars['ContractAddress']['output']
+  collectLimit: Scalars['String']
+  contractAddress: Scalars['ContractAddress']
   /** Follower only */
-  followerOnly: Scalars['Boolean']['output']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']['output']
+  recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']['output']
+  referralFee: Scalars['Float']
   /** The collect modules enum */
   type: CollectModules
 }
@@ -1910,13 +1962,13 @@ export type LimitedTimedFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
   /** The collect module limit */
-  collectLimit: Scalars['String']['input']
+  collectLimit: Scalars['String']
   /** Follower only */
-  followerOnly: Scalars['Boolean']['input']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']['input']
+  recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']['input']
+  referralFee: Scalars['Float']
 }
 
 export type LimitedTimedFeeCollectModuleSettings = {
@@ -1924,31 +1976,31 @@ export type LimitedTimedFeeCollectModuleSettings = {
   /** The collect module amount info */
   amount: ModuleFeeAmount
   /** The collect module limit */
-  collectLimit: Scalars['String']['output']
-  contractAddress: Scalars['ContractAddress']['output']
+  collectLimit: Scalars['String']
+  contractAddress: Scalars['ContractAddress']
   /** The collect module end timestamp */
-  endTimestamp: Scalars['DateTime']['output']
+  endTimestamp: Scalars['DateTime']
   /** Follower only */
-  followerOnly: Scalars['Boolean']['output']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']['output']
+  recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']['output']
+  referralFee: Scalars['Float']
   /** The collect modules enum */
   type: CollectModules
 }
 
 export type Log = {
   __typename?: 'Log'
-  address: Scalars['ContractAddress']['output']
-  blockHash: Scalars['String']['output']
-  blockNumber: Scalars['Int']['output']
-  data: Scalars['String']['output']
-  logIndex: Scalars['Int']['output']
-  removed: Scalars['Boolean']['output']
-  topics: Array<Scalars['String']['output']>
-  transactionHash: Scalars['TxHash']['output']
-  transactionIndex: Scalars['Int']['output']
+  address: Scalars['ContractAddress']
+  blockHash: Scalars['String']
+  blockNumber: Scalars['Int']
+  data: Scalars['String']
+  logIndex: Scalars['Int']
+  removed: Scalars['Boolean']
+  topics: Array<Scalars['String']>
+  transactionHash: Scalars['TxHash']
+  transactionIndex: Scalars['Int']
 }
 
 export type MainPostReference = Mirror | Post
@@ -1957,32 +2009,32 @@ export type MainPostReference = Mirror | Post
 export type Media = {
   __typename?: 'Media'
   /** The alt tags for accessibility */
-  altTag?: Maybe<Scalars['String']['output']>
+  altTag?: Maybe<Scalars['String']>
   /** The cover for any video or audio you attached */
-  cover?: Maybe<Scalars['Url']['output']>
+  cover?: Maybe<Scalars['Url']>
   /** Height - will always be null on the public API */
-  height?: Maybe<Scalars['Int']['output']>
+  height?: Maybe<Scalars['Int']>
   /** The image/audio/video mime type for the publication */
-  mimeType?: Maybe<Scalars['MimeType']['output']>
+  mimeType?: Maybe<Scalars['MimeType']>
   /** Size - will always be null on the public API */
-  size?: Maybe<Scalars['Int']['output']>
+  size?: Maybe<Scalars['Int']>
   /** The token image nft */
-  url: Scalars['Url']['output']
+  url: Scalars['Url']
   /** Width - will always be null on the public API */
-  width?: Maybe<Scalars['Int']['output']>
+  width?: Maybe<Scalars['Int']>
 }
 
 /** Media object output */
 export type MediaOutput = {
   __typename?: 'MediaOutput'
   /** The alt tags for accessibility */
-  altTag?: Maybe<Scalars['String']['output']>
+  altTag?: Maybe<Scalars['String']>
   /** The cover for any video or audio you attached */
-  cover?: Maybe<Scalars['Url']['output']>
-  item: Scalars['Url']['output']
+  cover?: Maybe<Scalars['Url']>
+  item: Scalars['Url']
   source?: Maybe<PublicationMediaSource>
   /** This is the mime type of media */
-  type?: Maybe<Scalars['MimeType']['output']>
+  type?: Maybe<Scalars['MimeType']>
 }
 
 /** The Media Set */
@@ -2014,11 +2066,11 @@ export type MediaSetTransformedArgs = {
 
 export type MediaTransformParams = {
   /** Set the transformed image's height. You can use specific size in pixels eg. 100px, a percentage eg. 50% or set as 'auto' to be set automatically. Default value is 'auto'. */
-  height?: InputMaybe<Scalars['ImageSizeTransform']['input']>
+  height?: InputMaybe<Scalars['ImageSizeTransform']>
   /** Set if you want to keep the image's original aspect ratio. True by default. If explicitly set to false, the image will stretch based on the width and height values. */
-  keepAspectRatio?: InputMaybe<Scalars['Boolean']['input']>
+  keepAspectRatio?: InputMaybe<Scalars['Boolean']>
   /** Set the transformed image's width. You can use specific size in pixels eg. 100px, a percentage eg. 50% or set as 'auto' to be set automatically. Default value is 'auto'. */
-  width?: InputMaybe<Scalars['ImageSizeTransform']['input']>
+  width?: InputMaybe<Scalars['ImageSizeTransform']>
 }
 
 export type MentionPublication = Comment | Post
@@ -2028,9 +2080,9 @@ export type MetadataAttributeInput = {
   /** The display type */
   displayType?: InputMaybe<PublicationMetadataDisplayTypes>
   /** The trait type - can be anything its the name it will render so include spaces */
-  traitType: Scalars['String']['input']
+  traitType: Scalars['String']
   /** The value */
-  value: Scalars['String']['input']
+  value: Scalars['String']
 }
 
 /** The metadata attribute output */
@@ -2039,73 +2091,74 @@ export type MetadataAttributeOutput = {
   /** The display type */
   displayType?: Maybe<PublicationMetadataDisplayTypes>
   /** The trait type - can be anything its the name it will render so include spaces */
-  traitType?: Maybe<Scalars['String']['output']>
+  traitType?: Maybe<Scalars['String']>
   /** The value */
-  value?: Maybe<Scalars['String']['output']>
+  value?: Maybe<Scalars['String']>
 }
 
 /** The metadata output */
 export type MetadataOutput = {
   __typename?: 'MetadataOutput'
   /** The main focus of the publication */
-  animatedUrl?: Maybe<Scalars['Url']['output']>
+  animatedUrl?: Maybe<Scalars['Url']>
   /** The attributes */
   attributes: Array<MetadataAttributeOutput>
   /** This is the metadata content for the publication, should be markdown */
-  content?: Maybe<Scalars['Markdown']['output']>
+  content?: Maybe<Scalars['Markdown']>
   /** The content warning for the publication */
   contentWarning?: Maybe<PublicationContentWarning>
   /** The image cover for video/music publications */
   cover?: Maybe<MediaSet>
   /** This is the metadata description */
-  description?: Maybe<Scalars['Markdown']['output']>
+  description?: Maybe<Scalars['Markdown']>
   /** The publication's encryption params in case it's encrypted */
   encryptionParams?: Maybe<EncryptionParamsOutput>
   /** This is the image attached to the metadata and the property used to show the NFT! */
-  image?: Maybe<Scalars['Url']['output']>
+  image?: Maybe<Scalars['Url']>
   /** The locale of the publication,  */
-  locale?: Maybe<Scalars['Locale']['output']>
+  locale?: Maybe<Scalars['Locale']>
   /** The main focus of the publication */
   mainContentFocus: PublicationMainFocus
   /** The images/audios/videos for the publication */
   media: Array<MediaSet>
   /** The metadata name */
-  name?: Maybe<Scalars['String']['output']>
+  name?: Maybe<Scalars['String']>
   /** The tags for the publication */
-  tags: Array<Scalars['String']['output']>
+  tags: Array<Scalars['String']>
 }
 
 /** The social mirror */
 export type Mirror = {
   __typename?: 'Mirror'
   /** ID of the source */
-  appId?: Maybe<Scalars['Sources']['output']>
+  appId?: Maybe<Scalars['Sources']>
   canComment: CanCommentResponse
   canDecrypt: CanDecryptResponse
   canMirror: CanMirrorResponse
   /** The collect module */
   collectModule: CollectModule
   /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
-  collectNftAddress?: Maybe<Scalars['ContractAddress']['output']>
+  collectNftAddress?: Maybe<Scalars['ContractAddress']>
   /** The date the post was created on */
-  createdAt: Scalars['DateTime']['output']
+  createdAt: Scalars['DateTime']
   /** The data availability proofs you can fetch from */
-  dataAvailabilityProofs?: Maybe<Scalars['String']['output']>
-  hasCollectedByMe: Scalars['Boolean']['output']
+  dataAvailabilityProofs?: Maybe<Scalars['String']>
+  hasCollectedByMe: Scalars['Boolean']
   /** If the publication has been hidden if it has then the content and media is not available */
-  hidden: Scalars['Boolean']['output']
+  hidden: Scalars['Boolean']
   /** The internal publication id */
-  id: Scalars['InternalPublicationId']['output']
+  id: Scalars['InternalPublicationId']
   /** Indicates if the publication is data availability post */
-  isDataAvailability: Scalars['Boolean']['output']
+  isDataAvailability: Scalars['Boolean']
   /** Indicates if the publication is gated behind some access criteria */
-  isGated: Scalars['Boolean']['output']
+  isGated: Scalars['Boolean']
   /** The metadata for the post */
   metadata: MetadataOutput
   /** The mirror publication */
   mirrorOf: MirrorablePublication
+  notInterested: Scalars['Boolean']
   /** The on chain content uri could be `ipfs://` or `https` */
-  onChainContentURI: Scalars['String']['output']
+  onChainContentURI: Scalars['String']
   /** The profile ref */
   profile: Profile
   reaction?: Maybe<ReactionTypes>
@@ -2117,23 +2170,28 @@ export type Mirror = {
 
 /** The social mirror */
 export type MirrorCanCommentArgs = {
-  profileId?: InputMaybe<Scalars['ProfileId']['input']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
 }
 
 /** The social mirror */
 export type MirrorCanDecryptArgs = {
-  address?: InputMaybe<Scalars['EthereumAddress']['input']>
-  profileId?: InputMaybe<Scalars['ProfileId']['input']>
+  address?: InputMaybe<Scalars['EthereumAddress']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
 }
 
 /** The social mirror */
 export type MirrorCanMirrorArgs = {
-  profileId?: InputMaybe<Scalars['ProfileId']['input']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
 }
 
 /** The social mirror */
 export type MirrorHasCollectedByMeArgs = {
-  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']['input']>
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>
+}
+
+/** The social mirror */
+export type MirrorNotInterestedArgs = {
+  by?: InputMaybe<Scalars['ProfileId']>
 }
 
 /** The social mirror */
@@ -2144,7 +2202,7 @@ export type MirrorReactionArgs = {
 export type MirrorEvent = {
   __typename?: 'MirrorEvent'
   profile: Profile
-  timestamp: Scalars['DateTime']['output']
+  timestamp: Scalars['DateTime']
 }
 
 export type MirrorablePublication = Comment | Post
@@ -2154,9 +2212,9 @@ export type ModuleFee = {
   /** The fee amount */
   amount: ModuleFeeAmount
   /** The fee recipient */
-  recipient: Scalars['EthereumAddress']['output']
+  recipient: Scalars['EthereumAddress']
   /** The referral fee */
-  referralFee: Scalars['Float']['output']
+  referralFee: Scalars['Float']
 }
 
 export type ModuleFeeAmount = {
@@ -2164,29 +2222,29 @@ export type ModuleFeeAmount = {
   /** The erc20 token info */
   asset: Erc20
   /** Floating point number as string (e.g. 42.009837). It could have the entire precision of the Asset or be truncated to the last significant decimal. */
-  value: Scalars['String']['output']
+  value: Scalars['String']
 }
 
 export type ModuleFeeAmountParams = {
   /** The currency address */
-  currency: Scalars['ContractAddress']['input']
+  currency: Scalars['ContractAddress']
   /** Floating point number as string (e.g. 42.009837). It could have the entire precision of the Asset or be truncated to the last significant decimal. */
-  value: Scalars['String']['input']
+  value: Scalars['String']
 }
 
 export type ModuleFeeParams = {
   /** The fee amount */
   amount: ModuleFeeAmountParams
   /** The fee recipient */
-  recipient: Scalars['EthereumAddress']['input']
+  recipient: Scalars['EthereumAddress']
   /** The referral fee */
-  referralFee: Scalars['Float']['input']
+  referralFee: Scalars['Float']
 }
 
 export type ModuleInfo = {
   __typename?: 'ModuleInfo'
-  name: Scalars['String']['output']
-  type: Scalars['String']['output']
+  name: Scalars['String']
+  type: Scalars['String']
 }
 
 /** The momka validator error */
@@ -2225,15 +2283,15 @@ export type MultirecipientFeeCollectModuleParams = {
   /** The collecting cost associated with this publication. 0 for free collect. */
   amount: ModuleFeeAmountParams
   /** The maximum number of collects for this publication. Omit for no limit. */
-  collectLimit?: InputMaybe<Scalars['String']['input']>
+  collectLimit?: InputMaybe<Scalars['String']>
   /** The end timestamp after which collecting is impossible. Omit for no expiry. */
-  endTimestamp?: InputMaybe<Scalars['DateTime']['input']>
+  endTimestamp?: InputMaybe<Scalars['DateTime']>
   /** True if only followers of publisher may collect the post. */
-  followerOnly: Scalars['Boolean']['input']
+  followerOnly: Scalars['Boolean']
   /** Recipient of collect fees. */
   recipients: Array<RecipientDataInput>
   /** The referral fee associated with this publication. */
-  referralFee?: InputMaybe<Scalars['Float']['input']>
+  referralFee?: InputMaybe<Scalars['Float']>
 }
 
 export type MultirecipientFeeCollectModuleSettings = {
@@ -2241,30 +2299,35 @@ export type MultirecipientFeeCollectModuleSettings = {
   /** The collect module amount info */
   amount: ModuleFeeAmount
   /** The maximum number of collects for this publication. 0 for no limit. */
-  collectLimit?: Maybe<Scalars['String']['output']>
-  contractAddress: Scalars['ContractAddress']['output']
+  collectLimit?: Maybe<Scalars['String']>
+  contractAddress: Scalars['ContractAddress']
   /** The end timestamp after which collecting is impossible. 0 for no expiry. */
-  endTimestamp?: Maybe<Scalars['DateTime']['output']>
+  endTimestamp?: Maybe<Scalars['DateTime']>
   /** True if only followers of publisher may collect the post. */
-  followerOnly: Scalars['Boolean']['output']
+  followerOnly: Scalars['Boolean']
   /** Recipient of collect fees. */
   recipients: Array<RecipientDataOutput>
   /** The referral fee associated with this publication. */
-  referralFee: Scalars['Float']['output']
+  referralFee: Scalars['Float']
   /** The collect modules enum */
   type: CollectModules
 }
 
 export type Mutation = {
   __typename?: 'Mutation'
-  ach?: Maybe<Scalars['Void']['output']>
+  ach?: Maybe<Scalars['Void']>
   /** Adds profile interests to the given profile */
-  addProfileInterests?: Maybe<Scalars['Void']['output']>
-  addReaction?: Maybe<Scalars['Void']['output']>
+  addProfileInterests?: Maybe<Scalars['Void']>
+  addPublicationProfileNotInterested?: Maybe<Scalars['Void']>
+  addReaction?: Maybe<Scalars['Void']>
+  /** Add a voter to a zk community */
+  addVoterToCommunity: ZkRelayerResult
   authenticate: AuthenticationResult
   broadcast: RelayResult
   broadcastDataAvailability: BroadcastDataAvailabilityUnion
+  castZkVote: ZkRelayerResult
   claim: RelayResult
+  claimZkBadge: ZkRelayerResult
   createAttachMediaData: PublicMediaResults
   createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult
   createCollectTypedData: CreateCollectBroadcastItemResult
@@ -2280,7 +2343,7 @@ export type Mutation = {
   createMirrorTypedData: CreateMirrorBroadcastItemResult
   createMirrorViaDispatcher: RelayResult
   /** Create a new NFT gallery */
-  createNftGallery: Scalars['NftGalleryId']['output']
+  createNftGallery: Scalars['NftGalleryId']
   createPostTypedData: CreatePostBroadcastItemResult
   createPostViaDispatcher: RelayResult
   createProfile: RelayResult
@@ -2295,28 +2358,32 @@ export type Mutation = {
   createSetProfileMetadataViaDispatcher: RelayResult
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult
+  /** Create a zk community */
+  createZkCommunity: ZkRelayerResult
+  createZkPoll: ZkRelayerResult
   /** Delete an NFT Gallery */
-  deleteNftGallery?: Maybe<Scalars['Void']['output']>
-  dismissRecommendedProfiles?: Maybe<Scalars['Void']['output']>
-  dss?: Maybe<Scalars['Void']['output']>
-  gci?: Maybe<Scalars['Void']['output']>
-  gcr?: Maybe<Scalars['Void']['output']>
-  gdi?: Maybe<Scalars['Void']['output']>
-  hel?: Maybe<Scalars['Void']['output']>
-  hidePublication?: Maybe<Scalars['Void']['output']>
+  deleteNftGallery?: Maybe<Scalars['Void']>
+  dismissRecommendedProfiles?: Maybe<Scalars['Void']>
+  dss?: Maybe<Scalars['Void']>
+  gci?: Maybe<Scalars['Void']>
+  gcr?: Maybe<Scalars['Void']>
+  gdi?: Maybe<Scalars['Void']>
+  hel?: Maybe<Scalars['Void']>
+  hidePublication?: Maybe<Scalars['Void']>
   idKitPhoneVerifyWebhook: IdKitPhoneVerifyWebhookResultStatusType
-  proxyAction: Scalars['ProxyActionId']['output']
+  proxyAction: Scalars['ProxyActionId']
   refresh: AuthenticationResult
   /** Removes profile interests from the given profile */
-  removeProfileInterests?: Maybe<Scalars['Void']['output']>
-  removeReaction?: Maybe<Scalars['Void']['output']>
-  reportPublication?: Maybe<Scalars['Void']['output']>
+  removeProfileInterests?: Maybe<Scalars['Void']>
+  removePublicationProfileNotInterested?: Maybe<Scalars['Void']>
+  removeReaction?: Maybe<Scalars['Void']>
+  reportPublication?: Maybe<Scalars['Void']>
   /** Update the name of an NFT gallery */
-  updateNftGalleryInfo?: Maybe<Scalars['Void']['output']>
+  updateNftGalleryInfo?: Maybe<Scalars['Void']>
   /** Add and/or remove NFTs to a gallery */
-  updateNftGalleryItems?: Maybe<Scalars['Void']['output']>
+  updateNftGalleryItems?: Maybe<Scalars['Void']>
   /** Update the order of NFTs in a gallery */
-  updateNftGalleryOrder?: Maybe<Scalars['Void']['output']>
+  updateNftGalleryOrder?: Maybe<Scalars['Void']>
 }
 
 export type MutationAchArgs = {
@@ -2327,8 +2394,16 @@ export type MutationAddProfileInterestsArgs = {
   request: AddProfileInterestsRequest
 }
 
+export type MutationAddPublicationProfileNotInterestedArgs = {
+  request: PublicationProfileNotInterestedRequest
+}
+
 export type MutationAddReactionArgs = {
   request: ReactionRequest
+}
+
+export type MutationAddVoterToCommunityArgs = {
+  request: AddVoterRequest
 }
 
 export type MutationAuthenticateArgs = {
@@ -2343,8 +2418,16 @@ export type MutationBroadcastDataAvailabilityArgs = {
   request: BroadcastRequest
 }
 
+export type MutationCastZkVoteArgs = {
+  request: CastZkVoteRequest
+}
+
 export type MutationClaimArgs = {
   request: ClaimHandleRequest
+}
+
+export type MutationClaimZkBadgeArgs = {
+  request: ClaimZkBadgeRequest
 }
 
 export type MutationCreateAttachMediaDataArgs = {
@@ -2477,6 +2560,14 @@ export type MutationCreateUnfollowTypedDataArgs = {
   request: UnfollowRequest
 }
 
+export type MutationCreateZkCommunityArgs = {
+  request: CreateZkCommunityRequest
+}
+
+export type MutationCreateZkPollArgs = {
+  request: CreateZkPollRequest
+}
+
 export type MutationDeleteNftGalleryArgs = {
   request: NftGalleryDeleteRequest
 }
@@ -2525,6 +2616,10 @@ export type MutationRemoveProfileInterestsArgs = {
   request: RemoveProfileInterestsRequest
 }
 
+export type MutationRemovePublicationProfileNotInterestedArgs = {
+  request: PublicationProfileNotInterestedRequest
+}
+
 export type MutationRemoveReactionArgs = {
   request: ReactionRequest
 }
@@ -2546,70 +2641,70 @@ export type MutationUpdateNftGalleryOrderArgs = {
 }
 
 export type MutualFollowersProfilesQueryRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   /** The profile id your viewing */
-  viewingProfileId: Scalars['ProfileId']['input']
+  viewingProfileId: Scalars['ProfileId']
   /** The profile id you want the result to come back as your viewing from */
-  yourProfileId: Scalars['ProfileId']['input']
+  yourProfileId: Scalars['ProfileId']
 }
 
 /** The nft type */
 export type Nft = {
   __typename?: 'NFT'
   /** aka "1"  */
-  chainId: Scalars['ChainId']['output']
+  chainId: Scalars['ChainId']
   /** aka "CryptoKitties"  */
-  collectionName: Scalars['String']['output']
+  collectionName: Scalars['String']
   /** aka "https://api.criptokitt..."  */
-  contentURI: Scalars['String']['output']
+  contentURI: Scalars['String']
   /** aka 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e  */
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   /** aka us CryptoKitties */
-  contractName: Scalars['String']['output']
+  contractName: Scalars['String']
   /** aka "Hey cutie! I m Beard Coffee. ....  */
-  description: Scalars['String']['output']
+  description: Scalars['String']
   /** aka "ERC721"  */
-  ercType: Scalars['String']['output']
+  ercType: Scalars['String']
   /** aka "Beard Coffee"  */
-  name: Scalars['String']['output']
+  name: Scalars['String']
   /** aka "{ uri:"https://ipfs....", metaType:"image/png" }"  */
   originalContent: NftContent
   /** aka { address: 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e, amount:"2" }  */
   owners: Array<Owner>
   /** aka RARI */
-  symbol: Scalars['String']['output']
+  symbol: Scalars['String']
   /** aka "13"  */
-  tokenId: Scalars['String']['output']
+  tokenId: Scalars['String']
 }
 
 /** The NFT content uri */
 export type NftContent = {
   __typename?: 'NFTContent'
   /** The animated url */
-  animatedUrl?: Maybe<Scalars['String']['output']>
+  animatedUrl?: Maybe<Scalars['String']>
   /** The meta type content */
-  metaType: Scalars['String']['output']
+  metaType: Scalars['String']
   /** The token uri  nft */
-  uri: Scalars['String']['output']
+  uri: Scalars['String']
 }
 
 export type NftData = {
   /** Id of the nft ownership challenge */
-  id: Scalars['NftOwnershipId']['input']
+  id: Scalars['NftOwnershipId']
   /** The signature */
-  signature: Scalars['Signature']['input']
+  signature: Scalars['Signature']
 }
 
 export type NfTsRequest = {
   /** Chain Ids */
-  chainIds: Array<Scalars['ChainId']['input']>
+  chainIds: Array<Scalars['ChainId']>
   /** Filter by contract address */
-  contractAddress?: InputMaybe<Scalars['ContractAddress']['input']>
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  contractAddress?: InputMaybe<Scalars['ContractAddress']>
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   /** Filter by owner address */
-  ownerAddress: Scalars['EthereumAddress']['input']
+  ownerAddress: Scalars['EthereumAddress']
 }
 
 /** Paginated nft results */
@@ -2622,39 +2717,39 @@ export type NfTsResult = {
 export type NewCollectNotification = {
   __typename?: 'NewCollectNotification'
   collectedPublication: Publication
-  createdAt: Scalars['DateTime']['output']
-  notificationId: Scalars['NotificationId']['output']
+  createdAt: Scalars['DateTime']
+  notificationId: Scalars['NotificationId']
   wallet: Wallet
 }
 
 export type NewCommentNotification = {
   __typename?: 'NewCommentNotification'
   comment: Comment
-  createdAt: Scalars['DateTime']['output']
-  notificationId: Scalars['NotificationId']['output']
+  createdAt: Scalars['DateTime']
+  notificationId: Scalars['NotificationId']
   /** The profile */
   profile: Profile
 }
 
 export type NewFollowerNotification = {
   __typename?: 'NewFollowerNotification'
-  createdAt: Scalars['DateTime']['output']
-  isFollowedByMe: Scalars['Boolean']['output']
-  notificationId: Scalars['NotificationId']['output']
+  createdAt: Scalars['DateTime']
+  isFollowedByMe: Scalars['Boolean']
+  notificationId: Scalars['NotificationId']
   wallet: Wallet
 }
 
 export type NewMentionNotification = {
   __typename?: 'NewMentionNotification'
-  createdAt: Scalars['DateTime']['output']
+  createdAt: Scalars['DateTime']
   mentionPublication: MentionPublication
-  notificationId: Scalars['NotificationId']['output']
+  notificationId: Scalars['NotificationId']
 }
 
 export type NewMirrorNotification = {
   __typename?: 'NewMirrorNotification'
-  createdAt: Scalars['DateTime']['output']
-  notificationId: Scalars['NotificationId']['output']
+  createdAt: Scalars['DateTime']
+  notificationId: Scalars['NotificationId']
   /** The profile */
   profile: Profile
   publication: MirrorablePublication
@@ -2662,8 +2757,8 @@ export type NewMirrorNotification = {
 
 export type NewReactionNotification = {
   __typename?: 'NewReactionNotification'
-  createdAt: Scalars['DateTime']['output']
-  notificationId: Scalars['NotificationId']['output']
+  createdAt: Scalars['DateTime']
+  notificationId: Scalars['NotificationId']
   /** The profile */
   profile: Profile
   publication: Publication
@@ -2673,24 +2768,24 @@ export type NewReactionNotification = {
 /** The NFT gallery input */
 export type NftGalleriesRequest = {
   /** The profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 /** The NFT gallery */
 export type NftGallery = {
   __typename?: 'NftGallery'
   /** The creation date */
-  createdAt: Scalars['DateTime']['output']
+  createdAt: Scalars['DateTime']
   /** The NFT gallery id */
-  id: Scalars['NftGalleryId']['output']
+  id: Scalars['NftGalleryId']
   /** The NFTs in the gallery */
   items: Array<Nft>
   /** The NFT gallery name */
-  name: Scalars['String']['output']
+  name: Scalars['String']
   /** The owning profile id */
-  profileId: Scalars['ProfileId']['output']
+  profileId: Scalars['ProfileId']
   /** The last update date */
-  updatedAt: Scalars['DateTime']['output']
+  updatedAt: Scalars['DateTime']
 }
 
 /** The input for creating a new NFT gallery */
@@ -2698,35 +2793,35 @@ export type NftGalleryCreateRequest = {
   /** The NFTs in the gallery */
   items: Array<NftInput>
   /** The name of the NFT gallery */
-  name: Scalars['NftGalleryName']['input']
+  name: Scalars['NftGalleryName']
   /** The owner profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 /** The input for deleting gallery */
 export type NftGalleryDeleteRequest = {
   /** The NFT gallery id */
-  galleryId: Scalars['NftGalleryId']['input']
+  galleryId: Scalars['NftGalleryId']
   /** The profile id of the gallery owner */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 /** The input for updating NFT gallery name */
 export type NftGalleryUpdateInfoRequest = {
   /** The NFT gallery id */
-  galleryId: Scalars['NftGalleryId']['input']
+  galleryId: Scalars['NftGalleryId']
   /** The name of the NFT gallery */
-  name: Scalars['NftGalleryName']['input']
+  name: Scalars['NftGalleryName']
   /** The profile id of the gallery owner */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 /** The input for reordering gallery items */
 export type NftGalleryUpdateItemOrderRequest = {
   /** The NFT gallery id */
-  galleryId: Scalars['NftGalleryId']['input']
+  galleryId: Scalars['NftGalleryId']
   /** The profile id of the gallery owner */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
   /** The order of the NFTs in the gallery */
   updates: Array<NftUpdateItemOrder>
 }
@@ -2734,9 +2829,9 @@ export type NftGalleryUpdateItemOrderRequest = {
 /** The input for adding/removing gallery items */
 export type NftGalleryUpdateItemsRequest = {
   /** The NFT gallery id */
-  galleryId: Scalars['NftGalleryId']['input']
+  galleryId: Scalars['NftGalleryId']
   /** The profile id of the gallery owner */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
   /** The contents of the NFT gallery */
   toAdd?: InputMaybe<Array<NftInput>>
   /** The contents of the NFT gallery */
@@ -2747,39 +2842,39 @@ export type NftGalleryUpdateItemsRequest = {
 export type NftImage = {
   __typename?: 'NftImage'
   /** The token image nft */
-  chainId: Scalars['Int']['output']
+  chainId: Scalars['Int']
   /** The contract address */
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   /** The token id of the nft */
-  tokenId: Scalars['String']['output']
+  tokenId: Scalars['String']
   /** The token image nft */
-  uri: Scalars['Url']['output']
+  uri: Scalars['Url']
   /** If the NFT is verified */
-  verified: Scalars['Boolean']['output']
+  verified: Scalars['Boolean']
 }
 
 /** The NFT input for gallery */
 export type NftInput = {
   /** The chain ID of the NFT */
-  chainId: Scalars['ChainId']['input']
+  chainId: Scalars['ChainId']
   /** The contract address of the NFT */
-  contractAddress: Scalars['ContractAddress']['input']
+  contractAddress: Scalars['ContractAddress']
   /** The token ID of the NFT */
-  tokenId: Scalars['String']['input']
+  tokenId: Scalars['String']
 }
 
 export type NftOwnershipChallenge = {
   /** Chain Id */
-  chainId: Scalars['ChainId']['input']
+  chainId: Scalars['ChainId']
   /** ContractAddress for nft */
-  contractAddress: Scalars['ContractAddress']['input']
+  contractAddress: Scalars['ContractAddress']
   /** Token id for NFT */
-  tokenId: Scalars['String']['input']
+  tokenId: Scalars['String']
 }
 
 export type NftOwnershipChallengeRequest = {
   /** The wallet address which owns the NFT */
-  ethereumAddress: Scalars['EthereumAddress']['input']
+  ethereumAddress: Scalars['EthereumAddress']
   nfts: Array<NftOwnershipChallenge>
 }
 
@@ -2787,45 +2882,45 @@ export type NftOwnershipChallengeRequest = {
 export type NftOwnershipChallengeResult = {
   __typename?: 'NftOwnershipChallengeResult'
   /** Id of the nft ownership challenge */
-  id: Scalars['NftOwnershipId']['output']
-  text: Scalars['String']['output']
+  id: Scalars['NftOwnershipId']
+  text: Scalars['String']
   /** Timeout of the validation */
-  timeout: Scalars['TimestampScalar']['output']
+  timeout: Scalars['TimestampScalar']
 }
 
 export type NftOwnershipInput = {
   /** The NFT chain id */
-  chainID: Scalars['ChainId']['input']
+  chainID: Scalars['ChainId']
   /** The NFT collection's ethereum address */
-  contractAddress: Scalars['ContractAddress']['input']
+  contractAddress: Scalars['ContractAddress']
   /** The unlocker contract type */
   contractType: ContractType
   /** The optional token ID(s) to check for ownership */
-  tokenIds?: InputMaybe<Array<Scalars['TokenId']['input']>>
+  tokenIds?: InputMaybe<Array<Scalars['TokenId']>>
 }
 
 export type NftOwnershipOutput = {
   __typename?: 'NftOwnershipOutput'
   /** The NFT chain id */
-  chainID: Scalars['ChainId']['output']
+  chainID: Scalars['ChainId']
   /** The NFT collection's ethereum address */
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   /** The unlocker contract type */
   contractType: ContractType
   /** The optional token ID(s) to check for ownership */
-  tokenIds?: Maybe<Array<Scalars['TokenId']['output']>>
+  tokenIds?: Maybe<Array<Scalars['TokenId']>>
 }
 
 /** The input for updating the order of a NFT gallery item */
 export type NftUpdateItemOrder = {
   /** The chain ID of the NFT */
-  chainId: Scalars['ChainId']['input']
+  chainId: Scalars['ChainId']
   /** The contract address of the NFT */
-  contractAddress: Scalars['ContractAddress']['input']
+  contractAddress: Scalars['ContractAddress']
   /** The new order of the NFT in the gallery */
-  newOrder: Scalars['Int']['input']
+  newOrder: Scalars['Int']
   /** The token ID of the NFT */
-  tokenId: Scalars['String']['input']
+  tokenId: Scalars['String']
 }
 
 export type Notification =
@@ -2837,16 +2932,16 @@ export type Notification =
   | NewReactionNotification
 
 export type NotificationRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>
-  highSignalFilter?: InputMaybe<Scalars['Boolean']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  highSignalFilter?: InputMaybe<Scalars['Boolean']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   /** The notification types */
   notificationTypes?: InputMaybe<Array<NotificationTypes>>
   /** The profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
+  sources?: InputMaybe<Array<Scalars['Sources']>>
 }
 
 /** The notification filter types */
@@ -2869,7 +2964,7 @@ export type OnChainIdentity = {
   /** The ens information */
   ens?: Maybe<EnsOnChainIdentity>
   /** The POH status */
-  proofOfHumanity: Scalars['Boolean']['output']
+  proofOfHumanity: Scalars['Boolean']
   /** The sybil dot org information */
   sybilDotOrg: SybilDotOrgIdentity
   /** The worldcoin identity */
@@ -2891,9 +2986,9 @@ export type OrConditionOutput = {
 export type Owner = {
   __typename?: 'Owner'
   /** aka 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e  */
-  address: Scalars['EthereumAddress']['output']
+  address: Scalars['EthereumAddress']
   /** number of tokens owner */
-  amount: Scalars['Float']['output']
+  amount: Scalars['Float']
 }
 
 /** The paginated wallet result */
@@ -2955,14 +3050,14 @@ export type PaginatedPublicationResult = {
 export type PaginatedResultInfo = {
   __typename?: 'PaginatedResultInfo'
   /** Cursor to query next results */
-  next?: Maybe<Scalars['Cursor']['output']>
+  next?: Maybe<Scalars['Cursor']>
   /** Cursor to query the actual results */
-  prev?: Maybe<Scalars['Cursor']['output']>
+  prev?: Maybe<Scalars['Cursor']>
   /**
    * The total number of entities the pagination iterates over. If its null then its not been worked out due to it being an expensive query and not really needed for the client. All main counters are in counter tables to allow them to be faster fetching.
    * @deprecated Total counts is expensive and in dynamic nature of queries it slows stuff down. Most the time you do not need this you can just use the `next` property to see if there is more data. This will be removed soon. The only use case anyone is using this right now is on notification query, this should be changed to query the notifications and cache the last notification id. You can then keep checking if the id changes you know more notifications.
    */
-  totalCount?: Maybe<Scalars['Int']['output']>
+  totalCount?: Maybe<Scalars['Int']>
 }
 
 /** The paginated result */
@@ -2986,8 +3081,8 @@ export type PaginatedWhoReactedResult = {
 }
 
 export type PendingApprovalFollowsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
 }
 
 /** The paginated follow result */
@@ -3001,37 +3096,38 @@ export type PendingApproveFollowsResult = {
 export type Post = {
   __typename?: 'Post'
   /** ID of the source */
-  appId?: Maybe<Scalars['Sources']['output']>
+  appId?: Maybe<Scalars['Sources']>
   canComment: CanCommentResponse
   canDecrypt: CanDecryptResponse
   canMirror: CanMirrorResponse
   /** The collect module */
   collectModule: CollectModule
   /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
-  collectNftAddress?: Maybe<Scalars['ContractAddress']['output']>
+  collectNftAddress?: Maybe<Scalars['ContractAddress']>
   /**
    * Who collected it, this is used for timeline results and like this for better caching for the client
    * @deprecated use `feed` query, timeline query will be killed on the 15th November. This includes this field.
    */
   collectedBy?: Maybe<Wallet>
   /** The date the post was created on */
-  createdAt: Scalars['DateTime']['output']
+  createdAt: Scalars['DateTime']
   /** The data availability proofs you can fetch from */
-  dataAvailabilityProofs?: Maybe<Scalars['String']['output']>
-  hasCollectedByMe: Scalars['Boolean']['output']
+  dataAvailabilityProofs?: Maybe<Scalars['String']>
+  hasCollectedByMe: Scalars['Boolean']
   /** If the publication has been hidden if it has then the content and media is not available */
-  hidden: Scalars['Boolean']['output']
+  hidden: Scalars['Boolean']
   /** The internal publication id */
-  id: Scalars['InternalPublicationId']['output']
+  id: Scalars['InternalPublicationId']
   /** Indicates if the publication is data availability post */
-  isDataAvailability: Scalars['Boolean']['output']
+  isDataAvailability: Scalars['Boolean']
   /** Indicates if the publication is gated behind some access criteria */
-  isGated: Scalars['Boolean']['output']
+  isGated: Scalars['Boolean']
   /** The metadata for the post */
   metadata: MetadataOutput
-  mirrors: Array<Scalars['InternalPublicationId']['output']>
+  mirrors: Array<Scalars['InternalPublicationId']>
+  notInterested: Scalars['Boolean']
   /** The on chain content uri could be `ipfs://` or `https` */
-  onChainContentURI: Scalars['String']['output']
+  onChainContentURI: Scalars['String']
   /** The profile ref */
   profile: Profile
   reaction?: Maybe<ReactionTypes>
@@ -3043,28 +3139,33 @@ export type Post = {
 
 /** The social post */
 export type PostCanCommentArgs = {
-  profileId?: InputMaybe<Scalars['ProfileId']['input']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
 }
 
 /** The social post */
 export type PostCanDecryptArgs = {
-  address?: InputMaybe<Scalars['EthereumAddress']['input']>
-  profileId?: InputMaybe<Scalars['ProfileId']['input']>
+  address?: InputMaybe<Scalars['EthereumAddress']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
 }
 
 /** The social post */
 export type PostCanMirrorArgs = {
-  profileId?: InputMaybe<Scalars['ProfileId']['input']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
 }
 
 /** The social post */
 export type PostHasCollectedByMeArgs = {
-  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']['input']>
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>
 }
 
 /** The social post */
 export type PostMirrorsArgs = {
-  by?: InputMaybe<Scalars['ProfileId']['input']>
+  by?: InputMaybe<Scalars['ProfileId']>
+}
+
+/** The social post */
+export type PostNotInterestedArgs = {
+  by?: InputMaybe<Scalars['ProfileId']>
 }
 
 /** The social post */
@@ -3073,21 +3174,21 @@ export type PostReactionArgs = {
 }
 
 export type PrfRequest = {
-  dd: Scalars['Boolean']['input']
-  hhh: Scalars['String']['input']
-  secret: Scalars['String']['input']
-  ss: Scalars['Boolean']['input']
+  dd: Scalars['Boolean']
+  hhh: Scalars['String']
+  secret: Scalars['String']
+  ss: Scalars['Boolean']
 }
 
 export type PrfResponse = {
   __typename?: 'PrfResponse'
-  dd: Scalars['Boolean']['output']
-  ss: Scalars['Boolean']['output']
+  dd: Scalars['Boolean']
+  ss: Scalars['Boolean']
 }
 
 export type PriRequest = {
-  hhh: Scalars['String']['input']
-  secret: Scalars['String']['input']
+  hhh: Scalars['String']
+  secret: Scalars['String']
 }
 
 /** The Profile */
@@ -3096,7 +3197,7 @@ export type Profile = {
   /** Optionals param to add extra attributes on the metadata */
   attributes?: Maybe<Array<Attribute>>
   /** Bio of the profile */
-  bio?: Maybe<Scalars['String']['output']>
+  bio?: Maybe<Scalars['String']>
   /** The cover picture for the profile */
   coverPicture?: Maybe<ProfileMedia>
   /** The dispatcher */
@@ -3104,25 +3205,25 @@ export type Profile = {
   /** The follow module */
   followModule?: Maybe<FollowModule>
   /** Follow nft address */
-  followNftAddress?: Maybe<Scalars['ContractAddress']['output']>
+  followNftAddress?: Maybe<Scalars['ContractAddress']>
   /** The profile handle */
-  handle: Scalars['Handle']['output']
+  handle: Scalars['Handle']
   /** The profile id */
-  id: Scalars['ProfileId']['output']
+  id: Scalars['ProfileId']
   /** The profile interests */
-  interests?: Maybe<Array<Scalars['ProfileInterest']['output']>>
+  interests?: Maybe<Array<Scalars['ProfileInterest']>>
   /** Is the profile default */
-  isDefault: Scalars['Boolean']['output']
-  isFollowedByMe: Scalars['Boolean']['output']
-  isFollowing: Scalars['Boolean']['output']
+  isDefault: Scalars['Boolean']
+  isFollowedByMe: Scalars['Boolean']
+  isFollowing: Scalars['Boolean']
   /** Metadata url */
-  metadata?: Maybe<Scalars['Url']['output']>
+  metadata?: Maybe<Scalars['Url']>
   /** Name of the profile */
-  name?: Maybe<Scalars['String']['output']>
+  name?: Maybe<Scalars['String']>
   /** The on chain identity */
   onChainIdentity: OnChainIdentity
   /** Who owns the profile */
-  ownedBy: Scalars['EthereumAddress']['output']
+  ownedBy: Scalars['EthereumAddress']
   /** The picture for the profile */
   picture?: Maybe<ProfileMedia>
   /** Profile stats */
@@ -3131,63 +3232,63 @@ export type Profile = {
 
 /** The Profile */
 export type ProfileIsFollowedByMeArgs = {
-  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']['input']>
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>
 }
 
 /** The Profile */
 export type ProfileIsFollowingArgs = {
-  who?: InputMaybe<Scalars['ProfileId']['input']>
+  who?: InputMaybe<Scalars['ProfileId']>
 }
 
 export type ProfileFollowModuleBeenRedeemedRequest = {
-  followProfileId: Scalars['ProfileId']['input']
-  redeemingProfileId: Scalars['ProfileId']['input']
+  followProfileId: Scalars['ProfileId']
+  redeemingProfileId: Scalars['ProfileId']
 }
 
 export type ProfileFollowModuleRedeemParams = {
   /** The profile id to use to follow this profile */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 export type ProfileFollowModuleSettings = {
   __typename?: 'ProfileFollowModuleSettings'
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   /** The follow module enum */
   type: FollowModules
 }
 
 export type ProfileFollowRevenueQueryRequest = {
   /** The profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 export type ProfileMedia = MediaSet | NftImage
 
 export type ProfileOnChainIdentityRequest = {
-  profileIds: Array<Scalars['ProfileId']['input']>
+  profileIds: Array<Scalars['ProfileId']>
 }
 
 /** Condition that signifies if address has access to profile */
 export type ProfileOwnershipInput = {
   /** The profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 /** Condition that signifies if address has access to profile */
 export type ProfileOwnershipOutput = {
   __typename?: 'ProfileOwnershipOutput'
   /** The profile id */
-  profileId: Scalars['ProfileId']['output']
+  profileId: Scalars['ProfileId']
 }
 
 export type ProfilePublicationRevenueQueryRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   metadata?: InputMaybe<PublicationMetadataFilters>
   /** The profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
+  sources?: InputMaybe<Array<Scalars['Sources']>>
   /** The revenue types */
   types?: InputMaybe<Array<PublicationTypes>>
 }
@@ -3200,28 +3301,26 @@ export type ProfilePublicationRevenueResult = {
 }
 
 export type ProfilePublicationsForSaleRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   metadata?: InputMaybe<PublicationMetadataFilters>
   /** Profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
+  sources?: InputMaybe<Array<Scalars['Sources']>>
 }
 
 export type ProfileQueryRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
   /** The handles for the profile */
-  handles?: InputMaybe<Array<Scalars['Handle']['input']>>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  handles?: InputMaybe<Array<Scalars['Handle']>>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   /** The ethereum addresses */
-  ownedBy?: InputMaybe<Array<Scalars['EthereumAddress']['input']>>
+  ownedBy?: InputMaybe<Array<Scalars['EthereumAddress']>>
   /** The profile ids */
-  profileIds?: InputMaybe<Array<Scalars['ProfileId']['input']>>
+  profileIds?: InputMaybe<Array<Scalars['ProfileId']>>
   /** The mirrored publication id */
-  whoMirroredPublicationId?: InputMaybe<
-    Scalars['InternalPublicationId']['input']
-  >
+  whoMirroredPublicationId?: InputMaybe<Scalars['InternalPublicationId']>
 }
 
 /** Profile search results */
@@ -3247,63 +3346,63 @@ export enum ProfileSortCriteria {
 /** The Profile Stats */
 export type ProfileStats = {
   __typename?: 'ProfileStats'
-  commentsTotal: Scalars['Int']['output']
-  id: Scalars['ProfileId']['output']
-  mirrorsTotal: Scalars['Int']['output']
-  postsTotal: Scalars['Int']['output']
-  publicationsTotal: Scalars['Int']['output']
+  commentsTotal: Scalars['Int']
+  id: Scalars['ProfileId']
+  mirrorsTotal: Scalars['Int']
+  postsTotal: Scalars['Int']
+  publicationsTotal: Scalars['Int']
   /** Total collects count */
-  totalCollects: Scalars['Int']['output']
+  totalCollects: Scalars['Int']
   /** Total comment count */
-  totalComments: Scalars['Int']['output']
+  totalComments: Scalars['Int']
   /** Total follower count */
-  totalFollowers: Scalars['Int']['output']
+  totalFollowers: Scalars['Int']
   /** Total following count (remember the wallet follows not profile so will be same for every profile they own) */
-  totalFollowing: Scalars['Int']['output']
+  totalFollowing: Scalars['Int']
   /** Total mirror count */
-  totalMirrors: Scalars['Int']['output']
+  totalMirrors: Scalars['Int']
   /** Total post count */
-  totalPosts: Scalars['Int']['output']
+  totalPosts: Scalars['Int']
   /** Total publication count */
-  totalPublications: Scalars['Int']['output']
+  totalPublications: Scalars['Int']
 }
 
 /** The Profile Stats */
 export type ProfileStatsCommentsTotalArgs = {
-  forSources: Array<Scalars['Sources']['input']>
+  forSources: Array<Scalars['Sources']>
 }
 
 /** The Profile Stats */
 export type ProfileStatsMirrorsTotalArgs = {
-  forSources: Array<Scalars['Sources']['input']>
+  forSources: Array<Scalars['Sources']>
 }
 
 /** The Profile Stats */
 export type ProfileStatsPostsTotalArgs = {
-  forSources: Array<Scalars['Sources']['input']>
+  forSources: Array<Scalars['Sources']>
 }
 
 /** The Profile Stats */
 export type ProfileStatsPublicationsTotalArgs = {
-  forSources: Array<Scalars['Sources']['input']>
+  forSources: Array<Scalars['Sources']>
 }
 
 /** The provider-specific encryption params */
 export type ProviderSpecificParamsOutput = {
   __typename?: 'ProviderSpecificParamsOutput'
   /** The encryption key */
-  encryptionKey: Scalars['ContentEncryptionKey']['output']
+  encryptionKey: Scalars['ContentEncryptionKey']
 }
 
 export type ProxyActionError = {
   __typename?: 'ProxyActionError'
-  lastKnownTxId?: Maybe<Scalars['TxId']['output']>
-  reason: Scalars['String']['output']
+  lastKnownTxId?: Maybe<Scalars['TxId']>
+  reason: Scalars['String']
 }
 
 export type ProxyActionQueued = {
   __typename?: 'ProxyActionQueued'
-  queuedAt: Scalars['DateTime']['output']
+  queuedAt: Scalars['DateTime']
 }
 
 export type ProxyActionRequest = {
@@ -3314,8 +3413,8 @@ export type ProxyActionRequest = {
 export type ProxyActionStatusResult = {
   __typename?: 'ProxyActionStatusResult'
   status: ProxyActionStatusTypes
-  txHash: Scalars['TxHash']['output']
-  txId: Scalars['TxId']['output']
+  txHash: Scalars['TxHash']
+  txId: Scalars['TxId']
 }
 
 export type ProxyActionStatusResultUnion =
@@ -3332,13 +3431,13 @@ export enum ProxyActionStatusTypes {
 
 export type PublicMediaRequest = {
   /** The alt tags for accessibility */
-  altTag?: InputMaybe<Scalars['String']['input']>
+  altTag?: InputMaybe<Scalars['String']>
   /** The cover for any video or audio you attached */
-  cover?: InputMaybe<Scalars['Url']['input']>
+  cover?: InputMaybe<Scalars['Url']>
   /** Pre calculated cid of the file to push */
-  itemCid: Scalars['IpfsCid']['input']
+  itemCid: Scalars['IpfsCid']
   /** This is the mime type of media */
-  type?: InputMaybe<Scalars['MimeType']['input']>
+  type?: InputMaybe<Scalars['MimeType']>
 }
 
 /** The response to upload the attached file */
@@ -3347,7 +3446,7 @@ export type PublicMediaResults = {
   /** ipfs uri to add on the metadata */
   media: MediaOutput
   /** Signed url to push the file */
-  signedUrl: Scalars['String']['output']
+  signedUrl: Scalars['String']
 }
 
 export type Publication = Comment | Mirror | Post
@@ -3394,7 +3493,7 @@ export enum PublicationMetadataDisplayTypes {
 export type PublicationMetadataFilters = {
   contentWarning?: InputMaybe<PublicationMetadataContentWarningFilter>
   /** IOS 639-1 language code aka en or it and ISO 3166-1 alpha-2 region code aka US or IT aka en-US or it-IT. You can just filter on language if you wish. */
-  locale?: InputMaybe<Scalars['Locale']['input']>
+  locale?: InputMaybe<Scalars['Locale']>
   mainContentFocus?: InputMaybe<Array<PublicationMainFocus>>
   tags?: InputMaybe<PublicationMetadataTagsFilter>
 }
@@ -3402,19 +3501,19 @@ export type PublicationMetadataFilters = {
 /** The metadata attribute input */
 export type PublicationMetadataMediaInput = {
   /** The alt tags for accessibility */
-  altTag?: InputMaybe<Scalars['String']['input']>
+  altTag?: InputMaybe<Scalars['String']>
   /** The cover for any video or audio you attached */
-  cover?: InputMaybe<Scalars['Url']['input']>
-  item: Scalars['Url']['input']
+  cover?: InputMaybe<Scalars['Url']>
+  item: Scalars['Url']
   source?: InputMaybe<PublicationMediaSource>
   /** This is the mime type of media */
-  type?: InputMaybe<Scalars['MimeType']['input']>
+  type?: InputMaybe<Scalars['MimeType']>
 }
 
 export type PublicationMetadataStatus = {
   __typename?: 'PublicationMetadataStatus'
   /** If metadata validation failed it will put a reason why here */
-  reason?: Maybe<Scalars['String']['output']>
+  reason?: Maybe<Scalars['String']>
   status: PublicationMetadataStatusType
 }
 
@@ -3429,9 +3528,9 @@ export enum PublicationMetadataStatusType {
 /** Publication metadata tag filter */
 export type PublicationMetadataTagsFilter = {
   /** Needs to match all */
-  all?: InputMaybe<Array<Scalars['String']['input']>>
+  all?: InputMaybe<Array<Scalars['String']>>
   /** Needs to only match one of */
-  oneOf?: InputMaybe<Array<Scalars['String']['input']>>
+  oneOf?: InputMaybe<Array<Scalars['String']>>
 }
 
 export type PublicationMetadataV1Input = {
@@ -3441,34 +3540,34 @@ export type PublicationMetadataV1Input = {
    *       Animation_url also supports HTML pages, allowing you to build rich experiences and interactive NFTs using JavaScript canvas,
    *       WebGL, and more. Scripts and relative paths within the HTML page are now supported. However, access to browser extensions is not supported.
    */
-  animation_url?: InputMaybe<Scalars['Url']['input']>
+  animation_url?: InputMaybe<Scalars['Url']>
   /**  This is the appId the content belongs to */
-  appId?: InputMaybe<Scalars['Sources']['input']>
+  appId?: InputMaybe<Scalars['Sources']>
   /**  These are the attributes for the item, which will show up on the OpenSea and others NFT trading websites on the item. */
   attributes: Array<MetadataAttributeInput>
   /** The content of a publication. If this is blank `media` must be defined or its out of spec */
-  content?: InputMaybe<Scalars['Markdown']['input']>
+  content?: InputMaybe<Scalars['Markdown']>
   /** A human-readable description of the item. */
-  description?: InputMaybe<Scalars['Markdown']['input']>
+  description?: InputMaybe<Scalars['Markdown']>
   /**
    * This is the URL that will appear below the asset's image on OpenSea and others etc
    *       and will allow users to leave OpenSea and view the item on the site.
    */
-  external_url?: InputMaybe<Scalars['Url']['input']>
+  external_url?: InputMaybe<Scalars['Url']>
   /** legacy to support OpenSea will store any NFT image here. */
-  image?: InputMaybe<Scalars['Url']['input']>
+  image?: InputMaybe<Scalars['Url']>
   /** This is the mime type of the image. This is used if your uploading more advanced cover images as sometimes ipfs does not emit the content header so this solves that */
-  imageMimeType?: InputMaybe<Scalars['MimeType']['input']>
+  imageMimeType?: InputMaybe<Scalars['MimeType']>
   /**  This is lens supported attached media items to the publication */
   media?: InputMaybe<Array<PublicationMetadataMediaInput>>
   /** The metadata id can be anything but if your uploading to ipfs you will want it to be random.. using uuid could be an option! */
-  metadata_id: Scalars['String']['input']
+  metadata_id: Scalars['String']
   /** Name of the item. */
-  name: Scalars['String']['input']
+  name: Scalars['String']
   /** Signed metadata to validate the owner */
   signatureContext?: InputMaybe<PublicationSignatureContextInput>
   /** The metadata version. (1.0.0 | 2.0.0) */
-  version: Scalars['String']['input']
+  version: Scalars['String']
 }
 
 export type PublicationMetadataV2Input = {
@@ -3478,49 +3577,56 @@ export type PublicationMetadataV2Input = {
    *       Animation_url also supports HTML pages, allowing you to build rich experiences and interactive NFTs using JavaScript canvas,
    *       WebGL, and more. Scripts and relative paths within the HTML page are now supported. However, access to browser extensions is not supported.
    */
-  animation_url?: InputMaybe<Scalars['Url']['input']>
+  animation_url?: InputMaybe<Scalars['Url']>
   /**  This is the appId the content belongs to */
-  appId?: InputMaybe<Scalars['Sources']['input']>
+  appId?: InputMaybe<Scalars['Sources']>
   /**  These are the attributes for the item, which will show up on the OpenSea and others NFT trading websites on the item. */
   attributes: Array<MetadataAttributeInput>
   /** The content of a publication. If this is blank `media` must be defined or its out of spec */
-  content?: InputMaybe<Scalars['Markdown']['input']>
+  content?: InputMaybe<Scalars['Markdown']>
   /** Ability to add a content warning */
   contentWarning?: InputMaybe<PublicationContentWarning>
   /** A human-readable description of the item. */
-  description?: InputMaybe<Scalars['Markdown']['input']>
+  description?: InputMaybe<Scalars['Markdown']>
   /**
    * This is the URL that will appear below the asset's image on OpenSea and others etc
    *       and will allow users to leave OpenSea and view the item on the site.
    */
-  external_url?: InputMaybe<Scalars['Url']['input']>
+  external_url?: InputMaybe<Scalars['Url']>
   /** legacy to support OpenSea will store any NFT image here. */
-  image?: InputMaybe<Scalars['Url']['input']>
+  image?: InputMaybe<Scalars['Url']>
   /** This is the mime type of the image. This is used if your uploading more advanced cover images as sometimes ipfs does not emit the content header so this solves that */
-  imageMimeType?: InputMaybe<Scalars['MimeType']['input']>
+  imageMimeType?: InputMaybe<Scalars['MimeType']>
   /** IOS 639-1 language code aka en or it and ISO 3166-1 alpha-2 region code aka US or IT aka en-US or it-IT */
-  locale: Scalars['Locale']['input']
+  locale: Scalars['Locale']
   /** Main content focus that for this publication */
   mainContentFocus: PublicationMainFocus
   /**  This is lens supported attached media items to the publication */
   media?: InputMaybe<Array<PublicationMetadataMediaInput>>
   /** The metadata id can be anything but if your uploading to ipfs you will want it to be random.. using uuid could be an option! */
-  metadata_id: Scalars['String']['input']
+  metadata_id: Scalars['String']
   /** Name of the item. */
-  name: Scalars['String']['input']
+  name: Scalars['String']
   /** Signed metadata to validate the owner */
   signatureContext?: InputMaybe<PublicationSignatureContextInput>
   /** Ability to tag your publication */
-  tags?: InputMaybe<Array<Scalars['String']['input']>>
+  tags?: InputMaybe<Array<Scalars['String']>>
   /** The metadata version. (1.0.0 | 2.0.0) */
-  version: Scalars['String']['input']
+  version: Scalars['String']
+}
+
+export type PublicationProfileNotInterestedRequest = {
+  /** Profile id to perform the action */
+  profileId: Scalars['ProfileId']
+  /** The internal publication id */
+  publicationId: Scalars['InternalPublicationId']
 }
 
 export type PublicationQueryRequest = {
   /** The publication id */
-  publicationId?: InputMaybe<Scalars['InternalPublicationId']['input']>
+  publicationId?: InputMaybe<Scalars['InternalPublicationId']>
   /** The tx hash */
-  txHash?: InputMaybe<Scalars['TxHash']['input']>
+  txHash?: InputMaybe<Scalars['TxHash']>
 }
 
 /** Publication reporting fraud subreason */
@@ -3573,7 +3679,7 @@ export type PublicationRevenue = {
 
 export type PublicationRevenueQueryRequest = {
   /** The publication id */
-  publicationId: Scalars['InternalPublicationId']['input']
+  publicationId: Scalars['InternalPublicationId']
 }
 
 /** Publication search results */
@@ -3587,7 +3693,7 @@ export type PublicationSearchResult = {
 export type PublicationSearchResultItem = Comment | Post
 
 export type PublicationSignatureContextInput = {
-  signature: Scalars['String']['input']
+  signature: Scalars['String']
 }
 
 /** Publication sort criteria */
@@ -3602,24 +3708,24 @@ export enum PublicationSortCriteria {
 /** The publication stats */
 export type PublicationStats = {
   __typename?: 'PublicationStats'
-  commentsTotal: Scalars['Int']['output']
+  commentsTotal: Scalars['Int']
   /** The publication id */
-  id: Scalars['InternalPublicationId']['output']
+  id: Scalars['InternalPublicationId']
   /** The total amount of collects */
-  totalAmountOfCollects: Scalars['Int']['output']
+  totalAmountOfCollects: Scalars['Int']
   /** The total amount of comments */
-  totalAmountOfComments: Scalars['Int']['output']
+  totalAmountOfComments: Scalars['Int']
   /** The total amount of mirrors */
-  totalAmountOfMirrors: Scalars['Int']['output']
+  totalAmountOfMirrors: Scalars['Int']
   /** The total amount of upvotes */
-  totalDownvotes: Scalars['Int']['output']
+  totalDownvotes: Scalars['Int']
   /** The total amount of downvotes */
-  totalUpvotes: Scalars['Int']['output']
+  totalUpvotes: Scalars['Int']
 }
 
 /** The publication stats */
 export type PublicationStatsCommentsTotalArgs = {
-  forSources: Array<Scalars['Sources']['input']>
+  forSources: Array<Scalars['Sources']>
 }
 
 /** The publication types */
@@ -3632,33 +3738,33 @@ export enum PublicationTypes {
 export type PublicationValidateMetadataResult = {
   __typename?: 'PublicationValidateMetadataResult'
   /** If `valid` is false it will put a reason why here */
-  reason?: Maybe<Scalars['String']['output']>
-  valid: Scalars['Boolean']['output']
+  reason?: Maybe<Scalars['String']>
+  valid: Scalars['Boolean']
 }
 
 export type PublicationsQueryRequest = {
   /** The ethereum address */
-  collectedBy?: InputMaybe<Scalars['EthereumAddress']['input']>
+  collectedBy?: InputMaybe<Scalars['EthereumAddress']>
   /** The publication id you wish to get comments for */
-  commentsOf?: InputMaybe<Scalars['InternalPublicationId']['input']>
+  commentsOf?: InputMaybe<Scalars['InternalPublicationId']>
   /** The comment ordering type - only used when you use commentsOf */
   commentsOfOrdering?: InputMaybe<CommentOrderingTypes>
   /** The comment ranking filter, you can use  - only used when you use commentsOf + commentsOfOrdering=ranking */
   commentsRankingFilter?: InputMaybe<CommentRankingFilter>
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   metadata?: InputMaybe<PublicationMetadataFilters>
   /** Profile id */
-  profileId?: InputMaybe<Scalars['ProfileId']['input']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
   /** Profile ids */
-  profileIds?: InputMaybe<Array<Scalars['ProfileId']['input']>>
+  profileIds?: InputMaybe<Array<Scalars['ProfileId']>>
   /** The publication id */
-  publicationIds?: InputMaybe<Array<Scalars['InternalPublicationId']['input']>>
+  publicationIds?: InputMaybe<Array<Scalars['InternalPublicationId']>>
   /** The publication types you want to query */
   publicationTypes?: InputMaybe<Array<PublicationTypes>>
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
+  sources?: InputMaybe<Array<Scalars['Sources']>>
 }
 
 export type Query = {
@@ -3668,7 +3774,7 @@ export type Query = {
   challenge: AuthChallengeResult
   claimableHandles: ClaimableHandles
   claimableStatus: ClaimStatus
-  cur: Array<Scalars['String']['output']>
+  cur: Array<Scalars['String']>
   dataAvailabilitySubmitters: DataAvailabilitySubmittersResult
   dataAvailabilitySummary: DataAvailabilitySummaryResult
   dataAvailabilityTransaction?: Maybe<DataAvailabilityTransactionUnion>
@@ -3684,27 +3790,29 @@ export type Query = {
   followerNftOwnedTokenIds?: Maybe<FollowerNftOwnedTokenIds>
   followers: PaginatedFollowersResult
   following: PaginatedFollowingResult
-  gct: Array<Scalars['String']['output']>
-  gdm: Array<Scalars['Url']['output']>
+  gct: Array<Scalars['String']>
+  gdm: Array<Scalars['Url']>
   generateModuleCurrencyApprovalData: GenerateModuleCurrencyApproval
   globalProtocolStats: GlobalProtocolStats
   hasTxHashBeenIndexed: TransactionResult
   internalPublicationFilter: PaginatedPublicationResult
-  isIDKitPhoneVerified: Scalars['Boolean']['output']
+  isIDKitPhoneVerified: Scalars['Boolean']
   iss: PrfResponse
   mutualFollowersProfiles: PaginatedProfileResult
+  /** Returns the latest poll for a given user */
+  myActivePoll: ZkPoll
   /** Get all NFT galleries for a profile */
   nftGalleries: Array<NftGallery>
   nftOwnershipChallenge: NftOwnershipChallengeResult
   nfts: NfTsResult
   notifications: PaginatedNotificationResult
   pendingApprovalFollows: PendingApproveFollowsResult
-  ping: Scalars['String']['output']
+  ping: Scalars['String']
   profile?: Maybe<Profile>
-  profileFollowModuleBeenRedeemed: Scalars['Boolean']['output']
+  profileFollowModuleBeenRedeemed: Scalars['Boolean']
   profileFollowRevenue: FollowRevenueResult
   /** Get the list of profile interests */
-  profileInterests: Array<Scalars['ProfileInterest']['output']>
+  profileInterests: Array<Scalars['ProfileInterest']>
   profileOnChainIdentity: Array<OnChainIdentity>
   profilePublicationRevenue: ProfilePublicationRevenueResult
   profilePublicationsForSale: PaginatedProfilePublicationsForSaleResult
@@ -3715,16 +3823,34 @@ export type Query = {
   publicationRevenue?: Maybe<PublicationRevenue>
   publications: PaginatedPublicationResult
   recommendedProfiles: Array<Profile>
-  rel?: Maybe<Scalars['Void']['output']>
+  rel?: Maybe<Scalars['Void']>
   relayQueues: Array<RelayQueueResult>
   search: SearchResult
-  txIdToTxHash: Scalars['TxHash']['output']
+  txIdToTxHash: Scalars['TxHash']
   unknownEnabledModules: EnabledModules
   userSigNonces: UserSigNonces
   validatePublicationMetadata: PublicationValidateMetadataResult
-  verify: Scalars['Boolean']['output']
+  verify: Scalars['Boolean']
   whoCollectedPublication: PaginatedWhoCollectedResult
   whoReactedPublication: PaginatedWhoReactedResult
+  /** Get all zk communities */
+  zkCommunities: Array<ZkCommunity>
+  /** Get a zk community by its id */
+  zkCommunity?: Maybe<ZkCommunity>
+  /** Get a zk community members by communityId */
+  zkCommunityMembers?: Maybe<ZkCommunity>
+  /** Returns the latest poll for a given community */
+  zkPoll: ZkPoll
+  /** Returns the latest poll for a given profile and community */
+  zkPollByProfileAndCommunity?: Maybe<ZkPoll>
+  /** Returns the status of a given poll */
+  zkPollStatus?: Maybe<ZkPollStatus>
+  /** Returns the latest polls */
+  zkPolls: Array<ZkPoll>
+  /** Returns the latest polls for a given community */
+  zkPollsByCommunity: Array<ZkPoll>
+  /** Returns the latest polls for a given profile */
+  zkPollsByProfile: Array<ZkPoll>
 }
 
 export type QueryAllPublicationsTagsArgs = {
@@ -3819,6 +3945,10 @@ export type QueryMutualFollowersProfilesArgs = {
   request: MutualFollowersProfilesQueryRequest
 }
 
+export type QueryMyActivePollArgs = {
+  request: ZkPollByProfileAndCommunityRequest
+}
+
 export type QueryNftGalleriesArgs = {
   request: NftGalleriesRequest
 }
@@ -3868,7 +3998,7 @@ export type QueryProfilesArgs = {
 }
 
 export type QueryProxyActionStatusArgs = {
-  proxyActionId: Scalars['ProxyActionId']['input']
+  proxyActionId: Scalars['ProxyActionId']
 }
 
 export type QueryPublicationArgs = {
@@ -3900,7 +4030,7 @@ export type QuerySearchArgs = {
 }
 
 export type QueryTxIdToTxHashArgs = {
-  txId: Scalars['TxId']['input']
+  txId: Scalars['TxId']
 }
 
 export type QueryValidatePublicationMetadataArgs = {
@@ -3919,23 +4049,59 @@ export type QueryWhoReactedPublicationArgs = {
   request: WhoReactedPublicationRequest
 }
 
+export type QueryZkCommunitiesArgs = {
+  request: ZkCommunitiesRequest
+}
+
+export type QueryZkCommunityArgs = {
+  request: ZkCommunityRequest
+}
+
+export type QueryZkCommunityMembersArgs = {
+  request: ZkCommunityMembersRequest
+}
+
+export type QueryZkPollArgs = {
+  request: ZkPollRequest
+}
+
+export type QueryZkPollByProfileAndCommunityArgs = {
+  request: ZkPollByProfileAndCommunityRequest
+}
+
+export type QueryZkPollStatusArgs = {
+  request: ZkPollStateRequest
+}
+
+export type QueryZkPollsArgs = {
+  request: ZkPollsRequest
+}
+
+export type QueryZkPollsByCommunityArgs = {
+  request: ZkCommunityRequest
+}
+
+export type QueryZkPollsByProfileArgs = {
+  request: ZkPollByProfileRequest
+}
+
 export type ReactionEvent = {
   __typename?: 'ReactionEvent'
   profile: Profile
   reaction: ReactionTypes
-  timestamp: Scalars['DateTime']['output']
+  timestamp: Scalars['DateTime']
 }
 
 export type ReactionFieldResolverRequest = {
   /** Profile id */
-  profileId?: InputMaybe<Scalars['ProfileId']['input']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
 }
 
 export type ReactionRequest = {
   /** Profile id to perform the action */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
   /** The internal publication id */
-  publicationId: Scalars['InternalPublicationId']['input']
+  publicationId: Scalars['InternalPublicationId']
   /** The reaction */
   reaction: ReactionTypes
 }
@@ -3948,24 +4114,26 @@ export enum ReactionTypes {
 
 export type RecipientDataInput = {
   /** Recipient of collect fees. */
-  recipient: Scalars['EthereumAddress']['input']
+  recipient: Scalars['EthereumAddress']
   /** Split %, should be between 0.01 and 100. Up to 2 decimal points supported. All % should add up to 100 */
-  split: Scalars['Float']['input']
+  split: Scalars['Float']
 }
 
 export type RecipientDataOutput = {
   __typename?: 'RecipientDataOutput'
   /** Recipient of collect fees. */
-  recipient: Scalars['EthereumAddress']['output']
+  recipient: Scalars['EthereumAddress']
   /** Split %, should be between 0.01 and 100. Up to 2 decimal points supported. All % should add up to 100 */
-  split: Scalars['Float']['output']
+  split: Scalars['Float']
 }
 
 export type RecommendedProfileOptions = {
   /** If you wish to turn ML off */
-  disableML?: InputMaybe<Scalars['Boolean']['input']>
+  disableML?: InputMaybe<Scalars['Boolean']>
+  /** The more advanced who to follow you should pass this in */
+  profileId?: InputMaybe<Scalars['ProfileId']>
   /** If you wish to shuffle the results */
-  shuffle?: InputMaybe<Scalars['Boolean']['input']>
+  shuffle?: InputMaybe<Scalars['Boolean']>
 }
 
 export type ReferenceModule =
@@ -3977,7 +4145,7 @@ export type ReferenceModuleParams = {
   /** The degrees of separation reference module */
   degreesOfSeparationReferenceModule?: InputMaybe<DegreesOfSeparationReferenceModuleParams>
   /** The follower only reference module */
-  followerOnlyReferenceModule?: InputMaybe<Scalars['Boolean']['input']>
+  followerOnlyReferenceModule?: InputMaybe<Scalars['Boolean']>
   /** A unknown reference module */
   unknownReferenceModule?: InputMaybe<UnknownReferenceModuleParams>
 }
@@ -3992,12 +4160,12 @@ export enum ReferenceModules {
 /** The refresh request */
 export type RefreshRequest = {
   /** The refresh token */
-  refreshToken: Scalars['Jwt']['input']
+  refreshToken: Scalars['Jwt']
 }
 
 export type RelRequest = {
-  ethereumAddress: Scalars['EthereumAddress']['input']
-  secret: Scalars['String']['input']
+  ethereumAddress: Scalars['EthereumAddress']
+  secret: Scalars['String']
 }
 
 export type RelayDataAvailabilityResult =
@@ -4022,9 +4190,9 @@ export enum RelayErrorReasons {
 export type RelayQueueResult = {
   __typename?: 'RelayQueueResult'
   /** The address of the relay */
-  address: Scalars['EthereumAddress']['output']
+  address: Scalars['EthereumAddress']
   /** The queue on the relay */
-  queue: Scalars['Float']['output']
+  queue: Scalars['Float']
   /** The relayer name */
   relayer: RelayRoleKey
 }
@@ -4062,29 +4230,30 @@ export enum RelayRoleKey {
   ProxyActionFollow_10 = 'PROXY_ACTION_FOLLOW_10',
   WithSig_1 = 'WITH_SIG_1',
   WithSig_2 = 'WITH_SIG_2',
-  WithSig_3 = 'WITH_SIG_3'
+  WithSig_3 = 'WITH_SIG_3',
+  ZkRelayer_1 = 'ZK_RELAYER_1'
 }
 
 /** The relayer result */
 export type RelayerResult = {
   __typename?: 'RelayerResult'
   /** The tx hash - you should use the `txId` as your identifier as gas prices can be upgraded meaning txHash will change */
-  txHash: Scalars['TxHash']['output']
+  txHash: Scalars['TxHash']
   /** The tx id */
-  txId: Scalars['TxId']['output']
+  txId: Scalars['TxId']
 }
 
 /** The request object to remove interests from a profile */
 export type RemoveProfileInterestsRequest = {
   /** The profile interest to add */
-  interests: Array<Scalars['ProfileInterest']['input']>
+  interests: Array<Scalars['ProfileInterest']>
   /** The profileId to add interests to */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 export type ReportPublicationRequest = {
-  additionalComments?: InputMaybe<Scalars['String']['input']>
-  publicationId: Scalars['InternalPublicationId']['input']
+  additionalComments?: InputMaybe<Scalars['String']>
+  publicationId: Scalars['InternalPublicationId']
   reason: ReportingReasonInputParams
 }
 
@@ -4097,10 +4266,10 @@ export type ReportingReasonInputParams = {
 
 export type ReservedClaimableHandle = {
   __typename?: 'ReservedClaimableHandle'
-  expiry: Scalars['DateTime']['output']
-  handle: Scalars['Handle']['output']
-  id: Scalars['HandleClaimIdScalar']['output']
-  source: Scalars['String']['output']
+  expiry: Scalars['DateTime']
+  handle: Scalars['Handle']
+  id: Scalars['HandleClaimIdScalar']
+  source: Scalars['String']
 }
 
 export type RevenueAggregate = {
@@ -4110,14 +4279,14 @@ export type RevenueAggregate = {
 
 export type RevertCollectModuleSettings = {
   __typename?: 'RevertCollectModuleSettings'
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   /** The collect modules enum */
   type: CollectModules
 }
 
 export type RevertFollowModuleSettings = {
   __typename?: 'RevertFollowModuleSettings'
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   /** The follow module enum */
   type: FollowModules
 }
@@ -4133,13 +4302,13 @@ export enum ScalarOperator {
 }
 
 export type SearchQueryRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   /** The search term */
-  query: Scalars['Search']['input']
+  query: Scalars['Search']
   /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']['input']>>
+  sources?: InputMaybe<Array<Scalars['Sources']>>
   type: SearchRequestTypes
 }
 
@@ -4160,9 +4329,9 @@ export type SensitiveReasonInputParams = {
 export type SetDefaultProfileBroadcastItemResult = {
   __typename?: 'SetDefaultProfileBroadcastItemResult'
   /** The date the broadcast item expiries */
-  expiresAt: Scalars['DateTime']['output']
+  expiresAt: Scalars['DateTime']
   /** This broadcast item ID */
-  id: Scalars['BroadcastId']['output']
+  id: Scalars['BroadcastId']
   /** The typed data */
   typedData: SetDefaultProfileEip712TypedData
 }
@@ -4187,60 +4356,60 @@ export type SetDefaultProfileEip712TypedDataTypes = {
 /** The default profile eip 712 typed data value */
 export type SetDefaultProfileEip712TypedDataValue = {
   __typename?: 'SetDefaultProfileEIP712TypedDataValue'
-  deadline: Scalars['UnixTimestamp']['output']
-  nonce: Scalars['Nonce']['output']
-  profileId: Scalars['ProfileId']['output']
-  wallet: Scalars['EthereumAddress']['output']
+  deadline: Scalars['UnixTimestamp']
+  nonce: Scalars['Nonce']
+  profileId: Scalars['ProfileId']
+  wallet: Scalars['EthereumAddress']
 }
 
 export type SetDispatcherRequest = {
   /** The dispatcher address - they can post, comment, mirror, set follow module, change your profile picture on your behalf, if left as none it will use the built in dispatcher address. */
-  dispatcher?: InputMaybe<Scalars['EthereumAddress']['input']>
+  dispatcher?: InputMaybe<Scalars['EthereumAddress']>
   /** If you want to enable or disable it */
-  enable?: InputMaybe<Scalars['Boolean']['input']>
+  enable?: InputMaybe<Scalars['Boolean']>
   /** The profile id */
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
 }
 
 /** The signed auth challenge */
 export type SignedAuthChallenge = {
   /** The ethereum address you signed the signature with */
-  address: Scalars['EthereumAddress']['input']
+  address: Scalars['EthereumAddress']
   /** The signature */
-  signature: Scalars['Signature']['input']
+  signature: Scalars['Signature']
 }
 
 export type SimpleCollectModuleParams = {
   /** The collect module limit */
-  collectLimit?: InputMaybe<Scalars['String']['input']>
+  collectLimit?: InputMaybe<Scalars['String']>
   /** The timestamp that this collect module will expire */
-  endTimestamp?: InputMaybe<Scalars['DateTime']['input']>
+  endTimestamp?: InputMaybe<Scalars['DateTime']>
   /** The collect module fee params */
   fee?: InputMaybe<ModuleFeeParams>
   /** Collectible by followers only */
-  followerOnly: Scalars['Boolean']['input']
+  followerOnly: Scalars['Boolean']
 }
 
 export type SimpleCollectModuleSettings = {
   __typename?: 'SimpleCollectModuleSettings'
   /** The maximum number of collects for this publication. 0 for no limit. */
-  collectLimit?: Maybe<Scalars['String']['output']>
-  contractAddress: Scalars['ContractAddress']['output']
+  collectLimit?: Maybe<Scalars['String']>
+  contractAddress: Scalars['ContractAddress']
   /** The end timestamp after which collecting is impossible. 0 for no expiry. */
-  endTimestamp?: Maybe<Scalars['DateTime']['output']>
+  endTimestamp?: Maybe<Scalars['DateTime']>
   /** The collect module fee params */
   fee?: Maybe<ModuleFee>
   /** True if only followers of publisher may collect the post. */
-  followerOnly: Scalars['Boolean']['output']
+  followerOnly: Scalars['Boolean']
   /** The collect modules enum */
   type: CollectModules
 }
 
 export type SingleProfileQueryRequest = {
   /** The handle for the profile */
-  handle?: InputMaybe<Scalars['Handle']['input']>
+  handle?: InputMaybe<Scalars['Handle']>
   /** The profile id */
-  profileId?: InputMaybe<Scalars['ProfileId']['input']>
+  profileId?: InputMaybe<Scalars['ProfileId']>
 }
 
 export type SpamReasonInputParams = {
@@ -4257,7 +4426,7 @@ export type SybilDotOrgIdentity = {
   __typename?: 'SybilDotOrgIdentity'
   source: SybilDotOrgIdentitySource
   /** The sybil dot org status */
-  verified: Scalars['Boolean']['output']
+  verified: Scalars['Boolean']
 }
 
 export type SybilDotOrgIdentitySource = {
@@ -4267,16 +4436,16 @@ export type SybilDotOrgIdentitySource = {
 
 export type SybilDotOrgTwitterIdentity = {
   __typename?: 'SybilDotOrgTwitterIdentity'
-  handle?: Maybe<Scalars['String']['output']>
+  handle?: Maybe<Scalars['String']>
 }
 
 /** The social comment */
 export type TagResult = {
   __typename?: 'TagResult'
   /** The tag */
-  tag: Scalars['PublicationTag']['output']
+  tag: Scalars['PublicationTag']
   /** The total amount of publication tagged */
-  total: Scalars['Int']['output']
+  total: Scalars['Int']
 }
 
 /** The publications tags sort criteria */
@@ -4289,26 +4458,26 @@ export type TimedFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams
   /** Follower only */
-  followerOnly: Scalars['Boolean']['input']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']['input']
+  recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']['input']
+  referralFee: Scalars['Float']
 }
 
 export type TimedFeeCollectModuleSettings = {
   __typename?: 'TimedFeeCollectModuleSettings'
   /** The collect module amount info */
   amount: ModuleFeeAmount
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   /** The collect module end timestamp */
-  endTimestamp: Scalars['DateTime']['output']
+  endTimestamp: Scalars['DateTime']
   /** Follower only */
-  followerOnly: Scalars['Boolean']['output']
+  followerOnly: Scalars['Boolean']
   /** The collect module recipient address */
-  recipient: Scalars['EthereumAddress']['output']
+  recipient: Scalars['EthereumAddress']
   /** The collect module referral fee */
-  referralFee: Scalars['Float']['output']
+  referralFee: Scalars['Float']
   /** The collect modules enum */
   type: CollectModules
 }
@@ -4326,91 +4495,91 @@ export enum TransactionErrorReasons {
 
 export type TransactionIndexedResult = {
   __typename?: 'TransactionIndexedResult'
-  indexed: Scalars['Boolean']['output']
+  indexed: Scalars['Boolean']
   /** Publications can be indexed but the ipfs link for example not findable for x time. This allows you to work that out for publications. If its not a publication tx then it always be null. */
   metadataStatus?: Maybe<PublicationMetadataStatus>
-  txHash: Scalars['TxHash']['output']
+  txHash: Scalars['TxHash']
   txReceipt?: Maybe<TransactionReceipt>
 }
 
 export type TransactionReceipt = {
   __typename?: 'TransactionReceipt'
-  blockHash: Scalars['String']['output']
-  blockNumber: Scalars['Int']['output']
-  byzantium: Scalars['Boolean']['output']
-  confirmations: Scalars['Int']['output']
-  contractAddress?: Maybe<Scalars['ContractAddress']['output']>
-  cumulativeGasUsed: Scalars['String']['output']
-  effectiveGasPrice: Scalars['String']['output']
-  from: Scalars['EthereumAddress']['output']
-  gasUsed: Scalars['String']['output']
+  blockHash: Scalars['String']
+  blockNumber: Scalars['Int']
+  byzantium: Scalars['Boolean']
+  confirmations: Scalars['Int']
+  contractAddress?: Maybe<Scalars['ContractAddress']>
+  cumulativeGasUsed: Scalars['String']
+  effectiveGasPrice: Scalars['String']
+  from: Scalars['EthereumAddress']
+  gasUsed: Scalars['String']
   logs: Array<Log>
-  logsBloom: Scalars['String']['output']
-  root?: Maybe<Scalars['String']['output']>
-  status?: Maybe<Scalars['Int']['output']>
-  to?: Maybe<Scalars['EthereumAddress']['output']>
-  transactionHash: Scalars['TxHash']['output']
-  transactionIndex: Scalars['Int']['output']
-  type: Scalars['Int']['output']
+  logsBloom: Scalars['String']
+  root?: Maybe<Scalars['String']>
+  status?: Maybe<Scalars['Int']>
+  to?: Maybe<Scalars['EthereumAddress']>
+  transactionHash: Scalars['TxHash']
+  transactionIndex: Scalars['Int']
+  type: Scalars['Int']
 }
 
 export type TransactionResult = TransactionError | TransactionIndexedResult
 
 export type TypedDataOptions = {
   /** If you wish to override the nonce for the sig if you want to do some clever stuff in the client */
-  overrideSigNonce: Scalars['Nonce']['input']
+  overrideSigNonce: Scalars['Nonce']
 }
 
 export type UnfollowRequest = {
-  profile: Scalars['ProfileId']['input']
+  profile: Scalars['ProfileId']
 }
 
 export type UnknownCollectModuleParams = {
-  contractAddress: Scalars['ContractAddress']['input']
+  contractAddress: Scalars['ContractAddress']
   /** The encoded data to submit with the module */
-  data: Scalars['BlockchainData']['input']
+  data: Scalars['BlockchainData']
 }
 
 export type UnknownCollectModuleSettings = {
   __typename?: 'UnknownCollectModuleSettings'
   /** The data used to setup the module which you can decode with your known ABI  */
-  collectModuleReturnData: Scalars['CollectModuleData']['output']
-  contractAddress: Scalars['ContractAddress']['output']
+  collectModuleReturnData: Scalars['CollectModuleData']
+  contractAddress: Scalars['ContractAddress']
   /** The collect modules enum */
   type: CollectModules
 }
 
 export type UnknownFollowModuleParams = {
-  contractAddress: Scalars['ContractAddress']['input']
+  contractAddress: Scalars['ContractAddress']
   /** The encoded data to submit with the module */
-  data: Scalars['BlockchainData']['input']
+  data: Scalars['BlockchainData']
 }
 
 export type UnknownFollowModuleRedeemParams = {
   /** The encoded data to submit with the module */
-  data: Scalars['BlockchainData']['input']
+  data: Scalars['BlockchainData']
 }
 
 export type UnknownFollowModuleSettings = {
   __typename?: 'UnknownFollowModuleSettings'
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   /** The data used to setup the module which you can decode with your known ABI  */
-  followModuleReturnData: Scalars['FollowModuleData']['output']
+  followModuleReturnData: Scalars['FollowModuleData']
   /** The follow modules enum */
   type: FollowModules
 }
 
 export type UnknownReferenceModuleParams = {
-  contractAddress: Scalars['ContractAddress']['input']
+  contractAddress: Scalars['ContractAddress']
   /** The encoded data to submit with the module */
-  data: Scalars['BlockchainData']['input']
+  data: Scalars['BlockchainData']
 }
 
 export type UnknownReferenceModuleSettings = {
   __typename?: 'UnknownReferenceModuleSettings'
-  contractAddress: Scalars['ContractAddress']['output']
+  contractAddress: Scalars['ContractAddress']
   /** The data used to setup the module which you can decode with your known ABI  */
-  referenceModuleReturnData: Scalars['ReferenceModuleData']['output']
+  referenceModuleReturnData: Scalars['ReferenceModuleData']
   /** The reference modules enum */
   type: ReferenceModules
 }
@@ -4418,15 +4587,15 @@ export type UnknownReferenceModuleSettings = {
 export type UpdateProfileImageRequest = {
   /** The nft data */
   nftData?: InputMaybe<NftData>
-  profileId: Scalars['ProfileId']['input']
+  profileId: Scalars['ProfileId']
   /** The url to the image if offline */
-  url?: InputMaybe<Scalars['Url']['input']>
+  url?: InputMaybe<Scalars['Url']>
 }
 
 export type UserSigNonces = {
   __typename?: 'UserSigNonces'
-  lensHubOnChainSigNonce: Scalars['Nonce']['output']
-  peripheryOnChainSigNonce: Scalars['Nonce']['output']
+  lensHubOnChainSigNonce: Scalars['Nonce']
+  peripheryOnChainSigNonce: Scalars['Nonce']
 }
 
 export type ValidatePublicationMetadataRequest = {
@@ -4437,28 +4606,28 @@ export type ValidatePublicationMetadataRequest = {
 /** The access request */
 export type VerifyRequest = {
   /** The access token */
-  accessToken: Scalars['Jwt']['input']
+  accessToken: Scalars['Jwt']
 }
 
 export type Wallet = {
   __typename?: 'Wallet'
-  address: Scalars['EthereumAddress']['output']
+  address: Scalars['EthereumAddress']
   /** The default profile for the wallet for now it is just their first profile, this will be the default profile they picked soon enough */
   defaultProfile?: Maybe<Profile>
 }
 
 export type WhoCollectedPublicationRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   /** Internal publication id */
-  publicationId: Scalars['InternalPublicationId']['input']
+  publicationId: Scalars['InternalPublicationId']
 }
 
 export type WhoReactedPublicationRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
   /** Internal publication id */
-  publicationId: Scalars['InternalPublicationId']['input']
+  publicationId: Scalars['InternalPublicationId']
 }
 
 /** The Profile */
@@ -4468,15 +4637,15 @@ export type WhoReactedResult = {
   /** The reaction */
   reaction: ReactionTypes
   /** The reaction */
-  reactionAt: Scalars['DateTime']['output']
+  reactionAt: Scalars['DateTime']
   /** The reaction id */
-  reactionId: Scalars['ReactionId']['output']
+  reactionId: Scalars['ReactionId']
 }
 
 export type WorldcoinIdentity = {
   __typename?: 'WorldcoinIdentity'
   /** If the profile has verified as a user */
-  isHuman: Scalars['Boolean']['output']
+  isHuman: Scalars['Boolean']
 }
 
 /** The worldcoin signal type */
@@ -4486,10 +4655,130 @@ export enum WorldcoinPhoneVerifyType {
 }
 
 export type WorldcoinPhoneVerifyWebhookRequest = {
-  nullifierHash: Scalars['String']['input']
-  signal: Scalars['EthereumAddress']['input']
+  nullifierHash: Scalars['String']
+  signal: Scalars['EthereumAddress']
   signalType: WorldcoinPhoneVerifyType
 }
+
+export type ZkCommunitiesRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
+}
+
+/** The Zk Voting Community */
+export type ZkCommunity = {
+  __typename?: 'ZkCommunity'
+  /** The Community id */
+  communityId: Scalars['ZkCommunityId']
+  /** Metadata url */
+  contentURI: Scalars['Url']
+  /** community coordinator address */
+  coordinator: Scalars['EthereumAddress']
+  /** description of the community */
+  description?: Maybe<Scalars['String']>
+  /** Members of the community */
+  members?: Maybe<Array<Scalars['ZkIdentityCommitment']>>
+  /** Name of the community */
+  name?: Maybe<Scalars['String']>
+}
+
+export type ZkCommunityMembersRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
+  /** The ZkCommunity id */
+  members?: InputMaybe<Scalars['ZkIdentityCommitment']>
+}
+
+export type ZkCommunityRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
+}
+
+/** The Zk Voting Community */
+export type ZkPoll = {
+  __typename?: 'ZkPoll'
+  /** The Community id */
+  communityId: Scalars['ZkCommunityId']
+  /** Poll coordinator address */
+  coordinator: Scalars['EthereumAddress']
+  /** Poll end time */
+  endedAt?: Maybe<Scalars['DateTime']>
+  /** Poll is active */
+  isActive?: Maybe<Scalars['Boolean']>
+  /** The Poll id */
+  pollId: Scalars['ZkPollId']
+  /** Poll title */
+  profileData: Profile
+  /** The profile id */
+  profileId: Scalars['ProfileId']
+  /** Poll start time */
+  startedAt?: Maybe<Scalars['DateTime']>
+  /** Poll absolute threshold */
+  thresholdAbs?: Maybe<Scalars['Float']>
+  /** Poll threshold Precent */
+  thresholdPct?: Maybe<Scalars['Float']>
+  /** Yes votes */
+  yesVotes?: Maybe<Scalars['Float']>
+}
+
+export type ZkPollByProfileAndCommunityRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']
+  /** The profile id */
+  profileId: Scalars['ProfileId']
+}
+
+export type ZkPollByProfileRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
+  /** The profile id */
+  profileId: Scalars['ProfileId']
+}
+
+export type ZkPollRequest = {
+  /** The ZkPoll id */
+  pollId: Scalars['ZkPollId']
+}
+
+export type ZkPollStateRequest = {
+  /** The ZkPoll id */
+  pollId: Scalars['ZkPollId']
+}
+
+/** The Zk Voting Community */
+export type ZkPollStatus = {
+  __typename?: 'ZkPollStatus'
+  /** The Community id */
+  communityId: Scalars['ZkCommunityId']
+  /** Poll is active */
+  isActive?: Maybe<Scalars['Boolean']>
+  /** The Poll id */
+  pollId: Scalars['ZkPollId']
+  /** status of the poll, null if not created yet. */
+  status?: Maybe<Scalars['Float']>
+  /** Poll absolute threshold */
+  thresholdAbs?: Maybe<Scalars['Int']>
+  /** Poll threshold Percent */
+  thresholdPct?: Maybe<Scalars['Int']>
+  /** Yes votes */
+  yesVotes?: Maybe<Scalars['Int']>
+}
+
+export type ZkPollsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>
+  limit?: InputMaybe<Scalars['LimitScalar']>
+}
+
+export type ZkRelayError = {
+  __typename?: 'ZkRelayError'
+  reason: Scalars['String']
+}
+
+export type ZkRelayerResult = RelayerResult | ZkRelayError
 
 type CollectFields_AaveFeeCollectModuleSettings_Fragment = {
   __typename?: 'AaveFeeCollectModuleSettings'
@@ -4687,6 +4976,7 @@ export type CommentFieldsFragment = {
   collectNftAddress?: any | null
   onChainContentURI: string
   hidden: boolean
+  notInterested: boolean
   isGated: boolean
   isDataAvailability: boolean
   hasCollectedByMe: boolean
@@ -5074,6 +5364,7 @@ export type MirrorFieldsFragment = {
   collectNftAddress?: any | null
   onChainContentURI: string
   hidden: boolean
+  notInterested: boolean
   isGated: boolean
   isDataAvailability: boolean
   dataAvailabilityProofs?: string | null
@@ -5339,6 +5630,7 @@ export type MirrorFieldsFragment = {
         collectNftAddress?: any | null
         onChainContentURI: string
         hidden: boolean
+        notInterested: boolean
         isGated: boolean
         isDataAvailability: boolean
         hasCollectedByMe: boolean
@@ -5694,6 +5986,7 @@ export type MirrorFieldsFragment = {
         collectNftAddress?: any | null
         onChainContentURI: string
         isGated: boolean
+        notInterested: boolean
         isDataAvailability: boolean
         dataAvailabilityProofs?: string | null
         hidden: boolean
@@ -5961,6 +6254,7 @@ export type PostFieldsFragment = {
   collectNftAddress?: any | null
   onChainContentURI: string
   isGated: boolean
+  notInterested: boolean
   isDataAvailability: boolean
   dataAvailabilityProofs?: string | null
   hidden: boolean
@@ -6296,6 +6590,15 @@ export type AddProfileInterestMutation = {
   addProfileInterests?: any | null
 }
 
+export type AddPublicationNotInterestedMutationVariables = Exact<{
+  request: PublicationProfileNotInterestedRequest
+}>
+
+export type AddPublicationNotInterestedMutation = {
+  __typename?: 'Mutation'
+  addPublicationProfileNotInterested?: any | null
+}
+
 export type AddReactionMutationVariables = Exact<{
   request: ReactionRequest
 }>
@@ -6362,6 +6665,15 @@ export type RemoveProfileInterestMutationVariables = Exact<{
 export type RemoveProfileInterestMutation = {
   __typename?: 'Mutation'
   removeProfileInterests?: any | null
+}
+
+export type RemovePublicationNotInterestedMutationVariables = Exact<{
+  request: PublicationProfileNotInterestedRequest
+}>
+
+export type RemovePublicationNotInterestedMutation = {
+  __typename?: 'Mutation'
+  removePublicationProfileNotInterested?: any | null
 }
 
 export type RemoveReactionMutationVariables = Exact<{
@@ -7151,7 +7463,7 @@ export type CollectorsQuery = {
 export type CommentsQueryVariables = Exact<{
   request: PublicationsQueryRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']['input']>
+  channelId?: InputMaybe<Scalars['ProfileId']>
 }>
 
 export type CommentsQuery = {
@@ -7166,6 +7478,7 @@ export type CommentsQuery = {
           collectNftAddress?: any | null
           onChainContentURI: string
           hidden: boolean
+          notInterested: boolean
           isGated: boolean
           isDataAvailability: boolean
           hasCollectedByMe: boolean
@@ -7592,7 +7905,7 @@ export type EnabledModuleCurrrenciesQuery = {
 export type ExploreQueryVariables = Exact<{
   request: ExplorePublicationRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']['input']>
+  channelId?: InputMaybe<Scalars['ProfileId']>
 }>
 
 export type ExploreQuery = {
@@ -7607,6 +7920,7 @@ export type ExploreQuery = {
           collectNftAddress?: any | null
           onChainContentURI: string
           hidden: boolean
+          notInterested: boolean
           isGated: boolean
           isDataAvailability: boolean
           hasCollectedByMe: boolean
@@ -7967,6 +8281,7 @@ export type ExploreQuery = {
           collectNftAddress?: any | null
           onChainContentURI: string
           isGated: boolean
+          notInterested: boolean
           isDataAvailability: boolean
           dataAvailabilityProofs?: string | null
           hidden: boolean
@@ -8237,7 +8552,7 @@ export type ExploreQuery = {
 export type FeedQueryVariables = Exact<{
   request: FeedRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']['input']>
+  channelId?: InputMaybe<Scalars['ProfileId']>
 }>
 
 export type FeedQuery = {
@@ -8254,6 +8569,7 @@ export type FeedQuery = {
             collectNftAddress?: any | null
             onChainContentURI: string
             hidden: boolean
+            notInterested: boolean
             isGated: boolean
             isDataAvailability: boolean
             hasCollectedByMe: boolean
@@ -8613,6 +8929,7 @@ export type FeedQuery = {
             collectNftAddress?: any | null
             onChainContentURI: string
             isGated: boolean
+            notInterested: boolean
             isDataAvailability: boolean
             dataAvailabilityProofs?: string | null
             hidden: boolean
@@ -9485,7 +9802,7 @@ export type NotificationsQuery = {
 
 export type ProfileQueryVariables = Exact<{
   request: SingleProfileQueryRequest
-  who?: InputMaybe<Scalars['ProfileId']['input']>
+  who?: InputMaybe<Scalars['ProfileId']>
 }>
 
 export type ProfileQuery = {
@@ -9609,7 +9926,7 @@ export type ProfileInterestsQuery = {
 export type ProfileMirrorsQueryVariables = Exact<{
   request: PublicationsQueryRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']['input']>
+  channelId?: InputMaybe<Scalars['ProfileId']>
 }>
 
 export type ProfileMirrorsQuery = {
@@ -9625,6 +9942,7 @@ export type ProfileMirrorsQuery = {
           collectNftAddress?: any | null
           onChainContentURI: string
           hidden: boolean
+          notInterested: boolean
           isGated: boolean
           isDataAvailability: boolean
           dataAvailabilityProofs?: string | null
@@ -9894,6 +10212,7 @@ export type ProfileMirrorsQuery = {
                 collectNftAddress?: any | null
                 onChainContentURI: string
                 hidden: boolean
+                notInterested: boolean
                 isGated: boolean
                 isDataAvailability: boolean
                 hasCollectedByMe: boolean
@@ -10262,6 +10581,7 @@ export type ProfileMirrorsQuery = {
                 collectNftAddress?: any | null
                 onChainContentURI: string
                 isGated: boolean
+                notInterested: boolean
                 isDataAvailability: boolean
                 dataAvailabilityProofs?: string | null
                 hidden: boolean
@@ -10562,7 +10882,7 @@ export type ProfileNfTsQuery = {
 export type ProfilePostsQueryVariables = Exact<{
   request: PublicationsQueryRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']['input']>
+  channelId?: InputMaybe<Scalars['ProfileId']>
 }>
 
 export type ProfilePostsQuery = {
@@ -10579,6 +10899,7 @@ export type ProfilePostsQuery = {
           collectNftAddress?: any | null
           onChainContentURI: string
           isGated: boolean
+          notInterested: boolean
           isDataAvailability: boolean
           dataAvailabilityProofs?: string | null
           hidden: boolean
@@ -10847,7 +11168,7 @@ export type ProfilePostsQuery = {
 }
 
 export type ProxyActionStatusQueryVariables = Exact<{
-  proxyActionId: Scalars['ProxyActionId']['input']
+  proxyActionId: Scalars['ProxyActionId']
 }>
 
 export type ProxyActionStatusQuery = {
@@ -11041,7 +11362,7 @@ export type PublicationCollectModuleQuery = {
 export type PublicationDetailsQueryVariables = Exact<{
   request: PublicationQueryRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']['input']>
+  channelId?: InputMaybe<Scalars['ProfileId']>
 }>
 
 export type PublicationDetailsQuery = {
@@ -11054,6 +11375,7 @@ export type PublicationDetailsQuery = {
         collectNftAddress?: any | null
         onChainContentURI: string
         hidden: boolean
+        notInterested: boolean
         isGated: boolean
         isDataAvailability: boolean
         hasCollectedByMe: boolean
@@ -11409,6 +11731,7 @@ export type PublicationDetailsQuery = {
         collectNftAddress?: any | null
         onChainContentURI: string
         hidden: boolean
+        notInterested: boolean
         isGated: boolean
         isDataAvailability: boolean
         dataAvailabilityProofs?: string | null
@@ -11674,6 +11997,7 @@ export type PublicationDetailsQuery = {
               collectNftAddress?: any | null
               onChainContentURI: string
               hidden: boolean
+              notInterested: boolean
               isGated: boolean
               isDataAvailability: boolean
               hasCollectedByMe: boolean
@@ -12039,6 +12363,7 @@ export type PublicationDetailsQuery = {
               collectNftAddress?: any | null
               onChainContentURI: string
               isGated: boolean
+              notInterested: boolean
               isDataAvailability: boolean
               dataAvailabilityProofs?: string | null
               hidden: boolean
@@ -12309,6 +12634,7 @@ export type PublicationDetailsQuery = {
         collectNftAddress?: any | null
         onChainContentURI: string
         isGated: boolean
+        notInterested: boolean
         isDataAvailability: boolean
         dataAvailabilityProofs?: string | null
         hidden: boolean
@@ -12661,7 +12987,7 @@ export type SearchProfilesQuery = {
 export type SearchPublicationsQueryVariables = Exact<{
   request: SearchQueryRequest
   reactionRequest?: InputMaybe<ReactionFieldResolverRequest>
-  channelId?: InputMaybe<Scalars['ProfileId']['input']>
+  channelId?: InputMaybe<Scalars['ProfileId']>
 }>
 
 export type SearchPublicationsQuery = {
@@ -12678,6 +13004,7 @@ export type SearchPublicationsQuery = {
               collectNftAddress?: any | null
               onChainContentURI: string
               hidden: boolean
+              notInterested: boolean
               isGated: boolean
               isDataAvailability: boolean
               hasCollectedByMe: boolean
@@ -13043,6 +13370,7 @@ export type SearchPublicationsQuery = {
               collectNftAddress?: any | null
               onChainContentURI: string
               isGated: boolean
+              notInterested: boolean
               isDataAvailability: boolean
               dataAvailabilityProofs?: string | null
               hidden: boolean
@@ -13381,7 +13709,7 @@ export type SubscribersQuery = {
 }
 
 export type TxIdToTxHashQueryVariables = Exact<{
-  txId: Scalars['TxId']['input']
+  txId: Scalars['TxId']
 }>
 
 export type TxIdToTxHashQuery = { __typename?: 'Query'; txIdToTxHash: any }
@@ -13689,6 +14017,7 @@ export const PostFieldsFragmentDoc = gql`
     collectNftAddress
     onChainContentURI
     isGated
+    notInterested
     isDataAvailability
     dataAvailabilityProofs
     hidden
@@ -13731,6 +14060,7 @@ export const CommentFieldsFragmentDoc = gql`
     collectNftAddress
     onChainContentURI
     hidden
+    notInterested
     isGated
     isDataAvailability
     hasCollectedByMe
@@ -13785,6 +14115,7 @@ export const MirrorFieldsFragmentDoc = gql`
     collectNftAddress
     onChainContentURI
     hidden
+    notInterested
     isGated
     isDataAvailability
     dataAvailabilityProofs
@@ -13874,6 +14205,57 @@ export type AddProfileInterestMutationOptions = Apollo.BaseMutationOptions<
   AddProfileInterestMutation,
   AddProfileInterestMutationVariables
 >
+export const AddPublicationNotInterestedDocument = gql`
+  mutation AddPublicationNotInterested(
+    $request: PublicationProfileNotInterestedRequest!
+  ) {
+    addPublicationProfileNotInterested(request: $request)
+  }
+`
+export type AddPublicationNotInterestedMutationFn = Apollo.MutationFunction<
+  AddPublicationNotInterestedMutation,
+  AddPublicationNotInterestedMutationVariables
+>
+
+/**
+ * __useAddPublicationNotInterestedMutation__
+ *
+ * To run a mutation, you first call `useAddPublicationNotInterestedMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddPublicationNotInterestedMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addPublicationNotInterestedMutation, { data, loading, error }] = useAddPublicationNotInterestedMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useAddPublicationNotInterestedMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddPublicationNotInterestedMutation,
+    AddPublicationNotInterestedMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    AddPublicationNotInterestedMutation,
+    AddPublicationNotInterestedMutationVariables
+  >(AddPublicationNotInterestedDocument, options)
+}
+export type AddPublicationNotInterestedMutationHookResult = ReturnType<
+  typeof useAddPublicationNotInterestedMutation
+>
+export type AddPublicationNotInterestedMutationResult =
+  Apollo.MutationResult<AddPublicationNotInterestedMutation>
+export type AddPublicationNotInterestedMutationOptions =
+  Apollo.BaseMutationOptions<
+    AddPublicationNotInterestedMutation,
+    AddPublicationNotInterestedMutationVariables
+  >
 export const AddReactionDocument = gql`
   mutation AddReaction($request: ReactionRequest!) {
     addReaction(request: $request)
@@ -14227,6 +14609,57 @@ export type RemoveProfileInterestMutationOptions = Apollo.BaseMutationOptions<
   RemoveProfileInterestMutation,
   RemoveProfileInterestMutationVariables
 >
+export const RemovePublicationNotInterestedDocument = gql`
+  mutation RemovePublicationNotInterested(
+    $request: PublicationProfileNotInterestedRequest!
+  ) {
+    removePublicationProfileNotInterested(request: $request)
+  }
+`
+export type RemovePublicationNotInterestedMutationFn = Apollo.MutationFunction<
+  RemovePublicationNotInterestedMutation,
+  RemovePublicationNotInterestedMutationVariables
+>
+
+/**
+ * __useRemovePublicationNotInterestedMutation__
+ *
+ * To run a mutation, you first call `useRemovePublicationNotInterestedMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemovePublicationNotInterestedMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removePublicationNotInterestedMutation, { data, loading, error }] = useRemovePublicationNotInterestedMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useRemovePublicationNotInterestedMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RemovePublicationNotInterestedMutation,
+    RemovePublicationNotInterestedMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    RemovePublicationNotInterestedMutation,
+    RemovePublicationNotInterestedMutationVariables
+  >(RemovePublicationNotInterestedDocument, options)
+}
+export type RemovePublicationNotInterestedMutationHookResult = ReturnType<
+  typeof useRemovePublicationNotInterestedMutation
+>
+export type RemovePublicationNotInterestedMutationResult =
+  Apollo.MutationResult<RemovePublicationNotInterestedMutation>
+export type RemovePublicationNotInterestedMutationOptions =
+  Apollo.BaseMutationOptions<
+    RemovePublicationNotInterestedMutation,
+    RemovePublicationNotInterestedMutationVariables
+  >
 export const RemoveReactionDocument = gql`
   mutation RemoveReaction($request: ReactionRequest!) {
     removeReaction(request: $request)
@@ -18084,7 +18517,8 @@ const result: PossibleTypesResultData = {
     ],
     RelayResult: ['RelayError', 'RelayerResult'],
     SearchResult: ['ProfileSearchResult', 'PublicationSearchResult'],
-    TransactionResult: ['TransactionError', 'TransactionIndexedResult']
+    TransactionResult: ['TransactionError', 'TransactionIndexedResult'],
+    ZkRelayerResult: ['RelayerResult', 'ZkRelayError']
   }
 }
 export default result

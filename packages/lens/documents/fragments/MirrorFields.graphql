@@ -19,6 +19,7 @@ fragment MirrorFields on Mirror {
   collectNftAddress
   onChainContentURI
   hidden
+  notInterested
   isGated
   isDataAvailability
   dataAvailabilityProofs
