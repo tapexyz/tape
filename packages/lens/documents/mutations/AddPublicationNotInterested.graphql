@@ -1,3 +1,5 @@
-mutation AddPublicationNotInterested($request: PublicationProfileNotInterestedRequest!) {
+mutation AddPublicationNotInterested(
+  $request: PublicationProfileNotInterestedRequest!
+) {
   addPublicationProfileNotInterested(request: $request)
 }
