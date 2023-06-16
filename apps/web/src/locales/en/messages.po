@@ -122,7 +122,7 @@ msgstr "Bytes"
 msgid "can collect"
 msgstr "can collect"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:325
+#: src/components/Watch/CollectVideo/CollectModal.tsx:313
 msgid "can collect this publication"
 msgstr "can collect this publication"
 
@@ -136,11 +136,11 @@ msgstr "Cancel"
 msgid "Category"
 msgstr "Category"
 
-#: src/components/Settings/BasicInfo.tsx:301
+#: src/components/Settings/BasicInfo.tsx:297
 msgid "Change"
 msgstr "Change"
 
-#: src/components/Settings/BasicInfo.tsx:314
+#: src/components/Settings/BasicInfo.tsx:310
 msgid "Channel"
 msgstr "Channel"
 
@@ -148,7 +148,7 @@ msgstr "Channel"
 msgid "Channel deleted"
 msgstr "Channel deleted"
 
-#: src/components/Settings/BasicInfo.tsx:367
+#: src/components/Settings/BasicInfo.tsx:351
 msgid "Channel Description"
 msgstr "Channel Description"
 
@@ -161,7 +161,7 @@ msgstr "Channel image updated"
 msgid "Channel Settings"
 msgstr "Channel Settings"
 
-#: src/components/Settings/BasicInfo.tsx:338
+#: src/components/Settings/BasicInfo.tsx:322
 msgid "Channel URL"
 msgstr "Channel URL"
 
@@ -191,7 +191,7 @@ msgstr "Collect as NFT for"
 msgid "Collect Currency"
 msgstr "Collect Currency"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:335
+#: src/components/Watch/CollectVideo/CollectModal.tsx:323
 msgid "Collect for free"
 msgstr "Collect for free"
 
@@ -203,7 +203,7 @@ msgstr "Collect for Free"
 msgid "Collect limit should be greater than 0"
 msgstr "Collect limit should be greater than 0"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:335
+#: src/components/Watch/CollectVideo/CollectModal.tsx:323
 msgid "Collect Now"
 msgstr "Collect Now"
 
@@ -211,7 +211,7 @@ msgstr "Collect Now"
 msgid "Collect Type"
 msgstr "Collect Type"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:219
+#: src/components/Watch/CollectVideo/CollectModal.tsx:223
 msgid "Collect Video"
 msgstr "Collect Video"
 
@@ -377,7 +377,7 @@ msgstr "dispatcher"
 msgid "Dispatcher"
 msgstr "Dispatcher"
 
-#: src/components/Settings/BasicInfo.tsx:358
+#: src/components/Settings/BasicInfo.tsx:342
 msgid "Display Name"
 msgstr "Display Name"
 
@@ -402,7 +402,7 @@ msgstr "Enable"
 msgid "enabled"
 msgstr "enabled"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:255
+#: src/components/Watch/CollectVideo/CollectModal.tsx:256
 msgid "Ends At"
 msgstr "Ends At"
 
@@ -463,8 +463,8 @@ msgid "for given fees"
 msgstr ""
 
 #: src/components/Settings/BasicInfo.tsx:331
-msgid "Get Verified"
-msgstr ""
+#~ msgid "Get Verified"
+#~ msgstr ""
 
 #: src/components/Settings/Membership.tsx:198
 msgid "Grow with Lens"
@@ -594,7 +594,7 @@ msgstr ""
 msgid "Links"
 msgstr "Links"
 
-#: src/components/Settings/BasicInfo.tsx:400
+#: src/components/Settings/BasicInfo.tsx:384
 msgid "Location"
 msgstr ""
 
@@ -602,7 +602,7 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:324
+#: src/components/Watch/CollectVideo/CollectModal.tsx:312
 msgid "Members"
 msgstr ""
 
@@ -670,7 +670,7 @@ msgstr ""
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
 msgstr ""
 
-#: src/components/Settings/BasicInfo.tsx:368
+#: src/components/Settings/BasicInfo.tsx:352
 msgid "More about your channel"
 msgstr ""
 
@@ -752,7 +752,7 @@ msgstr ""
 msgid "Offensive"
 msgstr ""
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:323
+#: src/components/Watch/CollectVideo/CollectModal.tsx:311
 msgid "Only"
 msgstr ""
 
@@ -842,7 +842,7 @@ msgstr "Post Video"
 msgid "Posting video"
 msgstr "Posting video"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:243
+#: src/components/Watch/CollectVideo/CollectModal.tsx:245
 msgid "Price"
 msgstr "Price"
 
@@ -876,15 +876,15 @@ msgstr "Reason"
 
 #: src/components/Settings/Membership.tsx:236
 #: src/components/Settings/Membership.tsx:290
-#: src/components/Watch/CollectVideo/CollectModal.tsx:304
+#: src/components/Watch/CollectVideo/CollectModal.tsx:292
 msgid "Recipient"
 msgstr "Recipient"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:303
+#: src/components/Watch/CollectVideo/CollectModal.tsx:291
 msgid "Recipients"
 msgstr "Recipients"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:293
+#: src/components/Watch/CollectVideo/CollectModal.tsx:281
 msgid "Referral Fee"
 msgstr "Referral Fee"
 
@@ -925,8 +925,8 @@ msgstr "Report Publication"
 msgid "Reset"
 msgstr "Reset"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:279
-#: src/components/Watch/CollectVideo/CollectModal.tsx:301
+#: src/components/Watch/CollectVideo/CollectModal.tsx:267
+#: src/components/Watch/CollectVideo/CollectModal.tsx:289
 msgid "Revenue"
 msgstr ""
 
@@ -934,7 +934,7 @@ msgstr ""
 msgid "Revoke"
 msgstr ""
 
-#: src/components/Settings/BasicInfo.tsx:408
+#: src/components/Settings/BasicInfo.tsx:392
 msgid "Save"
 msgstr ""
 
@@ -1078,7 +1078,7 @@ msgstr "subscribers"
 #: src/components/Channel/BasicInfo/index.tsx:71
 #: src/components/Upload/CollectModule/index.tsx:49
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx:65
-#: src/components/Watch/CollectVideo/CollectModal.tsx:324
+#: src/components/Watch/CollectVideo/CollectModal.tsx:312
 msgid "Subscribers"
 msgstr "Subscribers"
 
@@ -1223,7 +1223,7 @@ msgstr ""
 msgid "total collects"
 msgstr ""
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:229
+#: src/components/Watch/CollectVideo/CollectModal.tsx:233
 msgid "Total Collects"
 msgstr ""
 
@@ -1398,7 +1398,7 @@ msgstr ""
 msgid "Watch Video"
 msgstr ""
 
-#: src/components/Settings/BasicInfo.tsx:392
+#: src/components/Settings/BasicInfo.tsx:376
 msgid "Website"
 msgstr ""
 
@@ -1465,4 +1465,3 @@ msgstr "Your Channel"
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
 msgstr "Your Storage Balance"
-
