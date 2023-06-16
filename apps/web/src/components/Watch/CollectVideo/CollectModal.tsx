@@ -286,10 +286,10 @@ const CollectModal: FC<Props> = ({
             {isRecipientAvailable ? (
               <div className="mb-3 flex flex-col">
                 <span className="mb-0.5 text-sm font-semibold">
-                  <Trans>Revenue</Trans>
+                  <Trans>Revenue</Trans>{' '}
                   {collectModule.recipients?.length
-                    ? t` Recipients`
-                    : t` Recipient`}
+                    ? t`Recipients`
+                    : t`Recipient`}
                 </span>
                 {collectModule.recipient &&
                   renderRecipients([
