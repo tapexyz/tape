@@ -478,13 +478,16 @@ const UploadSteps = () => {
           value: trimify(uploadedVideo.description)
         }
       ]
+      const fileSize = uploadedVideo?.file?.size as number
       const uploader = bundlr.uploader.chunkedUploader
       const chunkSize = 10000000 // 10 MB
       uploader.setChunkSize(chunkSize)
+      if (fileSize < chunkSize) {
+        toast.loading(REQUESTING_SIGNATURE_MESSAGE, { duration: 8000 })
+      }
       uploader.on('chunkUpload', (chunkInfo) => {
-        const fileSize = uploadedVideo?.file?.size as number
         const lastChunk = fileSize - chunkInfo.totalUploaded
-        if (lastChunk <= chunkSize || fileSize < chunkSize) {
+        if (lastChunk <= chunkSize && fileSize > chunkSize) {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE, { duration: 8000 })
         }
         const percentCompleted = Math.round(
