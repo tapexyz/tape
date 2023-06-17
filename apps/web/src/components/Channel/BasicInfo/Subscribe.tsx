@@ -141,7 +141,16 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
       return openConnectModal?.()
     }
     setLoading(true)
-    return createTypedData()
+    if (channel.followModule) {
+      return createTypedData()
+    }
+    viaProxyAction({
+      follow: {
+        freeFollow: {
+          profileId: channel?.id
+        }
+      }
+    })
   }
 
   return (
