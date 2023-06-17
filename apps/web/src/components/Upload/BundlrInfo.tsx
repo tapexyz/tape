@@ -75,10 +75,6 @@ const BundlrInfo = () => {
 
   const initBundlr = async () => {
     if (signer && address && !bundlrData.instance) {
-      console.log(
-        '🚀 ~ file: BundlrInfo.tsx:69 ~ initBundlr ~ getSigner:',
-        signer
-      )
       toast.loading(BUNDLR_CONNECT_MESSAGE)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
