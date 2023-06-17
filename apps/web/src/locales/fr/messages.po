@@ -122,7 +122,7 @@ msgstr "Octets"
 msgid "can collect"
 msgstr "peut collecter"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:325
+#: src/components/Watch/CollectVideo/CollectModal.tsx:313
 msgid "can collect this publication"
 msgstr "peut collecter cette publication"
 
@@ -136,11 +136,11 @@ msgstr "Abandonner"
 msgid "Category"
 msgstr "Catégorie"
 
-#: src/components/Settings/BasicInfo.tsx:301
+#: src/components/Settings/BasicInfo.tsx:297
 msgid "Change"
 msgstr "Changement"
 
-#: src/components/Settings/BasicInfo.tsx:314
+#: src/components/Settings/BasicInfo.tsx:310
 msgid "Channel"
 msgstr "Chaîne"
 
@@ -148,7 +148,7 @@ msgstr "Chaîne"
 msgid "Channel deleted"
 msgstr "Chaîne supprimée"
 
-#: src/components/Settings/BasicInfo.tsx:367
+#: src/components/Settings/BasicInfo.tsx:351
 msgid "Channel Description"
 msgstr "Description du canal"
 
@@ -161,7 +161,7 @@ msgstr "Image du canal mise à jour"
 msgid "Channel Settings"
 msgstr "Paramètres du canal"
 
-#: src/components/Settings/BasicInfo.tsx:338
+#: src/components/Settings/BasicInfo.tsx:322
 msgid "Channel URL"
 msgstr "URL du canal"
 
@@ -191,7 +191,7 @@ msgstr "Collecter en NFT pour"
 msgid "Collect Currency"
 msgstr "Collecter la devise"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:335
+#: src/components/Watch/CollectVideo/CollectModal.tsx:323
 msgid "Collect for free"
 msgstr "Collecter gratuitement"
 
@@ -203,7 +203,7 @@ msgstr "Collecter gratuitement"
 msgid "Collect limit should be greater than 0"
 msgstr "Limite de collecte devrait être supérieure à 0"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:335
+#: src/components/Watch/CollectVideo/CollectModal.tsx:323
 msgid "Collect Now"
 msgstr "Collecter maintenant"
 
@@ -211,7 +211,7 @@ msgstr "Collecter maintenant"
 msgid "Collect Type"
 msgstr "Type de collecte"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:219
+#: src/components/Watch/CollectVideo/CollectModal.tsx:223
 msgid "Collect Video"
 msgstr "Collecter la vidéo"
 
@@ -377,7 +377,7 @@ msgstr "répartiteur"
 msgid "Dispatcher"
 msgstr "Répartiteur"
 
-#: src/components/Settings/BasicInfo.tsx:358
+#: src/components/Settings/BasicInfo.tsx:342
 msgid "Display Name"
 msgstr "Nom affiché"
 
@@ -402,7 +402,7 @@ msgstr "Activer"
 msgid "enabled"
 msgstr "Activé"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:255
+#: src/components/Watch/CollectVideo/CollectModal.tsx:256
 msgid "Ends At"
 msgstr "Se termine à"
 
@@ -463,8 +463,8 @@ msgid "for given fees"
 msgstr "pour des frais donnés"
 
 #: src/components/Settings/BasicInfo.tsx:331
-msgid "Get Verified"
-msgstr "Soyez vérifié"
+#~ msgid "Get Verified"
+#~ msgstr "Soyez vérifié"
 
 #: src/components/Settings/Membership.tsx:198
 msgid "Grow with Lens"
@@ -594,7 +594,7 @@ msgstr "Collecte limitée"
 msgid "Links"
 msgstr "Liens"
 
-#: src/components/Settings/BasicInfo.tsx:400
+#: src/components/Settings/BasicInfo.tsx:384
 msgid "Location"
 msgstr "Localisation"
 
@@ -602,7 +602,7 @@ msgstr "Localisation"
 msgid "Login"
 msgstr "Se connecter"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:324
+#: src/components/Watch/CollectVideo/CollectModal.tsx:312
 msgid "Members"
 msgstr "Membres"
 
@@ -670,7 +670,7 @@ msgstr "Hashtags mal utilisés"
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
 msgstr "Momoka est actuellement en bêta - pendant ce temps, certaines actions ne sont pas disponibles pour tous les canaux."
 
-#: src/components/Settings/BasicInfo.tsx:368
+#: src/components/Settings/BasicInfo.tsx:352
 msgid "More about your channel"
 msgstr "En savoir plus sur votre chaîne"
 
@@ -752,7 +752,7 @@ msgstr "NSFW"
 msgid "Offensive"
 msgstr "Offensif"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:323
+#: src/components/Watch/CollectVideo/CollectModal.tsx:311
 msgid "Only"
 msgstr "Seulement"
 
@@ -842,7 +842,7 @@ msgstr "Publier une vidéo"
 msgid "Posting video"
 msgstr "Envoi de la vidéo"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:243
+#: src/components/Watch/CollectVideo/CollectModal.tsx:245
 msgid "Price"
 msgstr "Prix"
 
@@ -876,15 +876,15 @@ msgstr "Raison"
 
 #: src/components/Settings/Membership.tsx:236
 #: src/components/Settings/Membership.tsx:290
-#: src/components/Watch/CollectVideo/CollectModal.tsx:304
+#: src/components/Watch/CollectVideo/CollectModal.tsx:292
 msgid "Recipient"
 msgstr "Destinataire"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:303
+#: src/components/Watch/CollectVideo/CollectModal.tsx:291
 msgid "Recipients"
 msgstr "Destinataires"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:293
+#: src/components/Watch/CollectVideo/CollectModal.tsx:281
 msgid "Referral Fee"
 msgstr "Frais de parrainage"
 
@@ -925,8 +925,8 @@ msgstr "Publication du rapport"
 msgid "Reset"
 msgstr "Reset"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:279
-#: src/components/Watch/CollectVideo/CollectModal.tsx:301
+#: src/components/Watch/CollectVideo/CollectModal.tsx:267
+#: src/components/Watch/CollectVideo/CollectModal.tsx:289
 msgid "Revenue"
 msgstr "Revenus"
 
@@ -934,7 +934,7 @@ msgstr "Revenus"
 msgid "Revoke"
 msgstr "Revoke"
 
-#: src/components/Settings/BasicInfo.tsx:408
+#: src/components/Settings/BasicInfo.tsx:392
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -1078,7 +1078,7 @@ msgstr "abonnés"
 #: src/components/Channel/BasicInfo/index.tsx:71
 #: src/components/Upload/CollectModule/index.tsx:49
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx:65
-#: src/components/Watch/CollectVideo/CollectModal.tsx:324
+#: src/components/Watch/CollectVideo/CollectModal.tsx:312
 msgid "Subscribers"
 msgstr "Abonnés"
 
@@ -1223,7 +1223,7 @@ msgstr "Nombre total d'articles de collection"
 msgid "total collects"
 msgstr "total des collectes"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:229
+#: src/components/Watch/CollectVideo/CollectModal.tsx:233
 msgid "Total Collects"
 msgstr "Total des Collectes"
 
@@ -1398,7 +1398,7 @@ msgstr "Regarder"
 msgid "Watch Video"
 msgstr "Regarder la vidéo"
 
-#: src/components/Settings/BasicInfo.tsx:392
+#: src/components/Settings/BasicInfo.tsx:376
 msgid "Website"
 msgstr "Site Web"
 
@@ -1465,4 +1465,3 @@ msgstr "Votre Chaîne"
 #: src/components/Upload/BundlrInfo.tsx:152
 msgid "Your Storage Balance"
 msgstr "Votre solde de stockage"
-
