@@ -252,6 +252,10 @@ const UploadSteps = () => {
 
   const initBundlr = async () => {
     if (signer && address && !bundlrData.instance) {
+      console.log(
+        '🚀 ~ file: UploadSteps.tsx:255 ~ initBundlr ~ signer:',
+        signer
+      )
       toast.loading(BUNDLR_CONNECT_MESSAGE)
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {

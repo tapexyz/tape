@@ -24,7 +24,7 @@ import { useAccount, useBalance } from 'wagmi'
 
 const BundlrInfo = () => {
   const { address } = useAccount()
-  const { data: walletClient } = useEthersWalletClient()
+  const { data: signer } = useEthersWalletClient()
 
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)
@@ -65,9 +65,13 @@ const BundlrInfo = () => {
   }
 
   const initBundlr = async () => {
-    if (walletClient && address && !bundlrData.instance) {
+    if (signer && address && !bundlrData.instance) {
+      console.log(
+        '🚀 ~ file: BundlrInfo.tsx:69 ~ initBundlr ~ getSigner:',
+        signer
+      )
       toast.loading(BUNDLR_CONNECT_MESSAGE)
-      const bundlr = await getBundlrInstance(walletClient)
+      const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
         setBundlrData({ instance: bundlr })
         await fetchBalance(bundlr)
@@ -76,11 +80,11 @@ const BundlrInfo = () => {
   }
 
   useEffect(() => {
-    if (walletClient && mounted) {
+    if (signer && mounted) {
       initBundlr().catch((error) => logger.error('[Error Init Bundlr]', error))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [walletClient, mounted])
+  }, [signer, mounted])
 
   useEffect(() => {
     if (bundlrData.instance && mounted) {

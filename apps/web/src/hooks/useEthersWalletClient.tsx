@@ -1,5 +1,5 @@
 import { ZERO_ADDRESS } from 'utils'
-import { useWalletClient } from 'wagmi'
+import { usePublicClient, useWalletClient } from 'wagmi'
 
 const useEthersWalletClient = (): {
   data: {
@@ -9,28 +9,32 @@ const useEthersWalletClient = (): {
   isLoading: boolean
 } => {
   const { data, isLoading } = useWalletClient()
+  const { estimateGas, getGasPrice } = usePublicClient()
 
   const ethersWalletClient = {
     getAddress: async (): Promise<`0x${string}`> => {
-      return data?.account.address ?? ZERO_ADDRESS
+      return (await data?.account.address) ?? ZERO_ADDRESS
     },
     signMessage: async (message: string): Promise<string> => {
       const signature = await data?.signMessage({ message })
       return signature ?? ''
-    }
+    },
+    getSigner: () => {
+      return { ...data, getAddress: data?.getAddresses }
+    },
+    estimateGas: () => estimateGas,
+    getGasPrice: () => getGasPrice
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { signMessage, ...rest } = data ?? {}
 
   const mergedWalletClient = {
-    data: {
-      ...ethersWalletClient,
-      ...{ ...rest }
-    }
+    ...ethersWalletClient,
+    ...rest
   }
 
-  return { data: mergedWalletClient.data, isLoading }
+  return { data: mergedWalletClient, isLoading }
 }
 
 export default useEthersWalletClient
