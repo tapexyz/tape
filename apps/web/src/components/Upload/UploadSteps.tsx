@@ -469,13 +469,13 @@ const UploadSteps = () => {
         { name: 'Content-Type', value: uploadedVideo.videoType || 'video/mp4' },
         { name: 'App-Name', value: LENSTUBE_APP_NAME },
         { name: 'Profile-Id', value: selectedChannel?.id },
+        // ANS-110 standard
+        { name: 'Title', value: trimify(uploadedVideo.title) },
         { name: 'Type', value: 'video' },
         { name: 'Topic', value: uploadedVideo.videoCategory.name },
         {
           name: 'Description',
-          value: trimify(
-            `${uploadedVideo.title}\n\n${uploadedVideo.description}`
-          )
+          value: trimify(uploadedVideo.description)
         }
       ]
       const uploader = bundlr.uploader.chunkedUploader
@@ -484,7 +484,7 @@ const UploadSteps = () => {
       uploader.on('chunkUpload', (chunkInfo) => {
         const fileSize = uploadedVideo?.file?.size as number
         const lastChunk = fileSize - chunkInfo.totalUploaded
-        if (lastChunk <= chunkSize) {
+        if (lastChunk <= chunkSize || fileSize < chunkSize) {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE, { duration: 8000 })
         }
         const percentCompleted = Math.round(
