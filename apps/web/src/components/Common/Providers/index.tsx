@@ -21,7 +21,12 @@ import {
 import { ThemeProvider, useTheme } from 'next-themes'
 import type { ReactNode } from 'react'
 import React, { useEffect } from 'react'
-import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
+import {
+  IS_MAINNET,
+  LENSTUBE_APP_NAME,
+  POLYGON_RPC_URL,
+  WC_PROJECT_ID
+} from 'utils'
 import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { polygon, polygonMumbai } from 'wagmi/chains'
@@ -45,10 +50,10 @@ const connectors = connectorsForWallets([
     groupName: 'Recommended',
     wallets: [
       injectedWallet({ chains, shimDisconnect: true }),
-      rainbowWallet({ chains }),
-      ledgerWallet({ chains }),
+      rainbowWallet({ chains, projectId: WC_PROJECT_ID }),
+      ledgerWallet({ chains, projectId: WC_PROJECT_ID }),
       coinbaseWallet({ appName: LENSTUBE_APP_NAME, chains }),
-      walletConnectWallet({ chains })
+      walletConnectWallet({ chains, projectId: WC_PROJECT_ID })
     ]
   }
 ])
