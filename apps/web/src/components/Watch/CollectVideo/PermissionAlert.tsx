@@ -28,7 +28,7 @@ const PermissionAlert: FC<Props> = ({
     isLoading: transactionLoading,
     sendTransaction
   } = useSendTransaction({
-    onError(error: CustomErrorWithData) {
+    onError: (error: CustomErrorWithData) => {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
