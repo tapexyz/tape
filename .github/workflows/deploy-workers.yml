@@ -22,7 +22,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Check Lint 💅🏻
-        run: yarn lint
+        run: yarn lint && yarn typecheck
  
       - name: Deploy 🚀
         run: |
