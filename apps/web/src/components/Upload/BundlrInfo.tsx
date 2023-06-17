@@ -8,6 +8,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
+import BigNumber from 'bignumber.js'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -19,8 +20,13 @@ import {
 } from 'utils'
 import useIsMounted from 'utils/hooks/useIsMounted'
 import logger from 'utils/logger'
-import { formatEther, parseUnits } from 'viem'
-import { useAccount, useBalance } from 'wagmi'
+import { formatEther, parseEther, parseUnits } from 'viem'
+import {
+  useAccount,
+  useBalance,
+  usePrepareSendTransaction,
+  useSendTransaction
+} from 'wagmi'
 
 const BundlrInfo = () => {
   const { address } = useAccount()
@@ -30,6 +36,9 @@ const BundlrInfo = () => {
   const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)
   const bundlrData = useAppStore((state) => state.bundlrData)
   const setBundlrData = useAppStore((state) => state.setBundlrData)
+
+  const { sendTransactionAsync } = useSendTransaction()
+  const { config } = usePrepareSendTransaction()
 
   const { mounted } = useIsMounted()
   const { data: userBalance } = useBalance({
@@ -114,6 +123,27 @@ const BundlrInfo = () => {
       )
     }
     setBundlrData({ depositing: true })
+
+    // override bundlr functions for viem
+    bundlrData.instance.currencyConfig.getFee =
+      async (): Promise<BigNumber> => {
+        return new BigNumber(0)
+      }
+    bundlrData.instance.currencyConfig.sendTx = async (
+      data
+    ): Promise<string> => {
+      const { hash } = await sendTransactionAsync(data)
+      return hash
+    }
+    bundlrData.instance.currencyConfig.createTx = async (
+      amount: BigNumber.Value,
+      to: `0x${string}`
+    ): Promise<{ txId: string | undefined; tx: any }> => {
+      config.to = to
+      config.value = parseEther(amount.toString() as `${number}`, 'gwei')
+      return { txId: undefined, tx: config }
+    }
+
     try {
       const fundResult = await bundlrData.instance.fund(value.toString())
       if (fundResult) {

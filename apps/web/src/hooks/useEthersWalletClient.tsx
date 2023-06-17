@@ -9,7 +9,7 @@ const useEthersWalletClient = (): {
   isLoading: boolean
 } => {
   const { data, isLoading } = useWalletClient()
-  const { estimateGas, getGasPrice } = usePublicClient()
+  const { estimateGas, getGasPrice, getTransaction } = usePublicClient()
 
   const ethersWalletClient = {
     getAddress: async (): Promise<`0x${string}`> => {
@@ -23,7 +23,8 @@ const useEthersWalletClient = (): {
       return { ...data, getAddress: data?.getAddresses }
     },
     estimateGas: () => estimateGas,
-    getGasPrice: () => getGasPrice
+    getGasPrice: () => getGasPrice,
+    getTransaction: () => getTransaction
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
