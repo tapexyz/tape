@@ -1,4 +1,5 @@
 import { ZERO_ADDRESS } from 'utils'
+import type { TypedDataDomain } from 'viem'
 import { usePublicClient, useWalletClient } from 'wagmi'
 
 const useEthersWalletClient = (): {
@@ -20,7 +21,25 @@ const useEthersWalletClient = (): {
       return signature ?? ''
     },
     getSigner: () => {
-      return { ...data, getAddress: data?.getAddresses }
+      return {
+        ...data,
+        getAddress: () => data?.account.address,
+        _signTypedData: async (
+          domain: TypedDataDomain,
+          types: any,
+          message: any
+        ) => {
+          message['Transaction hash'] =
+            '0x' + Buffer.from(message['Transaction hash']).toString('hex')
+          const r = await data?.signTypedData({
+            domain,
+            message,
+            types,
+            primaryType: 'Bundlr'
+          })
+          return r
+        }
+      }
     },
     estimateGas: () => estimateGas,
     getGasPrice: () => getGasPrice,

@@ -468,7 +468,15 @@ const UploadSteps = () => {
       const tags = [
         { name: 'Content-Type', value: uploadedVideo.videoType || 'video/mp4' },
         { name: 'App-Name', value: LENSTUBE_APP_NAME },
-        { name: 'Profile-Id', value: selectedChannel?.id }
+        { name: 'Profile-Id', value: selectedChannel?.id },
+        { name: 'Type', value: 'video' },
+        { name: 'Topic', value: uploadedVideo.videoCategory.name },
+        {
+          name: 'Description',
+          value: trimify(
+            `${uploadedVideo.title}\n\n${uploadedVideo.description}`
+          )
+        }
       ]
       const uploader = bundlr.uploader.chunkedUploader
       const chunkSize = 10000000 // 10 MB
