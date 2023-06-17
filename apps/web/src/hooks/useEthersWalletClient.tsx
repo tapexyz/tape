@@ -1,29 +1,24 @@
-import { ZERO_ADDRESS } from 'utils'
 import type { TypedDataDomain } from 'viem'
 import { usePublicClient, useWalletClient } from 'wagmi'
 
 const useEthersWalletClient = (): {
   data: {
-    getAddress: () => Promise<`0x${string}`>
     signMessage: (message: string) => Promise<string>
   }
   isLoading: boolean
 } => {
-  const { data, isLoading } = useWalletClient()
+  const { data: signer, isLoading } = useWalletClient()
   const { estimateGas, getGasPrice, getTransaction } = usePublicClient()
 
   const ethersWalletClient = {
-    getAddress: async (): Promise<`0x${string}`> => {
-      return (await data?.account.address) ?? ZERO_ADDRESS
-    },
     signMessage: async (message: string): Promise<string> => {
-      const signature = await data?.signMessage({ message })
+      const signature = await signer?.signMessage({ message })
       return signature ?? ''
     },
     getSigner: () => {
       return {
-        ...data,
-        getAddress: () => data?.account.address,
+        ...signer,
+        getAddress: () => signer?.account.address,
         _signTypedData: async (
           domain: TypedDataDomain,
           types: any,
@@ -31,7 +26,7 @@ const useEthersWalletClient = (): {
         ) => {
           message['Transaction hash'] =
             '0x' + Buffer.from(message['Transaction hash']).toString('hex')
-          const r = await data?.signTypedData({
+          const r = await signer?.signTypedData({
             domain,
             message,
             types,
@@ -47,7 +42,7 @@ const useEthersWalletClient = (): {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { signMessage, ...rest } = data ?? {}
+  const { signMessage, ...rest } = signer ?? {}
 
   const mergedWalletClient = {
     ...ethersWalletClient,

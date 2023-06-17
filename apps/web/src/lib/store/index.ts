@@ -67,7 +67,6 @@ interface AppState {
   setVideoWatchTime: (videoWatchTime: number) => void
   setBundlrData: (bundlrProps: Partial<BundlrDataState>) => void
   getBundlrInstance: (signer: {
-    getAddress: () => Promise<`0x${string}`>
     signMessage: (message: string) => Promise<string>
   }) => Promise<WebBundlr | null>
 }
