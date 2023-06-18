@@ -64,11 +64,12 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 | Name      | Description                     |
 | --------- | ------------------------------- |
-| `web-ui`  | Web components                  |
-| `embed`   | Shared tsconfig                 |
-| `utils`   | Collection of utils and helpers |
 | `lens`    | Everything about Lens Backend   |
+| `utils`   | Collection of utils and helpers |
+| `web-ui`  | Web components                  |
 | `workers` | Cloudflare Workers              |
+| `tsconfig`   | Shared tsconfig                 |
+| `eslint-config-weblint`   | Shared eslint-config-weblint                 |
 
 ## Getting Started
 
@@ -96,4 +97,4 @@ We love contributors! Feel free to contribute to this project but please read th
 
 ## 📜 License
 
-Lenstube is open-sourced software licensed under the [GPLv3](LICENSE).
+Lenstube is open-sourced software licensed under the [AGPLv3](LICENSE).
