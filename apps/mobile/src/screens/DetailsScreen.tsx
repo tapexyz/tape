@@ -11,9 +11,6 @@ export const DetailsScreen = (props: DetailsScreenProps): JSX.Element => {
   // ref
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
-  // variables
-  const snapPoints = useMemo(() => ['25%', '50%'], [])
-
   // callbacks
   const openModal = useCallback(() => {
     bottomSheetModalRef.current?.present()
@@ -34,22 +31,28 @@ export const DetailsScreen = (props: DetailsScreenProps): JSX.Element => {
     []
   )
 
+  // variables
+  // const snapPoints = useMemo(() => ['25%', '50%'], [])
+  const snapPoints = useMemo(() => ['40%'], [])
+
   return (
     <View>
-      <Text>details_screen.title</Text>
-      <TouchableOpacity onPress={openModal}>
+      <TouchableOpacity style={{ padding: 30 }} onPress={openModal}>
         <Text>open_bottom_sheet</Text>
       </TouchableOpacity>
-      <Text>details_screen.screen_params</Text>
       <BottomSheetModal
         ref={bottomSheetModalRef}
+        backgroundStyle={{ borderRadius: 50 }}
+        style={{ marginHorizontal: 15 }}
+        bottomInset={20}
+        detached={true}
         index={0}
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
         backdropComponent={renderBackdrop}
       >
-        <View>
-          <Text>details_screen.awesome</Text>
+        <View style={{ padding: 10 }}>
+          <Text>bottomsheet</Text>
         </View>
       </BottomSheetModal>
     </View>
