@@ -13,7 +13,6 @@ import {
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import {
-  ALLOWED_APP_IDS,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
@@ -25,7 +24,7 @@ const Recents = () => {
     sortCriteria: PublicationSortCriteria.Latest,
     limit: 32,
     noRandomize: true,
-    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
+    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
