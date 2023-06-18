@@ -62,14 +62,14 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 ### Packages
 
-| Name      | Description                     |
-| --------- | ------------------------------- |
-| `lens`    | Everything about Lens Backend   |
-| `utils`   | Collection of utils and helpers |
-| `web-ui`  | Web components                  |
-| `workers` | Cloudflare Workers              |
-| `tsconfig`   | Shared tsconfig                 |
-| `eslint-config-weblint`   | Shared eslint-config-weblint                 |
+| Name                    | Description                     |
+| ----------------------- | ------------------------------- |
+| `lens`                  | Everything about Lens Backend   |
+| `utils`                 | Collection of utils and helpers |
+| `web-ui`                | Web components                  |
+| `workers`               | Cloudflare Workers              |
+| `tsconfig`              | Shared tsconfig                 |
+| `eslint-config-weblint` | Shared eslint-config-weblint    |
 
 ## Getting Started
 
