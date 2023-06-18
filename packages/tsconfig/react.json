@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Next.js",
+  "display": "React",
   "extends": "./base.json",
   "compilerOptions": {
     "target": "es5",

@@ -2,7 +2,7 @@
   "name": "web",
   "description": "Web application",
   "version": "0.0.0",
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "scripts": {
     "dev": "next dev --port 4783",
     "build": "next build",
