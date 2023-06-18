@@ -4,7 +4,6 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { utils } from 'ethers'
 import type {
   CreateFollowBroadcastItemResult,
   Profile,
@@ -26,8 +25,8 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   TRACK
 } from 'utils'
-import omitKey from 'utils/functions/omitKey'
-import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
+import getSignature from 'utils/functions/getSignature'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
   channel: Profile
@@ -60,13 +59,11 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const { data: signer } = useSigner({ onError })
 
-  const { write: writeSubscribe } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'followWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'follow',
     onSuccess: onCompleted,
     onError
   })
@@ -91,29 +88,13 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
         createFollowTypedData as CreateFollowBroadcastItemResult
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
-        const { v, r, s } = utils.splitSignature(signature)
-        const { profileIds, datas } = typedData?.value
-        const args = {
-          follower: signer?.getAddress(),
-          profileIds,
-          datas,
-          sig: {
-            v,
-            r,
-            s,
-            deadline: typedData.value.deadline
-          }
-        }
+        const signature = await signTypedDataAsync(getSignature(typedData))
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          writeSubscribe?.({ recklesslySetUnpreparedArgs: [args] })
+          const { profileIds, datas } = typedData.value
+          write?.({ args: [profileIds, datas] })
         }
       } catch {
         setLoading(false)

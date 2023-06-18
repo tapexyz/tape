@@ -5,7 +5,6 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { utils } from 'ethers'
 import type { FeeFollowModuleSettings, Profile } from 'lens'
 import {
   FollowModules,
@@ -25,8 +24,8 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   TRACK
 } from 'utils'
-import omitKey from 'utils/functions/omitKey'
-import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
+import getSignature from 'utils/functions/getSignature'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
   channel: Profile
@@ -62,13 +61,11 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const { data: signer } = useSigner({ onError })
 
-  const { write: writeJoinChannel } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'followWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'follow',
     onSuccess: onCompleted,
     onError
   })
@@ -106,29 +103,14 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
       const { typedData, id } = createFollowTypedData
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
-        const { v, r, s } = utils.splitSignature(signature)
-        const args = {
-          follower: signer?.getAddress(),
-          profileIds: typedData.value.profileIds,
-          datas: typedData.value.datas,
-          sig: {
-            v,
-            r,
-            s,
-            deadline: typedData.value.deadline
-          }
-        }
+        const signature = await signTypedDataAsync(getSignature(typedData))
         setUserSigNonce(userSigNonce + 1)
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast.__typename === 'RelayError') {
-          writeJoinChannel?.({ recklesslySetUnpreparedArgs: [args] })
+          const { profileIds, datas } = typedData.value
+          return write?.({ args: [profileIds, datas] })
         }
       } catch {
         setLoading(false)

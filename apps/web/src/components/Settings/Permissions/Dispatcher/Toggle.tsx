@@ -3,7 +3,6 @@ import { Button } from '@components/UIElements/Button'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import { utils } from 'ethers'
 import type { CreateSetDispatcherBroadcastItemResult, Profile } from 'lens'
 import {
   useBroadcastMutation,
@@ -22,7 +21,7 @@ import {
   TRACK
 } from 'utils'
 import getIsDispatcherEnabled from 'utils/functions/getIsDispatcherEnabled'
-import omitKey from 'utils/functions/omitKey'
+import getSignature from 'utils/functions/getSignature'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Toggle = () => {
@@ -47,11 +46,10 @@ const Toggle = () => {
     onError
   })
 
-  const { write: writeDispatch, data: writeData } = useContractWrite({
+  const { write, data: writeData } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'setDispatcherWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'setDispatcher',
     onError
   })
 
@@ -93,27 +91,18 @@ const Toggle = () => {
     onCompleted: async ({ createSetDispatcherTypedData }) => {
       const { id, typedData } =
         createSetDispatcherTypedData as CreateSetDispatcherBroadcastItemResult
-      const { deadline } = typedData?.value
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
-        const { profileId, dispatcher } = typedData?.value
-        const { v, r, s } = utils.splitSignature(signature)
-        const args = {
-          profileId,
-          dispatcher,
-          sig: { v, r, s, deadline }
-        }
+        const signature = await signTypedDataAsync(getSignature(typedData))
         setUserSigNonce(userSigNonce + 1)
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          writeDispatch?.({ recklesslySetUnpreparedArgs: [args] })
+          const { profileId, dispatcher } = typedData.value
+          return write?.({
+            args: [profileId, dispatcher]
+          })
         }
       } catch {
         setLoading(false)

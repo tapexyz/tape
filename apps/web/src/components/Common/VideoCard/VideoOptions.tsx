@@ -7,7 +7,6 @@ import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
-import { utils } from 'ethers'
 import type {
   CreatePublicSetProfileMetadataUriRequest,
   Publication
@@ -34,7 +33,7 @@ import {
 import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
-import omitKey from 'utils/functions/omitKey'
+import getSignature from 'utils/functions/getSignature'
 import uploadToAr from 'utils/functions/uploadToAr'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -120,11 +119,10 @@ const VideoOptions: FC<Props> = ({
     onError
   })
 
-  const { write: writeMetaData } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENS_PERIPHERY_ADDRESS,
     abi: LENS_PERIPHERY_ABI,
-    functionName: 'setProfileMetadataURIWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'setProfileMetadataURI',
     onError,
     onSuccess: onCompleted
   })
@@ -146,24 +144,13 @@ const VideoOptions: FC<Props> = ({
         const { typedData, id } = data.createSetProfileMetadataTypedData
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-          const signature = await signTypedDataAsync({
-            domain: omitKey(typedData?.domain, '__typename'),
-            types: omitKey(typedData?.types, '__typename'),
-            value: omitKey(typedData?.value, '__typename')
-          })
-          const { profileId, metadata } = typedData?.value
-          const { v, r, s } = utils.splitSignature(signature)
-          const args = {
-            user: selectedChannel?.ownedBy,
-            profileId,
-            metadata,
-            sig: { v, r, s, deadline: typedData.value.deadline }
-          }
+          const signature = await signTypedDataAsync(getSignature(typedData))
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
           if (data?.broadcast?.__typename === 'RelayError') {
-            writeMetaData?.({ recklesslySetUnpreparedArgs: [args] })
+            const { profileId, metadata } = typedData.value
+            return write?.({ args: [profileId, metadata] })
           }
         } catch {}
       },

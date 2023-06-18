@@ -4,7 +4,6 @@ import { Button } from '@components/UIElements/Button'
 import { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
-import { utils } from 'ethers'
 import type { CreateBurnProfileBroadcastItemResult } from 'lens'
 import { useCreateBurnProfileTypedDataMutation } from 'lens'
 import React, { useState } from 'react'
@@ -17,34 +16,22 @@ import {
 import type { CustomErrorWithData } from 'utils/custom-types'
 import formatNumber from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
-import omitKey from 'utils/functions/omitKey'
-import {
-  useContractWrite,
-  useSignTypedData,
-  useWaitForTransaction
-} from 'wagmi'
+import { useContractWrite, useWaitForTransaction } from 'wagmi'
 
 const DangerZone = () => {
   const [loading, setLoading] = useState(false)
   const [txnHash, setTxnHash] = useState<`0x${string}`>()
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
-  const { signTypedDataAsync } = useSignTypedData({
-    onError(error) {
-      toast.error(error?.message)
-    }
-  })
-
   const onError = (error: CustomErrorWithData) => {
     setLoading(false)
     toast.error(error?.data?.message ?? error?.message)
   }
 
-  const { write: writeDeleteProfile } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'burnWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'burn',
     onError,
     onSuccess: (data) => setTxnHash(data.hash)
   })
@@ -67,15 +54,8 @@ const DangerZone = () => {
         data.createBurnProfileTypedData as CreateBurnProfileBroadcastItemResult
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
-        const { tokenId } = typedData?.value
-        const { v, r, s } = utils.splitSignature(signature)
-        const sig = { v, r, s, deadline: typedData.value.deadline }
-        writeDeleteProfile?.({ recklesslySetUnpreparedArgs: [tokenId, sig] })
+        const { tokenId } = typedData.value
+        write?.({ args: [tokenId] })
       } catch {
         setLoading(false)
       }

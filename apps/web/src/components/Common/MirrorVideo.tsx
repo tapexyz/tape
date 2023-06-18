@@ -4,7 +4,6 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { utils } from 'ethers'
 import type {
   CreateMirrorBroadcastItemResult,
   CreateMirrorRequest,
@@ -27,7 +26,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   TRACK
 } from 'utils'
-import omitKey from 'utils/functions/omitKey'
+import getSignature from 'utils/functions/getSignature'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
@@ -90,11 +89,10 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       onCompleted(createMirrorViaDispatcher.__typename)
   })
 
-  const { write: mirrorWithSig } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'mirrorWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'mirror',
     onError,
     onSuccess: () => onCompleted()
   })
@@ -108,38 +106,15 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onCompleted: async ({ createMirrorTypedData }) => {
       const { id, typedData } =
         createMirrorTypedData as CreateMirrorBroadcastItemResult
-      const {
-        profileId,
-        profileIdPointed,
-        pubIdPointed,
-        referenceModule,
-        referenceModuleData,
-        referenceModuleInitData
-      } = typedData?.value
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
-        const { v, r, s } = utils.splitSignature(signature)
-        const sig = { v, r, s, deadline: typedData.value.deadline }
-        const args = {
-          profileId,
-          profileIdPointed,
-          pubIdPointed,
-          referenceModule,
-          referenceModuleData,
-          referenceModuleInitData,
-          sig
-        }
+        const signature = await signTypedDataAsync(getSignature(typedData))
         setUserSigNonce(userSigNonce + 1)
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          mirrorWithSig?.({ recklesslySetUnpreparedArgs: [args] })
+          write?.({ args: [typedData.value] })
         }
       } catch {
         setLoading(false)

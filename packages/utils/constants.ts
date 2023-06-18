@@ -81,6 +81,9 @@ export const IPFS_GATEWAY_URL = 'https://gateway.ipfscdn.io/ipfs'
 export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
 
+// walletconnect
+export const WC_PROJECT_ID = 'bf790b6b57570b99567abd1677b7415d'
+
 // livepeer
 export const LIVEPEER_STUDIO_API_KEY = 'b13fd43e-d0d6-4abc-a5df-93592a0c5124'
 

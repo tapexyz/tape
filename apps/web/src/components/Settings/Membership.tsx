@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import { utils } from 'ethers'
 import type {
   CreateSetFollowModuleBroadcastItemResult,
   Erc20,
@@ -30,7 +29,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   WMATIC_TOKEN_ADDRESS
 } from 'utils'
-import omitKey from 'utils/functions/omitKey'
+import getSignature from 'utils/functions/getSignature'
 import { shortenAddress } from 'utils/functions/shortenAddress'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
@@ -103,11 +102,10 @@ const Membership = ({ channel }: Props) => {
     onError
   })
 
-  const { data: writtenData, write: writeFollow } = useContractWrite({
+  const { data: writtenData, write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'setFollowModuleWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'setFollowModule',
     onError
   })
 
@@ -134,28 +132,19 @@ const Membership = ({ channel }: Props) => {
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
         const { typedData, id } =
           createSetFollowModuleTypedData as CreateSetFollowModuleBroadcastItemResult
-        const { profileId, followModule, followModuleInitData } =
-          typedData?.value
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-          const signature = await signTypedDataAsync({
-            domain: omitKey(typedData?.domain, '__typename'),
-            types: omitKey(typedData?.types, '__typename'),
-            value: omitKey(typedData?.value, '__typename')
-          })
-          const { v, r, s } = utils.splitSignature(signature)
-          const args = {
-            profileId,
-            followModule,
-            followModuleInitData,
-            sig: { v, r, s, deadline: typedData.value.deadline }
-          }
+          const signature = await signTypedDataAsync(getSignature(typedData))
           setUserSigNonce(userSigNonce + 1)
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
           if (data?.broadcast?.__typename === 'RelayError') {
-            writeFollow?.({ recklesslySetUnpreparedArgs: [args] })
+            const { profileId, followModule, followModuleInitData } =
+              typedData.value
+            return write?.({
+              args: [profileId, followModule, followModuleInitData]
+            })
           }
         } catch {
           setLoading(false)
