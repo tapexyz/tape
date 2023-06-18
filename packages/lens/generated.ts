@@ -2923,6 +2923,13 @@ export type PaginatedFollowingResult = {
   pageInfo: PaginatedResultInfo
 }
 
+/** The paginated for you result */
+export type PaginatedForYouResult = {
+  __typename?: 'PaginatedForYouResult'
+  items: Array<Publication>
+  pageInfo: PaginatedResultInfo
+}
+
 /** The paginated notification result */
 export type PaginatedNotificationResult = {
   __typename?: 'PaginatedNotificationResult'
@@ -3361,6 +3368,12 @@ export enum PublicationContentWarning {
 
 export type PublicationForSale = Comment | Post
 
+export type PublicationForYouRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']['input']>
+  for: Scalars['ProfileId']['input']
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>
+}
+
 /** The publication main focus */
 export enum PublicationMainFocus {
   Article = 'ARTICLE',
@@ -3684,6 +3697,8 @@ export type Query = {
   followerNftOwnedTokenIds?: Maybe<FollowerNftOwnedTokenIds>
   followers: PaginatedFollowersResult
   following: PaginatedFollowingResult
+  /** Get publications recommended for you - will only return posts for now */
+  forYou: PaginatedForYouResult
   gct: Array<Scalars['String']['output']>
   gdm: Array<Scalars['Url']['output']>
   generateModuleCurrencyApprovalData: GenerateModuleCurrencyApproval
@@ -3785,6 +3800,10 @@ export type QueryFollowersArgs = {
 
 export type QueryFollowingArgs = {
   request: FollowingRequest
+}
+
+export type QueryForYouArgs = {
+  request: PublicationForYouRequest
 }
 
 export type QueryGctArgs = {
@@ -3964,6 +3983,8 @@ export type RecipientDataOutput = {
 export type RecommendedProfileOptions = {
   /** If you wish to turn ML off */
   disableML?: InputMaybe<Scalars['Boolean']['input']>
+  /** The more advanced who to follow you should pass this in */
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>
   /** If you wish to shuffle the results */
   shuffle?: InputMaybe<Scalars['Boolean']['input']>
 }
