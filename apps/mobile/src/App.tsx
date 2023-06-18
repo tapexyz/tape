@@ -1,21 +1,55 @@
+import 'react-native-reanimated'
+import 'react-native-gesture-handler'
+
 import { StatusBar } from 'expo-status-bar'
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { MotiView } from 'moti'
+import React, { useReducer } from 'react'
+import { Pressable, StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
+  shape: {
+    justifyContent: 'center',
+    height: 250,
+    width: 250,
+    borderRadius: 25,
+    marginRight: 10,
+    backgroundColor: 'white'
+  },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flexDirection: 'row',
+    backgroundColor: '#9c1aff'
   }
 })
 
-export default function App() {
+function Shape() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <MotiView
+      from={{
+        opacity: 0,
+        scale: 0.5
+      }}
+      animate={{
+        opacity: 1,
+        scale: 1
+      }}
+      transition={{
+        type: 'timing'
+      }}
+      style={styles.shape}
+    />
+  )
+}
+
+export default function App() {
+  const [visible, toggle] = useReducer((s) => !s, true)
+
+  return (
+    <Pressable onPress={toggle} style={styles.container}>
       <StatusBar style="auto" />
-    </View>
+      {visible && <Shape />}
+    </Pressable>
   )
 }
