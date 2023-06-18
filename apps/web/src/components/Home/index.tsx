@@ -3,11 +3,12 @@ import BytesShimmer from '@components/Shimmers/BytesShimmer'
 import { t } from '@lingui/macro'
 import type { NextPage } from 'next'
 import dynamic from 'next/dynamic'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Analytics, TRACK } from 'utils'
-
+import Banner from './Banner'
 import DispatcherAlert from './DispatcherAlert'
 import HomeFeed from './Feed'
+
 const BytesSection = dynamic(() => import('./BytesSection'), {
   loading: () => <BytesShimmer />
 })
@@ -19,6 +20,7 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaTags title={t`Home`} />
+      <Banner />
       <DispatcherAlert />
       <BytesSection />
       <HomeFeed />

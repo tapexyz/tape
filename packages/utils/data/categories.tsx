@@ -1,119 +1,86 @@
 export const CREATOR_VIDEO_CATEGORIES = [
   {
-    name: 'People & Blogs',
-    tag: 'people'
-  },
-  { name: 'Music', tag: 'music' },
-  {
-    name: 'Podcast',
-    tag: 'podcast'
+    name: 'Drag Comedy',
+    tag: 'drag-comedy'
   },
   {
-    name: 'Hobbies & Interests',
-    tag: 'interests'
+    name: 'Drag Makeup',
+    tag: 'drag-makeup'
   },
   {
-    name: 'Comedy',
-    tag: 'comedy'
+    name: 'Drag Fashion',
+    tag: 'drag-fashion'
   },
   {
-    name: 'Health & Fitness',
-    tag: 'health'
+    name: 'Drag Sewing',
+    tag: 'drag-sewing'
   },
   {
-    name: 'Lens Ecosystem',
-    tag: 'lens'
+    name: 'Drag Wig Styling',
+    tag: 'drag-wig-styling'
   },
   {
-    name: 'Food & Cooking',
-    tag: 'food'
+    name: 'Drag Music',
+    tag: 'drag-music'
   },
   {
-    name: 'Education',
-    tag: 'education'
+    name: 'Drag Performances',
+    tag: 'drag-performances'
   },
   {
-    name: 'Books & Literature',
-    tag: 'literature'
+    name: 'Drag Inspiration',
+    tag: 'drag-inspiration'
   },
   {
-    name: 'Entertainment',
-    tag: 'entertainment'
+    name: 'Meta Drag',
+    tag: 'meta-drag'
   },
   {
-    name: 'Home & Garden',
-    tag: 'garden'
+    name: 'Drag Branding',
+    tag: 'drag-branding'
   },
   {
-    name: 'Crypto currency',
-    tag: 'crypto'
+    name: 'Drag Storytime',
+    tag: 'drag-storytime'
   },
   {
-    name: 'Film & Animation',
-    tag: 'film'
+    name: 'Drag Race',
+    tag: 'drag-race'
   },
   {
-    name: 'Business',
-    tag: 'business'
+    name: 'Drag Queen',
+    tag: 'drag-queen'
   },
   {
-    name: 'Family & Parenting',
-    tag: 'family'
+    name: 'Drag Monster',
+    tag: 'drag-monster'
   },
   {
-    name: 'Gaming',
-    tag: 'gaming'
+    name: 'Drag King',
+    tag: 'drag-king'
   },
   {
-    name: 'Blockchain',
-    tag: 'blockchain'
+    name: 'Drag Other',
+    tag: 'drag-other'
   },
   {
-    name: 'Howto & Style',
-    tag: 'howto'
+    name: 'Horror Drag',
+    tag: 'horror-drag'
   },
   {
-    name: 'News & Politics',
-    tag: 'news'
+    name: 'Drag Gaming',
+    tag: 'drag-gaming'
   },
   {
-    name: 'Nonprofits & Activism',
-    tag: 'nonprofits'
+    name: 'Drag Education',
+    tag: 'drag-education'
   },
   {
-    name: 'Promotions',
-    tag: 'promotions'
+    name: 'Drag Activism',
+    tag: 'drag-activism'
   },
   {
-    name: 'Pets & Animals',
-    tag: 'pets'
-  },
-  {
-    name: 'Wellness',
-    tag: 'wellness'
-  },
-  {
-    name: 'Science & Technology',
-    tag: 'technology'
-  },
-  {
-    name: 'Sports',
-    tag: 'sports'
-  },
-  {
-    name: 'Career',
-    tag: 'career'
-  },
-  {
-    name: 'Travel & Events',
-    tag: 'travel'
-  },
-  {
-    name: 'Gadgets',
-    tag: 'gadgets'
-  },
-  {
-    name: 'Autos & Vehicles',
-    tag: 'vehicles'
+    name: 'Drag Dance',
+    tag: 'drag-dance'
   }
 ]
