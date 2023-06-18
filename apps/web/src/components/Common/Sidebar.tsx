@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { RiGamepadLine } from 'react-icons/ri'
 import { DRAGVERSE_SPATIAL_URL, FALLBACK_COVER_URL } from 'utils'
 import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
 import Footer from './Footer'
@@ -201,7 +202,7 @@ const Sidebar: React.FC = () => {
                     : 'w-full space-x-3 px-4'
                 )}
               >
-                <ExploreOutline className="h-5 w-5" />
+                <RiGamepadLine className="h-5 w-5" />
                 {!sidebarCollapsed && (
                   <span className="text-sm">Metaverse</span>
                 )}
