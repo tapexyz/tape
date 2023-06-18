@@ -28,9 +28,7 @@ import ChevronLeftOutline from './Icons/ChevronLeftOutline'
 import CogOutline from './Icons/CogOutline'
 import GraphOutline from './Icons/GraphOutline'
 import HandWaveOutline from './Icons/HandWaveOutline'
-import MoonOutline from './Icons/MoonOutline'
 import PlusOutline from './Icons/PlusOutline'
-import SunOutline from './Icons/SunOutline'
 import SwitchChannelOutline from './Icons/SwitchChannelOutline'
 
 const UserMenu: React.FC = () => {
@@ -106,7 +104,7 @@ const UserMenu: React.FC = () => {
       }
     >
       <div className="mt-2 w-56 overflow-hidden rounded-xl border bg-gray-100 shadow dark:border-gray-800 dark:bg-black">
-        <div className="bg-theme m-1.5 overflow-hidden rounded-xl bg-white">
+        <div className="bg-theme m-1.5 overflow-hidden rounded-xl">
           {showAccountSwitcher ? (
             <>
               <button
@@ -228,7 +226,8 @@ const UserMenu: React.FC = () => {
                     <Trans>Channel Settings</Trans>
                   </span>
                 </Link>
-                <button
+                {/* TODO: Add back when light mode is supported */}
+                {/* <button
                   type="button"
                   className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => {
@@ -247,7 +246,7 @@ const UserMenu: React.FC = () => {
                   <span className="truncate whitespace-nowrap">
                     {theme === 'light' ? t`Switch to Dark` : t`Switch to Light`}
                   </span>
-                </button>
+                </button> */}
                 <button
                   type="button"
                   className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"

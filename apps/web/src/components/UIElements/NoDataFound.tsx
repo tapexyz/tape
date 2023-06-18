@@ -1,13 +1,13 @@
 import clsx from 'clsx'
 import React from 'react'
-import { STATIC_ASSETS } from 'utils'
+import { FALLBACK_COVER_URL } from 'utils'
 import imageCdn from 'utils/functions/imageCdn'
 
-export const NoDataFound = ({
-  text = 'No data found',
-  withImage = false,
-  isCenter = false
-}) => {
+export const NoDataFound: React.FC<{
+  text?: string
+  withImage?: boolean
+  isCenter?: boolean
+}> = ({ text = 'No data found', withImage = false, isCenter = false }) => {
   return (
     <div
       className={clsx('flex flex-col space-y-1 rounded-lg p-6', {
@@ -16,10 +16,7 @@ export const NoDataFound = ({
     >
       {withImage && (
         <img
-          src={imageCdn(
-            `${STATIC_ASSETS}/images/illustrations/no-results.png`,
-            'square'
-          )}
+          src={imageCdn(`${FALLBACK_COVER_URL}`, 'square')}
           className="w-32 md:w-36"
           alt="no results"
           draggable={false}

@@ -28,7 +28,7 @@ const SideNav: React.FC<Props> = ({ channel }) => {
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div className="bg-theme rounded-xl bg-white p-2">
+    <div className="bg-theme rounded-xl p-2">
       <div className="flex flex-col items-center space-y-2 py-4">
         <ChannelPicture channel={channel} />
       </div>

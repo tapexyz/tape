@@ -92,7 +92,7 @@ const GlobalSearchBar: React.FC<Props> = ({ onSearchResults }) => {
           </div>
           <div
             className={clsx(
-              'bg-theme z-10 mt-1 w-full overflow-hidden rounded-xl bg-white text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm md:absolute',
+              'bg-theme z-10 mt-1 w-full overflow-hidden rounded-xl text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm md:absolute',
               { hidden: debouncedValue.length === 0 }
             )}
           >

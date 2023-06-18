@@ -36,8 +36,8 @@ const Locale: React.FC = () => {
           <button
             key={key}
             className={clsx(
-              'dark:hover:bg-theme w-28 cursor-pointer overflow-hidden rounded-lg px-3 py-1 text-left hover:bg-white focus:outline-none',
-              selectedLocale === SUPPORTED_LOCALES[key] && 'bg-theme bg-white'
+              'hover:bg-theme w-28 cursor-pointer overflow-hidden rounded-lg px-3 py-1 text-left focus:outline-none',
+              selectedLocale === SUPPORTED_LOCALES[key]
             )}
             onClick={() => {
               storeLocale(key)

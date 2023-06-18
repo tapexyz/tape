@@ -97,7 +97,7 @@ const DangerZone: React.FC = () => {
   }
 
   return (
-    <div className="bg-theme rounded-lg bg-white p-4 dark:divide-gray-900">
+    <div className="bg-theme rounded-lg p-4 dark:divide-gray-900">
       <div className="mb-5 flex flex-wrap items-center justify-between rounded-xl border p-4 dark:border-gray-700">
         <div className="flex items-center">
           <div className="mr-3 mt-0.5 flex-none">
