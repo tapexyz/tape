@@ -1,5 +1,6 @@
 import * as SplashScreen from 'expo-splash-screen'
 import type { FC } from 'react'
+import React from 'react'
 
 import { useCachedResources, useEffect } from '../hooks'
 
@@ -18,5 +19,6 @@ export const AppLoading: FC<any> = ({ children }) => {
     return null
   }
 
-  return children
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  return <>{children}</>
 }
