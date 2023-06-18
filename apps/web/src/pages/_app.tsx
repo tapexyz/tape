@@ -1,6 +1,6 @@
-import '../styles/index.css'
 import '@rainbow-me/rainbowkit/styles.css'
 import 'tippy.js/dist/tippy.css'
+import '../styles/index.css'
 
 import FullPageLoader from '@components/Common/FullPageLoader'
 import useAuthPersistStore from '@lib/store/auth'
@@ -13,7 +13,7 @@ import bloomer from 'utils/font'
 const Providers = lazy(() => import('../components/Common/Providers'))
 const Layout = lazy(() => import('../components/Common/Layout'))
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const { pathname, replace, asPath } = useRouter()
   const selectedChannelId = useAuthPersistStore(
     (state) => state.selectedChannelId

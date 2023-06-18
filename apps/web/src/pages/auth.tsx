@@ -4,9 +4,9 @@ import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import { LENSTUBE_APP_NAME, STATIC_ASSETS } from 'utils'
+import { FALLBACK_COVER_URL, LENSTUBE_APP_NAME } from 'utils'
 
-const AuthRequiredPage = () => {
+const AuthRequiredPage: React.FC = () => {
   const selectedChannelId = useAuthPersistStore(
     (state) => state.selectedChannelId
   )
@@ -23,7 +23,7 @@ const AuthRequiredPage = () => {
       <MetaTags title={t`Login`} />
       <div className="mt-10 flex h-full flex-col items-center justify-start md:mt-20">
         <img
-          src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
+          src={`${FALLBACK_COVER_URL}`}
           alt={LENSTUBE_APP_NAME}
           draggable={false}
           height={50}

@@ -5,12 +5,16 @@ import WalletOutline from '@components/Common/Icons/WalletOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
-import { t, Trans } from '@lingui/macro'
+import { Trans } from '@lingui/macro'
 import type { Attribute, Profile } from 'lens'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React from 'react'
-import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from 'utils'
+import {
+  ENS_ICON_URL,
+  LENSTER_ICON_URL,
+  LENSTER_WEBSITE_URL,
+  TWITTER_ICON_URL
+} from 'utils'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 import { shortenAddress } from 'utils/functions/shortenAddress'
 
@@ -18,7 +22,7 @@ type Props = {
   channel: Profile
 }
 
-const About: FC<Props> = ({ channel }) => {
+const About: React.FC<Props> = ({ channel }) => {
   const attributes = channel?.attributes as Attribute[]
   const hasOnChainId =
     channel.onChainIdentity?.ens?.name ||
@@ -43,14 +47,14 @@ const About: FC<Props> = ({ channel }) => {
             {channel.onChainIdentity?.ens?.name && (
               <Tooltip content={channel.onChainIdentity?.ens?.name}>
                 <img
-                  src={`${STATIC_ASSETS}/images/social/ens.svg`}
+                  src={`${ENS_ICON_URL}`}
                   alt="ens"
                   className="h-8 w-8"
                   draggable={false}
                 />
               </Tooltip>
             )}
-            {channel?.onChainIdentity?.sybilDotOrg.verified && (
+            {/* {channel?.onChainIdentity?.sybilDotOrg.verified && (
               <Tooltip content={t`Sybil Verified`}>
                 <img
                   src={`${STATIC_ASSETS}/images/social/sybil.png`}
@@ -59,8 +63,8 @@ const About: FC<Props> = ({ channel }) => {
                   draggable={false}
                 />
               </Tooltip>
-            )}
-            {channel?.onChainIdentity?.proofOfHumanity && (
+            )} */}
+            {/* {channel?.onChainIdentity?.proofOfHumanity && (
               <Tooltip content={t`Proof of Humanity`}>
                 <img
                   src={`${STATIC_ASSETS}/images/social/poh.png`}
@@ -69,8 +73,8 @@ const About: FC<Props> = ({ channel }) => {
                   draggable={false}
                 />
               </Tooltip>
-            )}
-            {channel?.onChainIdentity?.worldcoin.isHuman && (
+            )} */}
+            {/* {channel?.onChainIdentity?.worldcoin.isHuman && (
               <Tooltip content={t`Proof of Personhood`}>
                 <img
                   src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
@@ -79,7 +83,7 @@ const About: FC<Props> = ({ channel }) => {
                   draggable={false}
                 />
               </Tooltip>
-            )}
+            )} */}
           </div>
         </div>
       )}
@@ -111,7 +115,7 @@ const About: FC<Props> = ({ channel }) => {
           {getValueFromKeyInAttributes(attributes, 'twitter') && (
             <div className="flex items-center space-x-1.5">
               <img
-                src={`${STATIC_ASSETS}/images/social/twitter.svg`}
+                src={`${TWITTER_ICON_URL}`}
                 alt="twitter"
                 className="h-4 w-4"
                 draggable={false}
@@ -135,7 +139,7 @@ const About: FC<Props> = ({ channel }) => {
           <div className="flex items-center space-x-1.5">
             <span className="grayscale" role="img">
               <img
-                src={`${STATIC_ASSETS}/images/lenster-logo.svg`}
+                src={`${LENSTER_ICON_URL}`}
                 alt="lenster"
                 className="h-4 w-4"
                 draggable={false}

@@ -6,13 +6,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: en\n"
-"Project-Id-Version: lenstube\n"
+"Project-Id-Version: dragverse\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2023-05-17 01:25\n"
 "Last-Translator: \n"
 "Language-Team: English\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: lenstube\n"
+"X-Crowdin-Project: dragverse\n"
 "X-Crowdin-Project-ID: 553981\n"
 "X-Crowdin-Language: en\n"
 "X-Crowdin-File: messages.po\n"
@@ -553,7 +553,7 @@ msgid "lens claiming site"
 msgstr "lens claiming site"
 
 #: src/components/Mod/index.tsx:45
-msgid "Lenstube Stats"
+msgid "Dragverse Stats"
 msgstr ""
 
 #: src/components/Watch/PublicationReaction.tsx:165
@@ -1132,7 +1132,7 @@ msgid "the channel"
 msgstr ""
 
 #: src/components/Settings/ProfileInterests/index.tsx:14
-msgid "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
+msgid "There is so much good content on Dragverse, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
 msgstr ""
 
 #: src/components/Settings/Permissions/Modules/index.tsx:116

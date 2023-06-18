@@ -24,6 +24,7 @@ export const LENSTER_ICON_URL = `${STATIC_ASSETS}/lenster-logo.svg`
 export const TWITTER_ICON_URL = `${STATIC_ASSETS}/twitter-logo.jpeg`
 export const LINKEDIN_ICON_URL = `${STATIC_ASSETS}/linkedin-logo.png`
 export const REDDIT_ICON_URL = `${STATIC_ASSETS}/reddit-logo.png`
+export const ENS_ICON_URL = `${STATIC_ASSETS}/ens-logo.svg`
 export const DRAGVERSE_SPATIAL_URL =
   'https://www.spatial.io/s/Dragverse-6330ebb42e62cd0001922a97?share=6796815018867406198'
 export const OG_IMAGE = `${FALLBACK_COVER_URL}`

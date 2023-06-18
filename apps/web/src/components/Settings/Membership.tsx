@@ -192,7 +192,7 @@ const Membership: React.FC<Props> = ({ channel }: Props) => {
   }
 
   return (
-    <div className="bg-theme rounded-xl bg-white p-4">
+    <div className="bg-theme rounded-xl p-4">
       <div className="mb-5">
         <h1 className="mb-1 text-xl font-semibold">
           <Trans>Grow with Lens</Trans>
