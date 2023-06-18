@@ -6,6 +6,9 @@ import { MotiView } from 'moti'
 import React, { useReducer } from 'react'
 import { Pressable, StyleSheet } from 'react-native'
 
+import { useNotifications } from './hooks'
+import { NotificationsProvider } from './providers'
+
 const styles = StyleSheet.create({
   shape: {
     justifyContent: 'center',
@@ -43,13 +46,30 @@ function Shape() {
   )
 }
 
-export default function App() {
+const App = (): JSX.Element => {
   const [visible, toggle] = useReducer((s) => !s, true)
+  const { notify } = useNotifications()
 
   return (
-    <Pressable onPress={toggle} style={styles.container}>
-      <StatusBar style="auto" />
-      {visible && <Shape />}
-    </Pressable>
+    <>
+      <NotificationsProvider />
+      <Pressable
+        onPress={() => {
+          toggle()
+          notify('success', {
+            params: {
+              title: 'Hello',
+              description: 'Wow, that was easy'
+            }
+          })
+        }}
+        style={styles.container}
+      >
+        <StatusBar style="auto" />
+        {visible && <Shape />}
+      </Pressable>
+    </>
   )
 }
+
+export default App
