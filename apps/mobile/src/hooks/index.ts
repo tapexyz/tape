@@ -33,7 +33,6 @@ export {
   useWatch
 } from 'react-hook-form'
 export { useWindowDimensions } from 'react-native'
-export { useMMKV } from 'react-native-mmkv'
 export {
   useNotificationController,
   useNotifications

@@ -1,12 +1,18 @@
 import 'react-native-reanimated'
+// eslint-disable-next-line import/no-duplicates
 import 'react-native-gesture-handler'
 
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { StatusBar } from 'expo-status-bar'
 import { MotiView } from 'moti'
 import React, { useReducer } from 'react'
 import { Pressable, StyleSheet } from 'react-native'
+// eslint-disable-next-line import/no-duplicates
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
+import { AppLoading } from './components'
 import { useNotifications } from './hooks'
+import { Navigation } from './navigation'
 import { NotificationsProvider } from './providers'
 
 const styles = StyleSheet.create({
@@ -24,6 +30,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     backgroundColor: '#9c1aff'
+  },
+  gestureHandlerRootView: {
+    flex: 1
   }
 })
 
@@ -53,13 +62,21 @@ const App = (): JSX.Element => {
   return (
     <>
       <NotificationsProvider />
+      <AppLoading>
+        <GestureHandlerRootView style={styles.gestureHandlerRootView}>
+          <BottomSheetModalProvider>
+            <Navigation />
+          </BottomSheetModalProvider>
+        </GestureHandlerRootView>
+      </AppLoading>
       <Pressable
         onPress={() => {
           toggle()
           notify('success', {
             params: {
               title: 'Hello',
-              description: 'Wow, that was easy'
+              description: 'Wow, that was easy',
+              hideCloseButton: true
             }
           })
         }}

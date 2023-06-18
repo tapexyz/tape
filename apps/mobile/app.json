@@ -5,6 +5,7 @@
     "version": "0.0.1",
     "orientation": "portrait",
     "owner": "sasicodes",
+    "scheme": "pripe",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {

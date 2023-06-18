@@ -1,11 +1,12 @@
 import { createNotifications } from 'react-native-notificated'
 
 export const { NotificationsProvider } = createNotifications({
-  isNotch: true,
-  duration: 5000,
+  duration: 3000,
   defaultStylesSettings: {
     globalConfig: {
-      defaultIconType: 'no-icon'
+      defaultIconType: 'monochromatic',
+      borderWidth: 0,
+      borderRadius: 20
     }
   }
 })
