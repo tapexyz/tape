@@ -1,6 +1,7 @@
+import React from 'react'
 import { BANNER_URL } from 'utils'
 
-const Banner = () => {
+const Banner: React.FC = () => {
   return (
     <div className="mb-4 w-full">
       <div
