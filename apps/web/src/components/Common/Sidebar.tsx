@@ -1,3 +1,4 @@
+import DropMenu from '@components/UIElements/DropMenu'
 import Tooltip from '@components/UIElements/Tooltip'
 import usePersistStore from '@lib/store/persist'
 import { t } from '@lingui/macro'
@@ -8,7 +9,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { RiGamepadLine } from 'react-icons/ri'
-import { DRAGVERSE_SPATIAL_URL, FALLBACK_COVER_URL } from 'utils'
+import {
+  DRAGVERSE_DECENTRALAND_URL,
+  DRAGVERSE_SPATIAL_URL,
+  FALLBACK_COVER_URL
+} from 'utils'
 import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
 import Footer from './Footer'
 import BytesOutline from './Icons/BytesOutline'
@@ -190,23 +195,49 @@ const Sidebar: React.FC = () => {
               visible={sidebarCollapsed}
               placement="right"
             >
-              <Link
-                href={`${DRAGVERSE_SPATIAL_URL}`}
-                className={clsx(
-                  'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
-                  isActivePath('/explore')
-                    ? 'bg-indigo-50 dark:bg-gray-800'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
-                  sidebarCollapsed
-                    ? 'w-12 justify-center'
-                    : 'w-full space-x-3 px-4'
-                )}
+              <DropMenu
+                trigger={
+                  <button
+                    className={clsx(
+                      'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
+                      sidebarCollapsed
+                        ? 'w-12 justify-center'
+                        : 'w-full space-x-3 px-4'
+                    )}
+                  >
+                    <RiGamepadLine className="h-5 w-5" />
+                    {!sidebarCollapsed && (
+                      <span className="text-sm">Metaverse</span>
+                    )}
+                  </button>
+                }
+                positionClassName={sidebarCollapsed ? 'ml-20' : 'ml-44'}
+                position="bottom"
+                className="flex justify-center"
               >
-                <RiGamepadLine className="h-5 w-5" />
-                {!sidebarCollapsed && (
-                  <span className="text-sm">Metaverse</span>
-                )}
-              </Link>
+                <div className="space-y-1 overflow-hidden rounded-xl border bg-gray-100 p-1 shadow dark:border-gray-800 dark:bg-black">
+                  <button
+                    className={clsx(
+                      'hover:bg-theme w-30 cursor-pointer overflow-hidden rounded-lg px-3 py-1 text-left focus:outline-none'
+                    )}
+                    onClick={() => {
+                      window.open(`${DRAGVERSE_SPATIAL_URL}`, '_self')
+                    }}
+                  >
+                    Spatial
+                  </button>
+                  <button
+                    className={clsx(
+                      'hover:bg-theme w-30 cursor-pointer overflow-hidden rounded-lg px-3 py-1 text-left focus:outline-none'
+                    )}
+                    onClick={() => {
+                      window.open(`${DRAGVERSE_DECENTRALAND_URL}`, '_self')
+                    }}
+                  >
+                    Decentraland
+                  </button>
+                </div>
+              </DropMenu>
             </Tooltip>
             {/* {getIsFeatureEnabled(
               FEATURE_FLAGS.LENSTUBE_ECHOS,
