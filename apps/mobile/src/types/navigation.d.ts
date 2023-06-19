@@ -21,20 +21,20 @@ type HomeStackComposite<S extends keyof HomeStackParamList> =
     StackScreenProps<RootStackParamList, 'MainTab'>
   >
 
-type MediaStackComposite<S extends keyof MediaStackParamList> =
+type AudioStackComposite<S extends keyof AudioStackParamList> =
   CompositeScreenProps<
     CompositeScreenProps<
-      StackScreenProps<MediaStackParamList, S>,
-      BottomTabScreenProps<MainTabParamList, 'MediaStack'>
+      StackScreenProps<AudioStackParamList, S>,
+      BottomTabScreenProps<MainTabParamList, 'AudioStack'>
     >,
     StackScreenProps<RootStackParamList, 'MainTab'>
   >
 
-type CommunityStackComposite<S extends keyof CommunityStackParamList> =
+type VideoStackComposite<S extends keyof VideoStackParamList> =
   CompositeScreenProps<
     CompositeScreenProps<
-      StackScreenProps<CommunityStackParamList, S>,
-      BottomTabScreenProps<MainTabParamList, 'CommunityStack'>
+      StackScreenProps<VideoStackParamList, S>,
+      BottomTabScreenProps<MainTabParamList, 'VideoStack'>
     >,
     StackScreenProps<RootStackParamList, 'MainTab'>
   >
@@ -46,18 +46,18 @@ declare global {
     Details: { id: string }
   }
 
-  type MediaStackParamList = {
-    Media: undefined
+  type AudioStackParamList = {
+    Audio: undefined
   }
 
-  type CommunityStackParamList = {
-    Community: undefined
+  type VideoStackParamList = {
+    Video: undefined
   }
 
   type MainTabParamList = {
-    CommunityStack: NavigatorScreenParams<CommunityStackParamList>
+    VideoStack: NavigatorScreenParams<VideoStackParamList>
     HomeStack: NavigatorScreenParams<HomeStackParamList>
-    MediaStack: NavigatorScreenParams<MediaStackParamList>
+    AudioStack: NavigatorScreenParams<AudioStackParamList>
   }
 
   type RootStackParamList = {
@@ -86,7 +86,7 @@ declare global {
 
   type BottomTabScreenProps = BaseBottomTabScreenProps<
     MainTabParamList,
-    'HomeStack' | 'MediaStack' | 'CommunityStack'
+    'HomeStack' | 'AudioStack' | 'VideoStack'
   >
 
   // Root stack
@@ -94,7 +94,7 @@ declare global {
 
   // Home stack
   type HomeScreenProps = HomeStackComposite<'Home'>
-  type MediaScreenProps = MediaStackComposite<'Media'>
-  type CommunityScreenProps = CommunityStackComposite<'Community'>
+  type AudioScreenProps = AudioStackComposite<'Audio'>
+  type VideoScreenProps = VideoStackComposite<'Video'>
   type DetailsScreenProps = HomeStackComposite<'Details'>
 }

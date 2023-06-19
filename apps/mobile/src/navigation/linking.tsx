@@ -19,11 +19,10 @@ export const linking: LinkingOptions<RootStackParamList> = {
     screens: {
       Settings: 'settings',
       MainTab: {
-        initialRouteName: 'MediaStack',
         screens: {
-          CommunityStack: {
+          VideoStack: {
             screens: {
-              Community: 'community'
+              Video: 'video'
             }
           },
           HomeStack: {
@@ -32,9 +31,9 @@ export const linking: LinkingOptions<RootStackParamList> = {
               Details: '/details/:id'
             }
           },
-          MediaStack: {
+          AudioStack: {
             screens: {
-              Media: 'media'
+              Audio: 'audio'
             }
           }
         }

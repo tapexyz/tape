@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export const CommunityScreen = (props: CommunityScreenProps): JSX.Element => {
+export const AudioScreen = (props: AudioScreenProps): JSX.Element => {
   const {
     navigation: {}
   } = props

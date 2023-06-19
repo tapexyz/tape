@@ -6,9 +6,9 @@ import type { FC } from 'react'
 import React, { useCallback } from 'react'
 
 import { useNavigationTheme } from '../hooks/navigation/useNavigationTheme'
-import { CommunityStack } from './CommunityStack'
+import { AudioStack } from './AudioStack'
 import { HomeStack } from './HomeStack'
-import { MediaStack } from './MediaStack'
+import { VideoStack } from './VideoStack'
 
 const { Navigator, Screen } = createBottomTabNavigator<MainTabParamList>()
 
@@ -25,11 +25,11 @@ export const BottomTabNavigator: FC = () => {
       tabBarIcon: ({ color, size }: { color: string; size: number }) => {
         let iconName: keyof typeof Ionicons.glyphMap
 
-        if (route.name === 'CommunityStack') {
-          iconName = 'leaf-outline'
+        if (route.name === 'VideoStack') {
+          iconName = 'videocam-outline'
         } else if (route.name === 'HomeStack') {
           iconName = 'bonfire-outline'
-        } else if (route.name === 'MediaStack') {
+        } else if (route.name === 'AudioStack') {
           iconName = 'headset-outline'
         } else {
           iconName = 'globe'
@@ -60,9 +60,9 @@ export const BottomTabNavigator: FC = () => {
   return (
     <Navigator screenOptions={screenOptions} initialRouteName="HomeStack">
       <Screen
-        name="CommunityStack"
-        options={{ title: 'Community' }}
-        component={CommunityStack}
+        name="VideoStack"
+        options={{ title: 'Video' }}
+        component={VideoStack}
       />
       <Screen
         name="HomeStack"
@@ -70,9 +70,9 @@ export const BottomTabNavigator: FC = () => {
         component={HomeStack}
       />
       <Screen
-        name="MediaStack"
-        options={{ title: 'Media' }}
-        component={MediaStack}
+        name="AudioStack"
+        options={{ title: 'Audio' }}
+        component={AudioStack}
       />
     </Navigator>
   )

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export const MediaScreen = (props: MediaScreenProps): JSX.Element => {
+export const VideoScreen = (props: VideoScreenProps): JSX.Element => {
   const {
     navigation: {}
   } = props
