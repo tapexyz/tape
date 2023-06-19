@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import type { FC } from 'react'
 import React, { useCallback } from 'react'
 
-import { useNavigationTheme } from '../hooks/useNavigationTheme'
+import { useNavigationTheme } from '../hooks/navigation/useNavigationTheme'
 import { HomeStack } from './HomeStack'
 
 const { Navigator, Screen } = createBottomTabNavigator<MainTabParamList>()

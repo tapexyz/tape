@@ -4,9 +4,9 @@ import { type FC, useCallback } from 'react'
 import React from 'react'
 
 import { StatusBar } from '../components'
-import { useNavigationStatePersistence } from '../hooks/useNavigationStatePersistence'
-import { useNavigationTheme } from '../hooks/useNavigationTheme'
-import { useScreenTracker } from '../hooks/useScreenTracker'
+import { useNavigationStatePersistence } from '../hooks/navigation/useNavigationStatePersistence'
+import { useNavigationTheme } from '../hooks/navigation/useNavigationTheme'
+import { useScreenTracker } from '../hooks/navigation/useScreenTracker'
 import { linking } from './linking'
 import { RootNavigator } from './RootNavigator'
 
