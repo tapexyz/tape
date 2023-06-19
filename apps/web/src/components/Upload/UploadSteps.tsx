@@ -90,6 +90,10 @@ const UploadSteps = () => {
     )
   }
 
+  const redirectToWatchPage = (videoId: string) => {
+    router.push(`/watch/${videoId}`)
+  }
+
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
     if (txn?.txnId) {
       setQueuedVideos([
@@ -231,7 +235,8 @@ const UploadSteps = () => {
           'CreateDataAvailabilityPublicationResult'
         ) {
           onCompleted()
-          redirectToChannelPage()
+          resetToDefaults()
+          redirectToWatchPage(createDataAvailabilityPostViaDispatcher.id)
         }
       },
       onError
@@ -305,13 +310,6 @@ const UploadSteps = () => {
       data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
     ) {
       return await createDataAvailabilityPostTypedData({ variables })
-    }
-
-    if (
-      data?.createDataAvailabilityPostViaDispatcher.__typename ===
-      'CreateDataAvailabilityPublicationResult'
-    ) {
-      return redirectToChannelPage()
     }
   }
 
@@ -486,8 +484,8 @@ const UploadSteps = () => {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE, { duration: 8000 })
       }
       uploader.on('chunkUpload', (chunkInfo) => {
-        const lastChunk = fileSize - chunkInfo.totalUploaded
-        if (lastChunk <= chunkSize && fileSize > chunkSize) {
+        const expectedChunks = Math.floor(fileSize / chunkSize)
+        if (expectedChunks === chunkInfo.id) {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE, { duration: 8000 })
         }
         const percentCompleted = Math.round(
