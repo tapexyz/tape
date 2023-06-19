@@ -19,27 +19,22 @@ export const linking: LinkingOptions<RootStackParamList> = {
     screens: {
       Settings: 'settings',
       MainTab: {
+        initialRouteName: 'MediaStack',
         screens: {
+          CommunityStack: {
+            screens: {
+              Community: 'community'
+            }
+          },
           HomeStack: {
-            // initialRouteName: 'Home',
             screens: {
               Home: '',
               Details: '/details/:id'
             }
           },
           MediaStack: {
-            // initialRouteName: 'Home',
             screens: {
-              Media: ''
-            }
-          },
-          ExamplesStack: {
-            // initialRouteName: 'Examples',
-            screens: {
-              Examples: '/examples',
-              Components: '/components',
-              Colors: '/colors',
-              Typography: '/typography'
+              Media: 'media'
             }
           }
         }

@@ -12,15 +12,6 @@ type RootStackComposite<
   BottomTabScreenProps<MainTabParamList>
 >
 
-type ExamplesStackComposite<S extends keyof ExampleStackParamList> =
-  CompositeScreenProps<
-    CompositeScreenProps<
-      BottomTabScreenProps<MainTabParamList, 'ExamplesStack'>,
-      StackScreenProps<ExampleStackParamList, S>
-    >,
-    StackScreenProps<RootStackParamList, 'MainTab'>
-  >
-
 type HomeStackComposite<S extends keyof HomeStackParamList> =
   CompositeScreenProps<
     CompositeScreenProps<
@@ -39,6 +30,15 @@ type MediaStackComposite<S extends keyof MediaStackParamList> =
     StackScreenProps<RootStackParamList, 'MainTab'>
   >
 
+type CommunityStackComposite<S extends keyof CommunityStackParamList> =
+  CompositeScreenProps<
+    CompositeScreenProps<
+      StackScreenProps<CommunityStackParamList, S>,
+      BottomTabScreenProps<MainTabParamList, 'CommunityStack'>
+    >,
+    StackScreenProps<RootStackParamList, 'MainTab'>
+  >
+
 declare global {
   // PARAMS
   type HomeStackParamList = {
@@ -50,17 +50,14 @@ declare global {
     Media: undefined
   }
 
-  type ExampleStackParamList = {
-    Examples: undefined
-    Components: undefined
-    Colors: undefined
-    Typography: undefined
+  type CommunityStackParamList = {
+    Community: undefined
   }
 
   type MainTabParamList = {
+    CommunityStack: NavigatorScreenParams<CommunityStackParamList>
     HomeStack: NavigatorScreenParams<HomeStackParamList>
     MediaStack: NavigatorScreenParams<MediaStackParamList>
-    ExamplesStack: NavigatorScreenParams<ExampleStackParamList>
   }
 
   type RootStackParamList = {
@@ -89,7 +86,7 @@ declare global {
 
   type BottomTabScreenProps = BaseBottomTabScreenProps<
     MainTabParamList,
-    'ExamplesStack' | 'HomeStack' | 'MediaStack'
+    'HomeStack' | 'MediaStack' | 'CommunityStack'
   >
 
   // Root stack
@@ -98,9 +95,6 @@ declare global {
   // Home stack
   type HomeScreenProps = HomeStackComposite<'Home'>
   type MediaScreenProps = MediaStackComposite<'Media'>
+  type CommunityScreenProps = CommunityStackComposite<'Community'>
   type DetailsScreenProps = HomeStackComposite<'Details'>
-
-  // Examples stack
-  type ExamplesScreenProps = ExamplesStackComposite<'Examples'>
-  type ComponentsScreenProps = ExamplesStackComposite<'Components'>
 }

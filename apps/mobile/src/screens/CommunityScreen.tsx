@@ -1,13 +1,7 @@
 import { Image as ExpoImage } from 'expo-image'
 import { MotiView } from 'moti'
-import React, { useCallback, useReducer } from 'react'
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native'
+import React, { useReducer } from 'react'
+import { Pressable, StyleSheet, View } from 'react-native'
 import { useNotifications } from 'react-native-notificated'
 
 import { StatusBar } from '../components'
@@ -29,9 +23,9 @@ const styles = StyleSheet.create({
   }
 })
 
-export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
+export const CommunityScreen = (props: CommunityScreenProps): JSX.Element => {
   const {
-    navigation: { navigate }
+    navigation: {}
   } = props
   const [visible, toggle] = useReducer((s) => !s, true)
   const { notify } = useNotifications()
@@ -61,10 +55,6 @@ export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
     )
   }
 
-  const navigateToDetails = useCallback(() => {
-    navigate('Details', { id: 'home-id' })
-  }, [navigate])
-
   return (
     <View style={{ flex: 1 }}>
       <Pressable
@@ -83,9 +73,6 @@ export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
         <StatusBar style="auto" />
         {visible && <Shape />}
       </Pressable>
-      <TouchableOpacity style={{ padding: 30 }} onPress={navigateToDetails}>
-        <Text>{'home_screen > details'}</Text>
-      </TouchableOpacity>
     </View>
   )
 }

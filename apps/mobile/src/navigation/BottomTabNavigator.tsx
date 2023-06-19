@@ -1,11 +1,14 @@
-import { Feather } from '@expo/vector-icons'
+import Ionicons from '@expo/vector-icons/Ionicons'
 import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { MotiView } from 'moti'
 import type { FC } from 'react'
 import React, { useCallback } from 'react'
 
 import { useNavigationTheme } from '../hooks/navigation/useNavigationTheme'
+import { CommunityStack } from './CommunityStack'
 import { HomeStack } from './HomeStack'
+import { MediaStack } from './MediaStack'
 
 const { Navigator, Screen } = createBottomTabNavigator<MainTabParamList>()
 
@@ -18,21 +21,35 @@ export const BottomTabNavigator: FC = () => {
 
   const screenOptions = useCallback<ScreenOptions>(
     ({ route }) => ({
+      tabBarShowLabel: false,
       tabBarIcon: ({ color, size }: { color: string; size: number }) => {
-        let iconName: keyof typeof Feather.glyphMap
+        let iconName: keyof typeof Ionicons.glyphMap
 
-        if (route.name === 'HomeStack') {
-          iconName = 'home'
+        if (route.name === 'CommunityStack') {
+          iconName = 'leaf-outline'
+        } else if (route.name === 'HomeStack') {
+          iconName = 'bonfire-outline'
         } else if (route.name === 'MediaStack') {
-          iconName = 'list'
-        } else if (route.name === 'ExamplesStack') {
-          iconName = 'list'
+          iconName = 'headset-outline'
         } else {
-          iconName = 'alert-triangle'
+          iconName = 'globe'
         }
 
-        // You can return any component that you like here!
-        return <Feather name={iconName} size={size} color={color} />
+        return (
+          <MotiView
+            animate={{
+              opacity: 1,
+              scale: 1
+            }}
+            transition={{
+              type: 'spring',
+              delay: 50
+            }}
+            from={{ opacity: 0 }}
+          >
+            <Ionicons name={iconName} size={size} color={color} />
+          </MotiView>
+        )
       },
       headerShown: false,
       ...tabBarTheme
@@ -41,7 +58,12 @@ export const BottomTabNavigator: FC = () => {
   )
 
   return (
-    <Navigator screenOptions={screenOptions}>
+    <Navigator screenOptions={screenOptions} initialRouteName="HomeStack">
+      <Screen
+        name="CommunityStack"
+        options={{ title: 'Community' }}
+        component={CommunityStack}
+      />
       <Screen
         name="HomeStack"
         options={{ title: 'Home' }}
@@ -50,13 +72,8 @@ export const BottomTabNavigator: FC = () => {
       <Screen
         name="MediaStack"
         options={{ title: 'Media' }}
-        component={HomeStack}
+        component={MediaStack}
       />
-      {/* <Screen
-        name="ExamplesStack"
-        options={{ title: t('navigation.screen_titles.examples_stack') }}
-        component={ExamplesStack}
-      /> */}
     </Navigator>
   )
 }

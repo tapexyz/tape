@@ -37,8 +37,8 @@ export const useNavigationTheme = (): ReturnValues => {
 
   const tabBarTheme: BottomTabNavigationOptions = useMemo(
     () => ({
-      tabBarActiveTintColor: 'red',
-      tabBarInactiveTintColor: 'blue'
+      tabBarActiveTintColor: '#000000',
+      tabBarInactiveTintColor: '#00000050'
     }),
     []
   )
