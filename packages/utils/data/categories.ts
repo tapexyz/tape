@@ -9,6 +9,10 @@ export const CREATOR_VIDEO_CATEGORIES = [
     tag: 'podcast'
   },
   {
+    name: 'Arts',
+    tag: 'arts'
+  },
+  {
     name: 'Hobbies & Interests',
     tag: 'interests'
   },
