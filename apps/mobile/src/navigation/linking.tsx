@@ -27,6 +27,12 @@ export const linking: LinkingOptions<RootStackParamList> = {
               Details: '/details/:id'
             }
           },
+          MediaStack: {
+            // initialRouteName: 'Home',
+            screens: {
+              Media: ''
+            }
+          },
           ExamplesStack: {
             // initialRouteName: 'Examples',
             screens: {

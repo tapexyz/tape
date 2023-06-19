@@ -83,7 +83,7 @@ export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
         {visible && <Shape />}
       </Pressable>
       <TouchableOpacity style={{ padding: 30 }} onPress={navigateToDetails}>
-        <Text>{'home_screen.details'}</Text>
+        <Text>{'home_screen > details'}</Text>
       </TouchableOpacity>
     </View>
   )

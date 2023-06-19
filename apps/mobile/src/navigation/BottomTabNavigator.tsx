@@ -17,12 +17,14 @@ export const BottomTabNavigator: FC = () => {
   const { tabBarTheme } = useNavigationTheme()
 
   const screenOptions = useCallback<ScreenOptions>(
-    ({ route }: any) => ({
+    ({ route }) => ({
       tabBarIcon: ({ color, size }: { color: string; size: number }) => {
         let iconName: keyof typeof Feather.glyphMap
 
         if (route.name === 'HomeStack') {
           iconName = 'home'
+        } else if (route.name === 'MediaStack') {
+          iconName = 'list'
         } else if (route.name === 'ExamplesStack') {
           iconName = 'list'
         } else {
@@ -42,7 +44,12 @@ export const BottomTabNavigator: FC = () => {
     <Navigator screenOptions={screenOptions}>
       <Screen
         name="HomeStack"
-        options={{ title: 'navigation.screen_titles.home_stack' }}
+        options={{ title: 'Home' }}
+        component={HomeStack}
+      />
+      <Screen
+        name="MediaStack"
+        options={{ title: 'Media' }}
         component={HomeStack}
       />
       {/* <Screen

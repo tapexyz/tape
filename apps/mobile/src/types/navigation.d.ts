@@ -30,11 +30,24 @@ type HomeStackComposite<S extends keyof HomeStackParamList> =
     StackScreenProps<RootStackParamList, 'MainTab'>
   >
 
+type MediaStackComposite<S extends keyof MediaStackParamList> =
+  CompositeScreenProps<
+    CompositeScreenProps<
+      StackScreenProps<MediaStackParamList, S>,
+      BottomTabScreenProps<MainTabParamList, 'MediaStack'>
+    >,
+    StackScreenProps<RootStackParamList, 'MainTab'>
+  >
+
 declare global {
   // PARAMS
   type HomeStackParamList = {
     Home: undefined
     Details: { id: string }
+  }
+
+  type MediaStackParamList = {
+    Media: undefined
   }
 
   type ExampleStackParamList = {
@@ -46,6 +59,7 @@ declare global {
 
   type MainTabParamList = {
     HomeStack: NavigatorScreenParams<HomeStackParamList>
+    MediaStack: NavigatorScreenParams<MediaStackParamList>
     ExamplesStack: NavigatorScreenParams<ExampleStackParamList>
   }
 
@@ -75,7 +89,7 @@ declare global {
 
   type BottomTabScreenProps = BaseBottomTabScreenProps<
     MainTabParamList,
-    'ExamplesStack' | 'HomeStack'
+    'ExamplesStack' | 'HomeStack' | 'MediaStack'
   >
 
   // Root stack
@@ -83,6 +97,7 @@ declare global {
 
   // Home stack
   type HomeScreenProps = HomeStackComposite<'Home'>
+  type MediaScreenProps = MediaStackComposite<'Media'>
   type DetailsScreenProps = HomeStackComposite<'Details'>
 
   // Examples stack
