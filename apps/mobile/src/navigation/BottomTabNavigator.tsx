@@ -5,6 +5,7 @@ import { MotiView } from 'moti'
 import type { FC } from 'react'
 import React, { useCallback } from 'react'
 
+import haptic from '../helpers/haptic'
 import { useNavigationTheme } from '../hooks/navigation/useNavigationTheme'
 import { AudioStack } from './AudioStack'
 import { HomeStack } from './HomeStack'
@@ -58,7 +59,13 @@ export const BottomTabNavigator: FC = () => {
   )
 
   return (
-    <Navigator screenOptions={screenOptions} initialRouteName="HomeStack">
+    <Navigator
+      screenOptions={screenOptions}
+      initialRouteName="HomeStack"
+      screenListeners={{
+        tabPress: () => haptic()
+      }}
+    >
       <Screen
         name="VideoStack"
         options={{ title: 'Video' }}
