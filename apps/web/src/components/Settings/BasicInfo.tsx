@@ -21,7 +21,6 @@ import {
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
 } from 'lens'
-import Link from 'next/link'
 import type { ChangeEvent } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -30,15 +29,12 @@ import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
 import {
   Analytics,
   ERROR_MESSAGE,
-  IS_MAINNET,
   LENS_PERIPHERY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
   REQUESTING_SIGNATURE_MESSAGE,
-  TALLY_VERIFICATION_FORM_URL,
   TRACK
 } from 'utils'
-import { VERIFIED_CHANNELS } from 'utils/data/verified'
 import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 import imageCdn from 'utils/functions/imageCdn'
@@ -319,7 +315,7 @@ const BasicInfo: React.FC<Props> = ({ channel }: Props) => {
           <span>{channel?.handle}</span>
           <IsVerified id={channel?.id} size="xs" />
         </h6>
-        {IS_MAINNET &&
+        {/* {IS_MAINNET &&
           !VERIFIED_CHANNELS.includes(channel?.id) &&
           channel.stats.totalFollowers > 500 && (
             <Link
@@ -330,7 +326,7 @@ const BasicInfo: React.FC<Props> = ({ channel }: Props) => {
             >
               ( <Trans>Get Verified</Trans> )
             </Link>
-          )}
+          )} */}
       </div>
       <div className="mt-4">
         <div className="mb-1 flex items-center">
