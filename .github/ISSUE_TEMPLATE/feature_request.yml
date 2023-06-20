@@ -1,5 +1,5 @@
 name: Feature Request
-description: Request a feature for Lenstube
+description: Request a feature for Dragverse
 title: "[Feature Request] "
 labels: [needs review, triage]
 body:
@@ -9,6 +9,6 @@ body:
   - type: textarea
     attributes:
       label: Describe the feature you'd like to request
-      placeholder: Clearly describe what you want to see in Lenstube.
+      placeholder: Clearly describe what you want to see in Dragverse.
     validations:
       required: true

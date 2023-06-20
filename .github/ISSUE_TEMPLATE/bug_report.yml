@@ -1,5 +1,5 @@
 name: Bug Report
-description: Report a reproducible bug in the Lenstube
+description: Report a reproducible bug in the Dragverse
 labels: [bug, needs review]
 body:
   - type: markdown

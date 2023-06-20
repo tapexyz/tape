@@ -1,4 +1,4 @@
-# 🤝 Contributing to Lenstube
+# 🤝 Contributing to Dragverse
 
 We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
 
@@ -19,7 +19,7 @@ Feel free to contact us if any issues.
 
 ## Report bugs
 
-We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/lenstube-xyz/lenstube/issues); it's that easy!
+We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/dragverse/marsha/issues); it's that easy!
 
 ## Write bug reports with detail, and background
 
