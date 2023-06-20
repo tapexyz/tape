@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
 import Header from '../components/Header'
+import { theme } from '../constants/theme'
 import { DetailsScreen, HomeScreen } from '../screens'
 
 const { Navigator, Screen } = createStackNavigator<HomeStackParamList>()
@@ -14,7 +15,15 @@ export const HomeStack = (): JSX.Element => {
         options={{
           title: 'Home',
           headerTitle: (props) => <Header {...props} />,
-          headerTransparent: true
+          // headerTransparent: true,
+          headerShadowVisible: false,
+          animationEnabled: true,
+          headerStyle: {
+            backgroundColor: theme.colors.gradient.from,
+            // hide header shadow
+            shadowColor: 'transparent', // this covers iOS
+            elevation: 0 // this covers Android
+          }
         }}
         component={HomeScreen}
       />

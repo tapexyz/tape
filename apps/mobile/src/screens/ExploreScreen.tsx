@@ -1,17 +1,16 @@
 import { Image as ExpoImage } from 'expo-image'
 import { MotiView } from 'moti'
 import React, { useReducer } from 'react'
-import { Pressable, StyleSheet, View } from 'react-native'
+import { Pressable, ScrollView, StyleSheet } from 'react-native'
 import { useNotifications } from 'react-native-notificated'
-
-import { StatusBar } from '../components'
 
 const styles = StyleSheet.create({
   shape: {
     justifyContent: 'center',
-    height: 250,
+    height: 500,
     width: 250,
-    borderRadius: 45
+    borderRadius: 20,
+    overflow: 'hidden'
   },
   container: {
     flex: 1,
@@ -47,14 +46,14 @@ export const ExploreScreen = (props: ExploreScreenProps): JSX.Element => {
         <ExpoImage
           source="https://picsum.photos/seed/696/3000/2000"
           contentFit="cover"
-          style={{ width: '100%', height: '100%', borderRadius: 45 }}
+          style={{ width: '100%', height: '100%' }}
         />
       </MotiView>
     )
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1 }}>
       <Pressable
         onPress={() => {
           toggle()
@@ -68,9 +67,8 @@ export const ExploreScreen = (props: ExploreScreenProps): JSX.Element => {
         }}
         style={styles.container}
       >
-        <StatusBar style="auto" />
         {visible && <Shape />}
       </Pressable>
-    </View>
+    </ScrollView>
   )
 }
