@@ -1,12 +1,12 @@
 import * as SplashScreen from 'expo-splash-screen'
-import type { FC } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 import React from 'react'
 
 import { useCachedResources, useEffect } from '../hooks'
 
 SplashScreen.preventAutoHideAsync()
 
-export const AppLoading: FC<any> = ({ children }) => {
+export const AppLoading: FC<PropsWithChildren> = ({ children }) => {
   const isLoadingComplete = useCachedResources()
 
   useEffect(() => {

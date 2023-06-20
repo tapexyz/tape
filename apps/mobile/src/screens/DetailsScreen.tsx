@@ -41,12 +41,12 @@ export const DetailsScreen = (props: DetailsScreenProps): JSX.Element => {
         <Text>open_bottom_sheet</Text>
       </TouchableOpacity>
       <BottomSheetModal
-        ref={bottomSheetModalRef}
-        backgroundStyle={{ borderRadius: 50 }}
-        style={{ marginHorizontal: 15 }}
-        bottomInset={20}
-        detached={true}
         index={0}
+        ref={bottomSheetModalRef}
+        backgroundStyle={{ borderRadius: 40 }}
+        style={{ marginHorizontal: 10 }}
+        bottomInset={15}
+        detached={true}
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
         backdropComponent={renderBackdrop}

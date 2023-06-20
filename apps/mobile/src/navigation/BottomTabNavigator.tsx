@@ -5,6 +5,7 @@ import { MotiView } from 'moti'
 import type { FC } from 'react'
 import React, { useCallback } from 'react'
 
+import { navigationTheme } from '../constants/theme'
 import haptic from '../helpers/haptic'
 import { useNavigationTheme } from '../hooks/navigation/useNavigationTheme'
 import { BytesStack } from './BytesStack'
@@ -23,7 +24,16 @@ export const BottomTabNavigator: FC = () => {
   const screenOptions = useCallback<ScreenOptions>(
     ({ route }) => ({
       tabBarShowLabel: false,
-      tabBarIcon: ({ color, size }: { color: string; size: number }) => {
+      tabBarStyle: { backgroundColor: navigationTheme.colors.background },
+      tabBarIcon: ({
+        color,
+        size,
+        focused
+      }: {
+        color: string
+        size: number
+        focused: boolean
+      }) => {
         let iconName: keyof typeof Ionicons.glyphMap
 
         if (route.name === 'BytesStack') {
@@ -46,9 +56,13 @@ export const BottomTabNavigator: FC = () => {
               type: 'spring',
               delay: 50
             }}
-            from={{ opacity: 0 }}
+            from={{ opacity: 0.2 }}
           >
-            <Ionicons name={iconName} size={size} color={color} />
+            <Ionicons
+              name={iconName}
+              color={color}
+              size={focused ? size + 2 : size}
+            />
           </MotiView>
         )
       },
