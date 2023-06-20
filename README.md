@@ -24,8 +24,7 @@ For a place to have open discussions on features, voice your ideas, or get help 
 
 | Name    | Link                                   |
 | ------- | -------------------------------------- |
-| Mainnet | Coming Soon!                           |
-| Testnet | [dragverse.app](https://dragverse.app) |
+| Mainnet | [dragverse.app](https://dragverse.app) |
 
 ## 🔭 What's inside?
 
