@@ -13,7 +13,6 @@ import { t, Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
 import type { Attribute, Publication } from 'lens'
-import { PublicationMainFocus } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -26,12 +25,11 @@ import getLensHandle from 'utils/functions/getLensHandle'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
 import PublicationReaction from '../PublicationReaction'
-import CommentImages from './CommentImages'
+import CommentMedia from './CommentMedia'
 import CommentOptions from './CommentOptions'
 import CommentReplies from './CommentReplies'
 import NewComment from './NewComment'
 import QueuedComment from './QueuedComment'
-import VideoComment from './VideoComment'
 
 interface Props {
   comment: Publication
@@ -57,10 +55,6 @@ const Comment: FC<Props> = ({ comment }) => {
       setShowMore(true)
     }
   }, [comment?.metadata?.content])
-
-  const getIsVideoComment = () => {
-    return comment.metadata.mainContentFocus === PublicationMainFocus.Video
-  }
 
   const getIsReplyQueuedComment = () => {
     return Boolean(queuedComments.filter((c) => c.pubId === comment.id)?.length)
@@ -113,11 +107,7 @@ const Comment: FC<Props> = ({ comment }) => {
             </span>
           </span>
           <div className={clsx({ 'line-clamp-2': clamped })}>
-            {getIsVideoComment() ? (
-              <VideoComment comment={comment} />
-            ) : (
-              <InterweaveContent content={comment?.metadata?.content} />
-            )}
+            <InterweaveContent content={comment?.metadata?.content} />
           </div>
           {showMore && (
             <div className="mt-3 inline-flex">
@@ -140,7 +130,7 @@ const Comment: FC<Props> = ({ comment }) => {
               </button>
             </div>
           )}
-          <CommentImages images={comment.metadata.media} />
+          <CommentMedia comment={comment} />
           {!comment.hidden && (
             <div className="mt-2 flex items-center space-x-4">
               <PublicationReaction publication={comment} />

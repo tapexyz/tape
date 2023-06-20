@@ -87,16 +87,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
   const request = {
     limit: 10,
     customFilters: LENS_CUSTOM_FILTERS,
-    commentsOf: comment.id,
-    metadata: {
-      mainContentFocus: [
-        PublicationMainFocus.Video,
-        PublicationMainFocus.Article,
-        PublicationMainFocus.Embed,
-        PublicationMainFocus.Link,
-        PublicationMainFocus.TextOnly
-      ]
-    }
+    commentsOf: comment.id
   }
   const variables = {
     request,

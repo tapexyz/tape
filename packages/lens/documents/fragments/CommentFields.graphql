@@ -23,10 +23,7 @@ fragment CommentFields on Comment {
   isDataAvailability
   hasCollectedByMe
   stats {
-    totalAmountOfComments
-    totalAmountOfCollects
-    totalAmountOfMirrors
-    totalUpvotes
+    ...StatsFields
   }
   metadata {
     ...MetadataFields

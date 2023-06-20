@@ -9,7 +9,6 @@ import type { Publication } from 'lens'
 import {
   CommentOrderingTypes,
   CommentRankingFilter,
-  PublicationMainFocus,
   useCommentsQuery
 } from 'lens'
 import type { FC } from 'react'
@@ -32,15 +31,6 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
     limit: 10,
     customFilters: LENS_CUSTOM_FILTERS,
     commentsOf: video.id,
-    metadata: {
-      mainContentFocus: [
-        PublicationMainFocus.Video,
-        PublicationMainFocus.Article,
-        PublicationMainFocus.Embed,
-        PublicationMainFocus.Link,
-        PublicationMainFocus.TextOnly
-      ]
-    },
     commentsOfOrdering: CommentOrderingTypes.Ranking,
     commentsRankingFilter: CommentRankingFilter.NoneRelevant
   }
