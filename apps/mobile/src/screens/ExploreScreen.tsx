@@ -11,15 +11,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 250,
     width: 250,
-    borderRadius: 45,
-    backgroundColor: 'black'
+    borderRadius: 45
   },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row',
-    backgroundColor: 'white'
+    flexDirection: 'row'
   }
 })
 

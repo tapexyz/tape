@@ -37,7 +37,7 @@ export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
   const [visible, toggle] = useReducer((s) => !s, true)
   const { notify } = useNotifications()
 
-  function Shape() {
+  const Shape = () => {
     return (
       <MotiView
         from={{
@@ -83,6 +83,10 @@ export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
           }}
           style={styles.container}
         >
+          <StatusBar style="auto" />
+          {visible && <Shape />}
+        </Pressable>
+        <Pressable style={styles.container}>
           <StatusBar style="auto" />
           {visible && <Shape />}
         </Pressable>

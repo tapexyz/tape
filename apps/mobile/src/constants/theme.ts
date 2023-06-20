@@ -97,8 +97,8 @@ export const theme = {
 export const navigationTheme: Theme = {
   colors: {
     background: '#111827',
-    border: 'black',
-    card: 'black',
+    border: '#111827',
+    card: '#111827',
     notification: 'red',
     primary: 'red',
     text: 'white'
