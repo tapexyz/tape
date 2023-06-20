@@ -20,9 +20,9 @@ export const linking: LinkingOptions<RootStackParamList> = {
       Settings: 'settings',
       MainTab: {
         screens: {
-          VideoStack: {
+          BytesStack: {
             screens: {
-              Video: 'video'
+              Video: 'bytes'
             }
           },
           HomeStack: {
@@ -31,9 +31,9 @@ export const linking: LinkingOptions<RootStackParamList> = {
               Details: '/details/:id'
             }
           },
-          AudioStack: {
+          ExploreStack: {
             screens: {
-              Audio: 'audio'
+              Audio: 'explore'
             }
           }
         }

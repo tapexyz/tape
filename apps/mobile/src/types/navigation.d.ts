@@ -21,20 +21,20 @@ type HomeStackComposite<S extends keyof HomeStackParamList> =
     StackScreenProps<RootStackParamList, 'MainTab'>
   >
 
-type AudioStackComposite<S extends keyof AudioStackParamList> =
+type ExploreStackComposite<S extends keyof ExploreStackParamList> =
   CompositeScreenProps<
     CompositeScreenProps<
-      StackScreenProps<AudioStackParamList, S>,
-      BottomTabScreenProps<MainTabParamList, 'AudioStack'>
+      StackScreenProps<ExploreStackParamList, S>,
+      BottomTabScreenProps<MainTabParamList, 'ExploreStack'>
     >,
     StackScreenProps<RootStackParamList, 'MainTab'>
   >
 
-type VideoStackComposite<S extends keyof VideoStackParamList> =
+type BytesStackComposite<S extends keyof BytesStackParamList> =
   CompositeScreenProps<
     CompositeScreenProps<
-      StackScreenProps<VideoStackParamList, S>,
-      BottomTabScreenProps<MainTabParamList, 'VideoStack'>
+      StackScreenProps<BytesStackParamList, S>,
+      BottomTabScreenProps<MainTabParamList, 'BytesStack'>
     >,
     StackScreenProps<RootStackParamList, 'MainTab'>
   >
@@ -46,18 +46,18 @@ declare global {
     Details: { id: string }
   }
 
-  type AudioStackParamList = {
-    Audio: undefined
+  type ExploreStackParamList = {
+    Explore: undefined
   }
 
-  type VideoStackParamList = {
-    Video: undefined
+  type BytesStackParamList = {
+    Bytes: undefined
   }
 
   type MainTabParamList = {
-    VideoStack: NavigatorScreenParams<VideoStackParamList>
+    BytesStack: NavigatorScreenParams<BytesStackParamList>
     HomeStack: NavigatorScreenParams<HomeStackParamList>
-    AudioStack: NavigatorScreenParams<AudioStackParamList>
+    ExploreStack: NavigatorScreenParams<ExploreStackParamList>
   }
 
   type RootStackParamList = {
@@ -86,7 +86,7 @@ declare global {
 
   type BottomTabScreenProps = BaseBottomTabScreenProps<
     MainTabParamList,
-    'HomeStack' | 'AudioStack' | 'VideoStack'
+    'HomeStack' | 'ExploreStack' | 'BytesStack'
   >
 
   // Root stack
@@ -94,7 +94,7 @@ declare global {
 
   // Home stack
   type HomeScreenProps = HomeStackComposite<'Home'>
-  type AudioScreenProps = AudioStackComposite<'Audio'>
-  type VideoScreenProps = VideoStackComposite<'Video'>
+  type ExploreScreenProps = ExploreStackComposite<'Explore'>
+  type BytesScreenProps = BytesStackComposite<'Bytes'>
   type DetailsScreenProps = HomeStackComposite<'Details'>
 }

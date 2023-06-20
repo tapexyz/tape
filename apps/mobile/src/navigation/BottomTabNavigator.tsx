@@ -7,9 +7,9 @@ import React, { useCallback } from 'react'
 
 import haptic from '../helpers/haptic'
 import { useNavigationTheme } from '../hooks/navigation/useNavigationTheme'
-import { AudioStack } from './AudioStack'
+import { BytesStack } from './BytesStack'
+import { ExploreStack } from './ExploreStack'
 import { HomeStack } from './HomeStack'
-import { VideoStack } from './VideoStack'
 
 const { Navigator, Screen } = createBottomTabNavigator<MainTabParamList>()
 
@@ -26,12 +26,12 @@ export const BottomTabNavigator: FC = () => {
       tabBarIcon: ({ color, size }: { color: string; size: number }) => {
         let iconName: keyof typeof Ionicons.glyphMap
 
-        if (route.name === 'VideoStack') {
-          iconName = 'videocam-outline'
+        if (route.name === 'BytesStack') {
+          iconName = 'recording-outline'
         } else if (route.name === 'HomeStack') {
           iconName = 'bonfire-outline'
-        } else if (route.name === 'AudioStack') {
-          iconName = 'headset-outline'
+        } else if (route.name === 'ExploreStack') {
+          iconName = 'infinite-outline'
         } else {
           iconName = 'globe'
         }
@@ -67,9 +67,9 @@ export const BottomTabNavigator: FC = () => {
       }}
     >
       <Screen
-        name="VideoStack"
-        options={{ title: 'Video' }}
-        component={VideoStack}
+        name="BytesStack"
+        options={{ title: 'Bytes' }}
+        component={BytesStack}
       />
       <Screen
         name="HomeStack"
@@ -77,9 +77,9 @@ export const BottomTabNavigator: FC = () => {
         component={HomeStack}
       />
       <Screen
-        name="AudioStack"
-        options={{ title: 'Audio' }}
-        component={AudioStack}
+        name="ExploreStack"
+        options={{ title: 'Explore' }}
+        component={ExploreStack}
       />
     </Navigator>
   )
