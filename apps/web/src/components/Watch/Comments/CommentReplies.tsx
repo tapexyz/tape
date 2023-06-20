@@ -10,7 +10,7 @@ import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { Profile, Publication } from 'lens'
-import { PublicationMainFocus, useCommentsQuery } from 'lens'
+import { useCommentsQuery } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -35,10 +35,6 @@ const ReplyContent: FC<ReplyContentProps> = ({ comment }) => {
       setShowMore(true)
     }
   }, [comment?.metadata?.content])
-
-  const getIsVideoComment = () => {
-    return comment.metadata.mainContentFocus === PublicationMainFocus.Video
-  }
 
   return (
     <>
