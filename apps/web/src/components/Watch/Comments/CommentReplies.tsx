@@ -19,8 +19,8 @@ import { getRelativeTime } from 'utils/functions/formatTime'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
 import PublicationReaction from '../PublicationReaction'
+import CommentMedia from './CommentMedia'
 import CommentOptions from './CommentOptions'
-import VideoComment from './VideoComment'
 
 type ReplyContentProps = {
   comment: Publication
@@ -43,11 +43,7 @@ const ReplyContent: FC<ReplyContentProps> = ({ comment }) => {
   return (
     <>
       <div className={clsx({ 'line-clamp-2': clamped })}>
-        {getIsVideoComment() ? (
-          <VideoComment comment={comment} />
-        ) : (
-          <InterweaveContent content={comment?.metadata?.content} />
-        )}
+        <InterweaveContent content={comment?.metadata?.content} />
       </div>
       {showMore && (
         <div className="inline-flex">
@@ -70,6 +66,7 @@ const ReplyContent: FC<ReplyContentProps> = ({ comment }) => {
           </button>
         </div>
       )}
+      <CommentMedia comment={comment} />
     </>
   )
 }
