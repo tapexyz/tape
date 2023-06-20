@@ -10,10 +10,10 @@ export const useCachedResources = (): boolean => {
       try {
         // Load fonts
         await Font.loadAsync({
-          ...Ionicons.font
-          // 'lato-regular': require('assets/fonts/Lato-Regular.ttf'),
-          // 'lato-bold': require('assets/fonts/Lato-Bold.ttf'),
-          // 'lato-extra-bold': require('assets/fonts/Lato-Black.ttf')
+          ...Ionicons.font,
+          'font-normal': require('assets/fonts/Nunito-Regular.ttf'),
+          'font-bold': require('assets/fonts/Nunito-Bold.ttf'),
+          'font-extrabold': require('assets/fonts/Nunito-Black.ttf')
         })
       } catch (e) {
         // We might want to provide this error information to an error reporting service

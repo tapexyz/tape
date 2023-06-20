@@ -3632,7 +3632,8 @@ export type PublicationStats = {
 
 /** The publication stats */
 export type PublicationStatsCommentsTotalArgs = {
-  forSources: Array<Scalars['Sources']['input']>
+  customFilters?: InputMaybe<Array<CustomFiltersTypes>>
+  forSources?: InputMaybe<Array<Scalars['Sources']['input']>>
 }
 
 /** The publication types */
@@ -4933,10 +4934,11 @@ export type CommentFieldsFragment = {
   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
   stats: {
     __typename?: 'PublicationStats'
-    totalAmountOfComments: number
-    totalAmountOfCollects: number
-    totalAmountOfMirrors: number
     totalUpvotes: number
+    totalAmountOfMirrors: number
+    totalAmountOfCollects: number
+    totalAmountOfComments: number
+    commentsTotal: number
   }
   metadata: {
     __typename?: 'MetadataOutput'
@@ -5325,6 +5327,7 @@ export type MirrorFieldsFragment = {
     totalAmountOfMirrors: number
     totalAmountOfCollects: number
     totalAmountOfComments: number
+    commentsTotal: number
   }
   metadata: {
     __typename?: 'MetadataOutput'
@@ -5585,10 +5588,11 @@ export type MirrorFieldsFragment = {
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
         stats: {
           __typename?: 'PublicationStats'
-          totalAmountOfComments: number
-          totalAmountOfCollects: number
-          totalAmountOfMirrors: number
           totalUpvotes: number
+          totalAmountOfMirrors: number
+          totalAmountOfCollects: number
+          totalAmountOfComments: number
+          commentsTotal: number
         }
         metadata: {
           __typename?: 'MetadataOutput'
@@ -5941,10 +5945,11 @@ export type MirrorFieldsFragment = {
           | { __typename?: 'UnknownCollectModuleSettings' }
         stats: {
           __typename?: 'PublicationStats'
-          totalAmountOfComments: number
-          totalAmountOfCollects: number
-          totalAmountOfMirrors: number
           totalUpvotes: number
+          totalAmountOfMirrors: number
+          totalAmountOfCollects: number
+          totalAmountOfComments: number
+          commentsTotal: number
         }
         metadata: {
           __typename?: 'MetadataOutput'
@@ -6208,10 +6213,11 @@ export type PostFieldsFragment = {
     | { __typename?: 'UnknownCollectModuleSettings' }
   stats: {
     __typename?: 'PublicationStats'
-    totalAmountOfComments: number
-    totalAmountOfCollects: number
-    totalAmountOfMirrors: number
     totalUpvotes: number
+    totalAmountOfMirrors: number
+    totalAmountOfCollects: number
+    totalAmountOfComments: number
+    commentsTotal: number
   }
   metadata: {
     __typename?: 'MetadataOutput'
@@ -6307,6 +6313,15 @@ type RelayerResult_RelayerResult_Fragment = {
 export type RelayerResultFragment =
   | RelayerResult_RelayError_Fragment
   | RelayerResult_RelayerResult_Fragment
+
+export type StatsFieldsFragment = {
+  __typename?: 'PublicationStats'
+  totalUpvotes: number
+  totalAmountOfMirrors: number
+  totalAmountOfCollects: number
+  totalAmountOfComments: number
+  commentsTotal: number
+}
 
 export type AddProfileInterestMutationVariables = Exact<{
   request: AddProfileInterestsRequest
@@ -7412,10 +7427,11 @@ export type CommentsQuery = {
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
           stats: {
             __typename?: 'PublicationStats'
-            totalAmountOfComments: number
-            totalAmountOfCollects: number
-            totalAmountOfMirrors: number
             totalUpvotes: number
+            totalAmountOfMirrors: number
+            totalAmountOfCollects: number
+            totalAmountOfComments: number
+            commentsTotal: number
           }
           metadata: {
             __typename?: 'MetadataOutput'
@@ -7853,10 +7869,11 @@ export type ExploreQuery = {
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
           stats: {
             __typename?: 'PublicationStats'
-            totalAmountOfComments: number
-            totalAmountOfCollects: number
-            totalAmountOfMirrors: number
             totalUpvotes: number
+            totalAmountOfMirrors: number
+            totalAmountOfCollects: number
+            totalAmountOfComments: number
+            commentsTotal: number
           }
           metadata: {
             __typename?: 'MetadataOutput'
@@ -8214,10 +8231,11 @@ export type ExploreQuery = {
             | { __typename?: 'UnknownCollectModuleSettings' }
           stats: {
             __typename?: 'PublicationStats'
-            totalAmountOfComments: number
-            totalAmountOfCollects: number
-            totalAmountOfMirrors: number
             totalUpvotes: number
+            totalAmountOfMirrors: number
+            totalAmountOfCollects: number
+            totalAmountOfComments: number
+            commentsTotal: number
           }
           metadata: {
             __typename?: 'MetadataOutput'
@@ -8500,10 +8518,11 @@ export type FeedQuery = {
             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
             stats: {
               __typename?: 'PublicationStats'
-              totalAmountOfComments: number
-              totalAmountOfCollects: number
-              totalAmountOfMirrors: number
               totalUpvotes: number
+              totalAmountOfMirrors: number
+              totalAmountOfCollects: number
+              totalAmountOfComments: number
+              commentsTotal: number
             }
             metadata: {
               __typename?: 'MetadataOutput'
@@ -8860,10 +8879,11 @@ export type FeedQuery = {
               | { __typename?: 'UnknownCollectModuleSettings' }
             stats: {
               __typename?: 'PublicationStats'
-              totalAmountOfComments: number
-              totalAmountOfCollects: number
-              totalAmountOfMirrors: number
               totalUpvotes: number
+              totalAmountOfMirrors: number
+              totalAmountOfCollects: number
+              totalAmountOfComments: number
+              commentsTotal: number
             }
             metadata: {
               __typename?: 'MetadataOutput'
@@ -9876,6 +9896,7 @@ export type ProfileMirrorsQuery = {
             totalAmountOfMirrors: number
             totalAmountOfCollects: number
             totalAmountOfComments: number
+            commentsTotal: number
           }
           metadata: {
             __typename?: 'MetadataOutput'
@@ -10143,10 +10164,11 @@ export type ProfileMirrorsQuery = {
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
                 stats: {
                   __typename?: 'PublicationStats'
-                  totalAmountOfComments: number
-                  totalAmountOfCollects: number
-                  totalAmountOfMirrors: number
                   totalUpvotes: number
+                  totalAmountOfMirrors: number
+                  totalAmountOfCollects: number
+                  totalAmountOfComments: number
+                  commentsTotal: number
                 }
                 metadata: {
                   __typename?: 'MetadataOutput'
@@ -10512,10 +10534,11 @@ export type ProfileMirrorsQuery = {
                   | { __typename?: 'UnknownCollectModuleSettings' }
                 stats: {
                   __typename?: 'PublicationStats'
-                  totalAmountOfComments: number
-                  totalAmountOfCollects: number
-                  totalAmountOfMirrors: number
                   totalUpvotes: number
+                  totalAmountOfMirrors: number
+                  totalAmountOfCollects: number
+                  totalAmountOfComments: number
+                  commentsTotal: number
                 }
                 metadata: {
                   __typename?: 'MetadataOutput'
@@ -10826,10 +10849,11 @@ export type ProfilePostsQuery = {
             | { __typename?: 'UnknownCollectModuleSettings' }
           stats: {
             __typename?: 'PublicationStats'
-            totalAmountOfComments: number
-            totalAmountOfCollects: number
-            totalAmountOfMirrors: number
             totalUpvotes: number
+            totalAmountOfMirrors: number
+            totalAmountOfCollects: number
+            totalAmountOfComments: number
+            commentsTotal: number
           }
           metadata: {
             __typename?: 'MetadataOutput'
@@ -11300,10 +11324,11 @@ export type PublicationDetailsQuery = {
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
         stats: {
           __typename?: 'PublicationStats'
-          totalAmountOfComments: number
-          totalAmountOfCollects: number
-          totalAmountOfMirrors: number
           totalUpvotes: number
+          totalAmountOfMirrors: number
+          totalAmountOfCollects: number
+          totalAmountOfComments: number
+          commentsTotal: number
         }
         metadata: {
           __typename?: 'MetadataOutput'
@@ -11660,6 +11685,7 @@ export type PublicationDetailsQuery = {
           totalAmountOfMirrors: number
           totalAmountOfCollects: number
           totalAmountOfComments: number
+          commentsTotal: number
         }
         metadata: {
           __typename?: 'MetadataOutput'
@@ -11920,10 +11946,11 @@ export type PublicationDetailsQuery = {
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
               stats: {
                 __typename?: 'PublicationStats'
-                totalAmountOfComments: number
-                totalAmountOfCollects: number
-                totalAmountOfMirrors: number
                 totalUpvotes: number
+                totalAmountOfMirrors: number
+                totalAmountOfCollects: number
+                totalAmountOfComments: number
+                commentsTotal: number
               }
               metadata: {
                 __typename?: 'MetadataOutput'
@@ -12286,10 +12313,11 @@ export type PublicationDetailsQuery = {
                 | { __typename?: 'UnknownCollectModuleSettings' }
               stats: {
                 __typename?: 'PublicationStats'
-                totalAmountOfComments: number
-                totalAmountOfCollects: number
-                totalAmountOfMirrors: number
                 totalUpvotes: number
+                totalAmountOfMirrors: number
+                totalAmountOfCollects: number
+                totalAmountOfComments: number
+                commentsTotal: number
               }
               metadata: {
                 __typename?: 'MetadataOutput'
@@ -12556,10 +12584,11 @@ export type PublicationDetailsQuery = {
           | { __typename?: 'UnknownCollectModuleSettings' }
         stats: {
           __typename?: 'PublicationStats'
-          totalAmountOfComments: number
-          totalAmountOfCollects: number
-          totalAmountOfMirrors: number
           totalUpvotes: number
+          totalAmountOfMirrors: number
+          totalAmountOfCollects: number
+          totalAmountOfComments: number
+          commentsTotal: number
         }
         metadata: {
           __typename?: 'MetadataOutput'
@@ -12924,10 +12953,11 @@ export type SearchPublicationsQuery = {
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean }
               stats: {
                 __typename?: 'PublicationStats'
-                totalAmountOfComments: number
-                totalAmountOfCollects: number
-                totalAmountOfMirrors: number
                 totalUpvotes: number
+                totalAmountOfMirrors: number
+                totalAmountOfCollects: number
+                totalAmountOfComments: number
+                commentsTotal: number
               }
               metadata: {
                 __typename?: 'MetadataOutput'
@@ -13290,10 +13320,11 @@ export type SearchPublicationsQuery = {
                 | { __typename?: 'UnknownCollectModuleSettings' }
               stats: {
                 __typename?: 'PublicationStats'
-                totalAmountOfComments: number
-                totalAmountOfCollects: number
-                totalAmountOfMirrors: number
                 totalUpvotes: number
+                totalAmountOfMirrors: number
+                totalAmountOfCollects: number
+                totalAmountOfComments: number
+                commentsTotal: number
               }
               metadata: {
                 __typename?: 'MetadataOutput'
@@ -13651,6 +13682,15 @@ export const CollectFieldsFragmentDoc = gql`
   }
   ${Erc20FieldsFragmentDoc}
 `
+export const StatsFieldsFragmentDoc = gql`
+  fragment StatsFields on PublicationStats {
+    totalUpvotes
+    totalAmountOfMirrors
+    totalAmountOfCollects
+    totalAmountOfComments
+    commentsTotal(customFilters: GARDENERS)
+  }
+`
 export const MetadataFieldsFragmentDoc = gql`
   fragment MetadataFields on MetadataOutput {
     name
@@ -13715,10 +13755,7 @@ export const PostFieldsFragmentDoc = gql`
     hidden
     hasCollectedByMe
     stats {
-      totalAmountOfComments
-      totalAmountOfCollects
-      totalAmountOfMirrors
-      totalUpvotes
+      ...StatsFields
     }
     metadata {
       ...MetadataFields
@@ -13728,6 +13765,7 @@ export const PostFieldsFragmentDoc = gql`
   }
   ${ProfileFieldsFragmentDoc}
   ${CollectFieldsFragmentDoc}
+  ${StatsFieldsFragmentDoc}
   ${MetadataFieldsFragmentDoc}
 `
 export const CommentFieldsFragmentDoc = gql`
@@ -13756,10 +13794,7 @@ export const CommentFieldsFragmentDoc = gql`
     isDataAvailability
     hasCollectedByMe
     stats {
-      totalAmountOfComments
-      totalAmountOfCollects
-      totalAmountOfMirrors
-      totalUpvotes
+      ...StatsFields
     }
     metadata {
       ...MetadataFields
@@ -13782,6 +13817,7 @@ export const CommentFieldsFragmentDoc = gql`
   }
   ${ProfileFieldsFragmentDoc}
   ${CollectFieldsFragmentDoc}
+  ${StatsFieldsFragmentDoc}
   ${MetadataFieldsFragmentDoc}
 `
 export const MirrorFieldsFragmentDoc = gql`
@@ -13811,10 +13847,7 @@ export const MirrorFieldsFragmentDoc = gql`
     dataAvailabilityProofs
     hasCollectedByMe
     stats {
-      totalUpvotes
-      totalAmountOfMirrors
-      totalAmountOfCollects
-      totalAmountOfComments
+      ...StatsFields
     }
     metadata {
       ...MetadataFields
@@ -13832,6 +13865,7 @@ export const MirrorFieldsFragmentDoc = gql`
   }
   ${ProfileFieldsFragmentDoc}
   ${CollectFieldsFragmentDoc}
+  ${StatsFieldsFragmentDoc}
   ${MetadataFieldsFragmentDoc}
   ${PostFieldsFragmentDoc}
   ${CommentFieldsFragmentDoc}

@@ -24,10 +24,7 @@ fragment MirrorFields on Mirror {
   dataAvailabilityProofs
   hasCollectedByMe
   stats {
-    totalUpvotes
-    totalAmountOfMirrors
-    totalAmountOfCollects
-    totalAmountOfComments
+    ...StatsFields
   }
   metadata {
     ...MetadataFields

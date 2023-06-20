@@ -11,7 +11,6 @@ import type { Publication } from 'lens'
 import {
   CommentOrderingTypes,
   CommentRankingFilter,
-  PublicationMainFocus,
   useCommentsQuery
 } from 'lens'
 import type { FC } from 'react'
@@ -67,16 +66,6 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     limit: 30,
     customFilters: LENS_CUSTOM_FILTERS,
     commentsOf: video.id,
-    metadata: {
-      mainContentFocus: [
-        PublicationMainFocus.Video,
-        PublicationMainFocus.Image,
-        PublicationMainFocus.Article,
-        PublicationMainFocus.Embed,
-        PublicationMainFocus.Link,
-        PublicationMainFocus.TextOnly
-      ]
-    },
     ...getCommentFilters()
   }
   const variables = {
@@ -118,7 +107,10 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
             <h1 className="m-2 flex items-center space-x-2 text-lg">
               <CommentOutline className="h-5 w-5" />
               <span className="font-medium">
-                <Trans>Comments</Trans>
+                <Trans>Comments</Trans>{' '}
+                {video.stats.commentsTotal
+                  ? `( ${video.stats.commentsTotal} )`
+                  : null}
               </span>
             </h1>
             <CommentsFilter />

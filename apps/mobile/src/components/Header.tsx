@@ -2,24 +2,35 @@ import type { HeaderTitleProps } from '@react-navigation/elements'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React from 'react'
-import { Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
+
+import { theme } from '../constants/theme'
+import normalizeFont from '../helpers/normalize-font'
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  forYouText: {
+    color: theme.colors.primary[50],
+    fontFamily: 'font-bold',
+    fontWeight: '500',
+    fontSize: normalizeFont(15)
+  }
+})
 
 const Header: FC<HeaderTitleProps> = () => {
   return (
-    <View
-      style={{
-        display: 'flex',
-        width: '100%',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row'
-      }}
-    >
-      <Text>For you</Text>
+    <View style={styles.container}>
+      <Text style={styles.forYouText}>For Sasi</Text>
       <ExpoImage
         source="https://picsum.photos/seed/696/3000/2000"
         contentFit="cover"
-        style={{ width: 25, height: 25, borderRadius: 5 }}
+        style={{ width: 30, height: 30, borderRadius: 5 }}
       />
     </View>
   )

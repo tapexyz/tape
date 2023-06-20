@@ -1,6 +1,6 @@
 import { Image as ExpoImage } from 'expo-image'
 import { MotiView } from 'moti'
-import React, { useCallback, useReducer } from 'react'
+import React, { useCallback } from 'react'
 import {
   Pressable,
   ScrollView,
@@ -8,10 +8,10 @@ import {
   Text,
   TouchableOpacity
 } from 'react-native'
-import { useNotifications } from 'react-native-notificated'
 
-import { StatusBar } from '../components'
 import Container from '../components/Container'
+import { theme } from '../constants/theme'
+import { useNotifications } from '../hooks'
 
 const styles = StyleSheet.create({
   shape: {
@@ -34,7 +34,6 @@ export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
   const {
     navigation: { navigate }
   } = props
-  const [visible, toggle] = useReducer((s) => !s, true)
   const { notify } = useNotifications()
 
   const Shape = () => {
@@ -69,10 +68,9 @@ export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
 
   return (
     <Container>
-      <ScrollView style={{ flex: 1, paddingTop: 100 }}>
+      <ScrollView style={{ flex: 1 }}>
         <Pressable
           onPress={() => {
-            toggle()
             notify('success', {
               params: {
                 title: 'Hello',
@@ -83,15 +81,15 @@ export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
           }}
           style={styles.container}
         >
-          <StatusBar style="auto" />
-          {visible && <Shape />}
+          <Shape />
         </Pressable>
         <Pressable style={styles.container}>
-          <StatusBar style="auto" />
-          {visible && <Shape />}
+          <Shape />
         </Pressable>
-        <TouchableOpacity style={{ padding: 30 }} onPress={navigateToDetails}>
-          <Text>{'home_screen > details'}</Text>
+        <TouchableOpacity style={{ padding: 100 }} onPress={navigateToDetails}>
+          <Text style={{ color: theme.colors.primary[100] }}>
+            {'home_screen > details'}
+          </Text>
         </TouchableOpacity>
       </ScrollView>
     </Container>

@@ -14,7 +14,11 @@ const styles = StyleSheet.create({
 const Container: FC<PropsWithChildren> = ({ children }) => {
   return (
     <LinearGradient
-      colors={[theme.colors.gradient.from, theme.colors.gradient.to]}
+      colors={[
+        theme.colors.gradient.from,
+        theme.colors.gradient.from,
+        theme.colors.gradient.to
+      ]}
       style={styles.background}
     >
       {children}
