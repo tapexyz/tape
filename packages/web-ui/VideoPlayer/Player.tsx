@@ -8,6 +8,7 @@ export interface PlayerProps {
   playerRef?: (ref: HTMLMediaElement) => void
   permanentUrl: string
   posterUrl?: string
+  hlsUrl?: string
   ratio?: AspectRatio
   showControls?: boolean
   isLivestream?: 'true' | 'false'
@@ -24,6 +25,7 @@ export interface PlayerProps {
 const PlayerInstance: FC<PlayerProps> = ({
   ratio,
   permanentUrl,
+  hlsUrl,
   posterUrl,
   playerRef,
   options,
@@ -33,6 +35,7 @@ const PlayerInstance: FC<PlayerProps> = ({
 }) => {
   return isLivestream === 'true' ? (
     <Player
+      src={hlsUrl ?? permanentUrl}
       playbackId={livestreamPlaybackId}
       poster={posterUrl}
       showTitle={false}
@@ -56,7 +59,7 @@ const PlayerInstance: FC<PlayerProps> = ({
     </Player>
   ) : (
     <Player
-      src={permanentUrl}
+      src={hlsUrl ?? permanentUrl}
       poster={posterUrl}
       showTitle={false}
       objectFit="contain"

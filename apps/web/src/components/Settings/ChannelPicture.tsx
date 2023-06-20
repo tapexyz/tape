@@ -59,7 +59,11 @@ const ChannelPicture: React.FC<Props> = ({ channel }) => {
     if (selectedChannel && selectedPfp) {
       setSelectedChannel({
         ...selectedChannel,
-        picture: { original: { url: selectedPfp }, __typename: 'MediaSet' }
+        picture: {
+          original: { url: selectedPfp },
+          onChain: { url: selectedPfp },
+          __typename: 'MediaSet'
+        }
       })
     }
     toast.success(t`Channel image updated`)

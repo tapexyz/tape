@@ -5,7 +5,6 @@ export const LENSTUBE_APP_DESCRIPTION =
   'Dragverse is a livestreaming and decentralized video-sharing social media platform built with Lens protocol and inspired by the Lenstube project.'
 
 export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT ?? 'mainnet'
-// export const IS_MAINNET = LENS_ENV === 'mainnet'
 export const IS_MAINNET = LENS_ENV === 'mainnet'
 export const IS_STAGING = LENS_ENV === 'staging'
 export const IS_SANDBOX = LENS_ENV === 'sandbox'
@@ -32,13 +31,27 @@ export const DRAGVERSE_DECENTRALAND_URL =
 export const OG_IMAGE = `${FALLBACK_COVER_URL}`
 export const IMAGE_CDN_URL = IS_MAINNET ? 'https://img.lenstube.xyz' : ''
 export const SCROLL_ROOT_MARGIN = '40% 0px'
+export const LENS_IMAGEKIT_SNAPSHOT_URL =
+  'https://ik.imagekit.io/lens/media-snapshot'
+
+export const IMAGE_TRANSFORMATIONS = {
+  AVATAR: 'tr:w-60,h-60',
+  AVATAR_LG: 'tr:w-300,h-300',
+  THUMBNAIL: 'tr:w-720,h-404',
+  THUMBNAIL_V: 'tr:w-404,h-720',
+  SQUARE: 'tr:w-200,h-200'
+}
 
 // lens
 export const MAINNET_API_URL = 'https://api.lens.dev'
 export const TESTNET_API_URL = 'https://api-mumbai.lens.dev'
 export const STAGING_API_URL =
   'https://staging-api-social-mumbai.lens.crtlkey.com'
-export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
+export const LENS_API_URL = IS_MAINNET
+  ? MAINNET_API_URL
+  : IS_STAGING
+  ? STAGING_API_URL
+  : TESTNET_API_URL
 
 // API urls
 export const LENSTUBE_MAINNET_API_URL = 'https://api.lenstube.xyz'
@@ -75,10 +88,13 @@ export const POLYGONSCAN_URL = IS_MAINNET
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 // ipfs
-export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 2000 : 100
+export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 5000 : 100 // in MB
 export const IPFS_GATEWAY_URL = 'https://gateway.ipfscdn.io/ipfs'
 export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
+
+// walletconnect
+export const WC_PROJECT_ID = 'bf790b6b57570b99567abd1677b7415d'
 
 // livepeer
 export const LIVEPEER_STUDIO_API_KEY = '60935d4a-46ae-40fe-b580-f306a8ad2e48'
@@ -107,7 +123,7 @@ export const SIGN_IN_REQUIRED_MESSAGE = 'Sign in required'
 // App Ids
 export const LENSTUBE_APP_ID = 'dragverse'
 export const LENSTUBE_BYTES_APP_ID = 'dragverse-bytes'
-export const ALLOWED_APP_IDS = ['orb', 'lenster', 'buttrfly']
+export const ALLOWED_APP_IDS = ['orb', 'lenster', 'buttrfly', 'lensplay']
 
 // official
 export const LENSTUBE_TWITTER_HANDLE = 'metadragverse'

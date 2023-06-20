@@ -7,7 +7,10 @@ import React from 'react'
 import { LENSTUBE_BYTES_APP_ID } from 'utils'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
-import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
+import {
+  getPublicationHlsUrl,
+  getPublicationRawMediaUrl
+} from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import isWatchable from 'utils/functions/isWatchable'
@@ -52,7 +55,8 @@ const PinnedVideo: React.FC<Props> = ({ id }) => {
     <div className="mb-6 mt-2 grid grid-cols-3 overflow-hidden border-b border-gray-300 pb-6 dark:border-gray-700 md:space-x-5">
       <div className="overflow-hidden md:rounded-xl">
         <VideoPlayer
-          permanentUrl={getPublicationMediaUrl(pinnedPublication)}
+          permanentUrl={getPublicationRawMediaUrl(pinnedPublication)}
+          hlsUrl={getPublicationHlsUrl(pinnedPublication)}
           posterUrl={thumbnailUrl}
           isSensitiveContent={isSensitiveContent}
           options={{
@@ -61,7 +65,7 @@ const PinnedVideo: React.FC<Props> = ({ id }) => {
             loadingSpinner: true,
             isCurrentlyShown: true
           }}
-          isLivestream={'true'}
+          isLivestream={'false'}
         />
       </div>
       <div className="flex flex-col justify-between px-2 lg:col-span-2">

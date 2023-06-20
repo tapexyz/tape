@@ -4,7 +4,10 @@ import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
 import { Analytics, TRACK } from 'utils'
-import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
+import {
+  getPublicationHlsUrl,
+  getPublicationRawMediaUrl
+} from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
@@ -109,7 +112,8 @@ const ByteVideo: FC<Props> = ({
           {currentViewingId === video.id ? (
             <VideoPlayer
               refCallback={refCallback}
-              permanentUrl={getPublicationMediaUrl(video)}
+              permanentUrl={getPublicationRawMediaUrl(video)}
+              hlsUrl={getPublicationHlsUrl(video)}
               posterUrl={thumbnailUrl}
               ratio="9to16"
               publicationId={video.id}
@@ -133,7 +137,8 @@ const ByteVideo: FC<Props> = ({
               />
               <span className="invisible absolute">
                 <VideoPlayer
-                  permanentUrl={getPublicationMediaUrl(video)}
+                  permanentUrl={getPublicationRawMediaUrl(video)}
+                  hlsUrl={getPublicationHlsUrl(video)}
                   showControls={false}
                   options={{
                     autoPlay: false,

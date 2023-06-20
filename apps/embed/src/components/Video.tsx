@@ -9,7 +9,11 @@ import {
   TRACK
 } from 'utils'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
-import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
+import {
+  getPublicationHlsUrl,
+  getPublicationMediaUrl,
+  getPublicationRawMediaUrl
+} from 'utils/functions/getPublicationMediaUrl'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
@@ -82,7 +86,8 @@ const Video: React.FC<Props> = ({ video }) => {
       {clicked ? (
         <VideoPlayer
           refCallback={refCallback}
-          permanentUrl={getPublicationMediaUrl(video)}
+          permanentUrl={getPublicationRawMediaUrl(video)}
+          hlsUrl={getPublicationHlsUrl(video)}
           posterUrl={thumbnailUrl}
           publicationId={video.id}
           currentTime={currentTime}
