@@ -5,7 +5,6 @@ import React, { useCallback, useEffect } from 'react'
 import {
   Pressable,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View
@@ -21,14 +20,6 @@ import Animated, {
 import Container from '../components/Container'
 import { theme } from '../constants/theme'
 import { useNotifications } from '../hooks'
-
-const styles = StyleSheet.create({
-  imageContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
 
 export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
   const {
@@ -83,7 +74,6 @@ export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
       const inputRange = [-100, 0, 100]
       const outputRange = [-20, 0, 20]
       return {
-        justifyContent: 'center',
         width: 200,
         aspectRatio: 9 / 16,
         borderRadius: 10,
@@ -104,16 +94,16 @@ export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
     })
   }
 
-  const renderCard = React.useMemo(() => {
+  const renderCard = useCallback((source: string) => {
     return (
       <LinearGradient
         style={{ padding: 0.5 }}
-        colors={['gray', 'silver']}
-        start={{ x: 0, y: 1 }}
-        end={{ x: 1, y: 1 }}
+        colors={['gray', 'transparent']}
+        start={{ x: 0.7, y: 1 }}
+        end={{ x: 0.2, y: 0.9 }}
       >
         <ExpoImage
-          source="https://picsum.photos/seed/696/3000/2000"
+          source={source}
           contentFit="cover"
           style={{ width: '100%', height: '100%', borderRadius: 10 }}
         />
@@ -133,36 +123,34 @@ export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
             position: 'relative',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingVertical: 30
           }}
         >
           <Pressable
             style={{
               position: 'absolute',
-              left: 10,
-              justifyContent: 'center',
-              width: 150,
-              alignSelf: 'center',
+              left: 15,
+              width: 140,
               aspectRatio: 9 / 16,
               borderRadius: 10,
-              backgroundColor: 'red',
               overflow: 'hidden'
             }}
           >
-            {renderCard}
+            {renderCard('https://picsum.photos/seed/697/1700/3000')}
           </Pressable>
           <Pressable
             style={{
               position: 'absolute',
-              right: 10,
-              justifyContent: 'center',
-              width: 150,
+              right: 15,
+              width: 140,
               aspectRatio: 9 / 16,
               borderRadius: 10,
               overflow: 'hidden'
             }}
           >
-            {renderCard}
+            {renderCard('https://picsum.photos/seed/698/1700/3000')}
           </Pressable>
           <Pressable
             onPress={() => {
@@ -174,10 +162,9 @@ export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
                 }
               })
             }}
-            style={styles.imageContainer}
           >
             <Animated.View style={AnimatedStyles.motion}>
-              {renderCard}
+              {renderCard('https://picsum.photos/seed/699/1700/3000')}
             </Animated.View>
           </Pressable>
         </View>
