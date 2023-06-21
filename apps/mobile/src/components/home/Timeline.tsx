@@ -19,6 +19,7 @@ import normalizeFont from '../../helpers/normalize-font'
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 50,
     paddingHorizontal: 5,
     flex: 1,
     minHeight: Dimensions.get('screen').height

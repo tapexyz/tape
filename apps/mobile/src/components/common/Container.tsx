@@ -41,9 +41,8 @@ const Container: FC<PropsWithChildren> = ({ children }) => {
       const randomPosition = Math.floor(Math.random() * hexCharacters.length)
       hexColorRep += hexCharacters[randomPosition]
     }
-    hexColorRep += '40'
     setHomeGradientColor(hexColorRep)
-    return hexColorRep
+    return (hexColorRep += '25')
   }
 
   return (

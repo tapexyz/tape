@@ -1,12 +1,12 @@
 import { create } from 'zustand'
 
 interface AuthPerisistState {
-  homeGradientColor: string | null
-  setHomeGradientColor: (homeGradientColor: string | null) => void
+  homeGradientColor: string
+  setHomeGradientColor: (homeGradientColor: string) => void
 }
 
 const useMobileStore = create<AuthPerisistState>((set) => ({
-  homeGradientColor: null,
+  homeGradientColor: '#000000',
   setHomeGradientColor: (homeGradientColor) => set({ homeGradientColor })
 }))
 

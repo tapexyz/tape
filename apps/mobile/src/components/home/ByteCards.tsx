@@ -22,11 +22,13 @@ import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 
 import haptic from '../../helpers/haptic'
 import { useNotifications } from '../../hooks'
+import useMobileStore from '../../store'
 
 const BORDER_RADIUS = 20
 
 const ByteCards = () => {
   const { notify } = useNotifications()
+  const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
 
   const prevGyroValue = useSharedValue({
     x: 0,
@@ -100,10 +102,10 @@ const ByteCards = () => {
   const renderCard = useCallback((byte: Publication) => {
     return (
       <LinearGradient
-        style={{ padding: 2 }}
-        colors={['white', 'transparent']}
-        start={{ x: 0.7, y: 1 }}
-        end={{ x: 0.2, y: 0.9 }}
+        style={{ padding: 0.6 }}
+        colors={['gray', `${homeGradientColor}80` as string]}
+        // start={{ x: 0.7, y: 1 }}
+        // end={{ x: 0.2, y: 0.9 }}
       >
         <ExpoImage
           source={getThumbnailUrl(byte)}
