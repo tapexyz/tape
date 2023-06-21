@@ -2,12 +2,14 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
 import Header from '../components/common/Header'
-import { theme } from '../constants/theme'
 import { DetailsScreen, HomeScreen } from '../screens'
+import useMobileStore from '../store'
 
 const { Navigator, Screen } = createStackNavigator<HomeStackParamList>()
 
 export const HomeStack = (): JSX.Element => {
+  const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
+
   return (
     <Navigator>
       <Screen
@@ -19,7 +21,7 @@ export const HomeStack = (): JSX.Element => {
           headerShadowVisible: false,
           animationEnabled: true,
           headerStyle: {
-            backgroundColor: theme.colors.gradient.from,
+            backgroundColor: homeGradientColor as string,
             // hide header shadow
             shadowColor: 'transparent', // this covers iOS
             elevation: 0 // this covers Android

@@ -17,7 +17,7 @@ export const ExploreStack = (): JSX.Element => {
           headerTitle: (props) => <Header {...props} />,
           headerShadowVisible: false,
           headerStyle: {
-            backgroundColor: theme.colors.gradient.to
+            backgroundColor: theme.colors.background
           }
         }}
         component={ExploreScreen}

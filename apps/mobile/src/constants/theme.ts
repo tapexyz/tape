@@ -6,11 +6,11 @@ const commonColors = {
   background: '#000000',
   border: '#000',
   card: '#fff',
-  notification: '#000',
-  gradient: {
-    from: '#111827',
-    to: '#000000'
-  }
+  notification: '#000'
+  // gradient: {
+  //   from: '#111827',
+  //   to: '#000000'
+  // }
 }
 
 export const theme = {

@@ -23,6 +23,8 @@ import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import haptic from '../../helpers/haptic'
 import { useNotifications } from '../../hooks'
 
+const BORDER_RADIUS = 20
+
 const ByteCards = () => {
   const { notify } = useNotifications()
 
@@ -77,7 +79,7 @@ const ByteCards = () => {
         width: 200,
         marginBottom: 10,
         aspectRatio: 9 / 16,
-        borderRadius: 10,
+        borderRadius: BORDER_RADIUS,
         overflow: 'hidden',
         transform: [
           {
@@ -106,7 +108,7 @@ const ByteCards = () => {
         <ExpoImage
           source={getThumbnailUrl(byte)}
           contentFit="cover"
-          style={{ width: '100%', height: '100%', borderRadius: 10 }}
+          style={{ width: '100%', height: '100%', borderRadius: BORDER_RADIUS }}
         />
       </LinearGradient>
     )
@@ -114,7 +116,7 @@ const ByteCards = () => {
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 3,
+    limit: 10,
     noRandomize: false,
     sources: ['lenstube-bytes'],
     publicationTypes: [PublicationTypes.Post],
@@ -171,7 +173,7 @@ const ByteCards = () => {
           width: 170,
           opacity: 0.6,
           aspectRatio: 9 / 16,
-          borderRadius: 10,
+          borderRadius: BORDER_RADIUS,
           overflow: 'hidden'
         }}
       >
@@ -185,7 +187,7 @@ const ByteCards = () => {
           width: 170,
           opacity: 0.6,
           aspectRatio: 9 / 16,
-          borderRadius: 10,
+          borderRadius: BORDER_RADIUS,
           overflow: 'hidden'
         }}
       >
