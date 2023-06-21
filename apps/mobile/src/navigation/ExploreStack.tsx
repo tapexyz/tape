@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
-import Header from '../components/Header'
+import Header from '../components/common/Header'
 import { theme } from '../constants/theme'
 import { ExploreScreen } from '../screens/ExploreScreen'
 

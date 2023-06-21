@@ -3,7 +3,7 @@ import type { FC, PropsWithChildren } from 'react'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 
-import { theme } from '../constants/theme'
+import { theme } from '../../constants/theme'
 
 const styles = StyleSheet.create({
   background: {

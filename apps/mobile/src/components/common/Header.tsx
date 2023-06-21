@@ -4,8 +4,8 @@ import type { FC } from 'react'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { theme } from '../constants/theme'
-import normalizeFont from '../helpers/normalize-font'
+import { theme } from '../../constants/theme'
+import normalizeFont from '../../helpers/normalize-font'
 
 const styles = StyleSheet.create({
   container: {
@@ -28,9 +28,9 @@ const Header: FC<HeaderTitleProps> = () => {
     <View style={styles.container}>
       <Text style={styles.forYouText}>For Sasi</Text>
       <ExpoImage
-        source="https://picsum.photos/seed/696/3000/2000"
+        source="https://picsum.photos/seed/300/500/500"
         contentFit="cover"
-        style={{ width: 30, height: 30, borderRadius: 5 }}
+        style={{ width: 30, height: 30, borderRadius: 8 }}
       />
     </View>
   )
