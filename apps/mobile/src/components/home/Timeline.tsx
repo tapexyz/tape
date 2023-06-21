@@ -39,7 +39,7 @@ const TimelineCell = ({ item }: { item: Publication }) => {
       <ExpoImage
         source={thumbnailUrl}
         contentFit="cover"
-        style={{ width: '100%', height: 215, borderRadius: 8 }}
+        style={{ width: '100%', height: 215, borderRadius: 10 }}
       />
       <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
         <Text style={styles.title}>{item.metadata.name}</Text>
@@ -132,7 +132,7 @@ const Timeline = () => {
   return (
     <View style={styles.container}>
       <FlashList
-        ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
+        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
         renderItem={({ item }) => {
           return <TimelineCell item={item} />
         }}

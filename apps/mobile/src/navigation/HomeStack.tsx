@@ -21,7 +21,7 @@ export const HomeStack = (): JSX.Element => {
           headerShadowVisible: false,
           animationEnabled: true,
           headerStyle: {
-            backgroundColor: `${homeGradientColor}25` as string,
+            backgroundColor: `${homeGradientColor}25`,
             // hide header shadow
             shadowColor: 'transparent', // this covers iOS
             elevation: 0 // this covers Android

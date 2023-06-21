@@ -24,7 +24,7 @@ import haptic from '../../helpers/haptic'
 import { useNotifications } from '../../hooks'
 import useMobileStore from '../../store'
 
-const BORDER_RADIUS = 20
+const BORDER_RADIUS = 25
 
 const ByteCards = () => {
   const { notify } = useNotifications()
@@ -99,22 +99,29 @@ const ByteCards = () => {
     })
   }
 
-  const renderCard = useCallback((byte: Publication) => {
-    return (
-      <LinearGradient
-        style={{ padding: 0.6 }}
-        colors={['gray', `${homeGradientColor}80` as string]}
-        // start={{ x: 0.7, y: 1 }}
-        // end={{ x: 0.2, y: 0.9 }}
-      >
-        <ExpoImage
-          source={getThumbnailUrl(byte)}
-          contentFit="cover"
-          style={{ width: '100%', height: '100%', borderRadius: BORDER_RADIUS }}
-        />
-      </LinearGradient>
-    )
-  }, [])
+  const renderCard = useCallback(
+    (byte: Publication) => {
+      return (
+        <LinearGradient
+          style={{ padding: 1 }}
+          colors={['gray', `${homeGradientColor}80`]}
+          // start={{ x: 0.7, y: 1 }}
+          // end={{ x: 0.2, y: 0.9 }}
+        >
+          <ExpoImage
+            source={getThumbnailUrl(byte)}
+            contentFit="cover"
+            style={{
+              width: '100%',
+              height: '100%',
+              borderRadius: BORDER_RADIUS
+            }}
+          />
+        </LinearGradient>
+      )
+    },
+    [homeGradientColor]
+  )
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
@@ -171,9 +178,9 @@ const ByteCards = () => {
         onPress={() => haptic()}
         style={{
           position: 'absolute',
-          left: 15,
+          left: 20,
           width: 170,
-          opacity: 0.6,
+          opacity: 0.5,
           aspectRatio: 9 / 16,
           borderRadius: BORDER_RADIUS,
           overflow: 'hidden'
@@ -185,9 +192,9 @@ const ByteCards = () => {
         onPress={() => haptic()}
         style={{
           position: 'absolute',
-          right: 15,
+          right: 20,
           width: 170,
-          opacity: 0.6,
+          opacity: 0.5,
           aspectRatio: 9 / 16,
           borderRadius: BORDER_RADIUS,
           overflow: 'hidden'
