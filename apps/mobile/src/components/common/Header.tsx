@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   forYouText: {
-    color: theme.colors.primary[50],
+    color: theme.colors.primary,
     fontFamily: 'font-bold',
     fontWeight: '500',
     fontSize: normalizeFont(15)

@@ -1,6 +1,14 @@
 import { Image as ExpoImage } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Gyroscope } from 'expo-sensors'
+import type { Publication } from 'lens'
+import {
+  CustomFiltersTypes,
+  PublicationMainFocus,
+  PublicationSortCriteria,
+  PublicationTypes,
+  useExploreQuery
+} from 'lens'
 import React, { useCallback, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
 import Animated, {
@@ -10,7 +18,9 @@ import Animated, {
   useSharedValue,
   withSpring
 } from 'react-native-reanimated'
+import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 
+import haptic from '../../helpers/haptic'
 import { useNotifications } from '../../hooks'
 
 const ByteCards = () => {
@@ -65,6 +75,7 @@ const ByteCards = () => {
       const outputRange = [-20, 0, 20]
       return {
         width: 200,
+        marginBottom: 10,
         aspectRatio: 9 / 16,
         borderRadius: 10,
         overflow: 'hidden',
@@ -84,22 +95,44 @@ const ByteCards = () => {
     })
   }
 
-  const renderCard = useCallback((source: string) => {
+  const renderCard = useCallback((byte: Publication) => {
     return (
       <LinearGradient
-        style={{ padding: 0.5 }}
-        colors={['gray', 'transparent']}
+        style={{ padding: 2 }}
+        colors={['white', 'transparent']}
         start={{ x: 0.7, y: 1 }}
         end={{ x: 0.2, y: 0.9 }}
       >
         <ExpoImage
-          source={source}
+          source={getThumbnailUrl(byte)}
           contentFit="cover"
           style={{ width: '100%', height: '100%', borderRadius: 10 }}
         />
       </LinearGradient>
     )
   }, [])
+
+  const request = {
+    sortCriteria: PublicationSortCriteria.CuratedProfiles,
+    limit: 3,
+    noRandomize: false,
+    sources: ['lenstube-bytes'],
+    publicationTypes: [PublicationTypes.Post],
+    customFilters: [CustomFiltersTypes.Gardeners],
+    metadata: {
+      mainContentFocus: [PublicationMainFocus.Video]
+    }
+  }
+  const { data, loading, error } = useExploreQuery({
+    variables: { request }
+  })
+
+  if (loading || error) {
+    return null
+  }
+
+  const bytes = data?.explorePublications?.items as Publication[]
+
   return (
     <View
       style={{
@@ -113,30 +146,10 @@ const ByteCards = () => {
     >
       <Pressable
         style={{
-          position: 'absolute',
-          left: 15,
-          width: 140,
-          aspectRatio: 9 / 16,
-          borderRadius: 10,
-          overflow: 'hidden'
+          zIndex: 1
         }}
-      >
-        {renderCard('https://picsum.photos/seed/697/1700/3000')}
-      </Pressable>
-      <Pressable
-        style={{
-          position: 'absolute',
-          right: 15,
-          width: 140,
-          aspectRatio: 9 / 16,
-          borderRadius: 10,
-          overflow: 'hidden'
-        }}
-      >
-        {renderCard('https://picsum.photos/seed/698/1700/3000')}
-      </Pressable>
-      <Pressable
         onPress={() => {
+          haptic()
           notify('success', {
             params: {
               title: 'Hello',
@@ -147,8 +160,36 @@ const ByteCards = () => {
         }}
       >
         <Animated.View style={AnimatedStyles.motion}>
-          {renderCard('https://picsum.photos/seed/699/1700/3000')}
+          {renderCard(bytes[0])}
         </Animated.View>
+      </Pressable>
+      <Pressable
+        onPress={() => haptic()}
+        style={{
+          position: 'absolute',
+          left: 15,
+          width: 170,
+          opacity: 0.6,
+          aspectRatio: 9 / 16,
+          borderRadius: 10,
+          overflow: 'hidden'
+        }}
+      >
+        {renderCard(bytes[1])}
+      </Pressable>
+      <Pressable
+        onPress={() => haptic()}
+        style={{
+          position: 'absolute',
+          right: 15,
+          width: 170,
+          opacity: 0.6,
+          aspectRatio: 9 / 16,
+          borderRadius: 10,
+          overflow: 'hidden'
+        }}
+      >
+        {renderCard(bytes[2])}
       </Pressable>
     </View>
   )

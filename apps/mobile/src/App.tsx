@@ -2,6 +2,13 @@ import 'react-native-reanimated'
 // eslint-disable-next-line import/no-duplicates
 import 'react-native-gesture-handler'
 
+import {
+  ApolloClient,
+  ApolloProvider,
+  from,
+  HttpLink,
+  InMemoryCache
+} from '@apollo/client'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import React from 'react'
 import { StyleSheet } from 'react-native'
@@ -18,9 +25,20 @@ const styles = StyleSheet.create({
   }
 })
 
+const httpLink = new HttpLink({
+  uri: 'https://api.lens.dev',
+  fetchOptions: 'no-cors',
+  fetch
+})
+
+const apolloClient = new ApolloClient({
+  link: from([httpLink]),
+  cache: new InMemoryCache()
+})
+
 const App = (): JSX.Element => {
   return (
-    <>
+    <ApolloProvider client={apolloClient}>
       <NotificationsProvider />
       <AppLoading>
         <GestureHandlerRootView style={styles.gestureHandlerRootView}>
@@ -29,7 +47,7 @@ const App = (): JSX.Element => {
           </BottomSheetModalProvider>
         </GestureHandlerRootView>
       </AppLoading>
-    </>
+    </ApolloProvider>
   )
 }
 
