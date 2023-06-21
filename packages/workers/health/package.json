@@ -12,6 +12,6 @@
     "eslint-config-weblint": "*",
     "tsconfig": "*",
     "typescript": "^5.1.3",
-    "wrangler": "3.1.0"
+    "wrangler": "3.1.1"
   }
 }
