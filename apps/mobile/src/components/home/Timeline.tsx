@@ -10,6 +10,8 @@ import {
 } from 'lens'
 import React from 'react'
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { getRelativeTime } from 'utils/functions/formatTime'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 
 import { theme } from '../../constants/theme'
@@ -21,7 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
     minHeight: Dimensions.get('screen').height
   },
-  text: {
+  title: {
     color: theme.colors.primary,
     fontFamily: 'font-bold',
     fontSize: normalizeFont(12)
@@ -38,35 +40,70 @@ const TimelineCell = ({ item }: { item: Publication }) => {
         contentFit="cover"
         style={{ width: '100%', height: 215, borderRadius: 8 }}
       />
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingVertical: 20,
-          paddingHorizontal: 5
-        }}
-      >
+      <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
+        <Text style={styles.title}>{item.metadata.name}</Text>
+        {item.metadata.description && (
+          <Text
+            numberOfLines={3}
+            style={{
+              fontFamily: 'font-normal',
+              fontSize: normalizeFont(12),
+              color: theme.colors.secondary,
+              paddingTop: 10
+            }}
+          >
+            {item.metadata.description.replace('\n', '')}
+          </Text>
+        )}
         <View
           style={{
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'space-between',
-            gap: 10
+            alignItems: 'center',
+            gap: 6,
+            paddingTop: 10,
+            opacity: 0.8
           }}
         >
           <ExpoImage
-            source={`https://picsum.photos/seed/100/500/215`}
+            source={getProfilePicture(item.profile)}
             contentFit="cover"
-            style={{ width: 25, height: 25, borderRadius: 5 }}
+            style={{ width: 15, height: 15, borderRadius: 3 }}
           />
-          <Text style={styles.text}>
-            {item.profile.name || item.profile.handle}
+          <Text
+            style={{
+              fontFamily: 'font-normal',
+              fontSize: normalizeFont(10),
+              color: theme.colors.primary
+            }}
+          >
+            {item.profile.handle.replace('.lens', '')}
+          </Text>
+          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+            {'\u2B24'}
+          </Text>
+          <Text
+            style={{
+              fontFamily: 'font-normal',
+              fontSize: normalizeFont(10),
+              color: theme.colors.primary
+            }}
+          >
+            {item.stats.totalUpvotes} likes
+          </Text>
+          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+            {'\u2B24'}
+          </Text>
+          <Text
+            style={{
+              fontFamily: 'font-normal',
+              fontSize: normalizeFont(10),
+              color: theme.colors.primary
+            }}
+          >
+            {getRelativeTime(item.createdAt)}
           </Text>
         </View>
-      </View>
-      <View style={{}}>
-        <Text style={styles.text}>{item.metadata.name}</Text>
       </View>
     </View>
   )
@@ -94,6 +131,7 @@ const Timeline = () => {
   return (
     <View style={styles.container}>
       <FlashList
+        ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
         renderItem={({ item }) => {
           return <TimelineCell item={item} />
         }}
