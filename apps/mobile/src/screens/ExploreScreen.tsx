@@ -6,7 +6,6 @@ import { useNotifications } from 'react-native-notificated'
 
 const styles = StyleSheet.create({
   shape: {
-    justifyContent: 'center',
     height: 500,
     width: 250,
     borderRadius: 20,
