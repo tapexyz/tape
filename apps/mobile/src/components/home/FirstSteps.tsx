@@ -14,8 +14,7 @@ import normalizeFont from '../../helpers/normalize-font'
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
-    marginHorizontal: 15
+    margin: 10
   },
   card: {
     display: 'flex',

@@ -36,6 +36,12 @@ const TimelineCell = ({ item }: { item: Publication }) => {
 
   return (
     <View>
+      {/* <Player
+        src={getPublicationHlsUrl(item) ?? getPublicationRawMediaUrl(item)}
+        poster={{ uri: thumbnailUrl }}
+        showTitle={false}
+      /> */}
+
       <ExpoImage
         source={thumbnailUrl}
         contentFit="cover"
