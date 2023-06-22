@@ -39,7 +39,12 @@ const TimelineCell = ({ item }: { item: Publication }) => {
       <ExpoImage
         source={thumbnailUrl}
         contentFit="cover"
-        style={{ width: '100%', height: 215, borderRadius: 10 }}
+        style={{
+          width: '100%',
+          height: 215,
+          borderRadius: 10,
+          backgroundColor: theme.colors.background
+        }}
       />
       <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
         <Text style={styles.title}>{item.metadata.name}</Text>

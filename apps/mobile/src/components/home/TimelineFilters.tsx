@@ -8,18 +8,17 @@ import normalizeFont from '../../helpers/normalize-font'
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
-    paddingHorizontal: 5
+    marginTop: 30,
+    marginHorizontal: 10
   },
   filter: {
     paddingHorizontal: 15,
-    paddingVertical: 9,
+    paddingVertical: 7,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
-    borderRadius: 25,
-    marginRight: 10
+    borderRadius: 25
   },
   text: {
     fontFamily: 'font-bold',

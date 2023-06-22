@@ -10,7 +10,7 @@ import {
   useExploreQuery
 } from 'lens'
 import React, { useCallback, useEffect } from 'react'
-import { Pressable, View } from 'react-native'
+import { Pressable, Text, View } from 'react-native'
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -18,13 +18,16 @@ import Animated, {
   useSharedValue,
   withSpring
 } from 'react-native-reanimated'
+import getProfilePicture from 'utils/functions/getProfilePicture'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 
+import { theme } from '../../constants/theme'
 import haptic from '../../helpers/haptic'
+import normalizeFont from '../../helpers/normalize-font'
 import { useNotifications } from '../../hooks'
 import useMobileStore from '../../store'
 
-const BORDER_RADIUS = 25
+const BORDER_RADIUS = 15
 
 const ByteCards = () => {
   const { notify } = useNotifications()
@@ -103,8 +106,8 @@ const ByteCards = () => {
     (byte: Publication) => {
       return (
         <LinearGradient
-          style={{ padding: 1 }}
-          colors={['gray', `${homeGradientColor}80`]}
+          style={{ padding: 1, position: 'relative' }}
+          colors={['#00000070', `${homeGradientColor}80`]}
           // start={{ x: 0.7, y: 1 }}
           // end={{ x: 0.2, y: 0.9 }}
         >
@@ -117,6 +120,49 @@ const ByteCards = () => {
               borderRadius: BORDER_RADIUS
             }}
           />
+          <LinearGradient
+            colors={['transparent', '#00000030', '#00000080', '#00000090']}
+            style={{
+              width: '100%',
+              alignSelf: 'center',
+              position: 'absolute',
+              bottom: 0,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 6,
+              paddingVertical: 10,
+              opacity: 0.8
+            }}
+          >
+            <ExpoImage
+              source={getProfilePicture(byte.profile)}
+              contentFit="cover"
+              style={{ width: 15, height: 15, borderRadius: 3 }}
+            />
+            <Text
+              style={{
+                fontFamily: 'font-normal',
+                fontSize: normalizeFont(10),
+                color: theme.colors.primary
+              }}
+            >
+              {byte.profile.handle.replace('.lens', '')}
+            </Text>
+            <Text style={{ color: theme.colors.primary, fontSize: 3 }}>
+              {'\u2B24'}
+            </Text>
+            <Text
+              style={{
+                fontFamily: 'font-normal',
+                fontSize: normalizeFont(10),
+                color: theme.colors.primary
+              }}
+            >
+              {byte.stats.totalUpvotes} likes
+            </Text>
+          </LinearGradient>
         </LinearGradient>
       )
     },

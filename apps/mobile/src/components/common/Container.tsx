@@ -42,14 +42,15 @@ const Container: FC<PropsWithChildren> = ({ children }) => {
       hexColorRep += hexCharacters[randomPosition]
     }
     setHomeGradientColor(hexColorRep)
-    return (hexColorRep += '25')
+    return (hexColorRep += '35')
   }
 
   return (
     <LinearGradient
       colors={[generateJustOneColor(), 'transparent']}
-      start={{ x: 1, y: 0.2 }}
+      // start={{ x: 1, y: 0.2 }}
       style={styles.background}
+      locations={[0, 0.9]}
     >
       {children}
     </LinearGradient>

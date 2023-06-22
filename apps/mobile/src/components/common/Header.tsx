@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     color: theme.colors.primary,
     fontFamily: 'font-bold',
     fontWeight: '500',
-    fontSize: normalizeFont(15)
+    fontSize: normalizeFont(18)
   }
 })
 
