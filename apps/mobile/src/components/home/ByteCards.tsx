@@ -42,7 +42,7 @@ const ByteCards = () => {
   const derivedTranslations = useDerivedValue(() => {
     'worklet'
     const MAX_X = 40
-    const MAX_Y = 40
+    const MAX_Y = 10
 
     let newX = prevGyroValue.value.x + gyroValue.value.y * -2
     let newY = prevGyroValue.value.y + gyroValue.value.x * -2

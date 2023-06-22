@@ -6,7 +6,9 @@ const commonColors = {
   background: '#000000',
   border: '#000',
   card: '#fff',
-  notification: '#000'
+  notification: '#000',
+  black: '#000',
+  white: '#fff'
   // gradient: {
   //   from: '#111827',
   //   to: '#000000'
