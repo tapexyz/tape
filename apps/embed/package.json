@@ -12,10 +12,10 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.15",
+    "@apollo/client": "^3.7.16",
     "@livepeer/react": "^2.5.8",
     "clsx": "^1.2.1",
-    "graphql": "^16.6.0",
+    "graphql": "^16.7.0",
     "mixpanel-browser": "^2.47.0",
     "next": "13.4.2",
     "react": "18.2.0",
