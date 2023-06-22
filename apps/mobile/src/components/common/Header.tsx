@@ -6,6 +6,7 @@ import { StyleSheet, Text, View } from 'react-native'
 
 import { theme } from '../../constants/theme'
 import normalizeFont from '../../helpers/normalize-font'
+import { useAuth } from '../../hooks/useAuth'
 
 const styles = StyleSheet.create({
   container: {
@@ -24,13 +25,14 @@ const styles = StyleSheet.create({
 })
 
 const Header: FC<HeaderTitleProps> = () => {
+  const isSignedIn = useAuth((state) => state.isSignedIn)
   return (
     <View style={styles.container}>
-      <Text style={styles.forYouText}>For Sasi</Text>
+      <Text style={styles.forYouText}>{isSignedIn ? 'For Sasi' : 'gm'}</Text>
       <ExpoImage
-        source="https://picsum.photos/seed/300/500/500"
+        source={require('assets/icons/herb.png')}
         contentFit="cover"
-        style={{ width: 30, height: 30, borderRadius: 8 }}
+        style={{ width: 20, height: 20, borderRadius: 8 }}
       />
     </View>
   )
