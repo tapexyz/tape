@@ -28,6 +28,31 @@ const styles = StyleSheet.create({
     color: theme.colors.primary,
     fontFamily: 'font-bold',
     fontSize: normalizeFont(12)
+  },
+  description: {
+    fontFamily: 'font-normal',
+    fontSize: normalizeFont(12),
+    color: theme.colors.secondary,
+    paddingTop: 10
+  },
+  thumbnail: {
+    width: '100%',
+    height: 215,
+    borderRadius: 10,
+    backgroundColor: theme.colors.background
+  },
+  otherInfoContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingTop: 10,
+    opacity: 0.8
+  },
+  otherInfo: {
+    fontFamily: 'font-normal',
+    fontSize: normalizeFont(10),
+    color: theme.colors.primary
   }
 })
 
@@ -36,83 +61,35 @@ const TimelineCell = ({ item }: { item: Publication }) => {
 
   return (
     <View>
-      {/* <Player
-        src={getPublicationHlsUrl(item) ?? getPublicationRawMediaUrl(item)}
-        poster={{ uri: thumbnailUrl }}
-        showTitle={false}
-      /> */}
-
       <ExpoImage
         source={thumbnailUrl}
         contentFit="cover"
-        style={{
-          width: '100%',
-          height: 215,
-          borderRadius: 10,
-          backgroundColor: theme.colors.background
-        }}
+        style={styles.thumbnail}
       />
       <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
         <Text style={styles.title}>{item.metadata.name}</Text>
         {item.metadata.description && (
-          <Text
-            numberOfLines={3}
-            style={{
-              fontFamily: 'font-normal',
-              fontSize: normalizeFont(12),
-              color: theme.colors.secondary,
-              paddingTop: 10
-            }}
-          >
+          <Text numberOfLines={3} style={styles.description}>
             {item.metadata.description.replace('\n', '')}
           </Text>
         )}
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 6,
-            paddingTop: 10,
-            opacity: 0.8
-          }}
-        >
+        <View style={styles.otherInfoContainer}>
           <ExpoImage
             source={getProfilePicture(item.profile)}
             contentFit="cover"
             style={{ width: 15, height: 15, borderRadius: 3 }}
           />
-          <Text
-            style={{
-              fontFamily: 'font-normal',
-              fontSize: normalizeFont(10),
-              color: theme.colors.primary
-            }}
-          >
+          <Text style={styles.otherInfo}>
             {item.profile.handle.replace('.lens', '')}
           </Text>
           <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
-          <Text
-            style={{
-              fontFamily: 'font-normal',
-              fontSize: normalizeFont(10),
-              color: theme.colors.primary
-            }}
-          >
-            {item.stats.totalUpvotes} likes
-          </Text>
+          <Text style={styles.otherInfo}>{item.stats.totalUpvotes} likes</Text>
           <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
-          <Text
-            style={{
-              fontFamily: 'font-normal',
-              fontSize: normalizeFont(10),
-              color: theme.colors.primary
-            }}
-          >
+          <Text style={styles.otherInfo}>
             {getRelativeTime(item.createdAt)}
           </Text>
         </View>
@@ -133,11 +110,10 @@ const Timeline = () => {
       mainContentFocus: [PublicationMainFocus.Video]
     }
   }
-  const { data, loading, error, fetchMore } = useExploreQuery({
+  const { data } = useExploreQuery({
     variables: { request }
   })
 
-  const pageInfo = data?.explorePublications?.pageInfo
   const videos = data?.explorePublications?.items as Publication[]
 
   return (
