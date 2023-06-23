@@ -2,6 +2,7 @@ import { IS_MAINNET } from '../../constants'
 
 export const CREATORS = IS_MAINNET
   ? [
+      '0x01c831', // thedefiant.lens
       '0x018d04', // dumpling.lens
       '0x01a5c1', // thesymmetrical.lens
       '0x01c5b9', // galverse.lens
