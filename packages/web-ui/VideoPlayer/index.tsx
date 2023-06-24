@@ -19,6 +19,7 @@ const VideoPlayer: FC<Props> = ({
   ratio = '16to9',
   isSensitiveContent,
   currentTime = 0,
+  address,
   refCallback,
   options,
   showControls = true
@@ -55,6 +56,7 @@ const VideoPlayer: FC<Props> = ({
             permanentUrl={permanentUrl}
             hlsUrl={hlsUrl}
             ratio={ratio}
+            address={address}
             playerRef={mediaElementRef}
             options={options}
             showControls={showControls}
