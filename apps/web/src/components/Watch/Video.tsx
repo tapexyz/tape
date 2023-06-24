@@ -1,6 +1,7 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
 import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import type { Publication } from 'lens'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
@@ -30,6 +31,8 @@ type Props = {
 const Video: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const videoWatchTime = useAppStore((state) => state.videoWatchTime)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+
   const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(video, true)),
@@ -45,6 +48,7 @@ const Video: FC<Props> = ({ video }) => {
   return (
     <div className="overflow-hidden">
       <VideoPlayer
+        address={selectedChannel?.ownedBy}
         refCallback={refCallback}
         currentTime={videoWatchTime}
         permanentUrl={getPublicationRawMediaUrl(video)}

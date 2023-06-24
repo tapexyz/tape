@@ -1,4 +1,5 @@
 import CollectVideo from '@components/Watch/CollectVideo'
+import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import type { Publication } from 'lens'
 import type { FC } from 'react'
@@ -36,6 +37,7 @@ const ByteVideo: FC<Props> = ({
     'THUMBNAIL_V'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, true)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const playVideo = () => {
     if (!videoRef.current) {
@@ -111,6 +113,7 @@ const ByteVideo: FC<Props> = ({
           />
           {currentViewingId === video.id ? (
             <VideoPlayer
+              address={selectedChannel?.ownedBy}
               refCallback={refCallback}
               permanentUrl={getPublicationRawMediaUrl(video)}
               hlsUrl={getPublicationHlsUrl(video)}
