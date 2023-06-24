@@ -3,6 +3,7 @@ import type { FC, PropsWithChildren } from 'react'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 
+import { theme } from '../../constants/theme'
 import useMobileStore from '../../store'
 
 const styles = StyleSheet.create({
@@ -31,11 +32,15 @@ const hexCharacters = [
 ]
 
 const Container: FC<PropsWithChildren> = ({ children }) => {
+  const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
   const setHomeGradientColor = useMobileStore(
     (state) => state.setHomeGradientColor
   )
 
   const generateJustOneColor = () => {
+    if (homeGradientColor !== theme.colors.black) {
+      return `${homeGradientColor}35`
+    }
     let hexColorRep = '#'
     for (let index = 0; index < 6; index++) {
       const randomPosition = Math.floor(Math.random() * hexCharacters.length)

@@ -4,6 +4,8 @@ import React, { useReducer } from 'react'
 import { Pressable, ScrollView, StyleSheet } from 'react-native'
 import { useNotifications } from 'react-native-notificated'
 
+import Container from '../components/common/Container'
+
 const styles = StyleSheet.create({
   shape: {
     height: 500,
@@ -52,22 +54,24 @@ export const ExploreScreen = (props: ExploreScreenProps): JSX.Element => {
   }
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <Pressable
-        onPress={() => {
-          toggle()
-          notify('success', {
-            params: {
-              title: 'Hello',
-              description: 'Wow, that was easy',
-              hideCloseButton: true
-            }
-          })
-        }}
-        style={styles.container}
-      >
-        {visible && <Shape />}
-      </Pressable>
-    </ScrollView>
+    <Container>
+      <ScrollView style={{ flex: 1 }}>
+        <Pressable
+          onPress={() => {
+            toggle()
+            notify('success', {
+              params: {
+                title: 'Hello',
+                description: 'Wow, that was easy',
+                hideCloseButton: true
+              }
+            })
+          }}
+          style={styles.container}
+        >
+          {visible && <Shape />}
+        </Pressable>
+      </ScrollView>
+    </Container>
   )
 }
