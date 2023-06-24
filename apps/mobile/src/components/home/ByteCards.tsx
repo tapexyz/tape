@@ -9,6 +9,7 @@ import {
   PublicationTypes,
   useExploreQuery
 } from 'lens'
+import { Skeleton } from 'moti/skeleton'
 import React, { useCallback, useEffect } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import Animated, {
@@ -198,7 +199,7 @@ const ByteCards = () => {
     variables: { request }
   })
 
-  if (loading || error) {
+  if (error) {
     return null
   }
 
@@ -206,25 +207,34 @@ const ByteCards = () => {
 
   return (
     <View style={styles.cardsContainer}>
-      <Pressable
+      <View
         style={{
           zIndex: 1
         }}
-        onPress={() => {
-          haptic()
-          notify('success', {
-            params: {
-              title: 'Hello',
-              description: 'Wow, that was easy',
-              hideCloseButton: true
-            }
-          })
-        }}
       >
-        <Animated.View style={AnimatedStyles.motion}>
-          {renderCard(bytes[0])}
-        </Animated.View>
-      </Pressable>
+        <Skeleton
+          show={loading}
+          colors={[`${homeGradientColor}10`, '#00000080']}
+          radius={BORDER_RADIUS}
+        >
+          <Pressable
+            onPress={() => {
+              haptic()
+              notify('success', {
+                params: {
+                  title: 'Hello',
+                  description: 'Wow, that was easy',
+                  hideCloseButton: true
+                }
+              })
+            }}
+          >
+            <Animated.View style={AnimatedStyles.motion}>
+              {bytes?.length && renderCard(bytes[0])}
+            </Animated.View>
+          </Pressable>
+        </Skeleton>
+      </View>
       <Pressable
         onPress={() => haptic()}
         style={[
@@ -234,7 +244,7 @@ const ByteCards = () => {
           }
         ]}
       >
-        {renderCard(bytes[1])}
+        {bytes?.length && renderCard(bytes[1])}
       </Pressable>
       <Pressable
         onPress={() => haptic()}
@@ -245,7 +255,7 @@ const ByteCards = () => {
           }
         ]}
       >
-        {renderCard(bytes[2])}
+        {bytes?.length && renderCard(bytes[2])}
       </Pressable>
     </View>
   )

@@ -1,12 +1,7 @@
 import { Image as ExpoImage } from 'expo-image'
-import React from 'react'
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native'
+import { MotiPressable } from 'moti/interactions'
+import React, { useMemo } from 'react'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import { theme } from '../../constants/theme'
 import haptic from '../../helpers/haptic'
@@ -41,6 +36,17 @@ const styles = StyleSheet.create({
 })
 
 const PopularCreators = () => {
+  const animatePress = useMemo(
+    () =>
+      ({ pressed }: { pressed: boolean }) => {
+        'worklet'
+        return {
+          scale: pressed ? 0.9 : 1
+        }
+      },
+    []
+  )
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Popular Creators</Text>
@@ -52,8 +58,8 @@ const PopularCreators = () => {
           paddingTop: 20
         }}
       >
-        <TouchableOpacity
-          activeOpacity={0.7}
+        <MotiPressable
+          animate={animatePress}
           onPress={() => haptic()}
           style={styles.imageContainer}
         >
@@ -63,9 +69,9 @@ const PopularCreators = () => {
             }}
             style={styles.image}
           />
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.7}
+        </MotiPressable>
+        <MotiPressable
+          animate={animatePress}
           onPress={() => haptic()}
           style={styles.imageContainer}
         >
@@ -75,9 +81,9 @@ const PopularCreators = () => {
             }}
             style={styles.image}
           />
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.7}
+        </MotiPressable>
+        <MotiPressable
+          animate={animatePress}
           onPress={() => haptic()}
           style={styles.imageContainer}
         >
@@ -87,9 +93,9 @@ const PopularCreators = () => {
             }}
             style={styles.image}
           />
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.7}
+        </MotiPressable>
+        <MotiPressable
+          animate={animatePress}
           onPress={() => haptic()}
           style={styles.imageContainer}
         >
@@ -99,7 +105,7 @@ const PopularCreators = () => {
             }}
             style={styles.image}
           />
-        </TouchableOpacity>
+        </MotiPressable>
       </ScrollView>
     </View>
   )

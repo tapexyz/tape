@@ -41,7 +41,7 @@ const Filters = () => {
     >
       <Pressable
         onPress={() => haptic()}
-        style={[styles.filter, { backgroundColor: theme.colors.secondary }]}
+        style={[styles.filter, { backgroundColor: '#ffffff70' }]}
       >
         <Text style={[styles.text, { color: theme.colors.black }]}>All</Text>
       </Pressable>

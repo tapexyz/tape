@@ -1,12 +1,7 @@
 import { Image as ExpoImage } from 'expo-image'
-import React from 'react'
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native'
+import { MotiPressable } from 'moti/interactions'
+import React, { useMemo } from 'react'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import { theme } from '../../constants/theme'
 import haptic from '../../helpers/haptic'
@@ -56,6 +51,17 @@ const styles = StyleSheet.create({
 })
 
 const FirstSteps = () => {
+  const animatePress = useMemo(
+    () =>
+      ({ pressed }: { pressed: boolean }) => {
+        'worklet'
+        return {
+          scale: pressed ? 0.9 : 1
+        }
+      },
+    []
+  )
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>First steps with Pripe</Text>
@@ -67,8 +73,8 @@ const FirstSteps = () => {
           paddingTop: 20
         }}
       >
-        <TouchableOpacity
-          activeOpacity={0.7}
+        <MotiPressable
+          animate={animatePress}
           onPress={() => haptic()}
           style={[styles.card, { backgroundColor: '#ACD8AA' }]}
         >
@@ -80,9 +86,9 @@ const FirstSteps = () => {
             <Text style={styles.cardTitle}>SIWL</Text>
             <Text style={styles.cardDescription}>Sign in with Lens</Text>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.7}
+        </MotiPressable>
+        <MotiPressable
+          animate={animatePress}
           onPress={() => haptic()}
           style={[styles.card, { backgroundColor: '#F0E2A3' }]}
         >
@@ -94,9 +100,9 @@ const FirstSteps = () => {
             <Text style={styles.cardTitle}>Wallet</Text>
             <Text style={styles.cardDescription}>Enable Dispatcher</Text>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.7}
+        </MotiPressable>
+        <MotiPressable
+          animate={animatePress}
           onPress={() => haptic()}
           style={[styles.card, { backgroundColor: '#B3B3F1' }]}
         >
@@ -108,7 +114,7 @@ const FirstSteps = () => {
             <Text style={styles.cardTitle}>Lens</Text>
             <Text style={styles.cardDescription}>Share your first Byte</Text>
           </View>
-        </TouchableOpacity>
+        </MotiPressable>
       </ScrollView>
     </View>
   )
