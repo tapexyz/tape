@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native'
 import Container from '../components/common/Container'
 import Timeline from '../components/common/Timeline'
 import Filters from '../components/explore/Filters'
+import Showcase from '../components/explore/Showcase'
 
 export const ExploreScreen = (props: ExploreScreenProps): JSX.Element => {
   const {
@@ -13,6 +14,7 @@ export const ExploreScreen = (props: ExploreScreenProps): JSX.Element => {
   return (
     <Container>
       <ScrollView style={{ flex: 1 }}>
+        <Showcase />
         <Filters />
         <Timeline />
       </ScrollView>

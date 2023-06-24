@@ -2,7 +2,7 @@ import type { Theme } from '@react-navigation/native'
 
 const commonColors = {
   primary: '#ffffff',
-  secondary: '#ffffff80',
+  secondary: '#ffffff90',
   background: '#000000',
   border: '#000',
   card: '#fff',

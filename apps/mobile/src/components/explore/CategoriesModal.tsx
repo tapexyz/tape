@@ -177,6 +177,7 @@ const CategoriesModal = (): JSX.Element => {
   const { goBack } = useNavigation()
   const { top } = useSafeAreaInsets()
   const { height } = useWindowDimensions()
+  const isAndroid = Platform.OS === 'android'
 
   return (
     <BlurView
@@ -185,8 +186,7 @@ const CategoriesModal = (): JSX.Element => {
       style={[
         styles.container,
         {
-          backgroundColor:
-            Platform.OS === 'android' ? theme.colors.black : undefined
+          backgroundColor: isAndroid ? theme.colors.black : '#00000080'
         }
       ]}
     >

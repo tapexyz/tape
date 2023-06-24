@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
 
 const TopsModal = (): JSX.Element => {
   const { goBack } = useNavigation()
+  const isAndroid = Platform.OS === 'android'
 
   return (
     <BlurView
@@ -59,8 +60,7 @@ const TopsModal = (): JSX.Element => {
       style={[
         styles.container,
         {
-          backgroundColor:
-            Platform.OS === 'android' ? theme.colors.black : undefined
+          backgroundColor: isAndroid ? theme.colors.black : '#00000080'
         }
       ]}
     >

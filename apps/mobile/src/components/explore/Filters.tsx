@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'font-bold',
     fontSize: normalizeFont(12),
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
+    color: theme.colors.white
   }
 })
 
@@ -41,9 +42,9 @@ const Filters = () => {
     >
       <Pressable
         onPress={() => haptic()}
-        style={[styles.filter, { backgroundColor: '#ffffff70' }]}
+        style={[styles.filter, { backgroundColor: '#ffffff50' }]}
       >
-        <Text style={[styles.text, { color: theme.colors.black }]}>All</Text>
+        <Text style={styles.text}>All</Text>
       </Pressable>
       <Pressable
         onPress={() => {
@@ -52,9 +53,7 @@ const Filters = () => {
         }}
         style={styles.filter}
       >
-        <Text style={[styles.text, { color: theme.colors.white }]}>
-          Top Tens
-        </Text>
+        <Text style={styles.text}>Top Tens</Text>
         <Ionicons
           name="chevron-down-outline"
           color={theme.colors.white}
@@ -68,9 +67,7 @@ const Filters = () => {
         }}
         style={styles.filter}
       >
-        <Text style={[styles.text, { color: theme.colors.white }]}>
-          Categories
-        </Text>
+        <Text style={styles.text}>Categories</Text>
         <Ionicons
           name="chevron-down-outline"
           color={theme.colors.white}
