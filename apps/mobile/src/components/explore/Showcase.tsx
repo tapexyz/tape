@@ -83,7 +83,7 @@ const Showcase = () => {
       <View style={styles.grid}>
         <MotiView
           style={styles.gridCard}
-          from={{ opacity: 0, scale: 0.5 }}
+          from={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
             type: 'timing',
@@ -106,7 +106,7 @@ const Showcase = () => {
         </MotiView>
         <MotiView
           style={styles.gridCard}
-          from={{ opacity: 0, scale: 0.5 }}
+          from={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
             type: 'timing',
@@ -130,7 +130,7 @@ const Showcase = () => {
       </View>
       <MotiView
         style={styles.card}
-        from={{ opacity: 0, scale: 0.5 }}
+        from={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{
           type: 'timing',
