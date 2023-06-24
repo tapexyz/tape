@@ -1,10 +1,13 @@
+import Ionicons from '@expo/vector-icons/Ionicons'
 import type { HeaderTitleProps } from '@react-navigation/elements'
 import { Image as ExpoImage } from 'expo-image'
+import { MotiPressable } from 'moti/interactions'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import { theme } from '../../constants/theme'
+import haptic from '../../helpers/haptic'
 import normalizeFont from '../../helpers/normalize-font'
 import { useAuth } from '../../hooks/useAuth'
 
@@ -16,6 +19,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center'
   },
+  rightView: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 20
+  },
   forYouText: {
     color: theme.colors.primary,
     fontFamily: 'font-bold',
@@ -26,14 +35,58 @@ const styles = StyleSheet.create({
 
 const Header: FC<HeaderTitleProps> = () => {
   const isSignedIn = useAuth((state) => state.isSignedIn)
+  const animatePress = useMemo(
+    () =>
+      ({ pressed }: { pressed: boolean }) => {
+        'worklet'
+        return {
+          scale: pressed ? 0.9 : 1
+        }
+      },
+    []
+  )
+
   return (
     <View style={styles.container}>
       <Text style={styles.forYouText}>{isSignedIn ? 'For Sasi' : 'gm'}</Text>
-      <ExpoImage
-        source={require('assets/icons/herb.png')}
-        contentFit="cover"
-        style={{ width: 20, height: 20, borderRadius: 8 }}
-      />
+      <View style={styles.rightView}>
+        <MotiPressable
+          onPress={() => {
+            haptic()
+          }}
+          animate={animatePress}
+        >
+          <Ionicons
+            name="add-circle-outline"
+            color={theme.colors.white}
+            size={25}
+          />
+        </MotiPressable>
+        <MotiPressable
+          onPress={() => {
+            haptic()
+          }}
+          animate={animatePress}
+        >
+          <Ionicons
+            name="notifications-outline"
+            color={theme.colors.white}
+            size={23}
+          />
+        </MotiPressable>
+        <MotiPressable
+          onPress={() => {
+            haptic()
+          }}
+          animate={animatePress}
+        >
+          <ExpoImage
+            source={require('assets/icons/herb.png')}
+            contentFit="cover"
+            style={{ width: 23, height: 23, borderRadius: 8 }}
+          />
+        </MotiPressable>
+      </View>
     </View>
   )
 }
