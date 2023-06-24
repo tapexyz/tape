@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     marginRight: 6
   },
   title: {
-    fontFamily: 'font-extrabold',
+    fontFamily: 'font-bold',
     color: theme.colors.white,
     fontSize: normalizeFont(14)
   },

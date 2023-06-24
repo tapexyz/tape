@@ -39,7 +39,7 @@ const TimelineFilters = () => {
     >
       <Pressable
         onPress={() => haptic()}
-        style={[styles.filter, { backgroundColor: 'white' }]}
+        style={[styles.filter, { backgroundColor: theme.colors.white }]}
       >
         <ExpoImage
           source={require('assets/icons/in-love.png')}

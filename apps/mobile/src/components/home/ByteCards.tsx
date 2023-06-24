@@ -10,7 +10,7 @@ import {
   useExploreQuery
 } from 'lens'
 import React, { useCallback, useEffect } from 'react'
-import { Pressable, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -29,6 +29,48 @@ import useMobileStore from '../../store'
 
 const BORDER_RADIUS = 15
 
+const styles = StyleSheet.create({
+  gradient: {
+    width: '100%',
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 0,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 6,
+    paddingVertical: 10,
+    opacity: 0.8
+  },
+  thumbnail: {
+    width: '100%',
+    height: '100%',
+    borderRadius: BORDER_RADIUS
+  },
+  otherInfo: {
+    fontFamily: 'font-medium',
+    fontSize: normalizeFont(10),
+    color: theme.colors.primary
+  },
+  cardsContainer: {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 30
+  },
+  backgroundCards: {
+    position: 'absolute',
+    width: 170,
+    opacity: 0.5,
+    aspectRatio: 9 / 16,
+    borderRadius: BORDER_RADIUS,
+    overflow: 'hidden'
+  }
+})
+
 const ByteCards = () => {
   const { notify } = useNotifications()
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
@@ -45,7 +87,7 @@ const ByteCards = () => {
   const derivedTranslations = useDerivedValue(() => {
     'worklet'
     const MAX_X = 40
-    const MAX_Y = 10
+    const MAX_Y = 20
 
     let newX = prevGyroValue.value.x + gyroValue.value.y * -2
     let newY = prevGyroValue.value.y + gyroValue.value.x * -2
@@ -114,52 +156,24 @@ const ByteCards = () => {
           <ExpoImage
             source={getThumbnailUrl(byte)}
             contentFit="cover"
-            style={{
-              width: '100%',
-              height: '100%',
-              borderRadius: BORDER_RADIUS
-            }}
+            style={styles.thumbnail}
           />
           <LinearGradient
-            colors={['transparent', '#00000030', '#00000080', '#00000090']}
-            style={{
-              width: '100%',
-              alignSelf: 'center',
-              position: 'absolute',
-              bottom: 0,
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: 6,
-              paddingVertical: 10,
-              opacity: 0.8
-            }}
+            colors={['transparent', '#00000080', '#00000090']}
+            style={styles.gradient}
           >
             <ExpoImage
               source={getProfilePicture(byte.profile)}
               contentFit="cover"
               style={{ width: 15, height: 15, borderRadius: 3 }}
             />
-            <Text
-              style={{
-                fontFamily: 'font-normal',
-                fontSize: normalizeFont(10),
-                color: theme.colors.primary
-              }}
-            >
+            <Text style={styles.otherInfo}>
               {byte.profile.handle.replace('.lens', '')}
             </Text>
             <Text style={{ color: theme.colors.primary, fontSize: 3 }}>
               {'\u2B24'}
             </Text>
-            <Text
-              style={{
-                fontFamily: 'font-normal',
-                fontSize: normalizeFont(10),
-                color: theme.colors.primary
-              }}
-            >
+            <Text style={styles.otherInfo}>
               {byte.stats.totalUpvotes} likes
             </Text>
           </LinearGradient>
@@ -191,16 +205,7 @@ const ByteCards = () => {
   const bytes = data?.explorePublications?.items as Publication[]
 
   return (
-    <View
-      style={{
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingVertical: 30
-      }}
-    >
+    <View style={styles.cardsContainer}>
       <Pressable
         style={{
           zIndex: 1
@@ -222,29 +227,23 @@ const ByteCards = () => {
       </Pressable>
       <Pressable
         onPress={() => haptic()}
-        style={{
-          position: 'absolute',
-          left: 20,
-          width: 170,
-          opacity: 0.5,
-          aspectRatio: 9 / 16,
-          borderRadius: BORDER_RADIUS,
-          overflow: 'hidden'
-        }}
+        style={[
+          styles.backgroundCards,
+          {
+            left: 20
+          }
+        ]}
       >
         {renderCard(bytes[1])}
       </Pressable>
       <Pressable
         onPress={() => haptic()}
-        style={{
-          position: 'absolute',
-          right: 20,
-          width: 170,
-          opacity: 0.5,
-          aspectRatio: 9 / 16,
-          borderRadius: BORDER_RADIUS,
-          overflow: 'hidden'
-        }}
+        style={[
+          styles.backgroundCards,
+          {
+            right: 20
+          }
+        ]}
       >
         {renderCard(bytes[2])}
       </Pressable>

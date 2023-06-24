@@ -23,6 +23,7 @@
     "@shopify/flash-list": "1.4.0",
     "expo": "~48.0.18",
     "expo-av": "~13.2.1",
+    "expo-blur": "~12.2.2",
     "expo-image": "~1.0.1",
     "expo-linear-gradient": "~12.1.2",
     "expo-linking": "^4.0.1",
