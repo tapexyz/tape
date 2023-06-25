@@ -3,7 +3,6 @@ const nextConfig = {
   transpilePackages: [
     '@lenstube/browser',
     '@lenstube/generic',
-    '@lenstube/constants',
     '@lenstube/lens'
   ],
   reactStrictMode: true,
