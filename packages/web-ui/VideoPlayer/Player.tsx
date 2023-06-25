@@ -11,6 +11,7 @@ export interface PlayerProps {
   hlsUrl?: string
   ratio?: AspectRatio
   showControls?: boolean
+  address?: string
   options: {
     autoPlay?: boolean
     muted?: boolean
@@ -27,6 +28,7 @@ const PlayerInstance: FC<PlayerProps> = ({
   posterUrl,
   playerRef,
   options,
+  address,
   showControls
 }) => {
   return (
@@ -37,6 +39,7 @@ const PlayerInstance: FC<PlayerProps> = ({
       objectFit="contain"
       aspectRatio={ratio}
       showPipButton
+      viewerId={address}
       mediaElementRef={playerRef}
       loop={options.loop ?? true}
       showUploadingIndicator={false}

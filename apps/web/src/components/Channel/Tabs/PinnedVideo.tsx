@@ -1,4 +1,5 @@
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
+import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import type { Publication } from 'lens'
 import { usePublicationDetailsQuery } from 'lens'
@@ -29,6 +30,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     },
     skip: !id
   })
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const publication = data?.publication as Publication
   const pinnedPublication =
@@ -56,6 +58,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     <div className="mb-6 mt-2 grid grid-cols-3 overflow-hidden border-b border-gray-300 pb-6 dark:border-gray-700 md:space-x-5">
       <div className="overflow-hidden md:rounded-xl">
         <VideoPlayer
+          address={selectedChannel?.ownedBy}
           permanentUrl={getPublicationRawMediaUrl(pinnedPublication)}
           hlsUrl={getPublicationHlsUrl(pinnedPublication)}
           posterUrl={thumbnailUrl}
