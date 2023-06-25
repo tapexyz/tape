@@ -2,7 +2,7 @@ import * as SplashScreen from 'expo-splash-screen'
 import type { FC, PropsWithChildren } from 'react'
 import React from 'react'
 
-import { useCachedResources, useEffect } from '../hooks'
+import { useCachedResources, useEffect } from '../../hooks'
 
 SplashScreen.preventAutoHideAsync()
 

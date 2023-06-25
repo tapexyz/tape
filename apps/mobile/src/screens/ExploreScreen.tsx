@@ -1,74 +1,23 @@
-import { Image as ExpoImage } from 'expo-image'
-import { MotiView } from 'moti'
-import React, { useReducer } from 'react'
-import { Pressable, ScrollView, StyleSheet } from 'react-native'
-import { useNotifications } from 'react-native-notificated'
+import React from 'react'
+import { ScrollView } from 'react-native'
 
-const styles = StyleSheet.create({
-  shape: {
-    justifyContent: 'center',
-    height: 500,
-    width: 250,
-    borderRadius: 20,
-    overflow: 'hidden'
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row'
-  }
-})
+import Container from '../components/common/Container'
+import Timeline from '../components/common/Timeline'
+import Filters from '../components/explore/Filters'
+import Showcase from '../components/explore/Showcase'
 
 export const ExploreScreen = (props: ExploreScreenProps): JSX.Element => {
   const {
     navigation: {}
   } = props
-  const [visible, toggle] = useReducer((s) => !s, true)
-  const { notify } = useNotifications()
-
-  function Shape() {
-    return (
-      <MotiView
-        from={{
-          opacity: 0,
-          scale: 0.5
-        }}
-        animate={{
-          opacity: 1,
-          scale: 1
-        }}
-        transition={{
-          type: 'timing'
-        }}
-        style={styles.shape}
-      >
-        <ExpoImage
-          source="https://picsum.photos/seed/696/3000/2000"
-          contentFit="cover"
-          style={{ width: '100%', height: '100%' }}
-        />
-      </MotiView>
-    )
-  }
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <Pressable
-        onPress={() => {
-          toggle()
-          notify('success', {
-            params: {
-              title: 'Hello',
-              description: 'Wow, that was easy',
-              hideCloseButton: true
-            }
-          })
-        }}
-        style={styles.container}
-      >
-        {visible && <Shape />}
-      </Pressable>
-    </ScrollView>
+    <Container>
+      <ScrollView style={{ flex: 1 }}>
+        <Showcase />
+        <Filters />
+        <Timeline />
+      </ScrollView>
+    </Container>
   )
 }

@@ -1,2 +1,2 @@
-export * from './AppLoading'
-export * from './StatusBar'
+export * from './common/AppLoading'
+export * from './common/StatusBar'

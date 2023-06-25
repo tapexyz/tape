@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Mobile",
-    "slug": "mobile",
+    "name": "Pripe",
+    "slug": "pripe",
     "version": "0.0.1",
     "orientation": "portrait",
     "owner": "sasicodes",
-    "scheme": "mobile",
+    "scheme": "pripe",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "jsEngine": "hermes",
-      "bundleIdentifier": "xyz.lenstube.mobile"
+      "bundleIdentifier": "xyz.pripe.mobile"
     },
     "android": {
       "adaptiveIcon": {

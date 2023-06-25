@@ -64,6 +64,8 @@ declare global {
     // unauthorized
     SignUp: undefined
     SignIn: undefined
+    ExploreTopsModal: undefined
+    ExploreCategoriesModal: undefined
 
     // authorized
     MainTab: NavigatorScreenParams<MainTabParamList>

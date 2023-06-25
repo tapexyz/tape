@@ -2,6 +2,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import type { FC } from 'react'
 import React from 'react'
 
+import CategoriesModal from '../components/explore/CategoriesModal'
+import TopsModal from '../components/explore/TopsModal'
 import SignInScreen from '../screens/SignInScreen'
 import { BottomTabNavigator } from './BottomTabNavigator'
 
@@ -44,19 +46,19 @@ export const RootNavigator: FC = () => {
           name="SignIn"
           component={SignInScreen}
           options={{
-            title: 'navigation.screen_titles.sign_in'
+            title: 'sign_in'
           }}
         />
-        {/* <Screen
-          name="ApplicationInfo"
-          options={{ title: 'navigation.screen_titles.application_info' }}
-          component={ApplicationInfoScreen}
+        <Screen
+          name="ExploreTopsModal"
+          component={TopsModal}
+          options={{ headerShown: false, presentation: 'transparentModal' }}
         />
         <Screen
-          name="NotFound"
-          options={{ title: 'navigation.screen_titles.not_found' }}
-          component={NotFoundScreen}
-        /> */}
+          name="ExploreCategoriesModal"
+          component={CategoriesModal}
+          options={{ headerShown: false, presentation: 'transparentModal' }}
+        />
       </Group>
     </Navigator>
   )

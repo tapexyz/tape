@@ -1,69 +1,78 @@
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
-import { Image as ExpoImage } from 'expo-image'
-import { MotiView } from 'moti'
-import React from 'react'
-import { ScrollView, StyleSheet, Text, useWindowDimensions } from 'react-native'
+import { useIsFocused } from '@react-navigation/native'
+import { FlashList } from '@shopify/flash-list'
+import type { Publication } from 'lens'
+import {
+  CustomFiltersTypes,
+  PublicationMainFocus,
+  PublicationSortCriteria,
+  PublicationTypes,
+  useExploreQuery
+} from 'lens'
+import React, { useCallback, useEffect, useState } from 'react'
+import { ActivityIndicator, useWindowDimensions } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  byteCard: {
-    justifyContent: 'center',
-    borderRadius: 45
-  }
-})
+import ByteCard from '../components/bytes/ByteCard'
 
 export const BytesScreen = (props: BytesScreenProps): JSX.Element => {
   const {
     navigation: {}
   } = props
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0)
 
-  const bottomTabBarHeight = useBottomTabBarHeight()
-  const { height, width } = useWindowDimensions()
+  const { height } = useWindowDimensions()
+  const insets = useSafeAreaInsets()
+  const isFocused = useIsFocused()
 
-  const Card = ({ item }: { item: number }) => {
-    return (
-      <MotiView
-        from={{
-          opacity: 0,
-          scale: 0.5
-        }}
-        animate={{
-          opacity: 1,
-          scale: 1
-        }}
-        transition={{
-          type: 'timing'
-        }}
-        style={[
-          styles.byteCard,
-          { height: height - bottomTabBarHeight, width }
-        ]}
-      >
-        <ExpoImage
-          source="https://picsum.photos/seed/696/3000/2000"
-          contentFit="cover"
-          style={{ width: '100%', height: '100%' }}
-        />
-        <Text style={{ position: 'absolute', top: '50%', left: '50%' }}>
-          {item}
-        </Text>
-      </MotiView>
-    )
+  useEffect(() => {
+    if (!isFocused) {
+      setActiveVideoIndex(-1)
+    }
+    // Do whatever you want to do when screen gets in focus
+  }, [props, isFocused])
+
+  const renderItem = useCallback(
+    ({ item, index }: { item: Publication; index: number }) => (
+      <ByteCard byte={item} isActive={activeVideoIndex === index} />
+    ),
+    [activeVideoIndex]
+  )
+
+  const request = {
+    sortCriteria: PublicationSortCriteria.CuratedProfiles,
+    limit: 50,
+    noRandomize: false,
+    sources: ['lenstube-bytes'],
+    publicationTypes: [PublicationTypes.Post],
+    customFilters: [CustomFiltersTypes.Gardeners],
+    metadata: {
+      mainContentFocus: [PublicationMainFocus.Video]
+    }
   }
+  const { data, loading, error } = useExploreQuery({
+    variables: { request }
+  })
+
+  if (loading || error) {
+    return <ActivityIndicator style={{ flex: 1 }} />
+  }
+  const bytes = data?.explorePublications?.items as Publication[]
 
   return (
-    <ScrollView
+    <FlashList
+      data={bytes}
       pagingEnabled
-      style={styles.container}
+      renderItem={renderItem}
+      estimatedItemSize={bytes.length}
       showsVerticalScrollIndicator={false}
-    >
-      {Array(10)
-        .fill(1)
-        .map((e, i) => (
-          <Card key={i} item={i} />
-        ))}
-    </ScrollView>
+      keyExtractor={(item, i) => `${item.id}_${i}`}
+      extraData={activeVideoIndex} // To handle rerender if anything changes in data
+      onMomentumScrollEnd={(e) => {
+        const index = Math.round(
+          e.nativeEvent.contentOffset.y / (insets.bottom + height)
+        )
+        setActiveVideoIndex(index)
+      }}
+    />
   )
 }

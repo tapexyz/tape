@@ -1,11 +1,11 @@
 {
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll.eslint": true
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

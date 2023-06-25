@@ -11,9 +11,10 @@ export const useCachedResources = (): boolean => {
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
-          'font-normal': require('assets/fonts/Nunito-Regular.ttf'),
-          'font-bold': require('assets/fonts/Nunito-Bold.ttf'),
-          'font-extrabold': require('assets/fonts/Nunito-Black.ttf')
+          'font-normal': require('assets/fonts/ClashDisplay-Regular.ttf'),
+          'font-medium': require('assets/fonts/ClashDisplay-Medium.ttf'),
+          'font-bold': require('assets/fonts/ClashDisplay-Semibold.ttf'),
+          'font-extrabold': require('assets/fonts/ClashDisplay-Bold.ttf')
         })
       } catch (e) {
         // We might want to provide this error information to an error reporting service
