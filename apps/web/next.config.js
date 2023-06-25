@@ -5,7 +5,7 @@ const moduleExports = {
     '@lenstube/lens',
     '@lenstube/browser',
     '@lenstube/generic',
-    'web-ui'
+    '@lenstube/ui'
   ],
   reactStrictMode: process.env.NODE_ENV === 'production',
   experimental: {

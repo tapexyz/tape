@@ -5,7 +5,7 @@ const nextConfig = {
     '@lenstube/browser',
     '@lenstube/generic',
     '@lenstube/config',
-    'web-ui'
+    '@lenstube/ui'
   ],
   reactStrictMode: true,
   async rewrites() {

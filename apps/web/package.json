@@ -72,6 +72,6 @@
     "@lenstube/generic": "*",
     "@lenstube/browser": "*",
     "@lenstube/constants": "*",
-    "web-ui": "*"
+    "@lenstube/ui": "*"
   }
 }

@@ -10,11 +10,11 @@ import {
   truncate
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
+import VideoPlayer from '@lenstube/ui/VideoPlayer'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import VideoPlayer from 'web-ui/VideoPlayer'
 
 import MetaTags from './MetaTags'
 import TopOverlay from './TopOverlay'

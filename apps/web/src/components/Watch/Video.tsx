@@ -19,7 +19,7 @@ import React from 'react'
 import VideoActions from './VideoActions'
 import VideoMeta from './VideoMeta'
 
-const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
+const VideoPlayer = dynamic(() => import('@lenstube/ui/VideoPlayer'), {
   loading: () => <CardShimmer rounded={false} />,
   ssr: false
 })

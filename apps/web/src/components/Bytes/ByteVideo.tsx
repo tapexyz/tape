@@ -8,11 +8,11 @@ import {
   sanitizeDStorageUrl
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
+import VideoPlayer from '@lenstube/ui/VideoPlayer'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
-import VideoPlayer from 'web-ui/VideoPlayer'
 
 import BottomOverlay from './BottomOverlay'
 import ByteActions from './ByteActions'

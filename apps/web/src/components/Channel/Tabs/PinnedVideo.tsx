@@ -12,12 +12,12 @@ import {
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { usePublicationDetailsQuery } from '@lenstube/lens'
+import VideoPlayer from '@lenstube/ui/VideoPlayer'
 import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import VideoPlayer from 'web-ui/VideoPlayer'
 
 type Props = {
   id: string

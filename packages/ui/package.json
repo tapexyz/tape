@@ -1,5 +1,5 @@
 {
-  "name": "web-ui",
+  "name": "@lenstube/ui",
   "version": "0.0.0",
   "license": "AGPL-3.0",
   "main": "./index.ts",

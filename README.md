@@ -67,7 +67,7 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 | ----------- | ----------------------------------------- |
 | `lens`      | Everything about Lens Backend             |
 | `helpers`   | Collection of browser and generic helpers |
-| `web-ui`    | Web components                            |
+| `ui`    | UI components                            |
 | `workers`   | Cloudflare Workers                        |
 | `constants` | Constants for the entire application      |
 | `config`    | Shared lint config                        |
