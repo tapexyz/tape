@@ -3,6 +3,11 @@ import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import {
   Analytics,
+  getUserLocale,
+  TRACK,
+  uploadToIPFS
+} from '@lenstube/browser'
+import {
   BUNDLR_CONNECT_MESSAGE,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -10,9 +15,16 @@ import {
   LENSTUBE_APP_NAME,
   LENSTUBE_BYTES_APP_ID,
   LENSTUBE_WEBSITE_URL,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
+  REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
+import {
+  canUploadedToIpfs,
+  getCollectModule,
+  getSignature,
+  logger,
+  trimify,
+  uploadToAr
+} from '@lenstube/generic'
 import type {
   CreateDataAvailabilityPostRequest,
   CreatePostBroadcastItemResult,
@@ -41,14 +53,6 @@ import { t } from '@lingui/macro'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
-import { getCollectModule } from 'utils/functions/getCollectModule'
-import getSignature from 'utils/functions/getSignature'
-import getUserLocale from 'utils/functions/getUserLocale'
-import trimify from 'utils/functions/trimify'
-import uploadToAr from 'utils/functions/uploadToAr'
-import uploadToIPFS from 'utils/functions/uploadToIPFS'
-import logger from 'utils/logger'
 import { v4 as uuidv4 } from 'uuid'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 

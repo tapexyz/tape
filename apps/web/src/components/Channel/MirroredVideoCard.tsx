@@ -1,20 +1,20 @@
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import IsVerified from '@components/Common/IsVerified'
 import ThumbnailImage from '@components/Common/VideoCard/ThumbnailImage'
+import {
+  getDateString,
+  getIsSensitiveContent,
+  getProfilePicture,
+  getRelativeTime,
+  getTimeFromSeconds,
+  getValueFromTraitType,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { Attribute, Mirror, Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import {
-  getDateString,
-  getRelativeTime,
-  getTimeFromSeconds
-} from 'utils/functions/formatTime'
-import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
-import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
-import getLensHandle from 'utils/functions/getLensHandle'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 
 type Props = {
   video: Mirror
@@ -52,13 +52,13 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
       <div className="py-2">
         <div className="flex items-start space-x-2.5">
           <Link
-            href={`/channel/${getLensHandle(video.profile?.handle)}`}
+            href={`/channel/${video.profile?.handle}`}
             className="mt-0.5 flex-none"
           >
             <img
               className="h-8 w-8 rounded-full"
               src={getProfilePicture(mirrorOf.profile, 'AVATAR')}
-              alt={getLensHandle(mirrorOf.profile.handle)}
+              alt={mirrorOf.profile.handle}
               draggable={false}
             />
           </Link>
@@ -76,7 +76,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
               href={`/channel/${mirrorOf.profile?.handle}`}
               className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
             >
-              <span>{mirrorOf.profile?.handle}</span>
+              <span>{trimLensHandle(mirrorOf.profile?.handle)}</span>
               <IsVerified id={mirrorOf.profile?.id} size="xs" />
             </Link>
           </div>

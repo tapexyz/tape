@@ -9,13 +9,12 @@ import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
+import { Analytics, TRACK } from '@lenstube/browser'
 import {
-  Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN,
-  TRACK
+  SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
 import type { Notification } from '@lenstube/lens'
 import { NotificationTypes, useNotificationsQuery } from '@lenstube/lens'

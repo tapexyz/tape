@@ -1,4 +1,4 @@
-import { IS_MAINNET } from '../constants'
+import { IS_MAINNET } from './general'
 
 // sensitive content
 export const SENSITIVE_CONTENT = IS_MAINNET

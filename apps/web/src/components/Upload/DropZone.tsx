@@ -1,15 +1,14 @@
 import UploadOutline from '@components/Common/Icons/UploadOutline'
 import MetaTags from '@components/Common/MetaTags'
-import { ALLOWED_VIDEO_TYPES, Analytics, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK, useDragAndDrop } from '@lenstube/browser'
+import { ALLOWED_VIDEO_TYPES } from '@lenstube/constants'
+import { canUploadedToIpfs, logger } from '@lenstube/generic'
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
-import useDragAndDrop from 'utils/hooks/useDragAndDrop'
-import logger from 'utils/logger'
 
 const DropZone = () => {
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)

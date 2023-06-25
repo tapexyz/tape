@@ -1,4 +1,5 @@
 import { ApolloProvider } from '@apollo/client'
+import { getLivepeerClient, videoPlayerTheme } from '@lenstube/browser'
 import {
   IS_MAINNET,
   LENSTUBE_APP_NAME,
@@ -28,7 +29,6 @@ import {
 import { ThemeProvider, useTheme } from 'next-themes'
 import type { ReactNode } from 'react'
 import React, { useEffect } from 'react'
-import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { polygon, polygonMumbai } from 'wagmi/chains'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'

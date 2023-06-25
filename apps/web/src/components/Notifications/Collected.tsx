@@ -1,15 +1,18 @@
 import IsVerified from '@components/Common/IsVerified'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
+import {
+  getProfilePicture,
+  getRandomProfilePicture,
+  getRelativeTime,
+  imageCdn,
+  shortenAddress,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { NewCollectNotification } from '@lenstube/lens'
 import { t, Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { getRelativeTime } from 'utils/functions/formatTime'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
-import imageCdn from 'utils/functions/imageCdn'
-import { shortenAddress } from 'utils/functions/shortenAddress'
 
 interface Props {
   notification: NewCollectNotification
@@ -34,7 +37,9 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
               draggable={false}
             />
             <div className="flex items-center space-x-0.5">
-              <span>{notification?.wallet?.defaultProfile?.handle}</span>
+              <span>
+                {trimLensHandle(notification?.wallet?.defaultProfile?.handle)}
+              </span>
               <IsVerified
                 id={notification?.wallet?.defaultProfile?.id}
                 size="xs"

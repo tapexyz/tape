@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
-import { Analytics, ERROR_MESSAGE, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { ERROR_MESSAGE } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import { useReportPublicationMutation } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'

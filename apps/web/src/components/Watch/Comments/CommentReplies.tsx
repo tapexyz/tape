@@ -7,6 +7,11 @@ import ReportModal from '@components/Common/VideoCard/ReportModal'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import {
+  getProfilePicture,
+  getRelativeTime,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { Profile, Publication } from '@lenstube/lens'
 import { useCommentsQuery } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
@@ -15,8 +20,6 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { getRelativeTime } from 'utils/functions/formatTime'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 
 import PublicationReaction from '../PublicationReaction'
 import CommentMedia from './CommentMedia'
@@ -143,7 +146,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                       href={`/channel/${comment.profile?.handle}`}
                       className="flex items-center space-x-1 text-sm font-medium"
                     >
-                      <span>{comment?.profile?.handle}</span>
+                      <span>{trimLensHandle(comment?.profile?.handle)}</span>
                       <IsVerified id={comment?.profile.id} />
                     </Link>
                     <span className="text-xs opacity-70">

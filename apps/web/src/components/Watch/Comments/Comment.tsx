@@ -7,6 +7,13 @@ import IsVerified from '@components/Common/IsVerified'
 import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import Tooltip from '@components/UIElements/Tooltip'
+import {
+  checkValueInAttributes,
+  getProfilePicture,
+  getRelativeTime,
+  getValueFromTraitType,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { Attribute, Publication } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
@@ -16,13 +23,6 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { getRelativeTime } from 'utils/functions/formatTime'
-import {
-  checkValueInAttributes,
-  getValueFromTraitType
-} from 'utils/functions/getFromAttributes'
-import getLensHandle from 'utils/functions/getLensHandle'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 
 import PublicationReaction from '../PublicationReaction'
 import CommentMedia from './CommentMedia'
@@ -80,7 +80,7 @@ const Comment: FC<Props> = ({ comment }) => {
               href={`/channel/${comment.profile?.handle}`}
               className="flex items-center space-x-1 text-sm font-medium"
             >
-              <span>{comment?.profile?.handle}</span>
+              <span>{trimLensHandle(comment?.profile?.handle)}</span>
               <IsVerified id={comment?.profile.id} />
             </Link>
             {checkValueInAttributes(
@@ -183,7 +183,7 @@ const Comment: FC<Props> = ({ comment }) => {
                     return openConnectModal?.()
                   }
                   setShowNewComment(true)
-                  setDefaultComment(`@${getLensHandle(profile.handle)} `)
+                  setDefaultComment(`@${profile.handle} `)
                 }}
               />
             )}

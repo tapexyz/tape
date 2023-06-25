@@ -1,3 +1,9 @@
+import {
+  getProfilePicture,
+  getRelativeTime,
+  getThumbnailUrl,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import {
   CustomFiltersTypes,
@@ -10,9 +16,6 @@ import { FlashList } from '@shopify/flash-list'
 import { Image as ExpoImage } from 'expo-image'
 import React from 'react'
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
-import { getRelativeTime } from 'utils/functions/formatTime'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 
 import { theme } from '../../constants/theme'
 import normalizeFont from '../../helpers/normalize-font'
@@ -81,7 +84,7 @@ const TimelineCell = ({ item }: { item: Publication }) => {
             style={{ width: 15, height: 15, borderRadius: 3 }}
           />
           <Text style={styles.otherInfo}>
-            {item.profile.handle.replace('.lens', '')}
+            {trimLensHandle(item.profile.handle)}
           </Text>
           <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
             {'\u2B24'}

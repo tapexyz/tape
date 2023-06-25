@@ -3,12 +3,15 @@ import CollectOutline from '@components/Common/Icons/CollectOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import MirroredList from '@components/Common/MirroredList'
 import Modal from '@components/UIElements/Modal'
+import {
+  getDateString,
+  getPublicationMediaCid,
+  getRelativeTime
+} from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { t, Trans } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { getDateString, getRelativeTime } from 'utils/functions/formatTime'
-import { getPublicationMediaCid } from 'utils/functions/getPublicationMediaUrl'
 
 import ViewCount from './ViewCount'
 

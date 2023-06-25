@@ -2,25 +2,28 @@ import IsVerified from '@components/Common/IsVerified'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
+import { generateVideoThumbnail, useAverageColor } from '@lenstube/browser'
 import {
   FALLBACK_COVER_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
 } from '@lenstube/constants'
+import {
+  getIsSensitiveContent,
+  getPublicationMediaUrl,
+  getRelativeTime,
+  getThumbnailUrl,
+  getTimeFromSeconds,
+  getValueFromTraitType,
+  imageCdn,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { Attribute, Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { getRelativeTime, getTimeFromSeconds } from 'utils/functions/formatTime'
-import { generateVideoThumbnail } from 'utils/functions/generateVideoThumbnails'
-import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
-import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
-import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
-import useAverageColor from 'utils/hooks/useAverageColor'
 
 type Props = {
   video: Publication
@@ -111,7 +114,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
                 className="truncate text-[13px] opacity-70 hover:opacity-100"
               >
                 <div className="flex items-center space-x-0.5">
-                  <span>{video?.profile?.handle}</span>
+                  <span>{trimLensHandle(video?.profile?.handle)}</span>
                   <IsVerified id={video?.profile.id} size="xs" />
                 </div>
               </Link>

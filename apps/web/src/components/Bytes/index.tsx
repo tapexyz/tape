@@ -3,12 +3,11 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { Analytics, TRACK } from '@lenstube/browser'
 import {
-  Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN,
-  TRACK
+  SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import {

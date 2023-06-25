@@ -1,5 +1,13 @@
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import {
+  formatNumber,
+  getProfilePicture,
+  getRandomProfilePicture,
+  imageCdn,
+  shortenAddress,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { Follower, Profile } from '@lenstube/lens'
 import { useSubscribersQuery } from '@lenstube/lens'
 import { t } from '@lingui/macro'
@@ -7,11 +15,6 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import formatNumber from 'utils/functions/formatNumber'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
-import imageCdn from 'utils/functions/imageCdn'
-import { shortenAddress } from 'utils/functions/shortenAddress'
 
 import UserOutline from './Icons/UserOutline'
 import IsVerified from './IsVerified'
@@ -76,7 +79,9 @@ const SubscribersList: FC<Props> = ({ channel }) => {
                   draggable={false}
                 />
                 <div className="flex items-center space-x-1">
-                  <span>{subscriber.wallet?.defaultProfile?.handle}</span>
+                  <span>
+                    {trimLensHandle(subscriber.wallet?.defaultProfile?.handle)}
+                  </span>
                   <IsVerified
                     id={subscriber.wallet?.defaultProfile?.id}
                     size="xs"

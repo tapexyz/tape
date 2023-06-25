@@ -6,11 +6,11 @@ import {
   POLYGON_RPC_URL,
   WMATIC_TOKEN_ADDRESS
 } from '@lenstube/constants'
+import { logger } from '@lenstube/generic'
 import type {
   BundlrDataState,
   UploadedVideo
 } from '@lenstube/lens/custom-types'
-import logger from 'utils/logger'
 import { create } from 'zustand'
 
 export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {

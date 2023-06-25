@@ -9,7 +9,8 @@
   "devDependencies": {
     "@playwright/test": "^1.35.1",
     "@lenstube/config": "*",
-    "utils": "*",
+    "@lenstube/browser": "*",
+    "@lenstube/generic": "*",
     "@lenstube/constants": "*"
   }
 }

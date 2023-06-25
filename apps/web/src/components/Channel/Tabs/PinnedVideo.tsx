@@ -1,23 +1,23 @@
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
+import {
+  getIsSensitiveContent,
+  getPublicationHlsUrl,
+  getPublicationRawMediaUrl,
+  getRelativeTime,
+  getThumbnailUrl,
+  imageCdn,
+  isWatchable,
+  sanitizeDStorageUrl
+} from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { usePublicationDetailsQuery } from '@lenstube/lens'
+import VideoPlayer from '@lenstube/ui/VideoPlayer'
 import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { getRelativeTime } from 'utils/functions/formatTime'
-import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
-import {
-  getPublicationHlsUrl,
-  getPublicationRawMediaUrl
-} from 'utils/functions/getPublicationMediaUrl'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
-import isWatchable from 'utils/functions/isWatchable'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
-import VideoPlayer from 'web-ui/VideoPlayer'
 
 type Props = {
   id: string

@@ -10,6 +10,7 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
+import { getCategoryName } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
@@ -22,7 +23,6 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
-import getCategoryName from 'utils/functions/getCategoryName'
 
 const ExploreCategory = () => {
   const { query } = useRouter()

@@ -1,12 +1,12 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Tooltip from '@components/UIElements/Tooltip'
+import { Analytics, TRACK } from '@lenstube/browser'
 import {
-  Analytics,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
+  REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
+import { getSignature } from '@lenstube/generic'
 import type {
   CreateMirrorBroadcastItemResult,
   CreateMirrorRequest,
@@ -29,7 +29,6 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import getSignature from 'utils/functions/getSignature'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {

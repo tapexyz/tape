@@ -2,12 +2,12 @@
 const nextConfig = {
   transpilePackages: [
     '@lenstube/lens',
-    'utils',
-    '@lenstube/constants',
-    'web-ui'
+    '@lenstube/browser',
+    '@lenstube/generic',
+    '@lenstube/config',
+    '@lenstube/ui'
   ],
   reactStrictMode: true,
-  swcMinify: true,
   async rewrites() {
     return [
       {

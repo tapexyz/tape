@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
-import { Analytics, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
 import type { MediaSet, Profile } from '@lenstube/lens'
 import { useProfileQuery } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'

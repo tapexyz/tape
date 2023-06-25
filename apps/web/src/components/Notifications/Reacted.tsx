@@ -1,11 +1,14 @@
 import IsVerified from '@components/Common/IsVerified'
+import {
+  getProfilePicture,
+  getRelativeTime,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { NewReactionNotification } from '@lenstube/lens'
 import { t, Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { getRelativeTime } from 'utils/functions/formatTime'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 
 interface Props {
   notification: NewReactionNotification
@@ -26,7 +29,7 @@ const ReactedNotification: FC<Props> = ({ notification }) => {
             draggable={false}
           />
           <div className="flex items-center space-x-0.5">
-            <span>{notification?.profile?.handle}</span>
+            <span>{trimLensHandle(notification?.profile?.handle)}</span>
             <IsVerified id={notification?.profile?.id} size="xs" />
           </div>
         </Link>

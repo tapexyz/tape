@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['utils', '@lenstube/constants', '@lenstube/lens'],
+  transpilePackages: [
+    '@lenstube/browser',
+    '@lenstube/generic',
+    '@lenstube/lens'
+  ],
   reactStrictMode: true,
   async rewrites() {
     return [{ source: '/:path*', destination: '/api/:path*' }]

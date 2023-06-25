@@ -1,5 +1,5 @@
+import { formatBytes } from '@lenstube/generic'
 import { expect, test } from '@playwright/test'
-import formatBytes from 'utils/functions/formatBytes'
 
 test('Format bytes', async () => {
   const result = formatBytes(1024)

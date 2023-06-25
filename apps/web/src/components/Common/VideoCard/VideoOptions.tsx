@@ -2,14 +2,20 @@ import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
+import { Analytics, TRACK } from '@lenstube/browser'
 import {
-  Analytics,
   ERROR_MESSAGE,
   LENS_PERIPHERY_ADDRESS,
   LENSTUBE_APP_ID,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
+  REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
+import {
+  getChannelCoverPicture,
+  getPublicationMediaUrl,
+  getSignature,
+  getValueFromKeyInAttributes,
+  uploadToAr
+} from '@lenstube/generic'
 import type {
   Attribute,
   CreatePublicSetProfileMetadataUriRequest,
@@ -31,11 +37,6 @@ import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
-import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
-import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
-import getSignature from 'utils/functions/getSignature'
-import uploadToAr from 'utils/functions/uploadToAr'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 

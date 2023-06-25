@@ -11,6 +11,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   WMATIC_TOKEN_ADDRESS
 } from '@lenstube/constants'
+import { getSignature, shortenAddress } from '@lenstube/generic'
 import type {
   CreateSetFollowModuleBroadcastItemResult,
   Erc20,
@@ -29,8 +30,6 @@ import { t, Trans } from '@lingui/macro'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import getSignature from 'utils/functions/getSignature'
-import { shortenAddress } from 'utils/functions/shortenAddress'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
 

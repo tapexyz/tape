@@ -4,18 +4,16 @@ import {
   LENSTUBE_WEBSITE_URL,
   OG_IMAGE
 } from '@lenstube/constants'
+import { getThumbnailUrl, imageCdn, truncate } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { PublicationDetailsDocument } from '@lenstube/lens'
-import getApolloClient from 'utils/functions/getApolloClient'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
-import truncate from 'utils/functions/truncate'
+import apolloClient from '@lenstube/lens/apollo'
 
-const apolloClient = getApolloClient()
+const client = apolloClient()
 
 const getPublicationOembed = async (publicationId: string, format: string) => {
   try {
-    const { data } = await apolloClient.query({
+    const { data } = await client.query({
       query: PublicationDetailsDocument,
       variables: { request: { publicationId } }
     })

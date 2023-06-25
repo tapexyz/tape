@@ -1,10 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
-import {
-  Analytics,
-  LENSTUBE_APP_NAME,
-  STATIC_ASSETS,
-  TRACK
-} from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { LENSTUBE_APP_NAME, STATIC_ASSETS } from '@lenstube/constants'
 import { t, Trans } from '@lingui/macro'
 import Link from 'next/link'
 import React, { useEffect } from 'react'

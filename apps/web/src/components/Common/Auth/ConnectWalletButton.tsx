@@ -1,6 +1,7 @@
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
-import { Analytics, POLYGON_CHAIN_ID, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { POLYGON_CHAIN_ID } from '@lenstube/constants'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'

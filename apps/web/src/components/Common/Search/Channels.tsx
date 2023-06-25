@@ -1,10 +1,13 @@
+import {
+  formatNumber,
+  getProfilePicture,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import formatNumber from 'utils/functions/formatNumber'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 
 import UserOutline from '../Icons/UserOutline'
 import IsVerified from '../IsVerified'
@@ -41,7 +44,7 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
                 />
                 <div className="flex items-center space-x-1">
                   <p className="line-clamp-1 truncate text-base">
-                    <span>{channel?.handle}</span>
+                    <span>{trimLensHandle(channel?.handle)}</span>
                   </p>
                   <IsVerified id={channel?.id} size="xs" />
                 </div>

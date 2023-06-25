@@ -3,15 +3,17 @@ import TagOutline from '@components/Common/Icons/TagOutline'
 import ArweaveExplorerLink from '@components/Common/Links/ArweaveExplorerLink'
 import IPFSLink from '@components/Common/Links/IPFSLink'
 import TokenExplorerLink from '@components/Common/Links/TokenExplorerLink'
-import { Analytics, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
+import {
+  getCategoryName,
+  getIsIPFSUrl,
+  getMetadataCid
+} from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import getCategoryName from 'utils/functions/getCategoryName'
-import getMetadataHash from 'utils/functions/getMetadataHash'
-import { getIsIPFSUrl } from 'utils/functions/getPublicationMediaUrl'
 
 type Props = {
   video: Publication
@@ -36,7 +38,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
       {video?.metadata?.tags[0] && <span className="middot" />}
 
       {isIPFS ? (
-        <IPFSLink hash={getMetadataHash(video)}>
+        <IPFSLink hash={getMetadataCid(video)}>
           <div
             onClick={() => Analytics.track(TRACK.CLICK_VIEW_METADATA)}
             className="flex items-center space-x-1"
@@ -49,7 +51,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
           </div>
         </IPFSLink>
       ) : (
-        <ArweaveExplorerLink txId={getMetadataHash(video)}>
+        <ArweaveExplorerLink txId={getMetadataCid(video)}>
           <div
             onClick={() => Analytics.track(TRACK.CLICK_VIEW_METADATA)}
             className="flex items-center space-x-1"

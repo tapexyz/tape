@@ -1,11 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import {
-  ADMIN_IDS,
-  Analytics,
-  LENSTUBE_APP_ID,
-  TRACK
-} from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { ADMIN_IDS, LENSTUBE_APP_ID } from '@lenstube/constants'
 import type { GlobalProtocolStats } from '@lenstube/lens'
 import { useGlobalProtocolStatsQuery } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'

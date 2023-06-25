@@ -1,6 +1,6 @@
 import { STATIC_ASSETS } from '@lenstube/constants'
+import { imageCdn } from '@lenstube/generic'
 import React from 'react'
-import imageCdn from 'utils/functions/imageCdn'
 
 import MetaTags from './MetaTags'
 
