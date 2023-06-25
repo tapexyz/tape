@@ -17,7 +17,8 @@ export const LENSTUBE_WEBSITE_URL = IS_MAINNET
   ? 'https://dragverse.app' // TODO: change testnet to mainnet when ready
   : 'https://dragverse.app'
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/dragverse.svg`
-export const BANNER_URL = `${STATIC_ASSETS}/dragverse-banner.png`
+export const DRAGVERSE_BANNER_URL = `${STATIC_ASSETS}/dragverse-banner.jpeg`
+export const BUILDING_PROUDLY_URL = `${STATIC_ASSETS}/building-proudly.jpeg`
 export const BASE_LIVESTREAM_VIDEO_URL = `${STATIC_ASSETS}/dragverse-base-live-video.mp4`
 export const LENSTER_ICON_URL = `${STATIC_ASSETS}/lenster-logo.svg`
 export const TWITTER_ICON_URL = `${STATIC_ASSETS}/twitter-logo.jpeg`
