@@ -1,6 +1,10 @@
 import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
-import { formatNumber, getProfilePicture } from '@lenstube/generic'
+import {
+  formatNumber,
+  getProfilePicture,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
@@ -26,7 +30,7 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
             className="block truncate font-medium"
           >
             <div className="flex items-center justify-center space-x-1">
-              <span>{channel.handle}</span>
+              <span>{trimLensHandle(channel.handle)}</span>
               <IsVerified id={channel?.id} />
             </div>
           </Link>

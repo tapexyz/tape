@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
 import { IS_MAINNET, ZERO_ADDRESS } from '@lenstube/constants'
 import {
-  getLensHandle,
   getRandomProfilePicture,
   imageCdn,
   trimify,
@@ -105,7 +104,7 @@ const CreateChannel = () => {
     if (indexed) {
       setLoading(false)
       setShowCreateChannel(false)
-      router.push(`/channel/${getLensHandle(getValues().channelName)}`)
+      router.push(`/channel/${getValues().channelName}`)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])

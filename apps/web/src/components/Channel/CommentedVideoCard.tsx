@@ -5,11 +5,11 @@ import Tooltip from '@components/UIElements/Tooltip'
 import {
   getDateString,
   getIsSensitiveContent,
-  getLensHandle,
   getProfilePicture,
   getRelativeTime,
   getTimeFromSeconds,
-  getValueFromTraitType
+  getValueFromTraitType,
+  trimLensHandle
 } from '@lenstube/generic'
 import type { Attribute, Comment, Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
@@ -62,13 +62,13 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
       <div className="py-2">
         <div className="flex items-start space-x-2.5">
           <Link
-            href={`/channel/${getLensHandle(commentedOn.profile?.handle)}`}
+            href={`/channel/${commentedOn.profile?.handle}`}
             className="mt-0.5 flex-none"
           >
             <img
               className="h-8 w-8 rounded-full"
               src={getProfilePicture(commentedOn?.profile, 'AVATAR')}
-              alt={getLensHandle(commentedOn?.profile?.handle)}
+              alt={commentedOn?.profile?.handle}
               draggable={false}
             />
           </Link>
@@ -83,10 +83,10 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
               </Link>
             </div>
             <Link
-              href={`/channel/${getLensHandle(commentedOn.profile?.handle)}`}
+              href={`/channel/${commentedOn.profile?.handle}`}
               className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
             >
-              <span>{commentedOn.profile?.handle}</span>
+              <span>{trimLensHandle(commentedOn.profile?.handle)}</span>
               <IsVerified id={commentedOn.profile?.id} size="xs" />
             </Link>
           </div>

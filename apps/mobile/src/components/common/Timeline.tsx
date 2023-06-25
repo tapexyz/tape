@@ -1,7 +1,8 @@
 import {
   getProfilePicture,
   getRelativeTime,
-  getThumbnailUrl
+  getThumbnailUrl,
+  trimLensHandle
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import {
@@ -83,7 +84,7 @@ const TimelineCell = ({ item }: { item: Publication }) => {
             style={{ width: 15, height: 15, borderRadius: 3 }}
           />
           <Text style={styles.otherInfo}>
-            {item.profile.handle.replace('.lens', '')}
+            {trimLensHandle(item.profile.handle)}
           </Text>
           <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
             {'\u2B24'}

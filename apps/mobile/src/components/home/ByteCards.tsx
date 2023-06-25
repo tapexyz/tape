@@ -1,4 +1,8 @@
-import { getProfilePicture, getThumbnailUrl } from '@lenstube/generic'
+import {
+  getProfilePicture,
+  getThumbnailUrl,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import {
   CustomFiltersTypes,
@@ -168,7 +172,7 @@ const ByteCards = () => {
               style={{ width: 15, height: 15, borderRadius: 3 }}
             />
             <Text style={styles.otherInfo}>
-              {byte.profile.handle.replace('.lens', '')}
+              {trimLensHandle(byte.profile.handle)}
             </Text>
             <Text style={{ color: theme.colors.primary, fontSize: 3 }}>
               {'\u2B24'}

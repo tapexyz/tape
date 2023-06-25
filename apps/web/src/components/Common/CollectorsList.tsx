@@ -5,7 +5,8 @@ import {
   getProfilePicture,
   getRandomProfilePicture,
   imageCdn,
-  shortenAddress
+  shortenAddress,
+  trimLensHandle
 } from '@lenstube/generic'
 import type { Wallet } from '@lenstube/lens'
 import { useCollectorsQuery } from '@lenstube/lens'
@@ -74,7 +75,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
                   draggable={false}
                 />
                 <div className="flex items-center space-x-1">
-                  <span>{wallet?.defaultProfile?.handle}</span>
+                  <span>{trimLensHandle(wallet?.defaultProfile?.handle)}</span>
                   <IsVerified id={wallet?.defaultProfile?.id} size="xs" />
                 </div>
               </div>

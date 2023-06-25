@@ -1,5 +1,5 @@
 import IsVerified from '@components/Common/IsVerified'
-import { formatNumber } from '@lenstube/generic'
+import { formatNumber, trimLensHandle } from '@lenstube/generic'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { FC } from 'react'
@@ -30,7 +30,9 @@ const ChannelSuggestions: FC<Props> = ({
       />
       <div className="overflow-hidden">
         <div className="flex items-center space-x-0.5">
-          <p className="truncate font-medium leading-4">{handle}</p>
+          <p className="truncate font-medium leading-4">
+            {trimLensHandle(handle)}
+          </p>
           <IsVerified id={id} size="xs" />
         </div>
         <span className="text-xs opacity-80">

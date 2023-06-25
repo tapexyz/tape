@@ -15,7 +15,8 @@ import {
   getThumbnailUrl,
   getTimeFromSeconds,
   getValueFromTraitType,
-  imageCdn
+  imageCdn,
+  trimLensHandle
 } from '@lenstube/generic'
 import type { Attribute, Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
@@ -113,7 +114,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
                 className="truncate text-[13px] opacity-70 hover:opacity-100"
               >
                 <div className="flex items-center space-x-0.5">
-                  <span>{video?.profile?.handle}</span>
+                  <span>{trimLensHandle(video?.profile?.handle)}</span>
                   <IsVerified id={video?.profile.id} size="xs" />
                 </div>
               </Link>

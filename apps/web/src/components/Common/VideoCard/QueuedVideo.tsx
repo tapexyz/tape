@@ -5,7 +5,8 @@ import { STATIC_ASSETS } from '@lenstube/constants'
 import {
   getProfilePicture,
   imageCdn,
-  sanitizeDStorageUrl
+  sanitizeDStorageUrl,
+  trimLensHandle
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
@@ -165,7 +166,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
               </div>
             </div>
             <span className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70">
-              <span>{selectedChannel?.handle}</span>
+              <span>{trimLensHandle(selectedChannel?.handle)}</span>
               <IsVerified id={selectedChannel?.id} size="xs" />
             </span>
           </div>

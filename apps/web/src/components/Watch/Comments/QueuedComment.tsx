@@ -2,7 +2,7 @@ import { useApolloClient } from '@apollo/client'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
-import { getProfilePicture } from '@lenstube/generic'
+import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import {
   PublicationDetailsDocument,
   useHasTxHashBeenIndexedQuery,
@@ -119,7 +119,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
               href={`/channel/${selectedChannel.handle}`}
               className="flex items-center space-x-1 text-sm font-medium"
             >
-              <span>{selectedChannel?.handle}</span>
+              <span>{trimLensHandle(selectedChannel?.handle)}</span>
               <IsVerified id={selectedChannel.id} />
             </Link>
           </span>

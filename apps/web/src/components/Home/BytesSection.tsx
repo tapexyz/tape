@@ -9,7 +9,6 @@ import {
   LENSTUBE_BYTES_APP_ID
 } from '@lenstube/constants'
 import {
-  getLensHandle,
   getProfilePicture,
   getPublicationMediaUrl,
   getThumbnailUrl,
@@ -127,14 +126,14 @@ const BytesSection = () => {
               </Link>
               <div className="flex items-end space-x-1.5">
                 <Link
-                  href={`/channel/${getLensHandle(byte.profile?.handle)}`}
+                  href={`/channel/${byte.profile?.handle}`}
                   className="flex-none"
-                  title={getLensHandle(byte.profile.handle)}
+                  title={byte.profile.handle}
                 >
                   <img
                     className="h-3.5 w-3.5 rounded-full bg-gray-200 dark:bg-gray-800"
                     src={getProfilePicture(byte.profile, 'AVATAR')}
-                    alt={getLensHandle(byte.profile?.handle)}
+                    alt={byte.profile?.handle}
                     draggable={false}
                   />
                 </Link>

@@ -4,11 +4,11 @@ import ThumbnailImage from '@components/Common/VideoCard/ThumbnailImage'
 import {
   getDateString,
   getIsSensitiveContent,
-  getLensHandle,
   getProfilePicture,
   getRelativeTime,
   getTimeFromSeconds,
-  getValueFromTraitType
+  getValueFromTraitType,
+  trimLensHandle
 } from '@lenstube/generic'
 import type { Attribute, Mirror, Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
@@ -52,13 +52,13 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
       <div className="py-2">
         <div className="flex items-start space-x-2.5">
           <Link
-            href={`/channel/${getLensHandle(video.profile?.handle)}`}
+            href={`/channel/${video.profile?.handle}`}
             className="mt-0.5 flex-none"
           >
             <img
               className="h-8 w-8 rounded-full"
               src={getProfilePicture(mirrorOf.profile, 'AVATAR')}
-              alt={getLensHandle(mirrorOf.profile.handle)}
+              alt={mirrorOf.profile.handle}
               draggable={false}
             />
           </Link>
@@ -76,7 +76,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
               href={`/channel/${mirrorOf.profile?.handle}`}
               className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
             >
-              <span>{mirrorOf.profile?.handle}</span>
+              <span>{trimLensHandle(mirrorOf.profile?.handle)}</span>
               <IsVerified id={mirrorOf.profile?.id} size="xs" />
             </Link>
           </div>

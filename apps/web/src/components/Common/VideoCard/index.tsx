@@ -1,9 +1,5 @@
 import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import {
-  getLensHandle,
-  getProfilePicture,
-  getRelativeTime
-} from '@lenstube/generic'
+import { getProfilePicture, getRelativeTime } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
@@ -55,7 +51,7 @@ const VideoCard: FC<Props> = ({ video }) => {
           <div className="py-2">
             <div className="flex items-start space-x-2.5">
               <Link
-                href={`/channel/${getLensHandle(video.profile?.handle)}`}
+                href={`/channel/${video.profile?.handle}`}
                 className="mt-0.5 flex-none"
               >
                 <img

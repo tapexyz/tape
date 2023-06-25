@@ -5,7 +5,8 @@ import {
   getRandomProfilePicture,
   getRelativeTime,
   imageCdn,
-  shortenAddress
+  shortenAddress,
+  trimLensHandle
 } from '@lenstube/generic'
 import type { NewCollectNotification } from '@lenstube/lens'
 import { t, Trans } from '@lingui/macro'
@@ -36,7 +37,9 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
               draggable={false}
             />
             <div className="flex items-center space-x-0.5">
-              <span>{notification?.wallet?.defaultProfile?.handle}</span>
+              <span>
+                {trimLensHandle(notification?.wallet?.defaultProfile?.handle)}
+              </span>
               <IsVerified
                 id={notification?.wallet?.defaultProfile?.id}
                 size="xs"

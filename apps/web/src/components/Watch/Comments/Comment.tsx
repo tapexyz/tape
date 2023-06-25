@@ -9,10 +9,10 @@ import ReportModal from '@components/Common/VideoCard/ReportModal'
 import Tooltip from '@components/UIElements/Tooltip'
 import {
   checkValueInAttributes,
-  getLensHandle,
   getProfilePicture,
   getRelativeTime,
-  getValueFromTraitType
+  getValueFromTraitType,
+  trimLensHandle
 } from '@lenstube/generic'
 import type { Attribute, Publication } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
@@ -80,7 +80,7 @@ const Comment: FC<Props> = ({ comment }) => {
               href={`/channel/${comment.profile?.handle}`}
               className="flex items-center space-x-1 text-sm font-medium"
             >
-              <span>{comment?.profile?.handle}</span>
+              <span>{trimLensHandle(comment?.profile?.handle)}</span>
               <IsVerified id={comment?.profile.id} />
             </Link>
             {checkValueInAttributes(
@@ -183,7 +183,7 @@ const Comment: FC<Props> = ({ comment }) => {
                     return openConnectModal?.()
                   }
                   setShowNewComment(true)
-                  setDefaultComment(`@${getLensHandle(profile.handle)} `)
+                  setDefaultComment(`@${profile.handle} `)
                 }}
               />
             )}

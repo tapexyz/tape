@@ -5,7 +5,8 @@ import {
   getProfilePicture,
   getRandomProfilePicture,
   imageCdn,
-  shortenAddress
+  shortenAddress,
+  trimLensHandle
 } from '@lenstube/generic'
 import type { Follower, Profile } from '@lenstube/lens'
 import { useSubscribersQuery } from '@lenstube/lens'
@@ -78,7 +79,9 @@ const SubscribersList: FC<Props> = ({ channel }) => {
                   draggable={false}
                 />
                 <div className="flex items-center space-x-1">
-                  <span>{subscriber.wallet?.defaultProfile?.handle}</span>
+                  <span>
+                    {trimLensHandle(subscriber.wallet?.defaultProfile?.handle)}
+                  </span>
                   <IsVerified
                     id={subscriber.wallet?.defaultProfile?.id}
                     size="xs"

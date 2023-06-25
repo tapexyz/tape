@@ -1,6 +1,6 @@
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { getProfilePicture } from '@lenstube/generic'
+import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesQuery } from '@lenstube/lens'
 import Link from 'next/link'
@@ -68,7 +68,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
                 draggable={false}
               />
               <div className="flex items-center space-x-1">
-                <span>{profile?.handle}</span>
+                <span>{trimLensHandle(profile?.handle)}</span>
                 <IsVerified id={profile?.id} size="xs" />
               </div>
             </div>

@@ -1,5 +1,9 @@
 import IsVerified from '@components/Common/IsVerified'
-import { getProfilePicture, getRelativeTime } from '@lenstube/generic'
+import {
+  getProfilePicture,
+  getRelativeTime,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { NewMentionNotification } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
@@ -28,7 +32,11 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
             draggable={false}
           />
           <div className="flex items-center space-x-0.5">
-            <span>{notification?.mentionPublication?.profile?.handle}</span>
+            <span>
+              {trimLensHandle(
+                notification?.mentionPublication?.profile?.handle
+              )}
+            </span>
             <IsVerified
               id={notification?.mentionPublication?.profile?.id}
               size="xs"
