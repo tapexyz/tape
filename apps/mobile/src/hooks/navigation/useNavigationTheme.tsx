@@ -2,7 +2,7 @@ import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
 import type { Theme } from '@react-navigation/native'
 import { useMemo } from 'react'
 
-import { navigationTheme } from '../../constants/theme'
+import { navigationTheme } from '~/helpers/theme'
 
 type ReturnValues = {
   navigationTheme: Theme

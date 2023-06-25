@@ -25,11 +25,11 @@ import Animated, {
   withSpring
 } from 'react-native-reanimated'
 
-import { theme } from '../../constants/theme'
-import haptic from '../../helpers/haptic'
-import normalizeFont from '../../helpers/normalize-font'
-import { useNotifications } from '../../hooks'
-import useMobileStore from '../../store'
+import haptic from '~/helpers/haptic'
+import normalizeFont from '~/helpers/normalize-font'
+import { theme } from '~/helpers/theme'
+import { useNotifications } from '~/hooks'
+import useMobileStore from '~/store'
 
 const BORDER_RADIUS = 15
 

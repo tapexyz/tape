@@ -1,12 +1,13 @@
+import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { MotiView } from 'moti'
 import { MotiPressable } from 'moti/interactions'
 import React, { useMemo } from 'react'
 import { ImageBackground, StyleSheet, Text, View } from 'react-native'
 
-import { theme } from '../../constants/theme'
-import haptic from '../../helpers/haptic'
-import normalizeFont from '../../helpers/normalize-font'
+import haptic from '~/helpers/haptic'
+import normalizeFont from '~/helpers/normalize-font'
+import { theme } from '~/helpers/theme'
 
 const BORDER_RADIUS = 25
 
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
+    contentFit: 'cover',
     justifyContent: 'flex-end',
     borderRadius: BORDER_RADIUS,
     overflow: 'hidden'
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
 })
 
 const Showcase = () => {
+  const { navigate } = useNavigation()
   const animatePress = useMemo(
     () =>
       ({ pressed }: { pressed: boolean }) => {
@@ -113,7 +115,13 @@ const Showcase = () => {
             duration: 350
           }}
         >
-          <MotiPressable animate={animatePress} onPress={() => haptic()}>
+          <MotiPressable
+            animate={animatePress}
+            onPress={() => {
+              haptic()
+              navigate('Music')
+            }}
+          >
             <ImageBackground
               source={require('assets/images/couch-music.jpg')}
               style={styles.image}

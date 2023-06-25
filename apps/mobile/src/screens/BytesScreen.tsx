@@ -1,6 +1,6 @@
+import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import {
-  CustomFiltersTypes,
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
@@ -44,7 +44,7 @@ export const BytesScreen = (props: BytesScreenProps): JSX.Element => {
     noRandomize: false,
     sources: ['lenstube-bytes'],
     publicationTypes: [PublicationTypes.Post],
-    customFilters: [CustomFiltersTypes.Gardeners],
+    customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
       mainContentFocus: [PublicationMainFocus.Video]
     }

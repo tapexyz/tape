@@ -3,7 +3,7 @@ import {
   ZoomInDownZoomOutUp
 } from 'react-native-notificated'
 
-import { theme } from '../constants/theme'
+import { theme } from '~/helpers/theme'
 
 export const { NotificationsProvider } = createNotifications({
   duration: 3000,

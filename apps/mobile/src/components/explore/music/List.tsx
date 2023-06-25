@@ -1,6 +1,7 @@
-import { LENS_CUSTOM_FILTERS, LENSTUBE_APP_ID } from '@lenstube/constants'
+import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
 import {
   getProfilePicture,
+  getPublicationMediaUrl,
   getRelativeTime,
   getThumbnailUrl,
   trimLensHandle
@@ -13,17 +14,23 @@ import {
   useExploreQuery
 } from '@lenstube/lens'
 import { FlashList } from '@shopify/flash-list'
+import { Audio } from 'expo-av'
 import { Image as ExpoImage } from 'expo-image'
 import React from 'react'
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import {
+  ActivityIndicator,
+  Button,
+  Dimensions,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
-    paddingHorizontal: 5,
     flex: 1,
     minHeight: Dimensions.get('screen').height
   },
@@ -39,9 +46,9 @@ const styles = StyleSheet.create({
     color: theme.colors.secondary,
     paddingTop: 10
   },
-  thumbnail: {
-    width: '100%',
-    height: 215,
+  poster: {
+    width: 150,
+    height: 150,
     borderRadius: 10,
     backgroundColor: theme.colors.background
   },
@@ -61,15 +68,48 @@ const styles = StyleSheet.create({
 })
 
 const TimelineCell = ({ item }: { item: Publication }) => {
-  const thumbnailUrl = getThumbnailUrl(item)
+  const posterUrl = getThumbnailUrl(item)
+  const sound = new Audio.Sound()
+
+  const loadSound = async () => {
+    console.log('Loading Sound')
+    await sound.loadAsync({
+      uri: getPublicationMediaUrl(item)
+    })
+  }
+
+  const playSound = async () => {
+    try {
+      if (sound._loaded) {
+        console.log('Playing Sound')
+        await sound.playAsync()
+      }
+    } catch (error) {
+      console.log('🚀 ~ playSound ~ error:', error)
+    }
+  }
+
+  const stopSound = async () => {
+    try {
+      console.log('Stopping Sound')
+      await sound.stopAsync()
+      await sound.unloadAsync()
+    } catch (error) {
+      console.log('🚀 ~ stopSound ~ error:', error)
+    }
+  }
 
   return (
     <View>
       <ExpoImage
-        source={thumbnailUrl}
+        onLoadEnd={() => loadSound()}
+        source={posterUrl}
         contentFit="cover"
-        style={styles.thumbnail}
+        style={styles.poster}
       />
+      <Button title="Play Sound" onPress={playSound} />
+      <Button title="Stop Sound" onPress={stopSound} />
+
       <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
         <Text style={styles.title}>{item.metadata.name}</Text>
         {item.metadata.description && (
@@ -102,23 +142,26 @@ const TimelineCell = ({ item }: { item: Publication }) => {
   )
 }
 
-const Timeline = () => {
+const List = () => {
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 32,
     noRandomize: false,
-    sources: [LENSTUBE_APP_ID],
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      mainContentFocus: [PublicationMainFocus.Video]
+      mainContentFocus: [PublicationMainFocus.Audio]
     }
   }
-  const { data } = useExploreQuery({
+  const { data, loading, error } = useExploreQuery({
     variables: { request }
   })
 
-  const videos = data?.explorePublications?.items as Publication[]
+  if (loading || error) {
+    return <ActivityIndicator style={{ flex: 1 }} />
+  }
+
+  const audios = data?.explorePublications?.items as Publication[]
 
   return (
     <View style={styles.container}>
@@ -128,10 +171,10 @@ const Timeline = () => {
           return <TimelineCell item={item} />
         }}
         estimatedItemSize={50}
-        data={videos}
+        data={audios}
       />
     </View>
   )
 }
 
-export default Timeline
+export default List

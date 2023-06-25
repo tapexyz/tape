@@ -6,10 +6,10 @@ import type { FC } from 'react'
 import React, { useMemo } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { theme } from '../../constants/theme'
-import haptic from '../../helpers/haptic'
-import normalizeFont from '../../helpers/normalize-font'
-import { useAuth } from '../../hooks/useAuth'
+import haptic from '~/helpers/haptic'
+import normalizeFont from '~/helpers/normalize-font'
+import { theme } from '~/helpers/theme'
+import { useAuth } from '~/hooks/useAuth'
 
 const styles = StyleSheet.create({
   container: {

@@ -33,7 +33,8 @@ export const linking: LinkingOptions<RootStackParamList> = {
           },
           ExploreStack: {
             screens: {
-              Audio: 'explore'
+              Explore: 'explore',
+              Music: 'music'
             }
           }
         }

@@ -29,7 +29,6 @@ export const RootNavigator: FC = () => {
           <Screen
             name="MainTab"
             options={{
-              title: 'main_tab',
               headerShown: false
             }}
             component={BottomTabNavigator}

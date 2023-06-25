@@ -3,8 +3,8 @@ import type { FC, PropsWithChildren } from 'react'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 
-import { theme } from '../../constants/theme'
-import useMobileStore from '../../store'
+import { theme } from '~/helpers/theme'
+import useMobileStore from '~/store'
 
 const styles = StyleSheet.create({
   background: {

@@ -4,6 +4,7 @@ import 'react-native-gesture-handler'
 
 import { ApolloProvider } from '@apollo/client'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { LIVEPEER_STUDIO_API_KEY } from '@lenstube/constants'
 import apolloClient from '@lenstube/lens/apollo'
 import {
   createReactClient,
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
 })
 
 const livepeerClient = createReactClient({
-  provider: studioProvider({ apiKey: 'b13fd43e-d0d6-4abc-a5df-93592a0c5124' })
+  provider: studioProvider({ apiKey: LIVEPEER_STUDIO_API_KEY })
 })
 
 const App = (): JSX.Element => {

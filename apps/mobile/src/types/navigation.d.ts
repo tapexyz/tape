@@ -48,6 +48,7 @@ declare global {
 
   type ExploreStackParamList = {
     Explore: undefined
+    Music: undefined
   }
 
   type BytesStackParamList = {
@@ -70,6 +71,7 @@ declare global {
     // authorized
     MainTab: NavigatorScreenParams<MainTabParamList>
     Settings: undefined
+    Music: undefined
 
     // modals
     ApplicationInfo: undefined
@@ -96,7 +98,10 @@ declare global {
 
   // Home stack
   type HomeScreenProps = HomeStackComposite<'Home'>
-  type ExploreScreenProps = ExploreStackComposite<'Explore'>
-  type BytesScreenProps = BytesStackComposite<'Bytes'>
   type DetailsScreenProps = HomeStackComposite<'Details'>
+
+  type ExploreScreenProps = ExploreStackComposite<'Explore'>
+  type MusicScreenProps = ExploreStackComposite<'Music'>
+
+  type BytesScreenProps = BytesStackComposite<'Bytes'>
 }
