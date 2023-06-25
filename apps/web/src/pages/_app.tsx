@@ -3,11 +3,11 @@ import '@rainbow-me/rainbowkit/styles.css'
 import 'tippy.js/dist/tippy.css'
 
 import FullPageLoader from '@components/Common/FullPageLoader'
+import { AUTH_ROUTES } from '@lenstube/constants'
 import useAuthPersistStore from '@lib/store/auth'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import React, { lazy, Suspense, useEffect } from 'react'
-import { AUTH_ROUTES } from 'utils/data/auth-routes'
 import bloomer from 'utils/font'
 
 const Providers = lazy(() => import('../components/Common/Providers'))

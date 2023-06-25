@@ -1,8 +1,8 @@
+import { BUNDLR_METADATA_UPLOAD_URL } from '@lenstube/constants'
+import type { PublicationMetadataV2Input } from '@lenstube/lens'
+import type { ProfileMetadata } from '@lenstube/lens/custom-types'
 import axios from 'axios'
-import type { PublicationMetadataV2Input } from 'lens'
 
-import { BUNDLR_METADATA_UPLOAD_URL } from '../constants'
-import type { ProfileMetadata } from '../custom-types'
 import logger from '../logger'
 
 const uploadToAr = async (

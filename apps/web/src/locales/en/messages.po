@@ -26,15 +26,15 @@ msgstr "About"
 msgid "Access permissions"
 msgstr "Access permissions"
 
-#: src/components/Home/DispatcherAlert.tsx:36
+#: src/components/Home/DispatcherAlert.tsx:39
 msgid "Action Required"
 msgstr "Action Required"
 
-#: src/components/Upload/CollectModule/Splits.tsx:202
+#: src/components/Upload/CollectModule/Splits.tsx:206
 msgid "Add Donation"
 msgstr "Add Donation"
 
-#: src/components/Upload/CollectModule/Splits.tsx:187
+#: src/components/Upload/CollectModule/Splits.tsx:191
 msgid "Add recipient"
 msgstr "Add recipient"
 
@@ -42,7 +42,7 @@ msgstr "Add recipient"
 msgid "Algorithm Manipulation"
 msgstr "Algorithm Manipulation"
 
-#: src/components/Common/CategoryFilters.tsx:88
+#: src/components/Common/CategoryFilters.tsx:87
 msgid "All"
 msgstr "All"
 
@@ -63,7 +63,7 @@ msgstr "Allow"
 msgid "Allow Collect"
 msgstr "Allow Collect"
 
-#: src/components/Watch/CollectVideo/index.tsx:192
+#: src/components/Watch/CollectVideo/index.tsx:198
 msgid "Already Collected"
 msgstr "Already Collected"
 
@@ -72,11 +72,11 @@ msgstr "Already Collected"
 msgid "Amount"
 msgstr "Amount"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:103
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:106
 msgid "Amount should be greater than 0"
 msgstr "Amount should be greater than 0"
 
-#: src/components/Upload/BundlrInfo.tsx:215
+#: src/components/Upload/BundlrInfo.tsx:220
 msgid "Amount to deposit (MATIC)"
 msgstr "Amount to deposit (MATIC)"
 
@@ -85,7 +85,7 @@ msgid "Animal Abuse"
 msgstr "Animal Abuse"
 
 #: src/components/Upload/CollectModule/index.tsx:49
-#: src/components/Upload/CollectModule/PermissionQuestion.tsx:39
+#: src/components/Upload/CollectModule/PermissionQuestion.tsx:42
 #: src/components/Upload/ReferenceModule/index.tsx:94
 msgid "Anyone"
 msgstr "Anyone"
@@ -106,7 +106,7 @@ msgstr "Are you sure want to continue?"
 msgid "Basic Info"
 msgstr "Basic Info"
 
-#: src/components/Watch/Comments/VideoComments.tsx:145
+#: src/components/Watch/Comments/VideoComments.tsx:134
 msgid "Be the first to comment"
 msgstr "Be the first to comment"
 
@@ -136,11 +136,11 @@ msgstr "Cancel"
 msgid "Category"
 msgstr "Category"
 
-#: src/components/Settings/BasicInfo.tsx:284
+#: src/components/Settings/BasicInfo.tsx:287
 msgid "Change"
 msgstr "Change"
 
-#: src/components/Settings/BasicInfo.tsx:297
+#: src/components/Settings/BasicInfo.tsx:300
 msgid "Channel"
 msgstr "Channel"
 
@@ -148,11 +148,11 @@ msgstr "Channel"
 msgid "Channel deleted"
 msgstr "Channel deleted"
 
-#: src/components/Settings/BasicInfo.tsx:338
+#: src/components/Settings/BasicInfo.tsx:341
 msgid "Channel Description"
 msgstr "Channel Description"
 
-#: src/components/Settings/ChannelPicture.tsx:68
+#: src/components/Settings/ChannelPicture.tsx:71
 msgid "Channel image updated"
 msgstr "Channel image updated"
 
@@ -161,7 +161,7 @@ msgstr "Channel image updated"
 msgid "Channel Settings"
 msgstr "Channel Settings"
 
-#: src/components/Settings/BasicInfo.tsx:309
+#: src/components/Settings/BasicInfo.tsx:312
 msgid "Channel URL"
 msgstr "Channel URL"
 
@@ -175,19 +175,19 @@ msgid "Claim Handle"
 msgstr "Claim Handle"
 
 #: src/components/Bytes/ByteActions.tsx:71
-#: src/components/Bytes/ByteVideo.tsx:161
+#: src/components/Bytes/ByteVideo.tsx:164
 msgid "Collect"
 msgstr "Collect"
 
-#: src/components/Watch/CollectVideo/index.tsx:171
+#: src/components/Watch/CollectVideo/index.tsx:177
 msgid "Collect as NFT"
 msgstr "Collect as NFT"
 
-#: src/components/Watch/CollectVideo/index.tsx:164
+#: src/components/Watch/CollectVideo/index.tsx:170
 msgid "Collect as NFT for"
 msgstr "Collect as NFT for"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:162
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:165
 msgid "Collect Currency"
 msgstr "Collect Currency"
 
@@ -195,11 +195,11 @@ msgstr "Collect Currency"
 msgid "Collect for free"
 msgstr "Collect for free"
 
-#: src/components/Upload/CollectModule/ChargeQuestion.tsx:37
+#: src/components/Upload/CollectModule/ChargeQuestion.tsx:40
 msgid "Collect for Free"
 msgstr "Collect for Free"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:133
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:136
 msgid "Collect limit should be greater than 0"
 msgstr "Collect limit should be greater than 0"
 
@@ -215,7 +215,7 @@ msgstr "Collect Type"
 msgid "Collect Video"
 msgstr "Collect Video"
 
-#: src/components/Watch/CollectVideo/index.tsx:60
+#: src/components/Watch/CollectVideo/index.tsx:66
 msgid "Collected as NFT"
 msgstr "Collected as NFT"
 
@@ -227,7 +227,7 @@ msgstr "Collected By"
 msgid "collected your"
 msgstr "collected your"
 
-#: src/components/Watch/CollectVideo/index.tsx:190
+#: src/components/Watch/CollectVideo/index.tsx:196
 msgid "Collecting"
 msgstr "Collecting"
 
@@ -266,7 +266,7 @@ msgstr "commented on your"
 
 #: src/components/Bytes/CommentModal.tsx:37
 #: src/components/Notifications/index.tsx:210
-#: src/components/Watch/Comments/VideoComments.tsx:121
+#: src/components/Watch/Comments/VideoComments.tsx:107
 msgid "Comments"
 msgstr "Comments"
 
@@ -324,13 +324,13 @@ msgstr "Danger Zone"
 msgid "degrees away from my network"
 msgstr "degrees away from my network"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:278
+#: src/components/Common/VideoCard/VideoOptions.tsx:279
 #: src/components/Watch/Comments/CommentOptions.tsx:69
 msgid "Delete"
 msgstr "Delete"
 
-#: src/components/Upload/BundlrInfo.tsx:194
-#: src/components/Upload/BundlrInfo.tsx:235
+#: src/components/Upload/BundlrInfo.tsx:199
+#: src/components/Upload/BundlrInfo.tsx:240
 msgid "Deposit"
 msgstr "Deposit"
 
@@ -352,11 +352,11 @@ msgid "Direct threat"
 msgstr "Direct threat"
 
 #: src/components/Settings/Membership.tsx:308
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:130
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:133
 msgid "Disable"
 msgstr "Disable"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:77
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:80
 #: src/components/Watch/CollectVideo/PermissionAlert.tsx:39
 msgid "disabled"
 msgstr "disabled"
@@ -369,15 +369,15 @@ msgstr "Dislike"
 msgid "dislisked"
 msgstr "dislisked"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:142
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:145
 msgid "dispatcher"
 msgstr "dispatcher"
 
-#: src/components/Settings/Permissions/Dispatcher/index.tsx:25
+#: src/components/Settings/Permissions/Dispatcher/index.tsx:28
 msgid "Dispatcher"
 msgstr "Dispatcher"
 
-#: src/components/Settings/BasicInfo.tsx:329
+#: src/components/Settings/BasicInfo.tsx:332
 msgid "Display Name"
 msgstr "Display Name"
 
@@ -393,11 +393,11 @@ msgstr "Don't switch network or wallet accounts"
 msgid "Drag and drop"
 msgstr "Drag and drop"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:132
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:135
 msgid "Enable"
 msgstr "Enable"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:77
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:80
 #: src/components/Watch/CollectVideo/PermissionAlert.tsx:39
 msgid "enabled"
 msgstr "enabled"
@@ -406,7 +406,7 @@ msgstr "enabled"
 msgid "Ends At"
 msgstr "Ends At"
 
-#: src/components/Upload/BundlrInfo.tsx:98
+#: src/components/Upload/BundlrInfo.tsx:103
 msgid "Enter deposit amount"
 msgstr "Enter deposit amount"
 
@@ -419,7 +419,7 @@ msgstr "Enter valid comment"
 msgid "Error uploading file"
 msgstr "Error uploading file"
 
-#: src/components/Upload/BundlrInfo.tsx:242
+#: src/components/Upload/BundlrInfo.tsx:247
 msgid "Estimated Cost to Upload"
 msgstr "Estimated Cost to Upload"
 
@@ -430,7 +430,7 @@ msgstr "Estimated Cost to Upload"
 msgid "Explore"
 msgstr "Explore"
 
-#: src/components/Upload/BundlrInfo.tsx:146
+#: src/components/Upload/BundlrInfo.tsx:151
 msgid "Failed to deposit storage balance"
 msgstr "Failed to deposit storage balance"
 
@@ -438,7 +438,7 @@ msgstr "Failed to deposit storage balance"
 msgid "Failed to upload thumbnail"
 msgstr "Failed to upload thumbnail"
 
-#: src/components/Upload/UploadSteps.tsx:513
+#: src/components/Upload/UploadSteps.tsx:511
 msgid "Failed to upload video to Arweave"
 msgstr "Failed to upload video to Arweave"
 
@@ -470,7 +470,7 @@ msgstr ""
 msgid "Grow with Lens"
 msgstr ""
 
-#: src/components/Watch/Comments/NonRelevantComments.tsx:95
+#: src/components/Watch/Comments/NonRelevantComments.tsx:85
 msgid "Hide more comments"
 msgstr ""
 
@@ -509,7 +509,7 @@ msgstr "Indexing..."
 #~ msgid "Insufficient balance"
 #~ msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:460
+#: src/components/Upload/UploadSteps.tsx:458
 msgid "Insufficient storage balance"
 msgstr ""
 
@@ -522,27 +522,27 @@ msgstr ""
 msgid "Interests"
 msgstr "Interests"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:29
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:32
 msgid "Invalid amount"
 msgstr "Invalid amount"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:33
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:36
 msgid "Invalid collect limit"
 msgstr ""
 
-#: src/components/Upload/BundlrInfo.tsx:103
+#: src/components/Upload/BundlrInfo.tsx:108
 msgid "Invalid deposit amount"
 msgstr ""
 
-#: src/components/Common/Auth/Login.tsx:107
+#: src/components/Common/Auth/Login.tsx:112
 msgid "Invalid Signature!"
 msgstr "Invalid Signature!"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:117
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:120
 msgid "Invalid split recipient address"
 msgstr "Invalid split recipient address"
 
-#: src/components/Upload/UploadSteps.tsx:439
+#: src/components/Upload/UploadSteps.tsx:437
 msgid "IPFS Upload failed"
 msgstr "IPFS Upload failed"
 
@@ -559,7 +559,7 @@ msgstr "joined"
 msgid "lens claiming site"
 msgstr "lens claiming site"
 
-#: src/components/Mod/index.tsx:43
+#: src/components/Mod/index.tsx:48
 msgid "Lenstube Stats"
 msgstr ""
 
@@ -571,10 +571,10 @@ msgstr "Like"
 msgid "liked"
 msgstr ""
 
-#: src/components/Channel/Tabs/PinnedVideo.tsx:82
+#: src/components/Channel/Tabs/PinnedVideo.tsx:85
 #: src/components/Common/VideoCard/index.tsx:92
 #: src/components/Home/BytesSection.tsx:140
-#: src/components/Watch/SuggestedVideoCard.tsx:117
+#: src/components/Watch/SuggestedVideoCard.tsx:121
 msgid "likes"
 msgstr "likes"
 
@@ -582,11 +582,11 @@ msgstr "likes"
 msgid "Likes"
 msgstr ""
 
-#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:62
+#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:65
 msgid "Limit to 24 hours sale"
 msgstr ""
 
-#: src/components/Upload/CollectModule/LimitQuestion.tsx:60
+#: src/components/Upload/CollectModule/LimitQuestion.tsx:63
 msgid "Limited collect"
 msgstr ""
 
@@ -594,7 +594,7 @@ msgstr ""
 msgid "Links"
 msgstr "Links"
 
-#: src/components/Settings/BasicInfo.tsx:371
+#: src/components/Settings/BasicInfo.tsx:374
 msgid "Location"
 msgstr ""
 
@@ -630,7 +630,7 @@ msgstr ""
 msgid "Mirror"
 msgstr "Mirror"
 
-#: src/components/Common/MirrorVideo.tsx:189
+#: src/components/Common/MirrorVideo.tsx:192
 msgid "Mirror video across Lens"
 msgstr "Mirror video across Lens"
 
@@ -647,7 +647,7 @@ msgstr ""
 msgid "mirrored your"
 msgstr ""
 
-#: src/components/Common/MirrorVideo.tsx:192
+#: src/components/Common/MirrorVideo.tsx:195
 msgid "Mirroring"
 msgstr "Mirroring"
 
@@ -663,14 +663,14 @@ msgstr ""
 msgid "Misuse Hashtags"
 msgstr ""
 
-#: src/components/Common/MirrorVideo.tsx:151
+#: src/components/Common/MirrorVideo.tsx:154
 #: src/components/Watch/Comments/NewComment.tsx:323
 #: src/components/Watch/TipModal.tsx:322
 #: src/components/Watch/TipModal.tsx:396
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
 msgstr ""
 
-#: src/components/Settings/BasicInfo.tsx:339
+#: src/components/Settings/BasicInfo.tsx:342
 msgid "More about your channel"
 msgstr ""
 
@@ -728,11 +728,11 @@ msgstr "No subscribers"
 #: src/components/Explore/Feed.tsx:163
 #: src/components/Explore/Hashtag/index.tsx:74
 #: src/components/Home/Feed.tsx:62
-#: src/components/Mod/Recents.tsx:66
+#: src/components/Mod/Recents.tsx:65
 msgid "No videos found"
 msgstr "No videos found"
 
-#: src/components/Upload/CollectModule/PermissionQuestion.tsx:88
+#: src/components/Upload/CollectModule/PermissionQuestion.tsx:91
 msgid "None"
 msgstr ""
 
@@ -756,7 +756,7 @@ msgstr ""
 msgid "Only"
 msgstr ""
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:107
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:110
 msgid "Only 5 splits supported"
 msgstr ""
 
@@ -768,7 +768,7 @@ msgstr ""
 msgid "Only my subscribers can comment and mirror"
 msgstr ""
 
-#: src/components/Watch/Comments/VideoComments.tsx:137
+#: src/components/Watch/Comments/VideoComments.tsx:126
 msgid "Only subscribers can comment on this publication"
 msgstr ""
 
@@ -784,15 +784,15 @@ msgstr "Pay Membership of"
 msgid "People you may know"
 msgstr "People you may know"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:212
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:215
 msgid "Percent of collect revenue can be shared with anyone who mirrors this video."
 msgstr ""
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:37
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:40
 msgid "Percentage should be 0 to 100"
 msgstr ""
 
-#: src/components/Common/VideoCard/ShareModal.tsx:29
+#: src/components/Common/VideoCard/ShareModal.tsx:34
 msgid "Permalink copied to clipboard"
 msgstr "Permalink copied to clipboard"
 
@@ -804,15 +804,15 @@ msgstr ""
 msgid "Permissions"
 msgstr "Permissions"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:255
+#: src/components/Common/VideoCard/VideoOptions.tsx:256
 msgid "Pin Video"
 msgstr "Pin Video"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:186
+#: src/components/Common/VideoCard/VideoOptions.tsx:187
 msgid "Pinning video..."
 msgstr "Pinning video..."
 
-#: src/components/Common/Auth/Login.tsx:93
+#: src/components/Common/Auth/Login.tsx:98
 msgid "Please connect to your wallet"
 msgstr "Please connect to your wallet"
 
@@ -832,13 +832,13 @@ msgstr "Please upload a custom thumbnail"
 msgid "Popular"
 msgstr "Popular"
 
-#: src/components/Upload/UploadSteps.tsx:119
-#: src/components/Upload/UploadSteps.tsx:146
-#: src/components/Upload/UploadSteps.tsx:517
+#: src/components/Upload/UploadSteps.tsx:123
+#: src/components/Upload/UploadSteps.tsx:150
+#: src/components/Upload/UploadSteps.tsx:515
 msgid "Post Video"
 msgstr "Post Video"
 
-#: src/components/Upload/UploadSteps.tsx:381
+#: src/components/Upload/UploadSteps.tsx:379
 msgid "Posting video"
 msgstr "Posting video"
 
@@ -846,7 +846,7 @@ msgstr "Posting video"
 msgid "Price"
 msgstr "Price"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:193
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:196
 msgid "Price of each collect"
 msgstr "Price of each collect"
 
@@ -866,7 +866,7 @@ msgstr "Proof of Personhood"
 msgid "Publication reported successfully."
 msgstr "Publication reported successfully."
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:267
+#: src/components/Common/VideoCard/VideoOptions.tsx:268
 msgid "Raw Video"
 msgstr "Raw Video"
 
@@ -888,7 +888,7 @@ msgstr "Recipients"
 msgid "Referral Fee"
 msgstr "Referral Fee"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:208
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:211
 msgid "Referral Percentage"
 msgstr "Referral Percentage"
 
@@ -900,16 +900,16 @@ msgstr "Relevant"
 msgid "Repetitive"
 msgstr ""
 
-#: src/components/Watch/Comments/Comment.tsx:167
+#: src/components/Watch/Comments/Comment.tsx:157
 msgid "replies"
 msgstr ""
 
-#: src/components/Watch/Comments/Comment.tsx:159
-#: src/components/Watch/Comments/CommentReplies.tsx:179
+#: src/components/Watch/Comments/Comment.tsx:149
+#: src/components/Watch/Comments/CommentReplies.tsx:163
 msgid "Reply"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:300
+#: src/components/Common/VideoCard/VideoOptions.tsx:301
 #: src/components/ReportPublication/index.tsx:157
 #: src/components/Watch/Comments/CommentOptions.tsx:80
 #: src/components/Watch/VideoActions.tsx:69
@@ -934,7 +934,7 @@ msgstr ""
 msgid "Revoke"
 msgstr ""
 
-#: src/components/Settings/BasicInfo.tsx:379
+#: src/components/Settings/BasicInfo.tsx:382
 msgid "Save"
 msgstr ""
 
@@ -964,7 +964,7 @@ msgstr "Select Video"
 msgid "Sensitive Content"
 msgstr "Sensitive Content"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:222
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:225
 #: src/components/Upload/CollectModule/index.tsx:127
 msgid "Set Collect Type"
 msgstr ""
@@ -973,12 +973,12 @@ msgstr ""
 msgid "Set Preference"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:290
+#: src/components/Common/VideoCard/VideoOptions.tsx:291
 #: src/components/Watch/VideoActions.tsx:56
 msgid "Share"
 msgstr "Share"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:38
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:41
 msgid "Should to greater than or equal to zero"
 msgstr ""
 
@@ -986,21 +986,21 @@ msgstr ""
 msgid "Show all"
 msgstr ""
 
-#: src/components/Watch/Comments/Comment.tsx:136
-#: src/components/Watch/Comments/CommentReplies.tsx:66
+#: src/components/Watch/Comments/Comment.tsx:126
+#: src/components/Watch/Comments/CommentReplies.tsx:58
 msgid "Show less"
 msgstr ""
 
-#: src/components/Watch/Comments/Comment.tsx:131
-#: src/components/Watch/Comments/CommentReplies.tsx:61
+#: src/components/Watch/Comments/Comment.tsx:121
+#: src/components/Watch/Comments/CommentReplies.tsx:53
 msgid "Show more"
 msgstr ""
 
-#: src/components/Watch/Comments/NonRelevantComments.tsx:95
+#: src/components/Watch/Comments/NonRelevantComments.tsx:85
 msgid "Show more comments"
 msgstr ""
 
-#: src/components/Watch/Comments/CommentReplies.tsx:208
+#: src/components/Watch/Comments/CommentReplies.tsx:192
 msgid "Show more replies"
 msgstr ""
 
@@ -1008,7 +1008,7 @@ msgstr ""
 msgid "Sign In"
 msgstr "Sign In"
 
-#: src/components/Common/Auth/Login.tsx:142
+#: src/components/Common/Auth/Login.tsx:147
 msgid "Sign in failed"
 msgstr "Sign in failed"
 
@@ -1032,15 +1032,15 @@ msgstr "Some services are offline"
 msgid "Something Else"
 msgstr ""
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:121
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:124
 msgid "Split addresses should be unique"
 msgstr ""
 
-#: src/components/Upload/CollectModule/Splits.tsx:213
+#: src/components/Upload/CollectModule/Splits.tsx:217
 msgid "Split evenly"
 msgstr ""
 
-#: src/components/Upload/CollectModule/Splits.tsx:120
+#: src/components/Upload/CollectModule/Splits.tsx:124
 msgid "Split revenue"
 msgstr ""
 
@@ -1052,7 +1052,7 @@ msgstr "Status"
 msgid "Stay active in current tab while uploading for faster experience"
 msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:325
+#: src/components/Upload/UploadSteps.tsx:323
 msgid "Storing metadata"
 msgstr ""
 
@@ -1077,7 +1077,7 @@ msgstr "subscribers"
 
 #: src/components/Channel/BasicInfo/index.tsx:71
 #: src/components/Upload/CollectModule/index.tsx:49
-#: src/components/Upload/CollectModule/PermissionQuestion.tsx:65
+#: src/components/Upload/CollectModule/PermissionQuestion.tsx:68
 #: src/components/Watch/CollectVideo/CollectModal.tsx:312
 msgid "Subscribers"
 msgstr "Subscribers"
@@ -1089,7 +1089,7 @@ msgstr "Subscribers"
 msgid "Subscriptions"
 msgstr "Subscriptions"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:127
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:130
 msgid "Sum of all splits should be 100%"
 msgstr ""
 
@@ -1122,7 +1122,7 @@ msgid "Terms"
 msgstr "Terms"
 
 #: src/components/Common/Footer.tsx:74
-#: src/components/Thanks/index.tsx:14
+#: src/components/Thanks/index.tsx:19
 msgid "Thanks"
 msgstr "Thanks"
 
@@ -1130,7 +1130,7 @@ msgstr "Thanks"
 msgid "Thanks for making this video!"
 msgstr ""
 
-#: src/components/Thanks/index.tsx:18
+#: src/components/Thanks/index.tsx:23
 msgid "Thanks for supporting our community!"
 msgstr ""
 
@@ -1211,15 +1211,15 @@ msgstr ""
 msgid "token balance"
 msgstr ""
 
-#: src/components/Mod/index.tsx:49
+#: src/components/Mod/index.tsx:54
 msgid "total bytes"
 msgstr ""
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:145
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:148
 msgid "Total Collectibles"
 msgstr ""
 
-#: src/components/Mod/index.tsx:51
+#: src/components/Mod/index.tsx:56
 msgid "total collects"
 msgstr ""
 
@@ -1227,23 +1227,23 @@ msgstr ""
 msgid "Total Collects"
 msgstr ""
 
-#: src/components/Mod/index.tsx:47
+#: src/components/Mod/index.tsx:52
 msgid "total comments"
 msgstr ""
 
-#: src/components/Mod/index.tsx:48
+#: src/components/Mod/index.tsx:53
 msgid "total mirrors"
 msgstr ""
 
-#: src/components/Mod/index.tsx:50
+#: src/components/Mod/index.tsx:55
 msgid "total subscriptions"
 msgstr ""
 
-#: src/components/Mod/index.tsx:46
+#: src/components/Mod/index.tsx:51
 msgid "total videos"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:114
+#: src/components/Common/VideoCard/VideoOptions.tsx:115
 msgid "Transaction submitted"
 msgstr "Transaction submitted"
 
@@ -1251,11 +1251,11 @@ msgstr "Transaction submitted"
 msgid "Trending"
 msgstr ""
 
-#: src/components/Upload/CollectModule/LimitQuestion.tsx:37
+#: src/components/Upload/CollectModule/LimitQuestion.tsx:40
 msgid "Unlimited collects"
 msgstr ""
 
-#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:40
+#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:43
 msgid "Unlimited duration"
 msgstr ""
 
@@ -1263,7 +1263,7 @@ msgstr ""
 msgid "Unrelated"
 msgstr ""
 
-#: src/components/Channel/BasicInfo/UnSubscribe.tsx:98
+#: src/components/Channel/BasicInfo/UnSubscribe.tsx:105
 msgid "Unsubscribe"
 msgstr "Unsubscribe"
 
@@ -1271,12 +1271,12 @@ msgstr "Unsubscribe"
 msgid "Update"
 msgstr ""
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:128
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:131
 msgid "Upgrade"
 msgstr ""
 
-#: src/components/Home/DispatcherAlert.tsx:19
-#: src/components/Settings/Permissions/Dispatcher/index.tsx:16
+#: src/components/Home/DispatcherAlert.tsx:22
+#: src/components/Settings/Permissions/Dispatcher/index.tsx:19
 msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
 msgstr ""
 
@@ -1284,7 +1284,7 @@ msgstr ""
 msgid "Upload"
 msgstr ""
 
-#: src/components/Upload/BundlrInfo.tsx:45
+#: src/components/Upload/BundlrInfo.tsx:50
 msgid "Upload cost estimation failed"
 msgstr ""
 
@@ -1309,11 +1309,11 @@ msgstr ""
 msgid "Uploading thumbnail"
 msgstr "Uploading thumbnail"
 
-#: src/components/Upload/UploadSteps.tsx:465
+#: src/components/Upload/UploadSteps.tsx:463
 msgid "Uploading to Arweave"
 msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:432
+#: src/components/Upload/UploadSteps.tsx:430
 msgid "Uploading to IPFS"
 msgstr ""
 
@@ -1328,7 +1328,7 @@ msgstr "Verified"
 msgid "video"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:81
+#: src/components/Common/VideoCard/VideoOptions.tsx:82
 msgid "Video deleted"
 msgstr "Video deleted"
 
@@ -1336,7 +1336,7 @@ msgstr "Video deleted"
 msgid "Video format not supported"
 msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:455
+#: src/components/Upload/UploadSteps.tsx:453
 msgid "Video not uploaded correctly"
 msgstr ""
 
@@ -1362,7 +1362,7 @@ msgstr "Videos"
 msgid "View Metadata"
 msgstr ""
 
-#: src/components/Channel/Tabs/PinnedVideo.tsx:99
+#: src/components/Channel/Tabs/PinnedVideo.tsx:102
 msgid "View more"
 msgstr "View more"
 
@@ -1390,19 +1390,19 @@ msgstr "Visit"
 msgid "Wallet"
 msgstr "Wallet"
 
-#: src/components/Watch/index.tsx:66
+#: src/components/Watch/index.tsx:67
 msgid "Watch"
 msgstr ""
 
-#: src/components/Watch/Comments/VideoComment.tsx:26
+#: src/components/Watch/Comments/VideoComment.tsx:27
 msgid "Watch Video"
 msgstr ""
 
-#: src/components/Settings/BasicInfo.tsx:363
+#: src/components/Settings/BasicInfo.tsx:366
 msgid "Website"
 msgstr ""
 
-#: src/components/Upload/CollectModule/PermissionQuestion.tsx:17
+#: src/components/Upload/CollectModule/PermissionQuestion.tsx:20
 msgid "Who can collect this video?"
 msgstr ""
 
@@ -1414,19 +1414,19 @@ msgstr "with Lens"
 msgid "within 24hrs"
 msgstr ""
 
-#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:20
+#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:23
 msgid "Would you like to limit the collect duration?"
 msgstr ""
 
-#: src/components/Upload/CollectModule/LimitQuestion.tsx:17
+#: src/components/Upload/CollectModule/LimitQuestion.tsx:20
 msgid "Would you like to limit the collectibles?"
 msgstr ""
 
-#: src/components/Upload/CollectModule/ChargeQuestion.tsx:17
+#: src/components/Upload/CollectModule/ChargeQuestion.tsx:20
 msgid "Would you like to set collect price for this video?"
 msgstr ""
 
-#: src/components/Watch/Comments/Comment.tsx:204
+#: src/components/Watch/Comments/Comment.tsx:194
 msgid "Write a reply"
 msgstr ""
 
@@ -1434,7 +1434,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: src/components/Upload/CollectModule/ChargeQuestion.tsx:59
+#: src/components/Upload/CollectModule/ChargeQuestion.tsx:62
 msgid "Yes, Some Price"
 msgstr ""
 
@@ -1442,7 +1442,7 @@ msgstr ""
 msgid "You can set up a subscription fee for your channel and provide exclusive offers and perks to the subscribers, also people can pay and support your work."
 msgstr ""
 
-#: src/components/Subscriptions/Feed.tsx:59
+#: src/components/Subscriptions/Feed.tsx:63
 msgid "You got no videos in your feed, explore!"
 msgstr ""
 
@@ -1462,7 +1462,6 @@ msgstr ""
 msgid "Your Channel"
 msgstr "Your Channel"
 
-#: src/components/Upload/BundlrInfo.tsx:171
+#: src/components/Upload/BundlrInfo.tsx:176
 msgid "Your Storage Balance"
 msgstr "Your Storage Balance"
-

@@ -4,7 +4,7 @@ import {
   IS_MAINNET,
   IS_PRODUCTION,
   LENSTUBE_TAIL_INGEST_URL
-} from './constants'
+} from '../constants/general'
 const isBrowser = typeof window !== 'undefined'
 
 const tailLog = (level: 'error' | 'log', message: string) => {

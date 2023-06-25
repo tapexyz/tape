@@ -1,6 +1,6 @@
-import type { CollectModuleParams, RecipientDataInput } from 'lens'
+import type { CollectModuleParams, RecipientDataInput } from '@lenstube/lens'
+import type { CollectModuleType } from '@lenstube/lens/custom-types'
 
-import type { CollectModuleType } from '../custom-types'
 import { getTimeAddedOneDay } from './formatTime'
 
 export const getCollectModule = (

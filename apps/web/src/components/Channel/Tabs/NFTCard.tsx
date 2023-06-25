@@ -1,8 +1,12 @@
-import type { Nft } from 'lens'
+import {
+  IS_MAINNET,
+  OPENSEA_MARKETPLACE_URL,
+  STATIC_ASSETS
+} from '@lenstube/constants'
+import type { Nft } from '@lenstube/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { IS_MAINNET, OPENSEA_MARKETPLACE_URL, STATIC_ASSETS } from 'utils'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 

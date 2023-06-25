@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }]
 const moduleExports = {
-  transpilePackages: ['lens', 'utils', 'web-ui'],
+  transpilePackages: [
+    '@lenstube/lens',
+    'utils',
+    '@lenstube/constants',
+    'web-ui'
+  ],
   reactStrictMode: process.env.NODE_ENV === 'production',
   experimental: {
     scrollRestoration: true,

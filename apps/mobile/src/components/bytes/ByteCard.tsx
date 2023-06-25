@@ -1,6 +1,6 @@
+import type { Publication } from '@lenstube/lens'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { ResizeMode, Video } from 'expo-av'
-import type { Publication } from 'lens'
 import { MotiView } from 'moti'
 import type { FC } from 'react'
 import React from 'react'

@@ -2,17 +2,17 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { t } from '@lingui/macro'
-import type { Profile, Publication } from 'lens'
-import { PublicationTypes, useProfilePostsQuery } from 'lens'
-import type { FC } from 'react'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
-} from 'utils'
+} from '@lenstube/constants'
+import type { Profile, Publication } from '@lenstube/lens'
+import { PublicationTypes, useProfilePostsQuery } from '@lenstube/lens'
+import { t } from '@lingui/macro'
+import type { FC } from 'react'
+import React from 'react'
+import { useInView } from 'react-cool-inview'
 
 type Props = {
   channel: Profile

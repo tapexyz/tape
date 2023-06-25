@@ -1,6 +1,6 @@
 import IsVerified from '@components/Common/IsVerified'
+import type { NewMentionNotification } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
-import type { NewMentionNotification } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

@@ -1,34 +1,17 @@
 {
-  "extends": "tsconfig/react.json",
+  "extends": "@lenstube/config/react.tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "noEmit": true,
     "paths": {
-      "@components*": [
-        "src/components*"
-      ],
-      "@hooks*": [
-        "src/hooks*"
-      ],
-      "@lib*": [
-        "src/lib*"
-      ],
-      "@ui*": [
-        "src/components/ui*"
-      ],
-      "@abis*": [
-        "src/abis*"
-      ],
-      "@gql*": [
-        "src/gql*"
-      ]
+      "@components*": ["src/components*"],
+      "@hooks*": ["src/hooks*"],
+      "@lib*": ["src/lib*"],
+      "@ui*": ["src/components/ui*"],
+      "@abis*": ["src/abis*"],
+      "@gql*": ["src/gql*"]
     },
     "isolatedModules": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/styles/index.css"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/index.css"]
 }

@@ -2,23 +2,23 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
-import { t } from '@lingui/macro'
-import type { Publication } from 'lens'
-import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
-} from 'lens'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
 import {
   ALLOWED_APP_IDS,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   SCROLL_ROOT_MARGIN
-} from 'utils'
+} from '@lenstube/constants'
+import type { Publication } from '@lenstube/lens'
+import {
+  PublicationMainFocus,
+  PublicationSortCriteria,
+  PublicationTypes,
+  useExploreQuery
+} from '@lenstube/lens'
+import useAppStore from '@lib/store'
+import { t } from '@lingui/macro'
+import React from 'react'
+import { useInView } from 'react-cool-inview'
 
 const HomeFeed = () => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)

@@ -1,11 +1,11 @@
 import Tooltip from '@components/UIElements/Tooltip'
+import { STATIC_ASSETS } from '@lenstube/constants'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { STATIC_ASSETS } from 'utils'
 import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
 
 import CreateChannel from './CreateChannel'

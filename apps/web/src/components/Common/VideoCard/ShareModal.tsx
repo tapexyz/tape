@@ -1,11 +1,16 @@
 import Modal from '@components/UIElements/Modal'
+import {
+  Analytics,
+  LENSTUBE_WEBSITE_URL,
+  STATIC_ASSETS,
+  TRACK
+} from '@lenstube/constants'
+import type { Publication } from '@lenstube/lens'
 import { t } from '@lingui/macro'
-import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
-import { Analytics, LENSTUBE_WEBSITE_URL, STATIC_ASSETS, TRACK } from 'utils'
 import { getSharableLink } from 'utils/functions/getSharableLink'
 import imageCdn from 'utils/functions/imageCdn'
 import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'

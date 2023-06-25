@@ -1,5 +1,5 @@
-import type { Publication } from 'lens'
-import { PublicationMainFocus } from 'lens'
+import type { Publication } from '@lenstube/lens'
+import { PublicationMainFocus } from '@lenstube/lens'
 
 const isWatchable = (publication: Publication) => {
   const canWatch =

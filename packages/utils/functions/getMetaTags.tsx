@@ -1,4 +1,3 @@
-import type { Attribute, Publication } from 'lens'
 import {
   LENSTUBE_API_URL,
   LENSTUBE_APP_DESCRIPTION,
@@ -7,7 +6,8 @@ import {
   LENSTUBE_TWITTER_HANDLE,
   LENSTUBE_WEBSITE_URL,
   OG_IMAGE
-} from 'utils'
+} from '@lenstube/constants'
+import type { Attribute, Publication } from '@lenstube/lens'
 import { secondsToISO } from 'utils/functions/formatTime'
 import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'

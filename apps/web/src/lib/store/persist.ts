@@ -1,5 +1,8 @@
-import type { QueuedCommentType, QueuedVideoType } from 'utils'
-import { CustomNotificationsFilterEnum } from 'utils'
+import type {
+  QueuedCommentType,
+  QueuedVideoType
+} from '@lenstube/lens/custom-types'
+import { CustomNotificationsFilterEnum } from '@lenstube/lens/custom-types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 

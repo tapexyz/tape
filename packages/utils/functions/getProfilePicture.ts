@@ -1,6 +1,6 @@
-import type { Profile } from 'lens'
+import type { IMAGE_TRANSFORMATIONS } from '@lenstube/constants'
+import type { Profile } from '@lenstube/lens'
 
-import type { IMAGE_TRANSFORMATIONS } from '../constants'
 import { getRandomProfilePicture } from './getRandomProfilePicture'
 import imageCdn from './imageCdn'
 import sanitizeDStorageUrl from './sanitizeDStorageUrl'

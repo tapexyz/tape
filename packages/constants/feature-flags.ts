@@ -1,4 +1,4 @@
-import { IS_MAINNET } from 'utils'
+import { IS_MAINNET } from '@lenstube/constants'
 
 export enum FEATURE_FLAGS {
   POST_WITH_SOURCE_URL = 'PostWithSource'

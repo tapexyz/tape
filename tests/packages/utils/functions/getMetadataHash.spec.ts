@@ -1,5 +1,5 @@
+import type { Publication } from '@lenstube/lens'
 import { expect, test } from '@playwright/test'
-import type { Publication } from 'lens'
 import getMetadataHash from 'utils/functions/getMetadataHash'
 
 test('getMetadataHash', async () => {

@@ -1,4 +1,4 @@
-import type { Attribute } from 'lens'
+import type { Attribute } from '@lenstube/lens'
 
 // key available only profile metadata
 export const getValueFromKeyInAttributes = (

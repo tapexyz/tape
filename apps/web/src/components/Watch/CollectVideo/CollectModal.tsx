@@ -4,27 +4,27 @@ import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import dayjs from 'dayjs'
+import { Analytics, TRACK } from '@lenstube/constants'
 import type {
   ApprovedAllowanceAmount,
   Profile,
   Publication,
   RecipientDataOutput
-} from 'lens'
+} from '@lenstube/lens'
 import {
   CollectModules,
   useAllProfilesQuery,
   useApprovedModuleAllowanceAmountQuery,
   usePublicationRevenueQuery
-} from 'lens'
+} from '@lenstube/lens'
+import type { LenstubeCollectModule } from '@lenstube/lens/custom-types'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import dayjs from 'dayjs'
 import Link from 'next/link'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import type { LenstubeCollectModule } from 'utils'
-import { Analytics, TRACK } from 'utils'
 import formatNumber from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'

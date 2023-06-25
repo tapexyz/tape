@@ -1,0 +1,16 @@
+{
+  "name": "@lenstube/constants",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "main": "index.ts",
+  "scripts": {
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "typecheck": "tsc --pretty"
+  },
+  "devDependencies": {
+    "@lenstube/config": "*",
+    "@types/node": "^20.3.1",
+    "typescript": "^5.1.3"
+  }
+}

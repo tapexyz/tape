@@ -1,29 +1,29 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
-import type { FeeFollowModuleSettings, Profile } from 'lens'
-import {
-  FollowModules,
-  useApprovedModuleAllowanceAmountQuery,
-  useBroadcastMutation,
-  useCreateFollowTypedDataMutation,
-  useProfileFollowModuleQuery
-} from 'lens'
-import type { FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
 import {
   Analytics,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   TRACK
-} from 'utils'
+} from '@lenstube/constants'
+import type { FeeFollowModuleSettings, Profile } from '@lenstube/lens'
+import {
+  FollowModules,
+  useApprovedModuleAllowanceAmountQuery,
+  useBroadcastMutation,
+  useCreateFollowTypedDataMutation,
+  useProfileFollowModuleQuery
+} from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import type { FC } from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import getSignature from 'utils/functions/getSignature'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 

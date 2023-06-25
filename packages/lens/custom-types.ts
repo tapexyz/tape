@@ -11,7 +11,7 @@ import type {
   RevertCollectModuleSettings,
   SimpleCollectModuleSettings,
   TimedFeeCollectModuleSettings
-} from 'lens'
+} from '@lenstube/lens'
 
 export type VideoDraft = {
   preview: string

@@ -1,4 +1,7 @@
-import { IMAGE_TRANSFORMATIONS, LENS_IMAGEKIT_SNAPSHOT_URL } from '../constants'
+import {
+  IMAGE_TRANSFORMATIONS,
+  LENS_IMAGEKIT_SNAPSHOT_URL
+} from '@lenstube/constants'
 
 const imageCdn = (
   url: string,

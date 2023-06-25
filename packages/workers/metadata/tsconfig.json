@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/base.json",
+  "extends": "@lenstube/config/base.tsconfig.json",
   "compilerOptions": {
     "lib": ["es2021"],
     "noEmit": true,

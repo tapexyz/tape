@@ -2,18 +2,18 @@ import { useApolloClient } from '@apollo/client'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
 import {
   PublicationDetailsDocument,
   useHasTxHashBeenIndexedQuery,
   usePublicationDetailsLazyQuery,
   useTxIdToTxHashLazyQuery
-} from 'lens'
+} from '@lenstube/lens'
+import type { QueuedCommentType } from '@lenstube/lens/custom-types'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import type { QueuedCommentType } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 
 type Props = {

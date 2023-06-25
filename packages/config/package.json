@@ -1,8 +1,11 @@
 {
-  "name": "eslint-config-weblint",
+  "name": "@lenstube/config",
   "version": "0.0.0",
-  "main": "index.js",
+  "private": true,
   "license": "AGPL-3.0",
+  "exports": {
+    "./*": "./*"
+  },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "eslint": "8.43.0",
@@ -12,8 +15,5 @@
     "eslint-plugin-unicorn": "^47.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "^2.8.8"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

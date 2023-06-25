@@ -1,8 +1,12 @@
+import {
+  FALLBACK_COVER_URL,
+  LENSTUBE_BYTES_APP_ID,
+  STATIC_ASSETS
+} from '@lenstube/constants'
+import type { Publication } from '@lenstube/lens'
 import clsx from 'clsx'
-import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React from 'react'
-import { FALLBACK_COVER_URL, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from 'utils'
 import { generateVideoThumbnail } from 'utils/functions/generateVideoThumbnails'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'

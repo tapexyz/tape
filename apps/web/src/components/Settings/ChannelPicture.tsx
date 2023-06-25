@@ -1,28 +1,31 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import { Loader } from '@components/UIElements/Loader'
-import useChannelStore from '@lib/store/channel'
-import { t } from '@lingui/macro'
-import clsx from 'clsx'
-import type {
-  CreateSetProfileImageUriBroadcastItemResult,
-  Profile,
-  UpdateProfileImageRequest
-} from 'lens'
-import {
-  useBroadcastMutation,
-  useCreateSetProfileImageUriTypedDataMutation,
-  useCreateSetProfileImageUriViaDispatcherMutation
-} from 'lens'
-import type { ChangeEvent, FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
-} from 'utils'
+} from '@lenstube/constants'
+import type {
+  CreateSetProfileImageUriBroadcastItemResult,
+  Profile,
+  UpdateProfileImageRequest
+} from '@lenstube/lens'
+import {
+  useBroadcastMutation,
+  useCreateSetProfileImageUriTypedDataMutation,
+  useCreateSetProfileImageUriViaDispatcherMutation
+} from '@lenstube/lens'
+import type {
+  CustomErrorWithData,
+  IPFSUploadResult
+} from '@lenstube/lens/custom-types'
+import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
+import clsx from 'clsx'
+import type { ChangeEvent, FC } from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import getSignature from 'utils/functions/getSignature'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'

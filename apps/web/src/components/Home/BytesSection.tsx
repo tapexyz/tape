@@ -2,22 +2,22 @@ import BytesOutline from '@components/Common/Icons/BytesOutline'
 import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import BytesShimmer from '@components/Shimmers/BytesShimmer'
-import useAppStore from '@lib/store'
-import { Trans } from '@lingui/macro'
-import type { Publication } from 'lens'
+import {
+  FALLBACK_COVER_URL,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID
+} from '@lenstube/constants'
+import type { Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'lens'
+} from '@lenstube/lens'
+import useAppStore from '@lib/store'
+import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import React, { useRef } from 'react'
-import {
-  FALLBACK_COVER_URL,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_BYTES_APP_ID
-} from 'utils'
 import { generateVideoThumbnail } from 'utils/functions/generateVideoThumbnails'
 import getLensHandle from 'utils/functions/getLensHandle'
 import getProfilePicture from 'utils/functions/getProfilePicture'

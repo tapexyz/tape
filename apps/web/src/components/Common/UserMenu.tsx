@@ -1,17 +1,5 @@
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
-import useAuthPersistStore, { signOut } from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import clsx from 'clsx'
-import type { Profile } from 'lens'
-import { useAllProfilesLazyQuery } from 'lens'
-import Link from 'next/link'
-import { useTheme } from 'next-themes'
-import React, { useState } from 'react'
-import { toast } from 'react-hot-toast'
-import useSWR from 'swr'
-import type { CustomErrorWithData } from 'utils'
 import {
   ADMIN_IDS,
   Analytics,
@@ -19,7 +7,19 @@ import {
   IS_MAINNET,
   LENSTUBE_STATUS_PAGE,
   TRACK
-} from 'utils'
+} from '@lenstube/constants'
+import type { Profile } from '@lenstube/lens'
+import { useAllProfilesLazyQuery } from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import useAuthPersistStore, { signOut } from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import clsx from 'clsx'
+import Link from 'next/link'
+import { useTheme } from 'next-themes'
+import React, { useState } from 'react'
+import { toast } from 'react-hot-toast'
+import useSWR from 'swr'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import { useAccount, useDisconnect } from 'wagmi'
 

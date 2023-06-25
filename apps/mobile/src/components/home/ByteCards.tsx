@@ -1,14 +1,14 @@
-import { Image as ExpoImage } from 'expo-image'
-import { LinearGradient } from 'expo-linear-gradient'
-import { Gyroscope } from 'expo-sensors'
-import type { Publication } from 'lens'
+import type { Publication } from '@lenstube/lens'
 import {
   CustomFiltersTypes,
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'lens'
+} from '@lenstube/lens'
+import { Image as ExpoImage } from 'expo-image'
+import { LinearGradient } from 'expo-linear-gradient'
+import { Gyroscope } from 'expo-sensors'
 import { Skeleton } from 'moti/skeleton'
 import React, { useCallback, useEffect } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'

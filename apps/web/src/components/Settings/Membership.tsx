@@ -5,30 +5,30 @@ import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import type {
-  CreateSetFollowModuleBroadcastItemResult,
-  Erc20,
-  FeeFollowModuleSettings,
-  Profile
-} from 'lens'
-import {
-  useBroadcastMutation,
-  useCreateSetFollowModuleTypedDataMutation,
-  useEnabledModuleCurrrenciesQuery,
-  useProfileFollowModuleQuery
-} from 'lens'
-import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   WMATIC_TOKEN_ADDRESS
-} from 'utils'
+} from '@lenstube/constants'
+import type {
+  CreateSetFollowModuleBroadcastItemResult,
+  Erc20,
+  FeeFollowModuleSettings,
+  Profile
+} from '@lenstube/lens'
+import {
+  useBroadcastMutation,
+  useCreateSetFollowModuleTypedDataMutation,
+  useEnabledModuleCurrrenciesQuery,
+  useProfileFollowModuleQuery
+} from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import getSignature from 'utils/functions/getSignature'
 import { shortenAddress } from 'utils/functions/shortenAddress'
 import { useContractWrite, useSignTypedData } from 'wagmi'

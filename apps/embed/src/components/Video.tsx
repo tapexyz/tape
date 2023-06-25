@@ -1,9 +1,14 @@
+import {
+  Analytics,
+  LENSTUBE_BYTES_APP_ID,
+  STATIC_ASSETS,
+  TRACK
+} from '@lenstube/constants'
+import type { Publication } from '@lenstube/lens'
 import clsx from 'clsx'
-import type { Publication } from 'lens'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
 import {
   getPublicationHlsUrl,
   getPublicationMediaUrl,

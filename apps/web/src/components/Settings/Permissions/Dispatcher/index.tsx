@@ -1,7 +1,10 @@
+import {
+  LENSTUBE_APP_NAME,
+  OLD_LENS_RELAYER_ADDRESS
+} from '@lenstube/constants'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import React from 'react'
-import { LENSTUBE_APP_NAME, OLD_LENS_RELAYER_ADDRESS } from 'utils'
 
 import Toggle from './Toggle'
 

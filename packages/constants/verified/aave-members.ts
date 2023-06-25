@@ -1,4 +1,4 @@
-import { IS_MAINNET } from '../../constants'
+import { IS_MAINNET } from '../general'
 
 export const AAVE_MEMBERS = IS_MAINNET
   ? [

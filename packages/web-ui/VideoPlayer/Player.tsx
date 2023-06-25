@@ -1,8 +1,8 @@
+import { IPFS_GATEWAY_URL, IS_PRODUCTION } from '@lenstube/constants'
 import type { AspectRatio } from '@livepeer/react'
 import { Player } from '@livepeer/react'
 import type { FC } from 'react'
 import React from 'react'
-import { IPFS_GATEWAY_URL, IS_PRODUCTION } from 'utils'
 
 export interface PlayerProps {
   playerRef?: (ref: HTMLMediaElement) => void

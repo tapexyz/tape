@@ -1,11 +1,11 @@
-import type { Publication } from 'lens'
-
 import {
   LENSTER_WEBSITE_URL,
   LENSTUBE_APP_NAME,
   LENSTUBE_TWITTER_HANDLE,
   LENSTUBE_WEBSITE_URL
-} from '../constants'
+} from '@lenstube/constants'
+import type { Publication } from '@lenstube/lens'
+
 import getLensHandle from './getLensHandle'
 
 const getViewUrl = (video: Publication) => {

@@ -1,11 +1,11 @@
-import type { Publication } from 'lens'
-import { PublicationDetailsDocument } from 'lens'
 import {
   LENSTUBE_APP_NAME,
   LENSTUBE_EMBED_URL,
   LENSTUBE_WEBSITE_URL,
   OG_IMAGE
-} from 'utils'
+} from '@lenstube/constants'
+import type { Publication } from '@lenstube/lens'
+import { PublicationDetailsDocument } from '@lenstube/lens'
 import getApolloClient from 'utils/functions/getApolloClient'
 import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 import imageCdn from 'utils/functions/imageCdn'

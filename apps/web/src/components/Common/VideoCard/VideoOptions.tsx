@@ -2,26 +2,6 @@ import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
-import clsx from 'clsx'
-import type {
-  CreatePublicSetProfileMetadataUriRequest,
-  Publication
-} from 'lens'
-import {
-  PublicationMetadataDisplayTypes,
-  useBroadcastMutation,
-  useCreateSetProfileMetadataTypedDataMutation,
-  useCreateSetProfileMetadataViaDispatcherMutation,
-  useHidePublicationMutation
-} from 'lens'
-import type { FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
 import {
   Analytics,
   ERROR_MESSAGE,
@@ -29,7 +9,28 @@ import {
   LENSTUBE_APP_ID,
   REQUESTING_SIGNATURE_MESSAGE,
   TRACK
-} from 'utils'
+} from '@lenstube/constants'
+import type {
+  Attribute,
+  CreatePublicSetProfileMetadataUriRequest,
+  Publication
+} from '@lenstube/lens'
+import {
+  PublicationMetadataDisplayTypes,
+  useBroadcastMutation,
+  useCreateSetProfileMetadataTypedDataMutation,
+  useCreateSetProfileMetadataViaDispatcherMutation,
+  useHidePublicationMutation
+} from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import clsx from 'clsx'
+import type { FC } from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
@@ -97,7 +98,7 @@ const VideoOptions: FC<Props> = ({
   }
 
   const otherAttributes =
-    selectedChannel?.attributes
+    (selectedChannel?.attributes as Attribute[])
       ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
       .map(({ traitType, key, value, displayType }) => ({
         traitType,

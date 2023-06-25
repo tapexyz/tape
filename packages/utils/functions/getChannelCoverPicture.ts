@@ -1,4 +1,4 @@
-import type { Profile } from 'lens'
+import type { Profile } from '@lenstube/lens'
 
 const getChannelCoverPicture = (channel: Profile): string => {
   return channel.coverPicture && channel.coverPicture.__typename === 'MediaSet'

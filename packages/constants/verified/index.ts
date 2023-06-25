@@ -1,4 +1,4 @@
-import { IS_MAINNET } from '../../constants'
+import { IS_MAINNET } from '../general'
 import { AAVE_MEMBERS } from './aave-members'
 import { CREATORS } from './creators'
 

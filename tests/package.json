@@ -8,8 +8,8 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.35.1",
-    "eslint-config-weblint": "*",
-    "tsconfig": "*",
-    "utils": "*"
+    "@lenstube/config": "*",
+    "utils": "*",
+    "@lenstube/constants": "*"
   }
 }

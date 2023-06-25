@@ -1,8 +1,8 @@
+import type { ApolloLink } from '@apollo/client'
 import { ApolloClient, from, HttpLink } from '@apollo/client'
 import { RetryLink } from '@apollo/client/link/retry'
-import { LENS_API_URL } from 'utils'
+import { LENS_API_URL } from '@lenstube/constants'
 
-import authLink from './authLink'
 import cache from './cache'
 
 const retryLink = new RetryLink({
@@ -21,9 +21,10 @@ const httpLink = new HttpLink({
   fetch
 })
 
-const apolloClient = new ApolloClient({
-  link: from([authLink, retryLink, httpLink]),
-  cache
-})
+const apolloClient = (authLink: ApolloLink) =>
+  new ApolloClient({
+    link: from([authLink, retryLink, httpLink]),
+    cache
+  })
 
 export default apolloClient

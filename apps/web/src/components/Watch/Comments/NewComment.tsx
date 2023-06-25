@@ -4,16 +4,21 @@ import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
-import { t, Trans } from '@lingui/macro'
+import {
+  Analytics,
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_WEBSITE_URL,
+  REQUESTING_SIGNATURE_MESSAGE,
+  TRACK
+} from '@lenstube/constants'
 import type {
   CreateCommentBroadcastItemResult,
   CreateDataAvailabilityCommentRequest,
   CreatePublicCommentRequest,
   Publication
-} from 'lens'
+} from '@lenstube/lens'
 import {
   PublicationDetailsDocument,
   PublicationMainFocus,
@@ -25,21 +30,16 @@ import {
   useCreateDataAvailabilityCommentTypedDataMutation,
   useCreateDataAvailabilityCommentViaDispatcherMutation,
   usePublicationDetailsLazyQuery
-} from 'lens'
+} from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
-import {
-  Analytics,
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_WEBSITE_URL,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
-} from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import getSignature from 'utils/functions/getSignature'
 import getUserLocale from 'utils/functions/getUserLocale'

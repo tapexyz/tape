@@ -1,19 +1,19 @@
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import type { ApprovedAllowanceAmount, Erc20 } from 'lens'
+import { WMATIC_TOKEN_ADDRESS } from '@lenstube/constants'
+import type { ApprovedAllowanceAmount, Erc20 } from '@lenstube/lens'
 import {
   CollectModules,
   FollowModules,
   ReferenceModules,
   useApprovedModuleAllowanceAmountQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
-} from 'lens'
+} from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
-import { WMATIC_TOKEN_ADDRESS } from 'utils'
 import { getCollectModuleConfig } from 'utils/functions/getCollectModule'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 

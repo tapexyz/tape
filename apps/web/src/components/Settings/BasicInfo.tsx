@@ -7,24 +7,6 @@ import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import type {
-  CreatePublicSetProfileMetadataUriRequest,
-  MediaSet,
-  Profile
-} from 'lens'
-import {
-  PublicationMetadataDisplayTypes,
-  useBroadcastMutation,
-  useCreateSetProfileMetadataTypedDataMutation,
-  useCreateSetProfileMetadataViaDispatcherMutation
-} from 'lens'
-import type { ChangeEvent } from 'react'
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
 import {
   Analytics,
   ERROR_MESSAGE,
@@ -33,7 +15,28 @@ import {
   LENSTUBE_WEBSITE_URL,
   REQUESTING_SIGNATURE_MESSAGE,
   TRACK
-} from 'utils'
+} from '@lenstube/constants'
+import type {
+  CreatePublicSetProfileMetadataUriRequest,
+  MediaSet,
+  Profile
+} from '@lenstube/lens'
+import {
+  PublicationMetadataDisplayTypes,
+  useBroadcastMutation,
+  useCreateSetProfileMetadataTypedDataMutation,
+  useCreateSetProfileMetadataViaDispatcherMutation
+} from '@lenstube/lens'
+import type {
+  CustomErrorWithData,
+  IPFSUploadResult
+} from '@lenstube/lens/custom-types'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import type { ChangeEvent } from 'react'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 import getSignature from 'utils/functions/getSignature'

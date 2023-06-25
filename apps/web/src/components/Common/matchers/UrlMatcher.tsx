@@ -1,8 +1,8 @@
+import { STATIC_ASSETS } from '@lenstube/constants'
 import type { ChildrenNode, MatchResponse, Node } from 'interweave'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
-import { STATIC_ASSETS } from 'utils'
 
 import type { UrlMatcherOptions, UrlProps } from './utils'
 import { EMAIL_DISTINCT_PATTERN, URL_PATTERN } from './utils'

@@ -1,10 +1,14 @@
 import '../styles/index.css'
 
+import {
+  IS_PRODUCTION,
+  MIXPANEL_API_HOST,
+  MIXPANEL_TOKEN
+} from '@lenstube/constants'
 import { LivepeerConfig } from '@livepeer/react'
 import mixpanel from 'mixpanel-browser'
 import type { AppProps } from 'next/app'
 import React from 'react'
-import { IS_PRODUCTION, MIXPANEL_API_HOST, MIXPANEL_TOKEN } from 'utils'
 import bloomer from 'utils/font'
 import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
 

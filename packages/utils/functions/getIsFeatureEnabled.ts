@@ -1,5 +1,5 @@
-import type { FEATURE_FLAGS } from '../data/feature-flags'
-import { featureFlags } from '../data/feature-flags'
+import type { FEATURE_FLAGS } from '@lenstube/constants'
+import { featureFlags } from '@lenstube/constants'
 
 const getIsFeatureEnabled = (flag: FEATURE_FLAGS, channelId: string) => {
   if (!channelId) {

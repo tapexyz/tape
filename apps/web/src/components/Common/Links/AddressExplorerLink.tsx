@@ -1,7 +1,7 @@
+import { POLYGONSCAN_URL } from '@lenstube/constants'
 import Link from 'next/link'
 import type { ReactElement } from 'react'
 import React from 'react'
-import { POLYGONSCAN_URL } from 'utils'
 
 const AddressExplorerLink = ({
   address,

@@ -1,8 +1,8 @@
 import { Button } from '@components/UIElements/Button'
+import { STATIC_ASSETS } from '@lenstube/constants'
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
-import { STATIC_ASSETS } from 'utils'
 
 export default function Custom500() {
   return (

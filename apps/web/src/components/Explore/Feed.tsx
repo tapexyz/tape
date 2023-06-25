@@ -6,18 +6,6 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
-import useAppStore from '@lib/store'
-import { t, Trans } from '@lingui/macro'
-import clsx from 'clsx'
-import type { Publication } from 'lens'
-import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
-} from 'lens'
-import React, { useState } from 'react'
-import { useInView } from 'react-cool-inview'
 import {
   ALLOWED_APP_IDS,
   Analytics,
@@ -26,7 +14,19 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN,
   TRACK
-} from 'utils'
+} from '@lenstube/constants'
+import type { Publication } from '@lenstube/lens'
+import {
+  PublicationMainFocus,
+  PublicationSortCriteria,
+  PublicationTypes,
+  useExploreQuery
+} from '@lenstube/lens'
+import useAppStore from '@lib/store'
+import { t, Trans } from '@lingui/macro'
+import clsx from 'clsx'
+import React, { useState } from 'react'
+import { useInView } from 'react-cool-inview'
 
 const initialCriteria = {
   trending: true,
