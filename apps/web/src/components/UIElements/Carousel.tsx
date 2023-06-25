@@ -36,7 +36,7 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
         onClick={handlePrevSlide}
         className="absolute inset-y-1/2 left-0 z-20 m-auto cursor-pointer text-5xl text-gray-400"
       />
-      <div className="relative m-auto flex h-[50vh] w-full overflow-hidden">
+      <div className="relative m-auto flex h-[30vh] w-full overflow-hidden sm:h-[50vh]">
         <Swipe
           onSwipeLeft={handleNextSlide}
           onSwipeRight={handlePrevSlide}
@@ -45,14 +45,13 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
           {images.map((image, index) => {
             if (index === currentSlide) {
               return (
-                <div key={index} className="mb-4 w-full">
-                  <div
-                    className="aspect-[1400/400] w-full bg-cover bg-center"
-                    style={{ backgroundImage: `url(${image.src})` }}
-                    aria-label={image.alt}
-                    id={image.id}
-                  />
-                </div>
+                <img
+                  key={index}
+                  className="h-full w-full bg-cover bg-center"
+                  src={image.src}
+                  aria-label={image.alt}
+                  id={image.id}
+                />
               )
             }
           })}
