@@ -31,7 +31,7 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
   }
 
   return (
-    <div className="relative">
+    <div className="relative" style={{ zIndex: 0 }}>
       <AiOutlineLeft
         onClick={handlePrevSlide}
         className="absolute inset-y-1/2 left-0 z-20 m-auto cursor-pointer text-5xl text-gray-400"
