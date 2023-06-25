@@ -1,8 +1,12 @@
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
 import { Loader } from '@components/UIElements/Loader'
-import { generateVideoThumbnails, getFileFromDataURL } from '@lenstube/browser'
-import { logger, uploadToIPFS } from '@lenstube/generic'
+import {
+  generateVideoThumbnails,
+  getFileFromDataURL,
+  uploadToIPFS
+} from '@lenstube/browser'
+import { logger } from '@lenstube/generic'
 import type { IPFSUploadResult } from '@lenstube/lens/custom-types'
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'

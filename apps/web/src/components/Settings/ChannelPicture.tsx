@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import { Loader } from '@components/UIElements/Loader'
+import { uploadToIPFS } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -9,8 +10,7 @@ import {
 import {
   getProfilePicture,
   getSignature,
-  sanitizeDStorageUrl,
-  uploadToIPFS
+  sanitizeDStorageUrl
 } from '@lenstube/generic'
 import type {
   CreateSetProfileImageUriBroadcastItemResult,

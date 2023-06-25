@@ -7,7 +7,12 @@ import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Analytics, TRACK, useCopyToClipboard } from '@lenstube/browser'
+import {
+  Analytics,
+  TRACK,
+  uploadToIPFS,
+  useCopyToClipboard
+} from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
   LENS_PERIPHERY_ADDRESS,
@@ -22,8 +27,7 @@ import {
   imageCdn,
   sanitizeDStorageUrl,
   trimify,
-  uploadToAr,
-  uploadToIPFS
+  uploadToAr
 } from '@lenstube/generic'
 import type {
   CreatePublicSetProfileMetadataUriRequest,

@@ -1,7 +1,12 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
-import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
+import {
+  Analytics,
+  getUserLocale,
+  TRACK,
+  uploadToIPFS
+} from '@lenstube/browser'
 import {
   BUNDLR_CONNECT_MESSAGE,
   ERROR_MESSAGE,
@@ -18,8 +23,7 @@ import {
   getSignature,
   logger,
   trimify,
-  uploadToAr,
-  uploadToIPFS
+  uploadToAr
 } from '@lenstube/generic'
 import type {
   CreateDataAvailabilityPostRequest,
