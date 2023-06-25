@@ -4,22 +4,22 @@ import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import dayjs from 'dayjs'
 import type {
   ApprovedAllowanceAmount,
   Profile,
   Publication,
   RecipientDataOutput
-} from 'lens'
+} from '@lenstube/lens'
 import {
   CollectModules,
   useAllProfilesQuery,
   useApprovedModuleAllowanceAmountQuery,
   usePublicationRevenueQuery
-} from 'lens'
+} from '@lenstube/lens'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import dayjs from 'dayjs'
 import Link from 'next/link'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useState } from 'react'

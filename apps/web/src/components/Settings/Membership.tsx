@@ -5,20 +5,20 @@ import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
 import type {
   CreateSetFollowModuleBroadcastItemResult,
   Erc20,
   FeeFollowModuleSettings,
   Profile
-} from 'lens'
+} from '@lenstube/lens'
 import {
   useBroadcastMutation,
   useCreateSetFollowModuleTypedDataMutation,
   useEnabledModuleCurrrenciesQuery,
   useProfileFollowModuleQuery
-} from 'lens'
+} from '@lenstube/lens'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'

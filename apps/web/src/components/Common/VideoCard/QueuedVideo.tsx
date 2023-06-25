@@ -1,17 +1,17 @@
 import { useApolloClient } from '@apollo/client'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
-import { t } from '@lingui/macro'
-import clsx from 'clsx'
-import type { Profile } from 'lens'
+import type { Profile } from '@lenstube/lens'
 import {
   PublicationDetailsDocument,
   useHasTxHashBeenIndexedQuery,
   usePublicationDetailsLazyQuery,
   useTxIdToTxHashLazyQuery
-} from 'lens'
+} from '@lenstube/lens'
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
+import { t } from '@lingui/macro'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 import type { QueuedVideoType } from 'utils'

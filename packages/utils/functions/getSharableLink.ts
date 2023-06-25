@@ -1,4 +1,4 @@
-import type { Publication } from 'lens'
+import type { Publication } from '@lenstube/lens'
 
 import {
   LENSTER_WEBSITE_URL,

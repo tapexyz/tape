@@ -1,4 +1,4 @@
-import type { Profile } from 'lens'
+import type { Profile } from '@lenstube/lens'
 import { CustomCommentsFilterEnum } from 'utils'
 import { create } from 'zustand'
 

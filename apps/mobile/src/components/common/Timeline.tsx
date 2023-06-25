@@ -1,13 +1,13 @@
-import { FlashList } from '@shopify/flash-list'
-import { Image as ExpoImage } from 'expo-image'
-import type { Publication } from 'lens'
+import type { Publication } from '@lenstube/lens'
 import {
   CustomFiltersTypes,
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'lens'
+} from '@lenstube/lens'
+import { FlashList } from '@shopify/flash-list'
+import { Image as ExpoImage } from 'expo-image'
 import React from 'react'
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import { getRelativeTime } from 'utils/functions/formatTime'

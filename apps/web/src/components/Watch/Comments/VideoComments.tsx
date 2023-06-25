@@ -3,16 +3,16 @@ import CommentOutline from '@components/Common/Icons/CommentOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
-import { t, Trans } from '@lingui/macro'
-import type { Publication } from 'lens'
+import type { Publication } from '@lenstube/lens'
 import {
   CommentOrderingTypes,
   CommentRankingFilter,
   useCommentsQuery
-} from 'lens'
+} from '@lenstube/lens'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'

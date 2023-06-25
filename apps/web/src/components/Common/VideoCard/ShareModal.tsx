@@ -1,6 +1,6 @@
 import Modal from '@components/UIElements/Modal'
+import type { Publication } from '@lenstube/lens'
 import { t } from '@lingui/macro'
-import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

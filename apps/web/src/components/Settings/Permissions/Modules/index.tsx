@@ -1,15 +1,15 @@
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import type { ApprovedAllowanceAmount, Erc20 } from 'lens'
+import type { ApprovedAllowanceAmount, Erc20 } from '@lenstube/lens'
 import {
   CollectModules,
   FollowModules,
   ReferenceModules,
   useApprovedModuleAllowanceAmountQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
-} from 'lens'
+} from '@lenstube/lens'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { CustomErrorWithData } from 'utils'

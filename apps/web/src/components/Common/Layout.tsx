@@ -1,3 +1,5 @@
+import type { Profile } from '@lenstube/lens'
+import { useUserProfilesQuery } from '@lenstube/lens'
 import useAuthPersistStore, {
   hydrateAuthTokens,
   signOut
@@ -5,8 +7,6 @@ import useAuthPersistStore, {
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
-import type { Profile } from 'lens'
-import { useUserProfilesQuery } from 'lens'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'

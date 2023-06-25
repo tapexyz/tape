@@ -1,10 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
-import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
-import { t } from '@lingui/macro'
 import type {
   CreateDataAvailabilityPostRequest,
   CreatePostBroadcastItemResult,
@@ -12,7 +8,7 @@ import type {
   MetadataAttributeInput,
   PublicationMetadataMediaInput,
   PublicationMetadataV2Input
-} from 'lens'
+} from '@lenstube/lens'
 import {
   PublicationContentWarning,
   PublicationMainFocus,
@@ -24,7 +20,11 @@ import {
   useCreateDataAvailabilityPostViaDispatcherMutation,
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
-} from 'lens'
+} from '@lenstube/lens'
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
+import { t } from '@lingui/macro'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'

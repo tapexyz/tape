@@ -7,19 +7,19 @@ import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
 import type {
   CreatePublicSetProfileMetadataUriRequest,
   MediaSet,
   Profile
-} from 'lens'
+} from '@lenstube/lens'
 import {
   PublicationMetadataDisplayTypes,
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
-} from 'lens'
+} from '@lenstube/lens'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import type { ChangeEvent } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'

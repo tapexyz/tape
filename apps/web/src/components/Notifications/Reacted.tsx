@@ -1,6 +1,6 @@
 import IsVerified from '@components/Common/IsVerified'
+import type { NewReactionNotification } from '@lenstube/lens'
 import { t, Trans } from '@lingui/macro'
-import type { NewReactionNotification } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

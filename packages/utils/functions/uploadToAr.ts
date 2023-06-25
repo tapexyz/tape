@@ -1,5 +1,5 @@
+import type { PublicationMetadataV2Input } from '@lenstube/lens'
 import axios from 'axios'
-import type { PublicationMetadataV2Input } from 'lens'
 
 import { BUNDLR_METADATA_UPLOAD_URL } from '../constants'
 import type { ProfileMetadata } from '../custom-types'

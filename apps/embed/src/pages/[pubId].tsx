@@ -1,6 +1,6 @@
 import Video from '@components/Video'
-import type { Publication } from 'lens'
-import { PublicationDetailsDocument } from 'lens'
+import type { Publication } from '@lenstube/lens'
+import { PublicationDetailsDocument } from '@lenstube/lens'
 import type { GetServerSideProps } from 'next'
 import getApolloClient from 'utils/functions/getApolloClient'
 

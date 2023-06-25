@@ -3,14 +3,14 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
-import useChannelStore from '@lib/store/channel'
-import { t } from '@lingui/macro'
-import type { Publication } from 'lens'
+import type { Publication } from '@lenstube/lens'
 import {
   CommentOrderingTypes,
   CommentRankingFilter,
   useCommentsQuery
-} from 'lens'
+} from '@lenstube/lens'
+import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'

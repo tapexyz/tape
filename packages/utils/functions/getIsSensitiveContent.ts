@@ -1,4 +1,4 @@
-import type { MetadataOutput } from 'lens'
+import type { MetadataOutput } from '@lenstube/lens'
 
 import { SENSITIVE_CONTENT } from '../data/sensitives'
 

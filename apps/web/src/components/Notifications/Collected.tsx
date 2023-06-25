@@ -1,7 +1,7 @@
 import IsVerified from '@components/Common/IsVerified'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
+import type { NewCollectNotification } from '@lenstube/lens'
 import { t, Trans } from '@lingui/macro'
-import type { NewCollectNotification } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

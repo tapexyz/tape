@@ -1,4 +1,4 @@
-import type { Attribute, Publication } from 'lens'
+import type { Attribute, Publication } from '@lenstube/lens'
 import {
   LENSTUBE_API_URL,
   LENSTUBE_APP_DESCRIPTION,

@@ -1,14 +1,14 @@
 import { useLazyQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { Tab } from '@headlessui/react'
-import { t, Trans } from '@lingui/macro'
-import clsx from 'clsx'
-import type { Profile, Publication } from 'lens'
+import type { Profile, Publication } from '@lenstube/lens'
 import {
   SearchProfilesDocument,
   SearchPublicationsDocument,
   SearchRequestTypes
-} from 'lens'
+} from '@lenstube/lens'
+import { t, Trans } from '@lingui/macro'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import {

@@ -2,15 +2,15 @@ import BytesOutline from '@components/Common/Icons/BytesOutline'
 import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import BytesShimmer from '@components/Shimmers/BytesShimmer'
-import useAppStore from '@lib/store'
-import { Trans } from '@lingui/macro'
-import type { Publication } from 'lens'
+import type { Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'lens'
+} from '@lenstube/lens'
+import useAppStore from '@lib/store'
+import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import React, { useRef } from 'react'
 import {

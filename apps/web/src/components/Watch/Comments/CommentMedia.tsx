@@ -1,5 +1,9 @@
 import Modal from '@components/UIElements/Modal'
-import { type MediaSet, type Publication, PublicationMainFocus } from 'lens'
+import {
+  type MediaSet,
+  type Publication,
+  PublicationMainFocus
+} from '@lenstube/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import imageCdn from 'utils/functions/imageCdn'

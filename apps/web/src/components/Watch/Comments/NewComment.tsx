@@ -4,16 +4,12 @@ import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
-import { t, Trans } from '@lingui/macro'
 import type {
   CreateCommentBroadcastItemResult,
   CreateDataAvailabilityCommentRequest,
   CreatePublicCommentRequest,
   Publication
-} from 'lens'
+} from '@lenstube/lens'
 import {
   PublicationDetailsDocument,
   PublicationMainFocus,
@@ -25,7 +21,11 @@ import {
   useCreateDataAvailabilityCommentTypedDataMutation,
   useCreateDataAvailabilityCommentViaDispatcherMutation,
   usePublicationDetailsLazyQuery
-} from 'lens'
+} from '@lenstube/lens'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'

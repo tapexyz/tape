@@ -1,4 +1,4 @@
-import type { MediaSet } from 'lens'
+import type { MediaSet } from '@lenstube/lens'
 import type { FC } from 'react'
 import React from 'react'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'

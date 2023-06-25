@@ -1,12 +1,12 @@
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
-import type { Publication } from 'lens'
+import type { Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'lens'
+} from '@lenstube/lens'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect } from 'react'

@@ -3,14 +3,14 @@ import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import usePersistStore from '@lib/store/persist'
-import { t } from '@lingui/macro'
-import type { Profile, Publication } from 'lens'
+import type { Profile, Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
   PublicationTypes,
   useProfilePostsQuery
-} from 'lens'
+} from '@lenstube/lens'
+import usePersistStore from '@lib/store/persist'
+import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'

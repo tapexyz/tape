@@ -6,17 +6,12 @@ import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
-import { t, Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type {
   CreateCommentBroadcastItemResult,
   CreateDataAvailabilityCommentRequest,
   CreatePublicCommentRequest,
   Publication
-} from 'lens'
+} from '@lenstube/lens'
 import {
   PublicationDetailsDocument,
   PublicationMainFocus,
@@ -28,7 +23,12 @@ import {
   useCreateDataAvailabilityCommentTypedDataMutation,
   useCreateDataAvailabilityCommentViaDispatcherMutation,
   usePublicationDetailsLazyQuery
-} from 'lens'
+} from '@lenstube/lens'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'

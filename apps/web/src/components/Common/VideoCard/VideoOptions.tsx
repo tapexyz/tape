@@ -2,22 +2,23 @@ import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
-import clsx from 'clsx'
 import type {
+  Attribute,
   CreatePublicSetProfileMetadataUriRequest,
   Publication
-} from 'lens'
+} from '@lenstube/lens'
 import {
   PublicationMetadataDisplayTypes,
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation,
   useHidePublicationMutation
-} from 'lens'
+} from '@lenstube/lens'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -97,7 +98,7 @@ const VideoOptions: FC<Props> = ({
   }
 
   const otherAttributes =
-    selectedChannel?.attributes
+    (selectedChannel?.attributes as Attribute[])
       ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
       .map(({ traitType, key, value, displayType }) => ({
         traitType,

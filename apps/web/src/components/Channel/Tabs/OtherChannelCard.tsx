@@ -1,7 +1,7 @@
 import IsVerified from '@components/Common/IsVerified'
 import SubscribeActions from '@components/Common/SubscribeActions'
+import type { Profile } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
-import type { Profile } from 'lens'
 import Link from 'next/link'
 import React from 'react'
 import formatNumber from 'utils/functions/formatNumber'

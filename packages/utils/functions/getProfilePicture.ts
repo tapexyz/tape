@@ -1,4 +1,4 @@
-import type { Profile } from 'lens'
+import type { Profile } from '@lenstube/lens'
 
 import type { IMAGE_TRANSFORMATIONS } from '../constants'
 import { getRandomProfilePicture } from './getRandomProfilePicture'

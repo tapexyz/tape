@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['lens', 'utils', 'web-ui'],
+  transpilePackages: ['@lenstube/lens', 'utils', 'web-ui'],
   reactStrictMode: true,
   swcMinify: true,
   async rewrites() {

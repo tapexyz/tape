@@ -1,5 +1,5 @@
+import type { Publication } from '@lenstube/lens'
 import clsx from 'clsx'
-import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React from 'react'
 import { FALLBACK_COVER_URL, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from 'utils'

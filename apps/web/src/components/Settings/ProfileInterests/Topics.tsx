@@ -1,12 +1,12 @@
 import { useApolloClient } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
-import useChannelStore from '@lib/store/channel'
-import clsx from 'clsx'
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,
   useRemoveProfileInterestMutation
-} from 'lens'
+} from '@lenstube/lens'
+import useChannelStore from '@lib/store/channel'
+import clsx from 'clsx'
 import React, { useEffect } from 'react'
 import { Analytics, TRACK } from 'utils'
 import sanitizeProfileInterests from 'utils/functions/sanitizeProfileInterests'

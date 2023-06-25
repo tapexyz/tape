@@ -1,5 +1,5 @@
 import GlobeOutline from '@components/Common/Icons/GlobeOutline'
-import type { Profile } from 'lens'
+import type { Profile } from '@lenstube/lens'
 import Link from 'next/link'
 import React from 'react'
 import { Analytics, STATIC_ASSETS, TRACK } from 'utils'

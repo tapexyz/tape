@@ -1,4 +1,4 @@
-import type { Nft } from 'lens'
+import type { Nft } from '@lenstube/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

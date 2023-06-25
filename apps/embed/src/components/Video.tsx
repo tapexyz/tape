@@ -1,5 +1,5 @@
+import type { Publication } from '@lenstube/lens'
 import clsx from 'clsx'
-import type { Publication } from 'lens'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'

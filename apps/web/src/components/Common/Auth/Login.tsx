@@ -1,12 +1,12 @@
-import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t } from '@lingui/macro'
-import type { Profile } from 'lens'
+import type { Profile } from '@lenstube/lens'
 import {
   useAllProfilesLazyQuery,
   useAuthenticateMutation,
   useChallengeLazyQuery
-} from 'lens'
+} from '@lenstube/lens'
+import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'

@@ -1,19 +1,19 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type {
   CreateFollowBroadcastItemResult,
   Profile,
   ProxyActionRequest
-} from 'lens'
+} from '@lenstube/lens'
 import {
   useBroadcastMutation,
   useCreateFollowTypedDataMutation,
   useProxyActionMutation
-} from 'lens'
+} from '@lenstube/lens'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'

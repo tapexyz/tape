@@ -1,5 +1,5 @@
-import type { Publication } from 'lens'
-import { PublicationDetailsDocument } from 'lens'
+import type { Publication } from '@lenstube/lens'
+import { PublicationDetailsDocument } from '@lenstube/lens'
 import type { NextApiResponse } from 'next'
 import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from 'utils'
 import getApolloClient from 'utils/functions/getApolloClient'

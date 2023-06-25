@@ -1,4 +1,4 @@
-import { CustomFiltersTypes } from 'lens'
+import { CustomFiltersTypes } from '@lenstube/lens'
 
 export const LENSTUBE_APP_NAME = 'Lenstube'
 export const LENSTUBE_APP_DESCRIPTION =

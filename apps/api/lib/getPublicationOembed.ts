@@ -1,5 +1,5 @@
-import type { Publication } from 'lens'
-import { PublicationDetailsDocument } from 'lens'
+import type { Publication } from '@lenstube/lens'
+import { PublicationDetailsDocument } from '@lenstube/lens'
 import {
   LENSTUBE_APP_NAME,
   LENSTUBE_EMBED_URL,

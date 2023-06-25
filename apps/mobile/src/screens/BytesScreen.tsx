@@ -1,13 +1,13 @@
-import { useIsFocused } from '@react-navigation/native'
-import { FlashList } from '@shopify/flash-list'
-import type { Publication } from 'lens'
+import type { Publication } from '@lenstube/lens'
 import {
   CustomFiltersTypes,
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'lens'
+} from '@lenstube/lens'
+import { useIsFocused } from '@react-navigation/native'
+import { FlashList } from '@shopify/flash-list'
 import React, { useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'

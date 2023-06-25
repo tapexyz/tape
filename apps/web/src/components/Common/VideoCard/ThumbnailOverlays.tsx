@@ -1,5 +1,5 @@
+import type { Attribute, Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
-import type { Attribute, Publication } from 'lens'
 import type { FC } from 'react'
 import React from 'react'
 import { getTimeFromSeconds } from 'utils/functions/formatTime'

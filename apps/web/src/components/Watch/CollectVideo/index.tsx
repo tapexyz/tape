@@ -2,18 +2,21 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
-import clsx from 'clsx'
-import type { CreateCollectBroadcastItemResult, Publication } from 'lens'
+import type {
+  CreateCollectBroadcastItemResult,
+  Publication
+} from '@lenstube/lens'
 import {
   useBroadcastMutation,
   useCreateCollectTypedDataMutation,
   useProxyActionMutation,
   usePublicationCollectModuleQuery
-} from 'lens'
+} from '@lenstube/lens'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
