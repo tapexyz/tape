@@ -8,7 +8,6 @@ const nextConfig = {
     'web-ui'
   ],
   reactStrictMode: true,
-  swcMinify: true,
   async rewrites() {
     return [
       {

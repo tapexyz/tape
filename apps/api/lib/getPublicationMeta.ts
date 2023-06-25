@@ -6,12 +6,14 @@ import { PublicationDetailsDocument } from '@lenstube/lens'
 import apolloClient from '@lenstube/lens/apollo'
 import type { NextApiResponse } from 'next'
 
+const client = apolloClient()
+
 const getPublicationMeta = async (
   res: NextApiResponse,
   publicationId: string
 ) => {
   try {
-    const { data } = await apolloClient().query({
+    const { data } = await client.query({
       query: PublicationDetailsDocument,
       variables: { request: { publicationId } }
     })

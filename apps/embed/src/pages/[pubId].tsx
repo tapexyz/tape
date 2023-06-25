@@ -10,11 +10,13 @@ interface Props {
   video: Publication
 }
 
+const client = apolloClient()
+
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
   const publicationId = context.query.pubId as string
-  const { data, error } = await apolloClient().query({
+  const { data, error } = await client.query({
     query: PublicationDetailsDocument,
     variables: {
       request: { publicationId }

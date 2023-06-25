@@ -6,9 +6,11 @@ import { ProfileDocument } from '@lenstube/lens'
 import apolloClient from '@lenstube/lens/apollo'
 import type { NextApiResponse } from 'next'
 
+const client = apolloClient()
+
 const getProfileMeta = async (res: NextApiResponse, handle: string) => {
   try {
-    const { data } = await apolloClient().query({
+    const { data } = await client.query({
       query: ProfileDocument,
       variables: { request: { handle } }
     })

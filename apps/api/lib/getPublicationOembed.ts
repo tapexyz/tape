@@ -9,9 +9,11 @@ import type { Publication } from '@lenstube/lens'
 import { PublicationDetailsDocument } from '@lenstube/lens'
 import apolloClient from '@lenstube/lens/apollo'
 
+const client = apolloClient()
+
 const getPublicationOembed = async (publicationId: string, format: string) => {
   try {
-    const { data } = await apolloClient().query({
+    const { data } = await client.query({
       query: PublicationDetailsDocument,
       variables: { request: { publicationId } }
     })
