@@ -7,15 +7,13 @@ import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useCopyToClipboard } from '@lenstube/browser'
+import { Analytics, TRACK, useCopyToClipboard } from '@lenstube/browser'
 import {
-  Analytics,
   ERROR_MESSAGE,
   LENS_PERIPHERY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
+  REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
 import {
   getChannelCoverPicture,

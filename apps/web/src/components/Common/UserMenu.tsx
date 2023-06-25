@@ -1,12 +1,11 @@
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
+import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ADMIN_IDS,
-  Analytics,
   HEALTH_URL,
   IS_MAINNET,
-  LENSTUBE_STATUS_PAGE,
-  TRACK
+  LENSTUBE_STATUS_PAGE
 } from '@lenstube/constants'
 import { getProfilePicture } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'

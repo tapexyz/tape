@@ -1,5 +1,5 @@
-import { useHorizontalScroll } from '@lenstube/browser'
-import { Analytics, CREATOR_VIDEO_CATEGORIES, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK, useHorizontalScroll } from '@lenstube/browser'
+import { CREATOR_VIDEO_CATEGORIES } from '@lenstube/constants'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'

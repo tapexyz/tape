@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
-import { Analytics, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
 import type { Profile } from '@lenstube/lens'
 import { useProfileQuery } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'

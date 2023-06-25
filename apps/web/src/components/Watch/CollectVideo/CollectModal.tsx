@@ -4,7 +4,7 @@ import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import { Analytics, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
 import {
   formatNumber,
   getProfilePicture,

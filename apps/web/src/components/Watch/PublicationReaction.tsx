@@ -1,6 +1,6 @@
 import DislikeOutline from '@components/Common/Icons/DislikeOutline'
 import LikeOutline from '@components/Common/Icons/LikeOutline'
-import { Analytics, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
 import { formatNumber } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import {

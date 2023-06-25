@@ -1,10 +1,9 @@
+import { Analytics, TRACK } from '@lenstube/browser'
 import {
-  Analytics,
   LENSTUBE_GITHUB_HANDLE,
   LENSTUBE_ROADMAP_URL,
   LENSTUBE_STATUS_PAGE,
-  LENSTUBE_TWITTER_HANDLE,
-  TRACK
+  LENSTUBE_TWITTER_HANDLE
 } from '@lenstube/constants'
 import usePersistStore from '@lib/store/persist'
 import { Trans } from '@lingui/macro'

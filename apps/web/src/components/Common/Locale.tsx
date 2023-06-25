@@ -1,5 +1,6 @@
 import DropMenu from '@components/UIElements/DropMenu'
-import { Analytics, SUPPORTED_LOCALES, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { SUPPORTED_LOCALES } from '@lenstube/constants'
 import { storeLocale } from '@lib/i18n'
 import usePersistStore from '@lib/store/persist'
 import { useLingui } from '@lingui/react'

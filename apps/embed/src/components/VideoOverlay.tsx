@@ -1,9 +1,5 @@
-import {
-  Analytics,
-  LENSTUBE_WEBSITE_URL,
-  STATIC_ASSETS,
-  TRACK
-} from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { LENSTUBE_WEBSITE_URL, STATIC_ASSETS } from '@lenstube/constants'
 import { getProfilePicture } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import Link from 'next/link'

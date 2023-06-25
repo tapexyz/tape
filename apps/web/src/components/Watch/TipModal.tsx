@@ -6,16 +6,14 @@ import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { getUserLocale } from '@lenstube/browser'
+import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
 import {
-  Analytics,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
   REQUESTING_SIGNATURE_MESSAGE,
-  STATIC_ASSETS,
-  TRACK
+  STATIC_ASSETS
 } from '@lenstube/constants'
 import { getSignature, imageCdn, logger, uploadToAr } from '@lenstube/generic'
 import type {

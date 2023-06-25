@@ -1,13 +1,12 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
 import usePendingTxn from '@hooks/usePendingTxn'
+import { Analytics, TRACK } from '@lenstube/browser'
 import {
-  Analytics,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   OLD_LENS_RELAYER_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
+  REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
 import { getIsDispatcherEnabled, getSignature } from '@lenstube/generic'
 import type {

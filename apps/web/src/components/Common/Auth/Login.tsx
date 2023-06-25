@@ -1,9 +1,5 @@
-import {
-  Analytics,
-  ERROR_MESSAGE,
-  POLYGON_CHAIN_ID,
-  TRACK
-} from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { ERROR_MESSAGE, POLYGON_CHAIN_ID } from '@lenstube/constants'
 import { logger } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {

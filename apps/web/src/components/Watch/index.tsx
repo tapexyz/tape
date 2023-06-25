@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
-import { Analytics, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
 import { isWatchable } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { usePublicationDetailsQuery } from '@lenstube/lens'

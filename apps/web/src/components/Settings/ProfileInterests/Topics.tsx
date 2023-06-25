@@ -1,6 +1,6 @@
 import { useApolloClient } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
-import { Analytics, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
 import { sanitizeProfileInterests } from '@lenstube/generic'
 import {
   useAddProfileInterestMutation,

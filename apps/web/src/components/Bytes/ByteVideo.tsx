@@ -1,6 +1,5 @@
 import CollectVideo from '@components/Watch/CollectVideo'
-import { useAverageColor } from '@lenstube/browser'
-import { Analytics, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK, useAverageColor } from '@lenstube/browser'
 import {
   getPublicationHlsUrl,
   getPublicationRawMediaUrl,

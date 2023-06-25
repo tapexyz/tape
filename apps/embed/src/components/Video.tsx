@@ -1,10 +1,5 @@
-import { useAverageColor } from '@lenstube/browser'
-import {
-  Analytics,
-  LENSTUBE_BYTES_APP_ID,
-  STATIC_ASSETS,
-  TRACK
-} from '@lenstube/constants'
+import { Analytics, TRACK, useAverageColor } from '@lenstube/browser'
+import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@lenstube/constants'
 import {
   getPublicationHlsUrl,
   getPublicationMediaUrl,

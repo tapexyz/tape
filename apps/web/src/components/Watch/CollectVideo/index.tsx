@@ -2,12 +2,11 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
+import { Analytics, TRACK } from '@lenstube/browser'
 import {
-  Analytics,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
+  REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
 import { getSignature } from '@lenstube/generic'
 import type {

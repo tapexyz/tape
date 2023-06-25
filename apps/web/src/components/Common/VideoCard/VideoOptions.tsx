@@ -2,13 +2,12 @@ import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
+import { Analytics, TRACK } from '@lenstube/browser'
 import {
-  Analytics,
   ERROR_MESSAGE,
   LENS_PERIPHERY_ADDRESS,
   LENSTUBE_APP_ID,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
+  REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
 import {
   getChannelCoverPicture,

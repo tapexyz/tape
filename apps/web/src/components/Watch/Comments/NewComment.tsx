@@ -4,15 +4,13 @@ import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { getUserLocale } from '@lenstube/browser'
+import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
 import {
-  Analytics,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
+  REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
 import {
   getProfilePicture,

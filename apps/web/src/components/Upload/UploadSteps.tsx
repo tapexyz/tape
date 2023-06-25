@@ -1,9 +1,8 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
-import { getUserLocale } from '@lenstube/browser'
+import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
 import {
-  Analytics,
   BUNDLR_CONNECT_MESSAGE,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -11,8 +10,7 @@ import {
   LENSTUBE_APP_NAME,
   LENSTUBE_BYTES_APP_ID,
   LENSTUBE_WEBSITE_URL,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
+  REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
 import {
   canUploadedToIpfs,

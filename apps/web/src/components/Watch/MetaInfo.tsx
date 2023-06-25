@@ -3,7 +3,7 @@ import TagOutline from '@components/Common/Icons/TagOutline'
 import ArweaveExplorerLink from '@components/Common/Links/ArweaveExplorerLink'
 import IPFSLink from '@components/Common/Links/IPFSLink'
 import TokenExplorerLink from '@components/Common/Links/TokenExplorerLink'
-import { Analytics, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
 import {
   getCategoryName,
   getIsIPFSUrl,

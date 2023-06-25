@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Analytics, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
 import { t } from '@lingui/macro'
 import type { NextPage } from 'next'
 import React, { useEffect } from 'react'

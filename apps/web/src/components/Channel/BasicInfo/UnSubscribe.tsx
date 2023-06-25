@@ -1,10 +1,7 @@
 import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
 import { Button } from '@components/UIElements/Button'
-import {
-  Analytics,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
-} from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { REQUESTING_SIGNATURE_MESSAGE } from '@lenstube/constants'
 import { getSignature } from '@lenstube/generic'
 import type { CreateUnfollowBroadcastItemResult, Profile } from '@lenstube/lens'
 import {

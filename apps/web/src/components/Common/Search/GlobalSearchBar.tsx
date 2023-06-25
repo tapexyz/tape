@@ -1,13 +1,11 @@
 import { useLazyQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { Tab } from '@headlessui/react'
-import { useOutsideClick } from '@lenstube/browser'
+import { Analytics, TRACK, useOutsideClick } from '@lenstube/browser'
 import {
-  Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  TRACK
+  LENSTUBE_BYTES_APP_ID
 } from '@lenstube/constants'
 import { useDebounce } from '@lenstube/generic'
 import type { Profile, Publication } from '@lenstube/lens'

@@ -1,5 +1,6 @@
 import GlobeOutline from '@components/Common/Icons/GlobeOutline'
-import { Analytics, STATIC_ASSETS, TRACK } from '@lenstube/constants'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { STATIC_ASSETS } from '@lenstube/constants'
 import { getValueFromKeyInAttributes } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import Link from 'next/link'

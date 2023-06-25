@@ -1,14 +1,13 @@
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
+import { Analytics, TRACK } from '@lenstube/browser'
 import {
-  Analytics,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
   LENSTUBE_ROADMAP_URL,
-  STATIC_ASSETS,
-  TRACK
+  STATIC_ASSETS
 } from '@lenstube/constants'
 import { useLatestNotificationIdQuery } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'

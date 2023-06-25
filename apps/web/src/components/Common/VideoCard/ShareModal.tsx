@@ -1,11 +1,6 @@
 import Modal from '@components/UIElements/Modal'
-import { useCopyToClipboard } from '@lenstube/browser'
-import {
-  Analytics,
-  LENSTUBE_WEBSITE_URL,
-  STATIC_ASSETS,
-  TRACK
-} from '@lenstube/constants'
+import { Analytics, TRACK, useCopyToClipboard } from '@lenstube/browser'
+import { LENSTUBE_WEBSITE_URL, STATIC_ASSETS } from '@lenstube/constants'
 import { getSharableLink, imageCdn } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { t } from '@lingui/macro'

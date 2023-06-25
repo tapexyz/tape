@@ -1,3 +1,4 @@
+export * from './analytics'
 export * from './font'
 export * from './functions/generateVideoThumbnails'
 export * from './functions/getFileFromDataURL'
