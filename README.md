@@ -54,23 +54,23 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 ### Apps
 
-| Name    | Description                         |
-| ------- | ----------------------------------- |
-| `web`   | NextJs Lenstube website             |
-| `mobile`   | React Native Lenstube mobile app             |
-| `embed` | NextJs application for video embeds |
-| `api`   | NextJs serverless functions         |
+| Name     | Description                         |
+| -------- | ----------------------------------- |
+| `web`    | NextJs Lenstube website             |
+| `mobile` | React Native Lenstube mobile app    |
+| `embed`  | NextJs application for video embeds |
+| `api`    | NextJs serverless functions         |
 
 ### Packages
 
-| Name      | Description                     |
-| --------- | ------------------------------- |
-| `lens`    | Everything about Lens Backend   |
+| Name        | Description                               |
+| ----------- | ----------------------------------------- |
+| `lens`      | Everything about Lens Backend             |
 | `helpers`   | Collection of browser and generic helpers |
-| `web-ui`  | Web components                  |
-| `workers` | Cloudflare Workers              |
-| `constants` | Constants for the entire application              |
-| `config`  | Shared lint config              |
+| `web-ui`    | Web components                            |
+| `workers`   | Cloudflare Workers                        |
+| `constants` | Constants for the entire application      |
+| `config`    | Shared lint config                        |
 
 ## Getting Started
 
