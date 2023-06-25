@@ -1,4 +1,5 @@
-import { FALLBACK_COVER_URL } from '../constants'
+import { FALLBACK_COVER_URL } from '@lenstube/constants'
+
 import logger from '../logger'
 
 const canvasImageFromVideo = (

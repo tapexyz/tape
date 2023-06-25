@@ -9,6 +9,7 @@
   "devDependencies": {
     "@playwright/test": "^1.35.1",
     "@lenstube/config": "*",
-    "utils": "*"
+    "utils": "*",
+    "@lenstube/constants": "*"
   }
 }

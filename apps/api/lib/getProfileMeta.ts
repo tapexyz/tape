@@ -1,7 +1,7 @@
+import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from '@lenstube/constants'
 import type { Profile } from '@lenstube/lens'
 import { ProfileDocument } from '@lenstube/lens'
 import type { NextApiResponse } from 'next'
-import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from 'utils'
 import getApolloClient from 'utils/functions/getApolloClient'
 import getMetaTags from 'utils/functions/getMetaTags'
 import getProfilePicture from 'utils/functions/getProfilePicture'

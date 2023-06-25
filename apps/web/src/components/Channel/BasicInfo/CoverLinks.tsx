@@ -1,8 +1,8 @@
 import GlobeOutline from '@components/Common/Icons/GlobeOutline'
+import { Analytics, STATIC_ASSETS, TRACK } from '@lenstube/constants'
 import type { Profile } from '@lenstube/lens'
 import Link from 'next/link'
 import React from 'react'
-import { Analytics, STATIC_ASSETS, TRACK } from 'utils'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 
 const CoverLinks = ({ channel }: { channel: Profile }) => {

@@ -1,11 +1,11 @@
 import { Button } from '@components/UIElements/Button'
 import type { ApprovedAllowanceAmount } from '@lenstube/lens'
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import { t, Trans } from '@lingui/macro'
 import type { Dispatch, FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
 import { getCollectModuleConfig } from 'utils/functions/getCollectModule'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 

@@ -1,4 +1,5 @@
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
+import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import { usePublicationDetailsQuery } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
@@ -6,7 +7,6 @@ import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { LENSTUBE_BYTES_APP_ID } from 'utils'
 import { getRelativeTime } from 'utils/functions/formatTime'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import {

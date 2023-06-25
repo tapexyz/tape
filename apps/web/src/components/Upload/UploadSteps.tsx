@@ -1,6 +1,18 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
+import {
+  Analytics,
+  BUNDLR_CONNECT_MESSAGE,
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_APP_NAME,
+  LENSTUBE_BYTES_APP_ID,
+  LENSTUBE_WEBSITE_URL,
+  REQUESTING_SIGNATURE_MESSAGE,
+  TRACK
+} from '@lenstube/constants'
 import type {
   CreateDataAvailabilityPostRequest,
   CreatePostBroadcastItemResult,
@@ -21,6 +33,7 @@ import {
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
 } from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
@@ -28,19 +41,6 @@ import { t } from '@lingui/macro'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
-import {
-  Analytics,
-  BUNDLR_CONNECT_MESSAGE,
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_APP_NAME,
-  LENSTUBE_BYTES_APP_ID,
-  LENSTUBE_WEBSITE_URL,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
-} from 'utils'
 import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
 import { getCollectModule } from 'utils/functions/getCollectModule'
 import getSignature from 'utils/functions/getSignature'

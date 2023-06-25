@@ -2,6 +2,11 @@ import InfoOutline from '@components/Common/Icons/InfoOutline'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
+import {
+  IS_MAINNET,
+  LENSTUBE_APP_NAME,
+  LENSTUBE_DONATION_ADDRESS
+} from '@lenstube/constants'
 import type { RecipientDataInput } from '@lenstube/lens'
 import { useResolveProfileAddressLazyQuery } from '@lenstube/lens'
 import useAppStore from '@lib/store'
@@ -9,7 +14,6 @@ import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { FC, RefObject } from 'react'
 import React from 'react'
-import { IS_MAINNET, LENSTUBE_APP_NAME, LENSTUBE_DONATION_ADDRESS } from 'utils'
 import splitNumber from 'utils/functions/splitNumber'
 import { isAddress } from 'viem'
 

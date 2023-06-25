@@ -1,9 +1,9 @@
+import { STATIC_ASSETS } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { STATIC_ASSETS } from 'utils'
 
 type Props = {
   comment: Publication

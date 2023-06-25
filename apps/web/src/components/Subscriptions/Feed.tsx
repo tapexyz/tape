@@ -2,6 +2,7 @@ import VideoCard from '@components/Common/VideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { SCROLL_ROOT_MARGIN } from '@lenstube/constants'
 import type { FeedItem, Publication } from '@lenstube/lens'
 import {
   FeedEventItemType,
@@ -14,7 +15,6 @@ import { t } from '@lingui/macro'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
-import { SCROLL_ROOT_MARGIN } from 'utils'
 
 const Subscriptions = () => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)

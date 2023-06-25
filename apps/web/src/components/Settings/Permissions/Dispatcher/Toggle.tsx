@@ -1,6 +1,14 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
 import usePendingTxn from '@hooks/usePendingTxn'
+import {
+  Analytics,
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  OLD_LENS_RELAYER_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE,
+  TRACK
+} from '@lenstube/constants'
 import type {
   CreateSetDispatcherBroadcastItemResult,
   Profile
@@ -10,19 +18,11 @@ import {
   useCreateSetDispatcherTypedDataMutation,
   useProfileLazyQuery
 } from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
-import {
-  Analytics,
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  OLD_LENS_RELAYER_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
-} from 'utils'
 import getIsDispatcherEnabled from 'utils/functions/getIsDispatcherEnabled'
 import getSignature from 'utils/functions/getSignature'
 import { useContractWrite, useSignTypedData } from 'wagmi'

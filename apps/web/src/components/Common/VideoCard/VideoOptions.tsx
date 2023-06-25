@@ -2,6 +2,14 @@ import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
+import {
+  Analytics,
+  ERROR_MESSAGE,
+  LENS_PERIPHERY_ADDRESS,
+  LENSTUBE_APP_ID,
+  REQUESTING_SIGNATURE_MESSAGE,
+  TRACK
+} from '@lenstube/constants'
 import type {
   Attribute,
   CreatePublicSetProfileMetadataUriRequest,
@@ -14,6 +22,7 @@ import {
   useCreateSetProfileMetadataViaDispatcherMutation,
   useHidePublicationMutation
 } from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
@@ -22,15 +31,6 @@ import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
-import {
-  Analytics,
-  ERROR_MESSAGE,
-  LENS_PERIPHERY_ADDRESS,
-  LENSTUBE_APP_ID,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
-} from 'utils'
 import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
 import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'

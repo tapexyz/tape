@@ -1,5 +1,6 @@
 import { useApolloClient } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
+import { Analytics, TRACK } from '@lenstube/constants'
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,
@@ -8,7 +9,6 @@ import {
 import useChannelStore from '@lib/store/channel'
 import clsx from 'clsx'
 import React, { useEffect } from 'react'
-import { Analytics, TRACK } from 'utils'
 import sanitizeProfileInterests from 'utils/functions/sanitizeProfileInterests'
 
 const MAX_TOPICS_ALLOWED = 12
@@ -82,26 +82,28 @@ const Topics = () => {
               >
                 {category.label}
               </button>
-              {subCategories?.map((subCategory) => (
-                <button
-                  type="button"
-                  disabled={
-                    !selectedTopics.includes(subCategory.id) &&
-                    selectedTopics.length === MAX_TOPICS_ALLOWED
-                  }
-                  className={clsx(
-                    'flex items-center justify-between rounded-full border border-gray-300 px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700',
-                    {
-                      '!border-indigo-500 text-indigo-500':
-                        selectedTopics.includes(subCategory.id)
+              {subCategories?.map(
+                (subCategory: { id: string; label: string }) => (
+                  <button
+                    type="button"
+                    disabled={
+                      !selectedTopics.includes(subCategory.id) &&
+                      selectedTopics.length === MAX_TOPICS_ALLOWED
                     }
-                  )}
-                  key={subCategory.id}
-                  onClick={() => onSelectTopic(subCategory.id)}
-                >
-                  {subCategory.label}
-                </button>
-              ))}
+                    className={clsx(
+                      'flex items-center justify-between rounded-full border border-gray-300 px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700',
+                      {
+                        '!border-indigo-500 text-indigo-500':
+                          selectedTopics.includes(subCategory.id)
+                      }
+                    )}
+                    key={subCategory.id}
+                    onClick={() => onSelectTopic(subCategory.id)}
+                  >
+                    {subCategory.label}
+                  </button>
+                )
+              )}
             </div>
           </div>
         )

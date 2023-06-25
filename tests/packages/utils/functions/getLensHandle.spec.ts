@@ -1,5 +1,5 @@
+import { IS_MAINNET } from '@lenstube/constants'
 import { expect, test } from '@playwright/test'
-import { IS_MAINNET } from 'utils/constants'
 import getLensHandle from 'utils/functions/getLensHandle'
 
 test('getLensHandle', () => {

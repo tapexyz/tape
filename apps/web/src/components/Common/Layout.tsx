@@ -1,5 +1,7 @@
+import { AUTH_ROUTES, POLYGON_CHAIN_ID } from '@lenstube/constants'
 import type { Profile } from '@lenstube/lens'
 import { useUserProfilesQuery } from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore, {
   hydrateAuthTokens,
   signOut
@@ -13,9 +15,6 @@ import { useTheme } from 'next-themes'
 import type { FC, ReactNode } from 'react'
 import React, { useEffect } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
-import { POLYGON_CHAIN_ID } from 'utils'
-import { AUTH_ROUTES } from 'utils/data/auth-routes'
 import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
 import { getToastOptions } from 'utils/functions/getToastOptions'
 import useIsMounted from 'utils/hooks/useIsMounted'

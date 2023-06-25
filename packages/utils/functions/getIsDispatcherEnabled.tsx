@@ -1,5 +1,5 @@
+import { OLD_LENS_RELAYER_ADDRESS } from '@lenstube/constants'
 import type { Profile } from '@lenstube/lens'
-import { OLD_LENS_RELAYER_ADDRESS } from 'utils'
 
 const getIsDispatcherEnabled = (channel: Profile | null) => {
   return (

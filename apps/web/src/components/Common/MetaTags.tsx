@@ -1,7 +1,3 @@
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import type { FC } from 'react'
-import React from 'react'
 import {
   LENSTUBE_API_URL,
   LENSTUBE_APP_DESCRIPTION,
@@ -9,7 +5,11 @@ import {
   LENSTUBE_EMBED_URL,
   LENSTUBE_TWITTER_HANDLE,
   OG_IMAGE
-} from 'utils'
+} from '@lenstube/constants'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import type { FC } from 'react'
+import React from 'react'
 
 type Props = {
   title?: string

@@ -1,7 +1,6 @@
+import { LIVEPEER_VIEWS_URL } from '@lenstube/constants'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-
-import { LIVEPEER_VIEWS_URL } from '../constants'
 
 const useVideoViews = (cid: string) => {
   const [loading, setLoading] = useState(false)

@@ -1,8 +1,8 @@
 import MetaTags from '@components/Common/MetaTags'
+import { Analytics, TRACK } from '@lenstube/constants'
 import { t } from '@lingui/macro'
 import type { NextPage } from 'next'
 import React, { useEffect } from 'react'
-import { Analytics, TRACK } from 'utils'
 
 import BytesSection from './BytesSection'
 import DispatcherAlert from './DispatcherAlert'

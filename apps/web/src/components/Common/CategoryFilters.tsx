@@ -1,9 +1,8 @@
+import { Analytics, CREATOR_VIDEO_CATEGORIES, TRACK } from '@lenstube/constants'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
-import { Analytics, TRACK } from 'utils'
-import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
 import useHorizontalScroll from 'utils/hooks/useHorizontalScroll'
 
 import ChevronLeftOutline from './Icons/ChevronLeftOutline'

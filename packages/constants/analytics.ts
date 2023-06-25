@@ -1,6 +1,7 @@
 import type { Dict } from 'mixpanel-browser'
 import mixpanel from 'mixpanel-browser'
-import { IS_MAINNET, IS_PRODUCTION } from 'utils/constants'
+
+import { IS_MAINNET, IS_PRODUCTION } from './general'
 
 export const Analytics = {
   track: (eventName: string, payload?: Dict) => {

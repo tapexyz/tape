@@ -2,11 +2,11 @@ import SortOutline from '@components/Common/Icons/SortOutline'
 import DropMenu from '@components/UIElements/DropMenu'
 import Tooltip from '@components/UIElements/Tooltip'
 import { Menu } from '@headlessui/react'
+import { CustomCommentsFilterEnum } from '@lenstube/lens/custom-types'
 import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import React from 'react'
-import { CustomCommentsFilterEnum } from 'utils'
 
 const CommentsFilter = () => {
   const selectedCommentFilter = useChannelStore(

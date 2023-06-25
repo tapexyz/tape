@@ -1,15 +1,18 @@
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { WMATIC_TOKEN_ADDRESS } from '@lenstube/constants'
 import type { Erc20 } from '@lenstube/lens'
+import type {
+  CollectModuleType,
+  UploadedVideo
+} from '@lenstube/lens/custom-types'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
-import type { CollectModuleType, UploadedVideo } from 'utils'
-import { WMATIC_TOKEN_ADDRESS } from 'utils'
 import { isAddress } from 'viem'
 import { z } from 'zod'
 

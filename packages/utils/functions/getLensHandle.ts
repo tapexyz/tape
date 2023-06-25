@@ -1,4 +1,4 @@
-import { IS_MAINNET } from '../constants'
+import { IS_MAINNET } from '@lenstube/constants'
 
 const getLensHandle = (handle: string) => {
   if (!handle) {

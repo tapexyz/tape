@@ -1,6 +1,5 @@
+import { SENSITIVE_CONTENT } from '@lenstube/constants'
 import type { MetadataOutput } from '@lenstube/lens'
-
-import { SENSITIVE_CONTENT } from '../data/sensitives'
 
 export const getIsSensitiveContent = (
   metadata: MetadataOutput | null,

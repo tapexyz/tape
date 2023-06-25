@@ -1,12 +1,17 @@
 import MetaTags from '@components/Common/MetaTags'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
+import {
+  ADMIN_IDS,
+  Analytics,
+  LENSTUBE_APP_ID,
+  TRACK
+} from '@lenstube/constants'
 import type { GlobalProtocolStats } from '@lenstube/lens'
 import { useGlobalProtocolStatsQuery } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
-import { ADMIN_IDS, Analytics, LENSTUBE_APP_ID, TRACK } from 'utils'
 
 import Deployment from './Deployment'
 import Recents from './Recents'

@@ -2,14 +2,9 @@ import 'react-native-reanimated'
 // eslint-disable-next-line import/no-duplicates
 import 'react-native-gesture-handler'
 
-import {
-  ApolloClient,
-  ApolloProvider,
-  from,
-  HttpLink,
-  InMemoryCache
-} from '@apollo/client'
+import { ApolloProvider } from '@apollo/client'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import apolloClient from '@lenstube/lens/apollo'
 import {
   createReactClient,
   LivepeerConfig,
@@ -21,6 +16,7 @@ import { StyleSheet } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import { AppLoading } from './components'
+import mobileAuthLink from './helpers/auth-link'
 import { Navigation } from './navigation'
 import { NotificationsProvider } from './providers'
 
@@ -30,24 +26,13 @@ const styles = StyleSheet.create({
   }
 })
 
-const httpLink = new HttpLink({
-  uri: 'https://api.lens.dev',
-  fetchOptions: 'no-cors',
-  fetch
-})
-
-const apolloClient = new ApolloClient({
-  link: from([httpLink]),
-  cache: new InMemoryCache()
-})
-
 const livepeerClient = createReactClient({
   provider: studioProvider({ apiKey: 'b13fd43e-d0d6-4abc-a5df-93592a0c5124' })
 })
 
 const App = (): JSX.Element => {
   return (
-    <ApolloProvider client={apolloClient}>
+    <ApolloProvider client={apolloClient(mobileAuthLink)}>
       <LivepeerConfig client={livepeerClient}>
         <NotificationsProvider />
         <AppLoading>

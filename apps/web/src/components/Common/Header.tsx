@@ -1,6 +1,15 @@
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
+import {
+  Analytics,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
+  LENSTUBE_ROADMAP_URL,
+  STATIC_ASSETS,
+  TRACK
+} from '@lenstube/constants'
 import { useLatestNotificationIdQuery } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
@@ -11,15 +20,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import {
-  Analytics,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  LENSTUBE_ROADMAP_URL,
-  STATIC_ASSETS,
-  TRACK
-} from 'utils'
 
 import Login from './Auth/Login'
 import CategoryFilters from './CategoryFilters'

@@ -1,44 +1,52 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { create } from 'zustand'
 
-interface AuthState {
-  token: string | null
-  status: 'idle' | 'signOut' | 'signIn'
-  isSignedIn: boolean
-  signIn: (data: string) => void
-  signOut: () => void
-  hydrate: () => void
+type Tokens = {
+  accessToken: string | null
+  refreshToken: string | null
 }
 
-const TOKEN_STORAGE_KEY = '@pripe/token'
+interface AuthState {
+  status: 'idle' | 'signOut' | 'signIn'
+  accessToken: Tokens['accessToken']
+  refreshToken: Tokens['refreshToken']
+  isSignedIn: boolean
+  signIn: (tokens: { accessToken: string; refreshToken: string }) => void
+  signOut: () => void
+  hydrateAuthTokens: () => Tokens
+}
+
+const ACCESS_TOKEN_STORAGE_KEY = '@pripe/access-token'
+const REFRESH_TOKEN_STORAGE_KEY = '@pripe/refresh-token'
 
 export const useAuth = create<AuthState>((set, get) => ({
   status: 'idle',
-  token: null,
+  accessToken: null,
+  refreshToken: null,
   isSignedIn: false,
-  signIn: async (token) => {
-    await AsyncStorage.setItem(TOKEN_STORAGE_KEY, token)
-    set({ status: 'signIn', token, isSignedIn: true })
+  signIn: async ({ accessToken, refreshToken }) => {
+    await AsyncStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, accessToken)
+    await AsyncStorage.setItem(REFRESH_TOKEN_STORAGE_KEY, refreshToken)
+    set(({ accessToken }) => ({
+      status: 'signIn',
+      accessToken,
+      isSignedIn: true
+    }))
   },
   signOut: async () => {
     await AsyncStorage.removeItem('token')
-    set({ status: 'signOut', token: null, isSignedIn: false })
+    set({ status: 'signOut', accessToken: null, isSignedIn: false })
   },
-  hydrate: async () => {
-    try {
-      const userToken = await AsyncStorage.getItem(TOKEN_STORAGE_KEY)
-      if (userToken !== null) {
-        get().signIn(userToken)
-      } else {
-        get().signOut()
-      }
-    } catch (e) {
-      get().signOut()
+  hydrateAuthTokens: () => {
+    return {
+      accessToken: get().accessToken,
+      refreshToken: get().refreshToken
     }
   }
 }))
 
 export const signOut = () => useAuth.getState().signOut()
-export const signIn = (token: string) => useAuth.getState().signIn(token)
-export const hydrateAuth = () => useAuth.getState().hydrate()
+export const signIn = (tokens: { accessToken: string; refreshToken: string }) =>
+  useAuth.getState().signIn(tokens)
+export const hydrateAuthTokens = () => useAuth.getState().hydrateAuthTokens()
 export const isSignedIn = () => useAuth.getState().isSignedIn

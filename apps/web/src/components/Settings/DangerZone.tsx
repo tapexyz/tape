@@ -1,19 +1,19 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
+import {
+  LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE
+} from '@lenstube/constants'
 import type { CreateBurnProfileBroadcastItemResult } from '@lenstube/lens'
 import { useCreateBurnProfileTypedDataMutation } from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
-import {
-  LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE
-} from 'utils/constants'
-import type { CustomErrorWithData } from 'utils/custom-types'
 import formatNumber from 'utils/functions/formatNumber'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import { useContractWrite, useWaitForTransaction } from 'wagmi'

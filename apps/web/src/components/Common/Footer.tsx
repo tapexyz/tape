@@ -1,7 +1,3 @@
-import usePersistStore from '@lib/store/persist'
-import { Trans } from '@lingui/macro'
-import Link from 'next/link'
-import React from 'react'
 import {
   Analytics,
   LENSTUBE_GITHUB_HANDLE,
@@ -9,7 +5,11 @@ import {
   LENSTUBE_STATUS_PAGE,
   LENSTUBE_TWITTER_HANDLE,
   TRACK
-} from 'utils'
+} from '@lenstube/constants'
+import usePersistStore from '@lib/store/persist'
+import { Trans } from '@lingui/macro'
+import Link from 'next/link'
+import React from 'react'
 
 const Footer = () => {
   const setSidebarCollapsed = usePersistStore(

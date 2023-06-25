@@ -1,5 +1,12 @@
 import { ApolloProvider } from '@apollo/client'
-import apolloClient from '@lib/apollo'
+import {
+  IS_MAINNET,
+  LENSTUBE_APP_NAME,
+  POLYGON_RPC_URL,
+  WC_PROJECT_ID
+} from '@lenstube/constants'
+import apolloClient from '@lenstube/lens/apollo'
+import authLink from '@lib/authLink'
 import { loadLocale } from '@lib/i18n'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
@@ -21,12 +28,6 @@ import {
 import { ThemeProvider, useTheme } from 'next-themes'
 import type { ReactNode } from 'react'
 import React, { useEffect } from 'react'
-import {
-  IS_MAINNET,
-  LENSTUBE_APP_NAME,
-  POLYGON_RPC_URL,
-  WC_PROJECT_ID
-} from 'utils'
 import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { polygon, polygonMumbai } from 'wagmi/chains'
@@ -97,7 +98,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
           <WagmiConfig config={wagmiConfig}>
             <ThemeProvider defaultTheme="dark" attribute="class">
               <RainbowKitProviderWrapper>
-                <ApolloProvider client={apolloClient}>
+                <ApolloProvider client={apolloClient(authLink)}>
                   {children}
                 </ApolloProvider>
               </RainbowKitProviderWrapper>

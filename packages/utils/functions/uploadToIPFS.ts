@@ -1,10 +1,10 @@
 import { S3 } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
+import { EVER_ENDPOINT, EVER_REGION, STS_TOKEN_URL } from '@lenstube/constants'
+import type { IPFSUploadResult } from '@lenstube/lens/custom-types'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 
-import { EVER_ENDPOINT, EVER_REGION, STS_TOKEN_URL } from '../constants'
-import type { IPFSUploadResult } from '../custom-types'
 import logger from '../logger'
 
 export const everland = async (

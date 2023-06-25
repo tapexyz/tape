@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['utils', '@lenstube/lens'],
+  transpilePackages: ['utils', '@lenstube/constants', '@lenstube/lens'],
   reactStrictMode: true,
   async rewrites() {
     return [{ source: '/:path*', destination: '/api/:path*' }]

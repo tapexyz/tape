@@ -1,4 +1,4 @@
-import type { ProfileInterest } from '../custom-types'
+import type { ProfileInterest } from '@lenstube/lens/custom-types'
 
 const sanitizeProfileInterests = (profileInterests: string[]) => {
   if (!profileInterests) {

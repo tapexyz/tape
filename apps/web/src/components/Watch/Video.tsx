@@ -1,12 +1,12 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
+import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import useAppStore from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React from 'react'
-import { LENSTUBE_BYTES_APP_ID } from 'utils'
 import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 import {
   getPublicationHlsUrl,

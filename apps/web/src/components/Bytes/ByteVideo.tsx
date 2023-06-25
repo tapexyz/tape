@@ -1,10 +1,10 @@
 import CollectVideo from '@components/Watch/CollectVideo'
+import { Analytics, TRACK } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
-import { Analytics, TRACK } from 'utils'
 import {
   getPublicationHlsUrl,
   getPublicationRawMediaUrl

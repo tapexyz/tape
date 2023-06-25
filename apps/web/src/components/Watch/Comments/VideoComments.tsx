@@ -3,12 +3,14 @@ import CommentOutline from '@components/Common/Icons/CommentOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import {
   CommentOrderingTypes,
   CommentRankingFilter,
   useCommentsQuery
 } from '@lenstube/lens'
+import { CustomCommentsFilterEnum } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
@@ -16,11 +18,6 @@ import { t, Trans } from '@lingui/macro'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import {
-  CustomCommentsFilterEnum,
-  LENS_CUSTOM_FILTERS,
-  SCROLL_ROOT_MARGIN
-} from 'utils'
 
 import Comment from './Comment'
 import CommentsFilter from './CommentsFilter'

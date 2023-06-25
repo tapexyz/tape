@@ -1,6 +1,6 @@
+import { FALLBACK_COVER_URL } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 
-import { FALLBACK_COVER_URL } from '../constants'
 import sanitizeDStorageUrl from './sanitizeDStorageUrl'
 
 const getThumbnailUrl = (

@@ -3,6 +3,13 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import {
+  Analytics,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID,
+  SCROLL_ROOT_MARGIN,
+  TRACK
+} from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import {
   PublicationSortCriteria,
@@ -15,13 +22,6 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import {
-  Analytics,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN,
-  TRACK
-} from 'utils'
 
 import ByteVideo from './ByteVideo'
 

@@ -1,7 +1,7 @@
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client'
+import { LENS_API_URL } from '@lenstube/constants'
 import { hydrateAuthTokens, signIn, signOut } from '@lib/store/auth'
 import axios from 'axios'
-import { LENS_API_URL } from 'utils'
 import parseJwt from 'utils/functions/parseJwt'
 import logger from 'utils/logger'
 

@@ -1,7 +1,16 @@
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
+import {
+  ADMIN_IDS,
+  Analytics,
+  HEALTH_URL,
+  IS_MAINNET,
+  LENSTUBE_STATUS_PAGE,
+  TRACK
+} from '@lenstube/constants'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesLazyQuery } from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore, { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
@@ -11,15 +20,6 @@ import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import useSWR from 'swr'
-import type { CustomErrorWithData } from 'utils'
-import {
-  ADMIN_IDS,
-  Analytics,
-  HEALTH_URL,
-  IS_MAINNET,
-  LENSTUBE_STATUS_PAGE,
-  TRACK
-} from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import { useAccount, useDisconnect } from 'wagmi'
 

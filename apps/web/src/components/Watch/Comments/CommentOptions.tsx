@@ -3,6 +3,7 @@ import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import TrashOutline from '@components/Common/Icons/TrashOutline'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu from '@components/UIElements/DropMenu'
+import { Analytics, TRACK } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import { useHidePublicationMutation } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
@@ -10,7 +11,6 @@ import { t, Trans } from '@lingui/macro'
 import type { Dispatch, FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { Analytics, TRACK } from 'utils'
 
 type Props = {
   setShowReport: Dispatch<boolean>

@@ -1,5 +1,6 @@
 import { useApolloClient } from '@apollo/client'
 import Tooltip from '@components/UIElements/Tooltip'
+import { STATIC_ASSETS } from '@lenstube/constants'
 import type { Profile } from '@lenstube/lens'
 import {
   PublicationDetailsDocument,
@@ -7,6 +8,7 @@ import {
   usePublicationDetailsLazyQuery,
   useTxIdToTxHashLazyQuery
 } from '@lenstube/lens'
+import type { QueuedVideoType } from '@lenstube/lens/custom-types'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
@@ -14,8 +16,6 @@ import { t } from '@lingui/macro'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
-import type { QueuedVideoType } from 'utils'
-import { STATIC_ASSETS } from 'utils'
 import getProfilePicture from 'utils/functions/getProfilePicture'
 import imageCdn from 'utils/functions/imageCdn'
 import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'

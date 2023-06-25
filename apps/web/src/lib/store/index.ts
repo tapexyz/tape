@@ -1,12 +1,15 @@
 import { WebBundlr } from '@bundlr-network/client'
-import type { BundlrDataState, UploadedVideo } from 'utils'
 import {
   BUNDLR_CURRENCY,
   BUNDLR_NODE_URL,
+  CREATOR_VIDEO_CATEGORIES,
   POLYGON_RPC_URL,
   WMATIC_TOKEN_ADDRESS
-} from 'utils'
-import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
+} from '@lenstube/constants'
+import type {
+  BundlrDataState,
+  UploadedVideo
+} from '@lenstube/lens/custom-types'
 import logger from 'utils/logger'
 import { create } from 'zustand'
 

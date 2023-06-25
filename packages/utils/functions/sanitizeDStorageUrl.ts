@@ -1,4 +1,4 @@
-import { ARWEAVE_GATEWAY_URL, IPFS_GATEWAY_URL } from '../constants'
+import { ARWEAVE_GATEWAY_URL, IPFS_GATEWAY_URL } from '@lenstube/constants'
 
 const sanitizeDStorageUrl = (url: string) => {
   const ipfsGateway = `${IPFS_GATEWAY_URL}/`

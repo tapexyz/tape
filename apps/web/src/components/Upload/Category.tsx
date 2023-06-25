@@ -1,9 +1,9 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
 import { Listbox, Transition } from '@headlessui/react'
+import { CREATOR_VIDEO_CATEGORIES } from '@lenstube/constants'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
 import React, { Fragment } from 'react'
-import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
 
 const Category = () => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
