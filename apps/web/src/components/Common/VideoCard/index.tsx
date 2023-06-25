@@ -1,5 +1,9 @@
 import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import { getProfilePicture, getRelativeTime } from '@lenstube/generic'
+import {
+  getProfilePicture,
+  getRelativeTime,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
@@ -82,7 +86,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                   className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
                   data-testid="video-card-channel"
                 >
-                  <span>{video.profile?.handle}</span>
+                  <span>{trimLensHandle(video.profile?.handle)}</span>
                   <IsVerified id={video.profile?.id} size="xs" />
                 </Link>
                 <div className="flex items-center overflow-hidden text-xs opacity-70">
