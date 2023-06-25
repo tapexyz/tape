@@ -4,7 +4,7 @@ const nextConfig = {
     '@lenstube/lens',
     '@lenstube/browser',
     '@lenstube/generic',
-    '@lenstube/constants',
+    '@lenstube/config',
     'web-ui'
   ],
   reactStrictMode: true,
