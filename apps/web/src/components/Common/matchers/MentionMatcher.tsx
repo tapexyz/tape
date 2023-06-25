@@ -1,8 +1,8 @@
 import { STATIC_ASSETS } from '@lenstube/constants'
+import { getLensHandle } from '@lenstube/generic'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
-import getLensHandle from 'utils/functions/getLensHandle'
 
 import type { MentionProps } from './utils'
 

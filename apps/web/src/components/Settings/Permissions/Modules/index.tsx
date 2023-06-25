@@ -1,6 +1,7 @@
 import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import { WMATIC_TOKEN_ADDRESS } from '@lenstube/constants'
+import { getCollectModuleConfig } from '@lenstube/generic'
 import type { ApprovedAllowanceAmount, Erc20 } from '@lenstube/lens'
 import {
   CollectModules,
@@ -14,7 +15,6 @@ import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { getCollectModuleConfig } from 'utils/functions/getCollectModule'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
 const collectModules = [

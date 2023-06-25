@@ -4,11 +4,11 @@ import {
   STATIC_ASSETS,
   TRACK
 } from '@lenstube/constants'
+import { getProfilePicture } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 
 type Props = {
   video: Publication

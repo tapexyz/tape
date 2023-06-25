@@ -7,6 +7,7 @@ import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useCopyToClipboard } from '@lenstube/browser'
 import {
   Analytics,
   ERROR_MESSAGE,
@@ -16,6 +17,16 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   TRACK
 } from '@lenstube/constants'
+import {
+  getChannelCoverPicture,
+  getSignature,
+  getValueFromKeyInAttributes,
+  imageCdn,
+  sanitizeDStorageUrl,
+  trimify,
+  uploadToAr,
+  uploadToIPFS
+} from '@lenstube/generic'
 import type {
   CreatePublicSetProfileMetadataUriRequest,
   MediaSet,
@@ -37,15 +48,6 @@ import type { ChangeEvent } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
-import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
-import getSignature from 'utils/functions/getSignature'
-import imageCdn from 'utils/functions/imageCdn'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
-import trimify from 'utils/functions/trimify'
-import uploadToAr from 'utils/functions/uploadToAr'
-import uploadToIPFS from 'utils/functions/uploadToIPFS'
-import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'

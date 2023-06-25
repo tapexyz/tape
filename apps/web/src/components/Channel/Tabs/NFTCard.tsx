@@ -3,12 +3,11 @@ import {
   OPENSEA_MARKETPLACE_URL,
   STATIC_ASSETS
 } from '@lenstube/constants'
+import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
 import type { Nft } from '@lenstube/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import imageCdn from 'utils/functions/imageCdn'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 
 type Props = {
   nft: Nft

@@ -6,6 +6,12 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
+import {
+  getProfilePicture,
+  getSignature,
+  sanitizeDStorageUrl,
+  uploadToIPFS
+} from '@lenstube/generic'
 import type {
   CreateSetProfileImageUriBroadcastItemResult,
   Profile,
@@ -26,10 +32,6 @@ import clsx from 'clsx'
 import type { ChangeEvent, FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import getSignature from 'utils/functions/getSignature'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
-import uploadToIPFS from 'utils/functions/uploadToIPFS'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {

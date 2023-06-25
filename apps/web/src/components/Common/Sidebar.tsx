@@ -1,4 +1,5 @@
 import Tooltip from '@components/UIElements/Tooltip'
+import { getShowFullScreen } from '@lenstube/browser'
 import { STATIC_ASSETS } from '@lenstube/constants'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
@@ -6,7 +7,6 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { getShowFullScreen } from 'utils/functions/getShowFullScreen'
 
 import CreateChannel from './CreateChannel'
 import Footer from './Footer'

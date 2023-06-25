@@ -1,5 +1,5 @@
+import { checkIsBytesVideo } from '@lenstube/generic'
 import { expect, test } from '@playwright/test'
-import checkIsBytesVideo from 'utils/functions/checkIsBytesVideo'
 
 test('returns true for videos shorter than 2 minutes', async () => {
   const durationInSeconds = 1 * 60

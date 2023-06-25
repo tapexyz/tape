@@ -1,4 +1,5 @@
 import Modal from '@components/UIElements/Modal'
+import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
 import {
   type MediaSet,
   type Publication,
@@ -6,8 +7,6 @@ import {
 } from '@lenstube/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import imageCdn from 'utils/functions/imageCdn'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 
 import AudioComment from './AudioComment'
 import VideoComment from './VideoComment'

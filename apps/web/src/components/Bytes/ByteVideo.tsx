@@ -1,18 +1,18 @@
 import CollectVideo from '@components/Watch/CollectVideo'
+import { useAverageColor } from '@lenstube/browser'
 import { Analytics, TRACK } from '@lenstube/constants'
+import {
+  getPublicationHlsUrl,
+  getPublicationRawMediaUrl,
+  getThumbnailUrl,
+  imageCdn,
+  sanitizeDStorageUrl
+} from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
-import {
-  getPublicationHlsUrl,
-  getPublicationRawMediaUrl
-} from 'utils/functions/getPublicationMediaUrl'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
-import useAverageColor from 'utils/hooks/useAverageColor'
 import VideoPlayer from 'web-ui/VideoPlayer'
 
 import BottomOverlay from './BottomOverlay'

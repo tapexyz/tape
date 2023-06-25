@@ -7,6 +7,7 @@ import {
   LENSTUBE_APP_NAME,
   LENSTUBE_DONATION_ADDRESS
 } from '@lenstube/constants'
+import { splitNumber } from '@lenstube/generic'
 import type { RecipientDataInput } from '@lenstube/lens'
 import { useResolveProfileAddressLazyQuery } from '@lenstube/lens'
 import useAppStore from '@lib/store'
@@ -14,7 +15,6 @@ import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { FC, RefObject } from 'react'
 import React from 'react'
-import splitNumber from 'utils/functions/splitNumber'
 import { isAddress } from 'viem'
 
 type Props = {

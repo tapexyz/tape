@@ -1,16 +1,18 @@
 import IsVerified from '@components/Common/IsVerified'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
+import {
+  getProfilePicture,
+  getRandomProfilePicture,
+  getRelativeTime,
+  imageCdn,
+  shortenAddress
+} from '@lenstube/generic'
 import type { NewFollowerNotification } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { getRelativeTime } from 'utils/functions/formatTime'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
-import imageCdn from 'utils/functions/imageCdn'
-import { shortenAddress } from 'utils/functions/shortenAddress'
 
 interface Props {
   notification: NewFollowerNotification

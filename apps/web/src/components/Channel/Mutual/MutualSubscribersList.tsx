@@ -2,6 +2,7 @@ import UserOutline from '@components/Common/Icons/UserOutline'
 import IsVerified from '@components/Common/IsVerified'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { getProfilePicture } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useMutualFollowersQuery } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
@@ -9,7 +10,7 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import getProfilePicture from 'utils/functions/getProfilePicture'
+
 type Props = {
   viewingChannelId: string
 }

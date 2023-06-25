@@ -1,9 +1,8 @@
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client'
 import { LENS_API_URL } from '@lenstube/constants'
+import { logger, parseJwt } from '@lenstube/generic'
 import { hydrateAuthTokens, signIn, signOut } from '@lib/store/auth'
 import axios from 'axios'
-import parseJwt from 'utils/functions/parseJwt'
-import logger from 'utils/logger'
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {

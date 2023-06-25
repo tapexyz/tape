@@ -18,7 +18,8 @@
     "@lenstube/config": "*",
     "@lenstube/lens": "*",
     "typescript": "5.1.3",
-    "utils": "*",
+    "@lenstube/browser": "*",
+    "@lenstube/generic": "*",
     "@lenstube/constants": "*"
   }
 }

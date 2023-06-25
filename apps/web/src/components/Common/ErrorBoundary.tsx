@@ -1,7 +1,7 @@
+import { logger } from '@lenstube/generic'
 import type { ReactNode } from 'react'
 import React, { Component } from 'react'
 import Custom500 from 'src/pages/500'
-import logger from 'utils/logger'
 
 interface Props {
   children?: ReactNode

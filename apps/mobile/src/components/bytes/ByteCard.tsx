@@ -1,3 +1,4 @@
+import { getPublicationHlsUrl, getThumbnailUrl } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { ResizeMode, Video } from 'expo-av'
@@ -5,8 +6,6 @@ import { MotiView } from 'moti'
 import type { FC } from 'react'
 import React from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
-import { getPublicationHlsUrl } from 'utils/functions/getPublicationMediaUrl'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 
 const styles = StyleSheet.create({
   byteCard: {

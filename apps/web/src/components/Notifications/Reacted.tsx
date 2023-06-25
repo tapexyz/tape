@@ -1,11 +1,10 @@
 import IsVerified from '@components/Common/IsVerified'
+import { getProfilePicture, getRelativeTime } from '@lenstube/generic'
 import type { NewReactionNotification } from '@lenstube/lens'
 import { t, Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { getRelativeTime } from 'utils/functions/formatTime'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 
 interface Props {
   notification: NewReactionNotification

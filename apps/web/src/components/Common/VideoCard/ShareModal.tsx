@@ -1,19 +1,18 @@
 import Modal from '@components/UIElements/Modal'
+import { useCopyToClipboard } from '@lenstube/browser'
 import {
   Analytics,
   LENSTUBE_WEBSITE_URL,
   STATIC_ASSETS,
   TRACK
 } from '@lenstube/constants'
+import { getSharableLink, imageCdn } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { t } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
-import { getSharableLink } from 'utils/functions/getSharableLink'
-import imageCdn from 'utils/functions/imageCdn'
-import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 
 import EmbedVideo from '../EmbedVideo'
 import CopyOutline from '../Icons/CopyOutline'

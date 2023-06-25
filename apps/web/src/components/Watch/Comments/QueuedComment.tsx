@@ -2,6 +2,7 @@ import { useApolloClient } from '@apollo/client'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
+import { getProfilePicture } from '@lenstube/generic'
 import {
   PublicationDetailsDocument,
   useHasTxHashBeenIndexedQuery,
@@ -14,7 +15,6 @@ import usePersistStore from '@lib/store/persist'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 
 type Props = {
   queuedComment: QueuedCommentType

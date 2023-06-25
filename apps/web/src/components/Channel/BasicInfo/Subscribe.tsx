@@ -7,6 +7,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   TRACK
 } from '@lenstube/constants'
+import { getSignature } from '@lenstube/generic'
 import type {
   CreateFollowBroadcastItemResult,
   Profile,
@@ -25,7 +26,6 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import getSignature from 'utils/functions/getSignature'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {

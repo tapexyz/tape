@@ -1,5 +1,12 @@
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import {
+  formatNumber,
+  getProfilePicture,
+  getRandomProfilePicture,
+  imageCdn,
+  shortenAddress
+} from '@lenstube/generic'
 import type { Follower, Profile } from '@lenstube/lens'
 import { useSubscribersQuery } from '@lenstube/lens'
 import { t } from '@lingui/macro'
@@ -7,11 +14,6 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import formatNumber from 'utils/functions/formatNumber'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
-import imageCdn from 'utils/functions/imageCdn'
-import { shortenAddress } from 'utils/functions/shortenAddress'
 
 import UserOutline from './Icons/UserOutline'
 import IsVerified from './IsVerified'

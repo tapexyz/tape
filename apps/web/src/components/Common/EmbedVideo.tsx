@@ -1,11 +1,11 @@
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
+import { useCopyToClipboard } from '@lenstube/browser'
 import { Analytics, LENSTUBE_EMBED_URL, TRACK } from '@lenstube/constants'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 
 import CodeOutline from './Icons/CodeOutline'
 

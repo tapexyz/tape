@@ -1,12 +1,14 @@
 import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
+import {
+  getLensHandle,
+  getProfilePicture,
+  getRelativeTime
+} from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { getRelativeTime } from 'utils/functions/formatTime'
-import getLensHandle from 'utils/functions/getLensHandle'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 
 import IsVerified from '../IsVerified'
 import ReportModal from './ReportModal'

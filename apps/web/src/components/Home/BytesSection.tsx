@@ -2,11 +2,19 @@ import BytesOutline from '@components/Common/Icons/BytesOutline'
 import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import BytesShimmer from '@components/Shimmers/BytesShimmer'
+import { generateVideoThumbnail } from '@lenstube/browser'
 import {
   FALLBACK_COVER_URL,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID
 } from '@lenstube/constants'
+import {
+  getLensHandle,
+  getProfilePicture,
+  getPublicationMediaUrl,
+  getThumbnailUrl,
+  imageCdn
+} from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
@@ -18,12 +26,6 @@ import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import React, { useRef } from 'react'
-import { generateVideoThumbnail } from 'utils/functions/generateVideoThumbnails'
-import getLensHandle from 'utils/functions/getLensHandle'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
 
 const BytesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)

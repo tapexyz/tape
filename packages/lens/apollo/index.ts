@@ -21,9 +21,11 @@ const httpLink = new HttpLink({
   fetch
 })
 
-const apolloClient = (authLink: ApolloLink) =>
+const apolloClient = (authLink?: ApolloLink) =>
   new ApolloClient({
-    link: from([authLink, retryLink, httpLink]),
+    link: authLink
+      ? from([authLink, retryLink, httpLink])
+      : from([retryLink, httpLink]),
     cache
   })
 

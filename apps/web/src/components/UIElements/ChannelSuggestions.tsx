@@ -1,9 +1,9 @@
 import IsVerified from '@components/Common/IsVerified'
+import { formatNumber } from '@lenstube/generic'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
-import formatNumber from 'utils/functions/formatNumber'
 
 type Props = {
   className?: string

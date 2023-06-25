@@ -6,13 +6,12 @@ import InterweaveContent from '@components/Common/InterweaveContent'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
 import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@lenstube/constants'
+import { getValueFromKeyInAttributes, shortenAddress } from '@lenstube/generic'
 import type { Attribute, Profile } from '@lenstube/lens'
 import { t, Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
-import { shortenAddress } from 'utils/functions/shortenAddress'
 
 type Props = {
   channel: Profile

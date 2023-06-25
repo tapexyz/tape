@@ -3,7 +3,8 @@ const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }]
 const moduleExports = {
   transpilePackages: [
     '@lenstube/lens',
-    'utils',
+    '@lenstube/browser',
+    '@lenstube/generic',
     '@lenstube/constants',
     'web-ui'
   ],

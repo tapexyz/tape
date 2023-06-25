@@ -1,6 +1,6 @@
 import { IS_MAINNET } from '@lenstube/constants'
+import { getLensHandle } from '@lenstube/generic'
 import { expect, test } from '@playwright/test'
-import getLensHandle from 'utils/functions/getLensHandle'
 
 test('getLensHandle', () => {
   const handle = 'myhandle.lens'

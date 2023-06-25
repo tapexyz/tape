@@ -1,3 +1,4 @@
+import { getProfilePicture, getThumbnailUrl } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import {
   CustomFiltersTypes,
@@ -19,8 +20,6 @@ import Animated, {
   useSharedValue,
   withSpring
 } from 'react-native-reanimated'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
 
 import { theme } from '../../constants/theme'
 import haptic from '../../helpers/haptic'

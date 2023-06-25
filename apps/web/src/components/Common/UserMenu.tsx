@@ -8,6 +8,7 @@ import {
   LENSTUBE_STATUS_PAGE,
   TRACK
 } from '@lenstube/constants'
+import { getProfilePicture } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesLazyQuery } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
@@ -20,7 +21,6 @@ import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import useSWR from 'swr'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 import { useAccount, useDisconnect } from 'wagmi'
 
 import ChannelOutline from './Icons/ChannelOutline'

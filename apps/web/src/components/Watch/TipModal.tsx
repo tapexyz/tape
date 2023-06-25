@@ -6,6 +6,7 @@ import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { getUserLocale } from '@lenstube/browser'
 import {
   Analytics,
   ERROR_MESSAGE,
@@ -16,6 +17,7 @@ import {
   STATIC_ASSETS,
   TRACK
 } from '@lenstube/constants'
+import { getSignature, imageCdn, logger, uploadToAr } from '@lenstube/generic'
 import type {
   CreateCommentBroadcastItemResult,
   CreateDataAvailabilityCommentRequest,
@@ -44,11 +46,6 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import getSignature from 'utils/functions/getSignature'
-import getUserLocale from 'utils/functions/getUserLocale'
-import imageCdn from 'utils/functions/imageCdn'
-import uploadToAr from 'utils/functions/uploadToAr'
-import logger from 'utils/logger'
 import { v4 as uuidv4 } from 'uuid'
 import { parseEther } from 'viem'
 import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'

@@ -9,6 +9,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   TRACK
 } from '@lenstube/constants'
+import { getIsDispatcherEnabled, getSignature } from '@lenstube/generic'
 import type {
   CreateSetDispatcherBroadcastItemResult,
   Profile
@@ -23,8 +24,6 @@ import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import getIsDispatcherEnabled from 'utils/functions/getIsDispatcherEnabled'
-import getSignature from 'utils/functions/getSignature'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Toggle = () => {

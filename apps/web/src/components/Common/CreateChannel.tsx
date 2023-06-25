@@ -4,6 +4,13 @@ import Modal from '@components/UIElements/Modal'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
 import { IS_MAINNET, ZERO_ADDRESS } from '@lenstube/constants'
+import {
+  getLensHandle,
+  getRandomProfilePicture,
+  imageCdn,
+  trimify,
+  useIsMounted
+} from '@lenstube/generic'
 import { useCreateProfileMutation } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
@@ -11,11 +18,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import getLensHandle from 'utils/functions/getLensHandle'
-import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
-import imageCdn from 'utils/functions/imageCdn'
-import trimify from 'utils/functions/trimify'
-import useIsMounted from 'utils/hooks/useIsMounted'
 import { useAccount } from 'wagmi'
 import z from 'zod'
 

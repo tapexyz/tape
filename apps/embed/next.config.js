@@ -2,7 +2,8 @@
 const nextConfig = {
   transpilePackages: [
     '@lenstube/lens',
-    'utils',
+    '@lenstube/browser',
+    '@lenstube/generic',
     '@lenstube/constants',
     'web-ui'
   ],

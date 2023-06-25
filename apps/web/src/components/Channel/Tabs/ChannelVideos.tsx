@@ -9,6 +9,7 @@ import {
   LENSTUBE_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
+import { getValueFromKeyInAttributes } from '@lenstube/generic'
 import type { Profile, Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
@@ -20,7 +21,6 @@ import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
 
 import PinnedVideo from './PinnedVideo'
 

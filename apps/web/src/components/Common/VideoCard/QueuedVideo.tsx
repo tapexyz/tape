@@ -1,6 +1,12 @@
 import { useApolloClient } from '@apollo/client'
 import Tooltip from '@components/UIElements/Tooltip'
+import { useAverageColor } from '@lenstube/browser'
 import { STATIC_ASSETS } from '@lenstube/constants'
+import {
+  getProfilePicture,
+  imageCdn,
+  sanitizeDStorageUrl
+} from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
   PublicationDetailsDocument,
@@ -16,10 +22,6 @@ import { t } from '@lingui/macro'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import imageCdn from 'utils/functions/imageCdn'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
-import useAverageColor from 'utils/hooks/useAverageColor'
 
 import IsVerified from '../IsVerified'
 

@@ -1,16 +1,14 @@
+import { getMetaTags } from '@lenstube/browser'
 import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from '@lenstube/constants'
+import { getProfilePicture } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { ProfileDocument } from '@lenstube/lens'
+import apolloClient from '@lenstube/lens/apollo'
 import type { NextApiResponse } from 'next'
-import getApolloClient from 'utils/functions/getApolloClient'
-import getMetaTags from 'utils/functions/getMetaTags'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-
-const apolloClient = getApolloClient()
 
 const getProfileMeta = async (res: NextApiResponse, handle: string) => {
   try {
-    const { data } = await apolloClient.query({
+    const { data } = await apolloClient().query({
       query: ProfileDocument,
       variables: { request: { handle } }
     })

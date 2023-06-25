@@ -1,9 +1,9 @@
+import { useHorizontalScroll } from '@lenstube/browser'
 import { Analytics, CREATOR_VIDEO_CATEGORIES, TRACK } from '@lenstube/constants'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
-import useHorizontalScroll from 'utils/hooks/useHorizontalScroll'
 
 import ChevronLeftOutline from './Icons/ChevronLeftOutline'
 import ChevronRightOutline from './Icons/ChevronRightOutline'

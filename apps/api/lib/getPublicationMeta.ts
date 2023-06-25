@@ -1,21 +1,17 @@
+import { getMetaTags } from '@lenstube/browser'
 import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from '@lenstube/constants'
+import { getThumbnailUrl, imageCdn, truncate } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { PublicationDetailsDocument } from '@lenstube/lens'
+import apolloClient from '@lenstube/lens/apollo'
 import type { NextApiResponse } from 'next'
-import getApolloClient from 'utils/functions/getApolloClient'
-import getMetaTags from 'utils/functions/getMetaTags'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
-import truncate from 'utils/functions/truncate'
-
-const apolloClient = getApolloClient()
 
 const getPublicationMeta = async (
   res: NextApiResponse,
   publicationId: string
 ) => {
   try {
-    const { data } = await apolloClient.query({
+    const { data } = await apolloClient().query({
       query: PublicationDetailsDocument,
       variables: { request: { publicationId } }
     })

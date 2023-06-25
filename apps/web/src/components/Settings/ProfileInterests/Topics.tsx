@@ -1,6 +1,7 @@
 import { useApolloClient } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { Analytics, TRACK } from '@lenstube/constants'
+import { sanitizeProfileInterests } from '@lenstube/generic'
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,
@@ -9,7 +10,6 @@ import {
 import useChannelStore from '@lib/store/channel'
 import clsx from 'clsx'
 import React, { useEffect } from 'react'
-import sanitizeProfileInterests from 'utils/functions/sanitizeProfileInterests'
 
 const MAX_TOPICS_ALLOWED = 12
 

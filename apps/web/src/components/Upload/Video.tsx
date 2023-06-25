@@ -1,17 +1,19 @@
 import CopyOutline from '@components/Common/Icons/CopyOutline'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
+import { useCopyToClipboard } from '@lenstube/browser'
 import { FEATURE_FLAGS } from '@lenstube/constants'
+import {
+  formatBytes,
+  getIsFeatureEnabled,
+  sanitizeDStorageUrl
+} from '@lenstube/generic'
 import useAppStore from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import React, { useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
-import formatBytes from 'utils/functions/formatBytes'
-import getIsFeatureEnabled from 'utils/functions/getIsFeatureEnabled'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
-import useCopyToClipboard from 'utils/hooks/useCopyToClipboard'
 
 import ChooseThumbnail from './ChooseThumbnail'
 import UploadMethod from './UploadMethod'

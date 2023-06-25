@@ -1,6 +1,7 @@
 import DislikeOutline from '@components/Common/Icons/DislikeOutline'
 import LikeOutline from '@components/Common/Icons/LikeOutline'
 import { Analytics, TRACK } from '@lenstube/constants'
+import { formatNumber } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import {
   ReactionTypes,
@@ -15,7 +16,6 @@ import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import formatNumber from 'utils/functions/formatNumber'
 
 type Props = {
   publication: Publication

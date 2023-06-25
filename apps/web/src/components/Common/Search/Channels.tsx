@@ -1,10 +1,9 @@
+import { formatNumber, getProfilePicture } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import formatNumber from 'utils/functions/formatNumber'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 
 import UserOutline from '../Icons/UserOutline'
 import IsVerified from '../IsVerified'

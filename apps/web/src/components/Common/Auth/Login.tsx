@@ -4,6 +4,7 @@ import {
   POLYGON_CHAIN_ID,
   TRACK
 } from '@lenstube/constants'
+import { logger } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
   useAllProfilesLazyQuery,
@@ -17,7 +18,6 @@ import { t } from '@lingui/macro'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import logger from 'utils/logger'
 import { useAccount, useDisconnect, useNetwork, useSignMessage } from 'wagmi'
 
 import ConnectWalletButton from './ConnectWalletButton'

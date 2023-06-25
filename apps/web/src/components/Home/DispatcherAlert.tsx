@@ -5,10 +5,10 @@ import {
   LENSTUBE_APP_NAME,
   OLD_LENS_RELAYER_ADDRESS
 } from '@lenstube/constants'
+import { getIsDispatcherEnabled } from '@lenstube/generic'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import React from 'react'
-import getIsDispatcherEnabled from 'utils/functions/getIsDispatcherEnabled'
 
 const DispatcherAlert = () => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)

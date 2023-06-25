@@ -1,5 +1,5 @@
+import { formatNumber } from '@lenstube/generic'
 import { expect, test } from '@playwright/test'
-import formatNumber from 'utils/functions/formatNumber'
 
 test('formatNumber', () => {
   expect(formatNumber(-100)).toBe(100)

@@ -5,6 +5,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
+import { formatNumber, getProfilePicture } from '@lenstube/generic'
 import type { CreateBurnProfileBroadcastItemResult } from '@lenstube/lens'
 import { useCreateBurnProfileTypedDataMutation } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
@@ -14,8 +15,6 @@ import { t } from '@lingui/macro'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
-import formatNumber from 'utils/functions/formatNumber'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 import { useContractWrite, useWaitForTransaction } from 'wagmi'
 
 const DangerZone = () => {

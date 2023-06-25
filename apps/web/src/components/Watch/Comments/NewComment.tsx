@@ -4,6 +4,7 @@ import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { getUserLocale } from '@lenstube/browser'
 import {
   Analytics,
   ERROR_MESSAGE,
@@ -13,6 +14,12 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   TRACK
 } from '@lenstube/constants'
+import {
+  getProfilePicture,
+  getSignature,
+  trimify,
+  uploadToAr
+} from '@lenstube/generic'
 import type {
   CreateCommentBroadcastItemResult,
   CreateDataAvailabilityCommentRequest,
@@ -40,11 +47,6 @@ import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import getSignature from 'utils/functions/getSignature'
-import getUserLocale from 'utils/functions/getUserLocale'
-import trimify from 'utils/functions/trimify'
-import uploadToAr from 'utils/functions/uploadToAr'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'

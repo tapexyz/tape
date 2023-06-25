@@ -1,3 +1,4 @@
+import { getVisitorId } from '@lenstube/browser'
 import {
   IS_PRODUCTION,
   MIXPANEL_API_HOST,
@@ -8,7 +9,6 @@ import usePersistStore from '@lib/store/persist'
 import mixpanel from 'mixpanel-browser'
 import type { FC } from 'react'
 import { useEffect } from 'react'
-import getVisitorId from 'utils/functions/getVisitorId'
 
 if (IS_PRODUCTION) {
   mixpanel.init(MIXPANEL_TOKEN, {

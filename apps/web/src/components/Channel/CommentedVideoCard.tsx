@@ -2,20 +2,20 @@ import CommentOutline from '@components/Common/Icons/CommentOutline'
 import IsVerified from '@components/Common/IsVerified'
 import ThumbnailImage from '@components/Common/VideoCard/ThumbnailImage'
 import Tooltip from '@components/UIElements/Tooltip'
+import {
+  getDateString,
+  getIsSensitiveContent,
+  getLensHandle,
+  getProfilePicture,
+  getRelativeTime,
+  getTimeFromSeconds,
+  getValueFromTraitType
+} from '@lenstube/generic'
 import type { Attribute, Comment, Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import {
-  getDateString,
-  getRelativeTime,
-  getTimeFromSeconds
-} from 'utils/functions/formatTime'
-import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
-import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
-import getLensHandle from 'utils/functions/getLensHandle'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 
 type Props = {
   video: Comment
