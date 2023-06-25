@@ -62,13 +62,13 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 ### Packages
 
-| Name                    | Description                     |
-| ----------------------- | ------------------------------- |
-| `lens`                  | Everything about Lens Backend   |
-| `utils`                 | Collection of utils and helpers |
-| `web-ui`                | Web components                  |
-| `workers`               | Cloudflare Workers              |
-| `config`                | Shared lint config              |
+| Name      | Description                     |
+| --------- | ------------------------------- |
+| `lens`    | Everything about Lens Backend   |
+| `utils`   | Collection of utils and helpers |
+| `web-ui`  | Web components                  |
+| `workers` | Cloudflare Workers              |
+| `config`  | Shared lint config              |
 
 ## Getting Started
 
