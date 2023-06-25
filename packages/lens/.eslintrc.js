@@ -1,5 +1,4 @@
 module.exports = {
-  root: true,
-  extends: ['weblint'],
+  extends: [require.resolve('@lenstube/config/eslint/index.js')],
   ignorePatterns: ['generated.ts']
 }

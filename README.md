@@ -68,8 +68,7 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 | `utils`                 | Collection of utils and helpers |
 | `web-ui`                | Web components                  |
 | `workers`               | Cloudflare Workers              |
-| `tsconfig`              | Shared tsconfig                 |
-| `eslint-config-weblint` | Shared eslint-config-weblint    |
+| `config`                | Shared lint config              |
 
 ## Getting Started
 
