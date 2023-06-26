@@ -8,7 +8,7 @@ msgstr ""
 "Language: en\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-20 01:35\n"
+"PO-Revision-Date: 2023-06-26 01:55\n"
 "Last-Translator: \n"
 "Language-Team: English\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1465,3 +1465,4 @@ msgstr "Your Channel"
 #: src/components/Upload/BundlrInfo.tsx:176
 msgid "Your Storage Balance"
 msgstr "Your Storage Balance"
+
