@@ -64,7 +64,7 @@ const FirstSteps = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>First steps with Pripe</Text>
+      <Text style={styles.title}>First steps with Lenstube</Text>
       <Text style={styles.subheading}>Unleash New Social Horizons</Text>
       <ScrollView
         horizontal={true}
