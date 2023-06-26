@@ -16,8 +16,8 @@ interface AuthState {
   hydrateAuthTokens: () => Tokens
 }
 
-const ACCESS_TOKEN_STORAGE_KEY = '@pripe/access-token'
-const REFRESH_TOKEN_STORAGE_KEY = '@pripe/refresh-token'
+const ACCESS_TOKEN_STORAGE_KEY = '@lenstube/access-token'
+const REFRESH_TOKEN_STORAGE_KEY = '@lenstube/refresh-token'
 
 export const useAuth = create<AuthState>((set, get) => ({
   status: 'idle',

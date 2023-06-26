@@ -46,11 +46,17 @@
     "swr": "^2.1.5",
     "uuid": "^9.0.0",
     "viem": "^1.1.4",
-    "wagmi": "^1.2.1",
+    "wagmi": "^1.3.0",
     "zod": "^3.21.4",
     "zustand": "^4.3.8"
   },
   "devDependencies": {
+    "@lenstube/browser": "*",
+    "@lenstube/config": "*",
+    "@lenstube/constants": "*",
+    "@lenstube/generic": "*",
+    "@lenstube/lens": "*",
+    "@lenstube/ui": "*",
     "@lingui/cli": "^4.1.2",
     "@lingui/loader": "^4.1.2",
     "@lingui/macro": "^4.1.2",
@@ -58,20 +64,14 @@
     "@tailwindcss/typography": "^0.5.9",
     "@types/mixpanel-browser": "^2.38.2",
     "@types/node": "20.3.1",
-    "@types/react": "18.2.13",
+    "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
     "@types/react-mentions": "^4.1.7",
     "@types/uuid": "^9.0.2",
     "autoprefixer": "^10.4.14",
-    "@lenstube/config": "*",
-    "@lenstube/lens": "*",
     "postcss": "^8.4.24",
     "start-server-and-test": "^2.0.0",
     "tailwindcss": "^3.3.2",
-    "typescript": "5.1.3",
-    "@lenstube/generic": "*",
-    "@lenstube/browser": "*",
-    "@lenstube/constants": "*",
-    "@lenstube/ui": "*"
+    "typescript": "5.1.3"
   }
 }
