@@ -1,4 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { STATIC_ASSETS } from '@lenstube/constants'
+import { imageCdn } from '@lenstube/generic'
 import type { HeaderTitleProps } from '@react-navigation/elements'
 import { Image as ExpoImage } from 'expo-image'
 import { MotiPressable } from 'moti/interactions'
@@ -81,7 +83,9 @@ const Header: FC<HeaderTitleProps> = () => {
           animate={animatePress}
         >
           <ExpoImage
-            source={require('assets/icons/herb.png')}
+            source={{
+              uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/herb.png`)
+            }}
             contentFit="cover"
             style={{ width: 23, height: 23, borderRadius: 8 }}
           />

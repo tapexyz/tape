@@ -1,3 +1,5 @@
+import { STATIC_ASSETS } from '@lenstube/constants'
+import { imageCdn } from '@lenstube/generic'
 import { Image as ExpoImage } from 'expo-image'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
@@ -40,7 +42,9 @@ const IntroCard = () => {
   return (
     <View style={styles.card}>
       <ExpoImage
-        source={require('assets/images/listening.png')}
+        source={{
+          uri: imageCdn(`${STATIC_ASSETS}/mobile/images/listening.png`)
+        }}
         style={styles.image}
       />
       <View style={styles.whTextWrapper}>

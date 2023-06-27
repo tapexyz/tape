@@ -1,3 +1,5 @@
+import { STATIC_ASSETS } from '@lenstube/constants'
+import { imageCdn } from '@lenstube/generic'
 import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { MotiView } from 'moti'
@@ -94,7 +96,11 @@ const Showcase = () => {
         >
           <MotiPressable animate={animatePress} onPress={() => haptic()}>
             <ImageBackground
-              source={require('assets/images/couch-podcast.jpg')}
+              source={{
+                uri: imageCdn(
+                  `${STATIC_ASSETS}/mobile/images/couch-podcast.jpg`
+                )
+              }}
               style={styles.image}
               imageStyle={{ opacity: 0.8 }}
             >
@@ -123,7 +129,9 @@ const Showcase = () => {
             }}
           >
             <ImageBackground
-              source={require('assets/images/couch-music.jpg')}
+              source={{
+                uri: imageCdn(`${STATIC_ASSETS}/mobile/images/couch-music.jpg`)
+              }}
               style={styles.image}
               imageStyle={{ opacity: 0.8 }}
             >
@@ -147,7 +155,9 @@ const Showcase = () => {
       >
         <MotiPressable animate={animatePress} onPress={() => haptic()}>
           <ImageBackground
-            source={require('assets/images/couch-garden.jpg')}
+            source={{
+              uri: imageCdn(`${STATIC_ASSETS}/mobile/images/couch-garden.jpg`)
+            }}
             style={styles.image}
             imageStyle={{ opacity: 0.8 }}
           >

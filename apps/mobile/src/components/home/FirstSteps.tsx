@@ -1,3 +1,5 @@
+import { STATIC_ASSETS } from '@lenstube/constants'
+import { imageCdn } from '@lenstube/generic'
 import { Image as ExpoImage } from 'expo-image'
 import { MotiPressable } from 'moti/interactions'
 import React, { useMemo } from 'react'
@@ -79,7 +81,11 @@ const FirstSteps = () => {
           style={[styles.card, { backgroundColor: '#ACD8AA' }]}
         >
           <ExpoImage
-            source={require('assets/icons/arrow-with-scribble.png')}
+            source={{
+              uri: imageCdn(
+                `${STATIC_ASSETS}/mobile/icons/arrow-with-scribble.png`
+              )
+            }}
             style={styles.icon}
           />
           <View>
@@ -93,7 +99,9 @@ const FirstSteps = () => {
           style={[styles.card, { backgroundColor: '#F0E2A3' }]}
         >
           <ExpoImage
-            source={require('assets/icons/two-way-arrows.png')}
+            source={{
+              uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/two-way-arrows.png`)
+            }}
             style={styles.icon}
           />
           <View>
@@ -107,7 +115,9 @@ const FirstSteps = () => {
           style={[styles.card, { backgroundColor: '#B3B3F1' }]}
         >
           <ExpoImage
-            source={require('assets/icons/play-button.png')}
+            source={{
+              uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/play-button.png`)
+            }}
             style={styles.icon}
           />
           <View>
