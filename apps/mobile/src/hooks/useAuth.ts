@@ -10,8 +10,10 @@ interface AuthState {
   status: 'idle' | 'signOut' | 'signIn'
   accessToken: Tokens['accessToken']
   refreshToken: Tokens['refreshToken']
-  isSignedIn: boolean
-  signIn: (tokens: { accessToken: string; refreshToken: string }) => void
+  signIn: (tokens: {
+    accessToken: Tokens['accessToken']
+    refreshToken: Tokens['refreshToken']
+  }) => void
   signOut: () => void
   hydrateAuthTokens: () => Tokens
 }
@@ -23,19 +25,22 @@ export const useAuth = create<AuthState>((set, get) => ({
   status: 'idle',
   accessToken: null,
   refreshToken: null,
-  isSignedIn: false,
   signIn: async ({ accessToken, refreshToken }) => {
-    await AsyncStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, accessToken)
-    await AsyncStorage.setItem(REFRESH_TOKEN_STORAGE_KEY, refreshToken)
+    if (accessToken && refreshToken) {
+      await AsyncStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, accessToken)
+      await AsyncStorage.setItem(REFRESH_TOKEN_STORAGE_KEY, refreshToken)
+    } else {
+      await AsyncStorage.removeItem(ACCESS_TOKEN_STORAGE_KEY)
+      await AsyncStorage.removeItem(REFRESH_TOKEN_STORAGE_KEY)
+    }
     set(({ accessToken }) => ({
       status: 'signIn',
-      accessToken,
-      isSignedIn: true
+      accessToken
     }))
   },
   signOut: async () => {
     await AsyncStorage.removeItem('token')
-    set({ status: 'signOut', accessToken: null, isSignedIn: false })
+    set({ status: 'signOut', accessToken: null })
   },
   hydrateAuthTokens: () => {
     return {
@@ -49,4 +54,3 @@ export const signOut = () => useAuth.getState().signOut()
 export const signIn = (tokens: { accessToken: string; refreshToken: string }) =>
   useAuth.getState().signIn(tokens)
 export const hydrateAuthTokens = () => useAuth.getState().hydrateAuthTokens()
-export const isSignedIn = () => useAuth.getState().isSignedIn

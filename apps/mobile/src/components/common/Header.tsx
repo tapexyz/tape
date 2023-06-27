@@ -1,8 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { STATIC_ASSETS } from '@lenstube/constants'
-import { imageCdn } from '@lenstube/generic'
+import { trimLensHandle } from '@lenstube/generic'
 import type { HeaderTitleProps } from '@react-navigation/elements'
-import { Image as ExpoImage } from 'expo-image'
+import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { MotiPressable } from 'moti/interactions'
 import type { FC } from 'react'
 import React, { useMemo } from 'react'
@@ -11,7 +10,9 @@ import { StyleSheet, Text, View } from 'react-native'
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
-import { useAuth } from '~/hooks/useAuth'
+import useMobileStore from '~/store'
+
+import SignIn from './SignIn'
 
 const styles = StyleSheet.create({
   container: {
@@ -36,7 +37,9 @@ const styles = StyleSheet.create({
 })
 
 const Header: FC<HeaderTitleProps> = () => {
-  const isSignedIn = useAuth((state) => state.isSignedIn)
+  const { provider } = useWalletConnectModal()
+  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+
   const animatePress = useMemo(
     () =>
       ({ pressed }: { pressed: boolean }) => {
@@ -50,7 +53,13 @@ const Header: FC<HeaderTitleProps> = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.forYouText}>{isSignedIn ? 'For Sasi' : 'gm'}</Text>
+      <Text style={styles.forYouText}>
+        {selectedChannel
+          ? `For ${
+              selectedChannel.name || trimLensHandle(selectedChannel.handle)
+            }`
+          : 'gm'}
+      </Text>
       <View style={styles.rightView}>
         <MotiPressable
           onPress={() => {
@@ -67,6 +76,7 @@ const Header: FC<HeaderTitleProps> = () => {
         <MotiPressable
           onPress={() => {
             haptic()
+            provider?.disconnect()
           }}
           animate={animatePress}
         >
@@ -76,20 +86,7 @@ const Header: FC<HeaderTitleProps> = () => {
             size={23}
           />
         </MotiPressable>
-        <MotiPressable
-          onPress={() => {
-            haptic()
-          }}
-          animate={animatePress}
-        >
-          <ExpoImage
-            source={{
-              uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/herb.png`)
-            }}
-            contentFit="cover"
-            style={{ width: 23, height: 23, borderRadius: 8 }}
-          />
-        </MotiPressable>
+        <SignIn />
       </View>
     </View>
   )
