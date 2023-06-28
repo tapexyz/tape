@@ -1,4 +1,3 @@
-import Ionicons from '@expo/vector-icons/Ionicons'
 import {
   getProfilePicture,
   getPublicationHlsUrl,
@@ -8,10 +7,9 @@ import {
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { usePublicationDetailsQuery } from '@lenstube/lens'
-import { useNavigation } from '@react-navigation/native'
 import { ResizeMode, Video } from 'expo-av'
 import { Image as ExpoImage } from 'expo-image'
-import React from 'react'
+import React, { useState } from 'react'
 import {
   ActivityIndicator,
   Pressable,
@@ -21,9 +19,7 @@ import {
   Text,
   View
 } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
@@ -41,18 +37,6 @@ const styles = StyleSheet.create({
     fontSize: normalizeFont(20),
     letterSpacing: 2,
     color: theme.colors.white
-  },
-  close: {
-    position: 'absolute',
-    backgroundColor: theme.colors.backdrop,
-    borderRadius: 100,
-    margin: 6,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 30,
-    height: 30
   },
   title: {
     color: theme.colors.primary,
@@ -82,9 +66,8 @@ const styles = StyleSheet.create({
 })
 
 const WatchVideoModal = (props: WatchVideoScreenProps) => {
-  const { goBack } = useNavigation()
   const videoId = props.route.params.id
-  const { top, right } = useSafeAreaInsets()
+  const [showMore, setShowMore] = useState(false)
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
@@ -117,7 +100,7 @@ const WatchVideoModal = (props: WatchVideoScreenProps) => {
         useNativeControls
         isMuted={false}
         isLooping={false}
-        resizeMode={ResizeMode.COVER}
+        resizeMode={ResizeMode.CONTAIN}
         source={{
           uri: getPublicationHlsUrl(video)
         }}
@@ -133,9 +116,14 @@ const WatchVideoModal = (props: WatchVideoScreenProps) => {
         <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
           <Text style={styles.title}>{video.metadata.name}</Text>
           {video.metadata.description && (
-            <Text numberOfLines={3} style={styles.description}>
-              {video.metadata.description.replace('\n', '')}
-            </Text>
+            <Pressable onPress={() => setShowMore(!showMore)}>
+              <Text
+                numberOfLines={!showMore ? 3 : undefined}
+                style={styles.description}
+              >
+                {video.metadata.description.replace('\n', '')}
+              </Text>
+            </Pressable>
           )}
           <View style={styles.otherInfoContainer}>
             <ExpoImage
@@ -162,16 +150,6 @@ const WatchVideoModal = (props: WatchVideoScreenProps) => {
         </View>
         <Timeline />
       </ScrollView>
-
-      <Pressable
-        onPress={() => {
-          haptic()
-          goBack()
-        }}
-        style={[styles.close, { top, right }]}
-      >
-        <Ionicons name="close-outline" color={theme.colors.white} size={25} />
-      </Pressable>
     </SafeAreaView>
   )
 }
