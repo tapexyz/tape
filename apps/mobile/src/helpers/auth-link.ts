@@ -3,7 +3,7 @@ import { LENS_API_URL, LENSTUBE_WEBSITE_URL } from '@lenstube/constants'
 import { logger, parseJwt } from '@lenstube/generic'
 import axios from 'axios'
 
-import { hydrateAuthTokens, signIn, signOut } from '../hooks/useAuth'
+import { hydrateAuthTokens, signIn, signOut } from '~/store/persist'
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {

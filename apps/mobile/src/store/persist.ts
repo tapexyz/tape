@@ -1,24 +1,56 @@
-import AsynStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+type Tokens = {
+  accessToken: string | null
+  refreshToken: string | null
+}
+
 interface AuthPerisistState {
+  accessToken: Tokens['accessToken']
+  refreshToken: Tokens['refreshToken']
+  signIn: (tokens: {
+    accessToken: Tokens['accessToken']
+    refreshToken: Tokens['refreshToken']
+  }) => void
+  signOut: () => void
+  hydrateAuthTokens: () => Tokens
   selectedChannelId: string | null
   setSelectedChannelId: (id: string | null) => void
 }
 
-const useMobilePersistStore = create<AuthPerisistState>(
-  // @ts-expect-error zustand
+export const useMobilePersistStore = create(
   persist<AuthPerisistState>(
-    (set) => ({
+    (set, get) => ({
+      accessToken: null,
+      refreshToken: null,
+      signIn: ({ accessToken, refreshToken }) =>
+        set({
+          accessToken,
+          refreshToken
+        }),
+      signOut: () => {
+        set({ accessToken: null })
+      },
+      hydrateAuthTokens: () => {
+        return {
+          accessToken: get().accessToken,
+          refreshToken: get().refreshToken
+        }
+      },
       selectedChannelId: null,
       setSelectedChannelId: (id) => set({ selectedChannelId: id })
     }),
     {
-      name: '@lenstube/store',
-      getStorage: () => AsynStorage
+      name: '@lenstube/mobile/store',
+      getStorage: () => AsyncStorage
     }
   )
 )
 
-export default useMobilePersistStore
+export const signOut = () => useMobilePersistStore.getState().signOut()
+export const signIn = (tokens: { accessToken: string; refreshToken: string }) =>
+  useMobilePersistStore.getState().signIn(tokens)
+export const hydrateAuthTokens = () =>
+  useMobilePersistStore.getState().hydrateAuthTokens()

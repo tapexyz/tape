@@ -24,12 +24,11 @@ import type { SignableMessage } from 'viem/dist/types/types/misc'
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
-import { useAuth } from '~/hooks/useAuth'
 import useMobileStore from '~/store'
-import useMobilePersistStore from '~/store/persist'
+import { useMobilePersistStore } from '~/store/persist'
 
 const SignIn = () => {
-  const { signIn: persistSignin } = useAuth()
+  const { signIn: persistSignin } = useMobilePersistStore()
   const setChannels = useMobileStore((state) => state.setChannels)
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
   const setSelectedChannelId = useMobilePersistStore(
