@@ -1,15 +1,17 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import type { HeaderTitleProps } from '@react-navigation/elements'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
-import { MotiPressable } from 'moti/interactions'
 import type { FC } from 'react'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
+import useMobileStore from '~/store'
+import { signOut } from '~/store/persist'
 
+import AnimatedPressable from '../ui/AnimatedPressable'
 import SignIn from './auth/SignIn'
 
 const styles = StyleSheet.create({
@@ -36,47 +38,37 @@ const styles = StyleSheet.create({
 
 const Header: FC<HeaderTitleProps> = () => {
   const { provider } = useWalletConnectModal()
-
-  const animatePress = useMemo(
-    () =>
-      ({ pressed }: { pressed: boolean }) => {
-        'worklet'
-        return {
-          scale: pressed ? 0.9 : 1
-        }
-      },
-    []
-  )
+  const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
 
   return (
     <View style={styles.container}>
       <Text style={styles.forYouText}>gm</Text>
       <View style={styles.rightView}>
-        <MotiPressable
+        <AnimatedPressable
           onPress={() => {
             haptic()
           }}
-          animate={animatePress}
         >
           <Ionicons
             name="add-circle-outline"
             color={theme.colors.white}
             size={25}
           />
-        </MotiPressable>
-        <MotiPressable
+        </AnimatedPressable>
+        <AnimatedPressable
           onPress={() => {
             haptic()
+            signOut()
             provider?.disconnect()
+            setSelectedChannel(null)
           }}
-          animate={animatePress}
         >
           <Ionicons
             name="notifications-outline"
             color={theme.colors.white}
             size={23}
           />
-        </MotiPressable>
+        </AnimatedPressable>
         <SignIn />
       </View>
     </View>

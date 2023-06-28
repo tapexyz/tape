@@ -15,7 +15,6 @@ import {
 } from '@lenstube/lens'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { Image as ExpoImage } from 'expo-image'
-import { MotiPressable } from 'moti/interactions'
 import type { FC } from 'react'
 import React, { useCallback, useMemo } from 'react'
 import { Text, View } from 'react-native'
@@ -23,6 +22,7 @@ import { createWalletClient, custom } from 'viem'
 import { polygon } from 'viem/chains'
 import type { SignableMessage } from 'viem/dist/types/types/misc'
 
+import AnimatedPressable from '~/components/ui/AnimatedPressable'
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -62,17 +62,6 @@ const Sheet: FC<Props> = ({ sheetRef }) => {
     []
   )
   const snapPoints = useMemo(() => ['40%'], [])
-
-  const animatePress = useMemo(
-    () =>
-      ({ pressed }: { pressed: boolean }) => {
-        'worklet'
-        return {
-          scale: pressed ? 0.98 : 1
-        }
-      },
-    []
-  )
 
   const signIn = async () => {
     if (!provider) {
@@ -182,13 +171,12 @@ const Sheet: FC<Props> = ({ sheetRef }) => {
             signing the message.
           </Text>
         </View>
-        <MotiPressable
+        <AnimatedPressable
           disabled={challengeLoading || signingIn}
           onPress={() => {
             haptic()
             signIn()
           }}
-          animate={animatePress}
           style={{
             backgroundColor: challengeLoading
               ? theme.colors.secondary
@@ -207,7 +195,7 @@ const Sheet: FC<Props> = ({ sheetRef }) => {
           >
             Sign
           </Text>
-        </MotiPressable>
+        </AnimatedPressable>
       </View>
     </BottomSheetModal>
   )

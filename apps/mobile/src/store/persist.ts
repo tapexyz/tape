@@ -31,7 +31,7 @@ export const useMobilePersistStore = create(
           refreshToken
         }),
       signOut: () => {
-        set({ accessToken: null })
+        set({ accessToken: null, refreshToken: null, selectedChannelId: null })
       },
       hydrateAuthTokens: () => {
         return {

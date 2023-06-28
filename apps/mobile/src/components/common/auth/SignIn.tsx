@@ -1,12 +1,13 @@
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { STATIC_ASSETS } from '@lenstube/constants'
-import { getRandomProfilePicture, imageCdn } from '@lenstube/generic'
+import { getProfilePicture, imageCdn } from '@lenstube/generic'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { Image as ExpoImage } from 'expo-image'
-import { MotiPressable } from 'moti/interactions'
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
+import AnimatedPressable from '~/components/ui/AnimatedPressable'
 import haptic from '~/helpers/haptic'
+import useMobileStore from '~/store'
 import { useMobilePersistStore } from '~/store/persist'
 
 import Sheet from './Sheet'
@@ -16,22 +17,13 @@ const SignIn = () => {
   const selectedChannelId = useMobilePersistStore(
     (state) => state.selectedChannelId
   )
+  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
-  const pfp = address
-    ? getRandomProfilePicture(address)
+  const pfp = selectedChannel
+    ? getProfilePicture(selectedChannel)
     : imageCdn(`${STATIC_ASSETS}/mobile/icons/herb.png`)
-
-  const animatePress = useMemo(
-    () =>
-      ({ pressed }: { pressed: boolean }) => {
-        'worklet'
-        return {
-          scale: pressed ? 0.98 : 1
-        }
-      },
-    []
-  )
 
   const openSheet = () => {
     bottomSheetModalRef.current?.present()
@@ -47,7 +39,8 @@ const SignIn = () => {
   return (
     <>
       {address && <Sheet sheetRef={bottomSheetModalRef} />}
-      <MotiPressable
+
+      <AnimatedPressable
         onPress={() => {
           haptic()
           if (address) {
@@ -55,14 +48,13 @@ const SignIn = () => {
           }
           open()
         }}
-        animate={animatePress}
       >
         <ExpoImage
           source={{ uri: pfp }}
           contentFit="cover"
           style={{ width: 23, height: 23, borderRadius: 8 }}
         />
-      </MotiPressable>
+      </AnimatedPressable>
     </>
   )
 }

@@ -72,6 +72,17 @@ const styles = StyleSheet.create({
     aspectRatio: 9 / 16,
     borderRadius: BORDER_RADIUS,
     overflow: 'hidden'
+  },
+  firstByteCardWrapper: {
+    zIndex: 1,
+    shadowColor: '#000',
+    shadowOpacity: 0.8,
+    shadowOffset: {
+      height: 10,
+      width: 0
+    },
+    shadowRadius: 15,
+    elevation: 24
   }
 })
 
@@ -148,44 +159,37 @@ const ByteCards = () => {
     })
   }
 
-  const renderCard = useCallback(
-    (byte: Publication) => {
-      return (
+  const renderCard = useCallback((byte: Publication) => {
+    return (
+      <LinearGradient
+        style={{ padding: 1, position: 'relative' }}
+        colors={['transparent', '#ffffff70']}
+      >
+        <ExpoImage
+          source={getThumbnailUrl(byte)}
+          contentFit="cover"
+          style={styles.thumbnail}
+        />
         <LinearGradient
-          style={{ padding: 1, position: 'relative' }}
-          colors={['#00000070', `${homeGradientColor}80`]}
-          // start={{ x: 0.7, y: 1 }}
-          // end={{ x: 0.2, y: 0.9 }}
+          colors={['transparent', '#00000080', '#00000090']}
+          style={styles.gradient}
         >
           <ExpoImage
-            source={getThumbnailUrl(byte)}
+            source={getProfilePicture(byte.profile)}
             contentFit="cover"
-            style={styles.thumbnail}
+            style={{ width: 15, height: 15, borderRadius: 3 }}
           />
-          <LinearGradient
-            colors={['transparent', '#00000080', '#00000090']}
-            style={styles.gradient}
-          >
-            <ExpoImage
-              source={getProfilePicture(byte.profile)}
-              contentFit="cover"
-              style={{ width: 15, height: 15, borderRadius: 3 }}
-            />
-            <Text style={styles.otherInfo}>
-              {trimLensHandle(byte.profile.handle)}
-            </Text>
-            <Text style={{ color: theme.colors.primary, fontSize: 3 }}>
-              {'\u2B24'}
-            </Text>
-            <Text style={styles.otherInfo}>
-              {byte.stats.totalUpvotes} likes
-            </Text>
-          </LinearGradient>
+          <Text style={styles.otherInfo}>
+            {trimLensHandle(byte.profile.handle)}
+          </Text>
+          <Text style={{ color: theme.colors.primary, fontSize: 3 }}>
+            {'\u2B24'}
+          </Text>
+          <Text style={styles.otherInfo}>{byte.stats.totalUpvotes} likes</Text>
         </LinearGradient>
-      )
-    },
-    [homeGradientColor]
-  )
+      </LinearGradient>
+    )
+  }, [])
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
@@ -210,11 +214,7 @@ const ByteCards = () => {
 
   return (
     <View style={styles.cardsContainer}>
-      <View
-        style={{
-          zIndex: 1
-        }}
-      >
+      <View style={styles.firstByteCardWrapper}>
         <Skeleton
           show={loading}
           colors={[`${homeGradientColor}10`, '#00000080']}
