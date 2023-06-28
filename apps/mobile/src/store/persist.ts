@@ -1,6 +1,6 @@
-import AsynStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 
 type Tokens = {
   accessToken: string | null
@@ -10,39 +10,47 @@ type Tokens = {
 interface AuthPerisistState {
   accessToken: Tokens['accessToken']
   refreshToken: Tokens['refreshToken']
-  selectedChannelId: string | null
-  setSelectedChannelId: (id: string | null) => void
-  signIn: (tokens: { accessToken: string; refreshToken: string }) => void
+  signIn: (tokens: {
+    accessToken: Tokens['accessToken']
+    refreshToken: Tokens['refreshToken']
+  }) => void
   signOut: () => void
   hydrateAuthTokens: () => Tokens
+  selectedChannelId: string | null
+  setSelectedChannelId: (id: string | null) => void
 }
 
-const useMobilePersistStore = create<AuthPerisistState>(
-  // @ts-expect-error zustand
+export const useMobilePersistStore = create(
   persist<AuthPerisistState>(
     (set, get) => ({
       accessToken: null,
       refreshToken: null,
-      selectedChannelId: null,
-      setSelectedChannelId: (id) => set({ selectedChannelId: id }),
       signIn: ({ accessToken, refreshToken }) =>
-        set({ accessToken, refreshToken }),
+        set({
+          accessToken,
+          refreshToken
+        }),
       signOut: () => {
-        localStorage.removeItem('lenstube.store')
-        localStorage.removeItem('lenstube.auth.store')
+        set({ accessToken: null, refreshToken: null, selectedChannelId: null })
       },
       hydrateAuthTokens: () => {
         return {
           accessToken: get().accessToken,
           refreshToken: get().refreshToken
         }
-      }
+      },
+      selectedChannelId: null,
+      setSelectedChannelId: (id) => set({ selectedChannelId: id })
     }),
     {
-      name: 'lenstube.auth.store',
-      getStorage: () => AsynStorage
+      name: '@lenstube/mobile/store',
+      storage: createJSONStorage(() => AsyncStorage)
     }
   )
 )
 
-export default useMobilePersistStore
+export const signOut = () => useMobilePersistStore.getState().signOut()
+export const signIn = (tokens: { accessToken: string; refreshToken: string }) =>
+  useMobilePersistStore.getState().signIn(tokens)
+export const hydrateAuthTokens = () =>
+  useMobilePersistStore.getState().hydrateAuthTokens()

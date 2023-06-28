@@ -1,12 +1,16 @@
+import { STATIC_ASSETS } from '@lenstube/constants'
+import { imageCdn } from '@lenstube/generic'
+import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { MotiView } from 'moti'
-import { MotiPressable } from 'moti/interactions'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { ImageBackground, StyleSheet, Text, View } from 'react-native'
 
-import { theme } from '../../constants/theme'
-import haptic from '../../helpers/haptic'
-import normalizeFont from '../../helpers/normalize-font'
+import haptic from '~/helpers/haptic'
+import normalizeFont from '~/helpers/normalize-font'
+import { theme } from '~/helpers/theme'
+
+import AnimatedPressable from '../ui/AnimatedPressable'
 
 const BORDER_RADIUS = 25
 
@@ -37,7 +41,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
+    contentFit: 'cover',
     justifyContent: 'flex-end',
     borderRadius: BORDER_RADIUS,
     overflow: 'hidden'
@@ -67,16 +71,7 @@ const styles = StyleSheet.create({
 })
 
 const Showcase = () => {
-  const animatePress = useMemo(
-    () =>
-      ({ pressed }: { pressed: boolean }) => {
-        'worklet'
-        return {
-          scale: pressed ? 0.97 : 1
-        }
-      },
-    []
-  )
+  const { navigate } = useNavigation()
 
   return (
     <View style={styles.container}>
@@ -90,9 +85,13 @@ const Showcase = () => {
             duration: 350
           }}
         >
-          <MotiPressable animate={animatePress} onPress={() => haptic()}>
+          <AnimatedPressable onPress={() => haptic()}>
             <ImageBackground
-              source={require('assets/images/couch-podcast.jpg')}
+              source={{
+                uri: imageCdn(
+                  `${STATIC_ASSETS}/mobile/images/couch-podcast.jpg`
+                )
+              }}
               style={styles.image}
               imageStyle={{ opacity: 0.8 }}
             >
@@ -102,7 +101,7 @@ const Showcase = () => {
                 <Text style={styles.title}>Podcasts</Text>
               </LinearGradient>
             </ImageBackground>
-          </MotiPressable>
+          </AnimatedPressable>
         </MotiView>
         <MotiView
           style={styles.gridCard}
@@ -113,9 +112,16 @@ const Showcase = () => {
             duration: 350
           }}
         >
-          <MotiPressable animate={animatePress} onPress={() => haptic()}>
+          <AnimatedPressable
+            onPress={() => {
+              haptic()
+              navigate('Music')
+            }}
+          >
             <ImageBackground
-              source={require('assets/images/couch-music.jpg')}
+              source={{
+                uri: imageCdn(`${STATIC_ASSETS}/mobile/images/couch-music.jpg`)
+              }}
               style={styles.image}
               imageStyle={{ opacity: 0.8 }}
             >
@@ -125,7 +131,7 @@ const Showcase = () => {
                 <Text style={styles.title}>Music</Text>
               </LinearGradient>
             </ImageBackground>
-          </MotiPressable>
+          </AnimatedPressable>
         </MotiView>
       </View>
       <MotiView
@@ -137,9 +143,11 @@ const Showcase = () => {
           duration: 350
         }}
       >
-        <MotiPressable animate={animatePress} onPress={() => haptic()}>
+        <AnimatedPressable onPress={() => haptic()}>
           <ImageBackground
-            source={require('assets/images/couch-garden.jpg')}
+            source={{
+              uri: imageCdn(`${STATIC_ASSETS}/mobile/images/couch-garden.jpg`)
+            }}
             style={styles.image}
             imageStyle={{ opacity: 0.8 }}
           >
@@ -152,7 +160,7 @@ const Showcase = () => {
               </View>
             </LinearGradient>
           </ImageBackground>
-        </MotiPressable>
+        </AnimatedPressable>
       </MotiView>
     </View>
   )

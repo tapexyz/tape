@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react'
 import { ScrollView, Text, TouchableOpacity } from 'react-native'
 
-import Container from '../components/common/Container'
-import Timeline from '../components/common/Timeline'
-import ByteCards from '../components/home/ByteCards'
-import FirstSteps from '../components/home/FirstSteps'
-import PopularCreators from '../components/home/PopularCreators'
-import TimelineFilters from '../components/home/TimelineFilters'
-import { theme } from '../constants/theme'
+import Container from '~/components/common/Container'
+import Timeline from '~/components/common/Timeline'
+import ByteCards from '~/components/home/ByteCards'
+import FirstSteps from '~/components/home/FirstSteps'
+import PopularCreators from '~/components/home/PopularCreators'
+import TimelineFilters from '~/components/home/TimelineFilters'
+import { theme } from '~/helpers/theme'
 
 export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
   const {

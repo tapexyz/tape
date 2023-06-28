@@ -1,11 +1,12 @@
 import { Image as ExpoImage } from 'expo-image'
-import { MotiPressable } from 'moti/interactions'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
-import { theme } from '../../constants/theme'
-import haptic from '../../helpers/haptic'
-import normalizeFont from '../../helpers/normalize-font'
+import haptic from '~/helpers/haptic'
+import normalizeFont from '~/helpers/normalize-font'
+import { theme } from '~/helpers/theme'
+
+import AnimatedPressable from '../ui/AnimatedPressable'
 
 const styles = StyleSheet.create({
   container: {
@@ -36,17 +37,6 @@ const styles = StyleSheet.create({
 })
 
 const PopularCreators = () => {
-  const animatePress = useMemo(
-    () =>
-      ({ pressed }: { pressed: boolean }) => {
-        'worklet'
-        return {
-          scale: pressed ? 0.9 : 1
-        }
-      },
-    []
-  )
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Popular Creators</Text>
@@ -58,8 +48,7 @@ const PopularCreators = () => {
           paddingTop: 20
         }}
       >
-        <MotiPressable
-          animate={animatePress}
+        <AnimatedPressable
           onPress={() => haptic()}
           style={styles.imageContainer}
         >
@@ -69,9 +58,8 @@ const PopularCreators = () => {
             }}
             style={styles.image}
           />
-        </MotiPressable>
-        <MotiPressable
-          animate={animatePress}
+        </AnimatedPressable>
+        <AnimatedPressable
           onPress={() => haptic()}
           style={styles.imageContainer}
         >
@@ -81,9 +69,8 @@ const PopularCreators = () => {
             }}
             style={styles.image}
           />
-        </MotiPressable>
-        <MotiPressable
-          animate={animatePress}
+        </AnimatedPressable>
+        <AnimatedPressable
           onPress={() => haptic()}
           style={styles.imageContainer}
         >
@@ -93,9 +80,8 @@ const PopularCreators = () => {
             }}
             style={styles.image}
           />
-        </MotiPressable>
-        <MotiPressable
-          animate={animatePress}
+        </AnimatedPressable>
+        <AnimatedPressable
           onPress={() => haptic()}
           style={styles.imageContainer}
         >
@@ -105,7 +91,7 @@ const PopularCreators = () => {
             }}
             style={styles.image}
           />
-        </MotiPressable>
+        </AnimatedPressable>
       </ScrollView>
     </View>
   )

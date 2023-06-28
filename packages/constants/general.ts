@@ -164,3 +164,23 @@ export const GIT_DEPLOYED_COMMIT_SHA =
   process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
 export const GIT_DEPLOYED_BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
 export const VERCEL_DEPLOYED_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV
+
+// misc
+export const ALLOWED_HEX_CHARACTERS = [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F'
+]

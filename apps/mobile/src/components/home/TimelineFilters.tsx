@@ -1,10 +1,12 @@
+import { STATIC_ASSETS } from '@lenstube/constants'
+import { imageCdn } from '@lenstube/generic'
 import { Image as ExpoImage } from 'expo-image'
 import React from 'react'
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
 
-import { theme } from '../../constants/theme'
-import haptic from '../../helpers/haptic'
-import normalizeFont from '../../helpers/normalize-font'
+import haptic from '~/helpers/haptic'
+import normalizeFont from '~/helpers/normalize-font'
+import { theme } from '~/helpers/theme'
 
 const styles = StyleSheet.create({
   container: {
@@ -42,7 +44,9 @@ const TimelineFilters = () => {
         style={[styles.filter, { backgroundColor: theme.colors.white }]}
       >
         <ExpoImage
-          source={require('assets/icons/in-love.png')}
+          source={{
+            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/in-love.png`)
+          }}
           style={styles.image}
         />
         <Text style={[styles.text, { color: theme.colors.black }]}>
@@ -51,7 +55,9 @@ const TimelineFilters = () => {
       </Pressable>
       <Pressable onPress={() => haptic()} style={styles.filter}>
         <ExpoImage
-          source={require('assets/icons/smile.png')}
+          source={{
+            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/smile.png`)
+          }}
           style={styles.image}
         />
         <Text style={[styles.text, { color: theme.colors.white }]}>
@@ -60,7 +66,9 @@ const TimelineFilters = () => {
       </Pressable>
       <Pressable onPress={() => haptic()} style={styles.filter}>
         <ExpoImage
-          source={require('assets/icons/proud.png')}
+          source={{
+            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/proud.png`)
+          }}
           style={styles.image}
         />
         <Text style={[styles.text, { color: theme.colors.white }]}>

@@ -1,15 +1,18 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import type { HeaderTitleProps } from '@react-navigation/elements'
-import { Image as ExpoImage } from 'expo-image'
-import { MotiPressable } from 'moti/interactions'
+import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import type { FC } from 'react'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { theme } from '../../constants/theme'
-import haptic from '../../helpers/haptic'
-import normalizeFont from '../../helpers/normalize-font'
-import { useAuth } from '../../hooks/useAuth'
+import haptic from '~/helpers/haptic'
+import normalizeFont from '~/helpers/normalize-font'
+import { theme } from '~/helpers/theme'
+import useMobileStore from '~/store'
+import { signOut } from '~/store/persist'
+
+import AnimatedPressable from '../ui/AnimatedPressable'
+import SignIn from './auth/SignIn'
 
 const styles = StyleSheet.create({
   container: {
@@ -34,58 +37,39 @@ const styles = StyleSheet.create({
 })
 
 const Header: FC<HeaderTitleProps> = () => {
-  const isSignedIn = useAuth((state) => state.isSignedIn)
-  const animatePress = useMemo(
-    () =>
-      ({ pressed }: { pressed: boolean }) => {
-        'worklet'
-        return {
-          scale: pressed ? 0.9 : 1
-        }
-      },
-    []
-  )
+  const { provider } = useWalletConnectModal()
+  const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
 
   return (
     <View style={styles.container}>
-      <Text style={styles.forYouText}>{isSignedIn ? 'For Sasi' : 'gm'}</Text>
+      <Text style={styles.forYouText}>gm</Text>
       <View style={styles.rightView}>
-        <MotiPressable
+        <AnimatedPressable
           onPress={() => {
             haptic()
           }}
-          animate={animatePress}
         >
           <Ionicons
             name="add-circle-outline"
             color={theme.colors.white}
             size={25}
           />
-        </MotiPressable>
-        <MotiPressable
+        </AnimatedPressable>
+        <AnimatedPressable
           onPress={() => {
             haptic()
+            signOut()
+            provider?.disconnect()
+            setSelectedChannel(null)
           }}
-          animate={animatePress}
         >
           <Ionicons
             name="notifications-outline"
             color={theme.colors.white}
             size={23}
           />
-        </MotiPressable>
-        <MotiPressable
-          onPress={() => {
-            haptic()
-          }}
-          animate={animatePress}
-        >
-          <ExpoImage
-            source={require('assets/icons/herb.png')}
-            contentFit="cover"
-            style={{ width: 23, height: 23, borderRadius: 8 }}
-          />
-        </MotiPressable>
+        </AnimatedPressable>
+        <SignIn />
       </View>
     </View>
   )

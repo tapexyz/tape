@@ -1,3 +1,5 @@
+import './expo-crypto-shim.js'
+
 import { registerRootComponent } from 'expo'
 
 import App from './src/App'

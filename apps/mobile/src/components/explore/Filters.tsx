@@ -3,9 +3,9 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
 
-import { theme } from '../../constants/theme'
-import haptic from '../../helpers/haptic'
-import normalizeFont from '../../helpers/normalize-font'
+import haptic from '~/helpers/haptic'
+import normalizeFont from '~/helpers/normalize-font'
+import { theme } from '~/helpers/theme'
 
 const styles = StyleSheet.create({
   container: {

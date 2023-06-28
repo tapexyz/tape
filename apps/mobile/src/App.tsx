@@ -4,12 +4,19 @@ import 'react-native-gesture-handler'
 
 import { ApolloProvider } from '@apollo/client'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import {
+  LENSTUBE_APP_DESCRIPTION,
+  LENSTUBE_APP_NAME,
+  LIVEPEER_STUDIO_API_KEY,
+  WC_PROJECT_ID
+} from '@lenstube/constants'
 import apolloClient from '@lenstube/lens/apollo'
 import {
   createReactClient,
   LivepeerConfig,
   studioProvider
 } from '@livepeer/react-native'
+import { WalletConnectModal } from '@walletconnect/modal-react-native'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 // eslint-disable-next-line import/no-duplicates
@@ -26,8 +33,19 @@ const styles = StyleSheet.create({
   }
 })
 
+const providerMetadata = {
+  name: LENSTUBE_APP_NAME,
+  description: LENSTUBE_APP_DESCRIPTION,
+  url: 'https://lenstube.xyz/',
+  icons: ['https://static.lenstube.xyz/images/brand/lenstube.svg'],
+  redirect: {
+    native: 'lenstube://',
+    universal: 'lenstube.xyz'
+  }
+}
+
 const livepeerClient = createReactClient({
-  provider: studioProvider({ apiKey: 'b13fd43e-d0d6-4abc-a5df-93592a0c5124' })
+  provider: studioProvider({ apiKey: LIVEPEER_STUDIO_API_KEY })
 })
 
 const App = (): JSX.Element => {
@@ -35,6 +53,11 @@ const App = (): JSX.Element => {
     <ApolloProvider client={apolloClient(mobileAuthLink)}>
       <LivepeerConfig client={livepeerClient}>
         <NotificationsProvider />
+        <WalletConnectModal
+          projectId={WC_PROJECT_ID}
+          providerMetadata={providerMetadata}
+          themeMode="dark"
+        />
         <AppLoading>
           <GestureHandlerRootView style={styles.gestureHandlerRootView}>
             <BottomSheetModalProvider>
