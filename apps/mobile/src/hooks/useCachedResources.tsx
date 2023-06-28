@@ -8,7 +8,6 @@ export const useCachedResources = (): boolean => {
   useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
-        // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
           'font-normal': require('assets/fonts/ClashDisplay-Regular.ttf'),
@@ -17,7 +16,6 @@ export const useCachedResources = (): boolean => {
           'font-extrabold': require('assets/fonts/ClashDisplay-Bold.ttf')
         })
       } catch (e) {
-        // We might want to provide this error information to an error reporting service
         console.warn(e)
       } finally {
         setLoadingComplete(true)

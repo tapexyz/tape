@@ -2,6 +2,8 @@ import type { Profile } from '@lenstube/lens'
 import { create } from 'zustand'
 
 interface AuthPerisistState {
+  userSigNonce: number
+  setUserSigNonce: (userSigNonce: number) => void
   homeGradientColor: string
   setHomeGradientColor: (homeGradientColor: string) => void
   channels: Profile[]
@@ -16,7 +18,9 @@ const useMobileStore = create<AuthPerisistState>((set) => ({
   channels: [],
   setChannels: (channels) => set({ channels }),
   selectedChannel: null,
-  setSelectedChannel: (channel) => set({ selectedChannel: channel })
+  setSelectedChannel: (channel) => set({ selectedChannel: channel }),
+  userSigNonce: 0,
+  setUserSigNonce: (userSigNonce) => set({ userSigNonce })
 }))
 
 export default useMobileStore

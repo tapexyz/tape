@@ -1,5 +1,4 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { trimLensHandle } from '@lenstube/generic'
 import type { HeaderTitleProps } from '@react-navigation/elements'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { MotiPressable } from 'moti/interactions'
@@ -10,9 +9,8 @@ import { StyleSheet, Text, View } from 'react-native'
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
-import useMobileStore from '~/store'
 
-import SignIn from './SignIn'
+import SignIn from './auth/SignIn'
 
 const styles = StyleSheet.create({
   container: {
@@ -38,7 +36,6 @@ const styles = StyleSheet.create({
 
 const Header: FC<HeaderTitleProps> = () => {
   const { provider } = useWalletConnectModal()
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
   const animatePress = useMemo(
     () =>
@@ -53,13 +50,7 @@ const Header: FC<HeaderTitleProps> = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.forYouText}>
-        {selectedChannel
-          ? `For ${
-              selectedChannel.name || trimLensHandle(selectedChannel.handle)
-            }`
-          : 'gm'}
-      </Text>
+      <Text style={styles.forYouText}>gm</Text>
       <View style={styles.rightView}>
         <MotiPressable
           onPress={() => {

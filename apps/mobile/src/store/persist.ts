@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 
 type Tokens = {
   accessToken: string | null
@@ -44,7 +44,7 @@ export const useMobilePersistStore = create(
     }),
     {
       name: '@lenstube/mobile/store',
-      getStorage: () => AsyncStorage
+      storage: createJSONStorage(() => AsyncStorage)
     }
   )
 )
