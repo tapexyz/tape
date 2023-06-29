@@ -8,7 +8,7 @@
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "typescript": "5.1.3"
+    "typescript": "5.1.6"
   },
   "dependencies": {
     "@fingerprintjs/fingerprintjs": "^3.4.1",

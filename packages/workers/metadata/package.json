@@ -11,13 +11,13 @@
     "arbundles": "^0.9.8",
     "base64url": "^3.0.1",
     "secp256k1": "^5.0.0",
-    "viem": "^1.1.8"
+    "viem": "^1.2.5"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
     "@lenstube/config": "*",
     "@types/secp256k1": "latest",
-    "typescript": "^5.1.3",
+    "typescript": "^5.1.6",
     "wrangler": "3.1.1"
   }
 }
