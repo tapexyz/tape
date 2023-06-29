@@ -8,10 +8,10 @@
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "prettier-plugin-tailwindcss": "^0.3.0",
-    "typescript": "5.1.3",
     "@lenstube/browser": "*",
+    "@lenstube/constants": "*",
     "@lenstube/generic": "*",
-    "@lenstube/constants": "*"
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "typescript": "5.1.6"
   }
 }
