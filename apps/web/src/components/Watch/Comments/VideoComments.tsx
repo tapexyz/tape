@@ -3,25 +3,21 @@ import CommentOutline from '@components/Common/Icons/CommentOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@lenstube/constants'
+import type { Publication } from '@lenstube/lens'
+import {
+  CommentOrderingTypes,
+  CommentRankingFilter,
+  useCommentsQuery
+} from '@lenstube/lens'
+import { CustomCommentsFilterEnum } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
-import type { Publication } from 'lens'
-import {
-  CommentOrderingTypes,
-  CommentRankingFilter,
-  PublicationMainFocus,
-  useCommentsQuery
-} from 'lens'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import {
-  CustomCommentsFilterEnum,
-  LENS_CUSTOM_FILTERS,
-  SCROLL_ROOT_MARGIN
-} from 'utils'
 
 import Comment from './Comment'
 import CommentsFilter from './CommentsFilter'
@@ -67,16 +63,6 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     limit: 30,
     customFilters: LENS_CUSTOM_FILTERS,
     commentsOf: video.id,
-    metadata: {
-      mainContentFocus: [
-        PublicationMainFocus.Video,
-        PublicationMainFocus.Image,
-        PublicationMainFocus.Article,
-        PublicationMainFocus.Embed,
-        PublicationMainFocus.Link,
-        PublicationMainFocus.TextOnly
-      ]
-    },
     ...getCommentFilters()
   }
   const variables = {
@@ -118,7 +104,10 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
             <h1 className="m-2 flex items-center space-x-2 text-lg">
               <CommentOutline className="h-5 w-5" />
               <span className="font-medium">
-                <Trans>Comments</Trans>
+                <Trans>Comments</Trans>{' '}
+                {video.stats.commentsTotal
+                  ? `( ${video.stats.commentsTotal} )`
+                  : null}
               </span>
             </h1>
             <CommentsFilter />

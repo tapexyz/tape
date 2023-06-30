@@ -1,6 +1,6 @@
+import { IPFS_FREE_UPLOAD_LIMIT } from '@lenstube/constants'
+import { canUploadedToIpfs } from '@lenstube/generic'
 import { expect, test } from '@playwright/test'
-import { IPFS_FREE_UPLOAD_LIMIT } from 'utils/constants'
-import canUploadedToIpfs from 'utils/functions/canUploadedToIpfs'
 
 test('returns true for values within the limit', async () => {
   const bytes = IPFS_FREE_UPLOAD_LIMIT * 1024 * 2

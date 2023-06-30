@@ -3,24 +3,24 @@ import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import usePersistStore from '@lib/store/persist'
-import { t } from '@lingui/macro'
-import type { Profile, Publication } from 'lens'
-import {
-  PublicationMainFocus,
-  PublicationTypes,
-  useProfilePostsQuery
-} from 'lens'
-import type { FC } from 'react'
-import React from 'react'
-import { useInView } from 'react-cool-inview'
 import {
   ALLOWED_APP_IDS,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   SCROLL_ROOT_MARGIN
-} from 'utils'
-import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
+} from '@lenstube/constants'
+import { getValueFromKeyInAttributes } from '@lenstube/generic'
+import type { Profile, Publication } from '@lenstube/lens'
+import {
+  PublicationMainFocus,
+  PublicationTypes,
+  useProfilePostsQuery
+} from '@lenstube/lens'
+import usePersistStore from '@lib/store/persist'
+import { t } from '@lingui/macro'
+import type { FC } from 'react'
+import React from 'react'
+import { useInView } from 'react-cool-inview'
 
 import PinnedVideo from './PinnedVideo'
 

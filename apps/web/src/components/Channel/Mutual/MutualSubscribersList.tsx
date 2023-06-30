@@ -2,14 +2,15 @@ import UserOutline from '@components/Common/Icons/UserOutline'
 import IsVerified from '@components/Common/IsVerified'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
+import type { Profile } from '@lenstube/lens'
+import { useMutualFollowersQuery } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
-import type { Profile } from 'lens'
-import { useMutualFollowersQuery } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import getProfilePicture from 'utils/functions/getProfilePicture'
+
 type Props = {
   viewingChannelId: string
 }
@@ -72,7 +73,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
               draggable={false}
             />
             <div className="flex items-center space-x-1">
-              <span>{channel?.handle}</span>
+              <span>{trimLensHandle(channel?.handle)}</span>
               <IsVerified id={channel?.id} size="xs" />
             </div>
           </div>

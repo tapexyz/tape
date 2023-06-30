@@ -3,15 +3,17 @@ import SubscribeActions from '@components/Common/SubscribeActions'
 import SubscribersList from '@components/Common/SubscribersList'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
+import {
+  getChannelCoverPicture,
+  getProfilePicture,
+  imageCdn,
+  sanitizeDStorageUrl
+} from '@lenstube/generic'
+import type { Profile } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import type { Profile } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import imageCdn from 'utils/functions/imageCdn'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 
 import MutualSubscribers from '../Mutual/MutualSubscribers'
 import CoverLinks from './CoverLinks'

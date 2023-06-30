@@ -1,14 +1,16 @@
 import { WebBundlr } from '@bundlr-network/client'
-import type { FetchSignerResult } from '@wagmi/core'
-import type { BundlrDataState, UploadedVideo } from 'utils'
 import {
   BUNDLR_CURRENCY,
   BUNDLR_NODE_URL,
+  CREATOR_VIDEO_CATEGORIES,
   POLYGON_RPC_URL,
   WMATIC_TOKEN_ADDRESS
-} from 'utils'
-import { CREATOR_VIDEO_CATEGORIES } from 'utils/data/categories'
-import logger from 'utils/logger'
+} from '@lenstube/constants'
+import { logger } from '@lenstube/generic'
+import type {
+  BundlrDataState,
+  UploadedVideo
+} from '@lenstube/lens/custom-types'
 import { create } from 'zustand'
 
 export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {
@@ -67,7 +69,9 @@ interface AppState {
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
   setBundlrData: (bundlrProps: Partial<BundlrDataState>) => void
-  getBundlrInstance: (signer: FetchSignerResult) => Promise<WebBundlr | null>
+  getBundlrInstance: (signer: {
+    signMessage: (message: string) => Promise<string>
+  }) => Promise<WebBundlr | null>
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -85,14 +89,9 @@ export const useAppStore = create<AppState>((set) => ({
     })),
   getBundlrInstance: async (signer) => {
     try {
-      const bundlr = new WebBundlr(
-        BUNDLR_NODE_URL,
-        BUNDLR_CURRENCY,
-        signer?.provider,
-        {
-          providerUrl: POLYGON_RPC_URL
-        }
-      )
+      const bundlr = new WebBundlr(BUNDLR_NODE_URL, BUNDLR_CURRENCY, signer, {
+        providerUrl: POLYGON_RPC_URL
+      })
       await bundlr.utils.getBundlerAddress(BUNDLR_CURRENCY)
       await bundlr.ready()
       return bundlr

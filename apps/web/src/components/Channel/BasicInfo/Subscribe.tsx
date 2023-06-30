@@ -1,33 +1,31 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { utils } from 'ethers'
+import { Analytics, TRACK } from '@lenstube/browser'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE
+} from '@lenstube/constants'
+import { getSignature } from '@lenstube/generic'
 import type {
   CreateFollowBroadcastItemResult,
   Profile,
   ProxyActionRequest
-} from 'lens'
+} from '@lenstube/lens'
 import {
   useBroadcastMutation,
   useCreateFollowTypedDataMutation,
   useProxyActionMutation
-} from 'lens'
+} from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
-import {
-  Analytics,
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
-} from 'utils'
-import omitKey from 'utils/functions/omitKey'
-import { useContractWrite, useSigner, useSignTypedData } from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
   channel: Profile
@@ -60,13 +58,11 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const { data: signer } = useSigner({ onError })
 
-  const { write: writeSubscribe } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'followWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'follow',
     onSuccess: onCompleted,
     onError
   })
@@ -91,29 +87,13 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
         createFollowTypedData as CreateFollowBroadcastItemResult
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
-        const { v, r, s } = utils.splitSignature(signature)
-        const { profileIds, datas } = typedData?.value
-        const args = {
-          follower: signer?.getAddress(),
-          profileIds,
-          datas,
-          sig: {
-            v,
-            r,
-            s,
-            deadline: typedData.value.deadline
-          }
-        }
+        const signature = await signTypedDataAsync(getSignature(typedData))
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          writeSubscribe?.({ recklesslySetUnpreparedArgs: [args] })
+          const { profileIds, datas } = typedData.value
+          write?.({ args: [profileIds, datas] })
         }
       } catch {
         setLoading(false)

@@ -1,8 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['lens', 'utils', 'web-ui'],
+  transpilePackages: [
+    '@lenstube/lens',
+    '@lenstube/browser',
+    '@lenstube/generic',
+    '@lenstube/config',
+    '@lenstube/ui'
+  ],
   reactStrictMode: true,
-  swcMinify: true,
   async rewrites() {
     return [
       {

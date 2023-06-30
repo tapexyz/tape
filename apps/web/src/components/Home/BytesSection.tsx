@@ -2,29 +2,30 @@ import BytesOutline from '@components/Common/Icons/BytesOutline'
 import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import BytesShimmer from '@components/Shimmers/BytesShimmer'
-import useAppStore from '@lib/store'
-import useChannelStore from '@lib/store/channel'
-import { Trans } from '@lingui/macro'
-import type { Publication } from 'lens'
+import { generateVideoThumbnail } from '@lenstube/browser'
+import {
+  FALLBACK_COVER_URL,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID
+} from '@lenstube/constants'
+import {
+  getProfilePicture,
+  getPublicationMediaUrl,
+  getThumbnailUrl,
+  imageCdn
+} from '@lenstube/generic'
+import type { Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'lens'
+} from '@lenstube/lens'
+import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
+import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import React, { useRef } from 'react'
-import {
-  FALLBACK_COVER_URL,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_BYTES_APP_ID
-} from 'utils'
-import { generateVideoThumbnail } from 'utils/functions/generateVideoThumbnails'
-import getLensHandle from 'utils/functions/getLensHandle'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
 
 const BytesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -127,14 +128,14 @@ const BytesSection = () => {
               </Link>
               <div className="flex items-end space-x-1.5">
                 <Link
-                  href={`/channel/${getLensHandle(byte.profile?.handle)}`}
+                  href={`/channel/${byte.profile?.handle}`}
                   className="flex-none"
-                  title={getLensHandle(byte.profile.handle)}
+                  title={byte.profile.handle}
                 >
                   <img
                     className="h-3.5 w-3.5 rounded-full bg-gray-200 dark:bg-gray-800"
                     src={getProfilePicture(byte.profile, 'AVATAR')}
-                    alt={getLensHandle(byte.profile?.handle)}
+                    alt={byte.profile?.handle}
                     draggable={false}
                   />
                 </Link>

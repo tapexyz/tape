@@ -1,10 +1,10 @@
-import type { Publication } from 'lens'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { LENSTUBE_WEBSITE_URL, STATIC_ASSETS } from '@lenstube/constants'
+import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
+import type { Publication } from '@lenstube/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { Analytics, TRACK } from 'utils'
-import { LENSTUBE_WEBSITE_URL, STATIC_ASSETS } from 'utils/constants'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 
 type Props = {
   video: Publication
@@ -52,7 +52,9 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
                 Analytics.track(TRACK.EMBED_VIDEO.CLICK_EMBED_CHANNEL)
               }
             >
-              <span className="text-sm">{video?.profile.handle}</span>
+              <span className="text-sm">
+                {trimLensHandle(video?.profile.handle)}
+              </span>
             </Link>
           </div>
         </div>

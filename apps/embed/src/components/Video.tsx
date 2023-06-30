@@ -1,20 +1,20 @@
-import clsx from 'clsx'
-import type { Publication } from 'lens'
-import { useRouter } from 'next/router'
-import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
-import { Analytics, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS, TRACK } from 'utils'
+import { Analytics, TRACK, useAverageColor } from '@lenstube/browser'
+import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@lenstube/constants'
 import {
   getPublicationHlsUrl,
   getPublicationMediaUrl,
-  getPublicationRawMediaUrl
-} from 'utils/functions/getPublicationMediaUrl'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
-import truncate from 'utils/functions/truncate'
-import useAverageColor from 'utils/hooks/useAverageColor'
-import VideoPlayer from 'web-ui/VideoPlayer'
+  getPublicationRawMediaUrl,
+  getThumbnailUrl,
+  imageCdn,
+  sanitizeDStorageUrl,
+  truncate
+} from '@lenstube/generic'
+import type { Publication } from '@lenstube/lens'
+import VideoPlayer from '@lenstube/ui/VideoPlayer'
+import clsx from 'clsx'
+import { useRouter } from 'next/router'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import MetaTags from './MetaTags'
 import TopOverlay from './TopOverlay'

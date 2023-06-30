@@ -25,10 +25,7 @@ fragment PostFields on Post {
   hidden
   hasCollectedByMe
   stats {
-    totalAmountOfComments
-    totalAmountOfCollects
-    totalAmountOfMirrors
-    totalUpvotes
+    ...StatsFields
   }
   metadata {
     ...MetadataFields

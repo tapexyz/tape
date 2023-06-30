@@ -1,13 +1,14 @@
 import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { ERROR_MESSAGE } from '@lenstube/constants'
+import type { Publication } from '@lenstube/lens'
+import { useReportPublicationMutation } from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import { t, Trans } from '@lingui/macro'
-import type { Publication } from 'lens'
-import { useReportPublicationMutation } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
-import { Analytics, ERROR_MESSAGE, TRACK } from 'utils'
 
 type Props = {
   publication: Publication

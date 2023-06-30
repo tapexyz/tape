@@ -1,12 +1,13 @@
 {
-  "extends": "tsconfig/nextjs.json",
+  "extends": "@lenstube/config/react.tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "noEmit": true,
     "paths": {
       "@components*": ["src/components*"],
       "@lib*": ["src/lib*"]
-    }
+    },
+    "isolatedModules": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/index.css"]
 }

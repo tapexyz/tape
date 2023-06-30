@@ -4,32 +4,34 @@ import { Button } from '@components/UIElements/Button'
 import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import dayjs from 'dayjs'
+import { Analytics, TRACK } from '@lenstube/browser'
+import {
+  formatNumber,
+  getProfilePicture,
+  getRandomProfilePicture,
+  imageCdn,
+  shortenAddress
+} from '@lenstube/generic'
 import type {
   ApprovedAllowanceAmount,
   Profile,
   Publication,
   RecipientDataOutput
-} from 'lens'
+} from '@lenstube/lens'
 import {
   CollectModules,
   useAllProfilesQuery,
   useApprovedModuleAllowanceAmountQuery,
   usePublicationRevenueQuery
-} from 'lens'
+} from '@lenstube/lens'
+import type { LenstubeCollectModule } from '@lenstube/lens/custom-types'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import dayjs from 'dayjs'
 import Link from 'next/link'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import type { LenstubeCollectModule } from 'utils'
-import { Analytics, TRACK } from 'utils'
-import formatNumber from 'utils/functions/formatNumber'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
-import imageCdn from 'utils/functions/imageCdn'
-import { shortenAddress } from 'utils/functions/shortenAddress'
 import { useBalance } from 'wagmi'
 
 import BalanceAlert from './BalanceAlert'
@@ -286,10 +288,10 @@ const CollectModal: FC<Props> = ({
             {isRecipientAvailable ? (
               <div className="mb-3 flex flex-col">
                 <span className="mb-0.5 text-sm font-semibold">
-                  <Trans>Revenue</Trans>
+                  <Trans>Revenue</Trans>{' '}
                   {collectModule.recipients?.length
-                    ? t` Recipients`
-                    : t` Recipient`}
+                    ? t`Recipients`
+                    : t`Recipient`}
                 </span>
                 {collectModule.recipient &&
                   renderRecipients([

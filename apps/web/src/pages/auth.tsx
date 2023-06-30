@@ -1,10 +1,10 @@
 import Login from '@components/Common/Auth/Login'
 import MetaTags from '@components/Common/MetaTags'
+import { LENSTUBE_APP_NAME, STATIC_ASSETS } from '@lenstube/constants'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import { LENSTUBE_APP_NAME, STATIC_ASSETS } from 'utils'
 
 const AuthRequiredPage = () => {
   const selectedChannelId = useAuthPersistStore(

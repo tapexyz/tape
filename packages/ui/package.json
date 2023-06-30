@@ -1,0 +1,17 @@
+{
+  "name": "@lenstube/ui",
+  "version": "0.0.0",
+  "license": "AGPL-3.0",
+  "main": "./index.ts",
+  "scripts": {
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "typecheck": "tsc --pretty"
+  },
+  "devDependencies": {
+    "@lenstube/browser": "*",
+    "@lenstube/constants": "*",
+    "@lenstube/generic": "*",
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "typescript": "5.1.6"
+  }
+}

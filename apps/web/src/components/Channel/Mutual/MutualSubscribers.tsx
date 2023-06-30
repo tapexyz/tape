@@ -1,14 +1,14 @@
 import ChannelCirclesShimmer from '@components/Shimmers/ChannelCirclesShimmer'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { getProfilePicture } from '@lenstube/generic'
+import type { Profile } from '@lenstube/lens'
+import { useMutualFollowersQuery } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
-import type { Profile } from 'lens'
-import { useMutualFollowersQuery } from 'lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { Analytics, TRACK } from 'utils'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 
 import MutualSubscribersList from './MutualSubscribersList'
 type Props = {

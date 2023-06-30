@@ -1,24 +1,24 @@
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
-import useChannelStore from '@lib/store/channel'
-import type { Publication } from 'lens'
-import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
-} from 'lens'
-import { useRouter } from 'next/router'
-import type { FC } from 'react'
-import React, { useEffect } from 'react'
-import { useInView } from 'react-cool-inview'
 import {
   ALLOWED_APP_IDS,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
-} from 'utils'
+} from '@lenstube/constants'
+import type { Publication } from '@lenstube/lens'
+import {
+  PublicationMainFocus,
+  PublicationSortCriteria,
+  PublicationTypes,
+  useExploreQuery
+} from '@lenstube/lens'
+import useChannelStore from '@lib/store/channel'
+import { useRouter } from 'next/router'
+import type { FC } from 'react'
+import React, { useEffect } from 'react'
+import { useInView } from 'react-cool-inview'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
 

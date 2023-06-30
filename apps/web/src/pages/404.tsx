@@ -1,8 +1,8 @@
 import { Button } from '@components/UIElements/Button'
+import { LENSTUBE_APP_NAME, STATIC_ASSETS } from '@lenstube/constants'
 import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
-import { LENSTUBE_APP_NAME, STATIC_ASSETS } from 'utils'
 
 export default function Custom404() {
   return (

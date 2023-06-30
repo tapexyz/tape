@@ -1,8 +1,11 @@
-{
-  "extends": "tsconfig/nextjs.json",
+{ 
+  "extends": "@lenstube/config/react.tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "noEmit": true
+    "noEmit": true,
+    "isolatedModules": true
   },
-  "include": ["**/*.ts"]
+  "include": [
+    "**/*.ts"
+  ]
 }

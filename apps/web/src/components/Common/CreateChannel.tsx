@@ -3,19 +3,20 @@ import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
+import { IS_MAINNET, ZERO_ADDRESS } from '@lenstube/constants'
+import {
+  getRandomProfilePicture,
+  imageCdn,
+  trimify,
+  useIsMounted
+} from '@lenstube/generic'
+import { useCreateProfileMutation } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import { useCreateProfileMutation } from 'lens'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { IS_MAINNET, ZERO_ADDRESS } from 'utils'
-import getLensHandle from 'utils/functions/getLensHandle'
-import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
-import imageCdn from 'utils/functions/imageCdn'
-import trimify from 'utils/functions/trimify'
-import useIsMounted from 'utils/hooks/useIsMounted'
 import { useAccount } from 'wagmi'
 import z from 'zod'
 
@@ -103,7 +104,7 @@ const CreateChannel = () => {
     if (indexed) {
       setLoading(false)
       setShowCreateChannel(false)
-      router.push(`/channel/${getLensHandle(getValues().channelName)}`)
+      router.push(`/channel/${getValues().channelName}`)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])

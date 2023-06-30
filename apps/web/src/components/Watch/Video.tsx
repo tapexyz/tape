@@ -1,24 +1,25 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
+import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
+import {
+  getIsSensitiveContent,
+  getPublicationHlsUrl,
+  getPublicationRawMediaUrl,
+  getThumbnailUrl,
+  imageCdn,
+  sanitizeDStorageUrl
+} from '@lenstube/generic'
+import type { Publication } from '@lenstube/lens'
 import useAppStore from '@lib/store'
-import type { Publication } from 'lens'
+import useChannelStore from '@lib/store/channel'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React from 'react'
-import { LENSTUBE_BYTES_APP_ID } from 'utils'
-import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
-import {
-  getPublicationHlsUrl,
-  getPublicationRawMediaUrl
-} from 'utils/functions/getPublicationMediaUrl'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
 
 import VideoActions from './VideoActions'
 import VideoMeta from './VideoMeta'
 
-const VideoPlayer = dynamic(() => import('web-ui/VideoPlayer'), {
+const VideoPlayer = dynamic(() => import('@lenstube/ui/VideoPlayer'), {
   loading: () => <CardShimmer rounded={false} />,
   ssr: false
 })
@@ -30,6 +31,8 @@ type Props = {
 const Video: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const videoWatchTime = useAppStore((state) => state.videoWatchTime)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+
   const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(video, true)),
@@ -45,6 +48,7 @@ const Video: FC<Props> = ({ video }) => {
   return (
     <div className="overflow-hidden">
       <VideoPlayer
+        address={selectedChannel?.ownedBy}
         refCallback={refCallback}
         currentTime={videoWatchTime}
         permanentUrl={getPublicationRawMediaUrl(video)}

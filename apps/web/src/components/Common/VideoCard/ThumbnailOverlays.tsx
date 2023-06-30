@@ -1,10 +1,12 @@
+import {
+  getIsSensitiveContent,
+  getTimeFromSeconds,
+  getValueFromTraitType
+} from '@lenstube/generic'
+import type { Attribute, Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
-import type { Attribute, Publication } from 'lens'
 import type { FC } from 'react'
 import React from 'react'
-import { getTimeFromSeconds } from 'utils/functions/formatTime'
-import { getValueFromTraitType } from 'utils/functions/getFromAttributes'
-import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
 
 type Props = {
   video: Publication

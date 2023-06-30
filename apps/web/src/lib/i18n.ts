@@ -1,7 +1,7 @@
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@lenstube/constants'
 import { i18n } from '@lingui/core'
 import dayjs from 'dayjs'
 import { en, es, fr, zh } from 'make-plural/plurals'
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from 'utils/constants'
 
 export const storeLocale = async (locale: string) => {
   if (!Object.keys(SUPPORTED_LOCALES).includes(locale)) {

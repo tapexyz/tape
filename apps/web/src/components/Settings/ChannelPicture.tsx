@@ -1,33 +1,37 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import { Loader } from '@components/UIElements/Loader'
-import useChannelStore from '@lib/store/channel'
-import { t } from '@lingui/macro'
-import clsx from 'clsx'
-import { utils } from 'ethers'
-import type {
-  CreateSetProfileImageUriBroadcastItemResult,
-  Profile,
-  UpdateProfileImageRequest
-} from 'lens'
-import {
-  useBroadcastMutation,
-  useCreateSetProfileImageUriTypedDataMutation,
-  useCreateSetProfileImageUriViaDispatcherMutation
-} from 'lens'
-import type { ChangeEvent, FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
-import type { CustomErrorWithData, IPFSUploadResult } from 'utils'
+import { uploadToIPFS } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
-} from 'utils'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import omitKey from 'utils/functions/omitKey'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
-import uploadToIPFS from 'utils/functions/uploadToIPFS'
+} from '@lenstube/constants'
+import {
+  getProfilePicture,
+  getSignature,
+  sanitizeDStorageUrl
+} from '@lenstube/generic'
+import type {
+  CreateSetProfileImageUriBroadcastItemResult,
+  Profile,
+  UpdateProfileImageRequest
+} from '@lenstube/lens'
+import {
+  useBroadcastMutation,
+  useCreateSetProfileImageUriTypedDataMutation,
+  useCreateSetProfileImageUriViaDispatcherMutation
+} from '@lenstube/lens'
+import type {
+  CustomErrorWithData,
+  IPFSUploadResult
+} from '@lenstube/lens/custom-types'
+import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
+import clsx from 'clsx'
+import type { ChangeEvent, FC } from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
@@ -73,11 +77,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     onError
   })
 
-  const { data: pfpData, write: writePfpUri } = useContractWrite({
+  const { data: pfpData, write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'setProfileImageURIWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'setProfileImageURI',
     onError,
     onSuccess: onCompleted
   })
@@ -100,24 +103,14 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           createSetProfileImageURITypedData as CreateSetProfileImageUriBroadcastItemResult
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-          const signature = await signTypedDataAsync({
-            domain: omitKey(typedData?.domain, '__typename'),
-            types: omitKey(typedData?.types, '__typename'),
-            value: omitKey(typedData?.value, '__typename')
-          })
-          const { profileId, imageURI } = typedData?.value
-          const { v, r, s } = utils.splitSignature(signature)
-          const args = {
-            profileId,
-            imageURI,
-            sig: { v, r, s, deadline: typedData.value.deadline }
-          }
+          const signature = await signTypedDataAsync(getSignature(typedData))
           setUserSigNonce(userSigNonce + 1)
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
           if (data?.broadcast?.__typename === 'RelayError') {
-            writePfpUri?.({ recklesslySetUnpreparedArgs: [args] })
+            const { profileId, imageURI } = typedData.value
+            return write?.({ args: [profileId, imageURI] })
           }
         } catch {
           setLoading(false)

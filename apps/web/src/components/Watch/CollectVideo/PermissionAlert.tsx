@@ -1,12 +1,12 @@
 import { Button } from '@components/UIElements/Button'
+import { getCollectModuleConfig } from '@lenstube/generic'
+import type { ApprovedAllowanceAmount } from '@lenstube/lens'
+import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import { t, Trans } from '@lingui/macro'
-import type { ApprovedAllowanceAmount } from 'lens'
-import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens'
 import type { Dispatch, FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
-import { getCollectModuleConfig } from 'utils/functions/getCollectModule'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
 type Props = {
@@ -28,9 +28,7 @@ const PermissionAlert: FC<Props> = ({
     isLoading: transactionLoading,
     sendTransaction
   } = useSendTransaction({
-    request: {},
-    mode: 'recklesslyUnprepared',
-    onError(error: CustomErrorWithData) {
+    onError: (error: CustomErrorWithData) => {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
@@ -60,11 +58,8 @@ const PermissionAlert: FC<Props> = ({
     })
     const data = result?.data?.generateModuleCurrencyApprovalData
     sendTransaction?.({
-      recklesslySetUnpreparedRequest: {
-        from: data?.from,
-        to: data?.to,
-        data: data?.data
-      }
+      to: data?.to,
+      data: data?.data
     })
   }
 

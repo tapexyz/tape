@@ -1,11 +1,11 @@
-import { expect, test } from '@playwright/test'
-import dayjs from 'dayjs'
 import {
   getRelativeTime,
   getSecondsFromTime,
   getTimeFromSeconds,
   secondsToISO
-} from 'utils/functions/formatTime'
+} from '@lenstube/generic'
+import { expect, test } from '@playwright/test'
+import dayjs from 'dayjs'
 
 test('getSecondsFromTime should return the given time in seconds', async ({}) => {
   const time = '2:30'

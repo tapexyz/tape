@@ -1,14 +1,19 @@
+import { generateVideoThumbnail, useAverageColor } from '@lenstube/browser'
+import {
+  FALLBACK_COVER_URL,
+  LENSTUBE_BYTES_APP_ID,
+  STATIC_ASSETS
+} from '@lenstube/constants'
+import {
+  getIsSensitiveContent,
+  getPublicationMediaUrl,
+  getThumbnailUrl,
+  imageCdn
+} from '@lenstube/generic'
+import type { Publication } from '@lenstube/lens'
 import clsx from 'clsx'
-import type { Publication } from 'lens'
 import type { FC } from 'react'
 import React from 'react'
-import { FALLBACK_COVER_URL, LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from 'utils'
-import { generateVideoThumbnail } from 'utils/functions/generateVideoThumbnails'
-import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
-import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
-import useAverageColor from 'utils/hooks/useAverageColor'
 
 type Props = {
   video: Publication

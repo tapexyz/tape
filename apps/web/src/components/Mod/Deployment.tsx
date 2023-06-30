@@ -1,11 +1,11 @@
-import Link from 'next/link'
-import React from 'react'
 import {
   GIT_DEPLOYED_BRANCH,
   GIT_DEPLOYED_COMMIT_SHA,
   IS_MAINNET,
   VERCEL_DEPLOYED_ENV
-} from 'utils'
+} from '@lenstube/constants'
+import Link from 'next/link'
+import React from 'react'
 
 const Deployment = () => {
   return (

@@ -6,28 +6,27 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
-import useAppStore from '@lib/store'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import clsx from 'clsx'
-import type { Publication } from 'lens'
+import { Analytics, TRACK } from '@lenstube/browser'
+import {
+  ALLOWED_APP_IDS,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
+  SCROLL_ROOT_MARGIN
+} from '@lenstube/constants'
+import type { Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from 'lens'
+} from '@lenstube/lens'
+import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import {
-  ALLOWED_APP_IDS,
-  Analytics,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN,
-  TRACK
-} from 'utils'
 
 const initialCriteria = {
   trending: true,

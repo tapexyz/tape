@@ -1,17 +1,19 @@
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
 import { Loader } from '@components/UIElements/Loader'
+import {
+  generateVideoThumbnails,
+  getFileFromDataURL,
+  uploadToIPFS
+} from '@lenstube/browser'
+import { logger } from '@lenstube/generic'
+import type { IPFSUploadResult } from '@lenstube/lens/custom-types'
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { ChangeEvent, FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
-import type { IPFSUploadResult } from 'utils'
-import { generateVideoThumbnails } from 'utils/functions/generateVideoThumbnails'
-import { getFileFromDataURL } from 'utils/functions/getFileFromDataURL'
-import uploadToIPFS from 'utils/functions/uploadToIPFS'
-import logger from 'utils/logger'
 
 interface Props {
   label: string

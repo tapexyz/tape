@@ -1,18 +1,18 @@
 import CollectVideo from '@components/Watch/CollectVideo'
-import { t } from '@lingui/macro'
-import type { Publication } from 'lens'
-import type { FC } from 'react'
-import React, { useEffect, useRef } from 'react'
-import { Analytics, TRACK } from 'utils'
+import { Analytics, TRACK, useAverageColor } from '@lenstube/browser'
 import {
   getPublicationHlsUrl,
-  getPublicationRawMediaUrl
-} from 'utils/functions/getPublicationMediaUrl'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
-import useAverageColor from 'utils/hooks/useAverageColor'
-import VideoPlayer from 'web-ui/VideoPlayer'
+  getPublicationRawMediaUrl,
+  getThumbnailUrl,
+  imageCdn,
+  sanitizeDStorageUrl
+} from '@lenstube/generic'
+import type { Publication } from '@lenstube/lens'
+import VideoPlayer from '@lenstube/ui/VideoPlayer'
+import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
+import type { FC } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import BottomOverlay from './BottomOverlay'
 import ByteActions from './ByteActions'
@@ -36,6 +36,7 @@ const ByteVideo: FC<Props> = ({
     'THUMBNAIL_V'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, true)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const playVideo = () => {
     if (!videoRef.current) {
@@ -111,6 +112,7 @@ const ByteVideo: FC<Props> = ({
           />
           {currentViewingId === video.id ? (
             <VideoPlayer
+              address={selectedChannel?.ownedBy}
               refCallback={refCallback}
               permanentUrl={getPublicationRawMediaUrl(video)}
               hlsUrl={getPublicationHlsUrl(video)}

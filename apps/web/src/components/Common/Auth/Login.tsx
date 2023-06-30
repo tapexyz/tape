@@ -1,18 +1,19 @@
-import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t } from '@lingui/macro'
-import type { Profile } from 'lens'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { ERROR_MESSAGE, POLYGON_CHAIN_ID } from '@lenstube/constants'
+import { logger } from '@lenstube/generic'
+import type { Profile } from '@lenstube/lens'
 import {
   useAllProfilesLazyQuery,
   useAuthenticateMutation,
   useChallengeLazyQuery
-} from 'lens'
+} from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
-import { Analytics, ERROR_MESSAGE, POLYGON_CHAIN_ID, TRACK } from 'utils'
-import logger from 'utils/logger'
 import { useAccount, useDisconnect, useNetwork, useSignMessage } from 'wagmi'
 
 import ConnectWalletButton from './ConnectWalletButton'

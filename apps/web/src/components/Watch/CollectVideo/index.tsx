@@ -2,32 +2,36 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import { Loader } from '@components/UIElements/Loader'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
-import clsx from 'clsx'
-import { utils } from 'ethers'
-import type { CreateCollectBroadcastItemResult, Publication } from 'lens'
+import { Analytics, TRACK } from '@lenstube/browser'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE
+} from '@lenstube/constants'
+import { getSignature } from '@lenstube/generic'
+import type {
+  CreateCollectBroadcastItemResult,
+  Publication
+} from '@lenstube/lens'
 import {
   useBroadcastMutation,
   useCreateCollectTypedDataMutation,
   useProxyActionMutation,
   usePublicationCollectModuleQuery
-} from 'lens'
+} from '@lenstube/lens'
+import type {
+  CustomErrorWithData,
+  LenstubeCollectModule
+} from '@lenstube/lens/custom-types'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData, LenstubeCollectModule } from 'utils'
-import {
-  Analytics,
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
-} from 'utils'
-import omitKey from 'utils/functions/omitKey'
-import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 import CollectModal from './CollectModal'
 
@@ -37,7 +41,6 @@ type Props = {
 }
 
 const CollectVideo: FC<Props> = ({ video, variant }) => {
-  const { address } = useAccount()
   const { openConnectModal } = useConnectModal()
 
   const [loading, setLoading] = useState(false)
@@ -80,11 +83,10 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
     collectModule?.amount?.asset?.symbol ??
     collectModule?.fee?.amount?.asset?.symbol
 
-  const { write: writeCollectWithSig } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'collectWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'collect',
     onError,
     onSuccess: onCompleted
   })
@@ -105,25 +107,14 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
         createCollectTypedData as CreateCollectBroadcastItemResult
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
-        const { v, r, s } = utils.splitSignature(signature)
-        const args = {
-          collector: address,
-          profileId: typedData?.value.profileId,
-          pubId: typedData?.value.pubId,
-          data: typedData.value.data,
-          sig: { v, r, s, deadline: typedData.value.deadline }
-        }
+        const signature = await signTypedDataAsync(getSignature(typedData))
         setUserSigNonce(userSigNonce + 1)
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          writeCollectWithSig?.({ recklesslySetUnpreparedArgs: [args] })
+          const { profileId, pubId, data: collectData } = typedData.value
+          return write?.({ args: [profileId, pubId, collectData] })
         }
       } catch {
         setLoading(false)

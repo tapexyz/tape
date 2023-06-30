@@ -9,23 +9,22 @@ import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
+import { Analytics, TRACK } from '@lenstube/browser'
+import {
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
+  SCROLL_ROOT_MARGIN
+} from '@lenstube/constants'
+import type { Notification } from '@lenstube/lens'
+import { NotificationTypes, useNotificationsQuery } from '@lenstube/lens'
+import { CustomNotificationsFilterEnum } from '@lenstube/lens/custom-types'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
-import type { Notification } from 'lens'
-import { NotificationTypes, useNotificationsQuery } from 'lens'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
-import {
-  Analytics,
-  CustomNotificationsFilterEnum,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN,
-  TRACK
-} from 'utils'
 
 import CollectedNotification from './Collected'
 import CommentedNotification from './Commented'

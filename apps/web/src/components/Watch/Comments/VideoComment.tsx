@@ -1,9 +1,9 @@
+import { STATIC_ASSETS } from '@lenstube/constants'
+import type { Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
-import type { Publication } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { STATIC_ASSETS } from 'utils'
 
 type Props = {
   comment: Publication
@@ -11,10 +11,11 @@ type Props = {
 
 const VideoComment: FC<Props> = ({ comment }) => {
   return (
-    <div className="my-2 rounded-xl border border-gray-200 px-4 py-3 dark:border-gray-800">
+    <div className="my-2 rounded-xl border border-gray-300 px-4 py-3 dark:border-gray-700">
       <Link
         href={`/watch/${comment.id}`}
         className="flex items-center space-x-2.5"
+        target="_blank"
       >
         <img
           src={`${STATIC_ASSETS}/images/brand/circle-72x72.png`}

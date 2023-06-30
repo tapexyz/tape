@@ -1,5 +1,5 @@
+import { omitKey } from '@lenstube/generic'
 import { expect, test } from '@playwright/test'
-import omitKey from 'utils/functions/omitKey'
 
 test('omitKey', async () => {
   const object = { key1: 'value1', key2: 'value2' }

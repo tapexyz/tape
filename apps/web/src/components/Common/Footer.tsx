@@ -1,15 +1,14 @@
+import { Analytics, TRACK } from '@lenstube/browser'
+import {
+  LENSTUBE_GITHUB_HANDLE,
+  LENSTUBE_ROADMAP_URL,
+  LENSTUBE_STATUS_PAGE,
+  LENSTUBE_TWITTER_HANDLE
+} from '@lenstube/constants'
 import usePersistStore from '@lib/store/persist'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import React from 'react'
-import {
-  Analytics,
-  LENSTUBE_GITHUB_HANDLE,
-  LENSTUBE_ROADMAP_URL,
-  LENSTUBE_STATUS_PAGE,
-  LENSTUBE_TWITTER_HANDLE,
-  TRACK
-} from 'utils'
 
 const Footer = () => {
   const setSidebarCollapsed = usePersistStore(

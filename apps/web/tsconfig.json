@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/nextjs.json",
+  "extends": "@lenstube/config/react.tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "noEmit": true,
@@ -10,7 +10,8 @@
       "@ui*": ["src/components/ui*"],
       "@abis*": ["src/abis*"],
       "@gql*": ["src/gql*"]
-    }
+    },
+    "isolatedModules": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/index.css"]
 }

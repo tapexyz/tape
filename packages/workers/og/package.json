@@ -1,7 +1,7 @@
 {
   "name": "@workers/og",
   "version": "0.0.0",
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "private": true,
   "scripts": {
     "worker:dev": "wrangler dev",
@@ -9,9 +9,8 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
-    "eslint-config-weblint": "*",
-    "tsconfig": "*",
-    "typescript": "^5.1.3",
-    "wrangler": "3.1.0"
+    "@lenstube/config": "*",
+    "typescript": "^5.1.6",
+    "wrangler": "3.1.1"
   }
 }

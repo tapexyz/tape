@@ -1,5 +1,5 @@
+import { parseJwt } from '@lenstube/generic'
 import { expect, test } from '@playwright/test'
-import parseJwt from 'utils/functions/parseJwt'
 
 test('parseJwt', () => {
   const token =

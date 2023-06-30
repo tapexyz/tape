@@ -1,16 +1,19 @@
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import type { Wallet } from 'lens'
-import { useCollectorsQuery } from 'lens'
+import {
+  formatNumber,
+  getProfilePicture,
+  getRandomProfilePicture,
+  imageCdn,
+  shortenAddress,
+  trimLensHandle
+} from '@lenstube/generic'
+import type { Wallet } from '@lenstube/lens'
+import { useCollectorsQuery } from '@lenstube/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
-import formatNumber from 'utils/functions/formatNumber'
-import getProfilePicture from 'utils/functions/getProfilePicture'
-import { getRandomProfilePicture } from 'utils/functions/getRandomProfilePicture'
-import imageCdn from 'utils/functions/imageCdn'
-import { shortenAddress } from 'utils/functions/shortenAddress'
 
 import UserOutline from './Icons/UserOutline'
 import IsVerified from './IsVerified'
@@ -72,7 +75,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
                   draggable={false}
                 />
                 <div className="flex items-center space-x-1">
-                  <span>{wallet?.defaultProfile?.handle}</span>
+                  <span>{trimLensHandle(wallet?.defaultProfile?.handle)}</span>
                   <IsVerified id={wallet?.defaultProfile?.id} size="xs" />
                 </div>
               </div>

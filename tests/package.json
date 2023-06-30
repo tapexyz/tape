@@ -2,14 +2,15 @@
   "name": "@lenstube/tests",
   "version": "0.0.0",
   "private": true,
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "scripts": {
     "dev:test": "playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.35.0",
-    "eslint-config-weblint": "*",
-    "tsconfig": "*",
-    "utils": "*"
+    "@playwright/test": "^1.35.1",
+    "@lenstube/config": "*",
+    "@lenstube/browser": "*",
+    "@lenstube/generic": "*",
+    "@lenstube/constants": "*"
   }
 }

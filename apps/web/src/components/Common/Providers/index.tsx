@@ -1,5 +1,13 @@
 import { ApolloProvider } from '@apollo/client'
-import apolloClient from '@lib/apollo'
+import { getLivepeerClient, videoPlayerTheme } from '@lenstube/browser'
+import {
+  IS_MAINNET,
+  LENSTUBE_APP_NAME,
+  POLYGON_RPC_URL,
+  WC_PROJECT_ID
+} from '@lenstube/constants'
+import apolloClient from '@lenstube/lens/apollo'
+import authLink from '@lib/authLink'
 import { loadLocale } from '@lib/i18n'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
@@ -21,26 +29,21 @@ import {
 import { ThemeProvider, useTheme } from 'next-themes'
 import type { ReactNode } from 'react'
 import React, { useEffect } from 'react'
-import { IS_MAINNET, LENSTUBE_APP_NAME, POLYGON_RPC_URL } from 'utils'
-import { getLivepeerClient, videoPlayerTheme } from 'utils/functions/livepeer'
-import { configureChains, createClient, WagmiConfig } from 'wagmi'
+import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { polygon, polygonMumbai } from 'wagmi/chains'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
-import { publicProvider } from 'wagmi/providers/public'
 
 import ErrorBoundary from '../ErrorBoundary'
 
-const { chains, provider } = configureChains(
+const { chains, publicClient } = configureChains(
   [IS_MAINNET ? polygon : polygonMumbai],
   [
     jsonRpcProvider({
       rpc: () => ({
         http: POLYGON_RPC_URL
       })
-    }),
-    publicProvider()
-  ],
-  { targetQuorum: 1 }
+    })
+  ]
 )
 
 const connectors = connectorsForWallets([
@@ -48,18 +51,18 @@ const connectors = connectorsForWallets([
     groupName: 'Recommended',
     wallets: [
       injectedWallet({ chains, shimDisconnect: true }),
-      rainbowWallet({ chains }),
-      ledgerWallet({ chains }),
+      rainbowWallet({ chains, projectId: WC_PROJECT_ID }),
+      ledgerWallet({ chains, projectId: WC_PROJECT_ID }),
       coinbaseWallet({ appName: LENSTUBE_APP_NAME, chains }),
-      walletConnectWallet({ chains })
+      walletConnectWallet({ chains, projectId: WC_PROJECT_ID })
     ]
   }
 ])
 
-const wagmiClient = createClient({
+const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
-  provider
+  publicClient
 })
 
 // Enables usage of theme in RainbowKitProvider
@@ -92,10 +95,10 @@ const Providers = ({ children }: { children: ReactNode }) => {
     <I18nProvider i18n={i18n}>
       <ErrorBoundary>
         <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
-          <WagmiConfig client={wagmiClient}>
+          <WagmiConfig config={wagmiConfig}>
             <ThemeProvider defaultTheme="dark" attribute="class">
               <RainbowKitProviderWrapper>
-                <ApolloProvider client={apolloClient}>
+                <ApolloProvider client={apolloClient(authLink)}>
                   {children}
                 </ApolloProvider>
               </RainbowKitProviderWrapper>

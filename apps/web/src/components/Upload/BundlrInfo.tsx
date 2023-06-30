@@ -5,34 +5,33 @@ import RefreshOutline from '@components/Common/Icons/RefreshOutline'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
+import useEthersWalletClient from '@hooks/useEthersWalletClient'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { BUNDLR_CURRENCY, POLYGON_CHAIN_ID } from '@lenstube/constants'
+import { logger, useIsMounted } from '@lenstube/generic'
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
-import { utils } from 'ethers'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
+import { formatEther, parseEther, parseUnits } from 'viem'
 import {
-  Analytics,
-  BUNDLR_CONNECT_MESSAGE,
-  BUNDLR_CURRENCY,
-  POLYGON_CHAIN_ID,
-  TRACK
-} from 'utils'
-import useIsMounted from 'utils/hooks/useIsMounted'
-import logger from 'utils/logger'
-import { useAccount, useBalance, useSigner } from 'wagmi'
+  useAccount,
+  useBalance,
+  usePrepareSendTransaction,
+  useSendTransaction
+} from 'wagmi'
 
 const BundlrInfo = () => {
   const { address } = useAccount()
-  const { data: signer } = useSigner({
-    onError: (error: CustomErrorWithData) => {
-      toast.error(error?.data?.message ?? error?.message)
-    }
-  })
+  const { data: signer } = useEthersWalletClient()
+
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)
   const bundlrData = useAppStore((state) => state.bundlrData)
   const setBundlrData = useAppStore((state) => state.setBundlrData)
+
+  const { sendTransactionAsync } = useSendTransaction()
+  const { config } = usePrepareSendTransaction()
 
   const { mounted } = useIsMounted()
   const { data: userBalance } = useBalance({
@@ -58,8 +57,8 @@ const BundlrInfo = () => {
         const balance = await instance.getBalance(address)
         const price = await estimatePrice(instance)
         setBundlrData({
-          balance: utils.formatEther(balance.toString()),
-          estimatedPrice: utils.formatEther(price.toString())
+          balance: formatEther(BigInt(balance.toString())),
+          estimatedPrice: formatEther(BigInt(price.toString()))
         })
       }
     } catch (error) {
@@ -68,8 +67,7 @@ const BundlrInfo = () => {
   }
 
   const initBundlr = async () => {
-    if (signer?.provider && address && !bundlrData.instance) {
-      toast.loading(BUNDLR_CONNECT_MESSAGE)
+    if (signer && address && !bundlrData.instance) {
       const bundlr = await getBundlrInstance(signer)
       if (bundlr) {
         setBundlrData({ instance: bundlr })
@@ -79,11 +77,11 @@ const BundlrInfo = () => {
   }
 
   useEffect(() => {
-    if (signer?.provider && mounted) {
+    if (signer && mounted) {
       initBundlr().catch((error) => logger.error('[Error Init Bundlr]', error))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signer?.provider, mounted])
+  }, [signer, mounted])
 
   useEffect(() => {
     if (bundlrData.instance && mounted) {
@@ -100,7 +98,7 @@ const BundlrInfo = () => {
       return toast.error(t`Enter deposit amount`)
     }
     const depositAmount = parseFloat(bundlrData.deposit)
-    const value = utils.parseUnits(depositAmount.toString())._hex
+    const value = parseUnits(depositAmount.toString() as `${number}`, 9)
     if (!value || Number(value) < 1) {
       return toast.error(t`Invalid deposit amount`)
     }
@@ -113,12 +111,33 @@ const BundlrInfo = () => {
       )
     }
     setBundlrData({ depositing: true })
+
+    // TEMP:START: override bundlr functions for viem
+    bundlrData.instance.currencyConfig.getFee = async (): Promise<any> => {
+      return 0
+    }
+    bundlrData.instance.currencyConfig.sendTx = async (
+      data
+    ): Promise<string> => {
+      const { hash } = await sendTransactionAsync(data)
+      return hash
+    }
+    bundlrData.instance.currencyConfig.createTx = async (
+      amount: `${number}`,
+      to: `0x${string}`
+    ): Promise<{ txId: string | undefined; tx: any }> => {
+      config.to = to
+      config.value = parseEther(amount.toString() as `${number}`, 'gwei')
+      return { txId: undefined, tx: config }
+    }
+    // TEMP:END: override bundlr functions for viem
+
     try {
-      const fundResult = await bundlrData.instance.fund(value)
+      const fundResult = await bundlrData.instance.fund(value.toString())
       if (fundResult) {
         toast.success(
-          `Deposit of ${utils.formatEther(
-            fundResult?.quantity
+          `Deposit of ${formatEther(
+            BigInt(fundResult?.quantity)
           )} is done and it will be reflected in few seconds.`
         )
         Analytics.track(TRACK.DEPOSIT_MATIC)
@@ -183,7 +202,11 @@ const BundlrInfo = () => {
           </span>
         </div>
         <div className="flex justify-between">
-          <span className="text-lg font-medium">{bundlrData.balance}</span>
+          {bundlrData.balance !== '0' ? (
+            <span className="text-lg font-medium">{bundlrData.balance}</span>
+          ) : (
+            <span className="mt-[6px] h-[22px] w-1/2 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
+          )}
         </div>
       </div>
       {bundlrData.showDeposit && (
@@ -218,7 +241,15 @@ const BundlrInfo = () => {
         <span className="inline-flex flex-col text-sm font-medium opacity-80">
           <Trans>Estimated Cost to Upload</Trans>
         </span>
-        <div className="text-lg font-medium">{bundlrData.estimatedPrice}</div>
+        <div className="flex justify-between">
+          {bundlrData.estimatedPrice !== '0' ? (
+            <div className="text-lg font-medium">
+              {bundlrData.estimatedPrice}
+            </div>
+          ) : (
+            <span className="mt-[6px] h-[22px] w-1/2 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
+          )}
+        </div>
       </div>
     </div>
   )

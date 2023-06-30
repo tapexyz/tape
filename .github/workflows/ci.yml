@@ -30,8 +30,8 @@ jobs:
           run: npx playwright install --with-deps
 
         - name: Check Lint 💅🏻
-          run: yarn lint
- 
+          run: yarn lint && yarn typecheck
+
         - name: Run Build 🔨
           run: yarn build
  

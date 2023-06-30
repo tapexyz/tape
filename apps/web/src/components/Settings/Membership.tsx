@@ -5,33 +5,31 @@ import { Input } from '@components/UIElements/Input'
 import { Loader } from '@components/UIElements/Loader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { utils } from 'ethers'
-import type {
-  CreateSetFollowModuleBroadcastItemResult,
-  Erc20,
-  FeeFollowModuleSettings,
-  Profile
-} from 'lens'
-import {
-  useBroadcastMutation,
-  useCreateSetFollowModuleTypedDataMutation,
-  useEnabledModuleCurrrenciesQuery,
-  useProfileFollowModuleQuery
-} from 'lens'
-import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   WMATIC_TOKEN_ADDRESS
-} from 'utils'
-import omitKey from 'utils/functions/omitKey'
-import { shortenAddress } from 'utils/functions/shortenAddress'
+} from '@lenstube/constants'
+import { getSignature, shortenAddress } from '@lenstube/generic'
+import type {
+  CreateSetFollowModuleBroadcastItemResult,
+  Erc20,
+  FeeFollowModuleSettings,
+  Profile
+} from '@lenstube/lens'
+import {
+  useBroadcastMutation,
+  useCreateSetFollowModuleTypedDataMutation,
+  useEnabledModuleCurrrenciesQuery,
+  useProfileFollowModuleQuery
+} from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
 
@@ -103,11 +101,10 @@ const Membership = ({ channel }: Props) => {
     onError
   })
 
-  const { data: writtenData, write: writeFollow } = useContractWrite({
+  const { data: writtenData, write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'setFollowModuleWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'setFollowModule',
     onError
   })
 
@@ -134,28 +131,19 @@ const Membership = ({ channel }: Props) => {
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
         const { typedData, id } =
           createSetFollowModuleTypedData as CreateSetFollowModuleBroadcastItemResult
-        const { profileId, followModule, followModuleInitData } =
-          typedData?.value
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-          const signature = await signTypedDataAsync({
-            domain: omitKey(typedData?.domain, '__typename'),
-            types: omitKey(typedData?.types, '__typename'),
-            value: omitKey(typedData?.value, '__typename')
-          })
-          const { v, r, s } = utils.splitSignature(signature)
-          const args = {
-            profileId,
-            followModule,
-            followModuleInitData,
-            sig: { v, r, s, deadline: typedData.value.deadline }
-          }
+          const signature = await signTypedDataAsync(getSignature(typedData))
           setUserSigNonce(userSigNonce + 1)
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
           if (data?.broadcast?.__typename === 'RelayError') {
-            writeFollow?.({ recklesslySetUnpreparedArgs: [args] })
+            const { profileId, followModule, followModuleInitData } =
+              typedData.value
+            return write?.({
+              args: [profileId, followModule, followModuleInitData]
+            })
           }
         } catch {
           setLoading(false)

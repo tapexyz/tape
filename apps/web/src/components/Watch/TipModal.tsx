@@ -6,18 +6,22 @@ import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
-import { t, Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { BigNumber, utils } from 'ethers'
+import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_WEBSITE_URL,
+  REQUESTING_SIGNATURE_MESSAGE,
+  STATIC_ASSETS
+} from '@lenstube/constants'
+import { getSignature, imageCdn, logger, uploadToAr } from '@lenstube/generic'
 import type {
   CreateCommentBroadcastItemResult,
   CreateDataAvailabilityCommentRequest,
   CreatePublicCommentRequest,
   Publication
-} from 'lens'
+} from '@lenstube/lens'
 import {
   PublicationDetailsDocument,
   PublicationMainFocus,
@@ -29,28 +33,19 @@ import {
   useCreateDataAvailabilityCommentTypedDataMutation,
   useCreateDataAvailabilityCommentViaDispatcherMutation,
   usePublicationDetailsLazyQuery
-} from 'lens'
+} from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
-import {
-  Analytics,
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_WEBSITE_URL,
-  REQUESTING_SIGNATURE_MESSAGE,
-  STATIC_ASSETS,
-  TRACK
-} from 'utils'
-import getUserLocale from 'utils/functions/getUserLocale'
-import imageCdn from 'utils/functions/imageCdn'
-import omitKey from 'utils/functions/omitKey'
-import uploadToAr from 'utils/functions/uploadToAr'
-import logger from 'utils/logger'
 import { v4 as uuidv4 } from 'uuid'
+import { parseEther } from 'viem'
 import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
 import { z } from 'zod'
 
@@ -107,9 +102,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   }
 
   const { sendTransactionAsync } = useSendTransaction({
-    request: {},
-    onError,
-    mode: 'recklesslyUnprepared'
+    onError
   })
   const { signTypedDataAsync } = useSignTypedData({
     onError
@@ -167,11 +160,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     setShowTip(false)
   }
 
-  const { write: writeComment } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'commentWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'comment',
     onError,
     onSuccess: (data) => {
       setToQueue({ txnHash: data.hash })
@@ -203,51 +195,23 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   ) => {
     const { typedData } = data
     toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-    const signature = await signTypedDataAsync({
-      domain: omitKey(typedData?.domain, '__typename'),
-      types: omitKey(typedData?.types, '__typename'),
-      value: omitKey(typedData?.value, '__typename')
-    })
+    const signature = await signTypedDataAsync(getSignature(typedData))
     return signature
   }
 
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
     onCompleted: async ({ createCommentTypedData }) => {
       const { typedData, id } = createCommentTypedData
-      const {
-        profileId,
-        profileIdPointed,
-        pubIdPointed,
-        contentURI,
-        collectModule,
-        collectModuleInitData,
-        referenceModule,
-        referenceModuleData,
-        referenceModuleInitData
-      } = typedData?.value
       try {
         const signature = await getSignatureFromTypedData(
           createCommentTypedData
         )
-        const { v, r, s } = utils.splitSignature(signature)
-        const args = {
-          profileId,
-          profileIdPointed,
-          pubIdPointed,
-          contentURI,
-          collectModule,
-          collectModuleInitData,
-          referenceModule,
-          referenceModuleData,
-          referenceModuleInitData,
-          sig: { v, r, s, deadline: typedData.value.deadline }
-        }
         setUserSigNonce(userSigNonce + 1)
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          writeComment?.({ recklesslySetUnpreparedArgs: [args] })
+          write?.({ args: [typedData.value] })
         }
       } catch {
         setLoading(false)
@@ -431,10 +395,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     const amountToSend = Number(getValues('tipQuantity')) * 1
     try {
       const data = await sendTransactionAsync?.({
-        recklesslySetUnpreparedRequest: {
-          to: video.profile?.ownedBy,
-          value: BigNumber.from(utils.parseEther(amountToSend.toString()))
-        }
+        to: video.profile?.ownedBy,
+        value: BigInt(parseEther(amountToSend.toString() as `${number}`))
       })
       if (data?.hash) {
         await submitComment(data.hash)

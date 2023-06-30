@@ -1,12 +1,12 @@
+import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import { getProfilePicture } from '@lenstube/generic'
+import type { Profile } from '@lenstube/lens'
+import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@lenstube/lens'
 import clsx from 'clsx'
-import type { Profile } from 'lens'
-import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens'
 import type { ComponentProps, FC } from 'react'
 import React, { useId } from 'react'
 import type { SuggestionDataItem } from 'react-mentions'
 import { Mention, MentionsInput } from 'react-mentions'
-import { LENS_CUSTOM_FILTERS } from 'utils'
-import getProfilePicture from 'utils/functions/getProfilePicture'
 
 import ChannelSuggestions from './ChannelSuggestions'
 

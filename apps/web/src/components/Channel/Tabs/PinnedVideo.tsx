@@ -1,22 +1,23 @@
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
+import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
+import {
+  getIsSensitiveContent,
+  getPublicationHlsUrl,
+  getPublicationRawMediaUrl,
+  getRelativeTime,
+  getThumbnailUrl,
+  imageCdn,
+  isWatchable,
+  sanitizeDStorageUrl
+} from '@lenstube/generic'
+import type { Publication } from '@lenstube/lens'
+import { usePublicationDetailsQuery } from '@lenstube/lens'
+import VideoPlayer from '@lenstube/ui/VideoPlayer'
+import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
-import type { Publication } from 'lens'
-import { usePublicationDetailsQuery } from 'lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-import { LENSTUBE_BYTES_APP_ID } from 'utils'
-import { getRelativeTime } from 'utils/functions/formatTime'
-import { getIsSensitiveContent } from 'utils/functions/getIsSensitiveContent'
-import {
-  getPublicationHlsUrl,
-  getPublicationRawMediaUrl
-} from 'utils/functions/getPublicationMediaUrl'
-import getThumbnailUrl from 'utils/functions/getThumbnailUrl'
-import imageCdn from 'utils/functions/imageCdn'
-import isWatchable from 'utils/functions/isWatchable'
-import sanitizeDStorageUrl from 'utils/functions/sanitizeDStorageUrl'
-import VideoPlayer from 'web-ui/VideoPlayer'
 
 type Props = {
   id: string
@@ -29,6 +30,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     },
     skip: !id
   })
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const publication = data?.publication as Publication
   const pinnedPublication =
@@ -56,6 +58,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     <div className="mb-6 mt-2 grid grid-cols-3 overflow-hidden border-b border-gray-300 pb-6 dark:border-gray-700 md:space-x-5">
       <div className="overflow-hidden md:rounded-xl">
         <VideoPlayer
+          address={selectedChannel?.ownedBy}
           permanentUrl={getPublicationRawMediaUrl(pinnedPublication)}
           hlsUrl={getPublicationHlsUrl(pinnedPublication)}
           posterUrl={thumbnailUrl}

@@ -54,21 +54,23 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 ### Apps
 
-| Name    | Description                         |
-| ------- | ----------------------------------- |
-| `web`   | NextJs Lenstube website             |
-| `embed` | NextJs application for video embeds |
-| `api`   | NextJs serverless functions         |
+| Name     | Description                         |
+| -------- | ----------------------------------- |
+| `web`    | NextJs Lenstube website             |
+| `mobile` | React Native Lenstube mobile app    |
+| `embed`  | NextJs application for video embeds |
+| `api`    | NextJs serverless functions         |
 
 ### Packages
 
-| Name      | Description                     |
-| --------- | ------------------------------- |
-| `web-ui`  | Web components                  |
-| `embed`   | Shared tsconfig                 |
-| `utils`   | Collection of utils and helpers |
-| `lens`    | Everything about Lens Backend   |
-| `workers` | Cloudflare Workers              |
+| Name        | Description                               |
+| ----------- | ----------------------------------------- |
+| `lens`      | Everything about Lens Backend             |
+| `helpers`   | Collection of browser and generic helpers |
+| `ui`        | UI components                             |
+| `workers`   | Cloudflare Workers                        |
+| `constants` | Constants for the entire application      |
+| `config`    | Shared lint config                        |
 
 ## Getting Started
 
@@ -96,4 +98,4 @@ We love contributors! Feel free to contribute to this project but please read th
 
 ## 📜 License
 
-Lenstube is open-sourced software licensed under the [GPLv3](LICENSE).
+Lenstube is open-sourced software licensed under the [AGPLv3](LICENSE).

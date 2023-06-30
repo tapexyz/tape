@@ -1,28 +1,28 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
 import usePendingTxn from '@hooks/usePendingTxn'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { utils } from 'ethers'
-import type { CreateSetDispatcherBroadcastItemResult, Profile } from 'lens'
+import { Analytics, TRACK } from '@lenstube/browser'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  OLD_LENS_RELAYER_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE
+} from '@lenstube/constants'
+import { getIsDispatcherEnabled, getSignature } from '@lenstube/generic'
+import type {
+  CreateSetDispatcherBroadcastItemResult,
+  Profile
+} from '@lenstube/lens'
 import {
   useBroadcastMutation,
   useCreateSetDispatcherTypedDataMutation,
   useProfileLazyQuery
-} from 'lens'
+} from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
-import {
-  Analytics,
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  OLD_LENS_RELAYER_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
-} from 'utils'
-import getIsDispatcherEnabled from 'utils/functions/getIsDispatcherEnabled'
-import omitKey from 'utils/functions/omitKey'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Toggle = () => {
@@ -47,11 +47,10 @@ const Toggle = () => {
     onError
   })
 
-  const { write: writeDispatch, data: writeData } = useContractWrite({
+  const { write, data: writeData } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'setDispatcherWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'setDispatcher',
     onError
   })
 
@@ -93,27 +92,18 @@ const Toggle = () => {
     onCompleted: async ({ createSetDispatcherTypedData }) => {
       const { id, typedData } =
         createSetDispatcherTypedData as CreateSetDispatcherBroadcastItemResult
-      const { deadline } = typedData?.value
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync({
-          domain: omitKey(typedData?.domain, '__typename'),
-          types: omitKey(typedData?.types, '__typename'),
-          value: omitKey(typedData?.value, '__typename')
-        })
-        const { profileId, dispatcher } = typedData?.value
-        const { v, r, s } = utils.splitSignature(signature)
-        const args = {
-          profileId,
-          dispatcher,
-          sig: { v, r, s, deadline }
-        }
+        const signature = await signTypedDataAsync(getSignature(typedData))
         setUserSigNonce(userSigNonce + 1)
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
         if (data?.broadcast?.__typename === 'RelayError') {
-          writeDispatch?.({ recklesslySetUnpreparedArgs: [args] })
+          const { profileId, dispatcher } = typedData.value
+          return write?.({
+            args: [profileId, dispatcher]
+          })
         }
       } catch {
         setLoading(false)

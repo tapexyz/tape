@@ -1,4 +1,4 @@
-import { useHasTxHashBeenIndexedQuery } from 'lens'
+import { useHasTxHashBeenIndexedQuery } from '@lenstube/lens'
 import { useCallback, useEffect } from 'react'
 import toast from 'react-hot-toast'
 

@@ -1,8 +1,12 @@
+import {
+  LENSTUBE_APP_NAME,
+  LENSTUBE_WEBSITE_URL,
+  OG_IMAGE
+} from '@lenstube/constants'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React from 'react'
-import { LENSTUBE_APP_NAME, LENSTUBE_WEBSITE_URL, OG_IMAGE } from 'utils'
 
 type Props = {
   title?: string

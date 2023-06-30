@@ -3,16 +3,25 @@ import { useApolloClient } from '@apollo/client'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
-import clsx from 'clsx'
-import { utils } from 'ethers'
+import { Analytics, TRACK } from '@lenstube/browser'
+import {
+  ERROR_MESSAGE,
+  LENS_PERIPHERY_ADDRESS,
+  LENSTUBE_APP_ID,
+  REQUESTING_SIGNATURE_MESSAGE
+} from '@lenstube/constants'
+import {
+  getChannelCoverPicture,
+  getPublicationMediaUrl,
+  getSignature,
+  getValueFromKeyInAttributes,
+  uploadToAr
+} from '@lenstube/generic'
 import type {
+  Attribute,
   CreatePublicSetProfileMetadataUriRequest,
   Publication
-} from 'lens'
+} from '@lenstube/lens'
 import {
   PublicationMetadataDisplayTypes,
   useAddPublicationNotInterestedMutation,
@@ -21,24 +30,16 @@ import {
   useCreateSetProfileMetadataViaDispatcherMutation,
   useHidePublicationMutation,
   useRemovePublicationNotInterestedMutation
-} from 'lens'
+} from '@lenstube/lens'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import type { CustomErrorWithData } from 'utils'
-import {
-  Analytics,
-  ERROR_MESSAGE,
-  LENS_PERIPHERY_ADDRESS,
-  LENSTUBE_APP_ID,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TRACK
-} from 'utils'
-import getChannelCoverPicture from 'utils/functions/getChannelCoverPicture'
-import { getValueFromKeyInAttributes } from 'utils/functions/getFromAttributes'
-import { getPublicationMediaUrl } from 'utils/functions/getPublicationMediaUrl'
-import omitKey from 'utils/functions/omitKey'
-import uploadToAr from 'utils/functions/uploadToAr'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -104,7 +105,7 @@ const VideoOptions: FC<Props> = ({
   }
 
   const otherAttributes =
-    selectedChannel?.attributes
+    (selectedChannel?.attributes as Attribute[])
       ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
       .map(({ traitType, key, value, displayType }) => ({
         traitType,
@@ -126,11 +127,10 @@ const VideoOptions: FC<Props> = ({
     onError
   })
 
-  const { write: writeMetaData } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENS_PERIPHERY_ADDRESS,
     abi: LENS_PERIPHERY_ABI,
-    functionName: 'setProfileMetadataURIWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'setProfileMetadataURI',
     onError,
     onSuccess: onCompleted
   })
@@ -152,24 +152,13 @@ const VideoOptions: FC<Props> = ({
         const { typedData, id } = data.createSetProfileMetadataTypedData
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-          const signature = await signTypedDataAsync({
-            domain: omitKey(typedData?.domain, '__typename'),
-            types: omitKey(typedData?.types, '__typename'),
-            value: omitKey(typedData?.value, '__typename')
-          })
-          const { profileId, metadata } = typedData?.value
-          const { v, r, s } = utils.splitSignature(signature)
-          const args = {
-            user: selectedChannel?.ownedBy,
-            profileId,
-            metadata,
-            sig: { v, r, s, deadline: typedData.value.deadline }
-          }
+          const signature = await signTypedDataAsync(getSignature(typedData))
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
           if (data?.broadcast?.__typename === 'RelayError') {
-            writeMetaData?.({ recklesslySetUnpreparedArgs: [args] })
+            const { profileId, metadata } = typedData.value
+            return write?.({ args: [profileId, metadata] })
           }
         } catch {}
       },
