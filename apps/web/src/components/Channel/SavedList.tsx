@@ -1,3 +1,4 @@
+import MetaTags from '@components/Common/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
@@ -65,6 +66,7 @@ const SavedList: FC<Props> = () => {
 
   return (
     <>
+      <MetaTags title="Saved Videos" />
       <h1 className="mb-6 font-semibold md:text-2xl">Saved Videos</h1>
       {!error && !loading && (
         <>
