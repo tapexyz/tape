@@ -1365,8 +1365,8 @@ msgid "Video format not supported"
 msgstr "视频格式不被支持"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:242
-msgid "Video marked as interested"
-msgstr ""
+#~ msgid "Video marked as interested"
+#~ msgstr ""
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:241
 msgid "Video marked as not interested"
@@ -1375,6 +1375,10 @@ msgstr ""
 #: src/components/Upload/UploadSteps.tsx:457
 msgid "Video not uploaded correctly"
 msgstr "视频上传不正确"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:242
+msgid "Video removed from not interested"
+msgstr ""
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:253
 msgid "Video removed from your list"

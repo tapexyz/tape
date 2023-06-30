@@ -239,7 +239,7 @@ const VideoOptions: FC<Props> = ({
     toast.success(
       notInterested
         ? t`Video marked as not interested`
-        : t`Video marked as interested`
+        : t`Video removed from not interested`
     )
     Analytics.track(TRACK.PUBLICATION.TOGGLE_INTEREST)
   }
