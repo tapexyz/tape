@@ -13,10 +13,6 @@ const cache = new InMemoryCache({
           'request',
           ['sortCriteria', 'noRandomize', 'profileId', 'sources', 'metadata']
         ]),
-        publicationsProfileBookmarks: cursorBasedPagination([
-          'request',
-          ['sortCriteria', 'noRandomize', 'profileId', 'sources', 'metadata']
-        ]),
         publications: cursorBasedPagination([
           'request',
           [
