@@ -20,6 +20,7 @@ fragment PostFields on Post {
   onChainContentURI
   isGated
   notInterested(by: $channelId)
+  bookmarked(by: $channelId)
   isDataAvailability
   dataAvailabilityProofs
   hidden

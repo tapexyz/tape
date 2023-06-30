@@ -1,7 +1,7 @@
 import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
 import { useApolloClient } from '@apollo/client'
 import Confirm from '@components/UIElements/Confirm'
-import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
+import DropMenu from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
@@ -12,7 +12,6 @@ import {
 } from '@lenstube/constants'
 import {
   getChannelCoverPicture,
-  getPublicationMediaUrl,
   getSignature,
   getValueFromKeyInAttributes,
   uploadToAr
@@ -25,10 +24,12 @@ import type {
 import {
   PublicationMetadataDisplayTypes,
   useAddPublicationNotInterestedMutation,
+  useAddPublicationToBookmarkMutation,
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation,
   useHidePublicationMutation,
+  useRemovePublicationFromBookmarkMutation,
   useRemovePublicationNotInterestedMutation
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
@@ -37,16 +38,17 @@ import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
-import ExternalOutline from '../Icons/ExternalOutline'
 import FlagOutline from '../Icons/FlagOutline'
 import ForbiddenOutline from '../Icons/ForbiddenOutline'
 import PinOutline from '../Icons/PinOutline'
+import SaveToListOutline from '../Icons/SaveToListOutline'
 import ShareOutline from '../Icons/ShareOutline'
 import ThreeDotsOutline from '../Icons/ThreeDotsOutline'
 import TrashOutline from '../Icons/TrashOutline'
@@ -68,6 +70,7 @@ const VideoOptions: FC<Props> = ({
   const [showConfirm, setShowConfirm] = useState(false)
 
   const { cache } = useApolloClient()
+  const { pathname } = useRouter()
 
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const selectedChannelId = useAuthPersistStore(
@@ -241,6 +244,17 @@ const VideoOptions: FC<Props> = ({
     Analytics.track(TRACK.PUBLICATION.TOGGLE_INTEREST)
   }
 
+  const modifyListCache = (saved: boolean) => {
+    cache.modify({
+      id: `Post:${video?.id}`,
+      fields: { bookmarked: () => saved }
+    })
+    toast.success(
+      saved ? t`Video added to your list` : t`Video removed from your list`
+    )
+    Analytics.track(TRACK.PUBLICATION.TOGGLE_INTEREST)
+  }
+
   const [addNotInterested] = useAddPublicationNotInterestedMutation({
     onError,
     onCompleted: () => modifyInterestCache(true)
@@ -249,6 +263,16 @@ const VideoOptions: FC<Props> = ({
   const [removeNotInterested] = useRemovePublicationNotInterestedMutation({
     onError,
     onCompleted: () => modifyInterestCache(false)
+  })
+
+  const [saveVideoToList] = useAddPublicationToBookmarkMutation({
+    onError,
+    onCompleted: () => modifyListCache(true)
+  })
+
+  const [removeVideoFromList] = useRemovePublicationFromBookmarkMutation({
+    onError,
+    onCompleted: () => modifyListCache(false)
   })
 
   const notInterested = () => {
@@ -263,6 +287,25 @@ const VideoOptions: FC<Props> = ({
       })
     } else {
       addNotInterested({
+        variables: {
+          request: { profileId: selectedChannelId, publicationId: video.id }
+        }
+      })
+    }
+  }
+
+  const saveToList = () => {
+    if (!selectedChannelId) {
+      return openConnectModal?.()
+    }
+    if (video.bookmarked) {
+      removeVideoFromList({
+        variables: {
+          request: { profileId: selectedChannelId, publicationId: video.id }
+        }
+      })
+    } else {
+      saveVideoToList({
         variables: {
           request: { profileId: selectedChannelId, publicationId: video.id }
         }
@@ -307,18 +350,6 @@ const VideoOptions: FC<Props> = ({
                   </Menu.Item>
                 )}
                 <Menu.Item
-                  as={NextLink}
-                  href={getPublicationMediaUrl(video)}
-                  target="_blank"
-                >
-                  <div className="flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800">
-                    <ExternalOutline className="h-3 w-3" />
-                    <span className="whitespace-nowrap">
-                      <Trans>Raw Video</Trans>
-                    </span>
-                  </div>
-                </Menu.Item>
-                <Menu.Item
                   as="button"
                   className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 text-red-500 opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
                   onClick={() => setShowConfirm(true)}
@@ -330,8 +361,8 @@ const VideoOptions: FC<Props> = ({
                 </Menu.Item>
               </>
             )}
-            <button
-              type="button"
+            <Menu.Item
+              as="button"
               onClick={() => setShowShare(true)}
               className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
             >
@@ -339,12 +370,12 @@ const VideoOptions: FC<Props> = ({
               <span className="whitespace-nowrap">
                 <Trans>Share</Trans>
               </span>
-            </button>
+            </Menu.Item>
 
             {!isVideoOwner && (
               <>
-                <button
-                  type="button"
+                <Menu.Item
+                  as="button"
                   onClick={() => onClickReport()}
                   className="hhover:opacity-100 inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
@@ -352,9 +383,23 @@ const VideoOptions: FC<Props> = ({
                   <span className="whitespace-nowrap">
                     <Trans>Report</Trans>
                   </span>
-                </button>
-                <button
-                  type="button"
+                </Menu.Item>
+                <Menu.Item
+                  as="button"
+                  onClick={() => saveToList()}
+                  className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <SaveToListOutline className="h-3.5 w-3.5 flex-none" />
+                  <span className="truncate whitespace-nowrap">
+                    {video.bookmarked ? (
+                      <Trans>Remove from List</Trans>
+                    ) : (
+                      <Trans>Save to List</Trans>
+                    )}
+                  </span>
+                </Menu.Item>
+                <Menu.Item
+                  as="button"
                   onClick={() => notInterested()}
                   className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
@@ -366,7 +411,7 @@ const VideoOptions: FC<Props> = ({
                       <Trans>Not Interested</Trans>
                     )}
                   </span>
-                </button>
+                </Menu.Item>
               </>
             )}
           </div>

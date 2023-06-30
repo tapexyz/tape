@@ -20,6 +20,7 @@ fragment CommentFields on Comment {
   onChainContentURI
   hidden
   notInterested(by: $channelId)
+  bookmarked(by: $channelId)
   isGated
   isDataAvailability
   hasCollectedByMe

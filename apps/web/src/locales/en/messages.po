@@ -324,7 +324,7 @@ msgstr "Danger Zone"
 msgid "degrees away from my network"
 msgstr "degrees away from my network"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:328
+#: src/components/Common/VideoCard/VideoOptions.tsx:357
 #: src/components/Watch/Comments/CommentOptions.tsx:69
 msgid "Delete"
 msgstr "Delete"
@@ -740,7 +740,7 @@ msgstr ""
 msgid "Not enough"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:366
+#: src/components/Common/VideoCard/VideoOptions.tsx:409
 msgid "Not Interested"
 msgstr ""
 
@@ -808,11 +808,11 @@ msgstr ""
 msgid "Permissions"
 msgstr "Permissions"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:305
+#: src/components/Common/VideoCard/VideoOptions.tsx:346
 msgid "Pin Video"
 msgstr "Pin Video"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:194
+#: src/components/Common/VideoCard/VideoOptions.tsx:195
 msgid "Pinning video..."
 msgstr "Pinning video..."
 
@@ -871,8 +871,8 @@ msgid "Publication reported successfully."
 msgstr "Publication reported successfully."
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:317
-msgid "Raw Video"
-msgstr "Raw Video"
+#~ msgid "Raw Video"
+#~ msgstr "Raw Video"
 
 #: src/components/ReportPublication/index.tsx:88
 msgid "Reason"
@@ -900,6 +900,10 @@ msgstr "Referral Percentage"
 msgid "Relevant"
 msgstr "Relevant"
 
+#: src/components/Common/VideoCard/VideoOptions.tsx:393
+msgid "Remove from List"
+msgstr ""
+
 #: src/components/ReportPublication/index.tsx:112
 msgid "Repetitive"
 msgstr ""
@@ -913,7 +917,7 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:353
+#: src/components/Common/VideoCard/VideoOptions.tsx:382
 #: src/components/ReportPublication/index.tsx:158
 #: src/components/Watch/Comments/CommentOptions.tsx:80
 #: src/components/Watch/VideoActions.tsx:69
@@ -940,6 +944,10 @@ msgstr ""
 
 #: src/components/Settings/BasicInfo.tsx:386
 msgid "Save"
+msgstr ""
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:395
+msgid "Save to List"
 msgstr ""
 
 #: src/components/ReportPublication/index.tsx:140
@@ -977,7 +985,7 @@ msgstr ""
 msgid "Set Preference"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:340
+#: src/components/Common/VideoCard/VideoOptions.tsx:369
 #: src/components/Watch/VideoActions.tsx:56
 msgid "Share"
 msgstr "Share"
@@ -1247,7 +1255,7 @@ msgstr ""
 msgid "total videos"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:122
+#: src/components/Common/VideoCard/VideoOptions.tsx:123
 msgid "Transaction submitted"
 msgstr "Transaction submitted"
 
@@ -1255,7 +1263,7 @@ msgstr "Transaction submitted"
 msgid "Trending"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:364
+#: src/components/Common/VideoCard/VideoOptions.tsx:407
 msgid "Undo Interest"
 msgstr ""
 
@@ -1336,7 +1344,11 @@ msgstr "Verified"
 msgid "video"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:89
+#: src/components/Common/VideoCard/VideoOptions.tsx:251
+msgid "Video added to your list"
+msgstr ""
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:90
 msgid "Video deleted"
 msgstr "Video deleted"
 
@@ -1344,16 +1356,20 @@ msgstr "Video deleted"
 msgid "Video format not supported"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:239
+#: src/components/Common/VideoCard/VideoOptions.tsx:240
 msgid "Video marked as interested"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:238
+#: src/components/Common/VideoCard/VideoOptions.tsx:239
 msgid "Video marked as not interested"
 msgstr ""
 
 #: src/components/Upload/UploadSteps.tsx:457
 msgid "Video not uploaded correctly"
+msgstr ""
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:251
+msgid "Video removed from your list"
 msgstr ""
 
 #: src/components/Upload/Video.tsx:45

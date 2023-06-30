@@ -20,6 +20,7 @@ fragment MirrorFields on Mirror {
   onChainContentURI
   hidden
   notInterested(by: $channelId)
+  bookmarked(by: $channelId)
   isGated
   isDataAvailability
   dataAvailabilityProofs

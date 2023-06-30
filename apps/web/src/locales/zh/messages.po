@@ -324,7 +324,7 @@ msgstr "危险区域"
 msgid "degrees away from my network"
 msgstr "远离我的网络"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:328
+#: src/components/Common/VideoCard/VideoOptions.tsx:357
 #: src/components/Watch/Comments/CommentOptions.tsx:69
 msgid "Delete"
 msgstr "删除"
@@ -740,7 +740,7 @@ msgstr "无"
 msgid "Not enough"
 msgstr "还不足"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:366
+#: src/components/Common/VideoCard/VideoOptions.tsx:409
 msgid "Not Interested"
 msgstr ""
 
@@ -808,11 +808,11 @@ msgstr "权限已更新"
 msgid "Permissions"
 msgstr "权限"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:305
+#: src/components/Common/VideoCard/VideoOptions.tsx:346
 msgid "Pin Video"
 msgstr "置顶视频"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:194
+#: src/components/Common/VideoCard/VideoOptions.tsx:195
 msgid "Pinning video..."
 msgstr "正在固定视频..."
 
@@ -871,8 +871,8 @@ msgid "Publication reported successfully."
 msgstr "发布报告成功"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:317
-msgid "Raw Video"
-msgstr "原始视频"
+#~ msgid "Raw Video"
+#~ msgstr "原始视频"
 
 #: src/components/ReportPublication/index.tsx:88
 msgid "Reason"
@@ -900,6 +900,10 @@ msgstr "推荐百分比"
 msgid "Relevant"
 msgstr "关联的"
 
+#: src/components/Common/VideoCard/VideoOptions.tsx:393
+msgid "Remove from List"
+msgstr ""
+
 #: src/components/ReportPublication/index.tsx:112
 msgid "Repetitive"
 msgstr "重复的"
@@ -913,7 +917,7 @@ msgstr "回复"
 msgid "Reply"
 msgstr "答复"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:353
+#: src/components/Common/VideoCard/VideoOptions.tsx:382
 #: src/components/ReportPublication/index.tsx:158
 #: src/components/Watch/Comments/CommentOptions.tsx:80
 #: src/components/Watch/VideoActions.tsx:69
@@ -941,6 +945,10 @@ msgstr "Revoke"
 #: src/components/Settings/BasicInfo.tsx:386
 msgid "Save"
 msgstr "保存"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:395
+msgid "Save to List"
+msgstr ""
 
 #: src/components/ReportPublication/index.tsx:140
 msgid "Scam"
@@ -977,7 +985,7 @@ msgstr "设置收藏类型"
 msgid "Set Preference"
 msgstr "设置首选项"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:340
+#: src/components/Common/VideoCard/VideoOptions.tsx:369
 #: src/components/Watch/VideoActions.tsx:56
 msgid "Share"
 msgstr "分享"
@@ -1247,7 +1255,7 @@ msgstr "订阅总数"
 msgid "total videos"
 msgstr "全部视频"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:122
+#: src/components/Common/VideoCard/VideoOptions.tsx:123
 msgid "Transaction submitted"
 msgstr "交易已提交"
 
@@ -1255,7 +1263,7 @@ msgstr "交易已提交"
 msgid "Trending"
 msgstr "热门主题"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:364
+#: src/components/Common/VideoCard/VideoOptions.tsx:407
 msgid "Undo Interest"
 msgstr ""
 
@@ -1336,7 +1344,11 @@ msgstr "已验证"
 msgid "video"
 msgstr "视频"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:89
+#: src/components/Common/VideoCard/VideoOptions.tsx:251
+msgid "Video added to your list"
+msgstr ""
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:90
 msgid "Video deleted"
 msgstr "视频已删除"
 
@@ -1344,17 +1356,21 @@ msgstr "视频已删除"
 msgid "Video format not supported"
 msgstr "视频格式不被支持"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:239
+#: src/components/Common/VideoCard/VideoOptions.tsx:240
 msgid "Video marked as interested"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:238
+#: src/components/Common/VideoCard/VideoOptions.tsx:239
 msgid "Video marked as not interested"
 msgstr ""
 
 #: src/components/Upload/UploadSteps.tsx:457
 msgid "Video not uploaded correctly"
 msgstr "视频上传不正确"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:251
+msgid "Video removed from your list"
+msgstr ""
 
 #: src/components/Upload/Video.tsx:45
 msgid "Video source copied"
