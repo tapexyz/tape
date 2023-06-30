@@ -50,7 +50,7 @@ msgstr "Tous"
 msgid "All Notifications"
 msgstr "Toutes les notifications"
 
-#: src/components/Common/UserMenu.tsx:284
+#: src/components/Common/UserMenu.tsx:295
 msgid "All services are online"
 msgstr "Tous les services sont en ligne"
 
@@ -94,7 +94,7 @@ msgstr "Tout le monde"
 msgid "Anyone can comment and mirror"
 msgstr "N'importe qui peut commenter et faire un miroir"
 
-#: src/components/Common/UserMenu.tsx:182
+#: src/components/Common/UserMenu.tsx:183
 msgid "App Info"
 msgstr "Infos sur l'application"
 
@@ -156,7 +156,7 @@ msgstr "Description du canal"
 msgid "Channel image updated"
 msgstr "Image du canal mise à jour"
 
-#: src/components/Common/UserMenu.tsx:228
+#: src/components/Common/UserMenu.tsx:239
 #: src/components/Settings/index.tsx:58
 msgid "Channel Settings"
 msgstr "Paramètres du canal"
@@ -290,7 +290,7 @@ msgstr "Connecter"
 msgid "Connect Wallet & Sign with Lens to continue,"
 msgstr "Connectez Wallet et Signez avec les lentilles pour continuer,"
 
-#: src/components/Common/UserMenu.tsx:160
+#: src/components/Common/UserMenu.tsx:161
 msgid "Connected as"
 msgstr "Connecté en tant que"
 
@@ -304,7 +304,7 @@ msgid "Create"
 msgstr "Créer"
 
 #: src/components/Common/CreateChannel.tsx:131
-#: src/components/Common/UserMenu.tsx:218
+#: src/components/Common/UserMenu.tsx:229
 msgid "Create Channel"
 msgstr "Créer un canal"
 
@@ -324,7 +324,7 @@ msgstr "Zone de danger"
 msgid "degrees away from my network"
 msgstr "degrés d'éloignement de mon réseau"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:357
+#: src/components/Common/VideoCard/VideoOptions.tsx:359
 #: src/components/Watch/Comments/CommentOptions.tsx:69
 msgid "Delete"
 msgstr "Supprimez"
@@ -674,6 +674,10 @@ msgstr "Momoka est actuellement en bêta - pendant ce temps, certaines actions n
 msgid "More about your channel"
 msgstr "En savoir plus sur votre chaîne"
 
+#: src/components/Common/UserMenu.tsx:206
+msgid "My Saved List"
+msgstr ""
+
 #: src/components/Common/Header.tsx:141
 msgid "New video"
 msgstr "Nouvelle vidéo"
@@ -719,6 +723,10 @@ msgstr "Aucune autre chaîne trouvée"
 msgid "No results found"
 msgstr "Aucun résultat trouvé"
 
+#: src/components/Channel/SavedList.tsx:64
+msgid "No saved videos found"
+msgstr ""
+
 #: src/components/Common/SubscribersList.tsx:57
 msgid "No subscribers"
 msgstr "Aucun abonné"
@@ -740,7 +748,7 @@ msgstr "Aucun"
 msgid "Not enough"
 msgstr "Pas assez"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:409
+#: src/components/Common/VideoCard/VideoOptions.tsx:411
 msgid "Not Interested"
 msgstr ""
 
@@ -808,11 +816,11 @@ msgstr "Permission mise à jour"
 msgid "Permissions"
 msgstr "Permissions"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:346
+#: src/components/Common/VideoCard/VideoOptions.tsx:348
 msgid "Pin Video"
 msgstr "Épingler la vidéo"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:195
+#: src/components/Common/VideoCard/VideoOptions.tsx:197
 msgid "Pinning video..."
 msgstr "Épinglage de la vidéo..."
 
@@ -900,7 +908,7 @@ msgstr "Pourcentage de parrainage"
 msgid "Relevant"
 msgstr "Pertinent"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:393
+#: src/components/Common/VideoCard/VideoOptions.tsx:395
 msgid "Remove from List"
 msgstr ""
 
@@ -917,7 +925,7 @@ msgstr "Réponses"
 msgid "Reply"
 msgstr "Répondre"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:382
+#: src/components/Common/VideoCard/VideoOptions.tsx:384
 #: src/components/ReportPublication/index.tsx:158
 #: src/components/Watch/Comments/CommentOptions.tsx:80
 #: src/components/Watch/VideoActions.tsx:69
@@ -946,7 +954,7 @@ msgstr "Revoke"
 msgid "Save"
 msgstr "Enregistrer"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:395
+#: src/components/Common/VideoCard/VideoOptions.tsx:397
 msgid "Save to List"
 msgstr ""
 
@@ -985,7 +993,7 @@ msgstr "Définir le type de collecte"
 msgid "Set Preference"
 msgstr "Définir la préférence"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:369
+#: src/components/Common/VideoCard/VideoOptions.tsx:371
 #: src/components/Watch/VideoActions.tsx:56
 msgid "Share"
 msgstr "Partager"
@@ -1028,7 +1036,7 @@ msgstr "Échec de la connexion"
 msgid "Sign In Required"
 msgstr "Connexion requise"
 
-#: src/components/Common/UserMenu.tsx:262
+#: src/components/Common/UserMenu.tsx:273
 msgid "Sign out"
 msgstr "Se déconnecter"
 
@@ -1036,7 +1044,7 @@ msgstr "Se déconnecter"
 msgid "Skip the video upload (Only use this if you know what your doing!)"
 msgstr "Ignorer le téléchargement de la vidéo (n'utilisez cette option que si vous savez ce que vous faites!)"
 
-#: src/components/Common/UserMenu.tsx:285
+#: src/components/Common/UserMenu.tsx:296
 msgid "Some services are offline"
 msgstr "Certains services sont hors ligne"
 
@@ -1109,7 +1117,7 @@ msgstr "La somme de toutes les fractions doit être de 100%"
 msgid "Swap"
 msgstr "Permuter"
 
-#: src/components/Common/UserMenu.tsx:205
+#: src/components/Common/UserMenu.tsx:216
 msgid "Switch channel"
 msgstr "Changer de canal"
 
@@ -1117,11 +1125,11 @@ msgstr "Changer de canal"
 msgid "Switch network"
 msgstr "Changer de réseau"
 
-#: src/components/Common/UserMenu.tsx:248
+#: src/components/Common/UserMenu.tsx:259
 msgid "Switch to Dark"
 msgstr "Basculer vers Sombre"
 
-#: src/components/Common/UserMenu.tsx:248
+#: src/components/Common/UserMenu.tsx:259
 msgid "Switch to Light"
 msgstr "Basculer vers la lumière"
 
@@ -1255,7 +1263,7 @@ msgstr "nombre total d'abonnements"
 msgid "total videos"
 msgstr "total des vidéos"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:123
+#: src/components/Common/VideoCard/VideoOptions.tsx:125
 msgid "Transaction submitted"
 msgstr "Transaction soumise"
 
@@ -1263,7 +1271,7 @@ msgstr "Transaction soumise"
 msgid "Trending"
 msgstr "Tendance"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:407
+#: src/components/Common/VideoCard/VideoOptions.tsx:409
 msgid "Undo Interest"
 msgstr ""
 
@@ -1344,11 +1352,11 @@ msgstr "Vérifié"
 msgid "video"
 msgstr "Vidéo"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:251
+#: src/components/Common/VideoCard/VideoOptions.tsx:253
 msgid "Video added to your list"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:90
+#: src/components/Common/VideoCard/VideoOptions.tsx:92
 msgid "Video deleted"
 msgstr "Vidéo supprimée"
 
@@ -1356,11 +1364,11 @@ msgstr "Vidéo supprimée"
 msgid "Video format not supported"
 msgstr "Format vidéo non pris en charge"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:240
+#: src/components/Common/VideoCard/VideoOptions.tsx:242
 msgid "Video marked as interested"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:239
+#: src/components/Common/VideoCard/VideoOptions.tsx:241
 msgid "Video marked as not interested"
 msgstr ""
 
@@ -1368,7 +1376,7 @@ msgstr ""
 msgid "Video not uploaded correctly"
 msgstr "La vidéo n'est pas correctement téléchargée"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:251
+#: src/components/Common/VideoCard/VideoOptions.tsx:253
 msgid "Video removed from your list"
 msgstr ""
 
@@ -1490,7 +1498,7 @@ msgstr "Votre adresse ne semble pas avoir le gestionnaire de lentille."
 msgid "your channel"
 msgstr "votre chaîne"
 
-#: src/components/Common/UserMenu.tsx:195
+#: src/components/Common/UserMenu.tsx:196
 msgid "Your Channel"
 msgstr "Votre Chaîne"
 

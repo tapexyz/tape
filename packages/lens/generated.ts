@@ -75,10 +75,6 @@ export type Scalars = {
   UnixTimestamp: { input: any; output: any }
   Url: { input: any; output: any }
   Void: { input: any; output: any }
-  ZkCommunityId: { input: any; output: any }
-  ZkIdentityCommitment: { input: any; output: any }
-  ZkPollId: { input: any; output: any }
-  ZkProof: { input: any; output: any }
 }
 
 export type AaveFeeCollectModuleParams = {
@@ -171,15 +167,6 @@ export type AddProfileInterestsRequest = {
   interests: Array<Scalars['ProfileInterest']['input']>
   /** The profileId to add interests to */
   profileId: Scalars['ProfileId']['input']
-}
-
-export type AddVoterRequest = {
-  /** The ZkCommunity id */
-  communityId: Scalars['ZkCommunityId']['input']
-  /** The profile id */
-  profileId: Scalars['ProfileId']['input']
-  /** The voter identity commitment */
-  voter: Scalars['ZkIdentityCommitment']['input']
 }
 
 export type AllPublicationsTagsRequest = {
@@ -281,21 +268,6 @@ export type CanMirrorResponse = {
   result: Scalars['Boolean']['output']
 }
 
-export type CastZkVoteRequest = {
-  /** The ZkCommunity id */
-  communityId: Scalars['ZkCommunityId']['input']
-  /** The voter identity commitment */
-  identityCommitment: Scalars['ZkIdentityCommitment']['input']
-  /** The nullifier hash of the vote */
-  nullifierHash: Scalars['String']['input']
-  /** The ZkPoll id */
-  pollId: Scalars['ZkPollId']['input']
-  /** The zkProof of the vote */
-  proof: Scalars['ZkProof']['input']
-  /** The Vote , 1 = yes, 0 = no */
-  vote: Scalars['String']['input']
-}
-
 /** The challenge request */
 export type ChallengeRequest = {
   /** The ethereum address you want to login with */
@@ -314,15 +286,6 @@ export enum ClaimStatus {
   AlreadyClaimed = 'ALREADY_CLAIMED',
   ClaimFailed = 'CLAIM_FAILED',
   NotClaimed = 'NOT_CLAIMED'
-}
-
-export type ClaimZkBadgeRequest = {
-  /** The ZkCommunity id */
-  communityId: Scalars['ZkCommunityId']['input']
-  /** The ZkPoll id */
-  pollId: Scalars['ZkPollId']['input']
-  /** The profile id */
-  profileId: Scalars['ProfileId']['input']
 }
 
 export type ClaimableHandles = {
@@ -1106,26 +1069,6 @@ export type CreateUnfollowBroadcastItemResult = {
   id: Scalars['BroadcastId']['output']
   /** The typed data */
   typedData: CreateBurnEip712TypedData
-}
-
-export type CreateZkCommunityRequest = {
-  /** The ZkCommunity id */
-  communityId: Scalars['ZkCommunityId']['input']
-  /** The description of the community */
-  description: Scalars['String']['input']
-  /** The name of the community */
-  name: Scalars['String']['input']
-  /** Community creator profile Id */
-  profileId: Scalars['ProfileId']['input']
-}
-
-export type CreateZkPollRequest = {
-  /** The ZkCommunity id */
-  communityId: Scalars['ZkCommunityId']['input']
-  /** The profile id */
-  profileId: Scalars['ProfileId']['input']
-  /** The signature */
-  signature: Scalars['Signature']['input']
 }
 
 export type CurRequest = {
@@ -2344,14 +2287,10 @@ export type Mutation = {
   addPublicationProfileBookmark?: Maybe<Scalars['Void']['output']>
   addPublicationProfileNotInterested?: Maybe<Scalars['Void']['output']>
   addReaction?: Maybe<Scalars['Void']['output']>
-  /** Add a voter to a zk community */
-  addVoterToCommunity: ZkRelayerResult
   authenticate: AuthenticationResult
   broadcast: RelayResult
   broadcastDataAvailability: BroadcastDataAvailabilityUnion
-  castZkVote: ZkRelayerResult
   claim: RelayResult
-  claimZkBadge: ZkRelayerResult
   createAttachMediaData: PublicMediaResults
   createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult
   createCollectTypedData: CreateCollectBroadcastItemResult
@@ -2382,9 +2321,6 @@ export type Mutation = {
   createSetProfileMetadataViaDispatcher: RelayResult
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult
-  /** Create a zk community */
-  createZkCommunity: ZkRelayerResult
-  createZkPoll: ZkRelayerResult
   /** Delete an NFT Gallery */
   deleteNftGallery?: Maybe<Scalars['Void']['output']>
   dismissRecommendedProfiles?: Maybe<Scalars['Void']['output']>
@@ -2433,10 +2369,6 @@ export type MutationAddReactionArgs = {
   request: ReactionRequest
 }
 
-export type MutationAddVoterToCommunityArgs = {
-  request: AddVoterRequest
-}
-
 export type MutationAuthenticateArgs = {
   request: SignedAuthChallenge
 }
@@ -2449,16 +2381,8 @@ export type MutationBroadcastDataAvailabilityArgs = {
   request: BroadcastRequest
 }
 
-export type MutationCastZkVoteArgs = {
-  request: CastZkVoteRequest
-}
-
 export type MutationClaimArgs = {
   request: ClaimHandleRequest
-}
-
-export type MutationClaimZkBadgeArgs = {
-  request: ClaimZkBadgeRequest
 }
 
 export type MutationCreateAttachMediaDataArgs = {
@@ -2589,14 +2513,6 @@ export type MutationCreateToggleFollowTypedDataArgs = {
 export type MutationCreateUnfollowTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>
   request: UnfollowRequest
-}
-
-export type MutationCreateZkCommunityArgs = {
-  request: CreateZkCommunityRequest
-}
-
-export type MutationCreateZkPollArgs = {
-  request: CreateZkPollRequest
 }
 
 export type MutationDeleteNftGalleryArgs = {
@@ -3965,8 +3881,6 @@ export type Query = {
   isIDKitPhoneVerified: Scalars['Boolean']['output']
   iss: PrfResponse
   mutualFollowersProfiles: PaginatedProfileResult
-  /** Returns the latest poll for a given user */
-  myActivePoll: ZkPoll
   /** Get the NFT collections that the given wallet or profileId owns at least one NFT of. Only supports Ethereum and Polygon NFTs. Note excludeFollowers is set to true by default, so the result will not include Lens Follower NFTsunless explicitly requested. */
   nftCollections: NftCollectionResult
   /** Get all NFT galleries for a profile */
@@ -4005,24 +3919,6 @@ export type Query = {
   verify: Scalars['Boolean']['output']
   whoCollectedPublication: PaginatedWhoCollectedResult
   whoReactedPublication: PaginatedWhoReactedResult
-  /** Get all zk communities */
-  zkCommunities: Array<ZkCommunity>
-  /** Get a zk community by its id */
-  zkCommunity?: Maybe<ZkCommunity>
-  /** Get a zk community members by communityId */
-  zkCommunityMembers?: Maybe<ZkCommunity>
-  /** Returns the latest poll for a given community */
-  zkPoll: ZkPoll
-  /** Returns the latest poll for a given profile and community */
-  zkPollByProfileAndCommunity?: Maybe<ZkPoll>
-  /** Returns the status of a given poll */
-  zkPollStatus?: Maybe<ZkPollStatus>
-  /** Returns the latest polls */
-  zkPolls: Array<ZkPoll>
-  /** Returns the latest polls for a given community */
-  zkPollsByCommunity: Array<ZkPoll>
-  /** Returns the latest polls for a given profile */
-  zkPollsByProfile: Array<ZkPoll>
 }
 
 export type QueryAllPublicationsTagsArgs = {
@@ -4119,10 +4015,6 @@ export type QueryIssArgs = {
 
 export type QueryMutualFollowersProfilesArgs = {
   request: MutualFollowersProfilesQueryRequest
-}
-
-export type QueryMyActivePollArgs = {
-  request: ZkPollByProfileAndCommunityRequest
 }
 
 export type QueryNftCollectionsArgs = {
@@ -4235,42 +4127,6 @@ export type QueryWhoCollectedPublicationArgs = {
 
 export type QueryWhoReactedPublicationArgs = {
   request: WhoReactedPublicationRequest
-}
-
-export type QueryZkCommunitiesArgs = {
-  request: ZkCommunitiesRequest
-}
-
-export type QueryZkCommunityArgs = {
-  request: ZkCommunityRequest
-}
-
-export type QueryZkCommunityMembersArgs = {
-  request: ZkCommunityMembersRequest
-}
-
-export type QueryZkPollArgs = {
-  request: ZkPollRequest
-}
-
-export type QueryZkPollByProfileAndCommunityArgs = {
-  request: ZkPollByProfileAndCommunityRequest
-}
-
-export type QueryZkPollStatusArgs = {
-  request: ZkPollStateRequest
-}
-
-export type QueryZkPollsArgs = {
-  request: ZkPollsRequest
-}
-
-export type QueryZkPollsByCommunityArgs = {
-  request: ZkCommunityRequest
-}
-
-export type QueryZkPollsByProfileArgs = {
-  request: ZkPollByProfileRequest
 }
 
 export type ReactionEvent = {
@@ -4847,126 +4703,6 @@ export type WorldcoinPhoneVerifyWebhookRequest = {
   signal: Scalars['EthereumAddress']['input']
   signalType: WorldcoinPhoneVerifyType
 }
-
-export type ZkCommunitiesRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
-}
-
-/** The Zk Voting Community */
-export type ZkCommunity = {
-  __typename?: 'ZkCommunity'
-  /** The Community id */
-  communityId: Scalars['ZkCommunityId']['output']
-  /** Metadata url */
-  contentURI: Scalars['Url']['output']
-  /** community coordinator address */
-  coordinator: Scalars['EthereumAddress']['output']
-  /** description of the community */
-  description?: Maybe<Scalars['String']['output']>
-  /** Members of the community */
-  members?: Maybe<Array<Scalars['ZkIdentityCommitment']['output']>>
-  /** Name of the community */
-  name?: Maybe<Scalars['String']['output']>
-}
-
-export type ZkCommunityMembersRequest = {
-  /** The ZkCommunity id */
-  communityId: Scalars['ZkCommunityId']['input']
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
-  /** The ZkCommunity id */
-  members?: InputMaybe<Scalars['ZkIdentityCommitment']['input']>
-}
-
-export type ZkCommunityRequest = {
-  /** The ZkCommunity id */
-  communityId: Scalars['ZkCommunityId']['input']
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
-}
-
-/** The Zk Voting Community */
-export type ZkPoll = {
-  __typename?: 'ZkPoll'
-  /** The Community id */
-  communityId: Scalars['ZkCommunityId']['output']
-  /** Poll coordinator address */
-  coordinator: Scalars['EthereumAddress']['output']
-  /** Poll end time */
-  endedAt?: Maybe<Scalars['DateTime']['output']>
-  /** Poll is active */
-  isActive?: Maybe<Scalars['Boolean']['output']>
-  /** The Poll id */
-  pollId: Scalars['ZkPollId']['output']
-  /** Poll title */
-  profileData: Profile
-  /** The profile id */
-  profileId: Scalars['ProfileId']['output']
-  /** Poll start time */
-  startedAt?: Maybe<Scalars['DateTime']['output']>
-  /** Poll absolute threshold */
-  thresholdAbs?: Maybe<Scalars['Float']['output']>
-  /** Poll threshold Precent */
-  thresholdPct?: Maybe<Scalars['Float']['output']>
-  /** Yes votes */
-  yesVotes?: Maybe<Scalars['Float']['output']>
-}
-
-export type ZkPollByProfileAndCommunityRequest = {
-  /** The ZkCommunity id */
-  communityId: Scalars['ZkCommunityId']['input']
-  /** The profile id */
-  profileId: Scalars['ProfileId']['input']
-}
-
-export type ZkPollByProfileRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
-  /** The profile id */
-  profileId: Scalars['ProfileId']['input']
-}
-
-export type ZkPollRequest = {
-  /** The ZkPoll id */
-  pollId: Scalars['ZkPollId']['input']
-}
-
-export type ZkPollStateRequest = {
-  /** The ZkPoll id */
-  pollId: Scalars['ZkPollId']['input']
-}
-
-/** The Zk Voting Community */
-export type ZkPollStatus = {
-  __typename?: 'ZkPollStatus'
-  /** The Community id */
-  communityId: Scalars['ZkCommunityId']['output']
-  /** Poll is active */
-  isActive?: Maybe<Scalars['Boolean']['output']>
-  /** The Poll id */
-  pollId: Scalars['ZkPollId']['output']
-  /** status of the poll, null if not created yet. */
-  status?: Maybe<Scalars['Float']['output']>
-  /** Poll absolute threshold */
-  thresholdAbs?: Maybe<Scalars['Int']['output']>
-  /** Poll threshold Percent */
-  thresholdPct?: Maybe<Scalars['Int']['output']>
-  /** Yes votes */
-  yesVotes?: Maybe<Scalars['Int']['output']>
-}
-
-export type ZkPollsRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  limit?: InputMaybe<Scalars['LimitScalar']['input']>
-}
-
-export type ZkRelayError = {
-  __typename?: 'ZkRelayError'
-  reason: Scalars['String']['output']
-}
-
-export type ZkRelayerResult = RelayerResult | ZkRelayError
 
 type CollectFields_AaveFeeCollectModuleSettings_Fragment = {
   __typename?: 'AaveFeeCollectModuleSettings'
@@ -20531,8 +20267,7 @@ const result: PossibleTypesResultData = {
     ],
     RelayResult: ['RelayError', 'RelayerResult'],
     SearchResult: ['ProfileSearchResult', 'PublicationSearchResult'],
-    TransactionResult: ['TransactionError', 'TransactionIndexedResult'],
-    ZkRelayerResult: ['RelayerResult', 'ZkRelayError']
+    TransactionResult: ['TransactionError', 'TransactionIndexedResult']
   }
 }
 export default result

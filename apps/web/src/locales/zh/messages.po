@@ -50,7 +50,7 @@ msgstr "所有的"
 msgid "All Notifications"
 msgstr "所有通知"
 
-#: src/components/Common/UserMenu.tsx:284
+#: src/components/Common/UserMenu.tsx:295
 msgid "All services are online"
 msgstr "所有服务都在线了"
 
@@ -94,7 +94,7 @@ msgstr "任何人"
 msgid "Anyone can comment and mirror"
 msgstr "任何人都可以评论和镜像"
 
-#: src/components/Common/UserMenu.tsx:182
+#: src/components/Common/UserMenu.tsx:183
 msgid "App Info"
 msgstr "应用信息"
 
@@ -156,7 +156,7 @@ msgstr "频道描述"
 msgid "Channel image updated"
 msgstr "频道图像已更新"
 
-#: src/components/Common/UserMenu.tsx:228
+#: src/components/Common/UserMenu.tsx:239
 #: src/components/Settings/index.tsx:58
 msgid "Channel Settings"
 msgstr "频道设置"
@@ -290,7 +290,7 @@ msgstr "连接"
 msgid "Connect Wallet & Sign with Lens to continue,"
 msgstr "连接钱包并使用镜头登录以继续。"
 
-#: src/components/Common/UserMenu.tsx:160
+#: src/components/Common/UserMenu.tsx:161
 msgid "Connected as"
 msgstr "连接为"
 
@@ -304,7 +304,7 @@ msgid "Create"
 msgstr "创建"
 
 #: src/components/Common/CreateChannel.tsx:131
-#: src/components/Common/UserMenu.tsx:218
+#: src/components/Common/UserMenu.tsx:229
 msgid "Create Channel"
 msgstr "创建频道"
 
@@ -324,7 +324,7 @@ msgstr "危险区域"
 msgid "degrees away from my network"
 msgstr "远离我的网络"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:357
+#: src/components/Common/VideoCard/VideoOptions.tsx:359
 #: src/components/Watch/Comments/CommentOptions.tsx:69
 msgid "Delete"
 msgstr "删除"
@@ -674,6 +674,10 @@ msgstr "Momoka目前处于测试版中 - 在此期间某些操作不能用于所
 msgid "More about your channel"
 msgstr "更多关于您的频道"
 
+#: src/components/Common/UserMenu.tsx:206
+msgid "My Saved List"
+msgstr ""
+
 #: src/components/Common/Header.tsx:141
 msgid "New video"
 msgstr "新视频"
@@ -719,6 +723,10 @@ msgstr "未找到其他频道"
 msgid "No results found"
 msgstr "未找到结果"
 
+#: src/components/Channel/SavedList.tsx:64
+msgid "No saved videos found"
+msgstr ""
+
 #: src/components/Common/SubscribersList.tsx:57
 msgid "No subscribers"
 msgstr "没有订阅者"
@@ -740,7 +748,7 @@ msgstr "无"
 msgid "Not enough"
 msgstr "还不足"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:409
+#: src/components/Common/VideoCard/VideoOptions.tsx:411
 msgid "Not Interested"
 msgstr ""
 
@@ -808,11 +816,11 @@ msgstr "权限已更新"
 msgid "Permissions"
 msgstr "权限"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:346
+#: src/components/Common/VideoCard/VideoOptions.tsx:348
 msgid "Pin Video"
 msgstr "置顶视频"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:195
+#: src/components/Common/VideoCard/VideoOptions.tsx:197
 msgid "Pinning video..."
 msgstr "正在固定视频..."
 
@@ -900,7 +908,7 @@ msgstr "推荐百分比"
 msgid "Relevant"
 msgstr "关联的"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:393
+#: src/components/Common/VideoCard/VideoOptions.tsx:395
 msgid "Remove from List"
 msgstr ""
 
@@ -917,7 +925,7 @@ msgstr "回复"
 msgid "Reply"
 msgstr "答复"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:382
+#: src/components/Common/VideoCard/VideoOptions.tsx:384
 #: src/components/ReportPublication/index.tsx:158
 #: src/components/Watch/Comments/CommentOptions.tsx:80
 #: src/components/Watch/VideoActions.tsx:69
@@ -946,7 +954,7 @@ msgstr "Revoke"
 msgid "Save"
 msgstr "保存"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:395
+#: src/components/Common/VideoCard/VideoOptions.tsx:397
 msgid "Save to List"
 msgstr ""
 
@@ -985,7 +993,7 @@ msgstr "设置收藏类型"
 msgid "Set Preference"
 msgstr "设置首选项"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:369
+#: src/components/Common/VideoCard/VideoOptions.tsx:371
 #: src/components/Watch/VideoActions.tsx:56
 msgid "Share"
 msgstr "分享"
@@ -1028,7 +1036,7 @@ msgstr "登录失败"
 msgid "Sign In Required"
 msgstr "需要登录"
 
-#: src/components/Common/UserMenu.tsx:262
+#: src/components/Common/UserMenu.tsx:273
 msgid "Sign out"
 msgstr "登出"
 
@@ -1036,7 +1044,7 @@ msgstr "登出"
 msgid "Skip the video upload (Only use this if you know what your doing!)"
 msgstr "跳过视频上传 (只有当你知道你在做什么！)"
 
-#: src/components/Common/UserMenu.tsx:285
+#: src/components/Common/UserMenu.tsx:296
 msgid "Some services are offline"
 msgstr "有些服务处于离线状态"
 
@@ -1109,7 +1117,7 @@ msgstr "所有分割的总和应该是 100%"
 msgid "Swap"
 msgstr "切换"
 
-#: src/components/Common/UserMenu.tsx:205
+#: src/components/Common/UserMenu.tsx:216
 msgid "Switch channel"
 msgstr "切换频道"
 
@@ -1117,11 +1125,11 @@ msgstr "切换频道"
 msgid "Switch network"
 msgstr "切换网络"
 
-#: src/components/Common/UserMenu.tsx:248
+#: src/components/Common/UserMenu.tsx:259
 msgid "Switch to Dark"
 msgstr "切换到暗色"
 
-#: src/components/Common/UserMenu.tsx:248
+#: src/components/Common/UserMenu.tsx:259
 msgid "Switch to Light"
 msgstr "切换到灯光"
 
@@ -1255,7 +1263,7 @@ msgstr "订阅总数"
 msgid "total videos"
 msgstr "全部视频"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:123
+#: src/components/Common/VideoCard/VideoOptions.tsx:125
 msgid "Transaction submitted"
 msgstr "交易已提交"
 
@@ -1263,7 +1271,7 @@ msgstr "交易已提交"
 msgid "Trending"
 msgstr "热门主题"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:407
+#: src/components/Common/VideoCard/VideoOptions.tsx:409
 msgid "Undo Interest"
 msgstr ""
 
@@ -1344,11 +1352,11 @@ msgstr "已验证"
 msgid "video"
 msgstr "视频"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:251
+#: src/components/Common/VideoCard/VideoOptions.tsx:253
 msgid "Video added to your list"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:90
+#: src/components/Common/VideoCard/VideoOptions.tsx:92
 msgid "Video deleted"
 msgstr "视频已删除"
 
@@ -1356,11 +1364,11 @@ msgstr "视频已删除"
 msgid "Video format not supported"
 msgstr "视频格式不被支持"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:240
+#: src/components/Common/VideoCard/VideoOptions.tsx:242
 msgid "Video marked as interested"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:239
+#: src/components/Common/VideoCard/VideoOptions.tsx:241
 msgid "Video marked as not interested"
 msgstr ""
 
@@ -1368,7 +1376,7 @@ msgstr ""
 msgid "Video not uploaded correctly"
 msgstr "视频上传不正确"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:251
+#: src/components/Common/VideoCard/VideoOptions.tsx:253
 msgid "Video removed from your list"
 msgstr ""
 
@@ -1490,7 +1498,7 @@ msgstr "您的地址似乎没有镜头句柄。"
 msgid "your channel"
 msgstr "您的频道"
 
-#: src/components/Common/UserMenu.tsx:195
+#: src/components/Common/UserMenu.tsx:196
 msgid "Your Channel"
 msgstr "您的频道"
 
