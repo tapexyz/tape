@@ -22,6 +22,7 @@ import {
   useExploreQuery
 } from '@lenstube/lens'
 import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import React, { useRef } from 'react'
@@ -29,6 +30,7 @@ import React, { useRef } from 'react'
 const BytesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
@@ -45,7 +47,7 @@ const BytesSection = () => {
   }
 
   const { data, error, loading } = useExploreQuery({
-    variables: { request }
+    variables: { request, channelId: selectedChannel?.id ?? null }
   })
 
   const bytes = data?.explorePublications?.items as Publication[]

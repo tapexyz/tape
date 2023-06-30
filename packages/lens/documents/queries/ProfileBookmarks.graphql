@@ -1,0 +1,22 @@
+query ProfileBookmarks(
+  $request: PublicationsProfileBookmarkedQueryRequest!
+  $reactionRequest: ReactionFieldResolverRequest
+  $channelId: ProfileId
+) {
+  publicationsProfileBookmarks(request: $request) {
+    items {
+      ... on Post {
+        ...PostFields
+      }
+      ... on Comment {
+        ...CommentFields
+      }
+      ... on Mirror {
+        ...MirrorFields
+      }
+    }
+    pageInfo {
+      next
+    }
+  }
+}

@@ -1,49 +1,45 @@
+import MetaTags from '@components/Common/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
-  LENS_CUSTOM_FILTERS,
+  ALLOWED_APP_IDS,
   LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
-import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
-} from '@lenstube/lens'
+import type { Profile, Publication } from '@lenstube/lens'
+import { PublicationMainFocus, useProfileBookmarksQuery } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
+import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
-const Recents = () => {
+type Props = {
+  channel: Profile
+}
+
+const SavedList: FC<Props> = () => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const request = {
-    sortCriteria: PublicationSortCriteria.Latest,
     limit: 32,
-    noRandomize: true,
-    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-    publicationTypes: [PublicationTypes.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      mainContentFocus: [PublicationMainFocus.Video]
-    }
+    metadata: { mainContentFocus: [PublicationMainFocus.Video] },
+    profileId: selectedChannel?.id,
+    sources: [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS]
   }
 
-  const { data, loading, error, fetchMore } = useExploreQuery({
+  const { data, loading, error, fetchMore } = useProfileBookmarksQuery({
     variables: {
       request,
       channelId: selectedChannel?.id ?? null
-    }
+    },
+    skip: !selectedChannel?.id
   })
 
-  const videos = data?.explorePublications?.items as Publication[]
-  const pageInfo = data?.explorePublications?.pageInfo
+  const savedVideos = data?.publicationsProfileBookmarks?.items as Publication[]
+  const pageInfo = data?.publicationsProfileBookmarks?.pageInfo
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
@@ -59,31 +55,31 @@ const Recents = () => {
       })
     }
   })
+
   if (loading) {
-    return (
-      <div className="pt-9">
-        <TimelineShimmer />
-      </div>
-    )
+    return <TimelineShimmer />
   }
-  if (!videos.length || error) {
-    return <NoDataFound isCenter withImage text={t`No videos found`} />
+
+  if (!data?.publicationsProfileBookmarks?.items?.length) {
+    return <NoDataFound isCenter withImage text={t`No saved videos found`} />
   }
 
   return (
-    <div className="pt-9">
-      {!error && !loading && videos?.length ? (
+    <>
+      <MetaTags title="Saved Videos" />
+      <h1 className="mb-6 font-semibold md:text-2xl">Saved Videos</h1>
+      {!error && !loading && (
         <>
-          <Timeline videos={videos} />
+          <Timeline videos={savedVideos} />
           {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>
           )}
         </>
-      ) : null}
-    </div>
+      )}
+    </>
   )
 }
 
-export default Recents
+export default SavedList

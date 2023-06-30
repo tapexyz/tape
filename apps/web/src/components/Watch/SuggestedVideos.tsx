@@ -14,6 +14,7 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
+import useChannelStore from '@lib/store/channel'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect } from 'react'
@@ -35,9 +36,13 @@ const SuggestedVideos: FC = () => {
   const {
     query: { id }
   } = useRouter()
+
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+
   const { data, loading, error, fetchMore, refetch } = useExploreQuery({
     variables: {
-      request
+      request,
+      channelId: selectedChannel?.id ?? null
     }
   })
 
@@ -56,7 +61,8 @@ const SuggestedVideos: FC = () => {
           request: {
             ...request,
             cursor: pageInfo?.next
-          }
+          },
+          channelId: selectedChannel?.id ?? null
         }
       })
     }
