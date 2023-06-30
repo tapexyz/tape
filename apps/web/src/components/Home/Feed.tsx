@@ -16,12 +16,14 @@ import {
   useExploreQuery
 } from '@lenstube/lens'
 import useAppStore from '@lib/store'
+import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 const HomeFeed = () => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
@@ -38,7 +40,7 @@ const HomeFeed = () => {
   }
 
   const { data, loading, error, fetchMore } = useExploreQuery({
-    variables: { request }
+    variables: { request, channelId: selectedChannel?.id ?? null }
   })
 
   const pageInfo = data?.explorePublications?.pageInfo
@@ -52,7 +54,8 @@ const HomeFeed = () => {
           request: {
             ...request,
             cursor: pageInfo?.next
-          }
+          },
+          channelId: selectedChannel?.id ?? null
         }
       })
     }

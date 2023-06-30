@@ -30,6 +30,7 @@ import GraphOutline from './Icons/GraphOutline'
 import HandWaveOutline from './Icons/HandWaveOutline'
 import MoonOutline from './Icons/MoonOutline'
 import PlusOutline from './Icons/PlusOutline'
+import SaveToListOutline from './Icons/SaveToListOutline'
 import SunOutline from './Icons/SunOutline'
 import SwitchChannelOutline from './Icons/SwitchChannelOutline'
 
@@ -193,6 +194,16 @@ const UserMenu = () => {
                       <ChannelOutline className="h-4 w-4" />
                       <span className="truncate whitespace-nowrap">
                         <Trans>Your Channel</Trans>
+                      </span>
+                    </Menu.Item>
+                    <Menu.Item
+                      as={NextLink}
+                      href={`/channel/saved`}
+                      className="inline-flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    >
+                      <SaveToListOutline className="h-4 w-4" />
+                      <span className="truncate whitespace-nowrap">
+                        <Trans>Saved Videos</Trans>
                       </span>
                     </Menu.Item>
                     <button

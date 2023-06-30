@@ -18,6 +18,7 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
+import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -27,6 +28,7 @@ import Custom404 from 'src/pages/404'
 const ExploreCategory = () => {
   const { query } = useRouter()
   const categoryName = query.category as string
+  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const request = {
     publicationTypes: [PublicationTypes.Post],
@@ -42,7 +44,8 @@ const ExploreCategory = () => {
 
   const { data, loading, error, fetchMore } = useExploreQuery({
     variables: {
-      request
+      request,
+      channelId: selectedChannel?.id ?? null
     },
     skip: !query.category
   })
@@ -58,7 +61,8 @@ const ExploreCategory = () => {
           request: {
             cursor: pageInfo?.next,
             ...request
-          }
+          },
+          channelId: selectedChannel?.id ?? null
         }
       })
     }
