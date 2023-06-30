@@ -38,7 +38,6 @@ import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -70,7 +69,6 @@ const VideoOptions: FC<Props> = ({
   const [showConfirm, setShowConfirm] = useState(false)
 
   const { cache } = useApolloClient()
-  const { pathname } = useRouter()
 
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const selectedChannelId = useAuthPersistStore(
