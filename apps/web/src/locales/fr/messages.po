@@ -324,7 +324,7 @@ msgstr "Zone de danger"
 msgid "degrees away from my network"
 msgstr "degrés d'éloignement de mon réseau"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:359
+#: src/components/Common/VideoCard/VideoOptions.tsx:357
 #: src/components/Watch/Comments/CommentOptions.tsx:69
 msgid "Delete"
 msgstr "Supprimez"
@@ -675,8 +675,8 @@ msgid "More about your channel"
 msgstr "En savoir plus sur votre chaîne"
 
 #: src/components/Common/UserMenu.tsx:206
-msgid "My Saved List"
-msgstr ""
+#~ msgid "My Saved List"
+#~ msgstr ""
 
 #: src/components/Common/Header.tsx:141
 msgid "New video"
@@ -748,7 +748,7 @@ msgstr "Aucun"
 msgid "Not enough"
 msgstr "Pas assez"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:411
+#: src/components/Common/VideoCard/VideoOptions.tsx:409
 msgid "Not Interested"
 msgstr ""
 
@@ -816,11 +816,11 @@ msgstr "Permission mise à jour"
 msgid "Permissions"
 msgstr "Permissions"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:348
+#: src/components/Common/VideoCard/VideoOptions.tsx:346
 msgid "Pin Video"
 msgstr "Épingler la vidéo"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:197
+#: src/components/Common/VideoCard/VideoOptions.tsx:195
 msgid "Pinning video..."
 msgstr "Épinglage de la vidéo..."
 
@@ -908,7 +908,7 @@ msgstr "Pourcentage de parrainage"
 msgid "Relevant"
 msgstr "Pertinent"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:395
+#: src/components/Common/VideoCard/VideoOptions.tsx:393
 msgid "Remove from List"
 msgstr ""
 
@@ -925,7 +925,7 @@ msgstr "Réponses"
 msgid "Reply"
 msgstr "Répondre"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:384
+#: src/components/Common/VideoCard/VideoOptions.tsx:382
 #: src/components/ReportPublication/index.tsx:158
 #: src/components/Watch/Comments/CommentOptions.tsx:80
 #: src/components/Watch/VideoActions.tsx:69
@@ -954,8 +954,12 @@ msgstr "Revoke"
 msgid "Save"
 msgstr "Enregistrer"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:397
+#: src/components/Common/VideoCard/VideoOptions.tsx:395
 msgid "Save to List"
+msgstr ""
+
+#: src/components/Common/UserMenu.tsx:206
+msgid "Saved Videos"
 msgstr ""
 
 #: src/components/ReportPublication/index.tsx:140
@@ -993,7 +997,7 @@ msgstr "Définir le type de collecte"
 msgid "Set Preference"
 msgstr "Définir la préférence"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:371
+#: src/components/Common/VideoCard/VideoOptions.tsx:369
 #: src/components/Watch/VideoActions.tsx:56
 msgid "Share"
 msgstr "Partager"
@@ -1263,7 +1267,7 @@ msgstr "nombre total d'abonnements"
 msgid "total videos"
 msgstr "total des vidéos"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:125
+#: src/components/Common/VideoCard/VideoOptions.tsx:123
 msgid "Transaction submitted"
 msgstr "Transaction soumise"
 
@@ -1271,7 +1275,7 @@ msgstr "Transaction soumise"
 msgid "Trending"
 msgstr "Tendance"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:409
+#: src/components/Common/VideoCard/VideoOptions.tsx:407
 msgid "Undo Interest"
 msgstr ""
 
@@ -1352,11 +1356,11 @@ msgstr "Vérifié"
 msgid "video"
 msgstr "Vidéo"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:253
+#: src/components/Common/VideoCard/VideoOptions.tsx:251
 msgid "Video added to your list"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:92
+#: src/components/Common/VideoCard/VideoOptions.tsx:90
 msgid "Video deleted"
 msgstr "Vidéo supprimée"
 
@@ -1368,7 +1372,7 @@ msgstr "Format vidéo non pris en charge"
 #~ msgid "Video marked as interested"
 #~ msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:241
+#: src/components/Common/VideoCard/VideoOptions.tsx:239
 msgid "Video marked as not interested"
 msgstr ""
 
@@ -1376,11 +1380,11 @@ msgstr ""
 msgid "Video not uploaded correctly"
 msgstr "La vidéo n'est pas correctement téléchargée"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:242
+#: src/components/Common/VideoCard/VideoOptions.tsx:240
 msgid "Video removed from not interested"
 msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:253
+#: src/components/Common/VideoCard/VideoOptions.tsx:251
 msgid "Video removed from your list"
 msgstr ""
 

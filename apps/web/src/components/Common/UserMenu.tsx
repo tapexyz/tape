@@ -203,7 +203,7 @@ const UserMenu = () => {
                     >
                       <SaveToListOutline className="h-4 w-4" />
                       <span className="truncate whitespace-nowrap">
-                        <Trans>My Saved List</Trans>
+                        <Trans>Saved Videos</Trans>
                       </span>
                     </Menu.Item>
                     <button
