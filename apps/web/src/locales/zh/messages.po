@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-27 01:53\n"
+"PO-Revision-Date: 2023-07-01 01:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -464,7 +464,7 @@ msgstr "给定费用"
 
 #: src/components/Settings/BasicInfo.tsx:331
 #~ msgid "Get Verified"
-#~ msgstr "获得验证"
+#~ msgstr ""
 
 #: src/components/Settings/Membership.tsx:186
 msgid "Grow with Lens"
@@ -725,7 +725,7 @@ msgstr "未找到结果"
 
 #: src/components/Channel/SavedList.tsx:64
 msgid "No saved videos found"
-msgstr ""
+msgstr "未找到保存的视频"
 
 #: src/components/Common/SubscribersList.tsx:57
 msgid "No subscribers"
@@ -750,7 +750,7 @@ msgstr "还不足"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:409
 msgid "Not Interested"
-msgstr ""
+msgstr "不感兴趣的"
 
 #: src/components/Notifications/index.tsx:124
 msgid "Notifications"
@@ -880,7 +880,7 @@ msgstr "发布报告成功"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:317
 #~ msgid "Raw Video"
-#~ msgstr "原始视频"
+#~ msgstr "Raw Video"
 
 #: src/components/ReportPublication/index.tsx:88
 msgid "Reason"
@@ -910,7 +910,7 @@ msgstr "关联的"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:393
 msgid "Remove from List"
-msgstr ""
+msgstr "从列表中删除"
 
 #: src/components/ReportPublication/index.tsx:112
 msgid "Repetitive"
@@ -956,11 +956,11 @@ msgstr "保存"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:395
 msgid "Save to List"
-msgstr ""
+msgstr "保存到列表"
 
 #: src/components/Common/UserMenu.tsx:206
 msgid "Saved Videos"
-msgstr ""
+msgstr "保存的视频"
 
 #: src/components/ReportPublication/index.tsx:140
 msgid "Scam"
@@ -1277,7 +1277,7 @@ msgstr "热门主题"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:407
 msgid "Undo Interest"
-msgstr ""
+msgstr "撤销兴趣"
 
 #: src/components/Upload/CollectModule/LimitQuestion.tsx:40
 msgid "Unlimited collects"
@@ -1358,7 +1358,7 @@ msgstr "视频"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:251
 msgid "Video added to your list"
-msgstr ""
+msgstr "视频添加到您的列表"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:90
 msgid "Video deleted"
@@ -1374,7 +1374,7 @@ msgstr "视频格式不被支持"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:239
 msgid "Video marked as not interested"
-msgstr ""
+msgstr "标记为不感兴趣的视频"
 
 #: src/components/Upload/UploadSteps.tsx:457
 msgid "Video not uploaded correctly"
@@ -1382,11 +1382,11 @@ msgstr "视频上传不正确"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:240
 msgid "Video removed from not interested"
-msgstr ""
+msgstr "从不感兴趣的视频删除"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:251
 msgid "Video removed from your list"
-msgstr ""
+msgstr "视频已从您的列表中删除"
 
 #: src/components/Upload/Video.tsx:45
 msgid "Video source copied"
@@ -1513,3 +1513,4 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
+
