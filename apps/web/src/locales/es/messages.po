@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-27 01:53\n"
+"PO-Revision-Date: 2023-07-01 01:58\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -725,7 +725,7 @@ msgstr "No hay resultados"
 
 #: src/components/Channel/SavedList.tsx:64
 msgid "No saved videos found"
-msgstr ""
+msgstr "No se encontraron vídeos guardados"
 
 #: src/components/Common/SubscribersList.tsx:57
 msgid "No subscribers"
@@ -750,7 +750,7 @@ msgstr "No suficiente"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:409
 msgid "Not Interested"
-msgstr ""
+msgstr "No Interesado"
 
 #: src/components/Notifications/index.tsx:124
 msgid "Notifications"
@@ -910,7 +910,7 @@ msgstr "Relevante"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:393
 msgid "Remove from List"
-msgstr ""
+msgstr "Eliminar de la lista"
 
 #: src/components/ReportPublication/index.tsx:112
 msgid "Repetitive"
@@ -956,11 +956,11 @@ msgstr "Guardar"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:395
 msgid "Save to List"
-msgstr ""
+msgstr "Guardar en lista"
 
 #: src/components/Common/UserMenu.tsx:206
 msgid "Saved Videos"
-msgstr ""
+msgstr "Vídeos guardados"
 
 #: src/components/ReportPublication/index.tsx:140
 msgid "Scam"
@@ -1277,7 +1277,7 @@ msgstr "Tendencias"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:407
 msgid "Undo Interest"
-msgstr ""
+msgstr "Deshacer Interés"
 
 #: src/components/Upload/CollectModule/LimitQuestion.tsx:40
 msgid "Unlimited collects"
@@ -1358,7 +1358,7 @@ msgstr "vídeo"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:251
 msgid "Video added to your list"
-msgstr ""
+msgstr "Vídeo añadido a tu lista"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:90
 msgid "Video deleted"
@@ -1374,7 +1374,7 @@ msgstr "Formato de vídeo no soportado"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:239
 msgid "Video marked as not interested"
-msgstr ""
+msgstr "Video marcado como no interesado"
 
 #: src/components/Upload/UploadSteps.tsx:457
 msgid "Video not uploaded correctly"
@@ -1382,11 +1382,11 @@ msgstr "El vídeo no se ha subido correctamente"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:240
 msgid "Video removed from not interested"
-msgstr ""
+msgstr "Video eliminado de no interesado"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:251
 msgid "Video removed from your list"
-msgstr ""
+msgstr "Video eliminado de tu lista"
 
 #: src/components/Upload/Video.tsx:45
 msgid "Video source copied"
@@ -1513,3 +1513,4 @@ msgstr "Tu Canal"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "Tu saldo de almacenamiento"
+
