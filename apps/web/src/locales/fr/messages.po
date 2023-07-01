@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-27 01:53\n"
+"PO-Revision-Date: 2023-07-01 01:58\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -725,7 +725,7 @@ msgstr "Aucun résultat trouvé"
 
 #: src/components/Channel/SavedList.tsx:64
 msgid "No saved videos found"
-msgstr ""
+msgstr "Aucune vidéo enregistrée trouvée"
 
 #: src/components/Common/SubscribersList.tsx:57
 msgid "No subscribers"
@@ -750,7 +750,7 @@ msgstr "Pas assez"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:409
 msgid "Not Interested"
-msgstr ""
+msgstr "Pas intéressé"
 
 #: src/components/Notifications/index.tsx:124
 msgid "Notifications"
@@ -880,7 +880,7 @@ msgstr "Publication signalée avec succès."
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:317
 #~ msgid "Raw Video"
-#~ msgstr "Vidéo brute"
+#~ msgstr "Raw Video"
 
 #: src/components/ReportPublication/index.tsx:88
 msgid "Reason"
@@ -910,7 +910,7 @@ msgstr "Pertinent"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:393
 msgid "Remove from List"
-msgstr ""
+msgstr "Retirer de la liste"
 
 #: src/components/ReportPublication/index.tsx:112
 msgid "Repetitive"
@@ -956,11 +956,11 @@ msgstr "Enregistrer"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:395
 msgid "Save to List"
-msgstr ""
+msgstr "Enregistrer dans la liste"
 
 #: src/components/Common/UserMenu.tsx:206
 msgid "Saved Videos"
-msgstr ""
+msgstr "Vidéos enregistrées"
 
 #: src/components/ReportPublication/index.tsx:140
 msgid "Scam"
@@ -1277,7 +1277,7 @@ msgstr "Tendance"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:407
 msgid "Undo Interest"
-msgstr ""
+msgstr "Annuler Intérêt"
 
 #: src/components/Upload/CollectModule/LimitQuestion.tsx:40
 msgid "Unlimited collects"
@@ -1358,7 +1358,7 @@ msgstr "Vidéo"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:251
 msgid "Video added to your list"
-msgstr ""
+msgstr "Vidéo ajoutée à votre liste"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:90
 msgid "Video deleted"
@@ -1374,7 +1374,7 @@ msgstr "Format vidéo non pris en charge"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:239
 msgid "Video marked as not interested"
-msgstr ""
+msgstr "Vidéo marquée comme non intéressée"
 
 #: src/components/Upload/UploadSteps.tsx:457
 msgid "Video not uploaded correctly"
@@ -1382,11 +1382,11 @@ msgstr "La vidéo n'est pas correctement téléchargée"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:240
 msgid "Video removed from not interested"
-msgstr ""
+msgstr "Vidéo retirée des non-intéressés"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:251
 msgid "Video removed from your list"
-msgstr ""
+msgstr "Vidéo retirée de votre liste"
 
 #: src/components/Upload/Video.tsx:45
 msgid "Video source copied"
@@ -1513,3 +1513,4 @@ msgstr "Votre Chaîne"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "Votre solde de stockage"
+
