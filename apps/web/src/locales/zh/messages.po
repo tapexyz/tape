@@ -464,7 +464,7 @@ msgstr "给定费用"
 
 #: src/components/Settings/BasicInfo.tsx:331
 #~ msgid "Get Verified"
-#~ msgstr "获得验证"
+#~ msgstr ""
 
 #: src/components/Settings/Membership.tsx:186
 msgid "Grow with Lens"
@@ -1513,3 +1513,4 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
+
