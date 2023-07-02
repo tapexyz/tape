@@ -30,7 +30,7 @@
     "husky": "^8.0.3",
     "start-server-and-test": "^2.0.0",
     "ts-node": "latest",
-    "turbo": "1.10.6"
+    "turbo": "1.10.7"
   },
   "engines": {
     "node": ">=18.0.0"
