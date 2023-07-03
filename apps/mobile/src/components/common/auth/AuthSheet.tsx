@@ -1,5 +1,3 @@
-import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
-import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
 import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { STATIC_ASSETS } from '@lenstube/constants'
 import {
@@ -16,13 +14,14 @@ import {
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
-import React, { useCallback, useMemo } from 'react'
+import React from 'react'
 import { Text, View } from 'react-native'
 import { createWalletClient, custom } from 'viem'
 import { polygon } from 'viem/chains'
 import type { SignableMessage } from 'viem/dist/types/types/misc'
 
 import AnimatedPressable from '~/components/ui/AnimatedPressable'
+import Sheet from '~/components/ui/Sheet'
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -33,7 +32,7 @@ type Props = {
   sheetRef: React.RefObject<BottomSheetModalMethods>
 }
 
-const Sheet: FC<Props> = ({ sheetRef }) => {
+const AuthSheet: FC<Props> = ({ sheetRef }) => {
   const setChannels = useMobileStore((state) => state.setChannels)
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
   const { signIn: persistSignin } = useMobilePersistStore()
@@ -50,18 +49,6 @@ const Sheet: FC<Props> = ({ sheetRef }) => {
   const [getChannels] = useAllProfilesLazyQuery({
     fetchPolicy: 'no-cache'
   })
-
-  const renderBackdrop = useCallback(
-    (props: BottomSheetBackdropProps) => (
-      <BottomSheetBackdrop
-        {...props}
-        disappearsOnIndex={-1}
-        appearsOnIndex={0}
-      />
-    ),
-    []
-  )
-  const snapPoints = useMemo(() => ['40%'], [])
 
   const signIn = async () => {
     if (!provider) {
@@ -112,19 +99,7 @@ const Sheet: FC<Props> = ({ sheetRef }) => {
   }
 
   return (
-    <BottomSheetModal
-      index={0}
-      ref={sheetRef}
-      backgroundStyle={{
-        borderRadius: 40,
-        backgroundColor: theme.colors.backdrop
-      }}
-      style={{ marginHorizontal: 10 }}
-      bottomInset={20}
-      detached={true}
-      snapPoints={snapPoints}
-      backdropComponent={renderBackdrop}
-    >
+    <Sheet sheetRef={sheetRef}>
       <View
         style={{
           padding: 10,
@@ -197,8 +172,8 @@ const Sheet: FC<Props> = ({ sheetRef }) => {
           </Text>
         </AnimatedPressable>
       </View>
-    </BottomSheetModal>
+    </Sheet>
   )
 }
 
-export default Sheet
+export default AuthSheet

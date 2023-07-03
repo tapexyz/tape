@@ -9,11 +9,9 @@ const commonColors = {
   card: '#fff',
   notification: '#000',
   black: '#000000',
-  white: '#fff'
-  // gradient: {
-  //   from: '#111827',
-  //   to: '#000000'
-  // }
+  white: '#fff',
+  grey: '#333333',
+  blueGrey: '#E0E8FF'
 }
 
 export const theme = {

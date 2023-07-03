@@ -10,10 +10,12 @@ const getViewUrl = (video: Publication) => {
   return `${LENSTUBE_WEBSITE_URL}/watch/${video.id}`
 }
 
-type Link = 'lenster' | 'twitter' | 'reddit' | 'linkedin'
+type Link = 'lenstube' | 'lenster' | 'twitter' | 'reddit' | 'linkedin'
 
 export const getSharableLink = (link: Link, video: Publication) => {
-  if (link === 'lenster') {
+  if (link === 'lenstube') {
+    return `${LENSTUBE_WEBSITE_URL}/watch/${video.id}`
+  } else if (link === 'lenster') {
     return `${LENSTER_WEBSITE_URL}/?url=${getViewUrl(video)}&text=${
       video.metadata?.name as string
     } by @${video.profile?.handle}&hashtags=Lenstube&preview=true`

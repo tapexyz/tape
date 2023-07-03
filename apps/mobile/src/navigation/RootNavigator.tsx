@@ -1,9 +1,12 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import type { FC } from 'react'
 import React from 'react'
+import { useWindowDimensions } from 'react-native'
 
-import CategoriesModal from '../components/explore/CategoriesModal'
-import TopsModal from '../components/explore/TopsModal'
+import WatchVideoModal from '~/components/common/modals/WatchVideoModal'
+
+import CategoriesModal from '../components/common/modals/CategoriesModal'
+import TopsModal from '../components/common/modals/TopsModal'
 import SignInScreen from '../screens/SignInScreen'
 import { BottomTabNavigator } from './BottomTabNavigator'
 
@@ -11,6 +14,7 @@ const { Navigator, Screen, Group } = createStackNavigator<RootStackParamList>()
 
 export const RootNavigator: FC = () => {
   const isSignedIn = true
+  const { height } = useWindowDimensions()
 
   return (
     <Navigator>
@@ -57,6 +61,15 @@ export const RootNavigator: FC = () => {
           name="ExploreCategoriesModal"
           component={CategoriesModal}
           options={{ headerShown: false, presentation: 'transparentModal' }}
+        />
+        <Screen
+          name="WatchVideo"
+          component={WatchVideoModal}
+          options={{
+            headerShown: false,
+            presentation: 'transparentModal',
+            gestureResponseDistance: height / 3.5
+          }}
         />
       </Group>
     </Navigator>

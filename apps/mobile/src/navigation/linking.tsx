@@ -41,7 +41,8 @@ export const linking: LinkingOptions<RootStackParamList> = {
       },
       SignIn: 'sign-in',
       SignUp: 'sign-up',
-      NotFound: '*'
+      NotFound: '*',
+      WatchVideo: '/watch/:id'
     }
   }
 }
