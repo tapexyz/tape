@@ -3,7 +3,7 @@ import { getSharableLink } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import type { FC } from 'react'
 import React from 'react'
-import { Share, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, Share, StyleSheet, Text } from 'react-native'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    width: '100%'
   },
   otherInfo: {
     fontFamily: 'font-normal',
@@ -42,10 +43,18 @@ const Actions: FC<Props> = ({ video }) => {
   }`
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      horizontal
+      contentContainerStyle={styles.container}
+      showsHorizontalScrollIndicator={false}
+    >
       <AnimatedPressable style={styles.action}>
         <Ionicons name="heart-outline" color={theme.colors.white} size={25} />
         <Text style={styles.otherInfo}>Like</Text>
+      </AnimatedPressable>
+      <AnimatedPressable style={styles.action}>
+        <Ionicons name="sync-outline" color={theme.colors.white} size={25} />
+        <Text style={styles.otherInfo}>Mirror</Text>
       </AnimatedPressable>
       <AnimatedPressable style={styles.action}>
         <Ionicons name="grid-outline" color={theme.colors.white} size={25} />
@@ -77,7 +86,7 @@ const Actions: FC<Props> = ({ video }) => {
         />
         <Text style={styles.otherInfo}>Share</Text>
       </AnimatedPressable>
-    </View>
+    </ScrollView>
   )
 }
 

@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 
 import Actions from '~/components/watch/Actions'
+import Comments from '~/components/watch/Comments'
 import Metadata from '~/components/watch/Metadata'
 import VideoPlayer from '~/components/watch/Player'
 import normalizeFont from '~/helpers/normalize-font'
@@ -63,6 +64,7 @@ const WatchVideoModal = (props: WatchVideoScreenProps) => {
       <ScrollView>
         <Metadata video={video} />
         <Actions video={video} />
+        <Comments video={video} />
       </ScrollView>
     </SafeAreaView>
   )
