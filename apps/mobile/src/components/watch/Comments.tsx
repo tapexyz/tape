@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    margin: 5,
+    marginVertical: 15,
+    marginHorizontal: 5,
     borderRadius: 15,
     padding: 15,
     backgroundColor: theme.colors.backdrop,
@@ -61,7 +62,7 @@ const Comments: FC<Props> = ({ video }) => {
             ? 0
             : currentCommentIndex + 1
         )
-      }, 10000) // 10 secs
+      }, 20000) // 20 secs
     }
     return () => clearInterval(timer)
   }, [currentCommentIndex, comments?.length])

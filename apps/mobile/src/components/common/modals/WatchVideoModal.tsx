@@ -11,6 +11,7 @@ import {
 import Actions from '~/components/watch/Actions'
 import Comments from '~/components/watch/Comments'
 import Metadata from '~/components/watch/Metadata'
+import MoreVideos from '~/components/watch/MoreVideos'
 import VideoPlayer from '~/components/watch/Player'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -65,6 +66,7 @@ const WatchVideoModal = (props: WatchVideoScreenProps) => {
         <Metadata video={video} />
         <Actions video={video} />
         <Comments video={video} />
+        <MoreVideos viewingId={video.id} />
       </ScrollView>
     </SafeAreaView>
   )
