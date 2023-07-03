@@ -3,7 +3,7 @@ import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import { type Publication, useCommentsQuery } from '@lenstube/lens'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
@@ -12,23 +12,24 @@ import { theme } from '~/helpers/theme'
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     margin: 5,
     borderRadius: 15,
-    padding: 12,
+    padding: 15,
     backgroundColor: theme.colors.backdrop,
     gap: 10
   },
   handle: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(11),
-    color: theme.colors.white,
+    fontFamily: 'font-normal',
+    fontSize: normalizeFont(10),
+    color: theme.colors.primary,
     letterSpacing: 1
   },
   comment: {
     fontFamily: 'font-normal',
     fontSize: normalizeFont(12),
-    color: theme.colors.primary
+    color: theme.colors.white,
+    lineHeight: 20
   }
 })
 
@@ -37,8 +38,10 @@ type Props = {
 }
 
 const Comments: FC<Props> = ({ video }) => {
+  const [currentCommentIndex, setCurrentCommentIndex] = useState(0)
+
   const request = {
-    limit: 1,
+    limit: 10,
     customFilters: LENS_CUSTOM_FILTERS,
     commentsOf: video.id
   }
@@ -47,33 +50,50 @@ const Comments: FC<Props> = ({ video }) => {
     variables: { request },
     skip: !video.id
   })
-  const comment = data?.publications?.items?.[0] as Publication
+  const comments = data?.publications?.items as Publication[]
 
-  if (!comment || error) {
+  useEffect(() => {
+    let timer: NodeJS.Timer
+    if (comments?.length) {
+      timer = setInterval(() => {
+        setCurrentCommentIndex(
+          currentCommentIndex === comments.length - 1
+            ? 0
+            : currentCommentIndex + 1
+        )
+      }, 10000) // 10 secs
+    }
+    return () => clearInterval(timer)
+  }, [currentCommentIndex, comments?.length])
+
+  if (!comments?.length || error) {
     return null
   }
 
+  const comment = comments[currentCommentIndex]
+
   return (
     <View style={styles.container}>
-      <ExpoImage
-        source={getProfilePicture(video.profile)}
-        contentFit="cover"
-        style={{ width: 40, height: 40, borderRadius: 10 }}
-      />
       <View
         style={{
           display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center'
+          flexDirection: 'row',
+          gap: 5
         }}
       >
+        <ExpoImage
+          source={getProfilePicture(comment.profile)}
+          contentFit="cover"
+          style={{ width: 15, height: 15, borderRadius: 3 }}
+        />
         <Text style={styles.handle}>
           {trimLensHandle(comment.profile.handle)}
         </Text>
-        <Text numberOfLines={1} style={styles.comment}>
-          {comment.metadata.content}
-        </Text>
       </View>
+
+      <Text numberOfLines={1} style={styles.comment}>
+        {comment.metadata.content}
+      </Text>
     </View>
   )
 }
