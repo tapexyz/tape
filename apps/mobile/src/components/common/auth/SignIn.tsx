@@ -10,7 +10,7 @@ import haptic from '~/helpers/haptic'
 import useMobileStore from '~/store'
 import { useMobilePersistStore } from '~/store/persist'
 
-import Sheet from './Sheet'
+import AuthSheet from './AuthSheet'
 
 const SignIn = () => {
   const { open, address, isConnected } = useWalletConnectModal()
@@ -38,7 +38,7 @@ const SignIn = () => {
 
   return (
     <>
-      {address && <Sheet sheetRef={bottomSheetModalRef} />}
+      {address && <AuthSheet sheetRef={bottomSheetModalRef} />}
 
       <AnimatedPressable
         onPress={() => {

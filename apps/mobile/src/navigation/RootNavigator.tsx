@@ -68,7 +68,7 @@ export const RootNavigator: FC = () => {
           options={{
             headerShown: false,
             presentation: 'transparentModal',
-            gestureResponseDistance: height / 2
+            gestureResponseDistance: height / 3.5
           }}
         />
       </Group>
