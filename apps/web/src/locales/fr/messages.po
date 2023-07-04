@@ -438,7 +438,7 @@ msgstr "Échec du dépôt du solde de stockage"
 msgid "Failed to upload thumbnail"
 msgstr "Échec du téléchargement de la miniature"
 
-#: src/components/Upload/UploadSteps.tsx:515
+#: src/components/Upload/UploadSteps.tsx:519
 msgid "Failed to upload video to Arweave"
 msgstr "Impossible de télécharger la vidéo vers Arweave"
 
@@ -509,7 +509,7 @@ msgstr "Indexation..."
 #~ msgid "Insufficient balance"
 #~ msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:462
+#: src/components/Upload/UploadSteps.tsx:466
 msgid "Insufficient storage balance"
 msgstr "Solde de stockage insuffisant"
 
@@ -542,7 +542,7 @@ msgstr "Signature invalide!"
 msgid "Invalid split recipient address"
 msgstr "Adresse du destinataire fractionné invalide"
 
-#: src/components/Upload/UploadSteps.tsx:441
+#: src/components/Upload/UploadSteps.tsx:442
 msgid "IPFS Upload failed"
 msgstr "Échec du téléchargement IPFS"
 
@@ -844,13 +844,11 @@ msgstr "Veuillez télécharger une miniature personnalisée"
 msgid "Popular"
 msgstr "Populaire"
 
-#: src/components/Upload/UploadSteps.tsx:127
-#: src/components/Upload/UploadSteps.tsx:154
-#: src/components/Upload/UploadSteps.tsx:519
+#: src/components/Upload/UploadSteps.tsx:126
 msgid "Post Video"
 msgstr "Publier une vidéo"
 
-#: src/components/Upload/UploadSteps.tsx:383
+#: src/components/Upload/UploadSteps.tsx:381
 msgid "Posting video"
 msgstr "Envoi de la vidéo"
 
@@ -1076,7 +1074,7 @@ msgstr "Statut"
 msgid "Stay active in current tab while uploading for faster experience"
 msgstr "Restez actif dans l'onglet en cours lors du téléchargement pour une expérience plus rapide"
 
-#: src/components/Upload/UploadSteps.tsx:327
+#: src/components/Upload/UploadSteps.tsx:325
 msgid "Storing metadata"
 msgstr "Stockage des métadonnées"
 
@@ -1337,7 +1335,7 @@ msgstr "Télécharger vers IPFS"
 msgid "Uploading thumbnail"
 msgstr "Envoi de la miniature"
 
-#: src/components/Upload/UploadSteps.tsx:467
+#: src/components/Upload/UploadSteps.tsx:471
 msgid "Uploading to Arweave"
 msgstr "Envoi vers Arweave"
 
@@ -1376,7 +1374,7 @@ msgstr "Format vidéo non pris en charge"
 msgid "Video marked as not interested"
 msgstr "Vidéo marquée comme non intéressée"
 
-#: src/components/Upload/UploadSteps.tsx:457
+#: src/components/Upload/UploadSteps.tsx:460
 msgid "Video not uploaded correctly"
 msgstr "La vidéo n'est pas correctement téléchargée"
 
@@ -1513,4 +1511,3 @@ msgstr "Votre Chaîne"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "Votre solde de stockage"
-
