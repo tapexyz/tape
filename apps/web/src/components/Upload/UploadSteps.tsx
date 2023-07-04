@@ -121,12 +121,16 @@ const UploadSteps = () => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.UPLOAD.STEPS })
   }, [])
 
-  const onError = (error: CustomErrorWithData) => {
-    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+  const stopLoading = () => {
     setUploadedVideo({
       buttonText: t`Post Video`,
       loading: false
     })
+  }
+
+  const onError = (error: CustomErrorWithData) => {
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+    stopLoading()
   }
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
@@ -150,10 +154,7 @@ const UploadSteps = () => {
         : null,
       user_id: selectedChannel?.id
     })
-    return setUploadedVideo({
-      buttonText: t`Post Video`,
-      loading: false
-    })
+    return stopLoading()
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -174,10 +175,7 @@ const UploadSteps = () => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'post',
     onSuccess: (data) => {
-      setUploadedVideo({
-        buttonText: 'Post Video',
-        loading: false
-      })
+      stopLoading()
       if (data.hash) {
         setToQueue({ txnHash: data.hash })
       }
@@ -423,7 +421,9 @@ const UploadSteps = () => {
       }
 
       return await createTypedData(request)
-    } catch {}
+    } catch {
+      stopLoading()
+    }
   }
 
   const uploadVideoToIpfs = async () => {
@@ -438,6 +438,7 @@ const UploadSteps = () => {
       }
     )
     if (!result.url) {
+      stopLoading()
       return toast.error(t`IPFS Upload failed`)
     }
     setUploadedVideo({
@@ -451,14 +452,17 @@ const UploadSteps = () => {
 
   const uploadToBundlr = async () => {
     if (!bundlrData.instance) {
+      stopLoading()
       return await initBundlr()
     }
     if (!uploadedVideo.stream) {
+      stopLoading()
       return toast.error(t`Video not uploaded correctly`)
     }
     if (
       parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice)
     ) {
+      stopLoading()
       return toast.error(t`Insufficient storage balance`)
     }
     try {
@@ -514,15 +518,13 @@ const UploadSteps = () => {
     } catch (error) {
       toast.error(t`Failed to upload video to Arweave`)
       logger.error('[Error Bundlr Upload Video]', error)
-      return setUploadedVideo({
-        loading: false,
-        buttonText: t`Post Video`
-      })
+      return stopLoading()
     }
   }
 
   const onUpload = async (data: VideoFormData) => {
     uploadedVideo.title = data.title
+    uploadedVideo.loading = true
     uploadedVideo.description = data.description
     uploadedVideo.isSensitiveContent = data.isSensitiveContent
     setUploadedVideo({ ...uploadedVideo })
