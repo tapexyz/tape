@@ -5131,6 +5131,7 @@ export type CommentFieldsFragment = {
     totalAmountOfMirrors: number
     totalAmountOfCollects: number
     totalAmountOfComments: number
+    totalBookmarks: number
     commentsTotal: number
   }
   metadata: {
@@ -5522,6 +5523,7 @@ export type MirrorFieldsFragment = {
     totalAmountOfMirrors: number
     totalAmountOfCollects: number
     totalAmountOfComments: number
+    totalBookmarks: number
     commentsTotal: number
   }
   metadata: {
@@ -5789,6 +5791,7 @@ export type MirrorFieldsFragment = {
           totalAmountOfMirrors: number
           totalAmountOfCollects: number
           totalAmountOfComments: number
+          totalBookmarks: number
           commentsTotal: number
         }
         metadata: {
@@ -6148,6 +6151,7 @@ export type MirrorFieldsFragment = {
           totalAmountOfMirrors: number
           totalAmountOfCollects: number
           totalAmountOfComments: number
+          totalBookmarks: number
           commentsTotal: number
         }
         metadata: {
@@ -6418,6 +6422,7 @@ export type PostFieldsFragment = {
     totalAmountOfMirrors: number
     totalAmountOfCollects: number
     totalAmountOfComments: number
+    totalBookmarks: number
     commentsTotal: number
   }
   metadata: {
@@ -6521,6 +6526,7 @@ export type StatsFieldsFragment = {
   totalAmountOfMirrors: number
   totalAmountOfCollects: number
   totalAmountOfComments: number
+  totalBookmarks: number
   commentsTotal: number
 }
 
@@ -7670,6 +7676,7 @@ export type CommentsQuery = {
             totalAmountOfMirrors: number
             totalAmountOfCollects: number
             totalAmountOfComments: number
+            totalBookmarks: number
             commentsTotal: number
           }
           metadata: {
@@ -8114,6 +8121,7 @@ export type ExploreQuery = {
             totalAmountOfMirrors: number
             totalAmountOfCollects: number
             totalAmountOfComments: number
+            totalBookmarks: number
             commentsTotal: number
           }
           metadata: {
@@ -8478,6 +8486,7 @@ export type ExploreQuery = {
             totalAmountOfMirrors: number
             totalAmountOfCollects: number
             totalAmountOfComments: number
+            totalBookmarks: number
             commentsTotal: number
           }
           metadata: {
@@ -8767,6 +8776,7 @@ export type FeedQuery = {
               totalAmountOfMirrors: number
               totalAmountOfCollects: number
               totalAmountOfComments: number
+              totalBookmarks: number
               commentsTotal: number
             }
             metadata: {
@@ -9130,6 +9140,7 @@ export type FeedQuery = {
               totalAmountOfMirrors: number
               totalAmountOfCollects: number
               totalAmountOfComments: number
+              totalBookmarks: number
               commentsTotal: number
             }
             metadata: {
@@ -10102,6 +10113,7 @@ export type ProfileBookmarksQuery = {
             totalAmountOfMirrors: number
             totalAmountOfCollects: number
             totalAmountOfComments: number
+            totalBookmarks: number
             commentsTotal: number
           }
           metadata: {
@@ -10465,6 +10477,7 @@ export type ProfileBookmarksQuery = {
             totalAmountOfMirrors: number
             totalAmountOfCollects: number
             totalAmountOfComments: number
+            totalBookmarks: number
             commentsTotal: number
           }
           metadata: {
@@ -10739,6 +10752,7 @@ export type ProfileBookmarksQuery = {
                   totalAmountOfMirrors: number
                   totalAmountOfCollects: number
                   totalAmountOfComments: number
+                  totalBookmarks: number
                   commentsTotal: number
                 }
                 metadata: {
@@ -11111,6 +11125,7 @@ export type ProfileBookmarksQuery = {
                   totalAmountOfMirrors: number
                   totalAmountOfCollects: number
                   totalAmountOfComments: number
+                  totalBookmarks: number
                   commentsTotal: number
                 }
                 metadata: {
@@ -11384,6 +11399,7 @@ export type ProfileBookmarksQuery = {
             totalAmountOfMirrors: number
             totalAmountOfCollects: number
             totalAmountOfComments: number
+            totalBookmarks: number
             commentsTotal: number
           }
           metadata: {
@@ -11714,6 +11730,7 @@ export type ProfileMirrorsQuery = {
             totalAmountOfMirrors: number
             totalAmountOfCollects: number
             totalAmountOfComments: number
+            totalBookmarks: number
             commentsTotal: number
           }
           metadata: {
@@ -11988,6 +12005,7 @@ export type ProfileMirrorsQuery = {
                   totalAmountOfMirrors: number
                   totalAmountOfCollects: number
                   totalAmountOfComments: number
+                  totalBookmarks: number
                   commentsTotal: number
                 }
                 metadata: {
@@ -12360,6 +12378,7 @@ export type ProfileMirrorsQuery = {
                   totalAmountOfMirrors: number
                   totalAmountOfCollects: number
                   totalAmountOfComments: number
+                  totalBookmarks: number
                   commentsTotal: number
                 }
                 metadata: {
@@ -12677,6 +12696,7 @@ export type ProfilePostsQuery = {
             totalAmountOfMirrors: number
             totalAmountOfCollects: number
             totalAmountOfComments: number
+            totalBookmarks: number
             commentsTotal: number
           }
           metadata: {
@@ -13154,6 +13174,7 @@ export type PublicationDetailsQuery = {
           totalAmountOfMirrors: number
           totalAmountOfCollects: number
           totalAmountOfComments: number
+          totalBookmarks: number
           commentsTotal: number
         }
         metadata: {
@@ -13513,6 +13534,7 @@ export type PublicationDetailsQuery = {
           totalAmountOfMirrors: number
           totalAmountOfCollects: number
           totalAmountOfComments: number
+          totalBookmarks: number
           commentsTotal: number
         }
         metadata: {
@@ -13780,6 +13802,7 @@ export type PublicationDetailsQuery = {
                 totalAmountOfMirrors: number
                 totalAmountOfCollects: number
                 totalAmountOfComments: number
+                totalBookmarks: number
                 commentsTotal: number
               }
               metadata: {
@@ -14149,6 +14172,7 @@ export type PublicationDetailsQuery = {
                 totalAmountOfMirrors: number
                 totalAmountOfCollects: number
                 totalAmountOfComments: number
+                totalBookmarks: number
                 commentsTotal: number
               }
               metadata: {
@@ -14422,6 +14446,7 @@ export type PublicationDetailsQuery = {
           totalAmountOfMirrors: number
           totalAmountOfCollects: number
           totalAmountOfComments: number
+          totalBookmarks: number
           commentsTotal: number
         }
         metadata: {
@@ -14793,6 +14818,7 @@ export type SearchPublicationsQuery = {
                 totalAmountOfMirrors: number
                 totalAmountOfCollects: number
                 totalAmountOfComments: number
+                totalBookmarks: number
                 commentsTotal: number
               }
               metadata: {
@@ -15162,6 +15188,7 @@ export type SearchPublicationsQuery = {
                 totalAmountOfMirrors: number
                 totalAmountOfCollects: number
                 totalAmountOfComments: number
+                totalBookmarks: number
                 commentsTotal: number
               }
               metadata: {
@@ -15526,6 +15553,7 @@ export const StatsFieldsFragmentDoc = gql`
     totalAmountOfMirrors
     totalAmountOfCollects
     totalAmountOfComments
+    totalBookmarks
     commentsTotal(customFilters: GARDENERS)
   }
 `

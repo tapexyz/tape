@@ -105,8 +105,8 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
               <CommentOutline className="h-5 w-5" />
               <span className="font-medium">
                 <Trans>Comments</Trans>{' '}
-                {video.stats.commentsTotal
-                  ? `( ${video.stats.commentsTotal} )`
+                {video.stats.totalAmountOfComments
+                  ? `( ${video.stats.totalAmountOfComments} )`
                   : null}
               </span>
             </h1>
