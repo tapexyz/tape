@@ -195,7 +195,12 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
         </div>
       </div>
       <div className="mt-4 flex items-center justify-end space-x-2">
-        <Button type="button" variant="hover" onClick={() => onCancel()}>
+        <Button
+          type="button"
+          variant="hover"
+          disabled={uploadedVideo.loading}
+          onClick={() => onCancel()}
+        >
           <Trans>Reset</Trans>
         </Button>
         <Button
