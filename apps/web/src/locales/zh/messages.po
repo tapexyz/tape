@@ -438,7 +438,7 @@ msgstr "保存存储余额失败"
 msgid "Failed to upload thumbnail"
 msgstr "上传缩略图失败"
 
-#: src/components/Upload/UploadSteps.tsx:515
+#: src/components/Upload/UploadSteps.tsx:519
 msgid "Failed to upload video to Arweave"
 msgstr "上传视频到 Arweeve 失败"
 
@@ -509,7 +509,7 @@ msgstr "正在索引..."
 #~ msgid "Insufficient balance"
 #~ msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:462
+#: src/components/Upload/UploadSteps.tsx:466
 msgid "Insufficient storage balance"
 msgstr "存储余额不足"
 
@@ -542,7 +542,7 @@ msgstr "签名无效！"
 msgid "Invalid split recipient address"
 msgstr "无效的分割收件人地址"
 
-#: src/components/Upload/UploadSteps.tsx:441
+#: src/components/Upload/UploadSteps.tsx:442
 msgid "IPFS Upload failed"
 msgstr "IPFS 上传失败"
 
@@ -844,13 +844,11 @@ msgstr "请上传一个自定义缩略图"
 msgid "Popular"
 msgstr "热门的"
 
-#: src/components/Upload/UploadSteps.tsx:127
-#: src/components/Upload/UploadSteps.tsx:154
-#: src/components/Upload/UploadSteps.tsx:519
+#: src/components/Upload/UploadSteps.tsx:126
 msgid "Post Video"
 msgstr "发布视频"
 
-#: src/components/Upload/UploadSteps.tsx:383
+#: src/components/Upload/UploadSteps.tsx:381
 msgid "Posting video"
 msgstr "发布视频"
 
@@ -1076,7 +1074,7 @@ msgstr "状态"
 msgid "Stay active in current tab while uploading for faster experience"
 msgstr "在上传时保持活跃于当前标签页以获得更快的体验。"
 
-#: src/components/Upload/UploadSteps.tsx:327
+#: src/components/Upload/UploadSteps.tsx:325
 msgid "Storing metadata"
 msgstr "存储元数据"
 
@@ -1337,7 +1335,7 @@ msgstr "上传到 IPFS"
 msgid "Uploading thumbnail"
 msgstr "正在上传缩略图"
 
-#: src/components/Upload/UploadSteps.tsx:467
+#: src/components/Upload/UploadSteps.tsx:471
 msgid "Uploading to Arweave"
 msgstr "正在上传到Arweeve"
 
@@ -1376,7 +1374,7 @@ msgstr "视频格式不被支持"
 msgid "Video marked as not interested"
 msgstr "标记为不感兴趣的视频"
 
-#: src/components/Upload/UploadSteps.tsx:457
+#: src/components/Upload/UploadSteps.tsx:460
 msgid "Video not uploaded correctly"
 msgstr "视频上传不正确"
 
@@ -1513,4 +1511,3 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
-

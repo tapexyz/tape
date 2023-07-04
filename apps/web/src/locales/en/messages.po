@@ -438,7 +438,7 @@ msgstr "Failed to deposit storage balance"
 msgid "Failed to upload thumbnail"
 msgstr "Failed to upload thumbnail"
 
-#: src/components/Upload/UploadSteps.tsx:515
+#: src/components/Upload/UploadSteps.tsx:519
 msgid "Failed to upload video to Arweave"
 msgstr "Failed to upload video to Arweave"
 
@@ -509,7 +509,7 @@ msgstr "Indexing..."
 #~ msgid "Insufficient balance"
 #~ msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:462
+#: src/components/Upload/UploadSteps.tsx:466
 msgid "Insufficient storage balance"
 msgstr ""
 
@@ -542,7 +542,7 @@ msgstr "Invalid Signature!"
 msgid "Invalid split recipient address"
 msgstr "Invalid split recipient address"
 
-#: src/components/Upload/UploadSteps.tsx:441
+#: src/components/Upload/UploadSteps.tsx:442
 msgid "IPFS Upload failed"
 msgstr "IPFS Upload failed"
 
@@ -844,13 +844,11 @@ msgstr "Please upload a custom thumbnail"
 msgid "Popular"
 msgstr "Popular"
 
-#: src/components/Upload/UploadSteps.tsx:127
-#: src/components/Upload/UploadSteps.tsx:154
-#: src/components/Upload/UploadSteps.tsx:519
+#: src/components/Upload/UploadSteps.tsx:126
 msgid "Post Video"
 msgstr "Post Video"
 
-#: src/components/Upload/UploadSteps.tsx:383
+#: src/components/Upload/UploadSteps.tsx:381
 msgid "Posting video"
 msgstr "Posting video"
 
@@ -1076,7 +1074,7 @@ msgstr "Status"
 msgid "Stay active in current tab while uploading for faster experience"
 msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:327
+#: src/components/Upload/UploadSteps.tsx:325
 msgid "Storing metadata"
 msgstr ""
 
@@ -1337,7 +1335,7 @@ msgstr ""
 msgid "Uploading thumbnail"
 msgstr "Uploading thumbnail"
 
-#: src/components/Upload/UploadSteps.tsx:467
+#: src/components/Upload/UploadSteps.tsx:471
 msgid "Uploading to Arweave"
 msgstr ""
 
@@ -1376,7 +1374,7 @@ msgstr ""
 msgid "Video marked as not interested"
 msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:457
+#: src/components/Upload/UploadSteps.tsx:460
 msgid "Video not uploaded correctly"
 msgstr ""
 
@@ -1513,4 +1511,3 @@ msgstr "Your Channel"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "Your Storage Balance"
-
