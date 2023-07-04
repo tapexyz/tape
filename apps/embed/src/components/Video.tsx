@@ -1,4 +1,4 @@
-import { Analytics, TRACK, useAverageColor } from '@lenstube/browser'
+import { useAverageColor } from '@lenstube/browser'
 import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@lenstube/constants'
 import {
   getPublicationHlsUrl,
@@ -40,9 +40,9 @@ const Video: FC<Props> = ({ video }) => {
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
-  useEffect(() => {
-    Analytics.track(TRACK.EMBED_VIDEO.LOADED)
-  }, [])
+  // useEffect(() => {
+  //   Analytics.track(TRACK.EMBED_VIDEO.LOADED)
+  // }, [])
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (!ref) {
