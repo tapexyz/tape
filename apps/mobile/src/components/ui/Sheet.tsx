@@ -8,9 +8,10 @@ import { theme } from '~/helpers/theme'
 
 type Props = {
   sheetRef?: React.RefObject<BottomSheetModalMethods>
+  snap?: string[]
 }
 
-const Sheet: FC<PropsWithChildren & Props> = ({ children, sheetRef }) => {
+const Sheet: FC<PropsWithChildren & Props> = ({ children, sheetRef, snap }) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   const snapPoints = useMemo(() => ['40%'], [])
@@ -36,7 +37,7 @@ const Sheet: FC<PropsWithChildren & Props> = ({ children, sheetRef }) => {
       style={{ marginHorizontal: 10 }}
       bottomInset={20}
       detached={true}
-      snapPoints={snapPoints}
+      snapPoints={snap ?? snapPoints}
       backdropComponent={renderBackdrop}
     >
       {children}

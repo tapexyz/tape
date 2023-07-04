@@ -27,6 +27,7 @@ import VideoCard from '../common/VideoCard'
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 10,
     marginHorizontal: 5
   },
   filter: {
@@ -35,17 +36,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 3,
-    borderRadius: 25,
-    borderWidth: 1,
-    borderColor: theme.colors.secondary,
-    marginRight: 10
+    borderRadius: 25
   },
   text: {
     fontFamily: 'font-bold',
-    fontSize: normalizeFont(12),
-    letterSpacing: 0.5,
-    color: theme.colors.white
+    fontSize: normalizeFont(10),
+    letterSpacing: 0.5
   },
   videos: {
     marginTop: 15,
@@ -62,7 +58,7 @@ type Props = {
 const MoreVideos: FC<Props> = ({ viewingId }) => {
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 10,
+    limit: 5,
     publicationTypes: [PublicationTypes.Post],
     metadata: { mainContentFocus: [PublicationMainFocus.Video] },
     noRandomize: false,
@@ -102,9 +98,18 @@ const MoreVideos: FC<Props> = ({ viewingId }) => {
       >
         <Pressable
           onPress={() => haptic()}
-          style={[styles.filter, { backgroundColor: theme.colors.grey }]}
+          style={[styles.filter, { backgroundColor: theme.colors.white }]}
         >
-          <Text style={styles.text}>Watch next</Text>
+          <Text
+            style={[
+              styles.text,
+              {
+                color: theme.colors.black
+              }
+            ]}
+          >
+            Watch next
+          </Text>
         </Pressable>
         <Pressable
           onPress={() => {
@@ -112,7 +117,16 @@ const MoreVideos: FC<Props> = ({ viewingId }) => {
           }}
           style={styles.filter}
         >
-          <Text style={styles.text}>Related picks</Text>
+          <Text
+            style={[
+              styles.text,
+              {
+                color: theme.colors.white
+              }
+            ]}
+          >
+            Related picks
+          </Text>
         </Pressable>
         <Pressable
           onPress={() => {
@@ -120,7 +134,16 @@ const MoreVideos: FC<Props> = ({ viewingId }) => {
           }}
           style={styles.filter}
         >
-          <Text style={styles.text}>From Creator</Text>
+          <Text
+            style={[
+              styles.text,
+              {
+                color: theme.colors.white
+              }
+            ]}
+          >
+            From the Creator
+          </Text>
         </Pressable>
       </ScrollView>
       <View style={styles.videos}>

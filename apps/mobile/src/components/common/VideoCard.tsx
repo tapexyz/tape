@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 215,
     borderRadius: 10,
-    backgroundColor: theme.colors.background
+    backgroundColor: theme.colors.backdrop
   },
   otherInfoContainer: {
     display: 'flex',

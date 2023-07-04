@@ -1,13 +1,18 @@
+import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
+import { getProfilePicture, imageCdn, trimLensHandle } from '@lenstube/generic'
 import { type Publication, useCommentsQuery } from '@lenstube/lens'
+import { FlashList } from '@shopify/flash-list'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
+
+import AnimatedPressable from '../ui/AnimatedPressable'
+import Sheet from '../ui/Sheet'
 
 const styles = StyleSheet.create({
   container: {
@@ -39,6 +44,9 @@ type Props = {
 }
 
 const Comments: FC<Props> = ({ video }) => {
+  const commentsSheetRef = useRef<BottomSheetModal>(null)
+  const snapPoints = useMemo(() => ['70%'], [])
+
   const [currentCommentIndex, setCurrentCommentIndex] = useState(0)
 
   const request = {
@@ -74,28 +82,80 @@ const Comments: FC<Props> = ({ video }) => {
   const comment = comments[currentCommentIndex]
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: 5
-        }}
+    <>
+      <AnimatedPressable
+        style={styles.container}
+        onPress={() => commentsSheetRef.current?.present()}
       >
-        <ExpoImage
-          source={getProfilePicture(comment.profile)}
-          contentFit="cover"
-          style={{ width: 15, height: 15, borderRadius: 3 }}
-        />
-        <Text style={styles.handle}>
-          {trimLensHandle(comment.profile.handle)}
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 5
+          }}
+        >
+          <ExpoImage
+            source={imageCdn(getProfilePicture(comment.profile), 'AVATAR')}
+            contentFit="cover"
+            style={{ width: 15, height: 15, borderRadius: 3 }}
+          />
+          <Text style={styles.handle}>
+            {trimLensHandle(comment.profile.handle)}
+          </Text>
+        </View>
+        <Text numberOfLines={1} style={styles.comment}>
+          {comment.metadata.content}
         </Text>
-      </View>
+      </AnimatedPressable>
 
-      <Text numberOfLines={1} style={styles.comment}>
-        {comment.metadata.content}
-      </Text>
-    </View>
+      <Sheet sheetRef={commentsSheetRef} snap={snapPoints}>
+        <ScrollView
+          style={{
+            flex: 1
+          }}
+        >
+          <View
+            style={{
+              paddingVertical: 15,
+              paddingHorizontal: 20,
+              minHeight: Dimensions.get('screen').height / 2
+            }}
+          >
+            <FlashList
+              ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
+              renderItem={({ item }) => {
+                return (
+                  <View style={{ gap: 10 }}>
+                    <View
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        gap: 5
+                      }}
+                    >
+                      <ExpoImage
+                        source={imageCdn(
+                          getProfilePicture(item.profile),
+                          'AVATAR'
+                        )}
+                        contentFit="cover"
+                        style={{ width: 15, height: 15, borderRadius: 3 }}
+                      />
+                      <Text style={styles.handle}>
+                        {trimLensHandle(item.profile.handle)}
+                      </Text>
+                    </View>
+                    <Text style={styles.comment}>{item.metadata.content}</Text>
+                  </View>
+                )
+              }}
+              estimatedItemSize={50}
+              data={comments}
+            />
+          </View>
+        </ScrollView>
+      </Sheet>
+    </>
   )
 }
 
