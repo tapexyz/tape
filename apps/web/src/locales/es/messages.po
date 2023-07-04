@@ -438,7 +438,7 @@ msgstr "Error al depositar el saldo"
 msgid "Failed to upload thumbnail"
 msgstr "Error al subir la miniatura"
 
-#: src/components/Upload/UploadSteps.tsx:515
+#: src/components/Upload/UploadSteps.tsx:519
 msgid "Failed to upload video to Arweave"
 msgstr "No se pudo subir el vídeo a Arweave"
 
@@ -509,7 +509,7 @@ msgstr "Indexando..."
 #~ msgid "Insufficient balance"
 #~ msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:462
+#: src/components/Upload/UploadSteps.tsx:466
 msgid "Insufficient storage balance"
 msgstr "Balance de almacenamiento insuficiente"
 
@@ -542,7 +542,7 @@ msgstr "¡Firma no válida!"
 msgid "Invalid split recipient address"
 msgstr "Dirección de destinatario dividida inválida"
 
-#: src/components/Upload/UploadSteps.tsx:441
+#: src/components/Upload/UploadSteps.tsx:442
 msgid "IPFS Upload failed"
 msgstr "Error al subir IPFS"
 
@@ -844,13 +844,11 @@ msgstr "Por favor, sube una miniatura personalizada"
 msgid "Popular"
 msgstr "Popular"
 
-#: src/components/Upload/UploadSteps.tsx:127
-#: src/components/Upload/UploadSteps.tsx:154
-#: src/components/Upload/UploadSteps.tsx:519
+#: src/components/Upload/UploadSteps.tsx:126
 msgid "Post Video"
 msgstr "Publicar vídeo"
 
-#: src/components/Upload/UploadSteps.tsx:383
+#: src/components/Upload/UploadSteps.tsx:381
 msgid "Posting video"
 msgstr "Publicando vídeo"
 
@@ -1076,7 +1074,7 @@ msgstr "Estado"
 msgid "Stay active in current tab while uploading for faster experience"
 msgstr "Manténgase activo en la pestaña actual mientras sube para una experiencia más rápida"
 
-#: src/components/Upload/UploadSteps.tsx:327
+#: src/components/Upload/UploadSteps.tsx:325
 msgid "Storing metadata"
 msgstr "Almacenando metadatos"
 
@@ -1337,7 +1335,7 @@ msgstr "Subir a IPFS"
 msgid "Uploading thumbnail"
 msgstr "Subiendo miniatura"
 
-#: src/components/Upload/UploadSteps.tsx:467
+#: src/components/Upload/UploadSteps.tsx:471
 msgid "Uploading to Arweave"
 msgstr "Subiendo a Artisar"
 
@@ -1376,7 +1374,7 @@ msgstr "Formato de vídeo no soportado"
 msgid "Video marked as not interested"
 msgstr "Video marcado como no interesado"
 
-#: src/components/Upload/UploadSteps.tsx:457
+#: src/components/Upload/UploadSteps.tsx:460
 msgid "Video not uploaded correctly"
 msgstr "El vídeo no se ha subido correctamente"
 
@@ -1513,4 +1511,3 @@ msgstr "Tu Canal"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "Tu saldo de almacenamiento"
-
