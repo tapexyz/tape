@@ -43,7 +43,7 @@
     "react-native-svg": "13.4.0",
     "uuid": "3.4.0",
     "viem": "^1.2.9",
-    "zustand": "^4.3.8"
+    "zustand": "^4.3.9"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
