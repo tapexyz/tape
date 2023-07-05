@@ -24,6 +24,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import { AppLoading } from './components'
 import mobileAuthLink from './helpers/auth-link'
+import { usePushNotifications } from './hooks'
 import { Navigation } from './navigation'
 import { NotificationsProvider } from './providers'
 
@@ -49,6 +50,8 @@ const livepeerClient = createReactClient({
 })
 
 const App = (): JSX.Element => {
+  usePushNotifications()
+
   return (
     <ApolloProvider client={apolloClient(mobileAuthLink)}>
       <LivepeerConfig client={livepeerClient}>

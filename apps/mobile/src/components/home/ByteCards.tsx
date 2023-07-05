@@ -45,7 +45,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 6,
     paddingVertical: 10,
-    opacity: 0.8
+    opacity: 0.8,
+    marginBottom: 1,
+    borderBottomRightRadius: BORDER_RADIUS,
+    borderBottomLeftRadius: BORDER_RADIUS
   },
   thumbnail: {
     width: '100%',
@@ -163,7 +166,7 @@ const ByteCards = () => {
     return (
       <LinearGradient
         style={{ padding: 1, position: 'relative' }}
-        colors={['transparent', '#ffffff70']}
+        colors={['transparent', '#ffffff90']}
       >
         <ExpoImage
           source={getThumbnailUrl(byte)}

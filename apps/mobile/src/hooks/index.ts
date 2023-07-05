@@ -1,4 +1,5 @@
 export * from './useCachedResources'
+export { usePushNotifications } from './usePushNotifications'
 export {
   useBottomSheet,
   useBottomSheetDynamicSnapPoints,
