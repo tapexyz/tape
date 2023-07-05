@@ -5,7 +5,7 @@ import { type Publication, useCommentsQuery } from '@lenstube/lens'
 import { FlashList } from '@shopify/flash-list'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useMemo, useRef } from 'react'
 import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
@@ -47,8 +47,6 @@ const Comments: FC<Props> = ({ video }) => {
   const commentsSheetRef = useRef<BottomSheetModal>(null)
   const snapPoints = useMemo(() => ['70%'], [])
 
-  const [currentCommentIndex, setCurrentCommentIndex] = useState(0)
-
   const request = {
     limit: 10,
     customFilters: LENS_CUSTOM_FILTERS,
@@ -61,25 +59,11 @@ const Comments: FC<Props> = ({ video }) => {
   })
   const comments = data?.publications?.items as Publication[]
 
-  useEffect(() => {
-    let timer: NodeJS.Timer
-    if (comments?.length) {
-      timer = setInterval(() => {
-        setCurrentCommentIndex(
-          currentCommentIndex === comments.length - 1
-            ? 0
-            : currentCommentIndex + 1
-        )
-      }, 20000) // 20 secs
-    }
-    return () => clearInterval(timer)
-  }, [currentCommentIndex, comments?.length])
-
   if (!comments?.length || error) {
     return null
   }
 
-  const comment = comments[currentCommentIndex]
+  const comment = comments[0]
 
   return (
     <>

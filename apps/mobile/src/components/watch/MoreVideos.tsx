@@ -155,7 +155,8 @@ const MoreVideos: FC<Props> = ({ viewingId }) => {
           onEndReached={() => fetchMoreVideos()}
           ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
           renderItem={({ item }) => {
-            return item.id !== viewingId ? <VideoCard video={item} /> : null
+            return <VideoCard video={item} />
+            // return item.id !== viewingId ? <VideoCard video={item} /> : null
           }}
         />
       </View>

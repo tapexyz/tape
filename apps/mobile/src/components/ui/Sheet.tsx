@@ -34,7 +34,7 @@ const Sheet: FC<PropsWithChildren & Props> = ({ children, sheetRef, snap }) => {
         borderRadius: 40,
         backgroundColor: theme.colors.backdrop
       }}
-      style={{ marginHorizontal: 10 }}
+      style={{ marginHorizontal: 5 }}
       bottomInset={20}
       detached={true}
       snapPoints={snap ?? snapPoints}
