@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const TopsModal = (): JSX.Element => {
+export const TopsModal = (): JSX.Element => {
   const { goBack } = useNavigation()
   const isAndroid = Platform.OS === 'android'
 
@@ -88,5 +88,3 @@ const TopsModal = (): JSX.Element => {
     </BlurView>
   )
 }
-
-export default TopsModal

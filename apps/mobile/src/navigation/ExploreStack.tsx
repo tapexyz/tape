@@ -3,10 +3,9 @@ import React from 'react'
 
 import BackButton from '~/components/common/BackButton'
 import { theme } from '~/helpers/theme'
-import { MusicScreen } from '~/screens/MusicScreen'
+import { ExploreScreen, MusicScreen } from '~/screens'
 
 import Header from '../components/common/Header'
-import { ExploreScreen } from '../screens/ExploreScreen'
 import useMobileStore from '../store'
 
 const { Navigator, Screen } = createStackNavigator<ExploreStackParamList>()

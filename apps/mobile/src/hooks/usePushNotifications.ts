@@ -1,3 +1,4 @@
+import { logger } from '@lenstube/generic'
 import Constants from 'expo-constants'
 import * as Device from 'expo-device'
 import * as Notifications from 'expo-notifications'
@@ -14,7 +15,7 @@ const registerForPushNotificationsAsync = async () => {
       finalStatus = status
     }
     if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!')
+      logger.log('PUSH 🔔', 'Failed to get push token for push notification!')
       return
     }
     token = (
@@ -23,7 +24,7 @@ const registerForPushNotificationsAsync = async () => {
       })
     ).data
   } else {
-    alert('Must use physical device for Push Notifications')
+    logger.log('PUSH 🔔', 'Must use physical device for Push Notifications')
   }
 
   if (Platform.OS === 'android') {

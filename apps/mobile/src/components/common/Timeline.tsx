@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     minHeight: Dimensions.get('screen').height
   },
   title: {
-    color: theme.colors.primary,
+    color: theme.colors.white,
     fontFamily: 'font-bold',
     fontSize: normalizeFont(13),
     letterSpacing: 0.5
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   otherInfo: {
     fontFamily: 'font-normal',
     fontSize: normalizeFont(10),
-    color: theme.colors.primary
+    color: theme.colors.white
   }
 })
 

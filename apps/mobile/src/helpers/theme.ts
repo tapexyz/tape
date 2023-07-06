@@ -1,7 +1,6 @@
 import type { Theme } from '@react-navigation/native'
 
 const commonColors = {
-  primary: '#ffffff',
   secondary: '#ffffff90',
   background: '#000000',
   backdrop: '#12131A',
@@ -19,7 +18,7 @@ export const theme = {
   shadows: {
     inputShadow: {
       shadowOffset: { width: 0, height: 2 },
-      shadowColor: commonColors.primary,
+      shadowColor: commonColors.white,
       shadowOpacity: 0.16,
       elevation: 3
     }

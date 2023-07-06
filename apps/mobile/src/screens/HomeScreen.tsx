@@ -27,7 +27,7 @@ export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
         <TimelineFilters />
         <Timeline />
         <TouchableOpacity style={{ padding: 10 }} onPress={navigateToDetails}>
-          <Text style={{ color: theme.colors.primary }}>
+          <Text style={{ color: theme.colors.white }}>
             {'home_screen > details'}
           </Text>
         </TouchableOpacity>

@@ -1,3 +1,5 @@
-export * from './DetailsScreen'
+export * from './BytesScreen'
+export * from './ExploreScreen'
 export * from './HomeScreen'
-export * from './SignInScreen'
+export * from './MusicScreen'
+export * from './WatchVideoScreen'

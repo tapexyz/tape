@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   otherInfo: {
     fontFamily: 'font-medium',
     fontSize: normalizeFont(10),
-    color: theme.colors.primary
+    color: theme.colors.white
   },
   cardsContainer: {
     position: 'relative',
@@ -185,7 +185,7 @@ const ByteCards = () => {
           <Text style={styles.otherInfo}>
             {trimLensHandle(byte.profile.handle)}
           </Text>
-          <Text style={{ color: theme.colors.primary, fontSize: 3 }}>
+          <Text style={{ color: theme.colors.white, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
           <Text style={styles.otherInfo}>{byte.stats.totalUpvotes} likes</Text>

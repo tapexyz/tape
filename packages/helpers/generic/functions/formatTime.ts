@@ -1,8 +1,11 @@
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import utc from 'dayjs/plugin/utc'
+import dayjsTwitter from 'dayjs-twitter'
+
 dayjs.extend(relativeTime)
 dayjs.extend(utc)
+dayjs.extend(dayjsTwitter)
 
 export const getSecondsFromTime = (time: string) => {
   const timeSplitted: string[] = time.split(':')
@@ -28,6 +31,10 @@ export const getTimeFromSeconds = (seconds: string) => {
 
 export const getRelativeTime = (timeString: string) => {
   return dayjs(new Date(timeString)).fromNow()
+}
+
+export const getShortHandTime = (timeString: string) => {
+  return dayjs(new Date(timeString)).twitter()
 }
 
 export const getTimeAddedOneDay = () => {

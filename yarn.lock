@@ -8974,6 +8974,13 @@ date-fns@^2.16.1, date-fns@^2.29.3:
   dependencies:
     "@babel/runtime" "^7.21.0"
 
+dayjs-twitter@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/dayjs-twitter/-/dayjs-twitter-0.5.0.tgz#f350c2b684b5a5190d7b7f3d5c28d839f623acb2"
+  integrity sha512-SZ7qEUISstBLUXdlGAbLrwr6zfRM9kaCfbq4uVTerM/HXzuHiiGzzUqAJVhxt+3tf69E+ocmQdP6YYpOINv05w==
+  dependencies:
+    duration-js "^4.0.0"
+
 dayjs@^1.11.9, dayjs@^1.8.15:
   version "1.11.9"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.9.tgz#9ca491933fadd0a60a2c19f6c237c03517d71d1a"
@@ -9390,6 +9397,11 @@ duplexify@^4.1.2:
     inherits "^2.0.3"
     readable-stream "^3.1.1"
     stream-shift "^1.0.0"
+
+duration-js@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/duration-js/-/duration-js-4.0.0.tgz#ab91575a4f1a6b096034685cfc6ea9aca99cd63f"
+  integrity sha512-qoXjOsH97r+NrOa6sK5V2cwBOouVG/LI9jwgwKvjVkyqGpZ72yilWjjzFJYPqqbvNZDwpRMaLEUFE+PTefvOEA==
 
 ecdsa-sig-formatter@1.0.11:
   version "1.0.11"

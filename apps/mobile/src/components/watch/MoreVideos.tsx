@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'font-bold',
-    fontSize: normalizeFont(10),
+    fontSize: normalizeFont(12),
     letterSpacing: 0.5
   },
   videos: {
@@ -83,10 +83,6 @@ const MoreVideos: FC<Props> = ({ viewingId }) => {
         }
       }
     })
-  }
-
-  const renderFooter = () => {
-    return <ActivityIndicator style={{ paddingVertical: 20 }} />
   }
 
   return (
@@ -151,7 +147,9 @@ const MoreVideos: FC<Props> = ({ viewingId }) => {
           data={videos}
           estimatedItemSize={50}
           onEndReachedThreshold={0.2}
-          ListFooterComponent={renderFooter}
+          ListFooterComponent={() => (
+            <ActivityIndicator style={{ paddingVertical: 20 }} />
+          )}
           onEndReached={() => fetchMoreVideos()}
           ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
           renderItem={({ item }) => {

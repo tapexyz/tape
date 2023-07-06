@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const WatchVideoModal = (props: WatchVideoScreenProps) => {
+export const WatchVideoScreen = (props: WatchVideoScreenProps) => {
   const videoId = props.route.params.id
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
@@ -65,11 +65,9 @@ const WatchVideoModal = (props: WatchVideoScreenProps) => {
       <ScrollView>
         <Metadata video={video} />
         <Actions video={video} />
-        <Comments video={video} />
+        <Comments videoId={video.id} />
         <MoreVideos viewingId={video.id} />
       </ScrollView>
     </SafeAreaView>
   )
 }
-
-export default WatchVideoModal

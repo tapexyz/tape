@@ -100,7 +100,6 @@ declare global {
 
   // Home stack
   type HomeScreenProps = HomeStackComposite<'Home'>
-  type DetailsScreenProps = HomeStackComposite<'Details'>
 
   type ExploreScreenProps = ExploreStackComposite<'Explore'>
   type MusicScreenProps = ExploreStackComposite<'Music'>

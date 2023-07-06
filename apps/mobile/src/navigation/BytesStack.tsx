@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
-import { BytesScreen } from '../screens/BytesScreen'
+import { BytesScreen } from '~/screens'
 
 const { Navigator, Screen } = createStackNavigator<BytesStackParamList>()
 

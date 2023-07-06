@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   otherInfo: {
     fontFamily: 'font-normal',
     fontSize: normalizeFont(10),
-    color: theme.colors.primary,
+    color: theme.colors.white,
     textAlign: 'center'
   },
   action: {
