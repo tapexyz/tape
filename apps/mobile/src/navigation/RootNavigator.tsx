@@ -3,6 +3,7 @@ import type { FC } from 'react'
 import React from 'react'
 
 import { CategoriesModal, TopsModal } from '~/components/common/modals'
+import { useNetWorkConnection } from '~/hooks'
 import { WatchVideoScreen } from '~/screens'
 
 import { BottomTabNavigator } from './BottomTabNavigator'
@@ -10,6 +11,8 @@ import { BottomTabNavigator } from './BottomTabNavigator'
 const { Navigator, Screen, Group } = createStackNavigator<RootStackParamList>()
 
 export const RootNavigator: FC = () => {
+  useNetWorkConnection()
+
   return (
     <Navigator>
       <Group key="authorized">
