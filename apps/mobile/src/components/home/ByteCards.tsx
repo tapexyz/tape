@@ -12,6 +12,7 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
+import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Gyroscope } from 'expo-sensors'
@@ -29,7 +30,6 @@ import Animated, {
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
-import { useNotifications } from '~/hooks'
 import useMobileStore from '~/store'
 
 const BORDER_RADIUS = 15
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
 })
 
 const ByteCards = () => {
-  const { notify } = useNotifications()
+  const { navigate } = useNavigation()
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
 
   const prevGyroValue = useSharedValue({
@@ -227,12 +227,9 @@ const ByteCards = () => {
           <Pressable
             onPress={() => {
               haptic()
-              notify('success', {
-                params: {
-                  title: 'Hello',
-                  description: 'Wow, that was easy',
-                  hideCloseButton: true
-                }
+              navigate('MainTab', {
+                screen: 'BytesStack',
+                params: { screen: 'Bytes' }
               })
             }}
           >
@@ -243,7 +240,13 @@ const ByteCards = () => {
         </Skeleton>
       </View>
       <Pressable
-        onPress={() => haptic()}
+        onPress={() => {
+          haptic()
+          navigate('MainTab', {
+            screen: 'BytesStack',
+            params: { screen: 'Bytes' }
+          })
+        }}
         style={[
           styles.backgroundCards,
           {
@@ -254,7 +257,13 @@ const ByteCards = () => {
         {bytes?.length && renderCard(bytes[1])}
       </Pressable>
       <Pressable
-        onPress={() => haptic()}
+        onPress={() => {
+          haptic()
+          navigate('MainTab', {
+            screen: 'BytesStack',
+            params: { screen: 'Bytes' }
+          })
+        }}
         style={[
           styles.backgroundCards,
           {

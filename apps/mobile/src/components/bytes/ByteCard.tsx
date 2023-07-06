@@ -1,6 +1,7 @@
 import {
   getPublicationMediaUrl,
   getThumbnailUrl,
+  imageCdn,
   logger
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
@@ -32,7 +33,8 @@ const ByteCard: FC<Props> = ({ byte, isActive }) => {
   const { height, width } = useWindowDimensions()
   const BYTE_HEIGHT = height - bottomTabBarHeight
 
-  const thumbnailUrl = getThumbnailUrl(byte)
+  const thumbnailUrl = imageCdn(getThumbnailUrl(byte), 'THUMBNAIL_V')
+  const videoSource = getPublicationMediaUrl(byte)
 
   const pauseVideo = () => {
     try {
@@ -83,9 +85,9 @@ const ByteCard: FC<Props> = ({ byte, isActive }) => {
         useNativeControls={false}
         shouldPlay={isActive}
         resizeMode={ResizeMode.COVER}
-        source={{
-          uri: getPublicationMediaUrl(byte)
-        }}
+        source={{ uri: videoSource }}
+        posterStyle={{ flex: 1, resizeMode: 'cover' }}
+        usePoster={true}
         posterSource={{ uri: thumbnailUrl }}
         style={{ width, height: BYTE_HEIGHT }}
       />

@@ -17,18 +17,16 @@ export const linking: LinkingOptions<RootStackParamList> = {
   config: {
     initialRouteName: 'MainTab',
     screens: {
-      Settings: 'settings',
       MainTab: {
         screens: {
           BytesStack: {
             screens: {
-              Video: 'bytes'
+              Bytes: 'bytes'
             }
           },
           HomeStack: {
             screens: {
-              Home: '',
-              Details: '/details/:id'
+              Home: ''
             }
           },
           ExploreStack: {
@@ -39,10 +37,9 @@ export const linking: LinkingOptions<RootStackParamList> = {
           }
         }
       },
-      SignIn: 'sign-in',
-      SignUp: 'sign-up',
-      NotFound: '*',
-      WatchVideo: '/watch/:id'
+      Settings: 'settings',
+      WatchVideo: '/watch/:id',
+      NotFound: '*'
     }
   }
 }
