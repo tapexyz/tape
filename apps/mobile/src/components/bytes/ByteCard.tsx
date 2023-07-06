@@ -80,7 +80,7 @@ const ByteCard: FC<Props> = ({ byte, isActive }) => {
         ref={videoRef}
         isLooping
         isMuted={false}
-        useNativeControls
+        useNativeControls={false}
         shouldPlay={isActive}
         resizeMode={ResizeMode.COVER}
         source={{

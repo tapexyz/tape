@@ -97,7 +97,7 @@ const Comments: FC<Props> = ({ videoId }) => {
         </Skeleton>
       </View>
 
-      <Sheet sheetRef={commentsSheetRef} snap={['60%', '90%']} marginX={0}>
+      <Sheet sheetRef={commentsSheetRef} snap={['70%']} marginX={0}>
         <View
           style={{
             flex: 1,

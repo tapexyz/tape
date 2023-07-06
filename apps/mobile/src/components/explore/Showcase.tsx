@@ -78,11 +78,10 @@ const Showcase = () => {
       <View style={styles.grid}>
         <MotiView
           style={styles.gridCard}
-          from={{ opacity: 0, scale: 0.8 }}
+          from={{ opacity: 0.5, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
-            type: 'timing',
-            duration: 350
+            type: 'timing'
           }}
         >
           <AnimatedPressable onPress={() => haptic()}>
@@ -105,11 +104,10 @@ const Showcase = () => {
         </MotiView>
         <MotiView
           style={styles.gridCard}
-          from={{ opacity: 0, scale: 0.8 }}
+          from={{ opacity: 0.5, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
-            type: 'timing',
-            duration: 350
+            type: 'timing'
           }}
         >
           <AnimatedPressable
@@ -136,11 +134,10 @@ const Showcase = () => {
       </View>
       <MotiView
         style={styles.card}
-        from={{ opacity: 0, scale: 0.8 }}
+        from={{ opacity: 0.5, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{
-          type: 'timing',
-          duration: 350
+          type: 'timing'
         }}
       >
         <AnimatedPressable onPress={() => haptic()}>
