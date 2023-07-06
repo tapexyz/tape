@@ -4,6 +4,7 @@ import {
   getPublicationMediaUrl,
   getRelativeTime,
   getThumbnailUrl,
+  logger,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
@@ -16,7 +17,7 @@ import {
 import { FlashList } from '@shopify/flash-list'
 import { Audio } from 'expo-av'
 import { Image as ExpoImage } from 'expo-image'
-import React from 'react'
+import React, { useCallback } from 'react'
 import {
   ActivityIndicator,
   Button,
@@ -72,7 +73,6 @@ const TimelineCell = ({ item }: { item: Publication }) => {
   const sound = new Audio.Sound()
 
   const loadSound = async () => {
-    console.log('Loading Sound')
     await sound.loadAsync({
       uri: getPublicationMediaUrl(item)
     })
@@ -81,21 +81,19 @@ const TimelineCell = ({ item }: { item: Publication }) => {
   const playSound = async () => {
     try {
       if (sound._loaded) {
-        console.log('Playing Sound')
         await sound.playAsync()
       }
     } catch (error) {
-      console.log('🚀 ~ playSound ~ error:', error)
+      logger.error('🚀 ~ playSound ~ error:', error)
     }
   }
 
   const stopSound = async () => {
     try {
-      console.log('Stopping Sound')
       await sound.stopAsync()
       await sound.unloadAsync()
     } catch (error) {
-      console.log('🚀 ~ stopSound ~ error:', error)
+      logger.error('🚀 ~ stopSound ~ error:', error)
     }
   }
 
@@ -143,6 +141,11 @@ const TimelineCell = ({ item }: { item: Publication }) => {
 }
 
 const List = () => {
+  const renderItem = useCallback(
+    ({ item }: { item: Publication }) => <TimelineCell item={item} />,
+    []
+  )
+
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 32,
@@ -166,12 +169,11 @@ const List = () => {
   return (
     <View style={styles.container}>
       <FlashList
-        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
-        renderItem={({ item }) => {
-          return <TimelineCell item={item} />
-        }}
-        estimatedItemSize={50}
         data={audios}
+        estimatedItemSize={50}
+        keyExtractor={(item, i) => `${item.id}_${i}`}
+        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
+        renderItem={renderItem}
       />
     </View>
   )

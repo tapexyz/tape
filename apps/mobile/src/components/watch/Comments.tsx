@@ -4,7 +4,7 @@ import { type Publication, useCommentsQuery } from '@lenstube/lens'
 import { FlashList } from '@shopify/flash-list'
 import { Skeleton } from 'moti/skeleton'
 import type { FC } from 'react'
-import React, { useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import {
   ActivityIndicator,
   Dimensions,
@@ -66,6 +66,11 @@ const Comments: FC<Props> = ({ videoId }) => {
     })
   }
 
+  const renderItem = useCallback(
+    ({ item }: { item: Publication }) => <Comment comment={item} />,
+    []
+  )
+
   return (
     <>
       <View style={styles.container}>
@@ -103,15 +108,14 @@ const Comments: FC<Props> = ({ videoId }) => {
           <FlashList
             estimatedItemSize={50}
             data={comments}
-            // onEndReachedThreshold={0.2}
+            onEndReachedThreshold={0.2}
             ListFooterComponent={() => (
               <ActivityIndicator style={{ paddingVertical: 20 }} />
             )}
+            keyExtractor={(item, i) => `${item.id}_${i}`}
             ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
             onEndReached={() => fetchMoreVideos()}
-            renderItem={({ item }) => {
-              return <Comment comment={item} />
-            }}
+            renderItem={renderItem}
           />
         </View>
       </Sheet>

@@ -65,7 +65,7 @@ export const usePushNotifications = () => {
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(
+        logger.log(
           '🚀 ~ file: usePushNotifications.ts ~ Notifications.addNotificationResponseReceivedListener ~ response:',
           response
         )

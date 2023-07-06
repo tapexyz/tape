@@ -1,6 +1,7 @@
 import {
   getProfilePicture,
   getThumbnailUrl,
+  imageCdn,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
@@ -169,7 +170,7 @@ const ByteCards = () => {
         colors={['transparent', '#ffffff90']}
       >
         <ExpoImage
-          source={getThumbnailUrl(byte)}
+          source={imageCdn(getThumbnailUrl(byte), 'THUMBNAIL_V')}
           contentFit="cover"
           style={styles.thumbnail}
         />
@@ -178,7 +179,7 @@ const ByteCards = () => {
           style={styles.gradient}
         >
           <ExpoImage
-            source={getProfilePicture(byte.profile)}
+            source={imageCdn(getProfilePicture(byte.profile), 'AVATAR')}
             contentFit="cover"
             style={{ width: 15, height: 15, borderRadius: 3 }}
           />

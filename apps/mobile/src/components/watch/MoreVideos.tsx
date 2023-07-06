@@ -8,7 +8,7 @@ import {
 } from '@lenstube/lens'
 import { FlashList } from '@shopify/flash-list'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useCallback } from 'react'
 import {
   ActivityIndicator,
   Dimensions,
@@ -85,6 +85,11 @@ const MoreVideos: FC<Props> = ({ viewingId }) => {
     })
   }
 
+  const renderItem = useCallback(
+    ({ item }: { item: Publication }) => <VideoCard video={item} />,
+    []
+  )
+
   return (
     <>
       <ScrollView
@@ -150,12 +155,10 @@ const MoreVideos: FC<Props> = ({ viewingId }) => {
           ListFooterComponent={() => (
             <ActivityIndicator style={{ paddingVertical: 20 }} />
           )}
+          keyExtractor={(item, i) => `${item.id}_${i}`}
           onEndReached={() => fetchMoreVideos()}
           ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
-          renderItem={({ item }) => {
-            return <VideoCard video={item} />
-            // return item.id !== viewingId ? <VideoCard video={item} /> : null
-          }}
+          renderItem={renderItem}
         />
       </View>
     </>

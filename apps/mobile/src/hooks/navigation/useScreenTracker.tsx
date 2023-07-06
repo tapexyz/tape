@@ -1,3 +1,4 @@
+import { logger } from '@lenstube/generic'
 import type { NavigationContainerRefWithCurrent } from '@react-navigation/core'
 import { createNavigationContainerRef } from '@react-navigation/native'
 import { useCallback, useRef } from 'react'
@@ -7,7 +8,7 @@ export const navigationRef = createNavigationContainerRef()
 type Callback = (currentRouteName: string) => Promise<void> | undefined
 
 const defaultCallback: Callback = async (currentRouteName) => {
-  console.log(`Current route: ${currentRouteName}`)
+  logger.log('Current route 📱', currentRouteName)
 }
 
 type ScreenTrackerReturn = {

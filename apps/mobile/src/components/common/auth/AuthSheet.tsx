@@ -3,6 +3,7 @@ import { STATIC_ASSETS } from '@lenstube/constants'
 import {
   getRandomProfilePicture,
   imageCdn,
+  logger,
   shortenAddress
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
@@ -90,7 +91,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
       setSelectedChannelId(defaultChannel?.id ?? channels[0].id)
       sheetRef.current?.close()
     } catch (error) {
-      console.log('🚀 ~ signIn ~ error:', error)
+      logger.error('SIGN IN ERROR 🔒', error)
     }
   }
 

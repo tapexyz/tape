@@ -76,12 +76,13 @@ const Timeline = () => {
   return (
     <View style={styles.container}>
       <FlashList
-        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
+        data={videos}
+        estimatedItemSize={50}
         renderItem={({ item }) => {
           return <VideoCard video={item} />
         }}
-        estimatedItemSize={50}
-        data={videos}
+        keyExtractor={(item, i) => `${item.id}_${i}`}
+        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
       />
     </View>
   )
