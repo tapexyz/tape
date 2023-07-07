@@ -9,8 +9,8 @@ import { theme } from '~/helpers/theme'
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
-    marginHorizontal: 10
+    marginTop: 15,
+    marginHorizontal: 5
   },
   filter: {
     paddingHorizontal: 15,

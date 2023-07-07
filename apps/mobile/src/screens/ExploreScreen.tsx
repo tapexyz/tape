@@ -1,4 +1,5 @@
-import React from 'react'
+import { useScrollToTop } from '@react-navigation/native'
+import React, { useRef } from 'react'
 import { ScrollView } from 'react-native'
 
 import Container from '../components/common/Container'
@@ -10,10 +11,12 @@ export const ExploreScreen = (props: ExploreScreenProps): JSX.Element => {
   const {
     navigation: {}
   } = props
+  const scrollRef = useRef<ScrollView>(null)
+  useScrollToTop(scrollRef)
 
   return (
     <Container>
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView ref={scrollRef} style={{ flex: 1 }}>
         <Showcase />
         <Filters />
         <Timeline />

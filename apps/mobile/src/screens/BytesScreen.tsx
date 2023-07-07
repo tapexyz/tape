@@ -6,8 +6,9 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
+import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import type { ViewToken } from 'react-native'
 import { ActivityIndicator } from 'react-native'
 
@@ -17,6 +18,10 @@ export const BytesScreen = (props: BytesScreenProps): JSX.Element => {
   const {
     navigation: {}
   } = props
+  const scrollRef = useRef<FlashList<Publication>>(null)
+  //@ts-expect-error FlashList as type is not supported
+  useScrollToTop(scrollRef)
+
   const [activeVideoIndex, setActiveVideoIndex] = useState(0)
 
   const renderItem = useCallback(
@@ -74,6 +79,7 @@ export const BytesScreen = (props: BytesScreenProps): JSX.Element => {
 
   return (
     <FlashList
+      ref={scrollRef}
       data={bytes}
       pagingEnabled
       renderItem={renderItem}

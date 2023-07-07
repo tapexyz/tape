@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react'
-import { ScrollView, Text, TouchableOpacity } from 'react-native'
+import { useScrollToTop } from '@react-navigation/native'
+import React, { useRef } from 'react'
+import { ScrollView } from 'react-native'
 
 import Container from '~/components/common/Container'
 import Timeline from '~/components/common/Timeline'
@@ -7,30 +8,26 @@ import ByteCards from '~/components/home/ByteCards'
 import FirstSteps from '~/components/home/FirstSteps'
 import PopularCreators from '~/components/home/PopularCreators'
 import TimelineFilters from '~/components/home/TimelineFilters'
-import { theme } from '~/helpers/theme'
 
 export const HomeScreen = (props: HomeScreenProps): JSX.Element => {
   const {
-    navigation: { navigate }
+    navigation: {}
   } = props
-
-  const navigateToDetails = useCallback(() => {
-    navigate('Details', { id: 'home-id' })
-  }, [navigate])
+  const scrollRef = useRef<ScrollView>(null)
+  useScrollToTop(scrollRef)
 
   return (
     <Container>
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        ref={scrollRef}
+        style={{ flex: 1 }}
+        showsVerticalScrollIndicator={false}
+      >
         <ByteCards />
         <FirstSteps />
         <PopularCreators />
         <TimelineFilters />
         <Timeline />
-        <TouchableOpacity style={{ padding: 10 }} onPress={navigateToDetails}>
-          <Text style={{ color: theme.colors.white }}>
-            {'home_screen > details'}
-          </Text>
-        </TouchableOpacity>
       </ScrollView>
     </Container>
   )

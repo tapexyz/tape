@@ -16,7 +16,8 @@ const BORDER_RADIUS = 25
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
+    marginVertical: 10,
+    marginHorizontal: 5,
     gap: 10
   },
   grid: {
