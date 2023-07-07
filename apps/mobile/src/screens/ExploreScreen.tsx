@@ -2,7 +2,7 @@ import { useScrollToTop } from '@react-navigation/native'
 import React, { useRef } from 'react'
 import { ScrollView } from 'react-native'
 
-import Masonry from '~/components/explore/Masonry'
+import Timeline from '~/components/common/Timeline'
 
 import Container from '../components/common/Container'
 import Filters from '../components/explore/Filters'
@@ -24,7 +24,7 @@ export const ExploreScreen = (props: ExploreScreenProps): JSX.Element => {
       >
         <Showcase />
         <Filters />
-        <Masonry />
+        <Timeline />
       </ScrollView>
     </Container>
   )
