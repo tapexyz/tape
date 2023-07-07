@@ -2,6 +2,7 @@ import {
   getProfilePicture,
   getRelativeTime,
   getThumbnailUrl,
+  imageCdn,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
@@ -55,14 +56,14 @@ const styles = StyleSheet.create({
 })
 
 const VideoCard: FC<Props> = ({ video }) => {
-  const thumbnailUrl = getThumbnailUrl(video)
+  const thumbnailUrl = imageCdn(getThumbnailUrl(video), 'THUMBNAIL')
   const { navigate } = useNavigation()
 
   return (
     <Pressable onPress={() => navigate('WatchVideo', { id: video.id })}>
       <>
         <ExpoImage
-          source={thumbnailUrl}
+          source={{ uri: thumbnailUrl }}
           contentFit="cover"
           style={styles.thumbnail}
         />

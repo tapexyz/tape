@@ -7,7 +7,7 @@ import {
   useExploreQuery
 } from '@lenstube/lens'
 import { FlashList } from '@shopify/flash-list'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Dimensions, StyleSheet, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 const Timeline = () => {
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 32,
+    limit: 30,
     noRandomize: false,
     sources: [LENSTUBE_APP_ID],
     publicationTypes: [PublicationTypes.Post],
@@ -73,14 +73,17 @@ const Timeline = () => {
 
   const videos = data?.explorePublications?.items as Publication[]
 
+  const renderItem = useCallback(
+    ({ item }: { item: Publication }) => <VideoCard video={item} />,
+    []
+  )
+
   return (
     <View style={styles.container}>
       <FlashList
         data={videos}
         estimatedItemSize={50}
-        renderItem={({ item }) => {
-          return <VideoCard video={item} />
-        }}
+        renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
         ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
       />

@@ -115,6 +115,7 @@ const Comments: FC<Props> = ({ videoId }) => {
             keyExtractor={(item, i) => `${item.id}_${i}`}
             ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
             onEndReached={() => fetchMoreVideos()}
+            showsVerticalScrollIndicator={false}
             renderItem={renderItem}
           />
         </View>
