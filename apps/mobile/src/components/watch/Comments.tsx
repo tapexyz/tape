@@ -107,7 +107,7 @@ const Comments: FC<Props> = ({ videoId }) => {
         >
           <FlashList
             data={comments}
-            estimatedItemSize={comments?.length}
+            estimatedItemSize={comments?.length ?? 0}
             onEndReachedThreshold={0.2}
             ListFooterComponent={() =>
               loading && <ActivityIndicator style={{ paddingVertical: 20 }} />

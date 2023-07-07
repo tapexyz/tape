@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 const WaveForm = () => {
   const sticks = useMemo(() => Array(40).fill(1), [])
 
-  const randomValue = (min = 1, max = 35) => {
+  const getRandomInt = (min = 1, max = 35) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
@@ -40,7 +40,7 @@ const WaveForm = () => {
             style={[
               styles.stick,
               {
-                height: randomValue()
+                height: getRandomInt()
               }
             ]}
           />
@@ -53,7 +53,7 @@ const WaveForm = () => {
             style={[
               styles.stick,
               {
-                height: randomValue(5, 20)
+                height: getRandomInt(5, 20)
               }
             ]}
           />
