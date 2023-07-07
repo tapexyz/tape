@@ -47,7 +47,7 @@ const ByteCard: FC<Props> = ({ byte, isActive }) => {
 
   const playVideo = () => {
     try {
-      videoRef.current?.setPositionAsync(0)
+      // videoRef.current?.setPositionAsync(0)
       videoRef.current?.playAsync()
     } catch (error) {
       logger.error('🚀 ~ file: ByteCard.tsx ~ playVideo ~ error:', error)
