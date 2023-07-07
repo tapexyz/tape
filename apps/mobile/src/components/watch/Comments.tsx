@@ -106,12 +106,12 @@ const Comments: FC<Props> = ({ videoId }) => {
           }}
         >
           <FlashList
-            estimatedItemSize={50}
             data={comments}
+            estimatedItemSize={comments?.length}
             onEndReachedThreshold={0.2}
-            ListFooterComponent={() => (
-              <ActivityIndicator style={{ paddingVertical: 20 }} />
-            )}
+            ListFooterComponent={() =>
+              loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
+            }
             keyExtractor={(item, i) => `${item.id}_${i}`}
             ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
             onEndReached={() => fetchMoreVideos()}

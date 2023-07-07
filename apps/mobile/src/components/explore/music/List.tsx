@@ -166,11 +166,15 @@ const List = () => {
 
   const audios = data?.explorePublications?.items as Publication[]
 
+  if (!audios?.length) {
+    return null
+  }
+
   return (
     <View style={styles.container}>
       <FlashList
         data={audios}
-        estimatedItemSize={50}
+        estimatedItemSize={audios.length}
         keyExtractor={(item, i) => `${item.id}_${i}`}
         ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
         renderItem={renderItem}

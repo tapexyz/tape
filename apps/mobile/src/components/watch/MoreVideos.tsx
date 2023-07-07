@@ -90,6 +90,10 @@ const MoreVideos: FC<Props> = ({ viewingId }) => {
     []
   )
 
+  if (!videos?.length) {
+    return null
+  }
+
   return (
     <>
       <ScrollView
@@ -150,7 +154,7 @@ const MoreVideos: FC<Props> = ({ viewingId }) => {
       <View style={styles.videos}>
         <FlashList
           data={videos}
-          estimatedItemSize={50}
+          estimatedItemSize={videos.length}
           onEndReachedThreshold={0.2}
           ListFooterComponent={() => (
             <ActivityIndicator style={{ paddingVertical: 20 }} />
@@ -159,6 +163,7 @@ const MoreVideos: FC<Props> = ({ viewingId }) => {
           onEndReached={() => fetchMoreVideos()}
           ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
           renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     </>

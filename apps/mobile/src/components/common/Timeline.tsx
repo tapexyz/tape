@@ -78,11 +78,15 @@ const Timeline = () => {
     []
   )
 
+  if (!videos?.length) {
+    return null
+  }
+
   return (
     <View style={styles.container}>
       <FlashList
         data={videos}
-        estimatedItemSize={50}
+        estimatedItemSize={videos.length}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
         ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
