@@ -1,4 +1,4 @@
-import { LENS_CUSTOM_FILTERS, LENSTUBE_APP_ID } from '@lenstube/constants'
+import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
@@ -13,6 +13,7 @@ import { Dimensions, StyleSheet, View } from 'react-native'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
+import AudioCard from './AudioCard'
 import VideoCard from './VideoCard'
 
 const styles = StyleSheet.create({
@@ -58,35 +59,39 @@ const styles = StyleSheet.create({
 const Timeline = () => {
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 30,
+    limit: 50,
     noRandomize: false,
-    sources: [LENSTUBE_APP_ID],
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      mainContentFocus: [PublicationMainFocus.Video]
+      mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
     }
   }
   const { data } = useExploreQuery({
     variables: { request }
   })
 
-  const videos = data?.explorePublications?.items as Publication[]
+  const publications = data?.explorePublications?.items as Publication[]
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) => <VideoCard video={item} />,
+    ({ item }: { item: Publication }) =>
+      item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
+        <AudioCard audio={item} />
+      ) : (
+        <VideoCard video={item} />
+      ),
     []
   )
 
-  if (!videos?.length) {
+  if (!publications?.length) {
     return null
   }
 
   return (
     <View style={styles.container}>
       <FlashList
-        data={videos}
-        estimatedItemSize={videos.length}
+        data={publications}
+        estimatedItemSize={publications.length}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
         ItemSeparatorComponent={() => <View style={{ height: 30 }} />}

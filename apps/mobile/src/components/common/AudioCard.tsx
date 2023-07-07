@@ -2,21 +2,25 @@ import {
   getProfilePicture,
   getRelativeTime,
   getThumbnailUrl,
+  getValueFromTraitType,
   imageCdn,
   trimLensHandle
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { Attribute, Publication } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
+import AnimatedPressable from '../ui/AnimatedPressable'
+import WaveForm from './WaveForm'
+
 type Props = {
-  video: Publication
+  audio: Publication
 }
 
 const styles = StyleSheet.create({
@@ -30,11 +34,9 @@ const styles = StyleSheet.create({
     fontFamily: 'font-normal',
     fontSize: normalizeFont(12),
     color: theme.colors.secondary,
-    paddingTop: 10
+    paddingVertical: 10
   },
   thumbnail: {
-    width: '100%',
-    height: 215,
     borderRadius: 10,
     backgroundColor: theme.colors.backdrop,
     borderColor: theme.colors.grey,
@@ -45,63 +47,90 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    paddingTop: 10,
     opacity: 0.8
   },
   otherInfo: {
     fontFamily: 'font-normal',
     fontSize: normalizeFont(10),
     color: theme.colors.white
+  },
+  author: {
+    fontFamily: 'font-normal',
+    fontSize: normalizeFont(12),
+    color: theme.colors.blueGrey,
+    letterSpacing: 0.5
+  },
+  audioInfoContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    paddingHorizontal: 15,
+    justifyContent: 'space-between',
+    width: '100%',
+    flex: 1
   }
 })
 
-const VideoCard: FC<Props> = ({ video }) => {
-  const thumbnailUrl = imageCdn(getThumbnailUrl(video), 'THUMBNAIL')
+const AudioCard: FC<Props> = ({ audio }) => {
+  const thumbnailUrl = imageCdn(getThumbnailUrl(audio), 'AVATAR_LG')
   const { navigate } = useNavigation()
+  const { width } = useWindowDimensions()
 
   return (
-    <Pressable onPress={() => navigate('WatchVideo', { id: video.id })}>
+    <AnimatedPressable onPress={() => navigate('WatchVideo', { id: audio.id })}>
       <>
-        <ExpoImage
-          source={{ uri: thumbnailUrl }}
-          contentFit="cover"
-          style={styles.thumbnail}
-        />
+        <View style={{ display: 'flex', flexDirection: 'row' }}>
+          <ExpoImage
+            source={{ uri: thumbnailUrl }}
+            contentFit="cover"
+            style={[styles.thumbnail, { width: width / 3, height: width / 3 }]}
+          />
+          <View style={styles.audioInfoContainer}>
+            <View style={{ gap: 5 }}>
+              <Text style={styles.title} numberOfLines={2}>
+                {audio.metadata.name}
+              </Text>
+              <Text style={styles.author}>
+                {getValueFromTraitType(
+                  audio.metadata.attributes as Attribute[],
+                  'author'
+                )}
+              </Text>
+            </View>
+            <WaveForm />
+          </View>
+        </View>
         <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
-          <Text numberOfLines={3} style={styles.title}>
-            {video.metadata.name}
-          </Text>
-          {video.metadata.description && (
+          {audio.metadata.description && (
             <Text numberOfLines={3} style={styles.description}>
-              {video.metadata.description.replace('\n', '')}
+              {audio.metadata.description.replace('\n', '')}
             </Text>
           )}
           <View style={styles.otherInfoContainer}>
             <ExpoImage
-              source={getProfilePicture(video.profile)}
+              source={getProfilePicture(audio.profile)}
               contentFit="cover"
               style={{ width: 15, height: 15, borderRadius: 3 }}
             />
             <Text style={styles.otherInfo}>
-              {trimLensHandle(video.profile.handle)}
+              {trimLensHandle(audio.profile.handle)}
             </Text>
             <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
               {'\u2B24'}
             </Text>
             <Text style={styles.otherInfo}>
-              {video.stats.totalUpvotes} likes
+              {audio.stats.totalUpvotes} likes
             </Text>
             <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
               {'\u2B24'}
             </Text>
             <Text style={styles.otherInfo}>
-              {getRelativeTime(video.createdAt)}
+              {getRelativeTime(audio.createdAt)}
             </Text>
           </View>
         </View>
       </>
-    </Pressable>
+    </AnimatedPressable>
   )
 }
 
-export default VideoCard
+export default AudioCard
