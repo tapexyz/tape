@@ -1,19 +1,10 @@
 import type { Publication } from '@lenstube/lens'
 import { usePublicationDetailsQuery } from '@lenstube/lens'
 import React from 'react'
-import {
-  ActivityIndicator,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet
-} from 'react-native'
+import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native'
 
-import Actions from '~/components/watch/Actions'
-import Comments from '~/components/watch/Comments'
-import Metadata from '~/components/watch/Metadata'
 import MoreVideos from '~/components/watch/MoreVideos'
 import VideoPlayer from '~/components/watch/Player'
-import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
 
@@ -22,16 +13,10 @@ const styles = StyleSheet.create({
     position: 'relative',
     flex: 1,
     backgroundColor: theme.colors.black
-  },
-  text: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(20),
-    letterSpacing: 2,
-    color: theme.colors.white
   }
 })
 
-const WatchVideoModal = (props: WatchVideoScreenProps) => {
+export const WatchScreen = (props: WatchScreenProps) => {
   const videoId = props.route.params.id
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
@@ -61,15 +46,7 @@ const WatchVideoModal = (props: WatchVideoScreenProps) => {
   return (
     <SafeAreaView style={styles.container}>
       <VideoPlayer video={video} />
-
-      <ScrollView>
-        <Metadata video={video} />
-        <Actions video={video} />
-        <Comments video={video} />
-        <MoreVideos viewingId={video.id} />
-      </ScrollView>
+      <MoreVideos video={video} />
     </SafeAreaView>
   )
 }
-
-export default WatchVideoModal

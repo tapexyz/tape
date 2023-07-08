@@ -10,8 +10,8 @@ import { theme } from '~/helpers/theme'
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
-    marginHorizontal: 10
+    marginVertical: 20,
+    marginHorizontal: 5
   },
   filter: {
     paddingHorizontal: 15,
@@ -50,7 +50,7 @@ const TimelineFilters = () => {
           style={styles.image}
         />
         <Text style={[styles.text, { color: theme.colors.black }]}>
-          Everyone's Watching
+          Everyone's Listening
         </Text>
       </Pressable>
       <Pressable onPress={() => haptic()} style={styles.filter}>

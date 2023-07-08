@@ -14,22 +14,18 @@ export const usePreventGoBack = (shouldPrevent = true): void => {
 
       event?.preventDefault()
 
-      Alert.alert(
-        'navigation.prevent_go_back_alert.title',
-        'navigation.prevent_go_back_alert.description',
-        [
-          {
-            text: 'navigation.prevent_go_back_alert.dont_leave',
-            style: 'cancel',
-            onPress: () => {}
-          },
-          {
-            text: 'navigation.prevent_go_back_alert.discard',
-            style: 'destructive',
-            onPress: () => navigation.dispatch(event?.data?.action)
-          }
-        ]
-      )
+      Alert.alert('title', 'description', [
+        {
+          text: 'dont_leave',
+          style: 'cancel',
+          onPress: () => {}
+        },
+        {
+          text: 'discard',
+          style: 'destructive',
+          onPress: () => navigation.dispatch(event?.data?.action)
+        }
+      ])
     }
 
     navigation.addListener('beforeRemove', callback)

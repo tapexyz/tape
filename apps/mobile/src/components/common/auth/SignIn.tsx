@@ -3,48 +3,33 @@ import { STATIC_ASSETS } from '@lenstube/constants'
 import { getProfilePicture, imageCdn } from '@lenstube/generic'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { Image as ExpoImage } from 'expo-image'
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 
 import AnimatedPressable from '~/components/ui/AnimatedPressable'
 import haptic from '~/helpers/haptic'
 import useMobileStore from '~/store'
-import { useMobilePersistStore } from '~/store/persist'
 
 import AuthSheet from './AuthSheet'
 
 const SignIn = () => {
-  const { open, address, isConnected } = useWalletConnectModal()
-  const selectedChannelId = useMobilePersistStore(
-    (state) => state.selectedChannelId
-  )
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const authSheetRef = useRef<BottomSheetModal>(null)
+  const { open, address } = useWalletConnectModal()
 
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+  const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
   const pfp = selectedChannel
     ? getProfilePicture(selectedChannel)
     : imageCdn(`${STATIC_ASSETS}/mobile/icons/herb.png`)
 
-  const openSheet = () => {
-    bottomSheetModalRef.current?.present()
-  }
-
-  useEffect(() => {
-    if (isConnected && !selectedChannelId) {
-      openSheet()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected])
-
   return (
     <>
-      {address && <AuthSheet sheetRef={bottomSheetModalRef} />}
+      {address && <AuthSheet sheetRef={authSheetRef} />}
 
       <AnimatedPressable
         onPress={() => {
           haptic()
           if (address) {
-            return openSheet()
+            return authSheetRef.current?.present()
           }
           open()
         }}

@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   otherInfo: {
     fontFamily: 'font-normal',
     fontSize: normalizeFont(10),
-    color: theme.colors.primary,
+    color: theme.colors.white,
     textAlign: 'center'
   },
   action: {
@@ -38,9 +38,9 @@ type Props = {
 }
 
 const Actions: FC<Props> = ({ video }) => {
-  const shareContent = `${video.metadata.name ?? video.metadata.content} by @${
-    video.profile?.handle
-  }`
+  const shareContent = `${
+    video.metadata.name ?? video.metadata.content
+  } by @${video.profile?.handle}`
 
   return (
     <ScrollView

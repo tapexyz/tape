@@ -173,7 +173,7 @@ const CREATOR_VIDEO_CATEGORIES = [
   }
 ]
 
-const CategoriesModal = (): JSX.Element => {
+export const CategoriesModal = (): JSX.Element => {
   const { goBack } = useNavigation()
   const { top } = useSafeAreaInsets()
   const { height } = useWindowDimensions()
@@ -227,5 +227,3 @@ const CategoriesModal = (): JSX.Element => {
     </BlurView>
   )
 }
-
-export default CategoriesModal

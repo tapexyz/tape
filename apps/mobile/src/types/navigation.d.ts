@@ -43,7 +43,6 @@ declare global {
   // PARAMS
   type HomeStackParamList = {
     Home: undefined
-    Details: { id: string }
   }
 
   type ExploreStackParamList = {
@@ -62,17 +61,12 @@ declare global {
   }
 
   type RootStackParamList = {
-    // unauthorized
-    SignUp: undefined
-    SignIn: undefined
     ExploreTopsModal: undefined
     ExploreCategoriesModal: undefined
     WatchVideo: { id: string }
 
-    // authorized
     MainTab: NavigatorScreenParams<MainTabParamList>
     Settings: undefined
-    Music: undefined
 
     // modals
     ApplicationInfo: undefined
@@ -80,7 +74,6 @@ declare global {
   }
 
   namespace ReactNavigation {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface RootParamList extends RootStackParamList {}
   }
 
@@ -96,11 +89,10 @@ declare global {
 
   // Root stack
   type RootStackScreenProps = RootStackComposite
-  type WatchVideoScreenProps = RootStackComposite<'WatchVideo'>
+  type WatchScreenProps = RootStackComposite<'WatchVideo'>
 
   // Home stack
   type HomeScreenProps = HomeStackComposite<'Home'>
-  type DetailsScreenProps = HomeStackComposite<'Details'>
 
   type ExploreScreenProps = ExploreStackComposite<'Explore'>
   type MusicScreenProps = ExploreStackComposite<'Music'>

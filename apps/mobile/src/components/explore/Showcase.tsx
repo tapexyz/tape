@@ -16,7 +16,8 @@ const BORDER_RADIUS = 25
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
+    marginVertical: 10,
+    marginHorizontal: 5,
     gap: 10
   },
   grid: {
@@ -78,11 +79,10 @@ const Showcase = () => {
       <View style={styles.grid}>
         <MotiView
           style={styles.gridCard}
-          from={{ opacity: 0, scale: 0.8 }}
+          from={{ opacity: 0.5, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
-            type: 'timing',
-            duration: 350
+            type: 'timing'
           }}
         >
           <AnimatedPressable onPress={() => haptic()}>
@@ -105,17 +105,19 @@ const Showcase = () => {
         </MotiView>
         <MotiView
           style={styles.gridCard}
-          from={{ opacity: 0, scale: 0.8 }}
+          from={{ opacity: 0.5, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
-            type: 'timing',
-            duration: 350
+            type: 'timing'
           }}
         >
           <AnimatedPressable
             onPress={() => {
               haptic()
-              navigate('Music')
+              navigate('MainTab', {
+                screen: 'ExploreStack',
+                params: { screen: 'Music' }
+              })
             }}
           >
             <ImageBackground
@@ -136,11 +138,10 @@ const Showcase = () => {
       </View>
       <MotiView
         style={styles.card}
-        from={{ opacity: 0, scale: 0.8 }}
+        from={{ opacity: 0.5, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{
-          type: 'timing',
-          duration: 350
+          type: 'timing'
         }}
       >
         <AnimatedPressable onPress={() => haptic()}>

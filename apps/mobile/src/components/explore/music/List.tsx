@@ -1,11 +1,4 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import {
-  getProfilePicture,
-  getPublicationMediaUrl,
-  getRelativeTime,
-  getThumbnailUrl,
-  trimLensHandle
-} from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
@@ -14,138 +7,102 @@ import {
   useExploreQuery
 } from '@lenstube/lens'
 import { FlashList } from '@shopify/flash-list'
-import { Audio } from 'expo-av'
-import { Image as ExpoImage } from 'expo-image'
-import React from 'react'
-import {
-  ActivityIndicator,
-  Button,
-  Dimensions,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native'
+import React, { useCallback } from 'react'
+import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
 
-import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import AudioCard from '~/components/common/AudioCard'
+
+import MusicFilters from '../MusicFilters'
+import IntroCard from './IntroCard'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    minHeight: Dimensions.get('screen').height
-  },
-  title: {
-    color: theme.colors.primary,
-    fontFamily: 'font-bold',
-    fontSize: normalizeFont(13),
-    letterSpacing: 0.5
-  },
-  description: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(12),
-    color: theme.colors.secondary,
-    paddingTop: 10
-  },
-  poster: {
-    width: 150,
-    height: 150,
-    borderRadius: 10,
-    backgroundColor: theme.colors.background
-  },
-  otherInfoContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingTop: 10,
-    opacity: 0.8
-  },
-  otherInfo: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(10),
-    color: theme.colors.primary
+    height: Dimensions.get('screen').height
   }
 })
 
-const TimelineCell = ({ item }: { item: Publication }) => {
-  const posterUrl = getThumbnailUrl(item)
-  const sound = new Audio.Sound()
+// const TimelineCell = ({ item }: { item: Publication }) => {
+//   const posterUrl = getThumbnailUrl(item)
+//   const sound = new Audio.Sound()
 
-  const loadSound = async () => {
-    console.log('Loading Sound')
-    await sound.loadAsync({
-      uri: getPublicationMediaUrl(item)
-    })
-  }
+//   const loadSound = async () => {
+//     await sound.loadAsync({
+//       uri: getPublicationMediaUrl(item)
+//     })
+//   }
 
-  const playSound = async () => {
-    try {
-      if (sound._loaded) {
-        console.log('Playing Sound')
-        await sound.playAsync()
-      }
-    } catch (error) {
-      console.log('🚀 ~ playSound ~ error:', error)
-    }
-  }
+//   const playSound = async () => {
+//     try {
+//       if (sound._loaded) {
+//         await sound.playAsync()
+//       }
+//     } catch (error) {
+//       logger.error('🚀 ~ playSound ~ error:', error)
+//     }
+//   }
 
-  const stopSound = async () => {
-    try {
-      console.log('Stopping Sound')
-      await sound.stopAsync()
-      await sound.unloadAsync()
-    } catch (error) {
-      console.log('🚀 ~ stopSound ~ error:', error)
-    }
-  }
+//   const stopSound = async () => {
+//     try {
+//       await sound.stopAsync()
+//       await sound.unloadAsync()
+//     } catch (error) {
+//       logger.error('🚀 ~ stopSound ~ error:', error)
+//     }
+//   }
 
-  return (
-    <View>
-      <ExpoImage
-        onLoadEnd={() => loadSound()}
-        source={posterUrl}
-        contentFit="cover"
-        style={styles.poster}
-      />
-      <Button title="Play Sound" onPress={playSound} />
-      <Button title="Stop Sound" onPress={stopSound} />
+//   return (
+//     <View>
+//       <ExpoImage
+//         onLoadEnd={() => loadSound()}
+//         source={posterUrl}
+//         contentFit="cover"
+//         style={styles.poster}
+//       />
+//       <Button title="Play Sound" onPress={playSound} />
+//       <Button title="Stop Sound" onPress={stopSound} />
 
-      <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
-        <Text style={styles.title}>{item.metadata.name}</Text>
-        {item.metadata.description && (
-          <Text numberOfLines={3} style={styles.description}>
-            {item.metadata.description.replace('\n', '')}
-          </Text>
-        )}
-        <View style={styles.otherInfoContainer}>
-          <ExpoImage
-            source={getProfilePicture(item.profile)}
-            contentFit="cover"
-            style={{ width: 15, height: 15, borderRadius: 3 }}
-          />
-          <Text style={styles.otherInfo}>
-            {trimLensHandle(item.profile.handle)}
-          </Text>
-          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
-            {'\u2B24'}
-          </Text>
-          <Text style={styles.otherInfo}>{item.stats.totalUpvotes} likes</Text>
-          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
-            {'\u2B24'}
-          </Text>
-          <Text style={styles.otherInfo}>
-            {getRelativeTime(item.createdAt)}
-          </Text>
-        </View>
-      </View>
-    </View>
-  )
-}
+//       <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
+//         <Text style={styles.title}>{item.metadata.name}</Text>
+//         {item.metadata.description && (
+//           <Text numberOfLines={3} style={styles.description}>
+//             {item.metadata.description.replace('\n', '')}
+//           </Text>
+//         )}
+//         <View style={styles.otherInfoContainer}>
+//           <ExpoImage
+//             source={getProfilePicture(item.profile)}
+//             contentFit="cover"
+//             style={{ width: 15, height: 15, borderRadius: 3 }}
+//           />
+//           <Text style={styles.otherInfo}>
+//             {trimLensHandle(item.profile.handle)}
+//           </Text>
+//           <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+//             {'\u2B24'}
+//           </Text>
+//           <Text style={styles.otherInfo}>{item.stats.totalUpvotes} likes</Text>
+//           <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+//             {'\u2B24'}
+//           </Text>
+//           <Text style={styles.otherInfo}>
+//             {getRelativeTime(item.createdAt)}
+//           </Text>
+//         </View>
+//       </View>
+//     </View>
+//   )
+// }
 
 const List = () => {
+  const renderItem = useCallback(
+    ({ item }: { item: Publication }) => <AudioCard audio={item} />,
+    []
+  )
+
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 32,
+    limit: 30,
     noRandomize: false,
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
@@ -153,7 +110,7 @@ const List = () => {
       mainContentFocus: [PublicationMainFocus.Audio]
     }
   }
-  const { data, loading, error } = useExploreQuery({
+  const { data, loading, error, fetchMore } = useExploreQuery({
     variables: { request }
   })
 
@@ -162,16 +119,43 @@ const List = () => {
   }
 
   const audios = data?.explorePublications?.items as Publication[]
+  const pageInfo = data?.explorePublications?.pageInfo
+
+  const fetchMoreAudio = async () => {
+    await fetchMore({
+      variables: {
+        request: {
+          ...request,
+          cursor: pageInfo?.next
+        }
+      }
+    })
+  }
+
+  if (!audios?.length) {
+    return null
+  }
 
   return (
     <View style={styles.container}>
       <FlashList
-        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
-        renderItem={({ item }) => {
-          return <TimelineCell item={item} />
-        }}
-        estimatedItemSize={50}
         data={audios}
+        estimatedItemSize={audios.length}
+        keyExtractor={(item, i) => `${item.id}_${i}`}
+        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
+        renderItem={renderItem}
+        ListFooterComponent={() => (
+          <ActivityIndicator style={{ paddingVertical: 20 }} />
+        )}
+        ListHeaderComponent={() => (
+          <View style={{ paddingVertical: 5 }}>
+            <IntroCard />
+            <MusicFilters />
+          </View>
+        )}
+        onEndReached={fetchMoreAudio}
+        onEndReachedThreshold={0.8}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   )

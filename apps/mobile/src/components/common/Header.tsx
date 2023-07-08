@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     gap: 20
   },
   forYouText: {
-    color: theme.colors.primary,
+    color: theme.colors.white,
     fontFamily: 'font-bold',
     fontWeight: '500',
     fontSize: normalizeFont(18)

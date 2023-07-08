@@ -1,6 +1,7 @@
 import {
   getProfilePicture,
   getThumbnailUrl,
+  imageCdn,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
@@ -11,6 +12,7 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
+import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Gyroscope } from 'expo-sensors'
@@ -28,7 +30,6 @@ import Animated, {
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
-import { useNotifications } from '~/hooks'
 import useMobileStore from '~/store'
 
 const BORDER_RADIUS = 15
@@ -45,7 +46,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 6,
     paddingVertical: 10,
-    opacity: 0.8
+    opacity: 0.8,
+    marginBottom: 1,
+    borderBottomRightRadius: BORDER_RADIUS,
+    borderBottomLeftRadius: BORDER_RADIUS
   },
   thumbnail: {
     width: '100%',
@@ -55,7 +59,7 @@ const styles = StyleSheet.create({
   otherInfo: {
     fontFamily: 'font-medium',
     fontSize: normalizeFont(10),
-    color: theme.colors.primary
+    color: theme.colors.white
   },
   cardsContainer: {
     position: 'relative',
@@ -75,6 +79,7 @@ const styles = StyleSheet.create({
   },
   firstByteCardWrapper: {
     zIndex: 1,
+    backgroundColor: theme.colors.backdrop,
     shadowColor: '#000',
     shadowOpacity: 0.8,
     shadowOffset: {
@@ -87,7 +92,7 @@ const styles = StyleSheet.create({
 })
 
 const ByteCards = () => {
-  const { notify } = useNotifications()
+  const { navigate } = useNavigation()
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
 
   const prevGyroValue = useSharedValue({
@@ -163,10 +168,10 @@ const ByteCards = () => {
     return (
       <LinearGradient
         style={{ padding: 1, position: 'relative' }}
-        colors={['transparent', '#ffffff70']}
+        colors={['transparent', '#ffffff90']}
       >
         <ExpoImage
-          source={getThumbnailUrl(byte)}
+          source={{ uri: imageCdn(getThumbnailUrl(byte, true), 'THUMBNAIL_V') }}
           contentFit="cover"
           style={styles.thumbnail}
         />
@@ -175,14 +180,16 @@ const ByteCards = () => {
           style={styles.gradient}
         >
           <ExpoImage
-            source={getProfilePicture(byte.profile)}
+            source={{
+              uri: imageCdn(getProfilePicture(byte.profile), 'AVATAR')
+            }}
             contentFit="cover"
             style={{ width: 15, height: 15, borderRadius: 3 }}
           />
           <Text style={styles.otherInfo}>
             {trimLensHandle(byte.profile.handle)}
           </Text>
-          <Text style={{ color: theme.colors.primary, fontSize: 3 }}>
+          <Text style={{ color: theme.colors.white, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
           <Text style={styles.otherInfo}>{byte.stats.totalUpvotes} likes</Text>
@@ -223,12 +230,9 @@ const ByteCards = () => {
           <Pressable
             onPress={() => {
               haptic()
-              notify('success', {
-                params: {
-                  title: 'Hello',
-                  description: 'Wow, that was easy',
-                  hideCloseButton: true
-                }
+              navigate('MainTab', {
+                screen: 'BytesStack',
+                params: { screen: 'Bytes' }
               })
             }}
           >
@@ -239,7 +243,13 @@ const ByteCards = () => {
         </Skeleton>
       </View>
       <Pressable
-        onPress={() => haptic()}
+        onPress={() => {
+          haptic()
+          navigate('MainTab', {
+            screen: 'BytesStack',
+            params: { screen: 'Bytes' }
+          })
+        }}
         style={[
           styles.backgroundCards,
           {
@@ -250,7 +260,13 @@ const ByteCards = () => {
         {bytes?.length && renderCard(bytes[1])}
       </Pressable>
       <Pressable
-        onPress={() => haptic()}
+        onPress={() => {
+          haptic()
+          navigate('MainTab', {
+            screen: 'BytesStack',
+            params: { screen: 'Bytes' }
+          })
+        }}
         style={[
           styles.backgroundCards,
           {

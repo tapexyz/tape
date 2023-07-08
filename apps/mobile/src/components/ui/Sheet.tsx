@@ -8,12 +8,20 @@ import { theme } from '~/helpers/theme'
 
 type Props = {
   sheetRef?: React.RefObject<BottomSheetModalMethods>
+  snap?: string[]
+  marginX?: number
 }
 
-const Sheet: FC<PropsWithChildren & Props> = ({ children, sheetRef }) => {
+const Sheet: FC<PropsWithChildren & Props> = ({
+  snap,
+  marginX,
+  children,
+  sheetRef
+}) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
-  const snapPoints = useMemo(() => ['40%'], [])
+  const snapPoints = useMemo(() => snap ?? ['40%'], [snap])
+
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
@@ -33,7 +41,7 @@ const Sheet: FC<PropsWithChildren & Props> = ({ children, sheetRef }) => {
         borderRadius: 40,
         backgroundColor: theme.colors.backdrop
       }}
-      style={{ marginHorizontal: 10 }}
+      style={{ marginHorizontal: marginX ?? 10 }}
       bottomInset={20}
       detached={true}
       snapPoints={snapPoints}

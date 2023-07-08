@@ -16,7 +16,8 @@ import AnimatedPressable from '../ui/AnimatedPressable'
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10
+    marginVertical: 10,
+    marginHorizontal: 5
   },
   card: {
     display: 'flex',

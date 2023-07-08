@@ -1,8 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
+import { HomeScreen } from '~/screens'
+
 import Header from '../components/common/Header'
-import { DetailsScreen, HomeScreen } from '../screens'
 import useMobileStore from '../store'
 
 const { Navigator, Screen } = createStackNavigator<HomeStackParamList>()
@@ -28,11 +29,6 @@ export const HomeStack = (): JSX.Element => {
           }
         }}
         component={HomeScreen}
-      />
-      <Screen
-        name="Details"
-        options={{ title: 'Details' }}
-        component={DetailsScreen}
       />
     </Navigator>
   )

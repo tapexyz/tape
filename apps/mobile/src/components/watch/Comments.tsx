@@ -1,13 +1,26 @@
+import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import { type Publication, useCommentsQuery } from '@lenstube/lens'
-import { Image as ExpoImage } from 'expo-image'
+import { FlashList } from '@shopify/flash-list'
+import { Skeleton } from 'moti/skeleton'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useCallback, useRef } from 'react'
+import {
+  ActivityIndicator,
+  Dimensions,
+  Pressable,
+  StyleSheet,
+  View
+} from 'react-native'
 
-import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
+
+import Sheet from '../ui/Sheet'
+import Comment from './Comment'
+import CommentButton from './CommentButton'
+
+// fixed height to fix CLS between comment and comment button
+const CONTAINER_HEIGHT = 80
 
 const styles = StyleSheet.create({
   container: {
@@ -16,86 +29,98 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     marginHorizontal: 5,
     borderRadius: 15,
-    padding: 15,
     backgroundColor: theme.colors.backdrop,
-    gap: 10
-  },
-  handle: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(10),
-    color: theme.colors.primary,
-    letterSpacing: 1
-  },
-  comment: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(12),
-    color: theme.colors.white,
-    lineHeight: 20
+    gap: 10,
+    height: CONTAINER_HEIGHT
   }
 })
 
 type Props = {
-  video: Publication
+  videoId: string
 }
 
-const Comments: FC<Props> = ({ video }) => {
-  const [currentCommentIndex, setCurrentCommentIndex] = useState(0)
+const Comments: FC<Props> = ({ videoId }) => {
+  const commentsSheetRef = useRef<BottomSheetModal>(null)
 
   const request = {
     limit: 10,
     customFilters: LENS_CUSTOM_FILTERS,
-    commentsOf: video.id
+    commentsOf: videoId
   }
 
-  const { data, error } = useCommentsQuery({
+  const { data, fetchMore, loading } = useCommentsQuery({
     variables: { request },
-    skip: !video.id
+    skip: !videoId
   })
   const comments = data?.publications?.items as Publication[]
+  const pageInfo = data?.publications?.pageInfo
 
-  useEffect(() => {
-    let timer: NodeJS.Timer
-    if (comments?.length) {
-      timer = setInterval(() => {
-        setCurrentCommentIndex(
-          currentCommentIndex === comments.length - 1
-            ? 0
-            : currentCommentIndex + 1
-        )
-      }, 20000) // 20 secs
-    }
-    return () => clearInterval(timer)
-  }, [currentCommentIndex, comments?.length])
-
-  if (!comments?.length || error) {
-    return null
+  const fetchMoreVideos = async () => {
+    await fetchMore({
+      variables: {
+        request: {
+          ...request,
+          cursor: pageInfo?.next
+        }
+      }
+    })
   }
 
-  const comment = comments[currentCommentIndex]
+  const renderItem = useCallback(
+    ({ item }: { item: Publication }) => <Comment comment={item} />,
+    []
+  )
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: 5
-        }}
-      >
-        <ExpoImage
-          source={getProfilePicture(comment.profile)}
-          contentFit="cover"
-          style={{ width: 15, height: 15, borderRadius: 3 }}
-        />
-        <Text style={styles.handle}>
-          {trimLensHandle(comment.profile.handle)}
-        </Text>
+    <>
+      <View style={styles.container}>
+        <Skeleton
+          show={loading}
+          colors={[theme.colors.backdrop, theme.colors.grey]}
+          radius={15}
+          height={CONTAINER_HEIGHT}
+        >
+          <Pressable
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              padding: 15
+            }}
+            onPress={() => commentsSheetRef.current?.present()}
+          >
+            {comments?.length ? (
+              <Comment comment={comments[0]} />
+            ) : (
+              <CommentButton />
+            )}
+          </Pressable>
+        </Skeleton>
       </View>
 
-      <Text numberOfLines={1} style={styles.comment}>
-        {comment.metadata.content}
-      </Text>
-    </View>
+      <Sheet sheetRef={commentsSheetRef} snap={['70%']} marginX={0}>
+        <View
+          style={{
+            flex: 1,
+            padding: 20,
+            height: Dimensions.get('screen').height / 2
+          }}
+        >
+          <FlashList
+            data={comments}
+            estimatedItemSize={comments?.length ?? 0}
+            ListFooterComponent={() =>
+              loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
+            }
+            keyExtractor={(item, i) => `${item.id}_${i}`}
+            ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
+            onEndReachedThreshold={0.8}
+            onEndReached={() => fetchMoreVideos()}
+            showsVerticalScrollIndicator={false}
+            renderItem={renderItem}
+          />
+        </View>
+      </Sheet>
+    </>
   )
 }
 

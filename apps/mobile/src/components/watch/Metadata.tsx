@@ -1,6 +1,7 @@
 import {
   getProfilePicture,
   getRelativeTime,
+  imageCdn,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
@@ -14,7 +15,7 @@ import { theme } from '~/helpers/theme'
 
 const styles = StyleSheet.create({
   title: {
-    color: theme.colors.primary,
+    color: theme.colors.white,
     fontFamily: 'font-bold',
     fontSize: normalizeFont(13),
     letterSpacing: 0.5
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
   otherInfo: {
     fontFamily: 'font-normal',
     fontSize: normalizeFont(10),
-    color: theme.colors.primary
+    color: theme.colors.white
   }
 })
 
@@ -62,7 +63,7 @@ const Metadata: FC<Props> = ({ video }) => {
       )}
       <View style={styles.otherInfoContainer}>
         <ExpoImage
-          source={getProfilePicture(video.profile)}
+          source={{ uri: imageCdn(getProfilePicture(video.profile)) }}
           contentFit="cover"
           style={{ width: 15, height: 15, borderRadius: 3 }}
         />
