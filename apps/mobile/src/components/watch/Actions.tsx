@@ -38,10 +38,6 @@ type Props = {
 }
 
 const Actions: FC<Props> = ({ video }) => {
-  const shareContent = `${
-    video.metadata.name ?? video.metadata.content
-  } by @${video.profile?.handle}`
-
   return (
     <ScrollView
       horizontal
@@ -73,8 +69,12 @@ const Actions: FC<Props> = ({ video }) => {
           haptic()
           Share.share({
             url: getSharableLink('lenstube', video),
-            message: shareContent,
-            title: shareContent
+            message: `${video.metadata.name ?? video.metadata.content} by @${
+              video.profile?.handle
+            }`,
+            title: `${video.metadata.name ?? video.metadata.content} by @${
+              video.profile?.handle
+            }`
           })
         }}
         style={styles.action}

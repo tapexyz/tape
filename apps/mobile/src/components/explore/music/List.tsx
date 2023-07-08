@@ -12,8 +12,8 @@ import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
 
 import AudioCard from '~/components/common/AudioCard'
 
-import MusicFilters from '../MusicFilters'
 import IntroCard from './IntroCard'
+import MusicFilters from './MusicFilters'
 
 const styles = StyleSheet.create({
   container: {

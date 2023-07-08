@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
   },
   firstByteCardWrapper: {
     zIndex: 1,
-    backgroundColor: theme.colors.backdrop,
     shadowColor: '#000',
     shadowOpacity: 0.8,
     shadowOffset: {
