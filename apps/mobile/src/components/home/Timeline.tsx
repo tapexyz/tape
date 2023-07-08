@@ -128,9 +128,9 @@ const Timeline = () => {
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
         ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
-        ListFooterComponent={() =>
-          loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
-        }
+        ListFooterComponent={() => (
+          <ActivityIndicator style={{ paddingVertical: 20 }} />
+        )}
         onEndReached={fetchMorePublications}
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
