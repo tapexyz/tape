@@ -38,9 +38,9 @@ type Props = {
 }
 
 const Actions: FC<Props> = ({ video }) => {
-  const shareContent = `${video.metadata.name ?? video.metadata.content} by @${
-    video.profile?.handle
-  }`
+  const shareContent = `${
+    video.metadata.name ?? video.metadata.content
+  } by @${video.profile?.handle}`
 
   return (
     <ScrollView
