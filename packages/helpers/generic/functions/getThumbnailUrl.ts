@@ -7,7 +7,7 @@ export const getThumbnailUrl = (
   video: Publication,
   withFallback?: boolean
 ): string => {
-  let url = video?.metadata?.cover?.onChain.url || video?.metadata?.image
+  let url = video?.metadata?.cover?.original.url || video?.metadata?.image
 
   if (withFallback) {
     url = url || FALLBACK_COVER_URL
