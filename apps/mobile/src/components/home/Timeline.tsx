@@ -67,7 +67,7 @@ const Timeline = () => {
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 5,
+    limit: 50,
     noRandomize: false,
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
@@ -75,15 +75,11 @@ const Timeline = () => {
       mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
     }
   }
-  const { data, fetchMore, loading } = useExploreQuery({
+  const { data, fetchMore } = useExploreQuery({
     variables: { request }
   })
 
   const publications = data?.explorePublications?.items as Publication[]
-  console.log(
-    '🚀 ~ file: Timeline.tsx:75 ~ Timeline ~ publications:',
-    publications?.length
-  )
   const pageInfo = data?.explorePublications?.pageInfo
 
   const fetchMorePublications = async () => {
