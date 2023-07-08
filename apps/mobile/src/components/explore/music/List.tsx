@@ -148,10 +148,10 @@ const List = () => {
           <ActivityIndicator style={{ paddingVertical: 20 }} />
         )}
         ListHeaderComponent={() => (
-          <>
+          <View style={{ paddingVertical: 5 }}>
             <IntroCard />
             <MusicFilters />
-          </>
+          </View>
         )}
         onEndReached={fetchMoreAudio}
         onEndReachedThreshold={0.8}

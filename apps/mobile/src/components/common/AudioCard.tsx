@@ -33,8 +33,7 @@ const styles = StyleSheet.create({
   description: {
     fontFamily: 'font-normal',
     fontSize: normalizeFont(12),
-    color: theme.colors.secondary,
-    paddingVertical: 10
+    color: theme.colors.secondary
   },
   thumbnail: {
     borderRadius: 10,
@@ -47,7 +46,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    opacity: 0.8
+    opacity: 0.8,
+    paddingTop: 10
   },
   otherInfo: {
     fontFamily: 'font-normal',
@@ -99,7 +99,7 @@ const AudioCard: FC<Props> = ({ audio }) => {
             <WaveForm />
           </View>
         </View>
-        <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
+        <View style={{ paddingVertical: 10, paddingHorizontal: 5 }}>
           {audio.metadata.description && (
             <Text numberOfLines={3} style={styles.description}>
               {audio.metadata.description.replace('\n', '')}

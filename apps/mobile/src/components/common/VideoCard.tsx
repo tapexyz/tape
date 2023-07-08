@@ -81,7 +81,7 @@ const VideoCard: FC<Props> = ({ video }) => {
         >
           <ExpoImage
             source={{ uri: thumbnailUrl }}
-            contentFit="contain"
+            contentFit={isBytes ? 'contain' : 'cover'}
             style={styles.thumbnail}
           />
         </ImageBackground>

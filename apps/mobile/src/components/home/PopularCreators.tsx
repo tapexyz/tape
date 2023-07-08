@@ -10,7 +10,7 @@ import AnimatedPressable from '../ui/AnimatedPressable'
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
+    marginTop: 10,
     marginHorizontal: 5
   },
   imageContainer: {
