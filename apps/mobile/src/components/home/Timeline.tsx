@@ -6,22 +6,26 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
+import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
-import React, { useCallback } from 'react'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import React, { useCallback, useRef } from 'react'
+import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
-import AudioCard from './AudioCard'
-import VideoCard from './VideoCard'
+import AudioCard from '../common/AudioCard'
+import VideoCard from '../common/VideoCard'
+import ByteCards from './ByteCards'
+import FirstSteps from './FirstSteps'
+import PopularCreators from './PopularCreators'
+import TimelineFilters from './TimelineFilters'
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
     paddingHorizontal: 5,
     flex: 1,
-    minHeight: Dimensions.get('screen').height
+    height: Dimensions.get('screen').height
   },
   title: {
     color: theme.colors.white,
@@ -57,9 +61,13 @@ const styles = StyleSheet.create({
 })
 
 const Timeline = () => {
+  const scrollRef = useRef<FlashList<Publication>>(null)
+  //@ts-expect-error FlashList as type is not supported
+  useScrollToTop(scrollRef)
+
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 50,
+    limit: 5,
     noRandomize: false,
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
@@ -67,11 +75,27 @@ const Timeline = () => {
       mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
     }
   }
-  const { data } = useExploreQuery({
+  const { data, fetchMore, loading } = useExploreQuery({
     variables: { request }
   })
 
   const publications = data?.explorePublications?.items as Publication[]
+  console.log(
+    '🚀 ~ file: Timeline.tsx:75 ~ Timeline ~ publications:',
+    publications?.length
+  )
+  const pageInfo = data?.explorePublications?.pageInfo
+
+  const fetchMorePublications = async () => {
+    await fetchMore({
+      variables: {
+        request: {
+          ...request,
+          cursor: pageInfo?.next
+        }
+      }
+    })
+  }
 
   const renderItem = useCallback(
     ({ item }: { item: Publication }) =>
@@ -90,11 +114,26 @@ const Timeline = () => {
   return (
     <View style={styles.container}>
       <FlashList
+        ref={scrollRef}
+        ListHeaderComponent={() => (
+          <>
+            <ByteCards />
+            <FirstSteps />
+            <PopularCreators />
+            <TimelineFilters />
+          </>
+        )}
         data={publications}
         estimatedItemSize={publications.length}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
         ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
+        ListFooterComponent={() =>
+          loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
+        }
+        onEndReached={fetchMorePublications}
+        onEndReachedThreshold={0.8}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   )

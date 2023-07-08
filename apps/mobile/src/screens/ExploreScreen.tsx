@@ -1,12 +1,10 @@
 import { useScrollToTop } from '@react-navigation/native'
 import React, { useRef } from 'react'
-import { ScrollView } from 'react-native'
+import type { ScrollView } from 'react-native'
 
-import Timeline from '~/components/common/Timeline'
+import Timeline from '~/components/explore/Timeline'
 
 import Container from '../components/common/Container'
-import Filters from '../components/explore/Filters'
-import Showcase from '../components/explore/Showcase'
 
 export const ExploreScreen = (props: ExploreScreenProps): JSX.Element => {
   const {
@@ -17,15 +15,7 @@ export const ExploreScreen = (props: ExploreScreenProps): JSX.Element => {
 
   return (
     <Container>
-      <ScrollView
-        ref={scrollRef}
-        style={{ flex: 1 }}
-        showsVerticalScrollIndicator={false}
-      >
-        <Showcase />
-        <Filters />
-        <Timeline />
-      </ScrollView>
+      <Timeline />
     </Container>
   )
 }

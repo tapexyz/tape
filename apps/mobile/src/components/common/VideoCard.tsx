@@ -1,3 +1,4 @@
+import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import {
   getProfilePicture,
   getRelativeTime,
@@ -10,7 +11,13 @@ import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import {
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -18,6 +25,8 @@ import { theme } from '~/helpers/theme'
 type Props = {
   video: Publication
 }
+
+const BORDER_RADIUS = 10
 
 const styles = StyleSheet.create({
   title: {
@@ -35,8 +44,7 @@ const styles = StyleSheet.create({
   thumbnail: {
     width: '100%',
     height: 215,
-    borderRadius: 10,
-    backgroundColor: theme.colors.backdrop,
+    borderRadius: BORDER_RADIUS,
     borderColor: theme.colors.grey,
     borderWidth: 0.5
   },
@@ -56,17 +64,27 @@ const styles = StyleSheet.create({
 })
 
 const VideoCard: FC<Props> = ({ video }) => {
-  const thumbnailUrl = imageCdn(getThumbnailUrl(video), 'THUMBNAIL')
+  const isBytes = video.appId === LENSTUBE_BYTES_APP_ID
+  const thumbnailUrl = imageCdn(
+    getThumbnailUrl(video, true),
+    isBytes ? 'THUMBNAIL_V' : 'THUMBNAIL'
+  )
   const { navigate } = useNavigation()
 
   return (
     <Pressable onPress={() => navigate('WatchVideo', { id: video.id })}>
       <>
-        <ExpoImage
+        <ImageBackground
           source={{ uri: thumbnailUrl }}
-          contentFit="cover"
-          style={styles.thumbnail}
-        />
+          blurRadius={15}
+          imageStyle={{ opacity: 0.8, borderRadius: BORDER_RADIUS }}
+        >
+          <ExpoImage
+            source={{ uri: thumbnailUrl }}
+            contentFit="contain"
+            style={styles.thumbnail}
+          />
+        </ImageBackground>
         <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
           <Text numberOfLines={3} style={styles.title}>
             {video.metadata.name}
@@ -78,7 +96,7 @@ const VideoCard: FC<Props> = ({ video }) => {
           )}
           <View style={styles.otherInfoContainer}>
             <ExpoImage
-              source={getProfilePicture(video.profile)}
+              source={{ uri: imageCdn(getProfilePicture(video.profile)) }}
               contentFit="cover"
               style={{ width: 15, height: 15, borderRadius: 3 }}
             />

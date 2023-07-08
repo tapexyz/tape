@@ -9,53 +9,28 @@ import {
 import { FlashList } from '@shopify/flash-list'
 import type { FC } from 'react'
 import React, { useCallback } from 'react'
-import {
-  ActivityIndicator,
-  Dimensions,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native'
-
-import haptic from '~/helpers/haptic'
-import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
 
 import VideoCard from '../common/VideoCard'
+import Actions from './Actions'
+import Comments from './Comments'
+import Metadata from './Metadata'
+import MoreVideosFilter from './MoreVideosFilter'
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 10,
-    marginHorizontal: 5
-  },
-  filter: {
-    paddingHorizontal: 15,
-    paddingVertical: 7,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 25
-  },
-  text: {
-    fontFamily: 'font-bold',
-    fontSize: normalizeFont(12),
-    letterSpacing: 0.5
-  },
   videos: {
     marginTop: 15,
     paddingHorizontal: 5,
     flex: 1,
-    minHeight: Dimensions.get('screen').height
+    height: Dimensions.get('screen').height
   }
 })
 
 type Props = {
-  viewingId: string
+  video: Publication
 }
 
-const MoreVideos: FC<Props> = ({ viewingId }) => {
+const MoreVideos: FC<Props> = ({ video }) => {
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 5,
@@ -95,78 +70,29 @@ const MoreVideos: FC<Props> = ({ viewingId }) => {
   }
 
   return (
-    <>
-      <ScrollView
-        style={styles.container}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-      >
-        <Pressable
-          onPress={() => haptic()}
-          style={[styles.filter, { backgroundColor: theme.colors.white }]}
-        >
-          <Text
-            style={[
-              styles.text,
-              {
-                color: theme.colors.black
-              }
-            ]}
-          >
-            Watch next
-          </Text>
-        </Pressable>
-        <Pressable
-          onPress={() => {
-            haptic()
-          }}
-          style={styles.filter}
-        >
-          <Text
-            style={[
-              styles.text,
-              {
-                color: theme.colors.white
-              }
-            ]}
-          >
-            Related picks
-          </Text>
-        </Pressable>
-        <Pressable
-          onPress={() => {
-            haptic()
-          }}
-          style={styles.filter}
-        >
-          <Text
-            style={[
-              styles.text,
-              {
-                color: theme.colors.white
-              }
-            ]}
-          >
-            From the Creator
-          </Text>
-        </Pressable>
-      </ScrollView>
-      <View style={styles.videos}>
-        <FlashList
-          data={videos}
-          estimatedItemSize={videos.length}
-          onEndReachedThreshold={0.2}
-          ListFooterComponent={() => (
-            <ActivityIndicator style={{ paddingVertical: 20 }} />
-          )}
-          keyExtractor={(item, i) => `${item.id}_${i}`}
-          onEndReached={() => fetchMoreVideos()}
-          ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
-          renderItem={renderItem}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
-    </>
+    <View style={styles.videos}>
+      <FlashList
+        ListHeaderComponent={() => (
+          <>
+            <Metadata video={video} />
+            <Actions video={video} />
+            <Comments videoId={video.id} />
+            <MoreVideosFilter />
+          </>
+        )}
+        data={videos}
+        estimatedItemSize={videos.length}
+        renderItem={renderItem}
+        keyExtractor={(item, i) => `${item.id}_${i}`}
+        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
+        onEndReachedThreshold={0.8}
+        ListFooterComponent={() => (
+          <ActivityIndicator style={{ paddingVertical: 20 }} />
+        )}
+        onEndReached={() => fetchMoreVideos()}
+        showsVerticalScrollIndicator={false}
+      />
+    </View>
   )
 }
 

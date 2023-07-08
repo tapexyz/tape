@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
   },
   firstByteCardWrapper: {
     zIndex: 1,
+    backgroundColor: theme.colors.backdrop,
     shadowColor: '#000',
     shadowOpacity: 0.8,
     shadowOffset: {
@@ -170,7 +171,7 @@ const ByteCards = () => {
         colors={['transparent', '#ffffff90']}
       >
         <ExpoImage
-          source={imageCdn(getThumbnailUrl(byte), 'THUMBNAIL_V')}
+          source={{ uri: imageCdn(getThumbnailUrl(byte, true), 'THUMBNAIL_V') }}
           contentFit="cover"
           style={styles.thumbnail}
         />
@@ -179,7 +180,9 @@ const ByteCards = () => {
           style={styles.gradient}
         >
           <ExpoImage
-            source={imageCdn(getProfilePicture(byte.profile), 'AVATAR')}
+            source={{
+              uri: imageCdn(getProfilePicture(byte.profile), 'AVATAR')
+            }}
             contentFit="cover"
             style={{ width: 15, height: 15, borderRadius: 3 }}
           />

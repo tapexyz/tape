@@ -89,7 +89,7 @@ export const BytesScreen = (props: BytesScreenProps): JSX.Element => {
       onEndReached={() => fetchMoreVideos()}
       extraData={activeVideoIndex} // To handle rerender if anything changes in data
       onViewableItemsChanged={onViewableItemsChanged}
-      onEndReachedThreshold={0.2}
+      onEndReachedThreshold={0.8}
       ListFooterComponent={() => (
         <ActivityIndicator style={{ paddingVertical: 20 }} />
       )}

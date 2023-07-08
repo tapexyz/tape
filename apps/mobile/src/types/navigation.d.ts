@@ -89,7 +89,7 @@ declare global {
 
   // Root stack
   type RootStackScreenProps = RootStackComposite
-  type WatchVideoScreenProps = RootStackComposite<'WatchVideo'>
+  type WatchScreenProps = RootStackComposite<'WatchVideo'>
 
   // Home stack
   type HomeScreenProps = HomeStackComposite<'Home'>

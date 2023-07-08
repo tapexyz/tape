@@ -43,7 +43,9 @@ const Comment = ({ comment }: { comment: Publication }) => {
         }}
       >
         <ExpoImage
-          source={imageCdn(getProfilePicture(comment.profile), 'AVATAR')}
+          source={{
+            uri: imageCdn(getProfilePicture(comment.profile), 'AVATAR')
+          }}
           contentFit="cover"
           style={{ width: 15, height: 15, borderRadius: 3 }}
         />

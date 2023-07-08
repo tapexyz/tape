@@ -1,5 +1,3 @@
-import Ionicons from '@expo/vector-icons/Ionicons'
-import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
 
@@ -9,7 +7,7 @@ import { theme } from '~/helpers/theme'
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 15,
+    marginVertical: 10,
     marginHorizontal: 5
   },
   filter: {
@@ -18,22 +16,16 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 3,
-    borderRadius: 25,
-    borderWidth: 1,
-    borderColor: theme.colors.secondary,
-    marginRight: 10
+    borderRadius: 25
   },
   text: {
     fontFamily: 'font-bold',
     fontSize: normalizeFont(12),
-    letterSpacing: 0.5,
-    color: theme.colors.white
+    letterSpacing: 0.5
   }
 })
 
-const Filters = () => {
-  const { navigate } = useNavigation()
+const MoreVideosFilter = () => {
   return (
     <ScrollView
       style={styles.container}
@@ -42,40 +34,55 @@ const Filters = () => {
     >
       <Pressable
         onPress={() => haptic()}
-        style={[styles.filter, { backgroundColor: theme.colors.grey }]}
+        style={[styles.filter, { backgroundColor: theme.colors.white }]}
       >
-        <Text style={styles.text}>All</Text>
+        <Text
+          style={[
+            styles.text,
+            {
+              color: theme.colors.black
+            }
+          ]}
+        >
+          Watch next
+        </Text>
       </Pressable>
       <Pressable
         onPress={() => {
           haptic()
-          navigate('ExploreTopsModal')
         }}
         style={styles.filter}
       >
-        <Text style={styles.text}>Top Tens</Text>
-        <Ionicons
-          name="chevron-down-outline"
-          color={theme.colors.white}
-          size={15}
-        />
+        <Text
+          style={[
+            styles.text,
+            {
+              color: theme.colors.white
+            }
+          ]}
+        >
+          Related picks
+        </Text>
       </Pressable>
       <Pressable
         onPress={() => {
           haptic()
-          navigate('ExploreCategoriesModal')
         }}
         style={styles.filter}
       >
-        <Text style={styles.text}>Categories</Text>
-        <Ionicons
-          name="chevron-down-outline"
-          color={theme.colors.white}
-          size={15}
-        />
+        <Text
+          style={[
+            styles.text,
+            {
+              color: theme.colors.white
+            }
+          ]}
+        >
+          From the Creator
+        </Text>
       </Pressable>
     </ScrollView>
   )
 }
 
-export default Filters
+export default MoreVideosFilter

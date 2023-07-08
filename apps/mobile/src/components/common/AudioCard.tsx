@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
 })
 
 const AudioCard: FC<Props> = ({ audio }) => {
-  const thumbnailUrl = imageCdn(getThumbnailUrl(audio), 'AVATAR_LG')
+  const thumbnailUrl = imageCdn(getThumbnailUrl(audio, true), 'AVATAR_LG')
   const { navigate } = useNavigation()
   const { width } = useWindowDimensions()
 
@@ -107,7 +107,7 @@ const AudioCard: FC<Props> = ({ audio }) => {
           )}
           <View style={styles.otherInfoContainer}>
             <ExpoImage
-              source={getProfilePicture(audio.profile)}
+              source={{ uri: imageCdn(getProfilePicture(audio.profile)) }}
               contentFit="cover"
               style={{ width: 15, height: 15, borderRadius: 3 }}
             />

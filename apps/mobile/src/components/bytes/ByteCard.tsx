@@ -33,7 +33,7 @@ const ByteCard: FC<Props> = ({ byte, isActive }) => {
   const { height, width } = useWindowDimensions()
   const BYTE_HEIGHT = height - bottomTabBarHeight
 
-  const thumbnailUrl = imageCdn(getThumbnailUrl(byte), 'THUMBNAIL_V')
+  const thumbnailUrl = imageCdn(getThumbnailUrl(byte, true), 'THUMBNAIL_V')
   const videoSource = getPublicationMediaUrl(byte)
 
   const pauseVideo = () => {

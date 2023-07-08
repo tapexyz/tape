@@ -11,7 +11,7 @@ export const getProfilePicture = (
 ): string => {
   const url =
     channel.picture && channel.picture.__typename === 'MediaSet'
-      ? channel?.picture?.original?.url
+      ? channel?.picture?.onChain?.url
       : channel.picture?.__typename === 'NftImage'
       ? channel?.picture?.uri
       : getRandomProfilePicture(channel?.ownedBy)

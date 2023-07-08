@@ -10,7 +10,7 @@ import { theme } from '~/helpers/theme'
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
+    marginVertical: 30,
     marginHorizontal: 5
   },
   filter: {

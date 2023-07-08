@@ -4,7 +4,7 @@ import React from 'react'
 
 import { CategoriesModal, TopsModal } from '~/components/common/modals'
 import { useNetWorkConnection } from '~/hooks'
-import { WatchVideoScreen } from '~/screens'
+import { WatchScreen } from '~/screens'
 
 import { BottomTabNavigator } from './BottomTabNavigator'
 
@@ -28,7 +28,7 @@ export const RootNavigator: FC = () => {
           options={{
             headerShown: false
           }}
-          component={WatchVideoScreen}
+          component={WatchScreen}
         />
       </Group>
       <Group key="modals" screenOptions={{ presentation: 'modal' }}>

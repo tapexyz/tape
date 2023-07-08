@@ -12,10 +12,13 @@ import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
 
 import AudioCard from '~/components/common/AudioCard'
 
+import MusicFilters from '../MusicFilters'
+import IntroCard from './IntroCard'
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    minHeight: Dimensions.get('screen').height
+    height: Dimensions.get('screen').height
   }
 })
 
@@ -107,7 +110,7 @@ const List = () => {
       mainContentFocus: [PublicationMainFocus.Audio]
     }
   }
-  const { data, loading, error } = useExploreQuery({
+  const { data, loading, error, fetchMore } = useExploreQuery({
     variables: { request }
   })
 
@@ -116,6 +119,18 @@ const List = () => {
   }
 
   const audios = data?.explorePublications?.items as Publication[]
+  const pageInfo = data?.explorePublications?.pageInfo
+
+  const fetchMoreAudio = async () => {
+    await fetchMore({
+      variables: {
+        request: {
+          ...request,
+          cursor: pageInfo?.next
+        }
+      }
+    })
+  }
 
   if (!audios?.length) {
     return null
@@ -129,6 +144,18 @@ const List = () => {
         keyExtractor={(item, i) => `${item.id}_${i}`}
         ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
         renderItem={renderItem}
+        ListFooterComponent={() => (
+          <ActivityIndicator style={{ paddingVertical: 20 }} />
+        )}
+        ListHeaderComponent={() => (
+          <>
+            <IntroCard />
+            <MusicFilters />
+          </>
+        )}
+        onEndReached={fetchMoreAudio}
+        onEndReachedThreshold={0.8}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   )

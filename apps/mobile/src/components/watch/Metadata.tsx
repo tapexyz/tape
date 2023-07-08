@@ -1,6 +1,7 @@
 import {
   getProfilePicture,
   getRelativeTime,
+  imageCdn,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
@@ -62,7 +63,7 @@ const Metadata: FC<Props> = ({ video }) => {
       )}
       <View style={styles.otherInfoContainer}>
         <ExpoImage
-          source={getProfilePicture(video.profile)}
+          source={{ uri: imageCdn(getProfilePicture(video.profile)) }}
           contentFit="cover"
           style={{ width: 15, height: 15, borderRadius: 3 }}
         />
