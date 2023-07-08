@@ -11,12 +11,10 @@ import { FlashList } from '@shopify/flash-list'
 import React, { useCallback, useRef } from 'react'
 import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
 
-import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
-
 import AudioCard from '../common/AudioCard'
 import VideoCard from '../common/VideoCard'
 import ByteCards from './ByteCards'
+import CreatorsCarousel from './CreatorsCarousel'
 import FirstSteps from './FirstSteps'
 import PopularCreators from './PopularCreators'
 import TimelineFilters from './TimelineFilters'
@@ -26,37 +24,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     flex: 1,
     height: Dimensions.get('screen').height
-  },
-  title: {
-    color: theme.colors.white,
-    fontFamily: 'font-bold',
-    fontSize: normalizeFont(13),
-    letterSpacing: 0.5
-  },
-  description: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(12),
-    color: theme.colors.secondary,
-    paddingTop: 10
-  },
-  thumbnail: {
-    width: '100%',
-    height: 215,
-    borderRadius: 10,
-    backgroundColor: theme.colors.background
-  },
-  otherInfoContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingTop: 10,
-    opacity: 0.8
-  },
-  otherInfo: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(10),
-    color: theme.colors.white
   }
 })
 
@@ -115,6 +82,7 @@ const Timeline = () => {
           <>
             <ByteCards />
             <FirstSteps />
+            <CreatorsCarousel />
             <PopularCreators />
             <TimelineFilters />
           </>

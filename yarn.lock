@@ -15530,6 +15530,11 @@ react-native-notificated@^0.1.0:
   resolved "https://registry.yarnpkg.com/react-native-notificated/-/react-native-notificated-0.1.0.tgz#333d3eb3a2cada3e5a8ea36a0258202258532662"
   integrity sha512-U39KxPhZqZHXodtOqpJSYeWFiyrrxWDaahrQ6+ItKhviW2BUb8x53H0KnEz0AsUT1Wlm5Q1RRhmmyfjr1rkQQA==
 
+react-native-reanimated-carousel@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-reanimated-carousel/-/react-native-reanimated-carousel-3.4.0.tgz#78ea838a972c85a1ce8fcbef20fb2ad7087c9571"
+  integrity sha512-mbEeAMbX+mqOLf2bN55wnWQt/LMx5FFxVneV9XjLvJ69ySMN0yVc3r/lS9/nHx8MdmW2ZUfAsQ4C139Taq+GPQ==
+
 react-native-reanimated@~2.14.4:
   version "2.14.4"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-2.14.4.tgz#3fa3da4e7b99f5dfb28f86bcf24d9d1024d38836"
