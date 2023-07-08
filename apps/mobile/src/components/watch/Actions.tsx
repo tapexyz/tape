@@ -69,12 +69,11 @@ const Actions: FC<Props> = ({ video }) => {
           haptic()
           Share.share({
             url: getSharableLink('lenstube', video),
-            message: `${video.metadata.name ?? video.metadata.content} by @${
-              video.profile?.handle
-            }`,
-            title: `${video.metadata.name ?? video.metadata.content} by @${
-              video.profile?.handle
-            }`
+            message: `${
+              video.metadata.name ?? video.metadata.content
+            } by @${video.profile?.handle}`,
+            title: `${video.metadata.name ?? video.metadata.content} by @${video
+              .profile?.handle}`
           })
         }}
         style={styles.action}
