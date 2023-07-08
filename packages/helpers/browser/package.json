@@ -11,7 +11,7 @@
     "typescript": "5.1.6"
   },
   "dependencies": {
-    "@fingerprintjs/fingerprintjs": "^3.4.1",
+    "@fingerprintjs/fingerprintjs": "^3.4.2",
     "fast-average-color": "^9.3.0"
   }
 }
