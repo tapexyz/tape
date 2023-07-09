@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'font-bold',
     color: theme.colors.white,
-    fontSize: normalizeFont(10)
+    fontSize: normalizeFont(10),
+    width: '60%'
   }
 })
 
@@ -210,7 +211,7 @@ const PopularMints = () => {
                     colors={['#00000090', '#00000080', 'transparent']}
                     style={styles.gradient}
                   >
-                    <Text numberOfLines={3} style={styles.title}>
+                    <Text numberOfLines={1} style={styles.title}>
                       {item.metadata.name}
                     </Text>
                     <View
