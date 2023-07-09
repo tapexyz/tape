@@ -14,9 +14,9 @@ import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
 import AudioCard from '../common/AudioCard'
 import VideoCard from '../common/VideoCard'
 import ByteCards from './ByteCards'
-import CreatorsCarousel from './CreatorsCarousel'
 import FirstSteps from './FirstSteps'
 import PopularCreators from './PopularCreators'
+import PopularMints from './PopularMints'
 import TimelineFilters from './TimelineFilters'
 
 const styles = StyleSheet.create({
@@ -82,8 +82,8 @@ const Timeline = () => {
           <>
             <ByteCards />
             <FirstSteps />
-            <CreatorsCarousel />
             <PopularCreators />
+            <PopularMints />
             <TimelineFilters />
           </>
         )}
