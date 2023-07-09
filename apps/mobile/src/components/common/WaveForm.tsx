@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   stick: {
     width: 1,
     borderRadius: 10,
-    backgroundColor: theme.colors.white
+    backgroundColor: '#FF9729'
   }
 })
 
@@ -46,14 +46,15 @@ const WaveForm = () => {
           />
         ))}
       </View>
-      <View style={[styles.sticks, { opacity: 0.5, alignItems: 'flex-start' }]}>
+      <View style={[styles.sticks, { alignItems: 'flex-start' }]}>
         {sticks.map((s, i) => (
           <View
             key={s + i}
             style={[
               styles.stick,
               {
-                height: getRandomInt(5, 20)
+                height: getRandomInt(5, 20),
+                backgroundColor: '#606060'
               }
             ]}
           />

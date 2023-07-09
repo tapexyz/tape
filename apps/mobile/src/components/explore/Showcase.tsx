@@ -17,7 +17,6 @@ const BORDER_RADIUS = 25
 const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
-    marginHorizontal: 5,
     gap: 10
   },
   grid: {
@@ -93,7 +92,10 @@ const Showcase = () => {
                 )
               }}
               style={styles.image}
-              imageStyle={{ opacity: 0.8 }}
+              imageStyle={{
+                opacity: 0.8,
+                backgroundColor: theme.colors.backdrop
+              }}
             >
               <LinearGradient
                 colors={['transparent', '#00000080', '#00000090']}
@@ -125,7 +127,10 @@ const Showcase = () => {
                 uri: imageCdn(`${STATIC_ASSETS}/mobile/images/couch-music.jpg`)
               }}
               style={styles.image}
-              imageStyle={{ opacity: 0.8 }}
+              imageStyle={{
+                opacity: 0.8,
+                backgroundColor: theme.colors.backdrop
+              }}
             >
               <LinearGradient
                 colors={['transparent', '#00000080', '#00000090']}
@@ -150,7 +155,10 @@ const Showcase = () => {
               uri: imageCdn(`${STATIC_ASSETS}/mobile/images/couch-garden.jpg`)
             }}
             style={styles.image}
-            imageStyle={{ opacity: 0.8 }}
+            imageStyle={{
+              opacity: 0.8,
+              backgroundColor: theme.colors.backdrop
+            }}
           >
             <LinearGradient colors={['transparent', '#00000080', '#00000090']}>
               <View style={styles.whTextWrapper}>

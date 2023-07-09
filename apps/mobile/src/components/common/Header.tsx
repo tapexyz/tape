@@ -38,37 +38,43 @@ const styles = StyleSheet.create({
 
 const Header: FC<HeaderTitleProps> = () => {
   const { provider } = useWalletConnectModal()
+  const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
 
   return (
     <View style={styles.container}>
       <Text style={styles.forYouText}>gm</Text>
       <View style={styles.rightView}>
-        <AnimatedPressable
-          onPress={() => {
-            haptic()
-          }}
-        >
-          <Ionicons
-            name="add-circle-outline"
-            color={theme.colors.white}
-            size={25}
-          />
-        </AnimatedPressable>
-        <AnimatedPressable
-          onPress={() => {
-            haptic()
-            signOut()
-            provider?.disconnect()
-            setSelectedChannel(null)
-          }}
-        >
-          <Ionicons
-            name="notifications-outline"
-            color={theme.colors.white}
-            size={23}
-          />
-        </AnimatedPressable>
+        {selectedChannel && (
+          <>
+            <AnimatedPressable
+              onPress={() => {
+                haptic()
+              }}
+            >
+              <Ionicons
+                name="add-circle-outline"
+                color={theme.colors.white}
+                size={25}
+              />
+            </AnimatedPressable>
+            <AnimatedPressable
+              onPress={() => {
+                haptic()
+                signOut()
+                provider?.disconnect()
+                setSelectedChannel(null)
+              }}
+            >
+              <Ionicons
+                name="notifications-outline"
+                color={theme.colors.white}
+                size={23}
+              />
+            </AnimatedPressable>
+          </>
+        )}
+
         <SignIn />
       </View>
     </View>

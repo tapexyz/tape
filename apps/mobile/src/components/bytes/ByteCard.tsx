@@ -6,12 +6,13 @@ import {
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
-import { useIsFocused } from '@react-navigation/native'
 import { ResizeMode, Video } from 'expo-av'
 import { MotiView } from 'moti'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
+
+import { useIsFocused } from '~/hooks/navigation'
 
 const styles = StyleSheet.create({
   byteCard: {

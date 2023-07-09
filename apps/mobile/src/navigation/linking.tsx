@@ -9,7 +9,7 @@ import Constants from 'expo-constants'
 import { createURL } from 'expo-linking'
 
 const prefix = createURL('/', { scheme: '/' })
-const universalLinks = Constants.manifest?.extra?.universalLinks ?? []
+const universalLinks = Constants.expoConfig?.extra?.universalLinks ?? []
 
 // Visit https://reactnavigation.org/docs/configuring-links#playground to see more
 export const linking: LinkingOptions<RootStackParamList> = {
