@@ -15,19 +15,14 @@ import {
 import { Image as ExpoImage, ImageBackground } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Skeleton } from 'moti/skeleton'
-import React, { memo } from 'react'
-import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
-import Animated, {
-  Extrapolate,
-  interpolate,
-  useAnimatedStyle,
-  useSharedValue
-} from 'react-native-reanimated'
-import Carousel from 'react-native-reanimated-carousel'
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
+
+import HCarousel from '../ui/HCarousel'
 
 const CAROUSEL_HEIGHT = 200
 const BORDER_RADIUS = 10
@@ -40,16 +35,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center'
-  },
-  pagination: {
-    width: '100%',
-    zIndex: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 10
   },
   thumbnail: {
     width: '100%',
@@ -89,61 +74,7 @@ const styles = StyleSheet.create({
   }
 })
 
-type PaginationItemProps = {
-  index: number
-  length: number
-  animation: Animated.SharedValue<number>
-  isRotate?: boolean
-}
-
-const Pagination = memo<PaginationItemProps>(function PaginationRectangleItem({
-  animation,
-  index,
-  length
-}) {
-  const width = 25
-  const animStyle = useAnimatedStyle(() => {
-    let inputRange = [index - 1, index, index + 1]
-    let outputRange = [width / 2, width, width / 2]
-
-    if (index === 0 && animation?.value > length - 1) {
-      inputRange = [length - 1, length, length + 1]
-      outputRange = [width / 2, width, width / 2]
-    }
-
-    return {
-      width: interpolate(
-        animation?.value,
-        inputRange,
-        outputRange,
-        Extrapolate.CLAMP
-      )
-    }
-  }, [animation, index, length])
-  return (
-    <View
-      style={{
-        height: 5,
-        marginHorizontal: 2
-      }}
-    >
-      <Animated.View
-        style={[
-          {
-            borderRadius: 50,
-            backgroundColor: theme.colors.white,
-            flex: 1
-          },
-          animStyle
-        ]}
-      />
-    </View>
-  )
-})
-
 const PopularMints = () => {
-  const { width } = useWindowDimensions()
-  const progressValue = useSharedValue(0)
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
 
@@ -178,21 +109,11 @@ const PopularMints = () => {
         height={CAROUSEL_HEIGHT}
       >
         <View>
-          <Carousel
-            style={{
-              borderRadius: BORDER_RADIUS
-            }}
-            loop
-            width={width - 20}
+          <HCarousel
             height={CAROUSEL_HEIGHT}
-            autoPlay={true}
-            onProgressChange={(_, absoluteProgress) => {
-              progressValue.value = absoluteProgress
-            }}
+            borderRadius={BORDER_RADIUS}
             data={publications}
-            scrollAnimationDuration={1000}
-            autoPlayInterval={4000}
-            renderItem={({ item }) => {
+            renderItem={({ item }: { item: Publication }) => {
               const isBytes = item.appId === LENSTUBE_BYTES_APP_ID
               const thumbnailUrl = imageCdn(
                 getThumbnailUrl(item, true),
@@ -248,20 +169,6 @@ const PopularMints = () => {
               )
             }}
           />
-          {Boolean(progressValue) && (
-            <View style={styles.pagination}>
-              {publications?.map((_, index) => {
-                return (
-                  <Pagination
-                    animation={progressValue}
-                    index={index}
-                    key={index}
-                    length={10}
-                  />
-                )
-              })}
-            </View>
-          )}
         </View>
       </Skeleton>
     </View>
