@@ -30,6 +30,7 @@ import Animated, {
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
+import { usePlatform } from '~/hooks'
 import useMobileStore from '~/store'
 
 const BORDER_RADIUS = 15
@@ -87,11 +88,19 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 15,
     elevation: 24
+  },
+  firstCard: {
+    width: 200,
+    marginBottom: 10,
+    aspectRatio: 9 / 16,
+    borderRadius: BORDER_RADIUS,
+    overflow: 'hidden'
   }
 })
 
 const ByteCards = () => {
   const { navigate } = useNavigation()
+  const { isIOS } = usePlatform()
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
 
   const prevGyroValue = useSharedValue({
@@ -128,11 +137,16 @@ const ByteCards = () => {
   }, [gyroValue.value])
 
   useEffect(() => {
-    const subscription = Gyroscope.addListener(({ x, y }) => {
-      gyroValue.value = { x, y }
-    })
+    let subscription: { remove: () => void }
+    if (isIOS) {
+      subscription = Gyroscope.addListener(({ x, y }) => {
+        gyroValue.value = { x, y }
+      })
+    }
     return () => {
-      subscription.remove()
+      if (isIOS) {
+        subscription.remove()
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gyroValue.value])
@@ -235,9 +249,15 @@ const ByteCards = () => {
               })
             }}
           >
-            <Animated.View style={AnimatedStyles.motion}>
-              {bytes?.length && renderCard(bytes[0])}
-            </Animated.View>
+            {isIOS ? (
+              <Animated.View style={AnimatedStyles.motion}>
+                {bytes?.length && renderCard(bytes[0])}
+              </Animated.View>
+            ) : (
+              <View style={styles.firstCard}>
+                {bytes?.length && renderCard(bytes[0])}
+              </View>
+            )}
           </Pressable>
         </Skeleton>
       </View>
