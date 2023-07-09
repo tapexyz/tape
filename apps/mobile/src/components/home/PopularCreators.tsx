@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 const PopularCreators = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Popular on Lensverse</Text>
+      <Text style={styles.title}>Trending on Lensverse</Text>
       <Text style={styles.subheading}>Discover, Connect, and Collect</Text>
       <ScrollView
         horizontal={true}

@@ -156,11 +156,6 @@ const ByteCards = () => {
       const inputRange = [-100, 0, 100]
       const outputRange = [-20, 0, 20]
       return {
-        width: 200,
-        marginBottom: 10,
-        aspectRatio: 9 / 16,
-        borderRadius: BORDER_RADIUS,
-        overflow: 'hidden',
         transform: [
           {
             translateX: withSpring(
@@ -250,7 +245,7 @@ const ByteCards = () => {
             }}
           >
             {isIOS ? (
-              <Animated.View style={AnimatedStyles.motion}>
+              <Animated.View style={[AnimatedStyles.motion, styles.firstCard]}>
                 {bytes?.length && renderCard(bytes[0])}
               </Animated.View>
             ) : (
