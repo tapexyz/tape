@@ -77,7 +77,7 @@ export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 // ipfs
 export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 5000 : 100 // in MB
-export const IPFS_GATEWAY_URL = 'https://ipfs.thirdwebstorage.com/ipfs'
+export const IPFS_GATEWAY_URL = 'https://gateway.ipfscdn.io/ipfs'
 export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
 
