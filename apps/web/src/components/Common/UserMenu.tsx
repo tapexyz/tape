@@ -198,7 +198,7 @@ const UserMenu = () => {
                     </Menu.Item>
                     <Menu.Item
                       as={NextLink}
-                      href={`/channel/saved`}
+                      href="/channel/saved"
                       className="inline-flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     >
                       <SaveToListOutline className="h-4 w-4" />
