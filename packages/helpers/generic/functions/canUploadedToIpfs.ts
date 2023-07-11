@@ -1,6 +1,6 @@
 import { IPFS_FREE_UPLOAD_LIMIT } from '@lenstube/constants'
 
-export const canUploadedToIpfs = (bytes: number | undefined | null) => {
+export const canUploadedToIpfs = (bytes?: number | null) => {
   if (bytes === null || bytes === undefined) {
     return false
   }
