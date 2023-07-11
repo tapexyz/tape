@@ -81,7 +81,6 @@ const InputMentions: FC<Props> = ({
           value={value}
           placeholder={props.placeholder}
           onChange={(e) => onContentChange(e.target.value)}
-          autoFocus={false}
         >
           <Mention
             trigger="@"
