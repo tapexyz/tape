@@ -101,6 +101,7 @@ const Video: FC<Props> = ({ video }) => {
           />
           <div
             className="absolute grid h-full w-full place-items-center"
+            tabIndex={0}
             onClick={onClickOverlay}
             role="button"
           >

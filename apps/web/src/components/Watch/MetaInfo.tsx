@@ -42,6 +42,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
           <div
             onClick={() => Analytics.track(TRACK.CLICK_VIEW_METADATA)}
             className="flex items-center space-x-1"
+            tabIndex={0}
             role="button"
           >
             <div className="whitespace-nowrap text-sm">
@@ -54,6 +55,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
         <ArweaveExplorerLink txId={getMetadataCid(video)}>
           <div
             onClick={() => Analytics.track(TRACK.CLICK_VIEW_METADATA)}
+            tabIndex={0}
             className="flex items-center space-x-1"
             role="button"
           >
