@@ -27,7 +27,7 @@ export const Navigation: FC = () => {
 
   const onStateChange = useCallback(
     (state: NavigationState | undefined) => {
-      onStateChangeScreenTracker()
+      onStateChangeScreenTracker().finally(() => {})
       onStateChangeNavigationStatePersistance(state)
     },
     [onStateChangeNavigationStatePersistance, onStateChangeScreenTracker]

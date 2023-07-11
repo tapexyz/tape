@@ -24,31 +24,29 @@ export const useNavigationStatePersistence =
     const [isReady, setIsReady] = useState(isProduction)
     const [initialState, setInitialState] = useState<InitialState>()
 
-    useEffect(() => {
-      const restoreState = async () => {
-        try {
-          const initialUrl = await getInitialURL()
+    const restoreState = async () => {
+      try {
+        const initialUrl = await getInitialURL()
 
-          if (Platform.OS !== 'web' && checkInitialURL(initialUrl)) {
-            // Only restore state if there's no deep link and we're not on web
-            const savedStateString = await AsyncStorage.getItem(
-              NAVIGATION_STATE
-            )
-            const state = savedStateString
-              ? JSON.parse(savedStateString)
-              : undefined
+        if (Platform.OS !== 'web' && checkInitialURL(initialUrl)) {
+          // Only restore state if there's no deep link and we're not on web
+          const savedStateString = await AsyncStorage.getItem(NAVIGATION_STATE)
+          const state = savedStateString
+            ? JSON.parse(savedStateString)
+            : undefined
 
-            if (state !== undefined) {
-              setInitialState(state)
-            }
+          if (state !== undefined) {
+            setInitialState(state)
           }
-        } finally {
-          setIsReady(true)
         }
+      } finally {
+        setIsReady(true)
       }
+    }
 
+    useEffect(() => {
       if (!isReady) {
-        restoreState()
+        restoreState().finally(() => {})
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isReady])
