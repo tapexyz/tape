@@ -63,7 +63,7 @@ const Video: FC<Props> = ({ video }) => {
   }
 
   return (
-    <div className="group relative h-screen w-screen">
+    <div className="group relative h-screen w-screen overflow-x-hidden">
       <MetaTags
         title={truncate(video?.metadata?.name as string, 60)}
         description={truncate(video?.metadata?.description as string, 100)}
@@ -101,6 +101,7 @@ const Video: FC<Props> = ({ video }) => {
           />
           <div
             className="absolute grid h-full w-full place-items-center"
+            tabIndex={0}
             onClick={onClickOverlay}
             role="button"
           >

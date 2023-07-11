@@ -42,7 +42,6 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
     >
       <div className="pt-2">
         <Picker
-          autoFocus
           data={data}
           navPosition="bottom"
           theme={resolvedTheme}

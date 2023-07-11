@@ -45,6 +45,7 @@ const CommentMedia: FC<Props> = ({ comment }) => {
       >
         <div
           role="button"
+          tabIndex={0}
           onClick={() => setShowLighBox(false)}
           className="flex cursor-default justify-center"
         >

@@ -14,6 +14,5 @@ test('returns false for values exceeding the limit', async () => {
 
 test('returns false for null and undefined values', async () => {
   expect(canUploadedToIpfs(null)).toBe(false)
-  // eslint-disable-next-line unicorn/no-useless-undefined
-  expect(canUploadedToIpfs(undefined)).toBe(false)
+  expect(canUploadedToIpfs()).toBe(false)
 })

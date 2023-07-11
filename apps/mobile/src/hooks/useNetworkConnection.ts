@@ -9,15 +9,15 @@ export const useNetWorkConnection = () => {
   const { isOnline } = useIsOnline()
   const { notify } = useNotifications()
 
-  useEffect(() => {
-    const getNetwork = async () => {
-      if (isOnline) {
-        return
-      }
-      notify('info', { params: { title: 'No internet connection' } })
+  const getNetwork = async () => {
+    if (isOnline) {
+      return
     }
-    getNetwork()
+    notify('info', { params: { title: 'No internet connection' } })
+  }
 
+  useEffect(() => {
+    getNetwork().finally(() => {})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isForeground, isOnline])
 }
