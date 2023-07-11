@@ -18,14 +18,13 @@ const Videos: FC<Props> = ({ results, loading, clearSearch }) => {
     <>
       {results?.map((result) => (
         <div
-          onClick={() => clearSearch()}
           key={result.id}
           className="relative cursor-default select-none pl-3 pr-4 hover:bg-gray-100 dark:hover:bg-gray-900"
-          role="button"
         >
           <Link
             href={`/watch/${result?.id}`}
             key={result?.id}
+            onClick={() => clearSearch()}
             className="flex flex-col justify-center space-y-1 rounded-xl py-2"
           >
             <span className="flex items-center justify-between">

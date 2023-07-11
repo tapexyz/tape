@@ -67,6 +67,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
       {video.collectNftAddress && (
         <div
           onClick={() => Analytics.track(TRACK.CLICK_VIEW_TOKEN)}
+          tabIndex={0}
           className="hidden items-center space-x-1 md:flex"
           role="button"
         >
@@ -84,6 +85,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
       {video.dataAvailabilityProofs && (
         <div
           onClick={() => Analytics.track(TRACK.CLICK_VIEW_PROOF)}
+          tabIndex={0}
           className="hidden items-center space-x-1 md:flex"
           role="button"
         >

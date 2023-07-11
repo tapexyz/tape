@@ -23,13 +23,12 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
     <>
       {results?.map((channel: Profile) => (
         <div
-          onClick={() => clearSearch()}
           key={channel.id}
           className="relative cursor-default select-none pl-3 pr-4 hover:bg-gray-100 dark:hover:bg-gray-900"
-          role="button"
           data-testid={`search-channel-${channel.handle}`}
         >
           <Link
+            onClick={() => clearSearch()}
             href={`/channel/${channel?.handle}`}
             key={channel?.handle}
             className="flex flex-col justify-center space-y-1 rounded-xl py-2"
