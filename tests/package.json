@@ -7,10 +7,10 @@
     "dev:test": "playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.35.1",
-    "@lenstube/config": "*",
     "@lenstube/browser": "*",
+    "@lenstube/config": "*",
+    "@lenstube/constants": "*",
     "@lenstube/generic": "*",
-    "@lenstube/constants": "*"
+    "@playwright/test": "^1.36.0"
   }
 }

@@ -26,7 +26,6 @@
     "mobile": "cd apps/mobile && yarn start"
   },
   "devDependencies": {
-    "danger": "11.2.6",
     "husky": "^8.0.3",
     "start-server-and-test": "^2.0.0",
     "ts-node": "latest",
