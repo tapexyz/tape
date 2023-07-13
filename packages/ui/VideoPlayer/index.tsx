@@ -6,22 +6,22 @@ import PlayerInstance from './Player'
 import SensitiveWarning from './SensitiveWarning'
 
 interface Props extends PlayerProps {
-  refCallback?: (ref: HTMLMediaElement) => void
+  hlsUrl: string
   currentTime?: number
   isSensitiveContent?: boolean
-  hlsUrl: string
+  refCallback?: (ref: HTMLMediaElement) => void
 }
 
 const VideoPlayer: FC<Props> = ({
-  permanentUrl,
   hlsUrl,
-  posterUrl,
-  ratio = '16to9',
-  isSensitiveContent,
-  currentTime = 0,
   address,
-  refCallback,
   options,
+  posterUrl,
+  refCallback,
+  permanentUrl,
+  ratio = '16to9',
+  currentTime = 0,
+  isSensitiveContent,
   showControls = true
 }) => {
   const playerRef = useRef<HTMLMediaElement>()
@@ -46,19 +46,22 @@ const VideoPlayer: FC<Props> = ({
   }
 
   return (
-    <div className="w-full">
+    <div className={`w-full ${options.maxHeight && 'h-full'}`}>
       {sensitiveWarning ? (
         <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
       ) : (
-        <div onContextMenu={onContextClick} className="relative">
+        <div
+          onContextMenu={onContextClick}
+          className={`relative ${options.maxHeight && 'h-full'}`}
+        >
           <PlayerInstance
-            posterUrl={posterUrl}
-            permanentUrl={permanentUrl}
-            hlsUrl={hlsUrl}
             ratio={ratio}
-            address={address}
-            playerRef={mediaElementRef}
+            hlsUrl={hlsUrl}
             options={options}
+            address={address}
+            posterUrl={posterUrl}
+            playerRef={mediaElementRef}
+            permanentUrl={permanentUrl}
             showControls={showControls}
           />
         </div>

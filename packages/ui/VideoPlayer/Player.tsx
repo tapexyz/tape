@@ -16,6 +16,7 @@ export interface PlayerProps {
     autoPlay?: boolean
     muted?: boolean
     loop?: boolean
+    maxHeight?: boolean
     loadingSpinner: boolean
     isCurrentlyShown: boolean
   }

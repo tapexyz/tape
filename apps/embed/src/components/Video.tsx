@@ -82,15 +82,16 @@ const Video: FC<Props> = ({ video }) => {
             muted: isAutoPlay,
             loop: isLoop,
             loadingSpinner: true,
-            isCurrentlyShown: true
+            isCurrentlyShown: true,
+            maxHeight: true
           }}
         />
       ) : (
-        <div className="aspect-h-9 aspect-w-16 flex justify-center">
+        <div className="flex h-full w-full justify-center">
           <img
             src={thumbnailUrl}
             className={clsx(
-              'bg-gray-100 object-center dark:bg-gray-900',
+              'w-full bg-gray-100 object-center dark:bg-gray-900',
               isBytesVideo ? 'object-contain' : 'object-cover'
             )}
             style={{

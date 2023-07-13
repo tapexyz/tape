@@ -5,3 +5,7 @@
 body {
   @apply min-h-screen bg-white antialiased;
 }
+.livepeer-aspect-ratio-container,
+.livepeer-contents-container {
+  height: inherit !important;
+}

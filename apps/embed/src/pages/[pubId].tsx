@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
       request: { publicationId }
     }
   })
-  if (!data.publication || error) {
+  if (!data?.publication || error) {
     return { notFound: true }
   }
   context.res.setHeader('Cache-Control', 'public, s-maxage=86400')
