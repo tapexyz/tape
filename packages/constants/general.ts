@@ -147,12 +147,6 @@ export const DEFAULT_LOCALE = 'en'
 export const LENSTER_WEBSITE_URL = IS_MAINNET
   ? 'https://lenster.xyz'
   : 'https://testnet.lenster.xyz'
-export const OPENSEA_MARKETPLACE_URL = IS_MAINNET
-  ? 'https://opensea.io'
-  : 'https://testnets.opensea.io'
-export const RARIBLE_MARKETPLACE_URL = IS_MAINNET
-  ? 'https://rarible.com'
-  : 'https://testnet.rarible.com'
 
 // analytics
 export const MIXPANEL_API_HOST = '/collect'

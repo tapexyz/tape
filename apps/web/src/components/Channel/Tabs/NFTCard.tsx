@@ -1,8 +1,4 @@
-import {
-  IS_MAINNET,
-  OPENSEA_MARKETPLACE_URL,
-  STATIC_ASSETS
-} from '@lenstube/constants'
+import { POLYGONSCAN_URL, STATIC_ASSETS } from '@lenstube/constants'
 import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
 import type { Nft } from '@lenstube/lens'
 import Link from 'next/link'
@@ -38,9 +34,7 @@ const NFTCard: FC<Props> = ({ nft }) => {
         )}
       </div>
       <Link
-        href={`${OPENSEA_MARKETPLACE_URL}/assets/${
-          IS_MAINNET ? 'matic/' : 'mumbai/'
-        }${nft.contractAddress}/${nft.tokenId}`.toLowerCase()}
+        href={`${POLYGONSCAN_URL}/nft/${nft.contractAddress}/${nft.tokenId}`.toLowerCase()}
         target="_blank"
         rel="noreferer noreferrer"
       >
