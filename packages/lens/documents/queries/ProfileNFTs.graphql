@@ -3,6 +3,7 @@ query ProfileNFTs($request: NFTsRequest!) {
     items {
       contractAddress
       tokenId
+      chainId
       name
       originalContent {
         animatedUrl

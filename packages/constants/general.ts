@@ -73,6 +73,9 @@ export const POLYGON_RPC_URL = IS_MAINNET
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://mumbai.polygonscan.com'
+export const ETHERSCAN_URL = IS_MAINNET
+  ? 'https://etherscan.io'
+  : 'https://goerli.etherscan.io'
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 // ipfs
@@ -147,12 +150,6 @@ export const DEFAULT_LOCALE = 'en'
 export const LENSTER_WEBSITE_URL = IS_MAINNET
   ? 'https://lenster.xyz'
   : 'https://testnet.lenster.xyz'
-export const OPENSEA_MARKETPLACE_URL = IS_MAINNET
-  ? 'https://opensea.io'
-  : 'https://testnets.opensea.io'
-export const RARIBLE_MARKETPLACE_URL = IS_MAINNET
-  ? 'https://rarible.com'
-  : 'https://testnet.rarible.com'
 
 // analytics
 export const MIXPANEL_API_HOST = '/collect'
