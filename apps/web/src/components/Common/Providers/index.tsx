@@ -2,8 +2,8 @@ import { ApolloProvider } from '@apollo/client'
 import { getLivepeerClient, videoPlayerTheme } from '@lenstube/browser'
 import {
   IS_MAINNET,
-  LENSTER_WEBSITE_URL,
   LENSTUBE_APP_NAME,
+  LENSTUBE_WEBSITE_URL,
   POLYGON_RPC_URL,
   WC_PROJECT_ID
 } from '@lenstube/constants'
@@ -92,7 +92,7 @@ const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
     <RainbowKitProvider
       appInfo={{
         appName: LENSTUBE_APP_NAME,
-        learnMoreUrl: LENSTER_WEBSITE_URL,
+        learnMoreUrl: LENSTUBE_WEBSITE_URL,
         disclaimer: () => <Disclaimer />
       }}
       modalSize="compact"
