@@ -177,6 +177,10 @@ export type AllPublicationsTagsRequest = {
   source?: InputMaybe<Scalars['Sources']['input']>
 }
 
+export type AlreadyInvitedCheckRequest = {
+  address: Scalars['EthereumAddress']['input']
+}
+
 export type AndConditionInput = {
   /** The list of conditions to apply AND to. You can only use nested boolean conditions at the root level. */
   criteria: Array<AccessConditionInput>
@@ -1875,6 +1879,17 @@ export type IllegalReasonInputParams = {
   subreason: PublicationReportingIllegalSubreason
 }
 
+export type InRequest = {
+  ethereumAddress: Scalars['EthereumAddress']['input']
+  numInvites: Scalars['Int']['input']
+  secret: Scalars['String']['input']
+}
+
+export type InTotalRequest = {
+  ethereumAddress: Scalars['EthereumAddress']['input']
+  secret: Scalars['String']['input']
+}
+
 export type InternalPinRequest = {
   /** The shared secret */
   items: Array<Scalars['Url']['input']>
@@ -1886,6 +1901,17 @@ export type InternalPinResult = {
   __typename?: 'InternalPinResult'
   ipfs: Scalars['String']['output']
   referenceItem: Scalars['Url']['output']
+}
+
+export type InviteRequest = {
+  invites: Array<Scalars['EthereumAddress']['input']>
+  secret: Scalars['String']['input']
+}
+
+export type InvitedResult = {
+  __typename?: 'InvitedResult'
+  address: Scalars['EthereumAddress']['output']
+  when?: Maybe<Scalars['DateTime']['output']>
 }
 
 export type LimitedFeeCollectModuleParams = {
@@ -2331,6 +2357,8 @@ export type Mutation = {
   hel?: Maybe<Scalars['Void']['output']>
   hidePublication?: Maybe<Scalars['Void']['output']>
   idKitPhoneVerifyWebhook: IdKitPhoneVerifyWebhookResultStatusType
+  in?: Maybe<Scalars['Void']['output']>
+  invite?: Maybe<Scalars['Void']['output']>
   nni?: Maybe<Scalars['Void']['output']>
   nnv?: Maybe<Scalars['Void']['output']>
   proxyAction: Scalars['ProxyActionId']['output']
@@ -2551,6 +2579,14 @@ export type MutationIdKitPhoneVerifyWebhookArgs = {
   request: IdKitPhoneVerifyWebhookRequest
 }
 
+export type MutationInArgs = {
+  request: InRequest
+}
+
+export type MutationInviteArgs = {
+  request: InviteRequest
+}
+
 export type MutationNniArgs = {
   request: NniRequest
 }
@@ -2751,47 +2787,12 @@ export type Nfi = {
   i: Scalars['ChainId']['input']
 }
 
-/** Nft Collection type */
-export type NftCollection = {
-  __typename?: 'NftCollection'
-  /** Collection chain ID */
-  chainId: Scalars['ChainId']['output']
-  /** The contract address  "0x00001..." */
-  contractAddress: Scalars['ContractAddress']['output']
-  /** Collection ERC type */
-  contractType: Scalars['String']['output']
-  /** Collection name */
-  name: Scalars['String']['output']
-  /** Collection symbol */
-  symbol: Scalars['String']['output']
-}
-
 /** NFT collection filtering input */
 export type NftCollectionInput = {
   /** The chain id that the collection exists in */
   chainId: Scalars['ChainId']['input']
   /** Filter by NFT collection contract address */
   contractAddress: Scalars['ContractAddress']['input']
-}
-
-/** NFT collections result */
-export type NftCollectionResult = {
-  __typename?: 'NftCollectionResult'
-  items: Array<NftCollection>
-  pageInfo: PaginatedResultInfo
-}
-
-/** NFT collections request */
-export type NftCollectionsRequest = {
-  /** The chain ids to look for NFTs on. Ethereum and Polygon are supported. If omitted, it will look on both chains by default. */
-  chainIds?: InputMaybe<Array<Scalars['ChainId']['input']>>
-  cursor?: InputMaybe<Scalars['Cursor']['input']>
-  /** Exclude Lens Follower NFTs */
-  excludeFollowers?: InputMaybe<Scalars['Boolean']['input']>
-  limit?: InputMaybe<Scalars['Float']['input']>
-  /** Filter by owner address */
-  ownerAddress?: InputMaybe<Scalars['EthereumAddress']['input']>
-  profileId?: InputMaybe<Scalars['ProfileId']['input']>
 }
 
 /** The NFT gallery input */
@@ -3264,6 +3265,7 @@ export type Profile = {
   id: Scalars['ProfileId']['output']
   /** The profile interests */
   interests?: Maybe<Array<Scalars['ProfileInterest']['output']>>
+  invitedBy?: Maybe<Profile>
   /** Is the profile default */
   isDefault: Scalars['Boolean']['output']
   isFollowedByMe: Scalars['Boolean']['output']
@@ -3312,6 +3314,16 @@ export type ProfileFollowModuleSettings = {
 export type ProfileFollowRevenueQueryRequest = {
   /** The profile id */
   profileId: Scalars['ProfileId']['input']
+}
+
+export type ProfileGuardianRequest = {
+  profileId: Scalars['ProfileId']['input']
+}
+
+export type ProfileGuardianResult = {
+  __typename?: 'ProfileGuardianResult'
+  disablingProtectionTimestamp?: Maybe<Scalars['DateTime']['output']>
+  protected: Scalars['Boolean']['output']
 }
 
 export type ProfileMedia = MediaSet | NftImage
@@ -3850,6 +3862,7 @@ export type PublicationsQueryRequest = {
 export type Query = {
   __typename?: 'Query'
   allPublicationsTags: PaginatedAllPublicationsTagsResult
+  alreadyInvited: Scalars['Boolean']['output']
   approvedModuleAllowanceAmount: Array<ApprovedAllowanceAmount>
   challenge: AuthChallengeResult
   claimableHandles: ClaimableHandles
@@ -3878,11 +3891,12 @@ export type Query = {
   globalProtocolStats: GlobalProtocolStats
   hasTxHashBeenIndexed: TransactionResult
   internalPin: Array<InternalPinResult>
+  intotal: Scalars['Int']['output']
+  invited: Array<InvitedResult>
+  invitesLeft: Scalars['Int']['output']
   isIDKitPhoneVerified: Scalars['Boolean']['output']
   iss: PrfResponse
   mutualFollowersProfiles: PaginatedProfileResult
-  /** Get the NFT collections that the given wallet or profileId owns at least one NFT of. Only supports Ethereum and Polygon NFTs. Note excludeFollowers is set to true by default, so the result will not include Lens Follower NFTsunless explicitly requested. */
-  nftCollections: NftCollectionResult
   /** Get all NFT galleries for a profile */
   nftGalleries: Array<NftGallery>
   nftOwnershipChallenge: NftOwnershipChallengeResult
@@ -3894,6 +3908,7 @@ export type Query = {
   profile?: Maybe<Profile>
   profileFollowModuleBeenRedeemed: Scalars['Boolean']['output']
   profileFollowRevenue: FollowRevenueResult
+  profileGuardianInformation: ProfileGuardianResult
   /** Get the list of profile interests */
   profileInterests: Array<Scalars['ProfileInterest']['output']>
   profileOnChainIdentity: Array<OnChainIdentity>
@@ -3923,6 +3938,10 @@ export type Query = {
 
 export type QueryAllPublicationsTagsArgs = {
   request: AllPublicationsTagsRequest
+}
+
+export type QueryAlreadyInvitedArgs = {
+  request: AlreadyInvitedCheckRequest
 }
 
 export type QueryApprovedModuleAllowanceAmountArgs = {
@@ -4009,16 +4028,16 @@ export type QueryInternalPinArgs = {
   request: InternalPinRequest
 }
 
+export type QueryIntotalArgs = {
+  request: InTotalRequest
+}
+
 export type QueryIssArgs = {
   request: PriRequest
 }
 
 export type QueryMutualFollowersProfilesArgs = {
   request: MutualFollowersProfilesQueryRequest
-}
-
-export type QueryNftCollectionsArgs = {
-  request: NftCollectionsRequest
 }
 
 export type QueryNftGalleriesArgs = {
@@ -4051,6 +4070,10 @@ export type QueryProfileFollowModuleBeenRedeemedArgs = {
 
 export type QueryProfileFollowRevenueArgs = {
   request: ProfileFollowRevenueQueryRequest
+}
+
+export type QueryProfileGuardianInformationArgs = {
+  request: ProfileGuardianRequest
 }
 
 export type QueryProfileOnChainIdentityArgs = {
@@ -12431,6 +12454,7 @@ export type ProfileNfTsQuery = {
       __typename?: 'NFT'
       contractAddress: any
       tokenId: string
+      chainId: any
       name: string
       collectionName: string
       originalContent: {
@@ -19437,6 +19461,7 @@ export const ProfileNfTsDocument = gql`
       items {
         contractAddress
         tokenId
+        chainId
         name
         originalContent {
           animatedUrl

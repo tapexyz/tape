@@ -73,6 +73,9 @@ export const POLYGON_RPC_URL = IS_MAINNET
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://mumbai.polygonscan.com'
+export const ETHERSCAN_URL = IS_MAINNET
+  ? 'https://etherscan.io'
+  : 'https://goerli.etherscan.io'
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 // ipfs

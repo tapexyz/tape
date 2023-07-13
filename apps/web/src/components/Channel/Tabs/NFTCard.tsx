@@ -1,4 +1,8 @@
-import { POLYGONSCAN_URL, STATIC_ASSETS } from '@lenstube/constants'
+import {
+  ETHERSCAN_URL,
+  POLYGONSCAN_URL,
+  STATIC_ASSETS
+} from '@lenstube/constants'
 import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
 import type { Nft } from '@lenstube/lens'
 import Link from 'next/link'
@@ -10,6 +14,17 @@ type Props = {
 }
 
 const NFTCard: FC<Props> = ({ nft }) => {
+  const getExplorerLink = (chainId: number) => {
+    switch (chainId) {
+      case 1:
+        return ETHERSCAN_URL
+      default:
+        return POLYGONSCAN_URL
+    }
+  }
+
+  const explorer = getExplorerLink(nft.chainId)
+
   return (
     <div className="group rounded-xl">
       <div className="aspect-h-9 aspect-w-16">
@@ -34,7 +49,7 @@ const NFTCard: FC<Props> = ({ nft }) => {
         )}
       </div>
       <Link
-        href={`${POLYGONSCAN_URL}/nft/${nft.contractAddress}/${nft.tokenId}`.toLowerCase()}
+        href={`${explorer}/nft/${nft.contractAddress}/${nft.tokenId}`.toLowerCase()}
         target="_blank"
         rel="noreferer noreferrer"
       >
