@@ -2,6 +2,7 @@ import { ApolloProvider } from '@apollo/client'
 import { getLivepeerClient, videoPlayerTheme } from '@lenstube/browser'
 import {
   IS_MAINNET,
+  LENSTER_WEBSITE_URL,
   LENSTUBE_APP_NAME,
   POLYGON_RPC_URL,
   WC_PROJECT_ID
@@ -65,6 +66,20 @@ const wagmiConfig = createConfig({
   publicClient
 })
 
+const Disclaimer = () => (
+  <div className="prose-sm prose-a:text-indigo-500 text-[10px]">
+    <span>By continuing, you agree to Lenstube's</span>{' '}
+    <a href="/terms" target="_blank">
+      terms
+    </a>{' '}
+    <span>and</span>{' '}
+    <a href="/privacy" target="_blank">
+      privacy policy
+    </a>
+    .
+  </div>
+)
+
 // Enables usage of theme in RainbowKitProvider
 const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
   const { theme } = useTheme()
@@ -75,6 +90,11 @@ const RainbowKitProviderWrapper = ({ children }: { children: ReactNode }) => {
   }
   return (
     <RainbowKitProvider
+      appInfo={{
+        appName: LENSTUBE_APP_NAME,
+        learnMoreUrl: LENSTER_WEBSITE_URL,
+        disclaimer: () => <Disclaimer />
+      }}
       modalSize="compact"
       chains={chains}
       theme={
