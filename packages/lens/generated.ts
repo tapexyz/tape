@@ -9828,6 +9828,7 @@ export type ProfileQuery = {
       canUseRelay: boolean
       sponsor: boolean
     } | null
+    invitedBy?: { __typename?: 'Profile'; handle: any } | null
     onChainIdentity: {
       __typename?: 'OnChainIdentity'
       proofOfHumanity: boolean
@@ -19069,6 +19070,9 @@ export const ProfileDocument = gql`
       interests
       isFollowedByMe
       isFollowing(who: $who)
+      invitedBy {
+        handle
+      }
       onChainIdentity {
         proofOfHumanity
         worldcoin {

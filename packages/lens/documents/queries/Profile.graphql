@@ -12,6 +12,9 @@ query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
     interests
     isFollowedByMe
     isFollowing(who: $who)
+    invitedBy {
+      handle
+    }
     onChainIdentity {
       proofOfHumanity
       worldcoin {
