@@ -186,7 +186,7 @@ const About: FC<Props> = ({ channel }) => {
                   className="hover:text-indigo-500"
                   href={`/channel/${channel.invitedBy.handle}`}
                 >
-                  {channel.invitedBy.handle}
+                  @{channel.invitedBy.handle}
                 </Link>
               </span>
             </div>
