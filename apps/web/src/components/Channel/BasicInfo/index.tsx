@@ -89,11 +89,11 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                   {channel?.stats.totalFollowers} <Trans>subscribers</Trans>
                 </span>
               </button>
-              {channel.isFollowing && (
+              {channel.isFollowing && selectedChannel?.id !== channel?.id ? (
                 <span className="rounded-full border border-gray-400 px-2 text-xs dark:border-gray-600">
                   <Trans>Subscriber</Trans>
                 </span>
-              )}
+              ) : null}
             </div>
           </div>
           <div className="flex items-center gap-3 md:flex-col md:items-end">
