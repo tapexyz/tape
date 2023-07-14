@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
   thumbnail: {
     width: '100%',
     height: '100%',
-    borderRadius: BORDER_RADIUS
+    borderRadius: BORDER_RADIUS,
+    backgroundColor: theme.colors.backdrop
   },
   otherInfo: {
     fontFamily: 'font-medium',

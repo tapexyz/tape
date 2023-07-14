@@ -1,4 +1,4 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
@@ -49,7 +49,7 @@ export const BytesScreen = (props: BytesScreenProps): JSX.Element => {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 50,
     noRandomize: false,
-    sources: ['lenstube-bytes'],
+    sources: [LENSTUBE_BYTES_APP_ID],
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {

@@ -53,7 +53,7 @@ const WaveForm = () => {
             style={[
               styles.stick,
               {
-                height: getRandomInt(5, 20),
+                height: getRandomInt(5, 12),
                 backgroundColor: '#606060'
               }
             ]}

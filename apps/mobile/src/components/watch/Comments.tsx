@@ -105,19 +105,21 @@ const Comments: FC<Props> = ({ videoId }) => {
             height: Dimensions.get('screen').height / 2
           }}
         >
-          <FlashList
-            data={comments}
-            estimatedItemSize={comments?.length ?? 0}
-            ListFooterComponent={() =>
-              loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
-            }
-            keyExtractor={(item, i) => `${item.id}_${i}`}
-            ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
-            onEndReachedThreshold={0.8}
-            onEndReached={() => fetchMoreVideos()}
-            showsVerticalScrollIndicator={false}
-            renderItem={renderItem}
-          />
+          {comments?.length ? (
+            <FlashList
+              data={comments}
+              estimatedItemSize={comments?.length ?? 0}
+              ListFooterComponent={() =>
+                loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
+              }
+              keyExtractor={(item, i) => `${item.id}_${i}`}
+              ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
+              onEndReachedThreshold={0.8}
+              onEndReached={() => fetchMoreVideos()}
+              showsVerticalScrollIndicator={false}
+              renderItem={renderItem}
+            />
+          ) : null}
         </View>
       </Sheet>
     </>

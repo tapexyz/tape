@@ -64,12 +64,13 @@ const styles = StyleSheet.create({
 })
 
 const VideoCard: FC<Props> = ({ video }) => {
+  const { navigate } = useNavigation()
+
   const isBytes = video.appId === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
     getThumbnailUrl(video, true),
     isBytes ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
-  const { navigate } = useNavigation()
 
   return (
     <Pressable onPress={() => navigate('WatchVideo', { id: video.id })}>

@@ -12,11 +12,12 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
+import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage, ImageBackground } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Skeleton } from 'moti/skeleton'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -75,6 +76,8 @@ const styles = StyleSheet.create({
 })
 
 const PopularMints = () => {
+  const { navigate } = useNavigation()
+
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
 
@@ -120,52 +123,56 @@ const PopularMints = () => {
                 isBytes ? 'THUMBNAIL_V' : 'THUMBNAIL'
               )
               return (
-                <ImageBackground
-                  source={{
-                    uri: thumbnailUrl
-                  }}
-                  blurRadius={15}
-                  style={{ position: 'relative' }}
-                  imageStyle={{ opacity: 0.8, borderRadius: BORDER_RADIUS }}
+                <Pressable
+                  onPress={() => navigate('WatchVideo', { id: item.id })}
                 >
-                  <LinearGradient
-                    colors={['#00000090', '#00000080', 'transparent']}
-                    style={styles.gradient}
-                  >
-                    <Text numberOfLines={1} style={styles.title}>
-                      {item.metadata.name}
-                    </Text>
-                    <View
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: 5
-                      }}
-                    >
-                      <ExpoImage
-                        source={{
-                          uri: imageCdn(
-                            getProfilePicture(item.profile),
-                            'AVATAR'
-                          )
-                        }}
-                        contentFit="cover"
-                        style={{ width: 15, height: 15, borderRadius: 3 }}
-                      />
-                      <Text style={styles.otherInfo}>
-                        {trimLensHandle(item.profile.handle)}
-                      </Text>
-                    </View>
-                  </LinearGradient>
-                  <ExpoImage
+                  <ImageBackground
                     source={{
                       uri: thumbnailUrl
                     }}
-                    contentFit={isBytes ? 'contain' : 'cover'}
-                    style={styles.thumbnail}
-                  />
-                </ImageBackground>
+                    blurRadius={15}
+                    style={{ position: 'relative' }}
+                    imageStyle={{ opacity: 0.8, borderRadius: BORDER_RADIUS }}
+                  >
+                    <LinearGradient
+                      colors={['#00000090', '#00000080', 'transparent']}
+                      style={styles.gradient}
+                    >
+                      <Text numberOfLines={1} style={styles.title}>
+                        {item.metadata.name}
+                      </Text>
+                      <View
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          gap: 5
+                        }}
+                      >
+                        <ExpoImage
+                          source={{
+                            uri: imageCdn(
+                              getProfilePicture(item.profile),
+                              'AVATAR'
+                            )
+                          }}
+                          contentFit="cover"
+                          style={{ width: 15, height: 15, borderRadius: 3 }}
+                        />
+                        <Text style={styles.otherInfo}>
+                          {trimLensHandle(item.profile.handle)}
+                        </Text>
+                      </View>
+                    </LinearGradient>
+                    <ExpoImage
+                      source={{
+                        uri: thumbnailUrl
+                      }}
+                      contentFit={isBytes ? 'contain' : 'cover'}
+                      style={styles.thumbnail}
+                    />
+                  </ImageBackground>
+                </Pressable>
               )
             }}
           />
