@@ -1,6 +1,7 @@
 import GlobeOutline from '@components/Common/Icons/GlobeOutline'
 import HashtagOutline from '@components/Common/Icons/HashtagOutline'
 import LocationOutline from '@components/Common/Icons/LocationOutline'
+import UserOutline from '@components/Common/Icons/UserOutline'
 import WalletOutline from '@components/Common/Icons/WalletOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
@@ -160,6 +161,7 @@ const About: FC<Props> = ({ channel }) => {
               <span>{getValueFromKeyInAttributes(attributes, 'location')}</span>
             </div>
           )}
+
           <div className="flex items-center space-x-1.5">
             <HashtagOutline className="h-4 w-4" />
             <Tooltip
@@ -175,6 +177,20 @@ const About: FC<Props> = ({ channel }) => {
               <span>{shortenAddress(channel.ownedBy)}</span>
             </AddressExplorerLink>
           </div>
+          {channel.invitedBy && (
+            <div className="flex items-center space-x-1.5">
+              <UserOutline className="h-4 w-4" />
+              <span>
+                Invited by{' '}
+                <Link
+                  className="hover:text-indigo-500"
+                  href={`/channel/${channel.invitedBy.handle}`}
+                >
+                  {channel.invitedBy.handle}
+                </Link>
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>
