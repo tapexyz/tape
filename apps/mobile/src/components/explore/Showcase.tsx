@@ -12,7 +12,7 @@ import { theme } from '~/helpers/theme'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
-const BORDER_RADIUS = 25
+const BORDER_RADIUS = 30
 
 const styles = StyleSheet.create({
   container: {
@@ -50,12 +50,12 @@ const styles = StyleSheet.create({
     fontFamily: 'font-bold',
     color: theme.colors.white,
     fontSize: normalizeFont(24),
-    paddingVertical: 6,
-    paddingHorizontal: 15
+    paddingVertical: 8,
+    paddingHorizontal: 18
   },
   whTextWrapper: {
-    paddingVertical: 10,
-    paddingHorizontal: 15
+    paddingVertical: 12,
+    paddingHorizontal: 18
   },
   whTitle: {
     fontFamily: 'font-bold',

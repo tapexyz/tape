@@ -28,8 +28,7 @@ export const BottomTabNavigator: FC = () => {
       tabBarStyle: { backgroundColor: navigationTheme.colors.background },
       tabBarIcon: ({
         color,
-        size,
-        focused
+        size
       }: {
         color: string
         size: number
@@ -59,11 +58,7 @@ export const BottomTabNavigator: FC = () => {
             }}
             from={{ opacity: 0.2 }}
           >
-            <Ionicons
-              name={iconName}
-              color={color}
-              size={focused ? size + 2 : size}
-            />
+            <Ionicons name={iconName} color={color} size={size} />
           </MotiView>
         )
       },
