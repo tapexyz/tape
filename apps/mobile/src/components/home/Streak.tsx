@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    marginRight: 4
+    marginRight: 3
   },
   itemProfile: {
     display: 'flex',
@@ -52,10 +52,6 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 5
-  },
-  thumbnail: {
-    borderColor: theme.colors.secondary,
-    borderWidth: 0.5
   },
   title: {
     fontFamily: 'font-bold',
@@ -101,17 +97,14 @@ const ImageCard = ({
           uri: imageUrl
         }}
         contentFit="cover"
-        style={[
-          styles.thumbnail,
-          {
-            width: '100%',
-            height: 190,
-            borderTopLeftRadius: index === 0 ? BORDER_RADIUS : 0,
-            borderBottomLeftRadius: index === 0 ? BORDER_RADIUS : 0,
-            borderTopRightRadius: index === last ? BORDER_RADIUS : 0,
-            borderBottomRightRadius: index === last ? BORDER_RADIUS : 0
-          }
-        ]}
+        style={{
+          width: '100%',
+          height: 190,
+          borderTopLeftRadius: index === 0 ? BORDER_RADIUS : 3,
+          borderBottomLeftRadius: index === 0 ? BORDER_RADIUS : 3,
+          borderTopRightRadius: index === last ? BORDER_RADIUS : 3,
+          borderBottomRightRadius: index === last ? BORDER_RADIUS : 3
+        }}
       />
       <View style={styles.itemProfile}>
         <ExpoImage
@@ -176,7 +169,11 @@ const Streak = () => {
         Your Collectibles, Your Story: Weekly Edition
       </Text>
       <View style={{ paddingTop: 20 }}>
-        <HorizantalSlider data={publications} renderItem={renderItem} />
+        <HorizantalSlider
+          data={publications}
+          renderItem={renderItem}
+          decelerationRate="normal"
+        />
       </View>
     </View>
   )
