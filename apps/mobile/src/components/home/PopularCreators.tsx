@@ -8,6 +8,8 @@ import { theme } from '~/helpers/theme'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
+const BORDER_RADIUS = 25
+
 const styles = StyleSheet.create({
   container: {
     marginTop: 10,
@@ -17,7 +19,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    borderRadius: 20,
+    borderRadius: BORDER_RADIUS,
     overflow: 'hidden',
     marginRight: 6
   },

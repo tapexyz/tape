@@ -33,7 +33,7 @@ import { theme } from '~/helpers/theme'
 import { usePlatform } from '~/hooks'
 import useMobileStore from '~/store'
 
-const BORDER_RADIUS = 15
+const BORDER_RADIUS = 25
 
 const styles = StyleSheet.create({
   gradient: {

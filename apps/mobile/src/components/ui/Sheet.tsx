@@ -26,6 +26,7 @@ const Sheet: FC<PropsWithChildren & Props> = ({
     (props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
         {...props}
+        opacity={0.9}
         disappearsOnIndex={-1}
         appearsOnIndex={0}
       />

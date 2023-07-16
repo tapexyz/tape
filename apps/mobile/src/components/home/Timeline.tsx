@@ -16,7 +16,8 @@ import VideoCard from '../common/VideoCard'
 import ByteCards from './ByteCards'
 import FirstSteps from './FirstSteps'
 import PopularCreators from './PopularCreators'
-import PopularMints from './PopularMints'
+import PopularImages from './PopularImages'
+import PopularVideos from './PopularVideos'
 import TimelineFilters from './TimelineFilters'
 
 const styles = StyleSheet.create({
@@ -83,7 +84,8 @@ const Timeline = () => {
             <ByteCards />
             <FirstSteps />
             <PopularCreators />
-            <PopularMints />
+            <PopularImages />
+            <PopularVideos />
             <TimelineFilters />
           </>
         )}

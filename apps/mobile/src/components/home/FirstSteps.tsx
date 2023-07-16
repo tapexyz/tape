@@ -14,6 +14,8 @@ import useMobileStore from '~/store'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
+const BORDER_RADIUS = 25
+
 const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
@@ -23,7 +25,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    borderRadius: 25,
+    borderRadius: BORDER_RADIUS,
     width: 170,
     height: 170,
     padding: 18,

@@ -25,13 +25,13 @@ import useMobileStore from '~/store'
 
 import HCarousel from '../ui/HCarousel'
 
-const CAROUSEL_HEIGHT = 200
-const BORDER_RADIUS = 10
+const CAROUSEL_HEIGHT = 210
+const BORDER_RADIUS = 25
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 30,
     position: 'relative',
-    paddingTop: 20,
     flex: 1,
     display: 'flex',
     flexDirection: 'row',
@@ -56,10 +56,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: 6,
-    padding: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 12,
     opacity: 0.8,
-    borderTopRightRadius: 9,
-    borderTopLeftRadius: 9,
+    borderTopLeftRadius: BORDER_RADIUS,
+    borderTopRightRadius: BORDER_RADIUS,
     zIndex: 2
   },
   otherInfo: {
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const PopularMints = () => {
+const PopularVideos = () => {
   const { navigate } = useNavigation()
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
@@ -182,4 +183,4 @@ const PopularMints = () => {
   )
 }
 
-export default PopularMints
+export default PopularVideos
