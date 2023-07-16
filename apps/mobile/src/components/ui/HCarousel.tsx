@@ -103,8 +103,8 @@ const HCarousel: FC<HCarouselProps> = (props) => {
           progressValue.value = absoluteProgress
         }}
         data={data}
-        scrollAnimationDuration={500}
-        autoPlayInterval={4000}
+        scrollAnimationDuration={700}
+        autoPlayInterval={6000}
         renderItem={renderItem}
       />
       {Boolean(progressValue) && (

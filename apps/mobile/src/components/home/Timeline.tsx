@@ -16,8 +16,8 @@ import VideoCard from '../common/VideoCard'
 import ByteCards from './ByteCards'
 import FirstSteps from './FirstSteps'
 import PopularCreators from './PopularCreators'
-import PopularImages from './PopularImages'
 import PopularVideos from './PopularVideos'
+import PopularImages from './Streak'
 import TimelineFilters from './TimelineFilters'
 
 const styles = StyleSheet.create({

@@ -2,7 +2,6 @@ import { STATIC_ASSETS } from '@lenstube/constants'
 import { imageCdn } from '@lenstube/generic'
 import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { MotiView } from 'moti'
 import React from 'react'
 import { ImageBackground, StyleSheet, Text, View } from 'react-native'
 
@@ -29,7 +28,8 @@ const styles = StyleSheet.create({
     borderRadius: BORDER_RADIUS,
     height: 200,
     aspectRatio: 1 / 1,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    backgroundColor: theme.colors.backdrop
   },
   card: {
     flex: 1,
@@ -76,14 +76,7 @@ const Showcase = () => {
   return (
     <View style={styles.container}>
       <View style={styles.grid}>
-        <MotiView
-          style={styles.gridCard}
-          from={{ opacity: 0.5, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            type: 'timing'
-          }}
-        >
+        <View style={styles.gridCard}>
           <AnimatedPressable onPress={() => haptic()}>
             <ImageBackground
               source={{
@@ -104,15 +97,8 @@ const Showcase = () => {
               </LinearGradient>
             </ImageBackground>
           </AnimatedPressable>
-        </MotiView>
-        <MotiView
-          style={styles.gridCard}
-          from={{ opacity: 0.5, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            type: 'timing'
-          }}
-        >
+        </View>
+        <View style={styles.gridCard}>
           <AnimatedPressable
             onPress={() => {
               haptic()
@@ -139,16 +125,9 @@ const Showcase = () => {
               </LinearGradient>
             </ImageBackground>
           </AnimatedPressable>
-        </MotiView>
+        </View>
       </View>
-      <MotiView
-        style={styles.card}
-        from={{ opacity: 0.5, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          type: 'timing'
-        }}
-      >
+      <View style={styles.card}>
         <AnimatedPressable onPress={() => haptic()}>
           <ImageBackground
             source={{
@@ -170,7 +149,7 @@ const Showcase = () => {
             </LinearGradient>
           </ImageBackground>
         </AnimatedPressable>
-      </MotiView>
+      </View>
     </View>
   )
 }

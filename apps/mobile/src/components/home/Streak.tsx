@@ -2,6 +2,7 @@ import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
 import {
   getProfilePicture,
   getPublicationMediaUrl,
+  getThumbnailUrl,
   imageCdn,
   trimLensHandle
 } from '@lenstube/generic'
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    marginRight: 6
+    marginRight: 4
   },
   itemProfile: {
     display: 'flex',
@@ -53,22 +54,45 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   thumbnail: {
-    borderRadius: BORDER_RADIUS,
     borderColor: theme.colors.secondary,
     borderWidth: 0.5
+  },
+  title: {
+    fontFamily: 'font-bold',
+    color: theme.colors.white,
+    fontSize: normalizeFont(14)
+  },
+  subheading: {
+    fontFamily: 'font-normal',
+    color: theme.colors.secondary,
+    fontSize: normalizeFont(12)
   }
 })
 
-const ImageCard = ({ publication }: { publication: Publication }) => {
+const ImageCard = ({
+  publication,
+  index,
+  last
+}: {
+  publication: Publication
+  index: number
+  last: number
+}) => {
   const { width } = useWindowDimensions()
-  const imageUrl = imageCdn(getPublicationMediaUrl(publication))
+  const isVideo =
+    publication.metadata.mainContentFocus === PublicationMainFocus.Video
+  const isImage =
+    publication.metadata.mainContentFocus === PublicationMainFocus.Image
+  const imageUrl = imageCdn(
+    isImage ? getPublicationMediaUrl(publication) : getThumbnailUrl(publication)
+  )
 
   return (
     <View
       style={[
         styles.item,
         {
-          width: width / 1.5
+          width: isVideo ? width / 1.2 : 190
         }
       ]}
     >
@@ -81,7 +105,11 @@ const ImageCard = ({ publication }: { publication: Publication }) => {
           styles.thumbnail,
           {
             width: '100%',
-            height: width
+            height: 190,
+            borderTopLeftRadius: index === 0 ? BORDER_RADIUS : 0,
+            borderBottomLeftRadius: index === 0 ? BORDER_RADIUS : 0,
+            borderTopRightRadius: index === last ? BORDER_RADIUS : 0,
+            borderBottomRightRadius: index === last ? BORDER_RADIUS : 0
           }
         ]}
       />
@@ -101,16 +129,20 @@ const ImageCard = ({ publication }: { publication: Publication }) => {
   )
 }
 
-const PopularImages = () => {
+const Streak = () => {
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
   const request = {
     publicationTypes: [PublicationTypes.Post],
-    limit: 15,
+    limit: 5,
     sortCriteria: PublicationSortCriteria.TopCollected,
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      mainContentFocus: [PublicationMainFocus.Image]
+      mainContentFocus: [
+        PublicationMainFocus.Image,
+        PublicationMainFocus.Audio,
+        PublicationMainFocus.Video
+      ]
     }
   }
 
@@ -123,10 +155,14 @@ const PopularImages = () => {
   const publications = data?.explorePublications?.items as Publication[]
 
   const renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<Publication>) => (
-      <ImageCard publication={item} />
+    ({ item, index }: ListRenderItemInfo<Publication>) => (
+      <ImageCard
+        publication={item}
+        index={index}
+        last={publications.length - 1}
+      />
     ),
-    []
+    [publications.length]
   )
 
   if (error) {
@@ -135,9 +171,15 @@ const PopularImages = () => {
 
   return (
     <View style={styles.container}>
-      <HorizantalSlider data={publications} renderItem={renderItem} />
+      <Text style={styles.title}>Lens Week & Streak</Text>
+      <Text style={styles.subheading}>
+        Your Collectibles, Your Story: Weekly Edition
+      </Text>
+      <View style={{ paddingTop: 20 }}>
+        <HorizantalSlider data={publications} renderItem={renderItem} />
+      </View>
     </View>
   )
 }
 
-export default PopularImages
+export default Streak
