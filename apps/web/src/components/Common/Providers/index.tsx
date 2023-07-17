@@ -55,7 +55,16 @@ const connectors = connectorsForWallets([
       rainbowWallet({ chains, projectId: WC_PROJECT_ID }),
       ledgerWallet({ chains, projectId: WC_PROJECT_ID }),
       coinbaseWallet({ appName: LENSTUBE_APP_NAME, chains }),
-      walletConnectWallet({ chains, projectId: WC_PROJECT_ID })
+      walletConnectWallet({
+        chains,
+        projectId: WC_PROJECT_ID,
+        options: {
+          qrModalOptions: {
+            explorerExcludedWalletIds: 'ALL'
+          },
+          projectId: WC_PROJECT_ID
+        }
+      })
     ]
   }
 ])
