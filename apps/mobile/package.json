@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.4.7",
-    "@livepeer/react-native": "^1.6.1",
+    "@livepeer/react-native": "^1.7.0",
     "@react-native-async-storage/async-storage": "1.18.2",
     "@react-native-community/netinfo": "9.3.10",
     "@react-navigation/bottom-tabs": "^6.5.7",
