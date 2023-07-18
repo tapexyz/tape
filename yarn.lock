@@ -5738,6 +5738,13 @@
   dependencies:
     "@tanstack/query-core" "4.29.25"
 
+"@tanstack/query-persist-client-core@4.29.23":
+  version "4.29.23"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-persist-client-core/-/query-persist-client-core-4.29.23.tgz#5085646b7fb4ba55a0ec96bb786c157d5ea50cc8"
+  integrity sha512-u0P6y4DPeXeHEZnj0LEnhcgqX8x7iV7xbUDuoRPItUYsPn+anyLjXG3d3622+wLP3XKdevff0PhXkA7j9ZOWKg==
+  dependencies:
+    "@tanstack/query-core" "4.29.23"
+
 "@tanstack/query-sync-storage-persister@^4.27.1":
   version "4.29.25"
   resolved "https://registry.yarnpkg.com/@tanstack/query-sync-storage-persister/-/query-sync-storage-persister-4.29.25.tgz#04a4a3da425f4e2ebd1a0e486e4d1c82b8386378"
