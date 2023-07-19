@@ -9,6 +9,7 @@ import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { SharedElement } from 'react-navigation-shared-element'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -49,37 +50,41 @@ const Metadata: FC<Props> = ({ video }) => {
   const [showMore, setShowMore] = useState(false)
 
   return (
-    <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
-      <Text style={styles.title}>{video.metadata.name}</Text>
-      {video.metadata.description && (
-        <Pressable onPress={() => setShowMore(!showMore)}>
-          <Text
-            numberOfLines={!showMore ? 2 : undefined}
-            style={styles.description}
-          >
-            {video.metadata.description.replace('\n', '')}
+    <SharedElement id={`video.watch.${video.id}.info`}>
+      <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
+        <Text style={styles.title}>{video.metadata.name}</Text>
+        {video.metadata.description && (
+          <Pressable onPress={() => setShowMore(!showMore)}>
+            <Text
+              numberOfLines={!showMore ? 2 : undefined}
+              style={styles.description}
+            >
+              {video.metadata.description.replace('\n', '')}
+            </Text>
+          </Pressable>
+        )}
+        <View style={styles.otherInfoContainer}>
+          <ExpoImage
+            source={{ uri: imageCdn(getProfilePicture(video.profile)) }}
+            contentFit="cover"
+            style={{ width: 15, height: 15, borderRadius: 3 }}
+          />
+          <Text style={styles.otherInfo}>
+            {trimLensHandle(video.profile.handle)}
           </Text>
-        </Pressable>
-      )}
-      <View style={styles.otherInfoContainer}>
-        <ExpoImage
-          source={{ uri: imageCdn(getProfilePicture(video.profile)) }}
-          contentFit="cover"
-          style={{ width: 15, height: 15, borderRadius: 3 }}
-        />
-        <Text style={styles.otherInfo}>
-          {trimLensHandle(video.profile.handle)}
-        </Text>
-        <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
-          {'\u2B24'}
-        </Text>
-        <Text style={styles.otherInfo}>{video.stats.totalUpvotes} likes</Text>
-        <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
-          {'\u2B24'}
-        </Text>
-        <Text style={styles.otherInfo}>{getRelativeTime(video.createdAt)}</Text>
+          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+            {'\u2B24'}
+          </Text>
+          <Text style={styles.otherInfo}>{video.stats.totalUpvotes} likes</Text>
+          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+            {'\u2B24'}
+          </Text>
+          <Text style={styles.otherInfo}>
+            {getRelativeTime(video.createdAt)}
+          </Text>
+        </View>
       </View>
-    </View>
+    </SharedElement>
   )
 }
 

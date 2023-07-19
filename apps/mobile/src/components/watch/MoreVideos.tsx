@@ -9,22 +9,13 @@ import {
 import { FlashList } from '@shopify/flash-list'
 import type { FC } from 'react'
 import React, { useCallback } from 'react'
-import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, View } from 'react-native'
 
 import VideoCard from '../common/VideoCard'
 import Actions from './Actions'
 import Comments from './Comments'
 import Metadata from './Metadata'
 import MoreVideosFilter from './MoreVideosFilter'
-
-const styles = StyleSheet.create({
-  videos: {
-    marginTop: 15,
-    paddingHorizontal: 5,
-    flex: 1,
-    height: Dimensions.get('screen').height
-  }
-})
 
 type Props = {
   video: Publication
@@ -70,7 +61,12 @@ const MoreVideos: FC<Props> = ({ video }) => {
   }
 
   return (
-    <View style={styles.videos}>
+    <View
+      style={{
+        paddingHorizontal: 5,
+        flex: 1
+      }}
+    >
       <FlashList
         ListHeaderComponent={() => (
           <>

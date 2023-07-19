@@ -18,6 +18,7 @@ import {
   Text,
   View
 } from 'react-native'
+import { SharedElement } from 'react-navigation-shared-element'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -74,7 +75,7 @@ const VideoCard: FC<Props> = ({ video }) => {
 
   return (
     <Pressable onPress={() => navigate('WatchVideo', { id: video.id })}>
-      <>
+      <SharedElement id={`video.watch.${video.id}.thumbnail`}>
         <ImageBackground
           source={{ uri: thumbnailUrl }}
           blurRadius={15}
@@ -86,6 +87,9 @@ const VideoCard: FC<Props> = ({ video }) => {
             style={styles.thumbnail}
           />
         </ImageBackground>
+      </SharedElement>
+
+      <SharedElement id={`video.watch.${video.id}.info`}>
         <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
           <Text numberOfLines={3} style={styles.title}>
             {video.metadata.name}
@@ -118,7 +122,7 @@ const VideoCard: FC<Props> = ({ video }) => {
             </Text>
           </View>
         </View>
-      </>
+      </SharedElement>
     </Pressable>
   )
 }

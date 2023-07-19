@@ -1,6 +1,8 @@
-import { createStackNavigator } from '@react-navigation/stack'
+import type { StackNavigationOptions } from '@react-navigation/stack'
 import type { FC } from 'react'
 import React from 'react'
+import { Easing } from 'react-native'
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 
 import { CategoriesModal, TopsModal } from '~/components/common/modals'
 import { useNetWorkConnection } from '~/hooks'
@@ -8,41 +10,65 @@ import { WatchScreen } from '~/screens'
 
 import { BottomTabNavigator } from './BottomTabNavigator'
 
-const { Navigator, Screen, Group } = createStackNavigator<RootStackParamList>()
+const { Navigator, Screen } =
+  createSharedElementStackNavigator<RootStackParamList>()
+
+const options: StackNavigationOptions = {
+  gestureEnabled: false,
+  headerBackTitleVisible: false,
+  transitionSpec: {
+    open: {
+      animation: 'timing',
+      config: {
+        duration: 300,
+        easing: Easing.inOut(Easing.ease)
+      }
+    },
+    close: {
+      animation: 'timing',
+      config: {
+        duration: 200,
+        easing: Easing.inOut(Easing.linear)
+      }
+    }
+  },
+  cardStyleInterpolator: ({ current: { progress } }) => {
+    return {
+      cardStyle: {
+        opacity: progress
+      }
+    }
+  }
+}
 
 export const RootNavigator: FC = () => {
   useNetWorkConnection()
 
   return (
-    <Navigator>
-      <Group key="authorized">
-        <Screen
-          name="MainTab"
-          options={{
-            headerShown: false
-          }}
-          component={BottomTabNavigator}
-        />
-        <Screen
-          name="WatchVideo"
-          options={{
-            headerShown: false
-          }}
-          component={WatchScreen}
-        />
-      </Group>
-      <Group key="modals" screenOptions={{ presentation: 'modal' }}>
-        <Screen
-          name="ExploreTopsModal"
-          component={TopsModal}
-          options={{ headerShown: false, presentation: 'transparentModal' }}
-        />
-        <Screen
-          name="ExploreCategoriesModal"
-          component={CategoriesModal}
-          options={{ headerShown: false, presentation: 'transparentModal' }}
-        />
-      </Group>
+    <Navigator screenOptions={{ headerShown: false }}>
+      <Screen name="MainTab" options={options} component={BottomTabNavigator} />
+      <Screen
+        name="WatchVideo"
+        options={options}
+        component={WatchScreen}
+        sharedElements={(route) => {
+          const { id } = route.params
+          return [
+            { id: `video.watch.${id}.thumbnail`, animation: 'fade' },
+            { id: `video.watch.${id}.info`, animation: 'fade' }
+          ]
+        }}
+      />
+      <Screen
+        name="ExploreTopsModal"
+        options={{ ...options, presentation: 'transparentModal' }}
+        component={TopsModal}
+      />
+      <Screen
+        name="ExploreCategoriesModal"
+        options={{ ...options, presentation: 'transparentModal' }}
+        component={CategoriesModal}
+      />
     </Navigator>
   )
 }
