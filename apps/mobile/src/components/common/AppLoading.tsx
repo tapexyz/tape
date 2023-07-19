@@ -1,20 +1,21 @@
 import * as SplashScreen from 'expo-splash-screen'
+import { MotiView } from 'moti'
 import type { FC, PropsWithChildren } from 'react'
 import React, { useMemo } from 'react'
-
-import { useCachedResources, useEffect, usePlatform } from '../../hooks'
-
-SplashScreen.preventAutoHideAsync()
-
-import { MotiView } from 'moti'
 import { View } from 'react-native'
 import Animated, { FadeInUp, FadeOutUp } from 'react-native-reanimated'
 
 import { theme } from '~/helpers/theme'
 
-function Splash({ text, dotColor }: { text: string; dotColor?: string }) {
+import { useCachedResources, useEffect, usePlatform } from '../../hooks'
+
+SplashScreen.preventAutoHideAsync()
+
+const Splash = () => {
+  const text = 'pripe'
   const FONT_SIZE = 50
-  const _delay = 100
+  const delay = 100
+
   const reversedText = useMemo(() => {
     return text.split('').reverse()
   }, [text])
@@ -31,8 +32,8 @@ function Splash({ text, dotColor }: { text: string; dotColor?: string }) {
     >
       <MotiView
         key={text}
-        entering={FadeInUp.delay(reversedText.length * _delay).springify()}
-        exiting={FadeOutUp.delay(reversedText.length * _delay).springify()}
+        entering={FadeInUp.delay(reversedText.length * delay).springify()}
+        exiting={FadeOutUp.delay(reversedText.length * delay).springify()}
         from={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
@@ -40,10 +41,10 @@ function Splash({ text, dotColor }: { text: string; dotColor?: string }) {
           loop: true,
           duration: 700,
           repeatReverse: true,
-          delay: reversedText.length * _delay
+          delay: reversedText.length * delay
         }}
         style={{
-          backgroundColor: dotColor || 'lime',
+          backgroundColor: 'gold',
           width: (FONT_SIZE ?? 94) / 6,
           height: (FONT_SIZE ?? 94) / 6,
           marginLeft: 25,
@@ -56,10 +57,10 @@ function Splash({ text, dotColor }: { text: string; dotColor?: string }) {
             <Animated.View
               key={`char_${char}_index_${index}}`}
               entering={FadeInUp.delay(
-                (reversedText.length - index) * _delay
+                (reversedText.length - index) * delay
               ).springify()}
               exiting={FadeOutUp.delay(
-                (reversedText.length - index) * _delay
+                (reversedText.length - index) * delay
               ).springify()}
             >
               <Animated.Text
@@ -94,7 +95,7 @@ export const AppLoading: FC<PropsWithChildren> = ({ children }) => {
   }, [isLoadingComplete])
 
   if (!isLoadingComplete) {
-    return <Splash text="pripe" dotColor="gold" />
+    return <Splash />
   }
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
