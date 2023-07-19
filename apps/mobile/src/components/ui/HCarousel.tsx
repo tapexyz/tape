@@ -37,7 +37,7 @@ const Pagination = memo<PaginationItemProps>(function PaginationRectangleItem({
   index,
   length
 }) {
-  const width = 25
+  const width = 20
   const animStyle = useAnimatedStyle(() => {
     let inputRange = [index - 1, index, index + 1]
     let outputRange = [width / 2, width, width / 2]
@@ -59,7 +59,7 @@ const Pagination = memo<PaginationItemProps>(function PaginationRectangleItem({
   return (
     <View
       style={{
-        height: 5,
+        height: 4,
         marginHorizontal: 2
       }}
     >

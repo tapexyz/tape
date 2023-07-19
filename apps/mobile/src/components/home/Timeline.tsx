@@ -16,7 +16,6 @@ import VideoCard from '../common/VideoCard'
 import ByteCards from './ByteCards'
 import FirstSteps from './FirstSteps'
 import PopularCreators from './PopularCreators'
-import PopularVideos from './PopularVideos'
 import PopularImages from './Streak'
 import TimelineFilters from './TimelineFilters'
 
@@ -85,7 +84,7 @@ const Timeline = () => {
             <FirstSteps />
             <PopularCreators />
             <PopularImages />
-            <PopularVideos />
+            {/* <PopularVideos /> */}
             <TimelineFilters />
           </>
         )}

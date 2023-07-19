@@ -27,8 +27,8 @@ const options: StackNavigationOptions = {
     close: {
       animation: 'timing',
       config: {
-        duration: 200,
-        easing: Easing.inOut(Easing.linear)
+        duration: 400,
+        easing: Easing.inOut(Easing.ease)
       }
     }
   },
@@ -53,10 +53,12 @@ export const RootNavigator: FC = () => {
         component={WatchScreen}
         sharedElements={(route) => {
           const { id } = route.params
-          return [
-            { id: `video.watch.${id}.thumbnail`, animation: 'fade' },
-            { id: `video.watch.${id}.info`, animation: 'fade' }
-          ]
+          if (id) {
+            return [
+              { id: `video.watch.${id}.thumbnail`, animation: 'fade' },
+              { id: `video.watch.${id}.info`, animation: 'fade' }
+            ]
+          }
         }}
       />
       <Screen

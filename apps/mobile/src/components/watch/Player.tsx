@@ -11,7 +11,6 @@ import type { FC } from 'react'
 import React from 'react'
 import { Pressable, StyleSheet } from 'react-native'
 
-import haptic from '~/helpers/haptic'
 import { theme } from '~/helpers/theme'
 
 type Props = {
@@ -57,13 +56,7 @@ const VideoPlayer: FC<Props> = ({ video }) => {
           backgroundColor: theme.colors.backdrop
         }}
       />
-      <Pressable
-        onPress={() => {
-          haptic()
-          goBack()
-        }}
-        style={styles.close}
-      >
+      <Pressable onPress={() => goBack()} style={styles.close}>
         <Ionicons name="close-outline" color={theme.colors.white} size={25} />
       </Pressable>
     </>
