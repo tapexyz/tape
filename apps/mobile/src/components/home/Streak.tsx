@@ -155,7 +155,7 @@ const Streak = () => {
         last={publications.length - 1}
       />
     ),
-    [publications.length]
+    [publications?.length]
   )
 
   if (error) {
