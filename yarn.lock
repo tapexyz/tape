@@ -17517,7 +17517,7 @@ viem@^1.0.0:
     "@scure/bip32" "1.3.0"
     "@scure/bip39" "1.2.0"
     "@wagmi/chains" "1.6.0"
-    abitype "0.8.11"
+    abitype "0.9.3"
     isomorphic-ws "5.0.0"
     ws "8.12.0"
 
