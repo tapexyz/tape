@@ -13,10 +13,9 @@ import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import {
   ActivityIndicator,
   Animated,
-  Dimensions,
-  Platform,
   StyleSheet,
   TouchableWithoutFeedback,
+  useWindowDimensions,
   View
 } from 'react-native'
 import { SharedElement } from 'react-navigation-shared-element'
@@ -95,8 +94,6 @@ import { theme } from '~/helpers/theme'
 //   )
 // }
 
-const width = Dimensions.get('screen').width
-const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74
 const BORDER_RADIUS = 25
 
 const styles = StyleSheet.create({
@@ -105,9 +102,8 @@ const styles = StyleSheet.create({
   },
   poster: {
     width: '100%',
-    height: ITEM_SIZE,
     borderRadius: BORDER_RADIUS,
-    margin: 0
+    backgroundColor: theme.colors.backdrop
   }
 })
 
@@ -115,23 +111,25 @@ const Stage = () => {
   const backdropAnimated = useRef(new Animated.Value(0)).current
   const scrollX = useRef(new Animated.Value(0)).current
 
+  const { width } = useWindowDimensions()
+
   const renderItem = useCallback(
     ({ item, index }: { item: Publication; index: number }) => {
       const inputRange = [
-        (index - 1) * ITEM_SIZE,
-        index * ITEM_SIZE,
-        (index + 1) * ITEM_SIZE
+        (index - 1) * width,
+        index * width,
+        (index + 1) * width
       ]
 
       const translateY = scrollX.interpolate({
         inputRange,
-        outputRange: [100, 50, 100],
+        outputRange: [0, 50, 0],
         extrapolate: 'clamp'
       })
 
       return (
         <TouchableWithoutFeedback onPress={() => {}}>
-          <View style={{ width: ITEM_SIZE }}>
+          <View style={{ width }}>
             <Animated.View
               style={{
                 marginHorizontal: 10,
@@ -142,13 +140,16 @@ const Stage = () => {
                 borderWidth: 0.5
               }}
             >
-              <SharedElement id={`item.${item.id}.image`} style={styles.poster}>
+              <SharedElement
+                id={`item.${item.id}.image`}
+                style={[styles.poster, { height: width }]}
+              >
                 <ExpoImage
                   source={{
                     uri: imageCdn(getThumbnailUrl(item))
                   }}
                   contentFit="cover"
-                  style={styles.poster}
+                  style={[styles.poster, { height: width }]}
                 />
               </SharedElement>
             </Animated.View>
@@ -156,7 +157,7 @@ const Stage = () => {
         </TouchableWithoutFeedback>
       )
     },
-    [scrollX]
+    [scrollX, width]
   )
 
   const request = {
@@ -201,15 +202,14 @@ const Stage = () => {
         data={audios}
         horizontal
         bounces={false}
+        pagingEnabled
         decelerationRate={'fast'}
         renderToHardwareTextureAndroid
         keyExtractor={(item, i) => `${item.id}_${i}`}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          justifyContent: 'center',
-          padding: width / 7.5
+          paddingVertical: width * 0.4
         }}
-        snapToInterval={ITEM_SIZE}
         snapToAlignment="start"
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
