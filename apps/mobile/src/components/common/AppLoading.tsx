@@ -24,38 +24,30 @@ const Splash = () => {
   return (
     <View
       style={{
-        backgroundColor: theme.colors.background,
         flex: 1,
+        alignItems: 'center',
         justifyContent: 'center',
-        alignItems: 'center'
+        backgroundColor: theme.colors.background
       }}
     >
       <MotiView
         key={text}
         entering={FadeInUp.delay(reversedText.length * delay).springify()}
         exiting={FadeOutUp.delay(reversedText.length * delay).springify()}
-        from={{ opacity: 0 }}
+        from={{ opacity: 0.6 }}
         animate={{ opacity: 1 }}
         transition={{
           type: 'timing',
           loop: true,
-          duration: 700,
+          duration: 800,
           repeatReverse: true,
           delay: reversedText.length * delay
         }}
-        style={{
-          backgroundColor: 'gold',
-          width: (FONT_SIZE ?? 94) / 6,
-          height: (FONT_SIZE ?? 94) / 6,
-          marginLeft: 25,
-          marginBottom: 7
-        }}
-      />
-      <View>
+      >
         {reversedText.map((char, index) => {
           return (
             <Animated.View
-              key={`char_${char}_index_${index}}`}
+              key={index}
               entering={FadeInUp.delay(
                 (reversedText.length - index) * delay
               ).springify()}
@@ -80,7 +72,7 @@ const Splash = () => {
             </Animated.View>
           )
         })}
-      </View>
+      </MotiView>
     </View>
   )
 }

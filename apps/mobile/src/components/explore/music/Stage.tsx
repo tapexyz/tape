@@ -1,4 +1,5 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
@@ -6,21 +7,21 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
-import { FlashList } from '@shopify/flash-list'
-import React, { useCallback } from 'react'
-import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
+import { Image as ExpoImage } from 'expo-image'
+import React, { useCallback, useRef } from 'react'
+import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
+import {
+  ActivityIndicator,
+  Animated,
+  Dimensions,
+  Platform,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View
+} from 'react-native'
+import { SharedElement } from 'react-navigation-shared-element'
 
-import AudioCard from '~/components/common/AudioCard'
-
-import IntroCard from './IntroCard'
-import MusicFilters from './MusicFilters'
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: Dimensions.get('screen').height
-  }
-})
+import { theme } from '~/helpers/theme'
 
 // const TimelineCell = ({ item }: { item: Publication }) => {
 //   const posterUrl = getThumbnailUrl(item)
@@ -94,15 +95,73 @@ const styles = StyleSheet.create({
 //   )
 // }
 
-const List = () => {
+const width = Dimensions.get('screen').width
+const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74
+const BORDER_RADIUS = 25
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  poster: {
+    width: '100%',
+    height: ITEM_SIZE,
+    borderRadius: BORDER_RADIUS,
+    margin: 0
+  }
+})
+
+const Stage = () => {
+  const backdropAnimated = useRef(new Animated.Value(0)).current
+  const scrollX = useRef(new Animated.Value(0)).current
+
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) => <AudioCard audio={item} />,
-    []
+    ({ item, index }: { item: Publication; index: number }) => {
+      const inputRange = [
+        (index - 1) * ITEM_SIZE,
+        index * ITEM_SIZE,
+        (index + 1) * ITEM_SIZE
+      ]
+
+      const translateY = scrollX.interpolate({
+        inputRange,
+        outputRange: [100, 50, 100],
+        extrapolate: 'clamp'
+      })
+
+      return (
+        <TouchableWithoutFeedback onPress={() => {}}>
+          <View style={{ width: ITEM_SIZE }}>
+            <Animated.View
+              style={{
+                marginHorizontal: 10,
+                alignItems: 'center',
+                transform: [{ translateY }],
+                borderRadius: BORDER_RADIUS,
+                borderColor: theme.colors.grey,
+                borderWidth: 0.5
+              }}
+            >
+              <SharedElement id={`item.${item.id}.image`} style={styles.poster}>
+                <ExpoImage
+                  source={{
+                    uri: imageCdn(getThumbnailUrl(item))
+                  }}
+                  contentFit="cover"
+                  style={styles.poster}
+                />
+              </SharedElement>
+            </Animated.View>
+          </View>
+        </TouchableWithoutFeedback>
+      )
+    },
+    [scrollX]
   )
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 30,
+    limit: 50,
     noRandomize: false,
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
@@ -138,27 +197,36 @@ const List = () => {
 
   return (
     <View style={styles.container}>
-      <FlashList
+      <Animated.FlatList
         data={audios}
-        estimatedItemSize={audios.length}
+        horizontal
+        bounces={false}
+        decelerationRate={'fast'}
+        renderToHardwareTextureAndroid
         keyExtractor={(item, i) => `${item.id}_${i}`}
-        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          justifyContent: 'center',
+          padding: width / 7.5
+        }}
+        snapToInterval={ITEM_SIZE}
+        snapToAlignment="start"
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+          {
+            useNativeDriver: true,
+            listener: (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+              backdropAnimated.setValue(event.nativeEvent.contentOffset.x)
+            }
+          }
+        )}
+        scrollEventThrottle={16}
         renderItem={renderItem}
-        ListFooterComponent={() => (
-          <ActivityIndicator style={{ paddingVertical: 20 }} />
-        )}
-        ListHeaderComponent={() => (
-          <View style={{ paddingVertical: 5 }}>
-            <IntroCard />
-            <MusicFilters />
-          </View>
-        )}
         onEndReached={fetchMoreAudio}
         onEndReachedThreshold={0.8}
-        showsVerticalScrollIndicator={false}
       />
     </View>
   )
 }
 
-export default List
+export default Stage
