@@ -1,10 +1,8 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import {
-  getProfilePicture,
   getPublicationMediaUrl,
   getThumbnailUrl,
-  imageCdn,
-  trimLensHandle
+  imageCdn
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import {
@@ -24,34 +22,17 @@ import useMobileStore from '~/store'
 
 import { HorizantalSlider } from '../ui/HorizantalSlider'
 
-const BORDER_RADIUS = 25
+const BORDER_RADIUS = 15
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: 30
   },
-  handle: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(12),
-    color: theme.colors.white
-  },
   item: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
-    marginRight: 3
-  },
-  itemProfile: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    paddingHorizontal: 10
-  },
-  pfp: {
-    width: 20,
-    height: 20,
-    borderRadius: 5
+    marginRight: 3,
+    position: 'relative'
   },
   title: {
     fontFamily: 'font-bold',
@@ -77,6 +58,7 @@ const ImageCard = ({
   const { width } = useWindowDimensions()
   const isVideo =
     publication.metadata.mainContentFocus === PublicationMainFocus.Video
+  const isBytes = publication.appId === LENSTUBE_BYTES_APP_ID
   const isImage =
     publication.metadata.mainContentFocus === PublicationMainFocus.Image
   const imageUrl = imageCdn(
@@ -88,7 +70,7 @@ const ImageCard = ({
       style={[
         styles.item,
         {
-          width: isVideo ? width / 1.2 : 190
+          width: isVideo ? (isBytes ? 120 : width / 1.2) : 190
         }
       ]}
     >
@@ -106,18 +88,6 @@ const ImageCard = ({
           borderBottomRightRadius: index === last ? BORDER_RADIUS : 3
         }}
       />
-      <View style={styles.itemProfile}>
-        <ExpoImage
-          source={{
-            uri: imageCdn(getProfilePicture(publication.profile), 'AVATAR')
-          }}
-          contentFit="cover"
-          style={styles.pfp}
-        />
-        <Text style={styles.handle}>
-          {trimLensHandle(publication.profile.handle)}
-        </Text>
-      </View>
     </View>
   )
 }
@@ -127,7 +97,7 @@ const Streak = () => {
 
   const request = {
     publicationTypes: [PublicationTypes.Post],
-    limit: 5,
+    limit: 50,
     sortCriteria: PublicationSortCriteria.TopCollected,
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
@@ -166,7 +136,7 @@ const Streak = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Lens Week & Streak</Text>
       <Text style={styles.subheading}>
-        Your Collectibles, Your Story: Weekly Edition
+        Your Collectibles, Your Story: Weekly
       </Text>
       <View style={{ paddingTop: 20 }}>
         <HorizantalSlider
