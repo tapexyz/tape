@@ -33,7 +33,7 @@ import { theme } from '~/helpers/theme'
 import { usePlatform } from '~/hooks'
 import useMobileStore from '~/store'
 
-const BORDER_RADIUS = 15
+const BORDER_RADIUS = 20
 
 const styles = StyleSheet.create({
   gradient: {
@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
   thumbnail: {
     width: '100%',
     height: '100%',
-    borderRadius: BORDER_RADIUS
+    borderRadius: BORDER_RADIUS,
+    backgroundColor: theme.colors.backdrop
   },
   otherInfo: {
     fontFamily: 'font-medium',

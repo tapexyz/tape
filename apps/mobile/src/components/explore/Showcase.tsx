@@ -1,18 +1,19 @@
 import { STATIC_ASSETS } from '@lenstube/constants'
 import { imageCdn } from '@lenstube/generic'
 import { useNavigation } from '@react-navigation/native'
+import { ImageBackground } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
-import { MotiView } from 'moti'
 import React from 'react'
-import { ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
+import Stagger from '../ui/Stagger'
 
-const BORDER_RADIUS = 25
+const BORDER_RADIUS = 30
 
 const styles = StyleSheet.create({
   container: {
@@ -29,7 +30,8 @@ const styles = StyleSheet.create({
     borderRadius: BORDER_RADIUS,
     height: 200,
     aspectRatio: 1 / 1,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    backgroundColor: theme.colors.backdrop
   },
   card: {
     flex: 1,
@@ -50,12 +52,12 @@ const styles = StyleSheet.create({
     fontFamily: 'font-bold',
     color: theme.colors.white,
     fontSize: normalizeFont(24),
-    paddingVertical: 6,
-    paddingHorizontal: 15
+    paddingVertical: 8,
+    paddingHorizontal: 18
   },
   whTextWrapper: {
-    paddingVertical: 10,
-    paddingHorizontal: 15
+    paddingVertical: 12,
+    paddingHorizontal: 18
   },
   whTitle: {
     fontFamily: 'font-bold',
@@ -75,21 +77,15 @@ const Showcase = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.grid}>
-        <MotiView
-          style={styles.gridCard}
-          from={{ opacity: 0.5, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            type: 'timing'
-          }}
-        >
+      <Stagger>
+        <View style={styles.card}>
           <AnimatedPressable onPress={() => haptic()}>
             <ImageBackground
+              placeholder={
+                '|JGv6ax-AMS7#YZloQtKNK=*r?OBNwr;ahOWniWAJHWH$Qr;XMTJM{aPt39;K5xA,BOsS~v%X8ozD_Rk$vS~R:#k$|WCa{XjwcRVKQw4#Ro{jtbE=xW-JPsDe-X7bYovjIacWDnos9X7S}objGsDtit2adR*oMW;RUaPS$'
+              }
               source={{
-                uri: imageCdn(
-                  `${STATIC_ASSETS}/mobile/images/couch-podcast.jpg`
-                )
+                uri: imageCdn(`${STATIC_ASSETS}/mobile/images/couch-garden.jpg`)
               }}
               style={styles.image}
               imageStyle={{
@@ -100,77 +96,79 @@ const Showcase = () => {
               <LinearGradient
                 colors={['transparent', '#00000080', '#00000090']}
               >
-                <Text style={styles.title}>Podcasts</Text>
+                <View style={styles.whTextWrapper}>
+                  <Text style={styles.whTitle}>What's happening?</Text>
+                  <Text style={styles.whDescription}>
+                    Adventure awaits beyond the horizon.
+                  </Text>
+                </View>
               </LinearGradient>
             </ImageBackground>
           </AnimatedPressable>
-        </MotiView>
-        <MotiView
-          style={styles.gridCard}
-          from={{ opacity: 0.5, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            type: 'timing'
-          }}
-        >
-          <AnimatedPressable
-            onPress={() => {
-              haptic()
-              navigate('MainTab', {
-                screen: 'ExploreStack',
-                params: { screen: 'Music' }
-              })
-            }}
-          >
-            <ImageBackground
-              source={{
-                uri: imageCdn(`${STATIC_ASSETS}/mobile/images/couch-music.jpg`)
-              }}
-              style={styles.image}
-              imageStyle={{
-                opacity: 0.8,
-                backgroundColor: theme.colors.backdrop
+        </View>
+      </Stagger>
+      <Stagger>
+        <View style={styles.grid}>
+          <View style={styles.gridCard}>
+            <AnimatedPressable onPress={() => haptic()}>
+              <ImageBackground
+                placeholder={
+                  '|JGj?v^cZ@Ios~XPNaN2n6{Nv#nns+kDWFR+SeX50K$k%W%1R:VwWCofSzK*?G-lR*M{W-n#r^V[=LiyVhRon,XRbYS2V^}?OkS#t6xpr@WZNdoNIoOsbqxUfSnPaOnhobFxnirZWFbHS}R*n,W-xZ-7xtS#jXX5X5ozaj'
+                }
+                source={{
+                  uri: imageCdn(
+                    `${STATIC_ASSETS}/mobile/images/couch-watch.jpeg`
+                  )
+                }}
+                style={styles.image}
+                imageStyle={{
+                  opacity: 0.8,
+                  backgroundColor: theme.colors.backdrop
+                }}
+              >
+                <LinearGradient
+                  colors={['transparent', '#00000080', '#00000090']}
+                >
+                  <Text style={styles.title}>Watch</Text>
+                </LinearGradient>
+              </ImageBackground>
+            </AnimatedPressable>
+          </View>
+          <View style={styles.gridCard}>
+            <AnimatedPressable
+              onPress={() => {
+                haptic()
+                navigate('MainTab', {
+                  screen: 'ExploreStack',
+                  params: { screen: 'Music' }
+                })
               }}
             >
-              <LinearGradient
-                colors={['transparent', '#00000080', '#00000090']}
+              <ImageBackground
+                placeholder={
+                  '|GJsxXE*.pt8%e#l+Znmg5cFxVJENLSvskSiW=Rk_Pw^PnrqM}KPOtNcnh1SNI$ut2#TbdslwIt6^OS5OCT0RQrWbHxWS5M|ofs9wbO@RnrqOYs.TJjGn4jqt6XTOFoer=xuV[n+X9i^SeXTnhR.Ipt6W?RRS~xCv|V]XA'
+                }
+                source={{
+                  uri: imageCdn(
+                    `${STATIC_ASSETS}/mobile/images/couch-listen.jpeg`
+                  )
+                }}
+                style={styles.image}
+                imageStyle={{
+                  opacity: 0.8,
+                  backgroundColor: theme.colors.backdrop
+                }}
               >
-                <Text style={styles.title}>Music</Text>
-              </LinearGradient>
-            </ImageBackground>
-          </AnimatedPressable>
-        </MotiView>
-      </View>
-      <MotiView
-        style={styles.card}
-        from={{ opacity: 0.5, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          type: 'timing'
-        }}
-      >
-        <AnimatedPressable onPress={() => haptic()}>
-          <ImageBackground
-            source={{
-              uri: imageCdn(`${STATIC_ASSETS}/mobile/images/couch-garden.jpg`)
-            }}
-            style={styles.image}
-            imageStyle={{
-              opacity: 0.8,
-              backgroundColor: theme.colors.backdrop
-            }}
-          >
-            <LinearGradient colors={['transparent', '#00000080', '#00000090']}>
-              <View style={styles.whTextWrapper}>
-                <Text style={styles.whTitle}>What's happening?</Text>
-                <Text style={styles.whDescription}>
-                  Adventure awaits beyond the horizon.
-                </Text>
-              </View>
-            </LinearGradient>
-          </ImageBackground>
-        </AnimatedPressable>
-      </MotiView>
+                <LinearGradient
+                  colors={['transparent', '#00000070', '#000000']}
+                >
+                  <Text style={styles.title}>Listen</Text>
+                </LinearGradient>
+              </ImageBackground>
+            </AnimatedPressable>
+          </View>
+        </View>
+      </Stagger>
     </View>
   )
 }

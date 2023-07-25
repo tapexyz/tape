@@ -3,6 +3,7 @@ import {
   getProfilePicture,
   getThumbnailUrl,
   imageCdn,
+  trimify,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
@@ -12,11 +13,12 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
+import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage, ImageBackground } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Skeleton } from 'moti/skeleton'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -24,13 +26,13 @@ import useMobileStore from '~/store'
 
 import HCarousel from '../ui/HCarousel'
 
-const CAROUSEL_HEIGHT = 200
-const BORDER_RADIUS = 10
+const CAROUSEL_HEIGHT = 210
+const BORDER_RADIUS = 25
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 30,
     position: 'relative',
-    paddingTop: 20,
     flex: 1,
     display: 'flex',
     flexDirection: 'row',
@@ -55,10 +57,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: 6,
-    padding: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 12,
     opacity: 0.8,
-    borderTopRightRadius: 9,
-    borderTopLeftRadius: 9,
+    borderTopLeftRadius: BORDER_RADIUS,
+    borderTopRightRadius: BORDER_RADIUS,
     zIndex: 2
   },
   otherInfo: {
@@ -74,7 +77,9 @@ const styles = StyleSheet.create({
   }
 })
 
-const PopularMints = () => {
+const PopularVideos = () => {
+  const { navigate } = useNavigation()
+
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
 
@@ -120,52 +125,56 @@ const PopularMints = () => {
                 isBytes ? 'THUMBNAIL_V' : 'THUMBNAIL'
               )
               return (
-                <ImageBackground
-                  source={{
-                    uri: thumbnailUrl
-                  }}
-                  blurRadius={15}
-                  style={{ position: 'relative' }}
-                  imageStyle={{ opacity: 0.8, borderRadius: BORDER_RADIUS }}
+                <Pressable
+                  onPress={() => navigate('WatchVideo', { id: item.id })}
                 >
-                  <LinearGradient
-                    colors={['#00000090', '#00000080', 'transparent']}
-                    style={styles.gradient}
-                  >
-                    <Text numberOfLines={1} style={styles.title}>
-                      {item.metadata.name}
-                    </Text>
-                    <View
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: 5
-                      }}
-                    >
-                      <ExpoImage
-                        source={{
-                          uri: imageCdn(
-                            getProfilePicture(item.profile),
-                            'AVATAR'
-                          )
-                        }}
-                        contentFit="cover"
-                        style={{ width: 15, height: 15, borderRadius: 3 }}
-                      />
-                      <Text style={styles.otherInfo}>
-                        {trimLensHandle(item.profile.handle)}
-                      </Text>
-                    </View>
-                  </LinearGradient>
-                  <ExpoImage
+                  <ImageBackground
                     source={{
                       uri: thumbnailUrl
                     }}
-                    contentFit={isBytes ? 'contain' : 'cover'}
-                    style={styles.thumbnail}
-                  />
-                </ImageBackground>
+                    blurRadius={15}
+                    style={{ position: 'relative' }}
+                    imageStyle={{ opacity: 0.8, borderRadius: BORDER_RADIUS }}
+                  >
+                    <LinearGradient
+                      colors={['#00000090', '#00000080', 'transparent']}
+                      style={styles.gradient}
+                    >
+                      <Text numberOfLines={1} style={styles.title}>
+                        {trimify(item.metadata.name ?? '')}
+                      </Text>
+                      <View
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          gap: 5
+                        }}
+                      >
+                        <ExpoImage
+                          source={{
+                            uri: imageCdn(
+                              getProfilePicture(item.profile),
+                              'AVATAR'
+                            )
+                          }}
+                          contentFit="cover"
+                          style={{ width: 15, height: 15, borderRadius: 3 }}
+                        />
+                        <Text style={styles.otherInfo}>
+                          {trimLensHandle(item.profile.handle)}
+                        </Text>
+                      </View>
+                    </LinearGradient>
+                    <ExpoImage
+                      source={{
+                        uri: thumbnailUrl
+                      }}
+                      contentFit={isBytes ? 'contain' : 'cover'}
+                      style={styles.thumbnail}
+                    />
+                  </ImageBackground>
+                </Pressable>
               )
             }}
           />
@@ -175,4 +184,4 @@ const PopularMints = () => {
   )
 }
 
-export default PopularMints
+export default PopularVideos

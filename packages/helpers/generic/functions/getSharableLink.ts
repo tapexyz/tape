@@ -23,9 +23,8 @@ export const getSharableLink = (link: Link, video: Publication) => {
     return encodeURI(
       `https://twitter.com/intent/tweet?url=${getViewUrl(video)}&text=${
         video.metadata?.name as string
-      } by @${
-        video.profile?.handle
-      }&via=${LENSTUBE_TWITTER_HANDLE}&related=Lenstube&hashtags=Lenstube`
+      } by @${video.profile
+        ?.handle}&via=${LENSTUBE_TWITTER_HANDLE}&related=Lenstube&hashtags=Lenstube`
     )
   } else if (link === 'reddit') {
     return `https://www.reddit.com/submit?url=${getViewUrl(video)}&title=${

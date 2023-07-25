@@ -1,11 +1,11 @@
 import React from 'react'
 
-import List from '~/components/explore/music/List'
+import Stage from '~/components/explore/music/Stage'
 
 export const MusicScreen = (props: MusicScreenProps): JSX.Element => {
   const {
     route: {}
   } = props
 
-  return <List />
+  return <Stage />
 }

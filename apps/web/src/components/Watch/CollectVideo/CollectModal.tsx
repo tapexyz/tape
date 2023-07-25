@@ -201,9 +201,7 @@ const CollectModal: FC<Props> = ({
             <Tooltip
               placement="bottom-start"
               visible={hasManyProfiles}
-              content={handles?.map((handle) => (
-                <p key={handle}>{handle}</p>
-              ))}
+              content={handles?.map((handle) => <p key={handle}>{handle}</p>)}
             >
               {defaultProfile?.handle ? (
                 <Link href={`/channel/${defaultProfile.handle}`}>{label}</Link>

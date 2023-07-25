@@ -14,19 +14,21 @@ export const ExploreStack = (): JSX.Element => {
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
 
   return (
-    <Navigator>
+    <Navigator
+      screenOptions={{
+        animationEnabled: true,
+        headerShadowVisible: false
+      }}
+    >
       <Screen
         name="Explore"
         options={{
           title: 'Explore',
           headerTitle: (props) => <Header {...props} />,
-          headerShadowVisible: false,
-          animationEnabled: true,
           headerStyle: {
             backgroundColor: `${homeGradientColor}35`,
-            // hide header shadow
-            shadowColor: 'transparent', // this covers iOS
-            elevation: 0 // this covers Android
+            shadowColor: 'transparent', // this hide header shadow - iOS
+            elevation: 0 // this hide header shadow - Android
           }
         }}
         component={ExploreScreen}
@@ -34,8 +36,6 @@ export const ExploreStack = (): JSX.Element => {
       <Screen
         name="Music"
         options={{
-          headerShadowVisible: false,
-          animationEnabled: true,
           headerLeft: (props) => <BackButton {...props} />,
           headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
           headerStyle: {

@@ -15,9 +15,9 @@ export const { NotificationsProvider } = createNotifications({
   animationConfig: ZoomInDownZoomOutUp,
   defaultStylesSettings: {
     globalConfig: {
-      defaultIconType: 'monochromatic',
+      defaultIconType: 'no-icon',
       borderType: 'no-border',
-      borderRadius: 30,
+      borderRadius: 1000,
       bgColor: theme.colors.background
     },
     darkMode: true

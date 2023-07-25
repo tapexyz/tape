@@ -10,7 +10,7 @@ export const useNetWorkConnection = () => {
   const { notify } = useNotifications()
 
   const getNetwork = async () => {
-    if (isOnline) {
+    if (isOnline || !isForeground) {
       return
     }
     notify('info', { params: { title: 'No internet connection' } })

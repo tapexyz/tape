@@ -10,9 +10,7 @@ import { ResizeMode, Video } from 'expo-av'
 import type { FC } from 'react'
 import React from 'react'
 import { Pressable, StyleSheet } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import haptic from '~/helpers/haptic'
 import { theme } from '~/helpers/theme'
 
 type Props = {
@@ -31,13 +29,13 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     right: 5,
+    top: 5,
     zIndex: 1
   }
 })
 
 const VideoPlayer: FC<Props> = ({ video }) => {
   const { goBack } = useNavigation()
-  const { top: topInset } = useSafeAreaInsets()
 
   return (
     <>
@@ -58,13 +56,7 @@ const VideoPlayer: FC<Props> = ({ video }) => {
           backgroundColor: theme.colors.backdrop
         }}
       />
-      <Pressable
-        onPress={() => {
-          haptic()
-          goBack()
-        }}
-        style={[styles.close, { top: topInset + 5 }]}
-      >
+      <Pressable onPress={() => goBack()} style={styles.close}>
         <Ionicons name="close-outline" color={theme.colors.white} size={25} />
       </Pressable>
     </>

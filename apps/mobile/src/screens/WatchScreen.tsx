@@ -1,7 +1,15 @@
 import type { Publication } from '@lenstube/lens'
 import { usePublicationDetailsQuery } from '@lenstube/lens'
 import React from 'react'
-import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native'
+import {
+  ActivityIndicator,
+  StyleSheet,
+  useWindowDimensions,
+  View
+} from 'react-native'
+import * as Animatable from 'react-native-animatable'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SharedElement } from 'react-navigation-shared-element'
 
 import MoreVideos from '~/components/watch/MoreVideos'
 import VideoPlayer from '~/components/watch/Player'
@@ -10,15 +18,16 @@ import useMobileStore from '~/store'
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
     flex: 1,
     backgroundColor: theme.colors.black
   }
 })
 
 export const WatchScreen = (props: WatchScreenProps) => {
-  const videoId = props.route.params.id
+  const { top, bottom } = useSafeAreaInsets()
+  const { height: windowHeight } = useWindowDimensions()
 
+  const videoId = props.route.params.id
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
   const { data, error, loading } = usePublicationDetailsQuery({
@@ -44,9 +53,28 @@ export const WatchScreen = (props: WatchScreenProps) => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <VideoPlayer video={video} />
-      <MoreVideos video={video} />
-    </SafeAreaView>
+    <View style={[styles.container, { top, bottom }]}>
+      <SharedElement id={`video.watch.${video.id}.thumbnail`}>
+        <VideoPlayer video={video} />
+      </SharedElement>
+
+      <Animatable.View
+        style={{ height: windowHeight }}
+        useNativeDriver
+        animation={{
+          0: {
+            opacity: 0,
+            translateY: 50
+          },
+          1: {
+            opacity: 1,
+            translateY: 0
+          }
+        }}
+        delay={300}
+      >
+        <MoreVideos video={video} />
+      </Animatable.View>
+    </View>
   )
 }
