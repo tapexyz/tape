@@ -1,6 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
+import BackButton from '~/components/common/BackButton'
+import { theme } from '~/helpers/theme'
 import { ExploreScreen, MusicScreen } from '~/screens'
 
 import Header from '../components/common/Header'
@@ -14,7 +16,8 @@ export const ExploreStack = (): JSX.Element => {
   return (
     <Navigator
       screenOptions={{
-        animationEnabled: true
+        animationEnabled: true,
+        headerShadowVisible: false
       }}
     >
       <Screen
@@ -22,7 +25,6 @@ export const ExploreStack = (): JSX.Element => {
         options={{
           title: 'Explore',
           headerTitle: (props) => <Header {...props} />,
-          headerShadowVisible: false,
           headerStyle: {
             backgroundColor: `${homeGradientColor}35`,
             shadowColor: 'transparent', // this hide header shadow - iOS
@@ -34,8 +36,13 @@ export const ExploreStack = (): JSX.Element => {
       <Screen
         name="Music"
         options={{
-          title: 'Music',
-          headerShown: false
+          headerLeft: (props) => <BackButton {...props} />,
+          headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
+          headerStyle: {
+            backgroundColor: theme.colors.background,
+            shadowColor: 'transparent',
+            elevation: 0
+          }
         }}
         component={MusicScreen}
       />

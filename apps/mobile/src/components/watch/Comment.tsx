@@ -2,6 +2,7 @@ import {
   getProfilePicture,
   getShortHandTime,
   imageCdn,
+  trimify,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
@@ -59,7 +60,7 @@ const Comment = ({ comment }: { comment: Publication }) => {
           {getShortHandTime(comment.createdAt)}
         </Text>
       </View>
-      <Text style={styles.comment}>{comment.metadata.content}</Text>
+      <Text style={styles.comment}>{trimify(comment.metadata.content)}</Text>
     </View>
   )
 }

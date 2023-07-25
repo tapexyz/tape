@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { getSharableLink } from '@lenstube/generic'
+import { getSharableLink, trimify } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import type { FC } from 'react'
 import React from 'react'
@@ -38,7 +38,7 @@ type Props = {
 }
 
 const Actions: FC<Props> = ({ video }) => {
-  const title = video.metadata.name ?? video.metadata.content
+  const title = trimify(video.metadata.name ?? video.metadata.content)
   const handle = video.profile?.handle
   return (
     <ScrollView

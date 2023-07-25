@@ -4,6 +4,7 @@ import {
   getThumbnailUrl,
   getValueFromTraitType,
   imageCdn,
+  trimify,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Attribute, Publication } from '@lenstube/lens'
@@ -87,7 +88,7 @@ const AudioCard: FC<Props> = ({ audio }) => {
           <View style={styles.audioInfoContainer}>
             <View style={{ gap: 5 }}>
               <Text style={styles.title} numberOfLines={2}>
-                {audio.metadata.name}
+                {trimify(audio.metadata.name ?? '')}
               </Text>
               <Text style={styles.author}>
                 {getValueFromTraitType(

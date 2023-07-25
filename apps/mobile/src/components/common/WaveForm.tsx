@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 })
 
 const WaveForm = () => {
-  const sticks = useMemo(() => Array(40).fill(1), [])
+  const sticks = useMemo(() => Array(100).fill(1), [])
 
   const getRandomInt = (min = 0, max = 30) => {
     return Math.floor(Math.random() * (max - min + 1) + min)

@@ -4,6 +4,7 @@ import {
   getRelativeTime,
   getThumbnailUrl,
   imageCdn,
+  trimify,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
@@ -92,7 +93,7 @@ const VideoCard: FC<Props> = ({ video }) => {
       <SharedElement id={`video.watch.${video.id}.info`}>
         <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
           <Text numberOfLines={3} style={styles.title}>
-            {video.metadata.name}
+            {trimify(video.metadata.name ?? '')}
           </Text>
           {video.metadata.description && (
             <Text numberOfLines={3} style={styles.description}>

@@ -3,6 +3,7 @@ import {
   getProfilePicture,
   getThumbnailUrl,
   imageCdn,
+  trimify,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
@@ -140,7 +141,7 @@ const PopularVideos = () => {
                       style={styles.gradient}
                     >
                       <Text numberOfLines={1} style={styles.title}>
-                        {item.metadata.name}
+                        {trimify(item.metadata.name ?? '')}
                       </Text>
                       <View
                         style={{
