@@ -48,6 +48,7 @@ declare global {
   type ExploreStackParamList = {
     Explore: undefined
     Music: undefined
+    Podcast: undefined
   }
 
   type BytesStackParamList = {
@@ -96,6 +97,7 @@ declare global {
 
   type ExploreScreenProps = ExploreStackComposite<'Explore'>
   type MusicScreenProps = ExploreStackComposite<'Music'>
+  type PodcastScreenProps = ExploreStackComposite<'Podcast'>
 
   type BytesScreenProps = BytesStackComposite<'Bytes'>
 }
