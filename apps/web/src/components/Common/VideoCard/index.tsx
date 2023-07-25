@@ -10,7 +10,7 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
-import IsVerified from '../IsVerified'
+import Badge from '../Badge'
 import ReportModal from './ReportModal'
 import ShareModal from './ShareModal'
 import ThumbnailImage from './ThumbnailImage'
@@ -87,7 +87,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                   data-testid="video-card-channel"
                 >
                   <span>{trimLensHandle(video.profile?.handle)}</span>
-                  <IsVerified id={video.profile?.id} size="xs" />
+                  <Badge id={video.profile?.id} size="xs" />
                 </Link>
                 <div className="flex items-center overflow-hidden text-xs opacity-70">
                   <span className="whitespace-nowrap">

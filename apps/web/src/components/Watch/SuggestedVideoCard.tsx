@@ -1,4 +1,4 @@
-import IsVerified from '@components/Common/IsVerified'
+import Badge from '@components/Common/Badge'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
@@ -115,7 +115,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
               >
                 <div className="flex items-center space-x-0.5">
                   <span>{trimLensHandle(video?.profile?.handle)}</span>
-                  <IsVerified id={video?.profile.id} size="xs" />
+                  <Badge id={video?.profile.id} size="xs" />
                 </div>
               </Link>
             </div>

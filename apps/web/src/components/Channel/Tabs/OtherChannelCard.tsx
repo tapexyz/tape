@@ -1,4 +1,4 @@
-import IsVerified from '@components/Common/IsVerified'
+import Badge from '@components/Common/Badge'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import {
   formatNumber,
@@ -31,7 +31,7 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
           >
             <div className="flex items-center justify-center space-x-1">
               <span>{trimLensHandle(channel.handle)}</span>
-              <IsVerified id={channel?.id} />
+              <Badge id={channel?.id} />
             </div>
           </Link>
         </div>

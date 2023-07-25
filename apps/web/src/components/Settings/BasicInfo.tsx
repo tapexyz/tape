@@ -1,6 +1,6 @@
 import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
+import Badge from '@components/Common/Badge'
 import CopyOutline from '@components/Common/Icons/CopyOutline'
-import IsVerified from '@components/Common/IsVerified'
 import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import { Input } from '@components/UIElements/Input'
@@ -307,7 +307,7 @@ const BasicInfo = ({ channel }: Props) => {
       <div className="flex items-center space-x-3">
         <h6 className="flex items-center space-x-1">
           <span>{channel?.handle}</span>
-          <IsVerified id={channel?.id} size="xs" />
+          <Badge id={channel?.id} size="xs" />
         </h6>
       </div>
       <div className="mt-4">

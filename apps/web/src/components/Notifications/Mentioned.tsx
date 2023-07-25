@@ -1,4 +1,4 @@
-import IsVerified from '@components/Common/IsVerified'
+import Badge from '@components/Common/Badge'
 import {
   getProfilePicture,
   getRelativeTime,
@@ -37,7 +37,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
                 notification?.mentionPublication?.profile?.handle
               )}
             </span>
-            <IsVerified
+            <Badge
               id={notification?.mentionPublication?.profile?.id}
               size="xs"
             />

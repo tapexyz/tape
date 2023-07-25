@@ -1,5 +1,5 @@
+import Badge from '@components/Common/Badge'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
-import IsVerified from '@components/Common/IsVerified'
 import ThumbnailImage from '@components/Common/VideoCard/ThumbnailImage'
 import {
   getDateString,
@@ -77,7 +77,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
               className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
             >
               <span>{trimLensHandle(mirrorOf.profile?.handle)}</span>
-              <IsVerified id={mirrorOf.profile?.id} size="xs" />
+              <Badge id={mirrorOf.profile?.id} size="xs" />
             </Link>
           </div>
         </div>

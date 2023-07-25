@@ -1,5 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import IsVerified from '@components/Common/IsVerified'
+import Badge from '@components/Common/Badge'
 import { Button } from '@components/UIElements/Button'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -93,7 +93,7 @@ const DangerZone = () => {
             )}
             <span className="flex items-center space-x-1">
               <span className="text-sm">{selectedChannel?.handle}</span>
-              <IsVerified id={selectedChannel?.id} size="xs" />
+              <Badge id={selectedChannel?.id} size="xs" />
             </span>
           </div>
         </div>

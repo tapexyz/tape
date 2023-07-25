@@ -1,8 +1,7 @@
-import IsVerified from '@components/Common/IsVerified'
+import Badge from '@components/Common/Badge'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import SubscribersList from '@components/Common/SubscribersList'
 import Modal from '@components/UIElements/Modal'
-import Tooltip from '@components/UIElements/Tooltip'
 import {
   getChannelCoverPicture,
   getProfilePicture,
@@ -63,11 +62,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
               data-testid="channel-name"
             >
               <span>@{channel?.handle}</span>
-              <Tooltip content={t`Verified`} placement="right">
-                <span>
-                  <IsVerified id={channel?.id} size="md" />
-                </span>
-              </Tooltip>
+              <Badge id={channel?.id} size="md" />
             </h2>
             <Modal
               title={t`Subscribers`}

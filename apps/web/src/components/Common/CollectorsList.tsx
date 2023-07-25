@@ -15,8 +15,8 @@ import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
+import Badge from './Badge'
 import UserOutline from './Icons/UserOutline'
-import IsVerified from './IsVerified'
 import AddressExplorerLink from './Links/AddressExplorerLink'
 
 type Props = {
@@ -76,7 +76,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
                 />
                 <div className="flex items-center space-x-1">
                   <span>{trimLensHandle(wallet?.defaultProfile?.handle)}</span>
-                  <IsVerified id={wallet?.defaultProfile?.id} size="xs" />
+                  <Badge id={wallet?.defaultProfile?.id} size="xs" />
                 </div>
               </div>
               <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">

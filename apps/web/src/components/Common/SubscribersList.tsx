@@ -16,8 +16,8 @@ import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
+import Badge from './Badge'
 import UserOutline from './Icons/UserOutline'
-import IsVerified from './IsVerified'
 import AddressExplorerLink from './Links/AddressExplorerLink'
 
 type Props = {
@@ -82,10 +82,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
                   <span>
                     {trimLensHandle(subscriber.wallet?.defaultProfile?.handle)}
                   </span>
-                  <IsVerified
-                    id={subscriber.wallet?.defaultProfile?.id}
-                    size="xs"
-                  />
+                  <Badge id={subscriber.wallet?.defaultProfile?.id} size="xs" />
                 </div>
               </div>
               <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">

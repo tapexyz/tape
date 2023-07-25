@@ -24,7 +24,7 @@ import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 
-import IsVerified from '../IsVerified'
+import Badge from '../Badge'
 
 type Props = {
   queuedVideo: QueuedVideoType
@@ -167,7 +167,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
             </div>
             <span className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70">
               <span>{trimLensHandle(selectedChannel?.handle)}</span>
-              <IsVerified id={selectedChannel?.id} size="xs" />
+              <Badge id={selectedChannel?.id} size="xs" />
             </span>
           </div>
         </div>

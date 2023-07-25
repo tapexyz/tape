@@ -1,4 +1,4 @@
-import IsVerified from '@components/Common/IsVerified'
+import Badge from '@components/Common/Badge'
 import { formatNumber, trimLensHandle } from '@lenstube/generic'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
@@ -33,7 +33,7 @@ const ChannelSuggestions: FC<Props> = ({
           <p className="truncate font-medium leading-4">
             {trimLensHandle(handle)}
           </p>
-          <IsVerified id={id} size="xs" />
+          <Badge id={id} size="xs" />
         </div>
         <span className="text-xs opacity-80">
           {formatNumber(subscribersCount)} <Trans>subscribers</Trans>

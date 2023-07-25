@@ -1,5 +1,5 @@
+import Badge from '@components/Common/Badge'
 import UserOutline from '@components/Common/Icons/UserOutline'
-import IsVerified from '@components/Common/IsVerified'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
@@ -74,7 +74,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
             />
             <div className="flex items-center space-x-1">
               <span>{trimLensHandle(channel?.handle)}</span>
-              <IsVerified id={channel?.id} size="xs" />
+              <Badge id={channel?.id} size="xs" />
             </div>
           </div>
           <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">

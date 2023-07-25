@@ -8,8 +8,8 @@ import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
+import Badge from './Badge'
 import UserOutline from './Icons/UserOutline'
-import IsVerified from './IsVerified'
 
 type Props = {
   videoId: string
@@ -69,7 +69,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
               />
               <div className="flex items-center space-x-1">
                 <span>{trimLensHandle(profile?.handle)}</span>
-                <IsVerified id={profile?.id} size="xs" />
+                <Badge id={profile?.id} size="xs" />
               </div>
             </div>
             <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
