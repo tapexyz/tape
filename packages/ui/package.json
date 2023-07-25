@@ -11,7 +11,7 @@
     "@lenstube/browser": "*",
     "@lenstube/constants": "*",
     "@lenstube/generic": "*",
-    "prettier-plugin-tailwindcss": "^0.3.0",
+    "prettier-plugin-tailwindcss": "^0.4.1",
     "typescript": "5.1.6"
   }
 }
