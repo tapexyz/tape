@@ -1,4 +1,4 @@
-import IsVerified from '@components/Common/IsVerified'
+import Badge from '@components/Common/Badge'
 import {
   getProfilePicture,
   getRelativeTime,
@@ -30,7 +30,7 @@ const ReactedNotification: FC<Props> = ({ notification }) => {
           />
           <div className="flex items-center space-x-0.5">
             <span>{trimLensHandle(notification?.profile?.handle)}</span>
-            <IsVerified id={notification?.profile?.id} size="xs" />
+            <Badge id={notification?.profile?.id} size="xs" />
           </div>
         </Link>
       </div>

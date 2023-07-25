@@ -1,4 +1,4 @@
-import IsVerified from '@components/Common/IsVerified'
+import Badge from '@components/Common/Badge'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import {
   getProfilePicture,
@@ -43,10 +43,7 @@ const SubscribedNotification: FC<Props> = ({ notification }) => {
               <span>
                 {trimLensHandle(notification?.wallet?.defaultProfile?.handle)}
               </span>
-              <IsVerified
-                id={notification?.wallet?.defaultProfile?.id}
-                size="xs"
-              />
+              <Badge id={notification?.wallet?.defaultProfile?.id} size="xs" />
             </div>
           </Link>
         ) : (

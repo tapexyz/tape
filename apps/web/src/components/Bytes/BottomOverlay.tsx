@@ -1,4 +1,4 @@
-import IsVerified from '@components/Common/IsVerified'
+import Badge from '@components/Common/Badge'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import {
   formatNumber,
@@ -39,7 +39,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
                 <span className="truncate">
                   {trimLensHandle(channel?.handle)}
                 </span>
-                <IsVerified
+                <Badge
                   id={channel?.id}
                   color="text-gray-300 dark:text-gray-300"
                 />

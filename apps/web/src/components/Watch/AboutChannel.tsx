@@ -1,8 +1,8 @@
+import Badge from '@components/Common/Badge'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
-import IsVerified from '@components/Common/IsVerified'
 import MirrorVideo from '@components/Common/MirrorVideo'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import { formatNumber, getProfilePicture } from '@lenstube/generic'
@@ -53,7 +53,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
               className="flex items-center space-x-1 font-semibold"
             >
               <span>{channel?.handle}</span>
-              <IsVerified id={channel?.id} />
+              <Badge id={channel?.id} />
             </Link>
             <span className="inline-flex items-center space-x-1 text-sm opacity-90">
               {formatNumber(channel?.stats.totalFollowers)}{' '}

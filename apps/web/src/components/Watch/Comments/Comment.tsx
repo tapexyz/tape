@@ -1,9 +1,9 @@
+import Badge from '@components/Common/Badge'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
 import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
-import IsVerified from '@components/Common/IsVerified'
 import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -81,7 +81,7 @@ const Comment: FC<Props> = ({ comment }) => {
               className="flex items-center space-x-1 text-sm font-medium"
             >
               <span>{trimLensHandle(comment?.profile?.handle)}</span>
-              <IsVerified id={comment?.profile.id} />
+              <Badge id={comment?.profile.id} />
             </Link>
             {checkValueInAttributes(
               comment?.metadata.attributes as Attribute[],

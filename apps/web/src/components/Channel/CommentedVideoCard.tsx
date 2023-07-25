@@ -1,5 +1,5 @@
+import Badge from '@components/Common/Badge'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
-import IsVerified from '@components/Common/IsVerified'
 import ThumbnailImage from '@components/Common/VideoCard/ThumbnailImage'
 import Tooltip from '@components/UIElements/Tooltip'
 import {
@@ -87,7 +87,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
               className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
             >
               <span>{trimLensHandle(commentedOn.profile?.handle)}</span>
-              <IsVerified id={commentedOn.profile?.id} size="xs" />
+              <Badge id={commentedOn.profile?.id} size="xs" />
             </Link>
           </div>
         </div>

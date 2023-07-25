@@ -1,8 +1,8 @@
+import Badge from '@components/Common/Badge'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
-import IsVerified from '@components/Common/IsVerified'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
@@ -147,7 +147,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                       className="flex items-center space-x-1 text-sm font-medium"
                     >
                       <span>{trimLensHandle(comment?.profile?.handle)}</span>
-                      <IsVerified id={comment?.profile.id} />
+                      <Badge id={comment?.profile.id} />
                     </Link>
                     <span className="text-xs opacity-70">
                       {getRelativeTime(comment.createdAt)}

@@ -9,8 +9,8 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 
+import Badge from '../Badge'
 import UserOutline from '../Icons/UserOutline'
-import IsVerified from '../IsVerified'
 
 interface Props {
   results: Profile[]
@@ -45,7 +45,7 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
                   <p className="line-clamp-1 truncate text-base">
                     <span>{trimLensHandle(channel?.handle)}</span>
                   </p>
-                  <IsVerified id={channel?.id} size="xs" />
+                  <Badge id={channel?.id} size="xs" />
                 </div>
               </div>
               <span className="inline-flex items-center space-x-1 whitespace-nowrap text-xs opacity-60">

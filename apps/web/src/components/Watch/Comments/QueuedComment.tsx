@@ -1,6 +1,6 @@
 import { useApolloClient } from '@apollo/client'
+import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
-import IsVerified from '@components/Common/IsVerified'
 import Tooltip from '@components/UIElements/Tooltip'
 import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import {
@@ -120,7 +120,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
               className="flex items-center space-x-1 text-sm font-medium"
             >
               <span>{trimLensHandle(selectedChannel?.handle)}</span>
-              <IsVerified id={selectedChannel.id} />
+              <Badge id={selectedChannel.id} />
             </Link>
           </span>
           <InterweaveContent content={queuedComment.comment} />
