@@ -2,6 +2,7 @@ import { IS_MAINNET } from '../general'
 
 export const CREATORS = IS_MAINNET
   ? [
+      '0x01ce77', // web3academy_.lens
       '0x01a860', // coinage_media.lens
       '0x9346', // decentralgames.lens
       '0x01c831', // thedefiant.lens
