@@ -44,9 +44,11 @@ const Channel = () => {
   return (
     <>
       <MetaTags title={channel?.handle} />
+
       {!loading && !error && channel ? (
         <>
           <BasicInfo channel={channel} />
+
           <Tabs channel={channel} />
         </>
       ) : null}
