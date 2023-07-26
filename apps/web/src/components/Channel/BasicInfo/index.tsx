@@ -50,7 +50,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
       {misused?.description && (
         <Alert
           variant="danger"
-          className="mx-auto mt-4 max-w-[85rem] space-x-2 bg-black font-medium"
+          className="mx-auto mt-4 max-w-[85rem] space-x-2 bg-white font-medium dark:bg-black"
         >
           <span className="inline-flex items-center space-x-1 rounded-full bg-red-500 px-2">
             <InfoOutline className="h-4 w-4" />
