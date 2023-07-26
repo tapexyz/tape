@@ -9,7 +9,7 @@ import {
 import { FlashList } from '@shopify/flash-list'
 import type { FC } from 'react'
 import React, { useCallback } from 'react'
-import { ActivityIndicator, View } from 'react-native'
+import { ActivityIndicator, useWindowDimensions, View } from 'react-native'
 
 import VideoCard from '../common/VideoCard'
 import Actions from './Actions'
@@ -22,6 +22,7 @@ type Props = {
 }
 
 const MoreVideos: FC<Props> = ({ video }) => {
+  const { height } = useWindowDimensions()
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 5,

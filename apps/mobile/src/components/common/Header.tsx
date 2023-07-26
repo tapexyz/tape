@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 5
   },
   rightView: {
     display: 'flex',
@@ -53,9 +54,9 @@ const Header: FC<HeaderTitleProps> = () => {
               }}
             >
               <Ionicons
-                name="add-circle-outline"
+                name="create-outline"
                 color={theme.colors.white}
-                size={25}
+                size={20}
               />
             </AnimatedPressable>
             <AnimatedPressable
@@ -69,7 +70,7 @@ const Header: FC<HeaderTitleProps> = () => {
               <Ionicons
                 name="notifications-outline"
                 color={theme.colors.white}
-                size={23}
+                size={20}
               />
             </AnimatedPressable>
           </>
