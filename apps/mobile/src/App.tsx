@@ -26,7 +26,7 @@ import { AppLoading } from './components'
 import mobileAuthLink from './helpers/auth-link'
 import { usePushNotifications } from './hooks'
 import { Navigation } from './navigation'
-import { NotificationsProvider } from './providers'
+import { NotificationsProvider, SafeAreaProvider } from './providers'
 
 const styles = StyleSheet.create({
   gestureHandlerRootView: {
@@ -62,25 +62,27 @@ const App = (): JSX.Element => {
   usePushNotifications()
 
   return (
-    <ApolloProvider client={apolloClient(mobileAuthLink)}>
-      <LivepeerConfig client={livepeerClient}>
-        <NotificationsProvider />
-        <WalletConnectModal
-          projectId={WC_PROJECT_ID}
-          providerMetadata={providerMetadata}
-          themeMode="dark"
-          explorerRecommendedWalletIds={explorerRecommendedWalletIds}
-          explorerExcludedWalletIds="ALL"
-        />
-        <AppLoading>
-          <GestureHandlerRootView style={styles.gestureHandlerRootView}>
-            <BottomSheetModalProvider>
-              <Navigation />
-            </BottomSheetModalProvider>
-          </GestureHandlerRootView>
-        </AppLoading>
-      </LivepeerConfig>
-    </ApolloProvider>
+    <SafeAreaProvider>
+      <ApolloProvider client={apolloClient(mobileAuthLink)}>
+        <LivepeerConfig client={livepeerClient}>
+          <NotificationsProvider />
+          <WalletConnectModal
+            projectId={WC_PROJECT_ID}
+            providerMetadata={providerMetadata}
+            themeMode="dark"
+            explorerRecommendedWalletIds={explorerRecommendedWalletIds}
+            explorerExcludedWalletIds="ALL"
+          />
+          <AppLoading>
+            <GestureHandlerRootView style={styles.gestureHandlerRootView}>
+              <BottomSheetModalProvider>
+                <Navigation />
+              </BottomSheetModalProvider>
+            </GestureHandlerRootView>
+          </AppLoading>
+        </LivepeerConfig>
+      </ApolloProvider>
+    </SafeAreaProvider>
   )
 }
 

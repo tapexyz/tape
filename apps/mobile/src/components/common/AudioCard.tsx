@@ -12,12 +12,18 @@ import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React from 'react'
-import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View
+} from 'react-native'
+import { SharedElement } from 'react-navigation-shared-element'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
-import AnimatedPressable from '../ui/AnimatedPressable'
 import WaveForm from './WaveForm'
 
 type Props = {
@@ -77,14 +83,19 @@ const AudioCard: FC<Props> = ({ audio }) => {
   const { width } = useWindowDimensions()
 
   return (
-    <AnimatedPressable onPress={() => navigate('WatchVideo', { id: audio.id })}>
+    <Pressable onPress={() => navigate('WatchVideo', { id: audio.id })}>
       <>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <ExpoImage
-            source={{ uri: thumbnailUrl }}
-            contentFit="cover"
-            style={[styles.thumbnail, { width: width / 3, height: width / 3 }]}
-          />
+          <SharedElement id={`video.watch.${audio.id}.thumbnail`}>
+            <ExpoImage
+              source={{ uri: thumbnailUrl }}
+              contentFit="cover"
+              style={[
+                styles.thumbnail,
+                { width: width / 3, height: width / 3 }
+              ]}
+            />
+          </SharedElement>
           <View style={styles.audioInfoContainer}>
             <View style={{ gap: 5 }}>
               <Text style={styles.title} numberOfLines={2}>
@@ -130,7 +141,7 @@ const AudioCard: FC<Props> = ({ audio }) => {
           </View>
         </View>
       </>
-    </AnimatedPressable>
+    </Pressable>
   )
 }
 
