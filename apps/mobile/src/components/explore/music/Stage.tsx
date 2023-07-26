@@ -11,6 +11,8 @@ import React, { useCallback, useState } from 'react'
 import type { ViewToken } from 'react-native'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
+import Comments from '~/components/watch/Comments'
+
 import Item from './Item'
 import Player from './Player'
 
@@ -19,7 +21,6 @@ const styles = StyleSheet.create({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
     paddingTop: 15
   }
 })
@@ -84,25 +85,28 @@ const Stage = () => {
 
   return (
     <View style={styles.container}>
-      <FlashList
-        horizontal
-        data={audios}
-        bounces={false}
-        pagingEnabled
-        decelerationRate={'fast'}
-        renderToHardwareTextureAndroid
-        showsHorizontalScrollIndicator={false}
-        snapToAlignment="start"
-        estimatedItemSize={audios.length}
-        renderItem={renderItem}
-        keyExtractor={(item, i) => `${item.id}_${i}`}
-        onEndReached={fetchMoreAudio}
-        onEndReachedThreshold={0.8}
-        onViewableItemsChanged={onViewableItemsChanged}
-        extraData={activeAudioIndex} // To handle rerender if anything changes in data
-      />
+      <View style={{ flex: 1 }}>
+        <FlashList
+          horizontal
+          data={audios}
+          bounces={false}
+          pagingEnabled
+          decelerationRate={'fast'}
+          renderToHardwareTextureAndroid
+          showsHorizontalScrollIndicator={false}
+          snapToAlignment="start"
+          estimatedItemSize={audios.length}
+          renderItem={renderItem}
+          keyExtractor={(item, i) => `${item.id}_${i}`}
+          onEndReached={fetchMoreAudio}
+          onEndReachedThreshold={0.8}
+          onViewableItemsChanged={onViewableItemsChanged}
+          extraData={activeAudioIndex} // To handle rerender if anything changes in data
+        />
+      </View>
       <View style={{ alignItems: 'center' }}>
         <Player audio={audios[activeAudioIndex]} />
+        <Comments id={audios[activeAudioIndex].id} />
       </View>
     </View>
   )

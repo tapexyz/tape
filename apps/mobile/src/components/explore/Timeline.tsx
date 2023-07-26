@@ -53,7 +53,7 @@ const Timeline = () => {
       mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
     }
   }
-  console.log('🚀 ~ file: Timeline.tsx:56 ~ Timeline ~ request:', request)
+
   const { data, fetchMore, loading } = useExploreQuery({
     variables: { request }
   })

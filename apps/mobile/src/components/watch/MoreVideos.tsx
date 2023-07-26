@@ -72,7 +72,7 @@ const MoreVideos: FC<Props> = ({ video }) => {
           <>
             <Metadata video={video} />
             <Actions video={video} />
-            <Comments videoId={video.id} />
+            <Comments id={video.id} />
             <MoreVideosFilter />
           </>
         )}

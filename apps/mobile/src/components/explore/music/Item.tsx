@@ -20,9 +20,10 @@ const BORDER_RADIUS = 25
 
 const styles = StyleSheet.create({
   poster: {
-    width: '100%',
     borderRadius: BORDER_RADIUS,
-    backgroundColor: theme.colors.backdrop
+    aspectRatio: 1 / 1,
+    borderColor: theme.colors.grey,
+    borderWidth: 0.5
   },
   title: {
     color: theme.colors.white,
@@ -79,41 +80,13 @@ const Item: FC<Props> = ({ audio }) => {
     <View style={{ width }}>
       <View
         style={{
-          marginHorizontal: 10,
-          alignItems: 'center',
-          borderRadius: BORDER_RADIUS,
-          borderColor: theme.colors.grey,
-          borderWidth: 0.5,
-          justifyContent: 'center'
-        }}
-      >
-        <SharedElement
-          id={`item.${audio.id}.image`}
-          style={[styles.poster, { height: width }]}
-        >
-          <ExpoImage
-            source={{
-              uri: imageCdn(getThumbnailUrl(audio))
-            }}
-            contentFit="cover"
-            style={[styles.poster, { height: width }]}
-          />
-        </SharedElement>
-      </View>
-      <View
-        style={{
           paddingHorizontal: 15,
-          paddingVertical: 10
+          alignItems: 'center'
         }}
       >
-        <Text numberOfLines={2} style={styles.title}>
+        <Text numberOfLines={1} style={styles.title}>
           {trimify(audio.metadata.name ?? '')}
         </Text>
-        {audio.metadata.description && (
-          <Text numberOfLines={3} style={styles.description}>
-            {audio.metadata.description.replace('\n', '')}
-          </Text>
-        )}
         <View style={styles.otherInfoContainer}>
           <ExpoImage
             source={{ uri: imageCdn(getProfilePicture(audio.profile)) }}
@@ -134,6 +107,26 @@ const Item: FC<Props> = ({ audio }) => {
             {getShortHandTime(audio.createdAt)}
           </Text>
         </View>
+      </View>
+      <View
+        style={{
+          paddingTop: 30,
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <SharedElement
+          id={`item.${audio.id}.image`}
+          style={[styles.poster, { height: width * 0.6 }]}
+        >
+          <ExpoImage
+            source={{
+              uri: imageCdn(getThumbnailUrl(audio))
+            }}
+            contentFit="cover"
+            style={[styles.poster, { height: width * 0.6 }]}
+          />
+        </SharedElement>
       </View>
     </View>
   )

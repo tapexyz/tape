@@ -31,26 +31,27 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: theme.colors.backdrop,
     gap: 10,
-    height: CONTAINER_HEIGHT
+    height: CONTAINER_HEIGHT,
+    width: '100%'
   }
 })
 
 type Props = {
-  videoId: string
+  id: string
 }
 
-const Comments: FC<Props> = ({ videoId }) => {
+const Comments: FC<Props> = ({ id }) => {
   const commentsSheetRef = useRef<BottomSheetModal>(null)
 
   const request = {
     limit: 10,
     customFilters: LENS_CUSTOM_FILTERS,
-    commentsOf: videoId
+    commentsOf: id
   }
 
   const { data, fetchMore, loading } = useCommentsQuery({
     variables: { request },
-    skip: !videoId
+    skip: !id
   })
   const comments = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
