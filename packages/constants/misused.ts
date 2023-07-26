@@ -11,17 +11,22 @@ export const MISUSED_CHANNELS: {
   type: MisuseType
 }[] = [
   {
-    // web3academy
+    // lufoart.lens
+    id: '0xd3a4',
+    type: MisuseType.Impersonated
+  },
+  {
+    // web3academy.lens
     id: '0x661b',
     type: MisuseType.Impersonated
   },
   {
-    // xmtp_
+    // xmtp_.lens
     id: '0xc358',
     type: MisuseType.TrademarkViolation
   },
   {
-    // safewallet
+    // safewallet.lens
     id: '0x011c4c',
     type: MisuseType.TrademarkViolation
   }
