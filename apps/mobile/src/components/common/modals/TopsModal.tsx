@@ -1,9 +1,9 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { PublicationSortCriteria } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
 import { BlurView } from 'expo-blur'
 import React from 'react'
 import {
-  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -14,6 +14,8 @@ import {
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
+import { usePlatform } from '~/hooks'
+import useMobileStore from '~/store'
 
 const styles = StyleSheet.create({
   container: {
@@ -51,7 +53,14 @@ const styles = StyleSheet.create({
 
 export const TopsModal = (): JSX.Element => {
   const { goBack } = useNavigation()
-  const isAndroid = Platform.OS === 'android'
+  const { isAndroid } = usePlatform()
+
+  const selectedExploreFilter = useMobileStore(
+    (state) => state.selectedExploreFilter
+  )
+  const setSelectedExploreFilter = useMobileStore(
+    (state) => state.setSelectedExploreFilter
+  )
 
   return (
     <BlurView
@@ -65,13 +74,40 @@ export const TopsModal = (): JSX.Element => {
       ]}
     >
       <View style={styles.listContainer}>
-        <TouchableOpacity activeOpacity={0.6} onPress={() => haptic()}>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => {
+            setSelectedExploreFilter({
+              ...selectedExploreFilter,
+              criteria: PublicationSortCriteria.TopCollected
+            })
+            goBack()
+          }}
+        >
           <Text style={[styles.text, { opacity: 0.7 }]}>Top Collected</Text>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.6} onPress={() => haptic()}>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => {
+            setSelectedExploreFilter({
+              ...selectedExploreFilter,
+              criteria: PublicationSortCriteria.TopCommented
+            })
+            goBack()
+          }}
+        >
           <Text style={[styles.text, { opacity: 0.7 }]}>Top Commented</Text>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.6} onPress={() => haptic()}>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => {
+            setSelectedExploreFilter({
+              ...selectedExploreFilter,
+              criteria: PublicationSortCriteria.TopMirrored
+            })
+            goBack()
+          }}
+        >
           <Text style={[styles.text, { opacity: 0.7 }]}>Top Mirrored</Text>
         </TouchableOpacity>
       </View>

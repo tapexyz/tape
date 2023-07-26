@@ -2,14 +2,20 @@ import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
-  PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
 import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import React, { useCallback, useRef } from 'react'
-import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
+import {
+  ActivityIndicator,
+  StyleSheet,
+  useWindowDimensions,
+  View
+} from 'react-native'
+
+import useMobileStore from '~/store'
 
 import AudioCard from '../common/AudioCard'
 import VideoCard from '../common/VideoCard'
@@ -19,27 +25,36 @@ import Showcase from './Showcase'
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 5,
-    flex: 1,
-    height: Dimensions.get('screen').height
+    flex: 1
   }
 })
 
 const Timeline = () => {
   const scrollRef = useRef<FlashList<Publication>>(null)
-  //@ts-expect-error FlashList as type is not supported
+  // @ts-expect-error FlashList as type is not supported
   useScrollToTop(scrollRef)
 
+  const { height } = useWindowDimensions()
+
+  const selectedExploreFilter = useMobileStore(
+    (state) => state.selectedExploreFilter
+  )
+
   const request = {
-    sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 5,
+    sortCriteria: selectedExploreFilter.criteria,
+    limit: 10,
     noRandomize: false,
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
+      tags: selectedExploreFilter.category
+        ? { oneOf: [selectedExploreFilter.category] }
+        : undefined,
       mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
     }
   }
-  const { data, fetchMore } = useExploreQuery({
+  console.log('🚀 ~ file: Timeline.tsx:56 ~ Timeline ~ request:', request)
+  const { data, fetchMore, loading } = useExploreQuery({
     variables: { request }
   })
 
@@ -67,28 +82,24 @@ const Timeline = () => {
     []
   )
 
-  if (!publications?.length) {
-    return null
-  }
-
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { height }]}>
       <FlashList
         ref={scrollRef}
-        ListHeaderComponent={() => (
+        ListHeaderComponent={
           <>
             <Showcase />
             <Filters />
           </>
-        )}
+        }
         data={publications}
-        estimatedItemSize={publications.length}
+        estimatedItemSize={publications?.length ?? 50}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
         ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
-        ListFooterComponent={() => (
-          <ActivityIndicator style={{ paddingVertical: 20 }} />
-        )}
+        ListFooterComponent={() =>
+          loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
+        }
         onEndReached={fetchMorePublications}
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}

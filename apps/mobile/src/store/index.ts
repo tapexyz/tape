@@ -1,5 +1,11 @@
 import type { Profile } from '@lenstube/lens'
+import { PublicationSortCriteria } from '@lenstube/lens'
 import { create } from 'zustand'
+
+type ExploreFilter = {
+  criteria: PublicationSortCriteria
+  category: string | null
+}
 
 interface AuthPerisistState {
   userSigNonce: number
@@ -10,6 +16,8 @@ interface AuthPerisistState {
   setChannels: (channels: Profile[]) => void
   selectedChannel: Profile | null
   setSelectedChannel: (channel: Profile | null) => void
+  selectedExploreFilter: ExploreFilter
+  setSelectedExploreFilter: (filter: ExploreFilter) => void
 }
 
 const useMobileStore = create<AuthPerisistState>((set) => ({
@@ -20,7 +28,13 @@ const useMobileStore = create<AuthPerisistState>((set) => ({
   selectedChannel: null,
   setSelectedChannel: (channel) => set({ selectedChannel: channel }),
   userSigNonce: 0,
-  setUserSigNonce: (userSigNonce) => set({ userSigNonce })
+  setUserSigNonce: (userSigNonce) => set({ userSigNonce }),
+  selectedExploreFilter: {
+    criteria: PublicationSortCriteria.TopCollected,
+    category: null
+  },
+  setSelectedExploreFilter: (selectedExploreFilter) =>
+    set({ selectedExploreFilter })
 }))
 
 export default useMobileStore
