@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     paddingTop: 15
   }
 })
@@ -85,25 +86,23 @@ const Stage = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1 }}>
-        <FlashList
-          horizontal
-          data={audios}
-          bounces={false}
-          pagingEnabled
-          decelerationRate={'fast'}
-          renderToHardwareTextureAndroid
-          showsHorizontalScrollIndicator={false}
-          snapToAlignment="start"
-          estimatedItemSize={audios.length}
-          renderItem={renderItem}
-          keyExtractor={(item, i) => `${item.id}_${i}`}
-          onEndReached={fetchMoreAudio}
-          onEndReachedThreshold={0.8}
-          onViewableItemsChanged={onViewableItemsChanged}
-          extraData={activeAudioIndex} // To handle rerender if anything changes in data
-        />
-      </View>
+      <FlashList
+        horizontal
+        data={audios}
+        bounces={false}
+        pagingEnabled
+        decelerationRate={'fast'}
+        renderToHardwareTextureAndroid
+        showsHorizontalScrollIndicator={false}
+        snapToAlignment="start"
+        estimatedItemSize={audios.length}
+        renderItem={renderItem}
+        keyExtractor={(item, i) => `${item.id}_${i}`}
+        onEndReached={fetchMoreAudio}
+        onEndReachedThreshold={0.8}
+        onViewableItemsChanged={onViewableItemsChanged}
+        extraData={activeAudioIndex} // To handle rerender if anything changes in data
+      />
       <View style={{ alignItems: 'center' }}>
         <Player audio={audios[activeAudioIndex]} />
         <Comments id={audios[activeAudioIndex].id} />
