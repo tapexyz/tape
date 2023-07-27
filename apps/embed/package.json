@@ -1,5 +1,5 @@
 {
-  "name": "embed",
+  "name": "@lenstube/embed",
   "description": "Embed Video Player",
   "version": "0.0.0",
   "private": true,
@@ -28,8 +28,8 @@
     "@lenstube/generic": "*",
     "@lenstube/lens": "*",
     "@lenstube/ui": "*",
-    "@types/node": "20.4.4",
-    "@types/react": "18.2.16",
+    "@types/node": "20.4.5",
+    "@types/react": "18.2.17",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.27",
