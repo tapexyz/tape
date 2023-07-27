@@ -1,7 +1,11 @@
+import Alert from '@components/Common/Alert'
 import Badge from '@components/Common/Badge'
+import InfoOutline from '@components/Common/Icons/InfoOutline'
+import InterweaveContent from '@components/Common/InterweaveContent'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import SubscribersList from '@components/Common/SubscribersList'
 import Modal from '@components/UIElements/Modal'
+import { MISUSED_CHANNELS } from '@lenstube/constants'
 import {
   getChannelCoverPicture,
   getProfilePicture,
@@ -31,6 +35,8 @@ const BasicInfo: FC<Props> = ({ channel }) => {
     sanitizeDStorageUrl(getChannelCoverPicture(channel))
   )
 
+  const misused = MISUSED_CHANNELS.find((c) => c.id === channel?.id)
+
   return (
     <>
       <div
@@ -41,6 +47,18 @@ const BasicInfo: FC<Props> = ({ channel }) => {
       >
         <CoverLinks channel={channel} />
       </div>
+      {misused?.description && (
+        <Alert
+          variant="danger"
+          className="mx-auto mt-4 max-w-[85rem] space-x-2 bg-white font-medium dark:bg-black"
+        >
+          <span className="inline-flex items-center space-x-1 rounded-full bg-red-500 px-2">
+            <InfoOutline className="h-4 w-4" />
+            <span>{misused.type}</span>
+          </span>
+          <InterweaveContent content={misused.description} />
+        </Alert>
+      )}
       <div className="container mx-auto flex max-w-[85rem] space-x-3 p-2 md:items-center md:space-x-5 md:py-5">
         <div className="flex-none">
           <img
