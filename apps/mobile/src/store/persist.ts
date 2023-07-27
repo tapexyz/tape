@@ -43,7 +43,7 @@ export const useMobilePersistStore = create(
       setSelectedChannelId: (id) => set({ selectedChannelId: id })
     }),
     {
-      name: '@lenstube/mobile/store',
+      name: '@pripe/mobile/store',
       storage: createJSONStorage(() => AsyncStorage)
     }
   )

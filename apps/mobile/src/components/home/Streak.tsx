@@ -7,9 +7,8 @@ import {
 import type { Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
-  PublicationSortCriteria,
   PublicationTypes,
-  useExploreQuery
+  useProfilePostsQuery
 } from '@lenstube/lens'
 import { Image as ExpoImage } from 'expo-image'
 import React, { useCallback } from 'react'
@@ -96,9 +95,7 @@ const Streak = () => {
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
   const request = {
-    publicationTypes: [PublicationTypes.Post],
-    limit: 50,
-    sortCriteria: PublicationSortCriteria.TopCollected,
+    limit: 10,
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
       mainContentFocus: [
@@ -106,16 +103,20 @@ const Streak = () => {
         PublicationMainFocus.Audio,
         PublicationMainFocus.Video
       ]
-    }
+    },
+    publicationTypes: [PublicationTypes.Post],
+    profileId: selectedChannel?.id
   }
 
-  const { data, error } = useExploreQuery({
+  const { data, error } = useProfilePostsQuery({
     variables: {
       request,
       channelId: selectedChannel?.id ?? null
-    }
+    },
+    skip: !selectedChannel?.id
   })
-  const publications = data?.explorePublications?.items as Publication[]
+
+  const publications = data?.publications?.items as Publication[]
 
   const renderItem = useCallback(
     ({ item, index }: ListRenderItemInfo<Publication>) => (
@@ -128,7 +129,7 @@ const Streak = () => {
     [publications?.length]
   )
 
-  if (error) {
+  if (error || !selectedChannel) {
     return null
   }
 

@@ -11,6 +11,8 @@ import React, { useCallback, useState } from 'react'
 import type { ViewToken } from 'react-native'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
+import Comments from '~/components/watch/Comments'
+
 import Item from './Item'
 import Player from './Player'
 
@@ -103,6 +105,7 @@ const Stage = () => {
       />
       <View style={{ alignItems: 'center' }}>
         <Player audio={audios[activeAudioIndex]} />
+        <Comments id={audios[activeAudioIndex].id} />
       </View>
     </View>
   )

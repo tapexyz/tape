@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "@lenstube/api",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -19,7 +19,7 @@
     "@lenstube/constants": "*",
     "@lenstube/generic": "*",
     "@lenstube/lens": "*",
-    "@types/node": "20.4.4",
+    "@types/node": "20.4.5",
     "typescript": "5.1.6"
   }
 }

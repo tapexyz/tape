@@ -1,9 +1,9 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { CREATOR_VIDEO_CATEGORIES } from '@lenstube/constants'
 import { useNavigation } from '@react-navigation/native'
 import { BlurView } from 'expo-blur'
 import React from 'react'
 import {
-  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -16,6 +16,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
+import { usePlatform } from '~/hooks'
+import useMobileStore from '~/store'
 
 const styles = StyleSheet.create({
   container: {
@@ -49,135 +51,18 @@ const styles = StyleSheet.create({
   }
 })
 
-const CREATOR_VIDEO_CATEGORIES = [
-  {
-    name: 'People & Blogs',
-    tag: 'people'
-  },
-  { name: 'Music', tag: 'music' },
-  {
-    name: 'Podcast',
-    tag: 'podcast'
-  },
-  {
-    name: 'Arts',
-    tag: 'arts'
-  },
-  {
-    name: 'Hobbies & Interests',
-    tag: 'interests'
-  },
-  {
-    name: 'Comedy',
-    tag: 'comedy'
-  },
-  {
-    name: 'Health & Fitness',
-    tag: 'health'
-  },
-  {
-    name: 'Lens Ecosystem',
-    tag: 'lens'
-  },
-  {
-    name: 'Food & Cooking',
-    tag: 'food'
-  },
-  {
-    name: 'Education',
-    tag: 'education'
-  },
-  {
-    name: 'Books & Literature',
-    tag: 'literature'
-  },
-  {
-    name: 'Entertainment',
-    tag: 'entertainment'
-  },
-  {
-    name: 'Home & Garden',
-    tag: 'garden'
-  },
-  {
-    name: 'Crypto currency',
-    tag: 'crypto'
-  },
-  {
-    name: 'Film & Animation',
-    tag: 'film'
-  },
-  {
-    name: 'Business',
-    tag: 'business'
-  },
-  {
-    name: 'Family & Parenting',
-    tag: 'family'
-  },
-  {
-    name: 'Gaming',
-    tag: 'gaming'
-  },
-  {
-    name: 'Blockchain',
-    tag: 'blockchain'
-  },
-  {
-    name: 'Howto & Style',
-    tag: 'howto'
-  },
-  {
-    name: 'News & Politics',
-    tag: 'news'
-  },
-  {
-    name: 'Nonprofits & Activism',
-    tag: 'nonprofits'
-  },
-  {
-    name: 'Promotions',
-    tag: 'promotions'
-  },
-  {
-    name: 'Pets & Animals',
-    tag: 'pets'
-  },
-  {
-    name: 'Wellness',
-    tag: 'wellness'
-  },
-  {
-    name: 'Science & Technology',
-    tag: 'technology'
-  },
-  {
-    name: 'Sports',
-    tag: 'sports'
-  },
-  {
-    name: 'Career',
-    tag: 'career'
-  },
-  {
-    name: 'Travel & Events',
-    tag: 'travel'
-  },
-  {
-    name: 'Gadgets',
-    tag: 'gadgets'
-  },
-  {
-    name: 'Autos & Vehicles',
-    tag: 'vehicles'
-  }
-]
-
 export const CategoriesModal = (): JSX.Element => {
   const { goBack } = useNavigation()
   const { top } = useSafeAreaInsets()
   const { height } = useWindowDimensions()
-  const isAndroid = Platform.OS === 'android'
+  const { isAndroid } = usePlatform()
+
+  const selectedExploreFilter = useMobileStore(
+    (state) => state.selectedExploreFilter
+  )
+  const setSelectedExploreFilter = useMobileStore(
+    (state) => state.setSelectedExploreFilter
+  )
 
   return (
     <BlurView
@@ -204,7 +89,13 @@ export const CategoriesModal = (): JSX.Element => {
           <TouchableOpacity
             key={tag}
             activeOpacity={0.6}
-            onPress={() => haptic()}
+            onPress={() => {
+              setSelectedExploreFilter({
+                ...selectedExploreFilter,
+                category: tag
+              })
+              goBack()
+            }}
           >
             <Text
               style={[styles.text, { color: theme.colors.white, opacity: 0.7 }]}

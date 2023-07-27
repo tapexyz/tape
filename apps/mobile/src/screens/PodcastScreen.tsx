@@ -6,32 +6,22 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
-import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback } from 'react'
 import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
 
-import AudioCard from '../common/AudioCard'
-import VideoCard from '../common/VideoCard'
-import ByteCards from './ByteCards'
-import FirstSteps from './FirstSteps'
-import PopularCreators from './PopularCreators'
-import Streak from './Streak'
-import TimelineFilters from './TimelineFilters'
+import VideoCard from '~/components/common/VideoCard'
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 10,
     paddingHorizontal: 5,
     flex: 1,
     height: Dimensions.get('screen').height
   }
 })
 
-const Timeline = () => {
-  const scrollRef = useRef<FlashList<Publication>>(null)
-  //@ts-expect-error FlashList as type is not supported
-  useScrollToTop(scrollRef)
-
+export const PodcastScreen = () => {
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 50,
@@ -39,10 +29,11 @@ const Timeline = () => {
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
+      tags: { oneOf: ['podcast'] },
+      mainContentFocus: [PublicationMainFocus.Video]
     }
   }
-  const { data, fetchMore } = useExploreQuery({
+  const { data, fetchMore, loading, error } = useExploreQuery({
     variables: { request }
   })
 
@@ -61,14 +52,13 @@ const Timeline = () => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) =>
-      item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
-        <AudioCard audio={item} />
-      ) : (
-        <VideoCard video={item} />
-      ),
+    ({ item }: { item: Publication }) => <VideoCard video={item} />,
     []
   )
+
+  if (loading || error) {
+    return <ActivityIndicator style={{ flex: 1 }} />
+  }
 
   if (!publications?.length) {
     return null
@@ -77,17 +67,6 @@ const Timeline = () => {
   return (
     <View style={styles.container}>
       <FlashList
-        ref={scrollRef}
-        ListHeaderComponent={() => (
-          <>
-            <ByteCards />
-            <FirstSteps />
-            <PopularCreators />
-            <Streak />
-            {/* <PopularVideos /> */}
-            <TimelineFilters />
-          </>
-        )}
         data={publications}
         estimatedItemSize={publications.length}
         renderItem={renderItem}
@@ -103,5 +82,3 @@ const Timeline = () => {
     </View>
   )
 }
-
-export default Timeline

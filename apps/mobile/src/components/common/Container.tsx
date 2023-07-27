@@ -9,7 +9,7 @@ import { StyleSheet } from 'react-native'
 
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
-import { useMobilePersistStore } from '~/store/persist'
+import { hydrateAuthTokens, useMobilePersistStore } from '~/store/persist'
 
 const styles = StyleSheet.create({
   background: {
@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
 
 const Container: FC<PropsWithChildren> = ({ children }) => {
   const { address } = useWalletConnectModal()
+  const { accessToken } = hydrateAuthTokens()
 
   const setChannels = useMobileStore((state) => state.setChannels)
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
@@ -46,7 +47,7 @@ const Container: FC<PropsWithChildren> = ({ children }) => {
     variables: {
       request: { ownedBy: [address] }
     },
-    skip: !address,
+    skip: !accessToken || !address,
     onCompleted: (data) => {
       const channels = data?.profiles?.items as Profile[]
       if (!channels.length) {

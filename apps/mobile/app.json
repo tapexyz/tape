@@ -1,18 +1,18 @@
 {
   "expo": {
-    "name": "Lenstube",
-    "slug": "lenstube",
+    "name": "Pripe",
+    "slug": "pripe",
     "version": "0.0.1",
     "orientation": "portrait",
     "owner": "sasicodes",
-    "scheme": "lenstube",
+    "scheme": "pripe",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "jsEngine": "hermes",
-      "bundleIdentifier": "xyz.lenstube.mobile"
+      "bundleIdentifier": "xyz.pripe.mobile"
     },
     "android": {
       "adaptiveIcon": {
@@ -23,7 +23,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "1dbd462d-9011-4281-8ec2-860ada6e8bc7"
+        "projectId": "d2c982ca-1bba-4592-bea3-c4cb6516d91f"
       }
     }
   }

@@ -9,6 +9,7 @@ const commonColors = {
   notification: '#000',
   black: '#000000',
   white: '#fff',
+  red: 'red',
   grey: '#333333',
   blueGrey: '#E0E8FF'
 }

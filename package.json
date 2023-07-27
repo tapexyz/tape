@@ -1,7 +1,7 @@
 {
   "name": "lenstube",
   "description": "Decentralized video-sharing social media platform.",
-  "version": "1.0.3-beta",
+  "version": "1.0.4-beta",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -29,10 +29,10 @@
     "husky": "^8.0.3",
     "start-server-and-test": "^2.0.0",
     "ts-node": "latest",
-    "turbo": "1.10.11"
+    "turbo": "1.10.12"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=16.18.1 <=19.0.0"
   },
   "packageManager": "yarn@1.22.19"
 }

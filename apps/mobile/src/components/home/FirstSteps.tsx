@@ -12,6 +12,7 @@ import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
+import { hydrateAuthTokens } from '~/store/persist'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
@@ -64,6 +65,7 @@ const styles = StyleSheet.create({
 const FirstSteps = () => {
   const { open } = useWalletConnectModal()
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const { accessToken } = hydrateAuthTokens()
 
   const { data } = useProfilePostsQuery({
     variables: {
@@ -110,7 +112,7 @@ const FirstSteps = () => {
             paddingTop: 20
           }}
         >
-          {!selectedChannel && (
+          {!accessToken && (
             <AnimatedPressable
               onPress={() => {
                 haptic()

@@ -3,7 +3,7 @@ import { imageCdn } from '@lenstube/generic'
 import { useNavigation } from '@react-navigation/native'
 import { ImageBackground } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
-import React from 'react'
+import React, { memo } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import haptic from '~/helpers/haptic'
@@ -110,7 +110,15 @@ const Showcase = () => {
       <Stagger>
         <View style={styles.grid}>
           <View style={styles.gridCard}>
-            <AnimatedPressable onPress={() => haptic()}>
+            <AnimatedPressable
+              onPress={() => {
+                haptic()
+                navigate('MainTab', {
+                  screen: 'ExploreStack',
+                  params: { screen: 'Podcast' }
+                })
+              }}
+            >
               <ImageBackground
                 placeholder={
                   '|JGj?v^cZ@Ios~XPNaN2n6{Nv#nns+kDWFR+SeX50K$k%W%1R:VwWCofSzK*?G-lR*M{W-n#r^V[=LiyVhRon,XRbYS2V^}?OkS#t6xpr@WZNdoNIoOsbqxUfSnPaOnhobFxnirZWFbHS}R*n,W-xZ-7xtS#jXX5X5ozaj'
@@ -129,7 +137,7 @@ const Showcase = () => {
                 <LinearGradient
                   colors={['transparent', '#00000080', '#00000090']}
                 >
-                  <Text style={styles.title}>Watch</Text>
+                  <Text style={styles.title}>Podcast</Text>
                 </LinearGradient>
               </ImageBackground>
             </AnimatedPressable>
@@ -162,7 +170,7 @@ const Showcase = () => {
                 <LinearGradient
                   colors={['transparent', '#00000070', '#000000']}
                 >
-                  <Text style={styles.title}>Listen</Text>
+                  <Text style={styles.title}>Music</Text>
                 </LinearGradient>
               </ImageBackground>
             </AnimatedPressable>
@@ -173,4 +181,4 @@ const Showcase = () => {
   )
 }
 
-export default Showcase
+export default memo(Showcase)

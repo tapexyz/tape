@@ -1,4 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { getCategoryName } from '@lenstube/generic'
+import { PublicationSortCriteria } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
@@ -6,6 +8,7 @@ import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
+import useMobileStore from '~/store'
 
 const styles = StyleSheet.create({
   container: {
@@ -34,6 +37,22 @@ const styles = StyleSheet.create({
 
 const Filters = () => {
   const { navigate } = useNavigation()
+
+  const selectedExploreFilter = useMobileStore(
+    (state) => state.selectedExploreFilter
+  )
+
+  const getCriteriaTextLabel = (criteria: PublicationSortCriteria) => {
+    switch (criteria) {
+      case PublicationSortCriteria.TopCollected:
+        return 'Top Collected'
+      case PublicationSortCriteria.TopCommented:
+        return 'Top Commented'
+      case PublicationSortCriteria.TopMirrored:
+        return 'Top Mirrored'
+    }
+  }
+
   return (
     <ScrollView
       style={styles.container}
@@ -41,19 +60,15 @@ const Filters = () => {
       showsHorizontalScrollIndicator={false}
     >
       <Pressable
-        onPress={() => haptic()}
-        style={[styles.filter, { backgroundColor: theme.colors.grey }]}
-      >
-        <Text style={styles.text}>All</Text>
-      </Pressable>
-      <Pressable
         onPress={() => {
           haptic()
           navigate('ExploreTopsModal')
         }}
         style={styles.filter}
       >
-        <Text style={styles.text}>Top Tens</Text>
+        <Text style={styles.text}>
+          {getCriteriaTextLabel(selectedExploreFilter.criteria)}
+        </Text>
         <Ionicons
           name="chevron-down-outline"
           color={theme.colors.white}
@@ -67,7 +82,9 @@ const Filters = () => {
         }}
         style={styles.filter}
       >
-        <Text style={styles.text}>Categories</Text>
+        <Text style={styles.text}>
+          {getCategoryName(selectedExploreFilter.category ?? '') ?? 'Category'}
+        </Text>
         <Ionicons
           name="chevron-down-outline"
           color={theme.colors.white}
