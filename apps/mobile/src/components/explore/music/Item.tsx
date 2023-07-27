@@ -1,5 +1,4 @@
 import {
-  getProfilePicture,
   getShortHandTime,
   getThumbnailUrl,
   imageCdn,
@@ -88,11 +87,6 @@ const Item: FC<Props> = ({ audio }) => {
           {trimify(audio.metadata.name ?? '')}
         </Text>
         <View style={styles.otherInfoContainer}>
-          <ExpoImage
-            source={{ uri: imageCdn(getProfilePicture(audio.profile)) }}
-            contentFit="cover"
-            style={{ width: 15, height: 15, borderRadius: 3 }}
-          />
           <Text style={styles.otherInfo}>
             {trimLensHandle(audio.profile.handle)}
           </Text>

@@ -14,7 +14,7 @@ import { ImageBackground } from 'expo-image'
 import React, { useCallback, useState } from 'react'
 import type { ViewToken } from 'react-native'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
-import Animated, { FadeInDown } from 'react-native-reanimated'
+import Animated, { FadeInDown, SlideInLeft } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import AnimatedPressable from '~/components/ui/AnimatedPressable'
@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
   close: {
     zIndex: 1,
     paddingHorizontal: 15,
-    paddingBottom: 20,
-    width: 60
+    marginBottom: 10,
+    padding: 10
   },
   container: {
     flex: 1,
@@ -107,13 +107,18 @@ const Stage = () => {
       imageStyle={{ opacity: 0.3 }}
     >
       <SafeAreaView style={{ flex: 1 }}>
-        <AnimatedPressable onPress={() => goBack()} style={styles.close}>
-          <Ionicons
-            name="chevron-down-outline"
-            color={theme.colors.white}
-            size={30}
-          />
-        </AnimatedPressable>
+        <Animated.View
+          entering={SlideInLeft.duration(400)}
+          style={{ alignSelf: 'baseline' }}
+        >
+          <AnimatedPressable onPress={() => goBack()} style={styles.close}>
+            <Ionicons
+              name="chevron-down-outline"
+              color={theme.colors.white}
+              size={30}
+            />
+          </AnimatedPressable>
+        </Animated.View>
         <Animated.View
           entering={FadeInDown.duration(500)}
           style={styles.container}
