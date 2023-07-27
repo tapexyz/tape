@@ -3,8 +3,7 @@ import React from 'react'
 
 import BackButton from '~/components/common/BackButton'
 import { theme } from '~/helpers/theme'
-import { ExploreScreen, MusicScreen } from '~/screens'
-import { PodcastScreen } from '~/screens/PodcastScreen'
+import { ExploreScreen, MusicScreen, PodcastScreen } from '~/screens'
 
 import Header from '../components/common/Header'
 import useMobileStore from '../store'

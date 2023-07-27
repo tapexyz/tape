@@ -6,7 +6,7 @@ import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { Image as ExpoImage } from 'expo-image'
 import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import * as Animatable from 'react-native-animatable'
+import Animated, { FadeInRight } from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -91,20 +91,7 @@ const FirstSteps = () => {
     <View style={styles.container}>
       <Text style={styles.title}>First steps with Pripe</Text>
       <Text style={styles.subheading}>Unleash New Social Horizons</Text>
-      <Animatable.View
-        useNativeDriver
-        animation={{
-          0: {
-            opacity: 0,
-            translateX: 50
-          },
-          1: {
-            opacity: 1,
-            translateX: 0
-          }
-        }}
-        delay={300}
-      >
+      <Animated.View entering={FadeInRight.duration(500)}>
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -173,7 +160,7 @@ const FirstSteps = () => {
             </AnimatedPressable>
           )}
         </ScrollView>
-      </Animatable.View>
+      </Animated.View>
     </View>
   )
 }

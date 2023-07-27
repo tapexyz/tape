@@ -47,9 +47,11 @@ const Timeline = () => {
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      tags: selectedExploreFilter.category
-        ? { oneOf: [selectedExploreFilter.category] }
-        : undefined,
+      tags:
+        selectedExploreFilter.category &&
+        selectedExploreFilter.category !== 'all'
+          ? { oneOf: [selectedExploreFilter.category] }
+          : undefined,
       mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
     }
   }

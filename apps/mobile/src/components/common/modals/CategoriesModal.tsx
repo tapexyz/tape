@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   useWindowDimensions
 } from 'react-native'
+import Animated, { SlideInDown } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import haptic from '~/helpers/haptic'
@@ -85,14 +86,13 @@ export const CategoriesModal = (): JSX.Element => {
         ]}
         showsVerticalScrollIndicator={false}
       >
-        {CREATOR_VIDEO_CATEGORIES.map(({ tag, name }) => (
+        <Animated.View entering={SlideInDown.duration(100)}>
           <TouchableOpacity
-            key={tag}
             activeOpacity={0.6}
             onPress={() => {
               setSelectedExploreFilter({
                 ...selectedExploreFilter,
-                category: tag
+                category: 'all'
               })
               goBack()
             }}
@@ -100,9 +100,35 @@ export const CategoriesModal = (): JSX.Element => {
             <Text
               style={[styles.text, { color: theme.colors.white, opacity: 0.7 }]}
             >
-              {name}
+              All
             </Text>
           </TouchableOpacity>
+        </Animated.View>
+        {CREATOR_VIDEO_CATEGORIES.map(({ tag, name }, index) => (
+          <Animated.View
+            key={tag}
+            entering={SlideInDown.delay(index * 100).duration(500)}
+          >
+            <TouchableOpacity
+              activeOpacity={0.6}
+              onPress={() => {
+                setSelectedExploreFilter({
+                  ...selectedExploreFilter,
+                  category: tag
+                })
+                goBack()
+              }}
+            >
+              <Text
+                style={[
+                  styles.text,
+                  { color: theme.colors.white, opacity: 0.7 }
+                ]}
+              >
+                {name}
+              </Text>
+            </TouchableOpacity>
+          </Animated.View>
         ))}
       </ScrollView>
 

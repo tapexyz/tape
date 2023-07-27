@@ -1,9 +1,9 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { MotiView } from 'moti'
 import type { FC } from 'react'
 import React, { useCallback } from 'react'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
 import { navigationTheme } from '~/helpers/theme'
@@ -47,19 +47,9 @@ export const BottomTabNavigator: FC = () => {
         }
 
         return (
-          <MotiView
-            animate={{
-              opacity: 1,
-              scale: 1
-            }}
-            transition={{
-              type: 'spring',
-              delay: 50
-            }}
-            from={{ opacity: 0.2 }}
-          >
+          <Animated.View entering={FadeIn.duration(1000)}>
             <Ionicons name={iconName} color={color} size={size} />
-          </MotiView>
+          </Animated.View>
         )
       },
       headerShown: false,

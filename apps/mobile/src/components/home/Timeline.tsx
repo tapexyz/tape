@@ -42,7 +42,7 @@ const Timeline = () => {
       mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
     }
   }
-  const { data, fetchMore } = useExploreQuery({
+  const { data, fetchMore, loading } = useExploreQuery({
     variables: { request }
   })
 
@@ -70,8 +70,8 @@ const Timeline = () => {
     []
   )
 
-  if (!publications?.length) {
-    return null
+  if (loading || !publications?.length) {
+    return <ActivityIndicator style={{ flex: 1 }} />
   }
 
   return (

@@ -7,10 +7,10 @@ import {
 import type { Publication } from '@lenstube/lens'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { ResizeMode, Video } from 'expo-av'
-import { MotiView } from 'moti'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { useIsFocused } from '~/hooks/navigation'
 
@@ -65,18 +65,8 @@ const ByteCard: FC<Props> = ({ byte, isActive }) => {
   }, [isFocused, isActive])
 
   return (
-    <MotiView
-      from={{
-        opacity: 0,
-        scale: 0.5
-      }}
-      animate={{
-        opacity: 1,
-        scale: 1
-      }}
-      transition={{
-        type: 'timing'
-      }}
+    <Animated.View
+      entering={FadeIn.duration(500)}
       style={[styles.byteCard, { height: BYTE_HEIGHT, width }]}
     >
       <Video
@@ -92,7 +82,7 @@ const ByteCard: FC<Props> = ({ byte, isActive }) => {
         posterSource={{ uri: thumbnailUrl }}
         style={{ width, height: BYTE_HEIGHT }}
       />
-    </MotiView>
+    </Animated.View>
   )
 }
 
