@@ -103,8 +103,11 @@ const Stage = () => {
     <ImageBackground
       source={{ uri: imageCdn(getThumbnailUrl(audios[activeAudioIndex])) }}
       blurRadius={50}
-      style={{ flex: 1 }}
-      imageStyle={{ opacity: 0.3 }}
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.black
+      }}
+      imageStyle={{ opacity: 0.3, resizeMode: 'cover' }}
     >
       <SafeAreaView style={{ flex: 1 }}>
         <AnimatedPressable
