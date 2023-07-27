@@ -12,6 +12,8 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.17",
+    "@expo/metro-config": "^0.10.7",
     "@gorhom/bottom-sheet": "^4.4.7",
     "@livepeer/react-native": "^1.8.0",
     "@react-native-async-storage/async-storage": "1.18.2",
@@ -24,6 +26,7 @@
     "expo": "~48.0.18",
     "expo-av": "~13.4.1",
     "expo-blur": "~12.4.1",
+    "expo-constants": "~14.2.1",
     "expo-crypto": "~12.4.1",
     "expo-device": "~5.4.0",
     "expo-haptics": "~12.4.0",
@@ -32,12 +35,11 @@
     "expo-linking": "^5.0.2",
     "expo-notifications": "~0.18.1",
     "expo-sensors": "~12.3.0",
-    "expo-splash-screen": "~0.20.4",
+    "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.6.0",
-    "expo-updates": "~0.18.10",
     "moti": "^0.25.3",
     "react": "18.2.0",
-    "react-native": "0.72.3",
+    "react-native": "0.71.8",
     "react-native-animatable": "^1.3.3",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-get-random-values": "~1.9.0",
@@ -68,8 +70,5 @@
     "babel-plugin-module-resolver": "^5.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.3"
-  },
-  "engines": {
-    "node": ">=16.0.0"
   }
 }

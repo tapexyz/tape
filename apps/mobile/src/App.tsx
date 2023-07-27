@@ -68,11 +68,11 @@ const App = (): JSX.Element => {
         <LivepeerConfig client={livepeerClient}>
           <NotificationsProvider />
           <WalletConnectModal
-            projectId={WC_PROJECT_ID}
-            providerMetadata={providerMetadata}
             themeMode="dark"
-            explorerRecommendedWalletIds={explorerRecommendedWalletIds}
+            projectId={WC_PROJECT_ID}
             explorerExcludedWalletIds="ALL"
+            providerMetadata={providerMetadata}
+            explorerRecommendedWalletIds={explorerRecommendedWalletIds}
           />
           <AppLoading>
             <GestureHandlerRootView style={styles.gestureHandlerRootView}>
