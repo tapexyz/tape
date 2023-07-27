@@ -56,18 +56,16 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
           className="flex cursor-pointer -space-x-1.5"
           onClick={() => onClickMutuals()}
         >
-          {mutualSubscribers
-            .slice(0, 4)
-            ?.map((channel: Profile) => (
-              <img
-                key={channel?.id}
-                title={channel?.handle}
-                className="h-7 w-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(channel)}
-                draggable={false}
-                alt={channel?.handle}
-              />
-            ))}
+          {mutualSubscribers.slice(0, 4)?.map((channel: Profile) => (
+            <img
+              key={channel?.id}
+              title={channel?.handle}
+              className="h-7 w-7 rounded-full border dark:border-gray-700/80"
+              src={getProfilePicture(channel)}
+              draggable={false}
+              alt={channel?.handle}
+            />
+          ))}
           {mutualSubscribers.length === FETCH_COUNT && (
             <div className="flex h-7 w-7 flex-none items-center justify-center rounded-full border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
               <span role="img" className="text-sm">

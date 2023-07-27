@@ -1,3 +1,4 @@
+import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import {
   getProfilePicture,
   getThumbnailUrl,
@@ -211,7 +212,7 @@ const ByteCards = () => {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 10,
     noRandomize: false,
-    sources: ['lenstube-bytes'],
+    sources: [LENSTUBE_BYTES_APP_ID],
     publicationTypes: [PublicationTypes.Post],
     customFilters: [CustomFiltersTypes.Gardeners],
     metadata: {
