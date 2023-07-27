@@ -10,7 +10,7 @@
     "userInterfaceStyle": "light",
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "jsEngine": "hermes",
       "bundleIdentifier": "xyz.pripe.mobile",
       "associatedDomains": ["applinks:pripe.xyz"]
