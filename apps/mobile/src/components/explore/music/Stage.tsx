@@ -13,8 +13,12 @@ import { FlashList } from '@shopify/flash-list'
 import { ImageBackground } from 'expo-image'
 import React, { useCallback, useState } from 'react'
 import type { ViewToken } from 'react-native'
-import { ActivityIndicator, StyleSheet, View } from 'react-native'
-import Animated, { FadeInDown, SlideInLeft } from 'react-native-reanimated'
+import { ActivityIndicator, StyleSheet } from 'react-native'
+import Animated, {
+  FadeIn,
+  FadeInDown,
+  SlideInLeft
+} from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import AnimatedPressable from '~/components/ui/AnimatedPressable'
@@ -120,7 +124,7 @@ const Stage = () => {
           </AnimatedPressable>
         </Animated.View>
         <Animated.View
-          entering={FadeInDown.duration(500)}
+          entering={FadeIn.delay(300).duration(400)}
           style={styles.container}
         >
           <FlashList
@@ -138,17 +142,19 @@ const Stage = () => {
             onEndReached={fetchMoreAudio}
             onEndReachedThreshold={0.8}
             onViewableItemsChanged={onViewableItemsChanged}
-            extraData={activeAudioIndex} // To handle rerender if anything changes in data
+            extraData={activeAudioIndex}
           />
-          <View
-            style={{
-              alignItems: 'center',
-              paddingHorizontal: 5
-            }}
-          >
-            <Player audio={audios[activeAudioIndex]} />
-            <Comments id={audios[activeAudioIndex].id} />
-          </View>
+        </Animated.View>
+
+        <Animated.View
+          entering={FadeInDown.delay(400)}
+          style={{
+            alignItems: 'center',
+            paddingHorizontal: 5
+          }}
+        >
+          <Player audio={audios[activeAudioIndex]} />
+          <Comments id={audios[activeAudioIndex].id} />
         </Animated.View>
       </SafeAreaView>
     </ImageBackground>
