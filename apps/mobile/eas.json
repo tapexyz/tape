@@ -7,18 +7,18 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "MY_ENVIRONMENT": "development"
+        "LENS_ENV": "testnet"
       }
     },
     "preview": {
       "distribution": "internal",
       "env": {
-        "MY_ENVIRONMENT": "preview"
+        "LENS_ENV": "mainnet"
       }
     },
     "production": {
       "env": {
-        "MY_ENVIRONMENT": "production"
+        "LENS_ENV": "mainnet"
       }
     }
   },

@@ -1,7 +1,7 @@
 import type { ConfigContext, ExpoConfig } from 'expo/config'
 
 const config = ({ config }: ConfigContext): Partial<ExpoConfig> => {
-  if (process.env.MY_ENVIRONMENT === 'production') {
+  if (process.env.LENS_ENV === 'mainnet') {
     /* production config */
     return {
       ...config
