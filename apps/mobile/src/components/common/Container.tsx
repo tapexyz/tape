@@ -1,7 +1,4 @@
 import { ALLOWED_HEX_CHARACTERS } from '@lenstube/constants'
-import type { Profile } from '@lenstube/lens'
-import { useUserProfilesQuery } from '@lenstube/lens'
-import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import type { FC, PropsWithChildren } from 'react'
 import React from 'react'
@@ -9,7 +6,6 @@ import { StyleSheet } from 'react-native'
 
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
-import { hydrateAuthTokens, useMobilePersistStore } from '~/store/persist'
 
 const styles = StyleSheet.create({
   background: {
@@ -18,49 +14,6 @@ const styles = StyleSheet.create({
 })
 
 const Container: FC<PropsWithChildren> = ({ children }) => {
-  const { address } = useWalletConnectModal()
-  const { accessToken } = hydrateAuthTokens()
-
-  const setChannels = useMobileStore((state) => state.setChannels)
-  const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
-  const setUserSigNonce = useMobileStore((state) => state.setUserSigNonce)
-  const setSelectedChannelId = useMobilePersistStore(
-    (state) => state.setSelectedChannelId
-  )
-  const selectedChannelId = useMobilePersistStore(
-    (state) => state.selectedChannelId
-  )
-
-  const setUserChannels = (channels: Profile[]) => {
-    setChannels(channels)
-    const channel = channels.find((ch) => ch.id === selectedChannelId)
-    setSelectedChannel(channel ?? channels[0])
-    setSelectedChannelId(channel?.id)
-  }
-
-  const resetAuthState = () => {
-    setSelectedChannel(null)
-    setSelectedChannelId(null)
-  }
-
-  useUserProfilesQuery({
-    variables: {
-      request: { ownedBy: [address] }
-    },
-    skip: !accessToken || !address,
-    onCompleted: (data) => {
-      const channels = data?.profiles?.items as Profile[]
-      if (!channels.length) {
-        return resetAuthState()
-      }
-      setUserChannels(channels)
-      setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
-    },
-    onError: () => {
-      setSelectedChannelId(null)
-    }
-  })
-
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
   const setHomeGradientColor = useMobileStore(
     (state) => state.setHomeGradientColor
@@ -84,7 +37,6 @@ const Container: FC<PropsWithChildren> = ({ children }) => {
   return (
     <LinearGradient
       colors={[generateJustOneColor(), 'transparent']}
-      // start={{ x: 1, y: 0.2 }}
       style={styles.background}
       locations={[0, 0.9]}
     >

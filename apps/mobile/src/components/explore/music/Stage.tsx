@@ -19,7 +19,6 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import AnimatedPressable from '~/components/ui/AnimatedPressable'
 import Comments from '~/components/watch/Comments'
-import haptic from '~/helpers/haptic'
 import { theme } from '~/helpers/theme'
 
 import Item from './Item'
@@ -103,20 +102,12 @@ const Stage = () => {
     <ImageBackground
       source={{ uri: imageCdn(getThumbnailUrl(audios[activeAudioIndex])) }}
       blurRadius={50}
-      style={{
-        flex: 1,
-        backgroundColor: theme.colors.black
-      }}
-      imageStyle={{ opacity: 0.3, resizeMode: 'cover' }}
+      style={{ flex: 1 }}
+      contentFit="cover"
+      imageStyle={{ opacity: 0.3 }}
     >
       <SafeAreaView style={{ flex: 1 }}>
-        <AnimatedPressable
-          onPress={() => {
-            haptic()
-            goBack()
-          }}
-          style={styles.close}
-        >
+        <AnimatedPressable onPress={() => goBack()} style={styles.close}>
           <Ionicons
             name="chevron-down-outline"
             color={theme.colors.white}

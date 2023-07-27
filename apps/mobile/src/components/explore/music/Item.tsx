@@ -121,7 +121,7 @@ const Item: FC<Props> = ({ audio }) => {
         >
           <ExpoImage
             source={{
-              uri: imageCdn(getThumbnailUrl(audio))
+              uri: imageCdn(getThumbnailUrl(audio), 'SQUARE')
             }}
             contentFit="cover"
             style={[styles.poster, { height: width * 0.6 }]}
