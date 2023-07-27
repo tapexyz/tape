@@ -26,8 +26,6 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    marginVertical: 15,
-    marginHorizontal: 5,
     borderRadius: 15,
     backgroundColor: theme.colors.backdrop,
     gap: 10,
@@ -90,7 +88,7 @@ const Comments: FC<Props> = ({ id }) => {
             onPress={() => commentsSheetRef.current?.present()}
           >
             {comments?.length ? (
-              <Comment comment={comments[0]} />
+              <Comment comment={comments[0]} numberOfLines={1} />
             ) : (
               <CommentButton />
             )}

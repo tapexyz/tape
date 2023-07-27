@@ -19,6 +19,7 @@ import {
   Text,
   View
 } from 'react-native'
+import Animated, { FadeIn } from 'react-native-reanimated'
 import { SharedElement } from 'react-navigation-shared-element'
 
 import normalizeFont from '~/helpers/normalize-font'
@@ -75,56 +76,58 @@ const VideoCard: FC<Props> = ({ video }) => {
   )
 
   return (
-    <Pressable onPress={() => navigate('WatchVideo', { id: video.id })}>
-      <SharedElement id={`video.watch.${video.id}.thumbnail`}>
-        <ImageBackground
-          source={{ uri: thumbnailUrl }}
-          blurRadius={15}
-          imageStyle={{ opacity: 0.8, borderRadius: BORDER_RADIUS }}
-        >
-          <ExpoImage
+    <Animated.View entering={FadeIn.duration(300)}>
+      <Pressable onPress={() => navigate('WatchVideo', { id: video.id })}>
+        <SharedElement id={`video.watch.${video.id}.thumbnail`}>
+          <ImageBackground
             source={{ uri: thumbnailUrl }}
-            contentFit={isBytes ? 'contain' : 'cover'}
-            style={styles.thumbnail}
-          />
-        </ImageBackground>
-      </SharedElement>
-
-      <SharedElement id={`video.watch.${video.id}.info`}>
-        <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
-          <Text numberOfLines={3} style={styles.title}>
-            {trimify(video.metadata.name ?? '')}
-          </Text>
-          {video.metadata.description && (
-            <Text numberOfLines={3} style={styles.description}>
-              {video.metadata.description.replace('\n', '')}
-            </Text>
-          )}
-          <View style={styles.otherInfoContainer}>
+            blurRadius={15}
+            imageStyle={{ opacity: 0.8, borderRadius: BORDER_RADIUS }}
+          >
             <ExpoImage
-              source={{ uri: imageCdn(getProfilePicture(video.profile)) }}
-              contentFit="cover"
-              style={{ width: 15, height: 15, borderRadius: 3 }}
+              source={{ uri: thumbnailUrl }}
+              contentFit={isBytes ? 'contain' : 'cover'}
+              style={styles.thumbnail}
             />
-            <Text style={styles.otherInfo}>
-              {trimLensHandle(video.profile.handle)}
+          </ImageBackground>
+        </SharedElement>
+
+        <SharedElement id={`video.watch.${video.id}.info`}>
+          <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
+            <Text numberOfLines={3} style={styles.title}>
+              {trimify(video.metadata.name ?? '')}
             </Text>
-            <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
-              {'\u2B24'}
-            </Text>
-            <Text style={styles.otherInfo}>
-              {video.stats.totalUpvotes} likes
-            </Text>
-            <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
-              {'\u2B24'}
-            </Text>
-            <Text style={styles.otherInfo}>
-              {getRelativeTime(video.createdAt)}
-            </Text>
+            {video.metadata.description && (
+              <Text numberOfLines={3} style={styles.description}>
+                {video.metadata.description.replace('\n', '')}
+              </Text>
+            )}
+            <View style={styles.otherInfoContainer}>
+              <ExpoImage
+                source={{ uri: imageCdn(getProfilePicture(video.profile)) }}
+                contentFit="cover"
+                style={{ width: 15, height: 15, borderRadius: 3 }}
+              />
+              <Text style={styles.otherInfo}>
+                {trimLensHandle(video.profile.handle)}
+              </Text>
+              <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+                {'\u2B24'}
+              </Text>
+              <Text style={styles.otherInfo}>
+                {video.stats.totalUpvotes} likes
+              </Text>
+              <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+                {'\u2B24'}
+              </Text>
+              <Text style={styles.otherInfo}>
+                {getRelativeTime(video.createdAt)}
+              </Text>
+            </View>
           </View>
-        </View>
-      </SharedElement>
-    </Pressable>
+        </SharedElement>
+      </Pressable>
+    </Animated.View>
   )
 }
 

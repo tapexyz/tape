@@ -47,7 +47,6 @@ declare global {
 
   type ExploreStackParamList = {
     Explore: undefined
-    Music: undefined
     Podcast: undefined
   }
 
@@ -64,6 +63,7 @@ declare global {
   type RootStackParamList = {
     ExploreTopsModal: undefined
     ExploreCategoriesModal: undefined
+    MusicModal: undefined
     WatchVideo: { id: string }
 
     MainTab: NavigatorScreenParams<MainTabParamList>
@@ -96,7 +96,6 @@ declare global {
   type HomeScreenProps = HomeStackComposite<'Home'>
 
   type ExploreScreenProps = ExploreStackComposite<'Explore'>
-  type MusicScreenProps = ExploreStackComposite<'Music'>
   type PodcastScreenProps = ExploreStackComposite<'Podcast'>
 
   type BytesScreenProps = BytesStackComposite<'Bytes'>

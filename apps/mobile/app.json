@@ -12,7 +12,8 @@
     "ios": {
       "supportsTablet": true,
       "jsEngine": "hermes",
-      "bundleIdentifier": "xyz.pripe.mobile"
+      "bundleIdentifier": "xyz.pripe.mobile",
+      "associatedDomains": ["applinks:pripe.xyz"]
     },
     "android": {
       "adaptiveIcon": {
