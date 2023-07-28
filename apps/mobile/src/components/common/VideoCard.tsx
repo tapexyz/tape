@@ -11,7 +11,7 @@ import type { Publication } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
-import React from 'react'
+import React, { memo } from 'react'
 import {
   ImageBackground,
   Pressable,
@@ -131,4 +131,4 @@ const VideoCard: FC<Props> = ({ video }) => {
   )
 }
 
-export default VideoCard
+export default memo(VideoCard)

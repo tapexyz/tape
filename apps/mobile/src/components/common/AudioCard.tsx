@@ -11,7 +11,7 @@ import type { Attribute, Publication } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
-import React from 'react'
+import React, { memo } from 'react'
 import {
   Pressable,
   StyleSheet,
@@ -145,4 +145,4 @@ const AudioCard: FC<Props> = ({ audio }) => {
   )
 }
 
-export default AudioCard
+export default memo(AudioCard)
