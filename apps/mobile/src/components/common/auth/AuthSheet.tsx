@@ -100,7 +100,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
   }
 
   return (
-    <Sheet sheetRef={sheetRef}>
+    <Sheet sheetRef={sheetRef} marginX={0}>
       <View
         style={{
           padding: 10,
