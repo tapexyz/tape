@@ -8,7 +8,7 @@ import {
 } from '@lenstube/lens'
 import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useMemo, useRef } from 'react'
 import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
 
 import AudioCard from '../common/AudioCard'
@@ -70,6 +70,19 @@ const Timeline = () => {
     []
   )
 
+  const HeaderComponent = useMemo(
+    () => (
+      <>
+        <ByteCards />
+        <FirstSteps />
+        <PopularCreators />
+        <Streak />
+        <TimelineFilters />
+      </>
+    ),
+    []
+  )
+
   if (loading || !publications?.length) {
     return <ActivityIndicator style={{ flex: 1 }} />
   }
@@ -78,15 +91,7 @@ const Timeline = () => {
     <View style={styles.container}>
       <FlashList
         ref={scrollRef}
-        ListHeaderComponent={() => (
-          <>
-            <ByteCards />
-            <FirstSteps />
-            <PopularCreators />
-            <Streak />
-            <TimelineFilters />
-          </>
-        )}
+        ListHeaderComponent={HeaderComponent}
         data={publications}
         estimatedItemSize={publications.length}
         renderItem={renderItem}

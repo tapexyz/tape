@@ -8,7 +8,7 @@ import {
 } from '@lenstube/lens'
 import { FlashList } from '@shopify/flash-list'
 import type { FC } from 'react'
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { ActivityIndicator, View } from 'react-native'
 
 import VideoCard from '../common/VideoCard'
@@ -56,6 +56,18 @@ const MoreVideos: FC<Props> = ({ video }) => {
     []
   )
 
+  const HeaderComponent = useMemo(
+    () => (
+      <>
+        <Metadata video={video} />
+        <Actions video={video} />
+        <Comments id={video.id} />
+        <MoreVideosFilter />
+      </>
+    ),
+    [video]
+  )
+
   if (!videos?.length) {
     return null
   }
@@ -68,14 +80,7 @@ const MoreVideos: FC<Props> = ({ video }) => {
       }}
     >
       <FlashList
-        ListHeaderComponent={() => (
-          <>
-            <Metadata video={video} />
-            <Actions video={video} />
-            <Comments id={video.id} />
-            <MoreVideosFilter />
-          </>
-        )}
+        ListHeaderComponent={HeaderComponent}
         data={videos}
         estimatedItemSize={videos.length}
         renderItem={renderItem}

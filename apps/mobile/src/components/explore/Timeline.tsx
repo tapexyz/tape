@@ -7,7 +7,7 @@ import {
 } from '@lenstube/lens'
 import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useMemo, useRef } from 'react'
 import {
   ActivityIndicator,
   StyleSheet,
@@ -84,16 +84,21 @@ const Timeline = () => {
     []
   )
 
+  const HeaderComponent = useMemo(
+    () => (
+      <>
+        <Showcase />
+        <Filters />
+      </>
+    ),
+    []
+  )
+
   return (
     <View style={[styles.container, { height }]}>
       <FlashList
         ref={scrollRef}
-        ListHeaderComponent={
-          <>
-            <Showcase />
-            <Filters />
-          </>
-        }
+        ListHeaderComponent={HeaderComponent}
         data={publications}
         estimatedItemSize={publications?.length ?? 50}
         renderItem={renderItem}

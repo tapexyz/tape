@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
     fontFamily: 'font-normal',
     fontSize: normalizeFont(12),
     color: theme.colors.white,
-    lineHeight: 20
+    lineHeight: 20,
+    letterSpacing: 0.5
   },
   timestamp: {
     fontFamily: 'font-normal',
@@ -47,7 +48,8 @@ const Comment = ({
       style={{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        padding: 20
       }}
     >
       <View style={{ gap: 10, width: width * 0.8 }}>
