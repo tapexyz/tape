@@ -179,7 +179,7 @@ const ByteCards = () => {
     return (
       <LinearGradient
         style={{ padding: 1, position: 'relative' }}
-        colors={['transparent', '#ffffff90']}
+        colors={['#ffffff30', '#ffffff40', '#ffffff50']}
       >
         <ExpoImage
           source={{ uri: imageCdn(getThumbnailUrl(byte, true), 'THUMBNAIL_V') }}
@@ -200,10 +200,6 @@ const ByteCards = () => {
           <Text style={styles.otherInfo}>
             {trimLensHandle(byte.profile.handle)}
           </Text>
-          <Text style={{ color: theme.colors.white, fontSize: 3 }}>
-            {'\u2B24'}
-          </Text>
-          <Text style={styles.otherInfo}>{byte.stats.totalUpvotes} likes</Text>
         </LinearGradient>
       </LinearGradient>
     )

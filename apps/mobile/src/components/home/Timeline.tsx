@@ -84,7 +84,6 @@ const Timeline = () => {
             <FirstSteps />
             <PopularCreators />
             <Streak />
-            {/* <PopularVideos /> */}
             <TimelineFilters />
           </>
         )}

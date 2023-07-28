@@ -104,7 +104,7 @@ const Item: FC<Props> = ({ audio }) => {
       </View>
       <View
         style={{
-          paddingTop: 30,
+          paddingTop: 20,
           alignItems: 'center',
           justifyContent: 'center'
         }}

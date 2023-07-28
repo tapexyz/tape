@@ -123,6 +123,7 @@ const Stage = () => {
             />
           </AnimatedPressable>
         </Animated.View>
+
         <Animated.View
           entering={FadeIn.delay(300).duration(400)}
           style={styles.container}
