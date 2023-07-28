@@ -65,6 +65,7 @@ const Comment = ({
             source={{
               uri: imageCdn(getProfilePicture(comment.profile), 'AVATAR')
             }}
+            transition={300}
             contentFit="cover"
             style={{ width: 15, height: 15, borderRadius: 3 }}
           />

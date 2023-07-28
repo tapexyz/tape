@@ -103,6 +103,7 @@ const Item = ({ item, activeIndex, index, onPress }: any) => {
           source={{
             uri: imageCdn(getThumbnailUrl(item, true), 'THUMBNAIL_V')
           }}
+          transition={300}
           contentFit="cover"
           style={styles.thumbnail}
         />
@@ -115,6 +116,7 @@ const Item = ({ item, activeIndex, index, onPress }: any) => {
               uri: imageCdn(getProfilePicture(item.profile), 'AVATAR')
             }}
             contentFit="cover"
+            transition={300}
             style={{ width: 15, height: 15, borderRadius: 3 }}
           />
           <Text style={styles.otherInfo}>

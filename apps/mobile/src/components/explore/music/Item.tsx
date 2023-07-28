@@ -117,6 +117,7 @@ const Item: FC<Props> = ({ audio }) => {
             source={{
               uri: imageCdn(getThumbnailUrl(audio), 'SQUARE')
             }}
+            transition={300}
             contentFit="cover"
             style={[styles.poster, { height: width * 0.6 }]}
           />

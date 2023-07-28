@@ -113,6 +113,7 @@ const FirstSteps = () => {
                     `${STATIC_ASSETS}/mobile/icons/arrow-with-scribble.png`
                   )
                 }}
+                transition={300}
                 style={styles.icon}
               />
               <View>
@@ -132,6 +133,7 @@ const FirstSteps = () => {
                     `${STATIC_ASSETS}/mobile/icons/two-way-arrows.png`
                   )
                 }}
+                transition={300}
                 style={styles.icon}
               />
               <View>
@@ -149,6 +151,7 @@ const FirstSteps = () => {
                 source={{
                   uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/play-button.png`)
                 }}
+                transition={300}
                 style={styles.icon}
               />
               <View>

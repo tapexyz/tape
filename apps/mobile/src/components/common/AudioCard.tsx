@@ -89,6 +89,7 @@ const AudioCard: FC<Props> = ({ audio }) => {
           <SharedElement id={`video.watch.${audio.id}.thumbnail`}>
             <ExpoImage
               source={{ uri: thumbnailUrl }}
+              transition={300}
               contentFit="cover"
               style={[
                 styles.thumbnail,
@@ -121,6 +122,7 @@ const AudioCard: FC<Props> = ({ audio }) => {
             <ExpoImage
               source={{ uri: imageCdn(getProfilePicture(audio.profile)) }}
               contentFit="cover"
+              transition={300}
               style={{ width: 15, height: 15, borderRadius: 3 }}
             />
             <Text style={styles.otherInfo}>

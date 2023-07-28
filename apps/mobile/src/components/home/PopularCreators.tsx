@@ -79,6 +79,7 @@ const PopularCreators = () => {
                 source={{
                   uri: imageCdn(getProfilePicture(p), 'SQUARE')
                 }}
+                transition={300}
                 style={styles.image}
               />
             </AnimatedPressable>

@@ -183,6 +183,7 @@ const ByteCards = () => {
         <ExpoImage
           source={{ uri: imageCdn(getThumbnailUrl(byte, true), 'THUMBNAIL_V') }}
           contentFit="cover"
+          transition={300}
           style={styles.thumbnail}
         />
         <LinearGradient
@@ -193,6 +194,7 @@ const ByteCards = () => {
             source={{
               uri: imageCdn(getProfilePicture(byte.profile), 'AVATAR')
             }}
+            transition={300}
             contentFit="cover"
             style={{ width: 15, height: 15, borderRadius: 3 }}
           />

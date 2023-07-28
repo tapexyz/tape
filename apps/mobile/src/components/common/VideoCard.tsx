@@ -86,6 +86,7 @@ const VideoCard: FC<Props> = ({ video }) => {
           >
             <ExpoImage
               source={{ uri: thumbnailUrl }}
+              transition={300}
               contentFit={isBytes ? 'contain' : 'cover'}
               style={styles.thumbnail}
             />
@@ -105,6 +106,7 @@ const VideoCard: FC<Props> = ({ video }) => {
             <View style={styles.otherInfoContainer}>
               <ExpoImage
                 source={{ uri: imageCdn(getProfilePicture(video.profile)) }}
+                transition={300}
                 contentFit="cover"
                 style={{ width: 15, height: 15, borderRadius: 3 }}
               />

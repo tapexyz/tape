@@ -45,6 +45,7 @@ const IntroCard = () => {
         source={{
           uri: imageCdn(`${STATIC_ASSETS}/mobile/images/listening.png`)
         }}
+        transition={300}
         style={styles.image}
       />
       <View style={styles.whTextWrapper}>
