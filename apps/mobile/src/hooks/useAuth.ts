@@ -7,7 +7,7 @@ import useMobileStore from '~/store'
 import { hydrateAuthTokens, useMobilePersistStore } from '~/store/persist'
 
 export const useAuth = (): boolean => {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isValidated, setIsValidated] = useState(false)
 
   const { address } = useWalletConnectModal()
   const { accessToken } = hydrateAuthTokens()
@@ -46,13 +46,13 @@ export const useAuth = (): boolean => {
       }
       setUserChannels(channels)
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
-      setIsLoading(false)
+      setIsValidated(true)
     },
     onError: () => {
       resetAuthState()
-      setIsLoading(false)
+      setIsValidated(true)
     }
   })
 
-  return isLoading
+  return isValidated
 }
