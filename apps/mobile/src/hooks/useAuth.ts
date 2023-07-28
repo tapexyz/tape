@@ -1,6 +1,5 @@
 import type { Profile } from '@lenstube/lens'
 import { useUserProfilesQuery } from '@lenstube/lens'
-import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { useEffect, useState } from 'react'
 
 import useMobileStore from '~/store'
@@ -9,7 +8,6 @@ import { hydrateAuthTokens, useMobilePersistStore } from '~/store/persist'
 export const useAuth = (): boolean => {
   const [isValidated, setIsValidated] = useState(false)
 
-  const { address } = useWalletConnectModal()
   const { accessToken } = hydrateAuthTokens()
 
   const setChannels = useMobileStore((state) => state.setChannels)
@@ -35,18 +33,18 @@ export const useAuth = (): boolean => {
   }
 
   useEffect(() => {
-    if (!accessToken || !address) {
+    if (!accessToken || !selectedChannelId) {
       setIsValidated(true)
       resetAuthState()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accessToken, address])
+  }, [accessToken, selectedChannelId])
 
   useUserProfilesQuery({
     variables: {
-      request: { ownedBy: [address] }
+      request: { profileIds: [selectedChannelId] }
     },
-    skip: !accessToken || !address,
+    skip: !accessToken || !selectedChannelId,
     onCompleted: (data) => {
       const channels = data?.profiles?.items as Profile[]
       if (!channels.length) {
