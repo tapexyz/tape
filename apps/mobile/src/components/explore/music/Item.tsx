@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   title: {
     color: theme.colors.white,
     fontFamily: 'font-bold',
-    fontSize: normalizeFont(13),
+    fontSize: normalizeFont(14),
     letterSpacing: 0.5
   },
   description: {

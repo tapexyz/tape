@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 6,
     paddingVertical: 10,
-    opacity: 0.8,
     marginBottom: 1,
     borderBottomRightRadius: BORDER_RADIUS,
     borderBottomLeftRadius: BORDER_RADIUS
@@ -187,7 +186,7 @@ const ByteCards = () => {
           style={styles.thumbnail}
         />
         <LinearGradient
-          colors={['transparent', '#00000080', '#00000090']}
+          colors={['transparent', '#00000090', '#000000']}
           style={styles.gradient}
         >
           <ExpoImage
