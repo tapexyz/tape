@@ -10,7 +10,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "eslint . --ext .js,.ts,.tsx",
-    "build": "eas build  --platform ios"
+    "eas:build": "eas build  --platform ios"
   },
   "dependencies": {
     "@apollo/client": "^3.7.17",
