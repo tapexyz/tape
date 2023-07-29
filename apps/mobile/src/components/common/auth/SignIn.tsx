@@ -37,6 +37,7 @@ const SignIn = () => {
         <ExpoImage
           source={{ uri: pfp }}
           contentFit="cover"
+          transition={300}
           style={{ width: 23, height: 23, borderRadius: 8 }}
         />
       </AnimatedPressable>

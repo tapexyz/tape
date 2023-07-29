@@ -77,6 +77,7 @@ const ImageCard = ({
         source={{
           uri: imageUrl
         }}
+        transition={300}
         contentFit="cover"
         style={{
           width: '100%',

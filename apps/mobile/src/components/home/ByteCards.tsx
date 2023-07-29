@@ -21,6 +21,7 @@ import { Skeleton } from 'moti/skeleton'
 import React, { useCallback, useEffect } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import Animated, {
+  FadeIn,
   interpolate,
   useAnimatedStyle,
   useDerivedValue,
@@ -48,7 +49,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 6,
     paddingVertical: 10,
-    opacity: 0.8,
     marginBottom: 1,
     borderBottomRightRadius: BORDER_RADIUS,
     borderBottomLeftRadius: BORDER_RADIUS
@@ -178,31 +178,29 @@ const ByteCards = () => {
     return (
       <LinearGradient
         style={{ padding: 1, position: 'relative' }}
-        colors={['transparent', '#ffffff90']}
+        colors={['#ffffff30', '#ffffff40', '#ffffff50']}
       >
         <ExpoImage
           source={{ uri: imageCdn(getThumbnailUrl(byte, true), 'THUMBNAIL_V') }}
           contentFit="cover"
+          transition={300}
           style={styles.thumbnail}
         />
         <LinearGradient
-          colors={['transparent', '#00000080', '#00000090']}
+          colors={['transparent', '#00000090', '#000000']}
           style={styles.gradient}
         >
           <ExpoImage
             source={{
               uri: imageCdn(getProfilePicture(byte.profile), 'AVATAR')
             }}
+            transition={300}
             contentFit="cover"
             style={{ width: 15, height: 15, borderRadius: 3 }}
           />
           <Text style={styles.otherInfo}>
             {trimLensHandle(byte.profile.handle)}
           </Text>
-          <Text style={{ color: theme.colors.white, fontSize: 3 }}>
-            {'\u2B24'}
-          </Text>
-          <Text style={styles.otherInfo}>{byte.stats.totalUpvotes} likes</Text>
         </LinearGradient>
       </LinearGradient>
     )
@@ -230,7 +228,10 @@ const ByteCards = () => {
   const bytes = data?.explorePublications?.items as Publication[]
 
   return (
-    <View style={styles.cardsContainer}>
+    <Animated.View
+      entering={FadeIn.duration(500)}
+      style={styles.cardsContainer}
+    >
       <View style={styles.firstByteCardWrapper}>
         <Skeleton
           show={loading}
@@ -292,7 +293,7 @@ const ByteCards = () => {
       >
         {bytes?.length && renderCard(bytes[2])}
       </Pressable>
-    </View>
+    </Animated.View>
   )
 }
 

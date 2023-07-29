@@ -7,7 +7,7 @@ import {
 } from '@lenstube/lens'
 import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useMemo, useRef } from 'react'
 import {
   ActivityIndicator,
   StyleSheet,
@@ -47,9 +47,11 @@ const Timeline = () => {
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      tags: selectedExploreFilter.category
-        ? { oneOf: [selectedExploreFilter.category] }
-        : undefined,
+      tags:
+        selectedExploreFilter.category &&
+        selectedExploreFilter.category !== 'all'
+          ? { oneOf: [selectedExploreFilter.category] }
+          : undefined,
       mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
     }
   }
@@ -82,16 +84,21 @@ const Timeline = () => {
     []
   )
 
+  const HeaderComponent = useMemo(
+    () => (
+      <>
+        <Showcase />
+        <Filters />
+      </>
+    ),
+    []
+  )
+
   return (
     <View style={[styles.container, { height }]}>
       <FlashList
         ref={scrollRef}
-        ListHeaderComponent={
-          <>
-            <Showcase />
-            <Filters />
-          </>
-        }
+        ListHeaderComponent={HeaderComponent}
         data={publications}
         estimatedItemSize={publications?.length ?? 50}
         renderItem={renderItem}

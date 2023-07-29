@@ -158,6 +158,7 @@ const PopularVideos = () => {
                               'AVATAR'
                             )
                           }}
+                          transition={300}
                           contentFit="cover"
                           style={{ width: 15, height: 15, borderRadius: 3 }}
                         />
@@ -170,6 +171,7 @@ const PopularVideos = () => {
                       source={{
                         uri: thumbnailUrl
                       }}
+                      transition={300}
                       contentFit={isBytes ? 'contain' : 'cover'}
                       style={styles.thumbnail}
                     />

@@ -47,6 +47,7 @@ const TimelineFilters = () => {
           source={{
             uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/in-love.png`)
           }}
+          transition={300}
           style={styles.image}
         />
         <Text style={[styles.text, { color: theme.colors.black }]}>
@@ -58,6 +59,7 @@ const TimelineFilters = () => {
           source={{
             uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/smile.png`)
           }}
+          transition={300}
           style={styles.image}
         />
         <Text style={[styles.text, { color: theme.colors.white }]}>
@@ -69,6 +71,7 @@ const TimelineFilters = () => {
           source={{
             uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/proud.png`)
           }}
+          transition={300}
           style={styles.image}
         />
         <Text style={[styles.text, { color: theme.colors.white }]}>

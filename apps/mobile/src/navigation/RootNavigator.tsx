@@ -6,7 +6,7 @@ import { createSharedElementStackNavigator } from 'react-navigation-shared-eleme
 
 import { CategoriesModal, TopsModal } from '~/components/common/modals'
 import { useNetWorkConnection } from '~/hooks'
-import { WatchScreen } from '~/screens'
+import { MusicModal, WatchScreen } from '~/screens'
 
 import { BottomTabNavigator } from './BottomTabNavigator'
 
@@ -70,6 +70,11 @@ export const RootNavigator: FC = () => {
         name="ExploreCategoriesModal"
         options={{ ...options, presentation: 'transparentModal' }}
         component={CategoriesModal}
+      />
+      <Screen
+        name="MusicModal"
+        options={{ ...options, presentation: 'transparentModal' }}
+        component={MusicModal}
       />
     </Navigator>
   )

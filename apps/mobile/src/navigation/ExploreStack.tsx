@@ -3,8 +3,7 @@ import React from 'react'
 
 import BackButton from '~/components/common/BackButton'
 import { theme } from '~/helpers/theme'
-import { ExploreScreen, MusicScreen } from '~/screens'
-import { PodcastScreen } from '~/screens/PodcastScreen'
+import { ExploreScreen, PodcastScreen } from '~/screens'
 
 import Header from '../components/common/Header'
 import useMobileStore from '../store'
@@ -33,19 +32,6 @@ export const ExploreStack = (): JSX.Element => {
           }
         }}
         component={ExploreScreen}
-      />
-      <Screen
-        name="Music"
-        options={{
-          headerLeft: (props) => <BackButton {...props} />,
-          headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
-          headerStyle: {
-            backgroundColor: theme.colors.background,
-            shadowColor: 'transparent',
-            elevation: 0
-          }
-        }}
-        component={MusicScreen}
       />
       <Screen
         name="Podcast"

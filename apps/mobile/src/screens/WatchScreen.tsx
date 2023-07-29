@@ -7,7 +7,7 @@ import {
   useWindowDimensions,
   View
 } from 'react-native'
-import * as Animatable from 'react-native-animatable'
+import Animated, { FadeInDown } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { SharedElement } from 'react-navigation-shared-element'
 
@@ -58,23 +58,12 @@ export const WatchScreen = (props: WatchScreenProps) => {
         <VideoPlayer video={video} />
       </SharedElement>
 
-      <Animatable.View
+      <Animated.View
         style={{ height: windowHeight }}
-        useNativeDriver
-        animation={{
-          0: {
-            opacity: 0,
-            translateY: 50
-          },
-          1: {
-            opacity: 1,
-            translateY: 0
-          }
-        }}
-        delay={300}
+        entering={FadeInDown.duration(500)}
       >
         <MoreVideos video={video} />
-      </Animatable.View>
+      </Animated.View>
     </View>
   )
 }

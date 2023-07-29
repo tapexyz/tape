@@ -100,7 +100,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
   }
 
   return (
-    <Sheet sheetRef={sheetRef}>
+    <Sheet sheetRef={sheetRef} marginX={0}>
       <View
         style={{
           padding: 10,
@@ -124,6 +124,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
                 ? getRandomProfilePicture(address)
                 : imageCdn(`${STATIC_ASSETS}/mobile/icons/herb.png`)
             }}
+            transition={300}
             contentFit="cover"
             style={{ width: 70, height: 70, borderRadius: 25 }}
           />

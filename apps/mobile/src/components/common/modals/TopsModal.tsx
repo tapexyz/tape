@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View
 } from 'react-native'
+import Animated, { SlideInDown } from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -74,42 +75,48 @@ export const TopsModal = (): JSX.Element => {
       ]}
     >
       <View style={styles.listContainer}>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => {
-            setSelectedExploreFilter({
-              ...selectedExploreFilter,
-              criteria: PublicationSortCriteria.TopCollected
-            })
-            goBack()
-          }}
-        >
-          <Text style={[styles.text, { opacity: 0.7 }]}>Top Collected</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => {
-            setSelectedExploreFilter({
-              ...selectedExploreFilter,
-              criteria: PublicationSortCriteria.TopCommented
-            })
-            goBack()
-          }}
-        >
-          <Text style={[styles.text, { opacity: 0.7 }]}>Top Commented</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => {
-            setSelectedExploreFilter({
-              ...selectedExploreFilter,
-              criteria: PublicationSortCriteria.TopMirrored
-            })
-            goBack()
-          }}
-        >
-          <Text style={[styles.text, { opacity: 0.7 }]}>Top Mirrored</Text>
-        </TouchableOpacity>
+        <Animated.View entering={SlideInDown.delay(50).duration(500)}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => {
+              setSelectedExploreFilter({
+                ...selectedExploreFilter,
+                criteria: PublicationSortCriteria.TopCollected
+              })
+              goBack()
+            }}
+          >
+            <Text style={[styles.text, { opacity: 0.7 }]}>Top Collected</Text>
+          </TouchableOpacity>
+        </Animated.View>
+        <Animated.View entering={SlideInDown.delay(100).duration(500)}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => {
+              setSelectedExploreFilter({
+                ...selectedExploreFilter,
+                criteria: PublicationSortCriteria.TopCommented
+              })
+              goBack()
+            }}
+          >
+            <Text style={[styles.text, { opacity: 0.7 }]}>Top Commented</Text>
+          </TouchableOpacity>
+        </Animated.View>
+        <Animated.View entering={SlideInDown.delay(150).duration(500)}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => {
+              setSelectedExploreFilter({
+                ...selectedExploreFilter,
+                criteria: PublicationSortCriteria.TopMirrored
+              })
+              goBack()
+            }}
+          >
+            <Text style={[styles.text, { opacity: 0.7 }]}>Top Mirrored</Text>
+          </TouchableOpacity>
+        </Animated.View>
       </View>
 
       <Pressable

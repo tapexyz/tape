@@ -38,6 +38,7 @@ const Sheet: FC<PropsWithChildren & Props> = ({
     <BottomSheetModal
       index={0}
       ref={sheetRef ?? bottomSheetModalRef}
+      handleIndicatorStyle={{ backgroundColor: theme.colors.grey }}
       backgroundStyle={{
         borderRadius: 40,
         backgroundColor: theme.colors.backdrop

@@ -9,7 +9,7 @@ import {
 import type { Publication } from '@lenstube/lens'
 import { Image as ExpoImage } from 'expo-image'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
     fontFamily: 'font-normal',
     fontSize: normalizeFont(12),
     color: theme.colors.white,
-    lineHeight: 20
+    lineHeight: 20,
+    letterSpacing: 0.5
   },
   timestamp: {
     fontFamily: 'font-normal',
@@ -33,16 +34,25 @@ const styles = StyleSheet.create({
   }
 })
 
-const Comment = ({ comment }: { comment: Publication }) => {
+const Comment = ({
+  comment,
+  numberOfLines
+}: {
+  comment: Publication
+  numberOfLines?: number
+}) => {
+  const { width } = useWindowDimensions()
+
   return (
     <View
       style={{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        padding: 20
       }}
     >
-      <View style={{ gap: 10 }}>
+      <View style={{ gap: 10, width: width * 0.8 }}>
         <View
           style={{
             display: 'flex',
@@ -55,6 +65,7 @@ const Comment = ({ comment }: { comment: Publication }) => {
             source={{
               uri: imageCdn(getProfilePicture(comment.profile), 'AVATAR')
             }}
+            transition={300}
             contentFit="cover"
             style={{ width: 15, height: 15, borderRadius: 3 }}
           />
@@ -68,7 +79,9 @@ const Comment = ({ comment }: { comment: Publication }) => {
             {getShortHandTime(comment.createdAt)}
           </Text>
         </View>
-        <Text style={styles.comment}>{trimify(comment.metadata.content)}</Text>
+        <Text numberOfLines={numberOfLines} style={styles.comment}>
+          {trimify(comment.metadata.content)}
+        </Text>
       </View>
       <View>
         <Ionicons name="heart-outline" color={theme.colors.white} size={20} />

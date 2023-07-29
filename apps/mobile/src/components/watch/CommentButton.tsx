@@ -33,6 +33,7 @@ const CommentButton = () => {
         source={{
           uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/speech-bubble.png`)
         }}
+        transition={300}
         style={styles.icon}
       />
       <Text style={styles.text}>Got something to say? Comment it up!</Text>

@@ -10,9 +10,10 @@
     "userInterfaceStyle": "light",
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "jsEngine": "hermes",
-      "bundleIdentifier": "xyz.pripe.mobile"
+      "bundleIdentifier": "xyz.pripe.mobile",
+      "associatedDomains": ["applinks:pripe.xyz"]
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +26,18 @@
       "eas": {
         "projectId": "d2c982ca-1bba-4592-bea3-c4cb6516d91f"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#000",
+          "sounds": [
+            "./assets/notification.wav"
+          ]
+        }
+      ]
+    ]
   }
 }

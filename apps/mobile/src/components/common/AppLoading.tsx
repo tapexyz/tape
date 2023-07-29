@@ -7,7 +7,12 @@ import Animated, { FadeInUp, FadeOutUp } from 'react-native-reanimated'
 
 import { theme } from '~/helpers/theme'
 
-import { useCachedResources, useEffect, usePlatform } from '../../hooks'
+import {
+  useAuth,
+  useCachedResources,
+  useEffect,
+  usePlatform
+} from '../../hooks'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -78,15 +83,16 @@ const Splash = () => {
 }
 
 export const AppLoading: FC<PropsWithChildren> = ({ children }) => {
-  const isLoadingComplete = useCachedResources()
+  const isCached = useCachedResources()
+  const isAuthValidated = useAuth()
 
   useEffect(() => {
-    if (isLoadingComplete !== null) {
+    if (isCached && isAuthValidated) {
       SplashScreen.hideAsync()
     }
-  }, [isLoadingComplete])
+  }, [isCached, isAuthValidated])
 
-  if (!isLoadingComplete) {
+  if (!isCached || !isAuthValidated) {
     return <Splash />
   }
 

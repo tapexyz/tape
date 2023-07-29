@@ -1,5 +1,4 @@
 import {
-  getProfilePicture,
   getShortHandTime,
   getThumbnailUrl,
   imageCdn,
@@ -28,7 +27,7 @@ const styles = StyleSheet.create({
   title: {
     color: theme.colors.white,
     fontFamily: 'font-bold',
-    fontSize: normalizeFont(13),
+    fontSize: normalizeFont(14),
     letterSpacing: 0.5
   },
   description: {
@@ -88,11 +87,6 @@ const Item: FC<Props> = ({ audio }) => {
           {trimify(audio.metadata.name ?? '')}
         </Text>
         <View style={styles.otherInfoContainer}>
-          <ExpoImage
-            source={{ uri: imageCdn(getProfilePicture(audio.profile)) }}
-            contentFit="cover"
-            style={{ width: 15, height: 15, borderRadius: 3 }}
-          />
           <Text style={styles.otherInfo}>
             {trimLensHandle(audio.profile.handle)}
           </Text>
@@ -110,7 +104,7 @@ const Item: FC<Props> = ({ audio }) => {
       </View>
       <View
         style={{
-          paddingTop: 30,
+          paddingTop: 20,
           alignItems: 'center',
           justifyContent: 'center'
         }}
@@ -121,8 +115,9 @@ const Item: FC<Props> = ({ audio }) => {
         >
           <ExpoImage
             source={{
-              uri: imageCdn(getThumbnailUrl(audio))
+              uri: imageCdn(getThumbnailUrl(audio), 'SQUARE')
             }}
+            transition={300}
             contentFit="cover"
             style={[styles.poster, { height: width * 0.6 }]}
           />

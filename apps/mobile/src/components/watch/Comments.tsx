@@ -26,8 +26,6 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    marginVertical: 15,
-    marginHorizontal: 5,
     borderRadius: 15,
     backgroundColor: theme.colors.backdrop,
     gap: 10,
@@ -84,13 +82,12 @@ const Comments: FC<Props> = ({ id }) => {
           <Pressable
             style={{
               flex: 1,
-              justifyContent: 'center',
-              padding: 15
+              justifyContent: 'center'
             }}
             onPress={() => commentsSheetRef.current?.present()}
           >
             {comments?.length ? (
-              <Comment comment={comments[0]} />
+              <Comment comment={comments[0]} numberOfLines={1} />
             ) : (
               <CommentButton />
             )}
@@ -102,7 +99,6 @@ const Comments: FC<Props> = ({ id }) => {
         <View
           style={{
             flex: 1,
-            padding: 20,
             height: Dimensions.get('screen').height / 2
           }}
         >
@@ -114,7 +110,6 @@ const Comments: FC<Props> = ({ id }) => {
                 loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
               }
               keyExtractor={(item, i) => `${item.id}_${i}`}
-              ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
               onEndReachedThreshold={0.8}
               onEndReached={() => fetchMoreVideos()}
               showsVerticalScrollIndicator={false}

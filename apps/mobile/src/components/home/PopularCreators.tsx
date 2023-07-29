@@ -5,7 +5,7 @@ import { useAllProfilesQuery } from '@lenstube/lens'
 import { Image as ExpoImage } from 'expo-image'
 import React, { useMemo } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import * as Animatable from 'react-native-animatable'
+import Animated, { FadeInRight } from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -59,22 +59,9 @@ const PopularCreators = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Trending on Lensverse</Text>
+      <Text style={styles.title}>Creators on Lensverse</Text>
       <Text style={styles.subheading}>Discover, Connect, and Collect</Text>
-      <Animatable.View
-        useNativeDriver
-        animation={{
-          0: {
-            opacity: 0,
-            translateX: 50
-          },
-          1: {
-            opacity: 1,
-            translateX: 0
-          }
-        }}
-        delay={300}
-      >
+      <Animated.View entering={FadeInRight.duration(500)}>
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -92,12 +79,13 @@ const PopularCreators = () => {
                 source={{
                   uri: imageCdn(getProfilePicture(p), 'SQUARE')
                 }}
+                transition={300}
                 style={styles.image}
               />
             </AnimatedPressable>
           ))}
         </ScrollView>
-      </Animatable.View>
+      </Animated.View>
     </View>
   )
 }

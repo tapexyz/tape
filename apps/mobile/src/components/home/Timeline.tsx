@@ -8,7 +8,7 @@ import {
 } from '@lenstube/lens'
 import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useMemo, useRef } from 'react'
 import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
 
 import AudioCard from '../common/AudioCard'
@@ -42,7 +42,7 @@ const Timeline = () => {
       mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
     }
   }
-  const { data, fetchMore } = useExploreQuery({
+  const { data, fetchMore, loading } = useExploreQuery({
     variables: { request }
   })
 
@@ -70,24 +70,28 @@ const Timeline = () => {
     []
   )
 
-  if (!publications?.length) {
-    return null
+  const HeaderComponent = useMemo(
+    () => (
+      <>
+        <ByteCards />
+        <FirstSteps />
+        <PopularCreators />
+        <Streak />
+        <TimelineFilters />
+      </>
+    ),
+    []
+  )
+
+  if (loading || !publications?.length) {
+    return <ActivityIndicator style={{ flex: 1 }} />
   }
 
   return (
     <View style={styles.container}>
       <FlashList
         ref={scrollRef}
-        ListHeaderComponent={() => (
-          <>
-            <ByteCards />
-            <FirstSteps />
-            <PopularCreators />
-            <Streak />
-            {/* <PopularVideos /> */}
-            <TimelineFilters />
-          </>
-        )}
+        ListHeaderComponent={HeaderComponent}
         data={publications}
         estimatedItemSize={publications.length}
         renderItem={renderItem}
