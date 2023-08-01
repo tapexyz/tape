@@ -1,11 +1,9 @@
 import {
-  getProfilePicture,
   getRelativeTime,
   getThumbnailUrl,
   getValueFromTraitType,
   imageCdn,
-  trimify,
-  trimLensHandle
+  trimify
 } from '@lenstube/generic'
 import type { Attribute, Publication } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
@@ -24,6 +22,7 @@ import { SharedElement } from 'react-navigation-shared-element'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
+import UserProfile from './UserProfile'
 import WaveForm from './WaveForm'
 
 type Props = {
@@ -119,15 +118,7 @@ const AudioCard: FC<Props> = ({ audio }) => {
             </Text>
           )}
           <View style={styles.otherInfoContainer}>
-            <ExpoImage
-              source={{ uri: imageCdn(getProfilePicture(audio.profile)) }}
-              contentFit="cover"
-              transition={300}
-              style={{ width: 15, height: 15, borderRadius: 3 }}
-            />
-            <Text style={styles.otherInfo}>
-              {trimLensHandle(audio.profile.handle)}
-            </Text>
+            <UserProfile profile={audio.profile} size={15} radius={3} />
             <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
               {'\u2B24'}
             </Text>

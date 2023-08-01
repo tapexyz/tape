@@ -5,7 +5,7 @@ import type { AVPlaybackStatus } from 'expo-av'
 import { Audio } from 'expo-av'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import WaveForm from '~/components/common/WaveForm'
 import AnimatedPressable from '~/components/ui/AnimatedPressable'
@@ -87,24 +87,22 @@ const Player: FC<Props> = ({ audio }) => {
   return (
     <>
       <WaveForm />
-      <View style={{ paddingVertical: 25 }}>
-        <AnimatedPressable
-          onPress={() => {
-            haptic()
-            handlePlay()
-          }}
-          style={styles.icon}
-        >
-          <Ionicons
-            name={
-              playbackObj?.isLoaded && playbackObj.isPlaying ? 'pause' : 'play'
-            }
-            color={theme.colors.black}
-            size={30}
-            style={{ paddingLeft: 4 }}
-          />
-        </AnimatedPressable>
-      </View>
+      <AnimatedPressable
+        onPress={() => {
+          haptic()
+          handlePlay()
+        }}
+        style={styles.icon}
+      >
+        <Ionicons
+          name={
+            playbackObj?.isLoaded && playbackObj.isPlaying ? 'pause' : 'play'
+          }
+          color={theme.colors.black}
+          size={30}
+          style={{ paddingLeft: 4 }}
+        />
+      </AnimatedPressable>
     </>
   )
 }

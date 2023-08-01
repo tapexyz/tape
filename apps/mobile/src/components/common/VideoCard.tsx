@@ -1,11 +1,9 @@
 import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import {
-  getProfilePicture,
   getRelativeTime,
   getThumbnailUrl,
   imageCdn,
-  trimify,
-  trimLensHandle
+  trimify
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
@@ -24,6 +22,8 @@ import { SharedElement } from 'react-navigation-shared-element'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
+
+import UserProfile from './UserProfile'
 
 type Props = {
   video: Publication
@@ -104,15 +104,7 @@ const VideoCard: FC<Props> = ({ video }) => {
               </Text>
             )}
             <View style={styles.otherInfoContainer}>
-              <ExpoImage
-                source={{ uri: imageCdn(getProfilePicture(video.profile)) }}
-                transition={300}
-                contentFit="cover"
-                style={{ width: 15, height: 15, borderRadius: 3 }}
-              />
-              <Text style={styles.otherInfo}>
-                {trimLensHandle(video.profile.handle)}
-              </Text>
+              <UserProfile profile={video.profile} size={15} radius={3} />
               <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
                 {'\u2B24'}
               </Text>

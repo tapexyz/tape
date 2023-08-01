@@ -41,11 +41,17 @@ const Sheet: FC<PropsWithChildren & Props> = ({
       handleIndicatorStyle={{ backgroundColor: theme.colors.grey }}
       backgroundStyle={{
         borderRadius: 40,
-        backgroundColor: theme.colors.backdrop
+        backgroundColor: theme.colors.backdrop,
+        borderColor: theme.colors.grey,
+        borderWidth: 0.3
       }}
-      style={{ marginHorizontal: marginX ?? 10 }}
-      bottomInset={20}
+      style={{
+        marginHorizontal: marginX ?? 3,
+        overflow: 'hidden',
+        borderRadius: 40
+      }}
       detached={true}
+      bottomInset={20}
       snapPoints={snapPoints}
       backdropComponent={renderBackdrop}
     >

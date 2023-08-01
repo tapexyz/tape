@@ -1,9 +1,4 @@
-import {
-  getProfilePicture,
-  getThumbnailUrl,
-  imageCdn,
-  trimLensHandle
-} from '@lenstube/generic'
+import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
 import { Image as ExpoImage } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import * as React from 'react'
@@ -28,6 +23,8 @@ import Animated, {
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
+
+import UserProfile from '../common/UserProfile'
 
 const styles = StyleSheet.create({
   container: {
@@ -111,17 +108,7 @@ const Item = ({ item, activeIndex, index, onPress }: any) => {
           colors={['transparent', '#00000080', '#00000090']}
           style={styles.gradient}
         >
-          <ExpoImage
-            source={{
-              uri: imageCdn(getProfilePicture(item.profile), 'AVATAR')
-            }}
-            contentFit="cover"
-            transition={300}
-            style={{ width: 15, height: 15, borderRadius: 3 }}
-          />
-          <Text style={styles.otherInfo}>
-            {trimLensHandle(item.profile.handle)}
-          </Text>
+          <UserProfile profile={item.profile} size={15} radius={3} />
           <Text style={{ color: theme.colors.white, fontSize: 3 }}>
             {'\u2B24'}
           </Text>

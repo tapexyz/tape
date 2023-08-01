@@ -1,11 +1,5 @@
 import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import {
-  getProfilePicture,
-  getThumbnailUrl,
-  imageCdn,
-  trimify,
-  trimLensHandle
-} from '@lenstube/generic'
+import { getThumbnailUrl, imageCdn, trimify } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
@@ -24,6 +18,7 @@ import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
 
+import UserProfile from '../common/UserProfile'
 import HCarousel from '../ui/HCarousel'
 
 const CAROUSEL_HEIGHT = 210
@@ -143,29 +138,11 @@ const PopularVideos = () => {
                       <Text numberOfLines={1} style={styles.title}>
                         {trimify(item.metadata.name ?? '')}
                       </Text>
-                      <View
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          gap: 5
-                        }}
-                      >
-                        <ExpoImage
-                          source={{
-                            uri: imageCdn(
-                              getProfilePicture(item.profile),
-                              'AVATAR'
-                            )
-                          }}
-                          transition={300}
-                          contentFit="cover"
-                          style={{ width: 15, height: 15, borderRadius: 3 }}
-                        />
-                        <Text style={styles.otherInfo}>
-                          {trimLensHandle(item.profile.handle)}
-                        </Text>
-                      </View>
+                      <UserProfile
+                        profile={item.profile}
+                        size={15}
+                        radius={3}
+                      />
                     </LinearGradient>
                     <ExpoImage
                       source={{

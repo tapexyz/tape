@@ -7,7 +7,7 @@ type ExploreFilter = {
   category: string | null
 }
 
-interface AuthPerisistState {
+interface AuthState {
   userSigNonce: number
   setUserSigNonce: (userSigNonce: number) => void
   homeGradientColor: string
@@ -20,7 +20,7 @@ interface AuthPerisistState {
   setSelectedExploreFilter: (filter: ExploreFilter) => void
 }
 
-const useMobileStore = create<AuthPerisistState>((set) => ({
+const useMobileStore = create<AuthState>((set) => ({
   homeGradientColor: '#000000',
   setHomeGradientColor: (homeGradientColor) => set({ homeGradientColor }),
   channels: [],

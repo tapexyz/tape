@@ -12,7 +12,7 @@ import useMobileStore from '~/store'
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 15,
+    marginVertical: 20,
     marginHorizontal: 5
   },
   filter: {

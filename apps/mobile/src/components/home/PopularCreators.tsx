@@ -1,5 +1,5 @@
 import { VERIFIED_CHANNELS } from '@lenstube/constants'
-import { getProfilePicture, imageCdn, shuffleArray } from '@lenstube/generic'
+import { getProfilePicture, shuffleArray } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesQuery } from '@lenstube/lens'
 import { Image as ExpoImage } from 'expo-image'
@@ -77,7 +77,7 @@ const PopularCreators = () => {
             >
               <ExpoImage
                 source={{
-                  uri: imageCdn(getProfilePicture(p), 'SQUARE')
+                  uri: getProfilePicture(p)
                 }}
                 transition={300}
                 style={styles.image}

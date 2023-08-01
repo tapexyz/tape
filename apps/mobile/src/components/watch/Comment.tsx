@@ -1,18 +1,13 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import {
-  getProfilePicture,
-  getShortHandTime,
-  imageCdn,
-  trimify,
-  trimLensHandle
-} from '@lenstube/generic'
+import { getShortHandTime, trimify } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
-import { Image as ExpoImage } from 'expo-image'
 import React from 'react'
 import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
+
+import UserProfile from '../common/UserProfile'
 
 const styles = StyleSheet.create({
   handle: {
@@ -61,17 +56,7 @@ const Comment = ({
             gap: 5
           }}
         >
-          <ExpoImage
-            source={{
-              uri: imageCdn(getProfilePicture(comment.profile), 'AVATAR')
-            }}
-            transition={300}
-            contentFit="cover"
-            style={{ width: 15, height: 15, borderRadius: 3 }}
-          />
-          <Text style={styles.handle}>
-            {trimLensHandle(comment.profile.handle)}
-          </Text>
+          <UserProfile profile={comment.profile} size={15} radius={3} />
           <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
             {'\u2B24'}
           </Text>

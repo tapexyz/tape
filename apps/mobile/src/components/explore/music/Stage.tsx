@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    paddingTop: 10
   }
 })
 
@@ -110,7 +111,12 @@ const Stage = () => {
       contentFit="cover"
       imageStyle={{ opacity: 0.3 }}
     >
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          paddingBottom: 20
+        }}
+      >
         <Animated.View
           entering={SlideInLeft.duration(400)}
           style={{ alignSelf: 'baseline' }}
@@ -151,11 +157,12 @@ const Stage = () => {
           entering={FadeInDown.delay(400)}
           style={{
             alignItems: 'center',
-            paddingHorizontal: 5
+            paddingHorizontal: 5,
+            gap: 30
           }}
         >
-          <Player audio={audios[activeAudioIndex]} />
           <Comments id={audios[activeAudioIndex].id} />
+          <Player audio={audios[activeAudioIndex]} />
         </Animated.View>
       </SafeAreaView>
     </ImageBackground>

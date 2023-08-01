@@ -10,7 +10,6 @@ export const useAuth = (): boolean => {
 
   const { accessToken } = hydrateAuthTokens()
 
-  const setChannels = useMobileStore((state) => state.setChannels)
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
   const setUserSigNonce = useMobileStore((state) => state.setUserSigNonce)
   const setSelectedChannelId = useMobilePersistStore(
@@ -19,13 +18,6 @@ export const useAuth = (): boolean => {
   const selectedChannelId = useMobilePersistStore(
     (state) => state.selectedChannelId
   )
-
-  const setUserChannels = (channels: Profile[]) => {
-    setChannels(channels)
-    const channel = channels.find((ch) => ch.id === selectedChannelId)
-    setSelectedChannel(channel ?? channels[0])
-    setSelectedChannelId(channel?.id)
-  }
 
   const resetAuthState = () => {
     setSelectedChannel(null)
@@ -50,7 +42,6 @@ export const useAuth = (): boolean => {
       if (!channels.length) {
         return resetAuthState()
       }
-      setUserChannels(channels)
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
       setIsValidated(true)
     },

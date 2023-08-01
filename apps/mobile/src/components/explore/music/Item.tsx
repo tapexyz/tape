@@ -2,8 +2,7 @@ import {
   getShortHandTime,
   getThumbnailUrl,
   imageCdn,
-  trimify,
-  trimLensHandle
+  trimify
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { Image as ExpoImage } from 'expo-image'
@@ -12,6 +11,7 @@ import React from 'react'
 import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import { SharedElement } from 'react-navigation-shared-element'
 
+import UserProfile from '~/components/common/UserProfile'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
@@ -87,9 +87,7 @@ const Item: FC<Props> = ({ audio }) => {
           {trimify(audio.metadata.name ?? '')}
         </Text>
         <View style={styles.otherInfoContainer}>
-          <Text style={styles.otherInfo}>
-            {trimLensHandle(audio.profile.handle)}
-          </Text>
+          <UserProfile profile={audio.profile} size={15} radius={3} />
           <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
             {'\u2B24'}
           </Text>

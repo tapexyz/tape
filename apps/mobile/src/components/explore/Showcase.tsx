@@ -17,7 +17,7 @@ const BORDER_RADIUS = 30
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
+    marginTop: 10,
     gap: 10
   },
   grid: {
@@ -30,8 +30,7 @@ const styles = StyleSheet.create({
     borderRadius: BORDER_RADIUS,
     height: 200,
     aspectRatio: 1 / 1,
-    overflow: 'hidden',
-    backgroundColor: theme.colors.backdrop
+    overflow: 'hidden'
   },
   card: {
     flex: 1,

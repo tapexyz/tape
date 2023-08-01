@@ -1,9 +1,10 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
+import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import type { HeaderTitleProps } from '@react-navigation/elements'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import type { FC } from 'react'
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useRef } from 'react'
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -11,8 +12,11 @@ import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
 import { signOut } from '~/store/persist'
 
+import Switch from '../profile/Switch'
 import AnimatedPressable from '../ui/AnimatedPressable'
+import Sheet from '../ui/Sheet'
 import SignIn from './auth/SignIn'
+import UserProfile from './UserProfile'
 
 const styles = StyleSheet.create({
   container: {
@@ -39,6 +43,9 @@ const styles = StyleSheet.create({
 
 const Header: FC<HeaderTitleProps> = () => {
   const { provider } = useWalletConnectModal()
+  const { height } = useWindowDimensions()
+  const profileSheetRef = useRef<BottomSheetModal>(null)
+
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
 
@@ -76,7 +83,22 @@ const Header: FC<HeaderTitleProps> = () => {
           </>
         )}
 
-        <SignIn />
+        {selectedChannel ? (
+          <>
+            <UserProfile
+              profile={selectedChannel}
+              showHandle={false}
+              onPress={() => profileSheetRef.current?.present()}
+            />
+            <Sheet sheetRef={profileSheetRef} snap={['80%']}>
+              <View style={{ height, paddingHorizontal: 10 }}>
+                <Switch />
+              </View>
+            </Sheet>
+          </>
+        ) : (
+          <SignIn />
+        )}
       </View>
     </View>
   )
