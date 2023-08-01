@@ -2,9 +2,10 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import type { HeaderTitleProps } from '@react-navigation/elements'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
+import Constants from 'expo-constants'
 import type { FC } from 'react'
 import React, { useRef } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -17,6 +18,7 @@ import MenuItem from '../profile/MenuItem'
 import Switch from '../profile/Switch'
 import AnimatedPressable from '../ui/AnimatedPressable'
 import Sheet from '../ui/Sheet'
+import AppInfo from './AppInfo'
 import SignIn from './auth/SignIn'
 import UserProfile from './UserProfile'
 
@@ -49,6 +51,7 @@ const Header: FC<HeaderTitleProps> = () => {
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
+  const version = Constants.expoConfig?.version
 
   const logout = () => {
     signOut()
@@ -82,8 +85,8 @@ const Header: FC<HeaderTitleProps> = () => {
               showHandle={false}
               onPress={() => profileSheetRef.current?.present()}
             />
-            <Sheet sheetRef={profileSheetRef} snap={['50%']}>
-              <View style={{ paddingHorizontal: 10 }}>
+            <Sheet sheetRef={profileSheetRef} snap={['60%']}>
+              <ScrollView style={{ paddingHorizontal: 10 }}>
                 <Switch />
                 <View style={{ marginTop: 20, gap: 20 }}>
                   <Menu>
@@ -104,7 +107,8 @@ const Header: FC<HeaderTitleProps> = () => {
                     />
                   </Menu>
                 </View>
-              </View>
+              </ScrollView>
+              <AppInfo />
             </Sheet>
           </>
         ) : (
