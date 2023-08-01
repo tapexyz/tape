@@ -1,17 +1,17 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import type { HeaderTitleProps } from '@react-navigation/elements'
-import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import type { FC } from 'react'
 import React, { useRef } from 'react'
-import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
-import { signOut } from '~/store/persist'
 
+import Menu from '../profile/Menu'
+import MenuItem from '../profile/MenuItem'
 import Switch from '../profile/Switch'
 import AnimatedPressable from '../ui/AnimatedPressable'
 import Sheet from '../ui/Sheet'
@@ -42,45 +42,26 @@ const styles = StyleSheet.create({
 })
 
 const Header: FC<HeaderTitleProps> = () => {
-  const { provider } = useWalletConnectModal()
-  const { height } = useWindowDimensions()
   const profileSheetRef = useRef<BottomSheetModal>(null)
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
-  const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
 
   return (
     <View style={styles.container}>
       <Text style={styles.forYouText}>gm</Text>
       <View style={styles.rightView}>
         {selectedChannel && (
-          <>
-            <AnimatedPressable
-              onPress={() => {
-                haptic()
-              }}
-            >
-              <Ionicons
-                name="create-outline"
-                color={theme.colors.white}
-                size={20}
-              />
-            </AnimatedPressable>
-            <AnimatedPressable
-              onPress={() => {
-                haptic()
-                signOut()
-                provider?.disconnect()
-                setSelectedChannel(null)
-              }}
-            >
-              <Ionicons
-                name="notifications-outline"
-                color={theme.colors.white}
-                size={20}
-              />
-            </AnimatedPressable>
-          </>
+          <AnimatedPressable
+            onPress={() => {
+              haptic()
+            }}
+          >
+            <Ionicons
+              name="create-outline"
+              color={theme.colors.white}
+              size={20}
+            />
+          </AnimatedPressable>
         )}
 
         {selectedChannel ? (
@@ -90,9 +71,24 @@ const Header: FC<HeaderTitleProps> = () => {
               showHandle={false}
               onPress={() => profileSheetRef.current?.present()}
             />
-            <Sheet sheetRef={profileSheetRef} snap={['80%']}>
-              <View style={{ height, paddingHorizontal: 10 }}>
+            <Sheet sheetRef={profileSheetRef} snap={['50%']}>
+              <View style={{ paddingHorizontal: 10 }}>
                 <Switch />
+                <View style={{ marginTop: 20, gap: 20 }}>
+                  <Menu>
+                    <MenuItem icon="person-outline" title="My Profile" />
+                    <MenuItem
+                      icon="notifications-outline"
+                      title="Notifications"
+                    />
+                    <MenuItem icon="pie-chart-outline" title="Creator Studio" />
+                    <MenuItem icon="bookmark-outline" title="Bookmarks" />
+                    <MenuItem icon="cog-outline" title="Settings" />
+                  </Menu>
+                  <Menu>
+                    <MenuItem icon="log-out-outline" title="Sign out" />
+                  </Menu>
+                </View>
               </View>
             </Sheet>
           </>

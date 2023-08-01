@@ -4,6 +4,7 @@ const commonColors = {
   secondary: '#ffffff90',
   background: '#000000',
   backdrop: '#12131A',
+  backdrop2: '#1E2028',
   border: '#000',
   card: '#fff',
   notification: '#000',

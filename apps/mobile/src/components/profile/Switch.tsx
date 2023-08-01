@@ -1,15 +1,23 @@
 import {
   formatNumber,
+  getChannelCoverPicture,
   getProfilePicture,
+  imageCdn,
+  sanitizeDStorageUrl,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesQuery } from '@lenstube/lens'
-import { AnimatedFlashList } from '@shopify/flash-list'
-import { Image as ExpoImage } from 'expo-image'
+import { Image as ExpoImage, ImageBackground } from 'expo-image'
 import React, { useCallback } from 'react'
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
-import Animated, { FadeInDown } from 'react-native-reanimated'
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native'
+import Animated, { FadeInRight } from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -18,15 +26,15 @@ import useMobileStore from '~/store'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
+const BORDER_RADIUS = 15
+
 const styles = StyleSheet.create({
   card: {
-    flex: 1,
     gap: 8,
-    margin: 5,
-    padding: 8,
-    borderRadius: 10,
+    padding: 10,
     flexDirection: 'row',
-    backgroundColor: theme.colors.black
+    alignItems: 'center',
+    borderRadius: BORDER_RADIUS
   },
   otherInfo: {
     fontFamily: 'font-medium',
@@ -46,46 +54,64 @@ const Switch = () => {
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
 
   const renderItem = useCallback(
-    ({ item, index }: { item: Profile; index: number }) => (
-      <Animated.View
-        style={{ flex: 1 }}
-        entering={FadeInDown.delay(index * 100)}
+    ({ profile }: { profile: Profile }) => (
+      <View
+        key={profile.id}
+        style={{
+          margin: 5,
+          backgroundColor: theme.colors.black,
+          borderRadius: BORDER_RADIUS,
+          display: 'flex'
+        }}
       >
-        <AnimatedPressable
-          key={item.id}
-          style={[
-            styles.card,
-            {
-              borderWidth: 2,
-              borderColor:
-                selectedChannel?.id === item.id
-                  ? theme.colors.grey
-                  : theme.colors.black
-            }
-          ]}
-          onPress={() => {
-            setSelectedChannel(item)
-            haptic()
+        <ImageBackground
+          source={{
+            uri: imageCdn(
+              sanitizeDStorageUrl(getChannelCoverPicture(profile)),
+              'THUMBNAIL'
+            )
+          }}
+          style={{
+            borderWidth: 2,
+            borderColor:
+              selectedChannel?.id === profile.id
+                ? theme.colors.white
+                : theme.colors.black,
+            borderRadius: BORDER_RADIUS
+          }}
+          blurRadius={20}
+          imageStyle={{
+            opacity: 0.3,
+            borderRadius: BORDER_RADIUS
           }}
         >
-          <ExpoImage
-            source={{
-              uri: getProfilePicture(item)
+          <AnimatedPressable
+            key={profile.id}
+            style={styles.card}
+            onPress={() => {
+              setSelectedChannel(profile)
+              haptic()
             }}
-            contentFit="cover"
-            transition={500}
-            style={{ width: 30, height: 30, borderRadius: 8 }}
-          />
-          <View>
-            <Text numberOfLines={1} style={styles.handle}>
-              {trimLensHandle(item.handle)}
-            </Text>
-            <Text style={styles.otherInfo}>
-              {formatNumber(item.stats.totalFollowers)} followers
-            </Text>
-          </View>
-        </AnimatedPressable>
-      </Animated.View>
+          >
+            <ExpoImage
+              source={{
+                uri: getProfilePicture(profile)
+              }}
+              contentFit="cover"
+              transition={500}
+              style={{ width: 30, height: 30, borderRadius: 8 }}
+            />
+            <View>
+              <Text numberOfLines={1} style={styles.handle}>
+                {trimLensHandle(profile.handle)}
+              </Text>
+              <Text style={styles.otherInfo}>
+                {formatNumber(profile.stats.totalFollowers)} followers
+              </Text>
+            </View>
+          </AnimatedPressable>
+        </ImageBackground>
+      </View>
     ),
     [selectedChannel, setSelectedChannel]
   )
@@ -102,14 +128,11 @@ const Switch = () => {
   }
 
   return (
-    <AnimatedFlashList
-      numColumns={2}
-      data={profiles}
-      renderItem={renderItem}
-      estimatedItemSize={profiles.length}
-      keyExtractor={(item, i) => `${item.id}_${i}`}
-      extraData={selectedChannel} // To handle rerender if profile changes
-    />
+    <Animated.View entering={FadeInRight.delay(200)}>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        {profiles?.map((profile) => renderItem({ profile }))}
+      </ScrollView>
+    </Animated.View>
   )
 }
 
