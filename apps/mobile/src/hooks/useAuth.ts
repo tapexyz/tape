@@ -42,6 +42,9 @@ export const useAuth = (): boolean => {
       if (!channels.length) {
         return resetAuthState()
       }
+      const channel = channels.find((ch) => ch.id === selectedChannelId)
+      setSelectedChannel(channel ?? channels[0])
+      setSelectedChannelId(channel?.id)
       setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
       setIsValidated(true)
     },
