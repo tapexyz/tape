@@ -1,6 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import type { HeaderTitleProps } from '@react-navigation/elements'
+import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import type { FC } from 'react'
 import React, { useRef } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
@@ -9,6 +10,7 @@ import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
+import { signOut } from '~/store/persist'
 
 import Menu from '../profile/Menu'
 import MenuItem from '../profile/MenuItem'
@@ -43,8 +45,17 @@ const styles = StyleSheet.create({
 
 const Header: FC<HeaderTitleProps> = () => {
   const profileSheetRef = useRef<BottomSheetModal>(null)
+  const { provider } = useWalletConnectModal()
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
+
+  const logout = () => {
+    signOut()
+    provider?.disconnect()
+    setSelectedChannel(null)
+    haptic()
+  }
 
   return (
     <View style={styles.container}>
@@ -86,7 +97,11 @@ const Header: FC<HeaderTitleProps> = () => {
                     <MenuItem icon="cog-outline" title="Settings" />
                   </Menu>
                   <Menu>
-                    <MenuItem icon="log-out-outline" title="Sign out" />
+                    <MenuItem
+                      icon="log-out-outline"
+                      title="Sign out"
+                      onPress={() => logout()}
+                    />
                   </Menu>
                 </View>
               </View>

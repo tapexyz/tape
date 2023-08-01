@@ -31,11 +31,12 @@ const styles = StyleSheet.create({
 type Props = {
   title: string
   icon: keyof typeof Ionicons.glyphMap
+  onPress?: () => void
 }
 
-const MenuItem: FC<Props> = ({ icon, title }) => {
+const MenuItem: FC<Props> = ({ icon, title, onPress }) => {
   return (
-    <AnimatedPressable style={styles.item}>
+    <AnimatedPressable style={styles.item} onPress={onPress}>
       <View style={styles.left}>
         <Ionicons
           name={icon}
