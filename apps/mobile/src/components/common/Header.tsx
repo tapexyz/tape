@@ -2,7 +2,6 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import type { HeaderTitleProps } from '@react-navigation/elements'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
-import Constants from 'expo-constants'
 import type { FC } from 'react'
 import React, { useRef } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
@@ -51,7 +50,6 @@ const Header: FC<HeaderTitleProps> = () => {
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
-  const version = Constants.expoConfig?.version
 
   const logout = () => {
     signOut()
