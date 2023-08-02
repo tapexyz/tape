@@ -7,8 +7,11 @@
     "owner": "sasicodes",
     "scheme": "pripe",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "assetBundlePatterns": ["**/*"],
+    "userInterfaceStyle": "dark",
+    "assetBundlePatterns": ["assets/**"],
+    "splash": {
+      "backgroundColor": "#000"
+    },
     "ios": {
       "supportsTablet": false,
       "jsEngine": "hermes",

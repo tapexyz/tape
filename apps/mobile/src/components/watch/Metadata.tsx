@@ -1,11 +1,5 @@
-import {
-  getProfilePicture,
-  getRelativeTime,
-  imageCdn,
-  trimLensHandle
-} from '@lenstube/generic'
+import { getRelativeTime } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
-import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
@@ -13,6 +7,8 @@ import { SharedElement } from 'react-navigation-shared-element'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
+
+import UserProfile from '../common/UserProfile'
 
 const styles = StyleSheet.create({
   title: {
@@ -64,15 +60,7 @@ const Metadata: FC<Props> = ({ video }) => {
           </Pressable>
         )}
         <View style={styles.otherInfoContainer}>
-          <ExpoImage
-            source={{ uri: imageCdn(getProfilePicture(video.profile)) }}
-            transition={300}
-            contentFit="cover"
-            style={{ width: 15, height: 15, borderRadius: 3 }}
-          />
-          <Text style={styles.otherInfo}>
-            {trimLensHandle(video.profile.handle)}
-          </Text>
+          <UserProfile profile={video.profile} size={15} radius={3} />
           <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
             {'\u2B24'}
           </Text>

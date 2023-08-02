@@ -95,7 +95,7 @@ const Comments: FC<Props> = ({ id }) => {
         </Skeleton>
       </View>
 
-      <Sheet sheetRef={commentsSheetRef} snap={['70%']} marginX={0}>
+      <Sheet sheetRef={commentsSheetRef} snap={['70%']}>
         <View
           style={{
             flex: 1,

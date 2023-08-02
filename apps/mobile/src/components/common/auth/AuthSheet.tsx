@@ -85,8 +85,8 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
         return persistSignin({ accessToken: null, refreshToken: null })
       }
       const channels = channelsData?.profiles?.items as Profile[]
-      const defaultChannel = channels.find((channel) => channel.isDefault)
       setChannels(channels)
+      const defaultChannel = channels.find((channel) => channel.isDefault)
       setSelectedChannel(defaultChannel ?? channels[0])
       setSelectedChannelId(defaultChannel?.id ?? channels[0].id)
       sheetRef.current?.close()
@@ -100,7 +100,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
   }
 
   return (
-    <Sheet sheetRef={sheetRef} marginX={0}>
+    <Sheet sheetRef={sheetRef}>
       <View
         style={{
           padding: 10,

@@ -1,10 +1,5 @@
 import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import {
-  getProfilePicture,
-  getThumbnailUrl,
-  imageCdn,
-  trimLensHandle
-} from '@lenstube/generic'
+import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import {
   CustomFiltersTypes,
@@ -19,7 +14,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { Gyroscope } from 'expo-sensors'
 import { Skeleton } from 'moti/skeleton'
 import React, { useCallback, useEffect } from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 import Animated, {
   FadeIn,
   interpolate,
@@ -30,10 +25,11 @@ import Animated, {
 } from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
-import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import { usePlatform } from '~/hooks'
 import useMobileStore from '~/store'
+
+import UserProfile from '../common/UserProfile'
 
 const BORDER_RADIUS = 20
 
@@ -58,11 +54,6 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: BORDER_RADIUS,
     backgroundColor: theme.colors.backdrop
-  },
-  otherInfo: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(10),
-    color: theme.colors.white
   },
   cardsContainer: {
     position: 'relative',
@@ -190,17 +181,7 @@ const ByteCards = () => {
           colors={['transparent', '#00000090', '#000000']}
           style={styles.gradient}
         >
-          <ExpoImage
-            source={{
-              uri: imageCdn(getProfilePicture(byte.profile), 'AVATAR')
-            }}
-            transition={300}
-            contentFit="cover"
-            style={{ width: 15, height: 15, borderRadius: 3 }}
-          />
-          <Text style={styles.otherInfo}>
-            {trimLensHandle(byte.profile.handle)}
-          </Text>
+          <UserProfile profile={byte.profile} size={15} radius={3} />
         </LinearGradient>
       </LinearGradient>
     )
