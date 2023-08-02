@@ -8,11 +8,17 @@ import {
   useExploreQuery
 } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
-import { Image as ExpoImage, ImageBackground } from 'expo-image'
+import { Image as ExpoImage } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Skeleton } from 'moti/skeleton'
 import React from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import {
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'

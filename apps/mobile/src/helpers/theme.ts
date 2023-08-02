@@ -1,4 +1,8 @@
 import type { Theme } from '@react-navigation/native'
+import { Dimensions } from 'react-native'
+
+export const { width: windowWidth, height: windowHeight } =
+  Dimensions.get('window')
 
 const commonColors = {
   secondary: '#ffffff90',

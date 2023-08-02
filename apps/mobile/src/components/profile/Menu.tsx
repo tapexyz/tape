@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 
 const Menu: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Animated.View entering={FadeInRight.delay(300)} style={styles.card}>
+    <Animated.View entering={FadeInRight.delay(200)} style={styles.card}>
       <View>{children}</View>
     </Animated.View>
   )

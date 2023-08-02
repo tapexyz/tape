@@ -1,4 +1,4 @@
-import { getRelativeTime } from '@lenstube/generic'
+import { getRelativeTime, trimNewLines } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -55,7 +55,7 @@ const Metadata: FC<Props> = ({ video }) => {
               numberOfLines={!showMore ? 2 : undefined}
               style={styles.description}
             >
-              {video.metadata.description.replace('\n', '')}
+              {trimNewLines(video.metadata.description)}
             </Text>
           </Pressable>
         )}

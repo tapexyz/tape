@@ -4,9 +4,14 @@ import React from 'react'
 import { Easing } from 'react-native'
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 
-import { CategoriesModal, TopsModal } from '~/components/common/modals'
+import {
+  CategoriesModal,
+  MusicModal,
+  ProfileModal,
+  TopsModal
+} from '~/components/common/modals'
 import { useNetWorkConnection } from '~/hooks'
-import { MusicModal, WatchScreen } from '~/screens'
+import { WatchScreen } from '~/screens'
 
 import { BottomTabNavigator } from './BottomTabNavigator'
 
@@ -75,6 +80,17 @@ export const RootNavigator: FC = () => {
         name="MusicModal"
         options={{ ...options, presentation: 'transparentModal' }}
         component={MusicModal}
+      />
+      <Screen
+        name="ProfileModal"
+        options={{ ...options, presentation: 'transparentModal' }}
+        component={ProfileModal}
+        sharedElements={(route) => {
+          const { handle } = route.params
+          if (handle) {
+            return [{ id: `profile.${handle}`, animation: 'fade' }]
+          }
+        }}
       />
     </Navigator>
   )

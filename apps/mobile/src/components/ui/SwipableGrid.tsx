@@ -2,14 +2,7 @@ import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
 import { Image as ExpoImage } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import * as React from 'react'
-import {
-  Dimensions,
-  Pressable,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native'
+import { Pressable, StatusBar, StyleSheet, Text, View } from 'react-native'
 import { PanGestureHandler } from 'react-native-gesture-handler'
 import Animated, {
   useAnimatedGestureHandler,
@@ -22,7 +15,7 @@ import Animated, {
 } from 'react-native-reanimated'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { theme, windowHeight, windowWidth } from '~/helpers/theme'
 
 import UserProfile from '../common/UserProfile'
 
@@ -60,10 +53,8 @@ const styles = StyleSheet.create({
   }
 })
 
-const { width, height } = Dimensions.get('window')
-
 const _spacing = 8
-const _itemWidth = width * 0.7
+const _itemWidth = windowWidth * 0.7
 const _itemHeight = _itemWidth * 1.67
 
 // generate an even matrix cols === rows to fit all the items
@@ -197,14 +188,14 @@ const SwipableGrid: React.FC<Props> = ({ data }) => {
     return {
       contentOffset: {
         x: withTiming(
-          x.value * _itemWidth - (width - _itemWidth) / 2,
+          x.value * _itemWidth - (windowWidth - _itemWidth) / 2,
           { duration: 300 },
           () => {
             canSwipe.value = true
           }
         ),
         y: withTiming(
-          y.value * _itemHeight - (height - _itemHeight) / 2,
+          y.value * _itemHeight - (windowHeight - _itemHeight) / 2,
           { duration: 300 },
           () => {
             canSwipe.value = true

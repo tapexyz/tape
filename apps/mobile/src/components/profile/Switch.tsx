@@ -8,10 +8,11 @@ import {
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesQuery } from '@lenstube/lens'
-import { Image as ExpoImage, ImageBackground } from 'expo-image'
+import { Image as ExpoImage } from 'expo-image'
 import React, { useCallback } from 'react'
 import {
   ActivityIndicator,
+  ImageBackground,
   ScrollView,
   StyleSheet,
   Text,

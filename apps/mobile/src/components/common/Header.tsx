@@ -1,10 +1,12 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import type { HeaderTitleProps } from '@react-navigation/elements'
+import { useNavigation } from '@react-navigation/native'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import type { FC } from 'react'
 import React, { useRef } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { SharedElement } from 'react-navigation-shared-element'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -28,7 +30,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: 5
+    paddingBottom: 10
   },
   rightView: {
     display: 'flex',
@@ -40,13 +42,14 @@ const styles = StyleSheet.create({
     color: theme.colors.white,
     fontFamily: 'font-bold',
     fontWeight: '500',
-    fontSize: normalizeFont(18)
+    fontSize: normalizeFont(22)
   }
 })
 
 const Header: FC<HeaderTitleProps> = () => {
   const profileSheetRef = useRef<BottomSheetModal>(null)
   const { provider } = useWalletConnectModal()
+  const { navigate } = useNavigation()
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
@@ -78,17 +81,30 @@ const Header: FC<HeaderTitleProps> = () => {
 
         {selectedChannel ? (
           <>
-            <UserProfile
-              profile={selectedChannel}
-              showHandle={false}
-              onPress={() => profileSheetRef.current?.present()}
-            />
+            <SharedElement id={`profile.${selectedChannel.handle}`}>
+              <UserProfile
+                profile={selectedChannel}
+                showHandle={false}
+                size={32}
+                radius={10}
+                onPress={() => profileSheetRef.current?.present()}
+              />
+            </SharedElement>
             <Sheet sheetRef={profileSheetRef} snap={['60%']}>
               <ScrollView style={{ paddingHorizontal: 10 }}>
                 <Switch />
                 <View style={{ marginTop: 20, gap: 20 }}>
                   <Menu>
-                    <MenuItem icon="person-outline" title="My Profile" />
+                    <MenuItem
+                      icon="person-outline"
+                      title="My Profile"
+                      onPress={() => {
+                        profileSheetRef.current?.close()
+                        navigate('ProfileModal', {
+                          handle: selectedChannel.handle
+                        })
+                      }}
+                    />
                     <MenuItem
                       icon="notifications-outline"
                       title="Notifications"

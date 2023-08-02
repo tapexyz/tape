@@ -3,7 +3,8 @@ import {
   getRelativeTime,
   getThumbnailUrl,
   imageCdn,
-  trimify
+  trimify,
+  trimNewLines
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
@@ -100,7 +101,7 @@ const VideoCard: FC<Props> = ({ video }) => {
             </Text>
             {video.metadata.description && (
               <Text numberOfLines={3} style={styles.description}>
-                {video.metadata.description.replace('\n', '')}
+                {trimNewLines(video.metadata.description)}
               </Text>
             )}
             <View style={styles.otherInfoContainer}>

@@ -39,6 +39,7 @@ export const linking: LinkingOptions<RootStackParamList> = {
       },
       Settings: 'settings',
       WatchVideo: '/watch/:id',
+      ProfileModal: '/p/:id',
       NotFound: '*'
     }
   }

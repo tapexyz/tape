@@ -10,10 +10,9 @@ import {
 } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
-import { ImageBackground } from 'expo-image'
 import React, { useCallback, useState } from 'react'
 import type { ViewToken } from 'react-native'
-import { ActivityIndicator, StyleSheet } from 'react-native'
+import { ActivityIndicator, ImageBackground, StyleSheet } from 'react-native'
 import Animated, {
   FadeIn,
   FadeInDown,
@@ -108,7 +107,7 @@ const Stage = () => {
       source={{ uri: imageCdn(getThumbnailUrl(audios[activeAudioIndex])) }}
       blurRadius={50}
       style={{ flex: 1 }}
-      contentFit="cover"
+      resizeMode="cover"
       imageStyle={{ opacity: 0.3 }}
     >
       <SafeAreaView

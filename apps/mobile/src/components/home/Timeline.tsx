@@ -9,7 +9,9 @@ import {
 import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import React, { useCallback, useMemo, useRef } from 'react'
-import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, View } from 'react-native'
+
+import { windowHeight } from '~/helpers/theme'
 
 import AudioCard from '../common/AudioCard'
 import VideoCard from '../common/VideoCard'
@@ -23,7 +25,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 5,
     flex: 1,
-    height: Dimensions.get('screen').height
+    height: windowHeight
   }
 })
 

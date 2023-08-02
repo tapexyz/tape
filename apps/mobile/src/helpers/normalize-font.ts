@@ -1,9 +1,9 @@
-import { Dimensions, PixelRatio, Platform } from 'react-native'
+import { PixelRatio, Platform } from 'react-native'
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window')
+import { windowWidth } from './theme'
 
 // based on iphone 5s's scale
-const scale = SCREEN_WIDTH / 320
+const scale = windowWidth / 320
 
 const normalizeFont = (size: number) => {
   const newSize = size * scale
