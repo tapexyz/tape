@@ -8,7 +8,7 @@
     "scheme": "pripe",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": ["assets/**"],
     "ios": {
       "supportsTablet": false,
       "jsEngine": "hermes",
