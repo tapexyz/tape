@@ -9,6 +9,9 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "assetBundlePatterns": ["assets/**"],
+    "splash": {
+      "backgroundColor": "#000"
+    },
     "ios": {
       "supportsTablet": false,
       "jsEngine": "hermes",
