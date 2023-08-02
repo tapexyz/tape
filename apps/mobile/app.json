@@ -7,7 +7,7 @@
     "owner": "sasicodes",
     "scheme": "pripe",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "assetBundlePatterns": ["assets/**"],
     "ios": {
       "supportsTablet": false,
