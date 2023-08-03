@@ -17,7 +17,7 @@ import { theme } from '~/helpers/theme'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: 30,
+    marginVertical: 20,
     marginHorizontal: 5
   },
   filter: {
@@ -52,7 +52,7 @@ const icons = [
   'shapes-outline'
 ] as (keyof typeof Ionicons.glyphMap)[]
 
-const FeedFilters: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
+const Tabs: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
   const scrollViewRef = useRef<ScrollView>(null)
   const { width } = useWindowDimensions()
 
@@ -115,4 +115,4 @@ const FeedFilters: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
   )
 }
 
-export default FeedFilters
+export default Tabs

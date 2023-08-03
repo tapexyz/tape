@@ -4,8 +4,8 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { ActivityIndicator, View } from 'react-native'
 
-import Feed from '~/components/profile/Feed'
 import Info from '~/components/profile/Info'
+import Feed from '~/components/profile/TabContent'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
 
