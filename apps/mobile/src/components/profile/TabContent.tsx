@@ -24,6 +24,8 @@ const TabContent: FC<Props> = ({ profile }) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0)
   const flatListRef = useRef<FlatList<string>>(null)
 
+  const offset = useRef(new Animated.Value(0)).current
+
   const onViewableItemsChanged = useCallback(
     ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
       let viewableItem = viewableItems[0]
