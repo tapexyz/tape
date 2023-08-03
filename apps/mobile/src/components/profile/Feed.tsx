@@ -7,7 +7,8 @@ import {
   useProfilePostsQuery
 } from '@lenstube/lens'
 import type { FC } from 'react'
-import React, { useCallback } from 'react'
+import React, { memo, useCallback } from 'react'
+import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import {
   ActivityIndicator,
   StyleSheet,
@@ -21,6 +22,7 @@ import VideoCard from '../common/VideoCard'
 
 type Props = {
   profile: Profile
+  scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void
 }
 
 const styles = StyleSheet.create({
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const Feed: FC<Props> = ({ profile }) => {
+const Feed: FC<Props> = ({ profile, scrollHandler }) => {
   const { height } = useWindowDimensions()
 
   const request = {
@@ -78,7 +80,6 @@ const Feed: FC<Props> = ({ profile }) => {
     <View style={[styles.container, { height }]}>
       <Animated.FlatList
         data={publications}
-        // estimatedItemSize={publications?.length ?? 50}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
         ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
@@ -88,9 +89,11 @@ const Feed: FC<Props> = ({ profile }) => {
         onEndReached={fetchMorePublications}
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
+        onScroll={scrollHandler}
+        scrollEventThrottle={16}
       />
     </View>
   )
 }
 
-export default Feed
+export default memo(Feed)

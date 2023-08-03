@@ -9,7 +9,7 @@ import {
 import type { Profile } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import {
   ImageBackground,
   Pressable,
@@ -18,8 +18,14 @@ import {
   useWindowDimensions,
   View
 } from 'react-native'
-import Animated, { FadeInRight } from 'react-native-reanimated'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import type { SharedValue } from 'react-native-reanimated'
+import Animated, {
+  Extrapolate,
+  FadeInRight,
+  interpolate,
+  useAnimatedStyle
+} from 'react-native-reanimated'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { SharedElement } from 'react-navigation-shared-element'
 
 import normalizeFont from '~/helpers/normalize-font'
@@ -31,6 +37,7 @@ import Ticker from '../ui/Ticker'
 
 type Props = {
   profile: Profile
+  contentScrollY: SharedValue<number>
 }
 
 const styles = StyleSheet.create({
@@ -78,17 +85,39 @@ const styles = StyleSheet.create({
   }
 })
 
-const Info: FC<Props> = ({ profile }) => {
-  const { height } = useWindowDimensions()
+const Info: FC<Props> = ({ profile, contentScrollY }) => {
   const { goBack } = useNavigation()
+  const { height } = useWindowDimensions()
+  const insets = useSafeAreaInsets()
 
   const [showMoreBio, setShowMoreBio] = useState(false)
+
+  const animatedStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      contentScrollY.value,
+      [0, height / 3], // increase 2nd item (ie height/2) to reduce speed
+      [1, 0],
+      Extrapolate.CLAMP
+    )
+
+    const boxHeight = interpolate(
+      contentScrollY.value,
+      [0, height / 2],
+      [300 + insets.top, insets.bottom],
+      Extrapolate.CLAMP
+    )
+
+    return {
+      opacity,
+      height: boxHeight
+    }
+  })
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const isOwned = selectedChannel?.id === profile.id
 
   return (
-    <View>
+    <Animated.View style={animatedStyle}>
       <ImageBackground
         source={{
           uri: imageCdn(
@@ -176,8 +205,8 @@ const Info: FC<Props> = ({ profile }) => {
           </Text>
         </Pressable>
       </View>
-    </View>
+    </Animated.View>
   )
 }
 
-export default Info
+export default memo(Info)

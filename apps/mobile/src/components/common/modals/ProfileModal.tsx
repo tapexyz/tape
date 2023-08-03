@@ -3,6 +3,10 @@ import { useProfileQuery } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { ActivityIndicator, View } from 'react-native'
+import {
+  useAnimatedScrollHandler,
+  useSharedValue
+} from 'react-native-reanimated'
 
 import Info from '~/components/profile/Info'
 import TabContent from '~/components/profile/TabContent'
@@ -12,6 +16,15 @@ import useMobileStore from '~/store'
 export const ProfileModal = (props: ProfileModalProps): JSX.Element | null => {
   const { handle } = props.route.params
   const { goBack } = useNavigation()
+
+  const contentScrollY = useSharedValue(0)
+
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      contentScrollY.value = event.contentOffset.y
+    }
+  })
+
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
   const { data, loading, error } = useProfileQuery({
@@ -44,8 +57,8 @@ export const ProfileModal = (props: ProfileModalProps): JSX.Element | null => {
         backgroundColor: theme.colors.black
       }}
     >
-      <Info profile={profile} />
-      <TabContent profile={profile} />
+      <Info profile={profile} contentScrollY={contentScrollY} />
+      <TabContent profile={profile} scrollHandler={scrollHandler} />
     </View>
   )
 }

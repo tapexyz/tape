@@ -1,7 +1,11 @@
 import type { Profile } from '@lenstube/lens'
 import type { FC } from 'react'
-import React, { useCallback, useRef, useState } from 'react'
-import type { ViewToken } from 'react-native'
+import React, { memo, useCallback, useRef, useState } from 'react'
+import type {
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  ViewToken
+} from 'react-native'
 import { FlatList, useWindowDimensions, View } from 'react-native'
 import Animated, { FadeInRight } from 'react-native-reanimated'
 
@@ -16,15 +20,14 @@ type TabItemType = (typeof tabs)[number]
 
 type Props = {
   profile: Profile
+  scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void
 }
 
-const TabContent: FC<Props> = ({ profile }) => {
+const TabContent: FC<Props> = ({ profile, scrollHandler }) => {
   const { width, height } = useWindowDimensions()
 
   const [activeTabIndex, setActiveTabIndex] = useState(0)
   const flatListRef = useRef<FlatList<string>>(null)
-
-  const offset = useRef(new Animated.Value(0)).current
 
   const onViewableItemsChanged = useCallback(
     ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
@@ -64,7 +67,7 @@ const TabContent: FC<Props> = ({ profile }) => {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }: { item: TabItemType }) => {
           const component = {
-            Feed: <Feed profile={profile} />,
+            Feed: <Feed profile={profile} scrollHandler={scrollHandler} />,
             Media: <Media profile={profile} />,
             Replies: <Replies profile={profile} />,
             Gallery: <Gallery profile={profile} />
@@ -87,4 +90,4 @@ const TabContent: FC<Props> = ({ profile }) => {
   )
 }
 
-export default TabContent
+export default memo(TabContent)

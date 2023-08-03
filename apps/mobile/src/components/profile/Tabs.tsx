@@ -1,14 +1,14 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import type { FC } from 'react'
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { memo, useCallback, useEffect, useRef } from 'react'
 import {
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
-  useWindowDimensions,
-  View
+  useWindowDimensions
 } from 'react-native'
+import Animated from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -68,7 +68,9 @@ const Tabs: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
   }, [activeTab, autoScroll])
 
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <Animated.View
+      style={{ flexDirection: 'row', backgroundColor: theme.colors.black }}
+    >
       <ScrollView
         ref={scrollViewRef}
         style={styles.container}
@@ -111,8 +113,8 @@ const Tabs: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
           )
         })}
       </ScrollView>
-    </View>
+    </Animated.View>
   )
 }
 
-export default Tabs
+export default memo(Tabs)
