@@ -1,3 +1,5 @@
+import type { Profile } from '@lenstube/lens'
+import type { FC } from 'react'
 import React, { useCallback, useRef, useState } from 'react'
 import type { ViewToken } from 'react-native'
 import { FlatList, useWindowDimensions, View } from 'react-native'
@@ -7,12 +9,16 @@ import Feed from './Feed'
 import Gallery from './Gallery'
 import Media from './Media'
 import Replies from './Replies'
-import FeedFilters from './Tabs'
+import Tabs from './Tabs'
 
 const tabs = ['Feed', 'Media', 'Replies', 'Gallery']
 type TabItemType = (typeof tabs)[number]
 
-const TabContent = () => {
+type Props = {
+  profile: Profile
+}
+
+const TabContent: FC<Props> = ({ profile }) => {
   const { width, height } = useWindowDimensions()
 
   const [activeTabIndex, setActiveTabIndex] = useState(0)
@@ -41,11 +47,7 @@ const TabContent = () => {
       style={{ flex: 1 }}
       entering={FadeInRight.delay(200).duration(400)}
     >
-      <FeedFilters
-        activeTab={activeTabIndex}
-        tabs={tabs}
-        scrollToTab={scrollToTab}
-      />
+      <Tabs activeTab={activeTabIndex} tabs={tabs} scrollToTab={scrollToTab} />
       <FlatList
         ref={flatListRef}
         style={{ height }}
@@ -60,10 +62,10 @@ const TabContent = () => {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }: { item: TabItemType }) => {
           const component = {
-            Feed: <Feed />,
-            Media: <Media />,
-            Replies: <Replies />,
-            Gallery: <Gallery />
+            Feed: <Feed profile={profile} />,
+            Media: <Media profile={profile} />,
+            Replies: <Replies profile={profile} />,
+            Gallery: <Gallery profile={profile} />
           }[item]
 
           return (
