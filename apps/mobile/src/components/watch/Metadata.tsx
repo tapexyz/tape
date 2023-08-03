@@ -55,7 +55,9 @@ const Metadata: FC<Props> = ({ video }) => {
               numberOfLines={!showMore ? 2 : undefined}
               style={styles.description}
             >
-              {trimNewLines(video.metadata.description)}
+              {showMore
+                ? video.metadata.description
+                : trimNewLines(video.metadata.description)}
             </Text>
           </Pressable>
         )}

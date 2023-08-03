@@ -173,7 +173,7 @@ const Info: FC<Props> = ({ profile }) => {
 
         <Pressable onPress={() => setShowMoreBio(!showMoreBio)}>
           <Text numberOfLines={!showMoreBio ? 2 : undefined} style={styles.bio}>
-            {trimNewLines(profile.bio ?? '')}
+            {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
           </Text>
         </Pressable>
         <Feed />

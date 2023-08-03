@@ -45,7 +45,7 @@ const FeedFilters = () => {
       >
         <ExpoImage
           source={{
-            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/in-love.png`)
+            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/in-love.png`, 'AVATAR')
           }}
           transition={300}
           style={styles.image}
@@ -55,7 +55,7 @@ const FeedFilters = () => {
       <Pressable onPress={() => haptic()} style={styles.filter}>
         <ExpoImage
           source={{
-            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/smile.png`)
+            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/smile.png`, 'AVATAR')
           }}
           transition={300}
           style={styles.image}
@@ -65,7 +65,7 @@ const FeedFilters = () => {
       <Pressable onPress={() => haptic()} style={styles.filter}>
         <ExpoImage
           source={{
-            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/proud.png`)
+            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/proud.png`, 'AVATAR')
           }}
           transition={300}
           style={styles.image}
@@ -77,7 +77,7 @@ const FeedFilters = () => {
       <Pressable onPress={() => haptic()} style={styles.filter}>
         <ExpoImage
           source={{
-            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/smile.png`)
+            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/smile.png`, 'AVATAR')
           }}
           transition={300}
           style={styles.image}
