@@ -1,8 +1,14 @@
-import { STATIC_ASSETS } from '@lenstube/constants'
-import { imageCdn } from '@lenstube/generic'
-import { Image as ExpoImage } from 'expo-image'
-import React from 'react'
-import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
+import Ionicons from '@expo/vector-icons/Ionicons'
+import type { FC } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View
+} from 'react-native'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -10,6 +16,7 @@ import { theme } from '~/helpers/theme'
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     marginVertical: 30,
     marginHorizontal: 5
   },
@@ -32,61 +39,79 @@ const styles = StyleSheet.create({
   }
 })
 
-const FeedFilters = () => {
+type Props = {
+  activeTab: number
+  tabs: string[]
+  scrollToTab: (index: number) => void
+}
+
+const icons = [
+  'planet-outline',
+  'headset-outline',
+  'chatbubble-outline',
+  'shapes-outline'
+] as (keyof typeof Ionicons.glyphMap)[]
+
+const FeedFilters: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
+  const scrollViewRef = useRef<ScrollView>(null)
+  const { width } = useWindowDimensions()
+
+  const autoScroll = useCallback(() => {
+    scrollViewRef.current?.scrollTo({
+      x: width * activeTab,
+      animated: true
+    })
+  }, [activeTab, width])
+
+  useEffect(() => {
+    autoScroll()
+  }, [activeTab, autoScroll])
+
   return (
-    <ScrollView
-      style={styles.container}
-      horizontal={true}
-      showsHorizontalScrollIndicator={false}
-    >
-      <Pressable
-        onPress={() => haptic()}
-        style={[styles.filter, { backgroundColor: theme.colors.white }]}
+    <View style={{ flexDirection: 'row' }}>
+      <ScrollView
+        ref={scrollViewRef}
+        style={styles.container}
+        contentContainerStyle={{
+          alignItems: 'baseline'
+        }}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
       >
-        <ExpoImage
-          source={{
-            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/in-love.png`, 'AVATAR')
-          }}
-          transition={300}
-          style={styles.image}
-        />
-        <Text style={[styles.text, { color: theme.colors.black }]}>Feed</Text>
-      </Pressable>
-      <Pressable onPress={() => haptic()} style={styles.filter}>
-        <ExpoImage
-          source={{
-            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/smile.png`, 'AVATAR')
-          }}
-          transition={300}
-          style={styles.image}
-        />
-        <Text style={[styles.text, { color: theme.colors.white }]}>Bytes</Text>
-      </Pressable>
-      <Pressable onPress={() => haptic()} style={styles.filter}>
-        <ExpoImage
-          source={{
-            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/proud.png`, 'AVATAR')
-          }}
-          transition={300}
-          style={styles.image}
-        />
-        <Text style={[styles.text, { color: theme.colors.white }]}>
-          Comments
-        </Text>
-      </Pressable>
-      <Pressable onPress={() => haptic()} style={styles.filter}>
-        <ExpoImage
-          source={{
-            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/smile.png`, 'AVATAR')
-          }}
-          transition={300}
-          style={styles.image}
-        />
-        <Text style={[styles.text, { color: theme.colors.white }]}>
-          Gallery
-        </Text>
-      </Pressable>
-    </ScrollView>
+        {tabs.map((tab, index) => {
+          const isActive = activeTab === index
+          const color = isActive ? theme.colors.black : theme.colors.white
+          const backgroundColor = isActive ? theme.colors.white : 'transparent'
+          return (
+            <Pressable
+              key={tab}
+              onPress={() => {
+                scrollToTab(index)
+                haptic()
+              }}
+              style={[
+                styles.filter,
+                {
+                  backgroundColor
+                }
+              ]}
+            >
+              <Ionicons name={icons[index]} color={color} size={20} />
+              <Text
+                style={[
+                  styles.text,
+                  {
+                    color
+                  }
+                ]}
+              >
+                {tab}
+              </Text>
+            </Pressable>
+          )
+        })}
+      </ScrollView>
+    </View>
   )
 }
 

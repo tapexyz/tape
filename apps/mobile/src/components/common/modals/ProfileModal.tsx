@@ -1,17 +1,20 @@
 import type { Profile } from '@lenstube/lens'
 import { useProfileQuery } from '@lenstube/lens'
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { ActivityIndicator, View } from 'react-native'
 
+import Feed from '~/components/profile/Feed'
 import Info from '~/components/profile/Info'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
 
-export const ProfileModal = (props: ProfileModalProps): JSX.Element => {
+export const ProfileModal = (props: ProfileModalProps): JSX.Element | null => {
   const { handle } = props.route.params
+  const { goBack } = useNavigation()
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
-  const { data, loading } = useProfileQuery({
+  const { data, loading, error } = useProfileQuery({
     variables: {
       request: { handle },
       who: selectedChannel?.id ?? null
@@ -19,12 +22,17 @@ export const ProfileModal = (props: ProfileModalProps): JSX.Element => {
     skip: !handle
   })
 
-  if (loading || !data?.profile) {
+  if (loading) {
     return (
       <ActivityIndicator
         style={{ flex: 1, backgroundColor: theme.colors.black }}
       />
     )
+  }
+
+  if (!data?.profile || error) {
+    goBack()
+    return null
   }
 
   const profile = data.profile as Profile
@@ -37,6 +45,7 @@ export const ProfileModal = (props: ProfileModalProps): JSX.Element => {
       }}
     >
       <Info profile={profile} />
+      <Feed />
     </View>
   )
 }

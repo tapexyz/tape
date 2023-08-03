@@ -28,7 +28,6 @@ import useMobileStore from '~/store'
 
 import UserProfile from '../common/UserProfile'
 import Ticker from '../ui/Ticker'
-import Feed from './Feed'
 
 type Props = {
   profile: Profile
@@ -176,7 +175,6 @@ const Info: FC<Props> = ({ profile }) => {
             {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
           </Text>
         </Pressable>
-        <Feed />
       </View>
     </View>
   )
