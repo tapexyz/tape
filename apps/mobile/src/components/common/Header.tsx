@@ -46,10 +46,10 @@ const styles = StyleSheet.create({
   }
 })
 
-const Header: FC<HeaderTitleProps> = () => {
+const AuthenticatedUser = () => {
   const profileSheetRef = useRef<BottomSheetModal>(null)
-  const { provider } = useWalletConnectModal()
   const { navigate } = useNavigation()
+  const { provider } = useWalletConnectModal()
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
@@ -61,9 +61,63 @@ const Header: FC<HeaderTitleProps> = () => {
     haptic()
   }
 
+  if (!selectedChannel) {
+    return null
+  }
+
+  return (
+    <>
+      <SharedElement id={`profile.${selectedChannel.handle}`}>
+        <UserProfile
+          profile={selectedChannel}
+          showHandle={false}
+          size={30}
+          radius={10}
+          onPress={() => profileSheetRef.current?.present()}
+        />
+      </SharedElement>
+      <Sheet sheetRef={profileSheetRef} snap={['60%']}>
+        <ScrollView style={{ paddingHorizontal: 10 }}>
+          <Switch />
+          <View style={{ marginTop: 20, gap: 20 }}>
+            <Menu>
+              <MenuItem
+                icon="person-outline"
+                title="My Profile"
+                onPress={() => {
+                  profileSheetRef.current?.close()
+                  navigate('ProfileModal', {
+                    handle: selectedChannel.handle
+                  })
+                }}
+              />
+              <MenuItem icon="notifications-outline" title="Notifications" />
+              <MenuItem icon="pie-chart-outline" title="Creator Studio" />
+              <MenuItem icon="bookmark-outline" title="Bookmarks" />
+              <MenuItem icon="cog-outline" title="Settings" />
+            </Menu>
+            <Menu>
+              <MenuItem
+                icon="log-out-outline"
+                title="Sign out"
+                onPress={() => logout()}
+              />
+            </Menu>
+          </View>
+        </ScrollView>
+        <AppInfo />
+      </Sheet>
+    </>
+  )
+}
+
+const Header: FC<HeaderTitleProps> = () => {
+  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+
   return (
     <View style={styles.container}>
       <Text style={styles.forYouText}>gm</Text>
+
       <View style={styles.rightView}>
         {selectedChannel && (
           <AnimatedPressable
@@ -74,60 +128,12 @@ const Header: FC<HeaderTitleProps> = () => {
             <Ionicons
               name="create-outline"
               color={theme.colors.white}
-              size={20}
+              size={22}
             />
           </AnimatedPressable>
         )}
 
-        {selectedChannel ? (
-          <>
-            <SharedElement id={`profile.${selectedChannel.handle}`}>
-              <UserProfile
-                profile={selectedChannel}
-                showHandle={false}
-                size={32}
-                radius={10}
-                onPress={() => profileSheetRef.current?.present()}
-              />
-            </SharedElement>
-            <Sheet sheetRef={profileSheetRef} snap={['60%']}>
-              <ScrollView style={{ paddingHorizontal: 10 }}>
-                <Switch />
-                <View style={{ marginTop: 20, gap: 20 }}>
-                  <Menu>
-                    <MenuItem
-                      icon="person-outline"
-                      title="My Profile"
-                      onPress={() => {
-                        profileSheetRef.current?.close()
-                        navigate('ProfileModal', {
-                          handle: selectedChannel.handle
-                        })
-                      }}
-                    />
-                    <MenuItem
-                      icon="notifications-outline"
-                      title="Notifications"
-                    />
-                    <MenuItem icon="pie-chart-outline" title="Creator Studio" />
-                    <MenuItem icon="bookmark-outline" title="Bookmarks" />
-                    <MenuItem icon="cog-outline" title="Settings" />
-                  </Menu>
-                  <Menu>
-                    <MenuItem
-                      icon="log-out-outline"
-                      title="Sign out"
-                      onPress={() => logout()}
-                    />
-                  </Menu>
-                </View>
-              </ScrollView>
-              <AppInfo />
-            </Sheet>
-          </>
-        ) : (
-          <SignIn />
-        )}
+        {selectedChannel ? <AuthenticatedUser /> : <SignIn />}
       </View>
     </View>
   )

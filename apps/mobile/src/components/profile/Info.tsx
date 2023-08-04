@@ -122,7 +122,6 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
         onLayout={(event) => {
           const { height } = event.nativeEvent.layout
           if (headerHeight !== height) {
-            console.log('🚀 ~ file: Info.tsx:125 ~ headerHeight:', height)
             setHeaderHeight(height)
           }
         }}
