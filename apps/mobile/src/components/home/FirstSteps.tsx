@@ -31,7 +31,9 @@ const styles = StyleSheet.create({
     width: 170,
     height: 170,
     padding: 18,
-    marginRight: 6
+    marginRight: 6,
+    borderWidth: 0.5,
+    borderColor: theme.colors.secondary
   },
   title: {
     fontFamily: 'font-bold',

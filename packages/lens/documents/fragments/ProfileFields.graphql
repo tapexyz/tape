@@ -17,8 +17,7 @@ fragment ProfileFields on Profile {
     value
   }
   stats {
-    totalFollowers
-    totalPosts
+    ...ProfileStatsFields
   }
   coverPicture {
     ... on MediaSet {

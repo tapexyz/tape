@@ -44,7 +44,9 @@ const styles = StyleSheet.create({
     contentFit: 'cover',
     justifyContent: 'flex-end',
     borderRadius: BORDER_RADIUS,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    borderWidth: 0.5,
+    borderColor: theme.colors.grey
   },
   title: {
     fontFamily: 'font-bold',

@@ -40,11 +40,7 @@ query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
     }
     bio
     stats {
-      totalFollowers
-      totalPosts
-      totalComments
-      totalMirrors
-      totalCollects
+      ...ProfileStatsFields
     }
     picture {
       ... on MediaSet {

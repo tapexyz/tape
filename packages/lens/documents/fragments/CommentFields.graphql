@@ -25,7 +25,7 @@ fragment CommentFields on Comment {
   isDataAvailability
   hasCollectedByMe
   stats {
-    ...StatsFields
+    ...PublicationStatsFields
   }
   metadata {
     ...MetadataFields

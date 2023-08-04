@@ -4955,6 +4955,9 @@ export type CommentFieldsFragment = {
       __typename?: 'ProfileStats'
       totalFollowers: number
       totalPosts: number
+      totalComments: number
+      totalMirrors: number
+      totalCollects: number
     }
     coverPicture?:
       | {
@@ -5216,6 +5219,9 @@ export type CommentFieldsFragment = {
             __typename?: 'ProfileStats'
             totalFollowers: number
             totalPosts: number
+            totalComments: number
+            totalMirrors: number
+            totalCollects: number
           }
           coverPicture?:
             | {
@@ -5347,6 +5353,9 @@ export type MirrorFieldsFragment = {
       __typename?: 'ProfileStats'
       totalFollowers: number
       totalPosts: number
+      totalComments: number
+      totalMirrors: number
+      totalCollects: number
     }
     coverPicture?:
       | {
@@ -5615,6 +5624,9 @@ export type MirrorFieldsFragment = {
             __typename?: 'ProfileStats'
             totalFollowers: number
             totalPosts: number
+            totalComments: number
+            totalMirrors: number
+            totalCollects: number
           }
           coverPicture?:
             | {
@@ -5876,6 +5888,9 @@ export type MirrorFieldsFragment = {
                   __typename?: 'ProfileStats'
                   totalFollowers: number
                   totalPosts: number
+                  totalComments: number
+                  totalMirrors: number
+                  totalCollects: number
                 }
                 coverPicture?:
                   | {
@@ -5975,6 +5990,9 @@ export type MirrorFieldsFragment = {
             __typename?: 'ProfileStats'
             totalFollowers: number
             totalPosts: number
+            totalComments: number
+            totalMirrors: number
+            totalCollects: number
           }
           coverPicture?:
             | {
@@ -6246,6 +6264,9 @@ export type PostFieldsFragment = {
       __typename?: 'ProfileStats'
       totalFollowers: number
       totalPosts: number
+      totalComments: number
+      totalMirrors: number
+      totalCollects: number
     }
     coverPicture?:
       | {
@@ -6501,6 +6522,9 @@ export type ProfileFieldsFragment = {
     __typename?: 'ProfileStats'
     totalFollowers: number
     totalPosts: number
+    totalComments: number
+    totalMirrors: number
+    totalCollects: number
   }
   coverPicture?:
     | {
@@ -6528,6 +6552,25 @@ export type ProfileFieldsFragment = {
     | null
 }
 
+export type ProfileStatsFieldsFragment = {
+  __typename?: 'ProfileStats'
+  totalFollowers: number
+  totalPosts: number
+  totalComments: number
+  totalMirrors: number
+  totalCollects: number
+}
+
+export type PublicationStatsFieldsFragment = {
+  __typename?: 'PublicationStats'
+  totalUpvotes: number
+  totalAmountOfMirrors: number
+  totalAmountOfCollects: number
+  totalAmountOfComments: number
+  totalBookmarks: number
+  commentsTotal: number
+}
+
 type RelayerResult_RelayError_Fragment = {
   __typename?: 'RelayError'
   reason: RelayErrorReasons
@@ -6542,16 +6585,6 @@ type RelayerResult_RelayerResult_Fragment = {
 export type RelayerResultFragment =
   | RelayerResult_RelayError_Fragment
   | RelayerResult_RelayerResult_Fragment
-
-export type StatsFieldsFragment = {
-  __typename?: 'PublicationStats'
-  totalUpvotes: number
-  totalAmountOfMirrors: number
-  totalAmountOfCollects: number
-  totalAmountOfComments: number
-  totalBookmarks: number
-  commentsTotal: number
-}
 
 export type AddProfileInterestMutationVariables = Exact<{
   request: AddProfileInterestsRequest
@@ -7322,6 +7355,9 @@ export type AllProfilesQuery = {
         __typename?: 'ProfileStats'
         totalFollowers: number
         totalPosts: number
+        totalComments: number
+        totalMirrors: number
+        totalCollects: number
       }
       coverPicture?:
         | {
@@ -7419,6 +7455,9 @@ export type CollectorsQuery = {
           __typename?: 'ProfileStats'
           totalFollowers: number
           totalPosts: number
+          totalComments: number
+          totalMirrors: number
+          totalCollects: number
         }
         coverPicture?:
           | {
@@ -7500,6 +7539,9 @@ export type CommentsQuery = {
               __typename?: 'ProfileStats'
               totalFollowers: number
               totalPosts: number
+              totalComments: number
+              totalMirrors: number
+              totalCollects: number
             }
             coverPicture?:
               | {
@@ -7765,6 +7807,9 @@ export type CommentsQuery = {
                     __typename?: 'ProfileStats'
                     totalFollowers: number
                     totalPosts: number
+                    totalComments: number
+                    totalMirrors: number
+                    totalCollects: number
                   }
                   coverPicture?:
                     | {
@@ -7945,6 +7990,9 @@ export type ExploreQuery = {
               __typename?: 'ProfileStats'
               totalFollowers: number
               totalPosts: number
+              totalComments: number
+              totalMirrors: number
+              totalCollects: number
             }
             coverPicture?:
               | {
@@ -8210,6 +8258,9 @@ export type ExploreQuery = {
                     __typename?: 'ProfileStats'
                     totalFollowers: number
                     totalPosts: number
+                    totalComments: number
+                    totalMirrors: number
+                    totalCollects: number
                   }
                   coverPicture?:
                     | {
@@ -8310,6 +8361,9 @@ export type ExploreQuery = {
               __typename?: 'ProfileStats'
               totalFollowers: number
               totalPosts: number
+              totalComments: number
+              totalMirrors: number
+              totalCollects: number
             }
             coverPicture?:
               | {
@@ -8600,6 +8654,9 @@ export type FeedQuery = {
                 __typename?: 'ProfileStats'
                 totalFollowers: number
                 totalPosts: number
+                totalComments: number
+                totalMirrors: number
+                totalCollects: number
               }
               coverPicture?:
                 | {
@@ -8865,6 +8922,9 @@ export type FeedQuery = {
                       __typename?: 'ProfileStats'
                       totalFollowers: number
                       totalPosts: number
+                      totalComments: number
+                      totalMirrors: number
+                      totalCollects: number
                     }
                     coverPicture?:
                       | {
@@ -8964,6 +9024,9 @@ export type FeedQuery = {
                 __typename?: 'ProfileStats'
                 totalFollowers: number
                 totalPosts: number
+                totalComments: number
+                totalMirrors: number
+                totalCollects: number
               }
               coverPicture?:
                 | {
@@ -9329,6 +9392,9 @@ export type MutualFollowersQuery = {
         __typename?: 'ProfileStats'
         totalFollowers: number
         totalPosts: number
+        totalComments: number
+        totalMirrors: number
+        totalCollects: number
       }
       coverPicture?:
         | {
@@ -9400,6 +9466,9 @@ export type NotificationsQuery = {
                 __typename?: 'ProfileStats'
                 totalFollowers: number
                 totalPosts: number
+                totalComments: number
+                totalMirrors: number
+                totalCollects: number
               }
               coverPicture?:
                 | {
@@ -9461,6 +9530,9 @@ export type NotificationsQuery = {
               __typename?: 'ProfileStats'
               totalFollowers: number
               totalPosts: number
+              totalComments: number
+              totalMirrors: number
+              totalCollects: number
             }
             coverPicture?:
               | {
@@ -9530,6 +9602,9 @@ export type NotificationsQuery = {
                 __typename?: 'ProfileStats'
                 totalFollowers: number
                 totalPosts: number
+                totalComments: number
+                totalMirrors: number
+                totalCollects: number
               }
               coverPicture?:
                 | {
@@ -9591,6 +9666,9 @@ export type NotificationsQuery = {
                     __typename?: 'ProfileStats'
                     totalFollowers: number
                     totalPosts: number
+                    totalComments: number
+                    totalMirrors: number
+                    totalCollects: number
                   }
                   coverPicture?:
                     | {
@@ -9646,6 +9724,9 @@ export type NotificationsQuery = {
                     __typename?: 'ProfileStats'
                     totalFollowers: number
                     totalPosts: number
+                    totalComments: number
+                    totalMirrors: number
+                    totalCollects: number
                   }
                   coverPicture?:
                     | {
@@ -9703,6 +9784,9 @@ export type NotificationsQuery = {
               __typename?: 'ProfileStats'
               totalFollowers: number
               totalPosts: number
+              totalComments: number
+              totalMirrors: number
+              totalCollects: number
             }
             coverPicture?:
               | {
@@ -9763,6 +9847,9 @@ export type NotificationsQuery = {
               __typename?: 'ProfileStats'
               totalFollowers: number
               totalPosts: number
+              totalComments: number
+              totalMirrors: number
+              totalCollects: number
             }
             coverPicture?:
               | {
@@ -9938,6 +10025,9 @@ export type ProfileBookmarksQuery = {
               __typename?: 'ProfileStats'
               totalFollowers: number
               totalPosts: number
+              totalComments: number
+              totalMirrors: number
+              totalCollects: number
             }
             coverPicture?:
               | {
@@ -10203,6 +10293,9 @@ export type ProfileBookmarksQuery = {
                     __typename?: 'ProfileStats'
                     totalFollowers: number
                     totalPosts: number
+                    totalComments: number
+                    totalMirrors: number
+                    totalCollects: number
                   }
                   coverPicture?:
                     | {
@@ -10302,6 +10395,9 @@ export type ProfileBookmarksQuery = {
               __typename?: 'ProfileStats'
               totalFollowers: number
               totalPosts: number
+              totalComments: number
+              totalMirrors: number
+              totalCollects: number
             }
             coverPicture?:
               | {
@@ -10574,6 +10670,9 @@ export type ProfileBookmarksQuery = {
                     __typename?: 'ProfileStats'
                     totalFollowers: number
                     totalPosts: number
+                    totalComments: number
+                    totalMirrors: number
+                    totalCollects: number
                   }
                   coverPicture?:
                     | {
@@ -10842,6 +10941,9 @@ export type ProfileBookmarksQuery = {
                           __typename?: 'ProfileStats'
                           totalFollowers: number
                           totalPosts: number
+                          totalComments: number
+                          totalMirrors: number
+                          totalCollects: number
                         }
                         coverPicture?:
                           | {
@@ -10947,6 +11049,9 @@ export type ProfileBookmarksQuery = {
                     __typename?: 'ProfileStats'
                     totalFollowers: number
                     totalPosts: number
+                    totalComments: number
+                    totalMirrors: number
+                    totalCollects: number
                   }
                   coverPicture?:
                     | {
@@ -11224,6 +11329,9 @@ export type ProfileBookmarksQuery = {
               __typename?: 'ProfileStats'
               totalFollowers: number
               totalPosts: number
+              totalComments: number
+              totalMirrors: number
+              totalCollects: number
             }
             coverPicture?:
               | {
@@ -11555,6 +11663,9 @@ export type ProfileMirrorsQuery = {
               __typename?: 'ProfileStats'
               totalFollowers: number
               totalPosts: number
+              totalComments: number
+              totalMirrors: number
+              totalCollects: number
             }
             coverPicture?:
               | {
@@ -11827,6 +11938,9 @@ export type ProfileMirrorsQuery = {
                     __typename?: 'ProfileStats'
                     totalFollowers: number
                     totalPosts: number
+                    totalComments: number
+                    totalMirrors: number
+                    totalCollects: number
                   }
                   coverPicture?:
                     | {
@@ -12095,6 +12209,9 @@ export type ProfileMirrorsQuery = {
                           __typename?: 'ProfileStats'
                           totalFollowers: number
                           totalPosts: number
+                          totalComments: number
+                          totalMirrors: number
+                          totalCollects: number
                         }
                         coverPicture?:
                           | {
@@ -12200,6 +12317,9 @@ export type ProfileMirrorsQuery = {
                     __typename?: 'ProfileStats'
                     totalFollowers: number
                     totalPosts: number
+                    totalComments: number
+                    totalMirrors: number
+                    totalCollects: number
                   }
                   coverPicture?:
                     | {
@@ -12522,6 +12642,9 @@ export type ProfilePostsQuery = {
               __typename?: 'ProfileStats'
               totalFollowers: number
               totalPosts: number
+              totalComments: number
+              totalMirrors: number
+              totalCollects: number
             }
             coverPicture?:
               | {
@@ -13000,6 +13123,9 @@ export type PublicationDetailsQuery = {
             __typename?: 'ProfileStats'
             totalFollowers: number
             totalPosts: number
+            totalComments: number
+            totalMirrors: number
+            totalCollects: number
           }
           coverPicture?:
             | {
@@ -13261,6 +13387,9 @@ export type PublicationDetailsQuery = {
                   __typename?: 'ProfileStats'
                   totalFollowers: number
                   totalPosts: number
+                  totalComments: number
+                  totalMirrors: number
+                  totalCollects: number
                 }
                 coverPicture?:
                   | {
@@ -13360,6 +13489,9 @@ export type PublicationDetailsQuery = {
             __typename?: 'ProfileStats'
             totalFollowers: number
             totalPosts: number
+            totalComments: number
+            totalMirrors: number
+            totalCollects: number
           }
           coverPicture?:
             | {
@@ -13628,6 +13760,9 @@ export type PublicationDetailsQuery = {
                   __typename?: 'ProfileStats'
                   totalFollowers: number
                   totalPosts: number
+                  totalComments: number
+                  totalMirrors: number
+                  totalCollects: number
                 }
                 coverPicture?:
                   | {
@@ -13893,6 +14028,9 @@ export type PublicationDetailsQuery = {
                         __typename?: 'ProfileStats'
                         totalFollowers: number
                         totalPosts: number
+                        totalComments: number
+                        totalMirrors: number
+                        totalCollects: number
                       }
                       coverPicture?:
                         | {
@@ -13998,6 +14136,9 @@ export type PublicationDetailsQuery = {
                   __typename?: 'ProfileStats'
                   totalFollowers: number
                   totalPosts: number
+                  totalComments: number
+                  totalMirrors: number
+                  totalCollects: number
                 }
                 coverPicture?:
                   | {
@@ -14272,6 +14413,9 @@ export type PublicationDetailsQuery = {
             __typename?: 'ProfileStats'
             totalFollowers: number
             totalPosts: number
+            totalComments: number
+            totalMirrors: number
+            totalCollects: number
           }
           coverPicture?:
             | {
@@ -14562,6 +14706,9 @@ export type SearchProfilesQuery = {
             __typename?: 'ProfileStats'
             totalFollowers: number
             totalPosts: number
+            totalComments: number
+            totalMirrors: number
+            totalCollects: number
           }
           coverPicture?:
             | {
@@ -14644,6 +14791,9 @@ export type SearchPublicationsQuery = {
                   __typename?: 'ProfileStats'
                   totalFollowers: number
                   totalPosts: number
+                  totalComments: number
+                  totalMirrors: number
+                  totalCollects: number
                 }
                 coverPicture?:
                   | {
@@ -14909,6 +15059,9 @@ export type SearchPublicationsQuery = {
                         __typename?: 'ProfileStats'
                         totalFollowers: number
                         totalPosts: number
+                        totalComments: number
+                        totalMirrors: number
+                        totalCollects: number
                       }
                       coverPicture?:
                         | {
@@ -15014,6 +15167,9 @@ export type SearchPublicationsQuery = {
                   __typename?: 'ProfileStats'
                   totalFollowers: number
                   totalPosts: number
+                  totalComments: number
+                  totalMirrors: number
+                  totalCollects: number
                 }
                 coverPicture?:
                   | {
@@ -15290,6 +15446,9 @@ export type SubscribersQuery = {
             __typename?: 'ProfileStats'
             totalFollowers: number
             totalPosts: number
+            totalComments: number
+            totalMirrors: number
+            totalCollects: number
           }
           coverPicture?:
             | {
@@ -15361,6 +15520,9 @@ export type UserProfilesQuery = {
         __typename?: 'ProfileStats'
         totalFollowers: number
         totalPosts: number
+        totalComments: number
+        totalMirrors: number
+        totalCollects: number
       }
       coverPicture?:
         | {
@@ -15391,6 +15553,15 @@ export type UserProfilesQuery = {
   userSigNonces: { __typename?: 'UserSigNonces'; lensHubOnChainSigNonce: any }
 }
 
+export const ProfileStatsFieldsFragmentDoc = gql`
+  fragment ProfileStatsFields on ProfileStats {
+    totalFollowers
+    totalPosts
+    totalComments
+    totalMirrors
+    totalCollects
+  }
+`
 export const ProfileFieldsFragmentDoc = gql`
   fragment ProfileFields on Profile {
     id
@@ -15411,8 +15582,7 @@ export const ProfileFieldsFragmentDoc = gql`
       value
     }
     stats {
-      totalFollowers
-      totalPosts
+      ...ProfileStatsFields
     }
     coverPicture {
       ... on MediaSet {
@@ -15447,6 +15617,7 @@ export const ProfileFieldsFragmentDoc = gql`
       __typename
     }
   }
+  ${ProfileStatsFieldsFragmentDoc}
 `
 export const Erc20FieldsFragmentDoc = gql`
   fragment Erc20Fields on Erc20 {
@@ -15572,8 +15743,8 @@ export const CollectFieldsFragmentDoc = gql`
   }
   ${Erc20FieldsFragmentDoc}
 `
-export const StatsFieldsFragmentDoc = gql`
-  fragment StatsFields on PublicationStats {
+export const PublicationStatsFieldsFragmentDoc = gql`
+  fragment PublicationStatsFields on PublicationStats {
     totalUpvotes
     totalAmountOfMirrors
     totalAmountOfCollects
@@ -15648,7 +15819,7 @@ export const PostFieldsFragmentDoc = gql`
     hidden
     hasCollectedByMe
     stats {
-      ...StatsFields
+      ...PublicationStatsFields
     }
     metadata {
       ...MetadataFields
@@ -15658,7 +15829,7 @@ export const PostFieldsFragmentDoc = gql`
   }
   ${ProfileFieldsFragmentDoc}
   ${CollectFieldsFragmentDoc}
-  ${StatsFieldsFragmentDoc}
+  ${PublicationStatsFieldsFragmentDoc}
   ${MetadataFieldsFragmentDoc}
 `
 export const CommentFieldsFragmentDoc = gql`
@@ -15689,7 +15860,7 @@ export const CommentFieldsFragmentDoc = gql`
     isDataAvailability
     hasCollectedByMe
     stats {
-      ...StatsFields
+      ...PublicationStatsFields
     }
     metadata {
       ...MetadataFields
@@ -15712,7 +15883,7 @@ export const CommentFieldsFragmentDoc = gql`
   }
   ${ProfileFieldsFragmentDoc}
   ${CollectFieldsFragmentDoc}
-  ${StatsFieldsFragmentDoc}
+  ${PublicationStatsFieldsFragmentDoc}
   ${MetadataFieldsFragmentDoc}
 `
 export const MirrorFieldsFragmentDoc = gql`
@@ -15744,7 +15915,7 @@ export const MirrorFieldsFragmentDoc = gql`
     dataAvailabilityProofs
     hasCollectedByMe
     stats {
-      ...StatsFields
+      ...PublicationStatsFields
     }
     metadata {
       ...MetadataFields
@@ -15762,7 +15933,7 @@ export const MirrorFieldsFragmentDoc = gql`
   }
   ${ProfileFieldsFragmentDoc}
   ${CollectFieldsFragmentDoc}
-  ${StatsFieldsFragmentDoc}
+  ${PublicationStatsFieldsFragmentDoc}
   ${MetadataFieldsFragmentDoc}
   ${PostFieldsFragmentDoc}
   ${CommentFieldsFragmentDoc}
@@ -19098,11 +19269,7 @@ export const ProfileDocument = gql`
       }
       bio
       stats {
-        totalFollowers
-        totalPosts
-        totalComments
-        totalMirrors
-        totalCollects
+        ...ProfileStatsFields
       }
       picture {
         ... on MediaSet {
@@ -19138,6 +19305,7 @@ export const ProfileDocument = gql`
       }
     }
   }
+  ${ProfileStatsFieldsFragmentDoc}
 `
 
 /**

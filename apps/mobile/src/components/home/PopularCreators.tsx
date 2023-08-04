@@ -26,7 +26,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderRadius: BORDER_RADIUS,
     overflow: 'hidden',
-    marginRight: 6
+    marginRight: 6,
+    borderWidth: 1,
+    borderColor: theme.colors.grey
   },
   title: {
     fontFamily: 'font-bold',

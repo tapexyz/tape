@@ -1,0 +1,7 @@
+fragment ProfileStatsFields on ProfileStats {
+  totalFollowers
+  totalPosts
+  totalComments
+  totalMirrors
+  totalCollects
+}
