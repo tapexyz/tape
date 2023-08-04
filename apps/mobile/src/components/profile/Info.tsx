@@ -34,6 +34,7 @@ import useMobileStore from '~/store'
 
 import UserProfile from '../common/UserProfile'
 import Ticker from '../ui/Ticker'
+import OnChainIdentities from './OnChainIdentities'
 
 type Props = {
   profile: Profile
@@ -217,6 +218,8 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
               {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
             </Text>
           </Pressable>
+
+          <OnChainIdentities identity={profile.onChainIdentity} />
         </View>
       </Animated.View>
     </Animated.View>
