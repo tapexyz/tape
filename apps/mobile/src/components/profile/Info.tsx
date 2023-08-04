@@ -90,121 +90,135 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
   const { height } = useWindowDimensions()
   const insets = useSafeAreaInsets()
 
-  const [showMoreBio, setShowMoreBio] = useState(false)
-
-  const animatedStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      contentScrollY.value,
-      [0, height / 3], // increase 2nd item (ie height/2) to reduce speed
-      [1, 0],
-      Extrapolate.CLAMP
-    )
-
-    const boxHeight = interpolate(
-      contentScrollY.value,
-      [0, height / 2],
-      [300 + insets.top, insets.bottom],
-      Extrapolate.CLAMP
-    )
-
-    return {
-      opacity,
-      height: boxHeight
-    }
-  })
-
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const isOwned = selectedChannel?.id === profile.id
 
+  const [showMoreBio, setShowMoreBio] = useState(false)
+  const [headerHeight, setHeaderHeight] = useState(0)
+
+  const animatedHeaderStyle = useAnimatedStyle(() => {
+    return {
+      height:
+        headerHeight !== 0
+          ? interpolate(
+              contentScrollY.value,
+              [0, headerHeight],
+              [headerHeight, insets.top],
+              Extrapolate.CLAMP
+            )
+          : undefined,
+      opacity: interpolate(
+        contentScrollY.value,
+        [0, headerHeight / 3], // the value /3 is added to speed up the opacity timing
+        [1, 0],
+        Extrapolate.CLAMP
+      )
+    }
+  })
+
   return (
-    <Animated.View style={animatedStyle}>
-      <ImageBackground
-        source={{
-          uri: imageCdn(
-            sanitizeDStorageUrl(getChannelCoverPicture(profile)),
-            'THUMBNAIL'
-          )
-        }}
-        blurRadius={5}
-        resizeMode="cover"
-        style={{
-          height: height * 0.14,
-          paddingHorizontal: 10
-        }}
-        imageStyle={{
-          opacity: 0.5
+    <Animated.View style={animatedHeaderStyle}>
+      <Animated.View
+        onLayout={(event) => {
+          const { height } = event.nativeEvent.layout
+          if (headerHeight !== height) {
+            setHeaderHeight(height)
+          }
         }}
       >
-        <SafeAreaView
+        <ImageBackground
+          source={{
+            uri: imageCdn(
+              sanitizeDStorageUrl(getChannelCoverPicture(profile)),
+              'THUMBNAIL'
+            )
+          }}
+          blurRadius={5}
+          resizeMode="cover"
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between'
+            height: height * 0.14,
+            paddingHorizontal: 10
+          }}
+          imageStyle={{
+            opacity: 0.5
           }}
         >
-          <Pressable onPress={() => goBack()} style={styles.icon}>
-            <Ionicons
-              name="chevron-back-outline"
-              color={theme.colors.white}
-              size={20}
+          <SafeAreaView
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between'
+            }}
+          >
+            <Pressable onPress={() => goBack()} style={styles.icon}>
+              <Ionicons
+                name="chevron-back-outline"
+                color={theme.colors.white}
+                size={20}
+              />
+            </Pressable>
+            <Pressable onPress={() => goBack()} style={styles.icon}>
+              <Ionicons
+                name="share-outline"
+                color={theme.colors.white}
+                size={20}
+                style={{ paddingLeft: 2, paddingBottom: 1 }}
+              />
+            </Pressable>
+          </SafeAreaView>
+        </ImageBackground>
+
+        <View style={styles.statsContainer}>
+          <View style={styles.stat}>
+            <Ticker
+              number={profile.stats.totalFollowers}
+              textStyle={styles.tickerText}
+              textSize={18}
             />
-          </Pressable>
-          <Pressable onPress={() => goBack()} style={styles.icon}>
-            <Ionicons
-              name="share-outline"
-              color={theme.colors.white}
-              size={20}
-              style={{ paddingLeft: 2, paddingBottom: 1 }}
+            <Text style={styles.text}>followers</Text>
+          </View>
+          <SharedElement
+            style={{ marginTop: -(height * 0.07) }}
+            id={`profile.${profile.handle}`}
+          >
+            <UserProfile
+              profile={profile}
+              size={100}
+              radius={20}
+              showHandle={false}
             />
+          </SharedElement>
+          <View style={styles.stat}>
+            <Ticker
+              number={profile.stats.totalCollects}
+              textStyle={styles.tickerText}
+              textSize={18}
+            />
+            <Text style={styles.text}>collects</Text>
+          </View>
+        </View>
+
+        <View style={{ paddingHorizontal: 10 }}>
+          {isOwned && (
+            <Text style={[styles.handle, { opacity: 0.5 }]}>gm,</Text>
+          )}
+          <Animated.Text
+            style={styles.handle}
+            entering={FadeInRight.duration(500)}
+            numberOfLines={1}
+          >
+            {trimLensHandle(profile.handle)}
+          </Animated.Text>
+
+          <Pressable onPress={() => setShowMoreBio(!showMoreBio)}>
+            <Text
+              numberOfLines={!showMoreBio ? 2 : undefined}
+              style={styles.bio}
+            >
+              {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
+            </Text>
           </Pressable>
-        </SafeAreaView>
-      </ImageBackground>
-
-      <View style={styles.statsContainer}>
-        <View style={styles.stat}>
-          <Ticker
-            number={profile.stats.totalFollowers}
-            textStyle={styles.tickerText}
-            textSize={18}
-          />
-          <Text style={styles.text}>followers</Text>
         </View>
-        <SharedElement
-          style={{ marginTop: -(height * 0.07) }}
-          id={`profile.${profile.handle}`}
-        >
-          <UserProfile
-            profile={profile}
-            size={100}
-            radius={20}
-            showHandle={false}
-          />
-        </SharedElement>
-        <View style={styles.stat}>
-          <Ticker
-            number={profile.stats.totalCollects}
-            textStyle={styles.tickerText}
-            textSize={18}
-          />
-          <Text style={styles.text}>collects</Text>
-        </View>
-      </View>
-
-      <View style={{ paddingHorizontal: 10 }}>
-        {isOwned && <Text style={[styles.handle, { opacity: 0.5 }]}>gm,</Text>}
-        <Animated.Text
-          style={styles.handle}
-          entering={FadeInRight.duration(500)}
-          numberOfLines={1}
-        >
-          {trimLensHandle(profile.handle)}
-        </Animated.Text>
-
-        <Pressable onPress={() => setShowMoreBio(!showMoreBio)}>
-          <Text numberOfLines={!showMoreBio ? 2 : undefined} style={styles.bio}>
-            {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
-          </Text>
-        </Pressable>
-      </View>
+      </Animated.View>
     </Animated.View>
   )
 }

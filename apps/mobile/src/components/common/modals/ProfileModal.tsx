@@ -2,7 +2,7 @@ import type { Profile } from '@lenstube/lens'
 import { useProfileQuery } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { ActivityIndicator, View } from 'react-native'
+import { ActivityIndicator, useWindowDimensions, View } from 'react-native'
 import {
   useAnimatedScrollHandler,
   useSharedValue
@@ -16,12 +16,16 @@ import useMobileStore from '~/store'
 export const ProfileModal = (props: ProfileModalProps): JSX.Element | null => {
   const { handle } = props.route.params
   const { goBack } = useNavigation()
+  const { height } = useWindowDimensions()
 
   const contentScrollY = useSharedValue(0)
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
-      contentScrollY.value = event.contentOffset.y
+      const halfScreen = height / 2
+      if (event.contentOffset.y < halfScreen) {
+        contentScrollY.value = event.contentOffset.y
+      }
     }
   })
 
