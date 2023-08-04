@@ -1,6 +1,6 @@
 import { MotiView, Text, View } from 'moti'
 import type { FC } from 'react'
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { memo, useEffect, useMemo, useRef } from 'react'
 import type { StyleProp, TextStyle } from 'react-native'
 
 const numZeroToNine = [...Array(10).keys()]
@@ -82,4 +82,4 @@ const Ticker: FC<TickerProps> = ({ number, textSize, textStyle }) => {
   )
 }
 
-export default Ticker
+export default memo(Ticker)

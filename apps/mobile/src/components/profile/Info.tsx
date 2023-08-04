@@ -109,7 +109,7 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
           : undefined,
       opacity: interpolate(
         contentScrollY.value,
-        [0, headerHeight / 3], // the value /3 is added to speed up the opacity timing
+        [0, headerHeight / 2], // the value /3 is added to speed up the opacity timing
         [1, 0],
         Extrapolate.CLAMP
       )
@@ -122,6 +122,7 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
         onLayout={(event) => {
           const { height } = event.nativeEvent.layout
           if (headerHeight !== height) {
+            console.log('🚀 ~ file: Info.tsx:125 ~ headerHeight:', height)
             setHeaderHeight(height)
           }
         }}

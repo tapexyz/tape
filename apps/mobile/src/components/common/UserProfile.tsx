@@ -64,7 +64,13 @@ const UserProfile: FC<Props> = ({
         }}
         contentFit="cover"
         transition={500}
-        style={{ width: size, height: size, borderRadius: radius }}
+        style={{
+          width: size,
+          height: size,
+          borderRadius: radius,
+          borderWidth: 0.5,
+          borderColor: theme.colors.secondary
+        }}
       />
       {showHandle && (
         <Text numberOfLines={1} style={[styles.handle, handleStyle]}>

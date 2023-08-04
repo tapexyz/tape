@@ -69,7 +69,7 @@ const Tabs: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
 
   return (
     <Animated.View
-      style={{ flexDirection: 'row', backgroundColor: theme.colors.black }}
+      style={{ flexDirection: 'row', backgroundColor: theme.colors.red }}
     >
       <ScrollView
         ref={scrollViewRef}

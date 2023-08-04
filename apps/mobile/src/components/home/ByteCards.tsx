@@ -195,7 +195,12 @@ const ByteCards = () => {
           colors={['transparent', '#00000090', '#000000']}
           style={styles.gradient}
         >
-          <UserProfile profile={byte.profile} size={15} radius={3} />
+          <UserProfile
+            profile={byte.profile}
+            size={15}
+            radius={3}
+            handleStyle={{ fontFamily: 'font-bold' }}
+          />
         </LinearGradient>
       </Animated.View>
     )

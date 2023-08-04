@@ -90,6 +90,7 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
         onScroll={scrollHandler}
+        removeClippedSubviews
         scrollEventThrottle={16}
       />
     </View>
