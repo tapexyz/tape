@@ -211,12 +211,13 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
           </Animated.Text>
 
           <Pressable onPress={() => setShowMoreBio(!showMoreBio)}>
-            <Text
+            <Animated.Text
               numberOfLines={!showMoreBio ? 2 : undefined}
               style={styles.bio}
+              entering={FadeInRight.delay(200).duration(500)}
             >
               {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
-            </Text>
+            </Animated.Text>
           </Pressable>
 
           <OnChainIdentities identity={profile.onChainIdentity} />

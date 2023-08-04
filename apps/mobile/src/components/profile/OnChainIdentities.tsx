@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 const OnChainIdentities: FC<Props> = ({ identity }) => {
   return (
     <Animated.View
-      entering={FadeInRight.duration(500)}
+      entering={FadeInRight.delay(300).duration(500)}
       style={styles.container}
     >
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
