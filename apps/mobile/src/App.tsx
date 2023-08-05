@@ -3,7 +3,6 @@ import 'react-native-reanimated'
 import 'react-native-gesture-handler'
 
 import { ApolloProvider } from '@apollo/client'
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import {
   LIVEPEER_STUDIO_API_KEY,
   PRIPE_APP_DESCRIPTION,
@@ -76,9 +75,7 @@ const App = (): JSX.Element => {
           />
           <AppLoading>
             <GestureHandlerRootView style={styles.gestureHandlerRootView}>
-              <BottomSheetModalProvider>
-                <Navigation />
-              </BottomSheetModalProvider>
+              <Navigation />
             </GestureHandlerRootView>
           </AppLoading>
         </LivepeerConfig>

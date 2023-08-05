@@ -1,4 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
+import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import {
   getChannelCoverPicture,
   imageCdn,
@@ -9,7 +10,7 @@ import {
 import type { Profile } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
 import type { FC } from 'react'
-import React, { memo, useState } from 'react'
+import React, { memo, useRef, useState } from 'react'
 import {
   ImageBackground,
   Pressable,
@@ -35,6 +36,7 @@ import useMobileStore from '~/store'
 import UserProfile from '../common/UserProfile'
 import Ticker from '../ui/Ticker'
 import OnChainIdentities from './OnChainIdentities'
+import ShareSheet from './ShareSheet'
 
 type Props = {
   profile: Profile
@@ -90,6 +92,7 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
   const { goBack } = useNavigation()
   const { height } = useWindowDimensions()
   const insets = useSafeAreaInsets()
+  const shareSheetRef = useRef<BottomSheetModal>(null)
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const isOwned = selectedChannel?.id === profile.id
@@ -150,6 +153,8 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
               justifyContent: 'space-between'
             }}
           >
+            <ShareSheet sheetRef={shareSheetRef} profile={profile} />
+
             <Pressable onPress={() => goBack()} style={styles.icon}>
               <Ionicons
                 name="chevron-back-outline"
@@ -157,7 +162,10 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
                 size={20}
               />
             </Pressable>
-            <Pressable onPress={() => goBack()} style={styles.icon}>
+            <Pressable
+              onPress={() => shareSheetRef.current?.present()}
+              style={styles.icon}
+            >
               <Ionicons
                 name="share-outline"
                 color={theme.colors.white}
@@ -220,7 +228,9 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
             </Animated.Text>
           </Pressable>
 
-          <OnChainIdentities identity={profile.onChainIdentity} />
+          <View style={{ paddingTop: 15 }}>
+            <OnChainIdentities identity={profile.onChainIdentity} />
+          </View>
         </View>
       </Animated.View>
     </Animated.View>

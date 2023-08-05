@@ -1,3 +1,4 @@
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import type { NavigationState } from '@react-navigation/native'
 import { NavigationContainer } from '@react-navigation/native'
 import { type FC, useCallback } from 'react'
@@ -48,7 +49,9 @@ export const Navigation: FC = () => {
         linking={linking}
         initialState={initialState}
       >
-        <RootNavigator />
+        <BottomSheetModalProvider>
+          <RootNavigator />
+        </BottomSheetModalProvider>
       </NavigationContainer>
     </>
   )

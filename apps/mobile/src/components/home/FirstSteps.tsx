@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     width: 170,
     height: 170,
     padding: 18,
-    marginRight: 6,
     borderWidth: 0.5,
     borderColor: theme.colors.secondary
   },
@@ -97,6 +96,7 @@ const FirstSteps = () => {
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ gap: 6 }}
           style={{
             paddingTop: 20
           }}

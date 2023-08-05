@@ -26,7 +26,7 @@ const Sheet: FC<PropsWithChildren & Props> = ({
     (props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
         {...props}
-        opacity={0.9}
+        opacity={0.5}
         disappearsOnIndex={-1}
         appearsOnIndex={0}
       />
@@ -38,12 +38,15 @@ const Sheet: FC<PropsWithChildren & Props> = ({
     <BottomSheetModal
       index={0}
       ref={sheetRef ?? bottomSheetModalRef}
-      handleIndicatorStyle={{ backgroundColor: theme.colors.grey }}
+      handleComponent={null}
       backgroundStyle={{
         borderRadius: 40,
         backgroundColor: theme.colors.backdrop,
         borderColor: theme.colors.grey,
-        borderWidth: 0.3
+        borderWidth: 0.5
+      }}
+      animationConfigs={{
+        duration: 200
       }}
       style={{
         marginHorizontal: marginX ?? 3,

@@ -30,6 +30,12 @@ const SignIn = () => {
         }}
       >
         {address ? (
+          <Ionicons
+            name="log-in-outline"
+            color={theme.colors.white}
+            size={25}
+          />
+        ) : (
           <ExpoImage
             source={{
               uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/herb.png`, 'AVATAR')
@@ -37,15 +43,6 @@ const SignIn = () => {
             contentFit="cover"
             transition={300}
             style={{ width: 23, height: 23, borderRadius: 8 }}
-          />
-        ) : (
-          <Ionicons
-            name="leaf-outline"
-            style={{
-              transform: [{ rotate: '90deg' }]
-            }}
-            color={theme.colors.blueGrey}
-            size={20}
           />
         )}
       </AnimatedPressable>

@@ -100,7 +100,8 @@ const Comments: FC<Props> = ({ id }) => {
         <View
           style={{
             flex: 1,
-            height: height / 2
+            height: height / 2,
+            paddingVertical: 5
           }}
         >
           {comments?.length ? (
