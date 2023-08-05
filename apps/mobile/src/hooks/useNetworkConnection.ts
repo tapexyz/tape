@@ -13,7 +13,7 @@ export const useNetWorkConnection = () => {
     if (isOnline || !isForeground) {
       return
     }
-    notify('info', { params: { title: 'No internet connection' } })
+    notify('warning', { params: { title: 'No internet connection' } })
   }
 
   useEffect(() => {

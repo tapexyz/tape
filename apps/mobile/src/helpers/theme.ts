@@ -15,6 +15,8 @@ const commonColors = {
   black: '#000000',
   white: '#fff',
   red: 'red',
+  yellow: '#FEFF55',
+  green: 'green',
   grey: '#333333',
   blueGrey: '#E0E8FF'
 }
