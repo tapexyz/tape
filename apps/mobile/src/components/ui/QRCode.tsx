@@ -84,8 +84,8 @@ const QRCode: FC<Props> = ({
     const matrixMiddleStart = matrix.length / 2 - clearArenaSize / 2
     const matrixMiddleEnd = matrix.length / 2 + clearArenaSize / 2 - 1
 
-    matrix.forEach((row: any[], i: number) => {
-      row.forEach((column, j: number) => {
+    matrix.forEach((row: number[], i: number) => {
+      row.forEach((column: number, j: number) => {
         if (
           matrix[i][j] &&
           !(
@@ -104,10 +104,11 @@ const QRCode: FC<Props> = ({
         ) {
           dots.push(
             <Circle
+              key={`${i}_${j}_${column}`}
               cx={i * cellSize + cellSize / 2}
               cy={j * cellSize + cellSize / 2}
-              fill="black"
-              r={cellSize / 3} // calculate size of single dots
+              fill={theme.colors.black}
+              r={cellSize / 3}
             />
           )
         }
