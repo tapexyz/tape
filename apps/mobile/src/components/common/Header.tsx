@@ -79,7 +79,7 @@ const AuthenticatedUser = () => {
       <Sheet sheetRef={profileSheetRef} snap={['60%']}>
         <ScrollView style={{ padding: 10 }}>
           <Switch />
-          <View style={{ marginTop: 20, gap: 20 }}>
+          <View style={{ marginTop: 15, gap: 15 }}>
             <Menu>
               <MenuItem
                 icon="person-outline"
